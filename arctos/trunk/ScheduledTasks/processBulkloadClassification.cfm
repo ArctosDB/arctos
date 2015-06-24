@@ -57,7 +57,7 @@ run these in order
 					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
 
-				<br>resetting the stuff that we're changing in the query
+				<!----reset the stuff that we're changing in the query---->
 
 				<cfloop list='#stuffToReplace#' index="x">
 					<cfset temp=QuerySetCell(nd, x, "")>
@@ -83,7 +83,6 @@ run these in order
 						<br>setting #ttt# to #this_term#
 					</cfif>
 				</cfloop>
-				<br>nd.species: #nd.species#
 				<cfif len(nd.species) gt 0>
 					<cfset temp=QuerySetCell(nd, "status", "autolookup")>
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
