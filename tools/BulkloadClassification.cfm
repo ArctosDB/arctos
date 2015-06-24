@@ -246,6 +246,12 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				lower(column_name) not in ('taxon_name_id','classification_id')
 			ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
+
+		<cfquery name="summary" dbtype="query">
+			select status,count(*) from d group by status
+		</cfquery>
+		<cfdump var=#summary#>
+		<!----
 		<table border>
 			<tr>
 			<cfloop query="dbcols">
@@ -260,7 +266,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				</tr>
 			</cfloop>
 		</table>
-
+		---->
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
