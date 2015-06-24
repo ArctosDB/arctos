@@ -226,6 +226,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			</cfif>
 
 			<br>:#dname#:
+
+
+			<cfset dname=rereplace(dname," +"," ","All")>
+
+			<br>:#dname#:
 							<cfset dname=rereplace(dname,"\s+","X","All")>
 
 			<br>:#dname#:
