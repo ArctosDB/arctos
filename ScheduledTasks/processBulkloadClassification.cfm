@@ -233,12 +233,7 @@ run these in order
 				<br>thisTermType: #thisTermType#
 				<br>thisTermVal: #thisTermVal#
 				<br>nomenclatural_code: #nomenclatural_code#
-				<cfif nomenclatural_code is "ICBN" and thisTermType is "subspecies">
-					<cfset thisTermType='subsp.'>
-					<br>issubsp
-				<cfelse>
-				<br>nope
-				</cfif>
+
 				<cfif len(thisTermVal) gt 0>
 					<br>
 					insert into taxon_term (
@@ -267,6 +262,14 @@ run these in order
 				<br>thisTermType: #thisTermType#
 				<br>thisTermVal: #thisTermVal#
 				<cfif len(thisTermVal) gt 0>
+					<cfif nomenclatural_code is "ICBN" and thisTermType is "subspecies">
+					<cfset thisTermType='subsp.'>
+					<br>issubsp
+				<cfelse>
+				<br>nope
+				</cfif>
+
+
 					<br>
 					insert into taxon_term (
 						TAXON_TERM_ID,
