@@ -227,6 +227,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<!--- no genus just use scientificname --->
 				<cfset dname=scientific_name>
 			</cfif>
+
+
+			<cfset dname=rereplace(dname,'\s+','X','All')>
+
+
 			<input type="text" value="#dname#">
 			<cfset dname=rereplace(dname,'\s\s+','','All')>
 			<input type="text" value="#dname#">
