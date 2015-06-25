@@ -39,7 +39,7 @@ run these in order
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and genus is not null
-			and status='fill_in_the_blanks_from_genus')
+			and status='fill_in_the_blanks_from_genus'
 			and rownum<2
 		</cfquery>
 		<!---- /globals --->
@@ -142,7 +142,7 @@ run these in order
 							<cfset sql=sql & " #col#='#escapeQuotes(thisval)#', ">
 						</cfif>
 						<!--- so the SQL will always work ---->
-						<cfset sql=sql & "SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#' ">
+						<cfset sql=sql & "status='#problem#' ">
 						<cfset sql=sql & "WHERE SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#' ">
 
 					</cfloop>
