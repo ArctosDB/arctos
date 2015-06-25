@@ -115,7 +115,7 @@ run these in order
 					<cfcatch>
 						<p>Something bad happened with this:</p>
 						<br>#sql#
-						<cfdump var=#cfcatch#>
+						<br>#cfcatch.detail#
 					</cfcatch>
 					</cftry>
 				</cfif>
