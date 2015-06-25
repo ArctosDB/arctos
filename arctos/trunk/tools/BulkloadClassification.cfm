@@ -215,8 +215,14 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkloadClassificationData.csv" addtoken="false">
 </cfif>
-
-
+<!----------------------------------------------------------------->
+<cfif action is "fill_in_the_blanks_from_genus">
+	<cfoutput>
+		  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='fill_in_the_blanks_from_genus' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+	</cfoutput>
+</cfif>
 <!----------------------------------------------------------------->
 <cfif action is "managemystuff">
 	<cfoutput>
@@ -226,6 +232,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=nothing">Load from CSV</a>
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm?action=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>
 		</p>
 
 		<p>

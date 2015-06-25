@@ -39,7 +39,7 @@ run these in order
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and genus is not null
-			and (status is null or status != 'got_children_of_genus')
+			and status='fill_in_the_blanks_from_genus')
 			and rownum<2
 		</cfquery>
 		<!---- /globals --->
@@ -57,7 +57,7 @@ run these in order
 				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
 			</cfquery>
 			<cfloop query="otherstuff">
-				<cfset problem="autolookup">
+				<cfset problem="">
 				<cfquery name="oneclass" datasource="uam_god">
 					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
@@ -78,7 +78,7 @@ run these in order
 						<cfset ttt=term_type>
 					</cfif>
 					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,ttt)>
-						<cfset problem=listappend(problem,'#ttt#=#term# is not a known column name',';')>
+						<cfset problem=listappend(problem,'#ttt#[=#term#] is not a known column name',';')>
 					</cfif>
 					<cfset this_TERM_TYPE=ttt>
 					<cfset this_term=TERM>
@@ -92,6 +92,10 @@ run these in order
 
 				<cfif len(nd.species) gt 0>
 					<br>inserting #nd.species#
+
+
+					<cfset problem=listprepend(problem,'autolookup',':')>
+
 					<cfset temp=QuerySetCell(nd, "status", problem)>
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
 					<cfset pos=0>
@@ -124,6 +128,31 @@ run these in order
 					</p>
 
 					<cfdump var=#nd#>
+
+					<cfset problem=listprepend(problem,'autofillintheblanks',':')>
+
+					<cfset temp=QuerySetCell(nd, "status", problem)>
+					<!---- ONLY update the original record when NULL ---->
+					<cfset sql="update CF_TEMP_CLASSIFICATION set ">
+
+					<cfloop list="#stuffToReplace#" index="col">
+						<cfset thisval=evaluate("nd." & c)>
+						<cfset origval=evaluate("d." & c)>
+						<cfif len(origval) is 0 and len(thisval) gt 0>
+							<cfset sql=sql & " #col#='#escapeQuotes(thisval)#', ">
+						</cfif>
+						<!--- so the SQL will always work ---->
+						<cfset sql=sql & "SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#' ">
+						<cfset sql=sql & "WHERE SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#' ">
+
+					</cfloop>
+
+
+
+
+					<p>
+						#sql#
+					</p>
 
 				</cfif>
 			</cfloop>
