@@ -1,5 +1,12 @@
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 
+
+<cfmail to="dustymc@gmail.com"	subject="st" from="authority_notification@#Application.fromEmail#" type="html">
+				iits running
+			</cfmail>
+
+
+
 run these in order
 
 
