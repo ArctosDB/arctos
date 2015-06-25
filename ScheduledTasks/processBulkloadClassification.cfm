@@ -44,6 +44,7 @@ run these in order
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
+			<cfset updatedOrig=false>
 			<hr>running for #genus#
 			<cftransaction>
 			<!--- build a query object from this row of the existing data --->
@@ -163,19 +164,22 @@ run these in order
 							#preserveSingleQuotes(sql)#
 						</cfquery>
 
+						<cfset updatedOrig=true>
+
 				</cfif>
 			</cfloop>
-			<!---- now mark the genus record as having been processed
-				NEVERMIND: we're updating this above now
+			<cfif updatedOrig is false>
+				<cfquery name="gotit" datasource="uam_god">
+					update CF_TEMP_CLASSIFICATION set status = 'autoupdatefail: nothing found'
+					where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
+				</cfquery>
 
-			<cfquery name="gotit" datasource="uam_god">
-				update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
-				where genus='#genus#' and (status is null or status != 'autolookup')
-			</cfquery>
+			</cfif>
 
 
 
-			---->
+
+
 
 			</cftransaction>
 		</cfloop>
