@@ -89,7 +89,12 @@ run these in order
 						<cfset ttt=term_type>
 					</cfif>
 					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,ttt)>
-						<cfset problem=listappend(problem,'#ttt# is not a known column name',';')>
+						<cfif ttt is null>
+							<cfset clmn='[NULL]'>
+						<cfelse>
+							<cfset clmn=ttt>
+						</cfif>
+						<cfset problem=listappend(problem,'#clmn# is not a known column',';')>
 					</cfif>
 					<cfset this_TERM_TYPE=ttt>
 					<cfset this_term=TERM>
