@@ -128,7 +128,6 @@ run these in order
 						updating genus-only record from Arctos
 					</p>
 
-					<cfdump var=#nd#>
 
 					<cfset problem=listprepend(problem,'autofillintheblanks',':')>
 
@@ -155,7 +154,6 @@ run these in order
 
 
 
-						<br>executing
 
 						<p>
 							#sql#
