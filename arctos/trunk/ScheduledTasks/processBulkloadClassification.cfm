@@ -34,7 +34,7 @@ run these in order
 			ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
 		<cfset knowncols=valuelist(dbcols.column_name)>
-		<cfset stuffToReplace="SCIENTIFIC_NAME,AUTHOR_TEXT,SOURCE_AUTHORITY,VALID_CATALOG_TERM_FG,TAXON_STATUS,REMARK,DISPLAY_NAME,SUBGENUS,SPECIES,SUBSPECIES">
+		<cfset stuffToReplace="AUTHOR_TEXT,SOURCE_AUTHORITY,VALID_CATALOG_TERM_FG,TAXON_STATUS,REMARK,DISPLAY_NAME,SUBGENUS,SPECIES,SUBSPECIES">
 		<cfset numberOfColumns=listlen(knowncols)>
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
@@ -60,12 +60,22 @@ run these in order
 			<cfloop query="otherstuff">
 				<cfset problem="">
 				<cfquery name="oneclass" datasource="uam_god">
-					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
+					select
+						taxon_name.scientific_name,
+						taxon_term.CLASSIFICATION_ID,
+						taxon_term.TERM_TYPE,
+						taxon_term.term
+					from
+						taxon_name,
+						taxon_term
+					where
+						taxon_name.taxon_name_id=.taxon_term.taxon_name_id and
+						taxon_term.source='Arctos' and
+						taxon_name.taxon_name_id=#taxon_name_id#
 				</cfquery>
 
 
 				<!----reset the stuff that we're changing in the query---->
-
 				<cfloop list='#stuffToReplace#' index="x">
 					<cfset temp=QuerySetCell(nd, x, "")>
 				</cfloop>
@@ -88,7 +98,9 @@ run these in order
 						<cfset temp=QuerySetCell(nd, ttt, this_term)>
 					</cfif>
 				</cfloop>
-
+				<!--- failures if there's no term scientific name, so force-update it from
+					taxon_name ---->
+				<cfset temp=QuerySetCell(nd, 'scientific_name', oneclass.scientific_name)>
 
 
 				<cfif len(nd.species) gt 0>
