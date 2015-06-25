@@ -62,7 +62,6 @@ run these in order
 					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
 
-				<cfdump var=#oneclass#>
 
 				<!----reset the stuff that we're changing in the query---->
 
@@ -70,8 +69,6 @@ run these in order
 					<cfset temp=QuerySetCell(nd, x, "")>
 				</cfloop>
 
-				beforeupdate
-				<cfdump var=#nd#>
 
 
 				<cfloop query="oneclass">
@@ -92,8 +89,7 @@ run these in order
 				</cfloop>
 
 
-				afterupdate
-				<cfdump var=#nd#>
+
 				<cfif len(nd.species) gt 0>
 					<br>inserting #nd.species#
 					<cfset temp=QuerySetCell(nd, "status", problem)>
