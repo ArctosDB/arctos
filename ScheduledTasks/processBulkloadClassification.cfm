@@ -142,11 +142,11 @@ run these in order
 							<cfset sql=sql & " #col#='#escapeQuotes(thisval)#', ">
 						</cfif>
 						<!--- so the SQL will always work ---->
-						<cfset sql=sql & "status='#problem#' ">
-						<cfset sql=sql & "WHERE SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#' ">
 
 					</cfloop>
 
+					<cfset sql=sql & "status='#problem#' ">
+					<cfset sql=sql & "WHERE SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#' ">
 
 
 
