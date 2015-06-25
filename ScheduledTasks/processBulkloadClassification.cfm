@@ -40,7 +40,7 @@ run these in order
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and genus is not null
 			and (status is null or status != 'got_children_of_genus')
-			and rownum<200
+			and rownum<2
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
@@ -118,6 +118,13 @@ run these in order
 						<br>#cfcatch.detail#
 					</cfcatch>
 					</cftry>
+				<cfelse>
+					<p>
+						updating genus-only record from Arctos
+					</p>
+
+					<cfdump var=#nd#>
+
 				</cfif>
 			</cfloop>
 			<!---- now mark the genus record as having been processed ---->
