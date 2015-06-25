@@ -136,8 +136,9 @@ run these in order
 					<cfset sql="update CF_TEMP_CLASSIFICATION set ">
 
 					<cfloop list="#stuffToReplace#" index="col">
-						<cfset thisval=evaluate("nd." & c)>
-						<cfset origval=evaluate("d." & c)>
+						<br>col: #col#
+						<cfset thisval=evaluate("nd." & col)>
+						<cfset origval=evaluate("d." & col)>
 						<br>thisval: #thisval#
 						<br>origval: #origval#
 						<cfif len(origval) is 0 and len(thisval) gt 0>
