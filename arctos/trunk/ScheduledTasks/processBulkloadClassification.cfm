@@ -40,7 +40,7 @@ run these in order
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and genus is not null
 			and status='fill_in_the_blanks_from_genus'
-			and rownum<2
+			and rownum<101
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
@@ -92,7 +92,6 @@ run these in order
 
 
 				<cfif len(nd.species) gt 0>
-					<br>inserting #nd.species#
 
 
 					<cfset problem=listprepend(problem,'autoinsert',':')>
@@ -151,10 +150,6 @@ run these in order
 
 
 
-
-						<p>
-							#sql#
-						</p>
 						<cfquery name="updateorig" datasource="uam_god">
 							#preserveSingleQuotes(sql)#
 						</cfquery>
