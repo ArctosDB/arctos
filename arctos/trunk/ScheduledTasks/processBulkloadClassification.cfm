@@ -89,7 +89,7 @@ run these in order
 						<cfset ttt=term_type>
 					</cfif>
 					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,ttt)>
-						<cfif ttt is null>
+						<cfif len(ttt) is 0>
 							<cfset clmn='[NULL]'>
 						<cfelse>
 							<cfset clmn=ttt>
