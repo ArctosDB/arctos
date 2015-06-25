@@ -10,7 +10,7 @@
 
 
 <cfschedule action = "update"
-    task = "pendingRelations"
+    task = "upclass"
     operation = "HTTPRequest"
     url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
