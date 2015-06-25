@@ -165,11 +165,17 @@ run these in order
 
 				</cfif>
 			</cfloop>
-			<!---- now mark the genus record as having been processed ---->
+			<!---- now mark the genus record as having been processed
+				NEVERMIND: we're updating this above now
+
 			<cfquery name="gotit" datasource="uam_god">
 				update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
 				where genus='#genus#' and (status is null or status != 'autolookup')
 			</cfquery>
+
+
+
+			---->
 
 			</cftransaction>
 		</cfloop>
