@@ -154,7 +154,6 @@ run these in order
 
 
 
-					<cftry>
 						<br>executing
 
 						<p>
@@ -163,12 +162,7 @@ run these in order
 						<cfquery name="updateorig" datasource="uam_god">
 							#preserveSingleQuotes(sql)#
 						</cfquery>
-						<cfcatch>
-							<p>Something bad happened with this:</p>
-							<br>#sql#
-							<br>#cfcatch.detail#
-						</cfcatch>
-					</cftry>
+
 				</cfif>
 			</cfloop>
 			<!---- now mark the genus record as having been processed ---->
