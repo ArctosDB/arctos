@@ -94,7 +94,7 @@ run these in order
 					<br>inserting #nd.species#
 
 
-					<cfset problem=listprepend(problem,'autolookup',':')>
+					<cfset problem=listprepend(problem,'autoinsert',':')>
 
 					<cfset temp=QuerySetCell(nd, "status", problem)>
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
