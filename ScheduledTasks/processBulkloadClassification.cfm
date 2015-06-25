@@ -138,6 +138,8 @@ run these in order
 					<cfloop list="#stuffToReplace#" index="col">
 						<cfset thisval=evaluate("nd." & c)>
 						<cfset origval=evaluate("d." & c)>
+						<br>thisval: #thisval#
+						<br>origval: #origval#
 						<cfif len(origval) is 0 and len(thisval) gt 0>
 							<cfset sql=sql & " #col#='#escapeQuotes(thisval)#', ">
 						</cfif>
@@ -150,11 +152,14 @@ run these in order
 
 
 
-					<p>
-						#sql#
-					</p>
+
 					<cftry>
-						<cfquery name="insertone" datasource="uam_god">
+						<br>executing
+
+						<p>
+							#sql#
+						</p>
+						<cfquery name="updateorig" datasource="uam_god">
 							#preserveSingleQuotes(sql)#
 						</cfquery>
 						<cfcatch>
