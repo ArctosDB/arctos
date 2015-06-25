@@ -136,11 +136,8 @@ run these in order
 					<cfset sql="update CF_TEMP_CLASSIFICATION set ">
 
 					<cfloop list="#stuffToReplace#" index="col">
-						<br>col: #col#
 						<cfset thisval=evaluate("nd." & col)>
 						<cfset origval=evaluate("d." & col)>
-						<br>thisval: #thisval#
-						<br>origval: #origval#
 						<cfif len(origval) is 0 and len(thisval) gt 0>
 							<cfset sql=sql & " #col#='#escapeQuotes(thisval)#', ">
 						</cfif>
