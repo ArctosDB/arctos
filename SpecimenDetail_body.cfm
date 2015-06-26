@@ -1563,7 +1563,9 @@
 					</div>
 				</cfif>
 			</cfloop>
-		<cfcatch></cfcatch>
+		<cfcatch>
+		<cfdump var=#cfcatch#>
+		</cfcatch>
 		</cftry>
 	</div>
 	</td><!--- end right half of table --->
