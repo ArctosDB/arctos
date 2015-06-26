@@ -419,19 +419,19 @@
 			<cfif len(one.typestatus) gt 0>
 				<cfquery name="raw_citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
-						CITATION_ID,
+						citation.CITATION_ID,
 						citation.PUBLICATION_ID,
-						type_status,
+						citation.type_status,
 						identification.scientific_name idsciname,
-						CITATION_REMARKS,
+						citation.CITATION_REMARKS,
 						taxon_name.scientific_name taxsciname,
-						short_citation,
-						OCCURS_PAGE_NUMBER,
-						preview_uri,
-						media_type,
-						media_uri,
+						publication.short_citation,
+						citation.OCCURS_PAGE_NUMBER,
+						media.preview_uri,
+						media.media_type,
+						media.media_uri,
 						media.media_id,
-						doi
+						doi.doi
 					FROM
 						citation,
 						identification,
@@ -1564,7 +1564,6 @@
 				</cfif>
 			</cfloop>
 		<cfcatch>
-		<cfdump var=#cfcatch#>
 		</cfcatch>
 		</cftry>
 	</div>
