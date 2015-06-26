@@ -114,7 +114,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</cfform>
 		</p>
 		<p>
-			<a href="BulkloadClassification.cfm?action=checkGaps">Check for gaps</a. This will find data in Arctos which has no place in this loader; these data will be lost if the
+			<a href="BulkloadClassification.cfm?action=checkGaps">Check for gaps</a>. This will find data in Arctos which has no place in this loader; these data will be lost if the
 			data are loaded as-is.
 		</p>
 
