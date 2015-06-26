@@ -431,7 +431,7 @@
 						media.media_type,
 						media.media_uri,
 						media.media_id,
-						doi.doi
+						publication.doi
 					FROM
 						citation,
 						identification,
@@ -439,7 +439,6 @@
 						identification_taxonomy,
 						taxon_name,
 						(select * from media_relations where media_relationship='shows publication') media_relations,
-						doi,
 						media
 					WHERE
 						citation.identification_id=identification.identification_id AND
@@ -448,7 +447,6 @@
 						identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id and
 						publication.publication_id = media_relations.related_primary_key (+) and
 						media_relations.media_id=media.media_id (+) and
-						publication.publication_id = doi.publication_id (+) and
 						citation.collection_object_id=#collection_object_id#
 				</cfquery>
 
