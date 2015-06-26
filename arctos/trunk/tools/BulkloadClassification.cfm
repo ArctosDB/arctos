@@ -99,7 +99,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			click any buttons unless you KNOW what they do.
 		<p>
 		<p>
-			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a>
+			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a> and view column descriptions
 		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>
@@ -113,6 +113,15 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<input type="submit" value="Upload this file">
 		</cfform>
 		</p>
+		<p>
+			<a href="BulkloadClassification.cfm?action=checkGaps">Check for gaps</a. This will find data in Arctos which has no place in this loader; these data will be lost if the
+			data are loaded as-is.
+		</p>
+
+
+
+
+
 		<p>
 			Display_Name is required. You may <a href="BulkloadClassification.cfm?action=getDisplayName">autogenerate display_name</a>.
 			This may produce strange data; carefully verify the results of this operation. This will NOT over-write anything already in
@@ -135,6 +144,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 					autogenerate display_name. Check stats below before clicking;
 					 this force-overwrites anything in STATUS.
 				</li>
+				<li>
+					use the contact form to actually load
+				</li>
 			</ul>
 		</p>
 		<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -146,8 +158,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<cfquery name="tot" dbtype="query">
 			select sum(c) s from summary
 		</cfquery>
-
-
 		<p>
 			Summary:
 			<table border>
@@ -340,19 +350,32 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<a href="/download.cfm?file=BulkloadClassification.csv">get the template</a>
 </cfif>
 <!----------------------------------------------------------------->
+<cfif action is "checkGaps">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			distinct CF_TEMP_CLASSIFICATION.scientific_name
+		from
+			CF_TEMP_CLASSIFICATION,
+			taxon_name,
+			taxon_term
+		where
+			CF_TEMP_CLASSIFICATION.scientific_name=taxon_name.scientific_name and
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+			--upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#' and
+			( taxon_term.TERM_TYPE is null or
+				 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
+			)
+	</cfquery>
+	<cfoutput>
+		<p>
+			The following scientific names will cause data loss. The corresponding data in Arctos contains unranked or unhandled terms.
+		</p>
+		<cfloop query="ins">
+			<br><a target="_blank" href="/name/#scientific_name#">#scientific_name#</a>
+		</cfloop>
+	</cfoutput>
 
+</cfif>
 
-select
-	distinct CF_TEMP_CLASSIFICATION.scientific_name
-from
-	CF_TEMP_CLASSIFICATION,
-	taxon_name,
-	taxon_term
-where
-	CF_TEMP_CLASSIFICATION.scientific_name=taxon_name.scientific_name and
-	taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-	--upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#' and
-	( taxon_term.TERM_TYPE is null or
-		 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
-	)
-	;
+<cfinclude template="/includes/_footer.cfm">
+
