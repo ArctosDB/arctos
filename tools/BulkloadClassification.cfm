@@ -95,7 +95,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 <cfif action is "nothing">
 	<cfoutput>
 		<p>
-			Update classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
+			Replace classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
 			click any buttons unless you KNOW what they do.
 		<p>
 		<p>
@@ -137,11 +137,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				</li>
 			</ul>
 		</p>
-		<p>
-
-		</p>
-
-
 		<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				status,
@@ -154,6 +149,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 
 		<p>
+			Summary:
 			<table border>
 				<tr>
 					<th>Status</th>
