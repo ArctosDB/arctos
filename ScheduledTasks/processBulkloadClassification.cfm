@@ -200,33 +200,30 @@ run these in order
 
 <cfif action is "checkMeta">
 	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='invalid operation' where status is null and operation not in ('update','replace')
+		update CF_TEMP_CLASSIFICATION set status='display_name is required' where status ='ready_to_check' and display_name is null
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='display_name is required' where status is null and display_name is null
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='invalid source' where status is null and source not in (
+		update CF_TEMP_CLASSIFICATION set status='invalid source' where status ='ready_to_check' and source not in (
 			select source from CTTAXONOMY_SOURCE
 		)
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='invalid nomenclatural_code' where status is null and nomenclatural_code not in ('ICZN','ICBN')
+		update CF_TEMP_CLASSIFICATION set status='invalid nomenclatural_code' where status ='ready_to_check' and nomenclatural_code not in ('ICZN','ICBN')
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='subspecies is the only acceptable ICZN infraspecific data'
-		where status is null and nomenclatural_code = 'ICZN'
+		where status='ready_to_check'  and nomenclatural_code = 'ICZN'
 		and (forma is not null or subsp is not null)
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='subspecies is ICZN-only'
-		where status is null and nomenclatural_code != 'ICZN'
+		where status ='ready_to_check' and nomenclatural_code != 'ICZN'
 		and subspecies is not null
 	</cfquery>
 
 	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='only one infraspecific term may be given'
-		where status is null and
+		where status='ready_to_check'  and
 		(
 			subspecies is not null and (forma is not null or subsp is not null) or
 			forma is not null and (subspecies is not null or subsp is not null) or
@@ -235,7 +232,7 @@ run these in order
 	</cfquery>
 
 	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='pass_meta' where status is null
+		update CF_TEMP_CLASSIFICATION set status='pass_meta' where status ='ready_to_check'
 	</cfquery>
 
 
