@@ -142,14 +142,16 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 
 
-        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+		<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				status,
+				count(*) c from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+			group by status
+		</cfquery>
+		<cfquery name="tot" dbtype="query">
+			select sum(c) s from summary
 		</cfquery>
 
-
-		<cfquery name="summary" dbtype="query">
-			select status,count(*) c from d group by status
-		</cfquery>
 
 		<p>
 			<table border>
@@ -167,7 +169,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 					<td>
 						<div style="align:right;font-weight:bold">Total</div>
 					</td>
-					<td><div style="font-weight:bold">#d.recordcount#</div></td>
+					<td><div style="font-weight:bold">#tot.s#</div></td>
 				</tr>
 			</table>
 		</p>
