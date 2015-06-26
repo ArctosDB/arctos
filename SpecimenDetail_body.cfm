@@ -430,7 +430,8 @@
 						preview_uri,
 						media_type,
 						media_uri,
-						media.media_id
+						media.media_id,
+						doi
 					FROM
 						citation,
 						identification,
@@ -438,6 +439,7 @@
 						identification_taxonomy,
 						taxon_name,
 						(select * from media_relations where media_relationship='shows publication') media_relations,
+						doi,
 						media
 					WHERE
 						citation.identification_id=identification.identification_id AND
@@ -446,6 +448,7 @@
 						identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id and
 						publication.publication_id = media_relations.related_primary_key (+) and
 						media_relations.media_id=media.media_id (+) and
+						publication.publication_id = doi.publication_id (+) and
 						citation.collection_object_id=#collection_object_id#
 				</cfquery>
 				<cfquery name="citations" dbtype="query">
@@ -456,7 +459,8 @@
 						short_citation,
 						OCCURS_PAGE_NUMBER,
 						CITATION_ID,
-						CITATION_REMARKS
+						CITATION_REMARKS,
+						doi
 					from
 						raw_citations
 					group by
@@ -466,7 +470,8 @@
 						short_citation,
 						OCCURS_PAGE_NUMBER,
 						CITATION_ID,
-						CITATION_REMARKS
+						CITATION_REMARKS,
+						doi
 				</cfquery>
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
@@ -495,6 +500,9 @@
 									media_type="#media_type#")>
 									<a href="/media/#media_id#?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
 							 </cfloop>
+							 <cfif len(doi) gt 0>
+									<a href="http://dx.doi.org/#doi#" target="_blank" class="external">#doi#</a>
+							</cfif>
 							 <cfif len(CITATION_REMARKS) gt 0>
 								<div class="detailCellSmall">
 									#CITATION_REMARKS#
