@@ -449,8 +449,6 @@
 						media_relations.media_id=media.media_id (+) and
 						citation.collection_object_id=#collection_object_id#
 				</cfquery>
-
-				<cfdump var=#raw_citations#>
 				<cfquery name="citations" dbtype="query">
 					select
 						PUBLICATION_ID,
