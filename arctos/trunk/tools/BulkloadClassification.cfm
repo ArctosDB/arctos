@@ -145,6 +145,35 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
 		</cfquery>
+
+
+		<cfquery name="summary" dbtype="query">
+			select status,count(*) c from d group by status
+		</cfquery>
+
+		<p>
+			<table border>
+				<tr>
+					<th>Status</th>
+					<th>Count</th>
+				</tr>
+				<cfloop query="summary">
+					<tr>
+						<td>#status#</td>
+						<td>#c#</td>
+					</tr>
+				</cfloop>
+				<tr>
+					<td>
+						<div style="align:right;font-weight:bold">Total</div>
+					</td>
+					<td><div style="font-weight:bold">#d.recordcount#</div></td>
+				</tr>
+			</table>
+		</p>
+		<!----
+		toobookoo
+
 		<cfquery name="dbcols" datasource="uam_god">
 			select
 				column_name
@@ -156,11 +185,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
 
-		<cfquery name="summary" dbtype="query">
-			select status,count(*) from d group by status
-		</cfquery>
-		<cfdump var=#summary#>
-		<!----
+
 		<table border>
 			<tr>
 			<cfloop query="dbcols">
