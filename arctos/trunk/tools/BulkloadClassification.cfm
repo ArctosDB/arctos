@@ -69,139 +69,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 
 <!----------------------------------------------------------------->
-<cfif action is "nothing">
-	<cfoutput>
-		<p>
-			<a href="BulkloadClassification.cfm?action=managemystuff">Manage Existing</a>
-		</p>
-		<p>
-		Update classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
-		click any buttons unless you KNOW what they do.
-		<p>
-		tl;dr:
-		</p>
-		<ul>
-			<li>
-				load csv
-			</li>
-			<li>
-				<a href="BulkloadClassification.cfm?action=getDisplayName">Add display_name if you didn't have it in your data</a>
-			</li>
-			<li>
-				<a href="ScheduledTasks/processBulkloadClassification.cfm?action=checkMeta">checkMeta</a> in the scheduler (or let it run)
-			</li>
-			<li>
-				<a href="ScheduledTasks/processBulkloadClassification.cfm?action=getTID">getTID</a> in the scheduler (or let it run)
-			</li>
-			<li>
-				<a href="ScheduledTasks/processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a> in the scheduler (or let it run)
-			</li>
-			<li>
-				<a href="ScheduledTasks/processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a> in the scheduler (or let it run)
-			</li>
-			<li>
-				<a href="BulkloadClassification.cfm?action=getCSV">getCSV</a> to download CSV and check things CAREFULLY
-			</li>
-			<li>
-				<a href="BulkloadClassification.cfm?action=deletemystuff">deletemystuff</a> to delete everything if it's messed up
-			</li>
-
-
-
-
-
-		</ul>
-
-		Short version:
-
-		</p>
-		 <p>
-			Upload a comma-delimited text file (csv). <a href="BulkloadClassification.cfm?action=makeTemplate">[ Get the Template ]</a>
-		</p>
-		<p>
-			You can (and should) also pull classification from globalnames.
-		</p>
-		<p>scientific_name is globally-unique; coordinate with other users if there's a conflict.</p>
-		<p>subgeneric terms are multinomial</p>
-		<p>
-			Terms are defined at is <a href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a>
-		</p>
-		<p>username is required and must match your Arctos username</p>
-		<p>
-			Source (NOT source_authority) is required and must be from <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">CTTAXONOMY_SOURCE</a>
-		</p>
-		<p>
-			nomenclatural_code is required and must be one of (ICZN, ICBN)
-		</p>
-		<p>
-			"classification" is defined as the intersection of source and scientific_name.
-		</p>
-		<p>
-			If multiple classifications exist (e.g., two sets of data in the "Arctos" classification for <i>Some name</i>), an error will be thrown and no
-			updates will be performed.
-		</p>
-		<p>
-			Only one infraspecific term may be given
-		</p>
-
-
-
-		<p>
-			<strong>operation</strong> is required. Values are as follows.
-
-
-			<ul>
-				<li>
-					update: update terms which have data in the file you're uploading. Ignore everything else. Examples:
-					<ul>
-						<li>
-							Your Data: contain something in "kingdom"
-							<br>Existing Data: contain a term ranked "kingdom"
-							<br>What Happens: Kingdom is UPDATED
-						</li>
-						<li>
-							Your Data: contain something in "kingdom"
-							<br>Existing Data: contain nothing ranked "kingdom"
-							<br>What Happens: Kingdom is ADDED
-						</li>
-						<li>
-							Your Data: contain something in "kingdom"
-							<br>Existing Data: contain an unranked term of the same value
-							<br>What Happens: Kingdom is ADDED, existing term is IGNORED
-						</li>
-						<li>
-							Your Data: "kingdom" is NULL
-							<br>Existing Data: contain a term ranked "kingdom"
-							<br>What Happens: NOTHING
-						</li>
-					</ul>
-				</li>
-				<li>
-					replace: delete the entirety of the existing classification, add back whatever's in your file. Examples:
-
-					<ul>
-						<li>
-							Your Data: "kingdom" is NULL
-							<br>Existing Data: anything
-							<br>Result: The classification has no term ranked "kingdom"
-						</li>
-						<li>
-							Your Data: anything
-							<br>Existing Data: contain an unranked term
-							<br>Result: The unranked term is gone.
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</p>
-		<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadClassification.cfm">
-			<input type="hidden" name="action" value="getFileData">
-			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
-			<input type="submit" value="Upload this file">
-		</cfform>
-	</cfoutput>
-</cfif>
-<!----------------------------------------------------------------->
 
 <cfif action is "getCSV">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -216,31 +83,64 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cflocation url="/download.cfm?file=BulkloadClassificationData.csv" addtoken="false">
 </cfif>
 <!----------------------------------------------------------------->
-<cfif action is "fill_in_the_blanks_from_genus">
+
+<cfif action is "setstatus">
 	<cfoutput>
 		  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update CF_TEMP_CLASSIFICATION set status='fill_in_the_blanks_from_genus' where upper(username)='#ucase(session.username)#'
+			update CF_TEMP_CLASSIFICATION set status='#status#' where upper(username)='#ucase(session.username)#'
 		</cfquery>
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
-<cfif action is "managemystuff">
+<cfif action is "nothing">
 	<cfoutput>
-
+		<p>
+			Update classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
+			click any buttons unless you KNOW what they do.
+		<p>
+		<p>
+			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a>
+		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>
 		</p>
 		<p>
-			<a href="BulkloadClassification.cfm?action=nothing">Load from CSV</a>
+			Load (more) data
+			<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadClassification.cfm">
+			<input type="hidden" name="action" value="getFileData">
+			<label for="">Load CSV. Will APPEND to existing data</label>
+			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+			<input type="submit" value="Upload this file">
+		</cfform>
 		</p>
-		<p>
-			<a href="BulkloadClassification.cfm?action=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>
-		</p>
-
 		<p>
 			Display_Name is required. You may <a href="BulkloadClassification.cfm?action=getDisplayName">autogenerate display_name</a>.
-			This may produce strange data; carefully verify the results of this operation.
+			This may produce strange data; carefully verify the results of this operation. This will NOT over-write anything already in
+			display_name; download CSV, remove display_name, and re-upload to accomplish that.
 		</p>
+		<p>
+			The following options are slow, and so are performed asynchronously. Clicking these links simply updates STATUS.
+			Arctos will send daily reminder emails, or check status below.
+			<ul>
+				<li>
+					<a href="BulkloadClassification.cfm?action=setstatus&status=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>.
+					Use this to set status of ALL of your data to "fill_in_the_blanks_from_genus." This will cause Arctos to insert species
+					and subspecies
+					data, and to fill in any gaps in the genus-only source record. Check stats below before clicking;
+					 this force-overwrites anything in STATUS.
+				</li>
+				<li>
+					<a href="BulkloadClassification.cfm?action=setstatus&status=ready_to_check">Mark to process</a>.
+					Use this to begin pre-load processing. Use this AFTER fill_in_the_blanks_from_genus and
+					autogenerate display_name. Check stats below before clicking;
+					 this force-overwrites anything in STATUS.
+				</li>
+			</ul>
+		</p>
+		<p>
+
+		</p>
+
 
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
@@ -284,11 +184,10 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cflocation url="BulkloadClassification.cfm?action=managemystuff" addtoken="false">
+		<cflocation url="BulkloadClassification.cfm?action=nothing" addtoken="false">
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
-
 <cfif action is "getDisplayName">
 	<p>
 		Timeout errors below? Just reload (or <a href="/contact">contact us</a> if that doesn't help).
@@ -331,19 +230,10 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<!--- no genus just use scientificname --->
 				<cfset dname=scientific_name>
 			</cfif>
-
-
 			<cfset dname=rereplace(dname,'\s\s+','','All')>
 			<cfset dname=replace(dname,'<i></i>','','All')>
 			<cfset dname=replace(dname,' </i>','</i>','All')>
-
-
-
 			<cfset dname=trim(dname)>
-
-
-
-
 			<cfif len(problem) gt 0>
 	    		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update CF_TEMP_CLASSIFICATION set status='Autogen DisplayName: #problem#' where scientific_name='#scientific_name#'
@@ -356,13 +246,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			</cftransaction>
         </cfloop>
 		<p>
-			all done. Back to <a href="BulkloadClassification.cfm?action=managemystuff">manage</a>
+			all done. Back to <a href="BulkloadClassification.cfm?action=nothing">manage</a>
 		</p>
-
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
-
 <cfif action is "getFileData">
 	<cfoutput>
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -381,12 +269,32 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	            )
             </cfquery>
         </cfloop>
-		<cflocation url="BulkloadClassification.cfm?action=managemystuff" addtoken="false">
+		<cflocation url="BulkloadClassification.cfm?action=nothing" addtoken="false">
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
 <cfif action is "makeTemplate">
-
+	<ul>
+		<li>scientific_name is globally-unique; coordinate with other users if there's a conflict.</li>
+		<li>subgeneric terms are multinomial. Sorex cinereus, NOT cinereus.</li>
+		<li>Terms are defined at is <a href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a></li>
+		<li>username is required and must match your Arctos username</li>
+		<li>
+			Source (NOT source_authority) is required and must be from
+			<a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">CTTAXONOMY_SOURCE</a>
+		</li>
+		<li>nomenclatural_code is required and must be one of (ICZN, ICBN)</li>
+		<li>
+			"classification" is defined as the intersection of source and scientific_name. This tool REPLACES entire
+			classifications (but see the fill_in_the_blanks_from_genus option)
+		</li>
+		<li>
+			If multiple classifications exist (e.g., two sets of data in the "Arctos" classification for
+			 <i>Some name</i>), an error will be thrown and no
+			updates will be performed.
+		</li>
+		<li>Only one infraspecific term may be given; "subsp" and "forma" may not both exist in the same record</li>
+	</ul>
 	<cfquery name="dbcols" datasource="uam_god">
 		select
 			column_name
@@ -401,44 +309,15 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfloop query="dbcols">
 		<cfset thecolumns=listappend(thecolumns,column_name)>
 	</cfloop>
-
-
 	<cfset header=thecolumns>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/BulkloadClassification.csv"
 	    output = "#header#"
 	    addNewLine = "no">
-	<cflocation url="/download.cfm?file=BulkloadClassification.csv" addtoken="false">
+	<a href="/download.cfm?file=BulkloadClassification.csv">get the template</a>
 </cfif>
 <!----------------------------------------------------------------->
 
-<!----------------------------------------------------------------->
-<cfif action is "makeTemplate">
-
-	<cfquery name="dbcols" datasource="uam_god">
-		select
-			column_name
-		from
-			user_tab_cols
-		where
-			upper(table_name)='CF_TEMP_CLASSIFICATION' and
-			lower(column_name) not in ('status','taxon_name_id','classification_id')
-		ORDER BY INTERNAL_COLUMN_ID
-	</cfquery>
-	<cfset thecolumns="">
-	<cfloop query="dbcols">
-		<cfset thecolumns=listappend(thecolumns,column_name)>
-	</cfloop>
-
-
-	<cfset header=thecolumns>
-	<cffile action = "write"
-	    file = "#Application.webDirectory#/download/BulkloadClassification.csv"
-	    output = "#header#"
-	    addNewLine = "no">
-	<cflocation url="/download.cfm?file=BulkloadClassification.csv" addtoken="false">
-</cfif>
-<!----------------------------------------------------------------->
 
 select
 	distinct CF_TEMP_CLASSIFICATION.scientific_name
