@@ -259,7 +259,8 @@ from geog_auth_rec where rownum<10
 
 
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_geog
+		select * from ds_temp_geog where HIGHER_GEOG is null order by
+		 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
 	</cfquery>
 	<cfset isNotNullBS='none'>
 
