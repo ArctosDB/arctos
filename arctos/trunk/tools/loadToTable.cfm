@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfsetting requesttimeout="600"> 
+<cfsetting requesttimeout="600">
 Upload CSV
 <cfform name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
@@ -14,7 +14,7 @@ Upload CSV
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>
 	<cftry>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			drop table #session.username#.my_temp_cf			
+			drop table #session.username#.my_temp_cf
 		</cfquery>
 	<cfcatch>
 		<!--- whatever --->
@@ -34,7 +34,7 @@ Upload CSV
 					<cfset thisBit=replace(thisBit,")","","all")>
 					<cfset thisBit=replace(thisBit,"(","","all")>
 					<cfset thisBit=replace(thisBit,"##","","all")>
-					
+
 					<cfset thisBit=rereplace(thisBit,"^_","")>
 					<cfset thisBit=left(thisBit,28)>
 					<cfset colNames="#colNames#,#thisBit#">
@@ -43,7 +43,7 @@ Upload CSV
 				</cfif>
 			</cfloop>
 		<cfif o is 1>
-		
+
 			<cfset colNames=replace(colNames,",","","first")>
 			<cfset s='create table #session.username#.my_temp_cf ('>
 			<cfset c=1>
@@ -52,9 +52,9 @@ Upload CSV
 			</cfloop>
 			<cfset s=rereplace(s,",[^,]*$","")  & ")">
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				#preservesinglequotes(s)#							
+				#preservesinglequotes(s)#
 			</cfquery>
-		</cfif>	
+		</cfif>
 		<cfif len(colVals) gt 1>
 			<!--- Excel randomly and unpredictably whacks values off
 				the end when they're NULL. Put NULLs back on as necessary.
@@ -66,8 +66,8 @@ Upload CSV
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			
-		
+
+
 			<cfquery name="ins" datasource="uam_god">
 				insert into #session.username#.my_temp_cf (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
@@ -76,9 +76,9 @@ Upload CSV
 	<hr>
 	loaded to #session.username#.my_temp_cf
 	</cfif>
-	
-	
-				
+
+
+
 
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">

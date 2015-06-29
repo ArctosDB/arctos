@@ -73,8 +73,72 @@ grant all on cf_temp_specevent to coldfusion_user;
 
 -- convert this to a run-on-demand by-user app so that we can use it from data entry
 -- see /Arctos/DDL/migration/6.4_DataEntry1ToMany.sql
+
+
+
+
+
+fishnet custom
+
+create table temp_fish_orig (
+verifiedBy varchar2(4000),
+dateTimeVerified  varchar2(4000),
+verificationRemarks varchar2(4000),
+longitude varchar2(4000),
+latitude varchar2(4000),
+uncertaintyRadius varchar2(4000),
+uncertaintyPolygon clob,
+institutionCode varchar2(4000),
+collectionCode varchar2(4000),
+catalogNumber varchar2(4000),
+scientificName varchar2(4000),
+country varchar2(4000),
+stateProvince varchar2(4000),
+county varchar2(4000),
+locality varchar2(4000));
+
+
+
 ---->
 <cfinclude template="/includes/_header.cfm">
+	<cfsetting requestTimeOut = "1200">
+
+<cfif action is "upfish">
+Upload CSV:
+	<cfform name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="getfish">
+		 <input type="file"
+			   name="FiletoUpload"
+			   size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</cfform>
+</cfif>
+<cfif action is "getfish">
+	<cfoutput>
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+        <cfset  util = CreateObject("component","component.utilities")>
+		<cfset x=util.CSVToQuery(fileContent)>
+        <cfset cols=x.columnlist>
+        <cfloop query="x">
+            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	            insert into temp_fish_orig (#cols#) values (
+	            <cfloop list="#cols#" index="i">
+	               <cfif i is "uncertaintyPolygon">
+	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+	                <cfelse>
+	            		'#stripQuotes(evaluate(i))#'
+	            	</cfif>
+	            	<cfif i is not listlast(cols)>
+	            		,
+	            	</cfif>
+	            </cfloop>
+	            )
+            </cfquery>
+        </cfloop>
+		<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
+	</cfoutput>
+</cfif>
+
 
 <cfset numberToValidate=2000>
 
@@ -91,6 +155,10 @@ grant all on cf_temp_specevent to coldfusion_user;
 </cfif>
 <cfif action is  "nothing">
 	Use this form to ADD specimen-events.
+	<p>
+				<a href="BulkloadSpecimenEvent.cfm?action=upfish">fishnet repatriation upload</a> (see code for usage - you'll need pl/sql access to use this)
+
+	</p>
 	<p>
 		You may NOT create localities with geology attributes from this form - create them in Arctos, name them, and use locality_name here.
 		<a href="/contact.cfm">contact us</a> if you need other functionality.

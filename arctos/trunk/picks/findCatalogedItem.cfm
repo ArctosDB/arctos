@@ -127,23 +127,25 @@
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-        <cfif getItems.recordcount is 0>
-			-foundNothing-
-		<cfelseif getItems.recordcount is 1>
-			<script>
-				opener.document.#formName#.#collIdFld#.value='#getItems.collection_object_id#';
-				opener.document.#formName#.#CatNumStrFld#.value='#getItems.guid_prefix# #getItems.cat_num# (#getItems.scientific_name#)'
-				;self.close();
-			</script>
-		<cfelse>
-			<p>
-				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#valuelist(getItems.collection_object_id)#';
-				opener.document.#formName#.#CatNumStrFld#.value='MULTIPLE';self.close();">Select All</a>
-			</p>
-			<cfloop query="getItems">
-				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';
-				opener.document.#formName#.#CatNumStrFld#.value='#guid_prefix# #cat_num# (#scientific_name#)';self.close();">#guid_prefix# #cat_num# #scientific_name#</a>
-			</cfloop>
-		</cfif>
+     <cfif getItems.recordcount is 0>
+		-foundNothing-
+	<cfelseif getItems.recordcount is 1>
+		<cfset dnamestr=replace(getItems.scientific_name,"'","`","all")>
+		<script>
+			opener.document.#formName#.#collIdFld#.value='#getItems.collection_object_id#';
+			opener.document.#formName#.#CatNumStrFld#.value='#getItems.guid_prefix# #getItems.cat_num# (#dnamestr#)';
+			self.close();
+		</script>
+	<cfelse>
+		<p>
+			<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#valuelist(getItems.collection_object_id)#';
+			opener.document.#formName#.#CatNumStrFld#.value='MULTIPLE';self.close();">Select All</a>
+		</p>
+		<cfloop query="getItems">
+			<cfset dnamestr=replace(getItems.scientific_name,"'","`","all")>
+			<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';
+			opener.document.#formName#.#CatNumStrFld#.value='#guid_prefix# #cat_num# (#dnamestr#)';self.close();">#guid_prefix# #cat_num# #scientific_name#</a>
+		</cfloop>
+	</cfif>
 </cfoutput>
 <cfinclude template="/includes/_pickFooter.cfm">
