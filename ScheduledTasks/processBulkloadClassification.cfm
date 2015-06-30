@@ -373,92 +373,75 @@ run these in order
 <!--------------------------------------------------------------------------->
 <cfif action is "load">
 	<cfoutput>
-
-	<cfquery name="d" datasource="uam_god">
-		select * from CF_TEMP_CLASSIFICATION where status='ready_to_load' and rownum<10
-	</cfquery>
-	<cfquery name="CTTAXON_TERM" datasource="uam_god">
-		select * from CTTAXON_TERM
-	</cfquery>
-	<cfquery name="ncq" dbtype="query">
-		select * from CTTAXON_TERM where IS_CLASSIFICATION=0
-	</cfquery>
-	<cfset noclassterms=valuelist(ncq.TAXON_TERM)>
-
-	<cfquery name="cq" dbtype="query">
-		select * from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
-	</cfquery>
-	<!---- these need to be ordered ---->
-	<cfset classificationTerms="">
-	<cfloop query="cq">
-		<cfset classificationTerms=listappend(classificationTerms,TAXON_TERM)>
-	</cfloop>
-
-	<cfset classificationTerms=ListSetAt(classificationTerms,listfindnocase(classificationTerms,'order'),'phylorder')>
-
-
-
-
-	<br>classificationTerms: #classificationTerms#
-	<br>noclassterms: #noclassterms#
-
-
-
+		<cfquery name="d" datasource="uam_god">
+			select * from CF_TEMP_CLASSIFICATION where status='ready_to_load' and rownum<10
+		</cfquery>
+		<cfquery name="CTTAXON_TERM" datasource="uam_god">
+			select * from CTTAXON_TERM
+		</cfquery>
+		<cfquery name="ncq" dbtype="query">
+			select * from CTTAXON_TERM where IS_CLASSIFICATION=0
+		</cfquery>
+		<cfset noclassterms=valuelist(ncq.TAXON_TERM)>
+		<cfquery name="cq" dbtype="query">
+			select * from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
+		</cfquery>
+		<!---- these need to be ordered ---->
+		<cfset classificationTerms="">
+		<cfloop query="cq">
+			<cfset classificationTerms=listappend(classificationTerms,TAXON_TERM)>
+		</cfloop>
+		<cfset classificationTerms=ListSetAt(classificationTerms,listfindnocase(classificationTerms,'order'),'phylorder')>
 
 		<cfloop query="d">
 			<cftransaction>
-			<cfif classification_id is '[NEW]'>
-				<cfset thisClassificationID=CreateUUID()>
-			<cfelse>
-				<cfset thisClassificationID=classification_id>
-			</cfif>
-			<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
-
-
-			<cfloop list="#noclassterms#" index="thisTermType">
-				<cfset thisTermVal=evaluate("d." & thisTermType)>
-				<br>thisTermType: #thisTermType#
-				<br>thisTermVal: #thisTermVal#
-				<br>nomenclatural_code: #nomenclatural_code#
-
-				<cfif len(thisTermVal) gt 0>
-					<br>
-					<cfquery name="insncterm" datasource="uam_god">
-						insert into taxon_term (
-							TAXON_TERM_ID,
-							TAXON_NAME_ID,
-							CLASSIFICATION_ID,
-							TERM,
-							TERM_TYPE,
-							SOURCE,
-							LASTDATE
-						) values (
-							sq_TAXON_TERM_ID.nextval,
-							#TAXON_NAME_ID#,
-							'#thisClassificationID#',
-							'#thisTermVal#',
-							'#thisTermType#',
-							'#source#',
-							sysdate
-						)
-					</cfquery>
-				</cfif>
-			</cfloop>
-			<cfset thisPosn=1>
-
-			<cfloop list="#classificationTerms#" index="thisTermType">
-				<cfset thisTermVal=evaluate("d." & thisTermType)>
-				<br>thisTermType: #thisTermType#
-				<br>thisTermVal: #thisTermVal#
-				<cfif len(thisTermVal) gt 0>
-					<cfif thisTermType is "subsp">
-					<cfset thisTermType= thisTermType & '.'>
-					<br>issubsp
+				<cfif classification_id is '[NEW]'>
+					<cfset thisClassificationID=CreateUUID()>
 				<cfelse>
-				<br>nope
+					<cfset thisClassificationID=classification_id>
 				</cfif>
+				<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
 
+				<cfloop list="#noclassterms#" index="thisTermType">
+					<cfset thisTermVal=evaluate("d." & thisTermType)>
+					<br>thisTermType: #thisTermType#
+					<br>thisTermVal: #thisTermVal#
+					<br>nomenclatural_code: #nomenclatural_code#
 
+					<cfif len(thisTermVal) gt 0>
+						<br>
+						<cfquery name="insncterm" datasource="uam_god">
+							insert into taxon_term (
+								TAXON_TERM_ID,
+								TAXON_NAME_ID,
+								CLASSIFICATION_ID,
+								TERM,
+								TERM_TYPE,
+								SOURCE,
+								LASTDATE
+							) values (
+								sq_TAXON_TERM_ID.nextval,
+								#TAXON_NAME_ID#,
+								'#thisClassificationID#',
+								'#thisTermVal#',
+								'#thisTermType#',
+								'#source#',
+								sysdate
+							)
+						</cfquery>
+					</cfif>
+				</cfloop>
+				<cfset thisPosn=1>
+
+				<cfloop list="#classificationTerms#" index="thisTermType">
+					<cfset thisTermVal=evaluate("d." & thisTermType)>
+					<br>thisTermType: #thisTermType#
+					<br>thisTermVal: #thisTermVal#
+					<cfif len(thisTermVal) gt 0>
+						<cfif thisTermType is "subsp">
+						<cfset thisTermType= thisTermType & '.'>
+						<br>issubsp
+					</cfif>
 					<br>
 					<cfquery name="inscterm" datasource="uam_god">
 						insert into taxon_term (
@@ -482,28 +465,14 @@ run these in order
 						)
 					</cfquery>
 					<cfset thisPosn=thisPosn+1>
-
 				</cfif>
 			</cfloop>
 			<cfquery name="git" datasource="uam_god">
 				update CF_TEMP_CLASSIFICATION set status='made_updates_all_done' where scientific_name='#d.scientific_name#'
 			</cfquery>
 
-
-
-
-
-
-			<!----
-			<cfquery name="remold" datasource="uam_god">
-				delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
-			</cfquery>
-
-			--->
-
-
+			</cftransaction>
 		</cfloop>
-		</cftransaction>
 	</cfoutput>
 
 
