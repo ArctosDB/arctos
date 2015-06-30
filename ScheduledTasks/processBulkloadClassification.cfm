@@ -424,9 +424,7 @@ run these in order
 
 
 		<cfloop query="d">
-			<cfif d.operation is "replace">
-				<br>replacing....
-			</cfif>
+			
 			<cfif classification_id is '[NEW]'>
 				<cfset thisClassificationID=CreateUUID()>
 			<cfelse>
