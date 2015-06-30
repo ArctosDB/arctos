@@ -8,7 +8,6 @@
 		status varchar2(255),
 		classification_id varchar2(4000),
 		username varchar2(255) not null,
-		operation  varchar2(255) not null,
 		source  varchar2(255) not null,
 		taxon_name_id number,
 		-- key AND lowest-ranking classification term
@@ -89,6 +88,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_CLASSIFICATION set status='#status#' where upper(username)='#ucase(session.username)#'
 		</cfquery>
+		<cflocation url="BulkloadClassification.cfm?action=nothing" addtoken="false">
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
@@ -116,7 +116,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>
 			<a href="BulkloadClassification.cfm?action=checkGaps">Check for gaps</a>. This will
 			find data in Arctos which has no place in this loader; these data will be lost if the
-			data are loaded as-is. This will time out for large datasets; send us an email.
+			data are loaded as-is. This will time out for large (few thousand) datasets; send us an email.
 			<br>Note: fill_in_the_blanks_from_genus contains this functionality; the check is not necessary if you're
 			filling in blanks.
 		</p>

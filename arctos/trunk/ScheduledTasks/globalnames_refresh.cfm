@@ -40,7 +40,7 @@ Make sure any useful changes end up in both places.
 
 <cfoutput>
 	<cfif not isdefined("numberOfNamesOneFetch")>
-		<cfset numberOfNamesOneFetch=300>
+		<cfset numberOfNamesOneFetch=100>
 	</cfif>
 	<cfquery name="checknew" datasource="uam_god">
 		insert into taxon_refresh_log (TAXON_NAME_ID,TAXON_NAME) (
@@ -60,7 +60,9 @@ Make sure any useful changes end up in both places.
 		</cfquery>
 	</cfif>
 	<cfset theseNames=valuelist(d.taxon_name,'|')>
-
+	<cfloop condition = "theseNames contains chr(215)">
+		<cfset theseNames=listdeleteat(theseNames,ListContainsNoCase(theseNames,chr(215),'|'),"|")>
+	</cfloop>
 	<cfloop condition = "len(theseNames) gt 6300">
 		<cfset theseNames=listdeleteat(theseNames,listlen(theseNames,"|"),"|")>
 	</cfloop>
