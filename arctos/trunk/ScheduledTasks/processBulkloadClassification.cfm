@@ -332,7 +332,7 @@ run these in order
 		update
 			CF_TEMP_CLASSIFICATION
 		set
-			status='ready_to_load',
+			status='passed_all_checks',
 			classification_id=(
 				select distinct
 					classification_id
@@ -345,30 +345,12 @@ run these in order
 		where
 			status ='found_name'
 	</cfquery>
-
-	<p>
-	update
-			CF_TEMP_CLASSIFICATION
-		set
-			status='ready_to_load',
-			classification_id=(
-				select distinct
-					classification_id
-				from
-					taxon_term
-				where
-					taxon_term.taxon_name_id=CF_TEMP_CLASSIFICATION.taxon_name_id and
-					taxon_term.source=CF_TEMP_CLASSIFICATION.source
-			)
-		where
-			status ='found_name'
-	</p>
 	<cfquery name="findfail" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
 		set
 			classification_id='[NEW]',
-			status='ready_to_load'
+			status='passed_all_checks'
 		where
 			status ='found_name' and
 			classification_id is null
@@ -388,7 +370,7 @@ run these in order
 
 
 </cfif>
-
+<!--------------------------------------------------------------------------->
 <cfif action is "load">
 	<cfoutput>
 
@@ -424,7 +406,7 @@ run these in order
 
 
 		<cfloop query="d">
-			
+			<cftransaction>
 			<cfif classification_id is '[NEW]'>
 				<cfset thisClassificationID=CreateUUID()>
 			<cfelse>
@@ -441,23 +423,25 @@ run these in order
 
 				<cfif len(thisTermVal) gt 0>
 					<br>
-					insert into taxon_term (
-						TAXON_TERM_ID,
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE
-					) values (
-						sq_TAXON_TERM_ID.nextval,
-						#TAXON_NAME_ID#,
-						'#thisClassificationID#',
-						'#thisTermVal#',
-						'#thisTermType#',
-						'#source#',
-						sysdate
-					)
+					<cfquery name="insncterm" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM,
+							TERM_TYPE,
+							SOURCE,
+							LASTDATE
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#TAXON_NAME_ID#,
+							'#thisClassificationID#',
+							'#thisTermVal#',
+							'#thisTermType#',
+							'#source#',
+							sysdate
+						)
+					</cfquery>
 				</cfif>
 			</cfloop>
 			<cfset thisPosn=1>
@@ -476,29 +460,34 @@ run these in order
 
 
 					<br>
-					insert into taxon_term (
-						TAXON_TERM_ID,
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE,
-						POSITION_IN_CLASSIFICATION
-					) values (
-						sq_TAXON_TERM_ID.nextval,
-						#TAXON_NAME_ID#,
-						'#thisClassificationID#',
-						'#thisTermVal#',
-						'#thisTermType#',
-						'#source#',
-						sysdate,
-						#thisPosn#
-					)
+					<cfquery name="inscterm" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM,
+							TERM_TYPE,
+							SOURCE,
+							LASTDATE,
+							POSITION_IN_CLASSIFICATION
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#TAXON_NAME_ID#,
+							'#thisClassificationID#',
+							'#thisTermVal#',
+							'#thisTermType#',
+							'#source#',
+							sysdate,
+							#thisPosn#
+						)
+					</cfquery>
 					<cfset thisPosn=thisPosn+1>
 
 				</cfif>
 			</cfloop>
+			<cfquery name="git" datasource="uam_god">
+				update CF_TEMP_CLASSIFICATION set status='made_updates_all_done' where scientific_name='#d.scientific_name#'
+			</cfquery>
 
 
 
@@ -514,6 +503,7 @@ run these in order
 
 
 		</cfloop>
+		</cftransaction>
 	</cfoutput>
 
 
