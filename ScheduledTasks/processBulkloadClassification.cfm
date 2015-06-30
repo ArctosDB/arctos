@@ -434,6 +434,7 @@ run these in order
 				<cfset thisPosn=1>
 
 				<cfloop list="#classificationTerms#" index="thisTermType">
+					<cfset thisTermType=replace(thisTermType,'.','','all')>
 					<cfset thisTermVal=evaluate("d." & thisTermType)>
 					<br>thisTermType: #thisTermType#
 					<br>thisTermVal: #thisTermVal#
