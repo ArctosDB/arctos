@@ -94,6 +94,13 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 <!----------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
+
+		<p>
+			Important: This form is new and scary, and none of the automation yet automates. Use the contact link below if you need
+			to update classifications.
+
+			<!--- see /ScheduledTasks/processBulkloadClassification.cfm ---->
+		</p>
 		<p>
 			Replace classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
 			click any buttons unless you KNOW what they do.
@@ -107,11 +114,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>
 			Load (more) data
 			<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadClassification.cfm">
-			<input type="hidden" name="action" value="getFileData">
-			<label for="">Load CSV. Will APPEND to existing data</label>
-			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
-			<input type="submit" value="Upload this file">
-		</cfform>
+				<input type="hidden" name="action" value="getFileData">
+				<label for="">Load CSV. Will APPEND to existing data</label>
+				<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+				<input type="submit" value="Upload this file">
+			</cfform>
 		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=checkGaps">Check for gaps</a>. This will
