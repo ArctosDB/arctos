@@ -795,7 +795,6 @@
 						</audio>
 						<br><a href="/exit.cfm?target=#media_uri#" download>download MP3</a>
 					<cfelse>
-					descr: #descr#
 						<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 							<img src="#mp#" alt="#descr#" style="max-width:150px;max-height:150px;">
 						</a>

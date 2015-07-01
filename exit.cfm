@@ -21,6 +21,10 @@
 	<cfif isus.c is 0>
 		<cfthrow message = "Media Exit Link: No Match"
 			errorCode = "127002" extendedInfo="There may be a problem with the linked resource: the Media does not exist.">
+
+		<p>
+			The Media does not exist at the URL you requested.
+		</p>
 		<cfabort>
 	</cfif>
 
