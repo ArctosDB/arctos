@@ -50,7 +50,7 @@ sho err
 	<cfset thecolumns='guid,exists_barcode,exists_part,sample_name,sample_disposition,sample_condition,sample_barcode,sample_container_type,sample_remarks'>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/temp_part_sample.csv"
-	    output = "#header#"
+	    output = "#thecolumns#"
 	    addNewLine = "no">
 
 	<p>
