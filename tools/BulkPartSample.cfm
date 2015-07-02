@@ -253,12 +253,13 @@ sho err
 
 
 	<cfquery name="u413" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_part_sample set 'part not found' where exist_part_id is null
+		update cf_temp_part_sample set status='part not found' where exist_part_id is null
 	</cfquery>
 
 
 	<cfquery name="u413" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_part_sample set 'lot count not 1' where exist_part_id is null
+		update cf_temp_part_sample set status= 'lot count not 1' where
+			(select lot_count from coll_object where coll_object.collection_object_id=cf_temp_part_sample.exist_part_id) != 1
 	</cfquery>
 
 
