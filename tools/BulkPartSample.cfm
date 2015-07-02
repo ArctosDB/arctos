@@ -251,11 +251,20 @@ sho err
 		cf_temp_part_sample.exists_barcode is not null
 	</cfquery>
 
+	<cfquery name="u13" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set (container_id)=(select container_id from
+		container where container.barcode=cf_temp_part_sample.sample_barcode)
+		where status is null and
+		sample_barcode is not null
+	</cfquery>
+
 
 	<cfquery name="u413" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_part_sample set status='part not found' where exist_part_id is null
 	</cfquery>
-
+	<cfquery name="u4r13" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set status='container not found' where sample_barcode is not null and container_id is null
+	</cfquery>
 
 	<cfquery name="u413" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_part_sample set status= 'lot count not 1' where
@@ -294,30 +303,16 @@ sho err
 		select * from cf_temp_part_sample
 	</cfquery>
 	<cftransaction>
-	<cfloop query="getTempData">
-		<cfquery name="pPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				*
-			from
-				specimen_part,
-				coll_object
-			where
-				specimen_part.collection_object_id=coll_object.collection_object_id and
-				specimen_part.collection_object_id=#i$exist_part_id#
-		</cfquery>
-		<cfif pPart.lot_count lte 1>
-			I can't yet deal with parent lot count <= 1.
-			<cfabort>
-		<cfelse><!--- parent lot count check --->
-			<cfquery name="lot_count" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update coll_object set lot_count=lot_count-1 where collection_object_id=#i$exist_part_id#
-			</cfquery>
-			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfloop query="getTempData">
+
+
+			<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO coll_object (
 					COLLECTION_OBJECT_ID,
 					COLL_OBJECT_TYPE,
 					ENTERED_PERSON_ID,
 					COLL_OBJECT_ENTERED_DATE,
+					LAST_EDITED_PERSON_ID,
 					COLL_OBJ_DISPOSITION,
 					LOT_COUNT,
 					CONDITION,
@@ -327,46 +322,46 @@ sho err
 					'SP',
 					#session.myAgentId#,
 					sysdate,
-					'#r$sample_disposition#',
+					#session.myAgentId#,
+					'#sample_disposition#',
 					1,
-					'#r$sample_condition#',
-					0
-				)
+					'#sample_condition#',
+					0 )
 			</cfquery>
 			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO specimen_part (
-				  COLLECTION_OBJECT_ID,
-				  PART_NAME
-					,DERIVED_FROM_cat_item,
-					SAMPLED_FROM_OBJ_ID)
-				VALUES (
+					  COLLECTION_OBJECT_ID,
+					  PART_NAME,
+					  DERIVED_FROM_cat_item
+				) VALUES (
 					sq_collection_object_id.currval,
-				  '#r$sample_name#'
-					,#i$collection_object_id#,
-					#i$exist_part_id#
+				  	'#sample_name#',
+					#exist_part_id#
 				)
 			</cfquery>
-			<cfif len(#sample_remarks#) gt 0>
+			<cfif len(sample_remarks) gt 0>
 				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 					VALUES (sq_collection_object_id.currval, '#sample_remarks#')
 				</cfquery>
 			</cfif>
-			<cfquery name="pCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select container_id from coll_obj_cont_hist where collection_object_id=#nextID.nextID#
-			</cfquery>
-			<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update container set parent_container_id=#i$container_id# where container_id=#pCont.container_id#
-			</cfquery>
-			<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update container set label='#r$sample_label#',
-				container_type='#r$sample_container_type#' where container_id=#i$container_id#
-			</cfquery>
-		</cfif><!--- parent lot count check --->
-	</cfloop>
+			<cfif len(sample_barcode) gt 0>
+				<cfquery name="pCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select container_id from coll_obj_cont_hist where collection_object_id=#nextID.nextID#
+				</cfquery>
+				<cfif len(sample_container_type) gt 0>
+					<cfquery name="cct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update container set container_type='#sample_container_type#' where container_id=#container_id#
+					</cfquery>
+				</cfif>
+				<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update container set parent_container_id=#container_id# where container_id=#pCont.container_id#
+				</cfquery>
+			</cfif>
+		</cfloop>
 	</cftransaction>
 	Spiffy, all done.
-	<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(getTempData.i$collection_object_id)#">
+	<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(getTempData.collection_object_id)#">
 		See in Specimen Results
 	</a>
 </cfoutput>
