@@ -304,7 +304,10 @@ sho err
 	</cfquery>
 	<cftransaction>
 		<cfloop query="getTempData">
-	<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="pid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_collection_object_id.nextval nid from dual
+			</cfquery>
+			<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO coll_object (
 					COLLECTION_OBJECT_ID,
 					COLL_OBJECT_TYPE,
@@ -316,7 +319,7 @@ sho err
 					CONDITION,
 					FLAGS )
 				VALUES (
-					sq_collection_object_id.nextval,
+					#pid.nid#,
 					'SP',
 					#session.myAgentId#,
 					sysdate,
@@ -332,7 +335,7 @@ sho err
 					  PART_NAME,
 					  DERIVED_FROM_cat_item
 				) VALUES (
-					sq_collection_object_id.currval,
+					#pid.nid#,
 				  	'#sample_name#',
 					#exist_part_id#
 				)
@@ -340,12 +343,12 @@ sho err
 			<cfif len(sample_remarks) gt 0>
 				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-					VALUES (sq_collection_object_id.currval, '#sample_remarks#')
+					VALUES (#pid.nid#, '#sample_remarks#')
 				</cfquery>
 			</cfif>
 			<cfif len(sample_barcode) gt 0>
 				<cfquery name="pCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select container_id from coll_obj_cont_hist where collection_object_id=#nextID.nextID#
+					select container_id from coll_obj_cont_hist where collection_object_id=#pid.nid#
 				</cfquery>
 				<cfif len(sample_container_type) gt 0>
 					<cfquery name="cct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
