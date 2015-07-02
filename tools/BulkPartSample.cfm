@@ -223,21 +223,25 @@ sho err
 
 
 	<cfquery name="u2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_part_sample set (exist_part_id)=(select specimen_part.collection_object_id from
-		specimen_part,
-		cataloged_item,
-		collection
-		where
-		specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
-		cataloged_item.collection_id=collection.collection_id and
-		collection.guid_prefix || cataloged_item.cat_num = cf_temp_part_sample.guid and
-		specimen_part.part_name=cf_temp_part_sample.exists_part
-		) where
-		cf_temp_part_sample.guid is not null and
-		cf_temp_part_sample.exists_part is not null
+		update cf_temp_part_sample set
+			(exist_part_id,collection_object_id)
+			=(
+				select specimen_part.collection_object_id,specimen_part.derived_from_cat_item from
+				specimen_part,
+				cataloged_item,
+				collection
+				where
+				specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
+				cataloged_item.collection_id=collection.collection_id and
+				collection.guid_prefix || cataloged_item.cat_num = cf_temp_part_sample.guid and
+				specimen_part.part_name=cf_temp_part_sample.exists_part
+			) where
+				cf_temp_part_sample.guid is not null and
+				cf_temp_part_sample.exists_part is not null
 	</cfquery>
 	<cfquery name="u13" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_part_sample set (exist_part_id)=(select specimen_part.collection_object_id from
+		update cf_temp_part_sample set (exist_part_id,collection_object_id)=(
+		select specimen_part.collection_object_id,specimen_part.derived_from_cat_item from
 		specimen_part,
 		coll_obj_cont_hist,
 		container partc,
@@ -333,11 +337,13 @@ sho err
 				INSERT INTO specimen_part (
 					  COLLECTION_OBJECT_ID,
 					  PART_NAME,
-					  DERIVED_FROM_cat_item
+					  SAMPLED_FROM_OBJ_ID,
+					  derived_from_cat_item
 				) VALUES (
 					#pid.nid#,
 				  	'#sample_name#',
-					#exist_part_id#
+					#exist_part_id#,
+					#collection_object_id#
 				)
 			</cfquery>
 			<cfif len(sample_remarks) gt 0>
