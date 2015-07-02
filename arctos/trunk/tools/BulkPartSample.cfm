@@ -144,6 +144,8 @@ sho err
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
+
+		<cfdump var=#x#>
         <cfloop query="x">
             <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	            insert into cf_temp_part_sample (#cols#) values (
