@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Taxonomy">
-<!---- make the table 
+<!---- make the table
 
  revision to deal with name+classification in new model - seems we're going to have to eventually
 
@@ -26,7 +26,7 @@ alter table cf_temp_taxonomy modify TRIBE varchar2(255);
 alter table cf_temp_taxonomy modify INFRASPECIFIC_RANK varchar2(255);
 alter table cf_temp_taxonomy modify PHYLUM varchar2(255);
 alter table cf_temp_taxonomy modify PHYLCLASS varchar2(255);
- 
+
 alter table cf_temp_taxonomy modify NOMENCLATURAL_CODE null;
 
 alter table cf_temp_taxonomy add display_name varchar2(255);
@@ -48,17 +48,17 @@ create table cf_temp_taxonomy (
 	create or replace public synonym cf_temp_taxonomy for cf_temp_taxonomy;
 	grant select,insert,update,delete on cf_temp_taxonomy to coldfusion_user;
 	grant select on cf_temp_taxonomy to public;
-	
-	
-CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                         
+
+
+CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key
  before insert  ON cf_temp_taxonomy
 FOR EACH ROW
 DECLARE
 BEGIN
 	if :NEW.key is null then
 		select somerandomsequence.nextval into :new.key from dual;
-    end if;    
-	
+    end if;
+
 END;
 /
 sho err
@@ -76,28 +76,31 @@ create table cf_temp_taxonomy (
 	create or replace public synonym cf_temp_taxonomy for cf_temp_taxonomy;
 	grant select,insert,update,delete on cf_temp_taxonomy to coldfusion_user;
 	grant select on cf_temp_taxonomy to public;
-	
-	
-CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                         
+
+
+CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key
  before insert  ON cf_temp_taxonomy
 FOR EACH ROW
 DECLARE
 BEGIN
 	if :NEW.key is null then
 		select somerandomsequence.nextval into :new.key from dual;
-    end if;    
-	
+    end if;
+
 END;
 /
 sho err
 
 
-        
-		
-		
-        
+
+
+
+
 ------>
 
+
+
+deprecated<cfabort>
 <!------------------------------------------------------->
 <cfif action is "down">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -151,8 +154,8 @@ sho err
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
-	<cfset numberOfColumns = arraylen(arrResult[1])>	
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+	<cfset numberOfColumns = arraylen(arrResult[1])>
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -166,7 +169,7 @@ sho err
 			</cfloop>
 		<cfif o is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -180,7 +183,7 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "show">
 <script src="/includes/sorttable.js"></script>
-<cfoutput>	 
+<cfoutput>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
@@ -207,8 +210,8 @@ sho err
 			<br>CHECK THE RESULTS
 		</li>
 		<li>
-			<a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name</a> 
-			Do this BEFORE validation and CHECK THE RESULTS. This may not do what you want if you don't specify nomenclatural_code.  
+			<a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name</a>
+			Do this BEFORE validation and CHECK THE RESULTS. This may not do what you want if you don't specify nomenclatural_code.
 		</li>
 		<li><a href="BulkloadTaxonomy.cfm?action=validate">validate</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=deleteDups">discard duplicate names</a></li>
@@ -276,7 +279,7 @@ sho err
 		</cfif>
 		<cfquery name="mksp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_taxonomy set species = genus || ' ' || species where genus is not null and species is not null
-		</cfquery>	
+		</cfquery>
 		<cfquery name="mksp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_taxonomy set subspecies = species || ' ' || subspecies where species is not null and subspecies is not null
 		</cfquery>
@@ -343,14 +346,14 @@ sho err
 		<cfset dn=replace(dn,'  ',' ','all')>
 		<cfset dn=replace(dn,'</i> <i>','')>
 		<cfset dn=replace(dn,'</i><i>','')>
-		
+
 		<cfset dn=replace(dn,'  ',' ','all')>
 		<cfset dn=trim(dn)>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_taxonomy set display_name='#dn#' where key='#key#'	
+			update cf_temp_taxonomy set display_name='#dn#' where key='#key#'
 		</cfquery>
 	</cfloop>
-	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">		
+	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
@@ -408,11 +411,11 @@ sho err
 						<cfset thisTerm=lcase(t)>
 					</cfif>
 					<cfquery name="term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						insert into taxon_term ( 
+						insert into taxon_term (
 							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 						) values (
 							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','#source#',#thisPosition#,sysdate
-						) 
+						)
 					</cfquery>
 					<cfset thisPosition=thisPosition+1>
 				</cfif>
@@ -422,11 +425,11 @@ sho err
 				<cfif len(thisTermVal) gt 0>
 				<cfset thisTerm=lcase(t)>
 					<cfquery name="term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						insert into taxon_term ( 
+						insert into taxon_term (
 							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,LASTDATE
 						) values (
 							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','#source#',sysdate
-						) 
+						)
 					</cfquery>
 				</cfif>
 			</cfloop>
@@ -440,25 +443,25 @@ sho err
 		select
 			taxon_name_id,
 			scientific_name
-		from 
-			taxon_name 
-		where 
+		from
+			taxon_name
+		where
 			scientific_name in (
 				select scientific_name from cf_temp_taxonomy
 			)
 		)
 	</cfquery>
-	
+
 	<!--- sequences super wonky - do it with a billion connects for now....
-	
-	
+
+
 	<cfset sql="insert all ">
-	<cfloop query="data">		
+	<cfloop query="data">
 		<cfset sql=sql & " into taxon_name (taxon_name_id,scientific_name) values (	sq_taxon_name_id.nextval,'#trim(scientific_name)#') ">
 		<cfset thisClassID=createUUID()>
 		<cfset thisRank=1>
 		<cfif len(KINGDOM) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#kingdom#','kingdom','TEST',#thisRank#,sysdate
@@ -466,7 +469,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(PHYLUM) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#PHYLUM#','phylum','TEST',#thisRank#,sysdate
@@ -474,7 +477,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SUBPHYLUM) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBPHYLUM#','subphylum','TEST',#thisRank#,sysdate
@@ -482,7 +485,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(PHYLCLASS) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#PHYLCLASS#','class','TEST',#thisRank#,sysdate
@@ -490,7 +493,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SUBCLASS) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBCLASS#','subclass','TEST',#thisRank#,sysdate
@@ -498,7 +501,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(PHYLORDER) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#PHYLORDER#','order','TEST',#thisRank#,sysdate
@@ -506,7 +509,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SUBORDER) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBORDER#','suborder','TEST',#thisRank#,sysdate
@@ -514,7 +517,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SUPERFAMILY) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUPERFAMILY#','superfamily','TEST',#thisRank#,sysdate
@@ -522,7 +525,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(FAMILY) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#FAMILY#','family','TEST',#thisRank#,sysdate
@@ -530,7 +533,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SUBFAMILY) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBFAMILY#','subfamily','TEST',#thisRank#,sysdate
@@ -538,7 +541,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(TRIBE) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#TRIBE#','tribe','TEST',#thisRank#,sysdate
@@ -546,7 +549,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(GENUS) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#GENUS#','genus','TEST',#thisRank#,sysdate
@@ -554,7 +557,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SUBGENUS) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBGENUS#','subgenus','TEST',#thisRank#,sysdate
@@ -562,7 +565,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SPECIES) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SPECIES#','species','TEST',#thisRank#,sysdate
@@ -570,7 +573,7 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SUBSPECIES) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBSPECIES#','subspecies','TEST',#thisRank#,sysdate
@@ -578,83 +581,83 @@ sho err
 			<cfset thisRank=thisRank+1>
 		</cfif>
 		<cfif len(SCIENTIFIC_NAME) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SCIENTIFIC_NAME#','scientific_name','TEST',#thisRank#,sysdate
 							) ">
 			<cfset thisRank=thisRank+1>
 		</cfif>
-		
-		
+
+
 		<!---- end ordered terms ---->
-		
+
 		<cfif len(VALID_CATALOG_TERM_FG) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#VALID_CATALOG_TERM_FG#','valid_catalog_term_fg','TEST',sysdate
 							) ">
 		</cfif>
 		<cfif len(SOURCE_AUTHORITY) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SOURCE_AUTHORITY#','source_authority','TEST',sysdate
 							) ">
 		</cfif>
 		<cfif len(SOURCE_AUTHORITY) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SOURCE_AUTHORITY#','source_authority','TEST',sysdate
 							) ">
 		</cfif>
 		<cfif len(AUTHOR_TEXT) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#AUTHOR_TEXT#','author_text','TEST',sysdate
 							) ">
 		</cfif>
 		<cfif len(AUTHOR_TEXT) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#AUTHOR_TEXT#','author_text','TEST',sysdate
 							) ">
 		</cfif>
 		<cfif len(TAXON_REMARKS) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#TAXON_REMARKS#','taxon_remarks','TEST',sysdate
 							) ">
 		</cfif>
 		<cfif len(NOMENCLATURAL_CODE) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#NOMENCLATURAL_CODE#','nomenclatural_code','TEST',sysdate
 							) ">
 		</cfif>
 		<cfif len(INFRASPECIFIC_AUTHOR) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#INFRASPECIFIC_AUTHOR#','infraspecific_author','TEST',sysdate
 							) ">
 		</cfif>
 		<cfif len(TAXON_STATUS) gt 0>
-			<cfset sql=sql & " into taxon_term ( 
+			<cfset sql=sql & " into taxon_term (
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
 							) values (
 								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#TAXON_STATUS#','infraspetaxon_statuscific_author','TEST',sysdate
 							) ">
 		</cfif>
-		
-		
-		
+
+
+
 	</cfloop>
 	<cfset sql=sql & "SELECT 1 FROM DUAL">
 
@@ -667,7 +670,7 @@ sho err
 
 ------>
 <!----
-	
+
 	<cftransaction>
 		<cfloop query="data">
 			<cfquery name="newTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -681,7 +684,7 @@ sho err
 			</cfquery>
 		</cfloop>
 	</cftransaction>
-		
+
 ---->
 	Spiffy, all done.
 </cfoutput>

@@ -200,13 +200,19 @@
 											<li><a target="_top" href="/tools/BulkloadRedirect.cfm">bulkload redirects</a></li>
 											<li><a target="_top" href="/tools/BulkloadSpecimenEvent.cfm">bulkload specimen-events</a></li>
 											<li><a target="_top" href="/tools/BulkloadAccn.cfm">bulkload accessions</a></li>
-											<li><a target="_top" href="/tools/BulkloadClassification.cfm">bulkload classifications (taxonomy)</a></li>
+											<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
+												<li><a target="_top" href="/tools/BulkloadClassification.cfm">bulkload classifications (taxonomy)</a></li>
+											</cfif>
 											<!----
 											<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
-											---->
+
 											<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
 												<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
 											</cfif>
+
+
+											---->
+
 										</ul>
 									</li>
 								</cfif>

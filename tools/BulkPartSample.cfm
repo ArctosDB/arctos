@@ -1,79 +1,127 @@
 
-	
+
 <!---- relies on table
 
 drop table cf_temp_part_sample;
 
 CREATE TABLE cf_temp_part_sample (
-	r$institution_acronym VARCHAR2(60),
-	r$collection_cde VARCHAR2(60),
-	r$OTHER_ID_TYPE VARCHAR2(60),
- 	r$OTHER_ID_NUMBER VARCHAR2(60),
- 	r$exist_part_name VARCHAR2(60),
-	exist_part_modifier VARCHAR2(60),
-	exist_preserve_method VARCHAR2(60),
-	r$sample_name varchar2(60),
-	sample_modifier varchar2(60),
-	sample_preserve_method varchar2(60),
-	r$sample_disposition VARCHAR2(60),
-	r$sample_condition VARCHAR2(60),
-	r$sample_label varchar2(60),
+	key number,
+	guid varchar2(40),
+	exists_barcode varchar2(40),
+	exists_part VARCHAR2(60),
+	sample_name varchar2(60) not null,
+	sample_disposition VARCHAR2(60) not null,
+	sample_condition VARCHAR2(60) not null,
 	sample_barcode varchar2(60),
+	sample_container_type  varchar2(60),
 	sample_remarks VARCHAR2(60),
-	i$validated_status varchar2(255),
-	r$sample_container_type varchar2(255),
-	i$collection_object_id NUMBER,
-	i$KEY NUMBER NOT NULL,
-	i$exist_part_id number,
-	i$container_id number
+	status varchar2(255),
+	collection_object_id number,
+	exist_part_id number
 	);
-	
-	comment on column cf_temp_part_sample.r$OTHER_ID_TYPE is '"catalog number" is a valid other_id_type';
-	
-alter table cf_temp_part_sample rename column sample_barcode to r$sample_barcode;
+
 
 create or replace public synonym cf_temp_part_sample for cf_temp_part_sample;
 grant all on cf_temp_part_sample to manage_specimens;
 
-CREATE OR REPLACE TRIGGER cf_temp_part_sample_key                                         
- before insert  ON cf_temp_part_sample  
- for each row 
-    begin     
-    	if :NEW.i$key is null then                                                                                      
-    		select somerandomsequence.nextval into :new.i$key from dual;
-    	end if;                                
-    end;                                                                                            
+CREATE OR REPLACE TRIGGER cf_temp_part_sample_key
+ before insert  ON cf_temp_part_sample
+ for each row
+    begin
+    	if :NEW.key is null then
+    		select somerandomsequence.nextval into :new.key from dual;
+    	end if;
+    end;
 /
 sho err
+
+
+
 ---->
 <cfinclude template="/includes/_header.cfm">
+
+
+
 <cfif #action# is "nothing">
 <cfoutput>
-	<cfquery name="template" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select column_name, comments from all_col_comments where lower(table_name) = 'cf_temp_part_sample'
-	</cfquery>
-Step 1: Upload a comma-delimited text file (csv). 
-Include all column headings, spelled exactly as below, or use the following template.
-Columns that begin with r$ are required; others are optional:
-<ul>
-	<cfset cols="">
-	<cfloop query="template">
-		<cfif left(column_name,2) is not 'i$'>
-			<cfset cols=listappend(cols,column_name)>
-			<li <cfif left(column_name,2) is "r$">  style="color:red"</cfif>>#column_name#
-				<cfif len(comments) gt 0>
-					<br><span style="padding-left:20px;font-size:small">#comments#</span></cfif>
-			</li>
-		</cfif>	
-	</cfloop>
-</ul>
-<br>
-	<div id="template">
-		<label for="t">CSV Template</label>
-		<textarea rows="2" cols="80" id="t">#cols#</textarea>
-	</div> 
-<p></p>
-<label for="atts">Upload a CSV file</label>
+
+
+
+	<cfset thecolumns='guid,exists_barcode,exists_part,sample_name,sample_disposition,sample_condition,sample_barcode,sample_container_type,sample_remarks'>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/temp_part_sample.csv"
+	    output = "#header#"
+	    addNewLine = "no">
+
+	<p>
+	Split a part into subsamples, each derived from the parent.
+	</p>
+	<p>
+
+	<a href="/download.cfm?file=temp_part_sample.csv">get the template</a>
+	</p>
+
+	Columns:
+	<table border>
+		<tr>
+			<th>Column</th>
+			<th>Reqd?</th>
+			<th>Wut?</th>
+		</tr>
+		<tr>
+			<td>guid</td>
+			<td>unless exists_barcode</td>
+			<td>Find the part to split by specimen+part name.</td>
+		</tr>
+		<tr>
+			<td>exists_part</td>
+			<td>unless exists_barcode</td>
+			<td>Find the part to split by specimen+part name.</td>
+		</tr>
+		<tr>
+			<td>exists_barcode</td>
+			<td>unless guid+exists_part</td>
+			<td>Find the part to split by part-parent (eg, nunc tube level) barcode. Will overwrite GUID.</td>
+		</tr>
+		<tr>
+			<td>sample_name</td>
+			<td>yes</td>
+			<td>New part. <a href="/info/ctDocumentation.cfm?table=CTSPECIMEN_PART_NAME">CTSPECIMEN_PART_NAME</a></td>
+		</tr>
+		<tr>
+			<td>sample_disposition</td>
+			<td>yes</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OBJ_DISP">CTCOLL_OBJ_DISP</a></td>
+		</tr>
+		<tr>
+			<td>sample_condition</td>
+			<td>yes</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>sample_remarks</td>
+			<td>no</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>sample_barcode</td>
+			<td>no</td>
+			<td>put new part in container</td>
+		</tr>
+
+		<tr>
+			<td>sample_container_type</td>
+			<td>no</td>
+			<td>
+				change sample_barcode container type. USE WITH CAUTION
+				<a href="/info/ctDocumentation.cfm?table=CTCONTAINER_TYPE">CTCONTAINER_TYPE</a>
+			</td>
+		</tr>
+	</table>
+	<ul>
+
+
+<label for="atts">Upload CSV</label>
 <cfform name="atts" method="post" enctype="multipart/form-data" action="BulkPartSample.cfm">
 			<input type="hidden" name="Action" value="getFile">
 			  <input type="file"
@@ -81,174 +129,150 @@ Columns that begin with r$ are required; others are optional:
 		   size="45" onchange="checkCSV(this);">
 			 <input type="submit" value="Upload this file"
 		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'" 
+		onmouseover="this.className='savBtn btnhov'"
 		onmouseout="this.className='savBtn'">
   </cfform>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<!------------------------------------------------------->
-
-<!------------------------------------------------------->
-<cfif #action# is "getFile">
-<cfoutput>
-	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-
-	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-
- <cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from cf_temp_part_sample
-</cfquery>
-
-<cfset colNames="">
-	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
-		<cfset colVals="">
-			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-				<cfset thisBit=arrResult[o][i]>
-				<cfif #o# is 1>
-					<cfset colNames="#colNames#,#thisBit#">
-				<cfelse>
-					<cfset colVals="#colVals#,'#thisBit#'">
-				</cfif>
-			</cfloop>
-		<cfif #o# is 1>
-			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
-		<cfif len(#colVals#) gt 1>
-			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into cf_temp_part_sample (#colNames#) values (#preservesinglequotes(colVals)#)
-			</cfquery>
-		</cfif>
-	</cfloop>
-	<cflocation url="BulkPartSample.cfm?action=validate">
-</cfoutput>
+<cfif action is "getFile">
+	<cfoutput>
+		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cf_temp_part_sample
+		</cfquery>
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+        <cfset  util = CreateObject("component","component.utilities")>
+		<cfset x=util.CSVToQuery(fileContent)>
+        <cfset cols=x.columnlist>
+        <cfloop query="x">
+            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	            insert into cf_temp_part_sample (#cols#) values (
+	            <cfloop list="#cols#" index="i">
+	            	'#stripQuotes(evaluate(i))#'
+	            	<cfif i is not listlast(cols)>
+	            		,
+	            	</cfif>
+	            </cfloop>
+	            )
+            </cfquery>
+        </cfloop>
+		<cflocation url="BulkPartSample.cfm?action=validate" addtoken="false">
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_part_sample
-	</cfquery>
-	<cfloop query="d">
-		<cfset status="">
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from ctspecimen_part_name where part_name='#R$SAMPLE_NAME#' and collection_cde='#R$COLLECTION_CDE#'
-		</cfquery>
-		<cfif bads.c is not 1>
-			<cfset status=listappend(status,'bad R$SAMPLE_NAME')>
-		</cfif>
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from ctspecimen_part_name where part_name='#R$EXIST_PART_NAME#' and collection_cde='#R$COLLECTION_CDE#'
-		</cfquery>
-		<cfif bads.c is not 1>
-			<cfset status=listappend(status,'bad R$EXIST_PART_NAME')>
-		</cfif>
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from CTCOLL_OBJ_DISP where COLL_OBJ_DISPOSITION='#R$SAMPLE_DISPOSITION#'
-		</cfquery>
-		<cfif bads.c is not 1>
-			<cfset status=listappend(status,'bad R$SAMPLE_DISPOSITION')>
-		</cfif>
-		
-		<cfif #R$OTHER_ID_TYPE# is "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT 
-					collection_object_id
-				FROM
-					cataloged_item,
-					collection
-				WHERE
-					cataloged_item.collection_id = collection.collection_id and
-					collection.collection_cde = '#R$COLLECTION_CDE#' and
-					collection.institution_acronym = '#R$INSTITUTION_ACRONYM#' and
-					cat_num=#R$OTHER_ID_NUMBER#
-			</cfquery>
-		<cfelse>
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT 
-					coll_obj_other_id_num.collection_object_id
-				FROM
-					coll_obj_other_id_num,
-					cataloged_item,
-					collection
-				WHERE
-					coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
-					cataloged_item.collection_id = collection.collection_id and
-					collection.collection_cde = '#R$COLLECTION_CDE#' and
-					collection.institution_acronym = '#R$INSTITUTION_ACRONYM#' and
-					other_id_type = '#R$OTHER_ID_TYPE#' and
-					display_value = '#R$OTHER_ID_NUMBER#'
-			</cfquery>
-		</cfif>
-		<cfif collObj.recordcount is 1 and len(collObj.collection_object_id) gt 0>			
-			<cfset cat_item_id=collObj.collection_object_id>
-		<cfelse>
-			<cfset status=listappend(status,'cataloged item not found')>
-			<cfset cat_item_id=-1>
-		</cfif>
-		<cfif len(R$SAMPLE_CONTAINER_TYPE) gt 0>
-			<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) c from ctcontainer_type where container_type='#R$SAMPLE_CONTAINER_TYPE#'
-			</cfquery>
-			<cfif bads.c is not 1>
-				<cfset status=listappend(status,'bad R$SAMPLE_CONTAINER_TYPE')>
-			</cfif>
-		</cfif>
-		<cfif len(R$SAMPLE_LABEL) is 0>
-			<cfset status=listappend(status,'bad R$SAMPLE_LABEL')>
-		</cfif>
-		<cfif len(R$SAMPLE_CONDITION) is 0>
-			<cfset status=listappend(status,'bad R$SAMPLE_CONDITION')>
-		</cfif>
-		<cfquery name="container" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select container_id from container where barcode='#R$SAMPLE_BARCODE#'
-		</cfquery>
-		<cfif container.recordcount is 1 and len(container.container_id) gt 0>
-			<cfset container_id=container.container_id>
-		<cfelse>
-			<cfset container_id=-1>
-			<cfset status=listappend(status,'bad R$SAMPLE_BARCODE')>
-		</cfif>
 
-		<cfquery name="pPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select min(collection_object_id)  collection_object_id
-			from 
-			specimen_part where
-			derived_from_cat_item=#cat_item_id# and
-			part_name='#r$exist_part_name#'
-		</cfquery>
-		<cfif pPart.recordcount is 1 and len(pPart.collection_object_id) gt 0>
-			<cfset partID=pPart.collection_object_id>
-		<cfelse>
-			<cfset partID=-1>
-			<cfset status=listappend(status,'parent part not found')>
-		</cfif>
-		<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_part_sample set
-				i$validated_status='#status#',
-				i$collection_object_id=#cat_item_id#,
-				i$exist_part_id=#partID#,
-				i$container_id=#container_id#
-			where i$KEY = #i$KEY#
-		</cfquery>
-	</cfloop>
+
+		key number,
+	guid varchar2(40),
+	exists_barcode varchar2(40),
+	exists_part VARCHAR2(60),
+	sample_name varchar2(60),
+	sample_disposition VARCHAR2(60),
+	sample_condition VARCHAR2(60),
+	sample_barcode varchar2(60),
+	sample_container_type,
+	sample_remarks VARCHAR2(60),
+	status varchar2(255),
+	collection_object_id number,
+	exist_part_id number,
+	container_id number
+
+
+	<cfquery name="u2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set status='duplicate part' where
+		status is null and
+		cf_temp_part_sample.guid is not null and
+		cf_temp_part_sample.exists_part is not null and
+		(
+			select count(*) from
+				specimen_part,
+				cataloged_item,
+				collection
+				where
+				specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
+				cataloged_item.collection_id=collection.collection_id and
+				collection.guid_prefix || cataloged_item.cat_num = cf_temp_part_sample.guid and
+				specimen_part.part_name=cf_temp_part_sample.exists_part
+		) != 1
+	</cfquery>
+
+	<cfquery name="u2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set status='bad sample_name' where
+		status is null and
+		sample_name not in (select part_name from CTSPECIMEN_PART_NAME)
+	</cfquery>
+	<cfquery name="ue2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set status='bad sample_container_type' where
+		status is null and
+		sample_container_type not in
+		(select container_type from CTCONTAINER_TYPE)
+	</cfquery>
+	<cfquery name="ru2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set status='bad sample_disposition' where
+		status is null and
+		sample_disposition not in
+		(select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP)
+	</cfquery>
+
+
+
+	<cfquery name="u2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set (exist_part_id)=(select specimen_part.collection_object_id from
+		specimen_part,
+		cataloged_item,
+		collection
+		where
+		specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.guid_prefix || cataloged_item.cat_num = cf_temp_part_sample.guid and
+		specimen_part.part_name=cf_temp_part_sample.exists_part
+		) where
+		cf_temp_part_sample.guid is not null and
+		cf_temp_part_sample.exists_part is not null
+	</cfquery>
+	<cfquery name="u13" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set (exist_part_id)=(select specimen_part.collection_object_id from
+		specimen_part,
+		coll_obj_cont_hist,
+		container partc,
+		container bcc
+		where
+		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+		coll_obj_cont_hist.container_id=partc.container_id and
+		partc.parent_container_id = bcc.container_id and
+		bcc.barcode=cf_temp_part_sample.exists_barcode
+		) where
+		cf_temp_part_sample.exists_barcode is not null
+	</cfquery>
+
+
+	<cfquery name="u413" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set 'part not found' where exist_part_id is null
+	</cfquery>
+
+
+	<cfquery name="u413" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_part_sample set 'lot count not 1' where exist_part_id is null
+	</cfquery>
+
+
+
+
+
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_part_sample
+		select * from cf_temp_part_sample where
+			exist_part_id is null or
+			status is not null
 	</cfquery>
-	
-	
-	<cfquery name="b" dbtype="query">
-		select count(*) c from d where i$validated_status is not null
-	</cfquery>
-	<cfif b.c gt 0>
-		You must clean up the #b.recordcount# rows with i$validated_status != NULL in this table before proceeding.
-		<br>
+	<cfif d.recordcount gt 0>
+		Will not load
 		<cfdump var=#d#>
 	<cfelse>
-		<cflocation url="BulkPartSample.cfm?action=loadToDb">
+		<a href="BulkPartSample.cfm?action=loadToDb">continue</a>
 	</cfif>
 
 	<!---
@@ -268,9 +292,9 @@ Columns that begin with r$ are required; others are optional:
 	<cftransaction>
 	<cfloop query="getTempData">
 		<cfquery name="pPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				*
-			from 
+			from
 				specimen_part,
 				coll_object
 			where
@@ -303,7 +327,7 @@ Columns that begin with r$ are required; others are optional:
 					1,
 					'#r$sample_condition#',
 					0
-				)		
+				)
 			</cfquery>
 			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO specimen_part (
@@ -333,7 +357,7 @@ Columns that begin with r$ are required; others are optional:
 			<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set label='#r$sample_label#',
 				container_type='#r$sample_container_type#' where container_id=#i$container_id#
-			</cfquery>	
+			</cfquery>
 		</cfif><!--- parent lot count check --->
 	</cfloop>
 	</cftransaction>
