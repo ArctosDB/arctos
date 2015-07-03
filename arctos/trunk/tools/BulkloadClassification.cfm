@@ -108,6 +108,12 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>
 			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a> and view column descriptions
 		</p>
+
+
+		<p>
+			<a href="BulkloadClassification.cfm?action=getCSV">Download all of your data</a>
+		</p>
+
 		<p>
 			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>
 		</p>
