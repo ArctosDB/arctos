@@ -191,7 +191,6 @@ do not agree</font>.</a>
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-		<cfdump var=#findIDs#>
 		<cfset header = "media_page,media_license,mime_type,media_type,preview_uri,media_uri,relationships,labels,number_tags,coordinates">
 		<cfset fileDir = Application.webDirectory>
 		<cfoutput>

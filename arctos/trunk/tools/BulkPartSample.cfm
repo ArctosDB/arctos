@@ -17,7 +17,8 @@ CREATE TABLE cf_temp_part_sample (
 	sample_remarks VARCHAR2(60),
 	status varchar2(255),
 	collection_object_id number,
-	exist_part_id number
+	exist_part_id number,
+	container_id number
 	);
 
 
@@ -166,23 +167,6 @@ sho err
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-
-
-		key number,
-	guid varchar2(40),
-	exists_barcode varchar2(40),
-	exists_part VARCHAR2(60),
-	sample_name varchar2(60),
-	sample_disposition VARCHAR2(60),
-	sample_condition VARCHAR2(60),
-	sample_barcode varchar2(60),
-	sample_container_type,
-	sample_remarks VARCHAR2(60),
-	status varchar2(255),
-	collection_object_id number,
-	exist_part_id number,
-	container_id number
-
 
 	<cfquery name="u2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_part_sample set status='duplicate part' where
