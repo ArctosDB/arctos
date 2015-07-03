@@ -40,7 +40,7 @@ Make sure any useful changes end up in both places.
 
 <cfoutput>
 	<cfif not isdefined("numberOfNamesOneFetch")>
-		<cfset numberOfNamesOneFetch=100>
+		<cfset numberOfNamesOneFetch=200>
 	</cfif>
 	<cfquery name="checknew" datasource="uam_god">
 		insert into taxon_refresh_log (TAXON_NAME_ID,TAXON_NAME) (
@@ -60,9 +60,14 @@ Make sure any useful changes end up in both places.
 		</cfquery>
 	</cfif>
 	<cfset theseNames=valuelist(d.taxon_name,'|')>
+
+
+
 	<cfloop condition = "theseNames contains chr(215)">
 		<cfset theseNames=listdeleteat(theseNames,ListContainsNoCase(theseNames,chr(215),'|'),"|")>
 	</cfloop>
+
+
 	<cfloop condition = "len(theseNames) gt 6300">
 		<cfset theseNames=listdeleteat(theseNames,listlen(theseNames,"|"),"|")>
 	</cfloop>
@@ -76,13 +81,53 @@ Make sure any useful changes end up in both places.
 
 
 	<cfset theseTaxonNameIds="">
-	<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
+
+
+<!----
+
+---->
+
+
+
+
+	<cfset jsfail=true>
+	<cfloop condition="jsfail is true">
+		<br>coming in loop: jsfail=#jsfail#
+		<p>
+			http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#
+		</p>
+		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
+		<cfif cfhttp.Responseheader.Status contains "500">
+			<cfset theNameThatFailed=listgetat(theseNames,1,'|')>
+			<br>testing for failure: #theNameThatFailed#
+			<cfset theseNames=listdeleteat(theseNames,1,'|')>
+		<cfelse>
+			<cfif isdefined("theNameThatFailed") and len(theNameThatFailed) gt 0>
+				<br>theNameThatFailed: #theNameThatFailed#
+				<cfquery name="FAIL" datasource="uam_god">
+					update taxon_refresh_log set lastfetch=sysdate where taxon_name = '#theNameThatFailed#'
+				</cfquery>
+			</cfif>
+			<cfset jsfail=false>
+		</cfif>
+
+		<br>exitig loop: jsfail=#jsfail#
+	</cfloop>
+
+
+<br>out of the loop here we go!
+
+
 	<cfset x=DeserializeJSON(cfhttp.filecontent)>
 	<cfloop from="1" to="#ArrayLen(x.data)#" index="thisResultIndex">
 		<cfset thisName=listgetat(theseNames,thisResultIndex,"|")>
 		<!----
 			<hr>thisName::::::::::::::::::::::::::: #thisName#
 		---->
+
+
+
+
 		<cfquery name="dfd" dbtype="query">
 			select taxon_name_id from d where taxon_name='#thisName#'
 		</cfquery>
