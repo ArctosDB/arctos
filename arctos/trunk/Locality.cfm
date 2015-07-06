@@ -673,6 +673,7 @@
 	<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
 	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 	</cfinvoke>
+	
 	#contents#
 	<br>
 	<div style="border:5px solid red; background-color:red;">
