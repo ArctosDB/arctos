@@ -1007,8 +1007,7 @@
 	</cfquery>
 	<cfquery name="whatMedia" datasource="uam_god">
   		SELECT
-			count(*) num,
-			media_id
+			distinct(media_id) media_id
 		from
 			media_relations
 		WHERE
@@ -1017,6 +1016,7 @@
 		GROUP BY
 			media_id
 	</cfquery>
+
 	<cfquery name="verifiedSpecs" datasource="uam_god">
 		select
 			count(distinct(collection_object_id)) c
@@ -1045,7 +1045,7 @@
 						</cfloop>
 						<cfif whatMedia.recordcount gt 0>
 							<li>
-								<a target="_top" href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
+								<a target="_top" href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.recordcount# Media records</a>
 							</li>
 						</cfif>
 					</ul>
