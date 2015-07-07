@@ -145,7 +145,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 		<p>
 			The following options are slow, and so are performed asynchronously. Clicking these links simply updates STATUS.
-			Arctos will send daily reminder emails, or check status below.
+			Check status below for progress.
 			<ul>
 				<li>
 					<a href="BulkloadClassification.cfm?action=setstatus&status=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>.

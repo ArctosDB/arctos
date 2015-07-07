@@ -281,7 +281,75 @@
     interval = "600"
     requestTimeOut = "300">
 
+<!----------------------------------------------- classification bulkloader -------------------------------->
+<!--- 
+	checkMeta
+	Purpose: check basic metadata; prepare for processing
+	Cost: low
+	Growth potential: low
+--->
+<cfschedule action = "update"
+    task = "upclass"
+    operation = "HTTPRequest"
+    url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=checkMeta"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "0:05 AM"
+    interval = "3600"
+    requestTimeOut = "60">
+	<!--- 
+	getTID
+	Purpose: get IDs
+	Cost: low
+	Growth potential: low
+--->
+<cfschedule action = "update"
+    task = "upclass"
+    operation = "HTTPRequest"
+    url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=getTID"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "0:15 AM"
+    interval = "3600"
+    requestTimeOut = "60">
+<!--- 
+	getClassificationID
+	Purpose: get IDs
+	Cost: low
+	Growth potential: low
+--->
+<cfschedule action = "update"
+    task = "upclass"
+    operation = "HTTPRequest"
+    url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=getClassificationID"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "0:15 AM"
+    interval = "3600"
+    requestTimeOut = "60">
+<!--- 
+	load
+	Purpose: load classification data
+	Cost: high
+	Growth potential: high
+--->
+<!--- run manually until very sure of consequences ---->
+	
+	
+<!--- 
+	fill_in_the_blanks_from_genus
+	Purpose: fill_in_the_blanks_from_genus (pull species, subspecies, extra genus data)
+	Cost: variable - potentially high
+	Growth potential: low/infrequent
+--->
+<cfschedule action = "update"
+    task = "upclass"
+    operation = "HTTPRequest"
+    url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "0:03 AM"
+    interval = "120"
+    requestTimeOut = "60">
+	
 
+<!----------------------------------------------- /classification bulkloader -------------------------------->
 <!-----------------------------------   sitemaps    ------------------------------------------>
 
 <!--- 
