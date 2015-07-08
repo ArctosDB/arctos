@@ -23,7 +23,7 @@
 	<p>
 		#target#
 	</p>
-	<cfdump var=#c#>
+	<cfdump var=#isus#>
 
 
 	<cfif isus.c is 0>
