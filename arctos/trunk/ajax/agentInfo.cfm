@@ -5,12 +5,12 @@
 			agent_name,
 			agent_type,
 			agent_name_type
-		from 
+		from
 			agent,
 			agent_name
-		where  
+		where
 			agent.agent_id=agent_name.agent_id and
-			agent.agent_id = '#agent_id#' 
+			agent.agent_id = '#agent_id#'
 		order by agent_name
 	</cfquery>
 	<cfquery name="pan" dbtype="query">
@@ -19,19 +19,19 @@
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 		from agent_relations,preferred_agent_name
-		where 	
+		where
 		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
 		agent_relations.agent_id=#agent_id#
 	</cfquery>
 	<cfquery name="r_agent_relations" datasource="uam_god">
-		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
+		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id
 		from agent_relations,preferred_agent_name
-		where 
+		where
 		agent_relations.agent_id=preferred_agent_name.agent_id and
 		RELATED_AGENT_ID=#agent_id#
 	</cfquery>
 	<cfquery name="group_member" datasource="uam_god">
-		select 
+		select
 			agent_name,
 			GROUP_AGENT_ID
 		from
@@ -78,11 +78,11 @@
 						</cfloop>
 					</ul>
 				</div>
-				<a class="docMoreInfo" href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_docMoreWin" onclick="removeHelpDiv();"[ Agent Activity ]</a>
+				<a class="docMoreInfo" target="_blank" href="/info/agentActivity.cfm?agent_id=#agent_id#" onclick="removeHelpDiv();"[ Agent Activity ]</a>
 			</div>
 		</cfsavecontent>
-	</cfoutput>	
-	
+	</cfoutput>
+
 	<cfscript>
         getPageContext().getOut().clearBuffer();
         writeOutput(response);
