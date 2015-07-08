@@ -1254,7 +1254,7 @@ function getLoan(LoanIDFld,LoanNumberFld,loanNumber,collectionID){
 	oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
 	loanpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
 }
-function pickAgentTest(agentIdFld,agentNameFld,name){
+function pickAgentModal(agentIdFld,agentNameFld,name){
 	// semi-experimental jquery modal agent pick
 	// initiated 20140916
 	// if no complaints, replace all picks with this approach

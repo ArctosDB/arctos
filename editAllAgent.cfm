@@ -345,7 +345,7 @@
 					<div>
 						<input type="hidden" name="member_agent_id_#group_member_id#" id="member_agent_id_#group_member_id#" value="#member_agent_id#">
 						<input type="text" name="group_member_#group_member_id#" id="group_member_#group_member_id#" value="#preferred_agent_name#"
-							onchange="pickAgentTest('member_agent_id_#group_member_id#',this.id,this.value); return false;"
+							onchange="pickAgentModal('member_agent_id_#group_member_id#',this.id,this.value); return false;"
 							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 						<input type="button" class="delBtn" onclick="$('##group_member_#group_member_id#').val('DELETE');" value="delete">
 						<a href="/agents.cfm?agent_id=#member_agent_id#">[ agent]</a>
@@ -357,7 +357,7 @@
 				<div class="newRec" id="newGroupMembers">
 					<input type="hidden" name="member_agent_id_new1" id="member_agent_id_new1">
 					<input type="text" name="group_member_new1" id="group_member_new1" class="minput"
-						onchange="pickAgentTest('member_agent_id_new1',this.id,this.value); return false;"
+						onchange="pickAgentModal('member_agent_id_new1',this.id,this.value); return false;"
 						onKeyPress="return noenter(event);" placeholder="new group member">
 				</div>
 			</fieldset>
@@ -492,7 +492,7 @@
 						<td>
 							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
 							<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" value="#agent_name#"
-								onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
+								onchange="pickAgentModal('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
 								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 							<a href="/agents.cfm?agent_id=#related_agent_id#">[ link ]</a>
 						</td>
@@ -529,7 +529,7 @@
 					<td>
 						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
 						<input type="text" name="related_agent_new1" id="related_agent_new1"
-							onchange="pickAgentTest('related_agent_id_new1',this.id,this.value); return false;"
+							onchange="pickAgentModal('related_agent_id_new1',this.id,this.value); return false;"
 							onKeyPress="return noenter(event);" placeholder="pick related agent" class="minput">
 						<input type="button" onclick="addAgentRelationship()" value="add a row">
 					</td>

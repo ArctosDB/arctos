@@ -270,7 +270,7 @@
 								value="#determined_by_agent_id#">
 							<input type="text" name="agent_name_#attribute_id#" id="agent_name_#attribute_id#" class="reqdClr"
 								value="#stripQuotes(agent_name)#" size="50"
-		 						onchange="pickAgentTest('determined_by_agent_id_#attribute_id#',this.id,this.value); return false;"
+		 						onchange="pickAgentModal('determined_by_agent_id_#attribute_id#',this.id,this.value); return false;"
 		  						onKeyPress="return noenter(event);">
 						</td>
 						<td id="attdel_#attribute_id#">
@@ -303,7 +303,7 @@
 						<input type="hidden" name="determined_by_agent_id_new" id="determined_by_agent_id_new">
 
 						<input type="text" name="agent_name_new" id="agent_name_new" size="50"
-							onchange="pickAgentTest('determined_by_agent_id_new',this.id,this.value); return false;"
+							onchange="pickAgentModal('determined_by_agent_id_new',this.id,this.value); return false;"
 							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr">
 
 
