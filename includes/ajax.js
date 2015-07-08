@@ -501,15 +501,6 @@ function openAnnotation(q) {
 		// viewport.init("#annotateDiv");
 	});
 }
-function npPage(offset,rpp,tnid){
-	var stm = "/includes/taxonomy/specTaxMedia.cfm";
-	var v="?Result_Per_Page=" + rpp + "&offset=" + offset + "&taxon_name_id=" + tnid;
-	stm+=v;
-	$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
-	$.get(stm, function(data){
-		$('#specTaxMedia').html(data);
-	});
-}
 function closeAnnotation() {
 	var theDiv;
 	theDiv= document.getElementById('bgDiv');
