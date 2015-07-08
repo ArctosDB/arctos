@@ -26,7 +26,19 @@ Agent Names:
 			</li>
 		</cfloop>
 	</ul>
-
+	<cfif agent.agent_type is "group">
+		<cfquery name="grpagnt" datasource="uam_god">
+			select MEMBER_AGENT_ID,getPreferredAgentName(MEMBER_AGENT_ID) name from group_member where GROUP_AGENT_ID=#agent_id#
+		</cfquery>
+		<p>
+			Group Members:
+			<ul>
+				<cfloop query="grpagnt">
+					<li><a href="/agents.cfm?agent_id=#MEMBER_AGENT_ID#">#name#</a></li>
+				</cfloop>
+			</ul>
+		</p>
+	</cfif>
 	Agent Relationships:
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
