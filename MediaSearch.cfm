@@ -353,7 +353,7 @@
 				<cfelseif right(relationshiptype1,8) is "taxonomy">
 					<cfset tabls = "#tabls#,taxon_name mr_taxonomy1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_taxonomy1.taxon_name_id ">
-					<cfset srch="#srch# AND upper(mr_taxonomy1.scientific_name) like '%#ucase(relationship1)#%' ">
+					<cfset srch="#srch# AND upper(mr_taxonomy1.scientific_name) like '%#ucase(escapeQuotes(relationship1))#%' ">
 				<cfelseif right(relationshiptype1,4) is "accn">
 					<cfset tabls = "#tabls#,accn mr_accn1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_accn1.transaction_id ">
@@ -365,7 +365,7 @@
 				<cfelseif right(relationshiptype1,14) is "cataloged_item">
 					<cfset tabls = "#tabls#,flat mr_cataloged_item1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_cataloged_item1.collection_object_id ">
-					<cfset srch="#srch# AND upper(mr_cataloged_item1.cat_num) || upper(mr_cataloged_item1.scientific_name) like '%#ucase(relationship1)#%' ">
+					<cfset srch="#srch# AND upper(mr_cataloged_item1.cat_num) || upper(mr_cataloged_item1.scientific_name) like '%#ucase(escapeQuotes(relationship1))#%' ">
 				<cfelseif right(relationshiptype1,8) is "locality">
 					<cfset tabls = "#tabls#,locality mr_locality1,geog_auth_rec mr_geog_auth_rec1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_locality1.locality_id and mr_locality1.geog_auth_rec_id=mr_geog_auth_rec1.geog_auth_rec_id">
