@@ -20,13 +20,13 @@
 	<cfset inListItems=listappend(inListItems,required)>
 	<cfset basicCoords="ORIG_LAT_LONG_UNITS,GEOREFERENCE_SOURCE,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,GEOREFERENCE_PROTOCOL,DATUM">
 	<cfset inListItems=listappend(inListItems,basicCoords)>
-	<cfset dms="LATDEG,LATMIN,LATSEC,LATDIR,LONGDEG,LONGMIN,LONGSEC,LONGDIR">
+	<cfset dms="#basicCoords#,LATDEG,LATMIN,LATSEC,LATDIR,LONGDEG,LONGMIN,LONGSEC,LONGDIR">
 	<cfset inListItems=listappend(inListItems,dms)>
-	<cfset ddm="LATDEG,DEC_LAT_MIN,LATDIR,LONGDEG,DEC_LONG_MIN,LONGDIR">
+	<cfset ddm="#basicCoords#,LATDEG,DEC_LAT_MIN,LATDIR,LONGDEG,DEC_LONG_MIN,LONGDIR">
 	<cfset inListItems=listappend(inListItems,ddm)>
-	<cfset dd="DEC_LAT,DEC_LONG">
+	<cfset dd="#basicCoords#,DEC_LAT,DEC_LONG">
 	<cfset inListItems=listappend(inListItems,dd)>
-	<cfset utm="UTM_ZONE,UTM_EW,UTM_NS">
+	<cfset utm="#basicCoords#,UTM_ZONE,UTM_EW,UTM_NS">
 	<cfset inListItems=listappend(inListItems,utm)>
 	<cfset n=5>
 	<cfset oid="CAT_NUM">
@@ -99,51 +99,51 @@
 	</tr>
 	<tr>
 		<td>Required</td>
-		<td><input type="checkbox" name="required" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="required" id="" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Coordinate Meta</td>
-		<td><input type="checkbox" name="basicCoords" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="basicCoords" id="basicCoords" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>DMS Coordinates</td>
-		<td><input type="checkbox" name="dms" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="dms" id="dms" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>DM.m Coordinates</td>
-		<td><input type="checkbox" name="ddm" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="ddm" id="ddm" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>D.d Coordinates</td>
-		<td><input type="checkbox" name="dd" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="dd" id="dd" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>UTM Coordinates</td>
-		<td><input type="checkbox" name="utm" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="utm" id="utm" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Identifiers</td>
-		<td><input type="checkbox" name="oid" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="oid" id="oid" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Agents</td>
-		<td><input type="checkbox" name="coll" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="coll" id="coll" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Parts</td>
-		<td><input type="checkbox" name="part" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="part" id="part"  onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Attributes</td>
-		<td><input type="checkbox" name="attr" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="attr" id="attr" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Geology</td>
-		<td><input type="checkbox" name="geol" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="geol" id="geol"  onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>The Rest</td>
-		<td><input type="checkbox" name="leftovers" onchange="checkList(this.name, this.checked)"></td>
+		<td><input type="checkbox" name="leftovers" id="leftovers" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 </table>
 </form>
@@ -176,6 +176,12 @@
 		}
 	}
 	function checkList(list, v) {
+		console.log(v);
+
+		if (list=='utm' && v===true){
+			$("##basicCoords").prop('checked', true);
+			}
+
 		//console.log('i am checklist');
 		var theList=eval('l_' + list);
 		var a = theList.split(',');
