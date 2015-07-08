@@ -1,6 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 <cf_customizeIFrame>
 <cfif action is "nothing">
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
+	});
+</script>
 	<cfoutput>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
