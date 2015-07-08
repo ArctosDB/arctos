@@ -96,7 +96,7 @@
 								preferred_agent_name.agent_id=agent_name.agent_id and
 								upper(agent_name.agent_name)='#ucase(enteredby)#'
 						</cfquery>
-						
+
 					<tr>
 						<td>#enteredby#</td>
 						<td>#enteredbyContact.agent_name#</td>
@@ -202,6 +202,36 @@
 	</cfquery>
 	There are #c.cnt# records in the <em><strong>staging</strong></em> table.
 	They have not been checked or processed yet.
+	<cfquery name="pmiac" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) as cnt from bulkloader_stage where orig_lat_long_units is null and (
+			DEC_LAT is not null or
+			DEC_LONG is not null or
+			LATDEG is not null or
+			DEC_LAT_MIN is not null or
+			LATMIN is not null or
+			LATSEC is not null or
+			LATDIR is not null or
+			LONGDEG is not null or
+			DEC_LONG_MIN is not null or
+			LONGMIN is not null or
+			LONGSEC is not null or
+			LONGDIR is not null or
+			DATUM is not null or
+			GEOREFERENCE_SOURCE is not null or
+			MAX_ERROR_DISTANCE is not null or
+			MAX_ERROR_UNITS is not null or
+			GEOREFERENCE_PROTOCOL is not null or
+			UTM_ZONE is not null or
+			UTM_EW is not null or
+			UTM_NS is not null
+		)
+	</cfquery>
+	<cfif pmiac.recordcount gt 0>
+		<p>
+			<strong>CAUTION!</strong> There are coordinate data or metadata without orig_lat_long_units in your file.
+			All coordinates are <strong>IGNORED</strong> when orig_lat_long_units is not given.
+		</p>
+	</cfif>
 	<ul>
 		<li>
 			<a href="BulkloadSpecimens.cfm?action=checkStaged" target="_self">Check and load these records</a>.

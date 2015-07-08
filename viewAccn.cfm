@@ -38,13 +38,13 @@
 				estimated_count,
 				trans.is_public_fg
 			FROM
-				trans, 
+				trans,
 				accn,
 				collection
 			WHERE
 				trans.transaction_id = accn.transaction_id AND
 				trans.collection_id=collection.collection_id and
-				trans.transaction_id = 
+				trans.transaction_id =
 				 <cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
 		<cfif d.is_public_fg is not 1>
@@ -55,9 +55,9 @@
 	        <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">[ edit accession ]</a>
 	    </cfif>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				trans_agent_id,
-				trans_agent.agent_id, 
+				trans_agent.agent_id,
 				agent_name,
 				trans_agent_role
 			from
@@ -77,7 +77,7 @@
 		<cfset title="Accession #d.guid_prefix# #d.accn_number#">
 		<br><strong>Obtained by:</strong> #d.accn_type#
 		<br><strong>Status:</strong> #d.accn_status#
-		<br><strong>Received:</strong> 
+		<br><strong>Received:</strong>
 		<cfif len(d.received_date) gt 0>
 			#dateformat(d.received_date,"yyyy-mm-dd")#
 		<cfelse>
@@ -103,7 +103,7 @@
 		</cfif>
 		<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select project_name,niceURL(project_name) pn from project,
-			project_trans where 
+			project_trans where
 			project_trans.project_id =  project.project_id
 			and transaction_id=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
@@ -125,74 +125,10 @@
 			Accession Media
 			<div id="accnMedia"></div>
 		</p>
-		
-		<!----
-		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				media.media_id,
-				preview_uri,
-				media_uri,
-				media_type,
-				label_value,
-				mime_type
-			from 
-				media,
-				media_relations,
-				(select * from media_labels where media_label='description') media_labels
-			where
-				media.media_id=media_labels.media_id (+) and
-				media.media_id=media_relations.media_id and
-				media_relationship like '% accn' and
-				related_primary_key=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
-		</cfquery>
-		<p>
-		<cfif media.recordcount gt 0>
-			Media associated with this accession:
-			<div class="detailBlock">
-	            <span class="detailData">			
-					<div class="thumbs">
-						<div class="thumb_spcr">&nbsp;</div>
-						<cfloop query="media">
-							<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
-								<cfinvokeargument name="preview_uri" value="#preview_uri#">
-								<cfinvokeargument name="media_type" value="#media_type#">
-							</cfinvoke>
-			            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								select
-									media_label,
-									label_value
-								from
-									media_labels
-								where
-									media_id=#media_id#
-							</cfquery>
-							<cfquery name="desc" dbtype="query">
-								select label_value from labels where media_label='description'
-							</cfquery>
-							<cfset alt="Media Preview Image">
-							<cfif desc.recordcount is 1>
-								<cfset alt=desc.label_value>
-							</cfif>
-			               <div class="one_thumb">
-				               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
-			                   	<p>
-									#media_type# (#mime_type#)
-				                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-									<br>#alt#
-								</p>
-							</div>
-						</cfloop>
-						<div class="thumb_spcr">&nbsp;</div>
-					</div>
-		        </span>		
-			</div>
-		<cfelse>
-			There are no Media associated with this accession.
-		</cfif>
-		</p>
-		----->
+
+
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				permit.permit_id,
 				issuedBy.agent_name as IssuedByAgent,
 				issuedTo.agent_name as IssuedToAgent,
@@ -201,11 +137,11 @@
 				exp_date,
 				permit_Num,
 				permit_Type,
-				permit_remarks	
+				permit_remarks
 			FROM
-				permit, 
-				permit_trans, 
-				preferred_agent_name issuedTo, 
+				permit,
+				permit_trans,
+				preferred_agent_name issuedTo,
 				preferred_agent_name issuedBy
 			WHERE
 				permit.permit_id = permit_trans.permit_id AND
@@ -225,7 +161,7 @@
 					<cfelse>
 						<strong>(permit number not issued)</strong>
 					</cfif>
-					<div style="padding-left:2em;">					
+					<div style="padding-left:2em;">
 						<strong>Permit Type:</strong> #permit_Type#
 						<br><strong>Issued To:</strong> #IssuedToAgent#
 						<br><strong>Issued By:</strong> #IssuedByAgent#
@@ -255,11 +191,11 @@
 		</cfif>
 		</p>
 		<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				guid_prefix,
 				collection.collection_id,
 				count(*) c
-			from 
+			from
 				cataloged_item,
 				collection
 			where
@@ -286,7 +222,7 @@
 						[ <a href="/bnhmMaps/bnhmMapData.cfm?accn_trans_id=#transaction_id#&collection_id=#collection_id#">BerkeleyMapper</a> ]
 					</li>
 				</cfloop>
-			</ul>		
+			</ul>
 		<cfelse>
 			There are no specimens associated with this accession.
 		</cfif>
@@ -295,48 +231,7 @@
 			Accession Specimens Media
 			<div id="accnspecmedia"></div>
 		</p>
-		
-		<!----
-		<cfquery name="specMed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				media.media_id,
-				media.preview_uri,
-				media.media_uri,
-				media.media_type,
-				media.mime_type
-			from 
-				cataloged_item,
-				collection,
-				media_relations,
-				media
-			where
-				cataloged_item.collection_id=collection.collection_id and
-				cataloged_item.collection_object_id=media_relations.related_primary_key and
-				media_relations.media_relationship='shows cataloged_item' and
-				media_relations.media_id=media.media_id and
-				cataloged_item.accn_id=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
-		</cfquery>
-		<div class="detailBlock">
-	            <span class="detailData">			
-					<div class="thumbs">
-						<div class="thumb_spcr">&nbsp;</div>
-						<cfloop query="specMed">
-							<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
-								<cfinvokeargument name="preview_uri" value="#preview_uri#">
-								<cfinvokeargument name="media_type" value="#media_type#">
-							</cfinvoke>
-							<div class="one_thumb">
-				               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" class="theThumb"></a>
-			                   	<p>
-									#media_type# (#mime_type#)
-				                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-								</p>
-							</div>
-						</cfloop>
-						<div class="thumb_spcr">&nbsp;</div>
-					</div>
-		        </span>		
-			</div>
-			---->
+
+
 	</cfoutput>
 <cfinclude template="includes/_footer.cfm">
