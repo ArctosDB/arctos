@@ -176,12 +176,9 @@
 		}
 	}
 	function checkList(list, v) {
-		console.log(v);
-
-		if ((list=='utm' || list=='dms') && v===true){
+		if ((list=='utm' || list=='dms'  || list=='ddm'  || list=='dd') && v===true){
 			$("##basicCoords").prop('checked', true);
-			}
-
+		}
 		//console.log('i am checklist');
 		var theList=eval('l_' + list);
 		var a = theList.split(',');
