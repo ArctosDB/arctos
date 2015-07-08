@@ -301,7 +301,7 @@
 					<td id="ann">
 						<input type="hidden" name="determined_by_agent_id_new" id="determined_by_agent_id_new">
 
-						<input type="text" name="agent_name_new" id="agent_name_new" value="#agent_name#"
+						<input type="text" name="agent_name_new" id="agent_name_new" value=""
 							onchange="pickAgentTest('determined_by_agent_id_new',this.id,this.value); return false;"
 							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 
