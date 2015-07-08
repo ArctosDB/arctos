@@ -18,22 +18,12 @@
 	<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from media where upper(trim(media_uri))='#ucase(trim(target))#'
 	</cfquery>
-
-
-	<p>
-		#target#
-	</p>
-	<cfdump var=#isus#>
-
-
 	<cfif isus.c is 0>
 		<p>
 			The Media does not exist at the URL you requested.
 		</p>
 		<cfthrow message = "Media Exit Link: No Match"
 			errorCode = "127002" extendedInfo="There may be a problem with the linked resource: the Media does not exist.">
-
-
 		<cfabort>
 	</cfif>
 

@@ -311,7 +311,7 @@ function displayMedia(idList){
 					theHTML+='<div class="one_thumb">';
 					theHTML+='<audio controls>';
 					theHTML+='<source src="' + r.DATA.media_uri[i] + '" type="audio/mp3">';
-					theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">download</a>';
+					theHTML+='<a href="/media/' + r.DATA.media_id[i] + '?open" target="_blank">download</a>';
 					theHTML+='</audio> ';
 					theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
 				} else {
@@ -322,7 +322,7 @@ function displayMedia(idList){
 						async: false,
 						success: function(result) {
 							theHTML+='<div class="one_thumb">';
-							theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
+							theHTML+='<a href="/media/' + r.DATA.media_id[i] + '?open" target="_blank">';
 							theHTML+='<img src="' + result + '" class="theThumb"></a>';
 							theHTML+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
 							theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
