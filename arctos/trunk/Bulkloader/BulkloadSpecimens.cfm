@@ -226,7 +226,10 @@
 			UTM_NS is not null
 		)
 	</cfquery>
-	<cfif pmiac.recordcount gt 0>
+
+	<cfdump var=#pmiac#>
+
+	<cfif pmiac.cnt gt 0>
 		<p>
 			<strong>CAUTION!</strong> There are coordinate data or metadata without orig_lat_long_units in your file.
 			All coordinates are <strong>IGNORED</strong> when orig_lat_long_units is not given.
