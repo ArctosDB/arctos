@@ -15,16 +15,16 @@
 		select * from publication where publication_id=#publication_id#
 	</cfquery>
 	<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			publication_agent_id,
 			publication_agent.agent_id,
 			agent_name,
 			author_role
-		from 
+		from
 			publication_agent,
-			preferred_agent_name 
-		where 
-			publication_agent.agent_id=preferred_agent_name.agent_id and 
+			preferred_agent_name
+		where
+			publication_agent.agent_id=preferred_agent_name.agent_id and
 			publication_id=#publication_id#
 		order by agent_name
 	</cfquery>
@@ -71,7 +71,7 @@
 					<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
 						<option <cfif pub.is_peer_reviewed_fg is 1> selected="selected" </cfif>value="1">yes</option>
 						<option <cfif pub.is_peer_reviewed_fg is 0> selected="selected" </cfif>value="0">no</option>
-					</select>	
+					</select>
 				</td>
 				<td>
 					<label for="published_year" onclick="getDocs('publication','published_year')" class="likeLink">Published Year</label>
@@ -88,7 +88,7 @@
 		<input type="text" id="pmid" name="pmid" value="#pub.pmid#" size="80">
 		<cfif len(pub.pmid) gt 0>
 			<a class="infoLink external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pub.pmid#">[ open PubMed ]</a>
-		</cfif>			
+		</cfif>
 		<label for="publication_loc">Storage Location</label>
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
 		<label for="publication_remarks">Remark</label>
@@ -156,7 +156,7 @@
 			<input type="hidden" name="numNewAuths" id="numNewAuths" value="#numNewAuths#">
 		</table>
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		    select distinct 
+		    select distinct
 		        media.media_id,
 		        media.media_uri,
 		        media.mime_type,
@@ -198,7 +198,7 @@
 						<cfset alt=desc.label_value>
 					</cfif>
 	               <div class="one_thumb">
-		               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
+		               <a href="/media/#media_id#?open" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
 	                   	<p>
 							#media_type# (#mime_type#)
 		                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
@@ -269,7 +269,7 @@
 				publication_remarks='#escapeQuotes(publication_remarks)#',
 				is_peer_reviewed_fg=#is_peer_reviewed_fg#,
 				doi='#doi#',
-				pmid='#pmid#'				
+				pmid='#pmid#'
 			where publication_id=#publication_id#
 		</cfquery>
 		<cfif len(media_uri) gt 0>
@@ -300,7 +300,7 @@
 				values (#media_id#,'description','#media_desc#')
 			</cfquery>
 		</cfif>
-		
+
 		<cfloop from="1" to="#numberAuthors#" index="n">
 			<cfset publication_agent_id = evaluate("publication_agent_id" & n)>
 			<cfset agent_id = evaluate("agent_id" & n)>
@@ -308,8 +308,8 @@
 			<cfset author_name = evaluate("author_name" & n)>
 			<cfif author_name is "deleted">
 				<cfquery name="delAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from publication_agent where 
-					publication_agent_id=#publication_agent_id# 
+					delete from publication_agent where
+					publication_agent_id=#publication_agent_id#
 				</cfquery>
 			<cfelse>
 				<cfquery name="uAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -317,7 +317,7 @@
 						agent_id=#agent_id#,
 						author_role='#author_role#'
 					where
-						publication_agent_id=#publication_agent_id# 
+						publication_agent_id=#publication_agent_id#
 				</cfquery>
 			</cfif>
 		</cfloop>
@@ -369,7 +369,7 @@
                 if ($(thisel).val().length==0){
                 	msg += this.id + ' is required\n';
                 	$(thisel).addClass('missing');
-                }                
+                }
         	});
         	if (msg.length>0){
         		msg+='You may remove unwanted attributes';
@@ -447,7 +447,7 @@
 							}
 						}
 						$("#doilookup").html(' [ crossref ] ');
-						$("#pmidlookup").html(' [ pubmed ] ');						
+						$("#pmidlookup").html(' [ pubmed ] ');
 					} else {
 						$("#doilookup").text(' [ crossref ] ');
 						$("#pmidlookup").text(' [ pubmed ] ');
@@ -491,7 +491,7 @@
 						<br><span class="infoLink" onclick="superscript('full_citation')">superscript selected text</span>
 						<br><span class="infoLink" onclick="subscript('full_citation')">subscript selected text</span>
 						<br><span class="infoLink" onclick="toProperCase('full_citation')">Proper Case selected text</span>
-						
+
 					</td>
 				</tr>
 			</table>
@@ -513,7 +513,7 @@
 						<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
 							<option value="1">yes</option>
 							<option value="0">no</option>
-						</select>	
+						</select>
 					</td>
 					<td>
 						<label for="published_year" onclick="getDocs('publication','published_year')" class="likeLink">Published Year</label>
@@ -659,7 +659,7 @@
 					label_value)
 				values (#media_id#,'description','#media_desc#')
 			</cfquery>
-		</cfif>					
+		</cfif>
 	</cftransaction>
 	<cflocation url="Publication.cfm?action=edit&publication_id=#pid#" addtoken="false">
 </cfoutput>
