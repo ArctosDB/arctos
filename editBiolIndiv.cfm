@@ -304,7 +304,7 @@
 
 						<input type="text" name="agent_name_new" id="agent_name_new" size="50"
 							onchange="pickAgentTest('determined_by_agent_id_new',this.id,this.value); return false;"
-							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
+							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr">
 
 
 								<!----
