@@ -18,21 +18,7 @@
 		var d='<input type="button" id="rec_' + id + '"	value="undelete" class="savBtn" onclick="undeleteAttribute(' + id + ');">';
 		$("#attdel_" + id).append(d);
 		$("#del_" + id).remove();
-		
-		$("#attribute_value_" + id).toggle();
-		$("#attribute_units_" + id).toggle();
-		$("#attribute_remark_" + id).toggle();
-		$("#determined_date_" + id).toggle();
-		$("#determination_method_" + id).toggle();
-		$("#agent_name_" + id).toggle();
-	}			
-	function undeleteAttribute(id){
-		$("#attribute_type_" + id).val($("#deleted_attribute_type_" + id).val());
-		$("#deleted_attribute_type_" + id).remove();
-		var d='<input type="button" id="del_' + id + '"	value="Delete" class="delBtn" onclick="deleteAttribute(\'' + id + '\');">';
-		$("#attdel_" + id).append(d);
-		$("#rec_" + id).remove();
-		
+
 		$("#attribute_value_" + id).toggle();
 		$("#attribute_units_" + id).toggle();
 		$("#attribute_remark_" + id).toggle();
@@ -40,7 +26,21 @@
 		$("#determination_method_" + id).toggle();
 		$("#agent_name_" + id).toggle();
 	}
-	function populateAttribute(aid) {		
+	function undeleteAttribute(id){
+		$("#attribute_type_" + id).val($("#deleted_attribute_type_" + id).val());
+		$("#deleted_attribute_type_" + id).remove();
+		var d='<input type="button" id="del_' + id + '"	value="Delete" class="delBtn" onclick="deleteAttribute(\'' + id + '\');">';
+		$("#attdel_" + id).append(d);
+		$("#rec_" + id).remove();
+
+		$("#attribute_value_" + id).toggle();
+		$("#attribute_units_" + id).toggle();
+		$("#attribute_remark_" + id).toggle();
+		$("#determined_date_" + id).toggle();
+		$("#determination_method_" + id).toggle();
+		$("#agent_name_" + id).toggle();
+	}
+	function populateAttribute(aid) {
 		jQuery.getJSON("/component/DataEntry.cfc",
 			{
 				method : "getAttCodeTbl",
@@ -51,7 +51,7 @@
 				queryformat : 'column'
 			},
 			success_populateAttribute
-		);	
+		);
 	}
 	function success_populateAttribute (r) {
 		var result=r.DATA;
@@ -79,7 +79,7 @@
 				if(x=='_no_'){
 					x='no';
 				}
-				
+
 				d+='<option value="' + x + '">' + x + '</option>';
 			}
 			d+='</select>';
@@ -114,9 +114,9 @@
 				associated_species,
 				cataloged_item_type,
 				flags,
-				cat_num, 
-				collection.collection_cde, 
-				cataloged_item.collection_object_id collection_object_id, 
+				cat_num,
+				collection.collection_cde,
+				cataloged_item.collection_object_id collection_object_id,
 				ATTRIBUTE_ID,
 				agent_name,
 				determined_by_agent_id,
@@ -126,7 +126,7 @@
 				ATTRIBUTE_REMARK,
 				DETERMINED_DATE,
 				DETERMINATION_METHOD
-			FROM 
+			FROM
 				cataloged_item,
 				collection,
 				attributes,
@@ -136,7 +136,7 @@
 			WHERE
 				cataloged_item.collection_id = collection.collection_id AND
 				cataloged_item.collection_object_id = attributes.collection_object_id (+) AND
-				attributes.determined_by_agent_id = preferred_agent_name.agent_id (+) AND				
+				attributes.determined_by_agent_id = preferred_agent_name.agent_id (+) AND
 				cataloged_item.collection_object_id = coll_object.collection_object_id AND
 				cataloged_item.collection_object_id = coll_object_remark.collection_object_id (+) AND
 				cataloged_item.collection_object_id = #collection_object_id#
@@ -151,7 +151,7 @@
 			select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 		</cfquery>
 		<cfquery name="indiv" dbtype="query">
-			select 
+			select
 				CAT_NUM,
 				cataloged_item_type,
 				collection_cde,
@@ -173,7 +173,7 @@
 		</cfquery>
 		<cfquery name="atts" dbtype="query">
 			select
-				collection_object_id, 
+				collection_object_id,
 				ATTRIBUTE_ID,
 				agent_name,
 				determined_by_agent_id,
@@ -188,7 +188,7 @@
 			where
 				ATTRIBUTE_TYPE is not null
 			group by
-				collection_object_id, 
+				collection_object_id,
 				ATTRIBUTE_ID,
 				agent_name,
 				determined_by_agent_id,
@@ -199,14 +199,14 @@
 				DETERMINED_DATE,
 				DETERMINATION_METHOD
 		</cfquery>
-	
-	
+
+
 		<form name="details" method="post" action="editBiolIndiv.cfm">
 			<input type="hidden" value="save" name="action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
 			<input type="hidden" value="#indiv.collection_cde#" name="collection_cde" id="collection_cde">
     		<table width="100%">
-      			<tr> 
+      			<tr>
 					<td>
 						<label for="flags">Missing</label>
 						<select name="flags" id="flags" size="1">
@@ -259,14 +259,14 @@
 							<input type="text" name="attribute_remark_#attribute_id#" id="attribute_remark_#attribute_id#" value="#stripQuotes(attribute_remark)#">
 						</td>
 						<td id="_determined_date_#attribute_id#">
-							<input type="text" name="determined_date_#attribute_id#" id="determined_date_#attribute_id#" 
+							<input type="text" name="determined_date_#attribute_id#" id="determined_date_#attribute_id#"
 								value="#determined_date#" class="reqdClr" size="12">
 						</td>
 						<td id="_determination_method_#attribute_id#">
 							<input type="text" name="determination_method_#attribute_id#" id="determination_method_#attribute_id#" value="#stripQuotes(determination_method)#">
 						</td>
 						<td id="_agent_name_#attribute_id#">
-							<input type="hidden" name="determined_by_agent_id_#attribute_id#" id="determined_by_agent_id_#attribute_id#" 
+							<input type="hidden" name="determined_by_agent_id_#attribute_id#" id="determined_by_agent_id_#attribute_id#"
 								value="#determined_by_agent_id#">
 							<input type="text" name="agent_name_#attribute_id#" id="agent_name_#attribute_id#" class="reqdClr" value="#stripQuotes(agent_name)#"
 		 						onchange="getAgent('determined_by_agent_id_#attribute_id#',this.id,'details',this.value); return false;"
@@ -300,12 +300,20 @@
 					</td>
 					<td id="ann">
 						<input type="hidden" name="determined_by_agent_id_new" id="determined_by_agent_id_new">
+
+						<input type="text" name="agent_name_new" id="agent_name_new" value="#agent_name#"
+							onchange="pickAgentTest('determined_by_agent_id_new',this.id,this.value); return false;"
+							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
+
+
+								<!----
 						<input type="text" name="agent_name_new" id="agent_name_new" class=""
 	 						onchange="getAgent('determined_by_agent_id_new',this.id,'details',this.value); return false;"
 	  						onKeyPress="return noenter(event);">
+	  						---->
 					</td>
 					<td>
-						
+
 					</td>
 				</tr>
 			</table>
@@ -397,9 +405,9 @@
 				<cfset thisAttributeId = evaluate("attribute_id_" & n)>
 				<cfset thisAttributeType = evaluate("attribute_type_" & thisAttributeId)>
 				<cftry>
-					<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>				
+					<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
 					<cfcatch>
-						<cfset thisAttributeUnits = ''>				
+						<cfset thisAttributeUnits = ''>
 					</cfcatch>
 				</cftry>
 				<cftry>
@@ -426,10 +434,10 @@
 							ATTRIBUTE_REMARK='#thisAttributeRemark#',
 							DETERMINED_DATE='#thisDeterminedDate#',
 							DETERMINATION_METHOD='#thisDeterminationMethod#'
-						WHERE 
+						WHERE
 							attribute_id=#thisAttributeId#
 					</cfquery>
-				</cfif>			
+				</cfif>
 			</cfloop>
 			<!---- mammal grid ----->
 			<cfif isdefined("total_length")>
@@ -576,12 +584,12 @@
 				WHERE collection_object_id = #collection_object_id#
 			</cfquery>
 			<cfquery name="cataloged_item_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cataloged_item set cataloged_item_type='#cataloged_item_type#' where 
+				update cataloged_item set cataloged_item_type='#cataloged_item_type#' where
 				collection_object_id = #collection_object_id#
 			</cfquery>
-			
+
 			<cfquery name="isCORem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select collection_object_id from coll_object_remark where 
+				select collection_object_id from coll_object_remark where
 				collection_object_id = #collection_object_id#
 			</cfquery>
 			<cfif len(isCORem.collection_object_id) gt 0>
@@ -590,7 +598,7 @@
 						collection_object_id = #collection_object_id#
 						,coll_object_remarks = '#coll_object_remarks#'
 						,associated_species = '#associated_species#'
-					WHERE 
+					WHERE
 						collection_object_id = #collection_object_id#
 				</cfquery>
 			<cfelse>
