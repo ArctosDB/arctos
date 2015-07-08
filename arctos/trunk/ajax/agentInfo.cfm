@@ -78,7 +78,7 @@
 						</cfloop>
 					</ul>
 				</div>
-				<a class="docMoreInfo" target="_blank" href="/info/agentActivity.cfm?agent_id=#agent_id#" onclick="removeHelpDiv();"[ Agent Activity ]</a>
+				<a class="docMoreInfo" target="_blank" href="/info/agentActivity.cfm?agent_id=#agent_id#" onclick="removeHelpDiv();">[ Agent Activity ]</a>
 			</div>
 		</cfsavecontent>
 	</cfoutput>
