@@ -178,7 +178,7 @@
 	function checkList(list, v) {
 		console.log(v);
 
-		if (list=='utm' && v===true){
+		if ((list=='utm' || list=='dms') && v===true){
 			$("##basicCoords").prop('checked', true);
 			}
 
