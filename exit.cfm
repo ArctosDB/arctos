@@ -18,6 +18,14 @@
 	<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from media where upper(trim(media_uri))='#ucase(trim(target))#'
 	</cfquery>
+
+
+	<p>
+		#target#
+	</p>
+	<cfdump var=#c#>
+
+
 	<cfif isus.c is 0>
 		<p>
 			The Media does not exist at the URL you requested.
