@@ -1,17 +1,17 @@
 <cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
 	<cfquery name="pubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
+		SELECT
 			publication.publication_id,
 			full_citation,
 			doi,
 			pmid,
 			count(citation.collection_object_id) numCit
-		FROM 
+		FROM
 			project_publication,
 			publication,
 			citation
-		WHERE 
+		WHERE
 			project_publication.publication_id = publication.publication_id AND
 			publication.publication_id=citation.publication_id (+) and
 			project_publication.project_id = #project_id#
@@ -29,7 +29,7 @@
 		<cfset i=1>
 		<cfloop query="pubs">
 			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			    select distinct 
+			    select distinct
 			        media.media_id,
 			        media.media_uri,
 			        media.mime_type,
@@ -52,7 +52,7 @@
 				<ul>
 					<li>
 						<cfif numCit gt 0>
-							<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCit# Cited Specimens</a>				
+							<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCit# Cited Specimens</a>
 						<cfelse>
 							No Citations
 						</cfif>
@@ -86,7 +86,7 @@
 							<cfset alt=desc.label_value>
 						</cfif>
 						<li>
-			               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
+			               <a href="/media/#media_id#?open" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
 		                   	<p>
 								#media_type# (#mime_type#)
 			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
@@ -99,7 +99,6 @@
 		</cfloop>
 	</cfif>
 	</cfoutput>
-	
-	
-	
-	
+
+
+
