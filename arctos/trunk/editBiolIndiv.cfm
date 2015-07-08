@@ -268,8 +268,6 @@
 						<td id="_agent_name_#attribute_id#">
 							<input type="hidden" name="determined_by_agent_id_#attribute_id#" id="determined_by_agent_id_#attribute_id#"
 								value="#determined_by_agent_id#">
-															onchange="pickAgentTest('determined_by_agent_id_new',this.id,this.value); return false;"
-
 							<input type="text" name="agent_name_#attribute_id#" id="agent_name_#attribute_id#" class="reqdClr" value="#stripQuotes(agent_name)#"
 		 						onchange="pickAgentTest('determined_by_agent_id_new',this.id,this.value); return false;"
 		  						onKeyPress="return noenter(event);">
