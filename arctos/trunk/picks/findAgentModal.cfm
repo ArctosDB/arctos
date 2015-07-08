@@ -4,7 +4,7 @@
 	<script>
 		function useAgent(id,str){
 			parent.$("###agentIdFld#").val(id);
-			parent.$("###agentNameFld#").val(str).addClass('goodPick');
+			parent.$("###agentNameFld#").val(str).removeClass(badPick).addClass('goodPick');
 			parent.$(".ui-dialog-titlebar-close").trigger('click');
 		}
 	</script>
@@ -19,10 +19,10 @@
 		<cfabort>
 	</cfif>
 	<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
+		SELECT
 			agent.preferred_agent_name,
-			agent.agent_id 
-		from 
+			agent.agent_id
+		from
 			agent,
 			agent_name
 		where
@@ -32,10 +32,10 @@
 				UPPER(agent_name.agent_name) LIKE '%#ucase(name)#%' or
 				UPPER(agent.preferred_agent_name) LIKE '%#ucase(name)#%'
 			)
-		group by 
+		group by
 			preferred_agent_name,
-			agent.agent_id 
-		order by 
+			agent.agent_id
+		order by
 			preferred_agent_name
 	</cfquery>
 	<cfif getAgentId.recordcount is 1>
@@ -46,7 +46,7 @@
 		</script>
 	 </cfoutput>
 	<cfelseif getAgentId.recordcount is 0>
-		Nothing matched <strong>#name#</strong>. 
+		Nothing matched <strong>#name#</strong>.
 	<cfelse>
 		<cfloop query="getAgentId">
 			<cfset thisName = #replace(preferred_agent_name,"'","\'","all")#>
