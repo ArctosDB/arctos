@@ -273,7 +273,7 @@
       </tr>
 	   <tr>
         <td><div align="right">Count:</div></td>
-        <td><input type="text" name="lot_count" class="reqdClr" size="2"></td>
+        <td><input type="number" min="0" max="9999" name="lot_count" class="reqdClr" size="2"></td>
       </tr>
       <tr>
         <td><div align="right">Disposition:</div></td>
@@ -285,7 +285,7 @@
       </tr>
       <tr>
         <td><div align="right">Condition:</div></td>
-        <td><input type="text" name="condition" class="reqdClr"></td>
+        <td><input type="text" name="condition" class="reqdClr" placeholder="describe item condition"></td>
       </tr>
 	    <tr>
         <td><div align="right">Remarks:</div></td>
