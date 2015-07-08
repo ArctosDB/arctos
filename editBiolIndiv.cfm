@@ -266,10 +266,10 @@
 							<input type="text" name="determination_method_#attribute_id#" id="determination_method_#attribute_id#" value="#stripQuotes(determination_method)#">
 						</td>
 						<td id="_agent_name_#attribute_id#">
-							<input type="hidden" name="determined_by_agent_id_#attribute_id#" id="determined_by_agent_id_#attribute_id#"
+							<input type="text" name="determined_by_agent_id_#attribute_id#" id="determined_by_agent_id_#attribute_id#"
 								value="#determined_by_agent_id#">
 							<input type="text" name="agent_name_#attribute_id#" id="agent_name_#attribute_id#" class="reqdClr" value="#stripQuotes(agent_name)#"
-		 						onchange="pickAgentTest('determined_by_agent_id_new',this.id,this.value); return false;"
+		 						onchange="pickAgentTest('determined_by_agent_id_#attribute_id#',this.id,this.value); return false;"
 		  						onKeyPress="return noenter(event);">
 						</td>
 						<td id="attdel_#attribute_id#">
