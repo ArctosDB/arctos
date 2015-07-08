@@ -73,7 +73,7 @@
 				$("#newProjectAgent").removeClass().prop('required',false);
 				$("#project_agent_role").removeClass().prop('required',false);
 				$("#project_name").removeClass().prop('required',false);
-			}		
+			}
 		});
 	});
 
@@ -203,7 +203,7 @@
 	  			for (a=0; a<data.ROWCOUNT; ++a) {
 					d+='<option value="' + data.DATA.TRANS_AGENT_ROLE[a] + '">'+ data.DATA.TRANS_AGENT_ROLE[a] +'</option>';
 				}
-				d+='</select>';		
+				d+='</select>';
 	  			d+='</td><td>-</td></tr>';
 	  			document.getElementById('numAgents').value=i;
 	  			$('#loanAgents tr:last').after(d);
@@ -411,7 +411,7 @@ just fooling idiot cfclipse into using the right colors
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "editLoan">
 	<cfset title="Edit Loan">
-	
+
 	<style>
 		#thisLoanMediaDiv{
 			max-height:20em;
@@ -639,13 +639,13 @@ just fooling idiot cfclipse into using the right colors
 	</td><!---- end left cell --->
 	<td valign="top"><!---- right cell ---->
 		<strong>Projects associated with this loan:</strong>
-		
+
 		<ul>
 			<cfif projs.recordcount gt 0>
 				<cfloop query="projs">
 					<li>
 						<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a>
-						<span class="infoLink" onclick="removeProjectFromLoan('#transaction_id#','#project_id#');">[ unlink ]</span>	
+						<span class="infoLink" onclick="removeProjectFromLoan('#transaction_id#','#project_id#');">[ unlink ]</span>
 					</li>
 				</cfloop>
 			<cfelse>
@@ -700,8 +700,8 @@ just fooling idiot cfclipse into using the right colors
 		</div>
 	</form>
 	<hr>
-	
-	
+
+
 	<strong>Media associated with this loan</strong>
 		<br>
 		<span class="likeLink" onclick="addMediaHere('#loanDetails.guid_prefix# #loanDetails.loan_number#','#transaction_id#');">
@@ -710,7 +710,7 @@ just fooling idiot cfclipse into using the right colors
 		<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this loan.
 		<div id="mmmsgdiv"></div>
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				media_uri,
 				preview_uri,
 				media_type,
@@ -731,7 +731,7 @@ just fooling idiot cfclipse into using the right colors
 				preview_uri="#media.preview_uri#",
 				media_type="#media.media_type#")>
 				<br>
-				<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#preview#" class="theThumb"></a>
+				<a href="/media/#media_id#?open" target="_blank"><img src="#preview#" class="theThumb"></a>
                   	<p>
 					#media_type# (#mime_type#)
                    	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
@@ -1570,8 +1570,8 @@ just fooling idiot cfclipse into using the right colors
 		<p>
 			#c.c# items have been added.
 		</p>
-		<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Return to Edit Loan</a>	
-		
+		<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Return to Edit Loan</a>
+
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
@@ -1601,7 +1601,7 @@ just fooling idiot cfclipse into using the right colors
 		<p>
 			#c.c# items have been added.
 		</p>
-		<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Return to Edit Loan</a>	
+		<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Return to Edit Loan</a>
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
