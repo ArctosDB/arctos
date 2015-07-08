@@ -43,7 +43,7 @@
 		</cfif>
 
 		<cfif isdefined("open") and open is not false>
-			<cflocation addtoken="false" url="/exit.cfm?target=#findIDs.media_uri#">
+			<cflocation addtoken="false" url="/exit.cfm?target=#urlencodedformat(findIDs.media_uri)#">
 			<cfabort>
 		</cfif>
 
