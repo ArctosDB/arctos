@@ -280,18 +280,18 @@
 					<cfif mime_type is "audio/mpeg3">
 						<audio controls class="audiothumb">
 							<source src="#media_uri#" type="audio/mp3">
-							<a href="/media/#media_id#?show" target="_blank">
+							<a href="/media/#media_id#?open" target="_blank">
 								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
 							</a>
 						</audio>
-						<div><a href="/media/#media_id#?show" download>download MP3</a></div>
+						<div><a href="/media/#media_id#?open" download>download MP3</a></div>
 					<cfelse>
 						<cfif media_type is "multi-page document">
 							<a href="/document.cfm?media_id=#media_id#" target="_blank">
 								<img src="#puri#" altF="#alt_text#" style="max-width:250px;max-height:250px;">
 							</a>
 						<cfelse>
-							<a href="/media/#media_id#?show" target="_blank">
+							<a href="/media/#media_id#?open" target="_blank">
 								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
 							</a>
 						</cfif>
