@@ -4,7 +4,7 @@
 	<script>
 		function useAgent(id,str){
 			parent.$("###agentIdFld#").val(id);
-			parent.$("###agentNameFld#").val(str).removeClass(badPick).addClass('goodPick');
+			parent.$("###agentNameFld#").val(str).removeClass('badPick').addClass('goodPick');
 			parent.$(".ui-dialog-titlebar-close").trigger('click');
 		}
 	</script>
