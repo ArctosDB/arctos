@@ -1,4 +1,25 @@
 <cfcomponent>
+	<!--------------------------------------------------------------------------------------------------------->
+	<cffunction name="downloadSpecimenSummary" access="remote" returnformat="plain">
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfquery name="dla" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from #session.SpecSumTab#
+		</cfquery>
+
+		<cfset csv = util.QueryToCSV2(Query=dla,Fields=dla.columnlist)>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/ArctosSpecimenSummary.csv"
+	    	output = "#csv#"
+	    	addNewLine = "no">
+
+
+	    	<cfreturn 'spiffy go get it bla'>
+	</cffunction>
+
+
+
+	<!--------------------------------------------------------------------------------------------------------->
+
 	<cffunction name="getSpecimenSummary" access="remote" returnformat="plain" queryFormat="column">
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
