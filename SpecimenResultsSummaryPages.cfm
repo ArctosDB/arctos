@@ -167,10 +167,12 @@
 	</cfif>
 	<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols# order by #group_cols#'>
 
+<p>
+		InnerSqlString: #InnerSqlString#
+	</p>
 
 
 	<cfset InnerSqlString = 'create table #session.SpecSrchTab# as ' & InnerSqlString>
-
 
 
 
