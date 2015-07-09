@@ -138,7 +138,7 @@
 		<cfelse>
 			<!--- they grouped by something they did not search by, add it to the specimen-link ---->
 			<br>adding #x#
-			<cfset thisLink=listappend(thisLink,"#x#={value of #x#}","&")>
+			<cfset thisLink=listappend(thisLink,"#x#=' || #pt# || '","&")>
 		</cfif>
 
 
