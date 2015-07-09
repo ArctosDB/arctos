@@ -110,6 +110,9 @@
 		}
 	}
 	function useAgent1(){
+		console.log('using ' + $("#determined_by_agent_id_1").val());
+
+
 		$("#determined_by_agent_id_new").val($("#determined_by_agent_id_1").val());
 		$("#agent_name_new").val($("#agent_name_1").val());
 	}
