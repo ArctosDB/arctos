@@ -15,9 +15,8 @@
 				},
 				function(r) {
 					$("#getDownload").prop('onclick',null).off('click')
-						.text("Click here if your download does not start automatically")
+						.text("Save File")
 						.attr("href",'/download.cfm?file=ArctosSpecimenSummary.csv');
-
 					 window.location='/download.cfm?file=ArctosSpecimenSummary.csv';
 				}
 			);
@@ -124,19 +123,13 @@
 	</cfquery>
 	<p>
 		Found #trc.c# records.
+		<br><a class="likeLink" id="getDownload" onclick="getDownload();">download</a>
+		<br><span class="controlButton"
+			onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">
+			[ Save&nbsp;Search ]</span>
+		<br><a href="/saveSearch.cfm?action=manage">[ view/manage saved searches ]</a>
 	</p>
-		<a class="likeLink" id="getDownload" onclick="getDownload();">download</a>
-
-		<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">[ Save&nbsp;Search ]</span>
-
-	<a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
-
-
 	<script type="text/javascript">
-
-
-
-
 	    $(document).ready(function () {
 			//$("##usertools").menu();
 			//$("##goWhere").menu();
@@ -153,7 +146,7 @@
 				multiselect: true,
 				selectingCheckboxes: false,
   				selecting: true, //Enable selecting
-          		selectingCheckboxes: true, //Show checkboxes on first column
+          		selectingCheckboxes: false, //Show checkboxes on first column
             	selectOnRowClick: false, //Enable this to only select using checkboxes
 				pageSizes: [10, 25, 50, 100, 250, 500,5000],
 				actions: {
