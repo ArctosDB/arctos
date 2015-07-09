@@ -1,5 +1,10 @@
 <cfinclude template = "/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+
+<script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
+
+
+
 <cfset title="Specimen Results Summary">
 <cfif not isdefined("groupBy") or len(groupBy) is 0>
 	<cfset groupBy='scientific_name'>
