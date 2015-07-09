@@ -109,7 +109,7 @@
 			$("#attribute_value" + aid).val($("#val" + aid).val());
 		}
 	}
-	funtion useAgent1(){
+	function useAgent1(){
 		$("#determined_by_agent_id_new").val("#determined_by_agent_id_1").val();
 		$("#agent_name_new").val("#agent_name_1").val();
 	}
