@@ -14,8 +14,8 @@
 					returnformat : "json"
 				},
 				function(r) {
-					$("#getDownload").prop('onclick',null).off('click')\
-						.text("Click here if your download does not start automatically")\
+					$("#getDownload").prop('onclick',null).off('click')
+						.text("Click here if your download does not start automatically")
 						.attr("href",'/download.cfm?file=ArctosSpecimenSummary.csv');
 
 					 window.location='/download.cfm?file=ArctosSpecimenSummary.csv';
