@@ -138,6 +138,8 @@
 	<cfif right(thisLink,5) is " || '">
 		<cfset thisLink=left(thisLink,len(thisLink)-5)>
 	</cfif>
+
+	<cfset thisLink="'" & thisLInk>
 	<p>
 		thisLink: #thisLink#
 	</p>
@@ -145,8 +147,12 @@
 
 
 
-
+<!---- no group necessary here ?
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by #prefixed_cols#">
+---->
+
+<br>basSelect: #basSelect#
+	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
 
 <cfset checkSql(SqlString)>
 
