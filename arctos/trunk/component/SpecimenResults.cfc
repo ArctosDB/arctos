@@ -25,7 +25,6 @@
 			<cfloop query="d">
 				<cfset trow="">
 				<cfloop list="#d.columnlist#" index="i">
-					<p>#i#</p>
 					<cfset theData=evaluate("d." & i)>
 					<cfset theData=obj.jsonEscape(theData)>
 						<cfif i is "LINKTOSPECIMENS">
@@ -36,7 +35,6 @@
 						<cfset temp = '"#i#":"' & theData & '"'>
 					</cfif>
 
-					<cfset temp = '"#i#":"' & theData & '"'>
 					<cfset trow=listappend(trow,temp)>
 				</cfloop>
 				<cfset trow="{" & trow & "}">
