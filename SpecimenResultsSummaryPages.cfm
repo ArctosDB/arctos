@@ -110,7 +110,7 @@
 	              fields:  {
 					 COUNTOFCATALOGEDITEM:{title: 'Count'},
 					 	<cfset thisLoopNum=1>
-					 	<cfset numFlds=listlen(group_cols) + 1>
+					 	<cfset numFlds=listlen(group_cols)>
 						<cfloop list="#group_cols#" index="col">
 
 							<cfif col is "phylclass">
