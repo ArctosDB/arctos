@@ -27,7 +27,13 @@
 				<cfloop list="#d.columnlist#" index="i">
 					<cfset theData=evaluate("d." & i)>
 					<cfset theData=obj.jsonEscape(theData)>
+						<cfif i is "guid">
 
+                            <cfset temp ='"LINKTOSPECIMENS":"><a target=\"_blank\" href=\"/SpecimenResults.cfm?/' & theData &'\">clickypop</a>"'>
+
+					<cfelse>
+						<cfset temp = '"#i#":"' & theData & '"'>
+					</cfif>
 
 					<cfset temp = '"#i#":"' & theData & '"'>
 					<cfset trow=listappend(trow,temp)>
