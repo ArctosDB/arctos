@@ -80,7 +80,6 @@
 
 
 
-<CFABORT>
 
 	<script type="text/javascript">
 	    $(document).ready(function () {
@@ -106,34 +105,33 @@
 	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
 	            },
 	              fields:  {
-					 COLLECTION_OBJECT_ID: {
-	                    key: true,
-	                    create: false,
-	                    edit: false,
-	                    list: false
-	                },
-						<cfloop list="#group_cols#" index="x">
-							<cfif x is "phylclass">
+					 COUNTOFCATALOGEDITEM:{title: 'Count'},
+					 	<cfset thisLoopNum=1>
+					 	<cfset numFlds=listlen(group_cols) + 1>
+						<cfloop list="#group_cols#" index="col">
+
+							<cfif col is "phylclass">
 								<cfset x="Class">
-							<cfelseif x is "phylorder">
+							<cfelseif col is "phylorder">
 								<cfset x="Order">
-							<cfelseif x is "scientific_name">
+							<cfelseif col is "scientific_name">
 								<cfset x="ScientificName">
-							<cfelseif x is "formatted_scientific_name">
+							<cfelseif col is "formatted_scientific_name">
 								<cfset x="FormattedScientificName">
-							<cfelseif x is "state_prov">
+							<cfelseif col is "state_prov">
 								<cfset x="StateOrProvince">
-							<cfelseif x is "island_group">
+							<cfelseif col is "island_group">
 								<cfset x="IslandGroup">
-							<cfelseif x is "spec_locality">
+							<cfelseif col is "spec_locality">
 								<cfset x="SpecificLocality">
-							<cfelseif x is "continent_ocean">
+							<cfelseif col is "continent_ocean">
 								<cfset x="ContinentOrOcean">
 							<cfelse>
-								<cfset x=toProperCase(x)>
+								<cfset x=toProperCase(col)>
 							</cfif>
-							<cfset dlqcols=listAppend(dlqcols,x)>
-							<th>#x#</th>
+							#ucase(COL)#: {title: '#x#'}
+							<cfif thisLoopNum lt numFlds>,</cfif>
+							<cfset thisLoopNum=thisLoopNum+1>
 						</cfloop>
 
 <!----
@@ -141,7 +139,7 @@
 						#ucase(COL)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
 						<cfif thisLoopNum lt numFlds>,</cfif>
-						<cfset thisLoopNum=thisLoopNum+1>
+
 
 						----->
 	            }
