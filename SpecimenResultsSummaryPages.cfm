@@ -56,7 +56,9 @@
 	</cftry>
 
 	<cfset InnerSqlString = 'create table #session.SpecSrchTab# as ' & InnerSqlString>
-
+	<p>
+		InnerSqlString: #InnerSqlString#
+	</p>
 
 	<p>
 		prefixed_cols: #prefixed_cols#
@@ -103,8 +105,39 @@
 				actions: {
 	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
 	            },
-	            fields:  {
-					<cfloop LIST="#prefixed_cols#" INDEX="COL">
+	              fields:  {
+					 COLLECTION_OBJECT_ID: {
+	                    key: true,
+	                    create: false,
+	                    edit: false,
+	                    list: false
+	                },
+						<cfloop list="#group_cols#" index="x">
+							<cfif x is "phylclass">
+								<cfset x="Class">
+							<cfelseif x is "phylorder">
+								<cfset x="Order">
+							<cfelseif x is "scientific_name">
+								<cfset x="ScientificName">
+							<cfelseif x is "formatted_scientific_name">
+								<cfset x="FormattedScientificName">
+							<cfelseif x is "state_prov">
+								<cfset x="StateOrProvince">
+							<cfelseif x is "island_group">
+								<cfset x="IslandGroup">
+							<cfelseif x is "spec_locality">
+								<cfset x="SpecificLocality">
+							<cfelseif x is "continent_ocean">
+								<cfset x="ContinentOrOcean">
+							<cfelse>
+								<cfset x=toProperCase(x)>
+							</cfif>
+							<cfset dlqcols=listAppend(dlqcols,x)>
+							<th>#x#</th>
+						</cfloop>
+
+
+
 						#ucase(COL)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
 						<cfif thisLoopNum lt numFlds>,</cfif>
