@@ -74,6 +74,9 @@
 		#preserveSingleQuotes(InnerSqlString)#
 	</cfquery>
 
+	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from #session.SpecSrchTab#
+	</cfquery>
 	<p>
 		made table
 	</p>
