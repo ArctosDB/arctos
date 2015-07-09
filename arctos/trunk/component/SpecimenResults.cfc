@@ -21,11 +21,10 @@
 					<cfif thisci lt numcols>,</cfif>
 					<cfset thisci=thisci+1>
 				</cfloop>
-			 from #session.SpecSumTab# where 1=2
+			 from #session.SpecSumTab#
 		</cfquery>
 
 
-<cfdump var=#dla#>
 
 
 
