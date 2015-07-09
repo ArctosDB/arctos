@@ -112,12 +112,8 @@
 	function useAgent1(){
 		var theName=$("input[id^='agent_name_']").first().val();
 		var theID=$("input[id^='determined_by_agent_id_']").first().val();
-
-		console.log('using ' + theName + '; ' + theID);
-
-
-		$("#determined_by_agent_id_new").val($("#determined_by_agent_id_1").val());
-		$("#agent_name_new").val($("#agent_name_1").val());
+		$("#determined_by_agent_id_new").val(theName);
+		$("#agent_name_new").val(theID);
 	}
 </script>
 <cfif action is "nothing">
