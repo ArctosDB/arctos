@@ -42,7 +42,6 @@
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
-	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by #prefixed_cols#">
 
 
 	<p>
@@ -75,14 +74,7 @@
 		<font color="##FF0000" size="+2">You must enter some search criteria!</font>
 		<cfabort>
 	</cfif>
-	<cfset checkSql(SqlString)>
-	<cftry>
-		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			drop table #session.SpecSrchTab#
-		</cfquery>
-		<cfcatch><!--- not there, so what? --->
-		</cfcatch>
-	</cftry>
+
 
 
 
@@ -157,7 +149,9 @@
 
 
 
+	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by #prefixed_cols#">
 
+<cfset checkSql(SqlString)>
 
 
 <cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, '>
@@ -175,7 +169,13 @@
 
 
 
-
+<cftry>
+		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			drop table #session.SpecSrchTab#
+		</cfquery>
+		<cfcatch><!--- not there, so what? --->
+		</cfcatch>
+	</cftry>
 	<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(InnerSqlString)#
 	</cfquery>
