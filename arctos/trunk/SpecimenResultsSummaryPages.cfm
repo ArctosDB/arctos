@@ -224,6 +224,7 @@
 	            },
 	              fields:  {
 					 COUNTOFCATALOGEDITEM:{title: 'Count'},
+					 LINKTOSPECIMENS:{title: 'Link'},
 					 	<cfset thisLoopNum=1>
 					 	<cfset numFlds=listlen(group_cols)>
 						<cfloop list="#group_cols#" index="col">
