@@ -44,9 +44,6 @@
 	<cfinclude template="includes/SearchSql.cfm">
 
 
-	<p>
-		SqlString: #SqlString#
-	</p>
 
 
 	<cfset group_cols = groupBy>
