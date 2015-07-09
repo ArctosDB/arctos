@@ -277,7 +277,7 @@
 	<cfset qual = "#qual# AND upper(quad) LIKE '%#ucase(quad)#%'">
 </cfif>
 <cfif isdefined("feature") and len(#feature#) gt 0>
-	<cfset qual = "#qual# AND feature = '#feature#'">
+	<cfset qual = "#qual# AND feature = '#escapeQuotes(feature)#'">
 </cfif>
 <cfif isdefined("island_group") and len(#island_group#) gt 0>
 	<cfset qual = "#qual# AND island_group = '#island_group#'">
