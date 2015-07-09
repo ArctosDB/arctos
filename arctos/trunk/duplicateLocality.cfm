@@ -233,7 +233,7 @@
                             </cfif>
                             and
                             <cfif len(LOCALITY_REMARKS) gt 0>
-                             LOCALITY_REMARKS='#LOCALITY_REMARKS#'
+                             LOCALITY_REMARKS='#escapeQuotes(LOCALITY_REMARKS)#'
                             <cfelse>
                                 LOCALITY_REMARKS is null
                             </cfif>
