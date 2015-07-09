@@ -112,8 +112,10 @@
 	function useAgent1(){
 		var theName=$("input[id^='agent_name_']").first().val();
 		var theID=$("input[id^='determined_by_agent_id_']").first().val();
+		var theDate=$("input[id^='determined_date_']").first().val();
 		$("#determined_by_agent_id_new").val(theID);
-		$("#agent_name_new").val(theName);
+		$("#agent_name_new").val(theName).removeClass('badPick').addClass('goodPick');
+		$("#determined_date_new").val(theDate);
 	}
 </script>
 <cfif action is "nothing">
@@ -326,7 +328,7 @@
 	  						---->
 					</td>
 					<td>
-						<span onclick="useAgent1()" class="infolink">[use Agent1]</span>
+						<span onclick="useAgent1()" class="infolink">[use Agent1/Date1]</span>
 					</td>
 				</tr>
 			</table>
