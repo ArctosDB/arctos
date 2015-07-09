@@ -24,6 +24,11 @@
 			 from #session.SpecSumTab# where 1=2
 		</cfquery>
 
+
+<cfdump var=#dla#>
+
+
+
 		<cfset csv = util.QueryToCSV2(Query=dla,Fields=dla.columnlist)>
 		<cffile action = "write"
 		    file = "#Application.webDirectory#/download/ArctosSpecimenSummary.csv"
