@@ -20,14 +20,7 @@
 		<p>#x#</p>
 		<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
 		<cfif x is not "collection_object_id">
-			<p>isnot</p>
-			<p>
-				beforespcols: #spcols#
-			</p>
 			<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
-			<p>
-				afterspcols: #spcols#
-			</p>
 		</cfif>
 	</cfloop>
 
@@ -125,7 +118,10 @@
 		<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 	</cfif>
 	<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
-	<cfloop list="#prefixed_cols#" index="x">
+
+
+
+	<cfloop list="#spcols#" index="x">
 		<cfif thisLink contains x>
 			<!---
 				they searched for something that they also grouped by
@@ -133,11 +129,13 @@
 				ADD the thing grouped (eg, more specific)
 			---->
 			<!--- replace search terms with stuff here ---->
+			<br>removing #x#
 			<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
 			<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 			<cfset thisLink=listappend(thisLink,"#x#={value of #x#}","&")>
 		<cfelse>
 			<!--- they grouped by something they did not search by, add it to the specimen-link ---->
+			<br>adding #x#
 			<cfset thisLink=listappend(thisLink,"#x#={value of #x#}","&")>
 		</cfif>
 
