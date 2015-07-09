@@ -39,9 +39,9 @@ END;
 </cfif>
 <!------------------------------------------------------------------------>
 <cfif action is "merge">
-	<cfoutput>		
+	<cfoutput>
 		<cfquery name="bads" datasource="uam_god">
-			select 
+			select
 				cf_dup_agent.cf_dup_agent_id,
 				agent_relations.AGENT_ID,
 				agent_relations.RELATED_AGENT_ID,
@@ -53,7 +53,7 @@ END;
 				agent_relations,
 				cf_dup_agent
 			where
-				AGENT_RELATIONSHIP='bad duplicate of' and 
+				AGENT_RELATIONSHIP='bad duplicate of' and
 				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
 				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
 				status='pass_email_sent' and
@@ -62,30 +62,30 @@ END;
 		<cfloop query="bads">
 			#cf_dup_agent_id#<br>
 			<cftransaction>
-				<cftry>				
+				<cftry>
 					<!--- if there are non-electronic addresses, merge them and update shipments ---->
 					<cfquery name="addr" datasource="uam_god">
-						select 
+						select
 							*
-						from 
-							address 
-						where 
+						from
+							address
+						where
 							agent_id=#bads.agent_id#
 					</cfquery>
-					
-					
-					
-					
-					
+
+
+
+
+
 					<cfloop query="addr">
 						<br>got some addresses.....
 						<!--- see if there's a functional duplicate ---->
 						<cfquery name="goodHasDupAddr" datasource="uam_god">
-							select 
-								min(address_id) address_id 
-							from 
-								address 
-							where 
+							select
+								min(address_id) address_id
+							from
+								address
+							where
 								agent_id=#bads.RELATED_AGENT_ID# and
 								address='#address#'
 						</cfquery>
@@ -119,8 +119,8 @@ END;
 									'#escapequotes(addr.ADDRESS_REMARK)#'
 								)
 							</cfquery>
-							
-							
+
+
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.address_id#
 							</cfquery>
@@ -131,15 +131,15 @@ END;
 							</cfquery>
 						</cfif>
 					</cfloop>
-					
+
 					<br>							delete from address where  agent_id=#bads.agent_id#
 
 					<cfquery name="address" datasource="uam_god">
 							delete from address where  agent_id=#bads.agent_id#
 						</cfquery>
 
-					
-					
+
+
 					<!--- grab old collectors ---->
 					<cfquery name="verbatim_collector" datasource="uam_god">
 						insert into attributes (
@@ -156,25 +156,25 @@ END;
 								COLLECTION_OBJECT_ID,
 								#bads.CREATED_BY_AGENT_ID#,
 								'verbatim collector',
-								'#escapeQuotes(bads.agent_pref_name)#', 
+								'#escapeQuotes(bads.agent_pref_name)#',
 								'Automated insertion from agent merger process - #escapeQuotes(bads.agent_pref_name)# --> #escapeQuotes(bads.rel_agent_pref_name)# for collector role ' || COLLECTOR_ROLE,
 								sysdate
 							from
 								collector
-							where 
+							where
 								agent_id=#bads.agent_id#
 						)
 					</cfquery>
 					<!--- avoid unique constraint ---->
 					<cfquery name="collector_conflict" datasource="uam_god">
-						delete from collector where agent_id=#bads.agent_id# and collection_object_id in 
+						delete from collector where agent_id=#bads.agent_id# and collection_object_id in
 						(select collection_object_id from collector where agent_id=#bads.related_agent_id#)
 					</cfquery>
 					<cfquery name="collector" datasource="uam_god">
 						UPDATE collector SET agent_id = #bads.related_agent_id#
 						WHERE agent_id = #bads.agent_id#
 					</cfquery>
-					
+
 					got collector<br><cfflush>
 					<cfquery name="attributes" datasource="uam_god">
 						update attributes SET determined_by_agent_id=#bads.related_agent_id#
@@ -182,24 +182,24 @@ END;
 					</cfquery>
 					got attributes<br><cfflush>
 					<cfquery name="mediarc" datasource="uam_god">
-						UPDATE 
+						UPDATE
 						media_relations SET CREATED_BY_AGENT_ID=#bads.related_agent_id#
 						where CREATED_BY_AGENT_ID=#bads.agent_id#
 					</cfquery>
 					got media 1<br><cfflush>
 					<cfquery name="mediard" datasource="uam_god">
-						UPDATE 
-							media_relations 
+						UPDATE
+							media_relations
 						SET RELATED_PRIMARY_KEY=#bads.related_agent_id#
 						where RELATED_PRIMARY_KEY=#bads.agent_id# and
 						upper(SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1))='AGENT'
 					</cfquery>
 					got media 2<br><cfflush>
 					<cfquery name="medialbl" datasource="uam_god">
-						UPDATE 
-							media_labels 
+						UPDATE
+							media_labels
 						SET ASSIGNED_BY_AGENT_ID=#bads.related_agent_id#
-						where ASSIGNED_BY_AGENT_ID=#bads.agent_id# 
+						where ASSIGNED_BY_AGENT_ID=#bads.agent_id#
 					</cfquery>
 					got media label<br><cfflush>
 					<cfquery name="encumbrance" datasource="uam_god">
@@ -215,7 +215,7 @@ END;
 					got ID agnt<br><cfflush>
 					<cfquery name="specimen_event" datasource="uam_god">
 						update
-						specimen_event set 
+						specimen_event set
 						ASSIGNED_BY_AGENT_ID = #bads.related_agent_id# where
 						ASSIGNED_BY_AGENT_ID = #bads.agent_id#
 					</cfquery>
@@ -246,7 +246,7 @@ END;
 					</cfquery>
 					got permit<br><cfflush>
 					<cfquery name="shipment" datasource="uam_god">
-						update shipment set 
+						update shipment set
 						PACKED_BY_AGENT_ID = #bads.related_agent_id# where
 						PACKED_BY_AGENT_ID = #bads.agent_id#
 					</cfquery>
@@ -268,7 +268,7 @@ END;
 						RECONCILED_BY_PERSON_ID = #bads.related_agent_id# where
 						RECONCILED_BY_PERSON_ID = #bads.agent_id#
 					</cfquery>
-					
+
 					<cfquery name="media_relations" datasource="uam_god">
 						update media_relations set
 						RELATED_PRIMARY_KEY = #bads.related_agent_id# where
@@ -309,27 +309,27 @@ END;
 						agent_id = #bads.related_agent_id# where
 						agent_id = #bads.agent_id#
 					</cfquery>
-					
-					
+
+
 					<cfquery name="project_agent" datasource="uam_god">
 						update project_agent set
 						agent_id = #bads.related_agent_id# where
 						agent_id = #bads.agent_id#
 					</cfquery>
-					
+
 
 					got project_agent<br><cfflush>
-				
-				
-				
+
+
+
 					<cfquery name="agent_status" datasource="uam_god">
 						update agent_status set
 						agent_id = #bads.related_agent_id# where
 						agent_id = #bads.agent_id#
 					</cfquery>
 					got agent_status<br><cfflush>
-				
-			
+
+
 
 
 
@@ -341,19 +341,19 @@ END;
 						DELETE FROM agent_name WHERE agent_id = #bads.agent_id#
 					</cfquery>
 					del agntname<br><cfflush>
-					
-					
+
+
 					<cfquery name="killagent" datasource="uam_god">
 						DELETE FROM agent WHERE agent_id = #bads.agent_id#
 					</cfquery>
 					del agnt<br><cfflush>
-					
+
 					<!--- send email & mark as merged --->
-					
+
 					<cfquery name="sentEmail" datasource="uam_god">
-						update 
+						update
 							cf_dup_agent
-						set 
+						set
 							status='merged',
 							last_date=sysdate
 						where
@@ -367,7 +367,7 @@ END;
 					<cfelse>
 						<cfset mailto=Application.DataProblemReportEmail>
 					</cfif>
-					
+
 					<cfif isdefined("Application.version") and  Application.version is "prod">
 						<cfset subj="agent merger success">
 						<cfset maddr=mailto>
@@ -377,7 +377,7 @@ END;
 						<cfset subj="TEST PLEASE IGNORE: agent merger success">
 						<cfset testinclude=mailto>
 					</cfif>
-				
+
 					<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 
 
@@ -385,19 +385,19 @@ END;
 						<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 						#testinclude#
 					</cfmail>
-					
+
 					.........commit...
 					<cfcatch>
 					.........rollback...
 						<cftransaction action="rollback">
 							<cfdump var=#cfcatch#>
-							
-							
+
+
 							<!-----
 							<cfquery name="sentEmail" datasource="uam_god">
-								update 
+								update
 									cf_dup_agent
-								set 
+								set
 									status='catch: #cfcatch.message#',
 									last_date=sysdate
 								where
@@ -406,18 +406,18 @@ END;
 							<cfmail to="#Application.PageProblemEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
 								<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
 								<br>
-								
+
 								cleanup SQL: update cf_dup_agent set last_date=sysdate-8,status='pass_email_sent' where AGENT_ID=#bads.agent_id#;
 								<br>cfcatch dump follows.
 								<br>
 								<cfdump var=#cfcatch#>
 							</cfmail>
 							----->
-							
+
 							<cfmail to="#Application.bugReportEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
 								<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
 								<br>
-								
+
 								cleanup SQL: update cf_dup_agent set last_date=sysdate-8,status='pass_email_sent' where AGENT_ID=#bads.agent_id#;
 								<br>cfcatch dump follows.
 								<br>
@@ -426,22 +426,22 @@ END;
 					</cfcatch>
 					</cftry>
 				</cftransaction>
-				
-				
-				
-				
+
+
+
+
 			<!-----
 			<cftry>
-			
+
 				<cfcatch>
 					<cfset s='merged_failed: #cfcatch.message#: #cfcatch.detail#'>1
 					<cfquery name="disableTrig" datasource="uam_god">
 						alter trigger TR_AGENT_NAME_BIUD enable
 					</cfquery>
 					<cfquery name="sentEmail" datasource="uam_god">
-						update 
+						update
 							cf_dup_agent
-						set 
+						set
 							status='#escapeQuotes(left(s,250))#',
 							last_date=sysdate
 						where
@@ -452,8 +452,8 @@ END;
 				</cftry>
 				---->
 		</cfloop>
-		
-		
+
+
 <!---------- have to disable triggers outside the transaction --
 
 
@@ -470,24 +470,24 @@ END;
 
 ---------------->
 
-	
+
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------>
 <cfif action is "findDups">
 	<cfquery name="findDups" datasource="uam_god">
-		select 
+		select
 			agent_relations.AGENT_ID,
 			agent_relations.RELATED_AGENT_ID
 		from
 			agent_relations,
 			cf_dup_agent
 		where
-			AGENT_RELATIONSHIP='bad duplicate of' and 
+			AGENT_RELATIONSHIP='bad duplicate of' and
 			agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID (+) and
 			 agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID (+) and
 			cf_dup_agent.AGENT_ID is null and
-			cf_dup_agent.RELATED_AGENT_ID is null	
+			cf_dup_agent.RELATED_AGENT_ID is null
 	</cfquery>
 	<cfdump var=#findDups#>
 	<cfloop query="findDups">
@@ -516,7 +516,7 @@ END;
 <cfif action is "notify">
 	<cfoutput>
 		<cfquery name="findDups" datasource="uam_god">
-			select 
+			select
 				cf_dup_agent.cf_dup_agent_id,
 				agent_relations.AGENT_ID,
 				agent_relations.RELATED_AGENT_ID,
@@ -530,7 +530,7 @@ END;
 				agent_relations,
 				cf_dup_agent
 			where
-				AGENT_RELATIONSHIP='bad duplicate of' and 
+				AGENT_RELATIONSHIP='bad duplicate of' and
 				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
 				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
 				(
@@ -545,17 +545,17 @@ END;
 				<cfinvokeargument name="agent_id" value="#theseAgents#">
 			</cfinvoke>
 			<cfquery name="agent_relations" datasource="uam_god">
-				select count(*) cnt from agent_relations where 
+				select count(*) cnt from agent_relations where
 					(agent_id=#findDups.agent_id# OR related_agent_id = #findDups.agent_id#)
 					AND NOT (
 					(related_agent_id = #findDups.related_agent_id# AND agent_id = #findDups.agent_id# AND agent_relationship = 'bad duplicate of')
 					OR (related_agent_id = #findDups.agent_id# AND agent_id = #findDups.related_agent_id# AND agent_relationship = 'good duplicate of')
 					)
 			</cfquery>
-			
-			
+
+
 			<!--------------------->
-			
+
 			<cfif isdefined("Application.version") and  Application.version is "prod">
 				<cfset subj="agents marked for merge">
 				<cfset maddr=valuelist(colns.address)>
@@ -565,31 +565,24 @@ END;
 				<cfset subj="TEST PLEASE IGNORE: agents marked for merge">
 				<cfset testinclude=valuelist(colns.address)>
 			</cfif>
-			
-			
+
+
 			<cfmail to="#Application.DataProblemReportEmail#,#maddr#" subject="#subj#" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
-				
+
 				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",cookdays,detected_date),"yyyy-mm-dd")#.
-				
+
 				<br>#findDups.agent_pref_name# is a bad duplicate of #findDups.rel_agent_pref_name#.
-				
+
 				<br>To allow this merger, do nothing.
-			
+
 				<br>To stop this merger, remove the "bad duplicate of" relationship.
-				
 				<br>To permanently stop this merger, add a "not the same as" relationship.
-				
 				<hr>
-				
 				<br>You are receiving this notification because one of more of the agents may have activities pertaining to
 				your collections. See Agent Activity for complete information.
 				<br>Log in to Arctos before clicking the links below.
-				
 				<br>
-				
-				<a href="#Application.serverRootUrl#/Admin/ActivityLog.cfm?action=search&sql=#findDups.AGENT_ID#&object=agent_relations">search audit logs for whodunit</a> (possible 24h delay)
-				
 				<br>Good Agent: <a href="#Application.serverRootUrl#/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
 				<br>Duplicate Agent: <a href="#Application.serverRootUrl#/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
 				<br>Marked As Dup On: #dateformat(detected_date,"yyyy-mm-dd")#
@@ -597,15 +590,12 @@ END;
 				<br>Status: #status#
 				<br>#testinclude#
 			</cfmail>
-
-		
-			
 			<cfquery name="sentEmail" datasource="uam_god">
-				update 
+				update
 					cf_dup_agent
-				set 
+				set
 					status='pass_email_sent',
-					last_date=sysdate 
+					last_date=sysdate
 				where
 					cf_dup_agent_id=#cf_dup_agent_id#
 			</cfquery>
