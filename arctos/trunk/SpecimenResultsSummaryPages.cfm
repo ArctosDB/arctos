@@ -55,11 +55,10 @@
 	<cfif listfindnocase(group_cols,'individualcount')>
 		<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
 	</cfif>
-	<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, '>
-	<cfif listfindnocase(groupBy,'individualcount')>
-		<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
-	</cfif>
-	<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols# order by #group_cols#'>
+
+
+
+
 	<!--- require some actual searching --->
 	<cfset srchTerms="">
 	<cfloop list="#mapurl#" delimiters="&" index="t">
@@ -85,7 +84,7 @@
 		</cfcatch>
 	</cftry>
 
-	<cfset InnerSqlString = 'create table #session.SpecSrchTab# as ' & InnerSqlString>
+
 
 	<p>
 		prefixed_cols: #prefixed_cols#
@@ -153,6 +152,28 @@
 	<p>
 		thisLink: #thisLink#
 	</p>
+
+
+
+
+
+
+
+
+<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, '>
+	<cfif listfindnocase(groupBy,'individualcount')>
+		<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
+	</cfif>
+	<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols# order by #group_cols#'>
+
+
+
+	<cfset InnerSqlString = 'create table #session.SpecSrchTab# as ' & InnerSqlString>
+
+
+
+
+
 
 
 	<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
