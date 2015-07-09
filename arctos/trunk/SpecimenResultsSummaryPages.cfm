@@ -24,7 +24,7 @@
 			<p>
 				beforespcols: #spcols#
 			</p>
-			<cfset spcols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
+			<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 			<p>
 				afterspcols: #spcols#
 			</p>
