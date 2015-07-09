@@ -143,6 +143,13 @@
 
 
 	</cfloop>
+
+	<cfif left(thislink,1) is '&'>
+		<cfset thisLInk=right(thisLink,len(thisLink)-1)>
+	</cfif>
+	<cfif right(thisLink,5) is " || '">
+		<cfset thisLink=left(thisLink,len(thisLink)-5)>
+	</cfif>
 	<p>
 		thisLink: #thisLink#
 	</p>
