@@ -5,6 +5,21 @@
 <cfif not isdefined("groupBy") or len(groupBy) is 0>
 	<cfset groupBy='scientific_name'>
 </cfif>
+
+<script>
+	function getDownload(){
+			$("#getDownload")..text("<img src='/images/indicator.gif'>");
+			$.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "downloadSpecimenSummary",
+					returnformat : "json"
+				},
+		function(r) {
+			alert(r);
+			}
+	);
+		}
+</script>
 <cfoutput>
 	<cfif not listfindnocase(groupby,'collection_object_id')>
 		<cfset groupBy=listprepend(groupby,"collection_object_id")>
@@ -107,7 +122,7 @@
 	<p>
 		Found #trc.c# records. <a href="SpecimenResultsSummaryPages.cfm?action=getCSV">download</a>
 	</p>
-		<span class="likeLink" onclick="getDownload();">download</span>
+		<span class="likeLink" id="getDownload" onclick="getDownload();">download</span>
 
 		<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">[ Save&nbsp;Search ]</span>
 
@@ -115,17 +130,7 @@
 
 
 	<script type="text/javascript">
-		function getDownload(){
-			$.getJSON("/component/SpecimenResults.cfc",
-				{
-					method : "downloadSpecimenSummary",
-					returnformat : "json"
-				},
-		function(r) {
-			alert(r);
-			}
-	);
-		}
+
 
 
 
