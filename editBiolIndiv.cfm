@@ -42,7 +42,7 @@
 	}
 	function populateAttribute(aid) {
 		if ($("#attribute_type_" + aid).val()==''){
-			console.log('turn it off');
+			console.log('turn it off: ' + aid);
 			$("#attribute_value" + aid).remove();
 			$("#attribute_units" + aid).remove();
 			$("#determined_date" + aid).addClass('reqdClr').prop('required',true);
