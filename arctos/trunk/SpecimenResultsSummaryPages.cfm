@@ -227,7 +227,7 @@
 					 LINKTOSPECIMENS: {
                             title: 'Specimens',
                             display: function (data) {
-                                return $('<a href="/plants/' + LINKTOSPECIMENS + '">clickypop</a>');
+                                return $('<a href="/plants/' + Data.Record.LINKTOSPECIMENS + '">clickypop</a>');
                             }
                         },
 					 	<cfset thisLoopNum=1>
