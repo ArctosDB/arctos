@@ -41,6 +41,10 @@
 		$("#agent_name_" + id).toggle();
 	}
 	function populateAttribute(aid) {
+		if ($("#attribute_type_" + aid).val()==''){
+			console.log('turn it off');
+			return false;
+		}
 		jQuery.getJSON("/component/DataEntry.cfc",
 			{
 				method : "getAttCodeTbl",
