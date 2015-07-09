@@ -21,7 +21,13 @@
 		<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
 		<cfif x is not "collection_object_id">
 			<p>isnot</p>
+			<p>
+				beforespcols: #spcols#
+			</p>
 			<cfset spcols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
+			<p>
+				afterspcols: #spcols#
+			</p>
 		</cfif>
 	</cfloop>
 
