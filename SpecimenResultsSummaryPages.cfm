@@ -172,7 +172,7 @@
 	</p>
 
 
-	<cfset InnerSqlString = 'create table #session.SpecSrchTab# as ' & InnerSqlString>
+	<cfset InnerSqlString = 'create table ss_#session.SpecSrchTab# as ' & InnerSqlString>
 
 
 
@@ -180,7 +180,7 @@
 
 <cftry>
 		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			drop table #session.SpecSrchTab#
+			drop table ss_#session.SpecSrchTab#
 		</cfquery>
 		<cfcatch><!--- not there, so what? --->
 		</cfcatch>
@@ -190,7 +190,7 @@
 	</cfquery>
 
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from #session.SpecSrchTab#
+		select count(*) c from ss_#session.SpecSrchTab#
 	</cfquery>
 	<p>
 		made table

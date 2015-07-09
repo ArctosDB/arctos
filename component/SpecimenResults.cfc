@@ -12,7 +12,7 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			Select * from (
 					Select a.*, rownum rnum From (
-						select * from #session.SpecSrchTab# order by #jtSorting#
+						select * from ss_#session.SpecSrchTab# order by #jtSorting#
 					) a where rownum <= #jtStopIndex#
 				) where rnum >= #jtStartIndex#
 		</cfquery>
