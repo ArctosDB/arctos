@@ -2,8 +2,26 @@
 	<!--------------------------------------------------------------------------------------------------------->
 	<cffunction name="downloadSpecimenSummary" access="remote" returnformat="plain">
 		<cfset  util = CreateObject("component","component.utilities")>
+
+		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from #session.SpecSumTab# where 1=2
+		</cfquery>
+
+		<cfset thisci=1>
+		<cfset numcols=listlen(cols.columnlist)>
+
 		<cfquery name="dla" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from #session.SpecSumTab#
+			select
+				<cfloop list="cols.columnlist" index="x">
+					<cfif x is "LINKTOSPECIMENS">
+						'#Application.serverRootURL#/SpecimenResults.cfm?' || #x# AS #x#
+					<cfelse>
+						#x#
+					</cfif>
+					<cfif thisci lt numcols>,</cfif>
+					<cfset thisci=thisci+1>
+				</cfloop>
+			 from #session.SpecSumTab# where 1=2
 		</cfquery>
 
 		<cfset csv = util.QueryToCSV2(Query=dla,Fields=dla.columnlist)>
