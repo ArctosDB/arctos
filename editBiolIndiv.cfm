@@ -110,8 +110,8 @@
 		}
 	}
 	function useAgent1(){
-		$("#determined_by_agent_id_new").val("#determined_by_agent_id_1").val();
-		$("#agent_name_new").val("#agent_name_1").val();
+		$("#determined_by_agent_id_new").val($("#determined_by_agent_id_1").val());
+		$("#agent_name_new").val(($"#agent_name_1").val());
 	}
 </script>
 <cfif action is "nothing">
