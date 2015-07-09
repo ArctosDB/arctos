@@ -120,9 +120,9 @@
 		select count(*) c from #session.SpecSumTab#
 	</cfquery>
 	<p>
-		Found #trc.c# records. <a href="SpecimenResultsSummaryPages.cfm?action=getCSV">download</a>
+		Found #trc.c# records.
 	</p>
-		<span class="likeLink" id="getDownload" onclick="getDownload();">download</span>
+		<a class="likeLink" id="getDownload" onclick="getDownload();">download</a>
 
 		<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">[ Save&nbsp;Search ]</span>
 
