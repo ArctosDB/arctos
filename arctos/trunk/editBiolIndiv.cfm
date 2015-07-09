@@ -110,7 +110,9 @@
 		}
 	}
 	function useAgent1(){
-		console.log('using ' + $("#determined_by_agent_id_1").val());
+		var theName=$("input[id^='determined_by_agent_id_-']").first().val();
+
+		console.log('using ' + theName);
 
 
 		$("#determined_by_agent_id_new").val($("#determined_by_agent_id_1").val());
