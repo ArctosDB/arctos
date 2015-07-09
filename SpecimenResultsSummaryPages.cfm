@@ -161,11 +161,11 @@
 <cfset checkSql(SqlString)>
 
 
-<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, '>
+<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, linktospecimens'>
 	<cfif listfindnocase(groupBy,'individualcount')>
 		<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 	</cfif>
-	<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols# order by #group_cols#'>
+	<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 
 <p>
 		InnerSqlString: #InnerSqlString#
