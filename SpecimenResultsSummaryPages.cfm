@@ -15,6 +15,8 @@
 					returnformat : "json"
 				},
 		function(r) {
+			$("#getDownload").text("complete");
+
 			alert(r);
 			}
 	);
