@@ -171,6 +171,7 @@
 	<cfset session.block_suggest=''>
 	<cfset session.meta_description=''>
 	<cfset session.SpecSrchTab="SpecSrch" & left(session.sessionKey,20)>
+	<cfset session.SpecSumTab="SpecSum" & left(session.sessionKey,20)>
 	<cfset session.MediaSrchTab="MediaSrch" & left(session.sessionKey,20)>
 	<cfset session.TaxSrchTab="TaxSrch" & left(session.sessionKey,20)>
 	<!---------------------------- login ------------------------------------------------>
