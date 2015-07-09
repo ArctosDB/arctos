@@ -124,10 +124,10 @@
 	<p>
 		Found #trc.c# records.
 		<br><a class="likeLink" id="getDownload" onclick="getDownload();">download</a>
-		<br><span class="controlButton"
+		<br><span class="likeLink"
 			onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">
-			[ Save&nbsp;Search ]</span>
-		<br><a href="/saveSearch.cfm?action=manage">[ view/manage saved searches ]</a>
+			Save&nbsp;Search</span>
+		<br><a href="/saveSearch.cfm?action=manage">view/manage saved searches</a>
 	</p>
 	<script type="text/javascript">
 	    $(document).ready(function () {
