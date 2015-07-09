@@ -8,7 +8,7 @@
 
 <script>
 	function getDownload(){
-			$("#getDownload").text("<img src='/images/indicator.gif'>");
+			$("#getDownload").html("<img src='/images/indicator.gif'>");
 			$.getJSON("/component/SpecimenResults.cfc",
 				{
 					method : "downloadSpecimenSummary",
