@@ -136,13 +136,14 @@
 							<th>#x#</th>
 						</cfloop>
 
-
+<!----
 
 						#ucase(COL)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
-					</cfloop>
+
+						----->
 	            }
 	        });
 	        $('##specresults').jtable('load');
