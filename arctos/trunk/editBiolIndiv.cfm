@@ -43,6 +43,11 @@
 	function populateAttribute(aid) {
 		if ($("#attribute_type_" + aid).val()==''){
 			console.log('turn it off');
+			$("#attribute_value" + aid).remove();
+			$("#attribute_units" + aid).remove();
+			$("#determined_date" + aid).addClass('reqdClr').prop('required',true);
+			$("#agent_name" + aid).removeClass('reqdClr').prop('required',false);
+
 			return false;
 		}
 		jQuery.getJSON("/component/DataEntry.cfc",
@@ -65,10 +70,8 @@
 		aid='_' + aid;
 		$("#attribute_value" + aid).remove();
 		$("#attribute_units" + aid).remove();
-
-
-			$("#determined_date" + aid).addClass('reqdClr').prop('required',true);;
-			$("#agent_name" + aid).addClass('reqdClr').prop('required',true);;
+		$("#determined_date" + aid).addClass('reqdClr').prop('required',true);;
+		$("#agent_name" + aid).addClass('reqdClr').prop('required',true);;
 
 
 
