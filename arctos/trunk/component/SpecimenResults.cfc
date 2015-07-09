@@ -12,7 +12,7 @@
 
 		<cfquery name="dla" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				<cfloop list="cols.columnlist" index="x">
+				<cfloop list="#cols.columnlist#" index="x">
 					<cfif x is "LINKTOSPECIMENS">
 						'#Application.serverRootURL#/SpecimenResults.cfm?' || #x# AS #x#
 					<cfelse>
