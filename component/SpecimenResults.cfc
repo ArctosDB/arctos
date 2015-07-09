@@ -32,7 +32,6 @@
 					<cfelse>
 						<cfset temp = '"#i#":"' & theData & '"'>
 					</cfif>
-
 					<cfset trow=listappend(trow,temp)>
 				</cfloop>
 				<cfset trow="{" & trow & "}">
