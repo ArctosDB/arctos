@@ -14,7 +14,7 @@
 					returnformat : "json"
 				},
 				function(r) {
-					$("#getDownload").text("Click here if your download does not start automatically").href('/download.cfm?file=ArctosSpecimenSummary.csv');
+					$("#getDownload").text("Click here if your download does not start automatically").attr("href",'/download.cfm?file=ArctosSpecimenSummary.csv');
 					 window.location='/download.cfm?file=ArctosSpecimenSummary.csv';
 				}
 			);
