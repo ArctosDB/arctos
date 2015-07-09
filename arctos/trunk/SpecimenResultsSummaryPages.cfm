@@ -224,7 +224,12 @@
 	            },
 	              fields:  {
 					 COUNTOFCATALOGEDITEM:{title: 'Count'},
-					 LINKTOSPECIMENS:{title: 'Link'},
+					 LINKTOSPECIMENS: {
+                            title: 'Specimens',
+                            display: function (data) {
+                                return $('<a href="/plants/' + LINKTOSPECIMENS + '">clickypop</a>');
+                            }
+                        },
 					 	<cfset thisLoopNum=1>
 					 	<cfset numFlds=listlen(group_cols)>
 						<cfloop list="#group_cols#" index="col">
