@@ -97,7 +97,7 @@
 		<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 	</cfif>
 	<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
-	<cfloop list="#group_cols#" index="x">
+	<cfloop list="#prefixed_cols#" index="x">
 		<cfif thisLink contains x>
 			<!---
 				they searched for something that they also grouped by
