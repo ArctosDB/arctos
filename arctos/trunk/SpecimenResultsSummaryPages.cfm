@@ -79,6 +79,47 @@
 		mapurl: #mapurl#
 	</p>
 
+
+	<cfset thisLink=mapurl>
+
+	<p>
+		thisLink: #thisLink#
+	</p>
+
+	<!---
+		mapURL probably contains taxon_scope
+		We have to over-ride that here to get the
+		correct links - eg, the no-subspecies name
+		should not contain all the subspecies
+	---->
+	<cfif thisLink contains "scientific_name_match_type">
+		<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
+		<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
+	</cfif>
+	<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
+	<cfloop list="#group_cols#" index="x">
+		<cfif thisLink contains x>
+			<!---
+				they searched for something that they also grouped by
+				REMOVE the thing they searched (eg, more general)
+				ADD the thing grouped (eg, more specific)
+			---->
+			<!--- replace search terms with stuff here ---->
+			<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
+			<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
+			<cfset thisLink=listappend(thisLink,"#x#={value of #x#}","&")>
+		<cfelse>
+			<!--- they grouped by something they did not search by, add it to the specimen-link ---->
+			<cfset thisLink=listappend(thisLink,"#x#={value of #x#}","&")>
+		</cfif>
+
+
+	</cfloop>
+	<p>
+		thisLink: #thisLink#
+	</p>
+
+
 	<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(InnerSqlString)#
 	</cfquery>
