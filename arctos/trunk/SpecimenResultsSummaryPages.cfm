@@ -121,7 +121,9 @@
 
 
 
-	<cfloop list="#spcols#" index="x">
+	<cfloop list="#spcols#" index="pt">
+		<cfset x=listgetat(pt,2,'.')>
+
 		<cfif thisLink contains x>
 			<!---
 				they searched for something that they also grouped by
