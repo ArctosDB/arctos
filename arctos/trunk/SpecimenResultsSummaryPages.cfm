@@ -107,6 +107,7 @@
 	<p>
 		Found #trc.c# records. <a href="SpecimenResultsSummaryPages.cfm?action=getCSV">download</a>
 	</p>
+		<span class="likeLink" onclick="getDownload();">download</span>
 
 		<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">[ Save&nbsp;Search ]</span>
 
@@ -114,6 +115,16 @@
 
 
 	<script type="text/javascript">
+		function getDownload(){
+			$.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "downloadSpecimenSummary",
+					returnformat : "json"
+				},
+		function(r) {
+			alert(r);
+	);
+		}
 	    $(document).ready(function () {
 			//$("##usertools").menu();
 			//$("##goWhere").menu();
@@ -128,7 +139,7 @@
 				columnSelectable: false,
 				//recordsLoaded: getPostLoadJunk,
 				multiselect: true,
-				selectingCheckboxes: true,
+				selectingCheckboxes: false,
   				selecting: true, //Enable selecting
           		selectingCheckboxes: true, //Show checkboxes on first column
             	selectOnRowClick: false, //Enable this to only select using checkboxes
@@ -173,20 +184,6 @@
 	    });
 	</script>
 	<div id="specresults"></div>
-	<cfif action is "getCSV">
-		<cfset  util = CreateObject("component","component.utilities")>
-		<cfquery name="dla" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from #session.SpecSumTab#
-		</cfquery>
-
-		<cfset csv = util.QueryToCSV2(Query=dla,Fields=dla.columnlist)>
-		<cffile action = "write"
-		    file = "#Application.webDirectory#/download/ArctosSpecimenSummary.csv"
-	    	output = "#csv#"
-	    	addNewLine = "no">
-	    <cflocation url="/download.cfm?file=ArctosSpecimenSummary.csv">
-	</cfif>
-
 
 
 
