@@ -56,7 +56,65 @@
 	</cftry>
 
 	<cfset InnerSqlString = 'create table #session.SpecSrchTab# as ' & InnerSqlString>
-	#preserveSingleQuotes(InnerSqlString)#
+
+
+	<p>
+		prefixed_cols: #prefixed_cols#
+	</p>
+
+	<p>
+		group_cols: #group_cols#
+	</p>
+
+
+
+	<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		#preserveSingleQuotes(InnerSqlString)#
+	</cfquery>
+
+	<p>
+		made table
+	</p>
+
+
+
+<CFABORT>
+
+	<script type="text/javascript">
+	    $(document).ready(function () {
+			//$("##usertools").menu();
+			//$("##goWhere").menu();
+	        $('##specresults').jtable({
+	            title: 'Specimen Summary',
+				paging: true, //Enable paging
+	            pageSize: 10, //Set page size (default: 10)
+	            sorting: true, //Enable sorting
+	            defaultSorting: 'SCIENTIFIC_NAME ASC', //Set default sorting
+				columnResizable: true,
+				multiSorting: true,
+				columnSelectable: false,
+				recordsLoaded: getPostLoadJunk,
+				multiselect: true,
+				selectingCheckboxes: true,
+  				selecting: true, //Enable selecting
+          		selectingCheckboxes: true, //Show checkboxes on first column
+            	selectOnRowClick: false, //Enable this to only select using checkboxes
+				pageSizes: [10, 25, 50, 100, 250, 500,5000],
+				actions: {
+	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
+	            },
+	            fields:  {
+					<cfloop LIST="#prefixed_cols#" INDEX="COL">
+						#ucase(COL)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
+						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
+						<cfif thisLoopNum lt numFlds>,</cfif>
+						<cfset thisLoopNum=thisLoopNum+1>
+					</cfloop>
+	            }
+	        });
+	        $('##specresults').jtable('load');
+	    });
+	</script>
 
 
 
