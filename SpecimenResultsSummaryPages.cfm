@@ -152,8 +152,12 @@
 ---->
 
 <br>basSelect: #basSelect#
-	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
 
+<cfset basSelect=basSelect & ",#thisLink# AS linktospecimens ">
+	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
+<p>
+		SqlString: #SqlString#
+	</p>
 <cfset checkSql(SqlString)>
 
 
