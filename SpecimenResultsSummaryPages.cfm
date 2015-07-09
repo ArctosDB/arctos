@@ -15,9 +15,25 @@
 		<cfset groupBy=listprepend(groupby,"collection_object_id")>
 	</cfif>
 	<cfset prefixed_cols="">
+	<cfset spcols="">
 	<cfloop list="#groupBy#" index="x">
 		<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
+		<cfif x is not "collection_object_id">
+			<cfset spcols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
+		</cfif>
 	</cfloop>
+
+
+
+
+
+	<p>
+		spcols: #spcols#
+	</p>
+
+
+
+
 	<cfset basSelect = " SELECT #prefixed_cols# ">
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
@@ -26,6 +42,13 @@
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by #prefixed_cols#">
+
+
+	<p>
+		SqlString: #SqlString#
+	</p>
+
+
 	<cfset group_cols = groupBy>
 	<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
 	<cfif listfindnocase(group_cols,'individualcount')>
@@ -62,9 +85,6 @@
 	</cftry>
 
 	<cfset InnerSqlString = 'create table #session.SpecSrchTab# as ' & InnerSqlString>
-	<p>
-		InnerSqlString: #InnerSqlString#
-	</p>
 
 	<p>
 		prefixed_cols: #prefixed_cols#
