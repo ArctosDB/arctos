@@ -105,7 +105,7 @@
             	selectOnRowClick: false, //Enable this to only select using checkboxes
 				pageSizes: [10, 25, 50, 100, 250, 500,5000],
 				actions: {
-	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
+	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenSummary'
 	            },
 	              fields:  {
 					 COUNTOFCATALOGEDITEM:{title: 'Count'},
@@ -151,6 +151,7 @@
 	    });
 	</script>
 
+	<div id="specresults"></div>
 
 
 	<cfabort>
