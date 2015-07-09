@@ -134,7 +134,7 @@
 			<br>removing #x#
 			<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
 			<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
-			<cfset thisLink=listappend(thisLink,"#x#= || #pt# || ","&")>
+			<cfset thisLink=listappend(thisLink,"#x#=' || #pt# || '","&")>
 		<cfelse>
 			<!--- they grouped by something they did not search by, add it to the specimen-link ---->
 			<br>adding #x#
