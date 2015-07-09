@@ -17,8 +17,10 @@
 	<cfset prefixed_cols="">
 	<cfset spcols="">
 	<cfloop list="#groupBy#" index="x">
+		<p>#x#</p>
 		<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
 		<cfif x is not "collection_object_id">
+			<p>isnot</p>
 			<cfset spcols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
 		</cfif>
 	</cfloop>
