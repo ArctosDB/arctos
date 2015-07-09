@@ -5,7 +5,6 @@
 <cfif not isdefined("groupBy") or len(groupBy) is 0>
 	<cfset groupBy='scientific_name'>
 </cfif>
-<iframe id="noiframeshere" style="display:none;">
 <script>
 	function getDownload(){
 			$("#getDownload").html("<img src='/images/indicator.gif'>");
@@ -17,7 +16,7 @@
 		function(r) {
 			$("#getDownload").text("complete");
 
- window.location='/download.cfm?file=ArctosSpecimenSummary.csv';
+			 window.location='/download.cfm?file=ArctosSpecimenSummary.csv';
 
 
 			alert(r);
