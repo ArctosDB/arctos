@@ -42,10 +42,9 @@
 	}
 	function populateAttribute(aid) {
 		if ($("#attribute_type_" + aid).val()==''){
-			console.log('turn it off: ' + aid);
 			$("#attribute_value_" + aid).remove();
 			$("#attribute_units_" + aid).remove();
-			$("#determined_date_" + aid).addClass('reqdClr').prop('required',true);
+			$("#determined_date_" + aid).removeClass('reqdClr').prop('required',false);
 			$("#agent_name_" + aid).removeClass('reqdClr').prop('required',false);
 
 			return false;
