@@ -2,14 +2,11 @@
 	<!--------------------------------------------------------------------------------------------------------->
 	<cffunction name="downloadSpecimenSummary" access="remote" returnformat="plain">
 		<cfset  util = CreateObject("component","component.utilities")>
-
 		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #session.SpecSumTab# where 1=2
 		</cfquery>
-
 		<cfset thisci=1>
 		<cfset numcols=listlen(cols.columnlist)>
-
 		<cfquery name="dla" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				<cfloop list="#cols.columnlist#" index="x">
@@ -23,25 +20,14 @@
 				</cfloop>
 			 from #session.SpecSumTab#
 		</cfquery>
-
-
-
-
-
 		<cfset csv = util.QueryToCSV2(Query=dla,Fields=dla.columnlist)>
 		<cffile action = "write"
 		    file = "#Application.webDirectory#/download/ArctosSpecimenSummary.csv"
 	    	output = "#csv#"
 	    	addNewLine = "no">
-
-
-	    	<cfreturn 'spiffy go get it bla'>
+	    	<cfreturn>
 	</cffunction>
-
-
-
 	<!--------------------------------------------------------------------------------------------------------->
-
 	<cffunction name="getSpecimenSummary" access="remote" returnformat="plain" queryFormat="column">
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
