@@ -47,8 +47,15 @@
 		<cfabort>
 	</cfif>
 	<cfset checkSql(SqlString)>
+	<cftry>
+		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			drop table #session.SpecSrchTab#
+		</cfquery>
+		<cfcatch><!--- not there, so what? --->
+		</cfcatch>
+	</cftry>
 
-
+	<cfset InnerSqlString = 'create table #session.SpecSrchTab# as ' & InnerSqlString>
 	#preserveSingleQuotes(InnerSqlString)#
 
 
