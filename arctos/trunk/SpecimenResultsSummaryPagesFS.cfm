@@ -132,7 +132,7 @@
 
 
 	        ---->
-	<div id="specresults"></div>
+	<div id="specresults"><img src="/images/indicator.gif"></div>
 
 
 
