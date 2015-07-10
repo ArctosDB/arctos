@@ -137,6 +137,14 @@
 		</cfquery>
 
 
+
+
+		<cfquery name="test" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select distinct linktospecimens from #session.SpecSumTab#
+		</cfquery>
+
+		<cfdump var="#test#">
+
 		<!----- now assign values to the "pager" variables and proceed as normal ---->
 		<cfset totalRecordCount=trc.c>
 		<cfset totalSpecimenCount=trc.ttl>
