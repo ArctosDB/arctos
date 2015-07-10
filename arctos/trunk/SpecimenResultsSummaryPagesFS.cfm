@@ -59,7 +59,6 @@
 					groupBy: "#groupBy#"
 				},
 				function(r) {
-					console.log(r);
 					 $('##specresults').jtable({
 			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + r.TotalRecordCount + ' records.',
 						paging: true, //Enable paging
@@ -110,7 +109,8 @@
 							</cfloop>
 			        	}
 			        });
-			        $('##specresults').html('').jtable('load');
+			         $('##specresults').html('');
+			        $('##specresults').jtable('load');
 				}
 			);
 
