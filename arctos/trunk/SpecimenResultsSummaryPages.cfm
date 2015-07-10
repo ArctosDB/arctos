@@ -138,7 +138,7 @@
 			//$("##usertools").menu();
 			//$("##goWhere").menu();
 	        $('##specresults').jtable({
-	            title: 'Specimen Summary: #trc.ttl# Specimens grouped into #trc.c# records.',
+	            title: 'Specimen Summary: #numberformat(trc.ttl,",")# Specimens grouped into #numberformat(trc.c,",")# records.',
 				paging: true, //Enable paging
 	            pageSize: 10, //Set page size (default: 10)
 	            sorting: true, //Enable sorting
