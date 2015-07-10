@@ -109,8 +109,8 @@
 							</cfloop>
 			        	}
 			        });
-			         $('##specresults').html('');
-			        $('##specresults').jtable('load');
+
+			        $('##specresults').jtable('load').$('##indicatorgif').hide();
 				}
 			);
 
@@ -132,7 +132,7 @@
 
 
 	        ---->
-	<div id="specresults"><img src="/images/indicator.gif"></div>
+	<div id="specresults"><img id="indicatorgif" src="/images/indicator.gif"></div>
 
 
 
