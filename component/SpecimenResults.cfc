@@ -120,7 +120,10 @@ hi<cfflush>
 		<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 		<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
 
-		dropping...<cfflush>
+		dropping...
+
+		<br>drop table #session.SpecSumTab#
+		<cfflush>
 		<cftry>
 			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				drop table #session.SpecSumTab#
