@@ -550,21 +550,7 @@
 
 
 
-
-
-
-
-
-
-<!-- everything above here is in doc/field_documentation.cfm ---->
-
-
-
-
-
-
-
-
+<!--- everything above here is in doc/field_documentation.cfm ---->
 
 
 
