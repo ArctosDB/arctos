@@ -3,22 +3,49 @@
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfset title="Specimen Results Summary">
 
+<hr>
+
+¡CUIDADO!
+
+<p>
+	This is a test form. It's not stable. Searches you save here won't last.
+</p>
+<p>
+	This form does a few new things:
+
+	It's paginated; big searches perform well.
+
+	It's entirely service-based, and so the services are portable.
+</p>
+		<cfquery name="d" datasource="uam_god">
+			 select
+			 	replace(replace(url,'http://arctos.database.museum/'),'SpecimenResultsSummary','SpecimenResultsSummaryPagesFS') theurl
+			 	from cf_canned_search where url like '%SpecimenResultsSummary%'
+		</cfquery>
+		<cfloop query="d">
+			<br><a href='#theurl#'>#theurl#</a>
+		</cfloop>
+
+
+<hr>
+
+
 <script>
 	function getDownload(){
-			$("#getDownload").html("<img src='/images/indicator.gif'>");
-			$.getJSON("/component/SpecimenResults.cfc",
-				{
-					method : "downloadSpecimenSummary",
-					returnformat : "json"
-				},
-				function(r) {
-					$("#getDownload").prop('onclick',null).off('click')
-						.text("Save File")
-						.attr("href",'/download.cfm?file=ArctosSpecimenSummary.csv');
-					 window.location='/download.cfm?file=ArctosSpecimenSummary.csv';
-				}
-			);
-		}
+		$("#getDownload").html("<img src='/images/indicator.gif'>");
+		$.getJSON("/component/SpecimenResults.cfc",
+			{
+				method : "downloadSpecimenSummary",
+				returnformat : "json"
+			},
+			function(r) {
+				$("#getDownload").prop('onclick',null).off('click')
+					.text("Save File")
+					.attr("href",'/download.cfm?file=ArctosSpecimenSummary.csv');
+				 window.location='/download.cfm?file=ArctosSpecimenSummary.csv';
+			}
+		);
+	}
 </script>
 <style>
 	#specresults{
@@ -109,36 +136,12 @@
 							</cfloop>
 			        	}
 			        });
-
 			        $('##specresults').jtable('load');
 			        $('##indicatorgif').hide();
 				}
 			);
-
 	    });
 	</script>
-
-
-	<!----
-
-
-		                        /*,
-
-
-			//$("##usertools").menu();
-			//$("##goWhere").menu();
-
-	        $('##specresults').jtable('load');
-
-
-
-	        ---->
 	<div id="specresults"><img id="indicatorgif" src="/images/indicator.gif"></div>
-
-
-
-
-
-
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
