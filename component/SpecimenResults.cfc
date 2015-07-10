@@ -103,6 +103,11 @@
 		<cfif right(thisLink,5) is " || '">
 			<cfset thisLink=left(thisLink,len(thisLink)-5)>
 		</cfif>
+
+
+		<p>
+		#thisLink#
+		</p>
 		<cfset thisLink="'" & thisLInk>
 		<cfset basSelect=basSelect & ",#thisLink# AS linktospecimens ">
 		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
