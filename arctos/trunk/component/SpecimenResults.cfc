@@ -91,10 +91,10 @@
 				<!--- replace search terms with stuff here ---->
 				<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
 				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
-				<cfset thisLink=listappend(thisLink,"#x#=' || #pt# || '","&")>
+				<cfset thisLink=listappend(thisLink,"#x#=nvl(' || #pt# || ','NULL')","&")>
 			<cfelse>
 				<!--- they grouped by something they did not search by, add it to the specimen-link ---->
-				<cfset thisLink=listappend(thisLink,"#x#=' || #pt# || '","&")>
+				<cfset thisLink=listappend(thisLink,"#x#=nvl(' || #pt# || ','NULL')","&")>
 			</cfif>
 		</cfloop>
 		<cfif left(thislink,1) is '&'>
