@@ -47,23 +47,7 @@
 			<cfset querystring=listappend(querystring,"#key#=#url[key]#","&")>
 		</cfif>
 	</cfloop>
-
-
-	<p>
-		querystring: #querystring#
-	</p>
-
-
-	<p>
-		groupBy: #groupBy#
-	</p>
-
-
 	<cfset equerystring=URLEncodedFormat(querystring)>
-
-
-
-
 	<div>
 		<a class="likeLink" id="getDownload" onclick="getDownload();">Download</a>
 		<br><span class="likeLink"
