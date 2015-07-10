@@ -136,7 +136,7 @@
 			select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
 		</cfquery>
 
-
+<cfdump var=#InnerSqlString#>
 
 
 		<cfquery name="test" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
