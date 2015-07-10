@@ -15,7 +15,13 @@
 			pass in qid --> query of cache (eg, paging)
 	---->
 	<cfif len(qid) is 0>
+	<cfoutput>
+		<p>
+			querystring: #querystring#
+		</p>
 
+
+		</cfoutput>
 		<cfif not isdefined("groupBy") or len(groupBy) is 0>
 			<cfset groupBy='scientific_name'>
 		</cfif>
@@ -36,7 +42,7 @@
 		<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
 		<cfset basQual = "">
 		<cfset mapurl="">
-		<cfinclude template="includes/SearchSql.cfm">
+		<cfinclude template="/includes/SearchSql.cfm">
 		<cfset group_cols = groupBy>
 		<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
 		<cfif listfindnocase(group_cols,'individualcount')>
