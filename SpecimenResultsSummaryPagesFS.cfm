@@ -110,7 +110,7 @@
 							</cfloop>
 			        	}
 			        });
-			        $('##specresults').jtable('load');
+			        $('##specresults').html('').jtable('load');
 				}
 			);
 
