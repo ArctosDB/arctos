@@ -22,6 +22,11 @@
 			);
 		}
 </script>
+<style>
+	#specresults{
+		display: inline-block;
+	}
+</style>
 <cfoutput>
 	<cfif not listfindnocase(groupby,'collection_object_id')>
 		<cfset groupBy=listprepend(groupby,"collection_object_id")>
