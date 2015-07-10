@@ -104,6 +104,32 @@
 			            fields:  {
 							COUNTOFCATALOGEDITEM:{title: 'Count'},
 							LINKTOSPECIMENS: {title: 'Specimens'}
+							<cfset thisLoopNum=1>
+						 	<cfset numFlds=listlen(groupby)>
+							<cfloop list="#groupby#" index="col">
+								<cfif col is "phylclass">
+									<cfset x="Class">
+								<cfelseif col is "phylorder">
+									<cfset x="Order">
+								<cfelseif col is "scientific_name">
+									<cfset x="ScientificName">
+								<cfelseif col is "formatted_scientific_name">
+									<cfset x="FormattedScientificName">
+								<cfelseif col is "state_prov">
+									<cfset x="StateOrProvince">
+								<cfelseif col is "island_group">
+									<cfset x="IslandGroup">
+								<cfelseif col is "spec_locality">
+									<cfset x="SpecificLocality">
+								<cfelseif col is "continent_ocean">
+									<cfset x="ContinentOrOcean">
+								<cfelse>
+									<cfset x=toProperCase(col)>
+								</cfif>
+								#ucase(COL)#: {title: '#x#'}
+								<cfif thisLoopNum lt numFlds>,</cfif>
+								<cfset thisLoopNum=thisLoopNum+1>
+							</cfloop>
 			        	}
 			        });
 			        $('##specresults').jtable('load');
@@ -118,32 +144,7 @@
 
 
 		                        /*,
-							 	<cfset thisLoopNum=1>
-							 	<cfset numFlds=listlen(group_cols)>
-								<cfloop list="#group_cols#" index="col">
-									<cfif col is "phylclass">
-										<cfset x="Class">
-									<cfelseif col is "phylorder">
-										<cfset x="Order">
-									<cfelseif col is "scientific_name">
-										<cfset x="ScientificName">
-									<cfelseif col is "formatted_scientific_name">
-										<cfset x="FormattedScientificName">
-									<cfelseif col is "state_prov">
-										<cfset x="StateOrProvince">
-									<cfelseif col is "island_group">
-										<cfset x="IslandGroup">
-									<cfelseif col is "spec_locality">
-										<cfset x="SpecificLocality">
-									<cfelseif col is "continent_ocean">
-										<cfset x="ContinentOrOcean">
-									<cfelse>
-										<cfset x=toProperCase(col)>
-									</cfif>
-									#ucase(COL)#: {title: '#x#'}
-									<cfif thisLoopNum lt numFlds>,</cfif>
-									<cfset thisLoopNum=thisLoopNum+1>
-								</cfloop>
+
 
 			//$("##usertools").menu();
 			//$("##goWhere").menu();
