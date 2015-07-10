@@ -19,32 +19,15 @@
 			pass in qid --> query of cache (eg, paging)
 	---->
 	<cfif len(qid) is 0>
-	<cfoutput>
-		<p>
-			querystring: #querystring#
-		</p>
 		<cfset querystring=URLDecode(querystring)>
-		<p>
-			querystring: #querystring#
-		</p>
-
 		<cfloop list="#querystring#" index="kv" delimiters="&?">
 			<cfif listlen(kv,"=") is 2>
 				<cfset vname=listgetat(kv,1,"=")>
 				<cfset vval=listgetat(kv,2,"=")>
-				<br>vname: #vname#
-				<br>vval: #vval#
-
 				<cfset "#vname#"=vval>
 			</cfif>
-
 		</cfloop>
-
-
-		</cfoutput>
-		<cfif not isdefined("groupBy") or len(groupBy) is 0>
-			<cfset groupBy='scientific_name'>
-		</cfif>
+		
 		<cfif not listfindnocase(groupby,'collection_object_id')>
 			<cfset groupBy=listprepend(groupby,"collection_object_id")>
 		</cfif>
