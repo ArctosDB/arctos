@@ -4,8 +4,8 @@
 <cfset title="Specimen Results Summary">
 
 <hr>
-
-¡CUIDADO!
+<cfoutput>
+CUIDADO!
 
 <p>
 	This is a test form. It's not stable. Searches you save here won't last.
@@ -28,7 +28,7 @@
 
 
 <hr>
-
+</cfoutput>
 
 <script>
 	function getDownload(){
