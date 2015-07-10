@@ -5,6 +5,11 @@
 <cfif not isdefined("mapurl")>
 	<cfset mapurl="">
 </cfif>
+<cfif not isdefined("escapeQuotes")>
+	<cfinclude template="/includes/functionLib.cfm">
+</cfif>
+
+
 <!----------------------------------- translate deprecated terms when possible ---------------------------->
 <cfif isdefined("listcatnum")>
 	<cfset catnum = listcatnum>
