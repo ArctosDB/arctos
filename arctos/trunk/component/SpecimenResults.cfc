@@ -16,7 +16,6 @@
 
 hi<cfflush>
 
-<cfabort>
 	<!----
 		2 options here:
 			pass in querystring,groupby-->initial query + qid
