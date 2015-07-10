@@ -40,9 +40,9 @@
 		</cfif>
 	</cfloop>
 	<cfloop list="#StructKeyList(url)#" index="key">
-		<cfif len(url[key]) gt 0 and url[key] is not "groupby">
+		<cfif len(url[key]) gt 0 and key is not "groupby">
 			<p>
-				appending #url[key]#
+				appending #key#
 			</p>
 			<cfset querystring=listappend(querystring,"#key#=#url[key]#","&")>
 		</cfif>
