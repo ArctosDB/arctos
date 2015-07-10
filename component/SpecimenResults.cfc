@@ -19,6 +19,17 @@
 		<p>
 			querystring: #querystring#
 		</p>
+		<cfset querystring=URLDecode(querystring)>
+		<p>
+			querystring: #querystring#
+		</p>
+
+		<cfloop list="#querystring#" index="kv" delimiters="&?">
+			<cfif listlen(kv,"=") is 2>
+				<cfset "#listgetat(kv,"=",1)#"=listgetat(kv,"=",2)>
+			</cfif>
+
+		</cfloop>
 
 
 		</cfoutput>
