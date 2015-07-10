@@ -35,7 +35,7 @@
 	<!---- now pull everything that's NOT groupby out of wherever it came from ---->
 	<cfset querystring="">
 	<cfloop list="#StructKeyList(form)#" index="key">
-		<cfif len(form[key]) gt 0 and form[key] is not "groupby">
+		<cfif len(form[key]) gt 0 and key is not "groupby">
 			<cfset querystring=listappend(querystring,"#key#=#form[key]#","&")>
 		</cfif>
 	</cfloop>
@@ -59,10 +59,7 @@
 	</p>
 
 
-
-
-<cfabort>
-
+	<cfset equerystring=URLEncodedFormat(querystring)>
 
 
 
@@ -70,12 +67,25 @@
 	<div>
 		<a class="likeLink" id="getDownload" onclick="getDownload();">Download</a>
 		<br><span class="likeLink"
-			onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">
+			onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#querystring#&groupBy=#groupBy#');">
 			Save&nbsp;Search</span>
 		<br><a href="/saveSearch.cfm?action=manage">View/Manage Saved Searches</a>
 	</div>
 	<script type="text/javascript">
 	    $(document).ready(function () {
+	    	$.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "getSpecimenSummaryFS",
+					returnformat : "json",
+					querystring : "#equerystring#",
+					groupBy: "#groupBy#"
+				},
+				function(r) {
+					console.log(r)
+				}
+			);
+
+	    	/*
 			//$("##usertools").menu();
 			//$("##goWhere").menu();
 	        $('##specresults').jtable({
@@ -131,6 +141,7 @@
 	            }
 	        });
 	        $('##specresults').jtable('load');
+	        */
 	    });
 	</script>
 	<div id="specresults"></div>
