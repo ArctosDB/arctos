@@ -123,11 +123,17 @@
 			<cfcatch><!--- not there, so what? --->
 			</cfcatch>
 		</cftry>
+
+		<br />
+		<cfdump var=#InnerSqlString#>
+
+		<cfabort>
 		<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(InnerSqlString)#
 		</cfquery>
 
-		<cfdump var=#InnerSqlString#>
+
+
 		<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
 		</cfquery>
