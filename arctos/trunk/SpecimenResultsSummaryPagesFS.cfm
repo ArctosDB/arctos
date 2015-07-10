@@ -82,7 +82,34 @@
 				},
 				function(r) {
 					console.log(r);
-					alert(r.qid);
+					 $('##specresults').jtable({
+			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + t.TotalRecordCount + ' records.',
+						paging: true, //Enable paging
+			            pageSize: 10, //Set page size (default: 10)
+			            sorting: true, //Enable sorting
+			            defaultSorting: 'SCIENTIFIC_NAME ASC', //Set default sorting
+						columnResizable: true,
+						multiSorting: true,
+						columnSelectable: false,
+						//recordsLoaded: getPostLoadJunk,
+						multiselect: true,
+						selectingCheckboxes: false,
+		  				selecting: true, //Enable selecting
+		          		selectingCheckboxes: false, //Show checkboxes on first column
+		            	selectOnRowClick: false, //Enable this to only select using checkboxes
+						pageSizes: [10, 25, 50, 100, 250, 500,5000],
+						actions: {
+			                listAction: '/component/SpecimenResults.cfc?totalRecordCount=' + r.TotalRecordCount '&TotalSpecimenCount=' + r.TotalSpecimenCount + '&qid=' + r.qid
+			            },
+			              fields:  {
+							 COUNTOFCATALOGEDITEM:{title: 'Count'},
+							 LINKTOSPECIMENS: {
+		                            title: 'Specimens'
+		                        }
+
+			            }
+			        });
+			         $('##specresults').jtable('load');
 				}
 			);
 
@@ -93,61 +120,37 @@
 	<!----
 
 
+		                        /*,
+							 	<cfset thisLoopNum=1>
+							 	<cfset numFlds=listlen(group_cols)>
+								<cfloop list="#group_cols#" index="col">
+									<cfif col is "phylclass">
+										<cfset x="Class">
+									<cfelseif col is "phylorder">
+										<cfset x="Order">
+									<cfelseif col is "scientific_name">
+										<cfset x="ScientificName">
+									<cfelseif col is "formatted_scientific_name">
+										<cfset x="FormattedScientificName">
+									<cfelseif col is "state_prov">
+										<cfset x="StateOrProvince">
+									<cfelseif col is "island_group">
+										<cfset x="IslandGroup">
+									<cfelseif col is "spec_locality">
+										<cfset x="SpecificLocality">
+									<cfelseif col is "continent_ocean">
+										<cfset x="ContinentOrOcean">
+									<cfelse>
+										<cfset x=toProperCase(col)>
+									</cfif>
+									#ucase(COL)#: {title: '#x#'}
+									<cfif thisLoopNum lt numFlds>,</cfif>
+									<cfset thisLoopNum=thisLoopNum+1>
+								</cfloop>
 
 			//$("##usertools").menu();
 			//$("##goWhere").menu();
-	        $('##specresults').jtable({
-	            title: 'Specimen Summary: #numberformat(trc.ttl,",")# Specimens grouped into #numberformat(trc.c,",")# records.',
-				paging: true, //Enable paging
-	            pageSize: 10, //Set page size (default: 10)
-	            sorting: true, //Enable sorting
-	            defaultSorting: 'SCIENTIFIC_NAME ASC', //Set default sorting
-				columnResizable: true,
-				multiSorting: true,
-				columnSelectable: false,
-				//recordsLoaded: getPostLoadJunk,
-				multiselect: true,
-				selectingCheckboxes: false,
-  				selecting: true, //Enable selecting
-          		selectingCheckboxes: false, //Show checkboxes on first column
-            	selectOnRowClick: false, //Enable this to only select using checkboxes
-				pageSizes: [10, 25, 50, 100, 250, 500,5000],
-				actions: {
-	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenSummaryFS'
-	            },
-	              fields:  {
-					 COUNTOFCATALOGEDITEM:{title: 'Count'},
-					 LINKTOSPECIMENS: {
-                            title: 'Specimens'
-                        },
-					 	<cfset thisLoopNum=1>
-					 	<cfset numFlds=listlen(group_cols)>
-						<cfloop list="#group_cols#" index="col">
-							<cfif col is "phylclass">
-								<cfset x="Class">
-							<cfelseif col is "phylorder">
-								<cfset x="Order">
-							<cfelseif col is "scientific_name">
-								<cfset x="ScientificName">
-							<cfelseif col is "formatted_scientific_name">
-								<cfset x="FormattedScientificName">
-							<cfelseif col is "state_prov">
-								<cfset x="StateOrProvince">
-							<cfelseif col is "island_group">
-								<cfset x="IslandGroup">
-							<cfelseif col is "spec_locality">
-								<cfset x="SpecificLocality">
-							<cfelseif col is "continent_ocean">
-								<cfset x="ContinentOrOcean">
-							<cfelse>
-								<cfset x=toProperCase(col)>
-							</cfif>
-							#ucase(COL)#: {title: '#x#'}
-							<cfif thisLoopNum lt numFlds>,</cfif>
-							<cfset thisLoopNum=thisLoopNum+1>
-						</cfloop>
-	            }
-	        });
+
 	        $('##specresults').jtable('load');
 
 
