@@ -121,8 +121,8 @@ hi<cfflush>
 		<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
 
 		dropping...
-
-		<br>drop table #session.SpecSumTab#
+<cfoutput>
+		<br>drop table #session.SpecSumTab#</cfoutput>
 		<cfflush>
 		<cftry>
 			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
