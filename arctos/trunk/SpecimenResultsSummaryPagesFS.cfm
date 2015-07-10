@@ -81,7 +81,8 @@
 					groupBy: "#groupBy#"
 				},
 				function(r) {
-					console.log(r)
+					console.log(r);
+					alert(r.qid);
 				}
 			);
 
