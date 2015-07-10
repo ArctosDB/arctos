@@ -26,9 +26,35 @@
 	}
 </style>
 <cfoutput>
-	
-	
-	
+	<cfdump var=#url#>
+	<cfdump var=#form#>
+
+	<cfif not isdefined("groupBy") or len(groupBy) is 0>
+		<cfset groupBy='scientific_name'>
+	</cfif>
+	<!---- now pull everything that's NOT groupby out of wherever it came from ---->
+	<cfset querystring="">
+	<cfloop list="#StructKeyList(form)#" index="key">
+		<cfif len(form[key]) gt 0 and form[key] is not "groupby">
+			<cfset querystring=listappend(querystring,"#key#=#form[key]#","&")>
+		</cfif>
+	</cfloop>
+	<cfloop list="#StructKeyList(url)#" index="key">
+		<cfif len(url[key]) gt 0 and url[key] is not "groupby">
+			<cfset querystring=listappend(querystring,"#key#=#url[key]#","&")>
+		</cfif>
+	</cfloop>
+
+
+	<p>
+		querystring: #querystring#
+	</p>
+
+
+	<p>
+		groupBy: #groupBy#
+	</p>
+
 	<div>
 		<a class="likeLink" id="getDownload" onclick="getDownload();">Download</a>
 		<br><span class="likeLink"
