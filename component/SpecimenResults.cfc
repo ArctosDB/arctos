@@ -180,16 +180,8 @@
 		<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
 	</cfcatch>
 	</cftry>
-
-
-
-
-
-
 	<cfreturn result>
 </cffunction>
-
-
 
 	<!--------------------------------------------------------------------------------------------------------->
 	<cffunction name="downloadSpecimenSummary" access="remote" returnformat="plain">
