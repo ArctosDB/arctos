@@ -126,13 +126,11 @@
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
 	</cfquery>
-	<p>
-		<br><a class="likeLink" id="getDownload" onclick="getDownload();">download</a>
+		<a class="likeLink" id="getDownload" onclick="getDownload();">Download</a>
 		<br><span class="likeLink"
 			onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">
 			Save&nbsp;Search</span>
-		<br><a href="/saveSearch.cfm?action=manage">view/manage saved searches</a>
-	</p>
+		<br><a href="/saveSearch.cfm?action=manage">View/Manage Saved Searches</a>
 	<script type="text/javascript">
 	    $(document).ready(function () {
 			//$("##usertools").menu();
