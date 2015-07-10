@@ -124,10 +124,9 @@
 		#preserveSingleQuotes(InnerSqlString)#
 	</cfquery>
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from #session.SpecSumTab#
+		select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
 	</cfquery>
 	<p>
-		Found #trc.c# records.
 		<br><a class="likeLink" id="getDownload" onclick="getDownload();">download</a>
 		<br><span class="likeLink"
 			onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">
@@ -139,7 +138,7 @@
 			//$("##usertools").menu();
 			//$("##goWhere").menu();
 	        $('##specresults').jtable({
-	            title: 'Specimen Summary',
+	            title: 'Specimen Summary: #trc.ttl# Specimens grouped into #trc.c# records.',
 				paging: true, //Enable paging
 	            pageSize: 10, //Set page size (default: 10)
 	            sorting: true, //Enable sorting
