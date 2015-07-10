@@ -26,9 +26,6 @@
 	}
 </style>
 <cfoutput>
-	<cfdump var=#url#>
-	<cfdump var=#form#>
-
 	<cfif not isdefined("groupBy") or len(groupBy) is 0>
 		<cfset groupBy='scientific_name'>
 	</cfif>
@@ -41,9 +38,6 @@
 	</cfloop>
 	<cfloop list="#StructKeyList(url)#" index="key">
 		<cfif len(url[key]) gt 0 and key is not "groupby">
-			<p>
-				appending #key#
-			</p>
 			<cfset querystring=listappend(querystring,"#key#=#url[key]#","&")>
 		</cfif>
 	</cfloop>
