@@ -104,12 +104,6 @@
 			<cfset thisLink=left(thisLink,len(thisLink)-5)>
 		</cfif>
 
-<cfoutput>
-		<p>
-		#thisLink#
-		</p>
-
-		</cfoutput>
 		<cfset thisLink="'" & thisLInk>
 		<cfset basSelect=basSelect & ",#thisLink# AS linktospecimens ">
 		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
@@ -135,19 +129,6 @@
 		<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
 		</cfquery>
-
-
-
----------------
-<cfdump var=#InnerSqlString#>
-
-------------------------
-		<cfquery name="test" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select distinct linktospecimens from #session.SpecSumTab#
-		</cfquery>
-
-		<cfdump var="#test#">
-
 		<!----- now assign values to the "pager" variables and proceed as normal ---->
 		<cfset totalRecordCount=trc.c>
 		<cfset totalSpecimenCount=trc.ttl>
