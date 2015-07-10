@@ -2,8 +2,8 @@
 
 		<!--------------------------------------------------------------------------------------------------------->
 	<cffunction name="getSpecimenSummaryFS" access="remote" returnformat="plain" queryFormat="column">
-	<cfparam name="querystring" type="string">
-	<cfparam name="groupby" type="string">
+	<cfparam name="querystring" type="string" default="">
+	<cfparam name="groupby" type="string" default="">
 
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
@@ -27,7 +27,7 @@
 				<cfset "#vname#"=vval>
 			</cfif>
 		</cfloop>
-		
+
 		<cfif not listfindnocase(groupby,'collection_object_id')>
 			<cfset groupBy=listprepend(groupby,"collection_object_id")>
 		</cfif>
