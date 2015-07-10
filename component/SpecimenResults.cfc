@@ -171,7 +171,7 @@
 			</cfloop>
 			<cfset result='{"Result":"OK","Records":[' & x & '],
 				"TotalRecordCount":#TotalRecordCount#,
-				"totalSpecimenCount":#totalSpecimenCount#,
+				"TotalSpecimenCount":#totalSpecimenCount#,
 				"qid":#qid#}'>
 		</cfoutput>
 	<cfcatch>
