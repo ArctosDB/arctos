@@ -26,7 +26,12 @@
 
 		<cfloop list="#querystring#" index="kv" delimiters="&?">
 			<cfif listlen(kv,"=") is 2>
-				<cfset "#listgetat(kv,"=",1)#"=listgetat(kv,"=",2)>
+				<cfset vname=listgetat(kv,"=",1)>
+				<cfset vval=listgetat(kv,"=",2)>
+				<br>vname: #vname#
+				<br>vval: #vval#
+
+				<cfset "#vname#"=vval>
 			</cfif>
 
 		</cfloop>
