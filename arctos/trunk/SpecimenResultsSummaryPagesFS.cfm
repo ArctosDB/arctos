@@ -83,7 +83,7 @@
 				function(r) {
 					console.log(r);
 					 $('##specresults').jtable({
-			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + t.TotalRecordCount + ' records.',
+			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + r.TotalRecordCount + ' records.',
 						paging: true, //Enable paging
 			            pageSize: 10, //Set page size (default: 10)
 			            sorting: true, //Enable sorting
