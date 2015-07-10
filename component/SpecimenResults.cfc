@@ -119,7 +119,9 @@
 		<cfset thisLink="'" & thisLInk>
 		<cfset basSelect=basSelect & ",#thisLink# AS linktospecimens ">
 		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
+		<!----
 		<cfset checkSql(SqlString)>
+		---->
 		<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, linktospecimens,'>
 		<cfif listfindnocase(groupBy,'individualcount')>
 			<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
