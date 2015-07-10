@@ -110,7 +110,8 @@
 			        	}
 			        });
 
-			        $('##specresults').jtable('load').$('##indicatorgif').hide();
+			        $('##specresults').jtable('load');
+			        $('##indicatorgif').hide();
 				}
 			);
 
