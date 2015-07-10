@@ -94,7 +94,7 @@
 				<cfset thisLink=listappend(thisLink,"#x#=' || #pt# || '","&")>
 			<cfelse>
 				<!--- they grouped by something they did not search by, add it to the specimen-link ---->
-				<cfset thisLink=listappend(thisLink,"#x#=' || #pt# || '","&")>
+				<cfset thisLink=listappend(thisLink,"#x#=nvl(to_char(' || #pt# || '),'NULL')","&")>
 			</cfif>
 		</cfloop>
 		<cfif left(thislink,1) is '&'>
