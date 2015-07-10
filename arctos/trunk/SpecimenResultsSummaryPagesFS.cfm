@@ -22,7 +22,7 @@ CUIDADO!
 			 	replace(replace(url,'http://arctos.database.museum/'),'SpecimenResultsSummary','SpecimenResultsSummaryPagesFS') theurl
 			 	from cf_canned_search where url like '%SpecimenResultsSummary%'
 		</cfquery>
-		<divstyle="max-height:5em;overflow:auto">
+		<div style="max-height:5em;overflow:auto">
 		<cfloop query="d">
 			<br><a href='#theurl#'>#theurl#</a>
 		</cfloop>
