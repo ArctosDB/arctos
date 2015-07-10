@@ -103,7 +103,7 @@
 			            },
 			            fields:  {
 							COUNTOFCATALOGEDITEM:{title: 'Count'},
-							LINKTOSPECIMENS: {title: 'Specimens'}
+							LINKTOSPECIMENS: {title: 'Specimens'},
 							<cfset thisLoopNum=1>
 						 	<cfset numFlds=listlen(groupby)>
 							<cfloop list="#groupby#" index="col">
