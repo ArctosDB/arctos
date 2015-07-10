@@ -85,7 +85,14 @@
 				}
 			);
 
-	    	/*
+	    });
+	</script>
+
+
+	<!----
+
+
+
 			//$("##usertools").menu();
 			//$("##goWhere").menu();
 	        $('##specresults').jtable({
@@ -141,9 +148,10 @@
 	            }
 	        });
 	        $('##specresults').jtable('load');
-	        */
-	    });
-	</script>
+
+
+
+	        ---->
 	<div id="specresults"></div>
 
 
