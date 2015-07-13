@@ -998,7 +998,7 @@
 <cfif isdefined("year") AND len(year) gt 0>
 	<cfif not isYear(year) and compare(year,"NULL") is not 0>
 		<div class="error">
-			Year (#year#) must be a 4-digit number.
+			Year (<cfoutput>#year#</cfoutput>) must be a 4-digit number.
 		</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
