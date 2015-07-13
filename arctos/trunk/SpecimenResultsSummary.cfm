@@ -37,7 +37,7 @@
 		<cfset srchTerms=listappend(srchTerms,tt)>
 	</cfloop>
 
-	<a href="/SpecimenResultsSummaryPagesFS.cfm?groupby=#groupby#&querystring=URLEncodedFormat(mapurl)">new form</a>
+	<a href="/SpecimenResultsSummaryPagesFS.cfm?groupby=#groupby#&querystring=#URLEncodedFormat(mapurl)#">new form</a>
 	<!--- remove standard criteria that kill Oracle... --->
 	<cfif listcontains(srchTerms,"collection_id")>
 		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
