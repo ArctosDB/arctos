@@ -13,9 +13,6 @@
 
 	<cfparam name="qid" type="string" default="">
 
-
-hi<cfflush>
-
 	<!----
 		2 options here:
 			pass in querystring,groupby-->initial query + qid
@@ -120,10 +117,6 @@ hi<cfflush>
 		<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 		<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
 
-		dropping...
-<cfoutput>
-		<br>drop table #session.SpecSumTab#</cfoutput>
-		<cfflush>
 		<cftry>
 			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				drop table #session.SpecSumTab#
@@ -131,11 +124,7 @@ hi<cfflush>
 			<cfcatch><!--- not there, so what? --->
 			</cfcatch>
 		</cftry>
-dropped<cfflush>
-		<br />
-		<cfdump var=#InnerSqlString#>
 
-		<cfabort>
 		<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(InnerSqlString)#
 		</cfquery>
