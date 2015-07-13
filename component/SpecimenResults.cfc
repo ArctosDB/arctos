@@ -93,6 +93,9 @@
 		<cfloop list="#spcols#" index="pt">
 			<cfset x=listgetat(pt,2,'.')>
 			<cfif thisLink contains x>
+
+				<br>x:#x#
+				<br>pt:#pt#
 				<!---
 					they searched for something that they also grouped by
 					REMOVE the thing they searched (eg, more general)
