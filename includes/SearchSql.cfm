@@ -1347,7 +1347,11 @@
 	<cfif compare(country,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.country is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.country) like '%#ucase(escapeQuotes(country))#%'">
+		<cfif left(Country,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.Country) = '#ucase(escapeQuotes(right(Country,len(Country)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.Country) like '%#ucase(escapeQuotes(Country))#%'">
+		</cfif>
 	</cfif>
 	<cfset mapurl = "#mapurl#&Country=#URLEncodedFormat(Country)#">
 </cfif>
