@@ -105,13 +105,8 @@
 		</cfif>
 
 
-		<hr>
-		<cfdump var="#thisLink#">
 		<cfset thisLink=replace(thisLink,'==NULL','=NULL','all')>
 
-
-		<hr>
-		<cfdump var="#thisLink#">
 
 
 		<cfset thisLink="'" & thisLInk>
@@ -129,10 +124,6 @@
 
 
 
-
-		<hr>
-		<cfdump var="#InnerSqlString#">
-		<hr>
 
 		<cftry>
 			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
