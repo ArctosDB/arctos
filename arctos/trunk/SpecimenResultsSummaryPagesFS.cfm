@@ -76,7 +76,7 @@ CUIDADO!
 	<cfset equerystring=URLEncodedFormat(querystring)>
 
 
-	<br>#equerystring#=#equerystring#
+	<br>#equerystring#: #equerystring#
 	<div>
 		<a class="likeLink" id="getDownload" onclick="getDownload();">Download</a>
 		<br><span class="likeLink"
