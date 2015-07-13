@@ -55,6 +55,9 @@ CUIDADO!
 	}
 </style>
 <cfoutput>
+	<cfif listcontainsnocase(groupBy,"collection_object_id")>
+		<cfset groupBy=lisdeleteat(groupby,listfindnocase(groupby,"collection_object_id"))>
+	</cfif>
 	<cfif not isdefined("groupBy") or len(groupBy) is 0>
 		<cfset groupBy='scientific_name'>
 	</cfif>
