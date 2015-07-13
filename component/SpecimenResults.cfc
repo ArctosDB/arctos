@@ -130,6 +130,9 @@
 
 
 		<cfset thisLink="'" & thisLInk>
+
+
+				<br>thisLink:#thisLink#
 		<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
 		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
 		<!----
