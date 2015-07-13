@@ -138,7 +138,7 @@
 		<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 		<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
 
-
+<br>InnerSqlString: #InnerSqlString#
 
 
 		<cftry>
