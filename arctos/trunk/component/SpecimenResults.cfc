@@ -81,6 +81,7 @@
 		</cfif>
 		<cfset thisLink=mapurl>
 
+			<br>#thisLink#=#thisLink#
 		<!---
 			mapURL probably contains taxon_scope
 			We have to over-ride that here to get the
