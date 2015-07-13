@@ -996,6 +996,11 @@
 
 
 <cfif isdefined("year") AND len(year) gt 0>
+		<!--- ignore, already exact-match ---->
+	<cfif left(year,1) is '='>
+		<cfset year=right(year,len(year)-1)>
+	</cfif>
+
 	<cfif not isYear(year) and compare(year,"NULL") is not 0>
 		<div class="error">
 			Year (<cfoutput>#year#</cfoutput>) must be a 4-digit number.
