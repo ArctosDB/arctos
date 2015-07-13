@@ -64,12 +64,19 @@ CUIDADO!
 	<!---- now pull everything that's NOT groupby out of wherever it came from ---->
 	<cfset querystring="">
 	<cfloop list="#StructKeyList(form)#" index="key">
+
+	<br>#querystring#: #querystring#
+	<br>#querystring#: #querystring#
 		<cfif len(form[key]) gt 0 and key is not "groupby">
 			<cfset querystring=listappend(querystring,"#key#=#form[key]#","&")>
 	<br>#querystring#: #querystring#
 		</cfif>
 	</cfloop>
 	<cfloop list="#StructKeyList(url)#" index="key">
+
+
+	<br>#url[key]#: #url[key]#
+	<br>#key#: #key#
 		<cfif len(url[key]) gt 0 and key is not "groupby">
 			<cfset querystring=listappend(querystring,"#key#=#url[key]#","&")>
 	<br>#querystring#: #querystring#
