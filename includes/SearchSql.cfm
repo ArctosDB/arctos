@@ -243,7 +243,19 @@
 
 <cfif isdefined("formatted_scientific_name") AND len(formatted_scientific_name) gt 0>
 	<cfset mapurl = "#mapurl#&formatted_scientific_name=#URLEncodedFormat(formatted_scientific_name)#">
-	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.formatted_scientific_name) = '#ucase(escapeQuotes(formatted_scientific_name))#'">
+	<cfif compare(formatted_scientific_name,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.formatted_scientific_name is null">
+	<cfelse>
+		<cfif left(formatted_scientific_name,1) is '='>
+
+			hi
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.formatted_scientific_name) = '#ucase(escapeQuotes(right(formatted_scientific_name,len(formatted_scientific_name)-1)))#'">
+		<cfelse>
+
+		nope
+			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.formatted_scientific_name) LIKE '%#UCASE(escapeQuotes(formatted_scientific_name))#%'">
+		</cfif>
+	</cfif>
 </cfif>
 <cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
 	<cfif not isdefined("scientific_name_scope") OR len(scientific_name_scope) is 0>
@@ -1331,7 +1343,11 @@
 	<cfif compare(continent_ocean,"NULL") is 0>
 		<cfset basQual = " #basQual# AND continent_ocean is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND continent_ocean = '#continent_ocean#'">
+		<cfif left(continent_ocean,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.continent_ocean) = '#ucase(escapeQuotes(right(continent_ocean,len(continent_ocean)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.continent_ocean) LIKE '%#UCASE(escapeQuotes(continent_ocean))#%'">
+		</cfif>
 	</cfif>
 	<cfset mapurl = "#mapurl#&continent_ocean=#URLEncodedFormat(continent_ocean)#">
 </cfif>

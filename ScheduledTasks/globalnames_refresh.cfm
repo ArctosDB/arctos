@@ -50,15 +50,29 @@ Make sure any useful changes end up in both places.
 			and rownum<500
 		)
 	</cfquery>
+	<!---
+		globalnames cannot deal with plus-symbol, so ignore them all for now
+		No, nobody knows why Oracle thinks chr(215) is spelt chr(50071
+	---->
+	<cfquery name="ignorethis" datasource="uam_god">
+		update taxon_refresh_log set lastfetch=sysdate where instr(TAXON_NAME,chr(50071)) > 0
+	</cfquery>
+
+
+
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
 	</cfquery>
+
 	<cfif d.recordcount is 0>
 		<!---- start at old and work newer ---->
 		<cfquery name="d" datasource="uam_god">
 			select * from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch#
 		</cfquery>
 	</cfif>
+
+
+
 	<cfset theseNames=valuelist(d.taxon_name,'|')>
 
 
