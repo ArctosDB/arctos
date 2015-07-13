@@ -66,11 +66,13 @@ CUIDADO!
 	<cfloop list="#StructKeyList(form)#" index="key">
 		<cfif len(form[key]) gt 0 and key is not "groupby">
 			<cfset querystring=listappend(querystring,"#key#=#form[key]#","&")>
+	<br>#querystring#: #querystring#
 		</cfif>
 	</cfloop>
 	<cfloop list="#StructKeyList(url)#" index="key">
 		<cfif len(url[key]) gt 0 and key is not "groupby">
 			<cfset querystring=listappend(querystring,"#key#=#url[key]#","&")>
+	<br>#querystring#: #querystring#
 		</cfif>
 	</cfloop>
 	<cfset equerystring=URLEncodedFormat(querystring)>
