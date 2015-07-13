@@ -80,6 +80,9 @@
 			<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 		</cfif>
 		<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
+
+
+		<cfoutput>
 		<cfloop list="#spcols#" index="pt">
 			<br>#x#=#pt#
 			<cfset x=listgetat(pt,2,'.')>
@@ -108,7 +111,7 @@
 
 		<cfset thisLink=replace(thisLink,'==NULL','=NULL','all')>
 
-
+</cfoutput>
 
 		<cfset thisLink="'" & thisLInk>
 		<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
