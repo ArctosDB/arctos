@@ -131,16 +131,12 @@
 		<!----
 		<cfset checkSql(SqlString)>
 		---->
-		<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, linktospecimens,'>
+		<cfset InnerSqlString = 'select COUNT(distinct(collection_object_id)) CountOfCatalogedItem, linktospecimens,'>
 		<cfif listfindnocase(groupBy,'individualcount')>
 			<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 		</cfif>
 		<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 		<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
-
-<br>InnerSqlString: #InnerSqlString#
-
-
 		<cftry>
 			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				drop table #session.SpecSumTab#
