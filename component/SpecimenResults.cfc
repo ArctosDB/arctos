@@ -106,6 +106,13 @@
 				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 				<cfset thisLink=listappend(thisLink,"#x#==' || nvl(to_char(#pt#),'NULL') || '","&")>
 			<cfelse>
+
+
+				<br>x:#x#
+				<br>pt:#pt#
+
+
+
 				<!--- they grouped by something they did not search by, add it to the specimen-link ---->
 				<cfset thisLink=listappend(thisLink,"#x#==' || nvl(to_char(#pt#),'NULL') || '","&")>
 			</cfif>
