@@ -94,8 +94,6 @@
 			<cfset x=listgetat(pt,2,'.')>
 			<cfif thisLink contains x>
 
-				<br>x:#x#
-				<br>pt:#pt#
 				<!---
 					they searched for something that they also grouped by
 					REMOVE the thing they searched (eg, more general)
@@ -106,10 +104,6 @@
 				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 				<cfset thisLink=listappend(thisLink,"#x#==' || utl_url.escape(nvl(to_char(#pt#),'NULL')) || '","&")>
 			<cfelse>
-
-
-				<br>x:#x#
-				<br>pt:#pt#
 
 
 
@@ -132,7 +126,6 @@
 		<cfset thisLink="'" & thisLInk>
 
 
-				<br>thisLink:#thisLink#
 		<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
 		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
 		<!----
