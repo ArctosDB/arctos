@@ -1370,7 +1370,11 @@
 			</cfloop>
 		<cfset basQual = " #basQual# ) ">
 	<cfelse>
-		<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(escapeQuotes(state_prov))#%'">
+		<cfif left(Country,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.state_prov) = '#ucase(escapeQuotes(right(state_prov,len(state_prov)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(escapeQuotes(state_prov))#%'">
+		</cfif>
 	</cfif>
 	<cfset mapurl = "#mapurl#&state_prov=#URLEncodedFormat(state_prov)#">
 </cfif>
@@ -1679,7 +1683,11 @@
 	<cfif compare(Quad,"NULL") is 0>
 		<cfset basQual = " #basQual# AND Quad is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND UPPER(Quad) LIKE '%#UCASE(Quad)#%'">
+		<cfif left(Country,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.Quad) = '#ucase(escapeQuotes(right(Quad,len(Quad)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.Quad) LIKE '%#UCASE(escapeQuotes(Quad))#%'">
+		</cfif>
 	</cfif>
   <cfset mapurl = "#mapurl#&quad=#quad#">
 </cfif>
