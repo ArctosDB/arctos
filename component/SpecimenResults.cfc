@@ -115,7 +115,7 @@
 
 
 		<cfset thisLink="'" & thisLInk>
-		<cfset basSelect=basSelect & ",#thisLink# AS linktospecimens ">
+		<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
 		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
 		<!----
 		<cfset checkSql(SqlString)>
@@ -126,6 +126,13 @@
 		</cfif>
 		<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 		<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
+
+
+
+
+		<hr>
+		<cfdump var="#InnerSqlString#">
+		<hr>
 
 		<cftry>
 			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
