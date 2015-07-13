@@ -43,6 +43,9 @@
 <cfif isdefined("enddate") AND len(enddate) gt 0>
 	<cfset ended_date=enddate>
 </cfif>
+<cfif isdefined("identifiedby") and len(identifiedby) gt 0>
+	<cfset identified_agent=identifiedby>
+</cfif>
 
 <!---- old taxonomy model used taxon_scope - see if we can translate it to new stuff to not break links ---->
 
@@ -247,12 +250,8 @@
 		<cfset basQual = " #basQual# AND #session.flatTableName#.formatted_scientific_name is null">
 	<cfelse>
 		<cfif left(formatted_scientific_name,1) is '='>
-
-			hi
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.formatted_scientific_name) = '#ucase(escapeQuotes(right(formatted_scientific_name,len(formatted_scientific_name)-1)))#'">
 		<cfelse>
-
-		nope
 			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.formatted_scientific_name) LIKE '%#UCASE(escapeQuotes(formatted_scientific_name))#%'">
 		</cfif>
 	</cfif>
@@ -950,12 +949,18 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 AND identification.nature_of_id = '#nature_of_id#'">
 </cfif>
-<cfif isdefined("identifiedby") and len(identifiedby) gt 0>
-	<cfset identified_agent=identifiedby>
-</cfif>
+
 <cfif isdefined("identified_agent") AND len(identified_agent) gt 0>
 	<cfset mapurl = "#mapurl#&identified_agent=#identified_agent#">
-	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.IDENTIFIEDBY) LIKE '%#ucase(identified_agent)#%'">
+	<cfif compare(identified_agent,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.IDENTIFIEDBY is null">
+	<cfelse>
+		<cfif left(identified_agent,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.IDENTIFIEDBY) = '#ucase(escapeQuotes(right(identified_agent,len(identified_agent)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.IDENTIFIEDBY) LIKE '%#UCASE(escapeQuotes(identified_agent))#%'">
+		</cfif>
+	</cfif>
 </cfif>
 <cfif isdefined("began_date") AND len(began_date) gt 0>
 	<cfset mapurl = "#mapurl#&began_date=#began_date#">
