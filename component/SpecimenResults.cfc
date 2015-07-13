@@ -27,16 +27,11 @@
 	<cfif len(qid) is 0>
 		<cfset querystring=URLDecode(querystring)>
 
-
-		<br>querystring: #querystring#
 		<cfloop list="#querystring#" index="kv" delimiters="&?">
 			<cfif listlen(kv,"=") is 2>
 				<cfset vname=listgetat(kv,1,"=")>
 				<cfset vval=listgetat(kv,2,"=")>
 				<cfset "#vname#"=vval>
-
-				<br>vname: #vname#
-				<br>vval: #vval#
 			</cfif>
 		</cfloop>
 
@@ -81,7 +76,6 @@
 		</cfif>
 		<cfset thisLink=mapurl>
 
-			<br>#thisLink#=#thisLink#
 		<!---
 			mapURL probably contains taxon_scope
 			We have to over-ride that here to get the
@@ -97,7 +91,6 @@
 
 
 		<cfloop list="#spcols#" index="pt">
-			<br>#x#=#pt#
 			<cfset x=listgetat(pt,2,'.')>
 			<cfif thisLink contains x>
 				<!---
