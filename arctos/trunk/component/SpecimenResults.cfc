@@ -81,6 +81,7 @@
 		</cfif>
 		<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 		<cfloop list="#spcols#" index="pt">
+			<br>#x#=#pt#
 			<cfset x=listgetat(pt,2,'.')>
 			<cfif thisLink contains x>
 				<!---
