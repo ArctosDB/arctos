@@ -62,6 +62,10 @@ Bad things? Last standalone copy of this form is in v6.11
 	</div>
 	<script type="text/javascript">
 	    $(document).ready(function () {
+
+	    	console.log('lets do this');
+
+
 	    	$.getJSON("/component/SpecimenResults.cfc",
 				{
 					method : "getSpecimenSummaryFS",
@@ -70,6 +74,8 @@ Bad things? Last standalone copy of this form is in v6.11
 					groupBy: "#groupBy#"
 				},
 				function(r) {
+
+					console.log('i am back');
 					console.log(r);
 
 					 if (r.Result !='OK'){
