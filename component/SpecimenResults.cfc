@@ -201,7 +201,7 @@
 		<cfmail subject="specssummary error" to="arctos.database@gmail.com" from="ssrerror@arctos.database.museum" type="html">
 			<cfdump var=#cfcatch#>
 		</cfmail>
-		<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
+		<cfset result='{"Result":"ERROR","Message":"Error: #cfcatch.message#: #cfcatch.detail#"}'>
 	</cfcatch>
 	</cftry>
 	<cfreturn result>

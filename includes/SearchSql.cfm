@@ -1382,16 +1382,7 @@
 	<cfset temp=getFlatSql(fld="sea", val=sea)>
 </cfif>
 <cfif isdefined("Country") AND len(Country) gt 0>
-	<cfif compare(country,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.country is null">
-	<cfelse>
-		<cfif left(Country,1) is '='>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.Country) = '#ucase(escapeQuotes(right(Country,len(Country)-1)))#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.Country) like '%#ucase(escapeQuotes(Country))#%'">
-		</cfif>
-	</cfif>
-	<cfset mapurl = "#mapurl#&Country=#URLEncodedFormat(Country)#">
+	<cfset temp=getFlatSql(fld="Country", val=Country)>
 </cfif>
 <cfif isdefined("state_prov") AND len(state_prov) gt 0>
 	<cfif compare(state_prov,"NULL") is 0>
@@ -1714,16 +1705,7 @@
 	<cfset mapurl = "#mapurl#&inCounty=#URLEncodedFormat(inCounty)#">
 </cfif>
 <cfif isdefined("Quad") AND len(Quad) gt 0>
-	<cfif compare(Quad,"NULL") is 0>
-		<cfset basQual = " #basQual# AND Quad is null">
-	<cfelse>
-		<cfif left(Country,1) is '='>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.Quad) = '#ucase(escapeQuotes(right(Quad,len(Quad)-1)))#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.Quad) LIKE '%#UCASE(escapeQuotes(Quad))#%'">
-		</cfif>
-	</cfif>
-  <cfset mapurl = "#mapurl#&quad=#quad#">
+	<cfset temp=getFlatSql(fld="Quad", val=Quad)>
 </cfif>
 <cfif isdefined("partname") AND len(partname) gt 0>
 	<cfset part_name=partname>
