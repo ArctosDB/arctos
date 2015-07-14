@@ -14,158 +14,154 @@
 	<cfparam name="qid" type="string" default="">
 
 
-
-<cfoutput>
-
-
-
-	<!----
-		2 options here:
-			pass in querystring,groupby-->initial query + qid
-			pass in qid --> query of cache (eg, paging)
-	---->
-	<cfif len(qid) is 0>
-		<cfset querystring=URLDecode(querystring)>
-
-		<cfloop list="#querystring#" index="kv" delimiters="&?">
-			<cfif listlen(kv,"=") is 2>
-				<cfset vname=listgetat(kv,1,"=")>
-				<cfset vval=listgetat(kv,2,"=")>
-				<cfset "#vname#"=vval>
-			</cfif>
-		</cfloop>
-
-		<cfif not listfindnocase(groupby,'collection_object_id')>
-			<cfset groupBy=listprepend(groupby,"collection_object_id")>
-		</cfif>
-		<cfset prefixed_cols="">
-		<cfset spcols="">
-		<cfloop list="#groupBy#" index="x">
-			<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-			<cfif x is not "collection_object_id">
-				<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
-			</cfif>
-		</cfloop>
-		<cfset basSelect = " SELECT #prefixed_cols# ">
-		<cfset basFrom = " FROM #session.flatTableName#">
-		<cfset basJoin = "">
-		<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
-		<cfset basQual = "">
-		<cfset mapurl="">
-		<cfinclude template="/includes/SearchSql.cfm">
-		<cfset group_cols = groupBy>
-		<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
-		<cfif listfindnocase(group_cols,'individualcount')>
-			<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
-		</cfif>
-		<!--- require some actual searching --->
-		<cfset srchTerms="">
-		<cfloop list="#mapurl#" delimiters="&" index="t">
-			<cfset tt=listgetat(t,1,"=")>
-			<cfset srchTerms=listappend(srchTerms,tt)>
-		</cfloop>
-		<!--- remove standard criteria that kill Oracle... --->
-		<cfif listcontains(srchTerms,"collection_id")>
-			<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
-		</cfif>
-		<!--- ... and abort if there's nothing left --->
-		<cfif len(srchTerms) is 0>
-			<cfset result='{"Result":"ERROR","Message":"You must provide search criteria."}'>
-			<cfreturn result>
-		</cfif>
-		<cfset thisLink=mapurl>
-
-		<!---
-			mapURL probably contains taxon_scope
-			We have to over-ride that here to get the
-			correct links - eg, the no-subspecies name
-			should not contain all the subspecies
-		---->
-		<cfif thisLink contains "scientific_name_match_type">
-			<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
-			<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
-		</cfif>
-		<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
-
-
-
-		<cfloop list="#spcols#" index="pt">
-			<cfset x=listgetat(pt,2,'.')>
-			<cfif thisLink contains x>
-
-				<!---
-					they searched for something that they also grouped by
-					REMOVE the thing they searched (eg, more general)
-					ADD the thing grouped (eg, more specific)
-				---->
-				<!--- replace search terms with stuff here ---->
-				<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
-				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
-				<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#pt#),'NULL')) || '","&")>
-			<cfelse>
-
-
-
-				<!--- they grouped by something they did not search by, add it to the specimen-link ---->
-				<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#pt#),'NULL')) || '","&")>
-			</cfif>
-		</cfloop>
-		<cfif left(thislink,1) is '&'>
-			<cfset thisLInk=right(thisLink,len(thisLink)-1)>
-		</cfif>
-		<cfif right(thisLink,5) is " || '">
-			<cfset thisLink=left(thisLink,len(thisLink)-5)>
-		</cfif>
-
-
-		<cfset thisLink=replace(thisLink,'==NULL','=NULL','all')>
-
-
-
-		<cfset thisLink="'" & thisLInk>
-
-
-		<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
-		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
-		<!----
-		<cfset checkSql(SqlString)>
-		---->
-		<cfset InnerSqlString = 'select COUNT(distinct(collection_object_id)) CountOfCatalogedItem, linktospecimens,'>
-		<cfif listfindnocase(groupBy,'individualcount')>
-			<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
-		</cfif>
-		<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
-		<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
-		<cftry>
-			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				drop table #session.SpecSumTab#
-			</cfquery>
-			<cfcatch><!--- not there, so what? --->
-			</cfcatch>
-		</cftry>
-
-		<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preserveSingleQuotes(InnerSqlString)#
-		</cfquery>
-
-
-
-		<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
-		</cfquery>
-		<cfif trc.c is 0>
-			<cfset result='{"Result":"ERROR","Message":"No Data Found: Please try another search."}'>
-			<cfreturn result>
-		</cfif>
-		<!----- now assign values to the "pager" variables and proceed as normal ---->
-		<cfset totalRecordCount=trc.c>
-		<cfset totalSpecimenCount=trc.ttl>
-		<cfset qid=1>
-	</cfif>
-
-
-
 	<cftry>
+
+		<!----
+			2 options here:
+				pass in querystring,groupby-->initial query + qid
+				pass in qid --> query of cache (eg, paging)
+		---->
+		<cfif len(qid) is 0>
+			<cfset querystring=URLDecode(querystring)>
+
+			<cfloop list="#querystring#" index="kv" delimiters="&?">
+				<cfif listlen(kv,"=") is 2>
+					<cfset vname=listgetat(kv,1,"=")>
+					<cfset vval=listgetat(kv,2,"=")>
+					<cfset "#vname#"=vval>
+				</cfif>
+			</cfloop>
+
+			<cfif not listfindnocase(groupby,'collection_object_id')>
+				<cfset groupBy=listprepend(groupby,"collection_object_id")>
+			</cfif>
+			<cfset prefixed_cols="">
+			<cfset spcols="">
+			<cfloop list="#groupBy#" index="x">
+				<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
+				<cfif x is not "collection_object_id">
+					<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
+				</cfif>
+			</cfloop>
+			<cfset basSelect = " SELECT #prefixed_cols# ">
+			<cfset basFrom = " FROM #session.flatTableName#">
+			<cfset basJoin = "">
+			<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
+			<cfset basQual = "">
+			<cfset mapurl="">
+			<cfinclude template="/includes/SearchSql.cfm">
+			<cfset group_cols = groupBy>
+			<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
+			<cfif listfindnocase(group_cols,'individualcount')>
+				<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
+			</cfif>
+			<!--- require some actual searching --->
+			<cfset srchTerms="">
+			<cfloop list="#mapurl#" delimiters="&" index="t">
+				<cfset tt=listgetat(t,1,"=")>
+				<cfset srchTerms=listappend(srchTerms,tt)>
+			</cfloop>
+			<!--- remove standard criteria that kill Oracle... --->
+			<cfif listcontains(srchTerms,"collection_id")>
+				<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
+			</cfif>
+			<!--- ... and abort if there's nothing left --->
+			<cfif len(srchTerms) is 0>
+				<cfset result='{"Result":"ERROR","Message":"You must provide search criteria."}'>
+				<cfreturn result>
+			</cfif>
+			<cfset thisLink=mapurl>
+
+			<!---
+				mapURL probably contains taxon_scope
+				We have to over-ride that here to get the
+				correct links - eg, the no-subspecies name
+				should not contain all the subspecies
+			---->
+			<cfif thisLink contains "scientific_name_match_type">
+				<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
+				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
+			</cfif>
+			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
+
+
+
+			<cfloop list="#spcols#" index="pt">
+				<cfset x=listgetat(pt,2,'.')>
+				<cfif thisLink contains x>
+
+					<!---
+						they searched for something that they also grouped by
+						REMOVE the thing they searched (eg, more general)
+						ADD the thing grouped (eg, more specific)
+					---->
+					<!--- replace search terms with stuff here ---->
+					<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
+					<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
+					<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#pt#),'NULL')) || '","&")>
+				<cfelse>
+
+
+
+					<!--- they grouped by something they did not search by, add it to the specimen-link ---->
+					<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#pt#),'NULL')) || '","&")>
+				</cfif>
+			</cfloop>
+			<cfif left(thislink,1) is '&'>
+				<cfset thisLInk=right(thisLink,len(thisLink)-1)>
+			</cfif>
+			<cfif right(thisLink,5) is " || '">
+				<cfset thisLink=left(thisLink,len(thisLink)-5)>
+			</cfif>
+
+
+			<cfset thisLink=replace(thisLink,'==NULL','=NULL','all')>
+
+
+
+			<cfset thisLink="'" & thisLInk>
+
+
+			<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
+			<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
+			<!----
+			<cfset checkSql(SqlString)>
+			---->
+			<cfset InnerSqlString = 'select COUNT(distinct(collection_object_id)) CountOfCatalogedItem, linktospecimens,'>
+			<cfif listfindnocase(groupBy,'individualcount')>
+				<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
+			</cfif>
+			<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
+			<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
+			<cftry>
+				<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					drop table #session.SpecSumTab#
+				</cfquery>
+				<cfcatch><!--- not there, so what? --->
+				</cfcatch>
+			</cftry>
+
+			<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#preserveSingleQuotes(InnerSqlString)#
+			</cfquery>
+
+
+
+			<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
+			</cfquery>
+			<cfif trc.c is 0>
+				<cfset result='{"Result":"ERROR","Message":"No Data Found: Please try another search."}'>
+				<cfreturn result>
+			</cfif>
+			<!----- now assign values to the "pager" variables and proceed as normal ---->
+			<cfset totalRecordCount=trc.c>
+			<cfset totalSpecimenCount=trc.ttl>
+			<cfset qid=1>
+		</cfif>
+
+
+
 		<cfset jtStopIndex=jtStartIndex+jtPageSize>
 		<cfset obj = CreateObject("component","component.docs")>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -210,9 +206,6 @@
 	</cftry>
 	<cfreturn result>
 
-
-
-	</cfoutput>
 
 
 
