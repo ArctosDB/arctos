@@ -34,7 +34,6 @@ Bad things? Last standalone copy of this form is in v6.11
 	<cfif listcontainsnocase(groupBy,"collection_object_id")>
 		<cfset groupBy=listdeleteat(groupby,listfindnocase(groupby,"collection_object_id"))>
 	</cfif>
-
 	<!---- now pull everything that's NOT groupby out of wherever it came from ---->
 	<cfset querystring="">
 	<cfloop list="#StructKeyList(form)#" index="key">
@@ -44,15 +43,11 @@ Bad things? Last standalone copy of this form is in v6.11
 		</cfif>
 	</cfloop>
 	<cfloop list="#StructKeyList(url)#" index="key">
-
-
 		<cfif len(url[key]) gt 0 and key is not "groupby">
 			<cfset querystring=listappend(querystring,"#key#=#url[key]#","&")>
 		</cfif>
 	</cfloop>
 	<cfset equerystring=URLEncodedFormat(querystring)>
-
-
 	<div>
 		<a class="likeLink" id="getDownload" onclick="getDownload();">Download</a>
 		<br><span class="likeLink"
@@ -62,10 +57,6 @@ Bad things? Last standalone copy of this form is in v6.11
 	</div>
 	<script type="text/javascript">
 	    $(document).ready(function () {
-
-	    	console.log('lets do this');
-
-
 	    	$.getJSON("/component/SpecimenResults.cfc",
 				{
 					method : "getSpecimenSummaryFS",
@@ -74,21 +65,10 @@ Bad things? Last standalone copy of this form is in v6.11
 					groupBy: "#groupBy#"
 				},
 				function(r) {
-
-					console.log('i am back');
-					console.log(r);
-
 					 if (r.Result !='OK'){
 			        	$('##msgdiv').html(r.Message).addClass('error');
-			        //	$('##specresults');
-
-
-					 	//alert(r.Message);
-					 	return false;
+			   		 	return false;
 					}
-
-
-
 					 $('##specresults').jtable({
 			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + r.TotalRecordCount + ' records.',
 						paging: true, //Enable paging
