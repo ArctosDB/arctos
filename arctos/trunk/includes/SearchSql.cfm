@@ -30,6 +30,9 @@
 </cfif>
 
 
+
+<cfset 1=2>
+
 <!----------------------------------- translate deprecated terms when possible ---------------------------->
 <cfif isdefined("listcatnum")>
 	<cfset catnum = listcatnum>
