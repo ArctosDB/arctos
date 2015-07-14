@@ -1426,7 +1426,7 @@
 </cffunction>
 
 <cfif isdefined("island_group") AND len(island_group) gt 0>
-	<cfset temp=getFlatSql(fld="island_group", val=island_group>
+	<cfset temp=getFlatSql(fld="island_group", val=island_group)>
 
 	<!----
 	<cfif compare(island_group,"NULL") is 0>
