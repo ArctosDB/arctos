@@ -71,8 +71,8 @@ Bad things? Last standalone copy of this form is in v6.11
 				},
 				function(r) {
 					 if (r.Result !='OK'){
-			        	$('##indicatorgif').hide();
-			        	$('##specresults').html(r.Message).addClass('error');
+			        	$('##msgdiv').html(r.Message).addClass('error');
+			        //	$('##specresults');
 
 
 					 	//alert(r.Message);
@@ -131,12 +131,14 @@ Bad things? Last standalone copy of this form is in v6.11
 							</cfloop>
 			        	}
 			        });
-			        $('##specresults').removeClass().jtable('load');
-			        $('##indicatorgif').hide();
+			        $('##specresults')jtable('load');
+			        $('##msgdiv').removeClass().hide();
 				}
 			);
 	    });
 	</script>
-	<div id="specresults"><img id="indicatorgif" src="/images/indicator.gif"></div>
+	<div id="msgdiv"><img  src="/images/indicator.gif">Processing request</div>
+
+	<div id="specresults"></div>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
