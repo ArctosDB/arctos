@@ -73,7 +73,7 @@ Bad things? Last standalone copy of this form is in v6.11
 					 alert(r);
 					 if (r.Result !='OK'){
 			        	$('##indicatorgif').hide();
-			        	$('##specresults').html(r.Message);
+			        	$('##specresults').html(r.Message).addClass('error');
 
 
 					 	//alert(r.Message);
