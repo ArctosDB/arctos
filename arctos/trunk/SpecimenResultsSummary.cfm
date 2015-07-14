@@ -137,7 +137,7 @@ Bad things? Last standalone copy of this form is in v6.11
 			);
 	    });
 	</script>
-	<div id="msgdiv"><img  src="/images/indicator.gif">Processing request</div>
+	<div id="msgdiv"><img  src="/images/indicator.gif">&nbsp;Processing request</div>
 
 	<div id="specresults"></div>
 </cfoutput>
