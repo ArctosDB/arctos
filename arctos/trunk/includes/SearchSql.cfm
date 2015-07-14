@@ -1,6 +1,5 @@
 <cffunction name="getFlatSQL" returnformat="plain">
 	<!----
-
 		for "normal" stuff that's matching a colulm in FLAT, just call this with eg
 
 				<cfset temp=getFlatSql(fld="island_group", val=island_group)>
@@ -18,7 +17,7 @@
 	</cfif>
 	<cfset mapurl = "#mapurl#&#fld#=#URLEncodedFormat(val)#">
 </cffunction>
-
+<!----------------------------------------------------------------------------------------------------------->
 <cfset extendedErrorMsg="">
 <cfif not isdefined("basQual")>
 	<cfset basQual = "">
@@ -1120,9 +1119,6 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND collecting_event.locality_id IN ( #locality_id# )">
 </cfif>
-
-
-
 <cfif isdefined("inMon") AND len(inMon) gt 0>
 	<cfset mapurl = "#mapurl#&inMon=#inMon#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) IN (#inMon#)">
