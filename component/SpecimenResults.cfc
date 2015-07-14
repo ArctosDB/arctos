@@ -203,6 +203,8 @@
 		</cfmail>
 		<cfset result='{"Result":"ERROR","Message":"Error: #cfcatch.message#: #cfcatch.detail#"}'>
 		<cfset result = REReplace(result, "\r\n|\n\r|\n|\r", "", "all")>
+
+		<cfdump var=#cfcatch#>
 	</cfcatch>
 	</cftry>
 	<cfreturn result>
