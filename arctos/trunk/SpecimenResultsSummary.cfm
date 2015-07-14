@@ -131,7 +131,7 @@ Bad things? Last standalone copy of this form is in v6.11
 							</cfloop>
 			        	}
 			        });
-			        $('##specresults')jtable('load');
+			        $('##specresults').jtable('load');
 			        $('##msgdiv').removeClass().hide();
 				}
 			);
