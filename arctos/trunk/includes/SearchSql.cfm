@@ -13,7 +13,7 @@
 	<cfelseif len(val) gt 1 and left(val,1) is '='>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) = '#UCASE(escapeQuotes(right(val,len(val)-1)))#'">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) LIKE '%#UCASE(val)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) LIKE '%#UCASE(escapeQuotes(val))#%'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&#fld#=#URLEncodedFormat(val)#">
 </cffunction>
