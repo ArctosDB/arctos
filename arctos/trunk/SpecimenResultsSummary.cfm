@@ -70,7 +70,6 @@ Bad things? Last standalone copy of this form is in v6.11
 					groupBy: "#groupBy#"
 				},
 				function(r) {
-					 alert(r);
 					 if (r.Result !='OK'){
 			        	$('##indicatorgif').hide();
 			        	$('##specresults').html(r.Message).addClass('error');
@@ -132,7 +131,7 @@ Bad things? Last standalone copy of this form is in v6.11
 							</cfloop>
 			        	}
 			        });
-			        $('##specresults').jtable('load');
+			        $('##specresults').removeClass().jtable('load');
 			        $('##indicatorgif').hide();
 				}
 			);
