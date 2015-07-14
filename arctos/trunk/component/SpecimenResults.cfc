@@ -199,6 +199,15 @@
 		</cfoutput>
 	<cfcatch>
 
+
+
+
+		<cfmail subject="specssummary error" to="arctos.database@gmail.com" from="ssrerror@arctos.database.museum" type="html">
+			<cfdump var=#cfcatch#>
+		</cfmail>
+
+
+
 		<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#cfcatch#">
 			<cfthrow message="Specimen Summary Error" detail="#loginfo#">
 		</cfthread>
