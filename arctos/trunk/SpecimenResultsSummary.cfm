@@ -70,6 +70,9 @@ Bad things? Last standalone copy of this form is in v6.11
 					groupBy: "#groupBy#"
 				},
 				function(r) {
+					 alert(r);
+
+
 					 $('##specresults').jtable({
 			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + r.TotalRecordCount + ' records.',
 						paging: true, //Enable paging
