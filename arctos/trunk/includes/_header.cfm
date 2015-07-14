@@ -32,8 +32,7 @@
 		<meta name="keywords" content="#session.meta_keywords#">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     	<LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico?v=5">
-    	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<meta name=viewport content="width=device-width, initial-scale=1">
+		<meta name=viewport content="width=device-width, initial-scale=1">
    		<cfif len(trim(session.stylesheet)) gt 0>
 			<cfset ssName = replace(session.stylesheet,".css","","all")>
     		<link rel="alternate stylesheet" type="text/css" href="/includes/css/#trim(session.stylesheet)#" title="#trim(ssName)#">
