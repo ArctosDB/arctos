@@ -72,7 +72,11 @@ Bad things? Last standalone copy of this form is in v6.11
 				function(r) {
 					 alert(r);
 					 if (r.Result !='OK'){
-					 	alert(r.Message);
+			        	$('##indicatorgif').hide();
+			        	$('##specresults').html(r.Message);
+
+
+					 	//alert(r.Message);
 					 	return false;
 					}
 
