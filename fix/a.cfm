@@ -6,7 +6,7 @@
 <cfdump var=#url#>
 
 
-
+<!------
 <cfabort>
 
 
@@ -51,9 +51,7 @@
 
 <cfdump var=#cfhttp#>
 
-
+----->
 <cfinclude template="/includes/_footer.cfm">
 </cfoutput>
 
-
-select decode(
