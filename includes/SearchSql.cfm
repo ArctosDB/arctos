@@ -1379,12 +1379,7 @@
 	<cfset mapurl = "#mapurl#&continent_ocean=#URLEncodedFormat(continent_ocean)#">
 </cfif>
 <cfif isdefined("sea") AND len(sea) gt 0>
-	<cfif compare(sea,"NULL") is 0>
-		<cfset basQual = " #basQual# AND sea is null">
-	<cfelse>
-		<cfset basQual = " #basQual# AND sea = '#sea#'">
-	</cfif>
-	<cfset mapurl = "#mapurl#&sea=#URLEncodedFormat(sea)#">
+	<cfset temp=getFlatSql(fld="sea", val=sea)>
 </cfif>
 <cfif isdefined("Country") AND len(Country) gt 0>
 	<cfif compare(country,"NULL") is 0>
