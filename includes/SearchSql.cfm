@@ -11,7 +11,7 @@
 	<cfparam name="val" type="string" default="">
 	<cfif compare(val,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.#fld# is null">
-	<cfelseif left(val,1) is '='>
+	<cfelseif len(val) gt 1 and left(val,1) is '='>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) = '#UCASE(escapeQuotes(right(val,len(val)-1)))#'">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) LIKE '%#UCASE(val)#%'">
