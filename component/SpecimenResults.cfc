@@ -154,7 +154,7 @@
 			select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
 		</cfquery>
 		<cfif trc.c is 0>
-			<cfset result='{"Result":"ERROR","Message":"No Data Found: Please try another search,"}'>
+			<cfset result='{"Result":"ERROR","Message":"No Data Found: Please try another search."}'>
 			<cfreturn result>
 		</cfif>
 		<!----- now assign values to the "pager" variables and proceed as normal ---->
