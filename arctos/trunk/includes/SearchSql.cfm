@@ -1569,10 +1569,6 @@
 <!--------- the above is legacy from the old spatial query and can probably be deprecated rather than updated when that becomes an issue ---->
 
 <cfif isdefined("spec_locality") and len(spec_locality) gt 0>
-
-<cfdump var=#spec_locality#>
-
-
 	<cfset mapurl = "#mapurl#&spec_locality=#URLEncodedFormat(spec_locality)#">
 	<cfif compare(spec_locality,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.spec_locality is null">
