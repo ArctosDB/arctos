@@ -202,6 +202,9 @@
 			<cfdump var=#cfcatch#>
 		</cfmail>
 		<cfset result='{"Result":"ERROR","Message":"Error: #cfcatch.message#: #cfcatch.detail#"}'>
+
+
+		<cfset result='{"Result":"ERROR","Message":"Error: funkychars?"}'>
 	</cfcatch>
 	</cftry>
 	<cfreturn result>
