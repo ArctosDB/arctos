@@ -1,6 +1,17 @@
 <cfoutput>
 
 <cfinclude template="/includes/_header.cfm">
+
+
+<cfdump var=#url#>
+
+
+
+<cfabort>
+
+
+
+
 <cfsetting requesttimeout="600">
 
 <cfset str="abc def ghi jkl">
