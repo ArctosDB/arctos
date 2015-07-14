@@ -1408,7 +1408,7 @@
 			</cfloop>
 		<cfset basQual = " #basQual# ) ">
 	<cfelse>
-		<cfif left(Country,1) is '='>
+		<cfif left(state_prov,1) is '='>
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.state_prov) = '#ucase(escapeQuotes(right(state_prov,len(state_prov)-1)))#'">
 		<cfelse>
 			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(escapeQuotes(state_prov))#%'">
