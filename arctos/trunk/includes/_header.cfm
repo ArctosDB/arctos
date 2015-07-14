@@ -30,6 +30,7 @@
 	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     	<LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico?v=5">
     	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta name=viewport content="width=device-width, initial-scale=1">
