@@ -199,9 +199,9 @@
 		</cfoutput>
 	<cfcatch>
 
+		<cfthrow message="Specimen Summary Error" detail="#cfcatch#">
 
-
-
+		<!----
 		<cfmail subject="specssummary error" to="arctos.database@gmail.com" from="ssrerror@arctos.database.museum" type="html">
 			<cfdump var=#cfcatch#>
 		</cfmail>
@@ -215,6 +215,7 @@
 
 		<cfset result='{"Result":"ERROR","Message":"Error: #cfcatch.message#: #cfcatch.detail#"}'>
 		<cfset result = REReplace(result, "\r\n|\n\r|\n|\r", "", "all")>
+		---->
 	</cfcatch>
 	</cftry>
 	<cfreturn result>
