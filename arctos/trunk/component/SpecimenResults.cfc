@@ -198,13 +198,14 @@
 				"qid":#qid#}'>
 		</cfoutput>
 	<cfcatch>
-		<cfmail subject="specssummary error" to="arctos.database@gmail.com" from="ssrerror@arctos.database.museum" type="html">
-			<cfdump var=#cfcatch#>
-		</cfmail>
+
+		<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#loginfo#">
+			<cfthrow message="Specimen Summary Error" detail="#cfcatch#">
+		</cfthread>
+
+
 		<cfset result='{"Result":"ERROR","Message":"Error: #cfcatch.message#: #cfcatch.detail#"}'>
 		<cfset result = REReplace(result, "\r\n|\n\r|\n|\r", "", "all")>
-
-		<cfdump var=#cfcatch#>
 	</cfcatch>
 	</cftry>
 	<cfreturn result>
