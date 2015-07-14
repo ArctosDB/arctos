@@ -1,3 +1,24 @@
+<cffunction name="getFlatSQL" returnformat="plain">
+	<!----
+
+		for "normal" stuff that's matching a colulm in FLAT, just call this with eg
+
+				<cfset temp=getFlatSql(fld="island_group", val=island_group)>
+
+		instead of writing SQL
+	---->
+	<cfparam name="fld" type="string" default="">
+	<cfparam name="val" type="string" default="">
+	<cfif compare(val,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.#fld# is null">
+	<cfelseif left(val,1) is '='>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) = '#UCASE(escapeQuotes(right(val,len(val)-1)))#'">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) LIKE '%#UCASE(val)#%'">
+	</cfif>
+	<cfset mapurl = "#mapurl#&#fld#=#URLEncodedFormat(val)#">
+</cffunction>
+
 <cfset extendedErrorMsg="">
 <cfif not isdefined("basQual")>
 	<cfset basQual = "">
@@ -1407,44 +1428,14 @@
 
 
 
-<cffunction name="getFlatSQL" returnformat="plain">
 
-	<cfparam name="fld" type="string" default="">
-	<cfparam name="val" type="string" default="">
-
-
-	<cfif compare(val,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.#fld# is null">
-	<cfelseif left(val,1) is '='>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) = '#UCASE(escapeQuotes(right(val,len(val)-1)))#'">
-	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) LIKE '%#UCASE(val)#%'">
-	</cfif>
-
-		<cfset mapurl = "#mapurl#&#fld#=#URLEncodedFormat(val)#">
-
-</cffunction>
 
 <cfif isdefined("island_group") AND len(island_group) gt 0>
 	<cfset temp=getFlatSql(fld="island_group", val=island_group)>
-
-	<!----
-	<cfif compare(island_group,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.island_group is null">
-	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.Island_Group LIKE '#island_group#'">
-	</cfif>
-	<cfset mapurl = "#mapurl#&island_group=#URLEncodedFormat(island_group)#">
-	----->
-
 </cfif>
 <cfif isdefined("Island") AND len(Island) gt 0>
-	<cfif compare(Island,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.Island is null">
-	<cfelse>
-		<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.Island) LIKE '%#UCASE(Island)#%'">
-	</cfif>
-	<cfset mapurl = "#mapurl#&island=#URLEncodedFormat(island)#">
+	<cfset temp=getFlatSql(fld="Island", val=Island)>
+
 </cfif>
 <cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
 	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) eq 0)>
