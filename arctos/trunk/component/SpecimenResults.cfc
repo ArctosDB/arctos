@@ -199,8 +199,8 @@
 		</cfoutput>
 	<cfcatch>
 
-		<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#loginfo#">
-			<cfthrow message="Specimen Summary Error" detail="#cfcatch#">
+		<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#cfcatch#">
+			<cfthrow message="Specimen Summary Error" detail="#loginfo#">
 		</cfthread>
 
 
