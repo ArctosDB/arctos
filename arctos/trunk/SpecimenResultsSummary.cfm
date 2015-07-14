@@ -70,6 +70,8 @@ Bad things? Last standalone copy of this form is in v6.11
 					groupBy: "#groupBy#"
 				},
 				function(r) {
+					console.log(r);
+
 					 if (r.Result !='OK'){
 			        	$('##msgdiv').html(r.Message).addClass('error');
 			        //	$('##specresults');
