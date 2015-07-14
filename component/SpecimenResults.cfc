@@ -70,9 +70,8 @@
 		</cfif>
 		<!--- ... and abort if there's nothing left --->
 		<cfif len(srchTerms) is 0>
-			<CFSETTING ENABLECFOUTPUTONLY=0>
-			<font color="##FF0000" size="+2">You must enter some search criteria!</font>
-			<cfabort>
+			<cfset result='{"Result":"ERROR","Message":"You must provide search criteria."}'>
+			<cfreturn result>
 		</cfif>
 		<cfset thisLink=mapurl>
 
@@ -154,6 +153,10 @@
 		<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c,sum(COUNTOFCATALOGEDITEM) ttl from #session.SpecSumTab#
 		</cfquery>
+		<cfif trc.c is 0>
+			<cfset result='{"Result":"ERROR","Message":"No Data Found: Please try another search,"}'>
+			<cfreturn result>
+		</cfif>
 		<!----- now assign values to the "pager" variables and proceed as normal ---->
 		<cfset totalRecordCount=trc.c>
 		<cfset totalSpecimenCount=trc.ttl>
