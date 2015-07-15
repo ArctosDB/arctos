@@ -4,6 +4,11 @@
 
 
 
+
+<!-----
+
+this part works yay!
+
 <cfhttp url="http://search.crossref.org/dois?q=Phenotypic evolution in high-elevation populations of western fence lizards (Sceloporus occidentalis) in the Sierra Nevada Mountains"></cfhttp>
 
 
@@ -41,6 +46,7 @@
 
 </cfloop>
 
+------>
 
 
 
