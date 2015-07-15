@@ -28,7 +28,7 @@
 		<cfset stripttl=ucase(trim(rereplacenocase(ttl, '[^a-z0-9]', '', 'all')))>
 
 		<br>stripttl=#stripttl#
-
+		<br>len(stripttl): #len(stripttl)#
 		<cfif len(stripttl) lt 50>
 			<p style="border:2px solid red;padding:1em;margin:1em;text-align:center;">
 				If this is a journal article, it's probably not formatted correctly.
