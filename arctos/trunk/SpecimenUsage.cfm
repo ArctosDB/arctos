@@ -295,7 +295,11 @@
 			<cfset basWhere = "#basWhere# AND 1=2">
 		</cfif>
 		<cfif isdefined("doi") AND len(doi) gt 0>
-			<cfset basWhere = "#basWhere# AND doi ='#doi#'">
+			<cfif compare(doi,"NULL") is 0>
+				<cfset basWhere = " #basWhere# AND doi is null">
+			<cfelse>
+				<cfset basWhere = "#basWhere# AND doi ='#doi#'">
+			</cfif>
 			<cfset go="yes">
 		</cfif>
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
