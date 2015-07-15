@@ -9,7 +9,7 @@
 			<p>
 			#FULL_CITATION#
 
-			<cfset startttl=refind(['[0-9].'],FULL_CITATION)>
+			<cfset startttl=refind(['[0-9].'],'boogity 1234. hi')>
 			<br>startttl: #startttl#
 
 
