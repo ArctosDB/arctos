@@ -21,7 +21,7 @@
 
 <br>now find position of next dot from startttl....
 
-<cfset stopttl=refind('.',FULL_CITATION,startttl)>
+<cfset stopttl=refind('\.',FULL_CITATION,startttl)>
 
 <br>stopttl:#stopttl#
 
