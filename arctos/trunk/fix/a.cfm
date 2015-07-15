@@ -27,6 +27,22 @@
 </p>
 <p>
 	<cfdump var=#data_index#>
+
+	<p>
+		doi: #data_index['doi']#
+	</p>
+	<p>
+		fullcitation: #data_index['fullcitation']#
+	</p>
+
+	<p>
+		normalizedScore: #data_index['normalizedScore']#
+	</p>
+
+</cfloop>
+
+
+
 </p>
 </cfloop>
 
