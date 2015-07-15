@@ -31,7 +31,7 @@
 
 
 
-<cfset ttl=Mid(FULL_CITATION, startttl, stopttl)>
+<cfset ttl=Mid(FULL_CITATION, startttl, len(FULL_CITATION)-stopttl)>
 
 <br>ttl:[#ttl#]
 <!----
