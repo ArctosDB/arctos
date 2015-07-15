@@ -12,7 +12,7 @@
 
 
 <br>#REFind("a+c+", "abcaaccdd")#
-<cfset startttl=refind('[0-9]{4}\.',FULL_CITATION) + 5>
+<cfset startttl=refind('[0-9]{4}\.',FULL_CITATION) + 4>
 
 <br>startttl:#startttl#
 
