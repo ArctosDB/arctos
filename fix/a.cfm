@@ -2,6 +2,12 @@
 
 <cfinclude template="/includes/_header.cfm">
 
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from publication where doi is null and rownum<100
+		</cfquery>
+		<cfloop query="d">
+			<br>#publication_title#
+		</cfloop>
 
 
 
