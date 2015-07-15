@@ -15,6 +15,28 @@
 
 
 <cfdump var=#x#>
+
+
+<cfset q=queryNew("doi,fullcitation,score")>
+
+
+<cfloop array="#x#" index="data_index">
+
+<p>
+	looptyloop
+</p>
+<p>
+	<cfdump var=#data_index#>
+</p>
+</cfloop>
+
+
+
+	<cfloop from="1" to="#ArrayLen(x.data)#" index="thisResultIndex">
+
+
+
+
 <!-----
 http://search.crossref.org/?q=M.+Henrion%2C+D.+J.+Mortlock%2C+D.+J.+Hand%2C+and+A.+Gandy%2C+%22A+Bayesian+approach+to+star-galaxy+classification%2C%22+Monthly+Notices+of+the+Royal+Astronomical+Society%2C+vol.+412%2C+no.+4%2C+pp.+2286-2302%2C+Apr.+2011.
 
