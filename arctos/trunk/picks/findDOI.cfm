@@ -57,7 +57,7 @@
 			</p>
 			<p>
 				This for is a tool, not magic. If you don't find what you're looking for here, try
-				<a href="http://google.com?q=#publication_title#">Google</a>.
+				<a href="http://google.com/search?q=#publication_title#">Google</a>.
 			</p>
 		</div>
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
