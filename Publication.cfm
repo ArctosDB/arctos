@@ -85,7 +85,7 @@
 			<a class="infoLink external" target="_blank" href="http://dx.doi.org/#pub.doi#">[ open DOI ]</a>
 		<cfelse>
 			Please try to find and add a DOI to this publication!
-			<a onclick="findDOI('#URLEncodedFormat(pub.full_citation)#')">lookup tool</a>
+			<a class="likeLink" onclick="findDOI('#URLEncodedFormat(pub.full_citation)#')">lookup tool</a>
 
 		</cfif>
 		<label for="pmid" onclick="getDocs('publication','doi')" class="likeLink">PubMed ID (PMID)</label>
