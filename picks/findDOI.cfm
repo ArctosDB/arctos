@@ -25,9 +25,9 @@
 		<cfset noauths=mid(pt,startttl,len(pt))>
 		<cfset stopttl=refind('\.',noauths)>
 		<cfset ttl=Mid(pt, startttl, stopttl)>
-		<cfset stripttl=rereplace(ttl,'<[^>]*(?:>|$)','')>
+		<cfset ttl=rereplace(ttl,'<[^>]*(?:>|$)','')>
 
-						<br>stripttl: #stripttl#
+						<br>ttl: #ttl#
 
 
 
