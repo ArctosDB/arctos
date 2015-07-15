@@ -25,34 +25,24 @@
 		<cfset noauths=mid(pt,startttl,len(pt))>
 		<cfset stopttl=refind('\.',noauths)>
 		<cfset ttl=Mid(pt, startttl, stopttl)>
-
-		<br>ttl:[#ttl#]
-
 		<cfset stripttl=ucase(trim(rereplacenocase(ttl, '[^a-z0-9]', '', 'all')))>
-
-		<br>stripttl:[#stripttl#]
-
-
-
-
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
+			<cfset baredoi=replace(data_index['doi'],'http://dx.doi.org/','','all')>
+
 			<cfset thisCitation=data_index['fullcitation']>
 			<cfset thisStripped=ucase(trim(rereplacenocase(thisCitation, '[^a-z0-9]', '', 'all')))>
-			<br>thisStripped: #thisStripped#
 			<cfif thisStripped contains stripttl>
 				<cfset thisStyle="mightbe">
 			<cfelse>
 				<cfset thisStyle="probablynot">
 			</cfif>
-
-			<div style="#thisStyle#">
+			<div class="#thisStyle#">
 				#thisCitation#
 				<ul>
-					<li><a href="#data_index['doi']#" target="_blank" class="external">#data_index['doi']#</a></li>
-					<cfset baredoi=replace(data_index['doi'],'http://dx.doi.org/','','all')>
-					<li><span class="likeLink" onclick="useDOI('#baredoi#')">USe This DOI</span>
+					<li><a href="#data_index['doi']#" target="_blank" class="external">#baredoi#</a></li>
+					<li><span class="likeLink" onclick="useDOI('#baredoi#')">Use This DOI</span>
 				</ul>
 			</div>
 		</cfloop>
