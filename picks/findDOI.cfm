@@ -8,7 +8,7 @@
 <cfoutput>
 <form name="additems" method="post" action="findDOI.cfm">
 	<label for="publication_title">Title</label>
-	<textarea name="publication_title" cols="40" rows="4">#publication_title#</textarea>
+	<textarea name="publication_title" class="hugetextarea">#publication_title#</textarea>
 	<br><input type="submit" value="Find DOI">
 </form>
 <cfif len(publication_title) gt 0>
@@ -24,18 +24,13 @@
 
 
 <cfloop array="#x#" index="data_index">
+	#data_index['fullcitation']#
 
-
-	<p>
-		doi: #data_index['doi']#
-	</p>
-	<p>
-		fullcitation: #data_index['fullcitation']#
-	</p>
-
-	<p>
-		normalizedScore: #data_index['normalizedScore']#
-	</p>
+	<div class="indent">
+		<a href="#data_index['doi']#" target="_blank" class="external">#data_index['doi']#</a>
+		<br>use this DOI....
+	</div>
+	<hr>
 
 </cfloop>
 
