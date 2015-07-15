@@ -1,4 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
+<cfset maxNumberOfRows=500>
 <cfif action is "nothing">
 	<cfif isdefined("publication_id") and len(publication_id) gt 0>
 		<cflocation url="SpecimenUsage.cfm?action=search&publication_id=#publication_id#" addtoken="false">
@@ -382,7 +383,6 @@
 		<cfif go is "no">
 			<cfset basWhere = "#basWhere# AND 1=2">
 		</cfif>
-		<cfset basWhere = "#basWhere# AND rownum<500">
 		<cfset basSql = "#basSQL# #basFrom# #basWhere#
 			group by
 				publication.publication_id,
@@ -395,7 +395,7 @@
 				publication.full_citation,
 				publication.publication_id">
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preservesinglequotes(basSQL)#
+			select * from (#preservesinglequotes(basSQL)#) where rownum<=#maxNumberOfRows#
 		</cfquery>
 
 
@@ -477,7 +477,11 @@
 			<cfelseif publication.recordcount is 1>
 				<cfset title = "#publication.full_citation#">
 			<cfelse>
-				(#publication.recordcount# results)
+				<cfif publication.recordcount is maxNumberOfRows>
+					(CAUTION: This form will only return #maxNumberOfRows# results; you may not be seeing everything.)
+				<cfelse>
+					(#publication.recordcount# results)
+				</cfif>
 			</cfif>
 		</h3>
 		<cfquery name="pubs" dbtype="query">
