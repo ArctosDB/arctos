@@ -47,10 +47,17 @@
 				<br>
 				If what you're looking for isn't obvious, try searching (CTL-F or splat-F) by a hopefully-unique
 				term from the original title.
+				<br>Note that not all publications are in CrossRef; ZooTaxa does not seem to participate in
+				DOIs, for example. Note also that many old and obscure publications HAVE been made available
+				through CrossRef (largely by BHL).
 			</p>
 			<p>
 				Consider correcting data in Arctos. This form ONLY finds DOIs; close this window and
 				edit the publication.
+			</p>
+			<p>
+				This for is a tool, not magic. If you don't find what you're looking for here, try
+				<a href="http://google.com?q=#publication_title#">Google</a>.
 			</p>
 		</div>
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
