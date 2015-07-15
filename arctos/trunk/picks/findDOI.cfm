@@ -6,7 +6,7 @@
 <style>
 	.mightbe{padding:.2em; margin:.2em; border:2px solid green;}
 	.probablynot{padding:.2em;margin:.2em; border:1px solid orange;}
-	#help{display:none; border:1em solid black;margin:1em;padding:1em;}
+	#help{display:none; border:1px solid black;margin:1em;padding:1em;}
 </style>
 <script>
 	function useDOI(doi){
@@ -36,7 +36,22 @@
 		<br>COLOR KEY: orange=probably wrong; green=possibly correct.
 		<span class="likeLink" onclick="$('##help').toggle()">help</span>
 		<div id="help">
-			hello
+			The box above is the publication full citation as pulled from Arctos.
+			If you aren't finding what you're looking for, try editing it (which will increase
+			the number of false positives returned, but perhaps also find the
+			correct article). For example, removing parenthetical taxa may be useful.
+			<p>
+				The results below are pulled from CrossRef. Read them before clicking;
+				there are many situations in which an incorrect match is highlighted as
+				correct, and in which a correct match is buried in the probable failures.
+				<br>
+				If what you're looking for isn't obvious, try searching (CTL-F or splat-F) by a hopefully-unique
+				term from the original title.
+			</p>
+			<p>
+				Consider correcting data in Arctos. This form ONLY finds DOIs; close this window and
+				edit the publication.
+			</p>
 		</div>
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
