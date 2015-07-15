@@ -27,34 +27,24 @@
 		<cfset stripttl=ucase(trim(rereplacenocase(ttl, '[^a-z0-9]', '', 'all')))>
 
 		<br>stripttl:[#stripttl#]
-<!----
 
 
 
-
-
-		<cfset lpt=len(publication_title)>
-
-		<br>lpt: #lpt#
-
-		<cfset fs=round(lpt*.3)>
-
-		<br>fs: #fs#
-
-
-		<cfset ls=round(lpt*.6)>
-
-		<br>ls: #ls#
-
-		<cfset smp=mid(publication_title,fs,ls)>
-
-		<br>smp: #smp#
 
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
+			<cfset thisCitation=data_index['fullcitation']>
+			<cfset thisStripped=ucase(trim(rereplacenocase(thisCitation, '[^a-z0-9]', '', 'all')))>
+			<br>thisStripped: #thisStripped#
+			<cfif thisStripped contains stripttl>
+				<br>YOU ARE THE ONE!
+			<cfelse>
+				<br>not like this. Not like this.
+			</cfif>
+
 			<div style="padding:.2em; border:1px dotted green">
-				#data_index['fullcitation']#
+				#thisCitation#
 				<ul>
 					<li><a href="#data_index['doi']#" target="_blank" class="external">#data_index['doi']#</a></li>
 					<cfset baredoi=replace(data_index['doi'],'http://dx.doi.org/','','all')>
@@ -63,7 +53,6 @@
 			</div>
 		</cfloop>
 
-		---->
 	</cfif>
 </cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">
