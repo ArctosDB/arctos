@@ -4,8 +4,8 @@
 	Didn't get a publication_title.<cfabort>
 </cfif>
 <style>
-	.mightbe{padding:.2em; border:2px solid green;}
-	.probablynot{padding:.2em; border:1px solid orange;}
+	.mightbe{padding:.2em; margin:.2em; border:2px solid green;}
+	.probablynot{padding:.2em;margin:.2em; border:1px solid orange;}
 </style>
 <script>
 	function useDOI(doi){
