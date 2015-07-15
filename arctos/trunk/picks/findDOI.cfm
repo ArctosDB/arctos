@@ -28,7 +28,6 @@
 		<cfset ls=round(lpt*.6)>
 
 		<br>ls: #ls#
-		<cfset spm=mid(publication_title,len(
 
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
