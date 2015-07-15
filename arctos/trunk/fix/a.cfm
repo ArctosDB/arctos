@@ -6,7 +6,7 @@
 			select * from publication where doi is null and rownum<100
 		</cfquery>
 		<cfloop query="d">
-			<br>#publication_title#
+			<br>#FULL_CITATION#
 		</cfloop>
 
 
