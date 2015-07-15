@@ -34,6 +34,10 @@
 <cfset ttl=Mid(FULL_CITATION, startttl, stopttl)>
 
 <br>ttl:[#ttl#]
+
+<cfset stripttl=ucase(trim(rereplacenocase(ttl, '[^a-z0-9]', '', 'all')))>
+
+<br>stripttl:[#stripttl#]
 <!----
 
 			<br>startttl: #startttl#
