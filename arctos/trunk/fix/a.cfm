@@ -32,8 +32,6 @@
 
 
 
-	<cfloop from="1" to="#ArrayLen(x.data)#" index="thisResultIndex">
-
 
 
 
