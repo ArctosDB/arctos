@@ -59,7 +59,7 @@ Bad things? Last standalone copy of this form is in v6.11
 	    $(document).ready(function () {
 	    	$.getJSON("/component/SpecimenResults.cfc",
 				{
-					method : "getSpecimenSummaryFS",
+					method : "getSpecimenSummary",
 					returnformat : "json",
 					querystring : "#equerystring#",
 					groupBy: "#groupBy#"
@@ -86,7 +86,7 @@ Bad things? Last standalone copy of this form is in v6.11
 		            	selectOnRowClick: false, //Enable this to only select using checkboxes
 						pageSizes: [10, 25, 50, 100, 250, 500,5000],
 						actions: {
-			                listAction: '/component/SpecimenResults.cfc?method=getSpecimenSummaryFS&totalRecordCount=' + r.TotalRecordCount + '&TotalSpecimenCount=' + r.TotalSpecimenCount + '&qid=' + r.qid
+			                listAction: '/component/SpecimenResults.cfc?method=getSpecimenSummary&totalRecordCount=' + r.TotalRecordCount + '&TotalSpecimenCount=' + r.TotalSpecimenCount + '&qid=' + r.qid
 			            },
 			            fields:  {
 							COUNTOFCATALOGEDITEM:{title: 'Count'},
@@ -126,7 +126,6 @@ Bad things? Last standalone copy of this form is in v6.11
 	    });
 	</script>
 	<div id="msgdiv"><img  src="/images/indicator.gif">&nbsp;Processing request</div>
-
 	<div id="specresults"></div>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
