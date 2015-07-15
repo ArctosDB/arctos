@@ -35,6 +35,7 @@
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
+		<br><input type="button" value="save" class="savBtn" onclick="editPub.action.value='saveEdit';editPub.submit();">
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
 		<table>
