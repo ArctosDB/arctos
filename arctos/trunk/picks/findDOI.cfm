@@ -5,7 +5,7 @@
 </cfif>
 <style>
 	.mightbe{padding:.2em; border:2px solid green;}
-	.probablynot{padding:.2em; border:1px dotted yellow;}
+	.probablynot{padding:.2em; border:1px solid orange;}
 </style>
 <script>
 	function useDOI(doi){
@@ -31,7 +31,7 @@
 				If this is a journal article, it's probably not formatted correctly.
 			</p>
 		</cfif>
-		<br>COLOR KEY: Yellow=probably wrong; green=possibly correct.
+		<br>COLOR KEY: orange=probably wrong; green=possibly correct.
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
