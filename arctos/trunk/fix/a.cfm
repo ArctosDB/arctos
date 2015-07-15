@@ -9,7 +9,7 @@
 			<p>
 			#FULL_CITATION#
 
-			<cfset startttl=refind(['^\d{4}\.'],FULL_CITATION)>
+			<cfset startttl=refind(['[0-9].'],FULL_CITATION)>
 			<br>startttl: #startttl#
 
 
