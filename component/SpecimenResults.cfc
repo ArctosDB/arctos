@@ -1,7 +1,7 @@
 <cfcomponent>
 
 <!--------------------------------------------------------------------------------------------------------->
-	<cffunction name="getSpecimenSummaryFS" access="remote" returnformat="plain" queryFormat="column">
+	<cffunction name="getSpecimenSummary" access="remote" returnformat="plain" queryFormat="column">
 		<cfparam name="querystring" type="string" default="">
 		<cfparam name="groupby" type="string" default="">
 		<cfparam name="jtStartIndex" type="numeric" default="0">
@@ -204,56 +204,6 @@
 	    	addNewLine = "no">
 	    	<cfreturn>
 	</cffunction>
-	<!--------------------------------------------------------------------------------------------------------->
-	<cffunction name="getSpecimenSummary" access="remote" returnformat="plain" queryFormat="column">
-	<cfparam name="jtStartIndex" type="numeric" default="0">
-	<cfparam name="jtPageSize" type="numeric" default="10">
-	<cfparam name="jtSorting" type="string" default="SCIENTIFIC_NAME ASC">
-	<cfif not isdefined("m")>
-	   <cfset m=false>
-	</cfif>
-	<cftry>
-		<cfset jtStopIndex=jtStartIndex+jtPageSize>
-		<cfset obj = CreateObject("component","component.docs")>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			Select * from (
-					Select a.*, rownum rnum From (
-						select * from #session.SpecSumTab# order by #jtSorting#
-					) a where rownum <= #jtStopIndex#
-				) where rnum >= #jtStartIndex#
-		</cfquery>
-		<cfoutput>
-			<!---
-				CF and jtable don't play well together, so roll our own....
-				parseJSON makes horrid invalud datatype assumptions, so we can't use that either.
-			---->
-			<cfset x=''>
-			<cfloop query="d">
-				<cfset trow="">
-				<cfloop list="#d.columnlist#" index="i">
-					<cfset theData=evaluate("d." & i)>
-					<cfset theData=obj.jsonEscape(theData)>
-					<cfif i is "LINKTOSPECIMENS">
-	                    <cfset temp ='"LINKTOSPECIMENS":"<a target=\"_blank\" href=\"/SpecimenResults.cfm?' & theData &'\">specimens</a>"'>
-					<cfelse>
-						<cfset temp = '"#i#":"' & theData & '"'>
-					</cfif>
-					<cfset trow=listappend(trow,temp)>
-				</cfloop>
-				<cfset trow="{" & trow & "}">
-				<cfset x=listappend(x,trow)>
-			</cfloop>
-			<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#TotalRecordCount#}'>
-		</cfoutput>
-	<cfcatch>
-		<cfmail subject="specssummary error" to="arctos.database@gmail.com" from="ssrerror@arctos.database.museum" type="html">
-			<cfdump var=#cfcatch#>
-		</cfmail>
-		<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
-	</cfcatch>
-	</cftry>
-	<cfreturn result>
-</cffunction>
 <!--------------------------------------------------------------------------------------------------------->
 <cffunction name="getSpecimenResults" access="remote" returnformat="plain" queryFormat="column">
 	<cfparam name="jtStartIndex" type="numeric" default="0">
