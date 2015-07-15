@@ -130,6 +130,7 @@ Bad things? Last standalone copy of this form is in v6.11
 	    });
 	</script>
 	<div id="msgdiv"><img  src="/images/indicator.gif">&nbsp;Processing request</div>
+	<label for="specresults">Control-Click to sort multiple</label>
 	<div id="specresults"></div>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
