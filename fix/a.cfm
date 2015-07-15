@@ -24,14 +24,14 @@
 
 <br>now find position of next dot from startttl....
 
-<cfset stopttl=refind('\.',FULL_CITATION,#startttl#)>
+<cfset stopttl=refind('\.',noauths)>
 
 <br>stopttl:#stopttl#
 
 
 
 
-<cfset ttl=Mid(FULL_CITATION, startttl, len(FULL_CITATION)-stopttl)>
+<cfset ttl=Mid(FULL_CITATION, startttl, stopttl)>
 
 <br>ttl:[#ttl#]
 <!----
