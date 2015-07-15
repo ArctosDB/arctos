@@ -16,6 +16,20 @@
 		<br><input type="submit" value="Find DOI">
 	</form>
 	<cfif len(publication_title) gt 0>
+		<cfset lpt=len(publication_title)>
+
+		<br>lpt: #lpt#
+
+		<cfset fs=round(lpt*.3)>
+
+		<br>fs: #fs#
+
+
+		<cfset ls=round(lpt*.6)>
+
+		<br>ls: #ls#
+		<cfset spm=mid(publication_title,len(
+
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
