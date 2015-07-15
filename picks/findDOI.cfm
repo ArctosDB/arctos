@@ -29,6 +29,10 @@
 
 		<br>ls: #ls#
 
+		<cfset smp=mid(publication_title,fs,ls)>
+
+		<br>smp: #smp#
+
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
