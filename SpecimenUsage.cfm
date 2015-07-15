@@ -78,7 +78,7 @@
 					<label for="doi">
 						<span class="helpLink" id="_doi">DOI</span>
 						<cfif session.roles contains "manage_publications">
-							<span class="likeLink" onclick='$("##doi").val("NULL")'>find NULL</span>
+							<span class="likeLink" onclick='$("##doi").val("NULL")'>[ find NULL ]</span>
 						</cfif>
 					</label>
 					<input name="doi" id="doi" type="text">
