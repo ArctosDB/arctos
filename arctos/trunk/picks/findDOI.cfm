@@ -25,6 +25,12 @@
 		<cfset noauths=mid(pt,startttl,len(pt))>
 		<cfset stopttl=refind('\.',noauths)>
 		<cfset ttl=Mid(pt, startttl, stopttl)>
+		<cfset stripttl=rereplace(ttl,'[<[^>]*(?:>|$)]','')>
+
+						<br>stripttl: #stripttl#
+
+
+
 		<cfset stripttl=ucase(trim(rereplacenocase(ttl, '[^a-z0-9]', '', 'all')))>
 		<cfif len(stripttl) lt 10>
 			<p style="border:2px solid red;padding:1em;margin:1em;text-align:center;">
@@ -43,6 +49,9 @@
 				<br>stripttl: #stripttl#
 				<br>thisStripped: #thisStripped#
 				---->
+
+				<br>stripttl: #stripttl#
+				<br>thisStripped: #thisStripped#
 				<cfif thisStripped contains stripttl>
 					<cfset thisStyle="mightbe">
 				<cfelse>
