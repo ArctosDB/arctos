@@ -26,14 +26,12 @@
 		<cfset stopttl=refind('\.',noauths)>
 		<cfset ttl=Mid(pt, startttl, stopttl)>
 		<cfset stripttl=ucase(trim(rereplacenocase(ttl, '[^a-z0-9]', '', 'all')))>
-
-		<br>stripttl=#stripttl#
-		<br>len(stripttl): #len(stripttl)#
 		<cfif len(stripttl) lt 10>
 			<p style="border:2px solid red;padding:1em;margin:1em;text-align:center;">
 				If this is a journal article, it's probably not formatted correctly.
 			</p>
 		</cfif>
+		<br>COLOR KEY: Yellow=probably wrong; green=possibly correct.
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
