@@ -23,6 +23,11 @@
 
 
 <cfdump var=#stopttl#>
+
+
+<cfset ttl=Mid(FULL_CITATION, startttl, stopttl)>
+
+<br>ttl:#ttl#
 <!----
 
 			<br>startttl: #startttl#
