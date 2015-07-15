@@ -30,7 +30,7 @@
 		<br>stripttl=#stripttl#
 
 		<cfif len(stripttl) lt 50>
-			<p styl="border:2px solid red;padding:1em;margin:1em;">
+			<p style="border:2px solid red;padding:1em;margin:1em;">
 				If this is a journal article, it's probably not formatted correctly.
 			</p>
 		</cfif>
