@@ -6,7 +6,16 @@
 			select * from publication where doi is null and rownum<100
 		</cfquery>
 		<cfloop query="d">
-			<br>#FULL_CITATION#
+			<p>
+			#FULL_CITATION#
+
+			<cfset startttl=refind(['^\d{4}\.'],FULL_CITATION)>
+			<br>startttl: #startttl#
+
+
+
+			</p>
+			<br>
 		</cfloop>
 
 
