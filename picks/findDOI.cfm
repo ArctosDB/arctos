@@ -13,6 +13,35 @@
 </form>
 <cfif len(publication_title) gt 0>
 	going crossref....
+
+	<br />
+<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
+
+
+
+<cfset x=DeserializeJSON(cfhttp.filecontent)>
+
+
+
+<cfloop array="#x#" index="data_index">
+
+
+	<p>
+		doi: #data_index['doi']#
+	</p>
+	<p>
+		fullcitation: #data_index['fullcitation']#
+	</p>
+
+	<p>
+		normalizedScore: #data_index['normalizedScore']#
+	</p>
+
+</cfloop>
+
+
+
+
 </cfif>
 
 
