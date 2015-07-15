@@ -16,6 +16,9 @@
 
 <br>startttl:#startttl#
 
+<cfset noauths=mid(FULL_CITATION,startttl,len(FULL_CITATION))>
+
+<br>noauths:#noauths#
 
 <br>first #startttl# chrs: [#left(FULL_CITATION,startttl)#]
 
