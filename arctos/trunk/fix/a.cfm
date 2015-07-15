@@ -12,7 +12,7 @@
 
 
 <br>#REFind("a+c+", "abcaaccdd")#
-<cfset startttl=refind('[0-9].'],'boogity 1234. hi')>
+<cfset startttl=refind('[0-9].'],FULL_CITATION)>
 
 
 <cfdump var=#startttl#>
