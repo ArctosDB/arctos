@@ -3,7 +3,12 @@
  <cfif not isdefined("publication_title")>
 	Didn't get a publication_title.<cfabort>
 </cfif>
-
+<script>
+		function useDOI(doi){
+			parent.$("#doi").val(doi);
+			parent.$(".ui-dialog-titlebar-close").trigger('click');
+		}
+	</script>
 
 <cfoutput>
 <form name="additems" method="post" action="findDOI.cfm">
@@ -26,10 +31,11 @@
 <cfloop array="#x#" index="data_index">
 	#data_index['fullcitation']#
 
-	<div class="indent">
-		<a href="#data_index['doi']#" target="_blank" class="external">#data_index['doi']#</a>
-		<br>use this DOI....
-	</div>
+	<ul>
+		<li><a href="#data_index['doi']#" target="_blank" class="external">#data_index['doi']#</a></li>
+		<cfset baredoi=replace(data_index['doi'],'http://dx.doi.org/','','all')>
+		<li><span class="likeLink" onclick="useDOI('#baredoi#')">USe This DOI</span>
+	</ul>
 	<hr>
 
 </cfloop>
