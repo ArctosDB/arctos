@@ -16,6 +16,9 @@
 
 <br>startttl:#startttl#
 
+
+<br>first #startttl# chrs: [#left(FULL_CITATION,startttl)#]
+
 <cfset stopttl=refind('.',FULL_CITATION,startttl+5)>
 
 
