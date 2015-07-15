@@ -74,7 +74,12 @@
 				</td>
 				<td>
 					<h4>Publication</h4>
-					<label for="doi"><span class="helpLink" id="_doi">DOI</span></label>
+					<label for="doi">
+						<span class="helpLink" id="_doi">DOI</span>
+						<cfif session.roles contains "manage_publications">
+							<span class="likeLink" onclick='$("##doi").val("NULL")'>find NULL</span>
+						</cfif>
+					</label>
 					<input name="doi" id="doi" type="text">
 					<label for="publication_type"><span class="helpLink" id="publication_type">Publication Type</span></label>
 					<select name="publication_type" id="publication_type" size="1">
