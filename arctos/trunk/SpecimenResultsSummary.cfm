@@ -74,7 +74,7 @@ Bad things? Last standalone copy of this form is in v6.11
 						paging: true, //Enable paging
 			            pageSize: 100, //Set page size (default: 10)
 			            sorting: true, //Enable sorting
-			            defaultSorting: 'kingdom ASC', //Set default sorting
+			            defaultSorting: 'KINGDOM ASC', //Set default sorting
 						columnResizable: true,
 						multiSorting: true,
 						columnSelectable: false,
