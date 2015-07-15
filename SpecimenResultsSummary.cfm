@@ -57,7 +57,7 @@ Bad things? Last standalone copy of this form is in v6.11
 	</div>
 	<cfset sortby="">
 	<cfloop list="#groupby#" index="c">
-		<cfset sortby=listappend(sortby,'#upper(c)# ASC')>
+		<cfset sortby=listappend(sortby,'#ucase(c)# ASC')>
 	</cfloop>
 	<script type="text/javascript">
 	    $(document).ready(function () {
