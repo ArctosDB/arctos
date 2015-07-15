@@ -16,6 +16,23 @@
 		<br><input type="submit" value="Find DOI">
 	</form>
 	<cfif len(publication_title) gt 0>
+		<cfset pt=urldecode(publication_title)>
+		<cfset startttl=refind('[0-9]{4}\.',pt) + 5>
+		<cfset noauths=mid(pt,startttl,len(pt))>
+		<cfset stopttl=refind('\.',noauths)>
+		<cfset ttl=Mid(pt, startttl, stopttl)>
+
+		<br>ttl:[#ttl#]
+
+		<cfset stripttl=ucase(trim(rereplacenocase(ttl, '[^a-z0-9]', '', 'all')))>
+
+		<br>stripttl:[#stripttl#]
+<!----
+
+
+
+
+
 		<cfset lpt=len(publication_title)>
 
 		<br>lpt: #lpt#
