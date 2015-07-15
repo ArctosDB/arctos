@@ -11,9 +11,9 @@
 
 
 
-#REFind("a+c+", "abcaaccdd")#
+<br>#REFind("a+c+", "abcaaccdd")#
 
-<br>refind(['[0-9].'],'boogity 1234. hi')
+<br>#refind(['[0-9].'],'boogity 1234. hi')#
 <!----
 			<cfset startttl=refind(['[0-9].'],'boogity 1234. hi')>
 			<br>startttl: #startttl#
