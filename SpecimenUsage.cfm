@@ -382,6 +382,7 @@
 		<cfif go is "no">
 			<cfset basWhere = "#basWhere# AND 1=2">
 		</cfif>
+		<cfset basWhere = "#basWhere# AND rownum<500">
 		<cfset basSql = "#basSQL# #basFrom# #basWhere#
 			group by
 				publication.publication_id,
