@@ -3,6 +3,10 @@
  <cfif not isdefined("publication_title")>
 	Didn't get a publication_title.<cfabort>
 </cfif>
+<style>
+	.mightbe{padding:.2em; border:2px solid green;}
+	.probablynot{padding:.2em; border:1px dotted yellow;}
+</style>
 <script>
 	function useDOI(doi){
 		parent.$("#doi").val(doi);
@@ -38,12 +42,12 @@
 			<cfset thisStripped=ucase(trim(rereplacenocase(thisCitation, '[^a-z0-9]', '', 'all')))>
 			<br>thisStripped: #thisStripped#
 			<cfif thisStripped contains stripttl>
-				<br>YOU ARE THE ONE!
+				<cfset thisStyle="mightbe">
 			<cfelse>
-				<br>not like this. Not like this.
+				<cfset thisStyle="probablynot">
 			</cfif>
 
-			<div style="padding:.2em; border:1px dotted green">
+			<div style="#thisStyle#">
 				#thisCitation#
 				<ul>
 					<li><a href="#data_index['doi']#" target="_blank" class="external">#data_index['doi']#</a></li>
