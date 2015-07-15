@@ -28,10 +28,7 @@
 
 <br>stopttl:#stopttl#
 
-<cfdump var=#startttl#>
 
-
-<cfdump var=#stopttl#>
 
 
 <cfset ttl=Mid(FULL_CITATION, startttl, stopttl)>
