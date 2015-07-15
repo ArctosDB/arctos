@@ -29,7 +29,7 @@
 
 		<br>stripttl=#stripttl#
 		<br>len(stripttl): #len(stripttl)#
-		<cfif len(stripttl) lt 50>
+		<cfif len(stripttl) lt 10>
 			<p style="border:2px solid red;padding:1em;margin:1em;text-align:center;">
 				If this is a journal article, it's probably not formatted correctly.
 			</p>
@@ -39,7 +39,7 @@
 		<cfloop array="#x#" index="data_index">
 			<cfset baredoi=replace(data_index['doi'],'http://dx.doi.org/','','all')>
 			<cfset thisCitation=data_index['fullcitation']>
-			<cfif len(stripttl) gt 50>
+			<cfif len(stripttl) gt 10>
 				<cfset thisStripped=ucase(trim(rereplacenocase(thisCitation, '[^a-z0-9]', '', 'all')))>
 				<cfif thisStripped contains stripttl>
 					<cfset thisStyle="mightbe">
