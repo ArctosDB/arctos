@@ -28,20 +28,25 @@
 		<cfset stripttl=ucase(trim(rereplacenocase(ttl, '[^a-z0-9]', '', 'all')))>
 
 		<br>stripttl=#stripttl#
+
+		<cfif len(stripttl) lt 50>
+			<p styl="border:2px solid red;padding:1em;margin:1em;">
+				If this is a journal article, it's probably not formatted correctly.
+			</p>
+		</cfif>
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
 			<cfset baredoi=replace(data_index['doi'],'http://dx.doi.org/','','all')>
-
 			<cfset thisCitation=data_index['fullcitation']>
-			<cfset thisStripped=ucase(trim(rereplacenocase(thisCitation, '[^a-z0-9]', '', 'all')))>
-
-
-		<br>thisStripped=#thisStripped#
-			<cfif thisStripped contains stripttl>
-				YUP
-				<cfset thisStyle="mightbe">
-			<cfelse>NOPE
+			<cfif len(stripttl) gt 50>
+				<cfset thisStripped=ucase(trim(rereplacenocase(thisCitation, '[^a-z0-9]', '', 'all')))>
+				<cfif thisStripped contains stripttl>
+					<cfset thisStyle="mightbe">
+				<cfelse>
+					<cfset thisStyle="probablynot">
+				</cfif>
+			<cfelse>
 				<cfset thisStyle="probablynot">
 			</cfif>
 			<div class="#thisStyle#">
