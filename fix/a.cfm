@@ -16,7 +16,7 @@
 
 
 
-<cfset stopttl=find('.',FULL_CITATION,startttl+5)>
+<cfset stopttl=refind('.',FULL_CITATION,startttl+5)>
 
 
 <cfdump var=#startttl#>
