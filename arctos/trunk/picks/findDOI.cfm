@@ -39,9 +39,10 @@
 			<cfset thisCitation=data_index['fullcitation']>
 			<cfif len(stripttl) gt 10>
 				<cfset thisStripped=ucase(trim(rereplacenocase(thisCitation, '[^a-z0-9]', '', 'all')))>
-
+				<!----
 				<br>stripttl: #stripttl#
 				<br>thisStripped: #thisStripped#
+				---->
 				<cfif thisStripped contains stripttl>
 					<cfset thisStyle="mightbe">
 				<cfelse>
