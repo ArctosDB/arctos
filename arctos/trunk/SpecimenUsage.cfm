@@ -391,7 +391,8 @@
 				publication.full_citation,
 				publication.doi,
 				publication.pmid,
-				taxon_name.scientific_name
+				taxon_name.scientific_name,
+				publication.publication_remarks
 			ORDER BY
 				publication.full_citation,
 				publication.publication_id">
