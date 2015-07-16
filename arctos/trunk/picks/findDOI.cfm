@@ -11,18 +11,21 @@
 <script>
 	function useDOI(doi){
 		parent.$("#doi").val(doi);
+		parent.$("#addadoiplease").val('Don\t forget to save!');
 		parent.$(".ui-dialog-titlebar-close").trigger('click');
+
+
+
 	}
 	function nofindDOI(){
 		var er=parent.$("#publication_remarks").val();
 		var tr=$("#failbox").val();
-		console.log(er);
 		if(er.length>0){
 			tr+='; ' + er;
 		}
-console.log(tr);
+		parent.$("#addadoiplease").val('Don\t forget to save!');
 		parent.$("#publication_remarks").val(tr);
-		//parent.$(".ui-dialog-titlebar-close").trigger('click');
+		parent.$(".ui-dialog-titlebar-close").trigger('click');
 	}
 </script>
 <cfoutput>

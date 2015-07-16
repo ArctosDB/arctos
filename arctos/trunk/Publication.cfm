@@ -85,7 +85,7 @@
 		<cfif len(pub.doi) gt 0>
 			<a class="infoLink external" target="_blank" href="http://dx.doi.org/#pub.doi#">[ open DOI ]</a>
 		<cfelse>
-			<a class="likeLink" onclick="findDOI('#URLEncodedFormat(pub.full_citation)#')">Bah! No DOI! Click this!</a>
+			<a id="addadoiplease" class="red likeLink" onclick="findDOI('#URLEncodedFormat(pub.full_citation)#')">Bah! No DOI! Click this!</a>
 		</cfif>
 		<label for="pmid" onclick="getDocs('publication','doi')" class="likeLink">PubMed ID (PMID)</label>
 		<input type="text" id="pmid" name="pmid" value="#pub.pmid#" size="80">
