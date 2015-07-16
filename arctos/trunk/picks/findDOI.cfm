@@ -17,7 +17,7 @@
 		var er=parent.$("#publication_remarks").val();
 		var tr=$("#failbox").val();
 		console.log(er);
-		if(er.length==0){
+		if(er.length>0){
 			tr+='; ' + er;
 		}
 console.log(tr);
