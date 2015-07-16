@@ -271,6 +271,7 @@
 			publication.publication_id,
 			publication.publication_type,
 			publication.full_citation,
+			publication.publication_remarks,
 			publication.doi,
 			publication.pmid,
 			count(distinct(citation.collection_object_id)) numCits,
@@ -486,7 +487,8 @@
 				full_citation,
 				numCits,
 				doi,
-				pmid
+				pmid,
+				publication_remarks
 			FROM
 				publication
 			GROUP BY
@@ -495,7 +497,8 @@
 				full_citation,
 				numCits,
 				doi,
-				pmid
+				pmid,
+				publication_remarks
 			ORDER BY
 				full_citation
 		</cfquery>
@@ -524,6 +527,9 @@
 						<li><a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pmid#">PubMed</a></li>
 					</cfif>
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
+						<cfif len(publication_remarks) gt 0>
+							<li>#publication_remarks#</li>
+						</cfif>
 						<li><a href="/Publication.cfm?publication_id=#publication_id#">Edit</a></li>
 						<li><a href="/Citation.cfm?publication_id=#publication_id#">Manage Citations</a></li>
 						<cfif isdefined("toproject_id") and len(toproject_id) gt 0>
