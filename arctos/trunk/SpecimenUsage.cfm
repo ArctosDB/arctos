@@ -179,16 +179,7 @@
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project_agent.project_agent_role='#agent_role#'">
 		</cfif>
-		<cfif isdefined("publication_remarks") AND len(publication_remarks) gt 0>
-			<cfset title = "#publication_remarks#">
-			<cfset go="yes">
-			<cfif left(publication_remarks,1) is "!">
-				<cfset whr = "#whr# AND upper(publication.publication_remarks) not like '%#escapeQuotes(ucase(publication_remarks))#%' ">
-			<cfelse>
-				<cfset whr = "#whr# AND upper(publication.publication_remarks) like '%#escapeQuotes(ucase(publication_remarks))#%' ">
-			</cfif>
-			
-		</cfif>
+		
 		
 		
 		
@@ -320,6 +311,16 @@
 				taxonomy_publication.taxon_name_id=taxon_name.taxon_name_id (+)">
 		<cfif (isdefined("project_type") AND len(project_type) gt 0)>
 			<cfset basWhere = "#basWhere# AND 1=2">
+		</cfif>
+		<cfif isdefined("publication_remarks") AND len(publication_remarks) gt 0>
+			<cfset title = "#publication_remarks#">
+			<cfset go="yes">
+			<cfif left(publication_remarks,1) is "!">
+				<cfset whr = "#whr# AND upper(publication.publication_remarks) not like '%#escapeQuotes(ucase(publication_remarks))#%' ">
+			<cfelse>
+				<cfset whr = "#whr# AND upper(publication.publication_remarks) like '%#escapeQuotes(ucase(publication_remarks))#%' ">
+			</cfif>
+			
 		</cfif>
 		<cfif isdefined("doi") AND len(doi) gt 0>
 			<cfif compare(doi,"NULL") is 0>
