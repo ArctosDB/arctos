@@ -95,7 +95,8 @@
 		<label for="publication_loc">Storage Location</label>
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
 		<label for="publication_remarks">Remark</label>
-		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
+		<textarea name="publication_remarks" id="publication_remarks" class="largetextarea">#pub.publication_remarks#</textarea>
+
 		<p></p>
 		<span class="likeLink" onclick="getDocs('publication','author')">Current Authors</span>
 		<table border id="authTab">
