@@ -11,7 +11,7 @@
 <script>
 	function useDOI(doi){
 		parent.$("#doi").val(doi);
-		parent.$("#addadoiplease").val('Don\t forget to save!');
+		parent.$("#addadoiplease").text('Don\t forget to save!');
 		parent.$(".ui-dialog-titlebar-close").trigger('click');
 
 
@@ -23,7 +23,7 @@
 		if(er.length>0){
 			tr+='; ' + er;
 		}
-		parent.$("#addadoiplease").val('Don\t forget to save!');
+		parent.$("#addadoiplease").text('Don\t forget to save!');
 		parent.$("#publication_remarks").val(tr);
 		parent.$(".ui-dialog-titlebar-close").trigger('click');
 	}
