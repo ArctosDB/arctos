@@ -102,7 +102,9 @@
 			<div class="#thisStyle#">
 				#thisCitation#
 				<ul>
-					<li><a href="#data_index['doi']#" target="_blank" class="external">#baredoi#</a></li>
+					<li style="font-size:smaller; padding-left:1em;">
+						Check <a href="#data_index['doi']#" target="_blank" class="external">#baredoi#</a>
+					</li>
 					<li><span class="likeLink" onclick="useDOI('#baredoi#')">Use This DOI</span>
 				</ul>
 			</div>
