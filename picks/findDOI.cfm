@@ -91,6 +91,9 @@
 				<br>stripttl: #stripttl#
 				<br>thisStripped: #thisStripped#
 				---->
+				
+				<br>stripttl: #stripttl#
+				<br>thisStripped: #thisStripped#
 				<cfif thisStripped contains stripttl>
 					<cfset thisStyle="mightbe">
 				<cfelse>
