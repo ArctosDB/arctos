@@ -16,11 +16,13 @@
 	function nofindDOI(){
 		var er=parent.$("#publication_remarks").val();
 		var tr=$("#failbox").val();
+		console.log(er);
 		if(er.length==0){
 			tr+='; ' + er;
 		}
+console.log(tr);
 		parent.$("#publication_remarks").val(tr);
-		parent.$(".ui-dialog-titlebar-close").trigger('click');
+		//parent.$(".ui-dialog-titlebar-close").trigger('click');
 	}
 </script>
 <cfoutput>
@@ -30,7 +32,7 @@
 		<br><input type="submit" value="Find DOI">
 		
 		<!---- simplify failure.... ---->
-		<input id="failbox" type="hidden" value="Unable to locate suitable DOI; #session.username# #dateformat(now(),'yyyy-mm-dd')#">
+		<input id="failbox" type="hidden" value="Unable to locate suitable DOI - #session.username# #dateformat(now(),'yyyy-mm-dd')#">
 	</form>
 	<cfif len(publication_title) gt 0>
 		<cfset pt=urldecode(publication_title)>
