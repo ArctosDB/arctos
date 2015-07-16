@@ -515,6 +515,10 @@
 					</li>
 					<cfif len(doi) gt 0>
 						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
+					<cfelse>
+						<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
+							<li><a href="/Publication.cfm?publication_id=#publication_id#">NO DOI! Please edit and add.</a></li>
+						</cfif>
 					</cfif>
 					<cfif len(pmid) gt 0>
 						<li><a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pmid#">PubMed</a></li>
