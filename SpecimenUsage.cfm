@@ -117,6 +117,14 @@
 						<option value=""></option>
 						<option value="1">yes</option>
 					</select>
+					<label for="publication_remarks">
+						Publication Remark
+						<cfif session.roles contains "manage_publications">
+							<span class="likeLink" onclick='$("##publication_remarks").val("!Unable to locate suitable DO")'>[ ! "Unable to locate suitable DOI" ]</span>
+						</cfif>
+					</label>
+					<input name="publication_remarks" id="publication_remarks" type="text">
+
 				</td>
 			</tr>
 			<tr>
@@ -160,7 +168,9 @@
 			(isdefined("collection_id") AND len(collection_id) gt 0) or
 			(isdefined("cited_sci_Name") AND len(cited_sci_Name) gt 0) or
 			(isdefined("current_sci_Name") AND len(current_sci_Name) gt 0) or
-			(isdefined("is_peer_reviewed_fg") AND len(is_peer_reviewed_fg) gt 0)>
+			(isdefined("is_peer_reviewed_fg") AND len(is_peer_reviewed_fg) gt 0 or
+			(isdefined("publication_remarks") AND len(publication_remarks) gt 0))			
+			>
 			<cfset whr = "#whr# AND 1=2">
 			<cfset go="yes">
 		</cfif>
@@ -169,6 +179,21 @@
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project_agent.project_agent_role='#agent_role#'">
 		</cfif>
+		<cfif isdefined("publication_remarks") AND len(publication_remarks) gt 0>
+			<cfset title = "#publication_remarks#">
+			<cfset go="yes">
+			<cfif left(publication_remarks,1) is "!">
+				<cfset whr = "#whr# AND upper(publication.publication_remarks) not like '%#escapeQuotes(ucase(publication_remarks))#%' ">
+			<cfelse>
+				<cfset whr = "#whr# AND upper(publication.publication_remarks) like '%#escapeQuotes(ucase(publication_remarks))#%' ">
+			</cfif>
+			
+		</cfif>
+		
+		
+		
+		
+		
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
 			<cfset title = "#p_title#">
 			<cfset go="yes">
