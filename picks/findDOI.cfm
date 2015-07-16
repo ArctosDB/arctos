@@ -92,8 +92,6 @@
 				<br>thisStripped: #thisStripped#
 				---->
 				
-				<br>stripttl: #stripttl#
-				<br>thisStripped: #thisStripped#
 				<cfif thisStripped contains stripttl>
 					<cfset thisStyle="mightbe">
 				<cfelse>
@@ -105,10 +103,10 @@
 			<div class="#thisStyle#">
 				#thisCitation#
 				<ul>
-					<li style="font-size:smaller; padding-left:1em;">
+					<li style="font-size:smaller;">
 						Check <a href="#data_index['doi']#" target="_blank" class="external">#baredoi#</a>
 					</li>
-					<li><span class="likeLink" onclick="useDOI('#baredoi#')">Use This DOI</span>
+					<li><input type="button" class="lnkBtn" onclick="useDOI('#baredoi#')" value="Use This DOI">
 				</ul>
 			</div>
 		</cfloop>
