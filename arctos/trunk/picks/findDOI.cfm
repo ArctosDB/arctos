@@ -13,12 +13,24 @@
 		parent.$("#doi").val(doi);
 		parent.$(".ui-dialog-titlebar-close").trigger('click');
 	}
+	function nofindDOI(){
+		var er=parent.$("#publication_remarks").val();
+		var tr=$("#failbox").val();
+		if(er.length==0){
+			tr+='; ' + er;
+		}
+		parent.$("#publication_remarks").val(tr);
+		parent.$(".ui-dialog-titlebar-close").trigger('click');
+	}
 </script>
 <cfoutput>
 	<form name="additems" method="post" action="findDOI.cfm">
 		<label for="publication_title">Title</label>
 		<textarea name="publication_title" class="hugetextarea">#publication_title#</textarea>
 		<br><input type="submit" value="Find DOI">
+		
+		<!---- simplify failure.... ---->
+		<input id="failbox" type="hidden" value="Unable to locate suitable DOI; #session.username# #dateformat(now(),'yyyy-mm-dd')#">
 	</form>
 	<cfif len(publication_title) gt 0>
 		<cfset pt=urldecode(publication_title)>
@@ -34,6 +46,9 @@
 			</p>
 		</cfif>
 		<br>COLOR KEY: orange=probably wrong; green=possibly correct.
+		<p>
+			Not finding what you need? <span class="likeLink" onclick="nofindDOI();">Add a remark.</span>
+		</p>
 		<span class="likeLink" onclick="$('##help').toggle()">help</span>
 		<div id="help">
 			The box above is the publication full citation as pulled from Arctos.
