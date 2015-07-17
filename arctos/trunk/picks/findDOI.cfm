@@ -80,6 +80,8 @@
 				<a target="_blank" class="external" href="http://google.com/search?q=#publication_title#">Google</a>.
 			</p>
 		</div>
+		
+		<cftry>
 		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
@@ -110,6 +112,18 @@
 				</ul>
 			</div>
 		</cfloop>
+		<cfcatch>
+			Blargh, something bad happened with the request to CrossRef.
+			
+			<p>
+				<cfdump var=#cfcatch#>
+				
+				<cfif isdefined("cfhttp")>
+					<cfdump var=#cfhttp#>
+				</cfif>
+			</p>
+		</cfcatch>
+		</cftry>
 
 	</cfif>
 </cfoutput>
