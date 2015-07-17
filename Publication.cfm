@@ -461,6 +461,13 @@
 			);
 		}
 	</script>
+	<style>
+		#pleaseusethis {
+			border:1px solid orange;
+			padding:1em;
+			margin:1em;
+			display: inline-block;
+	</style>
 	<cfoutput>
 		<div style="float:right;border:2px solid green;max-width:40%;padding:1em;font-size:smaller;margin:.5em;">
 			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to try to lookup
@@ -476,13 +483,19 @@
 			</p>
 		</div>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
-			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">Digital Object Identifier (DOI)</label>
-			<input type="text" id="doi" name="doi" value="" size="80">
-			<span class="likeLink" id="doilookup" onclick="getPubMeta('DOI');"> [ crossref ] </span>
-			<label for="pmid" onclick="getDocs('publication','doi')" class="likeLink">PubMed ID (PMID)</label>
-			<input type="text" id="pmid" name="pmid" value="" size="80">
-			<span class="likeLink" id="pmidlookup" onclick="getPubMeta('PMID');"> [ pubmed ] </span>
-			<input type="hidden" name="action" value="createPub">
+		
+			<div id="pleaseusethis">
+				<p>
+					Please enter a DOI (preferred) or PMID if there is one available.
+				</p>
+				<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">Digital Object Identifier (DOI)</label>
+				<input type="text" id="doi" name="doi" value="" size="80">
+				<span class="likeLink" id="doilookup" onclick="getPubMeta('DOI');"> [ crossref ] </span>
+				<label for="pmid" onclick="getDocs('publication','doi')" class="likeLink">PubMed ID (PMID)</label>
+				<input type="text" id="pmid" name="pmid" value="" size="80">
+				<span class="likeLink" id="pmidlookup" onclick="getPubMeta('PMID');"> [ pubmed ] </span>
+				<input type="hidden" name="action" value="createPub">
+			</div>
 			<table>
 				<tr>
 					<td>
