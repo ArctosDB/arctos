@@ -375,12 +375,19 @@
                 	$(thisel).addClass('missing');
                 }
         	});
+			if ($("#doi).val().len()==0 && $("#pmit).val().len()==0){
+
+alert('no doi or pmid');
+}
+
         	if (msg.length>0){
-        		msg+='You may remove unwanted attributes';
         		alert(msg);
         		return false;
         	} else {
-        		return true;
+        		
+alert('submitting...');
+//return true;
+return false;
         	}
 		}
 		function toggleMedia() {
