@@ -13,7 +13,7 @@
 
 	function useDOI(doi){
 		parent.$("#doi").val(doi);
-		parent.$("#addadoiplease").after('svbtn');
+		parent.$("#addadoiplease").after(svbtn);
 		parent.$(".ui-dialog-titlebar-close").trigger('click');
 
 
