@@ -489,7 +489,7 @@
 					documenting collection usage.
 				</p>
 				<div style="float:right;border:2px solid green;max-width:40%;padding:1em;font-size:smaller;margin:.5em;">
-			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to try to lookup
+			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to look up
 			article metadata. Note that this returns only what was reported by the publisher and that is often imperfect; you are ultimately
 			responsible for the Publications you create. (Try DOI=<span class="likeLink" onclick="$('##doi').val('10.1006/mpev.1994.1005');">10.1006/mpev.1994.1005</span>
 			 vs. PMID=<span class="likeLink" onclick="$('##pmid').val('8025728');">80257285</span>
