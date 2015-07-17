@@ -113,8 +113,9 @@
 			</div>
 		</cfloop>
 		<cfcatch>
+			<div class="importantNotification">
 			Blargh, something bad happened with the request to CrossRef.
-			
+			</div>
 			<p>
 				<cfdump var=#cfcatch#>
 				
