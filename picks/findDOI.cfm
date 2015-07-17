@@ -25,7 +25,7 @@
 		if(er.length>0){
 			tr+='; ' + er;
 		}
-		parent.$("#addadoiplease").text('Don\'t forget to save!');
+		parent.$("#addadoiplease").after(svbtn);
 		parent.$("#publication_remarks").val(tr);
 		parent.$(".ui-dialog-titlebar-close").trigger('click');
 	}
