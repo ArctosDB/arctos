@@ -375,7 +375,7 @@
                 	$(thisel).addClass('missing');
                 }
         	});
-			if ($("#doi).val().len()==0 && $("#pmit).val().len()==0){
+			if ($("#doi").val().len()==0 && $("#pmid").val().len()==0){
 
 alert('no doi or pmid');
 }
