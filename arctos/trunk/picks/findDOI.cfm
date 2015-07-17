@@ -82,7 +82,7 @@
 		</div>
 		
 		<cftry>
-		<cfhttp url="http://seaasfasdfarch.crossref.org/dois?q=#publication_title#"></cfhttp>
+		<cfhttp url="http://search.crossref.org/dois?q=#publication_title#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfloop array="#x#" index="data_index">
 			<cfset baredoi=replace(data_index['doi'],'http://dx.doi.org/','','all')>
@@ -114,7 +114,7 @@
 		</cfloop>
 		<cfcatch>
 			<div class="importantNotification">
-			Blargh, something bad happened with the request to CrossRef.
+			Blargh, something bad happened with the request to CrossRef. Details follow....
 			</div>
 			<p>
 				<cfdump var=#cfcatch#>
