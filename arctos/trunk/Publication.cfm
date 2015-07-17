@@ -480,7 +480,15 @@
 			display: inline-block;
 	</style>
 	<cfoutput>
-		<div style="float:right;border:2px solid green;max-width:40%;padding:1em;font-size:smaller;margin:.5em;">
+		
+		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
+		
+			<div id="pleaseusethis">
+				<p>
+					Please enter a DOI (preferred) or PMID if there is one available. DOIs are extremely valuable in
+					documenting collection usage.
+				</p>
+				<div style="float:right;border:2px solid green;max-width:40%;padding:1em;font-size:smaller;margin:.5em;">
 			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to try to lookup
 			article metadata. Note that this returns only what was reported by the publisher and that is often imperfect; you are ultimately
 			responsible for the Publications you create. (Try DOI=<span class="likeLink" onclick="$('##doi').val('10.1006/mpev.1994.1005');">10.1006/mpev.1994.1005</span>
@@ -493,13 +501,6 @@
 				Shift-reload the page to start over.
 			</p>
 		</div>
-		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
-		
-			<div id="pleaseusethis">
-				<p>
-					Please enter a DOI (preferred) or PMID if there is one available. DOIs are extremely valuable in
-					linking to articles and documenting collection usage. 
-				</p>
 				<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">Digital Object Identifier (DOI)</label>
 				<input type="text" id="doi" name="doi" value="" size="80">
 				<span class="likeLink" id="doilookup" onclick="getPubMeta('DOI');"> [ crossref ] </span>
