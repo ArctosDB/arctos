@@ -375,19 +375,23 @@
                 	$(thisel).addClass('missing');
                 }
         	});
-			if ($("#doi").val().length==0 && $("#pmid").val().length==0){
-
-alert('no doi or pmid');
-}
+			
 
         	if (msg.length>0){
         		alert(msg);
         		return false;
         	} else {
-        		
-alert('submitting...');
-//return true;
-return false;
+        		if ($("#doi").val().length==0 && $("#pmid").val().length==0){
+					msg = 'Please enter a DOI or PMID if one is available for this article is available\n';
+					msg+='Click OK to enter a DOI or PMID before creating this article, or Cancel to proceed.';
+					var r = confirm(msg);
+					if (r == true) {
+					    return false;
+					} else {
+					    return true;
+					}
+				}
+				return true;
         	}
 		}
 		function toggleMedia() {
