@@ -375,15 +375,15 @@
                 	$(thisel).addClass('missing');
                 }
         	});
-			
-
         	if (msg.length>0){
         		alert(msg);
         		return false;
         	} else {
         		if ($("#doi").val().length==0 && $("#pmid").val().length==0){
 					msg = 'Please enter a DOI or PMID if one is available for this article is available\n';
-					msg+='Click OK to enter a DOI or PMID before creating this article, or Cancel to proceed.';
+					msg+='Click OK to enter a DOI or PMID before creating this article, or Cancel to proceed.\n';
+					msg+='There are also tools on the next page to help find DOI.';
+	
 					var r = confirm(msg);
 					if (r == true) {
 					    return false;
@@ -497,7 +497,8 @@
 		
 			<div id="pleaseusethis">
 				<p>
-					Please enter a DOI (preferred) or PMID if there is one available.
+					Please enter a DOI (preferred) or PMID if there is one available. DOIs are extremely valuable in
+					linking to articles and documenting collection usage. 
 				</p>
 				<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">Digital Object Identifier (DOI)</label>
 				<input type="text" id="doi" name="doi" value="" size="80">
