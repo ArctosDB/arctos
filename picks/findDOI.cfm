@@ -9,9 +9,11 @@
 	#help{display:none; border:1px solid black;margin:1em;padding:1em;}
 </style>
 <script>
+	var svbtn='<input type="button" value="save" class="savBtn" onclick="editPub.action.value=\'saveEdit\';editPub.submit();">';
+
 	function useDOI(doi){
 		parent.$("#doi").val(doi);
-		parent.$("#addadoiplease").text('Don\'t forget to save!');
+		parent.$("#addadoiplease").after('svbtn');
 		parent.$(".ui-dialog-titlebar-close").trigger('click');
 
 
@@ -114,7 +116,7 @@
 		</cfloop>
 		<cfcatch>
 			<div class="importantNotification">
-			Blargh, something bad happened with the request to CrossRef. Details follow....
+			Blargh, something bad happened with the request to CrossRef. (Try again in a few minutes.) Details follow....
 			</div>
 			<p>
 				<cfdump var=#cfcatch#>
