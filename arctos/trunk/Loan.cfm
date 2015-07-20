@@ -554,7 +554,7 @@ just fooling idiot cfclipse into using the right colors
 				<cfset i=i+1>
 			</cfloop>
 			<cfset na=i-1>
-			<input type="text" id="numAgents" name="numAgents" value="#na#">
+			<input type="hidden" id="numAgents" name="numAgents" value="#na#">
 		</table><!-- end agents table --->
 		<table width="100%">
 			<tr>
@@ -578,15 +578,26 @@ just fooling idiot cfclipse into using the right colors
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<label for="initiating_date">Transaction Date</label>
-					<input type="text" name="initiating_date" id="initiating_date"
-						value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#" class="reqdClr">
-				</td>
-				<td>
-					<label for="initiating_date">Due Date</label>
-					<input type="text" id="return_due_date" name="return_due_date"
-						value="#dateformat(loanDetails.return_due_date,'yyyy-mm-dd')#">
+				<td colspan="2">
+					<table>
+						<tr>
+							<td>
+								<label for="initiating_date">Transaction Date</label>
+								<input type="text" name="initiating_date" id="initiating_date"
+									value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#" class="reqdClr">
+							</td>
+							<td>
+								<label for="initiating_date">Due Date</label>
+								<input type="text" id="return_due_date" name="return_due_date"
+									value="#dateformat(loanDetails.return_due_date,'yyyy-mm-dd')#">
+							</td>
+							<td>
+								<label for="closed_date">Closed Date</label>
+								<input type="text" id="closed_date" name="closed_date"
+									value="#loanDetails.closed_date#">
+							</td>
+						</tr>
+					</table>
 				</td>
 			</tr>
 		</table>
