@@ -72,7 +72,7 @@
 			<span class="helpLink" id="_attribute_remark">Attribute Remark:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="attribute_remark" id="attribute_remark">
+			<input type="text" name="attribute_remark" id="attribute_remark" size="80">
 		</td>
 	</tr>
 	</tr>
