@@ -580,7 +580,7 @@ just fooling idiot cfclipse into using the right colors
 			</tr>
 			<tr>
 				<td colspan="2">
-					<table>
+					<table width="100%">
 						<tr>
 							<td>
 								<label for="initiating_date">Transaction Date</label>
@@ -588,7 +588,7 @@ just fooling idiot cfclipse into using the right colors
 									value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#" class="reqdClr">
 							</td>
 							<td>
-								<label for="initiating_date">Due Date</label>
+								<label for="return_due_date">Due Date</label>
 								<input type="text" id="return_due_date" name="return_due_date"
 									value="#dateformat(loanDetails.return_due_date,'yyyy-mm-dd')#">
 							</td>
@@ -1069,7 +1069,8 @@ just fooling idiot cfclipse into using the right colors
 					,return_due_date = '#dateformat(return_due_date,"yyyy-mm-dd")#'
 					,loan_status = '#loan_status#'
 					,loan_description = '#loan_description#'
-					,LOAN_INSTRUCTIONS = '#LOAN_INSTRUCTIONS#'
+					,LOAN_INSTRUCTIONS = '#LOAN_INSTRUCTIONS#',
+					CLOSED_DATE='#CLOSED_DATE#'
 					where transaction_id = #transaction_id#
 				</cfquery>
 				<cfif isdefined("project_id") and len(project_id) gt 0>
