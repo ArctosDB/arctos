@@ -55,7 +55,7 @@
 			chr(9) & '</annotation>';		
 		variables.joFileWriter.writeLine(a);
 		a=chr(9) & '<concepts>' & chr(10) & 
-			chr(9) & '<concept order="1" viewlist="0" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />' & chr(10) & 
+			chr(9) & '<concept order="1" viewlist="1" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="2" viewlist="1" colorlist="0" datatype="char120_1" alias="Media Type"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="3" viewlist="0" colorlist="0" datatype="char120_6" alias="Media uri"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="4" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
@@ -85,7 +85,15 @@
 		variables.joFileWriter.close();
 	</cfscript>		
 	<cfset collList='Media Results'>
+	
+	<!----	
+
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
+	---->
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
+
+
+
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
