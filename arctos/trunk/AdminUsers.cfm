@@ -346,6 +346,7 @@
 									Awaiting User Action
 								<cfelse>
 									<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite as Operator</a>
+									<a href="" target="blank" class="external">READ THIS FIRST!</a>
 								</cfif>				
 							</td>
 						</tr>
