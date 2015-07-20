@@ -434,7 +434,8 @@ just fooling idiot cfclipse into using the right colors
 			return_due_date,
 			trans.collection_id,
 			collection.guid_prefix,
-			concattransagent(trans.transaction_id,'entered by') enteredby
+			concattransagent(trans.transaction_id,'entered by') enteredby,
+			closed_date
 		 from
 			loan,
 			trans,
