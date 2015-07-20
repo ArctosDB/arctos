@@ -12,6 +12,13 @@
 					queryformat : 'column'
 				},
 				function (r) {
+					if (~r.indexOf('ERROR')){
+
+						alert(r);
+					return false;
+}
+
+
 					var q='created <a target="_blank" href="/guid/' + r + '">' + r + '</a>';
 					jQuery('#cloned').css("display", "inline").html(q);
 				}
