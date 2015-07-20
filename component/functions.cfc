@@ -28,7 +28,7 @@
 		</cfstoredproc>
 		<cfreturn newguid>
 	<cfcatch>
-		<cfreturn "ERROR: #cfcatch.message#">
+		<cfreturn "ERROR: #cfcatch.message# - #cfcatch.detail#">
 	</cfcatch>
 	</cftry>
 </cffunction>
