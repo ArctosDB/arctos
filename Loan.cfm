@@ -42,7 +42,7 @@
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#trans_date").datepicker();
-		$("#closed").datepicker();
+		$("#closed_date").datepicker();
 		$("#to_trans_date").datepicker();
 		$("#return_due_date").datepicker();
 		$("#to_return_due_date").datepicker();
