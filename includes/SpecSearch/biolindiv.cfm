@@ -66,6 +66,15 @@
 			</span>
 			<input type="text" name="attribute_units_1" size="6">(units)
 		</td>
+		
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_attribute_remark">Attribute Remark:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="attribute_remark" id="attribute_remark">
+		</td>
+	</tr>
 	</tr>
 	<tr>
 		<td class="lbl">
