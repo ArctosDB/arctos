@@ -1995,6 +1995,14 @@
 <cfif isdefined("attribute_value") AND len(attribute_value) gt 0>
 	<cfset attribute_value_1=attribute_value>
 </cfif>
+<cfif isdefined("attribute_remark") AND len(attribute_remark) gt 0>
+	<cfset mapurl = "#mapurl#&attribute_remark=#URLEncodedFormat(attribute_remark)#">
+	<cfset basJoin = " #basJoin# INNER JOIN v_attributes attributes_rmk ON (#session.flatTableName#.collection_object_id = attributes_rmk.collection_object_id)">
+	<cfif session.flatTableName is not "flat">
+		<cfset basQual = " #basQual# AND attributes_rmk.is_encumbered = 0">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(attributes_rmk.attribute_REMARK) LIKE '%#ucase(escapeQuotes(attribute_remark))#%'">
+</cfif>
 <cfif isdefined("attribute_type_1") AND len(attribute_type_1) gt 0>
 	<cfset mapurl = "#mapurl#&attribute_type_1=#URLEncodedFormat(attribute_type_1)#">
 	<cfif basJoin does not contain " attributes_1 ">
