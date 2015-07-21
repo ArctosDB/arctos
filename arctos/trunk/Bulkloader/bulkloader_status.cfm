@@ -17,8 +17,7 @@
 		enteredby, 
 		guid_prefix
 	order by 
-		institution_acronym, 
-		collection_cde,
+		guid_prefix,
 		enteredby
 </cfquery>
 <cfoutput>
