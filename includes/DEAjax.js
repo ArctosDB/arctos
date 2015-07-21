@@ -687,7 +687,7 @@ function loadRecordEnter(collection_object_id){
 			 * eventually
 			 * when we understand how guid is going to work here
 			 */
-			var ccde=r.DATA.GUID_PREFIX[0].split(':').shift();
+			var ccde=r.DATA.GUID_PREFIX[0].split(':')[1];
 			console.log('ccde: ' + ccde);
 			
 			// always load the custom template in entry mode
