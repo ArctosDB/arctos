@@ -235,8 +235,14 @@
 	       	where 
 	       		collection.collection_cde=ctspecimen_part_name.collection_cde and
 	       		collection.guid_prefix='#guid_prefix#'
-	       	group by part_name order by part_name
+	       	group by ctspecimen_part_name.part_name,
+	       		collection.collection_cde order by ctspecimen_part_name.part_name
 	    </cfquery>
+	    <cfquery name="cc" dbtype="query">
+	    	select distinct collection_cde from ctspecimen_part_name
+	    </cfquery>
+	    
+	    
 	    <cfquery name="CTSPECPART_ATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select ATTRIBUTE_TYPE from CTSPECPART_ATTRIBUTE_TYPE group by ATTRIBUTE_TYPE  order by ATTRIBUTE_TYPE
 	    </cfquery>
@@ -255,7 +261,7 @@
 		        <td>
 					<label for="part_name">Part Name</label>
 					<input type="text" name="part_name" id="part_name" class="reqdClr"
-						onchange="findPart(this.id,this.value,'#ctspecimen_part_name.collection_cde#');" 
+						onchange="findPart(this.id,this.value,'#cc.collection_cde#');" 
 						onkeypress="return noenter(event);">
 				</td>
 		        <td>
