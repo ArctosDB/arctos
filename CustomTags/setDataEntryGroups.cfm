@@ -7,7 +7,7 @@
 		dba_role_privs isMgr,
 		collection
 	where
-		upper(collroles.granted_role) = upper(collection.institution_acronym || '_' || collection.collection_cde) and
+		upper(collroles.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
 		isMgr.granted_role='MANAGE_COLLECTION' and
 		isMgr.grantee=collroles.grantee and
 		upper(collroles.grantee) = '#ucase(session.username)#'
