@@ -1811,7 +1811,7 @@ function cleanup () {
 	 * for now, customizations are only used by "normal" collections so it kinda works
 	 * I hope
 	 */
-	var thisCC=$("#guid_prefix").split(':')[1];
+	var thisCC=$("#guid_prefix").val().split(':')[1];
 	
 	
 	
