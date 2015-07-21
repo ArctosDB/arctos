@@ -46,23 +46,21 @@
 				<cfquery name="prime" datasource="uam_god">
 					insert into bulkloader (
 						collection_object_id,
-						institution_acronym,
-						collection_cde,
+						guid_prefix,
 						loaded,
 						collection_id,
 						entered_agent_id,
 						verificationstatus
 					) VALUES (
 						#collection_id#,
-						'#institution_acronym#',
-						'#collection_cde#',
-						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE',
+						'#guid_prefix#',
+						'#ucase(guid_prefix)# TEMPLATE',
 						#collection_id#,
 						0,
 						'unverified'
 					)
 				</cfquery>
-			<cfelseif isBL.loaded is not "#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE">
+			<cfelseif isBL.loaded is not "#ucase(guid_prefix)# TEMPLATE">
 				<cfquery name="move" datasource="uam_god">
 					update bulkloader set collection_object_id = bulkloader_PKEY.nextval
 					where collection_object_id = #collection_id#
@@ -70,16 +68,14 @@
 				<cfquery name="prime" datasource="uam_god">
 					insert into bulkloader (
 						collection_object_id,
-						institution_acronym,
-						collection_cde,
+						guid_prefix,
 						loaded,
 						collection_id,
 						entered_agent_id
 					) VALUES (
 						#collection_id#,
-						'#institution_acronym#',
-						'#collection_cde#',
-						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE',
+						'#guid_prefix#',
+						'#ucase(guid_prefix)# TEMPLATE',
 						#collection_id#,
 						0
 					)
@@ -96,12 +92,11 @@
 		<cfquery name="theirLast" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				max(collection_object_id) theId,
-				collection_cde collnCde,
-				institution_acronym instAc
+				guid_prefix
 			from bulkloader where enteredby = '#session.username#'
 			GROUP BY
-				collection_cde,
-				institution_acronym
+				guid_prefix
+			order by guid_prefix
 		</cfquery>
 		Begin at....<br>
 		<form name="begin" method="post" action="DataEntry.cfm">
@@ -110,7 +105,7 @@
 				<cfif theirLast.recordcount gt 0>
 					<cfloop query="theirLast">
 						<cfquery name="temp" dbtype="query">
-							select GUID_PREFIX from c where institution_acronym='#instAc#' and collection_cde='#collnCde#'
+							select GUID_PREFIX from c where guid_prefix='#guid_prefix#'
 						</cfquery>
 						<option value="#theId#">Your Last #temp.GUID_PREFIX#</option>
 					</cfloop>
@@ -135,9 +130,6 @@
 
 		<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select id_references from ctid_references where id_references != 'self' order by id_references
-		</cfquery>
-		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select collection_cde,institution_acronym,collection from collection order by collection
 		</cfquery>
 		<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nature_of_id from ctnature_of_id order by nature_of_id
@@ -234,12 +226,8 @@
 								<table cellpadding="0" cellspacing="0" class="fs" border="1"><!--- cat item IDs --->
 									<tr>
 										<td class="valigntop">
-											<label for="institution_acronym">Inst</label>
-											<input type="text" readonly="readonly" class="readClr" name="institution_acronym" id="institution_acronym" size="4">
-										</td>
-										<td class="valigntop">
-											<label for="collection_cde">CCDE</label>
-											<input type="text" readonly="readonly" class="readClr" name="collection_cde" id="collection_cde" size="4">
+											<label for="guid_prefix">Coln</label>
+											<input type="text" readonly="readonly" class="readClr" name="guid_prefix" id="guid_prefix" size="4">
 										</td>
 										<td class="valigntop">
 											<label for="cat_num">Cat##</label>
