@@ -84,7 +84,8 @@
 	</cfloop>
 	</table>
 <cfquery name="success" datasource="uam_god">
-	select bulkloader_attempts.collection_object_id,
+	select 
+		bulkloader_attempts.collection_object_id,
 		cataloged_item.cat_num,
 		collection.guid_prefix
 	from
@@ -93,11 +94,11 @@
 		cataloged_item,
 		collection	
 	where
-		bulkloader_deletes.collection_object_id = B_COLLECTION_OBJECT_ID AND
+		bulkloader_deletes.collection_object_id = bulkloader_attempts.B_COLLECTION_OBJECT_ID AND
 		bulkloader_attempts.collection_object_id = cataloged_item.collection_object_id AND
 		cataloged_item.collection_id = collection.collection_id AND
 		TSTAMP > ('#dateformat(now()-5,"yyyy-mm-dd")#') and
-		upper(replace(bulkloader.guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#)
+		upper(replace(collection.guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#)
 	group by
 		bulkloader_attempts.collection_object_id,
 		cataloged_item.cat_num,
