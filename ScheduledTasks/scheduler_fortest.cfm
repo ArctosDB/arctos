@@ -6,7 +6,7 @@
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
 
-
+<!---
 
 
 <cfschedule action = "update"
@@ -18,7 +18,7 @@
     interval = "60"
     requestTimeOut = "60">
 
-
+---->
 
 <cfschedule action = "update"
     task = "send_chris_email"
