@@ -584,9 +584,10 @@ function loadRecordEdit (collection_object_id) {
 					return false;
 				}
 				var columns=r.COLUMNS;
-				var ccde=r.DATA.COLLECTION_CDE[0];
+				// hackey
+				var ccde=r.DATA.GUID_PREFIX[0].split(':')[1];
 				var useCustom=true;
-				var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
+				var ptl="/form/DataEntryAttributeTable.cfm?guid_prefix=" + r.DATA.GUID_PREFIX[0];
 				var tab=document.getElementById('attributeTableCell');
 				// switch in attributes based on collection and whether 
 				// or not hard-coded attributes jive with the data
@@ -650,7 +651,7 @@ function loadRecordEdit (collection_object_id) {
 					//$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
 					set_attribute_dropdowns();
 					// turn this thing on when necessary
-					if($("#collection_cde").val()=='ES') {
+					if(ccde=='ES') {
 						$("#sort_geology").show();
 					}
 					switchActive($("#orig_lat_long_units").val());
@@ -686,13 +687,15 @@ function loadRecordEnter(collection_object_id){
 			 * DO SOMETHING ABOUT IT
 			 * eventually
 			 * when we understand how guid is going to work here
+			 * for now, customizations are only used by "normal" collections so it kinda works
+			 * I hope
 			 */
 			var ccde=r.DATA.GUID_PREFIX[0].split(':')[1];
-			console.log('ccde: ' + ccde);
+			//console.log('ccde: ' + ccde);
 			
 			// always load the custom template in entry mode
 			// we'll force attribute types after we load whatever's in the template
-			var ptl="/form/DataEntryAttributeTable.cfm?useCustom=true&collection_cde=" + ccde;
+			var ptl="/form/DataEntryAttributeTable.cfm?useCustom=true&guid_prefix=" + r.DATA.GUID_PREFIX[0];
 			var tab=document.getElementById('attributeTableCell');
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
@@ -733,7 +736,7 @@ function loadRecordEnter(collection_object_id){
 				// fix the dropdowns for anything that landed in the table
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
-				if($("#collection_cde").val()=='ES') {
+				if(ccde=='ES') {
 					$("#sort_geology").show();
 				}
 				// deal with coordinate format
@@ -812,9 +815,9 @@ function editLast() {
 
 //open up the accession pick with data entry values
 function getDEAccn() {
-	var institution_acronym=$("#institution_acronym").val();
-	var collection_cde=$("#collection_cde").val();
-	var InstAcrColnCde=institution_acronym+ ':' +collection_cde;
+	//var institution_acronym=$("#institution_acronym").val();
+	//var collection_cde=$("#collection_cde").val();
+	var InstAcrColnCde=$("#guid_prefix").val();
 	var accnNumber=$("#accn").val();
 	getAccn(accnNumber,'accn',InstAcrColnCde);
 }
@@ -1065,26 +1068,32 @@ function closeGeoLocate(msg) {
 	$("#geoLocateResults").html(msg);
 }
 function setNewRecDefaults () {
-	var cc = $('#collection_cde').val();
-	var ia =  $('#institution_acronym').val();
-	if(cc == 'Mamm' && ia == 'UAM') {
+	//var cc = $('#collection_cde').val();
+	// ia =  $('#institution_acronym').val();
+	
+	var gp=$('#guid_prefix').val();
+	if(gp == 'UAM:Mamm') {
 		UAMMammDefault();
-	} else if(cc == 'Bird' && ia == 'MSB') {
+	} else if(gp == 'MSB:Bird' ) {
 		MSBBirdDefault();
-	} else if(cc == 'Fish' && ia == 'UAM') {
+	} else if(gp == 'UAM:Fish') {
 		UAMFishDefault();
-	} else if(cc == 'Inv' && ia == 'UAM') {
+	} else if(gp == 'UAM:Inv') {
 		UAMInvDefault();
-	} else if(ia == 'UAM' && cc=='Art') {
+	} else if(gp == 'UAM:Art') {
 		UAMArtDefaults();
-	} else if(ia == 'MSB' && cc=='Mamm') {
+	} else if(gp == 'MSB:Mamm') {
 		MSBMammDefaults();
-	} else if(ia == 'UAM' && cc=='ES') {
+	} else if(gp == 'UAM:ES') {
 		UAMESDefaults();
-	} else if(ia == 'MVZ') {
+	} else if(gp.indexOf('MVZ')>-1) {
 		MVZDefaults();
 	}
 }
+
+
+
+
 
 function UAMESDefaults() {	
 	if ($("#nature_of_id").val()==''){
@@ -1207,19 +1216,15 @@ function incCatNum() {
 	if ($("#cat_num").val()!=''){
 		alert('There is already a cat number. Aborting....');
 	} else {
-		var inst = $("#institution_acronym").val();
-		var coll = $("#collection_cde").val();		
-		var coll_id = inst + " " + coll;
 		jQuery.getJSON("/component/DataEntry.cfc",
 			{
 				method : "getcatNumSeq",
-				coll : coll_id,
+				guid_prefix : $("#guid_prefix").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
 			function(result){
-				var catnum = document.getElementById('cat_num');
-				catnum.value=result;
+				$("#cat_num").val(result);
 			}
 		);
 	}
@@ -1340,6 +1345,8 @@ function populateGeology(id) {
 var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
 function LZ(x) {return(x<0||x>9?"":"0")+x}
+
+/* don't think this is used anymore.....
 function changeCollection(v){
 	var yesno = confirm("Are you sure you want to move this record to " + v + "? \nDoing so may cause attribute verification failure.")
 	if (yesno){
@@ -1353,6 +1360,7 @@ function changeCollection(v){
 		s.value=i + ':' + c;
 	}
 }
+*/
 /* recheck */
 function requirePartAtts(i,v){
 	
@@ -1547,16 +1555,25 @@ function clearAll () {
 	}	
 }
 function changeSex(sex) {
-	if ($("#collection_cde").val() == 'Bird') {	
-		if ($("#attribute_value_7").val().length==0){
-			$("#attribute_7").val('reproductive data');
-			if (sex.indexOf('female') > -1) {
-				$("#attribute_value_7").val('OV:  mm');
-			} else if (sex.indexOf('male') > -1) {
-				$("#attribute_value_7").val('TE:  mm');
-			}
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "getCollectionCodeFromGuidPrefix",
+			guid_prefix : $("#guid_prefix").val(),
+			returnformat : "json"
+		},
+		function(r) {
+			if (r == 'Bird') {	
+				if ($("#attribute_value_7").val().length==0){
+					$("#attribute_7").val('reproductive data');
+					if (sex.indexOf('female') > -1) {
+						$("#attribute_value_7").val('OV:  mm');
+					} else if (sex.indexOf('male') > -1) {
+						$("#attribute_value_7").val('TE:  mm');
+					}
+				}
+			}	
 		}
-	}
+	);
 }
 
 
@@ -1784,7 +1801,20 @@ function copyAllAgents(theID) {
 
 
 function cleanup () {
-	var thisCC = document.getElementById('collection_cde').value;
+	//var thisCC = document.getElementById('collection_cde').value;
+	
+	/*
+	 * THIS IS AN EVIL HACK
+	 * DO SOMETHING ABOUT IT
+	 * eventually
+	 * when we understand how guid is going to work here
+	 * for now, customizations are only used by "normal" collections so it kinda works
+	 * I hope
+	 */
+	var thisCC=$("#guid_prefix").split(':')[1];
+	
+	
+	
 	// make sure mammalCustomAttributes is a hidden attribute in forms that need mammal magic
 	if (thisCC == 'Mamm' && $("#mammalCustomAttributes").length>0) {
 		/*
@@ -1971,6 +2001,7 @@ function rememberLastOtherId (yesno) {
 		}
 	);
 }
+/* don't think thi sis used
 function isGoodAccn () {
 	jQuery.getJSON("/component/DataEntry.cfc",
 		{
@@ -1996,6 +2027,7 @@ function isGoodAccn () {
 	);
 	return null;
 }
+*/
 function turnSaveOn () {
 	document.getElementById('localityPicker').style.display='none';
 	document.getElementById('localityUnPicker').style.display='none';
@@ -2219,6 +2251,7 @@ function success_pickedLocality (r) {
 		}		
 	}
 }
+/* unused?
 function catNumSeq () {
 	var catnum = document.getElementById('cat_num').value;
 	var isCatNum = catnum.length;
@@ -2240,6 +2273,7 @@ function catNumSeq () {
 		);
 	}
 }
+*/
 function set_attribute_dropdowns() {
 	$.each($("select[id^='attribute_']"), function() {
 	    if  (!(this.id.indexOf("units") >= 0 || this.id.indexOf("value") >= 0)) {
@@ -2253,12 +2287,11 @@ function getAttributeStuff (attr,elem) {
 	
 		var optn = document.getElementById(elem);
 		optn.style.backgroundColor='red';
-		var thisCC = document.getElementById('collection_cde').value;
 		jQuery.getJSON("/component/DataEntry.cfc",
 			{
 				method : "getAttCodeTbl",
 				attribute : attr,
-				collection_cde : thisCC,
+				guid_prefix : $("#guid_prefix").val(),
 				element : elem,
 				returnformat : "json",
 				queryformat : 'column'

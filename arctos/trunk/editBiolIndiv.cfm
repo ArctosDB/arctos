@@ -53,7 +53,7 @@
 			{
 				method : "getAttCodeTbl",
 				attribute : $("#attribute_type_" + aid).val(),
-				collection_cde : $("#collection_cde").val(),
+				guid_prefix : $("#guid_prefix").val(),
 				element : aid,
 				returnformat : "json",
 				queryformat : 'column'
@@ -130,6 +130,7 @@
 				flags,
 				cat_num,
 				collection.collection_cde,
+				collection.guid_prefix,
 				cataloged_item.collection_object_id collection_object_id,
 				ATTRIBUTE_ID,
 				agent_name,
@@ -169,6 +170,7 @@
 				CAT_NUM,
 				cataloged_item_type,
 				collection_cde,
+				guid_prefix,
 				COLL_OBJECT_REMARKS,
 				associated_species,
 				flags
@@ -178,6 +180,7 @@
 				CAT_NUM,
 				cataloged_item_type,
 				collection_cde,
+				guid_prefix,
 				COLL_OBJECT_REMARKS,
 				associated_species,
 				flags
@@ -219,6 +222,7 @@
 			<input type="hidden" value="save" name="action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
 			<input type="hidden" value="#indiv.collection_cde#" name="collection_cde" id="collection_cde">
+			<input type="hidden" value="#indiv.guid_prefix#" name="guid_prefix" id="guid_prefix">
     		<table width="100%">
       			<tr>
 					<td>

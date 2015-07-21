@@ -6,8 +6,16 @@ jQuery(document).ready(function() {
 });
 </script>
 <cfoutput>
-<cfif isdefined("data.collection_cde")>
-	<cfset collection_cde=data.collection_cde>
+	<cfif isdefined("data.guid_prefix")>
+		<cfset guid_prefix=data.guid_prefix>
+	</cfif>
+	<cfif len(guid_prefix) gt 0>
+		<cfquery name="cc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select collection_cde from collection where guid_prefix='#guid_prefix#'
+		</cfquery>
+		<cfset collection_cde=cc.collection_cde>
+	<cfelse>
+		<cfset collection_cde=''>
 	</cfif>
 	<cftry>
 		<cfif not isdefined("useCustom")>

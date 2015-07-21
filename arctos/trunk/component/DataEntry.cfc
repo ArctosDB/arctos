@@ -16,18 +16,24 @@
 
 <cffunction name="getAttCodeTbl"  access="remote">
 	<cfargument name="attribute" type="string" required="yes">
-	<cfargument name="collection_cde" type="string" required="yes">
+	<cfargument name="guid_prefix" type="string" required="yes">
 	<cfargument name="element" type="string" required="yes">
-	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where attribute_type='#attribute#'
 	</cfquery>
+	<cfquery name="cc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select collection_cde from collection where guid_prefix='#guid_prefix#'
+	</cfquery>
+	<cfset collection_cde=cc.collection_cde>
+
+
 	<cfif isCtControlled.recordcount is 1>
 		<cfif len(isCtControlled.VALUE_CODE_TABLE) gt 0>
-			<cfquery name="getCols" datasource="uam_god">
+			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select * from #isCtControlled.value_code_table#
 			</cfquery>
 			<cfset collCode = "">
@@ -40,7 +46,7 @@
 				</cfif>
 			</cfloop>
 			<cfif len(collCode) gt 0>
-				<cfquery name="valCodes" dbtype="query">
+				<cfquery name="valCodes" dbtype="query" >
 					SELECT #columnName# as valCodes from valCT
 					WHERE collection_cde='#collection_cde#'
 					order by #columnName#
@@ -70,11 +76,11 @@
 			</cfloop>
 
 		<cfelseif #isCtControlled.UNITS_CODE_TABLE# gt 0>
-			<cfquery name="getCols" datasource="uam_god">
+			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNITS_CODE_TABLE)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select * from #isCtControlled.UNITS_CODE_TABLE#
 			</cfquery>
 			<cfset collCode = "">
@@ -129,31 +135,24 @@
 </cffunction>
 <!---------------------------------------------------------------->
 <cffunction name="getcatNumSeq" access="remote">
-	<cfargument name="coll" type="string" required="yes">
-	<cfset theSpace = find(" " ,coll)>
-	<cfset inst = trim(left(coll,theSpace))>
-	<cfset collcde = trim(mid(coll,theSpace,len(coll)))>
-	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select collection_id from collection where
-		institution_acronym='#inst#' and
-		collection_cde='#collcde#'
-	</cfquery>
+	<cfargument name="guid_prefix" type="string" required="yes">
+
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(cat_num + 1) as nextnum
-		from cataloged_item
+		from cataloged_item,collection
 		where
-		collection_id=#collID.collection_id#
+		cataloged_item.collection_id=collection.collection_id and
+		guid_prefix='#guid_prefix#'
 	</cfquery>
 	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(to_number(cat_num) + 1) as nextnum from bulkloader
 		where
-		institution_acronym='#inst#' and
-		collection_cde='#collcde#'
+		guid_prefix='#guid_prefix#'
 	</cfquery>
-	<cfif #q.nextnum# gt #b.nextnum#>
-		<cfset result = "#q.nextnum#">
+	<cfif q.nextnum gt b.nextnum>
+		<cfset result = q.nextnum>
 	<cfelse>
-		<cfset result = "#b.nextnum#">
+		<cfset result = b.nextnum>
 	</cfif>
 	<cfreturn result>
 </cffunction>
