@@ -1,6 +1,66 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset functions = CreateObject("component","component.functions")>
 <cfoutput>
+
+
+	<!---- slip a DOI report in here - does anyone use the crap we build? ---->
+	<!----
+	create table cf_doi_report (
+		publication_type varchar2(255),
+		hascount number,
+		nopecount number,
+		checkdate date
+	);
+	
+	
+	
+	---->
+	
+	<cfquery name="dailyrefresh" datasource="uam_god">
+		insert into cf_doi_report (publication_type,hascount,nopecount,checkdate) (
+		 select
+  			publication_type,
+	 		count(doi) ,
+  	 		count(*) - count(doi),
+			sysdate
+		from publication group by publication_type)
+	</cfquery>
+	<cfquery name="doireport" datasource="uam_god">
+		select * from cf_doi_report where checkdate > sysdate-11 order by checkdate desc,publication_type
+	</cfquery>
+	<cfif isdefined("Application.version") and  Application.version is "prod">
+		<cfset subj="Arctos DOI Report">
+		<cfset maddr="arctos.database@gmail.com">
+	<cfelse>
+		<cfset maddr=application.bugreportemail>
+		<cfset subj="TEST PLEASE IGNORE: Arctos DOI Report">
+	</cfif>
+		
+					
+	<cfmail to="#maddr#" subject="#Arctos DOI Report#" from="doireport@#Application.fromEmail#" type="html">
+		Most recent DOI status of Arctos publications
+		<table border>
+			<tr>
+				<th>Date</th>
+				<th>Type</th>
+				<th>HasDOI</th>
+				<th>NoDOI</th>
+			</tr>
+			<cfloop query="doireport">
+				<tr>
+					<td>#dateformat(checkdate,'YYYY-MM-DD')#</td>
+					<td>#publication_type#</td>
+					<td>#hascount#</td>
+					<td>#nopecount#</td>
+				</tr>
+			</cfloop>
+		</table>
+		<p>
+			See ScheduledTasks.cfm to stop this report of get the SQL.
+		</p>
+	</cfmail>
+	<!---- /slip a DOI report in here for now.... ---->
+	
 		<cfsavecontent variable="emailFooter">
 			<div style="font-size:smaller;color:gray;">
 				--
