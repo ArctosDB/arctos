@@ -60,8 +60,8 @@ function addMoreStuff(mode){
 		alert('bad uuid');
 		return false;
 	}
-	var collection_cde=$("#collection_cde").val();
-	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid + '&action=' + mode + '&collection_cde=' + collection_cde;
+	var guid_prefix=$("#guid_prefix").val();
+	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid + '&action=' + mode + '&guid_prefix=' + guid_prefix;
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
@@ -278,8 +278,20 @@ function deleteThisRec () {
 
 function DEpartLookup(id){
 	var val=$("#" + id).val();
-	var ccde=$("#collection_cde").val();
-	findPart(id,val,ccde);
+	var gp=$("#guid_prefix").val();
+	
+	
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "getCollectionCodeFromGuidPrefix",
+			guid_prefix : gp,
+			returnformat : "json"
+		},
+		function(r) {
+			findPart(id,val,r);			
+		}
+	);
+	
 }
 
 function createClone() {
@@ -669,7 +681,15 @@ function loadRecordEnter(collection_object_id){
 		function(r) {
 			//console.log('back loadRecordEnter');
 			var columns=r.COLUMNS;
-			var ccde=r.DATA.COLLECTION_CDE[0];
+			/*
+			 * THIS IS AN EVIL HACK
+			 * DO SOMETHING ABOUT IT
+			 * eventually
+			 * when we understand how guid is going to work here
+			 */
+			var ccde=r.DATA.GUID_PREFIX[0].split(':').shift();
+			console.log('ccde: ' + ccde);
+			
 			// always load the custom template in entry mode
 			// we'll force attribute types after we load whatever's in the template
 			var ptl="/form/DataEntryAttributeTable.cfm?useCustom=true&collection_cde=" + ccde;
