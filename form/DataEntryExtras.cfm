@@ -10,7 +10,7 @@
 					data: {
 						method:  "getAttCodeTbl",
 						attribute: $( "#attribute_type" ).val(),
-						collection_cde: $( "#collection_cde" ).val(),
+						guid_prefix: $( "#guid_prefix" ).val(),
 						element: 'nothing'
 					},
 					success: function(r) {
