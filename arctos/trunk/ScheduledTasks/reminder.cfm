@@ -37,7 +37,7 @@
 	</cfif>
 		
 					
-	<cfmail to="#maddr#" subject="#Arctos DOI Report#" from="doireport@#Application.fromEmail#" type="html">
+	<cfmail to="#maddr#" subject="#subj#" from="doireport@#Application.fromEmail#" type="html">
 		Most recent DOI status of Arctos publications
 		<table border>
 			<tr>
