@@ -5,19 +5,17 @@
 		loaded, 
 		accn, 
 		enteredby, 
-		institution_acronym, 
-		collection_cde,
+		guid_prefix,
 		count(*) cnt
 	from 
 		bulkloader
 	where
-		upper(institution_acronym || '_' || collection_cde) IN (#ListQualify(inAdminGroups, "'")#)
+		upper(replace(guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#)
 	group by
 		loaded, 
 		accn, 
 		enteredby, 
-		institution_acronym, 
-		collection_cde
+		guid_prefix
 	order by 
 		institution_acronym, 
 		collection_cde,
@@ -35,7 +33,7 @@
 		</tr>
 	<cfloop query="bulkSummary">
 		<tr>
-			<td>#institution_acronym# #collection_cde#</td>
+			<td>#guid_prefix#</td>
 			<td>#accn#</td>
 			<td>#EnteredBy#</td>
 			<td>#Loaded#</td>
@@ -49,23 +47,20 @@
 <cfquery name="failures" datasource="uam_god">
 	select bulkloader.collection_object_id,
 		loaded,
-		collection_cde,
-		institution_acronym
+		guid_prefix
 	from
 		bulkloader,
 		bulkloader_attempts		
 	where
 		bulkloader.collection_object_id = B_COLLECTION_OBJECT_ID AND
 		loaded <> 'spiffification complete' and
-		upper(bulkloader.institution_acronym || '_' || bulkloader.collection_cde) IN (#ListQualify(inAdminGroups, "'")#)
+		upper(replace(bulkloader.guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#)
 	group by
 		bulkloader.collection_object_id,
 		loaded,
-		collection_cde,
-		institution_acronym
+		guid_prefix
 	order by
-		collection_cde,
-		institution_acronym,
+		guid_prefix,
 		bulkloader.collection_object_id
 </cfquery>
 
@@ -83,7 +78,7 @@
 				<a href="/DataEntry.cfm?ImAGod=yes&action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#">
 					#collection_object_id#
 				</a>
-				 (#institution_acronym# #collection_cde#)
+				 (#guid_prefix#)
 			</td>
 			<td>#loaded#</td>
 		</tr>
@@ -92,8 +87,7 @@
 <cfquery name="success" datasource="uam_god">
 	select bulkloader_attempts.collection_object_id,
 		cataloged_item.cat_num,
-		collection.collection_cde,
-		collection.institution_acronym
+		collection.guid_prefix
 	from
 		bulkloader_deletes,
 		bulkloader_attempts,
@@ -104,15 +98,13 @@
 		bulkloader_attempts.collection_object_id = cataloged_item.collection_object_id AND
 		cataloged_item.collection_id = collection.collection_id AND
 		TSTAMP > ('#dateformat(now()-5,"yyyy-mm-dd")#') and
-		upper(bulkloader_deletes.institution_acronym || '_' || bulkloader_deletes.collection_cde) IN (#ListQualify(inAdminGroups, "'")#)
+		upper(replace(bulkloader.guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#)
 	group by
 		bulkloader_attempts.collection_object_id,
 		cataloged_item.cat_num,
-		collection.collection_cde,
-		collection.institution_acronym
+		collection.guid_prefix
 	order by
-		collection.institution_acronym,
-		collection.collection_cde,
+		collection.guid_prefix,
 		cataloged_item.cat_num
 </cfquery>
 <p>&nbsp;</p>
@@ -129,7 +121,7 @@ Successfully Loaded in the last Five days:
 		<tr>
 			<td>
 				<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-					#institution_acronym# #collection_cde# #cat_num#
+					#guid_prefix# #cat_num#
 				</a>
 			</td>
 		</tr>
