@@ -2,7 +2,6 @@
 <cfset functions = CreateObject("component","component.functions")>
 <cfoutput>
 
-
 	<!---- slip a DOI report in here - does anyone use the crap we build? ---->
 	<!----
 	create table cf_doi_report (
@@ -11,9 +10,6 @@
 		nopecount number,
 		checkdate date
 	);
-	
-	
-	
 	---->
 	
 	<cfquery name="dailyrefresh" datasource="uam_god">
@@ -34,9 +30,7 @@
 	<cfelse>
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos DOI Report">
-	</cfif>
-		
-					
+	</cfif>				
 	<cfmail to="#maddr#" subject="#subj#" from="doireport@#Application.fromEmail#" type="html">
 		Most recent DOI status of Arctos publications
 		<table border>
