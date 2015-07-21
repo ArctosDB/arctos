@@ -34,6 +34,9 @@ Bad things? Last standalone copy of this form is in v6.11
 	<cfif listcontainsnocase(groupBy,"collection_object_id")>
 		<cfset groupBy=listdeleteat(groupby,listfindnocase(groupby,"collection_object_id"))>
 	</cfif>
+	<cfif not listcontainsnocase(groupBy,"scientific_name")>
+		<cfset groupBy=listprepend(groupby,'scientific_name')>
+	</cfif>
 	<!---- now pull everything that's NOT groupby out of wherever it came from ---->
 	<cfset querystring="">
 	<cfloop list="#StructKeyList(form)#" index="key">
