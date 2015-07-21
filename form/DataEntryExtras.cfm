@@ -124,7 +124,13 @@
 	</script>
 	<cfoutput>
 		<cfquery name="CTATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	       	select attribute_type from CTATTRIBUTE_TYPE where collection_cde='#collection_cde#' group by attribute_type order by attribute_type
+	       	select 
+	       		attribute_type 
+	       	from 
+	       		CTATTRIBUTE_TYPE,
+	       		collection
+	       	where collection.collection_cde=CTATTRIBUTE_TYPE.collection_cde and
+	       	collection.guid_prefix='#guid_prefix#' group by attribute_type order by attribute_type
 	    </cfquery>
 	  
 	    <label for="theForm"></label>Add Specimen Attribute</label>
@@ -220,7 +226,11 @@
 
 	<cfoutput>
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	       	select part_name from ctspecimen_part_name where collection_cde='#collection_cde#' group by part_name order by part_name
+	       	select part_name from ctspecimen_part_name,
+	       	collection  
+	       	where collection.collection_cde=ctspecimen_part_name.collection_cde and
+	       	collection.guid_prefix='#guid_prefix#'
+	       	group by part_name order by part_name
 	    </cfquery>
 	    <cfquery name="CTSPECPART_ATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select ATTRIBUTE_TYPE from CTSPECPART_ATTRIBUTE_TYPE group by ATTRIBUTE_TYPE  order by ATTRIBUTE_TYPE

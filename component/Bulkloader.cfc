@@ -1,5 +1,13 @@
 <cfcomponent>
 <!----------------------------------------------------------------------------------------->
+<cffunction name="getCollectionCodeFromGuidPrefix" access="remote" returnformat="json" queryformat="column">
+	<cfargument name="guid_prefix" required="yes">
+	<cfquery name="cc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select collection_cde from collection where guid_prefix='#guid_prefix#'
+	</cfquery>
+	<cfreturn cc.collection_cde>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewSpecimenAttribute" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
 	<cfif not isdefined("escapeQuotes")>
