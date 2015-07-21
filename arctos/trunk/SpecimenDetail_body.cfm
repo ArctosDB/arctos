@@ -499,7 +499,7 @@
 									<a href="/media/#media_id#?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
 							 </cfloop>
 							 <cfif len(doi) gt 0>
-									<a href="http://dx.doi.org/#doi#" target="_blank" class="external">#doi#</a>
+									<a href="http://dx.doi.org/#doi#" target="_blank" class="external">DOI:#doi#</a>
 							</cfif>
 							 <cfif len(CITATION_REMARKS) gt 0>
 								<div class="detailCellSmall">
