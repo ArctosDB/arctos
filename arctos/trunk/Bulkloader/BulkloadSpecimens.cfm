@@ -80,6 +80,8 @@
 									collection.guid_prefix='#guid_prefix#'
 								<cfelseif len(collection_id) gt 0>
 									collection.collection_id=#collection_id#
+								<cfelse>
+									1=2
 								</cfif>
 						</cfquery>
 						<cfquery name="enteredbyContact" datasource="uam_god">
