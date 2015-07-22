@@ -84,6 +84,13 @@
 	</cfoutput>
 </cfif>
 <cfif action is "ajaxGrid">
+	<style>
+	#cfsucks{font-size;x-small; display:inline-block; border:1px solid black;}
+	</style>
+		
+	<div id="cfsucks">
+		Caution: This form is 100% native CF ajax, and therefore fragile. Use another method if this isn't working.
+	</div>
 	<cfoutput>
 		<cfquery name="cNames" datasource="uam_god">
 			select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
@@ -189,7 +196,9 @@
 						</tr>
 						<tr>
 							<td colspan="2">
+							<!---- SURELY nobody still uses this??
 								<input type="button" value="JAVA grid" class="lnkBtn" onclick="f.action.value='viewTable';f.submit();">
+							---->
 					 			<input type="button" value="SQL" class="lnkBtn" onclick="f.action.value='sqlTab';f.submit();">
 								<input type="button" value="AJAX grid" class="lnkBtn" onclick="f.action.value='ajaxGrid';f.submit();">
 								<input type="button" value="CSV" class="lnkBtn" onclick="f.action.value='download';f.submit();">
