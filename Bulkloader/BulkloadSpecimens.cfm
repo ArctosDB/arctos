@@ -31,16 +31,14 @@
 	<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			enteredby,
-			collection_cde,
-			institution_acronym,
+			guid_prefix,
 			collection_id,
 			max(ENTEREDTOBULKDATE) last_enter_date
 		from
 			bulkloader_stage
 		group by
 			enteredby,
-			collection_cde,
-			institution_acronym,
+			guid_prefix,
 			collection_id
 	</cfquery>
 	<cfoutput>
@@ -78,9 +76,8 @@
 								collection
 							where
 								collection_contacts.collection_id=collection.collection_id and
-								<cfif len(collection_id) lt 1>
-									collection.collection_cde='#collection_cde#' and
-									collection.institution_acronym='#institution_acronym#'
+								<cfif len(guid_prefix) lt 1>
+									collection.guid_prefix='#guid_prefix#'
 								<cfelse>
 									collection.collection_id=#collection_id#
 								</cfif>
