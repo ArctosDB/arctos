@@ -48,7 +48,7 @@
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
 		<cfif isdefined("colln") and len(colln) gt 0>
-			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+			<cfset sql = "#sql# AND guid_prefix IN (#colln#)">
 		</cfif>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
@@ -135,12 +135,12 @@
 		</cfquery>
 		<cfquery name="ctColln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				institution_acronym || ':' || collection_cde colln
+				guid_prefix colln
 			from
 				bulkloader
 			group by
-				institution_acronym || ':' || collection_cde
-			order by institution_acronym || ':' || collection_cde
+				guid_prefix
+			order by guid_prefix
 		</cfquery>
 		<cfquery name="ctEnteredby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
@@ -248,7 +248,7 @@
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
 		<cfif isdefined("colln") and len(colln) gt 0>
-			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+			<cfset sql = "#sql# AND guid_prefix IN (#colln#)">
 		</cfif>
 		<cfif isdefined("c1") and len(c1) gt 0 and isdefined("op1") and len(op1) gt 0 and isdefined("v1") and len(v1) gt 0>
 			<cfset sql = "#sql# AND #c1# #op1# ">
@@ -328,7 +328,7 @@
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
 	<cfif isdefined("colln") and len(colln) gt 0>
-		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+		<cfset sql = "#sql# AND guid_prefix IN (#colln#)">
 	</cfif>
 	<cfif isdefined("c1") and len(c1) gt 0 and isdefined("op1") and len(op1) gt 0 and isdefined("v1") and len(v1) gt 0>
 		<cfset sql = "#sql# AND #c1# #op1# ">
@@ -628,7 +628,7 @@
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
 		<cfif isdefined("colln") and len(colln) gt 0>
-			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+			<cfset sql = "#sql# AND guid_prefix IN (#colln#)">
 		</cfif>
 			#preservesinglequotes(sql)#
 		<!---
@@ -656,7 +656,7 @@
 </cfif>
 
 	<cfif isdefined("colln") and len(colln) gt 0>
-		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+		<cfset sql = "#sql# AND guid_prefix IN (#colln#)">
 	</cfif>
 <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
