@@ -85,12 +85,13 @@
 </cfif>
 <cfif action is "ajaxGrid">
 	<style>
-	#cfsucks{font-size;x-small; display:inline-block; border:1px solid black;}
+	#cfsucks{font-size;x-small; display:inline-block; border:1px solid black;padding:.5em;margin:.5em;}
 	</style>
 		
 	<div id="cfsucks">
 		Caution: This form is 100% native CF ajax, and therefore fragile. Use another method if this isn't working.
 	</div>
+	<br>
 	<cfoutput>
 		<cfquery name="cNames" datasource="uam_god">
 			select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
