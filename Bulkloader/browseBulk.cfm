@@ -378,7 +378,7 @@
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>
 	</cfif>
-	<cfset sql="#sql# and rownum<500">
+	<cfset sql="#sql# and collection_object_id>500 and rownum<500">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
@@ -402,7 +402,7 @@
 			<li>between: range ("1-5" --> "1,2...5") Works only when ALL values are numeric (not only those you see in the current table)</li>
 		</ul>
 		<p>
-			NOTE: This form will load at most 500 records. Your browser will thank me.
+			NOTE: This form will load at most 500 records.
 		</p>
 		<p>
 			Set LOADED to DELETE to delete.
