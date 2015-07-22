@@ -797,7 +797,7 @@
 		<cfset sql=sql & " and enteredby IN (#enteredby#)">
 	</cfif>
 	<cfif len(colln) gt 0>
-		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+		<cfset sql = "#sql# AND guid_prefix IN (#colln#)">
 	</cfif>
 	<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
 
