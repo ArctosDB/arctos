@@ -70,15 +70,15 @@
 						<cfquery name="cid" datasource="uam_god">
 							select
 								get_address(collection_contacts.CONTACT_AGENT_ID,'email') ADDRESS,
-								guid_prefix
+								collection.guid_prefix
 							from
 								collection_contacts,
 								collection
 							where
 								collection_contacts.collection_id=collection.collection_id and
-								<cfif len(guid_prefix) lt 1>
+								<cfif len(guid_prefix) gt 0>
 									collection.guid_prefix='#guid_prefix#'
-								<cfelse>
+								<cfelseif len(collection_id) gt 0>
 									collection.collection_id=#collection_id#
 								</cfif>
 						</cfquery>
