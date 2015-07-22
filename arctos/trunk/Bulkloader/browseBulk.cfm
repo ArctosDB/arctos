@@ -192,6 +192,9 @@
 								<input type="button" value="JAVA grid" class="lnkBtn" onclick="f.action.value='viewTable';f.submit();">
 					 			<input type="button" value="SQL" class="lnkBtn" onclick="f.action.value='sqlTab';f.submit();">
 								<input type="button" value="AJAX grid" class="lnkBtn" onclick="f.action.value='ajaxGrid';f.submit();">
+								<input type="button" value="CSV" class="lnkBtn" onclick="f.action.value='download';f.submit();">
+								
+								
 							</td>
 						</tr>
 					</table>
