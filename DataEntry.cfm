@@ -1010,7 +1010,7 @@
 													onkeypress="return noenter(event);">
 											</td>
 											<td>
-												<textarea class="smalltextarea" name="part_condition_#i#" id="part_condition_#i#" rows="1" cols="20"></textarea>
+												<textarea class="smalltextarea" name="part_condition_#i#" id="part_condition_#i#" rows="1" cols="15"></textarea>
 											<!----
 												<input type="text" name="part_condition_#i#" id="part_condition_#i#">---->
 											</td>
