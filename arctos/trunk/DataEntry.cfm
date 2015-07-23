@@ -227,7 +227,7 @@
 									<tr>
 										<td class="valigntop">
 											<label for="guid_prefix">Coln</label>
-											<input type="text" readonly="readonly" class="readClr" name="guid_prefix" id="guid_prefix" size="4">
+											<input type="text" readonly="readonly" class="readClr" name="guid_prefix" id="guid_prefix" size="8">
 										</td>
 										<td class="valigntop">
 											<label for="cat_num">Cat##</label>
