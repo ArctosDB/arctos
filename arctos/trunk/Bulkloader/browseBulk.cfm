@@ -26,7 +26,7 @@
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
 		<cfif isdefined("colln") and len(colln) gt 0>
-			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+			<cfset sql = "#sql# AND guid_prefix IN (#colln#)">
 		</cfif>
 		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
