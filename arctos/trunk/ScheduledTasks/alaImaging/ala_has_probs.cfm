@@ -3,7 +3,7 @@
 		select status,count(*) cnt from ala_plant_imaging 
 		group by status
 	UNION
-		select 'stuck_in_bulk' status, count(*) cnt from bulkloader where loaded is not null and collection_cde='Herb' and 
+		select 'stuck_in_bulk' status, count(*) cnt from bulkloader where loaded is not null and guid like '%:Herb:%' and 
 			collection_object_id > 50
 			group by 'stuck_in_bulk'
 </cfquery>
