@@ -11,6 +11,7 @@
 		bulkloader
 	where
 		upper(replace(guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#)
+		bulkloader.loaded not like '% TEMPLATE%'
 	group by
 		loaded, 
 		accn, 
@@ -53,7 +54,8 @@
 	where
 		bulkloader.collection_object_id = B_COLLECTION_OBJECT_ID AND
 		loaded <> 'spiffification complete' and
-		upper(replace(bulkloader.guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#)
+		upper(replace(bulkloader.guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#) and
+		bulkloader.loaded not like '% TEMPLATE%'
 	group by
 		bulkloader.collection_object_id,
 		loaded,
@@ -98,8 +100,8 @@
 		bulkloader_attempts.collection_object_id = cataloged_item.collection_object_id AND
 		cataloged_item.collection_id = collection.collection_id AND
 		TSTAMP > ('#dateformat(now()-5,"yyyy-mm-dd")#') and
-		upper(replace(collection.guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#) and
-		loaded not like '% TEMPLATE%'
+		upper(replace(collection.guid_prefix,':','_')) IN (#ListQualify(inAdminGroups, "'")#)
+		bulkloader.loaded not like '% TEMPLATE%'
 	group by
 		bulkloader_attempts.collection_object_id,
 		cataloged_item.cat_num,
