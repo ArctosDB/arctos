@@ -375,14 +375,14 @@
 		select distinct agent_name,ADDRESS from (
 			-- person creating agent
 			select
-				getPreferredAgentName(agent.agent) agent_name,
+				getPreferredAgentName(agent.agent_id) agent_name,
 				get_address(agent.CREATED_BY_AGENT_ID,'email') ADDRESS
 			from
 				agent where agent_id=#agent_id#
 			union
 			-- person creating related agent
 			select
-				getPreferredAgentName(agent.agent) agent_name,
+				getPreferredAgentName(agent.agent_id) agent_name,
 				get_address(agent.CREATED_BY_AGENT_ID,'email') ADDRESS
 			from
 				agent,agent_relations
