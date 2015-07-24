@@ -575,6 +575,11 @@
 			</form>
 		</cfoutput>
 	</cfif>
+	<cfif action is "spaceStripper">
+		<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" procedure="bulk_stage_junkstripper">
+		</cfstoredproc>
+		<a href="BulkloaderStageCleanup.cfm">Done - continue</a>
+	</cfif>
 	<cfif action is "nothing">
 		<cfoutput>
 			<br>
@@ -609,6 +614,7 @@
 		<li>
 			<a href="BulkloaderStageCleanup.cfm?action=ajaxGrid">Edit in AJAX grid</a>
 		</li>
+	<li><a href="BulkloaderStageCleanup.cfm?action=spaceStripper">strip leading spaces, trailing spaces, nonprinting characters from everything</a></li>
 	<li><a href="BulkloadSpecimens.cfm?action=checkStaged">check these records</a></li>
 	<li><a href="BulkloadSpecimens.cfm?action=validate">Return to "just uploaded" form</a></li>
 
