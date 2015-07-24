@@ -374,21 +374,12 @@
 	<cfquery name="colns" datasource="uam_god">
 		select distinct agent_name,ADDRESS from (
 			-- person creating agent
+			-- this gets called for both so no need for duplication
 			select
-				getPreferredAgentName(agent.agent_id) agent_name,
+				getPreferredAgentName(agent.CREATED_BY_AGENT_ID) agent_name,
 				get_address(agent.CREATED_BY_AGENT_ID,'email') ADDRESS
 			from
 				agent where agent_id=#agent_id#
-			union
-			-- person creating related agent
-			select
-				getPreferredAgentName(agent.agent_id) agent_name,
-				get_address(agent.CREATED_BY_AGENT_ID,'email') ADDRESS
-			from
-				agent,agent_relations
-			where
-				agent.agent_id=agent_relations.related_agent_id and
-				agent_relations.agent_id=#agent_id#
 			union
 			-- person creating relationship
 			select
