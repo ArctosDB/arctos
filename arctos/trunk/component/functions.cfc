@@ -371,16 +371,6 @@
 <cffunction name="agentCollectionContacts" access="remote">
 	<!--------- get email addresses of people who have some involvement with agent(s) ---->
 	<cfargument name="agent_id" type="string" required="yes">
-	<!--- 
-		creator of both agents + relationship
-	---->
-	<cfquery name="colns" datasource="uam_god">
-		select
-			a.CREATED_BY_AGENT_ID,'email'),
-			get_address(a.CREATED_BY_AGENT_ID,'email'),
-			
-	</cfquery>
-	
 	<cfquery name="colns" datasource="uam_god">
 		select distinct agent_name,ADDRESS from (
 			-- person creating agent
@@ -565,6 +555,7 @@
 							loan.transaction_id=loan_item.transaction_id and
 							RECONCILED_BY_PERSON_ID in (#agent_id#)
 			)
+		)
 	</cfquery>
 	<cfreturn colns>
 </cffunction>
