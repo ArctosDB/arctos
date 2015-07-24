@@ -119,6 +119,20 @@
 			<td>Number Code Tables *</td>
 			<td><input value="#ct.recordcount#"></td>
 		</tr>
+		<cfquery name="gb" dbtype="query">
+			select count(*) c from coll_obj_other_id_num where OTHER_ID_TYPE = 'GenBank'
+		</cfquery>
+		<tr>
+			<td>Number GenBank Linkouts</td>
+			<td><input value="#gb.c#"></td>
+		</tr>
+		<cfquery name="reln" dbtype="query">
+			select count(*) c from coll_obj_other_id_num where ID_REFERENCES != 'self'
+		</cfquery>
+		<tr>
+			<td>Number Inter-Specimen Relationshipt</td>
+			<td><input value="#reln.c#"></td>
+		</tr>
 	</table>
 	* The numbers above represent tables owned by the system owner.
 	There are about 85 "data tables" which contain primary specimen data. They're pretty useless by themselves - the other several hundred tables are user info,
