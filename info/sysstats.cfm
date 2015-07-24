@@ -130,7 +130,7 @@
 			select count(*) c from coll_obj_other_id_num where ID_REFERENCES != 'self'
 		</cfquery>
 		<tr>
-			<td>Number Inter-Specimen Relationshipt</td>
+			<td>Number Inter-Specimen Relationships</td>
 			<td><input value="#reln.c#"></td>
 		</tr>
 	</table>

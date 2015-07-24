@@ -610,6 +610,7 @@
 			<a href="BulkloaderStageCleanup.cfm?action=ajaxGrid">Edit in AJAX grid</a>
 		</li>
 	<li><a href="BulkloadSpecimens.cfm?action=checkStaged">check these records</a></li>
+	<li><a href="BulkloadSpecimens.cfm?action=validate">Return to "just uploaded" form</a></li>
 
 			</ul>
 		</cfoutput>
