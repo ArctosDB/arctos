@@ -119,14 +119,14 @@
 			<td>Number Code Tables *</td>
 			<td><input value="#ct.recordcount#"></td>
 		</tr>
-		<cfquery name="gb" dbtype="query">
+		<cfquery name="gb"  datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from coll_obj_other_id_num where OTHER_ID_TYPE = 'GenBank'
 		</cfquery>
 		<tr>
 			<td>Number GenBank Linkouts</td>
 			<td><input value="#gb.c#"></td>
 		</tr>
-		<cfquery name="reln" dbtype="query">
+		<cfquery name="reln"  datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from coll_obj_other_id_num where ID_REFERENCES != 'self'
 		</cfquery>
 		<tr>
