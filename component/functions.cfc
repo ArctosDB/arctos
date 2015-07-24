@@ -371,106 +371,144 @@
 <cffunction name="agentCollectionContacts" access="remote">
 	<!--------- get email addresses of people who have some involvement with agent(s) ---->
 	<cfargument name="agent_id" type="string" required="yes">
+	<!--- 
+		creator of both agents + relationship
+	---->
 	<cfquery name="colns" datasource="uam_god">
 		select
-			getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID) agent_name,
-			get_address(collection_contacts.CONTACT_AGENT_ID,'email') ADDRESS
-		from
-			collection_contacts
-		where
-			CONTACT_ROLE='data quality' and
-			collection_contacts.collection_id in  (
+			a.CREATED_BY_AGENT_ID,'email'),
+			get_address(a.CREATED_BY_AGENT_ID,'email'),
+			
+	</cfquery>
+	
+	<cfquery name="colns" datasource="uam_god">
+		select distinct agent_name,ADDRESS from (
+			-- person creating agent
 			select
-				collection_id
+				getPreferredAgentName(agent.agent) agent_name,
+				get_address(agent.CREATED_BY_AGENT_ID,'email') ADDRESS
 			from
-				cataloged_item,
-				citation,
-				publication_agent
-			where
-				cataloged_item.collection_object_id=citation.collection_object_id and
-				citation.publication_id=publication_agent.publication_id and
-				publication_agent.agent_id in (#agent_id#)
+				agent where agent_id=#agent_id#
 			union
+			-- person creating related agent
 			select
-				cataloged_item.collection_id
+				getPreferredAgentName(agent.agent) agent_name,
+				get_address(agent.CREATED_BY_AGENT_ID,'email') ADDRESS
 			from
-				collector,
-				cataloged_item
+				agent,agent_relations
 			where
-				collector.collection_object_id = cataloged_item.collection_object_id AND
-				agent_id in (#agent_id#)
+				agent.agent_id=agent_relations.agent_relations.related_agent_id and
+				agent_relations.agent_id=#agent_id#
 			union
+			-- person creating relationship
 			select
-				collection_id
+				getPreferredAgentName(CREATED_BY_AGENT_ID) agent_name,
+				get_address(CREATED_BY_AGENT_ID,'email') ADDRESS
 			from
-				coll_object,
-				cataloged_item
+				agent_relations
 			where
-				coll_object.collection_object_id = cataloged_item.collection_object_id and
-				ENTERED_PERSON_ID in (#agent_id#)
+				agent_relations.agent_id=#agent_id#
 			union
+			-- used in collections			
 			select
-				collection_id
+				getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID) agent_name,
+				get_address(collection_contacts.CONTACT_AGENT_ID,'email') ADDRESS
 			from
-				coll_object,
-				cataloged_item
+				collection_contacts
 			where
-				coll_object.collection_object_id = cataloged_item.collection_object_id and
-				LAST_EDITED_PERSON_ID in (#agent_id#)
-			union
-				select
-					collection_id
-				from
-					attributes,
-					cataloged_item
-				where
-					cataloged_item.collection_object_id=attributes.collection_object_id and
-					determined_by_agent_id in (#agent_id#)
-			union
-				select
-						collection_id
-					 from
-					 	encumbrance,
-					 	coll_object_encumbrance,
-					 	cataloged_item
-					 where
-					 	encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
-					 	coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
-					 	encumbering_agent_id in (#agent_id#)
-			union
-				select
-					collection_id
-				from
-		        	identification,
-		        	identification_agent,
-					cataloged_item
-		        where
-					cataloged_item.collection_object_id=identification.collection_object_id and
-					identification.identification_id=identification_agent.identification_id and
-		        	identification_agent.agent_id in (#agent_id#)
-			union
+				CONTACT_ROLE='data quality' and
+				collection_contacts.collection_id in  (
 				select
 					collection_id
 				from
 					cataloged_item,
-					specimen_event
+					citation,
+					publication_agent
 				where
-					cataloged_item.collection_object_id=specimen_event.collection_object_id and
-					specimen_event.ASSIGNED_BY_AGENT_ID in (#agent_id#)
-			union
+					cataloged_item.collection_object_id=citation.collection_object_id and
+					citation.publication_id=publication_agent.publication_id and
+					publication_agent.agent_id in (#agent_id#)
+				union
 				select
+					cataloged_item.collection_id
+				from
+					collector,
+					cataloged_item
+				where
+					collector.collection_object_id = cataloged_item.collection_object_id AND
+					agent_id in (#agent_id#)
+				union
+				select
+					collection_id
+				from
+					coll_object,
+					cataloged_item
+				where
+					coll_object.collection_object_id = cataloged_item.collection_object_id and
+					ENTERED_PERSON_ID in (#agent_id#)
+				union
+				select
+					collection_id
+				from
+					coll_object,
+					cataloged_item
+				where
+					coll_object.collection_object_id = cataloged_item.collection_object_id and
+					LAST_EDITED_PERSON_ID in (#agent_id#)
+				union
+					select
 						collection_id
 					from
-						shipment,
-						loan,
-						trans
+						attributes,
+						cataloged_item
 					where
-						shipment.transaction_id=loan.transaction_id and
-						loan.transaction_id =trans.transaction_id and
-						PACKED_BY_AGENT_ID in (#agent_id#)
-			union
-				select
-									collection_id
+						cataloged_item.collection_object_id=attributes.collection_object_id and
+						determined_by_agent_id in (#agent_id#)
+				union
+					select
+							collection_id
+						 from
+						 	encumbrance,
+						 	coll_object_encumbrance,
+						 	cataloged_item
+						 where
+						 	encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
+						 	coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
+						 	encumbering_agent_id in (#agent_id#)
+				union
+					select
+						collection_id
+					from
+			        	identification,
+			        	identification_agent,
+						cataloged_item
+			        where
+						cataloged_item.collection_object_id=identification.collection_object_id and
+						identification.identification_id=identification_agent.identification_id and
+			        	identification_agent.agent_id in (#agent_id#)
+				union
+					select
+						collection_id
+					from
+						cataloged_item,
+						specimen_event
+					where
+						cataloged_item.collection_object_id=specimen_event.collection_object_id and
+						specimen_event.ASSIGNED_BY_AGENT_ID in (#agent_id#)
+				union
+					select
+							collection_id
+						from
+							shipment,
+							loan,
+							trans
+						where
+							shipment.transaction_id=loan.transaction_id and
+							loan.transaction_id =trans.transaction_id and
+							PACKED_BY_AGENT_ID in (#agent_id#)
+				union
+					select
+						collection_id
 					from
 						shipment,
 						address,
@@ -481,55 +519,52 @@
 						loan.transaction_id =trans.transaction_id and
 						shipment.SHIPPED_TO_ADDR_ID=address.address_id and
 						address.agent_id in (#agent_id#)
-			union
-					select 							collection_id
-					from
-						shipment,
-						address,
-						loan,
-						trans
-					where
-						shipment.transaction_id=loan.transaction_id and
-						loan.transaction_id =trans.transaction_id and
-						shipment.SHIPPED_FROM_ADDR_ID=address.address_id and
-						address.agent_id in (#agent_id#)
-			union
-					select
-						collection_id
-					from
-						trans_agent,
-						loan,
-						trans
-					where
-						trans_agent.transaction_id=loan.transaction_id and
-						loan.transaction_id=trans.transaction_id and
-						AGENT_ID in (#agent_id#)
-			union
-					select
-						collection_id
-					from
-						trans_agent,
-						accn,
-						trans
-					where
-						trans_agent.transaction_id=accn.transaction_id and
-						accn.transaction_id=trans.transaction_id and
-						AGENT_ID in (#agent_id#)
-			union
-					select
-						collection_id
-					from
-						trans,
-						loan,
-						loan_item
-					where
-						trans.transaction_id=loan.transaction_id and
-						loan.transaction_id=loan_item.transaction_id and
-						RECONCILED_BY_PERSON_ID in (#agent_id#)
-		)
-		group by
-			getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID),
-			get_address(collection_contacts.CONTACT_AGENT_ID,'email')
+				union
+						select 							collection_id
+						from
+							shipment,
+							address,
+							loan,
+							trans
+						where
+							shipment.transaction_id=loan.transaction_id and
+							loan.transaction_id =trans.transaction_id and
+							shipment.SHIPPED_FROM_ADDR_ID=address.address_id and
+							address.agent_id in (#agent_id#)
+				union
+						select
+							collection_id
+						from
+							trans_agent,
+							loan,
+							trans
+						where
+							trans_agent.transaction_id=loan.transaction_id and
+							loan.transaction_id=trans.transaction_id and
+							AGENT_ID in (#agent_id#)
+				union
+						select
+							collection_id
+						from
+							trans_agent,
+							accn,
+							trans
+						where
+							trans_agent.transaction_id=accn.transaction_id and
+							accn.transaction_id=trans.transaction_id and
+							AGENT_ID in (#agent_id#)
+				union
+						select
+							collection_id
+						from
+							trans,
+							loan,
+							loan_item
+						where
+							trans.transaction_id=loan.transaction_id and
+							loan.transaction_id=loan_item.transaction_id and
+							RECONCILED_BY_PERSON_ID in (#agent_id#)
+			)
 	</cfquery>
 	<cfreturn colns>
 </cffunction>

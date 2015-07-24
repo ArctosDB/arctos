@@ -72,11 +72,6 @@ END;
 						where
 							agent_id=#bads.agent_id#
 					</cfquery>
-
-
-
-
-
 					<cfloop query="addr">
 						<br>got some addresses.....
 						<!--- see if there's a functional duplicate ---->
