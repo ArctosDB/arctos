@@ -387,7 +387,7 @@
 			from
 				agent,agent_relations
 			where
-				agent.agent_id=agent_relations.agent_relations.related_agent_id and
+				agent.agent_id=agent_relations.related_agent_id and
 				agent_relations.agent_id=#agent_id#
 			union
 			-- person creating relationship
