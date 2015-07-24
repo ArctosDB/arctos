@@ -614,7 +614,11 @@
 		<li>
 			<a href="BulkloaderStageCleanup.cfm?action=ajaxGrid">Edit in AJAX grid</a>
 		</li>
-	<li><a href="BulkloaderStageCleanup.cfm?action=spaceStripper">strip leading spaces, trailing spaces, nonprinting characters from everything</a></li>
+		<li>
+			<a href="BulkloaderStageCleanup.cfm?action=spaceStripper">strip junk</a>
+			Replace all leading spaces, trailing spaces, and nonprinting characters with NOTHING.
+			Use with caution.
+		</li>
 	<li><a href="BulkloadSpecimens.cfm?action=checkStaged">check these records</a></li>
 	<li><a href="BulkloadSpecimens.cfm?action=validate">Return to "just uploaded" form</a></li>
 
