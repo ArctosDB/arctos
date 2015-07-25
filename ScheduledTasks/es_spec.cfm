@@ -137,8 +137,7 @@
 					</cfif>
 					collector_agent_1,
 					collector_role_1,
-					collection_cde,
-					institution_acronym,
+					guid_prefix,
 					other_id_num_type_1,
 					other_id_num_1,
 					other_id_num_type_2,
@@ -206,8 +205,7 @@
 					</cfif>
 					'unknown',
 					'collector',
-					'ES',
-					'UAM',
+					'UAM:ES',
 					'Locality ID',
 					'#localityID#',
 					'original identifier',
