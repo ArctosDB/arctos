@@ -172,7 +172,7 @@
 						<div class="table">
 							<div class="tr">
 								<div class="td widecell">
-									<div class="collection_title">#collection# (--#guid_prefix#--)</div>
+									<div class="collection_title">#collection# (#guid_prefix#)</div>
 									<div class="collection_description">#descr#</div>
 								</div>
 								<div class="td">
