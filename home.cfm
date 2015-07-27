@@ -170,10 +170,10 @@
 					<cfset coll_dir_name = "#lcase(portal_name)#">
 					<div class="collectionrow">
 						<div class="table">
+							<a name="#guid_prefix#"></a>
+							<a name="#ucase(guid_prefix)#"></a>
+							<a name="#lcase(guid_prefix)#"></a>
 							<div class="tr">
-								<a name="#guid_prefix#"></a>
-								<a name="#ucase(guid_prefix)#"></a>
-								<a name="#lcase(guid_prefix)#"></a>
 								<div class="td widecell">
 									<div class="collection_title">#collection# (#guid_prefix#)</div>
 									<div class="collection_description">#descr#</div>
