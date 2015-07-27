@@ -220,7 +220,7 @@ sho err
 					WHERE
 						cataloged_item.collection_id = collection.collection_id and
 						collection.guid_prefix = '#guid_prefix#' and
-						cataloged_item.cat_num=#other_id_number#
+						cataloged_item.cat_num='#other_id_number#'
 				</cfquery>
 			</cfif>
 			<cfif collObj.recordcount is not 1>

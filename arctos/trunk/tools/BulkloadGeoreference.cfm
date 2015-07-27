@@ -73,7 +73,7 @@ where
 			locality.locality_id=collecting_event.locality_id and
 			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 			specimen_event.collection_object_id=cataloged_item.collection_object_id and
-			cataloged_item.cat_num=#d.cat_num# and
+			cataloged_item.cat_num='#d.cat_num#' and
 			cataloged_item.collection_id=83
 		</cfquery>
 		<cfif thisCollEventLocality.recordcount is 0>
