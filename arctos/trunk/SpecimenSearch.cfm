@@ -158,7 +158,8 @@
 		SELECT
 			collection.institution,
 			collection.collection,
-			collection.collection_id
+			collection.collection_id,
+			collection.guid_prefix
 		FROM
 			collection,
 			cf_collection
@@ -191,11 +192,11 @@
 				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
 					<cfloop query="cfi">
 						<cfquery name="ic" dbtype="query">
-							select collection, collection_id FROM ctInst where institution='#cfi.institution#' order by collection
+							select collection, collection_id,guid_prefix FROM ctInst where institution='#cfi.institution#' order by collection
 						</cfquery>
 						<optgroup label="#institution#">
 							<cfloop query="ic">
-								<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection#</option>
+								<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection# (#ic.guid_prefix#</option>
 							</cfloop>
 						</optgroup>
 					</cfloop>
