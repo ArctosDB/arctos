@@ -196,7 +196,7 @@
 						</cfquery>
 						<optgroup label="#institution#">
 							<cfloop query="ic">
-								<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection# (#ic.guid_prefix#</option>
+								<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection# (#ic.guid_prefix#)</option>
 							</cfloop>
 						</optgroup>
 					</cfloop>
