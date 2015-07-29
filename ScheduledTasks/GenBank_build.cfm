@@ -110,7 +110,7 @@
 
 
 <cfquery name="AllUsedSciNames" datasource="uam_god">
-	select SCIENTIFIC_NAME,rownum r from (
+	select SCIENTIFIC_NAME,rownum from (
 		select
 		    distinct(taxon_name.SCIENTIFIC_NAME) SCIENTIFIC_NAME
 		  from 
