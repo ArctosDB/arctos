@@ -1791,6 +1791,31 @@
 	<cfset basQual = " #basQual# AND identification.accepted_id_fg = 1 AND UPPER(common_name.Common_Name) LIKE '%#ucase(stripQuotes(Common_Name))#%'">
 	<cfset mapurl = "#mapurl#&Common_Name=#URLEncodedFormat(Common_Name)#">
 </cfif>
+<cfif isdefined("publication_doi") AND len(publication_doi) gt 0>
+	<!--- see if we can peel off any of the junk that comes with DOIs ---->
+	<cfset stripDOI=ucase(publication_doi)>
+	<cfoutput>
+	
+		<br>stripDOI: #stripDOI#
+	
+		<cfset stripDOI = ReReplace(stripDOI, '^.*?://([^/?##]+).*$', '\1', 'ONE') />
+		
+		
+		<br>stripDOI: #stripDOI#
+		
+	</cfoutput>
+
+
+
+	<cfif basJoin does not contain " citation ">
+		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " publication ">
+		<cfset basJoin = " #basJoin# INNER JOIN publication ON (citation.publication_id = publication.publication_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND (upper(publication.doi) like '%#ucase(stripQuotes(stripDOI))#%'')">
+	<cfset mapurl = "#mapurl#&publication_doi=#URLEncodedFormat(publication_doi)#">
+</cfif>
 
 <cfif isdefined("publication_title") AND len(publication_title) gt 0>
 	<cfif basJoin does not contain " citation ">
