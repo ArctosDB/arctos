@@ -494,7 +494,7 @@
 						<div class="detailBlock">
 							#type_status# of #thisSciName#
 							<cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
-							in <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
+							in <a href="#Application.serverRootURL#/publication/#PUBLICATION_ID#">#short_citation#</a>
 							<cfloop query="thisPubsMedia">
 								 <cfset mp = obj.getMediaPreview(
 									preview_uri="#preview_uri#",
