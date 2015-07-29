@@ -621,20 +621,16 @@
 		</cfquery>
 		<cfset pid=p.p>
 		<cfif len(doi) gt 0>
-			<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
-			<cfset r=xmlParse(cfhttp.fileContent)>
-				<cfdump var=#r#>
-		</cfif>
-		
-		
-		<cfabort>
-		
-		
-		
-		http://www.crossref.org/openurl/?id=#identifier#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref
-		
-		
-		
+			<cfinvoke component="/component/functions" method="checkDOI" returnVariable="isok">
+				<cfinvokeargument name="doi" value="#doi#">
+		</cfinvoke>
+		<cfif isok is false>
+			<p>
+				The DOI you entered does not seem to be valid. Check http://dx.doi.org/#doi# then use your back button.
+			</p>
+			<cfabort>
+		</cfif>		
+					
 		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into publication (
 				publication_id,
