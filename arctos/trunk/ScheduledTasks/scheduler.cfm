@@ -715,6 +715,7 @@
 	Purpose: Build linkouts from GenBank
 	Cost: low/moderate
 	Growth potential: high
+	IMPORTANT: this must run on the same server-day as GenBank_build
 --->
 <cfschedule action = "update"
     task = "GenBank_transfer_name"
@@ -729,6 +730,7 @@
 	Purpose: Build linkouts from GenBank
 	Cost: low/moderate
 	Growth potential: high
+	IMPORTANT: this must run on the same server-day as GenBank_build
 --->
 <cfschedule action = "update"
     task = "GenBank_transfer_nuc"
@@ -743,6 +745,7 @@
 	Purpose: Build linkouts from GenBank
 	Cost: low/moderate
 	Growth potential: high
+	IMPORTANT: this must run on the same server-day as GenBank_build
 --->
 <cfschedule action = "update"
     task = "GenBank_transfer_tax"
