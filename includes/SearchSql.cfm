@@ -1798,10 +1798,14 @@
 	
 		<br>stripDOI: #stripDOI#
 	
-		<cfset stripDOI = ReReplace(stripDOI, '^.*?://([^/?##]+).*$', '\1', 'ONE') />
+<cfset refererDomain = reReplace(
+    stripDOI,
+    "^\w+://([^\/:]+)[\w\W]*$",
+    "\1",
+    "one"
+    ) />		
 		
-		
-		<br>stripDOI: #stripDOI#
+		<br>refererDomain: #refererDomain#
 		
 	</cfoutput>
 
