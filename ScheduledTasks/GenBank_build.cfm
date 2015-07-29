@@ -69,7 +69,7 @@
 	<!----
 	
 	---->
-	<cfset startrownum=stoprownum >
+	<cfset startrownum=stoprownum-1 >
 </cfloop>
 
 <cfabort>
