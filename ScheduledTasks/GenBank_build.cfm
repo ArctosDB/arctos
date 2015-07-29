@@ -42,8 +42,12 @@
 </p>
 
 <cfset startrownum=1>
+<cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Nucleotide#chr(10)#!base.url: #Application.ServerRootUrl#/guid/">
+
 <cfloop from="1" to="#numberOfFiles#" index="f">
 	<cfset thisFileName="nucleotide_#dateformat(now(),'yyyymmdd')#_#f#.ft">
+	<cffile action="write" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#header#">
+
 	<p>
 		running for #thisFileName#
 	</p>
@@ -64,7 +68,13 @@
 		rownum >= #startrownum# and
 		rownum <= #stoprownum#
 	</cfquery>
-	<cfdump var=#thisChunk#>
+	<cfloop query="thisChunk">
+		<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #rownum##chr(10)#query: #display_value##chr(10)#base: &base.url;#chr(10)#rule: #guid##chr(10)#name: #guid#">
+		<cffile action="append" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#oneLine#">
+	</cfloop>
+
+
+
 	
 	<!----
 	
@@ -78,14 +88,6 @@
 
 
 
-<cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Nucleotide#chr(10)#!base.url: #Application.ServerRootUrl#/guid/">
-<cffile action="write" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#header#">
-<cfset i=1>
-<cfloop query="nucleotide">
-	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #display_value##chr(10)#base: &base.url;#chr(10)#rule: #guid##chr(10)#name: #collection# #cat_num#">
-		<cfset i=#i#+1>
-		<cffile action="append" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#oneLine#">
-</cfloop>
 
 
 
