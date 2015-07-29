@@ -263,6 +263,17 @@
 <cfif action is "saveEdit">
 <cfoutput>
 	<cftransaction>
+		<cfif len(doi) gt 0>
+			<cfinvoke component="/component/functions" method="checkDOI" returnVariable="isok">
+				<cfinvokeargument name="doi" value="#doi#">
+			</cfinvoke>
+			<cfif isok is not "true">
+				<p>
+					The DOI you entered does not seem to be valid. Check http://dx.doi.org/#doi# then use your back button.
+				</p>
+				<cfabort>
+			</cfif>
+		</cfif>
 		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update publication set
 				published_year=<cfif len(published_year) gt 0>#published_year#<cfelse>NULL</cfif>,
@@ -623,13 +634,14 @@
 		<cfif len(doi) gt 0>
 			<cfinvoke component="/component/functions" method="checkDOI" returnVariable="isok">
 				<cfinvokeargument name="doi" value="#doi#">
-		</cfinvoke>
-		<cfif isok is false>
-			<p>
-				The DOI you entered does not seem to be valid. Check http://dx.doi.org/#doi# then use your back button.
-			</p>
-			<cfabort>
-		</cfif>		
+			</cfinvoke>
+			<cfif isok is not "true">
+				<p>
+					The DOI you entered does not seem to be valid. Check http://dx.doi.org/#doi# then use your back button.
+				</p>
+				<cfabort>
+			</cfif>
+		</cfif>
 					
 		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into publication (
