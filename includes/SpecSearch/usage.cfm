@@ -56,10 +56,18 @@
 
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_publication_title">Cited in Publication:</span>
+			<span class="helpLink" id="_publication_title">Cited in Publication (title):</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="publication_title" id="publication_title" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_publication_doi">Cited in Publication (DOI):</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="publication_doi" id="publication_doi" size="50">
 		</td>
 	</tr>
 </table>
