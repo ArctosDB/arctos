@@ -12,6 +12,7 @@
 <cfoutput>
 <cfquery name="nucleotide" datasource="uam_god">
 	select
+		rownum,
 		display_value,
 		a.collection_object_id,
 		c.guid_prefix collection,
@@ -40,7 +41,30 @@
 	going to make  #numberOfFiles# files
 </p>
 
+<cfset startrownum=1>
+<cfloop from="1" to="#numberOfFiles#" index="f">
+	<cfset thisFileName="nucleotide_#dateformat(now(),'yyyymmdd')#_#f#.ft">
+	<p>
+		running for #thisFileName#
+	</p>
+	<p>
+		startrownum: #startrownum#
+	</p>
+	<cfset stoprownum=startrownum+numberOfRecords>
+	
+	<p>
+		stoprownum: #stoprownum#
+	</p>
+	
+	<cfset startrownum=stoprownum >
+	
+	<!----
+	<cfquery name="thisChunk" dbtype="query">
+		
+	</cfquery>
+	---->
 
+</cfloop>
 
 <cfabort>
 
