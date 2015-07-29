@@ -109,6 +109,40 @@
 
 
 
+<cfquery name="AllUsedSciNames" datasource="uam_god">
+	select 
+		distinct(taxon_name.SCIENTIFIC_NAME),
+		rownum
+	from 
+		taxon_name,
+		identification_taxonomy 
+	where 
+		identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id
+</cfquery>
+
+<cfset numberOfFiles=ceiling(AllUsedSciNames.recordcount/numberOfRecords)>
+<cfset startrownum=1>
+
+<cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/name/">
+
+<cfloop from="1" to="#numberOfFiles#" index="f">
+	<cfset thisFileName="names_#dateformat(now(),'yyyymmdd')#_#f#.ft">
+	<cffile action="write" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#header#">
+	<cfset stoprownum=startrownum+numberOfRecords>
+	<cfquery name="thisChunk" dbtype="query">
+		select * from AllUsedSciNames where
+		rownum >= #startrownum# and
+		rownum <= #stoprownum#
+	</cfquery>
+	<cfloop query="thisChunk">
+		<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #rownum##chr(10)#query: #scientific_name# [name]#chr(10)#base: &base.url;#chr(10)#rule: #scientific_name##chr(10)#name: #scientific_name# taxonomy">
+		<cffile action="append" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#oneLine#">
+	</cfloop>
+	<cfset startrownum=stoprownum-1 >
+</cfloop>
+
+
+
 
 
 <!-----
@@ -116,16 +150,12 @@
 	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #scientific_name# [name]#chr(10)#base: &base.url;#chr(10)#rule: scientific_name=#scientific_name##chr(10)#name: #scientific_name# with GenBank sequence accessions">		<cfset i=#i#+1>
 		<cffile action="append" file="#Application.webDirectory#/temp/taxonomy.ft" addnewline="no" output="#oneLine#">
 </cfloop>
-<cfquery name="AllUsedSciNames" datasource="uam_god">
-	select 
-		distinct(taxon_name.SCIENTIFIC_NAME) 
-	from 
-		taxon_name,
-		identification_taxonomy 
-	where 
-		identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id
-</cfquery>
-<cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/name/">
+
+
+
+
+
+
 <cffile action="write" file="#Application.webDirectory#/temp/names.ft" addnewline="no" output="#header#">
 
 ---->
