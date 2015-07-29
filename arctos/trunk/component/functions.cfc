@@ -1083,12 +1083,10 @@
 <!------------------------------------------------------------------->
 <cffunction name="checkDOI" access="remote">
 	<cfargument name="doi" type="string" required="yes">
-	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
+	<cfhttp method="head" url="http://dx.doi.org/#doi#"></cfhttp>
 	<cfset r=xmlParse(cfhttp.fileContent)>
 	<cfdump var=#r#>
-	<cfif left(cfhttp.statuscode,3) is not "200" or not structKeyExists(r.doi_records[1].doi_record[1].crossref[1])>
-		<cfreturn false>
-	</cfif>
+	
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getPublication" access="remote">
