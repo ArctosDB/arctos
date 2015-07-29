@@ -268,6 +268,10 @@
 				<cfinvokeargument name="doi" value="#doi#">
 			</cfinvoke>
 			<cfif isok is not "true">
+				<cfthrow  
+    				message = "DOI #doi# failed validation with StatusCode #isok#"> 
+	
+	
 				<p>
 					The DOI you entered does not seem to be valid.
 					<br>StatusCode: #isok#
