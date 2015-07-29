@@ -56,7 +56,7 @@
 		stoprownum: #stoprownum#
 	</p>
 	
-	<cfset startrownum=stoprownum >
+
 	
 	
 	<cfquery name="thisChunk" dbtype="query">
@@ -69,7 +69,7 @@
 	<!----
 	
 	---->
-
+	<cfset startrownum=stoprownum >
 </cfloop>
 
 <cfabort>
