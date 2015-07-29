@@ -316,7 +316,11 @@
 			<cfset title = "#publication_remarks#">
 			<cfset go="yes">
 			<cfif left(publication_remarks,1) is "!">
-				<cfset basWhere = "#basWhere# AND upper(publication.publication_remarks) not like '%#escapeQuotes(ucase(right(publication_remarks,len(publication_remarks)-1)))#%' ">
+				<cfset basWhere = "#basWhere# AND (
+					publication.publication_remarks is null or 
+					upper(publication.publication_remarks) not like 
+						'%#escapeQuotes(ucase(right(publication_remarks,len(publication_remarks)-1)))#%') 
+				">
 			<cfelse>
 				<cfset basWhere = "#basWhere# AND upper(publication.publication_remarks) like '%#escapeQuotes(ucase(publication_remarks))#%' ">
 			</cfif>
