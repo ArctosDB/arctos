@@ -34,7 +34,7 @@
 				)
 			</cfquery>
 		</cfif>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select * from collection ORDER BY guid_prefix
 		</cfquery>
 		<cfloop query="c">
