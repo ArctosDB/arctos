@@ -33,7 +33,7 @@
 
 
 <!--- we have to keep this under 10MB, so write multiple files ---->
-<cfset numberOfRecords="100000">
+<cfset numberOfRecords="50000">
 
 
 
