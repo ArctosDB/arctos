@@ -18,7 +18,7 @@
     	directory="#Application.webDirectory#/temp/"
         name="rfiles"
 		recurse="yes"
-		filter="names*">
+		filter="names_#dateformat(now(),'yyyymmdd')#*">
 
 
 
