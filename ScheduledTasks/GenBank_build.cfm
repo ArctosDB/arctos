@@ -58,10 +58,16 @@
 	
 	<cfset startrownum=stoprownum >
 	
-	<!----
+	
 	<cfquery name="thisChunk" dbtype="query">
-		
+		select * from nucleotide where
+		rownum >= #startrownum# and
+		rownum <= #stoprownum#
 	</cfquery>
+	<cfdump var=#thisChunk#>
+	
+	<!----
+	
 	---->
 
 </cfloop>
