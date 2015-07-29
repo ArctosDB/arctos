@@ -1085,9 +1085,9 @@
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp method="head" url="http://dx.doi.org/#doi#"></cfhttp>
 	<cfif left(cfhttp.statuscode,3) is "404">
-		<cfreturn false>
+		<cfreturn cfhttp.statuscode>
 	<cfelse>
-		<cfreturn true>
+		<cfreturn "true">
 	</cfif>
 </cffunction>
 <!------------------------------------------------------------------->
