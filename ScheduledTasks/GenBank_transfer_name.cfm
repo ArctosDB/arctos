@@ -26,12 +26,7 @@
 
 
 
-<cfloop query="rfiles">
-<p>
-	#name#
-	</p>
-</cfloop>
-<!-----
+
 <cfftp action="open" 
 	timeout="3000"
 	username="#cf_global_settings.GENBANK_USERNAME#"
@@ -43,19 +38,13 @@
 		<cfftp connection="genbankn" action="changedir" passive="true" directory="holdings">
 		
 		<cfloop query="rfiles">
-		
-		
 			<cfftp connection="genbankn" 
 				action="putfile" 
 				passive="true" 
-				localfile="#Application.webDirectory#/temp/names.ft" 
-				remotefile="names.ft" 
+				localfile="#Application.webDirectory#/temp/#name#" 
+				remotefile="#name#" 
 				name="Put_names"
 				timeout="3000">
 		</cfloop>
 	<cfftp connection="genbankn" action="close">
-	
-	
-	
------>
 </cfoutput>

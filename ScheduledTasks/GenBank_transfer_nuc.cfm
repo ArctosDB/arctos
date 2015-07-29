@@ -11,10 +11,24 @@
 	select * from cf_global_settings
 </cfquery>
 <cfoutput>
-
+<!--- get all relevant files ---->
+<cfdirectory action="LIST"
+    	directory="#Application.webDirectory#/temp/"
+        name="rfiles"
+		recurse="yes"
+		filter="nucleotide_#dateformat(now(),'yyyymmdd')#*">
+		
 <cfftp action="open" username="#cf_global_settings.GENBANK_USERNAME#" 
 	password="#cf_global_settings.GENBANK_PASSWORD#" server="ftp-private.ncbi.nih.gov" connection="genbank" passive="true">
-	<cfftp connection="genbank" action="changedir" passive="true" directory="holdings">
-	<cfftp connection="genbank" action="putfile" passive="true" localfile="#Application.webDirectory#/temp/nucleotide.ft" remotefile="nucleotide.ft" name="Put_nucleotide">
+		<cfftp connection="genbank" action="changedir" passive="true" directory="holdings">
+		<cfloop query="rfiles">
+			<cfftp 
+				connection="genbank" 
+				action="putfile" 
+				passive="true" 
+				localfile="#Application.webDirectory#/temp/#name#" 
+				remotefile="#name#" 
+				name="Put_nucleotide">
+		</cfloop>
 	<cfftp connection="genbank" action="close">
 </cfoutput>

@@ -35,7 +35,7 @@
 			</cfquery>
 		</cfif>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from collection ORDER BY COLLECTION
+			select * from collection ORDER BY guid_prefix
 		</cfquery>
 		<cfloop query="c">
 			<cfquery  name="isBL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
