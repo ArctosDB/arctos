@@ -31,7 +31,7 @@
 </cfquery>
 <!--- we have to keep this under 10MB, so write multiple files ---->
 
-<cfset numberOfRecords="100000">
+<cfset numberOfRecords="10000">
 <p>
 	processing #numberOfRecords# at a time
 </p>
