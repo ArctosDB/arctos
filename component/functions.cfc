@@ -1083,7 +1083,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="checkDOI" access="remote">
 	<cfargument name="doi" type="string" required="yes">
-	<cfhttp url="http://www.crossref.org/openurl/?id=#identifier#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
+	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
 	<cfset r=xmlParse(cfhttp.fileContent)>
 	<cfdump var=#r#>
 	
