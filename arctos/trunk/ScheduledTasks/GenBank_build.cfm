@@ -6,6 +6,8 @@
 		Application.genBankPrid
 		Application.genBankPwd (encrypted)
 		Application.genBankUsername
+		
+	
 ---->
 <cfoutput>
 <cfquery name="nucleotide" datasource="uam_god">
@@ -27,6 +29,25 @@
 <cfquery name="cf_global_settings" datasource="uam_god">
 	select * from cf_global_settings
 </cfquery>
+<!--- we have to keep this under 10MB, so write multiple files ---->
+
+<cfset numberOfRecords="100000">
+<p>
+	processing #numberOfRecords# at a time
+</p>
+<cfset numberOfFiles=ceiling(nucleotide.recordcount/numberOfRecords)>
+<p>
+	going to make  #numberOfFiles# files
+</p>
+
+
+
+<cfabort>
+
+
+
+
+
 <cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Nucleotide#chr(10)#!base.url: #Application.ServerRootUrl#/guid/">
 <cffile action="write" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#header#">
 <cfset i=1>
@@ -35,6 +56,10 @@
 		<cfset i=#i#+1>
 		<cffile action="append" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#oneLine#">
 </cfloop>
+
+
+
+
 
 <cfquery name="taxonomy" datasource="uam_god">
 	select 
