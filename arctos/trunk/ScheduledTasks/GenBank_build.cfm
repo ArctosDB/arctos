@@ -111,13 +111,18 @@
 
 <cfquery name="AllUsedSciNames" datasource="uam_god">
 	select 
-		distinct(taxon_name.SCIENTIFIC_NAME),
+		scientific_name,
 		rownum
-	from 
-		taxon_name,
-		identification_taxonomy 
-	where 
-		identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id
+	from (
+		select 
+			distinct(taxon_name.SCIENTIFIC_NAME)
+		from 
+			taxon_name,
+			identification_taxonomy 
+		where 
+			identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id
+		) 
+	group by scientific_name,rownum
 </cfquery>
 
 <cfset numberOfFiles=ceiling(AllUsedSciNames.recordcount/numberOfRecords)>
