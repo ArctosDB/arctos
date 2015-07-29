@@ -1084,7 +1084,6 @@
 <cffunction name="checkDOI" access="remote">
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp method="head" url="http://dx.doi.org/#doi#"></cfhttp>
-	<cfset r=xmlParse(cfhttp.fileContent)>
 	<cfdump var=#r#>
 	
 </cffunction>
