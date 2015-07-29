@@ -268,16 +268,7 @@
 				<cfinvokeargument name="doi" value="#doi#">
 			</cfinvoke>
 			<cfif isok is not "true">
-				<cfthrow  
-    				message = "DOI #doi# failed validation with StatusCode #isok#"> 
-	
-	
-				<p>
-					The DOI you entered does not seem to be valid.
-					<br>StatusCode: #isok#
-					<br>Check http://dx.doi.org/#doi# then use your back button.
-				</p>
-				<cfabort>
+				<cfthrow message = "DOI #doi# failed validation with StatusCode #isok#"> 
 			</cfif>
 		</cfif>
 		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -642,12 +633,7 @@
 				<cfinvokeargument name="doi" value="#doi#">
 			</cfinvoke>
 			<cfif isok is not "true">
-				<p>
-					The DOI you entered does not seem to be valid.
-					<br>StatusCode: #isok#
-					<br>Check http://dx.doi.org/#doi# then use your back button.
-				</p>
-				<cfabort>
+				<cfthrow message = "DOI #doi# failed validation with StatusCode #isok#"> 
 			</cfif>
 		</cfif>
 		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
