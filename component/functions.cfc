@@ -1081,6 +1081,14 @@
 	<cfreturn return>
 </cffunction>
 <!------------------------------------------------------------------->
+<cffunction name="checkDOI" access="remote">
+	<cfargument name="doi" type="string" required="yes">
+	<cfhttp url="http://www.crossref.org/openurl/?id=#identifier#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
+	<cfset r=xmlParse(cfhttp.fileContent)>
+	<cfdump var=#r#>
+	
+</cffunction>
+<!------------------------------------------------------------------->
 <cffunction name="getPublication" access="remote">
 	<cfargument name="idtype" type="string" required="yes">
 	<cfargument name="identifier" type="string" required="yes">
