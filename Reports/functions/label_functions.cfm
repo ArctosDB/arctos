@@ -98,7 +98,7 @@
 	<cfif sciname.recordcount is 1 and len(sciname.scientific_name) gt 0>
 		<cfset recSciName=sciname.scientific_name>
 	<cfelse>
-		<cfset recSciName=valuelist(scianme.scientific_name)>
+		<cfset recSciName=valuelist(sciname.scientific_name)>
 	</cfif>
 	<cfquery name="geo" dbtype="query">
 		select higher_geog from d group by higher_geog
