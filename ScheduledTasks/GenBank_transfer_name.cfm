@@ -23,6 +23,14 @@
 
 
 <cfdump var="#rfiles#">
+
+
+
+<cfloop query="rfiles">
+<p>
+	#name#
+	</p>
+</cfloop>
 <!-----
 <cfftp action="open" 
 	timeout="3000"
@@ -33,13 +41,18 @@
 	passive="true" 
 	>
 		<cfftp connection="genbankn" action="changedir" passive="true" directory="holdings">
-		<cfftp connection="genbankn" 
-			action="putfile" 
-			passive="true" 
-			localfile="#Application.webDirectory#/temp/names.ft" 
-			remotefile="names.ft" 
-			name="Put_names"
-			timeout="3000">
+		
+		<cfloop query="rfiles">
+		
+		
+			<cfftp connection="genbankn" 
+				action="putfile" 
+				passive="true" 
+				localfile="#Application.webDirectory#/temp/names.ft" 
+				remotefile="names.ft" 
+				name="Put_names"
+				timeout="3000">
+		</cfloop>
 	<cfftp connection="genbankn" action="close">
 	
 	
