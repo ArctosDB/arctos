@@ -12,6 +12,18 @@
 ---->
 <cfoutput>
 <cfsetting requesttimeout="3000" />
+
+<!--- get all relevant files ---->
+<cfdirectory action="LIST"
+    	directory="#Application.webDirectory#/temp/"
+        name="rfiles"
+		recurse="yes"
+		filter="names*">
+
+
+
+<cfdump var="#rfiles#">
+<!-----
 <cfftp action="open" 
 	timeout="3000"
 	username="#cf_global_settings.GENBANK_USERNAME#"
@@ -29,4 +41,8 @@
 			name="Put_names"
 			timeout="3000">
 	<cfftp connection="genbankn" action="close">
+	
+	
+	
+----->
 </cfoutput>
