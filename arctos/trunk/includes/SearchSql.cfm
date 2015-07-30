@@ -1797,36 +1797,12 @@
 	<cfoutput>
 	
 		<br>stripDOI: #stripDOI#
-	
-<cfset refererDomain = reReplace(
-    stripDOI,
-    "^\w+://([^\/:]+)[\w\W]*$",
-    "\1",
-    "one"
-    ) />		
-		
-		<br>refererDomain: #refererDomain#
-		
-		
-		
-		<cfset urlParts = reMatch("^\w+://|[^\/:]+|[\w\W]*$",stripDOI) />
-	
-	
-	
-	<cfloop
-    index="urlPart"
-    array="#urlParts#">
-	
-	
+		<cfset stripDOI=replace(stripDOI,'DOI:','','first')>
+		<cfset stripDOI=replace(stripDOI,'HTTPS://','','first')>
+		<cfset stripDOI=replace(stripDOI,'HTTP://','','first')>
+		<cfset stripDOI=replace(stripDOI,'DX.DOI.ORG/','','first')>
+			<br>stripDOI: #stripDOI#
 
-    Part: #urlPart#<br />
-
-</cfloop>
-	
-	
-	arrayLen(urlParts): #arrayLen(urlParts)#
-	
-		
 	</cfoutput>
 
 
