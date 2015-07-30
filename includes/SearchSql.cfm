@@ -1807,6 +1807,22 @@
 		
 		<br>refererDomain: #refererDomain#
 		
+		
+		
+		<cfset urlParts = reMatch(
+    "^\w+://|[^\/:]+|[\w\W]*$",
+    stripDOI
+    ) />
+	<cfloop
+    index="urlPart"
+    array="#urlParts#">
+
+    Part: #urlPart#<br />
+
+</cfloop>
+	
+	
+		
 	</cfoutput>
 
 
