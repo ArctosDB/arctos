@@ -20,13 +20,6 @@
 		recurse="yes"
 		filter="names_#dateformat(now(),'yyyymmdd')#*">
 
-
-
-<cfdump var="#rfiles#">
-
-
-
-
 <cfftp action="open" 
 	timeout="3000"
 	username="#cf_global_settings.GENBANK_USERNAME#"
