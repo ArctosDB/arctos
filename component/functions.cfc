@@ -1744,8 +1744,7 @@
 			identification.nature_of_id,
 			identification.made_date,
 			identification.IDENTIFICATION_REMARKS,
-			flat.collection_cde,
-			flat.institution_acronym,
+			collection.guid_prefix,
 			flat.remarks COLL_OBJECT_REMARKS,
 			flat.COLLECTING_EVENT_ID,
 			idagnt.agent_name id_by_agent,
@@ -1771,6 +1770,8 @@
 			attributes.DETERMINATION_METHOD
 		from
 			flat,
+			cataloged_item,
+			collection,
 			identification,
 			identification_agent,
 			preferred_agent_name idagnt,
@@ -1786,6 +1787,8 @@
 			attributes,
 			preferred_agent_name atagnt
 		where
+			flat.collection_object_id=cataloged_item.collection_object_id and
+			cataloged_item.collection_id=collection.collection_id and
 			flat.collection_object_id=identification.collection_object_id and
 			identification.accepted_id_fg=1 and
 			identification.identification_id=identification_agent.identification_id and
@@ -1813,8 +1816,7 @@
 			nature_of_id,
 			made_date,
 			IDENTIFICATION_REMARKS,
-			collection_cde,
-			institution_acronym,
+			guid_prefix,
 			COLL_OBJECT_REMARKS,
 			COLLECTING_EVENT_ID
 		from d group by
@@ -1826,8 +1828,7 @@
 			nature_of_id,
 			made_date,
 			IDENTIFICATION_REMARKS,
-			collection_cde,
-			institution_acronym,
+			guid_prefix,
 			COLL_OBJECT_REMARKS,
 			COLLECTING_EVENT_ID
 	</cfquery>
@@ -1840,8 +1841,7 @@
 		NATURE_OF_ID,
 		MADE_DATE,
 		IDENTIFICATION_REMARKS,
-		collection_cde,
-		institution_acronym,
+		guid_prefix,
 		COLL_OBJECT_REMARKS,
 		COLLECTING_EVENT_ID,
 		ID_MADE_BY_AGENT,
@@ -2039,8 +2039,7 @@
 		<cfset temp = QuerySetCell(result, "nature_of_id", "#nature_of_id#", i)>
 		<cfset temp = QuerySetCell(result, "made_date", "#made_date#", i)>
 		<cfset temp = QuerySetCell(result, "IDENTIFICATION_REMARKS", "#IDENTIFICATION_REMARKS#", i)>
-		<cfset temp = QuerySetCell(result, "collection_cde", "#collection_cde#", i)>
-		<cfset temp = QuerySetCell(result, "institution_acronym", "#institution_acronym#", i)>
+		<cfset temp = QuerySetCell(result, "guid_prefix", "#guid_prefix#", i)>
 		<cfset temp = QuerySetCell(result, "COLL_OBJECT_REMARKS", "#COLL_OBJECT_REMARKS#", i)>
 		<cfset temp = QuerySetCell(result, "COLLECTING_EVENT_ID", "#COLLECTING_EVENT_ID#", i)>
 		<cfquery name="idby" dbtype="query">
