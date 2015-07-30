@@ -1793,7 +1793,7 @@
 </cfif>
 <cfif isdefined("publication_doi") AND len(publication_doi) gt 0>
 	<!--- see if we can peel off any of the junk that comes with DOIs ---->
-	<cfset stripDOI=ucase(publication_doi)>
+	<cfset stripDOI=ucase(trim(publication_doi))>
 	<cfset stripDOI=replace(stripDOI,'DOI:','','first')>
 	<cfset stripDOI=replace(stripDOI,'HTTPS://','','first')>
 	<cfset stripDOI=replace(stripDOI,'HTTP://','','first')>
@@ -1804,7 +1804,7 @@
 	<cfif basJoin does not contain " publication ">
 		<cfset basJoin = " #basJoin# INNER JOIN publication ON (citation.publication_id = publication.publication_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(publication.doi) = '%#stripQuotes(stripDOI)#%' ">
+	<cfset basQual = " #basQual# AND upper(publication.doi) = '#stripQuotes(stripDOI)#' ">
 	<cfset mapurl = "#mapurl#&publication_doi=#URLEncodedFormat(publication_doi)#">
 </cfif>
 
