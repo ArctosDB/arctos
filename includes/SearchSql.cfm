@@ -1,3 +1,4 @@
+<cfset debug=1>
 <cffunction name="getFlatSQL" returnformat="plain">
 	<!----
 		for "normal" stuff that's matching a colulm in FLAT, just call this with eg
@@ -1813,7 +1814,7 @@
 	<cfif basJoin does not contain " publication ">
 		<cfset basJoin = " #basJoin# INNER JOIN publication ON (citation.publication_id = publication.publication_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND (upper(publication.doi) like '%#ucase(stripQuotes(stripDOI))#%')">
+	<cfset basQual = " #basQual# AND upper(publication.doi) like '%#stripQuotes(stripDOI)#%' ">
 	<cfset mapurl = "#mapurl#&publication_doi=#URLEncodedFormat(publication_doi)#">
 </cfif>
 
