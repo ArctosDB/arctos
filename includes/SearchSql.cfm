@@ -1809,18 +1809,22 @@
 		
 		
 		
-		<cfset urlParts = reMatch(
-    "^\w+://|[^\/:]+|[\w\W]*$",
-    stripDOI
-    ) />
+		<cfset urlParts = reMatch("^\w+://|[^\/:]+|[\w\W]*$",stripDOI) />
+	
+	
+	
 	<cfloop
     index="urlPart"
     array="#urlParts#">
+	
+	
 
     Part: #urlPart#<br />
 
 </cfloop>
 	
+	
+	arrayLen(urlParts): #arrayLen(urlParts)#
 	
 		
 	</cfoutput>
