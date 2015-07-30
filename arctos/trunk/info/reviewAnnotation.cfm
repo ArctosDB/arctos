@@ -187,7 +187,7 @@
 					AND annotations.collection_object_id = #id#
 				</cfif>
 				<cfif isdefined("type") and len(type) gt 0>
-					AND flat.guid_prefix = '#type#'
+					AND flat.guid like '#type#%'
 				</cfif>
 				<cfif isdefined("reviewed") and len(reviewed) gt 0>
 					and REVIEWED_FG=#reviewed#
