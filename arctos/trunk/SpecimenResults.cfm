@@ -81,12 +81,30 @@
 	<cfif isdefined("debug") and debug is true>
 		#preserveSingleQuotes(SqlString)#
 	</cfif>
+	
+	
+	<cfquery name="wut" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
+		#preserveSingleQuotes(SqlString)#
+	</cfquery>
+	
+	
+	<cfdump var=#wut#>
+	
+	
+	
 	<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
+	
+	
+	
+	
+	
+	
+	
+	
 	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	
-	<cfdump var=#buildIt#>
 	
 	
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
