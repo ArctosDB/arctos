@@ -1,4 +1,3 @@
-<cfset debug=1>
 <cffunction name="getFlatSQL" returnformat="plain">
 	<!----
 		for "normal" stuff that's matching a colulm in FLAT, just call this with eg
@@ -1795,26 +1794,17 @@
 <cfif isdefined("publication_doi") AND len(publication_doi) gt 0>
 	<!--- see if we can peel off any of the junk that comes with DOIs ---->
 	<cfset stripDOI=ucase(publication_doi)>
-	<cfoutput>
-	
-		<br>stripDOI: #stripDOI#
-		<cfset stripDOI=replace(stripDOI,'DOI:','','first')>
-		<cfset stripDOI=replace(stripDOI,'HTTPS://','','first')>
-		<cfset stripDOI=replace(stripDOI,'HTTP://','','first')>
-		<cfset stripDOI=replace(stripDOI,'DX.DOI.ORG/','','first')>
-			<br>stripDOI: #stripDOI#
-
-	</cfoutput>
-
-
-
+	<cfset stripDOI=replace(stripDOI,'DOI:','','first')>
+	<cfset stripDOI=replace(stripDOI,'HTTPS://','','first')>
+	<cfset stripDOI=replace(stripDOI,'HTTP://','','first')>
+	<cfset stripDOI=replace(stripDOI,'DX.DOI.ORG/','','first')>
 	<cfif basJoin does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">
 	</cfif>
 	<cfif basJoin does not contain " publication ">
 		<cfset basJoin = " #basJoin# INNER JOIN publication ON (citation.publication_id = publication.publication_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(publication.doi) like '%#stripQuotes(stripDOI)#%' ">
+	<cfset basQual = " #basQual# AND upper(publication.doi) = '%#stripQuotes(stripDOI)#%' ">
 	<cfset mapurl = "#mapurl#&publication_doi=#URLEncodedFormat(publication_doi)#">
 </cfif>
 
