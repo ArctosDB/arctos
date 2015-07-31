@@ -154,7 +154,9 @@
 	
 	yes we have one....
 		<cfloop list="#badbot#" index="b">
-			<cfif cgi.HTTP_USER_AGENT containsnocase b>
+		
+		<br>checking for #b#....
+			<cfif cgi.HTTP_USER_AGENT contains b>
 				<cfset bl_reason='HTTP_USER_AGENT is blocked crawler #b#'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
