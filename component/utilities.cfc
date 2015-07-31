@@ -148,11 +148,16 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif isdefined("cgi.HTTP_USER_AGENT") and (cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spbot")>
-		<!--- yahoo ignoring robots.txt - buh-bye.... --->
-		<cfset bl_reason='HTTP_USER_AGENT is blocked crawler'>
-		<cfinclude template="/errors/autoblacklist.cfm">
-		<cfabort>
+	<!--- these are user-agents that regularly ignore the robots.txt file --->
+	<cfset badbot="TweetmemeBot,slurp,spbot,YandexBot,SemrushBot,Domain,re-animator">
+	<cfif isdefined("cgi.HTTP_USER_AGENT")>
+		<cfloop list="#badbot#" index="b">
+			<cfif cgi.HTTP_USER_AGENT contains b>
+				<cfset bl_reason='HTTP_USER_AGENT is blocked crawler #b#'>
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+		</cfloop>		
 	</cfif>
 	<cfif isdefined("request.rdur") and right(request.rdurl,5) is "-1%27">
 		<cfset bl_reason='URL ends with -1%27'>
