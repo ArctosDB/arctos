@@ -151,11 +151,7 @@
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
 	<cfset badbot="TweetmemeBot,slurp,spbot,YandexBot,SemrushBot,Domain,re-animator">
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
-	
-	yes we have one....
 		<cfloop list="#badbot#" index="b">
-		
-		<br>checking for #b#....
 			<cfif cgi.HTTP_USER_AGENT contains b>
 				<cfset bl_reason='HTTP_USER_AGENT is blocked crawler #b#'>
 				<cfinclude template="/errors/autoblacklist.cfm">
