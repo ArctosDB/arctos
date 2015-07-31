@@ -105,6 +105,7 @@
 	    return result;
     </cfscript>
 </cffunction>
+<!------------------------------------------------------------------------------------>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 	<cfif session.roles contains "coldfusion_user">
@@ -147,9 +148,9 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "slurp">
+	<cfif isdefined("cgi.HTTP_USER_AGENT") and (cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spbot")>
 		<!--- yahoo ignoring robots.txt - buh-bye.... --->
-		<cfset bl_reason='HTTP_USER_AGENT is slurp'>
+		<cfset bl_reason='HTTP_USER_AGENT is blocked crawler'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
