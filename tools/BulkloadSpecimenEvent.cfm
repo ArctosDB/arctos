@@ -156,8 +156,7 @@ Upload CSV:
 <cfif action is  "nothing">
 	Use this form to ADD specimen-events.
 	<p>
-				<a href="BulkloadSpecimenEvent.cfm?action=upfish">fishnet repatriation upload</a> (see code for usage - you'll need pl/sql access to use this)
-
+		<a href="BulkloadSpecimenEvent.cfm?action=upfish">fishnet repatriation upload</a> (see code for usage - you'll need pl/sql access to use this)
 	</p>
 	<p>
 		You may NOT create localities with geology attributes from this form - create them in Arctos, name them, and use locality_name here.
