@@ -28,30 +28,10 @@
 				<cfif not listfindnocase(groupby,'collection_object_id')>
 					<cfset groupBy=listprepend(groupby,"collection_object_id")>
 				</cfif>
-				
-				
-				
 				<cfset prefixed_cols="">
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
-				<!----
-					<cfif x is "individualcount">
-						<p>found individualcount</p>
-						<cfset prefixed_cols = listappend(prefixed_cols,"sum(#session.flatTableName#.#x#) individualcount")>
-						
-					<cfelse>
-						<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-
-					</cfif>
-					
-					---->
-					
-					
-											<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-
-
-
-
+					<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
 					<cfif x is not "collection_object_id" and x is not "individualcount">
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
@@ -106,9 +86,6 @@
 				</cfif>
 				<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 				
-				<p>
-					
-				</p>
 				<cfloop list="#spcols#" index="pt">
 					<cfset x=listgetat(pt,2,'.')>
 					<cfif thisLink contains x>
