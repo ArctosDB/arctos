@@ -160,12 +160,12 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 		<cfset sql="insert all ">
 	<cfset theLastColumnName=listlast(cols)>
 
-        <cfloop query="s">
+        <cfloop query="x">
 		<cfset sql=sql & " into cf_temp_container  (#cols#) values (">
 			<cfloop list="#cols#" index="i">
 				
 				 
-				 	<cfset sql=sql & "'#s[i][s.currentrow]#'">
+				 	<cfset sql=sql & "'#x[i][x.currentrow]#'">
            	<cfif i is not theLastColumnName>
            		<cfset sql=sql & ",">
            	</cfif>
