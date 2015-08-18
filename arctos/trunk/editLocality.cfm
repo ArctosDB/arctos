@@ -635,7 +635,7 @@ function checkCoordinateError(){
 					geog_auth_rec.geog_auth_rec_id
 			</cfquery>
 			<cfif altgeo.recordcount gt 0>
-				<div style="border:1px dashed red; padding:1em;margin:1em;font-size:small;background-color:lightgray;max-height:10 em;overflow:auto;">
+				<div style="border:1px dashed red; padding:1em;margin:1em;font-size:small;background-color:lightgray;max-height:10em;overflow:auto;">
 					<p>
 						<strong>
 							If you're seeing this, users are
