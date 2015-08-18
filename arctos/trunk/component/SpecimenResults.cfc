@@ -137,13 +137,6 @@
 				</p>
 				---->
 				
-				
-				<p>
-				InnerSqlString: <cfdump var=#InnerSqlString#>
-				</p>
-				
-				
-				
 				<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
 				<cftry>
 					<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
