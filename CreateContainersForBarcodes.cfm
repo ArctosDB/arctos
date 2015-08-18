@@ -149,6 +149,10 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
+
+		<cfset sql="insert all ">
+
+<!----
         <cfloop query="x">
             <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	            insert into cf_temp_container (#cols#) values (
@@ -161,6 +165,34 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 	            )
             </cfquery>
         </cfloop>
+		
+---->		
+		
+	 <cfloop query="x">
+	 	<cfset sql=sql & " into cf_temp_container  (#cols#) values (">
+	 	 <cfloop list="#cols#" index="i">
+           <cfset sql=sql & "	'#stripQuotes(evaluate(i))#' ">
+           	<cfif i is not listlast(cols)>
+           		<cfset sql=sql & ",">
+           	</cfif>
+           </cfloop>
+           <cfset sql=sql & ")">
+	            
+	            
+        </cfloop>
+		
+		
+				<cfset sql=sql & "SELECT 1 FROM DUAL">
+<cfdump var=#sql#>
+
+<!----
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preserveSingleQuotes(sql)#
+		</cfquery>
+		---->
+		
+		
+		
 		<a href="CreateContainersForBarcodes?action=validate">loaded - proceed to validate</a>
 	</cfoutput>
 </cfif>
