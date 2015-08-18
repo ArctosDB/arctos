@@ -18,10 +18,6 @@
 	<cfset mapurl = "#mapurl#&#fld#=#URLEncodedFormat(val)#">
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------->
-
-
-1<cfdump var=#scientific_name_match_type#>
-
 <cfset extendedErrorMsg="">
 <cfif not isdefined("basQual")>
 	<cfset basQual = "">
@@ -39,23 +35,16 @@
 <cfif isdefined("cat_num")>
 	<cfset catnum = cat_num>
 </cfif>
-51<cfdump var=#scientific_name_match_type#>
-
 <cfif isdefined("sciname") and len(sciname) gt 0>
 	<cfset scientific_name=sciname>
 	<cfset scientific_name_match_type="contains">
 </cfif>
-61<cfdump var=#scientific_name_match_type#>
-
 <cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
 	<cfif left(scientific_name,1) is '='>
 		<cfset scientific_name=right(scientific_name,len(scientific_name)-1)>
 		<cfset scientific_name_match_type="exact">
 	</cfif>
 </cfif>
-
-41<cfdump var=#scientific_name_match_type#>
-
 <cfif isdefined("HighTaxa") AND len(HighTaxa) gt 0>
 	<cfset taxon_name=HighTaxa>
 </cfif>
@@ -75,12 +64,7 @@
 <cfif isdefined("identifiedby") and len(identifiedby) gt 0>
 	<cfset identified_agent=identifiedby>
 </cfif>
-
-
-21<cfdump var=#scientific_name_match_type#>
-
 <!---- old taxonomy model used taxon_scope - see if we can translate it to new stuff to not break links ---->
-
 <cfif isdefined("taxon_scope") and len(taxon_scope) gt 0 and isdefined("taxon_term") and len(taxon_term) gt 0>
 	<!--- theyre coming in from old search params ---->
 	<cfif taxon_scope is "currentID_like">
@@ -144,9 +128,6 @@
 		<cfset taxon_term=''>
 	</cfif>
 </cfif>
-
-31<cfdump var=#scientific_name_match_type#>
-
 <!--------------------------- / end old stuff --------------------------------------->
 <!--- filtered_flat isn't VPD-striped, so join up to something that is if they're coming from it ---->
 <cfif session.flatTableName is "filtered_flat">
@@ -299,10 +280,6 @@
 	<cfset mapurl = "#mapurl#&scientific_name=#URLEncodedFormat(scientific_name)#">
 	<cfset mapurl = "#mapurl#&scientific_name_scope=#scientific_name_scope#">
 	<cfset mapurl = "#mapurl#&scientific_name_match_type=#scientific_name_match_type#">
-	
-	
-	<cfdump var=#mapurl#>
-
 	<cfif scientific_name_scope is "currentID">
 		<cfif scientific_name_match_type is "exact">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(scientific_name))#'">
