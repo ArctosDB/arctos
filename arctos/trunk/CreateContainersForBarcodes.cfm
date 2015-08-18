@@ -151,7 +151,9 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
         <cfset cols=x.columnlist>
 
         <cfloop query="x">
-		#barcode#
+		<cfloop list="#cols#" index="i">
+			#i#
+		</cfloop>
 		</cfloop>
 <cfabort>
 
