@@ -150,11 +150,14 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
 
+        <cfloop query="x">
+		#barcode#
+		</cfloop>
+<cfabort>
 
 		<cfdump var=#x#>
 
 
-<cfabort>
 
 
 
