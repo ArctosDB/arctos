@@ -52,7 +52,7 @@
 
 
 
-					<cfif x is not "collection_object_id">
+					<cfif x is not "collection_object_id" and x is not "individualcount">
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
@@ -105,6 +105,10 @@
 					<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 				</cfif>
 				<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
+				
+				<p>
+					
+				</p>
 				<cfloop list="#spcols#" index="pt">
 					<cfset x=listgetat(pt,2,'.')>
 					<cfif thisLink contains x>
