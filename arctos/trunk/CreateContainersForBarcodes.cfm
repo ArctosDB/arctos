@@ -84,7 +84,7 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 			<tr>
 				<td>INSTITUTION_ACRONYM</td>
 				<td>yes</td>
-				<td>#valuelist(ctinstitution_acronym.container_type)#</td>
+				<td>#valuelist(ctinstitution_acronym.institution_acronym)#</td>
 			</tr>
 			<tr>
 				<td>DESCRIPTION</td>
