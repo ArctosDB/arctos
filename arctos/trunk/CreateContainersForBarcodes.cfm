@@ -150,7 +150,16 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
 
-        <cfloop query="x">
+
+
+<cfquery name="s" dbtype="query">
+	select * from x where barcode in ('A24E3','A24E4','A24E5','A24E6')
+</cfquery>
+
+
+
+
+        <cfloop query="s">
 		<cfloop list="#cols#" index="i">
 			#i#
 		</cfloop>
