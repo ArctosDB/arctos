@@ -187,6 +187,9 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 		
 		
 				<cfset sql=sql & "SELECT 1 FROM DUAL">
+				
+				
+				got that too<cfabort>
 <cfdump var=#sql#>
 
 <!----
