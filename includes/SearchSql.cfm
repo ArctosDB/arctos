@@ -49,6 +49,9 @@
 		<cfset scientific_name_match_type="contains">
 	</cfif>
 </cfif>
+
+41<cfdump var=#scientific_name_match_type#>
+
 <cfif isdefined("HighTaxa") AND len(HighTaxa) gt 0>
 	<cfset taxon_name=HighTaxa>
 </cfif>
