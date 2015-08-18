@@ -175,7 +175,7 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 	 <cfloop query="x">
 	 	<cfset sql=sql & " into cf_temp_container  (#cols#) values (">
 	 	 <cfloop list="#cols#" index="i">
-           <cfset sql=sql & "	'#stripQuotes(evaluate(i))#' ">
+           <cfset sql=sql & "'#evaluate(i)#'">
            	<cfif i is not listlast(cols)>
            		<cfset sql=sql & ",">
            	</cfif>
