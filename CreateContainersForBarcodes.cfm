@@ -157,16 +157,28 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 </cfquery>
 
 
+		<cfset sql="insert all ">
 
 
         <cfloop query="s">
 			<cfloop list="#cols#" index="i">
 				
-				 #s[i][s.currentrow]#
 				 
+				 	<cfset sql=sql & "'#s[i][s.currentrow]#'">
+           	<cfif i is not theLastColumnName>
+           		<cfset sql=sql & ",">
+           	</cfif>
+           </cfloop>
+           <cfset sql=sql & ")">
 				 
 			</cfloop>
-		</cfloop>
+			
+			
+					<cfdump var=#sql#>
+
+
+
+
 <cfabort>
 
 		<cfdump var=#x#>
@@ -176,7 +188,6 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 
 
 
-		<cfset sql="insert all ">
 
 <!----
         <cfloop query="x">
