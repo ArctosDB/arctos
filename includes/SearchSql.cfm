@@ -69,6 +69,9 @@
 	<cfset identified_agent=identifiedby>
 </cfif>
 
+
+21<cfdump var=#scientific_name_match_type#>
+
 <!---- old taxonomy model used taxon_scope - see if we can translate it to new stuff to not break links ---->
 
 <cfif isdefined("taxon_scope") and len(taxon_scope) gt 0 and isdefined("taxon_term") and len(taxon_term) gt 0>
@@ -135,6 +138,7 @@
 	</cfif>
 </cfif>
 
+31<cfdump var=#scientific_name_match_type#>
 
 <!--------------------------- / end old stuff --------------------------------------->
 <!--- filtered_flat isn't VPD-striped, so join up to something that is if they're coming from it ---->
