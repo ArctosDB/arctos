@@ -28,9 +28,17 @@
 				<cfif not listfindnocase(groupby,'collection_object_id')>
 					<cfset groupBy=listprepend(groupby,"collection_object_id")>
 				</cfif>
+				
+				
+				
 				<cfset prefixed_cols="">
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
+				
+					<cfif x is "individualcount">
+						<p>found individualcount</p>
+					
+					</cfif>
 					<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
 					<cfif x is not "collection_object_id">
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
@@ -42,6 +50,10 @@
 				<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
 				<cfset basQual = "">
 				<cfset mapurl="">
+				
+				<p>
+					basSelect: #basSelect#
+				</p>
 				<cfinclude template="/includes/SearchSql.cfm">
 				<cfset group_cols = groupBy>
 				<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>

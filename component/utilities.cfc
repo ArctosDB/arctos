@@ -149,7 +149,7 @@
 		<cfabort>
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
-	<cfset badbot="TweetmemeBot,slurp,spbot,YandexBot,SemrushBot,Domain,re-animator">
+	<cfset badbot="TweetmemeBot,slurp,spbot,YandexBot,SemrushBot,Domain,re-animator,CCBot,MegaIndex,HubSpot,Gluten,ca-crawler,ia_archiver,UnisterBot">
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">
 			<cfif cgi.HTTP_USER_AGENT contains b>
