@@ -37,9 +37,12 @@
 				
 					<cfif x is "individualcount">
 						<p>found individualcount</p>
-					
+						<cfset prefixed_cols = listappend(prefixed_cols,"sum(#session.flatTableName#.#x#) individualcount")>
+						
+					<cfelse>
+						<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
+
 					</cfif>
-					<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
 					<cfif x is not "collection_object_id">
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
