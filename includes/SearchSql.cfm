@@ -284,9 +284,6 @@
 	<cfset mapurl = "#mapurl#&scientific_name=#URLEncodedFormat(scientific_name)#">
 	<cfset mapurl = "#mapurl#&scientific_name_scope=#scientific_name_scope#">
 	<cfset mapurl = "#mapurl#&scientific_name_match_type=#scientific_name_match_type#">
-	
-	
-	<cfdump var=#mapurl#>
 
 	<cfif scientific_name_scope is "currentID">
 		<cfif scientific_name_match_type is "exact">
