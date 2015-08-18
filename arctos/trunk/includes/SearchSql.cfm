@@ -50,7 +50,7 @@
 <cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
 	<cfif left(scientific_name,1) is '='>
 		<cfset scientific_name=right(scientific_name,len(scientific_name)-1)>
-		<cfset scientific_name_match_type="contains">
+		<cfset scientific_name_match_type="exact">
 	</cfif>
 </cfif>
 
