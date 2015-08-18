@@ -39,10 +39,14 @@
 <cfif isdefined("cat_num")>
 	<cfset catnum = cat_num>
 </cfif>
+51<cfdump var=#scientific_name_match_type#>
+
 <cfif isdefined("sciname") and len(sciname) gt 0>
 	<cfset scientific_name=sciname>
 	<cfset scientific_name_match_type="contains">
 </cfif>
+61<cfdump var=#scientific_name_match_type#>
+
 <cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
 	<cfif left(scientific_name,1) is '='>
 		<cfset scientific_name=right(scientific_name,len(scientific_name)-1)>
