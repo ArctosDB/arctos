@@ -72,13 +72,13 @@
     <cfset safe=0>
     <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()#chr(10)##chr(13)##chr(9)#@">
 	    <cfif ListFindNoCase(nono, i)>
-	        <cfset safe=1>
+	        <cfset safe=i>
 	    </cfif>
     </cfloop>
     <cfif safe is 0>
         <cfreturn true>
     <cfelse>
-	    <cfset bl_reason='checkSql caught keyword'>
+	    <cfset bl_reason='checkSql caught keyword #i#'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfreturn false>
     </cfif>
