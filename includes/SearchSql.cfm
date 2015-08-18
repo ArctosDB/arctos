@@ -18,6 +18,10 @@
 	<cfset mapurl = "#mapurl#&#fld#=#URLEncodedFormat(val)#">
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------->
+
+
+1<cfdump var=#scientific_name_match_type#>
+
 <cfset extendedErrorMsg="">
 <cfif not isdefined("basQual")>
 	<cfset basQual = "">
