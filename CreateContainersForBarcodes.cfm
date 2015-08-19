@@ -24,7 +24,10 @@ grant all on cf_temp_container to manage_container;
 
 create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 
+ drop index iu_cf_temp_cntr_barcode;
 
+
+drop table cf_temp_container;
 ---->
 
 <cfif action is "makeTemplate">
@@ -245,6 +248,7 @@ gotit<cfflush>
 		There are barcodes which already exist in your file; aborting.
 		<cfabort>
 	</cfif>
+	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where barcode != LABEL
 	</cfquery>
