@@ -166,9 +166,11 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 				
 				 
 				 	<cfset sql=sql & "'#x[i][x.currentrow]#'">
+				 	<!----
            	<cfif i is not theLastColumnName>
            		<cfset sql=sql & ",">
            	</cfif>
+			---->
            </cfloop>
            <cfset sql=sql & ")">
 				 
@@ -176,12 +178,15 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 			
 							<cfset sql=sql & " SELECT 1 FROM DUAL">
 
-					<cfdump var=#sql#>
+					
 
 
-
+gotit
 
 <cfabort>
+
+
+<cfdump var=#sql#>
 
 		<cfdump var=#x#>
 
