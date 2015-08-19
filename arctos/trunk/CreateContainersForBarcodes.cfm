@@ -204,7 +204,7 @@
 		<cfset p=listappend(p,'Invalid institution_acronym',';')>
 	</cfif>
 	<cfif len(p) gt 0>
-		<cfthrow message='#p#' detail='this form is a very bad place to experiment'>
+		<cfthrow message='#p#; this form is a very bad place to experiment'>
 	</cfif>
 	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
