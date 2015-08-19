@@ -41,21 +41,20 @@
     addNewLine = "no">
 	<cflocation url="/download.cfm?file=CreateContainerTemplate.csv" addtoken="false">
 </cfif>
-
-
+<!---------------------------------->
 <cfif action is "nothing">
 	<cfquery name="buhbyt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_container
 	</cfquery>
 	<cfoutput>
 		<p>
-			Before using this form, make sure that the container series you are creating is in the 
+			Before using this form, make sure that the container series (no matter how small) is in the 
 			<a href="http://arctosdb.org/documentation/container/##purchase" class="external" target="_blank">
 				spreadsheet
 			</a> and that there are no potential conflicts with other collections.
 		</p>
 		<p>
-			This form has been tested to 50,000 records; if you have significantly more than that or on a slow connection,
+			This form has been tested to 50,000 records; with significantly more than that or a slow connection,
 			smaller batches may be necessary.
 		</p>
 		<p>
@@ -171,32 +170,24 @@
 	<cfif d.c gt 0>
 		<cfset p=listappend(p,'Existing barcodes detected',';')>
 	</cfif>
-	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select barcode, count(barcode) c from cf_temp_container group by barcode having count(barcode) > 1
 	</cfquery>
 	<cfif d.c gt 0>
 		<cfset p=listappend(p,'Duplicate barcodes detected',';')>
 	</cfif>
-
-
-
-
-	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where barcode != trim(barcode)
 	</cfquery>
 	<cfif d.c gt 0>
 		<cfset p=listappend(p,'Untrimmed barcodes detected',';')>
 	</cfif>
-	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where container_type not in (select container_type from ctcontainer_type where container_type like '%label%')
 	</cfquery>
 	<cfif d.c gt 0>
 		<cfset p=listappend(p,'Invalid container_type',';')>
 	</cfif>
-	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where institution_acronym not in (select institution_acronym from collection)
 	</cfquery>
@@ -206,16 +197,46 @@
 	<cfif len(p) gt 0>
 		<cfthrow message='#p#; this form is a very bad place to experiment'>
 	</cfif>
-	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where barcode != LABEL
 	</cfquery>
 	<cfif d.c gt 0>
 		<p>
-			Barcode - label mismatch detected. Proceed with extreme caution.
+			Barcode - label mismatch detected. Proceed with great caution.
 		</p>
 	</cfif>
 	<a href="CreateContainersForBarcodes?action=load">proceed to load</a>
+</cfif>
+<!------------------------------------------------>
+<cfif action is "load">
+	<cfquery name="cc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into container (
+		  CONTAINER_ID,
+		  PARENT_CONTAINER_ID,
+		  CONTAINER_TYPE,
+		  LABEL,
+		  BARCODE,
+		  LOCKED_POSITION,
+		  INSTITUTION_ACRONYM,
+		  DESCRIPTION,
+		  CONTAINER_REMARKS
+		) (
+		  select
+		    sq_container_id.nextval,
+		    0,
+		    CONTAINER_TYPE,
+		    LABEL,
+		    BARCODE,
+		    0,
+		    INSTITUTION_ACRONYM,
+		    DESCRIPTION,
+		    CONTAINER_REMARKS		    
+		  from
+		    cf_temp_container
+		)
+	</cfquery>
+	done
+
 </cfif>
 
 <cfinclude template = "includes/_footer.cfm">
