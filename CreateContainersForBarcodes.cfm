@@ -150,93 +150,13 @@ drop table cf_temp_container;
 		<cfquery name="ss" dbtype="query">
 			#sql# from x
 		</cfquery>
-		<cfset sql="insert all ">
 		<cftransaction>
-        <cfloop query="ss">
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#INSTITUTION_ACRONYM#')
-			</cfquery>
-<!----
-			<cfset t=" into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#INSTITUTION_ACRONYM#') ">
-			<cfset sql=sql & t>
-			--->
-		</cfloop>
+	        <cfloop query="ss">
+				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#INSTITUTION_ACRONYM#')
+				</cfquery>
+			</cfloop>
 		</cftransaction>
-		<cfset sql=sql & " SELECT 1 FROM DUAL">
-
-					
-<!----
-
-gotit<cfflush>
-
-
-<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preserveSingleQuotes(sql)#
-		</cfquery>
-		
-		inserted
-		<cfabort>
-
-		
-<cfdump var=#sql#>
-
-
-
-		<cfdump var=#x#>
-
-
-
-
----->
-
-
-<!----
-        <cfloop query="x">
-            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	            insert into cf_temp_container (#cols#) values (
-	            <cfloop list="#cols#" index="i">
-	            	'#stripQuotes(evaluate(i))#'
-	            	<cfif i is not listlast(cols)>
-	            		,
-	            	</cfif>
-	            </cfloop>
-	            )
-            </cfquery>
-        </cfloop>
-		
----->		
-		
-	 <cfloop query="x">
-	 	<cfset sql=sql & " into cf_temp_container  (#cols#) values (">
-	 	 <cfloop list="#cols#" index="i">
-           <!----
-			<cfset sql=sql & "'#evaluate(i)#'">
-			---->
-			<cfset sql=sql & "'valuegoeshere'">
-           	<cfif i is not theLastColumnName>
-           		<cfset sql=sql & ",">
-           	</cfif>
-           </cfloop>
-           <cfset sql=sql & ")">
-	            
-	            
-        </cfloop>
-		
-		
-				<cfset sql=sql & "SELECT 1 FROM DUAL">
-				
-				
-				got that too<cfabort>
-<cfdump var=#sql#>
-
-<!----
-		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preserveSingleQuotes(sql)#
-		</cfquery>
-		---->
-		
-		
-		
 		<a href="CreateContainersForBarcodes?action=validate">loaded - proceed to validate</a>
 	</cfoutput>
 </cfif>
@@ -251,6 +171,16 @@ gotit<cfflush>
 		<cfabort>
 	</cfif>
 	
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select barcode, count(barcode) c from cf_temp_container group by barcode having count(barcode) > 1
+	</cfquery>
+	<cfif d.c gt 0>
+		There are duplicate barcodes in your file.
+		<cfabort>
+	</cfif>
+
+
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where barcode != LABEL
 	</cfquery>
