@@ -141,7 +141,7 @@
 				status='old_container_type_nomatch' 
 			where 
 				status is null and
-				(barcode,old_container_type) not in (select barcode,container_type from container)
+				(barcode,old_container_type) not in (select barcode,container_type from container where barcode is not null)
 		</cfquery>
 		<cfquery name="upn_descr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
