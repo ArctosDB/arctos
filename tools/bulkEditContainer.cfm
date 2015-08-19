@@ -109,7 +109,7 @@
 		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(sql)#
 		</cfquery>
-		<cflocation url="bulkEditContainer.cfm?action=validateUpload" addtoken="false">
+		<a href="bulkEditContainer.cfm?action=validateUpload">data loaded - proceed to validation</a>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
