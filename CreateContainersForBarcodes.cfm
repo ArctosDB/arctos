@@ -162,6 +162,9 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 
         <cfloop query="x">
 		<cfset sql=sql & " into cf_temp_container  (#cols#) values (">
+		
+		bla
+		<!----
 			<cfloop list="#cols#" index="i">
 				
 				 <cfset sql=sql & "'boogity'">
@@ -175,6 +178,9 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
            	</cfif>
 			---->
            </cfloop>
+		
+		
+		---->
            <cfset sql=sql & ")">
 				 
 			</cfloop>
