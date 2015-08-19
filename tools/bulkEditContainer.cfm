@@ -15,13 +15,16 @@
 		Edit groups of containers by loading CSV.
 	</p>
 	<p>
-		This form is not restricted to labels; it will alter ANY container. That's scary.
+		This form is not restricted to labels; it will alter ANY container. That's dangerous; don't use this form unless you are sure of what you're doing.
 	</p>
 	<p>
 		This form will happily overwrite existing <strong><em>important</em></strong> information. Use it with caution and make sure you know what it's doing!
 	</p>
 	<p>
-		Upload CSV with the following columns. <a href="bulkEditContainer.cfm?action=makeTemplate">Get a template here</a>
+		Upload CSV with the following columns. <a href="bulkEditContainer.cfm?action=makeTemplate">Get a template</a>
+	</p>
+	<p>
+		<a href="labels2containers.cfm">Build CSV</a>
 	</p>
 	<table border>
 		<tr>
