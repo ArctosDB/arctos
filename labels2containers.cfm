@@ -70,14 +70,11 @@
 </cfif>
 <cfif action IS "change">
 	<cfoutput>
+		<cfset header="BARCODE,OLD_CONTAINER_TYPE,CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,HEIGHT,LENGTH,WIDTH,NUMBER_POSITIONS">
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.fileName="#Application.webDirectory#/download/ChangeContainer.csv">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(mine.columnList); 
-		</cfscript>
-		<cfset header="BARCODE,OLD_CONTAINER_TYPE,CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,HEIGHT,LENGTH,WIDTH,NUMBER_POSITIONS">
-		<cfscript>
 			variables.joFileWriter.writeLine(header); 
 		</cfscript>
 		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
