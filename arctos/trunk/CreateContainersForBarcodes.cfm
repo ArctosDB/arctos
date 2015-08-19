@@ -39,6 +39,11 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 
 
 <cfif action is "nothing">
+	<cfquery name="buhbyt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_container
+	</cfquery>
+
+
 	<cfoutput>
 		<p>
 			Before using this form, make sure that the container series you are creating is in the 
@@ -125,75 +130,35 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
-
-
-<cfquery name="s" dbtype="query">
-	select * from x where barcode in ('A24E3','A24E4','A24E5','A24E6')
-</cfquery>
-
-
-
-<cfdump var=#s#>
 		<cfset hccols="CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM">
-		
 		<cfset sql="select ">
 		<cfloop list="#hccols#" index="l">
 			<cfif listfindnocase(cols,l)>
 				<cfset sql=sql & #l#>
 			<cfelse>
 				<cfset sql=sql & "'' as #l#">
-
 			</cfif>
-			 	<cfif l is not listlast(hccols)>
-           		<cfset sql=sql & ",">
-           	</cfif>
+		 	<cfif l is not listlast(hccols)>
+          		<cfset sql=sql & ",">
+          	</cfif>
 		</cfloop>
-<cfquery name="ss" dbtype="query">
-#sql# from x
-</cfquery>
-
-
-
-
-
-
+		<cfquery name="ss" dbtype="query">
+			#sql# from x
+		</cfquery>
 		<cfset sql="insert all ">
-	<cfset theLastColumnName=listlast(cols)>
-
         <cfloop query="ss">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#INSTITUTION_ACRONYM#')
+			</cfquery>
+<!----
 			<cfset t=" into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#INSTITUTION_ACRONYM#') ">
 			<cfset sql=sql & t>
-
-		
-		<!----
-		<cfset sql=sql & " into cf_temp_container  (#cols#) values (">
-		
-		bla
-		
-			<cfloop list="#cols#" index="i">
-				
-				 <cfset sql=sql & "'boogity'">
-				 	
-				 	<!----
-				 	
-				 	
-				 	<cfset sql=sql & "'#x[i][x.currentrow]#'">
-           	<cfif i is not theLastColumnName>
-           		<cfset sql=sql & ",">
-           	</cfif>
-			---->
-           </cfloop>
-		
-		
-		
-           <cfset sql=sql & ")">
-				 ---->
-			</cfloop>
-			
-							<cfset sql=sql & " SELECT 1 FROM DUAL">
+			--->
+		</cfloop>
+		<cfset sql=sql & " SELECT 1 FROM DUAL">
 
 					
-
+<!----
 
 gotit<cfflush>
 
@@ -215,7 +180,7 @@ gotit<cfflush>
 
 
 
-
+---->
 
 
 <!----
