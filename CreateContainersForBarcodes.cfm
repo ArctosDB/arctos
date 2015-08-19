@@ -205,7 +205,7 @@
 			Barcode - label mismatch detected. Proceed with great caution.
 		</p>
 	</cfif>
-	<a href="CreateContainersForBarcodes?action=load">proceed to load</a>
+	<a href="CreateContainersForBarcodes.cfm?action=load">proceed to load</a>
 </cfif>
 <!------------------------------------------------>
 <cfif action is "load">
