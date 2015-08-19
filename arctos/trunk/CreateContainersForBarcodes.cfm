@@ -151,10 +151,33 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
         <cfset cols=x.columnlist>
 
 
-
 <cfquery name="s" dbtype="query">
 	select * from x where barcode in ('A24E3','A24E4','A24E5','A24E6')
 </cfquery>
+
+
+
+<cfdump var=#s#>
+		<cfset hccols="CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,WIDTH,HEIGHT,LENGTH,INSTITUTION_ACRONYM">
+		
+		<cfset sql="select ">
+		<cfloop list="#hccols#" index="l">
+			<cfif listfindnocase(cols,l)>
+				<cfset sql=sql & #l#>
+			<cfelse>
+				<cfset sql=sql & "'' as #l#">
+
+			</cfif>
+		</cfloop>
+<cfquery name="ss" dbtype="query">
+#sql# from s
+</cfquery>
+<cfdump var=#s2#>
+
+
+<cfabort>
+
+
 
 
 		<cfset sql="insert all ">
