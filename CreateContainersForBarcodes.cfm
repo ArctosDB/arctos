@@ -161,7 +161,9 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 	<cfset theLastColumnName=listlast(cols)>
 
         <cfloop query="x">
-		.
+			<cfset t="into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,WIDTH,HEIGHT,LENGTH,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#WIDTH#','#HEIGHT#','#LENGTH#','#INSTITUTION_ACRONYM#')">
+			<cfset sql=sql & t>
+
 		
 		<!----
 		<cfset sql=sql & " into cf_temp_container  (#cols#) values (">
