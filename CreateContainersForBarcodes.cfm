@@ -10,6 +10,9 @@ alter table cf_temp_container drop column PRINT_FG;
 alter table cf_temp_container drop column NUMBER_POSITIONS;
 alter table cf_temp_container drop column LOCKED_POSITION;
 alter table cf_temp_container drop column BYPASSCHECK;
+alter table cf_temp_container drop column WIDTH;
+alter table cf_temp_container drop column HEIGHT;
+alter table cf_temp_container drop column LENGTH;
 
 alter table cf_temp_container modify barcode not null;
 
@@ -104,33 +107,6 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 					</a>
 				</td>
 			</tr>
-			<tr>
-				<td>WIDTH</td>
-				<td>no</td>
-				<td>
-					<a href="http://arctosdb.org/documentation/container/##width_height_length" class="external" target="_blank">
-						doc
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td>HEIGHT</td>
-				<td>no</td>
-				<td>
-					<a href="http://arctosdb.org/documentation/container/##width_height_length" class="external" target="_blank">
-						doc
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td>LENGTH</td>
-				<td>no</td>
-				<td>
-					<a href="http://arctosdb.org/documentation/container/##width_height_length" class="external" target="_blank">
-						doc
-					</a>
-				</td>
-			</tr>
 		</table>
   		Upload CSV:
 		<cfform name="getFile" method="post" action="CreateContainersForBarcodes.cfm" enctype="multipart/form-data">
@@ -158,7 +134,7 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 
 
 <cfdump var=#s#>
-		<cfset hccols="CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,WIDTH,HEIGHT,LENGTH,INSTITUTION_ACRONYM">
+		<cfset hccols="CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM">
 		
 		<cfset sql="select ">
 		<cfloop list="#hccols#" index="l">
@@ -185,7 +161,7 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 	<cfset theLastColumnName=listlast(cols)>
 
         <cfloop query="ss">
-			<cfset t=" into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,WIDTH,HEIGHT,LENGTH,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#WIDTH#','#HEIGHT#','#LENGTH#','#INSTITUTION_ACRONYM#') ">
+			<cfset t=" into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#INSTITUTION_ACRONYM#') ">
 			<cfset sql=sql & t>
 
 		
@@ -219,10 +195,18 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 					
 
 
-gotit
+gotit<cfflush>
 
+
+<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preserveSingleQuotes(sql)#
+		</cfquery>
+		
+		inserted
+		<cfabort>
+
+		
 <cfdump var=#sql#>
-<cfabort>
 
 
 
