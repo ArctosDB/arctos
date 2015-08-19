@@ -1,25 +1,20 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="labels2containers">
 <!------------------------------------------>
+<!--- 
+	disabling this form after repeated failures of people to use the 
+	series functionality.
+	last functional version is in v7.0.1.2 
+---->
 <cfif action IS "nothing">
 	<p>
-		This form will function with a few thousand labels. If you need to do more, break them into batches or get a DBA to help.
+		<a href="/tools/bulkEditContainer.cfm">upload CSV</a>
 	</p>
-To use this form, all of the following must be true:
-
-<ul>
-	<li>You want to make labels into containers</li>
-	<li>All the containers have barcodes</li>
-	<li>The barcodes are
-		<ul>
-			<li>base-10 Integers</li>
-			<li>base-10 Integers with a prefix</li>
-		</ul>
-	</li>
-</ul>
-
-<a href="/tools/bulkEditContainer.cfm">upload a CSV file instead</a>
-
+	<p>
+		This form is no longer functional, but you can use it to make CSV.
+	</p>
+	
+	
 
 <cfoutput>
 	<cfquery name="ctContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -34,12 +29,14 @@ To use this form, all of the following must be true:
 				<option value="#container_type#">#container_type#</option>
 			</cfloop>
 		</select>
+		
 		<label for="newContType">New Container Type</label>
 		<select name="newContType" id="newContType" size="1" class="reqdClr">
 			<cfloop query="ctContainerType">
 				<option value="#container_type#">#container_type#</option>
 			</cfloop>
 		</select>
+		
 		<label for="barcode_prefix">Barcode Prefix (include spaces, leading zeros if necessary)</label>
 		<input type="text" name="barcode_prefix" id="barcode_prefix" size="3">
 		<!---
@@ -50,6 +47,11 @@ To use this form, all of the following must be true:
 		<input type="text" name="begin_barcode" id="begin_barcode" class="reqdClr">
 		<label for="end_barcode">High barcode (integer component)</label>
 		<input type="text" name="end_barcode" id="end_barcode" class="reqdClr">
+		
+		<p>
+			This form will leave LABEL NULL which should IGNORE current values. Edit the CSV if that's not OK.
+		</p>
+		
 		<label for="description">New Description</label>
 		<input type="text" name="description" id="description">
 		<label for="container_remarks">New Remark</label>
@@ -62,68 +64,34 @@ To use this form, all of the following must be true:
 		<input type="text" name="width" id="width">
 		<label for="number_positions">New Number of Positions</label>
 		<input type="text" name="number_positions" id="number_positions">
-		<br><input type="button" value="Test Changes (recommended)" class="lnkBtn" onclick="wtf.action.value='test';submit();">
-		<br><input type="button" value="Make Changes (scary)" class="savBtn" onclick="wtf.action.value='change';submit();">
+		<br><input type="button" value="build CSV" class="savBtn" onclick="wtf.action.value='change';submit();">
 	</form>
 </cfoutput>
 </cfif>
-<!--------------------------------------->
-<cfif action is "test">
+<cfif action IS "change">
 	<cfoutput>
-		This form will execute the select portion of the update statement.
-		<br>If this page contains the word FAIL, you probably aren't doing what you think you're doing.
-		<br>Use your back button, then click Make Changes to finish.
-		<hr>
+		<cfset variables.encoding="UTF-8">
+		<cfset variables.fileName="#Application.webDirectory#/download/ChangeContainer.csv">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(mine.columnList); 
+		</cfscript>
+		<cfset header="BARCODE,OLD_CONTAINER_TYPE,CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,HEIGHT,LENGTH,WIDTH,NUMBER_POSITIONS">
+		<cfscript>
+			variables.joFileWriter.writeLine(header); 
+		</cfscript>
 		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 			<cfset bc = barcode_prefix & i>
-			<cfquery name="bctest" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select barcode from container
-				where
-					container_type='#origContType#' and
-					barcode = '#bc#'
-			</cfquery>
-			#bc#: <cfif bctest.recordcount is 1>spiffy<cfelse>FAIL</cfif><br>
+			<cfset r='"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
+			<cfscript>
+				variables.joFileWriter.writeLine(r); 
+			</cfscript>
 		</cfloop>
+		<cfscript>	
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=ChangeContainer.csv" addtoken="false">
+		<a href="/download/ChangeContainer.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
-</cfif>
-
-<cfif #action# IS "change">
-<cfoutput>
-<cfif #origContType# is "collection object">
-	You can't use this with #origContType#!
-	<cfabort>
-</cfif>
-	<cftransaction>
-		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
-			<cfset bc = barcode_prefix & i>
-			<cfquery name="upContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update container set 
-					container_type='#newContType#'
-					<cfif len(#DESCRIPTION#) gt 0>
-						,DESCRIPTION='#DESCRIPTION#'
-					</cfif>
-					<cfif len(#CONTAINER_REMARKS#) gt 0>
-						,CONTAINER_REMARKS='#CONTAINER_REMARKS#'
-					</cfif>
-					<cfif len(#WIDTH#) gt 0>
-						,WIDTH=#WIDTH#
-					</cfif>
-					<cfif len(#HEIGHT#) gt 0>
-						,HEIGHT=#HEIGHT#
-					</cfif>
-					<cfif len(#LENGTH#) gt 0>
-						,LENGTH=#LENGTH#
-					</cfif>
-					<cfif len(#NUMBER_POSITIONS#) gt 0>
-						,NUMBER_POSITIONS=#NUMBER_POSITIONS#
-					</cfif>
-				where
-					container_type='#origContType#' and
-					barcode = '#bc#'
-			</cfquery>
-		</cfloop>
-	</cftransaction>
-</cfoutput>
-	Done. Check containers to make sure you did what you thought you were doing.
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
