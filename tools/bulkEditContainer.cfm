@@ -122,7 +122,7 @@
 			set 
 				status='barcode_not_found' 
 			where 
-				barcode not in (select barcode from container)
+				barcode not in (select barcode from container where barcode is not null)
 		</cfquery>
 		<cfquery name="uasdfasps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
