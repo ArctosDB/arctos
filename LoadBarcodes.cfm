@@ -34,7 +34,7 @@
     	Upload container scans
     	<br>
     	Duplicate scans will be ignored. 
-		<p>CSV headers are <strong>child_barcode,parent_barcode,install_date</strong></p>
+		<p>CSV headers are <strong>child_barcode,parent_barcode</strong></p>
 	    Upload a new file: <br>
     	<cfform action="LoadBarcodes.cfm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="action" value="newScans" />
@@ -133,9 +133,13 @@
 			</cfquery>
 		</cfloop>
 	</cftransaction>
+	<p>
+		Errors above? nothing loaded - try again.
+	</p>
 	
-	Errors above? nothing loaded - try again.
+	<p>
+		No errors? All done.
+	</p>
 	
-	No errors? All done.
 </cfif>
 <cfinclude template = "includes/_footer.cfm">
