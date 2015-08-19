@@ -15,7 +15,7 @@
 		Edit groups of containers by loading CSV.
 	</p>
 	<p>
-		This form is not restricted to labels; it will alter ANY container.
+		This form is not restricted to labels; it will alter ANY container. That's scary.
 	</p>
 	<p>
 		This form will happily overwrite existing <strong><em>important</em></strong> information. Use it with caution and make sure you know what it's doing!
