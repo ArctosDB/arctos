@@ -165,7 +165,7 @@
 <cfif action is "validate">
 	<cfset p="">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_temp_container where barcode in (select barcode from container)
+		select count(*) c from cf_temp_container where barcode in (select barcode from container where barcode is not null)
 	</cfquery>
 	<cfif d.c gt 0>
 		<cfset p=listappend(p,'Existing barcodes detected',';')>
