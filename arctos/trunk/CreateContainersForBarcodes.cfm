@@ -151,6 +151,7 @@ drop table cf_temp_container;
 			#sql# from x
 		</cfquery>
 		<cfset sql="insert all ">
+		<cftransaction>
         <cfloop query="ss">
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_container (CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,BARCODE,INSTITUTION_ACRONYM) values ('#CONTAINER_TYPE#','#LABEL#','#DESCRIPTION#','#CONTAINER_REMARKS#','#BARCODE#','#INSTITUTION_ACRONYM#')
@@ -160,6 +161,7 @@ drop table cf_temp_container;
 			<cfset sql=sql & t>
 			--->
 		</cfloop>
+		</cftransaction>
 		<cfset sql=sql & " SELECT 1 FROM DUAL">
 
 					
