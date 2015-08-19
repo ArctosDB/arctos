@@ -175,7 +175,7 @@ create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
 <cfquery name="ss" dbtype="query">
 #sql# from s
 </cfquery>
-<cfdump var=#s2#>
+<cfdump var=#ss#>
 
 
 <cfabort>
