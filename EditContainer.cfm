@@ -710,6 +710,9 @@
 			select concentration from ctfluid_concentration order by concentration
 		</cfquery>
 		<h2>Create Container</h2>
+		<p>
+			You probably should not be here. Most containers should be created as batches of labels.
+		</p>
 		<form name="form1" method="post" action="EditContainer.cfm">
 			<input type="hidden" name="action" value="CreateNew" />
 			<label for="container_type">Container Type</label>
