@@ -4,30 +4,30 @@
 
 
 <!----
-
-create table cf_temp_container as select * from container where 1=2;
-alter table cf_temp_container drop column container_id;
-alter table cf_temp_container drop column PARENT_CONTAINER_ID;
-alter table cf_temp_container drop column PRINT_FG;
-alter table cf_temp_container drop column NUMBER_POSITIONS;
-alter table cf_temp_container drop column LOCKED_POSITION;
-alter table cf_temp_container drop column BYPASSCHECK;
-alter table cf_temp_container drop column WIDTH;
-alter table cf_temp_container drop column HEIGHT;
-alter table cf_temp_container drop column LENGTH;
-
-alter table cf_temp_container modify barcode not null;
-
-create or replace public synonym cf_temp_container for cf_temp_container;
-
-grant all on cf_temp_container to manage_container;
-
-create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
-
- drop index iu_cf_temp_cntr_barcode;
-
-
-drop table cf_temp_container;
+	
+	create table cf_temp_container as select * from container where 1=2;
+	alter table cf_temp_container drop column container_id;
+	alter table cf_temp_container drop column PARENT_CONTAINER_ID;
+	alter table cf_temp_container drop column PRINT_FG;
+	alter table cf_temp_container drop column NUMBER_POSITIONS;
+	alter table cf_temp_container drop column LOCKED_POSITION;
+	alter table cf_temp_container drop column BYPASSCHECK;
+	alter table cf_temp_container drop column WIDTH;
+	alter table cf_temp_container drop column HEIGHT;
+	alter table cf_temp_container drop column LENGTH;
+	
+	alter table cf_temp_container modify barcode not null;
+	
+	create or replace public synonym cf_temp_container for cf_temp_container;
+	
+	grant all on cf_temp_container to manage_container;
+	
+	create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
+	
+	 drop index iu_cf_temp_cntr_barcode;
+	
+	
+	drop table cf_temp_container;
 ---->
 
 <cfif action is "makeTemplate">
@@ -47,14 +47,16 @@ drop table cf_temp_container;
 	<cfquery name="buhbyt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_container
 	</cfquery>
-
-
 	<cfoutput>
 		<p>
 			Before using this form, make sure that the container series you are creating is in the 
 			<a href="http://arctosdb.org/documentation/container/##purchase" class="external" target="_blank">
 				spreadsheet
 			</a> and that there are no potential conflicts with other collections.
+		</p>
+		<p>
+			This form has been tested to 50,000 records; if you have significantly more than that or on a slow connection,
+			smaller batches may be necessary.
 		</p>
 		<p>
 			<a href="CreateContainersForBarcodes?action=makeTemplate">get a template</a>
@@ -160,67 +162,59 @@ drop table cf_temp_container;
 		<a href="CreateContainersForBarcodes?action=validate">loaded - proceed to validate</a>
 	</cfoutput>
 </cfif>
-
 <!----------------------------------------------------------------------------------->
 <cfif action is "validate">
+	<cfset p="">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where barcode in (select barcode from container)
 	</cfquery>
 	<cfif d.c gt 0>
-		There are barcodes which already exist in your file; aborting.
-		<cfabort>
+		<cfset p=listappend(p,'Existing barcodes detected',';')>
 	</cfif>
 	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select barcode, count(barcode) c from cf_temp_container group by barcode having count(barcode) > 1
 	</cfquery>
 	<cfif d.c gt 0>
-		There are duplicate barcodes in your file.
-		<cfabort>
+		<cfset p=listappend(p,'Duplicate barcodes detected',';')>
 	</cfif>
 
 
 
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_temp_container where barcode != LABEL
-	</cfquery>
-	<cfif d.c gt 0>
-		<p>
-			There are records where barcode != label in your file. That's probably a bad idea. Proceed with caution.
-		</p>
-	</cfif>
+
 	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where barcode != trim(barcode)
 	</cfquery>
 	<cfif d.c gt 0>
-		<p>
-			There are spaces in barcode. Aborting.
-			<cfabort>
-		</p>
+		<cfset p=listappend(p,'Untrimmed barcodes detected',';')>
 	</cfif>
 	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where container_type not in (select container_type from ctcontainer_type where container_type like '%label%')
 	</cfquery>
 	<cfif d.c gt 0>
-		<p>
-			Invalid container_type. Aborting.
-			<cfabort>
-		</p>
+		<cfset p=listappend(p,'Invalid container_type',';')>
 	</cfif>
 	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_container where institution_acronym not in (select institution_acronym from collection)
 	</cfquery>
 	<cfif d.c gt 0>
-		<p>
-			Invalid institution_acronym. Aborting.
-			<cfabort>
-		</p>
+		<cfset p=listappend(p,'Invalid institution_acronym',';')>
+	</cfif>
+	<cfif len(p) gt 0>
+		<cfthrow message='#p#' detail='this form is a very bad place to experiment'>
 	</cfif>
 	
-	
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_container where barcode != LABEL
+	</cfquery>
+	<cfif d.c gt 0>
+		<p>
+			Barcode - label mismatch detected. Proceed with extreme caution.
+		</p>
+	</cfif>
 	<a href="CreateContainersForBarcodes?action=load">proceed to load</a>
 </cfif>
 
