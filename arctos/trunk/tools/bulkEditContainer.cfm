@@ -24,7 +24,7 @@
 		Upload CSV with the following columns. <a href="bulkEditContainer.cfm?action=makeTemplate">Get a template</a>
 	</p>
 	<p>
-		<a href="labels2containers.cfm">Build CSV</a>
+		<a href="/labels2containers.cfm">Build CSV</a>
 	</p>
 	<table border>
 		<tr>
