@@ -50,6 +50,11 @@ grant all on ds_temp_split_agent to manage_agents;
 	</cfform>
 </cfif>
 <cfif action is "getFile">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from ds_temp_split_agent
+	</cfquery>
+	
+	
 	<cfoutput>
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
         <cfset  util = CreateObject("component","component.utilities")>
@@ -84,18 +89,11 @@ grant all on ds_temp_split_agent to manage_agents;
 			<hr>
 			<br>original:#original#
 			<cfset orig=original>
-
 			<cfset orig=replace(orig,", Jr."," Jr,","all")>
-
-
-
-
-
 			<cfset orig=replace(orig," and,",chr(7),"all")>
 			<cfset orig=replace(orig," and ",chr(7),"all")>
-
 			<br>orig: #orig#
-			<cfloop list="#orig#" index="x" delimiters=",&#chr(7)#">
+			<cfloop list="#orig#" index="x" delimiters=",&#chr(7)#/;">
 				<br>x: #x#
 				<cfif len(x) gt 0>
 					<cfset "a#ix#"=x>
@@ -112,28 +110,18 @@ grant all on ds_temp_split_agent to manage_agents;
 				</cfloop>
 				<cfset sql=sql&" where original='#original#'">
 				<cfset sql=replace(sql,"', where ","' where ","all")>
-
-				 update ds_temp_split_agent set agent1='A. W. Evans', where original='A. W. Evans'
-
-
 				#sql#
 				<cfquery name="repat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
-
 			</p>
-
 		</cfloop>
-
 		<p>
 			Done.
 			<a href="agent_splitter.cfm?action=getCSV">csv</a>
 		</p>
 	</cfoutput>
-
-
 </cfif>
-
 <cfif action is "getCSV">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_split_agent
@@ -146,5 +134,3 @@ grant all on ds_temp_split_agent to manage_agents;
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=split_agents.csv" addtoken="false">
 </cfif>
-
-
