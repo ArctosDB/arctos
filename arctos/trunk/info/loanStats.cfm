@@ -30,7 +30,7 @@
 						<select name="collectionid" size="1" id="collectionid">
 			<option value=""></option>
 							<cfloop query="ctcollection">
-								<option <cfif collectionid is ctcollection.collection_id> selected="selected" </cfif> value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+								<option <cfif collectionid is ctcollection.collection_id> selected="selected" </cfif> value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 							</cfloop>
 						</select>
 						
