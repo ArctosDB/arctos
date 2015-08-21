@@ -145,8 +145,9 @@
 			select names from ds_ct_namesynonyms
 		</cfquery>
 		<cfdump var=#ds_ct_namesynonyms#>
-		<cfloop query="ds_ct_namesynonyms"> 
-		    <cfset nvars[CurrentRow][1]=names> 
+		<cfloop query="ds_ct_namesynonyms">
+			<cfset ArrayAppend(nvars, names)>
+
 		</cfloop> 
 		<cfdump var=#nvars#>
 
