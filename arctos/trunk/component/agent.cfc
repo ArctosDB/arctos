@@ -47,26 +47,12 @@
         <cfif (first_name neq trim(first_name)) or (middle_name neq trim(middle_name)) or (last_name neq trim(last_name))>
             <cfset problems=listappend(problems,'FATAL ERROR: leading and trailing spaces are prohibited.',';')>
         </cfif>
-        <!--- list of terms that PROBABLY should not appear in agent names ---->
-        <cfset disallowPersons="Animal,al,alaska,and,Anonymous">
-        <cfset disallowPersons=disallowPersons & ",biol,biology">
-        <cfset disallowPersons=disallowPersons & ",Class,california,company,co.,Club,center">
-        <cfset disallowPersons=disallowPersons & ",Ecology,et,estate">
-        <cfset disallowPersons=disallowPersons & ",field">
-        <cfset disallowPersons=disallowPersons & ",Group,Growth">
-        <cfset disallowPersons=disallowPersons & ",Hospital,hunter">
-        <cfset disallowPersons=disallowPersons & ",illegible,inc">
-        <cfset disallowPersons=disallowPersons & ",Lab">
-        <cfset disallowPersons=disallowPersons & ",Management,Museum">
-        <cfset disallowPersons=disallowPersons & ",National,native">
-        <cfset disallowPersons=disallowPersons & ",Old,other">
-        <cfset disallowPersons=disallowPersons & ",Rangers,Ranger,research">
-        <cfset disallowPersons=disallowPersons & ",Predatory,Project,Puffin">
-        <cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study,student,students,station,summer,shop,service,store,system">
-        <cfset disallowPersons=disallowPersons & ",the">
-        <cfset disallowPersons=disallowPersons & ",University,uaf">
-        <cfset disallowPersons=disallowPersons & ",various">
-        <cfset disallowPersons=disallowPersons & ",Zoological,zoo">
+		<cfquery name="ds_ct_notperson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select term from ds_ct_notperson
+		</cfquery>
+		<cfset disallowPersons=valuelist(ds_ct_notperson.term)>
+
+
         <!----
             random lists of things may be indicitave of garbage.
                 disallowWords are " me AND you" but not "ANDy"

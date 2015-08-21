@@ -98,12 +98,12 @@ alter table ds_temp_agent_namesplit add remark varchar2(4000);
 	<cflocation url="split_agent_namestring.cfm?action=validate" addtoken="false">
 </cfif>
 
-<cfquery name="ds_ct_notperson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="ds_ct_notperson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select term from ds_ct_notperson
 </cfquery>
 <cfset dap=valuelist(ds_ct_notperson.term)>
 
-<cfquery name="ds_ct_agentabbreviations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="ds_ct_agentabbreviations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select abbr || '|' || spelled AS term from ds_ct_agentabbreviations
 </cfquery>
 <cfset abr=valuelist(ds_ct_agentabbreviations.term)>
