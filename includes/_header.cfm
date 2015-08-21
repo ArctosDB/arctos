@@ -376,6 +376,7 @@
 											<li><a target="_top" href="/DataServices/dateSplit.cfm">Date Formatter</a></li>
 											<li><a target="_top" href="/DataServices/coordinate_splitter.cfm">Coordinate Formatter</a></li>
 											<li><a target="_top" href="/DataServices/agent_splitter.cfm">Agent Deconcatenator</a></li>
+											<li><a target="_top" href="/DataServices/split_agent_namestring.cfm">Agent Namestring Formatter</a></li>
 											<li><a target="_top" href="/DataServices/findNonprintingCharacters.cfm">Find and replace nonprinting characters</a></li>
 										</ul>
 									</li>
