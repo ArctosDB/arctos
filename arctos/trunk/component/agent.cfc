@@ -144,10 +144,11 @@
 		<cfquery name="ds_ct_namesynonyms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select names from ds_ct_namesynonyms
 		</cfquery>
+		<cfdump var=#ds_ct_namesynonyms#>
 		<cfloop query="ds_ct_namesynonyms"> 
 		    <cfset nvars[CurrentRow][1]=names> 
 		</cfloop> 
-
+		<cfdump var=#nvars#>
 
 
         <!--- make any changes here to info/dupAgent as well ---->
