@@ -104,7 +104,7 @@ alter table ds_temp_agent_namesplit add remark varchar2(4000);
 <cfset dap=valuelist(ds_ct_notperson.term)>
 
 <cfquery name="ds_ct_agentabbreviations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select abbr || '|' || spelled AS term from ds_ct_notperson
+	select abbr || '|' || spelled AS term from ds_ct_agentabbreviations
 </cfquery>
 <cfset abr=valuelist(ds_ct_agentabbreviations.term)>
 
