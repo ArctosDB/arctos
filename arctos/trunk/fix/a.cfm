@@ -28,7 +28,7 @@
  
 <cfset dap=dap & ",Zoological,zoo,Zoology">
 
-<cfloop list="dap" index="i">
+<cfloop list="#dap#" index="i">
 	<br>insert into ds_ct_notperson(term) values ('#lcase(i)#');
 </cfloop>
 
