@@ -305,6 +305,11 @@
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
 
+hello.
+
+<cfabort>
+
+
 
 	<cfset applicationstop()/>
 
