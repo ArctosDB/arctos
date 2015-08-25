@@ -290,6 +290,11 @@
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 	<cfset temp=getIpAddress()>
+
+
+	<p>
+	onSessionStart is done
+	</p>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
