@@ -60,15 +60,15 @@
 					</li>
 					<!--- for now, just always offer mobile when there is one ---->
 
-					<cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/" or request.rdurl contains "SpecimenSearch.cfm">
+					<cfif isdefined("request.rdurl") and request.rdurl contains "/guid/" or request.rdurl contains "/name/" or request.rdurl contains "SpecimenSearch.cfm">
 						<cfset murl="/m" & request.rdurl>
-					<cfelseif request.rdurl contains "SpecimenResults.cfm">
+					<cfelseif isdefined("request.rdurl") and request.rdurl contains "SpecimenResults.cfm">
 						<cfif isdefined("mapurl") and len(mapurl) gt 0>
 							<cfset murl="/m/SpecimenResults.cfm?mapurl=" & mapurl>
 						<cfelse>
 							<cfset murl="/m">
 						</cfif>
-					<cfelseif request.rdurl contains "taxonomy.cfm">
+					<cfelseif isdefined("request.rdurl") and request.rdurl contains "taxonomy.cfm">
 						<cfset murl="/m" & request.rdurl>
 					<cfelse>
 					  <cfset murl="">
