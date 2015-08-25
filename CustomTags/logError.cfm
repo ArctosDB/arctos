@@ -169,9 +169,10 @@
 	<br>
 	ipinfo:#ipinfo#
 	<br>
-	<a href="http://whatismyipaddress.com/ip/#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
-	<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
-
+	<cfif isdefined("exception.ipaddress)">
+		<a href="http://whatismyipaddress.com/ip/#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
+		<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
+	</cfif>
 	<cfif isdefined("exception.requestingsubnet") and len(exception.requestingsubnet) gt 0>
 		<p>
 			Nuke it from orbit option: Click this to blacklist an entire subnet. Use with caution.
