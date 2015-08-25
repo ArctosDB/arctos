@@ -169,7 +169,7 @@
 	<br>
 	ipinfo:#ipinfo#
 	<br>
-	<cfif isdefined("exception.ipaddress)">
+	<cfif isdefined("exception.ipaddress")>
 		<a href="http://whatismyipaddress.com/ip/#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
 		<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
 	</cfif>
