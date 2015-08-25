@@ -208,9 +208,12 @@
 	<cfif structKeyExists(exception,"MESSAGE")>
 		<br>MESSAGE: #exception.MESSAGE#
 	</cfif>
-	<p>
-		This message has been logged in #exception.logfile# as #exception.uuid#
-	</p>
+	<cfif isdefined("exception.logfile") and isdefined("exception.uuid")  >
+		<p>
+			This message has been logged in #exception.logfile# as #exception.uuid#
+		</p>
+	</cfif>
+
 	<p>Raw exception dump:</p>
 	<cfdump var=#exception# format="html">
 	<cfdump var=#attributes# format="html">
