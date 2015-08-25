@@ -167,6 +167,9 @@
 	<cfquery name="cf_global_settings" datasource="uam_god">
 		select LOG_EMAIL,BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings
 	</cfquery>
+
+
+	<cfdump var=#cf_global_settings#>
 	<cfset Application.bugReportEmail = cf_global_settings.BUG_REPORT_EMAIL>
 	<cfset Application.DataProblemReportEmail = cf_global_settings.DATA_REPORT_EMAIL>
 	<cfset Application.logEmail = cf_global_settings.LOG_EMAIL>
