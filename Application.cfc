@@ -304,6 +304,11 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
+
+
+	<cfset applicationstop()/>
+
+
 		<p>
 	onRequestStart is starting
 	</p>
