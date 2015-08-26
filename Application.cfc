@@ -270,12 +270,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="true">
-
-		<p>
-	onSessionStart is starting
-	</p>
-
-
 	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
@@ -296,31 +290,13 @@
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 	<cfset temp=getIpAddress()>
-
-
-	<p>
-	onSessionStart is done
-	</p>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-
-
-
-	<cfset applicationstop()/>
-
-
-		<p>
-	onRequestStart is starting
-	</p>
-
 	<cfif not isdefined("session.roles")>
 		<cfinclude template="/includes/functionLib.cfm">
 		<cfset initSession()>
 	</cfif>
-
-
-
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset temp=getIpAddress()>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
@@ -438,12 +414,6 @@
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
 	</cfif>
-
-	<p>
-	onRequestStart is done
-	</p>
-
-
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
