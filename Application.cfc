@@ -245,6 +245,7 @@
 	<cfif not directoryExists("#Application.webDirectory#/download")>
 		<cfdirectory action="create" directory="#Application.webDirectory#/download" mode="744">
 	</cfif>
+	<cfset Application.logfile="#Application.webDirectory#/log/log.txt">
 	<cfif not FileExists("#Application.webDirectory#/log/log.txt")>
 	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output="">
 	</cfif>
@@ -391,25 +392,6 @@
             <cflocation url="/errors/dev_login.cfm">
         </cfif>
     </cfif>
-
-	<!--- people still have this thing bookmarked --->
-	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
-		<cfset rurl="http://arctos.database.museum">
-		<cfif isdefined("cgi.redirect_url") and len(cgi.redirect_url) gt 0>
-			<cfset rurl=rurl & cgi.redirect_url>
-		<cfelseif isdefined("cgi.script_name") and len(cgi.script_name) gt 0>
-			<cfif cgi.script_name is "/SpecimenSearch.cfm">
-				<cfset rurl=rurl & "/mvz_all">
-			<cfelse>
-				<cfset rurl=rurl & cgi.script_name>
-			</cfif>
-		</cfif>
-		<cfif len(cgi.query_string) gt 0>
-			<cfset rurl=rurl & "?" & cgi.query_string>
-		</cfif>
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
-	</cfif>
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
