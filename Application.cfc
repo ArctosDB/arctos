@@ -152,6 +152,8 @@
 	<cfelseif serverName is 'arctos.tacc.utexas.edu'>
 		<cfset serverName='arctos.database.museum'>
 	</cfif>
+<cfoutput>
+	<br>serverName: #serverName#
 	<!---
 	<cfmail subject="server startingt" to="arctos.database@gmail.com" from="serverStart@arctos.database.museum" type="html">
 		<cfoutput>#serverName# is starting</cfoutput>
@@ -269,6 +271,12 @@
 	<cfif not FileExists("#Application.webDirectory#/log/querylog.txt")>
 	    <cffile action="write" file="#Application.webDirectory#/log/querylog.txt" output="">
 	</cfif>
+
+	</cfoutput>
+
+
+
+
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
