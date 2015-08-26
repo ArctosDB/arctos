@@ -152,8 +152,6 @@
 	<cfelseif serverName is 'arctos.tacc.utexas.edu'>
 		<cfset serverName='arctos.database.museum'>
 	</cfif>
-<cfoutput>
-	<br>serverName: #serverName#
 	<!---
 	<cfmail subject="server startingt" to="arctos.database@gmail.com" from="serverStart@arctos.database.museum" type="html">
 		<cfoutput>#serverName# is starting</cfoutput>
@@ -169,9 +167,6 @@
 	<cfquery name="cf_global_settings" datasource="uam_god">
 		select LOG_EMAIL,BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings
 	</cfquery>
-
-
-	<cfdump var=#cf_global_settings#>
 	<cfset Application.bugReportEmail = cf_global_settings.BUG_REPORT_EMAIL>
 	<cfset Application.DataProblemReportEmail = cf_global_settings.DATA_REPORT_EMAIL>
 	<cfset Application.logEmail = cf_global_settings.LOG_EMAIL>
@@ -271,12 +266,6 @@
 	<cfif not FileExists("#Application.webDirectory#/log/querylog.txt")>
 	    <cffile action="write" file="#Application.webDirectory#/log/querylog.txt" output="">
 	</cfif>
-
-	</cfoutput>
-
-
-
-
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
@@ -315,10 +304,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-
-hello.
-
-<cfabort>
 
 
 
