@@ -59,7 +59,6 @@
 						<a HREF="/contact.cfm?ref=<cfif isdefined("request.rdurl")><cfoutput>#request.rdurl#</cfoutput></cfif>"><font size="-1">Report a bug or request support</font></a>
 					</li>
 					<!--- for now, just always offer mobile when there is one ---->
-<<<<<<< .mine
 					<cfif isdefined("request.rdurl")>
 						<cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/" or request.rdurl contains "SpecimenSearch.cfm">
 							<cfset murl="/m" & request.rdurl>
@@ -71,18 +70,10 @@
 							</cfif>
 						<cfelseif request.rdurl contains "taxonomy.cfm">
 							<cfset murl="/m" & request.rdurl>
-=======
 
-					<cfif isdefined("request.rdurl") and request.rdurl contains "/guid/" or request.rdurl contains "/name/" or request.rdurl contains "SpecimenSearch.cfm">
-						<cfset murl="/m" & request.rdurl>
-					<cfelseif isdefined("request.rdurl") and request.rdurl contains "SpecimenResults.cfm">
-						<cfif isdefined("mapurl") and len(mapurl) gt 0>
-							<cfset murl="/m/SpecimenResults.cfm?mapurl=" & mapurl>
->>>>>>> .r38462
 						<cfelse>
 						  <cfset murl="">
 						</cfif>
-<<<<<<< .mine
 						<cfif len(murl) gt 0>
 							<li>
 								<a HREF="/dm.cfm?r=<cfoutput>#urlencodedformat(murl)#</cfoutput>">
@@ -93,23 +84,8 @@
 							</li>
 							<link rel="alternate" media="only screen and (max-width: 640px)" href="<cfoutput>#murl#</cfoutput>" >
 						</cfif>
-=======
-					<cfelseif isdefined("request.rdurl") and request.rdurl contains "taxonomy.cfm">
-						<cfset murl="/m" & request.rdurl>
-					<cfelse>
-					  <cfset murl="">
 					</cfif>
-					<cfif len(murl) gt 0>
-						<li>
-							<a HREF="/dm.cfm?r=<cfoutput>#urlencodedformat(murl)#</cfoutput>">
-								<font size="-1">
-									View in mobile site
-								</font>
-							</a>
-						</li>
-						<link rel="alternate" media="only screen and (max-width: 640px)" href="<cfoutput>#murl#</cfoutput>" >
->>>>>>> .r38462
-					</cfif>
+=
 				</ul>
 			</td>
 		</tr>
