@@ -20,13 +20,14 @@ create table temp_img_migr (path varchar2(4000),status varchar2(255));
 	<cfloop query="mediaUploads">
 		<cfset dirpath="#DIRECTORY#/#name#">
 		<p>
-			<br>dirpath: #dirpath#
+
 			<cfquery name="alreadygotone" dbtype="query">
 				select count(*) c from temp_img_migr where path='#dirpath#'
 			</cfquery>
 			<cfif alreadygotone.c gt 0>
-				<br>alreadygotone
+
 			<cfelse>
+				<br>dirpath: #dirpath#
 				<cfset olddpath=replace(dirpath,"/usr/local/httpd/htdocs/wwwarctos",application.serverRootURL)>
 				<br>olddpath: #olddpath#
 				<cfset newpath=replace(dirpath,"/usr/local/httpd/htdocs/wwwarctos","http://web.corral.tacc.utexas.edu/UAF/arctos")>
