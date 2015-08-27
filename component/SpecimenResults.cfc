@@ -282,7 +282,9 @@
 		</cfoutput>
 	<cfcatch>
 		<!---- handle this asynchronously ---->
-		<cf_logError subject="specresults error" attributeCollection=#cfcatch#>
+		<cfthread>
+			<cf_logError subject="specresults error" attributeCollection=#cfcatch#>
+		</cfthread>
 
 		<!----
 		<cfmail subject="specresults error" to="arctos.database@gmail.com" from="srerror@arctos.database.museum" type="html">
