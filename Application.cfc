@@ -396,7 +396,7 @@
 		<cfabort>
 	</cfif>
 	<!--- keep people/bots from browsing a dev server--->
-	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "arctos-test.tacc.utexas.edu">
+	<cfif application.version neq "prod">
         <cfset cPath=GetTemplatePath()>
         <cfif
             cPath does not contain "/errors/dev_login.cfm" and
