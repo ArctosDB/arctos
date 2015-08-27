@@ -25,13 +25,13 @@
 	now see if we can figure out an appropriate logfile
 	make sure all these are initiated in application start
 ----->
-<cfset theLogFile="log.txt">
+<cfset theLogFile=Application.logfile>
 <cfif exception.subject is "404">
-	<cfset theLogFile="404log.txt">
+	<cfset theLogFile=Application.404log>
 <cfelseif exception.subject is "missing GUID">
-	<cfset theLogFile="missingGUIDlog.txt">
+	<cfset theLogFile=Application.missingGUIDlog>
 <cfelseif exception.subject is "autoblacklist">
-	<cfset theLogFile="blacklistlog.txt">
+	<cfset theLogFile=Application.blacklistlog>
 </cfif>
 <cfset exception.logfile=theLogFile>
 <cfset exception.date='#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#'>
@@ -164,7 +164,7 @@
 
 
 
-<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
+<cffile action="append" file="#theLogFile#" output="#logdata#">
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
 	<br>
 	ipinfo:#ipinfo#

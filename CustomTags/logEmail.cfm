@@ -9,7 +9,6 @@
 	<cfset attributes.body="[ unknown ]">
 </cfif>
 
-<cfset attributes.theLogFile="emaillog.txt">
 
 <cfset attributes.date='#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#'>
 
@@ -18,10 +17,10 @@
 
 
 <cfset logdata="<logEntry>">
-	<cfset logdata=logdata & "<date>#attributes.date#</date>">	
-	<cfset logdata=logdata & "<to>#attributes.to#</to>">	
-	<cfset logdata=logdata & "<subject>#attributes.subject#</subject>">	
-	<cfset logdata=logdata & "<body>#attributes.body#</body>">	
-<cfset logdata=logdata & "</logEntry>">	
-<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
+	<cfset logdata=logdata & "<date>#attributes.date#</date>">
+	<cfset logdata=logdata & "<to>#attributes.to#</to>">
+	<cfset logdata=logdata & "<subject>#attributes.subject#</subject>">
+	<cfset logdata=logdata & "<body>#attributes.body#</body>">
+<cfset logdata=logdata & "</logEntry>">
+<cffile action="append" file="#Application.logfile#" output="#logdata#">
 </cfoutput>

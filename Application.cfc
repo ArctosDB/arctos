@@ -245,28 +245,46 @@
 	<cfif not directoryExists("#Application.webDirectory#/download")>
 		<cfdirectory action="create" directory="#Application.webDirectory#/download" mode="744">
 	</cfif>
-	<cfset Application.logfile="#Application.webDirectory#/log/log.txt">
-	<cfif not FileExists("#Application.webDirectory#/log/log.txt")>
-	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output="">
+
+	<cfset Application.logfile="#Application.webDirectory#/log/log.log">
+	<cfif not FileExists("#Application.logfile#")>
+	    <cffile action="write" file="#Application.logfile#" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/404log.txt")>
-	    <cffile action="write" file="#Application.webDirectory#/log/404log.txt" output="">
+
+	<cfset Application.404log="#Application.webDirectory#/log/404log.log">
+	<cfif not FileExists("#Application.404log#")>
+	    <cffile action="write" file="#Application.404log#t" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/missingGUIDlog.txt")>
-	    <cffile action="write" file="#Application.webDirectory#/log/missingGUIDlog.txt" output="">
+
+	<cfset Application.missingGUIDlog="#Application.webDirectory#/log/missingGUIDlog.log">
+	<cfif not FileExists("#Application.missingGUIDlog#")>
+	    <cffile action="write" file="#Application.missingGUIDlog#" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")>
-	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output="">
+
+	<cfset Application.blacklistlog="#Application.webDirectory#/log/blacklistlog.log">
+	<cfif not FileExists("#Application.blacklistlog#")>
+	    <cffile action="write" file="#Application.blacklistlog#" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/emaillog.txt")>
-	    <cffile action="write" file="#Application.webDirectory#/log/emaillog.txt" output="">
+
+	<cfset Application.emaillog="#Application.webDirectory#/log/emaillog.log">
+	<cfif not FileExists("#Application.emaillog#")>
+	    <cffile action="write" file="#Application.emaillog#" output="">
 	</cfif>
+
+	<cfset Application.requestlog="#Application.webDirectory#/log/requestlog.log">
+	<!----
 	<cfif not FileExists("#Application.webDirectory#/log/request.txt")>
-	    <cffile action="write" file="#Application.webDirectory#/log/request.txt" output="">
+	---->
+	<cfif not FileExists("#Application.requestlog#")>
+	    <cffile action="write" file="#Application.requestlog#" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/querylog.txt")>
-	    <cffile action="write" file="#Application.webDirectory#/log/querylog.txt" output="">
+
+
+	<cfset Application.querylog="#Application.webDirectory#/log/querylog.log">
+	<cfif not FileExists("#Application.querylog#")>
+	    <cffile action="write" file="#Application.querylog#" output="">
 	</cfif>
+
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
@@ -394,7 +412,7 @@
     </cfif>
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
-		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
+		<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
 	</cfif>
 	<cfreturn true>
 </cffunction>

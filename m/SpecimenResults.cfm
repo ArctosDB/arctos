@@ -91,7 +91,7 @@
 	</cfquery>
 	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#mapurl#||#session.resultColumnList#||#trc.c#||#request.uuid#">
 	<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#loginfo#">
-		<cffile action="append" file="#Application.webDirectory#/log/querylog.txt" output="#loginfo#">
+		<cffile action="append" file="#Application.querylog#" output="#loginfo#">
     </cfthread>
 
 
