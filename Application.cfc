@@ -251,7 +251,7 @@
 	    <cffile action="write" file="#Application.logfile#" output="">
 	</cfif>
 
-	<cfset Application.404log="#Application.webDirectory#/log/404log.log">
+	<cfset Application.404log="#Application.webDirectory#/../log/404log.log">
 	<cfif not FileExists("#Application.404log#")>
 	    <cffile action="write" file="#Application.404log#t" output="">
 	</cfif>
