@@ -8,8 +8,6 @@
 	variables.joFileWriter.writeLine('User-agent: *');
 	variables.joFileWriter.writeLine('crawl-delay: 10');
 </cfscript>
-
-
 <cfif application.version is "prod">
 	<cfset allowedDirectories="Collections">
 	<cfquery name="portals" datasource="cf_dbuser">
@@ -41,7 +39,6 @@
 			</cfscript>
 		</cfif>
 	</cfloop>
-
 	<cfscript>
 		variables.joFileWriter.writeLine('Disallow: /digir/');
 		variables.joFileWriter.writeLine('');
@@ -62,14 +59,12 @@
 		variables.joFileWriter.writeLine('');
 		variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
 	</cfscript>
-
 <cfelse>
 	<!---- not prod ---->
 	<cfscript>
 		variables.joFileWriter.writeLine('Disallow: /');
 	</cfscript>
 </cfif>
-
 <cfscript>
 	variables.joFileWriter.close();
 </cfscript>

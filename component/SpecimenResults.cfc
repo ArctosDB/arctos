@@ -47,10 +47,10 @@
 				<p>
 					basSelect: #basSelect#
 				</p>
-				
+
 				</cfoutput>
-				
-				
+
+
 				---->
 				<cfinclude template="/includes/SearchSql.cfm">
 				<cfset group_cols = groupBy>
@@ -85,7 +85,7 @@
 					<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 				</cfif>
 				<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
-				
+
 				<cfloop list="#spcols#" index="pt">
 					<cfset x=listgetat(pt,2,'.')>
 					<cfif thisLink contains x>
@@ -113,16 +113,16 @@
 				<cfset thisLink="'" & thisLInk>
 				<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
 				<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
-				
-				
+
+
 				<!----
 				<p>
 				SqlString: <cfdump var=#SqlString#>
 				</p>
 				---->
-				
-				
-				
+
+
+
 				<!----
 				<cfset checkSql(SqlString)>
 				---->
@@ -136,7 +136,7 @@
 				InnerSqlString: <cfdump var=#InnerSqlString#>
 				</p>
 				---->
-				
+
 				<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
 				<cftry>
 					<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -281,9 +281,14 @@
 			<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#TotalRecordCount#}'>
 		</cfoutput>
 	<cfcatch>
+		<!---- handle this asynchronously ---->
+		<cf_logError subject="specresults error" attributeCollection=#cfcatch#>
+
+		<!----
 		<cfmail subject="specresults error" to="arctos.database@gmail.com" from="srerror@arctos.database.museum" type="html">
 			<cfdump var=#cfcatch#>
 		</cfmail>
+		---->
 		<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
 	</cfcatch>
 	</cftry>
