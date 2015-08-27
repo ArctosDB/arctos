@@ -42,28 +42,6 @@
 		</cfif>
 	</cfloop>
 
-	<!---
-		// useless bots
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('User-agent: Slurp');
-		variables.joFileWriter.writeLine('Disallow: /');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('User-agent: spbot');
-		variables.joFileWriter.writeLine('Disallow: /');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('User-agent: MJ12bot');
-		variables.joFileWriter.writeLine('Disallow: /');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('User-agent: Baiduspider');
-		variables.joFileWriter.writeLine('Disallow: /');
-		variables.joFileWriter.writeLine('');
-
-		// New plan: allow only specific bots, banhammer anything that shows up without an invite
-
-	---->
 	<cfscript>
 		variables.joFileWriter.writeLine('Disallow: /digir/');
 		variables.joFileWriter.writeLine('');
