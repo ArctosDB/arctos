@@ -85,7 +85,6 @@
 							<link rel="alternate" media="only screen and (max-width: 640px)" href="<cfoutput>#murl#</cfoutput>" >
 						</cfif>
 					</cfif>
-=
 				</ul>
 			</td>
 		</tr>

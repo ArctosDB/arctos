@@ -21,8 +21,17 @@
 <cfoutput>
 	<cfset captcha = makeRandomString()>
 	<cfset captchaHash = hash(captcha)>
-	<h2>Contact the Arctos folks</h2>
-	<p>Data problems? Use a "report bad data" link if there's one available.</p>
+	<h2>Contact Arctos</h2>
+	<ul>
+		<li>
+			Please use the "Report Bad Data" link where available to ensure the correct Curator receives your message.
+		</li>
+		<li>
+			You may also
+			<a href="https://github.com/ArctosDB/arctos/issues/new" target="_blank" class="external">file an Issue at GitHub</a>.
+		</li>
+	</ul>
+
 	<cfform action="contact.cfm" method="post" name="contact">
 		<input type="hidden" name="action" value="sendMail">
 		<input type="hidden" name="ref" value="#ref#">
