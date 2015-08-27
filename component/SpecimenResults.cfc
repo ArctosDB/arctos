@@ -551,9 +551,11 @@
 		</cfsavecontent>
 	</cfoutput>
 	<cfcatch>
-		<cfdump var=#cfcatch#>
+		<!---- handle this asynchronously ---->
+		<cfthread action="run" name="lerr">
 		<cf_logError subject="specimenresults widget error" attributeCollection=#cfcatch#>
-		<cfreturn "An error occurred">
+		</cfthread>
+		<cfreturn "An error occurred: #cfcatch.message#">
 	</cfcatch>
 	</cftry>
 	<cfreturn widget>
