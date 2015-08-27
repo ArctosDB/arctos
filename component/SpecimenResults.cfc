@@ -282,7 +282,7 @@
 		</cfoutput>
 	<cfcatch>
 		<!---- handle this asynchronously ---->
-		<cfthread>
+		<cfthread action="run" name="lerr">
 			<cf_logError subject="specresults error" attributeCollection=#cfcatch#>
 		</cfthread>
 
