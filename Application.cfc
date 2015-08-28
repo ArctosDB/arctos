@@ -253,7 +253,7 @@
 
 	<cfset Application.404log="#Application.webDirectory#/../log/404log.log">
 	<cfif not FileExists("#Application.404log#")>
-	    <cffile action="write" file="#Application.404log#t" output="">
+	    <cffile action="write" file="#Application.404log#" output="">
 	</cfif>
 
 	<cfset Application.missingGUIDlog="#Application.webDirectory#/log/missingGUIDlog.log">
