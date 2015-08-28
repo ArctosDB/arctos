@@ -404,6 +404,11 @@
 			<cfset width = 1.2>
 			<cfset length = 1.2>
 			<cfset height = 4.9>
+		<cfelseif number_positions is 169 AND container_type is "freezer box">
+			<cfset position_label = "position">
+			<cfset width = 1.2>
+			<cfset length = 1.2>
+			<cfset height = 4.9>
 		<cfelseif #number_positions# is 100 AND #container_type# is "slide box">
 			<cfset position_label = "position">
 			<cfset width = 3>
