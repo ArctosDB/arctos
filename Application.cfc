@@ -325,7 +325,7 @@
 	</cfif>
 	<!--- a unique identifier to tie "short" log entries to the raw dump file ---->
 	<cfset request.uuid=CreateUUID()>
-	<!--- uncomment for a break from googlebot	---->
+	<!--- uncomment for a break from googlebot
 
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
@@ -334,6 +334,7 @@
 		<cfreturn false>
 		<cfabort>
 	</cfif>
+	---->
 	<cfset x=f.checkRequest()>
     <cfset m=f.mobileDesktopRedirect()>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
