@@ -246,7 +246,7 @@
 		<cfdirectory action="create" directory="#Application.webDirectory#/download" mode="744">
 	</cfif>
 
-	<cfset Application.logfile="#Application.webDirectory#/log/log.log">
+	<cfset Application.logfile="#Application.webDirectory#/../log/log.log">
 	<cfif not FileExists("#Application.logfile#")>
 	    <cffile action="write" file="#Application.logfile#" output="">
 	</cfif>
@@ -256,35 +256,29 @@
 	    <cffile action="write" file="#Application.404log#" output="">
 	</cfif>
 
-	<cfset Application.missingGUIDlog="#Application.webDirectory#/log/missingGUIDlog.log">
+	<cfset Application.missingGUIDlog="#Application.webDirectory#/../log/missingGUIDlog.log">
 	<cfif not FileExists("#Application.missingGUIDlog#")>
 	    <cffile action="write" file="#Application.missingGUIDlog#" output="">
 	</cfif>
 
-	<cfset Application.blacklistlog="#Application.webDirectory#/log/blacklistlog.log">
+	<cfset Application.blacklistlog="#Application.webDirectory#/../log/blacklistlog.log">
 	<cfif not FileExists("#Application.blacklistlog#")>
 	    <cffile action="write" file="#Application.blacklistlog#" output="">
 	</cfif>
 
-	<cfset Application.emaillog="#Application.webDirectory#/log/emaillog.log">
+	<cfset Application.emaillog="#Application.webDirectory#/../log/emaillog.log">
 	<cfif not FileExists("#Application.emaillog#")>
 	    <cffile action="write" file="#Application.emaillog#" output="">
 	</cfif>
 
-	<cfset Application.requestlog="#Application.webDirectory#/log/requestlog.log">
-	<!----
-	<cfif not FileExists("#Application.webDirectory#/log/request.txt")>
-	---->
+	<cfset Application.requestlog="#Application.webDirectory#/../log/requestlog.log">
 	<cfif not FileExists("#Application.requestlog#")>
 	    <cffile action="write" file="#Application.requestlog#" output="">
 	</cfif>
-
-
-	<cfset Application.querylog="#Application.webDirectory#/log/querylog.log">
+	<cfset Application.querylog="#Application.webDirectory#/../log/querylog.log">
 	<cfif not FileExists("#Application.querylog#")>
 	    <cffile action="write" file="#Application.querylog#" output="">
 	</cfif>
-
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
