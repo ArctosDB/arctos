@@ -25,6 +25,9 @@
 		<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
 		<!---- listify ---->
 		<cfset dirlist=valuelist(q.name)>
+
+
+		<br>all directories: #dirlist#
 		<!--- list of directories we DO want to allow ---->
 		<cfset forceAllowDir="Collections,m">
 		<!--- add portals to the allowed list ---->
