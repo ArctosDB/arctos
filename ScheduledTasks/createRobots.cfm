@@ -50,6 +50,7 @@
 	<cfscript>
 
 
+		variables.joFileWriter.writeLine(robotscontent);
 		variables.joFileWriter.writeLine(dad);
 		variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
 	</cfscript>
