@@ -278,9 +278,7 @@
 				or entire records from unprivileged users.</li>
 			<li>Design and print labels, reports, transaction documents, etc. with a
 				<a href="http://www.adobe.com/support/coldfusion/downloads.html" target="_blank" class="external">GUI interface</a>.</li>
-			<li>Arctos is a
-				<a href="http://www.digir.net" target="_blank">DiGIR</a>
-				provider.</li>
+			<li>Arctos is an IPT provider.</li>
 			<LI>Arctos supports <a href="http://en.wikipedia.org/wiki/Content_negotiation" target="_blank" class="external">content negotiation</a>
 			 and will provide specimen data in the form of
 			 <a href="http://en.wikipedia.org/wiki/Resource_Description_Framework" target="_blank" class="external">RDF</a> upon client request.</LI>

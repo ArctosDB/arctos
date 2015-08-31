@@ -26,7 +26,6 @@
 	</cfquery>
 	<cfset allowedDirectories=listappend(allowedDirectories,valuelist(portals.portal_name))>
 
-    <cfset allowedDirectories=listappend(allowedDirectories,"contact.cfm,/digir/,/m/")>
 
 <cfset allowedFileList="favicon.ico,robots.txt">
 
