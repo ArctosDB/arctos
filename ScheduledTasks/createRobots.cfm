@@ -18,17 +18,18 @@
 
 
 <cfif application.version is "test">
-
-
-
-
-	<cfset allowedDirectories="Collections">
+	<!---- by default we disallow all directories - list of things we DO want bots to scrape ---->
+	<cfset allowedDirectories="Collections,digir,m,contact.cfm">
+	<!---- some things are public but should stay out of bots anyway ---->
 	<cfquery name="portals" datasource="cf_dbuser">
 		select portal_name from cf_collection
 	</cfquery>
 	<cfset allowedDirectories=listappend(allowedDirectories,valuelist(portals.portal_name))>
 
     <cfset allowedDirectories=listappend(allowedDirectories,"contact.cfm,/digir/,/m/")>
+
+<cfset allowedFileList="favicon.ico,robots.txt">
+
 
 
 <cfdump var=#allowedDirectories#>
@@ -43,7 +44,6 @@
 
 
 	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
-	<cfset allowedFileList="favicon.ico,robots.txt">
 	<cfloop query="q">
 		<cfquery name="current" datasource="cf_dbuser">
 			select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
