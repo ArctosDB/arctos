@@ -33,7 +33,7 @@
 
 	<cfloop query="q">
 		<cfif not listfindnocase(allowedDirectories,name)>
-			<cfset dad=dad & chr(10) & "Disallow: /' & name & '/">
+			<cfset dad=dad & chr(10) & "Disallow: /" & name & "/">
 		</cfif>
 	</cfloop>
 
