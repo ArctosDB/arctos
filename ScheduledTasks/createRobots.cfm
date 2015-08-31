@@ -24,7 +24,7 @@
 	<cfset forceAllowDir="Collections,m">
 	<cfloop list="#forceAllowDir#" index="i">
 		<cfif listfind(dirlist,i)>
-			<cfset dirlist=listdeleteat(listfind(dirlist,i))>
+			<cfset dirlist=listdeleteat(dirlist,listfind(dirlist,i))>
 		</cfif>
 	</cfloop>
 
