@@ -17,34 +17,70 @@
 
 
 <cfif application.version is "test">
-	<!---- get a list of all directories ---->
-	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
-	<cfset dirlist=valuelist(q.name)>
-	<!---- remove anything that we DO want to allow access to ---->
-	<cfset forceAllowDir="Collections,m">
-	<cfloop list="#forceAllowDir#" index="i">
-		<cfif listfind(dirlist,i)>
-			<cfset dirlist=listdeleteat(dirlist,listfind(dirlist,i))>
-		</cfif>
-	</cfloop>
 
-	<br>dirlist after removal of allowed: #dirlist#
+	<!----- DIRECTORIES - DISALLOW BY DEFAULT ---->
+		<!---- get a list of all directories ---->
+		<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
+		<!---- listify ---->
+		<cfset dirlist=valuelist(q.name)>
+		<!--- list of directories we DO want to allow ---->
+		<cfset forceAllowDir="Collections,m">
+		<!--- add portals to the allowed list ---->
+		<cfquery name="portals" datasource="cf_dbuser">
+			select portal_name from cf_collection
+		</cfquery>
+		<cfset dirlist=listappend(dirlist,valuelist(portals.portal_name))>
+		<!----
+			remove anything that we DO want to allow access to
+			MAKE SURE THERE IS NOTHING WE DO NOT WANT INDEXED IN THESE DIRS!!!!
+		---->
+		<cfloop list="#forceAllowDir#" index="i">
+			<cfif listfind(dirlist,i)>
+				<cfset dirlist=listdeleteat(dirlist,listfind(dirlist,i))>
+			</cfif>
+		</cfloop>
+
+		<br>dirlist after removal of allowed: #dirlist#
+		<!--- add whatever's left to DIALLOW ---->
+		<cfloop list="#dirlist#" index="i">
+			<cfset robotscontent=robotscontent & chr(10) & "Disallow: /" & i & "/">
+		</cfloop>
+	<!---- FILES - ALLOW BY DEFAULT ---->
+		<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
+		<cfset fileList=valuelist(q.name)>
+		<!--- files that are open but which we do NOT want indexed ---->
+		<cfset forceDisallowFile="contact.cfm">
+		<cfloop list="#forceDisallowFile#" index="i">
+			<cfif listfind(fileList,i)>
+				<cfset fileList=listdeleteat(fileList,listfind(fileList,i))>
+			</cfif>
+		</cfloop>
+		<br>fileList: #fileList#
+
+
+			<cfset forceAllowFile="favicon.ico,robots.txt">
 
 
 
-	<cfset forceDisallowFile="contact.cfm">
+
+		<cfloop list="#fileList#" index="i">
+			<!---- delete anything that's not public ---->
+			<cfquery name="current" datasource="cf_dbuser">
+				select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
+			</cfquery>
+			<cfif current.c is 0 and right(name,7) is not ".xml.gz" and not listfindnocase(forceAllowFile,name)>
+				<cfset dad=dad & chr(10) & "Disallow: /" & name>
+			</cfif>
+		</cfloop>
+
+
 	<br>forceDisallowFile: #forceDisallowFile#
 
 	<br>forceDisallowDir: #forceDisallowDir#
 
-	<cfset forceAllowFile="favicon.ico,robots.txt">
 	<br>forceAllowFile: #forceAllowFile#
 	<br>forceAllowDir: #forceAllowDir#
 
-	<cfquery name="portals" datasource="cf_dbuser">
-		select portal_name from cf_collection
-	</cfquery>
-	<cfset forceDisallowDir=listappend(forceDisallowDir,valuelist(portals.portal_name))>
 	<br>appended portals now...
 	<br>
 	<br>forceAllowDir: #forceAllowDir#
@@ -64,16 +100,8 @@
 
 
 
-	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
 
-	<cfloop query="q">
-		<cfquery name="current" datasource="cf_dbuser">
-			select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
-		</cfquery>
-		<cfif current.c is 0 and right(name,7) is not ".xml.gz" and not listfindnocase(forceAllowFile,name)>
-			<cfset dad=dad & chr(10) & "Disallow: /" & name>
-		</cfif>
-	</cfloop>
+
 	<cfscript>
 
 
