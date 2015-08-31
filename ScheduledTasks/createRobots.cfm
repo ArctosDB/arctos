@@ -22,7 +22,6 @@
 
 
 
-
 	<cfset allowedDirectories="Collections">
 	<cfquery name="portals" datasource="cf_dbuser">
 		select portal_name from cf_collection
