@@ -18,21 +18,40 @@
 
 <cfif application.version is "test">
 	<!---- by default we disallow all directories - list of things we DO want bots to scrape ---->
+	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
+
+	<cfset allowDirs=valuelist(q.name)>
+
+
+	<br>allowDirs: #allowDirs#
+
+
+
 	<cfset forceDisallowFile="contact.cfm">
+	<br>forceDisallowFile: #forceDisallowFile#
 	<cfset forceDisallowDir="digir">
+	<br>forceDisallowDir: #forceDisallowDir#
+
 	<cfset forceAllowFile="favicon.ico,robots.txt">
+	<br>forceAllowFile: #forceAllowFile#
 	<cfset forceAllowDir="Collections,m">
+	<br>forceAllowDir: #forceAllowDir#
 
 	<cfquery name="portals" datasource="cf_dbuser">
 		select portal_name from cf_collection
 	</cfquery>
 	<cfset forceDisallowDir=listappend(forceDisallowDir,valuelist(portals.portal_name))>
+	<br>appended portals now...
+	<br>
+	<br>forceAllowDir: #forceAllowDir#
 
 
 
 
+	<br>default allowDirs: #allowDirs#
+		<cfset allowDirs=listappend(forceDisallowDir,valuelist(portals.portal_name))>
 
-	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
+
 	<cfloop query="q">
 		<cfif not listfindnocase(forceDisallowDir,name)>
 			<cfset dad=dad & chr(10) & "Disallow: /" & name & "/">
@@ -42,6 +61,7 @@
 
 
 	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
+
 	<cfloop query="q">
 		<cfquery name="current" datasource="cf_dbuser">
 			select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
