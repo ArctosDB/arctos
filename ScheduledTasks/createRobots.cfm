@@ -62,10 +62,16 @@
 			<br>loopity
 			<cfset fileList=listdeleteat(fileList,ListContains(fileList,'.xml.gz'))>
 		</cfloop>
-		<!---- remove "public" forms ---->
+		<!---- find "public" forms ---->
 		<cfquery name="notpublic" datasource="cf_dbuser">
 			select substr(form_path,2) rootform from cf_form_permissions where substr(form_path,2) not like '%/%' and role_name='public'
 		</cfquery>
+		<!---- remove public forms from our list ---->
+		<cfloop query="notpublic">
+			<cfif listfind(fileList,rootform)>
+				<cfset fileList=listdeleteat(fileList,listfind(fileList,rootform))>
+			</cfif>
+		</cfloop>
 		<!--- files that are open but which we do NOT want indexed ---->
 		<!--- append if not exists ---->
 		<cfset forceDisallowFile="contact.cfm">
