@@ -12,7 +12,6 @@
 <cfset robotscontent=robotscontent & chr(10) & "crawl-delay: 10">
 
 
-<cfset dad="">
 
 
 
@@ -94,6 +93,18 @@
 
 		<br>fileList: #fileList#
 
+		<!---- disallow whatever's left ---->
+		<cfloop list="#fileList#" index="i">
+			<cfset robotscontent=robotscontent & chr(10) & "Disallow: /" & i>
+		</cfloop>
+
+		<cfscript>
+
+
+			variables.joFileWriter.writeLine(robotscontent);
+			variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
+		</cfscript>
+
 
 <!-------------
 
@@ -107,13 +118,7 @@
 
 
 
-	<cfscript>
 
-
-		variables.joFileWriter.writeLine(robotscontent);
-		variables.joFileWriter.writeLine(dad);
-		variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
-	</cfscript>
 	------------>
 <cfelse>
 	<!---- not prod ---->
