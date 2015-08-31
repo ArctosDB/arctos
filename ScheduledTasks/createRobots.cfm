@@ -30,11 +30,16 @@
 
     <cfset allowedDirectories=listappend(allowedDirectories,"contact.cfm,/digir/,/m/")>
 
+
+<cfdump var=#allowedDirectories#>
+
 	<cfloop query="q">
 		<cfif not listfindnocase(allowedDirectories,name)>
 			<cfset dad=dad & chr(10) & "Disallow: /" & name & "/">
 		</cfif>
 	</cfloop>
+
+<cfdump var=#dad#>
 
 
 	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
