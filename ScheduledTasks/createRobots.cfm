@@ -64,7 +64,7 @@
 		</cfloop>
 		<!---- remove "public" forms ---->
 		<cfquery name="notpublic" datasource="cf_dbuser">
-			select substr(form_path,2) rootform from cf_form_permissions where substr(form_path,2) not like '%/%' and and role_name='public'
+			select substr(form_path,2) rootform from cf_form_permissions where substr(form_path,2) not like '%/%' and role_name='public'
 		</cfquery>
 		<!--- files that are open but which we do NOT want indexed ---->
 		<!--- append if not exists ---->
