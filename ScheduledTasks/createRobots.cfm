@@ -17,24 +17,28 @@
 
 
 <cfif application.version is "test">
-	<!---- by default we disallow all directories - list of things we DO want bots to scrape ---->
+	<!---- get a list of all directories ---->
 	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
+	<cfset dirlist=valuelist(q.name)>
+	<!---- remove anything that we DO want to allow access to ---->
+	<cfset forceAllowDir="Collections,m">
+	<cfloop list="#forceAllowDir#" index="i">
+		<cfif listfind(dirlist,i)>
+			<cfset dirlist=listdeleteat(listfind(dirlist,i))>
+		</cfif>
+	</cfloop>
 
-	<cfset allowDirs=valuelist(q.name)>
-
-
-	<br>allowDirs: #allowDirs#
+	<br>dirlist after removal of allowed: #dirlist#
 
 
 
 	<cfset forceDisallowFile="contact.cfm">
 	<br>forceDisallowFile: #forceDisallowFile#
-	<cfset forceDisallowDir="digir">
+
 	<br>forceDisallowDir: #forceDisallowDir#
 
 	<cfset forceAllowFile="favicon.ico,robots.txt">
 	<br>forceAllowFile: #forceAllowFile#
-	<cfset forceAllowDir="Collections,m">
 	<br>forceAllowDir: #forceAllowDir#
 
 	<cfquery name="portals" datasource="cf_dbuser">
