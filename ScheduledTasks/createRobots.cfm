@@ -86,36 +86,7 @@
 
 
 
-
-
-		<cfloop list="#fileList#" index="i">
-			<!---- delete anything that's not public ---->
-			<cfquery name="current" datasource="cf_dbuser">
-				select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
-			</cfquery>
-			<cfif current.c is 0 and right(name,7) is not ".xml.gz" and not listfindnocase(forceAllowFile,name)>
-				<cfset dad=dad & chr(10) & "Disallow: /" & name>
-			</cfif>
-		</cfloop>
-
-
-	<br>forceDisallowFile: #forceDisallowFile#
-
-	<br>forceDisallowDir: #forceDisallowDir#
-
-	<br>forceAllowFile: #forceAllowFile#
-	<br>forceAllowDir: #forceAllowDir#
-
-	<br>appended portals now...
-	<br>
-	<br>forceAllowDir: #forceAllowDir#
-
-
-
-
-	<br>default allowDirs: #allowDirs#
-		<cfset allowDirs=listappend(forceDisallowDir,valuelist(portals.portal_name))>
-
+<!-------------
 
 	<cfloop query="q">
 		<cfif not listfindnocase(forceDisallowDir,name)>
@@ -134,6 +105,7 @@
 		variables.joFileWriter.writeLine(dad);
 		variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
 	</cfscript>
+	------------>
 <cfelse>
 	<!---- not prod ---->
 	<cfscript>
