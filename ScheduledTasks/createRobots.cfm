@@ -26,7 +26,7 @@
 	<cfquery name="portals" datasource="cf_dbuser">
 		select portal_name from cf_collection
 	</cfquery>
-	<cfset forceDisallowDir=listappend(allowedDirectories,valuelist(portals.portal_name))>
+	<cfset forceDisallowDir=listappend(forceDisallowDir,valuelist(portals.portal_name))>
 
 
 
