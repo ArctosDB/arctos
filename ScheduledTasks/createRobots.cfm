@@ -88,7 +88,6 @@
 
 
 
-
 		<cfloop list="#fileList#" index="i">
 			<!---- delete anything that's not public ---->
 			<cfquery name="current" datasource="cf_dbuser">
