@@ -27,7 +27,7 @@
 
 
 
-		<br>all directories:
+		<br>:::::::::::::::::::::::::all directories:::::::::::::::::::::::::
 		<cfloop list="#dirlist#" index="i">
 			<br>#i#
 		</cfloop>
@@ -42,7 +42,7 @@
 			remove anything that we DO want to allow access to
 			MAKE SURE THERE IS NOTHING WE DO NOT WANT INDEXED IN THESE DIRS!!!!
 		---->
-		<br>removing allowed
+		<br>:::::::::::::::::::::::::removing allowed:::::::::::::::::::::::::
 		<cfloop list="#forceAllowDir#" index="i">
 			<cfif listfind(dirlist,i)>
 				<br>removing #i#
@@ -50,7 +50,7 @@
 			</cfif>
 		</cfloop>
 
-		<br>dirlist after removal of allowed; these are to be DIALLOW:
+		<br>:::::::::::::::::::::::::dirlist after removal of allowed; these are to be DIALLOW::::::::::::::::::::::::::
 		<cfloop list="#dirlist#" index="i">
 			<br>#i#
 		</cfloop>
@@ -68,7 +68,7 @@
 		<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
 		<!---- listify ---->
 		<cfset fileList=valuelist(q.name)>
-		<br>all files:
+		<br>:::::::::::::::::::::::::all files::::::::::::::::::::::::::
 		<cfloop list="#fileList#" index="i">
 			<br>#i#
 		</cfloop>
@@ -88,7 +88,7 @@
 			select substr(form_path,2) rootform from cf_form_permissions where substr(form_path,2) not like '%/%' and role_name='public'
 		</cfquery>
 		<!---- remove public forms from our list ---->
-		<br>removing notpublic
+		<br>:::::::::::::::::::::::::removing notpublic:::::::::::::::::::::::::
 		<cfloop query="notpublic">
 			<cfif listfind(fileList,rootform)>
 				<br>remove #rootform#
@@ -99,7 +99,7 @@
 		<!--- files that are open but which we do NOT want indexed ---->
 		<!--- append if not exists ---->
 		<cfset forceDisallowFile="contact.cfm">
-		<br>forceDisallowFile
+		<br>:::::::::::::::::::::::::forceDisallowFile:::::::::::::::::::::::::
 		<cfloop list="#forceDisallowFile#" index="i">
 			<cfif not listfind(fileList,i)>
 				<br>appending #i#
@@ -110,7 +110,7 @@
 
 		<!--- anything that's somehow wonky and should be indexed ---->
 		<cfset forceAllowFiles="robots.txt">
-		<br>appending::::
+		<br>:::::::::::::::::::::::::appending:::::::::::::::::::::::::
 		<cfloop list="#forceAllowFiles#" index="i">
 			<cfif listfind(fileList,i)>
 				<br>deleting #i#
@@ -123,7 +123,7 @@
 
 
 
-		<br>fileList; disallow this, allow everything else
+		<br>:::::::::::::::::::::::::fileList; disallow this, allow everything else:::::::::::::::::::::::::
 		<cfloop list="#fileList#" index="i">
 			<br>#i#
 		</cfloop>
