@@ -28,7 +28,6 @@
 		select portal_name from cf_collection
 	</cfquery>
 	<cfset allowedDirectories=listappend(allowedDirectories,valuelist(portals.portal_name))>
-	<cfset allowedDirectories=listappend(allowedDirectories,"contact.cfm,/digir/")>
 
 
 	<cfloop query="q">
@@ -36,6 +35,7 @@
 			<cfset dad=dad & chr(10) & "Disallow: /" & name & "/">
 		</cfif>
 	</cfloop>
+	<cfset dad=listappend(dad,"contact.cfm,/digir/")>
 
 
 	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
@@ -49,24 +49,9 @@
 		</cfif>
 	</cfloop>
 	<cfscript>
-		variables.joFileWriter.writeLine('Disallow: ');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('User-agent: Googlebot');
+
 
 		variables.joFileWriter.writeLine(dad);
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('User-agent: Bingbot');
-		variables.joFileWriter.writeLine('Disallow:');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('User-agent: Applebot');
-		variables.joFileWriter.writeLine('Disallow:');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('');
-		variables.joFileWriter.writeLine('User-agent: *');
-		variables.joFileWriter.writeLine('Disallow: /');
-		variables.joFileWriter.writeLine('');
 		variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
 	</cfscript>
 <cfelse>
