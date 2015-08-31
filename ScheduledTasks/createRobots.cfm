@@ -14,7 +14,6 @@
 
 
 
-
 <cfif application.version is "test">
 
 	<!----- DIRECTORIES
