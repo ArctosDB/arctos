@@ -28,13 +28,13 @@
 	</cfquery>
 	<cfset allowedDirectories=listappend(allowedDirectories,valuelist(portals.portal_name))>
 
+    <cfset allowedDirectories=listappend(allowedDirectories,"contact.cfm,/digir/,/m/")>
 
 	<cfloop query="q">
 		<cfif not listfindnocase(allowedDirectories,name)>
 			<cfset dad=dad & chr(10) & "Disallow: /" & name & "/">
 		</cfif>
 	</cfloop>
-	<cfset dad=listappend(dad,"contact.cfm,/digir/")>
 
 
 	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
