@@ -72,6 +72,16 @@
 				<cfset fileList=listdeleteat(fileList,listfind(fileList,rootform))>
 			</cfif>
 		</cfloop>
+		<!--- anything that's somehow wonky and should be indexed ---->
+		<cfset forceAllowFiles="robots.txt">
+		<cfloop list="#forceAllowFiles#" index="i">
+			<cfif listfind(fileList,i)>
+				<cfset fileList=listdeleteat(fileList,listfind(fileList,i))>
+			</cfif>
+		</cfloop>
+
+
+
 		<!--- files that are open but which we do NOT want indexed ---->
 		<!--- append if not exists ---->
 		<cfset forceDisallowFile="contact.cfm">
