@@ -18,7 +18,10 @@
 
 <cfif application.version is "test">
 
-	<!----- DIRECTORIES - DISALLOW BY DEFAULT ---->
+	<!----- DIRECTORIES
+				these are disallowed by default, so just eliminate from the default list
+				anything we DO want to allow and DIALLOW whatever's left
+	---->
 		<!---- get a list of all directories ---->
 		<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
 		<!---- listify ---->
@@ -45,29 +48,37 @@
 		<cfloop list="#dirlist#" index="i">
 			<cfset robotscontent=robotscontent & chr(10) & "Disallow: /" & i & "/">
 		</cfloop>
-	<!---- FILES - ALLOW BY DEFAULT ---->
+	<!---- FILES
+				these are allow by default, so
+				create a list of things that are NOT allowed.
+				This only has to happen in the root directory
+	------>
+		<!---- all files ---->
 		<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
+		<!---- listify ---->
 		<cfset fileList=valuelist(q.name)>
-		<!--- files that are open but which we do NOT want indexed ---->
-		<cfset forceDisallowFile="contact.cfm">
-		<cfloop list="#forceDisallowFile#" index="i">
-			<cfif listfind(fileList,i)>
-				<cfset fileList=listdeleteat(fileList,listfind(fileList,i))>
-			</cfif>
-		</cfloop>
-		<br>fileList: #fileList#
-		<!---- do not restrict sitemaps, which should be the only .xml.gz things in the dir ---->
+		<!--- remove sitemaps, which should be the only .xml.gz things in the dir ---->
 		<cfloop condition = "ListContains(fileList,'.xml.gz')">
 			<br>loopity
 			<cfset fileList=listdeleteat(fileList,ListContains(fileList,'.xml.gz'))>
 		</cfloop>
+		<!---- remove "public" forms ---->
+		<cfquery name="notpublic" datasource="cf_dbuser">
+			select substr(form_path,2) rootform from cf_form_permissions where substr(form_path,2) not like '%/%' and and role_name='public'
+		</cfquery>
+		<!--- files that are open but which we do NOT want indexed ---->
+		<!--- append if not exists ---->
+		<cfset forceDisallowFile="contact.cfm">
+		<cfloop list="#forceDisallowFile#" index="i">
+			<cfif not listfind(fileList,i)>
+				<cfset fileList=listappend(fileList,i)>
+			</cfif>
+		</cfloop>
+
 
 		<br>fileList: #fileList#
 
 
-
-
-			<cfset forceAllowFile="favicon.ico,robots.txt">
 
 
 
