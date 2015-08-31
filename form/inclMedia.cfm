@@ -292,7 +292,7 @@
 							</a>
 						<cfelse>
 							<a href="/media/#media_id#?open" target="_blank">
-								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
+								<img src="#puri#" alt="#alt_text#" style="max-width:150px;max-height:150px;">
 							</a>
 						</cfif>
 					</cfif>

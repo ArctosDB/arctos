@@ -118,11 +118,6 @@
 			</cfif>
 		</cfloop>
 
-
-
-
-
-
 		<br>:::::::::::::::::::::::::fileList; disallow this, allow everything else:::::::::::::::::::::::::
 		<cfloop list="#fileList#" index="i">
 			<br>#i#
