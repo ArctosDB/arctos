@@ -1,6 +1,5 @@
 <cfoutput>
 <cfinclude template="/includes/_header.cfm">
-<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
 <cfset variables.fileName="#Application.webDirectory#/robots.txt">
 <cfset variables.encoding="US-ASCII">
 <cfscript>
@@ -19,27 +18,27 @@
 
 <cfif application.version is "test">
 	<!---- by default we disallow all directories - list of things we DO want bots to scrape ---->
-	<cfset allowedDirectories="Collections,digir,m,contact.cfm">
-	<!---- some things are public but should stay out of bots anyway ---->
+	<cfset forceDisallowFile="contact.cfm">
+	<cfset forceDisallowDir="digir">
+	<cfset forceAllowFile="favicon.ico,robots.txt">
+	<cfset forceAllowDir="Collections,m">
+
 	<cfquery name="portals" datasource="cf_dbuser">
 		select portal_name from cf_collection
 	</cfquery>
-	<cfset allowedDirectories=listappend(allowedDirectories,valuelist(portals.portal_name))>
-
-
-<cfset allowedFileList="favicon.ico,robots.txt">
+	<cfset forceDisallowDir=listappend(allowedDirectories,valuelist(portals.portal_name))>
 
 
 
-<cfdump var=#allowedDirectories#>
 
+
+	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
 	<cfloop query="q">
-		<cfif not listfindnocase(allowedDirectories,name)>
+		<cfif not listfindnocase(forceDisallowDir,name)>
 			<cfset dad=dad & chr(10) & "Disallow: /" & name & "/">
 		</cfif>
 	</cfloop>
 
-<cfdump var=#dad#>
 
 
 	<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
@@ -47,7 +46,7 @@
 		<cfquery name="current" datasource="cf_dbuser">
 			select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
 		</cfquery>
-		<cfif current.c is 0 and right(name,7) is not ".xml.gz" and not listfindnocase(allowedFileList,name)>
+		<cfif current.c is 0 and right(name,7) is not ".xml.gz" and not listfindnocase(forceAllowFile,name)>
 			<cfset dad=dad & chr(10) & "Disallow: /" & name>
 		</cfif>
 	</cfloop>
