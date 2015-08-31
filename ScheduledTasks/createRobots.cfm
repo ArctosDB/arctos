@@ -56,6 +56,15 @@
 			</cfif>
 		</cfloop>
 		<br>fileList: #fileList#
+		<!---- do not restrict sitemaps, which should be the only .xml.gz things in the dir ---->
+		<cfloop condition = "ListContains(fileList,'.xml.gz'">
+			<br>loopity
+			<cfset fileList=listdeleteat(fileList,ListContains(fileList,'.xml.gz'))>
+		</cfloop>
+
+		<br>fileList: #fileList#
+
+
 
 
 			<cfset forceAllowFile="favicon.ico,robots.txt">
