@@ -57,7 +57,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 				null,institution_acronym || ':' || collection_cde,
 				guid_prefix) guid_prefix,
 			enteredby,
-			enteredtobulkdate
+			to_char(enteredtobulkdate,'YYYY-MM-DD') enteredtobulkdate
 		from
 			bulkloader_deletes
 		where
