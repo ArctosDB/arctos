@@ -1236,7 +1236,7 @@
 						</cfif>
 					<cfelse>
 						<cfquery name="theRest" dbtype="query">
-							select * from attribute where attribute_type NOT IN ('sex')
+							select * from attribute where attribute_type NOT IN ('sex') order by attribute_type
 						</cfquery>
 					</cfif>
 					<cfloop query="theRest">
@@ -1416,7 +1416,7 @@
 		<div id="specMediaDv">
 		</div>
 	</div>
-</div> 
+</div>
 		<cftry>
 			<!--- this thing is dicey sometimes.... ---->
 			<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
