@@ -108,7 +108,6 @@ and ignores everything with no enteredby or enteredtobulkdate.
 			enteredby,
 			nvl(to_char(enteredtobulkdate,'#dmask#'),'NULL')
 	</cfquery>
-	<cfdump var=#d#>
 	<cfif results is "table">
 		<table border id="t" class="sortable">
 			<tr>
@@ -132,6 +131,9 @@ and ignores everything with no enteredby or enteredtobulkdate.
 
 	<cfelseif results is "charts">
 		<!--- get distinct users - they all get a chart by specimens/time ---->
+		<h2>
+			Records Entered by User/Time, across all collections
+		</h2>
 		<cfquery name="entby" dbtype="query">
 			select distinct ENTEREDBY from d order by ENTEREDBY
 		</cfquery>
@@ -140,7 +142,6 @@ and ignores everything with no enteredby or enteredtobulkdate.
 				select ENTEREDTOBULKDATE ,sum(NUMRECS) as NUMRECS from d where ENTEREDBY='#entby.ENTEREDBY#' group by ENTEREDTOBULKDATE
 				 order by ENTEREDTOBULKDATE
 			</cfquery>
-			<cfdump var=#c#>
 			<cfchart
 		        xAxisTitle="EnteredDate"
 		        yAxisTitle="NumberSpecimens"
@@ -153,6 +154,45 @@ and ignores everything with no enteredby or enteredtobulkdate.
 			        valueColumn="NUMRECS"
 			        itemColumn="ENTEREDTOBULKDATE"/>
 			</cfchart>
+		</cfloop>
+		<h2>
+			Records Entered by User/Time, Per Collection
+		</h2>
+
+		<cfquery name="entby" dbtype="query">
+			select distinct ENTEREDBY from d order by ENTEREDBY
+		</cfquery>
+		<cfloop query="entby">
+			<cfquery name="entcoln" dbtype="query">
+				select distinct guid_prefix from d where ENTEREDBY='#entby.ENTEREDBY#' order by guid_prefix
+			</cfquery>
+			<cfloop query="entcoln">
+				<cfquery name="c" dbtype="query">
+					select
+						ENTEREDTOBULKDATE,
+						sum(NUMRECS) as NUMRECS
+					from d
+					where
+						ENTEREDBY='#entby.ENTEREDBY#' and
+						guid_prefix='#entcoln.guid_prefix#'
+					group by ENTEREDTOBULKDATE
+					order by ENTEREDTOBULKDATE
+				</cfquery>
+				<cfchart
+			        xAxisTitle="EnteredDate"
+			        yAxisTitle="NumberSpecimens"
+			        sortXAxis="yes"
+			        title="#entby.ENTEREDBY# specimens/time for #entcoln.guid_prefix#"
+			        format = "png">
+				  <cfchartseries
+				        type="bar"
+				        query="c"
+				        valueColumn="NUMRECS"
+				        itemColumn="ENTEREDTOBULKDATE"/>
+				</cfchart>
+			</cfloop>
+
+
 		</cfloop>
 
 
