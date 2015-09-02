@@ -12,6 +12,9 @@ jQuery(document).ready(function() {
 <h3>Arctos Data Entry Report</h3>
 This report provides a summary of the status of entry data in Arctos. It is drawn from bulkloader.ENTEREDTOBULKDATE,
 and ignores everything with no enteredby or enteredtobulkdate.
+<p>
+	You can eat your browser. Select more criteria or use less precise dates to avoid.
+</p>
 <cfquery name="ctcoln" datasource="uam_god">
 	select distinct
 		decode(guid_prefix,
@@ -108,6 +111,42 @@ and ignores everything with no enteredby or enteredtobulkdate.
 			enteredby,
 			nvl(to_char(enteredtobulkdate,'#dmask#'),'NULL')
 	</cfquery>
+
+
+	<p>
+
+	select
+			count(*) numrecs,
+			decode(guid_prefix,
+				null,institution_acronym || ':' || collection_cde,
+				guid_prefix) guid_prefix,
+			enteredby,
+			nvl(to_char(enteredtobulkdate,'#dmask#'),'NULL') enteredtobulkdate
+		from
+			bulkloader_deletes
+		where
+			enteredby is not null and
+			enteredtobulkdate is not null
+			<cfif len(guid_prefix) gt 0>
+				and (guid_prefix='#guid_prefix#' or institution_acronym || ':' || collection_cde='#guid_prefix#')
+			</cfif>
+			<cfif len(enteredby) gt 0>
+				and enteredby='#enteredby#'
+			</cfif>
+			<cfif len(begindate) gt 0>
+				and to_char(enteredtobulkdate,'YYYY-MM-DD') >= '#begindate#'
+			</cfif>
+			<cfif len(enddate) gt 0>
+				and to_char(enteredtobulkdate,'YYYY-MM-DD') >= '#enddate#'
+			</cfif>
+		group by
+			decode(guid_prefix,
+				null,institution_acronym || ':' || collection_cde,
+				guid_prefix),
+			enteredby,
+			nvl(to_char(enteredtobulkdate,'#dmask#'),'NULL')
+
+	</p>
 	<cfif results is "table">
 		<table border id="t" class="sortable">
 			<tr>
