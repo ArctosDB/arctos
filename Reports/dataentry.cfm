@@ -25,7 +25,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 <cfparam name="enteredby" default="">
 <cfparam name="begindate" default="">
 <cfparam name="enddate" default="">
-<cfparam name="results" default="csv">
+<cfparam name="results" default="table">
 <cfoutput>
 <form name="r" method="get" action="dataentry.cfm">
 	<label for="guid_prefix">guid_prefix</label>
@@ -49,7 +49,8 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 	<input type="text" name="enddate" id="enddate" placeholder="to" value="#enddate#">
 	<label for="results">See Results As</label>
 	<select name="results" id="results">
-		<option  <cfif results is "csv"> selected="selected" </cfif>value="csv">csv</option>
+		<option <cfif results is "table"> selected="selected" </cfif>value="table">table</option>
+		<option <cfif results is "csv"> selected="selected" </cfif>value="csv">csv</option>
 	</select>
 	<br>
 	<input type="submit">
@@ -87,7 +88,29 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 			enteredby,
 			nvl(to_char(enteredtobulkdate,'YYYY-MM-DD'),'NULL')
 	</cfquery>
-	<cfif results is "csv">
+	<cfif results is "table">
+		<table border>
+			<tr>
+				<th>ENTEREDBY</th>
+				<th>GUID_PREFIX</th>
+				<th>ENTEREDTOBULKDATE</th>
+				<th>NUMRECS</th>
+			</tr>
+			<cfloop query="d">
+				<tr>
+					<td>#ENTEREDBY#</td>
+					<td>#GUID_PREFIX#</td>
+					<td>#ENTEREDTOBULKDATE#</td>
+					<td>#NUMRECS#</td>
+				</tr>
+			</cfloop>
+		</table>
+
+
+
+
+
+	<cfelseif results is "csv">
 		csv yo
 	</cfif>
 	<cfdump var=#d#>
