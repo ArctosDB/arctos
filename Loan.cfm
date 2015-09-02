@@ -385,6 +385,7 @@ just fooling idiot cfclipse into using the right colors
 							</cfif>
 							#preservesinglequotes(whr)#
 					</cfquery>
+					<cfdump var=#thisq#>
 					<cfcatch>
 						<hr>
 						#cfcatch.detail#
