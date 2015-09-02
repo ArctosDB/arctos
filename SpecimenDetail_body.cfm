@@ -28,7 +28,7 @@
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
             $("##mediaUpClickThis").click(function(){
-			    alert('clickypop');
+			    addSpecimenMedia(collection_object_id);
 			});
 		});
 	</script>
@@ -289,7 +289,7 @@
 <cfoutput query="one">
 	<cfif oneOfUs is 1>
 		<form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
-			<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
+			<input type="hidden" id="collection_object_id" name="collection_object_id" value="#one.collection_object_id#">
 			<input type="hidden" name="suppressHeader" value="true">
 			<input type="hidden" name="action" value="nothing">
 			<input type="hidden" name="Srch" value="Part">
