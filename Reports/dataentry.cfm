@@ -21,7 +21,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 <cfquery name="ctenteredby" datasource="uam_god">
 	select distinct enteredby from bulkloader_deletes order by enteredby
 </cfquery>
-<cfparam name="variables.guid_prefix" default="">
+<cfparam name="guid_prefix" default="">
 <cfparam name="enteredby" default="">
 <cfparam name="begindate" default="">
 <cfparam name="enddate" default="">
@@ -30,8 +30,9 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 	<label for="guid_prefix">guid_prefix</label>
 	<select name="guid_prefix" id="guid_prefix">
 		<option></option>
+		<cfset x=guid_prefix>
 		<cfloop query="ctcoln">
-			<option <cfif ctcoln.guid_prefix is variables.guid_prefix> selected="selected" </cfif>value="#ctcoln.guid_prefix#">#ctcoln.guid_prefix#</option>
+			<option <cfif ctcoln.guid_prefix is x> selected="selected" </cfif>value="#ctcoln.guid_prefix#">#ctcoln.guid_prefix#</option>
 		</cfloop>
 	</select>
 	<label for="enteredby">enteredby</label>
