@@ -137,7 +137,8 @@ and ignores everything with no enteredby or enteredtobulkdate.
 		</cfquery>
 		<cfloop query="entby">
 			<cfquery name="c" dbtype="query">
-				select ENTEREDTOBULKDATE,NUMRECS from d where ENTEREDBY='#entby.ENTEREDBY#' order by ENTEREDTOBULKDATE
+				select ENTEREDTOBULKDATE ,sum(NUMRECS) as NUMRECS from d where ENTEREDBY='#entby.ENTEREDBY#' group by ENTEREDTOBULKDATE
+				 order by ENTEREDTOBULKDATE
 			</cfquery>
 			<cfdump var=#c#>
 			<cfchart
