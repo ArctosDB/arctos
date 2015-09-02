@@ -111,7 +111,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 
 
 	<cfelseif results is "csv">
-		<cfset variables.fileName="#Application.webDirectory#/dataentrystats.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/dataentrystats.csv">
 		<cfset variables.encoding="US-ASCII">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
