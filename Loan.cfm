@@ -632,15 +632,27 @@ just fooling idiot cfclipse into using the right colors
 				and URL like '%SpecimenResults.cfm%'
 				order by search_name
 			</cfquery>
-			<cfif hasCanned.recordcount gt 0>
-				<li>
-					Add from Saved Search/Archive....
-					<select name="assarc" onChange="if(this.value.length>0){window.open(this.value,'_blank')};">
-						<option></option>
-						<option value="#hasCanned.url#&transaction_id=#transaction_id#">#hasCanned.SEARCH_NAME#</option>
-					</select>
-				</li>
-			</cfif>
+			<cfquery name="hasArchive" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select archive_name from archive_name where  creator='#session.username#'
+				order by archive_name
+			</cfquery>
+
+			<li>
+				Add from Saved Search/Archive....
+				<select name="assarc" onChange="if(this.value.length>0){window.open(this.value,'_blank')};">
+					<option></option>
+					<optgroup label="Saved Searches">
+						<cfloop query="hasCanned">
+							<option value="#hasCanned.url#&transaction_id=#transaction_id#">#hasCanned.SEARCH_NAME#</option>
+						</cfloop>
+					</optgroup>
+					<optgroup label="Archives">
+						<cfloop query="hasArchive">
+							<option value="/SpecimenResults.cfm?archive_name=#hasArchive.archive_name#&transaction_id=#transaction_id#">#hasArchive.archive_name#</option>
+						</cfloop>
+					</optgroup>
+				</select>
+			</li>
 			<li><a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">[ review loan items ]</a></li>
 			<li><a href="SpecimenResults.cfm?loan_trans_id=#transaction_id#">[ specimens ]</a></li>
 		</ul>
