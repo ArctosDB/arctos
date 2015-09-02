@@ -63,7 +63,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 		where
 			1=1
 			<cfif len(guid_prefix) gt 0>
-				and (guid_prefix='#guid_prefix#' or institution_acronym || ':' || collection_cde='#institution_acronym || ':' || collection_cde#'
+				and (guid_prefix='#guid_prefix#' or institution_acronym || ':' || collection_cde='#guid_prefix#')
 			</cfif>
 	</cfquery>
 	<cfdump var=#d#>
