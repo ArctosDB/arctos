@@ -135,6 +135,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 		<cfchart
 	        xAxisTitle="EnteredDate"
 	        yAxisTitle="NumberSpecimens"
+	        sortXAxis="yes"
 	        title="ima chart!"
 	            format = "png"
 	    >
