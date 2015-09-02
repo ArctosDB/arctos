@@ -8,7 +8,7 @@ function initialize() {
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 	    panControl: true,
 	    scaleControl: true,
-	    maxZoom: 3
+	    maxZoom: 2
 	};
 	map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 	var mcd = document.createElement('div');
