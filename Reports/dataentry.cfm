@@ -11,7 +11,8 @@ jQuery(document).ready(function() {
 
 <h3>Arctos Data Entry Report</h3>
 This report provides a summary of the status of entry data in Arctos. It is drawn from bulkloader.ENTEREDTOBULKDATE,
-and ignores everything with no enteredby or enteredtobulkdate.
+and ignores everything with no enteredby or enteredtobulkdate. Much legacy data do not have these fields and will
+not be present in this form.
 <p>
 	You can eat your browser. Select more criteria or use less precise dates to avoid.
 </p>
@@ -230,13 +231,39 @@ and ignores everything with no enteredby or enteredtobulkdate.
 				        itemColumn="ENTEREDTOBULKDATE"/>
 				</cfchart>
 			</cfloop>
-
-
 		</cfloop>
 
+		<h2>
+			Records Entered by Collection/Time
+		</h2>
 
-
-
+		<cfquery name="entcoln" dbtype="query">
+			select distinct guid_prefix from d order by guid_prefix
+		</cfquery>
+		<cfloop query="entcoln">
+			<cfquery name="c" dbtype="query">
+				select
+					ENTEREDTOBULKDATE,
+					sum(NUMRECS) as NUMRECS
+				from d
+				where
+					guid_prefix='#entcoln.guid_prefix#'
+				group by ENTEREDTOBULKDATE
+				order by ENTEREDTOBULKDATE
+			</cfquery>
+			<cfchart
+		        xAxisTitle="EnteredDate"
+		        yAxisTitle="NumberSpecimens"
+		        sortXAxis="yes"
+		        title="specimens/time for #entcoln.guid_prefix#"
+		        format = "png">
+			  <cfchartseries
+			        type="bar"
+			        query="c"
+			        valueColumn="NUMRECS"
+			        itemColumn="ENTEREDTOBULKDATE"/>
+			</cfchart>
+		</cfloop>
 
 	<cfelseif results is "csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/dataentrystats.csv">
