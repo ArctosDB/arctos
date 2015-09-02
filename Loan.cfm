@@ -624,6 +624,23 @@ just fooling idiot cfclipse into using the right colors
 		<ul>
 			<li><a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ add items ]</a></li>
 			<li><a href="loanByBarcode.cfm?transaction_id=#transaction_id#">[ add items by part container barcode ]</a></li>
+			<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select SEARCH_NAME,URL
+				from cf_canned_search,cf_users
+				where cf_users.user_id=cf_canned_search.user_id
+				and username='#session.username#'
+				and URL like '%SpecimenResults.cfm%'
+				order by search_name
+			</cfquery>
+			<cfif hasCanned.recordcount gt 0>
+				<li>
+					Add from Saved Search/Archive....
+					<select name="assarc" onChange="if(this.value.length>0){window.open(this.value,'_blank')};">
+						<option></option>
+						<option value="#hasCanned.url#&transaction_id=#transaction_id#">#hasCanned.SEARCH_NAME#</option>
+					</select>
+				</li>
+			</cfif>
 			<li><a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">[ review loan items ]</a></li>
 			<li><a href="SpecimenResults.cfm?loan_trans_id=#transaction_id#">[ specimens ]</a></li>
 		</ul>
