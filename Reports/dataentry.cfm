@@ -6,7 +6,7 @@
 <h3>Arctos Data Entry Report</h3>
 This report provides a summary of the status of entry data in Arctos. It is drawn from bulkloader.ENTEREDTOBULKDATE. <h3>
 <cfquery name="ctcoln" datasource="uam_god">
-	select distinct guid_prefix from bulkloader_deletes order by guid_prefix
+	select distinct decode(guid_prefix,null,'NULL',guid_prefix) guid_prefix from bulkloader_deletes order by guid_prefix
 </cfquery>
 <cfoutput>
 <form name="r" method="get" action="dataentry.cfm">
