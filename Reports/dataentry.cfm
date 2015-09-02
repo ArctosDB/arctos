@@ -128,24 +128,31 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 
 
 	<cfelseif results is "charts">
-		<cfquery name="c" dbtype="query">
-			select ENTEREDTOBULKDATE,NUMRECS from d order by ENTEREDTOBULKDATE
+		<!--- get distinct users - they all get a chart by specimens/time ---->
+		<cfquery name="entby" dbtype="query">
+			select distinct ENTEREDBY from d order by ENTEREDBY
 		</cfquery>
-		<cfdump var=#c#>
-		<cfchart
-	        xAxisTitle="EnteredDate"
-	        yAxisTitle="NumberSpecimens"
-	        sortXAxis="yes"
-	        title="ima chart!"
-	            format = "png"
-	    >
-		  <cfchartseries
-		        type="bar"
-		        query="d"
-		        valueColumn="NUMRECS"
-		        itemColumn="ENTEREDTOBULKDATE"
-		        />
-		</cfchart>
+		<cfloop query="entby">
+			<cfquery name="c" dbtype="query">
+				select ENTEREDTOBULKDATE,NUMRECS from d where ENTEREDBY='#entby.ENTEREDBY#' order by ENTEREDTOBULKDATE
+			</cfquery>
+			<cfchart
+		        xAxisTitle="EnteredDate"
+		        yAxisTitle="NumberSpecimens"
+		        sortXAxis="yes"
+		        title="#entby.ENTEREDBY# specimens/time"
+		        format = "png">
+			  <cfchartseries
+			        type="bar"
+			        query="d"
+			        valueColumn="NUMRECS"
+			        itemColumn="ENTEREDTOBULKDATE"/>
+			</cfchart>
+		</cfloop>
+
+
+
+
 
 	<cfelseif results is "csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/dataentrystats.csv">
