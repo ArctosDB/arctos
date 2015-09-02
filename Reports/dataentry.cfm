@@ -131,9 +131,11 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 		<cfquery name="c" dbtype="query">
 			select ENTEREDTOBULKDATE,NUMRECS from d order by ENTEREDTOBULKDATE
 		</cfquery>
+		<cfdump var=#c#>
 		<cfchart
 	        xAxisTitle="NumberSpecimens"
 	        yAxisTitle="date"
+	        title="ima chart!"
 	    >
 		  <cfchartseries
 		        type="bar"
