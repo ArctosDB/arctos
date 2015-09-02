@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 </script>
 
 <h3>Arctos Data Entry Report</h3>
-This report provides a summary of the status of entry data in Arctos. It is drawn from bulkloader.ENTEREDTOBULKDATE. <h3>
+This report provides a summary of the status of entry data in Arctos. It is drawn from bulkloader.ENTEREDTOBULKDATE
 <cfquery name="ctcoln" datasource="uam_god">
 	select distinct
 		decode(guid_prefix,
@@ -53,11 +53,12 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 <cfif len(guid_prefix) gt 0 or len(enteredby) gt 0 or len(begindate) gt 0 or len(enddate) gt 0>
 	<cfquery name="d" datasource="uam_god">
 		select
+			count(*) numrecs,
 			decode(guid_prefix,
 				null,institution_acronym || ':' || collection_cde,
 				guid_prefix) guid_prefix,
 			enteredby,
-			to_char(enteredtobulkdate,'YYYY-MM-DD') enteredtobulkdate
+			nvl(to_char(enteredtobulkdate,'YYYY-MM-DD'),'NULL') enteredtobulkdate
 		from
 			bulkloader_deletes
 		where
@@ -65,6 +66,12 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 			<cfif len(guid_prefix) gt 0>
 				and (guid_prefix='#guid_prefix#' or institution_acronym || ':' || collection_cde='#guid_prefix#')
 			</cfif>
+		group by
+			decode(guid_prefix,
+				null,institution_acronym || ':' || collection_cde,
+				guid_prefix),
+			enteredby,
+			nvl(to_char(enteredtobulkdate,'YYYY-MM-DD'),'NULL')
 	</cfquery>
 	<cfdump var=#d#>
 </cfif>
