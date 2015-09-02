@@ -21,7 +21,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 <cfquery name="ctenteredby" datasource="uam_god">
 	select distinct enteredby from bulkloader_deletes order by enteredby
 </cfquery>
-<cfparam name="guid_prefix" default="">
+<cfparam name="variables.guid_prefix" default="">
 <cfparam name="enteredby" default="">
 <cfparam name="begindate" default="">
 <cfparam name="enddate" default="">
