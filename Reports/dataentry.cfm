@@ -59,6 +59,8 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 	<select name="results" id="results">
 		<option <cfif results is "table"> selected="selected" </cfif>value="table">table</option>
 		<option <cfif results is "csv"> selected="selected" </cfif>value="csv">csv</option>
+		<option <cfif results is "charts"> selected="selected" </cfif>value="charts">charts</option>
+
 	</select>
 	<br>
 	<input type="submit">
@@ -125,9 +127,9 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 
 
 
-	<cfelseif results is "chtusrtime">
+	<cfelseif results is "charts">
 		<cfquery name="c" dbtype="query">
-			select ENTEREDTOBULKDATE,NUMRECS from d
+			select ENTEREDTOBULKDATE,NUMRECS from d order by ENTEREDTOBULKDATE
 		</cfquery>
 		<cfchart
 	        xAxisTitle="NumberSpecimens"
