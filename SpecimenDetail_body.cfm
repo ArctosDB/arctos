@@ -1410,6 +1410,9 @@
 <div class="detailCell">
 	<div class="detailLabel">
 		Media
+		<cfif isdefined("session.roles") and session.roles contains "manage_media">
+			<a id="mediaUpClickThis">Attach/Upload Media</a>
+		</cfif>
 	</div>
 	<div class="detailBlock">
 		<span class="detailData">
