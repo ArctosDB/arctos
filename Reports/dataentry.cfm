@@ -125,6 +125,18 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 
 
 
+	<cfelseif results is "chtusrtime">
+		<cfchart
+	        xAxisTitle="NumberSpecimens"
+	        yAxisTitle="date"
+	    >
+		  <cfchartseries
+		        type="bar"
+		        query="d"
+		        valueColumn="ENTEREDTOBULKDATE"
+		        itemColumn="NUMRECS"
+		        />
+		</cfchart>
 
 	<cfelseif results is "csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/dataentrystats.csv">
