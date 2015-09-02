@@ -51,7 +51,22 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 </form>
 
 <cfif len(guid_prefix) gt 0 or len(enteredby) gt 0 or len(begindate) gt 0 or len(enddate) gt 0>
-	guid_prefix=#guid_prefix#
+	<cfquery name="d" datasource="uam_god">
+		select
+			decode(guid_prefix,
+				null,institution_acronym || ':' || collection_cde,
+				guid_prefix) guid_prefix,
+			enteredby,
+			enteredtobulkdate
+		from
+			bulkloader_deletes
+		where
+			1=1
+			<cfif len(guid_prefix) gt 0>
+				and (guid_prefix='#guid_prefix#' or institution_acronym || ':' || collection_cde='#institution_acronym || ':' || collection_cde#'
+			</cfif>
+	</cfquery>
+	<cfdump var=#d#>
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
