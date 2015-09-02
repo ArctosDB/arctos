@@ -133,8 +133,8 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 		</cfquery>
 		<cfdump var=#c#>
 		<cfchart
-	        xAxisTitle="NumberSpecimens"
-	        yAxisTitle="date"
+	        xAxisTitle="EnteredDate"
+	        yAxisTitle="NumberSpecimens"
 	        title="ima chart!"
 	            format = "png"
 	    >
