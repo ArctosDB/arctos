@@ -89,7 +89,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 			nvl(to_char(enteredtobulkdate,'YYYY-MM-DD'),'NULL')
 	</cfquery>
 	<cfif results is "table">
-		<table border>
+		<table border id="t" class="sortable">
 			<tr>
 				<th>ENTEREDBY</th>
 				<th>GUID_PREFIX</th>
@@ -111,9 +111,23 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 
 
 	<cfelseif results is "csv">
-		csv yo
+		<cfset variables.fileName="#Application.webDirectory#/dataentrystats.csv">
+		<cfset variables.encoding="US-ASCII">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine('"ENTEREDBY","GUID_PREFIX","ENTEREDTOBULKDATE","NUMRECS"');
+		</cfscript>
+		<cfloop query="d">
+			<cfscript>
+				variables.joFileWriter.writeLine('"#ENTEREDBY#","#GUID_PREFIX#","#ENTEREDTOBULKDATE#","#NUMRECS#"');
+			</cfscript>
+		</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=dataentrystats.csv" addtoken="false">
+
 	</cfif>
-	<cfdump var=#d#>
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
