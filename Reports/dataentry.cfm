@@ -51,7 +51,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 </form>
 
 <cfif len(guid_prefix) gt 0 or len(enteredby) gt 0 or len(begindate) gt 0 or len(enddate) gt 0>
-	<cfdump var=#form#>
+	guid_prefix=#guid_prefix#
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
