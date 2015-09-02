@@ -38,19 +38,20 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 	<label for="enteredby">enteredby</label>
 	<select name="enteredby" id="enteredby">
 		<option></option>
+		<cfset x=enteredby>
 		<cfloop query="ctenteredby">
-			<option value="#enteredby#">#enteredby#</option>
+			<option  <cfif ctenteredby.enteredby is x> selected="selected" </cfif>value="#enteredby#">#enteredby#</option>
 		</cfloop>
 	</select>
 	<label for="date">dates</label>
-	<input type="text" name="begindate" id="begindate" placeholder="from">
-	<input type="text" name="enddate" id="enddate" placeholder="to">
+	<input type="text" name="begindate" id="begindate" placeholder="from" value="#begindate#">
+	<input type="text" name="enddate" id="enddate" placeholder="to" value="#enddate#">
 	<br>
 	<input type="submit">
 </form>
 
 <cfif len(guid_prefix) gt 0 or len(enteredby) gt 0 or len(begindate) gt 0 or len(enddate) gt 0>
-
+	<cfdump var=#form#>
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
