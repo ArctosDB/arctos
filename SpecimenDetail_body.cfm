@@ -1236,7 +1236,7 @@
 						</cfif>
 					<cfelse>
 						<cfquery name="theRest" dbtype="query">
-							select * from attribute where attribute_type NOT IN ('sex') order by attribute_type
+							select * from attribute where attribute_type NOT IN ('sex') order by attribute_type,DETERMINED_DATE
 						</cfquery>
 					</cfif>
 					<cfloop query="theRest">
