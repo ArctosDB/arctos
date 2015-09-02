@@ -376,7 +376,7 @@ just fooling idiot cfclipse into using the right colors
 
 
 
-					<cfset stg="'#dateformat(now(),"yyyy")#-' || lpad(nvl(max(to_number(trim(replace(replace(replace(loan_number,'Bird'),'2015'),'-')))),'01'),2,'0') || ' #collection_cde#'">
+					<cfset stg="'#dateformat(now(),"yyyy")#-' || lpad(nvl(max(to_number(trim(replace(replace(replace(loan_number,'Bird'),'2015'),'-')))),'01'),2,'0') +1 || ' #collection_cde#'">
 					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
 				<cfelse>
 					<!--- n format --->
