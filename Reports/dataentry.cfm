@@ -126,6 +126,9 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 
 
 	<cfelseif results is "chtusrtime">
+		<cfquery name="c" dbtype="query">
+			select ENTEREDTOBULKDATE,NUMRECS from d
+		</cfquery>
 		<cfchart
 	        xAxisTitle="NumberSpecimens"
 	        yAxisTitle="date"
@@ -133,8 +136,8 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 		  <cfchartseries
 		        type="bar"
 		        query="d"
-		        valueColumn="ENTEREDTOBULKDATE"
-		        itemColumn="NUMRECS"
+		        valueColumn="NUMRECS"
+		        itemColumn="ENTEREDTOBULKDATE"
 		        />
 		</cfchart>
 
