@@ -360,6 +360,9 @@ just fooling idiot cfclipse into using the right colors
 				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Es')>
 					<cfset stg="substr(loan_number,0,instr(loan_number,'.',1,1)-1) || '.' || to_char(sysdate,'yyyy') ||'.ESCI'">
 					<cfset whr=" AND substr(loan_number, -4,4) ='ESCI'">
+				<cfelseif (institution_acronym is 'CUMV')>
+					<cfset stg="'#dateformat(now(),"yyyy")#-' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || ' #collection_cde#'">
+					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
 				<cfelse>
 					<!--- n format --->
 					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
