@@ -55,7 +55,7 @@
 								<label for="accn_status">Status:</label>
 								<select name="accn_status" size="1" class="reqdClr">
 									<cfloop query="ctStatus">
-										<option 
+										<option
 											<cfif #ctStatus.accn_status# is "in process">selected </cfif>
 											value="#ctStatus.accn_status#">#ctStatus.accn_status#</option>
 									</cfloop>
@@ -63,19 +63,19 @@
 							</td>
 							<td>
 								<label for="rec_date">Rec. Date:</label>
-								<input type="text" name="rec_date" id="rec_date" class="reqdClr">		
+								<input type="text" name="rec_date" id="rec_date" class="reqdClr">
 							</td>
 						</tr>
 						<tr>
 							<td colspan="9">
 								<label for="nature_of_material">Nature of Material:</label>
 								<textarea name="nature_of_material" id="nature_of_material" rows="5" cols="90" class="reqdClr"></textarea>
-							</td>		
+							</td>
 						</tr>
 						<tr>
 							<td>
 								<label for="rec_agent">Received From:</label>
-								<input type="text" name="rec_agent" class="reqdClr" 
+								<input type="text" name="rec_agent" class="reqdClr"
 									onchange="getAgent('received_agent_id','rec_agent','newAccn',this.value); return false;"
 								 	onKeyPress="return noenter(event);">
 								<input type="hidden" name="received_agent_id">
@@ -130,14 +130,14 @@
 						</tr>
 						<tr>
 							<td colspan="6" align="center">
-							<input type="submit" 
-								value="Save this Accession" 
-								class="savBtn">							
-							<input type="button" 
-									value="Quit without saving" 
+							<input type="submit"
+								value="Save this Accession"
+								class="savBtn">
+							<input type="button"
+									value="Quit without saving"
 									class="qutBtn"
 									onClick="document.location = 'editAccn.cfm'">
-									
+
 							</td>
 						</tr>
 					</table>
@@ -153,7 +153,7 @@
 							select * from collection order by guid_prefix
 						</cfquery>
 						<cfloop query="all_coll">
-							<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm') or 
+							<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm') or
 									(institution_acronym is 'MSB' and collection_cde is 'Mamm') or
 									(institution_acronym is 'MSB' and collection_cde is 'Bird') or
 									(institution_acronym is 'UAM' and collection_cde is 'Fish')>
@@ -173,32 +173,37 @@
 								<!--- MVZ collections share accessions ---->
 								<cfset stg="max(to_number(accn_number)) + 1">
 								<cfset whr=" AND is_number(accn_number)=1">
-							
+
+							<cfelseif institution_acronym is 'CUMV'>
+								<!--- MVZ collections share accessions ---->
+								<cfset stg="max(to_number(accn_number)) + 1">
+								<cfset whr=" AND is_number(accn_number)=1">
+
 							<cfelseif institution_acronym is 'UAMObs' and collection_cde is 'Mamm'>
 									<cfset stg="'#dateformat(now(),"yyyy")#.' || nvl(lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0),'001') || '.#collection_cde#'">
 								<cfset whr=" AND accn_number like '%.MammObs' AND
 									substr(accn_number,1,4) = '#dateformat(now(),"yyyy")#'">
-							
-							
-							
+
+
+
 							<cfelse>
 								<!--- collections who have not asked for a next number suggestion - just show them the last accn used ---->
 								<cfset stg="'last created: ' || accn_number">
 								<cfset whr=" AND accn.transaction_id = (select max(accn.transaction_id) from accn,trans where trans.transaction_id=accn.transaction_id and
 								trans.collection_id=#collection_id#)">
-								
+
 							</cfif>
 							<cftry>
 								<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-									select 
-										 #preservesinglequotes(stg)# nn 
-									from 
+									select
+										 #preservesinglequotes(stg)# nn
+									from
 										accn,
 										trans,
 										collection
-									where 
+									where
 										accn.transaction_id=trans.transaction_id and
-										trans.collection_id=collection.collection_id 
+										trans.collection_id=collection.collection_id
 										<cfif institution_acronym is not "MVZ" and institution_acronym is not "MVZObs">
 											and collection.collection_id=#collection_id#
 										<cfelse>
@@ -212,9 +217,9 @@
 									<br>
 									#cfcatch.sql#
 									<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-										select 
-											 'check data' nn 
-										from 
+										select
+											 'check data' nn
+										from
 											dual
 									</cfquery>
 								</cfcatch>
@@ -225,15 +230,15 @@
 									<cfif len(thisq.nn) is 0>
 										nothing found
 									<cfelse>
-										<span class="likeLink" 
+										<span class="likeLink"
 											onclick="document.getElementById('collection_id').value='#collection_id#';
 											document.getElementById('accn_number').value='#thisq.nn#';">
 											#thisq.nn#
 										</span>
 									</cfif>
-									
+
 								</td>
-									
+
 							</tr>
 						</cfloop>
 					</table>
@@ -286,7 +291,7 @@
 						,accn_number
 						,RECEIVED_DATE,
 						ACCN_STATUS,
-						estimated_count      
+						estimated_count
 						)
 					VALUES (
 						#n.n#,
@@ -325,9 +330,9 @@
 						)
 					</cfquery>
 				</cfif>
-				
+
 		</cftransaction>
-		<cflocation url="editAccn.cfm?Action=edit&transaction_id=#n.n#" addtoken="false">		
+		<cflocation url="editAccn.cfm?Action=edit&transaction_id=#n.n#" addtoken="false">
   </cfoutput>
 </cfif>
 <cfinclude template="includes/_footer.cfm">
