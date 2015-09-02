@@ -26,6 +26,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 <cfparam name="begindate" default="">
 <cfparam name="enddate" default="">
 <cfparam name="results" default="table">
+<cfparam name="dateprecision" default="day">
 <cfoutput>
 <form name="r" method="get" action="dataentry.cfm">
 	<label for="guid_prefix">guid_prefix</label>
@@ -47,6 +48,13 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 	<label for="date">dates</label>
 	<input type="text" name="begindate" id="begindate" placeholder="from" value="#begindate#">
 	<input type="text" name="enddate" id="enddate" placeholder="to" value="#enddate#">
+
+	<label for="dateprecision">dateprecision</label>
+	<select name="dateprecision" id="dateprecision">
+		<option <cfif dateprecision is "day"> selected="selected" </cfif>value="day">day</option>
+		<option <cfif dateprecision is "month"> selected="selected" </cfif>value="month">month</option>
+		<option <cfif dateprecision is "year"> selected="selected" </cfif>value="year">year</option>
+	</select>
 	<label for="results">See Results As</label>
 	<select name="results" id="results">
 		<option <cfif results is "table"> selected="selected" </cfif>value="table">table</option>
@@ -57,6 +65,14 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 </form>
 
 <cfif len(guid_prefix) gt 0 or len(enteredby) gt 0 or len(begindate) gt 0 or len(enddate) gt 0>
+	<cfif dateprecision is "day">
+		<cfset dmask="YYYY-MM-DD">
+	<cfelseif  dateprecision is "month">
+		<cfset dmask="YYYY-MM">
+	<cfelseif  dateprecision is "year">
+		<cfset dmask="YYYY">
+	</cfif>
+
 	<cfquery name="d" datasource="uam_god">
 		select
 			count(*) numrecs,
@@ -64,7 +80,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 				null,institution_acronym || ':' || collection_cde,
 				guid_prefix) guid_prefix,
 			enteredby,
-			nvl(to_char(enteredtobulkdate,'YYYY-MM-DD'),'NULL') enteredtobulkdate
+			nvl(to_char(enteredtobulkdate,'#dmask#'),'NULL') enteredtobulkdate
 		from
 			bulkloader_deletes
 		where
@@ -86,7 +102,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 				null,institution_acronym || ':' || collection_cde,
 				guid_prefix),
 			enteredby,
-			nvl(to_char(enteredtobulkdate,'YYYY-MM-DD'),'NULL')
+			nvl(to_char(enteredtobulkdate,'#dmask#'),'NULL')
 	</cfquery>
 	<cfif results is "table">
 		<table border id="t" class="sortable">
