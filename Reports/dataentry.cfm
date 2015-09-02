@@ -108,6 +108,7 @@ and ignores everything with no enteredby or enteredtobulkdate.
 			enteredby,
 			nvl(to_char(enteredtobulkdate,'#dmask#'),'NULL')
 	</cfquery>
+	<cfdump var=#d#>
 	<cfif results is "table">
 		<table border id="t" class="sortable">
 			<tr>
