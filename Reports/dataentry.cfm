@@ -31,7 +31,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 	<select name="guid_prefix" id="guid_prefix">
 		<option></option>
 		<cfloop query="ctcoln">
-			<option <cfif ctcoln.guid_prefix is guid_prefix> selected="selected" </cfif>value="#ctcoln.guid_prefix#">#ctcoln.guid_prefix#</option>
+			<option <cfif ctcoln.guid_prefix is variables.guid_prefix> selected="selected" </cfif>value="#ctcoln.guid_prefix#">#ctcoln.guid_prefix#</option>
 		</cfloop>
 	</select>
 	<label for="enteredby">enteredby</label>
