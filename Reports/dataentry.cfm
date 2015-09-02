@@ -66,6 +66,15 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 			<cfif len(guid_prefix) gt 0>
 				and (guid_prefix='#guid_prefix#' or institution_acronym || ':' || collection_cde='#guid_prefix#')
 			</cfif>
+			<cfif len(enteredby) gt 0>
+				and enteredby='#enteredby#'
+			</cfif>
+			<cfif len(begindate) gt 0>
+				and to_char(enteredtobulkdate,'YYYY-MM-DD') >= '#begindate#'
+			</cfif>
+			<cfif len(enddate) gt 0>
+				and to_char(enteredtobulkdate,'YYYY-MM-DD') >= '#enddate#'
+			</cfif>
 		group by
 			decode(guid_prefix,
 				null,institution_acronym || ':' || collection_cde,
