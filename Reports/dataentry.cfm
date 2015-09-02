@@ -75,7 +75,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 		<cfset dmask="YYYY">
 	</cfif>
 
-	<cfquery name="d" datasource="uam_god">
+	<cfquery name="d" datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			count(*) numrecs,
 			decode(guid_prefix,
