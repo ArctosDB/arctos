@@ -253,8 +253,10 @@
 		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON
 		(identification.identification_id = identification_taxonomy.identification_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND identification_taxonomy.taxon_name_id = #taxon_name_id#
-		AND identification.accepted_id_fg=1">
+	<cfset basQual = " #basQual# AND identification_taxonomy.taxon_name_id = #taxon_name_id#">
+	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "currentID">
+		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+	</cfif>
 	<cfset mapurl = "#mapurl#&taxon_name_id=#taxon_name_id#">
 </cfif>
 
@@ -941,10 +943,9 @@
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 	</cfif>
-	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "allID">
-		<cfset mapurl = "#mapurl#&identification_remarks=#identification_remarks#">
-	<cfelse>
-	 	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+
+	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "currentID">
+		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 	</cfif>
 	<cfset basQual = " #basQual#  AND upper(identification.identification_remarks) like '%#ucase(identification_remarks)#%'">
 </cfif>
@@ -954,14 +955,25 @@
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 AND identification.taxa_formula = '#taxa_formula#'">
+
+	<cfset basQual = " #basQual# AND identification.taxa_formula = '#taxa_formula#'">
+
+	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "currentID">
+		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+	</cfif>
+
+
 </cfif>
 <cfif isdefined("nature_of_id") AND len(nature_of_id) gt 0>
 	<cfset mapurl = "#mapurl#&nature_of_id=#nature_of_id#">
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 AND identification.nature_of_id = '#nature_of_id#'">
+	<cfset basQual = " #basQual# AND identification.nature_of_id = '#nature_of_id#'">
+	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "currentID">
+		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+	</cfif>
+
 </cfif>
 
 <cfif isdefined("identified_agent") AND len(identified_agent) gt 0>
@@ -1784,7 +1796,10 @@
 	<cfif basJoin does not contain " common_name ">
 		<cfset basJoin = " #basJoin# INNER JOIN common_name ON (identification_taxonomy.taxon_name_id = common_name.taxon_name_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND identification.accepted_id_fg = 1 AND UPPER(common_name.Common_Name) LIKE '%#ucase(stripQuotes(Common_Name))#%'">
+	<cfset basQual = " #basQual#  AND UPPER(common_name.Common_Name) LIKE '%#ucase(stripQuotes(Common_Name))#%'">
+	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "currentID">
+		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+	</cfif>
 	<cfset mapurl = "#mapurl#&Common_Name=#URLEncodedFormat(Common_Name)#">
 </cfif>
 <cfif isdefined("publication_doi") AND len(publication_doi) gt 0>
