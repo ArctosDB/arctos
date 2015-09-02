@@ -27,7 +27,7 @@
 			getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
-            $(".##mediaUpClickThis").click(function(){
+            $("##mediaUpClickThis").click(function(){
 			    alert('clickypop');
 			});
 		});
