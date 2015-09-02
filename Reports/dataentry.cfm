@@ -144,7 +144,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 		        format = "png">
 			  <cfchartseries
 			        type="bar"
-			        query="d"
+			        query="c"
 			        valueColumn="NUMRECS"
 			        itemColumn="ENTEREDTOBULKDATE"/>
 			</cfchart>
