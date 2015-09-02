@@ -361,10 +361,22 @@ just fooling idiot cfclipse into using the right colors
 					<cfset stg="substr(loan_number,0,instr(loan_number,'.',1,1)-1) || '.' || to_char(sysdate,'yyyy') ||'.ESCI'">
 					<cfset whr=" AND substr(loan_number, -4,4) ='ESCI'">
 				<cfelseif (institution_acronym is 'CUMV')>
+					<!----
+						everything between - and " " is loan number
+						lpad 2 w/0
+
+						Approach, which is partially an attempt to deal with the very inconsistent current data:
+						- strip collection_cde
+						- strip year
+						- strip dot
+						- lpad what's left, reassemble
+
+					 ---->
 
 
 
-					<cfset stg="'#dateformat(now(),"yyyy")#-' || lpad(nvl(max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)),'01'),2,'0') || ' #collection_cde#'">
+
+					<cfset stg="'#dateformat(now(),"yyyy")#-' || lpad(nvl(max(to_number(trim(replace(replace(replace(loan_number,'Bird'),'2015'),'-')))),'01'),2,'0') || ' #collection_cde#'">
 					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
 				<cfelse>
 					<!--- n format --->
