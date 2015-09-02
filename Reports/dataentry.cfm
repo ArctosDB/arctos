@@ -10,7 +10,8 @@ jQuery(document).ready(function() {
 </script>
 
 <h3>Arctos Data Entry Report</h3>
-This report provides a summary of the status of entry data in Arctos. It is drawn from bulkloader.ENTEREDTOBULKDATE
+This report provides a summary of the status of entry data in Arctos. It is drawn from bulkloader.ENTEREDTOBULKDATE,
+and ignores everything with no enteredby or enteredtobulkdate.
 <cfquery name="ctcoln" datasource="uam_god">
 	select distinct
 		decode(guid_prefix,
@@ -86,7 +87,8 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 		from
 			bulkloader_deletes
 		where
-			1=1
+			enteredby is not null and
+			enteredtobulkdate is not null
 			<cfif len(guid_prefix) gt 0>
 				and (guid_prefix='#guid_prefix#' or institution_acronym || ':' || collection_cde='#guid_prefix#')
 			</cfif>
@@ -136,6 +138,7 @@ This report provides a summary of the status of entry data in Arctos. It is draw
 			<cfquery name="c" dbtype="query">
 				select ENTEREDTOBULKDATE,NUMRECS from d where ENTEREDBY='#entby.ENTEREDBY#' order by ENTEREDTOBULKDATE
 			</cfquery>
+			<cfdump var=#c#>
 			<cfchart
 		        xAxisTitle="EnteredDate"
 		        yAxisTitle="NumberSpecimens"
