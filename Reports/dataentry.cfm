@@ -102,7 +102,7 @@ and ignores everything with no enteredby or enteredtobulkdate.
 				and to_char(enteredtobulkdate,'YYYY-MM-DD') >= '#begindate#'
 			</cfif>
 			<cfif len(enddate) gt 0>
-				and to_char(enteredtobulkdate,'YYYY-MM-DD') >= '#enddate#'
+				and to_char(enteredtobulkdate,'YYYY-MM-DD') <= '#enddate#'
 			</cfif>
 		group by
 			decode(guid_prefix,
@@ -137,7 +137,7 @@ and ignores everything with no enteredby or enteredtobulkdate.
 				and to_char(enteredtobulkdate,'YYYY-MM-DD') >= '#begindate#'
 			</cfif>
 			<cfif len(enddate) gt 0>
-				and to_char(enteredtobulkdate,'YYYY-MM-DD') >= '#enddate#'
+				and to_char(enteredtobulkdate,'YYYY-MM-DD') <= '#enddate#'
 			</cfif>
 		group by
 			decode(guid_prefix,
