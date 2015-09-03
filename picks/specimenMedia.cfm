@@ -18,12 +18,15 @@ load some media yo!
 
 
 
-<div id="myId"></div>
 
-<form action="/info/upMedia.cfm" class="dropzone"></form>
+  <div id="dropzone"><form action="/upload" class="dropzone" id="demo-upload">
 
+  <div class="dz-message">
+    Drop files here or click to upload.<br />
+    <span class="note">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+  </div>
 
-
+</form></div>
 
 <form name="m">
 	<input type="text" name="media_uri" id="media_uri">
