@@ -5,10 +5,13 @@
 
 	more
 
+<<<<<<< HEAD
 	evenmore
 
 	hai
 
+=======
+>>>>>>> branch 'master' of https://github.com/ArctosDB/arctos.git
 <cfinclude template="/includes/_header.cfm">
 <cfset nvars=ArrayNew(1)>
 
