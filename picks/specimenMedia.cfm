@@ -5,7 +5,9 @@
 <script src="/includes/dropzone.js"></script>
 <link rel="stylesheet" href="/includes/dropzone.css">
 
-
+<script>
+	$("div#myId").dropzone({ url: "/file/post" });
+</script>
 
  <cfif not isdefined("collection_object_id")>
 	Didn't get a collection_object_id.<cfabort>
@@ -15,6 +17,8 @@ load some media yo!
 	Media already created as Arctos Media? <span class="likeLink" onclick="findMedia('media_id','media_uri');">Click here to pick</span>.
 
 
+
+<div id="myId"></div>
 
 <form action="/info/upMedia.cfm" class="dropzone"></form>
 
