@@ -5,7 +5,7 @@
 </cfif>
 load some media yo!
 <p>
-	Media already created as Arctos Media? <span class="likeLink" onclick="findMedia('media_uri','mediaIdFld');">Click here to pick</span>.
+	Media already created as Arctos Media? <span class="likeLink" onclick="findMedia('media_id','media_uri');">Click here to pick</span>.
 
 
 }
