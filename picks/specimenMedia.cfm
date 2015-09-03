@@ -16,7 +16,7 @@ load some media yo!
 
 
 
-<form action="/upload-target" class="dropzone"></form>
+<form action="/info/upMedia.cfm" class="dropzone"></form>
 
 
 
