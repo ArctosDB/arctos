@@ -9,6 +9,8 @@
 
 	hai
 
+	wut?
+
 <cfinclude template="/includes/_header.cfm">
 <cfset nvars=ArrayNew(1)>
 
