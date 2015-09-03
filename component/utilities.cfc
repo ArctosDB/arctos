@@ -1,5 +1,15 @@
 <cfcomponent>
 <!------------------>
+<cffunction name="loadFile" output="false" returnType="string" access="remote">
+    <cfset r.statusCode=200>
+	<cfset r.filename="test">
+
+
+
+	<cfreturn serializeJSON(r)>
+</cffunction>
+<!------------------>
+
 <cffunction name="mdflip" output="false" returnType="string" access="remote">
     <!--- translate mobile URLs to desktop and vice-versa --->
     <cfargument name="q" type="string" required="true" />
@@ -168,7 +178,7 @@
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
-		</cfloop>		
+		</cfloop>
 	</cfif>
 	<cfif isdefined("request.rdur") and right(request.rdurl,5) is "-1%27">
 		<cfset bl_reason='URL ends with -1%27'>
@@ -180,8 +190,8 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif isdefined("request.rdur") and left(request.rdurl,6) is "/‰Û#chr(166)#m&">
-		<cfset bl_reason='URL starts with /‰Û#chr(166)#m&'>
+	<cfif isdefined("request.rdur") and left(request.rdurl,6) is "/ï¿½ï¿½#chr(166)#m&">
+		<cfset bl_reason='URL starts with /ï¿½ï¿½#chr(166)#m&'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>

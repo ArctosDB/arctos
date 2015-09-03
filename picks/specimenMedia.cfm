@@ -19,8 +19,7 @@ load some media yo!
 
 
 
-  <div id="dropzone"><form action="/tools/specimenMediaFileUpload.cfm" class="dropzone" id="demo-upload">
-	<input type="hidden" name="action" value="uploadFiles">
+  <div id="dropzone"><form action="/component/utilities.cfc?method=loadFile" class="dropzone" id="demo-upload">
 
   <div class="dz-message">
     Drop files here or click to upload.<br />
