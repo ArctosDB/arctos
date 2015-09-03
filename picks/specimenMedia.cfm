@@ -19,7 +19,7 @@ load some media yo!
 
 
 
-  <div id="dropzone"><form action="" class="dropzone" id="demo-upload">
+  <div id="dropzone"><form action="specimenMedia.cfm" class="dropzone" id="demo-upload">
 	<input type="hidden" name="action" value="uploadFiles">
 
   <div class="dz-message">
