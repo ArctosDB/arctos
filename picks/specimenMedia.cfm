@@ -1,5 +1,12 @@
 <!--- no security --->
 <cfinclude template="../includes/_pickHeader.cfm">
+
+
+<script src="/includes/dropzone.js"></script>
+<link rel="stylesheet" href="/includes/dropzone.css">
+
+
+
  <cfif not isdefined("collection_object_id")>
 	Didn't get a collection_object_id.<cfabort>
 </cfif>
@@ -8,7 +15,11 @@ load some media yo!
 	Media already created as Arctos Media? <span class="likeLink" onclick="findMedia('media_id','media_uri');">Click here to pick</span>.
 
 
-}
+
+<form action="/upload-target" class="dropzone"></form>
+
+
+
 
 <form name="m">
 	<input type="text" name="media_uri" id="media_uri">
