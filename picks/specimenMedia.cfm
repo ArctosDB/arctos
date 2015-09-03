@@ -19,7 +19,8 @@ load some media yo!
 
 
 
-  <div id="dropzone"><form action="/upload" class="dropzone" id="demo-upload">
+  <div id="dropzone"><form action="" class="dropzone" id="demo-upload">
+	<input type="hidden" name="action" value="uploadFiles">
 
   <div class="dz-message">
     Drop files here or click to upload.<br />
@@ -34,4 +35,8 @@ load some media yo!
 </form>
 
 </p>
+
+<cfif action is "uploadFiles">
+	hello
+</cfif>
 <cfinclude template="../includes/_pickFooter.cfm">
