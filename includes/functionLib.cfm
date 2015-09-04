@@ -6,17 +6,11 @@
 </cfscript>
 <cffunction name="isValidMediaUpload">
 	<cfargument name="fileName" required="yes">
-	<cfset err="">
-	<cfset extension=listlast(fileName,".")>
-	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3,wav">
-	<cfif listfindnocase(acceptExtensions,extension) is 0>
-		<cfset err="An valid file name extension (#acceptExtensions#) is required. extension=#extension#">
-	</cfif>
-	<cfset name=replace(fileName,".#extension#","")>
-	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
-		<cfset err="Filenames may contain only letters, numbers, dash, and underscore.">
-	</cfif>
-	<cfreturn err>
+	<!---- make this work while moving the function to components ---->
+	 <cfinvoke component="component.utilities" method="isValidMediaUpload" returnvariable="contents">
+	        <cfinvokeargument name="fileName" value="#fileName#">
+	</cfinvoke>
+	<cfreturn contents>
 </cffunction>
 <cffunction name="isValidMediaPreview">
 	<cfargument name="fileName" required="yes">

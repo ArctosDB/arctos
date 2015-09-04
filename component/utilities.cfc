@@ -1,53 +1,63 @@
 <cfcomponent>
 <!------------------>
 <cffunction name="loadFile" output="false" returnType="string" access="remote">
-
-<cfmail subject="ppost" to="dustymc@gmail.com" from="pp@arctos.database.museum" type="html">
-			<cfdump var="#form#">
-
-	</cfmail>
-
-<cftry>
+	<cftry>
 		<cfset tempName=createUUID()>
 		<!---
 			only way to get original name seems to be upload file
 			upload to somewhere safe, then move after paranoid confirmation
 		---->
+		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
+		<cftry>
+			<cfdirectory action="create" directory="#loadPath#" mode="775">
+			<cfcatch><!--- it already exists, do nothing---></cfcatch>
+		</cftry>
+
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 		<cfset fileName=cffile.serverfile>
-		<cffile action = "rename" destination = "#Application.sandbox#/#tempName#.tmp" source = "#Application.sandbox#/#fileName#">
+		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
 		<cfset fext=listlast(fileName,".")>
 		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 		<cfset fName=replace(fName,'__','_','all')>
 		<cfset fileName=fName & '.' & fext>
-		<!----
 		<cfif len(isValidMediaUpload(fileName)) gt 0>
-			#isValidMediaUpload(fileName)#
-			<cfabort>
+			<cfcatch>
+				<cfset r.statusCode=400>
+				<cfset r.msg="filename is not acceptable: #isValidMediaUpload(fileName)#">
+			</cfcatch>
+			<cfreturn serializeJSON(r)>
 		</cfif>
-		---->
-		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
-		<cftry>
-			<cfdirectory action="create" directory="#loadPath#" mode="755">
-			<cfcatch><!--- it already exists, do nothing---></cfcatch>
-		</cftry>
+
+		<cfset tnAbsPath=loadPath & '/tn_' & fileName>
+		<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
+		<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
+		<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
+		<cfset newwidth = x*imagetemp.width>
+      	<cfset newheight = x*imagetemp.height>
+   		<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
+			destination="#tnAbsPath#" overwrite="true">
+		<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
+
+
+
+
 		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
 		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
 
 
+	    <cfset r.statusCode=200>
+		<cfset r.filename="#fileName#">
+		<cfset r.media_uri="#media_uri#">
+		<cfset r.preview_uri="#preview_uri#">
+
 		<cfcatch>
-			<cfdump var=#cfcatch#>
-			<font color="##FF0000" size="+2">Error: #cfcatch.message# #cfcatch.detail#</font>
-			<br><a href="javascript:back()">Go Back</a>
-			<cfabort>
+			<cfset r.statusCode=400>
+			<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
 		</cfcatch>
 	</cftry>
 
 
-
-    <cfset r.statusCode=200>
-	<cfset r.filename="#fileName#">
 
 
 
@@ -55,6 +65,21 @@
 </cffunction>
 <!------------------>
 
+<cffunction name="isValidMediaUpload">
+	<cfargument name="fileName" required="yes">
+	<cfset err="">
+	<cfset extension=listlast(fileName,".")>
+	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3,wav">
+	<cfif listfindnocase(acceptExtensions,extension) is 0>
+		<cfset err="An valid file name extension (#acceptExtensions#) is required. extension=#extension#">
+	</cfif>
+	<cfset name=replace(fileName,".#extension#","")>
+	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
+		<cfset err="Filenames may contain only letters, numbers, dash, and underscore.">
+	</cfif>
+	<cfreturn err>
+</cffunction>
+<!----------------------->
 <cffunction name="mdflip" output="false" returnType="string" access="remote">
     <!--- translate mobile URLs to desktop and vice-versa --->
     <cfargument name="q" type="string" required="true" />
