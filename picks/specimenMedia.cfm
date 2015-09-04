@@ -47,6 +47,11 @@
         alert(evt.target.responseText);
 		console.log(evt.target.responseText);
         $("#newMediaUpBack").html(evt.target.responseText);
+        if (evt.target.responseText.statusCode=='200'){
+        	alert('spiffy');
+        } else {
+        	alert('ERROR: ' + evt.target.responseText.msg);
+        }
       }
 
       function uploadFailed(evt) {
