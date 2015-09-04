@@ -256,7 +256,12 @@
 				<div class="td-right">
 					<div style="font-size:small">
 						<cfloop query="relns">
-							<br>#MEDIA_RELATIONSHIP# #SUMMARY# (#LINK#)
+							<br>#MEDIA_RELATIONSHIP#
+							<cfif len() gt 0>
+								<a href="#LINK#" target="_blank">#SUMMARY#</a>
+							<cfelse>
+								#SUMMARY#
+							</cfif>
 						</cfloop>
 
 						<cfloop query="lbl">
