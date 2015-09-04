@@ -53,7 +53,7 @@
         if (result.STATUSCODE=='200'){
         	$("#uploadmediaform").hide();
         	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
-        	h+='<input type="hidden" name="collection_object_id"  value="' $("#collection_object_id").val() + '">';
+        	h+='<input type="hidden" name="collection_object_id"  value="' + $("#collection_object_id").val() + '">';
         	h+='<input type="hidden" name="action"  value="createNewMedia">';
 
 
