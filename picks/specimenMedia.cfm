@@ -104,7 +104,14 @@
 			---->
 
 	<cfloop query="smed">
-		
+
+		 <cfinvoke component="component.functions" method="getMediaRelations" returnvariable="relns">
+        <cfinvokeargument name="media_id" value="#media_id#">
+        <cfinvokeargument name="returntype" value="json">
+</cfinvoke>
+
+<cfdump var=#relns#>
+
 		 MEDIA_RELATIONS_ID						   NOT NULL NUMBER
  MEDIA_ID							   NOT NULL NUMBER
  MEDIA_RELATIONSHIP						   NOT NULL VARCHAR2(40)
