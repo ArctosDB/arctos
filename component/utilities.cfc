@@ -42,11 +42,15 @@
 		<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
 
 
-				<cfabort>
+		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
 
 
 
 		<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
+
+
+
+
 		<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
 		<cfset newwidth = x*imagetemp.width>
       	<cfset newheight = x*imagetemp.height>
@@ -58,7 +62,6 @@
 
 
 		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
 
 
 	    <cfset r.statusCode=200>
