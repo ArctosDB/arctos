@@ -21,11 +21,11 @@
 
 		<cfset fileName=cffile.serverfile>
 
-		<cfabort>
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
 
 
 
+		<cfabort>
 
 
 		<cfset fext=listlast(fileName,".")>
