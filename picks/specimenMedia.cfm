@@ -56,7 +56,7 @@
         	alert('spiffy');
         	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
         	h+='<label for="media_uri">Media URI</label>';
-        	h+='<input type="text" name="media_uri" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
+        	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
         	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
         	h+='<label for="preview_uri">Preview URI</label>';
         	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
@@ -65,11 +65,29 @@
         	h+='<label for="media_license_id">License</label>';
         	h+='<select name="media_license_id" id="media_license_id"></select>';
 
+			h+='<label for="mime_type">MIME Type</label>';
+        	h+='<select name="mime_type" id="mime_type" class="reqdClr"></select>';
+
+
+			h+='<label for="media_type">Media Type</label>';
+        	h+='<select name="media_type" id="media_type" class="reqdClr"></select>';
+
+
+        	h+='<label for="creator">Created By</label>';
+        	h+='<input type="hidden" name="created_agent_id" id="created_agent_id">';
+
+        	h+='<input type="text" name="creator" id="creator"';
+			h+='onchange="pickAgentTest(\'creator\',this.id,this.value); return false;"';
+			h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
+
+
+
+
+
 			h+='<input type="submit" value="create media">';
 			h+='</form>';
 
 
-			$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
 
 
 			$("#newMediaUpBack").html(h);
@@ -77,7 +95,9 @@
 
 
 
-$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
+			$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
+			$('#ctmime_type').find('option').clone().appendTo('#mime_type');
+			$('#ctmedia_type').find('option').clone().appendTo('#media_type');
 
 
 
@@ -99,20 +119,40 @@ $('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
 </script>
 
 <cfoutput>
-	<hr>Existing Media for this specimen
-	collection_object_id: #collection_object_id#
-
 	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ctmedia_license order by DISPLAY
 	</cfquery>
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ctmime_type order by mime_type
+	</cfquery>
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ctmedia_type order by media_type
+	</cfquery>
 	<div style="display:none">
 		<!--- easy way to get stuff for new media - just clone from here ---->
+		<select name="ctmedia_type" id="ctmedia_type">
+			<option></option>
+			<cfloop query="ctmedia_type">
+				<option value="#ctmedia_type#">#ctmedia_type#</option>
+			</cfloop>
+		</select>
 		<select name="ctmedia_license" id="ctmedia_license">
+			<option></option>
 			<cfloop query="ctmedia_license">
 				<option value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
 			</cfloop>
 		</select>
+		<select name="ctmime_type" id="ctmime_type">
+			<option></option>
+			<cfloop query="ctmime_type">
+				<option value="#mime_type#">#mime_type#</option>
+			</cfloop>
+		</select>
 	</div>
+
+
+	<hr>Existing Media for this specimen
+
 
 	<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct
