@@ -28,7 +28,7 @@
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
             $("##mediaUpClickThis").click(function(){
-			    addSpecimenMedia(collection_object_id);
+			    addSpecimenMedia(#collection_object_id#);
 			});
 		});
 	</script>
@@ -1413,10 +1413,10 @@
 <div class="detailCell">
 	<div class="detailLabel">
 		Media
-		<cfif isdefined("session.roles") and session.roles contains "manage_media">
+	</div>
+	<cfif isdefined("session.roles") and session.roles contains "manage_media">
 			<a id="mediaUpClickThis">Attach/Upload Media</a>
 		</cfif>
-	</div>
 	<div class="detailBlock">
 		<span class="detailData">
 		<div id="specMediaDv">
