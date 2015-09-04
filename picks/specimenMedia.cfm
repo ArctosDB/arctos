@@ -221,7 +221,14 @@
 	<style>
 		.tbl{display: table;}
 		.tr{display: table-row;}
-		.td{display: table-cell;}
+		.td-left{
+			display: table-cell;
+			width:30%;
+		}
+		.td-right{
+			display: table-cell;
+			width:70%;
+		}
 	</style>
 	<cfset  func = CreateObject("component","component.functions")>
 	<cfloop query="smed">
@@ -232,14 +239,14 @@
 		</cfquery>
 		<div class="tbl">
 			<div class="tr">
-				<div class="td">
+				<div class="td-left">
 					<a target="_blank" href="#MEDIA_URI#"><img src="#mp#" style="max-width:150px;max-height:150px;"></a>
 					<a target="_blank" href="/media.cfm?action=edit&media_id=#media_id#">Edit Media</a>
 					<cfif len(DISPLAY) gt 0>
 						<a style="font-size:x-small" href="#media_id#" class="external" target="_blank">#DISPLAY# (#DESCRIPTION#)</a>
 					</cfif>
 				</div>
-				<div class="td">
+				<div class="td-right">
 					<div style="font-size:small">
 						<cfloop query="relns">
 							<br>#MEDIA_RELATIONSHIP# #SUMMARY# (#LINK#)
