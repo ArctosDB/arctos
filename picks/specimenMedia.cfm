@@ -86,58 +86,28 @@
 		order by
 			media_id
 	</cfquery>
-	<!----
-
-	select
-			*
-		from
-			media_relations,
-			media,
-			media_labels
-		where
-			media_relations.media_id=media.media_id and
-			media.media_id=media_labels.media_id  (+) and
-			media_relations.media_relationship='shows cataloged_item' and
-			media_relations.related_primary_key=#collection_object_id#
-
-
-			---->
 	<cfset  func = CreateObject("component","component.functions")>
-
 	<cfloop query="smed">
 		<cfset relns=func.getMediaRelations(media_id=#media_id#)>
-
-<cfdump var=#relns#>
-
-		 MEDIA_RELATIONS_ID						   NOT NULL NUMBER
- MEDIA_ID							   NOT NULL NUMBER
- MEDIA_RELATIONSHIP						   NOT NULL VARCHAR2(40)
- CREATED_BY_AGENT_ID						   NOT NULL NUMBER
- RELATED_PRIMARY_KEY						   NOT NULL NUMBER
-
-UAM@ARCTEST> desc media_labels
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- MEDIA_LABEL_ID 						   NOT NULL NUMBER
- MEDIA_ID							   NOT NULL NUMBER
- MEDIA_LABEL							   NOT NULL VARCHAR2(255)
- LABEL_VALUE							   NOT NULL VARCHAR2(4000)
- ASSIGNED_BY_AGENT_ID						   NOT NULL NUMBER
-
-
-
-
 		<div>
-			<br>media_id: #media_id#
+			<cfset mp = func.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
+			<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
+			<br>
+			<a href="/media.cfm?action=edit&media_id=#media_id#">Edit Media</a> to edit things which are not available here.
 			<br>MEDIA_URI: #MEDIA_URI#
 			<br>MIME_TYPE: #MIME_TYPE#
 			<br>MEDIA_TYPE: #MEDIA_TYPE#
 			<br>PREVIEW_URI: #PREVIEW_URI#
 			<br>MEDIA_LICENSE_ID: #MEDIA_LICENSE_ID#
 			<br>MEDIA_URI: #MEDIA_URI#
-			<br>DISPLAY: #DISPLAY#
-			<br>DESCRIPTION: #DESCRIPTION#
-			<br>URI: #URI#
+			<br>License: <a href="#media_id#" class="external" target="_blank">#DISPLAY# (#DESCRIPTION#)</a>
+
+
+
+
+
+
+
 		<p>
 			Relationships:
 		</p>
