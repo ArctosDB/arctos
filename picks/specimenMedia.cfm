@@ -257,7 +257,7 @@
 					<div style="font-size:small">
 						<cfloop query="relns">
 							<br>#MEDIA_RELATIONSHIP#
-							<cfif len() gt 0>
+							<cfif len(LINK) gt 0>
 								<a href="#LINK#" target="_blank">#SUMMARY#</a>
 							<cfelse>
 								#SUMMARY#
