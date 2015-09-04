@@ -3,14 +3,17 @@
 <cffunction name="loadFile" output="false" returnType="string" access="remote">
 	<cftry>
 		<cfset tempName=createUUID()>
-		<!---
-			only way to get original name seems to be upload file
-			upload to somewhere safe, then move after paranoid confirmation
-		---->
 		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
+
+
 		<cftry>
 			<cfdirectory action="create" directory="#loadPath#" mode="775">
-			<cfcatch><!--- it already exists, do nothing---></cfcatch>
+			<cfcatch>
+	    		<cfset r.dircreatecatch=cfcatch.message & '; ' & cfcatch.detail>
+
+
+
+				<!--- it already exists, do nothing---></cfcatch>
 		</cftry>
 
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
