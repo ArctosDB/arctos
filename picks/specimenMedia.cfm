@@ -1,7 +1,6 @@
 <!--- no security --->
 <cfinclude template="../includes/_pickHeader.cfm">
-<script src="/includes/dropzone.js"></script>
-<link rel="stylesheet" href="/includes/dropzone.css">
+<cfif action is "nothing">
 
 <script>
 
@@ -177,9 +176,10 @@
 	<div id="newMediaUpBack"></div>
 
 	<hr>Link specimen to existing Arctos Media
-	<span class="likeLink" onclick="findMedia('p_media_id','p_media_uri');">Click here to pick</span>
+	<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span>
 	<form id="picklink" method="post" action="specimenMedia.cfm">
 		<input type="hidden" name="action" value="linkpicked">
+		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<input type="text" name="p_media_id" id="p_media_id">
 		<input type="text" size="80" name="p_media_uri" id="p_media_uri">
 		<br><input type="submit" value="link specimen to picked media">
@@ -242,7 +242,27 @@
 	</cfloop>
 
 </cfoutput>
-
+</cfif>
+<cfif action is "linkpicked">
+	<cfoutput>
+		<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into media_relations (
+				MEDIA_RELATIONS_ID,
+				MEDIA_ID,
+				MEDIA_RELATIONSHIP,
+				CREATED_BY_AGENT_ID,
+				RELATED_PRIMARY_KEY
+			) values (
+				sq_MEDIA_RELATIONS_ID.nextval,
+				#p_media_id#,
+				'shows cataloged_item',
+				#session.myAgentId#,
+				#collection_object_id#
+			)
+		</cfquery>
+		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#">
+	</cfoutput>
+</cfif>
 
 
 
