@@ -44,7 +44,6 @@
 
       function uploadComplete(evt) {
         /* This event is raised when the server send back a response */
-        alert(evt.target.responseText);
 		console.log(evt.target.responseText);
 
 
@@ -53,7 +52,7 @@
 		console.log(result);
 
         if (result.STATUSCODE=='200'){
-        	alert('spiffy');
+        	$("#uploadmediaform").hide();
         	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
         	h+='<label for="media_uri">Media URI</label>';
         	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
@@ -80,11 +79,18 @@
 			h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
 			h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
 
+			h+='<label for="description">Description</label>';
+        	h+='<input type="text" name="description" id="description" size="80">';
+
+
+			h+='<label for="made_date">Made Date</label>';
+        	h+='<input type="text" name="made_date" id="made_date">';
 
 
 
 
-			h+='<input type="submit" value="create media">';
+
+			h+='<br><input type="submit" value="create media">';
 			h+='</form>';
 
 
@@ -99,7 +105,7 @@
 			$('#ctmime_type').find('option').clone().appendTo('#mime_type');
 			$('#ctmedia_type').find('option').clone().appendTo('#media_type');
 
-
+			$("#made_date").datepicker();
 
         } else {
         	alert('ERROR: ' + result.MSG);
@@ -151,7 +157,37 @@
 	</div>
 
 
-	<hr>Existing Media for this specimen
+<hr>Upload Media Files
+
+	<div id="uploadmediaform">
+		<form id="form1" enctype="multipart/form-data" method="post" action="">
+			<div class="row">
+			<label for="fileToUpload">Select a File to Upload</label>
+			<input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+			</div>
+			<div id="fileName"></div>
+			<div id="fileSize"></div>
+			<div id="fileType"></div>
+			<div class="row">
+			<input type="button" onclick="uploadFile()" value="Upload" />
+			</div>
+			<div id="progressNumber"></div>
+		</form>
+	</div>
+	<div id="newMediaUpBack"></div>
+
+	<hr>Link specimen to existing Arctos Media
+	<span class="likeLink" onclick="findMedia('p_media_id','p_media_uri');">Click here to pick</span>
+	<form id="picklink" method="post" action="specimenMedia.cfm">
+		<input type="hidden" name="action" value="linkpicked">
+		<input type="text" name="p_media_id" id="p_media_id">
+		<input type="text" size="80" name="p_media_uri" id="p_media_uri">
+		<br><input type="submit" value="link specimen to picked media">
+	</form>
+
+
+	<hr>
+	Existing Media for this specimen
 
 
 	<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -193,62 +229,25 @@
 			<br>MEDIA_LICENSE_ID: #MEDIA_LICENSE_ID#
 			<br>MEDIA_URI: #MEDIA_URI#
 			<br>License: <a href="#media_id#" class="external" target="_blank">#DISPLAY# (#DESCRIPTION#)</a>
-
-
-
-
-
-
-
-		<p>
-			Relationships:
-		</p>
-		<cfloop query="relns">
-			<br>#MEDIA_RELATIONSHIP# #SUMMARY# (#LINK#)
-		</cfloop>
-
-
-
-		<p>
-			Labels:
-		</p>
-		<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select MEDIA_LABEL,LABEL_VALUE from media_labels where media_id=#media_id# order by media_label,label_value
-		</cfquery>
-		<cfloop query="lbl">
-			<br>#MEDIA_LABEL#: #LABEL_VALUE#
-		</cfloop>
-
+			<cfloop query="relns">
+				<br>#MEDIA_RELATIONSHIP# #SUMMARY# (#LINK#)
+			</cfloop>
+			<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select MEDIA_LABEL,LABEL_VALUE from media_labels where media_id=#media_id# order by media_label,label_value
+			</cfquery>
+			<cfloop query="lbl">
+				<br>#MEDIA_LABEL#: #LABEL_VALUE#
+			</cfloop>
 		</div>
-
 	</cfloop>
 
 </cfoutput>
 
-<hr>Upload Media Files
 
 
- <form id="form1" enctype="multipart/form-data" method="post" action="">
-    <div class="row">
-      <label for="fileToUpload">Select a File to Upload</label><br />
-      <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
-    </div>
-    <div id="fileName"></div>
-    <div id="fileSize"></div>
-    <div id="fileType"></div>
-    <div class="row">
-      <input type="button" onclick="uploadFile()" value="Upload" />
-    </div>
-    <div id="progressNumber"></div>
-	bla type stuff
-	<input type="text" name="t" id="t" placeholder="typestuff">
-  </form>
-
-	<hr>Link specimen to existing Arctos Media
-	<span class="likeLink" onclick="findMedia('media_id','media_uri');">Click here to pick</span>.
 
 
-	<div id="newMediaUpBack"></div>
+
 
 <!----
 <form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone" id="demo-upload">
