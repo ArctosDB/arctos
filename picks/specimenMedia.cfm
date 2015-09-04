@@ -1,7 +1,5 @@
 <!--- no security --->
 <cfinclude template="../includes/_pickHeader.cfm">
-
-
 <script src="/includes/dropzone.js"></script>
 <link rel="stylesheet" href="/includes/dropzone.css">
 
@@ -35,6 +33,25 @@ Dropzone.options.myDropzone = {
 
 
 </script>
+
+<cfoutput>
+	collection_object_id: #collection_object_id#
+	<cfquery name="em" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			*
+		from
+			media_relations,
+			media,
+			media_labels
+		where
+			media_relations.media_id=media.media_id and
+			media_id=media.media_id=media_labels.media_id  (+) and
+			media_relations.media_relationship='shows cataloged_item' and
+			media_relations.related_primary_key=#collection_object_id#
+	</cfquery>
+	<cfdump var=#em#>
+
+</cfoutput>
 
 
 <button id="submit-all">Submit all files</button>
