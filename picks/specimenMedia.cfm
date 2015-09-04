@@ -138,6 +138,25 @@ UAM@ARCTEST> desc media_labels
 			<br>DISPLAY: #DISPLAY#
 			<br>DESCRIPTION: #DESCRIPTION#
 			<br>URI: #URI#
+		<p>
+			Relationships:
+		</p>
+		<cfloop query="relns">
+			<br>#MEDIA_RELATIONSHIP# #SUMMARY# (#LINK#)
+		</cfloop>
+
+
+
+		<p>
+			Labels:
+		</p>
+		<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select MEDIA_LABEL,MEDIA_LABEL from media_labels where media_id=#media_id# order by media_label,label_value
+		</cfquery>
+		<cfloop query="lbl">
+			<br>#MEDIA_LABEL#: #MEDIA_LABEL#
+		</cfloop>
+
 		</div>
 
 	</cfloop>
