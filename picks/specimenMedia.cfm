@@ -62,8 +62,33 @@
 <cfoutput>
 	<hr>Existing Media for this specimen
 	collection_object_id: #collection_object_id#
-	<cfquery name="em" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
+	<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct
+			media.media_id,
+			media.MEDIA_URI,
+			media.MIME_TYPE,
+			media.MEDIA_TYPE,
+			media.PREVIEW_URI,
+			media.MEDIA_LICENSE_ID,
+			media.MEDIA_URI,
+			ctmedia_license.DISPLAY,
+			ctmedia_license.DESCRIPTION,
+			ctmedia_license.URI
+		from
+			media_relations,
+			media,
+			ctmedia_license
+		where
+			media_relations.media_relationship='shows cataloged_item' and
+			media_relations.related_primary_key=#collection_object_id# and
+			media_relations.media_id=media.media_id and
+			media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+)
+		order by
+			media_id
+	</cfquery>
+	<!----
+
+	select
 			*
 		from
 			media_relations,
@@ -74,8 +99,25 @@
 			media.media_id=media_labels.media_id  (+) and
 			media_relations.media_relationship='shows cataloged_item' and
 			media_relations.related_primary_key=#collection_object_id#
-	</cfquery>
-	<cfdump var=#em#>
+
+
+			---->
+
+	<cfloop query="smed">
+		<div>
+			<br>media_id: #media_id#
+			<br>MEDIA_URI: #MEDIA_URI#
+			<br>MIME_TYPE: #MIME_TYPE#
+			<br>MEDIA_TYPE: #MEDIA_TYPE#
+			<br>PREVIEW_URI: #PREVIEW_URI#
+			<br>MEDIA_LICENSE_ID: #MEDIA_LICENSE_ID#
+			<br>MEDIA_URI: #MEDIA_URI#
+			<br>DISPLAY: #DISPLAY#
+			<br>DESCRIPTION: #DESCRIPTION#
+			<br>URI: #URI#
+		</div>
+
+	</cfloop>
 
 </cfoutput>
 
