@@ -25,7 +25,6 @@
 
 
 
-		<cfabort>
 
 
 		<cfset fext=listlast(fileName,".")>
@@ -41,6 +40,12 @@
 
 		<cfset tnAbsPath=loadPath & '/tn_' & fileName>
 		<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
+
+
+				<cfabort>
+
+
+
 		<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
 		<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
 		<cfset newwidth = x*imagetemp.width>
