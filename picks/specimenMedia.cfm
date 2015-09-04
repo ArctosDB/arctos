@@ -56,10 +56,10 @@
         	alert('spiffy');
         	var h='<label for="media_uri">Media URI</label>';
         	h+='<input type="text" name="media_uri" id="media_uri" value="' + result.MEDIA_URI + '">';
-        	h+='<a href=" + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
+        	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
         	h+='<label for="preview_uri">Preview URI</label>';
         	h+='<input type="text" name="preview_uri" id="preview_uri" value="' + result.PREVIEW_URI + '">
-        	h+='<a href=" + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
+        	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
 
 			$("#newMediaUpBack").html(h);
         } else {
