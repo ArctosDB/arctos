@@ -22,10 +22,8 @@
 		<cfset fName=replace(fName,'__','_','all')>
 		<cfset fileName=fName & '.' & fext>
 		<cfif len(isValidMediaUpload(fileName)) gt 0>
-			<cfcatch>
-				<cfset r.statusCode=400>
-				<cfset r.msg="filename is not acceptable: #isValidMediaUpload(fileName)#">
-			</cfcatch>
+			<cfset r.statusCode=400>
+			<cfset r.msg="filename is not acceptable: #isValidMediaUpload(fileName)#">
 			<cfreturn serializeJSON(r)>
 		</cfif>
 
