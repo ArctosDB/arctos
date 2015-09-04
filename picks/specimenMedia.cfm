@@ -102,13 +102,10 @@
 
 
 			---->
+	<cfset  func = CreateObject("component","component.functions")>
 
 	<cfloop query="smed">
-
-		 <cfinvoke component="component.functions" method="getMediaRelations" returnvariable="relns">
-        <cfinvokeargument name="media_id" value="#media_id#">
-        <cfinvokeargument name="returntype" value="json">
-</cfinvoke>
+		<cfset relns=func.getMediaRelations(media_id=#media_id#)>
 
 <cfdump var=#relns#>
 
