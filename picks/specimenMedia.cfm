@@ -77,7 +77,7 @@
         	h+='<input type="hidden" name="created_agent_id" id="created_agent_id">';
 
         	h+='<input type="text" name="creator" id="creator"';
-			h+='onchange="pickAgentTest(\'creator\',this.id,this.value); return false;"';
+			h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
 			h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
 
 
