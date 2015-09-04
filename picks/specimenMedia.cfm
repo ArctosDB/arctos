@@ -133,7 +133,7 @@
 		<select name="ctmedia_type" id="ctmedia_type">
 			<option></option>
 			<cfloop query="ctmedia_type">
-				<option value="#ctmedia_type#">#ctmedia_type#</option>
+				<option value="#media_type#">#media_type#</option>
 			</cfloop>
 		</select>
 		<select name="ctmedia_license" id="ctmedia_license">
