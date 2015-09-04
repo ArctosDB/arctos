@@ -1,6 +1,11 @@
 <cfcomponent>
 <!------------------>
 <cffunction name="loadFile" output="false" returnType="string" access="remote">
+
+
+	<cfdump var="#form#">
+
+
     <cfset r.statusCode=200>
 	<cfset r.filename="test">
 
