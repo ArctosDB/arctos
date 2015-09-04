@@ -218,30 +218,39 @@
 		order by
 			media_id
 	</cfquery>
+	<style>
+		.tbl{display: table;}
+		.tr{display: table-row;}
+		.td{display: table-cell;}
+	</style>
 	<cfset  func = CreateObject("component","component.functions")>
 	<cfloop query="smed">
 		<cfset relns=func.getMediaRelations(media_id=#media_id#)>
-		<div>
-			<cfset mp = func.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-			<img src="#mp#" style="max-width:150px;max-height:150px;">
-			<br>
-			<a href="/media.cfm?action=edit&media_id=#media_id#">Edit Media</a> to edit things which are not available here.
-			<br>MEDIA_URI: #MEDIA_URI#
-			<br>MIME_TYPE: #MIME_TYPE#
-			<br>MEDIA_TYPE: #MEDIA_TYPE#
-			<br>PREVIEW_URI: #PREVIEW_URI#
-			<br>MEDIA_LICENSE_ID: #MEDIA_LICENSE_ID#
-			<br>MEDIA_URI: #MEDIA_URI#
-			<br>License: <a href="#media_id#" class="external" target="_blank">#DISPLAY# (#DESCRIPTION#)</a>
-			<cfloop query="relns">
-				<br>#MEDIA_RELATIONSHIP# #SUMMARY# (#LINK#)
-			</cfloop>
-			<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select MEDIA_LABEL,LABEL_VALUE from media_labels where media_id=#media_id# order by media_label,label_value
-			</cfquery>
-			<cfloop query="lbl">
-				<br>#MEDIA_LABEL#: #LABEL_VALUE#
-			</cfloop>
+		<cfset mp = func.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
+		<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select MEDIA_LABEL,LABEL_VALUE from media_labels where media_id=#media_id# order by media_label,label_value
+		</cfquery>
+		<div class="tbl">
+			<div class="tr">
+				<div class="td">
+					<a target="_blank" href="#MEDIA_URI#"><img src="#mp#" style="max-width:150px;max-height:150px;"></a>
+					<a target="_blank" href="/media.cfm?action=edit&media_id=#media_id#">Edit Media</a>
+					<cfif len(DISPLAY) gt 0>
+						<a style="font-size:x-small" href="#media_id#" class="external" target="_blank">#DISPLAY# (#DESCRIPTION#)</a>
+					</cfif>
+				</div>
+				<div class="td">
+					<div style="font-size:small">
+						<cfloop query="relns">
+							<br>#MEDIA_RELATIONSHIP# #SUMMARY# (#LINK#)
+						</cfloop>
+
+						<cfloop query="lbl">
+							<br>#MEDIA_LABEL#: #LABEL_VALUE#
+						</cfloop>
+					</div>
+				</div>
+			</div>
 		</div>
 	</cfloop>
 
