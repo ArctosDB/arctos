@@ -61,7 +61,7 @@
         	var h+='<input type="text" name="preview_uri" id="preview_uri" value="' + result.PREVIEW_URI + '">
         	var h+='<a href=" + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
 
-			$("#newMediaUpBack").html(r);
+			$("#newMediaUpBack").html(h);
         } else {
         	alert('ERROR: ' + result.MSG);
         }
