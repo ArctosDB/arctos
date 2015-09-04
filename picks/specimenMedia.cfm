@@ -91,7 +91,7 @@
 		<cfset relns=func.getMediaRelations(media_id=#media_id#)>
 		<div>
 			<cfset mp = func.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-			<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
+			<img src="#mp#" style="max-width:150px;max-height:150px;">
 			<br>
 			<a href="/media.cfm?action=edit&media_id=#media_id#">Edit Media</a> to edit things which are not available here.
 			<br>MEDIA_URI: #MEDIA_URI#
