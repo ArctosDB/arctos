@@ -295,14 +295,14 @@
 </cffunction>
 <!----------------------------------------------------->
 <cffunction name="getMediaRelations" access="public" output="false" returntype="any">
-
+<!---- make this work while moving the function to components ---->
  <cfinvoke component="component.functions" method="getMediaRelations" returnvariable="contents">
         <cfinvokeargument name="media_id" value="#media_id#">
         <cfinvokeargument name="returntype" value="query">
 </cfinvoke>
 <cfreturn contents>
 </cffunction>
-
+<!----
 <!----------------------------------------------------->
 <cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
 	<cfargument name="media_id" required="true" type="numeric">
@@ -435,6 +435,7 @@
 	</cfloop>
 	<cfreturn result>
 </cffunction>
+------------>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="QueryToCSV" access="public" returntype="string" output="false">
 
