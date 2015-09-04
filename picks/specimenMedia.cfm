@@ -72,8 +72,12 @@
 			$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
 
 
-
 			$("#newMediaUpBack").html(h);
+
+
+$('#ctmedia_license#options').clone().appendTo('#media_license_id');
+
+
         } else {
         	alert('ERROR: ' + result.MSG);
         }
