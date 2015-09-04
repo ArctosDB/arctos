@@ -27,7 +27,7 @@
         xhr.addEventListener("load", uploadComplete, false);
         xhr.addEventListener("error", uploadFailed, false);
         xhr.addEventListener("abort", uploadCanceled, false);
-        xhr.open("POST", "UploadMinimal.aspx");
+        xhr.open("POST", "/component/utilities.cfc?method=loadFile&returnFormat=json");
         xhr.send(fd);
       }
 
