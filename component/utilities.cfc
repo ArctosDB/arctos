@@ -2,8 +2,10 @@
 <!------------------>
 <cffunction name="loadFile" output="false" returnType="string" access="remote">
 
+<cfmail subject="ppost" to="dustymc@gmail.com" from="pp@arctos.database.museum" type="html">
+			<cfdump var="#form#">
 
-	<cfdump var="#form#">
+	</cfmail>
 
 
     <cfset r.statusCode=200>
