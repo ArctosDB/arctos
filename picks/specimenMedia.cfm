@@ -247,13 +247,11 @@
 	<cfoutput>
 		<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into media_relations (
-				MEDIA_RELATIONS_ID,
 				MEDIA_ID,
 				MEDIA_RELATIONSHIP,
 				CREATED_BY_AGENT_ID,
 				RELATED_PRIMARY_KEY
 			) values (
-				sq_MEDIA_RELATIONS_ID.nextval,
 				#p_media_id#,
 				'shows cataloged_item',
 				#session.myAgentId#,
