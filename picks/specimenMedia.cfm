@@ -224,10 +224,12 @@
 		.td-left{
 			display: table-cell;
 			width:28%;
+			border:1px solid red;
 		}
 		.td-right{
 			display: table-cell;
 			width:68%;
+			border:1px solid purple;
 		}
 	</style>
 	<cfset  func = CreateObject("component","component.functions")>
