@@ -4,32 +4,57 @@
 <link rel="stylesheet" href="/includes/dropzone.css">
 
 <script>
-$(document).ready(function() {
 
-	//Dropzone.autoDiscover = false;
+	 function fileSelected() {
+        var file = document.getElementById('fileToUpload').files[0];
+        if (file) {
+          var fileSize = 0;
+          if (file.size > 1024 * 1024)
+            fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+          else
+            fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
 
-Dropzone.options.myDropzone = {
+          document.getElementById('fileName').innerHTML = 'Name: ' + file.name;
+          document.getElementById('fileSize').innerHTML = 'Size: ' + fileSize;
+          document.getElementById('fileType').innerHTML = 'Type: ' + file.type;
+        }
+      }
 
-  // Prevents Dropzone from uploading dropped files immediately
-  autoProcessQueue: false,
+      function uploadFile() {
+        var fd = new FormData();
+        fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener("progress", uploadProgress, false);
+        xhr.addEventListener("load", uploadComplete, false);
+        xhr.addEventListener("error", uploadFailed, false);
+        xhr.addEventListener("abort", uploadCanceled, false);
+        xhr.open("POST", "/component/utilities.cfc?method=loadFile&returnFormat=json");
+        xhr.send(fd);
+      }
 
-  init: function() {
-    var submitButton = document.querySelector("#submit-all")
-        myDropzone = this; // closure
+      function uploadProgress(evt) {
+        if (evt.lengthComputable) {
+          var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+          document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
+        }
+        else {
+          document.getElementById('progressNumber').innerHTML = 'unable to compute';
+        }
+      }
 
-    submitButton.addEventListener("click", function() {
-      myDropzone.processQueue(); // Tell Dropzone to process all queued files.
-    });
+      function uploadComplete(evt) {
+        /* This event is raised when the server send back a response */
+        alert(evt.target.responseText);
+      }
 
-    // You might want to show the submit button only when
-    // files are dropped here:
-    this.on("addedfile", function() {
-      // Show submit button here and/or inform user to click it.
-    });
+      function uploadFailed(evt) {
+        alert("There was an error attempting to upload the file.");
+      }
 
-  }
-};
-});
+      function uploadCanceled(evt) {
+        alert("The upload has been canceled by the user or the browser dropped the connection.");
+      }
+
 
 
 </script>
@@ -55,16 +80,22 @@ Dropzone.options.myDropzone = {
 </cfoutput>
 
 <hr>Upload Media Files
-<button id="submit-all">Submit all files</button>
-<form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone" id="my-dropzone"></form>
 
 
+ <form id="form1" enctype="multipart/form-data" method="post" action="Upload.aspx">
+    <div class="row">
+      <label for="fileToUpload">Select a File to Upload</label><br />
+      <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+    </div>
+    <div id="fileName"></div>
+    <div id="fileSize"></div>
+    <div id="fileType"></div>
+    <div class="row">
+      <input type="button" onclick="uploadFile()" value="Upload" />
+    </div>
+    <div id="progressNumber"></div>
+  </form>
 
- <cfif not isdefined("collection_object_id")>
-	Didn't get a collection_object_id.<cfabort>
-</cfif>
-load some media yo!
-<p>
 	<hr>Link specimen to existing Arctos Media
 	<span class="likeLink" onclick="findMedia('media_id','media_uri');">Click here to pick</span>.
 
