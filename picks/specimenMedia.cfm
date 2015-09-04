@@ -45,6 +45,8 @@
       function uploadComplete(evt) {
         /* This event is raised when the server send back a response */
         alert(evt.target.responseText);
+
+        $("#newMediaUpBack").html(evt.target.responseText);
       }
 
       function uploadFailed(evt) {
@@ -156,7 +158,7 @@
 	<span class="likeLink" onclick="findMedia('media_id','media_uri');">Click here to pick</span>.
 
 
-
+	<div id="newMediaUpBack"></div>
 
 <!----
 <form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone" id="demo-upload">
