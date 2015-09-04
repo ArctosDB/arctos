@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="/includes/dropzone.css">
 
 <script>
+$(document).ready(function() {
 
 	Dropzone.autoDiscover = false;
 
@@ -30,6 +31,7 @@ Dropzone.options.myDropzone = {
 
   }
 };
+});
 
 
 </script>
@@ -49,8 +51,6 @@ load some media yo!
 
 
 
-
-  <div id="dropzone" class="dropzone">droppy</div>
 
 <!----
 <form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone" id="demo-upload">
