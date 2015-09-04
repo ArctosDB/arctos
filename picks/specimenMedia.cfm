@@ -53,6 +53,10 @@
         if (result.STATUSCODE=='200'){
         	$("#uploadmediaform").hide();
         	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
+        	h+='<input type="hidden" name="collection_object_id"  value="' $("#collection_object_id").val() + '">';
+        	h+='<input type="hidden" name="action"  value="createNewMedia">';
+
+
         	h+='<label for="media_uri">Media URI</label>';
         	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
         	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
@@ -179,8 +183,8 @@
 	<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span>
 	<form id="picklink" method="post" action="specimenMedia.cfm">
 		<input type="hidden" name="action" value="linkpicked">
-		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<input type="text" name="p_media_id" id="p_media_id">
+		<input type="hidden" id="collection_object_id" name="collection_object_id" value="#collection_object_id#">
+		<input type="hidden" name="p_media_id" id="p_media_id">
 		<input type="text" size="80" name="p_media_uri" id="p_media_uri">
 		<br><input type="submit" value="link specimen to picked media">
 	</form>
@@ -261,8 +265,95 @@
 		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#">
 	</cfoutput>
 </cfif>
-
-
+<cfif action is "createNewMedia">
+	<cfoutput>
+		<cftransaction>
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_media_id.nextval mid from dual
+			</cfquery>
+			<cfquery name="newmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into media (
+					MEDIA_ID,
+					MEDIA_URI,
+					MIME_TYPE,
+					MEDIA_TYPE,
+					PREVIEW_URI,
+					MEDIA_LICENSE_ID
+				) values (
+					#mid.mid#,
+					'#media_uri#',
+					'#mime_type#',
+					'#MEDIA_TYPE#',
+					'#PREVIEW_URI#',
+					<cfif len(media_license_id) gt 0>
+						#media_license_id#
+					<cfelse>
+						NULL
+					</cfif>
+				)
+			</cfquery>
+			<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into media_relations (
+					MEDIA_ID,
+					MEDIA_RELATIONSHIP,
+					CREATED_BY_AGENT_ID,
+					RELATED_PRIMARY_KEY
+				) values (
+					#mid.mid#,
+					'shows cataloged_item',
+					#session.myAgentId#,
+					#collection_object_id#
+				)
+			</cfquery>
+			<cfif len(created_agent_id) gt 0>
+				<cfquery name="created_agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_relations (
+						MEDIA_ID,
+						MEDIA_RELATIONSHIP,
+						CREATED_BY_AGENT_ID,
+						RELATED_PRIMARY_KEY
+					) values (
+						#mid.mid#,
+						'created by agent',
+						#session.myAgentId#,
+						#created_agent_id#
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(description) gt 0>
+				<cfquery name="description" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_labels (
+						MEDIA_ID,
+						MEDIA_LABEL,
+						LABEL_VALUE,
+						ASSIGNED_BY_AGENT_ID
+					) values (
+						#mid.mid#,
+						'description',
+						'#escapeQuotes(description)#',
+						#session.myAgentId#
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(made_date) gt 0>
+				<cfquery name="made_date" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_labels (
+						MEDIA_ID,
+						MEDIA_LABEL,
+						LABEL_VALUE,
+						ASSIGNED_BY_AGENT_ID
+					) values (
+						#mid.mid#,
+						'made_date',
+						'#escapeQuotes(made_date)#',
+						#session.myAgentId#
+					)
+				</cfquery>
+			</cfif>
+		</cftransaction>
+		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#">
+	</cfoutput>
+</cfif>
 
 
 
