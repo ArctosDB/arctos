@@ -223,11 +223,11 @@
 		.tr{display: table-row;}
 		.td-left{
 			display: table-cell;
-			width:30%;
+			width:28%;
 		}
 		.td-right{
 			display: table-cell;
-			width:70%;
+			width:68%;
 		}
 	</style>
 	<cfset  func = CreateObject("component","component.functions")>
