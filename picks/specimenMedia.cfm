@@ -82,7 +82,7 @@
 <hr>Upload Media Files
 
 
- <form id="form1" enctype="multipart/form-data" method="post" action="Upload.aspx">
+ <form id="form1" enctype="multipart/form-data" method="post" action="">
     <div class="row">
       <label for="fileToUpload">Select a File to Upload</label><br />
       <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
@@ -94,6 +94,8 @@
       <input type="button" onclick="uploadFile()" value="Upload" />
     </div>
     <div id="progressNumber"></div>
+	bla type stuff
+	<input type="text" name="t" id="t" placeholder="typestuff">
   </form>
 
 	<hr>Link specimen to existing Arctos Media
