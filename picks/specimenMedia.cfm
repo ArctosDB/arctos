@@ -151,10 +151,10 @@ UAM@ARCTEST> desc media_labels
 			Labels:
 		</p>
 		<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select MEDIA_LABEL,MEDIA_LABEL from media_labels where media_id=#media_id# order by media_label,label_value
+			select MEDIA_LABEL,LABEL_VALUE from media_labels where media_id=#media_id# order by media_label,label_value
 		</cfquery>
 		<cfloop query="lbl">
-			<br>#MEDIA_LABEL#: #MEDIA_LABEL#
+			<br>#MEDIA_LABEL#: #LABEL_VALUE#
 		</cfloop>
 
 		</div>
