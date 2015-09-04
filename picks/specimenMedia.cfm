@@ -53,10 +53,10 @@
 		console.log(result);
 
         $("#newMediaUpBack").html(evt.target.responseText);
-        if (evt.target.responseText.STATUSCODE=='200'){
+        if (result.STATUSCODE=='200'){
         	alert('spiffy');
         } else {
-        	alert('ERROR: ' + evt.target.responseText.MSG);
+        	alert('ERROR: ' + result.MSG);
         }
       }
 
