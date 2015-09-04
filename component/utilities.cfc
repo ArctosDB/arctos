@@ -7,9 +7,45 @@
 
 	</cfmail>
 
+<cftry>
+		<cfset tempName=createUUID()>
+		<!---
+			only way to get original name seems to be upload file
+			upload to somewhere safe, then move after paranoid confirmation
+		---->
+		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+		<cfset fileName=cffile.serverfile>
+		<cffile action = "rename" destination = "#Application.sandbox#/#tempName#.tmp" source = "#Application.sandbox#/#fileName#">
+		<cfset fext=listlast(fileName,".")>
+		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+		<cfset fName=replace(fName,'__','_','all')>
+		<cfset fileName=fName & '.' & fext>
+		<cfif len(isValidMediaUpload(fileName)) gt 0>
+			#isValidMediaUpload(fileName)#
+			<cfabort>
+		</cfif>
+		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
+		<cftry>
+			<cfdirectory action="create" directory="#loadPath#" mode="755">
+			<cfcatch><!--- it already exists, do nothing---></cfcatch>
+		</cftry>
+		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
+		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
+
+
+		<cfcatch>
+			<cfdump var=#cfcatch#>
+			<font color="##FF0000" size="+2">Error: #cfcatch.message# #cfcatch.detail#</font>
+			<br><a href="javascript:back()">Go Back</a>
+			<cfabort>
+		</cfcatch>
+	</cftry>
+
+
 
     <cfset r.statusCode=200>
-	<cfset r.filename="test">
+	<cfset r.filename="#fileName#">
 
 
 

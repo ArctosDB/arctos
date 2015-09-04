@@ -35,6 +35,7 @@ Dropzone.options.myDropzone = {
 </script>
 
 <cfoutput>
+	<hr>Existing Media for this specimen
 	collection_object_id: #collection_object_id#
 	<cfquery name="em" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -53,7 +54,7 @@ Dropzone.options.myDropzone = {
 
 </cfoutput>
 
-
+<hr>Upload Media Files
 <button id="submit-all">Submit all files</button>
 <form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone" id="my-dropzone"></form>
 
@@ -64,7 +65,8 @@ Dropzone.options.myDropzone = {
 </cfif>
 load some media yo!
 <p>
-	Media already created as Arctos Media? <span class="likeLink" onclick="findMedia('media_id','media_uri');">Click here to pick</span>.
+	<hr>Link specimen to existing Arctos Media
+	<span class="likeLink" onclick="findMedia('media_id','media_uri');">Click here to pick</span>.
 
 
 
