@@ -46,6 +46,12 @@
         /* This event is raised when the server send back a response */
         alert(evt.target.responseText);
 		console.log(evt.target.responseText);
+
+
+		var result = JSON.parse(evt.target.responseText);
+
+		console.log(result);
+
         $("#newMediaUpBack").html(evt.target.responseText);
         if (evt.target.responseText.STATUSCODE=='200'){
         	alert('spiffy');
