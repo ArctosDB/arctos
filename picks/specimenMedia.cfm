@@ -45,7 +45,7 @@ Dropzone.options.myDropzone = {
 			media_labels
 		where
 			media_relations.media_id=media.media_id and
-			media_id=media.media_id=media_labels.media_id  (+) and
+			media.media_id=media_labels.media_id  (+) and
 			media_relations.media_relationship='shows cataloged_item' and
 			media_relations.related_primary_key=#collection_object_id#
 	</cfquery>
