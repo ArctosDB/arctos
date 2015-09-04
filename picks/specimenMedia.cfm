@@ -54,12 +54,24 @@
 
         if (result.STATUSCODE=='200'){
         	alert('spiffy');
-        	var h='<label for="media_uri">Media URI</label>';
-        	h+='<input type="text" name="media_uri" id="media_uri" value="' + result.MEDIA_URI + '">';
+        	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
+        	h+='<label for="media_uri">Media URI</label>';
+        	h+='<input type="text" name="media_uri" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
         	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
         	h+='<label for="preview_uri">Preview URI</label>';
-        	h+='<input type="text" name="preview_uri" id="preview_uri" value="' + result.PREVIEW_URI + '">';
+        	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
         	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
+
+        	h+='<label for="media_license_id">License</label>';
+        	h+='<select name="media_license_id" id="media_license_id"></select>';
+
+			h+='<input type="submit" value="create media">';
+			h+='</form>';
+
+
+			$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
+
+
 
 			$("#newMediaUpBack").html(h);
         } else {
@@ -82,6 +94,19 @@
 <cfoutput>
 	<hr>Existing Media for this specimen
 	collection_object_id: #collection_object_id#
+
+	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ctmedia_license order by DISPLAY
+	</cfquery>
+	<div style="display:none">
+		<!--- easy way to get stuff for new media - just clone from here ---->
+		<select name="ctmedia_license" id="ctmedia_license">
+			<cfloop query="ctmedia_license">
+				<option value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
+			</cfloop>
+		</select>
+	</div>
+
 	<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct
 			media.media_id,
