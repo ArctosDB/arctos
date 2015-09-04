@@ -344,7 +344,7 @@
 						ASSIGNED_BY_AGENT_ID
 					) values (
 						#mid.mid#,
-						'made_date',
+						'made date',
 						'#escapeQuotes(made_date)#',
 						#session.myAgentId#
 					)
