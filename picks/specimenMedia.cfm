@@ -104,6 +104,25 @@
 			---->
 
 	<cfloop query="smed">
+		
+		 MEDIA_RELATIONS_ID						   NOT NULL NUMBER
+ MEDIA_ID							   NOT NULL NUMBER
+ MEDIA_RELATIONSHIP						   NOT NULL VARCHAR2(40)
+ CREATED_BY_AGENT_ID						   NOT NULL NUMBER
+ RELATED_PRIMARY_KEY						   NOT NULL NUMBER
+
+UAM@ARCTEST> desc media_labels
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ MEDIA_LABEL_ID 						   NOT NULL NUMBER
+ MEDIA_ID							   NOT NULL NUMBER
+ MEDIA_LABEL							   NOT NULL VARCHAR2(255)
+ LABEL_VALUE							   NOT NULL VARCHAR2(4000)
+ ASSIGNED_BY_AGENT_ID						   NOT NULL NUMBER
+
+
+
+
 		<div>
 			<br>media_id: #media_id#
 			<br>MEDIA_URI: #MEDIA_URI#

@@ -294,6 +294,16 @@
     </cfif>
 </cffunction>
 <!----------------------------------------------------->
+<cffunction name="getMediaRelations" access="public" output="false" returntype="any">
+
+ <cfinvoke component="component.functions" method="getMediaRelations" returnvariable="contents">
+        <cfinvokeargument name="media_id" value="#media_id#">
+        <cfinvokeargument name="returntype" value="query">
+</cfinvoke>
+<cfreturn contents>
+</cffunction>
+
+<!----------------------------------------------------->
 <cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
 	<cfargument name="media_id" required="true" type="numeric">
 	<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
