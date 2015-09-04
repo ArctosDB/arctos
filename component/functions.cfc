@@ -1,6 +1,6 @@
 <cfcomponent>
 <!------------------------------------->
-<cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
+<cffunction name="getMediaRelations" access="public" output="false" returntype="any">
 	<cfargument name="media_id" required="true" type="numeric">
 	<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from media_relations,
