@@ -219,17 +219,22 @@
 			media_id
 	</cfquery>
 	<style>
-		.tbl{display: table;}
+		.tbl{
+			display: table;
+			width:80%;
+			border:1px solid black;
+			margin:1em;
+			padding:1em;}
 		.tr{display: table-row;}
 		.td-left{
 			display: table-cell;
-			width:28%;
-			border:1px solid red;
+			width:30%;
 		}
 		.td-right{
 			display: table-cell;
 			width:68%;
-			border:1px solid purple;
+			vertical-align: middle;
+			padding:0 0 0 1em;
 		}
 	</style>
 	<cfset  func = CreateObject("component","component.functions")>
