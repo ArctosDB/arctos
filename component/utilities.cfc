@@ -21,10 +21,12 @@
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 		<cfset fName=replace(fName,'__','_','all')>
 		<cfset fileName=fName & '.' & fext>
+		<!----
 		<cfif len(isValidMediaUpload(fileName)) gt 0>
 			#isValidMediaUpload(fileName)#
 			<cfabort>
 		</cfif>
+		---->
 		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 		<cftry>
 			<cfdirectory action="create" directory="#loadPath#" mode="755">
