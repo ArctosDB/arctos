@@ -112,15 +112,18 @@
 
         } else {
         	alert('ERROR: ' + result.MSG);
+        	$("#progressNumber").html('');
         }
       }
 
       function uploadFailed(evt) {
         alert("There was an error attempting to upload the file.");
+        	$("#progressNumber").html('');
       }
 
       function uploadCanceled(evt) {
         alert("The upload has been canceled by the user or the browser dropped the connection.");
+        	$("#progressNumber").html('');
       }
 
 
