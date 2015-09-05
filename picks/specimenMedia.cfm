@@ -112,7 +112,7 @@
 
 			$("#made_date").datepicker();
 			// guess mime/media type
-			var fext=result.MEDIA_URI.split('.').pop().toLowerCase;
+			var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
 
 			console.log(fext);
 
