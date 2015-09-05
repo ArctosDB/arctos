@@ -51,6 +51,8 @@
 		console.log(result);
 
         if (result.STATUSCODE=='200'){
+
+        	$("#uploadtitle").html('File Uploaded: You MUST now fill in this form and and click the "link" button to finish.');
         	$("#uploadmediaform").hide();
         	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
         	h+='<input type="hidden" name="collection_object_id"  value="' + $("#collection_object_id").val() + '">';
@@ -109,7 +111,27 @@
 			$('#ctmedia_type').find('option').clone().appendTo('#media_type');
 
 			$("#made_date").datepicker();
+			// guess mime/media type
+			var fext=filename.split('.').pop().toLowerCase;
+			if (fext=='jpg' || fext=='jpeg'){
+				$("#mime_type").val('image/jpeg');
+				$("#media_type").val('image');
+			} else if (fext=='pdf'){
+				$("#mime_type").val('application/pdf');
+				$("#media_type").val('text');
+			} else if (fext=='png'){
+				$("#mime_type").val('application/png');
+				$("#media_type").val('image');
+			} else if (fext=='txt'){
+				$("#mime_type").val('text/plain');
+				$("#media_type").val('text');
+			} else if (fext=='txt'){
+				$("#mime_type").val('text/html');
+				$("#media_type").val('text');
+			}
 
+			$("#created_agent_id").val($("#myAgentID").val());
+			$("#creator").val($("#username").val());
         } else {
         	alert('ERROR: ' + result.MSG);
         	$("#progressNumber").html('');
@@ -160,10 +182,14 @@
 				<option value="#mime_type#">#mime_type#</option>
 			</cfloop>
 		</select>
+		<input type="hidden" id="myAgentID" value="#session.myAgentID#">
+		<input type="hidden" id="username" value="#session.username#">
 	</div>
 
 
-<hr>Upload Media Files
+<hr>
+
+	<div id="uploadtitle">Upload Media Files</div>
 
 	<div id="uploadmediaform">
 		<form id="form1" enctype="multipart/form-data" method="post" action="">
