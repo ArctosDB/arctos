@@ -113,6 +113,10 @@
 			$("#made_date").datepicker();
 			// guess mime/media type
 			var fext=result.MEDIA_URI.split('.').pop().toLowerCase;
+
+			console.log(fext);
+
+
 			if (fext=='jpg' || fext=='jpeg'){
 				$("#mime_type").val('image/jpeg');
 				$("#media_type").val('image');
