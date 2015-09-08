@@ -43,6 +43,7 @@
 			ORDER BY
 				media_uri
 		</cfquery>
+		<cfdump var=#d#>
 		<cfif d.recordcount is 0>
 			Nothing matched.
 		<cfelse>
