@@ -226,7 +226,8 @@
 		<br><input type="submit" value="link specimen to picked media">
 	</form>
 	<hr>
-	<a target="_blank" href="/media.cfm?action=newMedia">Create Media</a> for more options.
+	<a target="_blank" href="/media.cfm?action=newMedia">Create Media</a>
+	 for more options (<em>e.g.</em>, link to YouTube, relate to Events).
 	<hr>
 	Existing Media for this specimen
 
