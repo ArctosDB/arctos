@@ -214,8 +214,8 @@
 	</div>
 	<div id="newMediaUpBack"></div>
 
-	<hr>Link specimen to existing Arctos Media
-	<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media_ID and save.
+	<hr>Link specimen to existing Arctos Media.
+	<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
 	<form id="picklink" method="post" action="specimenMedia.cfm">
 		<input type="hidden" name="action" value="linkpicked">
 		<input type="hidden" id="collection_object_id" name="collection_object_id" value="#collection_object_id#">
@@ -226,7 +226,7 @@
 		<br><input type="submit" value="link specimen to picked media">
 	</form>
 	<hr>
-	Use <a target="_blank" href="/media.cfm?action=newMedia">Create Media</a> to pre-create Media using existing files.
+	<a target="_blank" href="/media.cfm?action=newMedia">Create Media</a> for more options.
 	<hr>
 	Existing Media for this specimen
 
