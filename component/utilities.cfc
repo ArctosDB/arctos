@@ -83,7 +83,7 @@
 					<cfset msg="The file #Application.serverRootURL#/mediaUploads/#session.username#/#fileName#">
 					<cfset msg=msg & " already exists">
 					<cfif len(midl) gt 0>
-						<cfset msg=msg & " and may be used in Media_ID(s): #midl#">
+						<cfset msg=msg & " and may be used in Media_ID(s): #midl#. Try the link to existing option.">
 					<cfelse>
 						<cfset msg=msg & " and does not seem to be used for existing Media">
 					</cfif>
