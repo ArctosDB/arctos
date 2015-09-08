@@ -78,7 +78,7 @@
 					already exists. Check existing Media, create Media using the file you've previously uploaded,
 					or rename the file ONLY if none of the former are true.">
 			<cfelse>
-				<cfset msg=cfcatch.message & '; ' & cfcatch.detail
+				<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
 			</cfif>
 			<cfset r.msg=msg>
 		</cfcatch>
