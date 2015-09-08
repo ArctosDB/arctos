@@ -73,7 +73,7 @@
 			<cfset r.statusCode=400>
 
 			<cfif cfcatch.message contains "already exists">
-				<cfset r.msg="The file
+				<cfset msg="The file
 					#Application.serverRootURL#/mediaUploads/#session.username#/#fileName#
 					already exists. Check existing Media, create Media using the file you've previously uploaded,
 					or rename the file ONLY if none of the former are true.">
