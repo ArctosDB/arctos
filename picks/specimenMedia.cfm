@@ -191,7 +191,6 @@
 	</div>
 
 
-<hr>
 
 	<div id="uploadtitle">Upload Media Files</div>
 
@@ -221,8 +220,8 @@
 		<input type="text" size="80" name="p_media_uri" id="p_media_uri">
 		<br><input type="submit" value="link specimen to picked media">
 	</form>
-
-
+	<hr>
+	Use <a target="_blank" href="/media.cfm?action=newMedia">Create Media</a> to pre-create Media using existing files.
 	<hr>
 	Existing Media for this specimen
 

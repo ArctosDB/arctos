@@ -81,14 +81,14 @@
 					</cfquery>
 					<cfset midl=valuelist(fexist.media_id)>
 					<cfset msg="The file #Application.serverRootURL#/mediaUploads/#session.username#/#fileName#">
-					<cfset msg=msg & "already exists">
+					<cfset msg=msg & " already exists">
 					<cfif len(midl) gt 0>
-						<cfset msg=msg & " and may be used in one of these Media_IDs: #midl#">
+						<cfset msg=msg & " and may be used in Media_ID(s): #midl#">
 					<cfelse>
-						<cfset msg=msg & " and does not seem to be used for existing Media.">
+						<cfset msg=msg & " and does not seem to be used for existing Media">
 					</cfif>
-					<cfset msg=msg & ". Re-name and re-load the file ONLY if you are sure it does not exist ont the sever.">
-					<cfset msg=msg & "	 Do not create duplicates.">
+					<cfset msg=msg & ". Re-name and re-load the file ONLY if you are sure it does not exist on the sever.">
+					<cfset msg=msg & "	Do not create duplicates.">
 				<cfelse>
 					<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
 				</cfif>
