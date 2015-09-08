@@ -3,7 +3,11 @@
 <cfif action is "nothing">
 
 <script>
-
+	jQuery(document).ready(function() {
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
+	});
 	 function fileSelected() {
         var file = document.getElementById('fileToUpload').files[0];
         if (file) {
@@ -43,12 +47,10 @@
 
       function uploadComplete(evt) {
         /* This event is raised when the server send back a response */
-		console.log(evt.target.responseText);
 
 
 		var result = JSON.parse(evt.target.responseText);
 
-		console.log(result);
 
         if (result.STATUSCODE=='200'){
 
@@ -114,8 +116,6 @@
 			// guess mime/media type
 			var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
 
-			console.log(fext);
-
 
 			if (fext=='jpg' || fext=='jpeg'){
 				$("#mime_type").val('image/jpeg');
@@ -136,6 +136,9 @@
 
 			$("#created_agent_id").val($("#myAgentID").val());
 			$("#creator").val($("#username").val());
+			$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
         } else {
         	alert('ERROR: ' + result.MSG);
         	$("#progressNumber").html('');
