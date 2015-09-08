@@ -454,7 +454,7 @@ just fooling idiot cfclipse into using the right colors
 			trans.collection_id,
 			collection.guid_prefix,
 			concattransagent(trans.transaction_id,'entered by') enteredby,
-			closed_date
+			to_char(closed_date,'yyyy-mm-dd') closed_date
 		 from
 			loan,
 			trans,
