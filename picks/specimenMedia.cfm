@@ -54,7 +54,7 @@
 
         if (result.STATUSCODE=='200'){
 
-        	$("#uploadtitle").html('File Uploaded: You MUST now fill in this form and and click the "create" button to finish.');
+        	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
         	$("#uploadmediaform").hide();
         	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
         	h+='<input type="hidden" name="collection_object_id"  value="' + $("#collection_object_id").val() + '">';
@@ -97,7 +97,7 @@
 
 
 
-			h+='<br><input type="submit" value="create media">';
+			h+='<br><input type="submit" class="insBtn" value="create media">';
 			h+='</form>';
 
 
@@ -223,7 +223,7 @@
 		<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
 		<label for="p_media_uri">Picked MediaURI</label>
 		<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
-		<br><input type="submit" value="link specimen to picked media">
+		<br><input type="submit" class="insBtn" value="link specimen to picked media">
 	</form>
 	<hr>
 	<a target="_blank" href="/media.cfm?action=newMedia&collection_object_id=#collection_object_id#">Create Media</a>
