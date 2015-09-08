@@ -193,26 +193,27 @@
 		<input type="hidden" id="username" value="#session.username#">
 	</div>
 
+	<div class="grpDiv">
 
+		<div id="uploadtitle">Upload Media Files</div>
 
-	<div id="uploadtitle">Upload Media Files</div>
-
-	<div id="uploadmediaform">
-		<form id="form1" enctype="multipart/form-data" method="post" action="">
-			<div class="row">
-			<label for="fileToUpload">Select a File to Upload</label>
-			<input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
-			</div>
-			<div id="fileName"></div>
-			<div id="fileSize"></div>
-			<div id="fileType"></div>
-			<div class="row">
-			<input type="button" onclick="uploadFile()" value="Upload" />
-			</div>
-			<div id="progressNumber"></div>
-		</form>
+		<div id="uploadmediaform">
+			<form id="form1" enctype="multipart/form-data" method="post" action="">
+				<div class="row">
+				<label for="fileToUpload">Select a File to Upload</label>
+				<input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+				</div>
+				<div id="fileName"></div>
+				<div id="fileSize"></div>
+				<div id="fileType"></div>
+				<div class="row">
+				<input type="button" onclick="uploadFile()" value="Upload" />
+				</div>
+				<div id="progressNumber"></div>
+			</form>
+		</div>
+		<div id="newMediaUpBack"></div>
 	</div>
-	<div id="newMediaUpBack"></div>
 
 	<hr>Link specimen to existing Arctos Media.
 	<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
@@ -274,6 +275,12 @@
 			vertical-align: middle;
 			padding:0 0 0 1em;
 		}
+		.grpDiv {
+			padding:1em;
+			margin:1em;
+			border:1px solid black;
+		}
+
 	</style>
 	<cfset  func = CreateObject("component","component.functions")>
 	<cfloop query="smed">
