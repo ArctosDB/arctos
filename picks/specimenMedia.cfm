@@ -214,22 +214,27 @@
 		</div>
 		<div id="newMediaUpBack"></div>
 	</div>
+	<div class="grpDiv">
 
-	<hr>Link specimen to existing Arctos Media.
-	<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
-	<form id="picklink" method="post" action="specimenMedia.cfm">
-		<input type="hidden" name="action" value="linkpicked">
-		<input type="hidden" id="collection_object_id" name="collection_object_id" value="#collection_object_id#">
-		<label for="">Media ID</label>
-		<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
-		<label for="p_media_uri">Picked MediaURI</label>
-		<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
-		<br><input type="submit" class="insBtn" value="link specimen to picked media">
-	</form>
-	<hr>
-	<a target="_blank" href="/media.cfm?action=newMedia&collection_object_id=#collection_object_id#">Create Media</a>
-	 for more options (<em>e.g.</em>, link to YouTube, relate to Events).
-	<hr>
+		Link specimen to existing Arctos Media.
+		<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
+		<form id="picklink" method="post" action="specimenMedia.cfm">
+			<input type="hidden" name="action" value="linkpicked">
+			<input type="hidden" id="collection_object_id" name="collection_object_id" value="#collection_object_id#">
+			<label for="">Media ID</label>
+			<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
+			<label for="p_media_uri">Picked MediaURI</label>
+			<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
+			<br><input type="submit" class="insBtn" value="link specimen to picked media">
+		</form>
+	</div>
+	<div class="grpDiv">
+
+		<a target="_blank" href="/media.cfm?action=newMedia&collection_object_id=#collection_object_id#">Create Media</a>
+		 for more options (<em>e.g.</em>, link to YouTube, relate to Events).
+		<hr>
+
+	</div>
 	Existing Media for this specimen
 
 
