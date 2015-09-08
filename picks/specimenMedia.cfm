@@ -124,7 +124,7 @@
 				$("#mime_type").val('application/pdf');
 				$("#media_type").val('text');
 			} else if (fext=='png'){
-				$("#mime_type").val('application/png');
+				$("#mime_type").val('image/png');
 				$("#media_type").val('image');
 			} else if (fext=='txt'){
 				$("#mime_type").val('text/plain');

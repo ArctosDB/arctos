@@ -4,29 +4,16 @@
 	<cftry>
 		<cfset tempName=createUUID()>
 		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
-
-
 		<cftry>
 			<cfdirectory action="create" directory="#loadPath#" mode="775">
 			<cfcatch>
-	    		<cfset r.dircreatecatch=cfcatch.message & '; ' & cfcatch.detail>
-
-
-
-				<!--- it already exists, do nothing---></cfcatch>
+	    		<!--- it already exists, do nothing--->
+			</cfcatch>
 		</cftry>
 
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
-
-
 		<cfset fileName=cffile.serverfile>
-
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
-
-
-
-
-
 		<cfset fext=listlast(fileName,".")>
 		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
@@ -37,37 +24,25 @@
 			<cfset r.msg="filename is not acceptable: #isValidMediaUpload(fileName)#">
 			<cfreturn serializeJSON(r)>
 		</cfif>
-
-		<cfset tnAbsPath=loadPath & '/tn_' & fileName>
-		<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
-
-
 		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
-
-
-
-		<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
-
-
-
-
-		<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
-		<cfset newwidth = x*imagetemp.width>
-      	<cfset newheight = x*imagetemp.height>
-   		<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
-			destination="#tnAbsPath#" overwrite="false">
-		<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
-
-
-
-
 		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-
-
+		<cfif IsImageFile("#loadPath#/#fileName#")>
+			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
+			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
+			<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
+			<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
+			<cfset newwidth = x*imagetemp.width>
+	      	<cfset newheight = x*imagetemp.height>
+	   		<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
+				destination="#tnAbsPath#" overwrite="false">
+			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
+			<cfset r.preview_uri="#preview_uri#">
+		<cfelse>
+			<cfset r.preview_uri="">
+		</cfif>
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
-		<cfset r.preview_uri="#preview_uri#">
 
 		<cfcatch>
 
