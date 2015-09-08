@@ -21,6 +21,7 @@
 		<cfabort>
 	</cfif>
 	<cfif len(media_id) is 0 and len(media_uri) is 0>
+		use the form to search
 		<cfabort>
 	</cfif>
 
