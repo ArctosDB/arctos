@@ -4,6 +4,7 @@
 	<cfif media_uri is 'undefined'>
 		<cfset media_uri=''>
 	</cfif>
+		<cfoutput>
 	<!--- make sure we're searching for something --->
 	<cfif len(media_uri) is 0>
 		<form name="searchForMedia" action="findMedia.cfm" method="post">
@@ -22,7 +23,7 @@
 	<cfif len(media_id) is 0 and len(media_uri) is 0>
 		<cfabort>
 	</cfif>
-	<cfoutput>
+
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				media_id,
