@@ -229,11 +229,8 @@
 		</form>
 	</div>
 	<div class="grpDiv">
-
 		<a target="_blank" href="/media.cfm?action=newMedia&collection_object_id=#collection_object_id#">Create Media</a>
 		 for more options (<em>e.g.</em>, link to YouTube, relate to Events).
-		<hr>
-
 	</div>
 	Existing Media for this specimen
 
@@ -273,6 +270,7 @@
 		.td-left{
 			display: table-cell;
 			width:30%;
+			vertical-align: middle;
 		}
 		.td-right{
 			display: table-cell;
