@@ -75,10 +75,20 @@
 				<cfset r.statusCode=400>
 
 				<cfif cfcatch.message contains "already exists">
-					<cfset msg="The file
-						#Application.serverRootURL#/mediaUploads/#session.username#/#fileName#
-						already exists. Check existing Media, create Media using the file you've previously uploaded,
-						or rename the file ONLY if none of the former are true.">
+					<cfset umpth=#ucase(session.username)# & "/" & #ucase(fileName)#>
+					<cfquery name="fexist" datasource="uam_god">
+						select media_id from media where upper(media_uri) like '%#umpth#'
+					</cfquery>
+					<cfset midl=valuelist(fexist.media_id)>
+					<cfset msg="The file #Application.serverRootURL#/mediaUploads/#session.username#/#fileName#">
+					<cfset msg=msg & "already exists">
+					<cfif len(midl) gt 0>
+						<cfset msg=msg & " and may be used in one of these Media_IDs: #midl#">
+					<cfelse>
+						<cfset msg=msg & " and does not seem to be used for existing Media.">
+					</cfif>
+					<cfset msg=msg & ". Re-name and re-load the file ONLY if you are sure it does not exist ont the sever.">
+					<cfset msg=msg & "	 Do not create duplicates.">
 				<cfelse>
 					<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
 				</cfif>
