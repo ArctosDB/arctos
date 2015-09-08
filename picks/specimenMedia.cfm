@@ -52,7 +52,7 @@
 
         if (result.STATUSCODE=='200'){
 
-        	$("#uploadtitle").html('File Uploaded: You MUST now fill in this form and and click the "link" button to finish.');
+        	$("#uploadtitle").html('File Uploaded: You MUST now fill in this form and and click the "create" button to finish.');
         	$("#uploadmediaform").hide();
         	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
         	h+='<input type="hidden" name="collection_object_id"  value="' + $("#collection_object_id").val() + '">';
