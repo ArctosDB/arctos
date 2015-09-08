@@ -70,17 +70,26 @@
 		<cfset r.preview_uri="#preview_uri#">
 
 		<cfcatch>
-			<cfset r.statusCode=400>
 
-			<cfif cfcatch.message contains "already exists">
-				<cfset msg="The file
-					#Application.serverRootURL#/mediaUploads/#session.username#/#fileName#
-					already exists. Check existing Media, create Media using the file you've previously uploaded,
-					or rename the file ONLY if none of the former are true.">
-			<cfelse>
-				<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
-			</cfif>
-			<cfset r.msg=msg>
+			<cftry>
+				<cfset r.statusCode=400>
+
+				<cfif cfcatch.message contains "already exists">
+					<cfset msg="The file
+						#Application.serverRootURL#/mediaUploads/#session.username#/#fileName#
+						already exists. Check existing Media, create Media using the file you've previously uploaded,
+						or rename the file ONLY if none of the former are true.">
+				<cfelse>
+					<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
+				</cfif>
+				<cfset r.msg=msg>
+
+			<cfcatch>
+				<cfset r.statusCode=400>
+				<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
+			</cfcatch>
+			</cftry>
+
 		</cfcatch>
 	</cftry>
 
