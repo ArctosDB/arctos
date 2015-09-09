@@ -373,8 +373,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 
 <!---------------------------------------------------------------->
 <cfif action is "getFile">
-
-hi i am getfile<cfabort>
 <cfoutput>
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
