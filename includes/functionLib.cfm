@@ -4,14 +4,6 @@
        return isValid("regex", x, d);
 	}
 </cfscript>
-<cffunction name="isValidMediaUpload">
-	<cfargument name="fileName" required="yes">
-	<!---- make this work while moving the function to components ---->
-	 <cfinvoke component="component.utilities" method="isValidMediaUpload" returnvariable="contents">
-	        <cfinvokeargument name="fileName" value="#fileName#">
-	</cfinvoke>
-	<cfreturn contents>
-</cffunction>
 <cffunction name="isValidMediaPreview">
 	<cfargument name="fileName" required="yes">
 	<cfset err="">

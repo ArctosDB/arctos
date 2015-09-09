@@ -11,12 +11,12 @@
 	        <label for="PreviewToUpload">Browse for Thumbnail - leave blank to attempt auto create</label>
 			<input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
 	   		<br>
-	    	<input type="button" 
-				value="Upload" 
+	    	<input type="button"
+				value="Upload"
 				class="savBtn"
 				onclick="this.value='Loading....';document.getElementById('formDiv').style.display='none';document.getElementById('progressbar').style.display='';uploadFile.submit();">
-			<input type="button" 
-				value="Cancel" 
+			<input type="button"
+				value="Cancel"
 				class="qutBtn"
 				onclick="parent.removeUpload('')">
 		</form>
@@ -24,9 +24,10 @@
 </cfif>
 <cfif action is "getFile">
 <cfoutput>
+	<cfset  func = CreateObject("component","component.functions")>
 	<cftry>
 		<cfset tempName=createUUID()>
-		<!--- 
+		<!---
 			only way to get original name seems to be upload file
 			upload to somewhere safe, then move after paranoid confirmation
 		---->
@@ -38,8 +39,8 @@
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 		<cfset fName=replace(fName,'__','_','all')>
 		<cfset fileName=fName & '.' & fext>
-		<cfif len(isValidMediaUpload(fileName)) gt 0>
-			#isValidMediaUpload(fileName)#
+		<cfif len(func.isValidMediaUpload(fileName)) gt 0>
+			#func.isValidMediaUpload(fileName)#
 			<cfabort>
 		</cfif>
 		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
@@ -70,7 +71,7 @@
 				<cfcatch><!--- it already exists, do nothing---></cfcatch>
 			</cftry>
 	        <cffile action="move"
-				source="#Application.sandbox#/#fileName#" 
+				source="#Application.sandbox#/#fileName#"
 		    	destination="#loadPath#"
 		      	nameConflict="error"
 		      	mode="644">
@@ -82,13 +83,13 @@
 			<cfdump var=#cfcatch#>
 			<font color="##FF0000" size="+2">Error: #cfcatch.message# #cfcatch.detail#</font>
 			<br><a href="javascript:back()">Go Back</a>
-			<cfabort>   
+			<cfabort>
 		</cfcatch>
 	</cftry>
 	<cfif IsImageFile("#loadPath#/#fileName#")>
 		<cfif len(preview_uri) is 0>
 			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
-			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
+			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
 			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
 			<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
 			<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
@@ -97,7 +98,7 @@
    			<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
 				destination="#tnAbsPath#" overwrite="true">
 			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
-			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
+			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
 			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
 			<table>
 				<tr>
@@ -109,7 +110,7 @@
 						<br><span class="likeLink" onclick="parent.closeUpload('#media_uri#','');">Do not use this thumbnail as a preview</span>
 					</td>
 				</tr>
-			</table>			
+			</table>
 		<cfelse>
 			<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
 			<span onclick="parent.closeUpload('#media_uri#','#preview_uri#');">Click here</span>
