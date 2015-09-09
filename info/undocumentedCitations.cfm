@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Undocumented Citations">
+<a href="undocumentedCitations.cfm?action=nothing">splash</a>
 
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from collection order by guid_prefix
@@ -19,7 +20,67 @@
 			<li>
 				<a href="undocumentedCitations.cfm?action=projpub">Project Publications lacking Citations</a>
 			</li>
+			<li>
+				<a href="undocumentedCitations.cfm?action=projpubdoi">Project Publications lacking DOI</a>
+			</li>
 		</ul>
+	</cfif>
+	<cfif action is "projpubdoi">
+		<p>
+			Find publications which are associated with a project which is associated with a collection
+			and which do not include DOI.
+		</p>
+		<form name="f" method="get" action="undocumentedCitations.cfm">
+			<input type="hidden" name="action" value="projpubdoi">
+			<label for="collectionid">Collection</label>
+			<select name="collectionid" size="1" id="collectionid">
+				<option value=""></option>
+					<cfloop query="ctcollection">
+						<option <cfif collectionid is ctcollection.collection_id> selected="selected" </cfif>
+							value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
+					</cfloop>
+				</select>
+				<br><input type="submit" value="go">
+		</form>
+		<cfif len(collectionid) gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select distinct
+				  publication.publication_id,
+				  publication.SHORT_CITATION
+				from
+				  publication,
+				  project_publication,
+				  project_trans,
+				  trans,
+				  collection
+				where
+				  publication.publication_id=project_publication.publication_id and
+				  project_publication.project_id=project_trans.project_id and
+				  project_trans.TRANSACTION_ID=trans.TRANSACTION_ID and
+				  trans.COLLECTION_ID=collection.COLLECTION_ID and
+				  collection.COLLECTION_ID in (#collectionid#) and
+				  publication.doi is null
+				order by
+					short_citation
+			</cfquery>
+			<cfif d.recordcount is 0>
+				<p>
+					Nothing Found (yay!)
+				</p>
+			<cfelse>
+				<table border id="t" class="sortable">
+					<tr>
+						<th>Publication</th>
+					</tr>
+					<cfloop query="d">
+						<tr>
+							<td><a href="/publication/#publication_id#">#SHORT_CITATION#</a></td>
+						</tr>
+					</cfloop>
+				</table>
+			</cfif>
+
+		</cfif>
 	</cfif>
 	<cfif action is "projpub">
 		<p>
