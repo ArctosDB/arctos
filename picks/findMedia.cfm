@@ -10,7 +10,7 @@
 			<input type="text" name="media_uri" id="media_uri" value="#media_uri#">
 			<label for="media_id">Media ID</label>
 			<input type="text" name="media_id" id="media_id" value="#media_id#">
-			<input type="submit" value="Search" class="lnkBtn">
+			<br><input type="submit" value="Search" class="lnkBtn">
 			<cfoutput>
 				<input type="hidden" name="mediaIdFld" value="#mediaIdFld#">
 				<input type="hidden" name="mediaStringFld" value="#mediaStringFld#">

@@ -44,6 +44,12 @@
           document.getElementById('progressNumber').innerHTML = 'unable to compute';
         }
       }
+		function clearCreator(){
+			$("#creator").val('');
+		}
+		function clearDate(){
+			$("#made_date").val('');
+		}
 
       function uploadComplete(evt) {
         /* This event is raised when the server send back a response */
@@ -85,6 +91,7 @@
         	h+='<input type="text" name="creator" id="creator"';
 			h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
 			h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
+			h+='<span class="infolink" onclick="clearCreator();">clear</span>';
 
 			h+='<label for="description">Description</label>';
         	h+='<input type="text" name="description" id="description" size="80">';
@@ -92,6 +99,7 @@
 
 			h+='<label for="made_date">Made Date</label>';
         	h+='<input type="text" name="made_date" id="made_date">';
+			h+='<span class="infolink" onclick="clearDate();">clear</span>';
 
 
 
