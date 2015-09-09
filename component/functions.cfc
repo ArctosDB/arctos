@@ -117,7 +117,7 @@
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/ProjectDetail.cfm?project_id=#related_primary_key#", i)>
-		<cfelseif table_name is "taxonomy">
+		<cfelseif table_name is "taxon_name">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select scientific_name data,scientific_name from
 				taxon_name where taxon_name_id=#related_primary_key#

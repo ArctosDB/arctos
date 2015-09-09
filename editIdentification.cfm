@@ -3,14 +3,10 @@
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-
-
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
-
 		$("input[type='date'], input[type='datetime']" ).datepicker();
-
 		//$("#made_date").datepicker();
 		//$("input[id^='made_date_']").each(function(){
 			//$("#" + this.id).datepicker();
@@ -227,7 +223,7 @@
 		identification_remarks,
 		short_citation,
 		publication_id,
-		taxa_formula		
+		taxa_formula
 	FROM
 		getID
 	GROUP BY
@@ -279,13 +275,13 @@
 	<table id="mainTable_#i#">
     	<tr>
         	<td class="valigntop"><div align="right">Scientific Name:</div>
-				
+
 				</td>
             <td>
 				<cfif accepted_id_fg is 1 and taxa_formula is 'A {string}'>
-				
+
 					<cfquery name="taxa" dbtype="query">
-						select 
+						select
 							taxon_name,
 							taxon_name_id from getID where identification_id=#identification_id# order by taxon_name
 					</cfquery>
@@ -566,7 +562,7 @@
 				</cfloop>
 			</cfif>
 		</cfloop>
-	</cftransaction>	
+	</cftransaction>
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>

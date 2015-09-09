@@ -1,7 +1,5 @@
-<!--- no security --->
-<cfinclude template="../includes/_pickHeader.cfm">
+<cfinclude template="/includes/_pickHeader.cfm">
 <cfif action is "nothing">
-
 <script>
 	jQuery(document).ready(function() {
 		$(".reqdClr:visible").each(function(e){
@@ -53,11 +51,7 @@
 
       function uploadComplete(evt) {
         /* This event is raised when the server send back a response */
-
-
 		var result = JSON.parse(evt.target.responseText);
-
-
         if (result.STATUSCODE=='200'){
 
         	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
@@ -65,66 +59,38 @@
         	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
         	h+='<input type="hidden" name="collection_object_id"  value="' + $("#collection_object_id").val() + '">';
         	h+='<input type="hidden" name="action"  value="createNewMedia">';
-
-
         	h+='<label for="media_uri">Media URI</label>';
         	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
         	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
         	h+='<label for="preview_uri">Preview URI</label>';
         	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
         	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
-
         	h+='<label for="media_license_id">License</label>';
         	h+='<select name="media_license_id" id="media_license_id"></select>';
-
 			h+='<label for="mime_type">MIME Type</label>';
         	h+='<select name="mime_type" id="mime_type" class="reqdClr"></select>';
-
-
 			h+='<label for="media_type">Media Type</label>';
         	h+='<select name="media_type" id="media_type" class="reqdClr"></select>';
-
-
         	h+='<label for="creator">Created By</label>';
         	h+='<input type="hidden" name="created_agent_id" id="created_agent_id">';
-
         	h+='<input type="text" name="creator" id="creator"';
 			h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
 			h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
 			h+='<span class="infolink" onclick="clearCreator();">clear</span>';
-
 			h+='<label for="description">Description</label>';
         	h+='<input type="text" name="description" id="description" size="80">';
-
-
 			h+='<label for="made_date">Made Date</label>';
         	h+='<input type="text" name="made_date" id="made_date">';
 			h+='<span class="infolink" onclick="clearDate();">clear</span>';
-
-
-
-
-
 			h+='<br><input type="submit" class="insBtn" value="create media">';
 			h+='</form>';
-
-
-
-
 			$("#newMediaUpBack").html(h);
-
-
-
-
 			$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
 			$('#ctmime_type').find('option').clone().appendTo('#mime_type');
 			$('#ctmedia_type').find('option').clone().appendTo('#media_type');
-
 			$("#made_date").datepicker();
 			// guess mime/media type
 			var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
-
-
 			if (fext=='jpg' || fext=='jpeg'){
 				$("#mime_type").val('image/jpeg');
 				$("#media_type").val('image');
@@ -141,7 +107,6 @@
 				$("#mime_type").val('text/html');
 				$("#media_type").val('text');
 			}
-
 			$("#created_agent_id").val($("#myAgentID").val());
 			$("#creator").val($("#username").val());
 			$(".reqdClr:visible").each(function(e){
@@ -152,7 +117,6 @@
         	$("#progressNumber").html('');
         }
       }
-
       function uploadFailed(evt) {
         alert("There was an error attempting to upload the file.");
         	$("#progressNumber").html('');
@@ -162,19 +126,15 @@
         alert("The upload has been canceled by the user or the browser dropped the connection.");
         	$("#progressNumber").html('');
       }
-
-
-
 </script>
-
 <cfoutput>
-	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_license order by DISPLAY
 	</cfquery>
-	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmime_type order by mime_type
 	</cfquery>
-	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_type order by media_type
 	</cfquery>
 	<div style="display:none">
@@ -200,11 +160,8 @@
 		<input type="hidden" id="myAgentID" value="#session.myAgentID#">
 		<input type="hidden" id="username" value="#session.username#">
 	</div>
-
 	<div class="grpDiv">
-
 		<div id="uploadtitle">Upload Media Files</div>
-
 		<div id="uploadmediaform">
 			<form id="form1" enctype="multipart/form-data" method="post" action="">
 				<div class="row">
@@ -223,7 +180,6 @@
 		<div id="newMediaUpBack"></div>
 	</div>
 	<div class="grpDiv">
-
 		Link specimen to existing Arctos Media.
 		<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
 		<form id="picklink" method="post" action="specimenMedia.cfm">
@@ -241,8 +197,6 @@
 		 for more options (<em>e.g.</em>, link to YouTube, relate to Events).
 	</div>
 	Existing Media for this specimen
-
-
 	<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct
 			media.media_id,
@@ -291,7 +245,6 @@
 			margin:1em;
 			border:1px solid black;
 		}
-
 	</style>
 	<cfset  func = CreateObject("component","component.functions")>
 	<cfloop query="smed">
@@ -438,25 +391,4 @@
 		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#">
 	</cfoutput>
 </cfif>
-
-
-
-
-<!----
-<form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone" id="demo-upload">
-
-  <div class="dz-message">
-    Drop files here or click to upload.<br />
-    <span class="note">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
-  </div>
-
-</form>
-
-<form name="m">
-	<input type="text" name="media_uri" id="media_uri">
-	<input type="text" name="media_id" id="media_id">
-</form>
----->
-</p>
-
-<cfinclude template="../includes/_pickFooter.cfm">
+<cfinclude template="/includes/_pickFooter.cfm">

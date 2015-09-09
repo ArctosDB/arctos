@@ -69,7 +69,7 @@
 				         media_relations
 				     where
 				         media_flat.media_id=media_relations.media_id and
-				         media_relations.media_relationship like '%taxonomy' and
+				         media_relations.media_relationship like '%taxon_name' and
 				         media_relations.related_primary_key = #q#
 				 ) group by
 				 	media_id,
