@@ -94,7 +94,66 @@
 				</table>
 			</cfif>
 		</cfif>
+	</cfif><!-------------------------------------------------------------------------------------------------->
+	<cfif action is "genbanknoloan">
+		<p>
+			Find specimens which have GenBank numbers and do not have a loan history.
+		</p>
+		<form name="f" method="get" action="undocumentedCitations.cfm">
+			<input type="hidden" name="action" value="genbanknocite">
+			<label for="collectionid">Collection</label>
+			<select name="collectionid" size="1" id="collectionid">
+				<option value=""></option>
+					<cfloop query="ctcollection">
+						<option <cfif collectionid is ctcollection.collection_id> selected="selected" </cfif>
+							value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
+					</cfloop>
+				</select>
+				<br><input type="submit" value="go">
+		</form>
+		<cfif len(collectionid) gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select distinct
+				  guid
+				from
+				  flat,
+				  coll_obj_other_id_num
+				where
+				  flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				  other_id_type='GenBank' and
+				  flat.COLLECTION_ID in (#collectionid#) and
+				   flat.collection_object_id not in (
+				      -- data loans
+				      select collection_object_id from loan_item
+				      -- real loans
+				      union
+				      select derived_from_cat_item from specimen_part,loan_item where specimen_part.collection_object_id=loan_item.collection_object_id
+				    )
+				 order by
+				 	guid
+			</cfquery>
+			<cfif d.recordcount is 0>
+				<p>
+					Nothing Found (yay!)
+				</p>
+			<cfelse>
+				<p>
+					Found #d.recordcount# matches.
+				</p>
+				<table border id="t" class="sortable">
+					<tr>
+						<th>Specimen</th>
+					</tr>
+					<cfloop query="d">
+						<tr>
+							<td><a href="/guid/#guid#">#guid#</a></td>
+						</tr>
+					</cfloop>
+				</table>
+			</cfif>
+		</cfif>
 	</cfif>
+	<!-------------------------------------------------------------------------------------------------->
 	<!-------------------------------------------------------------------------------------------------->
 	<cfif action is "genbanknocite">
 		<p>
