@@ -330,48 +330,54 @@
 			}
 			function loadEditApp(q) {
 				closeEditApp();
-				var bgDiv = document.createElement('div');
-				bgDiv.id = 'bgDiv';
-				bgDiv.className = 'bgDiv';
-				bgDiv.setAttribute('onclick','closeEditApp()');
-				document.body.appendChild(bgDiv);
-				var popDiv=document.createElement('div');
-				popDiv.id = 'popDiv';
-				popDiv.className = 'editAppBox';
-				document.body.appendChild(popDiv);
-				var links='<ul id="navbar">';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="BTN_editIdentification">Identification</span></li>';
-				links+='<li><span onclick="loadEditApp(\'addAccn\')" class="likeLink" id="BTN_addAccn">Accession</span></li>';
-				links+='<li><span onclick="loadEditApp(\'specLocality\')" class="likeLink" id="BTN_specLocality">Locality</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editColls\')" class="likeLink" id="BTN_editColls">Agent</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editParts\')" class="likeLink" id="BTN_editParts">Parts</span></li>';
-				links+='<li><span onclick="loadEditApp(\'findContainer\')" class="likeLink" id="BTN_findContainer">Part Location</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editBiolIndiv\')" class="likeLink" id="BTN_editBiolIndiv">Attributes</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentifiers\')" class="likeLink" id="BTN_editIdentifiers">Other IDs</span></li>';
-				links+='<li><span onclick="addSpecimenMedia(#collection_object_id#);" class="likeLink" id="BTN_MediaSearch">Media</span></li>';
-				links+='<li><span onclick="loadEditApp(\'Encumbrances\')" class="likeLink" id="BTN_Encumbrances">Encumbrance</span></li>';
-				//links+='<li><span onclick="loadEditApp(\'catalog\')" class="likeLink" id="BTN_catalog">Catalog</span></li>';
-				links+="</ul>";
-				$("##popDiv").append(links);
-				var cDiv=document.createElement('div');
-				cDiv.className = 'fancybox-close';
-				cDiv.id='cDiv';
-				cDiv.setAttribute('onclick','closeEditApp()');
-				$("##popDiv").append(cDiv);
-				$("##popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
-				var theFrame = document.createElement('iFrame');
-				theFrame.id='theFrame';
-				theFrame.className = 'editFrame';
-				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
-				theFrame.src=ptl;
-				//document.body.appendChild(theFrame);
-				$("##popDiv").append(theFrame);
-				$("span[id^='BTN_']").each(function(){
-					$("##" + this.id).removeClass('activeButton');
-					$('##' + this.id, window.parent.document).removeClass('activeButton');
-				});
-				$("##BTN_" + q).addClass('activeButton');
-				$('##BTN_' + q, window.parent.document).addClass('activeButton');
+				if (q=='Media'){
+					addSpecimenMedia(#collection_object_id#)
+				} else {
+
+
+					var bgDiv = document.createElement('div');
+					bgDiv.id = 'bgDiv';
+					bgDiv.className = 'bgDiv';
+					bgDiv.setAttribute('onclick','closeEditApp()');
+					document.body.appendChild(bgDiv);
+					var popDiv=document.createElement('div');
+					popDiv.id = 'popDiv';
+					popDiv.className = 'editAppBox';
+					document.body.appendChild(popDiv);
+					var links='<ul id="navbar">';
+					links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="BTN_editIdentification">Identification</span></li>';
+					links+='<li><span onclick="loadEditApp(\'addAccn\')" class="likeLink" id="BTN_addAccn">Accession</span></li>';
+					links+='<li><span onclick="loadEditApp(\'specLocality\')" class="likeLink" id="BTN_specLocality">Locality</span></li>';
+					links+='<li><span onclick="loadEditApp(\'editColls\')" class="likeLink" id="BTN_editColls">Agent</span></li>';
+					links+='<li><span onclick="loadEditApp(\'editParts\')" class="likeLink" id="BTN_editParts">Parts</span></li>';
+					links+='<li><span onclick="loadEditApp(\'findContainer\')" class="likeLink" id="BTN_findContainer">Part Location</span></li>';
+					links+='<li><span onclick="loadEditApp(\'editBiolIndiv\')" class="likeLink" id="BTN_editBiolIndiv">Attributes</span></li>';
+					links+='<li><span onclick="loadEditApp(\'editIdentifiers\')" class="likeLink" id="BTN_editIdentifiers">Other IDs</span></li>';
+					links+='<li><span onclick="loadEditApp(\'media\');" class="likeLink" id="BTN_MediaSearch">Media</span></li>';
+					links+='<li><span onclick="loadEditApp(\'Encumbrances\')" class="likeLink" id="BTN_Encumbrances">Encumbrance</span></li>';
+					//links+='<li><span onclick="loadEditApp(\'catalog\')" class="likeLink" id="BTN_catalog">Catalog</span></li>';
+					links+="</ul>";
+					$("##popDiv").append(links);
+					var cDiv=document.createElement('div');
+					cDiv.className = 'fancybox-close';
+					cDiv.id='cDiv';
+					cDiv.setAttribute('onclick','closeEditApp()');
+					$("##popDiv").append(cDiv);
+					$("##popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+					var theFrame = document.createElement('iFrame');
+					theFrame.id='theFrame';
+					theFrame.className = 'editFrame';
+					var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
+					theFrame.src=ptl;
+					//document.body.appendChild(theFrame);
+					$("##popDiv").append(theFrame);
+					$("span[id^='BTN_']").each(function(){
+						$("##" + this.id).removeClass('activeButton');
+						$('##' + this.id, window.parent.document).removeClass('activeButton');
+					});
+					$("##BTN_" + q).addClass('activeButton');
+					$('##BTN_' + q, window.parent.document).addClass('activeButton');
+				}
 			}
 		</script>
 		 <table width="100%">
@@ -408,7 +414,7 @@
 								<span onclick="loadEditApp('editIdentifiers')"	class="likeLink" id="BTN_editIdentifiers">Other IDs</span>
 							</li>
 							<li>
-								<span onclick="addSpecimenMedia(#collection_object_id#)" class="likeLink" id="BTN_MediaSearch">Media</span>
+								<span onclick="loadEditApp('media')" class="likeLink" id="BTN_MediaSearch">Media</span>
 							</li>
 							<li>
 								<span onclick="loadEditApp('Encumbrances')" class="likeLink" id="BTN_Encumbrances">Encumbrances</span>
