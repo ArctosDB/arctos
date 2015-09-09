@@ -108,11 +108,13 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
-<cfif #action# is "edit">
+<cfif action is "edit">
+	<cfset  func = CreateObject("component","component.functions")>
+
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from media where media_id=#media_id#
 	</cfquery>
-	<cfset relns=getMediaRelations(#media_id#)>
+	<cfset relns=func.getMediaRelations(#media_id#)>
 	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			media_label,

@@ -15,6 +15,7 @@
 	<cfif not isdefined("media_id")>
 		Noid<cfabort>
 	</cfif>
+	<cfset  func = CreateObject("component","component.functions")>
 
 
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -138,7 +139,7 @@
                             </cfloop>
                         </ul>
                     </cfif>
-                    <cfset mrel=getMediaRelations(findIDs.media_id)>
+                    <cfset mrel=func.getMediaRelations(findIDs.media_id)>
                     <cfif mrel.recordcount gt 0>
                         <ul>
                         <cfloop query="mrel">
