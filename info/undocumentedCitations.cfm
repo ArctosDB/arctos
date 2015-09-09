@@ -78,6 +78,9 @@
 					Nothing Found (yay!)
 				</p>
 			<cfelse>
+				<p>
+					Found #d.recordcount# matches.
+				</p>
 				<table border id="t" class="sortable">
 					<tr>
 						<th>Specimen</th>
@@ -128,6 +131,9 @@
 					Nothing Found (yay!)
 				</p>
 			<cfelse>
+				<p>
+					Found #d.recordcount# matches.
+				</p>
 				<table border id="t" class="sortable">
 					<tr>
 						<th>Specimen</th>
@@ -185,6 +191,9 @@
 					Nothing Found (yay!)
 				</p>
 			<cfelse>
+				<p>
+					Found #d.recordcount# matches.
+				</p>
 				<table border id="t" class="sortable">
 					<tr>
 						<th>Publication</th>
@@ -244,6 +253,9 @@
 					Nothing Found (yay!)
 				</p>
 			<cfelse>
+				<p>
+					Found #d.recordcount# matches.
+				</p>
 				<table border id="t" class="sortable">
 					<tr>
 						<th>Publication</th>
