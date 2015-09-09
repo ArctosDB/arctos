@@ -77,12 +77,12 @@
         	h+='<input type="text" name="creator" id="creator"';
 			h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
 			h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
-			h+='<span class="infolink" onclick="clearCreator();">clear</span>';
+			h+='<span class="infoLink" onclick="clearCreator();">clear</span>';
 			h+='<label for="description">Description</label>';
         	h+='<input type="text" name="description" id="description" size="80">';
 			h+='<label for="made_date">Made Date</label>';
         	h+='<input type="text" name="made_date" id="made_date">';
-			h+='<span class="infolink" onclick="clearDate();">clear</span>';
+			h+='<span class="infoLink" onclick="clearDate();">clear</span>';
 			h+='<br><input type="submit" class="insBtn" value="create media">';
 			h+='</form>';
 			$("#newMediaUpBack").html(h);
