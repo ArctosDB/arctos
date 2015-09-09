@@ -23,8 +23,61 @@
 			<li>
 				<a href="undocumentedCitations.cfm?action=projpubdoi">Project Publications lacking DOI</a>
 			</li>
+			<li>
+				<a href="undocumentedCitations.cfm?action=genbanknocite">Specimens with GenBank IDs and no citations</a>
+			</li>
 		</ul>
 	</cfif>
+	<cfif action is "genbanknocite">
+		<p>
+			Find specimens which have GenBank numbers and do not have citations.
+		</p>
+		<form name="f" method="get" action="undocumentedCitations.cfm">
+			<input type="hidden" name="action" value="genbanknocite">
+			<label for="collectionid">Collection</label>
+			<select name="collectionid" size="1" id="collectionid">
+				<option value=""></option>
+					<cfloop query="ctcollection">
+						<option <cfif collectionid is ctcollection.collection_id> selected="selected" </cfif>
+							value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
+					</cfloop>
+				</select>
+				<br><input type="submit" value="go">
+		</form>
+		<cfif len(collectionid) gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select distinct
+				  guid
+				from
+				  flat,
+				  coll_obj_other_id_num
+				where
+				  flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				  other_id_type='GenBank' and
+				  flat.COLLECTION_ID in (#collectionid#) and
+				  flat.collection_object_id not in (select collection_object_id from citation)
+				 order by
+				 	guid
+			</cfquery>
+			<cfif d.recordcount is 0>
+				<p>
+					Nothing Found (yay!)
+				</p>
+			<cfelse>
+				<table border id="t" class="sortable">
+					<tr>
+						<th>Specimen</th>
+					</tr>
+					<cfloop query="d">
+						<tr>
+							<td><a href="/guid/#guid#">#guid#</a></td>
+						</tr>
+					</cfloop>
+				</table>
+			</cfif>
+		</cfif>
+	</cfif>
+	<!-------------------------------------------------------------------------------------------------->
 	<cfif action is "projpubdoi">
 		<p>
 			Find publications which are associated with a project which is associated with a collection
@@ -79,9 +132,9 @@
 					</cfloop>
 				</table>
 			</cfif>
-
 		</cfif>
 	</cfif>
+	<!-------------------------------------------------------------------------------------------------->
 	<cfif action is "projpub">
 		<p>
 			Find publications which are associated with a project which is associated with a collection
