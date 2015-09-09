@@ -363,11 +363,11 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	</p>
 
 
-	<cfform name="atts" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="Action" value="getFile">
+	<form name="atts" method="post" action="agents.cfm" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
-	</cfform>
+	</form>
 
 </cfif>
 
