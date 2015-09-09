@@ -330,7 +330,7 @@
 			}
 			function loadEditApp(q) {
 				closeEditApp();
-				if (q=='Media'){
+				if (q=='media'){
 					addSpecimenMedia(#collection_object_id#)
 				} else {
 
