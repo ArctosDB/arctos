@@ -1,16 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Undocumented Citations">
-<a href="undocumentedCitations.cfm?action=nothing">splash</a>
+<cfparam name="collectionid" default="">
+<cfoutput>
+<a href="undocumentedCitations.cfm?action=nothing&collectionid=#collectionid#">splash</a>
 
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from collection order by guid_prefix
 </cfquery>
 
-<cfparam name="collectionid" default="">
 
 
-<cfoutput>
+
 	<cfif action is "nothing">
 		<p>
 			This form provides links to various things which may contain undocumented specimen usage.
@@ -18,19 +19,19 @@
 
 		<ul>
 			<li>
-				<a href="undocumentedCitations.cfm?action=projpub">Project Publications lacking Citations</a>
+				<a href="undocumentedCitations.cfm?action=projpub&collectionid=#collectionid#">Project Publications lacking Citations</a>
 			</li>
 			<li>
-				<a href="undocumentedCitations.cfm?action=projpubdoi">Project Publications lacking DOI</a>
+				<a href="undocumentedCitations.cfm?action=projpubdoi&collectionid=#collectionid#">Project Publications lacking DOI</a>
 			</li>
 			<li>
-				<a href="undocumentedCitations.cfm?action=genbanknocite">Specimens with GenBank IDs and no citations</a>
+				<a href="undocumentedCitations.cfm?action=genbanknocite&collectionid=#collectionid#">Specimens with GenBank IDs and no citations</a>
 			</li>
 			<li>
-				<a href="undocumentedCitations.cfm?action=genbanknoloan">Specimens with GenBank IDs and no loans</a>
+				<a href="undocumentedCitations.cfm?action=genbanknoloan&collectionid=#collectionid#">Specimens with GenBank IDs and no loans</a>
 			</li>
 			<li>
-				<a href="undocumentedCitations.cfm?action=citsnoloan">Specimens with Citations and no loans</a>
+				<a href="undocumentedCitations.cfm?action=citsnoloan&collectionid=#collectionid#">Specimens with Citations and no loans</a>
 			</li>
 		</ul>
 	</cfif>
