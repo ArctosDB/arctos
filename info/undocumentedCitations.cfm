@@ -39,9 +39,9 @@
 
 
 
-	<cfif action is "genbanknoloan">
+	<cfif action is "citsnoloan">
 		<p>
-			Find specimens which have GenBank numbers and do not have loan history.
+			Find specimens which have Citations and do not have loan history.
 		</p>
 		<form name="f" method="get" action="undocumentedCitations.cfm">
 			<input type="hidden" name="action" value="citsnoloan">
