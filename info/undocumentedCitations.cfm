@@ -29,14 +29,22 @@
 			<li>
 				<a href="undocumentedCitations.cfm?action=genbanknoloan">Specimens with GenBank IDs and no loans</a>
 			</li>
+			<li>
+				<a href="undocumentedCitations.cfm?action=citsnoloan">Specimens with Citations and no loans</a>
+			</li>
 		</ul>
 	</cfif>
+
+
+
+
+
 	<cfif action is "genbanknoloan">
 		<p>
-			Find specimens which have GenBank numbers and do not have citations.
+			Find specimens which have GenBank numbers and do not have loan history.
 		</p>
 		<form name="f" method="get" action="undocumentedCitations.cfm">
-			<input type="hidden" name="action" value="genbanknoloan">
+			<input type="hidden" name="action" value="citsnoloan">
 			<label for="collectionid">Collection</label>
 			<select name="collectionid" size="1" id="collectionid">
 				<option value=""></option>
@@ -53,10 +61,9 @@
 				  guid
 				from
 				  flat,
-				  coll_obj_other_id_num
+				  citation
 				where
-				  flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
-				  other_id_type='GenBank' and
+				  flat.collection_object_id=citation.collection_object_id and
 				  flat.COLLECTION_ID in (#collectionid#) and
 				  flat.collection_object_id not in (
 				      -- data loans
