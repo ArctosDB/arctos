@@ -38,24 +38,24 @@ create table ds_temp_agent (
 	requires_admin_override number,
 	 status varchar2(4000);
 	);
-	
-	
-	
-	
+
+
+
+
 	alter table ds_temp_agent add status varchar2(4000);
-	
+
 create public synonym ds_temp_agent for ds_temp_agent;
 grant all on ds_temp_agent to coldfusion_user;
 grant select on ds_temp_agent to public;
 
- CREATE OR REPLACE TRIGGER ds_temp_agent_key                                         
+ CREATE OR REPLACE TRIGGER ds_temp_agent_key
  before insert  ON ds_temp_agent
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
+ for each row
+    begin
+    	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 sho err
 
@@ -81,15 +81,15 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <!----------------------------------->
 <cfif action is "splash">
 	<cfoutput>
-		
-		
+
+
 		<p>
 			<a href="agents.cfm?action=nothing">Load CSV</a>. This will DELETE anything currently in the loader.
 		</p>
 		<p>
 			<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be bulkloaded here.
 		</p>
-	
+
 		<cfquery name="smr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from ds_temp_agent
 		</cfquery>
@@ -128,7 +128,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<cfif aok.c is smr.c>
 				All records passed validation.
 				<p>
-					"no problems detected" in the "status" column should never be interpreted as "these data are perfect," but is simply an 
+					"no problems detected" in the "status" column should never be interpreted as "these data are perfect," but is simply an
 					indication that Arctos could not detect similarities between your data and existing data. This may be because
 					<ul>
 						<li>Your data are so mangled that comparing them to anything is difficult.</li>
@@ -153,12 +153,12 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 					<cfif session.roles contains "manage_codetables">
 						<div style="border:2px solid red;padding:1em;margin:1em;">
 							You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
-							<br>Click <a href="agents.cfm?action=loadData">here</a> to use your awesome powers to load these data as they are. 
+							<br>Click <a href="agents.cfm?action=loadData">here</a> to use your awesome powers to load these data as they are.
 							<br>Be paranoid. Carefully review the suggestions in the data before continuing.
 						</div>
 					</cfif>
-					Non-fatal errors have been detected. A member of the Arctos Advisory Committee can force-load these data. Please keep the following in mind. 
-					Further documentation is available at <a href="http://arctosdb.org/documentation/agent/##create">http://arctosdb.org/documentation/agent/##create</a> 
+					Non-fatal errors have been detected. A member of the Arctos Advisory Committee can force-load these data. Please keep the following in mind.
+					Further documentation is available at <a href="http://arctosdb.org/documentation/agent/##create">http://arctosdb.org/documentation/agent/##create</a>
 					<p>
 						This application errs strongly on the side of preventing the introduction of potentially-problematic agents.
 					</p>
@@ -168,7 +168,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 						the agent bulkloader.
 					</p>
 					<p>
-						This application is not magic, it just looks for things that have caused problems in the past. 
+						This application is not magic, it just looks for things that have caused problems in the past.
 						Be particularly careful of non-person agents (agencies often have many names and acronyms), commonly-changed names (William/Bill, etc.),
 						 and "low-quality" agents (J. Smith).
 					</p>
@@ -176,7 +176,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 						We appreciate feedback. Please use the contact link.
 					</p>
 					<p>
-						In the case of any ambiguity (e.g., the sorts of things that cause you to be reading this), a "not the same as" 
+						In the case of any ambiguity (e.g., the sorts of things that cause you to be reading this), a "not the same as"
 						relationship and agent remarks will prevent future problems.
 					</p>
 					<p>
@@ -214,7 +214,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			strippeduppername,
 			upperstrippedagencyname
 			from
-			(select 
+			(select
 			  agent_id,
 			  trim(upper(agent_name.agent_name)) uppername,
 			  trim(upper(regexp_replace(agent_name.agent_name,'[ .,-]', ''))) strippeduppername,
@@ -232,7 +232,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			         from
 			         agent_name
 					union
-					select 
+					select
 			  agent_id,
 			  trim(upper(preferred_agent_name)) uppername,
 			  trim(upper(regexp_replace(preferred_agent_name,'[ .,-]', ''))) strippeduppername,
@@ -250,7 +250,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			         from
 			         agent
 					)
-					group by 
+					group by
 			         agent_id,
 			uppername,
 			strippeduppername,
@@ -301,13 +301,13 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 
 
 
-	
+
 	<p>See also /procedures/bulkload_agents.sql</p>
 	<p>
 		Note: Due to large influxes of duplicate agents, this form is currently set on "paranoid." File an Issue to change how this form works.
 		(The interactive form code is preserved as agents_interactive.)
 	</p>
-	Step 1: Upload a comma-delimited text file (csv). 
+	Step 1: Upload a comma-delimited text file (csv).
 	Include column headings, spelled exactly as below. This will delete anything currently in the agent bulkloader.
 	<br>
 	<a href="/info/ctDocumentation.cfm?table=ctagent_name_type">Valid agent name types</a>
@@ -316,7 +316,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	<div id="template">
 		<label for="t">Copy and save as a .csv file</label>
 		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,other_name_4,other_name_type_4,other_name_5,other_name_type_5,other_name_6,other_name_type_6,agent_status_1,agent_status_date_1,agent_status_2,agent_status_date_2,agent_remark</textarea>
-	</div> 
+	</div>
 	<p>
 		<table border>
 			<tr>
@@ -361,8 +361,8 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			</tr>
 		</table>
 	</p>
-	
-	
+
+
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -373,6 +373,8 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 
 <!---------------------------------------------------------------->
 <cfif action is "getFile">
+
+hi i am getfile<cfabort>
 <cfoutput>
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -396,7 +398,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfif numColsRec lt numberOfColumns>
@@ -406,7 +408,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)				
+				insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
@@ -465,7 +467,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfabort>
 	</cfif>
 	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select nt from  
+		select nt from
 		(
 			select
 				other_name_type_1 nt
@@ -492,7 +494,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<cfset fn="">
 			<cfset mn="">
 			<cfset ln="">
-			
+
 			<cfloop from="1" to="6" index="i">
 				<cfset thisNameType=evaluate("other_name_type_" & i)>
 				<cfset thisName=evaluate("other_name_" & i)>
@@ -502,7 +504,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 					<cfset mn=thisName>
 				<cfelseif thisNameType is "last name">
 					<cfset ln=thisName>
-				</cfif> 
+				</cfif>
 			</cfloop>
 			<cfset fnProbs = obj.checkAgent(
 				preferred_name="#preferred_name#",
@@ -521,7 +523,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	</cfloop>
 	<p>
 		If you're seeing this and no errors, the check has probably completed.
-		<p> 
+		<p>
 			<a href="agents.cfm?action=splash">go to the agent loader home page for options</a>
 		</p>
 	</p>
@@ -552,11 +554,11 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ds_temp_agent
 		</cfquery>
-		
-		Click headers to sort. 
-		
-	
-		
+
+		Click headers to sort.
+
+
+
 		<table border id="theTable" class="sortable">
 			<tr>
 				<th>agent_type</th>
@@ -620,17 +622,17 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ds_temp_agent
 		</cfquery>
-	
+
 		<cfquery name="unvalidated" dbtype="query">
 			select count(*) c from d where status is null
 		</cfquery>
-			
+
 		<cfif unvalidated.c gt 0>
 			There are unvalidated records in the bulkloader. You can't be here. Try the <a href="agents.cfm?action=splash">agent loader home</a> page.
 			<cfabort>
 		</cfif>
-			
-			
+
+
 		<cfif session.roles does not contain "manage_codetables">
 			<!---- doublecheck --->
 			<cfquery name="requiresOverride" dbtype="query">
@@ -643,7 +645,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				<cfabort>
 			</cfif>
 		</cfif>
-		
+
 			<cftransaction>
 				<cfloop query="d">
 					<br>loading #preferred_name#....
@@ -663,7 +665,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 							'#trim(d.agent_remark)#'
 							)
 					</cfquery>
-					
+
 					<cfloop from="1" to="6" index="i">
 						<cfset thisNameType=evaluate("other_name_type_" & i)>
 						<cfset thisName=evaluate("other_name_" & i)>
@@ -681,7 +683,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 									'#escapeQuotes(trim(thisName))#'
 								)
 							</cfquery>
-						</cfif> 
+						</cfif>
 					</cfloop>
 					<cfloop from="1" to="2" index="i">
 						<cfset thisStatus=evaluate("agent_status_" & i)>
@@ -703,10 +705,10 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 						</cfif>
 					</cfloop>
 					</cfloop>
-					
+
 				</cftransaction>
-			
-			
+
+
 	</cfoutput>
 
 	<p>
