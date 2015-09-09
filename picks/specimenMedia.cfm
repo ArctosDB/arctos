@@ -22,6 +22,7 @@
       }
 
       function uploadFile() {
+      	$("#progressThingee").show();
         var fd = new FormData();
         fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
         var xhr = new XMLHttpRequest();
@@ -173,6 +174,7 @@
 				<div id="fileType"></div>
 				<div class="row">
 				<input type="button" onclick="uploadFile()" value="Upload" />
+				<div id="progressThingee" style="display:none;"><img src="/images/indicator.gif"></div>
 				</div>
 				<div id="progressNumber"></div>
 			</form>
