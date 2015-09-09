@@ -408,7 +408,7 @@
 								<span onclick="loadEditApp('editIdentifiers')"	class="likeLink" id="BTN_editIdentifiers">Other IDs</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('MediaSearch')"	class="likeLink" id="BTN_MediaSearch">Media</span>
+								<span onclick="addSpecimenMedia(#collection_object_id#)" class="likeLink" id="BTN_MediaSearch">Media</span>
 							</li>
 							<li>
 								<span onclick="loadEditApp('Encumbrances')" class="likeLink" id="BTN_Encumbrances">Encumbrances</span>
