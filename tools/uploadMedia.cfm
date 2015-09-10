@@ -85,7 +85,7 @@
 	</cfloop>
 	</table>
 	You can now <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>, or skip to
-	<a href="uploadMedia.cfm?action=preview">preview your files</a> if you don't need thumbs.
+	<a href="uploadMedia.cfm?action=webserver">moving your files to the webserver</a> if you don't need thumbs.
 	<p>
 		Rename and reload if anything useful was deleted above.
 	</p>
@@ -107,9 +107,76 @@
 		</cfif>
 	</cfloop>
 	Thumbnails created.
-	<a href="uploadMedia.cfm?action=preview">Continue to Preview</a>.
+	<a href="uploadMedia.cfm?action=webserver">Continue to move your files to the webserver</a>.
 	</cfoutput>
 </cfif>
+
+<cfif action is "webserver">
+	<!----
+		we have to do this before we can preview.
+		Everything up until this point has happened in the sandbox,
+		and users cannot acccess anything in the sandbox directly.
+		The steps above should have deleted anything even slightly wonky or dangerous, so
+		make a daily directory and rock on.
+	---->
+<cfoutput>
+	<cfset finalpath="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
+	<cftry>
+		<cfdirectory action="create" directory="#finalpath#">
+		<cfcatch><!--- exists ---></cfcatch>
+	</cftry>
+	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="no">
+	<cfloop query="dir">
+		<br>moving #name# to #finalpath#/#name#
+		<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
+	</cfloop>
+	<p>
+		<br>Your files are now on the webserver.
+		<br><a href="uploadMedia.cfm?action=preview">Preview them here</a>.
+
+	</p>
+	<!-----
+	<cfdirectory action="LIST" directory="#finalpath#" name="final">
+	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
+	<cfset variables.encoding="US-ASCII">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		a='media_uri,media_type,mime_type,preview_uri,media_relationships,media_labels';
+		variables.joFileWriter.writeLine(a);
+	</cfscript>
+	<cfloop query="final">
+		<cfif left(name,3) is not "tn_">
+			<cfquery name="thumb" dbtype="query">
+				select * from final where name='tn_#name#'
+			</cfquery>
+			<cfset tnwebpath="">
+			<cfif thumb.recordcount is 1>
+				<cfset tnwebpath=replace(thumb.directory,application.webDirectory,application.serverRootUrl) & "/" & thumb.name>
+			</cfif>
+			<cfset muri=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+			<cfset mimetype="image/jpeg">
+			<cfset mediatype="image">
+			<cfscript>
+				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""';
+				variables.joFileWriter.writeLine(a);
+			</cfscript>
+		</cfif>
+	</cfloop>
+	<cfscript>
+		variables.joFileWriter.close();
+	</cfscript>
+	<br>Your uploads are now on the webserver. You may now
+	<a href="/download.cfm?file=BulkMediaTemplate_#session.username#.csv">download the CSV template</a>,
+	fill in relationships and labels, and load it through <a href="/tools/BulkloadMedia.cfm">Media Bulkloader</a>
+	<br>Images will be deleted 7 days after they are uploaded if they have not been used in Media
+		by that time.
+		----->
+</cfoutput>
+</cfif>
+
+
+
+
 <cfif action is "preview">
 	<cfoutput>
 		If all the below looks OK, you may <a href="uploadMedia.cfm?action=webserver">load to the webserver.</a>
@@ -158,53 +225,5 @@
 		</table>
 	</cfoutput>
 </cfif>
-<cfif action is "webserver">
-<cfoutput>
-	<cfset finalpath="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
-	<cftry>
-		<cfdirectory action="create" directory="#finalpath#">
-		<cfcatch><!--- exists ---></cfcatch>
-	</cftry>
-	<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
-	<cfloop query="dir">
-		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
-		</cfif>
-	</cfloop>
-	<cfdirectory action="LIST" directory="#finalpath#" name="final">
-	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
-	<cfset variables.encoding="US-ASCII">
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		a='media_uri,media_type,mime_type,preview_uri,media_relationships,media_labels';
-		variables.joFileWriter.writeLine(a);
-	</cfscript>
-	<cfloop query="final">
-		<cfif left(name,3) is not "tn_">
-			<cfquery name="thumb" dbtype="query">
-				select * from final where name='tn_#name#'
-			</cfquery>
-			<cfset tnwebpath="">
-			<cfif thumb.recordcount is 1>
-				<cfset tnwebpath=replace(thumb.directory,application.webDirectory,application.serverRootUrl) & "/" & thumb.name>
-			</cfif>
-			<cfset muri=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
-			<cfset mimetype="image/jpeg">
-			<cfset mediatype="image">
-			<cfscript>
-				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""';
-				variables.joFileWriter.writeLine(a);
-			</cfscript>
-		</cfif>
-	</cfloop>
-	<cfscript>
-		variables.joFileWriter.close();
-	</cfscript>
-	<br>Your uploads are now on the webserver. You may now
-	<a href="/download.cfm?file=BulkMediaTemplate_#session.username#.csv">download the CSV template</a>,
-	fill in relationships and labels, and load it through <a href="/tools/BulkloadMedia.cfm">Media Bulkloader</a>
-	<br>Images will be deleted 7 days after they are uploaded if they have not been used in Media
-		by that time.
-</cfoutput>
-</cfif>
+
 <cfinclude template="/includes/_footer.cfm">
