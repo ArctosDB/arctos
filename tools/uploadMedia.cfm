@@ -23,6 +23,7 @@
   </form>
 </cfif>
 <cfif action is "getFile">
+	<cfoutput>
 	<cfset tempName=createUUID()>
 	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
@@ -48,6 +49,10 @@
 	    source = "#application.webDirectory#/sandbox/#session.username#/#cffile.ClientFile#">
 
 	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
+
+	</cfoutput>
+
+
 </cfif>
 <cfif action is "unzip">
 	<cfzip file="#application.webDirectory#/sandbox/#session.username#/temp.zip" action="unzip" destination="#application.webDirectory#/sandbox/#session.username#/"/>
