@@ -26,7 +26,7 @@
 	<cfoutput>
 	<cfset tempName=createUUID()>
 	<cftry>
-		<cfdirectory action="create" directory="#application.sandbox#/#session.username#" mode="666">
+		<cfdirectory action="create" directory="#application.sandbox#/#session.username#" mode="766">
 		<cfcatch><!--- exists ---></cfcatch>
 	</cftry>
 
