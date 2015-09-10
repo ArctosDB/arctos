@@ -24,8 +24,17 @@
 </cfif>
 <cfif action is "getFile">
 	<cftry>
+		<cfdirectory action="delete" directory="#application.sandbox#/#session.username#">
+		<br>deleted temp dir...
+		<cfcatch><!--- exists --->
+			<br>could not delete temp dir...
+		</cfcatch>
+	</cftry>
+
+	<cftry>
 		<cfdirectory action="create" directory="#application.sandbox#/#session.username#" mode="766">
-		<cfcatch><!--- exists ---></cfcatch>
+		<br>created temp dir...
+		<cfcatch><br>could not create temp dir...<!--- exists ---></cfcatch>
 	</cftry>
 	<cffile action="upload"	destination="#Application.sandbox#/#session.username#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 	<cffile
@@ -65,13 +74,11 @@
 					Acceptable - processing
 				<cfelse>
 					Unacceptable - DELETING....
-					<!----
 					<cfif type is "file">
 				 		<cffile action="DELETE" file="#Application.sandbox#/#session.username#/#name#">
 					<cfelse>
 						<cfdirectory action="DELETE" recurse="true" directory="#Application.sandbox#/#session.username#/#name#">
 					</cfif>
-					---->
 					deleted
 				</cfif>
 			</td>
@@ -80,12 +87,15 @@
 	</table>
 	You can now <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>, or skip to
 	<a href="uploadMedia.cfm?action=preview">preview your files</a> if you don't need thumbs.
+	<p>
+		Rename and reload if anything useful was deleted above.
+	</p>
 	</cfoutput>
 </cfif>
 
 
 <cfif action is "thumb">
-	<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
+	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="yes">
 	<cfoutput>
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
