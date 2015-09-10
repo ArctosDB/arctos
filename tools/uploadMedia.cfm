@@ -250,7 +250,6 @@
 
 
 			<cfscript>
-				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""';
 				variables.joFileWriter.writeLine(thisRow);
 			</cfscript>
 		</cfif>
