@@ -56,9 +56,9 @@
 				<td>#s#</td>
 			</tr>
 		<cfelse>
-			<p>
-				#name# is no an acceptable filename; aborting.
-			</p>
+			<div class="error">
+				#name# is not an acceptable filename; aborting.
+			</div>
 			<cfabort>
 		</cfif>
 	</cfloop>
