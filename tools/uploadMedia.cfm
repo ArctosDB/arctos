@@ -141,48 +141,10 @@
 		from the webserver. CAUTION: This deletes EVERYTHING you've loaded today.
 
 	</p>
-	<!-----
-	<cfdirectory action="LIST" directory="#finalpath#" name="final">
-	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
-	<cfset variables.encoding="US-ASCII">
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		a='media_uri,media_type,mime_type,preview_uri,media_relationships,media_labels';
-		variables.joFileWriter.writeLine(a);
-	</cfscript>
-	<cfloop query="final">
-		<cfif left(name,3) is not "tn_">
-			<cfquery name="thumb" dbtype="query">
-				select * from final where name='tn_#name#'
-			</cfquery>
-			<cfset tnwebpath="">
-			<cfif thumb.recordcount is 1>
-				<cfset tnwebpath=replace(thumb.directory,application.webDirectory,application.serverRootUrl) & "/" & thumb.name>
-			</cfif>
-			<cfset muri=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
-			<cfset mimetype="image/jpeg">
-			<cfset mediatype="image">
-			<cfscript>
-				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""';
-				variables.joFileWriter.writeLine(a);
-			</cfscript>
-		</cfif>
-	</cfloop>
-	<cfscript>
-		variables.joFileWriter.close();
-	</cfscript>
-	<br>Your uploads are now on the webserver. You may now
-	<a href="/download.cfm?file=BulkMediaTemplate_#session.username#.csv">download the CSV template</a>,
-	fill in relationships and labels, and load it through <a href="/tools/BulkloadMedia.cfm">Media Bulkloader</a>
-	<br>Images will be deleted 7 days after they are uploaded if they have not been used in Media
-		by that time.
-		----->
+
 </cfoutput>
 </cfif>
-
-
-
-
+<!---------------------------------------------------------------------------->
 <cfif action is "preview">
 	<cfoutput>
 		<p>
@@ -191,7 +153,15 @@
 		<p>
 			Click on a few links and make sure everything looks OK before proceeding.
 		</p>
-
+		<p>
+			If things are wonky, you can
+			<a href="uploadMedia.cfm?action=deleteTodayDir">delete your #dateformat(now(),'yyyy-mm-dd')# directory</a>
+		</p>
+		<p>
+			If things are less-wonky, you can
+			<a href="uploadMedia.cfm?action=getBLTemp">download a bulkloader template</a>.
+			If you've loaded multiple batches today the template will contain them all; you may have to delete some stuff.
+		</p>
 		<cfdirectory action="LIST" directory="#baseFileDir#" name="dir" recurse="yes">
 		<table border>
 			<tr>
@@ -203,8 +173,6 @@
 					<cfquery name="thumb" dbtype="query">
 						select * from dir where name='tn_#name#'
 					</cfquery>
-
-
 					<tr>
 						<td>
 							<cfif thumb.recordcount gt 0>
@@ -222,6 +190,82 @@
 		</table>
 	</cfoutput>
 </cfif>
+<!---------------------------------------------------------------------------->
+<cfif action is "getBLTemp">
+	<cfdirectory action="LIST" directory="#baseWebDir#" name="dir">
+	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
+	<cfset variables.encoding="US-ASCII">
+
+	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license">
+	<cfloop from="1" to="10" index="i">
+		<cfset header=listappend(header,"media_label_#i#")>
+		<cfset header=listappend(header,"media_label_value_#i#")>
+	</cfloop>
+	<cfloop from="1" to="5" index="i">
+		<cfset header=listappend(header,"media_relationship_#i#")>
+		<cfset header=listappend(header,"media_related_key_#i#")>
+		<cfset header=listappend(header,"media_related_term_#i#")>
+	</cfloop>
+	<!--- create a string containing a blank for each of:
+				5 labels
+				5 label values
+				10 relationships
+				10 relationship terms
+				10 relationship keys
+			append it to the data from the files below
+	---->
+	<cfset blanks="">
+	<cfloop from="1" to="40" index="i">
+		<cfset blanks=blanks & ',"[blank]"'>
+	</cfloop>
+
+
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(header);
+	</cfscript>
+	<cfloop query="dir">
+		<cfif left(name,3) is not "tn_">
+			<cfset mpath="#baseWebDir#/#name#">
+			<cfquery name="thumb" dbtype="query">
+				select * from dir where name='tn_#name#'
+			</cfquery>
+			<cfif thumb.recordcount gt 0>
+				<cfset thumbpath="#baseWebDir#/#thumb.name#">
+			<cfelse>
+				<cfset thumbpath="">
+			</cfif>
+			<cfif listlast(name,'.') is "png">
+				<cfset mimetype="image/png">
+				<cfset mediatype="image">
+			<cfelseif listlast(name,'.') is "jpg" or listlast(name,'.') is "jpeg">
+				<cfset mimetype="image/jpeg">
+				<cfset mediatype="image">
+			<cfelse>
+				<cfset mimetype="">
+				<cfset mediatype="">
+			</cfif>
+			<!--- from header above --->
+			<cfset thisRow='"#mpath#","#mimetype#","#mediatype#","#thumbpath#",""#blanks#'>
+
+
+			<cfscript>
+				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""';
+				variables.joFileWriter.writeLine(thisRow);
+			</cfscript>
+		</cfif>
+	</cfloop>
+
+
+	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
+</cfif>
+
+
+
+
+
+
+
 <cfif action is "deleteTodayDir">
 	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
 	<cfdump var=#dir#>
