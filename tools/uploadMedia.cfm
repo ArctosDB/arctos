@@ -1,5 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset goodExtensions="jpg,png">
+<cfset baseWebDir="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
+<cfset baseFileDir="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
+<cfset sandboxdir="#application.sandbox#/#session.username#">
+
+
 <cfif action is "nothing">
 	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
 	results, load the images to Arctos, and download a Media Bulkloader template containing the URIs of the images you loaded.
@@ -24,7 +29,7 @@
 </cfif>
 <cfif action is "getFile">
 	<cftry>
-		<cfdirectory action="delete" directory="#application.sandbox#/#session.username#" recurse="true">
+		<cfdirectory action="delete" directory="#sandboxdir#" recurse="true">
 		<br>deleted temp dir...
 		<cfcatch><!--- exists --->
 			<br>could not delete temp dir...
@@ -32,23 +37,23 @@
 	</cftry>
 
 	<cftry>
-		<cfdirectory action="create" directory="#application.sandbox#/#session.username#" mode="766">
+		<cfdirectory action="create" directory="#sandboxdir#" mode="766">
 		<br>created temp dir...
 		<cfcatch><br>could not create temp dir...<!--- exists ---></cfcatch>
 	</cftry>
-	<cffile action="upload"	destination="#Application.sandbox#/#session.username#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+	<cffile action="upload"	destination="#sandboxdir#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 	<cffile
 	    action = "rename"
 	    nameConflict="overwrite"
-	    destination = "#application.sandbox#/#session.username#/temp.zip"
-	    source = "#application.sandbox#/#session.username#/#cffile.ClientFile#">
+	    destination = "#sandboxdir#/temp.zip"
+	    source = "#sandboxdir#/#cffile.ClientFile#">
 
 	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
 </cfif>
 <cfif action is "unzip">
-	<cfzip file="#application.sandbox#/#session.username#/temp.zip" action="unzip"
-		destination="#application.sandbox#/#session.username#/"/>
-	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="no">
+	<cfzip file="#sandboxdir#/temp.zip" action="unzip"
+		destination="#sandboxdir#/"/>
+	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="no">
 
 	<cfoutput>
 	The following files were extracted:
@@ -74,9 +79,9 @@
 				<cfelse>
 					Unacceptable - DELETING....
 					<cfif type is "file">
-				 		<cffile action="DELETE" file="#Application.sandbox#/#session.username#/#name#">
+				 		<cffile action="DELETE" file="#sandboxdir#/#name#">
 					<cfelse>
-						<cfdirectory action="DELETE" recurse="true" directory="#Application.sandbox#/#session.username#/#name#">
+						<cfdirectory action="DELETE" recurse="true" directory="#sandboxdir#/#name#">
 					</cfif>
 					deleted
 				</cfif>
@@ -94,7 +99,7 @@
 
 
 <cfif action is "thumb">
-	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="yes">
+	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="yes">
 	<cfoutput>
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
@@ -102,8 +107,8 @@
 			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
 			<cfset newwidth = x*imagetemp.width>
 			<cfset newheight = x*imagetemp.height>
-			<cfimage action="resize" source="#directory#/#name#" width="#newwidth#" height="#newheight#"
-				destination="#application.sandbox#/#session.username#/tn_#name#" overwrite="yes">
+			<cfimage action="resize" source="#sandboxdir#/#name#" width="#newwidth#" height="#newheight#"
+				destination="#sandboxdir#/tn_#name#" overwrite="yes">
 		</cfif>
 	</cfloop>
 	Thumbnails created.
@@ -120,15 +125,14 @@
 		make a daily directory and rock on.
 	---->
 <cfoutput>
-	<cfset finalpath="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
 	<cftry>
-		<cfdirectory action="create" directory="#finalpath#">
+		<cfdirectory action="create" directory="#baseFileDir#">
 		<cfcatch><!--- exists ---></cfcatch>
 	</cftry>
-	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="no">
+	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="no">
 	<cfloop query="dir">
 		<br>moving #name# to #finalpath#/#name#
-		<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
+		<cffile action="move" source="#sandboxdir#/#name#" destination="#baseFileDir#/#name#">
 	</cfloop>
 	<p>
 		<br>Your files are now on the webserver.
@@ -187,7 +191,8 @@
 		<p>
 			Click on a few links and make sure everything looks OK before proceeding.
 		</p>
-		<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
+
+		<cfdirectory action="LIST" directory="#baseFileDir#" name="dir" recurse="yes">
 		<table border>
 			<tr>
 				<td>thumb</td>
@@ -203,13 +208,13 @@
 					<tr>
 						<td>
 							<cfif thumb.recordcount gt 0>
-								<img src="#thumb.DIRECTORY#/#thumb.name#">
+								<img src="#baseWebDir#/#thumb.name#">
 							<cfelse>
 								NO THUMBNAIL
 							</cfif>
 						</td>
 						<td>
-							<a href="#DIRECTORY#/#name#" target="_blank">#DIRECTORY#/#name#</a>
+							<a href="#baseWebDir#/#name#" target="_blank">#baseWebDir#/#name#</a>
 						</td>
 					</tr>
 				</cfif>
