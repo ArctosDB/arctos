@@ -4,7 +4,7 @@
 	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
 	results, load the images to Arctos, and download a Media Bulkloader template containing the URIs of the images you loaded.
 	<p>
-	Step One: Upload a ZIP file containing images. Anything else will be rejected.
+	Step One: Upload a ZIP file containing images..
 	<br>File extensions are not case sensitive, but must be in
 	( <cfoutput>#goodExtensions#</cfoutput> ).
 	<br>File names may contain only A-Za-z0-9 and not start with _ (underbar) or . (dot).
@@ -48,25 +48,31 @@
 		<tr>
 			<th>Filename</th>
 			<th>KB</th>
+			<th>Status</th>
 		</tr>
 	<cfloop query="dir">
-		<cfif
-			type is "File" and
-			listfindnocase(goodExtensions,listlast(name,".")) and
-			left(name,1) is not "_" and
-			left(name,1) is not "." and
-			REfind("[^A-Za-z0-9_$]",name) eq 0>
-			<cfset s=round(size/1024)>
-			<tr>
-				<td>#name#</td>
-				<td>#s#</td>
-			</tr>
-		<cfelse>
-			<div class="error">
-				#name# is not an acceptable filename; aborting.
-			</div>
-			<cfabort>
-		</cfif>
+		<cfset s=round(size/1024)>
+		<tr>
+			<td>#name#</td>
+			<td>#s#</td>
+			<td>
+				<cfif
+					type is "File" and
+					listfindnocase(goodExtensions,listlast(name,".")) and
+					left(name,1) is not "_" and
+					left(name,1) is not "." and
+					REfind("[^A-Za-z0-9_$]",name) eq 0>
+					Acceptable - processing
+				<cfelse>
+					Unacceptable - DELETING
+					<cfif type is "file">
+				 		<cffile action="DELETE" file="#Application.sandbox#/#session.username#/#name#">
+					<cfelse>
+						<cfdirectory action="DELETE" recurse="true" directory="#Application.sandbox#/#session.username#/#name#">
+					</cfif>
+
+			</td>
+		</tr>
 	</cfloop>
 	</table>
 	You can now <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>, or skip to

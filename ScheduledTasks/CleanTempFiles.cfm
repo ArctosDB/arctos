@@ -40,7 +40,6 @@
 		<cfelse>
 			<cfdirectory action="DELETE" recurse="true" directory="#Application.webDirectory#/temp/#name#">
 		</cfif>
-	 	<cffile action="DELETE" file="#Application.webDirectory#/temp/#name#">
 	 </cfif>
 </cfloop>
 
