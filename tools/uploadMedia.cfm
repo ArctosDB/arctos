@@ -28,6 +28,7 @@
 		<br>deleted temp dir...
 		<cfcatch><!--- exists --->
 			<br>could not delete temp dir...
+			<cfdump var=#cfcatch#>
 		</cfcatch>
 	</cftry>
 
