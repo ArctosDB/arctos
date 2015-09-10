@@ -133,6 +133,8 @@
 	<p>
 		<br>Your files are now on the webserver.
 		<br><a href="uploadMedia.cfm?action=preview">Preview them here</a>.
+		<br>If the above looks wrong, you can <a href="deleteTodayDir">delete your #dateformat(now(),'yyyy-mm-dd')# directory</a>
+		from the webserver. CAUTION: This deletes EVERYTHING you've loaded today.
 
 	</p>
 	<!-----
@@ -225,5 +227,31 @@
 		</table>
 	</cfoutput>
 </cfif>
+<cfif action is "deleteTodayDir">
+	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
+	<cfdump var=#dir#>
+	<br><a href="reallyDeleteTodayDir">Seriously, delete everything in the table above!</a>
+</cfif>
 
+<cfif action is "reallyDeleteTodayDir">
+	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
+	<cfloop query="dir">
+		<cfif type is "file">
+			<cffile action="DELETE" file="#Application.sandbox#/#session.username#/#name#">
+					<cfelse>
+						<cfdirectory action="DELETE" recurse="true" directory="#Application.sandbox#/#session.username#/#name#">
+					</cfif>
+					deleted
+				</cfif>
+			</td>
+		</tr>
+	</cfloop>
+
+
+
+
+
+	<cfdump var=#dir#>
+	<br><a href="reallyDeleteTodayDir">Seriously, delete everything in the table above!</a>
+</cfif>
 <cfinclude template="/includes/_footer.cfm">
