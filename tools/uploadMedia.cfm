@@ -230,20 +230,36 @@
 <cfif action is "deleteTodayDir">
 	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
 	<cfdump var=#dir#>
-	<br><a href="reallyDeleteTodayDir">Seriously, delete everything in the table above!</a>
+	<br><a href="uploadMedia.cfm?action=reallyDeleteTodayDir">Seriously, delete everything in the table above!</a>
 </cfif>
 
 <cfif action is "reallyDeleteTodayDir">
 	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
 	<cfloop query="dir">
-		<cfif type is "file">
-			<cffile action="DELETE" file="#Application.sandbox#/#session.username#/#name#">
-		<cfelse>
-			<cfdirectory action="DELETE" recurse="true" directory="#Application.sandbox#/#session.username#/#name#">
+		<cfset fp="#application.serverRootUTL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#/#name#">
+		<cfquery name="d" datasource="uam_god">
+			select count(*) c from media where media_uri='#fp#' or preview_uri='#fp#'
+		</cfquery>
+		<cfif d.c is not 0>
+			<br>#fp# is used in Media and cannot be deleted.
+			<cfabort>
 		</cfif>
-
 	</cfloop>
 
+
+
+
+
+	<cfloop query="dir">
+		<cfif type is "file">
+			<cffile action="DELETE" file="#DIRECTORY#/#name#">
+		<cfelse>
+			<cfdirectory action="DELETE" recurse="true" directory="#DIRECTORY#/#name#">
+		</cfif>
+	</cfloop>
+	<p>
+		All gone. <a href="uploadMedia.cfm">Try again.</a>
+	</p>
 
 
 
