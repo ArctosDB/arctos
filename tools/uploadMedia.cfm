@@ -60,7 +60,7 @@
 					listfindnocase(goodExtensions,listlast(name,".")) and
 					left(name,1) is not "_" and
 					left(name,1) is not "." and
-					REfind("[^A-Za-z0-9_$]",name) eq 0>
+					REfind("[^A-Za-z0-9_]",name) eq 0>
 					Acceptable - processing
 				<cfelse>
 					Unacceptable - DELETING....
