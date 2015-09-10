@@ -25,28 +25,18 @@
 <cfif action is "getFile">
 	<cfoutput>
 	<cfset tempName=createUUID()>
-	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+	<cftry>
+		<cfdirectory action="create" directory="#application.sandbox#/#session.username#" mode="777">
+		<cfcatch><!--- exists ---></cfcatch>
+	</cftry>
+
+	<cffile action="upload"	destination="#Application.sandbox#/#session.username#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
 
 	<br>loaded filename #fileName#
 
 
-	<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
 
-
-
-
-
-	<cffile action="upload"
-		destination="#application.webDirectory#/sandbox/#session.username#"
-		nameConflict="overwrite"
-		fileField="Form.FiletoUpload"
-		accept="application/zip"
-		mode="777">
-	<cffile
-	    action = "rename"
-	    destination = "#application.webDirectory#/sandbox/#session.username#/temp.zip"
-	    source = "#application.webDirectory#/sandbox/#session.username#/#cffile.ClientFile#">
 
 	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
 
