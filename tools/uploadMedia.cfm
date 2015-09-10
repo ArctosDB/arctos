@@ -30,6 +30,7 @@
 	<cffile action="upload"	destination="#Application.sandbox#/#session.username#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 	<cffile
 	    action = "rename"
+	    nameConflict="overwrite"
 	    destination = "#application.sandbox#/#session.username#/temp.zip"
 	    source = "#application.sandbox#/#session.username#/#cffile.ClientFile#">
 
@@ -39,6 +40,8 @@
 	<cfzip file="#application.sandbox#/#session.username#/temp.zip" action="unzip"
 		destination="#application.sandbox#/#session.username#/"/>
 	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="yes">
+
+	<cfdump var=#dir#>
 	<cfoutput>
 	The following files were extracted:
 	<table border>
@@ -47,9 +50,12 @@
 			<th>KB</th>
 		</tr>
 	<cfloop query="dir">
-		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not "."
-		and (REfind("[^A-Za-z0-9_$]",name) eq 0)>
-			<cffile action="rename" source="#application.webDirectory#/temp/#session.username#/#name#" destination="#application.webDirectory#/temp/#session.username#/#name#" mode="777">
+		<cfif
+			type is "File" and
+			listfindnocase(goodExtensions,listlast(name,".")) and
+			left(name,1) is not "_" and
+			left(name,1) is not "." and
+			REfind("[^A-Za-z0-9_$]",name) eq 0>
 			<cfset s=round(size/1024)>
 			<tr>
 				<td>#name#</td>
@@ -67,6 +73,8 @@
 	<a href="uploadMedia.cfm?action=preview">preview your files</a> if you don't need thumbs.
 	</cfoutput>
 </cfif>
+
+
 <cfif action is "thumb">
 	<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
 	<cfoutput>
