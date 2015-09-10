@@ -39,7 +39,7 @@
 <cfif action is "unzip">
 	<cfzip file="#application.sandbox#/#session.username#/temp.zip" action="unzip"
 		destination="#application.sandbox#/#session.username#/"/>
-	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="yes">
+	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="no">
 
 	<cfdump var=#dir#>
 	<cfoutput>
