@@ -33,7 +33,11 @@
 <cfloop query="dir_listing">
 	<cfif dateCompare(dateAdd("d",3,datelastmodified),now()) LTE 0 and left(name,1) neq "."
 		and not right(name,4) eq '.cfm'>
-	 	<cffile action="DELETE" file="#Application.webDirectory#/temp/#name#">
+		<cfif type is "file">
+	 		<cffile action="DELETE" file="#Application.webDirectory#/temp/#name#">
+		<cfelse>
+			<cfdirectory action="DELETE" recurse="true" directory="#Application.webDirectory#/temp/#name#">
+		</cfif>
 	 </cfif>
 </cfloop>
 
