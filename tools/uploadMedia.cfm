@@ -23,30 +23,22 @@
   </form>
 </cfif>
 <cfif action is "getFile">
-	<cfoutput>
-	<cfset tempName=createUUID()>
 	<cftry>
 		<cfdirectory action="create" directory="#application.sandbox#/#session.username#" mode="766">
 		<cfcatch><!--- exists ---></cfcatch>
 	</cftry>
-
 	<cffile action="upload"	destination="#Application.sandbox#/#session.username#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
-	<cfset fileName=cffile.serverfile>
-
-	<br>loaded filename #fileName#
-
-
-
+	<cffile
+	    action = "rename"
+	    destination = "#application.sandbox#/#session.username#/temp.zip"
+	    source = "#application.sandbox#/#session.username#/#cffile.ClientFile#">
 
 	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
-
-	</cfoutput>
-
-
 </cfif>
 <cfif action is "unzip">
-	<cfzip file="#application.webDirectory#/sandbox/#session.username#/temp.zip" action="unzip" destination="#application.webDirectory#/sandbox/#session.username#/"/>
-	<cfdirectory action="LIST" directory="#application.webDirectory#/sandbox/#session.username#" name="dir" recurse="yes">
+	<cfzip file="#application.sandbox#/#session.username#/temp.zip" action="unzip"
+		destination="#application.sandbox#/#session.username#/"/>
+	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="yes">
 	<cfoutput>
 	The following files were extracted:
 	<table border>
