@@ -1,16 +1,16 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset goodExtensions="jpg">
+<cfset goodExtensions="jpg,png">
 <cfif action is "nothing">
 	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
 	results, load the images to Arctos, and download a Media Bulkloader template containing the URIs of the images you loaded.
 	<p>
 	Step One: Upload a ZIP file containing images. Anything else will be rejected.
-	<br>File extensions are not case sensitive, but must be in 
+	<br>File extensions are not case sensitive, but must be in
 	( <cfoutput>#goodExtensions#</cfoutput> ).
 	<br>File names may not start with _ (underbar) or . (dot).
-	<br>You may need to load smaller batches if you get timeout errors. You can start over at any time without breaking anything. 
+	<br>You may need to load smaller batches if you get timeout errors. You can start over at any time without breaking anything.
 	The number of files that will work is dependant on file format and file size. 25 medium-sized JPGs works easily.
-	(Please let us know what does and does not work for you.) 
+	(Please let us know what does and does not work for you.)
 	<a href="/contact.cfm">Contact us</a> or use other means to get your Media to the web if that's not practical.
 	<br>You may include thumbnails, which should be JPG files prefixed with "tn_", or you may create them with this app.
 	Do not click the "create thumbnails" option when you get to it if you've uploaded thumbnails in your ZIP.
@@ -28,20 +28,20 @@
 		<cfcatch><!--- exists ---></cfcatch>
 	</cftry>
 	<cffile action="upload"
-		destination="#application.webDirectory#/temp/#session.username#"
+		destination="#application.webDirectory#/sandbox/#session.username#"
 		nameConflict="overwrite"
 		fileField="Form.FiletoUpload"
 		accept="application/zip"
 		mode="777">
-	<cffile 
+	<cffile
 	    action = "rename"
-	    destination = "#application.webDirectory#/temp/#session.username#/temp.zip" 
-	    source = "#application.webDirectory#/temp/#session.username#/#cffile.ClientFile#">
+	    destination = "#application.webDirectory#/sandbox/#session.username#/temp.zip"
+	    source = "#application.webDirectory#/sandbox/#session.username#/#cffile.ClientFile#">
 	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
 </cfif>
 <cfif action is "unzip">
-	<cfzip file="#application.webDirectory#/temp/#session.username#/temp.zip" action="unzip" destination="#application.webDirectory#/temp/#session.username#/"/>
-	<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
+	<cfzip file="#application.webDirectory#/sandbox/#session.username#/temp.zip" action="unzip" destination="#application.webDirectory#/sandbox/#session.username#/"/>
+	<cfdirectory action="LIST" directory="#application.webDirectory#/sandbox/#session.username#" name="dir" recurse="yes">
 	<cfoutput>
 	The following files were extracted:
 	<table border>
@@ -60,8 +60,8 @@
 		</cfif>
 	</cfloop>
 	</table>
-	You can now <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>, or skip to 
-	<a href="uploadMedia.cfm?action=preview">preview your files</a> if you don't need thumbs. 
+	You can now <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>, or skip to
+	<a href="uploadMedia.cfm?action=preview">preview your files</a> if you don't need thumbs.
 	</cfoutput>
 </cfif>
 <cfif action is "thumb">
@@ -73,7 +73,7 @@
 			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
 			<cfset newwidth = x*imagetemp.width>
 			<cfset newheight = x*imagetemp.height>
-			<cfimage action="resize" source="#directory#/#name#" width="#newwidth#" height="#newheight#" 
+			<cfimage action="resize" source="#directory#/#name#" width="#newwidth#" height="#newheight#"
 				destination="#application.webDirectory#/temp/#session.username#/tn_#name#" overwrite="yes">
 		</cfif>
 	</cfloop>
@@ -92,8 +92,8 @@
 			</tr>
 			<cfset i=1>
 			<cfloop query="dir">
-				<cfif listfindnocase(goodExtensions,listlast(name,".")) and 
-					left(name,1) is not "_" and left(name,1) is not "." and left(name,3) is not "tn_">	
+				<cfif listfindnocase(goodExtensions,listlast(name,".")) and
+					left(name,1) is not "_" and left(name,1) is not "." and left(name,3) is not "tn_">
 					<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
 					<cfquery name="thumb" dbtype="query">
 						select * from dir where name='tn_#name#'
@@ -115,7 +115,7 @@
 						</td>
 					</tr>
 					<cfset i=i+1>
-				</cfif>		
+				</cfif>
 			</cfloop>
 		</table>
 	</cfoutput>
@@ -131,7 +131,7 @@
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
-		</cfif>		
+		</cfif>
 	</cfloop>
 	<cfdirectory action="LIST" directory="#finalpath#" name="final">
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
@@ -156,13 +156,13 @@
 			<cfscript>
 				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""';
 				variables.joFileWriter.writeLine(a);
-			</cfscript>	
+			</cfscript>
 		</cfif>
 	</cfloop>
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
-	<br>Your uploads are now on the webserver. You may now 
+	<br>Your uploads are now on the webserver. You may now
 	<a href="/download.cfm?file=BulkMediaTemplate_#session.username#.csv">download the CSV template</a>,
 	fill in relationships and labels, and load it through <a href="/tools/BulkloadMedia.cfm">Media Bulkloader</a>
 	<br>Images will be deleted 7 days after they are uploaded if they have not been used in Media

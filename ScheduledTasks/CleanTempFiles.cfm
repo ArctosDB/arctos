@@ -22,7 +22,11 @@
 <cfloop query="dir_listing">
 	<cfif dateCompare(dateAdd("d",3,datelastmodified),now()) LTE 0 and left(name,1) neq "."
 		and not right(name,4) eq '.cfm'>
-	 	<cffile action="DELETE" file="#Application.webDirectory#/download/#name#">
+		<cfif type is "file">
+	 		<cffile action="DELETE" file="#Application.webDirectory#/download/#name#">
+		<cfelse>
+			<cfdirectory action="DELETE" recurse="true" directory="#Application.webDirectory#/download/#name#">
+		</cfif>
 	 </cfif>
 </cfloop>
 </cfoutput>
@@ -31,6 +35,11 @@
 <cfloop query="dir_listing">
 	<cfif dateCompare(dateAdd("d",3,datelastmodified),now()) LTE 0 and left(name,1) neq "."
 		and not right(name,4) eq '.cfm'>
+		<cfif type is "file">
+	 		<cffile action="DELETE" file="#Application.webDirectory#/temp/#name#">
+		<cfelse>
+			<cfdirectory action="DELETE" recurse="true" directory="#Application.webDirectory#/temp/#name#">
+		</cfif>
 	 	<cffile action="DELETE" file="#Application.webDirectory#/temp/#name#">
 	 </cfif>
 </cfloop>
@@ -39,7 +48,11 @@
 <CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/sandbox" NAME="dir_listing">
 <cfloop query="dir_listing">
 	<cfif dateCompare(dateAdd("d",3,datelastmodified),now()) LTE 0 and left(name,1) neq ".">
-	 	<cffile action="DELETE" file="#Application.webDirectory#/sandbox/#name#">
+		<cfif type is "file">
+	 		<cffile action="DELETE" file="#Application.webDirectory#/sandbox/#name#">
+		<cfelse>
+			<cfdirectory action="DELETE" recurse="true" directory="#Application.webDirectory#/sandbox/#name#">
+		</cfif>
 	 </cfif>
 </cfloop>
 
