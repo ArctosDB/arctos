@@ -7,7 +7,7 @@
 	Step One: Upload a ZIP file containing images. Anything else will be rejected.
 	<br>File extensions are not case sensitive, but must be in
 	( <cfoutput>#goodExtensions#</cfoutput> ).
-	<br>File names may not start with _ (underbar) or . (dot).
+	<br>File names may contain only A-Za-z0-9 and not start with _ (underbar) or . (dot).
 	<br>You may need to load smaller batches if you get timeout errors. You can start over at any time without breaking anything.
 	The number of files that will work is dependant on file format and file size. 25 medium-sized JPGs works easily.
 	(Please let us know what does and does not work for you.)
@@ -15,18 +15,27 @@
 	<br>You may include thumbnails, which should be JPG files prefixed with "tn_", or you may create them with this app.
 	Do not click the "create thumbnails" option when you get to it if you've uploaded thumbnails in your ZIP.
 	<br><a href="/contact.cfm">Contact us</a> if you need something else.
-	<cfform name="atts" method="post" enctype="multipart/form-data">
+	<form name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<label for="FiletoUpload">Upload a ZIP file</label>
 		<input type="file" name="FiletoUpload" size="45">
 		<input type="submit" value="Upload this file" class="savBtn">
-  </cfform>
+  </form>
 </cfif>
 <cfif action is "getFile">
-	<cftry>
-		<cfdirectory action="create" directory="#application.webDirectory#/temp/#session.username#" mode="777">
-		<cfcatch><!--- exists ---></cfcatch>
-	</cftry>
+	<cfset tempName=createUUID()>
+	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+	<cfset fileName=cffile.serverfile>
+
+	<br>loaded filename
+
+
+	<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
+
+
+
+
+
 	<cffile action="upload"
 		destination="#application.webDirectory#/sandbox/#session.username#"
 		nameConflict="overwrite"
@@ -37,6 +46,7 @@
 	    action = "rename"
 	    destination = "#application.webDirectory#/sandbox/#session.username#/temp.zip"
 	    source = "#application.webDirectory#/sandbox/#session.username#/#cffile.ClientFile#">
+
 	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
 </cfif>
 <cfif action is "unzip">
