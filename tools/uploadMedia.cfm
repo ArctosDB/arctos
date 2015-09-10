@@ -47,13 +47,19 @@
 			<th>KB</th>
 		</tr>
 	<cfloop query="dir">
-		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
+		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not "."
+		and (REfind("[^A-Za-z0-9_$]",name) eq 0)>
 			<cffile action="rename" source="#application.webDirectory#/temp/#session.username#/#name#" destination="#application.webDirectory#/temp/#session.username#/#name#" mode="777">
 			<cfset s=round(size/1024)>
 			<tr>
 				<td>#name#</td>
 				<td>#s#</td>
 			</tr>
+		<cfelse>
+			<p>
+				#name# is no an acceptable filename; aborting.
+			</p>
+			<cfabort>
 		</cfif>
 	</cfloop>
 	</table>
