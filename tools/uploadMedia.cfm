@@ -238,13 +238,10 @@
 	<cfloop query="dir">
 		<cfif type is "file">
 			<cffile action="DELETE" file="#Application.sandbox#/#session.username#/#name#">
-					<cfelse>
-						<cfdirectory action="DELETE" recurse="true" directory="#Application.sandbox#/#session.username#/#name#">
-					</cfif>
-					deleted
-				</cfif>
-			</td>
-		</tr>
+		<cfelse>
+			<cfdirectory action="DELETE" recurse="true" directory="#Application.sandbox#/#session.username#/#name#">
+		</cfif>
+
 	</cfloop>
 
 
