@@ -241,15 +241,12 @@
 			select count(*) c from media where media_uri='#fp#' or preview_uri='#fp#'
 		</cfquery>
 		<cfif d.c is not 0>
-			<br>#fp# is used in Media and cannot be deleted.
+			<cfoutput>
+				<br>#fp# is used in Media and cannot be deleted.
+			</cfoutput>
 			<cfabort>
 		</cfif>
 	</cfloop>
-
-
-
-
-
 	<cfloop query="dir">
 		<cfif type is "file">
 			<cffile action="DELETE" file="#DIRECTORY#/#name#">
@@ -260,11 +257,5 @@
 	<p>
 		All gone. <a href="uploadMedia.cfm">Try again.</a>
 	</p>
-
-
-
-
-	<cfdump var=#dir#>
-	<br><a href="reallyDeleteTodayDir">Seriously, delete everything in the table above!</a>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
