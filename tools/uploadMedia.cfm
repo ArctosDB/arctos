@@ -24,7 +24,7 @@
 </cfif>
 <cfif action is "getFile">
 	<cftry>
-		<cfdirectory action="delete" directory="#application.sandbox#/#session.username#">
+		<cfdirectory action="delete" directory="#application.sandbox#/#session.username#" recurse="true">
 		<br>deleted temp dir...
 		<cfcatch><!--- exists --->
 			<br>could not delete temp dir...
