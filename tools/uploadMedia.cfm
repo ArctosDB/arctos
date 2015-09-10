@@ -28,7 +28,6 @@
 		<br>deleted temp dir...
 		<cfcatch><!--- exists --->
 			<br>could not delete temp dir...
-			<cfdump var=#cfcatch#>
 		</cfcatch>
 	</cftry>
 
@@ -51,7 +50,6 @@
 		destination="#application.sandbox#/#session.username#/"/>
 	<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="no">
 
-	<cfdump var=#dir#>
 	<cfoutput>
 	The following files were extracted:
 	<table border>
@@ -105,7 +103,7 @@
 			<cfset newwidth = x*imagetemp.width>
 			<cfset newheight = x*imagetemp.height>
 			<cfimage action="resize" source="#directory#/#name#" width="#newwidth#" height="#newheight#"
-				destination="#application.webDirectory#/temp/#session.username#/tn_#name#" overwrite="yes">
+				destination="#application.sandbox#/#session.username#/tn_#name#" overwrite="yes">
 		</cfif>
 	</cfloop>
 	Thumbnails created.
