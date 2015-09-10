@@ -81,14 +81,14 @@ create public synonym cf_temp_media_labels for cf_temp_media_labels;
 grant all on cf_temp_media_labels to manage_media;
 grant select on cf_temp_media_labels to public;
 
-CREATE OR REPLACE TRIGGER cf_temp_media_key                                         
- before insert  ON cf_temp_media  
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
+CREATE OR REPLACE TRIGGER cf_temp_media_key
+ before insert  ON cf_temp_media
+ for each row
+    begin
+    	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 sho err
 
@@ -102,7 +102,7 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "killMine">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from cf_temp_media where username='#session.username#' 
+		delete from cf_temp_media where username='#session.username#'
 		<cfif len(status) gt 0>
 			and status in (#ListQualify(status,"'")#)
 		</cfif>
@@ -119,7 +119,7 @@ sho err
 		<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaBack.csv">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(mine.columnList); 
+			variables.joFileWriter.writeLine(mine.columnList);
 		</cfscript>
 		<cfloop query="mine">
 			<cfset d=''>
@@ -132,10 +132,10 @@ sho err
 				<cfset d=listappend(d,t,",")>
 			</cfloop>
 			<cfscript>
-				variables.joFileWriter.writeLine(d); 
+				variables.joFileWriter.writeLine(d);
 			</cfscript>
 		</cfloop>
-		<cfscript>	
+		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
 		<cflocation url="/download.cfm?file=BulkMediaBack.csv" addtoken="false">
@@ -147,7 +147,7 @@ sho err
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
 	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT distinct(display)  MEDIA_LICENSE FROM ctMEDIA_LICENSE order by display
+		SELECT distinct(display) MEDIA_LICENSE FROM ctMEDIA_LICENSE order by display
     </cfquery>
 	<cfquery name="ctMIME_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT distinct(MIME_TYPE)  MIME_TYPE FROM ctMIME_TYPE order by MIME_TYPE
@@ -163,22 +163,22 @@ sho err
     </cfquery>
 	Create a media bulkloader template by pulling URLs from a directory (at TACC, or anyone else with a lighttpd-like directory listing).
 	<p>
-		A variable [filename] is created from the string between the last slash and the 
+		A variable [filename] is created from the string between the last slash and the
 		last dot (eg, "bob" in "http://someserver/somedirectory/bob.jpg") of each item in the directory you specify.
 	</p>
 	<p>
 		You may manipulate this variable by specifying values in regexfind and (optionally) regexreplace.
-			
+
 		For example, to ignore everything after the first underbar in the filenames, enter <strong>_.*$</strong> in regexfind and leave regexreplace NULL.
-			
+
 		To replace all occurrences of "E" with "e," enter <strong>E</strong> in regexfind and <strong>e</strong> in regexreplace.
 	</p>
 	<p>
 		You may then use the [filename] variable in label and relationship values - to create "barcode" labels, for example. Just enter <strong>[filename]</strong>
 		(with the brackets) as all or part of the relationship or label.
-	</p>		
+	</p>
 	<p>
-		Do stuff in the form and click the button to build a table. Experiment with the form to get the table data you want, then 
+		Do stuff in the form and click the button to build a table. Experiment with the form to get the table data you want, then
 		download it as CSV, manipulate it (eg, in Excel) if necessary, and upload it to the media bulkloader.
 	</p>
 	<cfoutput>
@@ -225,7 +225,7 @@ sho err
 		<cfif not isdefined("regexreplace")>
 			<cfset regexreplace=''>
 		</cfif>
-		
+
 		<cfloop from ="1" to="5" index="i">
 			<cfif not isdefined("MEDIA_RELATED_TERM_#i#")>
 				<cfset "MEDIA_RELATED_TERM_#i#"=''>
@@ -241,7 +241,7 @@ sho err
 			<cfif not isdefined("MEDIA_LABEL_VALUE_#i#")>
 				<cfset "MEDIA_LABEL_VALUE_#i#"=''>
 			</cfif>
-		</cfloop>		
+		</cfloop>
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
@@ -255,7 +255,7 @@ sho err
 			<label for="regexfind">regexfind</label>
 			<input type="text" name="regexfind" value="#regexfind#" size="80">
 			<label for="regexreplace"> regexreplace</label>
-			<input type="text" name="regexreplace" value="#regexreplace#" size="80">					
+			<input type="text" name="regexreplace" value="#regexreplace#" size="80">
 			<label for="tndir">Preview Directory URL</label>
 			<input type="text" name="tndir" value="#tndir#" size="80">
 			<label for="tnprefix">Preview prefix (eg, "tn_")</label>
@@ -308,7 +308,7 @@ sho err
 				</select>
 				<cfset thisMLV=evaluate("MEDIA_LABEL_VALUE_" & i)>
 				<label for="MEDIA_LABEL_VALUE_#i#">MEDIA_LABEL_VALUE_#i#</label>
-				<input type="text" name="MEDIA_LABEL_VALUE_#i#" value="#thisMLV#" size="80">				
+				<input type="text" name="MEDIA_LABEL_VALUE_#i#" value="#thisMLV#" size="80">
 			</cfloop>
 			<br><input type="submit" value="build/rebuild the table">
 			<cfset fileDir = "#Application.webDirectory#">
@@ -319,7 +319,7 @@ sho err
 		<cfhttp url="#dirurl#" charset="utf-8" method="get"></cfhttp>
 		<cfif len(dirurl) is 0>
 			<cfabort>
-		</cfif>		
+		</cfif>
 		<cfif isXML(cfhttp.FileContent)>
 			<cfset xStr=cfhttp.FileContent>
 			<!--- goddamned xmlns bug in CF --->
@@ -335,16 +335,16 @@ sho err
 				<cfset header=listappend(header,"MEDIA_LABEL_#i#")>
 				<cfset header=listappend(header,"MEDIA_LABEL_VALUE_#i#")>
 			</cfloop>
-			
+
 			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 			<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-				variables.joFileWriter.writeLine(ListQualify(header,'"')); 
+				variables.joFileWriter.writeLine(ListQualify(header,'"'));
 			</cfscript>
-			
-			
+
+
 			<br><a href="/download.cfm?file=#fname#">download CSV</a>
-			
+
 			<table border>
 				<tr>
 					<th>MEDIA_URI</th>
@@ -360,7 +360,7 @@ sho err
 						<th>MEDIA_LABEL_#i#</th>
 						<th>MEDIA_LABEL_VALUE_#i#</th>
 					</cfloop>
-				</tr>				
+				</tr>
 				<cfloop index="i" from="1" to="#arrayLen(dir)#">
 					<cfset thisFile = dir[i].XmlChildren[1].xmlText>
 					<cfif len(extfilter) gt 0>
@@ -406,7 +406,7 @@ sho err
 							<td>#thisThumb#</td>
 							<td>#MEDIA_LICENSE#</td>
 							<td>#MIME_TYPE#</td>
-							<td>#MEDIA_TYPE#</td>							
+							<td>#MEDIA_TYPE#</td>
 							<cfset thisData='"#dirurl##thisFile#","#thisThumb#","#MEDIA_LICENSE#","#MIME_TYPE#","#MEDIA_TYPE#"'>
 							<cfloop from ="1" to="5" index="i">
 								<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
@@ -429,16 +429,16 @@ sho err
 						</tr>
 						<cfscript>
 							variables.joFileWriter.writeLine(thisData);
-						</cfscript>		
+						</cfscript>
 					</cfif>
 				</cfloop>
 			</table>
-			<cfscript>	
+			<cfscript>
 				variables.joFileWriter.close();
-			</cfscript>				
+			</cfscript>
 		<cfelse>
-			The directory structure is not XML - can't proceed.
-		</cfif>	
+			This directory structure is not supported.
+		</cfif>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
@@ -506,7 +506,7 @@ sho err
 		</cfif>
 		<cfset header=listappend(header,"media_related_term_#i#")>
 	</cfloop>
-	<cffile action = "write" 
+	<cffile action = "write"
     file = "#Application.webDirectory#/download/BulkMedia.csv"
     output = "#header#"
     addNewLine = "no">
@@ -533,7 +533,7 @@ sho err
 					<ul>
 						<li>Exact string match ("Willow Identification")</li>
 						<li>
-							"niceURL" (both a CF and Oracle function), of the form "willow-identification" (from project 
+							"niceURL" (both a CF and Oracle function), of the form "willow-identification" (from project
 							"http://arctos.database.museum/project/willow-identification")
 						</li>
 					</ul>
@@ -545,7 +545,7 @@ sho err
 		</li>
 	</ul>
 <hr>
-	Upload Media to TACC (may work elsewhere) and use a directory to build a bulkloader template.
+	Upload Media to TACC (or anywhere with an XML directory structure listing) and use a directory to build a bulkloader template.
 	<form name="temp2" method="post" action="BulkloadMedia.cfm">
 		<input type="hidden" name="action" value="pulldir">
 		<label for="dirurl">Directory URL</label>
@@ -587,7 +587,7 @@ sho err
 </cfif>
 <hr>
 </cfoutput>
-Upload a comma-delimited text file (csv). 
+Upload a comma-delimited text file (csv).
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
@@ -600,7 +600,7 @@ Upload a comma-delimited text file (csv).
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	
+
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
@@ -652,7 +652,7 @@ Upload a comma-delimited text file (csv).
 	Processing is by small random chunks, and not all of your data may load.
 	<br>
 	You may check the status of your data at any time by visiting <a href="BulkloadMedia.cfm?action=mystuff">My Stuff</a>.
-	<br>An email reminder will be sent daily. You must delete everything from your temporary table to stop 
+	<br>An email reminder will be sent daily. You must delete everything from your temporary table to stop
 	receiving reminders.
 </cfif>
 

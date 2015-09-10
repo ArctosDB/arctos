@@ -159,6 +159,9 @@
 			<a href="uploadMedia.cfm?action=getBLTemp">download a bulkloader template</a>.
 			If you've loaded multiple batches today the template will contain them all; you may have to delete some stuff.
 		</p>
+		<p>
+			Re-load the template to create Media at <a href="/tools/BulkloadMedia.cfm">BulkloadMedia</a>
+		</p>
 		<cfdirectory action="LIST" directory="#baseFileDir#" name="dir" recurse="yes">
 		<table border>
 			<tr>
