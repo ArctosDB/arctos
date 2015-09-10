@@ -28,6 +28,8 @@
 </cfoutput>
 
 <CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/temp" NAME="dir_listing">
+<cfdump var=#dir_listing#>
+
 <cfloop query="dir_listing">
 	<cfif dateCompare(dateAdd("d",3,datelastmodified),now()) LTE 0 and left(name,1) neq "."
 		and not right(name,4) eq '.cfm'>
