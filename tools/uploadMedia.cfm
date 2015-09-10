@@ -133,7 +133,7 @@
 	<p>
 		<br>Your files are now on the webserver.
 		<br><a href="uploadMedia.cfm?action=preview">Preview them here</a>.
-		<br>If the above looks wrong, you can <a href="deleteTodayDir">delete your #dateformat(now(),'yyyy-mm-dd')# directory</a>
+		<br>If the above looks wrong, you can <a href="uploadMedia.cfm?action=deleteTodayDir">delete your #dateformat(now(),'yyyy-mm-dd')# directory</a>
 		from the webserver. CAUTION: This deletes EVERYTHING you've loaded today.
 
 	</p>
