@@ -57,18 +57,21 @@
 			<td>#s#</td>
 			<td>
 				<cfif type is "File" and
+					listlen(name,".") is 2 and
 					listfindnocase(goodExtensions,listlast(name,".")) and
 					left(name,1) is not "_" and
 					left(name,1) is not "." and
-					REfind("[^A-Za-z0-9_]",name) eq 0>
+					REfind("[^A-Za-z0-9_]",listgetat(name,1,".")) eq 0>
 					Acceptable - processing
 				<cfelse>
 					Unacceptable - DELETING....
+					<!----
 					<cfif type is "file">
 				 		<cffile action="DELETE" file="#Application.sandbox#/#session.username#/#name#">
 					<cfelse>
 						<cfdirectory action="DELETE" recurse="true" directory="#Application.sandbox#/#session.username#/#name#">
 					</cfif>
+					---->
 					deleted
 				</cfif>
 			</td>
