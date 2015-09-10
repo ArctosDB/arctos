@@ -192,7 +192,7 @@
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "getBLTemp">
-	<cfdirectory action="LIST" directory="#baseWebDir#" name="dir">
+	<cfdirectory action="LIST" directory="#baseFileDir#" name="dir">
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
 	<cfset variables.encoding="US-ASCII">
 
@@ -259,6 +259,7 @@
 
 	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
 </cfif>
+<!---------------------------------------------------------------------------->
 
 
 
