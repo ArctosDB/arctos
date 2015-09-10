@@ -181,47 +181,37 @@
 
 <cfif action is "preview">
 	<cfoutput>
-		If all the below looks OK, you may <a href="uploadMedia.cfm?action=webserver">load to the webserver.</a>
 		<p>
-		CAUTION: You will not be able to delete or modify anything loaded to the webserver. Proceed only after
-		carefully reviewing this page.
+			NOTE: This lists everything from your today-directory. You may need to delete or ignore some stuff.
 		</p>
 		<p>
-		Do not proceed if you have already loaded these files to the webserver.
+			Click on a few links and make sure everything looks OK before proceeding.
 		</p>
-		<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="yes">
+		<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
 		<table border>
 			<tr>
 				<td>thumb</td>
-				<td>image</td>
+				<td>image URL</td>
 			</tr>
-			<cfset i=1>
 			<cfloop query="dir">
 				<cfif left(name,3) is not "tn_">
 					<cfquery name="thumb" dbtype="query">
 						select * from dir where name='tn_#name#'
 					</cfquery>
-					<cfset tnwebpath="">
-					<cfif thumb.recordcount is 1>
-						<cfset tnwebpath=replace(thumb.directory,application.webDirectory,application.serverRootUrl) & "/" & thumb.name>
-					</cfif>
+
+
 					<tr>
 						<td>
-							<cfif len(tnwebpath) gt 0>
-								<img src="#tnwebpath#">
+							<cfif thumb.recordcount gt 0>
+								<img src="#thumb.DIRECTORY#/#thumb.name#">
 							<cfelse>
 								NO THUMBNAIL
 							</cfif>
 						</td>
 						<td>
-
-							<cfcontent variable="#toBinary(toBase64(name))#" type="image/png" reset="true" />
-
-
-							<img src="#webpath#">
+							<a href="#DIRECTORY#/#name#" target="_blank">#DIRECTORY#/#name#</a>
 						</td>
 					</tr>
-					<cfset i=i+1>
 				</cfif>
 			</cfloop>
 		</table>
