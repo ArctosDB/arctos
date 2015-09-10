@@ -25,6 +25,7 @@
 		<input type="submit" value="Upload this file" class="savBtn">
   </form>
 </cfif>
+<!---------------------------------------------------------------------------->
 <cfif action is "getFile">
 	<cftry>
 		<cfdirectory action="delete" directory="#sandboxdir#" recurse="true">
@@ -48,6 +49,7 @@
 
 	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
 </cfif>
+<!---------------------------------------------------------------------------->
 <cfif action is "unzip">
 	<cfzip file="#sandboxdir#/temp.zip" action="unzip"
 		destination="#sandboxdir#/"/>
@@ -94,8 +96,7 @@
 	</p>
 	</cfoutput>
 </cfif>
-
-
+<!---------------------------------------------------------------------------->
 <cfif action is "thumb">
 	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="yes">
 	<cfoutput>
@@ -113,7 +114,7 @@
 	<a href="uploadMedia.cfm?action=webserver">Continue to move your files to the webserver</a>.
 	</cfoutput>
 </cfif>
-
+<!---------------------------------------------------------------------------->
 <cfif action is "webserver">
 	<!----
 		we have to do this before we can preview.
@@ -129,7 +130,7 @@
 	</cftry>
 	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="no">
 	<cfloop query="dir">
-		<br>moving #name# to #finalpath#/#name#
+		<br>moving #name# to #baseWebDir#/#name#
 		<cffile action="move" source="#sandboxdir#/#name#" destination="#baseFileDir#/#name#">
 	</cfloop>
 	<p>
@@ -137,9 +138,7 @@
 		<br><a href="uploadMedia.cfm?action=preview">Preview them here</a>.
 		<br>If the above looks wrong, you can <a href="uploadMedia.cfm?action=deleteTodayDir">delete your #dateformat(now(),'yyyy-mm-dd')# directory</a>
 		from the webserver. CAUTION: This deletes EVERYTHING you've loaded today.
-
 	</p>
-
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
