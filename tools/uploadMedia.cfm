@@ -207,15 +207,15 @@
 		<cfset header=listappend(header,"media_related_term_#i#")>
 	</cfloop>
 	<!--- create a string containing a blank for each of:
-				5 labels
-				5 label values
-				10 relationships
-				10 relationship terms
-				10 relationship keys
+				10 labels
+				10 label values
+				5 relationships
+				5 relationship terms
+				5 relationship keys
 			append it to the data from the files below
 	---->
 	<cfset blanks="">
-	<cfloop from="1" to="40" index="i">
+	<cfloop from="1" to="35" index="i">
 		<cfset blanks=blanks & ',"[blank]"'>
 	</cfloop>
 
