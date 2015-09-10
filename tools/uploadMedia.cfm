@@ -113,7 +113,14 @@
 <cfif action is "preview">
 	<cfoutput>
 		If all the below looks OK, you may <a href="uploadMedia.cfm?action=webserver">load to the webserver.</a>
-		<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
+		<p>
+		CAUTION: You will not be able to delete or modify anything loaded to the webserver. Proceed only after
+		carefully reviewing this page.
+		</p>
+		<p>
+		Do not proceed if you have already loaded these files to the webserver.
+		</p>
+		<cfdirectory action="LIST" directory="#application.sandbox#/#session.username#" name="dir" recurse="yes">
 		<table border>
 			<tr>
 				<td>thumb</td>
@@ -121,9 +128,7 @@
 			</tr>
 			<cfset i=1>
 			<cfloop query="dir">
-				<cfif listfindnocase(goodExtensions,listlast(name,".")) and
-					left(name,1) is not "_" and left(name,1) is not "." and left(name,3) is not "tn_">
-					<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+				<cfif left(name,3) is not "tn_">
 					<cfquery name="thumb" dbtype="query">
 						select * from dir where name='tn_#name#'
 					</cfquery>
@@ -140,6 +145,10 @@
 							</cfif>
 						</td>
 						<td>
+
+							<cfcontent variable="#toBinary(toBase64(name))#" type="image/png" reset="true" />
+
+
 							<img src="#webpath#">
 						</td>
 					</tr>
