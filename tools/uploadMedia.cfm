@@ -27,7 +27,7 @@
 	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
 
-	<br>loaded filename
+	<br>loaded filename #fileName#
 
 
 	<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
