@@ -255,6 +255,9 @@
 		</cfif>
 	</cfloop>
 
+	<cfscript>
+		variables.joFileWriter.close();
+	</cfscript>
 
 	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
 </cfif>
