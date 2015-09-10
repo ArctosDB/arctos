@@ -3,8 +3,6 @@
 <cfset baseWebDir="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
 <cfset baseFileDir="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
 <cfset sandboxdir="#application.sandbox#/#session.username#">
-
-
 <cfif action is "nothing">
 	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
 	results, load the images to Arctos, and download a Media Bulkloader template containing the URIs of the images you loaded.
@@ -216,10 +214,8 @@
 	---->
 	<cfset blanks="">
 	<cfloop from="1" to="35" index="i">
-		<cfset blanks=blanks & ',"[blank]"'>
+		<cfset blanks=blanks & ',""'>
 	</cfloop>
-
-
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		variables.joFileWriter.writeLine(header);
@@ -247,34 +243,23 @@
 			</cfif>
 			<!--- from header above --->
 			<cfset thisRow='"#mpath#","#mimetype#","#mediatype#","#thumbpath#",""#blanks#'>
-
-
 			<cfscript>
 				variables.joFileWriter.writeLine(thisRow);
 			</cfscript>
 		</cfif>
 	</cfloop>
-
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
-
 	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------->
-
-
-
-
-
-
-
 <cfif action is "deleteTodayDir">
 	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
 	<cfdump var=#dir#>
 	<br><a href="uploadMedia.cfm?action=reallyDeleteTodayDir">Seriously, delete everything in the table above!</a>
 </cfif>
-
+<!---------------------------------------------------------------------------->
 <cfif action is "reallyDeleteTodayDir">
 	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
 	<cfloop query="dir">
