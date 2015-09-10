@@ -236,7 +236,7 @@
 <cfif action is "reallyDeleteTodayDir">
 	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
 	<cfloop query="dir">
-		<cfset fp="#application.serverRootUTL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#/#name#">
+		<cfset fp="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#/#name#">
 		<cfquery name="d" datasource="uam_god">
 			select count(*) c from media where media_uri='#fp#' or preview_uri='#fp#'
 		</cfquery>
