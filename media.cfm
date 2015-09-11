@@ -26,7 +26,7 @@
 				It's haunted.
 			</p>
 			<p>
-				(OK, it's not really, but the previous form won't properly recover from an error.)
+				(It's not really, but the previous form won't properly recover from an error.)
 			</p>
 			<p>
 				<a href="media.cfm?action=edit&media_id=#media_id#">try this instead</a>
