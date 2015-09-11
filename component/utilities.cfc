@@ -241,8 +241,6 @@
 
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
-
-	<br>hello I am checkRequest
 <!----
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
@@ -252,8 +250,10 @@
 	-------->
 
 
-	<!--- first check if they're already blacklisted ---->
-	<cfoutput>
+	<!---
+		first check if they're already blacklisted
+		If they are, just include the notification/form and abort
+	---->
 	<cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
@@ -270,10 +270,12 @@
 			<cfabort>
 		</cfif>
 	</cfif>
-
-
-
-</cfoutput>
+	<!---
+		if they made it here, they are
+			1) not "us"
+			2) not on the blacklist
+		See if it's a legit request. If so do nothing, otherwise call autoblacklist and abort.
+	---->
 
 
 	<!-----
@@ -474,9 +476,6 @@
 			</cfif>
 		</cfif>
 	</cfif>
-
-	<!--- didn't abort anywhere in here, rock on! ---->
-	<cfreturn true>
 	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
 </cffunction>
 <!--------------------------------->
