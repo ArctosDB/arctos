@@ -301,6 +301,9 @@
 	</cfif>
 	<br>rcheckRequest: #rcheckRequest#<br>
 
+	<cfif rcheckRequest is false>
+		<br>rcheckRequest is false abort<cfabort>
+	</cfif>
 
     <cfset m=f.mobileDesktopRedirect()>
 	<cfparam name="request.fixAmp" type="boolean" default="false">

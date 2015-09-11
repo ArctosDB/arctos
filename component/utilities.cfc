@@ -271,10 +271,10 @@
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
 			</cfscript>
+			<br>returning false....
 			<cfreturn false>
 		</cfif>
 		<br> after if
-			<cfreturn false>
 	</cfif>
 
 
