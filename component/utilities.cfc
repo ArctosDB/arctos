@@ -359,11 +359,7 @@
 		Performance is unimportant here; this is going to end with an error
 	 ------>
 
-	 	<br>still going.....
 	<cfif isdefined("inp")>
-
-		 	<br>still still going.....
-
 		<cfif isdefined("request.rdurl")>
 			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
 				<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
