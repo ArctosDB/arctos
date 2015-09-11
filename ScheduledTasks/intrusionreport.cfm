@@ -2,6 +2,14 @@
 <cfset rptprd=7>
 <cfset mincount=20>
 
+
+<cfset inet_address = CreateObject("java", "java.net.InetAddress")>
+<cfset host_name = inet_address.getByName("66.249.66.99").getHostName()>
+<cfoutput>#host_name#</cfoutput>
+
+
+
+
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 			SELECT
