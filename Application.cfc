@@ -18,8 +18,8 @@
 						<br>CGI.HTTP_X_PROXY_ID: #CGI.HTTP_X_PROXY_ID#
 
 
-
-<CFSET ipaddress="">
+<!--- grab everything that might be a real IP ---->
+	<CFSET ipaddress="">
 
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<br>CGI.HTTP_X_Forwarded_For: #CGI.HTTP_X_Forwarded_For#
@@ -36,38 +36,38 @@
 
 	<br>listlen(ipaddress,","): #listlen(ipaddress,",")#
 
-	<cfif listlen(ipaddress,",") gt 1>
-		<br>loopy
-		<cfset vips="">
-		<cfloop list="#ipaddress#" delimiters="," index="x">
-			<br>checking x=#x#
-			<cfif not (
-				listlen(x,".") neq 4 or
-				x contains "172.16" or
-				x contains "192.168" or
-				x contains "10." or
-				x is "127.0.0.1")>
-				<br>keeper
-				<cfset vips=listappend(vips,x,",")>
-			</cfif>
-
-		</cfloop>
-		<cfif len(vips) gt 0>
-
+	<!--- loop through the possibilities, keep only things that look like an IP ---->
+	<cfset vips="">
+	<cfloop list="#ipaddress#" delimiters="," index="x">
+		<br>checking x=#x#
+		<cfif not (
+			listlen(x,".") neq 4 or
+			x contains "172.16" or
+			x contains "192.168" or
+			x contains "10." or
+			x is "127.0.0.1" or
+			isnumeric(replace(x,"."))
+		)>
+			<br>keeper
+			<cfset vips=listappend(vips,x,",")>
 		</cfif>
-		<br>vips: #vips#
+	</cfloop>
+
+	<br>vips: #vips#
 
 
-				<cfset temp=ipaddress>
 
-		<!--- usually want last in series, see if it's junk --->
-		<cfset ip1=listgetat(ipaddress,1,",")>
-		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
-			<cfset ipaddress=listgetat(ipaddress,2,",")>
-		<cfelse>
-			<cfset ipaddress=listgetat(ipaddress,1,",")>
-		</cfif>
+	<cfif len(vips) gt 0>
+		<!---- grab the last one, because why not....---->
+		<cfset ipaddress=listlast(vips)>
+	<cfelse>
+		<cfset ipaddress="0.0.0.0">
 	</cfif>
+
+	<br>cleaned: #ipaddress#
+
+
+
 	<cfif listlen(ipaddress,".") is 4>
 		<cfset requestingSubnet=listgetat(ipaddress,1,".") & "." & listgetat(ipaddress,2,".")>
 	<cfelse>
