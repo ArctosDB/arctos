@@ -86,7 +86,6 @@
 		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from cf_temp_lbl2contr
 		</cfquery>
-
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
@@ -105,38 +104,6 @@
 	            </cfquery>
 	        </cfloop>
 		</cftransaction>
-
-
-	<!----
-
-		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-		<cfset  util = CreateObject("component","component.utilities")>
-		<cfset q = util.CSVToQuery(CSV=fileContent)>
-		<cfset colNames=q.columnList>
-		<!--- disallow some procedural stuff that sometimes ends up in the download/reload CSV --->
-		<cfif listfindnocase(colNames,'status') gt 0>
-			<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'status'))>
-		</cfif>
-		<cfif listfindnocase(colNames,'note') gt 0>
-			<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'note'))>
-		</cfif>
-		<cfquery name="qclean" dbtype="query">
-			select #colnames# from q
-		</cfquery>
-		<cfset sql="insert all ">
-		<cfloop query="qclean">
-			<cfset sql=sql & " into cf_temp_lbl2contr (#colnames#,status) values (">
-			<cfloop list="#colnames#" index="i">
-				<cfset sql=sql & "'#evaluate("qClean." & i)#',">
-			</cfloop>
-			<cfset sql=sql & "'')">
-		</cfloop>
-		<cfset sql=sql & "SELECT 1 FROM DUAL">
-		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preserveSingleQuotes(sql)#
-		</cfquery>
-		<a href="bulkEditContainer.cfm?action=validateUpload">data loaded - proceed to validation</a>
-		---->
 		<a href="bulkEditContainer.cfm?action=validateUpload">data loaded - proceed to validation</a>
 	</cfoutput>
 </cfif>
