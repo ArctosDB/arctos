@@ -273,11 +273,13 @@
 			<br>already there....
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
-			</cfscript>
-			<br>returning false....
-			<cfreturn false>
+			</cfscript>.
 		</cfif>
 		<br> after if
+
+
+			<br>returning false...
+			<cfreturn false>
 	</cfif>
 
 
