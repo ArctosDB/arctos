@@ -329,7 +329,17 @@
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset temp=getIpAddress()>
 
+	<cfif not isdefined(temp)>
+		<br>did not get anything back from the function stop...
+	<cfelse>
+
 	<br>got back <cfdump var=#temp#>
+
+	</cfif>
+
+
+
+
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
