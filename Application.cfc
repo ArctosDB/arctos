@@ -305,6 +305,10 @@
 		<br>rcheckRequest is false abort<cfabort>
 	</cfif>
 
+	<br>hello I am past checkrequest...
+
+
+
     <cfset m=f.mobileDesktopRedirect()>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
