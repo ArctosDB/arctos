@@ -320,6 +320,9 @@
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 	<cfset temp=getIpAddress()>
+	<cfif not isdefined("temp")>
+		<br>failed IP check<cfabort>
+	</cfif>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
@@ -329,13 +332,8 @@
 	</cfif>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset temp=getIpAddress()>
-
 	<cfif not isdefined("temp")>
-		<br>did not get anything back from the function stop...
-	<cfelse>
-
-	<br>got back <cfdump var=#temp#>
-
+		<br>failed IP check<cfabort>
 	</cfif>
 
 
