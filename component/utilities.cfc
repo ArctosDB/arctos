@@ -204,6 +204,8 @@
 <!------------------------------------------------------------------------------------>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
+
+	<cfreturn false>
 <!----
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
