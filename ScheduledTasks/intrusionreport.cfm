@@ -1,4 +1,3 @@
--- since the last time we blocked the most idiotic of the idiots, which IP subnets have been most troublesome?
 <cfset rptprd=7>
 <cfset mincount=20>
 <cfset inet_address = CreateObject("java", "java.net.InetAddress")>
@@ -24,7 +23,7 @@
 		<p>
 			<br>Subnet: #subnet# (attempts: #attempts#)
 			<cfquery name="ips" datasource="uam_god">
-				select ip, count(*) c from blacklisted_entry_attempt where ip like '#subnet#.%' group by ip order by ip
+				select ip, count(*) c from blacklisted_entry_attempt where ip like '#subnet#.%' group by ip order by count(*)
 			</cfquery>
 			<br>IPs
 			<blockquote>
