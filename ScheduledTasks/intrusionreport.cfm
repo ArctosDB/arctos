@@ -27,7 +27,11 @@
 			<br>IPs
 			<blockquote>
 				<cfloop query="#ips#">
-					<cfset host_name = inet_address.getByName("#ip#").getHostName()>
+					<cftry>
+						<cfset host_name = inet_address.getByName("#ip#").getHostName()>
+					<cfcatch>
+						<cfset host_name='idk'>
+					</cfcatch></cftry>
 					<br><span>#ip#</span> @#c# (#host_name#) <a href="http://whatismyipaddress.com/ip/#ip#">lookup</a>
 				</cfloop>
 			</blockquote>

@@ -4,6 +4,11 @@
 <cfset This.ClientManagement=false>
 <cfset f = CreateObject("component","component.utilities")>
 <cffunction name="getIpAddress">
+
+
+	<cfreturn>
+
+
 	<!--- grab everything that might be a real IP ---->
 	<CFSET ipaddress="">
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
