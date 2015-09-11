@@ -50,11 +50,13 @@
 
 	<br> on blacklist....
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
+
+			<br>already there....
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
 			</cfscript>
 		</cfif>
-
+		<br> after if
 			<cfreturn false>
 	</cfif>
 	<cfset request.ipaddress=ipaddress>
