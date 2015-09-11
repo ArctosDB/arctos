@@ -328,6 +328,8 @@
 	</cfif>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset temp=getIpAddress()>
+
+	<br>got back <cfdump var=#temp#>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
