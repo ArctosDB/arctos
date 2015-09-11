@@ -37,6 +37,8 @@
 	<cfset vips="">
 	<cfloop list="#ipaddress#" delimiters="," index="x">
 		<br>checking x=#x#
+
+		<br>refindval: #refind("^(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))$",x)#
 		<cfif
 			listlen(x,".") eq 4 and
 			isnumeric(replace(x,".","","all")) and
