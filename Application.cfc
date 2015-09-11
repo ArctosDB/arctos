@@ -319,8 +319,8 @@
 
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
-	<cfset temp=getIpAddress()>
-	<cfif not isdefined("temp")>
+	<cfset rgetIpAddress=getIpAddress()>
+	<cfif not isdefined("getIpAddress")>
 		<br>failed IP check<cfabort>
 	</cfif>
 </cffunction>
@@ -331,8 +331,8 @@
 		<cfset initSession()>
 	</cfif>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	<cfset temp=getIpAddress()>
-	<cfif not isdefined("temp")>
+	<cfset rgetIpAddress=getIpAddress()>
+	<cfif not isdefined("rgetIpAddress")>
 		<br>failed IP check<cfabort>
 	</cfif>
 
@@ -357,11 +357,11 @@
 		<cfabort>
 	</cfif>
 	---->
-	<cfset temp=f.checkRequest()>
-	<cfif not isdefined("temp")>
+	<cfset rcheckRequest=f.checkRequest()>
+	<cfif not isdefined("rcheckRequest")>
 		<br>failed requestcheck<cfabort>
 	</cfif>
-	<br>checkRequest: #temp#
+	<br>rcheckRequest: #rcheckRequest#
 
 
     <cfset m=f.mobileDesktopRedirect()>
