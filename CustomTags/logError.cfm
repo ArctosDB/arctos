@@ -181,9 +181,13 @@
 	<cfelse>
 		nope requestingsubnet
 	</cfif>
-
-
-
+	<cfif isdefined("exception.rawipaddress") and len(exception.rawipaddress) gt 0>
+		<p>
+			rawipaddress: #rawipaddress#
+		</p>
+	<cfelse>
+		nope rawipaddress
+	</cfif>
 	<cfif structKeyExists(exception,"username")>
 		<br>username: #exception.username#
 	</cfif>
