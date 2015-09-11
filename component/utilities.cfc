@@ -298,6 +298,8 @@
 		START: stuff in this block is only checked if there's an error
 		Performance is unimportant here; this is going to end with an error
 	 ------>
+
+	 	<br>still going.....
 	<cfif isdefined("inp")>
 		<cfif isdefined("request.rdurl")>
 			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
