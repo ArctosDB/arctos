@@ -24,13 +24,13 @@
 		<p>
 			<br>Subnet: #subnet# (attempts: #attempts#)
 			<cfquery name="ips" datasource="uam_god">
-				select distinct ip from blacklisted_entry_attempt where ip like '#subnet#.%' order by ip
+				select ip, count(*) c from blacklisted_entry_attempt where ip like '#subnet#.%' group by ip order by ip
 			</cfquery>
 			<br>IPs
 			<blockquote>
 				<cfloop query="#ips#">
 					<cfset host_name = inet_address.getByName("#ip#").getHostName()>
-					<br><span>#ip#</span> (#host_name#) <a href="http://whatismyipaddress.com/ip/#ip#">lookup</a>
+					<br><span>#ip#</span> @#c# (#host_name#) <a href="http://whatismyipaddress.com/ip/#ip#">lookup</a>
 				</cfloop>
 			</blockquote>
 		</p>
