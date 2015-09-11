@@ -6,8 +6,6 @@
 <cffunction name="getIpAddress">
 
 
-	<cfreturn>
-
 
 	<!--- grab everything that might be a real IP ---->
 	<CFSET ipaddress="">
@@ -58,6 +56,9 @@
 	</cfif>
 	<cfset request.ipaddress=ipaddress>
 	<cfset request.requestingSubnet=requestingSubnet>
+
+	<cfreturn true>
+
 </cffunction>
 <!------------------>
 <cffunction name="onError">
