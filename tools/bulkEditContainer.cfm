@@ -105,7 +105,6 @@
 	            </cfquery>
 	        </cfloop>
 		</cftransaction>
-	</cfoutput>
 
 
 	<!----
