@@ -47,6 +47,8 @@
 		</cfif>
 	</cfif>
 	<cfif listfind(application.blacklist,ipaddress)>
+
+	<br> on blacklist....
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
