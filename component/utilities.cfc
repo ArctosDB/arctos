@@ -327,6 +327,7 @@
 
 
 			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
+				<br>checking #i# for #x#
 				<cfif listfindnocase(x,i)>
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
