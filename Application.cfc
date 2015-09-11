@@ -53,7 +53,7 @@
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
 			</cfscript>
-			<cfabort>
+			<cfreturn false>
 		</cfif>
 	</cfif>
 	<cfset request.ipaddress=ipaddress>
