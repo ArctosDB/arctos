@@ -295,17 +295,7 @@
 		<cfabort>
 	</cfif>
 	---->
-	<cfset rcheckRequest=f.checkRequest()>
-	<cfif not isdefined("rcheckRequest")>
-		<br>failed requestcheck<cfabort>
-	</cfif>
-	<br>rcheckRequest: #rcheckRequest#<br>
-
-	<cfif rcheckRequest is false>
-		<br>rcheckRequest is false abort<cfabort>
-	</cfif>
-
-	<br>hello I am past checkrequest...
+	<cfset f.checkRequest()>
 
 
 
