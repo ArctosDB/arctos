@@ -204,11 +204,6 @@
 <!------------------------------------------------------------------------------------>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
-
-
-	<br> hello I am checkRequest
-
-
 <!----
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
@@ -340,7 +335,6 @@
 
 
 			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
-				<br>checking #i# for #x#
 				<cfif listfindnocase(x,i)>
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
