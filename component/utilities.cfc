@@ -301,6 +301,9 @@
 
 	 	<br>still going.....
 	<cfif isdefined("inp")>
+	
+		 	<br>still still going.....
+
 		<cfif isdefined("request.rdurl")>
 			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
 				<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
@@ -341,6 +344,9 @@
 
 			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 				<cfif listfindnocase(x,i)>
+					
+							 	<br>found something.....
+
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<br>found something here bad you.....

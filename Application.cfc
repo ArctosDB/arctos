@@ -322,6 +322,8 @@
 	<cfset rgetIpAddress=getIpAddress()>
 	<cfif not isdefined("getIpAddress")>
 		<br>failed IP check<cfabort>
+	<cfelse>
+	rgetIpAddress: #rgetIpAddress#
 	</cfif>
 </cffunction>
 <!-------------------------------------------------------------->
@@ -334,6 +336,8 @@
 	<cfset rgetIpAddress=getIpAddress()>
 	<cfif not isdefined("rgetIpAddress")>
 		<br>failed IP check<cfabort>
+	<cfelse>
+	rgetIpAddress: #rgetIpAddress#
 	</cfif>
 
 	<cfif cgi.script_name is not "/errors/missing.cfm">
