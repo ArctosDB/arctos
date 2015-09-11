@@ -524,8 +524,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		</p>
 	</p>
 </cfif>
-
-
 <!---------------------------------------------------------------------------->
 <cfif action is "getCSV">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -541,8 +539,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=checked_agents.csv" addtoken="false">
 </cfif>
-
-
 <!----------------------------------->
 <cfif action is "viewtable">
 	<script src="/includes/sorttable.js"></script>
@@ -550,11 +546,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ds_temp_agent
 		</cfquery>
-
 		Click headers to sort.
-
-
-
 		<table border id="theTable" class="sortable">
 			<tr>
 				<th>agent_type</th>
