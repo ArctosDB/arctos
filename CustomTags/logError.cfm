@@ -183,7 +183,7 @@
 	</cfif>
 	<cfif isdefined("exception.rawipaddress") and len(exception.rawipaddress) gt 0>
 		<p>
-			rawipaddress: #rawipaddress#
+			rawipaddress: #exception.rawipaddress#
 		</p>
 	<cfelse>
 		nope rawipaddress
