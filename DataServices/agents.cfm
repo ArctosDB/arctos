@@ -531,12 +531,10 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent
 	</cfquery>
-	<!----
 	<cfset  util = CreateObject("component","component.utilities")>
-	----->
 	<cfset fldlst=mine.columnlist>
 	<cfset fldlst=listdeleteat(fldlst,listfindnocase(fldlst,'key'))>
-	<cfset csv = utilities.QueryToCSV2(Query=mine,Fields=fldlst)>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=fldlst)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/checked_agents.csv"
     	output = "#csv#"
