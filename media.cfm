@@ -18,18 +18,20 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "saveEdit">
 	<cfoutput>
-		<p>
-			DO NOT USE YOUR BACK BUTTON.
-		</p>
-		<p>
-			It's haunted.
-		</p>
-		<p>
-			(OK, it's not really, but the previous form won't properly recover from an error.)
-		</p>
-		<p>
-			<a href="media.cfm?action=edit&media_id=#media_id#">try this instead</a>
-		</p>
+		<div class="error">
+			<p>
+				DO NOT USE YOUR BACK BUTTON.
+			</p>
+			<p>
+				It's haunted.
+			</p>
+			<p>
+				(OK, it's not really, but the previous form won't properly recover from an error.)
+			</p>
+			<p>
+				<a href="media.cfm?action=edit&media_id=#media_id#">try this instead</a>
+			</p>
+		</div>
 		<cftransaction>
 			<!--- update media --->
 			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
