@@ -8,9 +8,11 @@
 
 	<cfoutput>
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+		<br>CGI.HTTP_X_Forwarded_For: #CGI.HTTP_X_Forwarded_For#
 		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
 		<CFSET ipaddress=CGI.Remote_Addr>
+		<br>CGI.Remote_Addr: #CGI.Remote_Addr#
 	<cfelse>
 		<cfset ipaddress=''>
 	</CFIF>
@@ -35,6 +37,9 @@
 			</cfif>
 
 		</cfloop>
+		<cfif len(vips) gt 0>
+
+		</cfif>
 		<br>vips: #vips#
 
 
