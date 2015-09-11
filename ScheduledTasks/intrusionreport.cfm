@@ -15,15 +15,25 @@
 		group by
 			regexp_replace(ip,'^([0-9]{1,3}\.[0-9]{1,3})\..*$','\1')
 		 order by
-		 	count(*)
+		 	count(*) DESC
 	</cfquery>
 	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
-	*ATCA=all-time connection attempts
+	<br>*ATCA=all-time connection attempts
 	<cfloop query="d">
 		<p>
 			Subnet: #subnet# (attempts: #attempts#)
 			<cfquery name="ips" datasource="uam_god">
-				select ip, count(*) c from blacklisted_entry_attempt where ip like '#subnet#.%' group by ip order by count(*)
+				select
+					ip,
+					count(*) c
+				from
+					blacklisted_entry_attempt
+				where
+					ip like '#subnet#.%'
+				group by
+					ip
+				order by
+					count(*) DESC
 			</cfquery>
 			<table border>
 				<tr>
