@@ -206,7 +206,7 @@
 	<cfargument name="inp" type="any" required="false"/>
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
-       <cfreturn>
+       <cfreturn true>
     </cfif>
 	<!-----
 		START: stuff in this block is always checked; this is called at onRequestStart
@@ -396,6 +396,9 @@
 			</cfif>
 		</cfif>
 	</cfif>
+
+	<!--- didn't abort anywhere in here, rock on! ---->
+	<cfreturn true>
 	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
 </cffunction>
 <!--------------------------------->

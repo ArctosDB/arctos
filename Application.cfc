@@ -357,9 +357,11 @@
 		<cfabort>
 	</cfif>
 	---->
-	<cfset x=f.checkRequest()>
-
-	<br>checkRequest: #x#
+	<cfset temp=f.checkRequest()>
+	<cfif not isdefined("temp")>
+		<br>failed requestcheck<cfabort>
+	</cfif>
+	<br>checkRequest: #temp#
 
 
     <cfset m=f.mobileDesktopRedirect()>
