@@ -35,7 +35,8 @@
 
 	<!--- loop through the possibilities, keep only things that look like an IP ---->
 	<cfset vips="">
-	<cfloop list="#ipaddress#" delimiters="," index="x">
+	<cfloop list="#ipaddress#" delimiters="," index="tip">
+		<cfset x=trim(tip)>
 		<br>checking x=#x#
 
 		<cfif
