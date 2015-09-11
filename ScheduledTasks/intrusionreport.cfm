@@ -17,9 +17,8 @@
 		 order by
 		 	count(*)
 	</cfquery>
+	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
 	<cfloop query="d">
-		blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating
-		> #mincount# attempts
 		<p>
 			<br>Subnet: #subnet# (attempts: #attempts#)
 			<cfquery name="ips" datasource="uam_god">
