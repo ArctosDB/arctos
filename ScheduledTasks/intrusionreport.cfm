@@ -4,7 +4,6 @@
 
 
 <cfset inet_address = CreateObject("java", "java.net.InetAddress")>
-<cfset host_name = inet_address.getByName("66.249.66.99").getHostName()>
 <cfoutput>#host_name#</cfoutput>
 
 
@@ -41,7 +40,8 @@
 			<br>IPs
 			<blockquote>
 				<cfloop query="#ips#">
-					<br>#ip#
+					<cfset host_name = inet_address.getByName("#ip#").getHostName()>
+					<br>#ip# (#host_name#)
 				</cfloop>
 			</blockquote>
 		</p>
