@@ -2,7 +2,7 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
-<cfset f = CreateObject("component","component.utilities")>
+<cfset utilities = CreateObject("component","component.utilities")>
 
 <!------------------>
 <cffunction name="onError">
@@ -21,7 +21,7 @@
 	</cfif>
 	<cfif showErr is 1>
 		<cfset subject="">
-		<cfset x=f.checkRequest(exception)>
+		<cfset x=utilities.checkRequest(exception)>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="403">
 			<cfif isdefined("exception.detail") and exception.detail contains "Unsupported browser-specific file request">
@@ -263,7 +263,7 @@
 
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
-	<cfset f.getIpAddress()>
+	<cfset utilities.getIpAddress()>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
@@ -272,7 +272,7 @@
 		<cfset initSession()>
 	</cfif>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	<cfset f.getIpAddress()>
+	<cfset utilities.getIpAddress()>
 
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
@@ -295,11 +295,11 @@
 		<cfabort>
 	</cfif>
 	---->
-	<cfset f.checkRequest()>
+	<cfset utilities.checkRequest()>
 
 
 
-    <cfset m=f.mobileDesktopRedirect()>
+    <cfset m=utilities.mobileDesktopRedirect()>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
 		<cfscript>
