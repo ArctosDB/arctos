@@ -14,11 +14,34 @@
 	<cfelse>
 		<cfset ipaddress=''>
 	</CFIF>
-
+	<cfset request.rawipaddress=ipaddress>
 	<br>got #ipaddress#
 
+	<br>listlen(ipaddress,","): #listlen(ipaddress,",")#
 
 	<cfif listlen(ipaddress,",") gt 1>
+		<br>loopy
+		<cfset vips="">
+		<cfloop list="#ipaddress#" delimiters="," index="i">
+			<cfset x=listgetat(ipaddress,i,",")>
+			<br>checking x=#x#
+			<cfif not (
+				listlen(x,".") neq 4 or
+				x contains "172.16" or
+				x contains "192.168" or
+				x contains "10." or
+				x is "127.0.0.1")>
+				<br>keeper
+				<cfset vips=listappend(vips,x,",")>
+			</cfif>
+
+		</cfloop>
+		<br>vips: #vips#
+
+
+				<cfset temp=ipaddress>
+
+		<!--- usually want last in series, see if it's junk --->
 		<cfset ip1=listgetat(ipaddress,1,",")>
 		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
 			<cfset ipaddress=listgetat(ipaddress,2,",")>
@@ -48,7 +71,7 @@
 		</cfif>
 	</cfif>
 
-
+<br>
 	</cfoutput>
 
 
