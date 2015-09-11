@@ -202,6 +202,43 @@
     </cfscript>
 </cffunction>
 <!------------------------------------------------------------------------------------>
+<cffunction name="getIpAddress">
+	<!--- grab everything that might be a real IP ---->
+	<CFSET ipaddress="">
+	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+		<CFSET ipaddress=listappend(ipaddress,CGI.HTTP_X_Forwarded_For,",")>
+	</cfif>
+	<CFif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+		<!--- we'll ultimately grab the last if we can't pick one and this is usually better than x_fwd so append last ---->
+		<CFSET ipaddress=listappend(ipaddress,CGI.Remote_Addr,",")>
+	</cfif>
+	<!--- keep the raw/everything, it's useful ---->
+	<cfset request.rawipaddress=ipaddress>
+	<!--- loop through the possibilities, keep only things that look like an IP ---->
+	<cfset vips="">
+	<cfloop list="#ipaddress#" delimiters="," index="tip">
+		<cfset x=trim(tip)>
+		<cfif listlen(x,".") eq 4 and
+			isnumeric(replace(x,".","","all")) and
+			refind("(^127\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)",x) eq 0 and
+			refind("^(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))$",x) eq 1
+		>
+			<cfset vips=listappend(vips,x,",")>
+		</cfif>
+	</cfloop>
+	<cfif len(vips) gt 0>
+		<!---- grab the last one, because why not....---->
+		<cfset ipaddress=listlast(vips)>
+	<cfelse>
+		<!---- or something that looks vaguely like an IP to make other things slightly more predictable ---->
+		<cfset ipaddress="0.0.0.0">
+	</cfif>
+	<cfset requestingSubnet=listgetat(ipaddress,1,".") & "." & listgetat(ipaddress,2,".")>
+	<cfset request.ipaddress=ipaddress>
+	<cfset request.requestingSubnet=requestingSubnet>
+</cffunction>
+<!------------------------------------------------------------------------------------>
+
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 
@@ -213,6 +250,33 @@
     </cfif>
 
 	-------->
+
+
+	<!--- first check if they're already blacklisted ---->
+
+	<cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
+		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
+			<cfscript>
+				getPageContext().forward("/errors/gtfo.cfm");
+			</cfscript>
+			<cfabort>
+		</cfif>
+	</cfif>
+	<cfif listfind(application.blacklist,request.ipaddress)>
+
+	<br> on blacklist....
+		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
+
+			<br>already there....
+			<cfscript>
+				getPageContext().forward("/errors/gtfo.cfm");
+			</cfscript>
+			<cfreturn false>
+		</cfif>
+		<br> after if
+			<cfreturn false>
+	</cfif>
+
 
 
 
@@ -301,7 +365,7 @@
 
 	 	<br>still going.....
 	<cfif isdefined("inp")>
-	
+
 		 	<br>still still going.....
 
 		<cfif isdefined("request.rdurl")>
@@ -344,7 +408,7 @@
 
 			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 				<cfif listfindnocase(x,i)>
-					
+
 							 	<br>found something.....
 
 					<cfset bl_reason='URL contains #i#'>

@@ -3,68 +3,7 @@
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
 <cfset f = CreateObject("component","component.utilities")>
-<cffunction name="getIpAddress">
 
-
-
-	<!--- grab everything that might be a real IP ---->
-	<CFSET ipaddress="">
-	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-		<CFSET ipaddress=listappend(ipaddress,CGI.HTTP_X_Forwarded_For,",")>
-	</cfif>
-	<CFif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-		<!--- we'll ultimately grab the last if we can't pick one and this is usually better than x_fwd so append last ---->
-		<CFSET ipaddress=listappend(ipaddress,CGI.Remote_Addr,",")>
-	</cfif>
-	<!--- keep the raw/everything, it's useful ---->
-	<cfset request.rawipaddress=ipaddress>
-	<!--- loop through the possibilities, keep only things that look like an IP ---->
-	<cfset vips="">
-	<cfloop list="#ipaddress#" delimiters="," index="tip">
-		<cfset x=trim(tip)>
-		<cfif listlen(x,".") eq 4 and
-			isnumeric(replace(x,".","","all")) and
-			refind("(^127\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)",x) eq 0 and
-			refind("^(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))$",x) eq 1
-		>
-			<cfset vips=listappend(vips,x,",")>
-		</cfif>
-	</cfloop>
-	<cfif len(vips) gt 0>
-		<!---- grab the last one, because why not....---->
-		<cfset ipaddress=listlast(vips)>
-	<cfelse>
-		<!---- or something that looks vaguely like an IP to make other things slightly more predictable ---->
-		<cfset ipaddress="0.0.0.0">
-	</cfif>
-	<cfset requestingSubnet=listgetat(ipaddress,1,".") & "." & listgetat(ipaddress,2,".")>
-	<cfif listfind(application.subnet_blacklist,requestingSubnet)>
-		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
-			<cfscript>
-				getPageContext().forward("/errors/gtfo.cfm");
-			</cfscript>
-			<cfabort>
-		</cfif>
-	</cfif>
-	<cfif listfind(application.blacklist,ipaddress)>
-
-	<br> on blacklist....
-		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
-
-			<br>already there....
-			<cfscript>
-				getPageContext().forward("/errors/gtfo.cfm");
-			</cfscript>
-		</cfif>
-		<br> after if
-			<cfreturn false>
-	</cfif>
-	<cfset request.ipaddress=ipaddress>
-	<cfset request.requestingSubnet=requestingSubnet>
-
-	<cfreturn true>
-
-</cffunction>
 <!------------------>
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
@@ -324,12 +263,7 @@
 
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
-	<cfset rgetIpAddress=getIpAddress()>
-	<cfif not isdefined("getIpAddress")>
-		<br>failed IP check<cfabort>
-	<cfelse>
-	rgetIpAddress: #rgetIpAddress#
-	</cfif>
+	<cfset t=f.getIpAddress()>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
@@ -338,12 +272,7 @@
 		<cfset initSession()>
 	</cfif>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	<cfset rgetIpAddress=getIpAddress()>
-	<cfif not isdefined("rgetIpAddress")>
-		<br>failed IP check<cfabort>
-	<cfelse>
-	rgetIpAddress: #rgetIpAddress#
-	</cfif>
+	<cfset t=f.getIpAddress()>
 
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
@@ -370,7 +299,7 @@
 	<cfif not isdefined("rcheckRequest")>
 		<br>failed requestcheck<cfabort>
 	</cfif>
-	<br>rcheckRequest: #rcheckRequest#
+	<br>rcheckRequest: #rcheckRequest#<br>
 
 
     <cfset m=f.mobileDesktopRedirect()>
