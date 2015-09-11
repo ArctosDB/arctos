@@ -40,37 +40,14 @@
 	<cfset vips="">
 	<cfloop list="#ipaddress#" delimiters="," index="x">
 		<br>checking x=#x#
-		<cfif listlen(x,".") eq 4>
-
-			<br>pass listlen
-			<br>refind:#refind("(^127\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)",x)#
-			<cfif refind("(^127\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)",x)>
-				<br>pass refind
-			<cfelse>
-				<br>fail refind
-			</cfif>
-		<cfelse>
-				<br>fail listlen
-
-		</cfif>
-
-
-
-		<!----and
-
-
-
-
-			left(x,7) is not "172.16." and
-			left(x,8) is not "192.168." and
-			left(x,3) is not "10." and
-			x is not "127.0.0.1" and
-			isnumeric(replace(x,".","","all"))
-		)>
+		<cfif
+			listlen(x,".") eq 4 and
+			isnumeric(replace(x,".","","all")) and
+			refind("(^127\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)",x) eq 0
+		>
 			<br>keeper
 			<cfset vips=listappend(vips,x,",")>
 		</cfif>
-		----->
 	</cfloop>
 
 
