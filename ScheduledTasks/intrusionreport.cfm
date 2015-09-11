@@ -5,7 +5,7 @@
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 			SELECT
-			regexp_replace(ip,'^([0-9]{2,3}\.[0-9]{2,3})\..*$','\1') subnet,
+			regexp_replace(ip,'^([0-9]{1,3}\.[0-9]{1,3})\..*$','\1') subnet,
 			count(*) attempts
 		from
 			blacklisted_entry_attempt
@@ -14,7 +14,7 @@
 		having
 			count(*) > #mincount#
 		group by
-			regexp_replace(ip,'^([0-9]{2,3}\.[0-9]{2,3})\..*$','\1')
+			regexp_replace(ip,'^([0-9]{1,3}\.[0-9]{1,3})\..*$','\1')
 		 order by
 		 	count(*)
 	</cfquery>
