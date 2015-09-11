@@ -22,8 +22,7 @@
 	<cfif listlen(ipaddress,",") gt 1>
 		<br>loopy
 		<cfset vips="">
-		<cfloop list="#ipaddress#" delimiters="," index="i">
-			<cfset x=listgetat(ipaddress,i,",")>
+		<cfloop list="#ipaddress#" delimiters="," index="x">
 			<br>checking x=#x#
 			<cfif not (
 				listlen(x,".") neq 4 or
