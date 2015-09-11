@@ -46,7 +46,7 @@
 			x contains "192.168" or
 			x contains "10." or
 			x is "127.0.0.1" or
-			isnumeric(replace(x,"."))
+			isnumeric(replace(x,".","","all"))
 		)>
 			<br>keeper
 			<cfset vips=listappend(vips,x,",")>
