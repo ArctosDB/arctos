@@ -336,9 +336,6 @@
 		<br>failed IP check<cfabort>
 	</cfif>
 
-
-
-
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
@@ -361,6 +358,10 @@
 	</cfif>
 	---->
 	<cfset x=f.checkRequest()>
+
+	<br>checkRequest: #x#
+
+
     <cfset m=f.mobileDesktopRedirect()>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
