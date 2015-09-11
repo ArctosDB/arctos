@@ -253,7 +253,7 @@
 
 
 	<!--- first check if they're already blacklisted ---->
-
+	<cfoutput>
 	<cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
@@ -266,7 +266,7 @@
 
 	<br> on blacklist....
 
-	<cfoutput>
+
 	<br>replace(cgi.script_name,'//','/','all'): #replace(cgi.script_name,'//','/','all')#
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 
