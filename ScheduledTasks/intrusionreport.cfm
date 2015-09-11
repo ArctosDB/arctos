@@ -18,23 +18,34 @@
 		 	count(*)
 	</cfquery>
 	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
+	*ATCA=all-time connection attempts
 	<cfloop query="d">
 		<p>
-			<br>Subnet: #subnet# (attempts: #attempts#)
+			Subnet: #subnet# (attempts: #attempts#)
 			<cfquery name="ips" datasource="uam_god">
 				select ip, count(*) c from blacklisted_entry_attempt where ip like '#subnet#.%' group by ip order by count(*)
 			</cfquery>
-			<br>IPs
-			<blockquote>
+			<table border>
+				<tr>
+					<th>IP</th>
+					<th>ATCA</th>
+					<th>Host</th>
+					<th>Click</th>
+				</tr>
 				<cfloop query="#ips#">
 					<cftry>
 						<cfset host_name = inet_address.getByName("#ip#").getHostName()>
 					<cfcatch>
 						<cfset host_name='idk'>
 					</cfcatch></cftry>
-					<br><span>#ip#</span> @#c# (#host_name#) <a href="http://whatismyipaddress.com/ip/#ip#">lookup</a>
+					<tr>
+						<td>#ip#</td>
+						<td>#c#</td>
+						<td>#host_name#</td>
+						<td><a href="http://whatismyipaddress.com/ip/#ip#">lookup</a></td>
+					</tr>
 				</cfloop>
-			</blockquote>
+			</table>
 		</p>
 	</cfloop>
 </cfoutput>
