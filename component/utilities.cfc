@@ -396,20 +396,13 @@
 			<cfset x=x & ",verify-tldnotify,version">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
-
-
 			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 				<cfif listfindnocase(x,i)>
-
-							 	<br>found something.....
-
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
-					<br>found something here bad you.....
 					<cfabort>
 				</cfif>
 			</cfloop>
-
 			<!---- For the Admin folder, which is linked from email, be a little paranoid/cautious
 				and only get obviously-malicious activity
 				Common requests:
