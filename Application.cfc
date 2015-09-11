@@ -263,7 +263,7 @@
 
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
-	<cfset t=f.getIpAddress()>
+	<cfset f.getIpAddress()>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
@@ -272,7 +272,7 @@
 		<cfset initSession()>
 	</cfif>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	<cfset t=f.getIpAddress()>
+	<cfset f.getIpAddress()>
 
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
