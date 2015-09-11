@@ -205,7 +205,7 @@
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 
-	<cfreturn false>
+	<br>hello I am checkRequest
 <!----
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
@@ -272,6 +272,7 @@
 			<cfif cgi.HTTP_USER_AGENT contains b>
 				<cfset bl_reason='HTTP_USER_AGENT is blocked crawler #b#'>
 				<cfinclude template="/errors/autoblacklist.cfm">
+
 				<cfabort>
 			</cfif>
 		</cfloop>
@@ -340,6 +341,7 @@
 				<cfif listfindnocase(x,i)>
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
+					<br>found something here bad you.....
 					<cfabort>
 				</cfif>
 			</cfloop>
