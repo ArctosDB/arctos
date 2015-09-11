@@ -4,7 +4,7 @@
 
 
 <!----
-	
+
 	create table cf_temp_container as select * from container where 1=2;
 	alter table cf_temp_container drop column container_id;
 	alter table cf_temp_container drop column PARENT_CONTAINER_ID;
@@ -15,18 +15,18 @@
 	alter table cf_temp_container drop column WIDTH;
 	alter table cf_temp_container drop column HEIGHT;
 	alter table cf_temp_container drop column LENGTH;
-	
+
 	alter table cf_temp_container modify barcode not null;
-	
+
 	create or replace public synonym cf_temp_container for cf_temp_container;
-	
+
 	grant all on cf_temp_container to manage_container;
-	
+
 	create unique index iu_cf_temp_cntr_barcode on cf_temp_container (barcode);
-	
+
 	 drop index iu_cf_temp_cntr_barcode;
-	
-	
+
+
 	drop table cf_temp_container;
 ---->
 
@@ -48,7 +48,7 @@
 	</cfquery>
 	<cfoutput>
 		<p>
-			Before using this form, make sure that the container series (no matter how small) is in the 
+			Before using this form, make sure that the container series (no matter how small) is in the
 			<a href="http://arctosdb.org/documentation/container/##purchase" class="external" target="_blank">
 				spreadsheet
 			</a> and that there are no potential conflicts with other collections.
@@ -58,7 +58,7 @@
 			smaller batches may be necessary.
 		</p>
 		<p>
-			<a href="CreateContainersForBarcodes?action=makeTemplate">get a template</a>
+			<a href="CreateContainersForBarcodes.cfm?action=makeTemplate">get a template</a>
 		</p>
 		<cfquery name="ctContainer_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_type from ctcontainer_type where container_type like '%label%' order by container_type
@@ -158,7 +158,7 @@
 				</cfquery>
 			</cfloop>
 		</cftransaction>
-		<a href="CreateContainersForBarcodes?action=validate">loaded - proceed to validate</a>
+		<a href="CreateContainersForBarcodes.cfm?action=validate">loaded - proceed to validate</a>
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
@@ -230,7 +230,7 @@
 		    0,
 		    INSTITUTION_ACRONYM,
 		    DESCRIPTION,
-		    CONTAINER_REMARKS		    
+		    CONTAINER_REMARKS
 		  from
 		    cf_temp_container
 		)

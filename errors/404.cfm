@@ -120,7 +120,8 @@
 				</ul>
 			</li>
 		</ul>
-		Some specimens are restricted. You may <a href="/contact.cfm">contact us</a> for more information.
+		Some specimens are restricted. You may <a href="/contact.cfm">contact us</a> for more information, or
+		<a href="/info/encumbrances.cfm">view a summary of encumbrances</a>.
 		<p>
 			Occasionally, a specimen is recataloged. You may be able to find them by using Other Identifiers in Specimen Search.
 		</p>

@@ -70,7 +70,7 @@
 		<tr>
 			<td>NUMBER_POSITIONS</td>
 			<td>"0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
-		</tr>	
+		</tr>
 	</table>
 	<form enctype="multipart/form-data" action="bulkEditContainer.cfm" method="POST">
 		<input type="hidden" name="action" value="getFile">
@@ -86,6 +86,30 @@
 		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from cf_temp_lbl2contr
 		</cfquery>
+
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+        <cfset  util = CreateObject("component","component.utilities")>
+		<cfset x=util.CSVToQuery(fileContent)>
+        <cfset cols=x.columnlist>
+		<cftransaction>
+	        <cfloop query="x">
+	            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		            insert into cf_temp_lbl2contr (#cols#) values (
+		            <cfloop list="#cols#" index="i">
+		            		'#stripQuotes(evaluate(i))#'
+		            	<cfif i is not listlast(cols)>
+		            		,
+		            	</cfif>
+		            </cfloop>
+		            )
+	            </cfquery>
+	        </cfloop>
+		</cftransaction>
+	</cfoutput>
+
+
+	<!----
+
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 		<cfset  util = CreateObject("component","component.utilities")>
 		<cfset q = util.CSVToQuery(CSV=fileContent)>
@@ -99,19 +123,21 @@
 		</cfif>
 		<cfquery name="qclean" dbtype="query">
 			select #colnames# from q
-		</cfquery>	
+		</cfquery>
 		<cfset sql="insert all ">
-		<cfloop query="qclean">		
+		<cfloop query="qclean">
 			<cfset sql=sql & " into cf_temp_lbl2contr (#colnames#,status) values (">
 			<cfloop list="#colnames#" index="i">
 				<cfset sql=sql & "'#evaluate("qClean." & i)#',">
 			</cfloop>
-			<cfset sql=sql & "'')">	
+			<cfset sql=sql & "'')">
 		</cfloop>
 		<cfset sql=sql & "SELECT 1 FROM DUAL">
 		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(sql)#
 		</cfquery>
+		<a href="bulkEditContainer.cfm?action=validateUpload">data loaded - proceed to validation</a>
+		---->
 		<a href="bulkEditContainer.cfm?action=validateUpload">data loaded - proceed to validation</a>
 	</cfoutput>
 </cfif>
@@ -120,85 +146,85 @@
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
 		<cfquery name="upsbc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				status='barcode_not_found' 
-			where 
+			update
+				cf_temp_lbl2contr
+			set
+				status='barcode_not_found'
+			where
 				barcode not in (select barcode from container where barcode is not null)
 		</cfquery>
 		<cfquery name="uasdfasps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				status='new/old container type mismatch' 
-			where 
+			update
+				cf_temp_lbl2contr
+			set
+				status='new/old container type mismatch'
+			where
 				status is null and
-				OLD_CONTAINER_TYPE is null and 
+				OLD_CONTAINER_TYPE is null and
 				CONTAINER_TYPE is not null
 		</cfquery>
 		<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				status='old_container_type_nomatch' 
-			where 
+			update
+				cf_temp_lbl2contr
+			set
+				status='old_container_type_nomatch'
+			where
 				status is null and
 				(barcode,old_container_type) not in (select barcode,container_type from container where barcode is not null)
 		</cfquery>
 		<cfquery name="upn_descr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				note=note || '; ' || 'existing container has description' 
-			where 
-				description ='NULL' and 
+			update
+				cf_temp_lbl2contr
+			set
+				note=note || '; ' || 'existing container has description'
+			where
+				description ='NULL' and
 				barcode in (select barcode from container where description is not null)
 		</cfquery>
-		
+
 		<cfquery name="upn_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				note=note || '; ' || 'existing container has remark' 
-			where 
-				container_remarks='NULL' and 
+			update
+				cf_temp_lbl2contr
+			set
+				note=note || '; ' || 'existing container has remark'
+			where
+				container_remarks='NULL' and
 				barcode in (select barcode from container where container_remarks is not null)
 		</cfquery>
 		<cfquery name="upn_l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				note=note || '; ' || 'existing container has length' 
-			where 
-				length =0 and 
+			update
+				cf_temp_lbl2contr
+			set
+				note=note || '; ' || 'existing container has length'
+			where
+				length =0 and
 				barcode in (select barcode from container where length is not null)
 		</cfquery>
 		<cfquery name="upn_h" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				note=note || '; ' || 'existing container has height' 
-			where 
-				height =0 and 
+			update
+				cf_temp_lbl2contr
+			set
+				note=note || '; ' || 'existing container has height'
+			where
+				height =0 and
 				barcode in (select barcode from container where height is not null)
 		</cfquery>
 		<cfquery name="upn_w" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				note=note || '; ' || 'existing container has width' 
-			where 
-				width =0 and 
+			update
+				cf_temp_lbl2contr
+			set
+				note=note || '; ' || 'existing container has width'
+			where
+				width =0 and
 				barcode in (select barcode from container where width is not null)
 		</cfquery>
 		<cfquery name="upn_w" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_lbl2contr 
-			set 
-				note=note || '; ' || 'existing container has number_positions' 
-			where 
-				number_positions =0 and 
+			update
+				cf_temp_lbl2contr
+			set
+				note=note || '; ' || 'existing container has number_positions'
+			where
+				number_positions =0 and
 				barcode in (select barcode from container where number_positions is not null)
 		</cfquery>
 		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -208,7 +234,7 @@
 			There are problems. Fix the data and try again.
 		<cfelse>
 			Validation complete. Carefully recheck the data and <a href="bulkEditContainer.cfm?action=finalizeUpload">click here to finalize the upload</a>.
-			Pay special attention to the "note" column - these are not "errors" but information here may be an indication that 
+			Pay special attention to the "note" column - these are not "errors" but information here may be an indication that
 			you are about to make a huge mess.
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -296,16 +322,16 @@
 	<!--- lots of possibliities here, so break this into a few simpler queries ---->
 	<cftransaction>
 		<cfquery name="changeContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				container 
+			update
+				container
 			set (
 				container.container_type
 			)=(
-				select 
+				select
 					cf_temp_lbl2contr.container_type
-				from 
+				from
 					cf_temp_lbl2contr
-				where 
+				where
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
@@ -319,20 +345,20 @@
 			)
 		</cfquery>
 		<cfquery name="description" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				container 
+			update
+				container
 			set (
 				container.description
 			)=(
-				select 
+				select
 					decode(
 						cf_temp_lbl2contr.description,
 						'NULL',null,
 						cf_temp_lbl2contr.description
 					)
-				from 
+				from
 					cf_temp_lbl2contr
-				where 
+				where
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
@@ -346,20 +372,20 @@
 			)
 		</cfquery>
 		<cfquery name="container_remarks" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				container 
+			update
+				container
 			set (
 				container.container_remarks
 			)=(
-				select 
+				select
 					decode(
 						cf_temp_lbl2contr.container_remarks,
 						'NULL',null,
 						cf_temp_lbl2contr.container_remarks
 					)
-				from 
+				from
 					cf_temp_lbl2contr
-				where 
+				where
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
@@ -373,16 +399,16 @@
 			)
 		</cfquery>
 		<cfquery name="label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				container 
+			update
+				container
 			set (
 				container.label
 			)=(
-				select 
+				select
 					cf_temp_lbl2contr.label
-				from 
+				from
 					cf_temp_lbl2contr
-				where 
+				where
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
@@ -396,20 +422,20 @@
 			)
 		</cfquery>
 		<cfquery name="height" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				container 
+			update
+				container
 			set (
 				container.height
 			)=(
-				select 
+				select
 					decode(
 						cf_temp_lbl2contr.height,
 						'0',null,
 						cf_temp_lbl2contr.height
 					)
-				from 
+				from
 					cf_temp_lbl2contr
-				where 
+				where
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
@@ -423,20 +449,20 @@
 			)
 		</cfquery>
 		<cfquery name="length" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				container 
+			update
+				container
 			set (
 				container.length
 			)=(
-				select 
+				select
 					decode(
 						cf_temp_lbl2contr.length,
 						'0',null,
 						cf_temp_lbl2contr.length
 					)
-				from 
+				from
 					cf_temp_lbl2contr
-				where 
+				where
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
@@ -450,20 +476,20 @@
 			)
 		</cfquery>
 		<cfquery name="width" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				container 
+			update
+				container
 			set (
 				container.width
 			)=(
-				select 
+				select
 					decode(
 						cf_temp_lbl2contr.width,
 						'0',null,
 						cf_temp_lbl2contr.width
 					)
-				from 
+				from
 					cf_temp_lbl2contr
-				where 
+				where
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
@@ -477,20 +503,20 @@
 			)
 		</cfquery>
 		<cfquery name="number_positions" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				container 
+			update
+				container
 			set (
 				container.number_positions
 			)=(
-				select 
+				select
 					decode(
 						cf_temp_lbl2contr.number_positions,
 						'0',null,
 						cf_temp_lbl2contr.number_positions
 					)
-				from 
+				from
 					cf_temp_lbl2contr
-				where 
+				where
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
