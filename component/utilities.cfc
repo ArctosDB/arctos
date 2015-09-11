@@ -265,6 +265,7 @@
 	<cfif listfind(application.blacklist,request.ipaddress)>
 
 	<br> on blacklist....
+	<br>replace(cgi.script_name,'//','/','all'): #replace(cgi.script_name,'//','/','all')#
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 
 			<br>already there....
