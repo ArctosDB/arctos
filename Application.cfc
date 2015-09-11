@@ -18,23 +18,20 @@
 						<br>CGI.HTTP_X_PROXY_ID: #CGI.HTTP_X_PROXY_ID#
 
 
-<!--- grab everything that might be a real IP ---->
+	<!--- grab everything that might be a real IP ---->
 	<CFSET ipaddress="">
-
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-		<br>CGI.HTTP_X_Forwarded_For: #CGI.HTTP_X_Forwarded_For#
 		<CFSET ipaddress=listappend(ipaddress,CGI.HTTP_X_Forwarded_For,",")>
 	</cfif>
 	<CFif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+		<!--- we'll ultimately grab the last if we can't pick one and this is usually better than x_fwd so append last ---->
 		<CFSET ipaddress=listappend(ipaddress,CGI.Remote_Addr,",")>
-		<br>CGI.Remote_Addr: #CGI.Remote_Addr#
 	</cfif>
-
-
+	<!--- keep the raw/everything, it's useful ---->
 	<cfset request.rawipaddress=ipaddress>
+
 	<br>got #ipaddress#
 
-	<br>listlen(ipaddress,","): #listlen(ipaddress,",")#
 
 	<!--- loop through the possibilities, keep only things that look like an IP ---->
 	<cfset vips="">
@@ -60,6 +57,7 @@
 		<!---- grab the last one, because why not....---->
 		<cfset ipaddress=listlast(vips)>
 	<cfelse>
+		<!---- or something that looks vaguely like an IP to make other things slightly more predictable ---->
 		<cfset ipaddress="0.0.0.0">
 	</cfif>
 
