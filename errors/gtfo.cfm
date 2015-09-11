@@ -1,11 +1,14 @@
-<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-	<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
-<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-	<CFSET ipaddress=CGI.Remote_Addr>
+<cfif not isdefined("request.ipaddress") or len(request.ipaddress) eq 0>
+	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
+	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+		<CFSET ipaddress=CGI.Remote_Addr>
+	<cfelse>
+		<cfset ipaddress='unknown'>
+	</CFIF>
 <cfelse>
-	<cfset ipaddress='unknown'>
-</CFIF>
-
+	<cfset ipaddress=request.ipaddress>
+</cfif>
 <cfif not isdefined("action") or action is not "p">
 	<cfquery name="d" datasource="uam_god">
 		insert into blacklisted_entry_attempt (ip) values ('#ipaddress#')
