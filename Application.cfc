@@ -13,6 +13,13 @@
 
 						<br>CGI.Remote_Addr: #CGI.Remote_Addr#
 
+						<br>CGI.HTTP_VIA: #CGI.HTTP_VIA#
+
+						<br>CGI.HTTP_X_PROXY_ID: #CGI.HTTP_X_PROXY_ID#
+
+
+
+
 
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<br>CGI.HTTP_X_Forwarded_For: #CGI.HTTP_X_Forwarded_For#
