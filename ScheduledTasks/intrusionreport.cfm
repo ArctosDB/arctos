@@ -4,7 +4,6 @@
 
 
 <cfset inet_address = CreateObject("java", "java.net.InetAddress")>
-<cfoutput>#host_name#</cfoutput>
 
 
 
