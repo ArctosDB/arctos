@@ -136,10 +136,10 @@ Make sure any useful changes end up in both places.
 	<cfloop from="1" to="#ArrayLen(x.data)#" index="thisResultIndex">
 		<cfset thisName=listgetat(theseNames,thisResultIndex,"|")>
 		<!----
-			<hr>thisName::::::::::::::::::::::::::: #thisName#
 		---->
 
 
+			<hr>thisName::::::::::::::::::::::::::: #thisName#
 
 
 		<cfquery name="dfd" dbtype="query">
