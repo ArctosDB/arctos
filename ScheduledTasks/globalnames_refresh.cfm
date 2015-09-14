@@ -64,6 +64,10 @@ Make sure any useful changes end up in both places.
 		select * from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
 	</cfquery>
 
+
+	<cfdump var=#d#>
+
+
 	<cfif d.recordcount is 0>
 		<!---- start at old and work newer ---->
 		<cfquery name="d" datasource="uam_god">
