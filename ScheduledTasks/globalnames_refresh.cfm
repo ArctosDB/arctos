@@ -61,7 +61,11 @@ Make sure any useful changes end up in both places.
 
 
 	<cfquery name="d" datasource="uam_god">
-		select * from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
+		select
+			TAXON_NAME_ID,
+			trim(TAXON_NAME) TAXON_NAME,,
+			LASTFETCH
+		from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
 	</cfquery>
 
 c>
@@ -146,7 +150,7 @@ c>
 
 
 		<cfquery name="dfd" dbtype="query">
-			select taxon_name_id from d where trim(taxon_name)='#trim(thisName)#'
+			select taxon_name_id from d where taxon_name='#trim(thisName)#'
 		</cfquery>
 
 
