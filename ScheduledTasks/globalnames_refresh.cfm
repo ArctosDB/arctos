@@ -146,7 +146,7 @@ c>
 
 
 		<cfquery name="dfd" dbtype="query">
-			select taxon_name_id from d where taxon_name='#thisName#'
+			select taxon_name_id from d where taxon_name='#trim(thisName)#'
 		</cfquery>
 
 
