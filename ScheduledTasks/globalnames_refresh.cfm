@@ -63,18 +63,21 @@ Make sure any useful changes end up in both places.
 	<cfquery name="d" datasource="uam_god">
 		select
 			TAXON_NAME_ID,
-			trim(TAXON_NAME) TAXON_NAME,,
+			trim(TAXON_NAME) TAXON_NAME,
 			LASTFETCH
 		from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
 	</cfquery>
 
-c>
+
 
 
 	<cfif d.recordcount is 0>
 		<!---- start at old and work newer ---->
 		<cfquery name="d" datasource="uam_god">
-			select * from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch#
+			select
+			TAXON_NAME_ID,
+			trim(TAXON_NAME) TAXON_NAME,
+			LASTFETCH from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch#
 		</cfquery>
 	</cfif>
 
