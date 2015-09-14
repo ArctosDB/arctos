@@ -156,10 +156,6 @@ Make sure any useful changes end up in both places.
 			select taxon_name_id from d where taxon_name='#trim(thisName)#'
 		</cfquery>
 
-
-		<cfdump var=#dfd#>
-
-
 		<cfset thisTaxonNameID=dfd.taxon_name_id>
 		<!--- just delete all previously-fetched globalnames data ---->
 		<cfquery name="flush_old" datasource="uam_god">
@@ -303,7 +299,6 @@ Make sure any useful changes end up in both places.
 				</cfquery>
 			</cfif>
 			<cfcatch>
-				<cfdump var=#cfcatch#>
 				<!---
 				<cf_logError subject="globalnames_refresh error" attributeCollection=#cfcatch#>
 				--->

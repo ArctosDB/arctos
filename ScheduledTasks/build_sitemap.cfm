@@ -1,4 +1,4 @@
-<!--- 
+<!---
 	create table cf_sitemaps (
 		collection_id number,
 		filename varchar2(20),
@@ -75,7 +75,7 @@
 	<cfquery name="i" datasource="uam_god">
 		insert into cf_sitemaps (filename) values ('static1.xml')
 	</cfquery>
-</cfoutput>	
+</cfoutput>
 </cfif>
 <!------------------------------->
 <cfif action is "build_index">
@@ -88,13 +88,13 @@
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#filename#.gz</loc>">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#dateformat(now(),'yyyy-mm-dd')#</lastmod>">
-		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>					
+		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>
 	</cfloop>
 	<cfset smi=smi & chr(10) & chr(9) & '</sitemapindex>'>
 	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml" addnewline="no" output="#smi#">
 	<cfscript>
 		zip = CreateObject("component", "/component.Zip");
-		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/sitemapindex.xml"); 
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/sitemapindex.xml");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/sitemapindex.xml">
 </cfif>
@@ -117,7 +117,7 @@
 	<cfset formList=listAppend(formList,"MediaSearch.cfm")>
 	<cfset formList=listAppend(formList,"login.cfm")>
 	<cfset formList=listAppend(formList,"home.cfm")>
-	<cfset formList=listAppend(formList,"Collections/")>	
+	<cfset formList=listAppend(formList,"Collections/")>
 	<cfset chunkNum=replace(colls.filename,".xml","","all")>
 	<cfset chunkNum=replace(chunkNum,"static","","all")>
 	<cfset maxRN=chunkNum*chunkSize>
@@ -128,25 +128,25 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) &
 		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
-	</cfscript>			
+	</cfscript>
 	<cfloop list="#formList#" index="fn">
 		<cfscript>
-			a=chr(9) & "<url>" & chr(10) & 
+			a=chr(9) & "<url>" & chr(10) &
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#fn#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) & 
+			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) &
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
-	</cfloop>	
+	</cfloop>
 	<cfscript>
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 		zip = CreateObject("component", "/component.Zip");
-		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
@@ -174,10 +174,10 @@
 	<cfquery name="d" datasource="uam_god">
 		 select * from (
          	select a.*, rownum rnum from (
-            	select                
+            	select
                 	media_id
-				from 
-					media 
+				from
+					media
 				order by media_id
 			) a
 		where rownum <= #maxRN#)
@@ -189,25 +189,25 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) &
 		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
-	</cfscript>			
+	</cfscript>
 	<cfloop query="d">
 		<cfscript>
-			a=chr(9) & "<url>" & chr(10) & 
+			a=chr(9) & "<url>" & chr(10) &
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/media/#media_id#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
+			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) &
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
-	</cfloop>	
+	</cfloop>
 	<cfscript>
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 		zip = CreateObject("component", "/component.Zip");
-		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
@@ -235,10 +235,10 @@
 	<cfquery name="d" datasource="uam_god">
 		 select * from (
          	select a.*, rownum rnum from (
-            	select                
+            	select
                 	niceURL(project_name) project_name
-				from 
-					project 
+				from
+					project
 				order by niceURL(project_name)
 			) a
 		where rownum <= #maxRN#)
@@ -250,25 +250,25 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) &
 		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
-	</cfscript>			
+	</cfscript>
 	<cfloop query="d">
 		<cfscript>
-			a=chr(9) & "<url>" & chr(10) & 
+			a=chr(9) & "<url>" & chr(10) &
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/project/#project_name#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
+			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) &
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
-	</cfloop>	
+	</cfloop>
 	<cfscript>
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 		zip = CreateObject("component", "/component.Zip");
-		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
@@ -296,10 +296,10 @@
 	<cfquery name="d" datasource="uam_god">
 		 select * from (
          	select a.*, rownum rnum from (
-            	select                
+            	select
                 	publication_id
-				from 
-					publication 
+				from
+					publication
 				order by publication_id
 			) a
 		where rownum <= #maxRN#)
@@ -311,25 +311,25 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) &
 		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
-	</cfscript>			
+	</cfscript>
 	<cfloop query="d">
 		<cfscript>
-			a=chr(9) & "<url>" & chr(10) & 
+			a=chr(9) & "<url>" & chr(10) &
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/publication/#publication_id#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
+			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) &
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
-	</cfloop>	
+	</cfloop>
 	<cfscript>
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 		zip = CreateObject("component", "/component.Zip");
-		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
@@ -357,10 +357,10 @@
 	<cfquery name="d" datasource="uam_god">
 		 select * from (
          	select a.*, rownum rnum from (
-            	select                
+            	select
                 	scientific_name
-				from 
-					taxonomy
+				from
+					taxon_name
 				where scientific_name not like '?%'
 				order by scientific_name
 			) a
@@ -373,25 +373,25 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) &
 		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
-	</cfscript>			
+	</cfscript>
 	<cfloop query="d">
 		<cfscript>
-			a=chr(9) & "<url>" & chr(10) & 
+			a=chr(9) & "<url>" & chr(10) &
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/name/#URLEncodedFormat(scientific_name)#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) & 
+			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) &
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
-	</cfloop>	
+	</cfloop>
 	<cfscript>
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 		zip = CreateObject("component", "/component.Zip");
-		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
@@ -419,10 +419,10 @@
 	<cfquery name="d" datasource="uam_god">
 		 select * from (
          	select a.*, rownum rnum from (
-            	select                
+            	select
                 	guid,
                 	nvl(to_char(lastdate,'yyyy-mm-dd'),to_char(sysdate,'yyyy-mm-dd')) lastMod
-				from 
+				from
 					filtered_flat
 				where guid is not null
 				order by guid
@@ -436,26 +436,26 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) &
 		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
-	</cfscript>			
+	</cfscript>
 	<cfloop query="d">
 		<cfscript>
-			a=chr(9) & "<url>" & chr(10) & 
+			a=chr(9) & "<url>" & chr(10) &
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>" & chr(10) &
 			chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>" & chr(10) &
-			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
+			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) &
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
-	</cfloop>	
+	</cfloop>
 	<cfscript>
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 		zip = CreateObject("component", "/component.Zip");
-		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
