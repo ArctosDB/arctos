@@ -64,8 +64,7 @@ Make sure any useful changes end up in both places.
 		select * from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
 	</cfquery>
 
-
-	<cfdump var=#d#>
+c>
 
 
 	<cfif d.recordcount is 0>
@@ -149,6 +148,11 @@ Make sure any useful changes end up in both places.
 		<cfquery name="dfd" dbtype="query">
 			select taxon_name_id from d where taxon_name='#thisName#'
 		</cfquery>
+
+
+		<cfdump var=#dfd#>
+
+
 		<cfset thisTaxonNameID=dfd.taxon_name_id>
 		<!--- just delete all previously-fetched globalnames data ---->
 		<cfquery name="flush_old" datasource="uam_god">
