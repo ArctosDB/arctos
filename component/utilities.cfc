@@ -245,6 +245,7 @@
 	</cfif>
 	<!--- now replace all potential delimiters with chr(7), so we can predictable loop ---->
 	<cfset replace(lurl,",",chr(7),"all")>
+<cfset replace(lurl,"chr(7)","[X]","all")>
 
 	<cfoutput>
 		<br>lurl: #lurl#
