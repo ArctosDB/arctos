@@ -412,10 +412,9 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
 			<!--- just remember to not add these...---->
-			<cfset hasCausedProbsNoCheck="case,sys">
+			<cfset hasCausedProbsNoCheck="case">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
 				<cfif listfindnocase(x,i)>
-					<br>deleting #i#
 					<cfset x=listdeleteat(x,listfindnocase(x,i))>
 				</cfif>
 			</cfloop>
