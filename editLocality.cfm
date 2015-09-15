@@ -990,6 +990,11 @@ function checkCoordinateError(){
 			<hr>
 		<cfelse>
 			<input type="submit" value="Save Edits" class="savBtn">
+			<select name="pushMeToEvent" id="pushMeToEvent">
+				<option value="">do nothing to specimen events</option>
+				<option value="push">push my agent + today's date to specimen events</option>
+			</select>
+
 			<input type="button" value="Delete" class="delBtn" onClick="deleteLocality('#locDet.locality_id#');">
 		</cfif>
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
@@ -1373,9 +1378,29 @@ function checkCoordinateError(){
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 	</cfif>
 	<cfset sql = "#sql# where locality_id = #locality_id#">
-	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preservesinglequotes(sql)#
-	</cfquery>
+	<cftransaction>
+		<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+		<cfif isdefined("pushMeToEvent") and pushMeToEvent is "push">
+			<cfquery name="pushevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update
+					specimen_event
+				set
+					ASSIGNED_BY_AGENT_ID=#session.myAgentID#,
+					ASSIGNED_DATE=sysdate
+				where
+					collecting_event_id in (
+						select
+							collecting_event_id
+						from
+							locality
+						where
+							locality_id = #locality_id#
+					)
+			</cfquery>
+		</cfif>
+	</cftransaction>
 	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
 	</cfoutput>
 </cfif>
