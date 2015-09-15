@@ -237,10 +237,6 @@
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 
-hi<cfabort>
-
-
-
 
 	<!----
 	<cfif session.roles contains "coldfusion_user">
