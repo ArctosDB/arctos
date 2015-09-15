@@ -409,6 +409,13 @@
 
 
 			</cfoutput>
+
+			made it....
+			<cfabort>
+
+
+
+
 			<!---- For the Admin folder, which is linked from email, be a little paranoid/cautious
 				and only get obviously-malicious activity
 				Common requests:
