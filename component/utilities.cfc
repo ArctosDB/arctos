@@ -237,7 +237,18 @@
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 
+	<!--- pull into local ---->
+	<cfif isdefined("request.rdurl")>
+		<cfset lurl=request.rdurl>
+	<cfelse>
+		<cfset lurl="">
+	</cfif>
+	<!--- now replace all potential delimiters with chr(7), so we can predictable loop ---->
+	<cfset replace(lurl,",",chr(7),"all")>
 
+	<cfoutput>
+		<br>lurl: #lurl#
+	</cfoutput>
 	<!----
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
@@ -395,7 +406,7 @@
 <cfoutput>
 
 
-			<cfloop list="#request.rdurl#" delimiters="./&+() " index="i">
+			<cfloop list="#request.rdurl#" delimiters="./&+()%20" index="i">
 				<br>#i#
 				<cfif listfindnocase(x,i)>
 					<br>buhbye...
@@ -423,17 +434,15 @@
 						so tread a bit lighter; ignore variables part, look only at page/template request
 			--->
 			<cfset x="admin">
-			<cfif session.roles does not contain "coldfusion_user">
 				<cfif request.rdurl contains "?">
-					<cfset rf=listgetat(request.rdurl,1,"?")>
-					<cfloop list="#rf#" delimiters="./&+()" index="i">
-						<cfif listfindnocase(x,i)>
-							<cfset bl_reason='URL contains #i#'>
-							<cfinclude template="/errors/autoblacklist.cfm">
-							<cfabort>
-						</cfif>
-					</cfloop>
-				</cfif>
+				<cfset rf=listgetat(request.rdurl,1,"?")>
+				<cfloop list="#rf#" delimiters="./&+()" index="i">
+					<cfif listfindnocase(x,i)>
+						<cfset bl_reason='URL contains #i#'>
+						<cfinclude template="/errors/autoblacklist.cfm">
+						<cfabort>
+					</cfif>
+				</cfloop>
 			</cfif>
 		</cfif>
 		<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "Synapse">
