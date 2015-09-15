@@ -235,16 +235,11 @@
 <!------------------------------------------------------------------------------------>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
-	<!--- pull into local ---->
-
-	<!---
-
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
        <cfreturn true>
     </cfif>
-
-
+	<!---
 		first check if they're already blacklisted
 		If they are, just include the notification/form and abort
 	---->
@@ -365,15 +360,10 @@
 		<cfabort>
 	</cfif>
 	<cfif isdefined("request.rdurl") and request.rdurl contains "%27A=0">
-
-		<br>buhbye
 		<cfset bl_reason="URL contains %27A=0">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-
-	<br>nope....
-	<cfdump var=#request.rdurl#>
 
 	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
 	<!-----
@@ -429,16 +419,13 @@
 					<cfset x=listdeleteat(x,listfindnocase(x,i))>
 				</cfif>
 			</cfloop>
-			<cfoutput>
 			<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
-				<br>checking #i#
 				<cfif listfindnocase(x,i)>
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
 			</cfloop>
-			</cfoutput>
 			<!---- For the Admin folder, which is linked from email, be a little paranoid/cautious
 				and only get obviously-malicious activity
 				Common requests:
