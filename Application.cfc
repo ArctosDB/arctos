@@ -267,9 +267,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	<br>I am onRequestStart
-
-	<cfabort>
 	<!--- uncomment for a break from googlebot
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
