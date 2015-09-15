@@ -1401,7 +1401,7 @@ function checkCoordinateError(){
 	</p>
 
 
-
+<cftransaction>
 
 		<cfif isdefined("pushMeToEvent") and pushMeToEvent is "push">
 			<cfquery name="pushevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1415,18 +1415,18 @@ function checkCoordinateError(){
 						select
 							collecting_event_id
 						from
-							locality
+							collecting_event
 						where
 							locality_id = #locality_id#
 					)
 			</cfquery>
 		</cfif>
-
-
-		<!----
-		<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
+</cftransaction>
+		<!----
+
 ---->
 
 	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
