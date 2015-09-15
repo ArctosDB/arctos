@@ -384,7 +384,7 @@
 			_----->
 			<!---- random junk that is always indicitive of bot/spam/probe/etc. traffic---->
 			<cfset x="">
-			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#">
+			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
 			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">
 			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
