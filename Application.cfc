@@ -267,13 +267,17 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	<cfif not isdefined("session.roles")>
-		<cfinclude template="/includes/functionLib.cfm">
-		<cfset initSession()>
+	<!--- uncomment for a break from googlebot
+	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
+		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
+		<cfheader name="retry-after" value="3600"/>
+		Down for maintenance
+		<cfreturn false>
+		<cfabort>
 	</cfif>
+	---->
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
-
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
@@ -286,16 +290,15 @@
 	</cfif>
 	<!--- a unique identifier to tie "short" log entries to the raw dump file ---->
 	<cfset request.uuid=CreateUUID()>
-	<!--- uncomment for a break from googlebot
-	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
-		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
-		<cfheader name="retry-after" value="3600"/>
-		Down for maintenance
-		<cfreturn false>
-		<cfabort>
-	</cfif>
-	---->
+
 	<cfset utilities.checkRequest()>
+
+	<!--- now that we're sanitized, continue with setting up a session etc. ---->
+	<cfif not isdefined("session.roles")>
+		<cfinclude template="/includes/functionLib.cfm">
+		<cfset initSession()>
+	</cfif>
+
 
 
 
