@@ -1421,10 +1421,13 @@ function checkCoordinateError(){
 					)
 			</cfquery>
 		</cfif>
+
+
+		<!----
 		<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-
+---->
 
 	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
 	</cfoutput>
