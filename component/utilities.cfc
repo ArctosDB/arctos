@@ -364,10 +364,10 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif isdefined("request.rdurl") and request.rdurl contains "'A=0">
+	<cfif isdefined("request.rdurl") and request.rdurl contains "%27A=0">
 
 		<br>buhbye
-		<cfset bl_reason="URL contains 'A=0">
+		<cfset bl_reason="URL contains %27A=0">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
