@@ -359,8 +359,13 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif left(request.rdurl,6) is "/��#chr(166)#m&">
+	<cfif isdefined("request.rdurl") and left(request.rdurl,6) is "/��#chr(166)#m&">
 		<cfset bl_reason='URL starts with /��#chr(166)#m&'>
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
+	</cfif>
+	<cfif isdefined("request.rdurl") and request.rdurl contains "'A=0">
+		<cfset bl_reason="URL contains 'A=0">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
