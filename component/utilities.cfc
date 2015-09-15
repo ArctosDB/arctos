@@ -245,6 +245,17 @@
 	</cfif>
 	<!--- now replace all potential delimiters with chr(7), so we can predictable loop ---->
 	<cfset lurl=replace(lurl,",",chr(7),"all")>
+	<cfset lurl=replace(lurl,".",chr(7),"all")>
+	<cfset lurl=replace(lurl,"/",chr(7),"all")>
+	<cfset lurl=replace(lurl,"&",chr(7),"all")>
+	<cfset lurl=replace(lurl,"+",chr(7),"all")>
+	<cfset lurl=replace(lurl,"(",chr(7),"all")>
+	<cfset lurl=replace(lurl,")",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%20",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%27",chr(7),"all")>
+
+
+
 <cfset lurl=replace(lurl,chr(7),"[X]","all")>
 
 	<cfoutput>
