@@ -366,8 +366,9 @@
 			<cfset x=x & ",@@version">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
 			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">
-			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,cgi-sys,calendar,config,client,cube">
-			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
+			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
+			<cfset x=x & ",calendar,config,client,cube,cursor">
+			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla">
 			<cfset x=x & ",getmappingxpath,get_host_address">
@@ -381,18 +382,29 @@
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4,pma,phppgadmin">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,register,roundcubemail,roundcube,README">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex">
-			<cfset x=x & ",trackback">
+			<cfset x=x & ",trackback,TABLE_NAME">
 			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates">
 			<cfset x=x & ",verify-tldnotify,version">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
+
+<cfoutput>
+
+
 			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
+				<br>#i#
 				<cfif listfindnocase(x,i)>
+					<br>buhbye...
+					<!----
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
+					---->
 					<cfabort>
 				</cfif>
 			</cfloop>
+
+
+			</cfoutput>
 			<!---- For the Admin folder, which is linked from email, be a little paranoid/cautious
 				and only get obviously-malicious activity
 				Common requests:
