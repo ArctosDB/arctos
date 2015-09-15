@@ -1378,6 +1378,31 @@ function checkCoordinateError(){
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 	</cfif>
 	<cfset sql = "#sql# where locality_id = #locality_id#">
+
+
+	<p>
+	#preservesinglequotes(sql)#
+	</p>
+	<p>
+	update
+					specimen_event
+				set
+					ASSIGNED_BY_AGENT_ID=#session.myAgentID#,
+					ASSIGNED_DATE=sysdate
+				where
+					collecting_event_id in (
+						select
+							collecting_event_id
+						from
+							locality
+						where
+							locality_id = #locality_id#
+					)
+	</p>
+
+
+
+	<cfabort>
 	<cftransaction>
 		<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
