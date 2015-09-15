@@ -233,37 +233,10 @@
 	<cfset request.requestingSubnet=requestingSubnet>
 </cffunction>
 <!------------------------------------------------------------------------------------>
-
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
-
 	<!--- pull into local ---->
-	<cfif isdefined("request.rdurl")>
-		<cfset lurl=request.rdurl>
-	<cfelse>
-		<cfset lurl="">
-	</cfif>
-	<!--- now replace all potential delimiters with chr(7), so we can predictable loop ---->
-	<cfset lurl=replace(lurl,",",chr(7),"all")>
-	<cfset lurl=replace(lurl,".",chr(7),"all")>
-	<cfset lurl=replace(lurl,"/",chr(7),"all")>
-	<cfset lurl=replace(lurl,"&",chr(7),"all")>
-	<cfset lurl=replace(lurl,"+",chr(7),"all")>
-	<cfset lurl=replace(lurl,"(",chr(7),"all")>
-	<cfset lurl=replace(lurl,")",chr(7),"all")>
-	<cfset lurl=replace(lurl,"%20",chr(7),"all")>
-	<cfset lurl=replace(lurl,"%27",chr(7),"all")>
-	<cfset lurl=replace(lurl,";",chr(7),"all")>
-	<cfset lurl=replace(lurl,"?",chr(7),"all")>
-	<cfset lurl=replace(lurl,"=",chr(7),"all")>
-	<cfset lurl=replace(lurl,"%2B",chr(7),"all")>
 
-
-<cfset lurl=replace(lurl,chr(7),"<br>","all")>
-
-	<cfoutput>
-		<br>lurl: #lurl#
-	</cfoutput>
 	<!----
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
@@ -296,7 +269,25 @@
 			2) not on the blacklist
 		See if it's a legit request. If so do nothing, otherwise call autoblacklist and abort.
 	---->
-
+	<cfif isdefined("request.rdurl")>
+		<cfset lurl=request.rdurl>
+	<cfelse>
+		<cfset lurl="">
+	</cfif>
+	<!--- now replace all potential delimiters with chr(7), so we can predictable loop ---->
+	<cfset lurl=replace(lurl,",",chr(7),"all")>
+	<cfset lurl=replace(lurl,".",chr(7),"all")>
+	<cfset lurl=replace(lurl,"/",chr(7),"all")>
+	<cfset lurl=replace(lurl,"&",chr(7),"all")>
+	<cfset lurl=replace(lurl,"+",chr(7),"all")>
+	<cfset lurl=replace(lurl,"(",chr(7),"all")>
+	<cfset lurl=replace(lurl,")",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%20",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%27",chr(7),"all")>
+	<cfset lurl=replace(lurl,";",chr(7),"all")>
+	<cfset lurl=replace(lurl,"?",chr(7),"all")>
+	<cfset lurl=replace(lurl,"=",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%2B",chr(7),"all")>
 
 	<!-----
 		START: stuff in this block is always checked; this is called at onRequestStart
@@ -328,7 +319,6 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-
 	<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
 		<cfset bl_reason='HTTP_REFERER contains /bash'>
 		<cfinclude template="/errors/autoblacklist.cfm">
@@ -347,9 +337,6 @@
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",YandexBot">
-
-
-
 
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">
@@ -424,7 +411,6 @@
 			<cfset x=x & ",verify-tldnotify,version">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
-
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,sys">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
@@ -437,10 +423,10 @@
 
 
 
-<cfoutput>
+			<cfoutput>
 
 
-			<cfloop list="#lurl#" delimiters="./&+()%20" index="i">
+			<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
 				<br>#i#
 				<cfif listfindnocase(x,i)>
 					<br>buhbye...
@@ -479,40 +465,41 @@
 				</cfloop>
 			</cfif>
 
-		<cfif isdefined("inp.sql")>
-			<cfif inp.sql contains "@@version">
-				<cfset bl_reason='SQL contains @@version'>
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-			<cfif isdefined("inp.detail")>
-				<cfif inp.detail is "ORA-00933: SQL command not properly ended" and  inp.sql contains 'href="http://'>
-				<cfset bl_reason='SQL contains href=...'>
+			<cfif isdefined("inp.sql")>
+				<cfif inp.sql contains "@@version">
+					<cfset bl_reason='SQL contains @@version'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
-				<cfif inp.detail is "ORA-00907: missing right parenthesis" and  inp.sql contains '1%'>
-					<cfset bl_reason='SQL contains 1%'>
+				<cfif isdefined("inp.detail")>
+					<cfif inp.detail is "ORA-00933: SQL command not properly ended" and  inp.sql contains 'href="http://'>
+					<cfset bl_reason='SQL contains href=...'>
+						<cfinclude template="/errors/autoblacklist.cfm">
+						<cfabort>
+					</cfif>
+					<cfif inp.detail is "ORA-00907: missing right parenthesis" and  inp.sql contains '1%'>
+						<cfset bl_reason='SQL contains 1%'>
+						<cfinclude template="/errors/autoblacklist.cfm">
+						<cfabort>
+					</cfif>
+					<cfif (inp.detail contains "ORA-00936" or inp.detail contains "ORA-00907") and  inp.sql contains "'A=0">
+						<cfset bl_reason='SQL contains A=0'>
+						<cfinclude template="/errors/autoblacklist.cfm">
+						<cfabort>
+					</cfif>
+				</cfif>
+			</cfif>
+			<cfif isdefined("inp.Detail")>
+				<cfif inp.Detail contains "missing right parenthesis" and request.rdurl contains "ctxsys">
+						<cfset bl_reason='detail contains ctxsys'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
-				<cfif (inp.detail contains "ORA-00936" or inp.detail contains "ORA-00907") and  inp.sql contains "'A=0">
-					<cfset bl_reason='SQL contains A=0'>
+				<cfif inp.Detail contains "network access denied by access control list">
+						<cfset bl_reason='detail contains network access '>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
-			</cfif>
-		</cfif>
-		<cfif isdefined("inp.Detail")>
-			<cfif inp.Detail contains "missing right parenthesis" and request.rdurl contains "ctxsys">
-					<cfset bl_reason='detail contains ctxsys'>
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-			<cfif inp.Detail contains "network access denied by access control list">
-					<cfset bl_reason='detail contains network access '>
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
 			</cfif>
 		</cfif>
 	</cfif>
