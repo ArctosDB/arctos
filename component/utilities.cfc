@@ -433,8 +433,8 @@
 					<!----
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
-					---->
 					<cfabort>
+					---->
 				</cfif>
 			</cfloop>
 
