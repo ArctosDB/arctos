@@ -416,7 +416,7 @@
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
 				<cfif listfindnocase(x,i)>
 					<br>deleting #i#
-					<cfset x=listdeleteat(listfindnocase(x,i))>
+					<cfset x=listdeleteat(x,listfindnocase(x,i))>
 				</cfif>
 			</cfloop>
 
