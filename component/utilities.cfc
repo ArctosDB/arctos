@@ -254,7 +254,9 @@
 	<cfset lurl=replace(lurl,"%20",chr(7),"all")>
 	<cfset lurl=replace(lurl,"%27",chr(7),"all")>
 	<cfset lurl=replace(lurl,";",chr(7),"all")>
-
+	<cfset lurl=replace(lurl,"?",chr(7),"all")>
+	<cfset lurl=replace(lurl,"=",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%2B",chr(7),"all")>
 
 
 <cfset lurl=replace(lurl,chr(7),"<br>","all")>
@@ -341,10 +343,14 @@
 	<cfset badbot=badbot & ",MegaIndex">
 	<cfset badbot=badbot & ",Nutch">
 	<cfset badbot=badbot & ",re-animator">
-	<cfset badbot=badbot & ",SemrushBot,slurp,spbot">
+	<cfset badbot=badbot & ",SemrushBot,slurp,spbot,Synapse">
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",YandexBot">
+
+
+
+
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">
 			<cfif cgi.HTTP_USER_AGENT contains b>
@@ -355,17 +361,17 @@
 			</cfif>
 		</cfloop>
 	</cfif>
-	<cfif isdefined("request.rdur") and right(request.rdurl,5) is "-1%27">
+	<cfif right(lurl,5) is "-1#chr(7)#">
 		<cfset bl_reason='URL ends with -1%27'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif isdefined("request.rdur") and right(request.rdurl,3) is "%00">
+	<cfif right(lurl,3) is "%00">
 		<cfset bl_reason='URL ends with %00'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif isdefined("request.rdur") and left(request.rdurl,6) is "/��#chr(166)#m&">
+	<cfif left(request.rdurl,6) is "/��#chr(166)#m&">
 		<cfset bl_reason='URL starts with /��#chr(166)#m&'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
@@ -378,8 +384,9 @@
 	 ------>
 
 	<cfif isdefined("inp")>
-		<cfif isdefined("request.rdurl")>
-			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
+		<cfif len(lurl) gt 0>
+		<!----
+			<cfif lurl contains "utl_inaddr" or lurl contains "get_host_address">
 				<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
@@ -389,37 +396,51 @@
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
+
+			_----->
 			<!---- random junk that is always indicitive of bot/spam/probe/etc. traffic---->
 			<cfset x="">
-			<cfset x=x & ",@@version">
+			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
 			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">
 			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor">
-			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME">
+			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp">
-			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla">
+			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch">
 			<cfset x=x & ",getmappingxpath,get_host_address">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher">
-			<cfset x=x & ",inurl,invoker,ini">
+			<cfset x=x & ",inurl,invoker,ini,into">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console">
 			<cfset x=x & ",lib,lightbox">
-			<cfset x=x & ",mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail">
+			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail">
 			<cfset x=x & ",news,nyet">
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4,pma,phppgadmin">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,register,roundcubemail,roundcube,README">
-			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex">
+			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes,sysobjects">
 			<cfset x=x & ",trackback,TABLE_NAME">
 			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates">
 			<cfset x=x & ",verify-tldnotify,version">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
 
+			<!--- just remember to not add these...---->
+			<cfset hasCausedProbsNoCheck="case,sys">
+			<cfloop list="#hasCausedProbsNoCheck#" index="i">
+				<cfif listfindnocase(x,i)>
+					<br>deleting #i#
+					<cfset x=listdeleteat(listfindnocase(x,i))>
+				</cfif>
+			</cfloop>
+
+
+
+
 <cfoutput>
 
 
-			<cfloop list="#request.rdurl#" delimiters="./&+()%20" index="i">
+			<cfloop list="#lurl#" delimiters="./&+()%20" index="i">
 				<br>#i#
 				<cfif listfindnocase(x,i)>
 					<br>buhbye...
@@ -447,7 +468,7 @@
 						so tread a bit lighter; ignore variables part, look only at page/template request
 			--->
 			<cfset x="admin">
-				<cfif request.rdurl contains "?">
+			<cfif request.rdurl contains "?">
 				<cfset rf=listgetat(request.rdurl,1,"?")>
 				<cfloop list="#rf#" delimiters="./&+()" index="i">
 					<cfif listfindnocase(x,i)>
@@ -457,12 +478,7 @@
 					</cfif>
 				</cfloop>
 			</cfif>
-		</cfif>
-		<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "Synapse">
-				<cfset bl_reason='HTTP_USER_AGENT is Synapse'>
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
+
 		<cfif isdefined("inp.sql")>
 			<cfif inp.sql contains "@@version">
 				<cfset bl_reason='SQL contains @@version'>
