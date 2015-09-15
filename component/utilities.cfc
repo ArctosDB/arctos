@@ -395,7 +395,7 @@
 <cfoutput>
 
 
-			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
+			<cfloop list="#request.rdurl#" delimiters="./&+() " index="i">
 				<br>#i#
 				<cfif listfindnocase(x,i)>
 					<br>buhbye...
