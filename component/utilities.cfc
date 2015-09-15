@@ -365,10 +365,15 @@
 		<cfabort>
 	</cfif>
 	<cfif isdefined("request.rdurl") and request.rdurl contains "'A=0">
+
+		<br>buhbye
 		<cfset bl_reason="URL contains 'A=0">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
+
+	<br>nope....
+	<cfdump var=#request.rdurl#>
 
 	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
 	<!-----
