@@ -419,34 +419,13 @@
 					<cfset x=listdeleteat(x,listfindnocase(x,i))>
 				</cfif>
 			</cfloop>
-
-
-
-
-			<cfoutput>
-
-
 			<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
-				<br>#i#
 				<cfif listfindnocase(x,i)>
-					<br>buhbye...
-					<!----
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
-					---->
 				</cfif>
 			</cfloop>
-
-
-			</cfoutput>
-
-			made it....
-			<cfabort>
-
-
-
-
 			<!---- For the Admin folder, which is linked from email, be a little paranoid/cautious
 				and only get obviously-malicious activity
 				Common requests:
