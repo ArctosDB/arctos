@@ -1312,129 +1312,95 @@ function checkCoordinateError(){
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveLocalityEdit">
 	<cfoutput>
+		<cfset sql = "UPDATE locality SET GEOG_AUTH_REC_ID = #GEOG_AUTH_REC_ID#">
+		<cfset sql = "#sql#,max_error_units = '#max_error_units#'">
+		<cfset sql = "#sql#,DATUM = '#DATUM#'">
+		<cfset sql = "#sql#,georeference_source = '#georeference_source#'">
+		<cfset sql = "#sql#,georeference_protocol = '#georeference_protocol#'">
+		<cfset sql = "#sql#,locality_name = '#locality_name#'">
 
-	<cfset sql = "UPDATE locality SET GEOG_AUTH_REC_ID = #GEOG_AUTH_REC_ID#">
-	<cfset sql = "#sql#,max_error_units = '#max_error_units#'">
-	<cfset sql = "#sql#,DATUM = '#DATUM#'">
-	<cfset sql = "#sql#,georeference_source = '#georeference_source#'">
-	<cfset sql = "#sql#,georeference_protocol = '#georeference_protocol#'">
-	<cfset sql = "#sql#,locality_name = '#locality_name#'">
-
-	<cfif len(max_error_distance) gt 0>
-		<cfset sql = "#sql#,max_error_distance = #max_error_distance#">
-	<cfelse>
-		<cfset sql = "#sql#,max_error_distance = null">
-	</cfif>
-
-	<cfif len(DEC_LAT) gt 0>
-		<cfset sql = "#sql#,DEC_LAT = #DEC_LAT#">
-	<cfelse>
-		<cfset sql = "#sql#,DEC_LAT = null">
-	</cfif>
-	<cfif len(DEC_LONG) gt 0>
-		<cfset sql = "#sql#,DEC_LONG = #DEC_LONG#">
-	<cfelse>
-		<cfset sql = "#sql#,DEC_LONG = null">
-	</cfif>
-
-	<cfif len(spec_locality) gt 0>
-		<cfset sql = "#sql#,spec_locality = '#escapeQuotes(spec_locality)#'">
-	  <cfelse>
-		<cfset sql = ",spec_locality=null">
-	</cfif>
-	<cfif len(#MINIMUM_ELEVATION#) gt 0>
-		<cfset sql = "#sql#,MINIMUM_ELEVATION = #MINIMUM_ELEVATION#">
-	<cfelse>
-		<cfset sql = "#sql#,MINIMUM_ELEVATION = null">
-	</cfif>
-	<cfif len(#MAXIMUM_ELEVATION#) gt 0>
-		<cfset sql = "#sql#,MAXIMUM_ELEVATION = #MAXIMUM_ELEVATION#">
-	<cfelse>
-		<cfset sql = "#sql#,MAXIMUM_ELEVATION = null">
-	</cfif>
-	<cfif len(#ORIG_ELEV_UNITS#) gt 0>
-		<cfset sql = "#sql#,ORIG_ELEV_UNITS = '#ORIG_ELEV_UNITS#'">
-	<cfelse>
-		<cfset sql = "#sql#,ORIG_ELEV_UNITS = null">
-	</cfif>
-	<cfif len(#min_depth#) gt 0>
-		<cfset sql = "#sql#,min_depth = #min_depth#">
-	<cfelse>
-		<cfset sql = "#sql#,min_depth = null">
-	</cfif>
-	<cfif len(#max_depth#) gt 0>
-		<cfset sql = "#sql#,max_depth = #max_depth#">
-	<cfelse>
-		<cfset sql = "#sql#,max_depth = null">
-	</cfif>
-	<cfif len(#depth_units#) gt 0>
-		<cfset sql = "#sql#,depth_units = '#depth_units#'">
-	<cfelse>
-		<cfset sql = "#sql#,depth_units = null">
-	</cfif>
-	<cfif len(#LOCALITY_REMARKS#) gt 0>
-		<cfset sql = "#sql#,LOCALITY_REMARKS = '#escapeQuotes(LOCALITY_REMARKS)#'">
-	<cfelse>
-		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
-	</cfif>
-	<cfset sql = "#sql# where locality_id = #locality_id#">
-
-
-	<p>
-	#preservesinglequotes(sql)#
-	</p>
-	<p>
-	update
-					specimen_event
-				set
-					ASSIGNED_BY_AGENT_ID=#session.myAgentID#,
-					ASSIGNED_DATE=sysdate
-				where
-					collecting_event_id in (
-						select
-							collecting_event_id
-						from
-							locality
-						where
-							locality_id = #locality_id#
-					)
-	</p>
-
-
-<cftransaction>
-
-		<cfif isdefined("pushMeToEvent") and pushMeToEvent is "push">
-			<cfquery name="pushevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update
-					specimen_event
-				set
-					ASSIGNED_BY_AGENT_ID=#session.myAgentID#,
-					ASSIGNED_DATE=sysdate
-				where
-					collecting_event_id in (
-						select
-							collecting_event_id
-						from
-							collecting_event
-						where
-							locality_id = #locality_id#
-					)
-			</cfquery>
+		<cfif len(max_error_distance) gt 0>
+			<cfset sql = "#sql#,max_error_distance = #max_error_distance#">
+		<cfelse>
+			<cfset sql = "#sql#,max_error_distance = null">
 		</cfif>
-<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preservesinglequotes(sql)#
-		</cfquery>
-</cftransaction>
-		<!----
-
----->
-
-	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
+		<cfif len(DEC_LAT) gt 0>
+			<cfset sql = "#sql#,DEC_LAT = #DEC_LAT#">
+		<cfelse>
+			<cfset sql = "#sql#,DEC_LAT = null">
+		</cfif>
+		<cfif len(DEC_LONG) gt 0>
+			<cfset sql = "#sql#,DEC_LONG = #DEC_LONG#">
+		<cfelse>
+			<cfset sql = "#sql#,DEC_LONG = null">
+		</cfif>
+		<cfif len(spec_locality) gt 0>
+			<cfset sql = "#sql#,spec_locality = '#escapeQuotes(spec_locality)#'">
+		  <cfelse>
+			<cfset sql = ",spec_locality=null">
+		</cfif>
+		<cfif len(#MINIMUM_ELEVATION#) gt 0>
+			<cfset sql = "#sql#,MINIMUM_ELEVATION = #MINIMUM_ELEVATION#">
+		<cfelse>
+			<cfset sql = "#sql#,MINIMUM_ELEVATION = null">
+		</cfif>
+		<cfif len(#MAXIMUM_ELEVATION#) gt 0>
+			<cfset sql = "#sql#,MAXIMUM_ELEVATION = #MAXIMUM_ELEVATION#">
+		<cfelse>
+			<cfset sql = "#sql#,MAXIMUM_ELEVATION = null">
+		</cfif>
+		<cfif len(#ORIG_ELEV_UNITS#) gt 0>
+			<cfset sql = "#sql#,ORIG_ELEV_UNITS = '#ORIG_ELEV_UNITS#'">
+		<cfelse>
+			<cfset sql = "#sql#,ORIG_ELEV_UNITS = null">
+		</cfif>
+		<cfif len(#min_depth#) gt 0>
+			<cfset sql = "#sql#,min_depth = #min_depth#">
+		<cfelse>
+			<cfset sql = "#sql#,min_depth = null">
+		</cfif>
+		<cfif len(#max_depth#) gt 0>
+			<cfset sql = "#sql#,max_depth = #max_depth#">
+		<cfelse>
+			<cfset sql = "#sql#,max_depth = null">
+		</cfif>
+		<cfif len(#depth_units#) gt 0>
+			<cfset sql = "#sql#,depth_units = '#depth_units#'">
+		<cfelse>
+			<cfset sql = "#sql#,depth_units = null">
+		</cfif>
+		<cfif len(#LOCALITY_REMARKS#) gt 0>
+			<cfset sql = "#sql#,LOCALITY_REMARKS = '#escapeQuotes(LOCALITY_REMARKS)#'">
+		<cfelse>
+			<cfset sql = "#sql#,LOCALITY_REMARKS = null">
+		</cfif>
+		<cfset sql = "#sql# where locality_id = #locality_id#">
+		<cftransaction>
+			<cfif isdefined("pushMeToEvent") and pushMeToEvent is "push">
+				<cfquery name="pushevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						specimen_event
+					set
+						ASSIGNED_BY_AGENT_ID=#session.myAgentID#,
+						ASSIGNED_DATE=sysdate
+					where
+						collecting_event_id in (
+							select
+								collecting_event_id
+							from
+								collecting_event
+							where
+								locality_id = #locality_id#
+						)
+				</cfquery>
+			</cfif>
+			<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#preservesinglequotes(sql)#
+			</cfquery>
+		</cftransaction>
+		<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
 	</cfoutput>
 </cfif>
-
-
-
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editwktp">
 	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
