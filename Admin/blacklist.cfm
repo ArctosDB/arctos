@@ -151,32 +151,15 @@
 		<cfabort>
 	</cfif>
 	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select protected_ip_list from cf_global_settings
+		select protected_ip_list from cf_global_settings where protected_ip_list like '#subnet#.%'
 	</cfquery>
-
-	<cfoutput>
-
-		<cfdump var=#protected_ip_list#>
-
-		<cfloop list="#protected_ip_list.PROTECTED_IP_LIST#" index="i">
-			<br>#i#
-			<cfset psn=listgetat(i,1,".") & "." & listgetat(i,2,".")>
-			<cfif subnet is psn>
-				<br>cannot block #subnet# is has protected IPs
-			</cfif>
-		</cfloop>
-
-
-	</cfoutput>
-
-
-
-	yokaythem
-
+	
+	<cfdump var=#protected_ip_list#>
+	
 	<cfabort>
-
-
-
+	
+	
+	
 	<cfif listlen(subnet,".") is not 2>
 		check subnet format 999.999<cfabort>
 	</cfif>
@@ -186,6 +169,12 @@
 	<cfif trim(subnet) is not subnet>
 		check subnet format 999.999<cfabort>
 	</cfif>
+	<cfloop list="#protected_ip_list.PROTECTED_IP_LIST#" index="i">
+		<cfset psn=listgetat(i,1,".") & "." & listgetat(i,2,".")>
+		<cfif subnet is psn>
+			<br>cannot block #subnet# is has protected IPs<cfabort>
+		</cfif>
+	</cfloop>
 	<cftry>
 		<!--- see if it's expired; if it is, just re-up ---->
 		<cfquery name="exists" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
