@@ -13,7 +13,21 @@
 		<br><input type="submit" value="filter">
 	</form>
 	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
-	<br>*ATCA=all-time connection attempts
+	<ul>
+		<li>
+			ATCA=all-time connection attempts
+		</li>
+		<li>
+			Last#rptprd#=number of attempts from the subnet in last #rptprd# days
+		</li>
+		<li>
+			alltime=number of attempts from the IP since being blacklisted
+		</li>
+		<li>
+			alltime=number of attempts from the IP since being blacklisted
+		</li>
+	</ul>
+	<br>*
 	<br>*Last=subnet attempts last #rptprd# days
 	<cfquery name="d" datasource="uam_god">
 			SELECT
@@ -64,8 +78,8 @@
 				<tr>
 					<td>#d.subnet#</td>
 					<td>#d.attempts#</td>
-					<td>#ip#</td>
 					<td>#c#</td>
+					<td>#ip#</td>
 					<td>#host_name#</td>
 					<td><a href="http://whatismyipaddress.com/ip/#ip#">lookup</a></td>
 				</tr>
