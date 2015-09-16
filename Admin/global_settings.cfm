@@ -66,10 +66,10 @@
 
 			<label for="PROTECTED_IP_LIST">PROTECTED_IP_LIST (never-blacklist IPs)</label>
 			<textarea name="PROTECTED_IP_LIST" id="PROTECTED_IP_LIST" rows="6" cols="50" class="hugetextarea">#d.PROTECTED_IP_LIST#</textarea>
-			IP FORMAT:
+			<br>IP FORMAT:
 			<ul>
 				<li>
-					IP addresses (1.2.3.4) separated by commas WITH NOT SPACES
+					IP addresses (1.2.3.4) separated by commas WITH NO SPACES
 					<ul>
 						<li>1.2.3.4,1.2.3.5</li>
 						<li>NOT: 1.2.3.4, 1.2.3.5</li>
