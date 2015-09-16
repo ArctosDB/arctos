@@ -160,7 +160,6 @@
 
 
 
-		<cfif listcontains(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
 
 	</cfoutput>
 
