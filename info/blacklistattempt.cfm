@@ -12,15 +12,6 @@
 		<input type="number" name="mincount" id="mincount" value="#mincount#">
 		<br><input type="submit" value="filter">
 	</form>
-	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
-	<ul>
-		<li>
-			Last#rptprd#=number of attempts from the subnet in last #rptprd# days
-		</li>
-		<li>
-			alltime=all-time connection attempts from the IP
-		</li>
-	</ul>
 	<cfquery name="d" datasource="uam_god">
 			SELECT
 			regexp_replace(ip,'^([0-9]{1,3}\.[0-9]{1,3})\..*$','\1') subnet,
@@ -36,7 +27,37 @@
 		 order by
 		 	count(*) DESC
 	</cfquery>
+	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
 
+	<hr>Subnet-only
+	<ul>
+		<li>
+			Last#rptprd#=number of attempts from the subnet in last #rptprd# days
+		</li>
+	</ul>
+	<table border id="t" class="sortable">
+		<tr>
+			<th>Subnet</th>
+			<th>Last#rptprd#</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#d.subnet#</td>
+				<td>#d.attempts#</td>
+			</tr>
+		</cfloop>
+	</table>
+
+	<hr>
+	Including IPs
+	<ul>
+		<li>
+			Last#rptprd#=number of attempts from the subnet in last #rptprd# days
+		</li>
+		<li>
+			alltime=all-time connection attempts from the IP
+		</li>
+	</ul>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet</th>
