@@ -83,6 +83,12 @@
 					</ul>
 				</li>
 			</ul>
+
+			<label for="protect_ip_remark">protect_ip_remark (document everything up there down here)</label>
+			<textarea name="protect_ip_remark" id="protect_ip_remark" rows="6" cols="50" class="hugetextarea">#d.protect_ip_remark#</textarea>
+
+
+
 			<input type="submit" value="saveAll" class="savBtn">
 		</form>
 	</cfif>
@@ -102,7 +108,8 @@
 				GENBANK_USERNAME='#GENBANK_USERNAME#',
 				DATA_REPORT_EMAIL='#DATA_REPORT_EMAIL#',
 				LOG_EMAIL='#LOG_EMAIL#',
-				PROTECTED_IP_LIST='#PROTECTED_IP_LIST#'
+				PROTECTED_IP_LIST='#PROTECTED_IP_LIST#',
+				protect_ip_remark='#protect_ip_remark#'
 		</cfquery>
 		<cflocation url="global_settings.cfm" addtoken="false">
 	</cfif>
