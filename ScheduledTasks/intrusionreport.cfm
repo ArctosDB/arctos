@@ -37,7 +37,7 @@
 				from
 					blacklisted_entry_attempt
 				where
-					ip like '#subnet#.%'
+					ip like '#d.subnet#.%'
 				group by
 					ip
 				order by
@@ -50,8 +50,8 @@
 					<cfset host_name='idk'>
 				</cfcatch></cftry>
 				<tr>
-					<td>#subnet#</td>
-					<td>#attempts#</td>
+					<td>#d.subnet#</td>
+					<td>#d.attempts#</td>
 					<td>#ip#</td>
 					<td>#c#</td>
 					<td>#host_name#</td>
