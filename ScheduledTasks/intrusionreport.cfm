@@ -19,9 +19,17 @@
 	</cfquery>
 	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
 	<br>*ATCA=all-time connection attempts
-	<cfloop query="d">
-		<p>
-			Subnet: #subnet# (attempts: #attempts#)
+	<br>*Last=subnet attempts last #rptprd# days
+	<table border>
+		<tr>
+			<th>Subnet</th>
+			<th>Last</th>
+			<th>IP</th>
+			<th>ATCA</th>
+			<th>Host</th>
+			<th>Click</th>
+		</tr>
+		<cfloop query="d">
 			<cfquery name="ips" datasource="uam_god">
 				select
 					ip,
@@ -35,27 +43,21 @@
 				order by
 					count(*) DESC
 			</cfquery>
-			<table border>
+			<cfloop query="#ips#">
+				<cftry>
+					<cfset host_name = inet_address.getByName("#ip#").getHostName()>
+				<cfcatch>
+					<cfset host_name='idk'>
+				</cfcatch></cftry>
 				<tr>
-					<th>IP</th>
-					<th>ATCA</th>
-					<th>Host</th>
-					<th>Click</th>
+					<td>#subnet#</td>
+					<td>#attempts#</td>
+					<td>#ip#</td>
+					<td>#c#</td>
+					<td>#host_name#</td>
+					<td><a href="http://whatismyipaddress.com/ip/#ip#">lookup</a></td>
 				</tr>
-				<cfloop query="#ips#">
-					<cftry>
-						<cfset host_name = inet_address.getByName("#ip#").getHostName()>
-					<cfcatch>
-						<cfset host_name='idk'>
-					</cfcatch></cftry>
-					<tr>
-						<td>#ip#</td>
-						<td>#c#</td>
-						<td>#host_name#</td>
-						<td><a href="http://whatismyipaddress.com/ip/#ip#">lookup</a></td>
-					</tr>
-				</cfloop>
-			</table>
-		</p>
-	</cfloop>
+			</cfloop>
+		</cfloop>
+	</table>
 </cfoutput>
