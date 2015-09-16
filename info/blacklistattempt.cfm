@@ -18,7 +18,7 @@
 			Last#rptprd#=number of attempts from the subnet in last #rptprd# days
 		</li>
 		<li>
-			alltime=all-time connection attempts
+			alltime=all-time connection attempts from the IP
 		</li>
 	</ul>
 	<cfquery name="d" datasource="uam_god">
