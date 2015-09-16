@@ -158,7 +158,13 @@
 
 		<cfdump var=#protected_ip_list#>
 
-
+		<cfloop list="#protected_ip_list.PROTECTED_IP_LIST#" index="i">
+			<br>#i#
+			<cfset psn=listgetat(i,1,".") & "." & listgetat(i,2,".")>
+			<cfif subnet is psn>
+				<br>cannot block #subnet# is has protected IPs
+			</cfif>
+		</cfloop>
 
 
 	</cfoutput>
