@@ -17,7 +17,7 @@
 		 	count(*) DESC
 	</cfquery>
 
-	<cfmail subject="blacklisted entry attempt report" to="dustymc@gmail.com" from="blacklistreport@arctos.database.museum" type="html">
+	<cfmail subject="blacklisted entry attempt report" to="dustymc@gmail.com" from="blacklistreport@#application.fromEmail#" type="html">
 		<p>
 			blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
 		</p>
