@@ -90,7 +90,7 @@
 					<td>#c#</td>
 					<td>#ip#</td>
 					<td>#host_name#</td>
-					<td><a href="http://whatismyipaddress.com/ip/#ip#">lookup</a></td>
+					<td><a target="_blanl" class="external" href="http://whatismyipaddress.com/ip/#ip#">lookup</a></td>
 				</tr>
 			</cfloop>
 		</cfloop>
