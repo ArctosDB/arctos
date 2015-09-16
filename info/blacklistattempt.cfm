@@ -1,3 +1,5 @@
+<cfinclude template="includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 
 <cfset inet_address = CreateObject("java", "java.net.InetAddress")>
 <cfoutput>
@@ -29,7 +31,7 @@
 		 	count(*) DESC
 	</cfquery>
 
-	<table border>
+	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet</th>
 			<th>Last#rptprd#</th>
@@ -71,3 +73,4 @@
 		</cfloop>
 	</table>
 </cfoutput>
+<cfinclude template="includes/_footer.cfm">
