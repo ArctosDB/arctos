@@ -150,6 +150,28 @@
 		<cfthrow message = "Local subnet cannot be blacklisted" errorCode = "127001">
 		<cfabort>
 	</cfif>
+	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select protected_ip_list from cf_global_settings
+	</cfquery>
+
+	<cfoutput>
+
+		<cfdump var=#protected_ip_list#>
+
+
+
+		<cfif listcontains(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
+
+	</cfoutput>
+
+
+
+	yokaythem
+
+	<cfabort>
+
+
+
 	<cfif listlen(subnet,".") is not 2>
 		check subnet format 999.999<cfabort>
 	</cfif>
