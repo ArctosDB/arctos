@@ -15,20 +15,12 @@
 	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
 	<ul>
 		<li>
-			ATCA=all-time connection attempts
-		</li>
-		<li>
 			Last#rptprd#=number of attempts from the subnet in last #rptprd# days
 		</li>
 		<li>
-			alltime=number of attempts from the IP since being blacklisted
-		</li>
-		<li>
-			alltime=number of attempts from the IP since being blacklisted
+			alltime=all-time connection attempts
 		</li>
 	</ul>
-	<br>*
-	<br>*Last=subnet attempts last #rptprd# days
 	<cfquery name="d" datasource="uam_god">
 			SELECT
 			regexp_replace(ip,'^([0-9]{1,3}\.[0-9]{1,3})\..*$','\1') subnet,
@@ -51,7 +43,6 @@
 			<th>Last#rptprd#</th>
 			<th>alltime</th>
 			<th>IP</th>
-			<th>ATCA</th>
 			<th>Host</th>
 			<th>Click</th>
 		</tr>
