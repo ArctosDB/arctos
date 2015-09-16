@@ -8,7 +8,7 @@
 	<form name="f" method="post" action="blacklistattempt.cfm">
 		blacklisted_entry_attempt for the last <input type="number" name="rptprd" id="rptprd" value="#rptprd#">
 		 days, containining only those subnets originating > <input type="number" name="mincount" id="mincount" value="#mincount#"> attempts
-		<br><input type="submit" value="reset filter">
+		<br><input type="submit" value="filter">
 	</form>
 	<cfquery name="d" datasource="uam_god">
 			SELECT
