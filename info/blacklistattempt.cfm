@@ -6,11 +6,9 @@
 	<cfparam name="rptprd" default=7>
 	<cfparam name="mincount" default=20>
 	<form name="f" method="post" action="blacklistattempt.cfm">
-		<label for"rptprd">Number of Days</label>
-		<input type="number" name="rptprd" id="rptprd" value="#rptprd#">
-		<label for"rptprd">Minimum Attempts</label>
-		<input type="number" name="mincount" id="mincount" value="#mincount#">
-		<br><input type="submit" value="filter">
+		blacklisted_entry_attempt for the last <input type="number" name="rptprd" id="rptprd" value="#rptprd#">
+		 days, containining only those subnets originating > <input type="number" name="mincount" id="mincount" value="#mincount#"> attempts
+		<br><input type="submit" value="reset filter">
 	</form>
 	<cfquery name="d" datasource="uam_god">
 			SELECT
@@ -27,7 +25,6 @@
 		 order by
 		 	count(*) DESC
 	</cfquery>
-	blacklisted_entry_attempt for the last #rptprd# days, containining only those subnets originating > #mincount# attempts
 
 	<hr>Subnet-only
 	<ul>
