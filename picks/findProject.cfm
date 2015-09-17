@@ -1,5 +1,12 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-
+<script>
+	function useThis(pn,pi){
+		opener.document.#formName#.#projIdFld#.value=pi;
+		opener.document.#formName#.#projNameFld#.value=pn;
+		opener.document.#formName#.#projNameFld#.className='goodPick';
+		self.close();
+	}
+</script>
 <cfoutput>
 	<form name="p" method="post" action="findProject.cfm">
 		<input type="hidden" name="formName" value="#formName#">
@@ -13,10 +20,11 @@
 	<cfif len(#project_name#) is 0 or project_name is "undefined">
 		<cfabort>
 	</cfif>
-	<cfquery name="getProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
       project.project_name,
-      project.project_id
+      project.project_id,
+	getPreferredAgentName(project_agent.agent_id) agent
     from
       project,
       project_agent,
@@ -31,13 +39,23 @@
         UPPER(agent_name.agent_name) LIKE '%#ucase(project_name)#%'
 	)
 	</cfquery>
-	<cfif getProj.recordcount is 0>
+	<cfif raw.recordcount is 0>
 			Nothing matched #project_name#.
 	<cfelse>
+		<cfquery name="getProj" dbtype="query">
+			select project_name,project_id from raw order by project_name
+		</cfquery>
 		<cfloop query="getProj">
+			<div>
+				<a href="##" onClick="useThis('#jsescape(getProj.project_name)#','#project_id#');">
+					#getProj.project_name#
+				</a>
+			</div>
+			<!----
 			<br>
-			<a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='#project_id#';
-				opener.document.#formName#.#projNameFld#.value='#jsescape(getProj.project_name)#';opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
+			<a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='';
+				opener.document.#formName#.#projNameFld#.value='';opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
+				---->
 		</cfloop>
 	</cfif>
 </cfoutput>
