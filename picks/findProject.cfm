@@ -47,7 +47,7 @@
 			Nothing matched #project_name#.
 	<cfelse>
 		<cfquery name="getProj" dbtype="query">
-			select project_name,project_id from raw order by project_name
+			select distinct project_name,project_id from raw order by project_name
 		</cfquery>
 		<cfloop query="getProj">
 			<cfquery name="agents" dbtype="query">
