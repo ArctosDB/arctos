@@ -209,6 +209,9 @@
 	</cfif>
 	<!--- keep the raw/everything, it's useful ---->
 	<cfset request.rawipaddress=ipaddress>
+	<cfif listfind(ipaddress,'129.114.52.171')>
+		<cfset ipaddress=listdeleteat(ipaddress,listfind(ipaddress,'129.114.52.171'))>
+	</cfif>
 	<!--- loop through the possibilities, keep only things that look like an IP ---->
 	<cfset vips="">
 	<cfloop list="#ipaddress#" delimiters="," index="tip">

@@ -831,6 +831,6 @@
 <cfschedule action = "update"
     task = "blacklist_entry_attempts"
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/blacklistattempt.cfm"
+    url = "127.0.0.1/ScheduledTasks/intrusionreport.cfm"
     cronTime="0 42 03 ? * MON"
     requestTimeOut = "600">
