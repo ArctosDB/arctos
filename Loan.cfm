@@ -714,13 +714,14 @@ just fooling idiot cfclipse into using the right colors
 		</ul>
 		<hr>
 		<div class="newRec">
-		<label for="project_id">Type part of Project name to Pick a Project to associate with this loan</label>
+		<label for="project_id">Type Project/Project Agent name to pick</label>
 		<input type="hidden" name="project_id">
 		<input type="text"
 			size="50"
 			name="pick_project_name"
 			onchange="getProject('project_id','pick_project_name','editloan',this.value); return false;"
-			onKeyPress="return noenter(event);">
+			onKeyPress="return noenter(event);"
+			placeholder="Project or Project Agent then TAB">
 		</div>
 		<hr>
 		<div class="newRec">
