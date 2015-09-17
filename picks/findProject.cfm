@@ -1,5 +1,8 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-<script>
+
+<cfoutput>
+
+	<script>
 	function useThis(pn,pi){
 		opener.document.#formName#.#projIdFld#.value=pi;
 		opener.document.#formName#.#projNameFld#.value=pn;
@@ -7,7 +10,8 @@
 		self.close();
 	}
 </script>
-<cfoutput>
+
+
 	<form name="p" method="post" action="findProject.cfm">
 		<input type="hidden" name="formName" value="#formName#">
 		<input type="hidden" name="projIdFld" value="#projIdFld#">
