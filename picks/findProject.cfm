@@ -15,8 +15,8 @@
 	</cfif>
 	<cfquery name="getProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
-      project_name,
-      project_id
+      project.project_name,
+      project.project_id
     from
       project,
       project_agent,
