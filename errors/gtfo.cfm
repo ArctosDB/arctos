@@ -34,9 +34,6 @@
 		  Your subnet has been blocked. The self-serve option is not available. You must supply a message and an email address.
 	   </p>
     </cfif>
-
-
-
 	<cfset f = CreateObject("component","component.utilities")>
 	<cfset captcha = f.makeCaptchaString()>
 	<cfset captchaHash = hash(captcha)>

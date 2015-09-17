@@ -6,7 +6,7 @@
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
 <!-----------------------------------   related specimens     ------------------------------------------>
-<!--- 
+<!---
 	fetchRelatedInfo
 	Purpose: Cache related-specimen information
 	Cost: Extremely variable, depends on specimens created and/or in need of refresh
@@ -20,12 +20,12 @@
     startTime = "05:51 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	pendingRelations
 	Purpose: Fetch unreciprocated relationships into otherID bulkloader
 	Cost: Fairly low
 	Growth potential: high-ish
-	Interval: 
+	Interval:
 		A bare call runs for one collection.
 		Each run starts fresh; old data deletes, new inserts.
 		Should run for every collection every day (notifications go out daily).
@@ -43,7 +43,7 @@
     requestTimeOut = "500">
 
 <!-----------------------------------   Agent merge/delete    ------------------------------------------>
-<!--- 
+<!---
 	duplicate_agents_findDups
 	Purpose: Find agents marked as duplicates
 	Cost: low
@@ -57,8 +57,8 @@
     startTime = "04:51 AM"
     interval = "daily"
     requestTimeOut = "600">
-	
-<!--- 
+
+<!---
 	duplicate_agents_merge
 	Purpose: Merge duplicate agents
 	Cost: extremely variable - can involve updating many (10s of K) rows in ~50 tables
@@ -72,7 +72,7 @@
     startTime = "05:01 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	duplicate_agents_notify
 	Purpose: Merge duplicate agents notification
 	Cost: low/moderate
@@ -89,7 +89,7 @@
 
 
 <!-----------------------------------   UAM Earth Science Imaging    ------------------------------------------>
-<!--- 
+<!---
 	es_spec_insBulk
 	Purpose: insert to bulkloader from uam:es imaging app
 	Cost: moderate to low depending on recent activity
@@ -104,7 +104,7 @@
     startTime = "12:21 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	es_spec_findSpec
 	Purpose: Find imaged specimens by barcode
 	Cost: moderate (?)
@@ -119,7 +119,7 @@
     startTime = "01:31 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	es_tacc_getDir
 	Purpose: Find images at TACC
 	Cost: High
@@ -133,7 +133,7 @@
     startTime = "02:31 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	es_tacc_accn_card_media
 	Purpose: Find images of accn cards at TACC
 	Cost: moderate/low
@@ -147,7 +147,7 @@
     startTime = "02:51 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	es_tacc_loc_card_media
 	Purpose: Find images of locality cards at TACC
 	Cost: moderate/low
@@ -161,7 +161,7 @@
     startTime = "03:01 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	es_tacc_spec_media
 	Purpose: Find images of specimens at TACC
 	Cost: moderate/low
@@ -175,7 +175,7 @@
     startTime = "03:11 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	es_tacc_spec_media_alreadyentered
 	Purpose: Find images of specimens at TACC
 	Cost: moderate/low
@@ -191,7 +191,7 @@
     requestTimeOut = "600">
 
 <!-----------------------------------   OCR    ------------------------------------------>
-<!--- 
+<!---
 	ocr_specimens
 	Purpose: Find OCR results at TACC
 	Cost: moderate/low
@@ -207,7 +207,7 @@
     interval = "daily"
     requestTimeOut = "600">
 	---->
-<!--- 
+<!---
 	ocr_crawl
 	Purpose: Find OCR results at TACC
 	Cost: moderate/low
@@ -224,7 +224,7 @@
     requestTimeOut = "300">
 	---->
 <!-----------------------------------   media bulkloader    ------------------------------------------>
-<!--- 
+<!---
 	MBL_cleanup
 	Purpose: Cleanup bulkloaded media
 	Cost: low
@@ -238,7 +238,7 @@
     startTime = "12:31 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	MBL_report
 	Purpose: Send email relating to bulkloaded media
 	Cost: low
@@ -252,7 +252,7 @@
     startTime = "04:31 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	MBL_report
 	Purpose: Send email relating to bulkloaded media
 	Cost: low
@@ -266,7 +266,7 @@
     startTime = "12:01 AM"
     interval = "300"
     requestTimeOut = "600">
-<!--- 
+<!---
 	MBL_load
 	Purpose: load bulkloaded media
 	Cost: variable - potentially high
@@ -282,7 +282,7 @@
     requestTimeOut = "300">
 
 <!----------------------------------------------- classification bulkloader -------------------------------->
-<!--- 
+<!---
 	checkMeta
 	Purpose: check basic metadata; prepare for processing
 	Cost: low
@@ -296,7 +296,7 @@
     startTime = "0:05 AM"
     interval = "3600"
     requestTimeOut = "60">
-	<!--- 
+	<!---
 	getTID
 	Purpose: get IDs
 	Cost: low
@@ -310,7 +310,7 @@
     startTime = "0:15 AM"
     interval = "3600"
     requestTimeOut = "60">
-<!--- 
+<!---
 	getClassificationID
 	Purpose: get IDs
 	Cost: low
@@ -324,16 +324,16 @@
     startTime = "0:15 AM"
     interval = "3600"
     requestTimeOut = "60">
-<!--- 
+<!---
 	load
 	Purpose: load classification data
 	Cost: high
 	Growth potential: high
 --->
 <!--- run manually until very sure of consequences ---->
-	
-	
-<!--- 
+
+
+<!---
 	fill_in_the_blanks_from_genus
 	Purpose: fill_in_the_blanks_from_genus (pull species, subspecies, extra genus data)
 	Cost: variable - potentially high
@@ -347,12 +347,12 @@
     startTime = "0:03 AM"
     interval = "120"
     requestTimeOut = "60">
-	
+
 
 <!----------------------------------------------- /classification bulkloader -------------------------------->
 <!-----------------------------------   sitemaps    ------------------------------------------>
 
-<!--- 
+<!---
 	CTupdates
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -366,7 +366,7 @@
     startTime = "12:01 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_sitemap_map
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -380,7 +380,7 @@
     startTime = "05:00 PM"
     interval = "weekly"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_sitemap_index
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -394,7 +394,7 @@
     startTime = "05:10 PM"
     interval = "weekly"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_sitemaps_spec
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -408,7 +408,7 @@
     startTime = "12:20 AM"
     interval = "1800"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_sitemaps_tax
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -422,7 +422,7 @@
     startTime = "12:23 AM"
     interval = "3600"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_sitemaps_pub
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -436,7 +436,7 @@
     startTime = "12:26 AM"
     interval = "3600"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_sitemaps_proj
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -450,7 +450,7 @@
     startTime = "12:30 AM"
     interval = "3600"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_sitemaps_stat
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -464,7 +464,7 @@
     startTime = "12:35 AM"
     interval = "3600"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_sitemaps_media
 	Purpose: build sitemaps
 	Cost: moderate/high
@@ -480,7 +480,7 @@
     interval = "1800"
     requestTimeOut = "600">
 <!-----------------------------------   imaging    ------------------------------------------>
-<!--- 
+<!---
 	ALA_ProblemReport
 	Purpose: send email about ALA imaging problems
 	Cost: low
@@ -494,7 +494,7 @@
     startTime = "06:00 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	tacc1_findAllDirectories
 	Purpose: Find stuff at TACC
 	Cost: high
@@ -508,7 +508,7 @@
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "04:30 AM"
     interval = "daily">
-<!--- 
+<!---
 	TACC2_findFilesOnePath
 	Purpose: Find one folder of stuff at TACC
 	Cost: moderate
@@ -522,7 +522,7 @@
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:17 AM"
     interval = "7200">
-<!--- 
+<!---
 	TACC3_linkToSpecimens
 	Purpose: Hook specimens to TACC media
 	Cost: moderate/high
@@ -536,7 +536,7 @@
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:27 AM"
     interval = "1200">
-<!--- 
+<!---
 	TACC4_makeDNGMedia
 	Purpose: Hook specimens to TACC media
 	Cost: moderate/high
@@ -551,7 +551,7 @@
     startTime = "12:37 AM"
     interval = "3600">
 
-<!--- 
+<!---
 	TACC5_makeJPGMedia
 	Purpose: Hook specimens to TACC media
 	Cost: moderate/high
@@ -567,7 +567,7 @@
     interval = "3600">
 
 <!-----------------------------------   curatorial alerts    ------------------------------------------>
-<!--- 
+<!---
 	reminder
 	Purpose: loans due, permits expiring, etc. notifications
 	Cost: low/moderate
@@ -581,7 +581,7 @@
     startTime = "12:56 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	globalnames_refresh
 	Purpose: Refresh data from globalnames
 	Cost: moderate
@@ -597,7 +597,7 @@
     startTime = "12:00 AM"
     interval = "600"
     requestTimeOut = "600">
-<!--- 
+<!---
 	authority_change
 	Purpose: code tables or geography change notifications
 	Cost: moderate
@@ -611,7 +611,7 @@
     startTime = "12:59 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	genbank_crawl_institution_wild2
 	Purpose: Find uncited specimens at GenBank
 	Cost: low/moderate
@@ -625,7 +625,7 @@
     startTime = "07:25 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	genbank_crawl_institution_wild1
 	Purpose: Find uncited specimens at GenBank
 	Cost: low/moderate
@@ -639,7 +639,7 @@
     startTime = "07:20 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	genbank_crawl_collection_wild2
 	Purpose: Find uncited specimens at GenBank
 	Cost: low/moderate
@@ -653,7 +653,7 @@
     startTime = "07:15 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	genbank_crawl_collection_wild1
 	Purpose: Find uncited specimens at GenBank
 	Cost: low/moderate
@@ -667,7 +667,7 @@
     startTime = "07:10 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	genbank_crawl_collection_voucher
 	Purpose: Find uncited specimens at GenBank
 	Cost: low/moderate
@@ -681,7 +681,7 @@
     startTime = "07:05 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	genbank_crawl_institution_voucher
 	Purpose: Find uncited specimens at GenBank
 	Cost: low/moderate
@@ -696,7 +696,7 @@
     interval = "daily"
     requestTimeOut = "600">
 <!-----------------------------------   sharing data    ------------------------------------------>
-<!--- 
+<!---
 	GenBank_build
 	Purpose: Build linkouts from GenBank
 	Cost: low/moderate
@@ -710,7 +710,7 @@
     startTime = "10:00 PM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	GenBank_transfer_name
 	Purpose: Build linkouts from GenBank
 	Cost: low/moderate
@@ -725,7 +725,7 @@
     startTime = "10:30 PM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	GenBank_transfer_nuc
 	Purpose: Build linkouts from GenBank
 	Cost: low/moderate
@@ -740,7 +740,7 @@
     startTime = "10:35 PM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	GenBank_transfer_tax
 	Purpose: Build linkouts from GenBank
 	Cost: low/moderate
@@ -756,7 +756,7 @@
     interval = "daily"
     requestTimeOut = "600">
 <!-----------------------------------   maintenance    ------------------------------------------>
-<!--- 
+<!---
 	cf_spec_res_cols
 	Purpose: Sync specresults with code table additions
 	Cost: low
@@ -770,13 +770,13 @@
     startTime = "01:38 AM"
     interval = "weekly"
     requestTimeOut = "600">
-<!--- 
+<!---
 	CleanTempFiles
 	Purpose: Clean up temporary fileserver gunk
 	Cost: low
 	Growth potential: low/moderate
 	NOTE: perhaps more efficient as CRON, but easier to maintain from here
---->	
+--->
 <cfschedule action = "update"
     task = "CleanTempFiles"
     operation = "HTTPRequest"
@@ -785,7 +785,7 @@
     startTime = "12:00 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_home
 	Purpose: maintain home.cfm
 	Cost: low
@@ -799,7 +799,7 @@
     startTime = "12:56 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- 
+<!---
 	build_robots
 	Purpose: maintain robots.txt
 	Cost: low
@@ -813,7 +813,7 @@
     startTime = "1:36 AM"
     interval = "weekly"
     requestTimeOut = "600">
-<!--- 
+<!---
 	stale_users
 	Purpose: lock old and unused user accounts
 	Cost: low
@@ -826,4 +826,11 @@
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "1:56 AM"
     interval = "weekly"
+    requestTimeOut = "600">
+
+<cfschedule action = "update"
+    task = "blacklist_entry_attempts"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/blacklistattempt.cfm"
+    cronTime="0 42 03 ? * MON"
     requestTimeOut = "600">
