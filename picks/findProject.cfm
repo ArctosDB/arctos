@@ -14,8 +14,22 @@
 		<cfabort>
 	</cfif>
 	<cfquery name="getProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT project_name, project_id from project where
-			UPPER(project_name) LIKE '%#ucase(project_name)#%'
+		SELECT
+      project_name,
+      project_id
+    from
+      project,
+      project_agent,
+      agent,
+      agent_name
+    where
+      project.project_id=project_agent.project_id (+) and
+      project_agent.agent_id=agent.agent_id (+) and
+      agent.agent_id=agent_name.agent_id (+) and (
+        UPPER(project_name) LIKE '%#ucase(project_name)#%' or
+        UPPER(agent.preferred_agent_name) LIKE '%#ucase(project_name)#%'or
+        UPPER(agent_name.agent_name) LIKE '%#ucase(project_name)#%'
+	)
 	</cfquery>
 	<cfif getProj.recordcount is 0>
 			Nothing matched #project_name#.
