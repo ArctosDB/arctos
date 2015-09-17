@@ -53,7 +53,7 @@
 			<cfquery name="agents" dbtype="query">
 				select agent from raw where project_id=#project_id# group by agent order by agent
 			</cfquery>
-			<div style="margin:.2em; padding:.2em; border 1px light gray";>
+			<div style="margin:.1em; padding:.1em; border: 1px solid lightgray;">
 				<a href="##" onClick="useThis('#jsescape(getProj.project_name)#','#project_id#');">
 					#getProj.project_name#
 				</a>
