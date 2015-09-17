@@ -211,8 +211,8 @@
 	<cfset request.rawipaddress=ipaddress>
 	<!--- loop through the possibilities, keep only things that look like an IP ---->
 	<!--- something wonky about Arctos reports itself for everything, so get rid of that --->
-	<cfif listfind(ipaddress,'67.166.156.208')>
-		<cfset ipaddress=listdeleteat(ipaddress,listfind(ipaddress,'67.166.156.208'))>
+	<cfif listfind(ipaddress,'129.114.52.171')>
+		<cfset ipaddress=listdeleteat(ipaddress,listfind(ipaddress,'129.114.52.171'))>
 	</cfif>
 	<cfset vips="">
 	<cfloop list="#ipaddress#" delimiters="," index="tip">
