@@ -50,10 +50,16 @@
 			select project_name,project_id from raw order by project_name
 		</cfquery>
 		<cfloop query="getProj">
+			<cfquery name="agents" dbtype="query">
+				select agent from raw where project_id=#project_id# group by agent order by agent
+			</cfquery>
 			<div>
 				<a href="##" onClick="useThis('#jsescape(getProj.project_name)#','#project_id#');">
 					#getProj.project_name#
 				</a>
+				<div style="font-size:smaller; margin-left:1em;">#valuelist(agents.agent)#
+
+				</div>
 			</div>
 			<!----
 			<br>
