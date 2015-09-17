@@ -120,6 +120,8 @@
 		  	loan_item.transaction_id = 1005198
 		ORDER BY cat_num
 	</cfquery>
+	<cfset x=''>
+
 	<cfloop query="d">
 				<cfset trow="">
 				<cfloop list="#d.columnlist#" index="i">
