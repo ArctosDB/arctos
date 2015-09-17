@@ -53,12 +53,16 @@
 			<cfquery name="agents" dbtype="query">
 				select agent from raw where project_id=#project_id# group by agent order by agent
 			</cfquery>
-			<div>
+			<div style="margin:.2em; padding:.2em; border 1px light gray";>
 				<a href="##" onClick="useThis('#jsescape(getProj.project_name)#','#project_id#');">
 					#getProj.project_name#
 				</a>
-				<div style="font-size:smaller; margin-left:1em;">#valuelist(agents.agent)#
-
+				<div style="font-size:smaller; margin-left:1em;">
+					<cfif len(valuelist(agents.agent)) gt 0>
+						#valuelist(agents.agent)#
+					<cfelse>
+						No Agents
+					</cfif>
 				</div>
 			</div>
 			<!----
