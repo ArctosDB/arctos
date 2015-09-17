@@ -333,7 +333,7 @@
 	<cfset badbot=badbot & ",MegaIndex">
 	<cfset badbot=badbot & ",Nutch">
 	<cfset badbot=badbot & ",re-animator">
-	<cfset badbot=badbot & ",SemrushBot,slurp,spbot,Synapse">
+	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse">
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",YandexBot">
