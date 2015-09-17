@@ -179,7 +179,7 @@
 		</cfquery>
 		<div style="clear:both"><strong>Edit Accession</strong></div>
 		<table><tr><td valign="top">
-			<cfform action="editAccn.cfm" method="post" name="editAccn" id="editAccn">
+			<form action="editAccn.cfm" method="post" name="editAccn" id="editAccn">
 				<input type="hidden" name="action" value="saveChanges">
 				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 				<cfset tIA=accnData.collection_id>
@@ -399,51 +399,14 @@
 							id="project_name"
 							class="reqdClr"
 							onchange="getProject('project_id','project_name','editAccn',this.value); return false;"
-							onKeyPress="return noenter(event);">
+							onKeyPress="return noenter(event);"
+							placeholder="Project or Project Agent then TAB">
 					</td>
 				</tr>
 			</table>
-						</cfform>
+						</form>
 
 			<strong>Media associated with this Accn:</strong>
-			<!---
-			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select
-					media.media_id,
-					preview_uri,
-					media_uri,
-					media_type,
-					label_value
-				from
-					media,
-					media_relations,
-					(select * from media_labels where media_label='description') media_labels
-				where
-					media.media_id=media_labels.media_id (+) and
-					media.media_id=media_relations.media_id and
-					media_relationship like '% accn' and
-					related_primary_key=#transaction_id#
-			</cfquery>
-			<ul>
-				<cfif #media.recordcount# gt 0>
-					<cfloop query="media">
-						<li>
-							<a href="#media_uri#">
-								<cfif len(preview_uri) gt 0>
-									<img src="#preview_uri#">
-								<cfelse>
-									<img src="/images/noThumb.jpg">
-								</cfif>
-							</a>
-							<br><a class="infoLink" href="/MediaSearch.cfm?action=search&media_id=#media_id#">edit</a>
-							<br>#label_value#
-						</li>
-					</cfloop>
-				<cfelse>
-					<li>None</li>
-				</cfif>
-			</ul>
-			--->
 			<br><span class="likeLink"
 					onclick="addMediaHere('#accnData.guid_prefix# #accnData.accn_number#','#transaction_id#');">
 						Create Media
