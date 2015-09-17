@@ -6,6 +6,8 @@
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
 	<cfparam name="jtSorting" type="string" default="GUID ASC">
+				<cfset obj = CreateObject("component","component.docs")>
+
 
 	<!----
 	<cfif not isdefined("m")>
