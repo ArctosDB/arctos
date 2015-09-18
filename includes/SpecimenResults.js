@@ -416,6 +416,10 @@ function insertTypes(idList) {
 }
 
 function injectLoanPick() {
+	
+	console.log('injectLoanPick');
+	
+	
 	var transaction_id=$("#transaction_id").val();
 	if (transaction_id) {
 		$( "body" ).append('<div id="ajaxStatus" class="ajaxStatus">Feching Loan Pick...</div>')
