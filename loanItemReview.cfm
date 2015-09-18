@@ -14,6 +14,7 @@
 
 	<script>
 		 $(document).ready(function () {
+		 	// save condition with change
 			$(document).on("change", '[id^="condition_"]', function(){
 				i=this.id.replace("condition_", "");
 				$(this).addClass('red');
@@ -34,6 +35,8 @@
 					}
 				);
 			});
+
+
 			$(document).on("click", '[id^="delimg_"]', function(){
 				i=this.id.replace("delimg_", "");
 				alert('delete ' + i);
@@ -135,12 +138,25 @@ function remPartFromLoan( partID ) {
 		    	h+='<span class="infoLink" onClick="chgCondition(\'' + pid + '\')">History</span>';
 				$("#jsoncond_" + pid).html(h);
 			});
-			// add a delete button
-			$("span.jtable-column-header-text:contains('Remove'):last").parent().parent().parent().each(function(){
-				console.log('hi: ' + $(this).html() );
-				$(this).addClass('red');
+			// change disposition to select
+			 $('input[id^="condition_"])'.each(function(){
+			 	console.log(this.id);
 
+		    	//pid=$(this).data("record-key");
+		    	//d=$("#jsoncond_" + pid).text();
+		    	//h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition_' + pid + '">' + d + '</textarea>';
+		    	//h+='<span class="infoLink" onClick="chgCondition(\'' + pid + '\')">History</span>';
+				//$("#jsoncond_" + pid).html(h);
 			});
+
+			//return '<input id="disposition_' + data.record.PARTID + '" type="text" value="' + data.record.COLL_OBJ_DISPOSITION + '">';
+
+			// add a delete button
+			//$("span.jtable-column-header-text:contains('Remove'):last").parent().parent().parent().each(function(){
+			//	console.log('hi: ' + $(this).html() );
+			//	$(this).addClass('red');
+
+			//});
 
 
 
@@ -207,8 +223,15 @@ function remPartFromLoan( partID ) {
 		                },
 		                ITEM_INSTRUCTIONS: {title: 'Instructions'},
 		                LOAN_ITEM_REMARKS: {title: 'Remark'},
-		                COLL_OBJ_DISPOSITION: {title: 'Disposition'},
-		                PARTLASTSCANDATE: {title: 'LastScan'},
+		                COLL_OBJ_DISPOSITION: {
+		                	title: 'Disposition',
+		                	display: function (data) {
+		                		// need a select so do this post-process, but make it easy to find for now
+								return '<input id="disposition_' + data.record.PARTID + '" type="text" value="' + data.record.COLL_OBJ_DISPOSITION + '">';
+							}
+		                },
+		                PARTLASTSCANDATE: {
+		                	title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
 		                removecell: {
 		                	title: 'Remove',
