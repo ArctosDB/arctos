@@ -220,7 +220,7 @@
 			} else {
 			  	return false;
 			}
-
+		}
 	</script>
 
 	<cfoutput>
