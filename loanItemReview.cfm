@@ -22,7 +22,7 @@
 		    	d=$("#jsoncond_" + pid).val();
 		    	console.log( d );
 		    	h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition' + pid + '"';
-		    	h+='onchange="this.className='red';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
+		    	h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
 //								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
 
 		    	console.log( h );
