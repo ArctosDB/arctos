@@ -47,7 +47,10 @@
 						queryformat : 'column'
 					},
 					function(r) {
+						console.log('i am r');
+						console.log(r);
 						if (r.DATA.STATUS == 'success') {
+							console.log('spiffity');
 							$(this).removeClass();
 						} else {
 							alert('An error occured: \n' + r.DATA.STATUS);
