@@ -61,12 +61,16 @@
 		    });
 		    function processEditStuff(){
 		    	console.log('hiya');
-		    	$("input[data-record-key]").val(function(){
-				    console.log( $(this).data() );
+		    	$("input[data-record-key]").each(function(){
+				    var testdata = $(this).data('test');
+				    $(this).val(testdata);
 				});
 
 
+
+
 		    }
+
 		</script>
 	<input type="hidden" id="transaction_id" value="#transaction_id#">
 	</cfoutput>
