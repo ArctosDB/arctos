@@ -139,7 +139,7 @@ function remPartFromLoan( partID ) {
 				$("#jsoncond_" + pid).html(h);
 			});
 			// change disposition to select
-			 $('input[id^="condition_"])'.each(function(){
+			 $('input[id^="condition_"]').each(function(){
 			 	console.log(this.id);
 
 		    	//pid=$(this).data("record-key");
