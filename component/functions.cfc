@@ -137,7 +137,7 @@
 	</cfloop>
 
 
-	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#TotalRecordCount#}'>
+	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#d.recordcount#}'>
 
 	<cfreturn result>
 </cffunction>

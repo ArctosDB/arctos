@@ -33,14 +33,14 @@
 	            	//selectOnRowClick: false, //Enable this to only select using checkboxes
 					pageSizes: [10, 25, 50, 100, 250, 500,5000],
 					actions: {
-		                listAction: '/component/functions.cfc?totalRecordCount=3&method=getLoanItems'
+		                listAction: '/component/functions.cfc&method=getLoanItems'
 		            },
 		            fields:  {
 						 PARTID: {
 		                    key: true,
 		                    create: false,
 		                    edit: false,
-		                    list: true
+		                    list: false
 		                },
 		                GUID: {title: 'GUID'},
 		                <cfif len(session.CustomOtherIdentifier) gt 0>
@@ -62,11 +62,6 @@
 		</script>
 	</cfoutput>
 	<div id="loanitems"></div>
-<textarea name="condition#partID#"
-								rows="2" cols="20"
-								id="condition#partID#"
-								onchange="this.className='red';updateCondition('#partID#')">#condition#</textarea>
-								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
 </cfif>
 <!-------------------------------------------------------------------------------->
 <cfif action is "delete">
