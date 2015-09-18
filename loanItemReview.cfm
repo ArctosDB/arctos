@@ -398,7 +398,7 @@
 		</cfif>
 		<cfquery name="ckd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				count(*)
+				count(*) c
 			from
 				loan_item,
 				specimen_part,
@@ -409,9 +409,7 @@
 				coll_object.COLL_OBJ_DISPOSITION='on loan' and
 				loan_item.transaction_id = #transaction_id#
 		</cfquery>
-		<cfdump var=#ckd#>
-		<cfabort>
-		<cfif ckd.recordcount gt 0>
+		<cfif ckd.c gt 0>
 			Cannot delete with "on loan" disposition.<cfabort>
 		</cfif>
 
