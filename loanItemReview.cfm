@@ -35,6 +35,27 @@
 					}
 				);
 			});
+			$(document).on("change", '[id^="disposition_"]', function(){
+				i=this.id.replace("disposition_", "");
+				$(this).addClass('red');
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "updatePartDisposition",
+						part_id : i,
+						disposition : $(this).val(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function(r) {
+						if (r.DATA.MESSAGE == 'success') {
+							$("#disposition_" + result.PART_ID).removeClass();
+						} else {
+							alert('An error occured: \n' + r.DATA.MESSAGE);
+						}
+					}
+				);
+			});
+
 
 
 			$(document).on("click", '[id^="delimg_"]', function(){
@@ -140,35 +161,13 @@ function remPartFromLoan( partID ) {
 			});
 			// change disposition to select
 			 $('input[id^="disposition_"]').each(function(){
-			 	console.log(this.id);
 			 	//var i=this.id.replace("disposition_", "");
 			 	var v = $(this).val();
 				var i=this.id;
-
 			 	var h='<select name="' + this.id + '" id="' +this.id+ '"></select>';
 			 	$(this).parent().html(h);
 				$('#coll_obj_disposition').find('option').clone().appendTo($("#" + i));
 				$("#" + i).val(v);
-
-
-			 	//var i=parseInt($("#nnan").val()) + parseInt(1);
-
-	//var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
-	//h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" placeholder="new agent name" class="minput"></div>';
-	//$('#agentnamedv' + $("#nnan").val()).after(h);
-	//$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
-	//$("#nnan").val(i);
-
-
-
-
-
-
-		    	//pid=$(this).data("record-key");
-		    	//d=$("#jsoncond_" + pid).text();
-		    	//h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition_' + pid + '">' + d + '</textarea>';
-		    	//h+='<span class="infoLink" onClick="chgCondition(\'' + pid + '\')">History</span>';
-				//$("#jsoncond_" + pid).html(h);
 			});
 
 			//return '<input id="disposition_' + data.record.PARTID + '" type="text" value="' + data.record.COLL_OBJ_DISPOSITION + '">';

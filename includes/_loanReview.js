@@ -89,6 +89,43 @@ function remPartFromLoan( partID ) {
 
 
 
+
+
+
+
+
+
+
+
+function updateDispn( partID ) {
+	var s = "document.getElementById('coll_obj_disposition" + partID + "')";
+	var dispnFld = eval(s);
+	var thisDispn = dispnFld.value;
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "updatePartDisposition",
+			part_id : partID,
+			disposition : thisDispn,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_updateDispn
+	);
+}
+function success_updateDispn (r) {
+	var result=r.DATA;
+	var partID = result.PART_ID;
+	var status = result.STATUS;
+	var disposition = result.DISPOSITION;
+	if (status == 'success') {
+		var s = "document.getElementById('coll_obj_disposition" + partID + "')";
+		var dispnFld = eval(s);
+		dispnFld.className='';
+	} else {
+		alert('An error occured:\n' + disposition);
+	}
+}
+
 */
 function updateLoanItemRemarks ( partID ) {
 	var s = "document.getElementById('loan_Item_Remarks" + partID + "').value";
@@ -158,33 +195,5 @@ function success_remPartFromLoan (r) {
 		theRow.style.display='none';
 	} else {
 		alert('An error occured: \n' + message);
-	}
-}
-function updateDispn( partID ) {
-	var s = "document.getElementById('coll_obj_disposition" + partID + "')";
-	var dispnFld = eval(s);
-	var thisDispn = dispnFld.value;
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "updatePartDisposition",
-			part_id : partID,
-			disposition : thisDispn,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		success_updateDispn
-	);
-}
-function success_updateDispn (r) {
-	var result=r.DATA;
-	var partID = result.PART_ID;
-	var status = result.STATUS;
-	var disposition = result.DISPOSITION;
-	if (status == 'success') {
-		var s = "document.getElementById('coll_obj_disposition" + partID + "')";
-		var dispnFld = eval(s);
-		dispnFld.className='';
-	} else {
-		alert('An error occured:\n' + disposition);
 	}
 }
