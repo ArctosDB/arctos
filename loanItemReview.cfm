@@ -13,6 +13,28 @@
 <cfif action is "nothing">
 
 	<script>
+		 $(document).ready(function () {
+
+			$(document).on("change", '[id^="condition_"]', function(){
+				var i =  this.id;
+
+				alert('changey');
+
+				/*
+				i=i.replace("agent_name_type_new", "");
+				i=i.replace("agent_name_new", "");
+				if ( $("#agent_name_type_new" + i).val().length > 0 ||  $("#agent_name_new" + i).val().length > 0 ) {
+					$("#agent_name_type_new" + i).addClass('reqdClr').prop('required',true);
+					$("#agent_name_new" + i).addClass('reqdClr').prop('required',true);
+				} else {
+					$("#agent_name_type_new" + i).removeClass('reqdClr').prop('required',false);
+					$("#agent_name_new" + i).removeClass('reqdClr').prop('required',false);
+				}
+				*/
+			});
+		 });
+
+
 		function processEditStuff(){
 			var pid,d,h;
 			console.log('hiya');
@@ -21,8 +43,8 @@
 		    	console.log( pid );
 		    	d=$("#jsoncond_" + pid).text();
 		    	console.log( d );
-		    	h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition' + pid + '"';
-		    	h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
+		    	h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition_' + pid + '">' + d + '</textarea>';
+		    	//h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
 //								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
 
 		    	console.log( h );
