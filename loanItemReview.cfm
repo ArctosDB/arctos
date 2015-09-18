@@ -53,18 +53,9 @@
 							console.log('spiffity');
 
 
-							console.log(r.PART_ID);
-							$("#disposition_" + r.PART_ID).removeClass();
+							console.log(r.DATA.PART_ID);
+							$("#disposition_" + r.DATA.PART_ID).removeClass();
 
-
-
-							$("#disposition_3002292").addClass('usedValue');
-
-$("#disposition_3002292").removeClass();
-
-
-
-							console.log('removeDClass');
 
 
 						} else {
