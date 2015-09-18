@@ -453,12 +453,14 @@
 					<cfquery name="deleCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #collection_object_id#
 					</cfquery>
-					<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						DELETE FROM container_history WHERE container_id = #getContID.container_id#
-					</cfquery>
-					<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						DELETE FROM container WHERE container_id = #getContID.container_id#
-					</cfquery>
+					<cfif len(getContID.container_id) gt 0>
+						<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							DELETE FROM container_history WHERE container_id = #getContID.container_id#
+						</cfquery>
+						<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							DELETE FROM container WHERE container_id = #getContID.container_id#
+						</cfquery>
+					</cfif>
 					<cfquery name="delepart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM specimen_part WHERE collection_object_id = #collection_object_id#
 					</cfquery>
