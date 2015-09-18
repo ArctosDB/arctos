@@ -149,6 +149,7 @@ function remPartFromLoan( partID ) {
 				$('#coll_obj_disposition').find('option').clone().appendTo($(this));
 
 
+
 			 	//var i=parseInt($("#nnan").val()) + parseInt(1);
 
 	//var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
