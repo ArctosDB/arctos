@@ -540,10 +540,12 @@
 		 from
 			cataloged_item,
 			collection,
-			loan_item
+			loan_item,
+			loan
 		WHERE
 			cataloged_item.collection_id=collection.collection_id and
 			collection.collection_object_id = loan_item.collection_object_id and
+			loan_item.transaction_id=loan.transaction_id
 		  	loan_item.transaction_id = #transaction_id#
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
