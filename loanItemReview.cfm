@@ -63,13 +63,13 @@
 		    	console.log('hiya');
 		    	$("tr[data-record-key]").each(function(){
 
-		    		console.log($(this));
-		    		console.log( $(this).data("data-record-key") );
+
+		    		console.log( $(this).data("record-key") );
 
 
 
-				    var testdata = $(this).dataset('recordKey');
-				    console.log(testdata);
+				  //  var testdata = $(this).dataset('recordKey');
+				  //  console.log(testdata);
 				});
 
 
