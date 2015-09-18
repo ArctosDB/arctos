@@ -117,7 +117,7 @@
 			cataloged_item.collection_object_id = identification.collection_object_id AND
 			identification.accepted_id_fg = 1 AND
 			cataloged_item.collection_id=collection.collection_id AND
-		  	loan_item.transaction_id = 1005198
+		  	loan_item.transaction_id = #transaction_id#
 		ORDER BY cat_num
 	</cfquery>
 	<cfset x=''>
