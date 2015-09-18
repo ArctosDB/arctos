@@ -55,8 +55,7 @@
 
 
 
-							$("#disposition_" + r.PART_ID).addClass('usedValue');
-
+							$("#disposition_3002292").addClass('usedValue');
 
 
 
