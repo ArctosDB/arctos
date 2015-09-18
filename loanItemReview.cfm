@@ -34,6 +34,95 @@
 					}
 				);
 			});
+			$(document).on("change", '[id^="delimg_"]', function(){
+				i=this.id.replace("delimg_", "");
+				alert('delete ' + i);
+				/*
+function remPartFromLoan( partID ) {
+	var s = "document.getElementById('coll_obj_disposition" + partID + "')";
+	var dispnFld = eval(s);
+	var thisDispn = dispnFld.value;
+	var isS = "document.getElementById('isSubsample" + partID + "')";
+	var isSslFld = eval(isS);
+	varisSslVal = isSslFld.value;
+	var transaction_id = document.getElementById('transaction_id').value;
+	if (varisSslVal > 0) {
+		var m = "Would you like to DELETE this subsample? \n OK: permanently remove from database \n Cancel: remove from loan";
+		var answer = confirm (m);
+		if (answer) {
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "del_remPartFromLoan",
+					part_id : partID,
+					transaction_id : transaction_id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				success_remPartFromLoan
+			);
+		} else {
+			if (thisDispn == 'on loan') {
+				alert('The part cannot be removed because the disposition is "on loan".');
+			} else {
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "remPartFromLoan",
+						part_id : partID,
+						transaction_id : transaction_id,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					success_remPartFromLoan
+				);
+			}
+		}
+	} else if (thisDispn == 'on loan') {
+		alert('That part cannot be removed because the disposition is "on loan".');
+	} else {
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "remPartFromLoan",
+				part_id : partID,
+				transaction_id : transaction_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_remPartFromLoan
+		);
+	}
+}
+
+
+
+
+
+
+
+
+
+				$(this).addClass('red');
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "updateCondition",
+						part_id : i,
+						condition : $(this).val(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function(r) {
+						if (r.DATA.MESSAGE == 'success') {
+							$("#condition_" + result.PART_ID).removeClass();
+						} else {
+							alert('An error occured: \n' + r.DATA.MESSAGE);
+						}
+					}
+				);
+				*/
+			});
+
+
+
+
 		 });// end docready
 
 		function processEditStuff(){
@@ -113,7 +202,7 @@
 		                removecell: {
 		                	title: 'Remove',
 							display: function (data) {
-								return '<img src="/images/del.gif" id="delimg_' + data.record.PARTID + '">';
+								return '<img src="/images/del.gif" class="likeLink" id="delimg_' + data.record.PARTID + '">';
 							}
 						}
 		            }

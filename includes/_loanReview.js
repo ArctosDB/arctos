@@ -29,6 +29,66 @@ function success_updateCondition (r) {
 		alert('An error occured: \n' + message);
 	}
 }
+
+
+
+
+function remPartFromLoan( partID ) {
+	var s = "document.getElementById('coll_obj_disposition" + partID + "')";
+	var dispnFld = eval(s);
+	var thisDispn = dispnFld.value;
+	var isS = "document.getElementById('isSubsample" + partID + "')";
+	var isSslFld = eval(isS);
+	varisSslVal = isSslFld.value;
+	var transaction_id = document.getElementById('transaction_id').value;
+	if (varisSslVal > 0) {
+		var m = "Would you like to DELETE this subsample? \n OK: permanently remove from database \n Cancel: remove from loan";
+		var answer = confirm (m);
+		if (answer) {
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "del_remPartFromLoan",
+					part_id : partID,
+					transaction_id : transaction_id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				success_remPartFromLoan
+			);
+		} else {
+			if (thisDispn == 'on loan') {
+				alert('The part cannot be removed because the disposition is "on loan".');
+			} else {
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "remPartFromLoan",
+						part_id : partID,
+						transaction_id : transaction_id,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					success_remPartFromLoan
+				);
+			}
+		}
+	} else if (thisDispn == 'on loan') {
+		alert('That part cannot be removed because the disposition is "on loan".');
+	} else {
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "remPartFromLoan",
+				part_id : partID,
+				transaction_id : transaction_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_remPartFromLoan
+		);
+	}
+}
+
+
+
 */
 function updateLoanItemRemarks ( partID ) {
 	var s = "document.getElementById('loan_Item_Remarks" + partID + "').value";
@@ -86,59 +146,6 @@ function success_updateInstructions (r) {
 		item_instructions.className = '';
 	} else {
 		alert('An error occured: \n' + message);
-	}
-}
-function remPartFromLoan( partID ) {
-	var s = "document.getElementById('coll_obj_disposition" + partID + "')";
-	var dispnFld = eval(s);
-	var thisDispn = dispnFld.value;
-	var isS = "document.getElementById('isSubsample" + partID + "')";
-	var isSslFld = eval(isS);
-	varisSslVal = isSslFld.value;
-	var transaction_id = document.getElementById('transaction_id').value;
-	if (varisSslVal > 0) {
-		var m = "Would you like to DELETE this subsample? \n OK: permanently remove from database \n Cancel: remove from loan";
-		var answer = confirm (m);
-		if (answer) {
-			jQuery.getJSON("/component/functions.cfc",
-				{
-					method : "del_remPartFromLoan",
-					part_id : partID,
-					transaction_id : transaction_id,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				success_remPartFromLoan
-			);
-		} else {
-			if (thisDispn == 'on loan') {
-				alert('The part cannot be removed because the disposition is "on loan".');
-			} else {
-				jQuery.getJSON("/component/functions.cfc",
-					{
-						method : "remPartFromLoan",
-						part_id : partID,
-						transaction_id : transaction_id,
-						returnformat : "json",
-						queryformat : 'column'
-					},
-					success_remPartFromLoan
-				);
-			}
-		}
-	} else if (thisDispn == 'on loan') {
-		alert('That part cannot be removed because the disposition is "on loan".');
-	} else {
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "remPartFromLoan",
-				part_id : partID,
-				transaction_id : transaction_id,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			success_remPartFromLoan
-		);
 	}
 }
 function success_remPartFromLoan (r) {
