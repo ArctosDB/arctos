@@ -122,7 +122,7 @@
 				console.log('i=' + i);
 
 				if ($("#isSubsample" + i).val() > 0) {
-					var dialog = $( "#dialog-form" ).('<p>Delete Confirmation</p>').dialog({
+					var dialog = $('<p>Delete Confirmation</p>').dialog({
 	                    buttons: {
 	                        "DELETE this subsample": function() {deleteSubsample(i);},
 	                        "REMOVE subsample, keep as part":  function() {removePartFromLoan(i);},
@@ -214,7 +214,7 @@
 
 		function deleteSubsample(i){
 
-			$( "#dialog-form" ).dialog('close');
+			$(".ui-dialog-content").dialog("close");
 
 			jQuery.getJSON("/component/functions.cfc",
 				{
