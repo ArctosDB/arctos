@@ -190,8 +190,6 @@ function success_updateLoanItemRemarks (r) {
 		alert('An error occured: \n' + message);
 	}
 }
-
-*/
 function success_remPartFromLoan (r) {
 	var result=r.DATA;
 	var partID = result.PART_ID;
@@ -204,3 +202,5 @@ function success_remPartFromLoan (r) {
 		alert('An error occured: \n' + message);
 	}
 }
+
+*/

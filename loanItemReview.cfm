@@ -105,66 +105,91 @@
 
 
 
+
+
+
+
+
+
+
 			$(document).on("click", '[id^="delimg_"]', function(){
 				i=this.id.replace("delimg_", "");
+				// if subsample, offer to also delete part
 				if ($("#isSubsample" + i).val() > 0) {
 					var m = "Would you like to DELETE this subsample? \n OK: permanently remove from database \n Cancel: remove from loan";
 					var answer = confirm (m);
 					if (answer) {
-						jQuery.getJSON("/component/functions.cfc",
-							{
-								method : "del_remPartFromLoan",
-								part_id : i,
-								transaction_id : $("#transaction_id").val(),
-								returnformat : "json",
-								queryformat : 'column'
-							},
-							function(r) {
-								if (r.DATA.MESSAGE=='success'){
-									// its deleted, remove the row
-										console.log('removerow');
-									 $('tr[data-record-key="' + i + '"]').remove();
-
-
-
-								} else {
-									alert('An error occured: \n' + r.DATA.MESSAGE);
-								}
-
-							}
-						);
+						// yes, delete the part....
+						deleteSubsample(i);
 					} else {
+						// do NOT delete the part
+						// see if it's on loan
 						if ($("#coll_obj_disposition_" + i).val() == 'on loan') {
 							alert('The part cannot be removed because the disposition is "on loan".');
 						} else {
-							jQuery.getJSON("/component/functions.cfc",
-								{
-									method : "remPartFromLoan",
-									part_id : i,
-									transaction_id : $("#transaction_id").val(),
-									returnformat : "json",
-									queryformat : 'column'
-								},
-								function(r) {
-									if (r.DATA.MESSAGE=='success'){
-										// its deleted, remove the row
-										console.log('removerow');
-										 $('tr[data-record-key="' + i + '"]').remove();
-									} else {
-										alert('An error occured: \n' + r.DATA.MESSAGE);
-									}
-
-								}
-							);
+							// not on loan, remove the part from the loan
+							removePartFromLoan(i);
 						}
 					}
-
+				} else {
+					// not a subsample, just remove it
+					removePartFromLoan(i);
+				}
 			});
 
 
 
 
 		 });// end docready
+
+
+		function removePartFromLoan(i){
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "remPartFromLoan",
+					part_id : i,
+					transaction_id : $("#transaction_id").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					if (r.DATA.MESSAGE=='success'){
+						// its deleted, remove the row
+						console.log('removerow');
+						 $('tr[data-record-key="' + i + '"]').remove();
+					} else {
+						alert('An error occured: \n' + r.DATA.MESSAGE);
+					}
+
+				}
+			);
+		}
+
+		function deleteSubsample(i){
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "del_remPartFromLoan",
+					part_id : i,
+					transaction_id : $("#transaction_id").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				// and remove the row
+				function(r) {
+					if (r.DATA.MESSAGE=='success'){
+						// its deleted, remove the row
+							console.log('removerow');
+						 $('tr[data-record-key="' + i + '"]').remove();
+
+
+
+					} else {
+						alert('An error occured: \n' + r.DATA.MESSAGE);
+					}
+
+				}
+			);
+		}
 
 		function processEditStuff(){
 			var pid,d,h;
