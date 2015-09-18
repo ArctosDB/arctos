@@ -323,7 +323,7 @@
 				trans.collection_id=collection.collection_id and
 				trans.transaction_id=#transaction_id#
 		</cfquery>
-		<br><a href="loanItemReview.cfm?action=nothing&transaction_id=#transaction_id#&Ijustwannadownload=yep">Download (csv)</a> - non-data loans only!
+		<br><a href="loanItemReview.cfm?action=downloadCSV&transaction_id=#transaction_id#">Download (csv)</a> - non-data loans only!
 		<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to Edit Loan</a>
 		<cfquery name="getDataLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
@@ -487,7 +487,61 @@
 		<cflocation url="loanItemReview.cfm?transaction_id=#transaction_id#">
 	</cfoutput>
 </cfif>
-
+<!-------------------------------------------------------------------------------->
+<cfif action is "downloadCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			guid_prefix || ':' || cat_num guid,
+			part_name,
+			condition,
+			decode(sampled_from_obj_id,NULL,'no','yes') is_subsample,
+			item_descr,
+			item_instructions,
+			loan_item_remarks,
+			coll_obj_disposition,
+			scientific_name,
+			Encumbrance,
+			loan_number,
+			#session.CustomOtherIdentifier#') AS CustomIDType,
+			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate
+		 from
+			loan_item,
+			loan,
+			specimen_part,
+			coll_object,
+			cataloged_item,
+			coll_object_encumbrance,
+			encumbrance,
+			identification,
+			collection,
+			coll_obj_cont_hist,
+			container partc,
+			container pbc
+		WHERE
+			loan_item.collection_object_id = specimen_part.collection_object_id AND
+			loan.transaction_id = loan_item.transaction_id AND
+			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
+			coll_obj_cont_hist.container_id=partc.container_id (+) and
+			partc.parent_container_id=pbc.container_id (+) and
+			specimen_part.collection_object_id = coll_object.collection_object_id AND
+			coll_object.collection_object_id = coll_object_encumbrance.collection_object_id (+) and
+			coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
+			cataloged_item.collection_object_id = identification.collection_object_id AND
+			identification.accepted_id_fg = 1 AND
+			cataloged_item.collection_id=collection.collection_id AND
+		  	loan_item.transaction_id = #transaction_id#
+		ORDER BY cat_num
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/LoanItemDownload.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=LoanItemDownload.csv" addtoken="false">
+</cfif>
 <!-------------------------------------------------------------------------------->
 <cfif action is "BulkUpdateDisp">
 	<cfoutput>
