@@ -133,7 +133,10 @@
 					// confirm and try delete
 					var dialog = $('<p>Delete Confirmation</p>').dialog({
 	                    buttons: {
-	                        "Are you sure you want to remove this part?":  function() {removePartFromLoan(i);},
+	                        "Are you sure you want to remove this part?":  function() {
+	                        	removePartFromLoan(i);
+	                        	dialog.dialog('close');
+	                        },
 	                        "Cancel":  function() {dialog.dialog('close');}
 	                    }
 	                });
