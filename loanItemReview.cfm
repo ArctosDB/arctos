@@ -237,6 +237,33 @@ function remPartFromLoan( partID ) {
 
 		------->
 	<input type="hidden" id="transaction_id" value="#transaction_id#">
+
+
+
+	<form name="BulkUpdateDisp" method="post" action="a_loanItemReview.cfm">
+
+				<br>Change disposition to:
+				<input type="hidden" name="Action" value="BulkUpdateDisp">
+				<input type="hidden" name="transaction_id" value="#transaction_id#" id="transaction_id">
+				<select name="coll_obj_disposition" size="1">
+					<cfloop query="ctDisp">
+						<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+					</cfloop>
+				</select>
+				when disposition is
+
+				<select name="currentcoll_obj_disposition" id="currentcoll_obj_disposition" size="1">
+					<option value="">- anything -</option>
+					<cfloop query="ctDisp">
+						<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+					</cfloop>
+				</select>
+
+				<input type="submit" value="Update Disposition" class="savBtn">
+			</form>
+
+
+
 	</cfoutput>
 	<div id="loanitems"></div>
 </cfif>
