@@ -121,20 +121,23 @@
 		ORDER BY cat_num
 	</cfquery>
 	<cfset x=''>
-
 	<cfloop query="d">
-				<cfset trow="">
-				<cfloop list="#d.columnlist#" index="i">
-					<cfset theData=evaluate("d." & i)>
-					<cfset theData=obj.jsonEscape(theData)>
+		<cfset trow="">
+		<cfloop list="#d.columnlist#" index="i">
+			<cfset theData=obj.jsonEscape(evaluate("d." & i))>
+			<cfif i is "condition">
+				<cfset temp ='"CONDITION":"<div id=\"jsoncond_#partID#\">' & theData & '</div>"'>
+			<cfelse>
+				<cfset temp = '"#i#":"' & theData & '"'>
+			</cfif>
+			<cfset trow=listappend(trow,temp)>
+		</cfloop>
+		<cfset trow="{" & trow & "}">
+		<cfset x=listappend(x,trow)>
+	</cfloop>
 
-					<cfset temp = '"#i#":"' & theData & '"'>
-					<cfset trow=listappend(trow,temp)>
-				</cfloop>
-				<cfset trow="{" & trow & "}">
-				<cfset x=listappend(x,trow)>
-			</cfloop>
-			<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#TotalRecordCount#}'>
+
+	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#TotalRecordCount#}'>
 
 	<cfreturn result>
 </cffunction>

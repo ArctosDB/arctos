@@ -36,11 +36,11 @@
 		                listAction: '/component/functions.cfc?totalRecordCount=3&method=getLoanItems'
 		            },
 		            fields:  {
-						 COLLECTION_OBJECT_ID: {
+						 PARTID: {
 		                    key: true,
 		                    create: false,
 		                    edit: false,
-		                    list: false
+		                    list: true
 		                },
 		                GUID: {title: 'GUID'},
 		                <cfif len(session.CustomOtherIdentifier) gt 0>
@@ -55,7 +55,11 @@
 		</script>
 	</cfoutput>
 	<div id="loanitems"></div>
-
+<textarea name="condition#partID#"
+								rows="2" cols="20"
+								id="condition#partID#"
+								onchange="this.className='red';updateCondition('#partID#')">#condition#</textarea>
+								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
 </cfif>
 <!-------------------------------------------------------------------------------->
 <cfif action is "delete">
