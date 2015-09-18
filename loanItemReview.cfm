@@ -61,7 +61,10 @@
 		    });
 		    function processEditStuff(){
 		    	console.log('hiya');
-		    	$("input[data-record-key]").each(function(){
+		    	$("tr[data-record-key]").each(function(){
+
+		    		console.log($(this));
+
 				    var testdata = $(this).data('test');
 				    $(this).val(testdata);
 				});
