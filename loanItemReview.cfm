@@ -113,7 +113,7 @@
 		                removecell: {
 		                	title: 'Remove',
 							display: function (data) {
-								return '<img src="/images/del.gif" id="delimg_' + data.Records.PARTID + '">';
+								return '<img src="/images/del.gif" id="delimg_' + data.record.PARTID + '">';
 							}
 						}
 		            }
