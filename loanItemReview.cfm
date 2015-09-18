@@ -113,6 +113,19 @@
 
 
 			$(document).on("click", '[id^="delimg_"]', function(){
+
+				var dialog = $('<p>Are you sure?</p>').dialog({
+                    buttons: {
+                        "Yes": function() {alert('you chose yes');},
+                        "No":  function() {alert('you chose no');},
+                        "Cancel":  function() {
+                            alert('you chose cancel');
+                            dialog.dialog('close');
+                        }
+                    }
+                });
+
+				/*
 				i=this.id.replace("delimg_", "");
 				// if subsample, offer to also delete part
 				if ($("#isSubsample" + i).val() > 0) {
@@ -135,6 +148,8 @@
 					// not a subsample, just remove it
 					removePartFromLoan(i);
 				}
+
+				*/
 			});
 
 
