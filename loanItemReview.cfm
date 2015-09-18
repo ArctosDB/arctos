@@ -143,10 +143,11 @@ function remPartFromLoan( partID ) {
 			 	console.log(this.id);
 			 	//var i=this.id.replace("disposition_", "");
 			 	var v = $(this).val();
+				var i=this.id;
 
 			 	var h='<select name="' + this.id + '" id="' +this.id+ '"></select>';
 			 	$(this).parent().html(h);
-				$('#coll_obj_disposition').find('option').clone().appendTo($(this));
+				$('#coll_obj_disposition').find('option').clone().appendTo($(i));
 
 
 
