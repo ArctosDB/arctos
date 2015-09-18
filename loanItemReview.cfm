@@ -116,11 +116,9 @@
 				// if subsample, offer to also delete the part
 				// if not subsample, error if on loan.
 				// otherwise remove part from loan
-
 				i=this.id.replace("delimg_", "");
 
 				console.log('i=' + i);
-
 				if ($("#isSubsample" + i).val() > 0) {
 					var dialog = $('<p>Delete Confirmation</p>').dialog({
 	                    buttons: {
@@ -135,7 +133,6 @@
 	                    buttons: {
 	                        "Are you sure you want to remove this part?":  function() {
 	                        	removePartFromLoan(i);
-	                        	dialog.dialog('close');
 	                        },
 	                        "Cancel":  function() {dialog.dialog('close');}
 	                    }
@@ -182,8 +179,7 @@
 			console.log( $("#disposition_" + i).val() );
 			//return false;
 
-
-						dialog.dialog('close');
+			$(".ui-dialog-content").dialog("close");
 
 
 
