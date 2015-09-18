@@ -64,6 +64,7 @@
 		    	$("tr[data-record-key]").each(function(){
 
 		    		console.log($(this));
+		    		console.log($this);
 
 				    var testdata = $(this).dataset('recordKey');
 				    console.log(testdata);
