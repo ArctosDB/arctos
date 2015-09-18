@@ -19,7 +19,7 @@
 		    $("tr[data-record-key]").each(function(){
 		    	pid=$(this).data("record-key");
 		    	console.log( pid );
-		    	d=$("#jsoncond_" + pid).val();
+		    	d=$("#jsoncond_" + pid).text();
 		    	console.log( d );
 		    	h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition' + pid + '"';
 		    	h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
