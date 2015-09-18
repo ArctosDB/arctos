@@ -198,6 +198,7 @@
 				function(r) {
 					if (r.DATA.MESSAGE=='success'){
 						// its deleted, remove the row
+						dialog.dialog('close');
 						console.log('removerow');
 						 $('tr[data-record-key="' + i + '"]').remove();
 					} else {
