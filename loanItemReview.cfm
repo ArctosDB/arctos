@@ -109,7 +109,7 @@
 					columnSelectable: false,
 					recordsLoaded: processEditStuff,
 					//multiselect: true,
-					//selectingCheckboxes: true,
+					selectingCheckboxes: true,
 	  				//selecting: true, //Enable selecting
 	          		//selectingCheckboxes: true, //Show checkboxes on first column
 	            	//selectOnRowClick: false, //Enable this to only select using checkboxes
