@@ -216,7 +216,7 @@
 		function deleteDataLoan(tid){
 			var yesno=confirm('Are you sure you want to REMOVE ALL specimens from the data loan?');
 			if (yesno==true) {
-				document.location='/loanItemReview.cfm?action=removeAllDataLoanItems&transaction_id=#transaction_id#';
+				document.location='/loanItemReview.cfm?action=removeAllDataLoanItems&transaction_id=' + tid;
 			} else {
 			  	return false;
 			}
