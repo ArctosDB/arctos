@@ -47,10 +47,10 @@
 						queryformat : 'column'
 					},
 					function(r) {
-						if (r.DATA.MESSAGE == 'success') {
+						if (r.DATA.STATUS == 'success') {
 							$("#disposition_" + result.PART_ID).removeClass();
 						} else {
-							alert('An error occured: \n' + r.DATA.MESSAGE);
+							alert('An error occured: \n' + r.DATA.STATUS);
 						}
 					}
 				);
