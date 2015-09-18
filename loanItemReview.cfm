@@ -26,7 +26,7 @@
 //								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
 
 		    	console.log( h );
-
+				d=$("#jsoncond_" + pid).html(h);
 				  //  var testdata = $(this).dataset('recordKey');
 				  //  console.log(testdata);
 				});
