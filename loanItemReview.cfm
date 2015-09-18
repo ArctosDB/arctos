@@ -123,7 +123,7 @@
 					var dialog = $('<p>Delete Confirmation</p>').dialog({
 	                    buttons: {
 	                        "DELETE this subsample": function() {deleteSubsample(i);},
-	                        "REMOVE subsample, keep as part":  function() {removePartFromLoan(i);},
+	                        "REMOVE subsample from loan, keep as part":  function() {removePartFromLoan(i);},
 	                        "Cancel":  function() {dialog.dialog('close');}
 	                    }
 	                });
@@ -131,39 +131,11 @@
 					// confirm and try delete
 					var dialog = $('<p>Delete Confirmation</p>').dialog({
 	                    buttons: {
-	                        "Are you sure you want to remove this part?":  function() {
-	                        	removePartFromLoan(i);
-	                        },
+	                        "Remove part from loan":  function() {removePartFromLoan(i);},
 	                        "Cancel":  function() {dialog.dialog('close');}
 	                    }
 	                });
 				}
-
-				/*
-				i=this.id.replace("delimg_", "");
-				// if subsample, offer to also delete part
-				if ($("#isSubsample" + i).val() > 0) {
-					var m = "Would you like to DELETE this subsample? \n OK: permanently remove from database \n Cancel: remove from loan";
-					var answer = confirm (m);
-					if (answer) {
-						// yes, delete the part....
-						deleteSubsample(i);
-					} else {
-						// do NOT delete the part
-						// see if it's on loan
-						if ($("#coll_obj_disposition_" + i).val() == 'on loan') {
-							alert('The part cannot be removed because the disposition is "on loan".');
-						} else {
-							// not on loan, remove the part from the loan
-							removePartFromLoan(i);
-						}
-					}
-				} else {
-					// not a subsample, just remove it
-					removePartFromLoan(i);
-				}
-
-				*/
 			});
 
 
@@ -173,16 +145,7 @@
 
 
 		function removePartFromLoan(i){
-			console.log('removePartFromLoan i=' + i);
-
-
-			console.log( $("#disposition_" + i).val() );
-			//return false;
-
 			$(".ui-dialog-content").dialog("close");
-
-
-
 			if ($("#disposition_" + i).val() == 'on loan') {
 				alert('The part cannot be removed because the disposition is "on loan".');
 				return false;
@@ -203,15 +166,12 @@
 					} else {
 						alert('An error occured: \n' + r.DATA.MESSAGE);
 					}
-
 				}
 			);
 		}
 
 		function deleteSubsample(i){
-
 			$(".ui-dialog-content").dialog("close");
-
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "del_remPartFromLoan",
@@ -226,13 +186,9 @@
 						// its deleted, remove the row
 							console.log('removerow');
 						 $('tr[data-record-key="' + i + '"]').remove();
-
-
-
 					} else {
 						alert('An error occured: \n' + r.DATA.MESSAGE);
 					}
-
 				}
 			);
 		}
