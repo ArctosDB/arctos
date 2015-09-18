@@ -113,17 +113,28 @@
 
 
 			$(document).on("click", '[id^="delimg_"]', function(){
+				// if subsample, offer to also delete the part
+				// if not subsample, error if on loan.
+				// otherwise remove part from loan
 
-				var dialog = $('<p>Are you sure?</p>').dialog({
-                    buttons: {
-                        "Yes": function() {alert('you chose yes');},
-                        "No":  function() {alert('you chose no');},
-                        "Cancel":  function() {
-                            alert('you chose cancel');
-                            dialog.dialog('close');
-                        }
-                    }
-                });
+				i=this.id.replace("delimg_", "");
+				if ($("#isSubsample" + i).val() > 0) {
+					var dialog = $('<p>Delete Confirmation</p>').dialog({
+	                    buttons: {
+	                        "DELETE this subsample": function() {deleteSubsample(i);},
+	                        "REMOVE subsample, keep as part":  function() {removePartFromLoan(i);},
+	                        "Cancel":  function() {dialog.dialog('close');}
+	                    }
+	                });
+				} else {
+					// confirm and try delete
+					var dialog = $('<p>Delete Confirmation</p>').dialog({
+	                    buttons: {
+	                        "Are you sure you want to remove this part?":  function() {removePartFromLoan(i);},
+	                        "Cancel":  function() {dialog.dialog('close');}
+	                    }
+	                });
+				}
 
 				/*
 				i=this.id.replace("delimg_", "");
@@ -159,6 +170,10 @@
 
 
 		function removePartFromLoan(i){
+			if ($("#coll_obj_disposition_" + i).val() == 'on loan') {
+				alert('The part cannot be removed because the disposition is "on loan".');
+				return false;
+			}
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "remPartFromLoan",
