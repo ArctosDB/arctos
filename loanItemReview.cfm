@@ -111,10 +111,10 @@
 		                PARTLASTSCANDATE: {title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
 		                removecell: {
-		                	title: 'Remove'
+		                	title: 'Remove',
 							display: function (data) {
 								var $link = $('<a href="...">a link</a>');
-								$link.click(function(){ /* do something on click */ });
+								$link.click(function(){ alert('click') });
 								return $link;
 							}
 						}
