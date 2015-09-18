@@ -48,7 +48,7 @@
 					},
 					function(r) {
 						if (r.DATA.STATUS == 'success') {
-							$("#disposition_" + r.PART_ID).removeClass();
+							$(this).removeClass();
 						} else {
 							alert('An error occured: \n' + r.DATA.STATUS);
 						}
