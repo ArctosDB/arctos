@@ -196,8 +196,8 @@ function remPartFromLoan( partID ) {
 		                SAMPLED_FROM_OBJ_ID: {
 		                	title: 'Subsmpl?',
 		                	display: function (data) {
-		                		var h=data.record.ISSUBSMP;
-		                		h+='<input id="isSubsample3002292" type="hidden" value="2383691" name="isSubsample3002292">';
+		                		var h=data.record.SAMPLED_FROM_OBJ_ID;
+		                		h+='<input id="isSubsample' + data.record.PARTID + '" type="hidden" value="' + data.record.PARTID + '">';
 								return h;
 							}
 		                },
