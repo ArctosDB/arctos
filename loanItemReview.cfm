@@ -17,14 +17,16 @@
 
 			$(document).on("change", '[id^="condition_"]', function(){
 				i=this.id.replace("condition_", "");
-				alert('changey' + i);
-				$(this_.addClass('red');
+				console.log('changey' + i);
+				console.log($(this).val());
+
+				$(this).addClass('red');
 
 				jQuery.getJSON("/component/functions.cfc",
 					{
 						method : "updateCondition",
 						part_id : i,
-						condition : this.val(),
+						condition : $(this).val(),
 						returnformat : "json",
 						queryformat : 'column'
 					},
