@@ -16,11 +16,38 @@
 		 $(document).ready(function () {
 
 			$(document).on("change", '[id^="condition_"]', function(){
-				var i =  this.id;
-				i=i.replace("condition_", "");
+				i=this.id.replace("condition_", "");
 				alert('changey' + i);
-				this.className='red';
-				updateCondition(i);
+				$(this_.addClass('red');
+
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "updateCondition",
+						part_id : i,
+						condition : this.val(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function(r) {
+						var result=r.DATA;
+						var message = result.MESSAGE;
+						//alert(partID);
+						//alert(message);
+						if (message == 'success') {
+							$("#condition_" + result.PART_ID).removeName();
+							var ins = "document.getElementById(' + "')";
+							var condition = eval(ins);
+							condition.className = '';
+						} else {
+							alert('An error occured: \n' + message);
+						}
+					}
+		//success_updateCondition
+	);
+
+
+
+				//updateCondition(i);
 
 					//h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
 //								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
