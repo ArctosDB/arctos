@@ -507,9 +507,11 @@
 			concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 		 from
 			flat,
-			loan_item
+			loan_item,
+			loan
 		WHERE
 			flat.collection_object_id = loan_item.collection_object_id and
+			loan_item.transaction_id=loan.transaction_id
 		  	loan_item.transaction_id = #transaction_id#
 		ORDER BY guid
 	</cfquery>
