@@ -170,6 +170,14 @@
 
 
 		function removePartFromLoan(i){
+
+			console.log( $("#coll_obj_disposition_" + i).val() );
+			return false;
+
+
+
+
+
 			if ($("#coll_obj_disposition_" + i).val() == 'on loan') {
 				alert('The part cannot be removed because the disposition is "on loan".');
 				return false;
