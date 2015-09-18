@@ -289,6 +289,9 @@ function closeCustom() {
 	window.location=murl;
 }
 function getPostLoadJunk(){
+	
+	console.log('getPostLoadJunk');
+	
 	var coidlistAR=new Array();
 	$("div[id^='CatItem_']").each(function() {
 		var id = this.id.split('_')[1];
