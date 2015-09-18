@@ -18,7 +18,15 @@
 			$(document).on("change", '[id^="condition_"]', function(){
 				var i =  this.id;
 
-				alert('changey');
+				alert('changey' + this.id);
+				this.className='red';
+				updateCondition(this.id);
+
+					//h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
+//								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
+
+
+
 
 				/*
 				i=i.replace("agent_name_type_new", "");
