@@ -193,7 +193,7 @@ function remPartFromLoan( partID ) {
 		                SCIENTIFIC_NAME: {title: 'ID as'},
 		                PART_NAME: {title: 'Part'},
 		                CONDITION: {title: 'Condition'},
-		                ISSUBSMP: {
+		                SAMPLED_FROM_OBJ_ID: {
 		                	title: 'Subsmpl?',
 		                	display: function (data) {
 		                		var h=data.record.ISSUBSMP;
