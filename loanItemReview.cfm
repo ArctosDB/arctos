@@ -78,6 +78,28 @@
 				);
 			});
 
+			$(document).on("change", '[id^="loan_item_remark_"]', function(){
+				i=this.id.replace("loan_item_remark_", "");
+				$(this).addClass('red');
+
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "updateLoanItemRemarks",
+						part_id : i,
+						transaction_id : $("#transaction_id").val(),
+						loan_item_remarks : $(this).val(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function(r) {
+						if (r.DATA.MESSAGE == 'success') {
+							$("#loan_item_remark_" + r.DATA.PART_ID).removeClass();
+						} else {
+							alert('An error occured: \n' + r.DATA.STATUS);
+						}
+					}
+				);
+			});
 
 
 
@@ -273,7 +295,12 @@ function remPartFromLoan( partID ) {
 		                		return '<textarea id="item_instructions_' + data.record.PARTID + '" class="smalltextarea">' + data.record.ITEM_INSTRUCTIONS + '</textarea>';
 							}
 		                },
-		                LOAN_ITEM_REMARKS: {title: 'Remark'},
+		                LOAN_ITEM_REMARKS: {
+		                	title: 'ItemRemark',
+		                	display: function (data) {
+		                		return '<textarea id="loan_item_remark_' + data.record.PARTID + '" class="smalltextarea">' + data.record.LOAN_ITEM_REMARKS + '</textarea>';
+							}
+		                },
 		                COLL_OBJ_DISPOSITION: {
 		                	title: 'Disposition',
 		                	display: function (data) {
