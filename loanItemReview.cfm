@@ -34,7 +34,7 @@
 					}
 				);
 			});
-			$(document).on("change", '[id^="delimg_"]', function(){
+			$(document).on("click", '[id^="delimg_"]', function(){
 				i=this.id.replace("delimg_", "");
 				alert('delete ' + i);
 				/*
