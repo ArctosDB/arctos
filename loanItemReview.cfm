@@ -173,6 +173,8 @@
 
 
 		function removePartFromLoan(i){
+			console.log('removePartFromLoan i=' + i);
+
 
 			console.log( $("#coll_obj_disposition_" + i).val() );
 			return false;
