@@ -46,10 +46,10 @@
 		                <cfif len(session.CustomOtherIdentifier) gt 0>
 		                	#session.CustomOtherIdentifier#: {title: '#session.CustomOtherIdentifier#'},
 		                </cfif>
-		                SCIENTIFICIC_NAME: {title: 'ScientificName'},
+		                scientific_name: {title: 'ID as'},
 		                PART_NAME: {title: 'Part'},
 		                CONDITION: {title: 'Condition'},
-		                ISSUBSMP: {title: 'SSPL?'},
+		                ISSUBSMP: {title: 'Subsmpl?'},
 		                item_instructions: {title: 'Instructions'},
 		                loan_item_remarks: {title: 'Remark'},
 		                COLL_OBJ_DISPOSITION: {title: 'Disposition'},
