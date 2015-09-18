@@ -11,6 +11,32 @@
 	You did something very naughty.<cfabort>
 </cfif>
 <cfif action is "nothing">
+
+	<script>
+		function processEditStuff(){
+			var pid,d,h;
+			console.log('hiya');
+		    $("tr[data-record-key]").each(function(){
+		    	pid=$(this).data("record-key");
+		    	console.log( pid );
+		    	d=$("#jsoncond_" + pid).val();
+		    	console.log( d );
+		    	h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition' + pid + '"';
+		    	h+='onchange="this.className='red';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
+//								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
+
+		    	console.log( h );
+
+				  //  var testdata = $(this).dataset('recordKey');
+				  //  console.log(testdata);
+				});
+
+
+
+
+		    }
+
+	</script>
 	<cfoutput>
 		<script type="text/javascript">
 		    $(document).ready(function () {
@@ -59,23 +85,6 @@
 		        });
 		        $('##loanitems').jtable('load');
 		    });
-		    function processEditStuff(){
-		    	console.log('hiya');
-		    	$("tr[data-record-key]").each(function(){
-
-
-		    		console.log( $(this).data("record-key") );
-
-
-
-				  //  var testdata = $(this).dataset('recordKey');
-				  //  console.log(testdata);
-				});
-
-
-
-
-		    }
 
 		</script>
 	<input type="hidden" id="transaction_id" value="#transaction_id#">
