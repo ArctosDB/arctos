@@ -117,8 +117,6 @@
 				// if not subsample, error if on loan.
 				// otherwise remove part from loan
 				i=this.id.replace("delimg_", "");
-
-				console.log('i=' + i);
 				if ($("#isSubsample" + i).val() > 0) {
 					var dialog = $('<p>Delete Confirmation</p>').dialog({
 	                    buttons: {
@@ -160,8 +158,6 @@
 				},
 				function(r) {
 					if (r.DATA.MESSAGE=='success'){
-						// its deleted, remove the row
-						console.log('removerow');
 						 $('tr[data-record-key="' + i + '"]').remove();
 					} else {
 						alert('An error occured: \n' + r.DATA.MESSAGE);
@@ -229,12 +225,6 @@
 
 	</script>
 
-	<!---
-			<th class="jtable-column-header jtable-column-header-sortable" style="width: 3.97857%;">
-<div class="jtable-column-header-container">
-<span class="jtable-column-header-text">Remove</span>
-</div>
----->
 	<cfoutput>
 		<script type="text/javascript">
 		    $(document).ready(function () {
@@ -250,9 +240,9 @@
 					multiSorting: true,
 					columnSelectable: false,
 					recordsLoaded: processEditStuff,
-					multiselect: true,
-					selectingCheckboxes: true,
-	  				selecting: true, //Enable selecting
+					multiselect: false,
+					selectingCheckboxes: false,
+	  				selecting: false, //Enable selecting
 	          		//selectingCheckboxes: true, //Show checkboxes on first column
 	            	selectOnRowClick: false, //Enable this to only select using checkboxes
 					pageSizes: [10, 25, 50, 100, 250, 500,5000],
@@ -319,52 +309,131 @@
 		        $('##loanitems').jtable('load');
 		    });
 		</script>
-		<!-------
-									<img src="/images/del.gif" class="likeLink" onclick="remPartFromLoan(#partID#);" />
-
-
-		 display: function (data) {
-                return '<img src=' + data.record.ImageURL + ' />';
-           }
-
-
-
-
-
-
-
-		------->
-	<input type="hidden" id="transaction_id" value="#transaction_id#">
-
-
-
-	<form name="BulkUpdateDisp" method="post" action="a_loanItemReview.cfm">
-
-				<br>Change disposition to:
-				<input type="hidden" name="Action" value="BulkUpdateDisp">
-				<input type="hidden" name="transaction_id" value="#transaction_id#" id="transaction_id">
-				<select name="coll_obj_disposition" size="1" id="coll_obj_disposition">
-					<cfloop query="ctDisp">
-						<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-					</cfloop>
-				</select>
-				when disposition is
-
-				<select name="currentcoll_obj_disposition" id="currentcoll_obj_disposition" size="1">
-					<option value="">- anything -</option>
-					<cfloop query="ctDisp">
-						<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-					</cfloop>
-				</select>
-
-				<input type="submit" value="Update Disposition" class="savBtn">
-			</form>
-
-
+		<cfquery name="theLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				loan_number,
+				guid_prefix collection,
+				loan_type
+			from
+				loan,
+				trans,
+				collection
+			where
+				loan.transaction_id=trans.transaction_id and
+				trans.collection_id=collection.collection_id and
+				trans.transaction_id=#transaction_id#
+		</cfquery>
+		<br><a href="loanItemReview.cfm?action=nothing&transaction_id=#transaction_id#&Ijustwannadownload=yep">Download (csv)</a> - non-data loans only!
+		<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to Edit Loan</a>
+		<cfquery name="getDataLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				flat.collection_object_id,
+				guid,
+				concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+				flat.scientific_name,
+				flat.encumbrances
+			 from
+				flat,
+				loan,
+				loan_item
+			WHERE
+				loan.transaction_id = loan_item.transaction_id AND
+				loan_item.collection_object_id = flat.collection_object_id AND
+			  	loan_item.transaction_id = #transaction_id#
+		</cfquery>
+		<cfif getDataLoanRequests.recordcount gt 0>
+			<p>This loan contains cataloged items (data loan) Manage them here......</p>
+		<cfelse>
+			<p>This loan contains only parts; you can manage them all here.</p>
+		</cfif>
+		<hr>
+		Remove ALL PARTS from the loan. This form will NOT work with any "on loan" parts so use the disposition-updated first.
+		<form name="BulkUpdateDisp" method="post" action="loanItemReview.cfm">
+			<input type="hidden" id="transaction_id" value="#transaction_id#">
+			<input type="hidden" name="action" value="deleteEverything">
+			<label for="noSrsly">Sure?</label>
+			<select name="noSrsly" id="noSrsly" class="reqdClr">
+				<option selected="selected">nope</option>
+				<option value="yesreally">Yep, delete it all</option>
+			</select>
+			<label for="sshandlr">Subsamples</label>
+			<select name="sshandlr" id="sshandlr" class="reqdClr">
+				<option selected="selected"></option>
+				<option value="keep">Remove subsamples from the loan, keep the parts</option>
+				<option value="delete">DELETE subsamples</option>
+			</select>
+			<br><input type="submit" value="DELETE EVERYTHING" class="delClr">
+		</form>
+		<hr>
+		<p>
+			<a href="qDeleteEverything.cfm?transaction_id=#transaction_id#">Remove ALL parts from this loan</a>
+		</p>
+		<input type="hidden" id="transaction_id" value="#transaction_id#">
+		<form name="BulkUpdateDisp" method="post" action="loanItemReview.cfm">
+			<br>Change disposition to:
+			<input type="hidden" name="Action" value="BulkUpdateDisp">
+			<input type="hidden" name="transaction_id" value="#transaction_id#" id="transaction_id">
+			<select name="coll_obj_disposition" size="1" id="coll_obj_disposition">
+				<cfloop query="ctDisp">
+					<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+				</cfloop>
+			</select>
+			when disposition is
+			<select name="currentcoll_obj_disposition" id="currentcoll_obj_disposition" size="1">
+				<option value="">- anything -</option>
+				<cfloop query="ctDisp">
+					<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+				</cfloop>
+			</select>
+			for all items in this loan, including those not shown on this page.
+			<input type="submit" value="Update Disposition" class="savBtn">
+		</form>
 
 	</cfoutput>
 	<div id="loanitems"></div>
 </cfif>
+<!-------------------------------------------------------------------------------->
+<cfif action is "qDeleteEverything">
+	<cfoutput>
+		Are you very sure you want to remove ALL parts from this loan? This will remove any record
+		of them ever having been loaned.
+		<p>
+			<a href="loanItemReview?action=reallyDeleteEverything.cfm&transaction_id=#transaction_id#">Yes ALL parts from this loan</a>
+		</p>
+		<p>
+			<a href="loanItemReview?transaction_id=#transaction_id#">NO! Go back!</a>
+		</p>
+	</cfoutput>
+</cfif>
+<!-------------------------------------------------------------------------------->
+<cfif action is "reallyDeleteEverything">
+	<cfoutput>
+
+		<cfquery name="deleLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				count(*)
+			from
+				loan_item,
+
+				 where
+			DELETE FROM loan_item where collection_object_id = #partID#
+			and transaction_id = #transaction_id#
+		</cfquery>
+
+
+
+		Are you very sure you want to remove ALL parts from this loan? This will remove any record
+		of them ever having been loaned.
+		<p>
+			<a href="loanItemReview?action=reallyDeleteEverything.cfm&transaction_id=#transaction_id#">Yes ALL parts from this loan</a>
+		</p>
+		<p>
+			<a href="loanItemReview?transaction_id=#transaction_id#">NO! Go back!</a>
+		</p>
+	</cfoutput>
+</cfif>
+
+
 <!-------------------------------------------------------------------------------->
 <cfif action is "delete">
 	<cfoutput>
