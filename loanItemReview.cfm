@@ -78,7 +78,7 @@
 		    	d=$("#jsoncond_" + pid).text();
 		    	//console.log( d );
 		    	h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition_' + pid + '">' + d + '</textarea>';
-		    	h+=<span class="infoLink" onClick="chgCondition(\'' + pid + '\')">History</span>
+		    	h+='<span class="infoLink" onClick="chgCondition(\'' + pid + '\')">History</span>';
 		    	//h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
 //
 
