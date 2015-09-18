@@ -108,11 +108,11 @@
 					multiSorting: true,
 					columnSelectable: false,
 					recordsLoaded: processEditStuff,
-					//multiselect: true,
+					multiselect: true,
 					selectingCheckboxes: true,
-	  				//selecting: true, //Enable selecting
+	  				selecting: true, //Enable selecting
 	          		//selectingCheckboxes: true, //Show checkboxes on first column
-	            	//selectOnRowClick: false, //Enable this to only select using checkboxes
+	            	selectOnRowClick: false, //Enable this to only select using checkboxes
 					pageSizes: [10, 25, 50, 100, 250, 500,5000],
 					actions: {
 		                listAction: '/component/functions.cfc?method=getLoanItems&transaction_id=' + $("##transaction_id").val()
