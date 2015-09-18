@@ -65,8 +65,8 @@
 
 		    		console.log($(this));
 
-				    var testdata = $(this).data('test');
-				    $(this).val(testdata);
+				    var testdata = $(this).dataset('recordKey');
+				    console.log(testdata);
 				});
 
 
