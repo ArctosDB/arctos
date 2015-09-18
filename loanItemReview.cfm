@@ -52,6 +52,12 @@
 						if (r.DATA.STATUS == 'success') {
 							console.log('spiffity');
 							$(this).removeClass();
+							$("#disposition_" + r.PART_ID).removeClass();
+
+
+							console.log('removeDClass');
+
+
 						} else {
 							alert('An error occured: \n' + r.DATA.STATUS);
 						}
