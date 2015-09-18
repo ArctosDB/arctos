@@ -363,7 +363,7 @@
 				<option value="keep">Remove subsamples from the loan, keep the parts</option>
 				<option value="delete">DELETE subsamples</option>
 			</select>
-			<br><input type="submit" value="DELETE EVERYTHING" class="delClr">
+			<br><input type="submit" value="REMOVE EVERYTHING" class="delBtn">
 		</form>
 		<hr>
 		<form name="BulkUpdateDisp" method="post" action="loanItemReview.cfm">
