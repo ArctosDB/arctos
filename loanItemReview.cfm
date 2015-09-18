@@ -47,7 +47,8 @@
 		                	#session.CustomOtherIdentifier#: {title: '#session.CustomOtherIdentifier#'},
 		                </cfif>
 		                SCIENTIFICIC_NAME: {title: 'ScientificName'},
-		                ENCUMBRANCES: {title: 'Encumbrances'}
+		                ENCUMBRANCES: {title: 'Encumbrances'},
+		                CONDITION: {title: 'Condition'}
 		            }
 		        });
 		        $('##loanitems').jtable('load');
