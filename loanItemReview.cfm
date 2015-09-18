@@ -448,6 +448,7 @@
 						select container_id from coll_obj_cont_hist where
 						collection_object_id = #collection_object_id#
 					</cfquery>
+					<cfdump var=#getContID#>
 
 					<cfquery name="deleCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #collection_object_id#
