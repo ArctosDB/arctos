@@ -34,10 +34,7 @@
 						//alert(partID);
 						//alert(message);
 						if (message == 'success') {
-							$("#condition_" + result.PART_ID).removeName();
-							var ins = "document.getElementById(' + "')";
-							var condition = eval(ins);
-							condition.className = '';
+							$("#condition_" + result.PART_ID).removeClass();
 						} else {
 							alert('An error occured: \n' + message);
 						}
