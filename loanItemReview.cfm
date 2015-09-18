@@ -17,10 +17,10 @@
 
 			$(document).on("change", '[id^="condition_"]', function(){
 				var i =  this.id;
-
-				alert('changey' + this.id);
+				i=i.replace("condition_", "");
+				alert('changey' + i);
 				this.className='red';
-				updateCondition(this.id);
+				updateCondition(i);
 
 					//h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
 //								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>

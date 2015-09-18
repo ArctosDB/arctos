@@ -1,12 +1,12 @@
 function updateCondition (partID) {
-var s = "document.getElementById('condition" + partID + "').value";
-	var condition = eval(s);
-	var transaction_id = document.getElementById('transaction_id').value;
+	//var s = "document.getElementById('condition_" + partID + "').value";
+	//var condition = 
+	//var transaction_id = document.getElementById('transaction_id').value;
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "updateCondition",
 			part_id : partID,
-			condition : condition,
+			condition : $("condition_" + partID).val();,
 			returnformat : "json",
 			queryformat : 'column'
 		},
