@@ -1,3 +1,5 @@
+
+/*
 function updateCondition (partID) {
 	//var s = "document.getElementById('condition_" + partID + "').value";
 	//var condition = 
@@ -6,7 +8,7 @@ function updateCondition (partID) {
 		{
 			method : "updateCondition",
 			part_id : partID,
-			condition : $("condition_" + partID).val();,
+			condition : $("condition_" + partID).val(),
 			returnformat : "json",
 			queryformat : 'column'
 		},
@@ -27,6 +29,7 @@ function success_updateCondition (r) {
 		alert('An error occured: \n' + message);
 	}
 }
+*/
 function updateLoanItemRemarks ( partID ) {
 	var s = "document.getElementById('loan_Item_Remarks" + partID + "').value";
 	var loan_Item_Remarks = eval(s);
