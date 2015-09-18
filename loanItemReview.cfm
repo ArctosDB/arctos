@@ -146,7 +146,7 @@ function remPartFromLoan( partID ) {
 
 			 	var h='<select name="' + this.id + '" id="' +this.id+ '"></select>';
 			 	$(this).parent().html(h);
-				$('#coll_obj_disposition').find('option').clone().appendTo(this.id);
+				$('#coll_obj_disposition').find('option').clone().appendTo($(this));
 
 
 			 	//var i=parseInt($("#nnan").val()) + parseInt(1);
