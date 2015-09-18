@@ -107,23 +107,35 @@
 		                ISSUBSMP: {title: 'Subsmpl?'},
 		                ITEM_INSTRUCTIONS: {title: 'Instructions'},
 		                LOAN_ITEM_REMARKS: {title: 'Remark'},
-		                COLL_OBJ_DISPOSITION: {title: 'Disposition', type: 'textarea'},
+		                COLL_OBJ_DISPOSITION: {title: 'Disposition'},
 		                PARTLASTSCANDATE: {title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
 		                removecell: {
 		                	title: 'Remove',
 							display: function (data) {
-								var $link = $('<a href="...">a link</a>');
-								$link.click(function(){ alert('click') });
-								return $link;
+								return '<img src="/images/del.gif" id="delimg_' + data.Records.PARTID + '">';
 							}
 						}
 		            }
 		        });
 		        $('##loanitems').jtable('load');
 		    });
-
 		</script>
+		<!-------
+									<img src="/images/del.gif" class="likeLink" onclick="remPartFromLoan(#partID#);" />
+
+
+		 display: function (data) {
+                return '<img src=' + data.record.ImageURL + ' />';
+           }
+
+
+
+
+
+
+
+		------->
 	<input type="hidden" id="transaction_id" value="#transaction_id#">
 	</cfoutput>
 	<div id="loanitems"></div>
