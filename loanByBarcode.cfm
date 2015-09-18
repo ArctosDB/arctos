@@ -67,13 +67,13 @@
 					d+='<td id="co_' + r.DATA.I + '">' + r.DATA.CONDITION + '</td>';
 					d+='<td id="pd_' + r.DATA.I + '">' + r.DATA.COLL_OBJ_DISPOSITION + '</td>';
 					d+='<td id="en_' + r.DATA.I + '">' + r.DATA.ENCUMBRANCES + '</td>';
-					
+
 					d+='<td id="ctl_' + r.DATA.I + '"><span class="infoLink" onclick="remPart(' + r.DATA.I + ')">[ Remove ]</span>';
 					d+='<span class="infoLink" onclick="addThis(' + r.DATA.I + ')">[ Add To Loan ]</span></td>';
-					
+
 					$("#tr_" + r.DATA.I).append(d);
 					$("#partID_" + r.DATA.I).val(r.DATA.PARTID);
-					
+
 				} else {
 					alert('fail: ' + r.DATA.C[0]);
 				}
@@ -89,7 +89,7 @@
 <cfif action is "nothing">
 	<cfoutput>
 		<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				loan_number,
 				loan_type,
 				loan_status,
@@ -101,24 +101,24 @@
 				trans.collection_id,
 				collection.guid_prefix collection,
 				concattransagent(trans.transaction_id,'entered by') enteredby
-			 from 
-				loan, 
+			 from
+				loan,
 				trans,
 				collection
-			where 
+			where
 				loan.transaction_id = trans.transaction_id AND
 				trans.collection_id=collection.collection_id and
 				trans.transaction_id = #transaction_id#
-		</cfquery> 
+		</cfquery>
 		Adding parts to loan #l.collection# #l.loan_number#.
-		
+
 		<br>loan_status: #l.loan_status#
 		<br>loan_instructions: #l.loan_instructions#
 		<br>nature_of_material: #l.nature_of_material#
-		
+
 		<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				cat_num, 
+			select
+				cat_num,
 				cataloged_item.collection_object_id,
 				guid_prefix collection,
 				part_name,
@@ -134,11 +134,11 @@
 				 loan_number,
 				 specimen_part.collection_object_id as partID,
 				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-				p1.barcode	 			 
-			 from 
-				loan_item, 
+				p1.barcode
+			 from
+				loan_item,
 				loan,
-				specimen_part, 
+				specimen_part,
 				coll_object,
 				cataloged_item,
 				coll_object_encumbrance,
@@ -169,7 +169,7 @@
 		<cfif getPartLoanRequests.recordcount is 0>
 			<br>This loan contains no parts.
 		<cfelse>
-			<br>Existing Parts (use <a href="/a_loanItemReview.cfm?transaction_id=#transaction_id#">Loan Item Review</a> to adjust):
+			<br>Existing Parts (use <a href="/loanItemReview.cfm?transaction_id=#transaction_id#">Loan Item Review</a> to adjust):
 			<table border>
 				<tr>
 					<th>Barcode</th>
@@ -205,7 +205,7 @@
 			<li><span class="likeLink" onclick="allss('1')">[ SubSample All ]</span> / <span class="likeLink" onclick="allss('0')">[ SubSample None ]</span></li>
 			<li></li>
 		</ul>
-		 
+
 		<form name="f" method="post" action="loanByBarcode.cfm">
 			<input type="hidden" name="action" value="saveParts">
 			<input type="hidden" name="transaction_id" id="transaction_id" value='#transaction_id#'>

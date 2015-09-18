@@ -14,6 +14,9 @@
 
 	<script>
 		 $(document).ready(function () {
+		 	$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
 		 	// save condition with change
 			$(document).on("change", '[id^="condition_"]', function(){
 				i=this.id.replace("condition_", "");
@@ -209,19 +212,14 @@
 				$('#coll_obj_disposition').find('option').clone().appendTo($("#" + i));
 				$("#" + i).val(v);
 			});
-
-			//return '<input id="disposition_' + data.record.PARTID + '" type="text" value="' + data.record.COLL_OBJ_DISPOSITION + '">';
-
-			// add a delete button
-			//$("span.jtable-column-header-text:contains('Remove'):last").parent().parent().parent().each(function(){
-			//	console.log('hi: ' + $(this).html() );
-			//	$(this).addClass('red');
-
-			//});
-
-
-
 		}
+		function deleteDataLoan(tid){
+			var yesno=confirm('Are you sure you want to REMOVE ALL specimens from the data loan?');
+			if (yesno==true) {
+				document.location='/loanItemReview.cfm?action=removeAllDataLoanItems&transaction_id=#transaction_id#';
+			} else {
+			  	return false;
+			}
 
 	</script>
 
@@ -325,6 +323,8 @@
 		</cfquery>
 		<br><a href="loanItemReview.cfm?action=downloadCSV&transaction_id=#transaction_id#">Download (csv)</a> - non-data loans only!
 		<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to Edit Loan</a>
+		<br><a href="/SpecimenResults.cfm?loan_trans_id=#transaction_id#">View in SpecimenResults</a> (includes part and data loan items)
+
 		<cfquery name="getDataLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				flat.collection_object_id,
@@ -342,14 +342,19 @@
 			  	loan_item.transaction_id = #transaction_id#
 		</cfquery>
 		<cfif getDataLoanRequests.recordcount gt 0>
-			<p>This loan contains cataloged items (data loan) Manage them here......</p>
+			<hr>
+			<br>This loan contains cataloged items (data loan).
+			<br><a href="/SpecimenResults.cfm?data_loan_trans_id=#transaction_id#">View in SpecimenResults</a> (EXCLUDES part loan items)
+			<br><a href="loanItemReview.cfm?action=downloadCSV_data&transaction_id=#transaction_id#">Download (with specimen data)</a>
+			<br><a href="loanItemReview.cfm?action=downloadCSV_bulk&transaction_id=#transaction_id#">Download (in Data Loan Bulkloader format)</a>
+			<br><a href="##" onclick="deleteDataLoan('#transaction_id#');">DELETE them all</a>
 		<cfelse>
-			<p>This loan contains only parts; you can manage them all here.</p>
+			<p>This loan contains only parts; you can manage everything here.</p>
 		</cfif>
 		<hr>
 		Remove ALL PARTS from the loan. This form will NOT work with any "on loan" parts so use the disposition-updated first.
 		<input type="hidden" id="transaction_id" value="#transaction_id#">
-		<form name="BulkUpdateDisp" method="post" action="loanItemReview.cfm">
+		<form name="ddevrything" method="post" action="loanItemReview.cfm">
 			<input type="hidden" name="transaction_id" value="#transaction_id#">
 			<input type="hidden" name="action" value="deleteEverything">
 			<label for="noSrsly">Sure?</label>
@@ -486,6 +491,68 @@
 		</cftransaction>
 		<cflocation url="loanItemReview.cfm?transaction_id=#transaction_id#">
 	</cfoutput>
+</cfif>
+
+<!-------------------------------------------------------------------------------->
+<cfif action is "downloadCSV_data">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			guid,
+			scientific_name,
+			higher_geog,
+			spec_locality,
+			ENCUMBRANCES,
+			loan_number,
+			'#session.CustomOtherIdentifier#' AS CustomIDType,
+			concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
+		 from
+			flat,
+			loan_item
+		WHERE
+			flat.collection_object_id = loan_item.collection_object_id
+		  	loan_item.transaction_id = #transaction_id#
+		ORDER BY guid
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/LoanItemDownload.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=LoanItemDownload.csv" addtoken="false">
+</cfif>
+<!------------------------------------------------------>
+<cfif action is "removeAllDataLoanItems">
+	<cfquery name="buhBye" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from loan_item where transaction_id=#transaction_id# and
+		collection_object_id in (select collection_object_id from cataloged_item)
+	</cfquery>
+	<cflocation url="loanItemReview.cfm?transaction_id=#transaction_id#" addtoken="false">
+</cfif>
+<!-------------------------------------------------------------------------------->
+<cfif action is "downloadCSV_bulk">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			guid_prefix,
+			'catalog number' OTHER_ID_TYPE,
+			cat_num OTHER_ID_NUMBER,
+			LOAN_NUMBER
+		 from
+			cataloged_item,
+			collection,
+			loan_item
+		WHERE
+			cataloged_item.collection_id=collection.collection_id and
+			collection.collection_object_id = loan_item.collection_object_id
+		  	loan_item.transaction_id = #transaction_id#
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/LoanItemDownload.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=DataLoanBulk.csv" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------------------------->
 <cfif action is "downloadCSV">

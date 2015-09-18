@@ -1925,7 +1925,12 @@
 	<cfset mapurl = "#mapurl#&project_name=#URLEncodedFormat(project_name)#">
 </cfif>
 
-
+<cfif isdefined("data_loan_trans_id") and len(data_loan_trans_id) gt 0>
+	<cfset mapurl = "#mapurl#&data_loan_trans_id=#data_loan_trans_id#">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
+		select loan_item.collection_object_id from loan_item where loan_item.transaction_id in (#data_loan_trans_id#)
+	)">
+</cfif>
 <cfif isdefined("loan_trans_id") and len(loan_trans_id) gt 0>
 	<cfset mapurl = "#mapurl#&loan_trans_id=#loan_trans_id#">
 	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (

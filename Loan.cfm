@@ -671,7 +671,7 @@ just fooling idiot cfclipse into using the right colors
 					</optgroup>
 				</select>
 			</li>
-			<li><a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">[ review loan items ]</a></li>
+			<li><a href="loanItemReview.cfm?transaction_id=#transaction_id#">[ review loan items ]</a></li>
 			<li><a href="SpecimenResults.cfm?loan_trans_id=#transaction_id#">[ specimens ]</a></li>
 		</ul>
 		<label for="redir">Print...</label>
@@ -1999,7 +1999,7 @@ just fooling idiot cfclipse into using the right colors
 						<table width="100%">
 							<tr>
 								<td align="left">
-									<a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">[ Review Items ]</a>
+									<a href="loanItemReview.cfm?transaction_id=#transaction_id#">[ Review Items ]</a>
 								</td>
 								<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 									<td>
