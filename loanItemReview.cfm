@@ -553,7 +553,7 @@
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
 	<cffile action = "write"
-	    file = "#Application.webDirectory#/download/LoanItemDownload.csv"
+	    file = "#Application.webDirectory#/download/DataLoanBulk.csv"
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=DataLoanBulk.csv" addtoken="false">
