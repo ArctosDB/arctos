@@ -107,7 +107,7 @@
 		                ISSUBSMP: {title: 'Subsmpl?'},
 		                ITEM_INSTRUCTIONS: {title: 'Instructions'},
 		                LOAN_ITEM_REMARKS: {title: 'Remark'},
-		                COLL_OBJ_DISPOSITION: {title: 'Disposition'},
+		                COLL_OBJ_DISPOSITION: {title: 'Disposition', type: textarea},
 		                PARTLASTSCANDATE: {title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
 		                removecell: {
