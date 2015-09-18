@@ -156,7 +156,7 @@ function remPartFromLoan( partID ) {
 	//$('#agentnamedv' + $("#nnan").val()).after(h);
 	//$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
 	//$("#nnan").val(i);
-}
+
 
 
 
