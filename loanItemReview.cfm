@@ -502,7 +502,7 @@
 			scientific_name,
 			Encumbrance,
 			loan_number,
-			#session.CustomOtherIdentifier#') AS CustomIDType,
+			'#session.CustomOtherIdentifier#' AS CustomIDType,
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate
 		 from
