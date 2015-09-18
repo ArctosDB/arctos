@@ -52,6 +52,9 @@
 						if (r.DATA.STATUS == 'success') {
 							console.log('spiffity');
 							$(this).removeClass();
+							$(this).addClass('usedValue');
+
+
 							$("#disposition_" + r.PART_ID).removeClass();
 
 
