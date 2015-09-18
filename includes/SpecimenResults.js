@@ -288,10 +288,7 @@ function closeCustom() {
 	var murl='/SpecimenResults.cfm?' + $("#mapURL").val();
 	window.location=murl;
 }
-function getPostLoadJunk(){
-	
-	console.log('getPostLoadJunk');
-	
+function getPostLoadJunk(){	
 	var coidlistAR=new Array();
 	$("div[id^='CatItem_']").each(function() {
 		var id = this.id.split('_')[1];
@@ -418,11 +415,7 @@ function insertTypes(idList) {
 	);
 }
 
-function injectLoanPick() {
-	
-	console.log('injectLoanPick');
-	
-	
+function injectLoanPick() {	
 	var transaction_id=$("#transaction_id").val();
 	if (transaction_id) {
 		$( "body" ).append('<div id="ajaxStatus" class="ajaxStatus">Feching Loan Pick...</div>')
