@@ -28,7 +28,7 @@
 					},
 					function(r) {
 						if (r.DATA.MESSAGE == 'success') {
-							$("#condition_" + result.PART_ID).removeClass();
+							$("#condition_" + r.PART_ID).removeClass();
 						} else {
 							alert('An error occured: \n' + r.DATA.MESSAGE);
 						}
@@ -48,7 +48,7 @@
 					},
 					function(r) {
 						if (r.DATA.STATUS == 'success') {
-							$("#disposition_" + result.PART_ID).removeClass();
+							$("#disposition_" + r.PART_ID).removeClass();
 						} else {
 							alert('An error occured: \n' + r.DATA.STATUS);
 						}
