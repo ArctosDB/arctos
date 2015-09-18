@@ -14,14 +14,9 @@
 
 	<script>
 		 $(document).ready(function () {
-
 			$(document).on("change", '[id^="condition_"]', function(){
 				i=this.id.replace("condition_", "");
-				//console.log('changey' + i);
-				//console.log($(this).val());
-
 				$(this).addClass('red');
-
 				jQuery.getJSON("/component/functions.cfc",
 					{
 						method : "updateCondition",
@@ -31,66 +26,26 @@
 						queryformat : 'column'
 					},
 					function(r) {
-						var result=r.DATA;
-						var message = result.MESSAGE;
-						//alert(partID);
-						//alert(message);
-						if (message == 'success') {
+						if (r.DATA.MESSAGE == 'success') {
 							$("#condition_" + result.PART_ID).removeClass();
 						} else {
-							alert('An error occured: \n' + message);
+							alert('An error occured: \n' + r.DATA.MESSAGE);
 						}
 					}
-		//success_updateCondition
-	);
-
-
-
-				//updateCondition(i);
-
-					//h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
-//								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
-
-
-
-
-				/*
-				i=i.replace("agent_name_type_new", "");
-				i=i.replace("agent_name_new", "");
-				if ( $("#agent_name_type_new" + i).val().length > 0 ||  $("#agent_name_new" + i).val().length > 0 ) {
-					$("#agent_name_type_new" + i).addClass('reqdClr').prop('required',true);
-					$("#agent_name_new" + i).addClass('reqdClr').prop('required',true);
-				} else {
-					$("#agent_name_type_new" + i).removeClass('reqdClr').prop('required',false);
-					$("#agent_name_new" + i).removeClass('reqdClr').prop('required',false);
-				}
-				*/
+				);
 			});
-		 });
-
+		 });// end docready
 
 		function processEditStuff(){
 			var pid,d,h;
-			//console.log('hiya');
 		    $("tr[data-record-key]").each(function(){
 		    	pid=$(this).data("record-key");
-		    	//console.log( pid );
 		    	d=$("#jsoncond_" + pid).text();
-		    	//console.log( d );
 		    	h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition_' + pid + '">' + d + '</textarea>';
 		    	h+='<span class="infoLink" onClick="chgCondition(\'' + pid + '\')">History</span>';
-		    	//h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
-//
-
-		    	//console.log( h );
-				d=$("#jsoncond_" + pid).html(h);
-				  //  var testdata = $(this).dataset('recordKey');
-				  //  console.log(testdata);
-				});
-
-
-
-		    }
+				$("#jsoncond_" + pid).html(h);
+			});
+		}
 
 	</script>
 	<cfoutput>
@@ -137,6 +92,7 @@
 		                COLL_OBJ_DISPOSITION: {title: 'Disposition'},
 		                PARTLASTSCANDATE: {title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
+		                notindata: {title: 'Remove'}
 		            }
 		        });
 		        $('##loanitems').jtable('load');
