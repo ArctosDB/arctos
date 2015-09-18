@@ -126,6 +126,41 @@ function success_updateDispn (r) {
 	}
 }
 
+
+
+
+
+
+function updateInstructions ( partID ) {
+	var s = "document.getElementById('item_instructions" + partID + "').value";
+	var item_instructions = eval(s);
+	var transaction_id = document.getElementById('transaction_id').value;
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "updateInstructions",
+			part_id : partID,
+			transaction_id : transaction_id,
+			item_instructions : item_instructions,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_updateInstructions
+	);
+}
+function success_updateInstructions (r) {
+	var result=r.DATA;
+	var partID = result.PART_ID;
+	var message = result.MESSAGE;
+	if (message == 'success') {
+		var ins = "document.getElementById('item_instructions" + partID + "')";
+		var item_instructions = eval(ins);
+		item_instructions.className = '';
+	} else {
+		alert('An error occured: \n' + message);
+	}
+}
+
+
 */
 function updateLoanItemRemarks ( partID ) {
 	var s = "document.getElementById('loan_Item_Remarks" + partID + "').value";
@@ -153,34 +188,6 @@ function success_updateLoanItemRemarks (r) {
 		var ins = "document.getElementById('loan_Item_Remarks" + partID + "')";
 		var loan_Item_Remarks = eval(ins);
 		loan_Item_Remarks.className = '';
-	} else {
-		alert('An error occured: \n' + message);
-	}
-}
-function updateInstructions ( partID ) {
-	var s = "document.getElementById('item_instructions" + partID + "').value";
-	var item_instructions = eval(s);
-	var transaction_id = document.getElementById('transaction_id').value;
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "updateInstructions",
-			part_id : partID,
-			transaction_id : transaction_id,
-			item_instructions : item_instructions,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		success_updateInstructions
-	);
-}
-function success_updateInstructions (r) {
-	var result=r.DATA;
-	var partID = result.PART_ID;
-	var message = result.MESSAGE;
-	if (message == 'success') {
-		var ins = "document.getElementById('item_instructions" + partID + "')";
-		var item_instructions = eval(ins);
-		item_instructions.className = '';
 	} else {
 		alert('An error occured: \n' + message);
 	}

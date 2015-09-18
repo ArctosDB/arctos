@@ -55,6 +55,31 @@
 					}
 				);
 			});
+			$(document).on("change", '[id^="item_instructions_"]', function(){
+				i=this.id.replace("item_instructions_", "");
+				$(this).addClass('red');
+
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "updateInstructions",
+						part_id : i,
+						transaction_id : $("#transaction_id").val(),
+						item_instructions : $(this).val(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function(r) {
+						if (r.DATA.MESSAGE == 'success') {
+							$("#item_instructions_" + r.DATA.PART_ID).removeClass();
+						} else {
+							alert('An error occured: \n' + r.DATA.STATUS);
+						}
+					}
+				);
+			});
+
+
+
 
 
 
