@@ -47,17 +47,8 @@
 						queryformat : 'column'
 					},
 					function(r) {
-						console.log('i am r');
-						console.log(r);
 						if (r.DATA.STATUS == 'success') {
-							console.log('spiffity');
-
-
-							console.log(r.DATA.PART_ID);
 							$("#disposition_" + r.DATA.PART_ID).removeClass();
-
-
-
 						} else {
 							alert('An error occured: \n' + r.DATA.STATUS);
 						}
@@ -251,7 +242,12 @@ function remPartFromLoan( partID ) {
 								return h;
 							}
 		                },
-		                ITEM_INSTRUCTIONS: {title: 'Instructions'},
+		                ITEM_INSTRUCTIONS: {
+		                	title: 'Instructions',
+		                	display: function (data) {
+		                		return '<textarea id="item_instructions_' + data.record.PARTID + '" class="smalltextarea">' + data.record.ITEM_INSTRUCTIONS + '</textarea>';
+							}
+		                },
 		                LOAN_ITEM_REMARKS: {title: 'Remark'},
 		                COLL_OBJ_DISPOSITION: {
 		                	title: 'Disposition',
