@@ -17,8 +17,8 @@
 
 			$(document).on("change", '[id^="condition_"]', function(){
 				i=this.id.replace("condition_", "");
-				console.log('changey' + i);
-				console.log($(this).val());
+				//console.log('changey' + i);
+				//console.log($(this).val());
 
 				$(this).addClass('red');
 
@@ -71,17 +71,18 @@
 
 		function processEditStuff(){
 			var pid,d,h;
-			console.log('hiya');
+			//console.log('hiya');
 		    $("tr[data-record-key]").each(function(){
 		    	pid=$(this).data("record-key");
-		    	console.log( pid );
+		    	//console.log( pid );
 		    	d=$("#jsoncond_" + pid).text();
-		    	console.log( d );
+		    	//console.log( d );
 		    	h='<textarea name="condition' + pid + '" rows="2" cols="20" id="condition_' + pid + '">' + d + '</textarea>';
+		    	h+=<span class="infoLink" onClick="chgCondition(\'' + pid + '\')">History</span>
 		    	//h+='onchange="this.className=\'red\';updateCondition(' + "'" + pid + "'" + ')">' + d + '</textarea>';
-//								<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
+//
 
-		    	console.log( h );
+		    	//console.log( h );
 				d=$("#jsoncond_" + pid).html(h);
 				  //  var testdata = $(this).dataset('recordKey');
 				  //  console.log(testdata);
