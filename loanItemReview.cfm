@@ -38,6 +38,7 @@
 
 		function processEditStuff(){
 			var pid,d,h;
+			// condition, history
 		    $("tr[data-record-key]").each(function(){
 		    	pid=$(this).data("record-key");
 		    	d=$("#jsoncond_" + pid).text();
@@ -45,9 +46,24 @@
 		    	h+='<span class="infoLink" onClick="chgCondition(\'' + pid + '\')">History</span>';
 				$("#jsoncond_" + pid).html(h);
 			});
+			// add a delete button
+			$([span.jtable-column-header-text").each(function(){
+				console.log('hi');
+
+			});
+
+
+
 		}
 
 	</script>
+
+	<!---
+			<th class="jtable-column-header jtable-column-header-sortable" style="width: 3.97857%;">
+<div class="jtable-column-header-container">
+<span class="jtable-column-header-text">Remove</span>
+</div>
+---->
 	<cfoutput>
 		<script type="text/javascript">
 		    $(document).ready(function () {
@@ -69,6 +85,7 @@
 	          		//selectingCheckboxes: true, //Show checkboxes on first column
 	            	selectOnRowClick: false, //Enable this to only select using checkboxes
 					pageSizes: [10, 25, 50, 100, 250, 500,5000],
+					saveUserPreferences: true,
 					actions: {
 		                listAction: '/component/functions.cfc?method=getLoanItems&transaction_id=' + $("##transaction_id").val()
 		            },
@@ -92,7 +109,7 @@
 		                COLL_OBJ_DISPOSITION: {title: 'Disposition'},
 		                PARTLASTSCANDATE: {title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
-		                notindata: {title: 'Remove'}
+		                removecell: {title: 'Remove'}
 		            }
 		        });
 		        $('##loanitems').jtable('load');
