@@ -348,8 +348,9 @@
 		</cfif>
 		<hr>
 		Remove ALL PARTS from the loan. This form will NOT work with any "on loan" parts so use the disposition-updated first.
+		<input type="hidden" id="transaction_id" value="#transaction_id#">
 		<form name="BulkUpdateDisp" method="post" action="loanItemReview.cfm">
-			<input type="hidden" id="transaction_id" value="#transaction_id#">
+			<input type="hidden" name="transaction_id" value="#transaction_id#">
 			<input type="hidden" name="action" value="deleteEverything">
 			<label for="noSrsly">Sure?</label>
 			<select name="noSrsly" id="noSrsly" class="reqdClr">
@@ -365,15 +366,12 @@
 			<br><input type="submit" value="DELETE EVERYTHING" class="delClr">
 		</form>
 		<hr>
-		<p>
-			<a href="qDeleteEverything.cfm?transaction_id=#transaction_id#">Remove ALL parts from this loan</a>
-		</p>
-		<input type="hidden" id="transaction_id" value="#transaction_id#">
 		<form name="BulkUpdateDisp" method="post" action="loanItemReview.cfm">
 			<br>Change disposition to:
 			<input type="hidden" name="Action" value="BulkUpdateDisp">
-			<input type="hidden" name="transaction_id" value="#transaction_id#" id="transaction_id">
+			<input type="hidden" name="transaction_id" value="#transaction_id#">
 			<select name="coll_obj_disposition" size="1" id="coll_obj_disposition">
+				<option>pick one</option>
 				<cfloop query="ctDisp">
 					<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 				</cfloop>
@@ -388,52 +386,104 @@
 			for all items in this loan, including those not shown on this page.
 			<input type="submit" value="Update Disposition" class="savBtn">
 		</form>
-
+		<hr>
 	</cfoutput>
 	<div id="loanitems"></div>
 </cfif>
-<!-------------------------------------------------------------------------------->
-<cfif action is "qDeleteEverything">
+------------------------------------------------------------------------>
+<cfif action is "deleteEverything">
 	<cfoutput>
-		Are you very sure you want to remove ALL parts from this loan? This will remove any record
-		of them ever having been loaned.
-		<p>
-			<a href="loanItemReview?action=reallyDeleteEverything.cfm&transaction_id=#transaction_id#">Yes ALL parts from this loan</a>
-		</p>
-		<p>
-			<a href="loanItemReview?transaction_id=#transaction_id#">NO! Go back!</a>
-		</p>
-	</cfoutput>
-</cfif>
-<!-------------------------------------------------------------------------------->
-<cfif action is "reallyDeleteEverything">
-	<cfoutput>
-
-		<cfquery name="deleLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfif noSrsly is not "yesreally">
+			"Sure?" is required.<cfabort>
+		</cfif>
+		<cfquery name="ckd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				count(*)
 			from
 				loan_item,
-
-				 where
-			DELETE FROM loan_item where collection_object_id = #partID#
-			and transaction_id = #transaction_id#
+				specimen_part,
+				coll_object
+			where
+				loan_item.collection_object_id=specimen_part.collection_object_id and
+				specimen_part.collection_object_id=coll_object.collection_object_id and
+				coll_object.COLL_OBJ_DISPOSITION='on loan' and
+				loan_item.transaction_id = #transaction_id#
 		</cfquery>
+		<cfif ckd.recordcount gt 0>
+			Cannot delete with "on loan" disposition.<cfabort>
+		</cfif>
 
+		<cftransaction>
+			<cfif sshandlr is "delete">
+				<!--- DELETE subsamples ---->
+				<!---- loopidy because it make easier queries ---->
+				<cfquery name="sspls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						specimen_part.DERIVED_FROM_CAT_ITEM,
+						specimen_part.collection_object_id
+					from
+						loan_item,
+						specimen_part
+					where
+						loan_item.collection_object_id=specimen_part.collection_object_id and
+						specimen_part.SAMPLED_FROM_OBJ_ID is not null and
+						loan_item.transaction_id = #transaction_id#
+				</cfquery>
+				<cfloop query="sspls">
+					<!--- this will cause later failure if the subsample is in another loan ---->
+					<cfquery name="deleLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM loan_item WHERE collection_object_id = #collection_object_id#
+						and transaction_id=#transaction_id#
+					</cfquery>
+					<cfquery name="delePart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM specimen_part WHERE collection_object_id = #collection_object_id#
+					</cfquery>
+					<cfquery name="delePartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM coll_object WHERE collection_object_id = #collection_object_id#
+					</cfquery>
+					<cfquery name="delePartRemark" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM coll_object_remark WHERE collection_object_id = #collection_object_id#
+					</cfquery>
+					<cfquery name="getContID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select container_id from coll_obj_cont_hist where
+						collection_object_id = #collection_object_id#
+					</cfquery>
 
-
-		Are you very sure you want to remove ALL parts from this loan? This will remove any record
-		of them ever having been loaned.
-		<p>
-			<a href="loanItemReview?action=reallyDeleteEverything.cfm&transaction_id=#transaction_id#">Yes ALL parts from this loan</a>
-		</p>
-		<p>
-			<a href="loanItemReview?transaction_id=#transaction_id#">NO! Go back!</a>
-		</p>
+					<cfquery name="deleCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #collection_object_id#
+					</cfquery>
+					<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM container_history WHERE container_id = #getContID.container_id#
+					</cfquery>
+					<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM container WHERE container_id = #getContID.container_id#
+					</cfquery>
+					<cfquery name="delepart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM specimen_part WHERE collection_object_id = #collection_object_id#
+					</cfquery>
+					<cfquery name="delepart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						DELETE FROM coll_object WHERE collection_object_id = #collection_object_id#
+					</cfquery>
+				</cfloop>
+			</cfif>
+			<!--- and for everything else just remove from the loan ---->
+			<cfquery name="deleLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				DELETE FROM loan_item WHERE transaction_id=#transaction_id# and
+				collection_object_id in (
+					select
+						specimen_part.collection_object_id
+					from
+						loan_item,
+						specimen_part
+					where
+						loan_item.collection_object_id=specimen_part.collection_object_id and
+						loan_item.transaction_id = #transaction_id#
+				)
+			</cfquery>
+		</cftransaction>
+		<cflocation url="loanItemReview.cfm?transaction_id=#transaction_id#">
 	</cfoutput>
 </cfif>
-
-
 <!-------------------------------------------------------------------------------->
 <cfif action is "delete">
 	<cfoutput>
