@@ -113,6 +113,7 @@
 	            sorting: true, //Enable sorting
 	            defaultSorting: 'GUID ASC', //Set default sorting
 				columnResizable: true,
+				recordsLoaded: getPostLoadJunk,
 				multiSorting: true,
 				columnSelectable: false,
 				multiselect: true,
