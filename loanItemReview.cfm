@@ -141,6 +141,26 @@ function remPartFromLoan( partID ) {
 			// change disposition to select
 			 $('input[id^="disposition_"]').each(function(){
 			 	console.log(this.id);
+			 	//var i=this.id.replace("disposition_", "");
+			 	var v = $(this).val();
+
+			 	var h='<select name="' + this.id + '" id="' +this.id+ '"></select>';
+			 	$(this).parent().html(h);
+				$('#coll_obj_disposition').find('option').clone().appendTo(this.id);
+
+
+			 	//var i=parseInt($("#nnan").val()) + parseInt(1);
+
+	//var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
+	//h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" placeholder="new agent name" class="minput"></div>';
+	//$('#agentnamedv' + $("#nnan").val()).after(h);
+	//$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
+	//$("#nnan").val(i);
+}
+
+
+
+
 
 		    	//pid=$(this).data("record-key");
 		    	//d=$("#jsoncond_" + pid).text();
@@ -268,7 +288,7 @@ function remPartFromLoan( partID ) {
 				<br>Change disposition to:
 				<input type="hidden" name="Action" value="BulkUpdateDisp">
 				<input type="hidden" name="transaction_id" value="#transaction_id#" id="transaction_id">
-				<select name="coll_obj_disposition" size="1">
+				<select name="coll_obj_disposition" size="1" id="coll_obj_disposition">
 					<cfloop query="ctDisp">
 						<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 					</cfloop>
