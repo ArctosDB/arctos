@@ -47,7 +47,7 @@
 				$("#jsoncond_" + pid).html(h);
 			});
 			// add a delete button
-			$([span.jtable-column-header-text").each(function(){
+			$("span.jtable-column-header-text").each(function(){
 				console.log('hi');
 
 			});
