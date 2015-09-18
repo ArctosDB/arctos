@@ -546,7 +546,7 @@
 			loan
 		WHERE
 			cataloged_item.collection_id=collection.collection_id and
-			collection.collection_object_id = loan_item.collection_object_id and
+			cataloged_item.collection_object_id = loan_item.collection_object_id and
 			loan_item.transaction_id=loan.transaction_id and
 		  	loan_item.transaction_id = #transaction_id#
 	</cfquery>
