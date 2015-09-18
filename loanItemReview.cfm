@@ -390,7 +390,7 @@
 	</cfoutput>
 	<div id="loanitems"></div>
 </cfif>
------------------------------------------------------------------------->
+<!------------------------------------------------------------------------>
 <cfif action is "deleteEverything">
 	<cfoutput>
 		<cfif noSrsly is not "yesreally">
@@ -409,6 +409,8 @@
 				coll_object.COLL_OBJ_DISPOSITION='on loan' and
 				loan_item.transaction_id = #transaction_id#
 		</cfquery>
+		<cfdump var=#ckd#>
+		<cfabort>
 		<cfif ckd.recordcount gt 0>
 			Cannot delete with "on loan" disposition.<cfabort>
 		</cfif>
