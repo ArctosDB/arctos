@@ -229,7 +229,7 @@
 				//$("##usertools").menu();
 				//$("##goWhere").menu();
 		        $('##loanitems').jtable({
-		            title: 'Loan Items',
+		            title: 'Loan Items (excluding data loan specimens)',
 					paging: true, //Enable paging
 		            pageSize: 10, //Set page size (default: 10)
 		            sorting: true, //Enable sorting
@@ -509,7 +509,7 @@
 			flat,
 			loan_item
 		WHERE
-			flat.collection_object_id = loan_item.collection_object_id
+			flat.collection_object_id = loan_item.collection_object_id and
 		  	loan_item.transaction_id = #transaction_id#
 		ORDER BY guid
 	</cfquery>
@@ -543,7 +543,7 @@
 			loan_item
 		WHERE
 			cataloged_item.collection_id=collection.collection_id and
-			collection.collection_object_id = loan_item.collection_object_id
+			collection.collection_object_id = loan_item.collection_object_id and
 		  	loan_item.transaction_id = #transaction_id#
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
