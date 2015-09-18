@@ -60,8 +60,8 @@
 		        $('##loanitems').jtable('load');
 		    });
 		</script>
-	</cfoutput>
 	<input type="hidden" id="transaction_id" value="#transaction_id#">
+	</cfoutput>
 	<div id="loanitems"></div>
 </cfif>
 <!-------------------------------------------------------------------------------->
