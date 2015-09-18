@@ -127,6 +127,8 @@
 			<cfset theData=obj.jsonEscape(evaluate("d." & i))>
 			<cfif i is "condition">
 				<cfset temp ='"CONDITION":"<div id=\"jsoncond_#partID#\">' & theData & '</div>"'>
+			<CFELSEIF I IS "GUID">
+				 <cfset temp ='"GUID":"<div id=\"CatItem_#collection_object_id#\"><a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a></div>"'>
 			<cfelse>
 				<cfset temp = '"#i#":"' & theData & '"'>
 			</cfif>

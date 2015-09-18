@@ -25,7 +25,7 @@
 					columnResizable: true,
 					multiSorting: true,
 					columnSelectable: false,
-					//recordsLoaded: getPostLoadJunk,
+					recordsLoaded: processEditStuff,
 					//multiselect: true,
 					//selectingCheckboxes: true,
 	  				//selecting: true, //Enable selecting
@@ -59,6 +59,14 @@
 		        });
 		        $('##loanitems').jtable('load');
 		    });
+		    function processEditStuff(){
+		    	console.log('hiya');
+		    	$("input[data-record-key]").val(function(){
+				    console.log( $(this).data() );
+				});
+
+
+		    }
 		</script>
 	<input type="hidden" id="transaction_id" value="#transaction_id#">
 	</cfoutput>
