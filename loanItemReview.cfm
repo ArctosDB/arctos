@@ -118,6 +118,9 @@
 				// otherwise remove part from loan
 
 				i=this.id.replace("delimg_", "");
+
+				console.log('i=' + i);
+
 				if ($("#isSubsample" + i).val() > 0) {
 					var dialog = $('<p>Delete Confirmation</p>').dialog({
 	                    buttons: {
