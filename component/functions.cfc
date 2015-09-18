@@ -77,7 +77,7 @@
 			guid_prefix collection,
 			part_name,
 			condition,
-			 sampled_from_obj_id,
+			decode(sampled_from_obj_id,NULL,'no','yes') ISSUBSMP,
 			 item_descr,
 			 item_instructions,
 			 loan_item_remarks,

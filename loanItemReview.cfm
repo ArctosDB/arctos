@@ -47,8 +47,14 @@
 		                	#session.CustomOtherIdentifier#: {title: '#session.CustomOtherIdentifier#'},
 		                </cfif>
 		                SCIENTIFICIC_NAME: {title: 'ScientificName'},
+		                PART_NAME: {title: 'Part'},
+		                CONDITION: {title: 'Condition'},
+		                ISSUBSMP: {title: 'SSPL?'},
+		                item_instructions: {title: 'Instructions'},
+		                loan_item_remarks: {title: 'Remark'},
+		                COLL_OBJ_DISPOSITION: {title: 'Disposition'},
+		                PARTLASTSCANDATE: {title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
-		                CONDITION: {title: 'Condition'}
 		            }
 		        });
 		        $('##loanitems').jtable('load');
