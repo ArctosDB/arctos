@@ -3,9 +3,15 @@
 
 
 <cffunction name="getLoanItems" access="remote" returnformat="plain" queryFormat="column">
+
+	<cfparam name="transaction_id" type="numeric">
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
 	<cfparam name="jtSorting" type="string" default="GUID ASC">
+
+	<cfset jtStopIndex=jtStartIndex+jtPageSize>
+
+
 	<cfset obj = CreateObject("component","component.docs")>
 	<cfquery name="D" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		Select * from (
