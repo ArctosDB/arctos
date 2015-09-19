@@ -345,7 +345,6 @@
 						group by
 							part_name
 					</cfquery>
-					<cfdump var="#commonParts#">
 					<cfquery name="partsForLoan" dbtype="query">
 						select part_name from commonParts where numRecWithThisPart=#summary.recordcount#
 						group by part_name order by part_name
@@ -357,8 +356,8 @@
 						<p>
 							For all specimens, add this:
 						</p>
-						<label for="part_name">Part Name</label>
-						<select name="part_name" id="part_name">
+						<label for="loan_all_part_name">Part Name</label>
+						<select name="loan_all_part_name" id="loan_all_part_name">
 							<cfloop query="partsForLoan">
 								<option value="#part_name#">#part_name#</option>
 							</cfloop>

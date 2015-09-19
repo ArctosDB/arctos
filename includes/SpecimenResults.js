@@ -112,7 +112,10 @@ function confirmAddAllDL(){
   	}
 }
 function confirmAddAllPartLoan(){
-	var part_name=$("#part_name").val();
+	// we can get bad naming/IDs from injected forms, so MUST use....
+	
+	
+	var part_name=$("#loan_all_part_name").val();
 	var msg='Are you sure you want to add all found ' + part_name + ' to the loan?';
 	var yesno=confirm(msg);
 	if (yesno==true) {
