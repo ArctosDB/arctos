@@ -335,7 +335,7 @@
 					<cfquery name="commonParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
 							part_name,
-							count(*) numRecWithThisPart
+							count(distinct(specimen_part.derived_from_cat_item)) numRecWithThisPart
 						from
 							specimen_part,
 							#session.SpecSrchTab#
