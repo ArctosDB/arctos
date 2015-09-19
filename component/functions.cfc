@@ -81,7 +81,7 @@
 					loan_number,
 					specimen_part.collection_object_id ,
 					concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#'),
-					to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS'
+					to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS')
 				ORDER BY #jtSorting#
 			) a where rownum <= #jtStopIndex#
 		) where rnum >= #jtStartIndex#
