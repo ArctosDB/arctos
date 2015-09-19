@@ -345,6 +345,7 @@
 						group by
 							part_name
 					</cfquery>
+					<cfdump var="commonParts">
 					<cfquery name="partsForLoan" dbtype="query">
 						select part_name from commonParts where numRecWithThisPart=#summary.recordcount#
 						group by part_name order by part_name
