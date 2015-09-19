@@ -16,61 +16,60 @@
 	<!--- probably USUALLY fairly cheap so just pull everything....---->
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 
-				select
-					rownum rnum,
-					guid_prefix || ':' || cat_num guid,
-					cataloged_item.collection_object_id,
-					guid_prefix collection,
-					part_name,
-					condition,
-					sampled_from_obj_id,
-					item_descr,
-					item_instructions,
-					loan_item_remarks,
-					coll_obj_disposition,
-					scientific_name,
-					Encumbrance,
-					agent_name,
-					loan_number,
-					specimen_part.collection_object_id as partID,
-					concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-					to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate
-				 from
-					loan_item,
-					loan,
-					specimen_part,
-					coll_object,
-					cataloged_item,
-					coll_object_encumbrance,
-					encumbrance,
-					agent_name,
-					identification,
-					collection,
-					coll_obj_cont_hist,
-					container partc,
-					container pbc
-				WHERE
-					loan_item.collection_object_id = specimen_part.collection_object_id AND
-					loan.transaction_id = loan_item.transaction_id AND
-					specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
-					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
-					coll_obj_cont_hist.container_id=partc.container_id (+) and
-					partc.parent_container_id=pbc.container_id (+) and
-					specimen_part.collection_object_id = coll_object.collection_object_id AND
-					coll_object.collection_object_id = coll_object_encumbrance.collection_object_id (+) and
-					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
-					encumbrance.encumbering_agent_id = agent_name.agent_id (+) AND
-					cataloged_item.collection_object_id = identification.collection_object_id AND
-					identification.accepted_id_fg = 1 AND
-					cataloged_item.collection_id=collection.collection_id AND
-				  	loan_item.transaction_id = #transaction_id#
-				ORDER BY #jtSorting#
+		select
+			rownum rnum,
+			guid_prefix || ':' || cat_num guid,
+			cataloged_item.collection_object_id,
+			guid_prefix collection,
+			part_name,
+			condition,
+			sampled_from_obj_id,
+			item_descr,
+			item_instructions,
+			loan_item_remarks,
+			coll_obj_disposition,
+			scientific_name,
+			Encumbrance,
+			agent_name,
+			loan_number,
+			specimen_part.collection_object_id as partID,
+			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate
+		 from
+			loan_item,
+			loan,
+			specimen_part,
+			coll_object,
+			cataloged_item,
+			coll_object_encumbrance,
+			encumbrance,
+			agent_name,
+			identification,
+			collection,
+			coll_obj_cont_hist,
+			container partc,
+			container pbc
+		WHERE
+			loan_item.collection_object_id = specimen_part.collection_object_id AND
+			loan.transaction_id = loan_item.transaction_id AND
+			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
+			coll_obj_cont_hist.container_id=partc.container_id (+) and
+			partc.parent_container_id=pbc.container_id (+) and
+			specimen_part.collection_object_id = coll_object.collection_object_id AND
+			coll_object.collection_object_id = coll_object_encumbrance.collection_object_id (+) and
+			coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
+			encumbrance.encumbering_agent_id = agent_name.agent_id (+) AND
+			cataloged_item.collection_object_id = identification.collection_object_id AND
+			identification.accepted_id_fg = 1 AND
+			cataloged_item.collection_id=collection.collection_id AND
+		  	loan_item.transaction_id = #transaction_id#
+		ORDER BY #jtSorting#
 	</cfquery>
 
 	<cfquery name="d" dbtype="query">
 		select * from raw where rnum between #jtStartIndex# and #jtStopIndex#
 	</cfquery>
-			<cfdump var=#d#>
 	<cfset x=''>
 	<cfloop query="d">
 		<cfset trow="">
@@ -88,7 +87,7 @@
 		<cfset trow="{" & trow & "}">
 		<cfset x=listappend(x,trow)>
 	</cfloop>
-	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#d.totalcount#}'>
+	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#raw.recordcount#}'>
 
 	<cfreturn result>
 </cffunction>
