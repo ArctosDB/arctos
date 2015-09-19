@@ -13,10 +13,11 @@
 
 
 	<cfset obj = CreateObject("component","component.docs")>
-	<cfquery name="D" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		Select * from (
-			Select a.*, rownum rnum From (
+	<!--- probably USUALLY fairly cheap so just pull everything....---->
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
 				select
+					rownum rnum,
 					guid_prefix || ':' || cat_num guid,
 					cataloged_item.collection_object_id,
 					guid_prefix collection,
@@ -33,8 +34,7 @@
 					loan_number,
 					specimen_part.collection_object_id as partID,
 					concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-					to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate,
-					count(*) totalcount
+					to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate
 				 from
 					loan_item,
 					loan,
@@ -64,28 +64,13 @@
 					identification.accepted_id_fg = 1 AND
 					cataloged_item.collection_id=collection.collection_id AND
 				  	loan_item.transaction_id = #transaction_id#
-				group by
-					guid_prefix || ':' || cat_num,
-					cataloged_item.collection_object_id,
-					guid_prefix,
-					part_name,
-					condition,
-					sampled_from_obj_id,
-					item_descr,
-					item_instructions,
-					loan_item_remarks,
-					coll_obj_disposition,
-					scientific_name,
-					Encumbrance,
-					agent_name,
-					loan_number,
-					specimen_part.collection_object_id ,
-					concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#'),
-					to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS')
 				ORDER BY #jtSorting#
-			) a where rownum <= #jtStopIndex#
-		) where rnum >= #jtStartIndex#
 	</cfquery>
+
+	<cfquery name="d" dbtype="query">
+		select * from raw where rnum between #jtStartIndex# and #jtStopIndex#
+	</cfquery>
+			<cfdump var=#d#>
 	<cfset x=''>
 	<cfloop query="d">
 		<cfset trow="">
