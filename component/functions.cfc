@@ -8,7 +8,8 @@
 	<cfparam name="jtSorting" type="string" default="GUID ASC">
 	<cfset obj = CreateObject("component","component.docs")>
 	<cfquery name="D" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
+		Select * from (
+						Select a.*, rownum rnum From (select
 			guid_prefix || ':' || cat_num guid,
 			cataloged_item.collection_object_id,
 			guid_prefix collection,
@@ -56,7 +57,9 @@
 			identification.accepted_id_fg = 1 AND
 			cataloged_item.collection_id=collection.collection_id AND
 		  	loan_item.transaction_id = #transaction_id#
-		ORDER BY cat_num
+		ORDER BY #jtSorting#
+		) a where rownum <= #jtStopIndex#
+					) where rnum >= #jtStartIndex#
 	</cfquery>
 	<cfset x=''>
 	<cfloop query="d">
