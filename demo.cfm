@@ -1,3 +1,9 @@
+
+<cfquery name="d" datasource="uam_god">
+	select ip from uam.blacklist where sysdate-LISTDATE<180
+</cfquery>
+<cfset Application.blacklist=valuelist(d.ip)>
+
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
@@ -30,7 +36,7 @@ jQuery(document).ready(function() {
 				<option>Bird specimens</option>
 				<option>Insect specimens</option>
 				<option>Mollusc specimens</option>
-		</optgroup>	
+		</optgroup>
 		<optgroup label="Museum of Vertebrate Zoology (MVZ), University of California-Berkeley">
 				<option>Amphibian and reptile observations</option
 				<option>Anatomical preparations</option>
@@ -38,7 +44,7 @@ jQuery(document).ready(function() {
 				<option>Bird observations</option>
 				<option>Bird specimens</option>
 				<option>Mammal specimens</option>>
-		</optgroup>	
+		</optgroup>
 		<optgroup label="University of Alaska Museum (UAM)">
 				<option>Archeology</option>
 				<option>Bird specimens</option>
