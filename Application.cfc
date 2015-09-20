@@ -279,12 +279,12 @@
 	<!---
 		blacklist yourself? delete it via sql and uncomment this
 
-	---->
-
 	<cfquery name="d" datasource="uam_god">
 		select ip from uam.blacklist where sysdate-LISTDATE<180
 	</cfquery>
 	<cfset Application.blacklist=valuelist(d.ip)>
+	---->
+
 
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
