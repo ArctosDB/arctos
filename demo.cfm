@@ -3,6 +3,7 @@
 	select ip from uam.blacklist where sysdate-LISTDATE<180
 </cfquery>
 <cfset Application.blacklist=valuelist(d.ip)>
+<cfdump var=#Application.blacklist#>
 
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
