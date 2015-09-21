@@ -433,26 +433,27 @@ end;
 			select count(*) c from datadump where guid_prefix is null and other_id_type='UUID'
 		</cfquery>
 		<cfif nv.c gt 0>
-			<p>
+
 				Records may be entered here via the data entry application, before any known-unique IDs exist.
 				A UUID is therefore created to serve as a bridge to specimens. This form must have guid_prefix, which
-				can be retrieved from cataloged items with complementary GUIDs, to work. This link will fail for those specimens
+				can be retrieved from cataloged items with complementary GUIDs, to work. This link will do nothing for those specimens
 				which have not been entered (still in bulkloader) and for those which UUID has been altered or removed.
 				<br><a href="BulkloadAttributes.cfm?action=getGuidUUID">get guid_prefix from UUID</a>
-			</p>
+			<hr>
 		</cfif>
 		<cfquery name="pf" dbtype="query">
 			select count(*) l from datadump where status != 'valid'
 		</cfquery>
 		<cfif session.roles contains "manage_collection">
-			<p>
-				You have manage_collection, so you can "take" records from people in your collection. This is useful when students
-				(who should generally not have access to this form) enter data here via the specimen bulkloader.
+			You have manage_collection, so you can "take" records from people in your collection. This is useful when students
+			(who should generally not have access to this form) enter data here via the specimen bulkloader. Records which
+			are still in the bulkloader will fail validation; make sure they are not deleted until the specimen exists and they are
+			attached to it.
 
-				<br>NOT ALL OF THESE WILL NECESSARILY BE YOUR SPECIMENS!! Read stuff, then click.
-				<br>Use this with great caution. You may need to coordinate with other curatorial staff or involve a DBA.
-				<br><a href="BulkloadAttributes.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
-			</p>
+			<br>NOT ALL OF THESE WILL NECESSARILY BE YOUR SPECIMENS!! Read stuff, then click.
+			<br>Use this with great caution. You may need to coordinate with other curatorial staff or involve a DBA.
+			<br><a href="BulkloadAttributes.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
+			<hr>
 		</cfif>
 		<p>
 			<a href="BulkloadAttributes.cfm">load more records</a>
@@ -460,13 +461,12 @@ end;
 		<cfif pf.recordcount gt 0>
 			<p>
 				Not everything will load - <a href="BulkloadAttributes.cfm?action=validate">validate here</a>.
-				You will see an option to load only after all records are validated.
 			</p>
-		<cfelse>
-			Your data should load. Review the table below and
-			<a href="BulkloadAttributes.cfm?action=loadData">click to load and delete from this app</a>.
 		</cfif>
-
+		<p>
+			<a href="BulkloadAttributes.cfm?action=loadData">click to load and delete "valid" records</a>. Records with a status of anything except
+			"valid" will be ignored. Carefully review the table below before proceeding.
+		</p>
 		<p>
 			<a href="BulkloadAttributes.cfm?action=getCSV">Download all of your data as CSV</a> here. You might want to do this before
 			clicking the "delete" link.
