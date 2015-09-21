@@ -311,18 +311,11 @@ end;
 			update
 				cf_temp_attributes
 			set
-				status=NULL where upper(username)='#ucase(session.username)#'
+				status=NULL,
+				collection_object_id=null
+			where
+				upper(username)='#ucase(session.username)#'
 		</cfquery>
-
-
-
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cfdump var=#d#>
-
-
-
 		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
 				cf_temp_attributes
