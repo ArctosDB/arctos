@@ -518,8 +518,6 @@ end;
 						<td>
 							<cfif status is "valid" and len(collection_object_id) gt 0>
 								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">clicky</a>
-							<cfelse>
-								notfound
 							</cfif>
 						</td>
 						<td>#GUID_PREFIX#</td>
