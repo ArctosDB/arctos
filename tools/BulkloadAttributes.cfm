@@ -149,24 +149,31 @@ end;
 	<cfoutput>
 		<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">back to my stuff</a>
 		<cfquery name="d" datasource="uam_god">
-			select count(*) c,username from cf_temp_attributes where upper(username) != '#ucase(session.username)#' and upper(username) in (
 			select
-				grantee
+				count(*) c,
+				upper(username) username
 			from
-				dba_role_privs
+				cf_temp_attributes
 			where
-				granted_role in (
-	        		select
-						c.portal_name
+				upper(username) != '#ucase(session.username)#' and
+				upper(username) in (
+					select
+						upper(grantee)
 					from
-						dba_role_privs d,
-						cf_collection c
-	        		where
-						d.granted_role = c.portal_name
-	        			and d.grantee = '#ucase(session.username)#'
-				)
-				and grantee in (select grantee from dba_role_privs where granted_role = 'DATA_ENTRY')
-			) group by username order by username
+						dba_role_privs
+					where
+						granted_role in (
+			        		select
+								c.portal_name
+							from
+								dba_role_privs d,
+								cf_collection c
+			        		where
+								d.granted_role = c.portal_name
+			        			and upper(d.grantee) = '#ucase(session.username)#'
+						) and
+					upper(grantee) in (select upper(grantee) from dba_role_privs where upper(granted_role) = 'DATA_ENTRY')
+					) group by upper(username) order by upper(username)
 		</cfquery>
 		<form name="d" method="post" action="BulkloadAttributes.cfm">
 			<input type="hidden" name="action" value="saveClaimed">
@@ -192,7 +199,7 @@ end;
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "saveClaimed">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_attributes set username='#session.username#' where username in (#listqualify(username,"'")#)
+		update cf_temp_attributes set username='#ucase(session.username)#' where upper(username) in (#listqualify(username,"'")#)
 	</cfquery>
 	<cflocation url="BulkloadAttributes.cfm?action=managemystuff" addtoken="false">
 </cfif>
@@ -304,8 +311,18 @@ end;
 			update
 				cf_temp_attributes
 			set
-				status=NULL where (username)='#ucase(session.username)#'
+				status=NULL where upper(username)='#ucase(session.username)#'
 		</cfquery>
+
+
+
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfdump var=#d#>
+
+
+
 		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
 				cf_temp_attributes
@@ -409,7 +426,7 @@ end;
 				status='valid'
 			where
 				status is null and
-				(username)='#ucase(session.username)#'
+				upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
 	</cfoutput>
@@ -584,7 +601,7 @@ end;
 					</cfquery>
 			</cfloop>
 			<cfquery name="delJustLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete from cf_temp_attributes where username='#ucase(session.username)#' and status='valid'
+				delete from cf_temp_attributes where upper(username)='#ucase(session.username)#' and status='valid'
 			</cfquery>
 		</cftransaction>
 		Spiffy, all done. <a href="BulkloadAttributes.cfm">load more Attributes</a>
