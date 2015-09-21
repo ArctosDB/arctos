@@ -482,6 +482,7 @@ end;
 				<tr>
 					<th>delete</th>
 					<th>STATUS</th>
+					<th>Specimen</th>
 					<th>GUID_PREFIX</th>
 					<th>OTHER_ID_TYPE</th>
 					<th>OTHER_ID_NUMBER</th>
@@ -497,6 +498,13 @@ end;
 					<tr>
 						<td><input type="checkbox" name="key" value="#key#"></td>
 						<td>#STATUS#</td>
+						<td>
+							<cfif len(collection_object_id) gt 0>
+								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">clicky</a>
+							<cfelse>
+								notfound
+							</cfif>
+						</td>
 						<td>#GUID_PREFIX#</td>
 						<td>#OTHER_ID_TYPE#</td>
 						<td>#OTHER_ID_NUMBER#</td>
