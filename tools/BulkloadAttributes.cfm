@@ -464,8 +464,9 @@ end;
 			</p>
 		</cfif>
 		<p>
-			<a href="BulkloadAttributes.cfm?action=loadData">click to load and delete "valid" records</a>. Records with a status of anything except
-			"valid" will be ignored. Carefully review the table below before proceeding.
+			<a href="BulkloadAttributes.cfm?action=loadData">click to load and delete "valid" records</a>. Records with a status of anything
+			except "valid" will be ignored. Status may be carried over from previous operations; click "validate" above
+			if you're not absolutely sure that the data here are current. Carefully review the table below before proceeding.
 		</p>
 		<p>
 			<a href="BulkloadAttributes.cfm?action=getCSV">Download all of your data as CSV</a> here. You might want to do this before
