@@ -314,7 +314,7 @@ end;
 					null,'click "get GUID Prefix" before validating',
 					status || '; click "get GUID Prefix" before validating')
 			where
-				(username)='#ucase(session.username)#' and
+				upper(username)='#ucase(session.username)#' and
 				guid_prefix is null
 		</cfquery>
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
