@@ -382,7 +382,12 @@ end;
 					null,'attribute failed validation',
 					status || '; attribute failed validation')
 				where
-					isValidAttribute(ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,(select collection_cde from collection where collection.guid_prefix=cf_temp_attributes.guid_prefix))=0 and
+					isValidAttribute(
+						ATTRIBUTE,
+						ATTRIBUTE_VALUE,
+						ATTRIBUTE_UNITS,
+						(select collection_cde from collection where collection.guid_prefix=cf_temp_attributes.guid_prefix)
+					)=0 and
 					upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="chkDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -455,9 +460,10 @@ end;
 			select count(*) l from datadump where status != 'valid'
 		</cfquery>
 		<cfif session.roles contains "manage_collection">
-			You have manage_collection, so you can "take" records from people in your collection. This is useful when students
+			You have manage_collection, so you can "take" records from people in your collection(s). This is useful when students
 			(who should generally not have access to this form) enter data here via the specimen bulkloader. Records which
-			are still in the bulkloader will fail validation; make sure they are not deleted until the specimen exists and they are
+			are still in the bulkloader will fail validation; they become your responsibility after you claim them, so
+			make sure they are not deleted until the specimen exists and they are
 			attached to it.
 
 			<br>NOT ALL OF THESE WILL NECESSARILY BE YOUR SPECIMENS!! Read stuff, then click.
@@ -466,7 +472,7 @@ end;
 			<hr>
 		</cfif>
 		<p>
-			<a href="BulkloadAttributes.cfm">load more records</a>
+			<a href="BulkloadAttributes.cfm">upload more records</a>
 		</p>
 		<cfif pf.recordcount gt 0>
 			<p>
@@ -510,7 +516,7 @@ end;
 						<td><input type="checkbox" name="key" value="#key#"></td>
 						<td>#STATUS#</td>
 						<td>
-							<cfif len(collection_object_id) gt 0>
+							<cfif status is "valid" and len(collection_object_id) gt 0>
 								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">clicky</a>
 							<cfelse>
 								notfound
