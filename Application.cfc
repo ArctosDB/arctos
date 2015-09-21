@@ -267,6 +267,14 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
+	<!---
+		blacklist yourself? delete it via sql and uncomment this
+		<cfquery name="d" datasource="uam_god">
+			select ip from uam.blacklist where sysdate-LISTDATE<180
+		</cfquery>
+		<cfset Application.blacklist=valuelist(d.ip)>
+	---->
+
 	<!--- uncomment for a break from googlebot
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>

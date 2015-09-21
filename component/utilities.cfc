@@ -348,11 +348,14 @@
 			</cfif>
 		</cfloop>
 	</cfif>
+	<!----
+		is blacklisting with http://arctos.database.museum/guid/UAM:EH:0301-0001 so turn off for now
 	<cfif right(lurl,5) is "-1#chr(7)#">
 		<cfset bl_reason='URL ends with -1%27'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
+	---->
 	<cfif right(lurl,3) is "%00">
 		<cfset bl_reason='URL ends with %00'>
 		<cfinclude template="/errors/autoblacklist.cfm">

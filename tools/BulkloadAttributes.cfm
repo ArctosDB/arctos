@@ -63,7 +63,7 @@ end;
 		<p>
 			<a href="BulkloadAttributes.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
 		</p>
-	</cfoutput>	
+	</cfoutput>
 	Upload a comma-delimited text file (csv). <a href="BulkloadAttributes.cfm?action=template">Get a template here</a>
 	Include column headings. This form will happily create duplicates; don't just randomly smash buttons. In the event of multiple
 	determinations (varying in value or not), "duplicates" may be correct and desirable.
@@ -150,18 +150,18 @@ end;
 		<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">back to my stuff</a>
 		<cfquery name="d" datasource="uam_god">
 			select count(*) c,username from cf_temp_attributes where upper(username) != '#ucase(session.username)#' and upper(username) in (
-			select 
+			select
 				grantee
-			from 
+			from
 				dba_role_privs
-			where 
+			where
 				granted_role in (
-	        		select 
-						c.portal_name 
-					from 
-						dba_role_privs d, 
+	        		select
+						c.portal_name
+					from
+						dba_role_privs d,
 						cf_collection c
-	        		where 
+	        		where
 						d.granted_role = c.portal_name
 	        			and d.grantee = '#ucase(session.username)#'
 				)
@@ -199,22 +199,22 @@ end;
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "getGuidUUID">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select other_id_number from cf_temp_attributes where upper(username)='#ucase(session.username)#' and guid_prefix is null 
+		select other_id_number from cf_temp_attributes where upper(username)='#ucase(session.username)#' and guid_prefix is null
 		and other_id_type='UUID' and other_id_number is not null
 		group by other_id_number
 	</cfquery>
 	<cfloop query="mine">
 		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				guid_prefix 
-			from 
+			select
+				guid_prefix
+			from
 				collection,
 				cataloged_item,
-				coll_obj_other_id_num 
-			where 
+				coll_obj_other_id_num
+			where
 				collection.collection_id=cataloged_item.collection_id and
 				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-				other_id_type='UUID' and 
+				other_id_type='UUID' and
 				display_value='#other_id_number#'
 		</cfquery>
 		<cfif gg.recordcount is 1>
@@ -258,12 +258,12 @@ end;
 	<cfif insmeth is 'all'>
 		<!--- for some crazy reason this is slow, so bypass for now ---->
 		<cfset sql="insert all ">
-		<cfloop query="qclean">		
+		<cfloop query="qclean">
 			<cfset sql=sql & " into cf_temp_attributes (#colnames#,status) values (">
 			<cfloop list="#colnames#" index="i">
 				<cfset sql=sql & "'#escapeQuotes(evaluate("qClean." & i))#',">
 			</cfloop>
-			<cfset sql=sql & "'new load')">	
+			<cfset sql=sql & "'new load')">
 		</cfloop>
 		<cfset sql=sql & "SELECT 1 FROM DUAL">
 		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -300,27 +300,27 @@ end;
 <!------------------------------------------------------->
 <cfif action is "validate">
 	<cfoutput>
-		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-			update 
-				cf_temp_attributes 
-			set 
+		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update
+				cf_temp_attributes
+			set
 				status=NULL where (username)='#ucase(session.username)#'
 		</cfquery>
-		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-			update 
-				cf_temp_attributes 
-			set 
+		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update
+				cf_temp_attributes
+			set
 				status=decode(status,
 					null,'click "get GUID Prefix" before validating',
 					status || '; click "get GUID Prefix" before validating')
-			where 
+			where
 				(username)='#ucase(session.username)#' and
-				guid_prefix is null	
+				guid_prefix is null
 		</cfquery>
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_attributes set COLLECTION_OBJECT_ID = (
-				select 
-					cataloged_item.collection_object_id 
+				select
+					cataloged_item.collection_object_id
 				from
 					cataloged_item,
 					collection
@@ -328,12 +328,15 @@ end;
 					cataloged_item.collection_id = collection.collection_id and
 					collection.guid_prefix = cf_temp_attributes.guid_prefix and
 					cat_num=cf_temp_attributes.other_id_number
-			) where other_id_type = 'catalog number' and upper(username)='#ucase(session.username)#'
+			) where
+				status is null and
+				other_id_type = 'catalog number'
+				and upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_attributes set COLLECTION_OBJECT_ID = (
-				select 
-					cataloged_item.collection_object_id 
+				select
+					cataloged_item.collection_object_id
 				from
 					cataloged_item,
 					collection,
@@ -344,24 +347,27 @@ end;
 					collection.guid_prefix = cf_temp_attributes.guid_prefix and
 					other_id_type = cf_temp_attributes.other_id_type and
 					display_value = cf_temp_attributes.other_id_number
-			) where other_id_type != 'catalog number' and upper(username)='#ucase(session.username)#'
+			) where
+				status is null and
+				other_id_type != 'catalog number' and
+				upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-			update 
-				cf_temp_attributes 
-			set 
+		<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update
+				cf_temp_attributes
+			set
 				status=decode(status,
 					null,'cataloged item not found',
 					status || '; cataloged item not found')
-			where 
+			where
 				collection_object_id is null and
 				upper(username)='#ucase(session.username)#'
 		</cfquery>
-		
-		<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-			update 
-				cf_temp_attributes 
-			set 
+
+		<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update
+				cf_temp_attributes
+			set
 				status=decode(status,
 					null,'attribute failed validation',
 					status || '; attribute failed validation')
@@ -369,39 +375,39 @@ end;
 					isValidAttribute(ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,(select collection_cde from collection where collection.guid_prefix=cf_temp_attributes.guid_prefix))=0 and
 					upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfquery name="chkDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-			update 
-				cf_temp_attributes 
-			set 
+		<cfquery name="chkDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update
+				cf_temp_attributes
+			set
 				status=decode(status,
 					null,'invalid date',
 					status || '; invalid date')
-			where 
-				ATTRIBUTE_DATE is not null and 
+			where
+				ATTRIBUTE_DATE is not null and
 				upper(username)='#ucase(session.username)#' and
 				is_iso8601(ATTRIBUTE_DATE)!='valid'
 		</cfquery>
 		<cfquery name="attDet1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_attributes set DETERMINED_BY_AGENT_ID=getAgentID(determiner)  where upper(username)='#ucase(session.username)#'
+			update cf_temp_attributes set DETERMINED_BY_AGENT_ID=getAgentID(determiner) where upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="attDetFail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_attributes 
-			set 
+			update
+				cf_temp_attributes
+			set
 				status=decode(status,
 					null,'invalid determiner',
 					status || '; invalid determiner')
-			where 
-				DETERMINED_BY_AGENT_ID is null and 
-				determiner is not null and 
+			where
+				DETERMINED_BY_AGENT_ID is null and
+				determiner is not null and
 				upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfquery name="postsetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-			update 
-				cf_temp_attributes 
-			set 
+		<cfquery name="postsetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update
+				cf_temp_attributes
+			set
 				status='valid'
-			where 
+			where
 				status is null and
 				(username)='#ucase(session.username)#'
 		</cfquery>
@@ -428,7 +434,11 @@ end;
 		</cfquery>
 		<cfif nv.c gt 0>
 			<p>
-				<a href="BulkloadAttributes.cfm?action=getGuidUUID">get guid_prefix from UUID</a>
+				Records may be entered here via the data entry application, before any known-unique IDs exist.
+				A UUID is therefore created to serve as a bridge to specimens. This form must have guid_prefix, which
+				can be retrieved from cataloged items with complementary GUIDs, to work. This link will fail for those specimens
+				which have not been entered (still in bulkloader) and for those which UUID has been altered or removed.
+				<br><a href="BulkloadAttributes.cfm?action=getGuidUUID">get guid_prefix from UUID</a>
 			</p>
 		</cfif>
 		<cfquery name="pf" dbtype="query">
@@ -436,10 +446,12 @@ end;
 		</cfquery>
 		<cfif session.roles contains "manage_collection">
 			<p>
-				You have manage_collection, so you can "take" records from people in your collection.
-				<br>NOT ALL OF THESE ARE NECESSARILY YOUR SPECIMENS!!
+				You have manage_collection, so you can "take" records from people in your collection. This is useful when students
+				(who should generally not have access to this form) enter data here via the specimen bulkloader.
+
+				<br>NOT ALL OF THESE WILL NECESSARILY BE YOUR SPECIMENS!! Read stuff, then click.
 				<br>Use this with great caution. You may need to coordinate with other curatorial staff or involve a DBA.
-				<a href="BulkloadAttributes.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
+				<br><a href="BulkloadAttributes.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
 			</p>
 		</cfif>
 		<p>
@@ -447,16 +459,22 @@ end;
 		</p>
 		<cfif pf.recordcount gt 0>
 			<p>
-				Not everything will load - <a href="BulkloadAttributes.cfm?action=validate">validate</a>
+				Not everything will load - <a href="BulkloadAttributes.cfm?action=validate">validate here</a>.
+				You will see an option to load only after all records are validated.
 			</p>
 		<cfelse>
-			Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to load and delete from this app</a>.
+			Your data should load. Review the table below and
+			<a href="BulkloadAttributes.cfm?action=loadData">click to load and delete from this app</a>.
 		</cfif>
+
 		<p>
-			<a href="##" onclick="cd();">delete all of your data</a>
+			<a href="BulkloadAttributes.cfm?action=getCSV">Download all of your data as CSV</a> here. You might want to do this before
+			clicking the "delete" link.
 		</p>
+
 		<p>
-			<a href="BulkloadAttributes.cfm?action=getCSV">get CSV</a>
+
+			<a href="##" onclick="cd();">Delete all of your data</a> here. Probably a good idea to grab a CSV backup first.
 		</p>
 		<form name="d" method="post" action="BulkloadAttributes.cfm">
 			<input type="hidden" name="action" value="deleteChecked">
@@ -489,7 +507,7 @@ end;
 						<td>#ATTRIBUTE_METH#</td>
 						<td>#DETERMINER#</td>
 						<td>#REMARKS#</td>
-					</tr>		
+					</tr>
 				</cfloop>
 			</table>
 			<br>
