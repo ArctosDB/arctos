@@ -13,7 +13,7 @@
 	</script>
 	<cfoutput>
 		<cfif not isdefined ("scientific_name")>
-			<cfset scientific_name="">
+			<cfset scientific_name="Rattus">
 		</cfif>
 		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
 			<cfset session.taxaPickPrefs="anyterm">
@@ -170,12 +170,11 @@
 					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
 			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
-			  	)
 			  	group by
-			  		scientific_name,
-			  		taxon_name_id
+			  		taxon_name.scientific_name,
+			  		taxon_name.taxon_name_id
 			  	order by
-			  		scientific_name
+			  		taxon_name.scientific_name
 			</cfquery>
 		<p>
 		ExecutionTime: #tmpResult.ExecutionTime#
