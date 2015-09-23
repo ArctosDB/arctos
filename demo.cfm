@@ -34,6 +34,32 @@
 		<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
 			<cfabort>
 		</cfif>
+
+		<hr>
+
+		<p>
+			Basic, names only.
+		</p>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				SELECT
+					scientific_name,
+					taxon_name_id
+				from
+					taxon_name
+				where
+					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
+				order by
+				  		scientific_name
+			</cfquery>
+		<p>
+		ExecutionTime: #d.ExecutionTime#
+		</p>
+		<div style="max-height:20em;">
+			<cfloop query="d">
+				<br>#scientific_name#
+			</cfloop>
+		</div>
+		<!----- oldstuff
 		<cfif taxaPickPrefs is "anyterm">
 			<cfset sql="SELECT
 				scientific_name,
@@ -129,6 +155,9 @@
 				scientific_name
 		">
 		</cfif>
+
+
+
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#PreserveSingleQuotes(sql)#
 		</cfquery>
@@ -164,4 +193,5 @@
 	</CFIF>
 	---->
 
+oldstuff ---->
 <cfinclude template="/includes/_pickFooter.cfm">
