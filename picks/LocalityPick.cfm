@@ -2,7 +2,7 @@
 <cfset title = "Locality Pick Search">
 <cfif action is "nothing">
 	<cfoutput>
-		<cfif locality_name is 'undefined'>
+		<cfif not isdefined("locality_name") or locality_name is 'undefined'>
 			<cfset locality_name=''>
 		</cfif>
 		<script>

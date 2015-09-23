@@ -324,7 +324,7 @@
 		<cfabort>
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
-	<cfset badbot="ca-crawler,CCBot">
+	<cfset badbot="Baiduspider,ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain">
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">

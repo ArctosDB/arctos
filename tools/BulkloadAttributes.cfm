@@ -206,9 +206,17 @@ end;
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "getGuidUUID">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select other_id_number from cf_temp_attributes where upper(username)='#ucase(session.username)#' and guid_prefix is null
-		and other_id_type='UUID' and other_id_number is not null
-		group by other_id_number
+		select
+			other_id_number
+		from
+			cf_temp_attributes
+		where
+			upper(username)='#ucase(session.username)#' and
+			guid_prefix is null and
+			other_id_type='UUID' and
+			other_id_number is not null
+		group by
+			other_id_number
 	</cfquery>
 	<cfloop query="mine">
 		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -452,7 +460,8 @@ end;
 				Records may be entered here via the data entry application, before any known-unique IDs exist.
 				A UUID is therefore created to serve as a bridge to specimens. This form must have guid_prefix, which
 				can be retrieved from cataloged items with complementary GUIDs, to work. This link will do nothing for those specimens
-				which have not been entered (still in bulkloader) and for those which UUID has been altered or removed.
+				which have not been entered (still in bulkloader) and for those which UUID has been altered or removed. Records
+				with an existing guid_prefix will be ignored. Make sure the results are what you expect.
 				<br><a href="BulkloadAttributes.cfm?action=getGuidUUID">get guid_prefix from UUID</a>
 			<hr>
 		</cfif>
