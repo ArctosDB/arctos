@@ -138,10 +138,10 @@
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
 				group by
-					scientific_name,
-					taxon_name_id
+					taxon_name.scientific_name,
+					taxon_name.taxon_name_id
 				order by
-			  		scientific_name
+			  		taxon_name.scientific_name
 			</cfquery>
 		<p>
 		ExecutionTime: #tmpResult.ExecutionTime#
