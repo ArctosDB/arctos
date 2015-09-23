@@ -16,10 +16,7 @@
 			<cfset session.taxaPickPrefs="anyterm">
 		</cfif>
 		<cfset taxaPickPrefs=session.taxaPickPrefs>
-		<form name="s" method="post" action="TaxaPick.cfm">
-			<input type="hidden" name="formName" value="#formName#">
-			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
-			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
+		<form name="s" method="post" action="demo.cfm">
 			<label for="scientific_name">Scientific Name (STARTS WITH)</label>
 			<input type="text" name="scientific_name" id="scientific_name" size="50" value="#scientific_name#">
 			<label for="taxaPickPrefs">Filter Results by...</label>
@@ -132,7 +129,18 @@
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#PreserveSingleQuotes(sql)#
 		</cfquery>
+		<cfloop
+		<cfif getTaxa.recordcount is 0>
+			<p>
+				No Match
+			</p>
+		<cfelse>
+			<cfloop query="getTaxa">
+				<br>#scientific_name#
+			</cfloop>
+		</cfif>
 	</cfoutput>
+	<!----
 	<cfif getTaxa.recordcount is 1>
 		<cfoutput>
 			<script>
@@ -151,6 +159,7 @@
 	--->
 
 	</cfoutput>
+	---->
 	</CFIF>
 
 <cfinclude template="/includes/_pickFooter.cfm">
