@@ -12,6 +12,9 @@
 		}
 	</script>
 	<cfoutput>
+		<cfif not isdefined ("scientific_name")>
+			<cfset scientific_name="">
+		</cfif>
 		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
 			<cfset session.taxaPickPrefs="anyterm">
 		</cfif>
