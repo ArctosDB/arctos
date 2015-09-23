@@ -59,6 +59,10 @@
 				<br>#scientific_name#
 			</cfloop>
 		</div>
+	</cfoutput>
+
+
+
 		<!----- oldstuff
 		<cfif taxaPickPrefs is "anyterm">
 			<cfset sql="SELECT
