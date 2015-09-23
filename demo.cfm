@@ -186,6 +186,45 @@
 		</div>
 
 
+<hr>
+
+		<p>
+			everything or something
+		</p>
+			<cfquery name="d" result="tmpResult" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				SELECT
+			 		taxon_name.scientific_name,
+			  		taxon_name.taxon_name_id,
+			  		taxon_term.term,
+			  		taxon_term.term_type,
+			  		taxon_term.POSITION_IN_CLASSIFICATION
+				from
+			  		taxon_name,
+			  		taxon_term,
+			  		collection
+				where
+					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
+					POSITION_IN_CLASSIFICATION is not null and
+			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+			  	group by
+			  		taxon_name.scientific_name,
+			  		taxon_name.taxon_name_id,
+			  		taxon_term.term,
+			  		taxon_term.term_type,
+			  		taxon_term.POSITION_IN_CLASSIFICATION
+			  	order by
+			  		taxon_name.scientific_name
+			</cfquery>
+		<p>
+		ExecutionTime: #tmpResult.ExecutionTime#
+		</p>
+		<div style="max-height:20em;width: 50%; overflow:scroll;;">
+			<cfloop query="d">
+				<br>#scientific_name#
+			</cfloop>
+		</div>
+
 	</cfoutput>
 
 
