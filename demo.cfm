@@ -191,7 +191,7 @@
 		<p>
 			everything or something
 		</p>
-			<cfquery name="d" result="tmpResult" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="raw" result="tmpResult" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT
 			 		taxon_name.scientific_name,
 			  		taxon_name.taxon_name_id,
@@ -207,17 +207,14 @@
 					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
 					POSITION_IN_CLASSIFICATION is not null and
 			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
-			  	group by
-			  		taxon_name.scientific_name,
-			  		taxon_name.taxon_name_id,
-			  		taxon_term.term,
-			  		taxon_term.term_type,
-			  		taxon_term.POSITION_IN_CLASSIFICATION
-			  	order by
-			  		taxon_name.scientific_name
+			</cfquery>
+			<cfquery name="d" dbtype="query" result="tmpResult2" >
+				select scientific_name,taxon_name_id from raw group by scientific_name,taxon_name_id order by scientific_name
 			</cfquery>
 		<p>
 		ExecutionTime: #tmpResult.ExecutionTime#
+		</p><p>
+		ExecutionTime2: #tmpResult2.ExecutionTime#
 		</p>
 		<div style="max-height:20em;width: 50%; overflow:scroll;;">
 			<cfloop query="d">
