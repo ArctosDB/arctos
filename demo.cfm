@@ -40,7 +40,7 @@
 		<p>
 			Basic, names only.
 		</p>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="d" result="tmpResult" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT
 					scientific_name,
 					taxon_name_id
@@ -52,7 +52,7 @@
 				  		scientific_name
 			</cfquery>
 		<p>
-		ExecutionTime: #d.ExecutionTime#
+		ExecutionTime: #tmpResult.ExecutionTime#
 		</p>
 		<div style="max-height:20em;">
 			<cfloop query="d">
