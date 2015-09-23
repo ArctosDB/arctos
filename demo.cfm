@@ -1,57 +1,156 @@
-<cfinclude template="/includes/_header.cfm">
-<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
-<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
-<script src="/includes/jquery.multiselect.min.js"></script>
+<cfinclude template="/includes/_pickHeader.cfm">
+	<script>
+		function settaxaPickPrefs (v) {
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "setSessionTaxaPickPrefs",
+					val : v,
+					returnformat : "json",
+					queryformat : 'column'
+				}
+			);
+		}
+	</script>
+	<cfoutput>
+		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
+			<cfset session.taxaPickPrefs="anyterm">
+		</cfif>
+		<cfset taxaPickPrefs=session.taxaPickPrefs>
+		<form name="s" method="post" action="TaxaPick.cfm">
+			<input type="hidden" name="formName" value="#formName#">
+			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
+			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
+			<label for="scientific_name">Scientific Name (STARTS WITH)</label>
+			<input type="text" name="scientific_name" id="scientific_name" size="50" value="#scientific_name#">
+			<label for="taxaPickPrefs">Filter Results by...</label>
+			<select name="taxaPickPrefs" id="taxaPickPrefs" onchange="settaxaPickPrefs(this.value);">
+				<option <cfif session.taxaPickPrefs is "anyterm"> selected="selected" </cfif> value="anyterm">Any Term (best performance)</option>
+				<option <cfif session.taxaPickPrefs is "relatedterm"> selected="selected" </cfif> value="relatedterm">Include terms from relationships</option>
+				<option <cfif session.taxaPickPrefs is "mycollections"> selected="selected" </cfif> value="mycollections">Include only terms with classifications preferred by my collections</option>
+				<option <cfif session.taxaPickPrefs is "usedbymycollections"> selected="selected" </cfif> value="usedbymycollections">Include only terms used by my collections</option>
+			</select>
+			<br><input type="submit" class="lnkBtn" value="Search">
+		</form>
+		<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
+			<cfabort>
+		</cfif>
+		<cfif taxaPickPrefs is "anyterm">
+			<cfset sql="SELECT
+				scientific_name,
+				taxon_name_id
+			from
+				taxon_name
+			where
+				UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
+			order by
+			  		scientific_name">
+		<cfelseif taxaPickPrefs is "usedbymycollections">
+			<!--- VPD limits users to seeing only their collections, so just make the joins --->
+			<cfset sql="select scientific_name,taxon_name_id from (
+				SELECT
+					taxon_name.scientific_name,
+					taxon_name.taxon_name_id
+				from
+					taxon_name,
+					identification_taxonomy,
+					identification,
+					cataloged_item
+				where
+					taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+					identification_taxonomy.identification_id=identification.identification_id and
+					identification.collection_object_id=cataloged_item.collection_object_id and
+					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+				)
+				group by
+					scientific_name,
+					taxon_name_id
+				order by
+			  		scientific_name">
+		<cfelseif taxaPickPrefs is "mycollections">
+			<!--- VPD limits users to seeing only their collections, so just make the joins --->
+			<cfset sql="select scientific_name,taxon_name_id from (
+				SELECT
+			 		taxon_name.scientific_name,
+			  		taxon_name.taxon_name_id
+				from
+			  		taxon_name,
+			  		taxon_term,
+			  		collection
+				where
+					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
+			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+			  	)
+			  	group by
+			  		scientific_name,
+			  		taxon_name_id
+			  	order by
+			  		scientific_name">
+		<cfelseif taxaPickPrefs is "relatedterm">
+			<cfset sql="select * from (
+				SELECT
+					scientific_name,
+					taxon_name_id
+				from
+					taxon_name
+				where
+					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+				UNION
+				SELECT
+					a.scientific_name,
+					a.taxon_name_id
+				from
+					taxon_name a,
+					taxon_relations,
+					taxon_name b
+				where
+					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
+					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
+					UPPER(B.scientific_name) LIKE '#ucase(scientific_name)#%'
+				UNION
+				SELECT
+					b.scientific_name,
+					b.taxon_name_id
+				from
+					taxon_name a,
+					taxon_relations,
+					taxon_name b
+				where
+					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
+					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
+					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
+			)
+			where
+				taxon_name_id is not null
+			group by
+				scientific_name,
+				taxon_name_id
+			ORDER BY
+				scientific_name
+		">
+		</cfif>
+		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#PreserveSingleQuotes(sql)#
+		</cfquery>
+	</cfoutput>
+	<cfif getTaxa.recordcount is 1>
+		<cfoutput>
+			<script>
+				opener.document.#formName#.#taxonIdFld#.value='#getTaxa.taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#getTaxa.scientific_name#';self.close();
+			</script>
+		</cfoutput>
+	<cfelseif #getTaxa.recordcount# is 0>
+		<cfoutput>
+			Nothing matched #scientific_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#taxonIdFld#.value='';opener.document.#formName#.#taxonNameFld#.value='';opener.document.#formName#.#taxonNameFld#.focus();self.close();">Try again.</a>
+		</cfoutput>
+	<cfelse>
+		<cfoutput query="getTaxa">
+<br><a href="##" onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();">#scientific_name#</a>
+	<!---
+		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> -
+	--->
 
-<cfquery name="d" datasource="uam_god">
-	select ip from uam.blacklist where sysdate-LISTDATE<180
-</cfquery>
-<cfset Application.blacklist=valuelist(d.ip)>
-<link rel="stylesheet" href="/includes/jquery.multiselect.css" />
+	</cfoutput>
+	</CFIF>
 
-
-<style>
-	.ui-multiselect-optgroup-label a {font-size:1.4em}
-</style>
-
-<script>
-
-jQuery(document).ready(function() {
-			$("#collection_id").multiselect({
-			minWidth: "500",
-			height: "300"
-		});
-		});
-
-
-</script>
-
-
-<select name="collection_id" id="collection_id" size="3" multiple="multiple">
-		<optgroup label="Natural History Museum of Utah (UMNH)">
-				<option>Amphibian and reptile specimens</option>
-				<option>Bird specimens</option>
-				<option>Insect specimens</option>
-				<option>Mollusc specimens</option>
-		</optgroup>
-		<optgroup label="Museum of Vertebrate Zoology (MVZ), University of California-Berkeley">
-				<option>Amphibian and reptile observations</option
-				<option>Anatomical preparations</option>
-				<option>Bird eggs/nests</option>
-				<option>Bird observations</option>
-				<option>Bird specimens</option>
-				<option>Mammal specimens</option>>
-		</optgroup>
-		<optgroup label="University of Alaska Museum (UAM)">
-				<option>Archeology</option>
-				<option>Bird specimens</option>
-				<option>Cryptogam specimens (ALA)</option>
-				<option>Earth Science</option>
-				<option>Invertebrate specimens</option>
-		</optgroup>
-
-</select>
-
-
-
-
+<cfinclude template="/includes/_pickFooter.cfm">
