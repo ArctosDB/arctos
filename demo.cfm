@@ -137,7 +137,6 @@
 					identification_taxonomy.identification_id=identification.identification_id and
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
-				)
 				group by
 					scientific_name,
 					taxon_name_id
