@@ -219,12 +219,21 @@
 		<div style="max-height:20em;width: 50%; overflow:scroll;;">
 			<cfloop query="d">
 				<br>#scientific_name#
+<<<<<<< .mine
+				<cfquery name="thisclass" dbtype="query">
+					select term,POSITION_IN_CLASSIFICATION from raw where taxon_name_id=#d.taxon_name_id# order by POSITION_IN_CLASSIFICATION
+				</cfquery>
+				<cfloop query="thisclass">
+					<br>--#term#
+				</cfloop>
+=======
 				<cfquery name="thisclass" dbtype="query">
 					select term,POSITION_IN_CLASSIFICATION from raw where taxon_name_id=#taxon_name_id# order by POSITION_IN_CLASSIFICATION
 				</cfquery>
 				<cfloop query="thisclass">
 					<br>#term#
 				</cfloop>
+>>>>>>> .r39088
 			</cfloop>
 		</div>
 
