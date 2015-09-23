@@ -118,6 +118,75 @@
 			</cfloop>
 		</div>
 
+	<hr>
+
+		<p>
+			Names only, used in IDs by collections to which you have access
+		</p>
+			<cfquery name="d" result="tmpResult" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				SELECT
+					taxon_name.scientific_name,
+					taxon_name.taxon_name_id
+				from
+					taxon_name,
+					identification_taxonomy,
+					identification,
+					cataloged_item
+				where
+					taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+					identification_taxonomy.identification_id=identification.identification_id and
+					identification.collection_object_id=cataloged_item.collection_object_id and
+					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+				)
+				group by
+					scientific_name,
+					taxon_name_id
+				order by
+			  		scientific_name
+			</cfquery>
+		<p>
+		ExecutionTime: #tmpResult.ExecutionTime#
+		</p>
+		<div style="max-height:20em;width: 50%; overflow:scroll;;">
+			<cfloop query="d">
+				<br>#scientific_name#
+			</cfloop>
+		</div>
+
+
+<hr>
+
+		<p>
+			Names only, has preferred classification
+		</p>
+			<cfquery name="d" result="tmpResult" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				SELECT
+			 		taxon_name.scientific_name,
+			  		taxon_name.taxon_name_id
+				from
+			  		taxon_name,
+			  		taxon_term,
+			  		collection
+				where
+					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
+			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+			  	)
+			  	group by
+			  		scientific_name,
+			  		taxon_name_id
+			  	order by
+			  		scientific_name
+			</cfquery>
+		<p>
+		ExecutionTime: #tmpResult.ExecutionTime#
+		</p>
+		<div style="max-height:20em;width: 50%; overflow:scroll;;">
+			<cfloop query="d">
+				<br>#scientific_name#
+			</cfloop>
+		</div>
+
 
 	</cfoutput>
 
