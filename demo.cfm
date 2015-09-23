@@ -220,7 +220,8 @@
 			<cfloop query="d">
 				<br>#scientific_name#
 				<cfquery name="thisclass" dbtype="query">
-					select term,POSITION_IN_CLASSIFICATION from raw where taxon_name_id=#d.taxon_name_id# order by POSITION_IN_CLASSIFICATION
+					select term,POSITION_IN_CLASSIFICATION from raw where taxon_name_id=#d.taxon_name_id#
+					group by  term,POSITION_IN_CLASSIFICATION order by POSITION_IN_CLASSIFICATION
 				</cfquery>
 				<cfloop query="thisclass">
 					<br>--#term#
