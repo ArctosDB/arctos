@@ -54,11 +54,71 @@
 		<p>
 		ExecutionTime: #tmpResult.ExecutionTime#
 		</p>
-		<div style="max-height:20em;">
+		<div style="max-height:20em;width: 50%; overflow:scroll;;">
 			<cfloop query="d">
 				<br>#scientific_name#
 			</cfloop>
 		</div>
+
+
+
+		<hr>
+
+		<p>
+			Names only, include relationships.
+		</p>
+			<cfquery name="d" result="tmpResult" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from (
+				SELECT
+					scientific_name,
+					taxon_name_id
+				from
+					taxon_name
+				where
+					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+				UNION
+				SELECT
+					a.scientific_name,
+					a.taxon_name_id
+				from
+					taxon_name a,
+					taxon_relations,
+					taxon_name b
+				where
+					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
+					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
+					UPPER(B.scientific_name) LIKE '#ucase(scientific_name)#%'
+				UNION
+				SELECT
+					b.scientific_name,
+					b.taxon_name_id
+				from
+					taxon_name a,
+					taxon_relations,
+					taxon_name b
+				where
+					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
+					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
+					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
+			)
+			where
+				taxon_name_id is not null
+			group by
+				scientific_name,
+				taxon_name_id
+			ORDER BY
+				scientific_name
+			</cfquery>
+		<p>
+		ExecutionTime: #tmpResult.ExecutionTime#
+		</p>
+		<div style="max-height:20em;width: 50%; overflow:scroll;;">
+			<cfloop query="d">
+				<br>#scientific_name#
+			</cfloop>
+		</div>
+
+
 	</cfoutput>
 
 
