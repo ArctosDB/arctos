@@ -212,7 +212,7 @@
 			  	group by
 			  		taxon_name.scientific_name,
 			  		taxon_name.taxon_name_id,
-			  		decode(taxon_term.taxon_name_id,null,'no','yes') hasclass
+			  		decode(taxon_term.taxon_name_id,null,'no','yes')
 			  	order by
 			  		taxon_name.scientific_name
 			</cfquery>
