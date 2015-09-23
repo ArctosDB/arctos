@@ -129,7 +129,6 @@
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#PreserveSingleQuotes(sql)#
 		</cfquery>
-		<cfloop
 		<cfif getTaxa.recordcount is 0>
 			<p>
 				No Match
