@@ -108,10 +108,11 @@
 				trans.transaction_id=#transaction_id#
 		</cfquery>
 		<p>
-			Review Items for loan #theLoan.collection# #theLoan.loan_number# (type: #theLoan.loan_type#)
+			Review Items for loan <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
+				#theLoan.collection# #theLoan.loan_number# (type: #theLoan.loan_type#)
+			</a>
 		</p>
 		<br><a href="loanItemReview.cfm?action=downloadCSV&transaction_id=#transaction_id#">Download (csv)</a> - non-data loans only!
-		<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to Edit Loan</a>
 		<br><a href="/SpecimenResults.cfm?loan_trans_id=#transaction_id#">View in SpecimenResults</a> (includes part and data loan items)
 		<cfquery name="getDataLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
