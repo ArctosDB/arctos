@@ -140,7 +140,7 @@
 			<p>This loan contains only parts; you can manage everything here.</p>
 		</cfif>
 		<hr>
-		Remove ALL PARTS from the loan. This form will NOT work with any "on loan" parts so use the disposition-updated first.
+		Remove ALL PARTS from the loan. This form will NOT work with any "on loan" parts; use the disposition-updater first.
 		<input type="hidden" id="transaction_id" value="#transaction_id#">
 		<form name="ddevrything" method="post" action="loanItemReview.cfm">
 			<input type="hidden" name="transaction_id" value="#transaction_id#">

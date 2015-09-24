@@ -204,10 +204,12 @@
 				from
 			  		taxon_name,
 			  		taxon_term,
-			  		collection
+			  		collection,
+			  		cataloged_item
 				where
 					taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
 					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE (+) and
+					collection.collection_id=cataloged_item.collection_id (+) and
 			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
 			  	group by
 			  		taxon_name.scientific_name,
