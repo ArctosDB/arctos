@@ -17,7 +17,7 @@
 		        $('##loanitems').jtable({
 		            title: 'Loan Items (excluding data loan specimens)',
 					paging: true, //Enable paging
-		            pageSize: 10, //Set page size (default: 10)
+		            pageSize: 100, //Set page size (default: 10)
 		            sorting: true, //Enable sorting
 		            defaultSorting: 'GUID ASC', //Set default sorting
 					columnResizable: true,
@@ -135,7 +135,7 @@
 			<br><a href="/SpecimenResults.cfm?data_loan_trans_id=#transaction_id#">View in SpecimenResults</a> (EXCLUDES part loan items)
 			<br><a href="loanItemReview.cfm?action=downloadCSV_data&transaction_id=#transaction_id#">Download (with specimen data)</a>
 			<br><a href="loanItemReview.cfm?action=downloadCSV_bulk&transaction_id=#transaction_id#">Download (in Data Loan Bulkloader format)</a>
-			<br><a href="##" onclick="deleteDataLoan('#transaction_id#');">DELETE them all</a>
+			<br><a href="##" onclick="deleteDataLoan('#transaction_id#');">REMOVE them all</a>
 		<cfelse>
 			<p>This loan contains only parts; you can manage everything here.</p>
 		</cfif>
