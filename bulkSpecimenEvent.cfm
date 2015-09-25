@@ -191,9 +191,9 @@
 					<strong>Specimen-Event Type</strong></th>
 				<th>Geography</th>
 				<th>Spec. Locality</th>
-				<th><strong>Collecting Method</strong></th>
-				<th><strong>Collecting Source</strong></th>
-				<th><strong>Verification Status</strong></th>
+				<th>Collecting Method</th>
+				<th>Collecting Source</th>
+				<th>Verification Status</th>
 				<th>Habitat</th>
 				<th>Verbatim Date</th>
 				<th>Verbatim Locality</th>
@@ -207,7 +207,7 @@
 						<input type="checkbox" name="exclSEID" value="#specimen_event_id#">
 					</td>
 					<td>#GUID#</td>
-					<td>#SPECIMEN_EVENT_TYPE#</td>
+					<td><strong>#SPECIMEN_EVENT_TYPE#</strong></td>
 					<td>#higher_geog#</td>
 					<td>#spec_locality#</td>
 					<td>#COLLECTING_METHOD#</td>
