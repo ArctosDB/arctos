@@ -7,23 +7,23 @@
 	<cfif len(collecting_event_id) gt 0>
 		<cfset sql=sql & " collecting_event_id=#collecting_event_id# ">
 	</cfif>
-	
+
 	<cfif len(specimen_event_type) gt 0>
 		<cfif len(sql) gt 0>
 			<cfset sql=sql & " , ">
 		</cfif>
-		
-		
+
+
 		<cfset sql=sql & " specimen_event_type='#specimen_event_type#' ">
 	</cfif>
-	
+
 	<cfif len(verificationstatus) gt 0>
 		<cfif len(sql) gt 0>
 			<cfset sql=sql & " , ">
 		</cfif>
 		<cfset sql=sql & " verificationstatus='#verificationstatus#' ">
 	</cfif>
-	
+
 	<cfif len(specimen_event_remark) gt 0>
 		<cfif len(sql) gt 0>
 			<cfset sql=sql & " , ">
@@ -34,7 +34,7 @@
 			<cfset sql=sql & " specimen_event_remark='#escapeQuotes(specimen_event_remark)#' ">
 		</cfif>
 	</cfif>
-	
+
 	<cfif len(collecting_method) gt 0>
 		<cfif len(sql) gt 0>
 			<cfset sql=sql & " , ">
@@ -45,8 +45,8 @@
 			<cfset sql=sql & " collecting_method='#escapeQuotes(collecting_method)#' ">
 		</cfif>
 	</cfif>
-	
-	
+
+
 	<cfif len(collecting_source) gt 0>
 		<cfif len(sql) gt 0>
 			<cfset sql=sql & " , ">
@@ -57,8 +57,8 @@
 			<cfset sql=sql & " collecting_source='#escapeQuotes(collecting_source)#' ">
 		</cfif>
 	</cfif>
-	
-	
+
+
 	<cfif len(habitat) gt 0>
 		<cfif len(sql) gt 0>
 			<cfset sql=sql & " , ">
@@ -69,7 +69,7 @@
 			<cfset sql=sql & " habitat='#escapeQuotes(habitat)#' ">
 		</cfif>
 	</cfif>
-	
+
 	<cfif len(sql) is 0>
 		nothing to update....
 		<p>
@@ -81,7 +81,7 @@
 		</cfquery>
 		<cflocation url="bulkSpecimenEvent.cfm?table_name=#table_name#" addtoken="false">
 	</cfif>
-</cfoutput>	
+</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -134,7 +134,7 @@
 			#table_name#.collection_object_id=specimen_event.collection_object_id (+) and
 			specimen_event.collecting_event_id=collecting_event.collecting_event_id (+) and
 			collecting_event.locality_id=locality.locality_id (+) and
-			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id (+) 
+			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id (+)
 			<cfif isdefined("exclSEID") and len(exclSEID) gt 0>
 				and specimen_event.specimen_event_id not in (#exclSEID#)
 			</cfif>
@@ -142,7 +142,7 @@
 			#table_name#.guid,
 			specimen_event.SPECIMEN_EVENT_TYPE
 	</cfquery>
-	
+
 	<cfquery name="seid" dbtype="query">
 		select SPECIMEN_EVENT_ID from d group by SPECIMEN_EVENT_ID
 	</cfquery>
@@ -174,9 +174,9 @@
 	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collecting_source from ctcollecting_source order by collecting_source
 	</cfquery>
-	
-	
-	
+
+
+
 	Specimen-events
 	<br>Note that this table is one row per specimen-event; specimens may be in this table multiple times.
 	<br>Check boxes and click button to remove specimen-events from the update.
@@ -187,12 +187,13 @@
 			<tr>
 				<th>Remove</th>
 				<th>GUID</th>
-				<th>Specimen-Event Type</th>
+				<th>
+					<strong>Specimen-Event Type</strong></th>
 				<th>Geography</th>
 				<th>Spec. Locality</th>
-				<th>Collecting Method</th>
-				<th>Collecting Source</th>
-				<th>Verification Status</th>
+				<th><strong>Collecting Method</strong></th>
+				<th<strong>>Collecting Source</strong></th>
+				<th><strong>Verification Status</strong></th>
 				<th>Habitat</th>
 				<th>Verbatim Date</th>
 				<th>Verbatim Locality</th>
@@ -220,7 +221,7 @@
 					<td>#SPECIMEN_EVENT_REMARK#</td>
 				</tr>
 			</cfloop>
-		</table>	
+		</table>
 		<input class="savBtn" type="submit" value="Remove Checked Rows">
 	</form>
 	<hr>
