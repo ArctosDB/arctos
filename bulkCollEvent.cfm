@@ -92,15 +92,15 @@
 		<form name="getCol" method="post" action="bulkCollEvent.cfm">
 			<input type="hidden" name="Action" value="findCollEvent">
 			<input type="hidden" name="table_name" value="#table_name#">
-			<cfinclude template="/includes/frmFindLocation_guts.cfm">	   
+			<cfinclude template="/includes/frmFindLocation_guts.cfm">
 		</form>
 	</cfoutput>
 </cfif>
 <cfif action is "nothing" or action is "findCollEvent">
 	<cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		 SELECT 
+		 SELECT
 		 	flat.collection_object_id,
-		 	flat.guid, 
+		 	flat.guid,
 			concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			flat.scientific_name,
 			collecting_event.collecting_event_id,
@@ -124,13 +124,13 @@
 			locality.spec_locality,
 			geog_auth_rec.higher_geog,
 			locality.locality_name
-		FROM 
+		FROM
 			flat,
 			specimen_event,
 			collecting_event,
 			locality,
 			geog_auth_rec
-		WHERE 
+		WHERE
 			flat.collection_object_id=specimen_event.collection_object_id (+) and
 			specimen_event.collecting_event_id=collecting_event.collecting_event_id (+) and
 			collecting_event.locality_id=locality.locality_id (+) and
@@ -138,16 +138,16 @@
 			flat.collection_object_id IN (select collection_object_id from #table_name#)
 	</cfquery>
 	<cfquery name="spec" dbtype="query">
-		select 
+		select
 			collection_object_id,
-		 	guid, 
+		 	guid,
 			CustomID,
 			scientific_name
 		from
 			specimenList
 		group by
 			collection_object_id,
-		 	guid, 
+		 	guid,
 			CustomID,
 			scientific_name
 	</cfquery>
@@ -157,7 +157,7 @@
 	<cfquery name="events_per_spec2" dbtype="query">
 		select count(*) x from events_per_spec where c != 1
 	</cfquery>
-	
+
 	<cfoutput>
 	<cfset allowReplace=false>
 	<div style="padding:1em; text-align:center; margin:1em; width:70%;border:2px solid red;">
@@ -181,23 +181,23 @@
 				</cfif>
 			<cfelse>
 				<br>NOT all accepted place of collection
-			</cfif> 
+			</cfif>
 		</cfif>
 		<cfif allowReplace is true>
 			<br><input type="button"
-					onclick="document.location='bulkCollEvent.cfm?action=deleteAll&table_name=#table_name#';" 
-				 	value="REMOVE all specimen events (presumably so you can add new ones)" 
+					onclick="document.location='bulkCollEvent.cfm?action=deleteAll&table_name=#table_name#';"
+				 	value="REMOVE all specimen events (presumably so you can add new ones)"
 					class="delBtn">
 			<hr>
 			OR edit common information in all specimen/events
 			<hr>
-			
-			
-			
-			
-				
+
+
+
+
+
 				<!-------
-				
+
 	    	specimen_event.assigned_date,
 			specimen_event.specimen_event_remark,
 			specimen_event.specimen_event_type,
@@ -205,22 +205,22 @@
 			specimen_event.COLLECTING_SOURCE,
 			specimen_event.VERIFICATIONSTATUS,
 			specimen_event.habitat,
-			
+
 			-------->
-			
+
 			<script language="javascript" type="text/javascript">
 				jQuery(document).ready(function() {
 					$("##assigned_date").datepicker();
 				});
 			</script>
-			
+
 			<div style=" text-align:left">
 				<cfform name="loc" method="post" action="bulkCollEvent.cfm">
 					<input type="hidden" name="action" value="saveChangeMultiEvent">
 					<input type="hidden" name="specimen_event_id" value="#valuelist(specimenList.specimen_event_id)#">
 					<input type="hidden" name="table_name" value="#table_name#">
-					
-					
+
+
 					<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 					</cfquery>
@@ -230,7 +230,7 @@
 				     <cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select VerificationStatus from ctVerificationStatus
 					</cfquery>
-					
+
 					<cfquery name="c_specimen_event_type" dbtype="query">
 						select specimen_event_type from specimenList group by specimen_event_type
 					</cfquery>
@@ -247,7 +247,7 @@
 							various - no edit allowed.
 						</div>
 					</cfif>
-					
+
 					<cfquery name="c_assignedBy" dbtype="query">
 						select assignedBy,assigned_by_agent_id from specimenList group by assignedBy,assigned_by_agent_id
 					</cfquery>
@@ -273,7 +273,7 @@
 							various - no edit allowed.
 						</div>
 					</cfif>
-					
+
 					<cfquery name="c_specimen_event_remark" dbtype="query">
 						select specimen_event_remark from specimenList group by specimen_event_remark
 					</cfquery>
@@ -285,7 +285,7 @@
 							various - no edit allowed.
 						</div>
 					</cfif>
-					
+
 					<cfquery name="c_habitat" dbtype="query">
 						select habitat from specimenList group by habitat
 					</cfquery>
@@ -297,8 +297,8 @@
 							various - no edit allowed.
 						</div>
 					</cfif>
-					
-					
+
+
 					<cfquery name="c_collecting_source" dbtype="query">
 						select collecting_source from specimenList group by collecting_source
 					</cfquery>
@@ -316,7 +316,7 @@
 							various - no edit allowed.
 						</div>
 					</cfif>
-					
+
 					<cfquery name="c_collecting_method" dbtype="query">
 						select collecting_method from specimenList group by collecting_method
 					</cfquery>
@@ -328,7 +328,7 @@
 							various - no edit allowed.
 						</div>
 					</cfif>
-					
+
 					<cfquery name="c_VerificationStatus" dbtype="query">
 						select VerificationStatus from specimenList group by VerificationStatus
 					</cfquery>
@@ -348,7 +348,7 @@
 					<br><input type="submit" value="update all specimen/events listed below" class="savBtn">
 				</cfform>
 			</div>
-		</cfif>		
+		</cfif>
 	</div>
 	<br><b>Specimens Being Changed:</b>
 		<table width="95%" border="1">
@@ -360,7 +360,7 @@
 			</tr>
 			<cfloop query="spec">
 				<cfquery name="thisEvents" dbtype="query">
-					select 
+					select
 						collecting_event_id,
 						assignedBy,
 			    		assigned_date,
@@ -387,7 +387,7 @@
 						collection_object_id=#collection_object_id#
 				</cfquery>
 				<tr>
-					<td><a href="/guid/#guid#">#guid#</a></td>	  
+					<td><a href="/guid/#guid#">#guid#</a></td>
 					<td>#CustomID#&nbsp;</td>
 					<td><i>#Scientific_Name#</i></td>
 					<td>
@@ -475,6 +475,12 @@
 									<td align="right">Geography</td>
 									<td>#higher_geog#</td>
 								</tr>
+								<tr>
+									<td align="right">Edit</td>
+									<td>
+										<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#">Collecting Event #collecting_event_id#</a>
+									</td>
+								</tr>
 							</table>
 						</cfloop>
 					</td>
@@ -491,8 +497,8 @@
 		<cftransaction>
 			<cfloop list="#specimen_event_id#" index="i">
 				<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update 
-						specimen_event 
+					update
+						specimen_event
 					set
 						<cfif isdefined("specimen_event_type") and len(specimen_event_type) gt 0>
 							specimen_event_type='#specimen_event_type#',
@@ -525,7 +531,7 @@
 			</cfloop>
 		</cftransaction>
 		<cflocation url="bulkCollEvent.cfm?table_name=#table_name#" addtoken="false">
-	</cfoutput>	
+	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
 
@@ -584,7 +590,7 @@
 					<td> <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
 					<td><a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a></td>
 					<td>
-						
+
 						<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
 							<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
 							<input type="hidden" name="table_name" value="#table_name#">
@@ -602,17 +608,17 @@
 								 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','coll#i#',this.value); return false;"
 								 onKeyPress="return noenter(event);">
 							<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
-			
+
 							<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
 							<input type="text" name="assigned_date" id="assigned_date" class="reqdClr" value="#dateformat(now(),'yyyy-mm-dd')#">
-							
-			
+
+
 							<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 							<input type="text" name="specimen_event_remark" id="specimen_event_remark" size="75">
-							
+
 							<label for="habitat">Habitat</label>
 							<input type="text" name="habitat" id="habitat" size="75">
-							
+
 							<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
 							<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 								<option value=""></option>
@@ -621,10 +627,10 @@
 								</cfloop>
 							</select>
 							<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
-				
+
 							<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
 							<input type="text" name="collecting_method" id="collecting_method" size="75">
-							
+
 							<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
 							<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 								<cfloop query="ctVerificationStatus">
@@ -633,28 +639,28 @@
 							</select>
 							<cfif allowReplace is true>
 								<br><input type="button"
-									onclick="coll#i#.action.value='replaceAll';coll#i#.submit();" 
-								 	value="REPLACE all specimens event with this event" 
+									onclick="coll#i#.action.value='replaceAll';coll#i#.submit();"
+								 	value="REPLACE all specimens event with this event"
 									class="savBtn">
 							<cfelse>
 								<br>Only additive tools are available for this specimen set
 							</cfif>
 							<br><input type="button"
-								onclick="coll#i#.action.value='addToAll';coll#i#.submit();" 
-							 	value="Add this event to all listed specimens (may remove the ability to bulk-update)" 
+								onclick="coll#i#.action.value='addToAll';coll#i#.submit();"
+							 	value="Add this event to all listed specimens (may remove the ability to bulk-update)"
 								class="insBtn">
 					</form>
-						
+
 						<!------
 
 					<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
 						<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 						<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
 						<input type="hidden" name="action" value="updateCollEvent">
-						<input type="submit" 
-							 	value="Change ALL listed specimens to this coll event" 
+						<input type="submit"
+							 	value="Change ALL listed specimens to this coll event"
 								class="savBtn"
-		   						onmouseover="this.className='savBtn btnhov'" 
+		   						onmouseover="this.className='savBtn btnhov'"
 								onmouseout="this.className='savBtn'">
 					</form>
 					-------->
