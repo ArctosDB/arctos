@@ -547,7 +547,7 @@ sho err
 		where
 			upper(username)='#ucase(session.username)#' and
 			guid_prefix is null and
-			other_id_type='UUID' and
+			EXISTING_OTHER_ID_TYPE='UUID' and
 			EXISTING_OTHER_ID_NUMBER is not null
 		group by
 			EXISTING_OTHER_ID_NUMBER
