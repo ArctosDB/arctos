@@ -564,7 +564,7 @@ sho err
 				collection.collection_id=cataloged_item.collection_id and
 				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
 				other_id_type='UUID' and
-				display_value='#other_id_number#'
+				display_value='#EXISTING_OTHER_ID_NUMBER#'
 		</cfquery>
 		<cfif gg.recordcount is 1>
 			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
