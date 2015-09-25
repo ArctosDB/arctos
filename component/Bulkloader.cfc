@@ -7,6 +7,54 @@
 	</cfquery>
 	<cfreturn cc.collection_cde>
 </cffunction>
+
+<!----------------------------------------------------------------------------------------->
+<cffunction name="saveNewIdentifier" access="remote" returnformat="json" queryformat="column">
+	<cfargument name="q" required="yes">
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
+	<cfoutput>
+		<cfloop list="#q#" index="kv" delimiters="&">
+			<cfset k=listfirst(kv,"=")>
+			<cfset v=replace(kv,k & "=",'')>
+			<cfset "#k#"=urldecode(v)>
+		</cfloop>
+		<cfset fatalerrstr="">
+		<cfset required="UUID,other_id_type,other_id_value,id_references">
+		<cfloop list="#required#" index="i">
+			<cfset thisVal=evaluate("variables." & i)>
+			<cfif len(thisVal) is 0>
+				<cfset fatalerrstr=listappend(fatalerrstr,'#i# is required',';')>
+			</cfif>
+		</cfloop>
+
+		<cfif len(fatalerrstr) is 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into cf_temp_oids (
+					status,
+					EXISTING_OTHER_ID_TYPE,
+					EXISTING_OTHER_ID_NUMBER,
+					NEW_OTHER_ID_TYPE,
+					NEW_OTHER_ID_NUMBER,
+					NEW_OTHER_ID_REFERENCES,
+					USERNAME
+				) values (
+					'linked to bulkloader',
+					'UUID',
+					'#uuid#',
+					'#other_id_type#',
+					'#escapeQuotes(other_id_value)#',
+					'#id_references#',
+					'#session.USERNAME#'
+				)
+			</cfquery>
+			<cfset fatalerrstr='success'>
+		</cfif>
+		<cfreturn fatalerrstr>
+	</cfoutput>
+</cffunction>
+
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewSpecimenAttribute" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
@@ -69,8 +117,8 @@
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
 	<cfoutput>
-		
-		
+
+
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
@@ -80,15 +128,15 @@
 
 
 	<cfset required="UUID,PART_NAME,DISPOSITION,CONDITION,LOT_COUNT">
-	
+
 	<cfloop list="#required#" index="i">
 		<cfset thisVal=evaluate("variables." & i)>
 		<cfif len(thisVal) is 0>
 			<cfset fatalerrstr=listappend(fatalerrstr,'#i# is required',';')>
 		</cfif>
 	</cfloop>
-	
-	
+
+
 		<cfif len(fatalerrstr) is 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_parts (
@@ -192,13 +240,13 @@
 				)
 			</cfquery>
 			<cfset fatalerrstr='success'>
-		
+
 
 
 
 
 		</cfif>
-		
+
 			<cfreturn fatalerrstr>
 	</cfoutput>
 </cffunction>
@@ -211,8 +259,8 @@
 <cffunction name="saveNewSpecimenEvent" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
 	<cfoutput>
-		
-		
+
+
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
@@ -225,20 +273,20 @@
 	<cfif variables.letype is "pick_event">
 		<cfset required=listappend(required,"collecting_event_id")>
 	</cfif>
-	
-	<!--- 
+
+	<!---
 		options:
 			pick_event=require collecting event ID
 			type_event=require event stuff + locality_id
 			type_locality: require event stuff, locality stuff, geog_auth_rec_id
 			pick_locality: require locality_id
-			
+
 		extension:
 			under type_locality ONLY
 				check orig_lat_long_units
 					if not null then require
 						datum n such
-					if DD then require....	
+					if DD then require....
 	--->
 	<cfif variables.letype is "pick_event">
 		<cfset required=listappend(required,"collecting_event_id")>
@@ -255,7 +303,7 @@
 			<cfif len(orig_elev_units) is 0 or len(minimum_elevation) is 0 or len(maximum_elevation) is 0>
 				<cfset fatalerrstr=listappend(fatalerrstr,'(orig_elev_units,minimum_elevation,maximum_elevation) must be all or none',';')>
 			</cfif>
-		</cfif>		
+		</cfif>
 		<cfif len(orig_lat_long_units) gt 0>
 			<cfif len(max_error_distance) gt 0 or len(max_error_units) gt 0>
 				<cfif len(max_error_distance) is 0 or len(max_error_units) is 0>
@@ -282,17 +330,17 @@
 			</cfif>
 		</cfif>
 	</cfif>
-	
-	
-	
+
+
+
 	<cfloop list="#required#" index="i">
 		<cfset thisVal=evaluate("variables." & i)>
 		<cfif len(thisVal) is 0>
 			<cfset fatalerrstr=listappend(fatalerrstr,'#i# is required',';')>
 		</cfif>
 	</cfloop>
-	
-	
+
+
 		<cfif len(fatalerrstr) is 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_specevent (
@@ -334,7 +382,7 @@
 					MINIMUM_ELEVATION,
 					MAXIMUM_ELEVATION,
 					ORIG_ELEV_UNITS,
-					
+
 					MAX_ERROR_DISTANCE,
 					MAX_ERROR_UNITS,
 					LOCALITY_REMARKS,
@@ -387,16 +435,16 @@
 					'#GEOREFERENCE_PROTOCOL#',
 					'#HIGHER_GEOG#'
 				)
-				
+
 			</cfquery>
 			<cfset fatalerrstr='success'>
-		
+
 
 
 
 
 		</cfif>
-		
+
 			<cfreturn fatalerrstr>
 	</cfoutput>
 </cffunction>
