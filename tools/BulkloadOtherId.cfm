@@ -48,6 +48,8 @@ alter table cf_temp_oids modify key  not null;
 
 create unique index iu_cf_temp_oids_key on cf_temp_oids(key) tablespace uam_idx_1;
 
+create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace uam_idx_1;
+
 
 ------>
 <cfif action is "template">
@@ -700,29 +702,24 @@ create unique index iu_cf_temp_oids_key on cf_temp_oids(key) tablespace uam_idx_
 		<cfquery name="d" datasource="uam_god">
 			select
 				count(*) c,
-				upper(username) username
-			from
-				cf_temp_oids
-			where
-				upper(username) != '#ucase(session.username)#' and
-				upper(username) in (
-					select
-						upper(grantee)
-					from
-						dba_role_privs
-					where
-						granted_role in (
-			        		select
-								c.portal_name
-							from
-								dba_role_privs d,
-								cf_collection c
-			        		where
-								d.granted_role = c.portal_name
-			        			and upper(d.grantee) = '#ucase(session.username)#'
-						) and
-					upper(grantee) in (select upper(grantee) from dba_role_privs where upper(granted_role) = 'DATA_ENTRY')
-					) group by upper(username) order by upper(username)
+				username
+			from cf_temp_oids
+			where upper(username) != '#ucase(session.username)#'
+			and upper(username) in (
+			        select distinct grantee
+			        from dba_role_privs
+			        where granted_role in (
+			                select c.portal_name
+			                from dba_role_privs d, cf_collection c
+			                where d.granted_role = c.portal_name
+			                and d.grantee = '#ucase(session.username)#')
+			        and grantee in (
+			                select grantee
+			                from dba_role_privs
+			                where granted_role = 'DATA_ENTRY')
+			)
+			group by username
+			order by username
 		</cfquery>
 		<form name="d" method="post" action="BulkloadOtherId.cfm">
 			<input type="hidden" name="action" value="saveClaimed">

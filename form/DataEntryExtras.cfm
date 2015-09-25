@@ -515,7 +515,7 @@
 	<cfelse>
 		<cfoutput>
 			<p>There are #ese.recordcount# external IDs for this UUID/entry. (View details under
-			<a href="/tools/BulkloadOtherID.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
+			<a href="/tools/BulkloadOtherId.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
 			<table border>
 				<tr>
 					<th>Type</th>
