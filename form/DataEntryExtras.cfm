@@ -1,96 +1,6 @@
 <cfif action is "addIdReln">
-	<!----
 <script>
 		jQuery(document).ready(function() {
-			$("#attribute_date").datepicker();
-			$( "#attribute_type" ).change(function() {
-				$.ajax({
-					url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
-					type: "GET",
-					dataType: "json",
-					data: {
-						method:  "getAttCodeTbl",
-						attribute: $( "#attribute_type" ).val(),
-						guid_prefix: $( "#guid_prefix" ).val(),
-						element: 'nothing'
-					},
-					success: function(r) {
-						var result=r.DATA;
-						var resType=result.V[0];
-						var x;
-						var n=result.V.length;
-						$("#attrvalcell").html('');
-						$("#attrunitcell").html('');
-						if (resType == 'value'){
-							// value pick, no units
-							var s=document.createElement('SELECT');
-							s.name='attribute_value';
-							s.id=s.name;
-							var a = document.createElement("option");
-							a.text = '';
-					    	a.value = '';
-							s.appendChild(a);
-							for (i=2;i<result.V.length;i++) {
-								var theStr = result.V[i];
-								if(theStr=='_yes_'){
-									theStr='yes';
-								}
-								if(theStr=='_no_'){
-									theStr='no';
-								}
-								var a = document.createElement("option");
-								a.text = theStr;
-								a.value = theStr;
-								s.appendChild(a);
-							}
-							$("#attrvalcell").append('<label for="attribute_value">Value</label>');
-							$("#attrvalcell").append(s);
-							$("#attribute_value").select();
-							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">');
-						} else if (resType == 'units') {
-							var s=document.createElement('SELECT');
-							s.name='attribute_units';
-							s.id=s.name;
-							var a = document.createElement("option");
-							a.text = '';
-					    	a.value = '';
-							s.appendChild(a);
-							for (i=2;i<result.V.length;i++) {
-								var theStr = result.V[i];
-								if(theStr=='_yes_'){
-									theStr='yes';
-								}
-								if(theStr=='_no_'){
-									theStr='no';
-								}
-								var a = document.createElement("option");
-								a.text = theStr;
-								a.value = theStr;
-								s.appendChild(a);
-							}
-							$("#attrunitcell").append('<label for="attribute_units">Units</label>');
-							$("#attrunitcell").append(s);
-							var s='<label for="attribute_value">Value</label><input type="number" step="any" class="reqdClr" required name="attribute_value" id="attribute_value">';
-							$("#attrvalcell").append(s);
-
-							$("#attribute_value").focus();
-							$("#attribute_units").addClass('reqdClr').prop('required',true);
-						} else if (resType == 'NONE') {
-							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
-							$("#attrvalcell").append(s);
-							$("#attribute_value").focus();
-							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">');
-
-						} else {
-							alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
-						}
-
-					},
-					error: function (xhr, textStatus, errorThrown){
-					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-					}
-				});
-			});
 
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
@@ -103,12 +13,12 @@
 					type: "GET",
 					dataType: "json",
 					data: {
-						method:  "saveNewSpecimenAttribute",
+						method:  "saveNewIdentifier",
 						q: $('#theForm').serialize()
 					},
 					success: function(r) {
 						if (r=='success'){
-							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen attribute.");
+							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another ID.");
 							if( retVal == true ){
 						    	$("#dialog").dialog('close');
 						 	}
@@ -123,7 +33,6 @@
 			});
 		});
 	</script>
-	---->
 	<cfoutput>
 		<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select other_id_type from ctcoll_other_id_type order by other_id_type
@@ -136,33 +45,23 @@
 		<form name="theForm" id="theForm">
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
-		    <table>
-		      <tr>
-		        <td>
-			        <label for="other_id_type">ID Type</label>
-					<select name="other_id_type" id="other_id_type" size="1">
-						<cfloop query="ctType">
-							<option></option>
-							<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-			        <label for="other_id_value">ID Value</label>
-					<input type="text" name="other_id_value" id="other_id_value">
-				</td>
-		        <td>
-			        <label for="id_references">ID References</label>
-					<select name="id_references" id="id_references" size="1">
-						<cfloop query="ctType">
-							<option></option>
-							<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td><input type="submit" value="save"></td>
-			</tr>
-	    </table>
+			 <label for="other_id_type">ID Type</label>
+			<select name="other_id_type" id="other_id_type" size="1">
+				<cfloop query="ctType">
+					<option></option>
+					<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
+				</cfloop>
+			</select>
+			<label for="other_id_value">ID Value</label>
+			<input type="text" name="other_id_value" id="other_id_value">
+			<label for="id_references">ID References</label>
+			<select name="id_references" id="id_references" size="1">
+				<cfloop query="ctType">
+					<option></option>
+					<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
+				</cfloop>
+			</select>
+			<br><input type="submit" value="save">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------->
