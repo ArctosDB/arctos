@@ -181,6 +181,7 @@
 	<br>Note that this table is one row per specimen-event; specimens may be in this table multiple times.
 	<br>Check boxes and click button to remove specimen-events from the update.
 	<br>When this table contains only the specimen-events you want to update, use the <a href="##editForm">form below</a>.
+	<br><strong>Bold data</strong> are event data; others are pulled from related nodes (specimens, geography, etc.) and are displayed here as context.
 	<form method="post" action="bulkSpecimenEvent.cfm">
 		<input type="hidden" name="table_name" value="#table_name#">
 		<table border id="t" class="sortable">
@@ -210,9 +211,9 @@
 					<td><strong>#SPECIMEN_EVENT_TYPE#</strong></td>
 					<td>#higher_geog#</td>
 					<td>#spec_locality#</td>
-					<td>#COLLECTING_METHOD#</td>
-					<td>#COLLECTING_SOURCE#</td>
-					<td>#VERIFICATIONSTATUS#</td>
+					<td><strong>#COLLECTING_METHOD#</strong></td>
+					<td><strong>#COLLECTING_SOURCE#</strong></td>
+					<td><strong>#VERIFICATIONSTATUS#</strong></td>
 					<td>#HABITAT#</td>
 					<td>#VERBATIM_DATE#</td>
 					<td>#VERBATIM_LOCALITY#</td>
