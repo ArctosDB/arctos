@@ -42,6 +42,13 @@ create table cf_temp_oids (
 sho err
 
 
+-- allow data entry
+alter table cf_temp_oids modify guid_prefix null;
+alter table cf_temp_oids modify key  not null;
+
+create unique index iu_cf_temp_oids_key on cf_temp_oids(key) tablespace uam_idx_1;
+
+
 ------>
 <cfif action is "template">
 	<cfoutput>
@@ -538,6 +545,7 @@ sho err
 		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>
+<!-------------------------------------------------------------------------------->
 <cfif action is "getGuidPrefixFromUUID">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -566,13 +574,16 @@ sho err
 				other_id_type='UUID' and
 				display_value='#EXISTING_OTHER_ID_NUMBER#'
 		</cfquery>
+		<cfdump var=#gg#>
 		<cfif gg.recordcount is 1>
 			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_oids set guid_prefix='#gg.guid_prefix#' where EXISTING_OTHER_ID_NUMBER='#EXISTING_OTHER_ID_NUMBER#'
 			</cfquery>
 		</cfif>
 	</cfloop>
+	<!---
 	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
+	--->
 </cfif>
 
 
