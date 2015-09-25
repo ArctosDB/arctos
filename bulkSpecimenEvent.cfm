@@ -192,7 +192,7 @@
 				<th>Geography</th>
 				<th>Spec. Locality</th>
 				<th><strong>Collecting Method</strong></th>
-				<th<strong>>Collecting Source</strong></th>
+				<th><strong>Collecting Source</strong></th>
 				<th><strong>Verification Status</strong></th>
 				<th>Habitat</th>
 				<th>Verbatim Date</th>
