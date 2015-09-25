@@ -1,3 +1,169 @@
+<cfif action is "addIdReln">
+<script>
+		jQuery(document).ready(function() {
+			$("#attribute_date").datepicker();
+			$( "#attribute_type" ).change(function() {
+				$.ajax({
+					url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "getAttCodeTbl",
+						attribute: $( "#attribute_type" ).val(),
+						guid_prefix: $( "#guid_prefix" ).val(),
+						element: 'nothing'
+					},
+					success: function(r) {
+						var result=r.DATA;
+						var resType=result.V[0];
+						var x;
+						var n=result.V.length;
+						$("#attrvalcell").html('');
+						$("#attrunitcell").html('');
+						if (resType == 'value'){
+							// value pick, no units
+							var s=document.createElement('SELECT');
+							s.name='attribute_value';
+							s.id=s.name;
+							var a = document.createElement("option");
+							a.text = '';
+					    	a.value = '';
+							s.appendChild(a);
+							for (i=2;i<result.V.length;i++) {
+								var theStr = result.V[i];
+								if(theStr=='_yes_'){
+									theStr='yes';
+								}
+								if(theStr=='_no_'){
+									theStr='no';
+								}
+								var a = document.createElement("option");
+								a.text = theStr;
+								a.value = theStr;
+								s.appendChild(a);
+							}
+							$("#attrvalcell").append('<label for="attribute_value">Value</label>');
+							$("#attrvalcell").append(s);
+							$("#attribute_value").select();
+							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">');
+						} else if (resType == 'units') {
+							var s=document.createElement('SELECT');
+							s.name='attribute_units';
+							s.id=s.name;
+							var a = document.createElement("option");
+							a.text = '';
+					    	a.value = '';
+							s.appendChild(a);
+							for (i=2;i<result.V.length;i++) {
+								var theStr = result.V[i];
+								if(theStr=='_yes_'){
+									theStr='yes';
+								}
+								if(theStr=='_no_'){
+									theStr='no';
+								}
+								var a = document.createElement("option");
+								a.text = theStr;
+								a.value = theStr;
+								s.appendChild(a);
+							}
+							$("#attrunitcell").append('<label for="attribute_units">Units</label>');
+							$("#attrunitcell").append(s);
+							var s='<label for="attribute_value">Value</label><input type="number" step="any" class="reqdClr" required name="attribute_value" id="attribute_value">';
+							$("#attrvalcell").append(s);
+
+							$("#attribute_value").focus();
+							$("#attribute_units").addClass('reqdClr').prop('required',true);
+						} else if (resType == 'NONE') {
+							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
+							$("#attrvalcell").append(s);
+							$("#attribute_value").focus();
+							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">');
+
+						} else {
+							alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
+						}
+
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
+			});
+
+			$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
+
+			$( "#theForm" ).submit(function( event ) {
+				event.preventDefault();
+				$.ajax({
+					url: "/component/Bulkloader.cfc?queryformat=column",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "saveNewSpecimenAttribute",
+						q: $('#theForm').serialize()
+					},
+					success: function(r) {
+						if (r=='success'){
+							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen attribute.");
+							if( retVal == true ){
+						    	$("#dialog").dialog('close');
+						 	}
+						} else {
+							alert('Error: ' + r);
+						}
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
+			});
+		});
+	</script>
+	<cfoutput>
+		<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select other_id_type from ctcoll_other_id_type order by other_id_type
+		</cfquery>
+		<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select id_references from ctid_references order by id_references
+		</cfquery>
+
+	    <label for="theForm"></label>Add ID/Relationship</label>
+		<form name="theForm" id="theForm">
+			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
+			<input type="hidden" name="nothing" id="nothing">
+		    <table>
+		      <tr>
+		        <td>
+			        <label for="other_id_type">ID Type</label>
+					<select name="other_id_type" id="other_id_type" size="1">
+						<cfloop query="ctType">
+							<option></option>
+							<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+			        <label for="other_id_value">ID Value</label>
+					<input type="text" name="other_id_value" id="other_id_value">
+				</td>
+		        <td>
+			        <label for="id_references">ID References</label>
+					<select name="id_references" id="id_references" size="1">
+						<cfloop query="ctType">
+							<option></option>
+							<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td><input type="submit" value="save"></td>
+			</tr>
+	    </table>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------->
 <cfif action is "addAttribute">
 <script>
 		jQuery(document).ready(function() {
@@ -71,7 +237,7 @@
 							$("#attrunitcell").append(s);
 							var s='<label for="attribute_value">Value</label><input type="number" step="any" class="reqdClr" required name="attribute_value" id="attribute_value">';
 							$("#attrvalcell").append(s);
-							
+
 							$("#attribute_value").focus();
 							$("#attribute_units").addClass('reqdClr').prop('required',true);
 						} else if (resType == 'NONE') {
@@ -83,7 +249,7 @@
 						} else {
 							alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 						}
-						
+
 					},
 					error: function (xhr, textStatus, errorThrown){
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
@@ -94,7 +260,7 @@
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
-			
+
 			$( "#theForm" ).submit(function( event ) {
 				event.preventDefault();
 				$.ajax({
@@ -110,7 +276,7 @@
 							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen attribute.");
 							if( retVal == true ){
 						    	$("#dialog").dialog('close');
-						 	} 
+						 	}
 						} else {
 							alert('Error: ' + r);
 						}
@@ -124,21 +290,21 @@
 	</script>
 	<cfoutput>
 		<cfquery name="CTATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	       	select 
-	       		attribute_type 
-	       	from 
+	       	select
+	       		attribute_type
+	       	from
 	       		CTATTRIBUTE_TYPE,
 	       		collection
 	       	where collection.collection_cde=CTATTRIBUTE_TYPE.collection_cde and
 	       	collection.guid_prefix='#guid_prefix#' group by attribute_type order by attribute_type
 	    </cfquery>
-	  
+
 	    <label for="theForm"></label>Add Specimen Attribute</label>
 		<form name="theForm" id="theForm">
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
 		    <table>
-		      <tr> 
+		      <tr>
 		        <td>
 					<label for="attribute_type">Attribute</label>
 					<select name="attribute_type" id="attribute_type" required>
@@ -159,7 +325,7 @@
 					<label for="attribute_determiner">Determiner</label>
 					<input type="text" name="attribute_determiner" id="attribute_determiner" class="reqdClr" value="#session.username#"
 						onchange="getAgent('determined_by_agent_id','attribute_determiner','theForm',this.value); return false;"
-						onKeyPress="return noenter(event);">					 
+						onKeyPress="return noenter(event);">
 				</td>
 			</tr>
 			<tr>
@@ -174,7 +340,7 @@
 			</tr>
 	    </table>
 		<input type="submit" value="Save Attribute">
-	</cfoutput>	
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
 <cfif action is "addPart">
@@ -186,7 +352,7 @@
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
-			
+
 			$( "#theForm" ).submit(function( event ) {
 				event.preventDefault();
 				$.ajax({
@@ -202,7 +368,7 @@
 							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen part.");
 							if( retVal == true ){
 						    	$("#dialog").dialog('close');
-						 	} 
+						 	}
 						} else {
 							alert('Error: ' + r);
 						}
@@ -218,7 +384,7 @@
 			if ($("#part_attribute_type_" + i).val().length > 0) {
 				$("#part_attribute_value_" + i).addClass('reqdClr').prop('required',true);
 			} else {
-				
+
 				$("#part_attribute_value_" + i).removeClass().prop('required',false);
 			}
 		}
@@ -226,13 +392,13 @@
 
 	<cfoutput>
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	       	select 
+	       	select
 	       		ctspecimen_part_name.part_name,
 	       		collection.collection_cde
-	       	from 
+	       	from
 	       		ctspecimen_part_name,
-	       		collection  
-	       	where 
+	       		collection
+	       	where
 	       		collection.collection_cde=ctspecimen_part_name.collection_cde and
 	       		collection.guid_prefix='#guid_prefix#'
 	       	group by ctspecimen_part_name.part_name,
@@ -241,8 +407,8 @@
 	    <cfquery name="cc" dbtype="query">
 	    	select distinct collection_cde from ctspecimen_part_name
 	    </cfquery>
-	    
-	    
+
+
 	    <cfquery name="CTSPECPART_ATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select ATTRIBUTE_TYPE from CTSPECPART_ATTRIBUTE_TYPE group by ATTRIBUTE_TYPE  order by ATTRIBUTE_TYPE
 	    </cfquery>
@@ -257,11 +423,11 @@
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
 		    <table>
-		      <tr> 
+		      <tr>
 		        <td>
 					<label for="part_name">Part Name</label>
 					<input type="text" name="part_name" id="part_name" class="reqdClr"
-						onchange="findPart(this.id,this.value,'#cc.collection_cde#');" 
+						onchange="findPart(this.id,this.value,'#cc.collection_cde#');"
 						onkeypress="return noenter(event);">
 				</td>
 		        <td>
@@ -323,7 +489,7 @@
 							              <option value="#CTSPECPART_ATTRIBUTE_TYPE.ATTRIBUTE_TYPE#">#CTSPECPART_ATTRIBUTE_TYPE.ATTRIBUTE_TYPE#</option>
 							            </cfloop>
 							          </select>
-				          
+
 								</td>
 								<td>
 									<input type="text" name="part_attribute_value_#i#" id="part_attribute_value_#i#">
@@ -349,9 +515,9 @@
 			</tr>
     </table>
 	<input type="submit" value="Save Part">
-	</cfoutput>	
+	</cfoutput>
 </cfif>
-
+<!----------------------------------------------------------------->
 <cfif action is "seeWhatsThere">
 	<cfset numPartAttrs=6>
 	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -361,7 +527,7 @@
 		<p>There are no external specimen-events for this UUID/entry</p>
 	<cfelse>
 		<cfoutput>
-			<p>There are #ese.recordcount# external specimen-events for this UUID/entry. (View details under 
+			<p>There are #ese.recordcount# external specimen-events for this UUID/entry. (View details under
 			<a href="/tools/BulkloadSpecimenEvent.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
 			<table border>
 				<tr>
@@ -381,8 +547,8 @@
 			</table>
 		</cfoutput>
 	</cfif>
-	
-	
+
+
 	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from  cf_temp_parts  where other_id_number='#UUID#'
 	</cfquery>
@@ -390,7 +556,7 @@
 		<p>There are no external specimen parts for this UUID/entry</p>
 	<cfelse>
 		<cfoutput>
-			<p>There are #ese.recordcount# external specimen parts for this UUID/entry. (View details under 
+			<p>There are #ese.recordcount# external specimen parts for this UUID/entry. (View details under
 			<a href="/tools/BulkloadParts.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
 			<table border>
 				<tr>
@@ -407,7 +573,7 @@
 							<cfset pattrs=listappend(pattrs,"#thisAttr#=#thisVal#",";")>
 						</cfif>
 					</cfloop>
-				
+
 					<tr>
 						<td>#part_name#</td>
 						<td>#container_barcode#</td>
@@ -424,7 +590,7 @@
 		<p>There are no external specimen attributes for this UUID/entry</p>
 	<cfelse>
 		<cfoutput>
-			<p>There are #ese.recordcount# external specimen attributes for this UUID/entry. (View details under 
+			<p>There are #ese.recordcount# external specimen attributes for this UUID/entry. (View details under
 			<a href="/tools/BulkloadAttributes.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
 			<table border>
 				<tr>
@@ -443,14 +609,14 @@
 </cfif>
 <cfif action is "help">
 	<p>
-		This form extends the specimen bulkloader to include non-specimen bulkloaders. This is a limited-scope form; 
-		for specimen-events, most limitations may be bypassed by pre-creating collecting events or localities. 
+		This form extends the specimen bulkloader to include non-specimen bulkloaders. This is a limited-scope form;
+		for specimen-events, most limitations may be bypassed by pre-creating collecting events or localities.
 	</p>
 	<p>
 		After specimens exist, load data through the appropriate loader in EnterData/BatchTools.
 	</p>
 	<p>
-		To use this form, other_id_num_type_4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
+		To use this form, other_id_num_type_4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It
 		is recommended to allow the application to generate these values; simply leave other_id_4 NULL to do so.
 	</p>
 	<p>
@@ -488,7 +654,7 @@
 							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen-event.");
 							if( retVal == true ){
 						    	$("#dialog").dialog('close');
-						 	} 
+						 	}
 						} else {
 							alert('Error: ' + r);
 						}
@@ -511,7 +677,7 @@
 				$("#opnPickLocalityDiv").show();
 				// type locality off
 				$("#opnEnterkLocalityDiv").hide();
-				
+
 				$("#letype").val('type_event');
 			} else {
 				// clicked from "type event" to "pick event"
@@ -538,7 +704,7 @@
 			}
 		}
 
-		function pickLL(OrigUnits){	
+		function pickLL(OrigUnits){
 			var dms=$("#mptab").find("[id='dms']");
 			var ddm=$("#mptab").find("[id='ddm']");
 			var dd=$("#mptab").find("[id='dd']");
@@ -674,7 +840,7 @@
 									</td>
 									<td><input type="button" class="lnkBtn" value="Type Event Instead" onclick="typeEvent('on');"></td>
 								</tr>
-								
+
 							</table>
 						</div>
 					</td>
@@ -714,7 +880,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td colspan="4">									
+									<td colspan="4">
 										<div class="grpDiv" id="opnPickLocalityDiv">
 										<label for="opnPickLocalityDiv">Pick a Locality</label>
 											<table>
@@ -723,9 +889,9 @@
 														<label for="locality_name">Pick Locality By Nickname</label>
 														<input type="text" name="locality_name" class="" id="locality_name" size="60"
 															onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
-														<input type="button" class="picBtn" value="more pick options" 
+														<input type="button" class="picBtn" value="more pick options"
 															onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">
-															<input type="hidden" name="locality_id" id="locality_id" class="readClr" size="8">							
+															<input type="hidden" name="locality_id" id="locality_id" class="readClr" size="8">
 													</td>
 													<td>
 														<label for="pickedSpecloc">Picked SpecificLocality</label>
@@ -734,7 +900,7 @@
 													</td>
 												</tr>
 											</table>
-											
+
 										</div>
 									</td>
 								</tr>
@@ -744,7 +910,7 @@
 				</tr>
 				<tr>
 					<td colspan="4" >
-						
+
 						<div class="grpDiv" id="opnEnterkLocalityDiv" style="display:none;">
 							<label for="opnPickLocalityDiv">Create a Locality</label>
 							<table>
@@ -753,9 +919,9 @@
 										<label for="higher_geog">Pick Higher Geography</label>
 										<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
 											onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
-											
+
 										<input type="button" class="lnkBtn" value="Pick Locality Instead" onclick="typeLocality('off');">
-	
+
 									</td>
 								</tr>
 								<tr>
@@ -837,8 +1003,8 @@
 														</select>
 													</td>
 												</tr>
-	
-	
+
+
 												<tr>
 													<td align="right"><span class="f11a">Georeference Source</span></td>
 													<td colspan="3" nowrap="nowrap">
@@ -1031,7 +1197,7 @@
 							</table>
 						</div>
 					</td>
-				</tr>		
+				</tr>
 			</table>
 			<input type="submit" value="Save Event">
 		</form>
