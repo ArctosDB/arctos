@@ -538,6 +538,46 @@ sho err
 		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>
+<cfif action is "getGuidPrefixFromUUID">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			EXISTING_OTHER_ID_NUMBER
+		from
+			cf_temp_oids
+		where
+			upper(username)='#ucase(session.username)#' and
+			guid_prefix is null and
+			other_id_type='UUID' and
+			EXISTING_OTHER_ID_NUMBER is not null
+		group by
+			EXISTING_OTHER_ID_NUMBER
+	</cfquery>
+	<cfloop query="mine">
+		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				guid_prefix
+			from
+				collection,
+				cataloged_item,
+				coll_obj_other_id_num
+			where
+				collection.collection_id=cataloged_item.collection_id and
+				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				other_id_type='UUID' and
+				display_value='#other_id_number#'
+		</cfquery>
+		<cfif gg.recordcount is 1>
+			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cf_temp_oids set guid_prefix='#gg.guid_prefix#' where EXISTING_OTHER_ID_NUMBER='#EXISTING_OTHER_ID_NUMBER#'
+			</cfquery>
+		</cfif>
+	</cfloop>
+	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
+</cfif>
+
+
+
+
 <!------------------------------------------------------->
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
@@ -602,6 +642,7 @@ sho err
 		<p><a href="BulkloadOtherId.cfm?action=getCSV">download CSV</a> (delete status column to re-load)</p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
+		<p><a href="BulkloadOtherId.cfm?action=getGuidPrefixFromUUID">Get Guid Prefix from UUID</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all <sup>[1]</sup>existing data</a></p>
 		<span style="margin:1em;padding: 1em; background-color:lightgray; font-size:small;">
 			[1] "All" in this case is extremely limited in scope; it's what you can see here, in this page, right now: things in
