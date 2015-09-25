@@ -574,21 +574,14 @@ create unique index iu_cf_temp_oids_key on cf_temp_oids(key) tablespace uam_idx_
 				other_id_type='UUID' and
 				display_value='#EXISTING_OTHER_ID_NUMBER#'
 		</cfquery>
-		<cfdump var=#gg#>
 		<cfif gg.recordcount is 1>
 			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_oids set guid_prefix='#gg.guid_prefix#' where EXISTING_OTHER_ID_NUMBER='#EXISTING_OTHER_ID_NUMBER#'
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<!---
 	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
-	--->
 </cfif>
-
-
-
-
 <!------------------------------------------------------->
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
@@ -650,9 +643,19 @@ create unique index iu_cf_temp_oids_key on cf_temp_oids(key) tablespace uam_idx_
 		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=getGuidPrefixFromUUID">Get Guid Prefix from UUID</a></p>
-		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all of your records from the loader</a></p>
+		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all of your records from this loader</a></p>
+		<cfif session.roles contains "manage_collection">
+			You have manage_collection, so you can "take" records from people in your collection(s). This is useful when students
+			(who should generally not have access to this form) enter data here via the specimen bulkloader. Records which
+			are still in the bulkloader will fail validation; they become your responsibility after you claim them, so
+			make sure they are not deleted until the specimen exists and they are
+			attached to it.
 
-
+			<br>NOT ALL OF THESE WILL NECESSARILY BE YOUR SPECIMENS!! Read stuff, then click.
+			<br>Use this with great caution. You may need to coordinate with other curatorial staff or involve a DBA.
+			<br><a href="BulkloadOtherId.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
+			<hr>
+		</cfif>
 		<form name="f" method="pos" action="BulkloadOtherId.cfm">
 			<input name="action" value="deleteChecked" type="hidden">
 			<input type="submit" value="delete checked">
@@ -689,6 +692,66 @@ create unique index iu_cf_temp_oids_key on cf_temp_oids(key) tablespace uam_idx_
 			<input type="submit" value="delete checked">
 		</form>
 	</cfoutput>
+</cfif>
+<!------------------------------------------------------->
+<cfif action is "takeStudentRecords">
+	<cfoutput>
+		<a href="BulkloadOtherId.cfm?action=managemystuff">back to my stuff</a>
+		<cfquery name="d" datasource="uam_god">
+			select
+				count(*) c,
+				upper(username) username
+			from
+				cf_temp_oids
+			where
+				upper(username) != '#ucase(session.username)#' and
+				upper(username) in (
+					select
+						upper(grantee)
+					from
+						dba_role_privs
+					where
+						granted_role in (
+			        		select
+								c.portal_name
+							from
+								dba_role_privs d,
+								cf_collection c
+			        		where
+								d.granted_role = c.portal_name
+			        			and upper(d.grantee) = '#ucase(session.username)#'
+						) and
+					upper(grantee) in (select upper(grantee) from dba_role_privs where upper(granted_role) = 'DATA_ENTRY')
+					) group by upper(username) order by upper(username)
+		</cfquery>
+		<form name="d" method="post" action="BulkloadOtherId.cfm">
+			<input type="hidden" name="action" value="saveClaimed">
+			<table border id="t" class="sortable">
+				<tr>
+					<th>Claim</th>
+					<th>User</th>
+					<th>Count</th>
+				</tr>
+				<cfloop query="d">
+					<tr>
+						<td><input type="checkbox" name="username" value="#username#"></td>
+						<td>#username#</td>
+						<td>#c#</td>
+					</tr>
+				</cfloop>
+			</table>
+			<br>
+			<input type="submit" value="Claim all checked records for checked users">
+		</form>
+	</cfoutput>
+</cfif>
+
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "saveClaimed">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_oids set username='#ucase(session.username)#' where upper(username) in (#listqualify(username,"'")#)
+	</cfquery>
+	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "deleteChecked">
