@@ -56,9 +56,9 @@
 			<input type="text" name="other_id_value" id="other_id_value">
 			<label for="id_references">ID References</label>
 			<select name="id_references" id="id_references" size="1">
-				<cfloop query="ctType">
-					<option></option>
-					<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
+				<cfloop query="ctid_references">
+					<option	<cfif ctid_references.id_references is "self"> selected="selected"</cfif>
+						value="#ctid_references.id_references#">#ctid_references.id_references#</option>
 				</cfloop>
 			</select>
 			<br><input type="submit" value="save">
