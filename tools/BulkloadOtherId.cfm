@@ -592,10 +592,11 @@ sho err
 				Records will be deleted when they're successfully loaded.
 			</p>
 			<p>
-				You will see an option to load when status for all records is "valid." Change status by fixing data and clicking validate.
+				Change status by fixing problems and clicking validate. Re-validate after anything has changed.
 			</p>
 			<p>
-				If you cannot see the "finalize load" link and have clicked anything since you last clicked "validate," click "validate.
+				Use "get GUID Prefix" to find specimens added here from the specimen bulkloader and linked via UUID. This will
+				only work after the relevant specimen has been loaded to Arctos.
 			</p>
 		</div>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -605,11 +606,6 @@ sho err
 			where cf_temp_recip_oids.collection_id=collection.collection_id and collection.collection_id in (
 			select collection_id from cataloged_item) group by collection.collection,collection.collection_id order by collection.collection
 		</cfquery>
-		<cfif recip.recordcount gt 0>
-			<p>
-				Reciprocal relationships for your collection(s) have been detected. <a href="BulkloadOtherId.cfm?action=getRecip">check them here</a>
-			</p>
-		</cfif>
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				cf_temp_oids.KEY,
@@ -630,54 +626,65 @@ sho err
 				cf_temp_oids.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID (+) and
 				upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfquery name="data" dbtype="query">
-			select * from raw  where status ='valid'
-		</cfquery>
-		<cfif data.recordcount is raw.recordcount>
-			<a href="BulkloadOtherId.cfm?action=loadData">Finalize load</a>
+		<cfif recip.recordcount gt 0>
+			<p>
+				Reciprocal relationships for your collection(s) have been detected.
+				<a href="BulkloadOtherId.cfm?action=getRecip">check them here</a>
+			</p>
 		</cfif>
+		<a href="BulkloadOtherId.cfm?action=loadData">Load ("Valid" only)</a>
 		<p><a href="BulkloadOtherId.cfm?action=nothing">upload CSV</a></p>
-
 		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=getCSV">download CSV</a> (delete status column to re-load)</p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=getGuidPrefixFromUUID">Get Guid Prefix from UUID</a></p>
-		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all <sup>[1]</sup>existing data</a></p>
-		<span style="margin:1em;padding: 1em; background-color:lightgray; font-size:small;">
-			[1] "All" in this case is extremely limited in scope; it's what you can see here, in this page, right now: things in
-			Arctos' Other ID Bulkloader with username #session.username# attached to them.
-		</span>
-		<div>&nbsp;</div>
-		<table border id="t" class="sortable">
-			<tr>
-				<th>status</th>
-				<th>specimen</th>
-				<th>guid_prefix</th>
-				<th>existing_other_id_type</th>
-				<th>existing_other_id_number</th>
-				<th>new_other_id_references</th>
-				<th>new_other_id_type</th>
-				<th>new_other_id_number</th>
-			</tr>
-			<cfloop query="raw">
+		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all of your records from the loader</a></p>
+
+
+		<form name="f" method="pos" action="BulkloadOtherId.cfm">
+			<input name="action" value="deleteChecked" type="hidden">
+			<input type="submit" value="delete checked">
+			<table border id="t" class="sortable">
 				<tr>
-					<td>#status#</td>
-					<td>
-						<cfif len(guid) gt 0>
-							<a href="/guid/#guid#" target="_blank">#guid#</a>
-						</cfif>
-					</td>
-					<td>#guid_prefix#</td>
-					<td>#existing_other_id_type#</td>
-					<td>#existing_other_id_number#</td>
-					<td>#new_other_id_references#</td>
-					<td>#new_other_id_type#</td>
-					<td>#new_other_id_number#</td>
+					<th>delete</th>
+					<th>status</th>
+					<th>specimen</th>
+					<th>guid_prefix</th>
+					<th>existing_other_id_type</th>
+					<th>existing_other_id_number</th>
+					<th>new_other_id_references</th>
+					<th>new_other_id_type</th>
+					<th>new_other_id_number</th>
 				</tr>
-			</cfloop>
-		</table>
+				<cfloop query="raw">
+					<tr>
+						<td><input type=checkbox name="key" value="#key#"></td>
+						<td>#status#</td>
+						<td>
+							<cfif len(guid) gt 0>
+								<a href="/guid/#guid#" target="_blank">#guid#</a>
+							</cfif>
+						</td>
+						<td>#guid_prefix#</td>
+						<td>#existing_other_id_type#</td>
+						<td>#existing_other_id_number#</td>
+						<td>#new_other_id_references#</td>
+						<td>#new_other_id_type#</td>
+						<td>#new_other_id_number#</td>
+					</tr>
+				</cfloop>
+			</table>
+			<input type="submit" value="delete checked">
+		</form>
 	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------->
+<cfif action is "deleteChecked">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_oids where upper(username)='#ucase(session.username)#' and key in (#key#)
+	</cfquery>
+	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "getCSV">
@@ -747,14 +754,8 @@ sho err
 <cfif action is "loadData">
 	<cfoutput>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
+			select * from cf_temp_oids where status='valid' and upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfquery name="cv" dbtype="query">
-			select count(*) c from getTempData where status='valid'
-		</cfquery>
-		<cfif getTempData.recordcount is not cv.c>
-			Make everything "valid" and try again.<cfabort>
-		</cfif>
 		<cftransaction>
 			<cfloop query="getTempData">
 				loading #collection_object_id#<br>
@@ -773,7 +774,7 @@ sho err
 				delete from cf_temp_oids where status='valid' and upper(username)='#ucase(session.username)#'
 			</cfquery>
 		</cftransaction>
-		Spiffy, all done.
+		Spiffy, all done. <a href="BulkloadOtherId.cfm?action=managemystuff">managemystuff</a>
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">

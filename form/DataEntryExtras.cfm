@@ -47,8 +47,8 @@
 			<input type="hidden" name="nothing" id="nothing">
 			 <label for="other_id_type">ID Type</label>
 			<select name="other_id_type" id="other_id_type" size="1">
+				<option></option>
 				<cfloop query="ctType">
-					<option></option>
 					<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
 				</cfloop>
 			</select>
@@ -502,6 +502,31 @@
 					<tr>
 						<td>#ATTRIBUTE#</td>
 						<td>#ATTRIBUTE_VALUE# #ATTRIBUTE_UNITS#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfoutput>
+	</cfif>
+	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#UUID#'
+	</cfquery>
+	<cfif ese.recordcount is 0>
+		<p>There are no external IDs for this UUID/entry</p>
+	<cfelse>
+		<cfoutput>
+			<p>There are #ese.recordcount# external IDs for this UUID/entry. (View details under
+			<a href="/tools/BulkloadOtherID.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
+			<table border>
+				<tr>
+					<th>Type</th>
+					<th>Value</th>
+					<th>References</th>
+				</tr>
+				<cfloop query="ese">
+					<tr>
+						<td>#NEW_OTHER_ID_TYPE#</td>
+						<td>#NEW_OTHER_ID_NUMBER#</td>
+						<td>#NEW_OTHER_ID_REFERENCES#</td>
 					</tr>
 				</cfloop>
 			</table>
