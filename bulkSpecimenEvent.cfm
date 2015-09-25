@@ -214,12 +214,12 @@
 					<td><strong>#COLLECTING_METHOD#</strong></td>
 					<td><strong>#COLLECTING_SOURCE#</strong></td>
 					<td><strong>#VERIFICATIONSTATUS#</strong></td>
-					<td>#HABITAT#</td>
+					<td><strong>#HABITAT#</strong></td>
 					<td>#VERBATIM_DATE#</td>
 					<td>#VERBATIM_LOCALITY#</td>
 					<td>#VERBATIM_COORDINATES#</td>
 					<td>#COLLECTING_EVENT_NAME#</td>
-					<td>#SPECIMEN_EVENT_REMARK#</td>
+					<td><strong>#SPECIMEN_EVENT_REMARK#</strong></td>
 				</tr>
 			</cfloop>
 		</table>
