@@ -1,4 +1,5 @@
 <cfif action is "addIdReln">
+	<!----
 <script>
 		jQuery(document).ready(function() {
 			$("#attribute_date").datepicker();
@@ -122,6 +123,7 @@
 			});
 		});
 	</script>
+	---->
 	<cfoutput>
 		<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select other_id_type from ctcoll_other_id_type order by other_id_type
