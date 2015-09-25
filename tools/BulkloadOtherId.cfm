@@ -703,9 +703,11 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 			select
 				count(*) c,
 				username
-			from cf_temp_oids
-			where upper(username) != '#ucase(session.username)#'
-			and upper(username) in (
+			from
+				cf_temp_oids
+			where
+				upper(username) != '#ucase(session.username)#' and
+				upper(username) in (
 			        select distinct grantee
 			        from dba_role_privs
 			        where granted_role in (
@@ -746,7 +748,7 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "saveClaimed">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_oids set username='#ucase(session.username)#' where upper(username) in (#listqualify(username,"'")#)
+		update cf_temp_oids set username='#ucase(session.username)#' where upper(username) in (#listqualify(ucase(username),"'")#)
 	</cfquery>
 	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 </cfif>
