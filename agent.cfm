@@ -100,7 +100,7 @@
 
 	<cfquery name="agent_relations" datasource="uam_god">
 		select
-			'is ' || AGENT_RELATIONSHIP reln,agent_name,RELATED_AGENT_ID
+			AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 		from agent_relations,preferred_agent_name
 		where
 		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
