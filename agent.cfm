@@ -92,7 +92,7 @@
 			Group Members:
 			<ul>
 				<cfloop query="grpagnt">
-					<li><a href="/agents.cfm?agent_id=#MEMBER_AGENT_ID#">#name#</a></li>
+					<li><a href="/agent.cfm?agent_id=#MEMBER_AGENT_ID#">#name#</a></li>
 				</cfloop>
 			</ul>
 		</p>
@@ -147,11 +147,11 @@
 		<br />Groups:
 		<ul>
 			<cfloop query="group_member">
-				<li><a href="agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
+				<li><a href="agent.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
 			</cfloop>
 		</ul>
 	</cfif>
-
+	<p></p>
 	<cfquery name="collector" datasource="uam_god">
 		select
 			count(distinct(collector.collection_object_id)) cnt,
@@ -169,8 +169,11 @@
 			collection.guid_prefix,
 	        collection.collection_id
 	</cfquery>
+	<cfquery name="ssc" dbtype="query">
+		select sum(cnt) sc from collector
+	</cfquery>
 	<cfif collector.recordcount gt 0>
-		Collected or Prepared specimens:
+		Collected or Prepared <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
 		<ul>
 			<CFLOOP query="collector">
 				<li>
@@ -245,7 +248,7 @@
 		<ul>
 			<cfloop query="publication_agent">
 				<li>
-					<a href="/Publication.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#full_citation#</a>
+					<a href="/publication/#PUBLICATION_ID#">#full_citation#</a>
 					<cfquery name="citn" datasource="uam_god">
 						select count(*) c from citation where publication_id=#publication_id#
 					</cfquery>
