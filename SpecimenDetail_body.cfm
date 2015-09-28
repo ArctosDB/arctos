@@ -772,10 +772,13 @@
 						<span class="innerDetailLabel"></span>
 						<cfset collnks="">
 						<cfloop list="#collectors#" delimiters="," index="i">
-							<cfset t='<a href="/agent.cfm?agent_name=#i#" target="_blank" class="external">#i#</a>'>
+							<cfif i is "unknown">
+								<cfset t="unknown">
+							<cfelse>
+								<cfset t='<a href="/agent.cfm?agent_name=#i#" target="_blank" class="external">#i#</a>'>
+							</cfif>
 							<cfset collnks=listappend(collnks,t,",")>
 						</cfloop>
-						(#collectors#)
 						<p>#collnks#</p>
 					</span>
 				</div>
@@ -791,7 +794,16 @@
 					<div class="detailBlock">
 						<span class="detailData">
 							<span class="innerDetailLabel"></span>
-							#preparators#
+							<cfset collnks="">
+							<cfloop list="#preparators#" delimiters="," index="i">
+								<cfif i is "unknown">
+									<cfset t="unknown">
+								<cfelse>
+									<cfset t='<a href="/agent.cfm?agent_name=#i#" target="_blank" class="external">#i#</a>'>
+								</cfif>
+								<cfset collnks=listappend(collnks,t,",")>
+							</cfloop>
+							<p>#collnks#</p>
 						</span>
 					</div>
 				</div>
@@ -807,16 +819,20 @@
 					<div class="detailBlock">
 						<span class="detailData">
 							<span class="innerDetailLabel"></span>
-							#makers#
+							<cfset collnks="">
+							<cfloop list="#makers#" delimiters="," index="i">
+								<cfif i is "unknown">
+									<cfset t="unknown">
+								<cfelse>
+									<cfset t='<a href="/agent.cfm?agent_name=#i#" target="_blank" class="external">#i#</a>'>
+								</cfif>
+								<cfset collnks=listappend(collnks,t,",")>
+							</cfloop>
+							<p>#collnks#</p>
 						</span>
 					</div>
 				</div>
 			</cfif>
-
-
-
-
-
 			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id project_id FROM
 				project, project_trans
