@@ -775,7 +775,7 @@
 							<cfif i is "unknown">
 								<cfset t="unknown">
 							<cfelse>
-								<cfset t='<a href="/agent.cfm?agent_name=#i#" target="_blank" class="external">#i#</a>'>
+								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
 							</cfif>
 							<cfset collnks=listappend(collnks,t,",")>
 						</cfloop>
@@ -799,7 +799,7 @@
 								<cfif i is "unknown">
 									<cfset t="unknown">
 								<cfelse>
-									<cfset t='<a href="/agent.cfm?agent_name=#i#" target="_blank" class="external">#i#</a>'>
+									<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
 								</cfif>
 								<cfset collnks=listappend(collnks,t,",")>
 							</cfloop>
@@ -824,7 +824,7 @@
 								<cfif i is "unknown">
 									<cfset t="unknown">
 								<cfelse>
-									<cfset t='<a href="/agent.cfm?agent_name=#i#" target="_blank" class="external">#i#</a>'>
+									<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
 								</cfif>
 								<cfset collnks=listappend(collnks,t,",")>
 							</cfloop>

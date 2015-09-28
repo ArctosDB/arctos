@@ -23,8 +23,8 @@
 			where
 				agent.agent_id=agent_name.agent_id (+) and
 				(
-					upper(agent.preferred_agent_name) like '%#ucase(agent_name)#%' or
-					upper(agent_name.agent_name) like '%#ucase(agent_name)#%'
+					upper(agent.preferred_agent_name) like '%#trim(ucase(escapeQuotes(agent_name)))#%' or
+					upper(agent_name.agent_name) like '%#trim(ucase(escapeQuotes(agent_name)))#%'
 				)
 			group by
 				agent.agent_id,
