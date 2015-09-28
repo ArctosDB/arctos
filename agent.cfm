@@ -195,7 +195,7 @@
 			media_relations.media_relationship='shows cataloged_item' AND
 			collector.agent_id=#agent_id#
 	</cfquery>
-	<cfif collectormedia.recordcount gt 0>
+	<cfif collectormedia.c gt 0>
 		Media:
 
 		<ul>
