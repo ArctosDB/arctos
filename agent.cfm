@@ -26,6 +26,11 @@
 					upper(agent.preferred_agent_name) like '%#ucase(agent_name)#%' or
 					upper(agent_name.agent_name) like '%#ucase(agent_name)#%'
 				)
+			group by
+				agent.agent_id,
+				agent.preferred_agent_name
+			order by
+				agent.preferred_agent_name
 		</cfquery>
 		<cfif srch.recordcount is 0>
 			<p>

@@ -770,6 +770,9 @@
 				<div class="detailBlock">
 					<span class="detailData">
 						<span class="innerDetailLabel"></span>
+						<cfloop list="#collectors#" delimiters="" index="i">
+							<br>-#i#
+						</cfloop>
 						#collectors#
 					</span>
 				</div>
