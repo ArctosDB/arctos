@@ -775,6 +775,9 @@
 							<cfset t=<a href="/agent.cfm?agent_name=#i#" target="_blank" class="external">#i#</a>
 							<br>-#t#
 							<cfset collnks=listappend(collnks,t,", ")>
+
+
+
 						</cfloop>
 						#collectors#
 						<p>#collnks#</p>
