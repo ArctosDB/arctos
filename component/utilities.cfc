@@ -406,14 +406,14 @@
 			<cfset x=x & ",getmappingxpath,get_host_address">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA">
-			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console">
+			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals">
 			<cfset x=x & ",lib,lightbox">
 			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail">
 			<cfset x=x & ",news,nyet">
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4">
 			<cfset x=x & ",pma,phppgadmin">
-			<cfset x=x & ",rand,reviews,rutorrent,rss,register,roundcubemail,roundcube,README">
+			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes,sysobjects">
 			<cfset x=x & ",trackback,TABLE_NAME">
 			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates,update">
@@ -421,7 +421,7 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
 			<!--- just remember to not add these...---->
-			<cfset hasCausedProbsNoCheck="case">
+			<cfset hasCausedProbsNoCheck="case,register">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
 				<cfif listfindnocase(x,i)>
 					<cfset x=listdeleteat(x,listfindnocase(x,i))>
