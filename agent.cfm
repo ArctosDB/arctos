@@ -1,9 +1,51 @@
 <cfinclude template = "/includes/_header.cfm">
-<cfif not isdefined("agent_id") or not isnumeric(agent_id)>
+<cfoutput>
+<cfset title = "Agent Activity">
+	<cfparam name="agent_name" default="">
+	<form name="f" method="post" action="agent.cfm">
+		<label for="agent_name">Agent Name</label>
+		<input type="text" value="#agent_name#" name="agent_name" id="agent_name">
+		<br><input type="submit" value="search">
+	</form>
+	<!---- if we don't have a name or an ID, abort ---->
+	<cfif (not isdefined("agent_name") or len(agent_name) is 0) and (not isdefined("agent_id") or len(agent_id) is 0)>
+		<cfabort>
+	</cfif>
+	<!--- if we don't have an ID we should at this point have a name - search ---->
+	<cfif not isdefined("agent_id") or len(agent_id) is 0>
+		<cfquery name="srch" datasource="uam_god">
+			select
+				agent_id,
+				preferred_agent_name
+			from
+				agent,
+				agent_name
+			where
+				agent.agent_id=agent_name.agent_id (+) and
+				(
+					upper(preferred_agent_name) like '%#ucase(agent_name)#%' or
+					upper(agent_name) like '%#ucase(agent_name)#%'
+				)
+		</cfquery>
+		<cfif srch.recordcount is 0>
+			<p>
+				Nothing found.<cfabort>
+			</p>
+		<cfelseif srch.recordcount is 1>
+			<cflocation url="agent.cfm?agent_id=#srch.agent_id#&agent_name=#srch.preferred_agent_name#" addtoken="false">
+		<cfelse>
+			<cfloop query="srch">
+				<br><a href="agent.cfm?agent_id=#srch.agent_id#&agent_name=#srch.preferred_agent_name#">#srch.preferred_agent_name#</a>
+			</cfloop>
+		</cfif>
+	</cfif>
+	<!--- if we don't have an ID here, abort ---->
+
+<cfif not isdefined("agent_id") or len(agent_id) is 0>
 	<cfabort>
 </cfif>
-<cfset title = "Agent Activity">
-<cfoutput>
+
+
 <div class="importantNotification">
 	Please note: your login may prevent you from seeing some linked data. The summary data below are accurate.
 </div>
