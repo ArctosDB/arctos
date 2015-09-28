@@ -15,16 +15,16 @@
 	<cfif not isdefined("agent_id") or len(agent_id) is 0>
 		<cfquery name="srch" datasource="uam_god">
 			select
-				agent_id,
-				preferred_agent_name
+				agent.agent_id,
+				agent.preferred_agent_name
 			from
 				agent,
 				agent_name
 			where
 				agent.agent_id=agent_name.agent_id (+) and
 				(
-					upper(preferred_agent_name) like '%#ucase(agent_name)#%' or
-					upper(agent_name) like '%#ucase(agent_name)#%'
+					upper(agent.preferred_agent_name) like '%#ucase(agent_name)#%' or
+					upper(agent_name.agent_name) like '%#ucase(agent_name)#%'
 				)
 		</cfquery>
 		<cfif srch.recordcount is 0>
