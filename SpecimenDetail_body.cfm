@@ -779,7 +779,7 @@
 							</cfif>
 							<cfset collnks=listappend(collnks,t,",")>
 						</cfloop>
-						<p>#collnks#</p>
+						#collnks#
 					</span>
 				</div>
 			</div>
@@ -803,7 +803,7 @@
 								</cfif>
 								<cfset collnks=listappend(collnks,t,",")>
 							</cfloop>
-							<p>#collnks#</p>
+							#collnks#
 						</span>
 					</div>
 				</div>
@@ -828,7 +828,7 @@
 								</cfif>
 								<cfset collnks=listappend(collnks,t,",")>
 							</cfloop>
-							<p>#collnks#</p>
+							#collnks#
 						</span>
 					</div>
 				</div>
