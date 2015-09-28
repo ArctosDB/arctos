@@ -61,6 +61,7 @@
 			agent,
 			agent_name
 		where
+			agent.agent_id=agent_name.agent_id (+) and
 			agent.agent_id=#agent_id#
 		order by agent_name
 	</cfquery>
