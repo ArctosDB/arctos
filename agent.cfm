@@ -118,7 +118,10 @@
 		</cfif>
 		<cfif len(agent.agent_remarks) gt 0>
 			<p>
-				Agent Remarks: #agent.agent_remarks#
+				Agent Remarks:
+				<blockquote>
+					#agent.agent_remarks#
+				</blockquote>
 			</p>
 		</cfif>
 		<cfif agent.agent_type is "group">
