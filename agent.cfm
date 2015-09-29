@@ -65,6 +65,7 @@
 			select
 				agent.preferred_agent_name,
 				agent.agent_type,
+				agent.agent_remarks,
 				agent_name.agent_name,
 				agent_name.agent_name_type
 			FROM
@@ -115,7 +116,11 @@
 				</ul>
 			</p>
 		</cfif>
-
+		<cfif len(agent.agent_remarks) gt 0>
+			<p>
+				Agent Remarks: #agent.agent_remarks#
+			</p>
+		</cfif>
 		<cfif agent.agent_type is "group">
 			<cfquery name="grpagnt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select MEMBER_AGENT_ID,getPreferredAgentName(MEMBER_AGENT_ID) name from group_member where GROUP_AGENT_ID=#agent_id#
