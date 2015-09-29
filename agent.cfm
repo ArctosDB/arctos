@@ -72,17 +72,41 @@
 			agent.agent_id=#agent_id#
 		order by agent_name
 	</cfquery>
-	<cfquery name="name" datasource="uam_god">
-		select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#agent_id#
-	</cfquery>
+	<!--- control what names are released, order what's left --->
+	<cfset names=structNew()>
+	<!---
+		list of name types that we want to display here in order
+		EXCLUDE:
+			login (nobody cares),
+			preferred (we've already got one)
+	 ---->
+	 	<cfset ordnames=queryNew("name,nametype")>
+		<cfset ant='first name,middle name,last name,full,Kew abbr.,maiden,married,initials plus last,last plus initials,last name first'>
+		<cfset ant=ant&',abbreviation,aka,alternate spelling,initials,labels,job title'>
+		<cfset q=1>
+		<cfloop list="#ant#" index="i">
+			<cfquery name="p" dbtype="query">
+				select agent_name from agent where agent_name_type='#i#' order by agent_name
+			</cfquery>
+			<cfloop query="p">
+				<cfset queryaddrow(ordnames,1)>
+				<cfset querysetcell(ornames,name,agent_name,q)>
+				<cfset querysetcell(ornames,nametype,i,q)>
+				<cfset q=q+1>
+			</cfloop>
+		</cfloop>
+
+
+
+
 	<p>
-		Activity Summary for #agent.preferred_agent_name# (#agent.agent_type#)
+		Activity Summary for <strong>#agent.preferred_agent_name# (#agent.agent_type#)</strong>
 	</p>
 	<p>
 		Agent Names:
 		<ul>
-			<cfloop query="agent">
-				<li>#agent_name# (#agent_name_type#)</li>
+			<cfloop query="ordnames">
+				<li>#name# (#nametype#)</li>
 			</cfloop>
 		</ul>
 	</p>
