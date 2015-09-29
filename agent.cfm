@@ -90,8 +90,8 @@
 			</cfquery>
 			<cfloop query="p">
 				<cfset queryaddrow(ordnames,1)>
-				<cfset querysetcell(ornames,name,agent_name,q)>
-				<cfset querysetcell(ornames,nametype,i,q)>
+				<cfset querysetcell(ordnames,name,agent_name,q)>
+				<cfset querysetcell(ordnames,nametype,i,q)>
 				<cfset q=q+1>
 			</cfloop>
 		</cfloop>
