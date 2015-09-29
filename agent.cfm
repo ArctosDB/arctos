@@ -234,9 +234,25 @@
 		<p>
 			Collected or Prepared <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
 			<ul>
-				<CFLOOP query="collector">
+				<CFLOOP query="cnorole">
 					<li>
-						<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.guid_prefix#</a> specimens
+						<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#">
+							#cnorole.cnt# #cnorole.guid_prefix#
+						</a> specimens
+						<cfquery name="crole" dbtype="query">
+							select collector_role,cnt from collector where collection_id=#collection_id#
+						</cfquery>
+						<cfif crole.recordcount gt 1>
+							<ul>
+								<cfloop query="crole">
+									<li>
+										<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#&coll_role=#crole.collector_role#">
+											#crole.collector_role# #crole.cnt#
+										</a>
+									</li>
+								</cfloop>
+							</ul>
+						</cfif>
 					</li>
 			  	</CFLOOP>
 			</ul>

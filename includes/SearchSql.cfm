@@ -757,6 +757,10 @@
 			INNER JOIN agent_name srchColl ON (collector.agent_id = srchColl.agent_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND collector.agent_id = #collector_agent_id#">
+	<cfif isdefined("coll_role") and len(coll_role) gt 0>
+		<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
+		<cfSet basQual = " #basQual# AND collector.collector_role='#coll_role#'">
+	</cfif>
 </cfif>
 <cfif isdefined("begin_made_date") AND len(begin_made_date) gt 0>
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
