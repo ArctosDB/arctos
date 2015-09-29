@@ -133,8 +133,6 @@
 		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
 		agent_relations.agent_id=#agent_id#
 	</cfquery>
-
-
 	<cfif agent_relations.recordcount gt 0>
 		<p>
 			Relationships FROM #agent.preferred_agent_name#:
@@ -162,7 +160,6 @@
 			</ul>
 		</p>
 	</cfif>
-
 	<cfquery name="group_member" datasource="uam_god">
 		select
 			agent_name,
@@ -268,10 +265,9 @@
 		<p>
 			Media:
 			<ul>
-
 				<li>
 					<a href="/MediaSearch.cfm?action=search&collected_by_agent_id=#agent_id#">
-						Media from #collectormedia.c# collected/prepared specimens
+						#collectormedia.c#  Media records referencing collected/prepared specimens
 					</a>
 				</li>
 			</ul>
