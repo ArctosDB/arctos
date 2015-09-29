@@ -39,9 +39,16 @@
 		<cfelseif srch.recordcount is 1>
 			<cflocation url="agent.cfm?agent_id=#srch.agent_id#&agent_name=#srch.preferred_agent_name#" addtoken="false">
 		<cfelse>
-			<cfloop query="srch">
-				<br><a href="agent.cfm?agent_id=#srch.agent_id#&agent_name=#srch.preferred_agent_name#">#srch.preferred_agent_name#</a>
-			</cfloop>
+			<p>
+				#srch.recordcount# matches found:
+				<ul>
+					<cfloop query="srch">
+						<li>
+							<a href="agent.cfm?agent_id=#srch.agent_id#">#srch.preferred_agent_name#</a>
+						</li>
+					</cfloop>
+				</ul>
+			</p>
 		</cfif>
 	</cfif>
 	<!--- if we don't have an ID here, abort ---->
