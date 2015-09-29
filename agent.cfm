@@ -13,7 +13,7 @@
 	</cfif>
 	<!--- if we don't have an ID we should at this point have a name - search ---->
 	<cfif not isdefined("agent_id") or len(agent_id) is 0>
-		<cfquery name="srch" datasource="uam_god">
+		<cfquery name="srch" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				agent.agent_id,
 				agent.preferred_agent_name,
@@ -59,10 +59,11 @@
 	<cfif not isdefined("agent_id") or len(agent_id) is 0>
 		<cfabort>
 	</cfif>
-	<div class="importantNotification">
-		Please note: your login may prevent you from accessing some linked data. The summary data below are accurate.
+	<div class="ui-state-highlight ui-corner-all">
+		Your login may prevent you from accessing some linked data. The summary data below are accurate, except
+		agent-related encumbrances excclude records from this report.
 	</div>
-	<cfquery name="agent" datasource="uam_god">
+	<cfquery name="agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			agent.preferred_agent_name,
 			agent.agent_type,
@@ -116,7 +117,7 @@
 	</p>
 
 	<cfif agent.agent_type is "group">
-		<cfquery name="grpagnt" datasource="uam_god">
+		<cfquery name="grpagnt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select MEMBER_AGENT_ID,getPreferredAgentName(MEMBER_AGENT_ID) name from group_member where GROUP_AGENT_ID=#agent_id#
 		</cfquery>
 		<p>
@@ -129,7 +130,7 @@
 		</p>
 	</cfif>
 
-	<cfquery name="agent_relations" datasource="uam_god">
+	<cfquery name="agent_relations" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 		from agent_relations,preferred_agent_name
@@ -147,7 +148,7 @@
 			</ul>
 		</p>
 	</cfif>
-	<cfquery name="agent_relationsto" datasource="uam_god">
+	<cfquery name="agent_relationsto" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id
 		from agent_relations,preferred_agent_name
 		where
@@ -164,7 +165,7 @@
 			</ul>
 		</p>
 	</cfif>
-	<cfquery name="group_member" datasource="uam_god">
+	<cfquery name="group_member" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			agent_name,
 			GROUP_AGENT_ID
@@ -185,7 +186,7 @@
 			</ul>
 		</p>
 	</cfif>
-	<cfquery name="collector" datasource="uam_god">
+	<cfquery name="collector" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			count(distinct(collector.collection_object_id)) cnt,
 			collection.guid_prefix,
@@ -255,7 +256,7 @@
 		</p>
 	</cfif>
 
-	<cfquery name="collectormedia" datasource="uam_god">
+	<cfquery name="collectormedia" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select count(*) c
 		from
 			collector,
@@ -277,7 +278,7 @@
 			</ul>
 		</p>
 	</cfif>
-	<cfquery name="project_agent" datasource="uam_god">
+	<cfquery name="project_agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			project_name,
 			project.project_id
@@ -301,7 +302,7 @@
 			</ul>
 		</p>
 	</cfif>
-	<cfquery name="publication_agent" datasource="uam_god">
+	<cfquery name="publication_agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			publication.PUBLICATION_ID,
 			full_citation,
