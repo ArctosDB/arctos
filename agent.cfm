@@ -268,7 +268,8 @@
 	<cfquery name="publication_agent" datasource="uam_god">
 		select
 			publication.PUBLICATION_ID,
-			full_citation
+			full_citation,
+			doi
 		from
 			publication,
 			publication_agent
@@ -277,6 +278,9 @@
 			publication_agent.agent_id=#agent_id#
 		group by
 			publication.PUBLICATION_ID,
+			full_citation,
+			doi
+		order by
 			full_citation
 	</cfquery>
 	<cfif len(publication_agent.full_citation) gt 0>
@@ -289,7 +293,12 @@
 						<cfquery name="citn" datasource="uam_god">
 							select count(*) c from citation where publication_id=#publication_id#
 						</cfquery>
-						<ul><li>#citn.c# citations</li></ul>
+						<ul>
+							<li>#citn.c# citations</li>
+							<cfif len(doi) gt 0>
+								<li><a href="http://dx.doi.org/#doi#" target="_blank" class="external">#doi#</a></li>
+							</cfif>
+						</ul>
 					</li>
 				</cfloop>
 			</ul>
