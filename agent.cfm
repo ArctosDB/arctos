@@ -188,7 +188,8 @@
 		select
 			count(distinct(collector.collection_object_id)) cnt,
 			collection.guid_prefix,
-	        collection.collection_id
+	        collection.collection_id,
+	        collector.collector_role
 		from
 			collector,
 			cataloged_item,
@@ -199,11 +200,36 @@
 			agent_id=#agent_id#
 		group by
 			collection.guid_prefix,
-	        collection.collection_id
+	        collection.collection_id,
+	        collector.collector_role
 	</cfquery>
+
+
+
+	<cfdump var=#collector#>
+
+
 	<cfquery name="ssc" dbtype="query">
 		select sum(cnt) sc from collector
 	</cfquery>
+	<cfquery name="cnorole" dbtype="query">
+		select
+			sum(cnt) cnt,
+			guid_prefix,
+			collection_id
+		from
+			collector
+		group by
+			guid_prefix,
+			collection_id
+		order by
+			guid_prefix,
+			collection_id
+	</cfquery>
+
+	<cfdump var=#cnorole#>
+
+
 	<cfif collector.recordcount gt 0>
 		<p>
 			Collected or Prepared <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
