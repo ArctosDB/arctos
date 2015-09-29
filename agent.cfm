@@ -197,18 +197,19 @@
 		where
 			collector.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_id = collection.collection_id AND
-			agent_id=#agent_id#
+			agent_id=#agent_id# and
+			cataloged_item.collection_object_id not in (
+				select collection_object_id from
+					coll_obj_encumbrance,
+					encumbrance where
+					coll_obj_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
+					ENCUMBRANCE in ('mask collector','mask preparator','mask record')
+			)
 		group by
 			collection.guid_prefix,
 	        collection.collection_id,
 	        collector.collector_role
 	</cfquery>
-
-
-
-	<cfdump var=#collector#>
-
-
 	<cfquery name="ssc" dbtype="query">
 		select sum(cnt) sc from collector
 	</cfquery>
@@ -226,10 +227,6 @@
 			guid_prefix,
 			collection_id
 	</cfquery>
-
-	<cfdump var=#cnorole#>
-
-
 	<cfif collector.recordcount gt 0>
 		<p>
 			Collected or Prepared <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
