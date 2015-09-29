@@ -242,17 +242,15 @@
 						<cfquery name="crole" dbtype="query">
 							select collector_role,cnt from collector where collection_id=#collection_id#
 						</cfquery>
-						<cfif crole.recordcount gt 1>
-							<ul>
-								<cfloop query="crole">
-									<li>
-										<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#&coll_role=#crole.collector_role#">
-											#crole.collector_role# #crole.cnt#
-										</a>
-									</li>
-								</cfloop>
-							</ul>
-						</cfif>
+						<ul>
+							<cfloop query="crole">
+								<li>
+									<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#&coll_role=#crole.collector_role#">
+										#crole.collector_role# #crole.cnt#
+									</a>
+								</li>
+							</cfloop>
+						</ul>
 					</li>
 			  	</CFLOOP>
 			</ul>
