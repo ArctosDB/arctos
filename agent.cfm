@@ -44,7 +44,7 @@
 				<ul>
 					<cfloop query="srch">
 						<li>
-							<a href="agent.cfm?agent_id=#srch.agent_id#">#srch.preferred_agent_name#</a>
+							<a href="agent.cfm?agent_id=#srch.agent_id#&agent_name=#srch.preferred_agent_name#">#srch.preferred_agent_name#</a>
 						</li>
 					</cfloop>
 				</ul>
