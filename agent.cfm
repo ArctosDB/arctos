@@ -246,7 +246,7 @@
 							<cfloop query="crole">
 								<li>
 									<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#&coll_role=#crole.collector_role#">
-										#crole.collector_role# #crole.cnt#
+										#crole.collector_role#: #crole.cnt#
 									</a>
 								</li>
 							</cfloop>
@@ -256,7 +256,6 @@
 			</ul>
 		</p>
 	</cfif>
-
 
 	<cfquery name="collectormedia" datasource="uam_god">
 		select count(*) c
@@ -334,7 +333,8 @@
 							select count(*) c from citation where publication_id=#publication_id#
 						</cfquery>
 						<ul>
-							<li>#citn.c# citations</li>
+							<li>
+								<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#citn.c# citations</a></li>
 							<cfif len(doi) gt 0>
 								<li><a href="http://dx.doi.org/#doi#" target="_blank" class="external">#doi#</a></li>
 							</cfif>
