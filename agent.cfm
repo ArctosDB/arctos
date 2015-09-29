@@ -199,11 +199,11 @@
 			cataloged_item.collection_id = collection.collection_id AND
 			agent_id=#agent_id# and
 			cataloged_item.collection_object_id not in (
-				select collection_object_id from
-					coll_obj_encumbrance,
+				select coll_object_encumbrance.collection_object_id from
+					coll_object_encumbrance,
 					encumbrance where
-					coll_obj_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
-					ENCUMBRANCE in ('mask collector','mask preparator','mask record')
+					coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
+					encumbrance.encumbrance in ('mask collector','mask preparator','mask record')
 			)
 		group by
 			collection.guid_prefix,
