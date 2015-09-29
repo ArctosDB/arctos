@@ -16,7 +16,8 @@
 		<cfquery name="srch" datasource="uam_god">
 			select
 				agent.agent_id,
-				agent.preferred_agent_name
+				agent.preferred_agent_name,
+				agent_type
 			from
 				agent,
 				agent_name
@@ -28,7 +29,8 @@
 				)
 			group by
 				agent.agent_id,
-				agent.preferred_agent_name
+				agent.preferred_agent_name,
+				agent_type
 			order by
 				agent.preferred_agent_name
 		</cfquery>
@@ -44,7 +46,9 @@
 				<ul>
 					<cfloop query="srch">
 						<li>
-							<a href="agent.cfm?agent_id=#srch.agent_id#&agent_name=#srch.preferred_agent_name#">#srch.preferred_agent_name#</a>
+							<a href="agent.cfm?agent_id=#srch.agent_id#&agent_name=#srch.preferred_agent_name#">
+								#srch.preferred_agent_name#
+							</a> (#srch.agent_type#)
 						</li>
 					</cfloop>
 				</ul>
