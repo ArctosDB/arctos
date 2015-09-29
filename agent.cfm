@@ -73,9 +73,11 @@
 	</p>
 	<p>
 		Agent Names:
-		<ul>
-			<li>#agent_name# (#agent_name_type#)</li>
-		</ul>
+		<cfloop query="agent">
+			<ul>
+				<li>#agent_name# (#agent_name_type#)</li>
+			</ul>
+		</cfloop>
 	</p>
 
 	<cfif agent.agent_type is "group">
