@@ -71,19 +71,13 @@
 	<p>
 		Activity Summary for #agent.preferred_agent_name# (#agent.agent_type#)
 	</p>
-	Agent Names:
-	<table border>
-		<tr>
-			<th>Agent Name</th>
-			<th>Agent Name Type</th>
-		</tr>
-		<cfloop query="agent">
-			<tr>
-				<td>#agent_name#</td>
-				<td>#agent_name_type#</td>
-			</tr>
-		</cfloop>
-	</table>
+	<p>
+		Agent Names:
+		<ul>
+			<li>#agent_name# (#agent_name_type#)</li>
+		</ul>
+	</p>
+
 	<cfif agent.agent_type is "group">
 		<cfquery name="grpagnt" datasource="uam_god">
 			select MEMBER_AGENT_ID,getPreferredAgentName(MEMBER_AGENT_ID) name from group_member where GROUP_AGENT_ID=#agent_id#
@@ -109,12 +103,14 @@
 
 
 	<cfif agent_relations.recordcount gt 0>
-		Relationships FROM #agent.preferred_agent_name#:
-		<ul>
-			<cfloop query="agent_relations">
-				<li>#AGENT_RELATIONSHIP# <a href="agent.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
-			</cfloop>
-		</ul>
+		<p>
+			Relationships FROM #agent.preferred_agent_name#:
+			<ul>
+				<cfloop query="agent_relations">
+					<li>#AGENT_RELATIONSHIP# <a href="agent.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+				</cfloop>
+			</ul>
+		</p>
 	</cfif>
 	<cfquery name="agent_relationsto" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id
@@ -124,12 +120,14 @@
 		RELATED_AGENT_ID=#agent_id#
 	</cfquery>
 	<cfif agent_relationsto.recordcount gt 0>
-		Relationships TO #agent.preferred_agent_name#:
-		<ul>
-			<cfloop query="agent_relationsto">
-				<li><a href="agent.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
-			</cfloop>
-		</ul>
+		<p>
+			Relationships TO #agent.preferred_agent_name#:
+			<ul>
+				<cfloop query="agent_relationsto">
+					<li><a href="agent.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
+				</cfloop>
+			</ul>
+		</p>
 	</cfif>
 
 	<cfquery name="group_member" datasource="uam_god">
@@ -144,14 +142,15 @@
 		order by agent_name
 	</cfquery>
 	<cfif group_member.recordcount gt 0>
-		<br />Groups:
-		<ul>
-			<cfloop query="group_member">
-				<li><a href="agent.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
-			</cfloop>
-		</ul>
+		<p>
+			Groups:
+			<ul>
+				<cfloop query="group_member">
+					<li><a href="agent.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
+				</cfloop>
+			</ul>
+		</p>
 	</cfif>
-	<p></p>
 	<cfquery name="collector" datasource="uam_god">
 		select
 			count(distinct(collector.collection_object_id)) cnt,
@@ -173,16 +172,17 @@
 		select sum(cnt) sc from collector
 	</cfquery>
 	<cfif collector.recordcount gt 0>
-		Collected or Prepared <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
-		<ul>
-			<CFLOOP query="collector">
-				<li>
-					<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.guid_prefix#</a> specimens
-				</li>
-		  	</CFLOOP>
-		</ul>
+		<p>
+			Collected or Prepared <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
+			<ul>
+				<CFLOOP query="collector">
+					<li>
+						<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.guid_prefix#</a> specimens
+					</li>
+			  	</CFLOOP>
+			</ul>
+		</p>
 	</cfif>
-
 
 
 	<cfquery name="collectormedia" datasource="uam_god">
@@ -196,16 +196,17 @@
 			collector.agent_id=#agent_id#
 	</cfquery>
 	<cfif collectormedia.c gt 0>
-		Media:
+		<p>
+			Media:
+			<ul>
 
-		<ul>
-
-			<li>
-				<a href="/MediaSearch.cfm?action=search&collected_by_agent_id=#agent_id#">
-					Media from #collectormedia.c# collected/prepared specimens
-				</a>
-			</li>
-		</ul>
+				<li>
+					<a href="/MediaSearch.cfm?action=search&collected_by_agent_id=#agent_id#">
+						Media from #collectormedia.c# collected/prepared specimens
+					</a>
+				</li>
+			</ul>
+		</p>
 	</cfif>
 	<cfquery name="project_agent" datasource="uam_god">
 		select
@@ -222,12 +223,14 @@
 			project.project_id
 	</cfquery>
 	<cfif len(project_agent.project_name) gt 0>
-		Projects
-		<ul>
-			<cfloop query="project_agent">
-				<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
-			</cfloop>
-		</ul>
+		<p>
+			Projects
+			<ul>
+				<cfloop query="project_agent">
+					<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+				</cfloop>
+			</ul>
+		</p>
 	</cfif>
 	<cfquery name="publication_agent" datasource="uam_god">
 		select
@@ -244,18 +247,20 @@
 			full_citation
 	</cfquery>
 	<cfif len(publication_agent.full_citation) gt 0>
-		Publications
-		<ul>
-			<cfloop query="publication_agent">
-				<li>
-					<a href="/publication/#PUBLICATION_ID#">#full_citation#</a>
-					<cfquery name="citn" datasource="uam_god">
-						select count(*) c from citation where publication_id=#publication_id#
-					</cfquery>
-					<ul><li>#citn.c# citations</li></ul>
-				</li>
-			</cfloop>
-		</ul>
+		<p>
+			Publications
+			<ul>
+				<cfloop query="publication_agent">
+					<li>
+						<a href="/publication/#PUBLICATION_ID#">#full_citation#</a>
+						<cfquery name="citn" datasource="uam_god">
+							select count(*) c from citation where publication_id=#publication_id#
+						</cfquery>
+						<ul><li>#citn.c# citations</li></ul>
+					</li>
+				</cfloop>
+			</ul>
+		</p>
 	</cfif>
 </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
