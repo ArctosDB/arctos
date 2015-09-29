@@ -59,6 +59,7 @@
 	<cfif not isdefined("agent_id") or len(agent_id) is 0>
 		<cfabort>
 	</cfif>
+
 	<div align="center">
 		<div class="ui-state-highlight ui-corner-all" style="display:inline-block;margin:1em;padding:1em;">
 			Your login may prevent access to some linked data. The summary data below are accurate, except
@@ -79,6 +80,8 @@
 			agent.agent_id=#agent_id#
 		order by agent_name
 	</cfquery>
+
+	<cfset title = "#agent.preferred_agent_name# - Agent Activity">
 	<!--- control what names are released, order what's left --->
 	<cfset names=structNew()>
 	<!---
