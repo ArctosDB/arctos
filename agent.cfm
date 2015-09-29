@@ -60,8 +60,8 @@
 		<cfabort>
 	</cfif>
 	<div class="ui-state-highlight ui-corner-all">
-		Your login may prevent you from accessing some linked data. The summary data below are accurate, except
-		agent-related encumbrances excclude records from this report.
+		Your login may prevent access to some linked data. The summary data below are accurate, except
+		agent-related encumbrances exclude records.
 	</div>
 	<cfquery name="agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
@@ -100,21 +100,21 @@
 				<cfset q=q+1>
 			</cfloop>
 		</cfloop>
-
-
-
-
 	<p>
 		Activity Summary for <strong>#agent.preferred_agent_name# (#agent.agent_type#)</strong>
 	</p>
-	<p>
-		Agent Names:
-		<ul>
-			<cfloop query="ordnames">
-				<li>#name# (#nametype#)</li>
-			</cfloop>
-		</ul>
-	</p>
+	<cfif ordnames.recordcount gt 0>
+		<p>
+			Agent Names:
+			<ul>
+				<cfloop query="ordnames">
+					<li>
+						#name# (#nametype#) <a href="agent.cfm?agent_name=#name#" class="infoLink"> [ search ]</a>
+					</li>
+				</cfloop>
+			</ul>
+		</p>
+	</cfif>
 
 	<cfif agent.agent_type is "group">
 		<cfquery name="grpagnt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
