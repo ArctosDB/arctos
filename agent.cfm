@@ -101,7 +101,7 @@
 				</cfloop>
 			</cfloop>
 		<p>
-			Activity Summary for <strong>#agent.preferred_agent_name# (#agent.agent_type#)</strong>
+			Agent Summary for <strong>#agent.preferred_agent_name# (#agent.agent_type#)</strong>
 		</p>
 		<cfif ordnames.recordcount gt 0>
 			<p>
