@@ -55,8 +55,6 @@
 	</cfif>
 	<!--- If we DO have an ID, show the agent info ---->
 	<cfif isdefined("agent_id") and len(agent_id) gt 0>
-
-
 		<div align="center">
 			<div class="ui-state-highlight ui-corner-all" style="display:inline-block;margin:1em;padding:1em;">
 				Your login may prevent access to some linked data. The summary data below are accurate, except
@@ -334,9 +332,16 @@
 							</cfquery>
 							<ul>
 								<li>
-									<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#citn.c# citations</a></li>
+									<cfif citn.c gt 0>
+										<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#citn.c# citations</a>
+									<cfelse>
+										No citations
+									</cfif>
+								</li>
 								<cfif len(doi) gt 0>
-									<li><a href="http://dx.doi.org/#doi#" target="_blank" class="external">#doi#</a></li>
+									<li>
+										<a href="http://dx.doi.org/#doi#" target="_blank" class="external">#doi#</a>
+									</li>
 								</cfif>
 							</ul>
 						</li>
