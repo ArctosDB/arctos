@@ -59,9 +59,11 @@
 	<cfif not isdefined("agent_id") or len(agent_id) is 0>
 		<cfabort>
 	</cfif>
-	<div class="ui-state-highlight ui-corner-all">
-		Your login may prevent access to some linked data. The summary data below are accurate, except
-		agent-related encumbrances exclude records.
+	<div align="center">
+		<div class="ui-state-highlight ui-corner-all" style="display:inline-block;margin:1em;padding:1em;">
+			Your login may prevent access to some linked data. The summary data below are accurate, except
+			agent-related encumbrances exclude records.
+		</div>
 	</div>
 	<cfquery name="agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
