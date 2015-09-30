@@ -59,6 +59,10 @@
 			<div class="ui-state-highlight ui-corner-all" style="display:inline-block;margin:1em;padding:1em;">
 				Your login may prevent access to some linked data. The summary data below are accurate, except
 				agent-related encumbrances exclude records.
+				<cfif session.roles contains "manage_agent">
+					<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">Agent Activity</a>
+					<br><a href="//agents.cfm?agent_id=#agent_id#">Edit Agent</a>
+				</cfif>
 			</div>
 		</div>
 		<cfquery name="agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -220,7 +224,6 @@
 		        collection.collection_id,
 		        collector.collector_role
 		</cfquery>
-		<cfdump var=#collector#>
 		<cfquery name="ssc" dbtype="query">
 			select sum(cnt) sc from collector
 		</cfquery>
