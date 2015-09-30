@@ -13,15 +13,15 @@
 <cfquery name="d" datasource="uam_god">
 	select * from dlm.my_temp_cf
 </cfquery>
-
+<cfoutput>
 <cfdump var=#d#>
 <cfloop query="d">
 	<cfset x=getQueryRow(qry=d,row=currentRow)>
 	<cfdump var=#x#>
 	<cfset j=serializeJSON(x)>
-	<cfdump var=#x#>
+	<cfdump var=#j#>
 </cfloop>
-
+</cfoutput>
 <!----
 
 
