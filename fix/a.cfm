@@ -18,6 +18,8 @@
 <cfloop query="d">
 	<cfset x=getQueryRow(qry=d,row=currentRow)>
 	<cfdump var=#x#>
+	<cfset j=serializeJSON(x)>
+	<cfdump var=#x#>
 </cfloop>
 
 <!----
