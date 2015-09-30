@@ -1,7 +1,7 @@
 <cfcomponent>
 
 <!--------------------------------------------------------------------------------------------------------->
-	<cffunction name="getSpecimenSummary" access="remote" returnformat="plain" queryFormat="column">
+<cffunction name="getSpecimenSummary" access="remote" returnformat="plain" queryFormat="column">
 		<cfparam name="querystring" type="string" default="">
 		<cfparam name="groupby" type="string" default="">
 		<cfparam name="jtStartIndex" type="numeric" default="0">
@@ -32,7 +32,7 @@
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
 					<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-					<cfif x is not "collection_object_id" and x is not "individualcount" and x is not "ispublished">
+					<cfif x is not "collection_object_id" and x is not "individualcount">
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
@@ -47,31 +47,13 @@
 				<p>
 					basSelect: #basSelect#
 				</p>
-
 				</cfoutput>
-
-
 				---->
-
-
-				<cfoutput>
-				<p>
-					basSelect: #basSelect#
-				</p>
-
-				</cfoutput>
-
-
-
-
 				<cfinclude template="/includes/SearchSql.cfm">
 				<cfset group_cols = groupBy>
 				<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
 				<cfif listfindnocase(group_cols,'individualcount')>
 					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
-				</cfif>
-				<cfif listfindnocase(group_cols,'ispublished')>
-					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'ispublished'))>
 				</cfif>
 				<!--- require some actual searching --->
 				<cfset srchTerms="">
@@ -136,9 +118,7 @@
 				</p>
 				---->
 
-	<p>
-				SqlString: <cfdump var=#SqlString#>
-				</p>
+
 
 				<!----
 				<cfset checkSql(SqlString)>
@@ -147,13 +127,6 @@
 				<cfif listfindnocase(groupBy,'individualcount')>
 					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 				</cfif>
-				<cfif listfindnocase(groupBy,'ispublished')>
-					<cfset InnerSqlString = InnerSqlString & "decode(type_status,NULL,'NO','YES') ispublished, ">
-				</cfif>
-
-
-
-
 				<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 				<!----
 				<p>
