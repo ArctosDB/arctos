@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+trunk<!DOCTYPE html>
 <html>
 <head>
     <title>Upload Files using XMLHttpRequest - Minimal</title>
