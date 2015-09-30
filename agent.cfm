@@ -62,7 +62,7 @@
 				<cfif session.roles contains "manage_agent">
 					<div align="left">
 						<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">Agent Activity</a>
-						<br><a href="//agents.cfm?agent_id=#agent_id#">Edit Agent</a>
+						<br><a href="/agents.cfm?agent_id=#agent_id#">Edit Agent</a>
 					</div>
 				</cfif>
 			</div>
