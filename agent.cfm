@@ -248,6 +248,8 @@
 				guid_prefix,
 				collection_id
 		</cfquery>
+
+		<cfdump var=#cnorole#>
 		<cfif collector.recordcount gt 0>
 			<p>
 				Collected or Prepared <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
@@ -260,10 +262,11 @@
 							<cfquery name="crole" dbtype="query">
 								select collector_role,cnt from collector where collection_id=#collection_id#
 							</cfquery>
+		<cfdump var=#crole#>
 							<ul>
 								<cfloop query="crole">
 									<li>
-										<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#&coll_role=#crole.collector_role#">
+										<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#crole.collection_id#&coll_role=#crole.collector_role#">
 											#crole.collector_role#: #crole.cnt#
 										</a>
 									</li>
