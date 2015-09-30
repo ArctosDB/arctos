@@ -134,7 +134,6 @@
 				</p>
 				---->
 
-				InnerSqlString: <cfdump var=#InnerSqlString#>
 
 				<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
 				<cftry>
