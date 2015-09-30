@@ -52,6 +52,18 @@
 
 
 				---->
+
+
+				<cfoutput>
+				<p>
+					basSelect: #basSelect#
+				</p>
+
+				</cfoutput>
+
+
+
+
 				<cfinclude template="/includes/SearchSql.cfm">
 				<cfset group_cols = groupBy>
 				<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
@@ -124,7 +136,9 @@
 				</p>
 				---->
 
-
+	<p>
+				SqlString: <cfdump var=#SqlString#>
+				</p>
 
 				<!----
 				<cfset checkSql(SqlString)>
