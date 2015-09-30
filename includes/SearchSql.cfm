@@ -1842,8 +1842,23 @@
 	<cfset basQual = " #basQual# AND publication_id = #publication_id#">
 	<cfset mapurl = "#mapurl#&publication_id=#publication_id#">
 </cfif>
+<cfif isdefined("ispublished") and len(ispublished) gt 0>
+	<!---
+		from specimenresults, should be "yes" or "no" and double-equal-orefixed
+		MAKE SURE THIS IS PROCESSED BEFORE type_status!!
+	---->
+	<cfif ispublished contains "yes">
+		<cfset 	type_status='any'>
+	<cfelse>
+		<cfset 	type_status='NULL'>
+	</cfif>
+</cfif>
+
+
 <cfif isdefined("type_status") and len(type_status) gt 0>
-	<cfif #type_status# is "any">
+	<cfif compare(type_status,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.TYPESTATUS IS NULL">
+	<cfelseif type_status is "any">
 		<cfset basQual = " #basQual# AND #session.flatTableName#.TYPESTATUS IS NOT NULL">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.TYPESTATUS) LIKE '%#ucase(type_status)#%'">
