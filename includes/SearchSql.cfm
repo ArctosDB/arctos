@@ -1853,8 +1853,6 @@
 		<cfset 	type_status='NULL'>
 	</cfif>
 </cfif>
-
-
 <cfif isdefined("type_status") and len(type_status) gt 0>
 	<cfif compare(type_status,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.TYPESTATUS IS NULL">
