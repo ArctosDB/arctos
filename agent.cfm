@@ -266,7 +266,7 @@
 							<ul>
 								<cfloop query="crole">
 									<li>
-										<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#crole.collection_id#&coll_role=#crole.collector_role#">
+										<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#&coll_role=#crole.collector_role#">
 											#crole.collector_role#: #crole.cnt#
 										</a>
 									</li>
