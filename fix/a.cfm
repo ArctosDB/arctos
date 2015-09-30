@@ -16,7 +16,7 @@
 
 <cfdump var=#d#>
 <cfloop query="d">
-	<cfset x=getQueryRow(qry="d",row=currentRow)>
+	<cfset x=getQueryRow(qry=d,row=currentRow)>
 	<cfdump var=#x#>
 </cfloop>
 
