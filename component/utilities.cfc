@@ -402,11 +402,11 @@
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp">
-			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS">
+			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,full-text-access,flex2gateway">
 			<cfset x=x & ",getmappingxpath,get_host_address">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA">
-			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals">
+			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,jrnlallbooks">
 			<cfset x=x & ",lib,lightbox">
 			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail">
 			<cfset x=x & ",news,nyet">
@@ -415,6 +415,13 @@
 			<cfset x=x & ",pma,phppgadmin">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes,sysobjects">
+
+
+			<cfset x=x & ",science">
+
+
+
+
 			<cfset x=x & ",trackback,TABLE_NAME">
 			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates,update">
 			<cfset x=x & ",verify-tldnotify,version">

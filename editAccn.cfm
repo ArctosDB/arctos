@@ -218,7 +218,7 @@
 						</td>
 						<td>
 							<label for="rec_date">Received Date</label>
-							<cfinput type="text"
+							<input type="text"
 								name="rec_date"
 								value="#DateFormat(accnData.received_date, 'yyyy-mm-dd')#"
 								size="10"
@@ -228,7 +228,7 @@
 							<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
 								Est. Cnt.
 							</label>
-							<cfinput type="text" validate="integer"
+							<input type="text" validate="integer"
 								message="##Specimens must be a number" name="estimated_count"
 								value="#accnData.estimated_count#" size="10" id="estimated_count">
 						</td>
