@@ -60,8 +60,10 @@
 				Your login may prevent access to some linked data. The summary data below are accurate, except
 				agent-related encumbrances exclude records.
 				<cfif session.roles contains "manage_agent">
-					<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">Agent Activity</a>
-					<br><a href="//agents.cfm?agent_id=#agent_id#">Edit Agent</a>
+					<div align="left">
+						<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">Agent Activity</a>
+						<br><a href="//agents.cfm?agent_id=#agent_id#">Edit Agent</a>
+					</div>
 				</cfif>
 			</div>
 		</div>
