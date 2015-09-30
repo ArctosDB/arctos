@@ -32,7 +32,7 @@
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
 					<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-					<cfif x is not "collection_object_id" and x is not "individualcount">
+					<cfif x is not "collection_object_id" and x is not "individualcount" and x is not "ispublished">
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
@@ -57,6 +57,9 @@
 				<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
 				<cfif listfindnocase(group_cols,'individualcount')>
 					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
+				</cfif>
+				<cfif listfindnocase(group_cols,'ispublished')>
+					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'ispublished'))>
 				</cfif>
 				<!--- require some actual searching --->
 				<cfset srchTerms="">
@@ -130,6 +133,13 @@
 				<cfif listfindnocase(groupBy,'individualcount')>
 					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 				</cfif>
+				<cfif listfindnocase(groupBy,'ispublished')>
+					<cfset InnerSqlString = InnerSqlString & "decode(type_status,NULL,'NO','YES') ispublished, ">
+				</cfif>
+
+
+
+
 				<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 				<!----
 				<p>
