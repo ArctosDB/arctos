@@ -213,7 +213,7 @@
 						coll_object_encumbrance,
 						encumbrance where
 						coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
-						encumbrance.encumbrance in ('mask collector','mask preparator','mask record')
+						encumbrance.encumbrance_action in ('mask collector','mask preparator','mask record')
 				)
 			group by
 				collection.guid_prefix,
