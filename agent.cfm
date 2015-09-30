@@ -226,6 +226,11 @@
 		        collection.collection_id,
 		        collector.collector_role
 		</cfquery>
+
+		<cfdump var=#collector#>
+
+
+
 		<cfquery name="ssc" dbtype="query">
 			select sum(cnt) sc from collector
 		</cfquery>
