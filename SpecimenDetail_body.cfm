@@ -772,11 +772,7 @@
 						<span class="innerDetailLabel"></span>
 						<cfset collnks="">
 						<cfloop list="#collectors#" delimiters="," index="i">
-							<cfif i is "unknown">
-								<cfset t="unknown">
-							<cfelse>
-								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
-							</cfif>
+							<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
 							<cfset collnks=listappend(collnks,t,",")>
 						</cfloop>
 						#collnks#
@@ -796,11 +792,7 @@
 							<span class="innerDetailLabel"></span>
 							<cfset collnks="">
 							<cfloop list="#preparators#" delimiters="," index="i">
-								<cfif i is "unknown">
-									<cfset t="unknown">
-								<cfelse>
-									<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
-								</cfif>
+								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
 								<cfset collnks=listappend(collnks,t,",")>
 							</cfloop>
 							#collnks#
@@ -821,11 +813,7 @@
 							<span class="innerDetailLabel"></span>
 							<cfset collnks="">
 							<cfloop list="#makers#" delimiters="," index="i">
-								<cfif i is "unknown">
-									<cfset t="unknown">
-								<cfelse>
-									<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
-								</cfif>
+								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
 								<cfset collnks=listappend(collnks,t,",")>
 							</cfloop>
 							#collnks#
