@@ -66,9 +66,8 @@
 <cfloop query="d">
 	<cfset x=getQueryRow(qry=d,row=currentRow)>
 	<cfdump var=#x#>
-	<cfset j=serializeJSON(x,"struct")>
-	<cfdump var=#j#>
-	<cfset a=QueryToArray(Data=x)>
+
+	<cfset a=QueryToArray(x)>
 	<cfdump var=#a#>
 </cfloop>
 </cfoutput>
