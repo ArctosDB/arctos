@@ -8,6 +8,7 @@
     </cfloop>
     <cfreturn arguments.qryRow>
 </cffunction>
+<!----
 <cffunction name="QueryToArray" access="public" returntype="array" output="false"
     hint="This turns a query into an array of structures.">
 
@@ -39,6 +40,38 @@
         return( LOCAL.QueryArray );
     </cfscript>
 </cffunction>
+---->
+<cfscript>
+component {
+
+	url.returnformat="json";
+
+	remote function getPeople() {
+		//number of test rows
+		var rows = 500;
+		var result = queryNew("id,propername,age,gender");
+		for(var i=1; i<= rows; i++) {
+			queryAddRow(result, {id:i, propername:"Name #i#", age:i%25, gender:1});
+		}
+		return queryToArray(result);
+	}
+
+	private function queryToArray(q) {
+		var s = [];
+		var cols = q.columnList;
+		var colsLen = listLen(cols);
+		for(var i=1; i<=q.recordCount; i++) {
+			var row = {};
+			for(var k=1; k<=colsLen; k++) {
+				row[lcase(listGetAt(cols, k))] = q[listGetAt(cols, k)][i];
+			}
+			arrayAppend(s, row);
+		}
+		return s;
+	}
+}
+</cfscript>
+
 
 <cfquery name="d" datasource="uam_god">
 	select * from dlm.my_temp_cf
