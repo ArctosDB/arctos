@@ -42,21 +42,7 @@
 </cffunction>
 ---->
 <cfscript>
-component {
-
-	url.returnformat="json";
-
-	remote function getPeople() {
-		//number of test rows
-		var rows = 500;
-		var result = queryNew("id,propername,age,gender");
-		for(var i=1; i<= rows; i++) {
-			queryAddRow(result, {id:i, propername:"Name #i#", age:i%25, gender:1});
-		}
-		return queryToArray(result);
-	}
-
-	private function queryToArray(q) {
+	 function queryToArray(q) {
 		var s = [];
 		var cols = q.columnList;
 		var colsLen = listLen(cols);
@@ -69,7 +55,6 @@ component {
 		}
 		return s;
 	}
-}
 </cfscript>
 
 
