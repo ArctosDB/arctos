@@ -138,7 +138,7 @@
 
 		<cfscript>
 			variables.joFileWriter.writeLine(robotscontent);
-			variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
+			variables.joFileWriter.writeLine(chr(10) & 'Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
 		</cfscript>
 
 
