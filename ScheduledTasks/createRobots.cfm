@@ -158,8 +158,11 @@
 	------------>
 <cfelse>
 	<!---- not prod ---->
+
+	<cfset robotscontent="User-agent: *">
+	<cfset robotscontent=robotscontent & chr(10) & "Disallow: /">
 	<cfscript>
-		variables.joFileWriter.writeLine('Disallow: /');
+		variables.joFileWriter.writeLine(robotscontent);
 	</cfscript>
 </cfif>
 <cfscript>
