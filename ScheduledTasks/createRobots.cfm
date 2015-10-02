@@ -14,7 +14,7 @@
 
 
 
-<cfif application.version is not "prod">
+<cfif application.version is "prod">
 
 	<!----- DIRECTORIES
 				these are disallowed by default, so just eliminate from the default list
