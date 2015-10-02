@@ -328,7 +328,6 @@
 	<cfset badbot=badbot & ",Domain">
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">
-	<cfset badbot=badbot & ",ia_archiver">
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
 	<cfset badbot=badbot & ",Nutch">
 	<cfset badbot=badbot & ",re-animator">

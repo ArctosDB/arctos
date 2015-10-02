@@ -30,7 +30,7 @@
 	<cfset theLogFile=Application.404log>
 <cfelseif exception.subject is "missing GUID">
 	<cfset theLogFile=Application.missingGUIDlog>
-<cfelseif exception.subject is "autoblacklist">
+<cfelseif exception.subject contains "autoblacklist">
 	<cfset theLogFile=Application.blacklistlog>
 </cfif>
 <cfset exception.logfile=theLogFile>
