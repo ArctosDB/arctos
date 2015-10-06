@@ -17,7 +17,7 @@
 			ReReplace("test 123!", "[^a-z0-9]", "", "ALL"): #ReReplace("test 123!", "[^a-z0-9]", "", "ALL")#
 		</p>
 		<p>
-			rereplace(session.CustomOtherIdentifier,'[^A-Za-z]','_'): #rereplace(session.CustomOtherIdentifier,'[^A-Za-z]','_')#
+			rereplace("#session.CustomOtherIdentifier#",'[^A-Za-z]','_'): #rereplace("#session.CustomOtherIdentifier#",'[^A-Za-z]','_')#
 		</p>
 
 		<script type="text/javascript">
