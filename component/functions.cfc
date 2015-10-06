@@ -3098,27 +3098,10 @@
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#">
 			</cfstoredproc>
-
-
-
-
-
-		<!----
-
-			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update
-					container
-				set
-					parent_container_id = #position_id#
-				where
-					container_id = #thisContainerId#
-			</cfquery>
-			---->
 			<cfset result = "#box_position#|#thisID.label#">
 		</cfif>
 	<cfcatch>
 		<cfset result = "-#box_position#|#cfcatch.Message#: #cfcatch.detail#">
-		<cfdump var=#cfcatch#>
 	</cfcatch>
 	</CFTRY>
 	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>

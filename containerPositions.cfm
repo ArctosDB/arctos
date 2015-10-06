@@ -155,12 +155,14 @@
 	<cfif whatPosAreUsed.recordcount is 0>
 		There's nothing in this container.
 		<br>You can create positions in empty position-appropriate containers.
+		<br>(Positions will use the parent's institution.)
 
 		<form name="allnewPos" method="post" action="containerPositions.cfm">
 			<input type="hidden" name="action" value="allNewPositions">
 			<input type="hidden" name="container_type" value="#aBox.container_type#">
 			<input type="hidden" name="container_id" value="#aBox.container_id#">
 			<input type="hidden" name="number_positions" value="#aBox.number_positions#">
+			<input type="hidden" name="institution_acronym" value="#aBox.institution_acronym#">
 			<input type="submit" value="Create all new positions" class="insBtn">
 		</form>
 		<cfabort>
@@ -297,84 +299,6 @@
 </cfoutput>
 
 </cfif>
-<!------------------------------------------------------------------------------>
-<cfif #action# is "moveScans">
-	<!--- generate a list of child/parent/timestamp and put it into the standard container upload table ---->
-	<cfoutput>
-		<cfset oops = "">
-		<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from cf_temp_container_location
-		</cfquery>
-		<cftransaction>
-		<cfloop from="1" to="#number_positions#" index="bc">
-			<cfset thisContainerId = "">
-		 	<cfif isdefined("barcode" & bc)>
-				<cfset thisBarcode = #evaluate("barcode" & bc)#>
-				<cfset thisParentId = #evaluate("position_id" & bc)#>
-				<cfif len(#thisBarcode#) gt 0>
-
-						<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select container_id from container where barcode='#thisBarcode#'
-							<!--- we should only be putting cyrovials in box positions ---->
-							AND container_type = 'cryovial'
-						</cfquery>
-
-						<cfif #thisID.recordcount# is 0>
-								<!--- see if it's a label --->
-								<cfquery name="isLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-									select container_id from container where barcode='#thisBarcode#'
-									AND container_type = 'cryovial label'
-								</cfquery>
-								<cfif #isLabel.recordcount# is 1>
-									<!--- switch --->
-									<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-										update container set container_type='cryovial'
-										where container_id=#isLabel.container_id#
-									</cfquery>
-									<cfset thisContainerId = #isLabel.container_id#>
-								</cfif>
-								<cfset thisContainerId = #isLabel.container_id#>
-						<cfelseif #thisID.recordcount# is 1>
-							<cfset thisContainerId = #thisID.container_id#>
-						<cfelse>
-							bad juju<cfabort>
-						</cfif>
-
-					<cfif len(#thisContainerId#) gt 0>
-
-						<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							INSERT INTO cf_temp_container_location (
-								CONTAINER_ID,
-								PARENT_CONTAINER_ID,
-								TIMESTAMP )
-							VALUES (
-								#thisContainerId#,
-								#thisParentId#,
-								sysdate)
-						</cfquery>
-					<cfelse>
-						<cfset oops = "#oops#; no container matched barcode #thisBarcode#!">
-					</cfif>
-				</cfif>
-			</cfif>
-		</cfloop>
-		</cftransaction>
-		<CFIF LEN(#oops#) gt 0>
-			<!--- cleanup on isle no container.... ---->
-			<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete from cf_temp_container_location
-			</cfquery>
-			<hr><font color="##FF0000">#oops#</font>
-		<cfelse>
-			<!--- check these, move them, and tell the user to go back ---->
-			<!---- include the mover over application ---->
-			<cfset action="update">
-			<cfinclude template="/LoadBarcodes.cfm">
-			<cflocation url="containerPositions.cfm?container_id=#container_id#">
-		</CFIF>
-	</cfoutput>
-</cfif>
-
 
 <!------------------------------------------------------------------------------>
 <cfif #action# is "allNewPositions">
@@ -431,6 +355,21 @@
 		<cftransaction>
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
+
+				<cfstoredproc procedure="createContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#position_label#"><!--- v_container_type ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#i#"><!---- v_label --->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_description ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_remarks ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_barcode ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#width#"><!---- v_width ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#height#"><!---- v_height ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#length#"><!---- v_length ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="1"><!---- v_number_positions ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#container_id#"><!---- v_parent_container_id ---->
+				</cfstoredproc>
+
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO container (
 					CONTAINER_ID,

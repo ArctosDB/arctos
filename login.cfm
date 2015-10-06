@@ -10,7 +10,7 @@
 <!------------------------------------------------------------>
 <cfif  action is "newUser">
 	<cfquery name="uUser" datasource="cf_dbuser">
-		select * from cf_users where username = '#username#'
+		select * from cf_users where upper(username) = '#ucase(username)#'
 	</cfquery>
 	<cfset err="">
 	<cfif len(password) is 0>
