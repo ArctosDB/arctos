@@ -147,7 +147,7 @@ function deleteSubsample(i){
 		function(r) {
 			if (r.DATA.MESSAGE=='success'){
 				// its deleted, remove the row
-					console.log('removerow');
+					//console.log('removerow');
 				 $('tr[data-record-key="' + i + '"]').remove();
 			} else {
 				alert('An error occured: \n' + r.DATA.MESSAGE);

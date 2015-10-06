@@ -396,9 +396,9 @@
 			<cfset x="">
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
-			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">
-			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
-			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH">
+			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler,batch">
+			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
+			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS">
@@ -413,12 +413,14 @@
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4">
 			<cfset x=x & ",pma,phppgadmin">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README">
-			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes,sysobjects">
+			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes,sysobjects">
 			<cfset x=x & ",trackback,TABLE_NAME">
-			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates,update">
+			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
+
+
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
