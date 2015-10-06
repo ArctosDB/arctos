@@ -14,6 +14,7 @@
 	<cfoutput>
 		<script type="text/javascript">
 		    $(document).ready(function () {
+		    	console.log('hi');
 		        $('##loanitems').jtable({
 		            title: 'Loan Items (excluding data loan specimens)',
 					paging: true, //Enable paging
