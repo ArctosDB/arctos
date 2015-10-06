@@ -12,14 +12,6 @@
 </cfif>
 <cfif action is "nothing">
 	<cfoutput>
-
-		<p>
-			ReReplace("test 123!", "[^a-z0-9]", "", "ALL"): #ReReplace("test 123!", "[^a-z0-9]", "", "ALL")#
-		</p>
-		<p>
-			rereplace("#session.CustomOtherIdentifier#",'[^A-Za-z]','_',"all"): #rereplace("#session.CustomOtherIdentifier#",'[^A-Za-z]','_',"all")#
-		</p>
-
 		<script type="text/javascript">
 		    $(document).ready(function () {
 		        $('##loanitems').jtable({

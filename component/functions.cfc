@@ -3065,22 +3065,40 @@
 	<cfset thisContainerId = "">
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select container_id,label,container_type from container where barcode='#barcode#'
+			select * from container where barcode='#barcode#'
 		</cfquery>
 		<cfif thisID.recordcount is 1 and thisID.container_type is acceptableChildContainerType>
-			<cfset thisContainerId = thisID.container_id>
+			<cfset ctype=thisID.container_type>
 		<cfelseif thisID.recordcount is 1 and thisID.container_type is "#acceptableChildContainerType# label">
+			<cfset ctype=acceptableChildContainerType>
+			<!----
 			<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set container_type='#acceptableChildContainerType#'
 				where container_id=#thisID.container_id#
 			</cfquery>
 			<cfset thisContainerId = thisID.container_id>
-		<cfelseif thisID.recordcount is not 1>
-			<cfset result = "-#box_position#|Container barcode #barcode# matches #thisID.recordcount# records.">
+			---->
 		<cfelse>
 			<cfset result = "-#box_position#|Container barcode #barcode# (#thisID.container_type#) is not of type #acceptableChildContainerType# or #acceptableChildContainerType# label.">
 		</cfif>
-		<cfif len(thisContainerId) gt 0>
+		<cfif len(result) is 0>
+			<!--- sweet, update --->
+			<cfstoredproc procedure="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_id#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#position_id#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#ctype#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.label#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.description#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_remarks#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.barcode#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.width#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.height#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.length#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#">
+		</cfstoredproc>
+		<!----
+
 			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update
 					container
@@ -3089,6 +3107,7 @@
 				where
 					container_id = #thisContainerId#
 			</cfquery>
+			---->£
 			<cfset result = "#box_position#|#thisID.label#">
 		</cfif>
 	<cfcatch>
@@ -3096,7 +3115,7 @@
 	</cfcatch>
 	</CFTRY>
 	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-		<cfreturn result>
+	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 
