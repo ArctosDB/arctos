@@ -3118,6 +3118,7 @@
 		</cfif>
 	<cfcatch>
 		<cfset result = "-#box_position#|#cfcatch.Message#: #cfcatch.detail#">
+		<cfdump var=#cfcatch#>
 	</cfcatch>
 	</CFTRY>
 	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
