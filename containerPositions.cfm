@@ -355,22 +355,6 @@
 		<cftransaction>
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
-				<br>
-
-				<br>#position_label#"><!--- v_container_type ---->
-					<br>#i#"><!---- v_label --->
-					<br>"><!---- v_description ---->
-					<br>"><!---- v_container_remarks ---->
-					<br>"><!---- v_barcode ---->
-					<br>#width#"><!---- v_width ---->
-					<br>#height#"><!---- v_height ---->
-					<br>#length#"><!---- v_length ---->
-					<br>1"><!---- v_number_positions ---->
-					<br>#institution_acronym#"><!---- v_institution_acronym ---->
-					<br>#container_id#"><!---- v_parent_con--->
-
-
-
 				<cfstoredproc procedure="createContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#position_label#"><!--- v_container_type ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#i#"><!---- v_label --->
@@ -384,37 +368,9 @@
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#container_id#"><!---- v_parent_container_id ---->
 				</cfstoredproc>
-<!----
-				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO container (
-					CONTAINER_ID,
-					PARENT_CONTAINER_ID,
-					CONTAINER_TYPE,
-					LABEL,
-					WIDTH,
-					HEIGHT,
-					length,
-					NUMBER_POSITIONS,
-					LOCKED_POSITION,
-					institution_acronym)
-				VALUES (
-					sq_container_id.nextval,
-					#container_id#,
-					'#position_label#',
-					'#i#',
-					#width#,
-					#height#,
-					#length#,
-					1,
-					1,
-					'UAM')
-					</cfquery>
-					----->
 			</cfloop>
 		</cftransaction>
-		<!----
 		<cflocation url="containerPositions.cfm?container_id=#container_id#">
-		---->
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
