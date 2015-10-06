@@ -3063,6 +3063,7 @@
 	<cfargument name="barcode" type="string" required="yes">
 	<cfargument name="acceptableChildContainerType" type="string" required="yes">
 	<cfset thisContainerId = "">
+	<cfset result = "">
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from container where barcode='#barcode#'
@@ -3107,7 +3108,7 @@
 				where
 					container_id = #thisContainerId#
 			</cfquery>
-			---->£
+			---->
 			<cfset result = "#box_position#|#thisID.label#">
 		</cfif>
 	<cfcatch>
