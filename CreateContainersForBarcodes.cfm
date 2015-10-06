@@ -209,28 +209,9 @@
 </cfif>
 <!------------------------------------------------>
 <cfif action is "load">
-	<cftransaction>
-		<cfquery name="cc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_container
-		</cfquery>
-		<cfloop query="cc">
-			<cfstoredproc procedure="createContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#CONTAINER_TYPE#"><!--- v_container_type ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#LABEL#"><!---- v_label --->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#DESCRIPTION#"><!---- v_description ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#CONTAINER_REMARKS#"><!---- v_container_remarks ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#BARCODE#"><!---- v_barcode ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_width ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_height ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_length ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_number_positions ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="0"><!---- v_parent_container_id ---->
-			</cfstoredproc>
-		</cfloop>
-	</cftransaction>
+	<cfstoredproc procedure="batchCreateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	</cfstoredproc>
 	done
-
 </cfif>
 
 <cfinclude template = "includes/_footer.cfm">
