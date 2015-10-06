@@ -51,7 +51,7 @@
 		                },
 		                GUID: {title: 'GUID'},
 		                <cfif len(session.CustomOtherIdentifier) gt 0>
-		                	#rereplace(session.CustomOtherIdentifier,'[^A-Za-z]','_','all')#: {title: '#session.CustomOtherIdentifier#'},
+		                	CUSTOMID: {title: '#session.CustomOtherIdentifier#'},
 		                </cfif>
 		                SCIENTIFIC_NAME: {title: 'ID as'},
 		                PART_NAME: {title: 'Part'},
