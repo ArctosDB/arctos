@@ -231,6 +231,7 @@
 					<cfquery name="delePart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM specimen_part WHERE collection_object_id = #collection_object_id#
 					</cfquery>
+					<!--- all handled by ON DELETE trigger of the part 
 					<cfquery name="delePartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM coll_object WHERE collection_object_id = #collection_object_id#
 					</cfquery>
@@ -260,6 +261,7 @@
 					<cfquery name="delepart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM coll_object WHERE collection_object_id = #collection_object_id#
 					</cfquery>
+					---->
 				</cfloop>
 			</cfif>
 			<!--- and for everything else just remove from the loan ---->

@@ -1,28 +1,29 @@
 <cfinclude template = "includes/_header.cfm">
+deprecated - file a bug report if you need this<cfabort>
 <!--------------
 	drop table cf_temp_barcodeload;
-	
+
 	create table cf_temp_barcodeload (
 		key number not null,
 		child_barcode varchar2(255) not null,
 		parent_barcode varchar2(255) not null,
 		install_date date);
-		
+
 	create or replace public synonym cf_temp_barcodeload for cf_temp_barcodeload;
-	
+
 	grant all on cf_temp_barcodeload to manage_container;
-	
-	
-	CREATE OR REPLACE TRIGGER cf_temp_barcodeload_key                                         
-	 before insert  ON cf_temp_barcodeload  
-	 for each row 
-	    begin     
-	    	if :NEW.key is null then                                                                                      
+
+
+	CREATE OR REPLACE TRIGGER cf_temp_barcodeload_key
+	 before insert  ON cf_temp_barcodeload
+	 for each row
+	    begin
+	    	if :NEW.key is null then
 	    		select somerandomsequence.nextval into :new.key from dual;
-	    	end if;                                
-	    end;                                                                                            
+	    	end if;
+	    end;
 	/
-	sho err 
+	sho err
 
 	alter table cf_temp_barcodeload add status varchar2(255);
 	alter table cf_temp_barcodeload add child_id number;
@@ -30,10 +31,10 @@
 
 --------------->
 <cfif action is "nothing">
-	<cfoutput> 
+	<cfoutput>
     	Upload container scans
     	<br>
-    	Duplicate scans will be ignored. 
+    	Duplicate scans will be ignored.
 		<p>CSV headers are <strong>child_barcode,parent_barcode</strong></p>
 	    Upload a new file: <br>
     	<cfform action="LoadBarcodes.cfm" method="post" enctype="multipart/form-data">
@@ -42,14 +43,14 @@
    			<input type="submit" value="Upload this file" class="savBtn">
 		</cfform>
 	</cfoutput>
-</cfif>  
+</cfif>
 <cfif action is "newScans">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_barcodeload
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -63,7 +64,7 @@
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -80,37 +81,37 @@
 	<cfquery name="parent_not_found" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_barcodeload set status='parent_not_found' where parent_barcode not in (select barcode from container where barcode is not null)
 	</cfquery>
-	
+
 	<cfquery name="child_is_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_barcodeload set status='child_is_label' where child_barcode in 
+		update cf_temp_barcodeload set status='child_is_label' where child_barcode in
 			(select barcode from container where barcode is not null and container_type like '%label%')
 	</cfquery>
 	<cfquery name="parent_is_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_barcodeload set status='parent_is_label' where parent_barcode in 
+		update cf_temp_barcodeload set status='parent_is_label' where parent_barcode in
 			(select barcode from container where barcode is not null and container_type like '%label%')
 	</cfquery>
 	<cfquery name="infinite_loop" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_barcodeload set status='infinite_loop' where parent_barcode = child_barcode
 	</cfquery>
 	<cfquery name="parent_is_colobj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_barcodeload set status='parent_is_colobj' where parent_barcode in 
+		update cf_temp_barcodeload set status='parent_is_colobj' where parent_barcode in
 			(select barcode from container where barcode is not null and container_type = 'collection object')
 	</cfquery>
-	
+
 	<cfquery name="ucid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_barcodeload set child_id=(select container_id from container where container.barcode=cf_temp_barcodeload.child_barcode)
 	</cfquery>
-	
+
 	<cfquery name="upid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_barcodeload set parent_id=(select container_id from container where container.barcode=cf_temp_barcodeload.parent_barcode)
 	</cfquery>
-	
-	
+
+
 	<cfquery name="parent_is_colobj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_barcodeload set status='barcode_not_found' where child_id is null or parent_id is null
 	</cfquery>
-	
-	
+
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_barcodeload where status is not null
 	</cfquery>
@@ -136,10 +137,10 @@
 	<p>
 		Errors above? nothing loaded - try again.
 	</p>
-	
+
 	<p>
 		No errors? All done.
 	</p>
-	
+
 </cfif>
 <cfinclude template = "includes/_footer.cfm">
