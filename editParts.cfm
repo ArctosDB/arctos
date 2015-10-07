@@ -324,15 +324,7 @@
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
 <cfoutput>
-	<cfquery name= "getEntBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT agent_id FROM agent_name WHERE agent_name = '#session.username#' group by agent_id
-	</cfquery>
-	<cfif getEntBy.recordcount is 0>
-		<cfabort showerror = "You aren't a recognized agent!">
-	<cfelseif getEntBy.recordcount gt 1>
-		<cfabort showerror = "Your login has has multiple matches.">
-	</cfif>
-	<cfset enteredbyid = getEntBy.agent_id>
+	<cftransaction>
 	<cfloop from="1" to="#numberOfParts#" index="n">
 		<cfset thisPartId = #evaluate("partID" & n)#>
 		<cfset thisPartName = #evaluate("Part_name" & n)#>
@@ -382,6 +374,14 @@
 			</cfquery>
 		</cfif>
 		<cfif len(thisnewCode) gt 0>
+			<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisPartId#"><!---- v_collection_object_id ---->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisnewCode#"><!---- v_barcode ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
+			</cfstoredproc>
+		</cfif>
+		<!----
+
 			<cfquery name="isCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT
 					container_id, container_type, parent_container_id
@@ -430,6 +430,7 @@
 			 	<a href="mailto:#application.bugReportEmail#">contact us</a>!
 				<cfabort>
 			</cfif>
+
 		</cfif>
 		<cfif len(thislabel) gt 0>
 			<cfquery name="upPartPLF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -443,7 +444,9 @@
 			</font>
 			<cfabort>
 		</cfif>
+		---->
 	</cfloop>
+	</cftransaction>
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
