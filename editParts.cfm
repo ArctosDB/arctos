@@ -376,7 +376,7 @@
 		<cfif len(thisnewCode) gt 0>
 			<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisPartId#"><!---- v_collection_object_id ---->
-				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisnewCode#"><!---- v_barcode ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisnewCode#"><!---- v_barcode ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
 			</cfstoredproc>
 		</cfif>
