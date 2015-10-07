@@ -3085,17 +3085,17 @@
 		<cfif len(result) is 0>
 			<!--- sweet, update --->
 			<cfstoredproc procedure="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_id#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#position_id#">
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisID.container_id#">
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#position_id#">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#ctype#">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.label#">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.description#">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_remarks#">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.barcode#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.width#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.height#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.length#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#">
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisID.width#">
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisID.height#">
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisID.length#">
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisID.number_positions#">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#">
 			</cfstoredproc>
 			<cfset result = "#box_position#|#thisID.label#">

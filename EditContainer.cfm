@@ -6,19 +6,7 @@
 		$("#checked_date").datepicker();
 		$("#check_date").datepicker();
 	});
-	function toggleFluid(oo){
-		if (oo==1){
-			$("#fluidDiv").show();
-			$("#fluidCtl").html('<span class="likeLink" onclick="toggleFluid(0)">Is Not Fluid</span>');
-		} else {
-			$("#fluidDiv").hide();
-			$("#fluidCtl").html('<span class="likeLink" onclick="toggleFluid(1)">Is Fluid</span>');
-			$("#checked_date").val('');
-			$("#fluid_type").val('');
-			$("#concentration").val('');
-			$("#fluid_remarks").val('');
-		}
-	}
+
 
 	function magicNumbers (type) {
 		var type;
@@ -550,14 +538,28 @@
 <!----------------------------->
 
 <cfif action is "CreateNew">
-	<cfif len(container_type) IS 0>
-		<div class="error">
-			Container type is required.
-		</div>
-		<cfabort>
-	</cfif>
+
 	<cfoutput>
 		<cftransaction>
+			<cfstoredproc procedure="createContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#container_type#"><!---- v_container_type --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#label#"><!---- v_label --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#description#"><!---- v_description --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#escapeQuotes(container_remarks)#"><!---- v_container_remarks --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#barcode#"><!---- v_barcode --->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#width#"><!---- v_width --->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#height#"><!---- v_height --->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#length#"><!---- v_length --->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#number_positions#"><!---- v_number_positions --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym --->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value=""><!---- v_parent_container_id --->
+			</cfstoredproc>
+
+
+
+<!----
+
+
 			<cfquery name="nextContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT sq_container_id.nextval newid FROM dual
 			</cfquery>
@@ -642,6 +644,7 @@
 					)
 				</cfquery>
 			</cfif>
+			---->
 		</cftransaction>
 		<cflocation url="EditContainer.cfm?action=nothing&container_id=#nextContainer.newid#">
 	</cfoutput>
@@ -697,8 +700,10 @@
 					</cfif>
           		</cfloop>
 			</select>
+			<!---
 			<label for="new_parent_barcode">Parent Barcode</label>
 			<input type="text" name="new_parent_barcode" id="new_parent_barcode" value="" />
+			---->
 			<label for="dTab">Dimensions</label>
 			<table border>
 				<tr>
@@ -729,29 +734,7 @@
 			<input name="label" type="text" value="#label#" class="reqdClr">
 			<label for="container_remarks">Remarks</label>
 			<input name="container_remarks" type="text" value="#container_remarks#">
-			<div id="fluidCtl">
-				<span class="likeLink" onclick="toggleFluid(1)">Is Fluid</span>
-			</div>
-			<div id="fluidDiv" style="display:none">
-				<label for="checked_date">Fluid Type</label>
-				<select name="Fluid_Type" size="1" class="reqdClr" id="fluid_type">
-					<option value=""></option>
-		          	<cfloop query="FluidType">
-        		    	<option <cfif ftype is FluidType.Fluid_Type> <selected="selected"> </cfif>value="#FluidType.Fluid_Type#">#FluidType.Fluid_Type#</option>
-		          	</cfloop>
-				</select>
-				<label for="checked_date">Fluid Checked Date</label>
-				<input name="checked_date" id="checked_date" type="text" value="#checked_date#" class="reqdClr">
-				<label for="concentration">Fluid Concentration</label>
-				<select name="concentration" id="concentration" size="1">
-					<option value=""></option>
-					<cfloop query="ctConc">
-						<option value="#ctConc.concentration#">#ctConc.concentration#</option>
-					</cfloop>
-				</select>
-				<label for="fluid_remarks">Fluid Remarks</label>
-				<input name="fluid_remarks" id="fluid_remarks" type="text" value="#fluid_remarks#">
-			</div>
+
 			<br><input type="submit" value="Create Container" class="insBtn">
 		</form>
 		<script>
@@ -760,4 +743,4 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
-<cfinclude template="/includes/_pickFooter.cfm">
+<cfinclude template="/includes/_footer.cfm">
