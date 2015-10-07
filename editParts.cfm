@@ -22,7 +22,6 @@
 			parentContainer.label,
 			parentContainer.container_id AS parentContainerId,
 			thisContainer.container_id AS partContainerId,
-			parentContainer.print_fg,
 			coll_object_remark.coll_object_remarks,
 			specimen_part_attribute.part_attribute_id,
 			specimen_part_attribute.attribute_type,
@@ -62,7 +61,6 @@
 			label,
 			parentContainerId,
 			partContainerId,
-			print_fg,
 			coll_object_remarks
 		from raw
 		group by
@@ -77,7 +75,6 @@
 			label,
 			parentContainerId,
 			partContainerId,
-			print_fg,
 			coll_object_remarks
 		ORDER BY sampled_from_obj_id DESC,part_name ASC
 	</cfquery>
@@ -158,14 +155,7 @@
 						<label for="coll_object_remarks#i#">Remark</label>
 						<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(getparts.coll_object_remarks)#</textarea>
 					</td>
-					<td>
-						<label for="print_fg#i#">PrtFg</label>
-						<select name="print_fg#i#" id="print_fg#i#" style="width:60px;">
-							<option <cfif getParts.print_fg is 0>selected="selected" </cfif>value="0">no print flag</option>
-							<option <cfif getParts.print_fg is 1>selected="selected" </cfif>value="1">box</option>
-							<option <cfif getParts.print_fg is 2>selected="selected" </cfif>value="2">vial</option>
-						</select>
-					</td>
+
 					<td align="middle">
 						<input type="button" value="Delete" class="delBtn"
 							onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
@@ -333,7 +323,6 @@
 		<cfset thisLotCount = #evaluate("lot_count" & n)#>
 		<cfset thiscoll_object_remarks = #evaluate("coll_object_remarks" & n)#>
 		<cfset thisnewCode = #evaluate("newCode" & n)#>
-		<cfset thisprint_fg = #evaluate("print_fg" & n)#>
 		<cfset thislabel = #evaluate("label" & n)#>
 		<cfset thisparentContainerId = #evaluate("parentContainerId" & n)#>
 		<cfset thispartContainerId = #evaluate("partContainerId" & n)#>
