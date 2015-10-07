@@ -547,10 +547,10 @@
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#description#"><!---- v_description --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#escapeQuotes(container_remarks)#"><!---- v_container_remarks --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#barcode#"><!---- v_barcode --->
-				<cfprocparam cfsqltype="CF_SQL_NUMERIC" value="#width#"><!---- v_width --->
-				<cfprocparam cfsqltype="CF_SQL_NUMERIC" value="#height#"><!---- v_height --->
-				<cfprocparam cfsqltype="CF_SQL_NUMERIC" value="#length#"><!---- v_length --->
-				<cfprocparam cfsqltype="CF_SQL_NUMERIC" value="#number_positions#"><!---- v_number_positions --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#width#"><!---- v_width --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#height#"><!---- v_height --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#length#"><!---- v_length --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#number_positions#"><!---- v_number_positions --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_id --->
 			</cfstoredproc>
