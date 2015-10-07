@@ -43,7 +43,7 @@
 		                },
 		                GUID: {title: 'GUID'},
 		                <cfif len(session.CustomOtherIdentifier) gt 0>
-		                	#session.CustomOtherIdentifier#: {title: '#session.CustomOtherIdentifier#'},
+		                	CUSTOMID: {title: '#session.CustomOtherIdentifier#'},
 		                </cfif>
 		                SCIENTIFIC_NAME: {title: 'ID as'},
 		                PART_NAME: {title: 'Part'},
