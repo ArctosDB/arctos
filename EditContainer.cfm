@@ -552,7 +552,7 @@
 				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#length#"><!---- v_length --->
 				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#number_positions#"><!---- v_number_positions --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym --->
-				<cfprocparam cfsqltype="CF_SQL_FLOAT" value=""><!---- v_parent_container_id --->
+				<cfprocparam cfsqltype="CF_SQL_DECIMAL" value=""><!---- v_parent_container_id --->
 			</cfstoredproc>
 
 
