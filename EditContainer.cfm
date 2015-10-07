@@ -1,4 +1,6 @@
 <cfinclude template="includes/_header.cfm">
+<cfset title='Edit Container'>
+
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#checked_date").datepicker();
@@ -75,17 +77,18 @@
 
 		<cftransaction>
 			<cfstoredproc procedure="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#container_id#"><!---- v_container_id ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_container_id#"><!---- v_parent_container_id ---->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#container_id#"><!---- v_container_id ---->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#parent_container_id#"><!---- v_parent_container_id ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#container_type#"><!---- v_container_type ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#label#"><!---- v_label ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#escapeQuotes(description)#"><!---- v_description ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#escapeQuotes(container_remarks)#"><!---- v_container_remarks ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#barcode#"><!---- v_barcode ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#width#"><!---- v_width ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#height#"><!---- v_height ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#length#"><!---- v_length ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#number_positions#"><!---- v_number_positions ---->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#width#"><!---- v_width ---->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#height#"><!---- v_height ---->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#length#"><!---- v_length ---->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#number_positions#"><!---- v_number_positions ---->
+				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#locked_position#"><!---- v_locked_position ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym ---->
 			</cfstoredproc>
 			<cfif len(checked_date) GT 0 OR len(fluid_type) GT 0 OR len(concentration) GT 0>
