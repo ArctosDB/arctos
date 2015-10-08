@@ -102,7 +102,8 @@ sho err
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
-			select * from CF_TEMP_ACCN where  accn_number='4408'
+			select * from CF_TEMP_ACCN
+			--where  accn_number='4408'
 			--I$STATUS ='toobookoo'
 			--is null or I$STATUS not in ( 'gotagent', 'toobookoo')
 		</cfquery>
@@ -145,22 +146,18 @@ sho err
 					</cfif>
 				</cfif>
 			</cfloop>
-			<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
-						<br>****#sql#
-			<!----
-			<cfif n lte 6>
-			<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
+
+			<cfif n lte 7>
+				<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
 						<br>****#sql#
 								<cfquery name="up" datasource="uam_god">
 									#preserveSingleQuotes(sql)#
 								</cfquery>
-								<cfelse>
-								<cfquery name="up" datasource="uam_god">
-								update CF_TEMP_ACCN set I$STATUS='toobookoo' where I$KEY=#I$KEY#
-								</cfquery>
+				<cfelse>
+							UPDATETHIS
 			</cfif>
 
----->
+
 		</cfloop>
 	</cfoutput>
 </cfif>
