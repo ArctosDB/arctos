@@ -102,14 +102,18 @@ sho err
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
-			select * from CF_TEMP_ACCN
+			select * from CF_TEMP_ACCN where
+			rownum<100
+			--i$status is null
 			--where  accn_number='4408'
 			--I$STATUS ='toobookoo'
-			--is null or I$STATUS not in ( 'gotagent', 'toobookoo')
+			--where i$status is null or I$STATUS not in ( 'gotagent', 'toobookoo')
 		</cfquery>
 		<cfloop query="q">
 			<hr>
 			<br>ACCN_NUMBER: #ACCN_NUMBER#
+			<cfset r.ACCN_NUMBER=ACCN_NUMBER>
+
 			<cfset sql="update cf_temp_accn set ">
 			<cfset n=1>
 			<cfloop from="1" to="4" index="i">
@@ -146,6 +150,8 @@ sho err
 					</cfif>
 				</cfif>
 			</cfloop>
+
+			<cfdump var=#r#>
 
 			<cfif n lte 7>
 				<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
