@@ -102,8 +102,9 @@ sho err
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
-			select * from CF_TEMP_ACCN where
-			rownum<100
+			select * from CF_TEMP_ACCN
+			--where
+			--rownum<100
 			--i$status is null
 			--where  accn_number='4408'
 			--I$STATUS ='toobookoo'
