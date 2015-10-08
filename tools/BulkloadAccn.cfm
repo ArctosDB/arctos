@@ -112,6 +112,7 @@ sho err
 		<cfloop query="q">
 			<hr>
 			<br>ACCN_NUMBER: #ACCN_NUMBER#
+			<cfset r = {}>
 			<cfset r.ACCN_NUMBER=ACCN_NUMBER>
 
 			<cfset sql="update cf_temp_accn set ">
