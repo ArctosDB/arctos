@@ -129,7 +129,7 @@ UAM@ARCTOS>
 					<cfelse>
 						keep looking....
 						<cfquery name="splt" datasource="uam_god">
-							select PREFERRED_NAME from chas_agent_master_lookup where UNSPLIT='#thisAgent#'
+							select trim(PREFERRED_NAME) PREFERRED_NAME from chas_agent_master_lookup where trim(UNSPLIT)='#trim(thisAgent)#'
 						</cfquery>
 						<cfloop query="splt">
 							<br>--#PREFERRED_NAME#
