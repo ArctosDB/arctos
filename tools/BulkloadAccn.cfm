@@ -118,7 +118,7 @@ UAM@ARCTOS>
 			<cfloop from="1" to="4" index="i">
 				<cfset thisAgent=evaluate("TRANS_AGENT_" & i)>
 				<cfif len(thisAgent) gt 0>
-					<br>thisAgent=#thisAgent#
+					<br>i=#i#, thisAgent=#thisAgent#
 					<cfquery name="d" datasource="uam_god">
 						select getAgentID('#thisAgent#') d from dual
 					</cfquery>
