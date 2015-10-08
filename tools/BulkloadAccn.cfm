@@ -102,7 +102,8 @@ sho err
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
-			select * from CF_TEMP_ACCN where I$STATUS ='toobookoo'
+			select * from CF_TEMP_ACCN where  accn_number='4408'
+			--I$STATUS ='toobookoo'
 			--is null or I$STATUS not in ( 'gotagent', 'toobookoo')
 		</cfquery>
 		<cfloop query="q">
