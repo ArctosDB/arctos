@@ -149,7 +149,7 @@ UAM@ARCTOS>
 				</cfif>
 				<br>key: #key#
 				<cfloop from="1" to="#n#" index="z">
-					<br>z ID=#evaluate("aid") & z)#
+					<br>z ID=#evaluate("aid" & z)#
 				</cfloop>
 
 
