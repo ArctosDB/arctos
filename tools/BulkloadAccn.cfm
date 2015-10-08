@@ -112,7 +112,7 @@ UAM@ARCTOS>
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
-			select * from CF_TEMP_ACCN where I$STATUS  != 'gotagent'
+			select * from CF_TEMP_ACCN where I$STATUS  not in ( 'gotagent', 'toobookoo')
 		</cfquery>
 		<cfloop query="q">
 			<hr>
@@ -158,11 +158,18 @@ UAM@ARCTOS>
 
 
 			</cfloop>
- <cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
+			<cfif n lte 6>
+			<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
 						<br>****#sql#
 								<cfquery name="up" datasource="uam_god">
 									#preserveSingleQuotes(sql)#
 								</cfquery>
+								<cfelse>
+								<cfquery name="up" datasource="uam_god">
+								update CF_TEMP_ACCN set status='toobookoo' where I$KEY=#I$KEY#
+								</cfquery>
+			</cfif>
+
 
 		</cfloop>
 	</cfoutput>
