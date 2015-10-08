@@ -115,34 +115,33 @@ UAM@ARCTOS>
 			select * from CF_TEMP_ACCN
 		</cfquery>
 		<cfloop query="q">
+			<hr>
+			<br>ACCN_NUMBER: #ACCN_NUMBER#
 			<cfset sql="update cf_temp_accn set ">
 			<cfloop from="1" to="4" index="i">
 				<cfset n=1>
 				<cfset thisAgent=evaluate("TRANS_AGENT_" & i)>
+				<cfset thisRole=evaluate("TRANS_AGENT_ROLE_" & i)>
 				<cfif len(thisAgent) gt 0>
-					<br>i=#i#, thisAgent=#thisAgent#
+					<br>i=#i#, thisAgent=#thisAgent#, thisRole=#thisRole#
 
 					<cfquery name="d" datasource="uam_god">
 						select getAgentID('#thisAgent#') d from dual
 					</cfquery>
 					<cfif len(d.d) gt 0>
-						got #d.d#
-						 <cfset "aid#n#"=d.d>
+						<br>==== I$AGENT_ID_#n#=#d.d#
 						 <cfset sql=sql & " I$AGENT_ID_#n#=#d.d# ,">
 						<cfset n=n+1>
 					<cfelse>
-						keep looking....
 						<cfquery name="splt" datasource="uam_god">
 							select trim(PREFERRED_NAME) PREFERRED_NAME from chas_agent_master_lookup where trim(UNSPLIT)='#trim(thisAgent)#'
 						</cfquery>
 						<cfloop query="splt">
-							<br>--#PREFERRED_NAME#
 							<cfquery name="d" datasource="uam_god">
 								select getAgentID('#PREFERRED_NAME#') d from dual
 							</cfquery>
 							<cfif len(d.d) gt 0>
-								got #d.d# from lookup
-								<cfset "aid#n#"=d.d>
+								<br>==== I$AGENT_ID_#n#=#d.d#
 
 								 <cfset sql=sql & " I$AGENT_ID_#n#=#d.d# ,">
 								<cfset n=n+1>
@@ -154,12 +153,12 @@ UAM@ARCTOS>
 				</cfif>
 
 
-						 <cfset sql=sql & " where I$KEY=#I$KEY#">
-						<br>#sql#
+
 
 
 			</cfloop>
-
+ <cfset sql=sql & " where I$KEY=#I$KEY#">
+						<br>****#sql#
 		</cfloop>
 	</cfoutput>
 </cfif>
