@@ -73,42 +73,32 @@ sho err
 
 
 <!------------------------------------------------------->
+<cfif action is "dupagntrole">
+	<cfoutput>
+		<cfquery name="q" datasource="uam_god">
+			select * from CF_TEMP_ACCN
+		</cfquery>
+		<cfloop query="q">
+			<cfquery name="dup" dbtype="query">
+				select a,r from (
+					select
+					I$AGENT_ID_1 a,
+					TRANS_AGENT_ROLE_1 r
+					from q where i$key =#i$key#
+					union select
+					I$AGENT_ID_2 a,
+					TRANS_AGENT_ROLE_2 r
+					from q where i$key =#i$key#
+					)
+			</cfquery>
+			<cfdump var=#dup#>
+		</cfloop>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------->
 <cfif action is "splitagent">
 	for CHAS - customize to use elsewhere
-	I$KEY								   NOT NULL NUMBER
- GUID_PREFIX							   NOT NULL VARCHAR2(255)
- ACCN_NUMBER							   NOT NULL VARCHAR2(255)
- ACCN_TYPE							   NOT NULL VARCHAR2(255)
- ACCN_STATUS							   NOT NULL VARCHAR2(255)
- NATURE_OF_MATERIAL						   NOT NULL VARCHAR2(4000)
- ESTIMATED_COUNT							    NUMBER
- TRANS_DATE								    VARCHAR2(22)
- RECEIVED_DATE								    VARCHAR2(22)
- TRANS_REMARKS								    VARCHAR2(4000)
- IS_PUBLIC_FG								    NUMBER
- TRANS_AGENT_1								    VARCHAR2(255)
- TRANS_AGENT_ROLE_1							    VARCHAR2(255)
- TRANS_AGENT_2								    VARCHAR2(255)
- TRANS_AGENT_ROLE_2							    VARCHAR2(255)
- TRANS_AGENT_3								    VARCHAR2(255)
- TRANS_AGENT_ROLE_3							    VARCHAR2(255)
- TRANS_AGENT_4								    VARCHAR2(255)
- TRANS_AGENT_ROLE_4							    VARCHAR2(255)
- TRANS_AGENT_5								    VARCHAR2(255)
- TRANS_AGENT_ROLE_5							    VARCHAR2(255)
- TRANS_AGENT_6								    VARCHAR2(255)
- TRANS_AGENT_ROLE_6							    VARCHAR2(255)
- I$STATUS								    VARCHAR2(255)
- I$COLLECTION_ID							    NUMBER
- I$AGENT_ID_1								    NUMBER
- I$AGENT_ID_2								    NUMBER
- I$AGENT_ID_3								    NUMBER
- I$AGENT_ID_4								    NUMBER
- I$AGENT_ID_5								    NUMBER
- I$AGENT_ID_6								    NUMBER
- TID									    NUMBER
 
-UAM@ARCTOS>
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
@@ -153,11 +143,6 @@ UAM@ARCTOS>
 						</cfloop>
 					</cfif>
 				</cfif>
-
-
-
-
-
 			</cfloop>
 			<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
 						<br>****#sql#
@@ -178,23 +163,6 @@ UAM@ARCTOS>
 		</cfloop>
 	</cfoutput>
 </cfif>
-
-
-
-
-
-Elapsed: 00:00:00.01
-UAM@ARCTOS> desc chas_agent_master_lookup
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- AGENT_TYPE								    VARCHAR2(4000)
- PREFERRED_NAME 							    VARCHAR2(4000)
- MERGE_FORMAT								    VARCHAR2(4000)
- ORIGINAL_SPLIT 							    VARCHAR2(4000)
- UNSPLIT								    VARCHAR2(4000)
-
-
-
 
 
 
