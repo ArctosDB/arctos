@@ -166,7 +166,7 @@ UAM@ARCTOS>
 								</cfquery>
 								<cfelse>
 								<cfquery name="up" datasource="uam_god">
-								update CF_TEMP_ACCN set status='toobookoo' where I$KEY=#I$KEY#
+								update CF_TEMP_ACCN set I$STATUS='toobookoo' where I$KEY=#I$KEY#
 								</cfquery>
 			</cfif>
 
