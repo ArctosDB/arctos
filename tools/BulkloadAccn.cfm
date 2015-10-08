@@ -115,17 +115,20 @@ UAM@ARCTOS>
 			select * from CF_TEMP_ACCN
 		</cfquery>
 		<cfloop query="q">
+			<cfset sql="update cf_temp_accn set ">
 			<cfloop from="1" to="4" index="i">
 				<cfset n=1>
 				<cfset thisAgent=evaluate("TRANS_AGENT_" & i)>
 				<cfif len(thisAgent) gt 0>
 					<br>i=#i#, thisAgent=#thisAgent#
+
 					<cfquery name="d" datasource="uam_god">
 						select getAgentID('#thisAgent#') d from dual
 					</cfquery>
 					<cfif len(d.d) gt 0>
 						got #d.d#
 						 <cfset "aid#n#"=d.d>
+						 <cfset sql=sql & " I$AGENT_ID_#n#=#d.d# ,">
 						<cfset n=n+1>
 					<cfelse>
 						keep looking....
@@ -140,6 +143,8 @@ UAM@ARCTOS>
 							<cfif len(d.d) gt 0>
 								got #d.d# from lookup
 								<cfset "aid#n#"=d.d>
+
+								 <cfset sql=sql & " I$AGENT_ID_#n#=#d.d# ,">
 								<cfset n=n+1>
 							<cfelse>
 								LOOKUPFAIL
@@ -147,10 +152,10 @@ UAM@ARCTOS>
 						</cfloop>
 					</cfif>
 				</cfif>
-				<br>key: #key#
-				<cfloop from="1" to="#n#" index="z">
-					<br>z ID=#evaluate("aid" & z)#
-				</cfloop>
+
+
+						 <cfset sql=sql & " where I$KEY=#I$KEY#">
+						<br>#sql#
 
 
 			</cfloop>
