@@ -157,6 +157,7 @@ sho err
 
 			<cfdump var=#r#>
 
+			<!----
 			<cfif n lte 7>
 				<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
 						<br>****#sql#
@@ -166,7 +167,7 @@ sho err
 				<cfelse>
 							UPDATETHIS
 			</cfif>
-
+			----->
 
 		</cfloop>
 	</cfoutput>
