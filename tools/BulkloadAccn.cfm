@@ -112,7 +112,7 @@ UAM@ARCTOS>
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
-			select * from CF_TEMP_ACCN
+			select * from CF_TEMP_ACCN where I$STATUS  != 'gotagent'
 		</cfquery>
 		<cfloop query="q">
 			<hr>
@@ -158,8 +158,12 @@ UAM@ARCTOS>
 
 
 			</cfloop>
- <cfset sql=sql & " where I$KEY=#I$KEY#">
+ <cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
 						<br>****#sql#
+								<cfquery name="up" datasource="uam_god">
+									#preserveSingleQuotes(sql)#
+								</cfquery>
+
 		</cfloop>
 	</cfoutput>
 </cfif>
