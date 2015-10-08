@@ -128,6 +128,9 @@ sho err
 						select getAgentID('#thisAgent#') d from dual
 					</cfquery>
 					<cfif len(d.d) gt 0>
+						<cfset r.ar#n#=thisRole>
+						<cfset r.astr#n#=thisAgent>
+						<cfset r.aid#n#=d.d>
 						<br>====  I$AGENT_ID_#n#=#d.d# , TRANS_AGENT_ROLE_#n#='#thisRole#' ,
 						 <cfset sql=sql & " I$AGENT_ID_#n#=#d.d# , TRANS_AGENT_ROLE_#n#='#thisRole#' , ">
 						<cfset n=n+1>
