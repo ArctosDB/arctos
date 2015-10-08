@@ -112,7 +112,8 @@ UAM@ARCTOS>
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
-			select * from CF_TEMP_ACCN where I$STATUS is null or I$STATUS not in ( 'gotagent', 'toobookoo')
+			select * from CF_TEMP_ACCN where I$STATUS ='toobookoo'
+			--is null or I$STATUS not in ( 'gotagent', 'toobookoo')
 		</cfquery>
 		<cfloop query="q">
 			<hr>
@@ -158,6 +159,9 @@ UAM@ARCTOS>
 
 
 			</cfloop>
+			<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
+						<br>****#sql#
+			<!----
 			<cfif n lte 6>
 			<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
 						<br>****#sql#
@@ -170,7 +174,7 @@ UAM@ARCTOS>
 								</cfquery>
 			</cfif>
 
-
+---->
 		</cfloop>
 	</cfoutput>
 </cfif>
