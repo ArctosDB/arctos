@@ -116,6 +116,7 @@ UAM@ARCTOS>
 		</cfquery>
 		<cfloop query="q">
 			<cfloop from="1" to="4" index="i">
+				<cfset n=1>
 				<cfset thisAgent=evaluate("TRANS_AGENT_" & i)>
 				<cfif len(thisAgent) gt 0>
 					<br>i=#i#, thisAgent=#thisAgent#
@@ -124,8 +125,8 @@ UAM@ARCTOS>
 					</cfquery>
 					<cfif len(d.d) gt 0>
 						got #d.d#
-						 <cfset "aid#i#"=d.d>
-
+						 <cfset "aid#n#"=d.d>
+						<cfset n=n+1>
 					<cfelse>
 						keep looking....
 						<cfquery name="splt" datasource="uam_god">
@@ -138,12 +139,20 @@ UAM@ARCTOS>
 							</cfquery>
 							<cfif len(d.d) gt 0>
 								got #d.d# from lookup
+								<cfset "aid#n#"=d.d>
+								<cfset n=n+1>
 							<cfelse>
 								LOOKUPFAIL
 							</cfif>
 						</cfloop>
 					</cfif>
 				</cfif>
+				<br>key: #key#
+				<cfloop from="1" to="#n#" index="z">
+					<br>z ID=#evaluate("aid") & z)#
+				</cfloop>
+
+
 			</cfloop>
 
 		</cfloop>
