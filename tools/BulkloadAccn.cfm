@@ -123,9 +123,17 @@ UAM@ARCTOS>
 						select getAgentID('#thisAgent#') d from dual
 					</cfquery>
 					<cfif len(d.d) gt 0>
-						 id=#d.d#
+						got #d.d#
+						 <cfset "aid#i#"=d.d>
+
 					<cfelse>
 						keep looking....
+						<cfquery name="splt" datasource="uam_god">
+							select PREFERRED_NAME from chas_agent_master_lookup where UNSPLIT='#thisAgent#'
+						</cfquery>
+						<cfloop query="splt">
+							<br>--#PREFERRED_NAME#
+						</cfloop>
 					</cfif>
 				</cfif>
 			</cfloop>
@@ -137,6 +145,16 @@ UAM@ARCTOS>
 
 
 
+
+Elapsed: 00:00:00.01
+UAM@ARCTOS> desc chas_agent_master_lookup
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ AGENT_TYPE								    VARCHAR2(4000)
+ PREFERRED_NAME 							    VARCHAR2(4000)
+ MERGE_FORMAT								    VARCHAR2(4000)
+ ORIGINAL_SPLIT 							    VARCHAR2(4000)
+ UNSPLIT								    VARCHAR2(4000)
 
 
 
