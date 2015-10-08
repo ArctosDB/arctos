@@ -133,6 +133,14 @@ UAM@ARCTOS>
 						</cfquery>
 						<cfloop query="splt">
 							<br>--#PREFERRED_NAME#
+							<cfquery name="d" datasource="uam_god">
+								select getAgentID('#PREFERRED_NAME#') d from dual
+							</cfquery>
+							<cfif len(d.d) gt 0>
+								got #d.d# from lookup
+							<cfelse>
+								LOOKUPFAIL
+							</cfif>
 						</cfloop>
 					</cfif>
 				</cfif>
