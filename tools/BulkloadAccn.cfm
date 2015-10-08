@@ -149,7 +149,7 @@ sho err
 						 <cfset sql=sql & " I$AGENT_ID_#n#=#d.d# , TRANS_AGENT_ROLE_#n#='#thisRole#' , ">
 
 								 <cfset "r.ar#n#"=thisRole>
-								<cfset "r.astr#n#"=thisAgent>
+								<cfset "r.astr#n#"=PREFERRED_NAME>
 								<cfset "r.aid#n#"=d.d>
 								<cfdump var=#r#>
 
