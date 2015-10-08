@@ -124,9 +124,9 @@ UAM@ARCTOS>
 					</cfquery>
 					<cfif len(d.d) gt 0>
 						 id=#d.d#
+					<cfelse>
+						keep looking....
 					</cfif>
-				<cfelse>
-					keep looking....
 				</cfif>
 			</cfloop>
 
