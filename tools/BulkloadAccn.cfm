@@ -112,7 +112,7 @@ UAM@ARCTOS>
 
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
-			select * from CF_TEMP_ACCN where I$STATUS  not in ( 'gotagent', 'toobookoo')
+			select * from CF_TEMP_ACCN where I$STATUS is null or I$STATUS not in ( 'gotagent', 'toobookoo')
 		</cfquery>
 		<cfloop query="q">
 			<hr>
