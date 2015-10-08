@@ -343,6 +343,7 @@ Step 1: Upload a comma-delimited text file (csv).
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
+		<br>#accn_number#
 		<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO trans (
 				TRANSACTION_ID,
