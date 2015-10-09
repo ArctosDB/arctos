@@ -181,9 +181,12 @@ sho err
 <cfset sql=sql & " I$STATUS='k' where  I$KEY=#I$KEY#">
 <br>sql: #sql#
 </p>
+<cftry>
 <cfquery name="up" datasource="uam_god">
-									#preserveSingleQuotes(sql)#
-								</cfquery>
+	#preserveSingleQuotes(sql)#
+</cfquery>
+
+<cfcatch>fail@#accn_number#</cfcatch></cftry>
 			<!----
 			<cfif n lte 7>
 				<cfset sql=sql & "I$STATUS='gotagent' where I$KEY=#I$KEY#">
