@@ -113,6 +113,10 @@ sho err
 		<cfloop query="q">
 			<hr>
 			<br>ACCN_NUMBER: #ACCN_NUMBER#
+			<br>TRANS_AGENT_1: #TRANS_AGENT_1#
+			<br>TRANS_AGENT_2: #TRANS_AGENT_2#
+			<br>TRANS_AGENT_3: #TRANS_AGENT_3#
+			<br>TRANS_AGENT_4: #TRANS_AGENT_4#
 			<cfset r = {}>
 			<cfset r.ACCN_NUMBER=ACCN_NUMBER>
 
@@ -162,8 +166,9 @@ sho err
 					</cfif>
 				</cfif>
 			</cfloop>
-
-			<cfdump var=#r#>
+<cfloop collection = #r# item = "g">
+    <br>#g#=#r[g]#
+</cfloop>
 
 			<!----
 			<cfif n lte 7>
