@@ -169,16 +169,17 @@ sho err
 
 			<p>
 
-				update CF_TEMP_ACCN set
+<cfset sql="	update CF_TEMP_ACCN set
 <cfloop collection = #r# item = "g">
     <br>#g#=#r[g]#
 
 	<cfif left(g,3) is "aid">
 		<cfset thisInt=right(g,1)>
-		I$AGENT_ID_#thisInt#=#r[g]#,
+		<cfset sql=sql & " I$AGENT_ID_#thisInt#=#r[g]#, ">
 	</cfif>
 </cfloop>
- where key....
+<cfset sql=sql & " status='k' where  I$KEY=#I$KEY#">
+<br>sql: #sql#
 </p>
 
 			<!----
