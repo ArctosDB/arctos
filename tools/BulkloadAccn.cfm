@@ -178,7 +178,7 @@ sho err
 		<cfset sql=sql & " I$AGENT_ID_#thisInt#=#r[g]#, ">
 	</cfif>
 </cfloop>
-<cfset sql=sql & " status='k' where  I$KEY=#I$KEY#">
+<cfset sql=sql & " staI$STATUtus='k' where  I$KEY=#I$KEY#">
 <br>sql: #sql#
 </p>
 <cfquery name="up" datasource="uam_god">
