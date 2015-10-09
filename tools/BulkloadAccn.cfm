@@ -169,7 +169,7 @@ sho err
 
 			<p>
 
-<cfset sql="	update CF_TEMP_ACCN set
+<cfset sql="	update CF_TEMP_ACCN set ">
 <cfloop collection = #r# item = "g">
     <br>#g#=#r[g]#
 
