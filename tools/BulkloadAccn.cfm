@@ -166,9 +166,20 @@ sho err
 					</cfif>
 				</cfif>
 			</cfloop>
+
+			<p>
+
+				update CF_TEMP_ACCN set
 <cfloop collection = #r# item = "g">
     <br>#g#=#r[g]#
+
+	<cfif left(g,3) is "aid">
+		<cfset thisInt=right(g,1)>
+		I$AGENT_ID_#thisInt#=#r[g]#,
+	</cfif>
 </cfloop>
+ where key....
+</p>
 
 			<!----
 			<cfif n lte 7>
