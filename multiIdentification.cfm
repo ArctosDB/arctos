@@ -310,7 +310,6 @@
 
 ------------->
 
-moveManyPartToContainer('#valuelist(partIDs.collection_object_id)#','#newPartContainer#','#newPartContainerType#');
 
 
 	<cfquery name="partIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -324,6 +323,7 @@ moveManyPartToContainer('#valuelist(partIDs.collection_object_id)#','#newPartCon
 			specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
 	</cfquery>
 
+moveManyPartToContainer('#valuelist(partIDs.collection_object_id)#','#newPartContainer#','#newPartContainerType#');
 
 
 
