@@ -309,11 +309,30 @@
 	container (thing that holds the "part barcode"
 
 ------------->
-	<cfif len(newPartContainerType) gt 0>
-		<cfquery name="updateTargetContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update container set container_type='#newPartContainerType#' where barcode='#newPartContainer#'
-		</cfquery>
-	</cfif>
+
+
+	<cfquery name="partIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			specimen_part.collection_object_id
+		from
+			specimen_part,
+			#session.SpecSrchTab#
+		where
+			#session.SpecSrchTab#.collection_object_id=specimen_part.derived_from_cat_item and
+			specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
+	</cfquery>
+
+
+
+
+			<cfstoredproc procedure="moveManyPartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#valuelist(partIDs.collection_object_id)#"><!--- v_collection_object_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainer#"><!---- v_parent_barcode --->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="newPartContainerType"><!---- v_parent_container_type ---->
+				</cfstoredproc>
+
+
+				<!----
 	<cfquery name="scannedID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			container
@@ -337,6 +356,9 @@
 	</cfquery>
 <cflocation url="multiIdentification.cfm" addtoken="no">
 
+---->
+
+spiffy
 </cfoutput>
 </cfif>
 <!------------------------------------
