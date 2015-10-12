@@ -310,6 +310,8 @@
 
 ------------->
 
+moveManyPartToContainer('#valuelist(partIDs.collection_object_id)#','#newPartContainer#','#newPartContainerType#');
+
 
 	<cfquery name="partIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -328,7 +330,7 @@
 			<cfstoredproc procedure="moveManyPartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#valuelist(partIDs.collection_object_id)#"><!--- v_collection_object_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainer#"><!---- v_parent_barcode --->
-					<cfprocparam cfsqltype="cf_sql_varchar" value="newPartContainerType"><!---- v_parent_container_type ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainerType#"><!---- v_parent_container_type ---->
 				</cfstoredproc>
 
 
