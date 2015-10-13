@@ -210,6 +210,7 @@ sho err
 		</cfquery>
 		<cfdump var=#problemsonly#>
 	<cfelse>
+	<cfoutput>
 		<cftransaction>
 
 
@@ -256,7 +257,7 @@ sho err
 				----->
 			</cfloop>
 		</cftransaction>
-
+</cfoutput>
 				success!
 
 	</cfif>
