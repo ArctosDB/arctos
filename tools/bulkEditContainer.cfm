@@ -284,7 +284,9 @@
 </cfif>
 <!------------------------------------------>
 <cfif action IS "finalizeUpload">
-
+		<cfstoredproc procedure="bulkUpdateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		</cfstoredproc>
+		<!----
 	<!--- lots of possibliities here, so break this into a few simpler queries ---->
 	<cftransaction>
 		<cfquery name="changeContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -495,6 +497,7 @@
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 		</cfquery>
+		---->
 	</cftransaction>
 	all done
 </cfif>

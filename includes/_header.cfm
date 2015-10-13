@@ -251,7 +251,6 @@
 												<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create Container</a></li>
 												<li><a target="_top" href="/CreateContainersForBarcodes.cfm">Create Container Series</a></li>
 												<li><a target="_top" href="/tools/bulkEditContainer.cfm">Bulk Edit Container</a></li>
-												<li><a target="_top" href="/SpecimenContainerLabels.cfm">Clear Part Flags</a></li>
 											</cfif>
 
 										</ul>

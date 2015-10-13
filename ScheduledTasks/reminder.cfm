@@ -11,7 +11,7 @@
 		checkdate date
 	);
 	---->
-	
+
 	<cfquery name="dailyrefresh" datasource="uam_god">
 		insert into cf_doi_report (publication_type,hascount,nopecount,checkdate) (
 		 select
@@ -30,7 +30,7 @@
 	<cfelse>
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos DOI Report">
-	</cfif>				
+	</cfif>
 	<cfmail to="#maddr#" subject="#subj#" from="doireport@#Application.fromEmail#" type="html">
 		Most recent DOI status of Arctos publications
 		<table border>
@@ -54,7 +54,7 @@
 		</p>
 	</cfmail>
 	<!---- /slip a DOI report in here for now.... ---->
-	
+
 		<cfsavecontent variable="emailFooter">
 			<div style="font-size:smaller;color:gray;">
 				--
@@ -67,13 +67,13 @@
 	<!--- start of loan code --->
 	<!--- days after and before return_due_date on which to send email. Negative is after ---->
 	<cfset eid="-365,-180,-150,-120,-90,-60,-30,-7,0,7,30">
-	<!--- 
+	<!---
 		Query to get all loan data from the server. Use GOD query so we can ignore collection partitions.
 		This form has no output and relies on system time to run, so only danger is in sending multiple copies
 		of notification to loan folks. No real risk in not using a lesser agent for the queries.
 	--->
 	<cfquery name="expLoan" datasource="uam_god">
-		select 
+		select
 			loan.transaction_id,
 			to_char(RETURN_DUE_DATE,'yyyy-mm-dd') return_due_date,
 			LOAN_NUMBER,
@@ -86,7 +86,7 @@
 			guid_prefix,
 			collection.collection_id,
 			nature_of_material
-		FROM 
+		FROM
 			loan,
 			trans,
 			collection,
@@ -98,7 +98,7 @@
 			trans.collection_id=collection.collection_id and
 			trans.transaction_id=trans_agent.transaction_id and
 			trans_agent.trans_agent_role in ('notification contact','in-house contact') and
-			round(RETURN_DUE_DATE - sysdate) +1 in (#eid#) and 
+			round(RETURN_DUE_DATE - sysdate) +1 in (#eid#) and
 			LOAN_STATUS != 'closed'
 	</cfquery>
 
@@ -135,7 +135,7 @@
 			where
 				transaction_id=#transaction_id# and
 				trans_agent_role='in-house contact' and
-				trans_agent_email is not null				
+				trans_agent_email is not null
 			group by
 				trans_agent_email,
 				trans_agent_name
@@ -167,7 +167,7 @@
 				collection_contact_name,
 				collection_contact_email
 		</cfquery>
-		<!--- the "contact if" section of the form we'll send to notification agents --->		
+		<!--- the "contact if" section of the form we'll send to notification agents --->
 		<cfsavecontent variable="contacts">
 			<p>
 				<cfif inhouseAgents.recordcount is 1>
@@ -194,7 +194,7 @@
 					</ul>
 				<cfelse>
 					<!--- there are no curatorial contacts given - send them to the Arctos contact form --->
-					Please contact the Arctos folks with any questions or concerns by visiting 
+					Please contact the Arctos folks with any questions or concerns by visiting
 					<a href="#application.serverRootUrl#/contact.cfm">#application.serverRootUrl#/contact.cfm</a>
 				</cfif>
 			</p>
@@ -211,10 +211,10 @@
 			</p>
 		</cfsavecontent>
 		<cfif notificationAgents.recordcount gt 0 and expires_in_days gte 0>
-			<!--- 
+			<!---
 				there's at least one noticifation agent, and the loan expires on or after today
 				Loop through the list of notification agents and email each of them. Blind copy
-				Dusty for a while, since it's pretty much impossible to actually test a form that 
+				Dusty for a while, since it's pretty much impossible to actually test a form that
 				sends email and something somewhere is probably misspelled or something
 			 --->
 			<cfloop query="notificationAgents">
@@ -225,11 +225,11 @@
 					<cfset maddr=application.bugreportemail>
 					<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
 				</cfif>
-		
+
 				<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 					Dear #agent_name#,
 					<p>
-						You are receiving this message because you are listed as a contact for loan 
+						You are receiving this message because you are listed as a contact for loan
 						#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
 					</p>
 					#contacts#<!--- from cfsavecontent above ---->
@@ -250,7 +250,7 @@
 			<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 				Dear #agent_name#,
 				<p>
-					You are receiving this message because you are listed as in-house contact for loan 
+					You are receiving this message because you are listed as in-house contact for loan
 					#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
 				</p>
 				<p>
@@ -276,7 +276,7 @@
 					<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 						Dear #agent_name#,
 						<p>
-							You are receiving this message because you are listed as a #loan.guid_prefix# loan request collection contact. 
+							You are receiving this message because you are listed as a #loan.guid_prefix# loan request collection contact.
 							Loan #loan.guid_prefix# #loan.loan_number# due date #loan.return_due_date# is not listed as "closed."
 						</p>
 						<p>
@@ -294,7 +294,7 @@
 		<!--- end of loan code --->
 		<!----------- permit ------------>
 		<cfset cInt = "365,180,30,0">
-		<!--- 
+		<!---
 			permits have one (optional) contact address
 			just get the stuff that's not NULL and loop with it
 		---->
@@ -307,10 +307,10 @@
 				round(EXP_DATE - sysdate) expires_in_days,
 				EXP_DATE
 			FROM
-				permit			
+				permit
 			WHERE
-				get_address(contact_agent_id,'email') is not null and 
-				round(EXP_DATE - sysdate) IN (#cInt#) 
+				get_address(contact_agent_id,'email') is not null and
+				round(EXP_DATE - sysdate) IN (#cInt#)
 		</cfquery>
 		<cfloop query="permit">
 			<cfif isdefined("Application.version") and  Application.version is "prod">
@@ -333,25 +333,26 @@
 		</cfloop>
 		<!---- year=old accessions with no specimens ---->
 		<cfquery name="yearOldAccn" datasource="uam_god">
-			select 
-				accn.transaction_id,
-				collection.guid_prefix,
-				collection.collection_id,
-				accn_number,
-				to_char(RECEIVED_DATE,'yyyy-mm-dd') received_date
-			from 
-				accn,
-				trans,
-				collection,
-				cataloged_item
-			where 
-				accn.accn_status != 'complete' and
-				accn.transaction_id=trans.transaction_id and
-				trans.collection_id=collection.collection_id and
-				accn.transaction_id=cataloged_item.accn_id (+) and
-				cataloged_item.accn_id is null and
-				to_char(sysdate,'DD-Mon')=to_char(RECEIVED_DATE,'DD-Mon') and
-				to_char(sysdate,'YYYY')-to_char(RECEIVED_DATE,'YYYY')>=1
+			select
+			  accn.transaction_id,
+			  collection.guid_prefix,
+			  collection.collection_id,
+			  accn_number,
+			  RECEIVED_DATE
+			from
+			  accn,
+			  trans,
+			  collection,
+			  cataloged_item
+			where
+			  accn.accn_status != 'complete' and
+			  accn.transaction_id=trans.transaction_id and
+			  trans.collection_id=collection.collection_id and
+			  accn.transaction_id=cataloged_item.accn_id (+) and
+			  cataloged_item.accn_id is null and
+			  length(RECEIVED_DATE)=10 and
+			  to_char(sysdate,'YYYY-MM')=substr(RECEIVED_DATE,0,7) and
+			  to_number(to_char(sysdate,'YYYY'))-to_number(substr(RECEIVED_DATE,0,4))>=1
 		</cfquery>
 		<cfquery name="colns" dbtype="query">
 			select guid_prefix,collection_id from yearOldAccn group by guid_prefix,collection_id
@@ -359,7 +360,7 @@
 		<cfloop query="colns">
 			<cfset contact = functions.getCollectionContactEmail(collection_id=collection_id,contact_role="data quality")>
 			<cfquery name="data" dbtype="query">
-				select 
+				select
 					transaction_id,
 					guid_prefix,
 					accn_number,
@@ -403,28 +404,28 @@
 		</cfloop>
 		<!---- pending reciprocal relationships ---->
 		<cfquery name="ff" datasource="uam_god">
-			select 
+			select
 				COLLECTION_ID,
 				GUID_PREFIX,
 				COLLECTION_ID,
 				NEW_OTHER_ID_REFERENCES,
-				count(*) numRecs 
-			from 
+				count(*) numRecs
+			from
 				cf_temp_recip_oids
-			group by 
+			group by
 				COLLECTION_ID,
 				GUID_PREFIX,
 				COLLECTION_ID,
 				NEW_OTHER_ID_REFERENCES
 		</cfquery>
 		<cfquery name="collection" dbtype="query">
-			select GUID_PREFIX,collection_id,sum(numRecs) totalrecs from ff group by GUID_PREFIX,collection_id 
+			select GUID_PREFIX,collection_id,sum(numRecs) totalrecs from ff group by GUID_PREFIX,collection_id
 		</cfquery>
 		<cfloop query="collection">
 			<cfquery name="r" dbtype="query">
 				select NEW_OTHER_ID_REFERENCES,numRecs from ff where collection_id=#collection_id# order by NEW_OTHER_ID_REFERENCES
 			</cfquery>
-			<cfset contacts = functions.getCollectionContactEmail(collection_id=collection.collection_id,contact_role="data quality")>			
+			<cfset contacts = functions.getCollectionContactEmail(collection_id=collection.collection_id,contact_role="data quality")>
 			<cfif contacts.recordcount gt 0>
 				<cfsavecontent variable="msg">
 					You are receiving this message because you are a data quality contact for collection #collection.GUID_PREFIX#.
@@ -432,7 +433,7 @@
 						There are specimens with unreciprocated relationships to your collection.
 					</p>
 					<p>
-						You may create reciprocal relationships by going to the OtherID/Relationship bulkloader, clicking Manage, 
+						You may create reciprocal relationships by going to the OtherID/Relationship bulkloader, clicking Manage,
 						then following the link to reciprocal relationships or, after logging in to Arctos, by using the links below.
 					</p>
 					<p>Pending Relationships:</p>
@@ -448,7 +449,7 @@
 						</cfloop>
 					</ul>
 					<p>
-						Specimens in collections to which you do not have access may not be 
+						Specimens in collections to which you do not have access may not be
 						visible while you're logged in; encumbered specimens may not be visible at all.
 						Contact the appropriate Curators (contact information is under the <a href="#Application.serverRootUrl#/home.cfm">Portals tab</a>) with questions or concerns.
 					</p>
@@ -463,7 +464,7 @@
 				</cfif>
 				<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="relationship_notification@#Application.fromEmail#" type="html">
 					#msg#
-				</cfmail>				
+				</cfmail>
 			</cfif>
 		</cfloop>
 	</cfoutput>

@@ -296,81 +296,26 @@
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-
-<!----------------------------------------------------------------------------------->
 <cfif Action is "moveParts">
-
-<cfoutput>
-<!-----
-	specimen
-	part
-	container (coll obj)             <---- this parent container ID is a shortcut to what we need to move
-	container (with barcode)         <---- move this thing
-	container (thing that holds the "part barcode"
-
-------------->
-
-
-
-	<cfquery name="partIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			specimen_part.collection_object_id
-		from
-			specimen_part,
-			#session.SpecSrchTab#
-		where
-			#session.SpecSrchTab#.collection_object_id=specimen_part.derived_from_cat_item and
-			specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
-	</cfquery>
-
-moveManyPartToContainer('#valuelist(partIDs.collection_object_id)#','#newPartContainer#','#newPartContainerType#');
-
-
-
-			<cfstoredproc procedure="moveManyPartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					<cfprocparam cfsqltype="cf_sql_varchar" value="#valuelist(partIDs.collection_object_id)#"><!--- v_collection_object_id ---->
-					<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainer#"><!---- v_parent_barcode --->
-					<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainerType#"><!---- v_parent_container_type ---->
-				</cfstoredproc>
-
-
-				<!----
-	<cfquery name="scannedID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			container
-		set
-			parent_container_id=(select container_id from container where barcode='#newPartContainer#')
-		where
-			container_id in (
-				select
-					part_container.parent_container_id
-				from
-					#session.SpecSrchTab#,
-					specimen_part,
-					coll_obj_cont_hist,
-					container part_container
-				WHERE
-					#session.SpecSrchTab#.collection_object_id=specimen_part.derived_from_cat_item and
-					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-					coll_obj_cont_hist.container_id=part_container.container_id and
-					specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
-			)
-	</cfquery>
-<cflocation url="multiIdentification.cfm" addtoken="no">
-
----->
-
-spiffy
-</cfoutput>
+	<cfoutput>
+		<cfquery name="partIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				specimen_part.collection_object_id
+			from
+				specimen_part,
+				#session.SpecSrchTab#
+			where
+				#session.SpecSrchTab#.collection_object_id=specimen_part.derived_from_cat_item and
+				specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
+		</cfquery>
+		<cfstoredproc procedure="moveManyPartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#valuelist(partIDs.collection_object_id)#"><!--- v_collection_object_id ---->
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainer#"><!---- v_parent_barcode --->
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainerType#"><!---- v_parent_container_type ---->
+		</cfstoredproc>
+		<cflocation url="multiIdentification.cfm" addtoken="no">
+	</cfoutput>
 </cfif>
-<!------------------------------------
-
-<cflocation url="multiIdentification.cfm" addtoken="no">
-		<cfdump var=#scannedID#>
-
-
-
-
 ----------------------------------------------->
 <cfif Action is "createManyNew">
 
