@@ -337,6 +337,16 @@ sho err
 				</cfquery>
 			</cfif>
 			<cfif len(sample_barcode) gt 0>
+
+				<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#pid.nid#"><!---- v_collection_object_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#sample_barcode#"><!---- v_barcode ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#sample_container_type#"><!---- v_parent_container_type ---->
+				</cfstoredproc>
+
+
+				<!---
 				<cfquery name="pCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select container_id from coll_obj_cont_hist where collection_object_id=#pid.nid#
 				</cfquery>
@@ -348,6 +358,7 @@ sho err
 				<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update container set parent_container_id=#container_id# where container_id=#pCont.container_id#
 				</cfquery>
+				---->
 			</cfif>
 		</cfloop>
 	</cftransaction>
