@@ -1,5 +1,6 @@
+deprecated; file a bug report if you use this
+<cfabort>
 
-	
 <!---- relies on table
 drop table cf_temp_cont_edit;
 
@@ -23,27 +24,27 @@ status varchar2(255)
 create or replace public synonym cf_temp_cont_edit for cf_temp_cont_edit;
 grant all on cf_temp_cont_edit to manage_container;
 
- CREATE OR REPLACE TRIGGER cf_temp_cont_edit_key                                         
- before insert  ON cf_temp_cont_edit  
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
+ CREATE OR REPLACE TRIGGER cf_temp_cont_edit_key
+ before insert  ON cf_temp_cont_edit
+ for each row
+    begin
+    	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 sho err
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulk Edit Container">
 <cfif #action# is "nothing">
-Step 1: Upload a comma-delimited text file (csv). 
-Include column headings, spelled exactly as below. 
+Step 1: Upload a comma-delimited text file (csv).
+Include column headings, spelled exactly as below.
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy the existing code and save as a .csv file</label>
 		<textarea rows="2" cols="80" id="t">barcode,parent_barcode,container_type,label,description,remarks,width,height,length,number_positions</textarea>
-	</div> 
+	</div>
 <p></p>
 Columns in <span style="color:red">red</span> are required; others are optional:
 <ul>
@@ -56,7 +57,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<li>width</li>
 	<li>height</li>
 	<li>length</li>
-	<li>number_positions</li>	 
+	<li>number_positions</li>
 </ul>
 
 
@@ -68,7 +69,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		   size="45"  onchange="checkCSV(this);">
 			 <input type="submit" value="Upload this file"
 		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'" 
+		onmouseover="this.className='savBtn btnhov'"
 		onmouseout="this.className='savBtn'">
   </cfform>
 
@@ -102,7 +103,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -143,7 +144,7 @@ validate
 		update cf_temp_cont_edit set status = 'missing_label'
 		where label is null
 	</cfquery>
-	
+
 	<cfquery name="lq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select container_id,parent_container_id,key from cf_temp_cont_edit
 	</cfquery>

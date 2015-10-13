@@ -367,6 +367,7 @@
 				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisPartId#"><!---- v_collection_object_id ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisnewCode#"><!---- v_barcode ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_type ---->
 			</cfstoredproc>
 		</cfif>
 		<!----

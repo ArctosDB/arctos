@@ -194,7 +194,10 @@
 											<li><a target="_top" href="/DataServices/agents.cfm">Bulkload Agents</a></li>
 											<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
 											<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
+											<!----
+											deprecated 20151013
 											<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
+											---->
 											<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
 											<li><a target="_top" href="/tools/uploadMedia.cfm">upload images</a></li>
 											<li><a target="_top" href="/tools/BulkloadRedirect.cfm">bulkload redirects</a></li>
