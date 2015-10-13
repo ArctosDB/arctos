@@ -497,8 +497,8 @@
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 		</cfquery>
-		---->
 	</cftransaction>
+		---->
 	all done
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
