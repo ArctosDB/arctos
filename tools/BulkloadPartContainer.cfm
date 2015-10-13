@@ -217,7 +217,9 @@ sho err
 
 
 			<cfloop query="d">
-
+				<br>collection_object_id: #collection_object_id#
+				<br>parent_container_id: #parent_container_id#
+				<br>NEW_CONTAINER_TYPE: #NEW_CONTAINER_TYPE#
 				<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#collection_object_id#"><!---- v_collection_object_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_barcode ---->
