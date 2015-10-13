@@ -776,6 +776,15 @@ validate
 					</cfquery>
 				</cfif>
 				<!--- only got here if we have a container ---->
+				<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisPartId#"><!---- v_collection_object_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_barcode ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_container_id#"><!---- v_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#change_container_type#"><!---- v_parent_container_type ---->
+				</cfstoredproc>
+
+
+			<!----
 				<cfquery name="part_container_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						container_id
@@ -795,10 +804,18 @@ validate
 						where container_id=#parent_container_id#
 					</cfquery>
 				</cfif>
+				---->
 			<cfelseif len(parent_container_id) gt 0 and len(use_part_id) gt 0> <!---- 2 ----->
 			<!--- there is an existing matching container that is not in a parent_container;
 				all we need to do is move the container to a parent IF it exists and is specified, or nothing otherwise --->
 				<cfset thisPartID=use_part_id>
+				<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisPartId#"><!---- v_collection_object_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_barcode ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_container_id#"><!---- v_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_type ---->
+				</cfstoredproc>
+				<!----
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update
 						container
@@ -807,6 +824,7 @@ validate
 					where
 						container_id = (select container_id from coll_obj_cont_hist where collection_object_id = #thisPartID#)
 				</cfquery>
+				---->
 			<cfelseif len(parent_container_id) is 0 and len(use_part_id) is 0><!--- 3 ---->
 				<!--- new part, no container --->
 				<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

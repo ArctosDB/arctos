@@ -212,49 +212,13 @@ sho err
 	<cfelse>
 	<cfoutput>
 		<cftransaction>
-
-
-
-
-
 			<cfloop query="d">
-				<br>collection_object_id: #collection_object_id#
-				<br>parent_container_id: #parent_container_id#
-				<br>NEW_CONTAINER_TYPE: #NEW_CONTAINER_TYPE#
 				<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#collection_object_id#"><!---- v_collection_object_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_barcode ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_container_id#"><!---- v_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#NEW_CONTAINER_TYPE#"><!---- v_parent_container_type ---->
 				</cfstoredproc>
-
-				<!-----
-
-
-
-			CREATE OR REPLACE procedure movePartToContainer (
-    v_collection_object_id in number,
-    v_barcode in varchar2,
-    v_container_id in number
-   ) is
-
-				<cfquery name="flagIT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update
-						container
-					set
-						container_type='#NEW_CONTAINER_TYPE#'
-					where
-						container_id = #parent_container_id#
-				</cfquery>
-				<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE
-						container
-					SET
-						parent_container_id = #parent_container_id#
-					 WHERE
-					container_id=#part_container_id#
-				</cfquery>
-				----->
 			</cfloop>
 		</cftransaction>
 </cfoutput>
