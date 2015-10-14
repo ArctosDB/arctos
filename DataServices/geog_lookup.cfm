@@ -70,6 +70,7 @@ jQuery(document).ready(function() {
 	}
 
 	function upStatus(pkey) {
+		console.log('saving ' + $("#status" + pkey).val() + ' for ' + pkey);
 		$.getJSON("/component/DSFunctions.cfc",
 			{
 				method : "upDSStatus",
@@ -79,6 +80,7 @@ jQuery(document).ready(function() {
 				queryformat : 'column'
 			},
 			function(r) {
+				console.log('saved status');
 				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
 			}
 		);
