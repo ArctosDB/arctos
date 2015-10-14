@@ -264,6 +264,7 @@ from geog_auth_rec where rownum<10
 	<hr>
 	<cfparam name="rows" default="100">
 	<cfparam name="hidestatus" default="yes">
+	<cfparam name="debug" default="no">
 
 	<form name="f" method="get" action="geog_lookup.cfm">
 		<input type="hidden" name="action" value="validate">
@@ -274,9 +275,17 @@ from geog_auth_rec where rownum<10
 			<option <cfif hidestatus is "yes"> selected="selected" </cfif>value="yes">yes</option>
 			<option <cfif hidestatus is "no"> selected="selected" </cfif>value="no">no</option>
 		</select>
+		<label for="debug">Debug?</label>
+		<select name="debug">
+			<option <cfif debug is "yes"> selected="selected" </cfif>value="yes">yes</option>
+			<option <cfif debug is "no"> selected="selected" </cfif>value="no">no</option>
+		</select>
 		<br><input type="submit" value="go">
 	</form>
 
+	<cfif debug is "yes">
+		<cfset rows=10>
+	</cfif>
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from (
 			select * from ds_temp_geog where
@@ -519,6 +528,11 @@ from geog_auth_rec where rownum<10
 				county is null
 			</cfif>
 		</cfquery>
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
+
 		<cfloop query="componentMatch">
 			<cfset QueryAddRow(result, 1)>
 			<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -571,6 +585,11 @@ from geog_auth_rec where rownum<10
 					county is null
 				</cfif>
 			</cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
 				<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -619,6 +638,11 @@ from geog_auth_rec where rownum<10
 					county is null
 				</cfif>
 			</cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
 				<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -672,6 +696,11 @@ from geog_auth_rec where rownum<10
 				    and 1=2
 				</cfif>
 			</cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
 				<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -688,6 +717,11 @@ from geog_auth_rec where rownum<10
 					upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#'
 				</cfif>
 			</cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
 				<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -704,6 +738,11 @@ from geog_auth_rec where rownum<10
                 = '#ucase(thisState)#' and
                 upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
             </cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -721,6 +760,11 @@ from geog_auth_rec where rownum<10
                 = '#ucase(thisState)#' and
 				county is null
             </cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -746,6 +790,11 @@ from geog_auth_rec where rownum<10
 					       like '%#ucase(thisCounty)#%'
                      </cfif>
             </cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -756,7 +805,7 @@ from geog_auth_rec where rownum<10
 		<!--- geog_search_term --->
 		<cfif n eq 1>
             <cfset thisMethod="geogSearchTerm">
-			 <cfquery name="geogSearchTerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			 <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec,geog_search_term where
 				geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and (
 				1=2
@@ -771,12 +820,16 @@ from geog_auth_rec where rownum<10
                      </cfif>
 					)
             </cfquery>
-			 <cfloop query="geogSearchTerm">
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
+			 <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
                 <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
                 <cfset n=n+1>
-				<cfdump var=#geogSearchTerm#>
             </cfloop>
 		</cfif>
 		<cfif result.recordcount is 1>
