@@ -269,6 +269,7 @@ from geog_auth_rec where rownum<10
 		<input type="hidden" name="action" value="validate">
 		<label for="rows">##Rows</label>
 		<input type="numeric" name="rows" value="#rows#">
+		<label for="hidestatus">Hide records with status?</label>
 		<select name="hidestatus">
 			<option <cfif hidestatus is "yes"> selected="selected" </cfif>value="yes">yes</option>
 			<option <cfif hidestatus is "no"> selected="selected" </cfif>value="no">no</option>
