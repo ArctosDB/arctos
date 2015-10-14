@@ -759,7 +759,7 @@ from geog_auth_rec where rownum<10
 			 <cfquery name="geogSearchTerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec,geog_search_term where
 				geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and (
-				1=1
+				1=2
 				   <cfif len(thisCountry) gt 0>
 					  or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCountry#')
 					</cfif>
