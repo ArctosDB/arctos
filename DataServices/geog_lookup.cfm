@@ -497,8 +497,11 @@ from geog_auth_rec where rownum<10
 				country is null and
 			</cfif>
 			<cfif len(thisState) gt 0>
+				<!----
 				upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 				= '#ucase(thisState)#' and
+				---->
+				stripGeogRanks(state_prov)=stripGeogRanks('#thisState#')
 			<cfelse>
 				state_prov is null and
 			</cfif>
@@ -523,7 +526,10 @@ from geog_auth_rec where rownum<10
 				island is null and
 			</cfif>
 			<cfif len(thisCounty) gt 0>
+				<!----
 				upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+				---->
+				stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
 			<cfelse>
 				county is null
 			</cfif>
@@ -652,9 +658,9 @@ from geog_auth_rec where rownum<10
 				</cfif>
 			</cfquery>
 
-		<cfif debug is "yes">
-			<cfdump var=#componentMatch#>
-		</cfif>
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
 
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
@@ -674,8 +680,7 @@ from geog_auth_rec where rownum<10
 					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 					= '#ucase(thisState)#' and
 					---->
-										stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
-
+					stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
 				<cfelse>
 					state_prov is null and
 				</cfif>
@@ -718,9 +723,9 @@ from geog_auth_rec where rownum<10
 				</cfif>
 			</cfquery>
 
-		<cfif debug is "yes">
-			<cfdump var=#componentMatch#>
-		</cfif>
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
 
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
@@ -765,9 +770,9 @@ from geog_auth_rec where rownum<10
 				stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
             </cfquery>
 
-		<cfif debug is "yes">
-			<cfdump var=#componentMatch#>
-		</cfif>
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
 
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
@@ -791,9 +796,9 @@ from geog_auth_rec where rownum<10
 				county is null
             </cfquery>
 
-		<cfif debug is "yes">
-			<cfdump var=#componentMatch#>
-		</cfif>
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
 
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
@@ -827,9 +832,9 @@ from geog_auth_rec where rownum<10
                      </cfif>
             </cfquery>
 
-		<cfif debug is "yes">
-			<cfdump var=#componentMatch#>
-		</cfif>
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
 
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
@@ -838,6 +843,69 @@ from geog_auth_rec where rownum<10
                 <cfset n=n+1>
             </cfloop>
         </cfif>
+
+		<!---- all somewhere in higher geog, everything stripped ---->
+
+		<cfif n eq 1>
+            <cfset thisMethod="componentMatch_NoRankAnythingMatch">
+			 <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+                select HIGHER_GEOG from geog_auth_rec where 1=1
+				   <cfif len(thisCountry) gt 0>
+					  and (
+					  	stripGeogRanks(country)=stripGeogRanks('#thisCountry#') or
+					  	stripGeogRanks(state_prov)=stripGeogRanks('#thisCountry#') or
+					  	stripGeogRanks(county)=stripGeogRanks('#thisCountry#') or
+					  	stripGeogRanks(island)=stripGeogRanks('#thisCountry#') or
+					  	stripGeogRanks(island_group)=stripGeogRanks('#thisCountry#') or
+					  )
+					</cfif>
+					<cfif len(thisState) gt 0>
+						 and (
+						  	stripGeogRanks(country)=stripGeogRanks('#thisState#') or
+						  	stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') or
+						  	stripGeogRanks(county)=stripGeogRanks('#thisState#') or
+						  	stripGeogRanks(island)=stripGeogRanks('#thisState#') or
+						  	stripGeogRanks(island_group)=stripGeogRanks('#thisState#') or
+						  )
+						<!----
+                        and upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
+						like '%#ucase(thisState)#%'
+						---->
+                    </cfif>
+                    <cfif len(thisCounty) gt 0>
+						 and (
+						  	stripGeogRanks(country)=stripGeogRanks('#thisCounty#') or
+						  	stripGeogRanks(state_prov)=stripGeogRanks('#thisCounty#') or
+						  	stripGeogRanks(county)=stripGeogRanks('#thisCounty#') or
+						  	stripGeogRanks(island)=stripGeogRanks('#thisCounty#') or
+						  	stripGeogRanks(island_group)=stripGeogRanks('#thisCounty#') or
+						  )
+						<!----
+					   and upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory')))
+					       like '%#ucase(thisCounty)#%'
+
+					       					       and stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+
+
+
+					       ---->
+                     </cfif>
+            </cfquery>
+
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
+
+            <cfloop query="componentMatch">
+                <cfset QueryAddRow(result, 1)>
+                <cfset QuerySetCell(result, "method", thisMethod,n)>
+                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+                <cfset n=n+1>
+            </cfloop>
+        </cfif>
+
+
+
 		<!--- geog_search_term --->
 		<cfif n eq 1>
             <cfset thisMethod="geogSearchTerm">
