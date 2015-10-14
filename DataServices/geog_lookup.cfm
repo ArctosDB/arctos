@@ -586,7 +586,7 @@ from geog_auth_rec where rownum<10
 					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 					---->
-					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
 				<cfelse>
 					county is null
 				</cfif>
