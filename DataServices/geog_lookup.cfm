@@ -278,14 +278,15 @@ from geog_auth_rec where rownum<10
 	</form>
 
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_geog where
-		HIGHER_GEOG is null
-		<cfif hidestatus is "yes">
-			and status is null
-		</cfif>
-		and rownum<=#rows#
-		order by
-		 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
+		select * from (
+			select * from ds_temp_geog where
+			HIGHER_GEOG is null
+			<cfif hidestatus is "yes">
+				and status is null
+			</cfif>
+			order by
+			 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
+		) where rownum<=#rows#
 	</cfquery>
 	<cfset isNotNullBS='none'>
 
