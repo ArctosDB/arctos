@@ -554,8 +554,11 @@ from geog_auth_rec where rownum<10
 					country is null and
 				</cfif>
 				<cfif len(thisState) gt 0>
+					stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 					= '#ucase(thisState)#' and
+					---->
 				<cfelse>
 					state_prov is null and
 				</cfif>
@@ -580,7 +583,10 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					---->
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 				<cfelse>
 					county is null
 				</cfif>
@@ -607,8 +613,12 @@ from geog_auth_rec where rownum<10
 					country is null and
 				</cfif>
 				<cfif len(thisState) gt 0>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 					= '#ucase(thisState)#' and
+					---->
+					stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+
 				<cfelse>
 					state_prov is null and
 				</cfif>
@@ -633,7 +643,10 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					---->
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 				<cfelse>
 					county is null
 				</cfif>
@@ -657,8 +670,12 @@ from geog_auth_rec where rownum<10
 				select HIGHER_GEOG from geog_auth_rec where
 				<cfif len(thisState) gt 0>
 					<cfset gotsomething=true>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 					= '#ucase(thisState)#' and
+					---->
+										stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+
 				<cfelse>
 					state_prov is null and
 				</cfif>
@@ -688,7 +705,11 @@ from geog_auth_rec where rownum<10
 				</cfif>
 				<cfif len(thisCounty) gt 0>
                     <cfset gotsomething=true>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					---->
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
+
 				<cfelse>
 					county is null
 				</cfif>
@@ -734,9 +755,14 @@ from geog_auth_rec where rownum<10
             <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec where
                    upper(trim(Country)) = '#ucase(thisCountry)#' and
+									stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+<!----
                    upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
-                = '#ucase(thisState)#' and
-                upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+				 = '#ucase(thisState)#' and
+				                 upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+
+				 ---->
+				tripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
             </cfquery>
 
 		<cfif debug is "yes">
@@ -756,8 +782,12 @@ from geog_auth_rec where rownum<10
             <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec where
                    upper(trim(Country)) = '#ucase(thisCountry)#' and
+				<!----
 				   upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
                 = '#ucase(thisState)#' and
+				---->
+								stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+
 				county is null
             </cfquery>
 
@@ -782,12 +812,18 @@ from geog_auth_rec where rownum<10
 					  and upper(trim(Country)) like '%#ucase(thisCountry)#%'
 					</cfif>
 					<cfif len(thisState) gt 0>
+						and stripGeogRanks(state_prov)=stripGeogRanks('#thisState#')
+						<!----
                         and upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 						like '%#ucase(thisState)#%'
+						---->
                     </cfif>
                     <cfif len(thisCounty) gt 0>
+						<!----
 					   and upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory')))
 					       like '%#ucase(thisCounty)#%'
+					       ---->
+					       and stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
                      </cfif>
             </cfquery>
 
