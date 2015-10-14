@@ -758,17 +758,18 @@ from geog_auth_rec where rownum<10
             <cfset thisMethod="geogSearchTerm">
 			 <cfquery name="geogSearchTerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec,geog_search_term where
-				geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and
+				geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and (
 				1=1
 				   <cfif len(thisCountry) gt 0>
-					  and stripGeogRanks(SEARCH_TERM) like stripGeogRanks('%#thisCountry#%')
+					  or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCountry#')
 					</cfif>
 					<cfif len(thisState) gt 0>
-						and stripGeogRanks(SEARCH_TERM) like stripGeogRanks('%#thisState#%')
+						or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisState#')
                     </cfif>
                     <cfif len(thisCounty) gt 0>
-						and stripGeogRanks(SEARCH_TERM) like stripGeogRanks('%#thisCounty#%')
+						or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCounty#')
                      </cfif>
+					)
             </cfquery>
 			<cfdump var=#geogSearchTerm#>
 			 <cfloop query="geogSearchTerm">
