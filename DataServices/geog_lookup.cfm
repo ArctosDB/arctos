@@ -782,13 +782,13 @@ from geog_auth_rec where rownum<10
 			<div class="r_status">
 				found nothing
 				<label for="geopickr#sint#">Type to Pick</label>
-				<input type="text" name="geopickr" id="geopickr#sint#" size="80">
+				<input type="text" name="geopickr" placeholder="type here to pick" id="geopickr#sint#" size="80">
 				<span class="likeLink" id="ut#sint#" onclick="useThatOne('#qdata.pkey#','#sint#');">[ save ]</span>
 				<cfset sint=sint+1>
 			</div>
 		</cfif>
 		<label for="status#sint#">Status</label>
-		<input type="text" name="status" id="status#qdata.pkey#" size="80" value="#status#" onchange="upStatus('#qdata.pkey#');">
+		<input type="text" name="status" placeholder="type here to change status" id="status#qdata.pkey#" size="80" value="#status#" onchange="upStatus('#qdata.pkey#');">
 		<!---
 		<span class="likeLink" id="usts#qdata.pkey#" onclick="upStatus('#qdata.pkey#');">[ savestatus ]</span>
 		---->
