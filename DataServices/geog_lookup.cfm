@@ -33,9 +33,6 @@
 <script>
 jQuery(document).ready(function() {
 		$.each($("input[id^='geopickr']"), function() {
-
-
-
 			$("#" + this.id).autocomplete("/ajax/higher_geog.cfm", {
 				width: 600,
 				max: 50,
@@ -48,7 +45,6 @@ jQuery(document).ready(function() {
 				selectFirst:false
 			});
 	    });
-
 
 	});
 
@@ -68,12 +64,7 @@ jQuery(document).ready(function() {
 				queryformat : 'column'
 			},
 			function(r) {
-
-
 				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
-
-
-
 			}
 		);
 	}
@@ -245,6 +236,8 @@ from geog_auth_rec where rownum<10
 <!---
 ---->
 </cfif>
+
+<!-------------------------------------------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
 	things that resolve to one match have been updated.
@@ -259,7 +252,9 @@ from geog_auth_rec where rownum<10
 
 
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_geog where HIGHER_GEOG is null order by
+		select * from ds_temp_geog where HIGHER_GEOG is null
+		and rownum<100
+		order by
 		 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
 	</cfquery>
 	<cfset isNotNullBS='none'>
@@ -343,6 +338,7 @@ from geog_auth_rec where rownum<10
 			<cfset thisState=replace(thisState,'Parish',"")>
 			<cfset thisState=replace(thisState,'Community',"")>
 			<cfset thisState=replace(thisState,'Island',"")>
+			<cfset thisState=replace(thisState,'Islands',"")>
 			<cfset thisState=replace(thisState,'kray',"")>
 			<cfset thisState=replace(thisState,'Ward',"")>
 			<cfset thisState=replace(thisState,'Territory',"")>
@@ -763,6 +759,10 @@ from geog_auth_rec where rownum<10
 					</cfloop>
 
 				</table>
+				<label for="geopickr#sint#">Type to Pick</label>
+				<input type="text" name="geopickr" id="geopickr#sint#" size="80">
+				<span class="likeLink" id="ut#sint#" onclick="useThatOne('#qdata.pkey#','#sint#');">[ save ]</span>
+				<cfset sint=sint+1>
 			</div>
 		<cfelse>
 			<div class="r_status">
