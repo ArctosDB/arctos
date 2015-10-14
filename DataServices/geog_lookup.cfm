@@ -69,8 +69,20 @@ jQuery(document).ready(function() {
 		);
 	}
 
-
-
+	function upStatus(pkey) {
+		$.getJSON("/component/DSFunctions.cfc",
+			{
+				method : "upDSStatus",
+				pkey : pkey,
+				status : $("#status" + pkey).val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
+			}
+		);
+	}
 
 
 
@@ -773,6 +785,10 @@ from geog_auth_rec where rownum<10
 				<cfset sint=sint+1>
 			</div>
 		</cfif>
+		<label for="status#sint#">Status</label>
+		<input type="text" name="status" id="status#sint#" size="80" value="#status#">
+		<span class="likeLink" id="usts#sint#" onclick="upStatus('#qdata.pkey#');">[ savestatus ]</span>
+
 		</div>
 	</cfloop>
 </cfoutput>

@@ -14,6 +14,15 @@
 		</cfquery>
 		<cfreturn "ok">
 	</cffunction>
+		<!--------------------------------------------------------------------------->
+	<cffunction name="upDSStatus" access="remote">
+		<cfargument name="pkey" type="numeric" required="yes">
+		<cfargument name="status" type="string" required="yes">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update ds_temp_geog set status='#status#' where pkey=#pkey#
+		</cfquery>
+		<cfreturn pkey>
+	</cffunction>
 	<!--------------------------------------------------------------------------->
 	<cffunction name="upDSGeog" access="remote">
 		<cfargument name="pkey" type="numeric" required="yes">
