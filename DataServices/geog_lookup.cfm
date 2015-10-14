@@ -753,6 +753,33 @@ from geog_auth_rec where rownum<10
                 <cfset n=n+1>
             </cfloop>
         </cfif>
+		<!--- geog_search_term --->
+		<cfif n eq 1>
+            <cfset thisMethod="geogSearchTerm">
+			 <cfquery name="geogSearchTerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+                select HIGHER_GEOG from geog_auth_rec,geog_search_term where
+				geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and
+				1=1
+				   <cfif len(thisCountry) gt 0>
+					  and stripGeogRanks(SEARCH_TERM) like stripGeogRanks('%#thisCountry#%')
+					</cfif>
+					<cfif len(thisState) gt 0>
+						and stripGeogRanks(SEARCH_TERM) like stripGeogRanks('%#thisState#%')
+                    </cfif>
+                    <cfif len(thisCounty) gt 0>
+						and stripGeogRanks(SEARCH_TERM) like stripGeogRanks('%#thisCounty#%')
+                     </cfif>
+            </cfquery>
+			<cfdump var=#geogSearchTerm#>
+			 <cfloop query="geogSearchTerm">
+                <cfset QueryAddRow(result, 1)>
+                <cfset QuerySetCell(result, "method", thisMethod,n)>
+                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+                <cfset n=n+1>
+            </cfloop>
+
+
+		</cfif>
 		<cfif result.recordcount is 1>
 			<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update
