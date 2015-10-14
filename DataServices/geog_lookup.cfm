@@ -283,7 +283,7 @@ from geog_auth_rec where rownum<10
 		</select>
 		<label for="blocksrch">Block Search</label>
 		<select name="blocksrch" multiple="multiple">
-			<option <cfif listfindnocase(geogSearchTerm)> selected="selected" </cfif>value="geogSearchTerm">geogSearchTerm</option>
+			<option <cfif listfindnocase(blocksrch,"geogSearchTerm")> selected="selected" </cfif>value="geogSearchTerm">geogSearchTerm</option>
 		</select>
 
 
