@@ -265,6 +265,7 @@ from geog_auth_rec where rownum<10
 	<cfparam name="rows" default="100">
 	<cfparam name="hidestatus" default="yes">
 	<cfparam name="debug" default="no">
+	<cfparam name="blocksrch" default="">
 
 	<form name="f" method="get" action="geog_lookup.cfm">
 		<input type="hidden" name="action" value="validate">
@@ -280,6 +281,14 @@ from geog_auth_rec where rownum<10
 			<option <cfif debug is "yes"> selected="selected" </cfif>value="yes">yes</option>
 			<option <cfif debug is "no"> selected="selected" </cfif>value="no">no</option>
 		</select>
+		<label for="blocksrch">Block Search</label>
+		<select name="blocksrch" multiple="multiple">
+			<option <cfif listfindnocase(geogSearchTerm)> selected="selected" </cfif>value="geogSearchTerm">geogSearchTerm</option>
+		</select>
+
+
+
+
 		<br><input type="submit" value="go">
 	</form>
 
@@ -907,34 +916,37 @@ from geog_auth_rec where rownum<10
 
 
 		<!--- geog_search_term --->
-		<cfif n eq 1>
-            <cfset thisMethod="geogSearchTerm">
-			 <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-                select HIGHER_GEOG from geog_auth_rec,geog_search_term where
-				geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and (
-				1=2
-				   <cfif len(thisCountry) gt 0>
-					  or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCountry#')
-					</cfif>
-					<cfif len(thisState) gt 0>
-						or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisState#')
-                    </cfif>
-                    <cfif len(thisCounty) gt 0>
-						or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCounty#')
-                     </cfif>
-					)
-            </cfquery>
+		<cfif not listfindnocase(blocksrch,"geogSearchTerm")>
+			<cfif n eq 1>
+	            <cfset thisMethod="geogSearchTerm">
+				 <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	                select HIGHER_GEOG from geog_auth_rec,geog_search_term where
+					geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and (
+					1=2
+					   <cfif len(thisCountry) gt 0>
+						  or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCountry#')
+						</cfif>
+						<cfif len(thisState) gt 0>
+							or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisState#')
+	                    </cfif>
+	                    <cfif len(thisCounty) gt 0>
+							or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCounty#')
+	                     </cfif>
+						)
+	            </cfquery>
 
-		<cfif debug is "yes">
-			<cfdump var=#componentMatch#>
-		</cfif>
 
-			 <cfloop query="componentMatch">
-                <cfset QueryAddRow(result, 1)>
-                <cfset QuerySetCell(result, "method", thisMethod,n)>
-                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
-                <cfset n=n+1>
-            </cfloop>
+				<cfif debug is "yes">
+					<cfdump var=#componentMatch#>
+				</cfif>
+
+				 <cfloop query="componentMatch">
+	                <cfset QueryAddRow(result, 1)>
+	                <cfset QuerySetCell(result, "method", thisMethod,n)>
+	                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+	                <cfset n=n+1>
+	            </cfloop>
+			</cfif>
 		</cfif>
 		<cfif result.recordcount is 1>
 			<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
