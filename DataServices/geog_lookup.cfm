@@ -776,6 +776,7 @@ from geog_auth_rec where rownum<10
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
                 <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
                 <cfset n=n+1>
+				<cfdump var=#geogSearchTerm#>
             </cfloop>
 		</cfif>
 		<cfif result.recordcount is 1>
