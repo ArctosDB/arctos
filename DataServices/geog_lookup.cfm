@@ -262,12 +262,27 @@ from geog_auth_rec where rownum<10
 	<br><a href="geog_lookup.cfm?action=csv">download CSV</a>
 	<br><a href="/contact.cfm">contact us</a> if we could make something unstoopider
 	<hr>
+	<cfparam name="rows" default="100">
+	<cfparam name="hidestatus" default="yes">
 
-
+	<form name="f" method="get" action="geog_lookup.cfm">
+		<input type="hidden" name="action" value="validate">
+		<label for="rows">##Rows</label>
+		<input type="numeric" name="rows" value="#rows#">
+		<select name="hidestatus">
+			<option <cfif hidestatus is "yes"> selected="selected" </cfif>value="yes">yes</option>
+			<option <cfif hidestatus is "no"> selected="selected" </cfif>value="no">no</option>
+		</select>
+		<br><input type="submit" value="go">
+	</form>
 
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_geog where HIGHER_GEOG is null
-		and rownum<100
+		select * from ds_temp_geog where
+		HIGHER_GEOG is null
+		<cfif hidestatus is "yes">
+			and status is null
+		</cfif>
+		and rownum<=#rows#
 		order by
 		 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
 	</cfquery>
