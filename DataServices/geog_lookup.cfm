@@ -788,9 +788,10 @@ from geog_auth_rec where rownum<10
 			</div>
 		</cfif>
 		<label for="status#sint#">Status</label>
-		<input type="text" name="status" id="status#qdata.pkey#" size="80" value="#status#">
+		<input type="text" name="status" id="status#qdata.pkey#" size="80" value="#status#" onchange="upStatus('#qdata.pkey#');">
+		<!---
 		<span class="likeLink" id="usts#qdata.pkey#" onclick="upStatus('#qdata.pkey#');">[ savestatus ]</span>
-
+		---->
 		</div>
 	</cfloop>
 </cfoutput>
