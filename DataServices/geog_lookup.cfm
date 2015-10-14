@@ -771,15 +771,12 @@ from geog_auth_rec where rownum<10
                      </cfif>
 					)
             </cfquery>
-			<cfdump var=#geogSearchTerm#>
 			 <cfloop query="geogSearchTerm">
                 <cfset QueryAddRow(result, 1)>
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
                 <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
                 <cfset n=n+1>
             </cfloop>
-
-
 		</cfif>
 		<cfif result.recordcount is 1>
 			<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
