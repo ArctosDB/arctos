@@ -501,7 +501,7 @@ from geog_auth_rec where rownum<10
 				upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 				= '#ucase(thisState)#' and
 				---->
-				stripGeogRanks(state_prov)=stripGeogRanks('#thisState#')
+				stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
 			<cfelse>
 				state_prov is null and
 			</cfif>
