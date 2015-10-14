@@ -856,7 +856,7 @@ from geog_auth_rec where rownum<10
 					  	stripGeogRanks(state_prov)=stripGeogRanks('#thisCountry#') or
 					  	stripGeogRanks(county)=stripGeogRanks('#thisCountry#') or
 					  	stripGeogRanks(island)=stripGeogRanks('#thisCountry#') or
-					  	stripGeogRanks(island_group)=stripGeogRanks('#thisCountry#') or
+					  	stripGeogRanks(island_group)=stripGeogRanks('#thisCountry#')
 					  )
 					</cfif>
 					<cfif len(thisState) gt 0>
@@ -865,7 +865,7 @@ from geog_auth_rec where rownum<10
 						  	stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') or
 						  	stripGeogRanks(county)=stripGeogRanks('#thisState#') or
 						  	stripGeogRanks(island)=stripGeogRanks('#thisState#') or
-						  	stripGeogRanks(island_group)=stripGeogRanks('#thisState#') or
+						  	stripGeogRanks(island_group)=stripGeogRanks('#thisState#')
 						  )
 						<!----
                         and upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
@@ -878,7 +878,7 @@ from geog_auth_rec where rownum<10
 						  	stripGeogRanks(state_prov)=stripGeogRanks('#thisCounty#') or
 						  	stripGeogRanks(county)=stripGeogRanks('#thisCounty#') or
 						  	stripGeogRanks(island)=stripGeogRanks('#thisCounty#') or
-						  	stripGeogRanks(island_group)=stripGeogRanks('#thisCounty#') or
+						  	stripGeogRanks(island_group)=stripGeogRanks('#thisCounty#')
 						  )
 						<!----
 					   and upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory')))
