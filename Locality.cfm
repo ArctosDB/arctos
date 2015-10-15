@@ -1965,7 +1965,7 @@ INSERT INTO geog_auth_rec (
 	</cfquery>
 	<td>
 		<cfloop query="searchterm">
-			<div>
+			<div style="order:1px dashed gray; font-size:x-small;">
 				#SEARCH_TERM#
 			</div>
 		</cfloop>
