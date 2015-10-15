@@ -1963,7 +1963,7 @@ INSERT INTO geog_auth_rec (
 	<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
 	</cfquery>
-	<td>
+	<td valign="top">
 		<cfloop query="searchterm">
 			<div style="border:1px dashed gray; font-size:x-small;">
 				#SEARCH_TERM#
