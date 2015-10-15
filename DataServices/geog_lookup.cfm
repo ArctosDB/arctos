@@ -265,7 +265,7 @@ from geog_auth_rec where rownum<10
 	<cfparam name="rows" default="100">
 	<cfparam name="hidestatus" default="yes">
 	<cfparam name="debug" default="no">
-	<cfparam name="blocksrch" default="">
+	<cfparam name="blocksrch" default="geogSearchTerm,NoRankAnythingMatch">
 
 	<form name="f" method="get" action="geog_lookup.cfm">
 		<input type="hidden" name="action" value="validate">
@@ -286,10 +286,6 @@ from geog_auth_rec where rownum<10
 			<option <cfif listfindnocase(blocksrch,"geogSearchTerm")> selected="selected" </cfif>value="geogSearchTerm">geogSearchTerm</option>
 			<option <cfif listfindnocase(blocksrch,"NoRankAnythingMatch")> selected="selected" </cfif>value="NoRankAnythingMatch">NoRankAnythingMatch</option>
 		</select>
-
-
-
-
 		<br><input type="submit" value="go">
 	</form>
 
@@ -307,179 +303,179 @@ from geog_auth_rec where rownum<10
 			 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
 		) where rownum<=#rows#
 	</cfquery>
+	<!--- various strings used to mean "nothing" --->
 	<cfset isNotNullBS='none'>
-
 	<cfset result = QueryNew("method,higher_geog")>
-
-		<cfset sint=1>
-
-
+	<cfset sint=1>
 	<cfloop query="qdata">
 		<div class="onerec" id="oadiv_#pkey#">
+			<cfquery name="result" dbtype="query">
+				select * from result where 1=2
+			</cfquery>
+			<cfset n=1>
+			<!----
+			<table border>
+				<tr>
+					<th>CONTINENT_OCEAN</th>
+					<th>COUNTRY</th>
+					<th>STATE_PROV</th>
+					<th>COUNTY</th>
+					<th>QUAD</th>
+					<th>FEATURE</th>
+					<th>ISLAND</th>
+					<th>ISLAND_GROUP</th>
+					<th>SEA</th>
+				</tr>
+				<tr>
+					<td>#CONTINENT_OCEAN#</td>
+					<td>#COUNTRY#</td>
+					<td>#STATE_PROV#</td>
+					<td>#COUNTY#</td>
+					<td>#QUAD#</td>
+					<td>#FEATURE#</td>
+					<td>#ISLAND#</td>
+					<td>#ISLAND_GROUP#</td>
+					<td>#SEA#</td>
+				</tr>
+			</table>
+			---->
+			<cfset thisStatus="">
+			<cfset fhg=''>
 
-		<cfquery name="result" dbtype="query">
-			select * from result where 1=2
-		</cfquery>
-		<cfset n=1>
-		<!----
-		<table border>
-			<tr>
-				<th>CONTINENT_OCEAN</th>
-				<th>COUNTRY</th>
-				<th>STATE_PROV</th>
-				<th>COUNTY</th>
-				<th>QUAD</th>
-				<th>FEATURE</th>
-				<th>ISLAND</th>
-				<th>ISLAND_GROUP</th>
-				<th>SEA</th>
-			</tr>
-			<tr>
-				<td>#CONTINENT_OCEAN#</td>
-				<td>#COUNTRY#</td>
-				<td>#STATE_PROV#</td>
-				<td>#COUNTY#</td>
-				<td>#QUAD#</td>
-				<td>#FEATURE#</td>
-				<td>#ISLAND#</td>
-				<td>#ISLAND_GROUP#</td>
-				<td>#SEA#</td>
-			</tr>
-		</table>
-		---->
-		<cfset thisStatus="">
-		<cfset fhg=''>
+			<cfset thiscontinent=continent_ocean>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thiscontinent is i>
+					<cfset thisContinent=''>
+				</cfif>
+			</cfloop>
 
-		<cfset thiscontinent=continent_ocean>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thiscontinent is i>
-				<cfset thisContinent=''>
+			<cfset thisSea=sea>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisSea is i>
+					<cfset thisSea=''>
+				</cfif>
+			</cfloop>
+
+			<cfset thisCountry=country>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisCountry is i>
+					<cfset thisCountry=''>
+				</cfif>
+			</cfloop>
+			<cfif len(thisCountry) gt 0>
+				<cfset thisCountry=replace(thisCountry,'USA',"United States")>
 			</cfif>
-		</cfloop>
 
-		<cfset thisSea=sea>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisSea is i>
-				<cfset thisSea=''>
+			<cfset thisState=state_prov>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisState is i>
+					<cfset thisState=''>
+				</cfif>
+			</cfloop>
+
+			<!----
+			<cfif len(thisState) gt 0>
+				<cfset thisState=replace(thisState,'Prov.',"")>
+				<cfset thisState=replace(thisState,'Provincia',"")>
+				<cfset thisState=replace(thisState,'Province',"")>
+				<cfset thisState=replace(thisState,'Parish',"")>
+				<cfset thisState=replace(thisState,'Community',"")>
+				<cfset thisState=replace(thisState,'Island',"")>
+				<cfset thisState=replace(thisState,'Islands',"")>
+				<cfset thisState=replace(thisState,'kray',"")>
+				<cfset thisState=replace(thisState,'Ward',"")>
+				<cfset thisState=replace(thisState,'Territory',"")>
+				<cfset thisState=replace(thisState,'autonomous oblast',"")>
+				<cfset thisState=replace(thisState,'Republic of',"")>
+				<cfset thisState=replace(thisState,'Oblast',"")>
+				<cfset thisState=replace(thisState,'Municipality',"")>
+				<cfset thisState=replace(thisState,'Pref.',"")>
+				<cfset thisState=replace(thisState,'City',"")>
+				<cfset thisState=replace(thisState,'Depto.',"")>
+				<cfset thisState=replace(thisState,'Departamento',"")>
+				<cfset thisState=replace(thisState,'Kabupaten',"")>
+				<cfset thisState=replace(thisState,'La',"")>
+				<cfset thisState=replace(thisState,'Del',"")>
+				<cfset thisState=replace(thisState,'De',"")>
+				<cfset thisState=replace(thisState,'De',"")>
+				<cfset thisState=replace(thisState,'District',"")>
+				<cfset thisState=replace(thisState,'Governorate',"")>
 			</cfif>
-		</cfloop>
-
-		<cfset thisCountry=country>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisCountry is i>
-				<cfset thisCountry=''>
-			</cfif>
-		</cfloop>
-		<cfif len(thisCountry) gt 0>
-			<cfset thisCountry=replace(thisCountry,'USA',"United States")>
-		</cfif>
-
-		<cfset thisState=state_prov>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisState is i>
-				<cfset thisState=''>
-			</cfif>
-		</cfloop>
-
-		<cfif len(thisState) gt 0>
-			<cfset thisState=replace(thisState,'Prov.',"")>
-			<cfset thisState=replace(thisState,'Provincia',"")>
-			<cfset thisState=replace(thisState,'Province',"")>
-			<cfset thisState=replace(thisState,'Parish',"")>
-			<cfset thisState=replace(thisState,'Community',"")>
-			<cfset thisState=replace(thisState,'Island',"")>
-			<cfset thisState=replace(thisState,'Islands',"")>
-			<cfset thisState=replace(thisState,'kray',"")>
-			<cfset thisState=replace(thisState,'Ward',"")>
-			<cfset thisState=replace(thisState,'Territory',"")>
-			<cfset thisState=replace(thisState,'autonomous oblast',"")>
-			<cfset thisState=replace(thisState,'Republic of',"")>
-			<cfset thisState=replace(thisState,'Oblast',"")>
-			<cfset thisState=replace(thisState,'Municipality',"")>
-			<cfset thisState=replace(thisState,'Pref.',"")>
-			<cfset thisState=replace(thisState,'City',"")>
-			<cfset thisState=replace(thisState,'Depto.',"")>
-			<cfset thisState=replace(thisState,'Departamento',"")>
-			<cfset thisState=replace(thisState,'Kabupaten',"")>
-			<cfset thisState=replace(thisState,'La',"")>
-			<cfset thisState=replace(thisState,'Del',"")>
-			<cfset thisState=replace(thisState,'De',"")>
-			<cfset thisState=replace(thisState,'De',"")>
-			<cfset thisState=replace(thisState,'District',"")>
-			<cfset thisState=replace(thisState,'Governorate',"")>
-
+			---->
 
 			<cfset thisState=rereplace(thisState,'\(.*\)','')>
-
-
 			<cfset thisState=trim(thisState)>
-		</cfif>
 
-		<cfset thisQuad=quad>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisQuad is i>
-				<cfset thisQuad=''>
+			<cfset thisQuad=quad>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisQuad is i>
+					<cfset thisQuad=''>
+				</cfif>
+			</cfloop>
+
+			<cfset thisFeature=feature>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisFeature is i>
+					<cfset thisFeature=''>
+				</cfif>
+			</cfloop>
+
+
+			<cfset thisIslandGroup=island_group>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisIslandGroup is i>
+					<cfset thisIslandGroup=''>
+				</cfif>
+			</cfloop>
+
+			<!---
+			<cfif len(thisIslandGroup) gt 0>
+				<cfset thisIslandGroup=replace(thisIslandGroup,' IS.','','all')>
+				<cfset thisIslandGroup=replace(thisIslandGroup,' ISL.','','all')>
+				<cfset thisIslandGroup=replace(thisIslandGroup,' IS','','all')>
+				<cfset thisIslandGroup=replace(thisIslandGroup,' ISL','','all')>
 			</cfif>
-		</cfloop>
+			---->
 
-
-		<cfset thisFeature=feature>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisFeature is i>
-				<cfset thisFeature=''>
+			<cfset thisIsland=island>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisIsland is i>
+					<cfset thisIsland=''>
+				</cfif>
+			</cfloop>
+			<!---
+			<cfif len(thisIsland) gt 0>
+				<cfset thisIsland=replace(thisIsland,' IS.','','all')>
+				<cfset thisIsland=replace(thisIsland,' ISL.','','all')>
+				<cfset thisIsland=replace(thisIsland,' IS','','all')>
+				<cfset thisIsland=replace(thisIsland,' ISL','','all')>
 			</cfif>
-		</cfloop>
+			--->
 
 
-		<cfset thisIslandGroup=island_group>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisIslandGroup is i>
-				<cfset thisIslandGroup=''>
+			<cfset thisCounty=county>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisCounty is i>
+					<cfset thisCounty=''>
+				</cfif>
+			</cfloop>
+			<!---
+			<cfif len(thisCounty) gt 0>
+				<cfset thisCounty=replace(thiscounty,' CO.','','all')>
+				<cfset thisCounty=replace(thiscounty,' CO','','all')>
+				<cfset thisCounty=replace(thiscounty,' County','','all')>
+				<cfset thisCounty=replace(thiscounty,' Province','','all')>
+				<cfset thisCounty=replace(thiscounty,' Parish','','all')>
+				<cfset thisCounty=replace(thiscounty,' District','','all')>
+				<cfset thisCounty=replace(thiscounty,' Territory','','all')>
+				<cfset thisCounty=replace(thiscounty,' Prov.','','all')>
+				<cfset thisCounty=replace(thiscounty,' Dist.','','all')>
+				<cfset thisCounty=replace(thiscounty,' PROV','','all')>
+				<cfset thisCounty=replace(thiscounty,' DIST','','all')>
+				<cfset thisCounty=replace(thiscounty,' TERR','','all')>
+	            <cfset thisCounty=replace(thiscounty,' Borough','','all')>
 			</cfif>
-		</cfloop>
-
-		<cfif len(thisIslandGroup) gt 0>
-			<cfset thisIslandGroup=replace(thisIslandGroup,' IS.','','all')>
-			<cfset thisIslandGroup=replace(thisIslandGroup,' ISL.','','all')>
-			<cfset thisIslandGroup=replace(thisIslandGroup,' IS','','all')>
-			<cfset thisIslandGroup=replace(thisIslandGroup,' ISL','','all')>
-		</cfif>
-
-		<cfset thisIsland=island>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisIsland is i>
-				<cfset thisIsland=''>
-			</cfif>
-		</cfloop>
-		<cfif len(thisIsland) gt 0>
-			<cfset thisIsland=replace(thisIsland,' IS.','','all')>
-			<cfset thisIsland=replace(thisIsland,' ISL.','','all')>
-			<cfset thisIsland=replace(thisIsland,' IS','','all')>
-			<cfset thisIsland=replace(thisIsland,' ISL','','all')>
-		</cfif>
-
-
-		<cfset thisCounty=county>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisCounty is i>
-				<cfset thisCounty=''>
-			</cfif>
-		</cfloop>
-		<cfif len(thisCounty) gt 0>
-			<cfset thisCounty=replace(thiscounty,' CO.','','all')>
-			<cfset thisCounty=replace(thiscounty,' CO','','all')>
-			<cfset thisCounty=replace(thiscounty,' County','','all')>
-			<cfset thisCounty=replace(thiscounty,' Province','','all')>
-			<cfset thisCounty=replace(thiscounty,' Parish','','all')>
-			<cfset thisCounty=replace(thiscounty,' District','','all')>
-			<cfset thisCounty=replace(thiscounty,' Territory','','all')>
-			<cfset thisCounty=replace(thiscounty,' Prov.','','all')>
-			<cfset thisCounty=replace(thiscounty,' Dist.','','all')>
-			<cfset thisCounty=replace(thiscounty,' PROV','','all')>
-			<cfset thisCounty=replace(thiscounty,' DIST','','all')>
-			<cfset thisCounty=replace(thiscounty,' TERR','','all')>
-            <cfset thisCounty=replace(thiscounty,' Borough','','all')>
-		</cfif>
+			--->
 		<div class="rawdata">
 			RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#
 		</div>
