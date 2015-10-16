@@ -13,17 +13,15 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfset title="Geography Search Results">
 <cfoutput>
-	<a href="geography.cfm">search again</a>
 <cf_findLocality type="geog">
 <cfif localityResults.recordcount is 0>
 	<cfinclude template="includes/_footer.cfm">
 	<cfabort>
 </cfif>
 <script src="/includes/sorttable.js"></script>
-
 <table border id="t" class="sortable">
 	<tr>
-		<th>Meta</th>
+		<th>Links</th>
 		<th>Higher Geog</th>
 		<th>Continent</th>
 		<th>Country</th>
