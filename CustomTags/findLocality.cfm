@@ -314,7 +314,7 @@
 </cfif>
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum < 501 order by #orderby#">
 <p>
-qual=#qual#
+qual=""#qual#""
 </p>
 <cfif len(qual) is 0>
 	<cfset qual=" and 1=2">
