@@ -64,14 +64,46 @@
 			<a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a>
 		</cfif>
 	</td>
-	<td>#COUNTRY#</td>
-	<td>#STATE_PROV#</td>
-	<td>#COUNTY#</td>
-	<td>#QUAD#</td>
-	<td>#FEATURE#</td>
-	<td>#ISLAND_GROUP#</td>
-	<td>#ISLAND#</td>
-	<td>#SEA#</td>
+	<td>
+		<cfif len(COUNTRY) gt 0>
+			<a href="geography.cfm?COUNTRY=#COUNTRY#">#COUNTRY#</a>
+		</cfif>
+	</td>
+	<td>
+		<cfif len(STATE_PROV) gt 0>
+			<a href="geography.cfm?STATE_PROV=#STATE_PROV#">#STATE_PROV#</a>
+		</cfif>
+	</td>
+	<td>
+		<cfif len(COUNTY) gt 0>
+			<a href="geography.cfm?COUNTY=#COUNTY#">#COUNTY#</a>
+		</cfif>
+	</td>
+	<td>
+		<cfif len(QUAD) gt 0>
+			<a href="geography.cfm?QUAD=#QUAD#">#QUAD#</a>
+		</cfif>
+	</td>
+	<td>
+		<cfif len(FEATURE) gt 0>
+			<a href="geography.cfm?FEATURE=#FEATURE#">#FEATURE#</a>
+		</cfif>
+	</td>
+	<td>
+		<cfif len(ISLAND_GROUP) gt 0>
+			<a href="geography.cfm?ISLAND_GROUP=#ISLAND_GROUP#">#ISLAND_GROUP#</a>
+		</cfif>
+	</td>
+	<td>
+		<cfif len(ISLAND) gt 0>
+			<a href="geography.cfm?ISLAND=#ISLAND#">#ISLAND#</a>
+		</cfif>
+	</td>
+	<td>
+		<cfif len(SEA) gt 0>
+			<a href="geography.cfm?SEA=#SEA#">#SEA#</a>
+		</cfif>
+	</td>
 	<td>
 		<div style="font-size:x-small;">
 			#geog_remark#
