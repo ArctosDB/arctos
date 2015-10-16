@@ -332,7 +332,9 @@
 	qual: #qual#
 </p>
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum < 501 order by #orderby#">
-
+<p>
+	sql: #sql#
+</p>
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
