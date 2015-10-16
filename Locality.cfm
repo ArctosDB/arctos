@@ -369,7 +369,6 @@
 	function asterisckificateisland(){
 		$("#island").val("*" + $("#island").val());
 	}
-
 </script>
 <cfset title = "Edit Geography">
 	<cfoutput>
@@ -495,7 +494,7 @@
 						</select>
 					</td>
 					<td>
-					
+
 					</td>
 				</tr>
 				<tr>
@@ -515,7 +514,7 @@
 						<label for="island" >
 							<span class="likeLink" onClick="getDocs('higher_geography','island')">Island</span>
 							<span class="likeLink" onClick="asterisckificateisland();">
-								[ prefix with * ] 
+								[ prefix with * ]
 							</span>
 							to override duplicate detection
 						</label>
@@ -582,12 +581,12 @@
 			</table>
 		</cfform>
 		<hr>
-		
-	
-		
-		
+
+
+
+
 		<form name="fgeog_search_term" id="fgeog_search_term" method="post" action="Locality.cfm">
-		
+
 		</form>
 	</cfoutput>
 </cfif>
@@ -673,7 +672,7 @@
 	<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
 	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 	</cfinvoke>
-	
+
 	#contents#
 	<br>
 	<div style="border:5px solid red; background-color:red;">
@@ -791,14 +790,11 @@
 						$("##DEC_LONG").val(lon);
 						$("##datum").val(datum);
 					}
-
-
 					function showLLFormat(orig_units) {
 						$("##dd").hide();
 						$("##dms").hide();
 						$("##dmm").hide();
 						$("##utm").hide();
-
 						<!----
 						$("##DEC_LAT").val('');
 						$("##DEC_LONG").val('');
@@ -1437,9 +1433,9 @@ You deleted a collecting event.
 	<cfoutput>
 		<cftransaction>
 			<cfquery name="edGe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				UPDATE 
-					geog_auth_rec 
-				SET 
+				UPDATE
+					geog_auth_rec
+				SET
 					source_authority = '#escapeQuotes(source_authority)#',
 					valid_catalog_term_fg = 1,
 					continent_ocean = '#escapeQuotes(continent_ocean)#',
@@ -1452,7 +1448,7 @@ You deleted a collecting event.
 					island = '#escapeQuotes(island)#',
 					sea = '#escapeQuotes(sea)#',
 					geog_remark = '#escapeQuotes(geog_remark)#'
-				where 
+				where
 					geog_auth_rec_id = #geog_auth_rec_id#
 			</cfquery>
 			<cfloop from ="1" to="#numGeogSrchTerms#" index="i">
@@ -1601,21 +1597,21 @@ INSERT INTO geog_auth_rec (
 			<cf_findLocality type="event">
 
 			Found #localityResults.recordcount# records
-			
+
 			<cfif localityResults.recordcount lt 1000>
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Map <strong>localities</strong> @BerkeleyMapper</a>
 			<cfelse>
 				1000 record limit on mapping, sorry...
 			</cfif>
-	
-	
+
+
 			<span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
 			<cfif isdefined("locality_id")>
 				<a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">[ find and merge duplicates ]</a>
 			</cfif>
-			
-			
-			
+
+
+
 <table border>
 	<tr>
 		<td><b>Geog</b></td>
@@ -1934,6 +1930,7 @@ INSERT INTO geog_auth_rec (
 		<th>Sea</th>
 		<th>Authority</th>
 		<th>Remark</th>
+		<th>SrchTerm</th>
 	</tr>
 <cfloop query="localityResults">
 <tr>
@@ -1955,10 +1952,23 @@ INSERT INTO geog_auth_rec (
 		<cfif left(SOURCE_AUTHORITY,4) is 'http'>
 			<a href="#SOURCE_AUTHORITY#" class="external" target="_blank">#SOURCE_AUTHORITY#</a>
 		<cfelse>
-			#SOURCE_AUTHORITY#	
+			#SOURCE_AUTHORITY#
 		</cfif>
 	</td>
 	<td>#geog_remark#</td>
+	<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
+	</cfquery>
+	<td valign="top">
+		<cfloop query="searchterm">
+			<div style="border:1px dashed gray; font-size:x-small;">
+				#SEARCH_TERM#
+			</div>
+		</cfloop>
+	</td>
+
+
+
   </tr>
 </cfloop>
 </cfoutput>

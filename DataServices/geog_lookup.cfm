@@ -33,9 +33,6 @@
 <script>
 jQuery(document).ready(function() {
 		$.each($("input[id^='geopickr']"), function() {
-
-
-
 			$("#" + this.id).autocomplete("/ajax/higher_geog.cfm", {
 				width: 600,
 				max: 50,
@@ -48,7 +45,6 @@ jQuery(document).ready(function() {
 				selectFirst:false
 			});
 	    });
-
 
 	});
 
@@ -68,18 +64,27 @@ jQuery(document).ready(function() {
 				queryformat : 'column'
 			},
 			function(r) {
-
-
 				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
-
-
-
 			}
 		);
 	}
 
-
-
+	function upStatus(pkey) {
+		console.log('saving ' + $("#status" + pkey).val() + ' for ' + pkey);
+		$.getJSON("/component/DSFunctions.cfc",
+			{
+				method : "upDSStatus",
+				pkey : pkey,
+				status : $("#status" + pkey).val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				console.log('saved status');
+				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
+			}
+		);
+	}
 
 
 
@@ -245,6 +250,8 @@ from geog_auth_rec where rownum<10
 <!---
 ---->
 </cfif>
+
+<!-------------------------------------------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
 	things that resolve to one match have been updated.
@@ -255,185 +262,220 @@ from geog_auth_rec where rownum<10
 	<br><a href="geog_lookup.cfm?action=csv">download CSV</a>
 	<br><a href="/contact.cfm">contact us</a> if we could make something unstoopider
 	<hr>
+	<cfparam name="rows" default="100">
+	<cfparam name="hidestatus" default="yes">
+	<cfparam name="debug" default="no">
+	<cfparam name="blocksrch" default="geogSearchTerm,NoRankAnythingMatch">
 
+	<form name="f" method="get" action="geog_lookup.cfm">
+		<input type="hidden" name="action" value="validate">
+		<label for="rows">##Rows</label>
+		<input type="numeric" name="rows" value="#rows#">
+		<label for="hidestatus">Hide records with status?</label>
+		<select name="hidestatus">
+			<option <cfif hidestatus is "yes"> selected="selected" </cfif>value="yes">yes</option>
+			<option <cfif hidestatus is "no"> selected="selected" </cfif>value="no">no</option>
+		</select>
+		<label for="debug">Debug?</label>
+		<select name="debug">
+			<option <cfif debug is "yes"> selected="selected" </cfif>value="yes">yes</option>
+			<option <cfif debug is "no"> selected="selected" </cfif>value="no">no</option>
+		</select>
+		<label for="blocksrch">Block Search</label>
+		<select name="blocksrch" multiple="multiple">
+			<option <cfif listfindnocase(blocksrch,"geogSearchTerm")> selected="selected" </cfif>value="geogSearchTerm">geogSearchTerm</option>
+			<option <cfif listfindnocase(blocksrch,"NoRankAnythingMatch")> selected="selected" </cfif>value="NoRankAnythingMatch">NoRankAnythingMatch</option>
+		</select>
+		<br><input type="submit" value="go">
+	</form>
 
-
+	<cfif debug is "yes">
+		<cfset rows=10>
+	</cfif>
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_geog where HIGHER_GEOG is null order by
-		 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
+		select * from (
+			select * from ds_temp_geog where
+			HIGHER_GEOG is null
+			<cfif hidestatus is "yes">
+				and status is null
+			</cfif>
+			order by
+			 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
+		) where rownum<=#rows#
 	</cfquery>
+	<!--- various strings used to mean "nothing" --->
 	<cfset isNotNullBS='none'>
-
 	<cfset result = QueryNew("method,higher_geog")>
-
-		<cfset sint=1>
-
-
+	<cfset sint=1>
 	<cfloop query="qdata">
 		<div class="onerec" id="oadiv_#pkey#">
+			<cfquery name="result" dbtype="query">
+				select * from result where 1=2
+			</cfquery>
+			<cfset n=1>
+			<!----
+			<table border>
+				<tr>
+					<th>CONTINENT_OCEAN</th>
+					<th>COUNTRY</th>
+					<th>STATE_PROV</th>
+					<th>COUNTY</th>
+					<th>QUAD</th>
+					<th>FEATURE</th>
+					<th>ISLAND</th>
+					<th>ISLAND_GROUP</th>
+					<th>SEA</th>
+				</tr>
+				<tr>
+					<td>#CONTINENT_OCEAN#</td>
+					<td>#COUNTRY#</td>
+					<td>#STATE_PROV#</td>
+					<td>#COUNTY#</td>
+					<td>#QUAD#</td>
+					<td>#FEATURE#</td>
+					<td>#ISLAND#</td>
+					<td>#ISLAND_GROUP#</td>
+					<td>#SEA#</td>
+				</tr>
+			</table>
+			---->
+			<cfset thisStatus="">
+			<cfset fhg=''>
 
-		<cfquery name="result" dbtype="query">
-			select * from result where 1=2
-		</cfquery>
-		<cfset n=1>
-		<!----
-		<table border>
-			<tr>
-				<th>CONTINENT_OCEAN</th>
-				<th>COUNTRY</th>
-				<th>STATE_PROV</th>
-				<th>COUNTY</th>
-				<th>QUAD</th>
-				<th>FEATURE</th>
-				<th>ISLAND</th>
-				<th>ISLAND_GROUP</th>
-				<th>SEA</th>
-			</tr>
-			<tr>
-				<td>#CONTINENT_OCEAN#</td>
-				<td>#COUNTRY#</td>
-				<td>#STATE_PROV#</td>
-				<td>#COUNTY#</td>
-				<td>#QUAD#</td>
-				<td>#FEATURE#</td>
-				<td>#ISLAND#</td>
-				<td>#ISLAND_GROUP#</td>
-				<td>#SEA#</td>
-			</tr>
-		</table>
-		---->
-		<cfset thisStatus="">
-		<cfset fhg=''>
+			<cfset thiscontinent=continent_ocean>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thiscontinent is i>
+					<cfset thisContinent=''>
+				</cfif>
+			</cfloop>
 
-		<cfset thiscontinent=continent_ocean>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thiscontinent is i>
-				<cfset thisContinent=''>
+			<cfset thisSea=sea>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisSea is i>
+					<cfset thisSea=''>
+				</cfif>
+			</cfloop>
+
+			<cfset thisCountry=country>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisCountry is i>
+					<cfset thisCountry=''>
+				</cfif>
+			</cfloop>
+			<cfif len(thisCountry) gt 0>
+				<cfset thisCountry=replace(thisCountry,'USA',"United States")>
 			</cfif>
-		</cfloop>
 
-		<cfset thisSea=sea>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisSea is i>
-				<cfset thisSea=''>
+			<cfset thisState=state_prov>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisState is i>
+					<cfset thisState=''>
+				</cfif>
+			</cfloop>
+
+			<!----
+			<cfif len(thisState) gt 0>
+				<cfset thisState=replace(thisState,'Prov.',"")>
+				<cfset thisState=replace(thisState,'Provincia',"")>
+				<cfset thisState=replace(thisState,'Province',"")>
+				<cfset thisState=replace(thisState,'Parish',"")>
+				<cfset thisState=replace(thisState,'Community',"")>
+				<cfset thisState=replace(thisState,'Island',"")>
+				<cfset thisState=replace(thisState,'Islands',"")>
+				<cfset thisState=replace(thisState,'kray',"")>
+				<cfset thisState=replace(thisState,'Ward',"")>
+				<cfset thisState=replace(thisState,'Territory',"")>
+				<cfset thisState=replace(thisState,'autonomous oblast',"")>
+				<cfset thisState=replace(thisState,'Republic of',"")>
+				<cfset thisState=replace(thisState,'Oblast',"")>
+				<cfset thisState=replace(thisState,'Municipality',"")>
+				<cfset thisState=replace(thisState,'Pref.',"")>
+				<cfset thisState=replace(thisState,'City',"")>
+				<cfset thisState=replace(thisState,'Depto.',"")>
+				<cfset thisState=replace(thisState,'Departamento',"")>
+				<cfset thisState=replace(thisState,'Kabupaten',"")>
+				<cfset thisState=replace(thisState,'La',"")>
+				<cfset thisState=replace(thisState,'Del',"")>
+				<cfset thisState=replace(thisState,'De',"")>
+				<cfset thisState=replace(thisState,'De',"")>
+				<cfset thisState=replace(thisState,'District',"")>
+				<cfset thisState=replace(thisState,'Governorate',"")>
 			</cfif>
-		</cfloop>
-
-		<cfset thisCountry=country>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisCountry is i>
-				<cfset thisCountry=''>
-			</cfif>
-		</cfloop>
-		<cfif len(thisCountry) gt 0>
-			<cfset thisCountry=replace(thisCountry,'USA',"United States")>
-		</cfif>
-
-		<cfset thisState=state_prov>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisState is i>
-				<cfset thisState=''>
-			</cfif>
-		</cfloop>
-
-		<cfif len(thisState) gt 0>
-			<cfset thisState=replace(thisState,'Prov.',"")>
-			<cfset thisState=replace(thisState,'Provincia',"")>
-			<cfset thisState=replace(thisState,'Province',"")>
-			<cfset thisState=replace(thisState,'Parish',"")>
-			<cfset thisState=replace(thisState,'Community',"")>
-			<cfset thisState=replace(thisState,'Island',"")>
-			<cfset thisState=replace(thisState,'kray',"")>
-			<cfset thisState=replace(thisState,'Ward',"")>
-			<cfset thisState=replace(thisState,'Territory',"")>
-			<cfset thisState=replace(thisState,'autonomous oblast',"")>
-			<cfset thisState=replace(thisState,'Republic of',"")>
-			<cfset thisState=replace(thisState,'Oblast',"")>
-			<cfset thisState=replace(thisState,'Municipality',"")>
-			<cfset thisState=replace(thisState,'Pref.',"")>
-			<cfset thisState=replace(thisState,'City',"")>
-			<cfset thisState=replace(thisState,'Depto.',"")>
-			<cfset thisState=replace(thisState,'Departamento',"")>
-			<cfset thisState=replace(thisState,'Kabupaten',"")>
-			<cfset thisState=replace(thisState,'La',"")>
-			<cfset thisState=replace(thisState,'Del',"")>
-			<cfset thisState=replace(thisState,'De',"")>
-			<cfset thisState=replace(thisState,'De',"")>
-			<cfset thisState=replace(thisState,'District',"")>
-			<cfset thisState=replace(thisState,'Governorate',"")>
-
+			---->
 
 			<cfset thisState=rereplace(thisState,'\(.*\)','')>
-
-
 			<cfset thisState=trim(thisState)>
-		</cfif>
 
-		<cfset thisQuad=quad>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisQuad is i>
-				<cfset thisQuad=''>
+			<cfset thisQuad=quad>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisQuad is i>
+					<cfset thisQuad=''>
+				</cfif>
+			</cfloop>
+
+			<cfset thisFeature=feature>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisFeature is i>
+					<cfset thisFeature=''>
+				</cfif>
+			</cfloop>
+
+
+			<cfset thisIslandGroup=island_group>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisIslandGroup is i>
+					<cfset thisIslandGroup=''>
+				</cfif>
+			</cfloop>
+
+			<!---
+			<cfif len(thisIslandGroup) gt 0>
+				<cfset thisIslandGroup=replace(thisIslandGroup,' IS.','','all')>
+				<cfset thisIslandGroup=replace(thisIslandGroup,' ISL.','','all')>
+				<cfset thisIslandGroup=replace(thisIslandGroup,' IS','','all')>
+				<cfset thisIslandGroup=replace(thisIslandGroup,' ISL','','all')>
 			</cfif>
-		</cfloop>
+			---->
 
-
-		<cfset thisFeature=feature>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisFeature is i>
-				<cfset thisFeature=''>
+			<cfset thisIsland=island>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisIsland is i>
+					<cfset thisIsland=''>
+				</cfif>
+			</cfloop>
+			<!---
+			<cfif len(thisIsland) gt 0>
+				<cfset thisIsland=replace(thisIsland,' IS.','','all')>
+				<cfset thisIsland=replace(thisIsland,' ISL.','','all')>
+				<cfset thisIsland=replace(thisIsland,' IS','','all')>
+				<cfset thisIsland=replace(thisIsland,' ISL','','all')>
 			</cfif>
-		</cfloop>
+			--->
 
 
-		<cfset thisIslandGroup=island_group>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisIslandGroup is i>
-				<cfset thisIslandGroup=''>
+			<cfset thisCounty=county>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisCounty is i>
+					<cfset thisCounty=''>
+				</cfif>
+			</cfloop>
+			<!---
+			<cfif len(thisCounty) gt 0>
+				<cfset thisCounty=replace(thiscounty,' CO.','','all')>
+				<cfset thisCounty=replace(thiscounty,' CO','','all')>
+				<cfset thisCounty=replace(thiscounty,' County','','all')>
+				<cfset thisCounty=replace(thiscounty,' Province','','all')>
+				<cfset thisCounty=replace(thiscounty,' Parish','','all')>
+				<cfset thisCounty=replace(thiscounty,' District','','all')>
+				<cfset thisCounty=replace(thiscounty,' Territory','','all')>
+				<cfset thisCounty=replace(thiscounty,' Prov.','','all')>
+				<cfset thisCounty=replace(thiscounty,' Dist.','','all')>
+				<cfset thisCounty=replace(thiscounty,' PROV','','all')>
+				<cfset thisCounty=replace(thiscounty,' DIST','','all')>
+				<cfset thisCounty=replace(thiscounty,' TERR','','all')>
+	            <cfset thisCounty=replace(thiscounty,' Borough','','all')>
 			</cfif>
-		</cfloop>
-
-		<cfif len(thisIslandGroup) gt 0>
-			<cfset thisIslandGroup=replace(thisIslandGroup,' IS.','','all')>
-			<cfset thisIslandGroup=replace(thisIslandGroup,' ISL.','','all')>
-			<cfset thisIslandGroup=replace(thisIslandGroup,' IS','','all')>
-			<cfset thisIslandGroup=replace(thisIslandGroup,' ISL','','all')>
-		</cfif>
-
-		<cfset thisIsland=island>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisIsland is i>
-				<cfset thisIsland=''>
-			</cfif>
-		</cfloop>
-		<cfif len(thisIsland) gt 0>
-			<cfset thisIsland=replace(thisIsland,' IS.','','all')>
-			<cfset thisIsland=replace(thisIsland,' ISL.','','all')>
-			<cfset thisIsland=replace(thisIsland,' IS','','all')>
-			<cfset thisIsland=replace(thisIsland,' ISL','','all')>
-		</cfif>
-
-
-		<cfset thisCounty=county>
-		<cfloop list="#isNotNullBS#" index="i">
-			<cfif thisCounty is i>
-				<cfset thisCounty=''>
-			</cfif>
-		</cfloop>
-		<cfif len(thisCounty) gt 0>
-			<cfset thisCounty=replace(thiscounty,' CO.','','all')>
-			<cfset thisCounty=replace(thiscounty,' CO','','all')>
-			<cfset thisCounty=replace(thiscounty,' County','','all')>
-			<cfset thisCounty=replace(thiscounty,' Province','','all')>
-			<cfset thisCounty=replace(thiscounty,' Parish','','all')>
-			<cfset thisCounty=replace(thiscounty,' District','','all')>
-			<cfset thisCounty=replace(thiscounty,' Territory','','all')>
-			<cfset thisCounty=replace(thiscounty,' Prov.','','all')>
-			<cfset thisCounty=replace(thiscounty,' Dist.','','all')>
-			<cfset thisCounty=replace(thiscounty,' PROV','','all')>
-			<cfset thisCounty=replace(thiscounty,' DIST','','all')>
-			<cfset thisCounty=replace(thiscounty,' TERR','','all')>
-            <cfset thisCounty=replace(thiscounty,' Borough','','all')>
-		</cfif>
+			--->
 		<div class="rawdata">
 			RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#
 		</div>
@@ -461,8 +503,11 @@ from geog_auth_rec where rownum<10
 				country is null and
 			</cfif>
 			<cfif len(thisState) gt 0>
+				<!----
 				upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 				= '#ucase(thisState)#' and
+				---->
+				stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
 			<cfelse>
 				state_prov is null and
 			</cfif>
@@ -487,11 +532,19 @@ from geog_auth_rec where rownum<10
 				island is null and
 			</cfif>
 			<cfif len(thisCounty) gt 0>
+				<!----
 				upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+				---->
+				stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
 			<cfelse>
 				county is null
 			</cfif>
 		</cfquery>
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
+
 		<cfloop query="componentMatch">
 			<cfset QueryAddRow(result, 1)>
 			<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -513,8 +566,11 @@ from geog_auth_rec where rownum<10
 					country is null and
 				</cfif>
 				<cfif len(thisState) gt 0>
+					stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 					= '#ucase(thisState)#' and
+					---->
 				<cfelse>
 					state_prov is null and
 				</cfif>
@@ -539,11 +595,19 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					---->
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
 				<cfelse>
 					county is null
 				</cfif>
 			</cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
 				<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -561,8 +625,12 @@ from geog_auth_rec where rownum<10
 					country is null and
 				</cfif>
 				<cfif len(thisState) gt 0>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 					= '#ucase(thisState)#' and
+					---->
+					stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+
 				<cfelse>
 					state_prov is null and
 				</cfif>
@@ -587,11 +655,19 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					---->
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
 				<cfelse>
 					county is null
 				</cfif>
 			</cfquery>
+
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
+
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
 				<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -606,8 +682,11 @@ from geog_auth_rec where rownum<10
 				select HIGHER_GEOG from geog_auth_rec where
 				<cfif len(thisState) gt 0>
 					<cfset gotsomething=true>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 					= '#ucase(thisState)#' and
+					---->
+					stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
 				<cfelse>
 					state_prov is null and
 				</cfif>
@@ -637,7 +716,11 @@ from geog_auth_rec where rownum<10
 				</cfif>
 				<cfif len(thisCounty) gt 0>
                     <cfset gotsomething=true>
+					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					---->
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+
 				<cfelse>
 					county is null
 				</cfif>
@@ -645,6 +728,11 @@ from geog_auth_rec where rownum<10
 				    and 1=2
 				</cfif>
 			</cfquery>
+
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
+
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
 				<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -661,6 +749,11 @@ from geog_auth_rec where rownum<10
 					upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#'
 				</cfif>
 			</cfquery>
+
+		<cfif debug is "yes">
+			<cfdump var=#componentMatch#>
+		</cfif>
+
 			<cfloop query="componentMatch">
 				<cfset QueryAddRow(result, 1)>
 				<cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -673,10 +766,20 @@ from geog_auth_rec where rownum<10
             <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec where
                    upper(trim(Country)) = '#ucase(thisCountry)#' and
+									stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+<!----
                    upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
-                = '#ucase(thisState)#' and
-                upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+				 = '#ucase(thisState)#' and
+				                 upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+
+				 ---->
+				stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
             </cfquery>
+
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
+
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -690,10 +793,19 @@ from geog_auth_rec where rownum<10
             <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec where
                    upper(trim(Country)) = '#ucase(thisCountry)#' and
+				<!----
 				   upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
                 = '#ucase(thisState)#' and
+				---->
+								stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
+
 				county is null
             </cfquery>
+
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
+
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -711,14 +823,25 @@ from geog_auth_rec where rownum<10
 					  and upper(trim(Country)) like '%#ucase(thisCountry)#%'
 					</cfif>
 					<cfif len(thisState) gt 0>
+						and stripGeogRanks(state_prov)=stripGeogRanks('#thisState#')
+						<!----
                         and upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 						like '%#ucase(thisState)#%'
+						---->
                     </cfif>
                     <cfif len(thisCounty) gt 0>
+						<!----
 					   and upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory')))
 					       like '%#ucase(thisCounty)#%'
+					       ---->
+					       and stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
                      </cfif>
             </cfquery>
+
+			<cfif debug is "yes">
+				<cfdump var=#componentMatch#>
+			</cfif>
+
             <cfloop query="componentMatch">
                 <cfset QueryAddRow(result, 1)>
                 <cfset QuerySetCell(result, "method", thisMethod,n)>
@@ -726,6 +849,101 @@ from geog_auth_rec where rownum<10
                 <cfset n=n+1>
             </cfloop>
         </cfif>
+		<cfif not listfindnocase(blocksrch,"NoRankAnythingMatch")>
+
+			<!---- all somewhere in higher geog, everything stripped ---->
+
+			<cfif n eq 1>
+	            <cfset thisMethod="componentMatch_NoRankAnythingMatch">
+				 <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	                select HIGHER_GEOG from geog_auth_rec where 1=1
+					   <cfif len(thisCountry) gt 0>
+						  and (
+						  	stripGeogRanks(country)=stripGeogRanks('#thisCountry#') or
+						  	stripGeogRanks(state_prov)=stripGeogRanks('#thisCountry#') or
+						  	stripGeogRanks(county)=stripGeogRanks('#thisCountry#') or
+						  	stripGeogRanks(island)=stripGeogRanks('#thisCountry#') or
+						  	stripGeogRanks(island_group)=stripGeogRanks('#thisCountry#')
+						  )
+						</cfif>
+						<cfif len(thisState) gt 0>
+							 and (
+							  	stripGeogRanks(country)=stripGeogRanks('#thisState#') or
+							  	stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') or
+							  	stripGeogRanks(county)=stripGeogRanks('#thisState#') or
+							  	stripGeogRanks(island)=stripGeogRanks('#thisState#') or
+							  	stripGeogRanks(island_group)=stripGeogRanks('#thisState#')
+							  )
+							<!----
+	                        and upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
+							like '%#ucase(thisState)#%'
+							---->
+	                    </cfif>
+	                    <cfif len(thisCounty) gt 0>
+							 and (
+							  	stripGeogRanks(country)=stripGeogRanks('#thisCounty#') or
+							  	stripGeogRanks(state_prov)=stripGeogRanks('#thisCounty#') or
+							  	stripGeogRanks(county)=stripGeogRanks('#thisCounty#') or
+							  	stripGeogRanks(island)=stripGeogRanks('#thisCounty#') or
+							  	stripGeogRanks(island_group)=stripGeogRanks('#thisCounty#')
+							  )
+							<!----
+						   and upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory')))
+						       like '%#ucase(thisCounty)#%'
+
+						       					       and stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+
+
+
+						       ---->
+	                     </cfif>
+	            </cfquery>
+
+				<cfif debug is "yes">
+					<cfdump var=#componentMatch#>
+				</cfif>
+
+	            <cfloop query="componentMatch">
+	                <cfset QueryAddRow(result, 1)>
+	                <cfset QuerySetCell(result, "method", thisMethod,n)>
+	                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+	                <cfset n=n+1>
+	            </cfloop>
+	        </cfif>
+	   </cfif>
+		<!--- geog_search_term --->
+		<cfif not listfindnocase(blocksrch,"geogSearchTerm")>
+			<cfif n eq 1>
+	            <cfset thisMethod="geogSearchTerm">
+				 <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	                select HIGHER_GEOG from geog_auth_rec,geog_search_term where
+					geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and (
+					1=2
+					   <cfif len(thisCountry) gt 0>
+						  or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCountry#')
+						</cfif>
+						<cfif len(thisState) gt 0>
+							or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisState#')
+	                    </cfif>
+	                    <cfif len(thisCounty) gt 0>
+							or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCounty#')
+	                     </cfif>
+						)
+	            </cfquery>
+
+
+				<cfif debug is "yes">
+					<cfdump var=#componentMatch#>
+				</cfif>
+
+				 <cfloop query="componentMatch">
+	                <cfset QueryAddRow(result, 1)>
+	                <cfset QuerySetCell(result, "method", thisMethod,n)>
+	                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+	                <cfset n=n+1>
+	            </cfloop>
+			</cfif>
+		</cfif>
 		<cfif result.recordcount is 1>
 			<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update
@@ -763,16 +981,25 @@ from geog_auth_rec where rownum<10
 					</cfloop>
 
 				</table>
-			</div>
-		<cfelse>
-			<div class="r_status">
-				found nothing
 				<label for="geopickr#sint#">Type to Pick</label>
 				<input type="text" name="geopickr" id="geopickr#sint#" size="80">
 				<span class="likeLink" id="ut#sint#" onclick="useThatOne('#qdata.pkey#','#sint#');">[ save ]</span>
 				<cfset sint=sint+1>
 			</div>
+		<cfelse>
+			<div class="r_status">
+				found nothing
+				<label for="geopickr#sint#">Type to Pick</label>
+				<input type="text" name="geopickr" placeholder="type here to pick" id="geopickr#sint#" size="80">
+				<span class="likeLink" id="ut#sint#" onclick="useThatOne('#qdata.pkey#','#sint#');">[ save ]</span>
+				<cfset sint=sint+1>
+			</div>
 		</cfif>
+		<label for="status#sint#">Status</label>
+		<input type="text" name="status" placeholder="type here to change status" id="status#qdata.pkey#" size="80" value="#status#" onchange="upStatus('#qdata.pkey#');">
+		<!---
+		<span class="likeLink" id="usts#qdata.pkey#" onclick="upStatus('#qdata.pkey#');">[ savestatus ]</span>
+		---->
 		</div>
 	</cfloop>
 </cfoutput>

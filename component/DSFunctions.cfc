@@ -14,6 +14,15 @@
 		</cfquery>
 		<cfreturn "ok">
 	</cffunction>
+		<!--------------------------------------------------------------------------->
+	<cffunction name="upDSStatus" access="remote">
+		<cfargument name="pkey" type="numeric" required="yes">
+		<cfargument name="status" type="string" required="yes">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update ds_temp_geog set status='#status#' where pkey=#pkey#
+		</cfquery>
+		<cfreturn pkey>
+	</cffunction>
 	<!--------------------------------------------------------------------------->
 	<cffunction name="upDSGeog" access="remote">
 		<cfargument name="pkey" type="numeric" required="yes">
@@ -29,7 +38,7 @@
 		<!--------------
 	<cfargument name="barcode" type="any" required="yes">
 	<cfquery name="d" datasource="uam_god">
-		select 
+		select
 			c.barcode,
 			CAT_NUM,
 			VERBATIM_DATE,
@@ -90,13 +99,13 @@
 			BEGAN_DATE,
 			ENDED_DATE,
 			ID_SENSU
-		from 
+		from
 			flat,
 			specimen_part,
 			coll_obj_cont_hist,
 			container p,
-			container c 
-		where 
+			container c
+		where
 			flat.collection_object_id=specimen_part.derived_from_cat_item and
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 			coll_obj_cont_hist.container_id=p.container_id and
@@ -104,23 +113,23 @@
 			c.barcode in (#ListQualify(barcode, "'")#)
 	</cfquery>
 	<cfreturn d>
-	
+
 	------------>
 </cffunction>
 
 <cffunction name="getGuidByPartBarcode" access="remote">
 	<cfargument name="barcode" type="any" required="yes">
 	<cfquery name="d" datasource="uam_god">
-		select 
+		select
 			c.barcode,
-			guid 
-		from 
+			guid
+		from
 			flat,
 			specimen_part,
 			coll_obj_cont_hist,
 			container p,
-			container c 
-		where 
+			container c
+		where
 			flat.collection_object_id=specimen_part.derived_from_cat_item and
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 			coll_obj_cont_hist.container_id=p.container_id and
@@ -218,7 +227,7 @@
 					</cfcatch>
 					</cftry>
 				</cfif>
-				
+
 				<cfif len(d.other_name_2) gt 0>
 					<cfset thisName=trim(d.other_name_2)>
 					<cfset nametype=d.other_name_type_2>
@@ -301,7 +310,7 @@
 				</cfquery>
 				<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select sq_agent_name_id.nextval nextAgentNameId from dual
-				</cfquery>		
+				</cfquery>
 				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO agent (
 						agent_id,
@@ -314,9 +323,9 @@
 						#agentNameID.nextAgentNameId#,
 						'#trim(d.agent_remark)#'
 						)
-				</cfquery>		
+				</cfquery>
 				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO person ( 
+					INSERT INTO person (
 						PERSON_ID
 						,prefix
 						,LAST_NAME
@@ -406,7 +415,7 @@
 			</cftransaction>
 			<cfset status="PASS">
 			<cfset agent_id=agentID.nextAgentId>
-			<cfset msg='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent</a> created'>	
+			<cfset msg='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent</a> created'>
 		<cfcatch>
 			<cfset status="FAIL">
 			<cfset agent_id="">
@@ -422,25 +431,24 @@
 	<cfset temp = QuerySetCell(result, "AGENT_ID", agent_id, 1)>
 	<cfreturn result>
 </cffunction>
-
 ----------------------------->
 <!--------------------------------------------->
 
 <cffunction name="findAgentMatch" access="remote">
-	<cfargument name="key" type="numeric" required="yes">	
+	<cfargument name="key" type="numeric" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select first_name,middle_name,last_name,preferred_name,other_name_1,other_name_2,other_name_3 
+		select first_name,middle_name,last_name,preferred_name,other_name_1,other_name_2,other_name_3
 		from ds_temp_agent where key=#key#
 	</cfquery>
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 	        #KEY# key,
-	        preferred_agent_name.agent_id, 
+	        preferred_agent_name.agent_id,
 	        preferred_agent_name.agent_name preferred_agent_name
-		from 
+		from
 	        agent_name srch,
 	        preferred_agent_name
-		where 
+		where
 	        srch.agent_id=preferred_agent_name.agent_id and
 	        trim(srch.agent_name) in (
 	        	trim('#d.preferred_name#'),
@@ -449,13 +457,13 @@
 	        	trim('#d.other_name_3#')
 	        )
 	    group by
-	    	preferred_agent_name.agent_id, 
+	    	preferred_agent_name.agent_id,
 	        preferred_agent_name.agent_name,
 	        #key#
 	    union
 	    select
 	    	#KEY# key,
-	        preferred_agent_name.agent_id, 
+	        preferred_agent_name.agent_id,
 	        preferred_agent_name.agent_name preferred_agent_name
 		from
 			person,
@@ -463,31 +471,31 @@
 		where
 			person.person_id=preferred_agent_name.agent_id and
 			upper(first_name) = trim(upper('#d.first_name#')) and
-			upper(last_name) = trim(upper('#d.last_name#'))			
+			upper(last_name) = trim(upper('#d.last_name#'))
 	</cfquery>
 	<cfreturn result>
 </cffunction>
 <!------------------------------------------>
 <cffunction name="findAgentMatchOld" access="remote">
-	<cfargument name="key" type="numeric" required="yes">	
+	<cfargument name="key" type="numeric" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent where key=#key#
 	</cfquery>
 	<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 	        first_name,
 	        middle_name,
 	        last_name,
 	        birth_date,
 	        death_date,
 	        suffix,
-	        preferred_agent_name.agent_id, 
+	        preferred_agent_name.agent_id,
 	        preferred_agent_name.agent_name preferred_agent_name
-		from 
+		from
 	        person,
 	        agent_name srch,
 	        preferred_agent_name
-		where 
+		where
 	        person.person_id=srch.agent_id and
 	        person.person_id=preferred_agent_name.agent_id and
 	        srch.agent_name in ('#d.preferred_name#','#d.other_name_1#','#d.other_name_2#','#d.other_name_3#')
@@ -498,16 +506,16 @@
 	        birth_date,
 	        death_date,
 	        suffix,
-	        preferred_agent_name.agent_id, 
+	        preferred_agent_name.agent_id,
 	        preferred_agent_name.agent_name
 	</cfquery>
 	<cfset result = querynew("key,first_name,middle_name,last_name,birth_date,death_date,suffix,agent_id,
 			preferred_agent_name,othernames,n_agent_type,n_preferred_name,n_first_name,n_middle_name,n_last_name,n_birth_date,n_death_date,
 			n_prefix,n_suffix,n_other_name_1,n_other_name_type_1,n_other_name_2,n_other_name_type_2,n_other_name_3,
 			n_other_name_type_3")>
-	
-	
-	
+
+
+
 	<cfset i=1>
 	<cfloop query="n">
 		<cfset temp = queryaddrow(result,1)>
