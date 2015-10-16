@@ -911,9 +911,6 @@ from geog_auth_rec where rownum<10
 	            </cfloop>
 	        </cfif>
 	   </cfif>
-
-
-
 		<!--- geog_search_term --->
 		<cfif not listfindnocase(blocksrch,"geogSearchTerm")>
 			<cfif n eq 1>
