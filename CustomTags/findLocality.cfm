@@ -329,8 +329,10 @@ sql=#sql#
 <cfif caller.localityResults.recordcount is 500>
 	<br>This application returns a maximum of 500 rows. Not all results are displayed.<br>
 </cfif>
+<!----
 <cfif caller.localityResults.recordcount is 0>
 	<span class="error">Your search found no matches.</span>
 	<cfabort>
 </cfif>
+---->
 </cfoutput>
