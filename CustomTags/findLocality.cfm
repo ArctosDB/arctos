@@ -308,10 +308,10 @@
 <cfif isdefined("georeference_protocol") AND len(#georeference_protocol#) gt 0>
 	<cfset qual = "#qual# AND georeference_protocol='#georeference_protocol#'">
 </cfif>
-<cfif right(qual,4) is " (+)">
-	<span class="error">You must enter search criteria.</span>
-	<cfabort>
+<cfif len(trim(qual)) is 0>
+	<cfset qual=" and 1=2">
 </cfif>
+
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum < 501 order by #orderby#">
 <p>
 qual=""#qual#""
@@ -319,9 +319,7 @@ qual=""#qual#""
 <p>
 len(trim(qual)): #len(trim(qual))#
 </p>
-<cfif len(trim(qual)) is 0>
-	<cfset qual=" and 1=2">
-</cfif>
+
 <p>
 sql=#sql#
 </p>
