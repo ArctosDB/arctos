@@ -316,6 +316,12 @@
 <p>
 qual=#qual#
 </p>
+<cfif len(qual) is 0>
+	<cfset qual=" and 1=2">
+</cfif>
+<p>
+sql=#sql#
+</p>
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
