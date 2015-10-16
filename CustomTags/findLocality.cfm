@@ -294,7 +294,12 @@
 
 
 <cfif isdefined("any_geog") and len(any_geog) gt 0>
-	<cfset qual = "#qual# AND upper(higher_geog) like '%#ucase(higher_geog)#%'">
+	<cfset frm=frm & ", geog_search_term ">
+	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id ">
+	<cfset qual = "#qual# AND (
+			upper(geog_auth_rec_id.higher_geog) like '%#ucase(higher_geog)#%' or
+			upper(geog_search_term.SEARCH_TERM) like '%#ucase(higher_geog)#%'
+	)">
 </cfif>
 
 
