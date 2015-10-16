@@ -311,18 +311,7 @@
 <cfif len(trim(qual)) is 0>
 	<cfset qual=" and 1=2">
 </cfif>
-
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum < 501 order by #orderby#">
-<p>
-qual=""#qual#""
-</p>
-<p>
-len(trim(qual)): #len(trim(qual))#
-</p>
-
-<p>
-sql=#sql#
-</p>
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
