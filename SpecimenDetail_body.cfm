@@ -547,6 +547,7 @@
 								<cfelse>
 									#higher_geog#
 								</cfif>
+								<a href="/geography.cfm?geog_auth_rec_id=#geog_auth_rec_id#" class="infoLink">more</a>
 								<cfquery name="geosrchterms" dbtype="query">
 									select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by search_term
 								</cfquery>
