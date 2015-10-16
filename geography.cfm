@@ -1,6 +1,5 @@
 <cfinclude template="includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-<cfif action is "nothing">
 	<cfoutput>
 		<cfset title="Find Geography">
 		<strong>Find Higher Geography:</strong>
@@ -9,11 +8,9 @@
 			<cfinclude template="/includes/frmFindLocation_guts.cfm">
 		</form>
 	</cfoutput>
-</cfif>
 
 
 <!---------------------------------------------------------------------------------------------------->
-<cfif action is "findGeog">
 <cfset title="Geography Search Results">
 <cfoutput>
 	<a href="geography.cfm">search again</a>
@@ -58,7 +55,11 @@
 		<!--- make this as input that looks like test to make copying easier --->
 		<input style="border:none;" value="#higher_geog#" size="80" readonly="yes"/>
 	</td>
-	<td>#CONTINENT_OCEAN#</td>
+	<td>
+		<cfif len(CONTINENT_OCEAN) gt 0>
+			<a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a>
+		</cfif>
+	</td>
 	<td>#COUNTRY#</td>
 	<td>#STATE_PROV#</td>
 	<td>#COUNTY#</td>
@@ -89,7 +90,6 @@
 </cfloop>
 </cfoutput>
 </table>
-</cfif>
 
 
 <cfinclude template="includes/_footer.cfm">
