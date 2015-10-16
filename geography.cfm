@@ -53,6 +53,9 @@
 					#SOURCE_AUTHORITY#
 				</cfif>
 			</div>
+			<div>
+				<a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">Specimens</a>
+			</div>
 		</div>
 	</td>
 	<td>
