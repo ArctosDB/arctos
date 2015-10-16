@@ -207,6 +207,12 @@
 								<input type="text" name="higher_geog" id="higher_geog" size="50">
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<label for="any_geog">Any Geog</label>
+								<input type="text" name="any_geog" id="any_geog" size="50">
+							</td>
+						</tr>
 					</table>
 					<div id="geogDetail" class="noShow">
 						<table cellpadding="0" cellspacign="0">

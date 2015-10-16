@@ -16,6 +16,7 @@
 <cfif action is "findGeog">
 <cfset title="Geography Search Results">
 <cfoutput>
+	<a href="geography.cfm">search again</a>
 <cf_findLocality type="geog">
 <script src="/includes/sorttable.js"></script>
 
