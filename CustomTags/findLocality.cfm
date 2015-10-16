@@ -291,8 +291,6 @@
 <cfif isdefined("higher_geog") and len(higher_geog) gt 0>
 	<cfset qual = "#qual# AND upper(higher_geog) like '%#ucase(higher_geog)#%'">
 </cfif>
-
-
 <cfif isdefined("any_geog") and len(any_geog) gt 0>
 	<cfset frm=frm & ", geog_search_term ">
 	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id (+) ">
@@ -301,10 +299,6 @@
 			upper(geog_search_term.SEARCH_TERM) like '%#ucase(any_geog)#%'
 	)">
 </cfif>
-
-
-
-
 <cfif isdefined("collecting_event_name") AND len(collecting_event_name) gt 0>
 	<cfset qual = "#qual# AND upper(collecting_event_name) like '%#ucase(collecting_event_name)#%'">
 </cfif>
@@ -318,23 +312,7 @@
 	<span class="error">You must enter search criteria.</span>
 	<cfabort>
 </cfif>
-
-<p>
-	sel: #sel#
-</p>
-<p>
-	frm: #frm#
-</p>
-<p>
-	whr: #whr#
-</p>
-<p>
-	qual: #qual#
-</p>
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum < 501 order by #orderby#">
-<p>
-	sql: #sql#
-</p>
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>

@@ -22,7 +22,7 @@
 
 <table border id="t" class="sortable">
 	<tr>
-		<th>Geog ID</th>
+		<th>Meta</th>
 		<th>Higher Geog</th>
 		<th>Continent</th>
 		<th>Country</th>
@@ -33,13 +33,27 @@
 		<th>IslandGroup</th>
 		<th>Island</th>
 		<th>Sea</th>
-		<th>Authority</th>
 		<th>Remark</th>
 		<th>SrchTerm</th>
 	</tr>
 <cfloop query="localityResults">
 <tr>
-	<td><a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
+	<td>
+		<div style="border:1px dashed gray; font-size:x-small;">
+			<cfif session.roles contains "manage_geography">
+				<div>
+					<a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">Edit #geog_auth_rec_id#</a>
+				</div>
+			</cfif>
+			<div>
+				<cfif left(SOURCE_AUTHORITY,4) is 'http'>
+					<a href="#SOURCE_AUTHORITY#" class="external" target="_blank">#SOURCE_AUTHORITY#</a>
+				<cfelse>
+					#SOURCE_AUTHORITY#
+				</cfif>
+			</div>
+		</div>
+	</td>
 	<td>
 		<!--- make this as input that looks like test to make copying easier --->
 		<input style="border:none;" value="#higher_geog#" size="80" readonly="yes"/>
@@ -54,13 +68,10 @@
 	<td>#ISLAND#</td>
 	<td>#SEA#</td>
 	<td>
-		<cfif left(SOURCE_AUTHORITY,4) is 'http'>
-			<a href="#SOURCE_AUTHORITY#" class="external" target="_blank">#SOURCE_AUTHORITY#</a>
-		<cfelse>
-			#SOURCE_AUTHORITY#
-		</cfif>
+		<div style="font-size:x-small;">
+			#geog_remark#
+		</div>
 	</td>
-	<td>#geog_remark#</td>
 	<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
 	</cfquery>
