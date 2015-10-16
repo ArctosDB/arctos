@@ -316,7 +316,7 @@
 <p>
 qual=""#qual#""
 </p>
-<cfif len(qual) is 0>
+<cfif len(trim(qual)) is 0>
 	<cfset qual=" and 1=2">
 </cfif>
 <p>
