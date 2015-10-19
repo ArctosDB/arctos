@@ -598,11 +598,19 @@
 			select concentration from ctfluid_concentration order by concentration
 		</cfquery>
 		<h2>Create Container</h2>
-		<div style="margin:2em; padding:2em; border:5px solid red;">
-			You probably should not be here.
-			<br>A lot of problems start here.
-			<br>Containers should be created as batches.
-			<br>Proceed only with great caution.
+		<div style="margin:2em; padding:2em; border:5px solid red;font-size: xx-large;font-weight: bold; text-align: center;">
+			<p>
+				You probably should not be here.
+			</p>
+			<p>
+				A lot of problems start here.
+			</p>
+			<p>
+				Containers should be created as batches.
+			</p>
+			<p>
+				Proceed only with great caution.
+			</p>
 		</div>
 		<form name="form1" method="post" action="EditContainer.cfm">
 			<input type="hidden" name="action" value="CreateNew" />
