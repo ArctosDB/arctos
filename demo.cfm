@@ -1,4 +1,9 @@
 <cfinclude template="/includes/_pickHeader.cfm">
+
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select barcode from container where container_type ='cryovial label' and parent_cotnaine
+	</cfquery>
+
 	<script>
 		function settaxaPickPrefs (v) {
 			jQuery.getJSON("/component/functions.cfc",

@@ -611,6 +611,9 @@
 			<p>
 				Proceed only with great caution.
 			</p>
+			<p>
+				Create only barcodes claimed in the barcode spreadsheet.
+			</p>
 		</div>
 		<form name="form1" method="post" action="EditContainer.cfm">
 			<input type="hidden" name="action" value="CreateNew" />
