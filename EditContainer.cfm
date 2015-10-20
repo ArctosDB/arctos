@@ -80,7 +80,7 @@
 			'#institution_acronym#')
 		<cftransaction>
 			<cfstoredproc procedure="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#container_id#"><!---- v_container_id ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#container_id#"><!---- v_container_id ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_container_id#"><!---- v_parent_container_id ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#container_type#"><!---- v_container_type ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#label#"><!---- v_label ---->
