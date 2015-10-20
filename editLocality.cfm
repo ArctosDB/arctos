@@ -597,12 +597,10 @@ function checkCoordinateError(){
 		<strong>Locality</strong>
 		<span class="likeLink" onClick="getDocs('places/locality/','editlocality')">[ Page Help ]</span>
         <input type="submit" value="Save Locality Edits" class="savBtn">
-        <input type="submit" value="Save Locality Edits, push my agent + today's date to specimen events" class="savBtn">
-		<select name="pushMeToEvent" id="pushMeToEvent-top" style="max-width:8em;">
-			<option value="">do nothing to specimen events</option>
-			<option value="push">push my agent + today's date to specimen events</option>
-		</select>
+        <input type="button" value="Save Locality Edits, push my agent + today's date to specimen events" class="savBtn"
+			onclick="$('##pushMeToEvent').val('push');submit();">
 	</p>
+        <input type="hidden" id="pushMeToEvent" name="pushMeToEvent" value="">
         <input type="hidden" id="state_prov" name="state_prov" value="#locDet.state_prov#">
         <input type="hidden" id="country" name="country" value="#locDet.country#">
         <input type="hidden" id="county" name="county" value="#locDet.county#">
@@ -995,11 +993,15 @@ function checkCoordinateError(){
 			<hr>
 		<cfelse>
 			<input type="submit" value="Save Edits" class="savBtn">
+
+        <input type="button" value="Save Locality Edits, push my agent + today's date to specimen events" class="savBtn"
+			onclick="$('##pushMeToEvent').val('push');submit();">
+			<!----
 			<select name="pushMeToEvent" id="pushMeToEvent" style="max-width:8em;">
 				<option value="">do nothing to specimen events</option>
 				<option value="push">push my agent + today's date to specimen events</option>
 			</select>
-
+---->
 			<input type="button" value="Delete" class="delBtn" onClick="deleteLocality('#locDet.locality_id#');">
 		</cfif>
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
