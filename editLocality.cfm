@@ -597,6 +597,10 @@ function checkCoordinateError(){
 		<strong>Locality</strong>
 		<span class="likeLink" onClick="getDocs('places/locality/','editlocality')">[ Page Help ]</span>
         <input type="submit" value="Save Edits" class="savBtn">
+		<select name="pushMeToEvent" id="pushMeToEvent-top" style="max-width:8em;">
+			<option value="">do nothing to specimen events</option>
+			<option value="push">push my agent + today's date to specimen events</option>
+		</select>
 	</p>
         <input type="hidden" id="state_prov" name="state_prov" value="#locDet.state_prov#">
         <input type="hidden" id="country" name="country" value="#locDet.country#">
