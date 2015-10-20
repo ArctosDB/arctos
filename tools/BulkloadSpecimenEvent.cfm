@@ -120,7 +120,7 @@ Upload CSV:
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
         <cfloop query="x">
-            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+            <cfquery name="ins" datasource="uam_god">
 	            insert into temp_fish_orig (#cols#) values (
 	            <cfloop list="#cols#" index="i">
 	               <cfif i is "uncertaintyPolygon">
@@ -135,7 +135,7 @@ Upload CSV:
 	            )
             </cfquery>
         </cfloop>
-		<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
+		loaded to temp_fish_orig go go gadget sql
 	</cfoutput>
 </cfif>
 
