@@ -24,7 +24,7 @@
 </cfif>
 <cfif action is "getFile">
 <cfoutput>
-	<cfset  func = CreateObject("component","component.functions")>
+	<cfset  func = CreateObject("component","component.utilities")>
 	<cftry>
 		<cfset tempName=createUUID()>
 		<!---
