@@ -119,22 +119,24 @@ Upload CSV:
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
-        <cfloop query="x">
-            <cfquery name="ins" datasource="uam_god">
-	            insert into temp_fish_orig (#cols#) values (
-	            <cfloop list="#cols#" index="i">
-	               <cfif i is "uncertaintyPolygon">
-	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
-	                <cfelse>
-	            		'#escapeQuotes(evaluate(i))#'
-	            	</cfif>
-	            	<cfif i is not listlast(cols)>
-	            		,
-	            	</cfif>
-	            </cfloop>
-	            )
-            </cfquery>
-        </cfloop>
+		<cftransaction>
+	        <cfloop query="x">
+	            <cfquery name="ins" datasource="uam_god">
+		            insert into temp_fish_orig (#cols#) values (
+		            <cfloop list="#cols#" index="i">
+		               <cfif i is "uncertaintyPolygon">
+		            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+		                <cfelse>
+		            		'#escapeQuotes(evaluate(i))#'
+		            	</cfif>
+		            	<cfif i is not listlast(cols)>
+		            		,
+		            	</cfif>
+		            </cfloop>
+		            )
+	            </cfquery>
+	        </cfloop>
+		</cftransaction>
 		loaded to temp_fish_orig go go gadget sql
 	</cfoutput>
 </cfif>
