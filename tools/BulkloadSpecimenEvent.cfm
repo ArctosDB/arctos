@@ -105,13 +105,13 @@ locality varchar2(4000));
 
 <cfif action is "upfish">
 Upload CSV:
-	<cfform name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
+	<form name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="getfish">
 		 <input type="file"
 			   name="FiletoUpload"
 			   size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
-	</cfform>
+	</form>
 </cfif>
 <cfif action is "getfish">
 	<cfoutput>
@@ -119,23 +119,28 @@ Upload CSV:
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
-        <cfloop query="x">
-            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	            insert into temp_fish_orig (#cols#) values (
-	            <cfloop list="#cols#" index="i">
-	               <cfif i is "uncertaintyPolygon">
-	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
-	                <cfelse>
-	            		'#stripQuotes(evaluate(i))#'
-	            	</cfif>
-	            	<cfif i is not listlast(cols)>
-	            		,
-	            	</cfif>
-	            </cfloop>
-	            )
-            </cfquery>
-        </cfloop>
-		<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
+		<br>x.recordcount: #x.recordcount#
+		<cfdump var=#x#>
+		<cfflush>
+		<cftransaction>
+	        <cfloop query="x">
+	            <cfquery name="ins" datasource="uam_god">
+		            insert into temp_fish_orig (#cols#) values (
+		            <cfloop list="#cols#" index="i">
+		               <cfif i is "uncertaintyPolygon">
+		            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+		                <cfelse>
+		            		'#escapeQuotes(evaluate(i))#'
+		            	</cfif>
+		            	<cfif i is not listlast(cols)>
+		            		,
+		            	</cfif>
+		            </cfloop>
+		            )
+	            </cfquery>
+	        </cfloop>
+		</cftransaction>
+		loaded to temp_fish_orig go go gadget sql
 	</cfoutput>
 </cfif>
 
