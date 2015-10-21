@@ -18,10 +18,17 @@
 
 
     $('table').each(function(a, tbl) {
+    	console.log(tbl);
+
         $(tbl).find('th').each(function(i) {
             var remove = true;
             var currentTable = $(this).parents('table');
             var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
+
+
+    	console.log(tds);
+
+
             tds.each(function(j) { if (this.innerHTML != '') remove = false; });
             if (remove) {
                 $(this).hide();
