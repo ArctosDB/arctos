@@ -28,7 +28,7 @@
 
         console.log($this);
 
-        if ( $this.text() == '' && isEmpty[ $this.index() ] != false ) {
+        if ( trim($this.text()) == '' && isEmpty[ $this.index() ] != false ) {
             isEmpty[ $this.index() ] = true;
         } else {
             isEmpty[ $this.index() ] = false;
