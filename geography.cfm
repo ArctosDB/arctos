@@ -14,20 +14,13 @@
 <cfset title="Geography Search Results">
 <script>
 
- $(document).ready(function () {
-
- $('#t').each(function(a, tbl) {
-    	console.log(tbl);
-
+$(document).ready(function () {
+ 	$('#t').each(function(a, tbl) {
+ 		// strip unused columns
         $(tbl).find('th').each(function(i) {
             var remove = true;
             var currentTable = $(this).parents('table');
             var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
-
-
-    	console.log(tds);
-
-
             tds.each(function(j) { if (this.innerHTML.trim() != '') remove = false; });
             if (remove) {
                 $(this).hide();
@@ -35,28 +28,6 @@
             }
         });
     });
-
-/*
-    $('table').each(function(a, tbl) {
-    	console.log(tbl);
-
-        $(tbl).find('th').each(function(i) {
-            var remove = true;
-            var currentTable = $(this).parents('table');
-            var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
-
-
-    	console.log(tds);
-
-
-            tds.each(function(j) { if (this.innerHTML.trim() != '') remove = false; });
-            if (remove) {
-                $(this).hide();
-                tds.hide();
-            }
-        });
-    });
-*/
 });
 
 </script>
@@ -71,37 +42,18 @@
 
 
 
-<cfset hasDataFlds="CONTINENT_OCEAN,ISLAND,QUAD">
-<cfloop list="#hasDataFlds#" index="f">
-	<br>#f#
-	<cfquery name="d" dbtype="query">
-		select count(*) c from localityResults where #f# is not null
-	</cfquery>
-	<cfdump var=#d#>
-	<cfif d.c lt 1>
-		buhbye
-		<cfset hasDataFlds=listdeleteat(hasDataFlds,listfind(hasDataFlds,'#f#'))>
-	</cfif>
-</cfloop>
-
 <table border id="t" class="sortable">
 	<tr>
 		<th>Links</th>
 		<th>Higher Geog</th>
-		<cfif listfindnocase(hasDataFlds,'CONTINENT_OCEAN')>
 			<th>Continent</th>
-		</cfif>
 		<th>Country</th>
 		<th>State</th>
 		<th>County</th>
-		<cfif listfindnocase(hasDataFlds,'Quad')>
 			<th>Quad</th>
-		</cfif>
 		<th>Feature</th>
 		<th>IslandGroup</th>
-		<cfif listfindnocase(hasDataFlds,'Island')>
 			<th>Island</th>
-		</cfif>
 
 		<th>Sea</th>
 		<th>Remark</th>
@@ -133,9 +85,7 @@
 	<td>
 		<div>#higher_geog#</div>
 	</td>
-	<cfif listfindnocase(hasDataFlds,'CONTINENT_OCEAN')>
 		<td><a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a></td>
-	</cfif>
 	<td>
 		<cfif len(COUNTRY) gt 0>
 			<a href="geography.cfm?COUNTRY=#COUNTRY#">#COUNTRY#</a>
@@ -151,9 +101,7 @@
 			<a href="geography.cfm?COUNTY=#COUNTY#">#COUNTY#</a>
 		</cfif>
 	</td>
-	<cfif listfind(hasDataFlds,'QUAD')>
 		<td><a href="geography.cfm?QUAD=#QUAD#">#QUAD#</a></td>
-	</cfif>
 	<td>
 		<cfif len(FEATURE) gt 0>
 			<a href="geography.cfm?FEATURE=#FEATURE#">#FEATURE#</a>
@@ -164,9 +112,7 @@
 			<a href="geography.cfm?ISLAND_GROUP=#ISLAND_GROUP#">#ISLAND_GROUP#</a>
 		</cfif>
 	</td>
-	<cfif listfind(hasDataFlds,'ISLAND')>
 		<td><a href="geography.cfm?ISLAND=#ISLAND#">#ISLAND#</a></td>
-	</cfif>
 	<!----
 	<td>
 		<cfif len(ISLAND) gt 0>
