@@ -16,19 +16,21 @@
 
  $(document).ready(function () {
 
-var $theTable = $("table#t"),
-    lookAt    = ["tr:first-child", "tr:last-child",
-                 "td:first-child", "td:last-child"];
-
-for (var i=0; i<lookAt.length; i++) {
-  while ( $.trim($(lookAt[i], $theTable).text()) == "" ) {
-    $(lookAt[i], $theTable).remove();
-  }
-}
 
 
 
-        });
+
+
+
+
+
+
+$('td:empty').each(function(i){
+ $(this).hide().parents('table').find('th:nth-child('+(i+1)+')').hide();
+});
+
+
+});
 
 </script>
 
