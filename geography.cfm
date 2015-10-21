@@ -14,19 +14,35 @@
 <cfset title="Geography Search Results">
 <script>
 	$(document).ready(function() {
-    	hideEmptyCols($("#t"));
-	});
-	function hideEmptyCols(table) {
-	    var rows = $("tr", table).length-1;
-	    var numCols = $("th", table).length;
-	    for ( var i=1; i<=numCols; i++ ) {
-	    	console.log(i);
-	        if ( $("span:empty", $("td:nth-child(" + i + ")", table)).length == rows ) {
-	            $("td:nth-child(" + i + ")", table).hide(); //hide <td>'s
-	            $("th:nth-child(" + i + ")", table).hide(); //hide header <th>
-	        }
-	    }
-}
+
+
+    	$(function () {
+    var $table = $('#t'),
+        $thead = $table.find('thead'),
+        $tbody = $table.find('tbody');
+
+    var isEmpty = {};
+    $tbody.find('td').each(function () {
+
+        var $this = $(this);
+        if ( $this.text() == '' && isEmpty[ $this.index() ] != false ) {
+            isEmpty[ $this.index() ] = true;
+        } else {
+            isEmpty[ $this.index() ] = false;
+        }
+
+    });
+
+    for (var x in isEmpty) {
+        if ( isEmpty[x] ) {
+            $thead.find('th').eq( x ).remove();
+            $tbody.find('td:nth-child(' + (parseInt(x, 10) + 1) + ')').remove();
+        }
+    }
+});
+
+    });
+
 </script>
 
 <cfoutput>
