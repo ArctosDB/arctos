@@ -60,7 +60,10 @@
 	</td>
 	<td>
 		<!--- make this as input that looks like test to make copying easier --->
+		<!----
 		<input style="border:none;" value="#higher_geog#" size="80" readonly="yes"/>
+		---->
+		<div>#higher_geog#</div>
 	</td>
 	<td>
 		<cfif len(CONTINENT_OCEAN) gt 0>
