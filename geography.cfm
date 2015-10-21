@@ -17,6 +17,23 @@
  $(document).ready(function () {
 
 
+            var remove = true;
+            var currentTable = $("#t");
+            var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
+
+
+    	console.log(tds);
+
+
+            tds.each(function(j) { if (this.innerHTML.trim() != '') remove = false; });
+            if (remove) {
+                $(this).hide();
+                tds.hide();
+            }
+
+
+
+/*
     $('table').each(function(a, tbl) {
     	console.log(tbl);
 
@@ -36,7 +53,7 @@
             }
         });
     });
-
+*/
 });
 
 </script>
