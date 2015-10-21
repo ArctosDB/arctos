@@ -160,9 +160,12 @@
 		</cfif>
 	</td>
 	<td>
-		<div style="font-size:x-small;">
-			#geog_remark#
-		</div>
+		<cfif len(geog_remark) gt 0>
+			<div style="font-size:x-small;">
+				#geog_remark#
+			</div>
+		</cfif>
+
 	</td>
 	<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
