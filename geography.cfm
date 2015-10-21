@@ -13,25 +13,22 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfset title="Geography Search Results">
 <script>
-
-$(document).ready(function () {
- 	$('#t').each(function(a, tbl) {
- 		// strip unused columns
-        $(tbl).find('th').each(function(i) {
-            var remove = true;
-            var currentTable = $(this).parents('table');
-            var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
-            tds.each(function(j) { if (this.innerHTML.trim() != '') remove = false; });
-            if (remove) {
-                $(this).hide();
-                tds.hide();
-            }
-        });
-    });
-});
-
+	$(document).ready(function () {
+	 	$('#t').each(function(a, tbl) {
+	 		// strip unused columns
+	        $(tbl).find('th').each(function(i) {
+	            var remove = true;
+	            var currentTable = $(this).parents('table');
+	            var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
+	            tds.each(function(j) { if (this.innerHTML.trim() != '') remove = false; });
+	            if (remove) {
+	                $(this).hide();
+	                tds.hide();
+	            }
+	        });
+	    });
+	});
 </script>
-
 <cfoutput>
 <cf_findLocality type="geog">
 <cfif localityResults.recordcount is 0>
@@ -39,22 +36,18 @@ $(document).ready(function () {
 	<cfabort>
 </cfif>
 <script src="/includes/sorttable.js"></script>
-
-
-
 <table border id="t" class="sortable">
 	<tr>
 		<th>Links</th>
 		<th>Higher Geog</th>
-			<th>Continent</th>
+		<th>Continent</th>
 		<th>Country</th>
 		<th>State</th>
 		<th>County</th>
-			<th>Quad</th>
+		<th>Quad</th>
 		<th>Feature</th>
 		<th>IslandGroup</th>
-			<th>Island</th>
-
+		<th>Island</th>
 		<th>Sea</th>
 		<th>Remark</th>
 		<th>SrchTerm</th>
@@ -86,52 +79,20 @@ $(document).ready(function () {
 		<div>#higher_geog#</div>
 	</td>
 		<td><a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a></td>
-	<td>
-		<cfif len(COUNTRY) gt 0>
-			<a href="geography.cfm?COUNTRY=#COUNTRY#">#COUNTRY#</a>
-		</cfif>
-	</td>
-	<td>
-		<cfif len(STATE_PROV) gt 0>
-			<a href="geography.cfm?STATE_PROV=#STATE_PROV#">#STATE_PROV#</a>
-		</cfif>
-	</td>
-	<td>
-		<cfif len(COUNTY) gt 0>
-			<a href="geography.cfm?COUNTY=#COUNTY#">#COUNTY#</a>
-		</cfif>
-	</td>
-		<td><a href="geography.cfm?QUAD=#QUAD#">#QUAD#</a></td>
-	<td>
-		<cfif len(FEATURE) gt 0>
-			<a href="geography.cfm?FEATURE=#FEATURE#">#FEATURE#</a>
-		</cfif>
-	</td>
-	<td>
-		<cfif len(ISLAND_GROUP) gt 0>
-			<a href="geography.cfm?ISLAND_GROUP=#ISLAND_GROUP#">#ISLAND_GROUP#</a>
-		</cfif>
-	</td>
-		<td><a href="geography.cfm?ISLAND=#ISLAND#">#ISLAND#</a></td>
-	<!----
-	<td>
-		<cfif len(ISLAND) gt 0>
-			<a href="geography.cfm?ISLAND=#ISLAND#">#ISLAND#</a>
-		</cfif>
-	</td>
-	---->
-	<td>
-		<cfif len(SEA) gt 0>
-			<a href="geography.cfm?SEA=#SEA#">#SEA#</a>
-		</cfif>
-	</td>
+	<td><a href="geography.cfm?COUNTRY=#COUNTRY#">#COUNTRY#</a></td>
+	<td><a href="geography.cfm?STATE_PROV=#STATE_PROV#">#STATE_PROV#</a></td>
+	<td><a href="geography.cfm?COUNTY=#COUNTY#">#COUNTY#</a></td>
+	<td><a href="geography.cfm?QUAD=#QUAD#">#QUAD#</a></td>
+	<td><a href="geography.cfm?FEATURE=#FEATURE#">#FEATURE#</a></td>
+	<td><a href="geography.cfm?ISLAND_GROUP=#ISLAND_GROUP#">#ISLAND_GROUP#</a></td>
+	<td><a href="geography.cfm?ISLAND=#ISLAND#">#ISLAND#</a></td>
+	<td><a href="geography.cfm?SEA=#SEA#">#SEA#</a></td>
 	<td>
 		<cfif len(geog_remark) gt 0>
 			<div style="font-size:x-small;">
 				#geog_remark#
 			</div>
 		</cfif>
-
 	</td>
 	<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
@@ -143,9 +104,6 @@ $(document).ready(function () {
 			</div>
 		</cfloop>
 	</td>
-
-
-
   </tr>
 </cfloop>
 </cfoutput>
