@@ -19,6 +19,24 @@
 	<cfabort>
 </cfif>
 <script src="/includes/sorttable.js"></script>
+<script>
+	$(document).ready(function() {
+    	hideEmptyCols($("#t"));
+	});
+	function hideEmptyCols(table) {
+	    var rows = $("tr", table).length-1;
+	    var numCols = $("th", table).length;
+	    for ( var i=1; i<=numCols; i++ ) {
+	        if ( $("span:empty", $("td:nth-child(" + i + ")", table)).length == rows ) {
+	            $("td:nth-child(" + i + ")", table).hide(); //hide <td>'s
+	            $("th:nth-child(" + i + ")", table).hide(); //hide header <th>
+	        }
+	    }
+}
+</script>
+
+
+
 <cfset hasDataFlds="CONTINENT_OCEAN,ISLAND,QUAD">
 <cfloop list="#hasDataFlds#" index="f">
 	<br>#f#
@@ -84,12 +102,6 @@
 	<cfif listfindnocase(hasDataFlds,'CONTINENT_OCEAN')>
 		<td><a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a></td>
 	</cfif>
-	<!----
-	<td>
-		<cfif len(CONTINENT_OCEAN) gt 0>
-		</cfif>
-	</td>
-	---->
 	<td>
 		<cfif len(COUNTRY) gt 0>
 			<a href="geography.cfm?COUNTRY=#COUNTRY#">#COUNTRY#</a>
