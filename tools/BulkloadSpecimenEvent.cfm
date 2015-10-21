@@ -119,6 +119,8 @@ Upload CSV:
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
+		<br>x.recordcount: #x.recordcount#
+		<cfflush>
 		<cftransaction>
 	        <cfloop query="x">
 	            <cfquery name="ins" datasource="uam_god">
