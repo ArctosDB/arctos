@@ -19,7 +19,7 @@
 	<cfabort>
 </cfif>
 <script src="/includes/sorttable.js"></script>
-<cfset hasDataFlds="CONTINENT_OCEAN,ISLAND">
+<cfset hasDataFlds="CONTINENT_OCEAN,ISLAND,QUAD">
 <cfloop list="#hasDataFlds#" index="f">
 	<br>#f#
 	<cfquery name="d" dbtype="query">
@@ -36,13 +36,15 @@
 	<tr>
 		<th>Links</th>
 		<th>Higher Geog</th>
-		<cfif listfind(hasDataFlds,'CONTINENT_OCEAN')>
+		<cfif listfindnocase(hasDataFlds,'CONTINENT_OCEAN')>
 			<th>Continent</th>
 		</cfif>
 		<th>Country</th>
 		<th>State</th>
 		<th>County</th>
-		<th>Quad</th>
+		<cfif listfindnocase(hasDataFlds,'Quad')>
+			<th>Quad</th>
+		</cfif>
 		<th>Feature</th>
 		<th>IslandGroup</th>
 		<cfif listfindnocase(hasDataFlds,'Island')>
@@ -79,8 +81,8 @@
 	<td>
 		<div>#higher_geog#</div>
 	</td>
-	<cfif listfind(hasDataFlds,'CONTINENT_OCEAN')>
-		<a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a>
+	<cfif listfindnocase(hasDataFlds,'CONTINENT_OCEAN')>
+		<td><a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a></td>
 	</cfif>
 	<!----
 	<td>
@@ -103,11 +105,9 @@
 			<a href="geography.cfm?COUNTY=#COUNTY#">#COUNTY#</a>
 		</cfif>
 	</td>
-	<td>
-		<cfif len(QUAD) gt 0>
-			<a href="geography.cfm?QUAD=#QUAD#">#QUAD#</a>
-		</cfif>
-	</td>
+	<cfif listfind(hasDataFlds,'QUAD')>
+		<td><a href="geography.cfm?QUAD=#QUAD#">#QUAD#</a></td>
+	</cfif>
 	<td>
 		<cfif len(FEATURE) gt 0>
 			<a href="geography.cfm?FEATURE=#FEATURE#">#FEATURE#</a>
