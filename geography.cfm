@@ -36,7 +36,7 @@
 		<th>SrchTerm</th>
 	</tr>
 <cfloop query="localityResults">
-<tr>
+<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 	<td>
 		<div style="border:1px dashed gray; font-size:x-small;">
 			<cfif session.roles contains "manage_geography">
