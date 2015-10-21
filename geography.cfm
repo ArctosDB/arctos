@@ -21,10 +21,13 @@
 <script src="/includes/sorttable.js"></script>
 <cfset hasDataFlds="CONTINENT_OCEAN,ISLAND">
 <cfloop list="#hasDataFlds#" index="f">
+	<br>#f#
 	<cfquery name="d" dbtype="query">
 		select count(*) c from localityResults where #f# is not null
 	</cfquery>
+	<cfdump var=#d#>
 	<cfif d.c is 0>
+		buhbye
 		<cfset hasDataFlds=listdeleteat(hasDataFlds,listfind(hasDataFlds,'##'))>
 	</cfif>
 </cfloop>
