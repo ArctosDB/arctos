@@ -35,8 +35,10 @@
 		<th>Remark</th>
 		<th>SrchTerm</th>
 	</tr>
+	<cfset i=0>
 <cfloop query="localityResults">
-<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+<cfset i=i+1>
+<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 	<td>
 		<div style="border:1px dashed gray; font-size:x-small;">
 			<cfif session.roles contains "manage_geography">
