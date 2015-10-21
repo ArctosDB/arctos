@@ -16,13 +16,15 @@
 
  $(document).ready(function () {
 
+var $theTable = $("table#t"),
+    lookAt    = ["tr:first-child", "tr:last-child",
+                 "td:first-child", "td:last-child"];
+
 for (var i=0; i<lookAt.length; i++) {
-  while ( var $x = $(lookAt[i], $("#t"), $.trim($x.text()) == "" ) {
-    $x.remove();
+  while ( $.trim($(lookAt[i], $theTable).text()) == "" ) {
+    $(lookAt[i], $theTable).remove();
   }
 }
-});
-
 
 
 
