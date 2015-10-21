@@ -40,6 +40,8 @@
 
     for (var x in isEmpty) {
         if ( isEmpty[x] ) {
+        	console.log('remove ' + x);
+
             $thead.find('th').eq( x ).remove();
             $tbody.find('td:nth-child(' + (parseInt(x, 10) + 1) + ')').remove();
         }
