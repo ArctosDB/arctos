@@ -105,13 +105,13 @@ locality varchar2(4000));
 
 <cfif action is "upfish">
 Upload CSV:
-	<cfform name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
+	<form name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="getfish">
 		 <input type="file"
 			   name="FiletoUpload"
 			   size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
-	</cfform>
+	</form>
 </cfif>
 <cfif action is "getfish">
 	<cfoutput>
@@ -120,6 +120,7 @@ Upload CSV:
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
 		<br>x.recordcount: #x.recordcount#
+		<cfdump var=#x#>
 		<cfflush>
 		<cftransaction>
 	        <cfloop query="x">
