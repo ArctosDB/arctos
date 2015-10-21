@@ -25,6 +25,9 @@
     $tbody.find('td').each(function () {
 
         var $this = $(this);
+
+        console.log($this);
+
         if ( $this.text() == '' && isEmpty[ $this.index() ] != false ) {
             isEmpty[ $this.index() ] = true;
         } else {
