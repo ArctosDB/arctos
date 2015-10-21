@@ -25,7 +25,7 @@
 		select count(*) c from localityResults where #f# is not null
 	</cfquery>
 	<cfif d.c is 0>
-		<cfset hasDataFlds=listdeleteat(hasDataFlds,listfind(hasDataFlds,'##')>
+		<cfset hasDataFlds=listdeleteat(hasDataFlds,listfind(hasDataFlds,'##'))>
 	</cfif>
 </cfloop>
 
