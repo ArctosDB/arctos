@@ -12,13 +12,6 @@
 
 <!---------------------------------------------------------------------------------------------------->
 <cfset title="Geography Search Results">
-<cfoutput>
-<cf_findLocality type="geog">
-<cfif localityResults.recordcount is 0>
-	<cfinclude template="includes/_footer.cfm">
-	<cfabort>
-</cfif>
-<script src="/includes/sorttable.js"></script>
 <script>
 	$(document).ready(function() {
     	hideEmptyCols($("#t"));
@@ -34,6 +27,14 @@
 	    }
 }
 </script>
+
+<cfoutput>
+<cf_findLocality type="geog">
+<cfif localityResults.recordcount is 0>
+	<cfinclude template="includes/_footer.cfm">
+	<cfabort>
+</cfif>
+<script src="/includes/sorttable.js"></script>
 
 
 
