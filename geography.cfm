@@ -36,6 +36,8 @@
 
     });
 
+	console.log(isEmpty);
+
     for (var x in isEmpty) {
         if ( isEmpty[x] ) {
             $thead.find('th').eq( x ).remove();
