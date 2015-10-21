@@ -16,9 +16,12 @@
 
  $(document).ready(function () {
 
+ $('#t').each(function(a, tbl) {
+    	console.log(tbl);
 
+        $(tbl).find('th').each(function(i) {
             var remove = true;
-            var currentTable = $("#t");
+            var currentTable = $(this).parents('table');
             var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
 
 
@@ -30,8 +33,8 @@
                 $(this).hide();
                 tds.hide();
             }
-
-
+        });
+    });
 
 /*
     $('table').each(function(a, tbl) {
