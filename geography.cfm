@@ -28,7 +28,7 @@
 	<cfdump var=#d#>
 	<cfif d.c lt 1>
 		buhbye
-		<cfset hasDataFlds=listdeleteat(hasDataFlds,listfind(hasDataFlds,'##'))>
+		<cfset hasDataFlds=listdeleteat(hasDataFlds,listfind(hasDataFlds,'#f#'))>
 	</cfif>
 </cfloop>
 
