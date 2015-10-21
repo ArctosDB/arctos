@@ -19,18 +19,33 @@
 	<cfabort>
 </cfif>
 <script src="/includes/sorttable.js"></script>
+<cfset hasDataFlds="CONTINENT_OCEAN,ISLAND">
+<cfloop list="#hasDataFlds#" index="f">
+	<cfquery name="d" dbtype="query">
+		select count(*) c from localityResults where #f# is not null
+	</cfquery>
+	<cfif d.c is 0>
+		<cfset hasDataFlds=listdeleteat(hasDataFlds,listfind(hasDataFlds,'##')>
+	</cfif>
+</cfloop>
+
 <table border id="t" class="sortable">
 	<tr>
 		<th>Links</th>
 		<th>Higher Geog</th>
-		<th>Continent</th>
+		<cfif listfind(hasDataFlds,'CONTINENT_OCEAN')>
+			<th>Continent</th>
+		</cfif>
 		<th>Country</th>
 		<th>State</th>
 		<th>County</th>
 		<th>Quad</th>
 		<th>Feature</th>
 		<th>IslandGroup</th>
-		<th>Island</th>
+		<cfif listfindnocase(hasDataFlds,'Island')>
+			<th>Island</th>
+		</cfif>
+
 		<th>Sea</th>
 		<th>Remark</th>
 		<th>SrchTerm</th>
@@ -59,17 +74,17 @@
 		</div>
 	</td>
 	<td>
-		<!--- make this as input that looks like test to make copying easier --->
-		<!----
-		<input style="border:none;" value="#higher_geog#" size="80" readonly="yes"/>
-		---->
 		<div>#higher_geog#</div>
 	</td>
+	<cfif listfind(hasDataFlds,'CONTINENT_OCEAN')>
+		<a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a>
+	</cfif>
+	<!----
 	<td>
 		<cfif len(CONTINENT_OCEAN) gt 0>
-			<a href="geography.cfm?CONTINENT_OCEAN=#CONTINENT_OCEAN#">#CONTINENT_OCEAN#</a>
 		</cfif>
 	</td>
+	---->
 	<td>
 		<cfif len(COUNTRY) gt 0>
 			<a href="geography.cfm?COUNTRY=#COUNTRY#">#COUNTRY#</a>
@@ -100,11 +115,16 @@
 			<a href="geography.cfm?ISLAND_GROUP=#ISLAND_GROUP#">#ISLAND_GROUP#</a>
 		</cfif>
 	</td>
+	<cfif listfind(hasDataFlds,'ISLAND')>
+		<td><a href="geography.cfm?ISLAND=#ISLAND#">#ISLAND#</a></td>
+	</cfif>
+	<!----
 	<td>
 		<cfif len(ISLAND) gt 0>
 			<a href="geography.cfm?ISLAND=#ISLAND#">#ISLAND#</a>
 		</cfif>
 	</td>
+	---->
 	<td>
 		<cfif len(SEA) gt 0>
 			<a href="geography.cfm?SEA=#SEA#">#SEA#</a>
