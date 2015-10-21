@@ -183,7 +183,7 @@
 		<cfset p=listappend(p,'Untrimmed barcodes detected',';')>
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_temp_container where container_type != 'position' or container_type
+		select count(*) c from cf_temp_container where container_type != 'position' and container_type
 		 not in (select container_type from ctcontainer_type where container_type like '%label%')
 	</cfquery>
 	<cfif d.c gt 0>
