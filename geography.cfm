@@ -17,20 +17,18 @@
  $(document).ready(function () {
 
 
-
-
-
-
-
-
-
-
-$('td:empty').each(function(i){
-
-	console.log(i);
- $(this).hide().parents('table').find('th:nth-child('+(i+1)+')').hide();
-});
-
+    $('table').each(function(a, tbl) {
+        $(tbl).find('th').each(function(i) {
+            var remove = true;
+            var currentTable = $(this).parents('table');
+            var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
+            tds.each(function(j) { if (this.innerHTML != '') remove = false; });
+            if (remove) {
+                $(this).hide();
+                tds.hide();
+            }
+        });
+    });
 
 });
 
