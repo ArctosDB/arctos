@@ -29,7 +29,7 @@
     	console.log(tds);
 
 
-            tds.each(function(j) { if (this.innerHTML != '') remove = false; });
+            tds.each(function(j) { if (this.innerHTML.trim() != '') remove = false; });
             if (remove) {
                 $(this).hide();
                 tds.hide();
