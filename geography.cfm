@@ -26,6 +26,8 @@
 
 
 $('td:empty').each(function(i){
+
+	console.log(i);
  $(this).hide().parents('table').find('th:nth-child('+(i+1)+')').hide();
 });
 
