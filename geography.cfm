@@ -13,42 +13,16 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfset title="Geography Search Results">
 <script>
-	$(document).ready(function() {
 
-
-    	$(function () {
-    var $table = $('#t'),
-        $thead = $table.find('thead'),
-        $tbody = $table.find('tbody');
-
-    var isEmpty = {};
-    $tbody.find('td').each(function () {
-
-        var $this = $(this);
-
-        console.log($this);
-
-        if ( $this.text().trim() == '' && isEmpty[ $this.index() ] != false ) {
-            isEmpty[ $this.index() ] = true;
-        } else {
-            isEmpty[ $this.index() ] = false;
-        }
-
-    });
-
-	console.log(isEmpty);
-
-    for (var x in isEmpty) {
-        if ( isEmpty[x] ) {
-        	console.log('remove ' + x);
-
-            $thead.find('th').eq( x ).remove();
-            $tbody.find('td:nth-child(' + (parseInt(x, 10) + 1) + ')').remove();
-        }
-    }
-});
-
-    });
+ $(document).ready(function () {
+            $('tr').each(function () {
+                $(this).find('td').each(function () {
+                    if ($(this).text().trim() == "") {
+                        $(this).closest("tr").remove();
+                    };
+                });
+            });
+        });
 
 </script>
 
