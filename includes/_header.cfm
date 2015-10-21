@@ -148,6 +148,7 @@
 							<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
 							<li><a target="_top" href="/taxonomy.cfm">Taxonomy</a></li>
 			                <li><a target="_top" href="/MediaSearch.cfm">Media/Documents</a></li>
+			                <li><a target="_top" href="/geography.cfm">Geography</a></li>
 			                <li><a target="_top" href="/showLocality.cfm">Places</a></li>
 			                <li><a target="_top" href="/info/ctDocumentation.cfm">Code&nbsp;Tables</a></li>
 							<li><a target="_top" href="/googlesearch.cfm">Google&nbsp;Custom&nbsp;(BETA)</a></li>
@@ -226,7 +227,7 @@
 								<cfif listfind(formList,"/Locality.cfm")>
 									<li><a target="_top" href="##">Location</a>
 										<ul>
-											<li><a target="_top" href="/Locality.cfm?action=findHG">Find Geography</a></li>
+											<li><a target="_top" href="/geography.cfm">Find Geography</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=newHG">Create Geography</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=findLO">Find Locality</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=newLocality">Create Locality</a></li>

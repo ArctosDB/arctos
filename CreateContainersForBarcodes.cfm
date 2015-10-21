@@ -75,7 +75,7 @@
 			<tr>
 				<td>CONTAINER_TYPE</td>
 				<td>yes</td>
-				<td>#valuelist(ctContainer_Type.container_type)#</td>
+				<td>#valuelist(ctContainer_Type.container_type)# or "position"</td>
 			</tr>
 			<tr>
 				<td>LABEL</td>
