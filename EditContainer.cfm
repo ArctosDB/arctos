@@ -567,7 +567,7 @@
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#length#"><!---- v_length --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#number_positions#"><!---- v_number_positions --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym --->
-				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_id --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="0"><!---- v_parent_container_id --->
 			</cfstoredproc>
 			<cfquery name="nextContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT sq_container_id.currval newid FROM dual
