@@ -9,41 +9,43 @@ It is obsolete once it's run once.
 
 --------------------------------->
 
+deprecated
+<cfabort>
 
 <cfoutput>
-	<!--- 
-		pipe-delimited list of things to completely ignore 
-		
-		Arctos: Is locally-managed taxonomy that we send to GN; picking it back up would 
+	<!---
+		pipe-delimited list of things to completely ignore
+
+		Arctos: Is locally-managed taxonomy that we send to GN; picking it back up would
 			cause a black hole and could spell the end of the universe.
-			Or possibly some slight confusion. 
+			Or possibly some slight confusion.
 	--->
 	<cfset sourcesToIgnore="Arctos">
-	
-	
+
+
 		<!--- see if we can find something interesting to update ---->
-		
-		
+
+
 		<cfquery name="ids" datasource="uam_god">
 			select * from (
-				select 
-					taxon_name_id 
-				from 
-					common_name 
-				where 
-					taxon_name_id not in (select taxon_name_id from taxon_name) 
+				select
+					taxon_name_id
+				from
+					common_name
+				where
+					taxon_name_id not in (select taxon_name_id from taxon_name)
 				group by taxon_name_id
 			) where rownum<1001
 		</cfquery>
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
 				select * from (
-					select 
-						taxon_name_id 
-					from 
-						ANNOTATIONS 
-					where 
-						taxon_name_id not in (select taxon_name_id from taxon_name) 
+					select
+						taxon_name_id
+					from
+						ANNOTATIONS
+					where
+						taxon_name_id not in (select taxon_name_id from taxon_name)
 					group by taxon_name_id
 				) where rownum<1001
 			</cfquery>
@@ -51,22 +53,22 @@ It is obsolete once it's run once.
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
 				select * from (
-					select 
-						taxon_name_id 
-					from 
-						identification_taxonomy 
-					where 
-						taxon_name_id not in (select taxon_name_id from taxon_name) 
+					select
+						taxon_name_id
+					from
+						identification_taxonomy
+					where
+						taxon_name_id not in (select taxon_name_id from taxon_name)
 					group by taxon_name_id
 				) where rownum<1001
 			</cfquery>
 		</cfif>
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
-				select 
+				select
 					 taxon_name_id from (
 						SELECT related_primary_key taxon_name_id FROM
-						 media_relations WHERE media_relationship like '% taxonomy' and 
+						 media_relations WHERE media_relationship like '% taxonomy' and
 						 related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME)
 					group by related_primary_key
 				) where rownum<1001
@@ -75,12 +77,12 @@ It is obsolete once it's run once.
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
 				select * from (
-					select 
-						taxon_name_id 
-					from 
-						TAXONOMY_PUBLICATION 
-					where 
-						taxon_name_id not in (select taxon_name_id from taxon_name) 
+					select
+						taxon_name_id
+					from
+						TAXONOMY_PUBLICATION
+					where
+						taxon_name_id not in (select taxon_name_id from taxon_name)
 					group by taxon_name_id
 				) where rownum<1001
 			</cfquery>
@@ -88,12 +90,12 @@ It is obsolete once it's run once.
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
 				select * from (
-					select 
-						taxon_name_id 
-					from 
-						TAXON_RELATIONS 
-					where 
-						taxon_name_id not in (select taxon_name_id from taxon_name) 
+					select
+						taxon_name_id
+					from
+						TAXON_RELATIONS
+					where
+						taxon_name_id not in (select taxon_name_id from taxon_name)
 					group by taxon_name_id
 				) where rownum<1001
 			</cfquery>
@@ -101,29 +103,29 @@ It is obsolete once it's run once.
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
 				select * from (
-					select 
+					select
 						related_taxon_name_id  taxon_name_id
-					from 
-						TAXON_RELATIONS 
-					where 
-						related_taxon_name_id not in (select taxon_name_id from taxon_name) 
+					from
+						TAXON_RELATIONS
+					where
+						related_taxon_name_id not in (select taxon_name_id from taxon_name)
 					group by related_taxon_name_id
 				) where rownum<2001
 			</cfquery>
 		</cfif>
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
-				select taxon_name_id from taxonomy where taxon_name_id not in (select taxon_name_id from taxon_name) 
+				select taxon_name_id from taxonomy where taxon_name_id not in (select taxon_name_id from taxon_name)
 				and rownum<1001
 			</cfquery>
 		</cfif>
-	
-		
-	
+
+
+
 	<cfloop query="ids">
 		<!--- spawn threads 		<cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
 --->
-		
+
 		<!--- after initial population, need to adjust this to NOT make the new Arctos classifications ---->
 
 		<!----
@@ -191,14 +193,14 @@ It is obsolete once it's run once.
 					<cfset pos=pos+1>
 				</cfif>
 			</cfloop>
-			
-			
-			
+
+
+
 			<!------------
-			
-			for the purposes of test initiation, don't bother with globalnames - just get the Arctos data 
-			
-			
+
+			for the purposes of test initiation, don't bother with globalnames - just get the Arctos data
+
+
 			<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#d.scientific_name#"></cfhttp>
 			<cfset x=DeserializeJSON(cfhttp.filecontent)>
 			<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
@@ -207,21 +209,21 @@ It is obsolete once it's run once.
 				<cfif structKeyExists(x.data[1].results[i],"classification_path") and structKeyExists(x.data[1].results[i],"classification_path_ranks")>
 					<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
 					<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
-					 
+
 					<cfset thisSource=x.data[1].results[i].data_source_title>
 					<cfif not listfindnocase(sourcesToIgnore,thisSource,"|")>
 						<cfset match_type=x.data[1].results[i].match_type>
 						<cfif match_type is 1>
 							<cfset thisMatchType="Exact match">
-						<cfelseif match_type is 2>						
+						<cfelseif match_type is 2>
 							<cfset thisMatchType="Exact match by canonical form of a name">
-						<cfelseif match_type is 3>						
+						<cfelseif match_type is 3>
 							<cfset thisMatchType="Fuzzy match by canonical form">
-						<cfelseif match_type is 4>						
+						<cfelseif match_type is 4>
 							<cfset thisMatchType="Partial exact match by species part of canonical form">
-						<cfelseif match_type is 5>		
+						<cfelseif match_type is 5>
 							<cfset thisMatchType="Partial fuzzy match by species part of canonical form">
-						<cfelseif match_type is 6>						
+						<cfelseif match_type is 6>
 							<cfset thisMatchType=" Exact match by genus part of a canonical form">
 						<cfelse>
 							<cfset thisMatchType="">
@@ -236,7 +238,7 @@ It is obsolete once it's run once.
 						<cfif len(thisScore) is 0><cfset thisScore=0></cfif>
 						<cfset thisNameString=x.data[1].results[i].name_string>
 						<cfset thisCanonicalFormName=x.data[1].results[i].canonical_form>
-						
+
 						<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 							<cfset thisTerm=cterms[listpos]>
 							<br>thisTerm: #thisTerm#
@@ -245,7 +247,7 @@ It is obsolete once it's run once.
 							<cfelse>
 								<cfset thisRank=''>
 							</cfif>
-							
+
 							<cfif len(thisTerm) gt 0>
 								<cfquery name="meta" datasource="uam_god">
 									insert into taxon_term (
@@ -273,7 +275,7 @@ It is obsolete once it's run once.
 								<cfset pos=pos+1>
 							</cfif>
 						</cfloop>
-						
+
 						<cfif len(thisNameString) gt 0>
 							<cfquery name="meta" datasource="uam_god">
 								insert into taxon_term (
@@ -315,14 +317,14 @@ It is obsolete once it's run once.
 					</cfif>
 				</cfif>
 			</cfloop>
-			
-			
+
+
 			------>
-			
+
 			<!----	 </cfthread>
 		----->
-		
-				
+
+
 
 	</cfloop>
 	<cfif isdefined("name") and len(name) gt 0>

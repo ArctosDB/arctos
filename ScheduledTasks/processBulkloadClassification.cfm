@@ -372,6 +372,9 @@ run these in order
 </cfif>
 <!--------------------------------------------------------------------------->
 <cfif action is "load">
+
+contact a DBA
+<cfabort>
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where status='ready_to_load' and rownum<10
