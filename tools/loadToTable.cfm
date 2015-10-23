@@ -21,6 +21,7 @@ Upload CSV
 	</cfcatch>
 	</cftry>
 	<cfset colNames="">
+	<cftransaction>
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
 			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
@@ -73,6 +74,7 @@ Upload CSV
 			</cfquery>
 		</cfif>
 	</cfloop>
+	</cftransaction>
 	<hr>
 	loaded to #session.username#.my_temp_cf
 	</cfif>
