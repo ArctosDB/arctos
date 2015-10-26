@@ -147,12 +147,12 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 			</td>
 		</tr>
 	</table>
-	<cfform name="oids" method="post" enctype="multipart/form-data">
+	<form name="oids" method="post" enctype="multipart/form-data" action="BulkloadOtherId.cfm">
 		<input type="hidden" name="Action" value="getFile">
 		<label for="">upload CSV</label>
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file">
-	</cfform>
+	</form>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "getFile">
