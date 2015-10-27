@@ -3069,7 +3069,6 @@
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from container where barcode='#barcode#'
 		</cfquery>
-		<cfdump var=#thisID#>
 		<cfif thisID.recordcount is 1 and thisID.container_type is acceptableChildContainerType>
 			<cfset ctype=thisID.container_type>
 		<cfelseif thisID.recordcount is 1 and thisID.container_type is "#acceptableChildContainerType# label">
@@ -3084,36 +3083,14 @@
 		<cfelse>
 			<cfset result = "-#box_position#|Container barcode #barcode# (#thisID.container_type#) is not of type #acceptableChildContainerType# or #acceptableChildContainerType# label.">
 		</cfif>
-		<!----
 
-		BARCODE 	BYPASSCHECK 	CONTAINER_ID 	CONTAINER_REMARKS 	CONTAINER_TYPE 	DESCRIPTION 	HEIGHT 	INSTITUTION_ACRONYM 	LABEL 	LENGTH 	LOCKED_POSITION 	NUMBER_POSITIONS 	PARENT_CONTAINER_ID 	PARENT_INSTALL_DATE 	PRINT_FG 	WIDTH
-1 	MVZ105169 	[empty string] 	12039138 	[empty string] 	cryovial 	[empty string] 	[empty string] 	MVZ 	CC 3752 	[empty string] 	0 	[empty string] 	12588148 	2015-10-27 13:18:58.0 	[empty string] 	[empty string]
-
-
-
-
-CREATE OR REPLACE procedure updateContainer (
-    v_container_id in number,
-    v_parent_container_id in number,
-    v_container_type in varchar2,
-    v_label in varchar2,
-    v_description in varchar2,
-    v_container_remarks in varchar2,
-    v_barcode in varchar2,
-    v_width in number,
-    v_height in number,
-    v_length in number,
-    v_number_positions in number,
-    v_locked_position IN number,
-    v_institution_acronym in varchar2
-	---->
 		<cfif len(result) is 0>
 			<!--- sweet, update --->
-
+<!----
 			updateContainer('#thisID.container_id#','#position_id#','#ctype#','#thisID.label#','#thisID.description#',
 			'#thisID.container_remarks#','#thisID.barcode#','#thisID.width#','#thisID.height#','#thisID.length#',
-			'#thisID.number_positions#','#thisID.institution_acronym#')
-
+			'#thisID.number_positions#','#thisID.locked_position#','#thisID.institution_acronym#')
+---->
 
 
 
@@ -3136,12 +3113,9 @@ CREATE OR REPLACE procedure updateContainer (
 		</cfif>
 	<cfcatch>
 		<cfset result = "-#box_position#|#cfcatch.Message#: #cfcatch.detail#">
-		<cfdump var=#cfcatch#>
 	</cfcatch>
 	</CFTRY>
 	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-
-	</cfoutput>
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
