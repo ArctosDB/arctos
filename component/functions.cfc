@@ -3056,6 +3056,14 @@
 	</cftry>
 		<cfreturn result>
 </cffunction>
+<!----
+http://arctos.database.museum/component/functions.cfc?method=moveContainer&
+box_position=23&
+position_id=16417770&
+barcode=MVZ105169&
+acceptableChildContainerType=cryovial&returnformat=json&queryformat=column
+---->
+
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="moveContainer" access="remote">
 	<cfargument name="box_position" type="numeric" required="yes">
@@ -3068,6 +3076,8 @@
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from container where barcode='#barcode#'
 		</cfquery>
+
+		<cfdump var=#thisID#>
 		<cfif thisID.recordcount is 1 and thisID.container_type is acceptableChildContainerType>
 			<cfset ctype=thisID.container_type>
 		<cfelseif thisID.recordcount is 1 and thisID.container_type is "#acceptableChildContainerType# label">
