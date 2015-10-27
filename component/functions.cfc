@@ -3064,6 +3064,7 @@
 	<cfargument name="acceptableChildContainerType" type="string" required="yes">
 	<cfset thisContainerId = "">
 	<cfset result = "">
+	<cfoutput>
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from container where barcode='#barcode#'
@@ -3138,6 +3139,8 @@ CREATE OR REPLACE procedure updateContainer (
 	</cfcatch>
 	</CFTRY>
 	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+
+	</cfoutput>
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
