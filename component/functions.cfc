@@ -3108,7 +3108,15 @@ CREATE OR REPLACE procedure updateContainer (
 	---->
 		<cfif len(result) is 0>
 			<!--- sweet, update --->
-				<cfstoredproc procedure="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+			updateContainer('#thisID.container_id#','#position_id#','#ctype#','#thisID.label#','#thisID.description#',
+			'#thisID.container_remarks#','#thisID.barcode#','#thisID.width#','#thisID.height#','#thisID.length#',
+			'#thisID.number_positions#','#thisID.institution_acronym#')
+
+
+
+
+			<cfstoredproc procedure="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_id#"><!---- v_container_id ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#position_id#"><!---- v_parent_container_id ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#ctype#"><!---- v_container_type ---->
