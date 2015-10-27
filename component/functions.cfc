@@ -3064,7 +3064,6 @@
 	<cfargument name="acceptableChildContainerType" type="string" required="yes">
 	<cfset thisContainerId = "">
 	<cfset result = "">
-	<cfoutput>
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from container where barcode='#barcode#'
