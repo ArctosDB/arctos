@@ -3083,21 +3083,44 @@
 		<cfelse>
 			<cfset result = "-#box_position#|Container barcode #barcode# (#thisID.container_type#) is not of type #acceptableChildContainerType# or #acceptableChildContainerType# label.">
 		</cfif>
+		<!----
+
+		BARCODE 	BYPASSCHECK 	CONTAINER_ID 	CONTAINER_REMARKS 	CONTAINER_TYPE 	DESCRIPTION 	HEIGHT 	INSTITUTION_ACRONYM 	LABEL 	LENGTH 	LOCKED_POSITION 	NUMBER_POSITIONS 	PARENT_CONTAINER_ID 	PARENT_INSTALL_DATE 	PRINT_FG 	WIDTH
+1 	MVZ105169 	[empty string] 	12039138 	[empty string] 	cryovial 	[empty string] 	[empty string] 	MVZ 	CC 3752 	[empty string] 	0 	[empty string] 	12588148 	2015-10-27 13:18:58.0 	[empty string] 	[empty string]
+
+
+
+
+CREATE OR REPLACE procedure updateContainer (
+    v_container_id in number,
+    v_parent_container_id in number,
+    v_container_type in varchar2,
+    v_label in varchar2,
+    v_description in varchar2,
+    v_container_remarks in varchar2,
+    v_barcode in varchar2,
+    v_width in number,
+    v_height in number,
+    v_length in number,
+    v_number_positions in number,
+    v_locked_position IN number,
+    v_institution_acronym in varchar2
+	---->
 		<cfif len(result) is 0>
 			<!--- sweet, update --->
 				<cfstoredproc procedure="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisID.container_id#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#position_id#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#ctype#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.label#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.description#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_remarks#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.barcode#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.width#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.height#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.length#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_id#"><!---- v_container_id ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#position_id#"><!---- v_parent_container_id ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#ctype#"><!---- v_container_type ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.label#"><!---- v_label ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.description#"><!---- v_description ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_remarks#"><!----  v_container_remarks---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.barcode#"><!----v_barcode  ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.width#"><!---- v_width ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.height#"><!---- v_height ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.length#"><!---- v_length ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#"><!---- v_number_positions ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#"><!---- v_institution_acronym ---->
 			</cfstoredproc>
 			<cfset result = "#box_position#|#thisID.label#">
 		</cfif>
