@@ -3129,6 +3129,7 @@ CREATE OR REPLACE procedure updateContainer (
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.height#"><!---- v_height ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.length#"><!---- v_length ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#"><!---- v_number_positions ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.locked_position#"><!---- v_locked_position ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#"><!---- v_institution_acronym ---->
 			</cfstoredproc>
 			<cfset result = "#box_position#|#thisID.label#">
