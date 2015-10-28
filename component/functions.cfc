@@ -3056,14 +3056,6 @@
 	</cftry>
 		<cfreturn result>
 </cffunction>
-<!----
-http://arctos.database.museum/component/functions.cfc?method=moveContainer&
-box_position=23&
-position_id=16417770&
-barcode=MVZ105169&
-acceptableChildContainerType=cryovial&returnformat=json&queryformat=column
----->
-
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="moveContainer" access="remote">
 	<cfargument name="box_position" type="numeric" required="yes">
@@ -3076,8 +3068,6 @@ acceptableChildContainerType=cryovial&returnformat=json&queryformat=column
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from container where barcode='#barcode#'
 		</cfquery>
-
-		<cfdump var=#thisID#>
 		<cfif thisID.recordcount is 1 and thisID.container_type is acceptableChildContainerType>
 			<cfset ctype=thisID.container_type>
 		<cfelseif thisID.recordcount is 1 and thisID.container_type is "#acceptableChildContainerType# label">
@@ -3092,21 +3082,31 @@ acceptableChildContainerType=cryovial&returnformat=json&queryformat=column
 		<cfelse>
 			<cfset result = "-#box_position#|Container barcode #barcode# (#thisID.container_type#) is not of type #acceptableChildContainerType# or #acceptableChildContainerType# label.">
 		</cfif>
+
 		<cfif len(result) is 0>
 			<!--- sweet, update --->
+<!----
+			updateContainer('#thisID.container_id#','#position_id#','#ctype#','#thisID.label#','#thisID.description#',
+			'#thisID.container_remarks#','#thisID.barcode#','#thisID.width#','#thisID.height#','#thisID.length#',
+			'#thisID.number_positions#','#thisID.locked_position#','#thisID.institution_acronym#')
+---->
+
+
+
 			<cfstoredproc procedure="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#thisID.container_id#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#position_id#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#ctype#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.label#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.description#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_remarks#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.barcode#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.width#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.height#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.length#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#">
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_id#"><!---- v_container_id ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#position_id#"><!---- v_parent_container_id ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#ctype#"><!---- v_container_type ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.label#"><!---- v_label ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.description#"><!---- v_description ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.container_remarks#"><!----  v_container_remarks---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.barcode#"><!----v_barcode  ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.width#"><!---- v_width ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.height#"><!---- v_height ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.length#"><!---- v_length ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#"><!---- v_number_positions ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.locked_position#"><!---- v_locked_position ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#"><!---- v_institution_acronym ---->
 			</cfstoredproc>
 			<cfset result = "#box_position#|#thisID.label#">
 		</cfif>
