@@ -526,29 +526,10 @@
 
 <!-------------------------------------------------------------->
 <cfif Action is "delete">
-	<cfquery name="isUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from container where parent_container_id=#container_id#
-	</cfquery>
-	<cfif isUsed.recordcount gt 0>
-    <div align="center"><font color="#FF0000" size="+6">That container is used!
-      You can't delete it! <br>
-      This is a really bad place to play around if you don't know what you're
-      doing!</font> </div>
-    <cfabort>
-	<cfelseif isUsed.recordcount is 0>
-	<cftransaction>
-		<cfquery name="deleContHist" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			DELETE FROM container_history WHERE container_id = #container_id#
-		</cfquery>
-		<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			DELETE FROM container WHERE container_id = #container_id#
-		</cfquery>
-		<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			DELETE FROM container_check WHERE container_id = #container_id#
-		</cfquery>
-	</cftransaction>
-	<div align="center"><font color="#0066FF" size="+6">You've deleted this container!</font> </div>
-	</cfif>
+	<cfstoredproc procedure="deleteContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfprocparam cfsqltype="cf_sql_number" value="#container_id#"><!---- v_container_id --->
+	</cfstoredproc>
+	<div align="center"><font color="#0066FF" size="+6">You've deleted the container!</font> </div>
 </cfif>
 <!----------------------------->
 
