@@ -62,12 +62,7 @@ This form may be called in two ways:
 				select * from taxon_refresh_log where TAXON_NAME='#name#'
 			</cfquery>
 		</cfif>
-
-		hi we have a name
-
 	<cfelse><!--- no-name run ---->
-	no-name run
-
 		<cfif not isdefined("numberOfNamesOneFetch")>
 			<cfset numberOfNamesOneFetch=200>
 		</cfif>
@@ -97,20 +92,7 @@ This form may be called in two ways:
 				select * from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch#
 			</cfquery>
 		</cfif>
-
 	</cfif>
-
-
-<cfdump var=#d#>
-
-<cfabort>
-
-
-
-
-
-
-
 
 
 	<cfset theseNames=valuelist(d.taxon_name,'|')>
@@ -339,5 +321,9 @@ This form may be called in two ways:
 		<cfquery name="gotit" datasource="uam_god">
 			update taxon_refresh_log set lastfetch=sysdate where taxon_name_id in (#theseTaxonNameIds#)
 		</cfquery>
+	</cfif>
+	<cfif isdefined("name") and len(name) gt 0>
+		<!--- we came here on a name, redirect back to the taxon page ---->
+		<cflocation url="/name/#name#" addtoken="false">
 	</cfif>
 </cfoutput>
