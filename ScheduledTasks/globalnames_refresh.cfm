@@ -26,11 +26,16 @@ insert into taxon_refresh_log (
 	)
 ;
 
- this is copied from the single-fetch page, but MODIFIED.
 
 
-Make sure any useful changes end up in both places.
 
+**********************
+
+This form may be called in two ways:
+
+- a bare call will find records from the refresh log and process them
+
+- a call with a "name" parameter will run for that name
 
 
  ---->
@@ -39,30 +44,64 @@ Make sure any useful changes end up in both places.
 
 
 <cfoutput>
-	<cfif not isdefined("numberOfNamesOneFetch")>
-		<cfset numberOfNamesOneFetch=200>
-	</cfif>
-	<cfquery name="checknew" datasource="uam_god">
-		insert into taxon_refresh_log (TAXON_NAME_ID,TAXON_NAME) (
-			select TAXON_NAME_ID,scientific_name from taxon_name where taxon_name_id not in (
-				select TAXON_NAME_ID from taxon_refresh_log
-			)
-			and rownum<500
-		)
-	</cfquery>
-	<!---
-		globalnames cannot deal with plus-symbol, so ignore them all for now
-		No, nobody knows why Oracle thinks chr(215) is spelt chr(50071
-	---->
-	<cfquery name="ignorethis" datasource="uam_god">
-		update taxon_refresh_log set lastfetch=sysdate where instr(TAXON_NAME,chr(50071)) > 0
-	</cfquery>
-
-
 	<cfif isdefined("name") and len(name) gt 0>
+		<cfquery name="d" datasource="uam_god">
+			select * from taxon_refresh_log where TAXON_NAME='#name#'
+		</cfquery>
+		<cfif checkexist.recordcount lt 1>
+			<cfquery name="t" datasource="uam_god">
+				select TAXON_NAME_ID from taxon_name where scientific_name='#name#'
+			</cfquery>
+			<cfif len(t.taxon_name_id) is 0>
+				bad call<cfabort>
+			</cfif>
+			<cfquery name="ins" datasource="uam_god">
+				insert into taxon_refresh_log (TAXON_NAME_ID,TAXON_NAME,LASTFETCH) values (#t.taxon_name_id#,'#name#',sysdate)
+			</cfquery>
+			<cfquery name="d" datasource="uam_god">
+				select * from taxon_refresh_log where TAXON_NAME='#name#'
+			</cfquery>
+		</cfif>
+
 		hi we have a name
 
+	<cfelse><!--- no-name run ---->
+	no-name run
+
+		<cfif not isdefined("numberOfNamesOneFetch")>
+			<cfset numberOfNamesOneFetch=200>
+		</cfif>
+		<cfquery name="checknew" datasource="uam_god">
+			insert into taxon_refresh_log (TAXON_NAME_ID,TAXON_NAME) (
+				select TAXON_NAME_ID,scientific_name from taxon_name where taxon_name_id not in (
+					select TAXON_NAME_ID from taxon_refresh_log
+				)
+				and rownum<500
+			)
+		</cfquery>
+		<!---
+			globalnames cannot deal with plus-symbol, so ignore them all for now
+			No, nobody knows why Oracle thinks chr(215) is spelt chr(50071
+		---->
+		<cfquery name="ignorethis" datasource="uam_god">
+			update taxon_refresh_log set lastfetch=sysdate where instr(TAXON_NAME,chr(50071)) > 0
+		</cfquery>
+
+		<cfquery name="d" datasource="uam_god">
+			select * from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
+		</cfquery>
+
+		<cfif d.recordcount is 0>
+			<!---- start at old and work newer ---->
+			<cfquery name="d" datasource="uam_god">
+				select * from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch#
+			</cfquery>
+		</cfif>
+
 	</cfif>
+
+
+<cfdump var=#d#>
 
 <cfabort>
 
@@ -70,16 +109,7 @@ Make sure any useful changes end up in both places.
 
 
 
-	<cfquery name="d" datasource="uam_god">
-		select * from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
-	</cfquery>
 
-	<cfif d.recordcount is 0>
-		<!---- start at old and work newer ---->
-		<cfquery name="d" datasource="uam_god">
-			select * from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch#
-		</cfquery>
-	</cfif>
 
 
 
