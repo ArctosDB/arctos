@@ -48,7 +48,7 @@ This form may be called in two ways:
 		<cfquery name="d" datasource="uam_god">
 			select * from taxon_refresh_log where TAXON_NAME='#name#'
 		</cfquery>
-		<cfif checkexist.recordcount lt 1>
+		<cfif d.recordcount lt 1>
 			<cfquery name="t" datasource="uam_god">
 				select TAXON_NAME_ID from taxon_name where scientific_name='#name#'
 			</cfquery>
