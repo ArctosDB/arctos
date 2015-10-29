@@ -59,6 +59,16 @@ Make sure any useful changes end up in both places.
 	</cfquery>
 
 
+	<cfif isdefined("name") and len(name) gt 0>
+		hi we have a name
+
+	</cfif>
+
+<cfabort>
+
+
+
+
 
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#

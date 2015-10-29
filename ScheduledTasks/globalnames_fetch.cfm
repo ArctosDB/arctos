@@ -3,7 +3,7 @@
 This REFRESHES data that already exist in Arctos.
 
 ------------------------->
-
+deprecated<cfabort>
 <cfoutput>
 
 	<cfparam name="debug" default="false">
