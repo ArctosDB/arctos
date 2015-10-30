@@ -294,16 +294,19 @@
 
 hi about to go any_geog
 
+<cfif not isdefined("any_geog") and isdefined("caller.ang_geog")>
+	using caller
+	<cfset any_geog=caller.ang_geog>
+</cfif>
+
+
+
 <cfdump var=#form#>
 <cfdump var=#variables#>
 dump: <cfdump var=#any_geog#>
 
 
 
-<cfif not isdefined("any_geog") and isdefined("caller.ang_geog")>
-	using caller
-	<cfset any_geog=caller.ang_geog>
-</cfif>
 <cfif isdefined("any_geog") and len(any_geog) gt 0>
 
 
