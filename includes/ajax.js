@@ -1395,6 +1395,9 @@ function getAccn2(accnNumber,colID){
 	pickwin=url+"?accnNumber="+accnNumber+"&collectionID="+colID;
 	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
 }
+
+//function GeogPick(geogIdFld,highGeogFld,formName){
+
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
 	var url,geogwin;
 	url="/picks/findHigherGeog.cfm";
