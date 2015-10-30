@@ -1,6 +1,8 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfset title = "Pick Higher Geog">
-
+<cfif not isdefined("srchstring") or srchstring is "undefined">
+	<cfset srchstring="">
+</cfif>
 <cfoutput>
 	<script>
 		function useGeo(geog_auth_rec_id,higher_geog){
@@ -16,16 +18,18 @@
 
 		$(document).ready(function() {
 			$("##any_geog").val('#srchstring#');
+			$("##gsfrm").submit();
 		});
 
 	</script>
 <b>Find Geography:</b>
   <table border="1">
-    <form name="getHG" method="post" action="GeogPick2.cfm">
+    <form id="gsfrm" name="getHG" method="post" action="GeogPick2.cfm">
       <input type="hidden" name="Action" value="findGeog">
       <input type="hidden" name="geogIdFld" value="#geogIdFld#">
       <input type="hidden" name="highGeogFld" value="#highGeogFld#">
       <input type="hidden" name="formName" value="#formName#">
+      <input type="hidden" name="srchstring" value="#srchstring#">
       <cfinclude template="/includes/frmFindLocation_guts.cfm">
     </form>
 </cfoutput>
