@@ -1402,7 +1402,14 @@ function GeogPick(geogIdFld,highGeogFld,formName,srchstring){
 	popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName+"&srchstring="+srchstring;
 	geogpick=window.open(popurl,"","width=600,height=600, toolbar,resizable,scrollbars,");
 }
-function getGeog(geogIdFld,geogStringFld,formName,geogString){
+function getGeog(geogIdFld,highGeogFld,formName,srchstring){
+	// synonym of GeogPick; need to replace in all the forms and clean this up AFTER TESTING
+	var url,popurl;
+	url="/picks/GeogPick2.cfm";
+	popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName+"&srchstring="+srchstring;
+	geogpick=window.open(popurl,"","width=600,height=600, toolbar,resizable,scrollbars,");
+}
+function getGeog__oldnbusted(geogIdFld,geogStringFld,formName,geogString){
 	var url,geogwin;
 	url="/picks/findHigherGeog.cfm";
 	geogwin=url+"?geogIdFld="+geogIdFld+"&geogStringFld="+geogStringFld+"&formName="+formName+"&geogString="+geogString;
