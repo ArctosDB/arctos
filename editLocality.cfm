@@ -615,7 +615,7 @@ function checkCoordinateError(){
 
 
 	 <input type="button" value="Change for this Locality" class="picBtn" id="changeGeogButton"
-			onclick="getGeog('geog_auth_rec_id','higher_geog','locality', this.value); return false;">
+			onclick="getGeog('geog_auth_rec_id','higher_geog','locality'); return false;">
 
 			<!----
 
