@@ -294,9 +294,9 @@
 
 hi about to go any_geog
 
-<cfif not isdefined("any_geog") and isdefined("caller.ang_geog")>
+<cfif not isdefined("any_geog") and isdefined("caller.any_geog")>
 	using caller
-	<cfset any_geog=caller.ang_geog>
+	<cfset any_geog=caller.any_geog>
 </cfif>
 
 
