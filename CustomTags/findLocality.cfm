@@ -294,7 +294,8 @@
 
 hi about to go any_geog
 
-
+<cfdump var=#form#>
+<cfdump var=#variables#>
 dump: <cfdump var=#any_geog#>
 <cfif isdefined("any_geog") and len(any_geog) gt 0>
 
