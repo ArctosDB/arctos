@@ -291,7 +291,12 @@
 <cfif isdefined("higher_geog") and len(higher_geog) gt 0>
 	<cfset qual = "#qual# AND upper(higher_geog) like '%#ucase(higher_geog)#%'">
 </cfif>
+
+hi about to go any_geog
 <cfif isdefined("any_geog") and len(any_geog) gt 0>
+
+
+	we are inside
 	<cfset frm=frm & ", geog_search_term ">
 	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id (+) ">
 	<cfset qual = "#qual# AND (
@@ -299,6 +304,8 @@
 			upper(geog_search_term.SEARCH_TERM) like '%#ucase(any_geog)#%'
 	)">
 </cfif>
+
+backout
 <cfif isdefined("collecting_event_name") AND len(collecting_event_name) gt 0>
 	<cfset qual = "#qual# AND upper(collecting_event_name) like '%#ucase(collecting_event_name)#%'">
 </cfif>
