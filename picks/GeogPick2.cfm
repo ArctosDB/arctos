@@ -8,6 +8,16 @@
 			opener.document.#formName#.#highGeogFld#.value=higher_geog;
 			self.close();
 		}
+
+
+
+
+
+
+		$(document).ready(function() {
+			("##any_geog").val('#srchstring#');
+		});
+
 	</script>
 <b>Find Geography:</b>
   <table border="1">
