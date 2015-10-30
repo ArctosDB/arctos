@@ -5,6 +5,10 @@
 </cfif>
 <cfset any_geog=srchstring>
 <cfoutput>
+
+
+
+	<br>any_geog: #any_geog# -----------
 	<script>
 		function useGeo(geog_auth_rec_id,higher_geog){
 			opener.document.#formName#.#geogIdFld#.value=geog_auth_rec_id;
