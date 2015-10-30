@@ -293,6 +293,9 @@
 </cfif>
 
 hi about to go any_geog
+
+
+dump: <cfdump var=#any_geog#>
 <cfif isdefined("any_geog") and len(any_geog) gt 0>
 
 
