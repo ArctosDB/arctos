@@ -36,7 +36,7 @@
 			select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
 		</cfquery>
 		<cfloop query="searchterm">
-			<div style="border:1px dashed gray; font-size:x-small;">
+			<div style="font-size:small;margin-left:1em;">
 				#SEARCH_TERM#
 			</div>
 		</cfloop>
