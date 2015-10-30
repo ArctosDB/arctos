@@ -5,25 +5,12 @@
 </cfif>
 <cfset any_geog=srchstring>
 <cfoutput>
-
-
-
-	<br>any_geog: #any_geog# -----------
 	<script>
 		function useGeo(geog_auth_rec_id,higher_geog){
 			opener.document.#formName#.#geogIdFld#.value=geog_auth_rec_id;
 			opener.document.#formName#.#highGeogFld#.value=higher_geog;
 			self.close();
 		}
-
-
-
-
-
-
-		$(document).ready(function() {
-			//$("##any_geog").val('#srchstring#');
-		});
 
 	</script>
 <b>Find Geography:</b>
@@ -38,13 +25,7 @@
 </cfoutput>
 <!-------------------------------------------------------------------->
 
-hi here we are
-
-
 <cf_findLocality type="geog">
-
-now here
-
 
 <cfquery name="localityResults" dbtype="query">
 	select geog_auth_rec_id,higher_geog
