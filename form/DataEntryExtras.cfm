@@ -844,7 +844,7 @@
 									<td>
 										<label for="higher_geog">Pick Higher Geography</label>
 										<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
-											onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
+											onchange="GeogPick('nothing',this.id,'theForm',this.value)">
 
 										<input type="button" class="lnkBtn" value="Pick Locality Instead" onclick="typeLocality('off');">
 
