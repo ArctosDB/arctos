@@ -596,8 +596,16 @@
 									<tr>
 										<td align="right"><span class="f11a">Higher Geog</span></td>
 										<td>
+											<!----
 											<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
 												onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
+												---->
+												<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
+												onchange="GeogPick('nothing',this.id,'dataEntry',this.value)">
+
+
+
+
 										</td>
 									</tr>
 									<tr>

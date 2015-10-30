@@ -1396,8 +1396,12 @@ function getAccn2(accnNumber,colID){
 	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
 }
 
-//function GeogPick(geogIdFld,highGeogFld,formName){
-
+function GeogPick(geogIdFld,highGeogFld,formName,srchstring){
+	var url,popurl;
+	url="/picks/GeogPick2.cfm";
+	popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName+"&srchstring="+srchstring;
+	geogpick=window.open(popurl,"","width=600,height=600, toolbar,resizable,scrollbars,");
+}
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
 	var url,geogwin;
 	url="/picks/findHigherGeog.cfm";
@@ -1463,12 +1467,7 @@ function addrPick(addrIdFld,addrFld,formName){
 	popurl=url+"?addrIdFld="+addrIdFld+"&addrFld="+addrFld+"&formName="+formName;
 	addrpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-function GeogPick(geogIdFld,highGeogFld,formName){
-	var url,popurl;
-	url="/picks/GeogPick2.cfm";
-	popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName;
-	geogpick=window.open(popurl,"","width=600,height=600, toolbar,resizable,scrollbars,");
-}
+
 function LocalityPick(localityIdFld,speclocFld,formName,localityNameString){
 	var url,popurl,fireEvent;
 	url="/picks/LocalityPick.cfm";
