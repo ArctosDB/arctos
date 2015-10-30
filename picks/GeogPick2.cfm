@@ -33,7 +33,13 @@
     </form>
 </cfoutput>
 <!-------------------------------------------------------------------->
+
+hi here we are
 <cf_findLocality type="geog">
+
+now here
+
+
 <cfquery name="localityResults" dbtype="query">
 	select geog_auth_rec_id,higher_geog
 	from localityResults
