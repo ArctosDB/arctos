@@ -1,7 +1,15 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfset title = "Pick Higher Geog">
-<cfoutput>	
-<b>Find Geography:</b>	
+
+<cfoutput>
+	<script>
+		function useGeo(geog_auth_rec_id,higher_geog){
+			opener.document.#formName#.#geogIdFld#.value=geog_auth_rec_id;
+			opener.document.#formName#.#highGeogFld#.value=higher_geog;
+			self.close();
+		}
+	</script>
+<b>Find Geography:</b>
   <table border="1">
     <form name="getHG" method="post" action="GeogPick2.cfm">
       <input type="hidden" name="Action" value="findGeog">
@@ -20,9 +28,19 @@
 	group by geog_auth_rec_id,higher_geog
 </cfquery>
 <cfoutput query="localityResults">
-
-<p><a href="##" onClick="javascript: opener.document.#formName#.#geogIdFld#.value='#geog_auth_rec_id#';opener.document.#formName#.#highGeogFld#.value='#replace(higher_geog,"'","\'","all")#';self.close();">#higher_geog#</a>
-
+	<div>
+		<div>
+			<a href="##" onClick="useGeo('#geog_auth_rec_id#','#replace(higher_geog,"'","\'","all")#');">#higher_geog#</a>
+		</div>
+		<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
+		</cfquery>
+		<cfloop query="searchterm">
+			<div style="border:1px dashed gray; font-size:x-small;">
+				#SEARCH_TERM#
+			</div>
+		</cfloop>
+	</div>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_pickFooter.cfm">

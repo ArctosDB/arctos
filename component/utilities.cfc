@@ -399,7 +399,7 @@
 			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create">
-			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases">
+			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS">
 			<cfset x=x & ",getmappingxpath,get_host_address">
