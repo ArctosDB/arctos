@@ -3,6 +3,7 @@
 <cfif not isdefined("srchstring") or srchstring is "undefined">
 	<cfset srchstring="">
 </cfif>
+<cfset any_geog=srchstring>
 <cfoutput>
 	<script>
 		function useGeo(geog_auth_rec_id,higher_geog){
@@ -18,7 +19,6 @@
 
 		$(document).ready(function() {
 			$("##any_geog").val('#srchstring#');
-			$("##gsfrm").submit();
 		});
 
 	</script>
@@ -29,12 +29,10 @@
       <input type="hidden" name="geogIdFld" value="#geogIdFld#">
       <input type="hidden" name="highGeogFld" value="#highGeogFld#">
       <input type="hidden" name="formName" value="#formName#">
-      <input type="hidden" name="srchstring" value="#srchstring#">
       <cfinclude template="/includes/frmFindLocation_guts.cfm">
     </form>
 </cfoutput>
 <!-------------------------------------------------------------------->
-<cfif #Action# is "findGeog">
 <cf_findLocality type="geog">
 <cfquery name="localityResults" dbtype="query">
 	select geog_auth_rec_id,higher_geog
@@ -56,5 +54,4 @@
 		</cfloop>
 	</div>
 </cfoutput>
-</cfif>
 <cfinclude template="/includes/_pickFooter.cfm">
