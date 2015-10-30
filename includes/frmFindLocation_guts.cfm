@@ -210,7 +210,6 @@
 						<tr>
 							<td>
 								<cfif not isdefined("any_geog")>
-									nodefine
 									<cfset any_geog="">
 								</cfif>
 								<label for="any_geog">Any Geog</label>
