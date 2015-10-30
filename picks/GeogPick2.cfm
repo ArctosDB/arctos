@@ -22,7 +22,7 @@
 
 
 		$(document).ready(function() {
-			$("##any_geog").val('#srchstring#');
+			//$("##any_geog").val('#srchstring#');
 		});
 
 	</script>

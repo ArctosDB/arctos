@@ -209,8 +209,12 @@
 						</tr>
 						<tr>
 							<td>
+								<cfif not isdefined("any_geog")>
+									nodefine
+									<cfset any_geog="">
+								</cfif>
 								<label for="any_geog">Any Geog</label>
-								<input type="text" name="any_geog" id="any_geog" size="50">
+								<input type="text" name="any_geog" id="any_geog" size="50" value="#any_geog#">
 							</td>
 						</tr>
 					</table>
