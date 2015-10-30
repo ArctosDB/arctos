@@ -9,7 +9,7 @@
 		<!----
 		<cfparam name="jtSorting" type="string" default="SCIENTIFIC_NAME ASC">
 		---->
-		<cfparam name="jtSorting" type="string" default=groupby & " ASC">
+		<cfparam name="jtSorting" type="string" default="#groupby# ASC">
 		<cfparam name="totalRecordCount" type="numeric" default="0">
 		<cfparam name="totalSpecimenCount" type="numeric" default="0">
 		<cfparam name="qid" type="string" default="">
