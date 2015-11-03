@@ -117,8 +117,6 @@
 		  <input type="submit" value="Upload this file" class="savBtn">
 	  </form>
 </cfif>
-
-
 <!------------------------------------------------------->
 <cfif action is "delete">
 	Are you sure you want to delete everything from the bulkloader stage?
