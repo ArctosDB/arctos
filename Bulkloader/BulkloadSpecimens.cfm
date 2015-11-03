@@ -113,7 +113,7 @@
 	<form name="oids" method="post" enctype="multipart/form-data">
 		<label for="FiletoUpload">Upload a comma-delimited text file (csv)</label>
 		<input type="hidden" name="Action" value="getFile">
-		  <cfinput type="file" name="FiletoUpload" size="45" >
+		  <input type="file" name="FiletoUpload" size="45" >
 		  <input type="submit" value="Upload this file" class="savBtn">
 	  </form>
 </cfif>
