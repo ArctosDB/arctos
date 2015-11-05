@@ -1,3 +1,5 @@
+i am new
+
 <cffunction name="getQueryRow" returntype="query" output="no">
     <cfargument name="qry" type="query" required="yes">
     <cfargument name="row" type="numeric" required="yes">
