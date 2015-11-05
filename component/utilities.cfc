@@ -412,8 +412,8 @@
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4">
 			<cfset x=x & ",pma,phppgadmin">
-			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README">
-			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes,sysobjects">
+			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,">
+			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,script,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes,sysobjects">
 			<cfset x=x & ",trackback,TABLE_NAME">
 			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version">
