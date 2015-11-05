@@ -287,6 +287,10 @@
 	<cfset lurl=replace(lurl,"?",chr(7),"all")>
 	<cfset lurl=replace(lurl,"=",chr(7),"all")>
 	<cfset lurl=replace(lurl,"%2B",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%28",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%22",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%3E",chr(7),"all")>
+
 
 	<!-----
 		START: stuff in this block is always checked; this is called at onRequestStart
