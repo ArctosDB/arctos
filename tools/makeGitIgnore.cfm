@@ -20,9 +20,7 @@
 <cfset allIgnore=listChangeDelims(allIgnore,chr(10))>
 
 
-<textarea>
-	#allIgnore#
-</textarea>
+<textarea>#allIgnore#</textarea>
 </cfoutput>
 
 
