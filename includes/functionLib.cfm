@@ -7,7 +7,7 @@
 <cffunction name="wrd">
 	<!--- filter strings to contain only A-Z,_,- --->
 	<cfargument name="w" required="yes">
-	<cfif rereplacenocase(w,'[^A-Z_]','') is w then
+	<cfif rereplacenocase(w,'[^A-Z_]','') is w>
 		<cfreturn w>
 	<cfelse>
 		<cfreturn 'THAT_IS_NOT_OK'>
