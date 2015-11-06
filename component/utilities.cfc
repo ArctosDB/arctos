@@ -238,13 +238,11 @@
 <!------------------------------------------------------------------------------------>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
-	<!---
-
-
-	<br /><cfif session.roles contains "coldfusion_user">
+	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
        <cfreturn true>
     </cfif>
+	<!---
 		first check if they're already blacklisted
 		If they are, just include the notification/form and abort
 	---->
@@ -376,15 +374,7 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-
-	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
-	<!-----
-		START: stuff in this block is only checked if there's an error
-		Performance is unimportant here; this is going to end with an error
-	 ------>
-
-
-	<!--- check these every time, even if there's no error ---->
+	<!--- check these every time, even if there's no error; these things are NEVER allowed in a URL ---->
 	<cfset x="script">
 	<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
 		<cfif listfindnocase(x,i)>
@@ -393,6 +383,16 @@
 			<cfabort>
 		</cfif>
 	</cfloop>
+
+
+	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
+	<!-----
+		START: stuff in this block is only checked if there's an error
+		Performance is unimportant here; this is going to end with an error
+	 ------>
+
+
+
 	<cfif isdefined("inp")>
 		<cfif len(lurl) gt 0>
 		<!----
