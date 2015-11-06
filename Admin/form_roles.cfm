@@ -1,17 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-
-
-<cfdirectory action="LIST"
-    	directory="#Application.webDirectory#"
-        name="root"
-		recurse="no">
-
-
-		<cfdump var=#root#>
-
-
-
-
 <cfset title="Form Access">
 <script type="text/javascript" language="javascript">
 	function setUserFormAccess (id) {
@@ -105,7 +92,6 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 	<cfset path="">
 	<cfset ff=filter>
 
-	filter: #filter#
 	<cfif filter contains "/">
 		<cfset sPos=RFind("/",filter)>
 		<cfset path=left(filter,sPos)>
@@ -114,13 +100,6 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 		<cfset ff=filter>
 	</cfif>
 
-	#Application.webDirectory#
-
-	<p>
-	path: #path#
-	</p>
-
-#path#
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#"
         name="root"
