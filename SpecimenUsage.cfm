@@ -423,7 +423,7 @@
 				publication.pmid,
 				taxon_name.scientific_name,
 				publication.publication_remarks,
-				count(distinct(identification.identification_id))
+				identification.identification_id
 			ORDER BY
 				publication.full_citation,
 				publication.publication_id">
