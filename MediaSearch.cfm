@@ -314,8 +314,9 @@
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
 			<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">
 			<cfif isdefined ("related_primary_key#n#")>
+				here we are....
 				<cfset thisKey=evaluate("related_primary_key" & n)>
-				<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisKey#">
+				<cfset srch="#srch# AND media_relations#n#.related_primary_key = #val(thisKey)#">
 			</cfif>
 			<cfset n=n+1>
 		</cfloop>
