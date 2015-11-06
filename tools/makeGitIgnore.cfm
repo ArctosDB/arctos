@@ -1,7 +1,7 @@
 <!---- barf out the contents of a .gitignore file ---->
 
 	<cfset ignorefiles="##files,.project,*.gz,*.xml,.git,robots.txt">
-	<cfset ignorefolders="##folders,mediaUploads/,temp/,bnhmMaps/tabfiles/,cache/,download/,sandbox/">
+	<cfset ignorefolders="#chr(10)###folders,mediaUploads/,temp/,bnhmMaps/tabfiles/,cache/,download/,sandbox/">
 	<cfquery  name="coll" datasource="cf_dbuser">
 		select lower(portal_name) pname from cf_collection where PUBLIC_PORTAL_FG = 1 and portal_name is not null order by lower(portal_name)
 	</cfquery>
