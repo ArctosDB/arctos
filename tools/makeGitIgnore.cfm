@@ -1,7 +1,9 @@
 <!---- barf out the contents of a .gitignore file ---->
 <cfoutput>
 
-<cfset static=".project,*.gz,*.xml">
+<cfset ignorefiles=".project,*.gz,*.xml,.git,robots.txt,">
+<cfset ignorefolders="mediaUploads/,temp/,/bnhmMaps/tabfiles/,cache/,download/,sandbox/">
+
 
 
 <cfquery  name="coll" datasource="cf_dbuser">
@@ -10,9 +12,17 @@
 <cfset colnFldrs=valuelist(coll.pname)>
 
 
-<cfdump var=#colnFldrs#>
+<cfset allIgnore="">
+<cfset allIgnore=listappend(allIgnore,ignorefiles)>
+<cfset allIgnore=listappend(allIgnore,ignorefolders)>
+<cfset allIgnore=listappend(allIgnore,colnFldrs)>
+
+<cfset allIgnore=listChangeDelims(allIgnore,chr(10))>
 
 
+<textarea>
+	#allIgnore#
+</textarea>
 </cfoutput>
 
 
