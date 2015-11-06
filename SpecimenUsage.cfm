@@ -551,8 +551,13 @@
 							No Citations
 						</cfif>
 					</li>
-
-					numSensu: #numSensu#
+					<li>
+						<cfif numSensu gt 0>
+							<a href="/SpecimenResults.cfm?id_pub_id=#publication_id#">#numSensu# <em>sensu</em> Identifications</a>
+						<cfelse>
+							No <em>sensu</em> Identifications
+						</cfif>
+					</li>
 					<cfif len(doi) gt 0>
 						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 					<cfelse>
