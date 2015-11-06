@@ -116,7 +116,7 @@
 	 			FROM
 					geology_attribute_hierarchy
 				start with
-					upper(attribute_value) like '%#ucase(geo_att_value)#%'
+					upper(attribute_value) like '%#ucase(escapeQuotes(geo_att_value))#%'
 				CONNECT BY PRIOR
 					geology_attribute_hierarchy_id = parent_id
 				)">
@@ -200,7 +200,8 @@
 	<cfset qual = "#qual# AND geog_auth_rec.geog_auth_rec_id = #geog_auth_rec_id#">
 </cfif>
 <cfif isdefined("collecting_event_id") and len(#collecting_event_id#) gt 0>
-	<cfset qual = "#qual# AND collecting_event.collecting_event_id = #collecting_event_id#">
+	<cfset qual = "#qual# AND collecting_event.collecting_event_id = <cfqueryparam value = "#collecting_event_id#"
+        CFSQLType = "CF_SQL_DOUBLE"> ">
 </cfif>
 
 
