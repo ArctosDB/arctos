@@ -12,6 +12,8 @@
 	<cfset allIgnore=listappend(allIgnore,colnFldrs)>
 	<cfset allIgnore=listChangeDelims(allIgnore,chr(10))>
 <cfoutput>
+	Copy/paste this into .gitignore
+	<br>Make sure it's correct first
 	<textarea rows="100" cols="100">#allIgnore#</textarea>
 </cfoutput>
 
