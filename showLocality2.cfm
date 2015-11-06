@@ -13,6 +13,26 @@
 		height:60%;
 		overflow:auto;
 	}
+	.oneRecord {
+		margin:1em;
+		border:1px solid black;
+	}
+	.higher_geog {
+		border:1px solid black;
+	}
+	.searchterm {
+		border:1px solid black;
+	}
+	.locality {
+		border:1px solid black;
+	}
+	.mapgohere {
+		border:1px solid black;
+	}
+	.event {
+		border:1px solid black;
+	}
+
 </style>
 <script>
 	function removeDetail(){
@@ -111,53 +131,73 @@
 	<cfset title="Locality Information">
 	<cfoutput>
 		<cf_findLocality type="event">
-		<cfdump var=#localityResults#>
 		<cfquery name="geog" dbtype="query">
 			select distinct higher_geog, geog_auth_rec_id from localityResults order by higher_geog
 		</cfquery>
 		<cfloop query="geog">
-			<br>#higher_geog#
-			<cfquery name="locality" dbtype="query">
-				select
-					locality_id,
-					spec_locality,
-					dec_lat,
-					dec_long
-				from
-					localityResults
-				where
-					geog_auth_rec_id=#val(geog_auth_rec_id)#
-				group by
-					locality_id,
-					spec_locality,
-					dec_lat,
-					dec_long
-				order by
-					spec_locality,
-					dec_lat,
-					dec_long
-			</cfquery>
-			<cfloop query="locality">
-				<br>*#spec_locality# #dec_lat# #dec_long#
-				<cfquery name="event" dbtype="query">
+			<div class="oneRecord">
+				<div class="higher_geog">
+					#higher_geog#
+					<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#val(geog_auth_rec_id)# order by SEARCH_TERM
+					</cfquery>
+					<cfloop query="searchterm">
+						<div class="searchterm">
+							#SEARCH_TERM#
+						</div>
+					</cfloop>
+				</div>
+				<cfquery name="locality" dbtype="query">
 					select
-						verbatim_locality,
-						verbatim_date
+						locality_id,
+						spec_locality,
+						dec_lat,
+						dec_long
 					from
 						localityResults
 					where
-						locality_id=#val(locality_id)#
+						geog_auth_rec_id=#val(geog_auth_rec_id)#
 					group by
-						verbatim_locality,
-						verbatim_date
+						locality_id,
+						spec_locality,
+						dec_lat,
+						dec_long
 					order by
-						verbatim_locality,
-						verbatim_date
+						spec_locality,
+						dec_lat,
+						dec_long
 				</cfquery>
-				<cfloop query="event">
-					<br>**#verbatim_locality# #verbatim_date#
+				<cfloop query="locality">
+					<div class="locality">
+						#spec_locality#
+						<cfif len(dec_lat) gt 0>
+							<div class="mapgohere" id="mapgohere-locality_id-#locality_id#">
+								<img src="/images/indicator.gif"> [#dec_lat#/#dec_long#]
+							</div
+						</cfif>
+					</div>
+					<cfquery name="event" dbtype="query">
+						select
+							verbatim_locality,
+							verbatim_date
+						from
+							localityResults
+						where
+							locality_id=#val(locality_id)#
+						group by
+							verbatim_locality,
+							verbatim_date
+						order by
+							verbatim_locality,
+							verbatim_date
+					</cfquery>
+					<cfloop query="event">
+						<div class="event">
+							#verbatim_locality# #verbatim_date#
+						</div>
+					</cfloop>
 				</cfloop>
-			</cfloop>
+			</div>
 		</cfloop>
 
 		<!------------
