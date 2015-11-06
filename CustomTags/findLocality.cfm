@@ -228,19 +228,19 @@
 	<cfset qual = "#qual# AND upper(verbatim_locality) like '%#escapeQuotes(ucase(verbatim_locality))#%'">
 </cfif>
 <cfif isdefined("coll_event_remarks") and len(#coll_event_remarks#) gt 0>
-	<cfset qual = "#qual# AND upper(coll_event_remarks) like '%#ucase(coll_event_remarks)#%'">
+	<cfset qual = "#qual# AND upper(coll_event_remarks) like '%#ucase(escapeQuotes(coll_event_remarks))#%'">
 </cfif>
 
 <cfif isdefined("collecting_source") and len(#collecting_source#) gt 0>
-	<cfset qual = "#qual# AND upper(collecting_source) like '%#ucase(collecting_source)#%'">
+	<cfset qual = "#qual# AND upper(collecting_source) like '%#ucase(escapeQuotes(collecting_source))#%'">
 </cfif>
 
 <cfif isdefined("collecting_method") and len(#collecting_method#) gt 0>
-	<cfset qual = "#qual# AND upper(collecting_method) like '%#ucase(collecting_method)#%'">
+	<cfset qual = "#qual# AND upper(collecting_method) like '%#ucase(escapeQuotes(collecting_method))#%'">
 </cfif>
 
 <cfif isdefined("habitat") and len(habitat) gt 0>
-	<cfset qual = "#qual# AND upper(habitat) like '%#ucase(habitat)#%'">
+	<cfset qual = "#qual# AND upper(habitat) like '%#ucase(escapeQuotes(habitat))#%'">
 </cfif>
 <cfif isdefined("locality_name") and len(locality_name) gt 0>
 	<cfset qual = "#qual# AND upper(locality_name) like '%#escapeQuotes(ucase(locality_name))#%'">
@@ -250,10 +250,10 @@
 	<cfset qual = "#qual# AND upper(spec_locality) like '%#escapeQuotes(ucase(spec_locality))#%'">
 </cfif>
 <cfif isdefined("maximum_elevation") and len(#maximum_elevation#) gt 0>
-	<cfset qual = "#qual# AND maximum_elevation #maxElevOper# #maximum_elevation#">
+	<cfset qual = "#qual# AND maximum_elevation #maxElevOper# #val(maximum_elevation)#">
 </cfif>
 <cfif isdefined("minimum_elevation") and len(#minimum_elevation#) gt 0>
-	<cfset qual = "#qual# AND minimum_elevation #minElevOper# #minimum_elevation#">
+	<cfset qual = "#qual# AND minimum_elevation #minElevOper# #val(minimum_elevation)#">
 </cfif>
 <cfif isdefined("orig_elev_units") and len(#orig_elev_units#) gt 0>
 	<cfset qual = "#qual# AND orig_elev_units = '#orig_elev_units#'">
@@ -262,34 +262,34 @@
 	<cfset qual = "#qual# AND upper(locality_remarks) like '%#escapeQuotes(ucase(locality_remarks))#%'">
 </cfif>
 <cfif isdefined("continent_ocean") and len(#continent_ocean#) gt 0>
-	<cfset qual = "#qual# AND upper(continent_ocean) LIKE '%#ucase(continent_ocean)#%'">
+	<cfset qual = "#qual# AND upper(continent_ocean) LIKE '%#ucase(escapeQuotes(continent_ocean))#%'">
 </cfif>
 <cfif isdefined("country") and len(#country#) gt 0>
-	<cfset qual = "#qual# AND upper(country) LIKE '%#ucase(country)#%'">
+	<cfset qual = "#qual# AND upper(country) LIKE '%#ucase(escapeQuotes(country))#%'">
 </cfif>
 <cfif isdefined("state_prov") and len(#state_prov#) gt 0>
-	<cfset qual = "#qual# AND upper(state_prov) LIKE '%#ucase(state_prov)#%'">
+	<cfset qual = "#qual# AND upper(state_prov) LIKE '%#ucase(escapeQuotes(state_prov))#%'">
 </cfif>
 <cfif isdefined("county") and len(#county#) gt 0>
-	<cfset qual = "#qual# AND upper(county) LIKE '%#ucase(county)#%'">
+	<cfset qual = "#qual# AND upper(county) LIKE '%#ucase(escapeQuotes(county))#%'">
 </cfif>
 <cfif isdefined("quad") and len(#quad#) gt 0>
-	<cfset qual = "#qual# AND upper(quad) LIKE '%#ucase(quad)#%'">
+	<cfset qual = "#qual# AND upper(quad) LIKE '%#ucase(escapeQuotes(quad))#%'">
 </cfif>
 <cfif isdefined("feature") and len(#feature#) gt 0>
-	<cfset qual = "#qual# AND feature = '#escapeQuotes(feature)#'">
+	<cfset qual = "#qual# AND feature = '#escapeQuotes(escapeQuotes(feature))#'">
 </cfif>
 <cfif isdefined("island_group") and len(#island_group#) gt 0>
-	<cfset qual = "#qual# AND island_group = '#island_group#'">
+	<cfset qual = "#qual# AND island_group = '#ucase(escapeQuotes(island_group))#'">
 </cfif>
 <cfif isdefined("island") and len(#island#) gt 0>
 	<cfset qual = "#qual# AND upper(island) LIKE '%#ucase(escapeQuotes(island))#%'">
 </cfif>
 <cfif isdefined("sea") and len(sea) gt 0>
-	<cfset qual = "#qual# AND upper(sea) LIKE '%#ucase(sea)#%'">
+	<cfset qual = "#qual# AND upper(sea) LIKE '%#ucase(escapeQuotes(sea))#%'">
 </cfif>
 <cfif isdefined("higher_geog") and len(higher_geog) gt 0>
-	<cfset qual = "#qual# AND upper(higher_geog) like '%#ucase(higher_geog)#%'">
+	<cfset qual = "#qual# AND upper(higher_geog) like '%#ucase(escapeQuotes(higher_geog))#%'">
 </cfif>
 <cfif not isdefined("any_geog") and isdefined("caller.any_geog")>
 	<cfset any_geog=caller.any_geog>
@@ -298,18 +298,18 @@
 	<cfset frm=frm & ", geog_search_term ">
 	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id (+) ">
 	<cfset qual = "#qual# AND (
-			upper(geog_auth_rec.higher_geog) like '%#ucase(any_geog)#%' or
-			upper(geog_search_term.SEARCH_TERM) like '%#ucase(any_geog)#%'
+			upper(geog_auth_rec.higher_geog) like '%#ucase(escapeQuotes(any_geog))#%' or
+			upper(geog_search_term.SEARCH_TERM) like '%#ucase(escapeQuotes(any_geog))#%'
 	)">
 </cfif>
 <cfif isdefined("collecting_event_name") AND len(collecting_event_name) gt 0>
-	<cfset qual = "#qual# AND upper(collecting_event_name) like '%#ucase(collecting_event_name)#%'">
+	<cfset qual = "#qual# AND upper(collecting_event_name) like '%#ucase(escapeQuotes(collecting_event_name))#%'">
 </cfif>
 <cfif isdefined("VerificationStatus") AND len(#VerificationStatus#) gt 0>
-	<cfset qual = "#qual# AND VerificationStatus='#VerificationStatus#'">
+	<cfset qual = "#qual# AND VerificationStatus='#escapeQuotes(VerificationStatus)#'">
 </cfif>
 <cfif isdefined("georeference_protocol") AND len(#georeference_protocol#) gt 0>
-	<cfset qual = "#qual# AND georeference_protocol='#georeference_protocol#'">
+	<cfset qual = "#qual# AND georeference_protocol='#escapeQuotes(georeference_protocol)#'">
 </cfif>
 <cfif len(trim(qual)) is 0>
 	<cfset qual=" and 1=2">
