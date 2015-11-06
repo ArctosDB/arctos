@@ -199,8 +199,8 @@
 	</cfif>
 	<cfset qual = "#qual# AND geog_auth_rec.geog_auth_rec_id = #geog_auth_rec_id#">
 </cfif>
-<cfif isdefined("collecting_event_id") and len(#collecting_event_id#) gt 0>
-	<cfset qual = "#qual# AND collecting_event.collecting_event_id = <cfqueryparam value = '#collecting_event_id#'  CFSQLType = 'CF_SQL_DOUBLE'> ">
+<cfif isdefined("collecting_event_id") and len(collecting_event_id) gt 0>
+	<cfset qual = "#qual# AND collecting_event.collecting_event_id = #val(collecting_event_id)# ">
 </cfif>
 
 
