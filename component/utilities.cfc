@@ -387,6 +387,8 @@ i am checkrequest
 	 ------>
 
 	<cfif isdefined("inp")>
+
+	<br>found inp
 		<cfif len(lurl) gt 0>
 		<!----
 			<cfif lurl contains "utl_inaddr" or lurl contains "get_host_address">
