@@ -4,6 +4,15 @@
        return isValid("regex", x, d);
 	}
 </cfscript>
+<cffunction name="wrd">
+	<!--- filter strings to contain only A-Z,_,- --->
+	<cfargument name="w" required="yes">
+	<cfif rereplacenocase(w,'[^A-Z_]','') is w then
+		<cfreturn w>
+	<cfelse>
+		<cfreturn 'THAT_IS_NOT_OK'>
+	</cfif>
+</cffunction>
 <cffunction name="isValidMediaPreview">
 	<cfargument name="fileName" required="yes">
 	<cfset err="">
