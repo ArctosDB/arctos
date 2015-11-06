@@ -132,7 +132,7 @@
 		</cfif>
 		<cfif agent.agent_type is "group">
 			<cfquery name="grpagnt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-				select MEMBER_AGENT_ID,getPreferredAgentName(MEMBER_AGENT_ID) name from group_member where GROUP_AGENT_ID=#agent_id#
+				select MEMBER_AGENT_ID,getPreferredAgentName(MEMBER_AGENT_ID) name from group_member where GROUP_AGENT_ID=#val(agent_id)#
 			</cfquery>
 			<p>
 				Group Members:
@@ -150,7 +150,7 @@
 			from agent_relations,preferred_agent_name
 			where
 			agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
-			agent_relations.agent_id=#agent_id#
+			agent_relations.agent_id=#val(agent_id)#
 		</cfquery>
 		<cfif agent_relations.recordcount gt 0>
 			<p>
@@ -167,7 +167,7 @@
 			from agent_relations,preferred_agent_name
 			where
 			agent_relations.agent_id=preferred_agent_name.agent_id and
-			RELATED_AGENT_ID=#agent_id#
+			RELATED_AGENT_ID=#val(agent_id)#
 		</cfquery>
 		<cfif agent_relationsto.recordcount gt 0>
 			<p>
@@ -187,7 +187,7 @@
 				group_member, preferred_agent_name
 			where
 				group_member.GROUP_AGENT_ID=preferred_agent_name.agent_id and
-				MEMBER_AGENT_ID=#agent_id#
+				MEMBER_AGENT_ID=#val(agent_id)#
 			order by agent_name
 		</cfquery>
 		<cfif group_member.recordcount gt 0>
@@ -213,7 +213,7 @@
 			where
 				collector.collection_object_id = cataloged_item.collection_object_id AND
 				cataloged_item.collection_id = collection.collection_id AND
-				agent_id=#agent_id# and
+				agent_id=##val(agent_id)# and
 				cataloged_item.collection_object_id not in (
 					select coll_object_encumbrance.collection_object_id from
 						coll_object_encumbrance,
@@ -278,7 +278,7 @@
 			where
 				collector.collection_object_id = media_relations.related_primary_key AND
 				media_relations.media_relationship='shows cataloged_item' AND
-				collector.agent_id=#agent_id#
+				collector.agent_id=#val(agent_id)#
 		</cfquery>
 		<cfif collectormedia.c gt 0>
 			<p>
@@ -301,7 +301,7 @@
 				project
 			where
 				 project.project_id=project_agent.project_id and
-				 project_agent.agent_id=#agent_id#
+				 project_agent.agent_id=#val(agent_id)#
 			group by
 				project_name,
 				project.project_id
@@ -326,7 +326,7 @@
 				publication_agent
 			where
 				publication.publication_id=publication_agent.publication_id and
-				publication_agent.agent_id=#agent_id#
+				publication_agent.agent_id=#val(agent_id)#
 			group by
 				publication.PUBLICATION_ID,
 				full_citation,
