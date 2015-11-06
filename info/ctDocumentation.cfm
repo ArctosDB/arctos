@@ -37,7 +37,7 @@
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
 
 
-<cfset st=rereplacenocase(table,'[^A-Z]','{}')>
+<cfset st=rereplacenocase(table,'[^A-Z_]','{}')>
 
 st: #st#
 
