@@ -301,10 +301,12 @@
 			agent_name,
 			citation,
 			taxonomy_publication,
-			taxon_name">
+			taxon_name,
+			identification">
 		<cfset basWhere = "
 			WHERE
 				publication.publication_id = project_publication.publication_id (+) and
+				publication.publication_id = identification.publication_id (+) and
 				publication.publication_id = citation.publication_id (+)
 				AND publication.publication_id = publication_agent.publication_id (+)
 				AND publication_agent.agent_id = agent_name.agent_id (+) and
@@ -422,8 +424,7 @@
 				publication.doi,
 				publication.pmid,
 				taxon_name.scientific_name,
-				publication.publication_remarks,
-				identification.identification_id
+				publication.publication_remarks
 			ORDER BY
 				publication.full_citation,
 				publication.publication_id">
