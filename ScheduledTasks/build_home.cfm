@@ -1,7 +1,6 @@
 <cfquery  name="coll" datasource="cf_dbuser">
 	select * from cf_collection where PUBLIC_PORTAL_FG = 1
 </cfquery>
-<cfdump var="#coll#">
 <cfoutput>
 	<cfloop query="coll">
 		<cfif len(portal_name) gt 0>
