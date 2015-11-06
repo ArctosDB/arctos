@@ -128,14 +128,14 @@ jQuery(document).ready(function() {
 		<li>parent_barcode</li>
 	</ul>
 	<form name="getFile" method="post" action="batchScan.cfm" enctype="multipart/form-data">
-		<input type="hidden" name="action" value="loadCSV">
+		<input type="hidden" name="action" value="loadCSVFile">
 		 <input type="file"
 			   name="FiletoUpload"
 			   size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
 	</form>
 </cfif>
-<cfif action is "loadCSV">
+<cfif action is "loadCSVFile">
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
     <cfset  util = CreateObject("component","component.utilities")>
 	<cfset x=util.CSVToQuery(fileContent)>
