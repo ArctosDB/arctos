@@ -238,9 +238,6 @@
 <!------------------------------------------------------------------------------------>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
-
-
-i am checkrequest
 	<!---
 
 
