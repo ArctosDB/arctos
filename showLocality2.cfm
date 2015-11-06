@@ -111,6 +111,7 @@
 	<cfset title="Locality Information">
 	<cfoutput>
 		<cf_findLocality type="event">
+		<cfdump var=#localityResults#>
 		<cfquery name="geog" dbtype="query">
 			select distinct higher_geog, geog_auth_rec_id from localityResults order by higher_geog
 		</cfquery>
