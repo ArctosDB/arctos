@@ -283,7 +283,7 @@
 	<cfset qual = "#qual# AND island_group = '#island_group#'">
 </cfif>
 <cfif isdefined("island") and len(#island#) gt 0>
-	<cfset qual = "#qual# AND upper(island) LIKE '%#ucase(island)#%'">
+	<cfset qual = "#qual# AND upper(island) LIKE '%#ucase(escapeQuotes((island))#%'">
 </cfif>
 <cfif isdefined("sea") and len(sea) gt 0>
 	<cfset qual = "#qual# AND upper(sea) LIKE '%#ucase(sea)#%'">
