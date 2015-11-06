@@ -387,12 +387,8 @@ i am checkrequest
 	 ------>
 
 
-
-<br>before inp
-
 	<!--- check these every time, even if there's no error ---->
 	<cfset x="script">
-
 	<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
 		<cfif listfindnocase(x,i)>
 			<cfset bl_reason='URL contains #i#'>
@@ -415,7 +411,7 @@ i am checkrequest
 			</cfif>
 
 			_----->
-			<!---- random junk that is always indicitive of bot/spam/probe/etc. traffic---->
+			<!---- random junk that in combination with an error is always indicitive of bot/spam/probe/etc. traffic---->
 			<cfset x="">
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
