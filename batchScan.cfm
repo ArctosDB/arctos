@@ -169,12 +169,14 @@ jQuery(document).ready(function() {
 			<th>barcode</th>
 			<th>parent_barcode</th>
 		</tr>
-		<cfloop query="d">
-			<tr>
-				<td>#barcode#</td>
-				<td>#parent_barcode#</td>
-			</tr>
-		</cfloop>
+		<cfoutput>
+			<cfloop query="d">
+				<tr>
+					<td>#barcode#</td>
+					<td>#parent_barcode#</td>
+				</tr>
+			</cfloop>
+		</cfoutput>
 	</table>
 </cfif>
 
