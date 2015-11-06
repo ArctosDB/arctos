@@ -1839,7 +1839,7 @@
 	<cfif basJoin does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND publication_id = #publication_id#">
+	<cfset basQual = " #basQual# AND publication_id = #VAL(publication_id)#">
 	<cfset mapurl = "#mapurl#&publication_id=#publication_id#">
 </cfif>
 <cfif isdefined("ispublished") and len(ispublished) gt 0>

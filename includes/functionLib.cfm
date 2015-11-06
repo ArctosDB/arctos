@@ -10,7 +10,7 @@
 	<cfif rereplacenocase(w,'[^A-Z_]','') is w>
 		<cfreturn w>
 	<cfelse>
-		<cfreturn 'THAT_IS_NOT_OK'>
+		<cfreturn 'NOT_WRD'>
 	</cfif>
 </cffunction>
 <cffunction name="isValidMediaPreview">
