@@ -86,7 +86,7 @@
 	<cfset showLocality=1>
 	<cfset showEvent=1>
 	<strong>Find Localities</strong>
-    <form name="getCol" method="post" action="showLocality.cfm">
+    <form name="getCol" method="post" action="showLocality2.cfm">
 		<input type="hidden" name="action" value="srch">
 		<cfinclude template="/includes/frmFindLocation_guts.cfm">
     </form>
@@ -111,6 +111,19 @@
 	<cfset title="Locality Information">
 	<cfoutput>
 		<cf_findLocality type="event">
+		<cfquery name="geog" dbtype="query">
+			select distinct higher_geog from localityResults order by higher_geog
+		</cfquery>
+		<cfloop query="geog">
+			<br>#higher_geog#
+		</cfloop>
+
+		<!------------
+
+
+
+
+
 		<cfquery name="localityResults" dbtype="query">
 			select
 				collecting_event_id,
@@ -143,7 +156,7 @@
 				ended_date,
 				verbatim_date
 		</cfquery>
-		<a href="showLocality.cfm">Search Again</a>
+		<a href="showLocality2.cfm">Search Again</a>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>Geography</th>
@@ -168,13 +181,13 @@
 		        <tr>
 					<td>
 						<span class="infoLink" onclick="expand('geog_auth_rec_id', #geog_auth_rec_id#)">[&nbsp;details&nbsp;]</span>
-						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
+						<a href="showLocality2.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
 					</td>
 					<td>
 						<cfif len(locality_id) gt 0>
 							<span class="infoLink" onclick="expand('locality_id', #locality_id#)">[&nbsp;details&nbsp;]</span>
 							<cfif len(spec_locality) gt 0>
-								<a href="showLocality.cfm?action=srch&locality_id=#locality_id#">#spec_locality#</a>
+								<a href="showLocality2.cfm?action=srch&locality_id=#locality_id#">#spec_locality#</a>
 							<cfelse>
 								[null]
 							</cfif>
@@ -199,7 +212,7 @@
 					<td>
 						<cfif len(collecting_event_id) gt 0>
 							<span class="infoLink" onclick="expand('collecting_event_id', #collecting_event_id#)">[&nbsp;details&nbsp;]</span>
-							<a href="showLocality.cfm?action=srch&collecting_event_id=#collecting_event_id#">
+							<a href="showLocality2.cfm?action=srch&collecting_event_id=#collecting_event_id#">
 							<cfif len(verbatim_locality) gt 0>
 								#verbatim_locality#
 							<cfelse>
@@ -214,6 +227,7 @@
 				</tr>
 			</cfloop>
 		</table>
+		--------->
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
