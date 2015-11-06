@@ -17,8 +17,6 @@
 			show the "justify yourself" form
 		existing IP from allowed subnet, expired or otherwise
 		ip
-
-
 ---->
 <script>
 	try{document.getElementById('loading').style.display='none';}catch(e){}
