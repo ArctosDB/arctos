@@ -97,7 +97,11 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 		<cfset ff=mid(filter,sPos+1,len(filter)-sPos+1)>
 	</cfif>
 
-	#Application.webDirectory##path#
+	#Application.webDirectory#
+
+	<p>
+	path: #path#
+	</p>
 
 
 	<cfdirectory action="LIST"
