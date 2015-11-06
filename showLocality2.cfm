@@ -116,6 +116,27 @@
 		</cfquery>
 		<cfloop query="geog">
 			<br>#higher_geog#
+			<cfquery name="locality" dbtype="query">
+				select
+					spec_locality,
+					dec_lat,
+					dec_long
+				from
+					geog
+				where
+					higher_geog='#escapeQuotes(higher_geog)#'
+				group by
+					spec_locality,
+					dec_lat,
+					dec_long
+				order by
+					spec_locality,
+					dec_lat,
+					dec_long
+			</cfquery>
+			<cfloop query="locality">
+				<br>#spec_locality# #dec_lat# #dec_long#
+			</cfloop>
 		</cfloop>
 
 		<!------------
