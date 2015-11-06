@@ -1767,7 +1767,7 @@
 		</cfif>
 		<cfset basQual = " #basQual# AND specimen_part.part_name = '#right(part_name,len(part_name)-1)#'">
 	<cfelse><!--- part name only --->
-		<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#ucase(escapeQuote(part_name)s)#%'">
+		<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#ucase(escapeQuotes(part_name)s)#%'">
 	</cfif>
 </cfif>
 <cfif isdefined("is_tissue") AND is_tissue is 1>
