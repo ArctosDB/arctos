@@ -1,4 +1,18 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+<cfdirectory action="LIST"
+    	directory="#Application.webDirectory#"
+        name="root"
+		recurse="yes"
+		filter="*#ff#*">
+
+
+		<cfdump var=#root#>
+
+
+
+
 <cfset title="Form Access">
 <script type="text/javascript" language="javascript">
 	function setUserFormAccess (id) {
