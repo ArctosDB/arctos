@@ -122,7 +122,7 @@
 					dec_lat,
 					dec_long
 				from
-					geog
+					localityResults
 				where
 					higher_geog='#escapeQuotes(higher_geog)#'
 				group by
