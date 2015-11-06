@@ -24,6 +24,10 @@
 		<cfabort>
 	</cfoutput>
 </cfif>
+
+<cfdump var=#guid#>
+
+
 <cfif isdefined("guid")>
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
 		<cfheader statuscode="301" statustext="Moved permanently">
