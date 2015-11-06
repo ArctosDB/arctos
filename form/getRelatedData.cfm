@@ -38,25 +38,17 @@
 			if (co==true){
 				parent.jQuery('select[id^="collector_role_"]').val('collector');
 				parent.jQuery('input[id^="collector_agent_"]').val('');
-
-
-
 				cary=cov.split(',');
-
 				$.each(cary, function(key, value) {
 					//console.log(key + ': ' + value);
 					var thisKey=key+1;
 					//console.log('thisKey= ' + thisKey);
 					parent.jQuery("#collector_agent_" + thisKey).val(value.trim());
-
 				});
-
-
 			}
 			var clickedfrom=$("#clickedfrom").val();
 			var idtype=$("#idtype").val();
 			var idval=$("#idval").val();
-
 			//console.log('clickedfrom='+clickedfrom);
 			//console.log('idtype='+idtype);
 			//console.log('idval='+idval);
