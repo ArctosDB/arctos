@@ -107,9 +107,9 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 	path: #path#
 	</p>
 
-
+#path#
 	<cfdirectory action="LIST"
-    	directory="#Application.webDirectory##path#"
+    	directory="#Application.webDirectory#"
         name="root"
 		recurse="yes"
 		filter="*#ff#*">
