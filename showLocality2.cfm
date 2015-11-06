@@ -181,21 +181,39 @@
 					<cfquery name="event" dbtype="query">
 						select
 							verbatim_locality,
-							verbatim_date
+							verbatim_date,
+							began_date,
+							ended_date
 						from
 							localityResults
 						where
 							locality_id=#val(locality_id)#
 						group by
 							verbatim_locality,
-							verbatim_date
+							verbatim_date,
+							began_date,
+							ended_date
 						order by
 							verbatim_locality,
-							verbatim_date
+							verbatim_date,
+							began_date,
+							ended_date
 					</cfquery>
 					<cfloop query="event">
+						<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
+							<cfset thisDate = began_date>
+						<cfelseif (
+									(verbatim_date is not began_date) OR
+						 			(verbatim_date is not ended_date)
+								)
+								AND
+								began_date is ended_date>
+								<cfset thisDate = "#verbatim_date# (#began_date#)">
+						<cfelse>
+								<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
+						</cfif>
 						<div class="event">
-							#verbatim_locality# #verbatim_date#
+							#verbatim_locality# #thisDate#
 						</div>
 					</cfloop>
 				</cfloop>
