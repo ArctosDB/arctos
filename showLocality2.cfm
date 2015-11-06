@@ -25,12 +25,14 @@
 	}
 	.locality {
 		border:1px solid black;
+		padding-left:1em;
 	}
 	.mapgohere {
 		border:1px solid black;
 	}
 	.event {
 		border:1px solid black;
+		padding-left:2em;
 	}
 
 </style>
