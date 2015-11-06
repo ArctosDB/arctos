@@ -141,22 +141,41 @@ jQuery(document).ready(function() {
 	<cfset x=util.CSVToQuery(fileContent)>
     <cfset cols=x.columnlist>
 	<cftransaction>
-    <cfloop query="x">
-		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into cf_temp_move_container (#cols#) values (
-			<cfloop list="#cols#" index="i">
-				'#stripQuotes(evaluate(i))#'
-				<cfif i is not listlast(cols)>
-					,
-				</cfif>
-			</cfloop>
-			)
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cf_temp_move_container
 		</cfquery>
-	</cfloop>
+
+	    <cfloop query="x">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into cf_temp_move_container (#cols#) values (
+				<cfloop list="#cols#" index="i">
+					'#stripQuotes(evaluate(i))#'
+					<cfif i is not listlast(cols)>
+						,
+					</cfif>
+				</cfloop>
+				)
+			</cfquery>
+		</cfloop>
 	</cftransaction>
 	<p>
 		Loaded - <a href="batchScan.cfm?action=saveCSV">proceed to save</a>
 	</p>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_move_container
+	</cfquery>
+	<table border>
+		<tr>
+			<th>barcode</th>
+			<th>parent_barcode</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#barcode#</td>
+				<td>#parent_barcode#</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfif>
 
 <cfif action is "saveCSV">
