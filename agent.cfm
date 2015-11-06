@@ -79,7 +79,7 @@
 				agent_name
 			where
 				agent.agent_id=agent_name.agent_id (+) and
-				agent.agent_id=#agent_id#
+				agent.agent_id=#val(agent_id)#
 			order by agent_name
 		</cfquery>
 
