@@ -391,7 +391,7 @@ i am checkrequest
 <br>before inp
 
 	<!--- check these every time, even if there's no error ---->
-	<cfset x="script">
+	<cfset x="script,<!--">
 	<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
 		<cfif listfindnocase(x,i)>
 			<cfset bl_reason='URL contains #i#'>
