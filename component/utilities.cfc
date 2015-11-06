@@ -440,6 +440,7 @@ i am checkrequest
 			<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
 				<cfif listfindnocase(x,i)>
 					<cfset bl_reason='URL contains #i#'>
+					<p>#i#</p>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
