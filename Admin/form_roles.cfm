@@ -4,7 +4,7 @@
 <cfdirectory action="LIST"
     	directory="#Application.webDirectory#"
         name="root"
-		recurse="yes">
+		recurse="no">
 
 
 		<cfdump var=#root#>
