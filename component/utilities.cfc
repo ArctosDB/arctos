@@ -386,6 +386,9 @@ i am checkrequest
 		Performance is unimportant here; this is going to end with an error
 	 ------>
 
+
+
+<br>before inp
 	<cfif isdefined("inp")>
 
 	<br>found inp
