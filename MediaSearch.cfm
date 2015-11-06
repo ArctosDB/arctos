@@ -314,7 +314,6 @@
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
 			<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">
 			<cfif isdefined ("related_primary_key#n#")>
-				here we are....
 				<cfset thisKey=evaluate("related_primary_key" & n)>
 				<cfset srch="#srch# AND media_relations#n#.related_primary_key = #val(thisKey)#">
 			</cfif>
@@ -548,7 +547,7 @@
 			<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 		</cfif>
 		<cfif isdefined("media_id") and len(media_id) gt 0>
-			<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
+			<cfset whr="#whr# AND media_flat.media_id in (#val(media_id)#)">
 			<cfset mapurl="#mapurl#&media_id=#media_id#">
 		</cfif>
 		<cfif (isdefined("media_label") and len(media_label) gt 0) or (isdefined("label_value") and len(label_value) gt 0)>
