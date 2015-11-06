@@ -112,20 +112,22 @@
 	<cfoutput>
 		<cf_findLocality type="event">
 		<cfquery name="geog" dbtype="query">
-			select distinct higher_geog from localityResults order by higher_geog
+			select distinct higher_geog, geog_auth_rec_id from localityResults order by higher_geog
 		</cfquery>
 		<cfloop query="geog">
 			<br>#higher_geog#
 			<cfquery name="locality" dbtype="query">
 				select
+					locality_id,
 					spec_locality,
 					dec_lat,
 					dec_long
 				from
 					localityResults
 				where
-					higher_geog='#escapeQuotes(higher_geog)#'
+					geog_auth_rec_id='#val(geog_auth_rec_id)#'
 				group by
+					locality_id,
 					spec_locality,
 					dec_lat,
 					dec_long
@@ -135,7 +137,25 @@
 					dec_long
 			</cfquery>
 			<cfloop query="locality">
-				<br>#spec_locality# #dec_lat# #dec_long#
+				<br>*#spec_locality# #dec_lat# #dec_long#
+				<cfquery name="event" dbtype="query">
+					select
+						verbatim_locality,
+						verbatim_date
+					from
+						localityResults
+					where
+						locality_id=#val(locality_id)#
+					group by
+						verbatim_locality,
+						verbatim_date
+					order by
+						verbatim_locality,
+						verbatim_date
+				</cfquery>
+				<cfloop query="event">
+					<br>**#verbatim_locality# #verbatim_date#
+				</cfloop>
 			</cfloop>
 		</cfloop>
 
