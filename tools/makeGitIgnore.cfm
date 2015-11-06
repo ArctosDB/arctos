@@ -5,7 +5,7 @@
 	<cfquery  name="coll" datasource="cf_dbuser">
 		select lower(portal_name) pname from cf_collection where PUBLIC_PORTAL_FG = 1 and portal_name is not null order by lower(portal_name)
 	</cfquery>
-	<cfset colnFldrs="##portals," & valuelist(coll.pname)>
+	<cfset colnFldrs="#chr(10)###portals," & valuelist(coll.pname)>
 	<cfset allIgnore="">
 	<cfset allIgnore=listappend(allIgnore,ignorefiles)>
 	<cfset allIgnore=listappend(allIgnore,ignorefolders)>
