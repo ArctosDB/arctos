@@ -238,11 +238,13 @@
 <!------------------------------------------------------------------------------------>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
+
+	<!---
+
 	<cfif session.roles contains "coldfusion_user">
        <!---- never blacklist "us" ---->
        <cfreturn true>
     </cfif>
-	<!---
 		first check if they're already blacklisted
 		If they are, just include the notification/form and abort
 	---->
