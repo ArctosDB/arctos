@@ -69,13 +69,14 @@ jQuery(document).ready(function() {
 			<br>
 			<cfif mode is "tab">
 				<a href="batchScan.cfm?mode=csv">
-					CSV mode
+					CSV Paste mode
 				</a>
 			<cfelse>
 				<a href="batchScan.cfm?mode=tab">
 				    TAB mode
 				</a>
 			</cfif>
+			<br><a href="batchScan.cfm?action=loadCSV">Upload CSV file</a>
 			<hr>
             <label for="parent_barcode">
                 Parent Barcode
@@ -105,6 +106,82 @@ jQuery(document).ready(function() {
 		</form>
 	</cfoutput>
 </cfif>
+<!------------------------------------------------------------------------------->
+<cfif action is "loadCSV">
+	<!----
+
+		create table cf_temp_move_container (
+			barcode varchar2(255),
+			parent_barcode  varchar2(255)
+		);
+
+		create public synonym cf_temp_move_container for cf_temp_move_container;
+		grant all on cf_temp_move_container to manage_container;
+
+		create unique index ix_u_cf_temp_move_container_bc on cf_temp_move_container (barcode) tablespace uam_idx_1;
+
+		create unique index ix_u_cf_temp_move_ctr_bcpc on cf_temp_move_container (barcode,parent_barcode) tablespace uam_idx_1;
+	---->
+	Upload CSV with two columns:
+	<ul>
+		<li>barcode</li>
+		<li>parent_barcode</li>
+	</ul>
+	<form name="getFile" method="post" action="batchScan.cfm" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="loadCSV">
+		 <input type="file"
+			   name="FiletoUpload"
+			   size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</form>
+</cfif>
+<cfif action is "loadCSV">
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+    <cfset  util = CreateObject("component","component.utilities")>
+	<cfset x=util.CSVToQuery(fileContent)>
+    <cfset cols=x.columnlist>
+	<cftransaction>
+    <cfloop query="x">
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into cf_temp_move_container (#cols#) values (
+			<cfloop list="#cols#" index="i">
+				'#stripQuotes(evaluate(i))#'
+				<cfif i is not listlast(cols)>
+					,
+				</cfif>
+			</cfloop>
+			)
+		</cfquery>
+	</cfloop>
+	</cftransaction>
+	<p>
+		Loaded - <a href="batchScan.cfm?action=saveCSV">proceed to save</a>
+	</p>
+</cfif>
+
+<cfif action is "saveCSV">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_move_container
+	</cfquery>
+	<cfloop query="d">
+		<cftransaction>
+			<cfstoredproc
+				datasource="user_login"
+				username="#session.dbuser#"
+				password="#decrypt(session.epw,session.sessionKey)#"
+				procedure="moveContainerByBarcode">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#barcode#">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_barcode#">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="">
+			</cfstoredproc>
+		</cftransaction>
+	</cfloop>
+	<p>
+		Success: All changes saved to DB
+	</p>
+</cfif>
+
 <!------------------------------------------------------------------------------->
 <cfif action is "save">
 	<cfoutput>

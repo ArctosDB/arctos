@@ -3489,6 +3489,24 @@
 	<cfoutput>
 	<cftry>
 		<cftransaction>
+			<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#part_id#"><!---- v_collection_object_id ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_barcode#"><!---- v_barcode ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#new_container_type#"><!---- v_parent_container_type ---->
+			</cfstoredproc>
+			<cfif len(part_id2) gt 0>
+				<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#part_id2#"><!---- v_collection_object_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_barcode#"><!---- v_barcode ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_container_type#"><!---- v_parent_container_type ---->
+				</cfstoredproc>
+			</cfif>
+
+
+		<!----
+
 			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select container_id from container where container_type <> 'collection object'
 				and barcode='#parent_barcode#'
@@ -3520,6 +3538,7 @@
 					container_id=#cont2.container_id#
 				</cfquery>
 			</cfif>
+			---->
 		</cftransaction>
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select

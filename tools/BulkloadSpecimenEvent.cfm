@@ -467,13 +467,13 @@ Upload CSV:
 	</table>
 
 	Upload CSV:
-	<cfform name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
+	<form name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="getFileData">
 		 <input type="file"
 			   name="FiletoUpload"
 			   size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
-	</cfform>
+	</form>
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "getCSV">
