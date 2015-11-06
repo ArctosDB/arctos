@@ -169,7 +169,7 @@
 			(isdefined("cited_sci_Name") AND len(cited_sci_Name) gt 0) or
 			(isdefined("current_sci_Name") AND len(current_sci_Name) gt 0) or
 			(isdefined("is_peer_reviewed_fg") AND len(is_peer_reviewed_fg) gt 0 or
-			(isdefined("publication_remarks") AND len(publication_remarks) gt 0))			
+			(isdefined("publication_remarks") AND len(publication_remarks) gt 0))
 			>
 			<cfset whr = "#whr# AND 1=2">
 			<cfset go="yes">
@@ -179,12 +179,12 @@
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project_agent.project_agent_role='#agent_role#'">
 		</cfif>
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
 			<cfset title = "#p_title#">
 			<cfset go="yes">
@@ -291,7 +291,8 @@
 			publication.doi,
 			publication.pmid,
 			count(distinct(citation.collection_object_id)) numCits,
-			taxon_name.scientific_name">
+			taxon_name.scientific_name,
+			count(distinct(identification.identification_id)) numSensu">
 		<cfset basFrom = "
 			FROM
 			publication,
@@ -317,9 +318,9 @@
 			<cfset go="yes">
 			<cfif left(publication_remarks,1) is "!">
 				<cfset basWhere = "#basWhere# AND (
-					publication.publication_remarks is null or 
-					upper(publication.publication_remarks) not like 
-						'%#escapeQuotes(ucase(right(publication_remarks,len(publication_remarks)-1)))#%') 
+					publication.publication_remarks is null or
+					upper(publication.publication_remarks) not like
+						'%#escapeQuotes(ucase(right(publication_remarks,len(publication_remarks)-1)))#%')
 				">
 			<cfelse>
 				<cfset basWhere = "#basWhere# AND upper(publication.publication_remarks) like '%#escapeQuotes(ucase(publication_remarks))#%' ">
@@ -421,7 +422,8 @@
 				publication.doi,
 				publication.pmid,
 				taxon_name.scientific_name,
-				publication.publication_remarks
+				publication.publication_remarks,
+				count(distinct(identification.identification_id))
 			ORDER BY
 				publication.full_citation,
 				publication.publication_id">
@@ -516,6 +518,7 @@
 				publication_type,
 				full_citation,
 				numCits,
+				numSensu,
 				doi,
 				pmid,
 				publication_remarks
@@ -526,6 +529,7 @@
 				publication_type,
 				full_citation,
 				numCits,
+				numSensu,
 				doi,
 				pmid,
 				publication_remarks
@@ -546,6 +550,8 @@
 							No Citations
 						</cfif>
 					</li>
+
+					numSensu: #numSensu#
 					<cfif len(doi) gt 0>
 						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 					<cfelse>
