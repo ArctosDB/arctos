@@ -5,26 +5,14 @@
 
 
 <cfquery  name="coll" datasource="cf_dbuser">
-	select * from cf_collection where PUBLIC_PORTAL_FG = 1
+	select lower(portal_name) pname from cf_collection where PUBLIC_PORTAL_FG = 1 and portal_name is not null
 </cfquery>
-<cfdump var="#coll#">
+<cfset colnFldrs=valuelist(coll.pname)>
 
-<!----
-	<cfloop query="coll">
-		<cfif len(portal_name) gt 0>
-			<cfset coll_dir_name = "#lcase(portal_name)#">
-			<cfset cDir = "#Application.webDirectory#/#coll_dir_name#">
-			<cfif NOT DirectoryExists("#cDir#")>
-				<cfdirectory action = "create" directory = "#cDir#" >
-			</cfif>
-			<!--- just rebuild guts --->
-			<cfset fc = '<cfinclude template="/includes/functionLib.cfm">
-				<cfset setDbUser(#cf_collection_id#)>
-				<cflocation url="/SpecimenSearch.cfm" addtoken="false">'>
-			<cffile action="write" file="#cDir#/index.cfm" nameconflict="overwrite" output="#fc#">
-		</cfif>
-	</cfloop>
-	---->
+
+<cfdump var=#colnFldrs#>
+
+
 </cfoutput>
 
 
