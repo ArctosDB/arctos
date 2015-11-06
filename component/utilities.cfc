@@ -392,6 +392,8 @@ i am checkrequest
 
 	<!--- check these every time, even if there's no error ---->
 	<cfset x="script,<!--">
+
+	<cfoutput>
 	<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
 		<cfif listfindnocase(x,i)>
 			<cfset bl_reason='URL contains #i#'>
@@ -400,7 +402,7 @@ i am checkrequest
 			<cfabort>
 		</cfif>
 	</cfloop>
-
+</cfoutput>
 	<cfif isdefined("inp")>
 
 	<br>found inp
