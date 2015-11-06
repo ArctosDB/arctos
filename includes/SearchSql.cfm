@@ -228,6 +228,13 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND identification_taxonomy.taxon_name_id=#anyTaxId#">
 </cfif>
+<cfif isdefined("id_pub_id") AND len(id_pub_id) gt 0>
+	<cfset mapurl = "#mapurl#&id_pub_id=#id_pub_id#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND identification.publication_id=#val(id_pub_id)#">
+</cfif>
 <cfif isdefined("cited_taxon_name_id") AND len(cited_taxon_name_id) gt 0>
 	<cfif basJoin does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">
@@ -947,7 +954,6 @@
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 	</cfif>
-
 	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "currentID">
 		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 	</cfif>
