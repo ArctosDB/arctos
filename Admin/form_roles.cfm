@@ -97,6 +97,8 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 		<cfset sPos=RFind("/",filter)>
 		<cfset path=left(filter,sPos)>
 		<cfset ff=mid(filter,sPos+1,len(filter)-sPos+1)>
+	<cfelse>
+		<cfset ff=filter>
 	</cfif>
 
 	#Application.webDirectory#
