@@ -213,7 +213,7 @@
 			where
 				collector.collection_object_id = cataloged_item.collection_object_id AND
 				cataloged_item.collection_id = collection.collection_id AND
-				agent_id=##val(agent_id)# and
+				agent_id=#val(agent_id)# and
 				cataloged_item.collection_object_id not in (
 					select coll_object_encumbrance.collection_object_id from
 						coll_object_encumbrance,
