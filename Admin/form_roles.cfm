@@ -91,6 +91,8 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 	</cfquery>
 	<cfset path="">
 	<cfset ff=filter>
+
+	filter: #filter#
 	<cfif filter contains "/">
 		<cfset sPos=RFind("/",filter)>
 		<cfset path=left(filter,sPos)>
