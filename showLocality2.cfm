@@ -108,7 +108,7 @@
 	<cfset showLocality=1>
 	<cfset showEvent=1>
 	<strong>Find Localities</strong>
-    <form name="getCol" method="post" action="showLocality2.cfm">
+    <form name="getCol" method="get" action="showLocality2.cfm">
 		<input type="hidden" name="action" value="srch">
 		<cfinclude template="/includes/frmFindLocation_guts.cfm">
     </form>
@@ -175,7 +175,7 @@
 						<cfif len(dec_lat) gt 0>
 							<div class="mapgohere" id="mapgohere-locality_id-#locality_id#">
 								<img src="/images/indicator.gif"> [#dec_lat#/#dec_long#]
-							</div
+							</div>
 						</cfif>
 					</div>
 					<cfquery name="event" dbtype="query">
@@ -202,6 +202,8 @@
 			</div>
 		</cfloop>
 
+
+afterloop
 		<!------------
 
 
