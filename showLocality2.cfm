@@ -126,7 +126,7 @@
 				from
 					localityResults
 				where
-					geog_auth_rec_id='#val(geog_auth_rec_id)#'
+					geog_auth_rec_id=#val(geog_auth_rec_id)#
 				group by
 					locality_id,
 					spec_locality,
