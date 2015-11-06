@@ -389,6 +389,18 @@ i am checkrequest
 
 
 <br>before inp
+
+	<!--- check these every time, even if there's no error ---->
+	<cfset x="script">
+	<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
+		<cfif listfindnocase(x,i)>
+			<cfset bl_reason='URL contains #i#'>
+			<p>#i#</p>
+			<cfinclude template="/errors/autoblacklist.cfm">
+			<cfabort>
+		</cfif>
+	</cfloop>
+
 	<cfif isdefined("inp")>
 
 	<br>found inp
