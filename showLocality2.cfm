@@ -1,6 +1,7 @@
 <cfinclude template="includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <style>
+
 	.higher_geog {
 		border:1px solid green;
 		margin:1em;
@@ -13,23 +14,25 @@
 	}
 	.locality {
 		 display: table-row;
+		width:100%;
 	}
 	.localityData{
 		display: table-cell;
 		vertical-align: top;
 		padding:.5em;
+		width:80%;
 	}
 	.mapgohere {
 		vertical-align: top;
 		display: table-cell;
-		padding-left:1em;
-		border:2px solid red;
+		width:20%;
 	}
 	.event {
 		border:1px solid blue;
 		margin:1em;
 		padding:1em;
 	}
+
 </style>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
