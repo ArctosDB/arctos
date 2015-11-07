@@ -28,10 +28,16 @@
 		border:1px solid black;
 		padding-left:1em;
 		width:50%;
+		 display: table;
 	}
 	.mapgohere {
 		border:1px solid black;
 		margin-left:100%;
+		display: table-cell;
+	}
+	.localityData{
+	display: table-cell;
+
 	}
 	.event {
 		border:1px solid black;
@@ -223,6 +229,7 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 				</cfquery>
 				<cfloop query="locality">
 					<div class="locality">
+						<div class="localityData">
 						Specific Locality: #spec_locality#
 						<cfif len(DEPTH_UNITS) gt 0>
 							<br>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#
@@ -274,7 +281,7 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 								#locSpec.c# Specimen Records
 							</a>
 						</cfif>
-
+						</div>
 						<cfif len(dec_lat) gt 0>
 							<div class="mapgohere" id="mapgohere-locality_id-#locality_id#">
 								<img src="/images/indicator.gif"> [#dec_lat#/#dec_long#]
