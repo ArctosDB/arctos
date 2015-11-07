@@ -225,28 +225,28 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 					<div class="locality">
 						Specific Locality: #spec_locality#
 						<cfif len(DEPTH_UNITS) gt 0>
-							Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#
+							<br>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#
 						</cfif>
 						<cfif len(ORIG_ELEV_UNITS) gt 0>
-							Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#
+							<br>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#
 						</cfif>
 						<cfif len(MAX_ERROR_UNITS) gt 0>
-							Coordinate Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+							<br>Coordinate Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
 						</cfif>
 						<cfif len(GEOREFERENCE_PROTOCOL) gt 0>
-							Georeference Protocol: #GEOREFERENCE_PROTOCOL#
+							<br>Georeference Protocol: #GEOREFERENCE_PROTOCOL#
 						</cfif>
 						<cfif len(GEOREFERENCE_SOURCE) gt 0>
-							Georeference Source: #GEOREFERENCE_SOURCE#
+							<br>Georeference Source: #GEOREFERENCE_SOURCE#
 						</cfif>
 						<cfif len(LOCALITY_NAME) gt 0>
-							Locality Name: #LOCALITY_NAME#
+							<br>Locality Name: #LOCALITY_NAME#
 						</cfif>
 						<cfif len(LOCALITY_REMARKS) gt 0>
-							Locality Remarks: #LOCALITY_REMARKS#
+							<br>Locality Remarks: #LOCALITY_REMARKS#
 						</cfif>
 						<cfif len(GEOLATTS) gt 0>
-							Geology Attribues: #GEOLATTS#
+							<br>Geology Attribues: #GEOLATTS#
 						</cfif>
 						<cfquery name="locmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 							select count(*) c from media_relations where related_primary_key=#val(locality_id)# and
