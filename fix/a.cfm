@@ -2,14 +2,8 @@
 <script src="/includes/sorttable.js"></script>
 <style>
 
-	.higher_geog {
-		border:1px solid black;
-		display:table;
-	}
-	.searchterm {
-		border:1px solid black;
-		font-size:small;
-	}
+
+
 	.localityevent {
 		display:table-row;
 	}
@@ -38,12 +32,42 @@
 		display:table-row;
 	}
 
+
+
+
+	.tcontainer {
+		display:table;
+	}
+	.trow {
+		display:table-row;
+	}
+	.higher_geog {
+		border:1px solid black;
+		display:table-cell;
+	}
+	.searchterm {
+		border:1px solid black;
+		font-size:small;
+	}
+
 </style>
-<div class="higher_geog">
-	Higher Geography:
-	<div class="searchterm">
-		SEARCH_TERM
-	</div><!---- /searchterm ---->
+<div class="tcontainer">
+	<div class="trow">
+		<div class="higher_geog">
+			Higher Geography:
+			<div class="searchterm">
+				SEARCH_TERM
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<hr>
+
+
+
+	<!---- /searchterm ---->
 	<div class="localityevent">
 		<div class="locality">
 			<div class="localityData">
