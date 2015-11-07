@@ -4,10 +4,14 @@
 
 	.higher_geog {
 		border:1px solid black;
+		display:table;
 	}
 	.searchterm {
 		border:1px solid black;
 		font-size:small;
+	}
+	.localityevent {
+		display:table-row;
 	}
 
 	.locality {
@@ -31,6 +35,7 @@
 		border:1px solid black;
 		padding-left:2em;
 		border-left:2em solid lightblue;
+		display:table-row;
 	}
 
 </style>
@@ -39,15 +44,17 @@
 	<div class="searchterm">
 		SEARCH_TERM
 	</div><!---- /searchterm ---->
-	<div class="locality">
-		<div class="localityData">
-			locality data
-		</div>
-		<div class="mapgohere">
-			ima map
-		</div>
-		<div class="event">
-			events
+	<div class="localityevent">
+		<div class="locality">
+			<div class="localityData">
+				locality data
+			</div>
+			<div class="mapgohere">
+				ima map
+			</div>
+			<div class="event">
+				events
+			</div>
 		</div>
 	</div>
 </div>
