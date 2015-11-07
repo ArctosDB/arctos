@@ -2,28 +2,44 @@
 <script src="/includes/sorttable.js"></script>
 <style>
 
-.tcontainer {
-		border-bottom:1px solid black;
+	.locstack {
+		border:1px solid black;
+		margin:1em;
 	}
 	.trow {
 	}
-	.higher_geog {
-	}
+
 	.searchterm {
 		font-size:small;
 		padding-left:1em;
 		border-left:.2em solid lightgray;
 	}
+
+
+
+
+
+
+
+
+
+	.higher_geog {
+		border:1px solid green;
+		margin:1em;
+		padding:1em;
+	}
+	.eventloc {
+		border:1px solid red;
+		margin:1em;
+		padding:1em;
+	}
 	.locality {
 		 display: table-row;
-
 	}
 	.localityData{
 		display: table-cell;
 		vertical-align: top;
 		padding:.5em;
-		border-left:1em solid lightgray;
-
 	}
 	.mapgohere {
 		vertical-align: top;
@@ -32,33 +48,34 @@
 		border:2px solid red;
 	}
 	.event {
-		padding-left:.5em;
-		border-left:2em solid lightgray;
-		padding:.5em;
+		border:1px solid blue;
+		margin:1em;
+		padding:1em;
 	}
-
 </style>
-<div class="tcontainer">
 	<div class="higher_geog">
 		Higher Geography:
 		<div class="searchterm">
 			SEARCH_TERM
 		</div>
-	</div>
-	<div class="locality">
-		<div class="localityData">
-			locality data
-		</div>
-		<div class="mapgohere">
-			ima map
-		</div>
+		<div class="eventloc">
+			<div class="locality">
+				<div class="localityData">
+					locality data
+				</div>
+				<div class="mapgohere">
+					ima map
+				</div>
+			</div>
 			<div class="event">
-		events bla bla bla long bla
-	</div>
+				events bla bla bla long bla
+			</div>
+		</div>
+
 	</div>
 
 
-</div>
+
 
 <hr>
 
