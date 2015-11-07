@@ -1,19 +1,18 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <style>
+
 .tcontainer {
-		display:table;
-		border:1px solid black;
+		border-bottom:1px solid black;
 	}
 	.trow {
-		display:table-row;
 	}
 	.higher_geog {
-		display:table-cell;
 	}
 	.searchterm {
 		font-size:small;
 		padding-left:1em;
+		border-left:.2em solid lightgray;
 	}
 	.locality {
 		 display: table-row;
@@ -33,20 +32,17 @@
 		border:2px solid red;
 	}
 	.event {
-		border:1px solid black;
 		padding-left:.5em;
-		border-left:4em solid lightblue;
-		display:table-cell;
+		border-left:2em solid lightgray;
 		padding:.5em;
 	}
+
 </style>
 <div class="tcontainer">
-	<div class="trow">
-		<div class="higher_geog">
-			Higher Geography:
-			<div class="searchterm">
-				SEARCH_TERM
-			</div>
+	<div class="higher_geog">
+		Higher Geography:
+		<div class="searchterm">
+			SEARCH_TERM
 		</div>
 	</div>
 	<div class="locality">
@@ -57,10 +53,8 @@
 			ima map
 		</div>
 	</div>
-	<div class="trow">
-		<div class="event">
-			events bla bla bla long bla
-		</div>
+	<div class="event">
+		events bla bla bla long bla
 	</div>
 
 </div>
