@@ -180,7 +180,15 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 						locality_id,
 						spec_locality,
 						dec_lat,
-						dec_long
+						dec_long,
+						DEPTH_UNITS,
+						ORIG_ELEV_UNITS,
+						MAX_ERROR_UNITS,
+						GEOREFERENCE_PROTOCOL,
+						GEOREFERENCE_SOURCE,
+						LOCALITY_NAME,
+						LOCALITY_REMARKS,
+						GEOLATTS
 					from
 						localityResults
 					where
@@ -189,7 +197,15 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 						locality_id,
 						spec_locality,
 						dec_lat,
-						dec_long
+						dec_long,
+						DEPTH_UNITS,
+						ORIG_ELEV_UNITS,
+						MAX_ERROR_UNITS,
+						GEOREFERENCE_PROTOCOL,
+						GEOREFERENCE_SOURCE,
+						LOCALITY_NAME,
+						LOCALITY_REMARKS,
+						GEOLATTS
 					order by
 						spec_locality,
 						dec_lat,
