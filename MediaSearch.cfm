@@ -452,7 +452,7 @@
 			<cfset tabls = "#tabls#,media_relations mr_locality">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_locality.media_id ">
 			<cfset srch="#srch# AND mr_locality.media_relationship like '% locality' and mr_locality.related_primary_key = #val(locality_id)#">
-			<cfset mapurl="#mapurl#&accn_id=#accn_id#">
+			<cfset mapurl="#mapurl#&locality_id=#locality_id#">
 		</cfif>
 
 
