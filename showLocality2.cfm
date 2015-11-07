@@ -197,14 +197,16 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 				</cfquery>
 				<cfloop query="locality">
 					<div class="locality">
-						#spec_locality#
+						Specific Locality: #spec_locality#
 
 						<cfquery name="locmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 							select count(*) c from media_relations where related_primary_key=#val(locality_id)# and
 							media_relationship like '% locality'
 						</cfquery>
 						<cfif locMedia.c gt 0>
-							media stuff....
+							<a href="MediaSearch.cfm?action=search&locality_id=#locality_id#">
+								#locmedia.c# Media Records
+							</a>
 						</cfif>
 						<cfquery name="locSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 							select

@@ -448,6 +448,14 @@
 			<cfset srch="#srch# AND mr_accn.media_relationship like '% accn' and mr_accn.related_primary_key = #accn_id#">
 			<cfset mapurl="#mapurl#&accn_id=#accn_id#">
 		</cfif>
+		<cfif (isdefined("locality_id") and len(locality_id) gt 0)>
+			<cfset tabls = "#tabls#,media_relations mr_locality">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_locality.media_id ">
+			<cfset srch="#srch# AND mr_locality.media_relationship like '% locality' and mr_locality.related_primary_key = #val(locality_id)#">
+			<cfset mapurl="#mapurl#&accn_id=#accn_id#">
+		</cfif>
+
+
 		<cfif (isdefined("specimen_accn_id") and len(specimen_accn_id) gt 0)>
 			<cfset tabls = "#tabls#,media_relations mr_sp_accn, cataloged_item mr_accn_ci">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_sp_accn.media_id AND
