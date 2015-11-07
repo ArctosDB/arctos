@@ -22,6 +22,7 @@
 	}
 	.searchterm {
 		border:1px solid black;
+		font-size:small;
 	}
 	.locality {
 		border:1px solid black;
@@ -164,8 +165,8 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 					<cfif SOURCE_AUTHORITY contains "http">
 						<a class="infoLink external" target="_blank" href="#SOURCE_AUTHORITY#">[ #SOURCE_AUTHORITY# ]</a>
 					</cfif>
-					 cachedwithin="#createtimespan(0,0,60,0)#"
-					<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+					<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 						select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#val(geog_auth_rec_id)# order by SEARCH_TERM
 					</cfquery>
 					<cfloop query="searchterm">
@@ -197,6 +198,28 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 				<cfloop query="locality">
 					<div class="locality">
 						#spec_locality#
+
+						<cfquery name="locmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							select count(*) c from media_relations where related_primary_key=#val(locality_id)# and
+							media_relationship like '% locality'
+						</cfquery>
+						<cfif locMedia.c gt 0>
+							media stuff....
+						</cfif>
+						<cfquery name="locSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							select
+								count(*) c
+							from
+								specimen_event,
+								collecting_event
+							where
+								specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+								collecting_event.locality_id=#val(locality_id)#
+						</cfquery>
+						<cfif locSpec.c gt 0>
+							specimens stuff....
+						</cfif>
+
 						<cfif len(dec_lat) gt 0>
 							<div class="mapgohere" id="mapgohere-locality_id-#locality_id#">
 								<img src="/images/indicator.gif"> [#dec_lat#/#dec_long#]
