@@ -5,8 +5,7 @@
 	.tcontainer {
 		border-bottom:1px solid black;
 	}
-	.trow {
-	}
+
 	.higher_geog {
 	}
 	.searchterm {

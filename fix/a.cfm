@@ -52,10 +52,11 @@
 		<div class="mapgohere">
 			ima map
 		</div>
-	</div>
-	<div class="event">
+			<div class="event">
 		events bla bla bla long bla
 	</div>
+	</div>
+
 
 </div>
 
