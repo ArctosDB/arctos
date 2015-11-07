@@ -198,7 +198,30 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 				<cfloop query="locality">
 					<div class="locality">
 						Specific Locality: #spec_locality#
-
+						<cfif len(DEPTH_UNITS) gt 0>
+							Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#
+						</cfif>
+						<cfif len(ORIG_ELEV_UNITS) gt 0>
+							Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#
+						</cfif>
+						<cfif len(MAX_ERROR_UNITS) gt 0>
+							Coordinate Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+						</cfif>
+						<cfif len(GEOREFERENCE_PROTOCOL) gt 0>
+							Georeference Protocol: #GEOREFERENCE_PROTOCOL#
+						</cfif>
+						<cfif len(GEOREFERENCE_SOURCE) gt 0>
+							Georeference Source: #GEOREFERENCE_SOURCE#
+						</cfif>
+						<cfif len(LOCALITY_NAME) gt 0>
+							Locality Name: #LOCALITY_NAME#
+						</cfif>
+						<cfif len(LOCALITY_REMARKS) gt 0>
+							Locality Remarks: #LOCALITY_REMARKS#
+						</cfif>
+						<cfif len(GEOLATTS) gt 0>
+							Geology Attribues: #GEOLATTS#
+						</cfif>
 						<cfquery name="locmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 							select count(*) c from media_relations where related_primary_key=#val(locality_id)# and
 							media_relationship like '% locality'
@@ -220,6 +243,7 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 								collecting_event.locality_id=#val(locality_id)#
 						</cfquery>
 						<cfif locSpec.c gt 0>
+							<br>
 							<a href="SpecimenResults.cfm?locality_id=#locality_id#">
 								#locSpec.c# Specimen Records
 							</a>
