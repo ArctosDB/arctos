@@ -59,7 +59,7 @@
 	</div>
 	<div class="trow">
 		<div class="event">
-			events
+			events bla bla bla long bla
 		</div>
 	</div>
 
