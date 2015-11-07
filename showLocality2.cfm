@@ -26,10 +26,10 @@
 	}
 
 	.locality {
-		border:1px solid black;
 		padding-left:1em;
 		width:100%;
 		 display: table;
+		border-left:1em solid lightgray;
 	}
 	.mapgohere {
 		vertical-align: top;
@@ -45,6 +45,7 @@
 	.event {
 		border:1px solid black;
 		padding-left:2em;
+		border-left:2em solid lightblue;
 	}
 
 </style>
@@ -293,6 +294,8 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 					</div>
 					<cfquery name="event" dbtype="query">
 						select
+							COLLECTING_EVENT_ID,
+							COLLECTING_EVENT_NAME,
 							verbatim_locality,
 							verbatim_date,
 							began_date,
@@ -302,6 +305,8 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 						where
 							locality_id=#val(locality_id)#
 						group by
+							COLLECTING_EVENT_ID,
+							COLLECTING_EVENT_NAME,
 							verbatim_locality,
 							verbatim_date,
 							began_date,
@@ -312,6 +317,9 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 							began_date,
 							ended_date
 					</cfquery>
+
+
+
 					<cfloop query="event">
 						<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
 							<cfset thisDate = began_date>
@@ -326,7 +334,38 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 								<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 						</cfif>
 						<div class="event">
-							#verbatim_locality# #thisDate#
+							Verbatim Locality: #verbatim_locality#
+							<br>Date: #thisDate#
+							<cfif len(COLLECTING_EVENT_NAME) gt 0>
+								<br>Event Name: #COLLECTING_EVENT_NAME#
+							</cfif>
+							<cfquery name="eventmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+								select count(*) c from media_relations where related_primary_key=#val(COLLECTING_EVENT_ID)# and
+								media_relationship like '% collecting_event'
+							</cfquery>
+							<cfif eventmedia.c gt 0>
+								<br>
+								<a href="MediaSearch.cfm?action=search&specimen_collecting_event_id=#COLLECTING_EVENT_ID#">
+									#eventmedia.c# Media Records
+								</a>
+							</cfif>
+							<cfquery name="eventSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+								select
+									count(*) c
+								from
+									specimen_event
+								where
+									specimen_event.collecting_event_id=#val(COLLECTING_EVENT_ID)#
+							</cfquery>
+							<cfif eventSpec.c gt 0>
+								<br>
+								<a href="SpecimenResults.cfm?COLLECTING_EVENT_ID=#COLLECTING_EVENT_ID#">
+									#eventSpec.c# Specimen Records
+								</a>
+							</cfif>
+
+
+
 						</div>
 					</cfloop>
 				</cfloop>
