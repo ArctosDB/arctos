@@ -204,6 +204,7 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 							media_relationship like '% locality'
 						</cfquery>
 						<cfif locMedia.c gt 0>
+							<br>
 							<a href="MediaSearch.cfm?action=search&locality_id=#locality_id#">
 								#locmedia.c# Media Records
 							</a>
@@ -219,7 +220,9 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 								collecting_event.locality_id=#val(locality_id)#
 						</cfquery>
 						<cfif locSpec.c gt 0>
-							specimens stuff....
+							<a href="SpecimenResults.cfm?locality_id=#locality_id#">
+								#locSpec.c# Specimen Records
+							</a>
 						</cfif>
 
 						<cfif len(dec_lat) gt 0>
