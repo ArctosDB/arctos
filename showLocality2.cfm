@@ -24,21 +24,24 @@
 		border:1px solid black;
 		font-size:small;
 	}
+
 	.locality {
 		border:1px solid black;
 		padding-left:1em;
-		width:50%;
+		width:100%;
 		 display: table;
 	}
 	.mapgohere {
-		border:1px solid black;
-		margin-left:100%;
+		vertical-align: top;
 		display: table-cell;
 	}
 	.localityData{
-	display: table-cell;
+		display: table-cell;
+		vertical-align: top;
 
 	}
+
+
 	.event {
 		border:1px solid black;
 		padding-left:2em;
