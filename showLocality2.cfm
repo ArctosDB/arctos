@@ -168,23 +168,21 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 			select distinct higher_geog, SOURCE_AUTHORITY,geog_auth_rec_id from localityResults order by higher_geog
 		</cfquery>
 		<cfloop query="geog">
-			<div class="oneRecord">
-				<div class="higher_geog">
-					Higher Geography: #higher_geog#
-					<a class="infoLink" href="/geography.cfm?geog_auth_rec_id=#geog_auth_rec_id#">[ details ]</a>
-					<cfif SOURCE_AUTHORITY contains "http">
-						<a class="infoLink external" target="_blank" href="#SOURCE_AUTHORITY#">[ #SOURCE_AUTHORITY# ]</a>
-					</cfif>
+			<div class="higher_geog">
+				Higher Geography: #higher_geog#
+				<a class="infoLink" href="/geography.cfm?geog_auth_rec_id=#geog_auth_rec_id#">[ details ]</a>
+				<cfif SOURCE_AUTHORITY contains "http">
+					<a class="infoLink external" target="_blank" href="#SOURCE_AUTHORITY#">[ #SOURCE_AUTHORITY# ]</a>
+				</cfif>
 
-					<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-						select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#val(geog_auth_rec_id)# order by SEARCH_TERM
-					</cfquery>
-					<cfloop query="searchterm">
-						<div class="searchterm">
-							#SEARCH_TERM#
-						</div>
-					</cfloop>
-				</div>
+				<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+					select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#val(geog_auth_rec_id)# order by SEARCH_TERM
+				</cfquery>
+				<cfloop query="searchterm">
+					<div class="searchterm">
+						#SEARCH_TERM#
+					</div><!---- /searchterm ---->
+				</cfloop>
 				<cfquery name="locality" dbtype="query">
 					select
 						locality_id,
@@ -234,62 +232,62 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 				<cfloop query="locality">
 					<div class="locality">
 						<div class="localityData">
-						Specific Locality: #spec_locality#
-						<cfif len(DEPTH_UNITS) gt 0>
-							<br>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#
-						</cfif>
-						<cfif len(ORIG_ELEV_UNITS) gt 0>
-							<br>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#
-						</cfif>
-						<cfif len(MAX_ERROR_UNITS) gt 0>
-							<br>Coordinate Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
-						</cfif>
-						<cfif len(GEOREFERENCE_PROTOCOL) gt 0>
-							<br>Georeference Protocol: #GEOREFERENCE_PROTOCOL#
-						</cfif>
-						<cfif len(GEOREFERENCE_SOURCE) gt 0>
-							<br>Georeference Source: #GEOREFERENCE_SOURCE#
-						</cfif>
-						<cfif len(LOCALITY_NAME) gt 0>
-							<br>Locality Name: #LOCALITY_NAME#
-						</cfif>
-						<cfif len(LOCALITY_REMARKS) gt 0>
-							<br>Locality Remarks: #LOCALITY_REMARKS#
-						</cfif>
-						<cfif len(GEOLATTS) gt 0>
-							<br>Geology Attribues: #GEOLATTS#
-						</cfif>
-						<cfquery name="locmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-							select count(*) c from media_relations where related_primary_key=#val(locality_id)# and
-							media_relationship like '% locality'
-						</cfquery>
-						<cfif locMedia.c gt 0>
-							<br>
-							<a href="MediaSearch.cfm?action=search&locality_id=#locality_id#">
-								#locmedia.c# Media Records
-							</a>
-						</cfif>
-						<cfquery name="locSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-							select
-								count(*) c
-							from
-								specimen_event,
-								collecting_event
-							where
-								specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-								collecting_event.locality_id=#val(locality_id)#
-						</cfquery>
-						<cfif locSpec.c gt 0>
-							<br>
-							<a href="SpecimenResults.cfm?locality_id=#locality_id#">
-								#locSpec.c# Specimen Records
-							</a>
-						</cfif>
-						</div>
+							Specific Locality: #spec_locality#
+							<cfif len(DEPTH_UNITS) gt 0>
+								<br>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#
+							</cfif>
+							<cfif len(ORIG_ELEV_UNITS) gt 0>
+								<br>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#
+							</cfif>
+							<cfif len(MAX_ERROR_UNITS) gt 0>
+								<br>Coordinate Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+							</cfif>
+							<cfif len(GEOREFERENCE_PROTOCOL) gt 0>
+								<br>Georeference Protocol: #GEOREFERENCE_PROTOCOL#
+							</cfif>
+							<cfif len(GEOREFERENCE_SOURCE) gt 0>
+								<br>Georeference Source: #GEOREFERENCE_SOURCE#
+							</cfif>
+							<cfif len(LOCALITY_NAME) gt 0>
+								<br>Locality Name: #LOCALITY_NAME#
+							</cfif>
+							<cfif len(LOCALITY_REMARKS) gt 0>
+								<br>Locality Remarks: #LOCALITY_REMARKS#
+							</cfif>
+							<cfif len(GEOLATTS) gt 0>
+								<br>Geology Attribues: #GEOLATTS#
+							</cfif>
+							<cfquery name="locmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+								select count(*) c from media_relations where related_primary_key=#val(locality_id)# and
+								media_relationship like '% locality'
+							</cfquery>
+							<cfif locMedia.c gt 0>
+								<br>
+								<a href="MediaSearch.cfm?action=search&locality_id=#locality_id#">
+									#locmedia.c# Media Records
+								</a>
+							</cfif>
+							<cfquery name="locSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+								select
+									count(*) c
+								from
+									specimen_event,
+									collecting_event
+								where
+									specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+									collecting_event.locality_id=#val(locality_id)#
+							</cfquery>
+							<cfif locSpec.c gt 0>
+								<br>
+								<a href="SpecimenResults.cfm?locality_id=#locality_id#">
+									#locSpec.c# Specimen Records
+								</a>
+							</cfif>
+						</div> <!---- localityData/ ---->
 						<cfif len(dec_lat) gt 0>
 							<div class="mapgohere" id="mapgohere-locality_id-#locality_id#">
 								<img src="/images/indicator.gif"> [#dec_lat#/#dec_long#]
-							</div>
+							</div><!---- /mapgohere ---->
 						</cfif>
 						<cfquery name="event" dbtype="query">
 							select
@@ -316,21 +314,14 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 								began_date,
 								ended_date
 						</cfquery>
-
-
-
 						<cfloop query="event">
 							<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
 								<cfset thisDate = began_date>
-							<cfelseif (
-										(verbatim_date is not began_date) OR
-							 			(verbatim_date is not ended_date)
-									)
-									AND
+							<cfelseif ((verbatim_date is not began_date) OR	(verbatim_date is not ended_date)) AND
 									began_date is ended_date>
-									<cfset thisDate = "#verbatim_date# (#began_date#)">
+								<cfset thisDate = "#verbatim_date# (#began_date#)">
 							<cfelse>
-									<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
+								<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 							</cfif>
 							<div class="event">
 								Verbatim Locality: #verbatim_locality#
@@ -362,14 +353,14 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 										#eventSpec.c# Specimen Records
 									</a>
 								</cfif>
-
-
-
-							</div>
+							</div><!---- event ---->
 						</cfloop>
-					</div>
-				</cfloop>
-			</div>
+					</div><!---- /locality ---->
+				</div>
+			</cfloop>
+		</div><!---- /higher_geog ---->
+
+
 		</cfloop>
 
 
