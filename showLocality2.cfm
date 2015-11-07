@@ -1,119 +1,42 @@
 <cfinclude template="includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <style>
-	.infoPop {
-		border:3px solid green;
-		padding:.5em;
-		z-index:9999;
-		position:absolute;
-		top:5%;
-		left:5%;
-		background-color:white;
-		width:80%;
-		height:60%;
-		overflow:auto;
+
+	.tcontainer {
+		border-bottom:1px solid black;
 	}
-	.oneRecord {
-		margin:1em;
-		border:1px solid black;
+	.trow {
 	}
 	.higher_geog {
-		border:1px solid black;
 	}
 	.searchterm {
-		border:1px solid black;
 		font-size:small;
-	}
-
-	.locality {
 		padding-left:1em;
-		width:100%;
-		 display: table;
-		border-left:1em solid lightgray;
+		border-left:.2em solid lightgray;
 	}
-	.mapgohere {
-		vertical-align: top;
-		display: table-cell;
+	.locality {
+		 display: table-row;
+
 	}
 	.localityData{
 		display: table-cell;
 		vertical-align: top;
+		padding:.5em;
+		border-left:1em solid lightgray;
 
 	}
-
-
+	.mapgohere {
+		vertical-align: top;
+		display: table-cell;
+		padding-left:1em;
+		border:2px solid red;
+	}
 	.event {
-		border:1px solid black;
-		padding-left:2em;
-		border-left:2em solid lightblue;
+		padding-left:.5em;
+		border-left:2em solid lightgray;
+		padding:.5em;
 	}
-
 </style>
-<script>
-	function removeDetail(){
-		$("#bgDiv").remove();
-		$("#customDiv").remove();
-	}
-	function expandGeog(geogID){
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "getGeogDetails",
-				geogID : geogID,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				if (r.ROWCOUNT){
- 					var d='<div align="right" class="infoLink" onclick="removeDetail()">close</div>';
- 					d+="Detail for geography <strong>" + r.DATA.HIGHER_GEOG[0] + '</strong>';
- 					if(r.DATA.CONTINENT_OCEAN[0]){
- 						 d+='<br>Continent or Ocean: <strong>' + r.DATA.CONTINENT_OCEAN[0] + '</strong>';
- 					}
- 					if(r.DATA.COUNTRY[0]){
- 						d+='<br>Country: <strong>' + r.DATA.COUNTRY[0] + '</strong>';
- 					}
- 					if(r.DATA.STATE_PROV[0]){
- 						d+='<br>State or Province: <strong>' + r.DATA.STATE_PROV[0] + '</strong>';
- 					}
- 					if(r.DATA.COUNTY[0]){
- 						d+='<br>County: <strong>' + r.DATA.COUNTY[0] + '</strong>';
- 					}
- 					if(r.DATA.QUAD[0]){
- 						d+='<br>USGS Quad: <strong>' + r.DATA.QUAD[0] + '</strong>';
- 					}
- 					if(r.DATA.FEATURE[0]){
- 						d+='<br>Feature: <strong>' + r.DATA.FEATURE[0] + '</strong>';
- 					}
- 					if(r.DATA.ISLAND_GROUP[0]){
- 						d+='<br>Island Group: <strong>' + r.DATA.ISLAND_GROUP[0] + '</strong>';
- 					}
- 					if(r.DATA.ISLAND[0]){
- 						d+='<br>Island: <strong>' + r.DATA.ISLAND[0] + '</strong>';
- 					}
- 					if(r.DATA.SEA[0]){
- 						d+='<br>Sea: <strong>' + r.DATA.SEA[0] + '</strong>';
- 					}
- 					if(r.DATA.SOURCE_AUTHORITY[0]){
- 						d+='<br>Source: <strong>' + r.DATA.SOURCE_AUTHORITY[0] + '</strong>';
- 					}
-					$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
-		            $('<div />').html(d).attr("id","customDiv").addClass('infoPop').appendTo('body');
-					viewport.init("#customDiv");
-				} else {
-					alert('An error occurred. \n' + r);
-				}
-			}
-		);
-	}
-	function expand(variable, value){
-		$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
-		$('<div />').attr("id","customDiv").addClass('infoPop').appendTo('body');
-		var ptl="/includes/forms/locationDetail.cfm?" + variable + "=" + value;
-		jQuery("#customDiv").load(ptl,{},function(){
-			viewport.init("#customDiv");
-		});
-	}
-</script>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 <cfoutput>
@@ -145,7 +68,7 @@
 	</script>
 	<cfset title="Locality Information">
 	<cfoutput>
-		<cf_findLocality type="event">
+	<cf_findLocality type="event">
 
 
 <!----
@@ -168,20 +91,22 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 			select distinct higher_geog, SOURCE_AUTHORITY,geog_auth_rec_id from localityResults order by higher_geog
 		</cfquery>
 		<cfloop query="geog">
-			<div class="higher_geog">
-				Higher Geography: #higher_geog#
-				<a class="infoLink" href="/geography.cfm?geog_auth_rec_id=#geog_auth_rec_id#">[ details ]</a>
-				<cfif SOURCE_AUTHORITY contains "http">
-					<a class="infoLink external" target="_blank" href="#SOURCE_AUTHORITY#">[ #SOURCE_AUTHORITY# ]</a>
-				</cfif>
-				<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#val(geog_auth_rec_id)# order by SEARCH_TERM
-				</cfquery>
-				<cfloop query="searchterm">
-					<div class="searchterm">
-						#SEARCH_TERM#
-					</div><!---- /searchterm ---->
-				</cfloop>
+			<div class="tcontainer">
+				<div class="higher_geog">
+					Higher Geography: #higher_geog#
+					<a class="infoLink" href="/geography.cfm?geog_auth_rec_id=#geog_auth_rec_id#">[ details ]</a>
+					<cfif SOURCE_AUTHORITY contains "http">
+						<a class="infoLink external" target="_blank" href="#SOURCE_AUTHORITY#">[ #SOURCE_AUTHORITY# ]</a>
+					</cfif>
+					<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+						select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#val(geog_auth_rec_id)# order by SEARCH_TERM
+					</cfquery>
+					<cfloop query="searchterm">
+						<div class="searchterm">
+							#SEARCH_TERM#
+						</div><!---- /searchterm ---->
+					</cfloop>
+				</div>
 				<cfquery name="locality" dbtype="query">
 					select
 						locality_id,
@@ -354,7 +279,6 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 								</cfif>
 							</div><!---- event ---->
 						</cfloop>
-					</div><!---- /locality ---->
 			</cfloop>
 		</div><!---- /higher_geog ---->
 
