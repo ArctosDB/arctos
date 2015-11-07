@@ -138,22 +138,33 @@
 
 
 <!----
-BEGAN_DATE 	COLLECTING_EVENT_ID 	COLLECTING_EVENT_NAME 	CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG 	DEPTH_UNITS 	ENDED_DATE 	FEATURE 	GEOG_AUTH_REC_ID 	GEOG_REMARK 	GEOLATTS 	GEOREFERENCE_PROTOCOL 	GEOREFERENCE_SOURCE 	HIGHER_GEOG 	ISLAND 	ISLAND_GROUP 	LOCALITY_ID 	LOCALITY_NAME 	LOCALITY_REMARKS 	MAXIMUM_ELEVATION 	MAXIMUM_ELEVATION 	MAX_DEPTH 	MAX_ERROR_DISTANCE 	MAX_ERROR_UNITS 	MINIMUM_ELEVATION 	MINIMUM_ELEVATION 	MIN_DEPTH 	ORIG_ELEV_UNITS 	ORIG_ELEV_UNITS 	QUAD 	SEA 	SOURCE_AUTHORITY 	SPEC_LOCALITY 	STATE_PROV 	VERBATIM_COORDINATES 	VERBATIM_DATE 	VERBATIM_LOCALITY
-1 	2007-08-04 	10297233 	[empty string] 	North America 	United States 	[empty string] 	World Geodetic System 1984 	65.3765600000 	-147.4772800000 	[empty string] 	2007-08-04 	[empty string] 	121 	[empty string] 	[empty string] 	not recorded
+ 	COLLECTING_EVENT_ID
+COLLECTING_EVENT_NAME
+CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
+	DEPTH_UNITS 	ENDED_DATE 	FEATURE 	GEOG_AUTH_REC_ID 	GEOG_REMARK
+		GEOLATTS 	GEOREFERENCE_PROTOCOL 	GEOREFERENCE_SOURCE 	HIGHER_GEOG
+			ISLAND 	ISLAND_GROUP 	LOCALITY_ID 	LOCALITY_NAME 	LOCALITY_REMARKS
+			MAXIMUM_ELEVATION 	MAXIMUM_ELEVATION 	MAX_DEPTH 	MAX_ERROR_DISTANCE
+			MAX_ERROR_UNITS 	MINIMUM_ELEVATION 	MINIMUM_ELEVATION 	MIN_DEPTH
+			ORIG_ELEV_UNITS 	ORIG_ELEV_UNITS 	QUAD 	SEA 	SOURCE_AUTHORITY
+			SPEC_LOCALITY 	STATE_PROV 	VERBATIM_COORDINATES 	VERBATIM_DATE 	VERBATIM_LOCALITY
 
 
 
 ---->
 
 		<cfquery name="geog" dbtype="query">
-			select distinct higher_geog, geog_auth_rec_id from localityResults order by higher_geog
+			select distinct higher_geog, SOURCE_AUTHORITY,geog_auth_rec_id from localityResults order by higher_geog
 		</cfquery>
 		<cfloop query="geog">
 			<div class="oneRecord">
 				<div class="higher_geog">
-					#higher_geog#
+					Higher Geography: #higher_geog#
 					<a class="infoLink" href="/geography.cfm?geog_auth_rec_id=#geog_auth_rec_id#">[ details ]</a>
-					<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfif SOURCE_AUTHORITY contains "http">
+						<a class="infoLink external" target="_blank" href="#SOURCE_AUTHORITY#">[ #SOURCE_AUTHORITY# ]</a>
+					</cfif>
+					<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 						select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#val(geog_auth_rec_id)# order by SEARCH_TERM
 					</cfquery>
 					<cfloop query="searchterm">
