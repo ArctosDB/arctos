@@ -99,7 +99,7 @@
 					locality
 				where
 					specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-					collecting_event.locality_id=locality.locality_id_id and
+					collecting_event.locality_id=locality.locality_id and
 					locality.geog_auth_rec_id=#val(geog_auth_rec_id)#
 			</cfquery>
 			<cfif geogSpec.c gt 0>
