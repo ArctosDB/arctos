@@ -36,6 +36,13 @@
 		padding:.1em;
 		margin: .1em .1em .1em 1em;
 	}
+	.sevent {
+		border:1px dashed #669999;
+
+		background: #ACBDB9;
+		padding:.1em;
+		margin: .1em .1em .1em 1em;
+	}
 	.searchterm{
 		font-size:x-small;
 		margin-left: 1em;
@@ -215,6 +222,7 @@
 								</a>
 							</cfif>
 							<cfif session.roles contains "manage_locality">
+								<br>
 								<a href="editLocality.cfm?locality_id=#locality_id#">
 									Edit
 								</a>
@@ -291,10 +299,19 @@
 								</a>
 							</cfif>
 							<cfif session.roles contains "manage_locality">
+								<br>
 								<a href="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 									Edit
 								</a>
 							</cfif>
+							<cfquery name="sevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+								select * from specimen_event where collecting_event_id=#val(collecting_event_id)#
+							</cfquery>
+							<cfloop query="sevent">
+								<div class="sevent">
+									#specimen_event_type#
+								</div>
+							</cfloop>
 						</div><!---- event ---->
 					</cfloop>
 				</div>
