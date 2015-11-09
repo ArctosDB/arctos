@@ -82,6 +82,7 @@
 			<cfif SOURCE_AUTHORITY contains "http">
 				<a class="infoLink external" target="_blank" href="#SOURCE_AUTHORITY#">[ #SOURCE_AUTHORITY# ]</a>
 			</cfif>
+			<a class="infoLink" href="/showLocality.cfm?geog_auth_rec_id=#geog_auth_rec_id#">[ show only ]</a>
 			<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#val(geog_auth_rec_id)# order by SEARCH_TERM
 			</cfquery>
