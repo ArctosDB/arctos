@@ -322,7 +322,7 @@
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
-
+#attributes.type#
 <cfif attributes.type is "locality">
 		<cfset dspl="localities">
 	<cfelseif  attributes.type is "event">
