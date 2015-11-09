@@ -72,9 +72,12 @@
     <form name="getCol" method="get" action="showLocality.cfm##results">
 		<input type="hidden" name="action" value="srch">
 		<cfinclude template="/includes/frmFindLocation_guts.cfm">
+		<cfparam name="showDetail" default="locality">
 		<select name="showDetail">
-			<option value="geography">geography</option>
-			<option value="locality">locality</option>
+			<option <cfif showDetail is "geography"> selected="selected" </cfif>value="geography">geography</option>
+			<option <cfif showDetail is "locality"> selected="selected" </cfif>value="locality">locality</option>
+			<option <cfif showDetail is "event"> selected="selected" </cfif>value="event">event</option>
+			<option <cfif showDetail is "specimen-event"> selected="selected" </cfif>value="specimen-event">specimen-event</option>
 		</select>
     </form>
 	<cf_findLocality type="event" rowlimit=100>
