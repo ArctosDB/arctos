@@ -203,6 +203,11 @@
 									<br><span class="dTtl">Locality Remarks:</span> <span class="dVal">#LOCALITY_REMARKS#</span>
 								</cfif>
 								<cfif len(GEOLATTS) gt 0>
+									<cfloop list="#GEOLATTS#" delimiters="|" index="p">
+										<br><span class="dTtl">#listgetat(p,1,"=")#:</span><span class="dVal">#listgetat(p,2,"=")#:</span>
+									</cfloop>
+
+									Stage/Age=Maastrichtian|formation=Prince Creek Formation
 									<br><span class="dTtl">Geology Attribues:</span> <span class="dVal">#GEOLATTS#</span>
 								</cfif>
 								<cfquery name="locmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
