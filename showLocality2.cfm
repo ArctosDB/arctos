@@ -259,7 +259,7 @@ CONTINENT_OCEAN 	COUNTRY 	COUNTY 	DATUM 	DEC_LAT 	DEC_LONG
 								</cfquery>
 								<cfif eventmedia.c gt 0>
 									<br>
-									<a href="MediaSearch.cfm?action=search&specimen_collecting_event_id=#COLLECTING_EVENT_ID#">
+									<a href="MediaSearch.cfm?action=search&collecting_event_id=#COLLECTING_EVENT_ID#">
 										#eventmedia.c# Media Records
 									</a>
 								</cfif>
