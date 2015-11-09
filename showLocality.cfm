@@ -214,6 +214,11 @@
 									#locSpec.c# Specimen Records
 								</a>
 							</cfif>
+							<cfif session.roles contains "manage_locality">
+								<a href="editLocality.cfm?locality_id=#locality_id#">
+									Edit
+								</a>
+							</cfif>
 						</div> <!---- localityData/ ---->
 						<cfif len(dec_lat) gt 0>
 							<div class="mapgohere" id="mapgohere-locality_id-#locality_id#">
@@ -283,6 +288,11 @@
 								<br>
 								<a href="SpecimenResults.cfm?COLLECTING_EVENT_ID=#COLLECTING_EVENT_ID#">
 									#eventSpec.c# Specimen Records
+								</a>
+							</cfif>
+							<cfif session.roles contains "manage_locality">
+								<a href="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">
+									Edit
 								</a>
 							</cfif>
 						</div><!---- event ---->
