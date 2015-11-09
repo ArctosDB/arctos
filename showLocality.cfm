@@ -77,7 +77,7 @@
 			<option <cfif showDetail is "geography"> selected="selected" </cfif>value="geography">geography</option>
 			<option <cfif showDetail is "locality"> selected="selected" </cfif>value="locality">locality</option>
 			<option <cfif showDetail is "event"> selected="selected" </cfif>value="event">event</option>
-			<option <cfif showDetail is "specimenevent"> selected="selected" </cfif>value="specimen-event">specimen-event</option>
+			<option <cfif showDetail is "specimenevent"> selected="selected" </cfif>value="specimenevent">specimen-event</option>
 		</select>
     </form>
 	<cf_findLocality type="event" rowlimit=100>
