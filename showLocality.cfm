@@ -310,6 +310,7 @@
 									getPreferredAgentName(ASSIGNED_BY_AGENT_ID) AssignedBY,
 									to_char(ASSIGNED_DATE,'YYYY-MM-DD') ASSIGNED_DATE,
 									SPECIMEN_EVENT_REMARK,
+									habitat,
 									SPECIMEN_EVENT_TYPE,
 									COLLECTING_METHOD,
 									COLLECTING_SOURCE,
