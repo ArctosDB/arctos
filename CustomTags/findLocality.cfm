@@ -323,7 +323,14 @@
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfif caller.localityResults.recordcount is rowlimit>
-	<br>This application returns a maximum of #rowlimit# rows. Not all results are displayed.<br>
+	<br>This application returns a maximum of #rowlimit#
+	<cfif attributes.type is "locality">
+		localities
+	<cfelseif  attributes.type is "event">
+		events
+	<cfelseif  attributes.type is "specevent">
+		specimen events
+	</cfif>. Not all results are displayed.<br>
 </cfif>
 <!----
 <cfif caller.localityResults.recordcount is 0>
