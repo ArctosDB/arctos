@@ -58,7 +58,6 @@
 	<strong>Find Localities</strong>
     <form name="getCol" method="get" action="showLocality2.cfm##results">
 		<input type="hidden" name="action" value="srch">
-		<input type="text" name="rowlimit" value="200">
 		<cfinclude template="/includes/frmFindLocation_guts.cfm">
     </form>
 <!---------------------------------------------------------------------------------------------------->
