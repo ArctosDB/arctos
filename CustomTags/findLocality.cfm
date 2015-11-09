@@ -319,7 +319,7 @@
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
-<cfif caller.localityResults.recordcount is #rowlimit>
+<cfif caller.localityResults.recordcount is rowlimit>
 	<br>This application returns a maximum of #rowlimit rows. Not all results are displayed.<br>
 </cfif>
 <!----
