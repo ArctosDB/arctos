@@ -305,11 +305,29 @@
 								</a>
 							</cfif>
 							<cfquery name="sevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-								select * from specimen_event where collecting_event_id=#val(collecting_event_id)#
+								select
+									SPECIMEN_EVENT_ID,
+									getPreferredName(ASSIGNED_BY_AGENT_ID) AssignedBY,
+									tp_char(ASSIGNED_DATE,'YYYY-MM-DD') ASSIGNED_DATE,
+									SPECIMEN_EVENT_REMARK,
+									SPECIMEN_EVENT_TYPE,
+									COLLECTING_METHOD,
+									COLLECTING_SOURCE,
+									VERIFICATIONSTATUS
+								from
+									specimen_event
+								where
+									collecting_event_id=#val(collecting_event_id)#
 							</cfquery>
 							<cfloop query="sevent">
 								<div class="sevent">
-									#specimen_event_type#
+									<span class="dTtl">Specimen-Event Type:</span> <span class="dVal">#specimen_event_type#</span>
+									<br><span class="dTtl">Assigned By (on date):</span> <span class="dVal">#AssignedBY# (#ASSIGNED_DATE#)</span>
+									<br><span class="dTtl">Collecting Method:</span> <span class="dVal">#COLLECTING_METHOD#</span>
+									<br><span class="dTtl">Collecting Source:</span> <span class="dVal">#COLLECTING_SOURCE#</span>
+									<br><span class="dTtl">Verification Status:</span> <span class="dVal">#VERIFICATIONSTATUS#</span>
+									<br><span class="dTtl">Habitat:</span> <span class="dVal">#HABITAT#</span>
+									<br><span class="dTtl">Specimen-Event Remark:</span> <span class="dVal">#SPECIMEN_EVENT_REMARK#</span>
 								</div>
 							</cfloop>
 						</div><!---- event ---->
