@@ -130,30 +130,30 @@
 				<div class="eventloc">
 					<div class="locality">
 						<div class="localityData">
-							Specific Locality: #spec_locality#
+							<span class="dTtl">Specific Locality:</span> <span class="dVal">#spec_locality#</span>
 							<cfif len(DEPTH_UNITS) gt 0>
-								<br>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#
+								<br><span class="dTtl">Depth:</span> <span class="dVal">#MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</span>
 							</cfif>
 							<cfif len(ORIG_ELEV_UNITS) gt 0>
-								<br>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#
+								<br><span class="dTtl">Elevation:</span> <span class="dVal">#MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</span>
 							</cfif>
 							<cfif len(MAX_ERROR_UNITS) gt 0>
-								<br>Coordinate Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+								<br><span class="dTtl">Coordinate Error:</span> <span class="dVal">#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</span>
 							</cfif>
 							<cfif len(GEOREFERENCE_PROTOCOL) gt 0>
-								<br>Georeference Protocol: #GEOREFERENCE_PROTOCOL#
+								<br><span class="dTtl">Georeference Protocol:</span> <span class="dVal">#GEOREFERENCE_PROTOCOL#</span>
 							</cfif>
 							<cfif len(GEOREFERENCE_SOURCE) gt 0>
-								<br>Georeference Source: #GEOREFERENCE_SOURCE#
+								<br><span class="dTtl">Georeference Source:</span> <span class="dVal">#GEOREFERENCE_SOURCE#</span>
 							</cfif>
 							<cfif len(LOCALITY_NAME) gt 0>
-								<br>Locality Name: #LOCALITY_NAME#
+								<br><span class="dTtl">Locality Name:</span> <span class="dVal">#LOCALITY_NAME#</span>
 							</cfif>
 							<cfif len(LOCALITY_REMARKS) gt 0>
-								<br>Locality Remarks: #LOCALITY_REMARKS#
+								<br><span class="dTtl">Locality Remarks:</span> <span class="dVal">#LOCALITY_REMARKS#</span>
 							</cfif>
 							<cfif len(GEOLATTS) gt 0>
-								<br>Geology Attribues: #GEOLATTS#
+								<br><span class="dTtl">Geology Attribues:</span> <span class="dVal">#GEOLATTS#</span>
 							</cfif>
 							<cfquery name="locmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 								select count(*) c from media_relations where related_primary_key=#val(locality_id)# and
@@ -223,10 +223,10 @@
 							<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 						</cfif>
 						<div class="event">
-							Verbatim Locality: #verbatim_locality#
-							<br>Date: #thisDate#
+							<span class="dTtl">Verbatim Locality:</span> <span class="dVal">#verbatim_locality#</span>
+							<br><span class="dTtl">Date: <span class="dVal">#thisDate#
 							<cfif len(COLLECTING_EVENT_NAME) gt 0>
-								<br>Event Name: #COLLECTING_EVENT_NAME#
+								<br><span class="dTtl">Event Name:</span> <span class="dVal">#COLLECTING_EVENT_NAME#</span>
 							</cfif>
 							<cfquery name="eventmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 								select count(*) c from media_relations where related_primary_key=#val(COLLECTING_EVENT_ID)# and
