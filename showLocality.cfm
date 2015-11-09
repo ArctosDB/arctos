@@ -38,8 +38,7 @@
 	}
 	.sevent {
 		border:1px dashed #669999;
-
-		background: #ACBDB9;
+		background: #BCCAC7;
 		padding:.1em;
 		margin: .1em .1em .1em 1em;
 	}
@@ -323,6 +322,9 @@
 							<cfloop query="sevent">
 								<div class="sevent">
 									<span class="dTtl">Specimen-Event Type:</span> <span class="dVal">#specimen_event_type#</span>
+									<a href="SpecimenResults.cfm?SPECIMEN_EVENT_ID=#SPECIMEN_EVENT_ID#">
+										Specimen Record
+									</a>
 									<br><span class="dTtl">Assigned By (on date):</span> <span class="dVal">#AssignedBY# (#ASSIGNED_DATE#)</span>
 									<br><span class="dTtl">Collecting Method:</span> <span class="dVal">#COLLECTING_METHOD#</span>
 									<br><span class="dTtl">Collecting Source:</span> <span class="dVal">#COLLECTING_SOURCE#</span>
