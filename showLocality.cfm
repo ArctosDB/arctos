@@ -243,107 +243,111 @@
 								</div><!---- /mapgohere ---->
 							</cfif>
 						</div><!--- locality ---->
-						<cfquery name="event" dbtype="query">
-							select
-								COLLECTING_EVENT_ID,
-								COLLECTING_EVENT_NAME,
-								verbatim_locality,
-								verbatim_date,
-								began_date,
-								ended_date
-							from
-								localityResults
-							where
-								locality_id=#val(locality_id)#
-							group by
-								COLLECTING_EVENT_ID,
-								COLLECTING_EVENT_NAME,
-								verbatim_locality,
-								verbatim_date,
-								began_date,
-								ended_date
-							order by
-								verbatim_locality,
-								verbatim_date,
-								began_date,
-								ended_date
-						</cfquery>
-						<cfloop query="event">
-							<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
-								<cfset thisDate = began_date>
-							<cfelseif ((verbatim_date is not began_date) OR	(verbatim_date is not ended_date)) AND
-									began_date is ended_date>
-								<cfset thisDate = "#verbatim_date# (#began_date#)">
-							<cfelse>
-								<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
-							</cfif>
-							<div class="event">
-								<span class="dTtl">Verbatim Locality:</span> <span class="dVal">#verbatim_locality#</span>
-								<br><span class="dTtl">Date:</span> <span class="dVal">#thisDate#</span>
-								<cfif len(COLLECTING_EVENT_NAME) gt 0>
-									<br><span class="dTtl">Event Name:</span> <span class="dVal">#COLLECTING_EVENT_NAME#</span>
+						<cfif showDetail is "event" or showDetail is "specimenevent">
+							<cfquery name="event" dbtype="query">
+								select
+									COLLECTING_EVENT_ID,
+									COLLECTING_EVENT_NAME,
+									verbatim_locality,
+									verbatim_date,
+									began_date,
+									ended_date
+								from
+									localityResults
+								where
+									locality_id=#val(locality_id)#
+								group by
+									COLLECTING_EVENT_ID,
+									COLLECTING_EVENT_NAME,
+									verbatim_locality,
+									verbatim_date,
+									began_date,
+									ended_date
+								order by
+									verbatim_locality,
+									verbatim_date,
+									began_date,
+									ended_date
+							</cfquery>
+							<cfloop query="event">
+								<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
+									<cfset thisDate = began_date>
+								<cfelseif ((verbatim_date is not began_date) OR	(verbatim_date is not ended_date)) AND
+										began_date is ended_date>
+									<cfset thisDate = "#verbatim_date# (#began_date#)">
+								<cfelse>
+									<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 								</cfif>
-								<cfquery name="eventmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-									select count(*) c from media_relations where related_primary_key=#val(COLLECTING_EVENT_ID)# and
-									media_relationship like '% collecting_event'
-								</cfquery>
-								<cfif eventmedia.c gt 0>
-									<br>
-									<a href="MediaSearch.cfm?action=search&collecting_event_id=#COLLECTING_EVENT_ID#">
-										#eventmedia.c# Media Records
-									</a>
-								</cfif>
-								<cfquery name="eventSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-									select
-										count(*) c
-									from
-										specimen_event
-									where
-										specimen_event.collecting_event_id=#val(COLLECTING_EVENT_ID)#
-								</cfquery>
-								<cfif eventSpec.c gt 0>
-									<br>
-									<a href="SpecimenResults.cfm?COLLECTING_EVENT_ID=#COLLECTING_EVENT_ID#">
-										#eventSpec.c# Specimen Records
-									</a>
-								</cfif>
-								<cfif session.roles contains "manage_locality">
-									<a href="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">
-										Edit
-									</a>
-								</cfif>
-								<cfquery name="sevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-									select
-										SPECIMEN_EVENT_ID,
-										getPreferredAgentName(ASSIGNED_BY_AGENT_ID) AssignedBY,
-										to_char(ASSIGNED_DATE,'YYYY-MM-DD') ASSIGNED_DATE,
-										SPECIMEN_EVENT_REMARK,
-										habitat,
-										SPECIMEN_EVENT_TYPE,
-										COLLECTING_METHOD,
-										COLLECTING_SOURCE,
-										VERIFICATIONSTATUS
-									from
-										specimen_event
-									where
-										collecting_event_id=#val(collecting_event_id)#
-								</cfquery>
-								<cfloop query="sevent">
-									<div class="sevent">
-										<span class="dTtl">Specimen-Event Type:</span> <span class="dVal">#specimen_event_type#</span>
-										<a href="SpecimenResults.cfm?SPECIMEN_EVENT_ID=#SPECIMEN_EVENT_ID#">
-											Specimen Record
+								<div class="event">
+									<span class="dTtl">Verbatim Locality:</span> <span class="dVal">#verbatim_locality#</span>
+									<br><span class="dTtl">Date:</span> <span class="dVal">#thisDate#</span>
+									<cfif len(COLLECTING_EVENT_NAME) gt 0>
+										<br><span class="dTtl">Event Name:</span> <span class="dVal">#COLLECTING_EVENT_NAME#</span>
+									</cfif>
+									<cfquery name="eventmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+										select count(*) c from media_relations where related_primary_key=#val(COLLECTING_EVENT_ID)# and
+										media_relationship like '% collecting_event'
+									</cfquery>
+									<cfif eventmedia.c gt 0>
+										<br>
+										<a href="MediaSearch.cfm?action=search&collecting_event_id=#COLLECTING_EVENT_ID#">
+											#eventmedia.c# Media Records
 										</a>
-										<br><span class="dTtl">Assigned By (on date):</span> <span class="dVal">#AssignedBY# (#ASSIGNED_DATE#)</span>
-										<br><span class="dTtl">Collecting Method:</span> <span class="dVal">#COLLECTING_METHOD#</span>
-										<br><span class="dTtl">Collecting Source:</span> <span class="dVal">#COLLECTING_SOURCE#</span>
-										<br><span class="dTtl">Verification Status:</span> <span class="dVal">#VERIFICATIONSTATUS#</span>
-										<br><span class="dTtl">Habitat:</span> <span class="dVal">#HABITAT#</span>
-										<br><span class="dTtl">Specimen-Event Remark:</span> <span class="dVal">#SPECIMEN_EVENT_REMARK#</span>
-									</div>
-								</cfloop>
-							</div><!---- event ---->
-						</cfloop>
+									</cfif>
+									<cfquery name="eventSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+										select
+											count(*) c
+										from
+											specimen_event
+										where
+											specimen_event.collecting_event_id=#val(COLLECTING_EVENT_ID)#
+									</cfquery>
+									<cfif eventSpec.c gt 0>
+										<br>
+										<a href="SpecimenResults.cfm?COLLECTING_EVENT_ID=#COLLECTING_EVENT_ID#">
+											#eventSpec.c# Specimen Records
+										</a>
+									</cfif>
+									<cfif session.roles contains "manage_locality">
+										<a href="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">
+											Edit
+										</a>
+									</cfif>
+									<cfif showDetail is "specimenevent">
+										<cfquery name="sevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+											select
+												SPECIMEN_EVENT_ID,
+												getPreferredAgentName(ASSIGNED_BY_AGENT_ID) AssignedBY,
+												to_char(ASSIGNED_DATE,'YYYY-MM-DD') ASSIGNED_DATE,
+												SPECIMEN_EVENT_REMARK,
+												habitat,
+												SPECIMEN_EVENT_TYPE,
+												COLLECTING_METHOD,
+												COLLECTING_SOURCE,
+												VERIFICATIONSTATUS
+											from
+												specimen_event
+											where
+												collecting_event_id=#val(collecting_event_id)#
+										</cfquery>
+										<cfloop query="sevent">
+											<div class="sevent">
+												<span class="dTtl">Specimen-Event Type:</span> <span class="dVal">#specimen_event_type#</span>
+												<a href="SpecimenResults.cfm?SPECIMEN_EVENT_ID=#SPECIMEN_EVENT_ID#">
+													Specimen Record
+												</a>
+												<br><span class="dTtl">Assigned By (on date):</span> <span class="dVal">#AssignedBY# (#ASSIGNED_DATE#)</span>
+												<br><span class="dTtl">Collecting Method:</span> <span class="dVal">#COLLECTING_METHOD#</span>
+												<br><span class="dTtl">Collecting Source:</span> <span class="dVal">#COLLECTING_SOURCE#</span>
+												<br><span class="dTtl">Verification Status:</span> <span class="dVal">#VERIFICATIONSTATUS#</span>
+												<br><span class="dTtl">Habitat:</span> <span class="dVal">#HABITAT#</span>
+												<br><span class="dTtl">Specimen-Event Remark:</span> <span class="dVal">#SPECIMEN_EVENT_REMARK#</span>
+											</div>
+										</cfloop>
+									</cfif><!---- end specimenevent---->
+								</div><!---- event ---->
+							</cfloop>
+						</cfif><!--- end event ---->
 					</div>
 				</cfloop>
 			</cfif><!--- end locality ---->
