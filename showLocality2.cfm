@@ -224,7 +224,7 @@
 						</cfif>
 						<div class="event">
 							<span class="dTtl">Verbatim Locality:</span> <span class="dVal">#verbatim_locality#</span>
-							<br><span class="dTtl">Date: <span class="dVal">#thisDate#
+							<br><span class="dTtl">Date:</span> <span class="dVal">#thisDate#
 							<cfif len(COLLECTING_EVENT_NAME) gt 0>
 								<br><span class="dTtl">Event Name:</span> <span class="dVal">#COLLECTING_EVENT_NAME#</span>
 							</cfif>
