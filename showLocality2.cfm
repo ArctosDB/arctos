@@ -64,7 +64,7 @@
 <!---------------------------------------------------------------------------------------------------->
 
 	<cfset title="Locality Information">
-	<cf_findLocality type="event">
+	<cf_findLocality type="event" rowlimit=200>
 
 
 <a name="results"></a>
