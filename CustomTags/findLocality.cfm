@@ -333,6 +333,12 @@
 	callerrowlimit is not defined
 </cfif>
 
+<cfif isdefined("attributes.rowlimit")>
+ attributes is defined as #attributes.rowlimit#
+<cfelse>
+	attributes rowlimit is not defined
+</cfif>
+
 
 
 
