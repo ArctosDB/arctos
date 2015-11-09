@@ -296,11 +296,12 @@
 							</tr>
 							<tr>
 								<td>
+									<cfset x=feature>
 									<label for="feature">Feature</label>
 									<select name="feature" id="feature">
 										<option value=""></option>
 										<cfloop query="ctFeature">
-											<option <cfif variables.feature is ctFeature.feature> selected="selected" </cfif>value = "#ctFeature.feature#">#ctFeature.feature#</option>
+											<option <cfif x is ctFeature.feature> selected="selected" </cfif>value = "#ctFeature.feature#">#ctFeature.feature#</option>
 										</cfloop>
 									</select>
 								</td>
