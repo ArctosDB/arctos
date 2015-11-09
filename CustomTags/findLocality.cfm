@@ -322,15 +322,16 @@
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
-<cfif caller.localityResults.recordcount is rowlimit>
-	<br>This application returns a maximum of #rowlimit#
-	<cfif attributes.type is "locality">
-		localities
+
+<cfif attributes.type is "locality">
+		<cfset dspl="localities">
 	<cfelseif  attributes.type is "event">
-		events
+		<cfset dspl="events">
 	<cfelseif  attributes.type is "specevent">
-		specimen events
-	</cfif>. Not all results are displayed.<br>
+		<cfset dspl="specimen events">
+	</cfif>
+<cfif caller.localityResults.recordcount is rowlimit>
+	<br>This application returns a maximum of #rowlimit# #dspl#. Not all results are displayed.<br>
 </cfif>
 <!----
 <cfif caller.localityResults.recordcount is 0>
