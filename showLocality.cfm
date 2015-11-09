@@ -72,9 +72,15 @@
     <form name="getCol" method="get" action="showLocality.cfm##results">
 		<input type="hidden" name="action" value="srch">
 		<cfinclude template="/includes/frmFindLocation_guts.cfm">
+		<select name="showDetail">
+			<option value="geography">geography</option>
+			<option value="locality">locality</option>
+		</select>
     </form>
-	<cf_findLocality type="event" rowlimit=200>
+	<cf_findLocality type="event" rowlimit=100>
 	<a name="results"></a>
+
+	showDetail:: #showDetail#
 	<cfif localityResults.recordcount is 0>
 		nothing found; try another search
 	</cfif>
