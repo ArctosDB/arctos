@@ -329,6 +329,8 @@
 		<cfset dspl="events">
 	<cfelseif  attributes.type is "specevent">
 		<cfset dspl="specimen events">
+	<cfelse>
+		<cfset dspl="rows">
 	</cfif>
 <cfif caller.localityResults.recordcount is rowlimit>
 	<br>This application returns a maximum of #rowlimit# #dspl#. Not all results are displayed.<br>
