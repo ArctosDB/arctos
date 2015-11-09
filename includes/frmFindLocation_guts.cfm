@@ -225,10 +225,10 @@
 	<cfparam name="coord_serv_diff" default="">
 	<cfparam name="dec_lat" default="">
 	<cfparam name="dec_long" default="">
-	<cfparam name="search_precision" default="">
+	<cfparam name="search_precision" default="2">
 	<cfparam name="geology_attribute" default="">
 	<cfparam name="geo_att_value" default="">
-	<cfparam name="geology_attribute_hier" default="">
+	<cfparam name="geology_attribute_hier" default="0">
 	<cfparam name="verbatim_locality" default="">
 	<cfparam name="begDateOper" default="">
 	<cfparam name="began_date" default="">
@@ -301,18 +301,19 @@
 									<select name="feature" id="feature">
 										<option value=""></option>
 										<cfloop query="ctFeature">
-											<option <cfif x is ctFeature.feature> selected="selected" </cfif>value = "#ctFeature.feature#">#ctFeature.feature#</option>
+											<option <cfif x is ctFeature.feature> selected="selected" </cfif> value = "#ctFeature.feature#">#ctFeature.feature#</option>
 										</cfloop>
 									</select>
 								</td>
 							</tr>
 							<tr>
 								<td>
+									<cfset x=island_group>
 									<label for="island_group">Island Group</label>
 									<select name="island_group" id="island_group">
 										<option value=""></option>
 										<cfloop query="ctIslandGroup">
-											<option value = "#ctIslandGroup.island_group#">#ctIslandGroup.island_group#</option>
+											<option <cfif x is ctIslandGroup.island_group> selected="selected" </cfif> value = "#ctIslandGroup.island_group#">#ctIslandGroup.island_group#</option>
 										</cfloop>
 									</select>
 								</td>
@@ -320,19 +321,19 @@
 							<tr>
 								<td>
 									<label for="island">Island</label>
-									<input type="text" name="island" id="island" size="50">
+									<input type="text" name="island" id="island" size="50" value="#island#">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<label for="sea">Sea</label>
-									<input type="text" name="sea" id="sea" size="50">
+									<input type="text" name="sea" id="sea" size="50" value="#sea#">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<label for="geog_auth_rec_id">Geog Auth Rec ID</label>
-									<input type="text" name="geog_auth_rec_id" id="geog_auth_rec_id">
+									<input type="text" name="geog_auth_rec_id" id="geog_auth_rec_id" value="#geog_auth_rec_id#">
 								</td>
 							</tr>
 						</table>
@@ -345,13 +346,13 @@
 							<tr>
 								<td colspan="2">
 									<label for="locality_name">Locality Nickname</label>
-									<input type="text" name="locality_name" id="locality_name" size="50">
+									<input type="text" name="locality_name" id="locality_name" size="50" value="#locality_name#">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
 									<label for="spec_locality">Specific Locality</label>
-									<input type="text" name="spec_locality" id="spec_locality" size="50">
+									<input type="text" name="spec_locality" id="spec_locality" size="50" value="#spec_locality#">
 								</td>
 							</tr>
 						</table>
@@ -362,14 +363,15 @@
 										<label for="collnOper">Collection</label>
 										<select name="collnOper" id="collnOper" size="1">
 											<option value=""></option>
-											<option value="usedOnlyBy">used only by</option>
-											<option value="usedBy">used by</option>
-											<option value="notUsedBy">not used by</option>
+											<option <cfif collnOper is "usedOnlyBy"> selected="selected" </cfif> value="usedOnlyBy">used only by</option>
+											<option <cfif collnOper is "usedBy"> selected="selected" </cfif>value="usedBy">used by</option>
+											<option <cfif collnOper is "notUsedBy"> selected="selected" </cfif> value="notUsedBy">not used by</option>
 										</select>
+										<cfset x=island_group>
 										<select name="collection_id" id="collection_id" size="1">
 											<option value=""></option>
 											<cfloop query="ctcollection">
-												<option value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
+												<option <cfif x is ctcollection.collection_id> selected="selected" </cfif> value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 											</cfloop>
 										</select>
 									</td>
@@ -378,33 +380,34 @@
 									<td>
 										<label for="MinElevOper">Minimum Elevation</label>
 										<select name="MinElevOper" id="MinElevOper" size="1">
-											<option value="=">is</option>
-											<option value="<>">is not</option>
-											<option value=">">more than</option>
-											<option value="<">less than</option>
+											<option <cfif MinElevOper is "="> selected="selected" </cfif> value="=">is</option>
+											<option <cfif MinElevOper is "<>"> selected="selected" </cfif> value="<>">is not</option>
+											<option <cfif MinElevOper is "></cfif>"> selected="selected" </cfif> value=">">more than</option>
+											<option <cfif MinElevOper is "<"> selected="selected" </cfif> value="<">less than</option>
 										</select>
-										<input type="text" name="minimum_elevation" id="minimum_elevation">
+										<input type="text" name="minimum_elevation" id="minimum_elevation" value="#minimum_elevation#">
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<label for="MaxElevOper">Maximum Elevation</label>
 										<select name="MaxElevOper" id="MaxElevOper" size="1">
-											<option value="=">is</option>
-											<option value="<>">is not</option>
-											<option value=">">more than</option>
-											<option value="<">less than</option>
+											<option <cfif MaxElevOper is "="> selected="selected" </cfif> value="=">is</option>
+											<option <cfif MaxElevOper is "<>"> selected="selected" </cfif> value="<>">is not</option>
+											<option <cfif MaxElevOper is "></cfif>"> selected="selected" </cfif> value=">">more than</option>
+											<option <cfif MaxElevOper is "<"> selected="selected" </cfif> value="<">less than</option>
 										</select>
-										<input type="text" name="maximum_elevation" id="maximum_elevation">
+										<input type="text" name="maximum_elevation" id="maximum_elevation" value="#maximum_elevation#">
 									</td>
 								</tr>
 								<tr>
 									<td>
+										<cfset x=orig_elev_units>
 										<label for="orig_elev_units">Elevation Units</label>
 										<select name="orig_elev_units" id="orig_elev_units" size="1">
 											<option value=""></option>
 											<cfloop query="ctElevUnit">
-												<option value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
+												<option <cfif x is ctElevUnit.orig_elev_units> selected="selected" </cfif> value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
 											</cfloop>
 										</select>
 									</td>
@@ -412,22 +415,23 @@
 								<tr>
 									<td>
 										<label for="locality_remarks">Locality Remarks</label>
-										<input type="text" name="locality_remarks" id="locality_remarks" size="50">
+										<input type="text" name="locality_remarks" id="locality_remarks" size="50" value="#locality_remarks#">
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<label for="locality_id">Locality ID</label>
-										<input type="text" name="locality_id" id="locality_id">
+										<input type="text" name="locality_id" id="locality_id" value="#locality_id#">
 									</td>
 								</tr>
 								<tr>
 									<td>
+										<cfset x=datum>
 										<label for="datum">Datum</label>
 										<select name="datum" id="datum">
 											<option value=""></option>
 											<cfloop query="ctdatum">
-												<option value = "#ctdatum.datum#">#ctdatum.datum#</option>
+												<option <cfif x is ctdatum.datum> selected="selected" </cfif> value = "#ctdatum.datum#">#ctdatum.datum#</option>
 											</cfloop>
 										</select>
 									</td>
@@ -436,7 +440,7 @@
 									<td>
 										<label title="max_error_distance in meters"
 											for="max_err_m">Error (m) [format: &lt;INT,&gt;INT,=INT]</label>
-										<input type="text" name="max_err_m" id="max_err_m">
+										<input type="text" name="max_err_m" id="max_err_m" value="#max_err_m#">
 									</td>
 								</tr>
 								<tr>
@@ -444,7 +448,7 @@
 										<label title="distance in KM between asserted and suggested coordinates" for="coord_serv_diff">
 											Coord/Service Error (km) [format: &lt;INT,&gt;INT,=INT]
 										</label>
-										<input type="text" name="coord_serv_diff" id="coord_serv_diff">
+										<input type="text" name="coord_serv_diff" id="coord_serv_diff" value="#coord_serv_diff#">
 									</td>
 								</tr>
 								<tr>
@@ -454,19 +458,19 @@
 												<tr>
 													<td>
 														<label for="dec_lat">DecLat (negative is south)</label>
-														<input type="text" name="dec_lat" id="dec_lat">
+														<input type="text" name="dec_lat" id="dec_lat" value="#dec_lat#">
 													</td>
 													<td>
 														<label for="dec_long">DecLong (negative is west)</label>
-														<input type="text" name="dec_long" id="dec_long">
+														<input type="text" name="dec_long" id="dec_long" value="#dec_long#">
 													</td>
 													<td>
 														<label for="search_precision">Search Precision</label>
 														<select name="search_precision" id="search_precision">
-															<option value="0">round to integer</option>
-															<option selected="selected" value="2">2 (NN.nn)</option>
-															<option value="4">4 (NN.nnnn)</option>
-															<option value="exact">exact match only</option>
+															<option <cfif search_precision is "0"> selected="selected" </cfif> value="0">round to integer</option>
+															<option <cfif search_precision is "2"> selected="selected" </cfif> value="2">2 (NN.nn)</option>
+															<option <cfif search_precision is "4"> selected="selected" </cfif> value="4">4 (NN.nnnn)</option>
+															<option <cfif search_precision is "exact"> selected="selected" </cfif> value="exact">exact match only</option>
 														</select>
 													</td>
 												</tr>
@@ -572,23 +576,24 @@
 										<table cellpadding="0" cellspacing="0">
 											<tr>
 												<td>
+													<cfset x=geology_attribute>
 													<label for="geology_attribute">Geology Attribute</label>
 													<select name="geology_attribute" id="geology_attribute">
 														<option value="">Anything</option>
 														<cfloop query="ctgeology_attribute">
-															<option value = "#ctgeology_attribute.geology_attribute#">#ctgeology_attribute.geology_attribute#</option>
+															<option <cfif x is ctgeology_attribute.geology_attribute> selected="selected" </cfif> value = "#ctgeology_attribute.geology_attribute#">#ctgeology_attribute.geology_attribute#</option>
 														</cfloop>
 													</select>
 												</td>
 												<td>
 													<label for="geo_att_value">Attribute Value</label>
-													<input type="text" name="geo_att_value">
+													<input type="text" name="geo_att_value"  value="#geo_att_value#">
 												</td>
 												<td>
 													<label for="geology_attribute_hier">Traverse Hierarchies?</label>
 													<select name="geology_attribute_hier" id="geology_attribute_hier">
-														<option selected="selected" value="0">No</option>
-														<option value="1">Yes</option>
+														<option  <cfif geology_attribute_hier is "0"> selected="selected" </cfif> value="0">No</option>
+														<option  <cfif geology_attribute_hier is "0"> selected="selected" </cfif> value="1">Yes</option>
 													</select>
 												</td>
 											</tr>
@@ -607,29 +612,29 @@
 							<tr>
 								<td>
 									<label for="verbatim_locality">Verbatim Locality</label>
-									<input type="text" name="verbatim_locality" id="verbatim_locality" size="50">
+									<input type="text" name="verbatim_locality" id="verbatim_locality" size="50" value="#verbatim_locality#">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<label for="begDateOper">Began Date</label>
 									<select name="begDateOper" id="begDateOper" size="1">
-										<option value="=">is</option>
-										<option value="<">before</option>
-										<option value=">">after</option>
+										<option <cfif begDateOper is "="> selected="selected" </cfif> value="=">is</option>
+										<option <cfif begDateOper is "<"> selected="selected" </cfif> value="<">before</option>
+										<option <cfif begDateOper is ">"> selected="selected" </cfif> value=">">after</option>
 									</select>
-									<input type="text" name="began_date" id="began_date">
+									<input type="text" name="began_date" id="began_date" value="#began_date#">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<label for="endDateOper">Ended Date</label>
 									<select name="endDateOper" id="endDateOper" size="1">
-										<option value="=">is</option>
-										<option value="<">before</option>
-										<option value=">">after</option>
+										<option <cfif endDateOper is "="> selected="selected" </cfif> value="=">is</option>
+										<option <cfif endDateOper is "<"> selected="selected" </cfif> value="<">before</option>
+										<option <cfif endDateOper is ">"> selected="selected" </cfif> value=">">after</option>
 									</select>
-									<input type="text" name="ended_date" id="ended_date">
+									<input type="text" name="ended_date" id="ended_date" value="#ended_date#">
 								</td>
 							</tr>
 						</table>
@@ -638,25 +643,25 @@
 								<tr>
 									<td>
 										<label for="verbatim_date">Verbatim Date</label>
-										<input type="text" name="verbatim_date" id="verbatim_date" size="50">
+										<input type="text" name="verbatim_date" id="verbatim_date" size="50" value="#verbatim_date#">
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<label for="collecting_event_name">CollectingEventNickname</label>
-										<input type="text" name="collecting_event_name" id="collecting_event_name" size="50">
+										<input type="text" name="collecting_event_name" id="collecting_event_name" size="50" value="#collecting_event_name#">
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<label for="coll_event_remarks">Collecting Event Remarks</label>
-										<input type="text" name="coll_event_remarks" id="coll_event_remarks" size="50">
+										<input type="text" name="coll_event_remarks" id="coll_event_remarks" size="50" value="#coll_event_remarks#">
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<label for="collecting_event_id">Collecting Event ID</label>
-										<input type="text" name="collecting_event_id" id="collecting_event_id" >
+										<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#">
 									</td>
 								</tr>
 							</table>
