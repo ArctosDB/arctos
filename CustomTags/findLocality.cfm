@@ -315,11 +315,30 @@
 	<cfset qual=" and 1=2">
 </cfif>
 
-<cfdump var=#caller#>
+
+<cfif isdefined("rowlimit")>
+ rowlimit is defined as #rowlimit#
+<cfelse>
+	rowlimit is not defined
+</cfif>
+
+<cfif not isdefined("any_geog") and isdefined("caller.any_geog")>
+	<cfset any_geog=caller.any_geog>
+</cfif>
+
+
+<cfif isdefined("caller.rowlimit")>
+ callerrowlimit is defined as #caller.rowlimit#
+<cfelse>
+	callerrowlimit is not defined
+</cfif>
+
+
+
 
 
 <cfparam name="rowlimit" default="500" type="integer">
-
+-- set param
 
 <p>
 	i am rowlimit #rowlimit#
