@@ -181,6 +181,11 @@
 						<div class="locality">
 							<div class="localityData">
 								<span class="dTtl">Specific Locality:</span> <span class="dVal">#spec_locality#</span>
+								<cfif session.roles contains "manage_locality">
+									<a class="infoLink" href="editLocality.cfm?locality_id=#locality_id#">
+										[ Edit ]
+									</a>
+								</cfif>
 								<cfif len(DEPTH_UNITS) gt 0>
 									<br><span class="dTtl">Depth:</span> <span class="dVal">#MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</span>
 								</cfif>
@@ -233,11 +238,7 @@
 										#locSpec.c# Specimen Records
 									</a>
 								</cfif>
-								<cfif session.roles contains "manage_locality">
-									<a href="editLocality.cfm?locality_id=#locality_id#">
-										Edit
-									</a>
-								</cfif>
+
 							</div> <!---- localityData/ ---->
 							<cfif len(dec_lat) gt 0>
 								<div class="mapgohere" id="mapgohere-locality_id-#locality_id#">
@@ -311,8 +312,8 @@
 										</a>
 									</cfif>
 									<cfif session.roles contains "manage_locality">
-										<a href="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">
-											Edit
+										<a class="infoLink" href="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">
+											[ Edit ]
 										</a>
 									</cfif>
 									<cfif showDetail is "specimenevent">
