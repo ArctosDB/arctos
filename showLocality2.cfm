@@ -56,7 +56,7 @@
 	<cfset showLocality=1>
 	<cfset showEvent=1>
 	<strong>Find Localities</strong>
-    <form name="getCol" method="get" action="showLocality2.cfm">
+    <form name="getCol" method="get" action="showLocality2.cfm##results">
 		<input type="hidden" name="action" value="srch">
 		<cfinclude template="/includes/frmFindLocation_guts.cfm">
     </form>
@@ -67,6 +67,13 @@
 	<cf_findLocality type="event">
 
 
+<a name="results"></a>
+
+<cfif localityResults.recordcount gt 0>
+	got someting
+	<cfelse>
+	nothing found
+</cfif>
 <!----
  	COLLECTING_EVENT_ID
 COLLECTING_EVENT_NAME
