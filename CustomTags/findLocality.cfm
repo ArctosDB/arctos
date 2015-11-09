@@ -315,11 +315,15 @@
 	<cfset qual=" and 1=2">
 </cfif>
 
+<cfdump var=#form#>
+
+
+<cfparam name="rowlimit" default="500" type="integer">
+
 
 <p>
 	i am rowlimit #rowlimit#
 </p>
-<cfparam name="rowlimit" default="500" type="integer">
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum <= #rowlimit# order by #orderby#">
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
