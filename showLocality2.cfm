@@ -10,6 +10,7 @@
 		border:1px solid red;
 		margin:1em;
 		padding:1em;
+		margin: .1em .1em .1em 1em;
 	}
 	.locality {
 		 display: table-row;
@@ -30,6 +31,7 @@
 		border:1px solid blue;
 		margin:1em;
 		padding:1em;
+		margin: .1em .1em .1em 1em;
 	}
 
 </style>
@@ -39,7 +41,7 @@
 				var theElemID=this.id;
 				var theIDType=this.id.split('-')[1];
 				var theID=this.id.split('-')[2];
-			  	var ptl='/component/functions.cfc?method=getMap&showCaption=true&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
+			  	var ptl='/component/functions.cfc?method=getMap&showCaption=true&returnformat=plain&size=100x100&' + theIDType + '=' + theID;
 			    jQuery.get(ptl, function(data){
 					jQuery("#" + theElemID).html(data);
 				});
