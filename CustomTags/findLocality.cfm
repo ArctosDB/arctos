@@ -320,7 +320,7 @@
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfif caller.localityResults.recordcount is rowlimit>
-	<br>This application returns a maximum of #rowlimit rows. Not all results are displayed.<br>
+	<br>This application returns a maximum of #rowlimit# rows. Not all results are displayed.<br>
 </cfif>
 <!----
 <cfif caller.localityResults.recordcount is 0>
