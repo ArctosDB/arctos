@@ -314,43 +314,10 @@
 <cfif len(trim(qual)) is 0>
 	<cfset qual=" and 1=2">
 </cfif>
-
-
-<cfdump var=#attributes#>
-
-<cfif isdefined("rowlimit")>
- rowlimit is defined as #rowlimit#
-<cfelse>
-	rowlimit is not defined
-</cfif>
-
-<cfif not isdefined("any_geog") and isdefined("caller.any_geog")>
-	<cfset any_geog=caller.any_geog>
-</cfif>
-
-
-<cfif isdefined("caller.rowlimit")>
- callerrowlimit is defined as #caller.rowlimit#
-<cfelse>
-	callerrowlimit is not defined
-</cfif>
-
 <cfif isdefined("attributes.rowlimit")>
- attributes is defined as #attributes.rowlimit#
-<cfelse>
-	attributes rowlimit is not defined
+	<cfset rowlimit=attributes.rowlimit>
 </cfif>
-
-
-
-
-
 <cfparam name="rowlimit" default="500" type="integer">
--- set param
-
-<p>
-	i am rowlimit #rowlimit#
-</p>
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum <= #rowlimit# order by #orderby#">
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
