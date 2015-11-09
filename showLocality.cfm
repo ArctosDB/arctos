@@ -87,6 +87,18 @@
 	<cfif localityResults.recordcount is 0>
 		nothing found; try another search
 	</cfif>
+	<cfquery name="dlocid" dbtype="query">
+		select locality_id from localityResults group by locality_id
+	</cfquery>
+
+	<cfif localityResults.recordcount lt 1000>
+		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(dlocid.locality_id)#" target="_blank">Map <strong>localities</strong> @BerkeleyMapper</a>
+	<cfelse>
+		1000 record limit on mapping, sorry...
+	</cfif>
+
+
+
 	<cfquery name="geog" dbtype="query">
 		select distinct higher_geog, SOURCE_AUTHORITY,geog_auth_rec_id from localityResults order by higher_geog
 	</cfquery>
