@@ -307,7 +307,7 @@
 							<cfquery name="sevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 								select
 									SPECIMEN_EVENT_ID,
-									getPreferredName(ASSIGNED_BY_AGENT_ID) AssignedBY,
+									getPreferredAgentName(ASSIGNED_BY_AGENT_ID) AssignedBY,
 									to_char(ASSIGNED_DATE,'YYYY-MM-DD') ASSIGNED_DATE,
 									SPECIMEN_EVENT_REMARK,
 									SPECIMEN_EVENT_TYPE,
