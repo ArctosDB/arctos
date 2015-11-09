@@ -316,6 +316,8 @@
 </cfif>
 
 
+<cfdump var=#attributes#>
+
 <cfif isdefined("rowlimit")>
  rowlimit is defined as #rowlimit#
 <cfelse>
