@@ -221,7 +221,6 @@
 								</a>
 							</cfif>
 							<cfif session.roles contains "manage_locality">
-								<br>
 								<a href="editLocality.cfm?locality_id=#locality_id#">
 									Edit
 								</a>
@@ -298,7 +297,6 @@
 								</a>
 							</cfif>
 							<cfif session.roles contains "manage_locality">
-								<br>
 								<a href="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 									Edit
 								</a>

@@ -1100,6 +1100,13 @@
 	<cfset mapurl = "#mapurl#&endDay=#endDay#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) <= #endDay#">
 </cfif>
+<cfif isdefined("specimen_event_id") AND len(specimen_event_id) gt 0>
+	<cfset mapurl = "#mapurl#&specimen_event_id=#specimen_event_id#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND specimen_event.specimen_event_id = #val(specimen_event_id)#">
+</cfif>
 <cfif isdefined("collecting_event_id") AND len(collecting_event_id) gt 0>
 	<cfset mapurl = "#mapurl#&collecting_event_id=#collecting_event_id#">
 	<cfif basJoin does not contain " specimen_event ">
