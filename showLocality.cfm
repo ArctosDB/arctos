@@ -1,12 +1,15 @@
 <cfinclude template="includes/_header.cfm">
 <style>
+
 	.higher_geog {
-		border:1px solid green;
+		border:1px dashed #6E8A84;
+		background: #EBEFEE;
 		margin:1em;
 		padding:.1em;
 	}
 	.eventloc {
-		border:1px solid red;
+		border:1px dashed #339933;
+		background: #DCE3E1;
 		margin:1em;
 		padding:.1em;
 		margin: .1em .1em .1em 1em;
@@ -19,7 +22,7 @@
 		display: table-cell;
 		vertical-align: top;
 		padding:.1em;
-		width:80%;
+		width:100%;
 	}
 	.mapgohere {
 		vertical-align: top;
@@ -27,12 +30,19 @@
 		width:20%;
 	}
 	.event {
-		border:1px solid blue;
+		border:1px dashed #669999;
+
+		background: #CCD6D4;
 		padding:.1em;
 		margin: .1em .1em .1em 1em;
 	}
-	.dTtl {font-size:smaller;}
-	.dVal {font-weight:bold;}
+	.searchterm{
+		font-size:x-small;
+		margin-left: 1em;
+		font-weight:100;
+	}
+	.dTtl {font-size:small;}
+	.dVal {font-weight:600;font-size:smaller;}
 </style>
 <script>
 		jQuery(document).ready(function() {
@@ -80,6 +90,24 @@
 					#SEARCH_TERM#
 				</div><!---- /searchterm ---->
 			</cfloop>
+			<cfquery name="geogSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select
+					count(*) c
+				from
+					specimen_event,
+					collecting_event,
+					locality
+				where
+					specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+					collecting_event.locality_id=locality.locality_id_id and
+					locality.geog_auth_rec_id=#val(geog_auth_rec_id)#
+			</cfquery>
+			<cfif geogSpec.c gt 0>
+				<br>
+				<a href="SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">
+					#geogSpec.c# Specimen Records
+				</a>
+			</cfif>
 			<cfquery name="locality" dbtype="query">
 				select
 					locality_id,
