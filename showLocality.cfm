@@ -68,6 +68,7 @@
 	<cfset title="Explore Localities">
 	<cfset showLocality=1>
 	<cfset showEvent=1>
+	<cfparam name="showDetail" default="locality">
 	<strong>Find Localities</strong>
     <form name="getCol" method="get" action="showLocality.cfm##results">
 		<input type="hidden" name="action" value="srch">
@@ -79,7 +80,6 @@
 			<option <cfif showDetail is "specimenevent"> selected="selected" </cfif>value="specimenevent">specimen-event</option>
 		</select>
 		<cfinclude template="/includes/frmFindLocation_guts.cfm">
-		<cfparam name="showDetail" default="locality">
 
     </form>
 	<cf_findLocality type="event" rowlimit=100>
