@@ -60,7 +60,7 @@ edit code to run this<cfabort>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "cleanup_local">
 	<cfquery name="d" datasource="cf_dbuser">
-		 select LOCAL_URI,REMOTE_URI, from cf_tacc_transfer where status=s'media_updated' and rownum<100
+		 select LOCAL_URI,REMOTE_URI, from cf_tacc_transfer where status='media_updated' and rownum<100
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
