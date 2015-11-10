@@ -69,6 +69,9 @@ edit code to run this<cfabort>
 			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'')>
 
 			<br>localfPath: #localfPath#
+			<cfif fileExists(localPath)>
+				<br>this thing exists
+			</cfif>
 		</cfloop>
 	</cfoutput>
 
