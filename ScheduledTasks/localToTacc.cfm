@@ -64,13 +64,18 @@ edit code to run this<cfabort>
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
-			<br>LOCAL_URI: #LOCAL_URI#
-			<br>REMOTE_URI: #REMOTE_URI#
+
 			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
 
-			<br>localfPath: #localfPath#
 			<cfif fileExists(localfPath)>
-				<br>this thing exists
+				<br>this thing exists:
+				<br>localfPath: #localfPath#
+				<br>LOCAL_URI: #LOCAL_URI#
+				<br>REMOTE_URI: #REMOTE_URI#
+			<cfelse>
+				<cfquery name="gotit" datasource="cf_dbuser">
+					update cf_tacc_transfer set status='local_not_there_anymore' where LOCAL_URI='#LOCAL_URI#'
+				</cfquery>
 			</cfif>
 		</cfloop>
 	</cfoutput>
