@@ -69,7 +69,7 @@ Upload CSV
 			</cfif>
 
 
-			<cfquery name="ins" datasource="uam_god">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into #session.username#.my_temp_cf (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
