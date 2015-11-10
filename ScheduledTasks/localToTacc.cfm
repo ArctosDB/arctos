@@ -3,6 +3,8 @@ edit code to run this<cfabort>
 
 
 <!----
+
+
 	create table cf_tacc_transfer (
 		media_id number,
 		sdate date,
@@ -39,6 +41,8 @@ edit code to run this<cfabort>
 
 <br><a href="localToTacc.cfm?action=checkchecksum">checkchecksum</a> - do this third, it checks that everything is happy
 
+<br><a href="localToTacc.cfm?action=cleanup_local">cleanup_local</a> - delete stuff
+
 
 <br><a href="localToTacc.cfm?action=showstatus">showstatus</a> - wut?
 <br><a href="localToTacc.cfm?action=showfail">showfail</a> - oops
@@ -54,6 +58,33 @@ edit code to run this<cfabort>
 
 
 <!---------------------------------------------------------------------------------------------------------->
+<cfif action is "cleanup_local">
+	<cfquery name="d" datasource="cf_dbuser">
+		 select LOCAL_URI,REMOTE_URI from cf_tacc_transfer where status='media_updated' and rownum<1000
+	</cfquery>
+	<cfoutput>
+		<cfloop query="d">
+
+			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
+
+			<cfif fileExists(localfPath)>
+				<br>this thing exists:
+				<br>localfPath: #localfPath#
+				<br>LOCAL_URI: #LOCAL_URI#
+				<br>REMOTE_URI: #REMOTE_URI#
+			<cfelse>
+				<cfquery name="gotit" datasource="cf_dbuser">
+					update cf_tacc_transfer set status='local_not_there_anymore' where LOCAL_URI='#LOCAL_URI#'
+				</cfquery>
+			</cfif>
+		</cfloop>
+	</cfoutput>
+
+
+</cfif>
+
+
+
 
 <cfif action is "show_checksummatch">
 	<cfquery name="d" datasource="cf_dbuser">
