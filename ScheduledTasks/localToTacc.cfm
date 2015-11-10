@@ -66,10 +66,10 @@ edit code to run this<cfabort>
 		<cfloop query="d">
 			<br>LOCAL_URI: #LOCAL_URI#
 			<br>REMOTE_URI: #REMOTE_URI#
-			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'')>
+			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webRootDir#')>
 
 			<br>localfPath: #localfPath#
-			<cfif fileExists(localPath)>
+			<cfif fileExists(localfPath)>
 				<br>this thing exists
 			</cfif>
 		</cfloop>
