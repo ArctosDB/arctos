@@ -267,7 +267,7 @@
 							<tr>
 								<td>
 									<label for="continent_ocean">Continent or Ocean</label>
-									<input type="text" name="continent_ocean" id="continent_ocean" size="50" value="#higher_geog#">
+									<input type="text" name="continent_ocean" id="continent_ocean" size="50" value="#continent_ocean#">
 								</td>
 							</tr>
 							<tr>
