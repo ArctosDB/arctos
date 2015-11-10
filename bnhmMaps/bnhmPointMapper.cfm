@@ -19,13 +19,13 @@ Retrieving map data - please wait....
 				locality.locality_id IN (#locality_id#)
 		</cfquery>
 		<cfif getMapData.recordcount is 0>
-			not found<cfabort>			
+			not found<cfabort>
 		</cfif>
 	<cfelse>
 		<cfparam name="spec_locality" default="">
 		<cfparam name="max_error_meters" default="0">
 		<cfparam name="datum" default="World Geodetic System 1984">
-		
+
 		<cfset getMapData = querynew("locality_id,spec_locality,dec_lat,dec_long,max_error_meters,datum")>
 		<cfset temp = queryaddrow(getMapData,1)>
 		<cfset temp = QuerySetCell(getMapData, "locality_id", -1, 1)>
@@ -44,7 +44,7 @@ Retrieving map data - please wait....
 		<cfset oneLine=trim(oneLine)>
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
 	</cfloop>
-<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/PointMap.xml&sourcename=Locality&queryerrorcircles=1&maxerrorinmeters=1">
+<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/PointMap.xml&sourcename=Locality&queryerrorcircles=1&maxerrorinmeters=1">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
