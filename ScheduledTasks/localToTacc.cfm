@@ -1,8 +1,10 @@
 
-edit code to run this<cfabort>
 
 
 <!----
+
+edit code to run this<cfabort>
+
 	create table cf_tacc_transfer (
 		media_id number,
 		sdate date,
@@ -39,6 +41,8 @@ edit code to run this<cfabort>
 
 <br><a href="localToTacc.cfm?action=checkchecksum">checkchecksum</a> - do this third, it checks that everything is happy
 
+<br><a href="localToTacc.cfm?action=cleanup_local">cleanup_local</a> - delete stuff
+
 
 <br><a href="localToTacc.cfm?action=showstatus">showstatus</a> - wut?
 <br><a href="localToTacc.cfm?action=showfail">showfail</a> - oops
@@ -54,6 +58,25 @@ edit code to run this<cfabort>
 
 
 <!---------------------------------------------------------------------------------------------------------->
+<cfif action is "cleanup_local">
+	<cfquery name="d" datasource="cf_dbuser">
+		 select LOCAL_URI,REMOTE_URI, from cf_tacc_transfer where status'media_updated' and rownum<100
+	</cfquery>
+	<cfoutput>
+		<cfloop query="d">
+			<br>LOCAL_URI: #LOCAL_URI#
+			<br>REMOTE_URI: #REMOTE_URI#
+			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'')>
+
+			<br>localfPath: #localfPath#
+		</cfloop>
+	</cfoutput>
+
+
+</cfif>
+
+
+
 
 <cfif action is "show_checksummatch">
 	<cfquery name="d" datasource="cf_dbuser">
