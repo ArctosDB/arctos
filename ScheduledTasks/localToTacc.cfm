@@ -66,7 +66,7 @@ edit code to run this<cfabort>
 		<cfloop query="d">
 			<br>LOCAL_URI: #LOCAL_URI#
 			<br>REMOTE_URI: #REMOTE_URI#
-			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webRootDir#')>
+			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
 
 			<br>localfPath: #localfPath#
 			<cfif fileExists(localfPath)>
