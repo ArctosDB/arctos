@@ -748,7 +748,7 @@
 							</cfif>
 						</cfif>
 					</cfloop>
-					where collection_object_id = #collection_object_id#"
+					where collection_object_id = #collection_object_id#
 				</cfquery>
 				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select #collection_object_id# collection_object_id, bulk_check_one(#collection_object_id#) rslt from dual
