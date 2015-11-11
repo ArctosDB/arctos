@@ -791,6 +791,7 @@ INSERT INTO bulkloader (
 					</cfif>
 				</cfloop>
 				) values (
+				<!----
 				<cfloop list="#cnamelist#" index="#column_name#">
 					<cfif isDefined("variables.#column_name#")>
 						<cfset thisData = evaluate("variables." & column_name)>
@@ -808,6 +809,7 @@ INSERT INTO bulkloader (
 					</cfif>
 				</cfloop>
 				)
+				---->
 		<!----
 			<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO bulkloader (
