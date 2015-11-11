@@ -730,7 +730,7 @@
 
 		---->
 
-
+<cftry>
 		<cftransaction>
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE bulkloader SET collection_object_id=collection_object_id
@@ -744,7 +744,6 @@
 								<cfelse>
 									,#COLUMN_NAME# = '#thisData#'
 								</cfif>
-
 							</cfif>
 						</cfif>
 					</cfloop>
@@ -754,39 +753,13 @@
 					select #collection_object_id# collection_object_id, bulk_check_one(#collection_object_id#) rslt from dual
 				</cfquery>
 			</cftransaction>
-
-			<!----
-		<cftry>
-			<cftransaction>
-				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE bulkloader SET collection_object_id=collection_object_id
-					<cfloop query="getCols">
-						<cfif isDefined("variables.#column_name#")>
-							<cfif column_name is not "collection_object_id">
-								<cfset thisData = evaluate("variables." & column_name)>
-								<cfset thisData = replace(thisData,"'","''","all")>
-								<cfif COLUMN_NAME is "wkt_polygon">
-									,#COLUMN_NAME# = <cfqueryparam value="#evaluate(thisData)#" cfsqltype="cf_sql_clob">
-								<cfelse>
-									,#COLUMN_NAME# = '#thisData#'
-								</cfif>
-							</cfif>
-						</cfif>
-					</cfloop>
-					where collection_object_id = #collection_object_id#"
-				</cfquery>
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select #collection_object_id# collection_object_id, bulk_check_one(#collection_object_id#) rslt from dual
-				</cfquery>
-			</cftransaction>
-		<cfcatch>
+<cfcatch>
 			<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "collection_object_id", collection_object_id, 1)>
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail & cfcatch.detail, 1)>
 		</cfcatch>
 		</cftry>
-		---->
 		<cfset x=SerializeJSON(result, true)>
 		<cfreturn x>
 	</cfoutput>
@@ -806,6 +779,46 @@
 			<cfset v=replace(kv,k & "=",'')>
 			<cfset "variables.#k#"=urldecode(v)>
 		</cfloop>
+		<cfset cnamelist=valuelist(getCols.column_name)>
+		<cftransaction>
+				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO bulkloader (
+					<cfloop list="#cnamelist#" index="#column_name#">
+						<cfif isDefined("variables.#column_name#")>
+							#COLUMN_NAME#
+							<cfif column_name is not listlast(cnamelist)>
+								,
+							</cfif>
+					</cfloop>
+					) values (
+
+					<cfloop list="#cnamelist#" index="#column_name#">
+						<cfif isDefined("variables.#column_name#")>
+							<cfset thisData = evaluate("variables." & column_name)>
+							<cfset thisData = replace(thisData,"'","''","all")>
+							<cfif COLUMN_NAME is "wkt_polygon">
+								<cfqueryparam value="#thisData#" cfsqltype="cf_sql_clob">
+							<cfelseif COLUMN_NAME is "collection_object_id">
+								bulkloader_PKEY.nextval
+							<cfelse>
+								'#thisData#'
+							</cfif>
+							<cfif column_name is not listlast(cnamelist)>
+								,
+							</cfif>
+						</cfif>
+					</cfloop>
+					)
+
+				</cfquery>
+				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select bulkloader_PKEY.currval as currval from dual
+				</cfquery>
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
+				</cfquery>
+			</cftransaction>
+		<!----
 		<cfset sql = "INSERT INTO bulkloader (">
 		<cfset flds = "">
 		<cfset data = "">
@@ -845,6 +858,7 @@
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail & "; " &  cfcatch.sql, 1)>
 		</cfcatch>
 		</cftry>
+		---->
 		<cfreturn result>
 	</cfoutput>
 </cffunction>
