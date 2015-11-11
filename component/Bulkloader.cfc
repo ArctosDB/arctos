@@ -780,6 +780,9 @@
 			<cfset "variables.#k#"=urldecode(v)>
 		</cfloop>
 		<cfset cnamelist=valuelist(getCols.column_name)>
+		hi
+
+		<!----
 			<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO bulkloader (
 				<cfloop list="#cnamelist#" index="#column_name#">
@@ -791,7 +794,6 @@
 					</cfif>
 				</cfloop>
 				) values (
-
 				<cfloop list="#cnamelist#" index="#column_name#">
 					<cfif isDefined("variables.#column_name#")>
 						<cfset thisData = evaluate("variables." & column_name)>
@@ -809,7 +811,6 @@
 					</cfif>
 				</cfloop>
 				)
-
 			</cfquery>
 			<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select bulkloader_PKEY.currval as currval from dual
@@ -817,6 +818,7 @@
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
 			</cfquery>
+			---->
 		<!----
 		<cfset sql = "INSERT INTO bulkloader (">
 		<cfset flds = "">
