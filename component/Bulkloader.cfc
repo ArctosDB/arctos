@@ -782,7 +782,7 @@
 		<cfset cnamelist=valuelist(getCols.column_name)>
 		hi
 INSERT INTO bulkloader (
-				<cfloop list="#cnamelist#" index="#column_name#">
+				<cfloop list="#cnamelist#" index="column_name">
 					#COLUMN_NAME#
 					<!----
 					<cfif isDefined("variables.#column_name#")>
