@@ -602,10 +602,6 @@
 												---->
 												<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
 												onchange="GeogPick('nothing',this.id,'dataEntry',this.value)">
-
-
-
-
 										</td>
 									</tr>
 									<tr>
@@ -668,6 +664,12 @@
 										<td align="right"><span class="f11a">LocalityRemk</span></td>
 										<td>
 											<textarea rows="1" cols="40" class="mediumtextarea"  name="locality_remarks" id="locality_remarks"></textarea>
+										</td>
+									</tr>
+									<tr id="d_wkt_polygon">
+										<td align="right"><span class="f11a">WKTPoly</span></td>
+										<td>
+											<textarea rows="1" cols="40" class="mediumtextarea"  name="wkt_polygon" id="wkt_polygon"></textarea>
 										</td>
 									</tr>
 								</table><!----- /locality ---------->
