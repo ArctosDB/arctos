@@ -783,12 +783,15 @@
 		hi
 INSERT INTO bulkloader (
 				<cfloop list="#cnamelist#" index="#column_name#">
+					#COLUMN_NAME#
+					<!----
 					<cfif isDefined("variables.#column_name#")>
 						#COLUMN_NAME#
 						<cfif column_name is not listlast(cnamelist)>
 							,
 						</cfif>
 					</cfif>
+					---->
 				</cfloop>
 				) values (
 				<!----
