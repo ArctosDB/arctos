@@ -385,7 +385,6 @@
 			<cfabort>
 		</cfif>
 	</cfloop>
-</cfoutput>
 
 	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
 	<!-----
