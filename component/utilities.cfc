@@ -378,13 +378,9 @@
 	</cfif>
 	<!--- check these every time, even if there's no error; these things are NEVER allowed in a URL ---->
 	<cfset x="script,write">
-	<cfoutput>
 	<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
-		#i#
 		<cfif listfindnocase(x,i)>
 			<cfset bl_reason='URL contains #i#'>
-
-			BLACKLISt<cfabort>
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
