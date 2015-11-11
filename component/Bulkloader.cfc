@@ -712,6 +712,9 @@
 			<cfset v=replace(kv,k & "=",'')>
 			<cfset "variables.#k#"=urldecode(v)>
 		</cfloop>
+
+
+		<!----
 		<cfset sql = "UPDATE bulkloader SET ">
 		<cfloop query="getCols">
 			<cfif isDefined("variables.#column_name#")>
@@ -724,10 +727,26 @@
 		</cfloop>
 		<cfset sql = "#SQL# where collection_object_id = #collection_object_id#">
 		<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>
+
+		---->
 		<cftry>
 			<cftransaction>
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					#preservesinglequotes(sql)#
+					UPDATE bulkloader SET collection_object_id=collection_object_id
+					<cfloop query="getCols">
+					<cfif isDefined("variables.#column_name#")>
+						<cfif column_name is not "collection_object_id">
+							<cfset thisData = evaluate("variables." & column_name)>
+							<cfset thisData = replace(thisData,"'","''","all")>
+							<cfif COLUMN_NAME is "wkt_polygon">
+								,#COLUMN_NAME# = <cfqueryparam value="#evaluate(thisData)#" cfsqltype="cf_sql_clob">
+							<cfelse>
+								,#COLUMN_NAME# = '#thisData#'
+							</cfif>
+						</cfif>
+					</cfif>
+				</cfloop>
+					where collection_object_id = #collection_object_id#"
 				</cfquery>
 				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select #collection_object_id# collection_object_id, bulk_check_one(#collection_object_id#) rslt from dual
