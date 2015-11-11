@@ -164,7 +164,37 @@
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from bulkloader_stage
 	</cfquery>
+
+
+
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+       <cfset  util = CreateObject("component","component.utilities")>
+	<cfset x=util.CSVToQuery(fileContent)>
+       <cfset cols=x.columnlist>
+	<cftransaction>
+        <cfloop query="x">
+            <cfquery name="ins" datasource="uam_god">
+	            insert into bulkloader_stage (#cols#) values (
+	            <cfloop list="#cols#" index="i">
+	               <cfif i is "wkt_polygon">
+	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+	                <cfelse>
+	            		'#escapeQuotes(evaluate(i))#'
+	            	</cfif>
+	            	<cfif i is not listlast(cols)>
+	            		,
+	            	</cfif>
+	            </cfloop>
+	            )
+            </cfquery>
+        </cfloop>
+	</cftransaction>
+
+
+
+	<!----
+	<cfset  util = CreateObject("component","component.utilities")>
+
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset colNames="">
@@ -188,6 +218,7 @@
 			</cfquery>
 		</cfif>
 	</cfloop>
+	---->
 	<cflocation url="BulkloadSpecimens.cfm?action=validate" addtoken="false">
 </cfoutput>
 </cfif>
