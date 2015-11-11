@@ -781,43 +781,44 @@
 		</cfloop>
 		<cfset cnamelist=valuelist(getCols.column_name)>
 		<cftransaction>
-				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO bulkloader (
-					<cfloop list="#cnamelist#" index="#column_name#">
-						<cfif isDefined("variables.#column_name#")>
-							#COLUMN_NAME#
-							<cfif column_name is not listlast(cnamelist)>
-								,
-							</cfif>
-					</cfloop>
-					) values (
-
-					<cfloop list="#cnamelist#" index="#column_name#">
-						<cfif isDefined("variables.#column_name#")>
-							<cfset thisData = evaluate("variables." & column_name)>
-							<cfset thisData = replace(thisData,"'","''","all")>
-							<cfif COLUMN_NAME is "wkt_polygon">
-								<cfqueryparam value="#thisData#" cfsqltype="cf_sql_clob">
-							<cfelseif COLUMN_NAME is "collection_object_id">
-								bulkloader_PKEY.nextval
-							<cfelse>
-								'#thisData#'
-							</cfif>
-							<cfif column_name is not listlast(cnamelist)>
-								,
-							</cfif>
+			<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO bulkloader (
+				<cfloop list="#cnamelist#" index="#column_name#">
+					<cfif isDefined("variables.#column_name#")>
+						#COLUMN_NAME#
+						<cfif column_name is not listlast(cnamelist)>
+							,
 						</cfif>
-					</cfloop>
-					)
+					</cfif>
+				</cfloop>
+				) values (
 
-				</cfquery>
-				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select bulkloader_PKEY.currval as currval from dual
-				</cfquery>
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
-				</cfquery>
-			</cftransaction>
+				<cfloop list="#cnamelist#" index="#column_name#">
+					<cfif isDefined("variables.#column_name#")>
+						<cfset thisData = evaluate("variables." & column_name)>
+						<cfset thisData = replace(thisData,"'","''","all")>
+						<cfif COLUMN_NAME is "wkt_polygon">
+							<cfqueryparam value="#thisData#" cfsqltype="cf_sql_clob">
+						<cfelseif COLUMN_NAME is "collection_object_id">
+							bulkloader_PKEY.nextval
+						<cfelse>
+							'#thisData#'
+						</cfif>
+						<cfif column_name is not listlast(cnamelist)>
+							,
+						</cfif>
+					</cfif>
+				</cfloop>
+				)
+
+			</cfquery>
+			<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select bulkloader_PKEY.currval as currval from dual
+			</cfquery>
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
+			</cfquery>
+		</cftransaction>
 		<!----
 		<cfset sql = "INSERT INTO bulkloader (">
 		<cfset flds = "">
