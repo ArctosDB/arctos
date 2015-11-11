@@ -822,7 +822,6 @@
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
 			</cfquery>
-			---->
 		<!----
 		<cfset sql = "INSERT INTO bulkloader (">
 		<cfset flds = "">
