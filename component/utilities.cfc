@@ -383,6 +383,8 @@
 		#i#
 		<cfif listfindnocase(x,i)>
 			<cfset bl_reason='URL contains #i#'>
+
+			BLACKLISt<cfabort>
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
