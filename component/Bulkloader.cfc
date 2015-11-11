@@ -739,14 +739,12 @@
 							<cfif column_name is not "collection_object_id">
 								<cfset thisData = evaluate("variables." & column_name)>
 								<cfset thisData = replace(thisData,"'","''","all")>
-								<!----
 								<cfif COLUMN_NAME is "wkt_polygon">
-									,#COLUMN_NAME# = <cfqueryparam value="#evaluate(thisData)#" cfsqltype="cf_sql_clob">
+									,#COLUMN_NAME# = <cfqueryparam value="#thisData#" cfsqltype="cf_sql_clob">
 								<cfelse>
 									,#COLUMN_NAME# = '#thisData#'
 								</cfif>
-								---->
-								,#COLUMN_NAME# = '#thisData#'
+
 							</cfif>
 						</cfif>
 					</cfloop>
