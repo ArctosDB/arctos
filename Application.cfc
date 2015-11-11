@@ -260,7 +260,6 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 	</cfif>
-
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 	<cfset utilities.getIpAddress()>
