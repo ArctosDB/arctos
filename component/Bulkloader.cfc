@@ -780,13 +780,7 @@
 			<cfset "variables.#k#"=urldecode(v)>
 		</cfloop>
 		<cfset cnamelist=valuelist(getCols.column_name)>
-
-
-
-
-
-
-
+		<cftry>
 			<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO bulkloader (
 				<cfloop list="#cnamelist#" index="column_name">
@@ -822,39 +816,6 @@
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
 			</cfquery>
-		<!----
-		<cfset sql = "INSERT INTO bulkloader (">
-		<cfset flds = "">
-		<cfset data = "">
-		<cfloop query="getCols">
-			<cfif isDefined("variables.#column_name#")>
-				<cfif column_name is not "collection_object_id">
-					<cfset flds = "#flds#,#column_name#">
-					<cfset thisData = evaluate("variables." & column_name)>
-					<cfset thisData = replace(thisData,"'","''","all")>
-					<cfset data = "#data#,'#thisData#'">
-				</cfif>
-			</cfif>
-		</cfloop>
-		<cfset flds = trim(flds)>
-		<cfset flds=right(flds,len(flds)-1)>
-		<cfset data = trim(data)>
-		<cfset data=right(data,len(data)-1)>
-		<cfset flds = "collection_object_id,#flds#">
-		<cfset data = "bulkloader_PKEY.nextval,#data#">
-		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">
-		<cftry>
-			<cftransaction>
-				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					#preservesinglequotes(sql)#
-				</cfquery>
-				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select bulkloader_PKEY.currval as currval from dual
-				</cfquery>
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
-				</cfquery>
-			</cftransaction>
 		<cfcatch>
 			<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
 			<cfset temp = queryaddrow(result,1)>
@@ -862,22 +823,20 @@
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail & "; " &  cfcatch.sql, 1)>
 		</cfcatch>
 		</cftry>
-		---->
 		<cfreturn result>
 	</cfoutput>
 </cffunction>
-
 	<!----------------------------------------------------------------------------------------->
-	<cffunction name="getStagePage" access="remote">
-		<cfargument name="page" required="yes">
-	    <cfargument name="pageSize" required="yes">
-		<cfargument name="gridsortcolumn" required="yes">
-	    <cfargument name="gridsortdirection" required="yes">
-		<cfset startrow=page * pageSize>
-		<cfset stoprow=startrow + pageSize>
-		<cfif len(gridsortcolumn) is 0>
-			<cfset gridsortcolumn="collection_object_id">
-		</cfif>
+<cffunction name="getStagePage" access="remote">
+	<cfargument name="page" required="yes">
+    <cfargument name="pageSize" required="yes">
+	<cfargument name="gridsortcolumn" required="yes">
+    <cfargument name="gridsortdirection" required="yes">
+	<cfset startrow=page * pageSize>
+	<cfset stoprow=startrow + pageSize>
+	<cfif len(gridsortcolumn) is 0>
+		<cfset gridsortcolumn="collection_object_id">
+	</cfif>
 	<cfoutput>
 		<cfset sql="select * from bulkloader_stage where 1=1">
 		<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
@@ -885,8 +844,8 @@
 			#preservesinglequotes(sql)#
 		</cfquery>
 	</cfoutput>
-		      <cfreturn queryconvertforgrid(data,page,pagesize)/>
-	</cffunction>
+	<cfreturn queryconvertforgrid(data,page,pagesize)/>
+</cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getPage" access="remote">
 	<cfargument name="page" required="yes">
