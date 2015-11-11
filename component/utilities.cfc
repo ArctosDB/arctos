@@ -379,9 +379,6 @@
 	<!--- check these every time, even if there's no error; these things are NEVER allowed in a URL ---->
 	<cfset x="script,document.write(">
 	<cfloop list="#lurl#" delimiters="#chr(7)#" index="i">
-		<cfif request.ipaddress is "67.166.156.208">
-		<br>#lurl#
-		</cfif>
 		<cfif listfindnocase(x,i)>
 			<cfset bl_reason='URL contains #i#'>
 			<cfinclude template="/errors/autoblacklist.cfm">
