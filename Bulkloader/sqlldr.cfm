@@ -1,8 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-
-<cfdump var=#form#>
-
-
 <cfparam name="headers" default="">
 <cfparam name="tablename" default="mytablename">
 <cfparam name="ctlname" default="control.ctl">
@@ -55,7 +51,7 @@
 					}
 					ctl = ctl & chr(10);
 				}
-				ctl = ctl & ")";
+				ctl = ctl & ");";
 			</cfscript>
 			<br><textarea name="ctl" class="hugetextarea">#ctl#</textarea>
 		</li>
