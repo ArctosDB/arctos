@@ -20,11 +20,6 @@
 	<input type="text" name="badname" size="80" value="#badname#">
 	<label for="csvname">csvname</label>
 	<input type="text" name="csvname" size="80" value="#csvname#">
-
-
-
-	<input type="submit" value="build .ctl">
-	<input type="text" size="80" value="#tablename#">
 	<br><input type="submit" value="build .ctl">
 </form>
 <cfif isdefined("headers") and len(headers) gt 0>
