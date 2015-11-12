@@ -75,7 +75,7 @@
 				ctl='load data' & chr(10);
 				ctl = ctl & "infile '" & csvname & "'" & chr(10);
 				ctl = ctl & "badfile '" & badname & "'" & chr(10);
-				ctl = ctl & "into table " & tablename & " & chr(10);
+				ctl = ctl & "into table " & tablename  & chr(10);
 				ctl = ctl & "fields terminated by ',' optionally enclosed by '""'" & chr(10);
 				ctl = ctl & "trailing nullcols" & chr(10);
 				ctl = ctl & "(" & chr(10);
