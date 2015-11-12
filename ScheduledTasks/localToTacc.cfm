@@ -78,7 +78,7 @@ edit code to run this<cfabort>
 		 from cf_tacc_transfer where status='new' order by local_uri
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/mediaToMove.csv"
     	output = "#csv#"
