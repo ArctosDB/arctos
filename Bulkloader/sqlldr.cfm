@@ -1,7 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
+<cfparam name="headers" default="">
+<cfoutput>
 <form name="f" method="post" action="sqlldr.cfm">
 	<label for="headers">Paste CSV header row here</label>
-	<textarea name="headers" class="hugetextarea"></textarea>
+	<textarea name="headers" class="hugetextarea">#headers#</textarea>
 	<br><input type="submit" value="build .ctl">
 </form>
 <cfif isdefined("headers") and len(headers) gt 0>
@@ -47,12 +49,12 @@
 
 
 			</cfscript>
-			<textarea name="ctl" class="hugetextarea"><cfoutput>#ctl#</cfoutput></textarea>
+			<textarea name="ctl" class="hugetextarea">#ctl#</textarea>
 		</li>
 	</ol>
 
 </cfif>
-
+</cfoutput>
 
 <!----
 
