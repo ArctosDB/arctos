@@ -73,9 +73,9 @@ edit code to run this<cfabort>
 <cfif action is "downloadLocalPath">
 	<cfquery name="d" datasource="cf_dbuser">
 		select
-			replace(local_uri,'http://arctos.database.museum') imgpath,
-			replace(LOCAL_TN,'http://arctos.database.museum') tnpath
-		 from cf_tacc_transfer where status='new' order by local_uri
+			replace(local_uri,'http://arctos.database.museum') imgpath union
+			replace(LOCAL_TN,'http://arctos.database.museum') imgpath
+		 from cf_tacc_transfer where status='new' order by imgpath
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
