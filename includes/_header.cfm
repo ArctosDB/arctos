@@ -176,6 +176,7 @@
 											<li><a target="_top" href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a></li>
 											<li><a target="_top" href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a></li>
 											<li><a target="_top" href="##" onclick="getDocs('Bulkloader/index')">Bulkloader Docs</a></li>
+											<li><a target="_top" href="/Bulkloader/sqlldr.cfm">SQLLDR Builder</a></li>
 										</cfif>
 										<cfif listfind(formList,"/Bulkloader/browseBulk.cfm")>
 											<li><a target="_top" href="/Bulkloader/browseBulk.cfm">Browse and Edit</a></li>
