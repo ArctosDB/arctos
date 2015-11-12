@@ -39,15 +39,12 @@
 
 				for (i = 1; i lte listlen(headers); i = i + 1) {
 					ctl = ctl & chr(9) & listgetat(headers,i) & " CHAR(4000)";
-					if (i lte listlen(headers)){
+					if (i lt listlen(headers)){
 						 ctl = ctl & ",";
 					}
 					ctl = ctl & chr(10);
 				}
-
-
-
-
+				ctl = ctl & ")"
 			</cfscript>
 			<textarea name="ctl" class="hugetextarea">#ctl#</textarea>
 		</li>
