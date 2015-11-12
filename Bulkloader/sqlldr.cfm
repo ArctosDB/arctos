@@ -32,7 +32,7 @@
 				ctl = ctl & "badfile 'arcbad.bad'";
 				ctl = ctl & "into table YOUR_TABLE_NAME";
 				ctl = ctl & "fields terminated by ',' optionally enclosed by '""'";
-				ctl = ctl & "trailing nullcols"
+				ctl = ctl & "trailing nullcols";
 				ctl = ctl & "(";
 
 
