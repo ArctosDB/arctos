@@ -28,7 +28,7 @@
 			Build a control file
 			<cfscript>
 				ctl='load data' & chr(10);
-				ctl = ctl & 'next line';
+				ctl = ctl & "infile 'datafile.csv'";
 			</cfscript>
 			<textarea name="ctl" class="hugetextarea"><cfoutput>#ctl#</cfoutput></textarea>
 		</li>
