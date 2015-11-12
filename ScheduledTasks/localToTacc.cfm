@@ -262,26 +262,31 @@ edit code to run this<cfabort>
 			<cfelse>
 				<cfset pHash='NOPREVIEW'>
 			</cfif>
+			<cftry>
+				<cfquery name="ins" datasource="cf_dbuser">
+					insert into cf_tacc_transfer (
+						media_id,
+						sdate,
+						local_uri,
+						local_hash,
+						LOCAL_TN,
+						LOCAL_TN_HASH,
+						status
+					) values (
+						#media_id#,
+						sysdate,
+						'#media_uri#',
+						'#mHash#',
+						'#preview_uri#',
+						'#pHash#',
+						'new'
+					)
+				</cfquery>
+			<cfcatch>
+				#cfcatch.message# #cfcatch.detail# #cfcatch.sql#
+			</cfcatch>
 
-			<cfquery name="ins" datasource="cf_dbuser">
-				insert into cf_tacc_transfer (
-					media_id,
-					sdate,
-					local_uri,
-					local_hash,
-					LOCAL_TN,
-					LOCAL_TN_HASH,
-					status
-				) values (
-					#media_id#,
-					sysdate,
-					'#media_uri#',
-					'#mHash#',
-					'#preview_uri#',
-					'#pHash#',
-					'new'
-				)
-			</cfquery>
+			</cftry>
 		</cftransaction>
 	</cfloop>
 </cfif>
@@ -292,6 +297,7 @@ edit code to run this<cfabort>
 		status = 'new'
 	</cfquery>
 	<cfset remoteBaseURL="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/">
+
 	<cfset localBaseURL="http://arctos.database.museum/mediaUploads/">
 	<cfoutput>
 	<cfloop query="f">
