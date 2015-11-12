@@ -47,7 +47,7 @@
 		<li>
 			Build or find an empty table. pre_bulkloader often works.
 			<cfscript>
-				ctl="create table mytablename (" & chr(10);
+				ctl="create table " & tablename & " (" & chr(10);
 				for (i = 1; i lte listlen(headers); i = i + 1) {
 					ctl = ctl & chr(9) & listgetat(headers,i);
 					if (ucase(listgetat(headers,i)) is "WKT_POLYGON"){
@@ -65,12 +65,17 @@
 			<br><textarea name="ctl" class="hugetextarea">#ctl#</textarea>
 		</li>
 		<li>
-			Build a control file, control.ctl
+			Build a control file
+			<p>
+				<code>
+					vi #ctlname#
+				</code>
+			</p>
 			<cfscript>
 				ctl='load data' & chr(10);
-				ctl = ctl & "infile 'datafile.csv'" & chr(10);
-				ctl = ctl & "badfile 'badfile.bad'" & chr(10);
-				ctl = ctl & "into table YOUR_TABLE_NAME" & chr(10);
+				ctl = ctl & "infile '" & csvname & "'" & chr(10);
+				ctl = ctl & "badfile '" & badname & "'" & chr(10);
+				ctl = ctl & "into table " & tablename & " & chr(10);
 				ctl = ctl & "fields terminated by ',' optionally enclosed by '""'" & chr(10);
 				ctl = ctl & "trailing nullcols" & chr(10);
 				ctl = ctl & "(" & chr(10);
@@ -91,7 +96,7 @@
 			Get the CSV data to a server with SQLLDR
 			<p>
 				<code>
-					scp datafile.csv user@host:~/datafile.csv
+					scp #csvname# user@host:~/#csvname#
 				</code>
 			</p>
 		</li>
@@ -99,7 +104,7 @@
 			Load the data
 			<p>
 				<code>
-					$ORACLE_HOME/bin/sqlldr username/password control=arcpart.ctl
+					$ORACLE_HOME/bin/sqlldr username/password control=#ctlname#
 				</code>
 			</p>
 			Don't forget to escape special characters in password - my.password ==> my\.password
@@ -109,7 +114,7 @@
 			Use dblinks to move data to production server
 			<p>
 				<code>
-					insert into tablename@DB_production (select * from tablename);
+					insert into #tablename#@DB_production (select * from #tablename#);
 				</code>
 			</p>
 		</li>
