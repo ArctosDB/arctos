@@ -1,9 +1,26 @@
 <cfinclude template="/includes/_header.cfm">
 <cfparam name="headers" default="">
+<cfparam name="tablename" default="mytablename">
+<cfparam name="ctlname" default="control.ctl">
+<cfparam name="badname" default="bads.bad">
+<cfparam name="csvname" default="data.csv">
 <cfoutput>
 <form name="f" method="post" action="sqlldr.cfm">
 	<label for="headers">Paste CSV header row here</label>
 	<textarea name="headers" class="hugetextarea">#headers#</textarea>
+	<label for="tablename">tablename</label>
+	<input type="text" size="80" value="#tablename#">
+	<label for="ctlname">ctlname</label>
+	<input type="text" size="80" value="#ctlname#">
+	<label for="badname">badname</label>
+	<input type="text" size="80" value="#badname#">
+	<label for="csvname">csvname</label>
+	<input type="text" size="80" value="#csvname#">
+
+
+
+	<input type="submit" value="build .ctl">
+	<input type="text" size="80" value="#tablename#">
 	<br><input type="submit" value="build .ctl">
 </form>
 <cfif isdefined("headers") and len(headers) gt 0>
@@ -28,7 +45,12 @@
 			<cfscript>
 				ctl="create table mytablename (" & chr(10);
 				for (i = 1; i lte listlen(headers); i = i + 1) {
-					ctl = ctl & chr(9) & listgetat(headers,i) & " VARCHAR2(4000)";
+					ctl = ctl & chr(9) & listgetat(headers,i);
+					if (ucase(listgetat(headers,i)) is "WKT_POLYGON"){
+						ctl = ctl &" CLOB";
+					else {
+						ctl = ctl &" VARCHAR2(4000)";
+					}
 					if (i lt listlen(headers)){
 						 ctl = ctl & ",";
 					}
