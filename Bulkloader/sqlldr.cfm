@@ -39,8 +39,6 @@
 				   ctl = ctl & chr(9) & fieldName & " CHAR(4000)," & chr(10);
 				}
 
-</cfscript>
-
 
 
 			</cfscript>
