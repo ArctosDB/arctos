@@ -93,7 +93,7 @@
 				</p>
 			</li>
 			<li>
-				Make sure the CSV works. Linefeed characters are often lobbed off, fix with:
+				Make sure the CSV works. Linefeed characters are often lopped off, fix with:
 				<p>
 					<code>vi #csvname#</code>
 				</p>
