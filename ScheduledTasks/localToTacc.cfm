@@ -3,6 +3,12 @@
 
 <!----
 
+
+1) checkNew - Find everything that is used in Media, on the webserver, not found by this script. (And build a checksum, cuz.)
+
+2) -not here- Get TACC to COPY all the files found in (1).
+
+
 edit code to run this<cfabort>
 
 	create table cf_tacc_transfer (
@@ -37,6 +43,11 @@ edit code to run this<cfabort>
 
 
 <br><a href="localToTacc.cfm?action=checkNew">checkNew</a> - do this first; it finds stuff we care about and builds checksums for "local" junk
+<br><a href="localToTacc.cfm?action=downloadLocalPath">downloadLocalPath</a> - download local paths, send to tacc for file movement
+
+
+
+
 <br><a href="localToTacc.cfm?action=findCheckNewFile">findCheckNewFile</a> - do this second, it builds checksums for "remote" files
 
 <br><a href="localToTacc.cfm?action=checkchecksum">checkchecksum</a> - do this third, it checks that everything is happy
@@ -56,6 +67,26 @@ edit code to run this<cfabort>
 <cfsetting requesttimeout="300" />
 
 
+
+
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "downloadLocalPath">
+	<cfquery name="d" datasource="cf_dbuser">
+		select
+			replace(local_uri,'http://arctos.database.museum') imgpath,
+			replace(LOCAL_TN,'http://arctos.database.museum') tnpath,
+		 from cf_tacc_transfer where status='new' order by local_uri
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/mediaToMove.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+		<cflocation url="/download.cfm?file=mediaToMove.csv" addtoken="false">
+	</cfif>
+
+</cfif>
 
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "cleanup_local">
