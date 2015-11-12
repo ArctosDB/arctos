@@ -13,13 +13,13 @@
 	<label for="headers">Paste CSV header row here</label>
 	<textarea name="headers" class="hugetextarea">#headers#</textarea>
 	<label for="tablename">tablename</label>
-	<input type="text" size="80" value="#tablename#">
+	<input type="text" name="tablename" size="80" value="#tablename#">
 	<label for="ctlname">ctlname</label>
-	<input type="text" size="80" value="#ctlname#">
+	<input type="text" name="ctlname" size="80" value="#ctlname#">
 	<label for="badname">badname</label>
-	<input type="text" size="80" value="#badname#">
+	<input type="text" name="badname" size="80" value="#badname#">
 	<label for="csvname">csvname</label>
-	<input type="text" size="80" value="#csvname#">
+	<input type="text" name="csvname" size="80" value="#csvname#">
 
 
 
