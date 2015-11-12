@@ -1,9 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfparam name="headers" default="">
 <cfparam name="tablename" default="mytablename">
-<cfparam name="ctlname" default="control.ctl">
+<cfparam name="ctlname" default="mycontrol.ctl">
 <cfparam name="badname" default="bads.bad">
 <cfparam name="csvname" default="data.csv">
+
 <cfoutput>
 <form name="f" method="post" action="sqlldr.cfm">
 	<label for="headers">Paste CSV header row here</label>
@@ -99,7 +100,7 @@
 			then type (you cannot copypasta)
 			<p>
 				<code>
-					:%/[CTL-v][ENTER]/[CTL-v][ENTER]/g
+					:%s/[CTL-v][ENTER]/[CTL-v][ENTER]/g
 				</code>
 			</p>
 			to replace linefeeds with - uhh, linefeeds. Because, uhh, stuff....
