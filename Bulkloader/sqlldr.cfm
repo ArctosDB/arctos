@@ -25,6 +25,20 @@
 		</li>
 		<li>
 			Build or find an empty table. pre_bulkloader often works.
+			<cfscript>
+				ctl="create table mytablename (";
+				for (i = 1; i lte listlen(headers); i = i + 1) {
+					ctl = ctl & chr(9) & listgetat(headers,i) & " VARCHAR2(4000)";
+					if (i lt listlen(headers)){
+						 ctl = ctl & ",";
+					}
+					ctl = ctl & chr(10);
+				}
+				ctl = ctl & ")";
+			</cfscript>
+			<br><textarea name="ctl" class="hugetextarea">#ctl#</textarea>
+
+
 		</li>
 		<li>
 			Build a control file, control.ctl
@@ -51,9 +65,29 @@
 		</li>
 		<li>
 			Get the CSV data to a server with SQLLDR
-			<code>
-				scp datafile.csv user@host:~/datafile.csv
-			</code>
+			<p>
+				<code>
+					scp datafile.csv user@host:~/datafile.csv
+				</code>
+			</p>
+		</li>
+		<li>
+			Load the data
+			<p>
+				<code>
+					$ORACLE_HOME/bin/sqlldr username/password control=arcpart.ctl
+				</code>
+			</p>
+			Don't forget to escape special characters in password - my.password ==> my\.password
+
+		</li>
+		<li>
+			Use dblinks to move data to production server
+			<p>
+				<code>
+					insert into tablename@DB_production (select * from tablename);
+				</code>
+			</p>
 		</li>
 	</ol>
 
