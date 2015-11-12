@@ -15,8 +15,8 @@ Bad things? Last standalone copy of this form is in v6.11
 			},
 			function(r) {
 				$("#getDownload").prop('onclick',null).off('click')
-					.text("Save File")
-					.attr("href",'/download.cfm?file=ArctosSpecimenSummary.csv');
+				.text("Save File")
+				.attr("href",'/download.cfm?file=ArctosSpecimenSummary.csv');
 				 window.location='/download.cfm?file=ArctosSpecimenSummary.csv';
 			}
 		);
