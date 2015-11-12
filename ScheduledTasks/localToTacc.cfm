@@ -74,7 +74,7 @@ edit code to run this<cfabort>
 	<cfquery name="d" datasource="cf_dbuser">
 		select
 			replace(local_uri,'http://arctos.database.museum') imgpath,
-			replace(LOCAL_TN,'http://arctos.database.museum') tnpath,
+			replace(LOCAL_TN,'http://arctos.database.museum') tnpath
 		 from cf_tacc_transfer where status='new' order by local_uri
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
