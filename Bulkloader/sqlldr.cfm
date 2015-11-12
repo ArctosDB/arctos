@@ -42,7 +42,7 @@
 				for (i = 1; i lte listlen(headers); i = i + 1) {
 					ctl = ctl & chr(9) & listgetat(headers,i);
 					if (ucase(listgetat(headers,i)) is "WKT_POLYGON"){
-						ctl = ctl &" CLOB";
+						ctl = ctl &" VARCHAR2(100000000000)";
 					} else {
 						ctl = ctl &" VARCHAR2(4000)";
 					}
@@ -92,6 +92,19 @@
 			</p>
 		</li>
 		<li>
+			Make sure the CSV works. Linefeed characters are often lobbed off, fix with:
+			<p>
+				<code>vi #csvname#</code>
+			</p>
+			then type (you cannot copypasta)
+			<p>
+				<code>
+					:%/[CTL-v][ENTER]/[CTL-v][ENTER]/g
+				</code>
+			</p>
+			to replace linefeeds with - uhh, linefeeds. Because, uhh, stuff....
+		</li>
+		<li>
 			Load the data
 			<p>
 				<code>
@@ -100,6 +113,12 @@
 			</p>
 			Don't forget to escape special characters in password - my.password ==> my\.password
 
+		</li>
+		<li>
+			CAREFULLY examine:
+			<ul>
+				<li>The logfile, probably #replace(ctlname,".ctl",".log")#</li>
+			</ul>
 		</li>
 		<li>
 			Use dblinks to move data to production server
