@@ -5,10 +5,35 @@
 	<br><input type="submit" value="build .ctl">
 </form>
 <cfif isdefined("headers") and len(headers) gt 0>
-	<textarea name="headers" class="hugetextarea">
-		load data
-		infile YOURFILENAME.csv
-	</textarea>
+	<p>
+		HOW TO SQLLDR
+	</p>
+	Basic requirements
+	<ul>
+		<li>
+			Access to Oracle
+		</li>
+		<li>
+			Access to SQLLDR
+		</li>
+	</ul>
+	<ol>
+		<li>
+			Get the data into valid CSV. Don't let Excel eat your junk.
+		</li>
+		<li>
+			Build or find an empty table. pre_bulkloader often works.
+		</li>
+		<li>
+			Build a control file
+			<cfscript>
+				var ctl='load data' & chr(10);
+				ctl+='next line';
+			</cfscript>
+			<textarea name="ctl" class="hugetextarea">#ctl#</textarea>
+		</li>
+	</ol>
+
 </cfif>
 
 
