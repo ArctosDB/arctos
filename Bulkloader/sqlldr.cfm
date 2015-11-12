@@ -9,7 +9,7 @@
 <cfparam name="badname" default="bads.bad">
 <cfparam name="csvname" default="data.csv">
 <cfoutput>
-<form name="f" method="get" action="sqlldr.cfm">
+<form name="f" method="post" action="sqlldr.cfm">
 	<label for="headers">Paste CSV header row here</label>
 	<textarea name="headers" class="hugetextarea">#headers#</textarea>
 	<label for="tablename">tablename</label>
