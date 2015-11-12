@@ -29,11 +29,17 @@
 			<cfscript>
 				ctl='load data' & chr(10);
 				ctl = ctl & "infile 'datafile.csv'" & chr(10);
-				ctl = ctl & "badfile 'arcbad.bad'" & chr(10);
+				ctl = ctl & "badfile 'badfile.bad'" & chr(10);
 				ctl = ctl & "into table YOUR_TABLE_NAME" & chr(10);
 				ctl = ctl & "fields terminated by ',' optionally enclosed by '""'" & chr(10);
 				ctl = ctl & "trailing nullcols" & chr(10);
 				ctl = ctl & "(" & chr(10);
+				fldAry = listToArray (headers);
+				for( fieldName in fldAry ){
+				   ctl = ctl & chr(9) & fieldName & " CHAR(4000)," & chr(10);
+				}
+
+</cfscript>
 
 
 
