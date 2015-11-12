@@ -36,7 +36,7 @@
 				ctl = ctl & "(" & chr(10);
 
 				for (i = 1; i lte listlen(headers); i = i + 1) {
-					ctl = ctl & chr(9) & listgetat(header,i) & " CHAR(4000)";
+					ctl = ctl & chr(9) & listgetat(headers,i) & " CHAR(4000)";
 					if (i lte listlen(headers)){
 						 ctl = ctl & ",";
 					}
