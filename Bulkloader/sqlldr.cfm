@@ -26,7 +26,7 @@
 		<li>
 			Build or find an empty table. pre_bulkloader often works.
 			<cfscript>
-				ctl="create table mytablename (";
+				ctl="create table mytablename (" & chr(10);
 				for (i = 1; i lte listlen(headers); i = i + 1) {
 					ctl = ctl & chr(9) & listgetat(headers,i) & " VARCHAR2(4000)";
 					if (i lt listlen(headers)){
@@ -37,8 +37,6 @@
 				ctl = ctl & ")";
 			</cfscript>
 			<br><textarea name="ctl" class="hugetextarea">#ctl#</textarea>
-
-
 		</li>
 		<li>
 			Build a control file, control.ctl
