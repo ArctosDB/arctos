@@ -44,7 +44,7 @@
 					}
 					ctl = ctl & chr(10);
 				}
-				ctl = ctl & ")"
+				ctl = ctl & ")";
 			</cfscript>
 			<textarea name="ctl" class="hugetextarea">#ctl#</textarea>
 		</li>
