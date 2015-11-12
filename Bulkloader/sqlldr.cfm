@@ -27,7 +27,7 @@
 			Build or find an empty table. pre_bulkloader often works.
 		</li>
 		<li>
-			Build a control file
+			Build a control file, control.ctl
 			<cfscript>
 				ctl='load data' & chr(10);
 				ctl = ctl & "infile 'datafile.csv'" & chr(10);
@@ -46,7 +46,14 @@
 				}
 				ctl = ctl & ")";
 			</cfscript>
+			<br>
 			<textarea name="ctl" class="hugetextarea">#ctl#</textarea>
+		</li>
+		<li>
+			Get the CSV data to a server with SQLLDR
+			<code>
+				scp datafile.csv user@host:~/datafile.csv
+			</code>
 		</li>
 	</ol>
 
