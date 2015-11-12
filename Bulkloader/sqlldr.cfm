@@ -28,12 +28,12 @@
 			Build a control file
 			<cfscript>
 				ctl='load data' & chr(10);
-				ctl = ctl & "infile 'datafile.csv'";
-				ctl = ctl & "badfile 'arcbad.bad'";
-				ctl = ctl & "into table YOUR_TABLE_NAME";
-				ctl = ctl & "fields terminated by ',' optionally enclosed by '""'";
-				ctl = ctl & "trailing nullcols";
-				ctl = ctl & "(";
+				ctl = ctl & "infile 'datafile.csv'" & chr(10);
+				ctl = ctl & "badfile 'arcbad.bad'" & chr(10);
+				ctl = ctl & "into table YOUR_TABLE_NAME" & chr(10);
+				ctl = ctl & "fields terminated by ',' optionally enclosed by '""'" & chr(10);
+				ctl = ctl & "trailing nullcols" & chr(10);
+				ctl = ctl & "(" & chr(10);
 
 
 
