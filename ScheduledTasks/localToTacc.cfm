@@ -1,9 +1,15 @@
 
 
-edit code to run this<cfabort>
 
 <!----
 
+
+1) checkNew - Find everything that is used in Media, on the webserver, not found by this script. (And build a checksum, cuz.)
+
+2) -not here- Get TACC to COPY all the files found in (1).
+
+
+edit code to run this<cfabort>
 
 	create table cf_tacc_transfer (
 		media_id number,
@@ -37,6 +43,11 @@ edit code to run this<cfabort>
 
 
 <br><a href="localToTacc.cfm?action=checkNew">checkNew</a> - do this first; it finds stuff we care about and builds checksums for "local" junk
+<br><a href="localToTacc.cfm?action=downloadLocalPath">downloadLocalPath</a> - download local paths, send to tacc for file movement
+
+
+
+
 <br><a href="localToTacc.cfm?action=findCheckNewFile">findCheckNewFile</a> - do this second, it builds checksums for "remote" files
 
 <br><a href="localToTacc.cfm?action=checkchecksum">checkchecksum</a> - do this third, it checks that everything is happy
@@ -56,6 +67,24 @@ edit code to run this<cfabort>
 <cfsetting requesttimeout="300" />
 
 
+
+
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "downloadLocalPath">
+	<cfquery name="d" datasource="cf_dbuser">
+		select distinct imgpath from (
+		select replace(local_uri,'http://arctos.database.museum') imgpath from cf_tacc_transfer where status='new' union
+		select replace(LOCAL_TN,'http://arctos.database.museum') imgpath from cf_tacc_transfer where status='new'
+		) order by imgpath
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/mediaToMove.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=mediaToMove.csv" addtoken="false">
+</cfif>
 
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "cleanup_local">
@@ -83,7 +112,7 @@ edit code to run this<cfabort>
 
 </cfif>
 
-
+<!---------------------------------------------------------------------------------------------------------->
 
 
 <cfif action is "show_checksummatch">
@@ -262,26 +291,31 @@ edit code to run this<cfabort>
 			<cfelse>
 				<cfset pHash='NOPREVIEW'>
 			</cfif>
+			<cftry>
+				<cfquery name="ins" datasource="cf_dbuser">
+					insert into cf_tacc_transfer (
+						media_id,
+						sdate,
+						local_uri,
+						local_hash,
+						LOCAL_TN,
+						LOCAL_TN_HASH,
+						status
+					) values (
+						#media_id#,
+						sysdate,
+						'#media_uri#',
+						'#mHash#',
+						'#preview_uri#',
+						'#pHash#',
+						'new'
+					)
+				</cfquery>
+			<cfcatch>
+				#cfcatch.message# #cfcatch.detail# #cfcatch.sql#
+			</cfcatch>
 
-			<cfquery name="ins" datasource="cf_dbuser">
-				insert into cf_tacc_transfer (
-					media_id,
-					sdate,
-					local_uri,
-					local_hash,
-					LOCAL_TN,
-					LOCAL_TN_HASH,
-					status
-				) values (
-					#media_id#,
-					sysdate,
-					'#media_uri#',
-					'#mHash#',
-					'#preview_uri#',
-					'#pHash#',
-					'new'
-				)
-			</cfquery>
+			</cftry>
 		</cftransaction>
 	</cfloop>
 </cfif>
@@ -292,6 +326,7 @@ edit code to run this<cfabort>
 		status = 'new'
 	</cfquery>
 	<cfset remoteBaseURL="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/">
+
 	<cfset localBaseURL="http://arctos.database.museum/mediaUploads/">
 	<cfoutput>
 	<cfloop query="f">
