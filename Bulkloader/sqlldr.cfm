@@ -1,4 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
+
+<cfdump var=#form#>
+
+
 <cfparam name="headers" default="">
 <cfparam name="tablename" default="mytablename">
 <cfparam name="ctlname" default="control.ctl">
