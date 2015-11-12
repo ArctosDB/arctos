@@ -29,6 +29,14 @@
 			<cfscript>
 				ctl='load data' & chr(10);
 				ctl = ctl & "infile 'datafile.csv'";
+				ctl = ctl & "badfile 'arcbad.bad'";
+				ctl = ctl & "into table YOUR_TABLE_NAME";
+				ctl = ctl & "fields terminated by ',' optionally enclosed by '""'";
+				ctl = ctl & "trailing nullcols"
+				ctl = ctl & "(";
+
+
+
 			</cfscript>
 			<textarea name="ctl" class="hugetextarea"><cfoutput>#ctl#</cfoutput></textarea>
 		</li>
