@@ -83,9 +83,7 @@ edit code to run this<cfabort>
 	    file = "#Application.webDirectory#/download/mediaToMove.csv"
     	output = "#csv#"
     	addNewLine = "no">
-		<cflocation url="/download.cfm?file=mediaToMove.csv" addtoken="false">
-	</cfif>
-
+	<cflocation url="/download.cfm?file=mediaToMove.csv" addtoken="false">
 </cfif>
 
 <!---------------------------------------------------------------------------------------------------------->
@@ -114,7 +112,7 @@ edit code to run this<cfabort>
 
 </cfif>
 
-
+<!---------------------------------------------------------------------------------------------------------->
 
 
 <cfif action is "show_checksummatch">
