@@ -30,7 +30,7 @@
 				ctl='load data' & chr(10);
 				ctl = ctl & 'next line';
 			</cfscript>
-			<textarea name="ctl" class="hugetextarea">#ctl#</textarea>
+			<textarea name="ctl" class="hugetextarea"><cfoutput>#ctl#</cfoutput></textarea>
 		</li>
 	</ol>
 
