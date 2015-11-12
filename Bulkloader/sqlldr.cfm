@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfparam name="headers" default="">
 <cfparam name="tablename" default="mytablename">
-<cfparam name="ctlname" default="mycontrol.ctl">
+<cfparam name="ctlname" default="control.ctl">
 <cfparam name="badname" default="bads.bad">
 <cfparam name="csvname" default="data.csv">
 <cfset title="SQLLDR helper">
