@@ -34,10 +34,15 @@
 				ctl = ctl & "fields terminated by ',' optionally enclosed by '""'" & chr(10);
 				ctl = ctl & "trailing nullcols" & chr(10);
 				ctl = ctl & "(" & chr(10);
-				fldAry = listToArray (headers);
-				for( fieldName in fldAry ){
-				   ctl = ctl & chr(9) & fieldName & " CHAR(4000)," & chr(10);
+
+				for (i = 1; i lte listlen(headers); i = i + 1) {
+					ctl = ctl & chr(9) & listgetat(header,i) & " CHAR(4000)";
+					if i lt listlen(headers){
+						 ctl = ctl & ",";
+					}
+					ctl = ctl & chr(10);
 				}
+
 
 
 
@@ -51,6 +56,14 @@
 
 <!----
 
+
+
+				fldAry = listToArray (headers);
+				for( fieldName in fldAry ){
+				   ctl = ctl & chr(9) & fieldName & " CHAR(4000)";
+				   if fieldName is arrayLast(fldAry)
+				    & chr(10);
+				}
 
 load data
  infile 'uamarchdata.csv'
