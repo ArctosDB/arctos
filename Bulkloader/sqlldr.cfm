@@ -28,7 +28,7 @@
 			Build a control file
 			<cfscript>
 				ctl='load data' & chr(10);
-				ctl+='next line';
+				ctl = ctl & 'next line';
 			</cfscript>
 			<textarea name="ctl" class="hugetextarea">#ctl#</textarea>
 		</li>
