@@ -48,7 +48,7 @@
 					ctl = ctl & chr(9) & listgetat(headers,i);
 					if (ucase(listgetat(headers,i)) is "WKT_POLYGON"){
 						ctl = ctl &" CLOB";
-					else {
+					} else {
 						ctl = ctl &" VARCHAR2(4000)";
 					}
 					if (i lt listlen(headers)){
