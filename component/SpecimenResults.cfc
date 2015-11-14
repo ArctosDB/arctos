@@ -143,6 +143,13 @@
 					<cfcatch><!--- not there, so what? --->
 					</cfcatch>
 				</cftry>
+				<cfif isdefined("debug") and debug is true>
+					<p>
+						<cfdump var=#InnerSqlString#>
+					</p>
+
+
+				</cfif>
 				<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					#preserveSingleQuotes(InnerSqlString)#
 				</cfquery>
