@@ -658,7 +658,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	function deleteCSeries(key){
 		var r = confirm("Are you sure you want to delete this record?");
 		if (r == true) {
-			docucment.location='barcodeseries.cfm?action=delete&key=' + key;
+			document.location='barcodeseries.cfm?action=delete&key=' + key;
 		}
 	}
 </script>
