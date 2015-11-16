@@ -654,6 +654,47 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="barcodes!">
+<script>
+	function deleteCSeries(key){
+		var r = confirm("Are you sure you want to delete this record?");
+		if (r == true) {
+			docucment.location='barcodeseries.cfm?action=delete&key=' + key;
+		}
+	}
+</script>
+<cfsavecontent variable="sql">
+	"barcodeseriessql" is the SQL statement that MUST return true when analyzed against any barcode in the intended series, and false
+	against any other string.
+
+	<p>
+		Anything that's a valid Oracle SQL statement may be used for testing. There are many ways to test most everything.
+	</p>
+	<p>
+		Use "barcode" (lower-case) as the SQL variable representing the barcode
+	</p>
+	<p>
+		Examples:
+
+		<table border>
+			<tr>
+				<th>Series</th>
+				<th>SQL (what to type)</th>
+				<th>What's it mean?</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>barcode='1'</td>
+				<td>Equality tests generally come with no surprises.</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>regexp_like(barcode,'[0-9]*')</td>
+				<td>"1" is a number so matches the regular expression, but so do all other numbers.</td>
+			</tr>
+
+		</table>
+	</p>
+</cfsavecontent>
 <cfoutput>
 	<!------------------------------------------------->
 	<cfif action is "saveNew">
@@ -721,11 +762,6 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 				Notes
 			</label>
 			<textarea class="hugetextarea" name="notes">#d.notes#</textarea>
-
-
-
-
-
 			<input type="submit" value="save edits">
 		</form>
 	</cfif>
@@ -759,11 +795,6 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 				Notes
 			</label>
 			<textarea class="hugetextarea" name="notes"></textarea>
-
-
-
-
-
 			<input type="submit" value="create">
 		</form>
 	</cfif>
@@ -819,7 +850,10 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			</tr>
 			<cfloop query="d">
 				<tr>
-					<td><a href="barcodeseries.cfm?action=edit&key=#key#">edit</a></td>
+					<td>
+						<a href="barcodeseries.cfm?action=edit&key=#key#">edit</a>
+						<span class="likeLink" onclick="deleteCSeries('#key#')">delete</span>
+					</td>
 					<td>#barcodeseriestxt#</td>
 					<td>#barcodeseriessql#</td>
 					<td>#barcode#</td>
