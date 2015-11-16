@@ -32,6 +32,10 @@
 	-- old data from https://docs.google.com/spreadsheets/d/1Rmj7NCudfdpo2DWwMHZk4FOYM-_anrElznYnjK4nWtY/edit#gid=0
 
 
+
+	delete from cf_barcodeseries;
+
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -40,7 +44,7 @@
 		createdate,
 		whodunit
 	) values (
-		'is_number(barcode)=1 and to_number(barcode) > 1 and to_number(barcode)<=405000',
+		'to_number(barcode) between 2 and 405000',
 		'all integers',
 		'UAM',
 		 'All UAM bare-number barcodes including original pre-Arctos catalog number barcodes and subsequent integer-only series Exclude 0 and 1 (used for "trashcans").',
@@ -85,13 +89,18 @@
 		createdate,
 		whodunit
 	) values (
-		'substr(barcode,0,1)=''H'' and is_number(substr(barcode,2))=1 and to_number(substr(barcode,2)) >= 1000000 and to_number(substr(barcode,2))<=1249999',
-		'H1000000-H1249999',
+		'regexp_like(barcode,''^H[0-9]*$'') and to_number(substr(barcode,2)) between 100001 and 1279999',
+		'H1000000-H1279999',
 		'UAM',
 		 'Herbarium sheet labels',
 		 '2008-11-05',
 		 'brandy'
 	);
+
+
+
+
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -103,1077 +112,684 @@
 		'barcode=''0''',
 		'0',
 		'UAM',
-		 'UAM "trashcan"',
-		 '2008-11-05',
-		 'brandy'
+		'UAM "trashcan"',
+		'2008-11-05',
+		'DLM'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^R[0-9]*C[0-9]*$'')',
+		'R[number]C[number]',
+		'UAM',
+		'various UAM range cases; inconsistent format (R36C01; R131C6) due to legacy data and space constraints.',
+		'2009-10-09',
+		'DLM'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^RANGE[0-9]*$'')',
+		'RANGE[number]',
+		'UAM',
+		'various UAM	Ranges. Cases are children.',
+		'2009-10-09',
+		'DLM'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^ROOM[0-9]*$'')',
+		'ROOM[number]',
+		'UAM',
+		'various UAM	Inconsistent leading zeroes',
+		'2009-10-09',
+		'DLM'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^ROOM[0-9]*$'')',
+		'ROOM[number]',
+		'UAM',
+		'various UAM	Inconsistent leading zeroes',
+		'2009-10-09',
+		'DLM'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^T[0-9]*$'') and to_number(substr(barcode,2)) between 1001 and 3000',
+		'T1001-T3000',
+		'UAM',
+		'Fish?',
+		'2009-10-09',
+		'DLM'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^L[0-9]*$'') and to_number(substr(barcode,2)) between 32400 and 761304',
+		'L032400 - L761304',
+		'UAM',
+		'THESE WERE THE FIRST BARCODES WE CREATED FOR SHELVES AND TRAYS IN THE RANGE IN THE 1990''S.  "L" FOR LOCATION, AND THE FIRST 2 DIGITS REFERRED TO THE RANGE NUMBER, DIGITS 3 AND 4 WERE THE CASE NUMBER AND THE LAST TWO WERE THE SHELF OR TRAY.  Probably mammals only.  AFTER WE ARE FINISHED MOVING SPECIMENS INTO NEW CABINETS WE CAN PROBABLY GET RID OF THESE.',
+		'2009-10-09',
+		'DLM'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^LN2-[0-9]-[A-Z][0-9]$'')',
+		'LN2-2-A1 - LN2-3-F2',
+		'UAM',
+		'Nitrogen freezers positions (these are older labels that will be replaced by barcodes without the dashes when LN2 freezers 2 and 3 are in use.',
+		'2009-10-09',
+		'DLM'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^LN2[0-9][A-Z][0-9]$'')',
+		'LN21A1	- LN23F5',
+		'UAM',
+		'UAM Nitrogen freezer positions',
+		'2009-10-09',
+		'DLM'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^LN2FRZR[0-9]$'')',
+		'LN2FRZR1 - LN2FRZR3',
+		'UAM',
+		'UAM Nitrogen freezers',
+		'2009-10-09',
+		'DLM'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^ES [0-9]*$'') and to_number(substr(barcode,4)) between 1 and 19999',
+		'ES 000001 - ES 019999',
+		'UAM',
+		'Paleo specimen labels',
+		'2009-10-09',
+		'DLM'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^ES[0-9]*$'') and to_number(substr(barcode,3)) between 20000 and 54999',
+		'ES20000 - ES54999',
+		'UAM',
+		'Updated Paleo specimen labels',
+		'2009-10-09',
+		'DLM'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^UAM[0-9]*$'') and to_number(substr(barcode,4)) between 100000001 and 100050000',
+		'UAM100000001 - UAM100050000',
+		'UAM',
+		'UAM Insects specimen labels',
+		'2009-10-09',
+		'DLM'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^FRZR[0-9]$'')',
+		'FRZR1 - FRZR9',
+		'UAM',
+		'UAM freezers',
+		'2009-10-09',
+		'Kyndall'
 	);
 
 
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^FRZR[0-9]-[0-9]{1,2}[A-D]$'')',
+		'FRZR1-01A - FRZR9-12D',
+		'UAM',
+		'UAM freezers',
+		'2009-10-09',
+		'Kyndall'
+	);
+
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^MSB [0-9]*$'') and to_number(substr(barcode,5)) between 140837 and 140841',
+		'MSB 140837	- MSB 140841',
+		'MSB',
+		'MSB	jars?',
+		'2009-10-09',
+		'DLM'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^MVZ[0-9]*$'') and to_number(substr(barcode,4)) between 1000 and 500000',
+		'MVZ1000 - MVZ500000',
+		'MVZ',
+		'MVZ: various',
+		'2009-10-14',
+		'ccicero'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'barcode=''1''',
+		'1',
+		'MVZ',
+		'MVZ: trashcan',
+		'2009-10-14',
+		'ccicero'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^MSB[0-9]*$'') and to_number(substr(barcode,4)) between 100001 and 150000',
+		'MSB100001	- MSB150000',
+		'MSB',
+		'MSB birds',
+		'2009-10-09',
+		'abj'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^DGR[0-9]*$'') and to_number(substr(barcode,4)) between 10001 and 20001',
+		'DGR10001	- DGR20001',
+		'MSB',
+		'MSB DGR',
+		'2009-10-09',
+		'gordon'
+	);
+
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^P[A-Z0-9]{1,14}$'')',
+		'P0	- PZZZZZZZZZZZZZZ',
+		'MSB',
+		'MSB; Prefix for p for parasites, followed by all base-36 (A-Z0-9) values for small circular microscope-slide labels.  DataMatrix.',
+		'2009-10-09',
+		'gordon'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^KNWR[0-9]*$'')',
+		'KNWRC[number]',
+		'KNWR',
+		'generic container label for KNWR containers, used in both KNWR:Herb and KNWR:Ento collections.',
+		'2013-03-12',
+		'mbowser'
+	);
+
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^UDCC_TCN [0-9]*$'')',
+		'UDCC_TCN [number]',
+		'KNWR',
+		'These are 2D barcode labels used by the University of Delaware Entomology Collection (UDCC), added to specimens loaned from KNWR to UDCC.',
+		'2013-04-26',
+		'mbowser'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^UDCC_NRI [0-9]*$'')',
+		'UDCC_NRI [number]',
+		'KNWR',
+		'These are 2D barcode labels used by the University of Delaware Entomology Collection (UDCC), added to specimens loaned from KNWR to UDCC.',
+		'2013-04-26',
+		'mbowser'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^A[A-Z0-9]{4}$'')',
+		'A24E3 - A36YY',
+		'MSB',
+		'50,000 cryotube labels in base-36 Datamatrix',
+		'2013-04-26',
+		'dunnum'
+	);
+
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^BOWIE [0-9]{1,3}$'') and to_number(substr(barcode,7)) between 1 and 500',
+		'BOWIE 1 - BOWIE 500',
+		'MVZ',
+		'MVZ uncataloged bird samples collected by Raurie Bowie and colleagues, labels for his freezer boxes',
+		'2015-04-16',
+		'ccicero'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^BOWIE [0-9]{1,3}$'') and to_number(substr(barcode,7)) between 1 and 500',
+		'BOWIE 1 - BOWIE 500',
+		'MVZ',
+		'MVZ uncataloged bird samples collected by Raurie Bowie and colleagues, labels for his freezer boxes',
+		'2015-04-16',
+		'ccicero'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^BIRD [0-9]{1,3}$'') and to_number(substr(barcode,6)) between 1 and 500',
+		'BIRD 1	- BIRD 500',
+		'MVZ',
+		'MVZ uncataloged bird samples (non-Bowie accns), labels for freezer boxes',
+		'2015-04-16',
+		'ccicero'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^A[0-9]{5}$'') and to_number(substr(barcode,1)) between 1 and 5000',
+		'A00001	- A05000',
+		'NMU',
+		'NMU 3 part barcode labels for use on cryotubes, parasite vials, and skull tags',
+		'2015-07-07',
+		'keg'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 10000 and 100000',
+		'NMU10000 - NMU10000',
+		'NMU',
+		'NMU generic label for specimens and containers',
+		'2015-07-07',
+		'keg'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^BOLD-[0-9A-Z]{3}$'')',
+		'BOLD-???',
+		'KNWR',
+		'These are 2D barcode labels on lifescanner vials (http://lifescanner.net/)',
+		'2015-07-07',
+		'mbowser'
+	);
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^DGR[0-9]{1,2}-[0-9]{1,2}-[0-9]{1.2}$'')',
+		'DGR1-1-1 - DGR18-33-12',
+		'MSB',
+		'MSB:DGR	Barcodes for legacy DGR freezer racks for mechanical freezers',
+		'2015-07-07',
+		'campmlc'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'barcode=''VLSB 1143''',
+		'VLSB 1143',
+		'MVZ',
+		'MVZ Generic barcode for the MVZ LN2 tissue collection facility.',
+		'2015-07-07',
+		'ccicero'
+	);
+
+	CREATE OR REPLACE FUNCTION is_claimed_barcode (barcode in varchar) return varchar
+as
+	r varchar2(255);
+	c number;
+begin
+	for r in (select barcodeseriessql from cf_barcodeseries) loop
+		dbms_output.put_line(r.barcodeseriessql);
+		execute immediate 'select count(*) into c from dual where ' || r.barcodeseriessql;
+		dbms_output.put_line(c);
+	end loop;
+
+	return r;
+	--exception	when others then return 0;
+end;
+/
+
+
+select is_claimed_barcode('1') from dual;
+
+
+sho err;
+
+
+CREATE OR REPLACE PUBLIC SYNONYM is_iso8601 FOR is_iso8601;
+GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 
-	select substr('C124',0,1) from dual;
-		select substr('C1',2) from dual;
-
-
-
-		UAM:Herb	 - Gordon ordered from EIM	11/5/2008	Brandy
-0	0	UAM:Mamm	reserved for "unknown location" container	10/9/2009	DLM
-R[number]C[number]	various	UAM	range cases; inconsistent format (R36C01; R131C6) due to legacy data and space constraints.	10/9/2009	DLM
-R[number]-[number]	various	unknown	range cases? Likely Herbarium cases; coordination needed to avoid imminent disaster and very grumpy herbarium folks.	10/9/2009	DLM
-RANGE[number]	various	UAM	Ranges. Cases are children. (But see Bad Botanical Idea above.)	10/9/2009	DLM
-ROOM[number]	various	UAM	Inconsistent leading zeroes	10/9/2009	DLM
-T1001	T3000	unknown	specimen label	10/9/2009	DLM
-L032400	L761304	UAM	inconsistent; L090207 and L0903007 exist; THESE WERE THE FIRST BARCODES WE CREATED FOR SHELVES AND TRAYS IN THE RANGE IN THE 1990'S.  "L" FOR LOCATION, AND THE FIRST 2 DIGITS REFERRED TO THE RANGE NUMBER, DIGITS 3 AND 4 WERE THE CASE NUMBER AND THE LAST TWO WERE THE SHELF OR TRAY.  Probably mammals only.  AFTER WE ARE FINISHED MOVING SPECIMENS INTO NEW CABINETS WE CAN PROBABLY GET RID OF THESE.	10/9/2009	DLM
-LN2-2-A1	LN2-3-F2	UAM	Nitrogen freezers positions (these are older labels that will be replaced by barcodes without the dashes when LN2 freezers 2 and 3 are in use.	10/9/2009	DLM
-LN21A1	LN23F5	UAM	Nitrogen freezer positions	10/9/2009	DLM
-LN2FRZR1	LN2FRZR3	UAM	Nitrogen freezers	10/9/2009	DLM
-ES 000001	ES 019999	UAM:ES	UAM Paleo specimen labels	10/9/2009	DLM
-ES20000	ES54999	UAM:ES	Updated UAM Paleo specimen labels
-UAM100000001	UAM100050000	UAM:Ento	UAM Insects specimen labels	10/9/2009	DLM
-FRZR1	FRZR9	UAM	freezers	9/22/2014	Kyndall
-FRZR1-01A	"FRZR9-12D
-"	UAM	freezer positions	9/22/2014	Kyndall
-MSB 140837	MSB 140841	MSB	jars?	10/9/2009	DLM
-2	ca. 50000	UAM:Mamm	legacy catalog number barcodes; not all scanned into Arctos yet	10/14/2009	dlm
-MVZ1000	MVZ3715	MVZ	MVZ tissue collection: LN2 racks	10/14/2009	CC
-MVZ4000	MVZ6999	MVZ	MVZ tissue collection: boxes	10/14/2009	CC
-MVZ100000	MVZ200000	MVZ	MVZ tissue collection: cryovials	10/14/2009	CC
-MVZ[number]	MVZ[number]	MVZ	Reserved MVZ as a barcode prefix for MVZ specimens	10/14/2009	CC
-1	1	MVZ	reserved for MVZ "unknown location" container	10/14/2009	CC
-MSB100001	MSB150000	MSB Birds		5/22/2012	ABJ
-DGR10001	DGR20001	MSB:DGR	Divison of Genomic Resources, labels for freezer racks and freezer boxes.	6/13/2013	Jarrell
-p0	pzzzzzzzzzzzzzz	MSB Parasites	Prefix for p for parasites, followed by all base-36 (A-Z0-9) values for small circular microscope-slide labels.  DataMatrix.	3/4/2013	Jarrell
-	p2cvk	MSB Parasites	Parasites, next 10,000 base-36 values for 2"X1/2" slide-box labels. Code 128.	3/4/2013
-KNWRC[number]	various	KNWR	generic container label for KNWR containers, used in both KNWR:Herb and KNWR:Ento collections.	3/12/2013	Matt Bowser
-UDCC_TCN [number]	various	KNWR	These are 2D barcode labels used by the University of Delaware Entomology Collection (UDCC), added to specimens loaned from KNWR to UDCC.	4/26/2013	Matt Bowser
-UDCC_NRI [number]	various	KNWR	These are 2D barcode labels used by the University of Delaware Entomology Collection (UDCC), added to specimens loaned from KNWR to UDCC.	4/26/2013	Matt Bowser
-H1250000	H1279999	UAM:Herb	Herbarium sheet labels, ordered from EIM.	9/11/2013	JSM
-A24E3 (16895163)	A36YY	MSB:Mamm	"50,000 cryotube labels in base-36 Datamatrix,
-"	7/7/2014
-BOWIE 1	BOWIE 500	MVZ Birds	MVZ uncataloged bird samples collected by Raurie Bowie and colleagues, labels for his freezer boxes	4/16/2015	CC
-BIRD 1	BIRD 500	MVZ Birds	MVZ uncataloged bird samples (non-Bowie accns), labels for freezer boxes	4/16/2015	CC
-A36YZ	A49JU	MSB Mamm	MSB Mamm and DGR base 36 3 part barcode labels for use on cryotubes, parasite vials, and skull tags; equivalent to base 10 numbers 16945163 to 16995162	6/1/2015	"MLC
-"
-A00001	A05000	NMU	NMU 3 part barcode labels for use on cryotubes, parasite vials, and skull tags	7/7/2015	KEG
-NMU10000	NMU19999	NMU	NMU generic label for specimens and containers	7/7/2015	KEG
-BOLD-???	BOLD-???	KNWR:Ento	These are 2D barcode labels on lifescanner vials (http://lifescanner.net/).	9/18/2015	Matt Bowser
-DGR1-1-1	DGR18-33-12	MSB:DGR	Barcodes for legacy DGR freezer box positions in mechanical freezers	11/4/2015	"MLC
-"
-DGR1-1	DGR1-33	MSB:DGR	Barcodes for legacy DGR freezer racks for mechanical freezers	11/4/2015	"MLC
-"
-VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facility.	11/11/2015	CC
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	select count(*) from dual where is_number('1')=1 and to_number('1') > 1 and to_number('1')<=405000;
-
-
-	 varchar2(255) not null
-
-
-	110000	125999	UAM	UAM: First batch of 2-piece wrap-around labels for cryovials (DigiTrax).	11/5/2008	Brandy
 ---->
 <cfinclude template="/includes/_header.cfm">
-<a href="barcodeseries.cfm?action=test">test</a>
+<cfset title="barcodes!">
+<!------------------------------------------------->
+<cfif action is "saveNew">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into cf_barcodeseries (
+			barcodeseriessql,
+			barcodeseriestxt,
+			institution,
+			notes,
+			createdate,
+			whodunit
+		) values (
+			'#escapeQuotes(barcodeseriessql)#',
+			'#escapeQuotes(barcodeseriestxt)#',
+			'#institution#',
+			'#escapeQuotes(notes)#',
+			sysdate,
+			'#session.username#'
+		)
+	</cfquery>
+	<cflocation url="barcodeseries.cfm" addtoken="false">
+</cfif>
+<!------------------------------------------------->
+<cfif action is "saveEdit">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_barcodeseries set
+			barcodeseriessql='#escapeQuotes(barcodeseriessql)#',
+			barcodeseriestxt='#escapeQuotes(barcodeseriestxt)#',
+			notes='#escapeQuotes(notes)#'
+		where
+			key=#key#
+	</cfquery>
+	<cflocation url="barcodeseries.cfm?action=edit&key=#key#" addtoken="false">
+</cfif>
+
+<!------------------------------------------------->
+<cfif action is "edit">
+	<p>
+		<a href="barcodeseries.cfm">back to table</a>
+	</p>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_barcodeseries where key=#val(key)#
+	</cfquery>
+	<cfif d.username is not session.username>
+		Only #d.username# may edit this record. <a href="contact.cfm">Contact a DBA</a> to update.
+		<cfabort>
+	</cfif>
+	<form name="t" method="post" action="barcodeseries.cfm">
+		<input type="hidden" name="action" value="saveEdit">
+		<input type="hidden" name="key" value="#d.key#">
+
+		<label for="barcodeseriessql">
+			SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
+			1 for all of your intended barcodes, and 0 for any other
+		</label>
+		<textarea class="hugetextarea" name="barcodeseriessql">#d.barcodeseriessql#</textarea>
+
+		<label for="barcodeseriestxt">
+			Text - type a clear human-readable description of the series you are claiming
+		</label>
+		<textarea class="hugetextarea" name="barcodeseriestxt">#d.barcodeseriestxt#</textarea>
+		<label for="institution">institution</label>
+		<a href="contact.cfm">Contact a DBA</a> to change institution.
+		<label for="notes">
+			Notes
+		</label>
+		<textarea class="hugetextarea" name="notes">#d.notes#</textarea>
+
+
+
+
+
+		<input type="submit" value="save edits">
+	</form>
+</cfif>
+<!------------------------------------------------->
+<cfif action is "new">
+	<cfquery name="ctinstitution" datasource="uam_god">
+		select distinct institution from collection order by institution
+	</cfquery>
+
+	<form name="t" method="post" action="barcodeseries.cfm">
+		<input type="action" value="saveNew">
+
+		<label for="barcodeseriessql">
+			SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
+			1 for all of your intended barcodes, and 0 for any other
+		</label>
+		<textarea class="hugetextarea" name="barcodeseriessql"></textarea>
+
+		<label for="barcodeseriestxt">
+			Text - type a clear human-readable description of the series you are claiming
+		</label>
+		<textarea class="hugetextarea" name="barcodeseriestxt"></textarea>
+		<label for="institution">institution</label>
+		<select name="institution">
+			<option value="">pick one</option>
+			<cfloop query="ctinstitution">
+				<option value="#institution#">#institution#</option>
+			</cfloop>
+		</select>
+		<label for="notes">
+			Notes
+		</label>
+		<textarea class="hugetextarea" name="notes"></textarea>
+
+
+
+
+
+		<input type="submit" value="create">
+	</form>
+</cfif>
+
+<!------------------------------------------------->
 <cfoutput>
+	<p>
+		<a href="barcodeseries.cfm?action=new">stake a claim</a>
+	</p>
+	<p>
+		Claim barcodes and barcode series.
+		<ul>
+			<li>See documentation specifically http://arctosdb.org/documentation/container/#purchase before doing anything here.</li>
+			<li>
+				<a href="/contact.cfm">contact us</a> if you need help with any part of the barcoding process or anything in Arctos,
+				including this form.
+			</li>
+			<li>If you claim XYZ1 through XYZ5, don't be surprised if someone else claims XYZ6. Claim what you might need.</li>
+			<li>Don't be that guy. Contact the XYZ-folks before claiming what might be an intended series.</li>
+			<li>
+				Don't be redundant. If you already own XYZ1 through XYZ5 and you buy XYZ6 through XYZ10, edit the original
+				 entry rather than adding a new entry. This thing is already hard enough to read!
+			</li>
+		</ul>
+		<br>
+
+	</p>
 	<cfif action is "nothing">
 		<cfparam name="barcode" default="">
 		<form name="t" method="get" action="barcodeseries.cfm">
@@ -1184,9 +800,12 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_barcodeseries order by key
 		</cfquery>
-
+		<p>
+			Claimed barcodes (and test results if you entered something in the form).
+		</p>
 		<table border>
 			<tr>
+				<th>edit</th>
 				<th>Txt</th>
 				<th>sql</th>
 				<th>testing</th>
@@ -1199,6 +818,7 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 			</tr>
 			<cfloop query="d">
 				<tr>
+					<td><a href="barcodeseries.cfm?action=edit&key=#key#">edit</a></td>
 					<td>#barcodeseriestxt#</td>
 					<td>#barcodeseriessql#</td>
 					<td>#barcode#</td>
