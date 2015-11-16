@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_header.cfm">
+f<cfinclude template="/includes/_header.cfm">
 <!---
 
 drop table cf_dup_agent;
@@ -387,28 +387,6 @@ END;
 						<cftransaction action="rollback">
 							<cfdump var=#cfcatch#>
 
-
-							<!-----
-							<cfquery name="sentEmail" datasource="uam_god">
-								update
-									cf_dup_agent
-								set
-									status='catch: #cfcatch.message#',
-									last_date=sysdate
-								where
-									cf_dup_agent_id=#cf_dup_agent_id#
-							</cfquery>
-							<cfmail to="#Application.PageProblemEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
-								<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
-								<br>
-
-								cleanup SQL: update cf_dup_agent set last_date=sysdate-8,status='pass_email_sent' where AGENT_ID=#bads.agent_id#;
-								<br>cfcatch dump follows.
-								<br>
-								<cfdump var=#cfcatch#>
-							</cfmail>
-							----->
-
 							<cfmail to="#Application.bugReportEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
 								<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
 								<br>
@@ -423,47 +401,7 @@ END;
 				</cftransaction>
 
 
-
-
-			<!-----
-			<cftry>
-
-				<cfcatch>
-					<cfset s='merged_failed: #cfcatch.message#: #cfcatch.detail#'>1
-					<cfquery name="disableTrig" datasource="uam_god">
-						alter trigger TR_AGENT_NAME_BIUD enable
-					</cfquery>
-					<cfquery name="sentEmail" datasource="uam_god">
-						update
-							cf_dup_agent
-						set
-							status='#escapeQuotes(left(s,250))#',
-							last_date=sysdate
-						where
-							cf_dup_agent_id=#cf_dup_agent_id#
-					</cfquery>
-					<cfdump var=#cfcatch#>
-				</cfcatch>
-				</cftry>
-				---->
 		</cfloop>
-
-
-<!---------- have to disable triggers outside the transaction --
-
-
-
-
-
-
-
-
-
-<cfquery name="enableTrig" datasource="uam_god">
-	alter trigger TR_AGENT_NAME_BIUD enable
-</cfquery>
-
----------------->
 
 
 	</cfoutput>
