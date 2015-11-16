@@ -60,26 +60,28 @@
 ---->
 <cfinclude template="/includes/_header.cfm">
 <a href="barcodeseries.cfm?action=test">test</a>
-<cfif action is "test">
-	<cfparam name="barcode" default="">
-	<form name="t" method="get" action="barcodeseries.cfm">
-		<input type="hidden" name="action" value="test">
-		<label for="barcode">Enter a barcode to test</label>
-		<input type="text" value="#barcode#" name="barcode">
-		<input type="submit" value="go">
-	</form>
-	<cfif len(barcode) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_barcodeseries order by key
-		</cfquery>
-		<cfloop query="d">
-			<p>Testing #barcodeseriestxt# (#barcodeseriessql#)</p>
-			<cfset bc=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
-			<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) c from dual where #preserveSingleQuotes(bc)#
+<cfoutput>
+	<cfif action is "test">
+		<cfparam name="barcode" default="">
+		<form name="t" method="get" action="barcodeseries.cfm">
+			<input type="hidden" name="action" value="test">
+			<label for="barcode">Enter a barcode to test</label>
+			<input type="text" value="#barcode#" name="barcode">
+			<input type="submit" value="go">
+		</form>
+		<cfif len(barcode) gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from cf_barcodeseries order by key
 			</cfquery>
-			#t.c#
-		</cfloop>
+			<cfloop query="d">
+				<p>Testing #barcodeseriestxt# (#barcodeseriessql#)</p>
+				<cfset bc=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
+				<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select count(*) c from dual where #preserveSingleQuotes(bc)#
+				</cfquery>
+				#t.c#
+			</cfloop>
+		</cfif>
 	</cfif>
-</cfif>
+</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
