@@ -1198,34 +1198,36 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 				<th>Note</th>
 			</tr>
 			<cfloop query="d">
-				<td>#barcodeseriestxt#</td>
-				<td>#barcodeseriessql#</td>
-				<cfif len(barcode) gt 0>
-					<cftry>
-					<p>Testing #barcodeseriestxt# (#barcodeseriessql#)</p>
-					<cfset statusSQL=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
-					<br>select count(*) c from dual where #preserveSingleQuotes(statusSQL)#
-					<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select count(*) c from dual where #preserveSingleQuotes(bc)#
-					</cfquery>
-					<cfif t.c gt 0>
-						<cfset tststts='PASS'>
+				<tr>
+					<td>#barcodeseriestxt#</td>
+					<td>#barcodeseriessql#</td>
+					<cfif len(barcode) gt 0>
+						<cftry>
+						<p>Testing #barcodeseriestxt# (#barcodeseriessql#)</p>
+						<cfset statusSQL=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
+						<br>select count(*) c from dual where #preserveSingleQuotes(statusSQL)#
+						<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							select count(*) c from dual where #preserveSingleQuotes(bc)#
+						</cfquery>
+						<cfif t.c gt 0>
+							<cfset tststts='PASS'>
+						<cfelse>
+							<cfset tststts='FAIL (count: #t.c#)'>
+						</cfif>
+						<cfcatch>
+							<cfset tststts='FAIL: #cfcatch.message# #cfcatch.detail#'>
+						</cfcatch>
+						</cftry>
 					<cfelse>
-						<cfset tststts='FAIL (count: #t.c#)'>
+						<cfset statusSQL='Enter a barcode in the form above to test'>
+						<cfset tststts='-'>
 					</cfif>
-					<cfcatch>
-						<cfset tststts='FAIL: #cfcatch.message# #cfcatch.detail#'>
-					</cfcatch>
-					</cftry>
-				<cfelse>
-					<cfset statusSQL='Enter a barcode in the form above to test'>
-					<cfset tststts='-'>
-				</cfif>
-				<td>#tststts#</td>
-				<td>#institution#</td>
-				<td>#createdate#</td>
-				<td>whodunit##</td>
-				<td>#notes#</td>
+					<td>#tststts#</td>
+					<td>#institution#</td>
+					<td>#createdate#</td>
+					<td>whodunit##</td>
+					<td>#notes#</td>
+				</tr>
 			</cfloop>
 		</table>
 
