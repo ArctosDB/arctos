@@ -1206,7 +1206,7 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 						<cftry>
 						<cfset statusSQL=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
 						<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select count(*) c from dual where #preserveSingleQuotes(bc)#
+							select count(*) c from dual where #preserveSingleQuotes(statusSQL)#
 						</cfquery>
 						<cfif t.c gt 0>
 							<cfset tststts='PASS'>
