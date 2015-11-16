@@ -76,10 +76,11 @@
 			<cfloop query="d">
 				<p>Testing #barcodeseriestxt# (#barcodeseriessql#)</p>
 				<cfset bc=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
+				<br>select count(*) c from dual where #preserveSingleQuotes(bc)#
 				<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select count(*) c from dual where #preserveSingleQuotes(bc)#
 				</cfquery>
-				#t.c#
+				<br>Result: #t.c#
 			</cfloop>
 		</cfif>
 	</cfif>
