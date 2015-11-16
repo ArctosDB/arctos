@@ -1131,7 +1131,7 @@
 	</cfquery>
 	<cfscript>
 		baseURL = "http://maps.googleapis.com";
-		urlParams &= '&sensor=false&client=' & cf_global_settings.google_client_id;
+		urlParams &= '&client=' & cf_global_settings.google_client_id;
 		fullURL = baseURL & urlPath & "?" & urlParams;
 		urlToSign=urlPath & "?" & urlParams;
 		privatekey = cf_global_settings.google_private_key;
