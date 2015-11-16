@@ -654,121 +654,122 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="barcodes!">
-<!------------------------------------------------->
-<cfif action is "saveNew">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into cf_barcodeseries (
-			barcodeseriessql,
-			barcodeseriestxt,
-			institution,
-			notes,
-			createdate,
-			whodunit
-		) values (
-			'#escapeQuotes(barcodeseriessql)#',
-			'#escapeQuotes(barcodeseriestxt)#',
-			'#institution#',
-			'#escapeQuotes(notes)#',
-			sysdate,
-			'#session.username#'
-		)
-	</cfquery>
-	<cflocation url="barcodeseries.cfm" addtoken="false">
-</cfif>
-<!------------------------------------------------->
-<cfif action is "saveEdit">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_barcodeseries set
-			barcodeseriessql='#escapeQuotes(barcodeseriessql)#',
-			barcodeseriestxt='#escapeQuotes(barcodeseriestxt)#',
-			notes='#escapeQuotes(notes)#'
-		where
-			key=#key#
-	</cfquery>
-	<cflocation url="barcodeseries.cfm?action=edit&key=#key#" addtoken="false">
-</cfif>
-
-<!------------------------------------------------->
-<cfif action is "edit">
-	<p>
-		<a href="barcodeseries.cfm">back to table</a>
-	</p>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_barcodeseries where key=#val(key)#
-	</cfquery>
-	<cfif d.whodunit is not session.username>
-		Only #d.whodunit# may edit this record. <a href="contact.cfm">Contact a DBA</a> to update.
-		<cfabort>
-	</cfif>
-	<form name="t" method="post" action="barcodeseries.cfm">
-		<input type="hidden" name="action" value="saveEdit">
-		<input type="hidden" name="key" value="#d.key#">
-
-		<label for="barcodeseriessql">
-			SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
-			1 for all of your intended barcodes, and 0 for any other
-		</label>
-		<textarea class="hugetextarea" name="barcodeseriessql">#d.barcodeseriessql#</textarea>
-
-		<label for="barcodeseriestxt">
-			Text - type a clear human-readable description of the series you are claiming
-		</label>
-		<textarea class="hugetextarea" name="barcodeseriestxt">#d.barcodeseriestxt#</textarea>
-		<label for="institution">institution</label>
-		<a href="contact.cfm">Contact a DBA</a> to change institution.
-		<label for="notes">
-			Notes
-		</label>
-		<textarea class="hugetextarea" name="notes">#d.notes#</textarea>
-
-
-
-
-
-		<input type="submit" value="save edits">
-	</form>
-</cfif>
-<!------------------------------------------------->
-<cfif action is "new">
-	<cfquery name="ctinstitution" datasource="uam_god">
-		select distinct institution from collection order by institution
-	</cfquery>
-
-	<form name="t" method="post" action="barcodeseries.cfm">
-		<input type="action" value="saveNew">
-
-		<label for="barcodeseriessql">
-			SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
-			1 for all of your intended barcodes, and 0 for any other
-		</label>
-		<textarea class="hugetextarea" name="barcodeseriessql"></textarea>
-
-		<label for="barcodeseriestxt">
-			Text - type a clear human-readable description of the series you are claiming
-		</label>
-		<textarea class="hugetextarea" name="barcodeseriestxt"></textarea>
-		<label for="institution">institution</label>
-		<select name="institution">
-			<option value="">pick one</option>
-			<cfloop query="ctinstitution">
-				<option value="#institution#">#institution#</option>
-			</cfloop>
-		</select>
-		<label for="notes">
-			Notes
-		</label>
-		<textarea class="hugetextarea" name="notes"></textarea>
-
-
-
-
-
-		<input type="submit" value="create">
-	</form>
-</cfif>
-
-<!------------------------------------------------->
 <cfoutput>
+	<!------------------------------------------------->
+	<cfif action is "saveNew">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into cf_barcodeseries (
+				barcodeseriessql,
+				barcodeseriestxt,
+				institution,
+				notes,
+				createdate,
+				whodunit
+			) values (
+				'#escapeQuotes(barcodeseriessql)#',
+				'#escapeQuotes(barcodeseriestxt)#',
+				'#institution#',
+				'#escapeQuotes(notes)#',
+				sysdate,
+				'#session.username#'
+			)
+		</cfquery>
+		<cflocation url="barcodeseries.cfm" addtoken="false">
+	</cfif>
+	<!------------------------------------------------->
+	<cfif action is "saveEdit">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_barcodeseries set
+				barcodeseriessql='#escapeQuotes(barcodeseriessql)#',
+				barcodeseriestxt='#escapeQuotes(barcodeseriestxt)#',
+				notes='#escapeQuotes(notes)#'
+			where
+				key=#key#
+		</cfquery>
+		<cflocation url="barcodeseries.cfm?action=edit&key=#key#" addtoken="false">
+	</cfif>
+
+	<!------------------------------------------------->
+	<cfif action is "edit">
+		<p>
+			<a href="barcodeseries.cfm">back to table</a>
+		</p>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_barcodeseries where key=#val(key)#
+		</cfquery>
+		<cfif d.whodunit is not session.username>
+			Only #d.whodunit# may edit this record. <a href="contact.cfm">Contact a DBA</a> to update.
+			<cfabort>
+		</cfif>
+		<form name="t" method="post" action="barcodeseries.cfm">
+			<input type="hidden" name="action" value="saveEdit">
+			<input type="hidden" name="key" value="#d.key#">
+
+			<label for="barcodeseriessql">
+				SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
+				1 for all of your intended barcodes, and 0 for any other
+			</label>
+			<textarea class="hugetextarea" name="barcodeseriessql">#d.barcodeseriessql#</textarea>
+
+			<label for="barcodeseriestxt">
+				Text - type a clear human-readable description of the series you are claiming
+			</label>
+			<textarea class="hugetextarea" name="barcodeseriestxt">#d.barcodeseriestxt#</textarea>
+			<label for="institution">institution</label>
+			<a href="contact.cfm">Contact a DBA</a> to change institution.
+			<label for="notes">
+				Notes
+			</label>
+			<textarea class="hugetextarea" name="notes">#d.notes#</textarea>
+
+
+
+
+
+			<input type="submit" value="save edits">
+		</form>
+	</cfif>
+	<!------------------------------------------------->
+	<cfif action is "new">
+		<cfquery name="ctinstitution" datasource="uam_god">
+			select distinct institution from collection order by institution
+		</cfquery>
+
+		<form name="t" method="post" action="barcodeseries.cfm">
+			<input type="action" value="saveNew">
+
+			<label for="barcodeseriessql">
+				SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
+				1 for all of your intended barcodes, and 0 for any other
+			</label>
+			<textarea class="hugetextarea" name="barcodeseriessql"></textarea>
+
+			<label for="barcodeseriestxt">
+				Text - type a clear human-readable description of the series you are claiming
+			</label>
+			<textarea class="hugetextarea" name="barcodeseriestxt"></textarea>
+			<label for="institution">institution</label>
+			<select name="institution">
+				<option value="">pick one</option>
+				<cfloop query="ctinstitution">
+					<option value="#institution#">#institution#</option>
+				</cfloop>
+			</select>
+			<label for="notes">
+				Notes
+			</label>
+			<textarea class="hugetextarea" name="notes"></textarea>
+
+
+
+
+
+			<input type="submit" value="create">
+		</form>
+	</cfif>
+
+	<!------------------------------------------------->
+
 	<p>
 		<a href="barcodeseries.cfm?action=new">stake a claim</a>
 	</p>
