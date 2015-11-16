@@ -1190,6 +1190,7 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 			<tr>
 				<th>Txt</th>
 				<th>sql</th>
+				<th>testing</th>
 				<th>status</th>
 				<th>statusSQL</th>
 				<th>Inst</th>
@@ -1201,11 +1202,10 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 				<tr>
 					<td>#barcodeseriestxt#</td>
 					<td>#barcodeseriessql#</td>
+					<td>#barcode#</td>
 					<cfif len(barcode) gt 0>
 						<cftry>
-						<p>Testing #barcodeseriestxt# (#barcodeseriessql#)</p>
 						<cfset statusSQL=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
-						<br>select count(*) c from dual where #preserveSingleQuotes(statusSQL)#
 						<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select count(*) c from dual where #preserveSingleQuotes(bc)#
 						</cfquery>
@@ -1223,9 +1223,10 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 						<cfset tststts='-'>
 					</cfif>
 					<td>#tststts#</td>
+					<td>#statusSQL#</td>
 					<td>#institution#</td>
 					<td>#createdate#</td>
-					<td>whodunit##</td>
+					<td>#whodunit#</td>
 					<td>#notes#</td>
 				</tr>
 			</cfloop>
