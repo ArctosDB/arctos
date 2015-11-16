@@ -20,6 +20,9 @@
     startTime = "05:51 AM"
     interval = "daily"
     requestTimeOut = "600">
+
+
+	<!------------
 <!---
 	pendingRelations
 	Purpose: Fetch unreciprocated relationships into otherID bulkloader
@@ -834,3 +837,6 @@
     url = "127.0.0.1/ScheduledTasks/intrusionreport.cfm"
     cronTime="0 42 03 ? * MON"
     requestTimeOut = "600">
+
+
+	------------->
