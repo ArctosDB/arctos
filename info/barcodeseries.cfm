@@ -696,8 +696,8 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_barcodeseries where key=#val(key)#
 	</cfquery>
-	<cfif d.username is not session.username>
-		Only #d.username# may edit this record. <a href="contact.cfm">Contact a DBA</a> to update.
+	<cfif d.whodunit is not session.username>
+		Only #d.whodunit# may edit this record. <a href="contact.cfm">Contact a DBA</a> to update.
 		<cfabort>
 	</cfif>
 	<form name="t" method="post" action="barcodeseries.cfm">
