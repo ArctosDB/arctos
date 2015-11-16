@@ -22,7 +22,6 @@
     requestTimeOut = "600">
 
 
-	<!------------
 <!---
 	pendingRelations
 	Purpose: Fetch unreciprocated relationships into otherID bulkloader
@@ -839,4 +838,3 @@
     requestTimeOut = "600">
 
 
-	------------->
