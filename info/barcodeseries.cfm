@@ -74,13 +74,22 @@
 				select * from cf_barcodeseries order by key
 			</cfquery>
 			<cfloop query="d">
+				<cftry>
 				<p>Testing #barcodeseriestxt# (#barcodeseriessql#)</p>
 				<cfset bc=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
 				<br>select count(*) c from dual where #preserveSingleQuotes(bc)#
 				<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select count(*) c from dual where #preserveSingleQuotes(bc)#
 				</cfquery>
-				<br>Result: #t.c#
+				<cfif t.c is gt 0>
+					<br>PASS
+				<cfelse>
+					<br>FAIL: #t.c#
+				</cfif>
+				<cfcatch>
+					<br>FAIL: #cfcatch.message# #cfcatch.detail#
+				</cfcatch>
+				</cftry>
 			</cfloop>
 		</cfif>
 	</cfif>
