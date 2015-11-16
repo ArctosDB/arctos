@@ -289,7 +289,7 @@
 	Growth potential: low
 --->
 <cfschedule action = "update"
-    task = "upclass"
+    task = "tabonomybulk_checkMeta"
     operation = "HTTPRequest"
     url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=checkMeta"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
@@ -303,7 +303,7 @@
 	Growth potential: low
 --->
 <cfschedule action = "update"
-    task = "upclass"
+    task = "tabonomybulk_getTID"
     operation = "HTTPRequest"
     url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=getTID"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
@@ -317,7 +317,7 @@
 	Growth potential: low
 --->
 <cfschedule action = "update"
-    task = "upclass"
+    task = "tabonomybulk_getClassificationID"
     operation = "HTTPRequest"
     url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=getClassificationID"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
@@ -340,7 +340,7 @@
 	Growth potential: low/infrequent
 --->
 <cfschedule action = "update"
-    task = "upclass"
+    task = "tabonomybulk_fitbfg"
     operation = "HTTPRequest"
     url = "http://127.0.0.1/ScheduledTasks/processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
