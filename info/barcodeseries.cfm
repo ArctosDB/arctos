@@ -775,7 +775,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	<p>
 		Claim barcodes and barcode series.
 		<ul>
-			<li>See documentation specifically http://arctosdb.org/documentation/container/#purchase before doing anything here.</li>
+			<li>See documentation specifically http://arctosdb.org/documentation/container/##purchase before doing anything here.</li>
 			<li>
 				<a href="/contact.cfm">contact us</a> if you need help with any part of the barcoding process or anything in Arctos,
 				including this form.
