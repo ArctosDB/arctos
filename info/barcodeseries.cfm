@@ -81,7 +81,7 @@
 				<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select count(*) c from dual where #preserveSingleQuotes(bc)#
 				</cfquery>
-				<cfif t.c is gt 0>
+				<cfif t.c gt 0>
 					<br>PASS
 				<cfelse>
 					<br>FAIL: #t.c#
