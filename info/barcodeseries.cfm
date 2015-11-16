@@ -1214,7 +1214,9 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 							<cfset tststts='FAIL (count: #t.c#)'>
 						</cfif>
 						<cfcatch>
-							<cfset tststts='FAIL: #cfcatch.message# #cfcatch.detail#'>
+							<cfset m=cfcatch.detail>
+							<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
+							<cfset tststts='FAIL: #m#'>
 						</cfcatch>
 						</cftry>
 					<cfelse>
