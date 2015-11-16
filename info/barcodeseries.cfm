@@ -656,7 +656,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 <cfset title="barcodes!">
 <script>
 	function deleteCSeries(key){
-		var r = confirm("Are you sure you want to delete this record?");
+		var r = confirm("Are you sure you want to delete this record? That is a Really Bad Idea if the series is used and not covered by another entry.");
 		if (r == true) {
 			document.location='barcodeseries.cfm?action=delete&key=' + key;
 		}
@@ -696,6 +696,13 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	</p>
 </cfsavecontent>
 <cfoutput>
+	<!------------------------------------------------->
+	<cfif action is "delete">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cf_barcodeseries where key=#key#
+		</cfquery>
+		<cflocation url="barcodeseries.cfm" addtoken="false">
+	</cfif>
 	<!------------------------------------------------->
 	<cfif action is "saveNew">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
