@@ -1177,7 +1177,6 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 	<cfif action is "nothing">
 		<cfparam name="barcode" default="">
 		<form name="t" method="get" action="barcodeseries.cfm">
-			<input type="hidden" name="action" value="test">
 			<label for="barcode">Enter a barcode to test</label>
 			<input type="text" value="#barcode#" name="barcode">
 			<input type="submit" value="test this barcode">
