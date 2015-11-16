@@ -1221,21 +1221,18 @@ VLSB 1143	VLSB 1143	MVZ	Generic barcode for the MVZ LN2 tissue collection facili
 					<cfset statusSQL='Enter a barcode in the form above to test'>
 					<cfset tststts='-'>
 				</cfif>
-
-
 				<td>#tststts#</td>
 				<td>#institution#</td>
 				<td>#createdate#</td>
 				<td>whodunit##</td>
 				<td>#notes#</td>
 			</cfloop>
-			</table>
+		</table>
 
 
 
 
 
-		</cfif>
 	</cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
