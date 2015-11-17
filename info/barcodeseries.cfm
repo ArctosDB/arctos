@@ -665,6 +665,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	}
 </script>
 <cfsavecontent variable="doc_barcodeseriessql">
+	<div style="max-height:10em;overflow:scroll;">
 	"barcodeseriessql" is the SQL statement that MUST return true when analyzed against any barcode in the intended series, and false
 	against any other string. It is evaluated as "select count(*) from dual where {whatever_you_type}". That MUST return
 	1 for all of your intended barcodes, and 0 for any other.
@@ -747,18 +748,10 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 							 AND less than or equal to 4th-and-subsequent characters"
 						</li>
 					</ul>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
 				</td>
 			</tr>
 		</table>
-	</p>
+	</div>
 </cfsavecontent>
 <cfoutput>
 	<!------------------------------------------------->
