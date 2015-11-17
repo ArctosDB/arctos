@@ -824,7 +824,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 				#doc_barcodeseriessql#
 			</div>
 			<label for="barcodeseriestxt">
-				Text - type a clear human-readable description of the series you are claiming
+				Text - type a clear human-readable (and sortable) description of the series you are claiming
 			</label>
 			<textarea class="hugetextarea" name="barcodeseriestxt">#d.barcodeseriestxt#</textarea>
 			<label for="institution">institution</label>
@@ -844,15 +844,16 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 
 		<form name="t" method="post" action="barcodeseries.cfm">
 			<input type="action" value="saveNew">
-
-			<label for="barcodeseriessql">
-				SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
-				1 for all of your intended barcodes, and 0 for any other
-			</label>
-			<textarea class="hugetextarea" name="barcodeseriessql"></textarea>
+			<div style="border:1px solid black; margin:1em; padding:1em">
+				<label for="barcodeseriessql">
+					SQL
+				</label>
+				<textarea class="hugetextarea" name="barcodeseriessql"></textarea>
+				#doc_barcodeseriessql#
+			</div>
 
 			<label for="barcodeseriestxt">
-				Text - type a clear human-readable description of the series you are claiming
+				Text - type a clear human-readable (and sortable) description of the series you are claiming
 			</label>
 			<textarea class="hugetextarea" name="barcodeseriestxt"></textarea>
 			<label for="institution">institution</label>
