@@ -848,7 +848,6 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 				<th>edit</th>
 				<th>Txt</th>
 				<th>sql</th>
-				<th>testing</th>
 				<th>status</th>
 				<th>statusSQL</th>
 				<th>Inst</th>
@@ -885,8 +884,6 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 					</td>
 					<td nowrap>#barcodeseriestxt#</td>
 					<td>#barcodeseriessql#</td>
-					<td>#barcode#</td>
-
 					<td>#tststts#</td>
 					<td>#statusSQL#</td>
 					<td>#institution#</td>
