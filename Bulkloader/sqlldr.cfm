@@ -74,7 +74,7 @@
 
 					for (i = 1; i lte listlen(headers); i = i + 1) {
 						if (ucase(listgetat(headers,i)) is "WKT_POLYGON"){
-							ctl = ctl & chr(9) & listgetat(headers,i) & " CHAR(100000000000)";
+							ctl = ctl & chr(9) & listgetat(headers,i) & " CHAR(1215752192)";
 						} else {
 							ctl = ctl & chr(9) & listgetat(headers,i) & " CHAR(4000)";
 						}

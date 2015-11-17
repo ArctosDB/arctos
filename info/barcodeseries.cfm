@@ -656,21 +656,26 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 <cfset title="barcodes!">
 <script>
 	function deleteCSeries(key){
-		var r = confirm("Are you sure you want to delete this record? That is a Really Bad Idea if the series is used and not covered by another entry.");
+		var msg='Are you sure you want to delete this record?';
+		msg+=' That is a Really Bad Idea if the series is used and not covered by another entry.';
+		var r = confirm(msg);
 		if (r == true) {
 			document.location='barcodeseries.cfm?action=delete&key=' + key;
 		}
 	}
 </script>
-<cfsavecontent variable="sql">
+<cfsavecontent variable="doc_barcodeseriessql">
 	"barcodeseriessql" is the SQL statement that MUST return true when analyzed against any barcode in the intended series, and false
-	against any other string.
-
+	against any other string. It is evaluated as "select count(*) from dual where {whatever_you_type}". That MUST return
+	1 for all of your intended barcodes, and 0 for any other.
+	<p>
+		PLEASE <a href="/contact.cfm">contact us</a> for help in writing SQL.
+	</p>
 	<p>
 		Anything that's a valid Oracle SQL statement may be used for testing. There are many ways to test most everything.
 	</p>
 	<p>
-		Use "barcode" (lower-case) as the SQL variable representing the barcode
+		Use "barcode" (lower-case) as the SQL variable representing the each barcode.
 	</p>
 	<p>
 		Examples:
@@ -689,9 +694,69 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			<tr>
 				<td>1</td>
 				<td>regexp_like(barcode,'[0-9]*')</td>
-				<td>"1" is a number so matches the regular expression, but so do all other numbers.</td>
+				<td>
+					"1" is a number, matches the regular expression, and your intended barcodes will pass -
+					as will all other numbers. This is a very bad choice.
+				</td>
 			</tr>
-
+			<tr>
+				<td>
+					ABC123 - ABC456
+				</td>
+				<td>
+					regexp_like(barcode,'^ABC[0-9]{3}') and to_number(substr(barcode,4)) between 123 and 456
+				</td>
+				<td>
+					First, consider claiming the entire "ABC{number}" series (but coordinate large "grabs" with the Arctos community).
+					<ul>
+						<li>
+							<strong>regexp_like(</strong> - a regular expression follows
+						</li>
+						<li>
+							<strong>barcode,</strong> - "barcode" (the variable, not the string) is the subject of the evaluation
+						</li>
+						<li>
+							<strong>'^</strong> - "anchor" to the beginning of the string
+						</li>
+						<li>
+							<strong>ABC</strong> - the next (from the beginning) three characters must be "ABC"
+						</li>
+						<li>
+							<strong>[0-9]</strong> - any number
+						</li>
+						<li>
+							<strong>{3}</strong> - three of the proceeding (so three numbers)
+						</li>
+						<li>
+							<strong>') and </strong> - multiple operations are OK; it's easier to do the rest outside regex.
+						</li>
+						<li>
+							<strong>to_number(</strong> - convert some CHAR data to NUMBER (or fail if a conversion is not possible)
+						</li>
+						<li>
+							<strong>substr(</strong> - extract some characters
+						</li>
+						<li>
+							<strong>barcode,</strong> - variable from which to extract
+						</li>
+						<li>
+							<strong>4)</strong> - "start at the 4th character and proceed to the end of the data"
+						</li>
+						<li>
+							<strong>between 123 and 456</strong> - shortcut for "greater than or equal to 4th-and-subsequent characters
+							 AND less than or equal to 4th-and-subsequent characters"
+						</li>
+					</ul>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+				</td>
+			</tr>
 		</table>
 	</p>
 </cfsavecontent>
@@ -759,13 +824,13 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 		<form name="t" method="post" action="barcodeseries.cfm">
 			<input type="hidden" name="action" value="saveEdit">
 			<input type="hidden" name="key" value="#d.key#">
-
-			<label for="barcodeseriessql">
-				SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
-				1 for all of your intended barcodes, and 0 for any other
-			</label>
-			<textarea class="hugetextarea" name="barcodeseriessql">#d.barcodeseriessql#</textarea>
-
+			<div style="border:1px solid black; margin:1em; padding:1em">
+				<label for="barcodeseriessql">
+					SQL
+				</label>
+				<textarea class="hugetextarea" name="barcodeseriessql">#d.barcodeseriessql#</textarea>
+				#doc_barcodeseriessql#
+			</div>
 			<label for="barcodeseriestxt">
 				Text - type a clear human-readable description of the series you are claiming
 			</label>
@@ -822,20 +887,25 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 		<p>
 			Claim barcodes and barcode series.
 			<ul>
-				<li>See documentation specifically http://arctosdb.org/documentation/container/##purchase before doing anything here.</li>
+				<li>
+					Review container documentation, especially
+					<a href="http://arctosdb.org/documentation/container/##purchase">
+						http://arctosdb.org/documentation/container/##purchase
+					</a>, before doing anything here.</li>
 				<li>
 					<a href="/contact.cfm">contact us</a> if you need help with any part of the barcoding process or anything in Arctos,
 					including this form.
 				</li>
-				<li>If you claim XYZ1 through XYZ5, don't be surprised if someone else claims XYZ6. Claim what you might need.</li>
-				<li>Don't be that guy. Contact the XYZ-folks before claiming what might be an intended series.</li>
+				<li>
+					If you claim XYZ1 through XYZ5, don't be surprised if someone else claims XYZ6. Claim what you might need,
+					not only what you currently have.
+				</li>
+				<li>Don't be "that guy"; contact the XYZ-folks before claiming what might be part of an intended series.</li>
 				<li>
 					Don't be redundant. If you already own XYZ1 through XYZ5 and you buy XYZ6 through XYZ10, edit the original
 					 entry rather than adding a new entry. This thing is already hard enough to read!
 				</li>
 			</ul>
-			<br>
-
 		</p>
 
 		<cfparam name="barcode" default="">
