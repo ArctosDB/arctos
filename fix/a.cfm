@@ -7,15 +7,11 @@ move tehm
 create table temp_mc_log (cn varchar2(255));
 
 
-<cfquery name="pd" datasource="prod">
-	select * from temp_chas_mamm
-</cfquery>
 
 <cfquery name="td" datasource="UAM_GOD">
-	select * from chas where cat_num not in (select cn from temp_mc_log) and rownum<500
+	select * (select * from from chas where cat_num not in (select cn from temp_mc_log)) where£ rownum<500
 </cfquery>
 <cfloop query="td">
-
 	<cfquery name="insthis" datasource="prod">
 		insert into temp_chas_mamm (#td.columnlist#) values (
 		<cfloop list="#td.columnlist#" index="i">
@@ -33,11 +29,6 @@ create table temp_mc_log (cn varchar2(255));
 	<cfquery name="l" datasource="UAM_GOD">
 		insert into temp_mc_log (cn) values ('#td.cat_num#')
 	</cfquery>
-
-
 </cfloop>
-
-
-
 <!---------------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
