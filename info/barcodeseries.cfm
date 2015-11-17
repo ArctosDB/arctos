@@ -114,7 +114,7 @@
 		'UAM',
 		'UAM "trashcan"',
 		'2008-11-05',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -130,7 +130,7 @@
 		'UAM',
 		'various UAM range cases; inconsistent format (R36C01; R131C6) due to legacy data and space constraints.',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -145,7 +145,7 @@
 		'UAM',
 		'various UAM	Ranges. Cases are children.',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -160,7 +160,7 @@
 		'UAM',
 		'various UAM	Inconsistent leading zeroes',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -176,7 +176,7 @@
 		'UAM',
 		'various UAM	Inconsistent leading zeroes',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -192,7 +192,7 @@
 		'UAM',
 		'Fish?',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -207,7 +207,7 @@
 		'UAM',
 		'THESE WERE THE FIRST BARCODES WE CREATED FOR SHELVES AND TRAYS IN THE RANGE IN THE 1990''S.  "L" FOR LOCATION, AND THE FIRST 2 DIGITS REFERRED TO THE RANGE NUMBER, DIGITS 3 AND 4 WERE THE CASE NUMBER AND THE LAST TWO WERE THE SHELF OR TRAY.  Probably mammals only.  AFTER WE ARE FINISHED MOVING SPECIMENS INTO NEW CABINETS WE CAN PROBABLY GET RID OF THESE.',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -223,7 +223,7 @@
 		'UAM',
 		'Nitrogen freezers positions (these are older labels that will be replaced by barcodes without the dashes when LN2 freezers 2 and 3 are in use.',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -239,7 +239,7 @@
 		'UAM',
 		'UAM Nitrogen freezer positions',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -255,7 +255,7 @@
 		'UAM',
 		'UAM Nitrogen freezers',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -270,7 +270,7 @@
 		'UAM',
 		'Paleo specimen labels',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -285,7 +285,7 @@
 		'UAM',
 		'Updated Paleo specimen labels',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -301,7 +301,7 @@
 		'UAM',
 		'UAM Insects specimen labels',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -316,7 +316,7 @@
 		'UAM',
 		'UAM freezers',
 		'2009-10-09',
-		'Kyndall'
+		'fskbh1'
 	);
 
 
@@ -333,7 +333,7 @@
 		'UAM',
 		'UAM freezers',
 		'2009-10-09',
-		'Kyndall'
+		'fskbh1'
 	);
 
 
@@ -350,7 +350,7 @@
 		'MSB',
 		'MSB	jars?',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -397,7 +397,7 @@
 		'MSB',
 		'MSB birds',
 		'2009-10-09',
-		'abj'
+		'andy'
 	);
 
 	insert into cf_barcodeseries (
@@ -495,7 +495,7 @@
 		'MSB',
 		'50,000 cryotube labels in base-36 Datamatrix',
 		'2013-04-26',
-		'dunnum'
+		'jldunnum'
 	);
 
 
@@ -560,7 +560,7 @@
 		'NMU',
 		'NMU 3 part barcode labels for use on cryotubes, parasite vials, and skull tags',
 		'2015-07-07',
-		'keg'
+		'ftkeg'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -575,7 +575,7 @@
 		'NMU',
 		'NMU generic label for specimens and containers',
 		'2015-07-07',
-		'keg'
+		'ftkeg'
 	);
 
 	insert into cf_barcodeseries (
