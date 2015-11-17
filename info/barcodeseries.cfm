@@ -774,6 +774,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	</cfif>
 	<!------------------------------------------------->
 	<cfif action is "new">
+		<script src="/includes/sorttable.js"></script>
 		<cfquery name="ctinstitution" datasource="uam_god">
 			select distinct institution from collection order by institution
 		</cfquery>
@@ -842,7 +843,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 		<p>
 			Claimed barcodes (and test results if you entered something in the form).
 		</p>
-		<table border>
+		<table border id="t2" class="sortable">
 			<tr>
 				<th>edit</th>
 				<th>Txt</th>
