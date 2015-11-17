@@ -12,7 +12,7 @@ create table temp_mc_log (cn varchar2(255));
 </cfquery>
 
 <cfquery name="td" datasource="UAM_GOD">
-	select * from chas where cat_num not in (select cn from temp_mc_log) and rownum<10
+	select * from chas where cat_num not in (select cn from temp_mc_log) and rownum<500
 </cfquery>
 <cfloop query="td">
 
