@@ -666,19 +666,18 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 </script>
 <cfsavecontent variable="doc_barcodeseriessql">
 	<div style="max-height:10em;overflow:scroll;">
-	"barcodeseriessql" is the SQL statement that MUST return true when analyzed against any barcode in the intended series, and false
-	against any other string. It is evaluated as "select count(*) from dual where {whatever_you_type}". That MUST return
-	1 for all of your intended barcodes, and 0 for any other.
-	<p>
-		PLEASE <a href="/contact.cfm">contact us</a> for help in writing SQL.
-	</p>
-	<p>
-		Anything that's a valid Oracle SQL statement may be used for testing. There are many ways to test most everything.
-	</p>
-	<p>
-		Use "barcode" (lower-case) as the SQL variable representing the each barcode.
-	</p>
-	<p>
+		<a style="font-weight:bold;size:large" href="/contact.cfm">Contact us for help in writing SQL</a>
+		<p>
+			"barcodeseriessql" is the SQL statement that MUST return true when analyzed against any barcode in the intended series, and false
+			against any other string. It is evaluated as "select count(*) from dual where {whatever_you_type}". That MUST return
+			1 for all of your intended barcodes, and 0 for any other.
+		</p>
+		<p>
+			Anything that's a valid Oracle SQL statement may be used for testing. There are many ways to test most everything.
+		</p>
+		<p>
+			Use "barcode" (lower-case) as the SQL variable representing the each barcode.
+		</p>
 		Examples:
 
 		<table border>
@@ -690,7 +689,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			<tr>
 				<td>1</td>
 				<td>barcode='1'</td>
-				<td>Equality tests generally come with no surprises.</td>
+				<td>Equality tests come with no surprises; this is ideal.</td>
 			</tr>
 			<tr>
 				<td>1</td>
