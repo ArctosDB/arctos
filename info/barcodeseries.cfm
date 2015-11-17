@@ -877,7 +877,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 					<cfset statusSQL='Enter a barcode in the form above to test'>
 					<cfset tststts='-'>
 				</cfif>
-				<tr <cfif tststts is "PASS"> style="border:2px solid green"</cfif>>
+				<tr <cfif tststts is "PASS"> style="background:##b3ffb3;"</cfif>>
 					<td>
 						<a href="barcodeseries.cfm?action=edit&key=#key#">edit</a>
 						<span class="likeLink" onclick="deleteCSeries('#key#')">delete</span>
