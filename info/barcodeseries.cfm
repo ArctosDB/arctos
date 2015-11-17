@@ -428,7 +428,7 @@
 		'regexp_like(barcode,''^P[A-Z0-9]{1,14}$'')',
 		'P0	- PZZZZZZZZZZZZZZ',
 		'MSB',
-		'MSB; Prefix for p for parasites, followed by all base-36 (A-Z0-9) values for small circular microscope-slide labels.  DataMatrix.',
+		'MSB; Prefix P for parasites, followed by all base-36 (A-Z0-9) values for small circular microscope-slide labels.  DataMatrix.',
 		'2009-10-09',
 		'gordon'
 	);
@@ -883,7 +883,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 						<a href="barcodeseries.cfm?action=edit&key=#key#">edit</a>
 						<span class="likeLink" onclick="deleteCSeries('#key#')">delete</span>
 					</td>
-					<td>#barcodeseriestxt#</td>
+					<td nowrap>#barcodeseriestxt#</td>
 					<td>#barcodeseriessql#</td>
 					<td>#barcode#</td>
 
