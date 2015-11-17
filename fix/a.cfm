@@ -24,7 +24,7 @@ create table temp_mc_log (cn varchar2(255));
 		                <cfelse>
 		            		'#escapeQuotes(evaluate(i))#'
 		            	</cfif>
-		            	<cfif i is not listlast(cols)>
+		            	<cfif i is not listlast(td.columnlist)>
 		            		,
 		            	</cfif>
 		</cfloop>
