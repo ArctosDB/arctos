@@ -774,7 +774,6 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	</cfif>
 	<!------------------------------------------------->
 	<cfif action is "new">
-		<script src="/includes/sorttable.js"></script>
 		<cfquery name="ctinstitution" datasource="uam_god">
 			select distinct institution from collection order by institution
 		</cfquery>
@@ -808,29 +807,30 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	</cfif>
 
 	<!------------------------------------------------->
-
-	<p>
-		<a href="barcodeseries.cfm?action=new">stake a claim</a>
-	</p>
-	<p>
-		Claim barcodes and barcode series.
-		<ul>
-			<li>See documentation specifically http://arctosdb.org/documentation/container/##purchase before doing anything here.</li>
-			<li>
-				<a href="/contact.cfm">contact us</a> if you need help with any part of the barcoding process or anything in Arctos,
-				including this form.
-			</li>
-			<li>If you claim XYZ1 through XYZ5, don't be surprised if someone else claims XYZ6. Claim what you might need.</li>
-			<li>Don't be that guy. Contact the XYZ-folks before claiming what might be an intended series.</li>
-			<li>
-				Don't be redundant. If you already own XYZ1 through XYZ5 and you buy XYZ6 through XYZ10, edit the original
-				 entry rather than adding a new entry. This thing is already hard enough to read!
-			</li>
-		</ul>
-		<br>
-
-	</p>
 	<cfif action is "nothing">
+		<script src="/includes/sorttable.js"></script>
+		<p>
+			<a href="barcodeseries.cfm?action=new">stake a claim</a>
+		</p>
+		<p>
+			Claim barcodes and barcode series.
+			<ul>
+				<li>See documentation specifically http://arctosdb.org/documentation/container/##purchase before doing anything here.</li>
+				<li>
+					<a href="/contact.cfm">contact us</a> if you need help with any part of the barcoding process or anything in Arctos,
+					including this form.
+				</li>
+				<li>If you claim XYZ1 through XYZ5, don't be surprised if someone else claims XYZ6. Claim what you might need.</li>
+				<li>Don't be that guy. Contact the XYZ-folks before claiming what might be an intended series.</li>
+				<li>
+					Don't be redundant. If you already own XYZ1 through XYZ5 and you buy XYZ6 through XYZ10, edit the original
+					 entry rather than adding a new entry. This thing is already hard enough to read!
+				</li>
+			</ul>
+			<br>
+
+		</p>
+
 		<cfparam name="barcode" default="">
 		<form name="t" method="get" action="barcodeseries.cfm">
 			<label for="barcode">Enter a barcode to test</label>
