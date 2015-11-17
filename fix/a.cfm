@@ -6,7 +6,7 @@
 
 <cfdump var=#pd#>
 <cfquery name="td" datasource="UAM_GOD">
-	select * form chas where rownum<10
+	select * from chas where rownum<10
 </cfquery>
 
 <cfdump var=#td#>
