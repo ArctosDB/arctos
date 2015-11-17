@@ -699,6 +699,13 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	<!------------------------------------------------->
 	<cfif action is "delete">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_barcodeseries where key=#val(key)#
+		</cfquery>
+		<cfif d.whodunit is not session.username>
+			Only #d.whodunit# may edit this record. <a href="contact.cfm">Contact a DBA</a> to update.
+			<cfabort>
+		</cfif>
+		<cfquery name="dlt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from cf_barcodeseries where key=#key#
 		</cfquery>
 		<cflocation url="barcodeseries.cfm" addtoken="false">
