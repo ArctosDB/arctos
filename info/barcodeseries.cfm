@@ -863,6 +863,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 					<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select is_claimed_barcode('#barcode#') from dual
 					</cfquery>
+					<cfdump var=#t#>
 					<cfif t.c gt 0>
 						<cfset tststts='PASS'>
 					<cfelse>
