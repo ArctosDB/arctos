@@ -14,7 +14,7 @@
 
 	create or replace public synonym cf_barcodeseries for cf_barcodeseries;
 
-	grant insert,update on cf_barcodeseries to manage_container;
+	grant all on cf_barcodeseries to manage_container;
 
 	grant select on cf_barcodeseries to public;
 
@@ -856,7 +856,28 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 				<th>Note</th>
 			</tr>
 			<cfloop query="d">
-				<tr>
+				<cfif len(barcode) gt 0>
+					<cftry>
+					<cfset statusSQL=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
+					<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select count(*) c from dual where #preserveSingleQuotes(statusSQL)#
+					</cfquery>
+					<cfif t.c gt 0>
+						<cfset tststts='PASS'>
+					<cfelse>
+						<cfset tststts='FAIL (count: #t.c#)'>
+					</cfif>
+					<cfcatch>
+						<cfset m=cfcatch.detail>
+						<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
+						<cfset tststts='FAIL: #m#'>
+					</cfcatch>
+					</cftry>
+				<cfelse>
+					<cfset statusSQL='Enter a barcode in the form above to test'>
+					<cfset tststts='-'>
+				</cfif>
+				<tr <cfif tststts is "PASS"> style="border:2px solid green"</cfif>>
 					<td>
 						<a href="barcodeseries.cfm?action=edit&key=#key#">edit</a>
 						<span class="likeLink" onclick="deleteCSeries('#key#')">delete</span>
@@ -864,27 +885,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 					<td>#barcodeseriestxt#</td>
 					<td>#barcodeseriessql#</td>
 					<td>#barcode#</td>
-					<cfif len(barcode) gt 0>
-						<cftry>
-						<cfset statusSQL=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
-						<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select count(*) c from dual where #preserveSingleQuotes(statusSQL)#
-						</cfquery>
-						<cfif t.c gt 0>
-							<cfset tststts='PASS'>
-						<cfelse>
-							<cfset tststts='FAIL (count: #t.c#)'>
-						</cfif>
-						<cfcatch>
-							<cfset m=cfcatch.detail>
-							<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
-							<cfset tststts='FAIL: #m#'>
-						</cfcatch>
-						</cftry>
-					<cfelse>
-						<cfset statusSQL='Enter a barcode in the form above to test'>
-						<cfset tststts='-'>
-					</cfif>
+
 					<td>#tststts#</td>
 					<td>#statusSQL#</td>
 					<td>#institution#</td>
