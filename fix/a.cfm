@@ -6,7 +6,7 @@
 
 <cfdump var=#pd#>
 <cfquery name="td" datasource="UAM_GOD">
-	select * from chas where rownum<10
+	select * from chas where WKT_POLYGON is not null and rownum<10
 </cfquery>
 
 <cfdump var=#td#>
