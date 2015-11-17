@@ -861,7 +861,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 					<cftry>
 					<cfset statusSQL=replace(barcodeseriessql,"barcode","'#barcode#'","all")>
 					<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select count(*) c from dual where #preserveSingleQuotes(statusSQL)#
+						select is_claimed_barcode('#barcode#') from dual
 					</cfquery>
 					<cfif t.c gt 0>
 						<cfset tststts='PASS'>
