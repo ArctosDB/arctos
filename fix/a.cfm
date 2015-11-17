@@ -15,8 +15,8 @@ create table temp_mc_log (cn varchar2(255));
 <cfquery name="td" datasource="UAM_GOD">
 	select * from chas where WKT_POLYGON is not null and rownum<10
 </cfquery>
-<cfloop query="instdone">
-	<cfquery name="pd" datasource="prod">
+<cfloop query="td">
+	<cfquery name="insthis" datasource="prod">
 		insert into temp_chas_mamm (#td.columnlist#) values (
 		<cfloop list="#td.columnlist#" index="i">
 		               <cfif i is "wkt_polygon">
