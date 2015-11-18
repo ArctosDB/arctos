@@ -215,7 +215,7 @@
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "loadTable">
-		<form name="atts" method="post" enctype="multipart/form-data">
+		<form name="atts" method="post" enctype="multipart/form-data" action="pre_bulkloader.cfm">
 			<input type="hidden" name="action" value="getFile">
 			<input type="hidden" name="table" value="#table#">
 			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
