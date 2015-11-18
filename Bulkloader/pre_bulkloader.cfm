@@ -215,11 +215,34 @@
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "loadTable">
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			create table pre_bulk_geog as select distinct DATUM from pre_bulkloader where DATUM not in (select DATUM from CTDATUM)
-		</cfquery>
-		<a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_datum">download</a>
-		DO NOT change any data. DO change "shouldbe." (if you get ORA-00942, there are no problems with the data)
+		<form name="atts" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="action" value="getFile">
+			<input type="hidden" name="table" value="#table#">
+			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+			<input type="submit" value="Upload CSV" class="savBtn">
+		 </form>
+	</cfif>
+	<!------------------------------------------------------->
+	<cfif action is "getFile">
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+        <cfset  util = CreateObject("component","component.utilities")>
+		<cfset x=util.CSVToQuery(fileContent)>
+        <cfset cols=x.columnlist>
+		<cftransaction>
+	        <cfloop query="x">
+	            <cfquery name="ins" datasource="uam_god">
+		            insert into #table# (#cols#) values (
+		            <cfloop list="#cols#" index="i">
+		            	'#escapeQuotes(evaluate(i))#'
+		            	<cfif i is not listlast(cols)>
+		            		,
+		            	</cfif>
+		            </cfloop>
+		            )
+	            </cfquery>
+	        </cfloop>
+		</cftransaction>
+		loaded to #table# <a href="pre_bulkloader.cfm">return</a>
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "uDATUM">
