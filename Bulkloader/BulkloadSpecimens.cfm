@@ -276,12 +276,42 @@
 			to use this application. Misuse can result in
 			a huge mess in the Bulkloader, which may require sorting out record by record.
 		</li>
+		<li>
+			<a href="BulkloadSpecimens.cfm?action=preBulkloader" target="_self">Push to pre-bulkloader</a>.
+			Use this method if you wish to create lookup tables, set default values, etc.
+		</li>
 
 		<li>
 			<a href="BulkloaderStageCleanup.cfm" target="_self">Cleanup</a>.
 			Fill in the blanks and stuff.
 		</li>
 	</ul>
+</cfoutput>
+</cfif><!------------------------------------------------------->
+<cfif action is "preBulkloader">
+<cfoutput>
+	<cfquery name="there" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from pre_bulkloader
+	</cfquery>
+	<cfif there.c gt 0>
+		pre_bulkloader is in use. <a href="pre_bulkloader.cfm">click this</a>.
+		<cfabort>
+	</cfif>
+	<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update bulkloader_stage set loaded = 'BULKLOADED RECORD'
+	</cfquery>
+	<!--- pre-bulkloader has extra crap, so.... --->
+	<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from bulkloader_stage where 1=2
+	</cfquery>
+
+	<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into pre_bulkloader (#cols.columnlist#) (select #cols.columnlist# from bulkloader_stage
+	</cfquery>
+	<p>
+		Data moved to pre-bulkloader. <a href="pre_bulkloader.cfm">click this</a>.
+	</p>
+	<p><a href="BulkloadSpecimens.cfm?action=delete">please delete from the staging table</a></p>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
