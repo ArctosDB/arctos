@@ -224,6 +224,7 @@
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "getFile">
+	hi i am getfile
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
