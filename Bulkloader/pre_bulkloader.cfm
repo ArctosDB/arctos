@@ -2,6 +2,10 @@
 <cfoutput>
 	<cfif action is "nothing">
 		Pre-bulkloader magic lives here.
+		<p>
+			This app is in early beta. Lots of stuff won't work. Some stuff will probably make messes.
+			Make backups of your backups at every step.
+		</p>
 
 		<p>
 			This form will NOT deal with multi-agent strings ("collector=you and me"). Split them out (there are agent tools) and load them
