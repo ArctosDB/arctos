@@ -306,7 +306,7 @@
 	</cfquery>
 
 	<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into pre_bulkloader (#cols.columnlist#) (select #cols.columnlist# from bulkloader_stage
+		insert into pre_bulkloader (#cols.columnlist#) (select #cols.columnlist# from bulkloader_stage)
 	</cfquery>
 	<p>
 		Data moved to pre-bulkloader. <a href="pre_bulkloader.cfm">click this</a>.
