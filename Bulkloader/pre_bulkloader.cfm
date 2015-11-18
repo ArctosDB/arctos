@@ -40,12 +40,110 @@
 			<li>
 				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_collrole">pre_bulk_collrole</a>. DO NOT change any data. DO change "shouldbe."
 			</li>
-			<li><a href="pre_bulkloader.cfm?action=uDatum">get distinct datum</a>.</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_accn">pre_bulk_accn</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_geog">pre_bulk_geog</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_NATURE_OF_ID">pre_bulk_NATURE_OF_ID</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_ORIG_LAT_LONG_UNITS">pre_bulk_ORIG_LAT_LONG_UNITS</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_GEOREFERENCE_PROTOCOL">pre_bulk_GEOREFERENCE_PROTOCOL</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_VERIFICATIONSTATUS">pre_bulk_VERIFICATIONSTATUS</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_MAX_ERROR_UNITS">pre_bulk_MAX_ERROR_UNITS</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_COLLECTING_SOURCE">pre_bulk_COLLECTING_SOURCE</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_DEPTH_UNITS">pre_bulk_DEPTH_UNITS</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_DATUM">pre_bulk_DATUM</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>change "shouldbe" on all of the above.</li>
+
+			<li>
+				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_agent">pre_bulk_agent</a>
+			</li>
+
+			<li>
+				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=xxxxxxxx">xxxx</a>
+			</li>
+
+
+
+
+
+
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_taxa">pre_bulk_taxa</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_attributes">pre_bulk_attributes</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_oidt">pre_bulk_oidt</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_date">pre_bulk_date</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_parts">pre_bulk_parts</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_disposition">pre_bulk_disposition</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_collrole">pre_bulk_collrole</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_accn">pre_bulk_accn</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_geog">pre_bulk_geog</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_NATURE_OF_ID">pre_bulk_NATURE_OF_ID</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_ORIG_LAT_LONG_UNITS">pre_bulk_ORIG_LAT_LONG_UNITS</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_GEOREFERENCE_PROTOCOL">pre_bulk_GEOREFERENCE_PROTOCOL</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_VERIFICATIONSTATUS">pre_bulk_VERIFICATIONSTATUS</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_MAX_ERROR_UNITS">pre_bulk_MAX_ERROR_UNITS</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_COLLECTING_SOURCE">pre_bulk_COLLECTING_SOURCE</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_DEPTH_UNITS">pre_bulk_DEPTH_UNITS</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+			<li>
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_DATUM">pre_bulk_DATUM</a>. DO NOT change any data. DO change "shouldbe."
+			</li>
+
+
+
 
 
 		<!---
 	-- single-column stuff that should be handled elsewhere
-		insert into pre_bulk_geog (HIGHER_GEOG) (select distinct HIGHER_GEOG from pre_bulkloader);
+		insert into pre_bulk_geog () (select distinct HIGHER_GEOG from pre_bulkloader);
 
 		delete from pre_bulk_geog where HIGHER_GEOG in (select HIGHER_GEOG from geog_auth_rec);
 
@@ -85,13 +183,22 @@
 		select distinct DATUM from pre_bulkloader where DATUM not in (select DATUM from CTDATUM);
 
 
-	 		accn
 
 
 
 
 
 
+
+
+			<li><a href="pre_bulkloader.cfm?action=">get distinct HIGHER_GEOG</a>.</li>
+			<li><a href="pre_bulkloader.cfm?action=uNATURE_OF_ID">get distinct NATURE_OF_ID</a>.</li>
+			<li><a href="pre_bulkloader.cfm?action=uORIG_LAT_LONG_UNITS">get distinct ORIG_LAT_LONG_UNITS</a>.</li>
+			<li><a href="pre_bulkloader.cfm?action=uGEOREFERENCE_PROTOCOL">get distinct GEOREFERENCE_PROTOCOL</a>.</li>
+			<li><a href="pre_bulkloader.cfm?action=uVERIFICATIONSTATUS">get distinct VERIFICATIONSTATUS</a>.</li>
+			<li><a href="pre_bulkloader.cfm?action=uMAX_ERROR_UNITS">get distinct MAX_ERROR_UNITS</a>.</li>
+			<li><a href="pre_bulkloader.cfm?action=uCOLLECTING_SOURCE">get distinct COLLECTING_SOURCE</a>.</li>
+			<li><a href="pre_bulkloader.cfm?action=uDEPTH_UNITS">get distinct DEPTH_UNITS</a>.</li>
 
 
 	------->
@@ -99,7 +206,16 @@
 
 		</ol>
 
+				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=&table=pre_bulk_agent">pre_bulk_agent</a>
 
+	</cfif>
+	<!------------------------------------------------------->
+	<cfif action is "loadTable">
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			create table pre_bulk_geog as select distinct DATUM from pre_bulkloader where DATUM not in (select DATUM from CTDATUM)
+		</cfquery>
+		<a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_datum">download</a>
+		DO NOT change any data. DO change "shouldbe." (if you get ORA-00942, there are no problems with the data)
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "uDATUM">
@@ -107,7 +223,7 @@
 			create table pre_bulk_datum as select distinct DATUM from pre_bulkloader where DATUM not in (select DATUM from CTDATUM)
 		</cfquery>
 		<a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_datum">download</a>
-		DO NOT change any data. DO change "shouldbe."
+		DO NOT change any data. DO change "shouldbe." (if you get ORA-00942, there are no problems with the data)
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "checkStatus">
