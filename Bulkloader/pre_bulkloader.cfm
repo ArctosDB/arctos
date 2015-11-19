@@ -6,6 +6,9 @@
 		<p>
 			This app is in early beta. Lots of stuff won't work. Some stuff will probably make messes.
 			Make backups of your backups at every step.
+			<p>
+				<a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulkloader">grab a copy of your data here</a>
+			</p>
 		</p>
 
 		<p>
