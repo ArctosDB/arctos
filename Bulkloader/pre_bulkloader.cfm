@@ -247,7 +247,7 @@
 	            </cfquery>
 	        </cfloop>
 		</cftransaction>
-		loaded to #table# <a href="pre_bulkloader.cfm##u_#table#">return</a>
+		loaded to #table# <a href="pre_bulkloader.cfm?action=nothing##u_#table#">return</a>
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "uDATUM">
