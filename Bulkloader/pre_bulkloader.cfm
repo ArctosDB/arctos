@@ -57,7 +57,7 @@
 				Download Tables. Fill in shouldbe, reload below. Some table contain collection_cde, which will be ignored.
 				<br>Do not edit the original column or replace will fail.
 				<br>There are many agent cleanup tools in Arctos; use them, or contact a DBA for help.
-				<br>There is a lookup/translation tool in Arctos; use it.
+				<br>There is a geography lookup/translation tool in Arctos; use it.
 			<cfloop list="#tbls#" index="tbl">
 				<ul>
 					<li>
@@ -65,6 +65,22 @@
 					</li>
 				</ul>
 			</cfloop>
+			</li>
+			<li>Fill in the blanks,then reload the lookup files.</li>
+			<li>
+				<cfloop list="#tbls#" index="tbl">
+					<ul>
+						<li>
+							<a name="u_#tbl#"></a>
+							<form name="up#tbl#" method="post" enctype="multipart/form-data" action="pre_bulkloader.cfm">
+								<input type="hidden" name="action" value="getFile">
+								<input type="hidden" name="table" value="#tbl#">
+								<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+								<input type="submit" value="Upload CSV" class="savBtn">
+							 </form>
+						</li>
+					</ul>
+				</cfloop>
 			</li>
 			<!-------
 			<li>
@@ -213,7 +229,6 @@
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "getFile">
-	hi i am getfile
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
@@ -232,7 +247,7 @@
 	            </cfquery>
 	        </cfloop>
 		</cftransaction>
-		loaded to #table# <a href="pre_bulkloader.cfm">return</a>
+		loaded to #table# <a href="pre_bulkloader.cfm##u_#table#">return</a>
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "uDATUM">
