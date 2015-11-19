@@ -75,6 +75,7 @@
 							<form name="up#tbl#" method="post" enctype="multipart/form-data" action="pre_bulkloader.cfm">
 								<input type="hidden" name="action" value="getFile">
 								<input type="hidden" name="table" value="#tbl#">
+								<label for="FiletoUpload">Upload #tbl#</label>
 								<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 								<input type="submit" value="Upload CSV" class="savBtn">
 							 </form>
@@ -82,122 +83,7 @@
 					</ul>
 				</cfloop>
 			</li>
-			<!-------
-			<li>
 
-				DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_taxa">pre_bulk_taxa</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_attributes">pre_bulk_attributes</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_oidt">pre_bulk_oidt</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_date">pre_bulk_date</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_parts">pre_bulk_parts</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_disposition">pre_bulk_disposition</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_collrole">pre_bulk_collrole</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_accn">pre_bulk_accn</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_geog">pre_bulk_geog</a>. DO NOT change any data. DO change "shouldbe."
-
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_NATURE_OF_ID">pre_bulk_NATURE_OF_ID</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_ORIG_LAT_LONG_UNITS">pre_bulk_ORIG_LAT_LONG_UNITS</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_GEOREFERENCE_PROTOCOL">pre_bulk_GEOREFERENCE_PROTOCOL</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_VERIFICATIONSTATUS">pre_bulk_VERIFICATIONSTATUS</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_MAX_ERROR_UNITS">pre_bulk_MAX_ERROR_UNITS</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_COLLECTING_SOURCE">pre_bulk_COLLECTING_SOURCE</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_DEPTH_UNITS">pre_bulk_DEPTH_UNITS</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_DATUM">pre_bulk_DATUM</a>. DO NOT change any data. DO change "shouldbe."
-			</li>
-
-			---------->
-			<li>change "shouldbe" on all of the above.</li>
-
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_agent">pre_bulk_agent</a>
-			</li>
-
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_taxa">pre_bulk_taxa</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_attributes">pre_bulk_attributes</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_oidt">pre_bulk_oidt</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_date">pre_bulk_date</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_parts">pre_bulk_parts</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_disposition">pre_bulk_disposition</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_collrole">pre_bulk_collrole</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_accn">pre_bulk_accn</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_geog">pre_bulk_geog</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_NATURE_OF_ID">pre_bulk_NATURE_OF_ID</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_ORIG_LAT_LONG_UNITS">pre_bulk_ORIG_LAT_LONG_UNITS</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_GEOREFERENCE_PROTOCOL">pre_bulk_GEOREFERENCE_PROTOCOL</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_VERIFICATIONSTATUS">pre_bulk_VERIFICATIONSTATUS</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_MAX_ERROR_UNITS">pre_bulk_MAX_ERROR_UNITS</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_COLLECTING_SOURCE">pre_bulk_COLLECTING_SOURCE</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_DEPTH_UNITS">pre_bulk_DEPTH_UNITS</a>
-			</li>
-			<li>
-				Upload the corrected CSV you downloaded for <a href="pre_bulkloader.cfm?action=loadTable&table=pre_bulk_DATUM">pre_bulk_DATUM</a>
-			</li>
 			<li>
 				 <a href="pre_bulkloader.cfm?action=repatriate">repatriate the stuff you just re-loaded</a>
 			</li>
@@ -218,15 +104,7 @@
 		</cfquery>
 		<cflocation url="pre_bulkloader.cfm" addtoken="false">
 	</cfif>
-	<!------------------------------------------------------->
-	<cfif action is "loadTable">
-		<form name="atts" method="post" enctype="multipart/form-data" action="pre_bulkloader.cfm">
-			<input type="hidden" name="action" value="getFile">
-			<input type="hidden" name="table" value="#table#">
-			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
-			<input type="submit" value="Upload CSV" class="savBtn">
-		 </form>
-	</cfif>
+
 	<!------------------------------------------------------->
 	<cfif action is "getFile">
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
