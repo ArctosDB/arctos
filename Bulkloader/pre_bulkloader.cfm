@@ -147,8 +147,7 @@
 		<cfset flds=form.FIELDNAMES>
 		<cfset flds=listdeleteat(listfind(flds,"ACTION")>
 
-		 EVENT_ASSIGNED_BY_AGENT,HIGHER_GEOG,SPECIMEN_EVENT_TYPE,PART_NAME_1,VERBATIM_LOCALITY,COLLECTOR_ROLE_1,SPEC_LOCALITY,NATURE_OF_ID,ID_MADE_BY_AGENT,COLLECTOR_AGENT_1,VERIFICATIONSTATUS
-
+#flds#
 		<cfloop list="#flds#" index="fld">
 			<cfset v=evaluate("form." & fld)>
 			<br>update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
