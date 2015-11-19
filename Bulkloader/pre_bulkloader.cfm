@@ -96,24 +96,35 @@
 				<cfset dfltnls.COLLECTOR_AGENT_1="unknown">
 				<cfset dfltnls.COLLECTOR_ROLE_1="collector">
 				<cfset dfltnls.EVENT_ASSIGNED_DATE="#dateformat(now(),'yyyy-mm-dd')#">
+				<cfset dfltnls.EVENT_ASSIGNED_BY_AGENT="unknown">
+				<cfset dfltnls.ID_MADE_BY_AGENT="unknown">
+				<cfset dfltnls.SPECIMEN_EVENT_TYPE="accepted place of collection">
+				<cfset dfltnls.PART_NAME_1="unknown">
+				<cfset dfltnls.VERIFICATIONSTATUS="unverified">
+				<cfset dfltnls.NATURE_OF_ID="legacy">
+				<cfset dfltnls.MADE_DATE="#dateformat(now(),'yyyy-mm-dd')#">
+				<cfset dfltnls.BEGAN_DATE="1800">
+				<cfset dfltnls.ENDED_DATE="#dateformat(now(),'yyyy-mm-dd')#">
+				<cfset dfltnls.VERBATIM_DATE="before #dateformat(now(),'yyyy-mm-dd')#">
+				<cfset dfltnls.HIGHER_GEOG="no higher geography recorded">
+				<cfset dfltnls.SPEC_LOCALITY="no specific locality recorded">
+				<cfset dfltnls.VERBATIM_LOCALITY="no verbatim locality recorded">
 
-				<cfloop collection = #dfltnls# item = "fld">
-					<br>#fld#: #StructFind(dfltnls, fld)#
-				</cfloop>
-
-					<cfset dflts=",,,EVENT_ASSIGNED_BY_AGENT,ID_MADE_BY_AGENT">
-		<cfset dflts=dflts & ",SPECIMEN_EVENT_TYPE,PART_NAME_1,VERIFICATIONSTATUS,NATURE_OF_ID">
-		<cfset dflts=dflts & ",MADE_DATE,BEGAN_DATE,ENDED_DATE,VERBATIM_DATE,">
-		<cfset dflts=dflts & ",HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY">
-
-        employee.firstname = Form.firstname;
 				Set defaults. ONLY when the following values are NULL, update them to...
 				<br>(Clear the suggestion to do nothing.)
+				<br>UPDATE pre_bulkloader SET
 				<form name="dflt" method="post" action="pre_bulkloader.cfm">
 					<input type="hidden" name="action" value="setNullDefaults">
-					UPDATE pre_bulkloader SET
-					<label for="NATURE_OF_ID">NATURE_OF_ID=</label>
-					<input type="text" name="NATURE_OF_ID" value="legacy">,
+					<cfloop collection = #dfltnls# item = "fld">
+						<label for="#fld#">#fld#=</label>
+						<input type="text" name="#fld#" value="#StructFind(dfltnls, fld)#">,
+						<br>:
+					</cfloop>
+<!---
+        employee.firstname = Form.firstname;
+
+
+
 					<label for="ID_MADE_BY_AGENT">ID_MADE_BY_AGENT=</label>
 					<input type="text" name="ID_MADE_BY_AGENT" value="unknown">,
 					<label for="MADE_DATE">MADE_DATE=</label>
@@ -125,17 +136,17 @@
 					<label for="ENDED_DATE">ENDED_DATE=</label>
 					<input type="text" name="ENDED_DATE" value="#dateform(now(),'yyyy-mm-dd')#">,
 					<label for="HIGHER_GEOG">HIGHER_GEOG=</label>
-					<input type="text" name="HIGHER_GEOG" value="no higher geography recorded">,
+					<input type="text" name="HIGHER_GEOG" value="">,
 					<label for="SPEC_LOCALITY">SPEC_LOCALITY=</label>
-					<input type="text" name="SPEC_LOCALITY" value="no specific locality recorded">,
+					<input type="text" name="SPEC_LOCALITY" value="">,
 					<label for="VERBATIM_LOCALITY">VERBATIM_LOCALITY=</label>
-					<input type="text" name="VERBATIM_LOCALITY" value="no verbatim locality recorded">,
+					<input type="text" name="VERBATIM_LOCALITY" value="">,
 					<label for="EVENT_ASSIGNED_BY_AGENT">EVENT_ASSIGNED_BY_AGENT=</label>
 					<input type="text" name="EVENT_ASSIGNED_BY_AGENT" value="unknown">,
 					<label for="EVENT_ASSIGNED_DATE">EVENT_ASSIGNED_DATE=</label>
 					<input type="text" name="EVENT_ASSIGNED_DATE" value="#dateform(now(),'yyyy-mm-dd')#">,
 					<label for="VERIFICATIONSTATUS">VERIFICATIONSTATUS=</label>
-					<input type="text" name="VERIFICATIONSTATUS" value="unverified">,
+					<input type="text" name="VERIFICATIONSTATUS" value="">,
 					<label for="COLLECTOR_AGENT_1">COLLECTOR_AGENT_1=</label>
 					<input type="text" name="COLLECTOR_AGENT_1" value="unknown">,
 					<label for="COLLECTOR_ROLE_1">COLLECTOR_ROLE_1=</label>
@@ -143,7 +154,8 @@
 					<label for="PART_NAME_1">PART_NAME_1=</label>
 					<input type="text" name="PART_NAME_1" value="unknown">,
 					<label for="SPECIMEN_EVENT_TYPE">SPECIMEN_EVENT_TYPE=</label>
-					<input type="text" name="SPECIMEN_EVENT_TYPE" value="accepted place of collection">
+					<input type="text" name="SPECIMEN_EVENT_TYPE" value="">
+					---->
 				</form>
 			</li>
 
