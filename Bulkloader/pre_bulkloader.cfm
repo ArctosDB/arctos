@@ -119,7 +119,7 @@
 						<label for="#fld#">#fld#=</label>
 						<input type="text" name="#fld#" value="#StructFind(dfltnls, fld)#">,
 					</cfloop>
-					<br>input type="submit" value="make all changes">
+					<br><input type="submit" value="make all changes">
 				</form>
 			</li>
 
