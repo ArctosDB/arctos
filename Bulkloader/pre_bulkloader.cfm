@@ -91,6 +91,21 @@
 				Grab another donut. It'll take a while for the scripts to run.
 			</li>
 			<li><a href="pre_bulkloader.cfm?action=checkStatus">checkStatus</a>. The repatriation is done when ALL loaded=repatriation_complete</li>
+			<li>
+				Set defaults. ONLY when the following values are NULL, update them to...
+				<br>(Clear the suggestion to do nothing.)
+				<form name="dflt" method="post" action="pre_bulkloader.cfm">
+					UPDATE pre_bulkloader SET
+					<label for="NATURE_OF_ID">NATURE_OF_ID</label>
+					<input type="text" name="NATURE_OF_ID" value="legacy">
+				</form>
+			</li>
+
+
+
+COLLECTION_OBJECT_ID,ENTEREDBY,ACCN,TAXON_NAME,NATURE_OF_ID,ID_MADE_BY_AGENT,MADE_DATE,VERBATIM_DATE,BEGAN_DATE,ENDED_DATE,HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY,EVENT_ASSIGNED_BY_AGENT,EVENT_ASSIGNED_DATE,VERIFICATIONSTATUS,COLLECTOR_AGENT_1,COLLECTOR_ROLE_1,GUID_PREFIX,PART_NAME_1,PART_CONDITION_1,PART_LOT_COUNT_1,PART_DISPOSITION_1,SPECIMEN_EVENT_TYPE
+
+
 
 		</ol>
 
