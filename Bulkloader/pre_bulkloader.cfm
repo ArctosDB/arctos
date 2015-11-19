@@ -92,26 +92,102 @@
 			</li>
 			<li><a href="pre_bulkloader.cfm?action=checkStatus">checkStatus</a>. The repatriation is done when ALL loaded=repatriation_complete</li>
 			<li>
+				<cfset dfltnls=StructNew()>
+				<cfset dfltnls.COLLECTOR_AGENT_1="unknown">
+				<cfset dfltnls.COLLECTOR_ROLE_1="collector">
+				<cfset dfltnls.EVENT_ASSIGNED_DATE="#dateformat(now(),'yyyy-mm-dd')#">
+
+				<cfloop collection = #dfltnls# item = "fld">
+					<br>#fld#: #StructFind(dfltnls, fld)#
+				</cfloop>
+
+					<cfset dflts=",,,EVENT_ASSIGNED_BY_AGENT,ID_MADE_BY_AGENT">
+		<cfset dflts=dflts & ",SPECIMEN_EVENT_TYPE,PART_NAME_1,VERIFICATIONSTATUS,NATURE_OF_ID">
+		<cfset dflts=dflts & ",MADE_DATE,BEGAN_DATE,ENDED_DATE,VERBATIM_DATE,">
+		<cfset dflts=dflts & ",HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY">
+
+        employee.firstname = Form.firstname;
 				Set defaults. ONLY when the following values are NULL, update them to...
 				<br>(Clear the suggestion to do nothing.)
 				<form name="dflt" method="post" action="pre_bulkloader.cfm">
+					<input type="hidden" name="action" value="setNullDefaults">
 					UPDATE pre_bulkloader SET
-					<label for="NATURE_OF_ID">NATURE_OF_ID,</label>
+					<label for="NATURE_OF_ID">NATURE_OF_ID=</label>
 					<input type="text" name="NATURE_OF_ID" value="legacy">,
-					<label for="ID_MADE_BY_AGENT">ID_MADE_BY_AGENT,</label>
+					<label for="ID_MADE_BY_AGENT">ID_MADE_BY_AGENT=</label>
 					<input type="text" name="ID_MADE_BY_AGENT" value="unknown">,
+					<label for="MADE_DATE">MADE_DATE=</label>
+					<input type="text" name="MADE_DATE" value="#dateform(now(),'yyyy-mm-dd')#">,
+					<label for="VERBATIM_DATE">VERBATIM_DATE=</label>
+					<input type="text" name="VERBATIM_DATE" value="before #dateform(now(),'yyyy-mm-dd')#">,
+					<label for="BEGAN_DATE">BEGAN_DATE=</label>
+					<input type="text" name="BEGAN_DATE" value="1800">,
+					<label for="ENDED_DATE">ENDED_DATE=</label>
+					<input type="text" name="ENDED_DATE" value="#dateform(now(),'yyyy-mm-dd')#">,
+					<label for="HIGHER_GEOG">HIGHER_GEOG=</label>
+					<input type="text" name="HIGHER_GEOG" value="no higher geography recorded">,
+					<label for="SPEC_LOCALITY">SPEC_LOCALITY=</label>
+					<input type="text" name="SPEC_LOCALITY" value="no specific locality recorded">,
+					<label for="VERBATIM_LOCALITY">VERBATIM_LOCALITY=</label>
+					<input type="text" name="VERBATIM_LOCALITY" value="no verbatim locality recorded">,
+					<label for="EVENT_ASSIGNED_BY_AGENT">EVENT_ASSIGNED_BY_AGENT=</label>
+					<input type="text" name="EVENT_ASSIGNED_BY_AGENT" value="unknown">,
+					<label for="EVENT_ASSIGNED_DATE">EVENT_ASSIGNED_DATE=</label>
+					<input type="text" name="EVENT_ASSIGNED_DATE" value="#dateform(now(),'yyyy-mm-dd')#">,
+					<label for="VERIFICATIONSTATUS">VERIFICATIONSTATUS=</label>
+					<input type="text" name="VERIFICATIONSTATUS" value="unverified">,
+					<label for="COLLECTOR_AGENT_1">COLLECTOR_AGENT_1=</label>
+					<input type="text" name="COLLECTOR_AGENT_1" value="unknown">,
+					<label for="COLLECTOR_ROLE_1">COLLECTOR_ROLE_1=</label>
+					<input type="text" name="COLLECTOR_ROLE_1" value="collector">,
+					<label for="PART_NAME_1">PART_NAME_1=</label>
+					<input type="text" name="PART_NAME_1" value="unknown">,
+					<label for="SPECIMEN_EVENT_TYPE">SPECIMEN_EVENT_TYPE=</label>
+					<input type="text" name="SPECIMEN_EVENT_TYPE" value="accepted place of collection">
 				</form>
 			</li>
 
 
+					<label for="PART_CONDITION_1">PART_CONDITION_1=</label>
+					<input type="text" name="PART_CONDITION_1" value="unknown">,
 
-COLLECTION_OBJECT_ID,ENTEREDBY,ACCN,TAXON_NAME,NATURE_OF_ID,,MADE_DATE,VERBATIM_DATE,BEGAN_DATE,ENDED_DATE,HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY,EVENT_ASSIGNED_BY_AGENT,EVENT_ASSIGNED_DATE,VERIFICATIONSTATUS,COLLECTOR_AGENT_1,COLLECTOR_ROLE_1,GUID_PREFIX,PART_NAME_1,PART_CONDITION_1,PART_LOT_COUNT_1,PART_DISPOSITION_1,SPECIMEN_EVENT_TYPE
+
+,,,,,,,,,,,,GUID_PREFIX,,,PART_LOT_COUNT_1,PART_DISPOSITION_1,
 
 
 
 		</ol>
 
 
+	</cfif>
+
+
+
+				<form name="dflt" method="post" action="pre_bulkloader.cfm">
+					<input type="hidden" name="action" value="">
+					UPDATE pre_bulkloader SET
+
+
+					<label for="">HIGHER_GEOG=</label>
+					<input type="text" name="HIGHER_GEOG" value="no higher geography recorded">,
+					<label for="">SPEC_LOCALITY=</label>
+					<input type="text" name="SPEC_LOCALITY" value="no specific locality recorded">,
+					<label for="">VERBATIM_LOCALITY=</label>
+					<input type="text" name="VERBATIM_LOCALITY" value="no verbatim locality recorded">,
+
+
+	<!------------------------------------------------------->
+	<cfif action is "setNullDefaults">
+		<cfset dflts="COLLECTOR_ROLE_1,COLLECTOR_AGENT_1,EVENT_ASSIGNED_DATE,EVENT_ASSIGNED_BY_AGENT,ID_MADE_BY_AGENT">
+		<cfset dflts=dflts & ",SPECIMEN_EVENT_TYPE,PART_NAME_1,VERIFICATIONSTATUS,NATURE_OF_ID">
+		<cfset dflts=dflts & ",MADE_DATE,BEGAN_DATE,ENDED_DATE,VERBATIM_DATE,">
+		<cfset dflts=dflts & ",HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY">
+		<cfset dflts=dflts & ",">
+		<cfset dflts=dflts & ",">
+		<cfquery name="nullLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update pre_bulkloader set loaded='go_go_gadget_repatriate'
+		</cfquery>
+		<cflocation url="pre_bulkloader.cfm" addtoken="false">
 	</cfif>
 
 	<!------------------------------------------------------->
