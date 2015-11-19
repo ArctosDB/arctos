@@ -16,7 +16,16 @@
 			Very few datasets will need everything in there.
 		</p>
 		<p>
+			This may require iterative processes, eg, load, download geography, realize you have a giant mess, delete, fix your mess,
+			load, download geography, rinse and repeat.
+		</p>
+		<p>
 			File an Issue if we've missed something.
+		</p>
+		<p>
+			This form deals in controlled data. Check code tables. All of Arctos is bitwise-indexed; characters that you cannot see still
+			matter, values are case-sensitive, etc. Much of Arctos is data-driven - acceptable values for "attribute_value_x" depend on
+			what's in "attribute_x."
 		</p>
 		<cfquery name="sts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select loaded,enteredby,count(*) numrecs from pre_bulkloader group by loaded,enteredby
@@ -29,12 +38,16 @@
 
 		<ol>
 			<li><a href="pre_bulkloader.cfm?action=deleteAll">Clear out the pre-bulkloader</a>. Use with caution. Be courteous.</li>
-			<li>Get your data into pre-bulkloader. The specimen bulkloader will push here.</li>
+			<li>
+				Get your data into pre-bulkloader. The specimen bulkloader will push here. Dirty data is fine - that's the point.
+				This form will do nothing for poorly-structured data (multi-agent strings, etc.).
+			</li>
 			<li><a href="pre_bulkloader.cfm?action=nullLoaded">NULLify loaded</a>.</li>
-			<li>Grab a donut.</li>
+			<li>Grab a donut. It'll take a while.</li>
 			<li><a href="pre_bulkloader.cfm?action=checkStatus">checkStatus</a>. The checks are done when ALL loaded=init_pull_complete</li>
 			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_agent">pre_bulk_agent</a>. DO NOT change any data. DO change "shouldbe."
+				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_agent">pre_bulk_agent</a>.
+				DO NOT change any data. DO change "shouldbe." There are many agent cleanup tools in Arctos; use them, or contact a DBA for help.
 			</li>
 			<li>
 				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_taxa">pre_bulk_taxa</a>. DO NOT change any data. DO change "shouldbe."
@@ -62,6 +75,7 @@
 			</li>
 			<li>
 				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_geog">pre_bulk_geog</a>. DO NOT change any data. DO change "shouldbe."
+				There is a lookup/translation tool in Arctos.
 			</li>
 			<li>
 				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_NATURE_OF_ID">pre_bulk_NATURE_OF_ID</a>. DO NOT change any data. DO change "shouldbe."
