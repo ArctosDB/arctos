@@ -48,9 +48,28 @@
 			<li><a href="pre_bulkloader.cfm?action=nullLoaded">NULLify loaded</a>.</li>
 			<li>Grab a donut. It'll take a while.</li>
 			<li><a href="pre_bulkloader.cfm?action=checkStatus">checkStatus</a>. The checks are done when ALL loaded=init_pull_complete</li>
+
+			<cfset tbls="pre_bulk_agent,pre_bulk_taxa,pre_bulk_attributes,pre_bulk_oidt,pre_bulk_date,pre_bulk_parts">
+			<cfset tbls=tbls & ",pre_bulk_disposition,pre_bulk_collrole,pre_bulk_accn,pre_bulk_geog,pre_bulk_NATURE_OF_ID,">
+			<cfset tbls=tbls & "pre_bulk_ORIG_LAT_LONG_UNITS,pre_bulk_GEOREFERENCE_PROTOCOL,pre_bulk_VERIFICATIONSTATUS,pre_bulk_MAX_ERROR_UNITS">
+			<cfset tbls=tbls & "pre_bulk_COLLECTING_SOURCE,pre_bulk_DEPTH_UNITS,pre_bulk_DATUM">
 			<li>
-				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_agent">pre_bulk_agent</a>.
-				DO NOT change any data. DO change "shouldbe." There are many agent cleanup tools in Arctos; use them, or contact a DBA for help.
+				Download Tables. Fill in shouldbe, reload below. Some table contain collection_cde, which will be ignored.
+				<br>Do not edit the original column or replace will fail.
+				<br>There are many agent cleanup tools in Arctos; use them, or contact a DBA for help.
+				<br>There is a lookup/translation tool in Arctos; use it.
+			<cfloop list="#tbls#" index="tbl">
+				<ul>
+					<li>
+						Download <a href="/Admin/CSVAnyTable.cfm?tableName=#tbl#">#tbl#</a>
+					</li>
+				</ul>
+			</cfloop>
+			</li>
+			<!-------
+			<li>
+
+				DO NOT change any data. DO change "shouldbe."
 			</li>
 			<li>
 				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_taxa">pre_bulk_taxa</a>. DO NOT change any data. DO change "shouldbe."
@@ -78,7 +97,7 @@
 			</li>
 			<li>
 				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_geog">pre_bulk_geog</a>. DO NOT change any data. DO change "shouldbe."
-				There is a lookup/translation tool in Arctos.
+
 			</li>
 			<li>
 				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_NATURE_OF_ID">pre_bulk_NATURE_OF_ID</a>. DO NOT change any data. DO change "shouldbe."
@@ -104,6 +123,8 @@
 			<li>
 				Download <a href="/Admin/CSVAnyTable.cfm?tableName=pre_bulk_DATUM">pre_bulk_DATUM</a>. DO NOT change any data. DO change "shouldbe."
 			</li>
+
+			---------->
 			<li>change "shouldbe" on all of the above.</li>
 
 			<li>
