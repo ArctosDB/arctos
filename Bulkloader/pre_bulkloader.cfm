@@ -145,7 +145,7 @@
 
 		<cfdump var=#form#>
 		<cfset flds=form.FIELDNAMES>
-		<cfset flds=listdeleteat(listfind(flds,"ACTION"))>
+		<cfset flds=listdeleteat(flds,listfind(flds,"ACTION"))>
 
 #flds#
 		<cfloop list="#flds#" index="fld">
