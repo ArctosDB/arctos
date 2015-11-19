@@ -118,44 +118,8 @@
 					<cfloop collection = #dfltnls# item = "fld">
 						<label for="#fld#">#fld#=</label>
 						<input type="text" name="#fld#" value="#StructFind(dfltnls, fld)#">,
-						<br>:
 					</cfloop>
-<!---
-        employee.firstname = Form.firstname;
-
-
-
-					<label for="ID_MADE_BY_AGENT">ID_MADE_BY_AGENT=</label>
-					<input type="text" name="ID_MADE_BY_AGENT" value="unknown">,
-					<label for="MADE_DATE">MADE_DATE=</label>
-					<input type="text" name="MADE_DATE" value="#dateform(now(),'yyyy-mm-dd')#">,
-					<label for="VERBATIM_DATE">VERBATIM_DATE=</label>
-					<input type="text" name="VERBATIM_DATE" value="before #dateform(now(),'yyyy-mm-dd')#">,
-					<label for="BEGAN_DATE">BEGAN_DATE=</label>
-					<input type="text" name="BEGAN_DATE" value="1800">,
-					<label for="ENDED_DATE">ENDED_DATE=</label>
-					<input type="text" name="ENDED_DATE" value="#dateform(now(),'yyyy-mm-dd')#">,
-					<label for="HIGHER_GEOG">HIGHER_GEOG=</label>
-					<input type="text" name="HIGHER_GEOG" value="">,
-					<label for="SPEC_LOCALITY">SPEC_LOCALITY=</label>
-					<input type="text" name="SPEC_LOCALITY" value="">,
-					<label for="VERBATIM_LOCALITY">VERBATIM_LOCALITY=</label>
-					<input type="text" name="VERBATIM_LOCALITY" value="">,
-					<label for="EVENT_ASSIGNED_BY_AGENT">EVENT_ASSIGNED_BY_AGENT=</label>
-					<input type="text" name="EVENT_ASSIGNED_BY_AGENT" value="unknown">,
-					<label for="EVENT_ASSIGNED_DATE">EVENT_ASSIGNED_DATE=</label>
-					<input type="text" name="EVENT_ASSIGNED_DATE" value="#dateform(now(),'yyyy-mm-dd')#">,
-					<label for="VERIFICATIONSTATUS">VERIFICATIONSTATUS=</label>
-					<input type="text" name="VERIFICATIONSTATUS" value="">,
-					<label for="COLLECTOR_AGENT_1">COLLECTOR_AGENT_1=</label>
-					<input type="text" name="COLLECTOR_AGENT_1" value="unknown">,
-					<label for="COLLECTOR_ROLE_1">COLLECTOR_ROLE_1=</label>
-					<input type="text" name="COLLECTOR_ROLE_1" value="collector">,
-					<label for="PART_NAME_1">PART_NAME_1=</label>
-					<input type="text" name="PART_NAME_1" value="unknown">,
-					<label for="SPECIMEN_EVENT_TYPE">SPECIMEN_EVENT_TYPE=</label>
-					<input type="text" name="SPECIMEN_EVENT_TYPE" value="">
-					---->
+					<br>input type="submit" value="make all changes">
 				</form>
 			</li>
 
@@ -175,31 +139,11 @@
 
 
 
-				<form name="dflt" method="post" action="pre_bulkloader.cfm">
-					<input type="hidden" name="action" value="">
-					UPDATE pre_bulkloader SET
-
-
-					<label for="">HIGHER_GEOG=</label>
-					<input type="text" name="HIGHER_GEOG" value="no higher geography recorded">,
-					<label for="">SPEC_LOCALITY=</label>
-					<input type="text" name="SPEC_LOCALITY" value="no specific locality recorded">,
-					<label for="">VERBATIM_LOCALITY=</label>
-					<input type="text" name="VERBATIM_LOCALITY" value="no verbatim locality recorded">,
-
 
 	<!------------------------------------------------------->
 	<cfif action is "setNullDefaults">
-		<cfset dflts="COLLECTOR_ROLE_1,COLLECTOR_AGENT_1,EVENT_ASSIGNED_DATE,EVENT_ASSIGNED_BY_AGENT,ID_MADE_BY_AGENT">
-		<cfset dflts=dflts & ",SPECIMEN_EVENT_TYPE,PART_NAME_1,VERIFICATIONSTATUS,NATURE_OF_ID">
-		<cfset dflts=dflts & ",MADE_DATE,BEGAN_DATE,ENDED_DATE,VERBATIM_DATE,">
-		<cfset dflts=dflts & ",HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY">
-		<cfset dflts=dflts & ",">
-		<cfset dflts=dflts & ",">
-		<cfquery name="nullLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update pre_bulkloader set loaded='go_go_gadget_repatriate'
-		</cfquery>
-		<cflocation url="pre_bulkloader.cfm" addtoken="false">
+
+		<cfdump var=#form#>
 	</cfif>
 
 	<!------------------------------------------------------->
