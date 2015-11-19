@@ -122,38 +122,80 @@
 					<br><input type="submit" value="make all changes">
 				</form>
 			</li>
-
-
-					<label for="PART_CONDITION_1">PART_CONDITION_1=</label>
-					<input type="text" name="PART_CONDITION_1" value="unknown">,
-
-
-,,,,,,,,,,,,GUID_PREFIX,,,PART_LOT_COUNT_1,PART_DISPOSITION_1,
-
-
-
+			<li>
+				Parts: when null, for each (not-null) part, update....
+				<br>(remove suggestion to do nothing)
+				<form name="pdflt" method="post" action="pre_bulkloader.cfm">
+					<input type="hidden" name="action" value="setNullDefaultsParts">
+					<label for="PART_CONDITION_n">PART_CONDITION_n=</label>
+					<input type="text" name="PART_CONDITION_n" value="unchecked">,
+					<label for="PART_LOT_COUNT_n">PART_LOT_COUNT_n=</label>
+					<input type="text" name="PART_LOT_COUNT_n" value="1">,
+					<label for="PART_DISPOSITION_n">PART_DISPOSITION_n=</label>
+					<input type="text" name="PART_DISPOSITION_n" value="in collection">,
+					<br><input type="submit" value="make all changes">
+				</form>
+			</li>
 		</ol>
-
-
 	</cfif>
-
 
 
 
 	<!------------------------------------------------------->
+	<cfif action is "setNullDefaultsParts">
+		<cfif len(PART_CONDITION_n) gt 0>
+			<cfloop from="1" to="10" index="i">
+				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						pre_bulkloader
+					set
+						PART_CONDITION_#i#='#escapeQuotes(PART_CONDITION_n)#'
+					where
+						part_name_#i# is not null and
+						PART_CONDITION_#i# is null
+				</cfquery>
+			</cfloop>
+		</cfif>
+		<cfif len(PART_LOT_COUNT_n) gt 0>
+			<cfloop from="1" to="10" index="i">
+				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						pre_bulkloader
+					set
+						PART_LOT_COUNT_#i#='#escapeQuotes(PART_LOT_COUNT_n)#'
+					where
+						part_name_#i# is not null and
+						PART_LOT_COUNT_#i# is null
+				</cfquery>
+			</cfloop>
+		</cfif>
+		<cfif len(PART_DISPOSITION_n) gt 0>
+			<cfloop from="1" to="10" index="i">
+				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						pre_bulkloader
+					set
+						PART_DISPOSITION_#i#='#escapeQuotes(PART_DISPOSITION_n)#'
+					where
+						part_name_#i# is not null and
+						PART_DISPOSITION_#i# is null
+				</cfquery>
+			</cfloop>
+		</cfif>
+		<cflocation url="pre_bulkloader.cfm" addtoken="false">
+	</cfif>
+	<!------------------------------------------------------->
 	<cfif action is "setNullDefaults">
-
-		<cfdump var=#form#>
 		<cfset flds=form.FIELDNAMES>
 		<cfset flds=listdeleteat(flds,listfind(flds,"ACTION"))>
-
-#flds#
 		<cfloop list="#flds#" index="fld">
 			<cfset v=evaluate("form." & fld)>
-			<br>update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
+			<cfquery name="upnull" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
+			</cfquery>
+			<cflocation url="pre_bulkloader.cfm" addtoken="false">
 		</cfloop>
 	</cfif>
-
 	<!------------------------------------------------------->
 	<cfif action is "repatriate">
 		<cfquery name="nullLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
