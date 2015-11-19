@@ -18,7 +18,7 @@
 			File an Issue if we've missed something.
 		</p>
 		<cfquery name="sts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select loaded,enteredby from pre_bulkloader group by loaded,enteredby
+			select loaded,enteredby,count(*) numrecs from pre_bulkloader group by loaded,enteredby
 		</cfquery>
 		<p>
 			Currrent state of pre-bulkloader:
