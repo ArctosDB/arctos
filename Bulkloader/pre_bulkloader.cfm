@@ -136,6 +136,16 @@
 					<br><input type="submit" value="make all changes">
 				</form>
 			</li>
+			<li>
+				<form name="pdflt" method="post" action="pre_bulkloader.cfm">
+					<input type="hidden" name="action" value="execSQL">
+					SQL: Update pre_bulkloader set:
+					<textarea name="spf" class="hugetextarea"></textarea>
+					<br>WHERE
+					<textarea name="spw" class="hugetextarea"></textarea>
+					<br><input type="submit" value="execute">
+				</form>
+			</li>
 		</ol>
 	</cfif>
 
