@@ -81,8 +81,23 @@ jQuery(document).ready(function() {
 			}
 		);
 	}
+	function upStatusHG(pkey) {
+		$.getJSON("/component/DSFunctions.cfc",
+			{
+				method : "upDSStatusHG",
+				pkey : pkey,
+				status : $("#status" + pkey).val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				console.log('saved status');
+				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
+			}
+		);
+	}
+
 	function upStatus(pkey) {
-		console.log('saving ' + $("#status" + pkey).val() + ' for ' + pkey);
 		$.getJSON("/component/DSFunctions.cfc",
 			{
 				method : "upDSStatus",
@@ -348,9 +363,12 @@ from geog_auth_rec where rownum<10
 
 					</div>
 						<label for="geopickr#sint#">Type to Pick</label>
-				<input type="text" name="geopickr" id="geopickr#sint#" size="80">
-				<span class="likeLink" id="ut#sint#" onclick="useThatOneHG('#d.pkey#','#sint#');">[ save ]</span>
-				<cfset sint=sint+1>
+						<input type="text" name="geopickr" id="geopickr#sint#" size="80">
+						<span class="likeLink" id="ut#sint#" onclick="useThatOneHG('#d.pkey#','#sint#');">[ save ]</span>
+						<label for="status#sint#">Status</label>
+						<input type="text" name="status" placeholder="type here to change status" id="status#d.pkey#" size="80" value="#d.status#" onchange="upStatusHG('#qdata.pkey#');">
+
+						<cfset sint=sint+1>
 
 				</cfif>
 
