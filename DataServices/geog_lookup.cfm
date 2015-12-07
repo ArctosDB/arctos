@@ -313,7 +313,7 @@ from geog_auth_rec where rownum<10
 					<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update ds_temp_geog_hg set higher_geog='#sr.higher_geog#',status='stripGeogRanks_match' where OLD_GEOG='#OLD_GEOG#'
 					</cfquery>
-					<br>--updated
+					<br>--autoupdated: #sr.higher_geog#
 				<cfelse>
 					<!--- try the last term --->
 					<cfset thisTerm=listlast(OLD_GEOG,",")>
@@ -353,7 +353,7 @@ from geog_auth_rec where rownum<10
 				<cfset sint=sint+1>
 
 				</cfif>
-				<br>Autoupdate: #sr.higher_geog#
+
 
 			</p>
 			<hr>
