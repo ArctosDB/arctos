@@ -1,8 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
-
-
-
 <style>
 	.possiblesTable {
 		max-height:10em;
@@ -23,12 +20,10 @@
 	.onerec{
 		border:1px solid black;
 	}
-
 	.goodsave{
 		border:1px solid green;
 		background-color:#FCFFFC;
 	}
-
 </style>
 <script>
 jQuery(document).ready(function() {
@@ -47,13 +42,10 @@ jQuery(document).ready(function() {
 	    });
 
 	});
-
 	function useThatOne(pkey,idx) {
 		var d=$("#geopickr"+idx).val();
 		useThisOne(pkey,d);
 	}
-
-
 	function useThisOne(pkey,geog) {
 		$.getJSON("/component/DSFunctions.cfc",
 			{
@@ -68,7 +60,6 @@ jQuery(document).ready(function() {
 			}
 		);
 	}
-
 	function upStatus(pkey) {
 		console.log('saving ' + $("#status" + pkey).val() + ' for ' + pkey);
 		$.getJSON("/component/DSFunctions.cfc",
@@ -85,12 +76,34 @@ jQuery(document).ready(function() {
 			}
 		);
 	}
-
-
-
-
 </script>
 <!---
+create table ds_temp_geog_hg (
+	PKEY number not null,
+	old_geog varchar2(4000),
+	HIGHER_GEOG varchar2(4000),
+	STATUS varchar2(4000)
+);
+
+
+create or replace public synonym ds_temp_geog_hg for ds_temp_geog_hg;
+grant all on ds_temp_geog_hg to coldfusion_user;
+grant select on ds_temp_geog_hg to public;
+
+ CREATE OR REPLACE TRIGGER ds_temp_geog_hg_key
+ before insert  ON ds_temp_geog_hg
+ for each row
+    begin
+    	if :NEW.pkey is null then
+    		select somerandomsequence.nextval into :new.pkey from dual;
+    	end if;
+    end;
+/
+sho err
+
+
+
+
 drop table ds_temp_geog;
 
 create table ds_temp_geog (
@@ -184,7 +197,8 @@ from geog_auth_rec where rownum<10
 
 <cfif action is "nothing">
 	Load random-ish geography; we'll try to find an appropriate Arctos higher_geog entry.
-	Columns in <span style="color:red">red</span> are required; others are optional:
+	<hr>Option One: Load "geog components"
+	All columns are optional
 	<ul>
 		<li>CONTINENT_OCEAN</li>
 		<li>COUNTRY</li>
@@ -196,15 +210,89 @@ from geog_auth_rec where rownum<10
 		<li>ISLAND_GROUP</li>
 		<li>SEA</li>
 	</ul>
-
-
-	<cfform name="atts" method="post" enctype="multipart/form-data">
+	<form name="atts" method="post" enctype="multipart/form-data" action="geog_lookup.cfm">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
-	</cfform>
+	</form>
+	<hr>Option Two: Load "higher geography" strings
+	<ul>
+		<li>old_geog</li>
+	</ul>
 
+
+	<form name="atts2" method="post" enctype="multipart/form-data" action="geog_lookup.cfm">
+		<input type="hidden" name="Action" value="getFile_HG">
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</form>
 </cfif>
+
+<cfif action is "getFile_HG">
+<cfoutput>
+
+
+	create table ds_temp_geog_hg (
+	PKEY number not null,
+	old_geog varchar2(4000),
+	HIGHER_GEOG varchar2(4000),
+	STATUS varchar2(4000)
+);
+
+
+
+
+	<!--- put this in a temp table --->
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from ds_temp_geog_hg
+	</cfquery>
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cfset fileContent=replace(fileContent,"'","''","all")>
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+	<cfset numberOfColumns = ArrayLen(arrResult[1])>
+	<cfset colNames="">
+	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
+		<cfset colVals="">
+			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
+				 <cfset numColsRec = ArrayLen(arrResult[o])>
+				<cfset thisBit=arrResult[o][i]>
+				<cfif #o# is 1>
+					<cfset colNames="#colNames#,#thisBit#">
+				<cfelse>
+					<cfset colVals="#colVals#,'#thisBit#'">
+				</cfif>
+			</cfloop>
+		<cfif #o# is 1>
+			<cfset colNames=replace(colNames,",","","first")>
+		</cfif>
+		<cfif len(colVals) gt 1>
+			<cfset colVals=replace(colVals,",","","first")>
+			<cfif numColsRec lt numberOfColumns>
+				<cfset missingNumber = numberOfColumns - numColsRec>
+				<cfloop from="1" to="#missingNumber#" index="c">
+					<cfset colVals = "#colVals#,''">
+				</cfloop>
+			</cfif>
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into ds_temp_geog_hg (#colNames#) values (#preservesinglequotes(colVals)#)
+			</cfquery>
+		</cfif>
+	</cfloop>
+</cfoutput>
+<cflocation url="geog_lookup.cfm?action=validateHG" addtoken="false">
+
+<!---
+---->
+</cfif>
+
+
+<!-------------------------------------------------------------------------------------------->
+<cfif action is "validateHG">
+<cfoutput>
+	hi
+</cfoutput>
+</cfif>
+
 
 <cfif action is "getFile">
 <cfoutput>
