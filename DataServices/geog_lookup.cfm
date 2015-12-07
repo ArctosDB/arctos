@@ -231,17 +231,6 @@ from geog_auth_rec where rownum<10
 <cfif action is "getFile_HG">
 <cfoutput>
 
-
-	create table ds_temp_geog_hg (
-	PKEY number not null,
-	old_geog varchar2(4000),
-	HIGHER_GEOG varchar2(4000),
-	STATUS varchar2(4000)
-);
-
-
-
-
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from ds_temp_geog_hg
@@ -288,10 +277,24 @@ from geog_auth_rec where rownum<10
 
 <!-------------------------------------------------------------------------------------------->
 <cfif action is "validateHG">
-<cfoutput>
-	hi
-</cfoutput>
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from ds_temp_geog_hg where HIGHER_GEOG is null and STATUS is null and rownum<10
+		</cfquery>
+		<cfloop query="d">
+			<p>
+				OLD_GEOG: #OLD_GEOG#
+				<cfquery name="sr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select higher_geog from geog_auth_rec where stripGeogRanks(higher_geog)=stripGeogRanks('#OLD_GEOG#')
+				</cfquery>
+				<br>sr.higher_geog: #sr.higher_geog#
+
+			</p>
+		</cfloop>
+
+	</cfoutput>
 </cfif>
+<!-------------------------------------------------------------------------------------------->
 
 
 <cfif action is "getFile">
