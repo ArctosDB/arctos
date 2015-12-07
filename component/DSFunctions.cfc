@@ -33,6 +33,15 @@
 		<cfreturn pkey>
 	</cffunction>
 	<!--------------------------------------------------------------------------->
+	<cffunction name="upDSGeogHG" access="remote">
+		<cfargument name="pkey" type="numeric" required="yes">
+		<cfargument name="geog" type="string" required="yes">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update ds_temp_geog_hg set HIGHER_GEOG='#geog#' where pkey=#pkey#
+		</cfquery>
+		<cfreturn pkey>
+	</cffunction>
+	<!--------------------------------------------------------------------------->
 	<cffunction name="getSpecimenByPartBarcode" access="remote">
 		<cfthrow detail="block not found" errorcode="9945" message="A block of code (component.DSFunctions,getSpecimenByPartBarcode) was not found.">
 		<!--------------

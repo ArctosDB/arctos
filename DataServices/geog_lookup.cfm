@@ -60,6 +60,20 @@ jQuery(document).ready(function() {
 			}
 		);
 	}
+	function useThisOneHG(pkey,geog) {
+		$.getJSON("/component/DSFunctions.cfc",
+			{
+				method : "upDSGeogHG",
+				pkey : pkey,
+				geog : geog,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
+			}
+		);
+	}
 	function upStatus(pkey) {
 		console.log('saving ' + $("#status" + pkey).val() + ' for ' + pkey);
 		$.getJSON("/component/DSFunctions.cfc",
@@ -307,8 +321,24 @@ from geog_auth_rec where rownum<10
 							geog_auth_rec.GEOG_AUTH_REC_ID=geog_search_term.GEOG_AUTH_REC_ID and
 							stripGeogRanks(SEARCH_TERM)=stripGeogRanks('#thisTerm#')
 					</cfquery>
-					<cfdump var=#gst#>
+					<cfquery name="gst_u" dbtype="query">
+						select higher_geog from gst group by higher_geog order by higher_geog
+					</cfquery>
 
+					<div id="oadiv_#pkey#">
+						<cfloop query="gst_u">
+							<br>#higher_geog#
+							<span class="likeLink" onclick="useThisOneHG('#pkey#','#higher_geog#');">use this one</span>
+							<cfquery name="gst_t" dbtype="query">
+								select SEARCH_TERM from gst where higher_geog='#higher_geog#' group by SEARCH_TERM order by SEARCH_TERM
+							</cfquery>
+							<cfloop query="gst_t">
+								<br>------#SEARCH_TERM#
+							</cfloop>
+
+						</cfloop>
+
+					</div>
 
 
 				</cfif>
