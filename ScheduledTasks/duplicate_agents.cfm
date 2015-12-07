@@ -59,6 +59,29 @@ END;
 				status='pass_email_sent' and
 				round(sysdate-last_date) >= #cookdays#
 		</cfquery>
+		<!---- insert a "verbatim collector" attribute in any collection type lacking one ---->
+		<cfquery name="nvc" datasource="uam_god">
+			select distinct
+				collection.collection_cde
+			from
+				collection
+			where
+				collection.collection_cde not in (select collection_cde from CTATTRIBUTE_TYPE where attribute_type='verbatim collector')
+		</cfquery>
+		<cfloop query="nvc">
+			<cfquery name="insvc" datasource="uam_god">
+				insert into CTATTRIBUTE_TYPE (
+					ATTRIBUTE_TYPE,
+					COLLECTION_CDE,
+					DESCRIPTION
+				) values (
+					'verbatim collector',
+					'#collection_cde#',
+					'Verbatim collector string, unattached to Agents.'
+				)
+			</cfquery>
+		</cfloop>
+		<!---- END £insert a "verbatim collector" attribute in any collection type lacking one ---->
 		<cfloop query="bads">
 			#cf_dup_agent_id#<br>
 			<cftransaction>
@@ -130,8 +153,8 @@ END;
 					<br>							delete from address where  agent_id=#bads.agent_id#
 
 					<cfquery name="address" datasource="uam_god">
-							delete from address where  agent_id=#bads.agent_id#
-						</cfquery>
+						delete from address where  agent_id=#bads.agent_id#
+					</cfquery>
 
 
 
