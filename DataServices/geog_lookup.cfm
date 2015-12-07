@@ -287,10 +287,17 @@ from geog_auth_rec where rownum<10
 				<cfquery name="sr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select higher_geog from geog_auth_rec where stripGeogRanks(higher_geog)=stripGeogRanks('#OLD_GEOG#')
 				</cfquery>
+				<cfif sr.recordcount is 1 and len(sr.higher_geog) gt 0>
+					<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update ds_temp_geog_hg set higher_geog='#sr.higher_geog#' where OLD_GEOG='#OLD_GEOG#'
+					</cfquery>
+					<br>--updated
+				</cfif>
 				<br>sr.higher_geog: #sr.higher_geog#
 
 			</p>
 		</cfloop>
+
 
 	</cfoutput>
 </cfif>
