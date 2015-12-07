@@ -304,7 +304,7 @@ from geog_auth_rec where rownum<10
 							geog_search_term,
 							geog_auth_rec
 						where
-							geog_search_term.GEOG_AUTH_REC_ID=geog_search_term.GEOG_AUTH_REC_ID and
+							geog_auth_rec.GEOG_AUTH_REC_ID=geog_search_term.GEOG_AUTH_REC_ID and
 							stripGeogRanks(SEARCH_TERM)=stripGeogRanks('#thisTerm#')
 					</cfquery>
 					<cfdump var=#gst#>
