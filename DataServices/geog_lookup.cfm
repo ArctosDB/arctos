@@ -315,7 +315,7 @@ from geog_auth_rec where rownum<10
 <cfif action is "validateHG">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ds_temp_geog_hg where HIGHER_GEOG is null and STATUS is null and rownum<10 order by higher_geog
+			select * from (select * from ds_temp_geog_hg where HIGHER_GEOG is null and STATUS is null order by higher_geog) where rownum<26
 		</cfquery>
 		<cfset sint=1>
 		<cfloop query="d">
