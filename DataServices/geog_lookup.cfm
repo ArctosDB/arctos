@@ -366,7 +366,7 @@ from geog_auth_rec where rownum<10
 						<input type="text" name="geopickr" id="geopickr#sint#" size="80">
 						<span class="likeLink" id="ut#sint#" onclick="useThatOneHG('#d.pkey#','#sint#');">[ save ]</span>
 						<label for="status#sint#">Status</label>
-						<input type="text" name="status" placeholder="type here to change status" id="status#d.pkey#" size="80" value="#d.status#" onchange="upStatusHG('#qdata.pkey#');">
+						<input type="text" name="status" placeholder="type here to change status" id="status#d.pkey#" size="80" value="#d.status#" onchange="upStatusHG('#d.pkey#');">
 
 						<cfset sint=sint+1>
 
