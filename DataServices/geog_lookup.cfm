@@ -325,10 +325,10 @@ from geog_auth_rec where rownum<10
 						select higher_geog from gst group by higher_geog order by higher_geog
 					</cfquery>
 
-					<div id="oadiv_#pkey#">
+					<div id="oadiv_#d.pkey#">
 						<cfloop query="gst_u">
 							<br>#higher_geog#
-							<span class="likeLink" onclick="useThisOneHG('#pkey#','#higher_geog#');">use this one</span>
+							<span class="likeLink" onclick="useThisOneHG('#d.pkey#','#higher_geog#');">use this one</span>
 							<cfquery name="gst_t" dbtype="query">
 								select SEARCH_TERM from gst where higher_geog='#higher_geog#' group by SEARCH_TERM order by SEARCH_TERM
 							</cfquery>
