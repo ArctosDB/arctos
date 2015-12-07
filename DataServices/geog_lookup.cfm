@@ -46,6 +46,13 @@ jQuery(document).ready(function() {
 		var d=$("#geopickr"+idx).val();
 		useThisOne(pkey,d);
 	}
+	function useThatOneHG(pkey,idx) {
+		var d=$("#geopickr"+idx).val();
+		useThisOneHG(pkey,d);
+	}
+
+
+
 	function useThisOne(pkey,geog) {
 		$.getJSON("/component/DSFunctions.cfc",
 			{
@@ -295,6 +302,7 @@ from geog_auth_rec where rownum<10
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ds_temp_geog_hg where HIGHER_GEOG is null and STATUS is null and rownum<10 order by higher_geog
 		</cfquery>
+		<cfset sint=1>
 		<cfloop query="d">
 			<p>
 				OLD_GEOG: #OLD_GEOG#
@@ -340,7 +348,10 @@ from geog_auth_rec where rownum<10
 						</cfloop>
 
 					</div>
-
+						<label for="geopickr#sint#">Type to Pick</label>
+				<input type="text" name="geopickr" id="geopickr#sint#" size="80">
+				<span class="likeLink" id="ut#sint#" onclick="useThatOneHG('#d.pkey#','#sint#');">[ save ]</span>
+				<cfset sint=sint+1>
 
 				</cfif>
 				<br>sr.higher_geog: #sr.higher_geog#
