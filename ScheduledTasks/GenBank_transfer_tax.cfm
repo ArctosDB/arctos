@@ -1,8 +1,8 @@
-<!--- 
+<!---
 	builds reciprocal links from GenBank
 	Run daily
 	Run after adding GenBank other IDs
-	Requires: 
+	Requires:
 		Application.genBankPrid
 		Application.genBankPwd (encrypted)
 		Application.genBankUsername
@@ -16,23 +16,14 @@
     	directory="#Application.webDirectory#/temp/"
         name="rfiles"
 		recurse="yes"
-		filter="taxonomy_#dateformat(now(),'yyyymmdd')#*">
-		
-		
-		
+		filter="taxonomy_*">
 <cfftp action="open" username="#cf_global_settings.GENBANK_USERNAME#" password="#cf_global_settings.GENBANK_PASSWORD#" server="ftp-private.ncbi.nih.gov" connection="genbank" passive="true">
 	<cfftp connection="genbank" action="changedir" passive="true" directory="holdings">
 	<cfloop query="rfiles">
-		<cfftp connection="genbank" 
-			action="putfile" 
-			passive="true" 
+		<cfftp connection="genbank"
+			action="putfile"
+			passive="true"
 			localfile="#Application.webDirectory#/temp/#name#" remotefile="#name#" name="Put_taxonomy">
-
-	
 	</cfloop>
-
 	<cfftp connection="genbank" action="close">
-<!----
-
----->
 </cfoutput>
