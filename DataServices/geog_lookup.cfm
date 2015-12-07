@@ -289,9 +289,28 @@ from geog_auth_rec where rownum<10
 				</cfquery>
 				<cfif sr.recordcount is 1 and len(sr.higher_geog) gt 0>
 					<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update ds_temp_geog_hg set higher_geog='#sr.higher_geog#' where OLD_GEOG='#OLD_GEOG#'
+						update ds_temp_geog_hg set higher_geog='#sr.higher_geog#',status='stripGeogRanks_match' where OLD_GEOG='#OLD_GEOG#'
 					</cfquery>
 					<br>--updated
+				<cfelse>
+					<!--- try the last term --->
+					<cfset thisTerm=listlast(OLD_GEOG,",")>
+					<br>thisTerm: #thisTerm#
+					<cfquery name="gst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+							SEARCH_TERM,
+							higher_geog
+						from
+							geog_search_term,
+							geog_auth_rec
+						where
+							geog_search_term.GEOG_AUTH_REC_ID=geog_search_term.GEOG_AUTH_REC_ID and
+							stripGeogRanks(SEARCH_TERM)=stripGeogRanks('#thisTerm#')
+					</cfquery>
+					<cfdump var=#gst#>
+
+
+
 				</cfif>
 				<br>sr.higher_geog: #sr.higher_geog#
 
