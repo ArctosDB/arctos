@@ -356,6 +356,7 @@ from geog_auth_rec where rownum<10
 				<br>Autoupdate: #sr.higher_geog#
 
 			</p>
+			<hr>
 		</cfloop>
 
 
