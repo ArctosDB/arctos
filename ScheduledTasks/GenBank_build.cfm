@@ -1,13 +1,13 @@
-<!--- 
+<!---
 	builds reciprocal links from GenBank
 	Run daily
 	Run after adding GenBank other IDs
-	Requires: 
+	Requires:
 		Application.genBankPrid
 		Application.genBankPwd (encrypted)
 		Application.genBankUsername
-		
-	
+
+
 ---->
 <cfoutput>
 <cfquery name="nucleotide" datasource="uam_god">
@@ -43,7 +43,7 @@
 <cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Nucleotide#chr(10)#!base.url: #Application.ServerRootUrl#/guid/">
 
 <cfloop from="1" to="#numberOfFiles#" index="f">
-	<cfset thisFileName="nucleotide_#dateformat(now(),'yyyymmdd')#_#f#.ft">
+	<cfset thisFileName="nucleotide_#f#.ft">
 	<cffile action="write" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#header#">
 	<cfset stoprownum=startrownum+numberOfRecords>
 	<cfquery name="thisChunk" dbtype="query">
@@ -61,16 +61,16 @@
 
 
 <cfquery name="taxonomy" datasource="uam_god">
-	select 
+	select
 		distinct(scientific_name),
 		rownum
-	FROM 
-		cataloged_item a, 
-		identification c, 
-		coll_obj_other_id_num d 
-	WHERE 
-		a.collection_object_id = c.collection_object_id AND 
-		c.accepted_id_fg=1 AND 
+	FROM
+		cataloged_item a,
+		identification c,
+		coll_obj_other_id_num d
+	WHERE
+		a.collection_object_id = c.collection_object_id AND
+		c.accepted_id_fg=1 AND
 		a.collection_object_id = d.collection_object_id AND
 		scientific_name not like '%##%' AND
 		d.other_id_type='GenBank'
@@ -83,7 +83,7 @@
 
 
 <cfloop from="1" to="#numberOfFiles#" index="f">
-	<cfset thisFileName="taxonomy_#dateformat(now(),'yyyymmdd')#_#f#.ft">
+	<cfset thisFileName="taxonomy_#f#.ft">
 	<cffile action="write" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#header#">
 	<cfset stoprownum=startrownum+numberOfRecords>
 	<cfquery name="thisChunk" dbtype="query">
@@ -105,10 +105,10 @@
 	select SCIENTIFIC_NAME,rownum from (
 		select
 		    distinct(taxon_name.SCIENTIFIC_NAME) SCIENTIFIC_NAME
-		  from 
+		  from
 		    taxon_name,
-		    identification_taxonomy 
-		  where 
+		    identification_taxonomy
+		  where
 		    identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id
 		) order by rownum
 </cfquery>
@@ -119,7 +119,7 @@
 <cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/name/">
 
 <cfloop from="1" to="#numberOfFiles#" index="f">
-	<cfset thisFileName="names_#dateformat(now(),'yyyymmdd')#_#f#.ft">
+	<cfset thisFileName="names_#f#.ft">
 	<cffile action="write" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#header#">
 	<cfset stoprownum=startrownum+numberOfRecords>
 	<cfquery name="thisChunk" dbtype="query">
