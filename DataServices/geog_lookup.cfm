@@ -293,7 +293,7 @@ from geog_auth_rec where rownum<10
 <cfif action is "validateHG">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ds_temp_geog_hg where HIGHER_GEOG is null and STATUS is null and rownum<10
+			select * from ds_temp_geog_hg where HIGHER_GEOG is null and STATUS is null and rownum<10 order by higher_geog
 		</cfquery>
 		<cfloop query="d">
 			<p>
@@ -301,6 +301,7 @@ from geog_auth_rec where rownum<10
 				<cfquery name="sr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select higher_geog from geog_auth_rec where stripGeogRanks(higher_geog)=stripGeogRanks('#OLD_GEOG#')
 				</cfquery>
+				<cfdump var=#sr#>
 				<cfif sr.recordcount is 1 and len(sr.higher_geog) gt 0>
 					<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update ds_temp_geog_hg set higher_geog='#sr.higher_geog#',status='stripGeogRanks_match' where OLD_GEOG='#OLD_GEOG#'
