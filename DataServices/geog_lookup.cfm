@@ -1,8 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
-
-
-
 <style>
 	.possiblesTable {
 		max-height:10em;
@@ -23,12 +20,10 @@
 	.onerec{
 		border:1px solid black;
 	}
-
 	.goodsave{
 		border:1px solid green;
 		background-color:#FCFFFC;
 	}
-
 </style>
 <script>
 jQuery(document).ready(function() {
@@ -47,13 +42,10 @@ jQuery(document).ready(function() {
 	    });
 
 	});
-
 	function useThatOne(pkey,idx) {
 		var d=$("#geopickr"+idx).val();
 		useThisOne(pkey,d);
 	}
-
-
 	function useThisOne(pkey,geog) {
 		$.getJSON("/component/DSFunctions.cfc",
 			{
