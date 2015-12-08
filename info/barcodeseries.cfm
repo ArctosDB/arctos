@@ -642,6 +642,33 @@ end;
 /
 
 
+create table temp_all_barcode as select barcode from container where barcode is not null;
+
+
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+BEGIN
+	delete from temp_all_barcode where is_claimed_barcode(barcode)='PASS';
+end;
+/
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_temp_update_junk',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'temp_update_junk',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/
+
+select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
+
+
+select count(*) from temp_all_barcode;
+
+
+
 select is_claimed_barcode('1') from dual;
 
 
