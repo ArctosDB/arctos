@@ -162,7 +162,7 @@
 			<cfdump var=#myQueryResult#>
 		</p>
 		<p>
-			<a href="pre_bulkloader.cfm##tysql">continue</a>
+			Use your back button or <a href="pre_bulkloader.cfm?action=nothing##tysql">continue</a>
 		</p>
 	</cfif>
 
