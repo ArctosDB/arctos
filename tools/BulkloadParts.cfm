@@ -42,6 +42,96 @@ alter table cf_temp_parts rename column collection_cde to guid_prefix;
 create or replace public synonym cf_temp_parts for cf_temp_parts;
 grant all on cf_temp_parts to uam_query,uam_update;
 
+
+
+
+
+----------------- big load? Here's SQL.
+
+
+First make a table that looks like d
+
+temp_sql_part
+
+add collection_object_id (cataloged item's)
+
+alter table temp_sql_part add collection_object_id number;
+
+select collection_id from collection where guid_prefix='CHAS:Mamm';
+update temp_sql_part set collection_object_id=(
+	select collection_object_id from cataloged_item where collection_id=113 and cataloged_item.cat_num=temp_sql_part.other_id_number);
+
+select count(*) from temp_sql_part where collection_object_id is null;
+select other_id_number from temp_sql_part where collection_object_id is null;
+select * from temp_sql_part where collection_object_id is null;
+
+alter table temp_sql_part rename column PART_REMARK to REMARKS;
+
+update temp_sql_part set CONDITION='unchecked' where CONDITION is null;
+
+select DISPOSITION,count(*) from temp_sql_part group by DISPOSITION;
+
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+begin
+	for r in (select * from temp_sql_part) loop
+		INSERT INTO coll_object (
+				COLLECTION_OBJECT_ID,
+				COLL_OBJECT_TYPE,
+				ENTERED_PERSON_ID,
+				COLL_OBJECT_ENTERED_DATE,
+				LAST_EDITED_PERSON_ID,
+				COLL_OBJ_DISPOSITION,
+				LOT_COUNT,
+				CONDITION,
+				FLAGS )
+			VALUES (
+				sq_collection_object_id.nextval,
+				'SP',
+				2072,
+				sysdate,
+				2072,
+				r.DISPOSITION,
+				r.LOT_COUNT,
+				r.CONDITION,
+				NULL
+		);
+
+		INSERT INTO specimen_part (
+				COLLECTION_OBJECT_ID,
+				PART_NAME,
+				DERIVED_FROM_cat_item
+			) VALUES (
+				sq_collection_object_id.currval,
+				r.PART_NAME,
+				r.collection_object_id
+			);
+
+		if r.REMARKS is not null then
+			INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+				VALUES (sq_collection_object_id.currval, r.REMARKS)
+				;
+		end if;
+		if r.PART_ATTRIBUTE_TYPE_1 is not null and r.PART_ATTRIBUTE_VALUE_1 is not null then
+			insert into specimen_part_attribute (
+				PART_ATTRIBUTE_ID,
+				COLLECTION_OBJECT_ID,
+				ATTRIBUTE_TYPE,
+				ATTRIBUTE_VALUE
+			) values (
+				sq_PART_ATTRIBUTE_ID.nextval,
+				sq_collection_object_id.currval,
+				r.PART_ATTRIBUTE_TYPE_1,
+				r.PART_ATTRIBUTE_VALUE_1
+			);
+		end if;
+	end loop;
+end;
+/
+
+-- DO NOT LEAVE THAT LAYING AROUND!!
+drop procedure temp_update_junk;
+
+
 ---->
 <cfinclude template="/includes/_header.cfm">
 
