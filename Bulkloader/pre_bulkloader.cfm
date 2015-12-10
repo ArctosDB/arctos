@@ -154,7 +154,7 @@
 	<!------------------------------------------------------->
 	<cfif action is "execSQL">
 		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
-			UPDATE pre_bulkloader SET #spf# <cfif len(spw) gt 0>WHERE #spw#</cfif>
+			UPDATE pre_bulkloader SET #preserveSingleQuotes(spf)# <cfif len(spw) gt 0>WHERE #preserveSingleQuotes(spw)#</cfif>
 		</cfquery>
 
 		<p>
