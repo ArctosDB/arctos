@@ -44,13 +44,16 @@
 		createdate,
 		whodunit
 	) values (
-		'to_number(barcode) between 2 and 405000',
+		'regexp_like(barcode,''^[0-9]*$'') and to_number(substr(barcode,2)) between 2 and 405000',
 		'all integers',
 		'UAM',
 		 'All UAM bare-number barcodes including original pre-Arctos catalog number barcodes and subsequent integer-only series Exclude 0 and 1 (used for "trashcans").',
 		 '2008-11-05',
 		 'brandy'
 	);
+
+
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -59,28 +62,15 @@
 		createdate,
 		whodunit
 	) values (
-		'substr(barcode,0,1)=''C'' and is_number(substr(barcode,2))=1 and to_number(substr(barcode,2)) > 1 and to_number(substr(barcode,2))<=89000',
+		'regexp_like(barcode,''^C[0-9]*$'') and to_number(substr(barcode,2)) between 1 and 89000',
 		'C1-C89000',
 		'UAM',
 		 'UAM C{number} series used for various purposes',
 		 '2008-11-05',
 		 'brandy'
 	);
-	insert into cf_barcodeseries (
-		barcodeseriessql,
-		barcodeseriestxt,
-		institution,
-		notes,
-		createdate,
-		whodunit
-	) values (
-		'substr(barcode,0,1)=''T'' and is_number(substr(barcode,2))=1 and to_number(substr(barcode,2)) > 1000 and to_number(substr(barcode,2))<=3001',
-		'T1001-T3001',
-		'UAM',
-		 'UAM T{number} series; Plastic laser-etched barcoded tag for attaching to specimens.  From National Band and Tag Co.',
-		 '2008-11-05',
-		 'brandy'
-	);
+
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -114,7 +104,7 @@
 		'UAM',
 		'UAM "trashcan"',
 		'2008-11-05',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -130,7 +120,7 @@
 		'UAM',
 		'various UAM range cases; inconsistent format (R36C01; R131C6) due to legacy data and space constraints.',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -145,7 +135,7 @@
 		'UAM',
 		'various UAM	Ranges. Cases are children.',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -158,9 +148,9 @@
 		'regexp_like(barcode,''^ROOM[0-9]*$'')',
 		'ROOM[number]',
 		'UAM',
-		'various UAM	Inconsistent leading zeroes',
+		'various UAM Inconsistent leading zeroes',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -171,12 +161,12 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^ROOM[0-9]*$'')',
-		'ROOM[number]',
+		'regexp_like(barcode,''^T[0-9]*$'') and to_number(substr(barcode,2)) between 1001 and 3000',
+		'T1001-T3000',
 		'UAM',
-		'various UAM	Inconsistent leading zeroes',
+		'Fish?',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 
@@ -193,7 +183,7 @@
 		'UAM',
 		'THESE WERE THE FIRST BARCODES WE CREATED FOR SHELVES AND TRAYS IN THE RANGE IN THE 1990''S.  "L" FOR LOCATION, AND THE FIRST 2 DIGITS REFERRED TO THE RANGE NUMBER, DIGITS 3 AND 4 WERE THE CASE NUMBER AND THE LAST TWO WERE THE SHELF OR TRAY.  Probably mammals only.  AFTER WE ARE FINISHED MOVING SPECIMENS INTO NEW CABINETS WE CAN PROBABLY GET RID OF THESE.',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -209,7 +199,7 @@
 		'UAM',
 		'Nitrogen freezers positions (these are older labels that will be replaced by barcodes without the dashes when LN2 freezers 2 and 3 are in use.',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -225,7 +215,7 @@
 		'UAM',
 		'UAM Nitrogen freezer positions',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -241,7 +231,7 @@
 		'UAM',
 		'UAM Nitrogen freezers',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -256,7 +246,7 @@
 		'UAM',
 		'Paleo specimen labels',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -266,12 +256,12 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^ES[0-9]*$'') and to_number(substr(barcode,3)) between 20000 and 54999',
-		'ES20000 - ES54999',
+		'regexp_like(barcode,''^ES[0-9]*$'') and to_number(substr(barcode,3)) between 1 and 60999',
+		'ES1 - ES500000',
 		'UAM',
 		'Updated Paleo specimen labels',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -282,12 +272,12 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^UAM[0-9]*$'') and to_number(substr(barcode,4)) between 100000001 and 100050000',
-		'UAM100000001 - UAM100050000',
+		'regexp_like(barcode,''^UAM[0-9]*$'') and to_number(substr(barcode,4)) between 100000001 and 109000000',
+		'UAM100000001 - UAM109000000',
 		'UAM',
 		'UAM Insects specimen labels',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -302,7 +292,7 @@
 		'UAM',
 		'UAM freezers',
 		'2009-10-09',
-		'Kyndall'
+		'fskbh1'
 	);
 
 
@@ -319,7 +309,7 @@
 		'UAM',
 		'UAM freezers',
 		'2009-10-09',
-		'Kyndall'
+		'fskbh1'
 	);
 
 
@@ -336,7 +326,7 @@
 		'MSB',
 		'MSB	jars?',
 		'2009-10-09',
-		'DLM'
+		'dlm'
 	);
 
 	insert into cf_barcodeseries (
@@ -378,12 +368,12 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^MSB[0-9]*$'') and to_number(substr(barcode,4)) between 100001 and 150000',
-		'MSB100001	- MSB150000',
+		'regexp_like(barcode,''^MSB[0-9]*$'') and to_number(substr(barcode,4)) between 100001 and 1050000',
+		'MSB100001	- MSB1050000',
 		'MSB',
 		'MSB birds',
 		'2009-10-09',
-		'abj'
+		'andy'
 	);
 
 	insert into cf_barcodeseries (
@@ -427,7 +417,7 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^KNWR[0-9]*$'')',
+		'regexp_like(barcode,''^KNWRC[0-9]*$'')',
 		'KNWRC[number]',
 		'KNWR',
 		'generic container label for KNWR containers, used in both KNWR:Herb and KNWR:Ento collections.',
@@ -481,9 +471,25 @@
 		'MSB',
 		'50,000 cryotube labels in base-36 Datamatrix',
 		'2013-04-26',
-		'dunnum'
+		'jldunnum'
 	);
 
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^BOWIE [0-9]{1,3}$'') and to_number(substr(barcode,7)) between 1 and 500',
+		'BOWIE 1 - BOWIE 500',
+		'MVZ',
+		'MVZ uncataloged bird samples collected by Raurie Bowie and colleagues, labels for his freezer boxes',
+		'2015-04-16',
+		'ccicero'
+	);
 
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -525,12 +531,12 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^A[0-9]{5}$'') and to_number(substr(barcode,1)) between 1 and 5000',
+		'regexp_like(barcode,''^A[0-9]{5}$'') and to_number(substr(barcode,2)) between 1 and 5000',
 		'A00001	- A05000',
 		'NMU',
 		'NMU 3 part barcode labels for use on cryotubes, parasite vials, and skull tags',
 		'2015-07-07',
-		'keg'
+		'ftkeg'
 	);
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -540,12 +546,12 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 10000 and 100000',
+		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 1 and 100000',
 		'NMU10000 - NMU10000',
 		'NMU',
 		'NMU generic label for specimens and containers',
 		'2015-07-07',
-		'keg'
+		'ftkeg'
 	);
 
 	insert into cf_barcodeseries (
@@ -587,13 +593,96 @@
 		createdate,
 		whodunit
 	) values (
-		'barcode=''VLSB 1143''',
-		'VLSB 1143',
+		'barcode  in (''VLSB 1143'',''CAS'',''MTEC'',''SEMC'',''USDA-ARS'',''USNM'',''OSAC'',''PMJ-Phyletisches-Museum'')',
+		'various rooms n junk',
 		'MVZ',
-		'MVZ Generic barcode for the MVZ LN2 tissue collection facility.',
+		'Random pile of random barcodes used for weird one-off things.',
 		'2015-07-07',
 		'ccicero'
 	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^BBSL[0-9]*$'') to_number(substr(barcode,5)) between 700000 and 800000'',
+		'UAM',
+		'MSB',
+		'USDA ARS for UAM:Ento',
+		'2015-07-07',
+		'ffdss'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^JPS[0-9]*$'') to_number(substr(barcode,4)) between 30000 and 40000'',
+		'UAM',
+		'MSB',
+		'USDA ARS for UAM:Ento',
+		'2015-07-07',
+		'ffdss'
+	);
+
+
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 1 and 100000',
+		'NMU10000 - NMU10000',
+		'NMU',
+		'NMU generic label for specimens and containers',
+		'2015-07-07',
+		'ftkeg'
+	);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	CREATE OR REPLACE FUNCTION is_claimed_barcode (barcode in varchar) return varchar
 as
@@ -612,6 +701,69 @@ end;
 /
 
 
+create table temp_all_barcode as select barcode from container where barcode is not null;
+
+
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+	rslt varchar2(255):='FAIL';
+		rsql varchar2(255);
+		ssmt varchar2(255);
+		c number;
+BEGIN
+		for r in (select barcodeseriessql from cf_barcodeseries) loop
+		begin
+				--rsql:=replace(r.barcodeseriessql,'barcode','''' || barcode || '''');
+				ssmt := 'delete from temp_all_barcode where ' || r.barcodeseriessql;
+				dbms_output.put_line(ssmt);
+				execute immediate ssmt;
+
+				exception when others then
+					dbms_output.put_line('FAIL: ' || ssmt);
+
+		end;
+		end loop;
+	end;
+/
+sho err;
+
+exec temp_update_junk;
+
+alter table temp_all_barcode add institution_acronym varchar2(20);
+
+update temp_all_barcode set institution_acronym=(select institution_acronym from container where temp_all_barcode.barcode=container.barcode);
+
+
+
+-- cleanup
+
+delete from container where barcode='UAM100290396';
+delete from container where barcode='UAM100306951';
+update container set barcode='UAM100290396' where barcode='6UAM100290396';
+update container set barcode='UAM100306951' where barcode='6UAM100306951';
+
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_temp_update_junk',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'temp_update_junk',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/
+
+select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
+
+
+select count(*) from temp_all_barcode;
+
+
+select barcode from temp_all_barcode order by barcode;
+
+
+
+
 select is_claimed_barcode('1') from dual;
 
 
@@ -626,23 +778,28 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 <cfset title="barcodes!">
 <script>
 	function deleteCSeries(key){
-		var r = confirm("Are you sure you want to delete this record? That is a Really Bad Idea if the series is used and not covered by another entry.");
+		var msg='Are you sure you want to delete this record?';
+		msg+=' That is a Really Bad Idea if the series is used and not covered by another entry.';
+		var r = confirm(msg);
 		if (r == true) {
 			document.location='barcodeseries.cfm?action=delete&key=' + key;
 		}
 	}
 </script>
-<cfsavecontent variable="sql">
-	"barcodeseriessql" is the SQL statement that MUST return true when analyzed against any barcode in the intended series, and false
-	against any other string.
-
-	<p>
-		Anything that's a valid Oracle SQL statement may be used for testing. There are many ways to test most everything.
-	</p>
-	<p>
-		Use "barcode" (lower-case) as the SQL variable representing the barcode
-	</p>
-	<p>
+<cfsavecontent variable="doc_barcodeseriessql">
+	<div style="max-height:10em;overflow:scroll;">
+		<a style="font-weight:bold;size:large" href="/contact.cfm">Contact us for help in writing SQL</a>
+		<p>
+			"barcodeseriessql" is the SQL statement that MUST return true when analyzed against any barcode in the intended series, and false
+			against any other string. It is evaluated as "select count(*) from dual where {whatever_you_type}". That MUST return
+			1 for all of your intended barcodes, and 0 for any other.
+		</p>
+		<p>
+			Anything that's a valid Oracle SQL statement may be used for testing. There are many ways to test most everything.
+		</p>
+		<p>
+			Use "barcode" (lower-case) as the SQL variable representing the each barcode.
+		</p>
 		Examples:
 
 		<table border>
@@ -654,16 +811,68 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			<tr>
 				<td>1</td>
 				<td>barcode='1'</td>
-				<td>Equality tests generally come with no surprises.</td>
+				<td>Equality tests come with no surprises; this is ideal.</td>
 			</tr>
 			<tr>
 				<td>1</td>
 				<td>regexp_like(barcode,'[0-9]*')</td>
-				<td>"1" is a number so matches the regular expression, but so do all other numbers.</td>
+				<td>
+					"1" is a number, matches the regular expression, and your intended barcodes will pass -
+					as will all other numbers. This is a very bad choice.
+				</td>
 			</tr>
-
+			<tr>
+				<td>
+					ABC123 - ABC456
+				</td>
+				<td>
+					regexp_like(barcode,'^ABC[0-9]{3}') and to_number(substr(barcode,4)) between 123 and 456
+				</td>
+				<td>
+					First, consider claiming the entire "ABC{number}" series (but coordinate large "grabs" with the Arctos community).
+					<ul>
+						<li>
+							<strong>regexp_like(</strong> - a regular expression follows
+						</li>
+						<li>
+							<strong>barcode,</strong> - "barcode" (the variable, not the string) is the subject of the evaluation
+						</li>
+						<li>
+							<strong>'^</strong> - "anchor" to the beginning of the string
+						</li>
+						<li>
+							<strong>ABC</strong> - the next (from the beginning) three characters must be "ABC"
+						</li>
+						<li>
+							<strong>[0-9]</strong> - any number
+						</li>
+						<li>
+							<strong>{3}</strong> - three of the proceeding (so three numbers)
+						</li>
+						<li>
+							<strong>') and </strong> - multiple operations are OK; it's easier to do the rest outside regex.
+						</li>
+						<li>
+							<strong>to_number(</strong> - convert some CHAR data to NUMBER (or fail if a conversion is not possible)
+						</li>
+						<li>
+							<strong>substr(</strong> - extract some characters
+						</li>
+						<li>
+							<strong>barcode,</strong> - variable from which to extract
+						</li>
+						<li>
+							<strong>4)</strong> - "start at the 4th character and proceed to the end of the data"
+						</li>
+						<li>
+							<strong>between 123 and 456</strong> - shortcut for "greater than or equal to 4th-and-subsequent characters
+							 AND less than or equal to 4th-and-subsequent characters"
+						</li>
+					</ul>
+				</td>
+			</tr>
 		</table>
-	</p>
+	</div>
 </cfsavecontent>
 <cfoutput>
 	<!------------------------------------------------->
@@ -729,15 +938,15 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 		<form name="t" method="post" action="barcodeseries.cfm">
 			<input type="hidden" name="action" value="saveEdit">
 			<input type="hidden" name="key" value="#d.key#">
-
-			<label for="barcodeseriessql">
-				SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
-				1 for all of your intended barcodes, and 0 for any other
-			</label>
-			<textarea class="hugetextarea" name="barcodeseriessql">#d.barcodeseriessql#</textarea>
-
+			<div style="border:1px solid black; margin:1em; padding:1em">
+				<label for="barcodeseriessql">
+					SQL
+				</label>
+				<textarea class="hugetextarea" name="barcodeseriessql">#d.barcodeseriessql#</textarea>
+				#doc_barcodeseriessql#
+			</div>
 			<label for="barcodeseriestxt">
-				Text - type a clear human-readable description of the series you are claiming
+				Text - type a clear human-readable (and sortable) description of the series you are claiming
 			</label>
 			<textarea class="hugetextarea" name="barcodeseriestxt">#d.barcodeseriestxt#</textarea>
 			<label for="institution">institution</label>
@@ -757,15 +966,16 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 
 		<form name="t" method="post" action="barcodeseries.cfm">
 			<input type="action" value="saveNew">
-
-			<label for="barcodeseriessql">
-				SQL - this will be processed as "select count(*) from dual where {whatever_you_type_here}. That MUST return
-				1 for all of your intended barcodes, and 0 for any other
-			</label>
-			<textarea class="hugetextarea" name="barcodeseriessql"></textarea>
+			<div style="border:1px solid black; margin:1em; padding:1em">
+				<label for="barcodeseriessql">
+					SQL
+				</label>
+				<textarea class="hugetextarea" name="barcodeseriessql"></textarea>
+				#doc_barcodeseriessql#
+			</div>
 
 			<label for="barcodeseriestxt">
-				Text - type a clear human-readable description of the series you are claiming
+				Text - type a clear human-readable (and sortable) description of the series you are claiming
 			</label>
 			<textarea class="hugetextarea" name="barcodeseriestxt"></textarea>
 			<label for="institution">institution</label>
@@ -792,20 +1002,25 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 		<p>
 			Claim barcodes and barcode series.
 			<ul>
-				<li>See documentation specifically http://arctosdb.org/documentation/container/##purchase before doing anything here.</li>
+				<li>
+					Review container documentation, especially
+					<a href="http://arctosdb.org/documentation/container/##purchase">
+						http://arctosdb.org/documentation/container/##purchase
+					</a>, before doing anything here.</li>
 				<li>
 					<a href="/contact.cfm">contact us</a> if you need help with any part of the barcoding process or anything in Arctos,
 					including this form.
 				</li>
-				<li>If you claim XYZ1 through XYZ5, don't be surprised if someone else claims XYZ6. Claim what you might need.</li>
-				<li>Don't be that guy. Contact the XYZ-folks before claiming what might be an intended series.</li>
+				<li>
+					If you claim XYZ1 through XYZ5, don't be surprised if someone else claims XYZ6. Claim what you might need,
+					not only what you currently have.
+				</li>
+				<li>Don't be "that guy"; contact the XYZ-folks before claiming what might be part of an intended series.</li>
 				<li>
 					Don't be redundant. If you already own XYZ1 through XYZ5 and you buy XYZ6 through XYZ10, edit the original
 					 entry rather than adding a new entry. This thing is already hard enough to read!
 				</li>
 			</ul>
-			<br>
-
 		</p>
 
 		<cfparam name="barcode" default="">

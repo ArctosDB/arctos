@@ -46,6 +46,11 @@ jQuery(document).ready(function() {
 		var d=$("#geopickr"+idx).val();
 		useThisOne(pkey,d);
 	}
+	function useThatOneHG(pkey,idx) {
+		var d=$("#geopickr"+idx).val();
+		useThisOneHG(pkey,d);
+	}
+
 	function useThisOne(pkey,geog) {
 		$.getJSON("/component/DSFunctions.cfc",
 			{
@@ -60,9 +65,37 @@ jQuery(document).ready(function() {
 			}
 		);
 	}
+	function useThisOneHG(pkey,geog) {
+		$.getJSON("/component/DSFunctions.cfc",
+			{
+				method : "upDSGeogHG",
+				pkey : pkey,
+				geog : geog,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
+			}
+		);
+	}
+	function upStatusHG(pkey) {
+		$.getJSON("/component/DSFunctions.cfc",
+			{
+				method : "upDSStatusHG",
+				pkey : pkey,
+				status : $("#status" + pkey).val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				console.log('saved status');
+				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
+			}
+		);
+	}
 
 	function upStatus(pkey) {
-		console.log('saving ' + $("#status" + pkey).val() + ' for ' + pkey);
 		$.getJSON("/component/DSFunctions.cfc",
 			{
 				method : "upDSStatus",
@@ -77,12 +110,34 @@ jQuery(document).ready(function() {
 			}
 		);
 	}
-
-
-
-
 </script>
 <!---
+create table ds_temp_geog_hg (
+	PKEY number not null,
+	old_geog varchar2(4000),
+	HIGHER_GEOG varchar2(4000),
+	STATUS varchar2(4000)
+);
+
+
+create or replace public synonym ds_temp_geog_hg for ds_temp_geog_hg;
+grant all on ds_temp_geog_hg to coldfusion_user;
+grant select on ds_temp_geog_hg to public;
+
+ CREATE OR REPLACE TRIGGER ds_temp_geog_hg_key
+ before insert  ON ds_temp_geog_hg
+ for each row
+    begin
+    	if :NEW.pkey is null then
+    		select somerandomsequence.nextval into :new.pkey from dual;
+    	end if;
+    end;
+/
+sho err
+
+
+
+
 drop table ds_temp_geog;
 
 create table ds_temp_geog (
@@ -176,7 +231,8 @@ from geog_auth_rec where rownum<10
 
 <cfif action is "nothing">
 	Load random-ish geography; we'll try to find an appropriate Arctos higher_geog entry.
-	Columns in <span style="color:red">red</span> are required; others are optional:
+	<hr>Option One: Load "geog components"
+	All columns are optional
 	<ul>
 		<li>CONTINENT_OCEAN</li>
 		<li>COUNTRY</li>
@@ -188,15 +244,142 @@ from geog_auth_rec where rownum<10
 		<li>ISLAND_GROUP</li>
 		<li>SEA</li>
 	</ul>
-
-
-	<cfform name="atts" method="post" enctype="multipart/form-data">
+	<form name="atts" method="post" enctype="multipart/form-data" action="geog_lookup.cfm">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
-	</cfform>
+	</form>
+	<hr>Option Two: Load "higher geography" strings
+	<ul>
+		<li>old_geog</li>
+	</ul>
 
+
+	<form name="atts2" method="post" enctype="multipart/form-data" action="geog_lookup.cfm">
+		<input type="hidden" name="Action" value="getFile_HG">
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</form>
 </cfif>
+
+<cfif action is "getFile_HG">
+<cfoutput>
+
+	<!--- put this in a temp table --->
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from ds_temp_geog_hg
+	</cfquery>
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cfset fileContent=replace(fileContent,"'","''","all")>
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+	<cfset numberOfColumns = ArrayLen(arrResult[1])>
+	<cfset colNames="">
+	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
+		<cfset colVals="">
+			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
+				 <cfset numColsRec = ArrayLen(arrResult[o])>
+				<cfset thisBit=arrResult[o][i]>
+				<cfif #o# is 1>
+					<cfset colNames="#colNames#,#thisBit#">
+				<cfelse>
+					<cfset colVals="#colVals#,'#thisBit#'">
+				</cfif>
+			</cfloop>
+		<cfif #o# is 1>
+			<cfset colNames=replace(colNames,",","","first")>
+		</cfif>
+		<cfif len(colVals) gt 1>
+			<cfset colVals=replace(colVals,",","","first")>
+			<cfif numColsRec lt numberOfColumns>
+				<cfset missingNumber = numberOfColumns - numColsRec>
+				<cfloop from="1" to="#missingNumber#" index="c">
+					<cfset colVals = "#colVals#,''">
+				</cfloop>
+			</cfif>
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into ds_temp_geog_hg (#colNames#) values (#preservesinglequotes(colVals)#)
+			</cfquery>
+		</cfif>
+	</cfloop>
+</cfoutput>
+<cflocation url="geog_lookup.cfm?action=validateHG" addtoken="false">
+
+<!---
+---->
+</cfif>
+
+
+<!-------------------------------------------------------------------------------------------->
+<cfif action is "validateHG">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from (select * from ds_temp_geog_hg where HIGHER_GEOG is null and STATUS is null order by higher_geog) where rownum<26
+		</cfquery>
+		<cfset sint=1>
+		<cfloop query="d">
+			<p>
+				OLD_GEOG: #OLD_GEOG#
+				<cfquery name="sr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select higher_geog from geog_auth_rec where stripGeogRanks(higher_geog)=stripGeogRanks('#OLD_GEOG#')
+				</cfquery>
+				<cfif sr.recordcount is 1 and len(sr.higher_geog) gt 0>
+					<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update ds_temp_geog_hg set higher_geog='#sr.higher_geog#',status='stripGeogRanks_match' where OLD_GEOG='#OLD_GEOG#'
+					</cfquery>
+					<br>--autoupdated: #sr.higher_geog#
+				<cfelse>
+					<!--- try the last term --->
+					<cfset thisTerm=listlast(OLD_GEOG,",")>
+					<br>thisTerm: #thisTerm#
+					<cfquery name="gst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+							SEARCH_TERM,
+							higher_geog
+						from
+							geog_search_term,
+							geog_auth_rec
+						where
+							geog_auth_rec.GEOG_AUTH_REC_ID=geog_search_term.GEOG_AUTH_REC_ID and
+							stripGeogRanks(SEARCH_TERM)=stripGeogRanks('#thisTerm#')
+					</cfquery>
+					<cfquery name="gst_u" dbtype="query">
+						select higher_geog from gst group by higher_geog order by higher_geog
+					</cfquery>
+
+					<div id="oadiv_#d.pkey#">
+						<cfloop query="gst_u">
+							<br>#higher_geog#
+							<span class="likeLink" onclick="useThisOneHG('#d.pkey#','#higher_geog#');">use this one</span>
+							<cfquery name="gst_t" dbtype="query">
+								select SEARCH_TERM from gst where higher_geog='#higher_geog#' group by SEARCH_TERM order by SEARCH_TERM
+							</cfquery>
+							<cfloop query="gst_t">
+								<br>------#SEARCH_TERM#
+							</cfloop>
+
+						</cfloop>
+
+					</div>
+						<label for="geopickr#sint#">Type to Pick</label>
+						<input type="text" name="geopickr" id="geopickr#sint#" size="80">
+						<span class="likeLink" id="ut#sint#" onclick="useThatOneHG('#d.pkey#','#sint#');">[ save ]</span>
+						<label for="status#sint#">Status</label>
+						<input type="text" name="status" placeholder="type here to change status" id="status#d.pkey#" size="80" value="#d.status#" onchange="upStatusHG('#d.pkey#');">
+
+						<cfset sint=sint+1>
+
+				</cfif>
+
+
+			</p>
+			<hr>
+		</cfloop>
+
+
+	</cfoutput>
+</cfif>
+<!-------------------------------------------------------------------------------------------->
+
 
 <cfif action is "getFile">
 <cfoutput>
