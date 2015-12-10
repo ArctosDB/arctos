@@ -179,21 +179,7 @@
 		'DLM'
 	);
 
-	insert into cf_barcodeseries (
-		barcodeseriessql,
-		barcodeseriestxt,
-		institution,
-		notes,
-		createdate,
-		whodunit
-	) values (
-		'regexp_like(barcode,''^T[0-9]*$'') and to_number(substr(barcode,2)) between 1001 and 3000',
-		'T1001-T3000',
-		'UAM',
-		'Fish?',
-		'2009-10-09',
-		'DLM'
-	);
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -498,22 +484,6 @@
 		'dunnum'
 	);
 
-
-	insert into cf_barcodeseries (
-		barcodeseriessql,
-		barcodeseriestxt,
-		institution,
-		notes,
-		createdate,
-		whodunit
-	) values (
-		'regexp_like(barcode,''^BOWIE [0-9]{1,3}$'') and to_number(substr(barcode,7)) between 1 and 500',
-		'BOWIE 1 - BOWIE 500',
-		'MVZ',
-		'MVZ uncataloged bird samples collected by Raurie Bowie and colleagues, labels for his freezer boxes',
-		'2015-04-16',
-		'ccicero'
-	);
 
 	insert into cf_barcodeseries (
 		barcodeseriessql,
