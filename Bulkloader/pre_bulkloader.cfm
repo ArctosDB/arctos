@@ -137,6 +137,7 @@
 				</form>
 			</li>
 			<li>
+				<a name="tysql"></a>
 				<form name="pdflt" method="post" action="pre_bulkloader.cfm">
 					<input type="hidden" name="action" value="execSQL">
 					SQL: SQL update anything.
@@ -152,11 +153,16 @@
 
 	<!------------------------------------------------------->
 	<cfif action is "execSQL">
-		<p>
+		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			UPDATE pre_bulkloader SET #spf# <cfif len(spw) gt 0>WHERE #spw#</cfif>
+		</cfquery>
+
+		<p>
+			Results:
+			<cfdump var=#myQueryResult#>
 		</p>
 		<p>
-			If the above looks valid, rock on....
+			<a href="pre_bulkloader.cfm##tysql">continue</a>
 		</p>
 	</cfif>
 
