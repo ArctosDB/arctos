@@ -44,13 +44,16 @@
 		createdate,
 		whodunit
 	) values (
-		'to_number(barcode) between 2 and 405000',
+		'regexp_like(barcode,''^[0-9]*$'') and to_number(substr(barcode,2)) between 2 and 405000',
 		'all integers',
 		'UAM',
 		 'All UAM bare-number barcodes including original pre-Arctos catalog number barcodes and subsequent integer-only series Exclude 0 and 1 (used for "trashcans").',
 		 '2008-11-05',
 		 'brandy'
 	);
+
+
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -59,28 +62,15 @@
 		createdate,
 		whodunit
 	) values (
-		'substr(barcode,0,1)=''C'' and is_number(substr(barcode,2))=1 and to_number(substr(barcode,2)) > 1 and to_number(substr(barcode,2))<=89000',
+		'regexp_like(barcode,''^C[0-9]*$'') and to_number(substr(barcode,2)) between 1 and 89000',
 		'C1-C89000',
 		'UAM',
 		 'UAM C{number} series used for various purposes',
 		 '2008-11-05',
 		 'brandy'
 	);
-	insert into cf_barcodeseries (
-		barcodeseriessql,
-		barcodeseriestxt,
-		institution,
-		notes,
-		createdate,
-		whodunit
-	) values (
-		'substr(barcode,0,1)=''T'' and is_number(substr(barcode,2))=1 and to_number(substr(barcode,2)) > 1000 and to_number(substr(barcode,2))<=3001',
-		'T1001-T3001',
-		'UAM',
-		 'UAM T{number} series; Plastic laser-etched barcoded tag for attaching to specimens.  From National Band and Tag Co.',
-		 '2008-11-05',
-		 'brandy'
-	);
+
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -158,23 +148,7 @@
 		'regexp_like(barcode,''^ROOM[0-9]*$'')',
 		'ROOM[number]',
 		'UAM',
-		'various UAM	Inconsistent leading zeroes',
-		'2009-10-09',
-		'dlm'
-	);
-
-	insert into cf_barcodeseries (
-		barcodeseriessql,
-		barcodeseriestxt,
-		institution,
-		notes,
-		createdate,
-		whodunit
-	) values (
-		'regexp_like(barcode,''^ROOM[0-9]*$'')',
-		'ROOM[number]',
-		'UAM',
-		'various UAM	Inconsistent leading zeroes',
+		'various UAM Inconsistent leading zeroes',
 		'2009-10-09',
 		'dlm'
 	);
@@ -194,6 +168,8 @@
 		'2009-10-09',
 		'dlm'
 	);
+
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -280,8 +256,8 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^ES[0-9]*$'') and to_number(substr(barcode,3)) between 20000 and 54999',
-		'ES20000 - ES54999',
+		'regexp_like(barcode,''^ES[0-9]*$'') and to_number(substr(barcode,3)) between 1 and 60999',
+		'ES1 - ES500000',
 		'UAM',
 		'Updated Paleo specimen labels',
 		'2009-10-09',
@@ -296,8 +272,8 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^UAM[0-9]*$'') and to_number(substr(barcode,4)) between 100000001 and 100050000',
-		'UAM100000001 - UAM100050000',
+		'regexp_like(barcode,''^UAM[0-9]*$'') and to_number(substr(barcode,4)) between 100000001 and 109000000',
+		'UAM100000001 - UAM109000000',
 		'UAM',
 		'UAM Insects specimen labels',
 		'2009-10-09',
@@ -392,8 +368,8 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^MSB[0-9]*$'') and to_number(substr(barcode,4)) between 100001 and 150000',
-		'MSB100001	- MSB150000',
+		'regexp_like(barcode,''^MSB[0-9]*$'') and to_number(substr(barcode,4)) between 100001 and 1050000',
+		'MSB100001	- MSB1050000',
 		'MSB',
 		'MSB birds',
 		'2009-10-09',
@@ -441,7 +417,7 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^KNWR[0-9]*$'')',
+		'regexp_like(barcode,''^KNWRC[0-9]*$'')',
 		'KNWRC[number]',
 		'KNWR',
 		'generic container label for KNWR containers, used in both KNWR:Herb and KNWR:Ento collections.',
@@ -555,7 +531,7 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^A[0-9]{5}$'') and to_number(substr(barcode,1)) between 1 and 5000',
+		'regexp_like(barcode,''^A[0-9]{5}$'') and to_number(substr(barcode,2)) between 1 and 5000',
 		'A00001	- A05000',
 		'NMU',
 		'NMU 3 part barcode labels for use on cryotubes, parasite vials, and skull tags',
@@ -570,7 +546,7 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 10000 and 100000',
+		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 1 and 100000',
 		'NMU10000 - NMU10000',
 		'NMU',
 		'NMU generic label for specimens and containers',
@@ -617,13 +593,96 @@
 		createdate,
 		whodunit
 	) values (
-		'barcode=''VLSB 1143''',
-		'VLSB 1143',
+		'barcode  in (''VLSB 1143'',''CAS'',''MTEC'',''SEMC'',''USDA-ARS'',''USNM'',''OSAC'',''PMJ-Phyletisches-Museum'')',
+		'various rooms n junk',
 		'MVZ',
-		'MVZ Generic barcode for the MVZ LN2 tissue collection facility.',
+		'Random pile of random barcodes used for weird one-off things.',
 		'2015-07-07',
 		'ccicero'
 	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^BBSL[0-9]*$'') to_number(substr(barcode,5)) between 700000 and 800000'',
+		'UAM',
+		'MSB',
+		'USDA ARS for UAM:Ento',
+		'2015-07-07',
+		'ffdss'
+	);
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^JPS[0-9]*$'') to_number(substr(barcode,4)) between 30000 and 40000'',
+		'UAM',
+		'MSB',
+		'USDA ARS for UAM:Ento',
+		'2015-07-07',
+		'ffdss'
+	);
+
+
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 1 and 100000',
+		'NMU10000 - NMU10000',
+		'NMU',
+		'NMU generic label for specimens and containers',
+		'2015-07-07',
+		'ftkeg'
+	);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	CREATE OR REPLACE FUNCTION is_claimed_barcode (barcode in varchar) return varchar
 as
@@ -646,10 +705,42 @@ create table temp_all_barcode as select barcode from container where barcode is 
 
 
 CREATE OR REPLACE PROCEDURE temp_update_junk IS
+	rslt varchar2(255):='FAIL';
+		rsql varchar2(255);
+		ssmt varchar2(255);
+		c number;
 BEGIN
-	delete from temp_all_barcode where is_claimed_barcode(barcode)='PASS';
-end;
+		for r in (select barcodeseriessql from cf_barcodeseries) loop
+		begin
+				--rsql:=replace(r.barcodeseriessql,'barcode','''' || barcode || '''');
+				ssmt := 'delete from temp_all_barcode where ' || r.barcodeseriessql;
+				dbms_output.put_line(ssmt);
+				execute immediate ssmt;
+
+				exception when others then
+					dbms_output.put_line('FAIL: ' || ssmt);
+
+		end;
+		end loop;
+	end;
 /
+sho err;
+
+exec temp_update_junk;
+
+alter table temp_all_barcode add institution_acronym varchar2(20);
+
+update temp_all_barcode set institution_acronym=(select institution_acronym from container where temp_all_barcode.barcode=container.barcode);
+
+
+
+-- cleanup
+
+delete from container where barcode='UAM100290396';
+delete from container where barcode='UAM100306951';
+update container set barcode='UAM100290396' where barcode='6UAM100290396';
+update container set barcode='UAM100306951' where barcode='6UAM100306951';
+
 
 BEGIN
   DBMS_SCHEDULER.CREATE_JOB (
@@ -666,6 +757,10 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAM
 
 
 select count(*) from temp_all_barcode;
+
+
+select barcode from temp_all_barcode order by barcode;
+
 
 
 

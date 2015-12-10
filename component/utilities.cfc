@@ -332,6 +332,7 @@
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
 	<cfset badbot="Baiduspider,ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain">
+	<cfset badbot=badbot & ",Exabot">
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
