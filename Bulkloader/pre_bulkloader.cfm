@@ -139,9 +139,10 @@
 			<li>
 				<form name="pdflt" method="post" action="pre_bulkloader.cfm">
 					<input type="hidden" name="action" value="execSQL">
-					SQL: Update pre_bulkloader set:
+					SQL: SQL update anything.
+					<label for="spf">Update pre_bulkloader set</label>
 					<textarea name="spf" class="hugetextarea"></textarea>
-					<br>WHERE
+					<label for="spw">WHERE (leave blank to update everything)</label>
 					<textarea name="spw" class="hugetextarea"></textarea>
 					<br><input type="submit" value="execute">
 				</form>
@@ -149,7 +150,15 @@
 		</ol>
 	</cfif>
 
-
+	<!------------------------------------------------------->
+	<cfif action is "execSQL">
+		<p>
+			UPDATE pre_bulkloader SET #spf# <cfif len(spw) gt 0>WHERE #spw#</cfif>
+		</p>
+		<p>
+			If the above looks valid, rock on....
+		</p>
+	</cfif>
 
 	<!------------------------------------------------------->
 	<cfif action is "setNullDefaultsParts">
