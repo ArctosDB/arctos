@@ -481,6 +481,9 @@
 								<option value="/Reports/uamento.cfm">
 									download UAM Ento CSV
 								</option>
+								<option value="/Reports/specrescollevent.cfm">
+									download Collecting Event CSV
+								</option>
 								<option value="/Reports/report_printer.cfm?report=ala_label">
 									ALA Labels
 								</option>
