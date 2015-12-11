@@ -232,6 +232,7 @@
 	<!------------------------------------------------------->
 	<cfif action is "setNullDefaults">
 		<cfset flds=form.FIELDNAMES>
+		<br>#flds#
 		<cfset flds=listdeleteat(flds,listfind(flds,"ACTION"))>
 		<cfloop list="#flds#" index="fld">
 			<cfset v=evaluate("form." & fld)>
