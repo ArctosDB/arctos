@@ -60,7 +60,11 @@
 				Get your data into pre-bulkloader. The specimen bulkloader will push here. Dirty data is fine - that's the point.
 				This form will do nothing for poorly-structured data (multi-agent strings, etc.).
 			</li>
-			<li><a href="pre_bulkloader.cfm?action=nullLoaded">NULLify loaded</a>. NOTE: This will DELETE ALL lookup tables.</li>
+			<li>
+				No collection_object_id? Add them (any unique integer is OK) and re-load or
+				<a href="pre_bulkloader.cfm?action=buildCollectionObjectID">click this to create them now</a>
+			</li>
+			<li><a href="pre_bulkloader.cfm?action=precheckLoaded">Mark for pre-check</a>. NOTE: This will DELETE ALL lookup tables.</li>
 			<li>Grab a donut. It'll take a while.</li>
 			<li><a href="pre_bulkloader.cfm?action=checkStatus">checkStatus</a>. The checks are done when ALL loaded=init_pull_complete</li>
 
@@ -182,6 +186,20 @@
 	</cfif>
 
 	<!------------------------------------------------------->
+	<cfif action is "buildCollectionObjectID">
+		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			UPDATE pre_bulkloader SET collection_object_id=bulkloader_pkey.nextval WHERE collection_object_id is null
+		</cfquery>
+
+		<p>
+			Results:
+			<cfdump var=#myQueryResult#>
+		</p>
+		<p>
+			Use your back button or <a href="pre_bulkloader.cfm">continue</a>
+		</p>
+	</cfif>
+	<!------------------------------------------------------->
 	<cfif action is "execSQL">
 		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			UPDATE pre_bulkloader SET #preserveSingleQuotes(spf)# <cfif len(spw) gt 0>WHERE #preserveSingleQuotes(spw)#</cfif>
@@ -299,9 +317,9 @@
 		<a href="pre_bulkloader.cfm">return</a>
 	</cfif>
 	<!------------------------------------------------------->
-	<cfif action is "nullLoaded">
+	<cfif action is "precheckLoaded">
 		<cfquery name="nullLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update pre_bulkloader set loaded=null
+			update pre_bulkloader set loaded='go_go_gadget_precheck'
 		</cfquery>
 		<cflocation url="pre_bulkloader.cfm" addtoken="false">
 	</cfif>
