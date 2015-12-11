@@ -112,6 +112,8 @@
 				<cfset dfltnls.HIGHER_GEOG="no higher geography recorded">
 				<cfset dfltnls.SPEC_LOCALITY="no specific locality recorded">
 				<cfset dfltnls.VERBATIM_LOCALITY="no verbatim locality recorded">
+				<cfset dfltnls.GUID_PREFIX="">
+				<cfset dfltnls.ENTEREDBY="">
 
 				Set defaults. ONLY when the following values are NULL, update them to...
 				<br>(Clear the suggestion to do nothing.)
