@@ -12,6 +12,11 @@
 		</p>
 
 		<p>
+			Being beta, we may have stuff disabled. The "grab a donut" steps should take <1h for a few thousand records,
+			a couple days for 500K - contact a DBA if it seems stuck.
+		</p>
+
+		<p>
 			This form will NOT deal with multi-agent strings ("collector=you and me"). Split them out (there are agent tools) and load them
 			as collector_agent_1=you,collector_agent_2=me, then use this form to download, standardize, and repatriate.
 		</p>
@@ -30,6 +35,16 @@
 			matter, values are case-sensitive, etc. Much of Arctos is data-driven - acceptable values for "attribute_value_x" depend on
 			what's in "attribute_x."
 		</p>
+		<p>
+			tl;dr:
+			<ul>
+				<li>Make lookup tables</li>
+				<li>Repatriate data from them</li>
+				<li>Rinse and repeat until all lookup tables are empty</li>
+				<li>Fill in some defaults</li>
+				<li>Bulkload</li>
+			</ul>
+		</p>
 		<cfquery name="sts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select loaded,enteredby,count(*) numrecs from pre_bulkloader group by loaded,enteredby
 		</cfquery>
@@ -40,12 +55,12 @@
 		<p>Howto:</p>
 
 		<ol>
-			<li><a href="pre_bulkloader.cfm?action=deleteAll">Clear out the pre-bulkloader</a>. Use with caution. Be courteous.</li>
+			<li><a href="pre_bulkloader.cfm?action=deleteAll">DELETE EVERYTHING from the pre-bulkloader</a>. Use with caution. Be courteous.</li>
 			<li>
 				Get your data into pre-bulkloader. The specimen bulkloader will push here. Dirty data is fine - that's the point.
 				This form will do nothing for poorly-structured data (multi-agent strings, etc.).
 			</li>
-			<li><a href="pre_bulkloader.cfm?action=nullLoaded">NULLify loaded</a>.</li>
+			<li><a href="pre_bulkloader.cfm?action=nullLoaded">NULLify loaded</a>. NOTE: This will DELETE ALL lookup tables.</li>
 			<li>Grab a donut. It'll take a while.</li>
 			<li><a href="pre_bulkloader.cfm?action=checkStatus">checkStatus</a>. The checks are done when ALL loaded=init_pull_complete</li>
 
@@ -220,10 +235,11 @@
 		<cfset flds=listdeleteat(flds,listfind(flds,"ACTION"))>
 		<cfloop list="#flds#" index="fld">
 			<cfset v=evaluate("form." & fld)>
+			<br>update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
 			<cfquery name="upnull" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
 			</cfquery>
-			<cflocation url="pre_bulkloader.cfm" addtoken="false">
+			<a href="pre_bulkloader.cfm">continue</a>
 		</cfloop>
 	</cfif>
 	<!------------------------------------------------------->
