@@ -457,7 +457,7 @@
 	</cfif>
 	<cfif action is "setLoadedForLoad">
 		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
-			UPDATE pre_bulkloader SET loaded='pushed to BULKLOADER #dateformat(now(),"yyyy-mm-dd)# by #session.username#'
+			UPDATE pre_bulkloader SET loaded='pushed to BULKLOADER #dateformat(now(),"yyyy-mm-dd")# by #session.username#'
 		</cfquery>
 		<p>
 			You're all done here.
