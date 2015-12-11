@@ -51,7 +51,7 @@
 
 			<cfset tbls="pre_bulk_agent,pre_bulk_taxa,pre_bulk_attributes,pre_bulk_oidt,pre_bulk_date,pre_bulk_parts">
 			<cfset tbls=tbls & ",pre_bulk_disposition,pre_bulk_collrole,pre_bulk_accn,pre_bulk_geog,pre_bulk_NATURE_OF_ID,">
-			<cfset tbls=tbls & "pre_bulk_ORIG_LAT_LONG_UNITS,pre_bulk_GEOREFERENCE_PROTOCOL,pre_bulk_VERIFICATIONSTATUS,pre_bulk_MAX_ERROR_UNITS">
+			<cfset tbls=tbls & "pre_bulk_ORIG_LAT_LONG_UNITS,pre_bulk_GEOREFERENCE_PROTOCOL,pre_bulk_VERIFICATIONSTATUS,pre_bulk_MAX_ERROR_UNITS,">
 			<cfset tbls=tbls & "pre_bulk_COLLECTING_SOURCE,pre_bulk_DEPTH_UNITS,pre_bulk_DATUM">
 			<li>
 				Download Tables. Fill in shouldbe, reload below. Some table contain collection_cde, which will be ignored.
