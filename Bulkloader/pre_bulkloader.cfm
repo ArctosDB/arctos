@@ -447,10 +447,24 @@
 		</cfquery>
 		<cfset cl=c.columnList>
 		<cfset cl=listdeleteat(cl,listfindnocase(cl,'collection_cde'))>
+		<cfquery name="ibl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			insert into bulkloader (#cl#) (select #cl# from pre_bulkloader)
+		</cfquery>
 		<p>
-			inserting #cl#
+			Inserted to bulkloader.
+			<a href="pre_bulkloader.cfm?action=pushToBL_SUCCESS">click here to avoid confusing yourself</a>.
 		</p>
+	</cfif>
+	<cfif action is "setLoadedForLoad">
+		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			UPDATE pre_bulkloader SET loaded='pushed to BULKLOADER #dateformat(now(),"yyyy-mm-dd)# by #session.username#'
+		</cfquery>
+		<p>
+			You're all done here.
+			<a href="pre_bulkloader.cfm?action=deleteAll">DELETE EVERYTHING from the pre-bulkloader</a> or
 
+			<a href="/Bulkloader/browseBulk.cfm">continue on to the specimen bulkloader</a>.
+		</p>
 
 	</cfif>
 
