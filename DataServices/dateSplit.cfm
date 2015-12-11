@@ -14,19 +14,19 @@ create table ds_temp_date (
 	status varchar2(4000),
 	concat  varchar2(255)
 	);
-	
+
 create public synonym ds_temp_date for ds_temp_date;
 grant all on ds_temp_date to coldfusion_user;
 grant select on ds_temp_date to public;
 
- CREATE OR REPLACE TRIGGER ds_temp_date_key                                         
+ CREATE OR REPLACE TRIGGER ds_temp_date_key
  before insert  ON ds_temp_date
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
+ for each row
+    begin
+    	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 sho err
 
@@ -45,13 +45,13 @@ grant select on ds_temp_dateMDY to public;
 <cfif action is "nothing">
 	upload csv with headers....
 	<ul>
-		
+
 		<li>y</li>
 		<li>m</li>
 		<li>d</li>
 	</ul>
-	
-	
+
+
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -61,12 +61,12 @@ grant select on ds_temp_dateMDY to public;
 	<hr>
 	upload csv with headers....
 	<ul>
-		
+
 		<li>adate</li>
 	</ul>
-	
+
 	... formatted as m/d/y
-	
+
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFileMDY">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -100,7 +100,7 @@ grant select on ds_temp_dateMDY to public;
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfif numColsRec lt numberOfColumns>
@@ -110,10 +110,10 @@ grant select on ds_temp_dateMDY to public;
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into ds_temp_dateMDY (#colNames#) values (#preservesinglequotes(colVals)#)				
+				insert into ds_temp_dateMDY (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
-		
+
 	</cfloop>
 </cfoutput>
 <a href="dateSplit.cfm?action=validateMDY">loaded, proceed to validate</a>
@@ -126,87 +126,20 @@ grant select on ds_temp_dateMDY to public;
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_date
 	</cfquery>
-	
+
 	<cfloop query="d">
 		<cfset y="">
 		<cfset m="">
 		<cfset d="">
-		<cfset y=listgetat(adate,1,"/")>
-		
-		<hr>#y# - #m# - #d#
-		<cfset thisStatus=''>
-		<cfif not refind('^[0-9]{4}$',y)>
-			<br>#y# isn't a 4-digit thingee
-			<cfset thisStatus=listappend(thisStatus,'year invalid',';')>
-		</cfif>
-		<cfif m is "January">
-			<cfset mm='01'>
-		<cfelseif m is "February">
-			<cfset mm='02'>
-		<cfelseif m is "March">
-			<cfset mm='03'>
-		<cfelseif m is "April">
-			<cfset mm='04'>
-		<cfelseif m is "May">
-			<cfset mm='05'>
-		<cfelseif m is "June">
-			<cfset mm='06'>
-		<cfelseif m is "July">
-			<cfset mm='07'>
-		<cfelseif m is "August">
-			<cfset mm='08'>
-		<cfelseif trim(m) is "September">
-			<cfset mm='09'>
-		<cfelseif m is "October">
-			<cfset mm='10'>
-		<cfelseif m is "November">
-			<cfset mm='11'>
-		<cfelseif m is "December">
-			<cfset mm='12'>
-		<cfelse>
-			<cfset mm=m>
-		</cfif>
-		<cfif len(mm) gt 0 and not refind('^[0-9]{2}$',mm)>
-			<br>#mm# isn't a 2-digit month
-			<cfset thisStatus=listappend(thisStatus,'month invalid',';')>
-		</cfif>
-		<cfset dd=d>
-		<cfif len(dd) gt 0 and not refind('^[0-9]{2}$',dd)>
-			<cfset dd='0' & dd>
-			<cfif not refind('^[0-9]{2}$',dd)>
-				<br>#dd# isn't a 2-digit day
-				<cfset thisStatus=listappend(thisStatus,'day invalid',';')>
-			</cfif>
-		</cfif>
-			<cfset iso=y>
-			<cfif len(mm) gt 0>
-				<cfset iso=iso & '-' & mm>
-			</cfif>
-			<cfif len(dd) gt 0>
-				<cfset iso=iso & '-' & dd>
-			</cfif>d<br>iso==#iso#
-			
-			<cfset cc=d & ' ' & m & ' '  & y>
-			<cfset cc=trim(replace(cc,"  ", " ","all"))>
-			<br>cc=#cc#
-			<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select is_iso8601('#iso#') isiso from dual
-			</cfquery>
-			<cfset thisStatus=listappend(thisStatus,'#fu.isiso#',';')>
-			<br>thisStatus=#thisStatus#
-			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ds_temp_date set
-					returndate='#iso#',
-					status='#thisStatus#',
-					concat='#cc#'
-				where
-					key=#key#
-			</cfquery>
+		<cfset y=numberformat(listgetat(adate,1,"/"),4)>
+		<cfset m=numberformat(listgetat(adate,1,"/"),2)>
+		<cfset d=numberformat(listgetat(adate,1,"/"),2)>
 
-			<br>#fu.isiso#
-
+		<hr>
+		<br>#adate#
+		<br>#y#-#m#-#d#
 	</cfloop>
-	
+
 </cfoutput>
 </cfif>
 <cfif action is "getFile">
@@ -233,7 +166,7 @@ grant select on ds_temp_dateMDY to public;
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfif numColsRec lt numberOfColumns>
@@ -243,7 +176,7 @@ grant select on ds_temp_dateMDY to public;
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into ds_temp_date (#colNames#) values (#preservesinglequotes(colVals)#)				
+				insert into ds_temp_date (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
@@ -265,7 +198,7 @@ grant select on ds_temp_dateMDY to public;
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_date
 	</cfquery>
-	
+
 	<cfloop query="d">
 		<hr>#y# - #m# - #d#
 		<cfset thisStatus=''>
@@ -319,7 +252,7 @@ grant select on ds_temp_dateMDY to public;
 			<cfif len(dd) gt 0>
 				<cfset iso=iso & '-' & dd>
 			</cfif>d<br>iso==#iso#
-			
+
 			<cfset cc=d & ' ' & m & ' '  & y>
 			<cfset cc=trim(replace(cc,"  ", " ","all"))>
 			<br>cc=#cc#
@@ -340,7 +273,7 @@ grant select on ds_temp_dateMDY to public;
 			<br>#fu.isiso#
 
 	</cfloop>
-	
+
 </cfoutput>
 </cfif>
 
