@@ -59,9 +59,12 @@
 				<br>There are many agent cleanup tools in Arctos; use them, or contact a DBA for help.
 				<br>There is a geography lookup/translation tool in Arctos; use it.
 			<cfloop list="#tbls#" index="tbl">
+				<cfquery name="rc" datasource='uam_god'>
+					select count(*) c from #tbl#
+				</cfquery>
 				<ul>
 					<li>
-						Download <a href="/Admin/CSVAnyTable.cfm?tableName=#tbl#">#tbl#</a>
+						Download <a href="/Admin/CSVAnyTable.cfm?tableName=#tbl#">#tbl#</a> (#rc.c#)
 					</li>
 				</ul>
 			</cfloop>
