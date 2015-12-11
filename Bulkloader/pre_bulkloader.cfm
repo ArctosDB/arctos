@@ -246,13 +246,13 @@
 		<cfloop list="#fldlist#" index="fld">
 			<cfset v=evaluate("form." & fld)>
 			<br>update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
-			<!----
 			<cfquery name="upnull" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
 			</cfquery>
-			----->
-			<a href="pre_bulkloader.cfm">continue</a>
 		</cfloop>
+		<p>
+			<a href="pre_bulkloader.cfm">continue</a>
+		</p>
 	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "repatriate">
