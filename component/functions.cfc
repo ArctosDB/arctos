@@ -1106,7 +1106,7 @@
 			 return rVal;
 		</cfscript>
 	<cfcatch>
-		<!--- some minimal and dumb error handling --->
+		<!--- some minimal and dumb error handling ----->
 		<cfif cfcatch.detail contains "Thread names must be unique within a page">
 			<cfreturn 'Locality duplicated on page - map elsewhere'>
 		<cfelse>
