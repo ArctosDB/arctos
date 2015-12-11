@@ -562,7 +562,7 @@
 		institution,
 		notes,
 		createdate,
-		whodunit£
+		whodunit
 	) values (
 		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 1 and 100000',
 		'NMU1 - NMU100000',
