@@ -446,7 +446,7 @@
 			select * from pre_bulkloader where 1=2
 		</cfquery>
 		<cfset cl=c.columnList>
-		<cfset cl=listdeleteat(cl,listfindnocase(cl,'collection_cde')>
+		<cfset cl=listdeleteat(cl,listfindnocase(cl,'collection_cde'))>
 		<p>
 			inserting #cl#
 		</p>
