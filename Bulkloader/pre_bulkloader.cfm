@@ -133,6 +133,7 @@
 				Set defaults. ONLY when the following values are NULL, update them to...
 				<br>(Clear the suggestion to do nothing.)
 				<br>UPDATE pre_bulkloader SET
+				<!----
 				<form name="dflt" method="post" action="pre_bulkloader.cfm">
 					<input type="hidden" name="action" value="setNullDefaults">
 					<cfloop collection = #dfltnls# item = "fld">
@@ -141,6 +142,73 @@
 					</cfloop>
 					<br><input type="submit" value="make all changes">
 				</form>
+				---->
+
+
+
+				<form action="pre_bulkloader.cfm" method="post" name="dflt">
+<input type="hidden" value="setNullDefaults" name="action">
+<label for="ENDED_DATE">ENDED_DATE=</label>
+<input type="text" value="2015-12-11" name="ENDED_DATE">
+,
+<label for="EVENT_ASSIGNED_BY_AGENT">EVENT_ASSIGNED_BY_AGENT=</label>
+<input type="text" value="unknown" name="EVENT_ASSIGNED_BY_AGENT">
+,
+<label for="HIGHER_GEOG">HIGHER_GEOG=</label>
+<input type="text" value="no higher geography recorded" name="HIGHER_GEOG">
+,
+<label for="MADE_DATE">MADE_DATE=</label>
+<input type="text" value="2015-12-11" name="MADE_DATE">
+,
+<label for="SPECIMEN_EVENT_TYPE">SPECIMEN_EVENT_TYPE=</label>
+<input type="text" value="accepted place of collection" name="SPECIMEN_EVENT_TYPE">
+,
+<label for="PART_NAME_1">PART_NAME_1=</label>
+<input type="text" value="unknown" name="PART_NAME_1">
+,
+<label for="VERBATIM_LOCALITY">VERBATIM_LOCALITY=</label>
+<input type="text" value="no verbatim locality recorded" name="VERBATIM_LOCALITY">
+,
+<label for="COLLECTOR_ROLE_1">COLLECTOR_ROLE_1=</label>
+<input type="text" value="collector" name="COLLECTOR_ROLE_1">
+,
+<label for="GUID_PREFIX">GUID_PREFIX=</label>
+<input type="text" value="" name="GUID_PREFIX">
+,
+<label for="SPEC_LOCALITY">SPEC_LOCALITY=</label>
+<input type="text" value="no specific locality recorded" name="SPEC_LOCALITY">
+,
+<label for="NATURE_OF_ID">NATURE_OF_ID=</label>
+<input type="text" value="legacy" name="NATURE_OF_ID">
+,
+<label for="ID_MADE_BY_AGENT">ID_MADE_BY_AGENT=</label>
+<input type="text" value="unknown" name="ID_MADE_BY_AGENT">
+,
+<label for="EVENT_ASSIGNED_DATE">EVENT_ASSIGNED_DATE=</label>
+<input type="text" value="2015-12-11" name="EVENT_ASSIGNED_DATE">
+,
+<label for="COLLECTOR_AGENT_1">COLLECTOR_AGENT_1=</label>
+<input type="text" value="unknown" name="COLLECTOR_AGENT_1">
+,
+<label for="ENTEREDBY">ENTEREDBY=</label>
+<input type="text" value="" name="ENTEREDBY">
+,
+<label for="VERIFICATIONSTATUS">VERIFICATIONSTATUS=</label>
+<input type="text" value="unverified" name="VERIFICATIONSTATUS">
+,
+<label for="BEGAN_DATE">BEGAN_DATE=</label>
+<input type="text" value="1800" name="BEGAN_DATE">
+,
+<label for="VERBATIM_DATE">VERBATIM_DATE=</label>
+<input type="text" value="before 2015-12-11" name="VERBATIM_DATE">
+,
+<br>
+<input type="submit" value="make all changes">
+</form>
+
+
+
+
 			</li>
 			<li>
 				Parts: when null, for each (not-null) part, update....
@@ -238,9 +306,11 @@
 		<cfloop list="#flds#" index="fld">
 			<cfset v=evaluate("form." & fld)>
 			<br>update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
+			<!----
 			<cfquery name="upnull" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
 			</cfquery>
+			----->
 			<a href="pre_bulkloader.cfm">continue</a>
 		</cfloop>
 	</cfif>
