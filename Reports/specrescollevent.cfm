@@ -42,7 +42,7 @@
 <cfset fname = "collecting_event.csv">
 
 <cfset  util = CreateObject("component","component.utilities")>
-<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+<cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
 <cffile action = "write"
     file = "#Application.webDirectory#/download/#fname#"
    	output = "#csv#"
