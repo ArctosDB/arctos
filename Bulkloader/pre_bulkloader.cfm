@@ -242,7 +242,6 @@
 	<!------------------------------------------------------->
 	<cfif action is "setNullDefaults">
 		<cfset flds=form.FIELDNAMES>
-
 		<cfloop list="#fldlist#" index="fld">
 			<cfset v=evaluate("form." & fld)>
 			<br>update pre_bulkloader set #fld#='#escapeQuotes(v)#' where #fld# is null
@@ -261,7 +260,6 @@
 		</cfquery>
 		<cflocation url="pre_bulkloader.cfm" addtoken="false">
 	</cfif>
-
 	<!------------------------------------------------------->
 	<cfif action is "getFile">
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
