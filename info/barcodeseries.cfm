@@ -264,6 +264,24 @@
 		'dlm'
 	);
 
+
+
+	insert into cf_barcodeseries (
+		barcodeseriessql,
+		barcodeseriestxt,
+		institution,
+		notes,
+		createdate,
+		whodunit
+	) values (
+		'regexp_like(barcode,''^MLFRZ[0-9]{1}$'') and to_number(substr(barcode,6)) between 1 and 4',
+		'MLFRZ[1-4]',
+		'UAM',
+		'freezers in the UAM molecular lab',
+		'2009-10-09',
+		'fskbh'
+	);
+
 	insert into cf_barcodeseries (
 		barcodeseriessql,
 		barcodeseriestxt,
@@ -531,7 +549,7 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^A[0-9]{5}$'') and to_number(substr(barcode,2)) between 1 and 5000',
+		'regexp_like(barcode,''^A0[0-9]{4}$'') and to_number(substr(barcode,3)) between 1 and 5000',
 		'A00001	- A05000',
 		'NMU',
 		'NMU 3 part barcode labels for use on cryotubes, parasite vials, and skull tags',
@@ -544,15 +562,22 @@
 		institution,
 		notes,
 		createdate,
-		whodunit
+		whodunit£
 	) values (
 		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 1 and 100000',
-		'NMU10000 - NMU10000',
+		'NMU1 - NMU100000',
 		'NMU',
 		'NMU generic label for specimens and containers',
 		'2015-07-07',
 		'ftkeg'
 	);
+
+
+
+
+
+
+
 
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -635,21 +660,6 @@
 
 
 
-	insert into cf_barcodeseries (
-		barcodeseriessql,
-		barcodeseriestxt,
-		institution,
-		notes,
-		createdate,
-		whodunit
-	) values (
-		'regexp_like(barcode,''^NMU[0-9]*$'') and to_number(substr(barcode,4)) between 1 and 100000',
-		'NMU10000 - NMU10000',
-		'NMU',
-		'NMU generic label for specimens and containers',
-		'2015-07-07',
-		'ftkeg'
-	);
 
 
 
