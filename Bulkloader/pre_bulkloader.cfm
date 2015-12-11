@@ -83,7 +83,8 @@
 			</li>
 			<li>
 				No collection_object_ids? Add them (any unique integer is OK) and re-load or
-				<a href="pre_bulkloader.cfm?action=buildCollectionObjectID">click this to create them now</a>
+				<a href="pre_bulkloader.cfm?action=buildCollectionObjectID">click this to create them now</a>. Some checks will
+				not run without them.
 			</li>
 			<li><a href="pre_bulkloader.cfm?action=precheckLoaded">Mark for pre-check</a>. NOTE: This will DELETE ALL lookup tables.</li>
 			<li>Grab a donut. It'll take a while.</li>
@@ -218,6 +219,11 @@
 			<li>
 				<a href="pre_bulkloader.cfm?action=ready_for_checkall">Mark for final check</a>. Click this when you think
 				everything will load. It'll take some time.
+			</li>
+			<li>
+				<a href="pre_bulkloader.cfm?action=instobulk">Push to bulkloader</a>. This may take a while; contact us if
+				you have timeout issues. You'll have to click a couple buttons.
+				Collection_object_id will be replaced. LOADED will be set to "pushed_from_prebulk."
 			</li>
 		</ol>
 	</cfif>
@@ -411,6 +417,41 @@
 			delete from pre_bulkloader
 		</cfquery>
 		<cflocation url="pre_bulkloader.cfm" addtoken="false">
+	</cfif>
+	<!------------------------------------------------------->
+	<cfif action is "instobulk">
+		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			UPDATE pre_bulkloader SET collection_object_id=bulkloader_pkey.nextval WHERE collection_object_id is null
+		</cfquery>
+		<p>
+			collection_object_id updated.
+			<a href="pre_bulkloader.cfm?action=setLoadedForLoad">click here to proceed to the next step</a>.
+		</p>
+
+	</cfif>
+	<!------------------------------------------------------->
+	<cfif action is "setLoadedForLoad">
+		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			UPDATE pre_bulkloader SET loaded='pushed_from_prebulk'
+		</cfquery>
+		<p>
+			LOADED updated to pushed_from_prebulk.
+			<a href="pre_bulkloader.cfm?action=pushToBL">click here to proceed to the next step</a>.
+		</p>
+
+	</cfif>
+	<!------------------------------------------------------->
+	<cfif action is "pushToBL">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			select * from pre_bulkloader where 1=2
+		</cfquery>
+		<cfset cl=c.columnList>
+		<cfset cl=listdeleteat(cl,listfindnocase(cl,'collection_cde')>
+		<p>
+			inserting #cl#
+		</p>
+
+
 	</cfif>
 
 </cfoutput>
