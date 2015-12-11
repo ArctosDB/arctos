@@ -128,6 +128,7 @@ grant select on ds_temp_dateMDY to public;
 	</cfquery>
 
 	<cfloop query="d">
+		<!----
 		<cfset y="">
 		<cfset m="">
 		<cfset d="">
@@ -135,10 +136,16 @@ grant select on ds_temp_dateMDY to public;
 		<cfset m=numberformat(listgetat(adate,1,"/"),"00")>
 		<cfset d=numberformat(listgetat(adate,1,"/"),"00")>
 
+
+		<br>#y#-#m#-#d#
+
+
+
+---->
 		<hr>
 		<br>#adate#
 		<br>#dateformat(adate,"yyyy-mm-dd")#
-		<br>#y#-#m#-#d#
+
 	</cfloop>
 
 </cfoutput>
