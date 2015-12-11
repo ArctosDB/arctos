@@ -649,7 +649,7 @@ function useGL(glat,glon,gerr){
 
 			<label for="specimen_event_type">Event Assigned by Agent</label>
 			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" size="40" value="#session.dbuser#"
-				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
+				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc_new',this.value); return false;"
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
 

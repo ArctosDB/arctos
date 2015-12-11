@@ -30,7 +30,14 @@ grant select on ds_temp_date to public;
 /
 sho err
 
+create table ds_temp_dateMDY (
+	adate varchar2(255),
+	shoudlbe varchar2(255)
+);
 
+create public synonym ds_temp_dateMDY for ds_temp_dateMDY;
+grant all on ds_temp_dateMDY to coldfusion_user;
+grant select on ds_temp_dateMDY to public;
 
 
 ---->
@@ -51,6 +58,156 @@ sho err
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
 
+	<hr>
+	upload csv with headers....
+	<ul>
+		
+		<li>adate</li>
+	</ul>
+	
+	... formatted as m/d/y
+	
+	<cfform name="atts" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="Action" value="getFileMDY">
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</cfform>
+
+
+
+</cfif>
+<cfif action is "getFileMDY">
+<cfoutput>
+	<!--- put this in a temp table --->
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from ds_temp_dateMDY
+	</cfquery>
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cfset fileContent=replace(fileContent,"'","''","all")>
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+	<cfset numberOfColumns = ArrayLen(arrResult[1])>
+	<cfset colNames="">
+	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
+		<cfset colVals="">
+			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
+				 <cfset numColsRec = ArrayLen(arrResult[o])>
+				<cfset thisBit=arrResult[o][i]>
+				<cfif #o# is 1>
+					<cfset colNames="#colNames#,#thisBit#">
+				<cfelse>
+					<cfset colVals="#colVals#,'#thisBit#'">
+				</cfif>
+			</cfloop>
+		<cfif #o# is 1>
+			<cfset colNames=replace(colNames,",","","first")>
+		</cfif>	
+		<cfif len(colVals) gt 1>
+			<cfset colVals=replace(colVals,",","","first")>
+			<cfif numColsRec lt numberOfColumns>
+				<cfset missingNumber = numberOfColumns - numColsRec>
+				<cfloop from="1" to="#missingNumber#" index="c">
+					<cfset colVals = "#colVals#,''">
+				</cfloop>
+			</cfif>
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into ds_temp_dateMDY (#colNames#) values (#preservesinglequotes(colVals)#)				
+			</cfquery>
+		</cfif>
+		
+	</cfloop>
+</cfoutput>
+<a href="dateSplit.cfm?action=validateMDY">loaded, proceed to validate</a>
+
+<!---
+---->
+</cfif>
+<cfif action is "validateMDY">
+<cfoutput>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_date
+	</cfquery>
+	
+	<cfloop query="d">
+		<cfset y="">
+		<cfset m="">
+		<cfset d="">
+		<cfset y=listgetat(adate,1,"/")>
+		
+		<hr>#y# - #m# - #d#
+		<cfset thisStatus=''>
+		<cfif not refind('^[0-9]{4}$',y)>
+			<br>#y# isn't a 4-digit thingee
+			<cfset thisStatus=listappend(thisStatus,'year invalid',';')>
+		</cfif>
+		<cfif m is "January">
+			<cfset mm='01'>
+		<cfelseif m is "February">
+			<cfset mm='02'>
+		<cfelseif m is "March">
+			<cfset mm='03'>
+		<cfelseif m is "April">
+			<cfset mm='04'>
+		<cfelseif m is "May">
+			<cfset mm='05'>
+		<cfelseif m is "June">
+			<cfset mm='06'>
+		<cfelseif m is "July">
+			<cfset mm='07'>
+		<cfelseif m is "August">
+			<cfset mm='08'>
+		<cfelseif trim(m) is "September">
+			<cfset mm='09'>
+		<cfelseif m is "October">
+			<cfset mm='10'>
+		<cfelseif m is "November">
+			<cfset mm='11'>
+		<cfelseif m is "December">
+			<cfset mm='12'>
+		<cfelse>
+			<cfset mm=m>
+		</cfif>
+		<cfif len(mm) gt 0 and not refind('^[0-9]{2}$',mm)>
+			<br>#mm# isn't a 2-digit month
+			<cfset thisStatus=listappend(thisStatus,'month invalid',';')>
+		</cfif>
+		<cfset dd=d>
+		<cfif len(dd) gt 0 and not refind('^[0-9]{2}$',dd)>
+			<cfset dd='0' & dd>
+			<cfif not refind('^[0-9]{2}$',dd)>
+				<br>#dd# isn't a 2-digit day
+				<cfset thisStatus=listappend(thisStatus,'day invalid',';')>
+			</cfif>
+		</cfif>
+			<cfset iso=y>
+			<cfif len(mm) gt 0>
+				<cfset iso=iso & '-' & mm>
+			</cfif>
+			<cfif len(dd) gt 0>
+				<cfset iso=iso & '-' & dd>
+			</cfif>d<br>iso==#iso#
+			
+			<cfset cc=d & ' ' & m & ' '  & y>
+			<cfset cc=trim(replace(cc,"  ", " ","all"))>
+			<br>cc=#cc#
+			<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select is_iso8601('#iso#') isiso from dual
+			</cfquery>
+			<cfset thisStatus=listappend(thisStatus,'#fu.isiso#',';')>
+			<br>thisStatus=#thisStatus#
+			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update ds_temp_date set
+					returndate='#iso#',
+					status='#thisStatus#',
+					concat='#cc#'
+				where
+					key=#key#
+			</cfquery>
+
+			<br>#fu.isiso#
+
+	</cfloop>
+	
+</cfoutput>
 </cfif>
 <cfif action is "getFile">
 <cfoutput>
