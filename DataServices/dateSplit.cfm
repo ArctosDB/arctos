@@ -124,7 +124,7 @@ grant select on ds_temp_dateMDY to public;
 <cfif action is "validateMDY">
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_date
+		select * from ds_temp_dateMDY
 	</cfquery>
 
 	<cfloop query="d">
