@@ -61,7 +61,7 @@
 				This form will do nothing for poorly-structured data (multi-agent strings, etc.).
 			</li>
 			<li>
-				No collection_object_id? Add them (any unique integer is OK) and re-load or
+				No collection_object_ids? Add them (any unique integer is OK) and re-load or
 				<a href="pre_bulkloader.cfm?action=buildCollectionObjectID">click this to create them now</a>
 			</li>
 			<li><a href="pre_bulkloader.cfm?action=precheckLoaded">Mark for pre-check</a>. NOTE: This will DELETE ALL lookup tables.</li>
@@ -182,9 +182,26 @@
 					<br><input type="submit" value="execute">
 				</form>
 			</li>
+			<li>
+				<a href="pre_bulkloader.cfm?action=ready_for_checkall">Mark for final check</a>. Click this when you think
+				everything will load. It'll take some time.
+			</li>
 		</ol>
 	</cfif>
+	<!------------------------------------------------------->
+	<cfif action is "ready_for_checkall">
+		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			UPDATE pre_bulkloader SET loaded='ready_for_checkall'
+		</cfquery>
 
+		<p>
+			Results:
+			<cfdump var=#myQueryResult#>
+		</p>
+		<p>
+			Use your back button or <a href="pre_bulkloader.cfm">continue</a>
+		</p>
+	</cfif>
 	<!------------------------------------------------------->
 	<cfif action is "buildCollectionObjectID">
 		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
