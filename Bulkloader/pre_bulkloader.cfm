@@ -50,7 +50,28 @@
 		</cfquery>
 		<p>
 			Currrent state of pre-bulkloader:
-			<cfdump var=#sts#>
+			<div style="max-height:10em; overflow:scoll">
+				<table border>
+					<tr>
+						<th>
+							enteredby
+						</th>
+						<th>
+							numrecs
+						</th>
+						<th>
+							loaded
+						</th>
+					</tr>
+					<cfloop query="sts">
+						<tr>
+							<td>#enteredby#</td>
+							<td>#numrecs#</td>
+							<td>#loaded#</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
 		</p>
 		<p>Howto:</p>
 
