@@ -171,6 +171,18 @@
 				</form>
 			</li>
 			<li>
+				Attriubtes: when null, for each (not-null) attribute, update....
+				<br>(remove suggestion to do nothing)
+				<form name="atdflt" method="post" action="pre_bulkloader.cfm">
+					<input type="hidden" name="action" value="setNullDefaultsAttribute">
+					<label for="attribute_determiner_n">attribute_determiner_n=</label>
+					<input type="text" name="attribute_determiner_n" value="unknown">,
+					<label for="attribute_date_n">attribute_date_n=</label>
+					<input type="text" name="attribute_date_n" value="#dateformat(now(),'yyyy-mm-dd')#">,
+					<br><input type="submit" value="make all changes">
+				</form>
+			</li>
+			<li>
 				<a name="tysql"></a>
 				<form name="pdflt" method="post" action="pre_bulkloader.cfm">
 					<input type="hidden" name="action" value="execSQL">
@@ -232,9 +244,41 @@
 	</cfif>
 
 	<!------------------------------------------------------->
+	<cfif action is "setNullDefaultsAttribute">
+		<cfset numberOfAttributes=10>
+		<cfif len(attribute_determiner_n) gt 0>
+			<cfloop from="1" to="#numberOfAttributes#" index="i">
+				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						pre_bulkloader
+					set
+						attribute_determiner_#i#='#escapeQuotes(attribute_determiner_n)#'
+					where
+						attribute_#i# is not null and
+						attribute_determiner_#i# is null
+				</cfquery>
+			</cfloop>
+		</cfif>
+		<cfif len(attribute_date_n) gt 0>
+			<cfloop from="1" to="#numberOfAttributes#" index="i">
+				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						pre_bulkloader
+					set
+						attribute_date_#i#='#escapeQuotes(attribute_date_n)#'
+					where
+						attribute_#i# is not null and
+						attribute_date_#i# is null
+				</cfquery>
+			</cfloop>
+		</cfif>
+		<cflocation url="pre_bulkloader.cfm" addtoken="false">
+	</cfif>
+	<!------------------------------------------------------->
 	<cfif action is "setNullDefaultsParts">
+		<cfset numberOfParts=12>
 		<cfif len(PART_CONDITION_n) gt 0>
-			<cfloop from="1" to="10" index="i">
+			<cfloop from="1" to="#numberOfParts#" index="i">
 				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update
 						pre_bulkloader
@@ -247,7 +291,7 @@
 			</cfloop>
 		</cfif>
 		<cfif len(PART_LOT_COUNT_n) gt 0>
-			<cfloop from="1" to="10" index="i">
+			<cfloop from="1" to="#numberOfParts#" index="i">
 				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update
 						pre_bulkloader
@@ -260,7 +304,7 @@
 			</cfloop>
 		</cfif>
 		<cfif len(PART_DISPOSITION_n) gt 0>
-			<cfloop from="1" to="10" index="i">
+			<cfloop from="1" to="#numberOfParts#" index="i">
 				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update
 						pre_bulkloader
