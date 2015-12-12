@@ -156,6 +156,7 @@ grant select on ds_temp_dateMDY to public;
 		<cfset t="">
 		<cftry>
 			<cfset t=dateformat(adate,"yyyy-mm-dd")>
+			<cfcatch><br>conversion failed for #adate#</cfcatch>
 		</cftry>
 		<hr>
 		<br>#adate#
