@@ -65,7 +65,18 @@ grant select on ds_temp_dateMDY to public;
 		<li>adate</li>
 	</ul>
 
-	... formatted as m/d/y
+	<p>
+		This uses CF's date conversion utilities to guess at intent and can be wonky. It's a tool, not magic, and you
+		are responsible for the final result.
+	</p>
+	<ul>
+		<li>1/2/15 will be translated to 2015-01-02</li>
+		<li>18/2/15 becomes 2018-02-15</li>
+		<li>Some things will fail altogether.</li>
+	</ul>
+	<p>
+
+	</p>
 
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFileMDY">
@@ -142,9 +153,13 @@ grant select on ds_temp_dateMDY to public;
 
 
 ---->
+		<cfset t="">
+		<cftry>
+			<cfset t=dateformat(adate,"yyyy-mm-dd")>
+		</cftry>
 		<hr>
 		<br>#adate#
-		<br>#dateformat(adate,"yyyy-mm-dd")#
+		<br>#t#
 
 	</cfloop>
 
