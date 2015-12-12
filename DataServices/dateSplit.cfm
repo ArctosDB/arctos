@@ -30,12 +30,15 @@ grant select on ds_temp_date to public;
 /
 sho err
 
+
+drop table ds_temp_dateMDY;
+
 create table ds_temp_dateMDY (
 	adate varchar2(255),
-	shoudlbe varchar2(255)
+	shouldbe varchar2(255)
 );
 
-create public synonym ds_temp_dateMDY for ds_temp_dateMDY;
+create or replace public synonym ds_temp_dateMDY for ds_temp_dateMDY;
 grant all on ds_temp_dateMDY to coldfusion_user;
 grant select on ds_temp_dateMDY to public;
 
@@ -170,7 +173,7 @@ grant select on ds_temp_dateMDY to public;
 
 
 <cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct adate from ds_temp_dateMDY
+		select distinct adate,shouldbe from ds_temp_dateMDY
 	</cfquery>
 <cfset fname = "dateconvert.csv">
 
