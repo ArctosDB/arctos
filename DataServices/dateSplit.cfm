@@ -72,10 +72,14 @@ grant select on ds_temp_dateMDY to public;
 	<ul>
 		<li>1/2/15 will be translated to 2015-01-02</li>
 		<li>18/2/15 becomes 2018-02-15</li>
+		<li>1/20/15 becomes 2015-01-20</li>
+		<li>15 becomes 1900-01-14 (we have no idea why)</li>
+		<li>Current year is often assumed for partial dates.</li>
+		<li>Precision is often added for no apparent reason.</li>
 		<li>Some things will fail altogether.</li>
 	</ul>
 	<p>
-
+		<strong>Carefully check the final result!</strong>
 	</p>
 
 	<cfform name="atts" method="post" enctype="multipart/form-data">
@@ -156,14 +160,27 @@ grant select on ds_temp_dateMDY to public;
 		<cfset t="">
 		<cftry>
 			<cfset t=dateformat(adate,"yyyy-mm-dd")>
-			<cfcatch><br>conversion failed for #adate#</cfcatch>
+			<cfcatch></cfcatch>
 		</cftry>
-		<hr>
-		<br>#adate#
-		<br>#t#
+		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update ds_temp_dateMDY set shouldbe='#t#' where adate='#adate#'
+		</cfquery>
 
 	</cfloop>
 
+
+<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct adate from ds_temp_dateMDY
+	</cfquery>
+<cfset fname = "dateconvert.csv">
+
+<cfset  util = CreateObject("component","component.utilities")>
+<cfset csv = util.QueryToCSV2(Query=r,Fields=r.columnlist)>
+<cffile action = "write"
+    file = "#Application.webDirectory#/download/#fname#"
+   	output = "#csv#"
+   	addNewLine = "no">
+<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 </cfoutput>
 </cfif>
 <cfif action is "getFile">
