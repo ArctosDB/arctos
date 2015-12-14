@@ -1340,7 +1340,7 @@ function checkCoordinateError(){
 		<cfset sql = "UPDATE locality SET GEOG_AUTH_REC_ID = #GEOG_AUTH_REC_ID#">
 		<cfset sql = "#sql#,max_error_units = '#max_error_units#'">
 		<cfset sql = "#sql#,DATUM = '#DATUM#'">
-		<cfset sql = "#sql#,georeference_source = '#georeference_source#'">
+		<cfset sql = "#sql#,georeference_source = '#escapeQuotes(georeference_source)#'">
 		<cfset sql = "#sql#,georeference_protocol = '#georeference_protocol#'">
 		<cfset sql = "#sql#,locality_name = '#locality_name#'">
 

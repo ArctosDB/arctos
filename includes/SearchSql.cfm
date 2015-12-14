@@ -249,7 +249,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN citation cname ON (#session.flatTableName#.collection_object_id = cname.collection_object_id)">
 	</cfif>
 	<cfset basJoin = " #basJoin# INNER JOIN identification cited_name ON (cname.identification_id = cited_name.identification_id)">
-	<cfset basQual = " #basQual# AND upper(cited_name.scientific_name) like '%#ucase(cited_scientific_name)#%'">
+	<cfset basQual = " #basQual# AND upper(cited_name.scientific_name) like '%#ucase(escapeQuotes(cited_scientific_name))#%'">
 </cfif>
 <cfif isdefined("taxon_name_id") AND len(taxon_name_id) gt 0>
 	<cfif basJoin does not contain " identification ">
@@ -295,11 +295,11 @@
 		<cfelseif scientific_name_match_type is "notcontains">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "inlist">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(scientific_name),chr(39))#)">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(escapeQuotes(scientific_name)),chr(39))#)">
 		<cfelseif scientific_name_match_type is "inlist_substring">
 			<cfset basQual = " #basQual# AND (">
 			<cfloop list="#scientific_name#" index="i" delimiters=",">
-				<cfset basQual = " #basQual# upper(#session.flatTableName#.scientific_name) like '%#ucase(i)#%' OR ">
+				<cfset basQual = " #basQual# upper(#session.flatTableName#.scientific_name) like '%#ucase(escapeQuotes(i))#%' OR ">
 			</cfloop>
 			<cfset basQual = left(basQual,len(basQual)-4) & ")">
 		<cfelse>
@@ -315,7 +315,7 @@
 		<cfelseif scientific_name_match_type is "notcontains">
 			<cfset basQual = " #basQual# AND upper(identification.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "inlist">
-			<cfset basQual = " #basQual# AND upper(identification.scientific_name) in (#listqualify(ucase(scientific_name),chr(39))#)">
+			<cfset basQual = " #basQual# AND upper(identification.scientific_name) in (#listqualify(ucase(escapeQuotes(scientific_name)£),chr(39))#)">
 		<cfelse><!---- startswith ---->
 			<cfset basQual = " #basQual# AND upper(identification.scientific_name) LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		</cfif>
