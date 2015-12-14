@@ -1238,7 +1238,7 @@
    				 	console.log('dn: ' + dn);
 
 			var idOfDisplayRow;
-			$("input:text").each(function(){
+			$("input:select").each(function(){
 
 				console.log('thisval: ' + $(this).val());
 
