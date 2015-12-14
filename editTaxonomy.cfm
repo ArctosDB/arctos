@@ -1,10 +1,23 @@
 <cfinclude template="includes/_header.cfm">
+<cfset noCloneTerms='author_text','display_name','infraspecific_author','remark','scientific_name','source_authority','species','subspecies','taxon_status'>
 <a target="_blank" class="external" href="http://arctosdb.org/documentation/identification/taxonomy/#edit">editing guidelines</a>
 <!------------------------------------------------------------------------------->
 <cfif action is "cloneClassificationNewName">
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select source from cttaxonomy_source order by source
 	</cfquery>
+
+
+
+
+
+	<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select taxon_term from CTTAXON_TERM where taxon_term not in (#listqualify(noCloneTerms,"'")#) order by taxon_term;
+	</cfquery>
+
+
+
+
 	<cfoutput>
 		<p>
 		Use this form to create a clone of a name and classification as another (e.g., local and editable) Source.
@@ -30,6 +43,20 @@
 					<option value="#source#">#source#</option>
 				</cfloop>
 			</select>
+			<p>
+				IMPORTANT: Only select terms from <a target="_blank" href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a>
+				will be cloned. Anything not in the list below will be ignored.
+
+				<ul>
+					<cfloop query="CTTAXON_TERM">
+						<li>#taxon_term#</li>
+					</cfloop>
+				</ul>
+
+				This may include terms that you do not wish to clone, and it may exclude terms which you do wish to clone. Please
+				carefully check everything before saving.
+			</p>
+
 			<input type="submit" value="create name and classification">
 		</form>
 	</cfoutput>
