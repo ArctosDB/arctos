@@ -97,7 +97,7 @@
 			trans.collection_id=collection_contacts.collection_id (+) and
 			trans.collection_id=collection.collection_id and
 			trans.transaction_id=trans_agent.transaction_id and
-			trans_agent.trans_agent_role in ('notification contact','in-house contact') and
+			--trans_agent.trans_agent_role in ('notification contact','in-house contact') and
 			round(RETURN_DUE_DATE - sysdate) +1 in (#eid#) and
 			LOAN_STATUS != 'closed'
 	</cfquery>
