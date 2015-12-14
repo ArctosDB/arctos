@@ -71,10 +71,11 @@
 			order by
 				POSITION_IN_CLASSIFICATION
 		</cfquery>
-
+		<!----
 		<cfdump var=#seedClassification#>
 
 		<cfabort>
+		---->
 		<cfset thisSourceID=CreateUUID()>
 		<cftransaction>
 			<!---  new name --->
