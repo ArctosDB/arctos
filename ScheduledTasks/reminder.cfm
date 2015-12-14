@@ -166,7 +166,8 @@
 				expLoan
 			where
 				transaction_id=#transaction_id# and
-				collection_contact_email is not null
+				collection_contact_email is not null and
+				trans_agent_role in ('in-house contact','authorized by')
 			group by
 				collection_contact_name,
 				collection_contact_email
