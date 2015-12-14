@@ -143,7 +143,8 @@
 				trans_agent_email is not null
 			group by
 				trans_agent_email,
-				trans_agent_name
+				trans_agent_name,
+				trans_agent_role
 		</cfquery>
 	<cfdump var=#inhouseAgents#>
 		<cfquery name="notificationAgents" dbtype="query">
