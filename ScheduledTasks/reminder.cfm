@@ -101,11 +101,6 @@
 			LOAN_STATUS != 'closed'
 	</cfquery>
 
-
-	<cfdump var=#expLoan#>
-
-
-
 	<!--- local query to organize and flatten loan data --->
 	<cfquery name="loan" dbtype="query">
 		select
@@ -146,7 +141,6 @@
 				trans_agent_name,
 				trans_agent_role
 		</cfquery>
-	<cfdump var=#inhouseAgents#>
 		<cfquery name="notificationAgents" dbtype="query">
 			select
 				trans_agent_email address,
@@ -162,7 +156,6 @@
 				trans_agent_name
 		</cfquery>
 
-	<cfdump var=#notificationAgents#>
 
 		<cfquery name="collectionAgents" dbtype="query">
 			select
@@ -178,9 +171,6 @@
 				collection_contact_name,
 				collection_contact_email
 		</cfquery>
-
-	<cfdump var=#collectionAgents#>
-
 		<cfquery name="toAgents" dbtype="query">
 			select
 				collection_contact_name agent_name,
@@ -196,11 +186,6 @@
 				collection_contact_email,
 				trans_agent_role
 		</cfquery>
-
-
-	<cfdump var=#toAgents#>
-
-
 		<!--- the "contact if" section of the form we'll send to notification agents --->
 		<cfsavecontent variable="contacts">
 			<p>
@@ -255,8 +240,6 @@
 			</p>
 		</cfsavecontent>
 
-
-		<cfdump var=#common#>
 		<cfif notificationAgents.recordcount gt 0 and expires_in_days gte 0>
 			<!---
 				there's at least one noticifation agent, and the loan expires on or after today
