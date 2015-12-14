@@ -1108,6 +1108,8 @@
 		}
 		function nc_addARow() {
 			var n=parseInt($("#numnoclassrs").val());
+
+			console.log('n is '  n);
 			++n;
 			var x='<tr id="nccell_' + n + '">';
 			x+='<td><select class="ac_noclass_tt"  id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></select></td>';
@@ -1230,23 +1232,11 @@
 			}
 		}
 		function useDNG(){
-
-			console.log('hi I am useDNG');
-
 			var dn=$("#dng").val();
-
-   				 	console.log('dn: ' + dn);
-
 			var idOfDisplayRow;
 			$("select").each(function(){
-
-				console.log('thisval: ' + $(this).val());
-
-
 				 if( $(this).val()=='display_name' ){
    				 	idOfDisplayRow=this.id;
-
-   				 	console.log('idOfDisplayRow: ' + idOfDisplayRow);
    				 }
    			});
 			if(typeof idOfDisplayRow === 'undefined'){
