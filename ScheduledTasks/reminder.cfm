@@ -138,7 +138,7 @@
 				expLoan
 			where
 				transaction_id=#transaction_id# and
-				trans_agent_role='in-house contact' and
+				<!----trans_agent_role='in-house contact' and---->
 				trans_agent_email is not null
 			group by
 				trans_agent_email,
