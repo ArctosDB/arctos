@@ -1234,8 +1234,15 @@
 			console.log('hi I am useDNG');
 
 			var dn=$("#dng").val();
+
+   				 	console.log('dn: ' + idOfDispdnlayRow);
+
 			var idOfDisplayRow;
 			$("input:text").each(function(){
+
+				console.log('thisval: ' + $(this).val());
+
+
 				 if( $(this).val()=='display_name' ){
    				 	idOfDisplayRow=this.id;
 
