@@ -133,7 +133,8 @@
 		<cfquery name="inhouseAgents" dbtype="query">
 			select
 				trans_agent_email address,
-				trans_agent_name agent_name
+				trans_agent_name agent_name,
+				trans_agent_role
 			from
 				expLoan
 			where
