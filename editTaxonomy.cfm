@@ -55,6 +55,7 @@
 <!------------------------------------------------------------------------------->
 <cfif action is "cloneClassificationNewName_insert">
 	<cfoutput>
+
 		<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct
 				TAXON_NAME_ID,
@@ -67,6 +68,8 @@
 			where
 				classification_id='#classification_id#' and
 				TERM_TYPE in (select taxon_term from CTTAXON_TERM where taxon_term not in (#listqualify(noCloneTerms,"'")#))
+			order by
+				POSITION_IN_CLASSIFICATION
 		</cfquery>
 
 		<cfdump var=#seedClassification#>
@@ -81,6 +84,8 @@
 			<cfquery name="newName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into taxon_name (taxon_name_id,scientific_name) values (#nnID.tnid#,'#newName#')
 			</cfquery>
+			<cfset pic=1>
+
 			<cfloop query="seedClassification">
 				<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
@@ -99,11 +104,31 @@
 						<cfif len(POSITION_IN_CLASSIFICATION) is 0>
 							NULL
 						<cfelse>
-							#POSITION_IN_CLASSIFICATION#
+							#pic#
+							<cfset pic=pic+1>
+							#pic#
 						</cfif>
 					)
 				</cfquery>
 			</cfloop>
+			<cfset n
+			<cfquery name="scientific_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into taxon_term (
+					TAXON_NAME_ID,
+					CLASSIFICATION_ID,
+					TERM,
+					TERM_TYPE,
+					SOURCE,
+					POSITION_IN_CLASSIFICATION
+				) values (
+					#nnID.tnid#,
+					'#thisSourceID#',
+					'#newName#',
+					'scientific_name',
+					'#SOURCE#',
+					#pic#
+				)
+			</cfquery>
 		</cftransaction>
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#" addtoken="false">
 	</cfoutput>
