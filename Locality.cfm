@@ -431,7 +431,7 @@
 	<cfoutput query="geogDetails">
 		<br><em>#higher_geog#</em>
         <form name="editHG" id="editHG" method="post" action="Locality.cfm">
-	        <input name="action" type="hidden" value="saveGeogEdits">
+	        <input name="action" type="text" value="saveGeogEdits">
             <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
             <table>
 				<tr>
@@ -574,7 +574,7 @@
 							<input type="button"
 								value="Save All"
 								class="savBtn"
-								onclick="$('##action').val('saveGeogEdits');$('##editHG').submit();">
+								onclick="$('##action').val('saveGeogEdits');">
 							<cfset dloc="Locality.cfm?action=newHG&continent_ocean=#continent_ocean#&country=#country#&state_prov=#state_prov#&county=#county#&quad=#quad#&feature=#feature#&island_group=#island_group#&island=#island#&sea=#sea#">
 							<input type="button" value="Create Clone" class="insBtn" onclick="document.location='#dloc#';">
 							<input type="button" value="Delete" class="delBtn"
@@ -585,7 +585,11 @@
 						<input type="button"
 							value="Save Search Terms (manage_locality OK)"
 							class="savBtn"
-							onclick="$('##action').val('saveSTOnly');$('##editHG').submit();">
+							onclick="$('##action').val('saveSTOnly');">
+
+
+							$('##editHG').submit();
+							$('##editHG').submit();
 					</td>
 				</tr>
 			</table>
