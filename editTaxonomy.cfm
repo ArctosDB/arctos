@@ -1235,6 +1235,8 @@
 			$("input:text").each(function(){
 				 if( $(this).val()=='display_name' ){
    				 	idOfDisplayRow=this.id;
+
+   				 	console.log('idOfDisplayRow: ' + idOfDisplayRow);
    				 }
    			});
 			if(typeof idOfDisplayRow === 'undefined'){

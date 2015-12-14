@@ -80,6 +80,7 @@ grant select on ds_temp_dateMDY to public;
 		<li>Current year is often assumed for partial dates.</li>
 		<li>Precision is often added for no apparent reason.</li>
 		<li>Some things will fail altogether.</li>
+		<li>Duplicates will be merged</li>
 	</ul>
 	<p>
 		<strong>Carefully check the final result!</strong>
