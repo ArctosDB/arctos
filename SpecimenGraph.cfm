@@ -7,10 +7,10 @@
 			Explicitly exclude things we don't want --->
 		<cfloop list="#StructKeyList(form)#" index="key">
 			 <cfif len(form[key]) gt 0>
-				<cfif #key# is not "FIELDNAMES" 
-					AND #key# is not "SEARCHPARAMS" 
-					AND #key# is not "mapurl" 
-					AND #key# is not "cbifurl" 
+				<cfif #key# is not "FIELDNAMES"
+					AND #key# is not "SEARCHPARAMS"
+					AND #key# is not "mapurl"
+					AND #key# is not "cbifurl"
 					and #key# is not "newquery"
 					and #key# is not "ORDER_ORDER"
 					and #key# is not "ORDER_BY"
@@ -29,10 +29,10 @@
 		<!---- also grab anything from the URL --->
 		<cfloop list="#StructKeyList(url)#" index="key">
 			 <cfif len(#url[key]#) gt 0>
-				<cfif #key# is not "FIELDNAMES" 
-					AND #key# is not "SEARCHPARAMS" 
-					AND #key# is not "mapurl" 
-					AND #key# is not "cbifurl" 
+				<cfif #key# is not "FIELDNAMES"
+					AND #key# is not "SEARCHPARAMS"
+					AND #key# is not "mapurl"
+					AND #key# is not "cbifurl"
 					and #key# is not "newquery"
 					and #key# is not "ORDER_ORDER"
 					and #key# is not "ORDER_BY"
@@ -48,10 +48,10 @@
 				</cfif>
 			 </cfif>
 		</cfloop>
-		
+
 		<cfset searchParams = #replace(searchParams,"'","","all")#>
 	<table>
-		
+
 <form name="browse" action="SpecimenGraph.cfm" method="post">
 				<tr>
 					<td><strong>Chart Settings</strong></td>
@@ -65,7 +65,7 @@
 								<td>
 									<select name="chartType" size="1">
 										<option value="flash">Flash</option>
-										<option value="jpg">JPG</option>
+										<option selected="selected" value="jpg">JPG</option>
 										<option value="png">PNG</option>
 									</select>
 								</td>
@@ -110,7 +110,7 @@
 						</table>
 					</td>
 					<td valign="top">
-						<select name="graphThis" multiple="multiple" size="10">
+						<select required="required" name="graphThis" multiple="multiple" size="10">
 							<option value="country">Specimens by Country</option>
 							<option value="state_prov">Specimens by State</option>
 							<option value="scientific_name">Specimens by Identification</option>
@@ -126,25 +126,25 @@
 				<input type="hidden" name="action" value="getGraph">
 				<tr>
 					<td colspan="2" align="center">
-						<input type="submit" value="Get Graphs"	class="schBtn">	
+						<input type="submit" value="Get Graphs"	class="schBtn">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<div style="background-color:##999999; font-size:small; font-style:italic;">
 							1) CONTROL and click to create multiple charts
-							<p></p>2) You may save charts to your hard drive as images. 
+							<p></p>2) You may save charts to your hard drive as images.
 							<br />Your browser may act strangely, but it will probably
 							<br /> work if you can save with an image (not .cfm) extension.
 						</div>
 					</td>
 				</tr>
 			</form>
-			
+
 	</table>
-	
+
 		</cfoutput>
-</cfif>		
+</cfif>
 <!------------------------------------------------------------------->
 <cfif action is "getGraph">
 <cfoutput>
@@ -167,40 +167,40 @@
 				<cfelse>
 					<cfset basGroup = "GROUP BY #item#">
 				</cfif>
-				
+
 			</cfif>
-			
+
 			<cfset basFrom = " FROM #session.flatTableName#">
 			<cfset basJoin = "INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
-			<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
-			
+			<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
+
 			<cfset basQual = "">
 			<cfset mapurl="">
 			<cfset basOrder = "ORDER BY count(#session.flatTableName#.cat_num) DESC">
 			<cfinclude template="includes/SearchSql.cfm">
-			<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# #basGroup# #basOrder#">	
+			<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# #basGroup# #basOrder#">
 			<cfquery name="getGraph" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(SqlString)#
 			</cfquery>
-			
-			 
-			
-			<cfchart format="#chartType#" 
+
+
+
+			<cfchart format="#chartType#"
 				chartHeight = "#chartHeight#"
 				chartWidth = "#chartWidth#"
-				xaxistitle="#left(ucase(item),1)##right(lcase(item),len(item)-1)#" 
+				xaxistitle="#left(ucase(item),1)##right(lcase(item),len(item)-1)#"
 				yaxistitle="#y#"
 				show3D="#show3D#"
 				title = "Search Results by #left(ucase(item),1)##right(lcase(item),len(item)-1)# (#dateformat(now(),'dd mmm yyyy')#)"
-				fontBold="yes"> 
-				
-				<cfchartseries type="#type#" 
-					query="getGraph" 
-					itemcolumn="x_data" 
+				fontBold="yes">
+
+				<cfchartseries type="#type#"
+					query="getGraph"
+					itemcolumn="x_data"
 					valuecolumn="y_data"
 					seriesColor="##0066FF">
 				</cfchartseries>
-			</cfchart> 
+			</cfchart>
 	</cfloop>
 </cfoutput>
 </cfif>
