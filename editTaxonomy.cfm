@@ -1028,7 +1028,7 @@
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">[ add a row ]</span>
 			<cfquery name="hasdisplay_name" dbtype="query">
-				select count(*) c from noclass where taxon_term='display_name'
+				select count(*) c from noclass where TERM_TYPE='display_name'
 			</cfquery>
 			<cfif hasdisplay_name.c neq 1>
 				<div class="warningDiv">
