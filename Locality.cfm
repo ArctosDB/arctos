@@ -431,7 +431,7 @@
 	<cfoutput query="geogDetails">
 		<br><em>#higher_geog#</em>
         <form name="editHG" id="editHG" method="post" action="Locality.cfm">
-	        <input name="action" type="text" value="saveGeogEdits">
+	        <input name="action" id="action" type="text" value="saveGeogEdits">
             <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
             <table>
 				<tr>
