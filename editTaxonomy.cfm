@@ -62,8 +62,16 @@
 				TERM,
 				TERM_TYPE,
 				POSITION_IN_CLASSIFICATION
-			from taxon_term where classification_id='#classification_id#'
+			from
+				taxon_term
+			where
+				classification_id='#classification_id#' and
+				TERM_TYPE in (select taxon_term from CTTAXON_TERM where taxon_term not in (#listqualify(noCloneTerms,"'")#))
 		</cfquery>
+
+		<cfdump var=#seedClassification#>
+
+		<cfabort>
 		<cfset thisSourceID=CreateUUID()>
 		<cftransaction>
 			<!---  new name --->
