@@ -38,7 +38,7 @@
 <cfif action is "cloneClassificationNewName_insert">
 	<cfoutput>
 		<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
+			select distinct
 				TAXON_NAME_ID,
 				CLASSIFICATION_ID,
 				TERM,
