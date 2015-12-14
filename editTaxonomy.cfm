@@ -107,7 +107,6 @@
 						<cfelse>
 							#pic#
 							<cfset pic=pic+1>
-							#pic#
 						</cfif>
 					)
 				</cfquery>
