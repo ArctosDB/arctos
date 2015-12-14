@@ -102,6 +102,11 @@
 			LOAN_STATUS != 'closed'
 	</cfquery>
 
+
+	<cfdump var=#expLoan#>
+
+
+
 	<!--- local query to organize and flatten loan data --->
 	<cfquery name="loan" dbtype="query">
 		select
