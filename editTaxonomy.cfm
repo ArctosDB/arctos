@@ -1027,12 +1027,22 @@
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">[ add a row ]</span>
-			<cfquery name="hasdisplay_name" dbtype="query">
-				select count(*) c from noclass where TERM_TYPE='display_name'
-			</cfquery>
-			<cfif hasdisplay_name.c neq 1>
+			<cfset shouldUsuallyHave="display_name,author_text,nomenclatural_code">
+			<cfset aterms=valuelist(noclass.TERM_TYPE)>
+			<cfloop list="#aterms#" index="i">
+				<cfif listfind(shouldUsuallyHave,i)>
+					<cfset shouldUsuallyHave=listdeleteat(shouldUsuallyHave,listfind(shouldUsuallyHave,i))>
+				</cfif>
+			</cfloop>
+
+			<cfif len(shouldUsuallyHave) gt 0>
 				<div class="warningDiv">
-					Please add display_name
+					Possibly missing:
+					<ul>
+						<cfloop list="#shouldUsuallyHave#" index="i">
+							<li>#i#</li>
+						</cfloop>
+					</ul>
 				</div>
 			</cfif>
 			<h3>
@@ -1085,6 +1095,25 @@
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
+			<cfset shouldUsuallyHave="kingdom,genus,species,subspecies,scientific_name">
+
+			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
+			<cfloop list="#aterms#" index="i">
+				<cfif listfind(shouldUsuallyHave,i)>
+					<cfset shouldUsuallyHave=listdeleteat(shouldUsuallyHave,listfind(shouldUsuallyHave,i))>
+				</cfif>
+			</cfloop>
+
+			<cfif len(shouldUsuallyHave) gt 0>
+				<div class="warningDiv">
+					Possibly missing:
+					<ul>
+						<cfloop list="#shouldUsuallyHave#" index="i">
+							<li>#i#</li>
+						</cfloop>
+					</ul>
+				</div>
+			</cfif>
 			<p>
 				<div id="dnWarning" style="border:2px solid red;padding:2em;margin:2em;">
 					<p>
