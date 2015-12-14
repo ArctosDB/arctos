@@ -1235,7 +1235,7 @@
 
 			var dn=$("#dng").val();
 
-   				 	console.log('dn: ' + idOfDispdnlayRow);
+   				 	console.log('dn: ' + dn);
 
 			var idOfDisplayRow;
 			$("input:text").each(function(){
