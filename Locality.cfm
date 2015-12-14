@@ -596,7 +596,37 @@
 		</form>
 	</cfoutput>
 </cfif>
-
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "saveSTOnly">
+	<cfoutput>
+		<cftransaction>
+			<cfloop from ="1" to="#numGeogSrchTerms#" index="i">
+				<cfset thisTerm=evaluate("new_geog_search_term_" & i)>
+				<cfif len(thisTerm) gt 0>
+					<cfquery name="ist1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,trim('#escapeQuotes(thisTerm)#'))
+					</cfquery>
+				</cfif>
+			</cfloop>
+			<cfloop list="#form.FieldNames#" index="f">
+				<cfif left(f,17) is "geog_search_term_">
+					<cfset thisv=evaluate("form." & f)>
+					<cfset thisID=replacenocase( f,"geog_search_term_","")>
+					<cfif len(thisv) eq 0>
+						<cfquery name="upst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							delete from geog_search_term where geog_search_term_id=#thisID#
+						</cfquery>
+					<cfelse>
+						<cfquery name="upst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							update geog_search_term set search_term='#escapequotes(thisv)#' where geog_search_term_id=#thisID#
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfloop>
+		</cftransaction>
+		<cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">
+	</cfoutput>
+</cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "updateAllVerificationStatus">
 	<cfoutput>
