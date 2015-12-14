@@ -187,6 +187,11 @@
 				collection_contact_email,
 				trans_agent_role
 		</cfquery>
+
+
+	<cfdump var=#toAgents#>
+
+
 		<!--- the "contact if" section of the form we'll send to notification agents --->
 		<cfsavecontent variable="contacts">
 			<p>
@@ -240,6 +245,9 @@
 				</cfif>
 			</p>
 		</cfsavecontent>
+
+
+		<cfdump var=#common#>
 		<cfif notificationAgents.recordcount gt 0 and expires_in_days gte 0>
 			<!---
 				there's at least one noticifation agent, and the loan expires on or after today
