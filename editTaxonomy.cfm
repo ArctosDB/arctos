@@ -1230,6 +1230,9 @@
 			}
 		}
 		function useDNG(){
+
+			console.log('hi I am useDNG');
+
 			var dn=$("#dng").val();
 			var idOfDisplayRow;
 			$("input:text").each(function(){
