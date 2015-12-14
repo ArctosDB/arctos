@@ -52,7 +52,7 @@
 			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>
 					<div style="border:1px dashed gray; font-size:x-small;">
-						<cfif session.roles contains "manage_geography">
+						<cfif session.roles contains "manage_geography" or  session.roles contains "manage_locality>
 							<div>
 								<a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">Edit #geog_auth_rec_id#</a>
 							</div>
