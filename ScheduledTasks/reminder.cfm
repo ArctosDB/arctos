@@ -97,7 +97,6 @@
 			trans.collection_id=collection_contacts.collection_id (+) and
 			trans.collection_id=collection.collection_id and
 			trans.transaction_id=trans_agent.transaction_id and
-			--trans_agent.trans_agent_role in ('notification contact','in-house contact') and
 			round(RETURN_DUE_DATE - sysdate) +1 in (#eid#) and
 			LOAN_STATUS != 'closed'
 	</cfquery>
@@ -256,6 +255,8 @@
 				sends email and something somewhere is probably misspelled or something
 			 --->
 			<cfloop query="notificationAgents">
+
+				<br>mailto:#notificationAgents.address#
 				<cfif isdefined("Application.version") and  Application.version is "prod">
 					<cfset subj="Arctos Loan Notification">
 					<cfset maddr=notificationAgents.address>
