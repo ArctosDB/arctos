@@ -574,7 +574,7 @@
 							<input type="button"
 								value="Save All"
 								class="savBtn"
-								onclick="$('##action').val('saveGeogEdits');">
+								onclick="$('##action').val('saveGeogEdits');$('##editHG').submit();">
 							<cfset dloc="Locality.cfm?action=newHG&continent_ocean=#continent_ocean#&country=#country#&state_prov=#state_prov#&county=#county#&quad=#quad#&feature=#feature#&island_group=#island_group#&island=#island#&sea=#sea#">
 							<input type="button" value="Create Clone" class="insBtn" onclick="document.location='#dloc#';">
 							<input type="button" value="Delete" class="delBtn"
@@ -585,11 +585,7 @@
 						<input type="button"
 							value="Save Search Terms (manage_locality OK)"
 							class="savBtn"
-							onclick="$('##action').val('saveSTOnly');">
-
-
-							$('##editHG').submit();
-							$('##editHG').submit();
+							onclick="$('##action').val('saveSTOnly');$('##editHG').submit();">
 					</td>
 				</tr>
 			</table>
