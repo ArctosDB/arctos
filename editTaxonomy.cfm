@@ -1118,8 +1118,9 @@
 			x+='</tr>';
 			$("#notsortable").append(x);
 			$("#numnoclassrs").val(n);
-			$('#ncterm_type_1').find('option').clone().appendTo('#ncterm_type_' + n);
+			$('#template_ncterm_type_template').find('option').clone().appendTo('#ncterm_type_' + n);
 			$('#ncterm_type_' + n).val('');
+
 		}
 		function deleteClassification(cid,tnid) {
 			var msg='Are you sure you want to delete this classification?\nDo NOT delete classifications because you do not agree with them or because they';
@@ -1375,6 +1376,16 @@
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#mc#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 			<input type="hidden" name="noclassrows" id="noclassrows">
+			<select style="display: none"
+				id="template_ncterm_type_template">
+				<option value=""></option>
+				<cfloop query="cttaxon_term_noclass">
+					<option value="#taxon_term#">#taxon_term#</option>
+				</cfloop>
+			</select>
+
+
+
 			<h3>
 				Non-Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
 			</h3>
