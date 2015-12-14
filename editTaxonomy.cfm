@@ -46,13 +46,6 @@
 				POSITION_IN_CLASSIFICATION
 			from taxon_term where classification_id='#classification_id#'
 		</cfquery>
-
-
-		<cfdump var=#seedClassification#>
-
-		<cfabort>
-
-
 		<cfset thisSourceID=CreateUUID()>
 		<cftransaction>
 			<!---  new name --->
