@@ -430,8 +430,8 @@
     </cfoutput>
 	<cfoutput query="geogDetails">
 		<br><em>#higher_geog#</em>
-        <cfform name="getHG" method="post" action="Locality.cfm">
-	        <input name="Action" type="hidden" value="saveGeogEdits">
+        <form name="editHG" id="editHG" method="post" action="Locality.cfm">
+	        <input name="action" type="hidden" value="saveGeogEdits">
             <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
             <table>
 				<tr>
@@ -569,7 +569,15 @@
 				</cfloop>
 				<tr>
 	                <td colspan="4" nowrap align="center">
-						<input type="submit" value="Save Edits"	class="savBtn">
+						<input
+							type="button"
+							value="Save Search Terms (manage_locality OK)"
+							class="savBtn"
+							onclick="$('##action').val('saveSTOnly');$('##editHG').submit();">
+						<input type="button"
+							value="Save All Edits (requires manage_geography)"
+							class="savBtn"
+							onclick="$('##action').val('saveGeogEdits');$('##editHG').submit();">
 						<input type="button" value="Delete" class="delBtn"
 							onClick="document.location='Locality.cfm?Action=deleteGeog&geog_auth_rec_id=#geog_auth_rec_id#';">
 						<input type="button" value="See Localities" class="lnkBtn"
@@ -579,14 +587,6 @@
 					</td>
 				</tr>
 			</table>
-		</cfform>
-		<hr>
-
-
-
-
-		<form name="fgeog_search_term" id="fgeog_search_term" method="post" action="Locality.cfm">
-
 		</form>
 	</cfoutput>
 </cfif>
