@@ -703,8 +703,6 @@
 		}
 		function nc_addARow() {
 			var n=parseInt($("#numnoclassrs").val());
-
-			console.log('n is ' +  n);
 			++n;
 			var x='<tr id="nccell_' + n + '">';
 			x+='<td><select class="ac_noclass_tt"  id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></select></td>';
