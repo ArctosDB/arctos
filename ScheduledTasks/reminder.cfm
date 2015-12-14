@@ -144,6 +144,7 @@
 				trans_agent_email,
 				trans_agent_name
 		</cfquery>
+	<cfdump var=#inhouseAgents#>
 		<cfquery name="notificationAgents" dbtype="query">
 			select
 				trans_agent_email address,
@@ -158,6 +159,9 @@
 				trans_agent_email,
 				trans_agent_name
 		</cfquery>
+
+	<cfdump var=#notificationAgents#>
+
 		<cfquery name="collectionAgents" dbtype="query">
 			select
 				collection_contact_name agent_name,
@@ -172,6 +176,9 @@
 				collection_contact_name,
 				collection_contact_email
 		</cfquery>
+
+	<cfdump var=#collectionAgents#>
+
 		<cfquery name="toAgents" dbtype="query">
 			select
 				collection_contact_name agent_name,
