@@ -167,6 +167,21 @@
 				collection_contact_name,
 				collection_contact_email
 		</cfquery>
+		<cfquery name="toAgents" dbtype="query">
+			select
+				collection_contact_name agent_name,
+				collection_contact_email address,
+				trans_agent_role
+			from
+				expLoan
+			where
+				transaction_id=#transaction_id# and
+				trans_agent_role in ('outside contact','received by')
+			group by
+				collection_contact_name,
+				collection_contact_email,
+				trans_agent_role
+		</cfquery>
 		<!--- the "contact if" section of the form we'll send to notification agents --->
 		<cfsavecontent variable="contacts">
 			<p>
@@ -208,6 +223,16 @@
 				<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#">
 					#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#
 				</a>
+			</p>
+			<p>
+				<cfif toAgents.recordcount gt 0>
+					Loan Contacts are listed as follows.
+					<ul>
+					<cfloop query="toAgents">
+						<li>#agent_name#: #address# (#trans_agent_role#)</li>
+					</cfloop>
+					</ul>
+				</cfif>
 			</p>
 		</cfsavecontent>
 		<cfif notificationAgents.recordcount gt 0 and expires_in_days gte 0>
