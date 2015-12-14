@@ -659,7 +659,7 @@
 			font-weight:bold;
 			font-style:italics;
 		}
-		.warningDiv {color:red;}
+		.warningDiv {color:red;font-size:x-small;}
 	</style>
 	<script>
 		// copy this with create classification
