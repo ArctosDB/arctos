@@ -316,7 +316,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">Source Authority (Wikipedia URL)</td>
+				<td align="right">Source Authority (Wikipedia URL - BE SPECIFIC!)</td>
 				<td>
 					<input name="source_authority" id="source_authority" class="reqdClr">
 				</td>
@@ -544,7 +544,7 @@
 				<tr>
 	                <td colspan="2">
 						<label for="source_authority">
-							Authority (pattern: http://{language}.wikipedia.org/wiki/{article})
+							Authority (pattern: http://{language}.wikipedia.org/wiki/{article} - BE SPECIFIC!)
 						</label>
 						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
 					</td>
@@ -1565,115 +1565,111 @@ You deleted a collecting event.
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "makeGeog">
-<cfoutput>
-
-		<cfparam name="overrideSemiUniqueSource" default="false">
-		<cfif overrideSemiUniqueSource is false>
-
-			<cfquery name="iscrap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select geog_auth_rec_id,higher_geog from geog_auth_rec where source_authority='#escapeQuotes(source_authority)#'
-			</cfquery>
-			<cfif iscrap.recordcount gt 0>
+	<cfoutput>
+	<cfparam name="overrideSemiUniqueSource" default="false">
+	<cfif overrideSemiUniqueSource is false>
+		<cfquery name="iscrap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select geog_auth_rec_id,higher_geog from geog_auth_rec where source_authority='#escapeQuotes(source_authority)#'
+		</cfquery>
+		<cfif iscrap.recordcount gt 0>
+			<p>
+				The source_authority you specified has been used in other geography entries. That's probably an indication of
+				linking to the wrong thing. Please carefully review
+				<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/##guidelines">the higher geography creation guidelines</a>
+				and consider editing your entry and/or the links below before proceeding.
+			</p>
+			Geography using #source_authority#:
+			<ul>
+				<cfloop query="iscrap">
+					<li><a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a></li>
+				</cfloop>
+			</ul>
+			<form name="editHG" id="editHG" method="post" action="Locality.cfm">
+		        <input name="overrideSemiUniqueSource" id="overrideSemiUniqueSource" type="hidden" value="true">
+		        <cfloop list="#form.FieldNames#" index="f">
+			        <cfset thisVal=evaluate(f)>
+					<input type="hidden" name="#f#" id="#f#" value="#thisVal#" size="60">
+				</cfloop>
 				<p>
-					The source_authority you specified has been used in other geography entries. That's probably an indication of
-					linking to the wrong thing. Please carefully review
-					<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/##guidelines">the higher geography creation guidelines</a>
-					and consider editing your entry and/or the links below before proceeding.
+					Use your back button, or <input type="submit" value="click here to force-use the specified source">
 				</p>
-				Geography using #source_authority#:
-				<ul>
-					<cfloop query="iscrap">
-						<li><a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a></li>
-					</cfloop>
-				</ul>
-				<form name="editHG" id="editHG" method="post" action="Locality.cfm">
-			        <input name="overrideSemiUniqueSource" id="overrideSemiUniqueSource" type="hidden" value="true">
-			        <cfloop list="#form.FieldNames#" index="f">
-				        <cfset thisVal=evaluate(f)>
-						<input type="hidden" name="#f#" id="#f#" value="#thisVal#" size="60">
-					</cfloop>
-					<p>
-						Use your back button, or <input type="submit" value="click here to force-use the specified source">
-					</p>
-				</form>
-				<cfabort>
-			</cfif>
+			</form>
+			<cfabort>
 		</cfif>
+	</cfif>
 
 
-
-
-<cfquery name="nextGEO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select sq_geog_auth_rec_id.nextval nextid from dual
-</cfquery>
-<cfquery name="newGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-INSERT INTO geog_auth_rec (
-	geog_auth_rec_id
-	<cfif len(#continent_ocean#) gt 0>
-		,continent_ocean
-	</cfif>
-	<cfif len(#country#) gt 0>
-		,country
-	</cfif>
-	<cfif len(#state_prov#) gt 0>
-		,state_prov
-	</cfif>
-	<cfif len(#county#) gt 0>
-		,county
-	</cfif>
-	<cfif len(#quad#) gt 0>
-		,quad
-	</cfif>
-	<cfif len(#feature#) gt 0>
-		,feature
-	</cfif>
-	<cfif len(#island_group#) gt 0>
-		,island_group
-	</cfif>
-	<cfif len(#island#) gt 0>
-		,island
-	</cfif>
-	<cfif len(#sea#) gt 0>
-		,sea
-	</cfif>
-	,SOURCE_AUTHORITY,
-	geog_remark
-		)
-	VALUES (
-		#nextGEO.nextid#
-		<cfif len(#continent_ocean#) gt 0>
-		,'#escapeQuotes(continent_ocean)#'
-	</cfif>
-	<cfif len(#country#) gt 0>
-		,'#escapeQuotes(country)#'
-	</cfif>
-	<cfif len(#state_prov#) gt 0>
-		,'#escapeQuotes(state_prov)#'
-	</cfif>
-	<cfif len(#county#) gt 0>
-		,'#escapeQuotes(county)#'
-	</cfif>
-	<cfif len(#quad#) gt 0>
-		,'#escapeQuotes(quad)#'
-	</cfif>
-	<cfif len(#feature#) gt 0>
-		,'#escapeQuotes(feature)#'
-	</cfif>
-	<cfif len(#island_group#) gt 0>
-		,'#escapeQuotes(island_group)#'
-	</cfif>
-	<cfif len(#island#) gt 0>
-		,'#escapeQuotes(island)#'
-	</cfif>
-	<cfif len(#sea#) gt 0>
-		,'#escapeQuotes(sea)#'
-	</cfif>
-	,'#escapeQuotes(SOURCE_AUTHORITY)#',
-	'#escapeQuotes(geog_remark)#'
-)
-</cfquery>
-<cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
-</cfoutput>
+		<cfquery name="nextGEO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select sq_geog_auth_rec_id.nextval nextid from dual
+		</cfquery>
+		<cfquery name="newGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO geog_auth_rec (
+				geog_auth_rec_id
+				<cfif len(#continent_ocean#) gt 0>
+					,continent_ocean
+				</cfif>
+				<cfif len(#country#) gt 0>
+					,country
+				</cfif>
+				<cfif len(#state_prov#) gt 0>
+					,state_prov
+				</cfif>
+				<cfif len(#county#) gt 0>
+					,county
+				</cfif>
+				<cfif len(#quad#) gt 0>
+					,quad
+				</cfif>
+				<cfif len(#feature#) gt 0>
+					,feature
+				</cfif>
+				<cfif len(#island_group#) gt 0>
+					,island_group
+				</cfif>
+				<cfif len(#island#) gt 0>
+					,island
+				</cfif>
+				<cfif len(#sea#) gt 0>
+					,sea
+				</cfif>
+				,SOURCE_AUTHORITY,
+				geog_remark
+					)
+				VALUES (
+					#nextGEO.nextid#
+					<cfif len(#continent_ocean#) gt 0>
+					,'#escapeQuotes(continent_ocean)#'
+				</cfif>
+				<cfif len(#country#) gt 0>
+					,'#escapeQuotes(country)#'
+				</cfif>
+				<cfif len(#state_prov#) gt 0>
+					,'#escapeQuotes(state_prov)#'
+				</cfif>
+				<cfif len(#county#) gt 0>
+					,'#escapeQuotes(county)#'
+				</cfif>
+				<cfif len(#quad#) gt 0>
+					,'#escapeQuotes(quad)#'
+				</cfif>
+				<cfif len(#feature#) gt 0>
+					,'#escapeQuotes(feature)#'
+				</cfif>
+				<cfif len(#island_group#) gt 0>
+					,'#escapeQuotes(island_group)#'
+				</cfif>
+				<cfif len(#island#) gt 0>
+					,'#escapeQuotes(island)#'
+				</cfif>
+				<cfif len(#sea#) gt 0>
+					,'#escapeQuotes(sea)#'
+				</cfif>
+				,'#escapeQuotes(SOURCE_AUTHORITY)#',
+				'#escapeQuotes(geog_remark)#'
+			)
+		</cfquery>
+		<cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "makenewLocality">
