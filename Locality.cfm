@@ -543,9 +543,6 @@
 				</tr>
 				<tr>
 	                <td colspan="2">
-						<label for="source_authority">
-							Authority (pattern: http://{language}.wikipedia.org/wiki/{article} - BE SPECIFIC!)
-						</label>
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
 							<cfhttp method="get" url="#source_authority#"></cfhttp>
 							<cfset flds="continent_ocean,country,state_prov,sea,county,quad,feature,island_group,island">
@@ -554,19 +551,21 @@
 								<cfset fv=evaluate(f)>
 								<cfif len(fv) gt 0>
 									<cfif cfhttp.filecontent does not contain fv>
-										<cfset errs=errs & "#fv# (#f#) does not occur in Source!<br>">
+										<cfset errs=errs & "<li>#fv# (#f#) does not occur in Source!</li>">
 									</cfif>
 								</cfif>
 							</cfloop>
 							<cfif len(errs) gt 0>
 								<div style="border:2px solid red">
 									Possible problems detected in this Source. Please double-check!
-									<br>#errs#
+									<ul>#errs#</ul>
 								</div>
 							</cfif>
 						</cfif>
+						<label for="source_authority">
+							Authority (pattern: http://{language}.wikipedia.org/wiki/{article} - BE SPECIFIC!)
+						</label>
 						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
-
 					</td>
 				</tr>
 				<tr>
