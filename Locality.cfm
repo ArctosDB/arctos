@@ -467,10 +467,10 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="county" class="likeLink" onClick="getDocs('higher_geography','county')">
-							County
+						<label for="county" class="likeLink">
+							<a href="##"  onClick="getDocs('higher_geography','county')">County</a>
 							<cfif len(county) gt 0>
-								<a target="_blank" class="external infoLink" href="https://en.wikipedia.org/w/index.php?search=#county#">search Wikipedia</a>
+								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#county#">search Wikipedia</a>
 							</cfif>
 						</label>
 						<input type="text" name="county" id="county" value="#county#" size="60">
