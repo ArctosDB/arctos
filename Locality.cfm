@@ -1507,8 +1507,7 @@ You deleted a collecting event.
 			        <input name="overrideSemiUniqueSource" id="overrideSemiUniqueSource" type="hidden" value="true">
 			        <cfloop list="#form.FieldNames#" index="f">
 				        <cfset thisVal=evaluate(f)>
-				        <br>#f#
-						 <input type="hidden" name="#f#" id="#f#" value="#thisVal#" size="60">
+						<input type="hidden" name="#f#" id="#f#" value="#thisVal#" size="60">
 					</cfloop>
 					<p>
 						Use your back button, or <input type="submit" value="click here to force-use the specified source">
