@@ -1483,6 +1483,18 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveGeogEdits">
 	<cfoutput>
+		<cfparam name="overrideSemiUniqueSource" default="false">
+
+
+		<cfquery name="iscrap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select geog_auth_rec_id,higher_geog from geog_auth_rec where source_authority='#escapeQuotes(source_authority)#' and
+				geog_auth_rec_id != #geog_auth_rec_id#
+		</cfquery>
+		<cfif iscrap.recordcount gt 0>
+			dups
+			<cfdump var=#iscrap#>
+			<cfabort>
+		</cfif>
 		<cftransaction>
 			<cfquery name="edGe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE
