@@ -430,7 +430,7 @@
     </cfoutput>
 	<cfoutput query="geogDetails">
 		<br><em>#higher_geog#</em>
-		<a target="_blank" class="external infolink" href="https://google.com/search?q=#higher_geog#">search Google</a>
+		<a target="_blank" class="external infoLink" href="https://google.com/search?q=#higher_geog#">search Google</a>
         <form name="editHG" id="editHG" method="post" action="Locality.cfm">
 	        <input name="action" id="action" type="hidden" value="saveGeogEdits">
             <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
@@ -458,6 +458,9 @@
 					<td>
 						<label for="sea" class="likeLink" onClick="getDocs('higher_geography','sea')" >
 							Sea
+							<cfif len(sea) gt 0>
+								<a target="_blank" class="external infoLink" href="https://en.wikipedia.org/w/index.php?search=#sea#">search Wikipedia</a>
+							</cfif>
 						</label>
 						<input type="text" name="sea" id="sea" value="#sea#" size="60">
 					</td>
@@ -466,6 +469,9 @@
 					<td>
 						<label for="county" class="likeLink" onClick="getDocs('higher_geography','county')">
 							County
+							<cfif len(county) gt 0>
+								<a target="_blank" class="external infoLink" href="https://en.wikipedia.org/w/index.php?search=#county#">search Wikipedia</a>
+							</cfif>
 						</label>
 						<input type="text" name="county" id="county" value="#county#" size="60">
 					</td>
