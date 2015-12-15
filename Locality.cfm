@@ -549,6 +549,17 @@
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
 							<cfhttp method="get" url="#source_authority#"></cfhttp>
 							<cfdump var=#cfhttp#>
+							<cfset flds="continent_ocean,country">
+							<cfloop list="#flds#" index="f">
+								<br>checking #f#
+								<cfset fv=evaluate(f)>
+								<cfif len(fv) gt 0>
+									<br>got #fv#
+									<cfif cfhttp.filecontent contains fv>
+										<br>occurs in article£
+									</cfif>
+								</cfif>
+							</cfloop>
 						</cfif>
 						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
 
