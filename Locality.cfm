@@ -546,7 +546,12 @@
 						<label for="source_authority">
 							Authority (pattern: http://{language}.wikipedia.org/wiki/{article} - BE SPECIFIC!)
 						</label>
+						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
+							<cfhttp method="get" url="#source_authority#"></cfhttp>
+							<cfdump var=#cfhttp#>
+						</cfif>
 						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
+
 					</td>
 				</tr>
 				<tr>
