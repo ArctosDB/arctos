@@ -559,7 +559,7 @@
 								<div style="border:2px solid red; margin:1em;padding:1em;font-weight:bold;">
 									Possible problems detected with this Source. Please double-check your data and the linked article
 									and review the
-									<a href="http://arctosdb.org/higher-geography/#guidelines" target="_blank" class="external">Geography Creation Guidelines</a>.
+									<a href="http://arctosdb.org/higher-geography/##guidelines" target="_blank" class="external">Geography Creation Guidelines</a>.
 									<ul>#errs#</ul>
 								</div>
 							</cfif>
