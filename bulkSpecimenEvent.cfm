@@ -84,6 +84,73 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
+<cfif action is "getCSV">
+	<p>
+		Important!
+		<ul>
+			<li>You'll need to delete some columns - see the event bulkloader</li>
+			<li>Coordinates are in DD.dd format from Locality.</li>
+		</ul>
+	</p>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			 #table_name#.guid,
+			 getPreferredAgentName(specimen_event.ASSIGNED_BY_AGENT_ID) ASSIGNED_BY_AGENT,
+			 specimen_event.ASSIGNED_DATE,
+			 specimen_event.SPECIMEN_EVENT_REMARK,
+			 specimen_event.SPECIMEN_EVENT_TYPE,
+			 specimen_event.COLLECTING_METHOD,
+			 specimen_event.COLLECTING_SOURCE,
+			 specimen_event.VERIFICATIONSTATUS,
+			 specimen_event.HABITAT,
+			 specimen_event.COLLECTING_EVENT_ID,
+			 collecting_event.COLLECTING_EVENT_NAME,
+			 collecting_event.VERBATIM_DATE,
+			 collecting_event.VERBATIM_LOCALITY,
+			 collecting_event.COLL_EVENT_REMARKS,
+			 collecting_event.BEGAN_DATE,
+			 collecting_event.ENDED_DATE,
+			 decode(locality.DEC_LAT,null,null,'decimal degrees') ORIG_LAT_LONG_UNITS,
+			 locality.DEC_LAT,
+			 locality.DEC_LONG,
+			 locality.DATUM,
+			 locality.LOCALITY_ID,
+			 locality.LOCALITY_NAME,
+			 locality.spec_locality,
+			 locality.MINIMUM_ELEVATION,
+			 locality.MAXIMUM_ELEVATION,
+			 locality.ORIG_ELEV_UNITS,
+			 locality.MIN_DEPTH,
+			 locality.MAX_DEPTH,
+			 locality.DEPTH_UNITS,
+			 locality.MAX_ERROR_DISTANCE,
+			 locality.MAX_ERROR_UNITS,
+			 locality.LOCALITY_REMARKS,
+			 locality.GEOREFERENCE_SOURCE,
+			 locality.GEOREFERENCE_PROTOCOL,
+			 geog_auth_rec.GEOG_AUTH_REC_ID,
+			 geog_auth_rec.higher_geog,
+			 locality.wkt_polygon
+		from
+			#table_name#,
+			specimen_event,
+			collecting_event,
+			locality,
+			geog_auth_rec
+		where
+			#table_name#.collection_object_id=specimen_event.collection_object_id (+) and
+			specimen_event.collecting_event_id=collecting_event.collecting_event_id (+) and
+			collecting_event.locality_id=locality.locality_id (+) and
+			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id (+)
+		order by
+			#table_name#.guid,
+			specimen_event.SPECIMEN_EVENT_TYPE
+	</cfquery>
+	<cfdump var=#d#>
+
+
+</cfif>
+<!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<script>
 		function useThisEvent () {
@@ -182,6 +249,7 @@
 	<br>Check boxes and click button to remove specimen-events from the update.
 	<br>When this table contains only the specimen-events you want to update, use the <a href="##editForm">form below</a>.
 	<br><strong>Bold data</strong> are event data; others are pulled from related nodes (specimens, geography, etc.) and are displayed here as context.
+	<br><a href="bulkSpecimenEvent.cfm?action=getCSV&table_name=#table_name#">CSV</a> (specimen-event bulkloader format)
 	<form method="post" action="bulkSpecimenEvent.cfm">
 		<input type="hidden" name="table_name" value="#table_name#">
 		<table border id="t" class="sortable">
