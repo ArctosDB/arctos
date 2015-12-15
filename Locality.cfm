@@ -450,7 +450,7 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="state_prov" class="likeLink">
+						<label for="state_prov">
 							<span class="likeLink" onClick="getDocs('higher_geography','state_province')">State/Province</span>
 
 							<cfif len(state_prov) gt 0>
@@ -460,8 +460,8 @@
 						<input type="text" name="state_prov" id="state_prov" value="#state_prov#" size="60">
 					</td>
 					<td>
-						<label for="sea" class="likeLink" onClick="getDocs('higher_geography','sea')" >
-							Sea
+						<label for="sea">
+							<span class="likeLink" onClick="getDocs('higher_geography','sea')">Sea</span>
 							<cfif len(sea) gt 0>
 								<a target="_blank" class="external infoLink" href="https://en.wikipedia.org/w/index.php?search=#sea#">search Wikipedia</a>
 							</cfif>
@@ -471,7 +471,7 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="county" class="likeLink">
+						<label for="county">
 							<span class="likeLink" onClick="getDocs('higher_geography','county')">County</span>
 							<cfif len(county) gt 0>
 								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#county#">search Wikipedia</a>
@@ -493,7 +493,7 @@
 						<cfelse>
 							<cfset thisFeature = "">
 						</cfif>
-						<label for="feature" class="likeLink">
+						<label for="feature">
 							<span class="likeLink" onClick="getDocs('higher_geography','feature')">Feature</span>
 							<cfif len(feature) gt 0>
 								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#feature#">search Wikipedia</a>
@@ -513,7 +513,7 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="island_group" class="likeLink">
+						<label for="island_group">
 							<span class="likeLink" onClick="getDocs('higher_geography','island_group')">Island Group</span>
 							<cfif len(island_group) gt 0>
 								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#island_group#">search Wikipedia</a>
@@ -528,7 +528,7 @@
 		                  </select>
 					</td>
 					<td >
-						<label for="island" >
+						<label for="island">
 							<span class="likeLink" onClick="getDocs('higher_geography','island')">Island</span>
 							<span class="likeLink" onClick="asterisckificateisland();">
 								[ prefix with * ]
