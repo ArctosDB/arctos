@@ -155,9 +155,7 @@
 	    file = "#Application.webDirectory#/download/DownSpecimenEvent.csv"
     	output = "#csv#"
     	addNewLine = "no">
-	<cflocation url="/download.cfm?file=DownSpecimenEvent.csv" addtoken="false">
-
-
+	<a href="/download.cfm?file=DownSpecimenEvent.csv">yea yea gimme data</a>
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
