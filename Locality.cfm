@@ -450,8 +450,12 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="state_prov" class="likeLink" onClick="getDocs('higher_geography','state_province')">
-							State/Province
+						<label for="state_prov" class="likeLink">
+							<span class="likeLink" onClick="getDocs('higher_geography','state_province')">State/Province</span>
+
+							<cfif len(state_prov) gt 0>
+								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#state_prov#">search Wikipedia</a>
+							</cfif>
 						</label>
 						<input type="text" name="state_prov" id="state_prov" value="#state_prov#" size="60">
 					</td>
