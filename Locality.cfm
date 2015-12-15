@@ -1511,6 +1511,7 @@ You deleted a collecting event.
 				        <br>#f#
 						 <input type="text" name="#f#" id="#f#" value="#thisVal#" size="60">
 					</cfloop>
+					<input type="submit" value="click here to force-use the specified source">
 				</form>
 				<cfabort>
 			</cfif>
