@@ -556,7 +556,7 @@
 								</cfif>
 							</cfloop>
 							<cfif len(errs) gt 0>
-								<div style="border:2px solid red">
+								<div style="border:2px solid red; margin:1em;padding:1em;font-weight:bold;">
 									Possible problems detected in this Source. Please double-check!
 									<ul>#errs#</ul>
 								</div>
