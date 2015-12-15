@@ -1495,7 +1495,7 @@ You deleted a collecting event.
 					The source_authority you specified has been used in other geography entries. That's probably an indication of
 					linking to the wrong thing. Please carefully review
 					<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/##guidelines">the higher geography creation guidelines</a>
-					and edit your entry and/or the links below before proceeding.
+					and consider editing your entry and/or the links below before proceeding.
 				</p>
 				Geography using #source_authority#:
 				<ul>
