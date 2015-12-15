@@ -548,18 +548,22 @@
 						</label>
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
 							<cfhttp method="get" url="#source_authority#"></cfhttp>
-							<cfdump var=#cfhttp#>
 							<cfset flds="continent_ocean,country,state_prov,sea,county,quad,feature,island_group,island">
+							<cfset errs="">
 							<cfloop list="#flds#" index="f">
-								<br>checking #f#
 								<cfset fv=evaluate(f)>
 								<cfif len(fv) gt 0>
-									<br>got #fv#
 									<cfif cfhttp.filecontent does not contain fv>
-										<br>#fv# (#f#) does not occur in Source!
+										<cfset errs=errs & "#fv# (#f#) does not occur in Source!<br>">
 									</cfif>
 								</cfif>
 							</cfloop>
+							<cfif len(errs) gt 0>
+								<div style="border:2px solid red">
+									Possible problems detected in this Source. Please double-check!
+									<br>#errs#
+								</div>
+							</cfif>
 						</cfif>
 						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
 
