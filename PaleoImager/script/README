@@ -1,0 +1,14 @@
+How to paleoimager:
+
+Copy CameraImageLZ.scpt (PaleoImages/script on the Arctos code repository) to /Library/Scripts/Folder Action Scripts/ 
+
+Create a folder /Image
+Create a folder /ImageLZ
+
+Right-click ImageLZ, FolderActions, pick ^^ that file, enable
+
+Build scripts in /ImagerScripts
+
+Build crontab (as root)
+
+Take some pictures
