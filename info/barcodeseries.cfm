@@ -33,6 +33,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
 	delete from cf_barcodeseries;
 
 
@@ -45,7 +54,7 @@
 		whodunit
 	) values (
 		'regexp_like(barcode,''^[0-9]*$'') and to_number(substr(barcode,2)) between 2 and 405000',
-		'all integers',
+		'all integers (above 1)',
 		'UAM',
 		 'All UAM bare-number barcodes including original pre-Arctos catalog number barcodes and subsequent integer-only series Exclude 0 and 1 (used for "trashcans").',
 		 '2008-11-05',
@@ -509,21 +518,6 @@
 		'ccicero'
 	);
 
-	insert into cf_barcodeseries (
-		barcodeseriessql,
-		barcodeseriestxt,
-		institution,
-		notes,
-		createdate,
-		whodunit
-	) values (
-		'regexp_like(barcode,''^BOWIE [0-9]{1,3}$'') and to_number(substr(barcode,7)) between 1 and 500',
-		'BOWIE 1 - BOWIE 500',
-		'MVZ',
-		'MVZ uncataloged bird samples collected by Raurie Bowie and colleagues, labels for his freezer boxes',
-		'2015-04-16',
-		'ccicero'
-	);
 
 	insert into cf_barcodeseries (
 		barcodeseriessql,
@@ -588,7 +582,7 @@
 		whodunit
 	) values (
 		'regexp_like(barcode,''^BOLD-[0-9A-Z]{3}$'')',
-		'BOLD-???',
+		'BOLD-NNN',
 		'KNWR',
 		'These are 2D barcode labels on lifescanner vials (http://lifescanner.net/)',
 		'2015-07-07',
@@ -634,7 +628,7 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^BBSL[0-9]*$'') to_number(substr(barcode,5)) between 700000 and 800000'',
+		'regexp_like(barcode,''^BBSL[0-9]*$'') to_number(substr(barcode,5)) between 700000 and 800000',
 		'UAM',
 		'MSB',
 		'USDA ARS for UAM:Ento',
@@ -650,7 +644,7 @@
 		createdate,
 		whodunit
 	) values (
-		'regexp_like(barcode,''^JPS[0-9]*$'') to_number(substr(barcode,4)) between 30000 and 40000'',
+		'regexp_like(barcode,''^JPS[0-9]*$'') to_number(substr(barcode,4)) between 30000 and 40000',
 		'UAM',
 		'MSB',
 		'USDA ARS for UAM:Ento',
@@ -1040,7 +1034,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			<input type="submit" value="test this barcode">
 		</form>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_barcodeseries order by key
+			select * from cf_barcodeseries order by barcodeseriestxt
 		</cfquery>
 		<p>
 			Claimed barcodes (and test results if you entered something in the form).

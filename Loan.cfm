@@ -1589,6 +1589,101 @@ just fooling idiot cfclipse into using the right colors
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
+<cfif action is "SS_addAllSrchResultLoanItems">
+	<cfoutput>
+		<cfset title="add search results to loan">
+		<cfquery name="getPartID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				min(specimen_part.collection_object_id) partID,
+				'Sample of ' || #session.SpecSrchTab#.guid || ' - ' || specimen_part.part_name partDesc
+			from
+				#session.SpecSrchTab#,
+				specimen_part
+			where
+				specimen_part.derived_from_cat_item=#session.SpecSrchTab#.collection_object_id and
+				specimen_part.sampled_from_obj_id is null and
+				specimen_part.part_name='#part_name#'
+			group by
+				specimen_part.part_name,
+				#session.SpecSrchTab#.guid
+		</cfquery>
+		<cftransaction>
+			<cfloop query="getPartID">
+				<cfquery name="parentData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					SELECT
+						coll_obj_disposition,
+						condition,
+						part_name,
+						derived_from_cat_item
+					FROM
+						coll_object, specimen_part
+					WHERE
+						coll_object.collection_object_id = specimen_part.collection_object_id AND
+						coll_object.collection_object_id = #partID#
+				</cfquery>
+				<cfquery name="newCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO coll_object (
+						COLLECTION_OBJECT_ID,
+						COLL_OBJECT_TYPE,
+						ENTERED_PERSON_ID,
+						COLL_OBJECT_ENTERED_DATE,
+						LAST_EDITED_PERSON_ID,
+						LAST_EDIT_DATE,
+						COLL_OBJ_DISPOSITION,
+						LOT_COUNT,
+						CONDITION)
+					VALUES
+						(sq_collection_object_id.nextval,
+						'SS',
+						#session.myAgentID#,
+						sysdate,
+						#session.myAgentID#,
+						sysdate,
+						'#parentData.coll_obj_disposition#',
+						1,
+						'#parentData.condition#')
+				</cfquery>
+				<cfquery name="newPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO specimen_part (
+						COLLECTION_OBJECT_ID
+						,PART_NAME
+						,SAMPLED_FROM_OBJ_ID
+						,DERIVED_FROM_CAT_ITEM)
+					VALUES (
+						sq_collection_object_id.currval
+						,'#parentData.part_name#'
+						,#collection_object_id#
+						,#parentData.derived_from_cat_item#
+					)
+				</cfquery>
+				<cfquery name="addOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into loan_item (
+						TRANSACTION_ID,
+						COLLECTION_OBJECT_ID,
+						RECONCILED_BY_PERSON_ID,
+						RECONCILED_DATE,
+						ITEM_DESCR
+					) values (
+						#transaction_id#,
+						sq_collection_object_id.currval,
+						#session.myagentid#,
+						sysdate,
+						'#partDesc#'
+					)
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from #session.SpecSrchTab#
+		</cfquery>
+		<p>
+			#c.c# items (subsamples) have been created and added.
+		</p>
+		<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Return to Edit Loan</a>
+
+	</cfoutput>
+</cfif>
+<!-------------------------------------------------------------------------------------------------->
 <cfif action is "addAllSrchResultLoanItems">
 	<cfoutput>
 		<cfset title="add search results to loan">
