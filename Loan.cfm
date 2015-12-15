@@ -1652,7 +1652,7 @@ just fooling idiot cfclipse into using the right colors
 					VALUES (
 						sq_collection_object_id.currval
 						,'#parentData.part_name#'
-						,#collection_object_id#
+						,#partID#
 						,#parentData.derived_from_cat_item#
 					)
 				</cfquery>
