@@ -363,7 +363,8 @@
 							</cfloop>
 						</select>
 						<br>
-						<input type="button" value="Add All to this Loan" onclick="confirmAddAllPartLoan();">
+						<input type="button" value="Add All PARTS to this Loan" onclick="confirmAddAllPartLoan();">
+						<input type="button" value="Create SUBSAMPLES for all parts, add them to this Loan" onclick="confirmAddAllPartLoanSS();">
 					<cfelse>
 						<br>No common Parts - group-add tools not available.
 					</cfif>
