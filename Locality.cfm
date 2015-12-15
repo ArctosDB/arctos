@@ -1504,14 +1504,15 @@ You deleted a collecting event.
 					</cfloop>
 				</ul>
 				<form name="editHG" id="editHG" method="post" action="Locality.cfm">
-			        <input name="action" id="action" type="hidden" value="saveGeogEdits">
 			        <input name="overrideSemiUniqueSource" id="overrideSemiUniqueSource" type="hidden" value="true">
 			        <cfloop list="#form.FieldNames#" index="f">
 				        <cfset thisVal=evaluate(f)>
 				        <br>#f#
-						 <input type="text" name="#f#" id="#f#" value="#thisVal#" size="60">
+						 <input type="hidden" name="#f#" id="#f#" value="#thisVal#" size="60">
 					</cfloop>
-					<input type="submit" value="click here to force-use the specified source">
+					<p>
+						Use your back button, or <input type="submit" value="click here to force-use the specified source">
+					</p>
 				</form>
 				<cfabort>
 			</cfif>
