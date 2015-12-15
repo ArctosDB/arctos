@@ -489,8 +489,11 @@
 						<cfelse>
 							<cfset thisFeature = "">
 						</cfif>
-						<label for="feature" class="likeLink" onClick="getDocs('higher_geography','feature')">
-							Feature
+						<label for="feature" class="likeLink">
+							<span class="likeLink" onClick="getDocs('higher_geography','feature')">Feature</span>
+							<cfif len(feature) gt 0>
+								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#feature#">search Wikipedia</a>
+							</cfif>
 						</label>
 						<select name="feature" id="feature">
 							<option value=""></option>
@@ -506,8 +509,11 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="island_group" class="likeLink" onClick="getDocs('higher_geography','island_group')">
-							Island Group
+						<label for="island_group" class="likeLink">
+							<span class="likeLink" onClick="getDocs('higher_geography','island_group')">Island Group</span>
+							<cfif len(island_group) gt 0>
+								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#island_group#">search Wikipedia</a>
+							</cfif>
 						</label>
 						<select name="island_group" id="island_group" size="1">
 		                	<option value=""></option>
@@ -524,6 +530,9 @@
 								[ prefix with * ]
 							</span>
 							to override duplicate detection
+							<cfif len(island) gt 0>
+								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#island#">search Wikipedia</a>
+							</cfif>
 						</label>
 						<input type="text" name="island" id="island" value="#island#" size="60">
 					</td>
