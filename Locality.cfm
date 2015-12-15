@@ -1491,8 +1491,17 @@ You deleted a collecting event.
 				geog_auth_rec_id != #geog_auth_rec_id#
 		</cfquery>
 		<cfif iscrap.recordcount gt 0>
-			dups
-			<cfdump var=#iscrap#>
+			<p>
+				The source_authority you specified has been used in other geography entries. That's probably an indication of
+				linking to the wrong thing. Please carefully review
+				<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/#guidelines">the higher geography creation guidelines</a>
+			</p>
+			Geography using #source_authority#:
+			<ul>
+				<cfloop query="iscrap">
+					<li><a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a></li>
+				</cfloop>
+			</ul>
 			<cfabort>
 		</cfif>
 		<cftransaction>
