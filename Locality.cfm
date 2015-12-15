@@ -468,7 +468,7 @@
 				<tr>
 					<td>
 						<label for="county" class="likeLink">
-							<a href="##"  onClick="getDocs('higher_geography','county')">County</a>
+							<span class="likeLink" onClick="getDocs('higher_geography','county')">County</span>
 							<cfif len(county) gt 0>
 								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#county#">search Wikipedia</a>
 							</cfif>
