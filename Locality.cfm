@@ -1566,6 +1566,43 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "makeGeog">
 <cfoutput>
+
+		<cfparam name="overrideSemiUniqueSource" default="false">
+		<cfif overrideSemiUniqueSource is false>
+
+			<cfquery name="iscrap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select geog_auth_rec_id,higher_geog from geog_auth_rec where source_authority='#escapeQuotes(source_authority)#'
+			</cfquery>
+			<cfif iscrap.recordcount gt 0>
+				<p>
+					The source_authority you specified has been used in other geography entries. That's probably an indication of
+					linking to the wrong thing. Please carefully review
+					<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/##guidelines">the higher geography creation guidelines</a>
+					and consider editing your entry and/or the links below before proceeding.
+				</p>
+				Geography using #source_authority#:
+				<ul>
+					<cfloop query="iscrap">
+						<li><a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a></li>
+					</cfloop>
+				</ul>
+				<form name="editHG" id="editHG" method="post" action="Locality.cfm">
+			        <input name="overrideSemiUniqueSource" id="overrideSemiUniqueSource" type="hidden" value="true">
+			        <cfloop list="#form.FieldNames#" index="f">
+				        <cfset thisVal=evaluate(f)>
+						<input type="hidden" name="#f#" id="#f#" value="#thisVal#" size="60">
+					</cfloop>
+					<p>
+						Use your back button, or <input type="submit" value="click here to force-use the specified source">
+					</p>
+				</form>
+				<cfabort>
+			</cfif>
+		</cfif>
+
+
+
+
 <cfquery name="nextGEO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select sq_geog_auth_rec_id.nextval nextid from dual
 </cfquery>
