@@ -430,7 +430,7 @@
     </cfoutput>
 	<cfoutput query="geogDetails">
 		<br><em>#higher_geog#</em>
-		<a target="_blank" class="external" src="https://google.com/search?q=#higher_geog#">search Google</a>
+		<a target="_blank" class="external infolink" href="https://google.com/search?q=#higher_geog#">search Google</a>
         <form name="editHG" id="editHG" method="post" action="Locality.cfm">
 	        <input name="action" id="action" type="hidden" value="saveGeogEdits">
             <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
