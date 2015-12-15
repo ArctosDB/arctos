@@ -300,7 +300,6 @@
 									<li><a target="_top" href="##">Tools</a>
 										<ul>
 											<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
-											<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
 											<li><a target="_top" href="/Admin/redirect.cfm">Redirects</a></li>
 										</ul>
 									</li>

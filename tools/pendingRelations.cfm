@@ -1,3 +1,5 @@
+DEPRECATED<cfabort>
+
 <!----
  alter table cf_temp_relations add cf_temp_relations_id number;
 create sequence sq_cf_temp_relations_id;
@@ -30,7 +32,7 @@ END;
 </cfif>
 <cfset title="Pending Relationships">
 <cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select 
+	select
 		cataloged_item.collection_object_id,
 		RELATIONSHIP,
 		RELATED_TO_NUMBER,
@@ -42,7 +44,7 @@ END;
 		CF_TEMP_RELATIONS_ID,
 		cat_num,
 		guid_prefix
-	from 
+	from
 		cf_temp_relations,
 		cataloged_item,
 		collection
@@ -58,13 +60,13 @@ END;
 </cfif>
 <cfif #filterForPending# is "true">
 		Unresolved
-</cfif> 
+</cfif>
 Pending Relationships
 <cfif #filterForPending# is "true">
 		<br><a href="pendingRelations.cfm?filterForPending=false">Show all relationships</a>
 <cfelse>
 	<br><a href="pendingRelations.cfm?filterForPending=true">Show only unresolved relationships</a>
-</cfif> 
+</cfif>
 <table border>
 	<tr>
 		<td>
@@ -98,7 +100,7 @@ Pending Relationships
 					#relationship#
 				</td>
 				<td>
-					#related_to_num_type# #related_to_number# 
+					#related_to_num_type# #related_to_number#
 				</td>
 				<td>
 					#dateformat(insert_date,"yyyy-mm-dd")#
@@ -112,7 +114,7 @@ Pending Relationships
 						<a href="/SpecimenDetail.cfm?collection_object_id=#related_collection_object_id#">
 						Successfully resolved (click for related specimen)</a>
 					<cfelseif #len(fail_reason)# is 0 and len(#related_collection_object_id#) is 0>
-						Has not been tried or has failed unexpectedly. That's bad. 
+						Has not been tried or has failed unexpectedly. That's bad.
 						Click <a href="pendingRelations.cfm">here</a> to try again.
 					<cfelseif #len(fail_reason)# gt 0 and len(#related_collection_object_id#) is 0>
 						#fail_reason#
@@ -125,7 +127,7 @@ Pending Relationships
 				</td>
 			</tr>
 		</cfloop>
-		
+
 		<input type="submit" value="delete checked relationships" class="delBtn">
 	</form>
 	</cfoutput>
