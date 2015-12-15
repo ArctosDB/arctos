@@ -1484,25 +1484,36 @@ You deleted a collecting event.
 <cfif action is "saveGeogEdits">
 	<cfoutput>
 		<cfparam name="overrideSemiUniqueSource" default="false">
+		<cfif overrideSemiUniqueSource is false>
 
-
-		<cfquery name="iscrap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select geog_auth_rec_id,higher_geog from geog_auth_rec where source_authority='#escapeQuotes(source_authority)#' and
-				geog_auth_rec_id != #geog_auth_rec_id#
-		</cfquery>
-		<cfif iscrap.recordcount gt 0>
-			<p>
-				The source_authority you specified has been used in other geography entries. That's probably an indication of
-				linking to the wrong thing. Please carefully review
-				<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/##guidelines">the higher geography creation guidelines</a>
-			</p>
-			Geography using #source_authority#:
-			<ul>
-				<cfloop query="iscrap">
-					<li><a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a></li>
-				</cfloop>
-			</ul>
-			<cfabort>
+			<cfquery name="iscrap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select geog_auth_rec_id,higher_geog from geog_auth_rec where source_authority='#escapeQuotes(source_authority)#' and
+					geog_auth_rec_id != #geog_auth_rec_id#
+			</cfquery>
+			<cfif iscrap.recordcount gt 0>
+				<p>
+					The source_authority you specified has been used in other geography entries. That's probably an indication of
+					linking to the wrong thing. Please carefully review
+					<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/##guidelines">the higher geography creation guidelines</a>
+					and edit your entry and/or the links below before proceeding.
+				</p>
+				Geography using #source_authority#:
+				<ul>
+					<cfloop query="iscrap">
+						<li><a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a></li>
+					</cfloop>
+				</ul>
+				<form name="editHG" id="editHG" method="post" action="Locality.cfm">
+			        <input name="action" id="action" type="hidden" value="saveGeogEdits">
+			        <input name="overrideSemiUniqueSource" id="overrideSemiUniqueSource" type="hidden" value="true">
+			        <cfloop list="#form.FieldNames#" index="f">
+				        <cfset thisVal=evaluate(f)>
+				        <br>#f#
+						 <input type="text" name="#f#" id="#f#" value="#thisVal#" size="60">
+					</cfloop>
+				</form>
+				<cfabort>
+			</cfif>
 		</cfif>
 		<cftransaction>
 			<cfquery name="edGe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
