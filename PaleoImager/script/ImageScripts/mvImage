@@ -1,0 +1,48 @@
+# source and destination folders; these are static
+S=/ImageLZ
+D=/Image
+# check that $1 (source file) is named *.cr2; abort if otherwise
+XNAME=`echo $1 | sed -e 's/^.*\.CR2$/CR2/'`
+# to deal with SINGLE spaces, treat filename as $2 (second argument) + space + $3 (third argument)
+if [ -z $3 ]  
+        then
+                FILE=$2
+else
+        FILE="$2 $3"
+fi
+
+if [ $XNAME = CR2 ]
+then
+        # make sure source exists
+        if [ -f $S/$1 ];
+        then
+                # now check destination
+                if [ -f "$D/$FILE.cr2" ];
+                then
+                        # [strip .cr2 off of $1]
+                        #FILE=`echo $1 | sed -e 's/\.CR2$//'`
+                        # FILE=$2
+                        for i in {1..50}
+                                do
+                                        FNAME="${FILE}_${i}.cr2"
+                                        if ! [ -f "$D/$FNAME" ];
+                                        then
+                                                # does not exist so use this name for the file
+                                                mv "$S/$1" "$D/$FNAME"
+                                                # and we're done
+                                                break
+                                        fi;
+                                done
+                else
+                        # add quotes to deal with " ES{space} " filenames
+                        mv "$S/$1" "$D/$FILE.cr2"
+                        # no need to rename anything
+                fi
+        else
+                echo "File $S/$1 does not exist, SO DIE!!!"
+
+        fi
+else
+        echo 'Filename $1 is invalid, so die!'
+fi
+# END

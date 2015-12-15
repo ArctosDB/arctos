@@ -1,0 +1,23 @@
+on adding folder items to this_folder after receiving added_items
+	try
+		tell application "Finder"
+			--get the name of the folder
+			set the folder_name to the name of this_folder
+		end tell
+		tell application "Finder"
+			repeat with x in added_items
+				copy name of x as string to fileName
+				set pre to text 1 thru 1 of fileName
+				if pre is not "." then
+					display dialog "Scan barcode of this image:" default answer "unnamed"
+					set theScannedFileName to text returned of result
+					
+					set theNewName to theScannedFileName & ".cr2"
+					do shell script ("mv /ImageLZ/" & fileName & " /Image/" & theNewName)
+				end if
+			end repeat
+		end tell
+	on error error_message number error_number
+		display dialog error_message buttons {"OK"} default button 1
+	end try
+end adding folder items to
