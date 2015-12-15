@@ -559,7 +559,9 @@
 								<div style="border:2px solid red; margin:1em;padding:1em;font-weight:bold;">
 									Possible problems detected with this Source. Please double-check your data and the linked article
 									and review the
-									<a href="http://arctosdb.org/higher-geography/##guidelines" target="_blank" class="external">Geography Creation Guidelines</a>.
+									<a href="http://arctosdb.org/higher-geography/##guidelines" target="_blank" class="external">
+										Geography Creation Guidelines
+									</a>.
 									<ul>#errs#</ul>
 								</div>
 							</cfif>
@@ -567,7 +569,11 @@
 						<label for="source_authority">
 							Authority (pattern: http://{language}.wikipedia.org/wiki/{article} - BE SPECIFIC!)
 						</label>
-						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
+						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required
+							value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
+						<cfif len(source_authority) gt 0 and source_authority contains 'http'>
+							<a target="_blank" class="external" href="#source_authority#">clicky</a>
+						</cfif>
 					</td>
 				</tr>
 				<tr>
