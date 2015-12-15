@@ -90,6 +90,9 @@
 		<ul>
 			<li>You'll need to delete some columns - see the event bulkloader</li>
 			<li>Coordinates are in DD.dd format from Locality.</li>
+			<li>If you just donwload/upload this, you'll make a mess of duplicates.</li>
+			<li>You may want to delete events before re-loading this.</li>
+			<li>It's probably safer to just change event type.</li>
 		</ul>
 	</p>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -146,7 +149,13 @@
 			#table_name#.guid,
 			specimen_event.SPECIMEN_EVENT_TYPE
 	</cfquery>
-	<cfdump var=#d#>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/DownSpecimenEvent.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=DownSpecimenEvent.csv" addtoken="false">
 
 
 </cfif>
