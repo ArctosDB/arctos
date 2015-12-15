@@ -549,14 +549,14 @@
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
 							<cfhttp method="get" url="#source_authority#"></cfhttp>
 							<cfdump var=#cfhttp#>
-							<cfset flds="continent_ocean,country">
+							<cfset flds="continent_ocean,country,state_prov,sea,county,quad,feature,island_group,island">
 							<cfloop list="#flds#" index="f">
 								<br>checking #f#
 								<cfset fv=evaluate(f)>
 								<cfif len(fv) gt 0>
 									<br>got #fv#
-									<cfif cfhttp.filecontent contains fv>
-										<br>occurs in article£
+									<cfif cfhttp.filecontent does not contain fv>
+										<br>#fv# (#f#) does not occur in Source!
 									</cfif>
 								</cfif>
 							</cfloop>
