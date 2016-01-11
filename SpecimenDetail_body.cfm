@@ -1016,6 +1016,22 @@
 <cfquery name="mPart" dbtype="query">
 	select * from parts where sampled_from_obj_id is null order by part_name
 </cfquery>
+
+<cfquery name="ploan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	SELECT
+		loan.loan_number,
+		loan.transaction_id,
+		loan_item.collection_object_id
+	FROM
+		loan,
+		loan_item,
+		specimen_part
+	WHERE
+		loan.transaction_id=loan_item.transaction_id and
+		loan_item.collection_object_id=specimen_part.collection_object_id AND
+		specimen_part.derived_from_cat_item=#one.collection_object_id#
+</cfquery>
+
 			<div class="detailCell">
 				<div class="detailLabel">&nbsp;<!---Parts--->
 					<cfif oneOfUs is 1>
@@ -1036,6 +1052,7 @@
 								<th><span class="innerDetailLabel">Qty</span></th>
 								<cfif oneOfUs is 1>
 									<th><span class="innerDetailLabel">Label</span></th>
+									<th><span class="innerDetailLabel">Loan</span></th>
 								</cfif>
 								<th><span class="innerDetailLabel">Remarks</span></th>
 							</tr>
@@ -1051,6 +1068,13 @@
 									<td>#lot_count#</td>
 									<cfif oneOfUs is 1>
 										<td>#label#</td>
+										<cfquery dbtype="query" name="tlp">
+											select * from ploan where collection_object_id=#part_id#
+										</cfquery>
+
+										<td><cfdump var=#tlp#></td>
+
+
 									</cfif>
 									<td>#part_remarks#</td>
 								</tr>

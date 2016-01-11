@@ -335,13 +335,12 @@
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
-	<cfset badbot=badbot & ",Nutch">
+	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",re-animator">
 	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse">
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
-	<cfset badbot=badbot & ",YandexBot">
-
+	<cfset badbot=badbot & ",YandexBot,Yeti">
 
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">
