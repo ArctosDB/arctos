@@ -1073,7 +1073,9 @@
 										</cfquery>
 										<td>
 											<cfloop query="tlp">
-												<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number#</a>
+												<div>
+													<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number#</a>
+												</div>
 											</cfloop>
 										</td>
 									</cfif>
