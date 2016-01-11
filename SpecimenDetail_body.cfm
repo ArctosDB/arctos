@@ -1159,6 +1159,14 @@
 										<td>#lot_count#</td>
 										<cfif oneOfUs is 1>
 											<td>#label#</td>
+											<cfquery dbtype="query" name="tlp">
+											select * from ploan where collection_object_id=#part_id#
+										</cfquery>
+
+										<td><cfdump var=#tlp#></td>
+
+
+									</cfif>
 										</cfif>
 										<td>#part_remarks#</td>
 									</tr>
