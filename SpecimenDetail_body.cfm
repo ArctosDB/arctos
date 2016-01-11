@@ -1161,10 +1161,15 @@
 											<td>#label#</td>
 											<cftry>
 											<cfquery dbtype="query" name="tlp">
-											select * from ploan where collection_object_id=#part_id#
-										</cfquery>
+												select * from ploan where transaction_id is not null and collection_object_id=#part_id#
+											</cfquery>
 
-										<td><cfdump var=#tlp#></td>
+										<td>
+											<cfloop query="">
+												<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number#</a>
+											</cfloop>
+
+											</td>
 										<cfcatch><cfdump var=#cfcatch#></cfcatch>
 
 										</cftry>
