@@ -1165,11 +1165,10 @@
 										</cfquery>
 
 										<td><cfdump var=#tlp#></td>
-<cfcatch><cfdump var=#cfcatch#></cfcatch>
+										<cfcatch><cfdump var=#cfcatch#></cfcatch>
 
-</cftry>
+										</cftry>
 
-									</cfif>
 										</cfif>
 										<td>#part_remarks#</td>
 									</tr>
