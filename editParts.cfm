@@ -78,6 +78,9 @@
 			coll_object_remarks
 		ORDER BY sampled_from_obj_id DESC,part_name ASC
 	</cfquery>
+
+	<cfdump var=#getParts#>
+
  	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</span>
 	<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
 	<cfset i = 1>
