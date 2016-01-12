@@ -241,7 +241,7 @@
 						<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(getparts.coll_object_remarks)#</textarea>
 					</td>
 					<cfquery dbtype="query" name="tlp">
-						select * from ploan where transaction_id is not null and collection_object_id=#part_id#
+						select * from ploan where transaction_id is not null and collection_object_id=#partID#
 					</cfquery>
 					<td>
 						<cfloop query="tlp">
