@@ -74,6 +74,7 @@
 	<!--- just the object, no data ---->
 	<cfquery name="getParts" dbtype="query">
 		select
+			'' as ordr,
 			partID,
 			part_name,
 			coll_obj_disposition,
@@ -96,6 +97,7 @@
 	<cfloop query="partsOnly">
 	<br>#part_name# - #sampled_from_obj_id#
 		<cfset queryAddRow(getParts)>
+		<cfset querySetCell(getParts,"ordr",rnum,rnum)>
 		<cfset querySetCell(getParts,"partID",partID,rnum)>
 		<cfset querySetCell(getParts,"part_name",part_name,rnum)>
 		<cfset querySetCell(getParts,"coll_obj_disposition",coll_obj_disposition,rnum)>
@@ -136,6 +138,7 @@
 
 	<br>#part_name# - #sampled_from_obj_id#
 			<cfset queryAddRow(getParts)>
+			<cfset querySetCell(getParts,"ordr",rnum,rnum)>
 			<cfset querySetCell(getParts,"partID",partID,rnum)>
 			<cfset querySetCell(getParts,"part_name",part_name,rnum)>
 			<cfset querySetCell(getParts,"coll_obj_disposition",coll_obj_disposition,rnum)>
