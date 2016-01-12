@@ -48,6 +48,49 @@
 	<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 	</cfquery>
+	<cfquery name="partsOnly" dbtype="query">
+		select
+			partID,
+			part_name,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
+			collection_cde,
+			lot_count,
+			barcode,
+			label,
+			parentContainerId,
+			partContainerId,
+			coll_object_remarks
+		from
+			raw
+		where
+			sampled_from_obj_id is null
+		order by
+			part_name
+	</cfquery>
+	<cfdump var=#partsOnly#>
+	<cfquery name="getParts" dbtype="query">
+		select
+			partID,
+			part_name,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
+			collection_cde,
+			lot_count,
+			barcode,
+			label,
+			parentContainerId,
+			partContainerId,
+			coll_object_remarks
+		from raw
+		where
+		1=2
+	</cfquery>
+
+	<cfdump var=#getParts#>
+
 	<cfquery name="getParts" dbtype="query">
 		select
 			partID,
