@@ -94,6 +94,7 @@
 	<cfdump var=#getParts#>
 	<cfset rnum=1>
 	<cfloop query="partsOnly">
+	<br>#part_name# - #sampled_from_obj_id#
 		<cfset queryAddRow(getParts)>
 		<cfset querySetCell(getParts,"partID",partID,rnum)>
 		<cfset querySetCell(getParts,"part_name",part_name,rnum)>
@@ -110,13 +111,57 @@
 		<cfset rnum=rnum+1>
 
 	<cfdump var=#getParts#>
+		<cfquery name="thisSS" dbtype="query">
+			select
+				partID,
+				part_name,
+				coll_obj_disposition,
+				condition,
+				sampled_from_obj_id,
+				collection_cde,
+				lot_count,
+				barcode,
+				label,
+				parentContainerId,
+				partContainerId,
+				coll_object_remarks
+			from
+				raw
+			where
+				sampled_from_obj_id=#partID#
+			order by
+				part_name
+		</cfquery>
+		<cfloop query="thisSS">
+
+	<br>#part_name# - #sampled_from_obj_id#
+			<cfset queryAddRow(getParts)>
+			<cfset querySetCell(getParts,"partID",partID,rnum)>
+			<cfset querySetCell(getParts,"part_name",part_name,rnum)>
+			<cfset querySetCell(getParts,"coll_obj_disposition",coll_obj_disposition,rnum)>
+			<cfset querySetCell(getParts,"condition",condition,rnum)>
+			<cfset querySetCell(getParts,"sampled_from_obj_id",sampled_from_obj_id,rnum)>
+			<cfset querySetCell(getParts,"collection_cde",collection_cde,rnum)>
+			<cfset querySetCell(getParts,"lot_count",lot_count,rnum)>
+			<cfset querySetCell(getParts,"barcode",barcode,rnum)>
+			<cfset querySetCell(getParts,"label",label,rnum)>
+			<cfset querySetCell(getParts,"parentContainerId",parentContainerId,rnum)>
+			<cfset querySetCell(getParts,"partContainerId",partContainerId,rnum)>
+			<cfset querySetCell(getParts,"coll_object_remarks",coll_object_remarks,rnum)>
+			<cfset rnum=rnum+1>
+
+
+			<cfdump var=#getParts#>
+		</cfloop>
+
+
 
 
 	</cfloop>
 
 	<cfdump var=#getParts#>
 
-
+<!----
 	<cfquery name="getParts" dbtype="query">
 		select
 			partID,
@@ -149,6 +194,8 @@
 	</cfquery>
 
 	<cfdump var=#getParts#>
+
+	---->
 
  	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</span>
 	<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
