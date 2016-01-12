@@ -70,7 +70,6 @@
 		order by
 			part_name
 	</cfquery>
-	<cfdump var=#partsOnly#>
 	<!--- just the object, no data ---->
 	<cfquery name="getParts" dbtype="query">
 		select
@@ -91,11 +90,8 @@
 		where
 		1=2
 	</cfquery>
-
-	<cfdump var=#getParts#>
 	<cfset rnum=1>
 	<cfloop query="partsOnly">
-	<br>#part_name# - #sampled_from_obj_id#
 		<cfset queryAddRow(getParts)>
 		<cfset querySetCell(getParts,"ordr",rnum,rnum)>
 		<cfset querySetCell(getParts,"partID",partID,rnum)>
@@ -111,8 +107,6 @@
 		<cfset querySetCell(getParts,"partContainerId",partContainerId,rnum)>
 		<cfset querySetCell(getParts,"coll_object_remarks",coll_object_remarks,rnum)>
 		<cfset rnum=rnum+1>
-
-	<cfdump var=#getParts#>
 		<cfquery name="thisSS" dbtype="query">
 			select
 				partID,
@@ -135,8 +129,6 @@
 				part_name
 		</cfquery>
 		<cfloop query="thisSS">
-
-	<br>#part_name# - #sampled_from_obj_id#
 			<cfset queryAddRow(getParts)>
 			<cfset querySetCell(getParts,"ordr",rnum,rnum)>
 			<cfset querySetCell(getParts,"partID",partID,rnum)>
@@ -152,53 +144,24 @@
 			<cfset querySetCell(getParts,"partContainerId",partContainerId,rnum)>
 			<cfset querySetCell(getParts,"coll_object_remarks",coll_object_remarks,rnum)>
 			<cfset rnum=rnum+1>
-
-
-			<cfdump var=#getParts#>
 		</cfloop>
-
-
-
-
 	</cfloop>
 
-	<cfdump var=#getParts#>
-
-<!----
-	<cfquery name="getParts" dbtype="query">
-		select
-			partID,
-			part_name,
-			coll_obj_disposition,
-			condition,
-			sampled_from_obj_id,
-			collection_cde,
-			lot_count,
-			barcode,
-			label,
-			parentContainerId,
-			partContainerId,
-			coll_object_remarks
-		from raw
-		group by
-			partID,
-			part_name,
-			coll_obj_disposition,
-			condition,
-			sampled_from_obj_id,
-			collection_cde,
-			lot_count,
-			barcode,
-			label,
-			parentContainerId,
-			partContainerId,
-			coll_object_remarks
-		ORDER BY sampled_from_obj_id DESC,part_name ASC
+	<cfquery name="ploan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		SELECT
+			loan.loan_number,
+			loan.transaction_id,
+			loan_item.collection_object_id
+		FROM
+			loan,
+			loan_item,
+			specimen_part
+		WHERE
+			loan.transaction_id=loan_item.transaction_id and
+			loan_item.collection_object_id=specimen_part.collection_object_id AND
+			specimen_part.derived_from_cat_item=#collection_object_id#
 	</cfquery>
 
-	<cfdump var=#getParts#>
-
-	---->
 
  	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</span>
 	<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
@@ -276,6 +239,16 @@
 					<td>
 						<label for="coll_object_remarks#i#">Remark</label>
 						<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(getparts.coll_object_remarks)#</textarea>
+					</td>
+					<cfquery dbtype="query" name="tlp">
+						select * from ploan where transaction_id is not null and collection_object_id=#part_id#
+					</cfquery>
+					<td>
+						<cfloop query="tlp">
+							<div>
+								<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number#</a>
+							</div>
+						</cfloop>
 					</td>
 
 					<td align="middle">
