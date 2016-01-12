@@ -33,7 +33,8 @@
 			loan_number,
 			specimen_part.collection_object_id as partID,
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-			to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate
+			to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate,
+			getNearestPartBarcode(specimen_part.collection_object_id) nbc
 		 from
 			loan_item,
 			loan,

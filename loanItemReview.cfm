@@ -79,6 +79,9 @@
 								return '<input id="disposition_' + data.record.PARTID + '" type="text" value="' + data.record.COLL_OBJ_DISPOSITION + '">';
 							}
 		                },
+		                NBC: {
+		                	title: 'Barcode'
+		                	},
 		                PARTLASTSCANDATE: {
 		                	title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
@@ -231,7 +234,7 @@
 					<cfquery name="delePart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM specimen_part WHERE collection_object_id = #collection_object_id#
 					</cfquery>
-					<!--- all handled by ON DELETE trigger of the part 
+					<!--- all handled by ON DELETE trigger of the part
 					<cfquery name="delePartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM coll_object WHERE collection_object_id = #collection_object_id#
 					</cfquery>
