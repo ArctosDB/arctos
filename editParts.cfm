@@ -48,6 +48,7 @@
 	<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 	</cfquery>
+	<!--- just parts ---->
 	<cfquery name="partsOnly" dbtype="query">
 		select
 			partID,
@@ -70,6 +71,7 @@
 			part_name
 	</cfquery>
 	<cfdump var=#partsOnly#>
+	<!--- just the object, no data ---->
 	<cfquery name="getParts" dbtype="query">
 		select
 			partID,
@@ -90,6 +92,30 @@
 	</cfquery>
 
 	<cfdump var=#getParts#>
+	<cfset rnum=1>
+	<cfloop query="partsOnly">
+		<cfset queryAddRow(getParts)>
+		<cfset querySetCell(getParts,"partID",partID,rnum)>
+		<cfset querySetCell(getParts,"part_name",part_name,rnum)>
+		<cfset querySetCell(getParts,"coll_obj_disposition",coll_obj_disposition,rnum)>
+		<cfset querySetCell(getParts,"condition",condition,rnum)>
+		<cfset querySetCell(getParts,"sampled_from_obj_id",sampled_from_obj_id,rnum)>
+		<cfset querySetCell(getParts,"collection_cde",collection_cde,rnum)>
+		<cfset querySetCell(getParts,"lot_count",lot_count,rnum)>
+		<cfset querySetCell(getParts,"barcode",barcode,rnum)>
+		<cfset querySetCell(getParts,"label",label,rnum)>
+		<cfset querySetCell(getParts,"parentContainerId",parentContainerId,rnum)>
+		<cfset querySetCell(getParts,"partContainerId",partContainerId,rnum)>
+		<cfset querySetCell(getParts,"coll_object_remarks",coll_object_remarks,rnum)>
+		<cfset rnum=rnum+1>
+
+	<cfdump var=#getParts#>
+
+
+	</cfloop>
+
+	<cfdump var=#getParts#>
+
 
 	<cfquery name="getParts" dbtype="query">
 		select

@@ -15,7 +15,6 @@
 	<cfset obj = CreateObject("component","component.docs")>
 	<!--- probably USUALLY fairly cheap so just pull everything....---->
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-
 		select
 			rownum rnum,
 			guid_prefix || ':' || cat_num guid,
