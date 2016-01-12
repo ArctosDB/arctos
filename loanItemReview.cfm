@@ -184,6 +184,10 @@
 			<input type="submit" value="Update Disposition" class="savBtn">
 		</form>
 		<hr>
+		<p>
+			"Barcode" is the barcode of the container holding the part, or when enclosed in square brackets the barcode of the
+			container holding the part from which the loaned part was subsampled.
+		</p>
 	</cfoutput>
 	<div id="loanitems"></div>
 </cfif>
