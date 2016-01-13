@@ -149,14 +149,12 @@
 				</a>
 			</p>
 			<p>
-				<cfif toAgents.recordcount gt 0>
-					Loan Contacts are listed as follows.
-					<ul>
-					<cfloop query="loanAgents">
-						<li>#agent_name#: #address# (#trans_agent_role#)</li>
-					</cfloop>
-					</ul>
-				</cfif>
+				Loan Contacts are listed as follows.
+				<ul>
+				<cfloop query="loanAgents">
+					<li>#agent_name#: #address# (#trans_agent_role#)</li>
+				</cfloop>
+				</ul>
 			</p>
 			#emailFooter#
 		</cfmail>
