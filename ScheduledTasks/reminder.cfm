@@ -101,7 +101,7 @@
 			from
 				expLoan
 			where
-				address is not null
+				COLLECTION_CONTACT_EMAIL is not null
 		</cfquery>
 		<cfdump var=#aloanAgents#>
 		<!--- uniques --->
