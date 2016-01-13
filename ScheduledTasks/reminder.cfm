@@ -93,6 +93,7 @@
 			from
 				expLoan
 			where
+				transaction_id=#transaction_id# and
 				COLLECTION_CONTACT_EMAIL is not null
 		</cfquery>
 		<!--- uniques --->
