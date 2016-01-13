@@ -82,6 +82,33 @@
 	<!--- loop once for each loan --->
 	<cfloop query="loan">
 		<!--- local queries to organize and flatten loan data --->
+		<!---- all contact agents --->
+
+		<cfquery name="loanAgents" dbtype="query">
+			select
+				TRANS_AGENT_NAME agent_name,
+				TRANS_AGENT_EMAIL address,
+				trans_agent_role
+			from
+				expLoan
+			where
+				transaction_id=#transaction_id#
+			union all
+			select
+				COLLECTION_CONTACT_NAME agent_name,
+				COLLECTION_CONTACT_EMAIL address,
+				'collection contact agent' trans_agent_role
+			from
+				expLoan
+		</cfquery>
+		<cfdump var=#loanAgents#>
+
+
+and
+				TRANS_AGENT_EMAIL is not null and
+				trans_agent_role in ('in-house contact','authorized by','notification contact')
+
+
 
 		<!----------
 		<cfquery name="inhouseAgents" dbtype="query">
@@ -145,7 +172,7 @@
 
 
 
-		<cfquery name="usAgents" dbtype="query">
+		<cfquery name="dusAgents" dbtype="query">
 			select
 				TRANS_AGENT_NAME agent_name,
 				TRANS_AGENT_EMAIL address,
@@ -163,12 +190,32 @@
 				'collection contact agent' trans_agent_role
 			from
 				expLoan
+			where
+				COLLECTION_CONTACT_EMAIL is not null
 		</cfquery>
 
-		<cfdump var=#usAgents#>
+		<cfdump var=#dusAgents#>
 
 
-
+		<cfquery name="usAgents" dbtype="query">
+			select
+				 agent_name,
+				 address,
+				trans_agent_role
+			from
+				dusAgents
+			where
+				transaction_id=#transaction_id# and
+				TRANS_AGENT_EMAIL is not null and
+				trans_agent_role in ('in-house contact','authorized by','notification contact')
+			union all
+			select
+				COLLECTION_CONTACT_NAME agent_name,
+				COLLECTION_CONTACT_EMAIL address,
+				'collection contact agent' trans_agent_role
+			from
+				expLoan
+		</cfquery>
 
 
 		<cfquery name="recipientAgents" dbtype="query">
