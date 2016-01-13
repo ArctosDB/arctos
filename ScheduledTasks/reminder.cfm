@@ -100,6 +100,8 @@
 				'collection contact agent' trans_agent_role
 			from
 				expLoan
+			where
+				address is not null
 		</cfquery>
 		<cfdump var=#aloanAgents#>
 		<!--- uniques --->
