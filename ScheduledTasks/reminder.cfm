@@ -1,69 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset functions = CreateObject("component","component.functions")>
+<cfsavecontent variable="emailFooter">
+	<div style="font-size:smaller;color:gray;">
+		--
+		<br>Don't want these messages? Update Collection Contacts.
+		<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
+		<br>Links not working? Log in, log out, or check encumbrances.
+		<br>Need help? Send email to arctos.database@gmail.com
+	</div>
+</cfsavecontent>
 <cfoutput>
-
-	<!---- slip a DOI report in here - does anyone use the crap we build? ---->
-	<!----
-	create table cf_doi_report (
-		publication_type varchar2(255),
-		hascount number,
-		nopecount number,
-		checkdate date
-	);
-	---->
-
-	<cfquery name="dailyrefresh" datasource="uam_god">
-		insert into cf_doi_report (publication_type,hascount,nopecount,checkdate) (
-		 select
-  			publication_type,
-	 		count(doi) ,
-  	 		count(*) - count(doi),
-			sysdate
-		from publication group by publication_type)
-	</cfquery>
-	<cfquery name="doireport" datasource="uam_god">
-		select * from cf_doi_report where checkdate > sysdate-11 order by checkdate desc,publication_type
-	</cfquery>
-	<cfif isdefined("Application.version") and  Application.version is "prod">
-		<cfset subj="Arctos DOI Report">
-		<cfset maddr="arctos.database@gmail.com">
-	<cfelse>
-		<cfset maddr=application.bugreportemail>
-		<cfset subj="TEST PLEASE IGNORE: Arctos DOI Report">
-	</cfif>
-	<cfmail to="#maddr#" subject="#subj#" from="doireport@#Application.fromEmail#" type="html">
-		Most recent DOI status of Arctos publications
-		<table border>
-			<tr>
-				<th>Date</th>
-				<th>Type</th>
-				<th>HasDOI</th>
-				<th>NoDOI</th>
-			</tr>
-			<cfloop query="doireport">
-				<tr>
-					<td>#dateformat(checkdate,'YYYY-MM-DD')#</td>
-					<td>#publication_type#</td>
-					<td>#hascount#</td>
-					<td>#nopecount#</td>
-				</tr>
-			</cfloop>
-		</table>
-		<p>
-			See ScheduledTasks.cfm to stop this report of get the SQL.
-		</p>
-	</cfmail>
-	<!---- /slip a DOI report in here for now.... ---->
-
-		<cfsavecontent variable="emailFooter">
-			<div style="font-size:smaller;color:gray;">
-				--
-				<br>Don't want these messages? Update Collection Contacts.
-				<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
-				<br>Links not working? Log in, log out, or check encumbrances.
-				<br>Need help? Send email to arctos.database@gmail.com
-			</div>
-		</cfsavecontent>
 	<!--- start of loan code --->
 	<!--- days after and before return_due_date on which to send email. Negative is after ---->
 	<cfset eid="-365,-180,-150,-120,-90,-60,-30,-7,0,7,30">
@@ -71,6 +17,9 @@
 		Query to get all loan data from the server. Use GOD query so we can ignore collection partitions.
 		This form has no output and relies on system time to run, so only danger is in sending multiple copies
 		of notification to loan folks. No real risk in not using a lesser agent for the queries.
+
+		v7.2.2 and before: email various people at various times
+		after: email everybody always
 	--->
 	<cfquery name="expLoan" datasource="uam_god">
 		select
@@ -101,6 +50,14 @@
 			LOAN_STATUS != 'closed'
 	</cfquery>
 
+
+
+
+<cfdump var=#expLoan#>
+
+
+
+
 	<!--- local query to organize and flatten loan data --->
 	<cfquery name="loan" dbtype="query">
 		select
@@ -125,6 +82,8 @@
 	<!--- loop once for each loan --->
 	<cfloop query="loan">
 		<!--- local queries to organize and flatten loan data --->
+
+		<!----------
 		<cfquery name="inhouseAgents" dbtype="query">
 			select
 				trans_agent_email address,
@@ -171,6 +130,39 @@
 				collection_contact_name,
 				collection_contact_email
 		</cfquery>
+
+
+
+		-------------->
+
+
+
+
+
+
+
+
+
+
+
+
+		<cfquery name="usAgents" dbtype="query">
+			select
+				collection_contact_name agent_name,
+				collection_contact_email address,
+				trans_agent_role
+			from
+				expLoan
+			where
+				transaction_id=#transaction_id# and
+				collection_contact_email is not null and
+				trans_agent_role in ('in-house contact','authorized by','notification contact')
+			group by
+				collection_contact_name,
+				collection_contact_email,
+				trans_agent_role
+		</cfquery>
+
 		<cfquery name="toAgents" dbtype="query">
 			select
 				collection_contact_name agent_name,
@@ -186,6 +178,49 @@
 				collection_contact_email,
 				trans_agent_role
 		</cfquery>
+
+		<cfif isdefined("Application.version") and  Application.version is "prod">
+			<cfset subj="Arctos Loan Notification">
+			<cfset maddr=valuelist(usAgents.address)>
+		<cfelse>
+			<cfset maddr=application.bugreportemail>
+			<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
+		</cfif>
+
+		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+			<p>
+				You are receiving this message because you are listed as a contact for loan
+				#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
+			</p>
+
+
+			<p>The nature of the loaned material is:
+				<blockquote>#loan.nature_of_material#</blockquote>
+			</p>
+			<p>Specimen data for this loan, unless restricted, may be accessed at
+				<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#">
+					#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#
+				</a>
+			</p>
+			<p>
+				<cfif toAgents.recordcount gt 0>
+					Loan Contacts are listed as follows.
+					<ul>
+					<cfloop query="usAgents">
+						<li>#agent_name#: #address# (#trans_agent_role#)</li>
+					</cfloop>
+					<cfloop query="toAgents">
+						<li>#agent_name#: #address# (#trans_agent_role#)</li>
+					</cfloop>
+					</ul>
+				</cfif>
+			</p>
+			#emailFooter#
+		</cfmail>
+
+
+
+		<!---------
 		<!--- the "contact if" section of the form we'll send to notification agents --->
 		<cfsavecontent variable="contacts">
 			<p>
@@ -218,6 +253,8 @@
 				</cfif>
 			</p>
 		</cfsavecontent>
+
+		-------------->
 		<!--- the data we'll send to everyone --->
 		<cfsavecontent variable="common">
 			<p>The nature of the loaned material is:
@@ -323,7 +360,69 @@
 				</cfloop>
 			</cfif>
 		</cfloop>
-		<!--- end of loan code --->
+		<!--- end of loan code------------------------------------------------------------------------------------------ --->
+
+
+
+
+
+
+
+	<!---- slip a DOI report in here - does anyone use the crap we build? ---->
+	<!----
+	create table cf_doi_report (
+		publication_type varchar2(255),
+		hascount number,
+		nopecount number,
+		checkdate date
+	);
+	---->
+
+	<cfquery name="dailyrefresh" datasource="uam_god">
+		insert into cf_doi_report (publication_type,hascount,nopecount,checkdate) (
+		 select
+  			publication_type,
+	 		count(doi) ,
+  	 		count(*) - count(doi),
+			sysdate
+		from publication group by publication_type)
+	</cfquery>
+	<cfquery name="doireport" datasource="uam_god">
+		select * from cf_doi_report where checkdate > sysdate-11 order by checkdate desc,publication_type
+	</cfquery>
+	<cfif isdefined("Application.version") and  Application.version is "prod">
+		<cfset subj="Arctos DOI Report">
+		<cfset maddr="arctos.database@gmail.com">
+	<cfelse>
+		<cfset maddr=application.bugreportemail>
+		<cfset subj="TEST PLEASE IGNORE: Arctos DOI Report">
+	</cfif>
+	<cfmail to="#maddr#" subject="#subj#" from="doireport@#Application.fromEmail#" type="html">
+		Most recent DOI status of Arctos publications
+		<table border>
+			<tr>
+				<th>Date</th>
+				<th>Type</th>
+				<th>HasDOI</th>
+				<th>NoDOI</th>
+			</tr>
+			<cfloop query="doireport">
+				<tr>
+					<td>#dateformat(checkdate,'YYYY-MM-DD')#</td>
+					<td>#publication_type#</td>
+					<td>#hascount#</td>
+					<td>#nopecount#</td>
+				</tr>
+			</cfloop>
+		</table>
+		<p>
+			See ScheduledTasks.cfm to stop this report of get the SQL.
+		</p>
+	</cfmail>
+	<!---- /slip a DOI report in here for now.... ---->
+
+
+
 		<!----------- permit ------------>
 		<cfset cInt = "365,180,30,0">
 		<!---
