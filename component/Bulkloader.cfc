@@ -795,7 +795,9 @@
 				<cfloop list="#cnamelist#" index="column_name">
 					<cfif isDefined("variables.#column_name#")>
 						<cfset thisData = evaluate("variables." & column_name)>
+						<!---
 						<cfset thisData = replace(thisData,"'","''","all")>
+						---->
 						<cfif COLUMN_NAME is "wkt_polygon">
 							<cfqueryparam value="#thisData#" cfsqltype="cf_sql_clob">
 						<cfelseif COLUMN_NAME is "collection_object_id">
