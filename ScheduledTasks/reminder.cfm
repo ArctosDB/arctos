@@ -110,11 +110,65 @@
 		<cfdump var=#loanAgents#>
 
 
+		<cfquery name="mailToAgentAddrs" dbtype="query">
+			select distinct address from loanAgents where trans_agent_role in ('in-house contact','authorized by','notification contact')
+		</cfquery>
+
+
+		<cfdump var=#mailToAgentAddrs#>
+
+
+
+		<cfif isdefined("Application.version") and  Application.version is "prod">
+			<cfset subj="Arctos Loan Notification">
+			<cfset maddr=valuelist(mailToAgentAddrs.address)>
+		<cfelse>
+			<cfset maddr=application.bugreportemail>
+			<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
+		</cfif>
+
+		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+			<p>
+				You are receiving this message because you are listed as a contact for loan
+				#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
+			</p>
+
+
+			<p>The nature of the loaned material is:
+				<blockquote>#loan.nature_of_material#</blockquote>
+			</p>
+			<p>Specimen data for this loan, unless restricted, may be accessed at
+				<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#">
+					#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#
+				</a>
+			</p>
+			<p>
+				You may edit the loan, after signing in to Arctos, at
+				<a href="#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#">
+					#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#
+				</a>
+			</p>
+			<p>
+				<cfif toAgents.recordcount gt 0>
+					Loan Contacts are listed as follows.
+					<ul>
+					<cfloop query="loanAgents">
+						<li>#agent_name#: #address# (#trans_agent_role#)</li>
+					</cfloop>
+					</ul>
+				</cfif>
+			</p>
+			#emailFooter#
+		</cfmail>
+
+
+
+
 
 
 and
 				TRANS_AGENT_EMAIL is not null and
-				trans_agent_role in ('in-house contact','authorized by','notification contact')
+				trans_agent_role
 
 
 
@@ -248,50 +302,7 @@ and
 
 
 
-		<cfif isdefined("Application.version") and  Application.version is "prod">
-			<cfset subj="Arctos Loan Notification">
-			<cfset maddr=valuelist(usAgents.address)>
-		<cfelse>
-			<cfset maddr=application.bugreportemail>
-			<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
-		</cfif>
 
-		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
-			<p>
-				You are receiving this message because you are listed as a contact for loan
-				#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
-			</p>
-
-
-			<p>The nature of the loaned material is:
-				<blockquote>#loan.nature_of_material#</blockquote>
-			</p>
-			<p>Specimen data for this loan, unless restricted, may be accessed at
-				<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#">
-					#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#
-				</a>
-			</p>
-			<p>
-				You may edit the loan, after signing in to Arctos, at
-				<a href="#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#">
-					#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#
-				</a>
-			</p>
-			<p>
-				<cfif toAgents.recordcount gt 0>
-					Loan Contacts are listed as follows.
-					<ul>
-					<cfloop query="usAgents">
-						<li>#agent_name#: #address# (#trans_agent_role#)</li>
-					</cfloop>
-					<cfloop query="toAgents">
-						<li>#agent_name#: #address# (#trans_agent_role#)</li>
-					</cfloop>
-					</ul>
-				</cfif>
-			</p>
-			#emailFooter#
-		</cfmail>
 
 
 
