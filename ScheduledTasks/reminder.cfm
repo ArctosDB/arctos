@@ -50,14 +50,6 @@
 			LOAN_STATUS != 'closed'
 	</cfquery>
 
-
-
-
-<cfdump var=#expLoan#>
-
-
-
-
 	<!--- local query to organize and flatten loan data --->
 	<cfquery name="loan" dbtype="query">
 		select
@@ -103,13 +95,11 @@
 			where
 				COLLECTION_CONTACT_EMAIL is not null
 		</cfquery>
-		<cfdump var=#aloanAgents#>
 		<!--- uniques --->
 
 		<cfquery name="loanAgents" dbtype="query">
 			select agent_name,address,trans_agent_role from aloanAgents group by agent_name,address,trans_agent_role
 		</cfquery>
-		<cfdump var=#loanAgents#>
 
 
 		<cfquery name="mailToAgentAddrs" dbtype="query">
@@ -117,7 +107,6 @@
 		</cfquery>
 
 
-		<cfdump var=#mailToAgentAddrs#>
 
 
 
@@ -130,6 +119,19 @@
 		</cfif>
 
 		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+
+
+
+
+			<p>
+				prod contacts: #valuelist(mailToAgentAddrs.address)#
+			</p>
+
+
+
+
+
+
 			<p>
 				You are receiving this message because you are listed as a contact for loan
 				#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
