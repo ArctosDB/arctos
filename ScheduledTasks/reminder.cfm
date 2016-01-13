@@ -138,8 +138,8 @@
 				<blockquote>#loan.nature_of_material#</blockquote>
 			</p>
 			<p>Specimen data for this loan, unless restricted, may be accessed at
-				<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#">
-					#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#
+				<a href="#application.serverRootUrl#/SpecimenResults.cfm?loan_trans_id=#loan.transaction_id#">
+					#application.serverRootUrl#/SpecimenResults.cfm?loan_trans_id=#loan.transaction_id#
 				</a>
 			</p>
 			<p>
