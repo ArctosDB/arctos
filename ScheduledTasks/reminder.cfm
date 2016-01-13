@@ -85,7 +85,6 @@
 		<!---- all contact agents --->
 
 		<cfquery name="aloanAgents" dbtype="query">
-			select agent_name,address,trans_agent_role from (
 			select
 				TRANS_AGENT_NAME agent_name,
 				TRANS_AGENT_EMAIL address,
@@ -101,28 +100,14 @@
 				'collection contact agent' trans_agent_role
 			from
 				expLoan
-				)
 		</cfquery>
 		<cfdump var=#aloanAgents#>
 		<!--- uniques --->
 
-		<cfquery name="aloanAgents" dbtype="query">
-			select
-				TRANS_AGENT_NAME agent_name,
-				TRANS_AGENT_EMAIL address,
-				trans_agent_role
-			from
-				expLoan
-			where
-				transaction_id=#transaction_id#
-			union all
-			select
-				COLLECTION_CONTACT_NAME agent_name,
-				COLLECTION_CONTACT_EMAIL address,
-				'collection contact agent' trans_agent_role
-			from
-				expLoan
+		<cfquery name="loanAgents" dbtype="query">
+			select agent_name,address,trans_agent_role from aloanAgents group by agent_name,address,trans_agent_role
 		</cfquery>
+		<cfdump var=#loanAgents#>
 
 
 
