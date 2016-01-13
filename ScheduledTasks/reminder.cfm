@@ -254,7 +254,7 @@
 			</p>
 		</cfsavecontent>
 
-		-------------->
+
 		<!--- the data we'll send to everyone --->
 		<cfsavecontent variable="common">
 			<p>The nature of the loaned material is:
@@ -359,6 +359,14 @@
 					</cfmail>
 				</cfloop>
 			</cfif>
+
+
+
+			-------------->
+
+
+
+
 		</cfloop>
 		<!--- end of loan code------------------------------------------------------------------------------------------ --->
 
