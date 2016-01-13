@@ -149,8 +149,9 @@
 				READ THIS!
 				<br>You have access to LOCK Archives.
 				<br>Locked Archives may not be unlocked or modified for any purpose.
-				<br>Specimens in locked archives may not be encumbered or deleted.
+				<br>Specimens in locked archives may not be encumbered or deleted. All other edits remain available.
 				<br>Clicking a LOCK link below invokes a long-term curatorial committment.
+				<br>Lock Archives to get a DOI.
 			</strong>
 		</div>
 	</cfif>

@@ -363,6 +363,29 @@
 				</ul>
 			</p>
 		</cfif>
+		<cfquery name="address" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select
+				address
+			from
+				address
+			where
+				address.address_type='url' and
+				address.agent_id=#val(agent_id)#
+			order by
+				address
+		</cfquery>
+		<cfif len(address.address) gt 0>
+			<p>
+				Address
+				<ul>
+					<cfloop query="address">
+						<li>
+							<a target="_blank" class="external" href="#address#">#address#</a>
+						</li>
+					</cfloop>
+				</ul>
+			</p>
+		</cfif>
 	</cfif>
 </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
