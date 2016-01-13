@@ -145,25 +145,33 @@
 
 
 
-
 		<cfquery name="usAgents" dbtype="query">
 			select
-				collection_contact_name agent_name,
-				collection_contact_email address,
+				TRANS_AGENT_NAME agent_name,
+				TRANS_AGENT_EMAIL address,
 				trans_agent_role
 			from
 				expLoan
 			where
 				transaction_id=#transaction_id# and
-				collection_contact_email is not null and
+				TRANS_AGENT_EMAIL is not null and
 				trans_agent_role in ('in-house contact','authorized by','notification contact')
-			group by
-				collection_contact_name,
-				collection_contact_email,
-				trans_agent_role
+			union all
+			select
+				COLLECTION_CONTACT_NAME agent_name,
+				COLLECTION_CONTACT_EMAIL address,
+				'collection contact agent' trans_agent_role
+			from
+				expLoan
 		</cfquery>
 
-		<cfquery name="toAgents" dbtype="query">
+		<cfdump var=#usAgents#>
+
+
+
+
+
+		<cfquery name="recipientAgents" dbtype="query">
 			select
 				collection_contact_name agent_name,
 				collection_contact_email address,
@@ -178,6 +186,12 @@
 				collection_contact_email,
 				trans_agent_role
 		</cfquery>
+
+
+		<cfdump var=#recipientAgents#>
+
+
+
 
 		<cfif isdefined("Application.version") and  Application.version is "prod">
 			<cfset subj="Arctos Loan Notification">
@@ -200,6 +214,12 @@
 			<p>Specimen data for this loan, unless restricted, may be accessed at
 				<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#">
 					#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#
+				</a>
+			</p>
+			<p>
+				You may edit the loan, after signing in to Arctos, at
+				<a href="#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#">
+					#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#
 				</a>
 			</p>
 			<p>
