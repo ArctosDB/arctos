@@ -104,7 +104,7 @@
 
 
 		<cfquery name="mailToAgentAddrs" dbtype="query">
-			select distinct address from loanAgents where trans_agent_role in ('in-house contact','authorized by','notification contact')
+			select distinct address from loanAgents where trans_agent_role in ('collection contact agent','in-house contact','authorized by','notification contact')
 		</cfquery>
 
 
