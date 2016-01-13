@@ -97,20 +97,12 @@
 				COLLECTION_CONTACT_EMAIL is not null
 		</cfquery>
 		<!--- uniques --->
-
 		<cfquery name="loanAgents" dbtype="query">
 			select agent_name,address,trans_agent_role from aloanAgents group by agent_name,address,trans_agent_role
 		</cfquery>
-
-
 		<cfquery name="mailToAgentAddrs" dbtype="query">
 			select distinct address from loanAgents where trans_agent_role in ('collection contact agent','in-house contact','authorized by','notification contact')
 		</cfquery>
-
-
-
-
-
 		<cfif isdefined("Application.version") and  Application.version is "prod">
 			<cfset subj="Arctos Loan Notification">
 			<cfset maddr=valuelist(mailToAgentAddrs.address)>
@@ -118,27 +110,11 @@
 			<cfset maddr=application.bugreportemail>
 			<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
 		</cfif>
-
 		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
-
-
-
-
-			<p>
-				prod contacts: #valuelist(mailToAgentAddrs.address)#
-			</p>
-
-
-
-
-
-
 			<p>
 				You are receiving this message because you are listed as a contact for loan
 				#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
 			</p>
-
-
 			<p>The nature of the loaned material is:
 				<blockquote>#loan.nature_of_material#</blockquote>
 			</p>
@@ -163,28 +139,8 @@
 			</p>
 			#emailFooter#
 		</cfmail>
-
-
-
-
-
 		</cfloop>
 		<!--- end of loan code------------------------------------------------------------------------------------------ --->
-
-
-
-<cfabort>
-
-
-
-
-
-
-
-
-
-
-
 
 	<!---- slip a DOI report in here - does anyone use the crap we build? ---->
 	<!----
