@@ -82,7 +82,7 @@
 		                NBC: {
 		                	title: 'Barcode',
 		                	display: function (data) {
-                            	return $('<a href="/findContainer.cfm?barcode=123">123</a>');
+                            	return $('<a href="/findContainer.cfm?barcode=' +  data.record.NBC + '">' + data.record.NBC + '</a>');
                         	}
 		                },
 		                PARTLASTSCANDATE: {
