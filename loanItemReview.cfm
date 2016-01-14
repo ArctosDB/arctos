@@ -80,8 +80,11 @@
 							}
 		                },
 		                NBC: {
-		                	title: 'Barcode'
-		                	},
+		                	title: 'Barcode',
+		                	display: function (data) {
+                            	return $('<a href="/findContainer.cfm?barcode="' + data.record.NBC + '"></a>');
+                        	}
+		                },
 		                PARTLASTSCANDATE: {
 		                	title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
