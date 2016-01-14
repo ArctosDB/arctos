@@ -214,7 +214,8 @@
 				loan_item.transaction_id = #transaction_id#
 		</cfquery>
 		<cfif ckd.c gt 0>
-			Cannot delete with "on loan" disposition.<cfabort>
+			Cannot delete with "on loan" disposition.
+			<cfabort>
 		</cfif>
 		<cftransaction>
 			<cfif sshandlr is "delete">
