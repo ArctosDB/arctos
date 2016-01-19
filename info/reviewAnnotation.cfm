@@ -65,7 +65,7 @@ yes got ID....
 				{
 					method : "reviewAnnotation",
 					annotation_id : annotation_id,
-					reviewer_comment : $("reviewer_comment" + annotation_id).val(),
+					reviewer_comment : $("#reviewer_comment" + annotation_id).val(),
 					returnformat : "json",
 					queryformat : 'column'
 				},
