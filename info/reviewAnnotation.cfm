@@ -123,6 +123,9 @@ yes got ID....
 				<div>Submittor: <cfif len(CF_USERNAME) gt 0>#CF_USERNAME#<cfelse>anonymous</cfif></div>
 				<div>Date: #ANNOTATE_DATE#</div>
 				<div>Annotation: #ANNOTATION#</div>
+				<cfif len(reviewer) gt 0>
+					<div>Reviewed By #reviewer#</div>
+				</cfif>
 				<cfif session.roles contains "manage_collection">
 
 						<!----
@@ -140,11 +143,7 @@ yes got ID....
 						<label for="reviewer_comment">Review Comment</label>
 						<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment_#annotation_id#">#reviewer_comment#</textarea>
 						<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_id#');">
-
 				<cfelse>
-					<cfif len(reviewer) gt 0>
-						<div>Reviewed By #reviewer#</div>
-					</cfif>
 					<cfif len(reviewer_comment) gt 0>
 						<div>Reviewer Comments: #reviewer_comment#</div>
 					</cfif>
