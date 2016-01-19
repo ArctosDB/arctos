@@ -28,7 +28,7 @@ hello I am a search form
 
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
 
-<cfquery name="data" datasource="uam_god"
+<cfquery name="data" datasource="uam_god">
 	select * from annotations where
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		collection_object_id in ( #val(collection_object_id)# )
