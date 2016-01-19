@@ -36,7 +36,7 @@ hello I am a search form
 	select
 		ANNOTATION_ID,
 		ANNOTATION,
-		getAnnotationObject(annotation_id) dlink,
+		getAnnotationObject(annotation_id) dlink
 		 from annotations where
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		collection_object_id in (
