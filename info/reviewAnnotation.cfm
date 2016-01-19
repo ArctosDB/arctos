@@ -27,7 +27,7 @@ yes got ID....
 </cfif>
 
 <!---- search form, always displayed ---->
-
+<!----
 <form name="filter" method="get" action="reviewAnnotation.cfm">
 	<input type="hidden" name="action" value="show">
 	<label for="type">Type of Annotation</label>
@@ -50,7 +50,7 @@ yes got ID....
 	<input type="submit" class="lnkBtn" value="Filter">
 	<input type="reset" class="clrBtn" value="Clear Form">
 </form>
-
+----->
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
 
 <cfquery name="data" datasource="uam_god">
