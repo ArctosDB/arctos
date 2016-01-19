@@ -1,5 +1,92 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Review Annotations">
+<!----
+	Ways to get here:
+		1) From a data object (specimen, project, etc)
+			--> find all annotations concerning it
+				-->create links to group page for any group annotations
+		3) From a group of annotations
+
+---->
+
+<cfif isdefined("type") and len(type) gt 0 and isdefined(id) and len(id) gt 0>
+	<!--- legacy format, redirect to modern ---->
+	<cfif type is "">
+		<cflocation url="reviewAnnotation.cfm?collection_object_id=#id#" addtoken="false">
+	<cfelseif type is "taxon">
+		<cflocation url="reviewAnnotation.cfm?taxon_name_id=#id#" addtoken="false">
+	<cfelseif type is "project">
+		<cflocation url="reviewAnnotation.cfm?project_id=#id#" addtoken="false">
+	<cfelseif type is "publication">
+		<cflocation url="reviewAnnotation.cfm?publication_id=#id#" addtoken="false">
+	</cfif>
+</cfif>
+
+<!---- search form, always displayed ---->
+
+hello I am a search form
+
+<!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
+
+<cfquery name="data" datasource="uam_god"
+	select * from annotations where
+	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+		collection_object_id in ( #val(collection_object_id)# )
+		<!--- specimen view ---->
+	<cfelseif isdefined("guid") and len(guid) gt 0>
+		<!---- alternate specimen view ---->
+	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+		<!---- taxon view ---->
+
+
+</cfif>
+
+
+
+</cfquery>
+
+
+<cfdump var=#data#>
+
+
+
+
+	<cfif len(d.TAXON_NAME_ID) gt 0>
+		<cfset id=valuelist(d.TAXON_NAME_ID)>
+		<cfset type='taxon'>
+	<cfelseif len(d.PROJECT_ID) gt 0>
+		<cfset id=valuelist(d.PROJECT_ID)>
+		<cfset type='project'>
+	<cfelseif len(d.PUBLICATION_ID) gt 0>
+		<cfset id=valuelist(d.PUBLICATION_ID)>
+		<cfset type='publication'>
+	<cfelseif len(d.COLLECTION_OBJECT_ID) gt 0>
+		<cfset id=valuelist(d.COLLECTION_OBJECT_ID)>
+		<cfset type='specimen'>
+	</cfif>
+	<cfif isdefined("id") and len(id) gt 0>
+		<cflocation url="/info/reviewAnnotation.cfm?action=show&id=#id#" addtoken="false">
+
+
+
+
+
+
+
+
+<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+	<!--- specimen view ---->
+<cfelseif isdefined("guid") and len(guid) gt 0>
+	<!---- alternate specimen view ---->
+<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+	<!---- taxon view ---->
+
+
+</cfif>
+
+
+
+
 <cfif not isdefined("type")>
 	<cfset type="">
 </cfif>
