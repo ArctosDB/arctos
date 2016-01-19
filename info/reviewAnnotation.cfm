@@ -72,7 +72,9 @@ yes got ID....
 				function (r) {
 					console.log(r);
 					console.log(r.substring(0,7));
-
+					var status= r.substr(0, r.indexOf(':'));
+					console.log(status);
+					if(r!='success'){
 
 					/*
 					if(r!='success'){
