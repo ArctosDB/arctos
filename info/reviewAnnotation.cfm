@@ -58,7 +58,7 @@ yes got ID....
 		ANNOTATION_ID,
 		ANNOTATION_GROUP_ID,
 		ANNOTATION,
-		ANNOTATE_DATE,
+		to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
 		CF_USERNAME,
 		REVIEWER_AGENT_ID,
 		getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
@@ -90,11 +90,11 @@ yes got ID....
 	<cfset i=1>
 	<cfloop query="data">
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-			<div>Usernname: #CF_USERNAME#</div>
+			<div>Submittor: <cfif len(CF_USERNAME) gt 0>#CF_USERNAME#<cfelse>anonymous</cfif></div>
 			<div>Date: #ANNOTATE_DATE#</div>
 			<div>Annotation: #ANNOTATION#</div>
 			<cfif session.roles contains "manage_collection">
-				<form name="r" method="post" action="reviewAnnotation.cfm">
+				<form name="r#i#" method="post" action="reviewAnnotation.cfm">
 					<input type="hidden" name="annotation_id" value="#annotation_id#">
 					<label for="reviewed_fg">Reviewed?</label>
 					<select name="reviewed_fg" id="reviewed_fg">
@@ -116,7 +116,6 @@ yes got ID....
 			<cfquery name="grp" datasource="uam_god">
 				select
 					getAnnotationObject(annotation_id) dlink
-
 				 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
 			</cfquery>
 			<div>
@@ -163,7 +162,6 @@ yes got ID....
 					</form>
 				</tr>
 			</cfloop>
-			<cfset i=i+1>
 
 
 
@@ -197,6 +195,8 @@ yes got ID....
  REVIEWED_FG							   NOT NULL NUMBER(1)
  REVIEWER_COMMENT							    VARCHAR2(255)
 ----->
+
+			<cfset i=i+1>
 	</cfloop>
 </cfoutput>
 
