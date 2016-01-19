@@ -37,7 +37,6 @@ hello I am a search form
 		ANNOTATION_ID,
 		ANNOTATION_GROUP_ID,
 		ANNOTATION,
-		getAnnotationObject(annotation_id) dlink
 		 from annotations where
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		collection_object_id in (
@@ -64,14 +63,18 @@ hello I am a search form
 <cfoutput>
 	<cfloop query="data">
 		<p>
-			edit the annotation here: #ANNOTATION_ID# - #ANNOTATION# - #dlink#
+			edit the annotation here: #ANNOTATION_ID# - #ANNOTATION#
+			<!--- now get all objects to which the annotation refers ---->
 			<cfquery name="grp" datasource="uam_god">
 				select
-					getAnnotationObject(annotation_id) dlink,
+					getAnnotationObject(annotation_id) dlink
 
 				 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
 			</cfquery>
 			Group: <cfdump var=#grp#>
+			<cfloop query="grp">
+				<br>#dlink#
+			</cfloop>
 
 		</p>
 						   Null?    Type
