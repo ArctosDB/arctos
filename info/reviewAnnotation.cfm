@@ -86,9 +86,6 @@ yes got ID....
 
 </cfquery>
 
-
-<cfdump var=#data#>
-
 <cfoutput>
 	<cfset i=1>
 	<cfloop query="data">
@@ -122,10 +119,14 @@ yes got ID....
 
 				 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
 			</cfquery>
-
-			<cfloop query="grp">
-				<br>#dlink#
-			</cfloop>
+			<div>
+				Annotated Object(s)
+				<ul>
+					<cfloop query="grp">
+						<li>#dlink#</li>
+					</cfloop>
+				</ul>
+			</div>
 		</div>
 
 		<!----
@@ -164,7 +165,7 @@ yes got ID....
 			</cfloop>
 			<cfset i=i+1>
 
-			----->
+
 
 
 		<p>
@@ -195,7 +196,7 @@ yes got ID....
  REVIEWER_AGENT_ID							    NUMBER
  REVIEWED_FG							   NOT NULL NUMBER(1)
  REVIEWER_COMMENT							    VARCHAR2(255)
-
+----->
 	</cfloop>
 </cfoutput>
 
