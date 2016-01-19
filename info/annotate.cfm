@@ -22,20 +22,7 @@
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				ANNOTATION_ID,
-				ANNOTATE_DATE,
-				CF_USERNAME,
-				COLLECTION_OBJECT_ID,
-				ANNOTATION,
-				REVIEWER_AGENT_ID,
-				REVIEWED_FG,
-				REVIEWER_COMMENT,
-				ANNOTATION_GROUP_ID
-			from
-				annotations
-			where
-				collection_object_id=#collection_object_id#
+			select * from annotations where	collection_object_id=#collection_object_id#
 		</cfquery>
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

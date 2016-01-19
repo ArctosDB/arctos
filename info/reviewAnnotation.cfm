@@ -39,8 +39,28 @@
 
 <cfif isdefined("ANNOTATION_GROUP_ID") and len(ANNOTATION_GROUP_ID) gt 0>
 	<!--- figure it out and redirect ---->
-	hello got ANNOTATION_GROUP_ID
-	<cfabort>
+	<cfquery name="d" datasource="uam_god">
+		select * from annotations where ANNOTATION_GROUP_ID=#val(ANNOTATION_GROUP_ID)#
+	</cfquery>
+	<cfif len(d.TAXON_NAME_ID) gt 0>
+		<cfset id=valuelist(d.TAXON_NAME_ID)>
+		<cfset type='taxon'>
+	<cfelseif len(d.PROJECT_ID) gt 0>
+		<cfset id=valuelist(d.PROJECT_ID)>
+		<cfset type='project'>
+	<cfelseif len(d.PUBLICATION_ID) gt 0>
+		<cfset id=valuelist(d.PUBLICATION_ID)>
+		<cfset type='publication'>
+	<cfelseif len(d.COLLECTION_OBJECT_ID) gt 0>
+		<cfset id=valuelist(d.COLLECTION_OBJECT_ID)>
+		<cfset type='specimen'>
+	</cfif>
+	<cfif isdefined("id") and len(id) gt 0>
+		<cflocation url="/info/reviewAnnotation.cfm?action=show&id=#id#" addtoken="false">
+	<cfelse>
+		bad call<cfabort>
+	</cfif>
+
 </cfif>
 
 <cfif action is "show">
@@ -72,17 +92,11 @@
 				annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
 				annotations.CF_USERNAME=cf_users.username (+) and
 				cf_users.user_id = cf_user_data.user_id (+)
-				<cfif isdefined("publication_id") and len(publication_id) gt 0>
-					AND annotations.publication_id = #publication_id#
-				</cfif>
 				<cfif isdefined("reviewed") and len(reviewed) gt 0>
 					and REVIEWED_FG=#reviewed#
 				</cfif>
-				<cfif isdefined("publication_id") and len(publication_id) gt 0>
-					and publication.publication_id=#publication_id#
-				</cfif>
 				<cfif isdefined("id") and len(id) gt 0>
-					and publication.publication_id=#id#
+					and publication.publication_id in ( #id# )
 				</cfif>
 		</cfquery>
 	<cfelseif type is "project">
@@ -119,7 +133,7 @@
 					and REVIEWED_FG=#reviewed#
 				</cfif>
 				<cfif isdefined("id") and len(id) gt 0>
-					and annotations.project_id=#id#
+					and annotations.project_id in ( #id# )
 				</cfif>
 		</cfquery>
 	<cfelseif type is "taxon" or type is "taxon_name_id">
@@ -154,7 +168,7 @@
 					AND annotations.taxon_name_id = #taxon_name_id#
 				</cfif>
 				<cfif isdefined("id") and len(id) gt 0>
-					AND annotations.taxon_name_id = #id#
+					AND annotations.taxon_name_id in ( #id# )
 				</cfif>
 				<cfif isdefined("reviewed") and len(reviewed) gt 0>
 					and REVIEWED_FG=#reviewed#
@@ -191,7 +205,7 @@
 					AND annotations.collection_object_id = #collection_object_id#
 				</cfif>
 				<cfif isdefined("id") and len(id) gt 0>
-					AND annotations.collection_object_id = #id#
+					AND annotations.collection_object_id in ( #id# )
 				</cfif>
 				<cfif isdefined("type") and len(type) gt 0>
 					AND flat.guid like '#type#%'
