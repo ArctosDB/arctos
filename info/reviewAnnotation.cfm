@@ -36,11 +36,8 @@ hello I am a search form
 	select * from annotations where
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		collection_object_id in (
-		<cfqueryparam value = "#collection_object_id#"
-        CFSQLType = "CF_SQL_INTEGER"
-        list = "yes"
-        separator = ",">
-		  )
+			<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+		)
 	</cfif>
 		<!----
 		<!--- specimen view ---->
@@ -58,6 +55,33 @@ hello I am a search form
 
 
 <cfdump var=#data#>
+
+<cfoutput>
+	<cfloop query="data">
+		<p>
+			edit the annotation here: #ANNOTATION_ID# - #ANNOTATION#
+			<cfquery name="grp" datasource="uam_god">
+				select * from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
+			</cfquery>
+			Group: <cfdump var=#grp#>
+
+		</p>
+						   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ANNOTATION_ID							   NOT NULL NUMBER
+ ANNOTATE_DATE							   NOT NULL DATE
+ CF_USERNAME								    VARCHAR2(255)
+ COLLECTION_OBJECT_ID							    NUMBER
+ TAXON_NAME_ID								    NUMBER
+ PROJECT_ID								    NUMBER
+ PUBLICATION_ID 							    NUMBER
+ ANNOTATION							   NOT NULL VARCHAR2(4000)
+ REVIEWER_AGENT_ID							    NUMBER
+ REVIEWED_FG							   NOT NULL NUMBER(1)
+ REVIEWER_COMMENT							    VARCHAR2(255)
+
+	</cfloop>
+</cfoutput>
 
 <cfabort>
 
