@@ -521,6 +521,7 @@ yes got ID....
 ---->
 <cfif action is "saveReview">
 <cfoutput>
+	<cfdump var=#form#>
 	<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update annotations set
 			REVIEWER_AGENT_ID=#session.myAgentId#,
@@ -529,7 +530,11 @@ yes got ID....
 		where
 			annotation_id=#annotation_id#
 	</cfquery>
+
+	<br>saved go reviewAnnotation.cfm?annotation_id=#annotation_id#
+	<!----
 	<cflocation url="reviewAnnotation.cfm?annotation_id=#annotation_id#" addtoken="false">
+	---->
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
