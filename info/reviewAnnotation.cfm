@@ -32,14 +32,16 @@ hello I am a search form
 	select * from annotations where
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		collection_object_id in ( #val(collection_object_id)# )
+
+		<!----
 		<!--- specimen view ---->
 	<cfelseif isdefined("guid") and len(guid) gt 0>
 		<!---- alternate specimen view ---->
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 		<!---- taxon view ---->
+---->
 
-
-</cfif>
+	</cfif>
 
 
 
