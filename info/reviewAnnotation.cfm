@@ -60,11 +60,6 @@ yes got ID....
 	<script>
 
 
-		<cffunction name="reviewAnnotation" access="remote">
-	<cfargument name="annotation_id" type="numeric" required="yes">
-	<cfargument name="REVIEWER_COMMENT" type="string" required="yes">
-	<cfinclude template="/includes/functionLib.cfm">
-	<cftry>
 	function reviewAnnotation(annotation_id) {
 		$.getJSON("/component/functions.cfc",
 				{
