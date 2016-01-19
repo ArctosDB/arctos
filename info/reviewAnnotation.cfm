@@ -2,15 +2,7 @@
 <cfset title="Review Annotations">
 
 
-<cfdump var=#action#>
-<!----
-	Ways to get here:
-		1) From a data object (specimen, project, etc)
-			--> find all annotations concerning it
-				-->create links to group page for any group annotations
-		3) From a group of annotations
 
----->
 
 <cfif isdefined("id") and len(id) gt 0>
 
@@ -55,13 +47,10 @@ yes got ID....
 </form>
 ----->
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
-<cfif action is "nothing">
 
 	<script>
-
-
-	function reviewAnnotation(annotation_id) {
-		$.getJSON("/component/functions.cfc",
+		function reviewAnnotation(annotation_id) {
+			$.getJSON("/component/functions.cfc",
 				{
 					method : "reviewAnnotation",
 					annotation_id : annotation_id,
@@ -70,37 +59,13 @@ yes got ID....
 					queryformat : 'column'
 				},
 				function (r) {
-					console.log(r);
-
-
 					if (r.DATA.STATUS=='success'){
-						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass().addClass('goodPick');
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass('badPick').addClass('goodPick');
 						} else {
 
-						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass().addClass('badPick');
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass('goodPick').addClass('badPick');
 
 					}
-
-					/*
-					if(r!='success'){
-						alert(r);
-						if (r=='You must create an account or log in to save searches.'){
-
-							return false;
-						} else {
-							saveSearch(returnURL,r);
-						}
-					} else {
-
-						pathArray = window.location.href.split( '/' );
-						protocol = pathArray[0];
-						host = pathArray[2];
-						url = protocol + '//' + host;
-
-
-						alert('Saved search \n' + url + '/saved/' + sn + '\n Find it in the My Stuff tab.');
-					}
-					*/
 				}
 			);
 		}
@@ -271,7 +236,6 @@ yes got ID....
 		</cfloop>
 	</cfoutput>
 
-</cfif>
 
 <!----
 
@@ -581,23 +545,4 @@ yes got ID....
 </cfif>
 
 ---->
-<cfif action is "saveReview">
-<cfoutput>
-	<cfdump var=#form#>
-	<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update annotations set
-			REVIEWER_AGENT_ID=#session.myAgentId#,
-			REVIEWED_FG=1,
-			REVIEWER_COMMENT='#stripQuotes(REVIEWER_COMMENT)#'
-		where
-			annotation_id=#annotation_id#
-	</cfquery>
-	<cflocation url="reviewAnnotation.cfm?annotation_id=#annotation_id#" addtoken="false">
-
-	<!----
-		<br>saved go reviewAnnotation.cfm?annotation_id=#annotation_id#
-
-	---->
-</cfoutput>
-</cfif>
 <cfinclude template="/includes/_footer.cfm">
