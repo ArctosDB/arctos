@@ -9,7 +9,7 @@
 
 ---->
 
-<cfif isdefined(id) and len(id) gt 0>
+<cfif isdefined("id") and len(id) gt 0>
 
 yes got ID....
 
