@@ -102,14 +102,16 @@ yes got ID....
 			<div>Annotation: #ANNOTATION#</div>
 			<cfif session.roles contains "manage_collection">
 				<form name="r#i#" method="post" action="reviewAnnotation.cfm">
-					<input type="hidden" name="action" value="saveReview">
-					<input type="hidden" name="annotation_id" value="#annotation_id#">
+					<input type="text" name="action" value="saveReview">
+					<input type="text" name="annotation_id" value="#annotation_id#">
+					<!----
 					<label for="reviewed_fg">Reviewed?</label>
 					<select name="reviewed_fg" id="reviewed_fg">
 						<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
 						<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
 					</select>
-					<label for="reviewer_comment">Review Comments</label>
+					----->
+					<label for="reviewer_comment">Review Comment</label>
 					<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
 					<br><input type="submit" class="savBtn" value="save review">
 				</form>
