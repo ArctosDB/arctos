@@ -71,7 +71,7 @@ yes got ID....
 				},
 				function (r) {
 					console.log(r);
-					console.log(indexOf(r,'success:');
+					console.log(indexOf(r,'success:'));
 
 
 					/*
