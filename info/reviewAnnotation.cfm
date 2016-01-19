@@ -61,6 +61,7 @@ yes got ID....
 		ANNOTATE_DATE,
 		CF_USERNAME,
 		REVIEWER_AGENT_ID,
+		getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
 		REVIEWED_FG,
 		REVIEWER_COMMENT
 	from
@@ -95,7 +96,36 @@ yes got ID....
 			<div>Usernname: #CF_USERNAME#</div>
 			<div>Date: #ANNOTATE_DATE#</div>
 			<div>Annotation: #ANNOTATION#</div>
+			<cfif session.roles contains "manage_collection">
+				<form name="r" method="post" action="reviewAnnotation.cfm">
+					<input type="hidden" name="annotation_id" value="#annotation_id#">
+					<label for="reviewed_fg">Reviewed?</label>
+					<select name="reviewed_fg" id="reviewed_fg">
+						<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
+						<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
+					</select>
+					<label for="reviewer_comment">Review Comments</label>
+					<textarea rows="4" cols="30"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
+				</form>
+			<cfelse>
+				<div><cfif reviewed_fg is 1>Reviewed<cfelse>Not Reviewed</cfif></div>
+				<cfif len(reviewer) gt 0>
+					<div>Reviewed By #reviewer#</div>
+				</cfif>
+				<cfif len(reviewer_comment) gt 0>
+					<div>Reviewer Comments: #reviewer_comment#</div>
+				</cfif>
+			</cfif>
+			<cfquery name="grp" datasource="uam_god">
+				select
+					getAnnotationObject(annotation_id) dlink
 
+				 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
+			</cfquery>
+
+			<cfloop query="grp">
+				<br>#dlink#
+			</cfloop>
 		</div>
 
 		<!----
