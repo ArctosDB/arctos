@@ -7,22 +7,22 @@
 		<a href="/SpecimenResults.cfm?anyContainerId=#container_id#">Specimens</a>
 	</p>
 	<cfquery name="leaf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
-			container.container_id, 
+		select
+			container.container_id,
 			container.container_type,
 			container.label,
 			container.description,
 			p.barcode,
 			container.container_remarks
-		from 
+		from
 			container,
 			container p
-		where 
+		where
 			container.parent_container_id=p.container_id (+) and
 			container.container_type='collection object'
-		start with 
+		start with
 			container.container_id=#container_id#
-		connect by 
+		connect by
 			container.parent_container_id = prior container.container_id
 	</cfquery>
 	<strong>
@@ -43,7 +43,7 @@
 		</tr>
 		<cfloop query="leaf">
 		<cfquery name="specData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				cataloged_item.collection_object_id,
 				specimen_part.collection_object_id partID,
 				scientific_name,
@@ -69,8 +69,8 @@
 		</cfquery>
 		<cfset partIDs=listappend(partIDs,specData.partID)>
 		<cfset displ=listappend(displ,specData.COLL_OBJ_DISPOSITION)>
-		
-		
+
+
 		<tr>
 			<td>
 				<a href="ContDet.cfm?container_id=#container_id#" target="_detail">#label#</a>
@@ -91,7 +91,7 @@
 	</table>
 </cfif>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select collection,collection_id from collection order by collection
+	select guid_prefix ,collection_id from collection order by guid_prefix
 </cfquery>
 <cfif listcontains(displ,"on loan")>
 	You can't use this to add loan items because some listed items are already on loan.
@@ -103,7 +103,7 @@
 		<label for="collection">Collection</label>
 		<select name="collection_id" id="collection_id">
 			<cfloop query="ctcollection">
-				<option value="#collection_id#">#collection#</option>
+				<option value="#collection_id#">#guid_prefix#</option>
 			</cfloop>
 		</select>
 		<label for="loan_number">Loan Number</label>
@@ -140,11 +140,11 @@
 					#session.myAgentId#,
 					sysdate,
 					(
-						select 
-							guid || ' ' || part_name 
-						from 
+						select
+							guid || ' ' || part_name
+						from
 							flat,
-							specimen_part 
+							specimen_part
 						where
 							flat.collection_object_id=specimen_part.derived_from_cat_item and
 							specimen_part.collection_object_id=#li#
