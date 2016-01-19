@@ -71,10 +71,15 @@ yes got ID....
 				},
 				function (r) {
 					console.log(r);
-					console.log(r.substring(0,7));
-					var status= r.substr(0, r.indexOf(':'));
-					console.log(status);
 
+
+					if (r.STATUS=='success'){
+						$("#reviewer_comment_" + annotation_id).removeClass().addClass('goodPick');
+						} else {
+
+						$("#reviewer_comment_" + annotation_id).removeClass().addClass('badPick');
+
+					}
 
 					/*
 					if(r!='success'){

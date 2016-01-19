@@ -4339,13 +4339,20 @@
 			where
 				annotation_id=#annotation_id#
 		</cfquery>
-		<cfset result="success: #annotation_id#">
+		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_ID")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
+		<cfset temp = QuerySetCell(d, "ANNOTATION_ID", '#ANNOTATION_ID#', 1)>
+
 	<cfcatch>
-		<cfset result = "fail: An error occured: #cfcatch.message# #cfcatch.detail#">
-		<cfreturn result>
+		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_ID")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
+		<cfset temp = QuerySetCell(d, "MESSAGE", 'An error occured: #cfcatch.message# #cfcatch.detail#', 1)>
+		<cfset temp = QuerySetCell(d, "ANNOTATION_ID", '#ANNOTATION_ID#', 1)>
 	</cfcatch>
 	</cftry>
-	<cfreturn result>
+	<cfreturn d>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="saveSpecSrchPref" access="remote">
