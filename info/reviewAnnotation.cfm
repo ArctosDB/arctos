@@ -52,166 +52,165 @@ yes got ID....
 </form>
 ----->
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
-
-<cfquery name="data" datasource="uam_god">
-	select
-		ANNOTATION_ID,
-		ANNOTATION_GROUP_ID,
-		ANNOTATION,
-		to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
-		CF_USERNAME,
-		REVIEWER_AGENT_ID,
-		getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
-		REVIEWED_FG,
-		REVIEWER_COMMENT
-	from
-		annotations
-	where
-		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-			collection_object_id in (
-				<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-			)
-		</cfif>
-		<cfif isdefined("annotation_id") and len(annotation_id) gt 0>
-			annotation_id = (
-				<cfqueryparam value = "#annotation_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-			)
-		</cfif>
-		<!----
-		<!--- specimen view ---->
-	<cfelseif isdefined("guid") and len(guid) gt 0>
-		<!---- alternate specimen view ---->
-	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
-		<!---- taxon view ---->
----->
-
-
-
-
-
-</cfquery>
-
-<cfdump var=#data#>
-
-<cfoutput>
-	<cfset i=1>
-	<cfloop query="data">
-		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-			<div>Submittor: <cfif len(CF_USERNAME) gt 0>#CF_USERNAME#<cfelse>anonymous</cfif></div>
-			<div>Date: #ANNOTATE_DATE#</div>
-			<div>Annotation: #ANNOTATION#</div>
-			<cfif session.roles contains "manage_collection">
-				<form name="r#i#" method="post" action="reviewAnnotation.cfm">
-					<input type="text" name="action" value="saveReview">
-					<input type="text" name="annotation_id" value="#annotation_id#">
-					<!----
-					<label for="reviewed_fg">Reviewed?</label>
-					<select name="reviewed_fg" id="reviewed_fg">
-						<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
-						<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
-					</select>
-					----->
-					<label for="reviewer_comment">Review Comment</label>
-					<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
-					<br><input type="submit" class="savBtn" value="save review">
-				</form>
-			<cfelse>
-				<cfif len(reviewer) gt 0>
-					<div>Reviewed By #reviewer#</div>
-				</cfif>
-				<cfif len(reviewer_comment) gt 0>
-					<div>Reviewer Comments: #reviewer_comment#</div>
-				</cfif>
+<cfif action is "nothing">
+	<cfquery name="data" datasource="uam_god">
+		select
+			ANNOTATION_ID,
+			ANNOTATION_GROUP_ID,
+			ANNOTATION,
+			to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
+			CF_USERNAME,
+			REVIEWER_AGENT_ID,
+			getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
+			REVIEWED_FG,
+			REVIEWER_COMMENT
+		from
+			annotations
+		where
+			<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+				collection_object_id in (
+					<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+				)
 			</cfif>
-			<cfquery name="grp" datasource="uam_god">
-				select
-					getAnnotationObject(annotation_id) dlink
-				 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
-			</cfquery>
-			<div>
-				Annotated Object(s)
-				<ul>
-					<cfloop query="grp">
-						<li>#dlink#</li>
-					</cfloop>
-				</ul>
-			</div>
-		</div>
+			<cfif isdefined("annotation_id") and len(annotation_id) gt 0>
+				annotation_id = (
+					<cfqueryparam value = "#annotation_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+				)
+			</cfif>
+			<!----
+			<!--- specimen view ---->
+		<cfelseif isdefined("guid") and len(guid) gt 0>
+			<!---- alternate specimen view ---->
+		<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+			<!---- taxon view ---->
+	---->
 
-		<!----
-				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<td style="padding-left:2em;">
-						Annotation by <strong>#CF_USERNAME#</strong>
-						(#email#) on #dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#
-					</td>
-					<td>
-						#annotation#
-					</td>
-					<form name="r" method="post" action="reviewAnnotation.cfm">
-						<input type="hidden" name="action" value="saveReview">
-						<input type="hidden" name="type" value="#pkeytype#">
-						<input type="hidden" name="id" value="#pkey#">
-						<input type="hidden" name="annotation_id" value="#annotation_id#">
-						<td>
-							<label for="reviewed_fg">Reviewed?</label>
-							<select name="reviewed_fg" id="reviewed_fg">
-								<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
-								<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
-							</select>
-							<cfif len(reviewer) gt 0>
-								<span style="font-size:small"><br>Last review by #reviewer#</span>
-							</cfif>
-						</td>
-						<td>
-							<label for="reviewer_comment">Review Comments</label>
-							<textarea rows="4" cols="30"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
-						</td>
-						<td>
-							<input type="submit" value="save review" class="savBtn">
-						</td>
+
+
+
+
+	</cfquery>
+
+	<cfdump var=#data#>
+
+	<cfoutput>
+		<cfset i=1>
+		<cfloop query="data">
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<div>Submittor: <cfif len(CF_USERNAME) gt 0>#CF_USERNAME#<cfelse>anonymous</cfif></div>
+				<div>Date: #ANNOTATE_DATE#</div>
+				<div>Annotation: #ANNOTATION#</div>
+				<cfif session.roles contains "manage_collection">
+					<form name="r#i#" method="post" action="reviewAnnotation.cfm">
+						<input type="text" name="action" value="saveReview">
+						<input type="text" name="annotation_id" value="#annotation_id#">
+						<!----
+						<label for="reviewed_fg">Reviewed?</label>
+						<select name="reviewed_fg" id="reviewed_fg">
+							<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
+							<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
+						</select>
+						----->
+						<label for="reviewer_comment">Review Comment</label>
+						<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
+						<br><input type="submit" class="savBtn" value="save review">
 					</form>
-				</tr>
-			</cfloop>
+				<cfelse>
+					<cfif len(reviewer) gt 0>
+						<div>Reviewed By #reviewer#</div>
+					</cfif>
+					<cfif len(reviewer_comment) gt 0>
+						<div>Reviewer Comments: #reviewer_comment#</div>
+					</cfif>
+				</cfif>
+				<cfquery name="grp" datasource="uam_god">
+					select
+						getAnnotationObject(annotation_id) dlink
+					 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
+				</cfquery>
+				<div>
+					Annotated Object(s)
+					<ul>
+						<cfloop query="grp">
+							<li>#dlink#</li>
+						</cfloop>
+					</ul>
+				</div>
+			</div>
+
+			<!----
+					<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<td style="padding-left:2em;">
+							Annotation by <strong>#CF_USERNAME#</strong>
+							(#email#) on #dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#
+						</td>
+						<td>
+							#annotation#
+						</td>
+						<form name="r" method="post" action="reviewAnnotation.cfm">
+							<input type="hidden" name="action" value="saveReview">
+							<input type="hidden" name="type" value="#pkeytype#">
+							<input type="hidden" name="id" value="#pkey#">
+							<input type="hidden" name="annotation_id" value="#annotation_id#">
+							<td>
+								<label for="reviewed_fg">Reviewed?</label>
+								<select name="reviewed_fg" id="reviewed_fg">
+									<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
+									<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
+								</select>
+								<cfif len(reviewer) gt 0>
+									<span style="font-size:small"><br>Last review by #reviewer#</span>
+								</cfif>
+							</td>
+							<td>
+								<label for="reviewer_comment">Review Comments</label>
+								<textarea rows="4" cols="30"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
+							</td>
+							<td>
+								<input type="submit" value="save review" class="savBtn">
+							</td>
+						</form>
+					</tr>
+				</cfloop>
 
 
 
 
-		<p>
-			edit the annotation here: #ANNOTATION_ID# - #ANNOTATION#
-			<!--- now get all objects to which the annotation refers ---->
-			<cfquery name="grp" datasource="uam_god">
-				select
-					getAnnotationObject(annotation_id) dlink
+			<p>
+				edit the annotation here: #ANNOTATION_ID# - #ANNOTATION#
+				<!--- now get all objects to which the annotation refers ---->
+				<cfquery name="grp" datasource="uam_god">
+					select
+						getAnnotationObject(annotation_id) dlink
 
-				 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
-			</cfquery>
-			Group: <cfdump var=#grp#>
-			<cfloop query="grp">
-				<br>#dlink#
-			</cfloop>
+					 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
+				</cfquery>
+				Group: <cfdump var=#grp#>
+				<cfloop query="grp">
+					<br>#dlink#
+				</cfloop>
 
-		</p>
-						   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- ANNOTATION_ID							   NOT NULL NUMBER
- ANNOTATE_DATE							   NOT NULL DATE
- CF_USERNAME								    VARCHAR2(255)
- COLLECTION_OBJECT_ID							    NUMBER
- TAXON_NAME_ID								    NUMBER
- PROJECT_ID								    NUMBER
- PUBLICATION_ID 							    NUMBER
- ANNOTATION							   NOT NULL VARCHAR2(4000)
- REVIEWER_AGENT_ID							    NUMBER
- REVIEWED_FG							   NOT NULL NUMBER(1)
- REVIEWER_COMMENT							    VARCHAR2(255)
------>
+			</p>
+							   Null?    Type
+	 ----------------------------------------------------------------- -------- --------------------------------------------
+	 ANNOTATION_ID							   NOT NULL NUMBER
+	 ANNOTATE_DATE							   NOT NULL DATE
+	 CF_USERNAME								    VARCHAR2(255)
+	 COLLECTION_OBJECT_ID							    NUMBER
+	 TAXON_NAME_ID								    NUMBER
+	 PROJECT_ID								    NUMBER
+	 PUBLICATION_ID 							    NUMBER
+	 ANNOTATION							   NOT NULL VARCHAR2(4000)
+	 REVIEWER_AGENT_ID							    NUMBER
+	 REVIEWED_FG							   NOT NULL NUMBER(1)
+	 REVIEWER_COMMENT							    VARCHAR2(255)
+	----->
 
-			<cfset i=i+1>
-	</cfloop>
-</cfoutput>
+				<cfset i=i+1>
+		</cfloop>
+	</cfoutput>
 
-<cfabort>
-
+</cfif>
 
 <!----
 
