@@ -73,11 +73,11 @@ yes got ID....
 					console.log(r);
 
 
-					if (r.STATUS=='success'){
-						$("#reviewer_comment_" + annotation_id).removeClass().addClass('goodPick');
+					if (r.DATA.STATUS=='success'){
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass().addClass('goodPick');
 						} else {
 
-						$("#reviewer_comment_" + annotation_id).removeClass().addClass('badPick');
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass().addClass('badPick');
 
 					}
 
