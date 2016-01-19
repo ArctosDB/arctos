@@ -4,33 +4,46 @@
 	<cfset t=listgetat(q,1,"=")>
 	<cfset v=listgetat(q,2,"=")>
 	<cfset "#t#"="#v#">
-	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">		
+	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				'Specimen <strong>' || collection.guid_prefix || ':' || cat_num ||
 				' <i>' || scientific_name || '</i></strong>' summary
-			from 
+			from
 				cataloged_item,
 				identification,
 				collection
-			where 
+			where
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				accepted_id_fg=1 AND
 				cataloged_item.collection_id = collection.collection_id and
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from annotations where collection_object_id=#collection_object_id#
+			select
+				ANNOTATION_ID,
+				ANNOTATE_DATE,
+				CF_USERNAME,
+				COLLECTION_OBJECT_ID,
+				ANNOTATION,
+				REVIEWER_AGENT_ID,
+				REVIEWED_FG,
+				REVIEWER_COMMENT,
+				ANNOTATION_GROUP_ID
+			from
+				annotations
+			where
+				collection_object_id=#collection_object_id#
 		</cfquery>
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				'Name <strong>' || scientific_name || '</strong>' summary
-			from 
+			from
 				taxon_name
-			where 
+			where
 				taxon_name_id=#taxon_name_id#
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -38,11 +51,11 @@
 		</cfquery>
 	<cfelseif isdefined("project_id") and len(project_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				'Project <strong>' || PROJECT_NAME || '</strong>' summary
-			from 
+			from
 				project
-			where 
+			where
 				project_id=#project_id#
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -50,11 +63,11 @@
 		</cfquery>
 	<cfelseif isdefined("publication_id") and len(publication_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				'Publication <strong>' || short_citation || '</strong>' summary
-			from 
+			from
 				publication
-			where 
+			where
 				publication_id=#publication_id#
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -84,7 +97,7 @@
 			<cfif hasEmail.recordcount is 1 and len(hasEmail.email) gt 0>
 				<cfset email=hasEmail.email>
 			</cfif>
-	
+
 		</cfif>
 		<cffunction name="makeRandomString" returnType="string" output="false">
 		    <cfset var chars = "23456789ABCDEFGHJKMNPQRS">
@@ -116,11 +129,11 @@
 		<label for="email">Email</label>
 		<input type="text" class="reqdClr" name="email" id="email" value="#email#">
 		<br>
-		<input type="button" 
+		<input type="button"
 			class="qutBtn"
 			value="Quit without Saving"
 			onclick="closeAnnotation()">
-		<input type="button" 
+		<input type="button"
 			class="savBtn"
 			value="Save Annotations"
 			onclick="saveThisAnnotation()">
@@ -131,6 +144,7 @@
 			<th>Annotation</th>
 			<th>Made Date</th>
 			<th>Status</th>
+			<th>Details</th>
 			<cfloop query="prevAnn">
 				<tr>
 					<td>#annotation#</td>
@@ -144,11 +158,14 @@
 							Reviewed
 						</cfif>
 					</td>
+					<td>
+						<a target="_blank" href="/info/reviewAnnotation.cfm?ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#">click</a>
+					</td>
 				</tr>
 			</cfloop>
 		</table>
 	<cfelse>
 		There are no previous annotations for this object.
-	</cfif>	
+	</cfif>
 </cfoutput>
 </cfif>

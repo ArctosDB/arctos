@@ -33,14 +33,21 @@
 	</select>
 	<br>
 	<input type="submit" class="lnkBtn" value="Filter">
-	<input type="reset" class="clrBtn" value="Clear Form">	
+	<input type="reset" class="clrBtn" value="Clear Form">
 </form>
 </cfoutput>
+
+<cfif isdefined("ANNOTATION_GROUP_ID") and len(ANNOTATION_GROUP_ID) gt 0>
+	<!--- figure it out and redirect ---->
+	hello got ANNOTATION_GROUP_ID
+	<cfabort>
+</cfif>
+
 <cfif action is "show">
 <cfoutput>
 	<cfif type is "publication">
 		<cfquery name="data" datasource="uam_god">
-			select 
+			select
 				publication.full_citation summary,
 				'/publication/' || annotations.publication_id datalink,
 				'publication_id' pkeytype,
@@ -48,7 +55,7 @@
 				annotations.ANNOTATION_ID,
 				annotations.ANNOTATE_DATE,
 				annotations.CF_USERNAME,
-				annotations.annotation,	 
+				annotations.annotation,
 				annotations.reviewer_agent_id,
 				preferred_agent_name.agent_name reviewer,
 				annotations.reviewed_fg,
@@ -80,7 +87,7 @@
 		</cfquery>
 	<cfelseif type is "project">
 		<cfquery name="data" datasource="uam_god">
-			select 
+			select
 				project.project_name summary,
 				'/project/' || niceURL(project.project_name) datalink,
 				'project_id' pkeytype,
@@ -88,7 +95,7 @@
 				annotations.ANNOTATION_ID,
 				annotations.ANNOTATE_DATE,
 				annotations.CF_USERNAME,
-				annotations.annotation,	 
+				annotations.annotation,
 				annotations.reviewer_agent_id,
 				preferred_agent_name.agent_name reviewer,
 				annotations.reviewed_fg,
@@ -117,7 +124,7 @@
 		</cfquery>
 	<cfelseif type is "taxon" or type is "taxon_name_id">
 		<cfquery name="data" datasource="uam_god">
-			select 
+			select
 				taxon_name.scientific_name summary,
 				'/name/' || taxon_name.scientific_name datalink,
 				'taxon_name_id' pkeytype,
@@ -125,7 +132,7 @@
 				annotations.ANNOTATION_ID,
 				annotations.ANNOTATE_DATE,
 				annotations.CF_USERNAME,
-				annotations.annotation,	 
+				annotations.annotation,
 				annotations.reviewer_agent_id,
 				preferred_agent_name.agent_name reviewer,
 				annotations.reviewed_fg,
@@ -163,7 +170,7 @@
 				 annotations.ANNOTATION_ID,
 				 annotations.ANNOTATE_DATE,
 				 annotations.CF_USERNAME,
-				 annotations.annotation,	 
+				 annotations.annotation,
 				 annotations.reviewer_agent_id,
 				 preferred_agent_name.agent_name reviewer,
 				 annotations.reviewed_fg,
@@ -195,7 +202,7 @@
 				<cfif isdefined("COLLECTION_OBJECT_ID") and len(COLLECTION_OBJECT_ID) gt 0>
 					and flat.COLLECTION_OBJECT_ID=#COLLECTION_OBJECT_ID#
 				</cfif>
-		</cfquery>		
+		</cfquery>
 	</cfif>
 	<cfif not isdefined("data") or data.recordcount is 0>
 		<div class="error">
@@ -231,7 +238,7 @@
 			<cfloop query="details">
 				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<td style="padding-left:2em;">
-						Annotation by <strong>#CF_USERNAME#</strong> 
+						Annotation by <strong>#CF_USERNAME#</strong>
 						(#email#) on #dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#
 					</td>
 					<td>
