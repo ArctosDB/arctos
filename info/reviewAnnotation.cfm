@@ -10,6 +10,10 @@
 ---->
 
 <cfif isdefined(id) and len(id) gt 0>
+
+yes got ID....
+
+
 	<!--- legacy format, redirect to modern ---->
 	<cfif isdefined("type") and type is "taxon">
 		<cflocation url="reviewAnnotation.cfm?taxon_name_id=#id#" addtoken="false">
