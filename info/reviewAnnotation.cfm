@@ -11,14 +11,14 @@
 
 <cfif isdefined("type") and len(type) gt 0 and isdefined(id) and len(id) gt 0>
 	<!--- legacy format, redirect to modern ---->
-	<cfif type is "">
-		<cflocation url="reviewAnnotation.cfm?collection_object_id=#id#" addtoken="false">
-	<cfelseif type is "taxon">
+	<cfif isdefined("type") and type is "taxon">
 		<cflocation url="reviewAnnotation.cfm?taxon_name_id=#id#" addtoken="false">
-	<cfelseif type is "project">
+	<cfelseif isdefined("type") and type is "project">
 		<cflocation url="reviewAnnotation.cfm?project_id=#id#" addtoken="false">
-	<cfelseif type is "publication">
+	<cfelseif isdefined("type") and type is "publication">
 		<cflocation url="reviewAnnotation.cfm?publication_id=#id#" addtoken="false">
+	<cfelse>
+		<cflocation url="reviewAnnotation.cfm?collection_object_id=#id#" addtoken="false">
 	</cfif>
 </cfif>
 
