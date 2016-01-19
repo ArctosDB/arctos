@@ -80,6 +80,11 @@ yes got ID....
 					<cfqueryparam value = "#annotation_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 				)
 			</cfif>
+			<cfif isdefined("annotation_group_id") and len(annotation_group_id) gt 0>
+				annotation_group_id = (
+					<cfqueryparam value = "#annotation_group_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+				)
+			</cfif>
 			<!----
 			<!--- specimen view ---->
 		<cfelseif isdefined("guid") and len(guid) gt 0>
