@@ -56,6 +56,53 @@ yes got ID....
 ----->
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
 <cfif action is "nothing">
+
+	<script>
+
+
+		<cffunction name="reviewAnnotation" access="remote">
+	<cfargument name="annotation_id" type="numeric" required="yes">
+	<cfargument name="REVIEWER_COMMENT" type="string" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
+	<cftry>
+	function reviewAnnotation(annotation_id) {
+		$.getJSON("/component/functions.cfc",
+				{
+					method : "reviewAnnotation",
+					annotation_id : annotation_id,
+					REVIEWER_COMMENT : $("reviewer_comment" + annotation_id).val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					console.log(r);
+					console.log(indexOf(r,'success:');
+
+
+					/*
+					if(r!='success'){
+						alert(r);
+						if (r=='You must create an account or log in to save searches.'){
+
+							return false;
+						} else {
+							saveSearch(returnURL,r);
+						}
+					} else {
+
+						pathArray = window.location.href.split( '/' );
+						protocol = pathArray[0];
+						host = pathArray[2];
+						url = protocol + '//' + host;
+
+
+						alert('Saved search \n' + url + '/saved/' + sn + '\n Find it in the My Stuff tab.');
+					}
+					*/
+				}
+			);
+		}
+	</script>
 	<cfquery name="data" datasource="uam_god">
 		select
 			ANNOTATION_ID,
@@ -110,20 +157,23 @@ yes got ID....
 				<div>Date: #ANNOTATE_DATE#</div>
 				<div>Annotation: #ANNOTATION#</div>
 				<cfif session.roles contains "manage_collection">
-					<form name="r#i#" method="post" action="reviewAnnotation.cfm">
+
+						<!----
+
+						<form name="r#i#" method="post" action="reviewAnnotation.cfm">
 						<input type="text" name="action" value="saveReview">
 						<input type="text" name="annotation_id" value="#annotation_id#">
-						<!----
 						<label for="reviewed_fg">Reviewed?</label>
 						<select name="reviewed_fg" id="reviewed_fg">
 							<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
 							<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
 						</select>
+							</form>
 						----->
 						<label for="reviewer_comment">Review Comment</label>
-						<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
-						<br><input type="submit" class="savBtn" value="save review">
-					</form>
+						<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment_#annotation_id#">#reviewer_comment#</textarea>
+						<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_id#');">
+
 				<cfelse>
 					<cfif len(reviewer) gt 0>
 						<div>Reviewed By #reviewer#</div>

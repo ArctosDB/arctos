@@ -4326,6 +4326,28 @@
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="reviewAnnotation" access="remote">
+	<cfargument name="annotation_id" type="numeric" required="yes">
+	<cfargument name="REVIEWER_COMMENT" type="string" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
+	<cftry>
+		<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update annotations set
+				REVIEWER_AGENT_ID=#session.myAgentId#,
+				REVIEWED_FG=1,
+				REVIEWER_COMMENT='#stripQuotes(REVIEWER_COMMENT)#'
+			where
+				annotation_id=#annotation_id#
+		</cfquery>
+		<cfset result="success: #annotation_id#">
+	<cfcatch>
+		<cfset result = "fail: An error occured: #cfcatch.message# #cfcatch.detail#">
+		<cfreturn result>
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="saveSpecSrchPref" access="remote">
 	<cfargument name="id" type="string" required="yes">
 	<cfargument name="onOff" type="numeric" required="yes">
