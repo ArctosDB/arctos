@@ -89,6 +89,7 @@ yes got ID....
 <cfdump var=#data#>
 
 <cfoutput>
+	<cfset i=1>
 	<cfloop query="data">
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<div>Usernname: #CF_USERNAME#</div>
