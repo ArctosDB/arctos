@@ -99,7 +99,6 @@ yes got ID....
 
 	</cfquery>
 
-	<cfdump var=#data#>
 
 	<cfoutput>
 		<cfset i=1>
@@ -539,10 +538,11 @@ yes got ID....
 		where
 			annotation_id=#annotation_id#
 	</cfquery>
-
-	<br>saved go reviewAnnotation.cfm?annotation_id=#annotation_id#
-	<!----
 	<cflocation url="reviewAnnotation.cfm?annotation_id=#annotation_id#" addtoken="false">
+
+	<!----
+		<br>saved go reviewAnnotation.cfm?annotation_id=#annotation_id#
+
 	---->
 </cfoutput>
 </cfif>
