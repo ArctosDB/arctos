@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Review Annotations">
+
+
+<cfdump var=#action#>
 <!----
 	Ways to get here:
 		1) From a data object (specimen, project, etc)
