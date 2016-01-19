@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+		<cfset linky="collection_object_id=#collection_object_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				'Specimen <strong>' || collection.guid_prefix || ':' || cat_num ||
@@ -25,6 +26,7 @@
 			select * from annotations where	collection_object_id=#collection_object_id#
 		</cfquery>
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+		<cfset linky="taxon_name_id=#taxon_name_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				'Name <strong>' || scientific_name || '</strong>' summary
@@ -37,6 +39,7 @@
 			select * from annotations where taxon_name_id=#taxon_name_id#
 		</cfquery>
 	<cfelseif isdefined("project_id") and len(project_id) gt 0>
+		<cfset linky="project_id=#project_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				'Project <strong>' || PROJECT_NAME || '</strong>' summary
@@ -49,6 +52,7 @@
 			select * from annotations where project_id=#project_id#
 		</cfquery>
 	<cfelseif isdefined("publication_id") and len(publication_id) gt 0>
+		<cfset linky="publication_id=#publication_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				'Publication <strong>' || short_citation || '</strong>' summary
@@ -67,7 +71,7 @@
 		</div>
 		<cfabort>
 	</cfif>
-	Annotations for #d.summary#
+	Annotations for #d.summary# (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)
 	<form name="annotate" method="post" action="/info/annotate.cfm">
 		<input type="hidden" name="action" value="insert">
 		<input type="hidden" name="idtype" id="idtype" value="#t#">
@@ -126,12 +130,11 @@
 			onclick="saveThisAnnotation()">
 	</form>
 	<cfif prevAnn.recordcount gt 0>
-		<label for="tbl">Previous Annotations</label>
+		<label for="tbl">Previous Annotations (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)</label>
 		<table id="tbl" border>
 			<th>Annotation</th>
 			<th>Made Date</th>
 			<th>Status</th>
-			<th>Details</th>
 			<cfloop query="prevAnn">
 				<tr>
 					<td>#annotation#</td>
@@ -144,9 +147,6 @@
 						<cfelse>
 							Reviewed
 						</cfif>
-					</td>
-					<td>
-						<a target="_blank" href="/info/reviewAnnotation.cfm?ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#">click</a>
 					</td>
 				</tr>
 			</cfloop>
