@@ -9,7 +9,7 @@
 
 ---->
 
-<cfif isdefined("type") and len(type) gt 0 and isdefined(id) and len(id) gt 0>
+<cfif isdefined(id) and len(id) gt 0>
 	<!--- legacy format, redirect to modern ---->
 	<cfif isdefined("type") and type is "taxon">
 		<cflocation url="reviewAnnotation.cfm?taxon_name_id=#id#" addtoken="false">
