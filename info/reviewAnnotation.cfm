@@ -53,7 +53,7 @@ hello I am a search form
 <cfabort>
 
 
-
+<!----
 
 
 	<cfif len(d.TAXON_NAME_ID) gt 0>
@@ -393,4 +393,5 @@ hello I am a search form
 	<cflocation url="reviewAnnotation.cfm?action=show&type=#type#&id=#id#" addtoken="false">
 </cfoutput>
 </cfif>
+---->
 <cfinclude template="/includes/_footer.cfm">
