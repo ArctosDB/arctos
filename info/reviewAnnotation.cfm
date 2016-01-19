@@ -35,6 +35,7 @@ hello I am a search form
 <cfquery name="data" datasource="uam_god">
 	select
 		ANNOTATION_ID,
+		ANNOTATION_GROUP_ID,
 		ANNOTATION,
 		getAnnotationObject(annotation_id) dlink
 		 from annotations where
