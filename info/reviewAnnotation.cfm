@@ -28,7 +28,28 @@ yes got ID....
 
 <!---- search form, always displayed ---->
 
-hello I am a search form
+<form name="filter" method="get" action="reviewAnnotation.cfm">
+	<input type="hidden" name="action" value="show">
+	<label for="type">Type of Annotation</label>
+	<select name="type" size="1">
+		<option  <cfif type is "taxon">selected="selected" </cfif>value="taxon">Taxonomy</option>
+		<option  <cfif type is "project">selected="selected" </cfif>value="project">Project</option>
+		<option  <cfif type is "publication">selected="selected" </cfif>value="publication">Publication</option>
+		<option  <cfif type is "">selected="selected" </cfif>value="">All Specimens</option>
+		<cfloop query="c">
+			<option  <cfif type is "#guid_prefix#">selected="selected" </cfif>value="#guid_prefix#">#guid_prefix# Specimens</option>
+		</cfloop>
+	</select>
+	<label for="reviewed">Reviewed</label>
+	<select name="reviewed" size="1">
+		<option value="">whatever</option>
+		<option <cfif reviewed is 1>selected="selected" </cfif>value="1">yes</option>
+		<option <cfif reviewed is 0>selected="selected" </cfif>value="0">no</option>
+	</select>
+	<br>
+	<input type="submit" class="lnkBtn" value="Filter">
+	<input type="reset" class="clrBtn" value="Clear Form">
+</form>
 
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
 
@@ -36,13 +57,20 @@ hello I am a search form
 	select
 		ANNOTATION_ID,
 		ANNOTATION_GROUP_ID,
-		ANNOTATION
-		 from annotations where
-	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-		collection_object_id in (
-			<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-		)
-	</cfif>
+		ANNOTATION,
+		ANNOTATE_DATE,
+		CF_USERNAME,
+		REVIEWER_AGENT_ID,
+		REVIEWED_FG,
+		REVIEWER_COMMENT
+	from
+		annotations
+	where
+		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+			collection_object_id in (
+				<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+			)
+		</cfif>
 		<!----
 		<!--- specimen view ---->
 	<cfelseif isdefined("guid") and len(guid) gt 0>
@@ -62,6 +90,50 @@ hello I am a search form
 
 <cfoutput>
 	<cfloop query="data">
+		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+			<div>Usernname: #CF_USERNAME#</div>
+
+		</div>
+
+		<!----
+				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<td style="padding-left:2em;">
+						Annotation by <strong>#CF_USERNAME#</strong>
+						(#email#) on #dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#
+					</td>
+					<td>
+						#annotation#
+					</td>
+					<form name="r" method="post" action="reviewAnnotation.cfm">
+						<input type="hidden" name="action" value="saveReview">
+						<input type="hidden" name="type" value="#pkeytype#">
+						<input type="hidden" name="id" value="#pkey#">
+						<input type="hidden" name="annotation_id" value="#annotation_id#">
+						<td>
+							<label for="reviewed_fg">Reviewed?</label>
+							<select name="reviewed_fg" id="reviewed_fg">
+								<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
+								<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
+							</select>
+							<cfif len(reviewer) gt 0>
+								<span style="font-size:small"><br>Last review by #reviewer#</span>
+							</cfif>
+						</td>
+						<td>
+							<label for="reviewer_comment">Review Comments</label>
+							<textarea rows="4" cols="30"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
+						</td>
+						<td>
+							<input type="submit" value="save review" class="savBtn">
+						</td>
+					</form>
+				</tr>
+			</cfloop>
+			<cfset i=i+1>
+
+			----->
+
+
 		<p>
 			edit the annotation here: #ANNOTATION_ID# - #ANNOTATION#
 			<!--- now get all objects to which the annotation refers ---->
@@ -149,28 +221,7 @@ hello I am a search form
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select guid_prefix from collection order by guid_prefix
 </cfquery>
-<form name="filter" method="get" action="reviewAnnotation.cfm">
-	<input type="hidden" name="action" value="show">
-	<label for="type">Type of Annotation</label>
-	<select name="type" size="1">
-		<option  <cfif type is "taxon">selected="selected" </cfif>value="taxon">Taxonomy</option>
-		<option  <cfif type is "project">selected="selected" </cfif>value="project">Project</option>
-		<option  <cfif type is "publication">selected="selected" </cfif>value="publication">Publication</option>
-		<option  <cfif type is "">selected="selected" </cfif>value="">All Specimens</option>
-		<cfloop query="c">
-			<option  <cfif type is "#guid_prefix#">selected="selected" </cfif>value="#guid_prefix#">#guid_prefix# Specimens</option>
-		</cfloop>
-	</select>
-	<label for="reviewed">Reviewed</label>
-	<select name="reviewed" size="1">
-		<option value="">whatever</option>
-		<option <cfif reviewed is 1>selected="selected" </cfif>value="1">yes</option>
-		<option <cfif reviewed is 0>selected="selected" </cfif>value="0">no</option>
-	</select>
-	<br>
-	<input type="submit" class="lnkBtn" value="Filter">
-	<input type="reset" class="clrBtn" value="Clear Form">
-</form>
+
 </cfoutput>
 
 <cfif isdefined("ANNOTATION_GROUP_ID") and len(ANNOTATION_GROUP_ID) gt 0>
