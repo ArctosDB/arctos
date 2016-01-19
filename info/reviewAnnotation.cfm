@@ -72,6 +72,11 @@ yes got ID....
 				<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 			)
 		</cfif>
+		<cfif isdefined("annotation_id") and len(annotation_id) gt 0>
+			annotation_id = (
+				<cfqueryparam value = "#annotation_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+			)
+		</cfif>
 		<!----
 		<!--- specimen view ---->
 	<cfelseif isdefined("guid") and len(guid) gt 0>
@@ -95,6 +100,7 @@ yes got ID....
 			<div>Annotation: #ANNOTATION#</div>
 			<cfif session.roles contains "manage_collection">
 				<form name="r#i#" method="post" action="reviewAnnotation.cfm">
+					<input type="hidden" name="action" value="saveReview">
 					<input type="hidden" name="annotation_id" value="#annotation_id#">
 					<label for="reviewed_fg">Reviewed?</label>
 					<select name="reviewed_fg" id="reviewed_fg">
@@ -102,10 +108,10 @@ yes got ID....
 						<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
 					</select>
 					<label for="reviewer_comment">Review Comments</label>
-					<textarea rows="4" cols="30"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
+					<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
+					<br><input type="submit" class="savBtn" value="save review">
 				</form>
 			<cfelse>
-				<div><cfif reviewed_fg is 1>Reviewed<cfelse>Not Reviewed</cfif></div>
 				<cfif len(reviewer) gt 0>
 					<div>Reviewed By #reviewer#</div>
 				</cfif>
@@ -509,18 +515,19 @@ yes got ID....
 	</table>
 </cfoutput>
 </cfif>
+
+---->
 <cfif action is "saveReview">
 <cfoutput>
 	<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update annotations set
 			REVIEWER_AGENT_ID=#session.myAgentId#,
-			REVIEWED_FG=#REVIEWED_FG#,
+			REVIEWED_FG=1,
 			REVIEWER_COMMENT='#stripQuotes(REVIEWER_COMMENT)#'
 		where
 			annotation_id=#annotation_id#
 	</cfquery>
-	<cflocation url="reviewAnnotation.cfm?action=show&type=#type#&id=#id#" addtoken="false">
+	<cflocation url="reviewAnnotation.cfm?annotation_id=#annotation_id#" addtoken="false">
 </cfoutput>
 </cfif>
----->
 <cfinclude template="/includes/_footer.cfm">
