@@ -50,6 +50,9 @@ hello I am a search form
 
 <cfdump var=#data#>
 
+<cfabort>
+
+
 
 
 
@@ -74,7 +77,7 @@ hello I am a search form
 
 
 
-
+<!----
 
 <cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 	<!--- specimen view ---->
@@ -86,7 +89,7 @@ hello I am a search form
 
 </cfif>
 
-
+---->
 
 
 <cfif not isdefined("type")>
