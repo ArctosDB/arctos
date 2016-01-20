@@ -37,13 +37,12 @@
 		</cfloop>
 	</select>
 
-	<label for="reviewer_comment">Reviewer Comment</label>
+	<label for="reviewer_comment">
+		Reviewer Comment
+		<span class="infoLink" onclick="$('#reviewer_comment').val('_');">[ NOT NULL ]</span>
+		<span class="infoLink" onclick="$('#reviewer_comment').val('NULL');">[ IS NULL ]</span>
+	</label>
 	<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment"></textarea>
-	<span class="infoLink" onclick="$('#reviewer_comment').val('_');">NOT NULL</span>
-	<br>
-	<span class="infoLink" onclick="$('#reviewer_comment').val('NULL');">IS NULL</span>
-
-
 	<br>
 	<input type="submit" class="lnkBtn" value="Filter">
 	<input type="reset" class="clrBtn" value="Clear Form">
