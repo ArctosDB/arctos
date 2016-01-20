@@ -61,6 +61,8 @@
 				},
 				function (r) {
 					if (r.DATA.STATUS=='success'){
+
+						console.log('happy');
 						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass('badPick').addClass('goodPick');
 					} else {
 						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass('goodPick').addClass('badPick');
