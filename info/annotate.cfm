@@ -8,7 +8,7 @@
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 
 <cfdump var=#v#>
-	<cfif listlen(v) gt 0>
+	<cfif listlen(v) gt 1>
 		multiple<cfabort>
 	</cfif>
 
