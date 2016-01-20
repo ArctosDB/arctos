@@ -4363,19 +4363,19 @@
 				REVIEWED_FG=1,
 				REVIEWER_COMMENT='#stripQuotes(REVIEWER_COMMENT)#'
 			where
-				annotation_id=#ANNOTATION_GROUP_ID#
+				ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
 		</cfquery>
 		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_GROUP_ID")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
-		<cfset temp = QuerySetCell(d, "ANNOTATION_ID", '#ANNOTATION_ID#', 1)>
+		<cfset temp = QuerySetCell(d, "ANNOTATION_GROUP_ID", '#ANNOTATION_GROUP_ID#', 1)>
 
 	<cfcatch>
 		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_GROUP_ID")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
 		<cfset temp = QuerySetCell(d, "MESSAGE", 'An error occured: #cfcatch.message# #cfcatch.detail#', 1)>
-		<cfset temp = QuerySetCell(d, "ANNOTATION_ID", '#ANNOTATION_ID#', 1)>
+		<cfset temp = QuerySetCell(d, "ANNOTATION_GROUP_ID", '#ANNOTATION_GROUP_ID#', 1)>
 	</cfcatch>
 	</cftry>
 	<cfreturn d>
