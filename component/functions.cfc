@@ -4328,7 +4328,7 @@
 
 
 				An Arctos user (<cfif len(session.username) gt 0>#session.username#<cfelse>Anonymous</cfif>) has created an Annotation
-				concerning #atype# potentially related to your collection(s).  #listlen(idvalue)# record(s) have been annotated.
+				concerning records (#atype#) potentially related to your collection(s).  #listlen(idvalue)# record(s) have been annotated.
 				<blockquote>
 					#annotation#
 				</blockquote>

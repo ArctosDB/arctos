@@ -144,6 +144,8 @@
 				</cfif>
 			</cfif>
 	</cfquery>
+
+	<cfdump var=#data#>
 	<hr>
 	<cfoutput>
 		<cfset i=1>
