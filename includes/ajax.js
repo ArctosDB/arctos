@@ -477,7 +477,6 @@ function saveThisAnnotation() {
 	
 	
 	
-	="annotateDiv" class="annotateBox">
 	
 	var h='<div style="border:5px solid purple">i am overlay</div>';
 	
