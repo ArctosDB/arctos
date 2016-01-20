@@ -484,7 +484,7 @@ function saveThisAnnotation() {
 	
 	console.log('im out');
 	
-	£
+	
 	return false;
 	
 	
