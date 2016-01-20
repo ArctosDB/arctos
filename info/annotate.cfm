@@ -8,76 +8,74 @@
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 
 	<cfif listlen(v) eq 1>
-
-
-	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-		<cfset linky="collection_object_id=#collection_object_id#">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				'Specimen <strong>' || collection.guid_prefix || ':' || cat_num ||
-				' <i>' || scientific_name || '</i></strong>' summary
-			from
-				cataloged_item,
-				identification,
-				collection
-			where
-				cataloged_item.collection_object_id = identification.collection_object_id AND
-				accepted_id_fg=1 AND
-				cataloged_item.collection_id = collection.collection_id and
-				cataloged_item.collection_object_id in (
-					<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-				)
-		</cfquery>
-		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from annotations where	collection_object_id=#collection_object_id#
-		</cfquery>
-	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
-		<cfset linky="taxon_name_id=#taxon_name_id#">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				'Name <strong>' || scientific_name || '</strong>' summary
-			from
-				taxon_name
-			where
-				taxon_name_id=#taxon_name_id#
-		</cfquery>
-		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from annotations where taxon_name_id=#taxon_name_id#
-		</cfquery>
-	<cfelseif isdefined("project_id") and len(project_id) gt 0 >
-		<cfset linky="project_id=#project_id#">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				'Project <strong>' || PROJECT_NAME || '</strong>' summary
-			from
-				project
-			where
-				project_id=#project_id#
-		</cfquery>
-		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from annotations where project_id=#project_id#
-		</cfquery>
-	<cfelseif isdefined("publication_id") and len(publication_id) gt 0 >
-		<cfset linky="publication_id=#publication_id#">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				'Publication <strong>' || short_citation || '</strong>' summary
-			from
-				publication
-			where
-				publication_id=#publication_id#
-		</cfquery>
-		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from annotations where publication_id=#publication_id#
-		</cfquery>
-	<cfelse>
-		<div class="error">
-			Oops! I can't handle that request. <a href="/contact.cfm?ref=failedAnnotationType">contact us</a>
-			<cfthrow detail="unhandled_annotation" errorcode="9999" message="unhandled annotation">
-		</div>
-		<cfabort>
-	</cfif>
-	Annotations for #d.summary# (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)
+		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+			<cfset linky="collection_object_id=#collection_object_id#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					'Specimen <strong>' || collection.guid_prefix || ':' || cat_num ||
+					' <i>' || scientific_name || '</i></strong>' summary
+				from
+					cataloged_item,
+					identification,
+					collection
+				where
+					cataloged_item.collection_object_id = identification.collection_object_id AND
+					accepted_id_fg=1 AND
+					cataloged_item.collection_id = collection.collection_id and
+					cataloged_item.collection_object_id in (
+						<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+					)
+			</cfquery>
+			<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from annotations where	collection_object_id=#collection_object_id#
+			</cfquery>
+		<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+			<cfset linky="taxon_name_id=#taxon_name_id#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					'Name <strong>' || scientific_name || '</strong>' summary
+				from
+					taxon_name
+				where
+					taxon_name_id=#taxon_name_id#
+			</cfquery>
+			<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from annotations where taxon_name_id=#taxon_name_id#
+			</cfquery>
+		<cfelseif isdefined("project_id") and len(project_id) gt 0 >
+			<cfset linky="project_id=#project_id#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					'Project <strong>' || PROJECT_NAME || '</strong>' summary
+				from
+					project
+				where
+					project_id=#project_id#
+			</cfquery>
+			<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from annotations where project_id=#project_id#
+			</cfquery>
+		<cfelseif isdefined("publication_id") and len(publication_id) gt 0 >
+			<cfset linky="publication_id=#publication_id#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					'Publication <strong>' || short_citation || '</strong>' summary
+				from
+					publication
+				where
+					publication_id=#publication_id#
+			</cfquery>
+			<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from annotations where publication_id=#publication_id#
+			</cfquery>
+		<cfelse>
+			<div class="error">
+				Oops! I can't handle that request. <a href="/contact.cfm?ref=failedAnnotationType">contact us</a>
+				<cfthrow detail="unhandled_annotation" errorcode="9999" message="unhandled annotation">
+			</div>
+			<cfabort>
+		</cfif>
+		Annotations for #d.summary# (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)
 	</cfif>
 	<form name="annotate" method="post" action="/info/annotate.cfm">
 		<input type="hidden" name="action" value="insert">
@@ -136,7 +134,7 @@
 			value="Save Annotations"
 			onclick="saveThisAnnotation()">
 	</form>
-	<cfif prevAnn.recordcount gt 0>
+	<cfif isdefined("prevAnn.recordcount") and prevAnn.recordcount gt 0>
 		<label for="tbl">Previous Annotations (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)</label>
 		<table id="tbl" border>
 			<th>Annotation</th>
