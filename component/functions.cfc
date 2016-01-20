@@ -4247,76 +4247,94 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="addAnnotation" access="remote">
 	<cfargument name="idType" type="string" required="yes">
-	<cfargument name="idvalue" type="numeric" required="yes">
+	<cfargument name="idvalue" type="string" required="yes">
 	<cfargument name="annotation" type="string" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
-		<cfquery name="insAnn" datasource="uam_god">
-			insert into annotations (
-				cf_username,
-				#idType#,
-				annotation
-			) values (
-				'#session.username#',
-				#idvalue#,
-				'#stripQuotes(urldecode(annotation))#'
-			)
-		</cfquery>
-		<cfquery name="whoTo" datasource="uam_god">
-			select
-				get_address(collection_contacts.CONTACT_AGENT_ID,'email') address
-			FROM
-				cataloged_item,
-				collection,
-				collection_contacts
-			WHERE
-				cataloged_item.collection_id = collection.collection_id AND
-				collection.collection_id = collection_contacts.collection_id AND
-				collection_contacts.CONTACT_ROLE = 'data quality' and
-				<cfif idType is "collection_object_id">
-					cataloged_item.collection_object_id=#idvalue#
-				<cfelseif idType is "taxon_name_id">
-					cataloged_item.collection_object_id in (
-						select
-							collection_object_id
-						from
-							identification,
-							identification_taxonomy
-						where
-							identification.identification_id=identification_taxonomy.identification_id and
-							identification_taxonomy.taxon_name_id=#idvalue#
+		<cftransaction>
+			<cfquery name="gc" datasource="uam_god">
+				select sq_annotation_group_id.nextval key from dual
+			</cfquery>
+			<cfloop list="idvalue" index="id">
+				<cfquery name="insAnn" datasource="uam_god">
+					insert into annotations (
+						ANNOTATION_GROUP_ID
+						cf_username,
+						#idType#,
+						annotation
+					) values (
+						#gc.key#,
+						'#session.username#',
+						#val(id)#,
+						'#stripQuotes(urldecode(annotation))#'
 					)
-				<cfelse>
-					1=0
-				</cfif>
-			group by
-				get_address(collection_contacts.CONTACT_AGENT_ID,'email')
-		</cfquery>
-		<cfquery name="summary" datasource="uam_god">
-			<cfif idType is "COLLECTION_OBJECT_ID">
-				select '<a href="#Application.serverRootUrl#/guid/' || guid || '">' || guid || '</a>' s from flat where collection_object_id=#idvalue#
-			<cfelseif idType is "TAXON_NAME_ID">
-				select '<a href="#Application.serverRootUrl#/name/' || scientific_name || '">' || scientific_name || '</a>' s from taxon_name where taxon_name_id=#idvalue#
-			<cfelseif idType is "PROJECT_ID">
-				select '<a href="#Application.serverRootUrl#/project/' || niceURL(project_name) || '">' || project_name || '</a>' s from project where project_id=#idvalue#
-			<cfelseif idType is "PUBLICATION_ID">
-				select '<a href="#Application.serverRootUrl#/publication/' || publication_id || '">' || short_citation || '</a>' s from publication where publication_id=#idvalue#
+				</cfquery>
+			</cfloop>
+			<cfquery name="whoTo" datasource="uam_god">
+				select
+					get_address(collection_contacts.CONTACT_AGENT_ID,'email') address
+				FROM
+					cataloged_item,
+					collection,
+					collection_contacts
+				WHERE
+					cataloged_item.collection_id = collection.collection_id AND
+					collection.collection_id = collection_contacts.collection_id AND
+					collection_contacts.CONTACT_ROLE = 'data quality' and
+					<cfif idType is "collection_object_id">
+						cataloged_item.collection_object_id=#idvalue#
+					<cfelseif idType is "taxon_name_id">
+						cataloged_item.collection_object_id in (
+							select
+								collection_object_id
+							from
+								identification,
+								identification_taxonomy
+							where
+								identification.identification_id=identification_taxonomy.identification_id and
+								identification_taxonomy.taxon_name_id=#idvalue#
+						)
+					<cfelse>
+						1=0
+					</cfif>
+				group by
+					get_address(collection_contacts.CONTACT_AGENT_ID,'email')
+			</cfquery>
+			<cfif idType is "collection_object_id">
+				<cfset atype='specimen'>
+			<cfelseif idType is "taxon_name_id">
+				<cfset atype='taxon'>
+			<cfelseif idType is "project_id">
+				<cfset atype='project'>
+			<cfelseif idType is "publication_id">
+				<cfset atype='publication'>
 			</cfif>
-		</cfquery>
-		<cfset mailTo = valuelist(whoTo.address)>
-		<cfset mailTo=listappend(mailTo,Application.DataProblemReportEmail,",")>
-		<cfmail to="#mailTo#" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
-			Arctos User #session.username# has submitted an annotation concerning #summary.s#.
+			<cfset mailTo = valuelist(whoTo.address)>
+			<cfset mailTo=listappend(mailTo,Application.DataProblemReportEmail,",")>
 
-			<blockquote>
-				#annotation#
-			</blockquote>
+			<cfif isdefined("Application.version") and  Application.version is "prod">
+				<cfset subj="Annotation Submitted">
+				<cfset maddr=mailTo>
+			<cfelse>
+				<cfset maddr=application.bugreportemail>
+				<cfset subj="TEST PLEASE IGNORE: Annotation Submitted">
+			</cfif>
+			<cfmail to="#maddr#" from="annotation@#Application.fromEmail#" subject="#subj#" type="html">
+				An Arctos user (<cfif len(session.username) gt 0> #session.username#<cfelse>Anonymous</cfif)> has created an Annotation
+				concerning #atype# potentially related to your collection(s).  #listlen(idvalue)# record(s) have been annotated.
+				<blockquote>
+					#annotation#
+				</blockquote>
 
-			View details at
-			<a href="#Application.ServerRootUrl#/info/reviewAnnotation.cfm?action=show&type=#idType#&id=#idvalue#">
-				#Application.ServerRootUrl#/info/annotate.cfm?action=show&type=#idType#&id=#idvalue#
-			</a>
-		</cfmail>
+				View details at
+				<a href="#Application.ServerRootUrl#/info/reviewAnnotation.cfm?ANNOTATION_GROUP_ID=#gc.key#">
+					#Application.ServerRootUrl#/info/reviewAnnotation.cfm?ANNOTATION_GROUP_ID=#gc.key#
+				</a>
+			</cfmail>
+		</cftransaction>
+
+
+
 	<cfcatch>
 		<cfset result = "A database error occured: #cfcatch.message# #cfcatch.detail#">
 		<cfreturn result>
