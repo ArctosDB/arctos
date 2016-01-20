@@ -18,7 +18,7 @@
 	<cfquery name="c" datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
 		select distinct guid_prefix from collection order by guid_prefix
 	</cfquery>
-
+<label for="filter">Search/Filter</label>
 <form name="filter" method="get" action="reviewAnnotation.cfm">
 	<input type="hidden" name="action" value="show">
 	<label for="atype">Type of Annotation</label>
@@ -28,9 +28,6 @@
 		<option value="project">Project</option>
 		<option value="publication">Publication</option>
 		<option value="specimen">Specimen</option>
-		<cfloop query="c">
-			<option value="#guid_prefix#">#guid_prefix# Specimens</option>
-		</cfloop>
 	</select>
 	<label for="guid_prefix">Collection (only works when "specimens" above)</label>
 	<select name="guid_prefix" size="1">
@@ -87,35 +84,64 @@
 		from
 			annotations
 		where
+			1=1
 			<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-				collection_object_id in (
+				and annotations.collection_object_id in (
 					<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 				)
 			</cfif>
 			<cfif isdefined("publication_id") and len(publication_id) gt 0>
-				publication_id in (
+				and annotations.publication_id in (
 					<cfqueryparam value = "#publication_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 				)
 			</cfif>
 			<cfif isdefined("project_id") and len(project_id) gt 0>
-				project_id in (
+				and annotations.project_id in (
 					<cfqueryparam value = "#project_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 				)
 			</cfif>
 			<cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
-				taxon_name_id in (
+				and annotations.taxon_name_id in (
 					<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 				)
 			</cfif>
 			<cfif isdefined("annotation_id") and len(annotation_id) gt 0>
-				annotation_id = (
+				and annotations.annotation_id = (
 					<cfqueryparam value = "#annotation_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 				)
 			</cfif>
 			<cfif isdefined("annotation_group_id") and len(annotation_group_id) gt 0>
-				annotation_group_id = (
+				and annotations.annotation_group_id = (
 					<cfqueryparam value = "#annotation_group_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 				)
+			</cfif>
+			<cfif isdefined("atype") and atype is "taxon">
+				and annotations.taxon_name_id is not null
+			</cfif>
+			<cfif isdefined("atype") and atype is "project">
+				and annotations.project_id is not null
+			</cfif>
+			<cfif isdefined("atype") and atype is "publication">
+				and annotations.publication_id is not null
+			</cfif>
+			<cfif isdefined("atype") and atype is "specimen">
+				and annotations.collection_object_id is not null
+			</cfif>
+			<cfif isdefined("guid_prefix") and len(guid_prefix) gt 0>
+				and annotations.collection_object_id in (
+					select collection_object_id from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
+					collection.guid_prefix in (
+						<cfqueryparam value = "#guid_prefix#" CFSQLType = "CF_SQL_VARCHAR" list = "yes" separator = ",">
+					)
+			</cfif>
+
+			<cfif isdefined("reviewer_comment") and len(reviewer_comment) gt 0>
+				<cfif reviewer_comment is "NULL">
+					and annotations.reviewer_comment is null
+				<cfelse>
+					and upper(annotations.reviewer_comment) like
+					<cfqueryparam value = "#reviewer_comment#" CFSQLType = "CF_SQL_VARCHAR" list = "no">
+				</cfif>
 			</cfif>
 	</cfquery>
 	<cfoutput>
