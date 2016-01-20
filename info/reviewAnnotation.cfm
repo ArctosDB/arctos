@@ -139,8 +139,8 @@
 				<cfif reviewer_comment is "NULL">
 					and annotations.reviewer_comment is null
 				<cfelse>
-					and upper(annotations.reviewer_comment) like
-					<cfqueryparam value = "#ucase(reviewer_comment)#" CFSQLType = "CF_SQL_VARCHAR" list = "no">
+					and upper(annotations.reviewer_comment) like '%' +
+					<cfqueryparam value = "#ucase(reviewer_comment)#" CFSQLType = "CF_SQL_VARCHAR" list = "no"> + '%'
 				</cfif>
 			</cfif>
 	</cfquery>
