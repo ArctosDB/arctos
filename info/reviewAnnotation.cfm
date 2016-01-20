@@ -204,7 +204,7 @@
 							 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
 						</cfquery>
 						<cfif srlink.recordcount gt 1>
-							<a href="SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
+							<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
 						</cfif>
 
 					</cfif>
