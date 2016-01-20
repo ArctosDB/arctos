@@ -4250,6 +4250,7 @@
 	<cfargument name="idvalue" type="string" required="yes">
 	<cfargument name="annotation" type="string" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">
+	<cfoutput>
 	<cftry>
 		<cftransaction>
 			<cfquery name="gc" datasource="uam_god">
@@ -4343,6 +4344,7 @@
 		<cfreturn result>
 	</cfcatch>
 	</cftry>
+	</cfoutput>
 	<cfset result = "success">
 	<cfreturn result>
 </cffunction>
