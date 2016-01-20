@@ -7,36 +7,31 @@
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 
-	and listlen(publication_id) eq 1
-	and listlen(project_id) eq 1
+	<cfif listlen(v) gt 0>
+		multiple<cfabort>
+	</cfif>
 
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-		<cfif listlen(collection_object_id) is 1>
-			<cfset linky="collection_object_id=#collection_object_id#">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select
-					'Specimen <strong>' || collection.guid_prefix || ':' || cat_num ||
-					' <i>' || scientific_name || '</i></strong>' summary
-				from
-					cataloged_item,
-					identification,
-					collection
-				where
-					cataloged_item.collection_object_id = identification.collection_object_id AND
-					accepted_id_fg=1 AND
-					cataloged_item.collection_id = collection.collection_id and
-					cataloged_item.collection_object_id in (
-						<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-					)
-			</cfquery>
-			<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from annotations where	collection_object_id=#collection_object_id#
-			</cfquery>
-		<cfelse>
-			<cfset d.summary='test'>
-			<cfset linky=''>
-		</cfif>
-
+		<cfset linky="collection_object_id=#collection_object_id#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				'Specimen <strong>' || collection.guid_prefix || ':' || cat_num ||
+				' <i>' || scientific_name || '</i></strong>' summary
+			from
+				cataloged_item,
+				identification,
+				collection
+			where
+				cataloged_item.collection_object_id = identification.collection_object_id AND
+				accepted_id_fg=1 AND
+				cataloged_item.collection_id = collection.collection_id and
+				cataloged_item.collection_object_id in (
+					<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+				)
+		</cfquery>
+		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from annotations where	collection_object_id=#collection_object_id#
+		</cfquery>
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 		<cfset linky="taxon_name_id=#taxon_name_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
