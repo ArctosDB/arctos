@@ -478,7 +478,7 @@ function saveThisAnnotation() {
 	
 	
 	
-	var h='<div style="border:5px solid purple">i am overlay</div>';
+	var h='<div style="border:5px solid purple;float:left;position:absolute;top:0;width:100%;height:100%;"><img src="/images/indicator.gif"></div>';
 	
 	$("#annotateDiv").append(h);
 	
