@@ -72,7 +72,6 @@
 	</script>
 	<cfquery name="data" datasource="uam_god">
 		select
-			ANNOTATION_ID,
 			ANNOTATION_GROUP_ID,
 			ANNOTATION,
 			to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
