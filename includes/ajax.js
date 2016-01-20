@@ -474,6 +474,28 @@ function saveThisAnnotation() {
 		alert('Enter a valid email address.');
 		return false;		
 	}
+	
+	
+	
+	="annotateDiv" class="annotateBox">
+	
+	var h='<div style="border:5px solid purple">i am overlay</div>';
+	
+	$("#annotateDiv").append(h);
+	
+	console.log('im out');
+	
+	£
+	return false;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "hashString",
