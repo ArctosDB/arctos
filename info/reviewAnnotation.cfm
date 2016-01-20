@@ -50,11 +50,11 @@
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
 
 	<script>
-		function reviewAnnotation(annotation_id) {
+		function reviewAnnotation(annotation_group_id) {
 			$.getJSON("/component/functions.cfc",
 				{
 					method : "reviewAnnotation",
-					annotation_id : annotation_id,
+					annotation_group_id : annotation_group_id,
 					reviewer_comment : $("#reviewer_comment_" + annotation_id).val(),
 					returnformat : "json",
 					queryformat : 'column'
@@ -171,9 +171,11 @@
 							<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
 						</select>
 							</form>
+
+													<input type="text" name="annotation_group_id" value="#annotation_group_id#">
+
 						----->
 
-						<input type="text" name="annotation_group_id" value="#annotation_group_id#">
 
 						<label for="reviewer_comment">Review Comment</label>
 						<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment_#annotation_group_id#">#reviewer_comment#</textarea>
