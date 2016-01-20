@@ -40,7 +40,7 @@
 	<label for="reviewer_comment">
 		Reviewer Comment
 		<span class="likeLink" onclick="$('#reviewer_comment').val('_');">[ NOT NULL ]</span>
-		<span class="infoLink" onclick="$('#reviewer_comment').val('NULL');">[ IS NULL ]</span>
+		<span class="likeLink" onclick="$('#reviewer_comment').val('NULL');">[ IS NULL ]</span>
 	</label>
 	<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment"></textarea>
 	<br>
@@ -144,15 +144,18 @@
 				</cfif>
 			</cfif>
 	</cfquery>
-	<cfdump var=#data#>
-
+	<hr>
 	<cfoutput>
 		<cfset i=1>
 		<cfloop query="data">
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-				<div>Submittor: <cfif len(CF_USERNAME) gt 0>#CF_USERNAME#<cfelse>anonymous</cfif></div>
-				<div>Date: #ANNOTATE_DATE#</div>
-				<div>Annotation: #ANNOTATION#</div>
+				<div>
+					Annotation by <cfif len(CF_USERNAME) gt 0>#CF_USERNAME#<cfelse>anonymous</cfif>
+					made #ANNOTATE_DATE#
+				</div>
+				<div style="font-weight:bold;font-size:smaller;">
+					#ANNOTATION#
+				</div>
 				<cfif len(reviewer) gt 0>
 					<div>Reviewed By #reviewer#</div>
 				</cfif>
