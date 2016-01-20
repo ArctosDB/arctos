@@ -508,9 +508,19 @@
 					<a href="/SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">HTML version</a>
 				</td>
 				<td>
-				<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
+					<cfif listlen(collObjIdList) lt 1000>
+						<a href="javascript: openAnnotation('collection_object_id=#collObjIdList#')">
+						Report Bad Data
+						</a>
+					</cfif>
+
 
 				<!----
+
+								<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
+
+
+
 										<span class="likeLink" onclick="openAnnotation('collection_object_id=#collObjIdList#')">Report Bad Data</span>
 
 					---->
