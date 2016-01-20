@@ -7,10 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 
-<cfdump var=#v#>
-	<cfif listlen(v) gt 1>
-		multiple<cfabort>
-	</cfif>
+	<cfif listlen(v) eq 1>
+
 
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset linky="collection_object_id=#collection_object_id#">
@@ -80,6 +78,7 @@
 		<cfabort>
 	</cfif>
 	Annotations for #d.summary# (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)
+	</cfif>
 	<form name="annotate" method="post" action="/info/annotate.cfm">
 		<input type="hidden" name="action" value="insert">
 		<input type="hidden" name="idtype" id="idtype" value="#t#">
