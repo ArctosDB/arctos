@@ -4258,7 +4258,7 @@
 			<cfloop list="idvalue" index="id">
 				<cfquery name="insAnn" datasource="uam_god">
 					insert into annotations (
-						ANNOTATION_GROUP_ID
+						ANNOTATION_GROUP_ID,
 						cf_username,
 						#idType#,
 						annotation
