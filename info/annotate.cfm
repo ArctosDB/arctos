@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 
+<cfdump var=#v#>
 	<cfif listlen(v) gt 0>
 		multiple<cfabort>
 	</cfif>
