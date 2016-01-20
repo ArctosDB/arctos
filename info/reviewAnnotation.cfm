@@ -153,7 +153,7 @@
 					Annotation by <cfif len(CF_USERNAME) gt 0><strong>#CF_USERNAME#</strong><cfelse><strong>anonymous</strong></cfif>
 					on http://arctos-test.tacc.utexas.edu/info/reviewAnnotation.cfm?collection_object_id=12
 				</div>
-				<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin-left:1em;">
+				<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;">
 					#ANNOTATION#
 				</div>
 				<cfif len(reviewer) gt 0>
@@ -176,7 +176,13 @@
 						<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_id#');">
 				<cfelse>
 					<cfif len(reviewer_comment) gt 0>
-						<div>Reviewer Comments: <strong>#reviewer_comment#</strong></div>
+						<div>Reviewer Comments:
+							<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;">
+								#reviewer_comment#</strong>
+							</div>
+						</div>
+					<cfelse>
+						<div>Not yet reviewed.</div>
 					</cfif>
 				</cfif>
 				<cfquery name="grp" datasource="uam_god">
