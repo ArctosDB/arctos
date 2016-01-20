@@ -4256,7 +4256,7 @@
 			<cfquery name="gc" datasource="uam_god">
 				select sq_annotation_group_id.nextval key from dual
 			</cfquery>
-			<cfloop list="idvalue" index="id">
+			<cfloop list="#idvalue#" index="id">
 
 				<br>#id#
 				<cfquery name="insAnn" datasource="uam_god">
