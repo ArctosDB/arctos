@@ -150,14 +150,14 @@
 		<cfloop query="data">
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<div>
-					Annotation by <cfif len(CF_USERNAME) gt 0>#CF_USERNAME#<cfelse>anonymous</cfif>
-					made #ANNOTATE_DATE#
+					Annotation by <cfif len(CF_USERNAME) gt 0><strong>#CF_USERNAME#</strong><cfelse><strong>anonymous</strong></cfif>
+					on http://arctos-test.tacc.utexas.edu/info/reviewAnnotation.cfm?collection_object_id=12
 				</div>
-				<div style="font-weight:bold;font-size:smaller;">
+				<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin-left:1em;">
 					#ANNOTATION#
 				</div>
 				<cfif len(reviewer) gt 0>
-					<div>Reviewed By #reviewer#</div>
+					<div>Reviewed By <strong>#reviewer#</strong></div>
 				</cfif>
 				<cfif session.roles contains "manage_collection">
 						<!----
@@ -176,7 +176,7 @@
 						<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_id#');">
 				<cfelse>
 					<cfif len(reviewer_comment) gt 0>
-						<div>Reviewer Comments: #reviewer_comment#</div>
+						<div>Reviewer Comments: <strong>#reviewer_comment#</strong></div>
 					</cfif>
 				</cfif>
 				<cfquery name="grp" datasource="uam_god">
