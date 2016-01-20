@@ -4256,6 +4256,8 @@
 				select sq_annotation_group_id.nextval key from dual
 			</cfquery>
 			<cfloop list="idvalue" index="id">
+
+				<br>#id#
 				<cfquery name="insAnn" datasource="uam_god">
 					insert into annotations (
 						ANNOTATION_GROUP_ID,
