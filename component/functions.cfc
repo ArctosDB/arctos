@@ -4283,7 +4283,7 @@
 					collection.collection_id = collection_contacts.collection_id AND
 					collection_contacts.CONTACT_ROLE = 'data quality' and
 					<cfif idType is "collection_object_id">
-						cataloged_item.collection_object_id=#idvalue#
+						cataloged_item.collection_object_id in (#idvalue#)
 					<cfelseif idType is "taxon_name_id">
 						cataloged_item.collection_object_id in (
 							select
@@ -4293,7 +4293,7 @@
 								identification_taxonomy
 							where
 								identification.identification_id=identification_taxonomy.identification_id and
-								identification_taxonomy.taxon_name_id=#idvalue#
+								identification_taxonomy.taxon_name_id in (#idvalue#)
 						)
 					<cfelse>
 						1=0
