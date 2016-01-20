@@ -4257,8 +4257,6 @@
 				select sq_annotation_group_id.nextval key from dual
 			</cfquery>
 			<cfloop list="#idvalue#" index="id">
-
-				<br>#id#
 				<cfquery name="insAnn" datasource="uam_god">
 					insert into annotations (
 						ANNOTATION_GROUP_ID,
@@ -4323,12 +4321,17 @@
 				<cfset subj="TEST PLEASE IGNORE: Annotation Submitted">
 			</cfif>
 			<cfmail to="#maddr#" from="annotation@#Application.fromEmail#" subject="#subj#" type="html">
-				An Arctos user (<cfif len(session.username) gt 0> #session.username#<cfelse>Anonymous</cfif> has created an Annotation
+
+
+				mailto: #mailTo#
+
+
+
+				An Arctos user (<cfif len(session.username) gt 0>#session.username#<cfelse>Anonymous</cfif>) has created an Annotation
 				concerning #atype# potentially related to your collection(s).  #listlen(idvalue)# record(s) have been annotated.
 				<blockquote>
 					#annotation#
 				</blockquote>
-
 				View details at
 				<a href="#Application.ServerRootUrl#/info/reviewAnnotation.cfm?ANNOTATION_GROUP_ID=#gc.key#">
 					#Application.ServerRootUrl#/info/reviewAnnotation.cfm?ANNOTATION_GROUP_ID=#gc.key#
