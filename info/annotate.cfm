@@ -6,6 +6,7 @@
 	<cfset "#t#"="#v#">
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
+
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset linky="collection_object_id=#collection_object_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -20,7 +21,9 @@
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				accepted_id_fg=1 AND
 				cataloged_item.collection_id = collection.collection_id and
-				cataloged_item.collection_object_id=#collection_object_id#
+				cataloged_item.collection_object_id in (
+					<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+				)
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from annotations where	collection_object_id=#collection_object_id#
@@ -38,7 +41,7 @@
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from annotations where taxon_name_id=#taxon_name_id#
 		</cfquery>
-	<cfelseif isdefined("project_id") and len(project_id) gt 0>
+	<cfelseif isdefined("project_id") and len(project_id) gt 0 and listlen(project_id) eq 1>
 		<cfset linky="project_id=#project_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
@@ -51,7 +54,7 @@
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from annotations where project_id=#project_id#
 		</cfquery>
-	<cfelseif isdefined("publication_id") and len(publication_id) gt 0>
+	<cfelseif isdefined("publication_id") and len(publication_id) gt 0 and listlen(publication_id) eq 1>
 		<cfset linky="publication_id=#publication_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
