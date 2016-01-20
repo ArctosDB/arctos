@@ -63,9 +63,9 @@
 					if (r.DATA.STATUS=='success'){
 
 						console.log('happy');
-						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass('badPick').addClass('goodPick');
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
 					} else {
-						$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass('goodPick').addClass('badPick');
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
 						alert(r.DATA.MESSAGE);
 					}
 				}
