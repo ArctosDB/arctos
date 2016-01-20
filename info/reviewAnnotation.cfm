@@ -140,7 +140,7 @@
 					and annotations.reviewer_comment is null
 				<cfelse>
 					and upper(annotations.reviewer_comment) like
-					<cfqueryparam value = "#reviewer_comment#" CFSQLType = "CF_SQL_VARCHAR" list = "no">
+					<cfqueryparam value = "#ucase(reviewer_comment)#" CFSQLType = "CF_SQL_VARCHAR" list = "no">
 				</cfif>
 			</cfif>
 	</cfquery>
