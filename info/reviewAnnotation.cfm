@@ -157,7 +157,7 @@
 					#ANNOTATION#
 				</div>
 				<cfif len(reviewer) gt 0>
-					<div>Reviewed By <strong>#reviewer#</strong></div>
+					<div>Reviewed By <strong>#reviewer#</strong>:</div>
 				</cfif>
 				<cfif session.roles contains "manage_collection">
 						<!----
@@ -176,10 +176,8 @@
 						<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_id#');">
 				<cfelse>
 					<cfif len(reviewer_comment) gt 0>
-						<div>Reviewer Comments:
-							<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;">
-								#reviewer_comment#</strong>
-							</div>
+						<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;">
+							#reviewer_comment#</strong>
 						</div>
 					<cfelse>
 						<div>Not yet reviewed.</div>
