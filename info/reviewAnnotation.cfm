@@ -42,7 +42,7 @@
 
 	<label for="reviewer_comment">Reviewer Comment</label>
 	<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment"></textarea>
-	<span class="infoLink" onclick="$('##reviewer_comment').val('_');">NOT NULL</span>
+	<span class="infoLink" onclick="$('#reviewer_comment').val('_');">NOT NULL</span>
 
 
 	<br>
