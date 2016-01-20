@@ -172,9 +172,12 @@
 						</select>
 							</form>
 						----->
+
+						<input type="text" name="annotation_group_id" value="#annotation_group_id#">
+
 						<label for="reviewer_comment">Review Comment</label>
-						<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment_#annotation_id#">#reviewer_comment#</textarea>
-						<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_id#');">
+						<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment_#annotation_group_id#">#reviewer_comment#</textarea>
+						<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_group_id#');">
 				<cfelse>
 					<cfif len(reviewer_comment) gt 0>
 						<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;">

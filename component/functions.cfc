@@ -4353,7 +4353,7 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="reviewAnnotation" access="remote">
-	<cfargument name="annotation_id" type="numeric" required="yes">
+	<cfargument name="ANNOTATION_GROUP_ID" type="numeric" required="yes">
 	<cfargument name="REVIEWER_COMMENT" type="string" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
@@ -4363,15 +4363,15 @@
 				REVIEWED_FG=1,
 				REVIEWER_COMMENT='#stripQuotes(REVIEWER_COMMENT)#'
 			where
-				annotation_id=#annotation_id#
+				annotation_id=#ANNOTATION_GROUP_ID#
 		</cfquery>
-		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_ID")>
+		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_GROUP_ID")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
 		<cfset temp = QuerySetCell(d, "ANNOTATION_ID", '#ANNOTATION_ID#', 1)>
 
 	<cfcatch>
-		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_ID")>
+		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_GROUP_ID")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
 		<cfset temp = QuerySetCell(d, "MESSAGE", 'An error occured: #cfcatch.message# #cfcatch.detail#', 1)>
