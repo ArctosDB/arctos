@@ -55,7 +55,7 @@
 				{
 					method : "reviewAnnotation",
 					annotation_group_id : annotation_group_id,
-					reviewer_comment : $("#reviewer_comment_" + annotation_id).val(),
+					reviewer_comment : $("#reviewer_comment_" + annotation_group_id).val(),
 					returnformat : "json",
 					queryformat : 'column'
 				},
