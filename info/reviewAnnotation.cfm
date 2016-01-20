@@ -198,6 +198,16 @@
 				</cfquery>
 				<div>
 					Annotated Object(s)
+					<cfif grp.recordcount gt 1 and grp.dlink contains '/guid/'>
+						<cfquery name="srlink" datasource="uam_god">
+							select collection_object_Id
+							 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
+						</cfquery>
+						<cfif srlink.recordcount gt 1>
+							<a href="SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
+						</cfif>
+
+					</cfif>
 					<ul>
 						<cfloop query="grp">
 							<li>#dlink#</li>
