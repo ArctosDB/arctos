@@ -35,6 +35,11 @@
 				}
 			);
 		}
+		function clearForm()
+		{
+		    $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+		    $(':checkbox, :radio').prop('checked', false);
+		}
 	</script>
 		<cfoutput>
 <!---- search form, always displayed ---->
@@ -81,7 +86,7 @@
 
 	<br>
 	<input type="submit" class="lnkBtn" value="Filter">
-	<input type="reset" class="clrBtn" value="Clear Form">
+	<input type="button" class="clrBtn" onclick="clearForm()" value="Clear Form">
 </form>
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
 
