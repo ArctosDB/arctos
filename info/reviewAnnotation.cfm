@@ -86,91 +86,93 @@
 		</form>
 	</div>
 	<cfquery name="data" datasource="uam_god">
-		select distinct
-			ANNOTATION_GROUP_ID,
-			ANNOTATION,
-			to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
-			CF_USERNAME,
-			REVIEWER_AGENT_ID,
-			getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
-			REVIEWED_FG,
-			REVIEWER_COMMENT
-		from
-			annotations
-		where
-			rownum<101
-			<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-				and annotations.collection_object_id in (
-					<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-				)
-			</cfif>
-			<cfif isdefined("publication_id") and len(publication_id) gt 0>
-				and annotations.publication_id in (
-					<cfqueryparam value = "#publication_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-				)
-			</cfif>
-			<cfif isdefined("project_id") and len(project_id) gt 0>
-				and annotations.project_id in (
-					<cfqueryparam value = "#project_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-				)
-			</cfif>
-			<cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
-				and annotations.taxon_name_id in (
-					<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-				)
-			</cfif>
-			<cfif isdefined("annotation_id") and len(annotation_id) gt 0>
-				and annotations.annotation_id = (
-					<cfqueryparam value = "#annotation_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-				)
-			</cfif>
-			<cfif isdefined("annotation_group_id") and len(annotation_group_id) gt 0>
-				and annotations.annotation_group_id = (
-					<cfqueryparam value = "#annotation_group_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
-				)
-			</cfif>
-			<cfif isdefined("atype") and atype is "taxon">
-				and annotations.taxon_name_id is not null
-			</cfif>
-			<cfif isdefined("atype") and atype is "project">
-				and annotations.project_id is not null
-			</cfif>
-			<cfif isdefined("atype") and atype is "publication">
-				and annotations.publication_id is not null
-			</cfif>
-			<cfif isdefined("atype") and atype is "specimen">
-				and annotations.collection_object_id is not null
-			</cfif>
-			<cfif isdefined("guid_prefix") and len(guid_prefix) gt 0>
-				and annotations.collection_object_id in (
-					select collection_object_id from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
-					collection.guid_prefix in (
-						<cfqueryparam value = "#guid_prefix#" CFSQLType = "CF_SQL_VARCHAR" list = "yes" separator = ",">
+		select * from (
+			select distinct
+				ANNOTATION_GROUP_ID,
+				ANNOTATION,
+				to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
+				CF_USERNAME,
+				REVIEWER_AGENT_ID,
+				getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
+				REVIEWED_FG,
+				REVIEWER_COMMENT
+			from
+				annotations
+			where
+				1=1
+				<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+					and annotations.collection_object_id in (
+						<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 					)
-				)
-			</cfif>
-			<cfif isdefined("reviewer_comment") and len(reviewer_comment) gt 0>
-				<cfif reviewer_comment is "NULL">
-					and annotations.reviewer_comment is null
-				<cfelse>
-					and upper(annotations.reviewer_comment) like
-					<cfqueryparam value = "%#ucase(reviewer_comment)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
 				</cfif>
-			</cfif>
+				<cfif isdefined("publication_id") and len(publication_id) gt 0>
+					and annotations.publication_id in (
+						<cfqueryparam value = "#publication_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+					)
+				</cfif>
+				<cfif isdefined("project_id") and len(project_id) gt 0>
+					and annotations.project_id in (
+						<cfqueryparam value = "#project_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+					)
+				</cfif>
+				<cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+					and annotations.taxon_name_id in (
+						<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+					)
+				</cfif>
+				<cfif isdefined("annotation_id") and len(annotation_id) gt 0>
+					and annotations.annotation_id = (
+						<cfqueryparam value = "#annotation_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+					)
+				</cfif>
+				<cfif isdefined("annotation_group_id") and len(annotation_group_id) gt 0>
+					and annotations.annotation_group_id = (
+						<cfqueryparam value = "#annotation_group_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+					)
+				</cfif>
+				<cfif isdefined("atype") and atype is "taxon">
+					and annotations.taxon_name_id is not null
+				</cfif>
+				<cfif isdefined("atype") and atype is "project">
+					and annotations.project_id is not null
+				</cfif>
+				<cfif isdefined("atype") and atype is "publication">
+					and annotations.publication_id is not null
+				</cfif>
+				<cfif isdefined("atype") and atype is "specimen">
+					and annotations.collection_object_id is not null
+				</cfif>
+				<cfif isdefined("guid_prefix") and len(guid_prefix) gt 0>
+					and annotations.collection_object_id in (
+						select collection_object_id from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
+						collection.guid_prefix in (
+							<cfqueryparam value = "#guid_prefix#" CFSQLType = "CF_SQL_VARCHAR" list = "yes" separator = ",">
+						)
+					)
+				</cfif>
+				<cfif isdefined("reviewer_comment") and len(reviewer_comment) gt 0>
+					<cfif reviewer_comment is "NULL">
+						and annotations.reviewer_comment is null
+					<cfelse>
+						and upper(annotations.reviewer_comment) like
+						<cfqueryparam value = "%#ucase(reviewer_comment)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
+					</cfif>
+				</cfif>
 
-			<cfif isdefined("submitter") and len(submitter) gt 0>
-				and upper(annotations.CF_USERNAME) like
-					<cfqueryparam value = "%#ucase(submitter)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
-			</cfif>
+				<cfif isdefined("submitter") and len(submitter) gt 0>
+					and upper(annotations.CF_USERNAME) like
+						<cfqueryparam value = "%#ucase(submitter)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
+				</cfif>
 
-			<cfif isdefined("reviewer") and len(reviewer) gt 0>
-				and annotations.REVIEWER_AGENT_ID in (
-					select agent_id from agent_name where upper(agent_name) like
-						<cfqueryparam value = "%#ucase(reviewer)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
-				)
-			</cfif>
-		order by
-			ANNOTATE_DATE DESC
+				<cfif isdefined("reviewer") and len(reviewer) gt 0>
+					and annotations.REVIEWER_AGENT_ID in (
+						select agent_id from agent_name where upper(agent_name) like
+							<cfqueryparam value = "%#ucase(reviewer)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
+					)
+				</cfif>
+			order by
+				ANNOTATE_DATE DESC
+		) where rownum<101
 	</cfquery>
 
 	<cfdump var=#data#>
