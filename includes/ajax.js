@@ -526,6 +526,7 @@ function openAnnotation(q){
 		closeOnEscape: true,
 		height: 'auto',
 		modal: true,
+		id: 'testid',
 		position: ['center', 'center'],
 		title: 'Report Bad Data',
 			width:800,
