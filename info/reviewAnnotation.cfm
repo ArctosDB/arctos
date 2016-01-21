@@ -90,7 +90,7 @@
 		from
 			annotations
 		where
-			rownum<500
+			rownum<101
 			<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 				and annotations.collection_object_id in (
 					<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
@@ -152,8 +152,8 @@
 			ANNOTATE_DATE desc
 	</cfquery>
 	<hr>
-	<cfif data.recordcount is 499>
-		Caution: This form returns only 500 records.
+	<cfif data.recordcount is 100>
+		Caution: This form returns a maximum of 100 records.
 	</cfif>
 		<cfset i=1>
 		<cfloop query="data">
