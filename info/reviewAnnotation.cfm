@@ -176,7 +176,9 @@
 	</cfquery>
 	<hr>
 	<cfif data.recordcount is 100>
-		Caution: This form returns a maximum of 100 records.
+		<div class="importantNotification">
+			Caution: This form returns a maximum of 100 records.
+		</div>
 	</cfif>
 	<cfset i=1>
 	<cfloop query="data">
