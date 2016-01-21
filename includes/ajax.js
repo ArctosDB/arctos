@@ -517,16 +517,13 @@ function saveThisAnnotation() {
 
 
 
-
-
 function openAnnotation(q){
 	var guts = "/info/annotate.cfm?q=" + q;
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").prop('tttestID').dialog({
 		autoOpen: true,
 		closeOnEscape: true,
 		height: 'auto',
 		modal: true,
-		id: 'testid',
 		position: ['center', 'center'],
 		title: 'Report Bad Data',
 			width:800,
