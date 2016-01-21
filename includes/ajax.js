@@ -563,19 +563,7 @@ function openAnnotation__old(q) {
 	});
 }
 function closeAnnotation() {
-	
-	console.log('i am closeAnnotation');
-	
-
 	parent.$(".ui-dialog-titlebar-close").trigger('click');	
-	/*
-	var theDiv;
-	theDiv= document.getElementById('bgDiv');
-	document.body.removeChild(theDiv);
-	theDiv = document.getElementById('annotateDiv');
-	document.body.removeChild(theDiv);
-	
-	*/
 }
 
 function archiveSpecimens (){
