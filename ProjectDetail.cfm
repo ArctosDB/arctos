@@ -125,7 +125,7 @@
 				where project_id = #project_id#
 			</cfquery>
 			<a href="javascript: openAnnotation('project_id=#project_id#')">
-				[Annotate]
+				[ Report Problem ]
 			<cfif #existingAnnotations.cnt# gt 0>
 				<br>(#existingAnnotations.cnt# existing)
 			</cfif>
@@ -144,7 +144,7 @@
 			Sponsored by #agent_name# <cfif len(project_agent_remarks) gt 0>: #project_agent_remarks#</cfif>
 		</div>
 	</cfloop>
-	
+
 	---->
 	<cfloop query="a">
 		<div class="proj_agent">
