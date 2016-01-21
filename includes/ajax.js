@@ -565,6 +565,10 @@ function openAnnotation__old(q) {
 	});
 }
 function closeAnnotation() {
+	
+	console.log('i am closeAnnotation');
+	
+	
 	$("#dialog").parents("div.ui-dialog-content").dialog("close");
 	/*
 	var theDiv;
