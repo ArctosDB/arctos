@@ -139,6 +139,7 @@
 					collection.guid_prefix in (
 						<cfqueryparam value = "#guid_prefix#" CFSQLType = "CF_SQL_VARCHAR" list = "yes" separator = ",">
 					)
+				)
 			</cfif>
 			<cfif isdefined("reviewer_comment") and len(reviewer_comment) gt 0>
 				<cfif reviewer_comment is "NULL">
