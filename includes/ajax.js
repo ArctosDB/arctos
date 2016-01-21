@@ -566,8 +566,9 @@ function closeAnnotation() {
 	
 	console.log('i am closeAnnotation');
 	
+
+    $(".ui-dialog-titlebar-close").trigger('click');
 	
-	$("#dialog").remove();
 	/*
 	var theDiv;
 	theDiv= document.getElementById('bgDiv');
