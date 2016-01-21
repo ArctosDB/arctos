@@ -565,7 +565,7 @@ function openAnnotation__old(q) {
 	});
 }
 function closeAnnotation() {
-	$("#dialog").parent().dialog('destroy').remove();
+	$("#dialog").parents("div.ui-dialog-content").dialog("close");
 	/*
 	var theDiv;
 	theDiv= document.getElementById('bgDiv');
