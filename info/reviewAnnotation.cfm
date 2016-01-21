@@ -187,7 +187,7 @@
 				Annotation by <cfif len(CF_USERNAME) gt 0><strong>#CF_USERNAME#</strong><cfelse><strong>anonymous</strong></cfif>
 				on #ANNOTATE_DATE#
 			</div>
-			<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;">
+			<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;display:inline-block;">
 				#ANNOTATION#
 			</div>
 			<cfif len(reviewer) gt 0>
@@ -199,7 +199,7 @@
 				<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_group_id#');">
 			<cfelse>
 				<cfif len(reviewer_comment) gt 0>
-					<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;">
+					<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;display:inline-block;">
 						#reviewer_comment#</strong>
 					</div>
 				<cfelse>
