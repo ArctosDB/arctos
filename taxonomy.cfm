@@ -376,7 +376,7 @@ function loadTaxonomyMap(n,m){
 			where taxon_name_id = #taxon_name_id.taxon_name_id#
 		</cfquery>
 		<a href="javascript: openAnnotation('taxon_name_id=#taxon_name_id.taxon_name_id#')">
-			[Annotate]
+			[ Report Problem ]
 		<cfif #existingAnnotations.cnt# gt 0>
 			<br>(#existingAnnotations.cnt# existing)
 		</cfif>
