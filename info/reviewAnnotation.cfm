@@ -52,7 +52,7 @@
 <cfparam name="submitter" default="">
 <cfparam name="reviewer" default="">
 
-
+<div style="margin:2em;padding:1em;border:1px dashed green">
 <label for="filter">Search/Filter</label>
 <form name="filter" method="get" action="reviewAnnotation.cfm">
 	<input type="hidden" name="action" value="show">
@@ -88,6 +88,7 @@
 	<input type="submit" class="lnkBtn" value="Filter">
 	<input type="button" class="clrBtn" onclick="clearForm()" value="Clear Form">
 </form>
+</div>
 <!---- if we have any useful IDs, find the annotations and what's referenced by them ---->
 
 
