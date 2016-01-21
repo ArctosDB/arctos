@@ -519,7 +519,7 @@ function saveThisAnnotation() {
 
 function openAnnotation(q){
 	var guts = "/info/annotate.cfm?q=" + q;
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").prop('id','tttestID').dialog({
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").prop('id','dialog').dialog({
 		autoOpen: true,
 		closeOnEscape: true,
 		height: 'auto',
@@ -567,7 +567,7 @@ function closeAnnotation() {
 	console.log('i am closeAnnotation');
 	
 	
-	$("#dialog").parents("div.ui-dialog-content").dialog("close");
+	$("#dialog").remove();
 	/*
 	var theDiv;
 	theDiv= document.getElementById('bgDiv');
