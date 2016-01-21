@@ -75,8 +75,8 @@
 
 	<label for="reviewer_comment">
 		Reviewer Comment
-		<span class="likeLink" onclick="$('##reviewer_comment').val('_');">[ NOT NULL ]</span>
-		<span class="likeLink" onclick="$('##reviewer_comment').val('NULL');">[ IS NULL ]</span>
+		<span class="likeLink" onclick="$('##reviewer_comment').val('_');">[ NOT NULL (=is reviewed) ]</span>
+		<span class="likeLink" onclick="$('##reviewer_comment').val('NULL');">[ IS NULL (=not reviewed) ]</span>
 	</label>
 	<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
 	<label for="submitter">submitter (Arctos username)</label>
