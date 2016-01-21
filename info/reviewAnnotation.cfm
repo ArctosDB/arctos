@@ -44,6 +44,10 @@
 <cfparam name="atype" default="">
 <cfparam name="guid_prefix" default="">
 <cfparam name="reviewer_comment" default="">
+<cfparam name="submitter" default="">
+<cfparam name="reviewer" default="">
+
+
 <label for="filter">Search/Filter</label>
 <form name="filter" method="get" action="reviewAnnotation.cfm">
 	<input type="hidden" name="action" value="show">
@@ -70,6 +74,11 @@
 		<span class="likeLink" onclick="$('##reviewer_comment').val('NULL');">[ IS NULL ]</span>
 	</label>
 	<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
+	<label for="submitter">submitter (Arctos username)</label>
+	<input type="text" size="50" name="submitter" value="#submitter#">
+	<label for="reviewer">reviewer</label>
+	<input type="text" size="50" name="reviewer" value="#reviewer#">
+
 	<br>
 	<input type="submit" class="lnkBtn" value="Filter">
 	<input type="reset" class="clrBtn" value="Clear Form">
@@ -149,6 +158,20 @@
 					<cfqueryparam value = "%#ucase(reviewer_comment)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
 				</cfif>
 			</cfif>
+
+			<cfif isdefined("submitter") and len(submitter) gt 0>
+				and upper(annotations.CF_USERNAME like
+					<cfqueryparam value = "%#ucase(submitter)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
+			</cfif>
+
+			<cfif isdefined("reviewer") and len(reviewer) gt 0>
+				and annotations.REVIEWER_AGENT_ID in (
+					select agent_id from agent_name where upper(agent_name) like
+						<cfqueryparam value = "%#ucase(reviewer)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
+				)
+			</cfif>
+
+
 		order by
 			ANNOTATE_DATE desc
 	</cfquery>
