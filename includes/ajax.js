@@ -520,7 +520,6 @@ function saveThisAnnotation() {
 
 
 function openAnnotation(q){
-	
 	var guts = "/info/annotate.cfm?q=" + q;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
@@ -566,11 +565,15 @@ function openAnnotation__old(q) {
 	});
 }
 function closeAnnotation() {
+	$("#dialog").parent().dialog('destroy').remove();
+	/*
 	var theDiv;
 	theDiv= document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);
 	theDiv = document.getElementById('annotateDiv');
 	document.body.removeChild(theDiv);
+	
+	*/
 }
 
 function archiveSpecimens (){
