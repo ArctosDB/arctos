@@ -489,7 +489,7 @@
 						#agent_name# (#project_agent_role#)<br>
 					</cfloop>
 					#dateformat(start_date,"yyyy-mm-dd")# - #dateformat(end_date,"yyyy-mm-dd")#
-					<br><a href="javascript: openAnnotation('project_id=#project_id#')">Annotate</a>
+					<br><a href="javascript: openAnnotation('project_id=#project_id#')">Report Problem</a>
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 						<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
 					</cfif>
@@ -543,7 +543,7 @@
 					<a href="/publication/#publication_id#">#full_citation#</a>
 				</p>
 				<ul>
-					<li><a href="javascript: openAnnotation('publication_id=#publication_id#')">Annotate</a></li>
+					<li><a href="javascript: openAnnotation('publication_id=#publication_id#')">Report Problem</a></li>
 					<li>
 						<cfif numCits gt 0>
 							<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Cited Specimens</a>
