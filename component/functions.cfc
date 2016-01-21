@@ -4350,7 +4350,7 @@
 			update annotations set
 				REVIEWER_AGENT_ID=#session.myAgentId#,
 				REVIEWED_FG=1,
-				REVIEWER_COMMENT='#stripQuotes(REVIEWER_COMMENT)#'
+				REVIEWER_COMMENT='#escapeQuotes(REVIEWER_COMMENT)#'
 			where
 				ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
 		</cfquery>
