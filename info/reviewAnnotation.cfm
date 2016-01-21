@@ -160,7 +160,7 @@
 			</cfif>
 
 			<cfif isdefined("submitter") and len(submitter) gt 0>
-				and upper(annotations.CF_USERNAME like
+				and upper(annotations.CF_USERNAME) like
 					<cfqueryparam value = "%#ucase(submitter)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
 			</cfif>
 
@@ -170,8 +170,6 @@
 						<cfqueryparam value = "%#ucase(reviewer)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
 				)
 			</cfif>
-
-
 		order by
 			ANNOTATE_DATE desc
 	</cfquery>
