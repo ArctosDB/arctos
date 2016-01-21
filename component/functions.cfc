@@ -4267,7 +4267,7 @@
 						#gc.key#,
 						'#session.username#',
 						#val(id)#,
-						'#escapeQuotes(urldecode(annotation))#'
+						'#urldecode(annotation)#'
 					)
 				</cfquery>
 			</cfloop>
