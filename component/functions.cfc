@@ -4312,7 +4312,6 @@
 			</cfif>
 			<cfset mailTo = valuelist(whoTo.address)>
 			<cfset mailTo=listappend(mailTo,Application.DataProblemReportEmail,",")>
-
 			<cfif isdefined("Application.version") and  Application.version is "prod">
 				<cfset subj="Annotation Submitted">
 				<cfset maddr=mailTo>
@@ -4321,14 +4320,8 @@
 				<cfset subj="TEST PLEASE IGNORE: Annotation Submitted">
 			</cfif>
 			<cfmail to="#maddr#" from="annotation@#Application.fromEmail#" subject="#subj#" type="html">
-
-
-				mailto: #mailTo#
-
-
-
 				An Arctos user (<cfif len(session.username) gt 0>#session.username#<cfelse>Anonymous</cfif>) has created an Annotation
-				concerning records (#atype#) potentially related to your collection(s).  #listlen(idvalue)# record(s) have been annotated.
+				concerning #listlen(idvalue)# #atype# record(s) potentially related to your collection(s).
 				<blockquote>
 					#annotation#
 				</blockquote>
@@ -4338,11 +4331,7 @@
 				</a>
 			</cfmail>
 		</cftransaction>
-
-
-
 	<cfcatch>
-		<cfdump var=#cfcatch#>
 		<cfset result = "A database error occured: #cfcatch.message# #cfcatch.detail#">
 		<cfreturn result>
 	</cfcatch>
