@@ -174,8 +174,6 @@
 				ANNOTATE_DATE DESC
 		) where rownum<101
 	</cfquery>
-
-	<cfdump var=#data#>
 	<hr>
 	<cfif data.recordcount is 100>
 		Caution: This form returns a maximum of 100 records.
