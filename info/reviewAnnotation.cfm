@@ -170,7 +170,7 @@
 				)
 			</cfif>
 		order by
-			ANNOTATE_DATE
+			ANNOTATE_DATE DESC
 	</cfquery>
 	<hr>
 	<cfif data.recordcount is 100>
