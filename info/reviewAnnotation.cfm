@@ -172,6 +172,8 @@
 		order by
 			ANNOTATE_DATE DESC
 	</cfquery>
+
+	<cfdump var=#data#>
 	<hr>
 	<cfif data.recordcount is 100>
 		Caution: This form returns a maximum of 100 records.
