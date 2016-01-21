@@ -475,7 +475,7 @@ function saveThisAnnotation() {
 		return false;		
 	}
 	
-	var h='<div id="svgol" style="border:5px solid purple;float:left;position:absolute;top:0;width:100%;height:100%;background-color:rgba(128,128,128,0.5);padding-left:50%;padding-top:20%;"><img src="/images/indicator.gif"></div>';
+	var h='<div id="svgol" style="float:left;position:absolute;top:0;width:100%;height:100%;background-color:rgba(128,128,128,0.5);padding-left:50%;padding-top:20%;"><img src="/images/indicator.gif"></div>';
 	$("#annotateDiv").append(h);
 	$.getJSON("/component/functions.cfc",
 		{
@@ -501,8 +501,8 @@ function saveThisAnnotation() {
 					function(r) {
 						if (r == 'success') {
 							$("#svgol").remove();
-							closeAnnotation();
 							alert("Your annotations have been saved, and the appropriate curator will be alerted. \n Thank you for helping improve Arctos!");
+							closeAnnotation();
 						} else {
 							$("#svgol").remove();
 							alert('An error occured! \n ' + r);
