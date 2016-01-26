@@ -216,6 +216,7 @@ end;
 					</cfloop>
 				</cfloop>
 			</cftransaction>
+			<a href="tblbrowse.cfm">continue</a>
 		</cfif>
 
 
@@ -366,9 +367,17 @@ end;
 		</cfif>
 		<cfif action is "saveColDescr">
 			<cfdump var=#form#>
+			<cfloop list="#form.FIELDNAMES#" index="f">
+				<cfif left(f,11) is "DESCRIPTION">
+					<cfset tf=replace(f,"DESCRIPTION_","")>
+					<cfset tv=evaluate(f)>
+					<br>tf=#tf#
+					<br>tv=#tv#
+				</cfif>
+			</cfloop>
 		</cfif>
 
-
+ ACTION,TBL,DESCRIPTION_TRANSACTION_ID,DESCRIPTION_ACCN_TYPE,DESCRIPTION_ACCN_NUM_PREFIX,DESCRIPTION_ACCN_NUM,DESCRIPTION_ACCN_NUM_SUFFIX,DESCRIPTION_ACCN_STATUS,DESCRIPTION_ACCN_NUMBER,DESCRIPTION_ESTIMATED_COUNT
 
 		<!----
 		<form name="s" method="get" action="tblbrowse.cfm">
