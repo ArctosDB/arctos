@@ -237,7 +237,7 @@ end;
 
 		<cfif action is "addtable">
 			<cfquery name="d" datasource="uam_god">
-				insert into arctos_table_names (tbl) values ('#TBL#')
+				insert into arctos_table_names (tbl) values ('#ucase(TBL)#')
 			</cfquery>
 			#tbl# added <a href="tblbrowse.cfm">continue</a>
 		</cfif>
