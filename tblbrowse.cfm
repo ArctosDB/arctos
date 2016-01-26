@@ -175,9 +175,35 @@ end;
 				select * from arctos_keys where o_table_name='#tbl#' or r_table_name='#tbl#'
 			</cfquery>
 			<cfdump var=#trels#>
-			<div>
-				Details for #tbl#
-			</div>
+			<h2>
+				Constraints on #tbl#
+			</h2>
+			<table border>
+				<tr>
+					<th>ConstraintName</th>
+					<th>OriginatesFrom</th>
+					<th>ReferencesConstraint</th>
+					<th>ReferencesColumn</th>
+				</tr>
+				<cfloop query="trels">
+					<tr>
+						<td>
+							#C_CONSTRAINT_NAME#
+						</td>
+						<td>
+							#o_table_name#.#o_column_name#
+						</td>
+						<td>
+							#r_table_name#.#r_column_name#
+						</td>
+						<td>#r_constraint_name#</td>
+					</tr>
+				</cfloop>
+			</table>
+
+			<h2>
+				#tbl# columns
+			</h2>
 			<table border>
 				<tr>
 					<th>Column Name</th>
@@ -191,28 +217,7 @@ end;
 						<td>#column_name#</td>
 						<td>#description#</td>
 						<td>
-							<table border>
-								<tr>
-									<th>ConstraintName</th>
-									<th>OriginatesFrom</th>
-									<th>ReferencesConstraint</th>
-									<th>ReferencesColumn</th>
-								</tr>
-								<cfloop query="trels">
-									<tr>
-										<td>
-											#C_CONSTRAINT_NAME#
-										</td>
-										<td>
-											#o_table_name#.#o_column_name#
-										</td>
-										<td>
-											#r_table_name#.#r_column_name#
-										</td>
-										<td>#r_constraint_name#</td>
-									</tr>
-								</cfloop>
-							</table>
+
 						</td>
 					</tr>
 				</cfloop>
