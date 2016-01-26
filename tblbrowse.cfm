@@ -174,7 +174,7 @@ end;
 			<div>
 				Details for #tbl#
 			</div>
-			<table>
+			<table border>
 				<tr>
 					<th>Column Name</th>
 					<th>Description</th>
