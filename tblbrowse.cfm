@@ -189,7 +189,7 @@ end;
 						select * from trels where o_column_name = '#column_name#'
 					</cfquery>
 					<cfquery name="trefsback" dbtype="query">
-						select * from trels where r_table_name='#tbl' and r_column_name = '#column_name#'
+						select * from trels where r_table_name='#tbl#' and r_column_name = '#column_name#'
 					</cfquery>
 
 					<tr>
