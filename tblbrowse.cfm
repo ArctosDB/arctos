@@ -171,6 +171,10 @@ end;
 			<cfif tcols.recordcount lt 1>
 				Notfound<cfabort>
 			</cfif>
+			<cfquery name="trels" datasource="uam_god">
+				select * from arctos_keys where o_table_name='#tbl#' or r_table_name='#tbl#'
+			</cfquery>
+			<cfdump var=#trels#>
 			<div>
 				Details for #tbl#
 			</div>
@@ -178,13 +182,48 @@ end;
 				<tr>
 					<th>Column Name</th>
 					<th>Description</th>
-					<th>Relations</th>
+					<th>References</th>
 				</tr>
 				<cfloop query="tcols">
+					<cfquery name="trefs" dbtype="query">
+						select * from trels where o_column_name = '#column_name#'
+					</cfquery>
+					<cfquery name="trefsback" dbtype="query">
+						select * from trels where r_table_name='#tbl' and r_column_name = '#column_name#'
+					</cfquery>
+
 					<tr>
 						<td>#column_name#</td>
 						<td>#description#</td>
-						<td></td>
+						<td>
+							<table border>
+								<tr>
+									<th>ConstraintName</th>
+									<th>OriginatesFrom</th>
+									<th>References</th>
+								</tr>
+								<cfloop query="trefs">
+									<tr>
+										<td>
+											#C_CONSTRAINT_NAME#
+										</td>
+										<td>
+											#o_table_name#.#o_column_name#
+										</td>
+										<td>
+											#r_table_name#.#r_column_name#
+										</td>
+									</tr>
+							</table>
+
+								o_table_name,
+					o_column_name,
+					C_CONSTRAINT_NAME,
+					r_table_name,
+					r_column_name,
+					r_constraint_name
+							</cfloop>
+						</td>
 					</tr>
 				</cfloop>
 			</table>
