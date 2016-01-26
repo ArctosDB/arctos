@@ -174,6 +174,9 @@ end;
 			<cfquery name="trels" datasource="uam_god">
 				select * from arctos_keys where o_table_name='#tbl#' or r_table_name='#tbl#'
 			</cfquery>
+			<p>
+				<a href="tblbrowse.cfm">back to list</a>
+			</p>
 			<h2>
 				Constraints on #tbl#
 			</h2>
@@ -190,13 +193,13 @@ end;
 							#C_CONSTRAINT_NAME#
 						</td>
 						<td>
-							<a href="tblbrowse.cfm?action=tbldetail&tbl=#tbl#">#o_table_name#</a>.#o_column_name#
+							<a href="tblbrowse.cfm?action=tbldetail&tbl=#o_table_name#">#o_table_name#</a>.#o_column_name#
 						</td>
 						<td>
 							#r_constraint_name#
 						</td>
 						<td>
-							<a href="tblbrowse.cfm?action=tbldetail&tbl=#tbl#">#r_table_name#</a>.#r_column_name#
+							<a href="tblbrowse.cfm?action=tbldetail&tbl=#r_table_name#">#r_table_name#</a>.#r_column_name#
 						</td>
 					</tr>
 				</cfloop>
