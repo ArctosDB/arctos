@@ -179,6 +179,9 @@ end;
 				<p>
 					If you think there should be something here, please contact a DBA.
 				</p>
+				<p>
+					<a href="tblbrowse.cfm">back to list</a>
+				</p>
 				<cfabort>
 			</cfif>
 			<cfquery name="trels" datasource="uam_god">
