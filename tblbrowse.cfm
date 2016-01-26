@@ -1,23 +1,223 @@
+<!-----
+
+
+
+-- create a list of used tables
+-- exclude admin stuff,
+-- temp stuff,
+-- bulkloaders,
+-- ct,
+-- cf,
+-- etc.
+
+
+create table temp_arctos_tbl_list (tbl varchar2(255));
+
+insert into temp_arctos_tbl_list (tbl) values ('ACCN');
+insert into temp_arctos_tbl_list (tbl) values ('ADDRESS');
+insert into temp_arctos_tbl_list (tbl) values ('AGENT');
+insert into temp_arctos_tbl_list (tbl) values ('AGENT_NAME');
+insert into temp_arctos_tbl_list (tbl) values ('AGENT_RELATIONS');
+insert into temp_arctos_tbl_list (tbl) values ('AGENT_STATUS');
+insert into temp_arctos_tbl_list (tbl) values ('ATTRIBUTES');
+insert into temp_arctos_tbl_list (tbl) values ('BORROW');
+insert into temp_arctos_tbl_list (tbl) values ('CATALOGED_ITEM');
+insert into temp_arctos_tbl_list (tbl) values ('CITATION');
+insert into temp_arctos_tbl_list (tbl) values ('COLLECTING_EVENT');
+insert into temp_arctos_tbl_list (tbl) values ('COLLECTION');
+insert into temp_arctos_tbl_list (tbl) values ('COLLECTOR');
+insert into temp_arctos_tbl_list (tbl) values ('COLL_OBJECT');
+insert into temp_arctos_tbl_list (tbl) values ('COLL_OBJECT_REMARK');
+insert into temp_arctos_tbl_list (tbl) values ('COLL_OBJ_OTHER_ID_NUM');
+insert into temp_arctos_tbl_list (tbl) values ('DOI');
+insert into temp_arctos_tbl_list (tbl) values ('ENCUMBRANCE');
+insert into temp_arctos_tbl_list (tbl) values ('GEOG_AUTH_REC');
+insert into temp_arctos_tbl_list (tbl) values ('GROUP_MEMBER');
+insert into temp_arctos_tbl_list (tbl) values ('IDENTIFICATION');
+insert into temp_arctos_tbl_list (tbl) values ('IDENTIFICATION_AGENT');
+insert into temp_arctos_tbl_list (tbl) values ('IDENTIFICATION_TAXONOMY');
+insert into temp_arctos_tbl_list (tbl) values ('LOAN');
+insert into temp_arctos_tbl_list (tbl) values ('LOAN_ITEM');
+insert into temp_arctos_tbl_list (tbl) values ('LOCALITY');
+insert into temp_arctos_tbl_list (tbl) values ('MEDIA');
+insert into temp_arctos_tbl_list (tbl) values ('MEDIA_LABELS');
+insert into temp_arctos_tbl_list (tbl) values ('MEDIA_RELATIONS');
+insert into temp_arctos_tbl_list (tbl) values ('OBJECT_CONDITION');
+insert into temp_arctos_tbl_list (tbl) values ('PERMIT');
+insert into temp_arctos_tbl_list (tbl) values ('PERMIT_SHIPMENT');
+insert into temp_arctos_tbl_list (tbl) values ('PERMIT_TRANS');
+insert into temp_arctos_tbl_list (tbl) values ('PROJECT');
+insert into temp_arctos_tbl_list (tbl) values ('PROJECT_AGENT');
+insert into temp_arctos_tbl_list (tbl) values ('PROJECT_PUBLICATION');
+insert into temp_arctos_tbl_list (tbl) values ('PROJECT_TAXONOMY');
+insert into temp_arctos_tbl_list (tbl) values ('PROJECT_TRANS');
+insert into temp_arctos_tbl_list (tbl) values ('PUBLICATION');
+insert into temp_arctos_tbl_list (tbl) values ('PUBLICATION_AGENT');
+insert into temp_arctos_tbl_list (tbl) values ('SHIPMENT');
+insert into temp_arctos_tbl_list (tbl) values ('SPECIMEN_EVENT');
+insert into temp_arctos_tbl_list (tbl) values ('SPECIMEN_PART');
+insert into temp_arctos_tbl_list (tbl) values ('SPECIMEN_PART_ATTRIBUTE');
+insert into temp_arctos_tbl_list (tbl) values ('TAG');
+insert into temp_arctos_tbl_list (tbl) values ('TAXON_NAME');
+insert into temp_arctos_tbl_list (tbl) values ('TAXON_TERM');
+insert into temp_arctos_tbl_list (tbl) values ('TRANS');
+insert into temp_arctos_tbl_list (tbl) values ('TRANS_AGENT');
+insert into temp_arctos_tbl_list (tbl) values ('TRANS_CONTAINER');
+
+
+
+create table arctos_table_names as select * from temp_arctos_tbl_list;
+
+drop table arctos_table_columns;
+--- make a nice place to document stuff
+create table arctos_table_columns (
+	table_name varchar2(255) not null,
+	column_name varchar2(255) not null,
+	description varchar2(4000)
+);
+
+-- and store the keys
+
+drop table arctos_keys;
+
+create table arctos_keys (
+	o_table_name varchar2(255) not null,
+	o_column_name varchar2(255) not null,
+	c_constraint_name varchar2(255) not null,
+	r_table_name varchar2(255) not null,
+	r_column_name varchar2(255) not null,
+	r_constraint_name  varchar2(255) not null
+);
+
+
+
+delete from arctos_table_columns;
+delete from arctos_keys;
+
+
+begin
+	for r in(select tbl from temp_arctos_tbl_list order by tbl) loop
+		dbms_output.put_line(r.tbl);
+
+		for c in (select COLUMN_NAME from all_tab_cols where column_name not like 'SYS_%' and owner='UAM' and TABLE_NAME=r.tbl) loop
+			dbms_output.put_line('    ' || c.COLUMN_NAME);
+			insert into arctos_table_columns (table_name,column_name) values (r.tbl,c.COLUMN_NAME);
+		end loop;
+
+		for k in (
+			SELECT UC.TABLE_NAME o_table_name,
+			       UCC2.CONSTRAINT_NAME o_constraint_name,
+			       UCC2.COLUMN_NAME o_column_name,
+			       UCC.TABLE_NAME r_table_name,
+			       UC.R_CONSTRAINT_NAME r_constraint_name,
+			       UCC.COLUMN_NAME r_column_name
+			   FROM (SELECT TABLE_NAME, CONSTRAINT_NAME, R_CONSTRAINT_NAME, CONSTRAINT_TYPE FROM USER_CONSTRAINTS) UC,
+			        (SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME FROM USER_CONS_COLUMNS) UCC,
+			        (SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME FROM USER_CONS_COLUMNS) UCC2
+			   WHERE UC.R_CONSTRAINT_NAME = UCC.CONSTRAINT_NAME
+			     AND UC.CONSTRAINT_NAME = UCC2.CONSTRAINT_NAME
+			     AND uc.constraint_type = 'R'
+			     and UC.TABLE_NAME=r.tbl
+         ) loop
+				insert into arctos_keys (
+					o_table_name,
+					o_column_name,
+					C_CONSTRAINT_NAME,
+					r_table_name,
+					r_column_name,
+					r_constraint_name
+				) values (
+					k.o_table_name,
+					k.o_column_name,
+					k.o_constraint_name,
+					k.r_table_name,
+					k.r_column_name,
+					k.r_constraint_name);
+		end loop;
+	end loop;
+end;
+/
+
+
+
+----->
+
 <cfinclude template="/includes/_header.cfm">
-	<cfif not isdefined("tbl")>
-		var tbl notfound
-		<cfabort>
-	</cfif>
 	<cfset title="table browser thingee">
 	<script src="/includes/sorttable.js"></script>
 
 	<cfoutput>
-		<cfquery name="tcols" datasource="uam_god">
-			select 
-			COLUMN_NAME
-			from
-			user_tab_cols
-			where
-			TABLE_NAME='#ucase(tbl)#'
-			and HIDDEN_COLUMN='NO'
-			order by
-			INTERNAL_COLUMN_ID
-		</cfquery>
+		<cfif action is "nothing">
+			<cfquery name="d" datasource="uam_god">
+				select * from arctos_table_names order by tbl
+			</cfquery>
+			List of data tables in Arctos.
+			<br>Excludes authorities, "working" tables, etc.
+			<br>If you feel something is missing or should not have been included, please contact a DBA.
+			<br>Click a table to view details
+			<br>This page is generated by scripts and may be out of date. Ask a DBA to run the code found in the source of this
+			document if you think something may be stale.
+			<cfloop query="d">
+				<div>
+					<a href="tblbrowse.cfm?action=tbldetail&tbl=#tbl#">#tbl#</a>
+				</div>
+			</cfloop>
+		</cfif>
+<!---------------------------------------------->
+		<cfif action is "tbldetail">
+			<cfquery name="tcols" datasource="uam_god">
+				select * from arctos_table_columns where table_name='#tbl#'
+			</cfquery>
+			<cfif tcols.recordcount lt 1>
+				Notfound<cfabort>
+			</cfif>
+			<div>
+				Details for #tbl#
+			</div>
+			<table>
+				<tr>
+					<th>Column Name</th>
+					<th>Description</th>
+					<th>Relations</th>
+				</tr>
+				<cfloop query="">
+					<tr>
+						<td>#column_name#</td>
+						<td>#description#</td>
+						<td></td>
+					</tr>
+				</cfloop>
+			</table>
+
+
+
+drop table arctos_table_columns;
+--- make a nice place to document stuff
+create table arctos_table_columns (
+	table_name varchar2(255) not null,
+	column_name varchar2(255) not null,
+	description varchar2(4000)
+);
+
+-- and store the keys
+
+drop table arctos_keys;
+
+create table arctos_keys (
+	o_table_name varchar2(255) not null,
+	o_column_name varchar2(255) not null,
+	c_constraint_name varchar2(255) not null,
+	r_table_name varchar2(255) not null,
+	r_column_name varchar2(255) not null,
+	r_constraint_name  varchar2(255) not null
+);
+
+
+
+
+		</cfif>
+
+		<!----
 		<form name="s" method="get" action="tblbrowse.cfm">
 			<input type="hidden" name="action" id="action" value="srch">
 			<input type="hidden" name="tbl" id="tbl" value="#tbl#">
@@ -63,5 +263,6 @@
 			notfound
 		</cfif>
 	</cfif>
+	---->
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
