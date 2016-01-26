@@ -373,7 +373,7 @@ end;
 						<cfset tv=evaluate(f)>
 						<cfquery name="uv" datasource="uam_god">
 							update arctos_table_columns set DESCRIPTION='#tv#' where
-							TABLE_NAME='#tlb#' and
+							TABLE_NAME='#tbl#' and
 							COLUMN_NAME='#tf#'
 						</cfquery>
 
