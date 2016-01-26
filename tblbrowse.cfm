@@ -139,6 +139,14 @@ end;
 /
 
 
+alter table arctos_table_columns add nullable varchar2(255);
+alter table arctos_table_columns add DATA_LENGTH varchar2(255);
+alter table arctos_table_columns add DATA_PRECISION varchar2(255);
+alter table arctos_table_columns add DATA_SCALE varchar2(255);
+
+
+
+
 
 ----->
 
@@ -173,6 +181,14 @@ end;
 						</cfquery>
 					</cfloop>
 					<!--- /grab any missing table/columns ---->
+					<!---- remove any removed table/columns ---->
+					<cfquery name="delmia" datasource="uam_god">
+						delete from arctos_table_columns where table_name='#d.tbl#' and COLUMN_NAME not in (
+							#listqualify(atc.COLUMN_NAME,"'")#
+						)
+					</cfquery>
+
+
 					<!--- flush old constraints ---->
 					<cfquery name="fold" datasource="uam_god">
 						delete from arctos_keys
