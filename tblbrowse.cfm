@@ -366,18 +366,23 @@ end;
 			</form>
 		</cfif>
 		<cfif action is "saveColDescr">
-			<cfdump var=#form#>
-			<cfloop list="#form.FIELDNAMES#" index="f">
-				<cfif left(f,11) is "DESCRIPTION">
-					<cfset tf=replace(f,"DESCRIPTION_","")>
-					<cfset tv=evaluate(f)>
-					<br>tf=#tf#
-					<br>tv=#tv#
-				</cfif>
-			</cfloop>
+			<cftransaction>
+				<cfloop list="#form.FIELDNAMES#" index="f">
+					<cfif left(f,11) is "DESCRIPTION">
+						<cfset tf=replace(f,"DESCRIPTION_","")>
+						<cfset tv=evaluate(f)>
+						<cfquery name="uv" datasource="uam_god">
+							update arctos_table_columns set DESCRIPTION='#tv#' where
+							TABLE_NAME='#tlb#' and
+							COLUMN_NAME='#tf#'
+						</cfquery>
+
+					</cfif>
+				</cfloop>
+			</cftransaction>
+			<cflocation url="tblbrowse.cfm?action=tbldetail&tbl=#tbl#" addtoken="false">
 		</cfif>
 
- ACTION,TBL,DESCRIPTION_TRANSACTION_ID,DESCRIPTION_ACCN_TYPE,DESCRIPTION_ACCN_NUM_PREFIX,DESCRIPTION_ACCN_NUM,DESCRIPTION_ACCN_NUM_SUFFIX,DESCRIPTION_ACCN_STATUS,DESCRIPTION_ACCN_NUMBER,DESCRIPTION_ESTIMATED_COUNT
 
 		<!----
 		<form name="s" method="get" action="tblbrowse.cfm">
