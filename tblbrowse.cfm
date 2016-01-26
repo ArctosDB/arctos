@@ -169,7 +169,17 @@ end;
 				select * from arctos_table_columns where table_name='#tbl#'
 			</cfquery>
 			<cfif tcols.recordcount lt 1>
-				Notfound<cfabort>
+				Notfound.
+				<p>
+					This application deals only with "data tables."
+				</p>
+				<p>
+					Code tables are excluded and may be accessed at <a href="/info/ctDocumentation.cfm">/info/ctDocumentation.cfm</a>
+				</p>
+				<p>
+					If you think there should be something here, please contact a DBA.
+				</p>
+				<cfabort>
 			</cfif>
 			<cfquery name="trels" datasource="uam_god">
 				select * from arctos_keys where o_table_name='#tbl#' or r_table_name='#tbl#'
