@@ -162,6 +162,11 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 				<cfquery name="d" datasource="uam_god">
 					select tbl from arctos_table_names order by tbl
 				</cfquery>
+				<!--- flush old constraints, we'll just readd them all below ---->
+				<cfquery name="fold" datasource="uam_god">
+					delete from arctos_keys
+				</cfquery>
+				<!--- /flush old constraints ---->
 				<cfloop query="d">
 					<!--- grab any missing table/columns ---->
 					<cfquery name="atc" datasource="uam_god">
@@ -198,11 +203,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					<!---- /remove any removed table/columns ---->
 
 
-					<!--- flush old constraints ---->
-					<cfquery name="fold" datasource="uam_god">
-						delete from arctos_keys
-					</cfquery>
-					<!--- /flush old constraints ---->
+
 					<!--- pull constraints ---->
 					<cfquery name="cst" datasource="uam_god">
 						SELECT
