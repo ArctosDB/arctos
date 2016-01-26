@@ -180,7 +180,7 @@ end;
 					<th>Description</th>
 					<th>Relations</th>
 				</tr>
-				<cfloop query="">
+				<cfloop query="tcols">
 					<tr>
 						<td>#column_name#</td>
 						<td>#description#</td>
