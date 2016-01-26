@@ -224,35 +224,46 @@ end;
 			<cfquery name="utc" datasource="uam_god">
 				select * from user_tab_cols where table_name='#tbl#'
 			</cfquery>
-
-			<table border>
-				<tr>
-					<th>Column Name</th>
-					<th>Description</th>
-					<th>DATA_TYPE</th>
-					<th>NULLABLE</th>
-					<th>DATA_LENGTH</th>
-					<th>PRECISION</th>
-					<th>SCALE</th>
-				</tr>
-				<cfloop query="tcols">
-					<cfquery name="tutc" dbtype="query">
-						select * from utc where column_name='#column_name#'
-					</cfquery>
-
-
+			<form method="post" action="tblbrowse.cfm">
+				<input type="hidden" name="action" value="saveColDescr">
+				<input type="hidden" name="tbl" value="#tbl#">
+				<table border>
 					<tr>
-						<td>#column_name#</td>
-						<td>#description#</td>
-						<td>#tutc.DATA_TYPE#</td>
-						<td>#tutc.NULLABLE#</td>
-						<td>#tutc.DATA_LENGTH#</td>
-						<td>#tutc.DATA_PRECISION#</td>
-						<td>#tutc.DATA_SCALE#</td>
+						<th>Column Name</th>
+						<th>Description</th>
+						<th>DATA_TYPE</th>
+						<th>NULLABLE</th>
+						<th>DATA_LENGTH</th>
+						<th>PRECISION</th>
+						<th>SCALE</th>
 					</tr>
-				</cfloop>
-			</table>
+					<cfloop query="tcols">
+						<cfquery name="tutc" dbtype="query">
+							select * from utc where column_name='#column_name#'
+						</cfquery>
+
+
+						<tr>
+							<td>#column_name#</td>
+							<td>
+								<textarea name="#column_name#_#description#">#description#</textarea>
+							</td>
+							<td>#tutc.DATA_TYPE#</td>
+							<td>#tutc.NULLABLE#</td>
+							<td>#tutc.DATA_LENGTH#</td>
+							<td>#tutc.DATA_PRECISION#</td>
+							<td>#tutc.DATA_SCALE#</td>
+						</tr>
+					</cfloop>
+				</table>
+				<input type="submit" value="save descriptions">
+			</form>
 		</cfif>
+		<cfif action is "saveColDescr">
+			<cfdump var=#form#>
+		</cfif>
+
+
 
 		<!----
 		<form name="s" method="get" action="tblbrowse.cfm">
