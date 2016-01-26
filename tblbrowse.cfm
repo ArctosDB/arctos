@@ -174,7 +174,6 @@ end;
 			<cfquery name="trels" datasource="uam_god">
 				select * from arctos_keys where o_table_name='#tbl#' or r_table_name='#tbl#'
 			</cfquery>
-			<cfdump var=#trels#>
 			<h2>
 				Constraints on #tbl#
 			</h2>
@@ -258,16 +257,24 @@ end;
 				<tr>
 					<th>Column Name</th>
 					<th>Description</th>
+					<th>DATA_TYPE</th>
+					<th>NULLABLE</th>
+					<th>PRECISION</th>
+					<th>SCALE</th>
 				</tr>
 				<cfloop query="tcols">
+					<cfquery name="tutc" dbtype="query">
+						select * from utc where column_name='#column_name#'
+					</cfquery>
 
 
 					<tr>
 						<td>#column_name#</td>
 						<td>#description#</td>
-						<td>
-
-						</td>
+						<td>#tutc.DATA_TYPE#</td>
+						<td>#tutc.NULLABLE#</td>
+						<td>#tutc.DATA_PRECISION#</td>
+						<td>#tutc.DATA_SCALE#</td>
 					</tr>
 				</cfloop>
 			</table>
