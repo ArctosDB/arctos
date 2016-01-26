@@ -208,50 +208,6 @@ end;
 			<cfquery name="utc" datasource="uam_god">
 				select * from user_tab_cols where table_name='#tbl#'
 			</cfquery>
-			<cfdump var=#utc#>
-
-
-
-			 desc
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- TABLE_NAME							   NOT NULL VARCHAR2(30)
- COLUMN_NAME							   NOT NULL VARCHAR2(30)
- DATA_TYPE								    VARCHAR2(106)
- DATA_TYPE_MOD								    VARCHAR2(3)
- DATA_TYPE_OWNER							    VARCHAR2(30)
- DATA_LENGTH							   NOT NULL NUMBER
- DATA_PRECISION 							    NUMBER
- DATA_SCALE								    NUMBER
- NULLABLE								    VARCHAR2(1)
- COLUMN_ID								    NUMBER
- DEFAULT_LENGTH 							    NUMBER
- DATA_DEFAULT								    LONG
- NUM_DISTINCT								    NUMBER
- LOW_VALUE								    RAW(32)
- HIGH_VALUE								    RAW(32)
- DENSITY								    NUMBER
- NUM_NULLS								    NUMBER
- NUM_BUCKETS								    NUMBER
- LAST_ANALYZED								    DATE
- SAMPLE_SIZE								    NUMBER
- CHARACTER_SET_NAME							    VARCHAR2(44)
- CHAR_COL_DECL_LENGTH							    NUMBER
- GLOBAL_STATS								    VARCHAR2(3)
- USER_STATS								    VARCHAR2(3)
- AVG_COL_LEN								    NUMBER
- CHAR_LENGTH								    NUMBER
- CHAR_USED								    VARCHAR2(1)
- V80_FMT_IMAGE								    VARCHAR2(3)
- DATA_UPGRADED								    VARCHAR2(3)
- HIDDEN_COLUMN								    VARCHAR2(3)
- VIRTUAL_COLUMN 							    VARCHAR2(3)
- SEGMENT_COLUMN_ID							    NUMBER
- INTERNAL_COLUMN_ID						   NOT NULL NUMBER
- HISTOGRAM								    VARCHAR2(15)
- QUALIFIED_COL_NAME							    VARCHAR2(4000)
-
-
 
 			<table border>
 				<tr>
@@ -259,6 +215,7 @@ end;
 					<th>Description</th>
 					<th>DATA_TYPE</th>
 					<th>NULLABLE</th>
+					<th>DATA_LENGTH</th>
 					<th>PRECISION</th>
 					<th>SCALE</th>
 				</tr>
@@ -273,6 +230,7 @@ end;
 						<td>#description#</td>
 						<td>#tutc.DATA_TYPE#</td>
 						<td>#tutc.NULLABLE#</td>
+						<td>#tutc.DATA_LENGTH#</td>
 						<td>#tutc.DATA_PRECISION#</td>
 						<td>#tutc.DATA_SCALE#</td>
 					</tr>
