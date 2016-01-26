@@ -187,9 +187,18 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					<!---- remove any removed table/columns ---->
 					<cfquery name="delmia" datasource="uam_god">
 						delete from arctos_table_columns where table_name='#d.tbl#' and COLUMN_NAME not in (
-							#listqualify(atc.COLUMN_NAME,"'")#
+							select
+								COLUMN_NAME
+							from
+								all_tab_cols
+							where
+								column_name not like 'SYS_%' and
+								owner='UAM' and
+								TABLE_NAME='#d.tbl#'
 						)
 					</cfquery>
+
+					<!---- /remove any removed table/columns ---->
 
 
 					<!--- flush old constraints ---->
