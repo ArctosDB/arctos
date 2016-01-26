@@ -190,13 +190,13 @@ end;
 							#C_CONSTRAINT_NAME#
 						</td>
 						<td>
-							#o_table_name#.#o_column_name#
+							<a href="tblbrowse.cfm?action=tbldetail&tbl=#tbl#">#o_table_name#</a>.#o_column_name#
 						</td>
 						<td>
 							#r_constraint_name#
 						</td>
 						<td>
-							#r_table_name#.#r_column_name#
+							<a href="tblbrowse.cfm?action=tbldetail&tbl=#tbl#">#r_table_name#</a>.#r_column_name#
 						</td>
 					</tr>
 				</cfloop>
