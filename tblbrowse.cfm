@@ -220,6 +220,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					     AND uc.constraint_type = 'R'
 					     and UC.TABLE_NAME='#d.tbl#'
 					</cfquery>
+					<cfdump var=#cst#>
 					<cfloop query="cst">
 						<cfquery name="icst" datasource="uam_god">
 							insert into arctos_keys (
