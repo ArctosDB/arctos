@@ -185,12 +185,7 @@ end;
 					<th>References</th>
 				</tr>
 				<cfloop query="tcols">
-					<cfquery name="trefs" dbtype="query">
-						select * from trels where o_column_name = '#column_name#'
-					</cfquery>
-					<cfquery name="trefsback" dbtype="query">
-						select * from trels where r_table_name='#tbl#' and r_column_name = '#column_name#'
-					</cfquery>
+
 
 					<tr>
 						<td>#column_name#</td>
@@ -200,9 +195,10 @@ end;
 								<tr>
 									<th>ConstraintName</th>
 									<th>OriginatesFrom</th>
-									<th>References</th>
+									<th>ReferencesConstraint</th>
+									<th>ReferencesColumn</th>
 								</tr>
-								<cfloop query="trefs">
+								<cfloop query="trels">
 									<tr>
 										<td>
 											#C_CONSTRAINT_NAME#
@@ -213,47 +209,14 @@ end;
 										<td>
 											#r_table_name#.#r_column_name#
 										</td>
+										<td>#r_constraint_name#</td>
 									</tr>
+								</cfloop>
 							</table>
-
-								o_table_name,
-					o_column_name,
-					C_CONSTRAINT_NAME,
-					r_table_name,
-					r_column_name,
-					r_constraint_name
-							</cfloop>
 						</td>
 					</tr>
 				</cfloop>
 			</table>
-
-
-
-drop table arctos_table_columns;
---- make a nice place to document stuff
-create table arctos_table_columns (
-	table_name varchar2(255) not null,
-	column_name varchar2(255) not null,
-	description varchar2(4000)
-);
-
--- and store the keys
-
-drop table arctos_keys;
-
-create table arctos_keys (
-	o_table_name varchar2(255) not null,
-	o_column_name varchar2(255) not null,
-	c_constraint_name varchar2(255) not null,
-	r_table_name varchar2(255) not null,
-	r_column_name varchar2(255) not null,
-	r_constraint_name  varchar2(255) not null
-);
-
-
-
-
 		</cfif>
 
 		<!----
