@@ -175,9 +175,6 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 							TABLE_NAME='#d.tbl#' and
 							(table_name,column_name) not in (select table_name,column_name from arctos_table_columns)
 					</cfquery>
-
-					<cfdump var=#atc#>
-
 					<cfloop query="atc">
 						<cfquery name="insmia" datasource="uam_god">
 							insert into arctos_table_columns (table_name,column_name) values ('#d.tbl#','#atc.COLUMN_NAME#')
