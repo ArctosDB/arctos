@@ -246,7 +246,7 @@ end;
 						<tr>
 							<td>#column_name#</td>
 							<td>
-								<textarea name="#column_name#_#description#">#description#</textarea>
+								<textarea name="description_#column_name#">#description#</textarea>
 							</td>
 							<td>#tutc.DATA_TYPE#</td>
 							<td>#tutc.NULLABLE#</td>
