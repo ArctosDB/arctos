@@ -64,9 +64,13 @@ insert into temp_arctos_tbl_list (tbl) values ('TRANS');
 insert into temp_arctos_tbl_list (tbl) values ('TRANS_AGENT');
 insert into temp_arctos_tbl_list (tbl) values ('TRANS_CONTAINER');
 
-
-
+create unique index ixu_temp_arc_tab_tbl on temp_arctos_tbl_list (tbl) tablespace uam_idx_1;
+drop index ixu_temp_arc_tab_tbl;
 create table arctos_table_names as select * from temp_arctos_tbl_list;
+
+select rowid from arctos_table_names where tbl='ACCN';
+create unique index ixu_arctos_table_names_tbl on arctos_table_names (tbl) tablespace uam_idx_1;
+
 
 drop table arctos_table_columns;
 --- make a nice place to document stuff
@@ -251,9 +255,14 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 		</cfif>
 		<!---------------------------------------------------------->
 		<cfif action is "reallydelete">
-			<cfquery name="d" datasource="uam_god">
-				delete from arctos_table_names where tbl='#TBL#'
-			</cfquery>
+			<cftransaction>
+				<cfquery name="d" datasource="uam_god">
+					delete from arctos_table_names where tbl='#TBL#'
+				</cfquery>
+				<cfquery name="d" datasource="uam_god">
+					delete from arctos_table_columns where tbl='#TBL#'
+				</cfquery>
+			</cftransaction>
 			#tbl# removed <a href="tblbrowse.cfm">continue</a>
 		</cfif>
 		<!---------------------------------------------------------->

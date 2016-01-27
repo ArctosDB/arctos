@@ -88,7 +88,7 @@
 		</cfif>
 		<cfif len(email) gt 0 and len(c) gt 0>
 			<cfmail subject="BlackList Objection" replyto="#email#" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
-				IP #ipaddress# ( #email# ) had this to say:
+				IP <a href="http://whatismyipaddress.com/ip/#ipaddress#">#ipaddress#</a> ( #email# ) had this to say:
 				<p>
 					#c#
 				</p>
