@@ -199,11 +199,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 								TABLE_NAME='#d.tbl#'
 						)
 					</cfquery>
-
 					<!---- /remove any removed table/columns ---->
-
-
-
 					<!--- pull constraints ---->
 					<cfquery name="cst" datasource="uam_god">
 						SELECT
@@ -221,24 +217,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					     AND uc.constraint_type = 'R'
 					     and UC.TABLE_NAME='#d.tbl#'
 					</cfquery>
-					<cfdump var=#cst#>
 					<cfloop query="cst">
-						<br>
-						insert into arctos_keys (
-								o_table_name,
-								o_column_name,
-								C_CONSTRAINT_NAME,
-								r_table_name,
-								r_column_name,
-								r_constraint_name
-							) values (
-								'#o_table_name#',
-								'#o_column_name#',
-								'#o_constraint_name#',
-								'#r_table_name#',
-								'#r_column_name#',
-								'#r_constraint_name#'
-							)
 						<cfquery name="icst" datasource="uam_god">
 							insert into arctos_keys (
 								o_table_name,
@@ -261,8 +240,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			</cftransaction>
 			<a href="tblbrowse.cfm">continue</a>
 		</cfif>
-
-
+		<!---------------------------------------------------------->
 		<cfif action is "delete">
 			Are you absolutely sure you want to remove
 			#tbl#?
@@ -271,21 +249,43 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			</p>
 			<a href="tblbrowse.cfm?action=reallydelete&tbl=#tbl#">yea yea nuke it</a>
 		</cfif>
+		<!---------------------------------------------------------->
 		<cfif action is "reallydelete">
 			<cfquery name="d" datasource="uam_god">
 				delete from arctos_table_names where tbl='#TBL#'
 			</cfquery>
 			#tbl# removed <a href="tblbrowse.cfm">continue</a>
 		</cfif>
-
-
+		<!---------------------------------------------------------->
 		<cfif action is "addtable">
 			<cfquery name="d" datasource="uam_god">
 				insert into arctos_table_names (tbl) values ('#ucase(TBL)#')
 			</cfquery>
 			#tbl# added <a href="tblbrowse.cfm">continue</a>
 		</cfif>
+		<!---------------------------------------------------------->
+		<cfif action is "addtablefromnl">
+			<cfquery name="d" datasource="uam_god">
+				insert into arctos_table_names (tbl) values ('#ucase(TBL)#')
+			</cfquery>
+			<cflocation url="tblbrowse.cfm?action=uamnotinlist###anchr#" addtoken="false">
+		</cfif>
+		<!---------------------------------------------------------->
+		<cfif action is "uamnotinlist">
+			<cfquery name="d" datasource="uam_god">
+				select table_name from all_tables where owner = 'UAM' and table_name not in (select table_name from arctos_table_names)
+				order by table_name
+			</cfquery>
+			<cfset anchhr="">
+			<cfloop query="d">
+				<div>
+					#table_name# <a name=#table_name# href="tblbrowse.cfm?action=addtablefromnl&tbl=#table_name#&anchr=#anchr#">add to arctos tables list</a>
+				</div>
+				<cfset anchr=table_name>
+			</cfloop>
+		</cfif>
 
+		<!---------------------------------------------------------->
 		<cfif action is "nothing">
 			<cfquery name="d" datasource="uam_god">
 				select * from arctos_table_names order by tbl
@@ -300,6 +300,9 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 				<input type="text" name="tbl">
 				<br><input type="submit" value="add table">
 			</form>
+			<br>Or <a href="tblbrowse.cfm?action=uamnotinlist">Click here</a> for a list of all tables owned by UAM and not in the list. IMPORTANT: There's a lot of junk,
+			this list does stuff (eg, export collections), don't go crazy without talking to a DBA.
+
 			<br>Click a table to view details
 			<br>DELETE WITH GREAT CAUTION! The data behind this form do other stuff. Talk to a DBA before deleting anything.
 
