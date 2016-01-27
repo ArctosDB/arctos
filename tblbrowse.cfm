@@ -452,7 +452,9 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 							field names like whatever_date and probably some other stuff.
 						---->
 						<cfset tf=replace(f,"DESCRIPTION_","")>
+						<br>tf: #tf#
 						<cfset tf=replace(tf,"_DAMMITCF","")>
+						<br>tf: #tf#
 						<cfset tv=evaluate(f)>
 						<cfquery name="uv" datasource="uam_god">
 							update arctos_table_columns set DESCRIPTION='#tv#' where
