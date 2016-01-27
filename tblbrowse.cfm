@@ -260,7 +260,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					delete from arctos_table_names where tbl='#TBL#'
 				</cfquery>
 				<cfquery name="d" datasource="uam_god">
-					delete from arctos_table_columns where tbl='#TBL#'
+					delete from arctos_table_columns where TABLE_NAME='#TBL#'
 				</cfquery>
 			</cftransaction>
 			#tbl# removed <a href="tblbrowse.cfm">continue</a>
