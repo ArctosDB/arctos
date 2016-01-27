@@ -273,7 +273,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 		<!---------------------------------------------------------->
 		<cfif action is "uamnotinlist">
 			<cfquery name="d" datasource="uam_god">
-				select table_name from all_tables where owner = 'UAM' and table_name not in (select table_name from arctos_table_names)
+				select table_name from all_tables where owner = 'UAM' and table_name not in (select tbl from arctos_table_names)
 				order by table_name
 			</cfquery>
 			<cfset anchhr="">
