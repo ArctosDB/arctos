@@ -451,7 +451,8 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 							if we don't do this CF's craptacular antique validation idiocy thingee will flip out on
 							field names like whatever_date and probably some other stuff.
 						---->
-						<cfset tf=replace(replace(f,"DESCRIPTION_",""),"_dammitcf","")>
+						<cfset tf=replace(f,"DESCRIPTION_","")>
+						<cfset tf=replace(tf,"_dammitcf","")>
 						<cfset tv=evaluate(f)>
 						<cfquery name="uv" datasource="uam_god">
 							update arctos_table_columns set DESCRIPTION='#tv#' where
