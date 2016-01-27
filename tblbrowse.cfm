@@ -429,7 +429,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 						<tr>
 							<td>#column_name#</td>
 							<td>
-								<textarea name="description_#column_name#">#description#</textarea>
+								<textarea name="description_#column_name#_dammitcf">#description#</textarea>
 							</td>
 							<td>#tutc.DATA_TYPE#</td>
 							<td>#tutc.NULLABLE#</td>
@@ -446,7 +446,11 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			<cftransaction>
 				<cfloop list="#form.FIELDNAMES#" index="f">
 					<cfif left(f,11) is "DESCRIPTION">
-						<cfset tf=replace(f,"DESCRIPTION_","")>
+						<!---
+							if we don't do this CF's craptacular antique validation idiocy thingee will flip out on
+							field names like whatever_date and probably some other stuff.
+						---->
+						<cfset tf=replace(replace(f,"DESCRIPTION_",""),"_dammitcf","")>
 						<cfset tv=evaluate(f)>
 						<cfquery name="uv" datasource="uam_god">
 							update arctos_table_columns set DESCRIPTION='#tv#' where
