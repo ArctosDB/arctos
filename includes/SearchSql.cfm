@@ -1155,6 +1155,8 @@
 	<cfset basQual = " #basQual# AND #session.flatTableName#.accn_id IN (#accn_trans_id#)">
 </cfif>
 <cfif isdefined("accn_inst") and len(accn_inst) gt 0>
+	accn_inst is deprecated - please contact us<cfabort>
+	<!----
 	<cfset mapurl = "#mapurl#&accn_inst=#accn_inst#">
 	<cfif basJoin does not contain " accn ">
 		<cfset basJoin = " #basJoin# INNER JOIN accn ON (#session.flatTableName#.accn_id = accn.transaction_id)">
@@ -1163,6 +1165,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN trans ON (accn.transaction_id=trans.transaction_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND upper(trans.institution_acronym) like '%#ucase(accn_inst)#%'">
+	--------->
 </cfif>
 <cfif isdefined("accn_number") and len(accn_number) gt 0>
 	<cfif accn_number contains ",">
