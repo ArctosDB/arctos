@@ -443,7 +443,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			</form>
 		</cfif>
 		<cfif action is "saveColDescr">
-		<cfdump var=#form">
+		<cfdump var=#form#>
 			<cftransaction>
 				<cfloop list="#form.FIELDNAMES#" index="f">
 					<cfif left(f,11) is "DESCRIPTION">
