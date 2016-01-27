@@ -268,7 +268,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			<cfquery name="d" datasource="uam_god">
 				insert into arctos_table_names (tbl) values ('#ucase(TBL)#')
 			</cfquery>
-			<cflocation url="tblbrowse.cfm?action=uamnotinlist###anchr#" addtoken="false">
+			<cflocation url="tblbrowse.cfm?action=uamnotinlist###anchhr#" addtoken="false">
 		</cfif>
 		<!---------------------------------------------------------->
 		<cfif action is "uamnotinlist">
@@ -279,9 +279,9 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			<cfset anchhr="">
 			<cfloop query="d">
 				<div>
-					#table_name# <a name=#table_name# href="tblbrowse.cfm?action=addtablefromnl&tbl=#table_name#&anchr=#anchr#">add to arctos tables list</a>
+					#table_name# <a name=#table_name# href="tblbrowse.cfm?action=addtablefromnl&tbl=#table_name#&anchhr=#anchhr#">add to arctos tables list</a>
 				</div>
-				<cfset anchr=table_name>
+				<cfset anchhr=table_name>
 			</cfloop>
 		</cfif>
 
