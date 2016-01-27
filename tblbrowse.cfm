@@ -278,7 +278,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			</cfquery>
 			<cfset anchhr="">
 			<p>
-				<a href="tblbrowse.cfm>back to list</a>
+				<a href="tblbrowse.cfm">back to list</a>
 			</p>
 			<cfloop query="d">
 				<div>
