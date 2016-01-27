@@ -443,7 +443,6 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			</form>
 		</cfif>
 		<cfif action is "saveColDescr">
-		<cfdump var=#form#>
 			<cftransaction>
 				<cfloop list="#form.FIELDNAMES#" index="f">
 					<cfif left(f,11) is "DESCRIPTION">
@@ -452,25 +451,20 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 							field names like whatever_date and probably some other stuff.
 						---->
 						<cfset tf=replace(f,"DESCRIPTION_","")>
-						<br>tf: #tf#
 						<cfset tf=replace(tf,"_DAMMITCF","")>
-						<br>tf: #tf#
 						<cfset tv=evaluate(f)>
 						<cfquery name="uv" datasource="uam_god">
 							update arctos_table_columns set DESCRIPTION='#tv#' where
 							TABLE_NAME='#tbl#' and
 							COLUMN_NAME='#tf#'
 						</cfquery>
-						<br>update arctos_table_columns set DESCRIPTION='#tv#' where
-							TABLE_NAME='#tbl#' and
-							COLUMN_NAME='#tf#'
-
 					</cfif>
 				</cfloop>
 			</cftransaction>
 			<!----
-			<cflocation url="tblbrowse.cfm?action=tbldetail&tbl=#tbl#" addtoken="false">
+
 			---->
+			<cflocation url="tblbrowse.cfm?action=tbldetail&tbl=#tbl#" addtoken="false">
 		</cfif>
 
 
