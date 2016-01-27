@@ -277,7 +277,9 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 				order by table_name
 			</cfquery>
 			<cfset anchhr="">
-			<a href="tblbrowse.cfm>back to list</a>
+			<p>
+				<a href="tblbrowse.cfm>back to list</a>
+			</p>
 			<cfloop query="d">
 				<div>
 					#table_name# <a name=#table_name# href="tblbrowse.cfm?action=addtablefromnl&tbl=#table_name#&anchhr=#anchhr#">add to arctos tables list</a>
