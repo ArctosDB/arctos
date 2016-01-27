@@ -142,7 +142,6 @@
 				accn_type,
 				received_date,
 				nature_of_material,
-				received_agent_id,
 				trans_remarks,
 				trans_date,
 				guid_prefix,
@@ -763,11 +762,6 @@
 		</cfif>
 		<cfif  isdefined("NATURE_OF_MATERIAL") and len(#NATURE_OF_MATERIAL#) gt 0>
 			<cfset sql = "#sql# AND upper(NATURE_OF_MATERIAL) like '%#ucase(escapeQuotes(NATURE_OF_MATERIAL))#%'">
-		</cfif>
-		<cfif  isdefined("rec_agent") and len(#rec_agent#) gt 0>
-			<cfset frm = "#frm#,agent_name">
-			<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(rec_agent)#%'
-				AND trans.received_agent_id = agent_name.agent_id">
 		</cfif>
 		<cfif  isdefined("trans_agency") and len(#trans_agency#) gt 0>
 			<cfset sql = "#sql# AND upper(transAgent.agent_name) LIKE  '%#ucase(trans_agency)#%'">

@@ -28,7 +28,6 @@
 				accn_type,
 				received_date,
 				nature_of_material,
-				received_agent_id,
 				trans_remarks,
 				trans_date,
 				guid_prefix,
