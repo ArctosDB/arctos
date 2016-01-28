@@ -1,3 +1,15 @@
+deprecated
+
+<cfabort>
+
+
+
+
+
+
+
+
+
 
 <cfset title = "Add loan item">
 <cfinclude template="../includes/_pickHeader.cfm"><body bgcolor="#FFFBF0" text="midnightblue" link="blue" vlink="midnightblue">
@@ -30,21 +42,21 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 	<input type="hidden" name="item" value="#item#">
 	<input type="hidden" name="thisLoan" value="#thisLoan#">
 	<input type="hidden" name="collection_cde" value="#details.collection_cde#">
-	
-	<br>Item instructions: 
+
+	<br>Item instructions:
 	<textarea name="ITEM_INSTRUCTIONS" cols="40" rows="4"></textarea>
-	<br>Item remarks: 
+	<br>Item remarks:
 	<textarea name="LOAN_ITEM_REMARKS" cols="40" rows="4"></textarea>
 	<br>
 	<input type="button"  class="insBtn"
    						onmouseover="this.className='insBtn btnhov'" onMouseOut="this.className='insBtn'"
 						onClick="additems.isSubsample.value='n';submit();" value="Add whole item">
-						
+
 <input type="button"  class="insBtn"
    						onmouseover="this.className='insBtn btnhov'" onMouseOut="this.className='insBtn'"
-						 onClick="additems.isSubsample.value='y';submit();" value="Add subsample">										
-												
-												
+						 onClick="additems.isSubsample.value='y';submit();" value="Add subsample">
+
+
 </form>
 
 
@@ -71,14 +83,14 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 	<cfif #isSubsample# is "y">
 		<!--- make a subsample --->
 		<cfquery name="parentData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
-				coll_obj_disposition, 
+			SELECT
+				coll_obj_disposition,
 				condition,
 				part_name,
 				derived_from_cat_item
 			FROM
 				coll_object, specimen_part
-			WHERE 
+			WHERE
 				coll_object.collection_object_id = specimen_part.collection_object_id AND
 				coll_object.collection_object_id = #collection_object_id#
 		</cfquery>
@@ -114,13 +126,13 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				sq_collection_object_id.currval
 				,'#parentData.part_name#'
 				,#collection_object_id#
-				,#parentData.derived_from_cat_item#)				
+				,#parentData.derived_from_cat_item#)
 		</cfquery>
-		
-	
+
+
 	</cfif>
 	<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	
+
 	INSERT INTO loan_item (
 		TRANSACTION_ID,
 		COLLECTION_OBJECT_ID,
@@ -140,7 +152,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 			#nextID.nextID#,
 		<cfelse>
 			#COLLECTION_OBJECT_ID#,
-		</cfif>		
+		</cfif>
 		#RECONCILED_BY_PERSON_ID.agent_id#,
 		sysdate
 		,'#details.collection_cde# #details.cat_num# #item#'
@@ -152,10 +164,10 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 		</cfif>
 		)
 		</cfquery>
-		
+
 		<cfquery name="setDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE coll_object SET coll_obj_disposition = 'on loan'
-			where collection_object_id = 
+			where collection_object_id =
 			<cfif #isSubsample# is "y">
 				#nextID.nextID#
 			<cfelse>
@@ -169,7 +181,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 	</script>
 	<cfabort>
 	</cfif>
-	
+
 		You have added #collection_cde# #cat_num# #item# to loan #thisLoan#.
 		<br> Click <a href="##" onClick="self.close();">here</a> to close this window.
 </cfoutput>

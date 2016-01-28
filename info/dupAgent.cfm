@@ -24,7 +24,7 @@
 				var good=r.DATA.GOOD[0];
 				var bad=r.DATA.BAD[0];
 				var msg=r.DATA.MSG[0];
-				
+
 				if (status == 'success') {
 					$("#fg_" + good).html('saved');
 					$("#fg_" + bad).html('saved');
@@ -32,7 +32,7 @@
 					$("#fg_" + good).addClass('red');
 					$("#fg_" + bad).addClass('red');
 					alert(msg);
-				}	
+				}
 			}
 		);
 	}
@@ -42,15 +42,15 @@
 <cfif action is "nothing">
 	<p>
 		The following links perform queries that attempt to locate duplicate agents. Not all results will be duplicates
-		(in the sense of one individual with multiple agent_ids). There really are two people named Robert Rausch, for example. 
+		(in the sense of one individual with multiple agent_ids). There really are two people named Robert Rausch, for example.
 		Please note this in agent remarks or elsewhere should you
-		discover it. 
+		discover it.
 	</p>
 	<p>
-		"Whodunit" links, when provided, simply search the SQL logs 
+		"Whodunit" links, when provided, simply search the SQL logs
 		(Reports/Audit SQL) for the relevant term. Log data is incomplete, and the suggested search
 		may not make sense.
-	</p>	
+	</p>
 	<p>
 		It may also be possible to determine who created duplicates by examining Agent Activity. Please do so; they need remedial training.
 	</p>
@@ -77,7 +77,7 @@
 			<td>Bob Jones (2)</td>
 			<td>Bob Jones (1)</td>
 		</tr>
-		
+
 		<tr>
 			<td>Bob Jones (1)</td>
 			<td>Bob Jones (3)</td>
@@ -134,9 +134,9 @@
 			</li>
 		</ul>
 	</p>
-	
-	
-	
+
+
+
 	<a href="dupAgent.cfm?action=fullDup">Find Agents that share a name</a>
 	<br><a href="dupAgent.cfm?action=shareFL">Find Person agents that share first and last name</a>
 	<br><a href="dupAgent.cfm?action=shareFL&noFNAbbr=true">Find Person agents that share first and last name, no dots in first name</a>
@@ -172,8 +172,8 @@
 	</cfquery>
 	<cfloop query="ds_ct_namesynonyms">
 		<cfset ArrayAppend(nvars, names)>
-	</cfloop> 
-	
+	</cfloop>
+
 	<cfset numberOfRows=arraylen(nvars)>
 	<cfif not isdefined("thisrow") or len(thisrow) is 0>
 		<cfset thisrow=1>
@@ -189,9 +189,9 @@
 			<a href="/info/dupAgent.cfm?action=nameVariants&thisrow=#next#">next</a>
 		</cfif>
 	</p>
-	
+
 	<cfset p=nvars[thisrow]>
-		
+
 	<p>
 		Running for agent group #p#
 	</p>
@@ -205,12 +205,12 @@
 		<cfloop from="2" to="#numVarnts#" index="a2">
 			<cfset agent1=listgetat(p,a1)>
 			<cfset agent2=listgetat(p,a2)>
-			<cfset thisstmt="select 
+			<cfset thisstmt="select
 				a.preferred_agent_name name1,
 				a.agent_id id1,
 				b.agent_id id2,
 				b.preferred_agent_name name2
-			from 
+			from
 				agent a,
 				agent b
 			where
@@ -229,8 +229,8 @@
 	<cfif d.recordcount is 0>
 		<p>nothing found - yay - use the links above</p>
 	</cfif>
-</cfif>	
-		
+</cfif>
+
 <cfif action is "shareFL">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		Select * from (
@@ -246,7 +246,7 @@
 	          agent_name p1_last_name,
 	          agent_name p2_first_name,
 	          agent_name p2_last_name
-	        where 
+	        where
 	          p1_first_name.agent_name_type='first name' and
 	          p2_first_name.agent_name_type='first name' and
 	          p1_last_name.agent_name_type='last name' and
@@ -273,7 +273,7 @@
 </cfif>
 
 <cfif action is "fullDup">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">		
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		Select * from (
 			Select a.*, rownum rnum From (
 				select
@@ -284,7 +284,7 @@
 				from
 					agent_name a,
 					agent_name b
-				where 
+				where
 					a.agent_name=b.agent_name and
 					a.agent_id != b.agent_id
 				group by
@@ -307,7 +307,7 @@
 		<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next&noFNAbbr=#noFNAbbr#&exclRelated=#exclRelated#">[ next 100 ]</a>
 		<a href="dupAgent.cfm">[ start over ]</a>
 	</cfif>
-	
+
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
@@ -330,7 +330,7 @@
 							agent,
 							agent_name
 						where
-							agent.agent_id=agent_name.agent_id and				
+							agent.agent_id=agent_name.agent_id and
 							agent.agent_id=#id1#
 						group by
 							agent_name,
@@ -359,9 +359,9 @@
 						</div>
 					</cfloop>
 					<cfquery name="project_agent" datasource="uam_god">
-						select 
+						select
 							count(*) c
-						from 
+						from
 							project_agent
 						where
 							project_agent.agent_id=#id1#
@@ -370,7 +370,7 @@
 						<div style="color:red;">project agent</div>
 					</cfif>
 					<cfquery name="publication_agent" datasource="uam_god">
-						select 
+						select
 							count(*) c
 						from
 							publication_agent
@@ -387,19 +387,19 @@
 						<div style="color:red;">address</div>
 					</cfif>
 					<cfquery name="shipment" datasource="uam_god">
-						select 
-							count(*) c 
+						select
+							count(*) c
 						from
 							shipment
 						where
-							PACKED_BY_AGENT_ID=#id1#		
+							PACKED_BY_AGENT_ID=#id1#
 					</cfquery>
 					<cfif shipment.c gt 0>
 						<div style="color:red;">shipment</div>
 					</cfif>
 					<cfquery name="ship_to" datasource="uam_god">
-						select 
-							count(*) c 
+						select
+							count(*) c
 						from
 							shipment,
 							address
@@ -411,8 +411,8 @@
 						<div style="color:red;">ship_to</div>
 					</cfif>
 					<cfquery name="ship_from" datasource="uam_god">
-						select 
-							count(*) c 
+						select
+							count(*) c
 						from
 							shipment,
 							address
@@ -422,13 +422,13 @@
 					</cfquery>
 					<cfif ship_from.c gt 0>
 						<div style="color:red;">ship_from</div>
-					</cfif>				
+					</cfif>
 					<cfquery name="agent_relations" datasource="uam_god">
-						select count(*) c 
+						select count(*) c
 						from agent_relations
-						where 	
-						( 
-							agent_relations.agent_id=#id1# or 
+						where
+						(
+							agent_relations.agent_id=#id1# or
 							RELATED_AGENT_ID=#id1#
 						) and
 						agent_relationship != 'bad duplicate of'
@@ -437,8 +437,8 @@
 						<div style="color:red;">agent_relations</div>
 					</cfif>
 					<cfquery name="coll" datasource="uam_god">
-						select 
-							guid_prefix 
+						select
+							guid_prefix
 						from
 							collection,
 							cataloged_item,
@@ -455,17 +455,17 @@
 								min(substr(began_date,1,4)) edate,
 								max(substr(ended_date,1,4)) ldate
 							from
-								collecting_event,
+								flat,
 								cataloged_item,
 								collector
-							where	
-								collecting_event.collecting_event_id=cataloged_item.collecting_event_id and
+							where
+								collectflating_event.collection_object_id=cataloged_item.collection_object_id and
 								cataloged_item.collection_object_id=collector.collection_object_id and
 								collector.agent_id=#id1#
 						</cfquery>
 						<div style="font-size:smaller;">
 							#valuelist(coll.guid_prefix)#
-							<br>#dates.edate#<cfif dates.edate is not dates.ldate>-#dates.ldate#</cfif> 
+							<br>#dates.edate#<cfif dates.edate is not dates.ldate>-#dates.ldate#</cfif>
 						<div>
 					</cfif>
 					<div>
@@ -486,7 +486,7 @@
 							agent,
 							agent_name
 						where
-							agent.agent_id=agent_name.agent_id and				
+							agent.agent_id=agent_name.agent_id and
 							agent.agent_id=#id2#
 						group by
 							agent_name,
@@ -516,9 +516,9 @@
 						</div>
 					</cfloop>
 					<cfquery name="project_agent" datasource="uam_god">
-						select 
+						select
 							count(*) c
-						from 
+						from
 							project_agent
 						where
 							project_agent.agent_id=#id2#
@@ -527,7 +527,7 @@
 						<div style="color:red;">project agent</div>
 					</cfif>
 					<cfquery name="publication_agent" datasource="uam_god">
-						select 
+						select
 							count(*) c
 						from
 							publication_agent
@@ -544,19 +544,19 @@
 						<div style="color:red;">address</div>
 					</cfif>
 					<cfquery name="shipment" datasource="uam_god">
-						select 
-							count(*) c 
+						select
+							count(*) c
 						from
 							shipment
 						where
-							PACKED_BY_AGENT_ID=#id2#		
+							PACKED_BY_AGENT_ID=#id2#
 					</cfquery>
 					<cfif shipment.c gt 0>
 						<div style="color:red;">shipment</div>
 					</cfif>
 					<cfquery name="ship_to" datasource="uam_god">
-						select 
-							count(*) c 
+						select
+							count(*) c
 						from
 							shipment,
 							address
@@ -568,8 +568,8 @@
 						<div style="color:red;">ship_to</div>
 					</cfif>
 					<cfquery name="ship_from" datasource="uam_god">
-						select 
-							count(*) c 
+						select
+							count(*) c
 						from
 							shipment,
 							address
@@ -581,11 +581,11 @@
 						<div style="color:red;">ship_from</div>
 					</cfif>
 					<cfquery name="agent_relations" datasource="uam_god">
-						select count(*) c 
+						select count(*) c
 						from agent_relations
-						where 	
-						( 
-							agent_relations.agent_id=#id2# or 
+						where
+						(
+							agent_relations.agent_id=#id2# or
 							RELATED_AGENT_ID=#id2#
 						) and
 						agent_relationship != 'bad duplicate of'
@@ -594,8 +594,8 @@
 						<div style="color:red;">agent_relations</div>
 					</cfif>
 					<cfquery name="coll" datasource="uam_god">
-						select 
-							guid_prefix 
+						select
+							guid_prefix
 						from
 							collection,
 							cataloged_item,
@@ -612,25 +612,25 @@
 								min(substr(began_date,1,4)) edate,
 								max(substr(ended_date,1,4)) ldate
 							from
-								collecting_event,
+								flat,
 								cataloged_item,
 								collector
-							where	
-								collecting_event.collecting_event_id=cataloged_item.collecting_event_id and
+							where
+								flat.collection_object_id=cataloged_item.collection_object_id and
 								cataloged_item.collection_object_id=collector.collection_object_id and
 								collector.agent_id=#id2#
 						</cfquery>
 						<div style="font-size:smaller;">
 							#valuelist(coll.guid_prefix)#
-							<br>#dates.edate#<cfif dates.edate is not dates.ldate>-#dates.ldate#</cfif> 
+							<br>#dates.edate#<cfif dates.edate is not dates.ldate>-#dates.ldate#</cfif>
 						<div>
 					</cfif>
-					
+
 					<div>
 						[<a class="likeLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
-						[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
+						[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]
 						[<a class="likeLink" href="/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
-						[<span id="fg_#id2#" class="likeLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]	
+						[<span id="fg_#id2#" class="likeLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]
 					</div>
 				</td>
 			</tr>

@@ -313,6 +313,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					<li>"processing" tables (bulkloader)</li>
 					<li>Logs</li>
 					<li>Temp tables</li>
+					<li>"Helper" tables, like common name and geog search terms</li>
 					<li>Anything not owned by UAM (schema owner)</li>
 					<li>Backups and random garbage</li>
 					<li>Anything you're not SURE should be here</li>

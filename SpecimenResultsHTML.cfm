@@ -18,7 +18,7 @@
 		<cfset detail_level = #session.detailLevel#>
 	<cfelse>
 		<cfset detail_level = 1>
-	</cfif>	
+	</cfif>
 </cfif>
 ---------->
 <cfoutput>
@@ -51,7 +51,7 @@
 
 
 <cfif #newQuery# is 1>	<!--- build and send the query--->
-	<cfset basSelect = " SELECT 
+	<cfset basSelect = " SELECT
 		#session.flatTableName#.collection_object_id,
 		#session.flatTableName#.cat_num,
 		#session.flatTableName#.institution_acronym,
@@ -66,13 +66,13 @@
 		#session.flatTableName#.verbatim_date
 		">
 	<cfif len(#session.CustomOtherIdentifier#) gt 0>
-		<cfset basSelect = "#basSelect# 
+		<cfset basSelect = "#basSelect#
 			,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 	</cfif>
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
-	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
+	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
 <!--------------------------------------------------------------->
 	<cfset basQual = "">
 	<cfset mapurl="">
@@ -103,13 +103,13 @@
 			<cfset thisName = #left(thisName,20)#>
 			<cfif #thisName# is not "sex"><!--- already got it --->
 				<cfset basSelect = "#basSelect# ,
-							ConcatAttributeValue(#session.flatTableName#.collection_object_id,'#ctAtt.attribute_type#') 
+							ConcatAttributeValue(#session.flatTableName#.collection_object_id,'#ctAtt.attribute_type#')
 				#thisName#">
 			</cfif>
 		</cfloop>
 		<cfset basSelect = "#basSelect# ,
-					#session.flatTableName#.began_date, 
-						#session.flatTableName#.ended_date, 
+					#session.flatTableName#.began_date,
+						#session.flatTableName#.ended_date,
 							get_scientific_name_auths(#session.flatTableName#.collection_object_id) sci_name_with_auth,
 							concatAcceptedIdentifyingAgent(#session.flatTableName#.collection_object_id) identified_by">
 	</cfif><!--- end detail_level 3---->
@@ -128,7 +128,7 @@
 		">
 	</cfif><!--- end detail_level 4---->
 		<cfset basSelect = "#basSelect#,#session.flatTableName#.dec_lat,#session.flatTableName#.dec_long">
-		
+
 		<cfif #detail_level# gte 2>
 			<cfset basSelect = "#basSelect#, collectors,VerbatimLatitude,VerbatimLongitude,OTHERCATALOGNUMBERS">
 		</cfif>
@@ -136,7 +136,7 @@
 	</cfif>
 	--->
 	<!--- wrap everything up in a string --->
-	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">	
+	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	<!--- define the list of search paramaters that we need to get back here --->
 	<cfoutput>
 	<cfset searchParams = "">
@@ -146,10 +146,10 @@
 		<cfset returnURL = "">
 		<cfloop list="#StructKeyList(form)#" index="key">
 			<cfif len(#form[key]#) gt 0>
-					<cfif #key# is not "FIELDNAMES" 
-						AND #key# is not "SEARCHPARAMS" 
-						AND #key# is not "mapurl" 
-						AND #key# is not "cbifurl" 
+					<cfif #key# is not "FIELDNAMES"
+						AND #key# is not "SEARCHPARAMS"
+						AND #key# is not "mapurl"
+						AND #key# is not "cbifurl"
 						and #key# is not "newquery"
 						and #key# is not "ORDER_ORDER"
 						and #key# is not "ORDER_BY"
@@ -159,7 +159,7 @@
 						<cfset returnURL='SpecimenResultsHTML.cfm?#key#=#form[key]#'>
 					<cfelse>
 						<cfset returnURL='#returnURL#&#key#=#form[key]#'>
-					</cfif>			 
+					</cfif>
 					<cfif #key# is not "detail_level">
 						<cfif len(#searchParams#) is 0>
 							<cfset searchParams='<input type="hidden" name="#key#" value="#form[key]#">'>
@@ -173,10 +173,10 @@
 		<!---- also grab anything from the URL --->
 		<cfloop list="#StructKeyList(url)#" index="key">
 			 <cfif len(#url[key]#) gt 0>
-				 <cfif #key# is not "FIELDNAMES" 
-					AND #key# is not "SEARCHPARAMS" 
-					AND #key# is not "mapurl" 
-					AND #key# is not "cbifurl" 
+				 <cfif #key# is not "FIELDNAMES"
+					AND #key# is not "SEARCHPARAMS"
+					AND #key# is not "mapurl"
+					AND #key# is not "cbifurl"
 					and #key# is not "newquery"
 					and #key# is not "ORDER_ORDER"
 					and #key# is not "ORDER_BY"
@@ -200,22 +200,22 @@
 		</cfloop>
 		<cfset strippyReturnURL = replace(returnURL,'"','&quot;','all')>
 		<cfset searchParams = '#searchParams#<input type="hidden" name="returnURL" value="#strippyReturnURL#"'>
-		
-		
+
+
 		<cfset searchParams = #replace(searchParams,"'","","all")#>
-		
+
 	</cfoutput>
 		<cfif len(#basQual#) is 0 AND basFrom does not contain "binary_object">
 			<CFSETTING ENABLECFOUTPUTONLY=0>
-			
-			<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
+
+			<font color="##FF0000" size="+2">You must enter some search criteria!</font>
 			<cfabort>
 		</cfif>
 <!-------------------------- dlkm debug --
 
 
 <cfif isdefined("session.username") and (#session.username# is "dlm" or #session.username# is "dusty")>
-		
+
 	<cfoutput>
 	--#session.username#--
 	#preserveSingleQuotes(SqlString)#
@@ -224,22 +224,22 @@
 	<cfdump var=#variables#>
 	</cfoutput>
 	</cfif>
-	
-	
-	---------------<--------------------->	
-	
+
+
+	---------------<--------------------->
+
 	<!-------------------------- / dlm debug -------------------------------------->
-	
-	
+
+
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	<cfset userSql = #preserveSingleQuotes(SqlString)#>
-	
+
 	<cfif getData.recordcount is 0>
 	<CFSETTING ENABLECFOUTPUTONLY=0>
 			<cfoutput>
-		<font color="##FF0000" size="+2">Your search returned no results.</font>	  
+		<font color="##FF0000" size="+2">Your search returned no results.</font>
 		<p>Some possibilities include:</p>
 		<ul>
 			<li>
@@ -259,7 +259,7 @@
 		<cfabort>
 	</cfif>
 	<CFSETTING ENABLECFOUTPUTONLY=0>
-	
+
 
 <!---- clear old queries from cache and cache flatquery ---->
 	<cfquery name="SpecRes#left(session.sessionKey,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
@@ -273,7 +273,7 @@
 		 where collection_object_id > 0
 	</cfquery>
 	<cfset collObjIdList = valuelist(uCollObj.collection_object_id)>
-<cfset newQuery=0>	
+<cfset newQuery=0>
 <cfset newSearch = 1><!---- assign a variable that says we've destroyed the cached query
 	and should destroy the cache of it used to navigate pages ---->
 </cfif><!---- end newquery ---->
@@ -307,7 +307,7 @@
 --->
 <cfquery name="mappable" dbtype="query">
 	select count(distinct(collection_object_id)) as cnt from getBasic where dec_long is not null and
-	dec_lat is not null 
+	dec_lat is not null
 	<!---
 	and
 	encumbrance_action <> 'mask coordinates'
@@ -372,10 +372,10 @@
 <cfset bnhmUrl="/bnhmMaps/bnhmMapData.cfm?#mapurl#">
 <br>Map #mapCount# of these #collectionObjectIds.RecordCount# records using
 <input type="submit" value="BerkeleyMapper" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
+   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
 	<span class="infoLink" onclick="getDocs('maps');">
 		What's this?
-	</span>   
+	</span>
 </td>
    </H4>
 </form>
@@ -389,17 +389,17 @@ document.getElementById('saveme').submit();
 		<form name="saveme" id="saveme" method="post" action="saveSearch.cfm" target="myWin">
 			<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/SpecimenResultsHTML.cfm?#mapURL#&detail_level=#detail_level#" />
 			<input type="button" value="Save This Search" onclick="cForm();" class="savBtn"
-   					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
+   					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">
 		</form>
 		</cfif>
 <cfif #Action# is "dispCollObj">
 	<br><a href="Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">Back to Loan</a>
 </cfif>
-	
+
 <form name="browse" action="SpecimenResultsHTML.cfm" method="post">
 				#searchparams#
-				
-				
+
+
 				<input type="hidden" name="searchParams" value='#searchParams#'>
 				<input name="mapurl" type="hidden" value="#mapurl#">
 				<input name="StartRow" type="hidden" value="1">
@@ -412,8 +412,8 @@ document.getElementById('saveme').submit();
 				<input type="hidden" name="order_order" value="#order_order#">
 				<input type="hidden" name="displayRows" value="#session.displayRows#">
 				</form>
-				
-				
+
+
 
 	<!---- browse buttons ---->
 	<table cellpadding="10">
@@ -450,23 +450,23 @@ document.getElementById('saveme').submit();
 			<span class="infoLink" onclick="document.browse.StartRow.value='1';
 				document.browse.displayRows.value='#session.displayRows#';
 				document.browse.submit();">View&nbsp;Pages</span>
-		</td>	
+		</td>
 	</CFIF>
 		</tr>
 	</table>
 	<!---- end browse buttons ---------------------->
 
 
-	
-	
+
+
 <table width="95%" border="1">
 <tr>
- 
-	
 
-	
-				
-				
+
+
+
+
+
 <form name="reorder" action="SpecimenResultsHTML.cfm" method="post">
 				#searchParams#
 				<input type="hidden" name="searchParams" value='#searchParams#'>
@@ -479,8 +479,8 @@ document.getElementById('saveme').submit();
 					<input type="hidden" name="order_by" value="#order_by#">
 					<input type="hidden" name="order_order" value="#order_order#">
 					<input type="hidden" name="collobjidlist" value="#collobjidlist#">
-				
-				
+
+
 <cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
@@ -516,7 +516,7 @@ document.getElementById('saveme').submit();
 </cfif>
 <cfif isdefined("session.loan_request_coll_id") and #session.loan_request_coll_id# gt 0>
 	<cfquery name="active_loan_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select  USER_LOAN_ID from 
+		select  USER_LOAN_ID from
 		cf_user_loan,cf_users where
 		cf_user_loan.user_id=cf_users.user_id and
 		IS_ACTIVE=1
@@ -527,14 +527,14 @@ document.getElementById('saveme').submit();
 	<cfelse>
 		<cfset thisLoanId = #active_loan_id.USER_LOAN_ID#>
 	</cfif>
-	
+
 	<td><b>Request</b></td>
 </cfif>
 	<td nowrap><strong>Catalog ##</strong>
-	<cfif 
+	<cfif
 		(isdefined("session.username") AND #detail_level# gte 2)
 			and (
-				#session.username# is "cindy" 
+				#session.username# is "cindy"
 				OR #session.username# is "dusty"
 				OR #session.username# is "ahope"
 				OR #session.username# is "jmalaney"
@@ -542,17 +542,17 @@ document.getElementById('saveme').submit();
 				OR #session.username# is "cmcclarin"
 				)
 		>
-		<a href="##" 
+		<a href="##"
 			onClick="reorder.order_by.value='scientific_name,country,state_prov,county,cat_num';reorder.order_order.value='asc';reorder.submit();"
 			>
 		Cindy Sort</a>
 	</cfif>
-	<a href="##" 
+	<a href="##"
 		onClick="reorder.order_by.value='cat_num';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';catup.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';catup.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="catup"></a>
-	<a href="##" 
+	<a href="##"
 		onClick="reorder.order_by.value='cat_num';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';catdn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';catdn.src='/images/down.gif';return true;">
@@ -563,12 +563,12 @@ document.getElementById('saveme').submit();
 			<strong>#session.CustomOtherIdentifier#</strong>
 			<cfset thisTerm = "CustomID">
 			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<a href="##" 
+			<a href="##"
 				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="##" 
+			<a href="##"
 				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
@@ -576,32 +576,32 @@ document.getElementById('saveme').submit();
 			<cfset thisTerm = "CustomIDInt">
 			<cfset thisName = #replace(thisTerm,",","_","all")#>
 			(
-			<a href="##" 
+			<a href="##"
 				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="##" 
+			<a href="##"
 				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
 				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
 				)
-				
+
 		</td>
-		
+
 	</cfif>
 	<td nowrap><strong>Identified As</strong>
-		<a href="##" 
+		<a href="##"
 		onClick="reorder.order_by.value='scientific_name';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';sciup.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';sciup.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="sciup"></a>
-	<a href="##" 
+	<a href="##"
 		onClick="reorder.order_by.value='scientific_name';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';scidn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';scidn.src='/images/down.gif';return true;">
-		<img src="/images/down.gif" border="0" name="scidn"></a>	
+		<img src="/images/down.gif" border="0" name="scidn"></a>
 	</td>
 </cfif>
 <cfif #detail_level# gte 3>
@@ -614,47 +614,47 @@ document.getElementById('saveme').submit();
 </cfif>
 <cfif #detail_level# gte 2>
 		<td nowrap>
-			<strong>Other Identifiers</strong>		
+			<strong>Other Identifiers</strong>
 	<cfset thisTerm = "OTHERCATALOGNUMBERS">
 	<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="##" 
+	<a href="##"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="##" 
+	<a href="##"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
 		<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
 		</td>
-	
+
 		<td nowrap>
-			<strong>Accession</strong>		
+			<strong>Accession</strong>
 			<cfset thisTerm = "accession">
 	<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
 		<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
 		</td>
-	
+
 		<td nowrap>
-			<strong>Collectors</strong>	
+			<strong>Collectors</strong>
 	<cfset thisTerm = "collectors">
 	<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
@@ -664,35 +664,35 @@ document.getElementById('saveme').submit();
 	<strong>Latitude</strong>&nbsp;
 	<cfset thisTerm = "verbatimlatitude">
 	<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
 		<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-			
-			
+
+
 		</td>
 		<td nowrap>
 		<strong>Longitude</strong>&nbsp;
 		<cfset thisTerm = "verbatimlongitude">
 	<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
 		<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-			
-			
+
+
 		</td>
 </cfif>
 <cfif #detail_level# gte 4>
@@ -700,12 +700,12 @@ document.getElementById('saveme').submit();
 					<strong>Decimal Latitude</strong>
 					<cfset thisTerm = "dec_lat">
 	<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
@@ -715,12 +715,12 @@ document.getElementById('saveme').submit();
 					<strong>Decimal Longitude</strong>
 					<cfset thisTerm = "dec_long">
 	<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
@@ -729,12 +729,12 @@ document.getElementById('saveme').submit();
 				<td nowrap>
 				<cfset thisTerm = "COORDINATEUNCERTAINTYINMETERS">
 	<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
@@ -762,25 +762,25 @@ document.getElementById('saveme').submit();
 </cfif>
 <cfif #detail_level# gte 1>
 		<td nowrap><strong>Country</strong>
-		<a href="##" 
+		<a href="##"
 			onClick="reorder.order_by.value='country';reorder.order_order.value='asc';reorder.submit();"
 			onMouseOver="self.status='Sort Ascending.';cntup.src='/images/up_mo.gif';return true;"
 			onmouseout="self.status='';cntup.src='/images/up.gif';return true;">
 			<img src="/images/up.gif" border="0" name="cntup"></a>
-		<a href="##" 
+		<a href="##"
 			onClick="reorder.order_by.value='country';reorder.order_order.value='desc';reorder.submit();"
 			onMouseOver="self.status='Sort Descending.';cntdn.src='/images/down_mo.gif';return true;"
 			onmouseout="self.status='';cntdn.src='/images/down.gif';return true;">
 			<img src="/images/down.gif" border="0" name="cntdn">	</a>
 		</td>
-	
+
 		<td nowrap><strong>State</strong>
-		<a href="##" 
+		<a href="##"
 			onClick="reorder.order_by.value='state_prov';reorder.order_order.value='asc';reorder.submit();"
 			onMouseOver="self.status='Sort Ascending.';stup.src='/images/up_mo.gif';return true;"
 			onmouseout="self.status='';stup.src='/images/up.gif';return true;">
 			<img src="/images/up.gif" border="0" name="stup"></a>
-		<a href="##" 
+		<a href="##"
 			onClick="reorder.order_by.value='state_prov';reorder.order_order.value='desc';reorder.submit();"
 			onMouseOver="self.status='Sort Descending.';stdn.src='/images/down_mo.gif';return true;"
 			onmouseout="self.status='';stdn.src='/images/down.gif';return true;">
@@ -792,36 +792,36 @@ document.getElementById('saveme').submit();
 </cfif>
 <cfif #detail_level# gte 2>
 		<td nowrap><strong>Map Name</strong>
-		<a href="javascript: void" 
+		<a href="javascript: void"
 		onClick="reorder.order_by.value='quad';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="qdup.src='/images/up_mo.gif';return true;"
 		onmouseout="qdup.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="qdup"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='quad';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';qddn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';qddn.src='/images/down.gif';return true;">
 		<img src="/images/down.gif" border="0" name="qddn"></a>	</td>
-	
+
 		<td nowrap>
-			<strong>Feature</strong>		
+			<strong>Feature</strong>
 		</td>
 
 
 		<td nowrap><strong>County</strong>
-		<a href="javascript: void" 
+		<a href="javascript: void"
 			onClick="reorder.order_by.value='county';reorder.order_order.value='asc';reorder.submit();"
 			onMouseOver="self.status='Sort Ascending.';cotup.src='/images/up_mo.gif';return true;"
 			onmouseout="self.status='';cotup.src='/images/up.gif';return true;">
 			<img src="/images/up.gif" border="0" name="cotup"></a>
-		<a href="javascript: void" 
+		<a href="javascript: void"
 			onClick="reorder.order_by.value='county';reorder.order_order.value='desc';reorder.submit();"
 			onMouseOver="self.status='Sort Descending.';cotdn.src='/images/down_mo.gif';return true;"
 			onmouseout="self.status='';cotdn.src='/images/down.gif';return true;">
-			<img src="/images/down.gif" border="0" name="cotdn"></a>	
+			<img src="/images/down.gif" border="0" name="cotdn"></a>
 		</td>
 		<td nowrap><strong>Island Group</strong></td>
-		<td nowrap><strong>Island</strong></td>	
+		<td nowrap><strong>Island</strong></td>
 		<td nowrap><strong>Associated Species</strong></td>
 		<td nowrap><strong>Microhabitat</strong></td>
 		<td nowrap><strong>Elevation in Meters</strong></td>
@@ -829,33 +829,33 @@ document.getElementById('saveme').submit();
 <cfif #detail_level# gte 1>
 	<td nowrap>
 		<strong>Specific Locality</strong>
-		<a href="javascript: void" 
+		<a href="javascript: void"
 			onClick="reorder.order_by.value='spec_locality';reorder.order_order.value='asc';reorder.submit();"
 			onMouseOver="self.status='Sort Ascending.';cotup.src='/images/up_mo.gif';return true;"
 			onmouseout="self.status='';cotup.src='/images/up.gif';return true;">
 			<img src="/images/up.gif" border="0" name="cotup"></a>
-		<a href="javascript: void" 
+		<a href="javascript: void"
 			onClick="reorder.order_by.value='spec_locality';reorder.order_order.value='desc';reorder.submit();"
 			onMouseOver="self.status='Sort Descending.';cotdn.src='/images/down_mo.gif';return true;"
 			onmouseout="self.status='';cotdn.src='/images/down.gif';return true;">
-			<img src="/images/down.gif" border="0" name="cotdn"></a>	
+			<img src="/images/down.gif" border="0" name="cotdn"></a>
 	</td>
 	<td nowrap>
 		<strong>Verbatim Date</strong>
 		<cfset thisTerm = "verbatim_date">
 		<cfset thisName = #replace(thisTerm,",","_","all")#>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
 		onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
 		<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-	<a href="javascript: void" 
+	<a href="javascript: void"
 		onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
 		onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
 		onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
 		<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
 	</td>
-</cfif>		
+</cfif>
 <cfif #detail_level# gte 3>
 	<td nowrap>
 		<strong>
@@ -882,10 +882,10 @@ document.getElementById('saveme').submit();
 </cfif>
 <cfif #detail_level# gte 2>
 	<td nowrap>
-		<strong>Specimen Remarks</strong>		
+		<strong>Specimen Remarks</strong>
 	</td>
 	<td nowrap>
-		<strong>Specimen Disposition</strong>		
+		<strong>Specimen Disposition</strong>
 	</td>
 </cfif>
 </cfoutput>
@@ -916,25 +916,25 @@ document.getElementById('saveme').submit();
 </cfif>
 
 <cfoutput query="getBasic" StartRow="#StartRow#" MaxRows="#DisplayRows#" group="collection_object_id">
- 
+
     <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-	
+
 <cfif #session.killrow# is 1>
 <td>
 
 <form name="remove#i#" action="SpecimenResultsHTML.cfm" method="post">
 	<input type="checkbox" name="exclCollObjId" value="#collection_object_id#" onchange="checkUncheck('remove#i#','#collection_object_id#');">
 </form>
-	
+
 	</td>
-</cfif>	
+</cfif>
 <cfif isdefined("session.loan_request_coll_id") and #session.loan_request_coll_id# gt 0>
 	<td>
 	<cfif listfind(#session.loan_request_coll_id#,#collection_id#,",")>
-	
+
 		<!--- see if they've already got a part --->
 		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select cf_loan_item.collection_object_id from 
+			select cf_loan_item.collection_object_id from
 			cf_loan_item,specimen_part
 			where cf_loan_item.collection_object_id=specimen_part.collection_object_id
 			and specimen_part.derived_from_cat_item=#collection_object_id#
@@ -952,49 +952,49 @@ document.getElementById('saveme').submit();
 	</td>
 </cfif>
       <td nowrap>
-	 
+
 	  <a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#&orderedCollObjIdList=#orderedCollObjIdList#">
 	 <div class="linkButton"
-			onmouseover="this.className='linkButton btnhov'" 
+			onmouseover="this.className='linkButton btnhov'"
 			onmouseout="this.className='linkButton'"
 			>
 			#institution_acronym#&nbsp;#collection_cde#&nbsp;#cat_num#
 								</div></a>
-  	   
+
       	</td>
 		<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<td>
 			#CustomID#
 		</td>
-		
+
 	</cfif>
 		<td nowrap>
 			<i>#replace(Scientific_Name," or ","</i> or <i>")#</i>
 		</td>
 		<cfif #detail_level# gte 3>
 			<td nowrap>#sci_name_with_auth#</td>
-			<td nowrap>#identified_by#</td>			
+			<td nowrap>#identified_by#</td>
 		</cfif>
 		<cfif #detail_level# gte 4>
 	<td>#phylorder#</td>
 	<td>#family#</td>
 </cfif>
 
-<cfif #detail_level# gte 2> 
-			
+<cfif #detail_level# gte 2>
+
 		<td nowrap>
 		<cfset oid = #replace(OTHERCATALOGNUMBERS,";","<br>","all")#>
 			<cfset oid = #replace(oid," ","&nbsp;","all")#>
 			<cfset oid = #replace(oid,"<br>&nbsp;","<br>","all")#>
 			#oid#&nbsp;
 		</td>
-	
+
 		<td nowrap>
 			#Accession#
 		</td>
 
-	
-			
+
+
 		<td nowrap>
 			<cfset c = #replace(Collectors,",","<br>","all")#>
 			<cfset c = #replace(c," ","&nbsp;","all")#>
@@ -1003,28 +1003,28 @@ document.getElementById('saveme').submit();
 		</td>
 		</cfif>
 	<cfif #detail_level# gte 2>
-		
+
 			<td nowrap>
-				
-				
+
+
 						#verbatimLatitude#&nbsp;
-				
+
 			</td>
 			<td nowrap>
-				
+
 						#verbatimLongitude#&nbsp;
 			</td>
 	</cfif>
 <cfif #detail_level# gte 4>
 				<td nowrap>
-					
-				
+
+
 						#dec_lat#&nbsp;
 				</td>
 				<td nowrap>
-			
+
 						#dec_long#&nbsp;
-					
+
 				</td>
 				<td nowrap>
 					#COORDINATEUNCERTAINTYINMETERS#&nbsp;
@@ -1044,25 +1044,25 @@ document.getElementById('saveme').submit();
 				<td>
 					#lat_long_remarks#&nbsp;
 				</td>
-				
+
 </cfif>
 <cfif #detail_level# gte 4>
 	<td>#CONTINENT_OCEAN#&nbsp;</td>
-</cfif>			
+</cfif>
 
 			<td>#Country#&nbsp;</td>
-	 
+
 		 <td>#State_Prov#&nbsp;</td>
 <cfif #detail_level# gte 4>
 	<td>#sea#&nbsp;</td>
-</cfif>			
+</cfif>
 <cfif #detail_level# gte 2>
 		 <td>#quad#&nbsp;</td>
-	
+
 		<td nowrap>
 			#feature#&nbsp;
 		</td>
-	
+
 		  <td>#county#&nbsp;</td>
 		  <td>#island_group#&nbsp;</td>
 			<td>#island#&nbsp;</td>
@@ -1073,8 +1073,8 @@ document.getElementById('saveme').submit();
 				#MIN_ELEV_IN_M#&nbsp;-&nbsp;#MAX_ELEV_IN_M#
 			</cfif>
 		</td>
-		
-</cfif>  
+
+</cfif>
 	<td>
 			#spec_locality#&nbsp;
 		</td>
@@ -1111,7 +1111,7 @@ document.getElementById('saveme').submit();
 			<cfset thisName = #replace(thisName," ","_","all")#>
 			<cfset thisName = #replace(thisName,"-","_","all")#>
 			<cfset thisName = #left(thisName,20)#>
-			
+
 			<cfif #thisName# is not "sex">
 			<td nowrap="nowrap">
 				#evaluate("getBasic." &  thisName)# &nbsp;
@@ -1119,7 +1119,7 @@ document.getElementById('saveme').submit();
 			</cfif>
 		</cfloop>
 	</cfif>
-		
+
 	<cfif #detail_level# gte 2>
 		<td nowrap>
 			#remarks#&nbsp;
@@ -1130,9 +1130,9 @@ document.getElementById('saveme').submit();
 	</cfif>
 <!----------------------------------------------------------------------------------------------------->
   <!--- The following bits add items to a loan --->
-  <!----------------------------------------------------------------------------------------------------->	
+  <!----------------------------------------------------------------------------------------------------->
   <cfif #Action# is "dispCollObj">
-  
+
 	<!----
 	<cfquery name="getParts" dbtype="query">
 	    select part_name, partID, coll_obj_disposition
@@ -1140,26 +1140,26 @@ document.getElementById('saveme').submit();
 	  </cfquery>
 	  ---->
 	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	    select 
-			part_name, 
-			specimen_part.collection_object_id partID, 
+	    select
+			part_name,
+			specimen_part.collection_object_id partID,
 			coll_obj_disposition,
 			encumbrance_action
-		  from 
+		  from
 		 	specimen_part,
 			coll_object,
 			coll_object_encumbrance,
 			encumbrance
-		where 
+		where
 			specimen_part.collection_object_id = coll_object.collection_object_id AND
 			specimen_part.collection_object_id = coll_object_encumbrance.collection_object_id (+) AND
 			coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
-			specimen_part.derived_from_cat_item = #collection_object_id# 
+			specimen_part.derived_from_cat_item = #collection_object_id#
 		group by part_name, specimen_part.collection_object_id,coll_obj_disposition,encumbrance_action
 	  </cfquery>
 	    <td nowrap>
 	  <cfset i=1>
-	 
+
 	  <cfloop query="getParts">
 	  	#part_name#
 		  <cfif len (#getParts.partID#) gt 0 AND isdefined("transaction_id")>
@@ -1168,64 +1168,65 @@ document.getElementById('saveme').submit();
 			    <!----and give them a button to click --->
 	  <cfset thisName = "p#getParts.partID#">
 	  <form name="parts#getParts.partID#">
+		  <!----
 		  <input type="button" value="Add #getParts.part_name# (details)" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('/picks/internalAddLoanItem.cfm?collection_object_id=#getParts.partID#&transaction_id=#transaction_id#&item=#getParts.part_name#','_AddLoanItem','width=500,height=400');parts#getParts.partID#.#thisName#.checked=1;">	
-  
+   onClick="window.open('/picks/internalAddLoanItem.cfm?collection_object_id=#getParts.partID#&transaction_id=#transaction_id#&item=#getParts.part_name#','_AddLoanItem','width=500,height=400');parts#getParts.partID#.#thisName#.checked=1;">
+  ---->
 		<br>
 		   <input type="button" value="Add whole" class="insBtn"
    onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-    onClick="window.open('/picks/internalAddLoanItem.cfm?collection_object_id=#getParts.partID#&transaction_id=#transaction_id#&item=#getParts.part_name#&Action=AddItem&selfClose=y&isSubsample=n','_AddLoanItem');parts#getParts.partID#.#thisName#.checked=1;">	
-   
+    onClick="window.open('/picks/internalAddLoanItem.cfm?collection_object_id=#getParts.partID#&transaction_id=#transaction_id#&item=#getParts.part_name#&Action=AddItem&selfClose=y&isSubsample=n','_AddLoanItem');parts#getParts.partID#.#thisName#.checked=1;">
+
    <input type="button" value="Add subsample" class="insBtn"
    onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
 		onClick="window.open('/picks/internalAddLoanItem.cfm?collection_object_id=#getParts.partID#&transaction_id=#transaction_id#&item=#getParts.part_name#&Action=AddItem&selfClose=y&isSubsample=y','_AddLoanItem');parts#getParts.partID#.#thisName#.checked=1;">
-				  
-				  
+
+
 				<br>(#coll_obj_disposition#)&nbsp;&nbsp;Added? <input type="checkbox" name="#thisName#">
-			  </form>	
+			  </form>
   <hr>
 		  <cfelse>
 			  You don't seem to have the proper rights to be here!
-			  <cfabort>	
+			  <cfabort>
 		  </cfif>
 	  <cfset i=#i#+1>
 	  </cfloop>
 	  </td>
-	  
+
 
   <td>
 	  <cfif len(#getParts.encumbrance_action#) gt 0>
 		 #getParts.encumbrance_action#<br>
 	  <cfelse>
 		  None
-	  </cfif> 
+	  </cfif>
   </td>
   </cfif>
   <!-----------------------------------------------------------------------------------------
 					End loan items bit
 ---------------------------------------------------------------------->
   </tr>
-  
+
   <cfset i=#I#+1>
   </cfoutput>
 <cfif #session.killrow# is 1>
   <tr>
-  	
+
 	<td>
-	
+
 	<form name="DnSubRem" method="post" action="SpecimenResultsHTML.cfm">
 		<img src="/images/delete.gif" border="0" width="24" onClick="reloadThis.submit();">
 	</form>
-	
+
 	</td>
-	
+
   </tr>
- </cfif>  
+ </cfif>
 </table>
 <cfset maxI=#I#>
 
-	
+
 
 <cfoutput>
 	<!---- browse buttons ---->
@@ -1263,7 +1264,7 @@ document.getElementById('saveme').submit();
 			<span class="infoLink" onclick="document.browse.StartRow.value='1';
 				document.browse.displayRows.value='#session.displayRows#';
 				document.browse.submit();">View&nbsp;Pages</span>
-		</td>	
+		</td>
 	</CFIF>
 		</tr>
 	</table>
@@ -1273,57 +1274,57 @@ document.getElementById('saveme').submit();
 	<table>
 		<CFIF startrow GT 1>
 		<td width="20">
-			<img src="/images/first.gif" 
-				border="0" 
-				alt="First Records" 
-				class="likeLink" 
+			<img src="/images/first.gif"
+				border="0"
+				alt="First Records"
+				class="likeLink"
 				onClick="document.browse.StartRow.value='1';document.browse.submit();"
 				onMouseOver="self.status='First Records';"
 				onMouseOut="self.status='';">
 		</td>
 		<td width="20">
-			<img src="/images/previous.gif" 
-				border="0" 
-				alt="previous" 
-				class="likeLink" 
+			<img src="/images/previous.gif"
+				border="0"
+				alt="previous"
+				class="likeLink"
 				onClick="document.browse.StartRow.value='#previous#';document.browse.submit();"
 				onMouseOver="self.status='Previous Records';"
 				onMouseOut="self.status='';">
 		</td>
 	<cfelse>
 		<td width="20">
-			<img src="/images/no_first.gif" 
+			<img src="/images/no_first.gif"
 				border="0">
 		</td>
 		<td width="20">
-			<img src="/images/no_previous.gif" 
+			<img src="/images/no_previous.gif"
 				border="0">
 		</td>
 	</CFIF>
 	<CFIF Next LTE getBasic.RecordCount>
 		<td width="20">
-			<img src="/images/next.gif" border="0" alt="next" class="likeLink" 
+			<img src="/images/next.gif" border="0" alt="next" class="likeLink"
 				onClick="document.browse.StartRow.value='#Next#';document.browse.submit();"
 				onMouseOver="self.status='Next Records';"
 				onMouseOut="self.status='';">
 		</td>
 		<td width="20">
-			<img src="/images/last.gif" border="0" alt="last" class="likeLink" 
+			<img src="/images/last.gif" border="0" alt="last" class="likeLink"
 				onClick="document.browse.StartRow.value='#LastRecs#';document.browse.submit();"
 				onMouseOver="self.status='Last Records';"
 				onMouseOut="self.status='';">
 		</td>
 	<cfelse>
 		<td width="20">
-			<img src="/images/no_next.gif" 
+			<img src="/images/no_next.gif"
 				border="0">
 		</td>
 		<td width="20">
-			<img src="/images/no_last.gif" 
+			<img src="/images/no_last.gif"
 				border="0">
 		</td>
-	
-	</CFIF>	
+
+	</CFIF>
 
 	</table>
 	<!---- end browse buttons ---------------------->
@@ -1339,7 +1340,7 @@ document.getElementById('saveme').submit();
 				<input type="hidden" name="detail_level">
 				<input name="NewSearch" type="hidden" value="0">
 				<input type="hidden" name="collobjidlist" value="#collobjidlist#">
-				
+
 				<!----
 				<cfif isdefined("transaction_id")>
 					<input type="hidden" name="transaction_id" value="#transaction_id#">
@@ -1407,8 +1408,8 @@ document.getElementById('saveme').submit();
 						<td><font size="-1">More</font></td>
 					</tr>
 				</table>
-				
-</form>		
+
+</form>
 ---->
 </cfoutput>
 <!---------------------------- reload this page -------------------------------------------->
@@ -1431,7 +1432,7 @@ document.getElementById('saveme').submit();
 				<input name="NewQuery" type="hidden" value="1">
 				<input type="hidden" name="detail_level" value="#detail_level#">
 				<input name="NewSearch" type="hidden" value="1">
-				
+
 				<!----
 				<cfif isdefined("transaction_id")>
 					<input type="hidden" name="transaction_id" value="#transaction_id#">
@@ -1439,8 +1440,8 @@ document.getElementById('saveme').submit();
 				---->
 				<input type="Submit" value="Refresh Form" class="lnkBtn"
 							   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-				
-</form>				
+
+</form>
 </cfoutput>
 <!---------------------------- /reload this page -------------------------------------------->
 
@@ -1466,7 +1467,7 @@ document.getElementById('saveme').submit();
 				---->
 				<cfif isdefined("session.username") and len(#session.username#) gt 0>
 					<input type="submit" value="Download" class="lnkBtn"
-	   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
+	   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
    				<cfelse>
 					<br /><a href="/login.cfm">Create an Account or Sign In</a> to download these data.
 				</cfif>
@@ -1474,7 +1475,7 @@ document.getElementById('saveme').submit();
 </cfoutput>
 <!-----			one-size fits all management widget				------>
 <cfif getBasic.recordcount lt 1000>
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfoutput>
 		<!---
 			<option  value="/CustomPages/ALALabels.cfm">ALA Labels</option>
@@ -1516,15 +1517,15 @@ document.getElementById('saveme').submit();
 				Print NK pages
 			</option>
 		</select>
-		<input type="button" 
-			value="Go" 
+		<input type="button"
+			value="Go"
 			class="lnkBtn"
-   			onmouseover="this.className='lnkBtn btnhov'" 
+   			onmouseover="this.className='lnkBtn btnhov'"
 			onmouseout="this.className='lnkBtn'"
 			onClick="document.location=goWhere.value">
 	</form>
 	</cfoutput>
-	
+
 </cfif>
 <cfelse>
 	Management functions only work when your search returns less than 1000 records.
@@ -1552,7 +1553,7 @@ document.getElementById('saveme').submit();
 </cfif>
 <cfif #detail_level# gte 4>
 	<cfset header = "#header##chr(9)#Decimal_Latitude#chr(9)#Decimal_Longitude#chr(9)#Maximum_Error#chr(9)#Datum#chr(9)#Original_Lat_Long_Units#chr(9)#Georeferenced_By#chr(9)#Lat_Long_Reference#chr(9)#Lat_Long_Remarks">
-				
+
 </cfif>
 <cfif #detail_level# gte 4>
 	<cfset header = "#header##chr(9)#Continent">
@@ -1587,7 +1588,7 @@ document.getElementById('saveme').submit();
 
 	<cfif #detail_level# gte 2>
 	<cfset header = "#header##chr(9)#Specimen_Remarks#chr(9)#Specimen_Disposition">
-		
+
 	</cfif>
 <cfset header=#trim(header)#>
 	<cfset header = "#header##chr(10)#"><!--- add one and only one line break back onto the end --->
@@ -1602,7 +1603,7 @@ document.getElementById('saveme').submit();
 	<cfif #detail_level# gte 3>
 		<cfset oneLine = "#oneLine##chr(9)##sci_name_with_auth##chr(9)##Identified_By#">
 	</cfif>
-	
+
 <cfif #detail_level# gte 4>
 	<cfset oneLine = "#oneLine##chr(9)##phylorder##chr(9)##family#">
 </cfif>
@@ -1613,7 +1614,7 @@ document.getElementById('saveme').submit();
 					<cfset oneLine = "#oneLine##chr(9)##verbatimLatitude##chr(9)##verbatimLongitude#">
 </cfif>
 <cfif #detail_level# gte 4>
-					<cfset oneLine = "#oneLine##chr(9)##dec_lat##chr(9)##dec_long##chr(9)##COORDINATEUNCERTAINTYINMETERS##chr(9)##datum##chr(9)##orig_lat_long_units##chr(9)##lat_long_determiner##chr(9)##lat_long_ref_source##chr(9)##lat_long_remarks#">	
+					<cfset oneLine = "#oneLine##chr(9)##dec_lat##chr(9)##dec_long##chr(9)##COORDINATEUNCERTAINTYINMETERS##chr(9)##datum##chr(9)##orig_lat_long_units##chr(9)##lat_long_determiner##chr(9)##lat_long_ref_source##chr(9)##lat_long_remarks#">
 </cfif>
 <cfif #detail_level# gte 4>
 	<cfset oneLine = "#oneLine##chr(9)##CONTINENT_OCEAN#">
@@ -1624,7 +1625,7 @@ document.getElementById('saveme').submit();
 </cfif>
 <cfif #detail_level# gte 2>
 	<cfset oneLine = "#oneLine##chr(9)##quad##chr(9)##feature##chr(9)##county##chr(9)##island_group##chr(9)##island##chr(9)##Associated_Species##chr(9)##habitat##chr(9)##MIN_ELEV_IN_M#-#MAX_ELEV_IN_M#">
-</cfif> 
+</cfif>
 <cfset oneLine = "#oneLine##chr(9)##spec_locality##chr(9)##verbatim_date#">
 <cfif #detail_level# gte 3>
 	<cfif began_date is ended_date AND len(began_date) gt 0>
@@ -1643,27 +1644,27 @@ document.getElementById('saveme').submit();
 			<cfset thisName = #replace(thisName," ","_","all")#>
 			<cfset thisName = #replace(thisName,"-","_","all")#>
 			<cfset thisName = #left(thisName,20)#>
-			
+
 			<cfif #thisName# is not "sex">
 				<Cfset thisVal =#evaluate("getBasic." &  thisName)#>
 				<cfset oneLine = "#oneLine##chr(9)##thisVal#">
 			</cfif>
 		</cfloop>
 	</cfif>
-	
+
 <cfif #detail_level# gte 2>
 	<cfset oneLine = "#oneLine##chr(9)##remarks##chr(9)##coll_obj_disposition#">
 </cfif>
 <cfset oneLine = trim(#oneLine#)>
 	<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
-	
+
 	</cfoutput>
 	<cfoutput>
 	<cfset downloadFile = "/download/#dlFile#">
 	<cflocation url="download_agree.cfm?cnt=#getBasic.recordcount#&downloadFile=#downloadFile#">
 	</cfoutput>
 </cfif>
-	
+
 	<!------------------------------------- end download ----------------------------------->
 <cfif #Action# is "labels">
 
@@ -1703,7 +1704,7 @@ document.getElementById('saveme').submit();
 						<cfset geog = "#geog#, #quad# Quad">
 					</cfif>
 			</cfif>
-			
+
 			<cfif len(#feature#) gt 0>
 				<cfset geog = "#geog#, #feature#">
 			</cfif>
@@ -1782,13 +1783,13 @@ document.getElementById('saveme').submit();
 		<cfset hf_units = "">
 		<cfset efn_units = "">
 		<cfset weight_units = "">
-				
+
 		<cfloop list="#attList#" index="val">
 			<cfset thisName = #val#>
 			<cfset thisName = #replace(thisName," ","_","all")#>
 			<cfset thisName = #replace(thisName,"-","_","all")#>
 			<cfset thisName = #left(thisName,20)#>
-			
+
 			<cfif #val# is "total length">
 				<cfset totlen = "#evaluate("getBasic." &  thisName)#">
 			</cfif>
@@ -1810,37 +1811,37 @@ document.getElementById('saveme').submit();
 				<cfset spacePos = find(" ",totlen)>
 				<cfset totlen_val = trim(left(totlen,#spacePos#))>
 				<cfset totlen_Units = trim(right(totlen,len(totlen) - #spacePos#))>
-			</cfif>		
+			</cfif>
 		</cfif>
 		<cfif len(#taillen#) gt 0>
 			<cfif #trim(taillen)# contains " ">
 				<cfset spacePos = find(" ",taillen)>
 				<cfset taillen_val = trim(left(taillen,#spacePos#))>
 				<cfset taillen_Units = trim(right(taillen,len(taillen) - #spacePos#))>
-			</cfif>		
+			</cfif>
 		</cfif>
 		<cfif len(#hf#) gt 0>
 			<cfif #trim(hf)# contains " ">
 				<cfset spacePos = find(" ",hf)>
 				<cfset hf_val = trim(left(hf,#spacePos#))>
 				<cfset hf_Units = trim(right(hf,len(hf) - #spacePos#))>
-			</cfif>		
+			</cfif>
 		</cfif>
 		<cfif len(#efn#) gt 0>
 			<cfif trim(#efn#) contains " ">
 				<cfset spacePos = find(" ",efn)>
 				<cfset efn_val = trim(left(efn,#spacePos#))>
 				<cfset efn_Units = trim(right(efn,len(efn) - #spacePos#))>
-			</cfif>		
+			</cfif>
 		</cfif>
 		<cfif len(#weight#) gt 0>
 			<cfif trim(#weight#) contains " ">
 				<cfset spacePos = find(" ",weight)>
 				<cfset weight_val = trim(left(weight,#spacePos#))>
 				<cfset weight_Units = trim(right(weight,len(weight) - #spacePos#))>
-			</cfif>		
+			</cfif>
 		</cfif>
-		
+
 			<cfif len(#totlen#) gt 0>
 				<cfif #totlen_Units# is "mm">
 					<cfset meas = "#totlen_val#-">
@@ -1850,7 +1851,7 @@ document.getElementById('saveme').submit();
 			<cfelse>
 				<cfset meas="X-">
 			</cfif>
-			
+
 			<cfif len(#taillen#) gt 0>
 				<cfif #taillen_Units# is "mm">
 					<cfset meas = "#meas##taillen_val#-">
@@ -1860,7 +1861,7 @@ document.getElementById('saveme').submit();
 			<cfelse>
 				<cfset meas="#meas#X-">
 			</cfif>
-			
+
 			<cfif len(#hf#) gt 0>
 				<cfif #hf_Units# is "mm">
 					<cfset meas = "#meas##hf_val#-">
@@ -1870,7 +1871,7 @@ document.getElementById('saveme').submit();
 			<cfelse>
 				<cfset meas="#meas#X-">
 			</cfif>
-	
+
 			<cfif len(#efn#) gt 0>
 				<cfif #efn_Units# is "mm">
 					<cfset meas = "#meas##efn_val#-">
@@ -1880,7 +1881,7 @@ document.getElementById('saveme').submit();
 			<cfelse>
 				<cfset meas="#meas#X=">
 			</cfif>
-			
+
 			<cfif len(#weight#) gt 0>
 				<cfif #weight_Units# is "g">
 					<cfset meas = "#meas##weight_val#">

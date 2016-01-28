@@ -1238,7 +1238,7 @@ just fooling idiot cfclipse into using the right colors
 			len(rec_agent_id) is 0 OR
 			len(auth_agent_id) is 0>
 			<br>Something bad happened.
-			<br>You must fill in loan_type, loannumber, authorizing_agent_name, initiating_date, loan_num_prefix, received_agent_name.
+			<br>You must fill in loan_type, loannumber, authorizing_agent_name, initiating_date, received_agent_name.
 			<br>Use your browser's back button to fix the problem and try again.
 			<cfabort>
 		</cfif>

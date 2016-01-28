@@ -330,13 +330,14 @@
 		<cfabort>
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
-	<cfset badbot="Baiduspider,ca-crawler,CCBot">
+	<cfset badbot="Baiduspider,ca-crawler,CCBot,CPython">
 	<cfset badbot=badbot & ",Domain">
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
 	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",re-animator">
+	<cfset badbot=badbot & ",python-requests">
 	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse">
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
