@@ -341,7 +341,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 			</p>
 			<p>
 				DELETE WITH GREAT CAUTION! The data behind this form do other stuff, and there's a lot of blood sweat and tears in
-				the documentatino. Talk to a DBA before deleting anything.
+				the documentation. Talk to a DBA before deleting anything.
 				If you are a DBA, use the links below.
 			</p>
 			<p>
