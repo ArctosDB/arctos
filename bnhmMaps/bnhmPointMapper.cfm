@@ -5,7 +5,7 @@ Retrieving map data - please wait....
 		not enough info
 		<cfabort>
 	</cfif>
-	<cfif isdefined("locality_id") and locality_id gt 0>
+	<cfif isdefined("locality_id") and len(locality_id) gt 0>
 		<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				locality.locality_id,
@@ -16,7 +16,9 @@ Retrieving map data - please wait....
 				datum
 			FROM locality
 			WHERE
-				locality.locality_id IN (#locality_id#)
+				locality.locality_id IN (
+				 <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_NUMERICe" list = "yes" separator = ",">
+				)
 		</cfquery>
 		<cfif getMapData.recordcount is 0>
 			not found<cfabort>
