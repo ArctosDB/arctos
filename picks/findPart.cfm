@@ -5,8 +5,6 @@
 		self.close();
 	}
 </script>
-
-
 <cfoutput>
 <cfif len(part_name) gt 0>
 	<cfset search=true>

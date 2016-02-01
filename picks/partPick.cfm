@@ -1,3 +1,12 @@
+deprecated
+
+<cfabort>
+
+deprecated 20160201
+
+
+
+
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfoutput>
 	<cfif not isdefined("ret_val_id")>
@@ -26,14 +35,14 @@
 <cfif action is "nothing">
 <cfoutput>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select guid_prefix,collection_id from collection group by guid_prefix,collection_id order by guid_prefix,collection_id 
+		select guid_prefix,collection_id from collection group by guid_prefix,collection_id order by guid_prefix,collection_id
 	</cfquery>
 	<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select other_id_type from ctcoll_other_id_type group by other_id_type order by other_id_type 
+		select other_id_type from ctcoll_other_id_type group by other_id_type order by other_id_type
 	</cfquery>
 	<cfif isdefined("guid_prefix") and len(guid_prefix) gt 0 >
 		<cfquery name="cidl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select collection_id from collection where 
+			select collection_id from collection where
 			guid_prefix='#guid_prefix#'
 		</cfquery>
 		<cfif cidl.recordcount is 1>
@@ -47,8 +56,8 @@
 		<label for="collection_id">Collection</label>
 		<select name="collection_id" id="collection_id" size="1">
 			<cfloop query="ctcollection">
-				<option 
-					<cfif ctcollection.collection_id is cidl.collection_id> selected="selected" </cfif> 
+				<option
+					<cfif ctcollection.collection_id is cidl.collection_id> selected="selected" </cfif>
 					value="#collection_id#">#guid_prefix#</option>
 			</cfloop>
 		</select>
@@ -56,15 +65,15 @@
 		<cfset collection_cde=listgetat(guid_prefix,2,':')>
 		<input type="text" name="part" id="part" class="reqdClr"
 			value="#part#" size="25"
-			onchange="findPart(this.id,this.value,'#collection_cde#');" 
+			onchange="findPart(this.id,this.value,'#collection_cde#');"
 			onkeypress="return noenter(event);">
 		<label for="id_type">Identifier Type</label>
 		<select name="id_type" id="id_type" size="1">
-			<option <cfif id_type is 'catalog_number'> selected="selected" </cfif> 
+			<option <cfif id_type is 'catalog_number'> selected="selected" </cfif>
 					value="catalog_number">catalog_number</option>
 			<cfloop query="ctOID">
-				<option 
-					<cfif ctOID.other_id_type is id_type> selected="selected" </cfif> 
+				<option
+					<cfif ctOID.other_id_type is id_type> selected="selected" </cfif>
 					value="#other_id_type#">#other_id_type#</option>
 			</cfloop>
 		</select>
@@ -77,7 +86,7 @@
 </cfif>
 <cfif action is "srch">
 <cfoutput>
-	<cfset s="select 
+	<cfset s="select
 			cat_num,
 			collection.guid_prefix,
 			cataloged_item.collection_object_id,
@@ -90,8 +99,8 @@
 			PART_NAME,
 			SAMPLED_FROM_OBJ_ID,
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-			nvl(p1.barcode,'NOBARCODE') barcode 
-		from 
+			nvl(p1.barcode,'NOBARCODE') barcode
+		from
 			collection,
 			cataloged_item,
 			specimen_part,
@@ -101,12 +110,12 @@
 			coll_obj_cont_hist,
 			container p0,
 			container p1">
-			
+
 	<cfset s=s & " where collection.collection_id=cataloged_item.collection_id and ">
 	<cfset s=s & " cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and ">
 	<cfset s=s & " specimen_part.collection_object_id=coll_object.collection_object_id and ">
 	<cfset s=s & " coll_object.collection_object_id=coll_object_remark.collection_object_id (+) and ">
-	<cfset s=s & " cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and 
+	<cfset s=s & " cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
 			coll_obj_cont_hist.container_id=p0.container_id (+) and
 			p0.parent_container_id=p1.container_id (+)">
@@ -160,12 +169,12 @@
 			<cfloop query="data">
 				<tr>
 					<td>
-						#guid_prefix# #cat_num# #PART_NAME# [#barcode#]				
+						#guid_prefix# #cat_num# #PART_NAME# [#barcode#]
 					</td>
 					<cfif len(#session.CustomOtherIdentifier#) gt 0 >
 						<td>#CustomID#</td>
 					</cfif>
-					
+
 					<td>
 						<span class="likeLink" onclick="thisOne('#ret_val_id#','#ret_id_id#','#partID#','#part_name#')">Select</span>
 					</td>
