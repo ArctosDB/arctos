@@ -1,11 +1,10 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <script>
 	function pt(partFld,part_name){
-		opener.$('"#' + partFld + '"' + ).val(part_name);
+		opener.$('#' + partFld).val(part_name);
 		self.close();
 	}
 </script>
-
 
 
 <cfoutput>
