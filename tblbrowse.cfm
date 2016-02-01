@@ -369,7 +369,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 				<p>
 					<cfif left(tbl,2) is "CT">
 						This looks like a code table: Try this link.
-						<a href="/info/ctDocumentation.cfm?table=#tbl#<">/info/ctDocumentation.cfm?table=#tbl#</a>
+						<a href="/info/ctDocumentation.cfm?table=#tbl#">/info/ctDocumentation.cfm?table=#tbl#</a>
 					</cfif>
 				</p>
 				<p>
