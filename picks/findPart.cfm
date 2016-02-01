@@ -3,6 +3,7 @@
 	function pt(partFld,part_name){
 		opener.$('"# ' + partFld).val(part_name);
 		self.close();
+	}
 </script>
 
 
