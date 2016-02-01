@@ -155,11 +155,8 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 ----->
 
 <cfinclude template="/includes/_header.cfm">
-
-
 	<cfset title="table browser thingee">
 	<script src="/includes/sorttable.js"></script>
-
 	<cfoutput>
 		<cfif action is "rebuildDDL">
 			<cftransaction>
@@ -370,7 +367,16 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					Code tables are excluded and may be accessed at <a href="/info/ctDocumentation.cfm">/info/ctDocumentation.cfm</a>
 				</p>
 				<p>
+					<cfif left(tbl,2) is "CT">
+						This looks like a code table: Try this link.
+						<a href="/info/ctDocumentation.cfm?table=#tbl#<">/info/ctDocumentation.cfm?table=#tbl#</a>
+					</cfif>
+				</p>
+				<p>
 					If you think there should be something here, please contact a DBA.
+				</p>
+				<p>
+					If you've recently added a table, try <a href="tblbrowse.cfm?action=rebuildDDL">clicking here to refresh data</a>
 				</p>
 				<p>
 					<a href="tblbrowse.cfm">back to list</a>
@@ -410,7 +416,6 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					</tr>
 				</cfloop>
 			</table>
-
 			<h2>
 				#tbl# columns
 			</h2>
@@ -434,8 +439,6 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 						<cfquery name="tutc" dbtype="query">
 							select * from utc where column_name='#column_name#'
 						</cfquery>
-
-
 						<tr>
 							<td>#column_name#</td>
 							<td>
@@ -471,59 +474,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 					</cfif>
 				</cfloop>
 			</cftransaction>
-			<!----
-
-			---->
 			<cflocation url="tblbrowse.cfm?action=tbldetail&tbl=#tbl#" addtoken="false">
 		</cfif>
-
-
-		<!----
-		<form name="s" method="get" action="tblbrowse.cfm">
-			<input type="hidden" name="action" id="action" value="srch">
-			<input type="hidden" name="tbl" id="tbl" value="#tbl#">
-			<cfloop query="tcols">
-				<cfif structkeyexists(url,"#COLUMN_NAME#")>
-					<cfset v=structfind(url,"#COLUMN_NAME#")>
-				<cfelse>
-					<cfset v="">
-				</cfif>
-				<label for="#COLUMN_NAME#">#COLUMN_NAME#</label>
-				<input type="text" name="#COLUMN_NAME#" value="#v#" id="#COLUMN_NAME#">
-			</cfloop>
-			<br>
-			<input type="submit" value="search">
-		</form>
-	<cfif action is "srch">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from #tbl# where 1=1
-			<cfloop collection="#url#" item="key">
-				<cfif key is not "tbl" and key is not "action" and len(url[key]) gt 0>
-					and upper(#key#) like '%#ucase(url[key])#%'
-				</cfif>
-			</cfloop>
-			and rownum<1001
-		</cfquery>
-		<cfif d.recordcount gt 0>
-			max 1k rows
-			<table border id="t" class="sortable">
-				<tr>
-					<cfloop query="tcols">
-						<th>#COLUMN_NAME#</th>
-					</cfloop>
-				</tr>
-				<cfloop query="d">
-					<tr>
-						<cfloop query="tcols">
-							<td>#evaluate("d." & COLUMN_NAME)#</td>
-						</cfloop>
-					</tr>
-				</cfloop>
-			</table>
-		<cfelse>
-			notfound
-		</cfif>
-	</cfif>
-	---->
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
