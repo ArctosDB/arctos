@@ -81,7 +81,7 @@ END;
 				)
 			</cfquery>
 		</cfloop>
-		<!---- END £insert a "verbatim collector" attribute in any collection type lacking one ---->
+		<!---- END insert a "verbatim collector" attribute in any collection type lacking one ---->
 		<cfloop query="bads">
 			#cf_dup_agent_id#<br>
 			<cftransaction>

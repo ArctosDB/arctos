@@ -695,7 +695,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				INSERT INTO citation (
 					publication_id,
 					collection_object_id,
-					cit_current_fg,
 					identification_id
 					<cfif len(occurs_page_number) gt 0>
 						,occurs_page_number
@@ -709,7 +708,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				) VALUES (
 					#publication_id#,
 					#collection_object_id#,
-					1,
 					sq_identification_id.currval
 					<cfif len(occurs_page_number) gt 0>
 						,#occurs_page_number#
@@ -727,7 +725,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				INSERT INTO citation (
 					publication_id,
 					collection_object_id,
-					cit_current_fg,
 					identification_id
 					<cfif len(occurs_page_number) gt 0>
 						,occurs_page_number
@@ -741,7 +738,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				) VALUES (
 					#publication_id#,
 					#collection_object_id#,
-					1,
 					(select identification_id from identification where accepted_id_fg=1 and collection_object_id=#collection_object_id#)
 					<cfif len(occurs_page_number) gt 0>
 						,#occurs_page_number#

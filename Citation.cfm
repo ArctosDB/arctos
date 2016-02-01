@@ -35,7 +35,7 @@
 			$("#foundSpecimen").html('[ find a specimen to continue ]');
 			return false;
 		}
-		
+
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getCatalogedItemCitation",
@@ -82,7 +82,7 @@
 				ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
 				ltxt += '<br>ID <i>Sensu</i>: ' + result.SHORT_CITATION[i];
 				ltxt += '<br>ID Remark: ' + result.IDENTIFICATION_REMARKS[i];
-				ltxt += '</li></ul>'; 
+				ltxt += '</li></ul>';
 			}
 			$("#resulttext").html(ltxt);
 		}
@@ -122,7 +122,7 @@
 			jQuery.get(ptl, function(data){
 				 jQuery('#theCitationsGoHere').html(data);
 			})
-		});	
+		});
 	</script>
 	<cfset title="Manage Citations">
 	<cfoutput>
@@ -142,20 +142,20 @@
 			SELECT
 				PUBLISHED_YEAR,
 				full_citation
-			FROM 
+			FROM
 				publication
 			WHERE
 				publication_id = #publication_id#
 		</cfquery>
 		<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				rownum r,
-				preferred_agent_name.agent_id, 
-				agent_name 
-			from 
-				preferred_agent_name, 
+				preferred_agent_name.agent_id,
+				agent_name
+			from
+				preferred_agent_name,
 				publication_agent
-			where 
+			where
 				publication_agent.agent_id=preferred_agent_name.agent_id and
 				publication_agent.publication_id = #publication_id#
 		</cfquery>
@@ -256,17 +256,17 @@
 										</cfloop>
 									</select>
 									<label for="taxona"><span class="helpLink" id="scientific_name">Taxon A:</span></label>
-									<input type="text" name="taxona" id="taxona" class="reqdClr" size="50" 
+									<input type="text" name="taxona" id="taxona" class="reqdClr" size="50"
 										onChange="taxaPick('taxona_id','taxona','newCitation',this.value); return false;"
 										onKeyPress="return noenter(event);">
-									<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr">	
+									<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr">
 									<div id="userID" style="display:none;">
 								    	<label for="user_id"><span class="helpLink" id="user_identification">Identification:</span></label>
 										<input type="text" name="user_id" id="user_id" size="50">
 									</div>
 									<div id="taxon_b_row" style="display:none;">
 										<label for="taxonb"><span class="helpLink" id="scientific_name">Taxon B:</span></label>
-										<input type="text" name="taxonb" id="taxonb"  size="50" 
+										<input type="text" name="taxonb" id="taxonb"  size="50"
 											onChange="taxaPick('taxonb_id','taxonb','newCitation',this.value); return false;"
 											onKeyPress="return noenter(event);">
 										<input type="hidden" name="taxonb_id" id="taxonb_id">
@@ -293,15 +293,15 @@
 									<label for="newIdBy"><span class="helpLink" id="id_by">ID Agent 1 (save and edit for more agents)</span></label>
 									<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" value="#a1.agent_name#"
 										onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
-									<input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr" value="#a1.agent_id#"> 
+									<input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr" value="#a1.agent_id#">
 									<label for="newIdBy_two"><span class="helpLink" id="id_by">ID Agent 2</span></label>
 									<input type="text" name="newIdBy_two" id="newIdBy_two" size="50"  value="#a2.agent_name#"
 										onchange="getAgent('newIdBy_two_id',this.id,'newCitation',this.value);">
-								    <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id" value="#a2.agent_id#"> 
+								    <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id" value="#a2.agent_id#">
 									<label for="newIdBy_three"><span class="helpLink" id="id_by">ID Agent 3</span></label>
-									<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" value="#a3.agent_name#" 
+									<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" value="#a3.agent_name#"
 										onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
-								    <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id" value="#a3.agent_id#"> 	
+								    <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id" value="#a3.agent_id#">
 									<label for="made_date"><span class="helpLink" id="identification.made_date">ID Date:</span></label>
 									<input type="text" name="made_date" id="made_date" value='#getPub.PUBLISHED_YEAR#'>
 									<label for="nature_of_id"><span class="helpLink" id="nature_of_id">Nature of ID</span></label>
@@ -313,7 +313,7 @@
 									<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
 									<label for="identification_remarks"><span class="helpLink" id="identification_remarks">Remarks</span></label>
 									<input type="text" name="identification_remarks" id="identification_remarks" size="50">
-									<br><input type="button" onclick="createCitWithNewID();" id="newID_submit" value="Create Citation and Identification" class="insBtn">	
+									<br><input type="button" onclick="createCitWithNewID();" id="newID_submit" value="Create Citation and Identification" class="insBtn">
 								</fieldset>
 							</td>
 							<td class="valigntop">
@@ -340,8 +340,7 @@
 			INSERT INTO citation (
 				publication_id,
 				collection_object_id,
-				cit_current_fg,
-				identification_id			
+				identification_id
 				<cfif len(occurs_page_number) gt 0>
 					,occurs_page_number
 				</cfif>
@@ -354,7 +353,6 @@
 			) VALUES (
 				#publication_id#,
 				#collection_object_id#,
-				1,
 				#identification_id#
 				<cfif len(occurs_page_number) gt 0>
 					,#occurs_page_number#
@@ -365,13 +363,13 @@
 				<cfif len(citation_remarks) gt 0>
 					,'#escapeQuotes(citation_remarks)#'
 				</cfif>
-			) 
+			)
 		</cfquery>
 	<cflocation addtoken="false" url="Citation.cfm?publication_id=#publication_id###newCitation">
 	</cfoutput>
-</cfif>	
+</cfif>
 <!------------------------------------------------------------------------------->
-<cfif action is "newCitation">		
+<cfif action is "newCitation">
 	<cfif taxa_formula is "A {string}">
 		<cfset scientific_name = user_id>
 	<cfelseif taxa_formula is "A">
@@ -441,7 +439,7 @@
 					insert into identification_agent (
 						identification_id,
 						agent_id,
-						identifier_order) 
+						identifier_order)
 					values (
 						sq_identification_id.currval,
 						#AGENT_ID#,
@@ -455,7 +453,7 @@
 				insert into identification_agent (
 					identification_id,
 					agent_id,
-					identifier_order) 
+					identifier_order)
 				values (
 					sq_identification_id.currval,
 					#newIdBy_id#,
@@ -467,7 +465,7 @@
 					insert into identification_agent (
 						identification_id,
 						agent_id,
-						identifier_order) 
+						identifier_order)
 					values (
 						sq_identification_id.currval,
 						#newIdBy_two_id#,
@@ -480,7 +478,7 @@
 					insert into identification_agent (
 						identification_id,
 						agent_id,
-						identifier_order) 
+						identifier_order)
 					values (
 						sq_identification_id.currval,
 						#newIdBy_three_id#,
@@ -489,7 +487,7 @@
 				</cfquery>
 			</cfif>
 		</cfif>
-		
+
 		<cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO identification_taxonomy (
 				identification_id,
@@ -516,8 +514,7 @@
 			INSERT INTO citation (
 				publication_id,
 				collection_object_id,
-				cit_current_fg,
-				identification_id			
+				identification_id
 				<cfif len(#occurs_page_number#) gt 0>
 					,occurs_page_number
 				</cfif>
@@ -530,7 +527,6 @@
 			) VALUES (
 				#publication_id#,
 				#collection_object_id#,
-				1,
 				sq_identification_id.currval
 				<cfif len(#occurs_page_number#) gt 0>
 					,#occurs_page_number#
@@ -541,7 +537,7 @@
 				<cfif len(#citation_remarks#) gt 0>
 					,'#citation_remarks#'
 				</cfif>
-			) 
+			)
 		</cfquery>
 	</cftransaction>
 	<cflocation addtoken="false" url="Citation.cfm?publication_id=#publication_id###newCitation">
@@ -551,7 +547,6 @@
 	<cfoutput>
 	<cfquery name="edCit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE citation SET
-			cit_current_fg = 1,
 			identification_id = #identification_id#,
 			type_status = '#type_status#',
 			citation_remarks = '#citation_remarks#',
@@ -561,7 +556,7 @@
 			  <cfelse>
 			  	null
 			</cfif>
-		WHERE 
+		WHERE
 			citation_id = #citation_id#
 		</cfquery>
 		<cflocation addtoken="false" url="Citation.cfm?action=editCitation&citation_id=#citation_id###cid#citation_id#">
@@ -594,7 +589,7 @@
 				IDENTIFICATION_REMARKS,
 				sensu.short_citation sensupub,
 				identification.publication_id sensupubid
-			FROM 
+			FROM
 				cataloged_item,
 				collection,
 				citation,
@@ -614,7 +609,7 @@
 				citation.citation_id = #citation_id#
 		</cfquery>
 		<cfquery name="one" dbtype="query">
-			select 	
+			select
 				publication_id,
 				collection_object_id,
 				cat_num,
@@ -644,7 +639,7 @@
 				citation_id
 		</cfquery>
 		<cfquery name="citns" dbtype="query">
-			select	
+			select
 				scientific_name,
 				idid,
 				accepted_id_fg,
@@ -680,7 +675,7 @@
 		<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select taxa_formula from cttaxa_formula order by taxa_formula
 		</cfquery>
-		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.guid#</a></strong> in 
+		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.guid#</a></strong> in
 		<b><a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a></b>.
 		<ul>
 			<li>Edit <a target="_blank" href="/guid/#one.guid#">#one.guid#</a> in a new window</li>
@@ -698,7 +693,7 @@
 			<label for="type_status">Citation Type</label>
 			<select name="type_status" id="type_status" size="1">
 				<cfloop query="ctTypeStatus">
-					<option 
+					<option
 						<cfif ctTypeStatus.type_status is one.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 				</cfloop>
 			</select>
@@ -752,7 +747,7 @@
 					</tr>
 				</cfloop>
 			</table>
-		<input type="submit" value="Save Edits" class="savBtn" id="sBtn" title="Save Edits">	
+		<input type="submit" value="Save Edits" class="savBtn" id="sBtn" title="Save Edits">
 	</form>
 </cfoutput>
 </cfif>

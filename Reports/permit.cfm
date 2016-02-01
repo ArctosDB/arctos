@@ -1,3 +1,8 @@
+deprecated
+
+<cfabort>
+
+
 <!---
 Title: Reports/permit.cfm
 Author: Peter DeVore
@@ -65,7 +70,7 @@ returns it as the attribute_type.--->
 	<cfset data_order_by = "">
 </cfif>
 
-<!--- 
+<!---
 put in unneeded select statements here
 		quad,
 		sea,
@@ -77,7 +82,7 @@ put in unneeded select statements here
 put in unneeded from statements here
 		LEFT OUTER JOIN accn ON (cataloged_item.accn_id=accn.transaction_id)
 		LEFT OUTER JOIN event_location ON (event_location.collecting_event_id = cataloged_item.collecting_event_id)
-		
+
 
 put in unneeded where statements here
 
@@ -110,7 +115,7 @@ put in unneeded where statements here
 		concatparts(cataloged_item.collection_object_id) as parts,
 		concatotherid(cataloged_item.collection_object_id) as other_id_list,
 		verbatim_date,
-			
+
 		orig_elev_units,
 		MAXIMUM_ELEVATION,
 		MINIMUM_ELEVATION,
@@ -174,7 +179,7 @@ put in unneeded where statements here
 </cffunction>
 <!----------------------------------------------------------------->
 <cfoutput>
-<!--- filling in values for modularity 
+<!--- filling in values for modularity
 these are so that we can have default values below if we ever add back in
 the option to choose these parameters.  in that case, remove these lines--->
 <cfset top_margin="">
@@ -250,10 +255,10 @@ deprecated: see NOTE1*--->
 	<cfif len(issuedByAgent) gt 0>
 		<cfset headerText = "#headerText# #issuedByAgent#">
 	</cfif>
-	<cfif len(permitNum) gt 0> 
+	<cfif len(permitNum) gt 0>
 		<cfset headerText = "#headerText# No. #permitNum#">
 	</cfif>
-	<cfif len(issuedToAgent) gt 0> 
+	<cfif len(issuedToAgent) gt 0>
 		<cfset headerText = "#headerText# to #issuedToAgent#">
 	</cfif>
 	<cfif headerText is "Permit Report:">
@@ -406,7 +411,7 @@ deprecated: see NOTE1*--->
                 </cftry>
 				<!---<cfset theDate = replace(verbatim_date," ","<br/>","all")>--->
 				<cfset theDate = verbatim_date>
-				
+
 		<!--- Here is the annotation portion --->
 		<cfset annotationDefault = "Note:">
 		<cfset annotation = annotationDefault>
@@ -415,7 +420,7 @@ deprecated: see NOTE1*--->
 			<cfif withinScope(cat_num, annotations[index].scope) and len(annotations[index].text) gt 0>
 				<cfset annotation="#annotation# #annotations[index].text#">
 			</cfif>
-		</cfloop>		
+		</cfloop>
 		<!--- End data manipulation --->
 <!--- Please note that you must wrap the plain text itself with the div
 in order for cfdocument to apply the style characteristics.  You CANNOT
@@ -508,7 +513,7 @@ cfdocument will not use it, since it does not consider it valid HTML. Period.
 				</td>
 				<td>
 					<div style="#textStyle#">
-					<!--- the page breaks will force rows to be at least 5 lines long 
+					<!--- the page breaks will force rows to be at least 5 lines long
 					ask carla about this--->
 					<br/><br/>#theDate#<br/>&nbsp;
 					</div>
@@ -523,7 +528,7 @@ cfdocument will not use it, since it does not consider it valid HTML. Period.
 			</div></td></tr>
 			<tr><td colspan='4'><hr></td></tr>
 		<!--- this tests to see if we have done the last row for the page --->
-			<cfif (#curRow# is #maxRowsPerPage#)> 
+			<cfif (#curRow# is #maxRowsPerPage#)>
                 </table>
 				<cfif twoPagesOnly and pageNum is 2>
 					<cfbreak>
@@ -722,7 +727,7 @@ function addNewAnnotation() {
 	}
 	var newAnnotationRow = document.createElement("tr");
 	newAnnotationRow.id = "Annotation" + curNum;
-	
+
 	var annotationTextTD = document.createElement("TD");
 	var annotationTextInput = document.createElement("INPUT");
 	annotationTextInput.type = 'text';
@@ -736,7 +741,7 @@ function addNewAnnotation() {
 	scopeInput.name = 'AnnotationScope' + curNum;
 	scopeInput.size = 60;
 	scopeTD.appendChild(scopeInput);
-	
+
 	var removeTD = document.createElement("TD");
 	var removeInput = document.createElement("INPUT");
 	removeInput.type = 'button';
@@ -747,7 +752,7 @@ function addNewAnnotation() {
 		removeInput.captureEvents(Event.CLICK);
 	}
 	removeTD.appendChild(removeInput);
-	
+
 	newAnnotationRow.appendChild(annotationTextTD);
 	newAnnotationRow.appendChild(scopeTD);
 	newAnnotationRow.appendChild(removeTD);
@@ -804,7 +809,7 @@ not by specimens. --->
 <cfif findnocase(";",order) gt 0>
 	Invalid ordering<cfabort>
 </cfif>
-<!--- Check to see if it is a date. If it is a date, then 
+<!--- Check to see if it is a date. If it is a date, then
 make the order by part correct, as in year, then month, then day,
 and on day add a 0 to the front if it is one digit only--->
 <cfif find("date",order) is not 0>
@@ -813,17 +818,17 @@ and on day add a 0 to the front if it is one digit only--->
 		<cfset ascDesc = right(order,len("asc"))>
 		<cfset order = left(order,len(order)-len("asc"))>
 	</cfif>
-		
+
 	<cfif find("desc",order) is not 0>
 		<cfset ascDesc = right(order,len("desc"))>
 		<cfset order = left(order,len(order)-len("desc"))>
 	</cfif>
-	
+
 	<!--- now remove any trailing spaces --->
 	<cfset order = Trim(order)>
 	<!--- now order by year, then month, then date --->
 	<cfset order = "to_date(#order#,'dd-mon-yy')  #ascDesc#">
-	
+
 </cfif>
 <!--- end date handling--->
 <cfif not isnumeric(permit_id)>
@@ -870,7 +875,7 @@ and on day add a 0 to the front if it is one digit only--->
 	<cfset Variables.collection_object_id="#Variables.collection_object_id#,#specimens.collection_object_id#">
 </cfloop>
 <cfset collection_object_id=right(collection_object_id,len(collection_object_id)-1)>
-	
+
 <form action='permit.cfm' name='myForm' method='POST'>
 	<input type='hidden' name='collection_object_id' value='#URLDecode(collection_object_id)#'>
 	<input type='hidden' name='order' value='#order#'>
@@ -881,7 +886,7 @@ and on day add a 0 to the front if it is one digit only--->
 		<h3>Specify your parameters</h3>
 		</td>
 	</tr>
-		
+
 <!---	<tr>
 		<td align='right'>
 			Catalog Institution:
@@ -893,15 +898,15 @@ and on day add a 0 to the front if it is one digit only--->
 	<tr>
 		<td colspan='3'>
 		<cfset sql="
-			select 
+			select
 				issuedBy.agent_name as IssuedByAgent,
 				issuedTo.agent_name as IssuedToAgent,
 				permit_num,
 				permit_id
-			from 
-				permit, preferred_agent_name issuedTo, preferred_agent_name issuedBy 
-			where 
-				permit_id = '#permit_id#' AND 
+			from
+				permit, preferred_agent_name issuedTo, preferred_agent_name issuedBy
+			where
+				permit_id = '#permit_id#' AND
 				permit.issued_by_agent_id = issuedBy.agent_id AND
 				permit.issued_to_agent_id = issuedTo.agent_id">
 		<cfquery name="permit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -915,7 +920,7 @@ and on day add a 0 to the front if it is one digit only--->
 			Issued by: <input type='text' readonly='readonly' name='issuedByAgent' size='40' id='issuedByAgent' value='#IssuedByAgent#'/>
 			<!---<input type='button' name='permitValues' id='permitValues' value='Select Permit' className='picBtn'
 	onmouseover="this.className='picBtn btnhov'" onmouseout="this.className='picBtn'"
-   onClick="javascript: var theWin=window.open('../picks/selectPermit.cfm?id=permitValues', 'SelectPermit', 
+   onClick="javascript: var theWin=window.open('../picks/selectPermit.cfm?id=permitValues', 'SelectPermit',
 'resizable,scrollbars=yes,width=600,height=600'); "/>--->
 		</div>
 		</cfloop>
@@ -950,7 +955,7 @@ and on day add a 0 to the front if it is one digit only--->
 		<cfset i=i+1>
 	</cfloop>
 	<tr id='endOfAnnotation'>
-		<td><input type='button' className='picBtn' 
+		<td><input type='button' className='picBtn'
 	<!---onmouseover="this.className='picBtn btnhov'" onmouseout="this.className='picBtn'"--->
 	onclick='javascript: addNewAnnotation();' value='Add new annotation'/></td>
 	</tr>
@@ -1056,7 +1061,7 @@ and on day add a 0 to the front if it is one digit only--->
 				</cfif>
                	<cfset highergeog = "#highergeog##island#">
 			</cfif>
-		<!--- 
+		<!---
 		If the action is reorder, we want to preserve boxes already clicked from
 		earlier. Thus:
 		if action is reorder
@@ -1089,7 +1094,7 @@ and on day add a 0 to the front if it is one digit only--->
 			<td name='cat_num'>
 			<a href='../SpecimenDetail.cfm?collection_object_id=#collection_object_id#' target='Edit Specimen'>
 				#collection_cde# #cat_num#</a>
-			<input type='checkbox' 
+			<input type='checkbox'
 			<cfif order is defaultOrder or isdefined('$#collection_object_id#$')>
 					checked='checked'
 			</cfif>
@@ -1097,23 +1102,23 @@ and on day add a 0 to the front if it is one digit only--->
 					onclick='javascript:toggleColor(this);'/>
 			</td>
 			<td name='scientific_name'><span name='scientific_name_value'>#scientific_name#</span>
-				<a href="javascript: void(0)" 
+				<a href="javascript: void(0)"
 				onclick="selectAll('scientific_name','#scientific_name#');">O</a>
-				<a href="javascript: void(0)" 
+				<a href="javascript: void(0)"
 				onclick="deselectAll('scientific_name','#scientific_name#');">X</a></td>
 			<td name='highergeog'><span name='highergeog_value'>#highergeog#</span>
-				<a href="javascript: void(0)" 
+				<a href="javascript: void(0)"
 				onclick="selectAll('highergeog','#highergeog#');">O</a>
-				<a href="javascript: void(0)" 
+				<a href="javascript: void(0)"
 				onclick="deselectAll('highergeog','#highergeog#');">X</a></td>
 			<td name='verbatim_date'><span name='verbatim_date_value'>#verbatim_date#</span>
-				<a href="javascript: void(0)" 
+				<a href="javascript: void(0)"
 				onclick="selectAll('verbatim_date','#verbatim_date#');">O</a>
-				<a href="javascript: void(0)" 
+				<a href="javascript: void(0)"
 				onclick="deselectAll('verbatim_date','#verbatim_date#');">X</a></td>
 		</tr>
 	</cfloop>
-	<tr id='endOfSpecimens'/>	
+	<tr id='endOfSpecimens'/>
 </table>
 </form>
 </cfoutput>
