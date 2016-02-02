@@ -354,6 +354,10 @@
 		order by check_date DESC
 	) where rownum<=#rcnt#
 </cfquery>
+<cfif container_environment.recordcount eq rcnt>
+	<!--- this container has a lot of history, add some stuff ----->
+	big container controls
+</cfif>
 <table border>
 	<tr>
 		<th>Date</th>
