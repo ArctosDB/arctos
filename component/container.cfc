@@ -23,11 +23,11 @@
 			});
 
 function feh_nextPage(){
-	$("#pg").val($("#pg").val()+1);
+	$("#pg").val(parseInt($("#pg").val())+1);
 	$( "#feh" ).submit();
 	}
 function feh_prevPage(){
-	$("#pg").val($("#pg").val()-1);
+	$("#pg").val(parseInt($("#pg").val())-1);
 	$( "#feh" ).submit();
 	}
 
