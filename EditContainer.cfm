@@ -49,22 +49,23 @@
 		});
 
 		getContainerHistory($("#container_id").val());
-		
+
 
 
 	});
 
-	function getContainerHistory(cid,exclagnt){
+	function getContainerHistory(cid,exclagnt,pg){
 		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cid;
 		ptl+='&exclagnt=' + exclagnt;
-		
+		ptl+='&pg=' + pg;
+
 	    jQuery.get(ptl, function(data){
 			jQuery("#cehisttgt").html(data);
 		});
-		
+
 	}
-	
-	
+
+
 	function magicNumbers (type) {
 		var type;
 		var h=document.getElementById('height');

@@ -2,8 +2,9 @@
 <cffunction name="getEnvironment" access="remote" returnFormat="plain">
 	<cfargument name="container_id" type="any" required="yes">
 	<cfargument name="exclagnt" type="any" required="no" default="">
-	<cfargument name="rowcount" type="any" required="no" default="10">
 	<cfargument name="pg" type="any" required="no" default="1">
+
+	<cfparam name="rowcount" default="10">
 
 	<script>
 			jQuery(document).ready(function() {
@@ -12,7 +13,7 @@
 		  //alert( "Handler for .submit() called." );
 		  event.preventDefault();
 
-		  getContainerHistory($("#feh_container_id").val(),$("#feh_exclagnt").val());
+		  getContainerHistory($("#feh_container_id").val(),$("#feh_exclagnt").val(),$("#pg").val());
 
 
 
