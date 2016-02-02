@@ -76,6 +76,8 @@ function feh_prevPage(){
 
 
 		</cfquery>
+
+		<cfdump var=#container_environment#>
 		<cfsavecontent variable="result">
 			<cfset pagecnt=ceiling(cepc.c/rowcount)-1>
 			<p>
@@ -99,10 +101,6 @@ function feh_prevPage(){
 						</cfloop>
 					</select>
 
-					 parameter_type from
-
-
-					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
 
 					<input type="submit" value="filter">
 				</form>
