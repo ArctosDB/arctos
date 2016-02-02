@@ -22,10 +22,11 @@
 			) where rownum<=<cfqueryparam value="#rowcount#" CFSQLType='CF_SQL_FLOAT'>
 		</cfquery>
 		<cfsavecontent variable="result">
+			<cfoutput>
 		<cfif container_environment.recordcount eq rowcount>
 			<!--- this container has a lot of history, add some stuff ----->
 			<cfquery name="cecnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) c from container_environment where container_id=#container_id#
+				select count(*) c from container_environment where container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
 			</cfquery>
 			<p>
 				Viewing #rowcount# of #cecnt.c# environmental history rows
@@ -51,6 +52,7 @@
 				</tr>
 			</cfloop>
 		</table>
+		</cfoutput>
 		</cfsavecontent>
 
 	<cfcatch>
