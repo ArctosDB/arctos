@@ -71,7 +71,7 @@ function feh_prevPage(){
 		<cfsavecontent variable="result">
 			<cfset pagecnt=ceiling(cepc.c/pg)>
 			<p>
-				Viewing page #pg# of #cepc.c#
+				Viewing page #pg# of #pagecnt#
 				<span class="likeLink" onclick="feh_nextPage()">next page</span>
 				<span class="likeLink" onclick="feh_prevPage()">previous page</span>
 				<form name="feh" id="feh">
