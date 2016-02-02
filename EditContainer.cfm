@@ -1,14 +1,7 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title='Edit Container'>
-
-<script language="javascript" type="text/javascript">
-	jQuery(document).ready(function() {
-		$("#check_date").datepicker();
-
-		$("#parameter_type").change(function() {
-			console.log($( this ).val());
-		});
-		/*
+<!-----------
+/*
 			<select name="parameter_type" id="parameter_type" size="1" required class="reqdClr">
 					<option value="">pick one</option>
 					<cfloop query="ctcontainer_env_parameter">
@@ -21,6 +14,15 @@
 			<td><input type="submit" value="save"></td>
 
 			*/
+
+------------>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$("#check_date").datepicker();
+
+		$("#parameter_type").change(function() {
+			console.log($( this ).val());
+		});
 
 	});
 
