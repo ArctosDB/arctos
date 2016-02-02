@@ -49,9 +49,7 @@
 						</cfif>
 					order by check_date DESC
 				) a where rownum <= #stoprow#
-			) where rnum<=<cfqueryparam value="#startrow#" CFSQLType='CF_SQL_FLOAT'>
-
-
+			) where rnum >=<cfqueryparam value="#startrow#" CFSQLType='CF_SQL_FLOAT'>
 
 
 		</cfquery>
