@@ -32,7 +32,7 @@
 				$("#parameter_value").attr({
 					"max" : 1,
 					"min" : 0,
-					"stop" : .01
+					"stop" : 0.01
  				});
 			}
 		});
