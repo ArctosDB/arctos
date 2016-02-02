@@ -3,6 +3,7 @@
 	<cfargument name="container_id" type="any" required="yes">
 	<cfargument name="exclagnt" type="any" required="no" default="">
 	<cfargument name="pg" type="any" required="no" default="1">
+	<cfargument name="feh_ptype" type="any" required="no" default="">
 
 	<cfparam name="rowcount" default="10">
 
@@ -12,7 +13,7 @@
 		$( "#feh" ).submit(function( event ) {
 		  event.preventDefault();
 
-		  getContainerHistory($("#feh_container_id").val(),$("#feh_exclagnt").val(),$("#pg").val());
+		  getContainerHistory($("#feh_container_id").val(),$("#feh_exclagnt").val(),$("#pg").val(),$("#feh_ptype").val());
 
 
 
@@ -45,7 +46,10 @@ function feh_prevPage(){
 				where
 			container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
 		</cfquery>
-		#cepc.c# total records
+		<cfquery name="ctcontainer_env_parameter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select parameter_type from ctcontainer_env_parameter order by parameter_type
+		</cfquery>
+
 		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (
 				Select a.*, rownum rnum From (
@@ -62,6 +66,9 @@ function feh_prevPage(){
 						container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
 						<cfif isdefined("exclagnt") and len(exclagnt) gt 0>
 							and getPreferredAgentName(checked_by_agent_id) != <cfqueryparam value="#exclagnt#" CFSQLType='CF_SQL_VARCHAR'>
+						</cfif>
+						<cfif isdefined("feh_ptype") and len(feh_ptype) gt 0>
+							and parameter_type = <cfqueryparam value="#feh_ptype#" CFSQLType='CF_SQL_VARCHAR'>
 						</cfif>
 					order by check_date DESC
 				) a where rownum <= #stoprow#
@@ -82,7 +89,19 @@ function feh_prevPage(){
 				<form name="feh" id="feh">
 					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
 					<input type="hidden" name="pg" id="pg" value="#pg#">
-					<label for="">Exclude by Agent</label>
+					<label for="feh_exclagnt">Exclude by Agent</label>
+					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
+					<label for="feh_ptype">Parameter</label>
+					<select name="" id="">
+						<option></option>
+						<cfloop query="ctcontainer_env_parameter">
+							<option <cfif feh_ptype is parameter_type>selected="selected"</cfif>value="#parameter_type#">#parameter_type#</option>
+						</cfloop>
+					</select>
+
+					 parameter_type from
+
+
 					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
 
 					<input type="submit" value="filter">
