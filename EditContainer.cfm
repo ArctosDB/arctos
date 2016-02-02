@@ -246,7 +246,7 @@
 			</tr>
 	</table>
 </form>
-<h2>Container Environment History</h2>
+<h2>Container Environment</h2>
 
 <h3>Create Environment Check</h3>
 <form name="envcheck" method="post" action="EditContainer.cfm">
@@ -274,7 +274,8 @@
 			<td><input type="submit" value="save"></td>
 		</tr>
 	</table>
-
+</form>
+<h3>History</h3>
 <cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		container_environment_id,
@@ -308,7 +309,7 @@
 	</cfloop>
 </table>
 
-
+<!----
  create table container_environment (
  	container_environment_id number not null,
  	container_id number not null,
@@ -437,6 +438,7 @@
 		</cfloop>
 	</table>
 </cfif>
+---->
 </td>
 <td valign="top"><!---- right column ---->
 
