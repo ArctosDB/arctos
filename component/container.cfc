@@ -27,7 +27,7 @@
 			select count(*) c from container_environment where container_id=#container_id#
 		</cfquery>
 		<p>
-			Viewing #rcnt# of #cecnt.c# environmental history rows
+			Viewing #rowcount# of #cecnt.c# environmental history rows
 			big container controls
 		</p>
 
