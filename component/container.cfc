@@ -1,8 +1,8 @@
 <cfcomponent><!------------------------------------------->
 <cffunction name="getEnvironment" access="remote">
 	<cfargument name="container_id" type="any" required="yes">
-	<cfargument name="rowcount" type="number" required="no" default="10">
-	<cfargument name="pg" type="number" required="no" default="1">
+	<cfargument name="rowcount" type="any" required="no" default="10">
+	<cfargument name="pg" type="any" required="no" default="1">
 
 	<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from (
