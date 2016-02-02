@@ -92,7 +92,7 @@ function feh_prevPage(){
 					<label for="feh_exclagnt">Exclude by Agent</label>
 					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
 					<label for="feh_ptype">Parameter</label>
-					<select name="" id="">
+					<select name="feh_ptype" id="feh_ptype">
 						<option></option>
 						<cfloop query="ctcontainer_env_parameter">
 							<option <cfif feh_ptype is parameter_type>selected="selected"</cfif>value="#parameter_type#">#parameter_type#</option>
