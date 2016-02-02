@@ -27,12 +27,17 @@
 					"max" : 1,
 					"min" : 1
  				});
-			}
-			if ($(this).val()=='ethanol concentration'){
+			} else if ($(this).val()=='ethanol concentration' || $(this).val()=='isopropanol concentration'){
 				$("#parameter_value").attr({
 					"max" : 1,
 					"min" : 0,
 					"step" : 0.01
+ 				});
+			} else {
+				$("#parameter_value").attr({
+					"max" : ,
+					"min" : ,
+					"step" : "any"
  				});
 			}
 		});
