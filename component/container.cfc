@@ -108,7 +108,12 @@ function feh_prevPage(){
 
 		</cfoutput>
 	<cfcatch>
-		<cfset result='an error has occurred: #cfcatch.detail#'>
+				<cfset result='an error has occurred: #cfcatch.detail#'>
+
+		<cfsavecontent variable="result">
+		<cfdump var=#cfcatch#>
+		</cfsavecontent>
+
 	</cfcatch>
 	</cftry>
 	<cfreturn result>
