@@ -1,7 +1,7 @@
 <cfcomponent><!------------------------------------------->
 <cffunction name="getEnvironment" access="remote" returnFormat="plain">
 	<cfargument name="container_id" type="any" required="yes">
-	<cfargument name="exclagnt" type="any" required="yes">
+	<cfargument name="exclagnt" type="any" required="no">
 	<cfargument name="rowcount" type="any" required="no" default="10">
 	<cfargument name="pg" type="any" required="no" default="1">
 	<cftry>
