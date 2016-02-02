@@ -3,54 +3,60 @@
 	<cfargument name="container_id" type="any" required="yes">
 	<cfargument name="rowcount" type="any" required="no" default="10">
 	<cfargument name="pg" type="any" required="no" default="1">
+	<cftry>
 
-	<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from (
-			select
-				container_environment_id,
-				check_date,
-				getPreferredAgentName(checked_by_agent_id) checkedby,
-				parameter_type,
-				parameter_value,
-				remark
-			from
-				container_environment
-			where
-				container_id=#container_id#
-			order by check_date DESC
-		) where rownum<=#rowcount#
-	</cfquery>
-	<cfsavecontent variable="result">
-	<cfif container_environment.recordcount eq rowcount>
-		<!--- this container has a lot of history, add some stuff ----->
-		<cfquery name="cecnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from container_environment where container_id=#container_id#
+		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from (
+				select
+					container_environment_id,
+					check_date,
+					getPreferredAgentName(checked_by_agent_id) checkedby,
+					parameter_type,
+					parameter_value,
+					remark
+				from
+					container_environment
+				where
+					container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
+				order by check_date DESC
+			) where rownum<=<cfqueryparam value="#rowcount#" CFSQLType='CF_SQL_FLOAT'>
 		</cfquery>
-		<p>
-			Viewing #rowcount# of #cecnt.c# environmental history rows
-			big container controls
-		</p>
+		<cfsavecontent variable="result">
+		<cfif container_environment.recordcount eq rowcount>
+			<!--- this container has a lot of history, add some stuff ----->
+			<cfquery name="cecnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) c from container_environment where container_id=#container_id#
+			</cfquery>
+			<p>
+				Viewing #rowcount# of #cecnt.c# environmental history rows
+				big container controls
+			</p>
 
-	</cfif>
-	<table border id="contrEnviroTbl">
-		<tr>
-			<th>Date</th>
-			<th>CheckedBy</th>
-			<th>Parameter</th>
-			<th>Value</th>
-			<th>Remark</th>
-		</tr>
-		<cfloop query="container_environment">
+		</cfif>
+		<table border id="contrEnviroTbl">
 			<tr>
-				<td>#check_date#</td>
-				<td>#checkedby#</td>
-				<td>#parameter_type#</td>
-				<td>#parameter_value#</td>
-				<td>#remark#</td>
+				<th>Date</th>
+				<th>CheckedBy</th>
+				<th>Parameter</th>
+				<th>Value</th>
+				<th>Remark</th>
 			</tr>
-		</cfloop>
-	</table>
-	</cfsavecontent>
+			<cfloop query="container_environment">
+				<tr>
+					<td>#check_date#</td>
+					<td>#checkedby#</td>
+					<td>#parameter_type#</td>
+					<td>#parameter_value#</td>
+					<td>#remark#</td>
+				</tr>
+			</cfloop>
+		</table>
+		</cfsavecontent>
+
+	<cfcatch>
+		<cfset result='an error has occurred: #cfcatch.detail#'>
+	</cfcatch>
+	</cftry>
 	<cfreturn result>
 
 
