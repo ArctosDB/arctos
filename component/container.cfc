@@ -18,7 +18,7 @@
 			where
 				container_id=#container_id#
 			order by check_date DESC
-		) where rownum<=#rcnt#
+		) where rownum<=#rowcount#
 	</cfquery>
 	<cfsavecontent variable="result">
 	<cfif container_environment.recordcount eq rowcount>
