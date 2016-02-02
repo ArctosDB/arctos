@@ -60,7 +60,7 @@
 		<cfsavecontent variable="result">
 
 			<p>
-				Viewing #startrow#-#stoprow# of #cepc.c# environmental history rows
+				Viewing records #startrow#-#stoprow# of #cepc.c#
 				<form name="feh" id="feh">
 					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
 					<label for="">Exclude by Agent</label>
