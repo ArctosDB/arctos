@@ -24,7 +24,7 @@
 	<cfif container_environment.recordcount eq rcnt>
 		<!--- this container has a lot of history, add some stuff ----->
 		<cfquery name="cecnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from container_environment where container_id=#getCont.container_id#
+			select count(*) c from container_environment where container_id=#container_id#
 		</cfquery>
 		<p>
 			Viewing #rcnt# of #cecnt.c# environmental history rows
