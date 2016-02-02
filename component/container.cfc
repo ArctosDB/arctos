@@ -16,7 +16,7 @@
 			from
 				container_environment
 			where
-				container_id=#getCont.container_id#
+				container_id=#container_id#
 			order by check_date DESC
 		) where rownum<=#rcnt#
 	</cfquery>
