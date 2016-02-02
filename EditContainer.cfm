@@ -47,6 +47,14 @@
  				$("#parameter_value").removeAttr("max");
 			}
 		});
+
+		var cid=$("#container_id").val();
+		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cidD;
+	    jQuery.get(ptl, function(data){
+			jQuery("#cehisttgt").html(data);
+		});
+
+
 	});
 
 
@@ -149,7 +157,7 @@
 	<h2>Edit Container</h2>
 	<table><tr><td valign="top"><!---- left column ---->
 	<form name="form1" method="post" action="EditContainer.cfm">
-		<input type="hidden" name="container_id" value="#getCont.container_id#">
+		<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
 		<table cellpadding="0" cellspacing="0">
 	 		<tr>
 				<td>
@@ -336,46 +344,7 @@
 	</table>
 </form>
 <h3>History</h3>
-<cfparam name="rcnt" default="100">
-
-<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from (
-		select
-			container_environment_id,
-			check_date,
-			getPreferredAgentName(checked_by_agent_id) checkedby,
-			parameter_type,
-			parameter_value,
-			remark
-		from
-			container_environment
-		where
-			container_id=#getCont.container_id#
-		order by check_date DESC
-	) where rownum<=#rcnt#
-</cfquery>
-<cfif container_environment.recordcount eq rcnt>
-	<!--- this container has a lot of history, add some stuff ----->
-	big container controls
-</cfif>
-<table border>
-	<tr>
-		<th>Date</th>
-		<th>CheckedBy</th>
-		<th>Parameter</th>
-		<th>Value</th>
-		<th>Remark</th>
-	</tr>
-	<cfloop query="container_environment">
-		<tr>
-			<td>#check_date#</td>
-			<td>#checkedby#</td>
-			<td>#parameter_type#</td>
-			<td>#parameter_value#</td>
-			<td>#remark#</td>
-		</tr>
-	</cfloop>
-</table>
+<div id="cehisttgt"></div>
 </td>
 <td valign="top"><!---- right column ---->
 
