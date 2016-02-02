@@ -9,9 +9,14 @@
 			jQuery(document).ready(function() {
 
 		$( "#feh" ).submit(function( event ) {
-		  alert( "Handler for .submit() called." );
+		  //alert( "Handler for .submit() called." );
 		  event.preventDefault();
-		  console.log( $( this ).serialize() );
+
+		  getContainerHistory($("#feh_container_id").val(),$("#feh_exclagnt").val());
+
+
+
+
 		});
 
 			});
@@ -49,7 +54,7 @@
 				Viewing #rowcount# of #cecnt.c# environmental history rows
 				<form name="feh" id="feh">
 					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
-					<input type="text" name="exclagnt">
+					<input type="text" name="feh_exclagnt" id="feh_exclagnt">
 					<input type="submit">
 				</form>
 				big container controls
