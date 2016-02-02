@@ -1,6 +1,7 @@
 <cfcomponent><!------------------------------------------->
 <cffunction name="getEnvironment" access="remote" returnFormat="plain">
 	<cfargument name="container_id" type="any" required="yes">
+	<cfargument name="exclagnt" type="any" required="yes">
 	<cfargument name="rowcount" type="any" required="no" default="10">
 	<cfargument name="pg" type="any" required="no" default="1">
 	<cftry>
@@ -18,6 +19,9 @@
 					container_environment
 				where
 					container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
+					<cfif isdefined("exclagnt") and len(exclagnt) gt 0>
+						and getPreferredAgentName(checked_by_agent_id) != <cfqueryparam value="#exclagnt#" CFSQLType='CF_SQL_VARCHAR'>
+					</cfif>
 				order by check_date DESC
 			) where rownum<=<cfqueryparam value="#rowcount#" CFSQLType='CF_SQL_FLOAT'>
 		</cfquery>
@@ -30,6 +34,9 @@
 			</cfquery>
 			<p>
 				Viewing #rowcount# of #cecnt.c# environmental history rows
+				<form name="feh" method="get">
+					<input type="text" name="exclagnt">
+				</form>
 				big container controls
 			</p>
 

@@ -48,16 +48,23 @@
 			}
 		});
 
-		var cid=$("#container_id").val();
-		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cid;
-	    jQuery.get(ptl, function(data){
-			jQuery("#cehisttgt").html(data);
-		});
+		getContainerHistory($("#container_id").val());
+		
 
 
 	});
 
-
+	function getContainerHistory(cid,exclagnt){
+		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cid;
+		ptl+='&exclagnt=' + exclagnt;
+		
+	    jQuery.get(ptl, function(data){
+			jQuery("#cehisttgt").html(data);
+		});
+		
+	}
+	
+	
 	function magicNumbers (type) {
 		var type;
 		var h=document.getElementById('height');
