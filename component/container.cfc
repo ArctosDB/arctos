@@ -27,6 +27,9 @@
 		<cfset startrow=pg * rowcount>
 		<cfset stoprow=startrow + pg>
 
+		<br>startrow: #startrow#
+		<br>stoprow: #stoprow#
+
 		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (
 				Select a.*, rownum rnum From (
