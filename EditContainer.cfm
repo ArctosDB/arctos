@@ -22,7 +22,13 @@
 
 		$("#parameter_type").change(function() {
 			console.log($( this ).val());
+			if ($(this).val()=='checked'){
+				$("#parameter_value")..val('1').attr({
+					"max" : 1,
+					"min" : 1
+ 			});
 		});
+
 
 	});
 
