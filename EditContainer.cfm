@@ -35,10 +35,10 @@
  				});
 			} else {
 				$("#parameter_value").attr({
-					"max" : ,
-					"min" : ,
 					"step" : "any"
  				});
+ 				$("#parameter_value").removeAttr("min");
+ 				$("#parameter_value").removeAttr("max");
 			}
 		});
 
