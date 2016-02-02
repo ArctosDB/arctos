@@ -53,6 +53,23 @@
 </script>
 
 <!---------------------------------------------------------------->
+<cfif action is "saveEnvCheck">
+	<cfquery name="ec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into container_environment (
+			container_id,
+			parameter_type,
+			parameter_value,
+			remark
+		) values (
+			#container_id#,
+			'#parameter_type#',
+			'#parameter_value#',
+			'#escapeQuotes(remark)#'
+		)
+	</cfquery>
+	<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfset title="Edit Container">
 	<cfquery name="getCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
