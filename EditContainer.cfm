@@ -49,7 +49,7 @@
 		});
 
 		var cid=$("#container_id").val();
-		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cidD;
+		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cid;
 	    jQuery.get(ptl, function(data){
 			jQuery("#cehisttgt").html(data);
 		});
