@@ -336,19 +336,23 @@
 	</table>
 </form>
 <h3>History</h3>
+<cfparam name="rcnt" default="100">
+
 <cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		container_environment_id,
-		check_date,
-		getPreferredAgentName(checked_by_agent_id) checkedby,
-		parameter_type,
-		parameter_value,
-		remark
-	from
-		container_environment
-	where
-		container_id=#getCont.container_id#
-	order by check_date DESC
+	select * from (
+		select
+			container_environment_id,
+			check_date,
+			getPreferredAgentName(checked_by_agent_id) checkedby,
+			parameter_type,
+			parameter_value,
+			remark
+		from
+			container_environment
+		where
+			container_id=#getCont.container_id#
+		order by check_date DESC
+	) where rownum<=#rcnt#
 </cfquery>
 <table border>
 	<tr>
@@ -368,137 +372,6 @@
 		</tr>
 	</cfloop>
 </table>
-
-<!----
- create table container_environment (
- 	container_environment_id number not null,
- 	container_id number not null,
- 	check_date date not null,
-	checked_by_agent_id number not null,
- 	parameter_type varchar2(60) not null,
- 	parameter_value number not null,
-	remark varchar2(4000)
- );
-
-
-
-
-
-
-
-<tr>
-				<td colspan="2">
-					<label for="fluidTbl">Fluid</label>
-					<table id="fluidTbl" cellspacing="0" cellpadding="0" width="100%">
-						<tr>
-							<td>
-								<label for="checked_date">Fluid Check Date</label>
-								<input name="checked_date" id="checked_date"
-								type="text"
-								value="#dateformat(getCont.checked_date,'yyyy-mm-dd')#"
-								size="10">
-							</td>
-							<td>
-								<label for="fluid_type">Fluid Type</label>
-								<cfset thisFluid="#getCont.fluid_type#">
-								 <select name="fluid_type" id="fluid_type" size="1">
-									<option value=""></option>
-										<cfloop query="FluidType">
-											<option
-												<cfif #thisFluid# is "#FluidType.Fluid_Type#"> selected </cfif>
-												value="#FluidType.Fluid_Type#">#FluidType.Fluid_Type#
-											</option>
-										</cfloop>
-								</select>
-							</td>
-							<td>
-								<label for="concentration">Fluid Concentration</label>
-								<select name="concentration" id="concentration" size="1">
-									<option value=""></option>
-										<cfloop query="ctConc">
-											<option
-												<cfif #ctConc.concentration# is #getCont.concentration#>
-													selected
-												</cfif>
-												value="#ctConc.concentration#">#ctConc.concentration#
-											</option>
-										</cfloop>
-								</select>
-							</td>
-						</tr>
-					</table>
-				</td>
-			<tr>
-			<tr>
-				<td colspan="2">
-					<label for="fluid_remarks">Fluid Remarks</label>
-					<input name="fluid_remarks" id="fluid_remarks" type="text" value="#getCont.fluid_remarks#" size="80">
-				</td>
-			</tr>
-
-
-
-
-
-
-
-
-<form name="envcheck" method="post" action="EditContainer.cfm">
-	<input type="hidden" name="action" value="saveEnvCheck">
-	<input type="hidden" name="container_id" value="#getCont.container_id#">
-<table border="1">
-		<tr>
-			<td>
-				<label for="checkedBy">Checked By</label>
-				<input type="text"
-					name="checked_by" id="checked_by" class="reqdClr" value="#session.username#"
-					 onchange="getAgent('checked_agent_id','checked_by','checked',this.value); return false;"
-					 onKeyPress="return noenter(event);">
-					<input type="hidden" name="checked_agent_id" value="#session.MyAgentId#">
-			</td>
-			<td>
-				<label for="check_date">Checked Date</label>
-				<input type="text"
-					name="check_date" id="check_date" class="reqdClr" value="#dateformat(now(),'yyyy-mm-dd')#" >
-			</td>
-			<td>
-				<label for="check_remark">Check Remark</label>
-				<input type="text" name="check_remark" id="check_remark">
-			</td>
-			<td>
-				<input type="submit" value="Save Check" class="savBtn">
-			</td>
-
-		</tr>
-	</table>
-
- </form>
-<cfquery name="checked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from container_check,
-	preferred_agent_name
-	 where
-	 checked_agent_id = agent_id and
-	 container_id=#container_id# order by check_date
-</cfquery>
-<cfif checked.recordcount is 0>
-	No checked history.
-<cfelse>
-	<table border="1">
-		<tr>
-			<td>Date</td>
-			<td>Checked By</td>
-			<td>Remark</td>
-		</tr>
-		<cfloop query="checked">
-			<tr>
-				<td>#check_date#</td>
-				<td>#agent_name#</td>
-				<td>#check_remark#</td>
-			</tr>
-		</cfloop>
-	</table>
-</cfif>
----->
 </td>
 <td valign="top"><!---- right column ---->
 
@@ -551,30 +424,6 @@
 <!-------------------------------------------------------------->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <cfif action is "update">
 	<cfoutput>
 		<cfif len(newParentBarcode) gt 0>
@@ -600,45 +449,11 @@
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#locked_position#"><!---- v_locked_position ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym ---->
 			</cfstoredproc>
-			<cfif len(checked_date) GT 0 OR len(fluid_type) GT 0 OR len(concentration) GT 0>
-				<cfquery name="isFluid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT * FROM fluid_container_history WHERE container_id = #container_id#
-				</cfquery>
-				<cfif isFluid.recordcount gt 0 AND len(isFluid.container_id) gt 0>
-					<cfquery name="updateFluidContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						UPDATE
-							Fluid_Container_History
-						SET
-							Checked_Date = '#dateformat(Checked_Date,'yyyy-mm-dd')#',
-							Fluid_Type = '#Fluid_Type#',
-							Concentration = #Concentration#,
-							Fluid_Remarks = '#Fluid_Remarks#'
-						WHERE
-							container_id = #container_id#
-					</cfquery>
-				<cfelse>
-					<cfquery name="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						INSERT INTO Fluid_Container_History (
-			  				container_id,
-							checked_date,
-							fluid_type,
-							concentration,
-							Fluid_Remarks
-						) VALUES (
-							#container_id#,
-							'#dateformat(checked_date,'yyyy-mm-dd')#',
-							'#fluid_type#',
-							#concentration#,
-							'#Fluid_Remarks#'
-						)
-					</cfquery>
-				</cfif>
-			</cfif>
 		</cftransaction>
 		<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">
 	</cfoutput>
 </cfif>
-
+<!-------------------------------------------------------------->
 <cfif action is "moveChillun">
 	<cfoutput>
 		<cfquery name="cidOfnewParentBarcode" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -657,48 +472,6 @@
 		</ul>
 	</cfoutput>
 </cfif>
-<!-------------------------------------------------------------->
-<cfif action is "saveChecked">
-	<cfoutput>
-		<cfquery name="saveCheck" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into container_environment (
-				container_environment_id,
-				container_id,
-				check_date,
-				checked_by_agent_id,
-				parameter_type,
-				parameter_value,
-				remark
-			) (
-				select
-					sq_container_environment_id.nextval,
-					CONTAINER_ID,
-					CHECK_DATE,
-					CHECKED_AGENT_ID,
-					'checked',
-					1,
-					CHECK_REMARK
-				from
-					container_check
-			);
-
-
-insert into container_check (
-				CONTAINER_ID,
-				CHECK_DATE,
-				CHECKED_AGENT_ID,
-				CHECK_REMARK
-			) values (
-				#container_id#,
-				to_date('#dateformat(check_date,"yyyy-mm-dd")#'),
-				#checked_agent_id#,
-				'#check_remark#'
-			)
-		</cfquery>
-		<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">
-	</cfoutput>
-</cfif>
-
 <!-------------------------------------------------------------->
 <cfif Action is "delete">
 	<cfstoredproc procedure="deleteContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
