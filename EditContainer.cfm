@@ -260,22 +260,19 @@
 			<th>Remark</th>
 			<th></th>
 		</tr>
-		<cfloop query="container_environment">
-			<tr>
-
-				<td>
-					<select name="parameter_type" id="parameter_type" size="1" required class="reqdClr">
-						<option value="">pick one</option>
-						<cfloop query="ctcontainer_env_parameter">
-							<option value="#parameter_type#">#parameter_type#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td><input type="number" name="parameter_value" id="parameter_value"></td>
-				<td><textarea class="mediumtextarea" name="remark" id="remark"></textarea></td>
-				<td><input type="submit" value="save"></td>
-			</tr>
-		</cfloop>
+		<tr>
+			<td>
+				<select name="parameter_type" id="parameter_type" size="1" required class="reqdClr">
+					<option value="">pick one</option>
+					<cfloop query="ctcontainer_env_parameter">
+						<option value="#parameter_type#">#parameter_type#</option>
+					</cfloop>
+				</select>
+			</td>
+			<td><input type="number" name="parameter_value" id="parameter_value"></td>
+			<td><textarea class="mediumtextarea" name="remark" id="remark"></textarea></td>
+			<td><input type="submit" value="save"></td>
+		</tr>
 	</table>
 
 <cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
