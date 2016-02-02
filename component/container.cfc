@@ -36,7 +36,7 @@ function feh_prevPage(){
 	</script>
 	<cftry>
 <cfoutput>
-		<cfset startrow=pg * rowcount>
+		<cfset startrow=(pg * rowcount)-rowcount>
 		<cfset stoprow=startrow + rowcount>
 
 		<br>startrow: #startrow#
