@@ -45,6 +45,7 @@ function feh_prevPage(){
 				where
 			container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
 		</cfquery>
+		#cepc.c# total records
 		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (
 				Select a.*, rownum rnum From (
