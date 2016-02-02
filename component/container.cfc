@@ -70,7 +70,7 @@ function feh_prevPage(){
 
 		</cfquery>
 		<cfsavecontent variable="result">
-			<cfset pagecnt=ceiling(cepc.c/rowcount)>
+			<cfset pagecnt=ceiling(cepc.c/rowcount)-1>
 			<p>
 				Viewing page #pg# of #pagecnt#
 				<cfif pg gt 1>
