@@ -72,8 +72,12 @@ function feh_prevPage(){
 			<cfset pagecnt=ceiling(cepc.c/rowcount)>
 			<p>
 				Viewing page #pg# of #pagecnt#
-				<span class="likeLink" onclick="feh_nextPage()">next page</span>
-				<span class="likeLink" onclick="feh_prevPage()">previous page</span>
+				<cfif pg gt 1>
+					<span class="likeLink" onclick="feh_prevPage()">previous page</span>
+				</cfif>
+				<cfif pg lt pagecnt>
+					<span class="likeLink" onclick="feh_nextPage()">next page</span>
+				</cfif>
 				<form name="feh" id="feh">
 					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
 					<input type="hidden" name="pg" id="pg" value="#pg#">
