@@ -68,7 +68,10 @@ function feh_prevPage(){
 							and getPreferredAgentName(checked_by_agent_id) != <cfqueryparam value="#exclagnt#" CFSQLType='CF_SQL_VARCHAR'>
 						</cfif>
 						<cfif isdefined("feh_ptype") and len(feh_ptype) gt 0>
-							and parameter_type = <cfqueryparam value="#feh_ptype#" CFSQLType='CF_SQL_VARCHAR'>
+							and parameter_type = '#feh_ptype#'
+							<!----
+							<cfqueryparam value="#feh_ptype#" CFSQLType='CF_SQL_VARCHAR'>
+							---->
 						</cfif>
 					order by check_date DESC
 				) a where rownum <= #stoprow#
