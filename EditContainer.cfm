@@ -56,6 +56,15 @@
 
 	function getContainerHistory(cid,exclagnt,pg){
 		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cid;
+
+		if (typeof exclagnt === "undefined") {
+			exclagnt='';
+}
+if (typeof pg === "undefined") {
+			pg='1';
+}
+
+
 		ptl+='&exclagnt=' + exclagnt;
 		ptl+='&pg=' + pg;
 
