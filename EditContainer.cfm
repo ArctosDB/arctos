@@ -3,7 +3,6 @@
 
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		$("#checked_date").datepicker();
 		$("#check_date").datepicker();
 	});
 
@@ -248,6 +247,37 @@
 	</table>
 </form>
 <h2>Container Environment History</h2>
+
+<h3>Create Environment Check</h3>
+<form name="envcheck" method="post" action="EditContainer.cfm">
+	<input type="hidden" name="action" value="saveEnvCheck">
+	<input type="hidden" name="container_id" value="#getCont.container_id#">
+	<table border>
+		<tr>
+
+			<th>Parameter</th>
+			<th>Value</th>
+			<th>Remark</th>
+			<th></th>
+		</tr>
+		<cfloop query="container_environment">
+			<tr>
+
+				<td>
+					<select name="parameter_type" id="parameter_type" size="1" required class="reqdClr">
+						<option value="">pick one</option>
+						<cfloop query="ctcontainer_env_parameter">
+							<option value="#parameter_type#">#parameter_type#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td><input type="number" name="parameter_value" id="parameter_value"></td>
+				<td><textarea class="mediumtextarea" name="remark" id="remark"></textarea></td>
+				<td><input type="submit" value="save"></td>
+			</tr>
+		</cfloop>
+	</table>
+
 <cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		container_environment_id,
