@@ -54,7 +54,7 @@
 
 	});
 
-	function getContainerHistory(cid,exclagnt,pg){
+	function getContainerHistory(cid,exclagnt,pg,feh_ptype){
 		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cid;
 
 		if (typeof exclagnt === "undefined") {
@@ -63,7 +63,9 @@
 if (typeof pg === "undefined") {
 			pg='1';
 }
-
+if (typeof feh_ptype === "undefined") {
+			feh_ptypepg='';
+}
 
 		ptl+='&exclagnt=' + exclagnt;
 		ptl+='&pg=' + pg;
