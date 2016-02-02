@@ -23,7 +23,7 @@
 
 	</script>
 	<cftry>
-
+<cfoutput>
 		<cfset startrow=pg * rowcount>
 		<cfset stoprow=startrow + pg>
 
@@ -56,7 +56,7 @@
 
 		</cfquery>
 		<cfsavecontent variable="result">
-			<cfoutput>
+
 			<!--- this container has a lot of history, add some stuff ----->
 			<cfquery name="cecnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) c from container_environment where container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
@@ -89,9 +89,9 @@
 				</tr>
 			</cfloop>
 		</table>
-		</cfoutput>
 		</cfsavecontent>
 
+		</cfoutput>
 	<cfcatch>
 		<cfset result='an error has occurred: #cfcatch.detail#'>
 	</cfcatch>
