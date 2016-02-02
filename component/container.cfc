@@ -10,7 +10,6 @@
 			jQuery(document).ready(function() {
 
 		$( "#feh" ).submit(function( event ) {
-		  //alert( "Handler for .submit() called." );
 		  event.preventDefault();
 
 		  getContainerHistory($("#feh_container_id").val(),$("#feh_exclagnt").val(),$("#pg").val());
@@ -70,9 +69,9 @@ function feh_prevPage(){
 
 		</cfquery>
 		<cfsavecontent variable="result">
-
+			<cfset pagecnt=ceiling(cepc.c/pg)>
 			<p>
-				Viewing records #startrow#-#stoprow# of #cepc.c#
+				Viewing page #pg# of #cepc.c#
 				<span class="likeLink" onclick="feh_nextPage()">next page</span>
 				<span class="likeLink" onclick="feh_prevPage()">previous page</span>
 				<form name="feh" id="feh">
