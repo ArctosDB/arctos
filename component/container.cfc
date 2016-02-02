@@ -1,7 +1,7 @@
 <cfcomponent><!------------------------------------------->
 <cffunction name="getEnvironment" access="remote" returnFormat="plain">
 	<cfargument name="container_id" type="any" required="yes">
-	<cfargument name="exclagnt" type="any" required="no">
+	<cfargument name="exclagnt" type="any" required="no" default="">
 	<cfargument name="rowcount" type="any" required="no" default="10">
 	<cfargument name="pg" type="any" required="no" default="1">
 
@@ -53,7 +53,7 @@
 				Viewing #rowcount# of #cecnt.c# environmental history rows
 				<form name="feh" id="feh">
 					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
-					<input type="text" name="feh_exclagnt" id="feh_exclagnt">
+					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
 					<input type="submit">
 				</form>
 				big container controls
