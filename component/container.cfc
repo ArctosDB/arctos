@@ -21,6 +21,17 @@
 
 			});
 
+function feh_nextPage(){
+	$("#pg").val($("#pg").val()+1);
+	$( "#feh" ).submit();
+	}
+function feh_prevPage(){
+	$("#pg").val($("#pg").val()-1);
+	$( "#feh" ).submit();
+	}
+
+
+
 	</script>
 	<cftry>
 <cfoutput>
@@ -61,12 +72,15 @@
 
 			<p>
 				Viewing records #startrow#-#stoprow# of #cepc.c#
+				<span class="likeLink" onclick="feh_nextPage()">next page</span>
+				<span class="likeLink" onclick="feh_prevPage()">previous page</span>
 				<form name="feh" id="feh">
 					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
+					<input type="hidden" name="pg" id="pg" value="#pg#">
 					<label for="">Exclude by Agent</label>
 					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
 
-					<input type="submit">
+					<input type="submit" value="filter">
 				</form>
 				big container controls
 			</p>
