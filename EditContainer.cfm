@@ -26,7 +26,8 @@
 				$("#parameter_value").val('1').attr({
 					"max" : 1,
 					"min" : 1
- 			});
+ 				});
+			}
 		});
 
 
