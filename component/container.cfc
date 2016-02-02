@@ -25,7 +25,7 @@
 	<cftry>
 <cfoutput>
 		<cfset startrow=pg * rowcount>
-		<cfset stoprow=startrow + pg>
+		<cfset stoprow=startrow + rowcount>
 
 		<br>startrow: #startrow#
 		<br>stoprow: #stoprow#
