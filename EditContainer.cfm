@@ -64,11 +64,12 @@ if (typeof pg === "undefined") {
 			pg='1';
 }
 if (typeof feh_ptype === "undefined") {
-			feh_ptypepg='';
+			feh_ptype='';
 }
 
 		ptl+='&exclagnt=' + exclagnt;
 		ptl+='&pg=' + pg;
+		ptl+='&feh_ptype=' + feh_ptype;
 
 	    jQuery.get(ptl, function(data){
 			jQuery("#cehisttgt").html(data);
