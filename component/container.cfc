@@ -11,6 +11,7 @@
 		$( "#feh" ).submit(function( event ) {
 		  alert( "Handler for .submit() called." );
 		  event.preventDefault();
+		  console.log( $( this ).serialize() );
 		});
 
 			});
@@ -47,6 +48,7 @@
 			<p>
 				Viewing #rowcount# of #cecnt.c# environmental history rows
 				<form name="feh" id="feh">
+					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
 					<input type="text" name="exclagnt">
 					<input type="submit">
 				</form>
