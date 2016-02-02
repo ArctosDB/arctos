@@ -28,6 +28,13 @@
 					"min" : 1
  				});
 			}
+			if ($(this).val()=='ethanol concentration'){
+				$("#parameter_value").attr({
+					"max" : 1,
+					"min" : 0,
+					stop: .01
+ 				});
+			}
 		});
 
 
