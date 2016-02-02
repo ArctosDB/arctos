@@ -6,10 +6,15 @@
 	<cfargument name="pg" type="any" required="no" default="1">
 
 	<script>
+			jQuery(document).ready(function() {
+
 		$( "#feh" ).submit(function( event ) {
 		  alert( "Handler for .submit() called." );
 		  event.preventDefault();
 		});
+
+			});
+
 	</script>
 	<cftry>
 
@@ -41,8 +46,9 @@
 			</cfquery>
 			<p>
 				Viewing #rowcount# of #cecnt.c# environmental history rows
-				<form name="feh" id="feh" method="get">
+				<form name="feh" id="feh">
 					<input type="text" name="exclagnt">
+					<input type="submit">
 				</form>
 				big container controls
 			</p>
