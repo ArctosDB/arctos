@@ -42,8 +42,8 @@ function feh_prevPage(){
 		<br>stoprow: #stoprow#
 		<cfquery name="cepc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from container_environment
-					where
-						container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
+				where
+			container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
 		</cfquery>
 		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (
@@ -69,7 +69,7 @@ function feh_prevPage(){
 
 		</cfquery>
 		<cfsavecontent variable="result">
-			<cfset pagecnt=ceiling(cepc.c/pg)>
+			<cfset pagecnt=ceiling(cepc.c/rowcount)>
 			<p>
 				Viewing page #pg# of #pagecnt#
 				<span class="likeLink" onclick="feh_nextPage()">next page</span>
