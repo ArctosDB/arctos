@@ -4,6 +4,13 @@
 	<cfargument name="exclagnt" type="any" required="no">
 	<cfargument name="rowcount" type="any" required="no" default="10">
 	<cfargument name="pg" type="any" required="no" default="1">
+
+	<script>
+		$( "#feh" ).submit(function( event ) {
+		  alert( "Handler for .submit() called." );
+		  event.preventDefault();
+		});
+	</script>
 	<cftry>
 
 		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -34,7 +41,7 @@
 			</cfquery>
 			<p>
 				Viewing #rowcount# of #cecnt.c# environmental history rows
-				<form name="feh" method="get">
+				<form name="feh" id="feh" method="get">
 					<input type="text" name="exclagnt">
 				</form>
 				big container controls
