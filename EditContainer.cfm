@@ -33,6 +33,12 @@
 					"min" : 0,
 					"step" : 0.01
  				});
+			} else if ($(this).val()=='relative humidity (%)'){
+				$("#parameter_value").attr({
+					"max" : 100,
+					"min" : 0,
+					"step" : 0.01
+ 				});
 			} else {
 				$("#parameter_value").attr({
 					"step" : "any"
@@ -41,8 +47,6 @@
  				$("#parameter_value").removeAttr("max");
 			}
 		});
-
-
 	});
 
 
