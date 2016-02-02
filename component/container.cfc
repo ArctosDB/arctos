@@ -29,7 +29,11 @@
 
 		<br>startrow: #startrow#
 		<br>stoprow: #stoprow#
-
+		<cfquery name="cepc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from container_environment
+					where
+						container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
+		</cfquery>
 		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (
 				Select a.*, rownum rnum From (
@@ -55,15 +59,13 @@
 		</cfquery>
 		<cfsavecontent variable="result">
 
-			<!--- this container has a lot of history, add some stuff ----->
-			<cfquery name="cecnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) c from container_environment where container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
-			</cfquery>
 			<p>
-				Viewing #rowcount# of #cecnt.c# environmental history rows
+				Viewing #rowcount# of #cepc.c# environmental history rows
 				<form name="feh" id="feh">
 					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
+					<label for="">Exclude by Agent</label>
 					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
+
 					<input type="submit">
 				</form>
 				big container controls
