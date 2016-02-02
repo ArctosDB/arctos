@@ -24,24 +24,33 @@
 	</script>
 	<cftry>
 
+		<cfset startrow=pg * rowcount>
+		<cfset stoprow=startrow + pg>
+
 		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (
-				select
-					container_environment_id,
-					check_date,
-					getPreferredAgentName(checked_by_agent_id) checkedby,
-					parameter_type,
-					parameter_value,
-					remark
-				from
-					container_environment
-				where
-					container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
-					<cfif isdefined("exclagnt") and len(exclagnt) gt 0>
-						and getPreferredAgentName(checked_by_agent_id) != <cfqueryparam value="#exclagnt#" CFSQLType='CF_SQL_VARCHAR'>
-					</cfif>
-				order by check_date DESC
-			) where rownum<=<cfqueryparam value="#rowcount#" CFSQLType='CF_SQL_FLOAT'>
+				Select a.*, rownum rnum From (
+					select
+						container_environment_id,
+						check_date,
+						getPreferredAgentName(checked_by_agent_id) checkedby,
+						parameter_type,
+						parameter_value,
+						remark
+					from
+						container_environment
+					where
+						container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
+						<cfif isdefined("exclagnt") and len(exclagnt) gt 0>
+							and getPreferredAgentName(checked_by_agent_id) != <cfqueryparam value="#exclagnt#" CFSQLType='CF_SQL_VARCHAR'>
+						</cfif>
+					order by check_date DESC
+				) a where rownum <= #stoprow#
+			) where rnum<=<cfqueryparam value="#startrow#" CFSQLType='CF_SQL_FLOAT'>
+
+
+
+
 		</cfquery>
 		<cfsavecontent variable="result">
 			<cfoutput>
