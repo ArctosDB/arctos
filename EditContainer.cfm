@@ -339,7 +339,7 @@
 		container_environment
 	where
 		container_id=#getCont.container_id#
-	order by check_date
+	order by check_date DESC
 </cfquery>
 <table border>
 	<tr>
