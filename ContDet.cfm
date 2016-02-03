@@ -33,7 +33,7 @@
 
 
 
-<font size="+1"><strong> Container Details</strong></font>
+<h2>Container Details</h2>
 <cfoutput>
 	<div>
 		<div>Container Type: #detail.container_type#</div>
@@ -100,6 +100,17 @@
 		        connect by prior parent_container_id = container_id
 			order by level desc
 		</cfquery>
+		<div>
+			Position
+			<cfset
+			<cfloop query="posn">
+				<cfset indent=level*.2>
+				<div style="margin-left: #indent#em">
+					<a href="ContDet.cfm?container_id=#CONTAINER_ID#">#label#</a> (#CONTAINER_TYPE#)
+				</div>
+
+			</cfloop>
+		</div>
 		<cfdump var=#posn#>
 	</div>
 </cfoutput>
