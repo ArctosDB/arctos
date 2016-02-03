@@ -4,127 +4,115 @@
 	<cfargument name="exclagnt" type="any" required="no" default="">
 	<cfargument name="pg" type="any" required="no" default="1">
 	<cfargument name="feh_ptype" type="any" required="no" default="">
-
-
-	<cfquery name="cepc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from container_environment
-			where
-		container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
-	</cfquery>
-	<cfif cepc.c eq 0>
-		<cfreturn "<p>No environmental history recorded.</p>">
-	</cfif>
-	<cfparam name="rowcount" default="10">
-
-	<script>
-			jQuery(document).ready(function() {
-
-		$( "#feh" ).submit(function( event ) {
-		  event.preventDefault();
-
-		  getContainerHistory($("#feh_container_id").val(),$("#feh_exclagnt").val(),$("#pg").val(),$("#feh_ptype").val());
-
-
-
-
-		});
-
-			});
-
-function feh_nextPage(){
-	$("#pg").val(parseInt($("#pg").val())+1);
-	$( "#feh" ).submit();
-	}
-function feh_prevPage(){
-	$("#pg").val(parseInt($("#pg").val())-1);
-	$( "#feh" ).submit();
-	}
-
-
-
-	</script>
 	<cftry>
-<cfoutput>
+		<!--- if there's nothing, stop now ---->
+		<cfquery name="cepc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from container_environment
+				where
+			container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
+		</cfquery>
+		<cfif cepc.c eq 0>
+			<cfreturn "<p>No environmental history recorded.</p>">
+		</cfif>
+		<cfparam name="rowcount" default="10">
 		<cfset startrow=(pg * rowcount)-rowcount>
 		<cfset stoprow=startrow + rowcount>
+		<cfset pagecnt=ceiling(cepc.c/rowcount)-1>
 
-		<cfquery name="ctcontainer_env_parameter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select parameter_type from ctcontainer_env_parameter order by parameter_type
-		</cfquery>
-
-		<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from (
-				Select a.*, rownum rnum From (
-					select
-						container_environment_id,
-						check_date,
-						getPreferredAgentName(checked_by_agent_id) checkedby,
-						parameter_type,
-						parameter_value,
-						remark
-					from
-						container_environment
-					where
-						container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
-						<cfif isdefined("exclagnt") and len(exclagnt) gt 0>
-							and getPreferredAgentName(checked_by_agent_id) != <cfqueryparam value="#exclagnt#" CFSQLType='CF_SQL_VARCHAR'>
+		<script>
+			jQuery(document).ready(function() {
+				$( "#feh" ).submit(function( event ) {
+				  event.preventDefault();
+				  getContainerHistory($("#feh_container_id").val(),$("#feh_exclagnt").val(),$("#pg").val(),$("#feh_ptype").val());
+				});
+			});
+			function feh_nextPage(){
+				$("#pg").val(parseInt($("#pg").val())+1);
+				$( "#feh" ).submit();
+			}
+			function feh_prevPage(){
+				$("#pg").val(parseInt($("#pg").val())-1);
+				$( "#feh" ).submit();
+			}
+		</script>
+		<cfoutput>
+			<cfquery name="container_environment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from (
+					Select a.*, rownum rnum From (
+						select
+							container_environment_id,
+							check_date,
+							getPreferredAgentName(checked_by_agent_id) checkedby,
+							parameter_type,
+							parameter_value,
+							remark
+						from
+							container_environment
+						where
+							container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
+							<cfif isdefined("exclagnt") and len(exclagnt) gt 0>
+								and getPreferredAgentName(checked_by_agent_id) != <cfqueryparam value="#exclagnt#" CFSQLType='CF_SQL_VARCHAR'>
+							</cfif>
+							<cfif isdefined("feh_ptype") and len(feh_ptype) gt 0>
+								and parameter_type = <cfqueryparam value="#feh_ptype#" CFSQLType='CF_SQL_VARCHAR'>
+							</cfif>
+						order by check_date DESC
+					) a where rownum <= #stoprow#
+				) where rnum >=<cfqueryparam value="#startrow#" CFSQLType='CF_SQL_FLOAT'>
+			</cfquery>
+			<cfsavecontent variable="result">
+				<!--- if there's more than one "page" only, add some stuff ---->
+				<cfif pagecnt gt 1>
+					<cfquery name="ctcontainer_env_parameter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select parameter_type from ctcontainer_env_parameter order by parameter_type
+					</cfquery>
+					<p>
+						Viewing page #pg# of #pagecnt#
+						<cfif pg gt 1>
+							<span class="likeLink" onclick="feh_prevPage()">previous page</span>
 						</cfif>
-						<cfif isdefined("feh_ptype") and len(feh_ptype) gt 0>
-							and parameter_type = <cfqueryparam value="#feh_ptype#" CFSQLType='CF_SQL_VARCHAR'>
+						<cfif pg lt pagecnt>
+							<span class="likeLink" onclick="feh_nextPage()">next page</span>
 						</cfif>
-					order by check_date DESC
-				) a where rownum <= #stoprow#
-			) where rnum >=<cfqueryparam value="#startrow#" CFSQLType='CF_SQL_FLOAT'>
-		</cfquery>
-		<cfsavecontent variable="result">
-			<cfset pagecnt=ceiling(cepc.c/rowcount)-1>
-			<p>
-				Viewing page #pg# of #pagecnt#
-				<cfif pg gt 1>
-					<span class="likeLink" onclick="feh_prevPage()">previous page</span>
+						<form name="feh" id="feh">
+							<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
+							<input type="hidden" name="pg" id="pg" value="#pg#">
+							<label for="feh_exclagnt">Exclude Agent</label>
+							<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
+							<label for="feh_ptype">Parameter</label>
+							<select name="feh_ptype" id="feh_ptype">
+								<option></option>
+								<cfloop query="ctcontainer_env_parameter">
+									<option <cfif feh_ptype is parameter_type>selected="selected"</cfif>value="#parameter_type#">#parameter_type#</option>
+								</cfloop>
+							</select>
+							<br>
+							<input type="submit" value="filter">
+						</form>
+					</p>
 				</cfif>
-				<cfif pg lt pagecnt>
-					<span class="likeLink" onclick="feh_nextPage()">next page</span>
-				</cfif>
-				<form name="feh" id="feh">
-					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
-					<input type="hidden" name="pg" id="pg" value="#pg#">
-					<label for="feh_exclagnt">Exclude Agent</label>
-					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
-					<label for="feh_ptype">Parameter</label>
-					<select name="feh_ptype" id="feh_ptype">
-						<option></option>
-						<cfloop query="ctcontainer_env_parameter">
-							<option <cfif feh_ptype is parameter_type>selected="selected"</cfif>value="#parameter_type#">#parameter_type#</option>
-						</cfloop>
-					</select>
-					<br>
-					<input type="submit" value="filter">
-				</form>
-			</p>
-			<table border id="contrEnviroTbl">
-				<tr>
-					<th>Date</th>
-					<th>CheckedBy</th>
-					<th>Parameter</th>
-					<th>Value</th>
-					<th>Remark</th>
-				</tr>
-				<cfloop query="container_environment">
+				<table border id="contrEnviroTbl">
 					<tr>
-						<td>#check_date#</td>
-						<td>#checkedby#</td>
-						<td>#parameter_type#</td>
-						<td>#parameter_value#</td>
-						<td>#remark#</td>
+						<th>Date</th>
+						<th>CheckedBy</th>
+						<th>Parameter</th>
+						<th>Value</th>
+						<th>Remark</th>
 					</tr>
-				</cfloop>
-			</table>
-		</cfsavecontent>
+					<cfloop query="container_environment">
+						<tr>
+							<td>#check_date#</td>
+							<td>#checkedby#</td>
+							<td>#parameter_type#</td>
+							<td>#parameter_value#</td>
+							<td>#remark#</td>
+						</tr>
+					</cfloop>
+				</table>
+			</cfsavecontent>
 		</cfoutput>
 	<cfcatch>
-				<cfset result='an error has occurred: #cfcatch.detail#'>
-
+		<cfset result='an error has occurred: #cfcatch.detail#'>
 		<cfsavecontent variable="result">
 		<cfdump var=#cfcatch#>
 		</cfsavecontent>
