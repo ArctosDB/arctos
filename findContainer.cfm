@@ -138,7 +138,7 @@
 		</td><!--------------------------------- end search pane ------------------------------------->
 		<td><!------------------------------------- tree pane --------------------------------------------->
 			<div style="max-height:2em;overflow:auto">
-				Check/uncheck a box for more options. Doubliclick to expand.
+				Check/uncheck a box for more options. Doubliclick text to expand.
 			</div>
 			<div id="treePane" class="cTreePane"></div>
 		</td><!------------------------------------- end tree pane --------------------------------------------->
