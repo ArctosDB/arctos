@@ -105,7 +105,7 @@
 			<cfloop query="posn">
 				<cfset indent=level*.2>
 				<div style="margin-left: #indent#em">
-					<a href="ContDet.cfm?container_id=#CONTAINER_ID#">#label#</a> (#CONTAINER_TYPE#)
+					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</a> (#CONTAINER_TYPE#)
 				</div>
 
 			</cfloop>
