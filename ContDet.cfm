@@ -64,11 +64,11 @@
 		</cfif>
 		<cfif len(detail.part_name) gt 0>
 			<div>
-				Part: #detail.guid# <em>#detail.scientific_name#</em> #detail.part_name#
+				Part: <a href="/guid/#detail.guid#" target="_blank" class="external">#detail.guid#</a>
+				<em>#detail.scientific_name#</em> #detail.part_name#
 				<cfif len(detail.CustomID) gt 0>
 					(#session.CustomOtherIdentifier#: #CustomID#)
 				</cfif>
-				<a href="/guid/#detail.guid#" target="_blank">Specimen</a>(new window)
 			</div>
 		</cfif>
 		<div>
