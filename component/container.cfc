@@ -38,9 +38,6 @@ function feh_prevPage(){
 <cfoutput>
 		<cfset startrow=(pg * rowcount)-rowcount>
 		<cfset stoprow=startrow + rowcount>
-
-		<br>startrow: #startrow#
-		<br>stoprow: #stoprow#
 		<cfquery name="cepc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from container_environment
 				where
@@ -68,19 +65,12 @@ function feh_prevPage(){
 							and getPreferredAgentName(checked_by_agent_id) != <cfqueryparam value="#exclagnt#" CFSQLType='CF_SQL_VARCHAR'>
 						</cfif>
 						<cfif isdefined("feh_ptype") and len(feh_ptype) gt 0>
-							and parameter_type = '#feh_ptype#'
-							<!----
-							<cfqueryparam value="#feh_ptype#" CFSQLType='CF_SQL_VARCHAR'>
-							---->
+							and parameter_type = <cfqueryparam value="#feh_ptype#" CFSQLType='CF_SQL_VARCHAR'>
 						</cfif>
 					order by check_date DESC
 				) a where rownum <= #stoprow#
 			) where rnum >=<cfqueryparam value="#startrow#" CFSQLType='CF_SQL_FLOAT'>
-
-
 		</cfquery>
-
-		<cfdump var=#container_environment#>
 		<cfsavecontent variable="result">
 			<cfset pagecnt=ceiling(cepc.c/rowcount)-1>
 			<p>
@@ -94,7 +84,7 @@ function feh_prevPage(){
 				<form name="feh" id="feh">
 					<input type="hidden" name="container_id" id="feh_container_id" value="#container_id#">
 					<input type="hidden" name="pg" id="pg" value="#pg#">
-					<label for="feh_exclagnt">Exclude by Agent</label>
+					<label for="feh_exclagnt">Exclude Agent</label>
 					<input type="text" name="feh_exclagnt" id="feh_exclagnt" value="#exclagnt#">
 					<label for="feh_ptype">Parameter</label>
 					<select name="feh_ptype" id="feh_ptype">
@@ -103,33 +93,29 @@ function feh_prevPage(){
 							<option <cfif feh_ptype is parameter_type>selected="selected"</cfif>value="#parameter_type#">#parameter_type#</option>
 						</cfloop>
 					</select>
-
-
+					<br>
 					<input type="submit" value="filter">
 				</form>
-				big container controls
 			</p>
-
-		<table border id="contrEnviroTbl">
-			<tr>
-				<th>Date</th>
-				<th>CheckedBy</th>
-				<th>Parameter</th>
-				<th>Value</th>
-				<th>Remark</th>
-			</tr>
-			<cfloop query="container_environment">
+			<table border id="contrEnviroTbl">
 				<tr>
-					<td>#check_date#</td>
-					<td>#checkedby#</td>
-					<td>#parameter_type#</td>
-					<td>#parameter_value#</td>
-					<td>#remark#</td>
+					<th>Date</th>
+					<th>CheckedBy</th>
+					<th>Parameter</th>
+					<th>Value</th>
+					<th>Remark</th>
 				</tr>
-			</cfloop>
-		</table>
+				<cfloop query="container_environment">
+					<tr>
+						<td>#check_date#</td>
+						<td>#checkedby#</td>
+						<td>#parameter_type#</td>
+						<td>#parameter_value#</td>
+						<td>#remark#</td>
+					</tr>
+				</cfloop>
+			</table>
 		</cfsavecontent>
-
 		</cfoutput>
 	<cfcatch>
 				<cfset result='an error has occurred: #cfcatch.detail#'>
