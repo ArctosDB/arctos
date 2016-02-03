@@ -88,25 +88,32 @@
           		CONTAINER_ID,
 				level,
 				getLastContainerEnvironment(CONTAINER_ID) lastenv,
-		        nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
+		        --nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
 		        CONTAINER_TYPE,
-		        DESCRIPTION,
-		        PARENT_INSTALL_DATE,
-		        CONTAINER_REMARKS,
+		        --DESCRIPTION,
+		        --PARENT_INSTALL_DATE,
+		        --CONTAINER_REMARKS,
 		        label,
-		        SYS_CONNECT_BY_PATH(container_type,':') thepath
+		        barcode
+		        --, SYS_CONNECT_BY_PATH(container_type,':') thepath
 			from container
-		        start with container_id =#container_id#
-		        connect by prior parent_container_id = container_id
-			order by level desc
+		        start with container_id=#container_id#
+		    connect by prior
+		    	parent_container_id = container_id
+			order by
+				level desc
 		</cfquery>
 		<div>
 			Position
 			<cfset indent=0>
 			<cfloop query="posn">
-				<cfset indent=indent+.2>
+				<cfset indent=indent+.4>
 				<div style="margin-left: #indent#em">
 					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</a> (#CONTAINER_TYPE#)
+					<cfif len(lastenv) gt 0>
+						<br>Last Environmental Data: #lastenv#
+					</cfif>
+					<br>
 				</div>
 
 			</cfloop>
