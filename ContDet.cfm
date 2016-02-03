@@ -109,7 +109,7 @@
 			<cfloop query="posn">
 				<cfset indent=indent+.4>
 				<div style="margin-left: #indent#em">
-					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</a> (#CONTAINER_TYPE#)
+					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</span> (#CONTAINER_TYPE#)
 					<cfif len(lastenv) gt 0>
 						<br>Last Environmental Data: #lastenv#
 					</cfif>
