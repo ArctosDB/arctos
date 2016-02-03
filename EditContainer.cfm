@@ -164,6 +164,7 @@
 	</cfquery>
 	<cfoutput>
 	<h2>Edit Container</h2>
+	<a href="/findContainer.cfm?container_id=#container_id#">view in tree</a>
 	<table><tr><td valign="top"><!---- left column ---->
 	<form name="form1" method="post" action="EditContainer.cfm">
 		<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
