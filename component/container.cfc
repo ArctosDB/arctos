@@ -5,6 +5,15 @@
 	<cfargument name="pg" type="any" required="no" default="1">
 	<cfargument name="feh_ptype" type="any" required="no" default="">
 
+
+	<cfquery name="cepc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from container_environment
+			where
+		container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
+	</cfquery>
+	<cfif cepc.c eq 0>
+		<cfreturn "<p>No environmental history recorded.</p>">
+	</cfif>
 	<cfparam name="rowcount" default="10">
 
 	<script>
@@ -38,11 +47,7 @@ function feh_prevPage(){
 <cfoutput>
 		<cfset startrow=(pg * rowcount)-rowcount>
 		<cfset stoprow=startrow + rowcount>
-		<cfquery name="cepc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from container_environment
-				where
-			container_id=<cfqueryparam value="#container_id#" CFSQLType='CF_SQL_FLOAT'>
-		</cfquery>
+
 		<cfquery name="ctcontainer_env_parameter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select parameter_type from ctcontainer_env_parameter order by parameter_type
 		</cfquery>
