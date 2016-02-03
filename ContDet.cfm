@@ -107,17 +107,20 @@
 			Position
 			<cfset indent=0>
 			<cfloop query="posn">
-				<cfset indent=indent+.4>
+				<cfset indent=indent+.5>
 				<div style="margin-left: #indent#em">
-					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</span> (#CONTAINER_TYPE#)
-					<cfif len(lastenv) gt 0>
-						<br>Last Environmental Data: #lastenv#
-					</cfif>
-					<br>
+					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</span>
+					<div style="margin-left:.4em;">
+						<br>Container Type: #CONTAINER_TYPE#
+						<cfif len(barcode) gt 0>
+							<br>Barcode: #barcode#
+						</cfif>
+						<cfif len(lastenv) gt 0>
+							<br>Last Environmental Data: #lastenv#
+						</cfif>
+					</div>
 				</div>
-
 			</cfloop>
 		</div>
-		<cfdump var=#posn#>
 	</div>
 </cfoutput>
