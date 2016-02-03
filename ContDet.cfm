@@ -62,7 +62,7 @@
 		<cfif len(detail.NUMBER_POSITIONS) gt 0>
 		  <div>Number of Positions: #NUMBER_POSITIONS#</div>
 		</cfif>
-		<cfif len(detail.part_name#) gt 0>
+		<cfif len(detail.part_name) gt 0>
 			<div>
 				Part: #detail.guid# <em>#detail.scientific_name#</em> #detail.part_name#
 				<cfif len(detail.CustomID) gt 0>
