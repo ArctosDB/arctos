@@ -357,7 +357,6 @@
 <div id="cehisttgt"></div>
 </td>
 <td valign="top"><!---- right column ---->
-
 	<cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			container_id,

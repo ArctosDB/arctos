@@ -19,7 +19,7 @@
 
 		$("#begin_parent_install_date").datepicker();
 		$("#end_parent_install_date").datepicker();
-		
+
 
 	});
 </script>
@@ -88,7 +88,7 @@
 				</select>
 				<label for="begin_parent_install_date">Earliest Install Date</label>
 				<input type="text" name="begin_parent_install_date" id="begin_parent_install_date"  />
-				
+
 				<label for="end_parent_install_date">Latest Install Date</label>
 				<input type="text" name="end_parent_install_date" id="end_parent_install_date"  />
 				<label for="description">Description (% for wildcard)</label>
@@ -137,6 +137,9 @@
 
 		</td><!--------------------------------- end search pane ------------------------------------->
 		<td><!------------------------------------- tree pane --------------------------------------------->
+			<div style="max-height:2em;overflow:auto">
+				Check/uncheck a box for more options. Doubliclick to expand.
+			</div>
 			<div id="treePane" class="cTreePane"></div>
 		</td><!------------------------------------- end tree pane --------------------------------------------->
 
