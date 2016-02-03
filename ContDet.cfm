@@ -113,7 +113,11 @@
 					<div style="margin-left:.4em;font-size:smaller;">
 						<div>Container Type: #CONTAINER_TYPE#</div>
 						<cfif len(barcode) gt 0>
-							<div>Barcode: #barcode#</div>
+							<cfif barcode neq label>
+								<div style="font-color:red;">Barcode: #barcode#</div>
+							<cfelse>
+								<div>Barcode: #barcode#</div>
+							</cfif>
 						</cfif>
 						<cfif len(lastenv) gt 0>
 							<div>Last Environmental Data: #lastenv#</div>
