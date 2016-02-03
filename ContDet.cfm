@@ -72,13 +72,15 @@
 			</div>
 		</cfif>
 		<div>
-			<a href="EditContainer.cfm?container_id=#container_id#" target="_blank">Edit this container</a> (new window)
+			<a href="EditContainer.cfm?container_id=#container_id#" class="external" target="_blank">Edit this container</a>
 		</div>
 		<div>
-			<a href="allContainerLeafNodes.cfm?container_id=#container_id#" target="_blank">See all collection objects in this container</a>
+			<a href="allContainerLeafNodes.cfm?container_id=#container_id#" class="external" target="_blank">
+				See all collection objects in this container
+			</a>
 		</div>
 		<div>
-			<a href="/containerPositions.cfm?container_id=#container_id#" target="_blank">Positions</a>(new window)
+			<a href="/containerPositions.cfm?container_id=#container_id#" class="external" target="_blank">Positions</a>
 		</div>
 		<div>
 			<a href="javascript:void(0)" onClick="getHistory('#container_id#'); return false;">History</a>
