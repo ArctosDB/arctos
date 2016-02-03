@@ -104,19 +104,19 @@
 				level desc
 		</cfquery>
 		<div>
-			Position
+			Positions:
 			<cfset indent=0>
 			<cfloop query="posn">
 				<cfset indent=indent+.5>
 				<div style="margin-left: #indent#em">
 					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</span>
-					<div style="margin-left:.4em;">
-						<br>Container Type: #CONTAINER_TYPE#
+					<div style="margin-left:.4em;font-size:smaller;">
+						<div>Container Type: #CONTAINER_TYPE#</div>
 						<cfif len(barcode) gt 0>
-							<br>Barcode: #barcode#
+							<div>Barcode: #barcode#</div>
 						</cfif>
 						<cfif len(lastenv) gt 0>
-							<br>Last Environmental Data: #lastenv#
+							<div>Last Environmental Data: #lastenv#</div>
 						</cfif>
 					</div>
 				</div>
