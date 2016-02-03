@@ -42,7 +42,7 @@
 			<div>Barcode: #detail.barcode#</div>
 		</cfif>
 		<cfif detail.barcode neq detail.label>
-			<div style="font-color:red;">Label: #detail.label#</div>
+			<div style="color:red;">Label: #detail.label#</div>
 		<cfelse>
 			<div>Label: #detail.label#</div>
 		</cfif>
@@ -114,7 +114,7 @@
 						<div>Container Type: #CONTAINER_TYPE#</div>
 						<cfif len(barcode) gt 0>
 							<cfif barcode neq label>
-								<div style="font-color:red;">Barcode: #barcode#</div>
+								<div style="color:red;">Barcode: #barcode#</div>
 							<cfelse>
 								<div>Barcode: #barcode#</div>
 							</cfif>
