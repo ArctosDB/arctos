@@ -102,8 +102,9 @@
 		</cfquery>
 		<div>
 			Position
+			<cfset indent=0>
 			<cfloop query="posn">
-				<cfset indent=level*.2>
+				<cfset indent=indent+.2>
 				<div style="margin-left: #indent#em">
 					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</a> (#CONTAINER_TYPE#)
 				</div>
