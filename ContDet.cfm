@@ -120,7 +120,7 @@
 							</cfif>
 						</cfif>
 						<cfif len(lastenv) gt 0>
-							<div>Last Environmental Data: #lastenv#</div>
+							<div>Last Envo: #lastenv#</div>
 						</cfif>
 					</div>
 				</div>
