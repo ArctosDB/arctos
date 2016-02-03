@@ -102,9 +102,8 @@
 		</cfquery>
 		<div>
 			Position
-			<cfset
 			<cfloop query="posn">
-				<cfset indent=2>
+				<cfset indent=level*.2>
 				<div style="margin-left: #indent#em">
 					<a href="ContDet.cfm?container_id=#CONTAINER_ID#">#label#</a> (#CONTAINER_TYPE#)
 				</div>
