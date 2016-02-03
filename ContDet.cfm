@@ -4,7 +4,7 @@
 </cfif>
 <cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
-		cataloged_item.collection_object_id,
+		flat.collection_object_id,
 		container.container_id,
 		container_type,
 		label,
@@ -14,7 +14,7 @@
 		part_name,
 		guid,
 		scientific_name,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		parent_install_date,
 		WIDTH,
 		HEIGHT,
