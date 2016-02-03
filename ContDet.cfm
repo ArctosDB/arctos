@@ -108,7 +108,7 @@
 			<cfset indent=0>
 			<cfloop query="posn">
 				<cfset indent=indent+.5>
-				<div style="margin-left: #indent#em">
+				<div style="margin-left: #indent#em; border:1px light gray dotted;">
 					<span class="likeLink" onclick="checkHandler(#container_id#)">#label#</span>
 					<div style="margin-left:.4em;font-size:smaller;">
 						<div>Container Type: #CONTAINER_TYPE#</div>
