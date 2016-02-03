@@ -24,7 +24,7 @@
 		container,
 		flat,
 		specimen_part,
-		coll_obj_cont_hist,
+		coll_obj_cont_hist
 	WHERE container.container_id = coll_obj_cont_hist.container_id (+) AND
 		coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id (+) AND
 		specimen_part.derived_from_cat_item = flat.collection_object_id (+) AND
