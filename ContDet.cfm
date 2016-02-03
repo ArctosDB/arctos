@@ -2,17 +2,17 @@
 <cfif not isdefined("container_id")>
 	<cfabort><!--- need an ID to do anything --->
 </cfif>
-<cfquery name="Detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	SELECT 
+<cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	SELECT
 		cataloged_item.collection_object_id,
 		container.container_id,
 		container_type,
 		label,
 		description,
 		container_remarks,
-		container.barcode, 
-		part_name, 
-		cat_num, 
+		container.barcode,
+		part_name,
+		guid,
 		scientific_name,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		parent_install_date,
@@ -20,118 +20,86 @@
 		HEIGHT,
 		length,
 		NUMBER_POSITIONS
-	FROM 
-		container, 
-		cataloged_item, 
-		specimen_part, 
-		coll_obj_cont_hist, 
-		(select * from identification where accepted_id_fg=1) identification
-	WHERE container.container_id = coll_obj_cont_hist.container_id (+) AND 
-		coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id (+) AND 
-		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id   (+) AND 
-		cataloged_item.collection_object_id = identification.collection_object_id (+) AND
+	FROM
+		container,
+		flat,
+		specimen_part,
+		coll_obj_cont_hist,
+	WHERE container.container_id = coll_obj_cont_hist.container_id (+) AND
+		coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id (+) AND
+		specimen_part.derived_from_cat_item = flat.collection_object_id (+) AND
 		container.container_id=#container_id#
 </cfquery>
-<font size="+1"><strong> Container Details</strong></font>
-<cfoutput query="Detail">
-	
 
-	
-	<table border="1">
-		<tr>
-		   <td class="lbl">Container Type:</td>
-			<td>#container_type#</td>
-		</tr>
-		<tr>
-			<td class="lbl">Label:</td>
-			<td> #label#</td>
-		</tr>
-		<cfif len(#description#) gt 0>
-		  <tr>
-			<td class="lbl"> Description:</td>
-			<td> #description#</td>
-		  </tr>
+
+
+<font size="+1"><strong> Container Details</strong></font>
+<cfoutput>
+	<div>
+		<div>Container Type: #detail.container_type#</div>
+
+		<cfif len(detail.barcode) gt 0>
+			<div>Barcode: #detail.barcode#</div>
 		</cfif>
-		<cfif len(#container_remarks#) gt 0>
-		  <tr>
-			<td class="lbl">Container Remarks:</td>
-			<td>#container_remarks#</td>
-		  </tr>
-		</cfif>
-		<cfif len(#barcode#) gt 0>
-		  <tr>
-			<td class="lbl">Barcode:</td>
-			<td>#barcode#</td>
-		  </tr>
-		</cfif>
-		<cfif len(#parent_install_date#) gt 0>
-		  <tr>
-			<td class="lbl">Install Date:</td>
-			<td>#dateformat(parent_install_date,"yyyy-mm-dd")#
-			&nbsp;
-			#timeformat(parent_install_date,"hh:mm:ss")#</td>
-		  </tr>
-		</cfif>
-		<cfif len(#part_name#) gt 0>
-		  <tr>
-			<td class="lbl">Part Name:</td>
-			<td>#part_name#</td>
-		  </tr>
-		  <tr>
-			<td class="lbl">Catalog Number:</td>
-			<td>#cat_num# </td>
-		  </tr>
-		  <cfif len(#CustomID#) gt 0>
-		  <tr>
-			<td class="lbl">#session.CustomOtherIdentifier#:</td>
-			<td>#CustomID#</td>
-		  </tr>
-		  </cfif>
-		  <tr>
-			<td class="lbl">Scientific Name: </td>
-			<td><em>#scientific_name#</em></td>
-		  </tr>
-		</cfif>
-		<cfif len(#WIDTH#) gt 0 OR len(#HEIGHT#) gt 0 OR len(#length#) gt 0>
-		  <tr>
-			<td class="lbl">Dimensions (W x H x D): </td>
-			<td> #WIDTH# x #HEIGHT# x #length# CM</td>
-		  </tr>
-		</cfif>
-		<cfif len(#NUMBER_POSITIONS#) gt 0>
-		  <tr>
-			<td class="lbl">Number of Positions: </td>
-			<td> #NUMBER_POSITIONS#</td>
-		  </tr>
-		</cfif>
-		<cfif len(#collection_object_id#) gt 0>
-			<tr>
-				<td colspan="2"><a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" 
-				target="_blank">Specimen</a>(new window)</td>
-			</tr>
+		<cfif detail.barcode neq detail.label>
+			<div style="font-color:red;">Label: #detail.label#</div>
 		<cfelse>
-			<tr>
-				<td colspan="2">
-					<a href="EditContainer.cfm?container_id=#container_id#" target="_blank">Edit this container</a> (new window)
-			</td>
-			</tr>
+			<div>Label: #detail.label#</div>
 		</cfif>
-		<tr>
-			<td colspan="2">
-				<a href="allContainerLeafNodes.cfm?container_id=#container_id#" target="_blank">
-						See all collection objects in this container</a>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<a href="/containerPositions.cfm?container_id=#container_id#" 
-					target="_blank">Positions</a><font size="-1">(new window)</font>
-			</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<a href="javascript:void(0)" onClick="getHistory('#container_id#'); return false;">History</a>
-				</td>
-			</tr>
-		</table>
+		<cfif len(detail.description) gt 0>
+			<div>Description: #detail.description#</div>
+		</cfif>
+		<cfif len(detail.container_remarks) gt 0>
+			<div>Remarks: #detail.container_remarks#</div>
+		</cfif>
+		<cfif len(detail.parent_install_date) gt 0>
+			<div>Install Date: #dateformat(detail.parent_install_date,"yyyy-mm-dd")#T#timeformat(detail.parent_install_date,"hh:mm:ss")#</div>
+		</cfif>
+		<cfif len(detail.WIDTH) gt 0 OR len(detail.HEIGHT) gt 0 OR len(detail.length) gt 0>
+		  <div>Dimensions (W x H x D): #detail.WIDTH# x #detail.HEIGHT# x #detail.length# CM</div>
+		</cfif>
+
+		<cfif len(detail.NUMBER_POSITIONS) gt 0>
+		  <div>Number of Positions: #NUMBER_POSITIONS#</div>
+		</cfif>
+		<cfif len(detail.part_name#) gt 0>
+			<div>
+				Part: #detail.guid# <em>#detail.scientific_name#</em> #detail.part_name#
+				<cfif len(detail.CustomID) gt 0>
+					(#session.CustomOtherIdentifier#: #CustomID#)
+				</cfif>
+				<a href="/guid/#detail.guid#" target="_blank">Specimen</a>(new window)
+			</div>
+		</cfif>
+		<div>
+			<a href="EditContainer.cfm?container_id=#container_id#" target="_blank">Edit this container</a> (new window)
+		</div>
+		<div>
+			<a href="allContainerLeafNodes.cfm?container_id=#container_id#" target="_blank">See all collection objects in this container</a>
+		</div>
+		<div>
+			<a href="/containerPositions.cfm?container_id=#container_id#" target="_blank">Positions</a>(new window)
+		</div>
+		<div>
+			<a href="javascript:void(0)" onClick="getHistory('#container_id#'); return false;">History</a>
+		</div>
+		<cfquery name="posn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT
+          		CONTAINER_ID,
+				level,
+				getLastContainerEnvironment(CONTAINER_ID) lastenv,
+		        nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
+		        CONTAINER_TYPE,
+		        DESCRIPTION,
+		        PARENT_INSTALL_DATE,
+		        CONTAINER_REMARKS,
+		        label,
+		        SYS_CONNECT_BY_PATH(container_type,':') thepath
+			from container
+		        start with container_id =#container_id#
+		        connect by prior parent_container_id = container_id
+			order by level desc
+		</cfquery>
+		<cfdump var=#posn#>
+	</div>
 </cfoutput>
