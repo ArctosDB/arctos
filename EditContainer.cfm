@@ -19,7 +19,6 @@
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#check_date").datepicker();
-
 		$("#parameter_type").change(function() {
 			console.log($( this ).val());
 			if ($(this).val()=='checked'){
@@ -47,36 +46,26 @@
  				$("#parameter_value").removeAttr("max");
 			}
 		});
-
 		getContainerHistory($("#container_id").val());
-
-
-
 	});
-
 	function getContainerHistory(cid,exclagnt,pg,feh_ptype){
 		var ptl='/component/container.cfc?method=getEnvironment&container_id=' + cid;
-
 		if (typeof exclagnt === "undefined") {
 			exclagnt='';
-}
-if (typeof pg === "undefined") {
-			pg='1';
-}
-if (typeof feh_ptype === "undefined") {
-			feh_ptype='';
-}
-
+		}
+		if (typeof pg === "undefined") {
+					pg='1';
+		}
+		if (typeof feh_ptype === "undefined") {
+					feh_ptype='';
+		}
 		ptl+='&exclagnt=' + exclagnt;
 		ptl+='&pg=' + pg;
 		ptl+='&feh_ptype=' + feh_ptype;
-
 	    jQuery.get(ptl, function(data){
 			jQuery("#cehisttgt").html(data);
 		});
-
 	}
-
 
 	function magicNumbers (type) {
 		var type;
@@ -359,7 +348,7 @@ if (typeof feh_ptype === "undefined") {
 			</td>
 			<td><input type="number" name="parameter_value" id="parameter_value"></td>
 			<td><textarea class="mediumtextarea" name="remark" id="remark"></textarea></td>
-			<td><input type="submit" value="save"></td>
+			<td><input type="submit" class="insBtn" value="save"></td>
 		</tr>
 	</table>
 </form>
