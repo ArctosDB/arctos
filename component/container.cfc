@@ -488,15 +488,16 @@
 	<cfset thisSql = "
 				SELECT
 					CONTAINER_ID,
+					getLastContainerEnvironment(CONTAINER_ID) lastenv,
 					nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
-				CONTAINER_TYPE,
-				DESCRIPTION,
-				PARENT_INSTALL_DATE,
-				CONTAINER_REMARKS,
-				someRandomSequence.nextval ID,
-				label,
-				SYS_CONNECT_BY_PATH(container_type,':') thepath
-				 from container
+					CONTAINER_TYPE,
+					DESCRIPTION,
+					PARENT_INSTALL_DATE,
+					CONTAINER_REMARKS,
+					someRandomSequence.nextval ID,
+					label,
+					SYS_CONNECT_BY_PATH(container_type,':') thepath
+				from container
 				start with container_id IN (
 					#sql#
 				)
