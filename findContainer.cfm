@@ -137,22 +137,19 @@
 
 		</td><!--------------------------------- end search pane ------------------------------------->
 		<td><!------------------------------------- tree pane --------------------------------------------->
-			<div style="max-height:2em;overflow:auto">
+			<div style="max-height:2em;overflow:auto;font-size:x-small;">
 				Check/uncheck a box for more options. Doubliclick text to expand.
 			</div>
 			<div id="treePane" class="cTreePane"></div>
 		</td><!------------------------------------- end tree pane --------------------------------------------->
-
 		<td valign="top">
 			<div id="detailPane"></div>
 		</td>
 	</tr>
 </table>
-
 <div id="thisfooter">
 	<cfinclude template="/includes/_footer.cfm">
 </div>
-
 <cfif isdefined("url.collection_object_id") and len(url.collection_object_id) gt 0 and not isdefined("url.showControl")>
 	<script language="javascript" type="text/javascript">
 		try {

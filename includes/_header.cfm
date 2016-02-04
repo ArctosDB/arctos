@@ -209,6 +209,13 @@
 											<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
 												<li><a target="_top" href="/tools/BulkloadClassification.cfm">bulkload classifications (taxonomy)</a></li>
 											</cfif>
+											<cfif listfind(formList,"/tools/BulkloadContainerEnvironment.cfm")>
+												<li><a target="_top" href="/tools/BulkloadContainerEnvironment.cfm">bulkload container environment</a></li>
+											</cfif>
+
+
+
+
 											<!----
 											<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
 
