@@ -76,6 +76,7 @@ function showSpecTreeOnly (colobjid) {
 }
 function loadTree_success(r) {
 	//alert(result);
+	var thislbl;
 	var result=r.DATA;
 	var theTreeDiv = document.getElementById('treePane');
 	var oops = result.CONTAINER_ID[0];
@@ -98,7 +99,14 @@ function loadTree_success(r) {
 			var PARENT_CONTAINER_ID = result.PARENT_CONTAINER_ID[i];
 			var CONTAINER_TYPE = result.CONTAINER_TYPE[i];
 			var LABEL = result.LABEL[i];
-			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
+			var LASTENV = result.LASTENV[i];
+			if (LASTENV.length > 0) {
+				thislbl='* ' + LABEL + ' (' + CONTAINER_TYPE + ');				
+			} else {
+				thislbl=LABEL + ' (' + CONTAINER_TYPE + ');		
+			}
+			//var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
+			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + thislbl +  '",0,0,0,0,"",1)';
 			eval(thisIns);
 		}
 		post();
