@@ -74,22 +74,28 @@
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
-        <cfloop query="x">
-            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	            insert into cf_container_environment (#cols#) values (
-	            <cfloop list="#cols#" index="i">
-	               <cfif i is "wkt_polygon">
-	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
-	                <cfelse>
-	            		'#stripQuotes(evaluate(i))#'
-	            	</cfif>
-	            	<cfif i is not listlast(cols)>
-	            		,
-	            	</cfif>
-	            </cfloop>
-	            )
-            </cfquery>
-        </cfloop>
+		<cftransaction>
+            <cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from cf_container_environment
+			</cfquery>
+
+	        <cfloop query="x">
+	            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		            insert into cf_container_environment (#cols#) values (
+		            <cfloop list="#cols#" index="i">
+		               <cfif i is "wkt_polygon">
+		            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+		                <cfelse>
+		            		'#stripQuotes(evaluate(i))#'
+		            	</cfif>
+		            	<cfif i is not listlast(cols)>
+		            		,
+		            	</cfif>
+		            </cfloop>
+		            )
+	            </cfquery>
+	        </cfloop>
+		</cftransaction>
 		<p>
 			Loaded to temp table - <a href="BulkloadContainerEnvironment.cfm?action=validate">proceed to validate</a>
 		</p>
@@ -97,54 +103,33 @@
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "validate">
-
-
-
- drop table cf_container_environment;
-
- create table cf_container_environment (
- 	barcode varchar2(60) not null,
- 	check_date date not null,
-	checked_by_agent varchar2(60) not null,
- 	parameter_type varchar2(60) not null,
- 	parameter_value number not null,
-	remark varchar2(4000),
-	container_id number,
-	agent_id number,
-	status varchar2(4000)
- );
-
-create or replace public synonym cf_container_environment for cf_container_environment;
-grant all on cf_container_environment to manage_container;
-
-
-
-<!----
-	<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_specevent set status='guid not found'
-		where upper(username)='#ucase(session.username)#' and guid NOT IN (select guid from flat)
-	</cfquery>
-	---->
-	<cfquery name="agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_container_environment set agent_id=getAgentID(checked_by_agent)
-	</cfquery>
-	<cfquery name="container_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_container_environment set container_id=(
-			select container.container_id from container where container.barcode=cf_container_environment.barcode
-		)
-	</cfquery>
-	<cfquery name="isiso" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_container_environment set status=is_iso8601(check_date) where is_iso8601(check_date) != 'valid'
-	</cfquery>
-	<cfquery name="badagent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_container_environment set status='bad agent' where agent_id is null
-	</cfquery>
-	<cfquery name="badbc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_container_environment set status='bad barcode' where container_id is null
-	</cfquery>
-	<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_container_environment where status is not null
-	</cfquery>
+	<cftransaction>
+		<cfquery name="agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_container_environment set agent_id=getAgentID(checked_by_agent)
+		</cfquery>
+		<cfquery name="container_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_container_environment set container_id=(
+				select container.container_id from container where container.barcode=cf_container_environment.barcode
+			)
+		</cfquery>
+		<cfquery name="isiso" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_container_environment set status=is_iso8601(check_date) where is_iso8601(check_date) != 'valid'
+		</cfquery>
+		<cfquery name="badagent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_container_environment set status='bad agent' where agent_id is null
+		</cfquery>
+		<cfquery name="badbc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_container_environment set status='bad barcode' where container_id is null
+		</cfquery>
+		<cfquery name="badp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_container_environment set status='bad parameter' where parameter_type not in (
+				select PARAMETER_TYPE from CTCONTAINER_ENV_PARAMETER
+			)
+		</cfquery>
+		<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from cf_container_environment where status is not null
+		</cfquery>
+	</cftransaction>
 	<cfif ss.c gt 0>
 		validation failed.....
 	<cfelse>
