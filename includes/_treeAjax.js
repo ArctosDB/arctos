@@ -103,7 +103,7 @@ function loadTree_success(r) {
 			if (LASTENV.length > 0) {
 				thislbl='* ' + LABEL + ' (' + CONTAINER_TYPE + ')';				
 			} else {
-				thislbl=LABEL + ' (' + CONTAINER_TYPE + ');		
+				thislbl=LABEL + ' (' + CONTAINER_TYPE + ')';		
 			}
 			//var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
 			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + thislbl +  '",0,0,0,0,"",1)';
