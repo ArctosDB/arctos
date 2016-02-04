@@ -136,7 +136,8 @@
 		 <a href="BulkloadContainerEnvironment.cfm?action=getCSV">Download CSV (with errors) and try again</a>
 		</p>
 	<cfelse>
-		validated - proceed....
+		validated - <a href="BulkloadContainerEnvironment.cfm?action=load">proceed to load</a>
+
 	</cfif>
 </cfif>
 
