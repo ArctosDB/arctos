@@ -4,7 +4,6 @@
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
-
 <script>
 	jQuery(document).ready(function() {
 		jQuery("#part_name").autocomplete("/ajax/part_name.cfm", {
@@ -16,11 +15,8 @@
 			scroll: true,
 			scrollHeight: 300
 		});
-
 		$("#begin_parent_install_date").datepicker();
 		$("#end_parent_install_date").datepicker();
-
-
 	});
 </script>
 <style >
