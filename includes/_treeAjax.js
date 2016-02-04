@@ -101,7 +101,7 @@ function loadTree_success(r) {
 			var LABEL = result.LABEL[i];
 			var LASTENV = result.LASTENV[i];
 			if (LASTENV.length > 0) {
-				thislbl='* ' + LABEL + ' (' + CONTAINER_TYPE + ');				
+				thislbl='* ' + LABEL + ' (' + CONTAINER_TYPE + ')';				
 			} else {
 				thislbl=LABEL + ' (' + CONTAINER_TYPE + ');		
 			}
