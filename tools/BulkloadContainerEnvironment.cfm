@@ -145,7 +145,7 @@
 		select * from cf_container_environment
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=thecolumns)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/BulkloadContainerEnvironmentData.csv"
     	output = "#csv#"
