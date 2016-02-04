@@ -106,7 +106,7 @@
 				level desc
 		</cfquery>
 		<div>
-			Positions:
+			Location:
 			<cfset indent=0>
 			<cfloop query="posn">
 				<cfset indent=indent+.5>

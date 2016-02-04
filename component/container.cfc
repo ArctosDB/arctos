@@ -373,7 +373,7 @@
 		<cfif frm does not contain " cataloged_item ">
 			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
 		</cfif>
-		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#listqualify(cat_num,"'")#)">
+		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#listqualify(cat_num,"#chr(39)#")#)">
 	</cfif>
 
 	<cfif len(other_id_type) gt 0>
