@@ -131,11 +131,41 @@
 		</cfquery>
 	</cftransaction>
 	<cfif ss.c gt 0>
-		validation failed.....
+		validation failed
+		<p>
+		 <a href="BulkloadContainerEnvironment.cfm?action=getCSV">Download CSV (with errors) and try again</a>
+		</p>
 	<cfelse>
 		validated - proceed....
 	</cfif>
 </cfif>
+
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_container_environment
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkloadContainerEnvironmentData.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadContainerEnvironmentData.csv" addtoken="false">
+</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "load">
 	<cfoutput>
