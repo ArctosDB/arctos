@@ -92,6 +92,7 @@
 							</cfif>
 							<cfset thisForm = "#taxa_formula#">
 							<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr" onchange="newIdFormula(this.value);">
+								<option value="use_existing_name">use_existing_name</option>
 								<cfloop query="ctFormula">
 									<option
 										<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#taxa_formula#</option>

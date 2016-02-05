@@ -52,6 +52,18 @@ function newIdFormula (f) {
 		b_val.className='';
 		b_id.style.value='';
 		b_id.className='';
+	
+	} else if (f=='use_existing_name') {
+		// special handler for multi-identification
+		// allow update of agent etc., without changing taxon
+		bTr.style.display='none';
+		b_val.style.value='';
+		b_val.className='';
+		b_id.style.value='';
+		b_id.className='';
+		$("#taxona_id").val('');
+		$("#taxona").val('use_existing_name');
+	}
 	} else {
 		alert("You selected an invalid formula (" + f + "). Please submit a bug report.");
 	}
