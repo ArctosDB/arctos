@@ -400,7 +400,7 @@
 						<cfquery name="cIDT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select * from identification_taxonomy where identification_id=#cID.identification_id#
 						</cfquery>
-						<cfif taxa_formula contain "B">
+						<cfif taxa_formula contains "B">
 							<cfquery name="ta" dbtype="query">
 								select * from cIDT where VARIABLE='A'
 							</cfquery>
