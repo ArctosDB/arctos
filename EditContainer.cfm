@@ -110,6 +110,11 @@
 			nPosEl.readOnly=false;
 		}
 	}
+	function quickCheck(){
+		$("#parameter_type").val('checked');
+		$("#parameter_value").val('1');
+		$("#envcheck").submit();
+	}
 </script>
 
 <!---------------------------------------------------------------->
@@ -326,13 +331,12 @@
 </form>
 <h2>Container Environment</h2>
 
-<h3>Create Environment Check</h3>
-<form name="envcheck" method="post" action="EditContainer.cfm">
+<h3>Create Environment Record</h3>
+<form name="envcheck" id="envcheck" method="post" action="EditContainer.cfm">
 	<input type="hidden" name="action" value="saveEnvCheck">
 	<input type="hidden" name="container_id" value="#getCont.container_id#">
 	<table border>
 		<tr>
-
 			<th>Parameter</th>
 			<th>Value</th>
 			<th>Remark</th>
@@ -353,6 +357,7 @@
 		</tr>
 	</table>
 </form>
+<input type="button" onclick="quickCheck()" class="insBtn" value="quick-insert container check">
 <h3>History</h3>
 <div id="cehisttgt"></div>
 </td>
