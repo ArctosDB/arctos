@@ -63,7 +63,6 @@ function newIdFormula (f) {
 		b_id.className='';
 		$("#taxona_id").val('');
 		$("#taxona").val('use_existing_name');
-	}
 	} else {
 		alert("You selected an invalid formula (" + f + "). Please submit a bug report.");
 	}
