@@ -3,6 +3,30 @@
 	jQuery(document).ready(function() {
 		jQuery("#made_date").datepicker();
 	});
+	// special sauce functions
+	function ssTaxonName(){
+		$('#taxa_formula').val('use_existing_name');
+		$('#taxona').val('use_existing_name');
+		$('#taxona_id').val('');
+		$('#user_id').val('');
+		$('#userID').hide();
+		$('#taxonb').val('');
+		$('#taxonb_id').val('');
+		$('#taxon_b_row').hide();
+	}
+	function ssAgent(){
+		$('#idBy').val('use_existing_agent');
+		$('#idBy_two').val('');
+		$('#addNewIdBy_two').hide();
+		$('#idBy_three').val('');
+		$('#addNewIdBy_three').hide();
+	}
+	function ssDate(){
+		$('#made_date').val('use_existing_date');
+	}
+	function ssNoID(){
+		$('#nature_of_id').val('use_existing_noid');
+	}
 </script>
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <!--------------------------------------------------------------------------------------------------->
@@ -89,20 +113,20 @@
 						Clicking these links may cause bad voodoo. Hard-reload (usually shift-reload) to unclick.
 					</li>
 					<li>
-						<span class="likeLink" onclick="$('##taxa_formula').val('use_existing_name');">Set taxa_formula to use_existing_name</span>
+						<span class="likeLink" onclick="ssTaxonName();">Set taxa_formula to use_existing_name</span>
 						 to create a new ID using the old name. Everything about
 						taxa will be ignored with this formula.
 					</li>
 					<li>
-						<span class="likeLink" onclick="$('##idBy').val('use_existing_agent');">Set agent_1 to use_existing_agent</span>
+						<span class="likeLink" onclick="ssAgent();">Set agent_1 to use_existing_agent</span>
 						to reuse agent(s) from the existing accepted ID.
 					</li>
 					<li>
-						<span class="likeLink" onclick="$('##made_date').val('use_existing_date');">Set id_date to use_existing_date</span>
+						<span class="likeLink" onclick="ssDate();">Set id_date to use_existing_date</span>
 						to reuse the data from the current accepted ID.
 					</li>
 					<li>
-						<span class="likeLink" onclick="$('##nature_of_id').val('use_existing_noid');">Set nature_of_id to use_existing_noid</span>
+						<span class="likeLink" onclick="ssNoID();">Set nature_of_id to use_existing_noid</span>
 						to reuse the data from the current accepted ID.
 					</li>
 					<li>
@@ -349,7 +373,7 @@
 		<cflocation url="multiIdentification.cfm" addtoken="no">
 	</cfoutput>
 </cfif>
------------------------------------------------>
+<!----------------------------------------------->
 <cfif action is "createManyNew">
 	<cfoutput>
 		<cfif taxa_formula is "A {string}">
