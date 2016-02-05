@@ -83,14 +83,17 @@
 				Special Magic Sauce
 				<ul>
 					<li>
-						Read this. Misuse will lock your account.
+						Read this. Misuse may lock your account.
+					</li>
+					<li>
+						Clicking some of these links disables internal form magic. Reload to unclick.
 					</li>
 					<li>
 						Set taxa_formula to use_existing_name to create a new ID using the old name. Everything about
 						taxa will be ignored with this formula.
 					</li>
 					<li>
-						Set agent_1 to <span>use_existing_agent</span> to reuse agent(s) from the existing accepted ID.
+						<span class="likeLink" onclick="$('##idBy').val('use_existing_agent');">Set agent_1 to use_existing_agent</span> to reuse agent(s) from the existing accepted ID.
 					</li>
 					<li>
 						Set id_date to <span>use_existing_date</span> to reuse the data from the current accepted ID.
@@ -157,7 +160,7 @@
 							</div>
 						</td>
 						<td>
-							<input type="text" name="idBy" class="reqdClr" size="50"
+							<input type="text" name="idBy" id="idBy" class="reqdClr" size="50"
 								onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
 						 		onkeypress="return noenter(event);">
 							<input type="hidden" name="newIdById">
