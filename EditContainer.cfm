@@ -337,7 +337,10 @@
 	<input type="hidden" name="container_id" value="#getCont.container_id#">
 	<table border>
 		<tr>
-			<th>Parameter</th>
+			<th>
+				Parameter
+				<span class="infoLink" onclick="getCtDoc('CTCONTAINER_ENV_PARAMETER');">Define</span>
+			</th>
 			<th>Value</th>
 			<th>Remark</th>
 			<th></th>
