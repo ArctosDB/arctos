@@ -91,7 +91,7 @@
 	<cfset thisHeader = thisHeader & chr(10) & "begindata" & theseData>
 	<cffile action="write" file="#controlFile#" addnewline="no" output="#thisHeader#" charset="iso-8859-1">
 	<cfexecute name="#sqlldrScript#" timeout="240"></cfexecute>
-	<cflocation url="bulkloaderLoader.cfm?action=inStage">
+	<cflocation url="bulkloaderLoader.cfm?action=inStage" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------->

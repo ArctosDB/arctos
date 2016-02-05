@@ -344,7 +344,7 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
-	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------->
@@ -371,7 +371,7 @@
 			'#other_id_suffix#',
 			'#id_references#')
 		</cfquery>
-		<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
+		<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------->

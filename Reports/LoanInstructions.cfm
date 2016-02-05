@@ -15,14 +15,14 @@
 <cfoutput>
 <table width="100%">
 	<tr>
-    	<td valign="top">	
+    	<td valign="top">
 			<div align="right">
 				<font size="1" face="Arial, Helvetica, sans-serif">
 					<b>Loan ## #getLoan.loan_number#</b>
-				</font> 
+				</font>
 			</div>
 			<div align="center" style="font-weight:bold;">
-		        <font size="3">Loan Instructions Appendix</font> 
+		        <font size="3">Loan Instructions Appendix</font>
 		</td>
 	</tr>
 	<tr>
@@ -40,7 +40,7 @@
 
 <cfoutput>
 	<cfset fUrl=replace(fName,application.webDirectory,application.serverRootUrl)>
-	<cflocation url="#fUrl#">
+	<cflocation url="#fUrl#" addtoken="false">
 </cfoutput>
 <!------------------------------------------------------------------->
 <cfinclude template="/includes/_pickFooter.cfm">

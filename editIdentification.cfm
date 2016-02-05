@@ -563,7 +563,7 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
-	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------->
@@ -572,12 +572,12 @@
 		<font color="#FF0000" size="+1">You can't delete the accepted identification!</font>
 		<cfabort>
     </cfif>
-	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "multi">
 <cfoutput>
-	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="false" addtoken="false">
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
@@ -700,7 +700,7 @@
 		 </cfquery>
 	 </cfif>
 </cftransaction>
-	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->

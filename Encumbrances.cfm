@@ -265,7 +265,7 @@
 		<cfquery name="encDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from coll_object_encumbrance where encumbrance_id=#encumbrance_id#
 		</cfquery>
-		 <cflocation url="Encumbrances.cfm?Action=listEncumbrances&encumbrance_id=#encumbrance_id#">
+		 <cflocation url="Encumbrances.cfm?Action=listEncumbrances&encumbrance_id=#encumbrance_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
@@ -411,7 +411,7 @@ UPDATE encumbrance SET
 	where encumbrance_id = #encumbrance_id#
 </cfquery>
 
-	 <cflocation url="Encumbrances.cfm?Action=updateEncumbrance&encumbrance_id=#encumbrance_id#">
+	 <cflocation url="Encumbrances.cfm?Action=updateEncumbrance&encumbrance_id=#encumbrance_id#" addtoken="false">
 	 </cfoutput>
 
 

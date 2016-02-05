@@ -1,13 +1,13 @@
-<cfoutput>	
+<cfoutput>
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 <!-------------------------------------------------------------->
 <cfif #action# is "delete">
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        delete from cf_report_sql 
+        delete from cf_report_sql
         where report_id=#report_id#
     </cfquery>
-    <cflocation url="reporter.cfm">
+    <cflocation url="reporter.cfm" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "saveEdit">
@@ -20,7 +20,7 @@
 		<cfabort>
 	</cfif>
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        update cf_report_sql set     
+        update cf_report_sql set
         report_name ='#report_name#',
         report_template  ='#report_template#',
         sql_text ='#escapeQuotes(sql_text)#',
@@ -28,7 +28,7 @@
         report_format ='#report_format#'
         where report_id=#report_id#
     </cfquery>
-    <cflocation url="reporter.cfm?action=edit&report_id=#report_id#">
+    <cflocation url="reporter.cfm?action=edit&report_id=#report_id#" addtoken="false">
 </cfif>
 <!--------------------------------------------------------------------------------------->
 <cfif #action# is "edit">
@@ -36,14 +36,14 @@
 	    <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        select report_id from cf_report_sql where report_name='#report_name#'
 	    </cfquery>
-        <cflocation url="reporter.cfm?action=edit&report_id=#e.report_id#">
+        <cflocation url="reporter.cfm?action=edit&report_id=#e.report_id#" addtoken="false">
     </cfif>
 
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select * from cf_report_sql where report_id='#report_id#' order by report_name
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
-   
+
     <form method="get" action="reporter.cfm" enctype="text/plain">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="report_id" value="#e.report_id#">
@@ -78,7 +78,7 @@
         b.value=unescape(a);
     </script>
        <form method="post" action="reporter.cfm" target="_blank">
-           <input type="hidden" name="action" value="testSQL">           
+           <input type="hidden" name="action" value="testSQL">
 	       <input type="hidden" name="test_sql" id="test_sql">
            <input type="hidden" name="format" id="format" value="table">
            <input type="button" value="Test SQL" onclick="document.getElementById('test_sql').value=document.getElementById('sql_text').value;
@@ -107,7 +107,7 @@
             '#report_template#',
             'select 1 from dual')
     </cfquery>
-    <cflocation url="reporter.cfm?action=edit&report_name=New_Report_#tc#">
+    <cflocation url="reporter.cfm?action=edit&report_name=New_Report_#tc#" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "clone">
@@ -126,7 +126,7 @@
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
-	
+
 	<p>
 		Created report name #newName#
 	</p>
@@ -149,7 +149,7 @@
              #preservesinglequotes(sql)#
          </cfquery>
          <cfdump var=#user_sql#>
-        
+
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "loadTemplate">
@@ -157,7 +157,7 @@
     	destination="#Application.webDirectory#/Reports/templates/"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777" result="r">
-		  
+
 		  <cfdump var=#r#>
 	<cfset fileName=#r.serverfile#>
 	<cfset dotPos=find(".",fileName)>
@@ -169,7 +169,7 @@
 		<a href="javascript:back()">Go Back</a>
 		<cffile action="delete"
 	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
-        <cfabort>   
+        <cfabort>
 	</cfif>
 	<cfset ext=right(extension,len(extension)-1)>
 	<cfif ext is not "cfr">
@@ -180,14 +180,14 @@
 	</cfif>
 	<cfoutput>
 	loaded....#Application.webDirectory#/Reports/templates/#fileName#
-	
+
 	    <cfdirectory action="list" name="x" directory="#Application.webDirectory#/Reports/templates">
 		<cfdump var=#x#>
 
 	</cfoutput>
-	
+
 	<cfabort>
-	<cflocation url="reporter.cfm">
+	<cflocation url="reporter.cfm" addtoken="false">
 
 </cfif>
 <!-------------------------------------------------------------->
@@ -232,7 +232,7 @@
 	            <td><a href="reporter.cfm?action=download&report_template=#report_template#">Download Report</a></td>
 	        </tr>
         </cfloop>
-      
+
     </cfloop>
     </table>
 </cfif>

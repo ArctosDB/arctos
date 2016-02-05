@@ -125,7 +125,7 @@
 		select collecting_event_id from cataloged_item where
 		collection_object_id=#collection_object_id#
 	</cfquery>
-	<cflocation url="Locality.cfm?action=editCollEvnt&collecting_event_id=#ceid.collecting_event_id#">
+	<cflocation url="Locality.cfm?action=editCollEvnt&collecting_event_id=#ceid.collecting_event_id#" addtoken="false">
 </cfif>
 </cfoutput>
 <cfif not isdefined("collection_object_id")>
@@ -1973,7 +1973,7 @@ You deleted a collecting event.
 			</cfquery>
 		</cfloop>
 		</cftransaction>
-		<cflocation url="Locality.cfm?Action=findCollEvent&locality_id=#locality_id#">
+		<cflocation url="Locality.cfm?Action=findCollEvent&locality_id=#locality_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->

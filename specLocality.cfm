@@ -1863,7 +1863,7 @@ got cankill.....
 	</cftransaction>
 done.....
 
-	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 
 <!---
 	--->

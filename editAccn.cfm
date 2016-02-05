@@ -930,7 +930,7 @@
 			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and
 			permit_id=#permit_id#
 		</cfquery>
-		<cflocation url="editAccn.cfm?action=edit&transaction_id=#transaction_id#">
+		<cflocation url="editAccn.cfm?action=edit&transaction_id=#transaction_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->

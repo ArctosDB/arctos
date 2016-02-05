@@ -28,7 +28,7 @@ END;
 	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_relations where CF_TEMP_RELATIONS_ID in (#delthis#)
 	</cfquery>
-	<cflocation url="pendingRelations.cfm">
+	<cflocation url="pendingRelations.cfm" addtoken="false">
 </cfif>
 <cfset title="Pending Relationships">
 <cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

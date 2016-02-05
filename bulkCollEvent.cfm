@@ -699,7 +699,7 @@
 			</cfquery>
 		</cfloop>
 	</cftransaction>
-	<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <cfinclude template="includes/_footer.cfm">

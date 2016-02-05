@@ -492,7 +492,7 @@
 				SELECT sq_container_id.currval newid FROM dual
 			</cfquery>
 		</cftransaction>
-		<cflocation url="EditContainer.cfm?action=nothing&container_id=#nextContainer.newid#">
+		<cflocation url="EditContainer.cfm?action=nothing&container_id=#nextContainer.newid#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------->

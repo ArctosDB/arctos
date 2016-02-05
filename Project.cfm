@@ -115,7 +115,7 @@
 			</cfif>
 			 )
 	</cfquery>
-	<cflocation url="Project.cfm?Action=editProject&project_id=#nextID.nextid#">
+	<cflocation url="Project.cfm?Action=editProject&project_id=#nextID.nextid#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
@@ -126,8 +126,8 @@
 			countChar($("#project_description").val());
 		});
 	</script>
-	
-	
+
+
 	<cfoutput>
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
 		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -285,7 +285,7 @@
 						</td>
 					</tr>
 				</table>
-				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Description 
+				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Description
 					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span></label>
 				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
 				<label for="project_remarks">Remarks</label>

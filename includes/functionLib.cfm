@@ -177,7 +177,7 @@
 		<cfif getPrefs.recordcount is 0>
 			<cfset session.username = "">
 			<cfset session.epw = "">
-       		<cflocation url="/login.cfm?badPW=true&username=#username#">
+       		<cflocation url="/login.cfm?badPW=true&username=#username#" addtoken="false">
 		</cfif>
 		<cfset session.username=username>
 		<cfquery name="dbrole" datasource="uam_god">
@@ -258,7 +258,7 @@
 		<cfset pwage = Application.max_pw_age - pwtime>
 		<cfif pwage lte 0>
 			<cfset session.force_password_change = "yes">
-			<cflocation url="ChangePassword.cfm">
+			<cflocation url="ChangePassword.cfm" addtoken="false">
 		</cfif>
 		</cfif>
 	</cfif>

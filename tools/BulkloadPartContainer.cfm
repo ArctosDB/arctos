@@ -103,7 +103,7 @@ sho err
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cflocation url="BulkloadPartContainer.cfm?action=validateFromFile">
+	<cflocation url="BulkloadPartContainer.cfm?action=validateFromFile" addtoken="false">
 </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------->
@@ -196,7 +196,7 @@ sho err
 			</cfif>
 		</cfloop>
 	</cfoutput>
-	<cflocation url="BulkloadPartContainer.cfm?action=load">
+	<cflocation url="BulkloadPartContainer.cfm?action=load" addtoken="false">
 </cfif>
 <!--------------------------------------->
 <cfif action is "load">

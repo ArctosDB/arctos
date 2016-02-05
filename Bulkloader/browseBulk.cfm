@@ -87,7 +87,7 @@
 	<style>
 	#cfsucks{font-size;x-small; display:inline-block; border:1px solid black;padding:.5em;margin:.5em;}
 	</style>
-		
+
 	<div id="cfsucks">
 		Caution: This form is 100% native CF ajax, and therefore fragile. Use another method if this isn't working.
 	</div>
@@ -108,7 +108,7 @@
 		<cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
 		<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby},{colln})">
 		<cfset args.name="blGrid">
-		<cfset args.pageSize="20">		
+		<cfset args.pageSize="20">
 		<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#&colln=#colln#">Download CSV</a>&nbsp;~&nbsp;
 		Set LOADED to DELETE to delete.&nbsp;~&nbsp;
 		<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&colln=#colln#&returnAction=ajaxGrid">Mark all to load</a>
@@ -203,8 +203,8 @@
 					 			<input type="button" value="SQL" class="lnkBtn" onclick="f.action.value='sqlTab';f.submit();">
 								<input type="button" value="AJAX grid" class="lnkBtn" onclick="f.action.value='ajaxGrid';f.submit();">
 								<input type="button" value="CSV" class="lnkBtn" onclick="f.action.value='download';f.submit();">
-								
-								
+
+
 							</td>
 						</tr>
 					</table>
@@ -617,7 +617,7 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
-<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#&colln=#colln#">
+<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#&colln=#colln#" addtoken="false">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
@@ -653,7 +653,7 @@
 		</cfquery>
 	</cfif>
 
-<cflocation url="browseBulk.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#&colln=#colln#">
+<cflocation url="browseBulk.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#&colln=#colln#" addtoken="false">
 
 </cfoutput>
 </cfif>

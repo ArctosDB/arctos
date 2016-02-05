@@ -1658,7 +1658,7 @@ document.getElementById('saveme').submit();
 	</cfoutput>
 	<cfoutput>
 	<cfset downloadFile = "/download/#dlFile#">
-	<cflocation url="download_agree.cfm?cnt=#getBasic.recordcount#&downloadFile=#downloadFile#">
+	<cflocation url="download_agree.cfm?cnt=#getBasic.recordcount#&downloadFile=#downloadFile#" addtoken="false">
 	</cfoutput>
 </cfif>
 
@@ -1895,7 +1895,7 @@ document.getElementById('saveme').submit();
 	</cfoutput>
 	<cfoutput>
 	<cfset downloadFile = "/download/#dlFile#">
-	<cflocation url="download_agree.cfm?cnt=#getBasic.recordcount#&downloadFile=#downloadFile#">
+	<cflocation url="download_agree.cfm?cnt=#getBasic.recordcount#&downloadFile=#downloadFile#" addtoken="false">
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">

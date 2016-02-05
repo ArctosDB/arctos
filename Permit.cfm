@@ -630,7 +630,7 @@ UPDATE permit SET
 	 </cfif>
 	 where  permit_id = #permit_id#
 </cfquery>
-<cflocation url="Permit.cfm?Action=editPermit&permit_id=#permit_id#">
+<cflocation url="Permit.cfm?Action=editPermit&permit_id=#permit_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
@@ -689,7 +689,7 @@ VALUES (
 	 	,#contact_agent_id#
 	 </cfif>)
 </cfquery>
-	<cflocation url="Permit.cfm?Action=editPermit&permit_id=#nextPermit.nextPermit#">
+	<cflocation url="Permit.cfm?Action=editPermit&permit_id=#nextPermit.nextPermit#" addtoken="false">
   </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
@@ -698,8 +698,8 @@ VALUES (
 <cfquery name="deletePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 DELETE FROM permit WHERE permit_id = #permit_id#
 </cfquery>
-	
-	<cflocation url="Permit.cfm">
+
+	<cflocation url="Permit.cfm" addtoken="false">
   </cfoutput>
 </cfif>
 <cfinclude template = "includes/_footer.cfm">

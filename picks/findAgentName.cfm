@@ -34,11 +34,11 @@
 		<br><input type="submit" class="lnkBtn" value="Search">
 	</form>
 	<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
+		SELECT
 			dispNames.agent_id,
 			dispNames.agent_name_id,
 			dispNames.agent_name_type,
-			dispNames.agent_name 
+			dispNames.agent_name
 		FROM
 			agent_name dispNames,
 			agent_name searchNames
@@ -56,7 +56,7 @@
 		ORDER BY
 			dispNames.agent_id,
 			dispNames.agent_name
-	</cfquery>	
+	</cfquery>
 		<cfif getAgentId.recordcount is 0>
 			Nothing matched #agentname#.
 			<cfif listfindnocase(session.roles,"manage_agents")>
@@ -81,7 +81,7 @@
 					<cfset laid=agent_id>
 				    <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td>
-							<a href="##" onClick="javascript: 
+							<a href="##" onClick="javascript:
 								opener.document.getElementById('#agentIdFld#').value='#agent_name_id#';
 								opener.document.getElementById('#agentNameFld#').value='#thisName#';
 								opener.document.getElementById('#agentNameFld#').style.background='##8BFEB9';
@@ -142,9 +142,9 @@
 		<label for="prefix">Prefix</label>
 		<select name="prefix" id="prefix" size="1">
 			<option value=""></option>
-			<cfloop query="ctprefix"> 
+			<cfloop query="ctprefix">
 				<option value="#prefix#">#prefix#</option>
-			</cfloop> 
+			</cfloop>
 		</select>
 		<label for="first_name">First Name</label>
 		<input type="text" name="first_name" id="first_name">
@@ -155,9 +155,9 @@
 		<label for="suffix">Suffix</label>
 		<select name="suffix" size="1" id="suffix">
 			<option value=""></option>
-			<cfloop query="ctsuffix"> 
+			<cfloop query="ctsuffix">
 				<option value="#suffix#">#suffix#</option>
-			</cfloop> 
+			</cfloop>
     	</select>
 		<label for="pref_name">Preferred Name</label>
 		<input type="text" name="pref_name" id="pref_name">
@@ -171,7 +171,7 @@
 		</cfquery>
 		<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_agent_name_id.nextval nextAgentNameId from dual
-		</cfquery>		
+		</cfquery>
 		<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO agent (
 				agent_id,
@@ -182,9 +182,9 @@
 				'person',
 				#agentNameID.nextAgentNameId#
 				)
-		</cfquery>			
+		</cfquery>
 		<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO person ( 
+			INSERT INTO person (
 				PERSON_ID
 				<cfif len(#prefix#) gt 0>
 					,prefix
@@ -264,7 +264,7 @@
 					<input type="submit" class="insBtn" value="Of course. I carefully checked for duplicates before creating this agent.">
 					<br><input type="button" class="qutBtn" onclick="back()" value="Oh - back one step, please.">
 				</form>
-				<cfabort>					
+				<cfabort>
 			</cfif>
 		</cfif>
 		<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -283,8 +283,8 @@
 				)
 		</cfquery>
 	</cftransaction>
-	<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">	
-	<cflocation url="#rdurl#">
+	<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">
+	<cflocation url="#rdurl#" addtoken="false">
 </cfif>
 <cfif Action is "makeNewAgent">
 	<cftransaction>
@@ -333,7 +333,7 @@
 					<input type="submit" class="insBtn" value="Of course. I carefully checked for duplicates before creating this agent.">
 					<br><input type="button" class="qutBtn" onclick="back()" value="Oh - back one step, please.">
 				</form>
-				<cfabort>					
+				<cfabort>
 			</cfif>
 		</cfif>
 		<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -352,8 +352,8 @@
 				)
 		</cfquery>
 	</cftransaction>
-	<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">	
-	<cflocation url="#rdurl#">
+	<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">
+	<cflocation url="#rdurl#" addtoken="false">
 </cfif>
 </cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">

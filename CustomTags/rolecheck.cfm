@@ -3,7 +3,7 @@
 	(isdefined("session.force_password_change") and
 	session.force_password_change is "yes" and
 	cgi.script_name is not "/ChangePassword.cfm")>
-	<cflocation url="/ChangePassword.cfm">
+	<cflocation url="/ChangePassword.cfm" addtoken="false">
 </cfif>
 <cfif fileexists(application.webDirectory & cgi.script_name)>
 	<!----  cachedWithin="#CreateTimeSpan(0,1,0,0)#" ----->

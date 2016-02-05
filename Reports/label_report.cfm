@@ -3,16 +3,16 @@
     Need a random collection object ID to test?
    <br> <a href="label_report.cfm?action=listReports&collection_object_id=12">Try this one</a>
     <br>aborting....<cfabort>
-</cfif>	
+</cfif>
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 <!-------------------------------------------------------------->
 <cfif #action# is "delete">
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        delete from cf_report_sql 
+        delete from cf_report_sql
         where report_id=#report_id#
     </cfquery>
-    <cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#">
+    <cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "saveEdit">
@@ -21,7 +21,7 @@
         <cfabort>
     </cfif>
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        update cf_report_sql set     
+        update cf_report_sql set
         report_name ='#report_name#',
         report_template  ='#report_template#',
         sql_text ='#escapeQuotes(sql_text)#',
@@ -29,7 +29,7 @@
         report_format ='#report_format#'
         where report_id=#report_id#
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">
+    <cflocation url="label_report.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
 <!--------------------------------------------------------------------------------------->
 <cfif #action# is "edit">
@@ -37,14 +37,14 @@
 	    <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        select report_id from cf_report_sql where report_name='#report_name#'
 	    </cfquery>
-        <cflocation url="label_report.cfm?action=edit&report_id=#e.report_id#&collection_object_id=#collection_object_id#">
+        <cflocation url="label_report.cfm?action=edit&report_id=#e.report_id#&collection_object_id=#collection_object_id#" addtoken="false">
     </cfif>
 
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
-   
+
     <form method="get" action="label_report.cfm" enctype="text/plain">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -80,7 +80,7 @@
         b.value=unescape(a);
     </script>
        <form method="post" action="label_report.cfm" target="_blank">
-           <input type="hidden" name="action" value="testSQL">           
+           <input type="hidden" name="action" value="testSQL">
             <input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	       <input type="hidden" name="test_sql" id="test_sql">
            <input type="hidden" name="format" id="format" value="table">
@@ -100,7 +100,7 @@
             '#report_template#',
             'select 1 from dual')
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&report_name=New_Report&collection_object_id=#collection_object_id#">
+    <cflocation url="label_report.cfm?action=edit&report_name=New_Report&collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "clone">
@@ -117,7 +117,7 @@
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
-    <cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#">
+    <cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "testSQL">
@@ -133,7 +133,7 @@
              #preservesinglequotes(sql)#
          </cfquery>
          <cfdump var=#user_sql#>
-        
+
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "loadTemplate">
@@ -151,7 +151,7 @@
 		<a href="javascript:back()">Go Back</a>
 		<cffile action="delete"
 	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
-        <cfabort>   
+        <cfabort>
 	</cfif>
 	<!----This name contains only alphanumeric characters, check the extension---->
 	<cfset ext=right(extension,len(extension)-1)>
@@ -162,7 +162,7 @@
         <cfabort>
 	</cfif>
 	<!--- good extension, see if it matches what we'll accept ---->
-	<cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#">
+	<cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#" addtoken="false">
 
 </cfif>
 <!-------------------------------------------------------------->
@@ -207,7 +207,7 @@
 	            <td><a href="label_report.cfm?action=download&report_template=#report_template#&collection_object_id=#collection_object_id#">Download Report</a></td>
 	        </tr>
         </cfloop>
-      
+
     </cfloop>
     </table>
 </cfif>
@@ -220,36 +220,36 @@
 <!----
 
     drop table cf_report_sql;
-    
+
     create table cf_report_sql (
         report_id number not null,
         report_name varchar2(38) not null,
         report_template  varchar2(38) not null,
         sql_text varchar2(4000) not null
     );
-    
+
     alter table cf_report_sql add pre_function varchar2(50);
     alter table cf_report_sql add report_format varchar2(50) default 'PDF';
     update cf_report_sql set report_format='PDF';
     alter table cf_report_sql modify report_format not null;
-    
+
     create or replace public synonym cf_report_sql for cf_report_sql;
 
     create unique index u_cf_report_sql_name on cf_report_sql(report_name);
-    
+
     ALTER TABLE cf_report_sql
         add CONSTRAINT pk_cf_report_sql
         PRIMARY  KEY (report_id);
-        
-        
-     CREATE OR REPLACE TRIGGER cf_report_sql_key                                         
-         before insert  ON cf_report_sql  
-		 for each row 
-		    begin     
-		    	if :NEW.report_id is null then                                                                                      
+
+
+     CREATE OR REPLACE TRIGGER cf_report_sql_key
+         before insert  ON cf_report_sql
+		 for each row
+		    begin
+		    	if :NEW.report_id is null then
 		    		select somerandomsequence.nextval into :new.report_id from dual;
-		    	end if;                                
-		    end;                                                                                            
+		    	end if;
+		    end;
 		/
 		sho err
   grant all on cf_report_sql to coldfusion_user;
@@ -260,7 +260,7 @@
 <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select * from cf_report_sql order by report_name
 </cfquery>
- 
+
 <form name="print" method="post" action="label_report.cfm">
     <input type="hidden" name="action" value="print">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -287,19 +287,19 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-    <!--- 
+    <!---
         Can call a custom function here to transform the query
     --->
     <cfif len(e.pre_function) gt 0>
         <cfset d=evaluate(e.pre_function & "(d)")>
     </cfif>
 
-        <cfreport format="#e.report_format#" 
+        <cfreport format="#e.report_format#"
             template="#application.webDirectory#/Reports/templates/#e.report_template#"
-            query="d" 
+            query="d"
            overwrite="true"></cfreport>
 
-    
+
 
 </cfif>
 </cfoutput>

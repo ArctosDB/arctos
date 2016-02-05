@@ -757,7 +757,7 @@
 	<cfquery name="deleCit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from citation where citation_id = #citation_id#
 	</cfquery>
-	<cflocation url="Citation.cfm?publication_id=#publication_id#">
+	<cflocation url="Citation.cfm?publication_id=#publication_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->

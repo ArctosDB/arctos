@@ -21,21 +21,21 @@ create table cf_temp_agents (
     other_name_type_2 varchar2(255),
     other_name_2 varchar2(255),
     other_name_type_3 varchar2(255),
-    other_name_3 varchar2(255)    
+    other_name_3 varchar2(255)
 	);
-	
+
 create public synonym cf_temp_agents for cf_temp_agents;
 grant all on cf_temp_agents to coldfusion_user;
 grant select on cf_temp_agents to public;
 
- CREATE OR REPLACE TRIGGER cf_temp_agents_key                                         
+ CREATE OR REPLACE TRIGGER cf_temp_agents_key
  before insert  ON cf_temp_agents
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
+ for each row
+    begin
+    	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 sho err
 
@@ -44,13 +44,13 @@ sho err
 
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
-Step 1: Upload a comma-delimited text file (csv). 
-Include column headings, spelled exactly as below. 
+Step 1: Upload a comma-delimited text file (csv).
+Include column headings, spelled exactly as below.
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy and save as a .csv file</label>
 		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,agent_remark,prefix,suffix,other_name_type,other_name,other_name_2,other_name_type_2,other_name_3,other_name_type_3</textarea>
-	</div> 
+	</div>
 <p></p>
 
 
@@ -73,7 +73,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
     <li>other_name_type_2</li>
 	<li>other_name_2</li>
     <li>other_name_type_3</li>
-	<li>other_name_3</li>				 
+	<li>other_name_3</li>
 </ul>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
@@ -98,7 +98,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>
 
-	
+
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -116,7 +116,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<!--- Excel randomly and unpredictably whacks values off
 				the end when they're NULL. Put NULLs back on as necessary.
@@ -135,8 +135,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	</cfloop>
 </cfoutput>
 
- 
-	<cflocation url="BulkloadAgents.cfm?action=validate">
+
+	<cflocation url="BulkloadAgents.cfm?action=validate" addtoken="false">
 
 </cfif>
 <!------------------------------------------------------->
@@ -158,25 +158,25 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </cfquery>
 <cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update cf_temp_agents set status='bad_prefix'
-	where status is null AND 
+	where status is null AND
 	prefix is not null and (
 		prefix not in (select prefix from ctprefix))
 </cfquery>
 <cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update cf_temp_agents set status='bad_suffix'
-	where status is null AND 
+	where status is null AND
 	suffix is not null and (
 		suffix not in (select suffix from ctsuffix))
 </cfquery>
 <cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update cf_temp_agents set status='last_name_required'
-	where status is null AND 
+	where status is null AND
 		agent_type ='person' and
 		last_name is null
 </cfquery>
 <cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update cf_temp_agents set status='not_a_person'
-	where status is null AND 
+	where status is null AND
 	agent_type != 'person' and (
 		suffix is not null OR
 		prefix is not null OR
@@ -188,24 +188,24 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </cfquery>
 <cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update cf_temp_agents set status='missing_name_type'
-	where status is null AND 
+	where status is null AND
 	other_name is not null and other_name_type is null
 </cfquery>
 <cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
+	where status is null AND
 	other_name is not null and other_name_type is not null and
 	other_name_type not in (select agent_name_type from ctagent_name_type)
 </cfquery>
 <cfquery name="setStatus3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
+	where status is null AND
 	other_name_2 is not null and other_name_type_2 is not null and
 	other_name_type_2 not in (select agent_name_type from ctagent_name_type)
 </cfquery>
 <cfquery name="setStatus4" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
+	where status is null AND
 	other_name_3 is not null and other_name_type_3 is not null and
 	other_name_type_3 not in (select agent_name_type from ctagent_name_type)
 </cfquery>
@@ -217,7 +217,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	Your data will not load! See STATUS column below for more information.
 	<cfdump var=#bads#>
 <cfelse>
-	Review the dump below. If everything seems OK, 
+	Review the dump below. If everything seems OK,
 	<a href="BulkloadAgents.cfm?action=loadData">click here to proceed</a>.
 	<cfdump var=#d#>
 </cfif>
@@ -229,8 +229,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "loadData">
 
 <cfoutput>
-	
-		
+
+
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_agents
 	</cfquery>
@@ -244,7 +244,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
 			values (sq_agent_name_id.nextval,sq_agent_id.currval,'preferred','#preferred_name#')
 		</cfquery>
-		
+
 		<cfif #agent_type# is "person">
 			<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into person (PERSON_ID,PREFIX,LAST_NAME,FIRST_NAME,

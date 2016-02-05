@@ -47,33 +47,33 @@
 		</cfloop>
 		<cfquery name="userEmail" datasource="uam_god">
 			select distinct adr from (
-				select 
+				select
 					EMAIL adr
-				from 
+				from
 					cf_user_data,
-					cf_users 
-				where 
-					cf_user_data.USER_ID=cf_users.USER_ID and 
+					cf_users
+				where
+					cf_user_data.USER_ID=cf_users.USER_ID and
 					cf_users.username='#username#'
 				union
-				select 
+				select
 					ADDRESS adr
-				from 
+				from
 					ADDRESS,
-					agent_name 
-				where 
-					ADDRESS.agent_id=agent_name.agent_id and 
+					agent_name
+				where
+					ADDRESS.agent_id=agent_name.agent_id and
 					ADDRESS_TYPE='email' and
 					AGENT_NAME_TYPE='login' and
 					AGENT_NAME='#username#'
 				union
-				select 
+				select
 					ADDRESS adr
-				from 
+				from
 					ADDRESS,
-					agent_name 
-				where 
-					ADDRESS.agent_id=agent_name.agent_id and 
+					agent_name
+				where
+					ADDRESS.agent_id=agent_name.agent_id and
 					ADDRESS_TYPE='email' and
 					AGENT_NAME_TYPE='login' and
 					AGENT_NAME='#session.username#'
@@ -97,14 +97,14 @@
 			<cfquery name="stopTrg" datasource="uam_god">
 				alter trigger CF_PW_CHANGE enable
 			</cfquery>
-			<cfmail 
+			<cfmail
 				to="#valuelist(userEmail.adr)#"
 				cc="#Application.logEmail#"
-				subject="Arctos Account Unlocked" 
-				from="AccountUnlock@#Application.fromEmail#" 
+				subject="Arctos Account Unlocked"
+				from="AccountUnlock@#Application.fromEmail#"
 				type="html">
 				Dear #username#,
-				
+
 				<p>Your Arctos account has been unlocked and reset by #session.username#.</p>
 					<p>
 					Your one-time username/password is
@@ -126,7 +126,7 @@
 </cfif>
 <cfif Action is "list">
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
+		SELECT
 			username,
 			upper(username) as ucasename,
 			approved_to_request_loans,
@@ -135,10 +135,10 @@
 			LAST_NAME,
 			AFFILIATION,
 			EMAIL
-		FROM 
+		FROM
 			cf_users,
 			cf_user_data
-		where 
+		where
 			cf_users.user_id = cf_user_data.user_id (+) and
 			upper(username) like '%#ucase(username)#%'
 		ORDER BY
@@ -153,9 +153,9 @@
 		</tr>
 		<cfoutput query="getUsers">
 			<cfquery name="roles" datasource="uam_god">
-				select 
+				select
 					granted_role role_name
-				from 
+				from
 					dba_role_privs,
 					collection
 				where
@@ -176,7 +176,7 @@
 		<cfquery name="g" datasource="uam_god">
 			grant #role_name# to #username#
 		</cfquery>
-		<cflocation url="AdminUsers.cfm?action=edit&username=#username#" addtoken="no">		
+		<cflocation url="AdminUsers.cfm?action=edit&username=#username#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------->
@@ -192,7 +192,7 @@
 <cfif action is "edit">
 	<cfoutput>
 		<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				username,
 				FIRST_NAME,
 				MIDDLE_NAME,
@@ -200,7 +200,7 @@
 				AFFILIATION,
 				EMAIL,
 				cf_users.USER_ID
-			FROM 
+			FROM
 				cf_users,
 				cf_user_data
 			where
@@ -208,12 +208,12 @@
 			 	upper(username) = '#ucase(username)#'
 		</cfquery>
 		<cfquery name="isAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				agent_id
-			FROM 
+			FROM
 				agent_name
 			where
-				agent_name_type='login' and 
+				agent_name_type='login' and
 			 	upper(agent_name) = '#ucase(username)#'
 		</cfquery>
 		<cfif getUsers.recordcount is not 1>
@@ -224,37 +224,37 @@
 		</cfif>
 		<!--- grantables: roles that the user does not have but the administrator DOES have --->
 		<cfquery name="ctRoleName" datasource="uam_god">
-			select 
-				role_name 
-			from 
-				cf_ctuser_roles 
-			where 
+			select
+				role_name
+			from
+				cf_ctuser_roles
+			where
 				upper(role_name) not in (
-					select 
+					select
 						upper(granted_role) role_name
-					from 
+					from
 						dba_role_privs,
 						cf_ctuser_roles
 					where
 						upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
 						upper(grantee) = '#ucase(username)#'
-				) 
+				)
 			and upper(role_name) IN (
-				select 
+				select
 						upper(granted_role) role_name
-					from 
+					from
 						dba_role_privs,
 						cf_ctuser_roles
 					where
 						upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
 						upper(grantee) = '#ucase(session.username)#'
-				)	
-		</cfquery>		
+				)
+		</cfquery>
 		<!---- roles that the user already has ---->
 		<cfquery name="roles" datasource="uam_god">
-			select 
+			select
 				granted_role role_name
-			from 
+			from
 				dba_role_privs,
 				cf_ctuser_roles
 			where
@@ -269,7 +269,7 @@
 		</cfquery>
 		<cfquery name="user_croles" datasource="uam_god">
 			select granted_role role_name
-			from 
+			from
 			dba_role_privs,
 			cf_collection
 			where
@@ -279,17 +279,17 @@
 		</cfquery>
 		<cfquery name="croles" datasource="uam_god">
 			select granted_role role_name
-			from 
+			from
 			dba_role_privs,
 			cf_collection
 			where
-			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name) 
+			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name)
 			group by granted_role
 			order by granted_role
 		</cfquery>
 		<cfquery name="myroles" datasource="uam_god">
 			select granted_role role_name
-			from 
+			from
 			dba_role_privs,
 			cf_collection
 			where
@@ -347,7 +347,7 @@
 								<cfelse>
 									<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite as Operator</a>
 									<a href="http://arctosdb.org/how-to/users/##create" target="blank" class="external">READ THIS FIRST!</a>
-								</cfif>				
+								</cfif>
 							</td>
 						</tr>
 					</table>
@@ -431,7 +431,7 @@
 										<a href="AdminUsers.cfm?action=remrole&role_name=#role_name#&username=#username#&user_id=#getUsers.user_id#">[ revoke ]</a>
 									</td>
 								</tr>
-						</cfloop>					
+						</cfloop>
 					</table>
 				</td>
 			</tr>
@@ -447,14 +447,14 @@
 		The account for #username# is now locked. Contact a DBA to unlock it.
 		<a href="AdminUsers.cfm?username=#username#&action=edit">Continue</a>
 	</cfoutput>
-</cfif>				
+</cfif>
 <!---------------------------------------------------->
 <cfif action is "adminSet">
 	<cfoutput>
 		<cfquery name="gpw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from temp_allow_cf_user where user_id=#user_id#
 		</cfquery>
-		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#">
+		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
@@ -462,13 +462,13 @@
 	<cfoutput>
 		<!--- see if they have all the right stuff to be a user --->
 		<cfquery name="getTheirEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				EMAIL,
 				username
-			FROM 
+			FROM
 				cf_users,
 				cf_user_data
-			where 
+			where
 				cf_users.user_id=cf_user_data.user_id and
 				cf_users.user_id=#user_id#
 		</cfquery>
@@ -479,12 +479,12 @@
 			<cfabort>
 		</cfif>
 		<cfquery name="getMyEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				EMAIL
-			FROM 
+			FROM
 				cf_users,
 				cf_user_data
-			where 
+			where
 				cf_users.user_id=cf_user_data.user_id and
 				username='#session.username#'
 		</cfquery>
@@ -495,12 +495,12 @@
 			<cfabort>
 		</cfif>
 		<cfquery name="getAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				agent_id
-			FROM 
+			FROM
 				agent_name,
 				cf_users
-			where 
+			where
 				agent_name.agent_name_type='login' and
 				agent_name.agent_name=cf_users.username and
 				cf_users.user_id=#user_id#
@@ -513,7 +513,7 @@
 		</cfif>
 		<cfif len(getTheirEmail.EMAIL) gt 0 and len(getMyEmail.EMAIL) gt 0 and getAgent.recordcount is 1>
 			<cfquery name="gpw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into temp_allow_cf_user (user_id,allow,invited_by_email) 
+				insert into temp_allow_cf_user (user_id,allow,invited_by_email)
 				values (#user_id#,1,'#getMyEmail.EMAIL#')
 			</cfquery>
 			<cfmail to="#getTheirEmail.EMAIL#" from="welcome@#Application.fromEmail#" subject="operator invitation" cc="#getMyEmail.EMAIL#,#Application.bugReportEmail#" type="html">
@@ -523,14 +523,14 @@
 				<br>The next time you log in, your Profile page (#application.serverRootUrl#/myArctos.cfm)
 				will contain an authentication form.
 				<br>You must complete this form. If your password does not meet our rules you may be required
-				to create a new password by following the link from your Profile page. 
+				to create a new password by following the link from your Profile page.
 				You will then be required to fill out the authentication form again.
 				The form will be replaced with a message when you have successfully authenticated.
 				<br>
-				Please email #getMyEmail.EMAIL# if you have any questions, or 
+				Please email #getMyEmail.EMAIL# if you have any questions, or
 				#Application.bugReportEmail# if you believe you have received this message in error.
 			</cfmail>
-			An invitation has been sent. <a href="AdminUsers.cfm?Action=edit&username=#username#">continue</a>			
+			An invitation has been sent. <a href="AdminUsers.cfm?Action=edit&username=#username#">continue</a>
 		</cfif>
 	</cfoutput>
 </cfif>
@@ -545,21 +545,21 @@
 			from
 			  (
 			  /* THE USERS */
-				select 
-				  null     grantee, 
+				select
+				  null     grantee,
 				  username granted_role
-				from 
+				from
 				  dba_users
 				where
 				  username like upper('#ucase(username)#')
-			  /* THE ROLES TO ROLES RELATIONS */ 
+			  /* THE ROLES TO ROLES RELATIONS */
 			  union
-				select 
+				select
 				  grantee,
 				  granted_role
 				from
 				  dba_role_privs
-			  /* THE ROLES TO PRIVILEGE RELATIONS */ 
+			  /* THE ROLES TO PRIVILEGE RELATIONS */
 			  union
 				select
 				  grantee,

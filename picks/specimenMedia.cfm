@@ -301,7 +301,7 @@
 				#collection_object_id#
 			)
 		</cfquery>
-		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#">
+		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <cfif action is "createNewMedia">
@@ -390,7 +390,7 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#">
+		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_pickFooter.cfm">

@@ -18,8 +18,8 @@
 	<cfset collection_object_id=valuelist(cids.collection_object_id)>
 </cfif>
 
-	
-	
+
+
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 
@@ -29,7 +29,7 @@
 			select report_id from cf_report_sql where upper(report_name)='#ucase(report)#'
 		</cfquery>
 		<cfif id.recordcount is 1 and id.report_id gt 0>
-			<cflocation url='report_printer.cfm?action=print&report_id=#id.report_id#&collection_object_id=#collection_object_id#&container_id=#container_id#&transaction_id=#transaction_id#&sort=#sort#'>
+			<cflocation url='report_printer.cfm?action=print&report_id=#id.report_id#&collection_object_id=#collection_object_id#&container_id=#container_id#&transaction_id=#transaction_id#&sort=#sort#' addtoken="false">
 		<cfelse>
 			<div class="error">
 				You tried to call this page with a report name, but that failed.
@@ -64,7 +64,7 @@
 		<cfset sql=e.sql_text>
          <cfif sql contains "##transaction_id##">
 			<cfset sql=replace(sql,"##transaction_id##",#transaction_id#,"all")>
-		</cfif> 
+		</cfif>
 		<cfif sql contains "##collection_object_id##">
 			<cfset sql=replace(sql,"##collection_object_id##",#collection_object_id#)>
 		</cfif>
@@ -112,7 +112,7 @@
 	<cfelse>
 		<cfset extension="swf">
 	</cfif>
-    <cfreport format="#e.report_format#" 
+    <cfreport format="#e.report_format#"
     	template="#application.webDirectory#/Reports/templates/#e.report_template#"
         query="d"
         overwrite="true">
@@ -129,7 +129,7 @@
 		<cfset sql=e.sql_text>
          <cfif sql contains "##transaction_id##">
 			<cfset sql=replace(sql,"##transaction_id##",#transaction_id#,"all")>
-		</cfif> 
+		</cfif>
 		<cfif sql contains "##collection_object_id##">
 			<cfset sql=replace(sql,"##collection_object_id##",#collection_object_id#)>
 		</cfif>
@@ -170,8 +170,8 @@
     <cfif len(e.pre_function) gt 0>
         <cfset d=evaluate(e.pre_function & "(d)")>
     </cfif>
-	
-	
+
+
 	<cfdump var=#d#>
 </cfif>
 

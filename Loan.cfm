@@ -1026,7 +1026,7 @@ just fooling idiot cfclipse into using the right colors
 		DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and
 		permit_id=#permit_id#
 	</cfquery>
-	<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
+	<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#" addtoken="false">
 </cfif>
 
 <!-------------------------------------------------------------------------------------------------->
@@ -1222,7 +1222,7 @@ just fooling idiot cfclipse into using the right colors
 					</cfif>
 				</cfloop>
 			</cftransaction>
-			<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
+			<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->

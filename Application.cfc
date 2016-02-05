@@ -376,7 +376,7 @@
             cPath does not contain "/get_short_doc.cfm" and
             cPath does not contain "/errors/gtfo.cfm" and
             len(session.username) is 0>
-            <cflocation url="/errors/dev_login.cfm">
+            <cflocation url="/errors/dev_login.cfm" addtoken="false">
         </cfif>
     </cfif>
 	<cfif listlast(cgi.script_name,".") is "cfm">

@@ -517,7 +517,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			</cfif>
 		</cfif>
 	</cfloop>
-	<cflocation url="loanBulkload.cfm?action=verify">
+	<cflocation url="loanBulkload.cfm?action=verify" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->

@@ -9,19 +9,19 @@
 		select collector_role from ctcollector_role order by collector_role
 	</cfquery>
 	<cfquery name="getColls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
-			agent_name, 
+		SELECT
+			agent_name,
 			collector_role,
 			coll_order,
 			collector.agent_id,
 			collector_id
 		FROM
-			collector, 
+			collector,
 			preferred_agent_name
 		WHERE
 			collector.collection_object_id = #collection_object_id# and
-			collector.agent_id = preferred_agent_name.agent_id 
-		ORDER BY 
+			collector.agent_id = preferred_agent_name.agent_id
+		ORDER BY
 			coll_order
 	</cfquery>
 	<script>
@@ -65,7 +65,7 @@
 								(drag row here)
 							</td>
 							<td>
-								<input type="text" name="name_#i#" id="name_#i#" value="#getColls.agent_name#" class="reqdClr" 
+								<input type="text" name="name_#i#" id="name_#i#" value="#getColls.agent_name#" class="reqdClr"
 									onchange="getAgent('agent_id_#i#','name_#i#','colls',this.value); return false;"
 							 		onKeyPress="return noenter(event);">
 								<input type="hidden" name="agent_id_#i#" id="agent_id_#i#" value="#getColls.agent_id#">
@@ -90,7 +90,7 @@
 						</td>
 						<td>
 							<input type="hidden" name="collector_id_new1" value="new">
-							<input type="text" name="name_new1" id="name_new1" value="" class="" 
+							<input type="text" name="name_new1" id="name_new1" value="" class=""
 								placeholder="Add an Agent"
 								onchange="getAgent('agent_id_new1','name_new1','colls',this.value); return false;"
 						 		onKeyPress="return noenter(event);">
@@ -113,7 +113,7 @@
 						</td>
 						<td>
 							<input type="hidden" name="collector_id_new2" value="new">
-							<input type="text" name="name_new2" id="name_new2" value="" class="" 
+							<input type="text" name="name_new2" id="name_new2" value="" class=""
 								placeholder="Add an Agent"
 								onchange="getAgent('agent_id_new2','name_new2','colls',this.value); return false;"
 						 		onKeyPress="return noenter(event);">
@@ -136,7 +136,7 @@
 						</td>
 						<td>
 							<input type="hidden" name="collector_id_new3" value="new">
-							<input type="text" name="name_new3" id="name_new3" value="" class="" 
+							<input type="text" name="name_new3" id="name_new3" value="" class=""
 								placeholder="Add an Agent"
 								onchange="getAgent('agent_id_new3','name_new3','colls',this.value); return false;"
 						 		onKeyPress="return noenter(event);">
@@ -152,13 +152,13 @@
 						<td>
 							<input type="button" class="delBtn" value="delete" onclick="deleteThis('new3');">
 						</td>
-					</tr>				
+					</tr>
 				</tbody>
 			</table>
 			<br>
-			<input type="submit" value="Save" class="savBtn">	
-		</form>	
-	</cfoutput> 
+			<input type="submit" value="Save" class="savBtn">
+		</form>
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
 <cfif action is "saveEdits">
@@ -166,7 +166,7 @@
 		<cfset agntOrdr=1>
 		<cftransaction>
 			<cfquery name="killall" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete from 
+				delete from
 					collector
 				where
 					collection_object_id=#collection_object_id#
@@ -197,7 +197,7 @@
 				</cfif>
 			</cfloop>
 		</cftransaction>
-		<cflocation url="editColls.cfm?collection_object_id=#collection_object_id#">
-	</cfoutput>	
+		<cflocation url="editColls.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+	</cfoutput>
 </cfif>
 <cf_customizeIFrame>

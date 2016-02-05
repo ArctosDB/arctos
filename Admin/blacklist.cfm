@@ -266,7 +266,7 @@
 			</cfquery>
 			Added #ip#
 		</cfif>
-		<cflocation url="/Admin/blacklist.cfm">
+		<cflocation url="/Admin/blacklist.cfm" addtoken="false">
 		<cfcatch>
 			<cfdump var=#cfcatch#>
 		</cfcatch>
@@ -277,7 +277,7 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from uam.blacklist where ip = '#ip#'
 	</cfquery>
-	<cflocation url="/Admin/blacklist.cfm">
+	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
 </cfif>
 </cfoutput>
 

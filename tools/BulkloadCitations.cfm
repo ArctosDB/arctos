@@ -756,7 +756,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</cfquery>
 	</cfloop>
 	</cftransaction>
-<cflocation url="BulkloadCitations.cfm?action=allDone">
+<cflocation url="BulkloadCitations.cfm?action=allDone" addtoken="false">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------->

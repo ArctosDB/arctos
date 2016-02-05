@@ -1,17 +1,17 @@
 <!----
 	Custom tag to handle broken queries.
-	
+
 	Hopefully, clues users in to what they did wrong.
-	Sends email to site admins with 
+	Sends email to site admins with
 	page, error, and SQL that died
-	
-	DLM 
+
+	DLM
 ---->
 <cfset attributes.title = "Error!">
 <cfif #cgi.REMOTE_ADDR# is "66.249.65.35"
 	OR #cgi.REMOTE_ADDR# is "66.249.64.68">
 	<!---- it's Google, send em to the search page ---->
-	<cflocation url="/SpecimenSearch.cfm">
+	<cflocation url="/SpecimenSearch.cfm" addtoken="false">
 </cfif>
 <cfoutput>
 <table cellpadding="10">
@@ -31,7 +31,7 @@
 					Did your query time out? Try adding parameters or lowering your Detail Level in <a href="/login.cfm">Preferences</a>.
 				</li>
 				<li>
-					Did you enter enough information to process the request? Required fields look like 
+					Did you enter enough information to process the request? Required fields look like
 						<input type="text" class="reqdClr" size="8">
 				</li>
 				<li>
@@ -40,7 +40,7 @@
 				</li>
 			</ul>
 
-<p>If you can't resolve this issue, please submit a <a href="/info/bugs.cfm">Bug Report</a>, 
+<p>If you can't resolve this issue, please submit a <a href="/info/bugs.cfm">Bug Report</a>,
 including any information that may help us help you!</p>
 <p>We sincerely aploogize for the inconvenience.</p>
 
@@ -49,10 +49,10 @@ including any information that may help us help you!</p>
 		#caller.sql#
 	</blockquote>
 </p>
-	
+
 This message has been logged. Please submit a <a href="/info/bugs.cfm">bug report</a>
-if you have any additional information that will help us resolve this problem, or 
-use your browser's back button to try again. 
+if you have any additional information that will help us resolve this problem, or
+use your browser's back button to try again.
 	<cfmail subject="Broken Query" to="#Application.LogEmail#" from="query.error@arctos.database.museum" type="html">
 		A query died!
 		<cfsavecontent variable="errortext">
@@ -75,7 +75,7 @@ Exceptions:
 </cfsavecontent>
 		<br>
 		<strong>Time of exception:</strong> #dateformat(now(),'dd mmm yyyy')# #TimeFormat(Now(),'HH:mm:ss')#
-		<p><strong>Error Message:</strong> 
+		<p><strong>Error Message:</strong>
 		<blockquote>
 			#caller.queryError#
 		</blockquote>
@@ -84,9 +84,9 @@ Exceptions:
 			#caller.sql#
 		</blockquote>
 		</p>
-		
+
 		<p><strong>The page that caused this error was:</strong> #cgi.SCRIPT_NAME#
-		
+
 		<cfif isdefined("session.username")>
 			<p><strong>The user was logged in as:</strong> #session.username# (#cgi.REMOTE_ADDR#)
 		</cfif>

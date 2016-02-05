@@ -112,7 +112,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>
 	</cfloop>
 
-	<cflocation url="BulkloadContEditParent.cfm?action=validate">
+	<cflocation url="BulkloadContEditParent.cfm?action=validate" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->

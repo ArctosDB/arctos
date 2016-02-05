@@ -290,7 +290,7 @@
 				)
 			</cfquery>
 		</cftransaction>
-		<cflocation url="loanItemReview.cfm?transaction_id=#transaction_id#">
+		<cflocation url="loanItemReview.cfm?transaction_id=#transaction_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------->
@@ -428,7 +428,7 @@
 			</cfif>
 			</cfquery>
 		</cfloop>
-	<cflocation url="loanItemReview.cfm?transaction_id=#transaction_id#">
+	<cflocation url="loanItemReview.cfm?transaction_id=#transaction_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <cfinclude template="includes/_footer.cfm">

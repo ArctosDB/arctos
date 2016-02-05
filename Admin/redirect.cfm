@@ -37,7 +37,7 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into redirect (old_path,new_path) values ('#old#','#new#')
 		</cfquery>
-		<cflocation url="redirect.cfm?old_path=#old#&new_path=#new#&action=search">
+		<cflocation url="redirect.cfm?old_path=#old#&new_path=#new#&action=search" addtoken="false">
 	</cfoutput>
 </cfif>
 <cfif action is "search">

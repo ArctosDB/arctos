@@ -403,7 +403,7 @@
 		DELETE FROM specimen_part WHERE collection_object_id = #partID#
 	</cfquery>
 </cftransaction>
-<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
+<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
@@ -534,7 +534,7 @@
 		---->
 	</cfloop>
 	</cftransaction>
-	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
@@ -589,6 +589,6 @@
 			</cfquery>
 	</cfif>
 	</cftransaction>
-	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
 <!----------------------------------------------------------------------------------->

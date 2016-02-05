@@ -82,8 +82,8 @@
 					<div>
 						<strong>#colls.guid_prefix#</strong> <a href="##fatalchanges">why can't I change this?</a>
 					</div>
-					
-					
+
+
 					<label for="descr">Description</label>
 					<textarea name="descr" id="descr" rows="3" cols="40">#colls.descr#</textarea>
 					<label for="citation">Citation</label>
@@ -310,40 +310,40 @@
 </td>
 		</tr>
 	</table>
-	
+
 	<hr>
 	<h2>Random Disclaimer</h2>
 	<div>
 		None of this is an attempt to prevent changes or assert any values over any other; we (the Arctos Advisory and Steering Committees) simply
-		wish to present a uniform front containing unambiguous values. How we accomplish that is, as always, up to the combined efforts of the 
+		wish to present a uniform front containing unambiguous values. How we accomplish that is, as always, up to the combined efforts of the
 		Arctos community.
 	</div>
 	<a name="inst"></a>
 	<h2>Institutional Standardization</h2>
 	<div>
 		Institution Acronym and Institution are set by Institutions as a whole in order to present a united front to users, and to allow
-		hierarchical search controls. To change these values, coordinate the change with all collections in your institution and 
+		hierarchical search controls. To change these values, coordinate the change with all collections in your institution and
 		<a href="/contact.cfm">contact us</a>
 	</div>
 	<a name="coln"></a>
 	<h2>Collection Naming Standardization</h2>
 	<div>
-		Collection has been (more or less) standardized across all collections, and may only be changed with the 
+		Collection has been (more or less) standardized across all collections, and may only be changed with the
 		agreement of the Arctos community. <a href="/contact.cfm">Contact us</a> or send a message to the Arctos group
 		to initiate changes.
 	</div>
-	
+
 	<a name="fatalchanges"></a>
 	<h2>Other Restrictions</h2>
 	<div>
-		<strong>guid_prefix</strong> is used in forming URLs to specimens. Changing it (after specimens have been "published" on the Internet) is generally a 
+		<strong>guid_prefix</strong> is used in forming URLs to specimens. Changing it (after specimens have been "published" on the Internet) is generally a
 		bad idea, but we can accommodate changes by creating redirects to "old" URLs. <a href="/contact.cfm">Contact us</a> is a change to guid_prefix is necessary.
 	</div>
 	<div>
-		<strong>collection_cde</strong> controls code tables and therefore acceptable data. Changing collection_cde requires data migration. 
+		<strong>collection_cde</strong> controls code tables and therefore acceptable data. Changing collection_cde requires data migration.
 		<a href="/contact.cfm">Contact us</a> is a change to collection_cde is necessary.
 	</div>
-	
+
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
@@ -356,7 +356,7 @@
 		WHERE
 			collection_contact_id = #collection_contact_id#
 		</cfquery>
-		<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#">
+		<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
@@ -367,7 +367,7 @@
 		WHERE
 			collection_contact_id = #collection_contact_id#
 		</cfquery>
-		<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#">
+		<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
@@ -388,7 +388,7 @@
 			header_credit='#header_credit#'
  		where collection_id=#collection_id#
  	</cfquery>
-	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#">
+	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
@@ -408,7 +408,7 @@
 			#contact_agent_id#)
 	</cfquery>
 	</cftransaction>
-	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#">
+	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
@@ -428,7 +428,7 @@
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
-	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#">
+	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->

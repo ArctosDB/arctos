@@ -15,7 +15,7 @@
 	jQuery(document).ready(function() {
 		jQuery("#received_date").datepicker();
 		jQuery("#lenders_loan_date").datepicker();
-		jQuery("#due_date").datepicker();	
+		jQuery("#due_date").datepicker();
 		jQuery("#trans_date").datepicker();
 		jQuery("#received_date_after").datepicker();
 		jQuery("#received_date_before").datepicker();
@@ -47,7 +47,7 @@
 	Find Borrows:
 	<form name="borrow" method="post" action="borrow.cfm">
 		<input type="hidden" name="action" value="findEm">
-		<label for="trans_agent_role_1">Agent 1</label>		
+		<label for="trans_agent_role_1">Agent 1</label>
 		<select name="trans_agent_role_1">
 			<option value="">Please choose an agent role...</option>
 			<cfloop query="cttrans_agent_role">
@@ -56,7 +56,7 @@
 		</select>
 		<label for="agent_1">Agent 1 Name</label>
 		<input type="text" name="agent_1"  size="50">
-		<label for="trans_agent_role_2">Agent 2</label>		
+		<label for="trans_agent_role_2">Agent 2</label>
 		<select name="trans_agent_role_2">
 			<option value="">Please choose an agent role...</option>
 			<cfloop query="cttrans_agent_role">
@@ -77,13 +77,13 @@
 		<label for="LENDERS_TRANS_NUM_CDE">Lender's Transaction Number</label>
 		<input type="text" name="LENDERS_TRANS_NUM_CDE" id="LENDERS_TRANS_NUM_CDE">
 		<label for="lender_loan_type">Lender's Loan Type</label>
-		<input type="text" name="lender_loan_type" id="lender_loan_type">		
+		<input type="text" name="lender_loan_type" id="lender_loan_type">
 		<label for="LENDERS_INVOICE_RETURNED_FG">Lender acknowledged returned?</label>
 		<select name="LENDERS_INVOICE_RETURNED_FG" id="LENDERS_INVOICE_RETURNED_FG" size="1">
 			<option value=""></option>
 			<option value="1">yes</option>
 			<option value="0">no</option>
-		</select>			
+		</select>
 		<label for="borrow_status">Status</label>
 		<select name="borrow_status" id="borrow_status" size="1" class="reqdCld">
 			<option value=""></option>
@@ -137,7 +137,7 @@
 		<cfif isdefined("shipment_type") and len(shipment_type) gt 0>
 			<cfset w=w & " and shipment.shipment_type='#shipment_type#'">
 		</cfif>
-		
+
 		<cfif (isdefined("trans_agent_role_1") and len(trans_agent_role_1) gt 0) or (isdefined("agent_1") and len(agent_1) gt 0)>
 			<cfset f=f & ", agent_name a1,trans_agent ta1">
 			<cfset w=w & " and trans.transaction_id=ta1.transaction_id and ta1.agent_id=a1.agent_id">
@@ -231,7 +231,7 @@
 			<cfabort>
 		</cfif>
 		<cfquery name="b" dbtype="query">
-			select 
+			select
 				TRANSACTION_ID,
 				LENDERS_TRANS_NUM_CDE,
 				BORROW_NUMBER,
@@ -311,21 +311,21 @@
 					#NATURE_OF_MATERIAL#
 				</td>
 				<cfquery name="a" dbtype="query">
-					select 
+					select
 						agent_name,
-						trans_agent_role 
-					from 
+						trans_agent_role
+					from
 						getBorrow
-					where 
+					where
 						transaction_id=#transaction_id#
 					group by
 						agent_name,
 						trans_agent_role
-					order by 
+					order by
 						trans_agent_role,
 						agent_name
 				</cfquery>
-				
+
 				<td>
 					<cfloop query="a">
 						#trans_agent_role#: #agent_name#<br>
@@ -365,14 +365,14 @@
 				borrow,
 				collection
 			WHERE
-				trans.transaction_id = borrow.transaction_id and				
+				trans.transaction_id = borrow.transaction_id and
 				trans.collection_id = collection.collection_id and
 				borrow.transaction_id=#transaction_id#
 		</cfquery>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				trans_agent_id,
-				trans_agent.agent_id, 
+				trans_agent.agent_id,
 				agent_name,
 				trans_agent_role
 			from
@@ -414,7 +414,7 @@
 									<cfset thisRole = #trans_agent_role#>
 									<select name="trans_agent_role_#trans_agent_id#">
 										<cfloop query="cttrans_agent_role">
-											<option 
+											<option
 												<cfif #trans_agent_role# is #thisRole#> selected="selected"</cfif>
 												value="#trans_agent_role#">#trans_agent_role#</option>
 										</cfloop>
@@ -442,7 +442,7 @@
 									</select>
 								</td>
 								<td>&nbsp;</td>
-							</tr>				
+							</tr>
 					</table>
 				</td>
 			</tr>
@@ -481,7 +481,7 @@
 					<label for="borrow_status">Status</label>
 					<select name="borrow_status" id="borrow_status" size="1" class="reqdCld">
 						<cfloop query="ctStatus">
-							<option 
+							<option
 								<cfif #ctStatus.borrow_status# is "#getBorrow.BORROW_STATUS#"> selected </cfif>
 							value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
 						</cfloop>
@@ -527,13 +527,13 @@
 						onclick="borrow.action.value='delete';confirmDelete('borrow');">
 				</td>
 			</tr>
-			
+
 		</form>
 </table>
 </td>
 <td valign="top">
 	<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
+		SELECT
 			permit.permit_id,
 			issuedBy.agent_name as IssuedByAgent,
 			issuedTo.agent_name as IssuedToAgent,
@@ -542,11 +542,11 @@
 			exp_Date,
 			permit_Num,
 			permit_Type,
-			permit_remarks	
+			permit_remarks
 		FROM
-			permit, 
-			permit_trans, 
-			preferred_agent_name issuedTo, 
+			permit,
+			permit_trans,
+			preferred_agent_name issuedTo,
 			preferred_agent_name issuedBy
 		WHERE
 			permit.permit_id = permit_trans.permit_id AND
@@ -554,24 +554,24 @@
 			permit.issued_to_agent_id = issuedTo.agent_id AND
 			permit_trans.transaction_id = #transaction_id#
 	</cfquery>
-	<br><strong>Permits:</strong>  
+	<br><strong>Permits:</strong>
 	<cfloop query="getPermits">
 		<form name="killPerm#currentRow#" method="post" action="borrow.cfm">
 			<p>
 				<strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
-			 	#IssuedToAgent# by #IssuedByAgent# on 
-				#dateformat(issued_Date,"yyyy-mm-dd")#. 
-				<cfif len(renewed_Date) gt 0> 
+			 	#IssuedToAgent# by #IssuedByAgent# on
+				#dateformat(issued_Date,"yyyy-mm-dd")#.
+				<cfif len(renewed_Date) gt 0>
 					(renewed #renewed_Date#)
 				</cfif>
-				Expires #dateformat(exp_Date,"yyyy-mm-dd")#  
-				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif> 
+				Expires #dateformat(exp_Date,"yyyy-mm-dd")#
+				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif>
 				<br>
 				<input type="hidden" name="transaction_id" value="#transaction_id#">
 				<input type="hidden" name="action" value="delePermit">
 				<input type="hidden" name="permit_id" value="#permit_id#">
 				<input type="submit" value="Remove this Permit" class="delBtn">
-			</p>	
+			</p>
 		</form>
 	</cfloop>
 	<form name="addPermit" action="borrow.cfm" method="post">
@@ -579,15 +579,15 @@
 		<input type="hidden" name="permit_id">
 		<label for="">Click to add Permit. Reload to see added permits.</label>
 		<input type="button" value="Add a permit" class="picBtn"
-		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
-				'resizable,scrollbars=yes,width=600,height=600')">	
+		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
+				'resizable,scrollbars=yes,width=600,height=600')">
 	</form>
-	
+
 		<a href="/Reports/report_printer.cfm?transaction_id=#transaction_id#">[ Print ]</a>
 
 
 
-</td>	
+</td>
 	</tr></table>
 <hr>
 		<cfquery name="shipment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -628,7 +628,7 @@
 			<label for="packed_by_agent">Packed By Agent</label>
 			<input type="text" name="packed_by_agent" class="reqdClr" size="50"
 				  onchange="getAgent('packed_by_agent_id','packed_by_agent','newshipment',this.value); return false;"
-				  onKeyPress="return noenter(event);"> 
+				  onKeyPress="return noenter(event);">
 			<input type="hidden" name="packed_by_agent_id">
 			<label for="shipped_carrier_method">Shipped Method</label>
 			<select name="shipped_carrier_method" id="shipped_carrier_method" size="1" class="reqdClr">
@@ -645,13 +645,13 @@
 				</cfloop>
 			</select><span class="infoLink" onclick="getCtDoc('ctshipment_type');">Define</span>
 			<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
-			<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
+			<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5"
 				readonly="yes" class="reqdClr"></textarea>
 			<input type="hidden" name="shipped_to_addr_id">
 			<input type="button" value="Pick Address" class="picBtn"
 				onClick="addrPick('shipped_to_addr_id','shipped_to_addr','newshipment'); return false;">
 			<label for="packed_by_agent">Shipped From Address</label>
-			<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5" 
+			<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5"
 				readonly="yes" class="reqdClr"></textarea>
 			<input type="hidden" name="shipped_from_addr_id">
 			<input type="button" value="Pick Address" class="picBtn"
@@ -678,7 +678,7 @@
 				<option value="0">no</option>
 				<option value="1">yes</option>
 			</select>
-			<br><input type="submit" value="Create Shipment" class="insBtn">			
+			<br><input type="submit" value="Create Shipment" class="insBtn">
 		</form>
 		</div>
 		<cfset i=1>
@@ -692,13 +692,13 @@
 				<label for="packed_by_agent">Packed By Agent</label>
 				<input type="text" name="packed_by_agent" class="reqdClr" size="50" value="#packed_by_agent#"
 					  onchange="getAgent('packed_by_agent_id','packed_by_agent','shipment#i#',this.value); return false;"
-					  onKeyPress="return noenter(event);"> 
+					  onKeyPress="return noenter(event);">
 				<input type="hidden" name="packed_by_agent_id" value="#packed_by_agent_id#">
 				<label for="shipped_carrier_method">Shipped Method</label>
 				<select name="shipped_carrier_method" id="shipped_carrier_method" size="1" class="reqdClr">
 					<option value=""></option>
 					<cfloop query="ctShip">
-						<option 
+						<option
 							<cfif ctShip.shipped_carrier_method is shipment.shipped_carrier_method> selected="selected" </cfif>
 								value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
 					</cfloop>
@@ -713,13 +713,13 @@
 					</cfloop>
 				</select><span class="infoLink" onclick="getCtDoc('ctshipment_type');">Define</span>
 				<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
-				<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
+				<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5"
 					readonly="yes" class="reqdClr">#shipped_to_addr#</textarea>
 				<input type="hidden" name="shipped_to_addr_id" value="#shipped_to_addr_id#">
 				<input type="button" value="Pick Address" class="picBtn"
 					onClick="addrPick('shipped_to_addr_id','shipped_to_addr','shipment#i#'); return false;">
 				<label for="packed_by_agent">Shipped From Address</label>
-				<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5" 
+				<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5"
 					readonly="yes" class="reqdClr">#shipped_from_addr#</textarea>
 				<input type="hidden" name="shipped_from_addr_id" value="#shipped_from_addr_id#">
 				<input type="button" value="Pick Address" class="picBtn"
@@ -750,7 +750,7 @@
 				<br><input type="button" value="Save Shipment Edits" class="savBtn"
 						onClick="shipment#i#.action.value='saveShip';shipment#i#.submit();">
 					<input type="button" value="Delete Shipment" class="delBtn"
-						onClick="shipment#i#.action.value='deleteShip';confirmDelete('shipment#i#');">		
+						onClick="shipment#i#.action.value='deleteShip';confirmDelete('shipment#i#');">
 			</form>
 			<cfset i=i+1>
 		</cfloop>
@@ -759,10 +759,10 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif Action is "delePermit">
 	<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
+		DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and
 		permit_id=#permit_id#
 	</cfquery>
-	<cflocation url="borrow.cfm?Action=edit&transaction_id=#transaction_id#">
+	<cflocation url="borrow.cfm?Action=edit&transaction_id=#transaction_id#" addtoken="false">
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
 <cfif action is "update">
@@ -824,7 +824,7 @@
 		</cfquery>
 	</cfif>
 </cftransaction>
-<cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#">
+<cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 
@@ -904,7 +904,7 @@
 					,#SHIPPED_TO_ADDR_ID#
 					,#SHIPPED_FROM_ADDR_ID#,
 					'#shipment_type#'
-				)	
+				)
 		</cfquery>
 		<cflocation url="borrow.cfm?transaction_id=#transaction_id#&action=edit" addtoken="false">
 	</cfoutput>
@@ -950,7 +950,7 @@
 					<input type="text" name="due_date" id="due_date">
 				</td>
 			</tr>
-			
+
 			<tr>
 				<td>
 					<label for="trans_date">Transaction Date</label>
@@ -964,7 +964,7 @@
 					<label for="borrow_status">Status</label>
 					<select name="borrow_status" size="1" class="reqdCld">
 						<cfloop query="ctStatus">
-							<option 
+							<option
 								<cfif ctStatus.borrow_status is "open">
 									selected="selected"
 								</cfif>
@@ -976,8 +976,8 @@
 			<tr>
 				<td colspan="3">
 					<label for="AuthorizedBy">Authorized By</label>
-					<input type="text" 
-						name="AuthorizedBy" 
+					<input type="text"
+						name="AuthorizedBy"
 						class="reqdClr"
 						onchange="getAgent('auth_agent_id','AuthorizedBy','borrow',this.value); return false;"
 		 				onKeyPress="return noenter(event);"
@@ -988,8 +988,8 @@
 			<tr>
 				<td colspan="3">
 					<label for="ReceivedBy">Received By</label>
-					<input type="text" 
-						name="ReceivedBy" 
+					<input type="text"
+						name="ReceivedBy"
 						class="reqdClr"
 						onchange="getAgent('received_agent_id','ReceivedBy','borrow',this.value); return false;"
 		 				onKeyPress="return noenter(event);"
@@ -1000,8 +1000,8 @@
 			<tr>
 				<td colspan="3">
 					<label for="ReceivedFrom">Received From</label>
-					<input type="text" 
-						name="ReceivedFrom" 
+					<input type="text"
+						name="ReceivedFrom"
 						class="reqdClr"
 						onchange="getAgent('received_from_agent_id','ReceivedFrom','borrow',this.value); return false;"
 		 				onKeyPress="return noenter(event);"
@@ -1046,13 +1046,13 @@
 				<hr>
 				<cftry>
 					<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select 
-							 #preservesinglequotes(stg)# nn 
-						from 
+						select
+							 #preservesinglequotes(stg)# nn
+						from
 							borrow,
 							trans,
 							collection
-						where 
+						where
 							borrow.transaction_id=trans.transaction_id and
 							trans.collection_id=collection.collection_id and
 							collection.collection_id=#collection_id#
@@ -1064,9 +1064,9 @@
 						<br>
 						#cfcatch.message#
 						<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select 
-								 'check data' nn 
-							from 
+							select
+								 'check data' nn
+							from
 								dual
 						</cfquery>
 					</cfcatch>
@@ -1087,7 +1087,7 @@
 <!------------------------------------------------------------------------------------------------------->
 <cfif #action# is "delete">
 <cfoutput>
-	
+
 	<cftransaction>
 		<cfquery name="killAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from trans_agent where transaction_id=#transaction_id#
@@ -1109,7 +1109,7 @@
 	<cfquery name="nextTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select sq_transaction_id.nextval transaction_id from dual
 	</cfquery>
-	
+
 	<cfset transaction_id = nextTrans.transaction_id>
 	<cftransaction>
 	<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

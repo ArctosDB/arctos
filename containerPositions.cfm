@@ -370,7 +370,7 @@
 				</cfstoredproc>
 			</cfloop>
 		</cftransaction>
-		<cflocation url="containerPositions.cfm?container_id=#container_id#">
+		<cflocation url="containerPositions.cfm?container_id=#container_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">

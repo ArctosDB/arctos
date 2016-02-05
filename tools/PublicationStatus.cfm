@@ -227,7 +227,7 @@ Existing Publications
 		</cfif>
 		)
 </cfquery>
-<cflocation url="PublicationStatus.cfm?action=nothing">
+<cflocation url="PublicationStatus.cfm?action=nothing" addtoken="false">
 </cfif>
 <!---------------------------------------->
 <cfif #action# is "saveChanges">
@@ -272,6 +272,6 @@ Existing Publications
 		</cfif>
 		where gbi_id = #gbi_id#
 	</cfquery>
-	<cflocation url="PublicationStatus.cfm?action=nothing&order_by=#order_by#&order_order=#order_order#">
+	<cflocation url="PublicationStatus.cfm?action=nothing&order_by=#order_by#&order_order=#order_order#" addtoken="false">
 	</cfoutput>
 </cfif>
