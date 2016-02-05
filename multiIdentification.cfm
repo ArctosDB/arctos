@@ -79,6 +79,30 @@
 	<cfoutput>
 		<table width="100%"><tr><td width="50%"><!--- left column ---->
 			<h2>Add Identification for ALL Specimens listed below</h2>
+			<div style="border:1px dashed green; margin:1em;padding:1em;">
+				Special Magic Sauce
+				<ul>
+					<li>
+						Read this. Misuse will lock your account.
+					</li>
+					<li>
+						Set taxa_formula to use_existing_name to create a new ID using the old name. Everything about
+						taxa will be ignored with this formula.
+					</li>
+					<li>
+						Set agent_1 to <span>use_existing_agent</span> to reuse agent(s) from the existing accepted ID.
+					</li>
+					<li>
+						Set id_date to <span>use_existing_date</span> to reuse the data from the current accepted ID.
+					</li>
+					<li>
+						Set nature_of_id to <span>use_existing_noid</span> to reuse the data from the current accepted ID.
+					</li>
+					<li>
+						There is no remarks magic. You should probably be leaving your own remarks when using any of these options.
+					</li>
+				</ul>
+			</div>
 		    <form name="newID" method="post" action="multiIdentification.cfm">
 		  		<input type="hidden" name="Action" value="createManyNew">
 		    	<table>
@@ -184,6 +208,7 @@
 						<td>
 							<select name="nature_of_id" size="1" class="reqdClr">
 								<option></option>
+								<option value="use_existing_noid">use_existing_noid</option>
 								<cfloop query="ctnature">
 									<option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
 								</cfloop>
@@ -344,113 +369,130 @@
 	<cfset scientific_name = "#taxona# aff.">
 <cfelseif taxa_formula is "A / B intergrade">
 	<cfset scientific_name = "#taxona# / #taxonb# intergrade">
+<cfelseif taxa_formula is "use_existing_name">
+	<cfset scientific_name = "use_existing_name">
 <cfelse>
 	The taxa formula you entered isn't handled yet! Please submit a bug report.
 	<cfabort>
 </cfif>
 <!--- looop through the collection_object_list and update things one at a time--->
-			<cfquery name="theList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select collection_object_id from #session.SpecSrchTab#
-			</cfquery>
-
-
-
-
+	<cfquery name="theList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_object_id from #session.SpecSrchTab#
+	</cfquery>
 	<cftransaction>
 		<cfloop query="theList">
+			<!--- if any "use existing" values, grab them before messing with current ID ---->
+			<cfif taxa_formula is "use_existing_name" or idBy is "use_existing_agent" or made_date is "use_existing_date" or nature_of_id is "use_existing_noid">
 
+				oh hai this is special
+				<!--- overwrite anything found in
+					taxa_formula
+					scientific_name
+					taxona_id
+					taxonb_id
+				---->
+				<cfquery name="cID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from identification where ACCEPTED_ID_FG=1 and collection_object_id = #collection_object_id#
+				</cfquery>
+				<cfquery name="cIDT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from identification_taxonomy where identification_id=#cID.identification_id#
+				</cfquery>
+				<cfset
+			</cfif>
 
-		<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
-		</cfquery>
-		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO identification (
-				IDENTIFICATION_ID,
-				COLLECTION_OBJECT_ID
-				<cfif len(MADE_DATE) gt 0>
-					,MADE_DATE
-				</cfif>
-				,NATURE_OF_ID
-				 ,ACCEPTED_ID_FG
-				 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
-					,IDENTIFICATION_REMARKS
-				</cfif>
-				,taxa_formula
-				,scientific_name)
-			VALUES (
-				sq_identification_id.nextval,
-				#collection_object_id#
-				<cfif len(#MADE_DATE#) gt 0>
-					,'#MADE_DATE#'
-				</cfif>
-				,'#NATURE_OF_ID#'
-				 ,1
-				 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
-					,'#stripQuotes(IDENTIFICATION_REMARKS)#'
-				</cfif>
-				,'#taxa_formula#'
-				,'#scientific_name#')
+			regular thingee here....<cfabort>
+
+			<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 			</cfquery>
-			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into identification_agent (
-					identification_id,
-					agent_id,
-					identifier_order)
-				values (
-					sq_identification_id.currval,
-					#newIdById#,
-					1
-					)
-			</cfquery>
-			 <cfif len(#newIdById_two#) gt 0>
-				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into identification_agent (
-						identification_id,
-						agent_id,
-						identifier_order)
-					values (
-						sq_identification_id.currval,
-						#newIdById_two#,
-						2
-						)
-				</cfquery>
-			 </cfif>
-			 <cfif len(#newIdById_three#) gt 0>
-				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into identification_agent (
-						identification_id,
-						agent_id,
-						identifier_order)
-					values (
-						sq_identification_id.currval,
-						#newIdById_three#,
-						3
-						)
-				</cfquery>
-			 </cfif>
-			 <cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO identification_taxonomy (
-					identification_id,
-					taxon_name_id,
-					variable)
+			<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO identification (
+					IDENTIFICATION_ID,
+					COLLECTION_OBJECT_ID
+					<cfif len(MADE_DATE) gt 0>
+						,MADE_DATE
+					</cfif>
+					,NATURE_OF_ID
+					 ,ACCEPTED_ID_FG
+					 <cfif len(IDENTIFICATION_REMARKS) gt 0>
+						,IDENTIFICATION_REMARKS
+					</cfif>
+					,taxa_formula
+					,scientific_name)
 				VALUES (
-					sq_identification_id.currval,
-					#taxona_id#,
-					'A')
-			 </cfquery>
-			 <cfif #taxa_formula# contains "B">
-				 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					sq_identification_id.nextval,
+					#collection_object_id#
+					<cfif len(#MADE_DATE#) gt 0>
+						,'#MADE_DATE#'
+					</cfif>
+					,'#NATURE_OF_ID#'
+					 ,1
+					 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
+						,'#stripQuotes(IDENTIFICATION_REMARKS)#'
+					</cfif>
+					,'#taxa_formula#'
+					,'#scientific_name#')
+				</cfquery>
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into identification_agent (
+						identification_id,
+						agent_id,
+						identifier_order)
+					values (
+						sq_identification_id.currval,
+						#newIdById#,
+						1
+						)
+				</cfquery>
+				 <cfif len(newIdById_two) gt 0>
+					<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into identification_agent (
+							identification_id,
+							agent_id,
+							identifier_order)
+						values (
+							sq_identification_id.currval,
+							#newIdById_two#,
+							2
+							)
+					</cfquery>
+				 </cfif>
+				 <cfif len(newIdById_three) gt 0>
+					<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into identification_agent (
+							identification_id,
+							agent_id,
+							identifier_order)
+						values (
+							sq_identification_id.currval,
+							#newIdById_three#,
+							3
+							)
+					</cfquery>
+				 </cfif>
+				 <cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO identification_taxonomy (
 						identification_id,
 						taxon_name_id,
 						variable)
 					VALUES (
 						sq_identification_id.currval,
-						#taxonb_id#,
-						'B')
+						#taxona_id#,
+						'A')
 				 </cfquery>
-			 </cfif>
-</cfloop>
+				 <cfif taxa_formula contains "B">
+					 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO identification_taxonomy (
+							identification_id,
+							taxon_name_id,
+							variable)
+						VALUES (
+							sq_identification_id.currval,
+							#taxonb_id#,
+							'B')
+					 </cfquery>
+				 </cfif>
+	</cfloop>
 	</cftransaction>
 		<cflocation url="multiIdentification.cfm" addtoken="no">
 
