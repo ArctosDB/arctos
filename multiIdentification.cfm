@@ -89,17 +89,21 @@
 						Clicking some of these links disables internal form magic. Reload to unclick.
 					</li>
 					<li>
-						Set taxa_formula to use_existing_name to create a new ID using the old name. Everything about
+						<span class="likeLink" onclick="$('##taxa_formula').val('use_existing_name');">Set taxa_formula to use_existing_name</span>
+						 to create a new ID using the old name. Everything about
 						taxa will be ignored with this formula.
 					</li>
 					<li>
-						<span class="likeLink" onclick="$('##idBy').val('use_existing_agent');">Set agent_1 to use_existing_agent</span> to reuse agent(s) from the existing accepted ID.
+						<span class="likeLink" onclick="$('##idBy').val('use_existing_agent');">Set agent_1 to use_existing_agent</span>
+						to reuse agent(s) from the existing accepted ID.
 					</li>
 					<li>
-						Set id_date to <span>use_existing_date</span> to reuse the data from the current accepted ID.
+						<span class="likeLink" onclick="$('##made_date').val('use_existing_date');">Set id_date to use_existing_date</span>
+						to reuse the data from the current accepted ID.
 					</li>
 					<li>
-						Set nature_of_id to <span>use_existing_noid</span> to reuse the data from the current accepted ID.
+						<span class="likeLink" onclick="$('##nature_of_id').val('use_existing_noid');">Set nature_of_id to use_existing_noid</span>
+						to reuse the data from the current accepted ID.
 					</li>
 					<li>
 						There is no remarks magic. You should probably be leaving your own remarks when using any of these options.
