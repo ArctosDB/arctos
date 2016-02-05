@@ -397,7 +397,6 @@
 				<cfquery name="cIDT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from identification_taxonomy where identification_id=#cID.identification_id#
 				</cfquery>
-				<cfset
 			</cfif>
 
 			regular thingee here....<cfabort>
