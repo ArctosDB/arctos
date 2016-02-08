@@ -202,7 +202,7 @@
 								onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
 						 		onkeypress="return noenter(event);"
 						 		required>
-							<input type="hidden" name="newIdById">
+							<input type="hidden" name="newIdById" id="newIdById">
 							<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 						</td>
 					</tr>
