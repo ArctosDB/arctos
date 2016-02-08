@@ -83,7 +83,7 @@ function newIdFormula (f) {
 		//document.getElementById('userID').style.display='';
 		//document.getElementById('user_id').className='reqdClr'.prop('required',true);
 	} else {
-		$("#userID").hide().prop('required',false;
+		$("#userID").hide().prop('required',false);
 		$("#user_id").removeClass().prop('required',false);
 		//document.getElementById('userID').style.display='none'.prop('required',false);;\
 		//document.getElementById('user_id').className='';
