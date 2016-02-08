@@ -1,3 +1,53 @@
+jQuery(document).ready(function() {
+	jQuery("#made_date").datepicker();
+	 $('#newID').on('submit', function(e){
+        if ($("#idBy").val() != 'use_existing_agent'){
+	        if($("#idBy").prop('required')){
+	        	if ($("#newIdById").val().length == 0) {
+	        		alert('Agent 1 is not properly entered. Try backspacing a letter off the end and TAB.');
+	        		return false;
+	        	}
+	        }
+        }
+        if($("#idBy_two").prop('required')){
+        	if ($("#newIdById_two").val().length == 0) {
+        		alert('Agent 2 is not properly entered. Try backspacing a letter off the end and TAB.');
+        		return false;
+        	}
+        }
+        if($("#idBy_three").prop('required')){
+        	if ($("#newIdById_three").val().length == 0) {
+        		alert('Agent 3 is not properly entered. Try backspacing a letter off the end and TAB.');
+        		return false;
+        	}
+        }
+    });
+});
+// special sauce functions
+function ssTaxonName(){
+	$('#taxa_formula').val('use_existing_name');
+	$('#taxona').val('use_existing_name');
+	$('#taxona_id').val('');
+	$('#user_id').val('');
+	$('#userID').hide();
+	$('#taxonb').val('');
+	$('#taxonb_id').val('');
+	$('#taxon_b_row').hide();
+}
+function ssAgent(){
+	$('#idBy').val('use_existing_agent');
+	$('#idBy_two').val('');
+	$('#addNewIdBy_two').hide();
+	$('#idBy_three').val('');
+	$('#addNewIdBy_three').hide();
+}
+function ssDate(){
+	$('#made_date').val('use_existing_date');
+}
+function ssNoID(){
+	$('#nature_of_id').val('use_existing_noid');
+}
+	
 function deleteAssTax(i,n){
 	$("#taxon_name_" + i + "_" + n).val('DELETE');
 }
