@@ -6,11 +6,24 @@
 		 	console.log('checking form');
 	        e.preventDefault();
 	        if($("#idBy").prop('required')){
-	        	console.log('1 is required');
 	        	if ($("#newIdById").val().length == 0) {
-	        		alert('Agent 1 is not properly entered. Try backspacing a letter off the end and TAB.')
-	        	} else {alert('spiffy')}
+	        		alert('Agent 1 is not properly entered. Try backspacing a letter off the end and TAB.');
+	        		return false;
+	        	}
 	        }
+	        if($("#idBy_two").prop('required')){
+	        	if ($("#newIdById_two").val().length == 0) {
+	        		alert('Agent 2 is not properly entered. Try backspacing a letter off the end and TAB.');
+	        		return false;
+	        	}
+	        }
+	        if($("#idBy_three").prop('required')){
+	        	if ($("#newIdById_three").val().length == 0) {
+	        		alert('Agent 3 is not properly entered. Try backspacing a letter off the end and TAB.');
+	        		return false;
+	        	}
+	        }
+	        $('#newID').submit();
 	    });
 	});
 	// special sauce functions
