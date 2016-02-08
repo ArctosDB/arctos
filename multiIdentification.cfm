@@ -433,9 +433,15 @@
 		</cfquery>
 		<cftransaction>
 			<cfset formTaxaFormula=taxa_formula>
+			<cfset formidBy=idBy>
+			<cfset formmade_date=made_date>
+			<cfset formnature_of_id=nature_of_id>
 			<cfloop query="theList">
 				<!--- if any "use existing" values, grab them before messing with current ID ---->
-				<cfif formTaxaFormula is "use_existing_name" or idBy is "use_existing_agent" or made_date is "use_existing_date" or nature_of_id is "use_existing_noid">
+				<cfif formTaxaFormula is "use_existing_name" or
+					formidBy is "use_existing_agent" or
+					formmade_date is "use_existing_date" or
+					formnature_of_id is "use_existing_noid">
 					<!--- need existing ID --->
 					<cfquery name="cID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from identification where ACCEPTED_ID_FG=1 and collection_object_id = #collection_object_id#
@@ -465,7 +471,7 @@
 							<cfset taxonb_id="">
 						</cfif>
 					</cfif>
-					<cfif idBy is "use_existing_agent">
+					<cfif formidBy is "use_existing_agent">
 						<cfquery name="cIDBY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select * from identification_agent where identification_id=#cID.identification_id# order by IDENTIFIER_ORDER
 						</cfquery>
@@ -488,10 +494,10 @@
 							<cfset ial=ial+1>
 						</cfloop>
 					</cfif>
-					<cfif made_date is "use_existing_date">
+					<cfif formmade_date is "use_existing_date">
 						<cfset made_date=cID.made_date>
 					</cfif>
-					<cfif nature_of_id is "use_existing_noid">
+					<cfif formnature_of_id is "use_existing_noid">
 						<cfset nature_of_id=cID.nature_of_id>
 					</cfif>
 				</cfif>
