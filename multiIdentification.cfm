@@ -395,13 +395,10 @@
 					<cfquery name="cID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from identification where ACCEPTED_ID_FG=1 and collection_object_id = #collection_object_id#
 					</cfquery>
-					<cfdump var=#cID#>
 					<cfif formTaxaFormula is "use_existing_name">
 						<!--- use name from above---->
 						<cfset taxa_formula=cID.taxa_formula>
 						<cfset scientific_name=cID.scientific_name>
-
-						<br>scientific_name: #scientific_name#
 						<!--- grab taxa --->
 						<cfquery name="cIDT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select * from identification_taxonomy where identification_id=#cID.identification_id#
@@ -576,8 +573,8 @@
 		</cfloop>
 		</cftransaction>
 
-
-		<!----<cflocation url="multiIdentification.cfm" addtoken="no">
+		<cflocation url="multiIdentification.cfm" addtoken="no">
+		<!----
 		----->
 		all done
 	</cfoutput>
