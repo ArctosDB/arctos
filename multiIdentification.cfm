@@ -444,6 +444,8 @@
 						<!--- use name from above---->
 						<cfset taxa_formula=cID.taxa_formula>
 						<cfset scientific_name=cID.scientific_name>
+
+						<br>scientific_name: #scientific_name#
 						<!--- grab taxa --->
 						<cfquery name="cIDT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select * from identification_taxonomy where identification_id=#cID.identification_id#
@@ -526,6 +528,36 @@
 						,'#taxa_formula#'
 						,'#scientific_name#')
 					</cfquery>
+					<br>
+
+					INSERT INTO identification (
+						IDENTIFICATION_ID,
+						COLLECTION_OBJECT_ID
+						<cfif len(MADE_DATE) gt 0>
+							,MADE_DATE
+						</cfif>
+						,NATURE_OF_ID
+						 ,ACCEPTED_ID_FG
+						 <cfif len(IDENTIFICATION_REMARKS) gt 0>
+							,IDENTIFICATION_REMARKS
+						</cfif>
+						,taxa_formula
+						,scientific_name)
+					VALUES (
+						sq_identification_id.nextval,
+						#collection_object_id#
+						<cfif len(#MADE_DATE#) gt 0>
+							,'#MADE_DATE#'
+						</cfif>
+						,'#NATURE_OF_ID#'
+						 ,1
+						 <cfif len(IDENTIFICATION_REMARKS) gt 0>
+							,'#stripQuotes(IDENTIFICATION_REMARKS)#'
+						</cfif>
+						,'#taxa_formula#'
+						,'#scientific_name#')
+
+
 					<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into identification_agent (
 							identification_id,
