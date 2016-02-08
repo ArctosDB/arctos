@@ -432,15 +432,16 @@
 			select collection_object_id from #session.SpecSrchTab#
 		</cfquery>
 		<cftransaction>
+			<cfset formTaxaFormula=taxa_formula>
 			<cfloop query="theList">
 				<!--- if any "use existing" values, grab them before messing with current ID ---->
-				<cfif taxa_formula is "use_existing_name" or idBy is "use_existing_agent" or made_date is "use_existing_date" or nature_of_id is "use_existing_noid">
+				<cfif formTaxaFormula is "use_existing_name" or idBy is "use_existing_agent" or made_date is "use_existing_date" or nature_of_id is "use_existing_noid">
 					<!--- need existing ID --->
 					<cfquery name="cID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from identification where ACCEPTED_ID_FG=1 and collection_object_id = #collection_object_id#
 					</cfquery>
 					<cfdump var=#cID#>
-					<cfif taxa_formula is "use_existing_name">
+					<cfif formTaxaFormula is "use_existing_name">
 						<!--- use name from above---->
 						<cfset taxa_formula=cID.taxa_formula>
 						<cfset scientific_name=cID.scientific_name>
@@ -450,7 +451,7 @@
 						<cfquery name="cIDT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select * from identification_taxonomy where identification_id=#cID.identification_id#
 						</cfquery>
-						<cfif taxa_formula contains "B">
+						<cfif formTaxaFormula contains "B">
 							<cfquery name="ta" dbtype="query">
 								select * from cIDT where VARIABLE='A'
 							</cfquery>
