@@ -5,11 +5,13 @@
 		 $('#newID').on('submit', function(e){
 		 	console.log('checking form');
 	        //e.preventDefault();
-	        if($("#idBy").prop('required')){
-	        	if ($("#newIdById").val().length == 0) {
-	        		alert('Agent 1 is not properly entered. Try backspacing a letter off the end and TAB.');
-	        		return false;
-	        	}
+	        if ($("#idBy").val() != 'use_existing_agent'{
+		        if($("#idBy").prop('required')){
+		        	if ($("#newIdById").val().length == 0) {
+		        		alert('Agent 1 is not properly entered. Try backspacing a letter off the end and TAB.');
+		        		return false;
+		        	}
+		        }
 	        }
 	        if($("#idBy_two").prop('required')){
 	        	if ($("#newIdById_two").val().length == 0) {
@@ -261,7 +263,7 @@
 							</div>
 						</td>
 						<td>
-							<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
+							<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr" required>
 								<option></option>
 								<option value="use_existing_noid">use_existing_noid</option>
 								<cfloop query="ctnature">
