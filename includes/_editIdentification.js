@@ -42,36 +42,51 @@ function newIdFormula (f) {
 			
 	if (f == 'A or B' || f == 'A x B' || f == 'A / B intergrade' || f == 'A and B') {
 		// a and b
-		bTr.style.display='';
-		b_val.className='reqdClr'.prop('required',true);
-		b_val.value='';
-		b_id.className='reqdClr'.prop('required',true);
+		$("#taxon_b_row").show();
+		$("#taxonb").val('').addClass('reqdClr').prop('required',true);
+		$("#taxonb_id").addClass('reqdClr').prop('required',true);
+		//bTr.style.display='';
+		//b_val.className='reqdClr'.prop('required',true);
+		//b_val.value='';
+		//b_id.className='reqdClr'.prop('required',true);
 	} else if (f == 'A' || f == 'A ?' || f == 'A cf.' || f == 'A sp.' || f == 'A aff.' || f == 'A ssp.' || f=='A \{string\}') {
-		bTr.style.display='none';
-		b_val.style.value='';
-		b_val.className='';
-		b_id.style.value=''.prop('required',false);
-		b_id.className='';
+		$("#taxon_b_row").hide();
+		$("#taxonb").val('').removeClass().prop('required',false);
+		$("#taxonb_id").val('').removeClass().prop('required',false);
+		//bTr.style.display='none';
+		//b_val.style.value='';
+		//b_val.className='';
+		//b_id.style.value=''.prop('required',false);
+		//b_id.className='';
 	
 	} else if (f=='use_existing_name') {
 		// special handler for multi-identification
 		// allow update of agent etc., without changing taxon
-		bTr.style.display='none';
-		b_val.style.value='';
-		b_val.className='';
-		b_id.style.value='';
-		b_id.className='';
+		$("#taxon_b_row").hide();
+		$("#taxonb").val('').removeClass().prop('required',false);
+		$("#taxonb_id").val('').removeClass().prop('required',false);
+		
+		//bTr.style.display='none';
+		//b_val.style.value='';
+		//b_val.className='';
+		//b_id.style.value='';
+		//b_id.className='';
 		$("#taxona_id").val('');
 		$("#taxona").val('use_existing_name');
 	} else {
 		alert("You selected an invalid formula (" + f + "). Please submit a bug report.");
 	}
 	if(f=='A {string}') {
-		document.getElementById('userID').style.display='';
-		document.getElementById('user_id').className='reqdClr'.prop('required',true);
+		$("#userID").show();
+		$("#user_id").addClass('reqdClr').prop('required',true);
+		
+		//document.getElementById('userID').style.display='';
+		//document.getElementById('user_id').className='reqdClr'.prop('required',true);
 	} else {
-		document.getElementById('userID').style.display='none'.prop('required',false);;
-		document.getElementById('user_id').className='';
+		$("#userID").hide().prop('required',false;
+		$("#user_id").removeClass().prop('required',false);
+		//document.getElementById('userID').style.display='none'.prop('required',false);;\
+		//document.getElementById('user_id').className='';
 	}
 }
 function removeIdentifier ( identification_id,num  ) {
