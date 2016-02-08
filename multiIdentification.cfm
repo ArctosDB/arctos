@@ -4,7 +4,7 @@
 		jQuery("#made_date").datepicker();
 		 $('#newID').on('submit', function(e){
 		 	console.log('checking form');
-	        e.preventDefault();
+	        //e.preventDefault();
 	        if($("#idBy").prop('required')){
 	        	if ($("#newIdById").val().length == 0) {
 	        		alert('Agent 1 is not properly entered. Try backspacing a letter off the end and TAB.');
@@ -23,7 +23,7 @@
 	        		return false;
 	        	}
 	        }
-	        $('#newID').submit();
+	       // $('#newID').submit();
 	    });
 	});
 	// special sauce functions
