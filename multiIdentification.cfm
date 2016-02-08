@@ -2,6 +2,14 @@
 <script language="JavaScript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery("#made_date").datepicker();
+		 $('#newID').on('submit', function(e){
+	        e.preventDefault();
+	        if($"#idBy").prop('required')){
+	        	if $("#newIdById").val().length == 0) {
+	        		alert('Agent 1 is not properly entered. Try backspacing a letter off the end and TAB.')
+	        	}
+	        }
+	    });
 	});
 	// special sauce functions
 	function ssTaxonName(){
@@ -134,7 +142,7 @@
 					</li>
 				</ul>
 			</div>
-		    <form name="newID" method="post" action="multiIdentification.cfm">
+		    <form name="newID" id="newID" method="post" action="multiIdentification.cfm">
 		  		<input type="hidden" name="Action" value="createManyNew">
 		    	<table>
 		    		<tr>

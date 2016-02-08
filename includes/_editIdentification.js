@@ -27,13 +27,13 @@ function flippedAccepted(c) {
 }
 function addNewIdBy(n) {
 	$('#addNewIdBy_' + n).show();
-	$('#newIdBy_' + n).addClass('reqdClr');
-	$('#newIdBy_' + n + '_id').addClass('reqdClr');
+	$('#newIdBy_' + n).addClass('reqdClr').prop('required',true);
+	$('#newIdBy_' + n + '_id').addClass('reqdClr').prop('required',true);
 }
 function clearNewIdBy (n) {
 	$('#addNewIdBy_' + n).hide();
-	$('#newIdBy_' + n).val('').removeClass('reqdClr');
-	$('#newIdBy_' + n + '_id').val('').removeClass('reqdClr');
+	$('#newIdBy_' + n).val('').removeClass('reqdClr').prop('required',false);
+	$('#newIdBy_' + n + '_id').val('').removeClass('reqdClr').prop('required',false);
 }
 function newIdFormula (f) {
 	var bTr = document.getElementById('taxon_b_row');
