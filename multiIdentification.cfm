@@ -3,8 +3,6 @@
 	jQuery(document).ready(function() {
 		jQuery("#made_date").datepicker();
 		 $('#newID').on('submit', function(e){
-		 	console.log('checking form');
-	        //e.preventDefault();
 	        if ($("#idBy").val() != 'use_existing_agent'){
 		        if($("#idBy").prop('required')){
 		        	if ($("#newIdById").val().length == 0) {
@@ -25,7 +23,6 @@
 	        		return false;
 	        	}
 	        }
-	       // $('#newID').submit();
 	    });
 	});
 	// special sauce functions
