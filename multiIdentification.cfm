@@ -200,7 +200,8 @@
 						<td>
 							<input type="text" name="idBy" id="idBy" class="reqdClr" size="50"
 								onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
-						 		onkeypress="return noenter(event);">
+						 		onkeypress="return noenter(event);"
+						 		required>
 							<input type="hidden" name="newIdById">
 							<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 						</td>
