@@ -43,14 +43,14 @@ function newIdFormula (f) {
 	if (f == 'A or B' || f == 'A x B' || f == 'A / B intergrade' || f == 'A and B') {
 		// a and b
 		bTr.style.display='';
-		b_val.className='reqdClr';
+		b_val.className='reqdClr'.prop('required',true);
 		b_val.value='';
-		b_id.className='reqdClr';
+		b_id.className='reqdClr'.prop('required',true);
 	} else if (f == 'A' || f == 'A ?' || f == 'A cf.' || f == 'A sp.' || f == 'A aff.' || f == 'A ssp.' || f=='A \{string\}') {
 		bTr.style.display='none';
 		b_val.style.value='';
 		b_val.className='';
-		b_id.style.value='';
+		b_id.style.value=''.prop('required',false);
 		b_id.className='';
 	
 	} else if (f=='use_existing_name') {
@@ -68,9 +68,9 @@ function newIdFormula (f) {
 	}
 	if(f=='A {string}') {
 		document.getElementById('userID').style.display='';
-		document.getElementById('user_id').className='reqdClr';
+		document.getElementById('user_id').className='reqdClr'.prop('required',true);
 	} else {
-		document.getElementById('userID').style.display='none';
+		document.getElementById('userID').style.display='none'.prop('required',false);;
 		document.getElementById('user_id').className='';
 	}
 }

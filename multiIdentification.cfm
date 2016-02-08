@@ -169,7 +169,7 @@
 								<cfset taxa_formula='A'>
 							</cfif>
 							<cfset thisForm = "#taxa_formula#">
-							<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr" onchange="newIdFormula(this.value);">
+							<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr" required onchange="newIdFormula(this.value);">
 								<option value="use_existing_name">use_existing_name</option>
 								<cfloop query="ctFormula">
 									<option
@@ -181,7 +181,7 @@
 		            <tr>
 		            	<td><div align="right">Taxon A:</div></td>
 						<td>
-							<input type="text" name="taxona" id="taxona" class="reqdClr" size="50"
+							<input type="text" name="taxona" id="taxona" class="reqdClr" required size="50"
 								onChange="taxaPick('taxona_id','taxona','newID',this.value); return false;"
 								onKeyPress="return noenter(event);">
 							<input type="hidden" name="taxona_id" id="taxona_id">
