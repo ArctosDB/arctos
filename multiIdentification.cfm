@@ -7,7 +7,7 @@
 	        e.preventDefault();
 	        if($("#idBy").prop('required')){
 	        	console.log('1 is required');
-	        	if $("#newIdById").val().length == 0) {
+	        	if ($("#newIdById").val().length == 0) {
 	        		alert('Agent 1 is not properly entered. Try backspacing a letter off the end and TAB.')
 	        	} else {alert('spiffy')}
 	        }
