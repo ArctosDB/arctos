@@ -6,6 +6,14 @@
 		<cfset ctChanges="">
 		<cfset today = Now()>
 		<cfset yesterday = CreateDate(Year(Now()),Month(Now()),Day(Now()-1))>
+
+
+
+		<cfdump var=#yesterday#>
+
+
+
+
 		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">
 		<cfparam name="stop" default="#dateformat(now(),'yyyy-mm-dd')#" type="string">
 		DEFAULT is last 24 hours. You can change that by manipulating URL parameters. Example:
