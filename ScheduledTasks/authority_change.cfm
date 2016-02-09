@@ -6,8 +6,6 @@
 		<cfset ctChanges="">
 		<cfset today = Now()>
 		<cfset yesterday = dateformat(today-1,'yyyy-mm-dd') >
-
-
 		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">
 		<cfparam name="stop" default="#dateformat(now(),'yyyy-mm-dd')#" type="string">
 		DEFAULT is last 24 hours. You can change that by manipulating URL parameters. Example:
@@ -164,8 +162,6 @@
 				<cfset maddr=application.bugreportemail>
 				<cfset subj="TEST PLEASE IGNORE: Arctos Authority Change Notification">
 			</cfif>
-
-
 			<cfmail to="#maddr#" subject="#subj#" from="authority_notification@#Application.fromEmail#" type="html">
 				#emailChanges#
 			</cfmail>
