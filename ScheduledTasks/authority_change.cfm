@@ -14,7 +14,7 @@
 		TDATE:
 		<cfdump var=#TDATE#>
 
-	<CFSET TMINUSONE=dateformat(TDATE,'yyyy-mm-dd') -1>
+	<CFSET TMINUSONE=dateformat(TDATE-1,'yyyy-mm-dd') >
 		TMINUSONE=<cfdump var=#TMINUSONE#>
 
 
