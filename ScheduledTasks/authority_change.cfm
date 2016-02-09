@@ -6,14 +6,14 @@
 		<cfset ctChanges="">
 		<cfset today = Now()>
 		<cfset yesterday = CreateDate(Year(Now()),Month(Now()),Day(Now()-1))>
-		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">		
+		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">
 		<cfparam name="stop" default="#dateformat(now(),'yyyy-mm-dd')#" type="string">
 		DEFAULT is last 24 hours. You can change that by manipulating URL parameters. Example:
 		<a href="authority_change.cfm?start=#start#&stop=#stop#">authority_change.cfm?start=#start#&stop=#stop#</a>
 		<cfquery name="ctlogtbl" datasource="uam_god">
-			select 
+			select
 				table_name
-			FROM 
+			FROM
 				user_tables
 			WHERE
 				table_name like 'LOG_CT%'
@@ -29,13 +29,13 @@
 					<table border>
 						<tr>
 						<cfloop list="#ctab.columnlist#" index="c">
-							<th>#c#</th>	
+							<th>#c#</th>
 						</cfloop>
 						</tr>
 						<cfloop query="#ctab#">
 							<tr>
 								<cfloop list="#ctab.columnlist#" index="c">
-									<td>#evaluate("ctab." & c)#</td>	
+									<td>#evaluate("ctab." & c)#</td>
 								</cfloop>
 							</tr>
 						</cfloop>
@@ -47,8 +47,8 @@
 			<cfsavecontent variable="ctChanges">
 				<p>
 					Code tables changed between #start# and #stop#.
-					These data may reflect discarded changes, changes that have not been used in data, or changes that your 
-					user cannot access. Contact any Arctos Advisory Group member for more information.			
+					These data may reflect discarded changes, changes that have not been used in data, or changes that your
+					user cannot access. Contact any Arctos Advisory Group member for more information.
 					<br>Rows with only N_xxx (new) values are INSERTS.
 					<br>Rows with only O_xxx (old) values are DELETES.
 					<br>Rows with N_xxx and O_xxx values are UPDATES.
@@ -57,9 +57,9 @@
 			</cfsavecontent>
 		</cfif>
 		<cfquery name="geog" datasource="uam_god">
-			select 
+			select
 				*
-			FROM 
+			FROM
 				log_geog_auth_rec
 			WHERE
 				WHEN between to_date('#start#') and to_date('#stop#')
@@ -70,7 +70,7 @@
 					GEOG_AUTH_REC changed between #start# and #stop#.
 					<br>(o_XXX are old values; n_XXX are new.)
 				</p>
-				
+
 				<table border>
 					<tr>
 						<th>GEOG_AUTH_REC_ID</th>
@@ -126,20 +126,20 @@
 			</cfsavecontent>
 		</cfif>
 		<!--- append everything together ---->
-		<cfset allChanges=geogChanges & ctChanges>		
+		<cfset allChanges=geogChanges & ctChanges>
 		<cfif len(allChanges) is 0>
 			no changes.
 			<cfabort>
 		</cfif>
 		<cfif action is "sendEmail">
 			<cfquery name="cc" datasource="uam_god">
-				select 
+				select
 					get_address(collection_contacts.CONTACT_AGENT_ID,'email') address
-				FROM 
+				FROM
 					collection_contacts
 				where
 					collection_contacts.contact_role='data quality'
-				group by 
+				group by
 					get_address(collection_contacts.CONTACT_AGENT_ID,'email')
 			</cfquery>
 			<cfsavecontent variable="emailChanges">
@@ -155,7 +155,16 @@
 				</p>
 				<p>#allChanges#</p>
 			</cfsavecontent>
-			<cfmail to="#valuelist(cc.address)#, arctos.database@gmail.com"	subject="Arctos Authority Change Notification" from="authority_notification@#Application.fromEmail#" type="html">
+			<cfif isdefined("Application.version") and  Application.version is "prod">
+				<cfset subj="Arctos Authority Change Notification">
+				<cfset maddr="#valuelist(cc.address)#, arctos.database@gmail.com">
+			<cfelse>
+				<cfset maddr=application.bugreportemail>
+				<cfset subj="TEST PLEASE IGNORE: Arctos Authority Change Notification">
+			</cfif>
+
+
+			<cfmail to="#maddr#" subject="#subj#" from="authority_notification@#Application.fromEmail#" type="html">
 				#emailChanges#
 			</cfmail>
 		<cfelse>
