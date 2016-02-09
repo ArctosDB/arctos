@@ -285,6 +285,10 @@
 	---->
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
+	<cfif request.ipaddress is "128.227.73.141">
+		<!--- iDigBio's horrid bot --->
+		<cfabort>
+	</cfif>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
