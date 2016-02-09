@@ -5,19 +5,7 @@
 		<cfset geogChanges="">
 		<cfset ctChanges="">
 		<cfset today = Now()>
-		<cfset yesterday = CreateDate(Year(Now()),Month(Now()),Day(Now()-1))>
-
-
-
-		<CFSET TDATE=dateformat('2016-02-01','yyyy-mm-dd')>
-
-		TDATE:
-		<cfdump var=#TDATE#>
-
-	<CFSET TMINUSONE=dateformat(TDATE-1,'yyyy-mm-dd') >
-		TMINUSONE=<cfdump var=#TMINUSONE#>
-
-
+		<cfset yesterday = dateformat(today-1,'yyyy-mm-dd') >
 
 
 		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">
