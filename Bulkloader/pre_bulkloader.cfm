@@ -373,6 +373,9 @@
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
 		<cftransaction>
+			<cfquery name="clear" datasource="uam_god">
+				delete from #table#
+			</cfquery>
 	        <cfloop query="x">
 	            <cfquery name="ins" datasource="uam_god">
 		            insert into #table# (#cols#) values (
