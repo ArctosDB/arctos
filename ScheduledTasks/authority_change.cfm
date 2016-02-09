@@ -9,7 +9,7 @@
 
 
 
-		<CFSET TDATE=dateformat('2016-02-01','yyyy-mm-dd'>
+		<CFSET TDATE=dateformat('2016-02-01','yyyy-mm-dd')>
 
 		TDATE:
 		<cfdump var=#TDATE#>
