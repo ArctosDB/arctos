@@ -9,7 +9,13 @@
 
 
 
-		<cfdump var=#yesterday#>
+		<CFSET TDATE=dateformat('2016-02-01','yyyy-mm-dd'>
+
+		TDATE:
+		<cfdump var=#TDATE#>
+
+	<CFSET TMINUSONE=dateformat(TDATE,'yyyy-mm-dd') -1>
+		TMINUSONE=<cfdump var=#TMINUSONE#>
 
 
 
