@@ -577,7 +577,7 @@
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "multi">
 <cfoutput>
-	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="false" addtoken="false">
+	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->

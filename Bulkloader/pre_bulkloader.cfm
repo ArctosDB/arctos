@@ -424,7 +424,7 @@
 	<!------------------------------------------------------->
 	<cfif action is "instobulk">
 		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
-			UPDATE pre_bulkloader SET collection_object_id=bulkloader_pkey.nextval WHERE collection_object_id is null
+			UPDATE pre_bulkloader SET collection_object_id=bulkloader_pkey.nextval
 		</cfquery>
 		<p>
 			collection_object_id updated.
