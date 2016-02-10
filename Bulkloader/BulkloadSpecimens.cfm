@@ -148,6 +148,11 @@
 		<li><strong>SOME_RANDOM_STRING: invalid identifier</strong>: You've made up a column name. See BulkloaderBuilder.
 			Check your headers for spaces, commas, etc.
 		</li>
+		<li>
+			<strong>Invalid CFML construct found on line 1 at column 10. ColdFusion was looking at the following text: DATE</strong>
+			Same as above, but involving the string "DATE." Check headers for "verbatim date" (instead of "verbatim_date") and similar.
+		</li>
+
 		<LI><strong>duplicate column name</strong>: You got all carried away with the sheer joy of copypasta, and have the same column name entered twice.
 		Hopefully with identical values.... </LI>
 		<li>
