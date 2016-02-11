@@ -1,192 +1,157 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title="Specimen Graphs">
 <cfif action is "nothing">
-<script>
-
-	/*
-	var optns=["state_prov","scientific_name"];
-	<option value="country">Country</option>
-							<option value="state_prov">State</option>
-							<option value="">Identification</option>
-							<option value="genus">Genus</option>
-							<option value="family">Family</option>
-							<option value="phylorder">Order</option>
-							<option value="year">Year</option>
-
-	var nopt;
-	$(document).ready(function(){
-		$("#graphThis").change(function() {
-			console.log('changing.....');
-			// destroy all optional sort-things
-			$("#orderby").find("option:gt(0)").remove();
-
-			$.each($("#graphThis option:selected"), function(){
-				console.log('selected: ' +  $(this).val());
-
-				$("#orderby").append('<option value="' + $(this).val() + '">' + $(this).val() + '</option>');
-        	});
-
-
-		});
-	});
-
-*/
-</script>
 <cfoutput>
 	<cfset searchParams = "">
 	<!--- set up hidden form variables to use when customizing.
 			Explicitly exclude things we don't want --->
-		<cfloop list="#StructKeyList(form)#" index="key">
-			 <cfif len(form[key]) gt 0>
-				<cfif #key# is not "FIELDNAMES"
-					AND #key# is not "SEARCHPARAMS"
-					AND #key# is not "mapurl"
-					AND #key# is not "cbifurl"
-					and #key# is not "newquery"
-					and #key# is not "ORDER_ORDER"
-					and #key# is not "ORDER_BY"
-					and #key# is not "newsearch"
-					and #key# is not "STARTROW"
-					and #key# is not "action"
-					and #key# is not "detail_level">
-					<cfif len(#searchParams#) is 0>
-						<cfset searchParams='<input type="hidden" name="#key#" value="#form[key]#">'>
-					<cfelse>
-						<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#form[key]#">'>
-					</cfif>
+	<cfloop list="#StructKeyList(form)#" index="key">
+		 <cfif len(form[key]) gt 0>
+			<cfif key is not "FIELDNAMES"
+				AND key is not "SEARCHPARAMS"
+				AND key is not "mapurl"
+				AND key is not "cbifurl"
+				and key is not "newquery"
+				and key is not "ORDER_ORDER"
+				and key is not "ORDER_BY"
+				and key is not "newsearch"
+				and key is not "STARTROW"
+				and key is not "action"
+				and key is not "detail_level">
+				<cfif len(searchParams) is 0>
+					<cfset searchParams='<input type="hidden" name="#key#" value="#form[key]#">'>
+				<cfelse>
+					<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#form[key]#">'>
 				</cfif>
-			 </cfif>
-		</cfloop>
-		<!---- also grab anything from the URL --->
-		<cfloop list="#StructKeyList(url)#" index="key">
-			 <cfif len(#url[key]#) gt 0>
-				<cfif #key# is not "FIELDNAMES"
-					AND #key# is not "SEARCHPARAMS"
-					AND #key# is not "mapurl"
-					AND #key# is not "cbifurl"
-					and #key# is not "newquery"
-					and #key# is not "ORDER_ORDER"
-					and #key# is not "ORDER_BY"
-					and #key# is not "newsearch"
-					and #key# is not "STARTROW"
-					and #key# is not "action"
-					and #key# is not "detail_level">
-					<cfif len(#searchParams#) is 0>
-						<cfset searchParams='<input type="hidden" name="#key#" value="#url[key]#">'>
-					<cfelse>
-						<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#url[key]#">'>
-					</cfif>
+			</cfif>
+		 </cfif>
+	</cfloop>
+	<!---- also grab anything from the URL --->
+	<cfloop list="#StructKeyList(url)#" index="key">
+		 <cfif len(#url[key]#) gt 0>
+			<cfif key is not "FIELDNAMES"
+				AND key is not "SEARCHPARAMS"
+				AND key is not "mapurl"
+				AND key is not "cbifurl"
+				and key is not "newquery"
+				and key is not "ORDER_ORDER"
+				and key is not "ORDER_BY"
+				and key is not "newsearch"
+				and key is not "STARTROW"
+				and key is not "action"
+				and key is not "detail_level">
+				<cfif len(searchParams) is 0>
+					<cfset searchParams='<input type="hidden" name="#key#" value="#url[key]#">'>
+				<cfelse>
+					<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#url[key]#">'>
 				</cfif>
-			 </cfif>
-		</cfloop>
-
-		<cfset searchParams = #replace(searchParams,"'","","all")#>
+			</cfif>
+		 </cfif>
+	</cfloop>
+	<cfset searchParams = replace(searchParams,"'","","all")>
 	<table>
+		<form name="browse" action="SpecimenGraph.cfm" method="post">
+		<tr>
+			<td><strong>Chart Settings</strong></td>
+			<td><strong>Chart Data</strong><sup>1</sup></td>
+			<td><strong>OrderBy</strong></td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<table>
+					<tr>
+						<td align="right">Format:<sup>2</sup></td>
+						<td>
+							<select name="chartType" size="1">
+								<option value="flash">Flash</option>
+								<option selected="selected" value="jpg">JPG</option>
+								<option value="png">PNG</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">Size:</td>
+						<td>
+							<select name="size" size="1">
+								<option value="240 x 320">240 x 320</option>
+								<option selected="selected" value="480 x 640">480 x 640</option>
+								<option value="960 x 1280">960 x 1280</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">Dimensions:</td>
+						<td>
+							<select name="show3D" size="1">
+								<option value="yes">3D</option>
+								<option value="no">2D</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">Type:</td>
+						<td>
+							<select name="type" size="1">
+								<option value="pie">pie</option>
+								<option value="bar">bar</option>
+								<option value="line">line</option>
+								<option value="pyramid">pyramid</option>
+								<option value="area">area</option>
+								<option value="horizontalbar">horizontalbar</option>
+								<option value="cone">cone</option>
+								<option value="curve">curve</option>
+								<option value="cylinder">cylinder</option>
+								<option value="step">step</option>
+								<option value="scatter">scatter</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td valign="top">
+				<select required="required" name="graphThis" id="graphThis" multiple="multiple" size="10">
+					<option value="country">Specimens by Country</option>
+					<option value="state_prov">Specimens by State</option>
+					<option value="scientific_name">Specimens by Identification</option>
+					<option value="genus">Specimens by Genus</option>
+					<option value="family">Specimens by Family</option>
+					<option value="phylorder">Specimens by Order</option>
+					<option value="year">Specimens by Year</option>
+				</select>
+			</td>
+			<td valign="top">
+				<select required="required" name="orderby" id="orderby" size="1">
+					<option selected value="count">Count</option>
+					<option value="parameter">Parameter</option>
+				</select>
+				<select required="required" name="orderorder" size="1">
+					<option selected value="ASC">Ascending</option>
+					<option value="DESC">Descending</option>
 
-<form name="browse" action="SpecimenGraph.cfm" method="post">
-				<tr>
-					<td><strong>Chart Settings</strong></td>
-					<td><strong>Chart Data</strong><sup>1</sup></td>
-					<td><strong>OrderBy</strong><sup>1</sup></td>
-				</tr>
-				<tr>
-					<td valign="top">
-						<table>
-							<tr>
-								<td align="right">Format:<sup>2</sup></td>
-								<td>
-									<select name="chartType" size="1">
-										<option value="flash">Flash</option>
-										<option selected="selected" value="jpg">JPG</option>
-										<option value="png">PNG</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td align="right">Size:</td>
-								<td>
-									<select name="size" size="1">
-										<option value="240 x 320">240 x 320</option>
-										<option selected="selected" value="480 x 640">480 x 640</option>
-										<option value="960 x 1280">960 x 1280</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td align="right">Dimensions:</td>
-								<td>
-									<select name="show3D" size="1">
-										<option value="yes">3D</option>
-										<option value="no">2D</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td align="right">Type:</td>
-								<td>
-									<select name="type" size="1">
-										<option value="pie">pie</option>
-										<option value="bar">bar</option>
-										<option value="line">line</option>
-										<option value="pyramid">pyramid</option>
-										<option value="area">area</option>
-										<option value="horizontalbar">horizontalbar</option>
-										<option value="cone">cone</option>
-										<option value="curve">curve</option>
-										<option value="cylinder">cylinder</option>
-										<option value="step">step</option>
-										<option value="scatter">scatter</option>
-									</select>
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td valign="top">
-						<select required="required" name="graphThis" id="graphThis" multiple="multiple" size="10">
-							<option value="country">Specimens by Country</option>
-							<option value="state_prov">Specimens by State</option>
-							<option value="scientific_name">Specimens by Identification</option>
-							<option value="genus">Specimens by Genus</option>
-							<option value="family">Specimens by Family</option>
-							<option value="phylorder">Specimens by Order</option>
-							<option value="year">Specimens by Year</option>
-						</select>
-					</td>
-					<td valign="top">
-						<select required="required" name="orderby" id="orderby" size="1">
-							<option selected value="count">Count</option>
-							<option value="parameter">Parameter</option>
-						</select>
-						<select required="required" name="orderorder" size="1">
-							<option selected value="ASC">Ascending</option>
-							<option value="DESC">Descending</option>
-
-						</select>
-					</td>
-				</tr>
-				#searchparams#
-				<input type="hidden" name="searchParams" value='#searchParams#'>
-				<input type="hidden" name="action" value="getGraph">
-				<tr>
-					<td colspan="2" align="center">
-						<input type="submit" value="Get Graphs"	class="schBtn">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<div style="background-color:##999999; font-size:small; font-style:italic;">
-							1) CONTROL and click to create multiple charts
-							<p></p>2) You may save charts to your hard drive as images.
-							<br />Your browser may act strangely, but it will probably
-							<br /> work if you can save with an image (not .cfm) extension.
-						</div>
-					</td>
-				</tr>
-			</form>
-
+				</select>
+			</td>
+		</tr>
+		#searchparams#
+		<input type="hidden" name="searchParams" value='#searchParams#'>
+		<input type="hidden" name="action" value="getGraph">
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" value="Get Graphs"	class="schBtn">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div style="background-color:##999999; font-size:small; font-style:italic;">
+					1) CONTROL and click to create multiple charts
+					<p></p>2) You may save charts to your hard drive as images.
+					<br />Your browser may act strangely, but it will probably
+					<br /> work if you can save with an image (not .cfm) extension.
+				</div>
+			</td>
+		</tr>
+		</form>
 	</table>
-
-		</cfoutput>
+</cfoutput>
 </cfif>
 <!------------------------------------------------------------------->
 <cfif action is "getGraph">
@@ -194,7 +159,7 @@
 	<cfset chartHeight = listfirst(size," x ")>
 	<cfset chartWidth = listlast(size," x ")>
 	<cfloop list="#graphThis#" index="item">
-		<cfset x = "#item#">
+		<cfset x = item>
 		<cfset y="Specimens">
 			<cfif listcontains("family,phylorder,genus",#item#)>
 				<cfset basSelect = "SELECT count(#session.flatTableName#.cat_num) as y_data,
@@ -220,32 +185,18 @@
 				<cfelse>
 					<cfset ob="#item#">
 				</cfif>
-
 			</cfif>
-
 			<cfset basFrom = " FROM #session.flatTableName#">
 			<cfset basJoin = "INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
 			<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
-
 			<cfset basQual = "">
 			<cfset mapurl="">
-			<!---
-			<cfif orderby is "count">
-				<cfset ob="count(#session.flatTableName#.cat_num)">
-			<cfelse>
-				<cfset ob=item>
-			</cfif>
----->
-
 			<cfset basOrder = "ORDER BY #ob# #orderorder#">
 			<cfinclude template="includes/SearchSql.cfm">
 			<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# #basGroup# #basOrder#">
 			<cfquery name="getGraph" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(SqlString)#
 			</cfquery>
-
-
-
 			<cfchart format="#chartType#"
 				chartHeight = "#chartHeight#"
 				chartWidth = "#chartWidth#"
@@ -254,7 +205,6 @@
 				show3D="#show3D#"
 				title = "Search Results by #left(ucase(item),1)##right(lcase(item),len(item)-1)# (#dateformat(now(),'dd mmm yyyy')#)"
 				fontBold="yes">
-
 				<cfchartseries type="#type#"
 					query="getGraph"
 					itemcolumn="x_data"
@@ -265,5 +215,4 @@
 	</cfloop>
 </cfoutput>
 </cfif>
-
 <cfinclude template="includes/_footer.cfm">
