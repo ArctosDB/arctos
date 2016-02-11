@@ -1,3 +1,7 @@
+deprecated<cfabort>
+
+
+
 <cfoutput>
 <cfif not isdefined("collection_object_id")>
     Need a random collection object ID to test?

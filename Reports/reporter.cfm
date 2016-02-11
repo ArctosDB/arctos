@@ -2,7 +2,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 <!-------------------------------------------------------------->
-<cfif #action# is "delete">
+<cfif action is "delete">
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         delete from cf_report_sql
         where report_id=#report_id#
@@ -191,7 +191,7 @@
 
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "nothing">
+<cfif action is "nothing">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
     Load a new template (will overwrite old templates). .cfr files only.
     <form name="n" method="post" enctype="multipart/form-data" action="reporter.cfm">

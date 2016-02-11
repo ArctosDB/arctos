@@ -18,8 +18,6 @@
 	<cfset collection_object_id=valuelist(cids.collection_object_id)>
 </cfif>
 
-
-
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 
@@ -57,6 +55,9 @@
 </cfif>
 <!------------------------------------------------------>
 <cfif action is "print">
+	<cfquery name="accessed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_report_sql set last_access=sysdate where report_id=#id.report_id#
+	</cfquery>
 	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	    select * from cf_report_sql where report_id=#report_id#
 	</cfquery>

@@ -10,6 +10,94 @@
 	</div>
 </cfsavecontent>
 <cfoutput>
+	
+	<!--- start of report code --->
+	<!--- 
+		grab cf_report_sql.last_access
+			for reports with NO handler and NO pre-function:
+				* if it's been 30 days since last use
+					* send a warning email
+					* attach the CFR
+					* exit
+				
+				* if it's been 60 days since last use
+					* send a warning email
+					* rename the report
+					* exit
+					
+				* if it's been 90 days since last use
+					* send a warning email
+				
+			if it's been a year since last
+			
+			
+			
+			
+			
+			
+	---->
+	<cfset afn="30,60,90,120,180,365">
+Elapsed: 00:00:00.39
+UAM@ARCTEST> desc cf_report_sql
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ REPORT_ID							   NOT NULL NUMBER
+ REPORT_NAME							   NOT NULL VARCHAR2(38)
+ REPORT_TEMPLATE						   NOT NULL VARCHAR2(38)
+ SQL_TEXT								    VARCHAR2(4000)
+ PRE_FUNCTION								    VARCHAR2(50)
+ REPORT_FORMAT							   NOT NULL VARCHAR2(50)
+ LAST_ACCESS								    DATE
+
+	<cfquery name="allreports" datasource="uam_god">
+		select
+			REPORT_ID,
+			REPORT_NAME,
+			REPORT_TEMPLATE,
+			SQL_TEXT,
+			PRE_FUNCTION,
+			LAST_ACCESS,
+			round(sysdate-last_access) days_since_access
+		from 
+			cf_report_sql
+		where
+			round(sysdate-last_access) in (#afn#)
+	</cfquery>
+	<!--- send distinct emails for all events---->
+	<!---- send all emails to everyone ---->
+	<cfquery name="cc" datasource="uam_god">
+		select
+			get_address(collection_contacts.CONTACT_AGENT_ID,'email') address
+		FROM
+			collection_contacts
+		where
+			collection_contacts.contact_role='data quality'
+		group by
+			get_address(collection_contacts.CONTACT_AGENT_ID,'email')
+	</cfquery>
+	<cfif isdefined("Application.version") and  Application.version is "prod">
+		<cfset subj="Arctos Report Access Notification">
+		<cfset maddr="#valuelist(cc.address)#, arctos.database@gmail.com">
+	<cfelse>
+		<cfset maddr=application.bugreportemail>
+		<cfset subj="TEST PLEASE IGNORE: Arctos Report Access Notification">
+	</cfif>
+	mailing to:#maddr#
+	
+	
+	
+	
+	<cfquery name="nohandler30" dbtype="query">
+		select * from allreports where SQL_TEXT is null and PRE_FUNCTION is null and days_since_access=30
+	</cfquery>
+	<cfdump var=#nohandler30#>
+	mail to everyone....
+	The following reports have not been accessed in 30 days and have no handlers. Reports without handlers will be deleted
+	after 90 days of no activity.
+	
+
+	<!--- END of report code --->
+
 	<!--- start of loan code --->
 	<!--- days after and before return_due_date on which to send email. Negative is after ---->
 	<cfset eid="-365,-180,-150,-120,-90,-60,-30,-7,0,7,30">
