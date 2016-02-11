@@ -4,7 +4,8 @@
 <script>
 	$(document).ready(function(){
 		$("#graphThis").change(function() {
-			$.each($("#graphThi option:selected"), function(){
+			console.log('changing.....');
+			$.each($("#graphThis option:selected"), function(){
 				console.log('selected: $(this).val());
         	});
 
