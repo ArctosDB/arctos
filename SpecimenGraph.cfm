@@ -12,7 +12,7 @@
 							<option value="family">Family</option>
 							<option value="phylorder">Order</option>
 							<option value="year">Year</option>
-		*/
+
 	var nopt;
 	$(document).ready(function(){
 		$("#graphThis").change(function() {
@@ -30,7 +30,7 @@
 		});
 	});
 
-
+*/
 </script>
 <cfoutput>
 	<cfset searchParams = "">
@@ -154,7 +154,8 @@
 					</td>
 					<td valign="top">
 						<select required="required" name="orderby" id="orderby" size="1">
-							<option selected value="count(#session.flatTableName#.cat_num)">Specimen Count</option>
+							<option selected value="count">Count</option>
+							<option selected value="parameter">Parameter</option>
 						</select>
 						<select required="required" name="orderorder" size="1">
 							<option selected value="ASC">Ascending</option>
@@ -218,7 +219,14 @@
 
 			<cfset basQual = "">
 			<cfset mapurl="">
-			<cfset basOrder = "ORDER BY #orderby# #orderorder#">
+			<cfif orderby is "count">
+				<cfset ob="count(#session.flatTableName#.cat_num)">
+			<cfelse>
+				<cfset ob=item>
+			</cfif>
+
+
+			<cfset basOrder = "ORDER BY #ob# #orderorder#">
 			<cfinclude template="includes/SearchSql.cfm">
 			<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# #basGroup# #basOrder#">
 			<cfquery name="getGraph" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
