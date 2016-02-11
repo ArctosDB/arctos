@@ -122,8 +122,8 @@
 						</select>
 					</td>
 					<td valign="top">
-						<select required="required" name="orderby" multiple="multiple" size="10">
-							<option value="count(#session.flatTableName#.cat_num)">Specimen Count</option>
+						<select required="required" name="orderby" size="1">
+							<option selected value="count(#session.flatTableName#.cat_num)">Specimen Count</option>
 							<option value="country">Country</option>
 							<option value="state_prov">State</option>
 							<option value="scientific_name">Identification</option>
@@ -131,6 +131,11 @@
 							<option value="family">Family</option>
 							<option value="phylorder">Order</option>
 							<option value="year">Year</option>
+						</select>
+						<select required="required" name="orderorder" size="1">
+							<option selected value="ASC">Ascending</option>
+							<option selected value="DESC">Descending</option>
+
 						</select>
 					</td>
 				</tr>
@@ -189,7 +194,7 @@
 
 			<cfset basQual = "">
 			<cfset mapurl="">
-			<cfset basOrder = "ORDER BY #orderby# DESC">
+			<cfset basOrder = "ORDER BY #orderby# #orderorder#">
 			<cfinclude template="includes/SearchSql.cfm">
 			<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# #basGroup# #basOrder#">
 			<cfquery name="getGraph" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
