@@ -2,11 +2,28 @@
 <cfset title="Specimen Graphs">
 <cfif action is "nothing">
 <script>
+
+	/*
+	var optns=["state_prov","scientific_name"];
+	<option value="country">Country</option>
+							<option value="state_prov">State</option>
+							<option value="">Identification</option>
+							<option value="genus">Genus</option>
+							<option value="family">Family</option>
+							<option value="phylorder">Order</option>
+							<option value="year">Year</option>
+		*/
+	var nopt;
 	$(document).ready(function(){
 		$("#graphThis").change(function() {
 			console.log('changing.....');
+			// destroy all optional sort-things
+			$("#orderby").find("option:gt(0)").remove();
+
 			$.each($("#graphThis option:selected"), function(){
 				console.log('selected: ' +  $(this).val());
+
+				$("#orderby").append('<option value="' + $(this).val() + '">' + $(this).val() + '</option>');
         	});
 
 
@@ -136,7 +153,7 @@
 						</select>
 					</td>
 					<td valign="top">
-						<select required="required" name="orderby" size="1">
+						<select required="required" name="orderby" id="orderby" size="1">
 							<option selected value="count(#session.flatTableName#.cat_num)">Specimen Count</option>
 							<option value="country">Country</option>
 							<option value="state_prov">State</option>
