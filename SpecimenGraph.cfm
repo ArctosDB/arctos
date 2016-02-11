@@ -56,6 +56,7 @@
 				<tr>
 					<td><strong>Chart Settings</strong></td>
 					<td><strong>Chart Data</strong><sup>1</sup></td>
+					<td><strong>OrderBy</strong><sup>1</sup></td>
 				</tr>
 				<tr>
 					<td valign="top">
@@ -120,6 +121,18 @@
 							<option value="year">Specimens by Year</option>
 						</select>
 					</td>
+					<td valign="top">
+						<select required="required" name="orderby" multiple="multiple" size="10">
+							<option value="count(#session.flatTableName#.cat_num)">Specimen Count</option>
+							<option value="country">Country</option>
+							<option value="state_prov">State</option>
+							<option value="scientific_name">Identification</option>
+							<option value="genus">Genus</option>
+							<option value="family">Family</option>
+							<option value="phylorder">Order</option>
+							<option value="year">Year</option>
+						</select>
+					</td>
 				</tr>
 				#searchparams#
 				<input type="hidden" name="searchParams" value='#searchParams#'>
@@ -176,7 +189,7 @@
 
 			<cfset basQual = "">
 			<cfset mapurl="">
-			<cfset basOrder = "ORDER BY count(#session.flatTableName#.cat_num) DESC">
+			<cfset basOrder = "ORDER BY #orderby# DESC">
 			<cfinclude template="includes/SearchSql.cfm">
 			<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# #basGroup# #basOrder#">
 			<cfquery name="getGraph" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
