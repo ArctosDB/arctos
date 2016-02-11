@@ -155,13 +155,6 @@
 					<td valign="top">
 						<select required="required" name="orderby" id="orderby" size="1">
 							<option selected value="count(#session.flatTableName#.cat_num)">Specimen Count</option>
-							<option value="country">Country</option>
-							<option value="state_prov">State</option>
-							<option value="scientific_name">Identification</option>
-							<option value="genus">Genus</option>
-							<option value="family">Family</option>
-							<option value="phylorder">Order</option>
-							<option value="year">Year</option>
 						</select>
 						<select required="required" name="orderorder" size="1">
 							<option selected value="ASC">Ascending</option>
