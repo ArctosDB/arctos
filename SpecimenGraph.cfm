@@ -159,7 +159,7 @@
 						</select>
 						<select required="required" name="orderorder" size="1">
 							<option selected value="ASC">Ascending</option>
-							<option selected value="DESC">Descending</option>
+							<option value="DESC">Descending</option>
 
 						</select>
 					</td>
