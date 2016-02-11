@@ -1131,11 +1131,15 @@ Upload CSV:
 					            	NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
 					            	NVL(dec_lat,-1) = nvl('#dec_lat#',-1) AND
 					            	NVL(dec_long,-1) = nvl('#dec_long#',-1) AND
-                                    --NVL(md5hash(wkt_polygon),'NULL') = nvl('#hash(wkt_polygon)#','NULL') AND
 					            	dbms_lob.compare(nvl('wkt_polygon','NULL'),nvl('#wkt_polygon#','NULL')) AND
-					               	locality_name IS NULL AND -- because we tested that above and will use it if it exists
+					               	locality_name IS NULL AND
 					                locality_id not in (select locality_id from geology_attributes)
 							</cfquery>
+							<!----
+							 -- because we tested that above and will use it if it exists
+							                                    --NVL(md5hash(wkt_polygon),'NULL') = nvl('#hash(wkt_polygon)#','NULL') AND
+
+---->
 							<cfif eLoc.locality_id gt 0>
 								<br>found existing locality
 								<cfset lcl_locality_id=eLoc.locality_id>
