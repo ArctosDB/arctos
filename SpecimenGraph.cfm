@@ -200,6 +200,11 @@
 				<cfset basSelect = "SELECT count(#session.flatTableName#.cat_num) as y_data,
 					getTaxa(#session.flatTableName#.collection_object_id,'#item#') as x_data">
 				<cfset basGroup = "GROUP BY getTaxa(#session.flatTableName#.collection_object_id,'#item#')">
+				<cfif orderby is "count">
+					<cfset ob="count(#session.flatTableName#.cat_num)">
+				<cfelse>
+					<cfset ob="getTaxa(#session.flatTableName#.collection_object_id,'#item#')">
+				</cfif>
 			<cfelse>
 				<cfset basSelect = "SELECT count(#session.flatTableName#.cat_num) y_data,
 					decode(#session.flatTableName#.#item#,
@@ -210,6 +215,11 @@
 				<cfelse>
 					<cfset basGroup = "GROUP BY #item#">
 				</cfif>
+				<cfif orderby is "count">
+					<cfset ob="count(#session.flatTableName#.cat_num)">
+				<cfelse>
+					<cfset ob="#item#">
+				</cfif>
 
 			</cfif>
 
@@ -219,12 +229,13 @@
 
 			<cfset basQual = "">
 			<cfset mapurl="">
+			<!---
 			<cfif orderby is "count">
 				<cfset ob="count(#session.flatTableName#.cat_num)">
 			<cfelse>
 				<cfset ob=item>
 			</cfif>
-
+---->
 
 			<cfset basOrder = "ORDER BY #ob# #orderorder#">
 			<cfinclude template="includes/SearchSql.cfm">
