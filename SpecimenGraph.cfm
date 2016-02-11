@@ -155,7 +155,7 @@
 					<td valign="top">
 						<select required="required" name="orderby" id="orderby" size="1">
 							<option selected value="count">Count</option>
-							<option selected value="parameter">Parameter</option>
+							<option value="parameter">Parameter</option>
 						</select>
 						<select required="required" name="orderorder" size="1">
 							<option selected value="ASC">Ascending</option>
