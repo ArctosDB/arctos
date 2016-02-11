@@ -6,7 +6,7 @@
 		$("#graphThis").change(function() {
 			console.log('changing.....');
 			$.each($("#graphThis option:selected"), function(){
-				console.log('selected: $(this).val());
+				console.log('selected: ' +  $(this).val());
         	});
 
 
