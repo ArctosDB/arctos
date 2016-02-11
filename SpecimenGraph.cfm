@@ -1,6 +1,19 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title="Specimen Graphs">
 <cfif action is "nothing">
+<script>
+	$(document).ready(function(){
+		$("#graphThis").change(function() {
+			$.each($("#graphThi option:selected"), function(){
+				console.log('selected: $(this).val());
+        	});
+
+
+		});
+	});
+
+
+</script>
 <cfoutput>
 	<cfset searchParams = "">
 	<!--- set up hidden form variables to use when customizing.
@@ -111,7 +124,7 @@
 						</table>
 					</td>
 					<td valign="top">
-						<select required="required" name="graphThis" multiple="multiple" size="10">
+						<select required="required" name="graphThis" id="graphThis" multiple="multiple" size="10">
 							<option value="country">Specimens by Country</option>
 							<option value="state_prov">Specimens by State</option>
 							<option value="scientific_name">Specimens by Identification</option>
