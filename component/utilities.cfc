@@ -657,4 +657,24 @@
 		<cfset inStr = trim(inStr)>
 		<cfreturn inStr>
 	</cffunction>
+	<!----------------------------------------------------------------------------->
+	<cffunction name="getFlatSQL" access="public" returnformat="plain">
+		<!----
+			for "normal" stuff that's matching a colulm in FLAT, just call this with eg
+
+					<cfset temp=getFlatSql(fld="island_group", val=island_group)>
+
+			instead of writing SQL
+		---->
+		<cfparam name="fld" type="string" default="">
+		<cfparam name="val" type="string" default="">
+		<cfif compare(val,"NULL") is 0>
+			<cfset basQual = " #basQual# AND #session.flatTableName#.#fld# is null">
+		<cfelseif len(val) gt 1 and left(val,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) = '#UCASE(escapeQuotes(right(val,len(val)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.#fld#) LIKE '%#UCASE(escapeQuotes(val))#%'">
+		</cfif>
+		<cfset mapurl = "#mapurl#&#fld#=#URLEncodedFormat(val)#">
+	</cffunction>
 </cfcomponent>
