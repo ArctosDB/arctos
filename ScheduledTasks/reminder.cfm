@@ -56,9 +56,18 @@
 
 	<cfquery name="unhandled" dbtype="query">
 		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# > 90
-		and NAME not in (#listqualify(valuelist(allreports.REPORT_NAME),"'")#)
+		and NAME not in (#listqualify(valuelist(allreports.REPORT_TEMPLATE),"'")#)
 	</cfquery>
 
+	<!--- IN is somehow not working properly, be safe and inefficient....
+	<cfset oldUnhandled=queryNew("template")>
+	<cfloop query="unhandled">
+		<cfquery name="isthere" dbtype="query">
+			select * from allreports where report_template
+		</cfquery>
+
+	</cfloop>
+	---->
 	<cfdump var=#unhandled#>
 
 	<cfdump var=#allreports#>
