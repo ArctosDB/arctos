@@ -53,8 +53,8 @@
 	</cfquery>
 
 	<cfquery name="unhandled" dbtype="query">
-		select name from reportList where dateDiff('d',DATELASTMODIFIED,now()) GT 90
-		and NAME not in (valuelist(allreports.REPORT_NAME))
+		select name from reportList where #dateDiff('d',DATELASTMODIFIED,now())# gt 90
+		and NAME not in (#valuelist(allreports.REPORT_NAME)#)
 	</cfquery>
 
 	<cfdump var=#unhandled#>
