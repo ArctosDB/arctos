@@ -39,6 +39,28 @@
 	<cfset afn="30,60,90,120,180,365">
 
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
+	<cfquery name="allreports" datasource="uam_god">
+		select
+			REPORT_ID,
+			REPORT_NAME,
+			REPORT_TEMPLATE,
+			SQL_TEXT,
+			PRE_FUNCTION,
+			LAST_ACCESS,
+			round(sysdate-last_access) days_since_access
+		from
+			cf_report_sql
+	</cfquery>
+
+	<cfquery name="unhandled" dbtype="query">
+		select name from reportList where dateDiff('d',DATELASTMODIFIED,now()) GT 90
+		and NAME not in (valuelist(allreports.REPORT_NAME))
+	</cfquery>
+
+	<cfdump var=#unhandled#>
+
+	<cfdump var=#allreports#>
+
 	<cfdump var=#reportList#>
 
 
