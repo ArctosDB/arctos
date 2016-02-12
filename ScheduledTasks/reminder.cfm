@@ -52,8 +52,10 @@
 			cf_report_sql
 	</cfquery>
 
+	<cfdump var=#reportList#>
+
 	<cfquery name="unhandled" dbtype="query">
-		select name from reportList where #dateDiff('d',DATELASTMODIFIED,now())# gt 90
+		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# gt 90
 		and NAME not in (#valuelist(allreports.REPORT_NAME)#)
 	</cfquery>
 
@@ -61,7 +63,6 @@
 
 	<cfdump var=#allreports#>
 
-	<cfdump var=#reportList#>
 
 
 Elapsed: 00:00:00.39
