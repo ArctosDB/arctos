@@ -94,7 +94,7 @@
 
 		<cfloop query="unhandled">
 			<br>#name#
-			<cfmailparam file = "#Application.serverRootURL#/Reports/templates/#name#" type="text/plain">
+			<cfmailparam file = "#Application.webDirectory#/Reports/templates/#name#" type="text/plain">
 		</cfloop>
 	</cfmail>
 
