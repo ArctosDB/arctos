@@ -87,7 +87,7 @@
 
 
 
-	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj# - orphaned templates" from="loan_notification@#Application.fromEmail#" type="html">
 
 		The following report templates are 30 days old, have no template, and have been DELETED from Arctos.
 
