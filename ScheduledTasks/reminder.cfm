@@ -10,31 +10,31 @@
 	</div>
 </cfsavecontent>
 <cfoutput>
-	
+
 	<!--- start of report code --->
-	<!--- 
+	<!---
 		grab cf_report_sql.last_access
 			for reports with NO handler and NO pre-function:
 				* if it's been 30 days since last use
 					* send a warning email
 					* attach the CFR
 					* exit
-				
+
 				* if it's been 60 days since last use
 					* send a warning email
 					* rename the report
 					* exit
-					
+
 				* if it's been 90 days since last use
 					* send a warning email
-				
+
 			if it's been a year since last
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 	---->
 	<cfset afn="30,60,90,120,180,365">
 Elapsed: 00:00:00.39
@@ -58,7 +58,7 @@ UAM@ARCTEST> desc cf_report_sql
 			PRE_FUNCTION,
 			LAST_ACCESS,
 			round(sysdate-last_access) days_since_access
-		from 
+		from
 			cf_report_sql
 		where
 			round(sysdate-last_access) in (#afn#)
@@ -83,18 +83,40 @@ UAM@ARCTEST> desc cf_report_sql
 		<cfset subj="TEST PLEASE IGNORE: Arctos Report Access Notification">
 	</cfif>
 	mailing to:#maddr#
-	
-	
-	
-	
+
+
+
+
 	<cfquery name="nohandler30" dbtype="query">
 		select * from allreports where SQL_TEXT is null and PRE_FUNCTION is null and days_since_access=30
 	</cfquery>
 	<cfdump var=#nohandler30#>
 	mail to everyone....
-	The following reports have not been accessed in 30 days and have no handlers. Reports without handlers will be deleted
+
+	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+
+	The following report(s) have not been accessed in 30 days and have no handlers. Reports without handlers will be deleted
 	after 90 days of no activity.
-	
+
+	<cfloop query="nohandler30">
+		<p>
+			<br>REPORT_NAME: #REPORT_NAME#
+			<br>REPORT_TEMPLATE: #REPORT_TEMPLATE#
+			<br>PRE_FUNCTION: #PRE_FUNCTION#
+			<br>SQL_TEXT: #SQL_TEXT#
+			<br>LAST_ACCESS: #LAST_ACCESS# (#days_since_access# days)
+			<cfmailparam file = "#Application.serverRootURL#/Reports/templates/#REPORT_TEMPLATE#" type="text/plain">
+		</p>
+
+	</cfloop>
+	</cfmail>
+
+
+	<cfabort>
+
+
+
+
 
 	<!--- END of report code --->
 
