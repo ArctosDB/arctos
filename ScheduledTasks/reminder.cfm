@@ -33,11 +33,53 @@
 
 
 
-
+		gack, gonna need a table so we don't delete stuff that's been temporarily detached etc
+		
+		
+	
 
 	---->
-
-
+	<!--- just grab everything, for now anyway ---->
+	<!--- all cfrs ---->
+    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
+	<!--- all reports ---->
+	<cfquery name="allreports" datasource="uam_god">
+		select
+			REPORT_ID,
+			REPORT_NAME,
+			REPORT_TEMPLATE,
+			SQL_TEXT,
+			PRE_FUNCTION,
+			LAST_ACCESS,
+			round(sysdate-last_access) days_since_access
+		from
+			cf_report_sql
+	</cfquery>
+	
+	<!---- all reports without handlers that are at least 30 days old ---->
+	<cfquery name="unhandled" dbtype="query">
+		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# > 30
+		and NAME not in (#listqualify(valuelist(allreports.REPORT_TEMPLATE),"'")#)
+	</cfquery>
+	<!--- insert them into our processing table IF THEY DON'T EXIST --->
+	<cfloop query="unhandled">
+		<cfquery name="gotit" datasource="uam_god">
+			select count(*) c from cf_report_status where cfr='#name#'
+		</cfquery>
+		<cfif gotit.c lt 1>
+			<cfquery name="gotitnow" datasource="uam_god">
+				insert into cf_report_status (
+					cfr,
+					last_action_date,
+					last_action
+				) values (
+					'#name#',
+					sysdate,
+					'detected_30_d_no_handler
+			</cfquery>
+		</cfif>
+	</cfloop>
+	
 
 	<!--- send distinct emails for all events---->
 	<!---- send all emails to everyone ---->
@@ -64,40 +106,57 @@
 
 	<cfset afn="30,60,90,120,180,365">
 
-    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
-	<cfquery name="allreports" datasource="uam_god">
-		select
-			REPORT_ID,
-			REPORT_NAME,
-			REPORT_TEMPLATE,
-			SQL_TEXT,
-			PRE_FUNCTION,
-			LAST_ACCESS,
-			round(sysdate-last_access) days_since_access
-		from
-			cf_report_sql
-	</cfquery>
+	
 
 	<cfdump var=#reportList#>
 
-	<cfquery name="unhandled" dbtype="query">
-		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# > 90
-		and NAME not in (#listqualify(valuelist(allreports.REPORT_TEMPLATE),"'")#)
-	</cfquery>
+	
 
 
 
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj# - orphaned templates" from="loan_notification@#Application.fromEmail#" type="html">
-
-		The following report templates are 30 days old, have no template, and have been DELETED from Arctos.
-
-
+		The following report templates are 30 days old, have no handler, and will be DELETED from Arctos in 10 days if no action is taken.
 		<cfloop query="unhandled">
 			<br>#name#
 			<cfmailparam file = "#Application.webDirectory#/Reports/templates/#name#" type="text/plain">
 		</cfloop>
 	</cfmail>
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!---- come back here and write the 40-day code after the intial run!! -------------------->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--- send an em
+	
 
 
 

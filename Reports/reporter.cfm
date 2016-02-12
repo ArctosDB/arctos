@@ -199,8 +199,8 @@
         <input type="file" name="FiletoUpload" id="FiletoUpload" size="45">
         <input type="submit" class="savBtn" value="Upload File">
     </form>
-	<p>
-		Reports without handlers will be deleted after 90 days.
+	<p style="border:2px solid red; padding:1em;margin:1em;">
+		Reports without handlers will be deleted nightly. Keep backups of all important .cfr files.
 	</p>
     Existing Reports:<br>
     <table border>
