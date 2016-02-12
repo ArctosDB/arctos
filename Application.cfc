@@ -3,7 +3,6 @@
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
 <cfset utilities = CreateObject("component","component.utilities")>
-
 <!------------------>
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>

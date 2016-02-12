@@ -37,6 +37,11 @@
 
 	---->
 	<cfset afn="30,60,90,120,180,365">
+
+    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
+	<cfdump var=#reportList#>
+
+
 Elapsed: 00:00:00.39
 UAM@ARCTEST> desc cf_report_sql
  Name								   Null?    Type
