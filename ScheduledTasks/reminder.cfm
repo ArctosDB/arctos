@@ -36,70 +36,9 @@
 
 
 	---->
-	<cfset afn="30,60,90,120,180,365">
-
-    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
-	<cfquery name="allreports" datasource="uam_god">
-		select
-			REPORT_ID,
-			REPORT_NAME,
-			REPORT_TEMPLATE,
-			SQL_TEXT,
-			PRE_FUNCTION,
-			LAST_ACCESS,
-			round(sysdate-last_access) days_since_access
-		from
-			cf_report_sql
-	</cfquery>
-
-	<cfdump var=#reportList#>
-
-	<cfquery name="unhandled" dbtype="query">
-		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# > 90
-		and NAME not in (#listqualify(valuelist(allreports.REPORT_TEMPLATE),"'")#)
-	</cfquery>
-
-	<!--- IN is somehow not working properly, be safe and inefficient....
-	<cfset oldUnhandled=queryNew("template")>
-	<cfloop query="unhandled">
-		<cfquery name="isthere" dbtype="query">
-			select * from allreports where report_template
-		</cfquery>
-
-	</cfloop>
-	---->
-	<cfdump var=#unhandled#>
-
-	<cfdump var=#allreports#>
 
 
 
-Elapsed: 00:00:00.39
-UAM@ARCTEST> desc cf_report_sql
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- REPORT_ID							   NOT NULL NUMBER
- REPORT_NAME							   NOT NULL VARCHAR2(38)
- REPORT_TEMPLATE						   NOT NULL VARCHAR2(38)
- SQL_TEXT								    VARCHAR2(4000)
- PRE_FUNCTION								    VARCHAR2(50)
- REPORT_FORMAT							   NOT NULL VARCHAR2(50)
- LAST_ACCESS								    DATE
-
-	<cfquery name="allreports" datasource="uam_god">
-		select
-			REPORT_ID,
-			REPORT_NAME,
-			REPORT_TEMPLATE,
-			SQL_TEXT,
-			PRE_FUNCTION,
-			LAST_ACCESS,
-			round(sysdate-last_access) days_since_access
-		from
-			cf_report_sql
-		where
-			round(sysdate-last_access) in (#afn#)
-	</cfquery>
 	<!--- send distinct emails for all events---->
 	<!---- send all emails to everyone ---->
 	<cfquery name="cc" datasource="uam_god">
@@ -123,6 +62,55 @@ UAM@ARCTEST> desc cf_report_sql
 
 
 
+	<cfset afn="30,60,90,120,180,365">
+
+    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
+	<cfquery name="allreports" datasource="uam_god">
+		select
+			REPORT_ID,
+			REPORT_NAME,
+			REPORT_TEMPLATE,
+			SQL_TEXT,
+			PRE_FUNCTION,
+			LAST_ACCESS,
+			round(sysdate-last_access) days_since_access
+		from
+			cf_report_sql
+	</cfquery>
+
+	<cfdump var=#reportList#>
+
+	<cfquery name="unhandled" dbtype="query">
+		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# > 90
+		and NAME not in (#listqualify(valuelist(allreports.REPORT_TEMPLATE),"'")#)
+	</cfquery>
+
+
+
+	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+
+		The following report templates are 30 days old, have no template, and have been DELETED from Arctos.
+
+
+		<cfloop query="unhandled">
+			<br>#name#
+			<cfmailparam file = "#Application.serverRootURL#/Reports/templates/#name#" type="text/plain">
+		</cfloop>
+	</cfmail>
+
+
+
+
+
+	<cfdump var=#unhandled#>
+
+	<cfdump var=#allreports#>
+
+
+
+
+
+
 
 	<cfquery name="nohandler30" dbtype="query">
 		select * from allreports where SQL_TEXT is null and PRE_FUNCTION is null and days_since_access=30
@@ -130,28 +118,15 @@ UAM@ARCTEST> desc cf_report_sql
 	<cfdump var=#nohandler30#>
 	mail to everyone....
 
-	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
-
-	The following report(s) have not been accessed in 30 days and have no handlers. Reports without handlers will be deleted
-	after 90 days of no activity.
-
-	<cfloop query="nohandler30">
-		<p>
-			<br>REPORT_NAME: #REPORT_NAME#
-			<br>REPORT_TEMPLATE: #REPORT_TEMPLATE#
-			<br>PRE_FUNCTION: #PRE_FUNCTION#
-			<br>SQL_TEXT: #SQL_TEXT#
-			<br>LAST_ACCESS: #LAST_ACCESS# (#days_since_access# days)
-			<cfmailparam file = "#Application.serverRootURL#/Reports/templates/#REPORT_TEMPLATE#" type="text/plain">
-		</p>
-
-	</cfloop>
-	</cfmail>
-
 
 	<cfabort>
 
-
+<p>
+				<br>REPORT_NAME: #REPORT_NAME#
+				<br>REPORT_TEMPLATE: #REPORT_TEMPLATE#
+				<br>PRE_FUNCTION: #PRE_FUNCTION#
+				<br>SQL_TEXT: #SQL_TEXT#
+				<br>LAST_ACCESS: #LAST_ACCESS# (#days_since_access# days)
 
 
 
