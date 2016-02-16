@@ -43,6 +43,10 @@
 
 
 	 <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
+
+	 <cfdump var=#reportList#>
+
+
 	<cfmail to="#application.bugreportemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
 		The following report templates exist as of #now()#
 		<cfloop query="reportList">
