@@ -36,7 +36,7 @@
 		Run this weekly or so
 	---->
 
-		<cfmail to="#application.bugreportemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
+		<cfmail to="#application.logemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
 			test
 		</cfmail>
 
@@ -47,7 +47,7 @@
 	 <cfdump var=#reportList#>
 
 
-	<cfmail to="#application.bugreportemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
+	<cfmail to="#application.logemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
 		The following report templates exist as of #now()#
 		<cfloop query="reportList">
 			<cfmailparam file = "#Application.webDirectory#/Reports/templates/#name#" type="text/plain">
