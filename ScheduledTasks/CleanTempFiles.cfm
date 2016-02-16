@@ -22,7 +22,7 @@
 	<!---- all reports without handlers that are at least 30 days old ---->
 	<cfquery name="unhandled" dbtype="query">
 		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# > 3
-		and ucase(NAME) not in (#listqualify(ucase(valuelist(allreports.REPORT_TEMPLATE)),"'")#)
+		and upper(NAME) not in (#listqualify(ucase(valuelist(allreports.REPORT_TEMPLATE)),"'")#)
 	</cfquery>
 
 	<cfdump var=#unhandled#>
