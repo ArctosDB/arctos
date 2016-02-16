@@ -507,7 +507,6 @@ END;
 			cf_dup_agent.AGENT_ID is null and
 			cf_dup_agent.RELATED_AGENT_ID is null
 	</cfquery>
-	<cfdump var=#findDups#>
 	<cfloop query="findDups">
 		<cfquery name="findedDups" datasource="uam_god">
 			insert into cf_dup_agent (
