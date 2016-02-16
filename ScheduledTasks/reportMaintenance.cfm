@@ -1,5 +1,8 @@
 <cfif action is "deleteUnused">
-<!--- reports with no handlers which are 3 days old ---->
+<!---
+	DELETE reports with no handlers which are 3 days old.
+	Run this every few days or something
+ ---->
  <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
 	<!--- all reports ---->
 	<cfquery name="allreports" datasource="uam_god">
@@ -22,4 +25,19 @@
 	</cfquery>
 
 	<cfdump var=#unhandled#>
+</cfif>
+
+<cfif action is "emailArchive">
+	<!---
+		email everything to the Google account.
+		Run this weekly or so
+	---->
+	 <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
+	<cfmail to="#application.bugreportemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
+		The following report templates exist as of #now()#
+		<cfloop query="reportList">
+			<cfmailparam file = "#Application.webDirectory#/Reports/templates/#name#" type="text/plain">
+		</cfloop>
+	</cfmail>
+
 </cfif>
