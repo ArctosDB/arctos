@@ -35,7 +35,7 @@
 		email everything to the Google account.
 		Run this weekly or so
 	---->
-
+#application.logemail#
 		<cfmail to="#application.logemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
 			test
 		</cfmail>
