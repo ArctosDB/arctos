@@ -1,3 +1,6 @@
+<cfif not isdefined("action")>
+	<cfabort>
+</cfif>
 <cfif action is "deleteUnused">
 <!---
 	DELETE reports with no handlers which are 3 days old.
@@ -32,6 +35,13 @@
 		email everything to the Google account.
 		Run this weekly or so
 	---->
+
+		<cfmail to="#application.bugreportemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
+			test
+		</cfmail>
+
+
+
 	 <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
 	<cfmail to="#application.bugreportemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
 		The following report templates exist as of #now()#
