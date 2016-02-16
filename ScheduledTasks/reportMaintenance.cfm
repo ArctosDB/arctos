@@ -35,6 +35,7 @@
 		email everything to the Google account.
 		Run this weekly or so
 	---->
+	<cfoutput>
 #application.logemail#
 		<cfmail to="#application.logemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
 			test
@@ -46,6 +47,14 @@
 
 	 <cfdump var=#reportList#>
 
+
+
+
+
+
+
+
+</cfoutput>
 <!----
 	<cfmail to="#application.logemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
 		The following report templates exist as of #now()#
