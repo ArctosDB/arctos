@@ -153,6 +153,8 @@
 	<cfset collection_object_id=varval>
 	<cfset transaction_id=varval>
 	<cfset container_id=varval>
+
+	<cfdump var=#test_sql#>
 	<!----
          <cfset sql=replace(test_sql,"##collection_object_id##",12)>
 		<cfset sql=replace(test_sql,"##container_id##",12)>
