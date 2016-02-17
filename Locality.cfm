@@ -1994,6 +1994,11 @@ You deleted a collecting event.
 	</script>
 
 <cfoutput>
+
+	<cfdump var=#form#>
+	<cfdump var=#url#>
+
+
 	<cf_findLocality type="locality">
 	<cfset title="Locality Search Results">
 	<cfif localityResults.recordcount lt 1000>
