@@ -5,6 +5,15 @@
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
+<!-----------------------------------   report template maintenance ------------------------------------>
+
+<cfschedule action = "update"
+    task = "reports_deleteUnused"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/reportMaintenance.cfm?action=deleteUnused"
+    cronTime="17 04 * * * *"
+    requestTimeOut = "600">
+	
 <!-----------------------------------   related specimens     ------------------------------------------>
 <!---
 	fetchRelatedInfo
