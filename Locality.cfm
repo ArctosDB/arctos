@@ -1978,6 +1978,16 @@ You deleted a collecting event.
 </cfif>
 <cfif action is "csv">
 	<cfdump var=#url#>
+	<cf_findLocality type="locality">
+
+
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=localityResults,Fields=localityResults.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/LocalityResults.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=LocalityResults.csv" addtoken="false">
 
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
