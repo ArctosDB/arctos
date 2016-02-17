@@ -33,8 +33,8 @@
 	<cfset alist="">
 	<cfloop from="1" to="10" index="i">
 		<!--- 5 years is probably enough.... ---->
-		<cfset tv=ndays+180>
-		<cfset alist=listappend(alist, tv)>
+		<cfset ndays=ndays+180>
+		<cfset alist=listappend(alist, ndays)>
 	</cfloop>
 	<cfquery name="orphan" datasource="uam_god">
 		select
