@@ -160,6 +160,13 @@
 
 
 	<cfdump var=#test_sql#>
+
+
+	<cfset sql=replace(test_sql,"#collection_object_id#",12)>
+
+
+	<cfdump var=#sql#>
+
 	<!----
          <cfset sql=replace(test_sql,"##collection_object_id##",12)>
 		<cfset sql=replace(test_sql,"##container_id##",12)>
