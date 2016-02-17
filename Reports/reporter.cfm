@@ -161,20 +161,19 @@
 
 	<cfdump var=#test_sql#>
 
+	<cfset test_sql=replace(test_sql,"##collection_object_id##",varval)>
+	<cfset test_sql=replace(test_sql,"##transaction_id##",varval)>
+	<cfset test_sql=replace(test_sql,"##container_id##",varval)>
 
-	<cfset sql=replace(test_sql,"##collection_object_id##",varval)>
-	<cfset sql=replace(test_sql,"##transaction_id##",varval)>
-	<cfset sql=replace(test_sql,"##container_id##",varval)>
 
-
-	<cfdump var=#sql#>
+	<cfdump var=#test_sql#>
 
 	<!----
          <cfset sql=replace(test_sql,"##collection_object_id##",12)>
 		<cfset sql=replace(test_sql,"##container_id##",12)>
 		---->
          <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-             #preservesinglequotes(sql)#
+             #preservesinglequotes(test_sql)#
          </cfquery>
          <cfdump var=#user_sql#>
 </cfoutput>
