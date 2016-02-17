@@ -142,6 +142,7 @@
          </div>
          <cfabort>
     </cfif>
+	<cfoutput>
 	<cfparam name="varval" default="12">
 	<form name="ts" method="post" action="reporter.cfm">
 		<input type="hidden" name="test_sql" value="#test_sql#">
@@ -160,7 +161,7 @@
              #preservesinglequotes(test_sql)#
          </cfquery>
          <cfdump var=#user_sql#>
-
+</cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "loadTemplate">
