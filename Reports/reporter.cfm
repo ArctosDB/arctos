@@ -158,21 +158,15 @@
 		 <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
              #preservesinglequotes(test_sql)#
          </cfquery>
+		<p>Success!</p>
          <cfdump var=#user_sql#>
-	<cfcatch>
-		<p>The SQL you supplied did not properly execute.</p>
-		<p>
-			<cfdump var=#cfcatch#>
-		</p>
-	</cfcatch>
+		<cfcatch>
+			<p>The SQL you supplied did not properly execute.</p>
+			<p>
+				<cfdump var=#cfcatch#>
+			</p>
+		</cfcatch>
 	</cftry>
-
-
-	<!----
-         <cfset sql=replace(test_sql,"##collection_object_id##",12)>
-		<cfset sql=replace(test_sql,"##container_id##",12)>
-		---->
-
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
