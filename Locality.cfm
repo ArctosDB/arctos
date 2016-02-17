@@ -1976,6 +1976,10 @@ You deleted a collecting event.
 		<cflocation url="Locality.cfm?Action=findCollEvent&locality_id=#locality_id#" addtoken="false">
 	</cfoutput>
 </cfif>
+<cfif action is "csv">
+	<cfdump var=#url#>
+
+</cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findLocality">
 
@@ -2031,6 +2035,9 @@ You deleted a collecting event.
 <cfset y = URLEncodedFormat( SerializeJSON(form))>
 
 <cfdump var=#y#>
+		<a href="/Locality.cfm?action=csv&#y#" target="_blank">CSV</a>
+
+
 
 	<cf_findLocality type="locality">
 	<cfset title="Locality Search Results">
