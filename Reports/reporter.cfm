@@ -178,16 +178,8 @@
 	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
         <cfabort>
 	</cfif>
-	<cfoutput>
-	loaded....#Application.webDirectory#/Reports/templates/#fileName#
 
-	    <cfdirectory action="list" name="x" directory="#Application.webDirectory#/Reports/templates">
-		<cfdump var=#x#>
-
-	</cfoutput>
-
-	<cfabort>
-	<cflocation url="reporter.cfm" addtoken="false">
+	<cflocation url="reporter.cfm###fileName#" addtoken="false">
 
 </cfif>
 <!-------------------------------------------------------------->
@@ -207,10 +199,23 @@
          <tr>
             <td>Report Template</td>
             <td>Handler Name</td>
+            <td>Last Access</td>
         </tr>
     <cfloop query="reportList">
 		<cfquery name="h" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	        select * from cf_report_sql where report_template='#name#' order by report_template
+	        select
+	        	REPORT_ID,
+	        	REPORT_NAME,
+	        	REPORT_TEMPLATE,
+	        	SQL_TEXT,
+	        	PRE_FUNCTION,
+	        	REPORT_FORMAT,
+	        	to_char(LAST_ACCESS,'yyyy-mm-dd') LAST_ACCESS,
+	        	round(sysdate-last_access) dayssince
+	        from
+	        	cf_report_sql
+	        where
+	        	cf_report_sql.report_template='#name#' order by report_template
 	    </cfquery>
         <cfif h.recordcount is 0>
             <cfquery name="h" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -223,8 +228,12 @@
 
 	    <cfloop query="h">
              <tr>
-	            <td>#report_template#</td>
+	            <td>
+		            <a name="#report_template#"></a>
+		            #report_template#
+				</td>
 	            <td>#report_name#</td>
+	            <td>#LAST_ACCESS# (#dayssince# days)</td>
 	            <cfif report_id gt 1>
 	                <td><a href="reporter.cfm?action=edit&report_id=#report_id#">Edit Handler</a></td>
 	                <td><a href="reporter.cfm?action=clone&report_id=#report_id#">Clone Handler</a></td>
