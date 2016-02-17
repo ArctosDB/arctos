@@ -48,7 +48,12 @@
 	 <cfdump var=#reportList#>
 
 
-
+<cfmail to="#application.logemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
+		The following report templates exist as of #now()#
+		<cfloop query="reportList">
+			<cfmailparam file = "#Application.webDirectory#/Reports/templates/#name#" type="text/plain">
+		</cfloop>
+	</cfmail>
 
 
 
@@ -56,11 +61,6 @@
 
 </cfoutput>
 <!----
-	<cfmail to="#application.logemail#" subject="CFR Archive" from="cfr_archive@#Application.fromEmail#" type="html">
-		The following report templates exist as of #now()#
-		<cfloop query="reportList">
-			<cfmailparam file = "#Application.webDirectory#/Reports/templates/#name#" type="text/plain">
-		</cfloop>
-	</cfmail>
+
 ---->
 </cfif>
