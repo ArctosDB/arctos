@@ -222,8 +222,8 @@
 		        select 0 report_id,
                 '#reportList.name#' report_template,
                 ' ' report_name,
-				'no handler' LAST_ACCESS,
-				'undefined' dayssince
+				'-' LAST_ACCESS,
+				'-' dayssince
                 from dual
 		    </cfquery>
         </cfif>
