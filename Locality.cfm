@@ -1995,9 +1995,42 @@ You deleted a collecting event.
 
 <cfoutput>
 
+<!---
+<cfloop list="#StructKeyList(form)#" index="key">
+			<cfif len(#form[key]#) gt 0>
+					<cfif #key# is not "FIELDNAMES"
+						AND #key# is not "SEARCHPARAMS"
+						AND #key# is not "mapurl"
+						AND #key# is not "cbifurl"
+						and #key# is not "newquery"
+						and #key# is not "ORDER_ORDER"
+						and #key# is not "ORDER_BY"
+						and #key# is not "newsearch"
+						and #key# is not "STARTROW">
+					<cfif len(#returnURL#) is 0>
+						<cfset returnURL='SpecimenResultsHTML.cfm?#key#=#form[key]#'>
+					<cfelse>
+						<cfset returnURL='#returnURL#&#key#=#form[key]#'>
+					</cfif>
+					<cfif #key# is not "detail_level">
+						<cfif len(#searchParams#) is 0>
+							<cfset searchParams='<input type="hidden" name="#key#" value="#form[key]#">'>
+						<cfelse>
+							<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#form[key]#">'>
+						</cfif>
+					</cfif>
+				</cfif>
+			 </cfif>
+		</cfloop>
+		---------->
+
+
 	<cfdump var=#form#>
 	<cfdump var=#url#>
 
+<cfset y = URLEncodedFormat( SerializeJSON(form))>
+
+<cfdump var=#y#>
 
 	<cf_findLocality type="locality">
 	<cfset title="Locality Search Results">
