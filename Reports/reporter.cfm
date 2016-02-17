@@ -151,32 +151,28 @@
 		<input type="text" name="varval" value="#varval#">
 		<input type="submit">
 	</form>
-	<cfset collection_object_id=varval>
-	<cfset transaction_id=varval>
-	<cfset container_id=varval>
-
-
-
-	<cfdump var=#collection_object_id#>
-
-
-	<cfdump var=#test_sql#>
-
 	<cfset test_sql=replace(test_sql,"##collection_object_id##",varval)>
 	<cfset test_sql=replace(test_sql,"##transaction_id##",varval)>
 	<cfset test_sql=replace(test_sql,"##container_id##",varval)>
+	<cftry>
+		 <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+             #preservesinglequotes(test_sql)#
+         </cfquery>
+         <cfdump var=#user_sql#>
+	<cfcatch>
+		<p>The SQL you supplied did not properly execute.</p>
+		<p>
+			<cfdump var=#cfcatch#>
+		</p>
+	</cfcatch>
+	</cftry>
 
-
-	<cfdump var=#test_sql#>
 
 	<!----
          <cfset sql=replace(test_sql,"##collection_object_id##",12)>
 		<cfset sql=replace(test_sql,"##container_id##",12)>
 		---->
-         <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-             #preservesinglequotes(test_sql)#
-         </cfquery>
-         <cfdump var=#user_sql#>
+
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
