@@ -13,7 +13,16 @@
     url = "127.0.0.1/ScheduledTasks/reportMaintenance.cfm?action=deleteUnused"
     cronTime="17 04 * * * *"
     requestTimeOut = "600">
-	
+
+
+<cfschedule action = "update"
+    task = "reports_emailNotifyNotUsed"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/reportMaintenance.cfm?action=emailNotifyNotUsed"
+    cronTime="21 0 * * * *"
+    requestTimeOut = "600">
+
+
 <!-----------------------------------   related specimens     ------------------------------------------>
 <!---
 	fetchRelatedInfo

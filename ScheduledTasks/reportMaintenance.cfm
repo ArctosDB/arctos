@@ -24,10 +24,6 @@
 	<cffile action="DELETE" file="#Application.webDirectory#/Reports/templates/#name#">
 
 </cfif>
-
-
-
-
 <cfif action is "emailNotifyNotUsed">
 
 	<!-----
@@ -105,9 +101,4 @@
 			#emailFooter#
 		</cfmail>
 	</cfoutput>
-
-
 </cfif>
-
-
-
