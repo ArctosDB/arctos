@@ -30,9 +30,7 @@
 		find reports which haven't been accessed in 6 months
 		on all 6-month anniversaries of last access
 	---->
-
 	<cfoutput>
-
 		<cfset ndays="0">
 		<cfset alist="">
 		<cfloop from="1" to="10" index="i">
@@ -54,8 +52,6 @@
 			where
 				round(sysdate-last_access) in (#alist#)
 		</cfquery>
-		<cfdump var=#orphan#>
-
 		<cfif orphan.recordcount lt 1>
 			<!--- save some processors ---->
 			<cfabort>

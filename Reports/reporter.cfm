@@ -10,7 +10,7 @@
     <cflocation url="reporter.cfm" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "saveEdit">
+<cfif action is "saveEdit">
     <cfif unsafeSql(sql_text)>
         Your SQL is not acceptable.
         <cfabort>
@@ -59,12 +59,8 @@
         </select>
         <label for="pre_function">Pre-Function</label>
         <input type="text" name="pre_function" id="pre_function" value="#e.pre_function#">
-		<div class="docdiv">
-			pre_functions process the data in CFML.
-		</div>
         <label for="report_format">Report Format</label>
         <cfset fmt="PDF,FlashPaper,RTF">
-
         <select name="report_format" id="report_format">
             <cfloop list="#fmt#" index="f">
                 <option <cfif f is e.report_format> selected="selected" </cfif>value="#f#">#f#</option>
@@ -81,16 +77,16 @@
         var b=document.getElementById('sql_text');
         b.value=unescape(a);
     </script>
-       <form method="post" action="reporter.cfm" target="_blank">
-           <input type="hidden" name="action" value="testSQL">
-	       <input type="hidden" name="test_sql" id="test_sql">
-           <input type="hidden" name="format" id="format" value="table">
-           <input type="button" value="Test SQL" onclick="document.getElementById('test_sql').value=document.getElementById('sql_text').value;
+    <form method="post" action="reporter.cfm" target="_blank">
+		<input type="hidden" name="action" value="testSQL">
+		<input type="hidden" name="test_sql" id="test_sql">
+        <input type="hidden" name="format" id="format" value="table">
+        <input type="button" value="Test SQL" onclick="document.getElementById('test_sql').value=document.getElementById('sql_text').value;
                 submit();" class="lnkBtn">
-    </form>
+   	</form>
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "newHandler">
+<cfif action is "newHandler">
      <cfset tc=getTickCount()>
      <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         insert into cf_report_sql (
@@ -105,7 +101,7 @@
     <cflocation url="reporter.cfm?action=edit&report_name=New_Report_#tc#" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "clone">
+<cfif action is "clone">
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
@@ -191,9 +187,7 @@
 	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
         <cfabort>
 	</cfif>
-
 	<cflocation url="reporter.cfm###fileName#" addtoken="false">
-
 </cfif>
 <!-------------------------------------------------------------->
 <cfif action is "nothing">
@@ -240,7 +234,6 @@
                 from dual
 		    </cfquery>
         </cfif>
-
 	    <cfloop query="h">
              <tr>
 	            <td>
@@ -259,7 +252,6 @@
 	            <td><a href="reporter.cfm?action=download&report_template=#report_template#">Download Report</a></td>
 	        </tr>
         </cfloop>
-
     </cfloop>
     </table>
 </cfif>
