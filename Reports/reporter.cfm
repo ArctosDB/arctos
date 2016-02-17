@@ -157,7 +157,7 @@
 		<cfset sql=replace(test_sql,"##container_id##",12)>
 		---->
          <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-             #preservesinglequotes(sql)#
+             #preservesinglequotes(test_sql)#
          </cfquery>
          <cfdump var=#user_sql#>
 
