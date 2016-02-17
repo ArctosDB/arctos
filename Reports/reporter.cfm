@@ -31,7 +31,7 @@
     <cflocation url="reporter.cfm?action=edit&report_id=#report_id#" addtoken="false">
 </cfif>
 <!--------------------------------------------------------------------------------------->
-<cfif #action# is "edit">
+<cfif action is "edit">
     <cfif not isdefined("report_id")>
 	    <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        select report_id from cf_report_sql where report_name='#report_name#'
@@ -44,6 +44,7 @@
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
 
+	<a href="http://arctosdb.org/how-to/label/" class="external" target="_blank">READ THE DOCUMENTATION!</a>
     <form method="get" action="reporter.cfm" enctype="text/plain">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="report_id" value="#e.report_id#">
@@ -58,6 +59,9 @@
         </select>
         <label for="pre_function">Pre-Function</label>
         <input type="text" name="pre_function" id="pre_function" value="#e.pre_function#">
+		<div class="docdiv">
+			pre_functions process the data in CFML.
+		</div>
         <label for="report_format">Report Format</label>
         <cfset fmt="PDF,FlashPaper,RTF">
 
@@ -84,15 +88,6 @@
            <input type="button" value="Test SQL" onclick="document.getElementById('test_sql').value=document.getElementById('sql_text').value;
                 submit();" class="lnkBtn">
     </form>
-    <div style="background-color:gray;font-size:smaller;">
-        The reports
-		To print reports, your SQL will need to include the following:
-        <br><strong>AND collection_object_id IN (##collection_object_id##)</strong>
-        <br>
-        For testing purposes, that will default to 12, or you can replace <strong>(##collection_object_id##)</strong>
-        with a comma-separated list of collection_object_ids, eg:
-        <strong>(1,5,874,2355,4)</strong>
-    </div>
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "newHandler">
