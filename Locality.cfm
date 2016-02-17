@@ -2011,10 +2011,10 @@ You deleted a collecting event.
 <form name="csv" method="post" action="Locality.cfm">
 	<input type="hidden" name="action" value="csv">
 <cfloop list="#StructKeyList(form)#" index="key">
-			<cfif len(form[key]) gt 0>
+			<cfif len(form[key]) gt 0 and key is not "action">
 			<input type="hidden" name="#key#" value ="#form[key]#">
 			<!----
-					<cfif key is not "FIELDNAMES"
+					<cfif key is not "action"
 						AND #key# is not "SEARCHPARAMS"
 						AND #key# is not "mapurl"
 						AND #key# is not "cbifurl"
