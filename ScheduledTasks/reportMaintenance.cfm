@@ -88,7 +88,7 @@
 			<cfset subj="Potential Unused Reports">
 		<cfelse>
 			<cfset maddr=application.bugreportemail>
-			<cfset subj="TEST PLEASE IGNORE:Potential Unused Reports">
+			<cfset subj="TEST PLEASE IGNORE: Potential Unused Reports">
 		</cfif>
 		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="report_report@#Application.fromEmail#" type="html">
 			<p>
