@@ -90,7 +90,7 @@
 			<cfset maddr=application.bugreportemail>
 			<cfset subj="TEST PLEASE IGNORE:Potential Unused Reports">
 		</cfif>
-		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="bare_accession@#Application.fromEmail#" type="html">
+		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="report_report@#Application.fromEmail#" type="html">
 			<p>
 				The following Reports have not been accessed recently. Please delete the handlers (which will auto-delete the template)
 				if they are no longer needed.
@@ -98,7 +98,7 @@
 			<cfloop query="orphan">
 				<p>
 					<a href="#Application.serverRootURL#/Reports/reporter.cfm?action=edit&report_id=#report_id#">
-						REPORT_TEMPLATE - REPORT_NAME
+						#REPORT_TEMPLATE# - #REPORT_NAME#
 					</a> (#days_since_access# days since last access)
 				</p>
 			</cfloop>
