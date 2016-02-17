@@ -221,7 +221,9 @@
             <cfquery name="h" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		        select 0 report_id,
                 '#reportList.name#' report_template,
-                ' ' report_name
+                ' ' report_name,
+				'no handler' LAST_ACCESS,
+				'undefined' dayssince
                 from dual
 		    </cfquery>
         </cfif>
