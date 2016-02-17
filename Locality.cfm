@@ -1976,11 +1976,9 @@ You deleted a collecting event.
 		<cflocation url="Locality.cfm?Action=findCollEvent&locality_id=#locality_id#" addtoken="false">
 	</cfoutput>
 </cfif>
+<!---------------------------------------------------------------------------------------------------->
 <cfif action is "csv">
-	<cfdump var=#url#>
 	<cf_findLocality type="locality">
-
-
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=localityResults,Fields=localityResults.columnlist)>
 	<cffile action = "write"
@@ -1988,11 +1986,9 @@ You deleted a collecting event.
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=LocalityResults.csv" addtoken="false">
-
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findLocality">
-
 	<script>
 		jQuery(document).ready(function() {
 			$.each($("div[id^='mapgohere-']"), function() {
@@ -2008,51 +2004,15 @@ You deleted a collecting event.
 	</script>
 
 <cfoutput>
-<form name="csv" method="post" action="Locality.cfm">
-	<input type="hidden" name="action" value="csv">
-<cfloop list="#StructKeyList(form)#" index="key">
+	<form name="csv" method="post" action="Locality.cfm">
+		<input type="hidden" name="action" value="csv">
+		<cfloop list="#StructKeyList(form)#" index="key">
 			<cfif len(form[key]) gt 0 and key is not "action">
-			<input type="hidden" name="#key#" value ="#form[key]#">
-			<!----
-					<cfif key is not "action"
-						AND #key# is not "SEARCHPARAMS"
-						AND #key# is not "mapurl"
-						AND #key# is not "cbifurl"
-						and #key# is not "newquery"
-						and #key# is not "ORDER_ORDER"
-						and #key# is not "ORDER_BY"
-						and #key# is not "newsearch"
-						and #key# is not "STARTROW">
-					<cfif len(#returnURL#) is 0>
-						<cfset returnURL='SpecimenResultsHTML.cfm?#key#=#form[key]#'>
-					<cfelse>
-						<cfset returnURL='#returnURL#&#key#=#form[key]#'>
-					</cfif>
-					<cfif #key# is not "detail_level">
-						<cfif len(#searchParams#) is 0>
-							<cfset searchParams='<input type="hidden" name="#key#" value="#form[key]#">'>
-						<cfelse>
-							<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#form[key]#">'>
-						</cfif>
-					</cfif>
-					---
-				</cfif>
-				---->
-			 </cfif>
+				<input type="hidden" name="#key#" value ="#form[key]#">
+			</cfif>
 		</cfloop>
-
-<input type="submit" value="getCSV">
-</form>
-	<cfdump var=#form#>
-	<cfdump var=#url#>
-
-<cfset y = URLEncodedFormat( SerializeJSON(form))>
-
-<cfdump var=#y#>
-		<a href="/Locality.cfm?action=csv&#y#" target="_blank">CSV</a>
-
-
-
+		<input type="submit" value="getCSV">
+	</form>
 	<cf_findLocality type="locality">
 	<cfset title="Locality Search Results">
 	<cfif localityResults.recordcount lt 1000>
