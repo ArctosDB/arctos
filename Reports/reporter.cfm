@@ -162,7 +162,7 @@
 	<cfdump var=#test_sql#>
 
 
-	<cfset sql=replace(test_sql,"##collection_object_id##",'what the hell')>
+	<cfset sql=replace(test_sql,"##collection_object_id##",varval)>
 
 
 	<cfdump var=#sql#>
