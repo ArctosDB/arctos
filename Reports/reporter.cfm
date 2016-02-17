@@ -146,6 +146,7 @@
 	<cfparam name="varval" default="12">
 	<form name="ts" method="post" action="reporter.cfm">
 		<input type="hidden" name="test_sql" value="#test_sql#">
+		<input type="hidden" name="action" value="testSQL">
 		<label for="varval">test value (value for collection_object_id, transaction_id, or container_id)</label>
 		<input type="text" name="varval" value="#varval#">
 		<input type="submit">
