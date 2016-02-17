@@ -31,7 +31,7 @@
 	---->
 	<cfset ndays="0">
 	<cfset alist="">
-	<cfloop from="1" to="10">
+	<cfloop from="1" to="10" index="i">
 		<!--- 5 years is probably enough.... ---->
 		<cfset tv=ndays+180>
 		<cfset alist=listappend(alist, tv)>
