@@ -2003,6 +2003,7 @@ You deleted a collecting event.
 <cfloop list="#StructKeyList(form)#" index="key">
 			<cfif len(form[key]) gt 0>
 			<input type="hidden" name="#key#" value ="#form[key]#">
+			<!----
 					<cfif key is not "FIELDNAMES"
 						AND #key# is not "SEARCHPARAMS"
 						AND #key# is not "mapurl"
@@ -2024,7 +2025,9 @@ You deleted a collecting event.
 							<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#form[key]#">'>
 						</cfif>
 					</cfif>
+					---
 				</cfif>
+				---->
 			 </cfif>
 		</cfloop>
 
