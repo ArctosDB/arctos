@@ -135,16 +135,27 @@
 	</p>
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "testSQL">
+<cfif action is "testSQL">
     <cfif unsafeSql(test_sql)>
         <div class="error">
              The code you submitted contains illegal characters.
          </div>
          <cfabort>
     </cfif>
-
+	<cfparam name="varval" default="12">
+	<form name="ts" method="post" action="reporter.cfm">
+		<input type="hidden" name="test_sql" value="#test_sql#">
+		<label for="varval">test value (value for collection_object_id, transaction_id, or container_id)</label>
+		<input type="text" name="varval" value="#varval#">
+		<input type="submit">
+	</form>
+	<cfset collection_object_id=varval>
+	<cfset transaction_id=varval>
+	<cfset container_id=varval>
+	<!----
          <cfset sql=replace(test_sql,"##collection_object_id##",12)>
 		<cfset sql=replace(test_sql,"##container_id##",12)>
+		---->
          <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
              #preservesinglequotes(sql)#
          </cfquery>
