@@ -17,10 +17,8 @@
 	</cfquery>
 	<cfset collection_object_id=valuelist(cids.collection_object_id)>
 </cfif>
-
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
-
 <cfif action is "nothing">
 	<cfif isdefined("report") and len(report) gt 0>
 		<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
