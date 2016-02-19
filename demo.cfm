@@ -17,7 +17,7 @@ I'm a link click for full search
 <label for="">When</label>
  <input id="test" type="range"/>
 
-<input type="button" value="click to search">
+<br><input type="button" value="click to search">
 </blockquote>
 
 <H2>
