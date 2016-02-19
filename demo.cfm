@@ -14,7 +14,7 @@ I'm a link click for full search
 <input type="text" placeholder="Place Name">
 
 
-<label for="">When</label>
+<label for="">When (slide to pick year range)</label>
  <input id="test" type="range"/>
 
 <br><input type="button" value="click to search">
