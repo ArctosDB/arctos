@@ -9,9 +9,11 @@ I'm a link click for full search
 <blockquote>
 <label for="">What</label>
 <input type="text" placeholder="identification or common name">
+<br>Try <a href="#">Marmot</a> or <a href="#">Arrowhead</a>
 
 <label for="">Where</label>
 <input type="text" placeholder="Place Name">
+<br>Try <a href="#">Albuquerque</a>
 
 
 <label for="">When (slide to pick year range)</label>
