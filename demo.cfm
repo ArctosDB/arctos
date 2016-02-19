@@ -22,18 +22,18 @@ I'm a link click for full search
 
 <H2>
 	Projects and Publications
-	<br>....
+	<br>there's a box or 2 here....
 </H2>
 
 <H2>
 	Taxonomy
-	<br>....
+	<br>there's a box or 2 here....
 </H2>
 
 
 <H2>
 	People and Agencies
-	<br>....
+	<br>there's a box or 2 here....
 </H2>
 
 
