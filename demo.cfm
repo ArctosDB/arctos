@@ -3,8 +3,10 @@
 <h1>Search Arctos</h1>
 <h2>Specimens</h2>
 <p>
-clickypop for full search
+I'm a link click for full search
 </p>
+
+<blockquote>
 <label for="">What</label>
 <input type="text" placeholder="identification or common name">
 
@@ -14,6 +16,9 @@ clickypop for full search
 
 <label for="">When</label>
  <input id="test" type="range"/>
+
+<input type="button" value="click to search">
+</blockquote>
 
 <H2>
 	Projects and Publications
