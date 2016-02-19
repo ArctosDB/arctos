@@ -22,19 +22,21 @@ I'm a link click for full search
 
 <H2>
 	Projects and Publications
-	<br>there's a box or 2 here....
 </H2>
+
+	<br>there's a box or 2 here....
 
 <H2>
 	Taxonomy
-	<br>there's a box or 2 here....
 </H2>
+
+	<br>there's a box or 2 here....
 
 
 <H2>
 	People and Agencies
-	<br>there's a box or 2 here....
 </H2>
 
+	<br>there's a box or 2 here....
 
 <cfinclude template="/includes/_pickFooter.cfm">
