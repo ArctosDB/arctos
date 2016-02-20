@@ -80,7 +80,7 @@
 		</cfquery>
 		<cfloop query="reqd">
 			<cfset basSelect & ", " & reqd.SQL_ELEMENT & " " & reqd.COLUMN_NAME>
-		</cfloop>		
+		</cfloop>
 		<cfset basFrom = " FROM #flatTableName#">
 		<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
 		<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">
@@ -360,6 +360,8 @@
 <cfif action is "colorByCollection">
 <cfoutput>
 	<cfset dlFile = "#userFileName#.kml">
+
+	dlFile: #dlFile#
 	<cfset variables.fileName="#internalPath##dlFile#">
 	<cfset variables.encoding="UTF-8">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
