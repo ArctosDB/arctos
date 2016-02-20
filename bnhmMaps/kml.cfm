@@ -581,6 +581,14 @@
 	<cfelse>
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
 	</cfif>
+
+
+	<p>durl: #durl#</p>
+	<cfabort>
+
+
+
+
 	<cflocation url="#durl#" addtoken="false">
 	</cfoutput>
 </cfif>
