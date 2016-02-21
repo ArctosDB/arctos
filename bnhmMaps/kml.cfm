@@ -165,7 +165,10 @@
 						<select name="method" id="method">
 							<option <cfif method is "download"> selected="selected"</cfif> value="download">Download KML</option>
 							<option <cfif method is "link"> selected="selected"</cfif> value="link">Download KML linkfile</option>
+							<!---
 							<option <cfif method is "gmap"> selected="selected"</cfif> value="gmap">Google Maps</option>
+							see https://github.com/ArctosDB/arctos/issues/823
+							--->
 						</select>
 					</td>
 				</tr>
@@ -360,8 +363,6 @@
 <cfif action is "colorByCollection">
 <cfoutput>
 	<cfset dlFile = "#userFileName#.kml">
-
-	dlFile: #dlFile#
 	<cfset variables.fileName="#internalPath##dlFile#">
 	<cfset variables.encoding="UTF-8">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -576,18 +577,13 @@
 	</cfscript>
 	<cfif method is "link">
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
+	<!----
 	<cfelseif method is "gmap">
 		<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
+		---->
 	<cfelse>
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
 	</cfif>
-
-
-	<p>durl: #durl#</p>
-	<cfabort>
-
-
-
 
 	<cflocation url="#durl#" addtoken="false">
 	</cfoutput>

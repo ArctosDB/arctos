@@ -245,6 +245,13 @@
 	<!---
 
 
+rdurl: /includes/"+("/picks/findAgentModal.cfm&agentIdFld=%22+b+%22&agentNameFld=%22+d+%22&name=%22+(%22undefined%22!=typeof%20e?e:%22%22))+%22
+
+
+rdurl: /home.cfm'A=0
+
+rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
+
 		first check if they're already blacklisted
 		If they are, just include the notification/form and abort
 	---->
