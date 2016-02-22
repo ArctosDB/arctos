@@ -219,8 +219,6 @@
 				ATTRIBUTE_TYPE,
 				DETERMINED_DATE
 		</cfquery>
-
-
 		<form name="details" method="post" action="editBiolIndiv.cfm">
 			<input type="hidden" value="save" name="action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
