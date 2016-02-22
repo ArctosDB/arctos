@@ -69,8 +69,8 @@
 		aid='_' + aid;
 		$("#attribute_value" + aid).remove();
 		$("#attribute_units" + aid).remove();
-		$("#determined_date" + aid).addClass('reqdClr').prop('required',true);;
-		$("#agent_name" + aid).addClass('reqdClr').prop('required',true);;
+		//$("#determined_date" + aid).addClass('reqdClr').prop('required',true);
+		$("#agent_name" + aid).addClass('reqdClr').prop('required',true);
 
 
 
@@ -219,8 +219,6 @@
 				ATTRIBUTE_TYPE,
 				DETERMINED_DATE
 		</cfquery>
-
-
 		<form name="details" method="post" action="editBiolIndiv.cfm">
 			<input type="hidden" value="save" name="action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
@@ -281,7 +279,7 @@
 						</td>
 						<td id="_determined_date_#attribute_id#">
 							<input type="text" name="determined_date_#attribute_id#" id="determined_date_#attribute_id#"
-								value="#determined_date#" class="reqdClr" size="12">
+								value="#determined_date#" size="12">
 						</td>
 						<td id="_determination_method_#attribute_id#">
 							<input type="text" name="determination_method_#attribute_id#" id="determination_method_#attribute_id#" value="#stripQuotes(determination_method)#">
@@ -401,7 +399,7 @@
 						</td>
 						<td>
 							<label for="determined_date">Date</label>
-							<input type="text" name="determined_date" id="mammgrid_determined_date" class="reqdClr" size="10">
+							<input type="text" name="determined_date" id="mammgrid_determined_date" size="10">
 						</td>
 						<td>
 							<label for="mammgrid_detagentid">Determiner</label>
