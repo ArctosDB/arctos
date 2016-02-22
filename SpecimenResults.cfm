@@ -109,7 +109,7 @@
 	        $('##specresults').jtable({
 	            title: 'Specimen Results',
 				paging: true, //Enable paging
-	            pageSize: 10, //Set page size (default: 10)
+	            pageSize: 100, //Set page size (default: 10)
 	            sorting: true, //Enable sorting
 	            defaultSorting: 'GUID ASC', //Set default sorting
 				columnResizable: true,
