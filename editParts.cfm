@@ -8,7 +8,7 @@
 		});
 	});
 </script>
-	<cfoutput>
+<cfoutput>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			specimen_part.collection_object_id as partID,
@@ -67,6 +67,19 @@
 			raw
 		where
 			sampled_from_obj_id is null
+		group by
+			partID,
+			part_name,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
+			collection_cde,
+			lot_count,
+			barcode,
+			label,
+			parentContainerId,
+			partContainerId,
+			coll_object_remarks
 		order by
 			part_name
 	</cfquery>
@@ -146,7 +159,6 @@
 			<cfset rnum=rnum+1>
 		</cfloop>
 	</cfloop>
-
 	<cfquery name="ploan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			loan.loan_number,
@@ -161,8 +173,6 @@
 			loan_item.collection_object_id=specimen_part.collection_object_id AND
 			specimen_part.derived_from_cat_item=#collection_object_id#
 	</cfquery>
-
-
  	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</span>
 	<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
 	<cfset i = 1>
@@ -170,176 +180,174 @@
 	<form name="parts" method="post" action="editParts.cfm">
 		<input type="hidden" name="action" value="saveEdits">
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-	<table border>
-	<cfloop query="getParts">
-		<cfif len(getParts.partID) gt 0>
-			<input type="hidden" name="partID#i#" value="#getParts.partID#">
-			<!--- next couple lines and the if statement stop us from putting the same part in the
-			grid twice, which seems to happen when tehre are 2 parts in different containers -
-			voodoo solution, but it works.....
-			---->
-			<cfif not #listcontains(listedParts, getParts.partID)#>
-				<cfset listedParts = "#listedParts#,#getParts.partID#">
-			<cfif i mod 2 eq 0>
-				<cfset bgc = "##C0C0C0">
-			<cfelse>
-				<cfset bgc="##F5F5F5">
-			</cfif>
-			<cfset lblClr = "red">
-			<cfif len(sampled_from_obj_id) gt 0>
-				<cfset bgc="##669999">
-			</cfif>
-				<tr bgcolor="#bgc#">
-					<td>
-						<label for="part_name#i#">
-							Part
-							<cfif len(sampled_from_obj_id) gt 0>
-								Subsample
-							</cfif>
-							&nbsp;<span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
-						</label>
-						<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
-							value="#getParts.part_name#" size="25"
-							onchange="findPart(this.id,this.value,'#getParts.collection_cde#');"
-							onkeypress="return noenter(event);">
-					</td>
-					<td>
-						<label for="coll_obj_disposition#i#">Disposition</label>
-						<select name="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:150px";>
-			              <cfloop query="ctDisp">
-				              <option <cfif ctdisp.coll_obj_disposition is getParts.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-			              </cfloop>
-			            </select>
-					</td>
-					<td>
-						<label for="condition#i#">Condition&nbsp;<span class="likeLink" style="font-weight:100" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
-						<textarea name="condition#i#" id="condition#i#" class="reqdClr mediumtextarea">#getparts.condition#</textarea>
-					</td>
-					<td>
-						<label for="lot_count#i#">##</label>
-						<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
-					</td>
-					<td>
-						<label for="label#i#">In Container Label</label>
-						<span style="font-size:small">
-							<cfif len(getparts.label) gt 0>
-								#getparts.label#
-							<cfelse>
-								-NONE-
-							</cfif>
-						</span>
-						<input type="hidden" name="label#i#" value="#getparts.label#">
-						<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
-						<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
-					</td>
-					<td>
-						<label for="newCode#i#">Add to barcode</label>
-						<input type="text" name="newCode#i#" id="newCode#i#" size="10">
-					</td>
-					<td>
-						<label for="coll_object_remarks#i#">Remark</label>
-						<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(getparts.coll_object_remarks)#</textarea>
-					</td>
-					<cfquery dbtype="query" name="tlp">
-						select * from ploan where transaction_id is not null and collection_object_id=#partID#
-					</cfquery>
-					<td>
-						<cfloop query="tlp">
-							<div>
-								<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number#</a>
-							</div>
-						</cfloop>
-					</td>
-
-					<td align="middle">
-						<input type="button" value="Delete" class="delBtn"
-							onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
-						<br>
-						<span class="infoLink"
-						<input type="button"
-							value="Copy"
-							class="insBtn"
-							onClick="newPart.part_name.value='#part_name#';
-								newPart.lot_count.value='#lot_count#';
-								newPart.coll_obj_disposition.value='#coll_obj_disposition#';
-								newPart.condition.value='#condition#';
-								newPart.coll_object_remarks.value='#coll_object_remarks#';">
-					</td>
-				</tr>
-				<cfquery name="pAtt" dbtype="query">
-					select
-						 part_attribute_id,
-						 attribute_type,
-						 attribute_value,
-						 attribute_units,
-						 determined_date,
-						 determined_by_agent_id,
-						 attribute_remark,
-						 part_attribute_determiner agent_name
-					from
-						raw
-					where
-						part_attribute_id is not null and
-						partID=#partID#
-				</cfquery>
-				<tr bgcolor="#bgc#">
-					<td colspan="8" align="center">
-						<cfif pAtt.recordcount gt 0>
-						<table border>
-							<tr>
-								<th>Attribute</th>
-								<th>Value</th>
-								<th>Units</th>
-								<th>Date</th>
-								<th>DeterminedBy</th>
-								<th>Remark</th>
-							</tr>
-							<cfloop query="pAtt">
-								<tr>
-									<td>#attribute_type#</td>
-									<td>
-										#attribute_value#&nbsp;
-									</td>
-									<td>
-										#attribute_units#&nbsp;
-									</td>
-									<td>
-										#dateformat(determined_date,"yyyy-mm-dd")#&nbsp;
-									</td>
-									<td>
-										#agent_name#&nbsp;
-									</td>
-									<td>
-										#attribute_remark#&nbsp;
-									</td>
-								</tr>
+		<table border>
+			<cfloop query="getParts">
+				<cfif len(getParts.partID) gt 0>
+					<input type="hidden" name="partID#i#" value="#getParts.partID#">
+					<!--- next couple lines and the if statement stop us from putting the same part in the
+					grid twice, which seems to happen when tehre are 2 parts in different containers -
+					voodoo solution, but it works.....
+					---->
+					<cfif not listcontains(listedParts, getParts.partID)>
+						<cfset listedParts = "#listedParts#,#getParts.partID#">
+					<cfif i mod 2 eq 0>
+						<cfset bgc = "##C0C0C0">
+					<cfelse>
+						<cfset bgc="##F5F5F5">
+					</cfif>
+					<cfset lblClr = "red">
+					<cfif len(sampled_from_obj_id) gt 0>
+						<cfset bgc="##669999">
+					</cfif>
+					<tr bgcolor="#bgc#">
+						<td>
+							<label for="part_name#i#">
+								Part
+								<cfif len(sampled_from_obj_id) gt 0>
+									Subsample
+								</cfif>
+								&nbsp;<span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
+							</label>
+							<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
+								value="#getParts.part_name#" size="25"
+								onchange="findPart(this.id,this.value,'#getParts.collection_cde#');"
+								onkeypress="return noenter(event);">
+						</td>
+						<td>
+							<label for="coll_obj_disposition#i#">Disposition</label>
+							<select name="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:150px";>
+				              <cfloop query="ctDisp">
+					              <option <cfif ctdisp.coll_obj_disposition is getParts.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+				              </cfloop>
+				            </select>
+						</td>
+						<td>
+							<label for="condition#i#">Condition&nbsp;<span class="likeLink" style="font-weight:100" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
+							<textarea name="condition#i#" id="condition#i#" class="reqdClr mediumtextarea">#getparts.condition#</textarea>
+						</td>
+						<td>
+							<label for="lot_count#i#">##</label>
+							<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
+						</td>
+						<td>
+							<label for="label#i#">In Container Label</label>
+							<span style="font-size:small">
+								<cfif len(getparts.label) gt 0>
+									#getparts.label#
+								<cfelse>
+									-NONE-
+								</cfif>
+							</span>
+							<input type="hidden" name="label#i#" value="#getparts.label#">
+							<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
+							<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
+						</td>
+						<td>
+							<label for="newCode#i#">Add to barcode</label>
+							<input type="text" name="newCode#i#" id="newCode#i#" size="10">
+						</td>
+						<td>
+							<label for="coll_object_remarks#i#">Remark</label>
+							<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(getparts.coll_object_remarks)#</textarea>
+						</td>
+						<cfquery dbtype="query" name="tlp">
+							select * from ploan where transaction_id is not null and collection_object_id=#partID#
+						</cfquery>
+						<td>
+							<cfloop query="tlp">
+								<div>
+									<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number#</a>
+								</div>
 							</cfloop>
 						</td>
-					</table>
-					<cfelse>
-						--no attributes--
-					</cfif>
-					<td><input type="button" value="Manage Attributes" class="savBtn"
-			   			onclick="mgPartAtts(#partID#);">
-					</td>
-				</tr>
-				<cfset i = i+1>
-	     </cfif><!---- end of the list ---->
-	</cfif>
-</cfloop>
-<tr bgcolor="##00CC00">
-	<td colspan="10" align="center">
-		<input type="button" value="Save All Changes" class="savBtn"
-		   onclick="parts.action.value='saveEdits';submit();">
-   </td>
-</tr>
-<cfset numberOfParts= #i# - 1>
-<input type="hidden" name="NumberOfParts" value="#numberOfParts#">
-<input type="hidden" name="partID">
- </form>
+						<td align="middle">
+							<input type="button" value="Delete" class="delBtn"
+								onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
+							<br>
+							<span class="infoLink"
+							<input type="button"
+								value="Copy"
+								class="insBtn"
+								onClick="newPart.part_name.value='#part_name#';
+									newPart.lot_count.value='#lot_count#';
+									newPart.coll_obj_disposition.value='#coll_obj_disposition#';
+									newPart.condition.value='#condition#';
+									newPart.coll_object_remarks.value='#coll_object_remarks#';">
+						</td>
+					</tr>
+					<cfquery name="pAtt" dbtype="query">
+						select
+							 part_attribute_id,
+							 attribute_type,
+							 attribute_value,
+							 attribute_units,
+							 determined_date,
+							 determined_by_agent_id,
+							 attribute_remark,
+							 part_attribute_determiner agent_name
+						from
+							raw
+						where
+							part_attribute_id is not null and
+							partID=#partID#
+					</cfquery>
+					<tr bgcolor="#bgc#">
+						<td colspan="8" align="center">
+							<cfif pAtt.recordcount gt 0>
+							<table border>
+								<tr>
+									<th>Attribute</th>
+									<th>Value</th>
+									<th>Units</th>
+									<th>Date</th>
+									<th>DeterminedBy</th>
+									<th>Remark</th>
+								</tr>
+								<cfloop query="pAtt">
+									<tr>
+										<td>#attribute_type#</td>
+										<td>
+											#attribute_value#&nbsp;
+										</td>
+										<td>
+											#attribute_units#&nbsp;
+										</td>
+										<td>
+											#dateformat(determined_date,"yyyy-mm-dd")#&nbsp;
+										</td>
+										<td>
+											#agent_name#&nbsp;
+										</td>
+										<td>
+											#attribute_remark#&nbsp;
+										</td>
+									</tr>
+								</cfloop>
+							</td>
+						</table>
+						<cfelse>
+							--no attributes--
+						</cfif>
+						<td><input type="button" value="Manage Attributes" class="savBtn"
+				   			onclick="mgPartAtts(#partID#);">
+						</td>
+					</tr>
+					<cfset i = i+1>
+				</cfif><!---- end of the list ---->
+			</cfif>
+		</cfloop>
+		<tr bgcolor="##00CC00">
+			<td colspan="10" align="center">
+				<input type="button" value="Save All Changes" class="savBtn"
+				   onclick="parts.action.value='saveEdits';submit();">
+		   </td>
+		</tr>
+		<cfset numberOfParts= #i# - 1>
+		<input type="hidden" name="NumberOfParts" value="#numberOfParts#">
+		<input type="hidden" name="partID">
+	</table>
+	</form>
 
-
-</table>
 <a name="newPart"></a>
 
 <table class="newRec"><tr><td>
@@ -591,4 +599,3 @@
 	</cftransaction>
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
-<!----------------------------------------------------------------------------------->
