@@ -67,7 +67,7 @@
 				Part: <a href="/guid/#detail.guid#" target="_blank" class="external">#detail.guid#</a>
 				<em>#detail.scientific_name#</em> #detail.part_name#
 				<cfif len(detail.CustomID) gt 0>
-					(#session.CustomOtherIdentifier#: #CustomID#)
+					(#session.CustomOtherIdentifier#: #detail.CustomID#)
 				</cfif>
 			</div>
 		</cfif>
