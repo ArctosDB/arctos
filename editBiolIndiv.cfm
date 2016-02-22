@@ -69,8 +69,8 @@
 		aid='_' + aid;
 		$("#attribute_value" + aid).remove();
 		$("#attribute_units" + aid).remove();
-		$("#determined_date" + aid).addClass('reqdClr').prop('required',true);;
-		$("#agent_name" + aid).addClass('reqdClr').prop('required',true);;
+		$("#determined_date" + aid).addClass('reqdClr').prop('required',true);
+		$("#agent_name" + aid).addClass('reqdClr').prop('required',true);
 
 
 
