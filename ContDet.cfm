@@ -30,9 +30,6 @@
 		specimen_part.derived_from_cat_item = flat.collection_object_id (+) AND
 		container.container_id=#container_id#
 </cfquery>
-
-
-
 <h2>Container Details</h2>
 <cfoutput>
 	<div>
