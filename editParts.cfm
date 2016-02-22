@@ -84,10 +84,6 @@
 			part_name
 	</cfquery>
 
-	<cfif session.username is "dlm">
-		<cfdump var=#partsOnly#>
-	</cfif>
-
 
 
 	<!--- just the object, no data ---->
@@ -205,18 +201,6 @@
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<table border>
 
-
-
-
-
-
-
-
-
-
-	<cfif session.username is "dlm">
-		<cfdump var=#getParts#>
-	</cfif>
 
 
 
