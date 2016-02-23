@@ -12,7 +12,7 @@
 <cfoutput>
 	<!--- start of encumbrance code --->
 		<cfset mnths="0,6,12,24,36,48">
-		<cfquery name="enc" datasource="uam_god">
+		<cfquery name="raw" datasource="uam_god">
 			select
 				collection.guid_prefix,
 				get_address(collection_contacts.contact_agent_id,'email') collection_contact_email,
@@ -56,6 +56,30 @@
 		</cfquery>
 
 
+	<cfdump var=#raw#>
+
+
+		<cfquery name="enc" dbtype="query">
+			select
+				ENCUMBRANCE_ID,
+				EXPIRATION_DATE,
+				ENCUMBRANCE,
+				REMARKS,
+				MADE_DATE,
+				ENCUMBRANCE_ACTION
+			from
+				raw
+			group by
+				ENCUMBRANCE_ID,
+				EXPIRATION_DATE,
+				ENCUMBRANCE,
+				REMARKS,
+				MADE_DATE,
+				ENCUMBRANCE_ACTION
+		</cfquery>
+
+	<cfdump var=#enc#>
+
  ----------------------------------------------------------------- -------- --------------------------------------------
  ENCUMBRANCE_ID 						   NOT NULL NUMBER
  						   NOT NULL NUMBER
@@ -70,7 +94,6 @@ UAM@ARCTEST>
 
 
 
-	<cfdump var=#enc#>
 
 	<!--- end of encumbrance code --->
 
