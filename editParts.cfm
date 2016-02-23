@@ -42,12 +42,10 @@
 				LEFT OUTER JOIN container parentContainer ON (thisContainer.parent_container_id = parentContainer.container_id)
 				LEFT OUTER JOIN coll_object_remark ON (specimen_part.collection_object_id = coll_object_remark.collection_object_id)
 			WHERE
-				cataloged_item.collection_object_id = #collection_object_id# and
-				specimen_part.part_name is not null
+				cataloged_item.collection_object_id = #collection_object_id#
 			ORDER BY sampled_from_obj_id DESC,part_name ASC
 		</cfquery>
 
-		<cfdump var=#raw#>
 		<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 		</cfquery>
@@ -69,6 +67,7 @@
 			from
 				raw
 			where
+				partID is not null and
 				sampled_from_obj_id is null
 			group by
 				partID,
