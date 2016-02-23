@@ -42,7 +42,8 @@
 				LEFT OUTER JOIN container parentContainer ON (thisContainer.parent_container_id = parentContainer.container_id)
 				LEFT OUTER JOIN coll_object_remark ON (specimen_part.collection_object_id = coll_object_remark.collection_object_id)
 			WHERE
-				cataloged_item.collection_object_id = #collection_object_id#
+				cataloged_item.collection_object_id = #collection_object_id# and
+				specimen_part.part_name is not null
 			ORDER BY sampled_from_obj_id DESC,part_name ASC
 		</cfquery>
 
