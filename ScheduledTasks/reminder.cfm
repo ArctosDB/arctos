@@ -13,15 +13,19 @@
 	<!--- start of encumbrance code --->
 		<cfset mnths="0,6,12,24,36,48">
 		<cfquery name="enc" datasource="uam_god">
-			select * from encumbrance where EXPIRATION_DATE in (
+			select * from encumbrance where to_char(EXPIRATION_DATE,'yyyy-mm-dd') in (
 			<cfloop list="#mnths#" index="i">
-				add_months(sysdate,#i#)
+				to_char(add_months(sysdate,#i#),'yyyy-mm-dd')
 				<cfif i is not 48>
 					,
 				</cfif>
 			</cfloop>
 			)
 		</cfquery>
+
+
+
+
 
 	<cfdump var=#enc#>
 
