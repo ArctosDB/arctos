@@ -59,7 +59,7 @@
 	<cfoutput>
 		<cfset title = "Search for specimens or encumbrances">
 		<p>
-			<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
+			<cfif len(table_name) gt 0>
 				Now find an encumbrance to apply to or remove from the specimens below. If you need a new encumbrance, create it
 				first then come back here.
 			<cfelse>
@@ -220,7 +220,7 @@
 						<td>#dateformat(expiration_date,"yyyy-mm-dd")#</td>
 						<td>#remarks#</td>
 						<td>
-							<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
+							<cfif len(table_name) gt 0>
 								<div class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
 									[ Add All Items To This Encumbrance ]
 								</div>
@@ -435,55 +435,36 @@ UPDATE encumbrance SET
 
 
 <!-------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveEncumbrances">
+<cfif action is "saveEncumbrances">
 <cfoutput>
 	<cfif len(encumbrance_id) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfif  len(table_name) is 0 and len(collection_object_id) is 0>
+	<cfif  len(table_name) is 0>
 		Didn't get specimens<cfabort>
 	</cfif>
 
 	<cfquery name="unencumberedSpecimens" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		<cfif len(table_name) gt 0>
-			select
+			INSERT INTO coll_object_encumbrance (
+				encumbrance_id,
 				collection_object_id
-			from
-				#table_name#
-			where
-				collection_object_id not in (
-					select
-						collection_object_id
-					from
-						coll_object_encumbrance
-					where
-						encumbrance_id=#encumbrance_id#
-				)
-		<cfelse>
-			select
-				collection_object_id
-			from
-				cataloged_item
-			where
-				collection_object_id in ( #collection_object_id# ) and
-				collection_object_id not in (
-					select collection_object_id from coll_object_encumbrance where encumbrance_id=#encumbrance_id#
-				)
-		</cfif>
+			) (
+				select
+					#encumbrance_id#,
+					collection_object_id
+				from
+					#table_name#
+				where
+					collection_object_id not in (
+						select
+							collection_object_id
+						from
+							coll_object_encumbrance
+						where
+							encumbrance_id=#encumbrance_id#
+					)
+		)
 	</cfquery>
-	<cfif unencumberedSpecimens.recordcount gt 1000>
-		1000 record limit on creating encumbrances
-		<cfabort>
-	</cfif>
-	<cftransaction>
-		<cfloop query="unencumberedSpecimens">
-			<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id) values (
-					#encumbrance_id#,#unencumberedSpecimens.collection_object_id#)
-			</cfquery>
-		</cfloop>
-	</cftransaction>
-
 
 	<p>
 		All items listed below have been encumbered.
@@ -493,7 +474,7 @@ UPDATE encumbrance SET
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------->
-<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
+<cfif len(table_name) gt 0>
 
 	<Cfset title = "Encumber these specimens">
 		<cfoutput>
@@ -521,11 +502,7 @@ UPDATE encumbrance SET
 					flat.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND
 					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
 					flat.collection_object_id IN (
-						<cfif len(table_name) gt 0>
-							(select collection_object_id from #table_name#)
-						<cfelse>
-							( #collection_object_id# )
-						</cfif>
+						select collection_object_id from #table_name#
 					)
 				ORDER BY
 					flat.collection_object_id
