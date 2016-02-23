@@ -223,25 +223,31 @@
 								<div class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
 									[ Add All Items To This Encumbrance ]
 								</div>
-								<span class="likeLink" onclick="listEnc#i#.Action.value='remListedItems';listEnc#i#.submit();">
+								<div class="likeLink" onclick="listEnc#i#.Action.value='remListedItems';listEnc#i#.submit();">
 									[ Remove Listed Items From This Encumbrance ]
-								</span>
+								</div>
 							</cfif>
 							<div class="likeLink" onclick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
 								[ Delete This Encumbrance ]
 							</div>
-							<span class="likeLink" onclick="listEnc#i#.Action.value='updateEncumbrance';listEnc#i#.submit();">
+							<div class="likeLink" onclick="listEnc#i#.Action.value='updateEncumbrance';listEnc#i#.submit();">
 								[ Modify This Encumbrance ]
-							</span>
-							<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
+							</div>
+							<div>
+								<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
+							</div>
 							<cfif listfindnocase(session.roles, "MANAGE_COLLECTION")>
-								<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
+								<div>
+									<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
+								</div>
 							<cfelse>
-								Manage_collection access is required to delete.
+								<div>
+									Manage_collection access is required to delete.
+								</div>
 							</cfif>
-							<span class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
+							<div class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
 								[ Remove all specimens from this encumbrance ]
-							</span>
+							</div>
 						</td>
 					</tr>
 				</form>
