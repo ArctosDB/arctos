@@ -202,7 +202,7 @@
 				<input type="hidden" name="encumbrance_id" value="#encumbrance_id#">
 				<input type="hidden" name="table_name" value="#table_name#">
 				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-				#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")# #expiration_event# #remarks#
+				#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")#  #remarks#
 				<br>
 				<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
 					<span class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
@@ -307,12 +307,7 @@ Edit Encumbrance:
 				onClick="getDocs('encumbrance','expiration')">Expiration Date:</a>
 				</td>
 			<td><input type="text" name="expiration_date" id="expiration_date"  value="#dateformat(expiration_date,'yyyy-mm-dd')#"></td>
-			<td align="right">
-			<a href="javascript:void(0);"
-				class="novisit"
-				onClick="getDocs('encumbrance','expiration')">Expiration Event:</a>
-			</td>
-			<td><input type="text" name="expiration_event" value="#expiration_event#"></td>
+
 		</tr>
 		<tr>
 			<td align="right">
@@ -377,7 +372,6 @@ UPDATE encumbrance SET
 	<cfelse>
 		,expiration_date=null
 	</cfif>
-	,EXPIRATION_EVENT = '#EXPIRATION_EVENT#'
 	<cfif len(#MADE_DATE#) gt 0>
 		,MADE_DATE = '#dateformat(MADE_DATE,'yyyy-mm-dd')#'
 	</cfif>
@@ -490,7 +484,6 @@ UPDATE encumbrance SET
 					flat.parts,
 					getPreferredAgentName(encumbering_agent_id) encumbering_agent,
 					expiration_date,
-					expiration_event,
 					encumbrance,
 					encumbrance.made_date AS encumbered_date,
 					encumbrance.remarks AS remarks,
@@ -546,7 +539,6 @@ UPDATE encumbrance SET
 							encumbering_agent,
 							encumbered_date,
 							expiration_date,
-							expiration_event,
 							remarks
 						FROM getData
 						WHERE
@@ -559,7 +551,6 @@ UPDATE encumbrance SET
 							encumbering_agent,
 							encumbered_date,
 							expiration_date,
-							expiration_event,
 							remarks
 					</cfquery>
 					<cfset e=1>
@@ -570,7 +561,7 @@ UPDATE encumbrance SET
 						by #encumbering_agent# made
 						#dateformat(encumbered_date,"yyyy-mm-dd")#,
 						expires #dateformat(expiration_date,"yyyy-mm-dd")#
-						#expiration_event# #remarks#<br>
+						#remarks#<br>
 						<form name="nothing#e#">
 							<input type="button"
 								value="Remove This Encumbrance"
