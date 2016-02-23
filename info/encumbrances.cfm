@@ -7,7 +7,6 @@
 		encumbrance.encumbrance_id,
 		getPreferredAgentName(ENCUMBERING_AGENT_ID) encumberer,
 		EXPIRATION_DATE,
-		EXPIRATION_EVENT,
 		ENCUMBRANCE,
 		MADE_DATE,
 		REMARKS,
@@ -29,7 +28,6 @@
 		encumbrance.encumbrance_id,
 		getPreferredAgentName(ENCUMBERING_AGENT_ID),
 		EXPIRATION_DATE,
-		EXPIRATION_EVENT,
 		ENCUMBRANCE,
 		MADE_DATE,
 		REMARKS,
@@ -43,7 +41,6 @@
 		encumberer,
 		ENCUMBRANCE_ACTION,
 		EXPIRATION_DATE,
-		EXPIRATION_EVENT,
 		ENCUMBRANCE,
 		MADE_DATE,
 		REMARKS
@@ -54,7 +51,6 @@
 		encumberer,
 		ENCUMBRANCE_ACTION,
 		EXPIRATION_DATE,
-		EXPIRATION_EVENT,
 		ENCUMBRANCE,
 		MADE_DATE,
 		REMARKS
