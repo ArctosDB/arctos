@@ -195,42 +195,59 @@
 			<cfabort>
 		</cfif>
 		<cfset i = 1>
-		<cfloop query="getEnc">
-			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-			<form name="listEnc#i#" method="post" action="Encumbrances.cfm">
-				<input type="hidden" name="Action">
-				<input type="hidden" name="encumbrance_id" value="#encumbrance_id#">
-				<input type="hidden" name="table_name" value="#table_name#">
-				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-				#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")#  #remarks#
-				<br>
-				<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
-					<span class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
-						[ Add All Items To This Encumbrance ]
-					</span>
-					<span class="likeLink" onclick="listEnc#i#.Action.value='remListedItems';listEnc#i#.submit();">
-						[ Remove Listed Items From This Encumbrance ]
-					</span>
-				</cfif>
-				<span class="likeLink" onclick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
-					[ Delete This Encumbrance ]
-				</span>
-				<span class="likeLink" onclick="listEnc#i#.Action.value='updateEncumbrance';listEnc#i#.submit();">
-					[ Modify This Encumbrance ]
-				</span>
-				<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
-				<cfif listfindnocase(session.roles, "MANAGE_COLLECTION")>
-					<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
-				<cfelse>
-					Manage_collection access is required to delete.
-				</cfif>
-				<span class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
-					[ Remove all specimens from this encumbrance ]
-				</span>
-			</form>
-			</div>
-			<cfset i = #i#+1>
-		</cfloop>
+		<table border>
+			<tr>
+				<th>Encumbrance</th>
+				<th>Action</th>
+				<th>MadeBy</th>
+				<th>MadeDate</th>
+				<th>Expires</th>
+				<th>Remarks</th>
+				<th>Tools</th>
+			</tr>
+			<cfloop query="getEnc">
+				<form name="listEnc#i#" method="post" action="Encumbrances.cfm">
+					<input type="hidden" name="Action">
+					<input type="hidden" name="encumbrance_id" value="#encumbrance_id#">
+					<input type="hidden" name="table_name" value="#table_name#">
+					<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<td>#encumbrance#</td>
+						<td>#encumbrance_action#</td>
+						<td>#agent_name#</td>
+						<td>#dateformat(made_date,"yyyy-mm-dd")#</td>
+						<td>#dateformat(expiration_date,"yyyy-mm-dd")#</td>
+						<td>#remarks#</td>
+						<td>
+							<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
+								<span class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
+									[ Add All Items To This Encumbrance ]
+								</span>
+								<span class="likeLink" onclick="listEnc#i#.Action.value='remListedItems';listEnc#i#.submit();">
+									[ Remove Listed Items From This Encumbrance ]
+								</span>
+							</cfif>
+							<span class="likeLink" onclick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
+								[ Delete This Encumbrance ]
+							</span>
+							<span class="likeLink" onclick="listEnc#i#.Action.value='updateEncumbrance';listEnc#i#.submit();">
+								[ Modify This Encumbrance ]
+							</span>
+							<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
+							<cfif listfindnocase(session.roles, "MANAGE_COLLECTION")>
+								<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
+							<cfelse>
+								Manage_collection access is required to delete.
+							</cfif>
+							<span class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
+								[ Remove all specimens from this encumbrance ]
+							</span>
+						</td>
+					</tr>
+				</form>
+				<cfset i=i+1>
+			</cfloop>
+		</table>
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
