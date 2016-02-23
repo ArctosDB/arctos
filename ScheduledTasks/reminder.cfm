@@ -97,7 +97,7 @@
 		<cfdump var=#sp#>
 		<cfloop query="sp">
 			<cfquery name="spc" dbtype="query">
-				select sum(nspc) tc from raw where encumbrance_id=#encumbrance_id# and guid_prefix=#guid_prefix#
+				select sum(nspc) tc from raw where encumbrance_id=#enc.encumbrance_id# and guid_prefix=#guid_prefix#
 			</cfquery>
 
 		<cfdump var=#spc#>
