@@ -125,6 +125,7 @@
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <cfif action is "listEncumbrances">
+	<script src="/includes/sorttable.js"></script>
 	<cfset title="Encumbrance Search Results">
 	<a href="Encumbrances.cfm">Back to Search Encumbrances</a>
 	<br>
@@ -195,7 +196,7 @@
 			<cfabort>
 		</cfif>
 		<cfset i = 1>
-		<table border>
+		<table id="t" class="sortable">
 			<tr>
 				<th>Encumbrance</th>
 				<th>Action</th>
