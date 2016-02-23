@@ -21,7 +21,9 @@
 		and upper(NAME) not in (#listqualify(ucase(valuelist(allreports.REPORT_TEMPLATE)),"'")#)
 	</cfquery>
 
-	<cffile action="DELETE" file="#Application.webDirectory#/Reports/templates/#name#">
+	<cfloop query="unhandled">
+		<cffile action="DELETE" file="#Application.webDirectory#/Reports/templates/#name#">
+	</cfloop>
 
 </cfif>
 <cfif action is "emailNotifyNotUsed">

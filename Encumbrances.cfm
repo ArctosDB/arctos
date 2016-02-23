@@ -37,11 +37,7 @@
 			<label for="expiration_date" class="likeLink" onclick="getDocs('encumbrance','expiration')">
 				Expiration Date
 			</label>
-			<input type="text" name="expiration_date" id="expiration_date">
-	        <label for="expiration_event" class="likeLink" onclick="getDocs('encumbrance','expiration')">
-				Expiration Event
-			</label>
-			<input type="text" name="expiration_event" id="expiration_event">
+			<input type="text" name="expiration_date" id="expiration_date" class="reqdClr" required>
 			<label for="encumbrance" class="likeLink" onclick="getDocs('encumbrance','encumbrance_name')">
 				Encumbrance
 			</label>
@@ -84,9 +80,7 @@
 			<input type="text" name="expiration_date_after" id="expiration_date_after">
 			<label for="expiration_date_before">Expiration Date Before</label>
 			<input type="text" name="expiration_date_before" id="expiration_date_before">
-			<label for="expiration_event">Expiration Event</label>
-			<input type="text" id="expiration_event" name="expiration_event">
-			<label for="encumbrance">Encumbrance Event</label>
+			<label for="encumbrance">Encumbrance</label>
 			<input type="text" name="encumbrance" id="encumbrance">
 			<label for="encumbrance_action">Encumbrance Action</label>
 			<select name="encumbrance_action" id="encumbrance_action" size="1">
@@ -113,35 +107,17 @@
 				ENCUMBERING_AGENT_ID,
 				ENCUMBRANCE,
 				ENCUMBRANCE_ACTION
-				<cfif len(#expiration_date#) gt 0>
-					,EXPIRATION_DATE
-				</cfif>
-				<cfif len(#EXPIRATION_EVENT#) gt 0>
-					,EXPIRATION_EVENT
-				</cfif>
-				<cfif len(#MADE_DATE#) gt 0>
+				,EXPIRATION_DATE
 					,MADE_DATE
-				</cfif>
-				<cfif len(#REMARKS#) gt 0>
 					,REMARKS
-				</cfif>
 			) VALUES (
 				#nextEncumbrance.nextEncumbrance#,
 				#encumberingAgentId#,
 				'#ENCUMBRANCE#',
 				'#ENCUMBRANCE_ACTION#'
-				<cfif len(#expiration_date#) gt 0>
-					,'#dateformat(EXPIRATION_DATE,"yyyy-mm-dd")#'
-				</cfif>
-				<cfif len(#EXPIRATION_EVENT#) gt 0>
-					,'#EXPIRATION_EVENT#'
-				</cfif>
-				<cfif len(#MADE_DATE#) gt 0>
-					,'#dateformat(MADE_DATE,"yyyy-mm-dd")#'
-				</cfif>
-				<cfif len(#REMARKS#) gt 0>
+				,'#dateformat(EXPIRATION_DATE,"yyyy-mm-dd")#'
+				,'#dateformat(MADE_DATE,"yyyy-mm-dd")#'
 					,'#REMARKS#'
-				</cfif>
 				)
 		</cfquery>
 		<cflocation url="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#nextEncumbrance.nextEncumbrance#" addtoken="false">
@@ -167,7 +143,6 @@
 				preferred_agent_name.agent_name,
 				encumbrance.made_date,
 				encumbrance.expiration_date,
-				encumbrance.expiration_event,
 				encumbrance.remarks
 			from
 				encumbrance,
@@ -211,7 +186,6 @@
 				preferred_agent_name.agent_name,
 				encumbrance.made_date,
 				encumbrance.expiration_date,
-				encumbrance.expiration_event,
 				encumbrance.remarks">
 		<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
