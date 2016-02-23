@@ -227,9 +227,9 @@
 									[ Remove Listed Items From This Encumbrance ]
 								</span>
 							</cfif>
-							<span class="likeLink" onclick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
+							<div class="likeLink" onclick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
 								[ Delete This Encumbrance ]
-							</span>
+							</div>
 							<span class="likeLink" onclick="listEnc#i#.Action.value='updateEncumbrance';listEnc#i#.submit();">
 								[ Modify This Encumbrance ]
 							</span>
