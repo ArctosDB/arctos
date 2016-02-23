@@ -92,9 +92,16 @@
 		<cfdump var=#mt#>
 
 		<cfquery name="sp" dbtype="query">
-			select guid_prefix,nspc from raw where encumbrance_id=#encumbrance_id# group by guid_prefix,nspc
+			select guid_prefix from raw where encumbrance_id=#encumbrance_id# group by guid_prefix
 		</cfquery>
 		<cfdump var=#sp#>
+		<cfloop query="sp">
+			<cfquery name="spc" dbtype="query">
+				select sum(nspc) tc from raw where encumbrance_id=#encumbrance_id# and guid_prefix=#guid_prefix#
+			</cfquery>
+
+		<cfdump var=#spc#>
+		</cfloop>
 	</cfloop>
 
  ----------------------------------------------------------------- -------- --------------------------------------------
