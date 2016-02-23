@@ -11,7 +11,7 @@
     task = "reports_deleteUnused"
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/reportMaintenance.cfm?action=deleteUnused"
-    cronTime="17 04 * * * *"
+    cronTime="0 17 04 * * *"
     requestTimeOut = "600">
 
 
@@ -19,9 +19,8 @@
     task = "reports_emailNotifyNotUsed"
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/reportMaintenance.cfm?action=emailNotifyNotUsed"
-    cronTime="21 0 * * * *"
+    cronTime="0 21 04 * * *"
     requestTimeOut = "600">
-
 
 <!-----------------------------------   related specimens     ------------------------------------------>
 <!---
