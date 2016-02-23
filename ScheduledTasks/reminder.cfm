@@ -14,14 +14,14 @@
 		<cfset mnths="0,6,12,24,36,48">
 		<cfquery name="enc" datasource="uam_god">
 			select
-				guid_prefix,
-				ENCUMBRANCE_ID,
-				getPreferredAgentName(ENCUMBERING_AGENT_ID),
-				EXPIRATION_DATE,
-				ENCUMBRANCE,
-				REMARKS,
-				MADE_DATE,
-				ENCUMBRANCE_ACTION,
+				collection.guid_prefix,
+				encumbrance.ENCUMBRANCE_ID,
+				getPreferredAgentName(encumbrance.ENCUMBERING_AGENT_ID),
+				encumbrance.EXPIRATION_DATE,
+				encumbrance.ENCUMBRANCE,
+				encumbrance.REMARKS,
+				encumbrance.MADE_DATE,
+				encumbrance.ENCUMBRANCE_ACTION,
 				count(*) nspc
 			from
 				encumbrance,
@@ -41,14 +41,14 @@
 				</cfloop>
 				)
 			group by
-				guid_prefix,
-				ENCUMBRANCE_ID,
-				getPreferredAgentName(ENCUMBERING_AGENT_ID),
-				EXPIRATION_DATE,
-				ENCUMBRANCE,
-				REMARKS,
-				MADE_DATE,
-				ENCUMBRANCE_ACTION
+				collection.guid_prefix,
+				encumbrance.ENCUMBRANCE_ID,
+				getPreferredAgentName(encumbrance.ENCUMBERING_AGENT_ID),
+				encumbrance.EXPIRATION_DATE,
+				encumbrance.ENCUMBRANCE,
+				encumbrance.REMARKS,
+				encumbrance.MADE_DATE,
+				encumbrance.ENCUMBRANCE_ACTION
 		</cfquery>
 
 
