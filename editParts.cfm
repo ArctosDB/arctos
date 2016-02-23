@@ -49,6 +49,10 @@
 		<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 		</cfquery>
+		<cfquery name="thisCollectionCde" dbtype="query">
+			select collection_cde from raw group by collection_cde
+		</cfquery>
+
 		<!--- just parts ---->
 		<cfquery name="partsOnly" dbtype="query">
 			select
@@ -57,7 +61,6 @@
 				coll_obj_disposition,
 				condition,
 				sampled_from_obj_id,
-				collection_cde,
 				lot_count,
 				barcode,
 				label,
@@ -75,7 +78,6 @@
 				coll_obj_disposition,
 				condition,
 				sampled_from_obj_id,
-				collection_cde,
 				lot_count,
 				barcode,
 				label,
@@ -94,7 +96,6 @@
 				coll_obj_disposition,
 				condition,
 				sampled_from_obj_id,
-				collection_cde,
 				lot_count,
 				barcode,
 				label,
@@ -114,7 +115,6 @@
 			<cfset querySetCell(getParts,"coll_obj_disposition",coll_obj_disposition,rnum)>
 			<cfset querySetCell(getParts,"condition",condition,rnum)>
 			<cfset querySetCell(getParts,"sampled_from_obj_id",sampled_from_obj_id,rnum)>
-			<cfset querySetCell(getParts,"collection_cde",collection_cde,rnum)>
 			<cfset querySetCell(getParts,"lot_count",lot_count,rnum)>
 			<cfset querySetCell(getParts,"barcode",barcode,rnum)>
 			<cfset querySetCell(getParts,"label",label,rnum)>
@@ -129,7 +129,6 @@
 					coll_obj_disposition,
 					condition,
 					sampled_from_obj_id,
-					collection_cde,
 					lot_count,
 					barcode,
 					label,
@@ -151,7 +150,6 @@
 				<cfset querySetCell(getParts,"coll_obj_disposition",coll_obj_disposition,rnum)>
 				<cfset querySetCell(getParts,"condition",condition,rnum)>
 				<cfset querySetCell(getParts,"sampled_from_obj_id",sampled_from_obj_id,rnum)>
-				<cfset querySetCell(getParts,"collection_cde",collection_cde,rnum)>
 				<cfset querySetCell(getParts,"lot_count",lot_count,rnum)>
 				<cfset querySetCell(getParts,"barcode",barcode,rnum)>
 				<cfset querySetCell(getParts,"label",label,rnum)>
@@ -212,7 +210,7 @@
 									</label>
 									<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
 										value="#getParts.part_name#" size="25"
-										onchange="findPart(this.id,this.value,'#getParts.collection_cde#');"
+										onchange="findPart(this.id,this.value,'#thisCollectionCde.collection_cde#');"
 										onkeypress="return noenter(event);">
 								</td>
 								<td>
@@ -362,7 +360,7 @@
 					        <td><div align="right">Part Name: </div></td>
 					        <td>
 								<input type="text" name="part_name" id="part_name" class="reqdClr" placeholder="type and tab to pick"
-									onchange="findPart(this.id,this.value,'#getParts.collection_cde#');"
+									onchange="findPart(this.id,this.value,'#thisCollectionCde.collection_cde#');"
 									onkeypress="return noenter(event);">
 							</td>
 					      </tr>
