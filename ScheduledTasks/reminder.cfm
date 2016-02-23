@@ -15,6 +15,7 @@
 		<cfquery name="enc" datasource="uam_god">
 			select
 				collection.guid_prefix,
+				get_address(collection_contacts.contact_agent_id,'email') collection_contact_email,
 				encumbrance.ENCUMBRANCE_ID,
 				getPreferredAgentName(encumbrance.ENCUMBERING_AGENT_ID),
 				encumbrance.EXPIRATION_DATE,
@@ -27,11 +28,13 @@
 				encumbrance,
 				coll_object_encumbrance,
 				cataloged_item,
-				collection
+				collection,
+				collection_contacts
 			where
 				encumbrance.encumbrance_id=coll_object_encumbrance.encumbrance_id and
 				coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
 				cataloged_item.collection_id=collection.collection_id and
+				collection.collection_id=collection_contacts.collection_id and
 				to_char(EXPIRATION_DATE,'yyyy-mm-dd') in (
 				<cfloop list="#mnths#" index="i">
 					to_char(add_months(sysdate,#i#),'yyyy-mm-dd')
