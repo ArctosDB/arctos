@@ -51,7 +51,8 @@
 				encumbrance.ENCUMBRANCE,
 				encumbrance.REMARKS,
 				encumbrance.MADE_DATE,
-				encumbrance.ENCUMBRANCE_ACTION
+				encumbrance.ENCUMBRANCE_ACTION,
+				get_address(collection_contacts.contact_agent_id,'email')
 		</cfquery>
 
 
