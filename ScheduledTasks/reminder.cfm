@@ -13,17 +13,56 @@
 	<!--- start of encumbrance code --->
 		<cfset mnths="0,6,12,24,36,48">
 		<cfquery name="enc" datasource="uam_god">
-			select * from encumbrance where to_char(EXPIRATION_DATE,'yyyy-mm-dd') in (
-			<cfloop list="#mnths#" index="i">
-				to_char(add_months(sysdate,#i#),'yyyy-mm-dd')
-				<cfif i is not 48>
-					,
-				</cfif>
-			</cfloop>
-			)
+			select
+				guid_prefix,
+				ENCUMBRANCE_ID,
+				getPreferredAgentName(ENCUMBERING_AGENT_ID),
+				EXPIRATION_DATE,
+				ENCUMBRANCE,
+				REMARKS,
+				MADE_DATE,
+				ENCUMBRANCE_ACTION,
+				count(*) nspc
+			from
+				encumbrance,
+				coll_object_encumbrance,
+				cataloged_item,
+				collection
+			where
+				encumbrance.encumbrance_id=coll_object_encumbrance.encumbrance_id and
+				coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
+				cataloged_item.collection_id=collection.collection_id and
+				to_char(EXPIRATION_DATE,'yyyy-mm-dd') in (
+				<cfloop list="#mnths#" index="i">
+					to_char(add_months(sysdate,#i#),'yyyy-mm-dd')
+					<cfif i is not 48>
+						,
+					</cfif>
+				</cfloop>
+				)
+			group by
+				guid_prefix,
+				ENCUMBRANCE_ID,
+				getPreferredAgentName(ENCUMBERING_AGENT_ID),
+				EXPIRATION_DATE,
+				ENCUMBRANCE,
+				REMARKS,
+				MADE_DATE,
+				ENCUMBRANCE_ACTION
 		</cfquery>
 
 
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ENCUMBRANCE_ID 						   NOT NULL NUMBER
+ 						   NOT NULL NUMBER
+ 						   NOT NULL DATE
+ 							   NOT NULL VARCHAR2(60)
+ 								    DATE
+ 								    VARCHAR2(4000)
+ 						   NOT NULL VARCHAR2(30)
+
+UAM@ARCTEST>
+							encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
 
 
 
