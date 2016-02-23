@@ -6,7 +6,12 @@
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
 <!-----------------------------------   report template maintenance ------------------------------------>
-
+<!---
+	reportMaintenance
+	Purpose: Clean up garbage
+	Cost: very low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "reports_deleteUnused"
     operation = "HTTPRequest"
