@@ -60,7 +60,7 @@
 		<cfset title = "Search for specimens or encumbrances">
 		<p>
 			<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
-				Now find an encumbrance to apply to the specimens below. If you need a new encumbrance, create it
+				Now find an encumbrance to apply to or remove from the specimens below. If you need a new encumbrance, create it
 				first then come back here.
 			<cfelse>
 				Locate Encumbrances (or <a href="/Encumbrances.cfm?action=create">Create a new encumbrance</a>)
