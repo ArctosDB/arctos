@@ -10,6 +10,22 @@
 	</div>
 </cfsavecontent>
 <cfoutput>
+	<!--- start of encumbrance code --->
+		<cfset mnths="0,6,12,24,36,48">
+		<cfquery name="enc" datasource="uam_god">
+			select * from encumbrance where EXPIRATION_DATE in (
+			<cfloop list="#mnths#" index="i">
+				add_months(sysdate,#i#)
+				<cfif i is not 48>
+					,
+				</cfif>
+			</cfloop>
+			)
+		</cfquery>
+
+	<cfdump var=#enc#>
+
+	<!--- end of encumbrance code --->
 
 	<!--- start of loan code --->
 	<!--- days after and before return_due_date on which to send email. Negative is after ---->

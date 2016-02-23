@@ -351,10 +351,6 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot,wget">
 	<cfset badbot=badbot & ",YandexBot,Yeti">
-
-\
-
-
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">
 			<cfif cgi.HTTP_USER_AGENT contains b>

@@ -1058,7 +1058,7 @@
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
 				<input type="button" value="Delete" class="delBtn"
 					onClick="document.location='Locality.cfm?Action=deleteCollEvent&collecting_event_id=#locDet.collecting_event_id#';">
-				<input type="button" value="Clone Event and Locality (eg, to add 'unaccepted' coordinates)" class="insBtn"
+				<input type="button" value="Clone Event and Locality" class="insBtn"
 					onClick="locality.action.value='cloneEventAndLocality';locality.submit();">
 				<input type="button" value="Clone Event (new event under this locality)" class="insBtn"
 					onClick="locality.action.value='cloneEventWithoutLocality';locality.submit();">
