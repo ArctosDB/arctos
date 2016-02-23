@@ -220,9 +220,9 @@
 						<td>#remarks#</td>
 						<td>
 							<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
-								<span class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
+								<div class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
 									[ Add All Items To This Encumbrance ]
-								</span>
+								</div>
 								<span class="likeLink" onclick="listEnc#i#.Action.value='remListedItems';listEnc#i#.submit();">
 									[ Remove Listed Items From This Encumbrance ]
 								</span>
