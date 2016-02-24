@@ -70,10 +70,26 @@
 			<input type="hidden" name="Action" value="listEncumbrances">
 			<input type="hidden" name="table_name" value="#table_name#">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-			<label for="">Encumbering Agent</label>
-			<input name="encumberingAgent" id="encumberingAgent" type="text">
 
-				<div class="table">
+			<div class="table">
+				<div class="tr">
+					<div class="td">
+						<label for="">Encumbering Agent</label>
+						<input name="encumberingAgent" id="encumberingAgent" type="text">
+					</div>
+					<div class="td">
+						<label for="encumbrance_action">Encumbrance Action</label>
+						<select name="encumbrance_action" id="encumbrance_action" size="1">
+							<option value=""></option>
+							<cfloop query="ctEncAct">
+								<option value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
+							</cfloop>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="table">
 				<div class="tr">
 					<div class="td">
 						<label for="made_date_after">Made Date After</label>
@@ -85,21 +101,24 @@
 					</div>
 				</div>
 			</div>
-			<label for="expiration_date_after">Expiration Date After</label>
-			<input type="text" name="expiration_date_after" id="expiration_date_after">
-			<label for="expiration_date_before">Expiration Date Before</label>
-			<input type="text" name="expiration_date_before" id="expiration_date_before">
+			<div class="table">
+				<div class="tr">
+					<div class="td">
+						<label for="expiration_date_after">Expiration Date After</label>
+						<input type="text" name="expiration_date_after" id="expiration_date_after">
+					</div>
+					<div class="td">
+						<label for="expiration_date_before">Expiration Date Before</label>
+						<input type="text" name="expiration_date_before" id="expiration_date_before">
+					</div>
+				</div>
+			</div>
+
 			<label for="encumbrance">Encumbrance</label>
-			<input type="text" name="encumbrance" id="encumbrance">
-			<label for="encumbrance_action">Encumbrance Action</label>
-			<select name="encumbrance_action" id="encumbrance_action" size="1">
-				<option value=""></option>
-				<cfloop query="ctEncAct">
-					<option value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
-				</cfloop>
-			</select>
+			<textarea name="encumbrance" id="encumbrance" class="largetextarea"></textarea>
+
 			<label for="remarks">Remarks</label>
-			<textarea name="remarks" id="remarks" rows="3" cols="50"></textarea>
+			<textarea name="remarks" id="remarks" class="largetextarea"></textarea>
 			<br><input type="submit" value="Find Encumbrance" class="schBtn">
 		</cfform>
 	</cfoutput>

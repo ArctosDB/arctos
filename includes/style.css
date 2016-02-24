@@ -48,9 +48,9 @@
 	Devolves to whatever for phone etc.
 */
 
-.table    { display: table };
-.tr       { display: table-row };
-.td, th   { display: table-cell };
+.table    { display: table }
+.tr       { display: table-row }
+.td, th   { display: table-cell }
 
 
 /* BEGIN agent form */
