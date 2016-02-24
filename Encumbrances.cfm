@@ -76,10 +76,20 @@
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<label for="">Encumbering Agent</label>
 			<input name="encumberingAgent" id="encumberingAgent" type="text">
-			<label for="made_date_after">Made Date After</label>
-			<input type="text" name="made_date_after" id="made_date_after">
-			<label for="made_date_before">Made Date Before</label>
-			<input type="text" name="made_date_before" id="made_date_before">
+			<div class="table">
+				<div class="tr">
+					<div class="td">
+						<label for="made_date_after">Made Date After</label>
+						<input type="text" name="made_date_after" id="made_date_after">
+					</div>
+					<div class="td">
+						<label for="made_date_before">Made Date Before</label>
+						<input type="text" name="made_date_before" id="made_date_before">
+					</div>
+				</div>
+			</div>
+
+
 			<label for="expiration_date_after">Expiration Date After</label>
 			<input type="text" name="expiration_date_after" id="expiration_date_after">
 			<label for="expiration_date_before">Expiration Date Before</label>
