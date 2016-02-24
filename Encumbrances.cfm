@@ -438,7 +438,7 @@ UPDATE encumbrance SET
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------->
-<cfif #Action# is "deleteEncumbrance">
+<cfif action is "deleteEncumbrance">
 <cfoutput>
 	<cfif len(#encumbrance_id#) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
@@ -446,8 +446,10 @@ UPDATE encumbrance SET
 	<cfquery name="isUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from coll_object_encumbrance where encumbrance_id=#encumbrance_id#
 	</cfquery>
-	<cfif #isUsed.cnt# gt 0>
-		You can't delete this encumbrance because specimens are using it!<cfabort>
+	<cfif isUsed.cnt gt 0>
+		<div class="error">
+			You can't delete used encumbrances; unencumber specimens first.<cfabort>
+		</div>
 	</cfif>
 	<cfquery name="deleteEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		DELETE FROM encumbrance WHERE encumbrance_id = #encumbrance_id#
