@@ -31,8 +31,8 @@ delete from collector where collection_object_id IN
 
 delete from specimen_part_attribute where COLLECTION_OBJECT_ID IN
 		(
-			select 
-				specimen_part.COLLECTION_OBJECT_ID 
+			select
+				specimen_part.COLLECTION_OBJECT_ID
 			FROM
 				coll_object_encumbrance,
 				specimen_part
@@ -134,7 +134,6 @@ drop table temp;
 				getPreferredAgentName(encumbrance.encumbering_agent_id) encumberer,
 				encumbrance.made_date as encumbered_date,
 				expiration_date,
-				expiration_event,
 				remarks
 				from
 					cataloged_item
@@ -161,7 +160,7 @@ drop table temp;
 							#collection# #cat_num#</a>
 					</td>
 					<td>#scientific_name#</td>
-					<td>#encumbrance# (#encumbrance_action#) by #encumberer# made #dateformat(encumbered_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")# #expiration_event# #remarks#</td>
+					<td>#encumbrance# (#encumbrance_action#) by #encumberer# made #dateformat(encumbered_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")# #remarks#</td>
 				</tr>
 			</cfloop>
 		</table>
@@ -239,8 +238,8 @@ drop table temp;
 <cfquery name="spcolattr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from specimen_part_attribute where COLLECTION_OBJECT_ID IN
 		(
-			select 
-				specimen_part.COLLECTION_OBJECT_ID 
+			select
+				specimen_part.COLLECTION_OBJECT_ID
 			FROM
 				coll_object_encumbrance,
 				specimen_part
