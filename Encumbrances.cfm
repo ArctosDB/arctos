@@ -260,7 +260,7 @@
 								[ Delete ]
 							</div>
 							<div>
-								<a href="Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#"[ Edit ]</a>
+								<a href="Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#">[ Edit ]</a>
 							</div>
 
 
