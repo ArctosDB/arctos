@@ -42,6 +42,16 @@
 		/**********************************COLORES***********************************
 
 
+/* 
+	CSS table layout
+	Looks like tables in "real" browsers
+	Devolves to whatever for phone etc.
+*/
+
+.table    { display: table };
+.tr       { display: table-row };
+.td, th   { display: table-cell };
+
 
 /* BEGIN agent form */
 	.validAddress{border:2px solid green;margin:1px;padding:1px;}
