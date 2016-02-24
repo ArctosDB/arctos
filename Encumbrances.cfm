@@ -247,7 +247,7 @@
 						<td>#dateformat(made_date,"yyyy-mm-dd")#</td>
 						<td>#dateformat(expiration_date,"yyyy-mm-dd")#</td>
 						<td>#remarks#</td>
-						<td>
+						<td nowrap>
 							<cfif len(table_name) gt 0>
 								<div class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
 									[ Add All Items To This Encumbrance ]
