@@ -250,18 +250,20 @@
 						<td nowrap>
 							<cfif len(table_name) gt 0>
 								<div class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
-									[ Add All Items To This Encumbrance ]
+									[ Add Listed Items ]
 								</div>
 								<div class="likeLink" onclick="listEnc#i#.Action.value='remListedItems';listEnc#i#.submit();">
-									[ Remove Listed Items From This Encumbrance ]
+									[ Remove Listed Items ]
 								</div>
 							</cfif>
 							<div class="likeLink" onclick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
-								[ Delete This Encumbrance ]
+								[ Delete ]
 							</div>
-							<div class="likeLink" onclick="listEnc#i#.Action.value='updateEncumbrance';listEnc#i#.submit();">
-								[ Modify This Encumbrance ]
+							<div>
+								<a href="Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#"[ Edit ]</a>
 							</div>
+
+
 							<div>
 								<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
 							</div>
@@ -275,7 +277,7 @@
 								</div>
 							</cfif>
 							<div class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
-								[ Remove all specimens from this encumbrance ]
+								[ Remove all specimens ]
 							</div>
 						</td>
 					</tr>
