@@ -122,7 +122,7 @@
 
 
 		<p>
-			mailto: #mailto#
+			emailto: #emailto#
 		</p>
 		<p>
 			message: #message#
