@@ -89,11 +89,12 @@
 
 
 
-	<cfsavecontent variable="message">
-		You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
-		Please review encumbrance #enc.ENCUMBRANCE# created by #enc.encumberer# on #enc.MADE_DATE#, expires #enc.EXPIRATION_DATE#.
-	</cfsavecontent>
+
 	<cfloop query="enc">
+		<cfsavecontent variable="message">
+			You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
+			Please review encumbrance #enc.ENCUMBRANCE# created by #enc.encumberer# on #enc.MADE_DATE#, expires #enc.EXPIRATION_DATE#.
+		</cfsavecontent>
 		<cfquery name="mt" dbtype="query">
 			select
 				collection_contact_email
@@ -141,19 +142,6 @@
 
 
 	</cfloop>
-
- ----------------------------------------------------------------- -------- --------------------------------------------
- ENCUMBRANCE_ID 						   NOT NULL NUMBER
- 						   NOT NULL NUMBER
- 						   NOT NULL DATE
- 							   NOT NULL VARCHAR2(60)
- 								    DATE
- 								    VARCHAR2(4000)
- 						   NOT NULL VARCHAR2(30)
-
-UAM@ARCTEST>
-							encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
-
 
 
 
