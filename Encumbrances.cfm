@@ -259,26 +259,28 @@
 						<td nowrap>
 							<cfif len(table_name) gt 0>
 								<div class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
-									[ Add Listed Items ]
+									[ Add Listed Items (in table below) to this Encumbrance]
 								</div>
 								<div class="likeLink" onclick="listEnc#i#.Action.value='remListedItems';listEnc#i#.submit();">
-									[ Remove Listed Items ]
+									[ Remove Listed Items  (in table below) from this Encumbrance]
 								</div>
 							</cfif>
 							<div class="likeLink" onclick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
-								[ Delete ]
+								[ Delete this Encumbrance]
 							</div>
 							<div>
-								<a href="Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#">[ Edit ]</a>
+								<a href="Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#">
+									[ Edit this Encumbrance]
+								</a>
 							</div>
-
-
 							<div>
-								<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
+								<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See all Specimens in this Encumbrance ]</a>
 							</div>
 							<cfif listfindnocase(session.roles, "MANAGE_COLLECTION")>
 								<div>
-									<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
+									<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">
+										[ Delete all Specimens in this Encumbrance ]
+									</a>
 								</div>
 							<cfelse>
 								<div>
@@ -286,7 +288,7 @@
 								</div>
 							</cfif>
 							<div class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
-								[ Un-Encumber All Specimens ]
+								[ Remove (unencumber) All Specimens from this Encumbrance ]
 							</div>
 						</td>
 					</tr>
