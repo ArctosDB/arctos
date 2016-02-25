@@ -132,20 +132,17 @@
 		<cfdump var=#mt#>
 
 		<cfquery name="sp" dbtype="query">
-			select guid_prefix from raw where encumbrance_id=#encumbrance_id# group by guid_prefix
+			select guid_prefix,nspc from raw where encumbrance_id=#encumbrance_id# group by guid_prefix,nspc
 		</cfquery>
 		<cfdump var=#sp#>
 
 		<cfsavecontent variable="ssum">
 			Summary of encumbered specimens:
 			<cfloop query="sp">
-				<cfquery name="spc" dbtype="query">
-					select sum(nspc) tc from raw where encumbrance_id=#enc.encumbrance_id# and guid_prefix='#guid_prefix#'
-				</cfquery>
+
 				<p>
-				#guid_prefix#: #spc.tc#
+				#guid_prefix#: #nspc#
 				</p>
-			<cfdump var=#spc#>
 			</cfloop>
 		</cfsavecontent>
 
