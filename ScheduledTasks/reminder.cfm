@@ -91,9 +91,7 @@
 
 
 	<cfloop query="enc">
-		<cfsavecontent variable="message">
 
-		</cfsavecontent>
 		<cfquery name="mt" dbtype="query">
 			select
 				collection_contact_email
@@ -115,10 +113,6 @@
 		</cfquery>
 		<cfdump var=#sp#>
 
-		<cfsavecontent variable="ssum">
-
-
-		</cfsavecontent>
 		<cfif isdefined("Application.version") and  Application.version is "prod">
 			<cfset subj="Arctos Encumbrance Notification">
 			<cfset maddr=emailto>
