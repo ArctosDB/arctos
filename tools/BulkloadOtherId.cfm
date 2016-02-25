@@ -639,6 +639,9 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 			</p>
 		</cfif>
 		<a href="BulkloadOtherId.cfm?action=loadData">Load ("Valid" only)</a>
+		<div class="info">
+			Note: If nothing is "Valid" this will happily do nothing and report successfully doing nothing.
+		</div>
 		<p><a href="BulkloadOtherId.cfm?action=nothing">upload CSV</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=getCSV">download CSV</a> (delete status column to re-load)</p>
