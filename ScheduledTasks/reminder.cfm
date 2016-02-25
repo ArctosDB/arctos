@@ -23,10 +23,10 @@
 			get_address(collection_contacts.contact_agent_id,'email') collection_contact_email,
 			encumbrance.ENCUMBRANCE_ID,
 			getPreferredAgentName(encumbrance.ENCUMBERING_AGENT_ID) encumberer,
-			encumbrance.EXPIRATION_DATE,
+			to_char(encumbrance.EXPIRATION_DATE,'yyyy-mm-dd') EXPIRATION_DATE,
 			encumbrance.ENCUMBRANCE,
 			encumbrance.REMARKS,
-			encumbrance.MADE_DATE,
+			to_char(encumbrance.MADE_DATE,'yyyy-mm-dd') MADE_DATE,
 			encumbrance.ENCUMBRANCE_ACTION,
 			count(*) nspc
 		from
@@ -90,7 +90,7 @@
 
 
 	<cfsavecontent variable="message">
-		You are receiving this message because you are a collection contact for a collections holding encumbered specimens.
+		You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
 		Please review encumbrance #enc.ENCUMBRANCE# created by #enc.encumberer# on #enc.MADE_DATE#, expires #enc.EXPIRATION_DATE#.
 	</cfsavecontent>
 	<cfloop query="enc">
