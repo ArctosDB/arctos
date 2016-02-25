@@ -92,8 +92,16 @@
 
 	<cfloop query="enc">
 		<cfsavecontent variable="message">
-			You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
-			Please review encumbrance #enc.ENCUMBRANCE# created by #enc.encumberer# on #enc.MADE_DATE#, expires #enc.EXPIRATION_DATE#.
+			<p>
+				You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
+			</p>
+			<p>
+				Please review encumbrance <strong>#enc.ENCUMBRANCE#</strong> created by <strong>#enc.encumberer#</strong> on
+				<strong>#enc.MADE_DATE#</strong>, expires <strong>#enc.EXPIRATION_DATE#</strong>.
+			</p>
+			<p>
+				Please remove specimens from and delete any un-needed encumbrances.
+			</p>
 		</cfsavecontent>
 		<cfquery name="mt" dbtype="query">
 			select
