@@ -28,7 +28,7 @@
 			encumbrance.REMARKS,
 			to_char(encumbrance.MADE_DATE,'yyyy-mm-dd') MADE_DATE,
 			encumbrance.ENCUMBRANCE_ACTION,
-			count(distinct(cataloged_item.collection_object_id) nspc
+			count(distinct(cataloged_item.collection_object_id)) nspc
 		from
 			encumbrance,
 			coll_object_encumbrance,
