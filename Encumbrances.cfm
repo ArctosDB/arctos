@@ -247,7 +247,7 @@
 						<td>#dateformat(made_date,"yyyy-mm-dd")#</td>
 						<td>
 							#dateformat(expiration_date,"yyyy-mm-dd")#
-							<cfif expiration_date gt now()>
+							<cfif expiration_date lt now()>
 								EXPIRED PLEASE DELETE
 							</cfif>
 						</td>
