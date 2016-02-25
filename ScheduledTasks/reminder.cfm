@@ -92,28 +92,7 @@
 
 	<cfloop query="enc">
 		<cfsavecontent variable="message">
-			<p>
-				You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
-			</p>
-			<p>
-				Please review encumbrance <strong>#enc.ENCUMBRANCE#</strong> created by <strong>#enc.encumberer#</strong> on
-				<strong>#enc.MADE_DATE#</strong>, expires <strong>#enc.EXPIRATION_DATE#</strong>.
-			</p>
-			<p>
-				Specimen data are available at
-				<a href="#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">
-					#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#
-				</a>
-			</p>
-			<p>
-				The encumbrance may be accessed at
-				<a href="#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#">
-					#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#
-				</a>
-			</p>
-			<p>
-				Please remove specimens from and delete any un-needed encumbrances.
-			</p>
+
 		</cfsavecontent>
 		<cfquery name="mt" dbtype="query">
 			select
@@ -137,26 +116,86 @@
 		<cfdump var=#sp#>
 
 		<cfsavecontent variable="ssum">
-			Summary of encumbered specimens:
-			<cfloop query="sp">
 
-				<p>
-				#guid_prefix#: #nspc#
-				</p>
-			</cfloop>
+
 		</cfsavecontent>
+		<cfif isdefined("Application.version") and  Application.version is "prod">
+			<cfset subj="Arctos Encumbrance Notification">
+			<cfset maddr=emailto>
+		<cfelse>
+			<cfset maddr=application.bugreportemail>
+			<cfset subj="TEST PLEASE IGNORE: Arctos Encumbrance Notification">
+		</cfif>
+		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="encumbrance_notification@#Application.fromEmail#" type="html">
+			<p>
+				You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
+			</p>
+			<p>
+				Please review encumbrance <strong>#enc.ENCUMBRANCE#</strong> created by <strong>#enc.encumberer#</strong> on
+				<strong>#enc.MADE_DATE#</strong>, expires <strong>#enc.EXPIRATION_DATE#</strong>.
+			</p>
+			<p>
+				Specimen data are available at
+				<a href="#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">
+					#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#
+				</a>
+			</p>
+			<p>
+				The encumbrance may be accessed at
+				<a href="#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#">
+					#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#
+				</a>
+			</p>
+			<p>
+				Please remove specimens from and delete any un-needed encumbrances.
+			</p>
+			<p>
+				Summary of encumbered specimens:
+				<cfloop query="sp">
+					<p>
+					#guid_prefix#: #nspc#
+					</p>
+				</cfloop>
+			</p>
+			#emailFooter#
+		</cfmail>
 
+		<hr>
 
 		<p>
-			emailto: #emailto#
-		</p>
-		<p>
-			message: #message#
-		</p>
-		<p>
-			ssum: #ssum#
-		</p>
+				You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
+			</p>
+			<p>
+				Please review encumbrance <strong>#enc.ENCUMBRANCE#</strong> created by <strong>#enc.encumberer#</strong> on
+				<strong>#enc.MADE_DATE#</strong>, expires <strong>#enc.EXPIRATION_DATE#</strong>.
+			</p>
+			<p>
+				Specimen data are available at
+				<a href="#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">
+					#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#
+				</a>
+			</p>
+			<p>
+				The encumbrance may be accessed at
+				<a href="#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#">
+					#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#
+				</a>
+			</p>
+			<p>
+				Please remove specimens from and delete any un-needed encumbrances.
+			</p>
+			<p>
+				Summary of encumbered specimens:
+				<cfloop query="sp">
+					<p>
+					#guid_prefix#: #nspc#
+					</p>
+				</cfloop>
+			</p>
+			#emailFooter#
 
+
+			<hr>
 
 	</cfloop>
 
