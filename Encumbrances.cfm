@@ -245,7 +245,12 @@
 						<td>#encumbrance_action#</td>
 						<td>#agent_name#</td>
 						<td>#dateformat(made_date,"yyyy-mm-dd")#</td>
-						<td>#dateformat(expiration_date,"yyyy-mm-dd")#</td>
+						<td>
+							#dateformat(expiration_date,"yyyy-mm-dd")#
+							<cfif expiration_date gt now()>
+								EXPIRED PLEASE DELETE
+							</cfif>
+						</td>
 						<td>#remarks#</td>
 						<td nowrap>
 							<cfif len(table_name) gt 0>
