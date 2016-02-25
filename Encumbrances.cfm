@@ -286,7 +286,7 @@
 								</div>
 							</cfif>
 							<div class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
-								[ Remove all specimens ]
+								[ Un-Encumber All Specimens ]
 							</div>
 						</td>
 					</tr>
