@@ -216,8 +216,8 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 			</cfif>
 		</cfloop>
 	</cftransaction>
-
 </cfoutput>
+</cfif>
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
