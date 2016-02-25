@@ -186,8 +186,46 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
+<cfif action is "srsq">
+<cfoutput>
+	<cftransaction>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_oids where upper(username)='#ucase(session.username)#' and existing_other_id_type != 'catalog number'
+		</cfquery>
+
+		<cfloop query="#d#">
+			<cfquery name="grc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					cataloged_item.collection_object_id
+				from
+					cataloged_item,
+					collection,
+					coll_obj_other_id_num
+				WHERE
+					cataloged_item.collection_id = collection.collection_id and
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
+					collection.guid_prefix = '#guid_prefix#' and
+					other_id_type = '#existing_other_id_type#' and
+					display_value = '#existing_other_id_number#'
+			</cfquery>
+			<cfif grc.recordcount gt 1>
+				<br>#guid_prefix# #existing_other_id_type# #existing_other_id_number# returns #grc.recordcount# records
+				<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(grc.collection_object_id)#" target="_blank">
+					click for specimens
+				</a>
+			</cfif>
+		</cfloop>
+	</cftransaction>
+
+</cfoutput>
+<!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
+	<div class="infoBox">
+		<strong>single-row subquery returns more than one row problems</strong>?
+		<a href="BulkloadOtherId.cfm?action=srsq">Click here to find them</a>. This error is caused by nonunique data -
+		usually two specimens sharing an ID used here.
+	</div>
 	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_oids
@@ -639,8 +677,8 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 			</p>
 		</cfif>
 		<a href="BulkloadOtherId.cfm?action=loadData">Load ("Valid" only)</a>
-		<div class="info">
-			Note: If nothing is "Valid" this will happily do nothing and report successfully doing nothing.
+		<div class="infoBox">
+			Note: If no records are "Valid" this will happily do nothing and report successfully doing so.
 		</div>
 		<p><a href="BulkloadOtherId.cfm?action=nothing">upload CSV</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
