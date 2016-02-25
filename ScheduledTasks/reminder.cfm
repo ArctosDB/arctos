@@ -100,6 +100,18 @@
 				<strong>#enc.MADE_DATE#</strong>, expires <strong>#enc.EXPIRATION_DATE#</strong>.
 			</p>
 			<p>
+				Specimen data are available at
+				<a href="#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">
+					#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#
+				</a>
+			</p>
+			<p>
+				The encumbrance may be accessed at
+				<a href="#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#">
+					#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#
+				</a>
+			</p>
+			<p>
 				Please remove specimens from and delete any un-needed encumbrances.
 			</p>
 		</cfsavecontent>
