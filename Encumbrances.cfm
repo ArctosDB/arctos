@@ -519,7 +519,7 @@ UPDATE encumbrance SET
 <!-------------------------------------------------------------------------------------------->
 <cfif len(table_name) gt 0>
 
-	<Cfset title = "Encumber these specimens">
+	<Cfset title = "Manage Encumbrances for these specimens">
 		<cfoutput>
 			<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				 SELECT
@@ -550,6 +550,11 @@ UPDATE encumbrance SET
 				ORDER BY
 					flat.collection_object_id
 			</cfquery>
+
+
+			<cfdump var=#getdata#>
+
+
 		<hr>
 		<br><strong>Cataloged Items being encumbered:</strong>
 			<table width="95%" border="1">
