@@ -95,7 +95,15 @@
 	</cfsavecontent>
 	<cfloop query="enc">
 		<cfquery name="mt" dbtype="query">
-			select collection_contact_email from raw where encumbrance_id=#encumbrance_id# group by collection_contact_email
+			select
+				collection_contact_email
+			from
+				raw
+			where
+				collection_contact_email is not null and
+				encumbrance_id=#encumbrance_id#
+			group by
+				collection_contact_email
 		</cfquery>
 
 		<cfset emailto=valuelist(mt.collection_contact_email)>
