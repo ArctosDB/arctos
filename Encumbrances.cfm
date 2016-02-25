@@ -246,9 +246,13 @@
 						<td>#agent_name#</td>
 						<td>#dateformat(made_date,"yyyy-mm-dd")#</td>
 						<td>
-							#dateformat(expiration_date,"yyyy-mm-dd")#
+
 							<cfif expiration_date lt now()>
-								EXPIRED PLEASE DELETE
+								<div style="color:red">
+									EXPIRED #dateformat(expiration_date,"yyyy-mm-dd")# PLEASE DELETE
+								</div>
+							<cfelse>
+								#dateformat(expiration_date,"yyyy-mm-dd")#
 							</cfif>
 						</td>
 						<td>#remarks#</td>
