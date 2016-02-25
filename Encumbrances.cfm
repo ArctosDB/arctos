@@ -600,7 +600,6 @@ UPDATE encumbrance SET
 								value="Remove This Encumbrance"
 								class="delBtn"
 								onClick="deleteEncumbrance(#encumbrance_id#,#encs.collection_object_id#);">
-
 						</form>
 					<cfelse>
 						None

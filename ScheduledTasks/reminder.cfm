@@ -22,7 +22,7 @@
 			collection.guid_prefix,
 			get_address(collection_contacts.contact_agent_id,'email') collection_contact_email,
 			encumbrance.ENCUMBRANCE_ID,
-			getPreferredAgentName(encumbrance.ENCUMBERING_AGENT_ID),
+			getPreferredAgentName(encumbrance.ENCUMBERING_AGENT_ID) encumberer,
 			encumbrance.EXPIRATION_DATE,
 			encumbrance.ENCUMBRANCE,
 			encumbrance.REMARKS,
@@ -71,7 +71,8 @@
 			ENCUMBRANCE,
 			REMARKS,
 			MADE_DATE,
-			ENCUMBRANCE_ACTION
+			ENCUMBRANCE_ACTION,
+			encumberer
 		from
 			raw
 		group by
@@ -80,28 +81,57 @@
 			ENCUMBRANCE,
 			REMARKS,
 			MADE_DATE,
-			ENCUMBRANCE_ACTION
+			ENCUMBRANCE_ACTION,
+			encumberer
 	</cfquery>
 
 	<cfdump var=#enc#>
 
+
+
+	<cfsavecontent variable="message">
+		You are receiving this message because you are a collection contact for a collections holding encumbered specimens.
+		Please review encumbrance #enc.ENCUMBRANCE# created by #enc.encumberer# on #enc.MADE_DATE#, expires #enc.EXPIRATION_DATE#.
+	</cfsavecontent>
 	<cfloop query="enc">
 		<cfquery name="mt" dbtype="query">
 			select collection_contact_email from raw where encumbrance_id=#encumbrance_id# group by collection_contact_email
 		</cfquery>
+
+		<cfset emailto=valuelist(mt.collection_contact_email)>
+
 		<cfdump var=#mt#>
 
 		<cfquery name="sp" dbtype="query">
 			select guid_prefix from raw where encumbrance_id=#encumbrance_id# group by guid_prefix
 		</cfquery>
 		<cfdump var=#sp#>
-		<cfloop query="sp">
-			<cfquery name="spc" dbtype="query">
-				select sum(nspc) tc from raw where encumbrance_id=#enc.encumbrance_id# and guid_prefix='#guid_prefix#'
-			</cfquery>
 
-		<cfdump var=#spc#>
-		</cfloop>
+		<cfsavecontent variable="ssum">
+			Summary of encumbered specimens:
+			<cfloop query="sp">
+				<cfquery name="spc" dbtype="query">
+					select sum(nspc) tc from raw where encumbrance_id=#enc.encumbrance_id# and guid_prefix='#guid_prefix#'
+				</cfquery>
+				<p>
+				#guid_prefix#: #spc.tc#
+				</p>
+			<cfdump var=#spc#>
+			</cfloop>
+		</cfsavecontent>
+
+
+		<p>
+			mailto: #mailto#
+		</p>
+		<p>
+			message: #message#
+		</p>
+		<p>
+			ssum: #ssum#
+		</p>
+
+
 	</cfloop>
 
  ----------------------------------------------------------------- -------- --------------------------------------------

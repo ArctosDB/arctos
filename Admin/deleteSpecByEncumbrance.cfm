@@ -169,7 +169,8 @@ drop table temp;
 			<br />
 			You are not removing encumbrances.
 			<br />
-			You can really mess up here!
+			<br>(You should probably be making redirects too.)
+			<br> You can really mess up here!
 			<br />Forever and forever.
 			<br />You have been warned.
 			<br />
@@ -177,7 +178,7 @@ drop table temp;
 			<br />Otherwise, <a href="/">go somewhere safe</a>
 		</p>
 		<p>
-		<a href="deleteSpecByEncumbrance.cfm?action=goAway&encumbrance_id=#encumbrance_id#">[ delete everything ]</a>
+		<a href="deleteSpecByEncumbrance.cfm?action=goAway&encumbrance_id=#encumbrance_id#">[ delete these specimens ]</a>
 		</p>
 		<p>
 		<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#&loan_number=*">[ check for items on loan ]</a>
