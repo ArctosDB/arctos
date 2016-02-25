@@ -41,12 +41,12 @@
 			cataloged_item.collection_id=collection.collection_id and
 			collection.collection_id=collection_contacts.collection_id and
 			to_char(EXPIRATION_DATE,'yyyy-mm-dd') in (
-			<cfloop list="#mnths#" index="i">
-				to_char(add_months(sysdate,#i#),'yyyy-mm-dd')
-				<cfif i is not 48>
-					,
-				</cfif>
-			</cfloop>
+				<cfloop list="#mnths#" index="i">
+					to_char(add_months(sysdate,#i#),'yyyy-mm-dd')
+					<cfif i is not 48>
+						,
+					</cfif>
+				</cfloop>
 			)
 		group by
 			collection.guid_prefix,
@@ -59,11 +59,6 @@
 			encumbrance.ENCUMBRANCE_ACTION,
 			get_address(collection_contacts.contact_agent_id,'email')
 	</cfquery>
-
-
-	<cfdump var=#raw#>
-
-
 	<cfquery name="enc" dbtype="query">
 		select
 			ENCUMBRANCE_ID,
@@ -84,14 +79,7 @@
 			ENCUMBRANCE_ACTION,
 			encumberer
 	</cfquery>
-
-	<cfdump var=#enc#>
-
-
-
-
 	<cfloop query="enc">
-
 		<cfquery name="mt" dbtype="query">
 			select
 				collection_contact_email
@@ -103,19 +91,12 @@
 			group by
 				collection_contact_email
 		</cfquery>
-
-		<cfset emailto=valuelist(mt.collection_contact_email)>
-
-		<cfdump var=#mt#>
-
 		<cfquery name="sp" dbtype="query">
 			select guid_prefix,nspc from raw where encumbrance_id=#encumbrance_id# group by guid_prefix,nspc
 		</cfquery>
-		<cfdump var=#sp#>
-
 		<cfif isdefined("Application.version") and  Application.version is "prod">
 			<cfset subj="Arctos Encumbrance Notification">
-			<cfset maddr=emailto>
+			<cfset maddr=valuelist(mt.collection_contact_email)>
 		<cfelse>
 			<cfset maddr=application.bugreportemail>
 			<cfset subj="TEST PLEASE IGNORE: Arctos Encumbrance Notification">
