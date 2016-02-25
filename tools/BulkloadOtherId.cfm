@@ -188,6 +188,14 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 <!------------------------------------------------------->
 <cfif action is "srsq">
 <cfoutput>
+	<div class="infoBox">
+		If you're seeing this, the check has probably timed out.
+		This process only checks not-"catalog number" records and can be slow. You may need to deal with any
+		non-unique IDs and reload.
+		<a href="BulkloadOtherId.cfm?action=managemystuff">back to manage</a>.
+
+	</div>
+
 	<cftransaction>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_oids where upper(username)='#ucase(session.username)#' and existing_other_id_type != 'catalog number'
@@ -213,9 +221,21 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 				<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(grc.collection_object_id)#" target="_blank">
 					click for specimens
 				</a>
+				<cfquery name="nuq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						cf_temp_oids
+					set
+						status=decode(status,
+							null,'existing ID is not unique',
+							status || '; existing ID is not unique')
+					where
+						key=#key# and
+						upper(username)='#ucase(session.username)#'
+				</cfquery>
 			</cfif>
 		</cfloop>
 	</cftransaction>
+	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
