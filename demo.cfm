@@ -29,7 +29,11 @@ $(document).ready(function(){
 
           $("#dateSlider").bind("valuesChanged", function(e, data){
           	console.log(data);
-          	var bd=("0" + (data.values.min.getDate()).slice(-2)) ,
+          	var bd=("0" + (data.values.min.getDate())).slice(-2) ,
+
+
+
+
           	bm=data.values.min.getMonth() + 1,
           	by=data.values.min.getFullYear();
 
