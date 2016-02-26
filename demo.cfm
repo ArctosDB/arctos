@@ -50,6 +50,10 @@ $(document).ready(function(){
 
     });
 
+$("#sss").submit(function( event ) {
+  alert( "Handler for .submit() called." );
+  event.preventDefault();
+});
 
     });
 </script>
@@ -103,6 +107,7 @@ $(document).ready(function(){
 </p>
 
 <blockquote>
+	<form name="sss" id="sss">
 <label for="">What</label>
 <input type="text" placeholder="identification or common name">
 <br>Try <a href="#">Marmot</a> or <a href="#">Arrowhead</a>
@@ -118,7 +123,8 @@ $(document).ready(function(){
 
 From <input id="minDate" placeholder="earliest date"> to <input id="maxDate" placeholder="latest date">
 
-<br><input type="button" value="click to search">
+<br><input type="button" value="find specimens">
+</form>
 </blockquote>
 
 <H2>
