@@ -5,7 +5,7 @@
 <hr>---------- date range slider demo ----------<hr>
 <style>
 	.sliderContainer(max-width:40%;}
-	#datepick(max-witch:40%;}
+	#datepick{border:2px solid green;max-width:40%;}
 </style>
 <script>
 $(document).ready(function(){
