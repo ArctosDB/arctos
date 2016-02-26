@@ -3,7 +3,9 @@
   <script src="/includes/jQRangeSlider-5.7.2/jQDateRangeSlider-min.js"></script>
 
 <hr>---------- date range slider demo ----------<hr>
-
+<style>
+	.sliderContainer(max-width:40%;}
+</style>
 <script>
 $(document).ready(function(){
       $("#dateSlider").dateRangeSlider({
@@ -79,7 +81,7 @@ $(document).ready(function(){
 <h1>Search Arctos</h1>
 <h2>Specimens</h2>
 <p>
-I'm a link click for full search
+<a href="/SpecimenSearch.cfm">Click here for advanced search</a>
 </p>
 
 <blockquote>
