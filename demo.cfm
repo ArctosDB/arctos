@@ -96,7 +96,7 @@ $(document).ready(function(){
 
 <label for="">When</label>
 
-	     <div class="sliderContainer"><div id="dateSlider"></div>
+	     <div id="dateSlider">
 
 From <input id="minDate" placeholder="earliest date"> to <input id="maxDate" placeholder="latest date">
 </div>
