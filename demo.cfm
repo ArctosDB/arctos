@@ -32,7 +32,7 @@ $(document).ready(function(){
 					 SCIENTIFIC_NAME:  {title: 'IDENTIFIEDAS'}
 	            }
 	        });
-	        $('#specresults').jtable('load');
+	       // $('#specresults').jtable('load');
 
 
 
