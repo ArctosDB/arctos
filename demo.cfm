@@ -29,6 +29,9 @@ $(document).ready(function(){
 
           $("#dateSlider").bind("valuesChanged", function(e, data){
           	console.log(data);
+          	var bd=data.values.min.getDate();
+
+          	console.log('bd: ' + bd);
       console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
     });
 
