@@ -56,9 +56,9 @@ $("#sss").submit(function( event ) {
 		type: "GET",
 		dataType: "json",
 		data:  {
-			what:  $("#what").val,
-			when:  $("#when").val,
-			where:  $("#where").val,
+			what:  $("#what").val(),
+			when:  $("#when").val(),
+			where:  $("#where").val()
 		},
 		success: function(r) {
 			alert(r);
