@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 	<link href="/includes/jQRangeSlider-5.7.2/css/iThing.css" rel="stylesheet" media="screen">
   <script src="/includes/jQRangeSlider-5.7.2/jQDateRangeSlider-min.js"></script>
+<script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 
 <hr>---------- date range slider demo ----------<hr>
 <style>
@@ -10,7 +11,7 @@
 $(document).ready(function(){
 
 
-	 $('##specresults').jtable({
+	 $('#specresults').jtable({
 	            title: 'Specimen Results',
 				paging: true, //Enable paging
 	            pageSize: 10, //Set page size (default: 10)
@@ -31,7 +32,7 @@ $(document).ready(function(){
 					 SCIENTIFIC_NAME:  {title: 'IDENTIFIEDAS'}
 	            }
 	        });
-	        $('##specresults').jtable('load');
+	        $('#specresults').jtable('load');
 
 
 
