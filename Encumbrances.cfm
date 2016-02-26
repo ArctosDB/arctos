@@ -213,7 +213,7 @@
 		<cfset sql=s & q & sql & " group by encumbrance.encumbrance_id,
 				encumbrance.encumbrance,
 				encumbrance.encumbrance_action,
-				preferred_agent_name.agent_name,
+				getPreferredAgentName(encumbering_agent_id),
 				encumbrance.made_date,
 				encumbrance.expiration_date,
 				encumbrance.remarks">
