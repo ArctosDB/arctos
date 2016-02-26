@@ -29,8 +29,12 @@ $(document).ready(function(){
 
           $("#dateSlider").bind("valuesChanged", function(e, data){
           	console.log(data);
-          	var bd=data.values.min.getDate();
+          	var bd=data.values.min.getDate(),
+          	bm=data.values.min.getMonth() + 1,
+          	by=data.values.min.getFullYear();
 
+          	console.log('by: ' + by);
+          	console.log('bm: ' + bm);
           	console.log('bd: ' + bd);
       console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
     });
