@@ -18,10 +18,7 @@ $(document).ready(function(){
             return Months[val.getMonth()];
           },
            formatter:function(val){
-                var days =  ("0" + (val.getDate()).slice(-2),
-
-
-
+                var days =  ("0" + (val.getDate()).slice(-2)),
                   month = val.getMonth() + 1,
                   year = val.getFullYear();
                 return days + "/" + month + "/" + year;
