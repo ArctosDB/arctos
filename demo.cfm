@@ -97,7 +97,7 @@ $(document).ready(function(){
 
 <label for="">When</label>
 
-<div id="datepick">
+<div id="datepick" style="border:10px solid red;">
 	     <div class="sliderContainer"><div id="dateSlider"></div></div>
 
 From <input id="minDate" placeholder="earliest date"> to <input id="maxDate" placeholder="latest date">
