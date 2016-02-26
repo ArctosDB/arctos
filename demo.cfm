@@ -11,7 +11,7 @@
 <script>
 $(document).ready(function(){
 
-
+/*
 	 $('#specresults').jtable({
 	            title: 'Specimen Results',
 				paging: true, //Enable paging
@@ -35,7 +35,7 @@ $(document).ready(function(){
 	       // $('#specresults').jtable('load');
 
 
-
+*/
       $("#dateSlider").dateRangeSlider({
         bounds: {min: new Date(1800, 0, 1), max: new Date()},
         defaultValues: {min: new Date(1800, 1, 10), max: new Date()},
@@ -90,10 +90,19 @@ $("#sss").submit(function( event ) {
 		},
 		success: function(r) {
 			alert(r);
-
+			var t='<table id="srtbl">';
+			for (i=0;i<r.ROWCOUNT;i++) {
+				t+='<tr>';
+					t+='<td>' + r.DATA.SCIENTIFIC_NAME[i] + '</td>';
+				t+='</tr>';
+			}
+			t+='</table>';
+			$("#specresults").html(t);
 		},
 		error: function (xhr, textStatus, errorThrown){
+
 		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+
 		}
 	});
 
