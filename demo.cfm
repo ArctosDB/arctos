@@ -2,6 +2,7 @@
 	<link href="/includes/jQRangeSlider-5.7.2/css/iThing.css" rel="stylesheet" media="screen">
   <script src="/includes/jQRangeSlider-5.7.2/jQDateRangeSlider-min.js"></script>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
+<link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 
 <hr>---------- date range slider demo ----------<hr>
 <style>
