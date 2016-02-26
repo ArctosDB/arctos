@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 	<link href="/includes/jQRangeSlider-5.7.2/css/classic.css" rel="stylesheet" media="screen">
-  <script src="/includes/jQRangeSlider-5.7.2/lib/jQDateRangeSlider-min.js"></script>
+  <script src="/includes/jQRangeSlider-5.7.2/jQDateRangeSlider-min.js"></script>
 
 <hr>---------- date range slider demo ----------<hr>
 
