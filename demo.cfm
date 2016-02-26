@@ -81,6 +81,7 @@ $(document).ready(function(){
 <h1>Search Arctos</h1>
 <h2>Site Search</h2>
 
+<div id="cse" style="width: 50%;">Loading</div>
 
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
