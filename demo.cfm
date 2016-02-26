@@ -4,7 +4,7 @@
 
 <hr>---------- date range slider demo ----------<hr>
 <style>
-	.dateSlider(max-width:40%;}
+	#dateSlider{width:40em;}
 </style>
 <script>
 $(document).ready(function(){
@@ -74,6 +74,7 @@ $(document).ready(function(){
 
 
 
+	     <div id="dateSlider"></div>
 
 
 <hr>---------- possible "simple search" or default Arctos search page demo ----------<hr>
@@ -96,7 +97,6 @@ $(document).ready(function(){
 
 <label for="">When</label>
 
-	     <div id="dateSlider"></div>
 
 From <input id="minDate" placeholder="earliest date"> to <input id="maxDate" placeholder="latest date">
 
