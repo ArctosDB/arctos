@@ -34,7 +34,7 @@ $(document).ready(function(){
 
 
 
-          	bm=data.values.min.getMonth() + 1,
+          	bm=("0" + (data.values.min.getMonth() + 1)).slice(-2),
           	by=data.values.min.getFullYear();
 
           	console.log('by: ' + by);
