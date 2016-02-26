@@ -8,6 +8,33 @@
 </style>
 <script>
 $(document).ready(function(){
+
+
+	 $('##specresults').jtable({
+	            title: 'Specimen Results',
+				paging: true, //Enable paging
+	            pageSize: 10, //Set page size (default: 10)
+	            sorting: true, //Enable sorting
+	            //defaultSorting: 'GUID ASC', //Set default sorting
+				columnResizable: true,
+				//recordsLoaded: getPostLoadJunk,
+				multiSorting: true,
+				columnSelectable: false,
+				multiselect: true,
+				//selectingCheckboxes: true,
+  				//selecting: true, //Enable selecting
+          		//selectingCheckboxes: true, //Show checkboxes on first column
+            	//selectOnRowClick: false, //Enable this to only select using checkboxes
+				pageSizes: [10, 25, 50, 100, 250, 500,5000],
+
+	            fields:  {
+					 SCIENTIFIC_NAME:  {title: 'IDENTIFIEDAS'}
+	            }
+	        });
+	        $('##specresults').jtable('load');
+
+
+
       $("#dateSlider").dateRangeSlider({
         bounds: {min: new Date(1800, 0, 1), max: new Date()},
         defaultValues: {min: new Date(1800, 1, 10), max: new Date()},
@@ -145,6 +172,9 @@ From <input id="minDate" placeholder="earliest date"> to <input id="maxDate" pla
 <br><input type="submit" value="find specimens">
 </form>
 </blockquote>
+	<div id="specresults"></div>
+
+
 
 <H2>
 	Projects and Publications
