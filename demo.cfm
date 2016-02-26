@@ -123,7 +123,7 @@ $("#sss").submit(function( event ) {
 
 From <input id="minDate" placeholder="earliest date"> to <input id="maxDate" placeholder="latest date">
 
-<br><input type="button" value="find specimens">
+<br><input type="submit" value="find specimens">
 </form>
 </blockquote>
 
