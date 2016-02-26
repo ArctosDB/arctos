@@ -10,3 +10,5 @@
 	<cfreturn "result!!">
 
 </cffunction>
+
+</cfcomponent>
