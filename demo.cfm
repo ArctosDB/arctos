@@ -1,4 +1,40 @@
 <cfinclude template="/includes/_header.cfm">
+	<link href="/includes/jQRangeSlider-5.7.2/css/classic.css" rel="stylesheet" media="screen">
+  <script src="/includes/jQRangeSlider-5.7.2/lib/jQDateRangeSlider-min.js"></script>
+
+<hr>---------- date range slider demo ----------<hr>
+
+<script>
+$(document).ready(function(){
+      $("#dateSlider").dateRangeSlider({
+        bounds: {min: new Date(1800, 0, 1), max: new Date()},
+        defaultValues: {min: new Date(1800, 1, 10), max: new Date()},
+        scales: [{
+          next: function(val){
+            var next = new Date(val);
+            return new Date(next.setMonth(next.getMonth() + 1));
+          },
+          label: function(val){
+            return Months[val.getMonth()];
+          }
+        }]
+      });
+    });
+</script>
+
+
+
+
+      <div class="sliderContainer"><div id="dateSlider"></div></div>
+
+
+
+
+
+
+
+
+<hr>---------- possible "simple search" or default Arctos search page demo ----------<hr>
 
 <h1>Search Arctos</h1>
 <h2>Specimens</h2>
