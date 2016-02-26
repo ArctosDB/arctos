@@ -16,7 +16,14 @@ $(document).ready(function(){
           },
           label: function(val){
             return Months[val.getMonth()];
-          }
+          },
+           formatter:function(val){
+                var days = val.getDate(),
+                  month = val.getMonth() + 1,
+                  year = val.getFullYear();
+                return days + "/" + month + "/" + year;
+              }
+
         }]
       });
 
@@ -27,7 +34,18 @@ $(document).ready(function(){
 
     });
 </script>
+<!----
 
+        $("#formatterExample").dateRangeSlider({
+          formatter:function(val){
+                var days = val.getDate(),
+                  month = val.getMonth() + 1,
+                  year = val.getFullYear();
+                return days + "/" + month + "/" + year;
+              }
+        });
+
+		---->
 
 
 
