@@ -30,17 +30,22 @@ $(document).ready(function(){
           $("#dateSlider").bind("valuesChanged", function(e, data){
           	console.log(data);
           	var bd=("0" + (data.values.min.getDate())).slice(-2) ,
+          		bm=("0" + (data.values.min.getMonth() + 1)).slice(-2),
+          		by=data.values.min.getFullYear();
+          	var ed=("0" + (data.values.max.getDate())).slice(-2) ,
+          		em=("0" + (data.values.max.getMonth() + 1)).slice(-2),
+          		ey=data.values.max.getFullYear();
 
-
-
-
-          	bm=("0" + (data.values.min.getMonth() + 1)).slice(-2),
-          	by=data.values.min.getFullYear();
+          	$("#minDate").val(by + '-' + bm + '-' + bd );
+          	$("#maxDate").val(ey + '-' + em + '-' + ed );
 
           	console.log('by: ' + by);
           	console.log('bm: ' + bm);
           	console.log('bd: ' + bd);
       console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
+
+
+
     });
 
 
@@ -61,7 +66,6 @@ $(document).ready(function(){
 
 
 
-      <div class="sliderContainer"><div id="dateSlider"></div></div>
 
 
 
@@ -87,9 +91,11 @@ I'm a link click for full search
 <input type="text" placeholder="Place Name">
 <br>Try <a href="#">Albuquerque</a>
 
+	     <div class="sliderContainer"><div id="dateSlider"></div></div>
 
 <label for="">When (slide to pick year range)</label>
- <input id="test" type="range"/>
+<input id="minDate">
+<input id="maxDate">
 
 <br><input type="button" value="click to search">
 </blockquote>
