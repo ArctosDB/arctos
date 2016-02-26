@@ -51,7 +51,26 @@ $(document).ready(function(){
     });
 
 $("#sss").submit(function( event ) {
-  alert( "Handler for .submit() called." );
+	$.ajax({
+		url: "/component/simplesearch.cfc?queryformat=column&method=getSSSpecimens&returnformat=json",
+		type: "GET",
+		dataType: "json",
+		data:  {
+			what:  $("#what").val,
+			when:  $("#when").val,
+			where:  $("#where").val,
+		},
+		success: function(r) {
+			alert(r);
+
+		},
+		error: function (xhr, textStatus, errorThrown){
+		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+		}
+	});
+
+
+
   event.preventDefault();
 });
 
@@ -109,11 +128,11 @@ $("#sss").submit(function( event ) {
 <blockquote>
 	<form name="sss" id="sss">
 <label for="">What</label>
-<input type="text" placeholder="identification or common name">
+<input type="text" id="what" placeholder="identification or common name">
 <br>Try <a href="#">Marmot</a> or <a href="#">Arrowhead</a>
 
 <label for="">Where</label>
-<input type="text" placeholder="Place Name">
+<input id="where" type="text" placeholder="Place Name">
 <br>Try <a href="#">Albuquerque</a>
 
 
