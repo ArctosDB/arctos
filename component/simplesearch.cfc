@@ -8,10 +8,23 @@
 	<cfparam name="maxDate" type="string" default="">
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from flat where rownum<=100 and
+		select
+			scientific_name,
+			higher_geog,
+			spec_locality,
+			began_date || ' to ' || ended_date daterange,
+			count(*) specimencount
+		from
+			flat
+		where rownum<=100 and
 		<cfif isdefined("what") and len(what) gt 0>
 			upper(scientific_name) like '%#ucase(what)#%'
 		</cfif>
+		group by
+			scientific_name,
+			higher_geog,
+			spec_locality,
+			began_date || ' to ' || ended_date
 	</cfquery>
 
 
