@@ -169,16 +169,17 @@
 				encumbrance.encumbrance_id,
 				encumbrance.encumbrance,
 				encumbrance.encumbrance_action,
-				preferred_agent_name.agent_name,
+				getPreferredAgentName(encumbering_agent_id) agent_name,
 				encumbrance.made_date,
 				encumbrance.expiration_date,
-				encumbrance.remarks
+				encumbrance.remarks,
+				count(coll_object_encumbrance.collection_object_id) spccnt
 			from
 				encumbrance,
-				preferred_agent_name">
+				coll_object_encumbrance">
 		<cfset q = "
 			WHERE
-				encumbrance.encumbering_agent_id = preferred_agent_name.agent_id">
+				encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id (+)">
 		<cfset sql=" ">
 		<cfif isdefined("encumberingAgent") and len(encumberingAgent) gt 0>
 			<cfset s=s & ",agent_name">
@@ -232,6 +233,8 @@
 				<th>MadeDate</th>
 				<th>Expires</th>
 				<th>Remarks</th>
+				<th>##Specimen</th>
+
 				<th>Tools</th>
 			</tr>
 			<cfloop query="getEnc">
@@ -256,6 +259,7 @@
 							</cfif>
 						</td>
 						<td>#remarks#</td>
+						<td>#spccnt#</td>
 						<td nowrap>
 							<cfif len(table_name) gt 0>
 								<div class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">

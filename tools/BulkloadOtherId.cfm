@@ -244,7 +244,7 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 	<div class="infoBox">
 		<strong>single-row subquery returns more than one row problems</strong>?
 		<a href="BulkloadOtherId.cfm?action=srsq">Click here to find them</a>. This error is caused by nonunique data -
-		usually two specimens sharing an ID used here.
+		usually two specimens sharing an ID used here. Check status for "existing ID is not unique" after performing this check.
 	</div>
 	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
