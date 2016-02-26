@@ -91,11 +91,11 @@ I'm a link click for full search
 <input type="text" placeholder="Place Name">
 <br>Try <a href="#">Albuquerque</a>
 
+
+<label for="">When</label>
 	     <div class="sliderContainer"><div id="dateSlider"></div></div>
 
-<label for="">When (slide to pick year range)</label>
-<input id="minDate">
-<input id="maxDate">
+From <input id="minDate" placeholder="earliest date"> to <input id="maxDate" placeholder="latest date">
 
 <br><input type="button" value="click to search">
 </blockquote>
