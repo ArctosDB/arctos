@@ -5,6 +5,7 @@
 <hr>---------- date range slider demo ----------<hr>
 <style>
 	.sliderContainer(max-width:40%;}
+	#datepick(max-witch:40%;}
 </style>
 <script>
 $(document).ready(function(){
@@ -95,10 +96,12 @@ $(document).ready(function(){
 
 
 <label for="">When</label>
+
+<div id="datepick">
 	     <div class="sliderContainer"><div id="dateSlider"></div></div>
 
 From <input id="minDate" placeholder="earliest date"> to <input id="maxDate" placeholder="latest date">
-
+</div>
 <br><input type="button" value="click to search">
 </blockquote>
 
