@@ -27,7 +27,6 @@ $(document).ready(function(){
           		//selectingCheckboxes: true, //Show checkboxes on first column
             	//selectOnRowClick: false, //Enable this to only select using checkboxes
 				pageSizes: [10, 25, 50, 100, 250, 500,5000],
-
 	            fields:  {
 					 SCIENTIFIC_NAME:  {title: 'IDENTIFIEDAS'}
 	            }
