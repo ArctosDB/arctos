@@ -363,6 +363,12 @@ grant all on cf_temp_parts to uam_query,uam_update;
 				other_id_type='UUID' and
 				display_value='#other_id_number#'
 		</cfquery>
+		<cfdump var=#mine#>
+
+
+		<cfabort>
+
+
 		<cfif gg.recordcount is 1>
 			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_parts set guid_prefix='#gg.guid_prefix#' where other_id_number='#other_id_number#'
