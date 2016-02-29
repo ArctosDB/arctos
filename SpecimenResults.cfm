@@ -177,6 +177,8 @@
 			dec_long,
 			coordinateuncertaintyinmeters
 	</cfquery>
+
+	------------#hascoords.recordcount#------------
 	<cfset cfgml="">
 	<cfset cpc=1>
 	<cfloop query="hascoords">
@@ -213,6 +215,9 @@
 			scientific_name,
 			coordinateuncertaintyinmeters
 	</cfquery>
+
+	==========#hascoords.recordcount#==========
+
 	<cfset cfgml="">
 	<cfset cpc=1>
 	<cfloop query="hascoords">
