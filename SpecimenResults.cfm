@@ -177,8 +177,6 @@
 			dec_long,
 			coordinateuncertaintyinmeters
 	</cfquery>
-
-	------------#hascoords.recordcount#------------
 	<cfset cfgml="">
 	<cfset cpc=1>
 	<cfloop query="hascoords">
@@ -194,49 +192,6 @@
 		</cfif>
 	</cfloop>
 	<input type="text" id="cfgml" value="#cfgml#">
-
-
-	<cfset cfgml="">
-	<cfset cpc=1>
-	<cfquery name="hascoords" dbtype="query">
-		select
-			scientific_name,
-			count(*) as numspecs,
-			dec_lat,
-			dec_long,
-			coordinateuncertaintyinmeters
-		from
-			summary
-		where
-			dec_lat is not null
-		group by
-			dec_lat,
-			dec_long,
-			scientific_name,
-			coordinateuncertaintyinmeters
-	</cfquery>
-
-	==========#hascoords.recordcount#==========
-
-	<cfset cfgml="">
-	<cfset cpc=1>
-	<cfloop query="hascoords">
-		<cfif cpc lt mapRecordLimit>
-			<cfif len(coordinateuncertaintyinmeters) is 0>
-				<cfset radius=0>
-			<cfelse>
-				<cfset radius=coordinateuncertaintyinmeters>
-			</cfif>
-			<cfset cep="#numspecs#,#scientific_name#,#dec_lat#,#dec_long#,#radius#">
-			<cfset cfgml=listappend(cfgml,cep,';')>
-			<cfset cpc=cpc+1>
-		</cfif>
-	</cfloop>
-		<input type="text" id="cfgml" value="#cfgml#">
-
-
-
-
 	<cfif summary.recordcount is 0>
 		<div>
 			Your query returned no results.
