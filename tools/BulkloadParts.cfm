@@ -364,6 +364,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 				display_value='#other_id_number#'
 		</cfquery>
 		<cfdump var=#mine#>
+		<cfdump var=#gg#>
 
 
 		<cfabort>
