@@ -191,7 +191,7 @@
 			<cfset cpc=cpc+1>
 		</cfif>
 	</cfloop>
-	<input type="text" id="cfgml" value="#cfgml#">
+	<input type="hidden" id="cfgml" value="#cfgml#">
 	<cfif summary.recordcount is 0>
 		<div>
 			Your query returned no results.
