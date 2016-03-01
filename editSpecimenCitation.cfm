@@ -1,4 +1,12 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+
+<cfdump var=#url#>
+
+<cfabort>
+
+
+
+
 <cfif action is "nothing">
 	<cfoutput>
 		<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -118,7 +126,7 @@
 		<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select taxa_formula from cttaxa_formula order by taxa_formula
 		</cfquery>
-		<br>Edit Citations for <strong>#one.guid#</strong>
+		<br>Manage Citations for <strong>#one.guid#</strong>
 
 		<!----
 		 in
