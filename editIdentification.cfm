@@ -548,7 +548,7 @@
 
 						</td>
 						<td>
-											<input type="text" name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" value="#CITATION_REMARKS#">
+							<textarea name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" class="mediumtextarea">#CITATION_REMARKS#</textarea>
 
 						</td>
 					</tr>
