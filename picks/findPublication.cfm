@@ -1,9 +1,10 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfoutput>
+	<cfparam name="publication_title" default="">
 	<!--- make sure we're searching for something --->
 	<form name="searchForPub" action="findPublication.cfm" method="post">
 		<label for="publication_title">Publication Title</label>
-		<input type="text" name="publication_title" id="publication_title">
+		<input type="text" name="publication_title" id="publication_title" value="#publication_title#">
 		<input type="submit"
 			value="Search"
 			class="lnkBtn"
