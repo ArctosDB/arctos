@@ -449,7 +449,8 @@
 			from
 				getID
 			where
-				identification_id=#identification_id#
+				identification_id=#identification_id# and
+				TYPE_STATUS is not null
 			group by
 				OCCURS_PAGE_NUMBER,
 				TYPE_STATUS,
@@ -466,7 +467,14 @@
 		<tr>
           	<td><div align="right">Citations:</div></td>
 			<td>
-				<cfdump var=#cit#>
+				<div>
+					Manage citations for this ID
+				</div>
+				<cfloop query="cit">
+					<div>
+						#TYPE_STATUS# in #cit_short_cit#
+					</div>
+				</cfloop>
 			</td>
 		</tr>
 	</table>
