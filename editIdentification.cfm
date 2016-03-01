@@ -456,7 +456,8 @@
           	<td><div align="right">Remarks:</div></td>
          	 <td>
 				<input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#"
-					value="#stripQuotes(identification_remarks)#" size="50">
+					value="#stripQuotes(identification_remarks)#" size="50"
+					placeholder="identification remarks">
 			</td>
         </tr>
 		<cfquery name="cit" dbtype="query">
