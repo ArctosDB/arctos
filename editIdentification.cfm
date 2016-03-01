@@ -597,7 +597,7 @@
 							<input type="text" name="page_#distIds.identification_id#_NEW" id="page_#distIds.identification_id#_NEW">
 						</td>
 						<td>
-							<textarea name="citation_remark_#distIds.identification_id#__NEW" id="citation_remark_#distIds.identification_id#__NEW" class="mediumtextarea"></textarea>
+							<textarea name="citation_remark_#distIds.identification_id#_NEW" id="citation_remark_#distIds.identification_id#_NEW" class="mediumtextarea"></textarea>
 						</td>
 					</tr>
 
