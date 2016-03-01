@@ -295,9 +295,7 @@
 </form>
 
 <strong><font size="+1">Edit an Existing Determination</font></strong>
-<span onclick="parent.loadEditApp('editSpecimenCitation')" class="likeLink" id="BTN_editIdentification">Citations</span>
-
-<img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
+<span class="likeLink" onClick="getDocs('identification')">Documentation</span>
 <cfset i = 1>
 <cfquery name="distIds" dbtype="query">
 	SELECT
