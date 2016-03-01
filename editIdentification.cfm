@@ -551,6 +551,12 @@
 				---->
 			</cfloop>
 
+
+			<cfabort>
+
+
+
+
 			<cfif thisAcceptedIdFg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
