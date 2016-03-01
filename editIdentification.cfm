@@ -600,7 +600,7 @@
 									id="publication_#distIds.identification_id#_#citation_id#"
 									value='#cit_short_cit#'
 									onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value,'editIdentification')" size="50">
-								<a href="/publication/#citpubid#" target="_blank">[ open ]</a>
+								<a href="/publication/#citpubid#" class="infoLink" target="_blank">[ open ]</a>
 							</td>
 							<td>
 								<input type="number" name="page_#distIds.identification_id#_#citation_id#" id="page_#distIds.identification_id#_#citation_id#" value="#OCCURS_PAGE_NUMBER#">
