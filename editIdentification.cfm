@@ -360,12 +360,11 @@
 			value="#identifiers.recordcount#">
 	<table id="mainTable_#i#">
     	<tr>
-        	<td class="valigntop"><div align="right">Scientific Name:</div>
-
-				</td>
+        	<td class="valigntop">
+				<div align="right">Scientific Name:</div>
+			</td>
             <td>
 				<cfif accepted_id_fg is 1 and taxa_formula is 'A {string}'>
-
 					<cfquery name="taxa" dbtype="query">
 						select
 							taxon_name,
@@ -563,6 +562,7 @@
 										<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 									</cfloop>
 							</select>
+							<span class="infoLink" onClick="getCtDoc('cttype_status')">Define</span>
 						</td>
 						<td>
 							<input type="hidden" name="publication_id_#distIds.identification_id#_NEW"
