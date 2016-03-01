@@ -219,6 +219,8 @@
 </form>
 
 <strong><font size="+1">Edit an Existing Determination</font></strong>
+<span onclick="loadEditApp('editSpecimenCitation')" class="likeLink" id="BTN_editIdentification">Citations</span>
+
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 <cfset i = 1>
 <cfquery name="distIds" dbtype="query">
@@ -467,9 +469,6 @@
 		<tr>
           	<td><div align="right">Citations:</div></td>
 			<td>
-				<div>
-					Manage citations for this ID
-				</div>
 				<cfloop query="cit">
 					<div>
 						#TYPE_STATUS# in #cit_short_cit#

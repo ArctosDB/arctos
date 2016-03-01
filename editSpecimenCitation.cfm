@@ -43,7 +43,7 @@
 				identification.publication_id=sensu.publication_id (+) and
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
-
+		
 		<cfquery name="one" dbtype="query">
 			select
 				publication_id,
@@ -185,14 +185,14 @@
 			</table>
 		<input type="submit" value="Save Edits" class="savBtn" id="sBtn" title="Save Edits">
 	</form>
-
-
+		
+		
 	</cfoutput>
 </cfif>
 	<!-------------
-
+	
 	<cfabort>
-
+		
 	<style>
 		.dragger {
 			cursor:move;
