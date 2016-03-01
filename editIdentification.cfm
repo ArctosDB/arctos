@@ -22,6 +22,7 @@
 	function citDel(cid){
 		if ($("#type_status_" + cid).val()=='DELETE') {
 			$("#tr_" + cid).removeClass().addClass('fordelete');
+			alert('CAUTION: Deleting citation!');
 		} else {
 			$("#tr_" + cid).removeClass();
 		}
