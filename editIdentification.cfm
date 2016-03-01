@@ -549,6 +549,9 @@
 
 				</cfif>
 				---->
+				<cfif listlen(i,"_") is 3 and listgetat(i,1,"_") is "CITATION_ID" and listgetat(i,2,"_") is thisIdentificationId>
+					<br>#i# is a citation
+				</cfif>
 			</cfloop>
 
 
