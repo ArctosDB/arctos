@@ -28,31 +28,34 @@
 			ORDER BY
 				full_citation
 		</cfquery>
-		<cfif #getPub.recordcount# is 0>
+		<cfif getPub.recordcount is 0>
 			Nothing matched #publication_title#. <a href="findPublication.cfm?formName=#formName#&pubIdFld=#pubIdFld#&pubStringFld=#pubStringFld#">Try again.</a>
+		<cfelseif getPub.recordcount is 1>
+			<script>
+				opener.document.#formName#.#pubIdFld#.value='#publication_id#';
+				opener.document.#formName#.#pubStringFld#.value='#jsescape(short_citation)#';
+				opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
+				self.close();
+			</script>
 		<cfelse>
-		<table border>
-			<tr>
-				<td>Title</td>
-			</tr>
-			<cfloop query="getPub">
-				<cfif #getPub.recordcount# is 1>
-					<script>
-						opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-						opener.document.#formName#.#pubStringFld#.value='#jsescape(short_citation)#';
-						opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
-						self.close();
-					</script>
-				<cfelse>
-					<tr>
-						<td>
-							<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-								opener.document.#formName#.#pubStringFld#.value='#jsescape(full_citation)#';self.close();">#short_citation#</a>
-						</td>
-					</tr>
-				</cfif>
-			</cfloop>
-		</table>
+			<table border>
+				<tr>
+					<td>Title</td>
+				</tr>
+				<cfloop query="getPub">
+					<cfif
+
+					<cfelse>
+						<tr>
+							<td>
+								<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
+									opener.document.#formName#.#pubStringFld#.value='#jsescape(full_citation)#';self.close();">#short_citation#</a>
+							</td>
+						</tr>
+					</cfif>
+				</cfloop>
+			</table>
+		</cfif>
 	</cfif>
 </cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">
