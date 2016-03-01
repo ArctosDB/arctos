@@ -541,27 +541,9 @@
 			order by
 				SHORT_CITATION
 		</cfquery>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		<tr>
           	<td><div align="right">Citations:</div></td>
 			<td>
-				<div>
-					<span class="likeLink" onclick="manageIDCitn('#identification_id#')">Manage citations for this ID</span>
-				</div>
 				<table border>
 					<tr>
 						<th>TypeStatus</th>
@@ -571,7 +553,7 @@
 					</tr>
 					<tr class="newRec">
 						<td>
-							<input type="text"
+							<input type="hidden"
 								id="citation_id_#distIds.identification_id#_NEW"
 								name="citation_id_#distIds.identification_id#_NEW">
 							<select
@@ -585,7 +567,7 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="publication_id_#distIds.identification_id#_NEW"
+							<input type="hidden" name="publication_id_#distIds.identification_id#_NEW"
 								id="publication_id_#distIds.identification_id#_NEW">
 							<input type="text"
 								id="publication_#distIds.identification_id#_NEW"
@@ -597,7 +579,7 @@
 							<input type="text" name="page_#distIds.identification_id#_NEW" id="page_#distIds.identification_id#_NEW">
 						</td>
 						<td>
-							<textarea name="citation_remark_#distIds.identification_id#_NEW" id="citation_remark_#distIds.identification_id#_NEW" class="mediumtextarea"></textarea>
+							<textarea name="citation_remark_#distIds.identification_id#_NEW" id="citation_remark_#distIds.identification_id#_NEW" class="smalltextarea"></textarea>
 						</td>
 					</tr>
 
@@ -606,7 +588,7 @@
 				<cfloop query="cit">
 					<tr id="tr_#distIds.identification_id#_#citation_id#">
 						<td>
-							<input type="text" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
+							<input type="hidden" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
 							<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1" onchange="citDel('#distIds.identification_id#_#citation_id#');">
 								<option style="color:red;" value="DELETE">DELETE THIS CITATION</option>
 								<cfloop query="ctTypeStatus">
@@ -616,7 +598,7 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
+							<input type="hidden" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
 					<input type="text"
 						id="publication_#distIds.identification_id#_#citation_id#"
 						value='#cit_short_cit#'
@@ -628,7 +610,7 @@
 
 						</td>
 						<td>
-							<textarea name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" class="mediumtextarea">#CITATION_REMARKS#</textarea>
+							<textarea name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" class="smalltextarea">#CITATION_REMARKS#</textarea>
 
 						</td>
 					</tr>
