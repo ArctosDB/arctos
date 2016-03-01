@@ -2,7 +2,6 @@
 
 <cfdump var=#url#>
 
-<cfabort>
 
 
 
@@ -49,11 +48,16 @@
 				identification.identification_id=identification_agent.identification_id (+) and
 				identification_agent.agent_id = preferred_agent_name.agent_id (+) and
 				identification.publication_id=sensu.publication_id (+) and
-				cataloged_item.collection_object_id=#collection_object_id#
+				identification.identification_id=#identification_id#
 		</cfquery>
 
 
 		<cfdump var=#getCited#>
+
+		<cfabort>
+
+
+
 		<cfquery name="one" dbtype="query">
 			select
 				publication_id,
