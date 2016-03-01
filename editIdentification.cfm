@@ -49,6 +49,9 @@
 <cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
+<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select type_status from ctcitation_type_status order by type_status
+</cfquery>
 <cfquery name="getID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		identification.identification_id,
@@ -493,6 +496,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 		<tr>
           	<td><div align="right">Citations:</div></td>
 			<td>
@@ -501,6 +516,12 @@
 				</div>
 				<cfloop query="cit">
 					<input type="text" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
+					<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1">
+						<cfloop query="ctTypeStatus">
+							<option
+								<cfif ctTypeStatus.type_status is cit.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+						</cfloop>
+					</select>
 					<div>
 						#TYPE_STATUS# in #cit_short_cit#
 					</div>
@@ -555,6 +576,8 @@
 					listgetat(i,2,"_") is "ID" and
 					listgetat(i,3,"_") is thisIdentificationId>
 					<br>#i# is a citation
+					<cfset thisCitationID=listlast(i,"_")>
+					<br>citationid: #thisCitationID#
 				</cfif>
 			</cfloop>
 
