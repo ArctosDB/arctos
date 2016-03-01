@@ -155,8 +155,9 @@
 		</td>
         <td>
 			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50"
-				onchange="getAgent('newIdBy_id',this.id,'newID',this.value);">
-            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr" placeholder="type+tab to pick Identifier (Agent)">
+				onchange="getAgent('newIdBy_id',this.id,'newID',this.value);"
+				placeholder="type+tab to pick Identifier (Agent)">
+            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr">
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 		</td>
 	</tr>
