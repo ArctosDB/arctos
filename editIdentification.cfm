@@ -19,7 +19,6 @@
 
 
 		var ts=$("#type_status_" + cid).val();
-		running for type_status_10272492_92003 ts=undefined
 		console.log('running for ' + cid + ' ts=' + ts);
 	}
 
