@@ -40,7 +40,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		select * from #wrd(table)# <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
 	</cfquery>
 	<cfcatch>
-		nope<cfabort>
+		<div class="error">table not found</div><cfabort>
 	</cfcatch>
 	</cftry>
 	<cfif docs.columnlist contains "collection_cde">
