@@ -532,6 +532,10 @@
 						value='#cit_short_cit#'
 						onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value,'editIdentification')" size="50">
 
+					<input type="text" name="page_#distIds.identification_id#_#citation_id#" id="page_#distIds.identification_id#_#citation_id#" value="#OCCURS_PAGE_NUMBER#">
+					<input type="text" name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" value="#CITATION_REMARKS#">
+
+
 
 					<div>
 						#TYPE_STATUS# in #cit_short_cit#
