@@ -76,7 +76,8 @@
 		citation.CITATION_REMARKS,
 		citation.CITATION_ID,
 		citpub.SHORT_CITATION cit_short_cit,
-		citpub.DOI cit_doi
+		citpub.DOI cit_doi,
+		citpub.publication_id citpubid
 	FROM
 		cataloged_item,
 		identification,
@@ -477,7 +478,8 @@
 				CITATION_REMARKS,
 				CITATION_ID,
 				cit_short_cit,
-				cit_doi
+				cit_doi,
+				citpubid
 			from
 				getID
 			where
@@ -489,7 +491,8 @@
 				CITATION_REMARKS,
 				CITATION_ID,
 				cit_short_cit,
-				cit_doi
+				cit_doi,
+				citpubid
 			order by
 				SHORT_CITATION
 		</cfquery>
@@ -522,6 +525,14 @@
 								<cfif ctTypeStatus.type_status is cit.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 						</cfloop>
 					</select>
+
+					<input type="hidden" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
+					<input type="text"
+						id="publication_#distIds.identification_id#_#citation_id#"
+						value='#cit_short_cit#'
+						onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value,'editIdentification')" size="50">
+
+
 					<div>
 						#TYPE_STATUS# in #cit_short_cit#
 					</div>
