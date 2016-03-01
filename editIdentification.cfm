@@ -65,7 +65,7 @@
 		identification.identification_id = identification_agent.identification_id (+) AND
 		identification_agent.agent_id = preferred_agent_name.agent_id (+) AND
 		identification.identification_id = citation.identification_id (+) AND
-		citation.publication_id=publication.publication_id (+) and
+		citation.publication_id=citpub.publication_id (+) and
 		cataloged_item.collection_id=collection.collection_id AND
 		identification.publication_id=publication.publication_id (+) and
 		cataloged_item.collection_object_id = #collection_object_id#
