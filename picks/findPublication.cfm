@@ -24,7 +24,8 @@
 			FROM
 				publication
 			WHERE
-				UPPER(regexp_replace(full_citation,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(publication_title))#%'
+				UPPER(regexp_replace(full_citation,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(publication_title))#%' or
+				UPPER(regexp_replace(short_citation,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(publication_title))#%'
 			ORDER BY
 				full_citation
 		</cfquery>
