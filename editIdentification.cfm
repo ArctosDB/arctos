@@ -582,49 +582,39 @@
 							<textarea name="citation_remark_#distIds.identification_id#_NEW" id="citation_remark_#distIds.identification_id#_NEW" class="smalltextarea"></textarea>
 						</td>
 					</tr>
+					<cfloop query="cit">
+						<tr id="tr_#distIds.identification_id#_#citation_id#">
+							<td>
+								<input type="hidden" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
+								<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1" onchange="citDel('#distIds.identification_id#_#citation_id#');">
+									<option style="color:red;" value="DELETE">DELETE THIS CITATION</option>
+									<cfloop query="ctTypeStatus">
+										<option
+											<cfif ctTypeStatus.type_status is cit.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<input type="hidden" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
+						<input type="text"
+							id="publication_#distIds.identification_id#_#citation_id#"
+							value='#cit_short_cit#'
+							onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value,'editIdentification')" size="50">
 
-
-
-				<cfloop query="cit">
-					<tr id="tr_#distIds.identification_id#_#citation_id#">
-						<td>
-							<input type="hidden" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
-							<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1" onchange="citDel('#distIds.identification_id#_#citation_id#');">
-								<option style="color:red;" value="DELETE">DELETE THIS CITATION</option>
-								<cfloop query="ctTypeStatus">
-									<option
-										<cfif ctTypeStatus.type_status is cit.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="hidden" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
-					<input type="text"
-						id="publication_#distIds.identification_id#_#citation_id#"
-						value='#cit_short_cit#'
-						onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value,'editIdentification')" size="50">
-
-						</td>
-						<td>
-											<input type="text" name="page_#distIds.identification_id#_#citation_id#" id="page_#distIds.identification_id#_#citation_id#" value="#OCCURS_PAGE_NUMBER#">
-
-						</td>
-						<td>
-							<textarea name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" class="smalltextarea">#CITATION_REMARKS#</textarea>
-
-						</td>
-					</tr>
-
-
-
-
-				</cfloop>
-
+							</td>
+							<td>
+								<input type="text" name="page_#distIds.identification_id#_#citation_id#" id="page_#distIds.identification_id#_#citation_id#" value="#OCCURS_PAGE_NUMBER#">
+							</td>
+							<td>
+								<textarea name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" class="smalltextarea">#CITATION_REMARKS#</textarea>
+							</td>
+						</tr>
+					</cfloop>
 				</table>
 			</td>
 		</tr>
 	</table>
-  <cfset i = #i#+1>
+  <cfset i = i+1>
 </td></tr>
 </cfloop>
 <tr>
@@ -639,12 +629,6 @@
 <!----------------------------------------------------------------------------------->
 <cfif action is "saveEdits">
 <cfoutput>
-
-	<cfdump var=#form#>
-
-
-
-
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
 			<cfset thisAcceptedIdFg = evaluate("ACCEPTED_ID_FG_" & n)>
@@ -658,36 +642,21 @@
 
 			<!--- citations --->
 			<cfloop list="#form.fieldnames#" index="i">
-				<br>looping to #i#
-				<!----
-				<cfif StructKeyExists(form, "CITATION_ID_10272492_92003")>
-					<p>found CITATION_ID_10272492_92003</p>
-
-				</cfif>
-				---->
 				<cfif
 					listlen(i,"_") is 4 and
 					listgetat(i,1,"_") is "CITATION" and
 					listgetat(i,2,"_") is "ID" and
 					listgetat(i,3,"_") is thisIdentificationId>
 					<cfset thisCitationID=listlast(i,"_")>
-					<br>thisCitationID: #thisCitationID#
 					<cfset thisTypeStatus=evaluate("type_status_" & thisIdentificationId & "_" & thisCitationID)>
-					<br>thisTypeStatus: #thisTypeStatus#
 					<cfif thisTypeStatus is "DELETE">
 						<cfquery name="delCt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							delete from citation where citation_id=#thisCitationID#
 						</cfquery>
-						<p>
-							delete citation_id=#thisCitationID#
-						</p>
 					<cfelse>
 						<cfset thisPublicationID=evaluate("publication_id_" & thisIdentificationId & "_" & thisCitationID)>
-						<br>thisPublicationID: #thisPublicationID#
 						<cfset thisPage=evaluate("page_" & thisIdentificationId & "_" & thisCitationID)>
-						<br>thisPage: #thisPage#
 						<cfset thisRemark=evaluate("citation_remark_" & thisIdentificationId & "_" & thisCitationID)>
-						<br>thisRemark: #thisRemark#
 						<cfif thisCitationID is "NEW">
 							<!---- only if we got a typestatus ---->
 							<cfif len(thisTypeStatus) gt 0>
@@ -730,17 +699,10 @@
 								where
 									citation_id=#thisCitationID#
 							</cfquery>
-
 						</cfif>
 					</cfif>
 				</cfif>
 			</cfloop>
-
-
-
-
-
-
 			<cfif thisAcceptedIdFg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
@@ -749,8 +711,6 @@
 					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
 				</cfquery>
 			</cfif>
-
-
 			<cfif thisAcceptedIdFg is "DELETE">
 				<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
