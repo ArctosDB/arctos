@@ -26,27 +26,27 @@
 	SELECT
 		identification.identification_id,
 		identification.scientific_name,
-		cat_num,
+		cataloged_item.cat_num,
 		cataloged_item.collection_cde,
-		agent_name,
-		identifier_order,
+		preferred_agent_name.agent_name,
+		identification_agent.identifier_order,
 		identification_agent.agent_id,
-		made_date,
-		nature_of_id,
-		accepted_id_fg,
-		identification_remarks,
-		identification_agent_id,
-		short_citation,
+		identification.made_date,
+		identification.nature_of_id,
+		identification.accepted_id_fg,
+		identification.identification_remarks,
+		identification_agent.identification_agent_id,
+		publication.short_citation,
 		identification.publication_id,
-		taxa_formula,
+		identification.taxa_formula,
 		taxon_name.scientific_name taxon_name,
 		taxon_name.taxon_name_id,
-		OCCURS_PAGE_NUMBER,
-		TYPE_STATUS,
-		CITATION_REMARKS,
-		CITATION_ID,
-		SHORT_CITATION,
-		DOI
+		citation.OCCURS_PAGE_NUMBER,
+		citation.TYPE_STATUS,
+		citation.CITATION_REMARKS,
+		citation.CITATION_ID,
+		citpub.SHORT_CITATION cit_short_cit,
+		citpub.DOI cit_doi
 	FROM
 		cataloged_item,
 		identification,
@@ -57,7 +57,7 @@
 		identification_taxonomy,
 		taxon_name,
 		citation,
-		publication
+		publication citpub
 	WHERE
 		identification.collection_object_id = cataloged_item.collection_object_id AND
 		identification.identification_id = identification_taxonomy.identification_id (+) AND
@@ -444,8 +444,8 @@
 				TYPE_STATUS,
 				CITATION_REMARKS,
 				CITATION_ID,
-				SHORT_CITATION,
-				DOI
+				cit_short_cit,
+				cit_doi
 			from
 				getID
 			where
@@ -455,12 +455,11 @@
 				TYPE_STATUS,
 				CITATION_REMARKS,
 				CITATION_ID,
-				SHORT_CITATION,
-				DOI
+				cit_short_cit,
+				cit_doi
 			order by
 				SHORT_CITATION
 		</cfquery>
-
 
 
 
