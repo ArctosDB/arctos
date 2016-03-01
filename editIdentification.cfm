@@ -574,7 +574,7 @@
 
 						</td>
 						<td>
-							<input type="text" name="page_#distIds.identification_id#_NEW" id="page_#distIds.identification_id#_NEW">
+							<input type="number" name="page_#distIds.identification_id#_NEW" id="page_#distIds.identification_id#_NEW">
 						</td>
 						<td>
 							<textarea name="citation_remark_#distIds.identification_id#_NEW" id="citation_remark_#distIds.identification_id#_NEW" class="smalltextarea"></textarea>
@@ -591,6 +591,7 @@
 											<cfif ctTypeStatus.type_status is cit.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 									</cfloop>
 								</select>
+								<span class="infoLink" onClick="getCtDoc('CTCITATION_TYPE_STATUS')">Define</span>
 							</td>
 							<td>
 								<input type="hidden" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
@@ -601,7 +602,7 @@
 
 							</td>
 							<td>
-								<input type="text" name="page_#distIds.identification_id#_#citation_id#" id="page_#distIds.identification_id#_#citation_id#" value="#OCCURS_PAGE_NUMBER#">
+								<input type="number" name="page_#distIds.identification_id#_#citation_id#" id="page_#distIds.identification_id#_#citation_id#" value="#OCCURS_PAGE_NUMBER#">
 							</td>
 							<td>
 								<textarea name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" class="smalltextarea">#CITATION_REMARKS#</textarea>
