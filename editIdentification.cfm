@@ -219,7 +219,7 @@
 </form>
 
 <strong><font size="+1">Edit an Existing Determination</font></strong>
-<span onclick="loadEditApp('editSpecimenCitation')" class="likeLink" id="BTN_editIdentification">Citations</span>
+<span onclick="parent.loadEditApp('editSpecimenCitation')" class="likeLink" id="BTN_editIdentification">Citations</span>
 
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 <cfset i = 1>
