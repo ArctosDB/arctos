@@ -1,6 +1,11 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/checkForm.js'></script>
+<style>
+	.fordelete {
+		background-color: red;
+	}
+</style>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$(".reqdClr:visible").each(function(e){
@@ -18,7 +23,12 @@
 
 
 
-		var ts=$("#type_status_" + cid).val();
+		var ts=$("#type_status_" + cid).val()
+		if (ts=='DELETE') {
+			$("tr_" + cid).removeClass().addClass('fordelete');
+		} else {
+			$("tr_" + cid).removeClass().
+		}
 
 		console.log('running for ' + cid + ' ts=' + ts);
 
@@ -569,7 +579,7 @@
 						<th>Remark</th>
 					</tr>
 				<cfloop query="cit">
-					<tr>
+					<tr id="tr_#distIds.identification_id#_#citation_id#">
 						<td>
 							<input type="text" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
 							<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1" onchange="citDel('#distIds.identification_id#_#citation_id#');">
