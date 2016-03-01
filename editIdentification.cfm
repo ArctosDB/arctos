@@ -18,7 +18,7 @@
 
 
 
-		var ts=$("#type_status_" + cid);
+		var ts=$("#type_status_" + cid).val();
 
 		console.log('running for ' + cid + ' ts=' + ts);
 
