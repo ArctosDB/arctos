@@ -14,7 +14,7 @@
 	});
 	function citDel(cid){
 
-		console.lof(cid);
+		console.log(cid);
 
 
 
