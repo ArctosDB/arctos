@@ -40,7 +40,13 @@
 		identification.publication_id,
 		taxa_formula,
 		taxon_name.scientific_name taxon_name,
-		taxon_name.taxon_name_id
+		taxon_name.taxon_name_id,
+		OCCURS_PAGE_NUMBER,
+		TYPE_STATUS,
+		CITATION_REMARKS,
+		CITATION_ID,
+		SHORT_CITATION,
+		DOI
 	FROM
 		cataloged_item,
 		identification,
@@ -49,13 +55,17 @@
 		preferred_agent_name,
 		publication,
 		identification_taxonomy,
-		taxon_name
+		taxon_name,
+		citation,
+		publication
 	WHERE
 		identification.collection_object_id = cataloged_item.collection_object_id AND
 		identification.identification_id = identification_taxonomy.identification_id (+) AND
 		identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id (+) and
 		identification.identification_id = identification_agent.identification_id (+) AND
 		identification_agent.agent_id = preferred_agent_name.agent_id (+) AND
+		identification.identification_id = citation.identification_id (+) AND
+		citation.publication_id=publication.publication_id (+) and
 		cataloged_item.collection_id=collection.collection_id AND
 		identification.publication_id=publication.publication_id (+) and
 		cataloged_item.collection_object_id = #collection_object_id#
@@ -283,7 +293,16 @@
 					<cfquery name="taxa" dbtype="query">
 						select
 							taxon_name,
-							taxon_name_id from getID where identification_id=#identification_id# order by taxon_name
+							taxon_name_id
+						from
+							getID
+						where
+							identification_id=#identification_id#
+						group by
+							taxon_name,
+							taxon_name_id
+						order by
+							taxon_name
 					</cfquery>
 					<input type="hidden" name="number_of_taxa_#i#" id="number_of_taxa_#i#" value="#taxa.recordcount#">
 					<label for="scientific_name_#i#">Identification String (type stuff)</label>
@@ -419,9 +438,37 @@
 					value="#stripQuotes(identification_remarks)#" size="50">
 			</td>
         </tr>
+		<cfquery name="cit" dbtype="query">
+			select
+				OCCURS_PAGE_NUMBER,
+				TYPE_STATUS,
+				CITATION_REMARKS,
+				CITATION_ID,
+				SHORT_CITATION,
+				DOI
+			from
+				getID
+			where
+				identification_id=#identification_id#
+			group by
+				OCCURS_PAGE_NUMBER,
+				TYPE_STATUS,
+				CITATION_REMARKS,
+				CITATION_ID,
+				SHORT_CITATION,
+				DOI
+			order by
+				SHORT_CITATION
+		</cfquery>
+
+
+
+
 		<tr>
           	<td><div align="right">Citations:</div></td>
-			<td>ello guvnuh</td>
+			<td>
+				<cfdump var=#cit#>
+			</td>
 		</tr>
 	</table>
   <cfset i = #i#+1>
