@@ -74,7 +74,7 @@
 				guid,
 				citation_id
 			from
-				getCited
+				getIDCited
 			group by
 				publication_id,
 				collection_object_id,
@@ -105,7 +105,7 @@
 				sensupub,
 				sensupubid
 			from
-				getCited
+				getIDCited
 			group by
 				scientific_name,
 				idid,
