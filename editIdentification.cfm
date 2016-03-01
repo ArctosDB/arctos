@@ -562,7 +562,7 @@
 										<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 									</cfloop>
 							</select>
-							<span class="infoLink" onClick="getCtDoc('cttype_status')">Define</span>
+							<span class="infoLink" onClick="getCtDoc('CTCITATION_TYPE_STATUS')">Define</span>
 						</td>
 						<td>
 							<input type="hidden" name="publication_id_#distIds.identification_id#_NEW"
