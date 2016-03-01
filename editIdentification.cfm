@@ -539,7 +539,9 @@
 				SHORT_CITATION
 		</cfquery>
 		<tr>
-          	<td><div align="right">Citations:</div></td>
+          	<td>
+				<div class="helpLink" id="citations">Citations:</div>
+			</td>
 			<td>
 				<table border>
 					<tr>
