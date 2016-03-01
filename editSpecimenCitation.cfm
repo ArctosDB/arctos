@@ -54,7 +54,7 @@
 		</cfquery>
 
 
-		<cfdump var=#getCited#>
+		<cfdump var=#getIDCited#>
 
 		<cfabort>
 
