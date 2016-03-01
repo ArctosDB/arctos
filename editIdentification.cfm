@@ -95,7 +95,7 @@
  	<td colspan="2">
 		<h3>
 			Add Determination
-			<span class="likeLink"onClick="getDocs('identification')">Documentation</span>
+			<span class="infoLink" onClick="getDocs('identification')">Documentation</span>
 		</h3>
 	</td>
  </tr>
@@ -156,7 +156,7 @@
         <td>
 			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50"
 				onchange="getAgent('newIdBy_id',this.id,'newID',this.value);">
-            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr">
+            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr" placeholder="type+tab to pick Identifier (Agent)">
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 		</td>
 	</tr>
