@@ -500,7 +500,7 @@
 					<span class="likeLink" onclick="manageIDCitn('#identification_id#')">Manage citations for this ID</span>
 				</div>
 				<cfloop query="cit">
-					<input type="text" id="citation_id_#identification_id#_#citation_id#" name="citation_id_#identification_id#_#citation_id#" value="citation_id#">
+					<input type="text" id="citation_id_#identification_id#_#citation_id#" name="citation_id_#identification_id#_#citation_id#" value="#citation_id#">
 					<div>
 						#TYPE_STATUS# in #cit_short_cit#
 					</div>
