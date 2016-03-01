@@ -20,23 +20,11 @@
 		//});
 	});
 	function citDel(cid){
-
-		console.log(cid);
-
-
-
-		var ts=$("#type_status_" + cid).val()
-		if (ts=='DELETE') {
+		if ($("#type_status_" + cid).val()=='DELETE') {
 			$("#tr_" + cid).removeClass().addClass('fordelete');
 		} else {
 			$("#tr_" + cid).removeClass();
 		}
-
-		console.log('running for ' + cid + ' ts=' + ts);
-
-		console.log(ts);
-
-
 	}
 
 <!----
@@ -669,14 +657,24 @@
 					<cfset thisCitationID=listlast(i,"_")>
 					<br>citationid: #thisCitationID#
 					<cfset thisTypeStatus=evaluate("type_status_" & thisIdentificationId & "_" & thisCitationID)>
+										<br>thisTypeStatus: #thisTypeStatus#
 
-					<br>thisTypeStatus: #thisTypeStatus#
-					<cfset thisPublicationID=evaluate("publication_id_" & thisIdentificationId & "_" & thisCitationID)>
+					<cfif thisTypeStatus is "DELETE">
+						<p>
+							deleting citation_id=#thisCitationID#
+						</p>
+
+					<cfelse>
+								<cfset thisPublicationID=evaluate("publication_id_" & thisIdentificationId & "_" & thisCitationID)>
 					<br>thisPublicationID: #thisPublicationID#
 					<cfset thisPage=evaluate("page_" & thisIdentificationId & "_" & thisCitationID)>
 					<br>thisPage: #thisPage#
 					<cfset thisRemark=evaluate("citation_remark_" & thisIdentificationId & "_" & thisCitationID)>
 					<br>thisRemark: #thisRemark#
+
+
+					</cfif>
+
 
 
 
