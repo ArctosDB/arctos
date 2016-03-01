@@ -46,7 +46,7 @@
 					<tr>
 						<td>
 							<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-								opener.document.#formName#.#pubStringFld#.value='#jsescape(full_citation)#';self.close();">#short_citation#</a>
+								opener.document.#formName#.#pubStringFld#.value='#jsescape(short_citation)#';self.close();">#full_citation#</a>
 						</td>
 					</tr>
 				</cfloop>
