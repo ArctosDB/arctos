@@ -76,6 +76,11 @@
 				guid,
 				citation_id
 		</cfquery>
+
+
+		<cfdump var=#one#>
+
+
 		<cfquery name="citns" dbtype="query">
 			select
 				scientific_name,
