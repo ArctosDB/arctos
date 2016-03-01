@@ -12,6 +12,40 @@
 			//$("#" + this.id).datepicker();
 		//});
 	});
+	function citDel(cid){
+		var ts=$("#type_status_" + cid).val();
+		console.log('running for ' + cid + ' ts=' + ts);
+	}
+
+<!----
+	<input type="text" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
+							<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1" onchange="citDel(this.id);">
+								<option style="color:red;" value="DELETE">DELETE THIS CITATION</option>
+								<cfloop query="ctTypeStatus">
+									<option
+										<cfif ctTypeStatus.type_status is cit.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
+					<input type="text"
+						id="publication_#distIds.identification_id#_#citation_id#"
+						value='#cit_short_cit#'
+						onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value,'editIdentification')" size="50">
+
+						</td>
+						<td>
+											<input type="text" name="page_#distIds.identification_id#_#citation_id#" id="page_#distIds.identification_id#_#citation_id#" value="#OCCURS_PAGE_NUMBER#">
+
+						</td>
+						<td>
+							<textarea name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" class="mediumtextarea">#CITATION_REMARKS#</textarea>
+
+						</td>
+
+						---->
+
 
 
 	function manageIDCitn(identification_id){
@@ -528,7 +562,7 @@
 					<tr>
 						<td>
 							<input type="text" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
-							<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1">
+							<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1" onchange="citDel(this.id);">
 								<option style="color:red;" value="DELETE">DELETE THIS CITATION</option>
 								<cfloop query="ctTypeStatus">
 									<option
