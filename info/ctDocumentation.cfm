@@ -35,9 +35,14 @@
 </cfif>
 <cfset title="#table# - code table documentation">
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
+	<cftry>
 	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from #wrd(table)# <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
 	</cfquery>
+	<cfcatch>
+		nope<cfabort>
+	</cfcatch>
+	</cftry>
 	<cfif docs.columnlist contains "collection_cde">
 			<cfquery name="ccde" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 				select collection_cde from ctcollection_cde order by collection_cde
