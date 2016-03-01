@@ -522,10 +522,16 @@
 								onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_NEW',this.value,'editIdentification')" size="50">
 						</td>
 						<td>
-							<input type="number" name="page_#distIds.identification_id#_NEW" id="page_#distIds.identification_id#_NEW">
+							<input type="number" name="page_#distIds.identification_id#_NEW" id="page_#distIds.identification_id#_NEW"
+								placeholder="page number">
 						</td>
 						<td>
-							<textarea name="citation_remark_#distIds.identification_id#_NEW" id="citation_remark_#distIds.identification_id#_NEW" class="smalltextarea"></textarea>
+							<textarea
+								name="citation_remark_#distIds.identification_id#_NEW"
+								id="citation_remark_#distIds.identification_id#_NEW"
+								class="smalltextarea"
+								placeholder="citation remarks">
+							</textarea>
 						</td>
 					</tr>
 					<cfloop query="cit">
