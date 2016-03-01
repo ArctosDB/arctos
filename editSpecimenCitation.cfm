@@ -8,45 +8,49 @@
 
 <cfif action is "nothing">
 	<cfoutput>
-		<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+
+		<cfquery name="getIDCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
+				identification.scientific_name,
+				identification.identification_id idid,
+				identification.accepted_id_fg,
+				identification.made_date,
+				identification.NATURE_OF_ID,
+				identification.IDENTIFICATION_REMARKS,
+				identification.publication_id sensupubid,
+				identification_agent.IDENTIFIER_ORDER,
+				identifier.agent_name,
+
 				citation.citation_id,
 				citation.publication_id,
 				citation.collection_object_id,
 				cataloged_item.cat_num,
 				collection.guid_prefix,
-				identification.scientific_name,
-				identification.identification_id idid,
+
 				citation.occurs_page_number,
 				citation.type_status,
 				citation.citation_remarks,
 				publication.short_citation,
 				citation.identification_id,
-				identification.accepted_id_fg,
-				identification.made_date,
 				guid_prefix || ':' || cat_num guid,
-				agent_name,
-				IDENTIFIER_ORDER,
-				NATURE_OF_ID,
-				IDENTIFICATION_REMARKS,
 				sensu.short_citation sensupub,
-				identification.publication_id sensupubid
 			FROM
+				identification,
+				identification_agent,
+				preferred_agent_name identifier,
 				cataloged_item,
 				collection,
-				identification,
 				citation,
 				publication,
-				identification_agent,
-				preferred_agent_name,
 				publication sensu
 			WHERE
-				cataloged_item.collection_id = collection.collection_id AND
-				cataloged_item.collection_object_id = identification.collection_object_id AND
-				identification.identification_id = citation.identification_id AND
-				citation.publication_id = publication.publication_id AND
 				identification.identification_id=identification_agent.identification_id (+) and
-				identification_agent.agent_id = preferred_agent_name.agent_id (+) and
+				identification_agent.agent_id = identifier.agent_id (+) and
+				identification.collection_object_id = cataloged_item.collection_object_id and
+				cataloged_item.collection_id = collection.collection_id AND
+				identification.identification_id = citation.identification_id (+) AND
+				citation.publication_id = publication.publication_id (+) AND
 				identification.publication_id=sensu.publication_id (+) and
 				identification.identification_id=#identification_id#
 		</cfquery>
