@@ -30,9 +30,8 @@
 			ORDER BY
 				full_citation
 		</cfquery>
-		<cfdump var=#getPub#>
 		<cfif getPub.recordcount is 0>
-			Nothing matched #publication_title#. <a href="findPublication.cfm?formName=#formName#&pubIdFld=#pubIdFld#&pubStringFld=#pubStringFld#">Try again.</a>
+			Nothing matched <strong>#publication_title#</strong>
 		<cfelseif getPub.recordcount is 1>
 			<script>
 				opener.document.#formName#.#pubIdFld#.value='#publication_id#';
