@@ -526,7 +526,7 @@
 						</cfloop>
 					</select>
 
-					<input type="hidden" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
+					<input type="text" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
 					<input type="text"
 						id="publication_#distIds.identification_id#_#citation_id#"
 						value='#cit_short_cit#'
