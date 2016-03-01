@@ -500,6 +500,7 @@
 					<span class="likeLink" onclick="manageIDCitn('#identification_id#')">Manage citations for this ID</span>
 				</div>
 				<cfloop query="cit">
+					<input type="text" id="citation_id_#identification_id#_#citation_id#" name="citation_id_#identification_id#_#citation_id#" value="citation_id#">
 					<div>
 						#TYPE_STATUS# in #cit_short_cit#
 					</div>
@@ -522,6 +523,13 @@
 <!----------------------------------------------------------------------------------->
 <cfif action is "saveEdits">
 <cfoutput>
+
+	<cfdump var=#form#>
+
+	<cfabort>
+
+
+
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
 			<cfset thisAcceptedIdFg = evaluate("ACCEPTED_ID_FG_" & n)>
@@ -540,6 +548,8 @@
 					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
 				</cfquery>
 			</cfif>
+
+
 			<cfif thisAcceptedIdFg is "DELETE">
 				<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
