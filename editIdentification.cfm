@@ -6,8 +6,6 @@
 		background-color: red;
 	}
 </style>
-
-
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$(".reqdClr:visible").each(function(e){
@@ -27,63 +25,6 @@
 			$("#tr_" + cid).removeClass();
 		}
 	}
-
-<!----
-	<input type="text" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
-							<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1" onchange="citDel(this.id);">
-								<option style="color:red;" value="DELETE">DELETE THIS CITATION</option>
-								<cfloop query="ctTypeStatus">
-									<option
-										<cfif ctTypeStatus.type_status is cit.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
-					<input type="text"
-						id="publication_#distIds.identification_id#_#citation_id#"
-						value='#cit_short_cit#'
-						onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value,'editIdentification')" size="50">
-
-						</td>
-						<td>
-											<input type="text" name="page_#distIds.identification_id#_#citation_id#" id="page_#distIds.identification_id#_#citation_id#" value="#OCCURS_PAGE_NUMBER#">
-
-						</td>
-						<td>
-							<textarea name="citation_remark_#distIds.identification_id#_#citation_id#" id="citation_remark_#distIds.identification_id#_#citation_id#" class="mediumtextarea">#CITATION_REMARKS#</textarea>
-
-						</td>
-
-						---->
-
-
-
-	function manageIDCitn(identification_id){
-	var guts = "/editSpecimenCitation.cfm?identification_id=" + identification_id;
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'center'],
-		title: 'Citations',
-			width:800,
- 			height:600,
-		close: function() {
-			$( this ).remove();
-		}
-	}).width(800-10).height(600-10);
-	$(window).resize(function() {
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-}
-
-
-
 </script>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -148,15 +89,14 @@
 		ORDER BY accepted_id_fg
 	DESC
 </cfquery>
-
-
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
-
-	<table class="newRec">
+<table class="newRec">
  <tr>
  	<td colspan="2">
-<strong><font size="+1">Add new Determination</font></strong>&nbsp;
-<a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
+		<h3>
+			Add Determination
+			<span class="likeLink"onClick="getDocs('identification')">Documentation</span>
+		</h3>
 	</td>
  </tr>
     <input type="hidden" name="Action" value="createNew">
