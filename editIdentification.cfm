@@ -6,6 +6,8 @@
 		background-color: red;
 	}
 </style>
+
+
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$(".reqdClr:visible").each(function(e){
@@ -25,9 +27,9 @@
 
 		var ts=$("#type_status_" + cid).val()
 		if (ts=='DELETE') {
-			$("tr_" + cid).removeClass().addClass('fordelete');
+			$("#tr_" + cid).removeClass().addClass('fordelete');
 		} else {
-			$("tr_" + cid).removeClass().
+			$("#tr_" + cid).removeClass();
 		}
 
 		console.log('running for ' + cid + ' ts=' + ts);
