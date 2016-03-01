@@ -56,7 +56,6 @@
 
 		<cfdump var=#getIDCited#>
 
-		<cfabort>
 
 
 
@@ -120,6 +119,10 @@
 				accepted_id_fg desc,
 				made_date
 		</cfquery>
+
+
+				<cfdump var=#citns#>
+
 		<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select type_status from ctcitation_type_status order by type_status
 		</cfquery>
@@ -132,7 +135,12 @@
 		<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select taxa_formula from cttaxa_formula order by taxa_formula
 		</cfquery>
-		<br>Manage Citations for <strong>#one.guid#</strong>
+
+
+		<br>Manage Citations for <strong>#one.guid#</strong>, Identification
+
+
+
 
 		<!----
 		 in
