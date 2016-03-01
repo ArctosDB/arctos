@@ -1,4 +1,14 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+<script>
+	function useThisOne(frm,pidfld,pid,psfld,ps){
+		opener.document.$("[name=" + frm + "]").$("[name=" + pidfld + "]").val(pid);
+
+		//opener.document.frm.#pubIdFld#.value='#publication_id#';
+		//opener.document.#formName#.#pubStringFld#.value='#jsescape(short_citation)#';
+		//opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
+		//self.close();
+	}
+</script>
 <cfoutput>
 	<cfparam name="publication_title" default="">
 	<!--- make sure we're searching for something --->
@@ -47,8 +57,19 @@
 				<cfloop query="getPub">
 					<tr>
 						<td>
+							<span class="likeLink" onclick="useThisOne('#formName#','#pubIdFld#','#publication_id#','#pubStringFld#','#short_citation#');">
+								#short_citation#<
+							/span>
+							<blockquote>
+								#full_citation#
+							</blockquote>
+
+								function useThisOne(frm,pidfld,pid,psfld,ps){
+
+							<!----
 							<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
 								opener.document.#formName#.#pubStringFld#.value='#jsescape(short_citation)#';self.close();">#full_citation#</a>
+								--->
 						</td>
 					</tr>
 				</cfloop>
