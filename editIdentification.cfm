@@ -688,133 +688,70 @@
 					listgetat(i,1,"_") is "CITATION" and
 					listgetat(i,2,"_") is "ID" and
 					listgetat(i,3,"_") is thisIdentificationId>
-					<br>#i# is a citation
 					<cfset thisCitationID=listlast(i,"_")>
 					<br>thisCitationID: #thisCitationID#
 					<cfset thisTypeStatus=evaluate("type_status_" & thisIdentificationId & "_" & thisCitationID)>
-
-
-
-
-
-										<br>thisTypeStatus: #thisTypeStatus#
-
+					<br>thisTypeStatus: #thisTypeStatus#
 					<cfif thisTypeStatus is "DELETE">
 						<cfquery name="delCt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							delete from citation where citation_id=#thisCitationID#
 						</cfquery>
-
 						<p>
 							delete citation_id=#thisCitationID#
 						</p>
-
 					<cfelse>
-							<cfset thisPublicationID=evaluate("publication_id_" & thisIdentificationId & "_" & thisCitationID)>
-					<br>thisPublicationID: #thisPublicationID#
-					<cfset thisPage=evaluate("page_" & thisIdentificationId & "_" & thisCitationID)>
-					<br>thisPage: #thisPage#
-					<cfset thisRemark=evaluate("citation_remark_" & thisIdentificationId & "_" & thisCitationID)>
-					<br>thisRemark: #thisRemark#
+						<cfset thisPublicationID=evaluate("publication_id_" & thisIdentificationId & "_" & thisCitationID)>
+						<br>thisPublicationID: #thisPublicationID#
+						<cfset thisPage=evaluate("page_" & thisIdentificationId & "_" & thisCitationID)>
+						<br>thisPage: #thisPage#
+						<cfset thisRemark=evaluate("citation_remark_" & thisIdentificationId & "_" & thisCitationID)>
+						<br>thisRemark: #thisRemark#
+						<cfif thisCitationID is "NEW">
+							<cfquery name="ncit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								insert into citation (
+									citation_id,
+									PUBLICATION_ID,
+									OCCURS_PAGE_NUMBER,
+									TYPE_STATUS,
+									CITATION_REMARKS,
+									IDENTIFICATION_ID,
+									collection_object_id
+								) values (
+									sq_citation_id.nextval,
+									#thisPublicationID#,
+									<cfif len(thisPage) gt 0>
+										#thisPage#
+									<cfelse>
+										NULL
+									</cfif>,
+									'#thisTypeStatus#',
+									'#escapeQuotes(thisRemark)#',
+									#thisIdentificationId#,
+									#collection_object_id#
+								)
+							</cfquery>
+						<cfelse>
+							<cfquery name="upcit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								update citation set
+									PUBLICATION_ID=#thisPublicationID#,
+									OCCURS_PAGE_NUMBER=
+									<cfif len(thisPage) gt 0>
+										#thisPage#
+									<cfelse>
+										NULL
+									</cfif>,
+									TYPE_STATUS='#thisTypeStatus#',
+									CITATION_REMARKS='#escapeQuotes(thisRemark)#'
+								where
+									citation_id=#thisCitationID#
+							</cfquery>
 
-
-
-					<cfif thisCitationID is "NEW">
-						<cfquery name="ncit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							insert into citation (
-								citation_id,
-								PUBLICATION_ID,
-								OCCURS_PAGE_NUMBER,
-								TYPE_STATUS,
-								CITATION_REMARKS,
-								IDENTIFICATION_ID,
-								collection_object_id
-							) values (
-								sq_citation_id.nextval,
-								#thisPublicationID#,
-								<cfif len(thisPage) gt 0>
-									#thisPage#
-								<cfelse>
-									NULL
-								</cfif>,
-								'#thisTypeStatus#',
-								'#escapeQuotes(thisRemark)#',
-								#thisIdentificationId#,
-								#collection_object_id#
-							)
-						</cfquery>
-					<cfelse>
-						<cfquery name="upcit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							update citation set
-								PUBLICATION_ID=#thisPublicationID#,
-								OCCURS_PAGE_NUMBER=
-								<cfif len(thisPage) gt 0>
-									#thisPage#
-								<cfelse>
-									NULL
-								</cfif>,
-								TYPE_STATUS='#thisTypeStatus#',
-								CITATION_REMARKS='#escapeQuotes(thisRemark)#'
-							where
-								citation_id=#thisCitationID#
-						</cfquery>
-
+						</cfif>
 					</cfif>
-
-
-
-							<input type="text"
-								id="citation_id_#distIds.identification_id#_NEW"
-								name="citation_id_#distIds.identification_id#_NEW">
-							<select
-								name="type_status_#distIds.identification_id#_NEW"
-								id="type_status_#distIds.identification_id#_NEW"
-								size="1">
-									<option value="">Pick to Create</option>
-									<cfloop query="ctTypeStatus">
-										<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-									</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" name="publication_id_#distIds.identification_id#_NEW"
-								id="publication_id_#distIds.identification_id#_NEW">
-							<input type="text"
-								id="publication_#distIds.identification_id#_NEW"
-								placeholder="type+tab to pick publication"
-\								onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_NEW',this.value,'editIdentification')" size="50">
-
-						</td>
-						<td>
-							<input type="text" name="page_#distIds.identification_id#_NEW" id="page_#distIds.identification_id#_NEW">
-						</td>
-						<td>
-							<textarea name="citation_remark_#distIds.identification_id#__NEW" id="citation_remark_#distIds.identification_id#__NEW" class="mediumtextarea"></textarea>
-						</td>
-					</tr>
-
-
-
-
-
-
-
-
-
-
-					</cfif>
-
-
-
-
-
-
-
-
 				</cfif>
 			</cfloop>
 
 
-			<cfabort>
 
 
 
