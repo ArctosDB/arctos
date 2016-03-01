@@ -726,7 +726,8 @@
 								OCCURS_PAGE_NUMBER,
 								TYPE_STATUS,
 								CITATION_REMARKS,
-								IDENTIFICATION_ID
+								IDENTIFICATION_ID,
+								collection_object_id
 							) values (
 								sq_citation_id.nextval,
 								#thisPublicationID#,
@@ -737,7 +738,8 @@
 								</cfif>,
 								'#thisTypeStatus#',
 								'#escapeQuotes(thisRemark)#',
-								#thisIdentificationId#
+								#thisIdentificationId#,
+								#collection_object_id#
 							)
 						</cfquery>
 					<cfelse>
