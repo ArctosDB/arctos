@@ -419,7 +419,8 @@
 				<div class="helpLink" id="identification.made_date">ID Date:</div>
 			</td>
             <td>
-				<input type="datetime" value="#made_date#" name="made_date_#i#" class="sinput" id="made_date_#i#">
+				<input type="datetime" value="#made_date#" name="made_date_#i#" class="sinput" id="made_date_#i#"
+					placeholder="date of identification">
            </td>
 		</tr>
         <tr>
@@ -427,7 +428,7 @@
 				<div class="helpLink" id="nature_of_id">Nature of ID:</div>
 			</td>
 	        <td>
-				<cfset thisID = #nature_of_id#>
+				<cfset thisID = nature_of_id>
 				<select name="nature_of_id_#i#" id="nature_of_id_#i#" size="1" class="reqdClr">
 	            	<cfloop query="ctnature">
 	                	<option <cfif #ctnature.nature_of_id# is #thisID#> selected </cfif> value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
