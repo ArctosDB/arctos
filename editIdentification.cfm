@@ -526,7 +526,6 @@
 
 	<cfdump var=#form#>
 
-	<cfabort>
 
 
 
@@ -540,6 +539,18 @@
 			<cfset thisNature = evaluate("NATURE_OF_ID_" & n)>
 			<cfset thisNumIds = evaluate("NUMBER_OF_IDENTIFIERS_" & n)>
 			<cfset thisPubId = evaluate("publication_id_" & n)>
+
+			<!--- citations --->
+			<cfloop list="#form.fieldnames#" index="i">
+				<br>looping to #i#
+				<!----
+				<cfif StructKeyExists(form, "CITATION_ID_10272492_92003")>
+					<p>found CITATION_ID_10272492_92003</p>
+
+				</cfif>
+				---->
+			</cfloop>
+
 			<cfif thisAcceptedIdFg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
