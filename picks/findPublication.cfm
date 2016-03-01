@@ -43,16 +43,12 @@
 					<td>Title</td>
 				</tr>
 				<cfloop query="getPub">
-					<cfif
-
-					<cfelse>
-						<tr>
-							<td>
-								<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-									opener.document.#formName#.#pubStringFld#.value='#jsescape(full_citation)#';self.close();">#short_citation#</a>
-							</td>
-						</tr>
-					</cfif>
+					<tr>
+						<td>
+							<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
+								opener.document.#formName#.#pubStringFld#.value='#jsescape(full_citation)#';self.close();">#short_citation#</a>
+						</td>
+					</tr>
 				</cfloop>
 			</table>
 		</cfif>
