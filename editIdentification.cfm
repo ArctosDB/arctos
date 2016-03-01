@@ -611,7 +611,7 @@
 					<br>#i# is a citation
 					<cfset thisCitationID=listlast(i,"_")>
 					<br>citationid: #thisCitationID#
-					<cfset thisTypeStatus=evaluate("type_status_" & thisIdentificationId & "_" & thisCitationID>
+					<cfset thisTypeStatus=evaluate("type_status_" & thisIdentificationId & "_" & thisCitationID)>
 
 					<br>thisTypeStatus: #thisTypeStatus#
 
