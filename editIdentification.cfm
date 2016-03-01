@@ -614,19 +614,16 @@
 					<cfset thisTypeStatus=evaluate("type_status_" & thisIdentificationId & "_" & thisCitationID)>
 
 					<br>thisTypeStatus: #thisTypeStatus#
-
+					<cfset thisPublicationID=evaluate("publication_id_" & thisIdentificationId & "_" & thisCitationID)>
+					<br>thisPublicationID: #thisPublicationID#
+					<cfset thisPage=evaluate("page_" & thisIdentificationId & "_" & thisCitationID)>
+					<br>thisPage: #thisPage#
+					<cfset thisRemark=evaluate("citation_remark_" & thisIdentificationId & "_" & thisCitationID)>
+					<br>thisRemark: #thisRemark#
 					<!----
 
-						<input type="text" id="citation_id_#distIds.identification_id#_#citation_id#" name="citation_id_#distIds.identification_id#_#citation_id#" value="#citation_id#">
-					<select name="type_status_#distIds.identification_id#_#citation_id#" id="type_status_#distIds.identification_id#_#citation_id#" size="1">
-						<cfloop query="ctTypeStatus">
-							<option
-								<cfif ctTypeStatus.type_status is cit.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-						</cfloop>
-					</select>
-						</td>
-						<td>
-							<input type="text" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
+
+							<input type="text" name="#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
 					<input type="text"
 						id="publication_#distIds.identification_id#_#citation_id#"
 						value='#cit_short_cit#'
