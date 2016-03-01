@@ -43,7 +43,9 @@
 				identification.publication_id=sensu.publication_id (+) and
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
-		
+
+
+		<cfdump var=#getCited#>
 		<cfquery name="one" dbtype="query">
 			select
 				publication_id,
@@ -111,7 +113,10 @@
 		<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select taxa_formula from cttaxa_formula order by taxa_formula
 		</cfquery>
-		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.guid#</a></strong> in
+		<br>Edit Citations for <strong>#one.guid#</strong>
+
+		<!----
+		 in
 		<b><a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a></b>.
 		<ul>
 			<li>Edit <a target="_blank" href="/guid/#one.guid#">#one.guid#</a> in a new window</li>
@@ -121,6 +126,8 @@
 			<li>Need to edit an ID? Edit the specimen.</li>
 			<li>This is a mess? Delete the citation and try again.</li>
 		</ul>
+		---->
+
 		<form name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 			<input type="hidden" name="Action" value="saveEdits">
 			<input type="hidden" name="publication_id" value="#one.publication_id#">
@@ -185,14 +192,14 @@
 			</table>
 		<input type="submit" value="Save Edits" class="savBtn" id="sBtn" title="Save Edits">
 	</form>
-		
-		
+
+
 	</cfoutput>
 </cfif>
 	<!-------------
-	
+
 	<cfabort>
-		
+
 	<style>
 		.dragger {
 			cursor:move;
