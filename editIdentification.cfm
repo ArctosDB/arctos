@@ -707,29 +707,32 @@
 						<cfset thisRemark=evaluate("citation_remark_" & thisIdentificationId & "_" & thisCitationID)>
 						<br>thisRemark: #thisRemark#
 						<cfif thisCitationID is "NEW">
-							<cfquery name="ncit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								insert into citation (
-									citation_id,
-									PUBLICATION_ID,
-									OCCURS_PAGE_NUMBER,
-									TYPE_STATUS,
-									CITATION_REMARKS,
-									IDENTIFICATION_ID,
-									collection_object_id
-								) values (
-									sq_citation_id.nextval,
-									#thisPublicationID#,
-									<cfif len(thisPage) gt 0>
-										#thisPage#
-									<cfelse>
-										NULL
-									</cfif>,
-									'#thisTypeStatus#',
-									'#escapeQuotes(thisRemark)#',
-									#thisIdentificationId#,
-									#collection_object_id#
-								)
-							</cfquery>
+							<!---- only if we got a typestatus ---->
+							<cfif len(thisTypeStatus) gt 0>
+								<cfquery name="ncit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									insert into citation (
+										citation_id,
+										PUBLICATION_ID,
+										OCCURS_PAGE_NUMBER,
+										TYPE_STATUS,
+										CITATION_REMARKS,
+										IDENTIFICATION_ID,
+										collection_object_id
+									) values (
+										sq_citation_id.nextval,
+										#thisPublicationID#,
+										<cfif len(thisPage) gt 0>
+											#thisPage#
+										<cfelse>
+											NULL
+										</cfif>,
+										'#thisTypeStatus#',
+										'#escapeQuotes(thisRemark)#',
+										#thisIdentificationId#,
+										#collection_object_id#
+									)
+								</cfquery>
+							</cfif>
 						<cfelse>
 							<cfquery name="upcit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update citation set
