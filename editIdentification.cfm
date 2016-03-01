@@ -419,6 +419,10 @@
 					value="#stripQuotes(identification_remarks)#" size="50">
 			</td>
         </tr>
+		<tr>
+          	<td><div align="right">Citations:</div></td>
+			<td>ello guvnuh</td>
+		</tr>
 	</table>
   <cfset i = #i#+1>
 </td></tr>
