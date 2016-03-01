@@ -15,7 +15,7 @@
 
 
 	function manageIDCitn(identification_id){
-	var guts = "/editSpecimenCitations.cfm?identification_id=" + identification_id;
+	var guts = "/editSpecimenCitation.cfm?identification_id=" + identification_id;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
