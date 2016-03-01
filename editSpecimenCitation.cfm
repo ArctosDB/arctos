@@ -21,20 +21,18 @@
 				identification.publication_id sensupubid,
 				identification_agent.IDENTIFIER_ORDER,
 				identifier.agent_name,
-
 				citation.citation_id,
 				citation.publication_id,
 				citation.collection_object_id,
 				cataloged_item.cat_num,
 				collection.guid_prefix,
-
 				citation.occurs_page_number,
 				citation.type_status,
 				citation.citation_remarks,
 				publication.short_citation,
 				citation.identification_id,
 				guid_prefix || ':' || cat_num guid,
-				sensu.short_citation sensupub,
+				sensu.short_citation sensupub
 			FROM
 				identification,
 				identification_agent,
