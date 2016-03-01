@@ -27,16 +27,16 @@
 			FROM
 				cataloged_item,
 				collection,
-				citation,
 				identification,
+				citation,
 				publication,
 				identification_agent,
 				preferred_agent_name,
 				publication sensu
 			WHERE
 				cataloged_item.collection_id = collection.collection_id AND
-				cataloged_item.collection_object_id = citation.collection_object_id AND
 				cataloged_item.collection_object_id = identification.collection_object_id AND
+				identification.identification_id = citation.identification_id AND
 				citation.publication_id = publication.publication_id AND
 				identification.identification_id=identification_agent.identification_id (+) and
 				identification_agent.agent_id = preferred_agent_name.agent_id (+) and
