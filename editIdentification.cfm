@@ -216,7 +216,8 @@
 		</td>
 		<td>
 			<input type="hidden" name="new_publication_id" id="new_publication_id">
-			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newID')" size="50">
+			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newID')" size="50"
+				placeholder="Type+tab to pick publication">
 		</td>
 	</tr>
     <tr>
@@ -224,7 +225,7 @@
 			<div class="helpLink" id="identification_remarks">Remarks:</div>
 		</td>
         <td>
-			<input type="text" name="identification_remarks" id="identification_remarks" size="50">
+			<input type="text" name="identification_remarks" id="identification_remarks" size="50" placeholder="Identification remarks">
 		</td>
     </tr>
     <tr>
@@ -444,7 +445,8 @@
 				<input type="text"
 					id="publication_#i#"
 					value='#short_citation#'
-					onchange="getPublication(this.id,'publication_id_#i#',this.value,'editIdentification')" size="50">
+					onchange="getPublication(this.id,'publication_id_#i#',this.value,'editIdentification')" size="50"
+					placeholder="Type+tab to pick publication">
 				<span class="infoLink" onclick="$('##publication_id_#i#').val('');$('##publication_#i#').val('');">Remove</span>
 
 			</td>
