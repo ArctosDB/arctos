@@ -169,7 +169,8 @@
 		</td>
         <td>
 			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50"
-				onchange="getAgent('newIdBy_two_id',this.id,'newID',this.value);">
+				onchange="getAgent('newIdBy_two_id',this.id,'newID',this.value);"
+				placeholder="type+tab to pick Identifier (Agent)">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id">
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>
 		 </td>
@@ -182,7 +183,8 @@
 		</td>
         <td>
 			<input type="text" name="newIdBy_three" id="newIdBy_three" size="50"
-				onchange="getAgent('newIdBy_three_id',this.id,'newID',this.value);">
+				onchange="getAgent('newIdBy_three_id',this.id,'newID',this.value);"
+				placeholder="type+tab to pick Identifier (Agent)">
             <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id">
 		 </td>
     </tr>
@@ -191,7 +193,7 @@
 			<div class="helpLink" id="identification.made_date">ID Date:</div>
 		</td>
         <td>
-			<input type="datetime" class="siput" name="made_date" id="made_date">
+			<input type="datetime" class="siput" name="made_date" id="made_date" placeholder="click to pick ID Date">
 		</td>
 	</tr>
     <tr>
@@ -199,7 +201,7 @@
 			<div class="helpLink" id="nature_of_id">Nature of ID</div>
 		</td>
 		<td>
-			<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
+			<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr" placeholder="NoID">
 				<option></option>
             	<cfloop query="ctnature">
                 	<option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
