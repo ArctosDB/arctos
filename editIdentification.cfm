@@ -549,7 +549,11 @@
 
 				</cfif>
 				---->
-				<cfif listlen(i,"_") is 4 and listgetat(i,1,"_") is "CITATION_ID" and listgetat(i,2,"_") is thisIdentificationId>
+				<cfif
+					listlen(i,"_") is 4 and
+					listgetat(i,1,"_") is "CITATION"
+					listgetat(i,2,"_") is "ID" and
+					listgetat(i,3,"_") is thisIdentificationId>
 					<br>#i# is a citation
 				</cfif>
 			</cfloop>
