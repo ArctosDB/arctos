@@ -32,7 +32,7 @@
 			<td>#d.c#</td>
 		</tr>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select count(*) from (
+			select count(*) c from (
 			  select distinct
 			    GEOG_AUTH_REC_ID,
 			    SPEC_LOCALITY,
@@ -51,7 +51,7 @@
 			<td>#d.c#</td>
 		</tr>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select count(*) from (
+			select count(*) c from (
 			  select distinct
 			    DEC_LAT,
 			    DEC_LONG,
