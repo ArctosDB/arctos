@@ -35,7 +35,7 @@
 	</script>
 	<cfoutput>
 		<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select other_id_type from ctcoll_other_id_type order by other_id_type
+			select other_id_type from ctcoll_other_id_type order by sort_order,other_id_type
 		</cfquery>
 		<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select id_references from ctid_references order by id_references

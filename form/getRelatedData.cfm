@@ -60,7 +60,7 @@
 	</script>
 	<cfoutput>
 		<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(other_id_type) FROM ctColl_Other_id_type order by other_id_type
+			SELECT distinct(other_id_type) FROM ctColl_Other_id_type order by sort_order,other_id_type
 	    </cfquery>
 	    <label for="s">
 	    	Find Specimen

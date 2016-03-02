@@ -4,7 +4,7 @@
 	select distinct(guid_prefix) from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
+    select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY sort_order,other_Id_Type
 </cfquery>
 <cfoutput>
 	<form name="findCatItem" method="post" action="manyCatItemToMedia.cfm">
@@ -31,20 +31,20 @@
 	</form>
 	<cfif action is "search">
 		<cfset sql = "SELECT
-						cat_num, 
+						cat_num,
 						guid_prefix,
 						cataloged_item.collection_object_id,
 						scientific_name,
 						concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
-					 FROM 
+					 FROM
 						cataloged_item,
 						identification,
                         collection">
-	
+
 		<cfif oidType is not "catalog_number">
 			<cfset sql = "#sql#	,coll_obj_other_id_num">
 		</cfif>
-		<cfset sql = "#sql#  WHERE 
+		<cfset sql = "#sql#  WHERE
 					  cataloged_item.collection_object_id = identification.collection_object_id AND
                       cataloged_item.collection_id=collection.collection_id and
 					  identification.accepted_id_fg = 1">
@@ -60,15 +60,15 @@
 		<cfif len(collID) gt 0>
 	        <cfset sql = "#sql# AND guid_prefix='#collID#'">
 	    </cfif>
-					
-	
+
+
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
         <cfif getItems.recordcount is 0>
 			-foundNothing-
 		<cfelse>
-			Found #getItems.recordcount# specimens. 
+			Found #getItems.recordcount# specimens.
 			<a href="manyCatItemToMedia.cfm?action=add&media_id=#media_id#&cid=#valuelist(getItems.collection_object_id)#">
 				Add all to Media as "shows cataloged_item"
 			</a>
@@ -88,7 +88,7 @@
 					</tr>
 				</cfloop>
 			</table>
-			
+
 	</cfif>
 	</cfif>
 	<cfif action is "add">
