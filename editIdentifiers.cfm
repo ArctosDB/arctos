@@ -228,7 +228,7 @@
 				 </tr>
 			</table>
 			<cfset i=1>
-			<table>
+			<table border>
 				<tr>
 					<th>
 						ID Type
@@ -286,7 +286,7 @@
 		<form name="newOID" id="newOID" method="post" action="editIdentifiers.cfm">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<input type="hidden" name="Action" value="newOID">
-			<table class="newRec">
+			<table border class="newRec">
 				<tr id="trid_new">
 					<td>
 						<select name="other_id_type" id="other_id_type" size="1">
