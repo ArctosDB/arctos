@@ -514,12 +514,12 @@
 							<span class="infoLink" onClick="getCtDoc('CTCITATION_TYPE_STATUS')">Define</span>
 						</td>
 						<td>
-							<input type="hidden" name="publication_id_#distIds.identification_id#_NEW"
+							<input type="text" name="publication_id_#distIds.identification_id#_NEW"
 								id="publication_id_#distIds.identification_id#_NEW">
 							<input type="text"
 								id="publication_#distIds.identification_id#_NEW"
 								placeholder="type+tab to pick publication"
-								onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_NEW',this.value,'editIdentification')" size="50">
+								onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_NEW',this.value)" size="50">
 						</td>
 						<td>
 							<input type="number" name="page_#distIds.identification_id#_NEW" id="page_#distIds.identification_id#_NEW"
@@ -548,11 +548,11 @@
 								<span class="infoLink" onClick="getCtDoc('CTCITATION_TYPE_STATUS')">Define</span>
 							</td>
 							<td>
-								<input type="hidden" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
+								<input type="text" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
 								<input type="text"
 									id="publication_#distIds.identification_id#_#citation_id#"
 									value='#cit_short_cit#'
-									onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value,'editIdentification')" size="50">
+									onchange="getPublication(this.id,'publication_id_#distIds.identification_id#_#citation_id#',this.value)" size="50">
 								<a href="/publication/#citpubid#" class="infoLink" target="_blank">[ open ]</a>
 							</td>
 							<td>
