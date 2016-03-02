@@ -1375,8 +1375,9 @@ function findDOI(publication_title){
 	});
 }
 
-function getPublication(pubStringFld,pubIdFld,publication_title,formName){
-	var guts = "/picks/findPublication.cfm?publication_title=" + publication_title;
+function getPublication(pubStringFld,pubIdFld,publication_title){
+	var guts = '/picks/findPublication.cfm?pubStringFld=' + pubStringFld + '&publication_title=' + publication_title;
+		guts+='&pubIdFld=' + pubIdFld ;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
