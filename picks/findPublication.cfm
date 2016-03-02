@@ -1,11 +1,12 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfoutput>
-s
+
 <script>
-	function useThisOne(pidfld,pid,psfld,ps){
+	function useThisOne(pid,ps){
 
 			parent.$("###pubIdFld#").val(pid);
 			parent.$("###pubStringFld#").val(ps);
+			self.close();
 <!------
 			/*
 		console.log(frm);
@@ -83,7 +84,7 @@ s
 				<cfloop query="getPub">
 					<tr>
 						<td>
-							<span class="likeLink" onclick="useThisOne('#pubIdFld#','#publication_id#','#pubStringFld#','#short_citation#');">
+							<span class="likeLink" onclick="useThisOne('#publication_id#','#short_citation#');">
 								#short_citation#
 							</span>
 							<blockquote>
