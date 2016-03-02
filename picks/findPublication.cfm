@@ -1,7 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <script>
 	function useThisOne(frm,pidfld,pid,psfld,ps){
-		var theform=opener.document.$("[name=" + frm + "]");
+		var theform=window.opener.document.$("[name=" + frm + "]");
 
 		console.log(theform);
 
