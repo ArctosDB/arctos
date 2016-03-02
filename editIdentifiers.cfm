@@ -255,13 +255,13 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#" id="other_id_prefix_#i#">
+							<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#" id="other_id_prefix_#i#"  placeholder="prefix">
 						</td>
 						<td>
-							<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#" id="other_id_number_#i#">
+							<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#" id="other_id_number_#i#" placeholder="integer">
 						</td>
 						<td>
-							<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#" id="other_id_suffix_#i#">
+							<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#" id="other_id_suffix_#i#" placeholder="suffix">
 						</td>
 						<td>
 							<select name="id_references_#i#" id="id_references_#i#" size="1">
@@ -296,13 +296,13 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" size="12" name="other_id_prefix" id="other_id_prefix">
+						<input type="text" size="12" name="other_id_prefix" id="other_id_prefix" placeholder="prefix">
 					</td>
 					<td>
-						<input type="number" step="any" size="12" name="other_id_number" id="other_id_number">
+						<input type="number" step="any" size="12" name="other_id_number" id="other_id_number" placeholder="integer">
 					</td>
 					<td>
-						<input type="text" size="12" name="other_id_suffix" id="other_id_suffix">
+						<input type="text" size="12" name="other_id_suffix" id="other_id_suffix" placeholder="suffix">
 					</td>
 					<td>
 						<select name="id_references" id="id_references" size="1">
