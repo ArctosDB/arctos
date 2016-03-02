@@ -1375,6 +1375,39 @@ function findDOI(publication_title){
 	});
 }
 
+function getPublication(pubStringFld,pubIdFld,publication_title,formName){
+	var guts = "/picks/findPublication.cfm?publication_title=" + publication_title;
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Find Publication',
+			width:800,
+ 			height:600,
+		close: function() {
+			$( this ).remove();
+		}
+	}).width(800-10).height(600-10);
+	$(window).resize(function() {
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+	
+	
+	/*
+	
+	
+	var url,pubwin;
+	url="/picks/findPublication.cfm";
+	pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
+	pubwin=window.open(pubwin,"","width=400,height=338, resizable,scrollbars");
+	
+	*/
+}
 
 
 function getAgent(agentIdFld,agentNameFld,formName,agentNameString,allowCreation){
@@ -1402,7 +1435,7 @@ function findCollEvent(collIdFld,formName,dispField,eventName){
 	covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName+"&collecting_event_name="+eventName;
 	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
-function getPublication(pubStringFld,pubIdFld,publication_title,formName){
+function getPublication____old(pubStringFld,pubIdFld,publication_title,formName){
 	var url,pubwin;
 	url="/picks/findPublication.cfm";
 	pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
