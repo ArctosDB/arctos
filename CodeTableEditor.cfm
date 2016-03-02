@@ -470,7 +470,7 @@
 		---->
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ctcoll_other_id_type order by other_id_type
+			select * from ctcoll_other_id_type order by sort_order,other_id_type
 		</cfquery>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
@@ -480,6 +480,7 @@
 					<th>ID Type</th>
 					<th>Description</th>
 					<th>Base URL</th>
+					<th>Sort</th>
 					<th></th>
 				</tr>
 				<tr>
@@ -491,6 +492,9 @@
 					</td>
 					<td>
 						<input type="text" name="base_url" size="50">
+					</td>
+					<td>
+						<input type="number" name="sort_order">
 					</td>
 					<td>
 						<input type="submit"
@@ -506,6 +510,7 @@
 				<th>Type</th>
 				<th>Description</th>
 				<th>Base URL</th>
+				<th>Sort</th>
 			</tr>
 			<cfloop query="q">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
@@ -521,6 +526,9 @@
 						</td>
 						<td>
 							<input type="text" name="base_url" size="60" value="#base_url#">
+						</td>
+						<td>
+							<input type="number" name="sort_order" value="#sort_order#">
 						</td>
 						<td>
 							<input type="button"
@@ -825,7 +833,12 @@
 			update ctcoll_other_id_type set
 				OTHER_ID_TYPE='#other_id_type#',
 				DESCRIPTION='#description#',
-				base_URL='#base_url#'
+				base_URL='#base_url#',
+				<cfif len(sort_order) gt 0>
+					sort_order=#sort_order#
+				<cfelse>
+					sort_order=null
+				</cfif>
 			where
 				OTHER_ID_TYPE='#origData#'
 		</cfquery>
@@ -902,11 +915,17 @@
 			insert into ctcoll_other_id_type (
 				OTHER_ID_TYPE,
 				DESCRIPTION,
-				base_URL
+				base_URL,
+				sort_order
 			) values (
 				'#newData#',
 				'#description#',
-				'#base_url#'
+				'#base_url#',
+				<cfif len(sort_order) gt 0>
+					#sort_order#
+				<cfelse>
+					null
+				</cfif>
 			)
 		</cfquery>
 	<cfelseif tbl is "ctattribute_code_tables">
