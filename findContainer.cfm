@@ -56,10 +56,7 @@
 	select collection_id, guid_prefix from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctcoll_other_id_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select OTHER_ID_TYPE from
-	ctcoll_other_id_type
-	group by OTHER_ID_TYPE
-	order by sort_order,OTHER_ID_TYPE
+	select OTHER_ID_TYPE from ctcoll_other_id_type order by sort_order,OTHER_ID_TYPE
 </cfquery>
 <cfoutput>
 <div id="ajaxMsg"></div>
