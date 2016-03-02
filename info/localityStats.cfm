@@ -78,7 +78,7 @@
 		</tr>
 
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select count(*) c from locality where dec_lat is not null and max_errror_distance is not null
+			select count(*) c from locality where dec_lat is not null and MAX_ERROR_DISTANCE is not null
 		</cfquery>
 		<tr>
 			<td>Number Localities with Coordinates+Error</td>
