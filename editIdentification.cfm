@@ -739,7 +739,7 @@
 							<cfset thisIdAgntId=-1>
 						</cfcatch>
 					</cftry>
-					<cfif #thisIdAgntId# is -1 and (thisIdId is not "DELETE" and thisIdId gte 0)>
+					<cfif thisIdAgntId is -1 and (thisIdId is not "DELETE" and thisIdId gte 0)>
 						<!--- new identifier --->
 						<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							insert into identification_agent
@@ -753,21 +753,35 @@
 						</cfquery>
 					<cfelse>
 						<!--- update or delete --->
-						<cfif #thisIdId# is "DELETE">
+						<cfif thisIdId is "DELETE">
 							<!--- delete --->
 							<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								delete from identification_agent
 								where identification_agent_id=#thisIdAgntId#
 							</cfquery>
 						<cfelseif thisIdId gte 0>
-							<!--- update --->
-							<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								update identification_agent set
-									agent_id=#thisIdId#,
-									identifier_order=#nid#
-								 where
-								 	identification_agent_id=#thisIdAgntId#
-							</cfquery>
+							<!--- update, but we can get here if there was no identifier --->
+							<cfif len(thisIdAgntId) gt 0>
+								<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									update identification_agent set
+										agent_id=#thisIdId#,
+										identifier_order=#nid#
+									 where
+									 	identification_agent_id=#thisIdAgntId#
+								</cfquery>
+							<cfelse>
+								<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									insert into identification_agent
+										( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
+									values
+										(
+											#thisIdentificationId#,
+											#thisIdId#,
+											#nid#
+										)
+								</cfquery>
+							</cfif>
+
 						</cfif>
 					</cfif>
 				</cfloop>
