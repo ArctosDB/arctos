@@ -44,7 +44,7 @@
 			    to_meters(MAX_DEPTH,DEPTH_UNITS),
 			    to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS)
 			  from locality
-			 );
+			 )
  		</cfquery>
 		<tr>
 			<td>Number Spatially Distinct (including specific locality) Localities</td>
@@ -61,7 +61,7 @@
 			    to_meters(MAX_DEPTH,DEPTH_UNITS),
 			    to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS)
 			  from locality
-			);
+			)
  		</cfquery>
 
 		<tr>
