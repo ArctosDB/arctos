@@ -79,7 +79,10 @@
 					$("#other_id_prefix").show();
 					$("#other_id_number").val('').hide();
 					$("#other_id_suffix").val('').hide();
-
+				} else if ($("#other_id_type").val() == 'AF' || $("#other_id_type").val() == 'NK') {
+					$("#other_id_prefix").val('').hide();
+					$("#other_id_number").show();
+					$("#other_id_suffix").val('').hide();
 				} else {
 					$("#other_id_prefix").show();
 					$("#other_id_number").show();
