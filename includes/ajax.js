@@ -1833,7 +1833,7 @@ function pickedRelationship (id){
 	} else if (relatedTable=='taxonomy'){
 		taxaPick(idInputName,dispInputName,'newMedia');
 	} else if (relatedTable=='publication'){
-		getPublication(dispInputName,idInputName,'','newMedia');
+		getPublication(dispInputName,idInputName,'');
 	} else if (relatedTable=='accn'){
 		// accnNumber, colID
 		getAccnMedia(dispInputName,idInputName);
