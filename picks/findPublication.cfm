@@ -1,6 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <script>
 	function useThisOne(frm,pidfld,pid,psfld,ps){
+		console.log(frm);
 		var o=opener.document;
 		console.log(o);
 		var f=o.frm;
