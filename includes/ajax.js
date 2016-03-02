@@ -444,8 +444,7 @@ function blockSuggest (onoff) {
 		}
 	);
 }
-/*
- deprecated 20160201
+
 function findPart(partFld,part_name,collCde){
 	var url,popurl;
 	
@@ -454,8 +453,6 @@ function findPart(partFld,part_name,collCde){
 	popurl=url+"?part_name="+part_name+"&collCde="+collCde+"&partFld="+partFld;
 	partpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-
- */
 
 
 

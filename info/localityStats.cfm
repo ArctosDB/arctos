@@ -4,7 +4,8 @@
 
 <cfoutput>
 	<p>
-		See /Reports/FunkyData/GeoreferenceStatistics for a more complete summary of georeferencing activity and efficacy by collection.
+		See <a href="/Reports/georef.cfm">/Reports/FunkyData/GeoreferenceStatistics</a>
+			 for a summary of georeferencing activity and efficacy by collection.
 	</p>
 	<table border class="sortable" id="t">
 		<tr>

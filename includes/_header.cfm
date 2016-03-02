@@ -364,6 +364,7 @@
 									<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
 									<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
 									<li><a target="_top" href="/info/ipt.cfm">IPT/collection metadata report</a></li>
+									<li><a target="_top" href="/info/localityStats.cfm">Locality Statistics</a></li>
 									<li><a target="_top" href="/info/sysstats.cfm">System Statistics</a></li>
 									<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
 									<li><a target="_top" href="/Admin/errorLogViewer.cfm">Error Logs</a></li>
