@@ -7,7 +7,7 @@ function closeThis(){
 </script>
 <cfoutput>
 <cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
+	select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY sort_order,other_Id_Type
 </cfquery>
 <cfquery name="collid" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select cf_collection_id,INSTITUTION || ' ' || collection collection from cf_collection
@@ -29,10 +29,10 @@ function closeThis(){
 				size="1" onchange="this.className='red';changecustomOtherIdentifier(this.value);">
 				<option value="">None</option>
 				<cfloop query="OtherIdType">
-					<option 
+					<option
 						<cfif session.CustomOtherIdentifier is other_id_type>selected="selected"</cfif>
 						value="#other_id_type#">#other_id_type#</option>
-				</cfloop> 
+				</cfloop>
 			</select>
 		</td>
 	</tr>
@@ -74,9 +74,9 @@ function closeThis(){
 			<select name="exclusive_collection_id" id="exclusive_collection_id"
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
 			 	<option  <cfif pid is "" or pid is 0>selected="selected" </cfif> value="">All</option>
-			  	<cfloop query="collid"> 
+			  	<cfloop query="collid">
 					<option <cfif pid is cf_collection_id>selected="selected" </cfif> value="#cf_collection_id#">#collection#</option>
-			  	</cfloop> 
+			  	</cfloop>
 			</select>
 		</td>
 	</tr>
