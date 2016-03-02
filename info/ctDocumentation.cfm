@@ -160,7 +160,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfloop>
 		</table>
 	<cfelseif table is "ctcoll_other_id_type">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select OTHER_ID_TYPE,DESCRIPTION,BASE_URL,sort_order from ctcoll_other_id_type order by sort_order,OTHER_ID_TYPE
 		</cfquery>
 		<table border id="t" class="sortable">
