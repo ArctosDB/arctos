@@ -3,6 +3,8 @@
 	function useThisOne(frm,pidfld,pid,psfld,ps){
 		var o=opener.document;
 		console.log(o);
+		var f=o.frm;
+		console.log(f);
 		//.frm.pidfld.value=pid;
 
 
