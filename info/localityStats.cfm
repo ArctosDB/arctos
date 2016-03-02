@@ -1,12 +1,10 @@
-test23
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-<cfset title="Locality statistics">
-
+<cfset title="Locality Statistics">
 <cfoutput>
 	<p>
 		See <a href="/Reports/georef.cfm">/Reports/FunkyData/GeoreferenceStatistics</a>
-			 for a summary of georeferencing activity and efficacy by collection.
+		for a summary of georeferencing activity and efficacy by collection.
 	</p>
 	<table border class="sortable" id="t">
 		<tr>
@@ -73,8 +71,6 @@ test23
 			<td>Number (Spatial+SpecificLocality) Distinct Localities</td>
 			<td>#d.c#</td>
 		</tr>
-
-
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from locality where dec_lat is not null
 		</cfquery>
@@ -112,10 +108,6 @@ test23
 			<td>Number Localities with automated reverse georeferences</td>
 			<td>#d.c#</td>
 		</tr>
-
-
-
-</table>
-
+	</table>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">

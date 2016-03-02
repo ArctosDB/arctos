@@ -161,7 +161,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		</table>
 	<cfelseif table is "ctcoll_other_id_type">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select OTHER_ID_TYPE,DESCRIPTION,BASE_URL from ctcoll_other_id_type order by OTHER_ID_TYPE
+			select OTHER_ID_TYPE,DESCRIPTION,BASE_URL,sort_order from ctcoll_other_id_type order by sort_order,OTHER_ID_TYPE
 		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
@@ -172,12 +172,16 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<th>
 					<strong>Base URI</strong>
 				</th>
+				<th>
+					<strong>Sort</strong>
+				</th>
 			</tr>
 			<cfloop query="docs">
 				<tr>
 					<td name="#OTHER_ID_TYPE#">#OTHER_ID_TYPE#</td>
 					<td>#description#</td>
 					<td>#BASE_URL#</td>
+					<td>#sort_order#</td>
 				</tr>
 			</cfloop>
 		</table>
