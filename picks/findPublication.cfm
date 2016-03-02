@@ -57,8 +57,8 @@
 			Nothing matched <strong>#publication_title#</strong>
 		<cfelseif getPub.recordcount is 1>
 			<script>
-				opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-				opener.document.#formName#.#pubStringFld#.value='#jsescape(short_citation)#';
+				opener.document.#formName#.#pubIdFld#.value='#getPub.publication_id#';
+				opener.document.#formName#.#pubStringFld#.value='#jsescape(getPub.short_citation)#';
 				opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
 				self.close();
 			</script>
