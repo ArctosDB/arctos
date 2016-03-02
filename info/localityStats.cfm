@@ -1,4 +1,4 @@
-test
+test2
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Locality statistics">
