@@ -168,8 +168,7 @@
 	       	select n_or_s from ctns order by n_or_s
 	    </cfquery>
 		<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(other_id_type) FROM ctColl_Other_id_type
-			order by other_id_type
+			SELECT distinct(other_id_type) FROM ctColl_Other_id_type order by sort_order, other_id_type
 	    </cfquery>
 		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select orig_elev_units from ctorig_elev_units

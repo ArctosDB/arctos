@@ -59,7 +59,7 @@
 	select OTHER_ID_TYPE from
 	ctcoll_other_id_type
 	group by OTHER_ID_TYPE
-	order by OTHER_ID_TYPE
+	order by sort_order,OTHER_ID_TYPE
 </cfquery>
 <cfoutput>
 <div id="ajaxMsg"></div>

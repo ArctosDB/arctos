@@ -156,7 +156,7 @@
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select other_id_type from ctcoll_other_id_type order by other_id_type
+			select other_id_type from ctcoll_other_id_type order by sort_order,other_id_type
 		</cfquery>
 		<cfquery name="cat" dbtype="query">
 			select
