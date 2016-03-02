@@ -67,9 +67,15 @@
 					return false;
 				}
 			});
-			$("#newOID" ).change(function() {
+
+
+
+
+			$("#newOID").change(function() {
 				// make the options a little more friendly for known types
-				if ($("#newOID").val() == 'GenBank'){
+				console.log($("#other_id_type").val());
+
+				if ($("#other_id_type").val() == 'GenBank'){
 					console.log(gb);
 				} else {
 					console.log('other');
