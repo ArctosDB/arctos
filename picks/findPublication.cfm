@@ -6,7 +6,7 @@
 
 			parent.$("###pubIdFld#").val(pid);
 			parent.$("###pubStringFld#").val(ps);
-			self.close();
+			parent.$(".ui-dialog-titlebar-close").trigger('click');
 <!------
 			/*
 		console.log(frm);
