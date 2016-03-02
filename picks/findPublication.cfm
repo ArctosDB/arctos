@@ -41,7 +41,6 @@
 		<cfoutput>
 			<input type="hidden" name="pubIdFld" value="#pubIdFld#">
 			<input type="hidden" name="pubStringFld" value="#pubStringFld#">
-			<input type="hidden" name="formName" value="#formName#">
 		</cfoutput>
 	</form>
 	<cfif len(publication_title) gt 0>
@@ -62,9 +61,9 @@
 			Nothing matched <strong>#publication_title#</strong>
 		<cfelseif getPub.recordcount is 1>
 			<script>
-				opener.document.#formName#.#pubIdFld#.value='#getPub.publication_id#';
-				opener.document.#formName#.#pubStringFld#.value='#jsescape(getPub.short_citation)#';
-				opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
+				opener.document.#pubIdFld#.value='#getPub.publication_id#';
+				opener.document.#pubStringFld#.value='#jsescape(getPub.short_citation)#';
+				opener.document.#pubStringFld#.style.background='##8BFEB9';
 				self.close();
 			</script>
 		<cfelse>
@@ -75,7 +74,7 @@
 				<cfloop query="getPub">
 					<tr>
 						<td>
-							<span class="likeLink" onclick="useThisOne('#formName#','#pubIdFld#','#publication_id#','#pubStringFld#','#short_citation#');">
+							<span class="likeLink" onclick="useThisOne('#pubIdFld#','#publication_id#','#pubStringFld#','#short_citation#');">
 								#short_citation#
 							</span>
 							<blockquote>
