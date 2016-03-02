@@ -6,7 +6,7 @@
 	<p>
 		See /Reports/FunkyData/GeoreferenceStatistics for a more complete summary of georeferencing activity and efficacy by collection.
 	</p>
-	<table class="sortable" id="t">
+	<table border class="sortable" id="t">
 		<tr>
 			<th>Thing</th>
 			<th>Count</th>
@@ -47,7 +47,7 @@
 			 )
  		</cfquery>
 		<tr>
-			<td>Number Spatially Distinct (including specific locality) Localities</td>
+			<td>Number (Spatial+SpecificLocality) Distinct Localities</td>
 			<td>#d.c#</td>
 		</tr>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
