@@ -199,7 +199,7 @@
 			<cfset sql = "#sql# AND expiration_date <= to_date('#expiration_date_before#')">
 		</cfif>
 		<cfif isdefined("encumbrance_id") and len(encumbrance_id) gt 0>
-			<cfset sql = "#sql# AND encumbrance_id = #encumbrance_id#">
+			<cfset sql = "#sql# AND encumbrance.encumbrance_id = #encumbrance_id#">
 		</cfif>
 		<cfif isdefined("encumbrance") and len(encumbrance) gt 0>
 			<cfset sql = "#sql# AND upper(encumbrance) like '%#ucase(encumbrance)#%'">
