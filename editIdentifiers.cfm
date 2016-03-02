@@ -70,15 +70,20 @@
 
 
 
-
 			$("#newOID").change(function() {
 				// make the options a little more friendly for known types
 				console.log($("#other_id_type").val());
 
 				if ($("#other_id_type").val() == 'GenBank'){
-					console.log(gb);
+					console.log('gb');
+					$("#other_id_prefix").show();
+					$("#other_id_number").val('').hide();
+					$("#other_id_suffix").val('').hide();
+
 				} else {
-					console.log('other');
+					$("#other_id_prefix").show();
+					$("#other_id_number").show();
+					$("#other_id_suffix").show();
 				}
 			});
 		});
