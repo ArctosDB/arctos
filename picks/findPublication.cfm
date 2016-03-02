@@ -68,13 +68,12 @@
 					<tr>
 						<td>
 							<span class="likeLink" onclick="useThisOne('#formName#','#pubIdFld#','#publication_id#','#pubStringFld#','#short_citation#');">
-								#short_citation#<
-							/span>
+								#short_citation#
+							</span>
 							<blockquote>
 								#full_citation#
 							</blockquote>
 
-								function useThisOne(frm,pidfld,pid,psfld,ps){
 
 							<!----
 							<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
