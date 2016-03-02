@@ -6,7 +6,7 @@
 
 			parent.$("###pidfld#").val(pid);
 			parent.$("###psfld#").val(ps);
-
+<!------
 			/*
 		console.log(frm);
 		var o=opener.document;
@@ -33,6 +33,8 @@
 		//opener.document.#formName#.#pubStringFld#.value='#jsescape(short_citation)#';
 		//opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
 		//self.close();
+
+		------>
 	}
 </script>
 	<cfparam name="publication_title" default="">
