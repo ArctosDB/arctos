@@ -1397,17 +1397,6 @@ function getPublication(pubStringFld,pubIdFld,publication_title){
 	$(".ui-widget-overlay").click(function(){
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
-	
-	
-	/*
-	
-	
-	var url,pubwin;
-	url="/picks/findPublication.cfm";
-	pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
-	pubwin=window.open(pubwin,"","width=400,height=338, resizable,scrollbars");
-	
-	*/
 }
 
 
@@ -1436,12 +1425,14 @@ function findCollEvent(collIdFld,formName,dispField,eventName){
 	covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName+"&collecting_event_name="+eventName;
 	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
+/*
 function getPublication____old(pubStringFld,pubIdFld,publication_title,formName){
 	var url,pubwin;
 	url="/picks/findPublication.cfm";
 	pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
 	pubwin=window.open(pubwin,"","width=400,height=338, resizable,scrollbars");
 }
+*/
 function getAccn(accnNumber,rtnFldID,InstAcrColnCde){
 	//accnNumber=value submitted by user, optional
 	//rtnFldID=ID of field to write back to
