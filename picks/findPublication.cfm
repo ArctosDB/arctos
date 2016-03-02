@@ -1,11 +1,11 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfoutput>
-
+s
 <script>
 	function useThisOne(pidfld,pid,psfld,ps){
 
-			parent.$("###pidfld#").val(pid);
-			parent.$("###psfld#").val(ps);
+			parent.$("###pubIdFld#").val(pid);
+			parent.$("###pubStringFld#").val(ps);
 <!------
 			/*
 		console.log(frm);
