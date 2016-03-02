@@ -31,6 +31,27 @@
 			<td>Number Used Localities</td>
 			<td>#d.c#</td>
 		</tr>
+
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from (
+			  select distinct
+			    DEC_LAT,
+			    DEC_LONG,
+			    to_meters(MINIMUM_ELEVATION,ORIG_ELEV_UNITS),
+			    to_meters(MAXIMUM_ELEVATION,ORIG_ELEV_UNITS),
+			    to_meters(MIN_DEPTH,DEPTH_UNITS),
+			    to_meters(MAX_DEPTH,DEPTH_UNITS),
+			    to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS)
+			  from locality
+			)
+ 		</cfquery>
+
+		<tr>
+			<td>Number Spatially Distinct (coordinates/error/elevation/depth) Localities</td>
+			<td>#d.c#</td>
+		</tr>
+
+
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from (
 			  select distinct
@@ -50,24 +71,7 @@
 			<td>Number (Spatial+SpecificLocality) Distinct Localities</td>
 			<td>#d.c#</td>
 		</tr>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select count(*) c from (
-			  select distinct
-			    DEC_LAT,
-			    DEC_LONG,
-			    to_meters(MINIMUM_ELEVATION,ORIG_ELEV_UNITS),
-			    to_meters(MAXIMUM_ELEVATION,ORIG_ELEV_UNITS),
-			    to_meters(MIN_DEPTH,DEPTH_UNITS),
-			    to_meters(MAX_DEPTH,DEPTH_UNITS),
-			    to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS)
-			  from locality
-			)
- 		</cfquery>
 
-		<tr>
-			<td>Number Spatially Distinct (excluding specific locality) Localities</td>
-			<td>#d.c#</td>
-		</tr>
 
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from locality where dec_lat is not null
