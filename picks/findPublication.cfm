@@ -1,8 +1,18 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <script>
 	function useThisOne(frm,pidfld,pid,psfld,ps){
-		opener.document.$("[name=" + frm + "]").$("[name=" + pidfld + "]").val(pid);
+		var theform=opener.document.$("[name=" + frm + "]");
 
+		console.log(theform);
+
+
+
+		//("#form2 input[name=name]").val('Hello World!');
+
+
+
+	//	opener.document.$("[name=" + frm + "]").$("[name=" + pidfld + "]").val(pid);
+		//opener.$('#' + partFld).val(part_name);
 		//opener.document.frm.#pubIdFld#.value='#publication_id#';
 		//opener.document.#formName#.#pubStringFld#.value='#jsescape(short_citation)#';
 		//opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
