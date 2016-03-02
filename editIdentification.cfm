@@ -514,7 +514,7 @@
 							<span class="infoLink" onClick="getCtDoc('CTCITATION_TYPE_STATUS')">Define</span>
 						</td>
 						<td>
-							<input type="text" name="publication_id_#distIds.identification_id#_NEW"
+							<input type="hidden" name="publication_id_#distIds.identification_id#_NEW"
 								id="publication_id_#distIds.identification_id#_NEW">
 							<input type="text"
 								id="publication_#distIds.identification_id#_NEW"
@@ -548,7 +548,7 @@
 								<span class="infoLink" onClick="getCtDoc('CTCITATION_TYPE_STATUS')">Define</span>
 							</td>
 							<td>
-								<input type="text" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
+								<input type="hidden" name="publication_id_#distIds.identification_id#_#citation_id#" id="publication_id_#distIds.identification_id#_#citation_id#" value="#citpubid#">
 								<input type="text"
 									id="publication_#distIds.identification_id#_#citation_id#"
 									value='#cit_short_cit#'
