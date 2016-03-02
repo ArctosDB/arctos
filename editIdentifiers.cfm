@@ -67,6 +67,14 @@
 					return false;
 				}
 			});
+			$("#newOID" ).change(function() {
+				// make the options a little more friendly for known types
+				if ($("#newOID").val() == 'GenBank'){
+					console.log(gb);
+				} else {
+					console.log('other');
+				}
+			});
 		});
 	</script>
 	<cfoutput>

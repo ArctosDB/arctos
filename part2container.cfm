@@ -13,7 +13,7 @@
 		padding:.5em;
 		margin:.5em;
 		text-align:center;
-	}		
+	}
 </style>
 <!------------------------------------------------------------------->
 <cfif #action# is "nothing">
@@ -22,13 +22,13 @@
 		select guid_prefix, collection_id FROM collection order by guid_prefix
 	</cfquery>
 	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct(other_id_type) FROM ctcoll_other_id_type order by other_id_type
-	</cfquery>	
+		select other_id_type FROM ctcoll_other_id_type order by sort_order,other_id_type
+	</cfquery>
 	<cfquery name="ctContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select container_type from ctcontainer_type
 		order by container_type
 	</cfquery>
-	
+
 	<div style="font-size:.8em;">
 		This application puts collection objects into containers.
 		Parts are listed in three ways:
@@ -37,7 +37,7 @@
 			<li><strong>Part Name SAMPLE</strong> = a subsample of another part</li>
 			<li><strong>Part Name [barcode]</strong> = a part which is in a barcoded container</li>
 		</ul>
-		Things occasionally get stuck - click Refresh to unstick them.		
+		Things occasionally get stuck - click Refresh to unstick them.
 	</div>
 	<p style="font-size:.8em;">
 		<span style="border:1px solid blue; padding:5px;margin:5px;">

@@ -35,7 +35,7 @@
 				}
 				opener.document.dataEntry.related_to_num_type.value='catalog number';
 				opener.document.dataEntry.related_to_number.value=r.DATA.GUID[0];
-				self.close();																	
+				self.close();
 			}
 		);
 	}
@@ -44,7 +44,7 @@
 	select guid_prefix,collection_id cid from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    select distinct(other_id_type) oidt FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
+    select other_id_type oidt FROM ctColl_Other_Id_Type ORDER BY sort_order,other_Id_Type
 </cfquery>
 <cfparam name="other_id_num" default=''>
 <cfparam name="other_id_type" default=''>
@@ -76,15 +76,15 @@
 <!------------------------------------------------------------->
     <cfset sql = "SELECT
 				    flat.collection_object_id,
-				    guid, 
+				    guid,
 					scientific_name,
 					collectors,
 					collecting_event_id
-				FROM 
+				FROM
 					flat,coll_obj_other_id_num
-				WHERE 
+				WHERE
 					flat.collection_object_id = coll_obj_other_id_num.collection_object_id (+)">
-	
+
 	<cfif len(other_id_num) is 0>
 		other_id_num - abort<cfabort>
 	</cfif>
@@ -96,14 +96,14 @@
 		<cfelse>
 			<cfset sql=sql & " and upper(coll_obj_other_id_num.display_value) like '%#ucase(other_id_num)#%'">
 		</cfif>
-	</cfif>	
+	</cfif>
 	<cfif len(collection_id) gt 0>
 		<cfset sql = "#sql# AND collection_id=#collection_id#">
 	</cfif>
-	
+
 	<cfset sql = "#sql# group by
 	 flat.collection_object_id,
-				    guid, 
+				    guid,
 					scientific_name,
 					collectors,
 					collecting_event_id">
@@ -120,7 +120,7 @@
 				Collectors
 				<input type="checkbox" name="pickuse_collectors" id="pickuse_collectors" value="#mySettings.pickuse_collectors#"
 					<cfif mySettings.pickuse_collectors is 1>checked="checked"</cfif>
-					onchange="updateMySettings('pickuse_collectors',this.checked)">						
+					onchange="updateMySettings('pickuse_collectors',this.checked)">
 			</th>
 			<th>EventID
 				<input type="checkbox" name="pickuse_eventid" id="pickuse_eventid" value="#mySettings.pickuse_eventid#"
