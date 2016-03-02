@@ -1,11 +1,19 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+<cfoutput>
+
 <script>
-	function useThisOne(frm,pidfld,pid,psfld,ps){
+	function useThisOne(pidfld,pid,psfld,ps){
+
+			parent.$("###pidfld#").val(pid);
+			parent.$("###psfld#").val(ps);
+
+			/*
 		console.log(frm);
 		var o=opener.document;
 		console.log(o);
 		var f=o.frm;
 		console.log(f);
+		*/
 		//.frm.pidfld.value=pid;
 
 
@@ -27,7 +35,6 @@
 		//self.close();
 	}
 </script>
-<cfoutput>
 	<cfparam name="publication_title" default="">
 	<!--- make sure we're searching for something --->
 	<form name="searchForPub" action="findPublication.cfm" method="post">
