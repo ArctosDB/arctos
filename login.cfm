@@ -101,7 +101,7 @@
 			        last_name,
 			        affiliation,
 					email,
-					PW_CHANGE_DATE
+					nvl(PW_CHANGE_DATE,sysdate) PW_CHANGE_DATE
 				FROM
 					cf_user_data,
 					cf_users
