@@ -1,7 +1,7 @@
 <!--- returns query object localityResults --->
 <cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
-<cfset sel = "select
+<cfset sel = "select distinct
 		geog_auth_rec.geog_auth_rec_id,
 		higher_geog,
 		CONTINENT_OCEAN	,
