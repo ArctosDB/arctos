@@ -32,7 +32,7 @@
 		select name from reportList where
 		 upper(NAME) not in (#listqualify(ucase(valuelist(allreports.REPORT_TEMPLATE)),"'")#)
 	</cfquery>
-
+<cfdump var=#unhandled#>
 	<cfloop query="unhandled">
 		deleting #name#
 		<!----
