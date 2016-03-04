@@ -498,6 +498,11 @@
 									Print Any Report
 								</option>
 							</optgroup>
+							<optgroup label="Related">
+								 <option value="/Locality.cfm?action=findLocality">
+									Locality
+								</option>
+							</optgroup>
 						</select>
 						<!----
 						<input type="button" value="Go" class="lnkBtn" onClick="reporter('#session.SpecSrchTab#');">

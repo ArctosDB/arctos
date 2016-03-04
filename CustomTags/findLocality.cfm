@@ -71,6 +71,29 @@
 </cfif>
 
 
+<cfif isdefined("table_name") and len(table_name) gt 0>
+	<cfif frm does not contain "locality">
+		<cfset frm=frm & ",locality">
+		<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id ">
+	</cfif>
+	<cfif frm does not contain "collecting_event">
+		<cfset frm=frm & ",collecting_event">
+		<cfset whr=whr & " and locality.locality_id=collecting_event.locality_id ">
+	</cfif>
+	<cfif frm does not contain "specimen_event">
+		<cfset whr=whr & " and collecting_event.collecting_event_id=specimen_event.collecting_event_id ">
+		<cfset frm=frm & ",specimen_event">
+	</cfif>
+	<cfif frm does not contain "cataloged_item">
+		<cfset frm=frm & ",cataloged_item">
+		<cfset whr=whr & " and specimen_event.collection_object_id=cataloged_item.collection_object_id ">
+	</cfif>
+	<cfset qual = "#qual# AND cataloged_item.collection_object_id in ( select collection_object_id from #table_name# ) ">
+</cfif>
+
+
+
+
 <cfif isdefined("collection_id") and len(collection_id) gt 0>
 	<cfif not isdefined("collnOper") or len(collnOper) is 0>
 		<cfset collnOper="usedOnlyBy">
