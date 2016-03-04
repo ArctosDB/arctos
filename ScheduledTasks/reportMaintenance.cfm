@@ -7,6 +7,11 @@
 	Run this every few days or something
  ---->
  <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
+
+
+<cfdump var=#reportlist#>
+
+
 	<!--- all reports ---->
 	<cfquery name="allreports" datasource="uam_god">
 		select
