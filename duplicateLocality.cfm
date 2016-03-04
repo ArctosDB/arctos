@@ -265,7 +265,7 @@
 						<cfquery name="goodLocID" dbtype="query">
                           select min(locality_id) as locality_id from thisLocIDs
                         </cfquery>
-						<cfif badLocID.recordcount lt 1>
+						<cfif goodLocID.recordcount lt 1>
 							nothing to merge<cfabort>
 						</cfif>
 
