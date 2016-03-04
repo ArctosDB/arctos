@@ -22,7 +22,10 @@
 	</cfquery>
 
 	<cfloop query="unhandled">
+		deleting #name#
+		<!----
 		<cffile action="DELETE" file="#Application.webDirectory#/Reports/templates/#name#">
+		---->
 	</cfloop>
 
 </cfif>
