@@ -1751,7 +1751,7 @@ You deleted a collecting event.
 
 
 			<span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
-			<cfif isdefined("locality_id")>
+			<cfif isdefined("locality_id") and len(locality_id) gt 0>
 				<a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">[ find and merge duplicates ]</a>
 			</cfif>
 
