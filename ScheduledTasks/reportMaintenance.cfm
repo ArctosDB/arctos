@@ -17,36 +17,15 @@
 			cf_report_sql
 	</cfquery>
 
+	<!---- all reports without handlers that are at least 3 days old> ---->
 
-
-	<cfquery name="unhandled" dbtype="query">
-		select distinct REPORT_TEMPLATE from allreports where upper(REPORT_TEMPLATE) not in
-		(#listqualify(ucase(valuelist(reportList.name)),"'")#)
-
-	</cfquery>
-
-	<cfdump var=#unhandled#>
-
-
-
-
-	<!---- all reports without handlers that are at least 3 days old
 	<cfquery name="unhandled" dbtype="query">
 		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# > 3
 		and upper(NAME) not in (#listqualify(ucase(valuelist(allreports.REPORT_TEMPLATE)),"'")#)
-	</cfquery>---->
-
-<cfquery name="unhandled" dbtype="query">
-		select name from reportList where #dateDiff('d',reportList.DATELASTMODIFIED,now())# > 3
-		and upper(NAME) not in (#listqualify(ucase(valuelist(allreports.REPORT_TEMPLATE)),"'")#)
 	</cfquery>
-
-<!----
 	<cfloop query="unhandled">
 		<cffile action="DELETE" file="#Application.webDirectory#/Reports/templates/#name#">
 	</cfloop>
----->
-
 </cfif>
 <cfif action is "emailNotifyNotUsed">
 
