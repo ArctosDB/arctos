@@ -502,6 +502,9 @@
 								 <option value="/Locality.cfm?action=findLocality">
 									Locality
 								</option>
+								 <option value="/Locality.cfm?action=findCollEvent">
+									CollectingEvent
+								</option>
 							</optgroup>
 						</select>
 						<!----
