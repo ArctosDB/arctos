@@ -9,9 +9,6 @@
  <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
 
 
-<cfdump var=#reportlist#>
-
-
 	<!--- all reports ---->
 	<cfquery name="allreports" datasource="uam_god">
 		select
@@ -27,17 +24,8 @@
 	</cfquery>
 
 
-
-	<cfquery name="unhandled" dbtype="query">
-		select name from reportList where
-		 upper(NAME) not in (#listqualify(ucase(valuelist(allreports.REPORT_TEMPLATE)),"'")#)
-	</cfquery>
-<cfdump var=#unhandled#>
 	<cfloop query="unhandled">
-		deleting #name#
-		<!----
 		<cffile action="DELETE" file="#Application.webDirectory#/Reports/templates/#name#">
-		---->
 	</cfloop>
 
 </cfif>
