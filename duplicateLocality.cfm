@@ -262,10 +262,14 @@
                                 geologyConcat is null
                             </cfif>
                         </cfquery>
-				<cfquery name="goodLocID" dbtype="query">
+						<cfquery name="goodLocID" dbtype="query">
                           select min(locality_id) as locality_id from thisLocIDs
                         </cfquery>
-				<cfquery name="badLocID" dbtype="query">
+						<cfif badLocID.recordcount lt 1>
+							nothing to merge<cfabort>
+						</cfif>
+
+						<cfquery name="badLocID" dbtype="query">
                           select locality_id from thisLocIDs where locality_id != #goodLocID.locality_id#
                         </cfquery>
 				<tr>
