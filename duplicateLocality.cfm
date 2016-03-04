@@ -265,19 +265,20 @@
 						<cfquery name="goodLocID" dbtype="query">
                           select min(locality_id) as locality_id from thisLocIDs
                         </cfquery>
-						<cfif goodLocID.recordcount lt 1>
-							nothing to merge<cfabort>
-						</cfif>
 
-						<cfquery name="badLocID" dbtype="query">
-                          select locality_id from thisLocIDs where locality_id != #goodLocID.locality_id#
-                        </cfquery>
+
+
 				<tr>
 					<td>
 						<cfif c gt 1>
-							<a href="duplicateLocality.cfm?action=delete&returnlocalityid=#locality_id#&returnAction=detectdups&locality_id=#goodLocID.locality_id#&deleteLocalityID=#valuelist(badLocID.locality_id)#">
-								[&nbsp;merge&nbsp;all&nbsp;]
-							</a>
+							<cfif goodLocID.recordcount gt 0>
+								<cfquery name="badLocID" dbtype="query">
+		                          select locality_id from thisLocIDs where locality_id != #goodLocID.locality_id#
+		                        </cfquery>
+								<a href="duplicateLocality.cfm?action=delete&returnlocalityid=#locality_id#&returnAction=detectdups&locality_id=#goodLocID.locality_id#&deleteLocalityID=#valuelist(badLocID.locality_id)#">
+									[&nbsp;merge&nbsp;all&nbsp;]
+								</a>
+							</cfif>
 						<cfelse>
 							<a href="duplicateLocality.cfm?locality_id=#goodLocID.locality_id#">
 								[&nbsp;fuzzy&nbsp;filter&nbsp;]
