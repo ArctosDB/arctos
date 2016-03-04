@@ -20,7 +20,7 @@
 
 
 	<cfquery name="unhandled" dbtype="query">
-		select REPORT_TEMPLATE from allreports where upper(REPORT_TEMPLATE) not in
+		select distinct REPORT_TEMPLATE from allreports where upper(REPORT_TEMPLATE) not in
 		(#listqualify(ucase(valuelist(reportList.name)),"'")#)
 
 	</cfquery>
