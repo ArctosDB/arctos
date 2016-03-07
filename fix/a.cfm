@@ -19,7 +19,7 @@
 <cfdump var=#cfhttp#>
 
 
-<cfset jr=serializejson(cfhttp.filecontent)>
+<cfset jr=DeserializeJSON(cfhttp.filecontent)>
 
 <cfdump var=#jr#>
 
