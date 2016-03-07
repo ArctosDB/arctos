@@ -1132,6 +1132,12 @@
 															#attribute_type#
 														</td>
 														<td>
+
+															#oneOfUs#
+
+															#one.encumbranceDetail#
+
+															#attribute_type#
 															<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
 																masked
 															<cfelse>
