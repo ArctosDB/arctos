@@ -1,5 +1,28 @@
 <cfinclude template="/includes/_header.cfm">
 
+<cfhttp method="post" url="https://api.opentreeoflife.org/v2/tnrs/match_names">
+
+	<cfhttpparam type="header"
+        name ="application/json"
+       value ="content-type">
+
+	<cfhttpparam type="Formfield"
+        value="Annona cherimola"
+        name="names">
+</cfhttp>
+
+<cfdump var=#cfhttp#>
+
+<!--------------------
+
+
+?names=Annona cherimola" \
+-H "" -d \
+'{"names":["Aster","Symphyotrichum","Erigeron","Barnadesia"]}'
+
+
+
+https://api.opentreeoflife.org/v2/tnrs/match_names?names=
 
 clobs suck
 move tehm
@@ -31,4 +54,7 @@ create table temp_mc_log (cn varchar2(255));
 	</cfquery>
 </cfloop>
 <!---------------------------------------------------------------------------------------------------->
+
+
+----------->
 <cfinclude template="/includes/_footer.cfm">
