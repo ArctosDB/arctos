@@ -18,6 +18,11 @@
 
 <cfdump var=#cfhttp#>
 
+
+<cfset jr=serializejson(cfhttp.filecontent)>
+
+<cfdump var=#jr#>
+
 <!--------------------
 
 
