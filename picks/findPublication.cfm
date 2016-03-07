@@ -71,10 +71,7 @@
 			Nothing matched <strong>#publication_title#</strong>
 		<cfelseif getPub.recordcount is 1>
 			<script>
-				opener.document.#pubIdFld#.value='#getPub.publication_id#';
-				opener.document.#pubStringFld#.value='#jsescape(getPub.short_citation)#';
-				opener.document.#pubStringFld#.style.background='##8BFEB9';
-				self.close();
+				useThisOne('#getPub.publication_id#','#getPub.short_citation#');
 			</script>
 		<cfelse>
 			<table border>
