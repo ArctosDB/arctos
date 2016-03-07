@@ -1131,16 +1131,17 @@
 														<td>
 															#attribute_type#
 														</td>
-														<td>
-															<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
-																masked
-															<cfelse>
-																#attribute_value# <cfif len(attribute_units) gt 0>#attribute_units#</cfif>
-															</cfif>
-														</td>
-														<td>#dateformat(determined_date,'yyyy-mm-dd')#</td>
-														<td>#agent_name#</td>
-														<td>#attribute_remark#</td>
+														<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
+															<td>masked</td>
+															<td>-</td>
+															<td>-</td>
+															<td>-</td>
+														<cfelse>
+															<td>#attribute_value# <cfif len(attribute_units) gt 0>#attribute_units#</cfif></td>
+															<td>#dateformat(determined_date,'yyyy-mm-dd')#</td>
+															<td>#agent_name#</td>
+															<td>#attribute_remark#</td>
+														</cfif>
 													</tr>
 												</cfloop>
 											</table>
