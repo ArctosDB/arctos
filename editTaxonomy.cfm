@@ -851,13 +851,37 @@
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				*
+				taxon_name.taxon_name_id,
+				taxon_name.scientifi_name,
+				taxon_term.TAXON_TERM_ID,
+				taxon_term.TAXON_NAME_ID,
+				taxon_term.CLASSIFICATION_ID,
+				taxon_term.TERM,
+				taxon_term.TERM_TYPE,
+				taxon_term.SOURCE,
+				taxon_term.GN_SCORE,
+				taxon_term.POSITION_IN_CLASSIFICATION,
+				taxon_term.LASTDATE,
+				taxon_term.MATCH_TYPE
 			from
 				taxon_name,
 				taxon_term
 			where
 				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 				classification_id='#classification_id#'
+			group by
+				taxon_name.taxon_name_id,
+				taxon_name.scientifi_name,
+				taxon_term.TAXON_TERM_ID,
+				taxon_term.TAXON_NAME_ID,
+				taxon_term.CLASSIFICATION_ID,
+				taxon_term.TERM,
+				taxon_term.TERM_TYPE,
+				taxon_term.SOURCE,
+				taxon_term.GN_SCORE,
+				taxon_term.POSITION_IN_CLASSIFICATION,
+				taxon_term.LASTDATE,
+				taxon_term.MATCH_TYPE
 		</cfquery>
 
 		<cfdump var=#d#>
