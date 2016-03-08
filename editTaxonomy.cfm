@@ -852,7 +852,7 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				taxon_name.taxon_name_id,
-				taxon_name.scientifi_name,
+				taxon_name.scientific_name,
 				taxon_term.TAXON_NAME_ID,
 				taxon_term.CLASSIFICATION_ID,
 				taxon_term.TERM,
