@@ -866,7 +866,8 @@
 				taxon_term
 			where
 				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-				classification_id='#classification_id#'
+				classification_id='#classification_id#' and
+				taxon_name.taxon_name_id=#taxon_name_id#
 			group by
 				taxon_name.taxon_name_id,
 				taxon_name.scientific_name,

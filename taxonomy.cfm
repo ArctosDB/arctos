@@ -617,7 +617,7 @@ function loadTaxonomyMap(n,m){
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 						<a href="/editTaxonomy.cfm?action=cloneClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a>
 						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
-							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
+							<a href="/editTaxonomy.cfm?action=editClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
 						<cfelse>
 							[ Editing non-local sources disallowed ]
 						</cfif>
