@@ -895,7 +895,7 @@
 		</cfquery>
 
 		<cfquery name="noclass" dbtype="query">
-			select term_type,taxon_term from d where POSITION_IN_CLASSIFICATION is null group by term_type,taxon_term  order by term_type
+			select term_type,term from d where POSITION_IN_CLASSIFICATION is null group by term_type,term order by term_type
 		</cfquery>
 		<cfquery name="hasclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is not null order by POSITION_IN_CLASSIFICATION
