@@ -853,14 +853,13 @@
 			select
 				taxon_name.taxon_name_id,
 				taxon_name.scientific_name,
-				taxon_term.TAXON_NAME_ID,
 				taxon_term.CLASSIFICATION_ID,
 				taxon_term.TERM,
 				taxon_term.TERM_TYPE,
 				taxon_term.SOURCE,
 				taxon_term.GN_SCORE,
 				taxon_term.POSITION_IN_CLASSIFICATION,
-				taxon_term.LASTDATE,
+				to_char(taxon_term.LASTDATE,'yyyy-mm-dd') LASTDATE,
 				taxon_term.MATCH_TYPE
 			from
 				taxon_name,
@@ -871,14 +870,13 @@
 			group by
 				taxon_name.taxon_name_id,
 				taxon_name.scientific_name,
-				taxon_term.TAXON_NAME_ID,
 				taxon_term.CLASSIFICATION_ID,
 				taxon_term.TERM,
 				taxon_term.TERM_TYPE,
 				taxon_term.SOURCE,
 				taxon_term.GN_SCORE,
 				taxon_term.POSITION_IN_CLASSIFICATION,
-				taxon_term.LASTDATE,
+				to_char(taxon_term.LASTDATE,'yyyy-mm-dd'),
 				taxon_term.MATCH_TYPE
 		</cfquery>
 
