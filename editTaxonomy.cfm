@@ -853,7 +853,6 @@
 			select
 				taxon_name.taxon_name_id,
 				taxon_name.scientifi_name,
-				taxon_term.TAXON_TERM_ID,
 				taxon_term.TAXON_NAME_ID,
 				taxon_term.CLASSIFICATION_ID,
 				taxon_term.TERM,
@@ -873,7 +872,6 @@
 				taxon_name.taxon_name_id,
 				taxon_name.scientifi_name,
 				taxon_term.TAXON_TERM_ID,
-				taxon_term.TAXON_NAME_ID,
 				taxon_term.CLASSIFICATION_ID,
 				taxon_term.TERM,
 				taxon_term.TERM_TYPE,
