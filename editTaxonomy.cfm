@@ -892,6 +892,11 @@
 				taxon_name_id
 		</cfquery>
 
+
+	<cfdump var=#thisname#>
+
+
+
 		<cfquery name="noclass" dbtype="query">
 			select term_type,term from d where POSITION_IN_CLASSIFICATION is null group by term_type,term order by term_type
 		</cfquery>
