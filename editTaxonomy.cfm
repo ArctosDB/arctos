@@ -879,6 +879,9 @@
 				to_char(taxon_term.LASTDATE,'yyyy-mm-dd'),
 				taxon_term.MATCH_TYPE
 		</cfquery>
+
+
+		<cfdump var=#d#>
 		<cfquery name="thisname" dbtype="query">
 			select
 				source,
