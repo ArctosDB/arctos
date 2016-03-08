@@ -882,7 +882,6 @@
 		</cfquery>
 
 
-		<cfdump var=#d#>
 		<cfquery name="thisname" dbtype="query">
 			select
 				source,
@@ -897,7 +896,6 @@
 		</cfquery>
 
 
-	<cfdump var=#thisname#>
 
 
 
@@ -1013,7 +1011,7 @@
 				Non-Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
 			</h3>
 			<p style="font-size:small;font-weight:bold;color:red;">
-				These are paired terms; unpaired terms - those with either side blank - will be ignored (=deleted).
+				These are paired terms; unpaired terms - those with either side blank - will be DELETED.
 			</p>
 			<table id="clastbl" border="1">
 				<thead>
