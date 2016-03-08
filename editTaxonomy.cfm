@@ -859,6 +859,8 @@
 				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 				classification_id='#classification_id#'
 		</cfquery>
+
+		<cfdump var=#d#>
 		<cfquery name="thisname" dbtype="query">
 			select
 				source,
