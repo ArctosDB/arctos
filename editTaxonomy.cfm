@@ -130,7 +130,7 @@
 				)
 			</cfquery>
 		</cftransaction>
-		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#" addtoken="false">
+		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&taxon_name_id=#nnID.tnid#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
