@@ -63,6 +63,21 @@
 		$(".highlight").removeClass('highlight');
 		$("#help_" + id).addClass('highlight',500);
 	}
+
+	function deleteClassification(cid,tnid) {
+		var msg='Are you sure you want to delete this classification?\nDo NOT delete classifications because you do not agree with them or because they';
+		msg+=' do not fit your collection or taxonomy preferences.\nDeleted classifications from GlobalNames will come back; fix them at the source.';
+		msg+='\nIf you did not create the classification you are trying to delete, you should probably click "cancel" now.';
+		var r=confirm(msg);
+		if (r==true) {
+			document.location='/editTaxonomy.cfm?action=deleteClassification&classification_id=' + cid + '&taxon_name_id=' + tnid;
+		}
+	}
+
+
+
+
+
 </script>
 <!--------- global form defaults -------------->
 <cfif not isdefined("taxon_name")>
@@ -617,7 +632,9 @@ function loadTaxonomyMap(n,m){
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 						<a href="/editTaxonomy.cfm?action=cloneClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a>
 						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
-							<a href="/editTaxonomy.cfm?action=editClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
+							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
+							<span class="likeLink" onclick="deleteClassification('#classification_id#','#taxon_name_id.taxon_name_id#')">Delete Classification</span>
+
 						<cfelse>
 							[ Editing non-local sources disallowed ]
 						</cfif>
