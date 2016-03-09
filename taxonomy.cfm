@@ -638,7 +638,7 @@ function loadTaxonomyMap(n,m){
 						<cfelse>
 							[ Editing non-local sources disallowed ]
 						</cfif>
-						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&taxon_name_id=#taxon_name_id.taxon_name_id&classification_id=#classification_id#">[ Clone Classification as new name ]</a>
+						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&taxon_name_id=#taxon_name_id.taxon_name_id#&classification_id=#classification_id#">[ Clone Classification as new name ]</a>
 
 					</cfif>
 					<cfquery name="notclass" dbtype="query">
