@@ -284,6 +284,11 @@
 	---->
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
+
+
+	<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "CPython">
+		<cfabort>
+	</cfif>
 	<cfif request.ipaddress is "128.227.73.141" or request.ipaddress is "128.227.190.172" or request.ipaddress is "128.227.173.188">
 		<!--- iDigBio's horrid bot --->
 		<cfabort>
