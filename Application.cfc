@@ -284,7 +284,7 @@
 	---->
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
-	<cfif request.ipaddress is "128.227.73.141" or request.ipaddress is "128.227.190.172">
+	<cfif request.ipaddress is "128.227.73.141" or request.ipaddress is "128.227.190.172" or request.ipaddress is "128.227.173.188">
 		<!--- iDigBio's horrid bot --->
 		<cfabort>
 	</cfif>
