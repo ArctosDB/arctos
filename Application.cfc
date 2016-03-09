@@ -284,7 +284,10 @@
 	---->
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
-	<cfif request.ipaddress is "128.227.73.141" or request.ipaddress is "128.227.190.172">
+	<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "CPython">
+		<cfabort>
+	</cfif>
+	<cfif request.ipaddress is "128.227.73.141" or request.ipaddress is "128.227.190.172" or request.ipaddress is "128.227.173.188">
 		<!--- iDigBio's horrid bot --->
 		<cfabort>
 	</cfif>
@@ -300,18 +303,12 @@
 	</cfif>
 	<!--- a unique identifier to tie "short" log entries to the raw dump file ---->
 	<cfset request.uuid=CreateUUID()>
-
 	<cfset utilities.checkRequest()>
-
 	<!--- now that we're sanitized, continue with setting up a session etc. ---->
 	<cfif not isdefined("session.roles")>
 		<cfinclude template="/includes/functionLib.cfm">
 		<cfset initSession()>
 	</cfif>
-
-
-
-
     <cfset m=utilities.mobileDesktopRedirect()>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
