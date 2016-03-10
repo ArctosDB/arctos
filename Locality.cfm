@@ -1740,6 +1740,11 @@ You deleted a collecting event.
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="" />
 			<cf_findLocality type="event">
+	<cfif isdefined("session.username") and session.username is "dlm">
+				<cfdump var=#localityResults#>
+			</cfif>
+
+
 
 			Found #localityResults.recordcount# records
 
