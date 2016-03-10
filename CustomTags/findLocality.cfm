@@ -339,7 +339,7 @@
 	<cfset rowlimit=attributes.rowlimit>
 </cfif>
 <cfparam name="rowlimit" default="500" type="integer">
-<cfset sql="select * from (#sel# #frm# where #whr# #qual# order by #orderby#) where rownum <= #rowlimit# order by #orderby#">
+<cfset sql="select * from (#sel# #frm# where #whr# #qual# order by #orderby#) where  rownum <= #rowlimit#  order by #orderby#">
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
