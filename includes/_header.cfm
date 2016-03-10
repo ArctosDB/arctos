@@ -112,50 +112,37 @@
 					<cfset gtp=replace(gtp,"//","/","all")>
 					<cfset gtp=replace(gtp,"//","/","all")>
 					<div id="headerLoginDiv">
+						<form name="logIn" method="post" action="/login.cfm">
+							<input type="hidden" name="action" value="signIn">
+							<input type="hidden" name="gotopage" value="#gtp#">
 
+							<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td>
 
-
-
-					<form name="logIn" method="post" action="/login.cfm">
-						<input type="hidden" name="action" value="signIn">
-						<input type="hidden" name="gotopage" value="#gtp#">
-
-						<table border="0" cellpadding="0" cellspacing="0">
-
-
-							<tr>
-								<td>
-
-									<input type="text" name="username" title="Username" value="Username" size="12"
-										class="loginTxt" placeholder="username">
-								</td>
-								<!----
-								<td>
-									<input type="password" name="password" title="Password" placeholder="password" size="12" class="loginTxt">
-								</td>
-								---->
-							</tr>
-						<!---
-							<tr>
-								<td colspan="2" align="center">
-									<div class="loginTxt" style="padding-top:3px;">
-										<input type="submit" value="Log In" class="smallBtn">
-										or
-										<input type="button" value="Create Account" class="smallBtn"
-											onClick="logIn.action.value='newUser';submit();">
-									</div>
-						    	</td>
-							</tr>	--->
-						</table>
-
-					</form>
-										<!----
----->
+										<input type="text" name="username" title="Username" value="Username" size="12"
+											class="loginTxt" placeholder="username">
+									</td>
+									<td>
+										<input type="password" name="password" title="Password" placeholder="password" size="12" class="loginTxt">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center">
+										<div class="loginTxt" style="padding-top:3px;">
+											<input type="submit" value="Log In" class="smallBtn">
+											or
+											<input type="button" value="Create Account" class="smallBtn"
+												onClick="logIn.action.value='newUser';submit();">
+										</div>
+							    	</td>
+								</tr>
+							</table>
+						</form>
 					</div>
 				</cfif>
 			</div>
 
-			<!---
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
@@ -436,10 +423,7 @@
 					</li>
 				</ul>
 			</div>
-
-			--->
 		</div><!--- end header div --->
-
 		<cf_rolecheck>
 	</cfoutput>
 <br><br>
