@@ -128,9 +128,11 @@
 									<input type="text" name="username" title="Username" value="Username" size="12"
 										class="loginTxt" onfocus="if(this.value==this.title){this.value=''};">
 								</td>
+								<!----
 								<td>
 									<input type="password" name="password" title="Password"  size="12" class="loginTxt">
 								</td>
+								---->
 							</tr>
 						<!---
 							<tr>
