@@ -1741,6 +1741,10 @@ You deleted a collecting event.
 			<input type="hidden" name="action" value="" />
 			<cf_findLocality type="event">
 
+
+			<cfdump var=#localityResults#>
+
+
 			Found #localityResults.recordcount# records
 
 			<cfif localityResults.recordcount lt 1000>
