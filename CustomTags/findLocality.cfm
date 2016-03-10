@@ -42,9 +42,7 @@
 		MIN_DEPTH,
 		MAX_DEPTH,
 		DEPTH_UNITS,
-		concatGeologyAttributeDetail(locality.locality_id) geolAtts,minimum_elevation,
-		maximum_elevation,
-		orig_elev_units">
+		concatGeologyAttributeDetail(locality.locality_id) geolAtts">
 	<cfset frm=frm & ",locality,geology_attributes">
 	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and locality.locality_id = geology_attributes.locality_id (+)">
 	<cfset orderby=orderby & ",spec_locality">
@@ -341,7 +339,7 @@
 	<cfset rowlimit=attributes.rowlimit>
 </cfif>
 <cfparam name="rowlimit" default="500" type="integer">
-<cfset sql="#sel# #frm# where #whr# #qual# and rownum <= #rowlimit# order by #orderby#">
+<cfset sql="select * from (#sel# #frm# where #whr# #qual# order by #orderby#) where rownum <= #rowlimit# order by #orderby#">
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
