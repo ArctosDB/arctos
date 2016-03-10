@@ -1,7 +1,11 @@
+<!----
 <cfinclude template = "/includes/_header.cfm">
 <cfif isdefined("session.username") and len(session.username) gt 0 and action neq "signOut">
 	<cflocation url="myArctos.cfm" addtoken="false">
 </cfif>
+
+
+---------->
 <!------------------------------------------------------------>
 <cfif action is "signOut">
 	<cfset initSession()>
