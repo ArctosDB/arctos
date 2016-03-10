@@ -52,7 +52,6 @@
 			</div>
 		</cfif>
 
-		<!---
 		<div id="header_color" style='background-color:#session.header_color#;'>
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 				<tr>
@@ -141,6 +140,8 @@
 					</div>
 				</cfif>
 			</div>
+
+			<!---
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
@@ -421,9 +422,10 @@
 					</li>
 				</ul>
 			</div>
+
+			--->
 		</div><!--- end header div --->
 
-		---->
 		<cf_rolecheck>
 	</cfoutput>
 <br><br>
