@@ -125,8 +125,11 @@
 
 							<tr>
 								<td>
+
+									<!---
 									<input type="text" name="username" title="Username" value="Username" size="12"
 										class="loginTxt" placeholder="username">
+										--->
 								</td>
 								<!----
 								<td>
