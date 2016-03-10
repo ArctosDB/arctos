@@ -6,6 +6,7 @@
 
 
 ---------->
+<cfset action="nothing">
 <!------------------------------------------------------------>
 <cfif action is "signOut">
 	<cfset initSession()>
