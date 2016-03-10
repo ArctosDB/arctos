@@ -126,11 +126,11 @@
 							<tr>
 								<td>
 									<input type="text" name="username" title="Username" value="Username" size="12"
-										class="loginTxt" onfocus="if(this.value==this.title){this.value=''};">
+										class="loginTxt" placeholder="username">
 								</td>
 								<!----
 								<td>
-									<input type="password" name="password" title="Password"  size="12" class="loginTxt">
+									<input type="password" name="password" title="Password" placeholder="password" size="12" class="loginTxt">
 								</td>
 								---->
 							</tr>
