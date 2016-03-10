@@ -1740,27 +1740,16 @@ You deleted a collecting event.
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="" />
 			<cf_findLocality type="event">
-
-
-			<cfdump var=#localityResults#>
-
-
 			Found #localityResults.recordcount# records
-
 			<cfif localityResults.recordcount lt 1000>
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Map <strong>localities</strong> @BerkeleyMapper</a>
 			<cfelse>
 				1000 record limit on mapping, sorry...
 			</cfif>
-
-
 			<span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
 			<cfif isdefined("locality_id") and len(locality_id) gt 0>
 				<a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">[ find and merge duplicates ]</a>
 			</cfif>
-
-
-
 <table border>
 	<tr>
 		<td><b>Geog</b></td>
