@@ -112,9 +112,15 @@
 					<cfset gtp=replace(gtp,"//","/","all")>
 					<cfset gtp=replace(gtp,"//","/","all")>
 					<div id="headerLoginDiv">
+
+
+
+
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
 						<input type="hidden" name="gotopage" value="#gtp#">
+
+						<!---
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
@@ -136,6 +142,7 @@
 						    	</td>
 							</tr>
 						</table>
+						--->
 					</form>
 										<!----
 ---->
