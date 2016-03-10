@@ -100,6 +100,240 @@ sho err
 <cfset numRelns=5>
 
 <!------------------------------------------------------->
+
+<cfif action is "eventSpec">
+	<table border>
+		<tr>
+			<th>FieldName</th>
+			<th>DataType</th>
+			<th>CodeTable</th>
+			<th>RequiredWhen</th>
+			<th>IgnoredWhen</th>
+			<th>Description</th>
+		</tr>
+
+		<tr>
+			<td>COLLECTING_EVENT_ID</td>
+			<td>number</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>If provided, valuedate and return</td>
+		</tr>
+
+
+		<tr>
+			<td colspan="6">Locality Stuff</td>
+		</tr>
+		<tr>
+			<td>LOCALITY_ID</td>
+			<td>number</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>If provided, ignore all otehr locality components</td>
+		</tr>
+		<tr>
+			<td>LOCALITY_NAME</td>
+			<td>string</td>
+			<td></td>
+			<td></td>
+			<td>LOCALITY_ID is given</td>
+			<td>proxy for LOCALITY_ID</td>
+		</tr>
+		<tr>
+			<td>FieldName</td>
+			<td>DataType</td>
+			<td>CodeTable</td>
+			<td>RequiredWhen</td>
+			<td>IgnoredWhen</td>
+			<td>Description</td>
+		</tr>
+		<tr>
+			<td>FieldName</td>
+			<td>DataType</td>
+			<td>CodeTable</td>
+			<td>RequiredWhen</td>
+			<td>IgnoredWhen</td>
+			<td>Description</td>
+		</tr>
+
+insert into temp_getMakeCE_flds (fld) values ('');
+insert into temp_getMakeCE_flds (fld) values ('');
+insert into temp_getMakeCE_flds (fld) values ('VERBATIM_DATE');
+insert into temp_getMakeCE_flds (fld) values ('VERBATIM_LOCALITY');
+insert into temp_getMakeCE_flds (fld) values ('COLL_EVENT_REMARKS');
+insert into temp_getMakeCE_flds (fld) values ('BEGAN_DATE');
+insert into temp_getMakeCE_flds (fld) values ('ENDED_DATE');
+insert into temp_getMakeCE_flds (fld) values ('LAT_DEG');
+insert into temp_getMakeCE_flds (fld) values ('DEC_LAT_MIN');
+insert into temp_getMakeCE_flds (fld) values ('LAT_MIN');
+insert into temp_getMakeCE_flds (fld) values ('LAT_SEC');
+insert into temp_getMakeCE_flds (fld) values ('LAT_DIR');
+insert into temp_getMakeCE_flds (fld) values ('v_LONG_DEG');
+insert into temp_getMakeCE_flds (fld) values ('v_DEC_LONG_MIN');
+insert into temp_getMakeCE_flds (fld) values ('v_LONG_MIN');
+insert into temp_getMakeCE_flds (fld) values ('v_LONG_SEC');
+insert into temp_getMakeCE_flds (fld) values ('v_LONG_DIR');
+insert into temp_getMakeCE_flds (fld) values ('v_DEC_LAT');
+insert into temp_getMakeCE_flds (fld) values ('v_DEC_LONG');
+insert into temp_getMakeCE_flds (fld) values ('v_DATUM');
+insert into temp_getMakeCE_flds (fld) values ('v_UTM_ZONE');
+insert into temp_getMakeCE_flds (fld) values ('v_UTM_EW');
+insert into temp_getMakeCE_flds (fld) values ('v_UTM_NS');
+insert into temp_getMakeCE_flds (fld) values ('v_ORIG_LAT_LONG_UNITS');
+insert into temp_getMakeCE_flds (fld) values ('v_SPEC_LOCALITY');
+insert into temp_getMakeCE_flds (fld) values ('v_MINIMUM_ELEVATION');
+insert into temp_getMakeCE_flds (fld) values ('v_MAXIMUM_ELEVATION');
+insert into temp_getMakeCE_flds (fld) values ('v_ORIG_ELEV_UNITS');
+insert into temp_getMakeCE_flds (fld) values ('v_MIN_DEPTH');
+insert into temp_getMakeCE_flds (fld) values ('v_MAX_DEPTH');
+insert into temp_getMakeCE_flds (fld) values ('v_DEPTH_UNITS');
+insert into temp_getMakeCE_flds (fld) values ('v_MAX_ERROR_DISTANCE');
+insert into temp_getMakeCE_flds (fld) values ('v_MAX_ERROR_UNITS');
+insert into temp_getMakeCE_flds (fld) values ('v_LOCALITY_REMARKS');
+insert into temp_getMakeCE_flds (fld) values ('v_GEOREFERENCE_SOURCE');
+insert into temp_getMakeCE_flds (fld) values ('v_GEOREFERENCE_PROTOCOL');
+insert into temp_getMakeCE_flds (fld) values ('');
+insert into temp_getMakeCE_flds (fld) values ('v_WKT_POLYGON');
+insert into temp_getMakeCE_flds (fld) values ('v_HIGHER_GEOG');
+insert into temp_getMakeCE_flds (fld) values ('v_geology_attribute_1');
+insert into temp_getMakeCE_flds (fld) values ('v_geo_att_value_1');
+insert into temp_getMakeCE_flds (fld) values ('v_geo_att_determined_date_1');
+insert into temp_getMakeCE_flds (fld) values ('v_geo_att_determiner_1');
+insert into temp_getMakeCE_flds (fld) values ('v_geo_att_determined_method_1');
+insert into temp_getMakeCE_flds (fld) values ('fffff');
+insert into temp_getMakeCE_flds (fld) values ('fffff');
+insert into temp_getMakeCE_flds (fld) values ('fffff');
+insert into temp_getMakeCE_flds (fld) values ('fffff');
+insert into temp_getMakeCE_flds (fld) values ('fffff');
+
+		<tr>
+			<td></td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+
+
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+		<tr>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+		</tr>
+	</table>
+</cfif>
+
+
 <cfif action is "killMine">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_media where username='#session.username#'
