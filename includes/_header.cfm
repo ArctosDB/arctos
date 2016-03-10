@@ -122,7 +122,7 @@
 
 						<table border="0" cellpadding="0" cellspacing="0">
 
-						<!---
+
 							<tr>
 								<td>
 									<input type="text" name="username" title="Username" value="Username" size="12"
@@ -132,7 +132,7 @@
 									<input type="password" name="password" title="Password"  size="12" class="loginTxt">
 								</td>
 							</tr>
-							--->
+						<!---
 							<tr>
 								<td colspan="2" align="center">
 									<div class="loginTxt" style="padding-top:3px;">
@@ -142,7 +142,7 @@
 											onClick="logIn.action.value='newUser';submit();">
 									</div>
 						    	</td>
-							</tr>
+							</tr>	--->
 						</table>
 
 					</form>
