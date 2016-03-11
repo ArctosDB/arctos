@@ -54,6 +54,16 @@ media_license_id number,
  media_label_value_10 varchar2(60)
 );
 
+-- temp_getMakeCE_flds contains the fields understood by the event-looker-upper; add them to the media loader
+
+desc cf_temp_media;
+begin
+	for r in (select fld from temp_getMakeCE_flds) loop
+		dbms_output.put_line('alter table cf_temp_media add ' || r.fld || ' varchar2(4000);');
+	end loop;
+end;
+/
+
 
 create table cf_temp_media_relations (
  key NUMBER,
@@ -740,18 +750,43 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 		</cfif>
 		<cfset header=listappend(header,"media_related_term_#i#")>
 	</cfloop>
+	<cfif hEvt is 1>
+		<!--- probably want to break this down at some point....
+			for the copypasta:
+				declare x varchar2(4000);
+				begin
+					for r in (select fld from temp_getMakeCE_flds) loop
+						x:= x || ',' || r.fld;
+					end loop;
+					dbms_output.put_line(x);
+				end;
+				/
+		---->
+			<cfset el='COLLECTING_EVENT_ID,LOCALITY_ID,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,'>
+			<cfset el=el & 'DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,'>
+			<cfset el=el & 'UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,'>
+			<cfset el=el & 'MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,'>
+			<cfset el=el & 'GEOREFERENCE_PROTOCOL,LOCALITY_NAME,WKT_POLYGON,HIGHER_GEOG,'>
+			<cfset el=el & 'geology_attribute_1,geo_att_value_1,geo_att_determined_date_1,geo_att_determiner_1,geo_att_determined_method_1,'>
+			<cfset el=el & 'geology_attribute_2,geo_att_value_2,geo_att_determined_date_2,geo_att_determiner_2,geo_att_determined_method_2,'>
+			<cfset el=el & 'geology_attribute_3,geo_att_value_3,geo_att_determined_date_3,geo_att_determiner_3,geo_att_determined_method_3,'>
+			<cfset el=el & 'geology_attribute_4,geo_att_value_4,geo_att_determined_date_4,geo_att_determiner_4,geo_att_determined_method_4,'>
+			<cfset el=el & 'geology_attribute_5,geo_att_value_5,geo_att_determined_date_5,geo_att_determiner_5,geo_att_determined_method_5,'>
+			<cfset el=el & 'geology_attribute_6,geo_att_value_6,geo_att_determined_date_6,geo_att_determiner_6,geo_att_determined_method_6'>
+
+			<cfset header=listappend(header,x)>
+	</cfif>
+
 	<cffile action = "write"
-    file = "#Application.webDirectory#/download/BulkMedia.csv"
-    output = "#header#"
-    addNewLine = "no">
+	    file = "#Application.webDirectory#/download/BulkMedia.csv"
+	    output = "#header#"
+	    addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkMedia.csv" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
-	<cfparam name="nL" default="#numLabels#">
-	<cfparam name="nR" default="#numRelns#">
-	<cfparam name="hK" default="1">
+
 	<ul>
 		<li>Binary objects to be created as Media (and preview) must exist in a web-accessible location and return a 200 statuscode in the HTML header</li>
 		<li>Objects to which Media will be related - such as collecting events and cataloged items - must exist</li>
@@ -787,6 +822,9 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 		<br><input type="submit" value="go">
 	</form>
 <hr>
+	<cfparam name="nL" default="#numLabels#">
+	<cfparam name="nR" default="#numRelns#">
+	<cfparam name="hK" default="1">
 	Download CSV template:
 	<form name="temp" method="post" action="BulkloadMedia.cfm">
 		<input type="hidden" name="action" value="makeTemplate">
@@ -807,6 +845,13 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 			<option <cfif hK is 1> selected="selected" </cfif>value="1">yes</option>
 			<option <cfif hK is 0> selected="selected" </cfif>value="0">no</option>
 		</select>
+		<cfparam name="hEvt" default="1">
+		<label for="hEvt">Include collecting event?</label>
+		<select name="hEvt" id="hKhEvt">
+			<option <cfif hEvt is 1> selected="selected" </cfif>value="1">yes</option>
+			<option <cfif hEvt is 0> selected="selected" </cfif>value="0">no</option>
+		</select>
+
 		<br>
 		<input type="submit" value="get template">
 	</form>
