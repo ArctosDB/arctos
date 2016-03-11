@@ -774,7 +774,7 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 			<cfset el=el & 'geology_attribute_5,geo_att_value_5,geo_att_determined_date_5,geo_att_determiner_5,geo_att_determined_method_5,'>
 			<cfset el=el & 'geology_attribute_6,geo_att_value_6,geo_att_determined_date_6,geo_att_determiner_6,geo_att_determined_method_6'>
 
-			<cfset header=listappend(header,x)>
+			<cfset header=listappend(header,el)>
 	</cfif>
 
 	<cffile action = "write"
