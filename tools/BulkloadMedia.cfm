@@ -846,6 +846,14 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 			<option <cfif hK is 0> selected="selected" </cfif>value="0">no</option>
 		</select>
 		<cfparam name="hEvt" default="1">
+		<p>
+			NOTE: This is a developing process. Selecting this will add (currently all) "event fields" to the media bulklaoder.
+			Specimen bulkloader	documentation will be instructive.
+			Delete unwanted columns.
+		</p>
+		<p>
+			CAUTION: no handlers for collecting event data are in place; coordinate usage with a DBA.
+		</p>
 		<label for="hEvt">Include collecting event?</label>
 		<select name="hEvt" id="hKhEvt">
 			<option <cfif hEvt is 1> selected="selected" </cfif>value="1">yes</option>
