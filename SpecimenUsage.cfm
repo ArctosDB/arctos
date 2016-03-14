@@ -262,6 +262,14 @@
 		</cfif>
 		<cfset sql = "#sel# #frm# #whr# ORDER BY project_name">
 		<cfset checkSql(sql)>
+
+
+		#preservesinglequotes(sql)#
+
+
+		<cfabort>
+
+
 		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>

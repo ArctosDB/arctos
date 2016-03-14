@@ -171,6 +171,10 @@
 							<cfelse>
 								<cfset rec_stat=listappend(rec_stat,'Agent #rt# matched #c.recordcount# records.',";")>
 							</cfif>
+						<cfelseif table_name is "collecting_event">
+						
+						
+						
 						<cfelseif table_name is "project">
 							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 								select distinct(project_id) project_id from project where PROJECT_NAME ='#rt#'
