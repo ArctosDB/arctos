@@ -544,8 +544,6 @@
 			SELECT
 				publication_id,
 				full_citation,
-				numCits,
-				numSensu,
 				doi,
 				pmid,
 				publication_remarks
@@ -554,8 +552,6 @@
 			GROUP BY
 				publication_id,
 				full_citation,
-				numCits,
-				numSensu,
 				doi,
 				pmid,
 				publication_remarks
