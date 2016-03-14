@@ -169,7 +169,6 @@
 			(isdefined("publication_type") AND len(publication_type) gt 0) or
 			(isdefined("collection_id") AND len(collection_id) gt 0) or
 			(isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0) or
-			(isdefined("collection_id") AND len(collection_id) gt 0) or
 			(isdefined("cited_sci_Name") AND len(cited_sci_Name) gt 0) or
 			(isdefined("current_sci_Name") AND len(current_sci_Name) gt 0) or
 			(isdefined("is_peer_reviewed_fg") AND len(is_peer_reviewed_fg) gt 0 or
@@ -361,12 +360,13 @@
 		<p>
 			basFrom: #basFrom#
 		</p>
-		<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
+		<cfif isdefined("collection_id") AND len(collection_id) gt 0>
 			<cfset go="yes">
 			<cfset basFrom = "#basFrom#,cataloged_item">
 			<cfif basFrom does not contain "citation">
-				<br>
+				<p>
 				basFrom does not contain "citation"
+				</p>
 				<cfset basFrom = "#basFrom#,citation">
 			</cfif>
 			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id
