@@ -546,7 +546,8 @@
 				full_citation,
 				doi,
 				pmid,
-				publication_remarks
+				publication_remarks,
+				NUMCITS
 			FROM
 				publication
 			GROUP BY
@@ -554,7 +555,8 @@
 				full_citation,
 				doi,
 				pmid,
-				publication_remarks
+				publication_remarks,
+				NUMCITS
 			ORDER BY
 				full_citation
 		</cfquery>
