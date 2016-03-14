@@ -386,6 +386,8 @@
 		<cfif isdefined("collection_id") AND len(collection_id) gt 0>
 			<cfset go="yes">
 			<cfset basFrom = "#basFrom#,cataloged_item">
+
+			<!----
 			<cfif basFrom does not contain "spcitation">
 				<p>
 				basFrom does not contain "spcitation"
@@ -393,9 +395,9 @@
 				<cfset basFrom = "#basFrom#,citation spcitation">
 				<cfset basWhere = "#basWhere# AND publication.publication_id = spcitation.publication_id ">
 			</cfif>
-
+			---->
 			<cfset basWhere = "#basWhere#
-				AND spcitation.collection_object_id = cataloged_item.collection_object_id AND
+				AND citation.collection_object_id = cataloged_item.collection_object_id AND
 				cataloged_item.collection_id = #collection_id#">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
