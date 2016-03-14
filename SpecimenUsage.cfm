@@ -354,10 +354,15 @@
 			<cfset basWhere = "#basWhere# AND publication.publication_id=#publication_id#">
 			<cfset go="yes">
 		</cfif>
+		<p>
+			basFrom: #basFrom#
+		</p>
 		<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
 			<cfset go="yes">
 			<cfset basFrom = "#basFrom#,cataloged_item">
-			<cfif #basFrom# does not contain "citation">
+			<cfif basFrom does not contain "citation">
+				<br>
+				basFrom does not contain "citation"
 				<cfset basFrom = "#basFrom#,citation">
 			</cfif>
 			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id
