@@ -139,10 +139,6 @@
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif action is "search">
-
-<cfdump var=#form#>
-
-
 	<cfoutput>
 		<cfset title = "Usage Search Results">
 		<cfset sel = "
@@ -258,14 +254,6 @@
 		</cfif>
 		<cfset sql = "#sel# #frm# #whr# ORDER BY project_name">
 		<cfset checkSql(sql)>
-
-
-		<p>
-			project:
-		</p>
-		<p>
-			#preservesinglequotes(sql)#
-		</p>
 		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
@@ -285,25 +273,6 @@
 			ORDER BY
 				project_name
 		</cfquery>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<p>
-			now pubs
-		</p>
 		<cfset i=1>
 		<cfset go="no">
 		<cfset basSQL = "SELECT
@@ -351,16 +320,12 @@
 		</cfif>
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
 			<cfif basFrom does not contain "publication_agent">
-				<p>
-				basFrom does not contain "publication_agent"
-				</p>
 				<cfset basFrom = "#basFrom#,publication_agent">
 			</cfif>
 			<cfset basWhere = "#basWhere# AND publication.publication_id = publication_agent.publication_id
 				AND publication_agent.author_role='#agent_role#'">
 			<cfset go="yes">
 		</cfif>
-
 
 		<cfif isdefined("publication_type") AND len(#publication_type#) gt 0>
 			<cfset basWhere = "#basWhere# AND publication.publication_type = '#publication_type#'">
@@ -370,9 +335,6 @@
 			<cfset basWhere = "#basWhere# AND publication.publication_id=#publication_id#">
 			<cfset go="yes">
 		</cfif>
-		<p>
-			basFrom: #basFrom#
-		</p>
 		<cfif isdefined("collection_id") AND len(collection_id) gt 0>
 			<cfset go="yes">
 			<cfset basFrom = "#basFrom#,cataloged_item">
