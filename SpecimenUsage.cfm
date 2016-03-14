@@ -312,21 +312,21 @@
 			publication.publication_remarks,
 			publication.doi,
 			publication.pmid,
-			count(distinct(ccitation.collection_object_id)) numCits,
+			count(distinct(citation.collection_object_id)) numCits,
 			taxon_name.scientific_name,
 			count(distinct(identification.identification_id)) numSensu">
 		<cfset basFrom = "
 			FROM
 			publication,
 			project_publication,
-			ccitation,
+			citation,
 			taxonomy_publication,
 			taxon_name,
 			identification">
 		<cfset basWhere = "
 			WHERE
 				publication.publication_id = project_publication.publication_id (+) and
-				publication.publication_id = ccitation.publication_id (+) and
+				publication.publication_id = citation.publication_id (+) and
 				publication.publication_id=taxonomy_publication.publication_id (+) and
 				taxonomy_publication.taxon_name_id=taxon_name.taxon_name_id (+) and
 				publication.publication_id = identification.publication_id (+)
@@ -386,17 +386,16 @@
 		<cfif isdefined("collection_id") AND len(collection_id) gt 0>
 			<cfset go="yes">
 			<cfset basFrom = "#basFrom#,cataloged_item">
-			<cfif basFrom does not contain "citation">
+			<cfif basFrom does not contain "spcitation">
 				<p>
-				basFrom does not contain "citation"
+				basFrom does not contain "spcitation"
 				</p>
-				<cfset basFrom = "#basFrom#,citation">
+				<cfset basFrom = "#basFrom#,citation spcitation">
+				<cfset basWhere = "#basWhere# AND publication.publication_id = spcitation.publication_id ">
 			</cfif>
-			<cfif basWhere does not contain "citation.publication_id">
-				<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id ">
-			</cfif>
+
 			<cfset basWhere = "#basWhere#
-				AND citation.collection_object_id = cataloged_item.collection_object_id AND
+				AND spcitation.collection_object_id = cataloged_item.collection_object_id AND
 				cataloged_item.collection_id = #collection_id#">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
