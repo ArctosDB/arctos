@@ -312,24 +312,14 @@
 			publication.publication_remarks,
 			publication.doi,
 			publication.pmid,
-			count(distinct(citation.collection_object_id)) numCits,
-			taxon_name.scientific_name,
-			count(distinct(identification.identification_id)) numSensu">
+			count(distinct(citation.collection_object_id)) numCits">
 		<cfset basFrom = "
 			FROM
 			publication,
-			project_publication,
-			citation,
-			taxonomy_publication,
-			taxon_name,
-			identification">
+			citation">
 		<cfset basWhere = "
 			WHERE
-				publication.publication_id = project_publication.publication_id (+) and
-				publication.publication_id = citation.publication_id (+) and
-				publication.publication_id=taxonomy_publication.publication_id (+) and
-				taxonomy_publication.taxon_name_id=taxon_name.taxon_name_id (+) and
-				publication.publication_id = identification.publication_id (+)
+				publication.publication_id = citation.publication_id (+)
 				">
 		<cfif (isdefined("project_type") AND len(project_type) gt 0)>
 			<cfset basWhere = "#basWhere# AND 1=2">
