@@ -139,6 +139,10 @@
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif action is "search">
+
+<cfdump var=#form#>
+
+
 	<cfoutput>
 		<cfset title = "Usage Search Results">
 		<cfset sel = "
