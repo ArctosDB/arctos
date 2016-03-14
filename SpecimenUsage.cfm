@@ -287,6 +287,20 @@
 		</cfquery>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		<p>
 			now pubs
 		</p>
@@ -294,7 +308,6 @@
 		<cfset go="no">
 		<cfset basSQL = "SELECT
 			publication.publication_id,
-			publication.publication_type,
 			publication.full_citation,
 			publication.publication_remarks,
 			publication.doi,
@@ -305,9 +318,7 @@
 		<cfset basFrom = "
 			FROM
 			publication,
-			publication_agent,
 			project_publication,
-			agent_name,
 			citation,
 			taxonomy_publication,
 			taxon_name,
@@ -315,12 +326,11 @@
 		<cfset basWhere = "
 			WHERE
 				publication.publication_id = project_publication.publication_id (+) and
-				publication.publication_id = identification.publication_id (+) and
-				publication.publication_id = citation.publication_id (+)
-				AND publication.publication_id = publication_agent.publication_id (+)
-				AND publication_agent.agent_id = agent_name.agent_id (+) and
+				publication.publication_id = citation.publication_id (+) and
 				publication.publication_id=taxonomy_publication.publication_id (+) and
-				taxonomy_publication.taxon_name_id=taxon_name.taxon_name_id (+)">
+				taxonomy_publication.taxon_name_id=taxon_name.taxon_name_id (+) and
+				publication.publication_id = identification.publication_id (+)
+				">
 		<cfif (isdefined("project_type") AND len(project_type) gt 0)>
 			<cfset basWhere = "#basWhere# AND 1=2">
 		</cfif>
@@ -350,9 +360,18 @@
 			<cfset go="yes">
 		</cfif>
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
-			<cfset basWhere = "#basWhere# AND publication_agent.author_role='#agent_role#'">
+			<cfif basFrom does not contain "publication_agent">
+				<p>
+				basFrom does not contain "publication_agent"
+				</p>
+				<cfset basFrom = "#basFrom#,publication_agent">
+			</cfif>
+			<cfset basWhere = "#basWhere# AND publication.publication_id = publication_agent.publication_id
+				AND publication_agent.author_role='#agent_role#'">
 			<cfset go="yes">
 		</cfif>
+
+
 		<cfif isdefined("publication_type") AND len(#publication_type#) gt 0>
 			<cfset basWhere = "#basWhere# AND publication.publication_type = '#publication_type#'">
 			<cfset go="yes">
@@ -434,7 +453,6 @@
 		<cfset basSql = "#basSQL# #basFrom# #basWhere#
 			group by
 				publication.publication_id,
-				publication.publication_type,
 				publication.full_citation,
 				publication.doi,
 				publication.pmid,
@@ -543,7 +561,6 @@
 		<cfquery name="pubs" dbtype="query">
 			SELECT
 				publication_id,
-				publication_type,
 				full_citation,
 				numCits,
 				numSensu,
@@ -554,7 +571,6 @@
 				publication
 			GROUP BY
 				publication_id,
-				publication_type,
 				full_citation,
 				numCits,
 				numSensu,
