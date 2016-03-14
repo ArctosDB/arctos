@@ -151,19 +151,17 @@
 						project.project_name,
 						project.start_date,
 						project.end_date,
-						preferred_agent_name.agent_name,
+						getPreferredAgentName(project_agent.agent_id) agent_name,
 						PROJECT_AGENT_REMARKS,
 						project_agent_role,
 						agent_position">
 		<cfset frm="
 					FROM
 						project,
-						project_agent,
-						preferred_agent_name">
+						project_agent">
 		<cfset whr="
 					WHERE
-						project.project_id = project_agent.project_id (+) AND
-						project_agent.agent_id = preferred_agent_name.agent_id (+)">
+						project.project_id = project_agent.project_id (+) ">
 		<cfset go="no">
 		<cfif (isdefined("doi") AND len(doi) gt 0) or
 			(isdefined("publication_type") AND len(publication_type) gt 0) or
@@ -182,11 +180,6 @@
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project_agent.project_agent_role='#agent_role#'">
 		</cfif>
-
-
-
-
-
 
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
 			<cfset title = "#p_title#">
@@ -267,6 +260,12 @@
 		<cfset checkSql(sql)>
 
 
+		<p>
+			project:
+		</p>
+		<p>
+			#preservesinglequotes(sql)#
+		</p>
 		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
@@ -286,6 +285,11 @@
 			ORDER BY
 				project_name
 		</cfquery>
+
+
+		<p>
+			now pubs
+		</p>
 		<cfset i=1>
 		<cfset go="no">
 		<cfset basSQL = "SELECT
