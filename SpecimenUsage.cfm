@@ -392,7 +392,10 @@
 				</p>
 				<cfset basFrom = "#basFrom#,citation">
 			</cfif>
-			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id
+			<cfif basWhere does not contain "citation.publication_id">
+				<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id ">
+			</cfif>
+			<cfset basWhere = "#basWhere#
 				AND citation.collection_object_id = cataloged_item.collection_object_id AND
 				cataloged_item.collection_id = #collection_id#">
 		</cfif>
