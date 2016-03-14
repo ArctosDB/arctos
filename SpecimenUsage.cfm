@@ -455,17 +455,6 @@
 				publication.full_citation,
 				publication.publication_id">
 
-
-
-
-
-		#preservesinglequotes(basSQL)#
-
-
-		<cfabort>
-
-
-
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (#preservesinglequotes(basSQL)#) where rownum<=#maxNumberOfRows#
 		</cfquery>
