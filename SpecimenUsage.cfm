@@ -575,8 +575,12 @@
 						</cfif>
 					</li>
 					<li>
-						<cfif numSensu gt 0>
-							<a href="/SpecimenResults.cfm?id_pub_id=#publication_id#">#numSensu# <em>sensu</em> Identifications</a>
+						<cfquery name="sensu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							select count(*) numSensu from identification where publication_id=#publication_id#
+						</cfquery>
+
+						<cfif sensu.numSensu gt 0>
+							<a href="/SpecimenResults.cfm?id_pub_id=#publication_id#">#sensu.numSensu# <em>sensu</em> Identifications</a>
 						<cfelse>
 							No <em>sensu</em> Identifications
 						</cfif>
