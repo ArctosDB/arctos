@@ -656,14 +656,15 @@
 								<div class="thumb_spcr">&nbsp;</div>
 							</div>
 					</cfif>
-					<cfquery name="ptax" dbtype="query">
+					<cfquery name="ptax"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
 							scientific_name
 						from
-							publication
+							taxonomy_publication,
+							taxon_name
 						where
-							publication_id=#publication_id# and
-							scientific_name is not null
+							taxonomy_publication.taxon_name_id=taxon_name.taxon_name_id and
+							taxonomy_publication.publication_id=#publication_id#
 						group by
 							scientific_name
 						order by
