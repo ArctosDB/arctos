@@ -312,21 +312,21 @@
 			publication.publication_remarks,
 			publication.doi,
 			publication.pmid,
-			count(distinct(citation.collection_object_id)) numCits,
+			count(distinct(ccitation.collection_object_id)) numCits,
 			taxon_name.scientific_name,
 			count(distinct(identification.identification_id)) numSensu">
 		<cfset basFrom = "
 			FROM
 			publication,
 			project_publication,
-			citation,
+			ccitation,
 			taxonomy_publication,
 			taxon_name,
 			identification">
 		<cfset basWhere = "
 			WHERE
 				publication.publication_id = project_publication.publication_id (+) and
-				publication.publication_id = citation.publication_id (+) and
+				publication.publication_id = ccitation.publication_id (+) and
 				publication.publication_id=taxonomy_publication.publication_id (+) and
 				taxonomy_publication.taxon_name_id=taxon_name.taxon_name_id (+) and
 				publication.publication_id = identification.publication_id (+)
