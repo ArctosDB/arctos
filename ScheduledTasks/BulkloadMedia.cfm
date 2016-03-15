@@ -176,8 +176,12 @@
 							</cfif>
 						<cfelseif table_name is "collecting_event">
 							<cfif len(rk) is 0 and rt is "lookup">
+
+								<p>
+									running procedure.....
+								</p>
 								<!--- get a collecting event or throw an error ---->
-								<cfstoredproc procedure="getMakeCollectingEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								<cfstoredproc procedure="getMakeCollectingEvent" datasource="uam_god">
 									<cfprocparam type="in" cfsqltype="cf_sql_varchar" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
 									<cfprocparam type="out" cfsqltype="cf_sql_varchar" variable="ceid" dbvarname="v_r_ceid">
 
