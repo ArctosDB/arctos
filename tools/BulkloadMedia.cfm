@@ -1,8 +1,12 @@
 <!-------- /ScheduledTasks/BulkloadMedia.cfm is necessary ------------->
 <!---
-drop table cf_temp_media;
 drop table cf_temp_media_relations;
 drop table cf_temp_media_labels;
+
+
+
+drop table cf_temp_media;
+
 
 
 create table cf_temp_media (
