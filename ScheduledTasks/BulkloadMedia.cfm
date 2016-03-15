@@ -282,6 +282,11 @@
 								<p>
 									update cf_temp_media set media_related_key_#i#=#ceid# where key=#key#
 								</p>
+
+																<cfquery name="i" datasource="uam_god">
+																	update cf_temp_media set media_related_key_#i#=#ceid# where key=#key#
+																</cfquery>
+
 								<cfcatch>
 									catch!
 
@@ -294,7 +299,6 @@
 		</p>
 								</cfcatch>
 								</cftry>
-								<cfabort>
 
 
 
