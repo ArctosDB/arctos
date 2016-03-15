@@ -181,13 +181,97 @@
 									running procedure.....
 								</p>
 								<!--- get a collecting event or throw an error ---->
+								<!----
+									well crap
+									CF10 ignores dbvarname
+									so we have to pass these things in in order or fail
+									crap.
+									srsly.
+									crap.
+								---->
 								<cfstoredproc procedure="getMakeCollectingEvent" datasource="uam_god">
 									<cfprocparam type="in" cfsqltype="cf_sql_numeric" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
 
 
-									<cfprocparam type="out" cfsqltype="cf_sql_numeric" variable="ceid" dbvarname="v_r_ceid">
-																		<cfprocparam type="in" cfsqltype="cf_sql_numeric" value="6" dbvarname="blabitty">
 
+
+									<cfprocparam type="in" cfsqltype="cf_sql_numeric" value="#v_LOCALITY_ID#" dbvarname="v_LOCALITY_ID">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_VERBATIM_DATE#" dbvarname="v_VERBATIM_DATE">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_VERBATIM_LOCALITY#" dbvarname="v_VERBATIM_LOCALITY">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_COLL_EVENT_REMARKS#" dbvarname="v_COLL_EVENT_REMARKS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_BEGAN_DATE#" dbvarname="v_BEGAN_DATE">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_ENDED_DATE#" dbvarname="v_ENDED_DATE">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_COLLECTING_EVENT_NAME#" dbvarname="v_COLLECTING_EVENT_NAME">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LAT_DEG#" dbvarname="v_LAT_DEG">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_DEC_LAT_MIN#" dbvarname="v_DEC_LAT_MIN">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LAT_MIN#" dbvarname="v_LAT_MIN">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LAT_SEC#" dbvarname="v_LAT_SEC">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LAT_DIR#" dbvarname="v_LAT_DIR">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LONG_DEG#" dbvarname="v_LONG_DEG">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_DEC_LONG_MIN#" dbvarname="v_DEC_LONG_MIN">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LONG_MIN#" dbvarname="v_LONG_MIN">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LONG_SEC#" dbvarname="v_LONG_SEC">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LONG_DIR#" dbvarname="v_LONG_DIR">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_DEC_LAT#" dbvarname="v_DEC_LAT">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_DEC_LONG#" dbvarname="v_DEC_LONG">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_DATUM#" dbvarname="v_DATUM">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_UTM_ZONE#" dbvarname="v_UTM_ZONE">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_UTM_EW#" dbvarname="v_UTM_EW">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_UTM_NS#" dbvarname="v_UTM_NS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_ORIG_LAT_LONG_UNITS#" dbvarname="v_ORIG_LAT_LONG_UNITS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_SPEC_LOCALITY#" dbvarname="v_SPEC_LOCALITY">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_MINIMUM_ELEVATION#" dbvarname="v_MINIMUM_ELEVATION">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_MAXIMUM_ELEVATION#" dbvarname="v_MAXIMUM_ELEVATION">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_ORIG_ELEV_UNITS#" dbvarname="v_ORIG_ELEV_UNITS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_MIN_DEPTH#" dbvarname="v_MIN_DEPTH">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_MAX_DEPTH#" dbvarname="v_MAX_DEPTH">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_DEPTH_UNITS#" dbvarname="v_DEPTH_UNITS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_MAX_ERROR_DISTANCE#" dbvarname="v_MAX_ERROR_DISTANCE">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_MAX_ERROR_UNITS#" dbvarname="v_MAX_ERROR_UNITS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LOCALITY_REMARKS#" dbvarname="v_LOCALITY_REMARKS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_GEOREFERENCE_SOURCE#" dbvarname="v_GEOREFERENCE_SOURCE">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_GEOREFERENCE_PROTOCOL#" dbvarname="v_GEOREFERENCE_PROTOCOL">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_LOCALITY_NAME#" dbvarname="v_LOCALITY_NAME">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_WKT_POLYGON#" dbvarname="v_WKT_POLYGON">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_HIGHER_GEOG#" dbvarname="v_HIGHER_GEOG">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geology_attribute_1#" dbvarname="v_geology_attribute_1">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_value_1#" dbvarname="v_geo_att_value_1">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_date_1#" dbvarname="v_geo_att_determined_date_1">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determiner_1#" dbvarname="v_geo_att_determiner_1">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_method_1#" dbvarname="v_geo_att_determined_method_1">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_remark_1#" dbvarname="v_geo_att_remark_1">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geology_attribute_2#" dbvarname="v_geology_attribute_2">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_value_2#" dbvarname="v_geo_att_value_2">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_date_2#" dbvarname="v_geo_att_determined_date_2">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determiner_2#" dbvarname="v_geo_att_determiner_2">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_method_2#" dbvarname="v_geo_att_determined_method_2">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_remark_2#" dbvarname="v_geo_att_remark_2">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geology_attribute_3#" dbvarname="v_geology_attribute_3">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_value_3#" dbvarname="v_geo_att_value_3">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_date_3#" dbvarname="v_geo_att_determined_date_3">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determiner_3#" dbvarname="v_geo_att_determiner_3">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_method_3#" dbvarname="v_geo_att_determined_method_3">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_remark_3#" dbvarname="v_geo_att_remark_3">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geology_attribute_4#" dbvarname="v_geology_attribute_4">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_value_4#" dbvarname="v_geo_att_value_4">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_date_4#" dbvarname="v_geo_att_determined_date_4">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determiner_4#" dbvarname="v_geo_att_determiner_4">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_method_4#" dbvarname="v_geo_att_determined_method_4">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_remark_4#" dbvarname="v_geo_att_remark_4">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geology_attribute_5#" dbvarname="v_geology_attribute_5">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_value_5#" dbvarname="v_geo_att_value_5">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_date_5#" dbvarname="v_geo_att_determined_date_5">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determiner_5#" dbvarname="v_geo_att_determiner_5">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_method_5#" dbvarname="v_geo_att_determined_method_5">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_remark_5#" dbvarname="v_geo_att_remark_5">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geology_attribute_6#" dbvarname="v_geology_attribute_6">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_value_6#" dbvarname="v_geo_att_value_6">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_date_6#" dbvarname="v_geo_att_determined_date_6">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determiner_6#" dbvarname="v_geo_att_determiner_6">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_determined_method_6#" dbvarname="v_geo_att_determined_method_6">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#v_geo_att_remark_6#" dbvarname="v_geo_att_remark_6">
+
+									<cfprocparam type="out" cfsqltype="cf_sql_numeric" variable="ceid" dbvarname="v_r_ceid">
 								</cfstoredproc>
 
 								<p>
@@ -198,82 +282,21 @@
 
 
 <!---
-v_COLLECTING_EVENT_ID in collecting_event.collecting_event_id%type  default null,
-	v_LOCALITY_ID in collecting_event.locality_id%type default null,
-	v_VERBATIM_DATE in collecting_event.VERBATIM_DATE%type default null,
- 	v_VERBATIM_LOCALITY in collecting_event.VERBATIM_LOCALITY%type default null,
- 	v_COLL_EVENT_REMARKS in collecting_event.COLL_EVENT_REMARKS%type default null,
- 	v_BEGAN_DATE in collecting_event.BEGAN_DATE%type default null,
- 	v_ENDED_DATE in collecting_event.ENDED_DATE%type default null,
- 	v_COLLECTING_EVENT_NAME in collecting_event.COLLECTING_EVENT_NAME%type default null,
- 	v_LAT_DEG in collecting_event.LAT_DEG%type default null,
- 	v_DEC_LAT_MIN in collecting_event.DEC_LAT_MIN%type default null,
- 	v_LAT_MIN in collecting_event.LAT_MIN%type default null,
- 	v_LAT_SEC in collecting_event.LAT_SEC%type default null,
- 	v_LAT_DIR in collecting_event.LAT_DIR%type default null,
- 	v_LONG_DEG in collecting_event.LONG_DEG%type default null,
- 	v_DEC_LONG_MIN in collecting_event.DEC_LONG_MIN%type default null,
- 	v_LONG_MIN in collecting_event.LONG_MIN%type default null,
- 	v_LONG_SEC in collecting_event.LONG_SEC%type default null,
- 	v_LONG_DIR in collecting_event.LONG_DIR%type default null,
- 	v_DEC_LAT in collecting_event.DEC_LAT%type default null,
- 	v_DEC_LONG in collecting_event.DEC_LONG%type default null,
-	v_DATUM in collecting_event.DATUM%type default null,
- 	v_UTM_ZONE in collecting_event.UTM_ZONE%type default null,
- 	v_UTM_EW in collecting_event.UTM_EW%type default null,
- 	v_UTM_NS in collecting_event.UTM_NS%type default null,
- 	v_ORIG_LAT_LONG_UNITS in collecting_event.ORIG_LAT_LONG_UNITS%type default null,
- 	v_SPEC_LOCALITY in locality.SPEC_LOCALITY%type default null,
-	v_MINIMUM_ELEVATION in locality.MINIMUM_ELEVATION%type default null,
- 	v_MAXIMUM_ELEVATION in locality.MAXIMUM_ELEVATION%type default null,
-	v_ORIG_ELEV_UNITS in locality.ORIG_ELEV_UNITS%type default null,
-	v_MIN_DEPTH in locality.MIN_DEPTH%type default null,
-	v_MAX_DEPTH in locality.MAX_DEPTH%type default null,
-	v_DEPTH_UNITS in locality.DEPTH_UNITS%type default null,
- 	v_MAX_ERROR_DISTANCE in locality.MAX_ERROR_DISTANCE%type default null,
-	v_MAX_ERROR_UNITS in locality.MAX_ERROR_UNITS%type default null,
-	v_LOCALITY_REMARKS in locality.LOCALITY_REMARKS%type default null,
-	v_GEOREFERENCE_SOURCE in locality.GEOREFERENCE_SOURCE%type default null,
-	v_GEOREFERENCE_PROTOCOL in locality.GEOREFERENCE_PROTOCOL%type default null,
-	v_LOCALITY_NAME in locality.LOCALITY_NAME%type default null,
-	v_WKT_POLYGON in locality.WKT_POLYGON%type default null,
-    v_HIGHER_GEOG geog_auth_rec.HIGHER_GEOG%TYPE default null,
-    v_geology_attribute_1 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
-    v_geo_att_value_1  geology_attributes.GEO_ATT_VALUE%type default null,
-    v_geo_att_determined_date_1  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
-    v_geo_att_determiner_1  agent_name.agent_name%type default null,
-    v_geo_att_determined_method_1  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-    v_geo_att_remark_1  geology_attributes.GEO_ATT_REMARK%type default null,
-    v_geology_attribute_2 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
-    v_geo_att_value_2  geology_attributes.GEO_ATT_VALUE%type default null,
-    v_geo_att_determined_date_2  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
-    v_geo_att_determiner_2  agent_name.agent_name%type default null,
-    v_geo_att_determined_method_2  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-    v_geo_att_remark_2  geology_attributes.GEO_ATT_REMARK%type default null,
-    v_geology_attribute_3 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
-    v_geo_att_value_3  geology_attributes.GEO_ATT_VALUE%type default null,
-    v_geo_att_determined_date_3  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
-    v_geo_att_determiner_3  agent_name.agent_name%type default null,
-    v_geo_att_determined_method_3  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-    v_geo_att_remark_3 geology_attributes.GEO_ATT_REMARK%type default null,
-    v_geology_attribute_4 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
-    v_geo_att_value_4  geology_attributes.GEO_ATT_VALUE%type default null,
-    v_geo_att_determined_date_4  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
-    v_geo_att_determiner_4  agent_name.agent_name%type default null,
-    v_geo_att_determined_method_4  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-    v_geo_att_remark_4  geology_attributes.GEO_ATT_REMARK%type default null,
-    v_geology_attribute_5 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
-    v_geo_att_value_5  geology_attributes.GEO_ATT_VALUE%type default null,
-    v_geo_att_determined_date_5  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
-    v_geo_att_determiner_5  agent_name.agent_name%type default null,
-    v_geo_att_determined_method_5  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-    v_geo_att_remark_5 geology_attributes.GEO_ATT_REMARK%type default null,
-    v_geology_attribute_6 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
-    v_geo_att_value_6  geology_attributes.GEO_ATT_VALUE%type default null,
-    v_geo_att_determined_date_6  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
-    v_geo_att_determiner_6  agent_name.agent_name%type default null,
-    v_geo_att_determined_method_6  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-    v_geo_att_remark_6  geology_attributes.GEO_ATT_REMARK%type default null,
+
+      geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+      geology_attributes.GEO_ATT_REMARK%type default null,
+     geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
+      geology_attributes.GEO_ATT_VALUE%type default null,
+      geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
+      agent_name.agent_name%type default null,
+      geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+     geology_attributes.GEO_ATT_REMARK%type default null,
+     geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
+      geology_attributes.GEO_ATT_VALUE%type default null,
+      geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
+      agent_name.agent_name%type default null,
+      geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+      geology_attributes.GEO_ATT_REMARK%type default null,
      out number
 
 	---->
