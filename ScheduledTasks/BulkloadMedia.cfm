@@ -5,7 +5,7 @@
 <!------------------------------------------------------->
 <cfif action is "nothing">
 	<a href="/BulkLoadMedia.cfm?action=validate">validate</a>
-	
+
 </cfif>
 <cfif action is "report">
 	<cfoutput>
@@ -19,15 +19,15 @@
 		<cfquery name="s" datasource="uam_god">
 			select status, count(*) c from cf_temp_media where username='#username#' group by status
 		</cfquery>
-		
+
 		<cfif len(e.address) is 0>
 			<cfset mailto="arctos.database@gmail.com">
 			<cfset msubj="media bulkloader: no contact info">
 		<cfelse>
-		
+
 			<cfset mailto=e.address>
 			<cfset msubj="media bulkloader">
-			
+
 		</cfif>
 		<cfmail to="#mailto#" bcc="arctos.database@gmail.com" subject="#msubj#" cc="#Application.LogEmail#" from="bulkmedia@#Application.fromEmail#" type="html">
 			Dear #username#,
@@ -40,7 +40,7 @@
 			</cfloop>
 			</p>
 			<p>
-			After logging in to Arctos, you may follow the links from the Media Bulkloader 
+			After logging in to Arctos, you may follow the links from the Media Bulkloader
 			(http://arctos.database.museum/tools/BulkloadMedia.cfm?action=myStuff) to review detailed status
 			messages or delete your records. You will receive daily reminders until you have deleted all records in
 			your temporary table.
@@ -132,7 +132,7 @@
 				</cfif>
 			</cfif>
 		</cfloop>
-		
+
 		<cfloop from="1" to="#numRelns#" index="i">
 			<cfset pf="">
 			<cfset r=evaluate("media_relationship_" & i)>
@@ -150,8 +150,11 @@
 					<cfset pf="f">
 				</cfif>
 				<cfif len(rk) gt 0 and len(rt) gt 0>
-					<cfset rec_stat=listappend(rec_stat,'You cannot specify a relationship key and term',";")>
-					<cfset pf="f">
+					<!--- ignore event lookups, they're legit ---->
+					<cfif not (listlast(r," ") is "collecting_event" and rt is "lookup")>
+						<cfset rec_stat=listappend(rec_stat,'You cannot specify a relationship key and term',";")>
+						<cfset pf="f">
+					</cfif>
 				</cfif>
 				<cfif len(pf) is 0>
 					<cfset table_name = listlast(r," ")>
@@ -172,9 +175,103 @@
 								<cfset rec_stat=listappend(rec_stat,'Agent #rt# matched #c.recordcount# records.',";")>
 							</cfif>
 						<cfelseif table_name is "collecting_event">
-						
-						
-						
+							<cfif len(rk) is 0 and rt is "lookup">
+								<!--- get a collecting event or throw an error ---->
+								<cfstoredproc procedure="getMakeCollectingEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									<cfprocparam type="in" cfsqltype="cf_sql_varchar" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
+									<cfprocparam type="out" cfsqltype="cf_sql_varchar" variable="ceid" dbvarname="v_r_ceid">
+
+								</cfstoredproc>
+
+								<cfdump var=#ceid#>
+
+
+
+<!---
+v_COLLECTING_EVENT_ID in collecting_event.collecting_event_id%type  default null,
+	v_LOCALITY_ID in collecting_event.locality_id%type default null,
+	v_VERBATIM_DATE in collecting_event.VERBATIM_DATE%type default null,
+ 	v_VERBATIM_LOCALITY in collecting_event.VERBATIM_LOCALITY%type default null,
+ 	v_COLL_EVENT_REMARKS in collecting_event.COLL_EVENT_REMARKS%type default null,
+ 	v_BEGAN_DATE in collecting_event.BEGAN_DATE%type default null,
+ 	v_ENDED_DATE in collecting_event.ENDED_DATE%type default null,
+ 	v_COLLECTING_EVENT_NAME in collecting_event.COLLECTING_EVENT_NAME%type default null,
+ 	v_LAT_DEG in collecting_event.LAT_DEG%type default null,
+ 	v_DEC_LAT_MIN in collecting_event.DEC_LAT_MIN%type default null,
+ 	v_LAT_MIN in collecting_event.LAT_MIN%type default null,
+ 	v_LAT_SEC in collecting_event.LAT_SEC%type default null,
+ 	v_LAT_DIR in collecting_event.LAT_DIR%type default null,
+ 	v_LONG_DEG in collecting_event.LONG_DEG%type default null,
+ 	v_DEC_LONG_MIN in collecting_event.DEC_LONG_MIN%type default null,
+ 	v_LONG_MIN in collecting_event.LONG_MIN%type default null,
+ 	v_LONG_SEC in collecting_event.LONG_SEC%type default null,
+ 	v_LONG_DIR in collecting_event.LONG_DIR%type default null,
+ 	v_DEC_LAT in collecting_event.DEC_LAT%type default null,
+ 	v_DEC_LONG in collecting_event.DEC_LONG%type default null,
+	v_DATUM in collecting_event.DATUM%type default null,
+ 	v_UTM_ZONE in collecting_event.UTM_ZONE%type default null,
+ 	v_UTM_EW in collecting_event.UTM_EW%type default null,
+ 	v_UTM_NS in collecting_event.UTM_NS%type default null,
+ 	v_ORIG_LAT_LONG_UNITS in collecting_event.ORIG_LAT_LONG_UNITS%type default null,
+ 	v_SPEC_LOCALITY in locality.SPEC_LOCALITY%type default null,
+	v_MINIMUM_ELEVATION in locality.MINIMUM_ELEVATION%type default null,
+ 	v_MAXIMUM_ELEVATION in locality.MAXIMUM_ELEVATION%type default null,
+	v_ORIG_ELEV_UNITS in locality.ORIG_ELEV_UNITS%type default null,
+	v_MIN_DEPTH in locality.MIN_DEPTH%type default null,
+	v_MAX_DEPTH in locality.MAX_DEPTH%type default null,
+	v_DEPTH_UNITS in locality.DEPTH_UNITS%type default null,
+ 	v_MAX_ERROR_DISTANCE in locality.MAX_ERROR_DISTANCE%type default null,
+	v_MAX_ERROR_UNITS in locality.MAX_ERROR_UNITS%type default null,
+	v_LOCALITY_REMARKS in locality.LOCALITY_REMARKS%type default null,
+	v_GEOREFERENCE_SOURCE in locality.GEOREFERENCE_SOURCE%type default null,
+	v_GEOREFERENCE_PROTOCOL in locality.GEOREFERENCE_PROTOCOL%type default null,
+	v_LOCALITY_NAME in locality.LOCALITY_NAME%type default null,
+	v_WKT_POLYGON in locality.WKT_POLYGON%type default null,
+    v_HIGHER_GEOG geog_auth_rec.HIGHER_GEOG%TYPE default null,
+    v_geology_attribute_1 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
+    v_geo_att_value_1  geology_attributes.GEO_ATT_VALUE%type default null,
+    v_geo_att_determined_date_1  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
+    v_geo_att_determiner_1  agent_name.agent_name%type default null,
+    v_geo_att_determined_method_1  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+    v_geo_att_remark_1  geology_attributes.GEO_ATT_REMARK%type default null,
+    v_geology_attribute_2 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
+    v_geo_att_value_2  geology_attributes.GEO_ATT_VALUE%type default null,
+    v_geo_att_determined_date_2  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
+    v_geo_att_determiner_2  agent_name.agent_name%type default null,
+    v_geo_att_determined_method_2  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+    v_geo_att_remark_2  geology_attributes.GEO_ATT_REMARK%type default null,
+    v_geology_attribute_3 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
+    v_geo_att_value_3  geology_attributes.GEO_ATT_VALUE%type default null,
+    v_geo_att_determined_date_3  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
+    v_geo_att_determiner_3  agent_name.agent_name%type default null,
+    v_geo_att_determined_method_3  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+    v_geo_att_remark_3 geology_attributes.GEO_ATT_REMARK%type default null,
+    v_geology_attribute_4 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
+    v_geo_att_value_4  geology_attributes.GEO_ATT_VALUE%type default null,
+    v_geo_att_determined_date_4  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
+    v_geo_att_determiner_4  agent_name.agent_name%type default null,
+    v_geo_att_determined_method_4  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+    v_geo_att_remark_4  geology_attributes.GEO_ATT_REMARK%type default null,
+    v_geology_attribute_5 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
+    v_geo_att_value_5  geology_attributes.GEO_ATT_VALUE%type default null,
+    v_geo_att_determined_date_5  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
+    v_geo_att_determiner_5  agent_name.agent_name%type default null,
+    v_geo_att_determined_method_5  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+    v_geo_att_remark_5 geology_attributes.GEO_ATT_REMARK%type default null,
+    v_geology_attribute_6 geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
+    v_geo_att_value_6  geology_attributes.GEO_ATT_VALUE%type default null,
+    v_geo_att_determined_date_6  geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
+    v_geo_att_determiner_6  agent_name.agent_name%type default null,
+    v_geo_att_determined_method_6  geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
+    v_geo_att_remark_6  geology_attributes.GEO_ATT_REMARK%type default null,
+     out number
+
+	---->
+
+							</cfif>
+
+
+
 						<cfelseif table_name is "project">
 							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 								select distinct(project_id) project_id from project where PROJECT_NAME ='#rt#'
@@ -206,7 +303,7 @@
 							<cfif debug is true>
 								-----------here we are now-------------
 								---------------
-								select collection_object_id from 
+								select collection_object_id from
 										flat
 									WHERE
 										guid='#rt#'
@@ -216,7 +313,7 @@
 							<cfif listlen(rt,':') is 3>
 								<!--- guid --->
 								<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-									select collection_object_id from 
+									select collection_object_id from
 										flat
 									WHERE
 										guid='#rt#'
@@ -224,7 +321,7 @@
 							<cfelse>
 								<!--- barcode or stoopids --->
 								<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-									select flat.collection_object_id from 
+									select flat.collection_object_id from
 										flat,
 										container child,
 										container parent,
@@ -271,9 +368,9 @@
 <cfif action is "load">
 <cfoutput>
 	<cfquery name="media" datasource="uam_god">
-		select 
+		select
 			*
-		from 
+		from
 			cf_temp_media where status='pass' and rownum<500
 	</cfquery>
 	<cfloop query="media">
@@ -291,7 +388,7 @@
 					<cfelse>
 						NULL
 					</cfif>)
-				</cfquery>				
+				</cfquery>
 				<cfloop from="1" to="#numRelns#" index="i">
 					<cfset r=evaluate("media_relationship_" & i)>
 					<cfif len(r) gt 0>
