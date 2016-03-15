@@ -409,6 +409,9 @@
 		<cfif len(rec_stat) is 0>
 			<cfset rec_stat='pass'>
 		</cfif>
+		<cfif len(rec_stat) gt 254>
+			<cfset rec_stat=left(rec_stat,250) & '...'>
+		</cfif>
 		<cfquery name="c" datasource="uam_god">
 			update cf_temp_media set status='#trim(rec_stat)#' where key=#key#
 		</cfquery>
