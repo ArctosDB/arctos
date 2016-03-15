@@ -4,7 +4,7 @@
 <cfif not isdefined("debug")><cfset debug=false></cfif>
 <!------------------------------------------------------->
 <cfif action is "nothing">
-	<a href="/BulkLoadMedia.cfm?action=validate">validate</a>
+	<a href="BulkLoadMedia.cfm?action=validate">validate</a>
 
 </cfif>
 <cfif action is "report">
@@ -189,6 +189,7 @@
 									srsly.
 									crap.
 								---->
+								<cftry>
 								<cfstoredproc procedure="getMakeCollectingEvent" datasource="uam_god">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
 
@@ -277,6 +278,22 @@
 								<p>
 									ceid: <cfdump var=#ceid#>
 								</p>
+
+								<p>
+									update cf_temp_media set media_related_key_#i#=#ceid# where key=#key#
+								</p>
+								<cfcatch>
+									catch!
+
+									<cfdump var=#cfcatch#>
+
+									<cfset rec_stat=listappend(rec_stat,'event unresolvable: #cfcatch.message# #cfcatch.detail#',";")>
+
+		<p>
+			rec_stat: #rec_stat#
+		</p>
+								</cfcatch>
+								</cftry>
 								<cfabort>
 
 
