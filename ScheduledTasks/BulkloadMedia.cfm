@@ -183,6 +183,9 @@
 								<!--- get a collecting event or throw an error ---->
 								<cfstoredproc procedure="getMakeCollectingEvent" datasource="uam_god">
 									<cfprocparam type="in" cfsqltype="cf_sql_numeric" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
+																		<cfprocparam type="in" cfsqltype="cf_sql_numeric" value="6" dbvarname="blabitty">
+
+
 									<cfprocparam type="out" cfsqltype="cf_sql_numeric" variable="ceid" dbvarname="v_r_ceid">
 
 								</cfstoredproc>
