@@ -190,7 +190,10 @@
 
 								</cfstoredproc>
 
-								<cfdump var=#ceid#>
+								<p>
+									ceid: <cfdump var=#ceid#>
+								</p>
+								<cfabort>
 
 
 
