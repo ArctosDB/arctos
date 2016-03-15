@@ -112,7 +112,7 @@ sho err
 <cfset title="Bulkload Media">
 <cfset numLabels=10>
 <cfset numRelns=5>
-
+<a href="BulkloadMedia.cfm">load CSV</a>
 <!------------------------------------------------------->
 
 <cfif action is "eventSpec">
