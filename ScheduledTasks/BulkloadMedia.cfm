@@ -190,12 +190,12 @@
 									crap.
 								---->
 								<cfstoredproc procedure="getMakeCollectingEvent" datasource="uam_god">
-									<cfprocparam type="in" cfsqltype="cf_sql_numeric" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
 
 
 
 
-									<cfprocparam type="in" cfsqltype="cf_sql_numeric" value="#LOCALITY_ID#" dbvarname="v_LOCALITY_ID">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LOCALITY_ID#" dbvarname="v_LOCALITY_ID">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#VERBATIM_DATE#" dbvarname="v_VERBATIM_DATE">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#VERBATIM_LOCALITY#" dbvarname="v_VERBATIM_LOCALITY">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#COLL_EVENT_REMARKS#" dbvarname="v_COLL_EVENT_REMARKS">
