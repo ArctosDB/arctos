@@ -182,8 +182,8 @@
 								</p>
 								<!--- get a collecting event or throw an error ---->
 								<cfstoredproc procedure="getMakeCollectingEvent" datasource="uam_god">
-									<cfprocparam type="in" cfsqltype="cf_sql_varchar" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
-									<cfprocparam type="out" cfsqltype="cf_sql_varchar" variable="ceid" dbvarname="v_r_ceid">
+									<cfprocparam type="in" cfsqltype="CF_SQL_DECIMAL" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
+									<cfprocparam type="out" cfsqltype="CF_SQL_DECIMAL" variable="ceid" dbvarname="v_r_ceid">
 
 								</cfstoredproc>
 
