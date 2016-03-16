@@ -2,7 +2,7 @@
 
 	<cfparam name="p" default="1">
 
-	<cfset pagesize=100>
+	<cfset pagesize=1000>
 	<cfset start=(p * pagesize)>
 	<cfset stop=start+pagesize>
 <cfoutput>
@@ -21,25 +21,6 @@
 	</cfquery>
 
 	<cfset fldlst=valuelist(f.blfld)>
-
-
-
-select * from (
-			select
-				distinct
-				temp_glus.COLLECTING_EVENT_ID,
-				temp_glus.err,
-				#fldlst#,
-				rownum r
-			from
-				temp_glus,
-				bulkloader
-			where
-				temp_glus.collection_object_id=bulkloader.collection_object_id
-				order by temp_glus.COLLECTING_EVENT_ID
-			) where r between #start# and #stop#
-
-
 
 
 		<cfquery name="d" datasource="uam_god">
