@@ -21,6 +21,7 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from (
 			select
+				distinct
 				temp_glus.COLLECTING_EVENT_ID,
 				temp_glus.err,
 				#fldlst#,
