@@ -25,8 +25,8 @@
 
 	<cfset np=p+1>
 	<cfset pp=p-1>
-	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val()-1));">previous page</span>
-	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val()+1));">next page</span>
+	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val())-1);">previous page</span>
+	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val())+1);">next page</span>
 
 
 
