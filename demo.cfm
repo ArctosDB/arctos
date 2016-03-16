@@ -2,7 +2,7 @@
 
 	<cfparam name="p" default="1">
 	<cfparam name="pagesize" default="1000">
-	<cfparam name="sort" default="COLLECTING_EVENT_ID">
+	<cfparam name="sort" default="temp_glus.COLLECTING_EVENT_ID">
 
 	<cfset start=(p * pagesize)>
 	<cfset stop=start+pagesize>
@@ -16,7 +16,9 @@
 		<input type="text" name="pagesize" value="#pagesize#">
 		<label for="sort">sort</label>
 		<select name="sort">
-			<option value="COLLECTING_EVENT_ID" <cfif sort is "COLLECTING_EVENT_ID"> selected="selected" </cfif>>COLLECTING_EVENT_ID</option>
+			<option value="temp_glus.COLLECTING_EVENT_ID" <cfif sort is "temp_glus.COLLECTING_EVENT_ID"> selected="selected" </cfif>>temp_glus.COLLECTING_EVENT_ID</option>
+			<option value="orig_lat_long_units" <cfif sort is "orig_lat_long_units"> selected="selected" </cfif>>orig_lat_long_units</option>
+
 		</select>
 		<input type="submit">
 	</form>
@@ -51,7 +53,7 @@
 				bulkloader
 			where
 				temp_glus.collection_object_id=bulkloader.collection_object_id
-				order by temp_glus.COLLECTING_EVENT_ID
+				order by #sort#
 						) a where rownum <= #stop#
 					) where rnum >= #start#
 
