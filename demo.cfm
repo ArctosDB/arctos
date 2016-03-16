@@ -17,19 +17,7 @@
 	</cfquery>
 
 	<cfset fldlst=valuelist(f.blfld)>
-select * from (
-			select
-				temp_glus.COLLECTING_EVENT_ID,
-				temp_glus.err,
-				#fldlst#,
-				rownum r
-			from
-				temp_glus,
-				bulkloader
-			where
-				temp_glus.collection_object_id=bulkloader.collection_object_id
-				order by bulkloader.collection_object_id
-			) where r between #start# and #stop#
+
 		<cfquery name="d" datasource="uam_god">
 			select * from (
 			select
@@ -46,7 +34,14 @@ select * from (
 			) where r between #start# and #stop#
 		</cfquery>
 
-	<cfdump var=#d#>
+		<table border>
+			<tr>
+				<th>Event</th>
+				<cfloop list="#fldlst#" index="i">
+					<th>#i#</th>
+				</cfloop>
+			</tr>
+		</table>
 
 
 
