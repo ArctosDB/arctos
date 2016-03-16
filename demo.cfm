@@ -1,12 +1,25 @@
 <cfinclude template="/includes/_header.cfm">
 
 	<cfparam name="p" default="1">
+	<cfparam name="pagesize" default="1000">
+	<cfparam name="sort" default="COLLECTING_EVENT_ID">
 
-	<cfset pagesize=1000>
 	<cfset start=(p * pagesize)>
 	<cfset stop=start+pagesize>
 <cfoutput>
 
+
+	<form method="get" action="demo.cfm">
+		<label for="p">page</label>
+		<input type="text" name="p" value="#p#">
+		<label for="pagesize">pagesize</label>
+		<input type="text" name="pagesize" value="#pagesize#">
+		<label for="sort">sort</label>
+		<select name="sort">
+			<option value="COLLECTING_EVENT_ID" <cfif sort is "COLLECTING_EVENT_ID"> selected="selected" </cfif>>COLLECTING_EVENT_ID</option>
+		</select>
+		<input type="submit">
+	</form>
 
 	<cfset np=p+1>
 	<cfset pp=p-1>
