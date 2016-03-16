@@ -6,9 +6,13 @@
 	<cfset start=(p * pagesize)>
 	<cfset stop=start+pagesize>
 <cfoutput>
-	<br>P: #p#
-	<br>start: #start#
-	<br>stop: #stop#
+
+
+	<cfset np=p+1>
+	<cfset pp=p-1>
+	<a href="demo.cfm?p=#pp#">previous page</a>
+	<a href="demo.cfm?p=#np#">next page</a>
+
 
 
 	<cfquery name="f" datasource="uam_god">
