@@ -36,7 +36,7 @@
 
 		<table border>
 			<tr>
-				<th>Event</th>
+				<th>EventOrError</th>
 				<cfloop list="#fldlst#" index="i">
 					<th>#i#</th>
 				</cfloop>
@@ -44,7 +44,11 @@
 			<cfloop query="d">
 				<tr>
 					<td>
-						<a href="/Locality.cfm?Action=findCollEvent&collecting_event_id=#collecting_event_id#" target="_blank">#collecting_event_id#</a>
+						<cfif len(collecting_event_id) gt 0>
+							<a href="/Locality.cfm?Action=findCollEvent&collecting_event_id=#collecting_event_id#" target="_blank">#collecting_event_id#</a>
+						<cfelse>
+							#err#
+						</cfif>
 					</td>
 					<cfloop list="#fldlst#" index="i">
 						<td>#evaluate("d." & i)#</td>
