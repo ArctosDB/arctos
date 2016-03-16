@@ -46,6 +46,7 @@ select * from (
 			) where r between #start# and #stop#
 		</cfquery>
 
+	<cfdump var=#d#>
 
 
 
