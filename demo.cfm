@@ -11,7 +11,6 @@
 	<br>stop: #stop#
 
 
-<cfabort>
 	<cfquery name="f" datasource="uam_god">
 		select blfld from temp_getMakeCE_flds where blfld not in
 			('COLLECTING_EVENT_ID')
