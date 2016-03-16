@@ -1,4 +1,67 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+	<cfquery name="f" datasource="uam_god">
+		select fld from temp_getMakeCE_flds where fld not in
+			('COLLECTING_EVENT_ID')
+	</cfquery>
+
+	<cfset fldlst=valuelist(f.fld)>
+
+		<cfquery name="d" datasource="uam_god">
+			select
+				temp_glus.COLLECTING_EVENT_ID,
+				temp_glus.err,
+				#fldlst#
+			from
+				temp_glus,
+				bulkloader
+			where
+				temp_glus.collection_object_id=bulkloader.collection_object_id
+		</cfquery>
+
+		<cfdump var=#d#>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!------------------------------------------------------------------------------------>
+
+<hr>
+
+rangesliderthingee
 	<link href="/includes/jQRangeSlider-5.7.2/css/iThing.css" rel="stylesheet" media="screen">
   <script src="/includes/jQRangeSlider-5.7.2/jQDateRangeSlider-min.js"></script>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
