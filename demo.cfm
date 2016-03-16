@@ -9,7 +9,7 @@
 <cfoutput>
 
 
-	<form method="get" action="demo.cfm">
+	<form id="f" method="get" action="demo.cfm">
 		<label for="p">page</label>
 		<input id="p" type="text" name="p" value="#p#">
 		<label for="pagesize">pagesize</label>
@@ -25,8 +25,8 @@
 
 	<cfset np=p+1>
 	<cfset pp=p-1>
-	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val())-1);">previous page</span>
-	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val())+1);">next page</span>
+	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val())-1);$('##f').submit();">previous page</span>
+	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val())+1);$('##f').submit();">next page</span>
 
 
 
