@@ -5,7 +5,7 @@
 	<cfset pagesize=10>
 	<cfset start=(p * pagesize)>
 	<cfset stop=start+pagesize>
-
+<cfoutput>
 	<br>P: #p#
 	<br>start: #start#
 	<br>stop: #stop#
@@ -40,7 +40,7 @@
 
 
 
-
+</cfoutput>
 
 
 
