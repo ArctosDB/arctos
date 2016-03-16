@@ -18,7 +18,7 @@
 		<select name="sort">
 			<option value="temp_glus.COLLECTING_EVENT_ID" <cfif sort is "temp_glus.COLLECTING_EVENT_ID"> selected="selected" </cfif>>temp_glus.COLLECTING_EVENT_ID</option>
 			<option value="orig_lat_long_units" <cfif sort is "orig_lat_long_units"> selected="selected" </cfif>>orig_lat_long_units</option>
-
+			<option value="spec_locality" <cfif sort is "spec_locality"> selected="selected" </cfif>>spec_locality</option>
 		</select>
 		<input type="submit">
 	</form>
