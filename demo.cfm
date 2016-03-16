@@ -41,6 +41,16 @@
 					<th>#i#</th>
 				</cfloop>
 			</tr>
+			<cfloop query="d">
+				<tr>
+					<td>
+						<a href="/Locality.cfm?Action=findCollEvent&collecting_event_id=#collecting_event_id#" target="_blank">#collecting_event_id#</a>
+					</td>
+					<cfloop list="#fldlst#" index="i">
+						<td>#evaluate("d." & i)#</td>
+					</cfloop>
+				</tr>
+			</cfloop>
 		</table>
 
 
