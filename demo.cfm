@@ -6,7 +6,7 @@
 			('COLLECTING_EVENT_ID')
 	</cfquery>
 
-	<cfset fldlst=valuelist(f.fld)>
+	<cfset fldlst=valuelist(f.blfld)>
 
 		<cfquery name="d" datasource="uam_god">
 			select
