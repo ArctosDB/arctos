@@ -13,7 +13,7 @@
 
 	<cfquery name="f" datasource="uam_god">
 		select blfld from temp_getMakeCE_flds where blfld not in
-			('COLLECTING_EVENT_ID')
+			('COLLECTING_EVENT_ID') order by ord
 	</cfquery>
 
 	<cfset fldlst=valuelist(f.blfld)>

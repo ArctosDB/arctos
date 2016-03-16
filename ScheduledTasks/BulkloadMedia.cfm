@@ -192,48 +192,44 @@
 								<cftry>
 								<cfstoredproc procedure="getMakeCollectingEvent" datasource="uam_god">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#COLLECTING_EVENT_ID#" dbvarname="v_COLLECTING_EVENT_ID">
-
-
-
-
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LOCALITY_ID#" dbvarname="v_LOCALITY_ID">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#COLLECTING_EVENT_NAME#" dbvarname="v_COLLECTING_EVENT_NAME">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#VERBATIM_DATE#" dbvarname="v_VERBATIM_DATE">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#VERBATIM_LOCALITY#" dbvarname="v_VERBATIM_LOCALITY">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#COLL_EVENT_REMARKS#" dbvarname="v_COLL_EVENT_REMARKS">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#BEGAN_DATE#" dbvarname="v_BEGAN_DATE">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#ENDED_DATE#" dbvarname="v_ENDED_DATE">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#COLLECTING_EVENT_NAME#" dbvarname="v_COLLECTING_EVENT_NAME">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#VERBATIM_LOCALITY#" dbvarname="v_VERBATIM_LOCALITY">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#COLL_EVENT_REMARKS#" dbvarname="v_COLL_EVENT_REMARKS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LOCALITY_ID#" dbvarname="v_LOCALITY_ID">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#SPEC_LOCALITY#" dbvarname="v_SPEC_LOCALITY">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LOCALITY_NAME#" dbvarname="v_LOCALITY_NAME">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#ORIG_ELEV_UNITS#" dbvarname="v_ORIG_ELEV_UNITS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MINIMUM_ELEVATION#" dbvarname="v_MINIMUM_ELEVATION">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MAXIMUM_ELEVATION#" dbvarname="v_MAXIMUM_ELEVATION">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEPTH_UNITS#" dbvarname="v_DEPTH_UNITS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MIN_DEPTH#" dbvarname="v_MIN_DEPTH">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MAX_DEPTH#" dbvarname="v_MAX_DEPTH">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#ORIG_LAT_LONG_UNITS#" dbvarname="v_ORIG_LAT_LONG_UNITS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DATUM#" dbvarname="v_DATUM">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#GEOREFERENCE_SOURCE#" dbvarname="v_GEOREFERENCE_SOURCE">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#GEOREFERENCE_PROTOCOL#" dbvarname="v_GEOREFERENCE_PROTOCOL">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MAX_ERROR_UNITS#" dbvarname="v_MAX_ERROR_UNITS">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MAX_ERROR_DISTANCE#" dbvarname="v_MAX_ERROR_DISTANCE">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEC_LAT#" dbvarname="v_DEC_LAT">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEC_LONG#" dbvarname="v_DEC_LONG">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LAT_DEG#" dbvarname="v_LAT_DEG">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEC_LAT_MIN#" dbvarname="v_DEC_LAT_MIN">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LAT_MIN#" dbvarname="v_LAT_MIN">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LAT_SEC#" dbvarname="v_LAT_SEC">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LAT_DIR#" dbvarname="v_LAT_DIR">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LONG_DEG#" dbvarname="v_LONG_DEG">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEC_LONG_MIN#" dbvarname="v_DEC_LONG_MIN">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LONG_MIN#" dbvarname="v_LONG_MIN">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LONG_SEC#" dbvarname="v_LONG_SEC">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LONG_DIR#" dbvarname="v_LONG_DIR">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEC_LAT#" dbvarname="v_DEC_LAT">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEC_LONG#" dbvarname="v_DEC_LONG">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DATUM#" dbvarname="v_DATUM">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEC_LAT_MIN#" dbvarname="v_DEC_LAT_MIN">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEC_LONG_MIN#" dbvarname="v_DEC_LONG_MIN">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#UTM_ZONE#" dbvarname="v_UTM_ZONE">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#UTM_EW#" dbvarname="v_UTM_EW">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#UTM_NS#" dbvarname="v_UTM_NS">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#ORIG_LAT_LONG_UNITS#" dbvarname="v_ORIG_LAT_LONG_UNITS">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#SPEC_LOCALITY#" dbvarname="v_SPEC_LOCALITY">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MINIMUM_ELEVATION#" dbvarname="v_MINIMUM_ELEVATION">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MAXIMUM_ELEVATION#" dbvarname="v_MAXIMUM_ELEVATION">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#ORIG_ELEV_UNITS#" dbvarname="v_ORIG_ELEV_UNITS">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MIN_DEPTH#" dbvarname="v_MIN_DEPTH">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MAX_DEPTH#" dbvarname="v_MAX_DEPTH">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#DEPTH_UNITS#" dbvarname="v_DEPTH_UNITS">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MAX_ERROR_DISTANCE#" dbvarname="v_MAX_ERROR_DISTANCE">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#MAX_ERROR_UNITS#" dbvarname="v_MAX_ERROR_UNITS">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LOCALITY_REMARKS#" dbvarname="v_LOCALITY_REMARKS">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#GEOREFERENCE_SOURCE#" dbvarname="v_GEOREFERENCE_SOURCE">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#GEOREFERENCE_PROTOCOL#" dbvarname="v_GEOREFERENCE_PROTOCOL">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LOCALITY_NAME#" dbvarname="v_LOCALITY_NAME">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#WKT_POLYGON#" dbvarname="v_WKT_POLYGON">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LOCALITY_REMARKS#" dbvarname="v_LOCALITY_REMARKS">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#HIGHER_GEOG#" dbvarname="v_HIGHER_GEOG">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#geology_attribute_1#" dbvarname="v_geology_attribute_1">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#geo_att_value_1#" dbvarname="v_geo_att_value_1">
