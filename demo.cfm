@@ -11,7 +11,7 @@
 
 	<form method="get" action="demo.cfm">
 		<label for="p">page</label>
-		<input type="text" name="p" value="#p#">
+		<input id="p" type="text" name="p" value="#p#">
 		<label for="pagesize">pagesize</label>
 		<input type="text" name="pagesize" value="#pagesize#">
 		<label for="sort">sort</label>
@@ -25,8 +25,8 @@
 
 	<cfset np=p+1>
 	<cfset pp=p-1>
-	<a href="demo.cfm?p=#pp#">previous page</a>
-	<a href="demo.cfm?p=#np#">next page</a>
+	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val()-1));">previous page</span>
+	<span class="likeLink" onclick="$('##p').val(parseInt($('##p').val()+1));">next page</span>
 
 
 
