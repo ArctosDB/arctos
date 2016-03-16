@@ -1,5 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 
+	<cfparam name="p" default="1">
+
+	<cfset pagesize=10>
+	<cfset start=(p * pagesize)>
+	<cfset stop=start+pagesize>
+
+	<br>P: #p#
+	<br>start: #start#
+	<br>stop: #stop#
 
 	<cfquery name="f" datasource="uam_god">
 		select blfld from temp_getMakeCE_flds where blfld not in
@@ -9,15 +18,19 @@
 	<cfset fldlst=valuelist(f.blfld)>
 
 		<cfquery name="d" datasource="uam_god">
+			select * from (
 			select
 				temp_glus.COLLECTING_EVENT_ID,
 				temp_glus.err,
-				#fldlst#
+				#fldlst#,
+				rownum r
 			from
 				temp_glus,
 				bulkloader
 			where
 				temp_glus.collection_object_id=bulkloader.collection_object_id
+				order by bulkloader.collection_object_id
+			) where r between #start# and #stop#
 		</cfquery>
 
 		<cfdump var=#d#>
