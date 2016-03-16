@@ -338,7 +338,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
 	<cfset badbot="Baiduspider,bash">
-	<cfset badbot=badbot & ",ca-crawler,CCBot,CPython,curl">
+	<cfset badbot=badbot & ",ca-crawler,CCBot,CPython">
 	<cfset badbot=badbot & ",Domain">
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">
