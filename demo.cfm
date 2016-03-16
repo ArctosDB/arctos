@@ -43,20 +43,24 @@ select * from (
 
 
 		<cfquery name="d" datasource="uam_god">
-			select * from (
-			select
+
+
+				Select * from (
+						Select a.*, rownum rnum From (
+							select
 				distinct
 				temp_glus.COLLECTING_EVENT_ID,
 				temp_glus.err,
-				#fldlst#,
-				rownum r
+				#fldlst#
 			from
 				temp_glus,
 				bulkloader
 			where
 				temp_glus.collection_object_id=bulkloader.collection_object_id
 				order by temp_glus.COLLECTING_EVENT_ID
-			) where r between #start# and #stop#
+						) a where rownum <= #stop#
+					) where rnum >= #start#
+
 		</cfquery>
 
 		<table border>
