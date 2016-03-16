@@ -13,7 +13,7 @@
 
 	<cfquery name="f" datasource="uam_god">
 		select blfld from temp_getMakeCE_flds where blfld not in
-			('COLLECTING_EVENT_ID') order by ord
+			('COLLECTING_EVENT_ID','WKT_POLYGON') order by ord
 	</cfquery>
 
 	<cfset fldlst=valuelist(f.blfld)>
@@ -31,7 +31,7 @@
 				bulkloader
 			where
 				temp_glus.collection_object_id=bulkloader.collection_object_id
-				order by bulkloader.collection_object_id
+				order by temp_glus.COLLECTING_EVENT_ID
 			) where r between #start# and #stop#
 		</cfquery>
 
