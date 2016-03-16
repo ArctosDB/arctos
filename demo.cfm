@@ -2,7 +2,7 @@
 
 
 	<cfquery name="f" datasource="uam_god">
-		select fld from temp_getMakeCE_flds where fld not in
+		select blfld from temp_getMakeCE_flds where blfld not in
 			('COLLECTING_EVENT_ID')
 	</cfquery>
 
