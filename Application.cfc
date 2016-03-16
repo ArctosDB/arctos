@@ -287,10 +287,12 @@
 	<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "CPython">
 		<cfabort>
 	</cfif>
+	<!---
 	<cfif request.ipaddress is "128.227.73.141" or request.ipaddress is "128.227.190.172" or request.ipaddress is "128.227.173.188">
-		<!--- iDigBio's horrid bot --->
+		 <!---iDigBio's horrid bot --->
 		<cfabort>
 	</cfif>
+	 --->
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
