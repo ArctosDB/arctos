@@ -22,6 +22,26 @@
 
 	<cfset fldlst=valuelist(f.blfld)>
 
+
+
+select * from (
+			select
+				distinct
+				temp_glus.COLLECTING_EVENT_ID,
+				temp_glus.err,
+				#fldlst#,
+				rownum r
+			from
+				temp_glus,
+				bulkloader
+			where
+				temp_glus.collection_object_id=bulkloader.collection_object_id
+				order by temp_glus.COLLECTING_EVENT_ID
+			) where r between #start# and #stop#
+
+
+
+
 		<cfquery name="d" datasource="uam_god">
 			select * from (
 			select
