@@ -284,6 +284,7 @@
 	---->
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
+	<!---
 	<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "CPython">
 		<cfabort>
 	</cfif>
@@ -291,6 +292,7 @@
 		<!--- iDigBio's horrid bot --->
 		<cfabort>
 	</cfif>
+	 --->
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
