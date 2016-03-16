@@ -2,7 +2,7 @@
 
 	<cfparam name="p" default="1">
 
-	<cfset pagesize=10>
+	<cfset pagesize=100>
 	<cfset start=(p * pagesize)>
 	<cfset stop=start+pagesize>
 <cfoutput>
