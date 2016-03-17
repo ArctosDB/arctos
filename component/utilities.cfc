@@ -345,7 +345,6 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
 	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",re-animator">
-	<cfset badbot=badbot & ",python-requests">
 	<cfset badbot=badbot & ",Qwantify">
 	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse">
 	<cfset badbot=badbot & ",TweetmemeBot">
