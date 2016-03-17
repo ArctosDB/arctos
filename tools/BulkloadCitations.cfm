@@ -390,13 +390,17 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
 				<cfif len(guid) gt 0>
-					<cfset gp=ucase(listgetat(guid,1,':') & ':' & listgetat(guid,2,':'))>
-					<cfset cn=ucase(listgetat(guid,3,':'))>
-					upper(collection.guid_prefix)='#gp#' and  cataloged_item.cat_num='#cn#'
+					<cfif listlen(guid,":") is 3>
+						<cfset gp=ucase(listgetat(guid,1,':') & ':' & listgetat(guid,2,':'))>
+						<cfset cn=ucase(listgetat(guid,3,':'))>
+						upper(collection.guid_prefix)='#gp#' and  cataloged_item.cat_num='#cn#'
+					<cfelse>
+						1=2
+					</cfif>
 				<cfelse>
 					upper(collection.guid_prefix)='#ucase(guid_prefix)#' and
 					<cfif other_id_type is "catalog number">
-						cat_num=#trim(other_id_number)#
+						cat_num='#trim(other_id_number)#'
 					<cfelse>
 						other_id_type = '#trim(other_id_type)#' and
 						display_value = '#trim(other_id_number)#'

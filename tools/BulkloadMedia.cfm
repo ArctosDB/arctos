@@ -771,6 +771,9 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 			<cfset el=el & 'UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,'>
 			<cfset el=el & 'MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,'>
 			<cfset el=el & 'GEOREFERENCE_PROTOCOL,LOCALITY_NAME,WKT_POLYGON,HIGHER_GEOG,'>
+			<cfset header=listappend(header,el)>
+	</cfif>
+	<cfif hEvtGeo is 1>
 			<cfset el=el & 'geology_attribute_1,geo_att_value_1,geo_att_determined_date_1,geo_att_determiner_1,geo_att_determined_method_1,'>
 			<cfset el=el & 'geology_attribute_2,geo_att_value_2,geo_att_determined_date_2,geo_att_determiner_2,geo_att_determined_method_2,'>
 			<cfset el=el & 'geology_attribute_3,geo_att_value_3,geo_att_determined_date_3,geo_att_determiner_3,geo_att_determined_method_3,'>
@@ -791,8 +794,8 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 	<cfoutput>
 
 	<ul>
-		<li>Binary objects to be created as Media (and preview) must exist in a web-accessible location and return a 200 statuscode in the HTML header</li>
-		<li>Objects to which Media will be related - such as collecting events and cataloged items - must exist</li>
+		<li>Binary objects to be created as Media (and preview if required) must exist in a web-accessible location and return a 200 statuscode in the HTTP header</li>
+		<li>Objects to which Media will be related - such as collecting events and cataloged items - must exist (but see collecting_event handler)</li>
 		<li>You may specify either a media_related_key_n OR media_related_term_n, but not both</li>
 		<li>There is no checking for media_related_key; just provide a primary key for the table name specified in media_relationship</li>
 		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_relationship">valid relationships</a></li>
@@ -813,6 +816,15 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 				<li>Cataloged Item - DWC GUID format ("UAM:Mamm:12") or part's container's barcode</li>
 				<li>Agent: Distinct string match with agent_name</li>
 				<li>Media - media_uri</li>
+				<li>
+					collecting_event - collecting events may be found or created by adding "event data" to the bulkloader.
+					See the specimen bulkloader for documentation. To use this feature:
+					<ul>
+						<li>In media_relationship_n field, enter a valid media relationship to collecting_event</li>
+						<li>In the corresponding media_related_term_n field, enter "lookup"</li>
+						<li>In the "event fields" enter enough information to find or create an Event.</li>
+					</ul>
+				</li>
 			</UL>
 		</li>
 	</ul>
@@ -858,9 +870,14 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 			CAUTION: no handlers for collecting event data are in place; coordinate usage with a DBA.
 		</p>
 		<label for="hEvt">Include collecting event?</label>
-		<select name="hEvt" id="hKhEvt">
+		<select name="hEvt" id="hEvt">
 			<option <cfif hEvt is 1> selected="selected" </cfif>value="1">yes</option>
 			<option <cfif hEvt is 0> selected="selected" </cfif>value="0">no</option>
+		</select>
+		<label for="hEvtGeo">And a side of geology?</label>
+		<select name="hEvtGeo" id="hEvtGeo">
+			<option <cfif hEvtGeo is 1> selected="selected" </cfif>value="1">yes</option>
+			<option <cfif hEvtGeo is 0> selected="selected" </cfif>value="0">no</option>
 		</select>
 
 		<br>
