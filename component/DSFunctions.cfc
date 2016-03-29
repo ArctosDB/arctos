@@ -176,6 +176,16 @@
 	<cfreturn d.c>
 </cffunction>
 
+<!---------------------------------------------------------------------->
+<cffunction name="getMediaByExactFilename" access="remote">
+	<cfargument name="filename" type="any" required="yes">
+	<cfquery name="d" datasource="uam_god">
+		select count(*) c from media where media_uri like '%/#filename#'
+	</cfquery>
+	<cfreturn d.c>
+</cffunction>
+<!---------------------------------------------------------------------->
+
 <cffunction name="getAllAgentNames" access="remote">
 	<cfargument name="agent_id" type="any" required="yes">
 	<cfif isnumeric(agent_id) and len(agent_id) gt 0>
