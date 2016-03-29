@@ -411,7 +411,7 @@ Step 1: Upload a comma-delimited text file (csv).
 					sq_transaction_id.currval,
 					'#accn_type#'
 					,'#accn_number#'
-					,'#dateformat(TRANS_DATE,"yyyy-mm-dd")#',
+					,'#RECEIVED_DATE#',
 					'#accn_status#',
 					<cfif len(estimated_count) gt 0>
 						#estimated_count#

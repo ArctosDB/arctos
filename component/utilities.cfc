@@ -346,7 +346,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",re-animator">
 	<cfset badbot=badbot & ",Qwantify">
-	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse">
+	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou">
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",YandexBot,Yeti">
@@ -360,6 +360,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			</cfif>
 		</cfloop>
 	</cfif>
+
 	<!----
 		is blacklisting with http://arctos.database.museum/guid/UAM:EH:0301-0001 so turn off for now
 	<cfif right(lurl,5) is "-1#chr(7)#">
