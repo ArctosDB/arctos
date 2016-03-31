@@ -355,9 +355,15 @@
 				</cfloop>
 			</select>
 			<label for="publisher">publisher</label>
+			<cfif isdefined("d.institution")>
+				<cfset tist=d.institution>
+			<cfelse>
+				<cfset tist="">
+			</cfif>
+
 			<select name="publisher" id="publisher" size="1">
 				<cfloop query="octinst">
-					<option value="#inst#" <cfif d.institution is octinst.inst> selected="selected" </cfif> >#inst#</option>
+					<option value="#inst#" <cfif tist is octinst.inst> selected="selected" </cfif> >#inst#</option>
 				</cfloop>
 			</select>
 			<label for="creator">creator <a href="http://ezid.cdlib.org/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
