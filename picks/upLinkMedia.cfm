@@ -10,14 +10,20 @@
 		    $(this).prop('required',true);
 		});
 
-		Dropzone.options = {
-		  paramName: "file", // The name that will be used to transfer the file
-		 uploadMultiple: false;
-		 init: function() {
-		    this.on("complete", function(file) { alert("Added file."); });
-		  }
 
-		};
+Dropzone.options.mydz = {
+  init: function () {
+    this.on("complete", function (file) {
+      if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+        console.log(file);
+      }
+    });
+  }
+   uploadMultiple: false;
+};
+
+
+
 
 	});
 	 function fileSelected() {
@@ -225,7 +231,7 @@
 
 
 
-<form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone needsclick dz-clickable">
+<form id="mydz" action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone needsclick dz-clickable">
 <div class="dz-message needsclick">
 Drop files here or click to upload.
 <br>
