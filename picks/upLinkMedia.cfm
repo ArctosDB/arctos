@@ -51,6 +51,8 @@
 		}
 
       function uploadComplete(evt) {
+
+      	alert('loaded');
         /* This event is raised when the server send back a response */
 		var result = JSON.parse(evt.target.responseText);
 
