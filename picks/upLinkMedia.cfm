@@ -195,7 +195,6 @@
 			</cfloop>
 		</select>
 		<select name="ctmedia_relationship" id="ctmedia_relationship">
-			<option></option>
 			<cfloop query="ctmedia_relationship">
 				<option value="#media_relationship#">#media_relationship#</option>
 			</cfloop>
@@ -234,6 +233,12 @@
 			<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
 			<label for="p_media_uri">Picked MediaURI</label>
 			<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
+			<label for="media_relationship">Relationship</label>
+			<select name="media_relationship" id="media_relationship">
+			<cfloop query="ctmedia_relationship">
+				<option value="#media_relationship#">#media_relationship#</option>
+			</cfloop>
+		</select>
 			<br><input type="submit" class="insBtn" value="link to picked media">
 		</form>
 	</div>
@@ -342,7 +347,6 @@
 </cfoutput>
 </cfif>
 
-<!----------
 <cfif action is "linkpicked">
 	<cfoutput>
 		<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -353,16 +357,15 @@
 				RELATED_PRIMARY_KEY
 			) values (
 				#p_media_id#,
-				'shows cataloged_item',
+				'#media_relationship#',
 				#session.myAgentId#,
-				#collection_object_id#
+				#kval#
 			)
 		</cfquery>
-		<cflocation url="upLinkMedia.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+		<cflocation url="upLinkMedia.cfm?kval=#kval#&ktype=#ktype#" addtoken="false">
 	</cfoutput>
 </cfif>
 
---------------->
 <cfif action is "createNewMedia">
 	<cfoutput>
 		<cftransaction>
