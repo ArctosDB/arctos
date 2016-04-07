@@ -13,7 +13,7 @@
 
 Dropzone.options.mydz = {
   init: function () {
-    this.on("complete", function (file,response) {
+    this.on("success", function (file,response) {
        console.log(response);
     });
   }
