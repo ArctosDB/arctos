@@ -11,7 +11,7 @@
 			</cfcatch>
 		</cftry>
 
-		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
 		<cfset fileName=cffile.serverfile>
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
 		<cfset fext=listlast(fileName,".")>
