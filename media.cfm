@@ -131,6 +131,8 @@
 			$("select[id^='label__']").each(function(e){
 				if ($(this).val()=='made date'){
 					console.log(this.id + ' is made date');
+					var veid=this.id.replace('label__','label_value__');
+					$('#' + veid).datepicker();
 				}
 			});
 		});
