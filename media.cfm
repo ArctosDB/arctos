@@ -130,7 +130,7 @@
 		jQuery(document).ready(function() {
 			$("select[id^='label__']").each(function(e){
 				if ($(this).val()=='made date'){
-					console.log($(this).id + ' is made date');
+					console.log(this.id + ' is made date');
 				}
 			});
 		});
