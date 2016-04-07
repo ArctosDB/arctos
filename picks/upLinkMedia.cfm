@@ -208,7 +208,7 @@
 		<div id="uploadtitle">Option 1: Upload Media Files</div>
 		<div id="uploadmediaform">
 			<form id="form1" enctype="multipart/form-data" method="post" action="">
-				<div class="row drop-files-container">
+				<div class="drop-files-container">
 				<label for="fileToUpload">Select a File to Upload (click or drag a file onto the browse button)</label>
 				<input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
 				</div>
