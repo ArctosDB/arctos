@@ -17,7 +17,9 @@ Dropzone.options.mydz = {
        console.log(result);
         if (result.STATUSCODE=='200'){
         	console.log('spiffy');
-        }
+        } else {
+        	console.log('not so much');
+        	}
     });
   }
 };
