@@ -392,7 +392,7 @@
 					RELATED_PRIMARY_KEY
 				) values (
 					#mid.mid#,
-					'#media_relationship',
+					'#media_relationship#',
 					#session.myAgentId#,
 					#kval#
 				)
