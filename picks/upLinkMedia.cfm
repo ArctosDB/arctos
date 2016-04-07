@@ -12,7 +12,7 @@
 
 		Dropzone.options = {
 		  paramName: "file", // The name that will be used to transfer the file
-		 uploadMultiple: false
+		 uploadMultiple: false;
 		 init: function() {
 		    this.on("complete", function(file) { alert("Added file."); });
 		  }
