@@ -30,8 +30,16 @@
         xhr.addEventListener("load", uploadComplete, false);
         xhr.addEventListener("error", uploadFailed, false);
         xhr.addEventListener("abort", uploadCanceled, false);
+        	alert('posting');
+
         xhr.open("POST", "/component/utilities.cfc?method=loadFile&returnFormat=json");
+
+
+        	alert('postinged; sending');
         xhr.send(fd);
+
+
+        	alert('sent');
       }
 
       function uploadProgress(evt) {
