@@ -169,7 +169,7 @@
 		<input type="hidden" id="username" value="#session.username#">
 	</div>
 	<div class="grpDiv">
-		<div id="uploadtitle">Upload Media Files</div>
+		<div id="uploadtitle">Option 1: Upload Media Files</div>
 		<div id="uploadmediaform">
 			<form id="form1" enctype="multipart/form-data" method="post" action="">
 				<div class="row">
@@ -189,7 +189,7 @@
 		<div id="newMediaUpBack"></div>
 	</div>
 	<div class="grpDiv">
-		Link to existing Arctos Media.
+		Option 2: Link to existing Arctos Media.
 		<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
 		<form id="picklink" method="post" action="upLinkMedia.cfm">
 			<input type="hidden" name="action" value="linkpicked">
