@@ -27,6 +27,10 @@
 			getMedia('specimenCollectingEvent','#collection_object_id#','colEventMedia','2','1');
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
+            getMedia('specimenLocCollEvent','#collection_object_id#','locColEventMedia','4','1');
+            
+            
+            
             $("##mediaUpClickThis").click(function(){
 			    addSpecimenMedia(#collection_object_id#);
 			});
@@ -701,6 +705,9 @@
 														<td align="left">#MIN_DEPTH# to #MAX_DEPTH# #DEPTH_UNITS#</td>
 													</tr>
 												</cfif>
+												<tr>
+													<td valign="top" colspan="2"><div id="locColEventMedia"></div></td>
+												</tr>
 											</table>
 										</td>
 										<td valign="top" align="right"><!---- map here --->

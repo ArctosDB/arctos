@@ -112,6 +112,7 @@
                         media_flat.descr
 			">
 	<cfelseif typ is "specimenCollectingEvent">
+		<!--- media related to a collecting event which is being used by a specimen ---->
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_collecting_event_id=#q#">
 		<cfset sql="
 		   	select
@@ -122,7 +123,7 @@
 		        media_flat.preview_uri,
                 alt_text,
                 license,
-                        media_flat.descr
+                media_flat.descr
 			from
 				media_flat,
 				media_relations,
@@ -142,6 +143,42 @@
                 license,
                  media_flat.descr
 		">
+	<cfelseif typ is "specimenLocCollEvent">
+		<!--- media related to an event which uses the locality of the event used by a specumen ---->
+        <cfset srchall="/MediaSearch.cfm?specimen_loc_event_id=#q#">
+		 <cfset sql="
+			 select
+          media_flat.media_id,
+            media_flat.media_uri,
+            media_flat.mime_type,
+            media_flat.media_type,
+            media_flat.preview_uri,
+              alt_text,
+                license,
+                media_flat.descr
+      from
+        media_flat,
+        media_relations,
+        specimen_event,
+        collecting_event ubsce,
+        collecting_event hmlce
+      where
+      specimen_event.collecting_event_id=ubsce.collecting_event_id and
+      ubsce.locality_id=hmlce.locality_id and
+      media_relations.related_primary_key=hmlce.collecting_event_id and
+      media_flat.media_id=media_relations.media_id and
+      media_relations.media_relationship like '% collecting_event' and
+        specimen_event.collection_object_id=#q#
+      group by
+        media_flat.media_id,
+            media_flat.media_uri,
+            media_flat.mime_type,
+            media_flat.media_type,
+            media_flat.preview_uri,
+                alt_text,
+                license,
+                 media_flat.descr;
+			">
 	<cfelseif typ is "collecting_event">
 		<cfset srchall="/MediaSearch.cfm?action=search&collecting_event_id=#q#">
 		<cfset sql="
