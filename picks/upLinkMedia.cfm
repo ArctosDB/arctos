@@ -132,12 +132,14 @@
         alert("There was an error attempting to upload the file.");
         	$("#progressNumber").html('');
       		$("#btnUpload").show();
+      		$("#progressThingee").hide();
       }
 
       function uploadCanceled(evt) {
         alert("The upload has been canceled by the user or the browser dropped the connection.");
         	$("#progressNumber").html('');
       		$("#btnUpload").show();
+      		$("#progressThingee").hide();
       }
 </script>
 <cfoutput>
