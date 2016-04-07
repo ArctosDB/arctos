@@ -152,91 +152,17 @@
       		$("#btnUpload").show();
       		$("#progressThingee").hide();
       }
-</script>
-<cfoutput>
-	<cfif ktype is "collecting_event_id">
-		<cfset tbl='collecting_event'>
-	<cfelse>
-		<!--- not handled, return nothing disallowing save ---->
-		<cfset tbl='ajksndfiouafvblvnasahihs'>
-	</cfif>
-
-	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select * from ctmedia_license order by DISPLAY
-	</cfquery>
-	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select * from ctmime_type order by mime_type
-	</cfquery>
-	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select * from ctmedia_type order by media_type
-	</cfquery>
-	<!--- only get appropriate relationships ---->
-	<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select * from ctmedia_relationship where media_relationship like
-		'% #tbl#'
-		order by media_relationship
-	</cfquery>
-	<div style="display:none">
-		<!--- easy way to get stuff for new media - just clone from here ---->
-		<select name="ctmedia_type" id="ctmedia_type">
-			<option></option>
-			<cfloop query="ctmedia_type">
-				<option value="#media_type#">#media_type#</option>
-			</cfloop>
-		</select>
-		<select name="ctmedia_license" id="ctmedia_license">
-			<option></option>
-			<cfloop query="ctmedia_license">
-				<option value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
-			</cfloop>
-		</select>
-		<select name="ctmime_type" id="ctmime_type">
-			<option></option>
-			<cfloop query="ctmime_type">
-				<option value="#mime_type#">#mime_type#</option>
-			</cfloop>
-		</select>
-		<select name="ctmedia_relationship" id="ctmedia_relationship">
-			<cfloop query="ctmedia_relationship">
-				<option value="#media_relationship#">#media_relationship#</option>
-			</cfloop>
-		</select>
-		<input type="hidden" id="myAgentID" value="#session.myAgentID#">
-		<input type="hidden" id="username" value="#session.username#">
-	</div>
-	<div class="grpDiv">
-
-
-
-	<style>
-#holder { border: 10px dashed #ccc; width: 300px; min-height: 300px; margin: 20px auto;}
-#holder.hover { border: 10px dashed #0c0; }
-#holder img { display: block; margin: 10px auto; }
-#holder p { margin: 10px; font-size: 14px; }
-progress { width: 100%; }
-progress:after { content: '%'; }
-.fail { background: #c00; padding: 2px; color: #fff; }
-.hidden { display: none !important;}
-</style>
-
-
-
-<article>
-  <div id="holder">
-  </div>
-  <p id="upload" class="hidden"><label>Drag & drop not supported, but you can still upload via this input field:<br><input type="file"></label></p>
-  <p id="filereader">File API & FileReader API not supported</p>
-  <p id="formdata">XHR2's FormData is not supported</p>
-  <p id="progress">XHR2's upload progress isn't supported</p>
-  <p>Upload progress: <progress id="uploadprogress" min="0" max="100" value="0">0</progress></p>
-  <p>Drag an image from your desktop on to the drop zone above to see the browser both render the preview, but also upload automatically to this server.</p>
-</article>
 
 
 
 
 
-<script>
+
+
+
+
+
+
 var holder = document.getElementById('holder'),
     tests = {
       filereader: typeof FileReader != 'undefined',
@@ -331,6 +257,88 @@ if (tests.dnd) {
 }
 
 </script>
+<cfoutput>
+	<cfif ktype is "collecting_event_id">
+		<cfset tbl='collecting_event'>
+	<cfelse>
+		<!--- not handled, return nothing disallowing save ---->
+		<cfset tbl='ajksndfiouafvblvnasahihs'>
+	</cfif>
+
+	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from ctmedia_license order by DISPLAY
+	</cfquery>
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from ctmime_type order by mime_type
+	</cfquery>
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from ctmedia_type order by media_type
+	</cfquery>
+	<!--- only get appropriate relationships ---->
+	<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from ctmedia_relationship where media_relationship like
+		'% #tbl#'
+		order by media_relationship
+	</cfquery>
+	<div style="display:none">
+		<!--- easy way to get stuff for new media - just clone from here ---->
+		<select name="ctmedia_type" id="ctmedia_type">
+			<option></option>
+			<cfloop query="ctmedia_type">
+				<option value="#media_type#">#media_type#</option>
+			</cfloop>
+		</select>
+		<select name="ctmedia_license" id="ctmedia_license">
+			<option></option>
+			<cfloop query="ctmedia_license">
+				<option value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
+			</cfloop>
+		</select>
+		<select name="ctmime_type" id="ctmime_type">
+			<option></option>
+			<cfloop query="ctmime_type">
+				<option value="#mime_type#">#mime_type#</option>
+			</cfloop>
+		</select>
+		<select name="ctmedia_relationship" id="ctmedia_relationship">
+			<cfloop query="ctmedia_relationship">
+				<option value="#media_relationship#">#media_relationship#</option>
+			</cfloop>
+		</select>
+		<input type="hidden" id="myAgentID" value="#session.myAgentID#">
+		<input type="hidden" id="username" value="#session.username#">
+	</div>
+	<div class="grpDiv">
+
+
+
+	<style>
+#holder { border: 10px dashed #ccc; width: 300px; min-height: 300px; margin: 20px auto;}
+#holder.hover { border: 10px dashed #0c0; }
+#holder img { display: block; margin: 10px auto; }
+#holder p { margin: 10px; font-size: 14px; }
+progress { width: 100%; }
+progress:after { content: '%'; }
+.fail { background: #c00; padding: 2px; color: #fff; }
+.hidden { display: none !important;}
+</style>
+
+
+
+<article>
+  <div id="holder">
+  </div>
+  <p id="upload" class="hidden"><label>Drag & drop not supported, but you can still upload via this input field:<br><input type="file"></label></p>
+  <p id="filereader">File API & FileReader API not supported</p>
+  <p id="formdata">XHR2's FormData is not supported</p>
+  <p id="progress">XHR2's upload progress isn't supported</p>
+  <p>Upload progress: <progress id="uploadprogress" min="0" max="100" value="0">0</progress></p>
+  <p>Drag an image from your desktop on to the drop zone above to see the browser both render the preview, but also upload automatically to this server.</p>
+</article>
+
+
+
+
 
 
 
