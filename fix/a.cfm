@@ -7,17 +7,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset=utf-8>
-<meta name="viewport" content="width=620">
-<title>HTML5 Demo: Drag and drop, automatic upload</title>
-<link rel="stylesheet" href="css/html5demos.css">
-<script src="js/h5utils.js"></script></head>
-<body>
-<section id="wrapper">
-<div id="carbonads-container"><div class="carbonad"><div id="azcarbon"></div><script type="text/javascript">var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = "http://engine.carbonads.com/z/14060/azcarbon_2_1_0_VERT"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script></div></div>
-    <header>
-      <h1>Drag and drop, automatic upload</h1>
-    </header>
 
 <style>
 #holder { border: 10px dashed #ccc; width: 300px; min-height: 300px; margin: 20px auto;}
