@@ -111,7 +111,7 @@
                     license,
                         media_flat.descr
 			">
-	<cfelseif typ is "collecting_event">
+	<cfelseif typ is "specimenCollectingEvent">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_collecting_event_id=#q#">
 		<cfset sql="
 		   	select

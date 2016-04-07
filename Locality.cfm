@@ -1114,11 +1114,16 @@
 	</cfform>
 	<hr>
 
-	Media.....
+	<div id="colEventMedia"></div>
 
 	<cfif isdefined("session.roles") and session.roles contains "manage_media">
 		<a onclick="addMedia('collecting_event_id','#collecting_event_id#');">Attach/Upload Media</a>
 	</cfif>
+	function getMedia(typ,q,tgt,rpp,pg){
+
+	<script>
+		getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
+	</script>
   </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
