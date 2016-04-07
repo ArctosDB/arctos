@@ -5,6 +5,16 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
+
+		$(".drop-files-container").bind("drop", function(e) {
+		    var files = e.originalEvent.dataTransfer.files;
+		    processFileUpload(files);
+		    // forward the file object to your ajax upload method
+		    return false;
+		});
+
+
+
 	});
 	 function fileSelected() {
         var file = document.getElementById('fileToUpload').files[0];
@@ -198,7 +208,7 @@
 		<div id="uploadtitle">Option 1: Upload Media Files</div>
 		<div id="uploadmediaform">
 			<form id="form1" enctype="multipart/form-data" method="post" action="">
-				<div class="row">
+				<div class="row drop-files-container">
 				<label for="fileToUpload">Select a File to Upload (click or drag a file onto the browse button)</label>
 				<input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
 				</div>
