@@ -126,6 +126,7 @@
         	alert('ERROR: ' + result.MSG);
         	$("#progressNumber").html('');
       		$("#btnUpload").show();
+      		$("#progressThingee").hide();
         }
       }
       function uploadFailed(evt) {
@@ -143,11 +144,6 @@
       }
 </script>
 <cfoutput>
-	<p>ktype: #ktype#</p>
-	<p>kval: #kval#</p>
-
-
-
 	<cfif ktype is "collecting_event_id">
 		<cfset tbl='collecting_event'>
 	<cfelse>
