@@ -34,6 +34,8 @@
 					links: blue
 					visited links: 660099
 					hover: CC0000
+					
+					tooltip: green
 				
 			
 			
@@ -52,7 +54,19 @@
 .tr       { display: table-row }
 .td, th   { display: table-cell }
 
+/* BEGIN tooltip */
 
+.hasTitle {
+	color:green;
+	border-bottom:3px dashed green;
+	display:inline-block;
+}
+.hasTitle:hover {
+	cursor:help;
+}
+	
+/* END tooltip */
+	
 /* BEGIN agent form */
 	.validAddress{border:2px solid green;margin:1px;padding:1px;}
 	.invalidAddress{border:2px solid red;margin:1px;padding:1px;}

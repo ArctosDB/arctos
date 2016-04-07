@@ -328,11 +328,6 @@
 	</cfif>
 	<cfset np=pg+1>
 	<cfset pp=pg-1>
-	<style>
-		.hasTitle {
-			color:green;
-		}
-	</style>
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
 		Showing <div class="hasTitle" title="#mrdescr#">Media results</div> #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
 		<cfif len(srchall) gt 0>
