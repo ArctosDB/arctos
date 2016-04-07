@@ -225,7 +225,7 @@
 
 
 
-<form action="/upload-target" class="dropzone"></form>
+<form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone"></form>
 
 
 		<div id="uploadtitle">Option 1: Upload Media Files</div>
