@@ -23,6 +23,7 @@
 
       function uploadFile() {
       	$("#progressThingee").show();
+      	$("#btnUpload").hide();
         var fd = new FormData();
         fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
         var xhr = new XMLHttpRequest();
@@ -124,16 +125,19 @@
         } else {
         	alert('ERROR: ' + result.MSG);
         	$("#progressNumber").html('');
+      		$("#btnUpload").show();
         }
       }
       function uploadFailed(evt) {
         alert("There was an error attempting to upload the file.");
         	$("#progressNumber").html('');
+      		$("#btnUpload").show();
       }
 
       function uploadCanceled(evt) {
         alert("The upload has been canceled by the user or the browser dropped the connection.");
         	$("#progressNumber").html('');
+      		$("#btnUpload").show();
       }
 </script>
 <cfoutput>
@@ -204,7 +208,7 @@
 				<div id="fileSize"></div>
 				<div id="fileType"></div>
 				<div class="row">
-				<input type="button" onclick="uploadFile()" value="Upload" />
+				<input type="button" onclick="uploadFile()" value="Upload" id="btnUpload">
 				<div id="progressThingee" style="display:none;"><img src="/images/indicator.gif"></div>
 				</div>
 				<div id="progressNumber"></div>
