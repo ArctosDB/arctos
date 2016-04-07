@@ -177,7 +177,7 @@
             media_flat.preview_uri,
                 alt_text,
                 license,
-                 media_flat.descr;
+                 media_flat.descr
 			">
 	<cfelseif typ is "collecting_event">
 		<cfset srchall="/MediaSearch.cfm?action=search&collecting_event_id=#q#">
