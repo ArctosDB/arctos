@@ -1112,6 +1112,13 @@
 			</cfif>
 		</td></tr></table>
 	</cfform>
+	<hr>
+
+	Media.....
+
+	<cfif isdefined("session.roles") and session.roles contains "manage_media">
+		<a onclick="addMedia('collecting_event_id','#collecting_event_id#');">Attach/Upload Media</a>
+	</cfif>
   </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->

@@ -1,35 +1,3 @@
-<!----------------------
-
-
-
-					IMPPORTANT:
-
-
-
-					DO NOT MODIFY THIS FILE
-
-
-					use upLinkMedia.cfm
-
-					rewrite calls to deal with that
-
-
-
-
-
-
-
-
----------------------->
-
-
-
-
-
-
-
-
-
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfif action is "nothing">
 <script>
@@ -161,6 +129,13 @@
       }
 </script>
 <cfoutput>
+	<p>ktype: #ktype#</p>
+	<p>kval: #kval#</p>
+
+
+
+
+
 	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_license order by DISPLAY
 	</cfquery>
