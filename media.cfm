@@ -126,13 +126,15 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "edit">
 	<cfset  func = CreateObject("component","component.functions")>
-	jQuery(document).ready(function() {
-		$("select[id^='label__']").each(function(e){
-			if ($(this).val()=='made date'){
-				console.log($(this).id + ' is made date');
-			}
+	<script>
+		jQuery(document).ready(function() {
+			$("select[id^='label__']").each(function(e){
+				if ($(this).val()=='made date'){
+					console.log($(this).id + ' is made date');
+				}
+			});
 		});
-	});
+	</script>
 	<!----
 		<select name="label__#i#" id="label__#i#" size="1">
 					<option value="delete">delete</option>
