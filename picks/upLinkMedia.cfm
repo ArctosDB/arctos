@@ -189,23 +189,34 @@
 		<div id="newMediaUpBack"></div>
 	</div>
 	<div class="grpDiv">
-		Link specimen to existing Arctos Media.
+		Link to existing Arctos Media.
 		<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
-		<form id="picklink" method="post" action="specimenMedia.cfm">
+		<form id="picklink" method="post" action="upLinkMedia.cfm">
 			<input type="hidden" name="action" value="linkpicked">
-			<input type="hidden" id="collection_object_id" name="collection_object_id" value="#collection_object_id#">
+			<input type="hidden" id="ktype" name="ktype" value="#ktype#">
+			<input type="hidden" id="kval" name="kval" value="#kval#">
 			<label for="">Media ID</label>
 			<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
 			<label for="p_media_uri">Picked MediaURI</label>
 			<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
-			<br><input type="submit" class="insBtn" value="link specimen to picked media">
+			<br><input type="submit" class="insBtn" value="link to picked media">
 		</form>
 	</div>
+
+	<!---
+
+	what does this do? investigate/uncomment....
 	<div class="grpDiv">
 		<a target="_blank" href="/media.cfm?action=newMedia&collection_object_id=#collection_object_id#">Create Media</a>
 		 for more options (<em>e.g.</em>, link to YouTube, relate to Events).
 	</div>
-	Existing Media for this specimen
+
+
+
+	------->
+
+
+	Existing Media for this object
 	<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct
 			media.media_id,
@@ -223,8 +234,8 @@
 			media,
 			ctmedia_license
 		where
-			media_relations.media_relationship='shows cataloged_item' and
-			media_relations.related_primary_key=#collection_object_id# and
+			media_relations.media_relationship like ' #ktype#' and
+			media_relations.related_primary_key=#kval# and
 			media_relations.media_id=media.media_id and
 			media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+)
 		order by
