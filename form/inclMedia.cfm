@@ -312,7 +312,7 @@
 
 	<cfif mediaResultsQuery.recordcount is 0>
 		<div style="margin-left:2em;font-weight:bold;font-style:italic;">
-			No Media Found
+			No <div class="hasTitle" title="#mrdescr#">Media</div> Found
 		</div>
 		<cfabort>
 	</cfif>
