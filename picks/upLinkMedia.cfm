@@ -384,13 +384,6 @@
 					</cfif>
 				)
 			</cfquery>
-
-
-        	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
-        	h+='<input type="hidden" name="kval"  value="' + $("#kval").val() + '">';
-        	h+='<input type="hidden" name="action"  value="createNewMedia">';
-
-
 			<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into media_relations (
 					MEDIA_ID,
@@ -399,9 +392,9 @@
 					RELATED_PRIMARY_KEY
 				) values (
 					#mid.mid#,
-					'shows cataloged_item',
+					'#media_relationship',
 					#session.myAgentId#,
-					#collection_object_id#
+					#kval#
 				)
 			</cfquery>
 			<cfif len(created_agent_id) gt 0>
