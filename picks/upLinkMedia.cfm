@@ -70,7 +70,7 @@
 
         	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
         	$("#uploadmediaform").hide();
-        	var h='<form name="nm" method="post" action="specimenMedia.cfm">';
+        	var h='<form name="nm" method="post" action="upLinkMedia.cfm">';
         	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
         	h+='<input type="hidden" name="kval"  value="' + $("#kval").val() + '">';
         	h+='<input type="hidden" name="action"  value="createNewMedia">';
@@ -339,6 +339,8 @@
 
 </cfoutput>
 </cfif>
+
+<!----------
 <cfif action is "linkpicked">
 	<cfoutput>
 		<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -354,9 +356,11 @@
 				#collection_object_id#
 			)
 		</cfquery>
-		<cflocation url="specimenMedia.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+		<cflocation url="upLinkMedia.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 	</cfoutput>
 </cfif>
+
+--------------->
 <cfif action is "createNewMedia">
 	<cfoutput>
 		<cftransaction>
