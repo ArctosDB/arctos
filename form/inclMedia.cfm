@@ -18,8 +18,11 @@
  .audiothumb { width:180px; }
 </style>
 <cfoutput>
+			<cfset mrdescr="">
+
 	<cfif typ is "taxon">
 		<cfset srchall="/MediaSearch.cfm?action=search&taxon_name_id=#q#">
+		<cfset mrdescr="Media linked to a taxon, plus Media used by specimens using the taxon in identifiations.">
 		<cfset sql="select * from (
 			   	select
 			   		 media_id,
@@ -84,6 +87,7 @@
 		">
 	<cfelseif typ is "accn">
 		<cfset srchall="/MediaSearch.cfm?action=search&accn_id=#q#">
+		<cfset mtype="Accession">
 		<cfset sql="
 			   	select
 			   		media_flat.media_id,
@@ -112,6 +116,7 @@
                         media_flat.descr
 			">
 	<cfelseif typ is "specimenCollectingEvent">
+		<cfset mtype="Specimen's Collecting Event">
 		<!--- media related to a collecting event which is being used by a specimen ---->
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_collecting_event_id=#q#">
 		<cfset sql="
@@ -144,42 +149,44 @@
                  media_flat.descr
 		">
 	<cfelseif typ is "specimenLocCollEvent">
+		<cfset mtype="Specimen's Locality (via shared Collecting Event)">
 		<!--- media related to an event which uses the locality of the event used by a specumen ---->
         <cfset srchall="/MediaSearch.cfm?specimen_loc_event_id=#q#">
 		 <cfset sql="
 			 select
-          media_flat.media_id,
-            media_flat.media_uri,
-            media_flat.mime_type,
-            media_flat.media_type,
-            media_flat.preview_uri,
-              alt_text,
+	          	media_flat.media_id,
+	            media_flat.media_uri,
+	            media_flat.mime_type,
+	            media_flat.media_type,
+	            media_flat.preview_uri,
+				alt_text,
                 license,
                 media_flat.descr
-      from
-        media_flat,
-        media_relations,
-        specimen_event,
-        collecting_event ubsce,
-        collecting_event hmlce
-      where
-      specimen_event.collecting_event_id=ubsce.collecting_event_id and
-      ubsce.locality_id=hmlce.locality_id and
-      media_relations.related_primary_key=hmlce.collecting_event_id and
-      media_flat.media_id=media_relations.media_id and
-      media_relations.media_relationship like '% collecting_event' and
-        specimen_event.collection_object_id=#q#
-      group by
-        media_flat.media_id,
-            media_flat.media_uri,
-            media_flat.mime_type,
-            media_flat.media_type,
-            media_flat.preview_uri,
-                alt_text,
-                license,
-                 media_flat.descr
+      		from
+		        media_flat,
+		        media_relations,
+		        specimen_event,
+		        collecting_event ubsce,
+		        collecting_event hmlce
+      		where
+		      specimen_event.collecting_event_id=ubsce.collecting_event_id and
+		      ubsce.locality_id=hmlce.locality_id and
+		      media_relations.related_primary_key=hmlce.collecting_event_id and
+		      media_flat.media_id=media_relations.media_id and
+		      media_relations.media_relationship like '% collecting_event' and
+		      specimen_event.collection_object_id=#q#
+     		group by
+	        	media_flat.media_id,
+	            media_flat.media_uri,
+	            media_flat.mime_type,
+	            media_flat.media_type,
+	            media_flat.preview_uri,
+	            alt_text,
+	            license,
+	            media_flat.descr
 			">
 	<cfelseif typ is "collecting_event">
+		<cfset mtype="Collecting Event">
 		<cfset srchall="/MediaSearch.cfm?action=search&collecting_event_id=#q#">
 		<cfset sql="
 		   	select
@@ -210,7 +217,7 @@
 		">
 	<cfelseif typ is "accnspecimens">
 		<cfset srchall="">
-
+		<cfset mtype="Accessioned Specimens">
 		<cfset sql="select
 				media_flat.media_id,
 				media_flat.preview_uri,
@@ -322,7 +329,7 @@
 	<cfset np=pg+1>
 	<cfset pp=pg-1>
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
-		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
+		Showing <div title="#mrdescr#">Media results</div> #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
 		<cfif len(srchall) gt 0>
 			[ <a href="#srchall#">[ view details ]</a>
 		</cfif>
