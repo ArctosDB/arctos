@@ -86,10 +86,12 @@ function readfiles(files) {
       previewfile(files[i]);
     }
 
+	xhr.addEventListener("load", uploadComplete, false);
+
     // now post a new XHR request
     if (tests.formdata) {
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', '/devnull.php');
+      xhr.open('POST', '/component/utilities.cfc?method=loadFile&returnFormat=json');
       xhr.onload = function() {
         progress.value = progress.innerHTML = 100;
       };
@@ -106,6 +108,10 @@ function readfiles(files) {
       xhr.send(formData);
     }
 }
+  function uploadComplete(evt) {
+  	alert('back');
+  	}
+
 
 if (tests.dnd) {
   holder.ondragover = function () { this.className = 'hover'; return false; };
