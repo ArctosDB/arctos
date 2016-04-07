@@ -19,7 +19,6 @@ Dropzone.options.mydz = {
       }
     });
   }
-   uploadMultiple: false;
 };
 
 
