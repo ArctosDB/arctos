@@ -13,8 +13,11 @@
 
 Dropzone.options.mydz = {
   init: function () {
-    this.on("success", function (file,response) {
-       console.log(response);
+    this.on("success", function (file,result) {
+       console.log(result);
+        if (result.STATUSCODE=='200'){
+        	console.log('spiffy');
+        }
     });
   }
 };
@@ -23,6 +26,19 @@ Dropzone.options.mydz = {
 
 
 	});
+
+
+
+
+
+
+
+
+
+
+
+
+
 	 function fileSelected() {
         var file = document.getElementById('fileToUpload').files[0];
         if (file) {
