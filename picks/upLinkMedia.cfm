@@ -13,10 +13,8 @@
 
 Dropzone.options.mydz = {
   init: function () {
-    this.on("complete", function (file) {
-      if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-        console.log(file);
-      }
+    this.on("complete", function (file,response) {
+       console.log(response);
     });
   }
 };
