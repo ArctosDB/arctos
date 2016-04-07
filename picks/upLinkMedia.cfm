@@ -257,6 +257,21 @@ if (tests.dnd) {
 }
 
 </script>
+
+
+	<style>
+#holder { border: 10px dashed #ccc; width: 300px; min-height: 300px; margin: 20px auto;}
+#holder.hover { border: 10px dashed #0c0; }
+#holder img { display: block; margin: 10px auto; }
+#holder p { margin: 10px; font-size: 14px; }
+progress { width: 100%; }
+progress:after { content: '%'; }
+.fail { background: #c00; padding: 2px; color: #fff; }
+.hidden { display: none !important;}
+</style>
+
+
+
 <cfoutput>
 	<cfif ktype is "collecting_event_id">
 		<cfset tbl='collecting_event'>
@@ -310,18 +325,6 @@ if (tests.dnd) {
 	</div>
 	<div class="grpDiv">
 
-
-
-	<style>
-#holder { border: 10px dashed #ccc; width: 300px; min-height: 300px; margin: 20px auto;}
-#holder.hover { border: 10px dashed #0c0; }
-#holder img { display: block; margin: 10px auto; }
-#holder p { margin: 10px; font-size: 14px; }
-progress { width: 100%; }
-progress:after { content: '%'; }
-.fail { background: #c00; padding: 2px; color: #fff; }
-.hidden { display: none !important;}
-</style>
 
 
 
