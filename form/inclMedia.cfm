@@ -142,6 +142,35 @@
                 license,
                  media_flat.descr
 		">
+	<cfelseif typ is "collecting_event">
+		<cfset srchall="/MediaSearch.cfm?action=search&collecting_event_id=#q#">
+		<cfset sql="
+		   	select
+		   		media_flat.media_id,
+		        media_flat.media_uri,
+		        media_flat.mime_type,
+		        media_flat.media_type,
+		        media_flat.preview_uri,
+                alt_text,
+                license,
+                media_flat.descr
+			from
+				media_flat,
+				media_relations
+			where
+				 media_flat.media_id=media_relations.media_id and
+			     media_relations.media_relationship like '% collecting_event' and
+			     media_relations.related_primary_key=#q#
+			group by
+			 	media_flat.media_id,
+		        media_flat.media_uri,
+		        media_flat.mime_type,
+		        media_flat.media_type,
+		        media_flat.preview_uri,
+                alt_text,
+                license,
+                media_flat.descr
+		">
 	<cfelseif typ is "accnspecimens">
 		<cfset srchall="">
 
