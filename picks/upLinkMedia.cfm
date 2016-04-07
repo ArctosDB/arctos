@@ -10,14 +10,11 @@
 		    $(this).prop('required',true);
 		});
 
-		$(".drop-files-container").bind("drop", function(e) {
-		    var files = e.originalEvent.dataTransfer.files;
-		    processFileUpload(files);
-		    // forward the file object to your ajax upload method
-		    return false;
-		});
-
-
+		Dropzone.options = {
+		  paramName: "file", // The name that will be used to transfer the file
+		 uploadMultiple: false
+		  }
+};
 
 	});
 	 function fileSelected() {
