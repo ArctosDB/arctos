@@ -276,6 +276,8 @@
 		order by
 			media_id
 	</cfquery>
+
+	<cfdump var=#smed#>
 	<style>
 		.tbl{
 			display: table;
