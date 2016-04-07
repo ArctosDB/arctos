@@ -85,11 +85,14 @@ function readfiles(files) {
       previewfile(files[i]);
     }
 
-	xhr.addEventListener("load", uploadComplete, false);
 
     // now post a new XHR request
     if (tests.formdata) {
       var xhr = new XMLHttpRequest();
+
+      	xhr.addEventListener("load", uploadComplete, false);
+
+
       xhr.open('POST', '/component/utilities.cfc?method=loadFile&returnFormat=json');
       xhr.onload = function() {
         progress.value = progress.innerHTML = 100;
