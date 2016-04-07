@@ -269,7 +269,7 @@
 			media,
 			ctmedia_license
 		where
-			media_relations.media_relationship like ' #ktype#' and
+			media_relations.media_relationship like '% #ktype#' and
 			media_relations.related_primary_key=#kval# and
 			media_relations.media_id=media.media_id and
 			media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+)
