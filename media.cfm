@@ -126,6 +126,24 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "edit">
 	<cfset  func = CreateObject("component","component.functions")>
+	jQuery(document).ready(function() {
+		$("select[id^='label__']").each(function(e){
+			if ($(this).val()=='made date'){
+				console.log($(this).id + ' is made date');
+			}
+		});
+	});
+	<!----
+		<select name="label__#i#" id="label__#i#" size="1">
+					<option value="delete">delete</option>
+					<cfloop query="ctmedia_label">
+						<option <cfif d is media_label> selected="selected" </cfif>value="#media_label#">#media_label#</option>
+					</cfloop>
+				</select>:&nbsp;<input type="text" name="label_value__#i#" id="label_value__#i#" size="80" value="#stripQuotes(label_value)#">
+				</div>
+
+
+			---->
 
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from media where media_id=#media_id#
@@ -257,7 +275,7 @@
 				<select name="label__#i#" id="label__#i#" size="1">
 					<option value="delete">delete</option>
 					<cfloop query="ctmedia_label">
-						<option <cfif #d# is #media_label#> selected="selected" </cfif>value="#media_label#">#media_label#</option>
+						<option <cfif d is media_label> selected="selected" </cfif>value="#media_label#">#media_label#</option>
 					</cfloop>
 				</select>:&nbsp;<input type="text" name="label_value__#i#" id="label_value__#i#" size="80" value="#stripQuotes(label_value)#">
 				</div>
