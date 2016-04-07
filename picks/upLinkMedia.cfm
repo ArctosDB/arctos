@@ -53,6 +53,9 @@
       function uploadComplete(evt) {
         /* This event is raised when the server send back a response */
 		var result = JSON.parse(evt.target.responseText);
+
+		console.log(result);
+
         if (result.STATUSCODE=='200'){
 
         	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
