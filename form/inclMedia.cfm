@@ -87,7 +87,7 @@
 		">
 	<cfelseif typ is "accn">
 		<cfset srchall="/MediaSearch.cfm?action=search&accn_id=#q#">
-		<cfset mtype="Accession">
+		<cfset mrdescr="Media linked to an Accession.">
 		<cfset sql="
 			   	select
 			   		media_flat.media_id,
@@ -97,7 +97,7 @@
 			        media_flat.preview_uri,
                     alt_text,
                     license,
-                        media_flat.descr
+                    media_flat.descr
 				from
 					media_flat,
 					media_relations
@@ -116,7 +116,7 @@
                         media_flat.descr
 			">
 	<cfelseif typ is "specimenCollectingEvent">
-		<cfset mtype="Specimen's Collecting Event">
+		<cfset mrdescr="Media linked to a specimen's Collecting Event.">
 		<!--- media related to a collecting event which is being used by a specimen ---->
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_collecting_event_id=#q#">
 		<cfset sql="
@@ -149,7 +149,7 @@
                  media_flat.descr
 		">
 	<cfelseif typ is "specimenLocCollEvent">
-		<cfset mtype="Specimen's Locality (via shared Collecting Event)">
+		<cfset mrdescr="Media linked to a Collecting Event which shares the specimen's Locality.">
 		<!--- media related to an event which uses the locality of the event used by a specumen ---->
         <cfset srchall="/MediaSearch.cfm?specimen_loc_event_id=#q#">
 		 <cfset sql="
@@ -186,7 +186,7 @@
 	            media_flat.descr
 			">
 	<cfelseif typ is "collecting_event">
-		<cfset mtype="Collecting Event">
+		<cfset mrdescr="Media linked to a Collecting Event.">
 		<cfset srchall="/MediaSearch.cfm?action=search&collecting_event_id=#q#">
 		<cfset sql="
 		   	select
@@ -217,7 +217,7 @@
 		">
 	<cfelseif typ is "accnspecimens">
 		<cfset srchall="">
-		<cfset mtype="Accessioned Specimens">
+		<cfset mrdescr="Media linked to specimens in this specimen's Accession.">
 		<cfset sql="select
 				media_flat.media_id,
 				media_flat.preview_uri,
@@ -239,7 +239,7 @@
 
 	<cfelseif typ is "specimenaccn">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_accn_id=#q#">
-
+		<cfset mrdescr="Media linked to this specimen's Accession.">
 		<cfset sql="select
 				media_flat.media_id,
 				media_flat.preview_uri,
@@ -260,15 +260,17 @@
 				cataloged_item.collection_object_id=#q#">
 	<cfelseif typ is "project">
 		<cfset srchall="/MediaSearch.cfm?action=search&project_id=#q#">
+		<cfset mrdescr="Media linked to this Project.">
+
 		<cfset sql=" select distinct
 	        media_flat.media_id,
 	        media_flat.media_uri,
 	        media_flat.mime_type,
 	        media_flat.media_type,
 	        media_flat.preview_uri,
-                alt_text,
-                license,
-                        media_flat.descr
+            alt_text,
+            license,
+            media_flat.descr
 	     from
 	         media_flat,
 	         media_relations
@@ -278,6 +280,8 @@
 	         media_relations.related_primary_key = #q#">
     <cfelseif typ is "specimen">
         <cfset srchall="/MediaSearch.cfm?collection_object_id=#q#">
+		<cfset mrdescr="Media linked to this Specimen.">
+
         <cfset sql="
 		 select distinct
         media_flat.media_id,
