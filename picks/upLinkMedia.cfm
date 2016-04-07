@@ -152,7 +152,12 @@
 
 
 
-
+	<cfif ktype is "collecting_event_id">
+		<cfset tbl='collecting_event'>
+	<cfelse>
+		<!--- not handled, return nothing disallowing save ---->
+		<cfset tbl='ajksndfiouafvblvnasahihs'>
+	</cfif>
 
 	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_license order by DISPLAY
@@ -166,12 +171,7 @@
 	<!--- only get appropriate relationships ---->
 	<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_relationship where media_relationship like
-		<cfif ktype is "collecting_event_id">
-			'% collecting_event'
-		<cfelse>
-			<!--- not handled, return nothing disallowing save ---->
-			'ajksndfiouafvblvnasahihs'
-		</cfif>
+		'% #tbl#'
 		order by media_relationship
 	</cfquery>
 	<div style="display:none">
@@ -269,7 +269,7 @@
 			media,
 			ctmedia_license
 		where
-			media_relations.media_relationship like '% #ktype#' and
+			media_relations.media_relationship like '% #tbl#' and
 			media_relations.related_primary_key=#kval# and
 			media_relations.media_id=media.media_id and
 			media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+)
