@@ -30,16 +30,8 @@
         xhr.addEventListener("load", uploadComplete, false);
         xhr.addEventListener("error", uploadFailed, false);
         xhr.addEventListener("abort", uploadCanceled, false);
-        	alert('posting');
-
         xhr.open("POST", "/component/utilities.cfc?method=loadFile&returnFormat=json");
-
-
-        	alert('postinged; sending');
         xhr.send(fd);
-
-
-        	alert('sent');
       }
 
       function uploadProgress(evt) {
@@ -59,8 +51,6 @@
 		}
 
       function uploadComplete(evt) {
-
-      	alert('loaded');
         /* This event is raised when the server send back a response */
 		var result = JSON.parse(evt.target.responseText);
 
@@ -207,7 +197,7 @@
 		<div id="uploadmediaform">
 			<form id="form1" enctype="multipart/form-data" method="post" action="">
 				<div class="row">
-				<label for="fileToUpload">Select a File to Upload</label>
+				<label for="fileToUpload">Select a File to Upload (click the button or drag a file into this box)</label>
 				<input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
 				</div>
 				<div id="fileName"></div>
@@ -281,8 +271,6 @@
 		order by
 			media_id
 	</cfquery>
-
-	<cfdump var=#smed#>
 	<style>
 		.tbl{
 			display: table;
@@ -334,7 +322,6 @@
 								#SUMMARY#
 							</cfif>
 						</cfloop>
-
 						<cfloop query="lbl">
 							<br>#MEDIA_LABEL#: #LABEL_VALUE#
 						</cfloop>
@@ -343,7 +330,6 @@
 			</div>
 		</div>
 	</cfloop>
-
 </cfoutput>
 </cfif>
 
@@ -452,10 +438,6 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
-
-
-
-
 		<cflocation url="upLinkMedia.cfm?ktype=#ktype#&kval=#kval#&" addtoken="false">
 	</cfoutput>
 </cfif>
