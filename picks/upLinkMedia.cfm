@@ -222,7 +222,12 @@
 
 
 
-<form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone"></form>
+<form action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone needsclick dz-clickable">
+<div class="dz-message needsclick">
+Drop files here or click to upload.
+<br>
+</div>
+</form>
 
 
 		<div id="uploadtitle">Option 1: Upload Media Files</div>
