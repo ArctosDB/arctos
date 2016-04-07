@@ -197,7 +197,7 @@
 		<div id="uploadmediaform">
 			<form id="form1" enctype="multipart/form-data" method="post" action="">
 				<div class="row">
-				<label for="fileToUpload">Select a File to Upload (click the button or drag a file into this box)</label>
+				<label for="fileToUpload">Select a File to Upload (click or drag a file onto the browse button)</label>
 				<input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
 				</div>
 				<div id="fileName"></div>
