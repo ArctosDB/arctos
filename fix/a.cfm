@@ -12,7 +12,7 @@
      where rownum <= 4
 	</cfquery>
 	<cfloop query="td">
-		<p>#media_uri#</p>
+		<cfdump var=#media_uri#>
 		<cfset x=obj.exitLink(target=media_uri)>
 		<cfdump var=#x#>
 	</cfloop>
