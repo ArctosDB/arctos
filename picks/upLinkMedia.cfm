@@ -9,20 +9,17 @@
 		});
 		Dropzone.options.mydz = {
 			maxFiles: 1,
-			//autoProcessQueue:false,
 			init: function () {
-				var myDropZone = this;
-				myDropZone.on("success", function (file,r) {
+				this.on("success", function (file,r) {
 					var result=$.parseJSON(r);
 					if (result.STATUSCODE=='200'){
 						makeSaveForm(result);
 					} else {
 						var msg=result.MSG.replace(/\\n/g,'\n');
 						alert('ERROR: ' + msg);
-						myDropZone.removeAllFiles();
+						this.removeAllFiles();
 					}
 				});
-
 				this.on("maxfilesexceeded", function(file){
 					this.removeFile(file);
 				});
