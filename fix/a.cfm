@@ -16,9 +16,12 @@
      where rownum <= 100
 	</cfquery>
 	<cfloop query="td">
-		<cfdump var=#media_uri#>
+
 		<cfset x=obj.exitLink(target=URLEncodedFormat(media_uri))>
-		<cfdump var=#x#>
+		<cfif x.code is not "200">
+			<cfdump var=#media_uri#>
+			<cfdump var=#x#>
+		</cfif>
 	</cfloop>
 
 
