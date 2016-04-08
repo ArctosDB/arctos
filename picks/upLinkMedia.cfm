@@ -8,25 +8,25 @@
 		    $(this).prop('required',true);
 		});
 		Dropzone.options.mydz = {
-		  init: function () {
-		    this.on("success", function (file,r) {
-		    	var result=$.parseJSON(r);
-		        if (result.STATUSCODE=='200'){
-					 makeSaveForm(result);
-		        } else {
-		        	var msg=result.MSG.replace(/\\n/g,'\n');
-		        	alert('ERROR: ' + msg);
-		        	this.removeAllFiles();
-		        }
-    			});
-    			this.on("maxfilesexceeded", function(file){
-    				this.cancelUpload(file);
-    				this.removeAllFiles(true);
-			        alert("No moar files please!");
-			        return false;
-			   });
-  			},
-  			maxFiles: 1
+			init: function () {
+				maxFiles: 1,
+				this.on("success", function (file,r) {
+					var result=$.parseJSON(r);
+					if (result.STATUSCODE=='200'){
+						makeSaveForm(result);
+					} else {
+						var msg=result.MSG.replace(/\\n/g,'\n');
+						alert('ERROR: ' + msg);
+						this.removeAllFiles();
+					}
+				});
+				this.on("maxfilesexceeded", function(file){
+					this.cancelUpload(file);
+					this.removeAllFiles(true);
+					alert("No moar files please!");
+					return false;
+				});
+  			}
 		};
 	});
 
