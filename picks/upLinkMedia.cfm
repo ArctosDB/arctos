@@ -15,6 +15,8 @@ Dropzone.options.mydz = {
   init: function () {
     this.on("success", function (file,result) {
        console.log(result);
+       console.log(result.STATUSCODE);
+       console.log(result.MSG);
         if (result.STATUSCODE=='200'){
         	console.log('spiffy');
         } else {
