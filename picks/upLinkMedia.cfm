@@ -27,9 +27,8 @@
 					console.log('dropped: ' + x);
 				});
 
-				myDropZone.on("maxfilesexceeded", function(file){
-					alert("Upload only one file at a time.");
-					myDropZone.removeAllFiles(true);
+				this.on("maxfilesexceeded", function(file){
+					this.removeFile(file);
 				});
   			}
 		};
