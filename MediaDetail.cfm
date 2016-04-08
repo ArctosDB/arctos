@@ -49,9 +49,7 @@
 			<cfif x.code is "200">
 				<cfheader statuscode="303" statustext="Redirecting to external resource">
 				<cfheader name="Location" value="#x.http_target#">
-
 			<cfelse>
-				<cfdump var=#x#>
 				<cfheader statuscode="#x.code#" statustext="#x.msg#">
 				<cftry>
 					<cfhtmlhead text='<title>An external resource is not responding properly</title>'>
@@ -75,20 +73,8 @@
 						</cfif>
 				</div>
 			</cfif>
-
-			<!----
-			<cflocation addtoken="false" url="/exit.cfm?target=#urlencodedformat(findIDs.media_uri)#">
-			---->
-			<!--- call function, will return
-
-			<cfinclude template="/exit.cfm?target=#urlencodedformat(findIDs.media_uri)#">
-			<cfabort>
-
-			----->
-
 			<cfabort>
 		</cfif>
-
 <cftry>
 
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
