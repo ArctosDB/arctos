@@ -164,7 +164,7 @@
 				<cfset result.msg='There is a potential problem with the resource.'>
 				<cfif left(cfhttp.statuscode,3) is "405">
 					<cfset result.det='The server hosting the link refused our request method.'>
-				<cfif left(cfhttp.statuscode,3) is "408">
+				<cfelseif left(cfhttp.statuscode,3) is "408">
 					<cfset result.det='The server hosting the link may be slow or nonresponsive.'>
 				<cfelseif  left(cfhttp.statuscode,3) is "404">
 					<cfset result.det='The external resource does not appear to exist.'>
