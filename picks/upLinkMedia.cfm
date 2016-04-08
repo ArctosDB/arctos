@@ -107,6 +107,8 @@
 <cfoutput>
 	<cfif ktype is "collecting_event_id">
 		<cfset tbl='collecting_event'>
+	<cfelseif ktype is "collection_object_id">
+		<cfset tbl='cataloged_item'>
 	<cfelse>
 		<!--- not handled, return nothing disallowing save ---->
 		<cfset tbl='ajksndfiouafvblvnasahihs'>
