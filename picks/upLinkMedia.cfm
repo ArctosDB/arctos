@@ -22,13 +22,7 @@
 				});
 				this.on("maxfilesreached", function(file){
 					this.removeAllFiles(true);
-					alert("No moar files please!");
-					break;
-				});
-				this.on("drop", function(file){
-					var fcount=this.files.length;
-					console.log(fcount);
-					return false;
+					alert("Upload only one file at a time.");
 				});
   			}
 		};
