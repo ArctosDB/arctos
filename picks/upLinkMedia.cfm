@@ -20,12 +20,13 @@
 		        }
     			});
   			},
-  			 this.on("maxfilesexceeded", function(file){
-		        alert("No moar files please!");
-		    }),
   			maxFiles: 1
 		};
+		Dropzone.forElement("#mydz").on("maxfilesexceeded", function(file){
+		        alert("No moar files please!");
+		   });
 	});
+
 	function resetDZ(){
 		$("#uploadmediaform").show();
 		$("#uploadtitle").html('');
