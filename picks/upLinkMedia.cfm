@@ -19,7 +19,9 @@ Dropzone.options.mydz = {
         	console.log('spiffy');
         } else {
         	console.log('not so much');
-        	}
+        	alert('ERROR: ' + result.MSG);
+        	this.removeAllFiles();
+        }
     });
   }
 };
