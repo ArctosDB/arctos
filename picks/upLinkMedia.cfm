@@ -172,6 +172,8 @@ Dropzone.options.mydz = {
 
         if (result.STATUSCODE=='200'){
 
+        	$("#mydz").hide();
+
         	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
         	$("#uploadmediaform").hide();
         	var h='<form name="nm" method="post" action="upLinkMedia.cfm">';
