@@ -10,6 +10,7 @@
 		Dropzone.options.mydz = {
 			init: function () {
 				maxFiles: 1,
+				uploadMultiple: false,
 				this.on("success", function (file,r) {
 					var result=$.parseJSON(r);
 					if (result.STATUSCODE=='200'){
