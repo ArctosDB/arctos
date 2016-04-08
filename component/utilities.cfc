@@ -50,10 +50,10 @@
 						select media_id from media where upper(media_uri) like '%#umpth#'
 					</cfquery>
 					<cfset midl=valuelist(fexist.media_id)>
-					<cfset msg="The file \n\n #Application.serverRootURL#/mediaUploads/#session.username#/#fileName# \n\n">
+					<cfset msg="The file \n\n#Application.serverRootURL#/mediaUploads/#session.username#/#fileName#\n\n">
 					<cfset msg=msg & " already exists">
 					<cfif len(midl) gt 0>
-						<cfset msg=msg & " and may be used by \n\n #Application.ServerRootURL#/media/#midl#\n\n Check the media_URL above.">
+						<cfset msg=msg & " and may be used by \n\n#Application.ServerRootURL#/media/#midl#\n\nCheck the media_URL above.">
 						<cfset msg=msg & " Link to the media using the media_id (#midl#) in the form below.">
 					<cfelse>
 						<cfset msg=msg & " and does not seem to be used for existing Media. Create media with the already-loaded file by">
