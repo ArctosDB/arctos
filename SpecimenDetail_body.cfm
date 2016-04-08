@@ -28,12 +28,13 @@
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
             getMedia('specimenLocCollEvent','#collection_object_id#','locColEventMedia','4','1');
-            
-            
-            
+
+
+
             $("##mediaUpClickThis").click(function(){
-			    addSpecimenMedia(#collection_object_id#);
+			    addMedia('collection_object_id','#collection_object_id#');
 			});
+
 		});
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
