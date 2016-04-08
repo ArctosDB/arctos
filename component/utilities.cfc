@@ -118,16 +118,16 @@
 		<cfset result.code='400'>
 		<cfset result.msg='Media Exit Link: Invalid Format'>
 		<cfset result.det='There may be a problem with the linked resource: the target does not seem to be a valid URL.'>
-		<cfset http_target=target>
+		<cfset http_target=URLDecode(target)>
 	<cfelse>
 		<!---- eventually we may want to guess at fixing errors etc, so local URL time ---->
-		<cfset http_target=target>
+		<cfset http_target=URLDecode(target)>
 	</cfif>
 
 	<!---- ensure that the reqeust is for something in our Media table ---->
 	<cfif result.status is "spiffy">
 		<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from media where upper(trim(media_uri))='#ucase(trim(URLDecode(http_target)))#'
+			select count(*) c from media where upper(trim(media_uri))='#ucase(trim(http_target))#'
 		</cfquery>
 		<cfdump var=#isus#>
 		<cfif isus.c neq 1>
