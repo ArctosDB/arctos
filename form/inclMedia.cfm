@@ -20,7 +20,7 @@
 <cfoutput>
 	<cfif typ is "taxon">
 		<cfset srchall="/MediaSearch.cfm?action=search&taxon_name_id=#q#">
-		<cfset mrdescr="Media linked to a taxon, plus Media used by specimens using the taxon in identifiations.">
+		<cfset mrdescr="Media linked to a taxon, plus Media used by specimens using the taxon in identifications.">
 		<cfset sql="select * from (
 			   	select
 			   		 media_id,
