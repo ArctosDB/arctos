@@ -21,7 +21,7 @@
 					}
 				});
 				this.on("maxfilesexceeded", function(file){
-					this.removeAllFiles(true);
+					//this.removeAllFiles(true);
 					alert("Upload only one file at a time.");
 				});
   			}
