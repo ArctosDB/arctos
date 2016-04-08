@@ -1169,11 +1169,10 @@
 	</cfquery>
 	<cfquery name="whatMedia" datasource="uam_god">
 	  	select
-	  		sum(num) num,
+	  		count(distinct(media_id)) num,
 	  		media_id
 	  	from (
 	  		SELECT
-				count(*) num,
 				media_id
 			from
 				media_relations
@@ -1184,7 +1183,6 @@
 				media_id
 			union
 			select
-				count(*) num,
 				media_id
 			from
 				media_relations,
