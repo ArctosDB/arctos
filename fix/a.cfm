@@ -8,7 +8,8 @@
 		select *
       from ( select media_uri
                from media
-			where media_uri not like 'http://web.corral.tacc.utexas.edu%'
+			where media_uri not like 'http://web.corral.tacc.utexas.edu%' and
+			media_uri not like 'http://www.morphbank.net%'
                       order by dbms_random.value )
      where rownum <= 100
 	</cfquery>
