@@ -3,53 +3,6 @@
 <script type='text/javascript' language="javascript" src='/includes/dropzone.js'></script>
 <link rel="stylesheet" href="/includes/dropzone.css" />
 
-<style>
-#mydz  {
-  position: relative;
-  border: 10px dotted #FFF;
-  border-radius: 20px;
-  color: white;
-  font: bold 24px/200px arial;
-  height: 200px;
-  margin: 30px auto;
-  text-align: center;
-  width: 200px;
-}
-#mydz.hover {
-  border: 10px solid #FE5;
-  color: #FE5;
-}
-
-#mydz.dropped {
-  background: #222;
-  border: 10px solid #444;
-}
-
-#mydz div {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-#mydz img {
-  border-radius: 10px;
-  vertical-align: middle;
-  max-width: 95%;
-  max-height: 95%;
-}
-
-#mydz [type="file"] {
-  cursor: pointer;
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-</style>
 <script>
 	jQuery(document).ready(function() {
 		$(".reqdClr:visible").each(function(e){
