@@ -18,8 +18,6 @@
  .audiothumb { width:180px; }
 </style>
 <cfoutput>
-			<cfset mrdescr="">
-
 	<cfif typ is "taxon">
 		<cfset srchall="/MediaSearch.cfm?action=search&taxon_name_id=#q#">
 		<cfset mrdescr="Media linked to a taxon, plus Media used by specimens using the taxon in identifiations.">
@@ -311,10 +309,10 @@
 	</cfquery>
 
 	<cfif mediaResultsQuery.recordcount is 0>
+		<cfabort>
 		<div style="margin-left:2em;font-weight:bold;font-style:italic;">
 			No <div class="hasTitle" title="#mrdescr#">Media</div> Found
 		</div>
-		<cfabort>
 	</cfif>
 	<cfset obj = CreateObject("component","component.functions")>
 
