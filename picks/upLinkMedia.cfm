@@ -23,7 +23,7 @@
 					}
 				});
 				this.on("addedfile", function(file) {
-					alert(myDropzone.getQueuedFiles().length);
+					alert(this.getQueuedFiles().length);
 				});
 
 				myDropZone.on("maxfilesexceeded", function(file){
