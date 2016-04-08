@@ -109,152 +109,6 @@ function makeSaveForm(result){
 
 
 
-
-	 function fileSelected() {
-        var file = document.getElementById('fileToUpload').files[0];
-        if (file) {
-          var fileSize = 0;
-          if (file.size > 1024 * 1024)
-            fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
-          else
-            fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
-
-          document.getElementById('fileName').innerHTML = 'Name: ' + file.name;
-          document.getElementById('fileSize').innerHTML = 'Size: ' + fileSize;
-          document.getElementById('fileType').innerHTML = 'Type: ' + file.type;
-        }
-      }
-
-      function uploadFile() {
-      	$("#progressThingee").show();
-      	$("#btnUpload").hide();
-        var fd = new FormData();
-        fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
-        var xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener("progress", uploadProgress, false);
-        xhr.addEventListener("load", uploadComplete, false);
-        xhr.addEventListener("error", uploadFailed, false);
-        xhr.addEventListener("abort", uploadCanceled, false);
-        xhr.open("POST", "/component/utilities.cfc?method=loadFile&returnFormat=json");
-        xhr.send(fd);
-      }
-
-      function uploadProgress(evt) {
-        if (evt.lengthComputable) {
-          var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-          document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
-        }
-        else {
-          document.getElementById('progressNumber').innerHTML = 'unable to compute';
-        }
-      }
-		function clearCreator(){
-			$("#creator").val('');
-		}
-		function clearDate(){
-			$("#made_date").val('');
-		}
-
-      function uploadComplete(evt) {
-        /* This event is raised when the server send back a response */
-		var result = JSON.parse(evt.target.responseText);
-
-		console.log(result);
-
-        if (result.STATUSCODE=='200'){
-
-        	$("#mydz_ctr").hide();
-
-        	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
-        	$("#uploadmediaform").hide();
-        	var h='<form name="nm" method="post" action="upLinkMedia.cfm">';
-        	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
-        	h+='<input type="hidden" name="kval"  value="' + $("#kval").val() + '">';
-        	h+='<input type="hidden" name="action"  value="createNewMedia">';
-        	h+='<label for="media_uri">Media URI</label>';
-        	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
-        	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
-        	h+='<label for="preview_uri">Preview URI</label>';
-        	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
-        	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
-        	h+='<label for="media_relationship">Media Relationship</label>';
-        	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
-
-        	h+='<label for="media_license_id">License</label>';
-        	h+='<select name="media_license_id" id="media_license_id"></select>';
-			h+='<label for="mime_type">MIME Type</label>';
-        	h+='<select name="mime_type" id="mime_type" class="reqdClr"></select>';
-			h+='<label for="media_type">Media Type</label>';
-        	h+='<select name="media_type" id="media_type" class="reqdClr"></select>';
-        	h+='<label for="creator">Created By</label>';
-        	h+='<input type="hidden" name="created_agent_id" id="created_agent_id">';
-        	h+='<input type="text" name="creator" id="creator"';
-			h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
-			h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
-			h+='<span class="infoLink" onclick="clearCreator();">clear</span>';
-			h+='<label for="description">Description</label>';
-        	h+='<input type="text" name="description" id="description" size="80">';
-			h+='<label for="made_date">Made Date</label>';
-        	h+='<input type="text" name="made_date" id="made_date">';
-			h+='<span class="infoLink" onclick="clearDate();">clear</span>';
-			h+='<br><input type="submit" class="insBtn" value="create media">';
-			h+='</form>';
-			$("#newMediaUpBack").html(h);
-			$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
-			$('#ctmime_type').find('option').clone().appendTo('#mime_type');
-			$('#ctmedia_type').find('option').clone().appendTo('#media_type');
-			$('#ctmedia_relationship').find('option').clone().appendTo('#media_relationship');
-			$("#made_date").datepicker();
-			// guess mime/media type
-			var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
-			if (fext=='jpg' || fext=='jpeg'){
-				$("#mime_type").val('image/jpeg');
-				$("#media_type").val('image');
-			} else if (fext=='pdf'){
-				$("#mime_type").val('application/pdf');
-				$("#media_type").val('text');
-			} else if (fext=='png'){
-				$("#mime_type").val('image/png');
-				$("#media_type").val('image');
-			} else if (fext=='txt'){
-				$("#mime_type").val('text/plain');
-				$("#media_type").val('text');
-			} else if (fext=='txt'){
-				$("#mime_type").val('text/html');
-				$("#media_type").val('text');
-			}
-			$("#created_agent_id").val($("#myAgentID").val());
-			$("#creator").val($("#username").val());
-			$(".reqdClr:visible").each(function(e){
-			    $(this).prop('required',true);
-			});
-        } else {
-        	alert('ERROR: ' + result.MSG);
-        	$("#progressNumber").html('');
-      		$("#btnUpload").show();
-      		$("#progressThingee").hide();
-        }
-      }
-      function uploadFailed(evt) {
-        alert("There was an error attempting to upload the file.");
-        	$("#progressNumber").html('');
-      		$("#btnUpload").show();
-      		$("#progressThingee").hide();
-      }
-
-      function uploadCanceled(evt) {
-        alert("The upload has been canceled by the user or the browser dropped the connection.");
-        	$("#progressNumber").html('');
-      		$("#btnUpload").show();
-      		$("#progressThingee").hide();
-      }
-
-
-
-
-
-
-
 </script>
 
 
@@ -574,3 +428,157 @@ function makeSaveForm(result){
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_pickFooter.cfm">
+
+
+<!-------------
+
+
+
+
+
+
+	 function fileSelected() {
+        var file = document.getElementById('fileToUpload').files[0];
+        if (file) {
+          var fileSize = 0;
+          if (file.size > 1024 * 1024)
+            fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+          else
+            fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
+
+          document.getElementById('fileName').innerHTML = 'Name: ' + file.name;
+          document.getElementById('fileSize').innerHTML = 'Size: ' + fileSize;
+          document.getElementById('fileType').innerHTML = 'Type: ' + file.type;
+        }
+      }
+
+      function uploadFile() {
+      	$("#progressThingee").show();
+      	$("#btnUpload").hide();
+        var fd = new FormData();
+        fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener("progress", uploadProgress, false);
+        xhr.addEventListener("load", uploadComplete, false);
+        xhr.addEventListener("error", uploadFailed, false);
+        xhr.addEventListener("abort", uploadCanceled, false);
+        xhr.open("POST", "/component/utilities.cfc?method=loadFile&returnFormat=json");
+        xhr.send(fd);
+      }
+
+      function uploadProgress(evt) {
+        if (evt.lengthComputable) {
+          var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+          document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
+        }
+        else {
+          document.getElementById('progressNumber').innerHTML = 'unable to compute';
+        }
+      }
+		function clearCreator(){
+			$("#creator").val('');
+		}
+		function clearDate(){
+			$("#made_date").val('');
+		}
+
+      function uploadComplete(evt) {
+        /* This event is raised when the server send back a response */
+		var result = JSON.parse(evt.target.responseText);
+
+		console.log(result);
+
+        if (result.STATUSCODE=='200'){
+
+        	$("#mydz_ctr").hide();
+
+        	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
+        	$("#uploadmediaform").hide();
+        	var h='<form name="nm" method="post" action="upLinkMedia.cfm">';
+        	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
+        	h+='<input type="hidden" name="kval"  value="' + $("#kval").val() + '">';
+        	h+='<input type="hidden" name="action"  value="createNewMedia">';
+        	h+='<label for="media_uri">Media URI</label>';
+        	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
+        	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
+        	h+='<label for="preview_uri">Preview URI</label>';
+        	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
+        	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
+        	h+='<label for="media_relationship">Media Relationship</label>';
+        	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
+
+        	h+='<label for="media_license_id">License</label>';
+        	h+='<select name="media_license_id" id="media_license_id"></select>';
+			h+='<label for="mime_type">MIME Type</label>';
+        	h+='<select name="mime_type" id="mime_type" class="reqdClr"></select>';
+			h+='<label for="media_type">Media Type</label>';
+        	h+='<select name="media_type" id="media_type" class="reqdClr"></select>';
+        	h+='<label for="creator">Created By</label>';
+        	h+='<input type="hidden" name="created_agent_id" id="created_agent_id">';
+        	h+='<input type="text" name="creator" id="creator"';
+			h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
+			h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
+			h+='<span class="infoLink" onclick="clearCreator();">clear</span>';
+			h+='<label for="description">Description</label>';
+        	h+='<input type="text" name="description" id="description" size="80">';
+			h+='<label for="made_date">Made Date</label>';
+        	h+='<input type="text" name="made_date" id="made_date">';
+			h+='<span class="infoLink" onclick="clearDate();">clear</span>';
+			h+='<br><input type="submit" class="insBtn" value="create media">';
+			h+='</form>';
+			$("#newMediaUpBack").html(h);
+			$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
+			$('#ctmime_type').find('option').clone().appendTo('#mime_type');
+			$('#ctmedia_type').find('option').clone().appendTo('#media_type');
+			$('#ctmedia_relationship').find('option').clone().appendTo('#media_relationship');
+			$("#made_date").datepicker();
+			// guess mime/media type
+			var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
+			if (fext=='jpg' || fext=='jpeg'){
+				$("#mime_type").val('image/jpeg');
+				$("#media_type").val('image');
+			} else if (fext=='pdf'){
+				$("#mime_type").val('application/pdf');
+				$("#media_type").val('text');
+			} else if (fext=='png'){
+				$("#mime_type").val('image/png');
+				$("#media_type").val('image');
+			} else if (fext=='txt'){
+				$("#mime_type").val('text/plain');
+				$("#media_type").val('text');
+			} else if (fext=='txt'){
+				$("#mime_type").val('text/html');
+				$("#media_type").val('text');
+			}
+			$("#created_agent_id").val($("#myAgentID").val());
+			$("#creator").val($("#username").val());
+			$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
+        } else {
+        	alert('ERROR: ' + result.MSG);
+        	$("#progressNumber").html('');
+      		$("#btnUpload").show();
+      		$("#progressThingee").hide();
+        }
+      }
+      function uploadFailed(evt) {
+        alert("There was an error attempting to upload the file.");
+        	$("#progressNumber").html('');
+      		$("#btnUpload").show();
+      		$("#progressThingee").hide();
+      }
+
+      function uploadCanceled(evt) {
+        alert("The upload has been canceled by the user or the browser dropped the connection.");
+        	$("#progressNumber").html('');
+      		$("#btnUpload").show();
+      		$("#progressThingee").hide();
+      }
+
+
+
+
+-
+
+--------->
