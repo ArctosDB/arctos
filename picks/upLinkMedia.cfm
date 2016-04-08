@@ -15,8 +15,6 @@
 					 makeSaveForm(result);
 		        } else {
 		        	var msg=result.MSG.replace(/\\n/g,'\n');
-		        	console.log(msg);
-		        	console.log('not so much');
 		        	alert('ERROR: ' + msg);
 		        	this.removeAllFiles();
 		        }
