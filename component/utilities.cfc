@@ -91,6 +91,10 @@
 
 <cffunction name="exitLink" access="remote">
 	<cfargument name="target" required="yes">
+
+
+
+	<cfdump var=#target#>
 	<!----
 		This is called with the ?open parameter on media exit links
 
