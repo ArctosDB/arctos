@@ -10,18 +10,19 @@
 		Dropzone.options.mydz = {
 			maxFiles: 1,
 			init: function () {
-				this.on("success", function (file,r) {
+				var myDropZone = this;
+				myDropZone.on("success", function (file,r) {
 					var result=$.parseJSON(r);
 					if (result.STATUSCODE=='200'){
 						makeSaveForm(result);
 					} else {
 						var msg=result.MSG.replace(/\\n/g,'\n');
 						alert('ERROR: ' + msg);
-						this.removeAllFiles();
+						myDropZone.removeAllFiles();
 					}
 				});
-				this.on("maxfilesexceeded", function(file){
-					this.removeAllFiles(true);
+				myDropZone.on("maxfilesexceeded", function(file){
+					myDropZone.removeAllFiles(true);
 					alert("Upload only one file at a time.");
 				});
   			}
