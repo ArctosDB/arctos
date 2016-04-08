@@ -53,11 +53,16 @@
 					<cfset msg="The file \n #Application.serverRootURL#/mediaUploads/#session.username#/#fileName# \n">
 					<cfset msg=msg & " already exists">
 					<cfif len(midl) gt 0>
-						<cfset msg=msg & " and may be used by \n #Application.ServerRootURL#/media/#midl#\n Try the link to existing option.">
+						<cfset msg=msg & " and may be used by \n #Application.ServerRootURL#/media/#midl#\n Check the media_URL above and">
+						<cfset msg=msg & " link to the media using the media_id in the form below.">
 					<cfelse>
-						<cfset msg=msg & " and does not seem to be used for existing Media">
+						<cfset msg=msg & " and does not seem to be used for existing Media. Create media with the already-loaded file by">
+						<cfset msg=msg & " pasting the above media_uri into ">
+						<cfset msg=msg & "\n#Application.serverRootURL#/media.cfm?action=newMedia">
+						<cfset msg=msg & "\nA preview may exist at ">
+						<cfset msg=msg & "\n#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
 					</cfif>
-					<cfset msg=msg & ". Re-name and re-load the file ONLY if you are sure it does not exist on the sever.">
+					<cfset msg=msg & "\nRe-name and re-load the file ONLY if you are sure it does not exist on the sever.">
 					<cfset msg=msg & " Do not create duplicates.">
 				<cfelse>
 					<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
