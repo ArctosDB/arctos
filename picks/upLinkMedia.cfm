@@ -17,7 +17,7 @@
 					 makeSaveForm(result);
 		        } else {
 		        	console.log('not so much');
-		        	alert('ERROR: ' + result.MSG);
+		        	alert('ERROR: ' + result.MSG.replace('\\n','\n');
 		        	this.removeAllFiles();
 		        }
     			});
