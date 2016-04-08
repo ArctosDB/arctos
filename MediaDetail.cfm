@@ -86,7 +86,7 @@
 
 			----->
 
-
+			<cfabort>
 		</cfif>
 
 <cftry>
