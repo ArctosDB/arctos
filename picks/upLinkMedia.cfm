@@ -21,6 +21,7 @@
     			});
     			this.on("maxfilesexceeded", function(file){
     				this.removeAllFiles(true);
+    				this.removeAllFiles();
 			        alert("No moar files please!");
 			   });
   			},
