@@ -23,7 +23,8 @@
 					}
 				});
 				this.on("drop", function(file) {
-					alert(this.files.length);
+					var x=this.files.length;
+					alert(x);
 				});
 
 				myDropZone.on("maxfilesexceeded", function(file){
