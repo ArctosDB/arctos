@@ -114,6 +114,7 @@
 		<cfset result.code='400'>
 		<cfset result.msg='Media Exit Link: Invalid Format'>
 		<cfset result.det='There may be a problem with the linked resource: the target does not seem to be a valid URL.'>
+		<cfset http_target=target>
 	<cfelse>
 		<!---- eventually we may want to guess at fixing errors etc, so local URL time ---->
 		<cfset http_target=target>
