@@ -10,7 +10,6 @@
 	    		<!--- it already exists, do nothing--->
 			</cfcatch>
 		</cftry>
-
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
 		<cfset fileName=cffile.serverfile>
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
@@ -38,12 +37,9 @@
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
-
 		<cfcatch>
-
 			<cftry>
 				<cfset r.statusCode=400>
-
 				<cfif cfcatch.message contains "already exists">
 					<cfset umpth=#ucase(session.username)# & "/" & #ucase(fileName)#>
 					<cfquery name="fexist" datasource="uam_god">
@@ -51,7 +47,7 @@
 					</cfquery>
 					<cfset midl=valuelist(fexist.media_id)>
 					<cfset msg="The file \n\n#Application.serverRootURL#/mediaUploads/#session.username#/#fileName#\n\n">
-					<cfset msg=msg & " already exists">
+					<cfset msg=msg & "already exists">
 					<cfif len(midl) gt 0>
 						<cfset msg=msg & " and may be used by \n\n#Application.ServerRootURL#/media/#midl#\n\nCheck the media_URL above.">
 						<cfset msg=msg & " Link to the media using the media_id (#midl#) in the form below.">
@@ -68,13 +64,11 @@
 					<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
 				</cfif>
 				<cfset r.msg=msg>
-
 			<cfcatch>
 				<cfset r.statusCode=400>
 				<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
 			</cfcatch>
 			</cftry>
-
 		</cfcatch>
 	</cftry>
 	<cfreturn serializeJSON(r)>

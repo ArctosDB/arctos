@@ -2,8 +2,6 @@
 <cfif action is "nothing">
 <script type='text/javascript' language="javascript" src='/includes/dropzone.js'></script>
 <link rel="stylesheet" href="/includes/dropzone.css" />
-
-
 <script>
 	jQuery(document).ready(function() {
 		$(".reqdClr:visible").each(function(e){
@@ -23,92 +21,82 @@
 		        	this.removeAllFiles();
 		        }
     			});
-  			}
+  			},
+  			maxFiles: 1
 		};
 	});
-
-
-
-function resetDZ(){
-	$("#uploadmediaform").show();
-	$("#uploadtitle").html('');
-	 Dropzone.forElement("#mydz").removeAllFiles();
-	$("#newMediaUpBack").html('');
-
-}
-
-function makeSaveForm(result){
-	var h='File Uploaded: Fill in this form and and click the "create" button to finish, or';
-	h+=' <span class="likeLink" onclick="resetDZ();">click here to start over</span>';
-  	$("#uploadtitle").html(h);
-  	$("#uploadmediaform").hide();
-  	var h='<form name="nm" method="post" action="upLinkMedia.cfm">';
-  	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
-  	h+='<input type="hidden" name="kval"  value="' + $("#kval").val() + '">';
-  	h+='<input type="hidden" name="action"  value="createNewMedia">';
-  	h+='<label for="media_uri">Media URI</label>';
-  	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
-  	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
-  	h+='<label for="preview_uri">Preview URI</label>';
-  	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
-  	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
-  	h+='<label for="media_relationship">Media Relationship</label>';
-  	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
-  	h+='<label for="media_license_id">License</label>';
-  	h+='<select name="media_license_id" id="media_license_id"></select>';
-	h+='<label for="mime_type">MIME Type</label>';
-    h+='<select name="mime_type" id="mime_type" class="reqdClr"></select>';
-	h+='<label for="media_type">Media Type</label>';
-    h+='<select name="media_type" id="media_type" class="reqdClr"></select>';
-    h+='<label for="creator">Created By</label>';
-    h+='<input type="hidden" name="created_agent_id" id="created_agent_id">';
-    h+='<input type="text" name="creator" id="creator"';
-	h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
-	h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
-	h+='<span class="infoLink" onclick="clearCreator();">clear</span>';
-	h+='<label for="description">Description</label>';
-    h+='<input type="text" name="description" id="description" size="80">';
-	h+='<label for="made_date">Made Date</label>';
-    h+='<input type="text" name="made_date" id="made_date">';
-	h+='<span class="infoLink" onclick="clearDate();">clear</span>';
-	h+='<br><input type="submit" class="insBtn" value="create media">';
-	h+='</form>';
-	$("#newMediaUpBack").html(h);
-	$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
-	$('#ctmime_type').find('option').clone().appendTo('#mime_type');
-	$('#ctmedia_type').find('option').clone().appendTo('#media_type');
-	$('#ctmedia_relationship').find('option').clone().appendTo('#media_relationship');
-	$("#made_date").datepicker();
-	// guess mime/media type
-	var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
-	if (fext=='jpg' || fext=='jpeg'){
-		$("#mime_type").val('image/jpeg');
-		$("#media_type").val('image');
-	} else if (fext=='pdf'){
-		$("#mime_type").val('application/pdf');
-		$("#media_type").val('text');
-	} else if (fext=='png'){
-		$("#mime_type").val('image/png');
-		$("#media_type").val('image');
-	} else if (fext=='txt'){
-		$("#mime_type").val('text/plain');
-		$("#media_type").val('text');
-	} else if (fext=='txt'){
-		$("#mime_type").val('text/html');
-		$("#media_type").val('text');
+	function resetDZ(){
+		$("#uploadmediaform").show();
+		$("#uploadtitle").html('');
+		 Dropzone.forElement("#mydz").removeAllFiles();
+		$("#newMediaUpBack").html('');
 	}
-	$("#created_agent_id").val($("#myAgentID").val());
-	$("#creator").val($("#username").val());
-	$(".reqdClr:visible").each(function(e){
-	    $(this).prop('required',true);
-	});
-}
-
-
-
-
-
-
+	function makeSaveForm(result){
+		var h='File Uploaded: Fill in this form and and click the "create" button to finish, or';
+		h+=' <span class="likeLink" onclick="resetDZ();">click here to start over</span>';
+	  	$("#uploadtitle").html(h);
+	  	$("#uploadmediaform").hide();
+	  	var h='<form name="nm" method="post" action="upLinkMedia.cfm">';
+	  	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
+	  	h+='<input type="hidden" name="kval"  value="' + $("#kval").val() + '">';
+	  	h+='<input type="hidden" name="action"  value="createNewMedia">';
+	  	h+='<label for="media_uri">Media URI</label>';
+	  	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
+	  	h+='<a href="' + result.MEDIA_URI + '" target="_blank" class="external">open</a>';
+	  	h+='<label for="preview_uri">Preview URI</label>';
+	  	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
+	  	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
+	  	h+='<label for="media_relationship">Media Relationship</label>';
+	  	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
+	  	h+='<label for="media_license_id">License</label>';
+	  	h+='<select name="media_license_id" id="media_license_id"></select>';
+		h+='<label for="mime_type">MIME Type</label>';
+	    h+='<select name="mime_type" id="mime_type" class="reqdClr"></select>';
+		h+='<label for="media_type">Media Type</label>';
+	    h+='<select name="media_type" id="media_type" class="reqdClr"></select>';
+	    h+='<label for="creator">Created By</label>';
+	    h+='<input type="hidden" name="created_agent_id" id="created_agent_id">';
+	    h+='<input type="text" name="creator" id="creator"';
+		h+='onchange="pickAgentModal(\'creator\',this.id,this.value); return false;"';
+		h+='onKeyPress="return noenter(event);" placeholder="pick creator" class="minput">';
+		h+='<span class="infoLink" onclick="clearCreator();">clear</span>';
+		h+='<label for="description">Description</label>';
+	    h+='<input type="text" name="description" id="description" size="80">';
+		h+='<label for="made_date">Made Date</label>';
+	    h+='<input type="text" name="made_date" id="made_date">';
+		h+='<span class="infoLink" onclick="clearDate();">clear</span>';
+		h+='<br><input type="submit" class="insBtn" value="create media">';
+		h+='</form>';
+		$("#newMediaUpBack").html(h);
+		$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
+		$('#ctmime_type').find('option').clone().appendTo('#mime_type');
+		$('#ctmedia_type').find('option').clone().appendTo('#media_type');
+		$('#ctmedia_relationship').find('option').clone().appendTo('#media_relationship');
+		$("#made_date").datepicker();
+		// guess mime/media type
+		var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
+		if (fext=='jpg' || fext=='jpeg'){
+			$("#mime_type").val('image/jpeg');
+			$("#media_type").val('image');
+		} else if (fext=='pdf'){
+			$("#mime_type").val('application/pdf');
+			$("#media_type").val('text');
+		} else if (fext=='png'){
+			$("#mime_type").val('image/png');
+			$("#media_type").val('image');
+		} else if (fext=='txt'){
+			$("#mime_type").val('text/plain');
+			$("#media_type").val('text');
+		} else if (fext=='txt'){
+			$("#mime_type").val('text/html');
+			$("#media_type").val('text');
+		}
+		$("#created_agent_id").val($("#myAgentID").val());
+		$("#creator").val($("#username").val());
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
+	}
 </script>
 
 
