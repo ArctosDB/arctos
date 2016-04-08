@@ -142,7 +142,7 @@
 			<cfset result.msg='yay everybody!'>
 			<cfset result.det=''>
 		</cfif>
-		<cfset result.status is not 'success'>
+		<cfif result.status is not 'success'>
 			<!---- no response; timed out ---->
 			<cfif not isdefined("cfhttp.statuscode")>
 				<cfset result.status='timeout'>
@@ -229,7 +229,6 @@
 	</cfif>
 	-------->
 </cfoutput>
-<cfinclude template="includes/_footer.cfm">
 </cffunction>
 
 
