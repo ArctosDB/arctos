@@ -158,8 +158,7 @@
 				<cfset result.det=result.det & "resource abandonment.">
 			</cfif>
 			<!--- response, but not 200 ---->
-
-			<cfif isdefined("cfhttp.statuscode") and left(cfhttp.statuscode,3) is not "200">
+			<cfif isdefined("cfhttp.statuscode") and isnumeric(left(cfhttp.statuscode,3)) and left(cfhttp.statuscode,3) is not "200">
 				<cfset result.status='error'>
 				<cfset result.code=left(cfhttp.statuscode,3)>
 				<cfset result.msg='There is a potential problem with the resource.'>
@@ -174,6 +173,12 @@
 				<cfelse>
 					<cfset result.det='An unknown error occurred'>
 				</cfif>
+			</cfif>
+			<cfif isdefined("cfhttp.statuscode") and not isnumeric(left(cfhttp.statuscode,3))>
+				<cfset result.status='failure'>
+				<cfset result.code=500>
+				<cfset result.msg='The Media server is not responding correctly.'>
+				<cfset result.det='The resource may be misconfigured or missing'>
 			</cfif>
 		</cfif>
 	</cfif>
