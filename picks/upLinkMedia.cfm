@@ -20,7 +20,7 @@
 						this.removeAllFiles();
 					}
 				});
-				this.on("maxfilesreached", function(file){
+				this.on("maxfilesexceeded", function(file){
 					this.removeAllFiles(true);
 					alert("Upload only one file at a time.");
 				});
