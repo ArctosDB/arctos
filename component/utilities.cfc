@@ -91,10 +91,6 @@
 
 <cffunction name="exitLink" access="remote">
 	<cfargument name="target" required="yes">
-
-
-
-	<cfdump var=#target#>
 	<!----
 		This is called with the ?open parameter on media exit links
 
@@ -128,7 +124,6 @@
 		<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from media where upper(trim(media_uri))='#ucase(trim(http_target))#'
 		</cfquery>
-		<cfdump var=#isus#>
 		<cfif isus.c neq 1>
 			<cfset result.status='error'>
 			<cfset result.code='404'>
