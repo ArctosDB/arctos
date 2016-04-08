@@ -73,7 +73,171 @@
 	</cftry>
 	<cfreturn serializeJSON(r)>
 </cffunction>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!------------------>
+
+
+<cffunction name="exitLink">
+	<cfargument name="target" required="yes">
+	<!----
+		This is called with the ?open parameter on media exit links
+
+		One point of failure is too many; don't check anything once we lose the "spiffy" code
+			(which is replaced with something more appropriate before return)
+
+		It will
+			- ensure that the request looks like a URL (not a limitation, but we have nothing else
+				at the moment and having anything else seems unlikely, so check)
+			- ensure that the reqeust is for something in our Media table (avoid spambots etc)
+			- check for a timely response
+
+	---->
+	<cfoutput>
+	<cfset result=StructNew()>
+	<cfset result.status='spiffy'>
+
+	<!---- ensure that the request looks like a URL  ---->
+	<cfif left(target,4) is not "http">
+		<cfset result.status='error'>
+		<cfset result.code='400'>
+		<cfset result.msg='Media Exit Link: Invalid Format'>
+		<cfset result.det='There may be a problem with the linked resource: the target does not seem to be a valid URL.'>
+	<cfelse>
+		<!---- eventually we may want to guess at fixing errors etc, so local URL time ---->
+		<cfset http_target=target>
+	</cfif>
+
+	<!---- ensure that the reqeust is for something in our Media table ---->
+	<cfif result.status is "spiffy">
+		<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from media where upper(trim(media_uri))='#ucase(trim(http_target))#'
+		</cfquery>
+		<cfif isus.c neq 1>
+			<cfset result.status='error'>
+			<cfset result.code='404'>
+			<cfset result.msg='The Media does not exist at the URL you requested.'>
+			<cfset result.det='The Media does not exist.'>
+		</cfif>
+	</cfif>
+
+	<cfif result.status is "spiffy">
+		<!---- check for a timely response ---->
+		<cfhttp url="#http_target#" method="head" timeout="3"></cfhttp>
+		<!---- yay ---->
+		<cfif isdefined("cfhttp.statuscode") and left(cfhttp.statuscode,3) is "200">
+			<cfset result.status='success'>
+			<cfset result.code=200>
+			<cfset result.msg='yay everybody!'>
+			<cfset result.det=''>
+		</cfif>
+		<cfset result.status is not 'success'>
+			<!---- no response; timed out ---->
+			<cfif not isdefined("cfhttp.statuscode")>
+				<cfset result.status='timeout'>
+				<cfset result.code=408>
+				<cfset result.msg='The Media server is not responding in a timely manner.'>
+				<cfset result.det='A request has timed out. This may be caused by a temporary interruption, server configuration, or '>
+				<cfset result.det=result.det & "resource abandonment.">
+			</cfif>
+			<!--- response, but not 200 ---->
+
+			<cfif isdefined("cfhttp.statuscode") and left(cfhttp.statuscode,3) is not "200">
+				<cfset result.status='error'>
+				<cfset result.code=left(cfhttp.statuscode,3)>
+				<cfset result.msg='There is a potential problem with the resource.'>
+				<cfif left(cfhttp.statuscode,3) is "408">
+					<cfset result.det='The server hosting the link may be slow or nonresponsive.'>
+				<cfelseif  left(cfhttp.statuscode,3) is "404">
+					<cfset result.det='The external resource does not appear to exist.'>
+				<cfelseif left(cfhttp.statuscode,3) is "500">
+					<cfset result.det='The server may be down or misconfigured.'>
+				<cfelse>
+					<cfset result.det='An unknown error occurred'>
+				</cfif>
+			</cfif>
+		</cfif>
+	</cfif>
+
+	<!--- all checked, log the request ---->
+	<cfquery name="exit"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into exit_link (
+			username,
+			ipaddress,
+			from_page,
+			target,
+			http_target,
+			when_date,
+			status
+		) values (
+			'#session.username#',
+			'#request.ipaddress#',
+			'#cgi.HTTP_REFERER#',
+			'#target#',
+			'#http_target#',
+			sysdate,
+			'#result.status#'
+		)
+	</cfquery>
+
+	<!--- and return the results ---->
+	<cfreturn result>
+
+	<!----
+ 	<cfif status is "200">
+		<cfheader statuscode="303" statustext="Redirecting to external resource">
+		<cfheader name="Location" value="#http_target#">
+	<cfelse>
+		<cftry><cfhtmlhead text='<title>An external resource is not responding properly</title>'>
+			<cfcatch type="template">
+			</cfcatch>
+		</cftry>
+		<div style="border:4px solid red; padding:1em;margin:1em;">
+			There may be a problem with the linked resource.
+			<p>
+				Status: #status#
+			</p>
+			<cfif left(status,3) is "408">
+				<p>The server hosting the link may be slow or nonresponsive.</p>
+			<cfelseif  left(status,3) is "404">
+				<p>The external resource does not appear to exist.</p>
+			<cfelseif left(status,3) is "500">
+				<p>The server may be down or misconfigured.</p>
+			</cfif>
+			<p>
+				Click the following link(s) to attempt to load the resource manually.
+			</p>
+			<p>
+				Please <a href="/contact.cfm?ref=#target#">contact us</a> if you experience additional problems with the link.
+			</p>
+			<p>Link as provided: <a href="#target#">#target#</a></p>
+				<cfif http_target is not target>
+					<br>Or our guess at the intended link: <a href="#http_target#">#http_target#</a>
+				</cfif>
+		</div>
+	</cfif>
+	-------->
+</cfoutput>
+<cfinclude template="includes/_footer.cfm">
+</cffunction>
+
+
+
+
+
+
+
 
 <cffunction name="isValidMediaUpload">
 	<cfargument name="fileName" required="yes">

@@ -47,6 +47,7 @@
 			<!----
 			<cflocation addtoken="false" url="/exit.cfm?target=#urlencodedformat(findIDs.media_uri)#">
 			---->
+			<!--- call function, will return 
 
 			<cfinclude template="/exit.cfm?target=#urlencodedformat(findIDs.media_uri)#">
 			<cfabort>
