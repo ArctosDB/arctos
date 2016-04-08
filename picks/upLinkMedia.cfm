@@ -20,8 +20,8 @@
 		        }
     			});
     			this.on("maxfilesexceeded", function(file){
+    				this.cancelUpload(file);
     				this.removeAllFiles(true);
-    				this.removeAllFiles();
 			        alert("No moar files please!");
 			        return false;
 			   });
