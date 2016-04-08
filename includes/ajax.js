@@ -66,31 +66,6 @@ function addMedia(t,k){
 	});
 }
 
-
-
-function addSpecimenMedia(collection_object_id){
-	var guts = "/picks/specimenMedia.cfm?collection_object_id=" + collection_object_id;
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'center'],
-		title: 'Add Media',
-			width:800,
- 			height:600,
-		close: function() {
-			$( this ).remove();
-		}
-	}).width(800-10).height(600-10);
-	$(window).resize(function() {
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-}
-
 /* agent editing forms */
 function loadEditAgent(aid){
 	$("#agntEditCell").html('<img src="/images/indicator.gif">');
