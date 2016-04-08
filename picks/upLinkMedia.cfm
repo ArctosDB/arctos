@@ -20,8 +20,8 @@
 						this.removeAllFiles();
 					}
 				});
-				this.on("maxfilesexceeded", function(file){
-					this.removeFile(file);
+				this.on("maxfilesreached", function(file){
+					this.removeAllFiles(true);
 					alert("No moar files please!");
 				});
 				this.on("drop", function(file){
