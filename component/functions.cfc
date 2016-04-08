@@ -1168,16 +1168,32 @@
 	  		collection.collection_id
 	</cfquery>
 	<cfquery name="whatMedia" datasource="uam_god">
-  		SELECT
-			count(*) num,
-			media_id
-		from
-			media_relations
-		WHERE
-			 media_relationship like '% locality' and
-			 related_primary_key=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
-		GROUP BY
-			media_id
+	  	select
+	  		sum(num) num,
+	  		media_id
+	  	from (
+	  		SELECT
+				count(*) num,
+				media_id
+			from
+				media_relations
+			WHERE
+				 media_relationship like '% locality' and
+				 related_primary_key=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
+			GROUP BY
+				media_id
+			union
+			select
+				count(*) num,
+				media_id
+			from
+				media_relations,
+				collecting_event
+			where
+				 collecting_event.collecting_event_id=media_relations.related_primary_key and
+				 media_relationship like '% collecting_event' and
+				 collecting_event.locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
+		)
 	</cfquery>
 
 	<cfquery name="verifiedSpecs" datasource="uam_god">
