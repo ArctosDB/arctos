@@ -1193,9 +1193,10 @@
 				 collecting_event.collecting_event_id=media_relations.related_primary_key and
 				 media_relationship like '% collecting_event' and
 				 collecting_event.locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
-		)
+			GROUP BY
+				media_id
+		) GROUP BY media_id
 	</cfquery>
-
 	<cfquery name="verifiedSpecs" datasource="uam_god">
 		select
 			count(distinct(collection_object_id)) c
