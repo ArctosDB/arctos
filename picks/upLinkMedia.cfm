@@ -112,7 +112,7 @@ Dropzone.options.mydz = {
 
 function resetDZ(){
 	$("#uploadmediaform").show();
-	Dropzone.mydz.removeAllFiles();
+	 Dropzone.forElement("#mydz").removeAllFiles();
 	$("#newMediaUpBack").html('');
 
 }
