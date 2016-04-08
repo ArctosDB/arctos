@@ -23,6 +23,7 @@
     				this.removeAllFiles(true);
     				this.removeAllFiles();
 			        alert("No moar files please!");
+			        return false;
 			   });
   			},
   			maxFiles: 1
