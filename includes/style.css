@@ -122,6 +122,8 @@
 		padding:1em;
 		border:10px solid red;
 	}
+	
+	.nowrap {white-space: nowrap;}
 	/* table junk */
 	
 	.valigntop {

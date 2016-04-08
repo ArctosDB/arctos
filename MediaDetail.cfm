@@ -166,7 +166,9 @@
                     </cfif>
                     <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
                         <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
-                        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
+                        <div class="nowrap">
+							<a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
+						</div>
                     </cfif>
                     <cfif tag.n gt 0>
                         <a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
