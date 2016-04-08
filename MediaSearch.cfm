@@ -466,7 +466,7 @@
 			<!--- cataloged item of one of the specimens in the accn to which the media we want is attached ---->
 			<cfset tabls = "#tabls#,media_relations mr_sp_accn, cataloged_item mr_accn_ci">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_sp_accn.media_id AND
-				mr_sp_accn.media_relationship like '% cataloged_item' and
+				mr_sp_accn.media_relationship like '% accn' and
 				mr_sp_accn.related_primary_key = mr_accn_ci.collection_object_id ">
 			<cfset srch="#srch# and mr_accn_ci.collection_object_id=#specimen_accn_id#">
 			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">
