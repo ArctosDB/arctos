@@ -24,9 +24,10 @@
 					this.removeFile(file);
 					alert("No moar files please!");
 				});
-				this.on("maxfilesexceeded", function(file)
-				{
-				    this.removeFile(file);
+				this.on("drop", function(file){
+					var fcount=this.files.length;
+					console.log(fcount);
+					return false;
 				});
   			}
 		};
