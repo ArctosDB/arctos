@@ -164,6 +164,8 @@
 					<cfset result.det='The external resource does not appear to exist.'>
 				<cfelseif left(cfhttp.statuscode,3) is "500">
 					<cfset result.det='The server may be down or misconfigured.'>
+				<cfelseif left(cfhttp.statuscode,3) is "503">
+					<cfset result.det='The server is currently unavailable; this is generally temporary.'>
 				<cfelse>
 					<cfset result.det='An unknown error occurred'>
 				</cfif>
