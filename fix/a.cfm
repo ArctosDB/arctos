@@ -17,7 +17,7 @@
 	</cfquery>
 	<cfloop query="td">
 		<cfdump var=#media_uri#>
-		<cfset x=obj.exitLink(target=media_uri)>
+		<cfset x=obj.exitLink(target=URLEncodedFormat(media_uri))>
 		<cfdump var=#x#>
 	</cfloop>
 
