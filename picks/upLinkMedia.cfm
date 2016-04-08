@@ -23,8 +23,8 @@
 					}
 				});
 				myDropZone.on("maxfilesexceeded", function(file){
-					myDropZone.removeAllFiles(true);
 					alert("Upload only one file at a time.");
+					myDropZone.removeAllFiles(true);
 				});
   			}
 		};
