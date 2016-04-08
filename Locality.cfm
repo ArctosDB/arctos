@@ -1119,7 +1119,7 @@
 	<div id="colEventMedia"></div>
 
 	<script>
-		getMedia('collecting_event','#collecting_event_id#','colEventMedia','6','1');
+		getMedia('collecting_event','#collecting_event_id#','colEventMedia','5','1');
 	</script>
   </cfoutput>
 </cfif>
