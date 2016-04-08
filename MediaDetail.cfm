@@ -52,6 +52,28 @@
 
 			<cfelse>
 				<cfdump var=#x#>
+				<cfheader statuscode="#x.code#" statustext="#x.msg#">
+				<cftry>
+					<cfhtmlhead text='<title>An external resource is not responding properly</title>'>
+					<cfcatch type="template"></cfcatch>
+				</cftry>
+				<div style="border:4px solid red; padding:1em;margin:1em;">
+					There may be a problem with the linked resource.
+					<p>
+						Status: #x.code# #x.msg#
+					</p>
+
+					<p>
+						Click the following link(s) to attempt to load the resource manually.
+					</p>
+					<p>
+						Please <a href="/contact.cfm?ref=#target#">contact us</a> if you experience additional problems with the link.
+					</p>
+					<p>Link as provided: <a href="#findIDs.media_uri#">#findIDs.media_uri#</a></p>
+						<cfif x.http_target is not findIDs.media_uri>
+							<br>Or our guess at the intended link: <a href="#x.http_target#">#x.http_target#</a>
+						</cfif>
+				</div>
 			</cfif>
 
 			<!----
