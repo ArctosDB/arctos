@@ -127,7 +127,7 @@
 	<!---- ensure that the reqeust is for something in our Media table ---->
 	<cfif result.status is "spiffy">
 		<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from media where upper(trim(media_uri))='#ucase(trim(http_target))#'
+			select count(*) c from media where upper(trim(media_uri))='#ucase(trim(URLDecode(http_target)))#'
 		</cfquery>
 		<cfdump var=#isus#>
 		<cfif isus.c neq 1>
