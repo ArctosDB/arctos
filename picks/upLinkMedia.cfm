@@ -9,7 +9,7 @@
 		});
 		Dropzone.options.mydz = {
 			maxFiles: 1,
-			autoProcessQueue:false,
+			//autoProcessQueue:false,
 			init: function () {
 				var myDropZone = this;
 				myDropZone.on("success", function (file,r) {
@@ -21,10 +21,6 @@
 						alert('ERROR: ' + msg);
 						myDropZone.removeAllFiles();
 					}
-				});
-				this.on("drop", function(file) {
-					var x=this.files.length;
-					console.log('dropped: ' + x);
 				});
 
 				this.on("maxfilesexceeded", function(file){
@@ -167,11 +163,11 @@
 
 
 
-		<div id="uploadtitle">Option 1: Upload Media Files</div>
+		<div id="uploadtitle">Option 1: Upload Media</div>
 				<div id="uploadmediaform">
 					<form id="mydz" action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone needsclick dz-clickable">
 						<div class="dz-message needsclick">
-							Drop files here or click to upload.
+							Drop ONE file here or click to upload.
 						</div>
 					</form>
 				</div>
