@@ -22,6 +22,10 @@
 						myDropZone.removeAllFiles();
 					}
 				});
+				myDropzone.on("addedfile", function(file) {
+					alert(myDropzone.getQueuedFiles().length);
+				});
+
 				myDropZone.on("maxfilesexceeded", function(file){
 					alert("Upload only one file at a time.");
 					myDropZone.removeAllFiles(true);
