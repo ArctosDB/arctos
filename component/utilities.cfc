@@ -116,8 +116,7 @@
 	<cfif left(target,4) is not "http">
 		<cfset result.status='error'>
 		<cfset result.code='400'>
-		<cfset result.msg='Media Exit Link: Invalid Format'>
-		<cfset result.det='There may be a problem with the linked resource: the target does not seem to be a valid URL.'>
+		<cfset result.msg='Invalid Format: the target does not seem to be a valid URL.'>
 		<cfset http_target=URLDecode(target)>
 	<cfelse>
 		<!---- eventually we may want to guess at fixing errors etc, so local URL time ---->
@@ -134,7 +133,6 @@
 			<cfset result.status='error'>
 			<cfset result.code='404'>
 			<cfset result.msg='The Media does not exist at the URL you requested.'>
-			<cfset result.det='The Media does not exist.'>
 		</cfif>
 	</cfif>
 
@@ -146,41 +144,37 @@
 			<cfset result.status='success'>
 			<cfset result.code=200>
 			<cfset result.msg='yay everybody!'>
-			<cfset result.det=''>
 		</cfif>
 		<cfif result.status is not 'success'>
 			<!---- no response; timed out ---->
 			<cfif not isdefined("cfhttp.statuscode")>
 				<cfset result.status='timeout'>
 				<cfset result.code=408>
-				<cfset result.msg='The Media server is not responding in a timely manner.'>
-				<cfset result.det='A request has timed out. This may be caused by a temporary interruption, server configuration, or '>
-				<cfset result.det=result.det & "resource abandonment.">
+				<cfset result.msg='The Media server is not responding in a timely manner. This may be caused by a temporary interruption'>
+				<cfset result.msg=result.msg & ", server configuration, or resource abandonment.">
 			</cfif>
 			<!--- response, but not 200 ---->
 			<cfif isdefined("cfhttp.statuscode") and isnumeric(left(cfhttp.statuscode,3)) and left(cfhttp.statuscode,3) is not "200">
 				<cfset result.status='error'>
 				<cfset result.code=left(cfhttp.statuscode,3)>
-				<cfset result.msg='There is a potential problem with the resource.'>
 				<cfif left(cfhttp.statuscode,3) is "405">
-					<cfset result.det='The server hosting the link refused our request method.'>
+					<cfset result.msg='The server hosting the link refused our request method.'>
 				<cfelseif left(cfhttp.statuscode,3) is "408">
-					<cfset result.det='The server hosting the link may be slow or nonresponsive.'>
+					<cfset result.msg='The server hosting the link may be slow or nonresponsive.'>
 				<cfelseif  left(cfhttp.statuscode,3) is "404">
-					<cfset result.det='The external resource does not appear to exist.'>
+					<cfset result.msg='The external resource does not appear to exist.'>
 				<cfelseif left(cfhttp.statuscode,3) is "500">
-					<cfset result.det='The server may be down or misconfigured.'>
+					<cfset result.msg='The server may be down or misconfigured.'>
 				<cfelseif left(cfhttp.statuscode,3) is "503">
-					<cfset result.det='The server is currently unavailable; this is generally temporary.'>
+					<cfset result.msg='The server is currently unavailable; this is generally temporary.'>
 				<cfelse>
-					<cfset result.det='An unknown error occurred'>
+					<cfset result.msg='An unknown error occurred'>
 				</cfif>
 			</cfif>
 			<cfif isdefined("cfhttp.statuscode") and not isnumeric(left(cfhttp.statuscode,3))>
 				<cfset result.status='failure'>
 				<cfset result.code=500>
-				<cfset result.msg='The Media server is not responding correctly.'>
-				<cfset result.det='The resource may be misconfigured or missing'>
+				<cfset result.msg='The resource is not responding correctly, and may be misconfigured or missing.'>
 			</cfif>
 		</cfif>
 	</cfif>
