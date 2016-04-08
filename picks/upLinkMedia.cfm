@@ -16,8 +16,10 @@
 		        if (result.STATUSCODE=='200'){
 					 makeSaveForm(result);
 		        } else {
+		        	var msg=result.MSG.replace('\\n','\n');
+		        	console.log(msg);
 		        	console.log('not so much');
-		        	alert('ERROR: ' + result.MSG.replace('\\n','\n');
+		        	alert('ERROR: ' + msg);
 		        	this.removeAllFiles();
 		        }
     			});
