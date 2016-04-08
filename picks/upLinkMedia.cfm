@@ -9,6 +9,7 @@
 		});
 		Dropzone.options.mydz = {
 			maxFiles: 1,
+			autoProcessQueue:false,
 			init: function () {
 				var myDropZone = this;
 				myDropZone.on("success", function (file,r) {
