@@ -172,7 +172,7 @@ Dropzone.options.mydz = {
 
         if (result.STATUSCODE=='200'){
 
-        	$("#mydz").hide();
+        	$("#mydz_ctr").hide();
 
         	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
         	$("#uploadmediaform").hide();
@@ -325,17 +325,16 @@ Dropzone.options.mydz = {
 
 
 
-
-<form id="mydz" action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone needsclick dz-clickable">
-<div class="dz-message needsclick">
-Drop files here or click to upload.
-<br>
-</div>
-</form>
-
-
 		<div id="uploadtitle">Option 1: Upload Media Files</div>
-		<div id="uploadmediaform">
+				<div id="uploadmediaform">
+					<form id="mydz" action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone needsclick dz-clickable">
+						<div class="dz-message needsclick">
+							Drop files here or click to upload.
+						</div>
+					</form>
+				</div>
+
+		<!----
 			<form id="form1" enctype="multipart/form-data" method="post" action="">
 				<div class="drop-files-container">
 				<label for="fileToUpload">Select a File to Upload (click or drag a file onto the browse button)</label>
@@ -350,6 +349,7 @@ Drop files here or click to upload.
 				</div>
 				<div id="progressNumber"></div>
 			</form>
+			---->
 		</div>
 		<div id="newMediaUpBack"></div>
 	</div>
