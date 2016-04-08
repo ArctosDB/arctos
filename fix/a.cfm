@@ -1,12 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 
-
+<cfoutput>
 
 	<cfset obj = CreateObject("component","component.utilities")>
 
 	<cfquery name="td" datasource="UAM_GOD">
 		select *
-      from ( select media_uri
+      from ( select media_uri,media_id
                from media
 			where media_uri not like 'http://web.corral.tacc.utexas.edu%' and
 			media_uri not like 'http://www.morphbank.net%' and
@@ -19,12 +19,14 @@
 
 		<cfset x=obj.exitLink(target=URLEncodedFormat(media_uri))>
 		<cfif x.code is not "200">
+			<br><a href="/media/#media_id#">/media/#media_id#</a>
+			<br><a href="/media/#media_id#?open">/media/#media_id#?open</a>
 			<cfdump var=#media_uri#>
 			<cfdump var=#x#>
 		</cfif>
 	</cfloop>
 
-
+</cfoutput>
 <!--------------------
 
 
