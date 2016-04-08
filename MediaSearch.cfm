@@ -586,8 +586,6 @@
 			#preservesinglequotes(ssql)#
 		</cfquery>
 
-
-		<cfdump var=#raw#>
 		<cfif raw.recordcount is 10000>
 			<div class="importantNotification">
 				Note: Some relevant records may not be included. Please try more specific search terms.
