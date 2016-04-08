@@ -22,7 +22,7 @@
 						myDropZone.removeAllFiles();
 					}
 				});
-				this.on("addedfile", function(file) {
+				this.on("drop", function(file) {
 					alert(this.getQueuedFiles().length);
 				});
 
