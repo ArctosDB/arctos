@@ -23,8 +23,9 @@ Dropzone.options.mydz = {
         	console.log('spiffy');
 
 
-
-        	$("#uploadtitle").html('File Uploaded: Fill in this form and and click the "create" button to finish.');
+			var h='File Uploaded: Fill in this form and and click the "create" button to finish, or';
+			h+='<span class="likeLink" onclick="resetDZ()">click here to start over</span>';
+        	$("#uploadtitle").html(h);
         	$("#uploadmediaform").hide();
         	var h='<form name="nm" method="post" action="upLinkMedia.cfm">';
         	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
@@ -109,7 +110,12 @@ Dropzone.options.mydz = {
 
 
 
+function resetDZ(){
+	$("#uploadmediaform").show();
+	Dropzone.mydz.removeAllFiles();
+	$("#newMediaUpBack").html('');
 
+}
 
 
 
