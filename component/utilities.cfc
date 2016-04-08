@@ -50,7 +50,7 @@
 						select media_id from media where upper(media_uri) like '%#umpth#'
 					</cfquery>
 					<cfset midl=valuelist(fexist.media_id)>
-					<cfset msg="The file \n #Application.serverRootURL#/mediaUploads/#session.username#/#fileName# \n">
+					<cfset msg="The file \n\n #Application.serverRootURL#/mediaUploads/#session.username#/#fileName# \n\n">
 					<cfset msg=msg & " already exists">
 					<cfif len(midl) gt 0>
 						<cfset msg=msg & " and may be used by \n #Application.ServerRootURL#/media/#midl#\n Check the media_URL above and">
