@@ -13,7 +13,9 @@
 
 Dropzone.options.mydz = {
   init: function () {
-    this.on("success", function (file,result) {
+    this.on("success", function (file,r) {
+    var result=$.parseJSON(r);
+
        console.log(result);
        console.log(result.STATUSCODE);
        console.log(result.MSG);
