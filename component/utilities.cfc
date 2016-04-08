@@ -118,7 +118,7 @@
 		<!---- eventually we may want to guess at fixing errors etc, so local URL time ---->
 		<cfset http_target=URLDecode(target)>
 	</cfif>
-
+	<cfset result.http_target=http_target>
 	<!---- ensure that the reqeust is for something in our Media table ---->
 	<cfif result.status is "spiffy">
 		<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

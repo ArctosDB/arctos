@@ -44,13 +44,27 @@
 		</cfif>
 
 		<cfif isdefined("open") and open is not false>
+			<cfset  utils = CreateObject("component","component.utilities")>
+			<cfset x=utils.exitLink(target=URLEncodedFormat(findIDs.media_uri))>
+			<cfif x.code is "200">
+				<cfheader statuscode="303" statustext="Redirecting to external resource">
+				<cfheader name="Location" value="#x.http_target#">
+
+			<cfelse>
+				<cfdump var=#x#>
+			</cfif>
+
 			<!----
 			<cflocation addtoken="false" url="/exit.cfm?target=#urlencodedformat(findIDs.media_uri)#">
 			---->
-			<!--- call function, will return 
+			<!--- call function, will return
 
 			<cfinclude template="/exit.cfm?target=#urlencodedformat(findIDs.media_uri)#">
 			<cfabort>
+
+			----->
+
+
 		</cfif>
 
 <cftry>
