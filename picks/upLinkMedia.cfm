@@ -24,7 +24,7 @@
 				});
 				this.on("drop", function(file) {
 					var x=this.files.length;
-					alert(x);
+					console.log('dropped: ' + x);
 				});
 
 				myDropZone.on("maxfilesexceeded", function(file){
