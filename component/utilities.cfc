@@ -54,7 +54,7 @@
 					<cfset msg=msg & " already exists">
 					<cfif len(midl) gt 0>
 						<cfset msg=msg & " and may be used by \n\n #Application.ServerRootURL#/media/#midl#\n\n Check the media_URL above">
-						<cfset msg=msg & " and link to the media using the media_id in the form below.">
+						<cfset msg=msg & ", and link to the media using the media_id (#midl#) in the form below.">
 					<cfelse>
 						<cfset msg=msg & " and does not seem to be used for existing Media. Create media with the already-loaded file by">
 						<cfset msg=msg & " pasting the above media_uri into ">
