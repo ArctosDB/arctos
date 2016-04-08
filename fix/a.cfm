@@ -9,7 +9,7 @@
       from ( select media_uri
                from media
                       order by dbms_random.value )
-     where rownum <= 4
+     where rownum <= 100
 	</cfquery>
 	<cfloop query="td">
 		<cfdump var=#media_uri#>
