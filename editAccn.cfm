@@ -159,17 +159,6 @@
 				trans.collection_id=collection.collection_id and
 				trans.transaction_id = #transaction_id#
 		</cfquery>
-
-		<cfdump var=#accnData#>
-
-
-		<p>
-		DateFormat:#DateFormat(accnData.received_date, 'yyyy-mm-dd')#
-		</p>
-
-		<p>
-		accnData.received_date: #accnData.received_date#
-		</p>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				trans_agent_id,
@@ -313,7 +302,7 @@
 					<tr>
 						<td colspan="3">
 							<em>Entered by</em>
-							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#dateformat(accnData.trans_date,'yyyy-mm-dd')#</strong>
+							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#accnData.trans_date#</strong>
 						</td>
 						<td colspan="2">
 							<label for="">Has Correspondence?</label>
