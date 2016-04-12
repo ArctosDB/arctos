@@ -219,7 +219,7 @@
 							<label for="rec_date">Received Date</label>
 							<input type="text"
 								name="rec_date"
-								value="#DateFormat(accnData.received_date, 'yyyy-mm-dd')#"
+								value="#accnData.received_date#"
 								size="10"
 								id="rec_date">
 						</td>
@@ -302,7 +302,7 @@
 					<tr>
 						<td colspan="3">
 							<em>Entered by</em>
-							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#dateformat(accnData.trans_date,'yyyy-mm-dd')#</strong>
+							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#accnData.trans_date#</strong>
 						</td>
 						<td colspan="2">
 							<label for="">Has Correspondence?</label>
@@ -754,10 +754,10 @@
 		</cfif>
 		<cfif  isdefined("rec_date") and len(#rec_date#) gt 0>
 			<cfif isdefined("rec_until_date") and len(#rec_until_date#) gt 0>
-				<cfset sql = "#sql# AND upper(received_date) between to_date('#rec_date#', 'yyyy-mm-dd')
-					and to_date('#rec_until_date#', 'yyyy-mm-dd')">
+				<cfset sql = "#sql# AND upper(received_date) between '#rec_date#'
+					and '#rec_until_date#'">
 			<cfelse>
-				<cfset sql = "#sql# AND upper(received_date) like to_date('#rec_date#', 'yyyy-mm-dd')">
+				<cfset sql = "#sql# AND upper(received_date) like '#rec_date#'">
 			</cfif>
 		</cfif>
 		<cfif  isdefined("NATURE_OF_MATERIAL") and len(#NATURE_OF_MATERIAL#) gt 0>
@@ -869,7 +869,7 @@
 			</cfif>
 			<div style="padding-left:2em;">
 				Received from: <strong>#recFromAgent#</strong>
-				<br>Received date: <strong>#DateFormat(received_date, "yyyy-mm-dd")#</strong>
+				<br>Received date: <strong>#received_date#</strong>
 				<br>Nature of Material: <strong>#nature_of_material#</strong>
 				<cfif len(#trans_remarks#) gt 0>
 					<br>Remarks: <strong>#trans_remarks#</strong>
@@ -897,7 +897,7 @@
 			<cfset d='"#escapeDoubleQuotes(guid_prefix)# #escapeDoubleQuotes(accn_number)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(accn_status)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(recFromAgent)#"'>
-			<cfset d=d &',"#DateFormat(received_date, "yyyy-mm-dd")#"'>
+			<cfset d=d &',"#received_date#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(trans_remarks)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(estimated_count)#"'>
@@ -950,7 +950,7 @@
 				UPDATE accn SET
 					ACCN_TYPE = '#accn_type#',
 					ACCN_NUMber = '#ACCN_NUMber#',
-					RECEIVED_DATE=to_date('#dateformat(rec_date,"yyyy-mm-dd")#'),
+					RECEIVED_DATE='#rec_date#',
 					ACCN_STATUS = '#accn_status#'
 					<cfif len(estimated_count) gt 0>
 						,estimated_count=#estimated_count#

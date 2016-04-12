@@ -299,7 +299,7 @@
 					#lender_loan_type#
 				</td>
 				<td>
-					#dateformat(RECEIVED_DATE,"yyyy-mm-dd")#
+					#RECEIVED_DATE#
 				</td>
 				<td>
 					#dateformat(DUE_DATE,"yyyy-mm-dd")#
@@ -491,7 +491,7 @@
 			<tr>
 				<td>
 					<label for="received_date">Received Date</label>
-					<input type="text" name="received_date" id="received_date" value="#dateformat(getBorrow.RECEIVED_DATE,"yyyy-mm-dd")#">
+					<input type="text" name="received_date" id="received_date" value="#getBorrow.RECEIVED_DATE#">
 				</td>
 				<td>
 					<label for="due_date">Due Date</label>

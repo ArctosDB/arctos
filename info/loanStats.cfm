@@ -33,10 +33,10 @@
 								<option <cfif collectionid is ctcollection.collection_id> selected="selected" </cfif> value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 							</cfloop>
 						</select>
-						
+
 	<label for="loanto">Loaned To Person</label>
 	<input type="text" name="loanto" id="loanto" value="#loanto#">
-	
+
 		<label for="loantype">Loan Type</label>
 		<select name="loantype" id="loantype" class="reqdClr">
 			<option value=""></option>
@@ -50,28 +50,28 @@
 			<cfloop query="ctLoanStatus">
 				<option  <cfif loanstatus is ctLoanStatus.loan_status> selected="selected" </cfif> value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
 			</cfloop>
-		</select>			
+		</select>
 		<label for="citations">Citations</label>
-		
+
 		<select name="citations" id="citations" class="reqdClr">
 			<option value="">whatever</option>
 			<option <cfif citations is 0> selected="selected" </cfif> value="0">has none</option>
 			<option <cfif citations is 1> selected="selected" </cfif> value="1">has some</option>
-		</select>	
+		</select>
 			<label for="itemsloaned">Items Loaned</label>
-		
+
 		<select name="itemsloaned" id="itemsloaned" class="reqdClr">
 			<option value="">whatever</option>
 			<option <cfif itemsloaned is 0> selected="selected" </cfif> value="0">has none</option>
 			<option <cfif itemsloaned is 1> selected="selected" </cfif> value="1">has some</option>
 		</select>
-		
-		
+
+
 	<br><input type="submit" value="go">
 </form>
 <cfif action is "srch">
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select 
+	select
 	guid_prefix,
 	collection_id,
 	TRANSACTION_ID,
@@ -85,7 +85,7 @@
 	count(distinct(citationID)) cntCited,
 	trans_remarks
 	from (
-		select 
+		select
 			guid_prefix,
 			collection.collection_id,
 			loan.TRANSACTION_ID,
@@ -111,7 +111,7 @@
 			loan.transaction_id=loan_item.transaction_id (+) and
 			loan_item.collection_object_id=specimen_part.collection_object_id (+) and
 			specimen_part.derived_from_cat_item=citation.collection_object_id (+)	union
-		select 
+		select
 			guid_prefix,
 			collection.collection_id,
 			loan.TRANSACTION_ID,
@@ -137,7 +137,7 @@
 			loan.transaction_id=loan_item.transaction_id (+) and
 			loan_item.collection_object_id=specimen_part.derived_from_cat_item (+) and
 			loan_item.collection_object_id=citation.collection_object_id (+)
-	) 
+	)
 	where 1=1
 	<cfif len(loanto) gt 0>
 		and upper(loaned_to) like '%#ucase(loanto)#%'
@@ -180,16 +180,16 @@
 
 
 	<cfset clist="Collection,Loan,Type,LoanedTo,Status,TransDate,DueDate,ItemsLoaned,Citations,TransRemarks">
-		
+
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfset variables.encoding="UTF-8">
 	<cfset fname = "loan-citation-stats.csv">
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
+		variables.joFileWriter.writeLine(ListQualify(clist,'"'));
 	</cfscript>
-	
+
 	<h2>Loan Statistics</h2>
 <div style="background-color:lightgray;font-size:small;padding:1em; width:50%; align:center;margin-left:3em;margin:1em;">
 	Citations apply to cataloged items and do not reflect activity resulting from any particular loan.
@@ -216,7 +216,7 @@
 		<th>TransRemarks</th>
 	</tr>
 	<cfloop query="loanData">
-		<cfset oneLine = '"#guid_prefix#","#loan_number#","#loan_type#","#loaned_to#","#LOAN_STATUS#","#dateformat(TRANS_DATE,"yyyy-mm-dd")#","#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#","#CntCatNum#","#cntCited#","#trans_remarks#"'>
+		<cfset oneLine = '"#guid_prefix#","#loan_number#","#loan_type#","#loaned_to#","#LOAN_STATUS#","#TRANS_DATE#","#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#","#CntCatNum#","#cntCited#","#trans_remarks#"'>
 		<cfscript>
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
@@ -226,7 +226,7 @@
 			<td nowrap="nowrap">#loan_type#</td>
 			<td nowrap="nowrap">#loaned_to#</td>
 			<td>#LOAN_STATUS#</td>
-			<td nowrap="nowrap">#dateformat(TRANS_DATE,"yyyy-mm-dd")#&nbsp;</td>
+			<td nowrap="nowrap">#TRANS_DATE#&nbsp;</td>
 			<td nowrap="nowrap">#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#&nbsp;</td>
 			<td>
 				<a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#">#CntCatNum#</a>
@@ -237,9 +237,9 @@
 			<td>#trans_remarks#</td>
 		</tr>
 	</cfloop>
-	<cfscript>	
+	<cfscript>
 		variables.joFileWriter.close();
-	</cfscript>	
+	</cfscript>
 </table>
 
 
