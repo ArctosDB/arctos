@@ -230,7 +230,7 @@
 							<label for="rec_date">Received Date</label>
 							<input type="text"
 								name="rec_date"
-								value="#received_date#"
+								value="#accnData.received_date#"
 								size="10"
 								id="rec_date">
 						</td>
