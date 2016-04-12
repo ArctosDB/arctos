@@ -159,6 +159,8 @@
 				trans.collection_id=collection.collection_id and
 				trans.transaction_id = #transaction_id#
 		</cfquery>
+
+		<cfdump var=#accnData#>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				trans_agent_id,
