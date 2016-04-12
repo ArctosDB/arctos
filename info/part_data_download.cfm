@@ -95,7 +95,7 @@
 				<td>#began_date#</td>
 				<td>#ended_date#</td>
 				<td>#verbatim_date#</td>
-				<td>#dateformat(received_date,"yyyy-mm-dd")#</td>
+				<td>#received_date#</td>
 				<td>
 					#part_name#
 					<cfif SAMPLED_FROM_OBJ_ID gt 0>
@@ -122,7 +122,7 @@
 				<td>
 					<cfset ll=''>
 					<cfloop query="l">
-						<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'yyyy-mm-dd')#)",";")>
+						<cfset ll=listappend(ll,"#loan_number# (#TRANS_DATE#)",";")>
 					</cfloop>
 					#ll#
 				</td>
@@ -138,10 +138,10 @@
 	<cfset header=#trim(ac)#>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(header); 
+		variables.joFileWriter.writeLine(header);
 	</cfscript>
 	<cfloop query="d">
-		<cfset oneLine = '"#guid#","#CustomID#","#scientific_name#","#began_date#","#ended_date#","#verbatim_date#","#dateformat(received_date,"yyyy-mm-dd")#",'>
+		<cfset oneLine = '"#guid#","#CustomID#","#scientific_name#","#began_date#","#ended_date#","#verbatim_date#","#received_date#",'>
 		<cfif SAMPLED_FROM_OBJ_ID gt 0>
 			<cfset p=part_name & ' (subsample)'>
 		<cfelse>
@@ -166,7 +166,7 @@
 		</cfquery>
 		<cfset ll=''>
 		<cfloop query="l">
-			<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'yyyy-mm-dd')#)",";")>
+			<cfset ll=listappend(ll,"#loan_number# (#TRANS_DATE#)",";")>
 		</cfloop>
 		<cfset oneLine=oneLine & ',"#ll#"'>
 		<cfset oneLine = trim(oneLine)>
@@ -174,7 +174,7 @@
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
 	</cfloop>
-	<cfscript>	
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
 	<cflocation url="/download.cfm?file=#fname#" addtoken="false">

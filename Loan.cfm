@@ -604,7 +604,7 @@ just fooling idiot cfclipse into using the right colors
 							<td>
 								<label for="initiating_date">Transaction Date</label>
 								<input type="text" name="initiating_date" id="initiating_date"
-									value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#" class="reqdClr">
+									value="#loanDetails.trans_date#" class="reqdClr">
 							</td>
 							<td>
 								<label for="return_due_date">Due Date</label>
@@ -748,7 +748,7 @@ just fooling idiot cfclipse into using the right colors
 		<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
 		<textarea name="project_name" id="project_name" cols="50" rows="2" ></textarea>
 		<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Project Start Date</label>
-		<input type="text" name="start_date" value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#">
+		<input type="text" name="start_date" value="#loanDetails.trans_date#">
 		<label for="">Project End Date</label>
 		<input type="text" name="end_date">
 		<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Project Description (>100 characters for visibility)</label>
@@ -1891,8 +1891,8 @@ just fooling idiot cfclipse into using the right colors
 		<cfif not isdefined("to_trans_date") or len(to_trans_date) is 0>
 			<cfset to_trans_date=trans_date>
 		</cfif>
-		<cfset sql = "#sql# AND trans_date between to_date('#dateformat(trans_date, "yyyy-mm-dd")#')
-			and to_date('#dateformat(to_trans_date, "yyyy-mm-dd")#')">
+		<cfset sql = "#sql# AND trans_date between to_date('#trans_date#')
+			and to_date('#to_trans_date#')">
 	</cfif>
 	<cfif isdefined("trans_remarks") AND len(#trans_remarks#) gt 0>
 		<cfset sql = "#sql# AND upper(trans_remarks) LIKE '%#ucase(trans_remarks)#%'">
@@ -2039,7 +2039,7 @@ just fooling idiot cfclipse into using the right colors
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Transaction Date:</div></td>
-						<td>#dateformat(trans_date,"yyyy-mm-dd")#</td>
+						<td>#trans_date#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
@@ -2125,7 +2125,7 @@ just fooling idiot cfclipse into using the right colors
 			<cfset d=d &',"#escapeDoubleQuotes(loan_type)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(loan_status)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(return_due_date)#"'>
-			<cfset d=d &',"#dateformat(trans_date,"yyyy-mm-dd")#"'>
+			<cfset d=d &',"#trans_date#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(loan_instructions)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(auth_agent)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(ent_agent)#"'>
