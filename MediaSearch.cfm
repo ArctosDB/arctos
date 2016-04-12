@@ -512,7 +512,7 @@
 				mrl_collectingevent.media_relationship like '% collecting_event' and
 				mrl_specevent.collection_object_id=#specimen_loc_event_id#">
 
-			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">
+			<cfset mapurl="#mapurl#&specimen_loc_event_id=#specimen_loc_event_id#">
 		</cfif>
 
 
