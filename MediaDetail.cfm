@@ -16,65 +16,59 @@
 		Noid<cfabort>
 	</cfif>
 	<cfset  func = CreateObject("component","component.functions")>
-
-
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select
-				media_flat.media_id,
-				media_flat.media_uri,
-				media_flat.mime_type,
-				media_flat.media_type,
-				media_flat.preview_uri,
-				media_flat.descr,
-				media_flat.alt_text,
-				media_flat.license,
-				doi
-			from
-				media_flat,
-				ctmedia_license,
-				doi
-			where
-				media_flat.media_id=doi.media_id (+) and
-				media_flat.media_id = #media_id#
-		 </cfquery>
-
-
-		<cfif findIDs.recordcount is 0>
-			notfound<cfabort>
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			media_flat.media_id,
+			media_flat.media_uri,
+			media_flat.mime_type,
+			media_flat.media_type,
+			media_flat.preview_uri,
+			media_flat.descr,
+			media_flat.alt_text,
+			media_flat.license,
+			doi
+		from
+			media_flat,
+			ctmedia_license,
+			doi
+		where
+			media_flat.media_id=doi.media_id (+) and
+			media_flat.media_id = #media_id#
+	 </cfquery>
+	<cfif findIDs.recordcount is 0>
+		notfound<cfabort>
+	</cfif>
+	<cfif isdefined("open") and open is not false>
+		<cfset  utils = CreateObject("component","component.utilities")>
+		<cfset x=utils.exitLink(target=URLEncodedFormat(findIDs.media_uri))>
+		<cfif x.code is "200">
+			<cfheader statuscode="303" statustext="Redirecting to external resource">
+			<cfheader name="Location" value="#x.http_target#">
+		<cfelse>
+			<cfheader statuscode="#x.code#" statustext="#x.msg#">
+			<cftry>
+				<cfhtmlhead text='<title>An external resource is not responding properly</title>'>
+				<cfcatch type="template"></cfcatch>
+			</cftry>
+			<div style="border:4px solid red; padding:1em;margin:1em;">
+				There may be a problem with the linked resource.
+				<p>
+					Status: #x.code# #x.msg#
+				</p>
+				<p>
+					Click the following link(s) to attempt to load the resource manually.
+				</p>
+				<p>
+					Please <a href="/contact.cfm?ref=#findIDs.media_uri#">contact us</a> if you experience additional problems with the link.
+				</p>
+				<p>Link as provided: <a href="#findIDs.media_uri#">#findIDs.media_uri#</a></p>
+				<cfif x.http_target is not findIDs.media_uri>
+					<br>Or our guess at the intended link: <a href="#x.http_target#">#x.http_target#</a>
+				</cfif>
+			</div>
 		</cfif>
-
-		<cfif isdefined("open") and open is not false>
-			<cfset  utils = CreateObject("component","component.utilities")>
-			<cfset x=utils.exitLink(target=URLEncodedFormat(findIDs.media_uri))>
-			<cfif x.code is "200">
-				<cfheader statuscode="303" statustext="Redirecting to external resource">
-				<cfheader name="Location" value="#x.http_target#">
-			<cfelse>
-				<cfheader statuscode="#x.code#" statustext="#x.msg#">
-				<cftry>
-					<cfhtmlhead text='<title>An external resource is not responding properly</title>'>
-					<cfcatch type="template"></cfcatch>
-				</cftry>
-				<div style="border:4px solid red; padding:1em;margin:1em;">
-					There may be a problem with the linked resource.
-					<p>
-						Status: #x.code# #x.msg#
-					</p>
-
-					<p>
-						Click the following link(s) to attempt to load the resource manually.
-					</p>
-					<p>
-						Please <a href="/contact.cfm?ref=#findIDs.media_uri#">contact us</a> if you experience additional problems with the link.
-					</p>
-					<p>Link as provided: <a href="#findIDs.media_uri#">#findIDs.media_uri#</a></p>
-						<cfif x.http_target is not findIDs.media_uri>
-							<br>Or our guess at the intended link: <a href="#x.http_target#">#x.http_target#</a>
-						</cfif>
-				</div>
-			</cfif>
-			<cfabort>
-		</cfif>
+		<cfabort>
+	</cfif>
 <cftry>
 
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
