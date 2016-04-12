@@ -496,13 +496,6 @@
 				mr_specevent.collection_object_id=#specimen_collecting_event_id#">
 			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">
 		</cfif>
-
-
-
-
-
-
-
 		<cfif (isdefined("specimen_loc_event_id") and len(specimen_loc_event_id) gt 0)>
 			<!---
 				IN: collection_object_id
@@ -518,11 +511,8 @@
 				mrl_collectingevent.related_primary_key=hmlce.collecting_event_id and
 				mrl_collectingevent.media_relationship like '% collecting_event' and
 				mrl_specevent.collection_object_id=#specimen_loc_event_id#">
-
 			<cfset mapurl="#mapurl#&specimen_loc_event_id=#specimen_loc_event_id#">
 		</cfif>
-
-
 		<cfif (isdefined("taxon_name_id") and len(taxon_name_id) gt 0)>
 			<cfset mapurl="#mapurl#&taxon_name_id=#taxon_name_id#">
 
@@ -627,19 +617,9 @@
 		</cfif>
 		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id">
 
-
-
-<cfdump var=#ssql#>
-
-<cfabort>
-
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-
-
-<cfdump var=#raw#>
-
 
 		<cfif raw.recordcount is 10000>
 			<div class="importantNotification">
