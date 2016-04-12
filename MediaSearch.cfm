@@ -510,7 +510,7 @@
 			---->
 
 
-			<cfset tabls = "#tabls#,specimen_event mrl_specevent,collecting_event ubsce,collecting_event hmlce, media_relations mrl_collectingevent,,">
+			<cfset tabls = "#tabls#,specimen_event mrl_specevent,collecting_event ubsce,collecting_event hmlce, media_relations mrl_collectingevent">
 			<cfset whr ="#whr# AND
 				mrl_specevent.collecting_event_id=ubsce.collecting_event_id and
 				ubsce.locality_id=hmlce.locality_id and
