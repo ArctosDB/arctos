@@ -496,6 +496,13 @@
 				mr_specevent.collection_object_id=#specimen_collecting_event_id#">
 			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">
 		</cfif>
+
+
+
+
+
+
+
 		<cfif (isdefined("specimen_loc_event_id") and len(specimen_loc_event_id) gt 0)>
 			<!---
 				IN: collection_object_id
@@ -503,12 +510,11 @@
 			---->
 
 
-
-
-			<cfset tabls = "#tabls#,media_relations mrl_collectingevent,specimen_event mrl_specevent, collecting_event ubsce,collecting_event hmlce">
+			<cfset tabls = "#tabls#,specimen_event mrl_specevent,collecting_event ubsce,collecting_event hmlce, media_relations mrl_collectingevent,,">
 			<cfset whr ="#whr# AND
 				mrl_specevent.collecting_event_id=ubsce.collecting_event_id and
 				ubsce.locality_id=hmlce.locality_id and
+				mrl_collectingevent.related_primary_key=hmlce.collecting_event_id and
 				mrl_collectingevent.media_relationship like '% collecting_event' and
 				mrl_specevent.collection_object_id=#specimen_loc_event_id#">
 
