@@ -471,6 +471,8 @@
 			<cfset srch="#srch# and mr_accn_ci.collection_object_id=#specimen_accn_id#">
 			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">
 		</cfif>
+
+
 		<cfif (isdefined("specimen_collecting_event_id") and len(specimen_collecting_event_id) gt 0)>
 			<cfset tabls = "#tabls#,media_relations mr_collectingevent,specimen_event mr_specevent">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_collectingevent.media_id AND
@@ -479,6 +481,41 @@
 				mr_specevent.collection_object_id=#specimen_collecting_event_id#">
 			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">
 		</cfif>
+
+
+
+		<cfif (isdefined("specimen_collecting_event_id") and len(specimen_collecting_event_id) gt 0)>
+			<!---
+				IN: collection_object_id
+				FIND: Media linked to collecting_event used by IN
+			---->
+			<cfset tabls = "#tabls#,media_relations mr_collectingevent,specimen_event mr_specevent">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_collectingevent.media_id AND
+				mr_collectingevent.media_relationship like '% collecting_event' and
+				mr_collectingevent.related_primary_key =mr_specevent.collecting_event_id and
+				mr_specevent.collection_object_id=#specimen_collecting_event_id#">
+			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">
+		</cfif>
+		<cfif (isdefined("specimen_loc_event_id") and len(specimen_loc_event_id) gt 0)>
+			<!---
+				IN: collection_object_id
+				FIND: Media linked to collecting_event used by locality of event used by IN
+			---->
+
+
+
+
+			<cfset tabls = "#tabls#,media_relations mrl_collectingevent,specimen_event mrl_specevent, collecting_event ubsce,collecting_event hmlce">
+			<cfset whr ="#whr# AND
+				mrl_specevent.collecting_event_id=ubsce.collecting_event_id and
+				ubsce.locality_id=hmlce.locality_id and
+				mrl_collectingevent.media_relationship like '% collecting_event' and
+				mrl_specevent.collection_object_id=#specimen_loc_event_id#">
+
+			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">
+		</cfif>
+
+
 		<cfif (isdefined("taxon_name_id") and len(taxon_name_id) gt 0)>
 			<cfset mapurl="#mapurl#&taxon_name_id=#taxon_name_id#">
 
