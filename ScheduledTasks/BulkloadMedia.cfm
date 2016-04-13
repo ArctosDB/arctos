@@ -334,7 +334,7 @@
 									update cf_temp_media set media_related_key_#i#=#c.media_id# where key=#key#
 								</cfquery>
 							<cfelse>
-								<cfset rec_stat=listappend(rec_stat,'Media #lv# matched #c.recordcount# records.',";")>
+								<cfset rec_stat=listappend(rec_stat,'Media #rt# matched #c.recordcount# records.',";")>
 								<cfif debug>
 									<br>faul@relatoinship media
 									<cfdump var=#c#>
