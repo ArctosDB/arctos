@@ -78,7 +78,7 @@
 		<br><strong>Status:</strong> #d.accn_status#
 		<br><strong>Received:</strong>
 		<cfif len(d.received_date) gt 0>
-			#dateformat(d.received_date,"yyyy-mm-dd")#
+			#d.received_date#
 		<cfelse>
 			not recorded
 		</cfif>
