@@ -131,9 +131,6 @@
 </cfif>
 <!------------------------------------------------------------>
 <cfif action is "nothing">
-
-
-<!----
 <script>
 	function isInfo() {
 		var uname = document.signIn.username.value;
@@ -190,9 +187,6 @@
 		You can explore Arctos using basic options without signing in.
 	</p>
 	</cfoutput>
-
-
-	------>
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif action is "lostPass">
