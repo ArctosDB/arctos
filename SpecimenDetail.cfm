@@ -333,8 +333,6 @@
 				if (q=='media'){
 					 addMedia('collection_object_id','#collection_object_id#');
 				} else {
-
-
 					var bgDiv = document.createElement('div');
 					bgDiv.id = 'bgDiv';
 					bgDiv.className = 'bgDiv';
