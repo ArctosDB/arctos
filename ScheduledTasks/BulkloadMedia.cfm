@@ -4,7 +4,7 @@
 <cfif not isdefined("debug")><cfset debug=false></cfif>
 <!------------------------------------------------------->
 <cfif action is "nothing">
-	<a href="BulkLoadMedia.cfm?action=validate">validate</a>
+	<a href="BulkloadMedia.cfm?action=validate&debug=true">validate&debug</a>
 
 </cfif>
 <cfif action is "report">
