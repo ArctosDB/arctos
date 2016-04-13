@@ -134,6 +134,7 @@
 			</p>
 			#emailFooter#
 		</cfmail>
+	</cfloop>
 	<!--- end of encumbrance code --->
 
 	<!--- start of loan code --->
