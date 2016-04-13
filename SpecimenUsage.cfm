@@ -358,13 +358,11 @@
 			<cfif basFrom does not contain "publication_agent">
 				<cfset basFrom = "#basFrom#,publication_agent">
 				<cfset basWhere = "#basWhere# AND publication.publication_id = publication_agent.publication_id">
-
 			</cfif>
 			<cfif basFrom does not contain "agent_name">
 				<cfset basFrom = "#basFrom#,agent_name">
 				<cfset basWhere = "#basWhere# AND publication_agent.agent_id=agent_name.agent_id">
 			</cfif>
-
 			<cfset basWhere = "#basWhere# AND UPPER(agent_name.agent_name) LIKE '%#ucase(author)#%'">
 		</cfif>
 		<cfif isdefined("year") AND isnumeric(year)>

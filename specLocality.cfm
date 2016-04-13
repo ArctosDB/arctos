@@ -674,7 +674,7 @@ function useGL(glat,glon,gerr){
 			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<cfloop query="ctVerificationStatus">
-					<option value="#VerificationStatus#">#VerificationStatus#</option>
+					<option <cfif VerificationStatus is "unverified"> selected="selected"</cfif>value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
