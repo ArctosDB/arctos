@@ -279,57 +279,25 @@
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#geo_att_determiner_6#" dbvarname="v_geo_att_determiner_6">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#geo_att_determined_method_6#" dbvarname="v_geo_att_determined_method_6">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#geo_att_remark_6#" dbvarname="v_geo_att_remark_6">
-
 									<cfprocparam type="out" cfsqltype="cf_sql_numeric" variable="ceid" dbvarname="v_r_ceid">
 								</cfstoredproc>
-
-								<p>
-									ceid: <cfdump var=#ceid#>
-								</p>
-
-								<p>
+								<cfif debug>
+									<p>
+										update cf_temp_media set media_related_key_#i#=#ceid# where key=#key#
+									</p>
+								</cfif>
+								<cfquery name="i" datasource="uam_god">
 									update cf_temp_media set media_related_key_#i#=#ceid# where key=#key#
-								</p>
-
-																<cfquery name="i" datasource="uam_god">
-																	update cf_temp_media set media_related_key_#i#=#ceid# where key=#key#
-																</cfquery>
-
+								</cfquery>
 								<cfcatch>
-									catch!
-
-									<cfdump var=#cfcatch#>
-
 									<cfset rec_stat=listappend(rec_stat,'event unresolvable: #cfcatch.message# #cfcatch.detail#',";")>
-
-		<p>
-			rec_stat: #rec_stat#
-		</p>
+									<cfif debug>
+										<br>catch!
+										<br>#cfcatch.message# #cfcatch.detail#'
+										<br>rec_stat: #rec_stat#
+									</cfif>
 								</cfcatch>
 								</cftry>
-
-
-
-<!---
-
-      geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-      geology_attributes.GEO_ATT_REMARK%type default null,
-     geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
-      geology_attributes.GEO_ATT_VALUE%type default null,
-      geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
-      agent_name.agent_name%type default null,
-      geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-     geology_attributes.GEO_ATT_REMARK%type default null,
-     geology_attributes.GEOLOGY_ATTRIBUTE%type default null,
-      geology_attributes.GEO_ATT_VALUE%type default null,
-      geology_attributes.GEO_ATT_DETERMINED_DATE%type default null,
-      agent_name.agent_name%type default null,
-      geology_attributes.GEO_ATT_DETERMINED_METHOD%type default null,
-      geology_attributes.GEO_ATT_REMARK%type default null,
-     out number
-
-	---->
-
 							</cfif>
 
 
@@ -419,6 +387,10 @@
 		</cfif>
 		<cfif len(rec_stat) gt 254>
 			<cfset rec_stat=left(rec_stat,250) & '...'>
+		</cfif>
+		<cfif debug>
+			<br>final: #rec_stat#
+			<hr>
 		</cfif>
 		<cfquery name="c" datasource="uam_god">
 			update cf_temp_media set status='#trim(rec_stat)#' where key=#key#
