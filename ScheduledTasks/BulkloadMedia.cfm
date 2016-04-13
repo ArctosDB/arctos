@@ -149,11 +149,15 @@
 			<cfset pf="">
 			<cfset r=evaluate("media_relationship_" & i)>
 				<cfif debug is true>
-					----------r: #r#-------------
+					<br>r: #r#
 				</cfif>
 				<cfif len(r) gt 0>
 				<cfset rk=evaluate("media_related_key_" & i)>
 				<cfset rt=evaluate("media_related_term_" & i)>
+				<cfif debug>
+					<br>rk: #rk#
+					<br>rt: #rt#
+				</cfif>
 				<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 					select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#r#'
 				</cfquery>
@@ -171,8 +175,7 @@
 				<cfif len(pf) is 0>
 					<cfset table_name = listlast(r," ")>
 					<cfif debug is true>
-						==================table_name:==#table_name#=============
-						==============rt:#rt#==========
+						<br>table_name:==#table_name#=============
 					</cfif>
 					<cfif len(rt) gt 0>
 						<cfif table_name is "agent">
