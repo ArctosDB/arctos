@@ -130,6 +130,10 @@
 			<cfif len(ln) gt 0>
 				<cfset ln=evaluate("media_label_" & i)>
 				<cfset lv=evaluate("media_label_value_" & i)>
+				<cfif debug>
+					<br>ln: #ln#
+					<br>lv: #lv#
+				</cfif>
 				<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 					select MEDIA_LABEL from CTMEDIA_LABEL where MEDIA_LABEL='#ln#'
 				</cfquery>
@@ -175,6 +179,7 @@
 				<cfif len(pf) is 0>
 					<cfset table_name = listlast(r," ")>
 					<cfif debug is true>
+						<br>pf: #pf#
 						<br>table_name:==#table_name#=============
 					</cfif>
 					<cfif len(rt) gt 0>
@@ -330,6 +335,10 @@
 								</cfquery>
 							<cfelse>
 								<cfset rec_stat=listappend(rec_stat,'Media #lv# matched #c.recordcount# records.',";")>
+								<cfif debug>
+									<br>faul@relatoinship media
+									<cfdump var=#c#>
+								</cfif>
 							</cfif>
 						<cfelseif table_name is "cataloged_item">
 							<cfif debug is true>
