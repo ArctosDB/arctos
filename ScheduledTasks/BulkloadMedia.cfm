@@ -191,7 +191,6 @@
 							</cfif>
 						<cfelseif table_name is "collecting_event">
 							<cfif len(rk) is 0 and rt is "lookup">
-
 								<p>
 									running getMakeCollectingEvent.....
 								</p>
