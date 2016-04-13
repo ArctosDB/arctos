@@ -386,7 +386,7 @@ Step 1: Upload a comma-delimited text file (csv).
 				is_public_fg
 			) VALUES (
 				sq_transaction_id.nextval,
-				'#dateformat(TRANS_DATE,"yyyy-mm-dd")#',
+				'#TRANS_DATE#',
 				'#i$collection_id#',
 				'accn'
 				<cfif len(#NATURE_OF_MATERIAL#) gt 0>

@@ -271,7 +271,7 @@
 					is_public_fg
 				) VALUES (
 					#n.n#,
-					'#dateformat(ent_Date,"yyyy-mm-dd")#',
+					'#ent_Date#',
 					#correspFg#,
 					'#collection_id#',
 					'accn'
@@ -297,7 +297,7 @@
 						#n.n#,
 						'#accn_type#'
 						,'#accn_number#'
-						,'#dateformat(rec_date,"yyyy-mm-dd")#',
+						,'#rec_date#',
 						'#accn_status#',
 						<cfif len(estimated_count) gt 0>
 							#estimated_count#
