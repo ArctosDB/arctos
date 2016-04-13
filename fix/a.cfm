@@ -14,7 +14,6 @@
 							</cfquery>
 
 			<cfdump var=#c#>
-		</cfif>
 	</cfloop>
 
 </cfoutput>
