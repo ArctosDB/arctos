@@ -331,7 +331,7 @@
 			function loadEditApp(q) {
 				closeEditApp();
 				if (q=='media'){
-					addMedia(#collection_object_id#)
+					 addMedia('collection_object_id','#collection_object_id#');
 				} else {
 
 
