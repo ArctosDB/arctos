@@ -5,6 +5,9 @@
 <!------------------------------------------------------->
 <cfif action is "nothing">
 	<a href="BulkloadMedia.cfm?action=validate&debug=true">validate&debug</a>
+	<br><a href="BulkloadMedia.cfm?action=report">report</a>
+	<br><a href="BulkloadMedia.cfm?action=cleanup">cleanup</a>
+	<br><a href="BulkloadMedia.cfm?action=load">load</a>
 
 </cfif>
 <cfif action is "report">
