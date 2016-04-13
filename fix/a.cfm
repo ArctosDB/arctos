@@ -5,24 +5,15 @@
 	<cfset obj = CreateObject("component","component.utilities")>
 
 	<cfquery name="td" datasource="UAM_GOD">
-		select *
-      from ( select media_uri,media_id
-               from media
-			where media_uri not like 'http://web.corral.tacc.utexas.edu%' and
-			media_uri not like 'http://www.morphbank.net%' and
-			media_uri not like 'http://arctos.database.museum/mediaUploads%' and
-			media_uri not like 'http://bins.boldsystems.org%'
-                      order by dbms_random.value )
-     where rownum <= 100
+		select media_related_term_3 from cf_temp_media
 	</cfquery>
-	<cfloop query="td">
 
-		<cfset x=obj.exitLink(target=URLEncodedFormat(media_uri))>
-		<cfif x.code is not "200">
-			<br><a href="/media/#media_id#">/media/#media_id#</a>
-			<br><a href="/media/#media_id#?open">/media/#media_id#?open</a>
-			<cfdump var=#media_uri#>
-			<cfdump var=#x#>
+	<cfloop query="td">
+		<cfquery name="c" datasource="uam_god">
+								select distinct(media_id) media_id from media where media_uri ='#media_related_term_3#'
+							</cfquery>
+
+			<cfdump var=#c#>
 		</cfif>
 	</cfloop>
 
