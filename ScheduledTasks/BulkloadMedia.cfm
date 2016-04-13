@@ -326,7 +326,7 @@
 								<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
 							</cfif>
 						<cfelseif table_name is "media">
-							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+							<cfquery name="c" datasource="uam_god">
 								select distinct(media_id) media_id from media where media_uri ='#rt#'
 							</cfquery>
 							<cfif c.recordcount is 1 and len(c.media_id) gt 0>
@@ -336,7 +336,7 @@
 							<cfelse>
 								<cfset rec_stat=listappend(rec_stat,'Media #rt# matched #c.recordcount# records.',";")>
 								<cfif debug>
-									<br>faul@relatoinship media
+									<br>fail@relationship media
 									<cfdump var=#c#>
 								</cfif>
 							</cfif>
