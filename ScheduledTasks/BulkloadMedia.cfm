@@ -122,6 +122,9 @@
 				<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
 			</cfif>
 		</cfif>
+		<cfif debug>
+			<br>start labels...
+		</cfif>
 		<cfloop from="1" to="#numLabels#" index="i">
 			<cfset ln=evaluate("media_label_" & i)>
 			<cfif len(ln) gt 0>
@@ -132,10 +135,16 @@
 				</cfquery>
 				<cfif len(c.MEDIA_LABEL) is 0>
 					<cfset rec_stat=listappend(rec_stat,'media_label_#i# (#ln#) is invalid',";")>
+					<cfif debug>
+						<br>media_label_#i# (#ln#) is invalid'
+					</cfif>
 				</cfif>
 			</cfif>
 		</cfloop>
 
+		<cfif debug>
+			<br>start relationships...
+		</cfif>
 		<cfloop from="1" to="#numRelns#" index="i">
 			<cfset pf="">
 			<cfset r=evaluate("media_relationship_" & i)>
@@ -181,7 +190,7 @@
 							<cfif len(rk) is 0 and rt is "lookup">
 
 								<p>
-									running procedure.....
+									running getMakeCollectingEvent.....
 								</p>
 								<!--- get a collecting event or throw an error ---->
 								<!----
