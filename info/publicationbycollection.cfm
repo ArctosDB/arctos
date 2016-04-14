@@ -7,6 +7,10 @@
 <cfif not isdefined("collection_id")>
 	<cfset collection_id="">
 </cfif>
+<cfif not isdefined("peerr")>
+	<cfset collection_id="">
+</cfif>
+
 <cfif collection_id is "-1''">
 	<cfinclude template="/errors/autoblacklist.cfm">
 	<cfabort>
@@ -30,6 +34,13 @@
 	<select name="citationonly" id="citationonly" size="1">
 		<option <cfif citationonly is true> selected="selected" </cfif> value="true">citations only</option>
 		<option <cfif citationonly is false> selected="selected" </cfif> value="false">citations and projects</option>
+	</select>
+	<label for="peerr">
+		Peer Reviewed</label>
+	<select name="peerr" id="peerr" size="1">
+		<option value=""></option>
+		<option <cfif peerr is true> selected="selected" </cfif> value="true">Peer Reviewed Only</option>
+		<option <cfif peerr is false> selected="selected" </cfif> value="false">NOT Peer Reviewed Only</option>
 	</select>
 	<p />
 	<input type="submit" class="lnkBtn" value="Find Publications">
