@@ -82,7 +82,7 @@
 				DOI,
 				PMID,
 				0,
-				decode(IS_PEER_REVIEWED_FG,0,'no','yes'),
+				decode(IS_PEER_REVIEWED_FG,0,'no','yes')
 			<cfif citationonly is false>
 				union
 				select
@@ -111,7 +111,7 @@
 					DOI,
 					PMID,
 					cataloged_item.ACCN_ID,
-					decode(IS_PEER_REVIEWED_FG,0,'no','yes'),
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes')
 				union
 				select
 					FULL_CITATION,
@@ -143,7 +143,7 @@
 					DOI,
 					PMID,
 					loan_item.transaction_id,
-					decode(IS_PEER_REVIEWED_FG,0,'no','yes'),
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes')
 				union
 				select
 					FULL_CITATION,
