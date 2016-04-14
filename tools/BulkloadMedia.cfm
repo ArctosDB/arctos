@@ -118,7 +118,7 @@ sho err
 <cfset eml=valuelist(email.address)>
 <cfif len(eml) gt 0>
 	<div class="smallNotification">
-		Please update your email address (<cfoutput>#eml#</cfoutput>) under your agent record if necessary.
+		Please confirm your agent email address (<cfoutput>#eml#</cfoutput>) before using this form.
 	</div>
 	<br>
 <cfelse>

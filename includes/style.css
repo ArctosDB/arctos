@@ -123,13 +123,12 @@ body {
 		border:10px solid red;
 	}
 	.smallNotification {
-		margin:.1em;
+		margin:.3em;
 		display:inline-block;
-		padding:.1em;
+		padding:.2em;
 		border:1px solid red;
-		color:lightbrown;
+		background-color: #fff2e6;
 	}
-	
 	.nowrap {white-space: nowrap;}
 	/* table junk */
 	
