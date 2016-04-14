@@ -38,7 +38,7 @@
 	<label for="peerr">
 		Peer Reviewed</label>
 	<select name="peerr" id="peerr" size="1">
-		<option value=""></option>
+		<option value="">All</option>
 		<option <cfif peerr is true> selected="selected" </cfif> value="true">Peer Reviewed Only</option>
 		<option <cfif peerr is false> selected="selected" </cfif> value="false">NOT Peer Reviewed Only</option>
 	</select>
@@ -55,6 +55,7 @@
 			DOI,
 			PMID,
 			transaction_id,
+			IS_PEER_REVIEWED
 			c
 			from (
 			select
@@ -64,6 +65,7 @@
 				DOI,
 				PMID,
 				0 transaction_id,
+				decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED,
 				count(*) c
 			from
 				publication,
@@ -89,6 +91,7 @@
 					DOI,
 					PMID,
 					cataloged_item.ACCN_ID transaction_id,
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED,
 					count(*) c
 				from
 					publication,
@@ -115,6 +118,7 @@
 					DOI,
 					PMID,
 					loan_item.transaction_id,
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED,
 					count(*) c
 				from
 					publication,
@@ -145,6 +149,7 @@
 					DOI,
 					PMID,
 					loan_item.transaction_id,
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED,
 					count(*) c
 				from
 					publication,
@@ -173,6 +178,7 @@
 			DOI,
 			PMID,
 			transaction_id,
+			IS_PEER_REVIEWED
 			c
 	</cfquery>
 	<cfif citations.recordcount lt 1>
@@ -183,14 +189,16 @@
 			FULL_CITATION,
 			publication_id,
 			DOI,
-			PMID
+			PMID,
+			IS_PEER_REVIEWED
 		from
 			citations
 		group by
 			FULL_CITATION,
 			publication_id,
 			DOI,
-			PMID
+			PMID,
+			IS_PEER_REVIEWED
 		order by
 			full_citation
 	</cfquery>
@@ -208,6 +216,7 @@
 			<th>Details</th>
 			<th>DOI</th>
 			<th>PMID</th>
+			<th>PeerReview?</th>
 			<th>Google&nbsp;Scholar</th>
 			<th>Citations</th>
 			<cfif citationonly is false>
@@ -220,6 +229,7 @@
 				<td><a href="/publication/#publication_id#">detail</a></td>
 				<td><a href="http://dx.doi.org/#doi#">#doi#</a></td>
 				<td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=#pmid#">#pmid#</a></td>
+				<td>#IS_PEER_REVIEWED#</td>
 				<td><a href="http://scholar.google.com/scholar?hl=en&q=#FULL_CITATION#">[ search ]</a></td>
 				<cfquery name="citation" dbtype="query">
 					select
