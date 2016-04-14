@@ -8,7 +8,7 @@
 	<cfset collection_id="">
 </cfif>
 <cfif not isdefined("peerr")>
-	<cfset collection_id="">
+	<cfset peerr="">
 </cfif>
 
 <cfif collection_id is "-1''">
