@@ -120,6 +120,7 @@ sho err
 	<div class="smallNotification">
 		Please update your email address (<cfoutput>#eml#</cfoutput>) under your agent record if necessary.
 	</div>
+	<br>
 <cfelse>
 	<div class="importantNotification">
 		Please add an email address to your agent profile and check back in an hour (this query is cached).
