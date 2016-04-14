@@ -175,7 +175,13 @@
 					loan_item.transaction_id,
 					decode(IS_PEER_REVIEWED_FG,0,'no','yes')
 			</cfif>
-		) group by
+		)
+		<cfif peerr is true>
+			where IS_PEER_REVIEWED='yes'
+		<cfelseif peerr is false>
+			where IS_PEER_REVIEWED='no'
+		</cfif>
+		group by
 			FULL_CITATION,
 			publication_id,
 			linkage,
