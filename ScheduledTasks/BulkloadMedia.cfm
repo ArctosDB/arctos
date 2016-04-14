@@ -328,7 +328,7 @@
 						<cfelseif table_name is "media">
 							<cfif debug>
 								<p>
-									<cfdump var=#rt#>
+									dumpRT: <cfdump var=#rt#>
 								</p>
 							</cfif>
 							<cfquery name="c" datasource="uam_god">
