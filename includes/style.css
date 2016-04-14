@@ -99,15 +99,15 @@
 	
 /* BEGIN site-wide defaults */
 
-	body {
-		font-family:Arial, Helvetica, sans-serif;
-		background-color:#FFFFFF;
-		/* google mobile */
-		 font-size: 16px;
-	}
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#FFFFFF;
+	/* google mobile */
+	 font-size: 16px;
+}
 
-        /* google mobile */
-    .small {
+/* google mobile */
+.small {
   font-size: 12px; /* 75% of the baseline */
 }
 
@@ -121,6 +121,13 @@
 		display:inline-block;
 		padding:1em;
 		border:10px solid red;
+	}
+	.smallNotification {
+		margin:.1em;
+		display:inline-block;
+		padding:.1em;
+		border:1px solid red;
+		color:lightbrown;
 	}
 	
 	.nowrap {white-space: nowrap;}

@@ -112,21 +112,23 @@ sho err
 <cfset title="Bulkload Media">
 <cfset numLabels=10>
 <cfset numRelns=5>
-<a href="BulkloadMedia.cfm">load CSV</a>
 <cfquery name="email" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#" >
-	select ADDRESS from ADDRESS where ADDRESS_TYPE='e-mail' and agent_id=#session.myAgentID#
+	select ADDRESS from ADDRESS where ADDRESS_TYPE='email' and agent_id=#session.myAgentID#
 </cfquery>
 <cfset eml=valuelist(email.address)>
-<div class="importantNotification">
-	This form relies on email communication.
-	<cfif len(eml) gt 0>
+<cfif len(eml) gt 0>
+	<div class="smallNotification">
 		Please update your email address (#eml#) under your agent record if necessary.
-	<cfelse>
+	</div>
+<cfelse>
+	<div class="importantNotification">
 		Please add an email address to your agent profile and check back in an hour (this query is cached).
-		<cfabort>
-	</cfif>
-</div>
+	</div>
+	<cfabort>
+</cfif>
 
+
+<a href="BulkloadMedia.cfm">load CSV</a>
 <!------------------------------------------------------->
 
 <cfif action is "eventSpec">
