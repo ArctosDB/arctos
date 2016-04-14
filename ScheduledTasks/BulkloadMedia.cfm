@@ -326,6 +326,11 @@
 								<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
 							</cfif>
 						<cfelseif table_name is "media">
+							<cfif debug>
+								<p>
+									<cfdump var=#rt#>
+								</p>
+							</cfif>
 							<cfquery name="c" datasource="uam_god">
 								select distinct(media_id) media_id from media where media_uri ='#rt#'
 							</cfquery>
