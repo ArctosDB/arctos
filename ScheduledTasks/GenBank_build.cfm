@@ -10,6 +10,53 @@
 
 ---->
 <cfoutput>
+
+<cfquery name="cf_global_settings" datasource="uam_god">
+	select * from cf_global_settings
+</cfquery>
+<!--- we have to keep this under 10MB, so write multiple files ---->
+<cfset numberOfRecords="50000">
+
+<!--------------------------------------------------------------->
+
+<cfquery name="BioSample" datasource="uam_god">
+	select
+		rownum,
+		display_value,
+		a.collection_object_id,
+		c.guid_prefix collection,
+		a.cat_num,
+		c.guid_prefix || ':' || a.cat_num guid
+	FROM
+		cataloged_item a,
+		coll_obj_other_id_num b,
+		collection c
+	where
+		a.collection_object_id = b.collection_object_id AND
+		a.collection_id = c.collection_id AND
+		b.other_id_type='BioSample'
+</cfquery>
+<cfset numberOfFiles=ceiling(BioSample.recordcount/numberOfRecords)>
+<cfset startrownum=1>
+<cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: BioSample#chr(10)#!base.url: #Application.ServerRootUrl#/guid/">
+<cfloop from="1" to="#numberOfFiles#" index="f">
+	<cfset thisFileName="biosample_#f#.ft">
+	<cffile action="write" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#header#">
+	<cfset stoprownum=startrownum+numberOfRecords>
+	<cfquery name="thisChunk" dbtype="query">
+		select * from BioSample where
+		rownum >= #startrownum# and
+		rownum <= #stoprownum#
+	</cfquery>
+	<cfloop query="thisChunk">
+		<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #rownum##chr(10)#query: #display_value##chr(10)#base: &base.url;#chr(10)#rule: #guid##chr(10)#name: #guid#">
+		<cffile action="append" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#oneLine#">
+	</cfloop>
+	<cfset startrownum=stoprownum-1 >
+</cfloop>
+
+<!-------------------------------------------->
+
 <cfquery name="nucleotide" datasource="uam_god">
 	select
 		rownum,
@@ -27,16 +74,6 @@
 		a.collection_id = c.collection_id AND
 		b.other_id_type='GenBank'
 </cfquery>
-<cfquery name="cf_global_settings" datasource="uam_god">
-	select * from cf_global_settings
-</cfquery>
-
-
-<!--- we have to keep this under 10MB, so write multiple files ---->
-<cfset numberOfRecords="50000">
-
-
-
 
 <cfset numberOfFiles=ceiling(nucleotide.recordcount/numberOfRecords)>
 <cfset startrownum=1>
@@ -57,7 +94,6 @@
 	</cfloop>
 	<cfset startrownum=stoprownum-1 >
 </cfloop>
-
 
 
 <cfquery name="taxonomy" datasource="uam_god">
