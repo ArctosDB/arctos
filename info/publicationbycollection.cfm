@@ -173,7 +173,7 @@
 					DOI,
 					PMID,
 					loan_item.transaction_id,
-					decode(IS_PEER_REVIEWED_FG,0,'no','yes'),
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes')
 			</cfif>
 		) group by
 			FULL_CITATION,
