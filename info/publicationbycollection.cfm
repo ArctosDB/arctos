@@ -81,7 +81,8 @@
 				'citation',
 				DOI,
 				PMID,
-				0
+				0,
+				decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED,
 			<cfif citationonly is false>
 				union
 				select
@@ -109,7 +110,8 @@
 					'accession project',
 					DOI,
 					PMID,
-					cataloged_item.ACCN_ID
+					cataloged_item.ACCN_ID,
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED,
 				union
 				select
 					FULL_CITATION,
@@ -140,7 +142,8 @@
 					'specimen loan',
 					DOI,
 					PMID,
-					loan_item.transaction_id
+					loan_item.transaction_id,
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED,
 				union
 				select
 					FULL_CITATION,
@@ -169,7 +172,8 @@
 					'data loan',
 					DOI,
 					PMID,
-					loan_item.transaction_id
+					loan_item.transaction_id,
+					decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED,
 			</cfif>
 		) group by
 			FULL_CITATION,
