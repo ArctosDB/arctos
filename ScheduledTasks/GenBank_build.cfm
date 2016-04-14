@@ -49,7 +49,7 @@
 		rownum <= #stoprownum#
 	</cfquery>
 	<cfloop query="thisChunk">
-		<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #rownum##chr(10)#uids: #display_value##chr(10)#base: &base.url;#chr(10)#rule: #guid##chr(10)#name: #guid#">
+		<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #rownum##chr(10)#query: #display_value##chr(10)#base: &base.url;#chr(10)#rule: #guid##chr(10)#name: #guid#">
 		<cffile action="append" file="#Application.webDirectory#/temp/#thisFileName#" addnewline="no" output="#oneLine#">
 	</cfloop>
 	<cfset startrownum=stoprownum-1 >
