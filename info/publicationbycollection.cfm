@@ -178,7 +178,7 @@
 			DOI,
 			PMID,
 			transaction_id,
-			IS_PEER_REVIEWED
+			IS_PEER_REVIEWED,
 			c
 	</cfquery>
 	<cfif citations.recordcount lt 1>
