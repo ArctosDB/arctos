@@ -13,6 +13,10 @@
 	</cfquery>
 	<cfif isValid.recordcount is 0>
 		<cfthrow message="uncontrolled form" detail="This is an uncontrolled/locked form." errorCode="403">
+
+		<cfif session.username is "dlm">
+			<cfdump var=#isValid#>
+		</cfif>
 	<cfelseif valuelist(isValid.role_name) is not "public">
 		<cfloop query="isValid">
 			<cfif not listfindnocase(session.roles,role_name)>
