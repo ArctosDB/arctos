@@ -602,6 +602,23 @@
 			specimen_event.collecting_event_id = media_relations.related_primary_key and
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='collecting_event' and
 			#session.flatTableName#.collection_object_id in (#idList#)
+		union
+		select
+			#session.flatTableName#.collection_object_id,
+			media_relations.media_id
+		from
+			media_relations,
+			flat,
+			specimen_event,
+			collecting_event spce,
+			collecting_event loce
+		where
+			#session.flatTableName#.collection_object_id=specimen_event.collection_object_id and
+			specimen_event.collecting_event_id = media_relations.related_primary_key and
+			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='collecting_event' and
+			media_relations.related_primary_key=spce.collecting_event_id and
+			spce.locality_id=loce.locality_id and
+			#session.flatTableName#.collection_object_id in (#idList#)
 	</cfquery>
 	<cfquery name="did" dbtype="query">
 		select distinct collection_object_id from raw

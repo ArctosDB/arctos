@@ -2,7 +2,6 @@
 <cfif isdefined("session.username") and len(session.username) gt 0 and action neq "signOut">
 	<cflocation url="myArctos.cfm" addtoken="false">
 </cfif>
-
 <!------------------------------------------------------------>
 <cfif action is "signOut">
 	<cfset initSession()>
@@ -60,11 +59,6 @@
 <CFIF action is "signIn">
 	<cfoutput>
 		<cfset initSession('#username#','#password#')>
-
-
-		<cfdump var=#session#>
-
-
 		<cfif len(session.username) is 0>
 			<cfset u="/login.cfm?badPW=true&username=#username#">
 			<cfif isdefined("gotopage") and len(gotopage) gt 0>
