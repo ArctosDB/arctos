@@ -578,7 +578,8 @@
 	<cfif len(idList) is 0>
 		<cfreturn>
 	</cfif>
-	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<!--- cachedwithin="#createtimespan(0,0,60,0)#"---->
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			#session.flatTableName#.collection_object_id,
 			media_relations.media_id
