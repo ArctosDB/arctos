@@ -778,6 +778,15 @@
     startTime = "10:40 PM"
     interval = "daily"
     requestTimeOut = "600">
+
+<cfschedule action = "update"
+    task = "GenBank_transfer_bio"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/GenBank_transfer_bio.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "10:45 PM"
+    interval = "daily"
+    requestTimeOut = "600">
 <!-----------------------------------   maintenance    ------------------------------------------>
 <!---
 	cf_spec_res_cols
