@@ -443,16 +443,17 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
 	<cfset badbot="Baiduspider,bash">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
-	<cfset badbot=badbot & ",Domain">
+	<cfset badbot=badbot & ",Domain,DeuSu">
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
 	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",re-animator">
 	<cfset badbot=badbot & ",Qwantify">
-	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou">
+	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer">
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
+	<cfset badbot=badbot & ",Wotbox">
 	<cfset badbot=badbot & ",YandexBot,Yeti">
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">
@@ -485,6 +486,11 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	</cfif>
 	<cfif isdefined("request.rdurl") and request.rdurl contains "%27A=0">
 		<cfset bl_reason="URL contains %27A=0">
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
+	</cfif>
+	<cfif isdefined("request.rdurl") and request.rdurl contains "'A=0">
+		<cfset bl_reason="URL contains 'A=0">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>

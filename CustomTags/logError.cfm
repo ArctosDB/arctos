@@ -170,7 +170,9 @@
 	ipinfo:#ipinfo#
 	<br>
 	<cfif isdefined("exception.ipaddress")>
-		<a href="http://whatismyipaddress.com/ip/#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
+		<a href="http://whatismyipaddress.com/ip/#exception.ipaddress#">[ lookup #exception.ipaddress# @whatismyipaddress ]</a>
+		<br><a href="https://www.ipalyzer.com/#exception.ipaddress#">[ lookup #exception.ipaddress# @ipalyzer ]</a>
+		<br><a href="https://gwhois.org/#exception.ipaddress#">[ lookup #exception.ipaddress# @gwhois ]</a>
 		<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
 	</cfif>
 	<cfif isdefined("exception.requestingsubnet") and len(exception.requestingsubnet) gt 0>

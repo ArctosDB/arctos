@@ -1,3 +1,50 @@
+<!---------------
+
+create table cf_crontab (
+	cf_crontab_id number not null,
+	job_name varchar2(30) not null,
+	url varchar2(255) not null,
+	timeout number,
+	cron_sec varchar2(6) not null,
+	cron_min varchar2(6) not null,
+	cron_hour varchar2(6) not null,
+	cron_dom varchar2(6) not null,
+	cron_mon  varchar2(6) not null,
+	cron_dow varchar2(6) not null,
+	cron_year varchar2(6) not null
+);
+
+
+
+CREATE OR REPLACE TRIGGER trg_cf_crontab
+ before insert or update ON cf_crontab
+ for each row
+    begin
+	    if inserting then
+		    IF :new.cf_crontab_id IS NULL THEN
+	    		select someRandomSequence.nextval into :new.cf_crontab_id from dual;
+	    	end if;
+	    end if;
+	    
+    end;
+/
+sho err
+
+
+	
+	
+	
+    Seconds
+    Minutes
+    Hours
+    Day-of-Month
+    Month
+    Day-of-Week
+    Year (optional field)
+
+
+---------------------->
+
 <!--- first, get rid of everything --->
 <cfobject type="JAVA" action="Create" name="factory" class="coldfusion.server.ServiceFactory">
 <cfset allTasks = factory.CronService.listAll()>
@@ -39,10 +86,9 @@
     task = "fetchRelatedInfo"
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/fetchRelatedInfo.cfm"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "05:51 AM"
-    interval = "daily"
+    cronTime="0 42 * * * ?"
     requestTimeOut = "600">
+
 <!---
 	pendingRelations
 	Purpose: Fetch unreciprocated relationships into otherID bulkloader
