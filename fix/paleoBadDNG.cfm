@@ -132,7 +132,7 @@ select * from temp_es_toosmall;
 			<cfif fsb lt 18000000>
 				<br>TOOSMALL!! #theFileName#=#fsb#
 				<cfquery name="ts" datasource="uam_god">
-					insert into temp_es_toosmall (folder,filename,fsize) values ('#f.folder','#theFileName#','#fsb#')
+					insert into temp_es_toosmall (folder,filename,fsize) values ('#f.folder#','#theFileName#','#fsb#')
 				</cfquery>
 			</cfif>
 		</cfif>
