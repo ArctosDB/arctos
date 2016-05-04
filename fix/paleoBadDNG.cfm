@@ -99,7 +99,7 @@
 	<cfdump var=#thisone#>
 
 
-	<cfset theFileName=thisone[1].xmlchildren.xmlText>
+	<cfset theFileName=thisone[1].xmlchildren>
 
 	<br>theFileName: <cfdump var=#theFileName#>
 
