@@ -91,6 +91,10 @@
 				<cfset imgname=replace(fname,".dng","")>
 
 				<br>#imgname# is DNG now find size....
+
+				<cfset fsize = xImage[i].XmlChildren[3].xmlText>
+
+				<br>fsize: #fsize#
 				<!----
 				<cftry>
 					<cfquery name="upFile" datasource="uam_god">
