@@ -84,6 +84,16 @@
 		<cfdump var=#xImgAll#>
 
 
+		<cfset recs = xmlsearch(xImgAll, "//tr")>
+
+		<cfloop index="i" from="1" to="#arrayLen(recs)#">
+			<cfdump var=#recs[i]#>
+
+		</cfloop>
+
+
+<!-----
+
 		<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
 		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
 			<cfset fname = xImage[i].XmlChildren[1].xmlText>
@@ -117,6 +127,7 @@
 			</cfif>
 		</cfloop>
 		---->
+
 	</cfif>
 
 
