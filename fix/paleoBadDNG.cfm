@@ -98,6 +98,11 @@
 
 	<cfdump var=#thisone#>
 
+
+	<cfset theFileName=thisone[1].xmlchildren>
+
+	<br>theFileName: <cfdump var=#theFileName#>
+
 <!----
 	<cfset tds=thisone.xmlchildren>
 
