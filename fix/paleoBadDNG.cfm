@@ -5,6 +5,15 @@
 		folder varchar2(255)
 	);
 
+	alter table temp_es_folder add gotit number;
+
+
+	create table temp_es_toosmall (
+		folder varchar2(255),
+		filename varchar2(255),
+		fsize number
+	);
+
 --->
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 <cfoutput>
@@ -25,6 +34,9 @@
 
 
 	<cfif action is "getDir">
+
+
+
 	<br>grab the http://web.corral.tacc.utexas.edu/UAF/es directory...
 		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es" charset="utf-8" method="get">
 		</cfhttp>
@@ -63,160 +75,57 @@
 
 
 <cfif action is "getOneDir">
-		<cfif not isdefined("folder")>
-			call this with URL param folder - folder must be in http://web.corral.tacc.utexas.edu/UAF/es/{folder}
-			<cfabort>
-		</cfif>
-
-		<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
-		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
-
-<!----
-		<cfdump var=#cfhttp#>
----->
-
-		<cfset ximgStr=cfhttp.FileContent>
-		<!--- goddamned xmlns bug in CF --->
-		<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
-		<cfset xImgAll=xmlparse(ximgStr)>
+	<cfquery name="f" datasource="uam_god">
+		select folder from temp_es_folder where gotit is null and rownum<2
+	</cfquery>
 
 
-<!-----
-
-		<cfdump var=#xImgAll#>
------>
-
-		<cfset ds=xImgAll.html.body.div.table.tbody.xmlchildren>
-
-
-		<!-----
-		ds: <cfdump var=#ds#>
------>
-
-
-<cfloop index="i" from="1" to="#arrayLen(ds)#">
-
-
-	<cfset thisone=ds[i].xmlchildren>
-
-	<!-----
-
-	<cfdump var=#thisone#>
----->
-
-
-
-<cfset theFileName=thisone[1].xmlchildren[1].xmltext>
-
-<br>theFileName: <cfdump var=#theFileName#>
-
-<cfif right(theFileName,3) is "dng">
-	<br>is DNG get size....
-
-
-	<cfset fsize=thisone[3].xmltext>
-
-
-	<br>fsize: <cfdump var=#fsize#>
-
-	<cfif right(fsize,1) is "K">
-		<cfset fsb=left(fsize,len(fsize)-1) * 1000>
-	<cfelseif right(fsize,1) is "M">
-		<cfset fsb=left(fsize,len(fsize)-1) * 1000000>
-	<cfelse>
-		<cfset fsb="ERROR CALCULATING@@@@">
-	</cfif>
-	<br>fsb: #fsb#
-	<cfif fsb lt 18000000>
-		<br>TOOSMALL!!
-	</cfif>
-</cfif>
-
-<!----
-	<cfset theFileName=thisone[1].xmlchildren>
-
-	<br>theFileName: <cfdump var=#theFileName#>
-
-
-	<cfset theFileNameR=theFileName[1].xmltext>
-
-	<br>theFileNameR: <cfdump var=#theFileNameR#>
-
+	<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#f.folder#
+	<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#f.folder#" charset="utf-8" method="get"></cfhttp>
+	<!----
+			<cfdump var=#cfhttp#>
 	---->
-
-<!----
-	<cfset tds=thisone.xmlchildren>
-
-	<cfdump var=#tds#>
-
-	<cfloop index="x" from="1" to="#arrayLen(tds)#">
-		<br>=============#x#
-		<cfset fname=tds[1]>
-		<br>fname:
-		<cfdump var=#fname#>
-	</cfloop>
----->
-
-
-</cfloop>
-
-
-
-<!-----
-		<cfset recs = xmlsearch(xImgAll, "//tr")>
-
-		<cfloop index="i" from="1" to="#arrayLen(recs)#">
-			<cfset thisRecord=recs[i]>
-			<br>the record:
-			<cfdump var=#thisRecord#>
-
-
-			<cfset imgnamex = xmlsearch(thisRecord, "//td[@class='n']")>
-
-			<br>imgnamex:
-
-			<cfdump var=#imgnamex#>
-
-		</cfloop>
-
-
-
-
-		<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
-		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
-			<cfset fname = xImage[i].XmlChildren[1].xmlText>
-			<cfif right(fname,4) is ".dng">
-				<cfset imgname=replace(fname,".dng","")>
-
-				<br>#imgname# is DNG now find size....
-
-				<cfset fsize = xImage[i].XmlChildren>
-
-				<br>fsize: <cfdump var=#fsize#>
-				<!----
-				<cftry>
-					<cfquery name="upFile" datasource="uam_god">
-						insert into es_img (
-							imgname,
-							folder
-						) values (
-							'#imgname#',
-							'#folder#'
-						)
-					</cfquery>
-					<br>added fname: #fname#
-				<cfcatch>
-					<br>ALREADY GOT ONE THANKS: #fname#
-				</cfcatch>
-				</cftry>
-				---->
-			<cfelse>
-				<br>#fname# is not a DNG so we're ignoring it.
-			</cfif>
-		</cfloop>
+	<cfset ximgStr=cfhttp.FileContent>
+	<!--- goddamned xmlns bug in CF --->
+	<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
+	<cfset xImgAll=xmlparse(ximgStr)>
+	<!-----
+			<cfdump var=#xImgAll#>
+	----->
+	<cfset ds=xImgAll.html.body.div.table.tbody.xmlchildren>
+	<!-----
+		ds: <cfdump var=#ds#>
+	----->
+	<cfloop index="i" from="1" to="#arrayLen(ds)#">
+		<cfset thisone=ds[i].xmlchildren>
+		<!-----
+			<cfdump var=#thisone#>
 		---->
+		<cfset theFileName=thisone[1].xmlchildren[1].xmltext>
+		<cfif right(theFileName,3) is "dng">
+			<cfset fsize=thisone[3].xmltext>
+			<cfif right(fsize,1) is "K">
+				<cfset fsb=left(fsize,len(fsize)-1) * 1000>
+			<cfelseif right(fsize,1) is "M">
+				<cfset fsb=left(fsize,len(fsize)-1) * 1000000>
+			<cfelse>
+				<cfset fsb="ERROR CALCULATING@@@@">
+			</cfif>
+			<cfif fsb lt 18000000>
+				<br>TOOSMALL!! #theFileName#=#fsb#
+				<cfquery name="ts" datasource="uam_god">
+					insert into temp_es_toosmall (folder,filename,fsize) values ('#f.folder','#theFileName#',#fsb#)
+				</cfquery>
+			</cfif>
+		</cfif>
+	</cfloop>
 
-	</cfif>
+	<cfquery name="fg" datasource="uam_god">
+		update temp_es_folder set gotit=1 where folder='#f.folder#'
+	</cfquery>
+
+
+</cfif>
 
 
 
