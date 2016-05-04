@@ -103,6 +103,11 @@
 
 	<cfdump var=#tds#>
 
+	<cfloop index="x" from="1" to="#arrayLen(tds)#">
+		<br>=============#x#
+	</cfloop>
+
+
 
 </cfloop>
 
