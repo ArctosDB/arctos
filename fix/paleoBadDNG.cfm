@@ -88,6 +88,12 @@
 		ds: <cfdump var=#ds#>
 
 
+		<p>arayloop</p>
+
+<cfloop index="i" from="1" to="#arrayLen(ds)#">
+	<br>#i#
+</cfloop>
+
 
 
 <!-----
