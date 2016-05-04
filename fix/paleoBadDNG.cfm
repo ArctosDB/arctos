@@ -94,7 +94,7 @@
 	<br>#i#
 
 
-	<cfset thisone=ds[i]>
+	<cfset thisone=ds[i].tr.xmlchildren>
 
 	<cfdump var=#thisone#>
 </cfloop>
