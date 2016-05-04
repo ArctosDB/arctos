@@ -107,6 +107,13 @@
 
 <cfif right(theFileName,3) is "dng">
 	<br>is DNG get size....
+
+
+	<cfset fsize=thisone[3].xmlchildren[1].xmltext>
+
+
+	<br>fsize: <cfdump var=#fsize#>
+
 </cfif>
 
 <!----
