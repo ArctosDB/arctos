@@ -128,7 +128,9 @@
 		<cfset fsb="ERROR CALCULATING@@@@">
 	</cfif>
 	<br>fsb: #fsb#
-
+	<cfif fsb lt 20000000>
+		<br>TOOSMALL!!
+	</cfif>
 </cfif>
 
 <!----
