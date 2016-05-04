@@ -87,12 +87,12 @@
 		<cfset recs = xmlsearch(xImgAll, "//tr")>
 
 		<cfloop index="i" from="1" to="#arrayLen(recs)#">
-
+			<cfset thisRecord=recs[i]>
 			<br>the record:
-			<cfdump var=#recs[i]#>
+			<cfdump var=#thisRecord#>
 
 
-			<cfset xImage = xmlsearch(recs[i], "//td[@class='n']")>
+			<cfset xImage = xmlsearch(thisRecord, "//td[@class='n']")>
 
 			<br>filename:
 
