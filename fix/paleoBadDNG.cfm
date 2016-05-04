@@ -92,6 +92,7 @@
 
 <cfloop index="i" from="1" to="#arrayLen(ds)#">
 	<br>#i#
+	<br>#ds[i].tr.td#
 </cfloop>
 
 
