@@ -70,6 +70,11 @@
 
 		<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
 		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
+
+
+		<cfdump var=#cfhttp#>
+
+
 		<cfset ximgStr=cfhttp.FileContent>
 		<!--- goddamned xmlns bug in CF --->
 		<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
