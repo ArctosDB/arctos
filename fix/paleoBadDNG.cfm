@@ -122,6 +122,8 @@
 
 	<cfif right(fsize,1) is "K">
 		<cfset fsb=left(fsize,len(fsize)-1) * 1000>
+	<cfelseif right(fsize,1) is "M">
+		<cfset fsb=left(fsize,len(fsize)-1) * 1000000>
 	<cfelse>
 		<cfset fsb="ERROR CALCULATING@@@@">
 	</cfif>
