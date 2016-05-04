@@ -106,6 +106,7 @@
 	<cfloop index="x" from="1" to="#arrayLen(tds)#">
 		<br>=============#x#
 		<cfset fname=tds[1]>
+		<br>fname:
 		<cfdump var=#fname#>
 	</cfloop>
 
