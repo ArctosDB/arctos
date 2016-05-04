@@ -84,12 +84,13 @@
 		<cfdump var=#xImgAll#>
 
 
-		<!----
 		<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
 		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
 			<cfset fname = xImage[i].XmlChildren[1].xmlText>
 			<cfif right(fname,4) is ".dng">
 				<cfset imgname=replace(fname,".dng","")>
+
+				<br>#imgname# is DNG now find size....
 				<!----
 				<cftry>
 					<cfquery name="upFile" datasource="uam_god">
