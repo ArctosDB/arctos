@@ -98,10 +98,11 @@
 
 	<cfdump var=#thisone#>
 
-	<cfloop index="t" from="1" to="#arrayLen(thisone)#">
-		<br>=====#t#
 
-	</cfloop>
+	<cfset tds=thisone.xmlchildren>
+
+	<cfdump var=#tds#>
+
 
 </cfloop>
 
