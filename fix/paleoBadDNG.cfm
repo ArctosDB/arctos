@@ -84,6 +84,13 @@
 		<cfdump var=#xImgAll#>
 
 
+		<cfset ds=xImgAll.html>
+		ds: <cfdump var=#ds#>
+
+
+
+
+<!-----
 		<cfset recs = xmlsearch(xImgAll, "//tr")>
 
 		<cfloop index="i" from="1" to="#arrayLen(recs)#">
@@ -101,7 +108,7 @@
 		</cfloop>
 
 
-<!-----
+
 
 		<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
 		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
