@@ -1,32 +1,4 @@
 <!---
-	These scripts create Arctos data from data created from the imager and
-	files @tacc. Assumptions:
-
-	Everything is in http://web.corral.tacc.utexas.edu/UAF/es/yyyy_mm_dd folders
-	The folder and all it's contents will be created at once, and will not be subsequently
-	modified. Folder contents are:
-		xxxxx.dng
-		jpegs
-			xxxxx.jpg
-			tn_xxxx.jpg
-
-	And a table for the actual files. "imgname" is one of:
-		barcode.[dng|jpg]
-		barcode_[1-99].[dng|jpg]
-
-	create table es_img (
-		imgname varchar2(255),
-		folder varchar2(255),
-		status varchar2(255),
-		chkdate date default sysdate
-	);
-
-	delete from es_img;
-
-	create unique index ui_es_img_imgname on es_img(imgname) tablespace uam_idx_1;
-	alter table es_img modify imgname not null;
-
-
 
 
 	create table temp_es_folder (
@@ -90,7 +62,52 @@
 
 
 
+<cfif action is "getOneDir">
+		<cfif not isdefined("folder")>
+			call this with URL param folder - folder must be in http://web.corral.tacc.utexas.edu/UAF/es/{folder}
+			<cfabort>
+		</cfif>
 
+		<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
+		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
+		<cfset ximgStr=cfhttp.FileContent>
+		<!--- goddamned xmlns bug in CF --->
+		<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
+		<cfset xImgAll=xmlparse(ximgStr)>
+
+
+		<cfdump var=#xImgAll#>
+
+
+		<!----
+		<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
+		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
+			<cfset fname = xImage[i].XmlChildren[1].xmlText>
+			<cfif right(fname,4) is ".dng">
+				<cfset imgname=replace(fname,".dng","")>
+				<!----
+				<cftry>
+					<cfquery name="upFile" datasource="uam_god">
+						insert into es_img (
+							imgname,
+							folder
+						) values (
+							'#imgname#',
+							'#folder#'
+						)
+					</cfquery>
+					<br>added fname: #fname#
+				<cfcatch>
+					<br>ALREADY GOT ONE THANKS: #fname#
+				</cfcatch>
+				</cftry>
+				---->
+			<cfelse>
+				<br>#fname# is not a DNG so we're ignoring it.
+			</cfif>
+		</cfloop>
+		---->
+	</cfif>
 
 
 
