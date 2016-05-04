@@ -96,13 +96,14 @@
 		<p>arayloop</p>
 
 <cfloop index="i" from="1" to="#arrayLen(ds)#">
-	<br>#i#
 
 
 	<cfset thisone=ds[i].xmlchildren>
 
-	<cfdump var=#thisone#>
+	<!-----
 
+	<cfdump var=#thisone#>
+---->
 
 
 
