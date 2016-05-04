@@ -84,7 +84,7 @@
 		<cfdump var=#xImgAll#>
 
 
-		<cfset ds=xImgAll.html.body.div.table.tbody>
+		<cfset ds=xImgAll.html.body.div.table.tbody.xmlchildren>
 		ds: <cfdump var=#ds#>
 
 
