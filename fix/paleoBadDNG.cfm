@@ -120,6 +120,13 @@
 
 	<br>fsize: <cfdump var=#fsize#>
 
+	<cfif right(fsize,1) is "K">
+		<cfset fsb=left(fsize,len(fsize)-1) * 1000>
+	<cfelse>
+		<cfset fsb="ERROR CALCULATING@@@@">
+	</cfif>
+	<br>fsb: #fsb#
+
 </cfif>
 
 <!----
