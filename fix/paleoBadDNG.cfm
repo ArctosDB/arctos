@@ -71,9 +71,9 @@
 		<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
 		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
 
-
+<!----
 		<cfdump var=#cfhttp#>
-
+---->
 
 		<cfset ximgStr=cfhttp.FileContent>
 		<!--- goddamned xmlns bug in CF --->
@@ -81,12 +81,17 @@
 		<cfset xImgAll=xmlparse(ximgStr)>
 
 
-		<cfdump var=#xImgAll#>
+<!-----
 
+		<cfdump var=#xImgAll#>
+----->
 
 		<cfset ds=xImgAll.html.body.div.table.tbody.xmlchildren>
-		ds: <cfdump var=#ds#>
 
+
+		<!-----
+		ds: <cfdump var=#ds#>
+----->
 
 		<p>arayloop</p>
 
