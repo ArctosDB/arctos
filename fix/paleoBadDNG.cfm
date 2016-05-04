@@ -93,7 +93,6 @@
 		ds: <cfdump var=#ds#>
 ----->
 
-		<p>arayloop</p>
 
 <cfloop index="i" from="1" to="#arrayLen(ds)#">
 
@@ -128,7 +127,7 @@
 		<cfset fsb="ERROR CALCULATING@@@@">
 	</cfif>
 	<br>fsb: #fsb#
-	<cfif fsb lt 20000000>
+	<cfif fsb lt 18000000>
 		<br>TOOSMALL!!
 	</cfif>
 </cfif>
