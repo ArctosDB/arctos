@@ -105,6 +105,10 @@
 
 <br>theFileName: <cfdump var=#theFileName#>
 
+<cfif right(theFileName,3) is "dng">
+	<br>is DNG get size....
+</cfif>
+
 <!----
 	<cfset theFileName=thisone[1].xmlchildren>
 
