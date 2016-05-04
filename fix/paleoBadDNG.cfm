@@ -109,7 +109,7 @@
 	<br>is DNG get size....
 
 
-	<cfset fsize=thisone[3].xmlchildren[1].xmltext>
+	<cfset fsize=thisone[3]>
 
 
 	<br>fsize: <cfdump var=#fsize#>
