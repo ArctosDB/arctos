@@ -92,11 +92,11 @@
 			<cfdump var=#thisRecord#>
 
 
-			<cfset xImage = xmlsearch(thisRecord, "//td[@class='n']")>
+			<cfset imgnamex = xmlsearch(thisRecord, "//td[@class='n']")>
 
-			<br>filename:
+			<br>imgnamex:
 
-			<cfdump var=#xImage#>
+			<cfdump var=#imgnamex#>
 
 		</cfloop>
 
