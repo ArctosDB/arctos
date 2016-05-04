@@ -94,9 +94,15 @@
 	<br>#i#
 
 
-	<cfset thisone=ds[i].tr.xmlchildren>
+	<cfset thisone=ds[i]>
 
 	<cfdump var=#thisone#>
+
+	<cfloop index="t" from="1" to="#arrayLen(thisone)#">
+		<br>=====#t#
+
+	</cfloop>
+
 </cfloop>
 
 
