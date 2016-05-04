@@ -96,7 +96,7 @@ select count(*) from temp_es_folder where gotit is null;
 
 <cfif action is "getOneDir">
 	<cfquery name="f" datasource="uam_god">
-		select folder from temp_es_folder where gotit is null and rownum<20
+		select folder from temp_es_folder where gotit is null and rownum<101
 	</cfquery>
 
 	<cfloop query="f">
