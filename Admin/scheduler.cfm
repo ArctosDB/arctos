@@ -1619,13 +1619,13 @@ insert into cf_crontab (
 </cfloop>
 <script src="/includes/sorttable.js"></script>
 <cfparam name="orderby" default="cron_hour,cron_min,cron_dow">
-<form name="o" method="get">
-	<label for="orderby">OrderBy (job_name,path,timeout,purpose,run_interval_desc,cron_sec,cron_min,cron_hour,cron_dom,cron_mon,cron_dow)
-	</label>
-	<textarea name="orderby" class="hugetextarea reqdClr">#orderby#</textarea>
-	<input type="submit" value="reorder">
-</form>
 <cfoutput>
+	<form name="o" method="get">
+		<label for="orderby">OrderBy (job_name,path,timeout,purpose,run_interval_desc,cron_sec,cron_min,cron_hour,cron_dom,cron_mon,cron_dow)
+		</label>
+		<textarea name="orderby" class="hugetextarea reqdClr">#orderby#</textarea>
+		<input type="submit" value="reorder">
+	</form>
 	<cfquery name="sched" datasource="uam_god">
 		select * from cf_crontab order by #orderby#
 	</cfquery>
