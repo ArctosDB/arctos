@@ -1618,7 +1618,7 @@ insert into cf_crontab (
 		See <a href="http://www.cronmaker.com/" class="external" target="_blank">http://www.cronmaker.com/</a> for toys.
 	</p>
 	Current Scheduled Tasks:
-	<table class="sorttable" id="tblls" border>
+	<table class="sortable" id="tblls" border>
 		<tr>
 			<th>job_name</th>
 			<th>path</th>
