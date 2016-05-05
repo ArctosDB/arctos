@@ -1681,32 +1681,21 @@ insert into cf_crontab (
 			<tr>
 				<td>s</td>
 				<td>m</td>
+				<td>h</td>
+				<td>DoM</td>
+				<td>M</td>
+				<td>DoW</td>
 			</tr>
 			<tr>
 				<td><input type="text" name="cron_sec" class="reqdClr"></td>
 				<td><input type="text" name="cron_min" class="reqdClr"></td>
+				<td><input type="text" name="cron_hour" class="reqdClr"></td>
+				<td><input type="text" name="cron_dom" class="reqdClr"></td>
+				<td><input type="text" name="cron_mon" class="reqdClr"></td>
+				<td><input type="text" name="cron_dow" class="reqdClr"></td>
 			</tr>
 		</table>
-
-
 		<br><input type="submit" value="add task">
-
-
-		ob_name,
-	,
-	,
-	,
-	,
-	,
-	,
-	cron_hour,
-	cron_dom,
-	cron_mon,
-	cron_dow
-) values (
-
-
-
 	</form>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
