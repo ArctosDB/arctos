@@ -1331,6 +1331,7 @@ insert into cf_crontab (
 );
 
 
+delete from cf_crontab where job_name='GenBank_transfer_name';
 
 insert into cf_crontab (
 	job_name,
@@ -1351,7 +1352,7 @@ insert into cf_crontab (
 	'GenBank: transfer names data',
 	'daily',
 	'0',
-	'30',
+	'34',
 	'22',
 	'*',
 	'*',
@@ -1713,7 +1714,7 @@ insert into cf_crontab (
 				</td>
 				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
 				<td><a href="scheduler.cfm?action=editTask&cf_crontab_id=#cf_crontab_id#">edit</a></td>
-				<td><div id="cm_#cf_crontab_id#"><span class="likeLink" onclick="getCM(#cf_crontab_id#);">get next 10 runtimes</span></div></td>
+				<td><div id="cm_#cf_crontab_id#"><span class="likeLink" onclick="getCM(#cf_crontab_id#);">fetch</span></div></td>
 			</tr>
 			<!--- and actually build the tasks ---->
 			<cfschedule action = "update"
