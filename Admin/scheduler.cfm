@@ -1674,7 +1674,8 @@ insert into cf_crontab (
 		See <a href="http://www.cronmaker.com/" class="external" target="_blank">http://www.cronmaker.com/</a> for toys.
 	</p>
 	<p>
-		Fetch next 10 runtimes for all rows - <span class="likeLink" onclick="fetchAllCM()">clicky</span>
+		Fetch next 10 runtimes -
+		<span class="likeLink" onclick="fetchAllCM()">clicky</span> and wait for the fetch before sorting.
 	</p>
 	Current Scheduled Tasks:
 	<table class="sortable" id="tblls" border>
@@ -1693,7 +1694,7 @@ insert into cf_crontab (
 			<th>expr</th>
 			<th>bye</th>
 			<th>wat</th>
-			<th>next</th>
+			<th class="noshow">next1</th>
 		</tr>
 		<cfloop query="sched">
 			<tr>
@@ -1716,7 +1717,7 @@ insert into cf_crontab (
 				</td>
 				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
 				<td><a href="scheduler.cfm?action=editTask&cf_crontab_id=#cf_crontab_id#">edit</a></td>
-				<td><div id="cm_#cf_crontab_id#"><span class="likeLink" onclick="getCM(#cf_crontab_id#);">fetch</span></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#"><span class="likeLink" onclick="getCM(#cf_crontab_id#);">fetch</span></div></td>
 			</tr>
 			<!--- and actually build the tasks ---->
 			<!----
