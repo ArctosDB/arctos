@@ -1629,7 +1629,12 @@ insert into cf_crontab (
 				}
 			});
 		}
-
+		function fetchAllCM(){
+			$("input[id^='cexp_']").each(function(e){
+				var thisID=this.id.replace('cexp_');
+				console.log('calling for ' + thisID);
+			});
+		}
 	</script>
 
 <!----
@@ -1663,6 +1668,9 @@ insert into cf_crontab (
 	<p>
 		See <a href="http://www.cronmaker.com/" class="external" target="_blank">http://www.cronmaker.com/</a> for toys.
 	</p>
+	<p>
+		Fetch next 10 runtimes for all rows - <span class="likeLink" onclick="fetchAllCM()">clicky</span>
+	</p>
 	Current Scheduled Tasks:
 	<table class="sortable" id="tblls" border>
 		<tr>
@@ -1680,6 +1688,7 @@ insert into cf_crontab (
 			<th>expr</th>
 			<th>bye</th>
 			<th>wat</th>
+			<th>next</th>
 		</tr>
 		<cfloop query="sched">
 			<tr>
