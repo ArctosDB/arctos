@@ -797,10 +797,10 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 		<cfset mapurl = "#mapurl#&#fld#=#URLEncodedFormat(val)#">
 	</cffunction>
 	<!----------------------------------------------------------------------------->
-	<cffunction name="getChronMaker" access="public" returnformat="plain">
+	<cffunction name="getChronMaker" access="remote" returnformat="plain">
 		<cfparam name="exp" type="string" default="">
 		<cfhttp url="http://www.cronmaker.com/rest/sampler?expression=#exp#&count=10">
-		
+
 		</cfhttp>
 		<cfreturn cfhttp.filecontent>
 	</cffunction>
