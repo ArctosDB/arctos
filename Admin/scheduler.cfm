@@ -407,7 +407,7 @@ insert into cf_crontab (
 );
 
 
-
+delete from cf_crontab where job_name='es_tacc_spec_media_alreadyentered';
 
 insert into cf_crontab (
 	job_name,
@@ -426,7 +426,7 @@ insert into cf_crontab (
 	'es_tacc.cfm?action=spec_media_alreadyentered',
 	'600',
 	'ES imaging: Find images of UAM:ES specimens at TACC',
-	'03:11 AM every day',
+	'03:21 AM every day',
 	'0',
 	'21',
 	'03',
@@ -489,6 +489,7 @@ insert into cf_crontab (
 	'?'
 );
 
+delete from cf_crontab where job_name='MBL_validate';
 insert into cf_crontab (
 	job_name,
 	path,
@@ -506,9 +507,9 @@ insert into cf_crontab (
 	'BulkloadMedia.cfm?action=validate',
 	'600',
 	'media bulkloader: validate',
-	'12:01 AM every day',
+	'12:02 AM every day',
 	'0',
-	'01',
+	'02',
 	'12',
 	'*',
 	'*',
@@ -759,7 +760,7 @@ insert into cf_crontab (
 	'WED'
 );
 
-
+delete from cf_crontab where job_name='sitemap_taxonomy';
 insert into cf_crontab (
 	job_name,
 	path,
@@ -779,7 +780,7 @@ insert into cf_crontab (
 	'sitemaps: taxonomy',
 	'Every 30 minutes',
 	'0',
-	'23,53',
+	'22,52',
 	'*',
 	'*',
 	'*',
@@ -1686,13 +1687,13 @@ insert into cf_crontab (
 	</p>
 	<p>
 		Fetch next 10 runtimes -
-		<span class="likeLink" onclick="fetchAllCM()">clicky</span> and wait for the fetch before sorting.
+		<span class="likeLink" onclick="fetchAllCM()">clicky</span> and wait for the fetch to complete before sorting.
 	</p>
 	Current Scheduled Tasks:
 	<table class="sortable" id="tblls" border>
 		<tr>
 			<th>job_name</th>
-			<th>path</th>
+			<th>/ScheduledTasks/</th>
 			<th>timeout</th>
 			<th>purpose</th>
 			<th>run_interval_desc</th>
@@ -1702,9 +1703,9 @@ insert into cf_crontab (
 			<th>DoM</th>
 			<th>M</th>
 			<th>DoW</th>
-			<th>expr</th>
+			<th>crontime</th>
 			<th>bye</th>
-			<th>wat</th>
+			<th>edit</th>
 			<th class="noshow">next1</th>
 			<th class="noshow">next2</th>
 			<th class="noshow">next3</th>
