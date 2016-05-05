@@ -1030,7 +1030,7 @@ insert into cf_crontab (
 );
 
 
-
+delete from cf_crontab where job_name='TACC5_makeJPGMedia';
 insert into cf_crontab (
 	job_name,
 	path,
@@ -1050,7 +1050,7 @@ insert into cf_crontab (
 	'ALA Imaging: make media for JPGs',
 	'every hour',
 	'0',
-	'47',
+	'46',
 	'*',
 	'*',
 	'*',
@@ -1360,6 +1360,9 @@ insert into cf_crontab (
 );
 
 
+delete from cf_crontab where job_name='GenBank_transfer_nuc';
+
+
 insert into cf_crontab (
 	job_name,
 	path,
@@ -1379,13 +1382,14 @@ insert into cf_crontab (
 	'GenBank: transfer nucleotide data',
 	'daily',
 	'0',
-	'35',
+	'36',
 	'22',
 	'*',
 	'*',
 	'?'
 );
 
+delete from cf_crontab where job_name='GenBank_transfer_tax';
 
 
 insert into cf_crontab (
@@ -1407,13 +1411,14 @@ insert into cf_crontab (
 	'GenBank: transfer taxonomy data',
 	'daily',
 	'0',
-	'40',
+	'38',
 	'22',
 	'*',
 	'*',
 	'?'
 );
 
+delete from cf_crontab where job_name='GenBank_transfer_bio';
 
 insert into cf_crontab (
 	job_name,
@@ -1434,7 +1439,7 @@ insert into cf_crontab (
 	'GenBank: transfer biosample data',
 	'daily',
 	'0',
-	'45',
+	'44',
 	'22',
 	'*',
 	'*',
