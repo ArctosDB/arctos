@@ -387,6 +387,10 @@
 					        <td><input type="text" name="coll_object_remarks"></td>
 					      </tr>
 					      <tr>
+								<td><div align="right">AddToContainer:</div</td>
+								<td><input type="text" name="newPartContainerBarcode"></td>
+							</tr>
+					      <tr>
 					        <td colspan="2">
 						        <div align="center">
 							        <input type="submit" value="Create" class="insBtn">
@@ -480,7 +484,12 @@
 	<cfquery name= "getEntBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT agent_id FROM agent_name WHERE agent_name = '#session.username#'  group by agent_id
 	</cfquery>
+	<cfquery name= "pid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		SELECT sq_collection_object_id.nextval pid FROM dual
+	</cfquery>
 	<cftransaction>
+
+
 	<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO coll_object (
 			COLLECTION_OBJECT_ID,
@@ -493,7 +502,7 @@
 			CONDITION,
 			FLAGS )
 		VALUES (
-			sq_collection_object_id.nextval,
+			#pid.pid#,
 			'SP',
 			#session.myAgentID#,
 			sysdate,
@@ -509,16 +518,24 @@
 			  PART_NAME
 				,DERIVED_FROM_cat_item)
 			VALUES (
-				sq_collection_object_id.currval,
+				#pid.pid#,
 			  '#PART_NAME#'
 				,#collection_object_id#)
 	</cfquery>
-	<cfif len(#coll_object_remarks#) gt 0>
+	<cfif len(coll_object_remarks) gt 0>
 		<!---- new remark --->
 		<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-			VALUES (sq_collection_object_id.currval, '#escapeQuotes(coll_object_remarks)#')
+			VALUES (#pid.pid#, '#escapeQuotes(coll_object_remarks)#')
 		</cfquery>
+	</cfif>
+	<cfif len(newPartContainerBarcode) gt 0>
+		<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfprocparam cfsqltype="CF_SQL_FLOAT" value="#pid.pid#"><!---- v_collection_object_id ---->
+			<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainerBarcode#"><!---- v_barcode ---->
+			<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
+			<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_type ---->
+		</cfstoredproc>
 	</cfif>
 	</cftransaction>
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#" addtoken="false">
