@@ -1710,6 +1710,7 @@ insert into cf_crontab (
 	<cfoutput>
 	<form method="post" action="scheduler.cfm">
 		<input type="hidden" name="action" value="saveEditTask">
+		<input type="hidden" name="cf_crontab_id" value="#cf_crontab_id#">
 		<label for="job_name">job_name</label>
 		<input type="text" name="job_name" class="reqdClr" value="#editTask.job_name#">
 
@@ -1746,6 +1747,24 @@ insert into cf_crontab (
 		<br><input type="submit" value="save edits">
 	</form>
 	</cfoutput>
+</cfif>
+<cfif action is "saveEditTask">
+	<cfquery name="saveEditTask" datasource="uam_god">
+		update cf_crontab set
+			job_name='#job_name#',
+			path='#path#',
+			timeout='#timeout#',
+			purpose='#purpose#',
+			run_interval_desc='#run_interval_desc#',
+			cron_sec='#cron_sec#',
+			cron_min='#cron_min#',
+			cron_hour='#cron_hour#',
+			cron_dom='#cron_dom#',
+			cron_mon='#cron_mon#',
+			cron_dow='#cron_dow#'
+		where cf_crontab_id=#cf_crontab_id#
+	</cfquery>
+	<cflocation url="scheduler.cfm" addtoken="false">
 </cfif>
 <cfif action is "deleteTask">
 	<cfquery name="deleteTask" datasource="uam_god">
