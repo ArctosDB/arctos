@@ -1631,7 +1631,7 @@ insert into cf_crontab (
 				success: function(r) {
 					var arr = r.split(',');
 			        for(var i = 0; i<arr.length; i++){
-			        	$("#cm_" + id + "_" + parseInt(i+1)).html(arr[i]).removeClass('noshow');
+			        	$("#cm_" + id + "_" + parseInt(i+1)).html(arr[i]);
 			        }
 
 
@@ -1643,6 +1643,7 @@ insert into cf_crontab (
 			});
 		}
 		function fetchAllCM(){
+			$(".noshow").removeClass("noshow");
 			$("input[id^='cexp_']").each(function(e){
 				getCM(this.id.replace('cexp_',''));
 			});
