@@ -112,7 +112,7 @@ insert into cf_crontab (
 	'fetchRelatedInfo.cfm',
 	'600',
 	'Cache related-specimen information',
-	'every 42 minutes, starting w
+	'every 42 minutes, starting whenever',
 	'0',
 	'42',
 	'*',
@@ -986,7 +986,6 @@ insert into cf_crontab (
 		<th>DoM</th>
 		<th>M</th>
 		<th>DoW</th>
-		<th>Y</th>
 		<th>expr</th>
 	</tr>
 	<cfloop query="sched">
@@ -1002,8 +1001,7 @@ insert into cf_crontab (
 			<td>#cron_dom#</td>
 			<td>#cron_mon#</td>
 			<td>#cron_dow#</td>
-			<td>#cron_year#</td>
-			<td>#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow# #cron_year#</td>
+			<td>#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</td>
 		</tr>
 	</cfloop>
 </table>
