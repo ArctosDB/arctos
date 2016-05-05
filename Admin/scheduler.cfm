@@ -1615,6 +1615,7 @@ insert into cf_crontab (
 
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
+	<cfset title="Arctos ColdFusion Scheduler Manager">
 	<script>
 		function getCM(id){
 			$.ajax({
