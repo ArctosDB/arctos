@@ -10,7 +10,7 @@ create table cf_crontab (
 	purpose varchar2(255) not null,
 	run_interval_desc varchar2(255) not null,
 	cron_sec varchar2(6) not null,
-	cron_min varchar2(6) not null,
+	cron_min varchar2(255) not null,
 	cron_hour varchar2(6) not null,
 	cron_dom varchar2(6) not null,
 	cron_mon  varchar2(6) not null,
@@ -106,7 +106,7 @@ insert into cf_crontab (
 	'fetchRelatedInfo.cfm',
 	'600',
 	'Cache related-specimen information',
-	'every 42 minutes, starting whenever',
+	'42 minutes after every hour',
 	'0',
 	'42',
 	'*',
@@ -115,85 +115,115 @@ insert into cf_crontab (
 	'?'
 );
 
-<!----
-	fetchRelatedInfo
-	Purpose: Cache related-specimen information
-	Cost: Extremely variable, depends on specimens created and/or in need of refresh
-	Growth potential: unlimited
---->
-<cfschedule action = "update"
-    task = "fetchRelatedInfo"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/fetchRelatedInfo.cfm"
-    cronTime="0 42 * * * ?"
-    requestTimeOut = "600">
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'pendingRelations',
+	'pendingRelations.cfm',
+	'600',
+	'Fetch unreciprocated relationships into otherID bulkloader',
+	'every 10 minutes - xx:03, xx:13, etc. Necessary to ensure a run for every (100) collection every day',
+	'0',
+	'3,13,23,33,43,53',
+	'*',
+	'*',
+	'*',
+	'?'
+);
 
-<!---
-	pendingRelations
-	Purpose: Fetch unreciprocated relationships into otherID bulkloader
-	Cost: Fairly low
-	Growth potential: high-ish
-	Interval:
-		A bare call runs for one collection.
-		Each run starts fresh; old data deletes, new inserts.
-		Should run for every collection every day (notifications go out daily).
-		24h*60m=1440 min/day
-		100 collections
-		run every 10 minutes
---->
-<cfschedule action = "update"
-    task = "pendingRelations"
-    operation = "HTTPRequest"
-    url = "http://127.0.0.1/ScheduledTasks/pendingRelations.cfm"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "0:03 AM"
-    interval = "600"
-    requestTimeOut = "500">
 
-<!-----------------------------------   Agent merge/delete    ------------------------------------------>
-<!---
-	duplicate_agents_findDups
-	Purpose: Find agents marked as duplicates
-	Cost: low
-	Growth potential: low
---->
-<cfschedule action = "update"
-    task = "duplicate_agents_findDups"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/duplicate_agents.cfm?action=findDups"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "04:51 AM"
-    interval = "daily"
-    requestTimeOut = "600">
 
-<!---
-	duplicate_agents_merge
-	Purpose: Merge duplicate agents
-	Cost: extremely variable - can involve updating many (10s of K) rows in ~50 tables
-	Growth potential: low
---->
-<cfschedule action = "update"
-    task = "duplicate_agents_merge"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/duplicate_agents.cfm?action=merge"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "05:01 AM"
-    interval = "daily"
-    requestTimeOut = "600">
-<!---
-	duplicate_agents_notify
-	Purpose: Merge duplicate agents notification
-	Cost: low/moderate
-	Growth potential: low
---->
-<cfschedule action = "update"
-    task = "duplicate_agents_notify"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/duplicate_agents.cfm?action=notify"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "05:21 AM"
-    interval = "daily"
-    requestTimeOut = "600">
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'duplicate_agents_findDups',
+	'duplicate_agents.cfm?action=findDups',
+	'600',
+	'detect duplicate agents',
+	'4:51 AM every day',
+	'0',
+	'51',
+	'04',
+	'*',
+	'*',
+	'?'
+);
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'duplicate_agents_merge',
+	'duplicate_agents.cfm?action=merge',
+	'600',
+	'Merge duplicate agents',
+	'5:01 AM every day',
+	'0',
+	'01',
+	'05',
+	'*',
+	'*',
+	'?'
+);
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'duplicate_agents_notify',
+	'duplicate_agents.cfm?action=notify',
+	'600',
+	' Merge duplicate agents notification',
+	'05:21 AM every day',
+	'0',
+	'21',
+	'05',
+	'*',
+	'*',
+	'?'
+);
+
+
 
 
 <!-----------------------------------   UAM Earth Science Imaging    ------------------------------------------>
@@ -962,6 +992,17 @@ insert into cf_crontab (
 
 
 ---------------------->
+
+<!--- first, get rid of everything --->
+<cfobject type="JAVA" action="Create" name="factory" class="coldfusion.server.ServiceFactory">
+<cfset allTasks = factory.CronService.listAll()>
+<cfset numberOtasks = arraylen(allTasks)>
+<cfloop index="i" from="1" to="#numberOtasks#">
+	<cfschedule action="delete" task="#allTasks[i].task#">
+</cfloop>
+
+
+
 <cfquery name="sched" datasource="uam_god">
 	select * from cf_crontab
 </cfquery>
@@ -996,6 +1037,14 @@ insert into cf_crontab (
 			<td>#cron_dow#</td>
 			<td>#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</td>
 		</tr>
+
+		<!--- and actually build the tasks ---->
+		<cfschedule action = "update"
+		    task = "#job_name#"
+		    operation = "HTTPRequest"
+		    url = "127.0.0.1/ScheduledTasks/#path#"
+		    cronTime="#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#"
+		    requestTimeOut = "#timeout#">
 	</cfloop>
 </table>
 </cfoutput>
@@ -1025,18 +1074,12 @@ Add a task
 </form>
 
 
-<!--- first, get rid of everything --->
-<cfobject type="JAVA" action="Create" name="factory" class="coldfusion.server.ServiceFactory">
-<cfset allTasks = factory.CronService.listAll()>
-<cfset numberOtasks = arraylen(allTasks)>
-<cfloop index="i" from="1" to="#numberOtasks#">
-	<cfschedule action="delete" task="#allTasks[i].task#">
-</cfloop>
-<!---- do not build tasks in test ---->
+
+<!---- do not build tasks in test
 <cfif Application.version is not "prod">
 	not prod abort<cfabort>
 </cfif>
-
+---->
 
 
 <!-----------------------------------   report template maintenance ------------------------------------>
