@@ -972,7 +972,7 @@ insert into cf_crontab (
 <cfquery name="sched" datasource="uam_god">
 	select * from cf_crontab
 </cfquery>
-
+<cfoutput>
 <table border>
 	<tr>
 		<th>job_name</th>
@@ -1007,7 +1007,7 @@ insert into cf_crontab (
 		</tr>
 	</cfloop>
 </table>
-
+</cfoutput>
 
 cf_crontab_id number not null,
 	 varchar2(30) not null,
