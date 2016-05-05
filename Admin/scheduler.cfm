@@ -1687,7 +1687,7 @@ insert into cf_crontab (
 				<td>DoW</td>
 			</tr>
 			<tr>
-				<td><input type="text" name="cron_sec" class="reqdClr"></td>
+				<td><input type="text" name="cron_sec" class="reqdClr" value="0"></td>
 				<td><input type="text" name="cron_min" class="reqdClr"></td>
 				<td><input type="text" name="cron_hour" class="reqdClr"></td>
 				<td><input type="text" name="cron_dom" class="reqdClr"></td>
@@ -1697,5 +1697,35 @@ insert into cf_crontab (
 		</table>
 		<br><input type="submit" value="add task">
 	</form>
+</cfif>
+<cfif action is "addTask">
+	<cfquery name="addTask" datasource="uam_god">
+		insert into cf_crontab (
+			job_name,
+			path,
+			timeout,
+			purpose,
+			run_interval_desc,
+			cron_sec,
+			cron_min,
+			cron_hour,
+			cron_dom,
+			cron_mon,
+			cron_dow
+		) values (
+			'#job_name#',
+			'#path#',
+			'#timeout#',
+			'#purpose#',
+			'#run_interval_desc#',
+			'#cron_sec#',
+			'#cron_min#',
+			'#cron_hour#',
+			'#cron_dom#',
+			'#cron_mon#',
+			'#cron_dow#'
+		)
+	</cfquery>
+	<cflocation url="scheduler.cfm" addtoken="false">
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
