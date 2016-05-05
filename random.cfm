@@ -16,7 +16,7 @@
 <cfoutput>
 	<ul>
 		<li>
-			<a href="/SpecimenResults.cfm?begmon=#datePart("mm",now())#&begday=#datePart("dd",now())#&endmon=#datePart("mm",now())#&endday=#datePart("dd",now())#&chronological_extent=1">today</a>
+			<a href="/SpecimenResults.cfm?begmon=#datePart('m',now())#&begday=#datePart('d',now())#&endmon=#datePart('m',now())#&endday=#datePart('d',now())#&chronological_extent=1">today</a>
 		</li>
 		<cfloop query="links">
 			<li><a href="#link#">#display#</a></li>
