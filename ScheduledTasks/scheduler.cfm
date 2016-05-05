@@ -45,7 +45,7 @@ sho err
 
 ---------------------->
 <cfquery name="sched" datasource="uam_god">
-	select * from trg_cf_crontab
+	select * from cf_crontab
 </cfquery>
 <cfdump var=#sched#>
 
