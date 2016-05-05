@@ -45,6 +45,17 @@ CREATE OR REPLACE TRIGGER trg_cf_crontab
 sho err
 
 
+
+
+
+
+
+
+
+
+delete from cf_crontab;
+
+
 -- existing data
 insert into cf_crontab (
 	job_name,
@@ -62,7 +73,7 @@ insert into cf_crontab (
 	'reports_deleteUnused',
 	'reportMaintenance.cfm?action=deleteUnused',
 	'600',
-	'delete report templates which have no handler and are not used.',
+	'maintenance: delete report templates which have no handler and are not used.',
 	'4:17 AM every day',
 	'0',
 	'17',
@@ -116,7 +127,7 @@ insert into cf_crontab (
 	'fetchRelatedInfo',
 	'fetchRelatedInfo.cfm',
 	'600',
-	'Cache related-specimen information',
+	'maintenance: Cache related-specimen information',
 	'42 minutes after every hour',
 	'0',
 	'42',
@@ -142,7 +153,7 @@ insert into cf_crontab (
 	'pendingRelations',
 	'pendingRelations.cfm',
 	'600',
-	'Fetch unreciprocated relationships into otherID bulkloader',
+	'maintenance: Fetch unreciprocated relationships into otherID bulkloader',
 	'every 10 minutes - xx:03, xx:13, etc. Necessary to ensure a run for every (100) collection every day',
 	'0',
 	'3,13,23,33,43,53',
@@ -170,7 +181,7 @@ insert into cf_crontab (
 	'duplicate_agents_findDups',
 	'duplicate_agents.cfm?action=findDups',
 	'600',
-	'detect duplicate agents',
+	'agent maintenance: detect duplicate agents',
 	'4:51 AM every day',
 	'0',
 	'51',
@@ -197,7 +208,7 @@ insert into cf_crontab (
 	'duplicate_agents_merge',
 	'duplicate_agents.cfm?action=merge',
 	'600',
-	'Merge duplicate agents',
+	'agent maintenance: Merge duplicate agents',
 	'5:01 AM every day',
 	'0',
 	'01',
@@ -224,7 +235,7 @@ insert into cf_crontab (
 	'duplicate_agents_notify',
 	'duplicate_agents.cfm?action=notify',
 	'600',
-	' Merge duplicate agents notification',
+	'agent maintenance: Merge duplicate agents notification',
 	'05:21 AM every day',
 	'0',
 	'21',
@@ -251,7 +262,7 @@ insert into cf_crontab (
 	'es_spec_insBulk',
 	'es_spec.cfm?action=insBulk',
 	'600',
-	'insert to bulkloader from uam:es imaging app',
+	'ES imaging: insert to bulkloader from uam:es imaging app',
 	'12:21 AM AM every day',
 	'0',
 	'21',
@@ -277,7 +288,7 @@ insert into cf_crontab (
 	'es_spec_findSpec',
 	'es_spec.cfm?action=findSpec',
 	'600',
-	'Find imaged UAM:ES specimens by barcode',
+	'ES imaging: Find imaged UAM:ES specimens by barcode',
 	'01:31 AM every day',
 	'0',
 	'31',
@@ -304,7 +315,7 @@ insert into cf_crontab (
 	'es_tacc_getDir',
 	'es_tacc.cfm?action=getDir',
 	'600',
-	'Find UAM:ES images at TACC',
+	'ES imaging: Find UAM:ES images at TACC',
 	'02:31 AM every day',
 	'0',
 	'31',
@@ -330,7 +341,7 @@ insert into cf_crontab (
 	'es_tacc_accn_card_media',
 	'es_tacc.cfm?action=accn_card_media',
 	'600',
-	'Find images of UAM:ES accn cards at TACC',
+	'ES imaging: Find images of UAM:ES accn cards at TACC',
 	'02:51 AM every day',
 	'0',
 	'51',
@@ -357,7 +368,7 @@ insert into cf_crontab (
 	'es_tacc_loc_card_media',
 	'es_tacc.cfm?action=loc_card_media',
 	'600',
-	'Find images of UAM:ES locality cards at TACC',
+	'ES imaging: Find images of UAM:ES locality cards at TACC',
 	'03:01 AM every day',
 	'0',
 	'01',
@@ -385,7 +396,7 @@ insert into cf_crontab (
 	'es_tacc_spec_media',
 	'es_tacc.cfm?action=spec_media',
 	'600',
-	'Find images of UAM:ES specimens at TACC',
+	'ES imaging: Find images of UAM:ES specimens at TACC',
 	'03:11 AM every day',
 	'0',
 	'11',
@@ -414,7 +425,7 @@ insert into cf_crontab (
 	'es_tacc_spec_media_alreadyentered',
 	'es_tacc.cfm?action=spec_media_alreadyentered',
 	'600',
-	'Find images of UAM:ES specimens at TACC',
+	'ES imaging: Find images of UAM:ES specimens at TACC',
 	'03:11 AM every day',
 	'0',
 	'21',
@@ -441,7 +452,7 @@ insert into cf_crontab (
 	'MBL_cleanup',
 	'BulkloadMedia.cfm?action=cleanup',
 	'600',
-	'Cleanup bulkloaded media',
+	'media bulkloader: Cleanup',
 	'12:31 AM every day',
 	'0',
 	'31',
@@ -468,7 +479,7 @@ insert into cf_crontab (
 	'MBL_report',
 	'BulkloadMedia.cfm?action=report',
 	'600',
-	'Send email relating to bulkloaded media',
+	'media bulkloader: Send email',
 	'04:31 AM every day',
 	'0',
 	'31',
@@ -494,7 +505,7 @@ insert into cf_crontab (
 	'MBL_validate',
 	'BulkloadMedia.cfm?action=validate',
 	'600',
-	'validate bulkloaded media',
+	'media bulkloader: validate',
 	'12:01 AM every day',
 	'0',
 	'01',
@@ -520,7 +531,7 @@ insert into cf_crontab (
 	'MBL_load',
 	'BulkloadMedia.cfm?action=load',
 	'600',
-	'load bulkloaded media',
+	'media bulkloader: load',
 	'12:06 AM every day',
 	'0',
 	'06',
@@ -547,7 +558,7 @@ insert into cf_crontab (
 	'upclass_checkMeta',
 	'processBulkloadClassification.cfm?action=checkMeta',
 	'600',
-	'check basic classification v; prepare for processing',
+	'classification bulkloader: prepare for processing',
 	'every hour at 5 after',
 	'0',
 	'05',
@@ -575,7 +586,7 @@ insert into cf_crontab (
 	'upclass_getTID',
 	'processBulkloadClassification.cfm?action=getTID',
 	'600',
-	'classification loader: get Taxon IDs',
+	'classification bulkloader: get Taxon IDs',
 	'every hour at 15 after',
 	'0',
 	'15',
@@ -602,7 +613,7 @@ insert into cf_crontab (
 	'upclass_getClassificationID',
 	'processBulkloadClassification.cfm?action=getClassificationID',
 	'600',
-	'classification loader: get Taxon IDs',
+	'classification bulkloader: get Taxon IDs',
 	'every hour at 25 after',
 	'0',
 	'25',
@@ -628,7 +639,7 @@ insert into cf_crontab (
 	'upclass_fitbfg',
 	'processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus',
 	'60',
-	'classification loader: fill in blanks when given genus',
+	'classification bulkloader: fill in blanks when given genus',
 	'every other hour at 3 after',
 	'0',
 	'03',
@@ -656,7 +667,7 @@ insert into cf_crontab (
 	'CTupdates',
 	'CTupdates.cfm',
 	'600',
-	'Email report of code table changes',
+	'alerts: Email report of code table changes',
 	'12:01 AM every day',
 	'0',
 	'01',
@@ -683,7 +694,7 @@ insert into cf_crontab (
 	'sitemap_map',
 	'build_sitemap.cfm?action=build_map',
 	'600',
-	'build sitemaps',
+	'sitemaps: build sitemaps',
 	'Every week, Wednesday at 9:17 PM',
 	'0',
 	'17',
@@ -711,7 +722,7 @@ insert into cf_crontab (
 	'sitemapindex',
 	'build_sitemap.cfm?action=build_index',
 	'600',
-	'build sitemaps index',
+	'sitemaps: build sitemaps index',
 	'Every week, Wednesday at 9:37 PM',
 	'0',
 	'37',
@@ -738,7 +749,7 @@ insert into cf_crontab (
 	'sitemap_specimens',
 	'build_sitemap.cfm?action=build_sitemaps_spec',
 	'600',
-	'build sitemaps: specimens',
+	'sitemaps: specimens',
 	'Every 30 minutes',
 	'0',
 	'57',
@@ -765,7 +776,7 @@ insert into cf_crontab (
 	'sitemap_taxonomy',
 	'build_sitemap.cfm?action=build_sitemaps_tax',
 	'600',
-	'build sitemaps: taxonomy',
+	'sitemaps: taxonomy',
 	'Every 30 minutes',
 	'0',
 	'23,53',
@@ -792,7 +803,7 @@ insert into cf_crontab (
 	'sitemap_publication',
 	'build_sitemap.cfm?action=build_sitemaps_pub',
 	'600',
-	'build sitemaps: publication',
+	'sitemaps: publication',
 	'Every hour',
 	'0',
 	'26',
@@ -818,7 +829,7 @@ insert into cf_crontab (
 	'sitemap_project',
 	'build_sitemap.cfm?action=build_sitemaps_proj',
 	'600',
-	'build sitemaps: project',
+	'sitemaps: project',
 	'Every hour',
 	'0',
 	'31',
@@ -845,7 +856,7 @@ insert into cf_crontab (
 	'sitemap_static',
 	'build_sitemap.cfm?action=build_sitemaps_stat',
 	'600',
-	'build sitemaps: static',
+	'sitemaps: static',
 	'Every hour',
 	'0',
 	'35',
@@ -872,7 +883,7 @@ insert into cf_crontab (
 	'sitemap_media',
 	'build_sitemap.cfm?action=build_sitemaps_media',
 	'600',
-	'build sitemaps: media',
+	'sitemaps: media',
 	'Every hour',
 	'0',
 	'45',
@@ -1429,6 +1440,7 @@ insert into cf_crontab (
 	'?'
 );
 
+delete from cf_crontab where job_name='cf_spec_res_cols';
 
 insert into cf_crontab (
 	job_name,
@@ -1451,11 +1463,10 @@ insert into cf_crontab (
 	'0',
 	'38',
 	'0',
-	'*',
 	'?',
+	'*',
 	'THU'
 );
-
 
 insert into cf_crontab (
 	job_name,
@@ -1606,14 +1617,12 @@ insert into cf_crontab (
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
-
 <script src="/includes/sorttable.js"></script>
-
-
-<cfquery name="sched" datasource="uam_god">
-	select * from cf_crontab
-</cfquery>
+<cfparam name="orderby" default="purpose">
 <cfoutput>
+	<cfquery name="sched" datasource="uam_god">
+		select * from cf_crontab order by #orderby#
+	</cfquery>
 	<p>
 		See <a href="http://www.cronmaker.com/" class="external" target="_blank">http://www.cronmaker.com/</a> for toys.
 	</p>
