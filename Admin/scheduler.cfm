@@ -1664,7 +1664,35 @@ insert into cf_crontab (
 		<input type="hidden" name="action" value="addTask">
 		<label for="job_name">job_name</label>
 		<input type="text" name="job_name" class="reqdClr">
+
+		<label for="path">path</label>
+		<input type="text" name="path" class="reqdClr">
+
+		<label for="timeout">timeout</label>
+		<input type="text" name="timeout" class="reqdClr" value="60">
+
+		<label for="purpose">purpose</label>
+		<textarea name="purpose" class="hugetextarea reqdClr"></textarea>
+
+
 		<br><input type="submit" value="add task">
+
+
+		ob_name,
+	,
+	,
+	,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+
+
+
 	</form>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
