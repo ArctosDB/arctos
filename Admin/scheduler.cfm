@@ -1614,6 +1614,9 @@ insert into cf_crontab (
 	select * from cf_crontab
 </cfquery>
 <cfoutput>
+	<p>
+		See <a href="http://www.cronmaker.com/" class="external" target="_blank">http://www.cronmaker.com/</a> for toys.
+	</p>
 	Current Scheduled Tasks:
 	<table class="sorttable" id="tblls" border>
 		<tr>
