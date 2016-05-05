@@ -25,15 +25,15 @@ CREATE OR REPLACE TRIGGER trg_cf_crontab
 	    		select someRandomSequence.nextval into :new.cf_crontab_id from dual;
 	    	end if;
 	    end if;
-	    
+
     end;
 /
 sho err
 
 
-	
-	
-	
+
+
+
     Seconds
     Minutes
     Hours
@@ -44,6 +44,11 @@ sho err
 
 
 ---------------------->
+<cfquery name="sched" datasource="uam_god">
+	select * from trg_cf_crontab
+</cfquery>
+<cfdump var=#sched#>
+
 
 <!--- first, get rid of everything --->
 <cfobject type="JAVA" action="Create" name="factory" class="coldfusion.server.ServiceFactory">
@@ -52,6 +57,13 @@ sho err
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
+<!---- do not build tasks in test ---->
+<cfif Application.version is not "prod">
+	not prod abort<cfabort>
+</cfif>
+
+
+
 <!-----------------------------------   report template maintenance ------------------------------------>
 <!---
 	reportMaintenance
