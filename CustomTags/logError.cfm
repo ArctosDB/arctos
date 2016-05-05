@@ -161,9 +161,6 @@
 	<cfset ipinfo=cfhttp.fileContent>
 <cfcatch><cfset ipinfo='ip info lookup failed'></cfcatch>
 </cftry>
-
-
-
 <cffile action="append" file="#theLogFile#" output="#logdata#">
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
 	<br>
@@ -173,7 +170,9 @@
 		<a href="http://whatismyipaddress.com/ip/#exception.ipaddress#">[ lookup #exception.ipaddress# @whatismyipaddress ]</a>
 		<br><a href="https://www.ipalyzer.com/#exception.ipaddress#">[ lookup #exception.ipaddress# @ipalyzer ]</a>
 		<br><a href="https://gwhois.org/#exception.ipaddress#">[ lookup #exception.ipaddress# @gwhois ]</a>
-		<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
+		<p>
+			<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
+		</p>
 	</cfif>
 	<cfif isdefined("exception.requestingsubnet") and len(exception.requestingsubnet) gt 0>
 		<p>
@@ -219,7 +218,6 @@
 			This message has been logged in #exception.logfile# as #exception.uuid#
 		</p>
 	</cfif>
-
 	<p>Raw exception dump:</p>
 	<cfdump var=#exception# format="html">
 	<cfdump var=#attributes# format="html">
