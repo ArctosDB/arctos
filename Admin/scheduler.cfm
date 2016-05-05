@@ -1632,6 +1632,7 @@ insert into cf_crontab (
 			<th>M</th>
 			<th>DoW</th>
 			<th>expr</th>
+			<th>bye</th>
 		</tr>
 		<cfloop query="sched">
 			<tr>
@@ -1647,6 +1648,7 @@ insert into cf_crontab (
 				<td>#cron_mon#</td>
 				<td>#cron_dow#</td>
 				<td>#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</td>
+				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
 			</tr>
 
 			<!--- and actually build the tasks ---->
@@ -1697,6 +1699,13 @@ insert into cf_crontab (
 		</table>
 		<br><input type="submit" value="add task">
 	</form>
+</cfif>
+
+<cfif action is "deleteTask">
+	<cfquery name="deleteTask" datasource="uam_god">
+		delete from cf_crontab where cf_crontab_id=#cf_crontab_id#
+	</cfquery>
+	<cflocation url="scheduler.cfm" addtoken="false">
 </cfif>
 <cfif action is "addTask">
 	<cfquery name="addTask" datasource="uam_god">
