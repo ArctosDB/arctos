@@ -1633,6 +1633,7 @@ insert into cf_crontab (
 			<th>DoW</th>
 			<th>expr</th>
 			<th>bye</th>
+			<th>wat</th>
 		</tr>
 		<cfloop query="sched">
 			<tr>
@@ -1649,6 +1650,7 @@ insert into cf_crontab (
 				<td>#cron_dow#</td>
 				<td>#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</td>
 				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
+				<td><a href="scheduler.cfm?action=editTask&cf_crontab_id=#cf_crontab_id#">edit</a></td>
 			</tr>
 
 			<!--- and actually build the tasks ---->
@@ -1701,6 +1703,50 @@ insert into cf_crontab (
 	</form>
 </cfif>
 
+<cfif action is "editTask">
+	<cfquery name="editTask" datasource="uam_god">
+		select * from cf_crontab where cf_crontab_id=#cf_crontab_id#
+	</cfquery>
+	<cfoutput>
+	<form method="post" action="scheduler.cfm">
+		<input type="hidden" name="action" value="saveEditTask">
+		<label for="job_name">job_name</label>
+		<input type="text" name="job_name" class="reqdClr" value="#editTask.job_name#">
+
+		<label for="path">path</label>
+		<input type="text" name="path" class="reqdClr" value="#editTask.path#">
+
+		<label for="timeout">timeout</label>
+		<input type="text" name="timeout" class="reqdClr"  value="#editTask.timeout#">
+
+		<label for="purpose">purpose</label>
+		<textarea name="purpose" class="hugetextarea reqdClr">#editTask.purpose#</textarea>
+
+		<label for="run_interval_desc">run_interval_desc</label>
+		<input type="text" name="run_interval_desc" class="reqdClr" value="#editTask.run_interval_desc#">
+		<br>Crontime (Quartz):
+		<table border>
+			<tr>
+				<td>s</td>
+				<td>m</td>
+				<td>h</td>
+				<td>DoM</td>
+				<td>M</td>
+				<td>DoW</td>
+			</tr>
+			<tr>
+				<td><input type="text" name="cron_sec" class="reqdClr" value="#editTask.cron_sec#"></td>
+				<td><input type="text" name="cron_min" class="reqdClr" value="#editTask.cron_min#"></td>
+				<td><input type="text" name="cron_hour" class="reqdClr" value="#editTask.cron_hour#"></td>
+				<td><input type="text" name="cron_dom" class="reqdClr" value="#editTask.cron_dom#"></td>
+				<td><input type="text" name="cron_mon" class="reqdClr" value="#editTask.cron_mon#"></td>
+				<td><input type="text" name="cron_dow" class="reqdClr" value="#editTask.cron_dow#"></td>
+			</tr>
+		</table>
+		<br><input type="submit" value="save edits">
+	</form>
+	</cfoutput>
+</cfif>
 <cfif action is "deleteTask">
 	<cfquery name="deleteTask" datasource="uam_god">
 		delete from cf_crontab where cf_crontab_id=#cf_crontab_id#
