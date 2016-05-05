@@ -1618,7 +1618,13 @@ insert into cf_crontab (
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
 <script src="/includes/sorttable.js"></script>
-<cfparam name="orderby" default="purpose">
+<cfparam name="orderby" default="cron_hour,cron_min,cron_dow">
+<form name="o" method="get">
+	<label for="orderby">OrderBy (job_name,path,timeout,purpose,run_interval_desc,cron_sec,cron_min,cron_hour,cron_dom,cron_mon,cron_dow)
+	</label>
+	<textarea name="orderby" class="hugetextarea reqdClr">#orderby#</textarea>
+	<input type="submit" value="reorder">
+</form>
 <cfoutput>
 	<cfquery name="sched" datasource="uam_god">
 		select * from cf_crontab order by #orderby#
@@ -1663,7 +1669,6 @@ insert into cf_crontab (
 				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
 				<td><a href="scheduler.cfm?action=editTask&cf_crontab_id=#cf_crontab_id#">edit</a></td>
 			</tr>
-
 			<!--- and actually build the tasks ---->
 			<cfschedule action = "update"
 			    task = "#job_name#"
