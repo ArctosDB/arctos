@@ -587,9 +587,9 @@ insert into cf_crontab (
 	'processBulkloadClassification.cfm?action=getTID',
 	'600',
 	'classification bulkloader: get Taxon IDs',
-	'every hour at 15 after',
+	'every hour at 17 after',
 	'0',
-	'15',
+	'17',
 	'*',
 	'*',
 	'*',
@@ -1609,8 +1609,39 @@ insert into cf_crontab (
 
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
+	<script>
+		function getCM(id){
+			$.ajax({
+				url: "/component/functions.cfc?queryformat=column",
+				type: "GET",
+				dataType: "json",
+				async: false,
+				data: {
+					method:  "getChronMaker",
+					exp : $("#cexp_" + id).val(),
+					returnformat : "json"
+				},
+				success: function(r) {
+					$("#cm_" + id).html(r);
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+		}
+
+	</script>
+
+<!----
+	<div style="white-space: nowrap;">#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</div>
+					<input type="hidden" name="cexp_#cf_crontab_id#" value="#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#">
+				</td>
+				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
+				<td><a href="scheduler.cfm?action=editTask&cf_crontab_id=#cf_crontab_id#">edit</a></td>
+				<td><div id="cm_#cf_crontab_id#"><span class="likeLink" onclick="getCM(#cf_crontab_id#);">get next 10 r
 
 
+				---->
 <cfobject type="JAVA" action="Create" name="factory" class="coldfusion.server.ServiceFactory">
 <cfset allTasks = factory.CronService.listAll()>
 <cfset numberOtasks = arraylen(allTasks)>
@@ -1665,9 +1696,13 @@ insert into cf_crontab (
 				<td>#cron_dom#</td>
 				<td>#cron_mon#</td>
 				<td>#cron_dow#</td>
-				<td><div style="white-space: nowrap;">#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</div></td>
+				<td>
+					<div style="white-space: nowrap;">#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</div>
+					<input type="hidden" name="cexp_#cf_crontab_id#" value="#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#">
+				</td>
 				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
 				<td><a href="scheduler.cfm?action=editTask&cf_crontab_id=#cf_crontab_id#">edit</a></td>
+				<td><div id="cm_#cf_crontab_id#"><span class="likeLink" onclick="getCM(#cf_crontab_id#);">get next 10 runtimes</span></div></td>
 			</tr>
 			<!--- and actually build the tasks ---->
 			<cfschedule action = "update"
