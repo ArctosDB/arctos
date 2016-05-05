@@ -1641,6 +1641,9 @@ insert into cf_crontab (
 			});
 		}
 	</script>
+	<style>
+		.noshow{display:none;}
+	</style>
 
 <!----
 	<div style="white-space: nowrap;">#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</div>
