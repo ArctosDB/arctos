@@ -1628,7 +1628,13 @@ insert into cf_crontab (
 					returnformat : "json"
 				},
 				success: function(r) {
-					$("#cm_" + id).html(r);
+					var arr = r.split(',');
+			        for(var i = 0; i<arr.length; i++){
+			        	$("#cm_" + id + "_" + parseInt(i+1)).html(arr[i]);
+			        }
+
+
+
 				},
 				error: function (xhr, textStatus, errorThrown){
 				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
@@ -1698,6 +1704,15 @@ insert into cf_crontab (
 			<th>bye</th>
 			<th>wat</th>
 			<th class="noshow">next1</th>
+			<th class="noshow">next2</th>
+			<th class="noshow">next3</th>
+			<th class="noshow">next4</th>
+			<th class="noshow">next5</th>
+			<th class="noshow">next6</th>
+			<th class="noshow">next7</th>
+			<th class="noshow">next8</th>
+			<th class="noshow">next9</th>
+			<th class="noshow">next10</th>
 		</tr>
 		<cfloop query="sched">
 			<tr>
@@ -1720,7 +1735,16 @@ insert into cf_crontab (
 				</td>
 				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
 				<td><a href="scheduler.cfm?action=editTask&cf_crontab_id=#cf_crontab_id#">edit</a></td>
-				<td class="noshow"><div id="cm_#cf_crontab_id#"><span class="likeLink" onclick="getCM(#cf_crontab_id#);">fetch</span></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_1"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_2"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_3"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_4"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_5"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_6"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_7"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_8"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_9"></div></td>
+				<td class="noshow"><div id="cm_#cf_crontab_id#_10"></div></td>
 			</tr>
 			<!--- and actually build the tasks ---->
 			<!----
