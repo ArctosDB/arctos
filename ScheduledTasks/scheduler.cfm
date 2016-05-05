@@ -14,8 +14,7 @@ create table cf_crontab (
 	cron_hour varchar2(6) not null,
 	cron_dom varchar2(6) not null,
 	cron_mon  varchar2(6) not null,
-	cron_dow varchar2(6) not null,
-	cron_year varchar2(6) not null
+	cron_dow varchar2(6) not null
 );
 
 
@@ -47,8 +46,7 @@ insert into cf_crontab (
 	cron_hour,
 	cron_dom,
 	cron_mon,
-	cron_dow,
-	cron_year
+	cron_dow
 ) values (
 	'reports_deleteUnused',
 	'reportMaintenance.cfm?action=deleteUnused',
@@ -60,7 +58,6 @@ insert into cf_crontab (
 	'04',
 	'*',
 	'*',
-	'*',
 	'?'
 );
 
@@ -76,8 +73,7 @@ insert into cf_crontab (
 	cron_hour,
 	cron_dom,
 	cron_mon,
-	cron_dow,
-	cron_year
+	cron_dow
 ) values (
 	'reports_emailNotifyNotUsed',
 	'reportMaintenance.cfm?action=emailNotifyNotUsed',
@@ -89,7 +85,6 @@ insert into cf_crontab (
 	'04',
 	'*',
 	'*',
-	'*',
 	'?'
 );
 
@@ -105,8 +100,7 @@ insert into cf_crontab (
 	cron_hour,
 	cron_dom,
 	cron_mon,
-	cron_dow,
-	cron_year
+	cron_dow
 ) values (
 	'fetchRelatedInfo',
 	'fetchRelatedInfo.cfm',
@@ -115,7 +109,6 @@ insert into cf_crontab (
 	'every 42 minutes, starting whenever',
 	'0',
 	'42',
-	'*',
 	'*',
 	'*',
 	'*',
