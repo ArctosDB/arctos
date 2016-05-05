@@ -1674,6 +1674,20 @@ insert into cf_crontab (
 		<label for="purpose">purpose</label>
 		<textarea name="purpose" class="hugetextarea reqdClr"></textarea>
 
+		<label for="run_interval_desc">run_interval_desc</label>
+		<input type="text" name="run_interval_desc" class="reqdClr">
+		<br>Crontime (Quartz):
+		<table border>
+			<tr>
+				<td>s</td>
+				<td>m</td>
+			</tr>
+			<tr>
+				<td><input type="text" name="cron_sec" class="reqdClr"></td>
+				<td><input type="text" name="cron_min" class="reqdClr"></td>
+			</tr>
+		</table>
+
 
 		<br><input type="submit" value="add task">
 
@@ -1682,9 +1696,9 @@ insert into cf_crontab (
 	,
 	,
 	,
-	run_interval_desc,
-	cron_sec,
-	cron_min,
+	,
+	,
+	,
 	cron_hour,
 	cron_dom,
 	cron_mon,
