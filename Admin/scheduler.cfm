@@ -1615,7 +1615,7 @@ insert into cf_crontab (
 </cfquery>
 <cfoutput>
 	Current Scheduled Tasks:
-	<table class="sorttable" id="tblls">
+	<table class="sorttable" id="tblls" border>
 		<tr>
 			<th>job_name</th>
 			<th>path</th>
