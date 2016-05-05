@@ -1631,6 +1631,7 @@ insert into cf_crontab (
 		}
 		function fetchAllCM(){
 			$("input[id^='cexp_']").each(function(e){
+				console.log(this.id);
 				var thisID=this.id.replace('cexp_');
 				console.log('calling for ' + thisID);
 			});
