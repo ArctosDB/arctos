@@ -1698,7 +1698,7 @@ insert into cf_crontab (
 				<td>#cron_dow#</td>
 				<td>
 					<div style="white-space: nowrap;">#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#</div>
-					<input type="hidden" name="cexp_#cf_crontab_id#" value="#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#">
+					<input type="hidden" id="cexp_#cf_crontab_id#" name="cexp_#cf_crontab_id#" value="#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#">
 				</td>
 				<td><a href="scheduler.cfm?action=deleteTask&cf_crontab_id=#cf_crontab_id#">delete</a></td>
 				<td><a href="scheduler.cfm?action=editTask&cf_crontab_id=#cf_crontab_id#">edit</a></td>
