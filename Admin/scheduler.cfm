@@ -1631,7 +1631,7 @@ insert into cf_crontab (
 				success: function(r) {
 					var arr = r.split(',');
 			        for(var i = 0; i<arr.length; i++){
-			        	$("#cm_" + id + "_" + parseInt(i+1)).html(arr[i]).removeCLass('noshow');
+			        	$("#cm_" + id + "_" + parseInt(i+1)).html(arr[i]).removeClass('noshow');
 			        }
 
 
