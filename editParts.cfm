@@ -387,7 +387,7 @@
 					        <td><input type="text" name="coll_object_remarks"></td>
 					      </tr>
 					      <tr>
-								<td><div align="right">AddToContainer:</div</td>
+								<td><div align="right">AddToContainerBarcode:</div</td>
 								<td><input type="text" name="newPartContainerBarcode"></td>
 							</tr>
 					      <tr>
