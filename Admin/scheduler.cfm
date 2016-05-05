@@ -1612,7 +1612,7 @@ insert into cf_crontab (
 	<script>
 		function getCM(id){
 			$.ajax({
-				url: "/component/functions.cfc?queryformat=column",
+				url: "/component/utilities.cfc?queryformat=column",
 				type: "GET",
 				dataType: "json",
 				async: false,
