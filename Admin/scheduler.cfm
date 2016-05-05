@@ -1638,7 +1638,9 @@ insert into cf_crontab (
 		<cfloop query="sched">
 			<tr>
 				<td>#job_name#</td>
-				<td>#path#</td>
+				<td>
+					<a href="/ScheduledTasks/#path#">#path#</a>
+				</td>
 				<td>#timeout#</td>
 				<td>#purpose#</td>
 				<td>#run_interval_desc#</td>
@@ -1669,7 +1671,7 @@ insert into cf_crontab (
 		<label for="job_name">job_name</label>
 		<input type="text" name="job_name" class="reqdClr">
 
-		<label for="path">path</label>
+		<label for="path">path (/ScheduledTasks/....)</label>
 		<input type="text" name="path" class="reqdClr">
 
 		<label for="timeout">timeout</label>
@@ -1714,7 +1716,7 @@ insert into cf_crontab (
 		<label for="job_name">job_name</label>
 		<input type="text" name="job_name" class="reqdClr" value="#editTask.job_name#">
 
-		<label for="path">path</label>
+		<label for="path">path (/ScheduledTasks/....)</label>
 		<input type="text" name="path" class="reqdClr" value="#editTask.path#">
 
 		<label for="timeout">timeout</label>
