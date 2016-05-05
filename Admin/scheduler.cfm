@@ -1634,6 +1634,7 @@ insert into cf_crontab (
 				console.log(this.id);
 				var thisID=this.id.replace('cexp_','');
 				console.log('calling for ' + thisID);
+				getCM(thisID);
 			});
 		}
 	</script>
