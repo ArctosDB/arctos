@@ -48,6 +48,13 @@ sho err
 	select * from cf_crontab
 </cfquery>
 <cfdump var=#sched#>
+Add a task
+<form method="post" action="scheduler.cfm">
+	<input type="hidden" name="action" value="addTask">
+	<label for="job_name">job_name</label>
+	<input type="text" name="job_name" class="reqdClr">
+	<br><input type="submit" value="add task">
+</form>
 
 
 <!--- first, get rid of everything --->
