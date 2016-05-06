@@ -1806,8 +1806,8 @@ You deleted a collecting event.
 			<td>
 				<div class="smaller">
 				 	#verbatim_locality#
-					(<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">#collecting_event_id#</a>)
-					<br><a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">Find Duplicates</a>
+					<br><a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">Edit #collecting_event_id#</a>
+					~ <a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">Find Duplicates</a>
 					<cfif len(#Verbatim_coordinates#) gt 0>
 						<br>#Verbatim_coordinates#
 					</cfif>
