@@ -330,7 +330,7 @@
 											<li><a target="_top" href="/tools/loadToTable.cfm">CSVToTable</a></li>
 											<li><a target="_top" href="/tblbrowse.cfm">Table Browser</a></li>
 											<li><a target="_top" href="/Admin/getDDL.cfm">Table DDL</a></li>
-											<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
+											<li><a target="_top" href="/Admin/scheduler.cfm">Scheduled Tasks</a></li>
 											<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
 											<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
 											<li><a target="_top" href="/tools/makeGitIgnore.cfm">build .gitignore</a></li>
