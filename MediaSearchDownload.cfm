@@ -12,14 +12,14 @@
 
 <cfif #action# is "nothing">
 <cfquery name="getUserData" datasource="cf_dbuser">
-	SELECT   
+	SELECT
 		cf_users.user_id,
 		first_name,
         middle_name,
         last_name,
         affiliation,
 		email
-	FROM 
+	FROM
 		cf_user_data,
 		cf_users
 	WHERE
@@ -27,19 +27,19 @@
 		username = '#session.username#'
 </cfquery>
 <cfoutput>
-	
+
 <table>
 
 <form method="post" action="MediaSearchDownload.cfm" name="dlForm">
 	<input type="hidden" name="user_id" value="#getUserData.user_id#">
 	<input type="hidden" name="ssql" value="#ssql#">
-	
+
 	<input type="hidden" name="action" value="continue">
 	<input type="hidden" name="cnt" value="#cnt#">
 	<tr>
 		<td colspan="2"><span style="font-weight: bold; font-style: italic;">
-			You must fill out this form before you may download data. Fields with a 
-		    <input type="text" size="2" class="reqdClr"> 
+			You must fill out this form before you may download data. Fields with a
+		    <input type="text" size="2" class="reqdClr">
 		    background color are required.
 	</span></td>
 	</tr>
@@ -86,41 +86,41 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-		These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form 
-		without prior written consent from the Museum. Those wishing to include these data in analyses or reports must acknowledge 
+		These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form
+		without prior written consent from the Museum. Those wishing to include these data in analyses or reports must acknowledge
 		the provenance of the original data and notify the appropriate curator prior to publication. These are secondary data, and
-		 their accuracy is not guaranteed. Citation of the data is no substitute for examination of specimens. The Museum and its staff 
+		 their accuracy is not guaranteed. Citation of the data is no substitute for examination of specimens. The Museum and its staff
 		 are not responsible for loss or damages due to use of these data.
 		</td>
-		
+
 	</tr>
 	<tr>
 		<td colspan="2">
 		<input type="radio" name="agree" value="yes">
-		<a href="javascript: void(0);" onClick="dlForm.agree[0].checked='true'"><font color="##00FF00" size="+1">I agree that the data that I am now downloading are for my own use 
+		<a href="javascript: void(0);" onClick="dlForm.agree[0].checked='true'"><font color="##00FF00" size="+1">I agree that the data that I am now downloading are for my own use
 and will not be repackaged, redistributed, or sold.</font></a>
-		
+
 		</td>
-		
+
 	</tr>
 	<tr>
 		<td colspan="2">
-		
+
 <input type="radio" name="agree" value="no" checked>
 <a href="javascript: void(0);" onClick="dlForm.agree[1].checked='true'"><font color="##FF0000" size="+1">I
 do not agree</font>.</a>
- 
+
 		</td>
-		
+
 	</tr>
 	<tr>
 		<td colspan="2" align="center">
-		<input type="submit" value="Continue" 
+		<input type="submit" value="Continue"
 			class="savBtn"
-   			onmouseover="this.className='savBtn btnhov'" 
+   			onmouseover="this.className='savBtn btnhov'"
 			onmouseout="this.className='savBtn'">
 		</td>
-		
+
 	</tr>
 </form>
 
@@ -199,60 +199,60 @@ do not agree</font>.</a>
 			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 			<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-				variables.joFileWriter.writeLine(header); 
+				variables.joFileWriter.writeLine(header);
 			</cfscript>
 			<cfloop query="findIDs">
 				<cfset oneLine='"http://arctos.database.museum/media/#media_id#"'>
 				<cfif license contains " href=">
 					<cfset bla=replace(license,'<a target="_blank" class="external" href="','')>
 					<cfset qpos=find('"',bla)>
-					<cfset bla=left(bla,qpos-1)>					
+					<cfset bla=left(bla,qpos-1)>
 				<cfelse>
 					<cfset bla=license>
 				</cfif>
 				<cfset thisData=bla>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
+
 				<cfset thisData=mime_type>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
-				
+
+
 				<cfset thisData=media_type>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
+
 				<cfset thisData=preview_uri>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
-				<cfset thisData=media_uri>
+
+				<cfset thisData="http://arctos.database.museum/media/#media_id#?open">
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
+
 				<cfset thisData=relationships>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
+
 				<cfset thisData=labels>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
+
 				<cfset thisData=hastags>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
+
 				<cfset thisData=coordinates>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
-				
+
 				<cfset oneLine = trim(oneLine)>
 				<cfscript>
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
 			</cfloop>
-			<cfscript>	
+			<cfscript>
 				variables.joFileWriter.close();
 			</cfscript>
 			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
@@ -264,7 +264,7 @@ do not agree</font>.</a>
 		You must agree to the terms of usage to download these data.
 		<ul>
 			<li>Click <a href="/home.cfm">here</a> to return to the home page.</li>
-			<li>Use your browser's back button or click <a href="javascript: history.back();">here</a> 
+			<li>Use your browser's back button or click <a href="javascript: history.back();">here</a>
 				if you wish to agree to the terms and proceed with the download.</li>
 			<li>Email <a href="mailto: #Application.bugReportEmail#">#Application.bugReportEmail#</a> if you wish to discuss the terms of
 				usage.</li>
