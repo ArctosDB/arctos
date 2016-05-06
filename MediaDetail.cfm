@@ -70,7 +70,6 @@
 		<cfabort>
 	</cfif>
 <cftry>
-
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	  	<cfset h="/media.cfm?action=newMedia">
         <cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
@@ -235,8 +234,6 @@
                                     <cfinvokeargument name="preview_uri" value="#preview_uri#">
                                     <cfinvokeargument name="media_type" value="#media_type#">
                                 </cfinvoke>
-
-
                                 <div class="one_thumb">
                                     <a href="/media/#media_id#?open" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
                                     <p>
