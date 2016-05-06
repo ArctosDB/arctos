@@ -1815,6 +1815,7 @@ You deleted a collecting event.
 			<td>#began_date#</td>
 			<td>#ended_date#</td>
 			<td>#verbatim_date#</td>
+			<br><a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">Find Duplicates</a>
 		</tr>
 	</cfloop>
 </table>
