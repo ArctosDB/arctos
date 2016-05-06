@@ -1807,6 +1807,7 @@ You deleted a collecting event.
 				<div class="smaller">
 				 	#verbatim_locality#
 					(<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">#collecting_event_id#</a>)
+					<br><a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">Find Duplicates</a>
 					<cfif len(#Verbatim_coordinates#) gt 0>
 						<br>#Verbatim_coordinates#
 					</cfif>
@@ -1815,7 +1816,6 @@ You deleted a collecting event.
 			<td>#began_date#</td>
 			<td>#ended_date#</td>
 			<td>#verbatim_date#</td>
-			<br><a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">Find Duplicates</a>
 		</tr>
 	</cfloop>
 </table>
