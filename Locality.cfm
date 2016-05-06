@@ -1821,7 +1821,11 @@ You deleted a collecting event.
 					select count(distinct(collection_object_id)) c from specimen_event where collecting_event_id=#collecting_event_id#
 				</cfquery>
 				<a href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">#spc.c# specimens</a>
-
+				<cfquery name="mc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select count(*) c from media_relations where media_relationship like '% collecting_event' and
+					related_primary_key=#collecting_event_id#
+				</cfquery>
+				<br><a href="/MediaSearch.cfm?action=search&collecting_event_id=#collecting_event_id#">#mc.c# media</a>
 			</td>
 		</tr>
 	</cfloop>
