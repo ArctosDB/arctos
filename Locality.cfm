@@ -1818,9 +1818,9 @@ You deleted a collecting event.
 			<td>#verbatim_date#</td>
 			<td nowrap>
 				<cfquery name="spc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select count(*) c from specimen_event where collecting_event_id=#collecting_event_id#
+					select count(distinct(collection_object_id)) c from specimen_event where collecting_event_id=#collecting_event_id#
 				</cfquery>
-				<a href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a> (#spc.c# Specimen-Events)
+				<a href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">#spc.c# specimens</a>
 
 			</td>
 		</tr>
