@@ -1816,6 +1816,13 @@ You deleted a collecting event.
 			<td>#began_date#</td>
 			<td>#ended_date#</td>
 			<td>#verbatim_date#</td>
+			<td>
+				<cfquery name="spc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select count(*) c from specimen_event where collecting_event_id=#collecting_event_id#
+				</cfquery>
+				<a href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">#spc.c# specimens</a>
+
+			</td>
 		</tr>
 	</cfloop>
 </table>
