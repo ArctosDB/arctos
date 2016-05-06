@@ -1686,6 +1686,9 @@ insert into cf_crontab (
 		See <a href="http://www.cronmaker.com/" class="external" target="_blank">http://www.cronmaker.com/</a> for toys.
 	</p>
 	<p>
+		See <a href="/ScheduledTasks/index.cfm">/ScheduledTasks/</a> folder
+	</p>
+	<p>
 		Fetch next 10 runtimes -
 		<span class="likeLink" onclick="fetchAllCM()">clicky</span> and wait for the fetch to complete before sorting.
 	</p>
