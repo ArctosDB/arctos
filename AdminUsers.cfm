@@ -529,6 +529,8 @@
 				<br>
 				Please email #getMyEmail.EMAIL# if you have any questions, or
 				#Application.bugReportEmail# if you believe you have received this message in error.
+				<br>
+				See <a href="http://dx.doi.org/10.7299/X75B02M5">http://dx.doi.org/10.7299/X75B02M5</a> for Arctos resources.
 			</cfmail>
 			An invitation has been sent. <a href="AdminUsers.cfm?Action=edit&username=#username#">continue</a>
 		</cfif>
