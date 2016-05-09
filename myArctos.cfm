@@ -176,6 +176,9 @@
 			<script>
 				document.getElementById(pw).value='';
 			</script>
+			<p>
+				See <a href="http://dx.doi.org/10.7299/X75B02M5">http://dx.doi.org/10.7299/X75B02M5</a> for Arctos resources.
+			</p>
 		</div>
 	</cfif>
 	<cfquery name="getUserData" datasource="cf_dbuser">
