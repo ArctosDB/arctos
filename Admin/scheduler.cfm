@@ -74,7 +74,7 @@ insert into cf_crontab (
 	'reportMaintenance.cfm?action=deleteUnused',
 	'600',
 	'maintenance: delete report templates which have no handler and are not used.',
-	'4:17 AM every day',
+	'daily: 4:17 AM',
 	'0',
 	'17',
 	'04',
@@ -1753,14 +1753,12 @@ insert into cf_crontab (
 				<td class="noshow"><div id="cm_#cf_crontab_id#_10"></div></td>
 			</tr>
 			<!--- and actually build the tasks ---->
-			<!----
 			<cfschedule action = "update"
 			    task = "#job_name#"
 			    operation = "HTTPRequest"
 			    url = "127.0.0.1/ScheduledTasks/#path#"
 			    cronTime="#cron_sec# #cron_min# #cron_hour# #cron_dom# #cron_mon# #cron_dow#"
 			    requestTimeOut = "#timeout#">
-			  ---->
 		</cfloop>
 	</table>
 	</cfoutput>
