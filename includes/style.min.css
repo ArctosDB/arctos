@@ -8,7 +8,7 @@
 	width:180px;
 }
 .thtitle{
-	border:1px dashed green;
+	border-bottom:1px dashed green;
 	color:green;
 	font-size:small;
 }

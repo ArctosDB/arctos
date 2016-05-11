@@ -325,7 +325,8 @@
 	<cfset np=pg+1>
 	<cfset pp=pg-1>
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
-		Showing <div class="hasTitle" title="#mrdescr#">Media results</div> #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
+	<!---class="" title="#mrdescr#"---->
+		Showing <div>Media results</div> #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
 		<cfif len(srchall) gt 0>
 			[ <a href="#srchall#">[ view details ]</a>
 		</cfif>
