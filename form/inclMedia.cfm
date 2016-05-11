@@ -16,6 +16,11 @@
 </cfif>
 <style>
  .audiothumb { width:180px; }
+	.thtitle{
+		border:1px dashed green;
+		color:green;
+		font-size:small;
+	}
 </style>
 <cfoutput>
 	<cfif typ is "taxon">
@@ -345,6 +350,7 @@
 	</div>
 	<cfset rownum=1>
 		<div class="thumbs">
+			<div class="thtitle">#mrdescr#</div>
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="mediaResultsQuery" startrow="#start#" endrow="#stop#">
             	<cfset puri=obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
