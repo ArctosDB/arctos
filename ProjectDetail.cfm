@@ -141,9 +141,6 @@
 	<cfset noHTML=replacenocase(noHTML,'</i>','','all')>
 	<cfset title = "Project Detail: #noHTML#">
 	<div class="proj_title">#p.project_name#</div>
-	<cfif len(p.funded_usd) gt 0>
-		<div class="funded_usd">Funded for $#p.funded_usd#</div>
-	</cfif>
 	<!----
 	<cfloop query="s">
 		<div class="proj_sponsor">
@@ -165,6 +162,12 @@
 	</cfif>
 	<h2>Description</h2>
 	#p.project_description#
+
+	<cfif len(p.funded_usd) gt 0>
+		<div class="funded_usd">This project was funded for $#p.funded_usd#</div>
+	</cfif>
+
+
 	<div id="pubs">
 		<img src="/images/indicator.gif">
 	</div>
