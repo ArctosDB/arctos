@@ -202,19 +202,15 @@
 			 		)
 
 	</cfquery>
-
-	<cfdump var=#supported_research_value#>
-
 	<cfif len(p.funded_usd) gt 0>
+		<cfset f="This project was funded for $#p.funded_usd#">
+		<cfif len(supported_research_value.supported_research_value) gt 0>
+			<cfset f=f & ", and has supported projects funded for $#supported_research_value.supported_research_value#">
+		</cfif>
 		<div class="funded_usd">
-			This project was funded for $#p.funded_usd#
-			<cfif len(supported_research_value.supported_research_value) gt 0>
-				, and has supported projects funded for $#supported_research_value.supported_research_value#
-			</cfif>
+			#f#.
 		</div>
 	</cfif>
-
-
 	<div id="pubs">
 		<img src="/images/indicator.gif">
 	</div>
