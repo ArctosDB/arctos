@@ -14,14 +14,6 @@
 <cfif not isdefined("pg") or len(pg) eq 0>
 	<cfset pg=1>
 </cfif>
-<style>
- .audiothumb { width:180px; }
-	.thtitle{
-		border:1px dashed green;
-		color:green;
-		font-size:small;
-	}
-</style>
 <cfoutput>
 	<cfif typ is "taxon">
 		<cfset srchall="/MediaSearch.cfm?action=search&taxon_name_id=#q#">

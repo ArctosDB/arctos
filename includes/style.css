@@ -54,6 +54,27 @@
 .tr       { display: table-row }
 .td, th   { display: table-cell }
 
+
+
+
+/*
+	BEGIN media include widget
+*/
+
+.audiothumb {
+	width:180px;
+}
+.thtitle{
+	border:1px dashed green;
+	color:green;
+	font-size:small;
+}
+ 
+/*
+	END media include widget
+*/
+
+
 /* BEGIN tooltip */
 
 .hasTitle {
