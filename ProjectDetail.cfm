@@ -142,7 +142,7 @@
 	<cfset title = "Project Detail: #noHTML#">
 	<div class="proj_title">#p.project_name#</div>
 	<cfif len(p.funded_usd) gt 0>
-		<div class="funded_usd">Funded for $#funded_usd#</div>
+		<div class="funded_usd">Funded for $#p.funded_usd#</div>
 	</cfif>
 	<!----
 	<cfloop query="s">
