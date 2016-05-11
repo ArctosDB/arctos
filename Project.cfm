@@ -288,7 +288,7 @@
 						</td>
 						<td>
 							<label for="funded_usd" class="likeLink" onClick="getDocs('project','funded_usd')">Funded $ (US Dollars)</label>
-							<input type="text" name="funded_usd" id="funded_usd" value="#funded_usd#">
+							<input type="text" name="funded_usd" id="funded_usd" value="#proj,funded_usd#">
 						</td>
 					</tr>
 				</table>
