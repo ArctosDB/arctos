@@ -206,7 +206,12 @@
 	<cfdump var=#supported_research_value#>
 
 	<cfif len(p.funded_usd) gt 0>
-		<div class="funded_usd">This project was funded for $#p.funded_usd#</div>
+		<div class="funded_usd">
+			This project was funded for $#p.funded_usd#
+			<cfif len(supported_research_value.supported_research_value) gt 0>
+				and has supported other projects funded for $#supported_research_value.supported_research_value#
+			</cfif>
+		</div>
 	</cfif>
 
 
