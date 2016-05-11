@@ -143,7 +143,8 @@
 				project_agent_role,
 				project_remarks,
 				agent_position,
-				project_agent_remarks
+				project_agent_remarks,
+				project.funded_usd
 			FROM
 				project,
 				preferred_agent_name,
@@ -227,7 +228,8 @@
 				start_date,
 				end_date,
 				project_description,
-				project_remarks
+				project_remarks,
+				funded_usd
 			FROM
 				getDetails
 			group by
@@ -236,7 +238,8 @@
 				start_date,
 				end_date,
 				project_description,
-				project_remarks
+				project_remarks,
+				funded_usd
 		</cfquery>
 		<cfquery name="numAgents" dbtype="query">
 			select max(agent_position) as  agent_position from agents
@@ -282,6 +285,10 @@
 						<td>
 							<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 							<input type="text" name="end_date" id="end_date" value="#dateformat(proj.end_date,"yyyy-mm-dd")#">
+						</td>
+						<td>
+							<label for="funded_usd" class="likeLink" onClick="getDocs('project','funded_usd')">Funded $ (US Dollars)</label>
+							<input type="text" name="funded_usd" id="funded_usd" value="#funded_usd#">
 						</td>
 					</tr>
 				</table>
@@ -490,7 +497,8 @@
 				start_date = '#dateformat(start_date,"yyyy-mm-dd")#',
 				 end_date = '#dateformat(end_date,"yyyy-mm-dd")#',
 				 project_description = '#project_description#',
-				 project_remarks = '#project_remarks#'
+				 project_remarks = '#project_remarks#',
+				 funded_usd=<cfif len(funded_usd) gt 0>#funded_usd#<cfelse>NULL</cfif>
 			where project_id=#project_id#
 		</cfquery>
 		<cfloop from="1" to="#numberOfAgents#" index="n">
