@@ -64,7 +64,8 @@
 			preferred_agent_name.agent_name,
 			agent_position,
 			project_agent_role,
-			project_agent_remarks
+			project_agent_remarks,
+			funded_usd
 		FROM
 			project,
 			project_agent,
@@ -80,7 +81,8 @@
 			project_name,
 			project_description,
 			start_date,
-			end_date
+			end_date,
+			funded_usd
 		from
 			proj
 		group by
@@ -88,7 +90,8 @@
 			project_name,
 			project_description,
 			start_date,
-			end_date
+			end_date,
+			funded_usd
 	</cfquery>
 	<cfquery name="a" dbtype="query">
 		select
@@ -138,6 +141,9 @@
 	<cfset noHTML=replacenocase(noHTML,'</i>','','all')>
 	<cfset title = "Project Detail: #noHTML#">
 	<div class="proj_title">#p.project_name#</div>
+	<cfif len(p.funded_usd) gt 0>
+		<div class="funded_usd">Funded for $#funded_usd#</div>
+	</cfif>
 	<!----
 	<cfloop query="s">
 		<div class="proj_sponsor">
