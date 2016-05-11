@@ -209,7 +209,7 @@
 		<div class="funded_usd">
 			This project was funded for $#p.funded_usd#
 			<cfif len(supported_research_value.supported_research_value) gt 0>
-				and has supported other projects funded for $#supported_research_value.supported_research_value#
+				, and has supported projects funded for $#supported_research_value.supported_research_value#
 			</cfif>
 		</div>
 	</cfif>
