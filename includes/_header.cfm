@@ -119,12 +119,11 @@
 							<table border="0" cellpadding="0" cellspacing="0">
 								<tr>
 									<td>
-
 										<input type="text" name="username" title="username" size="12"
-											class="loginTxt" placeholder="username">
+											class="loginTxt" placeholder="username" required>
 									</td>
 									<td>
-										<input type="password" name="password" title="Password" placeholder="password" size="12" class="loginTxt">
+										<input type="password" name="password" title="Password" placeholder="password" size="12" class="loginTxt" required>
 									</td>
 								</tr>
 								<tr>
