@@ -1,3 +1,28 @@
+<!----
+
+create unique index ixu_cf_temp_lbl2contr_bc on cf_temp_lbl2contr (barcode) tablespace uam_idx_1;
+
+
+
+
+UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ BARCODE							   NOT NULL VARCHAR2(255)
+ OLD_CONTAINER_TYPE						   NOT NULL VARCHAR2(255)
+ CONTAINER_TYPE 						   NOT NULL VARCHAR2(255)
+ DESCRIPTION								    VARCHAR2(255)
+ CONTAINER_REMARKS							    VARCHAR2(255)
+ HEIGHT 								    NUMBER
+ LENGTH 								    NUMBER
+ WIDTH									    NUMBER
+ NUMBER_POSITIONS							    NUMBER
+ STATUS 								    VARCHAR2(255)
+ NOTE									    VARCHAR2(4000)
+ LABEL									    VARCHAR2(255)
+
+
+---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulk Edit Container">
 <cfset thecolumns="BARCODE,LABEL,OLD_CONTAINER_TYPE,CONTAINER_TYPE,DESCRIPTION,CONTAINER_REMARKS,HEIGHT,LENGTH,WIDTH,NUMBER_POSITIONS">

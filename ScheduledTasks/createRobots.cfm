@@ -128,13 +128,12 @@
 			<cfset robotscontent=robotscontent & chr(10) & "Disallow: /" & i>
 		</cfloop>
 
-		<cfset crapbots="MJ12bot,Baiduspider,ca-crawler,CCBot,DomainTunoCrawler,Gluten Free Crawler,HubSpot,MegaIndex,Nutch,SemrushBot">
+		<cfset crapbots="MJ12bot,Baiduspider,ca-crawler,CCBot,DomainTunoCrawler,DeuSu,Gluten Free Crawler,HubSpot,MegaIndex,Nutch,NAVER,SemrushBot">
 		<cfset crapbots=crapbots & "spbot,Synapse,TweetmemeBot,UnisterBot,YandexBot">
 		<cfloop list="#crapbots#" index="i">
 			<cfset robotscontent=robotscontent & chr(10) & chr(10) & "User-agent: " & i>
 			<cfset robotscontent=robotscontent & chr(10) & "Disallow: /">
 		</cfloop>
-
 
 		<cfscript>
 			variables.joFileWriter.writeLine(robotscontent);

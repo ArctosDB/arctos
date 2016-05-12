@@ -1012,14 +1012,11 @@
 	<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date <= '#ended_date#'">
 </cfif>
 
-
-
 <cfif isdefined("year") AND len(year) gt 0>
 		<!--- ignore, already exact-match ---->
 	<cfif left(year,1) is '='>
 		<cfset year=right(year,len(year)-1)>
 	</cfif>
-
 	<cfif not isYear(year) and compare(year,"NULL") is not 0>
 		<div class="error">
 			Year (<cfoutput>#year#</cfoutput>) must be a 4-digit number.
@@ -1034,8 +1031,25 @@
 		<cfset basQual = " #basQual# AND #session.flatTableName#.year = #year#">
 	</cfif>
 </cfif>
-
-
+<cfif isdefined("month") AND len(month) gt 0>
+		<!--- ignore, already exact-match ---->
+	<cfif left(month,1) is '='>
+		<cfset month=right(month,len(month)-1)>
+	</cfif>
+	<cfif compare(month,"NULL") is not 0 and not (month between 1 and 12)>
+		<div class="error">
+			month (<cfoutput>#month#</cfoutput>) must be between 1 and 12.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&month=#month#">
+	<cfif  compare(month,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.month is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.month = #month#">
+	</cfif>
+</cfif>
 <cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
 		<div class="error">
@@ -1048,16 +1062,16 @@
 	<cfif  compare(begYear,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.began_date is null ">
 	<cfelse>
-		<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.year >= #begYear#">
 	</cfif>
 </cfif>
 <cfif isdefined("begMon") AND len(begMon) gt 0>
 	<cfset mapurl = "#mapurl#&begMon=#begMon#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) >= #begMon#">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.month >= #begMon#">
 </cfif>
 <cfif isdefined("begDay") AND len(begDay) gt 0>
 	<cfset mapurl = "#mapurl#&begDay=#begDay#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) >= #begDay#">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.day >= #begDay#">
 </cfif>
 
 <cfif isdefined("endYear") AND len(endYear) gt 0>
@@ -1072,16 +1086,16 @@
 	<cfif  compare(endYear,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date is null ">
 	<cfelse>
-		<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) <= #endYear#">
+		<cfset basQual = " #basQual# AND T#session.flatTableName#.year <= #endYear#">
 	</cfif>
 </cfif>
 <cfif isdefined("endMon") AND len(endMon) gt 0>
 	<cfset mapurl = "#mapurl#&endMon=#endMon#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2)) <= #endMon#">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.month <= #endMon#">
 </cfif>
 <cfif isdefined("endDay") AND len(endDay) gt 0>
 	<cfset mapurl = "#mapurl#&endDay=#endDay#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) <= #endDay#">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.day <= #endDay#">
 </cfif>
 <cfif isdefined("specimen_event_id") AND len(specimen_event_id) gt 0>
 	<cfset mapurl = "#mapurl#&specimen_event_id=#specimen_event_id#">
