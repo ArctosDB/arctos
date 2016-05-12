@@ -1050,6 +1050,25 @@
 		<cfset basQual = " #basQual# AND #session.flatTableName#.month = #month#">
 	</cfif>
 </cfif>
+<cfif isdefined("day") AND len(day) gt 0>
+		<!--- ignore, already exact-match ---->
+	<cfif left(day,1) is '='>
+		<cfset day=right(day,len(day)-1)>
+	</cfif>
+	<cfif compare(day,"NULL") is not 0 and not (day gte 1 and day lte 31)>
+		<div class="error">
+			day (<cfoutput>#day#</cfoutput>) must be between 1 and 31.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&day=#day#">
+	<cfif  compare(day,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.day is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.day = #day#">
+	</cfif>
+</cfif>
 <cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
 		<div class="error">
