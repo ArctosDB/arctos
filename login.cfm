@@ -159,9 +159,9 @@
 		<input name="action" value="signIn" type="hidden">
 		<input name="gotopage" value="#gotopage#" type="hidden">
 		<label for="username">Username</label>
-		<input name="username" type="text" tabindex="1" value="#username#" id="username">
+		<input name="username" type="text" tabindex="1" required value="#username#" id="username">
 		<label for="password">Password</label>
-		<input name="password" type="password" tabindex="2" value="" id="password">
+		<input name="password" type="password" tabindex="2" required value="" id="password">
 		<cfif isdefined("badPW") and badPW is true>
 			<cfif not isdefined("err") or len(err) is 0>
 				<cfset err="Your username or password was not recognized. Please try again.">
