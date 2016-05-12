@@ -1036,7 +1036,7 @@
 	<cfif left(month,1) is '='>
 		<cfset month=right(month,len(month)-1)>
 	</cfif>
-	<cfif compare(month,"NULL") is not 0 and not (month between 1 and 12)>
+	<cfif compare(month,"NULL") is not 0 and not (month gte 1 and month lte 12)>
 		<div class="error">
 			month (<cfoutput>#month#</cfoutput>) must be between 1 and 12.
 		</div>
