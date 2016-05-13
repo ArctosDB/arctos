@@ -179,6 +179,9 @@
 		&nbsp;or&nbsp;<input type="button" value="Create an Account" class="insBtn" onClick="isInfo();" tabindex="4">
 	</form>
 	<p>
+		<a href="https://arctosdb.org/how-to/users/#create" target="_blank" class="external">Operator documentation</a>
+	</p>
+	<p>
 		<a href="/ChangePassword.cfm">Lost your password?</a> If you created a profile with an email address,
 		we can send it to you. You can also just create a new account.
 	</p>
