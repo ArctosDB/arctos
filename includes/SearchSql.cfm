@@ -1946,7 +1946,7 @@
 			#session.flatTableName#.collection_object_id=specimen_part.derived_from_cat_item AND
 			specimen_part.collection_object_id = loan_item.collection_object_id AND
 			loan_item.transaction_id = project_trans.transaction_id AND
-			project_trans.project_id = #loan_project_id#
+			project_trans.project_id in ( #loan_project_id# )
 		UNION -- data loans
 		SELECT
 			#session.flatTableName#.collection_object_id
@@ -1957,7 +1957,7 @@
 		WHERE
 			#session.flatTableName#.collection_object_id = loan_item.collection_object_id AND
 			loan_item.transaction_id = project_trans.transaction_id AND
-			project_trans.project_id = #loan_project_id#)">
+			project_trans.project_id in ( #loan_project_id# ) )">
 </cfif>
 <cfif isdefined("project_name") AND len(project_name) gt 0>
 	<cfif basJoin does not contain " projAccn ">
