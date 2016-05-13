@@ -42,7 +42,7 @@
 	</cfquery>
 	<cfif getUsers.recordcount gt 0>
 		<h2>Projects using contributed specimens</h2>
-			#getUsers.recordcount# Projects <a href="/SpecimenResults.cfm?loan_project_id=#valuelist(getUsers.project_id)#">used specimens contributed by this project</a>.
+			#getUsers.recordcount# Projects <a href="/SpecimenResults.cfm?project_id=#project_id#&loan_project_id=#valuelist(getUsers.project_id)#">used specimens contributed by this project</a>.
 		<ul>
 		<cfloop query="getUsers">
 			<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
