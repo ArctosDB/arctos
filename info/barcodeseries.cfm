@@ -684,9 +684,13 @@
 
 
 
+select BARCODESERIESSQL from cf_barcodeseries where key=102284020;
 
-
-
+update cf_barcodeseries set barcodeseriessql='regexp_like(barcode,''^[0-9]*$'') and to_number(barcode) between 2 and 405000' where key=102284020;
+	
+	
+	
+	
 
 	CREATE OR REPLACE FUNCTION is_claimed_barcode (barcode in varchar) return varchar
 as
@@ -732,11 +736,24 @@ sho err;
 
 exec temp_update_junk;
 
+
+delete from temp_all_barcode where is_claimed_barcode(barcode)='PASS';
+
+select barcode from temp_all_barcode order by barcode;
+
+select barcode from temp_all_barcode where trim(barcode) != barcode;
+
+select barcode from container where trim(barcode) != barcode;
+
+select is_claimed_barcode('1') from dual;
+
+
+
 alter table temp_all_barcode add institution_acronym varchar2(20);
 
 update temp_all_barcode set institution_acronym=(select institution_acronym from container where temp_all_barcode.barcode=container.barcode);
 
-
+update temp_all_barcode set barcode=trim(barcode) where trim(barcode) != barcode;
 
 -- cleanup
 
@@ -768,7 +785,6 @@ select barcode from temp_all_barcode order by barcode;
 
 
 
-select is_claimed_barcode('1') from dual;
 
 
 sho err;

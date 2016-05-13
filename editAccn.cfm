@@ -324,8 +324,8 @@
 						<td colspan="6" align="center">
 						<input type="button" value="Save Changes" class="savBtn"
 							onClick="editAccn.action.value='saveChanges';editAccn.submit();">
-				 		<input type="button" value="Quit without saving" class="qutBtn"
-							onclick = "document.location = 'editAccn.cfm'">
+				 		<input type="button" value="Discard unsaved changes" class="qutBtn"
+							onclick = "document.location = 'editAccn.cfm?transaction_id=#transaction_id#'">
 						<input type="button" value="Delete" class="delBtn" onClick="editAccn.action.value='deleteAccn';confirmDelete('editAccn');">
 
 
