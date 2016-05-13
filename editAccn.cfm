@@ -325,7 +325,7 @@
 						<input type="button" value="Save Changes" class="savBtn"
 							onClick="editAccn.action.value='saveChanges';editAccn.submit();">
 				 		<input type="button" value="Discard unsaved changes" class="qutBtn"
-							onclick = "document.location = 'editAccn.cfm?transaction_id=#transaction_id#'">
+							onclick = "document.location = 'editAccn.cfm?action=edit&transaction_id=#transaction_id#'">
 						<input type="button" value="Delete" class="delBtn" onClick="editAccn.action.value='deleteAccn';confirmDelete('editAccn');">
 
 
