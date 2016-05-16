@@ -418,7 +418,7 @@
 			<cfset whr ="#whr# AND media_flat.media_id = ml_mipubyr.media_id ">
 			<cfset srch="#srch# AND ml_mipubyr.media_label = 'made date'">
 			<cfset srch="#srch# AND is_iso8601(ml_mipubyr.label_value)='valid' and ml_mipubyr.label_value >= '#min_made_date#'">
-			<cfset mapurl="#mapurl#&min_published_year=#min_published_year#">
+			<cfset mapurl="#mapurl#&min_made_date=#min_made_date#">
 		</cfif>
 		<cfif (isdefined("max_made_date") and len(max_made_date) gt 0)>
 			<cfset tabls = "#tabls#,media_labels ml_mapubyr">
