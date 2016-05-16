@@ -123,7 +123,7 @@
 											class="loginTxt" placeholder="username" required>
 									</td>
 									<td>
-										<input type="password" name="password" title="Password" placeholder="password" size="12" class="loginTxt" required>
+										<input type="password" name="password" title="password" placeholder="password" size="12" class="loginTxt" required>
 									</td>
 								</tr>
 								<tr>
@@ -141,7 +141,6 @@
 					</div>
 				</cfif>
 			</div>
-
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>

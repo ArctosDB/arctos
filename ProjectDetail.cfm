@@ -165,7 +165,7 @@
 
 
 
-<cfquery name="supported_research_value" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="supported_research_value" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			sum(funded_usd) supported_research_value
 		FROM
@@ -198,9 +198,8 @@
 			 				project_trans.transaction_id = accn.transaction_id AND
 			 				project_trans.project_id = project.project_id AND
 			 				project.project_id = #project_id#
-			 			)
 			 		)
-
+			 )
 	</cfquery>
 	<cfif len(p.funded_usd) gt 0>
 		<cfset f="This project was funded for $#p.funded_usd#">
