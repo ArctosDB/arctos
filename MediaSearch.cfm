@@ -158,10 +158,10 @@
 			<input type="text" name="earliest_date" id="earliest_date" size="8">-<input type="text" name="latest_date" id="latest_date" size="8">
 
 
-			<label for="min_published_year">
+			<label for="min_made_date">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=made date" target="_blank">Made Date (min-max from Media metadata)</a>
 			</label>
-			<input type="text" name="min_published_year" id="min_published_year" size="8">-<input type="text" name="max_published_year" id="max_published_year" size="8">
+			<input type="text" name="min_made_date" id="min_made_date" size="8">-<input type="text" name="max_made_date" id="max_made_date" size="8">
 
 			<table>
 				<tr>
@@ -413,19 +413,19 @@
 			<cfset srch="#srch# AND upper(ml_titl.label_value) like '%#ucase(doc_title)#%'">
 			<cfset mapurl="#mapurl#&doc_title=#doc_title#">
 		</cfif>
-		<cfif (isdefined("min_published_year") and len(min_published_year) gt 0)>
+		<cfif (isdefined("min_made_date") and len(min_made_date) gt 0)>
 			<cfset tabls = "#tabls#,media_labels ml_mipubyr">
 			<cfset whr ="#whr# AND media_flat.media_id = ml_mipubyr.media_id ">
-			<cfset srch="#srch# AND ml_mipubyr.media_label = 'published year'">
-			<cfset srch="#srch# AND is_number(ml_mipubyr.label_value)=1 and ml_mipubyr.label_value >= '#min_published_year#'">
+			<cfset srch="#srch# AND ml_mipubyr.media_label = 'made date'">
+			<cfset srch="#srch# AND is_iso8601(ml_mipubyr.label_value)='valid' and ml_mipubyr.label_value >= '#min_made_date#'">
 			<cfset mapurl="#mapurl#&min_published_year=#min_published_year#">
 		</cfif>
-		<cfif (isdefined("max_published_year") and len(max_published_year) gt 0)>
+		<cfif (isdefined("max_made_date") and len(max_made_date) gt 0)>
 			<cfset tabls = "#tabls#,media_labels ml_mapubyr">
 			<cfset whr ="#whr# AND media_flat.media_id = ml_mapubyr.media_id ">
-			<cfset srch="#srch# AND ml_mapubyr.media_label = 'published year'">
-			<cfset srch="#srch# AND is_number(ml_mapubyr.label_value)=1 and ml_mapubyr.label_value <= '#max_published_year#'">
-			<cfset mapurl="#mapurl#&max_published_year=#max_published_year#">
+			<cfset srch="#srch# AND ml_mapubyr.media_label = 'made date'">
+			<cfset srch="#srch# AND is_iso8601(ml_mapubyr.label_value)='valid' and ml_mapubyr.label_value <= '#max_made_date#'">
+			<cfset mapurl="#mapurl#&max_made_date=#max_made_date#">
 		</cfif>
 
 		<cfif (isdefined("earliest_date") and len(earliest_date) gt 0)>
