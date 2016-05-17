@@ -200,6 +200,8 @@ function checkCoordinateError(){
 		// add wkt if available
         var wkt=$("#wkt_polygon").val(); //this is your WKT string
         if (wkt.length>0){
+
+        	console.log('going wkt...');
 			//using regex, we will get the indivudal Rings
 			var regex = /\(([^()]+)\)/g;
 			var Rings = [];
