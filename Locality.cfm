@@ -550,10 +550,14 @@ var poly = new google.maps.Polygon({
   for(var i=0;i<arrSP.length;i++){
   		//var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
   		var xy=arrSP[i].split(",");
+  		console.log('xy: ' + xy);
+
+		var x=xy[i].split(",");
+  		console.log('x: ' + x);
 
   		var latLng2 = new google.maps.LatLng(xy);
 
-  		console.log('xy: ' + xy);
+
   		var marker2 = new google.maps.Marker({
 		    position: latLng2,
 		    map: map,
