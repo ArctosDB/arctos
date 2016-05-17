@@ -559,13 +559,16 @@ var xyA=xy.toString().split(',');
 
 		console.log('xyA: ' + xyA);
 
+		var x=xyA[0];
+		  		console.log('x: ' + x);
+
+
 /*
 		var x=xyA[0];
 
 
 		var y=xyA[1];
 
-  		console.log('x: ' + x);
   		console.log('y: ' + y);
 
   		var latLng2 = new google.maps.LatLng(xy);
