@@ -670,7 +670,6 @@
 				</tr>
 
 
-				<div id="map-canvas"></div>
 
 
 				<cfquery name="geog_search_term" datasource="uam_god">
