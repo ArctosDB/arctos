@@ -495,7 +495,6 @@ map.fitBounds(bounds);
 
 
 var map;
-var elevator;
 var myOptions = {
     zoom: 9,
     center: new google.maps.LatLng(5,100.9),
@@ -557,6 +556,13 @@ function AddPoints(data){
 }
 
 
+google.maps.Polygon.prototype.my_getBounds=function(){
+    var bounds = new google.maps.LatLngBounds()
+    this.getPath().forEach(function(element,index){bounds.extend(element)})
+    return bounds
+}
+
+myPolygon.my_getBounds().getCenter();
 
 
 
