@@ -118,30 +118,29 @@
        <cfset basJoin = " #basJoin# INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id = cataloged_item.collection_object_id)">
    </cfif>
 </cfif>
-
 <cfif isdefined("anyid") and len(trim(anyid)) gt 0>
 	<cfset mapurl = "#mapurl#&anyid=#anyid#">
 	 <cfif basJoin does not contain "specimen_part">
-        <cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
+        <cfset basJoin = " #basJoin# left outer JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
     </cfif>
     <cfif basJoin does not contain "coll_obj_cont_hist">
-        <cfset basJoin = " #basJoin# INNER JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)">
+        <cfset basJoin = " #basJoin# left outer JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)">
     </cfif>
     <cfif basJoin does not contain "coll_obj_container">
-        <cfset basJoin = " #basJoin# INNER JOIN container coll_obj_container ON (coll_obj_cont_hist.container_id = coll_obj_container.container_id)">
+        <cfset basJoin = " #basJoin# left outer JOIN container coll_obj_container ON (coll_obj_cont_hist.container_id = coll_obj_container.container_id)">
     </cfif>
     <cfif basJoin does not contain "parent_container">
-        <cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
+        <cfset basJoin = " #basJoin# left outer JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
     </cfif>
 	 <cfif basJoin does not contain " otherIdSearch ">
-        <cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
+        <cfset basJoin = " #basJoin# left outer JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
     </cfif>
     <cfset basQual = " #basQual# AND (
 	   upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#' OR
 	   parent_container.barcode  like '#ucase(anyid)#' OR
 	   upper(#session.flatTableName#.guid) like '#ucase(anyid)#' OR
-	   (upper(otherIdSearch.display_value) LIKE '#ucase(anyid)#') OR
-	    upper(#session.flatTableName#.accession) LIKE '#ucase(anyid)#'
+	   upper(otherIdSearch.display_value) LIKE '#ucase(anyid)#' OR
+	   upper(#session.flatTableName#.accession) LIKE '#ucase(anyid)#'
 	)">
 </cfif>
 
