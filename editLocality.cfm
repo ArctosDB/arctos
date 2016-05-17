@@ -208,12 +208,14 @@ function checkCoordinateError(){
 			var results;
 			while( results = regex.exec(wkt) ) {
 			    Rings.push( results[1] );
+			    console.log('added ring');
 			}
 			var ptsArray=[];
 			var polyLen=Rings.length;
 			//now we need to draw the polygon for each of inner rings, but reversed
 			for(var i=0;i<polyLen;i++){
 			    AddPoints(Rings[i]);
+			    console.log('added polyring');
 			}
 			var poly = new google.maps.Polygon({
 			    paths: ptsArray,
