@@ -511,7 +511,6 @@ map = new google.maps.Map($('#map')[0], myOptions);
 var wkt=$("#wkt_polygon").val();
 
 
-console.log('wkt: ' + wkt);
 
 //using regex, we will get the indivudal Rings
 var regex = /\(([^()]+)\)/g;
@@ -519,7 +518,6 @@ var Rings = [];
 var results;
 while( results = regex.exec(wkt) ) {
     Rings.push( results[1] );
-    console.log('pushing ' + results[1]);
 }
 
 var ptsArray=[];
@@ -530,7 +528,6 @@ var polyLen=Rings.length;
 for(var i=0;i<polyLen;i++){
     AddPoints(Rings[i]);
 
-    console.log('AddPoints: ' + Rings[i]);
 }
 
 var poly = new google.maps.Polygon({
@@ -563,9 +560,7 @@ function AddPoints(data){
 
          var xy=pointsData[i].split(" ");
 
-    	console.log('xy: ' + xy);
 
-         console.log(xy[1] + ',' + xy[0]);
 
         var pt=new google.maps.LatLng(xy[1],xy[0]);
 
@@ -584,7 +579,6 @@ function AddPoints(data){
 map.fitBounds(bounds);
 
 
-console.log(bounds);
 
 	});
 
@@ -816,9 +810,6 @@ console.log(bounds);
 						<div id="map"></div>
 	                </td>
 				</tr>
-
-
-
 
 				<cfquery name="geog_search_term" datasource="uam_god">
 					select * from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id#
