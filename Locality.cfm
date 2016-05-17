@@ -628,6 +628,20 @@ map.fitBounds(bounds);
 			order by
 				collection.guid_prefix
 		</cfquery>
+
+
+		<cfquery name="scoords" datasource="uam_god">
+			select distinct
+				round(dec_lat,2) || ',' || round(dec_long,2) rcords
+			from
+				locality
+			where
+			 	geog_auth_rec_id=#geog_auth_rec_id#
+		</cfquery>
+
+		<cfdump var=#scoords#>
+
+
 		<cfquery name="sspe" dbtype="query">
 			select sum(c) sct from specimen
 		</cfquery>
