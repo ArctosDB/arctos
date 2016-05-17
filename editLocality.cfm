@@ -38,7 +38,6 @@ legend {
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 <script language="javascript" type="text/javascript">
-
 	rad = function(x) {return x*Math.PI/180;}
 	distHaversine = function(p1, p2) {
 	  var R = 6371; // earth's mean radius in km

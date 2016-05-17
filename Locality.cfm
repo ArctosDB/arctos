@@ -369,6 +369,72 @@
 	function asterisckificateisland(){
 		$("#island").val("*" + $("#island").val());
 	}
+
+	jQuery(document).ready(function() {
+
+
+ 		var map;
+ 		var mapOptions = {
+        	center: new google.maps.LatLng($("0, 0),
+         	mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var bounds = new google.maps.LatLngBounds();
+		function initialize() {
+        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      	}
+		initialize();
+
+
+
+		// add wkt if available
+        var wkt=$("#wkt_polygon").val(); //this is your WKT string
+        if (wkt.length>0){
+
+        	console.log('going wkt...');
+			//using regex, we will get the indivudal Rings
+			var regex = /\(([^()]+)\)/g;
+			var Rings = [];
+			var results;
+			while( results = regex.exec(wkt) ) {
+			    Rings.push( results[1] );
+			    console.log('added ring');
+			}
+			var ptsArray=[];
+			var polyLen=Rings.length;
+			//now we need to draw the polygon for each of inner rings, but reversed
+			for(var i=0;i<polyLen;i++){
+			    AddPoints(Rings[i]);
+			    console.log('added polyring');
+			}
+			var poly = new google.maps.Polygon({
+			    paths: ptsArray,
+			    strokeColor: '#DC143C',
+			    strokeOpacity: 0.8,
+			    strokeWeight: 2,
+			    fillColor: '#FF7F50',
+			    fillOpacity: 0.35
+			  });
+			  poly.setMap(map);
+        }
+		//function to add points from individual rings, used in adding WKT to the map
+		function AddPoints(data){
+		    //first spilt the string into individual points
+		    var pointsData=data.split(",");
+		    //iterate over each points data and create a latlong
+		    //& add it to the cords array
+		    var len=pointsData.length;
+		    for (var i=0;i<len;i++)
+		    {
+		        var xy=pointsData[i].trim().split(" ");
+		        var pt=new google.maps.LatLng(xy[1],xy[0]);
+		        ptsArray.push(pt);
+		    }
+		}
+		// END add wkt if available
+		// end map setup
+
+	});
+
 </script>
 <cfset title = "Edit Geography">
 	<cfoutput>
@@ -587,8 +653,15 @@
 	                <td colspan="4">
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
+	                	<br>
+	                	<div id="map-canvas"></div>
 	                </td>
 				</tr>
+
+
+				<div id="map-canvas"></div>
+
+
 				<cfquery name="geog_search_term" datasource="uam_god">
 					select * from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id#
 				</cfquery>
