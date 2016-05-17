@@ -375,7 +375,7 @@
 
  		var map;
  		var mapOptions = {
-        	center: new google.maps.LatLng($("0, 0),
+        	center: new google.maps.LatLng($("0, 0"),
          	mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var bounds = new google.maps.LatLngBounds();
