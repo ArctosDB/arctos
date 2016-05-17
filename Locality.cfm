@@ -530,6 +530,8 @@ for(var i=0;i<polyLen;i++){
 
 }
 
+
+
 var poly = new google.maps.Polygon({
     paths: ptsArray,
     strokeColor: '#1E90FF',
@@ -540,6 +542,20 @@ var poly = new google.maps.Polygon({
   });
 
   poly.setMap(map);
+
+
+  var scoords=$("#scoords").val();
+  var arrSP = scoords.split( "|" );
+
+  for(var i=0;i<arrSP.length;i++){
+  		//var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
+  		var xy=arrSP[i].split(",");
+  		console.log('xy: ' + xy);
+  	}
+
+
+
+
 
 
 //function to add points from individual rings
@@ -641,6 +657,8 @@ map.fitBounds(bounds);
 		</cfquery>
 
 		<cfdump var=#scoords#>
+
+		<input type="hidden" id="scoords" value="#valuelist(scoords.rcords,"|")#">
 
 
 		<cfquery name="sspe" dbtype="query">
