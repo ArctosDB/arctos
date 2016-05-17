@@ -398,14 +398,19 @@
       	}
 		initialize();
 
-		var latLng1 = new google.maps.LatLng(64, -148);
+
+			/*
+
+			var latLng1 = new google.maps.LatLng(64, -148);
 			var marker1 = new google.maps.Marker({
 			    position: latLng1,
 			    map: map,
 			    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 			});
 
-			/*
+
+
+
 			var circleOptions = {
 	  			center: latLng1,
 	  			radius: Math.round(600),
@@ -413,9 +418,15 @@
 	  			editable: false
 			};
 			var circle = new google.maps.Circle(circleOptions);
-			*/
+
+
+
 bounds.extend(latLng1);
 map.fitBounds(bounds);
+
+
+
+			*/
 		// add wkt if available
         var wkt=$("#wkt_polygon").val(); //this is your WKT string
         if (wkt.length>0){
