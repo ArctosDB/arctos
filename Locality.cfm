@@ -362,6 +362,9 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editGeog">
+<cfoutput>
+		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
+	</cfoutput>
 <script>
 	function clearTerm(id){
 		$("#" + id).val('');
