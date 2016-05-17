@@ -582,6 +582,13 @@
 	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>
 	                </td>
 				</tr>
+
+				<tr>
+	                <td colspan="4">
+	                	<label for="wkt_polygon">wkt_polygon</label>
+	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
+	                </td>
+				</tr>
 				<cfquery name="geog_search_term" datasource="uam_god">
 					select * from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id#
 				</cfquery>

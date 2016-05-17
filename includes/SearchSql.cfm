@@ -1105,7 +1105,7 @@
 	<cfif  compare(endYear,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date is null ">
 	<cfelse>
-		<cfset basQual = " #basQual# AND T#session.flatTableName#.year <= #endYear#">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.year <= #endYear#">
 	</cfif>
 </cfif>
 <cfif isdefined("endMon") AND len(endMon) gt 0>
