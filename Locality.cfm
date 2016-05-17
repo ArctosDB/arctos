@@ -636,6 +636,7 @@ map.fitBounds(bounds);
 			from
 				locality
 			where
+				dec_lat is not null and
 			 	geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
 
