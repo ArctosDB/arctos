@@ -373,6 +373,12 @@
 	</cfoutput>
 	<style>
 		#map-canvas { height: 300px;width:500px; }
+
+		#map{
+    width: 450px;
+    height: 400px;
+}
+
 	</style>
 <script>
 	function clearTerm(id){
@@ -558,6 +564,13 @@ function AddPoints(data){
 
 </script>
 <cfset title = "Edit Geography">
+
+
+<div id="map"></div>
+
+
+
+
 	<cfoutput>
 		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id#
