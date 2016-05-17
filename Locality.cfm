@@ -552,8 +552,18 @@ var poly = new google.maps.Polygon({
   		var xy=arrSP[i].split(",");
   		console.log('xy: ' + xy);
 
-		var x=xy[i].split(",");
+		var xyA=xy.split(",");
+
+		console.log('xyA: ' + xyA);
+
+
+		var x=xyA[0];
+
+
+		var y=xyA[1];
+
   		console.log('x: ' + x);
+  		console.log('y: ' + y);
 
   		var latLng2 = new google.maps.LatLng(xy);
 
