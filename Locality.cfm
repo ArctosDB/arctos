@@ -562,7 +562,8 @@ google.maps.Polygon.prototype.my_getBounds=function(){
     return bounds
 }
 
-myPolygon.my_getBounds().getCenter();
+console.log(ptsArray);
+
 
 
 
