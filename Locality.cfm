@@ -512,6 +512,7 @@ var Rings = [];
 var results;
 while( results = regex.exec(wkt) ) {
     Rings.push( results[1] );
+    console.log('pushing ' + results[1]);
 }
 
 var ptsArray=[];
@@ -561,8 +562,6 @@ google.maps.Polygon.prototype.my_getBounds=function(){
     this.getPath().forEach(function(element,index){bounds.extend(element)})
     return bounds
 }
-
-console.log(ptsArray);
 
 
 
