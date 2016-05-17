@@ -529,6 +529,8 @@ var polyLen=Rings.length;
 //now we need to draw the polygon for each of inner rings, but reversed
 for(var i=0;i<polyLen;i++){
     AddPoints(Rings[i]);
+
+    console.log('AddPoints: ' + Rings[i]);
 }
 
 var poly = new google.maps.Polygon({
