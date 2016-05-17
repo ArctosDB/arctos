@@ -664,8 +664,7 @@
 	                <td colspan="4">
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
-	                	<br>
-	                	<div id="map-canvas"></div>
+
 	                </td>
 				</tr>
 
@@ -727,6 +726,13 @@
 				</tr>
 			</table>
 		</form>
+
+
+			<br>imamap
+	                	<div id="map-canvas"></div>
+slashy
+
+
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
