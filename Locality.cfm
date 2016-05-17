@@ -549,11 +549,13 @@ var poly = new google.maps.Polygon({
 
   for(var i=0;i<arrSP.length;i++){
   		//var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
+  		console.log(arrSP[i]);
+
+
   		var xy=arrSP[i].split(",");
   		console.log('xy: ' + xy);
 
-
-		var xyA=xy.split(",");
+var xyA=xy.toString().split(',');
 
 		console.log('xyA: ' + xyA);
 
