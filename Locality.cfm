@@ -568,6 +568,7 @@ var y=xyA[1];
 
   			var marker2 = new google.maps.Marker({
 		    position: latLng2,
+		    url: '#Application.serverRootURL/SpecimenResults.cfm?rcoords=' + xy,
 		    map: map,
 		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
 		});
