@@ -561,26 +561,32 @@ var xyA=xy.toString().split(',');
 
 		var x=xyA[0];
 		  		console.log('x: ' + x);
-
-
-/*
-		var x=xyA[0];
-
-
-		var y=xyA[1];
-
+var y=xyA[1];
   		console.log('y: ' + y);
 
-  		var latLng2 = new google.maps.LatLng(xy);
+  		var latLng2 = new google.maps.LatLng(x,y);
 
-
-  		var marker2 = new google.maps.Marker({
+  			var marker2 = new google.maps.Marker({
 		    position: latLng2,
 		    map: map,
 		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
 		});
 
 		console.log(marker2);
+
+
+
+/*
+		var x=xyA[0];
+
+
+
+
+
+
+
+
+
 		*/
 
   	}
