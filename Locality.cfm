@@ -510,6 +510,9 @@ map = new google.maps.Map($('#map')[0], myOptions);
 
 var wkt=$("#wkt_polygon").val();
 
+
+console.log(wkt);
+
 //using regex, we will get the indivudal Rings
 var regex = /\(([^()]+)\)/g;
 var Rings = [];
