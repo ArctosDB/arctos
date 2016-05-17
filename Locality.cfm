@@ -404,6 +404,8 @@
 			    map: map,
 			    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 			});
+
+			/*
 			var circleOptions = {
 	  			center: latLng1,
 	  			radius: Math.round(600),
@@ -411,6 +413,7 @@
 	  			editable: false
 			};
 			var circle = new google.maps.Circle(circleOptions);
+			*/
 bounds.extend(latLng1);
 map.fitBounds(bounds);
 		// add wkt if available
