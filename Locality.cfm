@@ -551,6 +551,9 @@ function AddPoints(data){
     var pointsData=data.split(",");
 
 
+	console.log('pointsData: ' + pointsData);
+
+
     //iterate over each points data and create a latlong
     //& add it to the cords array
     var len=pointsData.length;
