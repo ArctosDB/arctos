@@ -552,11 +552,12 @@ var poly = new google.maps.Polygon({
   		var xy=arrSP[i].split(",");
   		console.log('xy: ' + xy);
 
+
 		var xyA=xy.split(",");
 
 		console.log('xyA: ' + xyA);
 
-
+/*
 		var x=xyA[0];
 
 
@@ -575,6 +576,7 @@ var poly = new google.maps.Polygon({
 		});
 
 		console.log(marker2);
+		*/
 
   	}
 
