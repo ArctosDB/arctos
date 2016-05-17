@@ -560,6 +560,8 @@ var poly = new google.maps.Polygon({
 		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
 		});
 
+		console.log(marker2);
+
   	}
 
 
@@ -573,7 +575,7 @@ function AddPoints(data){
     var pointsData=data.split(",");
 
 
-	console.log('pointsData: ' + pointsData);
+	//console.log('pointsData: ' + pointsData);
 
 
     //iterate over each points data and create a latlong
