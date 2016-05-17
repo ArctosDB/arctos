@@ -2,30 +2,60 @@
 
 <cfoutput>
 
-	<cfset obj = CreateObject("component","component.utilities")>
+Upload CSV:
+	<form name="getFile" method="post" action="a.cfm" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="getfish">
+		 <input type="file"
+			   name="FiletoUpload"
+			   size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</form>
+<cfif action is "getfish">
+	<cfoutput>
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+        <cfset  util = CreateObject("component","component.utilities")>
+		<cfset x=util.CSVToQuery(fileContent)>
+        <cfset cols=x.columnlist>
+		<br>x.recordcount: #x.recordcount#
+		<cfdump var=#x#>
+		<cfflush>
+		<cftransaction>
+	        <cfloop query="x">
+	            <cfquery name="ins" datasource="uam_god">
+		            insert into temp_geocounty (#cols#) values (
+		            <cfloop list="#cols#" index="i">
+		               <cfif i is "geometry">
+		            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+		                <cfelse>
+		            		'#escapeQuotes(evaluate(i))#'
+		            	</cfif>
+		            	<cfif i is not listlast(cols)>
+		            		,
+		            	</cfif>
+		            </cfloop>
+		            )
+	            </cfquery>
+	        </cfloop>
+		</cftransaction>
+		loaded to temp_geocounty go go gadget sql
+	</cfoutput>
+</cfif>
 
-	<cfquery name="td" datasource="UAM_GOD">
-		select *
-      from ( select media_uri,media_id
-               from media
-			where media_uri not like 'http://web.corral.tacc.utexas.edu%' and
-			media_uri not like 'http://www.morphbank.net%' and
-			media_uri not like 'http://arctos.database.museum/mediaUploads%' and
-			media_uri not like 'http://bins.boldsystems.org%'
-                      order by dbms_random.value )
-     where rownum <= 100
-	</cfquery>
-	<cfloop query="td">
-
-		<cfset x=obj.exitLink(target=URLEncodedFormat(media_uri))>
-		<cfif x.code is not "200">
-			<br><a href="/media/#media_id#">/media/#media_id#</a>
-			<br><a href="/media/#media_id#?open">/media/#media_id#?open</a>
-			<cfdump var=#media_uri#>
-			<cfdump var=#x#>
-		</cfif>
-	</cfloop>
-
+create table temp_geocounty (
+	CountyName varchar2(4000),
+	StateCounty varchar2(4000),
+	stateabbr varchar2(4000),
+	StateAbbrToo varchar2(4000),
+	geometry clob,
+	value varchar2(4000),
+	GEO_ID varchar2(4000),
+	GEO_ID2 varchar2(4000),
+	GeographicName varchar2(4000),
+	STATEnum varchar2(4000),
+	COUNTYnum varchar2(4000),
+	FIPSformula varchar2(4000),
+	Haserror varchar2(4000)
+	);
 </cfoutput>
 <!--------------------
 
