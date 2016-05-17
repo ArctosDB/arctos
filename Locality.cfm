@@ -371,6 +371,9 @@
 <cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
+	<style>
+		#map-canvas { height: 300px;width:500px; }
+	</style>
 <script>
 	function clearTerm(id){
 		$("#" + id).val('');
