@@ -486,7 +486,7 @@ function checkCoordinateError(){
 			s$dec_long,
 			to_meters(locality.minimum_elevation,locality.orig_elev_units) min_elev_in_m,
 			to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m,
-			wkt_polygon
+			locality.wkt_polygon
 		from
 			locality,
 			geog_auth_rec
