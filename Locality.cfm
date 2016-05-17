@@ -592,7 +592,6 @@ console.log(bounds);
 <cfset title = "Edit Geography">
 
 
-<div id="map"></div>
 
 
 
@@ -813,7 +812,8 @@ console.log(bounds);
 	                <td colspan="4">
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
-
+						<br>
+						<div id="map"></div>
 	                </td>
 				</tr>
 
