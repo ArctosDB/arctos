@@ -559,7 +559,11 @@ function AddPoints(data){
     var len=pointsData.length;
     for (var i=0;i<len;i++)
     {
+
+
          var xy=pointsData[i].split(" ");
+
+    	console.log('xy: ' + xy);
 
          console.log(xy[1] + ',' + xy[0]);
 
