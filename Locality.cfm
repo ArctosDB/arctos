@@ -553,10 +553,13 @@ function AddPoints(data){
     {
          var xy=pointsData[i].split(" ");
 
+         console.log(xy[1] + ',' + xy[0]);
+
         var pt=new google.maps.LatLng(xy[1],xy[0]);
 
 
         ptsArray.push(pt);
+
 
 
         bounds.extend(pt);
