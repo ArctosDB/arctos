@@ -569,7 +569,7 @@ function AddPoints(data){
 map.fitBounds(bounds);
 
 
-
+console.log(bounds);
 
 	});
 
