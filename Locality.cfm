@@ -472,7 +472,7 @@ console.log(markers[i].getPosition());
 //lat(), markers[i].getPosition().lng()
 
 
-var ll = new google.maps.LatLng(google.maps.LatLng(markers[i].getPosition().lat(), markers[i].getPosition().lng());
+var ll = new google.maps.LatLng(google.maps.LatLng(markers[i].getPosition().lat(), markers[i].getPosition().lng()));
 
 	   if (google.maps.geometry.poly.containsLocation(ll,poly)) == 'true'){
 	   	 console.log('inside');
