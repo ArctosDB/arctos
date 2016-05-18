@@ -444,7 +444,7 @@
 			console.log(thisrow);
 		 	var latLng2 = new google.maps.LatLng(x,y);
 
-			console.log(marker2);
+			//console.log(marker2);
 		 }
 
   		console.log('points: ' + points);
