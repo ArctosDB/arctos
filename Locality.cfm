@@ -388,6 +388,18 @@
 		var ptsArray=[];
 
 
+
+
+
+	var polygons=null;
+google.maps.event.addDomListener(drawingManager, "polygoncomplete", function(polygon) {
+        polygons=polygon;
+});
+
+
+
+
+
 	function clearTerm(id){
 		$("#" + id).val('');
 	}
@@ -465,7 +477,6 @@ function initializeMap() {
 	for (var i=0; i < markers.length; i++) {
 	   bounds.extend(markers[i].getPosition());
 	}
-	console.log('bounds: ' + bounds);
 	// Don't zoom in too far on only one marker
     if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
        var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
@@ -474,10 +485,12 @@ function initializeMap() {
        bounds.extend(extendPoint2);
     }
 
-
-    	console.log('newbounds: ' + bounds);
-
 	map.fitBounds(bounds);
+
+
+
+
+
 }
 function createMarker(p) {
 	var cpa=p.split(",");
@@ -510,8 +523,7 @@ function test(){
 		var ll=markers[i].getPosition();
 		console.log(ll);
 
-if(google.maps.geometry.poly.containsLocation(ll, poly) == true) {
-
+if (google.maps.geometry.poly.containsLocation(google.maps.LatLng(ll.lat, ll.lon),polygons) == 'true'){
 
 		 console.log('inside');
 		} else{console.log('outside');}
