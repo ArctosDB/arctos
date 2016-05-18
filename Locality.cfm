@@ -431,6 +431,11 @@ function initializeMap() {
 		}
 
 
+
+		console.log('ptsArray: ' + ptsArray);
+
+
+
 		var poly = new google.maps.Polygon({
 		    paths: ptsArray,
 		    strokeColor: '#1E90FF',
