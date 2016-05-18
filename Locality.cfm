@@ -469,7 +469,7 @@
 			*/
 	}
 	google.maps.event.addListener(marker, 'click', function() {
-    window.location.href = this.url;
+    window.open(this.url, '_blank');
 });
 
 
