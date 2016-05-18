@@ -455,32 +455,32 @@
   		console.log('points: ' + points);
 
 
-	//for (var i = 0; i < points.length; i++) {
-   		//var thisp=points[i];
-   		//console.log('thispoint: ' + thisp);
-	//}
+	for (var i = 0; i < points.length; i++) {
+   		var thisp=points[i];
+   		console.log('thispoint: ' + thisp);
+	}
 
 
 
 //function to add points from individual rings
-function AddPoints(data){
-    //first spilt the string into individual points
-    var pointsData=data.split(",");
+		function AddPoints(data){
+		    //first spilt the string into individual points
+		    var pointsData=data.split(",");
 
 
-	//console.log('pointsData: ' + pointsData);
+			//console.log('pointsData: ' + pointsData);
 
 
-    //iterate over each points data and create a latlong
-    //& add it to the cords array
-    var len=pointsData.length;
-    for (var i=0;i<len;i++){
-         var xy=pointsData[i].split(" ");
-        var pt=new google.maps.LatLng(xy[1],xy[0]);
-        ptsArray.push(pt);
-        bounds.extend(pt);
-    }
-}
+		    //iterate over each points data and create a latlong
+		    //& add it to the cords array
+		    var len=pointsData.length;
+		    for (var i=0;i<len;i++){
+		         var xy=pointsData[i].split(" ");
+		        var pt=new google.maps.LatLng(xy[1],xy[0]);
+		        ptsArray.push(pt);
+		        bounds.extend(pt);
+		    }
+		}
 
 map.fitBounds(bounds);
 
