@@ -418,6 +418,19 @@ function AddPoints(data){
 function initializeMap() {
 	// just nuke the old map
 
+var infowindow = new google.maps.InfoWindow();
+
+	var mapOptions = {
+		zoom: 3,
+	    center: new google.maps.LatLng(55, -135),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP,
+	    panControl: false,
+	    scaleControl: true
+	};
+	map = new google.maps.Map(document.getElementById('map'),mapOptions);
+
+
+
 
 	var wkt=$("#wkt_polygon").val();
 		//using regex, we will get the indivudal Rings
@@ -457,15 +470,7 @@ function initializeMap() {
 
 
 
-	var infowindow = new google.maps.InfoWindow();
-	var mapOptions = {
-		zoom: 3,
-	    center: new google.maps.LatLng(55, -135),
-	    mapTypeId: google.maps.MapTypeId.ROADMAP,
-	    panControl: false,
-	    scaleControl: true
-	};
-	map = new google.maps.Map(document.getElementById('map'),mapOptions);
+
 	var cfgml=$("#scoords").val();
 
 	if (cfgml.length==0){
