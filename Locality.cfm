@@ -462,6 +462,7 @@
 			position: new google.maps.LatLng(thisLat, thisLon),
 			url: thisURL,
 		    map: map,
+		    name: thisLat + ';' + thisLon,
 		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
 		});
    		/*
