@@ -458,7 +458,7 @@
    		var thisLon=thisPA[1];
    		var thisURL=thisPA[2];
    		console.log('thisLat: ' + thisLat);
-		var marker2 = new google.maps.Marker({
+		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(thisLat, thisLon),
 			url: thisURL,
 		    map: map,
