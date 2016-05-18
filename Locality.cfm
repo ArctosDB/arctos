@@ -455,15 +455,17 @@
    		console.log('thisp: ' + thisp);
    		var thisPA=thisp.split(',');
    		var thisLat=thisPA[0];
+   		var thisLon=thisPA[1];
+   		var thisURL=thisPA[2];
    		console.log('thisLat: ' + thisLat);
-
+		var marker2 = new google.maps.Marker({
+			position: new google.maps.LatLng(thisLat, thisLon);,
+			url: thisURL,
+		    map: map,
+		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+		});
    		/*
-   		var marker2 = new google.maps.Marker({
-				position: latLng2,
-				url: '#Application.serverRootURL/SpecimenResults.cfm?rcoords=' + xy,
-			    map: map,
-			    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-			});
+
 			*/
 	}
 
