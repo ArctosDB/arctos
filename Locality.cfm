@@ -388,7 +388,85 @@
 		$("#island").val("*" + $("#island").val());
 	}
 
+function initializeMap() {
+	// just nuke the old map
+	var infowindow = new google.maps.InfoWindow();
+	var mapOptions = {
+		zoom: 3,
+	    center: new google.maps.LatLng(55, -135),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP,
+	    panControl: false,
+	    scaleControl: true
+	};
+	map = new google.maps.Map(document.getElementById('map'),mapOptions);
+	var cfgml=$("#scoords").val();
+
+	if (cfgml.length==0){
+		return false;
+	}
+	var arrCP = cfgml.split( ";" );
+	for (var i=0; i < arrCP.length; i++){
+		createMarker(arrCP[i]);
+	}
+	var bounds = new google.maps.LatLngBounds();
+	for (var i=0; i < markers.length; i++) {
+	   bounds.extend(markers[i].getPosition());
+	}
+	// Don't zoom in too far on only one marker
+    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+       bounds.extend(extendPoint1);
+       bounds.extend(extendPoint2);
+    }
+	map.fitBounds(bounds);
+}
+function createMarker(p) {
+	var cpa=p.split(",");
+	//var ns=cpa[0];
+	var lat=cpa[0];
+	var lon=cpa[1];
+	//var r=cpa[3];
+	var center=new google.maps.LatLng(lat, lon);
+
+	/*
+	var circleoptn = {
+		strokeColor: '#FF0000',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: '#FF0000',
+		fillOpacity: 0.15,
+		map: map,
+		center: center,
+		//radius: parseInt(r),
+		zIndex:-99
+	};
+	*/
+	var contentString=  lat + ',' + lon ;
+	//crcl = new google.maps.Circle(circleoptn);
+	var marker = new google.maps.Marker({
+		position: center,
+		map: map,
+		title: ' specimens',
+		contentString: contentString,
+		zIndex: 10
+	});
+	markers.push(marker);
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+    });
+}
+
+
+
+
 	jQuery(document).ready(function() {
+
+		 initializeMap();
+		/*
 		var map;
 		var myOptions = {
 		    zoom: 9,
@@ -483,9 +561,8 @@
         infowindow.open(map,marker);
     });
 
-   		/*
 
-			*/
+
 	}
 
     var bounds = new google.maps.LatLngBounds();
@@ -525,7 +602,7 @@
 
 map.fitBounds(bounds);
 
-
+*/
 
 	});
 
@@ -589,7 +666,7 @@ map.fitBounds(bounds);
 
 		<cfdump var=#scoords#>
 
-		<input type="hidden" id="scoords" value="#valuelist(scoords.rcords,"|")#">
+		<input type="hidden" id="scoords" value="#valuelist(scoords.rcords,";")#">
 
 
 		<cfquery name="sspe" dbtype="query">
