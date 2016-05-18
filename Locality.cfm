@@ -384,7 +384,7 @@
 
 	var map;
 	var bounds = new google.maps.LatLngBounds();
-var markers = new Array();
+	var markers = new Array();
 		var ptsArray=[];
 
 
@@ -399,7 +399,7 @@ function AddPoints(data){
 		    var pointsData=data.split(",");
 
 
-			//console.log('pointsData: ' + pointsData);
+			console.log('pointsData: ' + pointsData);
 
 
 		    //iterate over each points data and create a latlong
