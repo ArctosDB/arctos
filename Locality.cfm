@@ -606,10 +606,10 @@ var geoid=$("#geog_auth_rec_id").val();
   	console.log('points: ' + points);
 
 
-	for (var i = 0; i < points.length; i++) {
+	//for (var i = 0; i < points.length; i++) {
    		//var thisp=points[i];
    		//console.log('thispoint: ' + thisp);
-	}
+	//}
 }
 
 
