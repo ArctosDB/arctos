@@ -710,7 +710,7 @@ map.fitBounds(bounds);
 
 		<cfquery name="scoords" datasource="uam_god">
 			select distinct
-				round(dec_lat,2) || ',' || round(dec_long,2) rcords
+				round(dec_lat,1) || ',' || round(dec_long,1) rcords
 			from
 				locality
 			where
