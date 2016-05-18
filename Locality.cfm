@@ -469,8 +469,8 @@ function initializeMap() {
 console.log(markers[i].getPosition());
 
 		console.log(markers[i].getPosition().lat());
-
-	   if (google.maps.geometry.poly.containsLocation(google.maps.LatLng(markers[i].getPosition().lat(), markers[i].getPosition().lng()),poly) == 'true'){
+//lat(), markers[i].getPosition().lng()
+	   if (google.maps.geometry.poly.containsLocation(google.maps.LatLng(markers[i].getPosition(),poly) == 'true'){
 	   	 console.log('inside');
 		} else{console.log('outside');}
 
