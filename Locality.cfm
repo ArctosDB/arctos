@@ -1893,7 +1893,8 @@ You deleted a collecting event.
 					island_group = '#escapeQuotes(island_group)#',
 					island = '#escapeQuotes(island)#',
 					sea = '#escapeQuotes(sea)#',
-					geog_remark = '#escapeQuotes(geog_remark)#'
+					geog_remark = '#escapeQuotes(geog_remark)#',
+					wkt_polygon=<cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">
 				where
 					geog_auth_rec_id = #geog_auth_rec_id#
 			</cfquery>
