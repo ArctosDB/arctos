@@ -24,7 +24,6 @@ Upload state CSV:
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
 		<br>x.recordcount: #x.recordcount#
-		<cfdump var=#x#>
 		<cfflush>
 		<cftransaction>
 	        <cfloop query="x">
@@ -65,7 +64,6 @@ Upload county CSV:
 		<cfset x=util.CSVToQuery(fileContent)>
         <cfset cols=x.columnlist>
 		<br>x.recordcount: #x.recordcount#
-		<cfdump var=#x#>
 		<cfflush>
 		<cftransaction>
 	        <cfloop query="x">
