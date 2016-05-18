@@ -406,7 +406,7 @@ function AddPoints(data){
     {
          var xy=pointsData[i].split(" ");
 
-         console.log('pushing ' + xy);
+         //console.log('pushing ' + xy);
 
         var pt=new google.maps.LatLng(xy[1],xy[0]);
         ptsArray.push(pt);
@@ -416,10 +416,7 @@ function AddPoints(data){
 }
 
 function initializeMap() {
-	// just nuke the old map
-
-var infowindow = new google.maps.InfoWindow();
-
+	var infowindow = new google.maps.InfoWindow();
 	var mapOptions = {
 		zoom: 3,
 	    center: new google.maps.LatLng(55, -135),
@@ -428,9 +425,6 @@ var infowindow = new google.maps.InfoWindow();
 	    scaleControl: true
 	};
 	map = new google.maps.Map(document.getElementById('map'),mapOptions);
-
-
-
 
 	var wkt=$("#wkt_polygon").val();
 		//using regex, we will get the indivudal Rings
@@ -448,7 +442,7 @@ var infowindow = new google.maps.InfoWindow();
 
 
 
-		console.log('ptsArray: ' + ptsArray);
+		//console.log('ptsArray: ' + ptsArray);
 
 
 
@@ -462,7 +456,7 @@ var infowindow = new google.maps.InfoWindow();
 		});
 
 
-		console.log(poly);
+		//console.log(poly);
 
   		poly.setMap(map);
 
@@ -734,12 +728,7 @@ map.fitBounds(bounds);
 				dec_lat is not null and
 			 	geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
-
-		<cfdump var=#scoords#>
-
 		<input type="hidden" id="scoords" value="#valuelist(scoords.rcords,";")#">
-
-
 		<cfquery name="sspe" dbtype="query">
 			select sum(c) sct from specimen
 		</cfquery>
