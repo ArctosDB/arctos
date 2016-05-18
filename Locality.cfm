@@ -368,33 +368,19 @@
 			google_private_key
 		from cf_global_settings
 	</cfquery>
-<cfoutput>
+	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 	<style>
 		#map-canvas { height: 300px;width:500px; }
-
-		#map{
-    width: 450px;
-    height: 400px;
-}
-
+		#map{width: 450px;height: 400px;}
 	</style>
 <script>
-
 	var map;
 	var bounds = new google.maps.LatLngBounds();
 	var markers = new Array();
-		var ptsArray=[];
+	var ptsArray=[];
 
-
-
-
-
-	var polygons=null;
-google.maps.event.addDomListener(drawingManager, "polygoncomplete", function(polygon) {
-        polygons=polygon;
-});
 
 
 
@@ -476,6 +462,23 @@ function initializeMap() {
 	}
 	for (var i=0; i < markers.length; i++) {
 	   bounds.extend(markers[i].getPosition());
+
+
+
+
+	   if (google.maps.geometry.poly.containsLocation(google.maps.LatLng(getPosition().lat(), getPosition().on()),poly) == 'true'){
+	   	 console.log('inside');
+		} else{console.log('outside');}
+
+
+
+
+
+
+
+
+
+
 	}
 	// Don't zoom in too far on only one marker
     if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
@@ -518,17 +521,6 @@ function createMarker(p) {
     });
 }
 
-function test(){
-	for(i = 0 ; i< markers.length; i++){
-		var ll=markers[i].getPosition();
-		console.log(ll);
-
-if (google.maps.geometry.poly.containsLocation(google.maps.LatLng(ll.lat, ll.lon),polygons) == 'true'){
-
-		 console.log('inside');
-		} else{console.log('outside');}
-	}
-}
 
 
 	jQuery(document).ready(function() {
