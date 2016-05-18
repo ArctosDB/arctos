@@ -960,13 +960,6 @@ map.fitBounds(bounds);
 				</tr>
 			</table>
 		</form>
-
-
-			<br>imamap
-	                	<div id="map-canvas"></div>
-slashy
-
-
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
