@@ -410,7 +410,7 @@ function AddPoints(data){
 
         var pt=new google.maps.LatLng(xy[1],xy[0]);
         ptsArray.push(pt);
-         bounds.extend(pt);
+        bounds.extend(pt);
     }
 
 
