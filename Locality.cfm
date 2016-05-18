@@ -567,6 +567,7 @@ var geoid=$("#geog_auth_rec_id").val();
   		console.log('y: ' + y);
 
 		var thisrow="['" + xy + ",'/SpecimenResults.cfm?rcoords=" + xy + "']";
+		points.push(thisrow);
 		console.log(thisrow);
 
 //    	['name1', 59.9362384705039, 30.19232525792222, 12, 'www.google.com'],
@@ -601,6 +602,8 @@ var geoid=$("#geog_auth_rec_id").val();
 		*/
 
   	}
+
+  	console.log('points: ' + points);
 
 
 
