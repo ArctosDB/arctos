@@ -381,6 +381,12 @@
 
 	</style>
 <script>
+
+	var map;
+var bounds;
+var markers = new Array();
+
+
 	function clearTerm(id){
 		$("#" + id).val('');
 	}
