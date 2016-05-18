@@ -448,7 +448,7 @@ function createMarker(p) {
 		zIndex:-99
 	};
 	*/
-	var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id).val() + '&' + rcoords=' + lat + ',' + lon + '">clickypop</a>';
+	var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&' + rcoords=' + lat + ',' + lon + '">clickypop</a>';
 	//crcl = new google.maps.Circle(circleoptn);
 	var marker = new google.maps.Marker({
 		position: center,
