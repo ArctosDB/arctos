@@ -900,13 +900,13 @@ map.fitBounds(bounds);
 
 				<tr>
 	                <td colspan="4">
-		                <div style="font-size:x-small">
+
+	                	<label for="wkt_polygon">wkt_polygon</label>
+	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
+ 						<div style="font-size:x-small">
 							Points are very rounded
 							<br>long WKT (>30K characters) will not work properly
 						</div>
-	                	<label for="wkt_polygon">wkt_polygon</label>
-	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
-						<br>
 						<div id="map"></div>
 	                </td>
 				</tr>
