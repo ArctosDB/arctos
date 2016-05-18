@@ -676,8 +676,6 @@ map.fitBounds(bounds);
 		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id#
 		</cfquery>
-
-		<cfdump var=#geogDetails#>
 		<h3>Edit Higher Geography</h3>
 		<span class="infoLink" onClick="getDocs('higher_geography')">help</span>
 		<cfquery name="localities" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -904,8 +902,8 @@ map.fitBounds(bounds);
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
  						<div style="font-size:x-small">
-							Points are very rounded
-							<br>long WKT (>30K characters) will not work properly
+							Points are rounded; small "errors" may be artifacts
+							<br>Large WKT (>30K characters) will not work properly because CF is broken
 						</div>
 						<div id="map"></div>
 	                </td>
