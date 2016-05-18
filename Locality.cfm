@@ -448,13 +448,14 @@ function createMarker(p) {
 		zIndex:-99
 	};
 	*/
-	var contentString=  lat + ',' + lon ;
+	var contentString='<a target="_blank" href="/SpecimenResults.cfm?rcoords=' + lat + ',' + lon + '">clickypop</a>';
 	//crcl = new google.maps.Circle(circleoptn);
 	var marker = new google.maps.Marker({
 		position: center,
 		map: map,
 		title: ' specimens',
 		contentString: contentString,
+		url: ',
 		zIndex: 10
 	});
 	markers.push(marker);
