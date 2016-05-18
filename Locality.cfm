@@ -484,7 +484,7 @@ function initializeMap() {
 	}
 
 
-	console.log(bounds);
+	console.log('bounds: ' + bounds);
 
 
 	// Don't zoom in too far on only one marker
