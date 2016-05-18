@@ -383,7 +383,7 @@
 <script>
 
 	var map;
-var bounds;
+	var bounds = new google.maps.LatLngBounds();
 var markers = new Array();
 		var ptsArray=[];
 
@@ -414,7 +414,6 @@ function AddPoints(data){
 		}
 function initializeMap() {
 	// just nuke the old map
-	var bounds = new google.maps.LatLngBounds();
 
 
 	var wkt=$("#wkt_polygon").val();
