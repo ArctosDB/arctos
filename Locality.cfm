@@ -429,6 +429,8 @@ function initializeMap() {
 		for(var i=0;i<polyLen;i++){
 		    AddPoints(Rings[i]);
 		}
+
+
 		var poly = new google.maps.Polygon({
 		    paths: ptsArray,
 		    strokeColor: '#1E90FF',
@@ -437,6 +439,9 @@ function initializeMap() {
 		    fillColor: '#1E90FF',
 		    fillOpacity: 0.35
 		});
+
+
+		console.log(poly);
 
   		poly.setMap(map);
 
