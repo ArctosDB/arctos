@@ -566,7 +566,7 @@ var geoid=$("#geog_auth_rec_id").val();
 		var y=xyA[1];
   		console.log('y: ' + y);
 
-		var thisrow="['" + xy + ",'/SpecimenResults.cfm?rcoords=" + xy + "']";
+		var thisrow="['" + x + "','" + y + ",'/SpecimenResults.cfm?rcoords=" + xy + "']";
 		points.push(thisrow);
 		console.log(thisrow);
 
@@ -606,7 +606,11 @@ var geoid=$("#geog_auth_rec_id").val();
   	console.log('points: ' + points);
 
 
-
+	for (var i = 0; i < points.length; i++) {
+   		var thisp=points[i];
+   		console.log('thispoint: ' + thisp);
+	}
+}
 
 
 
