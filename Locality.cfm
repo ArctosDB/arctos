@@ -470,7 +470,11 @@ console.log(markers[i].getPosition());
 
 		console.log(markers[i].getPosition().lat());
 //lat(), markers[i].getPosition().lng()
-	   if (google.maps.geometry.poly.containsLocation(google.maps.LatLng(markers[i].getPosition(),poly)) == 'true'){
+
+
+var ll = new google.maps.LatLng(google.maps.LatLng(markers[i].getPosition().lat(), google.maps.LatLng(markers[i].getPosition().lng());
+
+	   if (google.maps.geometry.poly.containsLocation(ll,poly)) == 'true'){
 	   	 console.log('inside');
 		} else{console.log('outside');}
 
