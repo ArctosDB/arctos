@@ -546,23 +546,33 @@ var poly = new google.maps.Polygon({
 
   var scoords=$("#scoords").val();
   var arrSP = scoords.split( "|" );
+	var points=[];
+
+
+var geoid=$("#geog_auth_rec_id").val();
 
   for(var i=0;i<arrSP.length;i++){
   		//var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
   		console.log(arrSP[i]);
-
-
-  		var xy=arrSP[i].split(",");
+		var xy=arrSP[i].split(",");
   		console.log('xy: ' + xy);
 
-var xyA=xy.toString().split(',');
+		var xyA=xy.toString().split(',');
 
 		console.log('xyA: ' + xyA);
 
 		var x=xyA[0];
 		  		console.log('x: ' + x);
-var y=xyA[1];
+		var y=xyA[1];
   		console.log('y: ' + y);
+
+		var thisrow="['" + xy + "'," + xy + ",'/SpecimenResults.cfm?rcoords=" + xy + "']";
+		console.log(thisrow);
+
+//    	['name1', 59.9362384705039, 30.19232525792222, 12, 'www.google.com'],
+
+
+
 
   		var latLng2 = new google.maps.LatLng(x,y);
 
@@ -724,7 +734,7 @@ map.fitBounds(bounds);
 		<a target="_blank" class="external infoLink" href="https://google.com/search?q=#higher_geog#">search Google</a>
         <form name="editHG" id="editHG" method="post" action="Locality.cfm">
 	        <input name="action" id="action" type="hidden" value="saveGeogEdits">
-            <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
+            <input type="hidden" id="geog_auth_rec_id" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
             <table>
 				<tr>
 	                <td>
