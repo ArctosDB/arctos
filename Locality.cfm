@@ -395,23 +395,24 @@
 		$("#island").val("*" + $("#island").val());
 	}
 function AddPoints(data){
-		    //first spilt the string into individual points
-		    var pointsData=data.split(",");
+    //first spilt the string into individual points
+    var pointsData=data.split(",");
 
 
-			console.log('pointsData: ' + pointsData);
+    //iterate over each points data and create a latlong
+    //& add it to the cords array
+    var len=pointsData.length;
+    for (var i=0;i<len;i++)
+    {
+         var xy=pointsData[i].split(" ");
+
+        var pt=new google.maps.LatLng(xy[1],xy[0]);
+        ptsArray.push(pt);
+    }
 
 
-		    //iterate over each points data and create a latlong
-		    //& add it to the cords array
-		    var len=pointsData.length;
-		    for (var i=0;i<len;i++){
-		         var xy=pointsData[i].split(" ");
-		        var pt=new google.maps.LatLng(xy[1],xy[0]);
-		        ptsArray.push(pt);
-		        bounds.extend(pt);
-		    }
-		}
+}
+
 function initializeMap() {
 	// just nuke the old map
 
