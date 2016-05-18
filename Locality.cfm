@@ -430,48 +430,31 @@ function initializeMap() {
 	    scaleControl: true
 	};
 	map = new google.maps.Map(document.getElementById('map'),mapOptions);
-
 	var wkt=$("#wkt_polygon").val();
-		//using regex, we will get the indivudal Rings
-		var regex = /\(([^()]+)\)/g;
-		var Rings = [];
-		var results;
-		while( results = regex.exec(wkt) ) {
-		    Rings.push( results[1] );
-		}
-		var polyLen=Rings.length;
-		//now we need to draw the polygon for each of inner rings, but reversed
-		for(var i=0;i<polyLen;i++){
-		    AddPoints(Rings[i]);
-		}
+	//using regex, we will get the indivudal Rings
+	var regex = /\(([^()]+)\)/g;
+	var Rings = [];
+	var results;
+	while( results = regex.exec(wkt) ) {
+	    Rings.push( results[1] );
+	}
+	var polyLen=Rings.length;
+	//now we need to draw the polygon for each of inner rings, but reversed
+	for(var i=0;i<polyLen;i++){
+	    AddPoints(Rings[i]);
+	}
+	var poly = new google.maps.Polygon({
+	    paths: ptsArray,
+	    strokeColor: '#1E90FF',
+	    strokeOpacity: 0.8,
+	    strokeWeight: 2,
+	    fillColor: '#1E90FF',
+	    fillOpacity: 0.35
+	});
 
-
-
-		//console.log('ptsArray: ' + ptsArray);
-
-
-
-		var poly = new google.maps.Polygon({
-		    paths: ptsArray,
-		    strokeColor: '#1E90FF',
-		    strokeOpacity: 0.8,
-		    strokeWeight: 2,
-		    fillColor: '#1E90FF',
-		    fillOpacity: 0.35
-		});
-
-
-		//console.log(poly);
-
-  		poly.setMap(map);
-
-
-
-
-
-
+	poly.setMap(map);
+	// now specimen points
 	var cfgml=$("#scoords").val();
-
 	if (cfgml.length==0){
 		return false;
 	}
@@ -482,11 +465,7 @@ function initializeMap() {
 	for (var i=0; i < markers.length; i++) {
 	   bounds.extend(markers[i].getPosition());
 	}
-
-
 	console.log('bounds: ' + bounds);
-
-
 	// Don't zoom in too far on only one marker
     if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
        var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
@@ -494,6 +473,10 @@ function initializeMap() {
        bounds.extend(extendPoint1);
        bounds.extend(extendPoint2);
     }
+
+
+    	console.log('newbounds: ' + bounds);
+
 	map.fitBounds(bounds);
 }
 function createMarker(p) {
