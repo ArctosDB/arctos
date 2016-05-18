@@ -464,6 +464,10 @@ function initializeMap() {
 	   bounds.extend(markers[i].getPosition());
 
 
+
+
+console.log(markers[i].getPosition());
+
 		console.log(markers[i].getPosition().lat());
 
 	   if (google.maps.geometry.poly.containsLocation(google.maps.LatLng(markers[i].getPosition().lat(), markers[i].getPosition().lon()),poly) == 'true'){
