@@ -449,6 +449,7 @@
 
   		console.log('points: ' + points);
 
+var markers = new Array();
 
 	for (var i = 0; i < points.length; i++) {
    		var thisp=points[i];
@@ -458,20 +459,30 @@
    		var thisLon=thisPA[1];
    		var thisURL=thisPA[2];
    		console.log('thisLat: ' + thisLat);
+   		console.log('thisLon: ' + thisLon);
+   		var contentString= '<span class="likeLink">I like tatertots</span>';
+
 		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(thisLat, thisLon),
 			url: thisURL,
 		    map: map,
 		    name: thisLat + ';' + thisLon,
-		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+		    contentString: contentString,
+		    title: "hello",
+		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+			zIndex: 10
 		});
+		markers.push(marker);
    		/*
 
 			*/
 	}
-	google.maps.event.addListener(marker, 'click', function() {
-    window.open(this.url, '_blank');
-});
+	var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+    });
 
 
 
