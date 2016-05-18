@@ -430,25 +430,20 @@
 
 		 for(var i=0;i<arrSP.length;i++){
 		 		//var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
-		 		console.log(arrSP[i]);
+		 	console.log(arrSP[i]);
 			var xy=arrSP[i].split(",");
-		 		console.log('xy: ' + xy);
+		 	console.log('xy: ' + xy);
 			var xyA=xy.toString().split(',');
 			console.log('xyA: ' + xyA);
 			var x=xyA[0];
 			 console.log('x: ' + x);
 			var y=xyA[1];
-		 		console.log('y: ' + y);
+		 	console.log('y: ' + y);
 			var thisrow="['" + x + "','" + y + ",'/SpecimenResults.cfm?rcoords=" + xy + "']";
 			points.push(thisrow);
 			console.log(thisrow);
-		 		var latLng2 = new google.maps.LatLng(x,y);
-		 		var marker2 = new google.maps.Marker({
-				position: latLng2,
-				url: '#Application.serverRootURL/SpecimenResults.cfm?rcoords=' + xy,
-			    map: map,
-			    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-			});
+		 	var latLng2 = new google.maps.LatLng(x,y);
+
 			console.log(marker2);
 		 }
 
@@ -457,7 +452,18 @@
 
 	for (var i = 0; i < points.length; i++) {
    		var thisp=points[i];
-   		console.log('thispoint: ' + thisp);
+   		console.log('thisp: ' + thisp);
+   		var thisLat=thisp[0];
+   		console.log('thisLat: ' + thisLat);
+
+   		/*
+   		var marker2 = new google.maps.Marker({
+				position: latLng2,
+				url: '#Application.serverRootURL/SpecimenResults.cfm?rcoords=' + xy,
+			    map: map,
+			    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+			});
+			*/
 	}
 
 
