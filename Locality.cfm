@@ -441,7 +441,7 @@ function initializeMap() {
 	for(var i=0;i<polyLen;i++){
 	    AddPoints(Rings[i]);
 	}
-	var poly = new google.maps.Polygon({
+	var mypoly = new google.maps.Polygon({
 	    paths: ptsArray,
 	    strokeColor: '#1E90FF',
 	    strokeOpacity: 0.8,
@@ -450,7 +450,7 @@ function initializeMap() {
 	    fillOpacity: 0.35
 	});
 
-	poly.setMap(map);
+	mypoly.setMap(map);
 	// now specimen points
 	var cfgml=$("#scoords").val();
 	if (cfgml.length==0){
@@ -474,7 +474,7 @@ console.log(markers[i].getPosition());
 
 var ll = new google.maps.LatLng(google.maps.LatLng(markers[i].getPosition().lat(), markers[i].getPosition().lng()));
 
-	   if (google.maps.geometry.poly.containsLocation(ll,poly) == 'true'){
+	   if (google.maps.geometry.poly.containsLocation(ll,mypoly) == 'true'){
 	   	 console.log('inside');
 		} else{console.log('outside');}
 
