@@ -566,7 +566,7 @@ var geoid=$("#geog_auth_rec_id").val();
 		var y=xyA[1];
   		console.log('y: ' + y);
 
-		var thisrow="['" + xy + "'," + xy + ",'/SpecimenResults.cfm?rcoords=" + xy + "']";
+		var thisrow="['" + xy + ",'/SpecimenResults.cfm?rcoords=" + xy + "']";
 		console.log(thisrow);
 
 //    	['name1', 59.9362384705039, 30.19232525792222, 12, 'www.google.com'],
