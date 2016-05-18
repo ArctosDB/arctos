@@ -414,6 +414,7 @@ function AddPoints(data){
 		}
 function initializeMap() {
 	// just nuke the old map
+	var bounds = new google.maps.LatLngBounds();
 
 
 	var wkt=$("#wkt_polygon").val();
@@ -462,7 +463,6 @@ function initializeMap() {
 	for (var i=0; i < arrCP.length; i++){
 		createMarker(arrCP[i]);
 	}
-	var bounds = new google.maps.LatLngBounds();
 	for (var i=0; i < markers.length; i++) {
 	   bounds.extend(markers[i].getPosition());
 	}
