@@ -509,6 +509,9 @@ function test(){
 	for(i = 0 ; i< markers.length; i++){
 		var ll=markers[i].getPosition();
 		console.log(ll);
+		if(google.maps.geometry.poly.containsLocation(ll) == true) {
+		 console.log('inside');
+		} else{console.log('outside');}
 	}
 }
 
