@@ -382,167 +382,113 @@
 	var ptsArray=[];
 
 
-
-
-
-
 	function clearTerm(id){
 		$("#" + id).val('');
 	}
 	function asterisckificateisland(){
 		$("#island").val("*" + $("#island").val());
 	}
-function AddPoints(data){
-    //first spilt the string into individual points
-    var pointsData=data.split(",");
-
-
-    //iterate over each points data and create a latlong
-    //& add it to the cords array
-    var len=pointsData.length;
-    for (var i=0;i<len;i++)
-    {
-         var xy=pointsData[i].split(" ");
-
-         //console.log('pushing ' + xy);
-
-        var pt=new google.maps.LatLng(xy[1],xy[0]);
-        ptsArray.push(pt);
-        bounds.extend(pt);
-    }
-
-
-
-
-
-
-}
-
-function initializeMap() {
-	var infowindow = new google.maps.InfoWindow();
-	var mapOptions = {
-		zoom: 3,
-	    center: new google.maps.LatLng(55, -135),
-	    mapTypeId: google.maps.MapTypeId.ROADMAP,
-	    panControl: false,
-	    scaleControl: true
-	};
-	map = new google.maps.Map(document.getElementById('map'),mapOptions);
-	var wkt=$("#wkt_polygon").val();
-	//using regex, we will get the indivudal Rings
-	var regex = /\(([^()]+)\)/g;
-	var Rings = [];
-	var results;
-	while( results = regex.exec(wkt) ) {
-	    Rings.push( results[1] );
-	}
-	var polyLen=Rings.length;
-	//now we need to draw the polygon for each of inner rings, but reversed
-	for(var i=0;i<polyLen;i++){
-	    AddPoints(Rings[i]);
-	}
-	var mypoly = new google.maps.Polygon({
-	    paths: ptsArray,
-	    strokeColor: '#1E90FF',
-	    strokeOpacity: 0.8,
-	    strokeWeight: 2,
-	    fillColor: '#1E90FF',
-	    fillOpacity: 0.35,
-	    name: mypoly
-	});
-
-	mypoly.setMap(map);
-	// now specimen points
-	var cfgml=$("#scoords").val();
-	if (cfgml.length==0){
-		return false;
-	}
-	var arrCP = cfgml.split( ";" );
-	for (var i=0; i < arrCP.length; i++){
-		createMarker(arrCP[i]);
-	}
-	for (var i=0; i < markers.length; i++) {
-	   bounds.extend(markers[i].getPosition());
-
-
-
-
-console.log(markers[i].getPosition());
-
-		console.log(markers[i].getPosition().lat());
-//lat(), markers[i].getPosition().lng()
-
-
-var ll = new google.maps.LatLng(google.maps.LatLng(markers[i].getPosition().lat(), markers[i].getPosition().lng()));
-
-	   if (google.maps.geometry.poly.containsLocation(ll,mypoly) == 'true'){
-	   	 console.log('inside');
-		} else{console.log('outside');}
-
-
-
-
-
-
-
-
-
+	function AddPoints(data){
+	    //first spilt the string into individual points
+	    var pointsData=data.split(",");
+	    //iterate over each points data and create a latlong
+	    //& add it to the cords array
+	    var len=pointsData.length;
+	    for (var i=0;i<len;i++)
+	    {
+	        var xy=pointsData[i].split(" ");
+	        var pt=new google.maps.LatLng(xy[1],xy[0]);
+	        ptsArray.push(pt);
+	        bounds.extend(pt);
+	    }
 
 	}
-	// Don't zoom in too far on only one marker
-    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
-       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
-       bounds.extend(extendPoint1);
-       bounds.extend(extendPoint2);
-    }
 
-	map.fitBounds(bounds);
+	function initializeMap() {
+		var infowindow = new google.maps.InfoWindow();
+		var mapOptions = {
+			zoom: 3,
+		    center: new google.maps.LatLng(55, -135),
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
+		    panControl: false,
+		    scaleControl: true
+		};
+		map = new google.maps.Map(document.getElementById('map'),mapOptions);
+		var wkt=$("#wkt_polygon").val();
+		//using regex, we will get the indivudal Rings
+		var regex = /\(([^()]+)\)/g;
+		var Rings = [];
+		var results;
+		while( results = regex.exec(wkt) ) {
+		    Rings.push( results[1] );
+		}
+		var polyLen=Rings.length;
+		//now we need to draw the polygon for each of inner rings, but reversed
+		for(var i=0;i<polyLen;i++){
+		    AddPoints(Rings[i]);
+		}
+		var poly = new google.maps.Polygon({
+		    paths: ptsArray,
+		    strokeColor: '#1E90FF',
+		    strokeOpacity: 0.8,
+		    strokeWeight: 2,
+		    fillColor: '#1E90FF',
+		    fillOpacity: 0.35
+		});
 
+		poly.setMap(map);
+		// now specimen points
+		var cfgml=$("#scoords").val();
+		if (cfgml.length==0){
+			return false;
+		}
+		var arrCP = cfgml.split( ";" );
+		for (var i=0; i < arrCP.length; i++){
+			createMarker(arrCP[i]);
+		}
+		for (var i=0; i < markers.length; i++) {
+		   bounds.extend(markers[i].getPosition());
+		}
+		// Don't zoom in too far on only one marker
+	    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+	       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+	       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+	       bounds.extend(extendPoint1);
+	       bounds.extend(extendPoint2);
+	    }
+		map.fitBounds(bounds);
+	}
+	function createMarker(p) {
+		var cpa=p.split(",");
+		//var ns=cpa[0];
+		var lat=cpa[0];
+		var lon=cpa[1];
+		//var r=cpa[3];
+		var center=new google.maps.LatLng(lat, lon);
 
-
-
-
-}
-function createMarker(p) {
-	var cpa=p.split(",");
-	//var ns=cpa[0];
-	var lat=cpa[0];
-	var lon=cpa[1];
-	//var r=cpa[3];
-	var center=new google.maps.LatLng(lat, lon);
-
-	var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&rcoords=' + lat + ',' + lon + '">clickypop</a>';
-	//crcl = new google.maps.Circle(circleoptn);
-	var marker = new google.maps.Marker({
-		position: center,
-		map: map,
-		title: ' specimens',
-		contentString: contentString,
-		zIndex: 10
-	});
-	markers.push(marker);
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map,marker);
-    });
-}
-
-
-
+		var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&rcoords=' + lat + ',' + lon + '">clickypop</a>';
+		//crcl = new google.maps.Circle(circleoptn);
+		var marker = new google.maps.Marker({
+			position: center,
+			map: map,
+			title: ' specimens',
+			contentString: contentString,
+			zIndex: 10
+		});
+		markers.push(marker);
+	    var infowindow = new google.maps.InfoWindow({
+	        content: contentString
+	    });
+	    google.maps.event.addListener(marker, 'click', function() {
+	        infowindow.open(map,marker);
+	    });
+	}
 	jQuery(document).ready(function() {
 		 initializeMap();
 	});
 
 </script>
 <cfset title = "Edit Geography">
-
-
-<span class="likeLink" onclick="test()">test</span>
-
-
 
 	<cfoutput>
 		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
