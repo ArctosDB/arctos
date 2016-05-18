@@ -489,7 +489,6 @@
 
 </script>
 <cfset title = "Edit Geography">
-
 	<cfoutput>
 		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id#
@@ -534,7 +533,7 @@
 			select distinct
 				round(dec_lat,1) || ',' || round(dec_long,1) rcords
 			from
-				locality
+				flat
 			where
 				dec_lat is not null and
 			 	geog_auth_rec_id=#geog_auth_rec_id#
