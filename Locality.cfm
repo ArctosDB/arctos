@@ -487,19 +487,6 @@ function createMarker(p) {
 	//var r=cpa[3];
 	var center=new google.maps.LatLng(lat, lon);
 
-	/*
-	var circleoptn = {
-		strokeColor: '#FF0000',
-		strokeOpacity: 0.8,
-		strokeWeight: 2,
-		fillColor: '#FF0000',
-		fillOpacity: 0.15,
-		map: map,
-		center: center,
-		//radius: parseInt(r),
-		zIndex:-99
-	};
-	*/
 	var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&rcoords=' + lat + ',' + lon + '">clickypop</a>';
 	//crcl = new google.maps.Circle(circleoptn);
 	var marker = new google.maps.Marker({
@@ -518,157 +505,23 @@ function createMarker(p) {
     });
 }
 
-
+function test(){
+	for(i = 0 ; i< markers.length; i++){
+		var ll=markers[i].getPosition();
+		console.log(ll);
+	}
+}
 
 
 	jQuery(document).ready(function() {
-
 		 initializeMap();
-		/*
-		var map;
-		var myOptions = {
-		    zoom: 9,
-		    center: new google.maps.LatLng(5,100.9),
-		    mapTypeId: 'terrain'
-		};
-		map = new google.maps.Map($('#map')[0], myOptions);
-		var markers = new Array();
-
-
- 		var bounds = new google.maps.LatLngBounds();
-		var wkt=$("#wkt_polygon").val();
-		//using regex, we will get the indivudal Rings
-		var regex = /\(([^()]+)\)/g;
-		var Rings = [];
-		var results;
-		while( results = regex.exec(wkt) ) {
-		    Rings.push( results[1] );
-		}
-		var ptsArray=[];
-		var polyLen=Rings.length;
-		//now we need to draw the polygon for each of inner rings, but reversed
-		for(var i=0;i<polyLen;i++){
-		    AddPoints(Rings[i]);
-		}
-		var poly = new google.maps.Polygon({
-		    paths: ptsArray,
-		    strokeColor: '#1E90FF',
-		    strokeOpacity: 0.8,
-		    strokeWeight: 2,
-		    fillColor: '#1E90FF',
-		    fillOpacity: 0.35
-		});
-
-  		poly.setMap(map);
-
-
-  		var scoords=$("#scoords").val();
-		var arrSP = scoords.split( "|" );
-		var points=[];
-		var geoid=$("#geog_auth_rec_id").val();
-
-		 for(var i=0;i<arrSP.length;i++){
-		 		//var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
-		 	console.log(arrSP[i]);
-			var xy=arrSP[i].split(",");
-		 	console.log('xy: ' + xy);
-			var xyA=xy.toString().split(',');
-			console.log('xyA: ' + xyA);
-			var x=xyA[0];
-			 console.log('x: ' + x);
-			var y=xyA[1];
-		 	console.log('y: ' + y);
-			var thisrow= x + "," + y + ",/SpecimenResults.cfm?rcoords=" + xy;
-			points.push(thisrow);
-			console.log(thisrow);
-		 	var latLng2 = new google.maps.LatLng(x,y);
-
-			//console.log(marker2);
-		 }
-
-  		console.log('points: ' + points);
-
-
-	for (var i = 0; i < points.length; i++) {
-   		var thisp=points[i];
-   		console.log('thisp: ' + thisp);
-   		var thisPA=thisp.split(',');
-   		var thisLat=thisPA[0];
-   		var thisLon=thisPA[1];
-   		var thisURL=thisPA[2];
-   		console.log('thisLat: ' + thisLat);
-   		console.log('thisLon: ' + thisLon);
-   		var contentString= '<span class="likeLink">I like tatertots</span>';
-
-		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(thisLat, thisLon),
-			url: thisURL,
-		    map: map,
-		    name: thisLat + ';' + thisLon,
-		    contentString: contentString,
-		    title: "hello",
-		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-			zIndex: 10
-		});
-		markers.push(marker);
-
-		var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map,marker);
-    });
-
-
-
-	}
-
-    var bounds = new google.maps.LatLngBounds();
-	for (var i=0; i < markers.length; i++) {
-	   bounds.extend(markers[i].getPosition());
-	}
-	// Don't zoom in too far on only one marker
-    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
-       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
-       bounds.extend(extendPoint1);
-       bounds.extend(extendPoint2);
-    }
-	map.fitBounds(bounds);
-
-
-
-//function to add points from individual rings
-		function AddPoints(data){
-		    //first spilt the string into individual points
-		    var pointsData=data.split(",");
-
-
-			//console.log('pointsData: ' + pointsData);
-
-
-		    //iterate over each points data and create a latlong
-		    //& add it to the cords array
-		    var len=pointsData.length;
-		    for (var i=0;i<len;i++){
-		         var xy=pointsData[i].split(" ");
-		        var pt=new google.maps.LatLng(xy[1],xy[0]);
-		        ptsArray.push(pt);
-		        bounds.extend(pt);
-		    }
-		}
-
-map.fitBounds(bounds);
-
-*/
-
 	});
 
 </script>
 <cfset title = "Edit Geography">
 
 
-
+<span class="likeLink" onclick="test()">test</span>
 
 
 
