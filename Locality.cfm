@@ -453,7 +453,7 @@
 	for (var i = 0; i < points.length; i++) {
    		var thisp=points[i];
    		console.log('thisp: ' + thisp);
-   		var thisLat=thisp[0];
+   		var thisLat=thisp[1];
    		console.log('thisLat: ' + thisLat);
 
    		/*
