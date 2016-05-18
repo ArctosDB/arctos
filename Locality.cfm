@@ -396,6 +396,9 @@
 		    mapTypeId: 'terrain'
 		};
 		map = new google.maps.Map($('#map')[0], myOptions);
+		var markers = new Array();
+
+
  		var bounds = new google.maps.LatLngBounds();
 		var wkt=$("#wkt_polygon").val();
 		//using regex, we will get the indivudal Rings
@@ -449,7 +452,6 @@
 
   		console.log('points: ' + points);
 
-var markers = new Array();
 
 	for (var i = 0; i < points.length; i++) {
    		var thisp=points[i];
@@ -473,16 +475,18 @@ var markers = new Array();
 			zIndex: 10
 		});
 		markers.push(marker);
-   		/*
 
-			*/
-	}
-	var infowindow = new google.maps.InfoWindow({
+		var infowindow = new google.maps.InfoWindow({
         content: contentString
     });
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
     });
+
+   		/*
+
+			*/
+	}
 
     var bounds = new google.maps.LatLngBounds();
 	for (var i=0; i < markers.length; i++) {
