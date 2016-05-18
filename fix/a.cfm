@@ -2,7 +2,55 @@
 
 <cfoutput>
 
-Upload CSV:
+Upload state CSV:
+	<form name="getFile" method="post" action="a.cfm" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="getfish2">
+		 <input type="file"
+			   name="FiletoUpload"
+			   size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</form>
+	create table temp_geostate (
+	name varchar2(4000),
+	id varchar2(4000),
+	geometry clob
+	);
+
+
+<cfif action is "getfish2">
+	<cfoutput>
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+        <cfset  util = CreateObject("component","component.utilities")>
+		<cfset x=util.CSVToQuery(fileContent)>
+        <cfset cols=x.columnlist>
+		<br>x.recordcount: #x.recordcount#
+		<cfdump var=#x#>
+		<cfflush>
+		<cftransaction>
+	        <cfloop query="x">
+	            <cfquery name="ins" datasource="uam_god">
+		            insert into temp_geostate (#cols#) values (
+		            <cfloop list="#cols#" index="i">
+		               <cfif i is "geometry">
+		            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+		                <cfelse>
+		            		'#escapeQuotes(evaluate(i))#'
+		            	</cfif>
+		            	<cfif i is not listlast(cols)>
+		            		,
+		            	</cfif>
+		            </cfloop>
+		            )
+	            </cfquery>
+	        </cfloop>
+		</cftransaction>
+		loaded to temp_geostate go go gadget sql
+	</cfoutput>
+</cfif>
+
+
+
+Upload county CSV:
 	<form name="getFile" method="post" action="a.cfm" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="getfish">
 		 <input type="file"
