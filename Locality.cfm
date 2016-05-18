@@ -607,8 +607,8 @@ var geoid=$("#geog_auth_rec_id").val();
 
 
 	for (var i = 0; i < points.length; i++) {
-   		var thisp=points[i];
-   		console.log('thispoint: ' + thisp);
+   		//var thisp=points[i];
+   		//console.log('thispoint: ' + thisp);
 	}
 }
 
