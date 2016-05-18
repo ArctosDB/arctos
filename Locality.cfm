@@ -459,7 +459,7 @@
    		var thisURL=thisPA[2];
    		console.log('thisLat: ' + thisLat);
 		var marker2 = new google.maps.Marker({
-			position: new google.maps.LatLng(thisLat, thisLon);,
+			position: new google.maps.LatLng(thisLat, thisLon),
 			url: thisURL,
 		    map: map,
 		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
