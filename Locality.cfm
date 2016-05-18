@@ -393,9 +393,57 @@ var markers = new Array();
 	function asterisckificateisland(){
 		$("#island").val("*" + $("#island").val());
 	}
+function AddPoints(data){
+		    //first spilt the string into individual points
+		    var pointsData=data.split(",");
 
+
+			//console.log('pointsData: ' + pointsData);
+
+
+		    //iterate over each points data and create a latlong
+		    //& add it to the cords array
+		    var len=pointsData.length;
+		    for (var i=0;i<len;i++){
+		         var xy=pointsData[i].split(" ");
+		        var pt=new google.maps.LatLng(xy[1],xy[0]);
+		        ptsArray.push(pt);
+		        bounds.extend(pt);
+		    }
+		}
 function initializeMap() {
 	// just nuke the old map
+
+
+	var wkt=$("#wkt_polygon").val();
+		//using regex, we will get the indivudal Rings
+		var regex = /\(([^()]+)\)/g;
+		var Rings = [];
+		var results;
+		while( results = regex.exec(wkt) ) {
+		    Rings.push( results[1] );
+		}
+		var ptsArray=[];
+		var polyLen=Rings.length;
+		//now we need to draw the polygon for each of inner rings, but reversed
+		for(var i=0;i<polyLen;i++){
+		    AddPoints(Rings[i]);
+		}
+		var poly = new google.maps.Polygon({
+		    paths: ptsArray,
+		    strokeColor: '#1E90FF',
+		    strokeOpacity: 0.8,
+		    strokeWeight: 2,
+		    fillColor: '#1E90FF',
+		    fillOpacity: 0.35
+		});
+
+  		poly.setMap(map);
+
+
+
+
+
 	var infowindow = new google.maps.InfoWindow();
 	var mapOptions = {
 		zoom: 3,
