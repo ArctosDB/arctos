@@ -439,7 +439,7 @@
 			 console.log('x: ' + x);
 			var y=xyA[1];
 		 	console.log('y: ' + y);
-			var thisrow=" x + "," + y + ",/SpecimenResults.cfm?rcoords=" + xy + ";
+			var thisrow= x + "," + y + ",/SpecimenResults.cfm?rcoords=" + xy;
 			points.push(thisrow);
 			console.log(thisrow);
 		 	var latLng2 = new google.maps.LatLng(x,y);
