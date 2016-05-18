@@ -455,7 +455,6 @@ function createMarker(p) {
 		map: map,
 		title: ' specimens',
 		contentString: contentString,
-		url: ',
 		zIndex: 10
 	});
 	markers.push(marker);
