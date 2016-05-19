@@ -409,8 +409,9 @@
 	    for (var i=0;i<pointsData.length;i++)
 	    {
 
+			console.log('pointsData[i]: ' || pointsData[i]);
 
-	        var xy=pointsData[i].split(",");
+	        var xy=pointsData[i].split(" ");
 
 
 
