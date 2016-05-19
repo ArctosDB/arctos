@@ -487,8 +487,28 @@
 		console.log('I made an array of LatLng (ppts): ');
 		console.log(ppts);
 
+		 var poly = new google.maps.Polygon({
+			    paths: ppts,
+			    strokeColor: '#1E90FF',
+			    strokeOpacity: 0.8,
+			    strokeWeight: 2,
+			    fillColor: '#1E90FF',
+			    fillOpacity: 0.35
+			});
 
 
+
+
+			poly.setMap(map);
+
+			console.log('i added the poly to the map');
+
+			//polygonArray.push(poly);
+
+			//polygonArray[polygonArray.length-1].setMap(map);
+
+			 //console.log('polygonArray');
+			 //console.log(polygonArray);
 
 
 
@@ -511,8 +531,8 @@
 
 		addAPolygon(poly1);
 
-		console.log('im back to initmap with the array:');
-		console.log(ppts);
+		//console.log('im back to initmap with the array:');
+		//console.log(ppts);
 
 
 /*
