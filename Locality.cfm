@@ -405,6 +405,14 @@
 
 
 	    		console.log('pointsData.length: ' + pointsData.length);
+
+
+	    for(var i=0;i<pointsData.length;i++){
+		    console.log('i am i: ' || i);
+		}
+
+
+
 /*
 	    for (var pi=0;pi<pointsData.length;pi++) {
 			console.log('pi: ' || pi);
