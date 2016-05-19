@@ -531,6 +531,9 @@
 
 		addAPolygon(poly1);
 
+
+		addAPolygon(poly2);
+
 		//console.log('im back to initmap with the array:');
 		//console.log(ppts);
 
