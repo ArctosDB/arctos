@@ -523,23 +523,23 @@
        				//console.log('inside')
        			}
         	}
-			if (opa.length>0){
-				for(var o=0; o<opa.length; o++){
-					var tc=opa[o];
-
-					console.log('tc');
-					console.log(tc);
-					console.log('0::'+tc[0]);
-
-				}
-				$("#opatgt").val(opa);
-			} else {
-				$("#opatgt").val('no outside points detected');
-			}
-        	//if
-        	//)
-        	//polygonArray
     	}
+    	if (opa.length>0){
+			for(var o=0; o<opa.length; o++){
+				var tc=opa[o];
+
+				console.log('tc');
+				console.log(tc);
+				console.log('0::'+tc[0]);
+
+			}
+			$("#opatgt").val(opa);
+		} else {
+			$("#opatgt").val('no outside points detected');
+		}
+       	//if
+       	//)
+       	//polygonArray
 	}
 
 </script>
