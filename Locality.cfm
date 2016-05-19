@@ -826,7 +826,7 @@
         <form name="editHG" id="editHG" method="post" action="Locality.cfm">
 	        <input name="action" id="action" type="hidden" value="saveGeogEdits">
             <input type="hidden" id="geog_auth_rec_id" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
-            <table border>
+            <table border="1">
 				<tr>
 	                <td>
 						<label for="continent_ocean" class="likeLink" onClick="getDocs('higher_geography','continent_ocean')">
