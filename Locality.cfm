@@ -977,12 +977,16 @@
 				<tr>
 	                <td colspan="4">
 		                <cfset wktpolydata=wkt_polygon>
-		                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,6) is 'FILE::'>
+		                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,7) is 'MEDIA::'>
+			                <cfset meid=right(wkt_polygon,len(wkt_polygon)-7)>
+               				<cfquery name="fmed" datasource="uam_god">
+								select media_uri from media where media_id=#meid#
+							</cfquery>
+
 									<br>reading a file...
 									<cfset filename=right(wkt_polygon,len(wkt_polygon)-6)>
 									<br>filename: #filename#
-									<cfhttp method="GET" url=#filename#></cfhttp>
-									<cfdump var=#cfhttp#>
+									<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 									<cfset wktpolydata=cfhttp.filecontent>
 							</cfif>
 
