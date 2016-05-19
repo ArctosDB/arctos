@@ -495,7 +495,7 @@
 		console.log('this.markers.length: ' + this.markers.length);
 		//console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
-			console.log('marker ' + i);
+			//console.log('marker ' + i);
 
         	//console.log(this.markers[i]);
         	//var ll= new google.maps.LatLng(this.markers[i].lat(), this.markers[i].lng());
@@ -503,7 +503,7 @@
         	//console.log(this.markers[i].position);
 
         	for(var a=0; a<polygonArray.length; a++){
-				console.log('poly ' + a);
+				//console.log('poly ' + a);
         		//console.log('---');
         		//console.log(polygonArray[a]);
         		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
@@ -515,7 +515,7 @@
         			//var rla=Math.round(this.markers[i].position.lat() * 10) / 10;
         			//var rlo=Math.round(this.markers[i].position.lng() * 10) / 10;
 
-					console.log('marker position: ' + this.markers[i].title);
+					//console.log('marker position: ' + this.markers[i].title);
 					var rla=this.markers[i].position.lat();
 					var rlo=this.markers[i].position.lng();
         			var tcp=rla + ',' + rlo;
@@ -532,12 +532,13 @@
 
     		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=';
     		theURL += $("#geog_auth_rec_id").val();
-    		theURL += '&rcoordslist=' + opastr;
+    		theURL += '&coordslist=' + opastr;
 
     		//1001669&rcoordslist=37.1,-103.1|37,-103.7|37.3,-103.5&debug=1
     		console.log(opastr);
     		console.log(theURL);
-
+    		window.open(theURL);
+/*
 			for(var o=0; o<opa.length; o++){
 				var tc=opa[o];
 
@@ -547,6 +548,7 @@
 
 			}
 			$("#opatgt").val(opa);
+			*/
 		} else {
 			$("#opatgt").val('no outside points detected');
 		}
