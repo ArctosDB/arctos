@@ -414,7 +414,7 @@
 
 
 	    for(var i=0;i<9;i++){
-		    console.log('i am i: ' || i);
+		    console.log('i am i: ' + i);
 		}
 
 
