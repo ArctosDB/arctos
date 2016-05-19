@@ -175,10 +175,15 @@
 ---->
 
 <cfif isdefined("coordslist") AND len(coordslist) gt 0>
-	<cfset rcl=listqualify(coordslist,"'","|")>
-	<cfset rcl=listchangedelims(rcl,",","|")>
 	<cfset mapurl = "#mapurl#&coordslist=#coordslist#">
-	<cfset basQual = "#basQual# AND round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1) in (#rcl#)" >
+	<cfset basQual = "#basQual# AND ( ">
+	<cfloop list="#coordslist#" delimiters="|" index="c">
+		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat=#listgetat(c,1)# and #session.flatTableName#.dec_long=#listgetat(c,2)#" >
+		<cfif listlast(coordslist,"|") is not c>
+			<cfset basQual = "#basQual# OR ">
+		</cfif>
+	</cfloop>
+	<cfset basQual = "#basQual# ) ">
 </cfif>
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
