@@ -494,6 +494,9 @@
 
 		//now we need to draw the polygon for each of inner rings, but reversed
 		for(var i=0;i<polyLen;i++){
+
+			var ptsArray=[];
+
 		    AddPoints(Rings[i]);
 
 			 console.log('adding polygon: ' + ptsArray);
