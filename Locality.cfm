@@ -491,21 +491,21 @@
 	function test(){
 		var opa=[];
 
-		console.log(markers);
+		//console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
-        	console.log(this.markers[i]);
+        	//console.log(this.markers[i]);
         	//var ll= new google.maps.LatLng(this.markers[i].lat(), this.markers[i].lng());
-        	console.log('---ll---');
-        	console.log(this.markers[i].position);
+        	//console.log('---ll---');
+        	//console.log(this.markers[i].position);
 
         	for(var a=0; a<polygonArray.length; a++){
-        		console.log('---');
-        		console.log(polygonArray[a]);
+        		//console.log('---');
+        		//console.log(polygonArray[a]);
         		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
-        			console.log('outside');
+        			//console.log('outside');
         			opa.push(this.markers[i].position);
        			} else {
-       				console.log('inside')
+       				//console.log('inside')
        			}
         	}
 			if (opa.length>0){
