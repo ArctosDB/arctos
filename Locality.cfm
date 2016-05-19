@@ -504,17 +504,13 @@
     	if (opa.length>0){
     		var opastr=opa.join('|');
     		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val(); + '&coordslist=' + opastr;
-    		window.open('/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val(); + '&coordslist=' + opastr);
+    		window.open(theURL);
 		} else {
 			alert('no outside points detected');
 		}
 	}
 </script>
 <cfset title = "Edit Geography">
-
-
-<span class="likeLink" onclick="test()">test</span>
-
 	<cfoutput>
 		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id#
@@ -746,9 +742,11 @@
 							Error is not displayed here; examine the locality before doing anything.
 							<br>Large WKT (>~30K characters) will not work properly
 							<cfif len(wkt_polygon) gt 0>
-								<br><span class="likeLink" onclick="openOutsidePoints();">
-									click here to view specimens using "outside" points in a new window
-								</span>
+								<div>
+									<span class="likeLink" onclick="openOutsidePoints();">
+										click here to view specimens coordinates "outside" the WKT shape (new window)
+									</span>
+								</div>
 							</cfif>
 						</div>
 						<div id="map"></div>
