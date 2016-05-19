@@ -402,7 +402,11 @@
 	    //iterate over each points data and create a latlong
 	    //& add it to the cords array
 	    var len=pointsData.length;
-	    for (var i=0;i<len;i++)
+
+
+	    		console.log('pointsData.length: ' + pointsData.length);
+
+	    for (var i=0;i<pointsData.length;i++)
 	    {
 
 
