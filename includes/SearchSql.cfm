@@ -170,6 +170,16 @@
 	<cfset mapurl = "#mapurl#&coordinates=#coordinates#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat=#listgetat(coordinates,1)# and #session.flatTableName#.dec_long=#listgetat(coordinates,2)#" >
 </cfif>
+<!----
+	coordslist is a pipe-separated list of coordinate pairs
+---->
+
+<cfif isdefined("coordslist") AND len(coordslist) gt 0>
+	<cfset rcl=listqualify(coordslist,"'","|")>
+	<cfset rcl=listchangedelims(rcl,",","|")>
+	<cfset mapurl = "#mapurl#&coordslist=#coordslist#">
+	<cfset basQual = "#basQual# AND round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1) in (#rcl#)" >
+</cfif>
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
 	<cfif isGeoreferenced is true>
