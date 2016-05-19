@@ -149,10 +149,17 @@
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
 </cfif>
-<!---- rcoords is round(n,2) concatenated coordinates from spatial browse ---->
+<!---- rcoords is round(n,1) concatenated coordinates from spatial browse ---->
 <cfif isdefined("rcoords") AND len(rcoords) gt 0>
 	<cfset mapurl = "#mapurl#&rcoords=#rcoords#">
 	<cfset basQual = "#basQual#  AND  round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1)='#rcoords#'" >
+</cfif>
+<cfif isdefined("rcoordslist") AND len(rcoordslist) gt 0>
+	<cfset rcl=listqualify(rcoordslist,"'")>
+	<cfset rcl=listchangedelims(rcl,",")>
+
+	<cfset mapurl = "#mapurl#&rcoordslist=#rcoordslist#">
+	<cfset basQual = "#basQual# AND round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1) in (#rcl#)" >
 </cfif>
 <cfif isdefined("coordinates") AND len(coordinates) gt 0>
 	<cfset mapurl = "#mapurl#&coordinates=#coordinates#">
