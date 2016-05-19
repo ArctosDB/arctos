@@ -567,7 +567,7 @@
 
 		//
 
-
+	*/
 
 
 		// now specimen points
@@ -591,7 +591,7 @@
 	    }
 		map.fitBounds(bounds);
 
-		*/
+
 	}
 	function createMarker(p) {
 		var cpa=p.split(",");
