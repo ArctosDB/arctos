@@ -406,7 +406,7 @@
 	}
 
 	function initializeMap() {
-		var wkt=$("#wkt_polygon").val();
+		var wkt=$("#wkt_poly_data").val();
 		var infowindow = new google.maps.InfoWindow();
 		var mapOptions = {
 			zoom: 3,
@@ -745,7 +745,7 @@
 									<cfset wktpolydata=cfhttp.filecontent>
 							</cfif>
 
-
+						<input type="text" id="wkt_poly_data" value="#wktpolydata#">
 
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
