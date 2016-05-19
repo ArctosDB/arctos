@@ -711,6 +711,8 @@
 
 		console.log('ptsArray.length');
 		console.log(ptsArray.length);
+
+
 		for(var i=0; i<this.markers.length; i++){
 			console.log('loopy ' + i);
 
