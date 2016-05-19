@@ -375,6 +375,13 @@
 	<style>
 		#map-canvas { height: 300px;width:500px; }
 		#map{width: 450px;height: 400px;}
+		.wktfetch{
+			background-color:black;
+			color:green;
+			padding:1em;
+			margin:1em;
+			font-family:courier;
+		}
 	</style>
 <script>
 	var map;
@@ -840,8 +847,8 @@
 						<input type="text" name="country" id="country" size="60" value="#country#">
 					</td>
 
-					<td rowspan="20" valign="top" align="center">
-
+					<td rowspan="20" valign="top">
+						<div id="map"></div>
 
 
 		                <cfset wktpolydata=wkt_polygon>
@@ -850,11 +857,13 @@
                				<cfquery name="fmed" datasource="uam_god">
 								select media_uri from media where media_id=#meid#
 							</cfquery>
-							<br>readingWKT data from #fmed.media_uri#
-							<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
-							<cfif left(cfhttp.statuscode,3) is "200">
-								<br>successfully got file...
-							</cfif>
+							<div class="wktfetch">
+								readingWKT data from #fmed.media_uri#
+								<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+								<cfif left(cfhttp.statuscode,3) is "200">
+									<br>successfully got file...
+								</cfif>
+							</div>
 							<cfset wktpolydata=cfhttp.filecontent>
 						</cfif>
 						<input type="hidden" id="wkt_poly_data" value="#wktpolydata#">
@@ -872,7 +881,6 @@
 								</span>
 							</cfif>
 						</div>
-						<div id="map"></div>
 
 
 
