@@ -903,6 +903,7 @@
 											MEDIA::{media_id of the WKT data file}
 										</code>
 									</li></ul>
+									Case and punctuation matter.
 								</li>
 							</ol>
 						</div>
