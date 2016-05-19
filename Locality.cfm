@@ -438,6 +438,9 @@
 
 		}
 
+		console.log('leaving AddPoints - ptsArray is...');
+		console.log(ptsArray);
+
 
 
 /*
