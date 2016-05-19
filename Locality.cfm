@@ -391,7 +391,7 @@
 	}
 	function AddPoints(data){
 
-		var ptsArray=[];
+		//var ptsArray=[];
 
 		console.log('AddPoints: ' + data);
 
@@ -504,7 +504,12 @@
 
 		    AddPoints(Rings[i]);
 
-			 console.log('adding polygon: ' + ptsArray);
+
+
+
+		}
+
+ console.log('adding polygon: ' + ptsArray);
 
 		    var poly = new google.maps.Polygon({
 			    paths: ptsArray,
@@ -515,12 +520,13 @@
 			    fillOpacity: 0.35
 			});
 
-			poly.setMap(map);
+
+
+
+			//poly.setMap(map);
 			polygonArray.push(poly);
 
-
-
-		}
+			poly[poly.length-1].setMap(map);
 
 
 		//
