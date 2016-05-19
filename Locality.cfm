@@ -982,12 +982,12 @@
                				<cfquery name="fmed" datasource="uam_god">
 								select media_uri from media where media_id=#meid#
 							</cfquery>
-
-									<br>reading a file...
-									<cfset filename=right(wkt_polygon,len(wkt_polygon)-6)>
-									<br>filename: #filename#
-									<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
-									<cfset wktpolydata=cfhttp.filecontent>
+							<br>readingWKT data from #fmed.media_uri#...
+							<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+							<cfif left(http.statuscode,3) is "200">
+								<br>successfully got file...
+							</cfif>
+							<cfset wktpolydata=cfhttp.filecontent>
 							</cfif>
 
 						<input type="text" id="wkt_poly_data" value="#wktpolydata#">
