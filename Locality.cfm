@@ -525,6 +525,9 @@
         	}
     	}
     	if (opa.length>0){
+    		var opastr=opa.join('|');
+    		console.log(opastr);
+
 			for(var o=0; o<opa.length; o++){
 				var tc=opa[o];
 
