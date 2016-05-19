@@ -489,6 +489,8 @@
 	});
 
 	function test(){
+		var opa=[];
+
 		console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
         	console.log(this.markers[i]);
@@ -499,14 +501,15 @@
         	for(var a=0; a<polygonArray.length; a++){
         		console.log('---');
         		console.log(polygonArray[a]);
-        		if  ( google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
-        			console.log('inside');
+        		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
+        			console.log('outside');
+        			opa.push(this.markers[i].position);
        			} else {
-       				console.log('outside')
+       				console.log('inside')
        			}
         	}
 
-
+			$("#opatgt").val(opa);
         	//if
         	//)
         	//polygonArray
@@ -518,6 +521,8 @@
 
 
 <span class="likeLink" onclick="test()">test</span>
+
+<textarea id="opatgt"></textarea>
 	<cfoutput>
 		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id#
