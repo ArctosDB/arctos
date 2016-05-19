@@ -470,6 +470,9 @@
 
 
 	function addAPolygon(d){
+
+		var ppts=[];
+
 		console.log('hello I am addAPolygon');
 		console.log(d);
 		var da=d.split(",");
@@ -477,12 +480,12 @@
 		for(var i=0;i<da.length;i++){
 			var xy = da[i].split(" ");
 			var pt=new google.maps.LatLng(xy[1],xy[0]);
-			ptsArray.push(pt);
+			ppts.push(pt);
 			bounds.extend(pt);
 		}
 
-		console.log('I made an array of LatLng: ');
-		console.log(ptsArray);
+		console.log('I made an array of LatLng (ppts): ');
+		console.log(ppts);
 
 
 
@@ -507,6 +510,9 @@
 
 
 		addAPolygon(poly1);
+
+		console.log('im back to initmap with the array:');
+		console.log(ppts);
 
 
 /*
