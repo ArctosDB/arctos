@@ -503,7 +503,6 @@
     	}
     	if (opa.length>0){
     		var opastr=opa.join('|');
-
     		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&coordslist=' + opastr;
     		window.open(theURL);
 		} else {
@@ -734,20 +733,19 @@
 	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>
 	                </td>
 				</tr>
-
 				<tr>
 	                <td colspan="4">
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
  						<div style="font-size:x-small">
 							Error is not displayed here; examine the locality before doing anything.
-							<br>Large WKT (>~30K characters) will not work properly
+
 							<cfif len(wkt_polygon) gt 0>
-								<div>
-									<span class="likeLink" onclick="openOutsidePoints();">
-										Find specimens with coordinates "outside" the WKT shape (new window)
-									</span>
-								</div>
+								<br>Large WKT (>~30K characters) will not work properly
+								<br>The WKT was probably converted from KML or something and may be garbage
+								<br><span class="likeLink" onclick="openOutsidePoints();">
+									Find specimens with coordinates "outside" the WKT shape (new window)
+								</span>
 							</cfif>
 						</div>
 						<div id="map"></div>
