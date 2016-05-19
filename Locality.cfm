@@ -544,7 +544,13 @@
 
 		console.log('im back to initmap with the array containing all of the points');
 		console.log(ptsArray);
+  		for (var i=0; i<ptsArray.length-1; i++) {
+  			console.log('ptsArray[i]');
+  			console.log(ptsArray[i]);
 
+  		}
+
+  			/*
 
  var poly = new google.maps.Polygon({
 			    paths: ptsArray,
@@ -561,7 +567,7 @@
 			poly.setMap(map);
 
 			console.log('i added the poly to the map');
-
+*/
 /*
 		//using regex, we will get the indivudal Rings
 		var regex = /\(([^()]+)\)/g;
