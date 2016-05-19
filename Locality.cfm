@@ -472,7 +472,7 @@
 		var marker = new google.maps.Marker({
 			position: center,
 			map: map,
-			title: ' specimens',
+			title: lat + ',' + lon,
 			contentString: contentString,
 			zIndex: 10
 		});
