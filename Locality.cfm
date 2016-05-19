@@ -395,6 +395,12 @@
 
 
 	    //first spilt the string into individual points
+
+
+	    var data='40 40,20 45,45 30,40 40';
+
+	    		console.log('newdata: ' + data);
+
 	    var pointsData=data.split(",");
 
 
