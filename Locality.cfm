@@ -527,8 +527,6 @@
 			order by
 				collection.guid_prefix
 		</cfquery>
-
-
 		<cfquery name="scoords" datasource="uam_god">
 			select distinct
 				round(dec_lat,1) || ',' || round(dec_long,1) rcords
@@ -715,17 +713,16 @@
 
 				<tr>
 	                <td colspan="4">
-
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
  						<div style="font-size:x-small">
-							Points are rounded; small "errors" may be artifacts
-							<br>Large WKT (>30K characters) will not work properly because CF is broken
+							Points are rounded; small "errors" may be artifacts. Error is not displayed here; examine the locality before
+							doing anything.
+							<br>Large WKT (>~30K characters) will not work properly
 						</div>
 						<div id="map"></div>
 	                </td>
 				</tr>
-
 				<cfquery name="geog_search_term" datasource="uam_god">
 					select * from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id#
 				</cfquery>

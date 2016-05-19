@@ -663,7 +663,7 @@
 								<table width="100%">
 									<tr>
 										<td valign="top" align="right"><!---- text stuff here ---->
-											<table>
+											<table width="100%">
 												<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 													<tr>
 														<td align="right" valign="top">Coordinates:</td>
