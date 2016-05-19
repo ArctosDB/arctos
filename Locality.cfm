@@ -748,7 +748,7 @@
 
 
 	                	<label for="wkt_polygon">wkt_polygon</label>
-	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wktpolydata#</textarea>
+	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
  						<div style="font-size:x-small">
 							Error is not displayed here; examine the locality before doing anything.
 
@@ -759,13 +759,6 @@
 									Find specimens with coordinates "outside" the WKT shape (new window)
 								</span>
 
-								<cfif left(wkt_polygon,6) is 'FILE::'>
-									<br>reading a file...
-									<cfset filename=right(wkt_polygon,len(wkt_polygon)-6)>
-									<br>filename: #filename#
-									<cfhttp method="GET" url=#filename#></cfhttp>
-									<cfdump var=#cfhttp#>
-								</cfif>
 							</cfif>
 						</div>
 						<div id="map"></div>
