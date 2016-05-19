@@ -380,7 +380,7 @@
 	var bounds = new google.maps.LatLngBounds();
 	var markers = new Array();
 	var ptsArray=[];
-
+	var polygonArray = [];
 
 	function clearTerm(id){
 		$("#" + id).val('');
@@ -437,6 +437,7 @@
 		});
 
 		poly.setMap(map);
+		polygonArray.push(polygon);
 		// now specimen points
 		var cfgml=$("#scoords").val();
 		if (cfgml.length==0){
@@ -490,8 +491,17 @@
 	function test(){
 		console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
-        console.log(this.markers[i]);
-    }
+        	console.log(this.markers[i]);
+        	for(var i=0; a<polygonArray.length; a++){
+        		console.log('---');
+        		console.log(polygonArray[a]);
+        	}
+
+
+        	//if ( google.maps.geometry.poly.containsLocation(e.latLng, bermudaTriangle) ?
+        	//)
+        	//polygonArray
+    	}
 	}
 
 </script>
