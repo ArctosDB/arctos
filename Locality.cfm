@@ -323,8 +323,9 @@
 			</tr>
 			<tr>
 			<td colspan="2">
-<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
-	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10"></textarea>			</td>
+				<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
+				<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10"></textarea>
+			</td>
 		</tr><tr>
 			<td colspan="2">
 				<input type="submit" value="Create" class="insBtn">
@@ -405,6 +406,8 @@
 	}
 
 	function initializeMap() {
+		var wkt=$("#wkt_polygon").val();
+		if (wkt.length==0){
 		var infowindow = new google.maps.InfoWindow();
 		var mapOptions = {
 			zoom: 3,
@@ -414,7 +417,7 @@
 		    scaleControl: true
 		};
 		map = new google.maps.Map(document.getElementById('map'),mapOptions);
-		var wkt=$("#wkt_polygon").val();
+
 		//using regex, we will get the indivudal Rings
 		var regex = /\(([^()]+)\)/g;
 		var Rings = [];
@@ -788,9 +791,11 @@
  						<div style="font-size:x-small">
 							Error is not displayed here; examine the locality before doing anything.
 							<br>Large WKT (>~30K characters) will not work properly
-							<br><span class="likeLink" onclick="openOutsidePoints();">
-								click here to view specimens using "outside" points in a new window
-							</span>
+							<cfif len(wkt_polygon) gt 0>
+								<br><span class="likeLink" onclick="openOutsidePoints();">
+									click here to view specimens using "outside" points in a new window
+								</span>
+							</cfif>
 						</div>
 						<div id="map"></div>
 	                </td>
