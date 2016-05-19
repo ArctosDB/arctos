@@ -406,9 +406,8 @@
 
 	    		console.log('pointsData.length: ' + pointsData.length);
 
-	    for (var i=0;i<pointsData.length;i++)
-	    {
-
+	    for (var i=0;i<pointsData.length;i++) {
+			console.log('i: ' || i);
 			console.log('pointsData[i]: ' || pointsData[i]);
 
 	        var xy=pointsData[i].split(" ");
