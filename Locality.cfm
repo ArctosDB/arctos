@@ -861,6 +861,7 @@
 					</td>
 
 					<td rowspan="20" valign="top">
+						<!----
 						<div id="map"></div>
 
 						<div id="mapInst">
@@ -909,6 +910,7 @@
 							<cfset wktpolydata=cfhttp.filecontent>
 						</cfif>
 						<input type="hidden" id="wkt_poly_data" value="#wktpolydata#">
+						---->
 					</td>
 				</tr>
 				<tr>
