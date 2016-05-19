@@ -504,7 +504,7 @@
     	if (opa.length>0){
     		var opastr=opa.join('|');
     		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val(); + '&coordslist=' + opastr;
-    		window.open(theURL);
+    		window.open('/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val(); + '&coordslist=' + opastr);
 		} else {
 			alert('no outside points detected');
 		}
