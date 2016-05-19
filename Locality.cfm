@@ -719,6 +719,11 @@
         	for(var a=0; a<ptsArray.length; a++){
         		console.log('array ptsArray[a] @ ' + a);
         		console.log(ptsArray[a]);
+        		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, ptsArray[a]) ) {
+						// we have to use title here; position is math-ed and won't match coordinates in DB
+	        			opa.push(this.markers[i].title);
+	        			console.log(this.markers[i].title);
+	        		}
         		//for(var j=0; j<ptsArray[a].length; j++){
         		//	console.log('array ptsArray[a][j] @ ' + j);
         		//	console.log(ptsArray[a][j]);
