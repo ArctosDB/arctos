@@ -526,7 +526,14 @@
     	}
     	if (opa.length>0){
     		var opastr=opa.join('|');
+
+    		var theURL=/SpecimenResults.cfm?geog_auth_rec_id=';
+    		theURL += $("#geog_auth_rec_id").val();
+    		theURL += '&rcoordslist=' + opastr;
+
+    		//1001669&rcoordslist=37.1,-103.1|37,-103.7|37.3,-103.5&debug=1
     		console.log(opastr);
+    		console.log(theURL);
 
 			for(var o=0; o<opa.length; o++){
 				var tc=opa[o];
