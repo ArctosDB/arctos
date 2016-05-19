@@ -502,17 +502,17 @@
         		//console.log('---');
         		//console.log(polygonArray[a]);
         		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
-        			console.log('outside');
-        			console.log(this.markers[i].position);
-        			console.log(this.markers[i].position.lat());
-        			console.log(this.markers[i].position.lng());
+        			//console.log('outside');
+        			//console.log(this.markers[i].position);
+        			//console.log(this.markers[i].position.lat());
+        			//console.log(this.markers[i].position.lng());
 
         			var rla=Math.round(this.markers[i].position.lat() * 10) / 10;
         			var rlo=Math.round(this.markers[i].position.lng() * 10) / 10;
 
 
         			var tcp=rla + ',' + rlo;
-        			console.log(tcp);
+        			//console.log(tcp);
 
         			opa.push(tcp);
        			} else {
@@ -521,7 +521,8 @@
         	}
 			if (opa.length>0){
 				for(var o=0; o<opa.length; o++){
-					var tc=opa[o];
+					var tc=opa[o].join('|');
+
 					console.log('tc');
 					console.log(tc);
 					console.log('0::'+tc[0]);
