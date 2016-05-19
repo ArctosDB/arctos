@@ -875,6 +875,7 @@
 						</div>
 						<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
+	                	---->
 						<div id="wktinstr">
 							Large WKT (>~30K characters) will not work properly in the textarea. Instead,
 							<ol>
@@ -910,7 +911,7 @@
 							<cfset wktpolydata=cfhttp.filecontent>
 						</cfif>
 						<input type="hidden" id="wkt_poly_data" value="#wktpolydata#">
-						---->
+
 					</td>
 				</tr>
 				<tr>
