@@ -489,7 +489,7 @@
 		 initializeMap();
 	});
 
-	function test(){
+	function openOutsidePoints(){
 		var opa=[];
 		console.log('polygonArray.length: ' + polygonArray.length);
 		console.log('this.markers.length: ' + this.markers.length);
@@ -529,12 +529,10 @@
     	}
     	if (opa.length>0){
     		var opastr=opa.join('|');
-
     		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=';
     		theURL += $("#geog_auth_rec_id").val();
     		theURL += '&coordslist=' + opastr;
 
-    		//1001669&rcoordslist=37.1,-103.1|37,-103.7|37.3,-103.5&debug=1
     		console.log(opastr);
     		console.log(theURL);
     		window.open(theURL);
@@ -550,11 +548,8 @@
 			$("#opatgt").val(opa);
 			*/
 		} else {
-			$("#opatgt").val('no outside points detected');
+			alert('no outside points detected');
 		}
-       	//if
-       	//)
-       	//polygonArray
 	}
 
 </script>
@@ -563,7 +558,6 @@
 
 <span class="likeLink" onclick="test()">test</span>
 
-<textarea id="opatgt"></textarea>
 	<cfoutput>
 		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id#
@@ -796,9 +790,11 @@
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
  						<div style="font-size:x-small">
-							Points are rounded/combined; small "errors" may be artifacts. Error is not displayed here; examine the locality before
-							doing anything.
+							Error is not displayed here; examine the locality before doing anything.
 							<br>Large WKT (>~30K characters) will not work properly
+							<br><span class="likeLink" onclick="openOutsidePoints();">
+								click here to view specimens using "outside" points in a new window
+							</span>
 						</div>
 						<div id="map"></div>
 	                </td>
