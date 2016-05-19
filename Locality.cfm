@@ -399,6 +399,11 @@
 	    {
 	        var xy=pointsData[i].split(" ");
 	        var pt=new google.maps.LatLng(xy[1],xy[0]);
+
+
+	        console.log('pt: ' + pt);
+
+
 	        ptsArray.push(pt);
 	        bounds.extend(pt);
 	    }
