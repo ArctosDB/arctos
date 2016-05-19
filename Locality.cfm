@@ -406,11 +406,11 @@
 
 	    		console.log('pointsData.length: ' + pointsData.length);
 
-	    for (var i=0;i<pointsData.length;i++) {
-			console.log('i: ' || i);
-			console.log('pointsData[i]: ' || pointsData[i]);
+	    for (var pi=0;i<pointsData.length;pi++) {
+			console.log('pi: ' || pi);
+			console.log('pointsData[pi]: ' || pointsData[pi]);
 
-	        var xy=pointsData[i].split(" ");
+	        var xy=pointsData[pi].split(" ");
 
 
 
