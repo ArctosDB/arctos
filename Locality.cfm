@@ -374,7 +374,7 @@
 	</cfoutput>
 	<style>
 		#map-canvas { height: 300px;width:500px; }
-		#map{width: 450px;height: 400px;}
+		#map{width: 450px;height: 400px;display:inline-block;}
 		#wktfetch{
 			background-color:black;
 			color:green;
