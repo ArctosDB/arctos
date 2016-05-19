@@ -973,6 +973,9 @@
 						<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
 	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>
 					</td>
+					<td rowspan="20">
+						I span all the rows
+					</td>
 				</tr>
 				<tr>
 	                <td>
