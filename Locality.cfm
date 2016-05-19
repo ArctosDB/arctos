@@ -487,8 +487,18 @@
 		 initializeMap();
 	});
 
+	function test(){
+		console.log(markers);
+		for(var i=0; i<this.markers.length; i++){
+        console.log(this.markers[i]);
+    }
+	}
+
 </script>
 <cfset title = "Edit Geography">
+
+
+<span class="likeLink" onclick="test()">test</span>
 	<cfoutput>
 		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id#
@@ -716,7 +726,7 @@
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
  						<div style="font-size:x-small">
-							Points are rounded; small "errors" may be artifacts. Error is not displayed here; examine the locality before
+							Points are rounded/combined; small "errors" may be artifacts. Error is not displayed here; examine the locality before
 							doing anything.
 							<br>Large WKT (>~30K characters) will not work properly
 						</div>
