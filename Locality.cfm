@@ -483,8 +483,8 @@
 		    Rings.push( results[1] );
 		}
 
-		console.log('Rings: ' + Rings);
-
+		console.log('Rings: ' );
+		console.log(Rings);
 
 		var polyLen=Rings.length;
 
