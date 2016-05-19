@@ -424,6 +424,10 @@
 
 		     var xy = tpd.split(" ");
 
+		      var pt=new google.maps.LatLng(xy[1],xy[0]);
+
+	        ptsArray.push(pt);
+	        bounds.extend(pt);
 
  console.log(xy);
 
@@ -458,8 +462,6 @@
 	        console.log('pt: ' + pt);
 
 
-	        ptsArray.push(pt);
-	        bounds.extend(pt);
 	    }
 
 	    */
