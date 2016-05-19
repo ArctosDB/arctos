@@ -514,6 +514,7 @@
         			//var rla=Math.round(this.markers[i].position.lat() * 10) / 10;
         			//var rlo=Math.round(this.markers[i].position.lng() * 10) / 10;
 
+					console.log('marker position: ' + this.markers[i].title);
 					var rla=this.markers[i].position.lat();
 					var rlo=this.markers[i].position.lng();
         			var tcp=rla + ',' + rlo;
