@@ -599,7 +599,8 @@
 		</cfquery>
 		<cfquery name="scoords" datasource="uam_god">
 			select distinct
-				round(dec_lat,1) || ',' || round(dec_long,1) rcords
+				--round(dec_lat,1) || ',' || round(dec_long,1) rcords
+				dec_lat || ',' || dec_long rcords
 			from
 				flat
 			where
