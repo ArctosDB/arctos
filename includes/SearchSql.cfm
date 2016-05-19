@@ -155,8 +155,16 @@
 	<cfset basQual = "#basQual#  AND  round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1)='#rcoords#'" >
 </cfif>
 <cfif isdefined("rcoordslist") AND len(rcoordslist) gt 0>
-	<cfset rcl=listqualify(rcoordslist,"'")>
-	<cfset rcl=listchangedelims(rcl,",")>
+
+	<cfoutput>
+
+		<br>rcoordslist: #rcoordslist#
+		<cfset rcl=listqualify(rcoordslist,"'")>
+		<br>rcl: #rcl#
+		<cfset rcl=listchangedelims(rcl,",")>
+		<br>rcl: #rcl#
+	</cfoutput>
+	<br>
 
 	<cfset mapurl = "#mapurl#&rcoordslist=#rcoordslist#">
 	<cfset basQual = "#basQual# AND round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1) in (#rcl#)" >
