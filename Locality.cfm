@@ -719,9 +719,9 @@
         	for(var a=0; a<ptsArray.length; a++){
         		console.log('array ptsArray[a] @ ' + a);
         		console.log(ptsArray[a]);
-        		for(var j=0; j<ptsArray[a].length; j++){
-        			console.log('array ptsArray[a][j] @ ' + j);
-        			console.log(ptsArray[a][j]);
+        		//for(var j=0; j<ptsArray[a].length; j++){
+        		//	console.log('array ptsArray[a][j] @ ' + j);
+        		//	console.log(ptsArray[a][j]);
 
 
 	        		//if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, ptsArray[a][j]) ) {
@@ -729,7 +729,7 @@
 	        		//	opa.push(this.markers[i].title);
 	        		//	console.log(this.markers[i].title);
 	        		//}
-       			}
+       			//}
         	}
     	}
     	if (opa.length>0){
