@@ -416,7 +416,7 @@
 	    for(var i=0;i<pointsData.length;i++){
 		    console.log('i am i: ' + i);
 
-		    console.log('pointsData[i]: ' + pointsData[i]);
+		    console.log('pointsData[i]:' + pointsData[i] + ':');
 
 
 		    var xy=pointsData[i].split(" ");
