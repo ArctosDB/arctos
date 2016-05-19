@@ -415,6 +415,8 @@
 
 	    for(var i=0;i<pointsData.length;i++){
 		    console.log('i am i: ' + i);
+		    var xy=pointsData[i].split(" ");
+		    console.log('xy: ' || xy);
 		}
 
 
@@ -424,11 +426,11 @@
 			console.log('pi: ' || pi);
 			console.log('pointsData[pi]: ' || pointsData[pi]);
 
-	        var xy=pointsData[pi].split(" ");
 
 
 
-	    	console.log('xy: ' || xy);
+
+
 
 
 
