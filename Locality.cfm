@@ -502,7 +502,9 @@
         	}
     	}
     	if (opa.length>0){
-    		window.open('/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val(); + '&coordslist=' + opa.join("|") );
+    		var opastr=opa.join('|');
+    		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val(); + '&coordslist=' + opastr;
+    		window.open(theURL);
 		} else {
 			alert('no outside points detected');
 		}
