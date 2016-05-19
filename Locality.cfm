@@ -746,6 +746,14 @@
 								<br><span class="likeLink" onclick="openOutsidePoints();">
 									Find specimens with coordinates "outside" the WKT shape (new window)
 								</span>
+
+								<cfif left(wkt_polygon,6) is 'FILE::'>
+									<br>reading a file...
+									<cfset filename=right(wkt_polygon,len(wkt_polygon)-6)>
+									<br>filename: #filename#
+									<cfhttp method="GET" url=#filename#></cfhttp>
+									<cfdump var=#cfhttp#>
+								</cfif>
 							</cfif>
 						</div>
 						<div id="map"></div>
