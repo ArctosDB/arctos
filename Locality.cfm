@@ -492,9 +492,9 @@
 		console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
         	console.log(this.markers[i]);
-        	var ll= new google.maps.LatLng(this.markers[i].lat(), this.markers[i].lng());
+        	//var ll= new google.maps.LatLng(this.markers[i].lat(), this.markers[i].lng());
         	console.log('---ll---');
-        	console.log(ll);
+        	console.log(this.markers[i].position);
 
         	for(var a=0; a<polygonArray.length; a++){
         		console.log('---');
