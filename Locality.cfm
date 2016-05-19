@@ -471,14 +471,17 @@
 
 	function addAPolygon(inc,d){
 
-		var ppts=[];
-
 		console.log('hello I am addAPolygon');
 		console.log(d);
 		var da=d.split(",");
 		console.log(da);
 		for(var i=0;i<da.length;i++){
-			var xy = da[i].split(" ");
+			var xy = da[i].trim().split(" ");
+			console.log('x');
+			console.log(xy[1]);
+			console.log('y');
+
+			console.log(xy[0]);
 			var pt=new google.maps.LatLng(xy[1],xy[0]);
 			ptsArray.push(pt);
 			bounds.extend(pt);
