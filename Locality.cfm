@@ -506,7 +506,13 @@
         			console.log(this.markers[i].position);
         			console.log(this.markers[i].position.lat());
         			console.log(this.markers[i].position.lng());
-        			var tcp=this.markers[i].position.lat() + ',' + this.markers[i].position.lng();
+
+        			var rla=Math.round(this.markers[i].position.lat() * 10) / 10;
+        			var rlo=Math.round(this.markers[i].position.lng() * 10) / 10;
+
+
+        			var tcp=rla + ',' + rlo;
+        			console.log(tcp);
 
         			opa.push(tcp);
        			} else {
