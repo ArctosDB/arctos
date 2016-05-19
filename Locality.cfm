@@ -420,9 +420,13 @@
 
 			var tpd=pointsData[i];
 
-			 console.log('tpd' + tpd + ':');
+			 console.log('tpd:' + tpd + ':');
 
 
+
+var repl= tpd.replace(/ /g, '|');
+
+			 console.log('repl:' + repl + ':');
 var xy = tpd.split(/(\s+)/);
 
 		    //var xy=tpd.split(" ");
