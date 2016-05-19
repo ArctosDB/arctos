@@ -861,7 +861,9 @@
 					</td>
 
 					<td rowspan="20" valign="top">
-						<div id="map"></div>
+						<div style="text-align:center">
+							<div id="map"></div>
+						</div>
 
 						<div id="mapInst">
 							Error is not displayed here; examine the locality before doing anything.
