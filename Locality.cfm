@@ -861,7 +861,7 @@
 					</td>
 
 					<td rowspan="20" valign="top">
-						<div style="width:100%;align:center;">
+						<div style="width:100%;text-align:center;">
 							<div id="map"></div>
 						</div>
 
