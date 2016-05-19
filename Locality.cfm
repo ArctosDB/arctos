@@ -840,8 +840,8 @@
 						<input type="text" name="country" id="country" size="60" value="#country#">
 					</td>
 
-					<td rowspan="20">
-						I span all the rows
+					<td rowspan="20" valign="top" align="center">
+
 
 
 		                <cfset wktpolydata=wkt_polygon>
