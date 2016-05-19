@@ -933,6 +933,12 @@
 						<input type="text" name="island" id="island" value="#island#" size="60">
 					</td>
 				</tr>
+			</table>
+newtable
+			<table border>
+
+
+
 				<tr>
 	                <td colspan="2">
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
