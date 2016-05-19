@@ -154,18 +154,15 @@
 	<cfset mapurl = "#mapurl#&rcoords=#rcoords#">
 	<cfset basQual = "#basQual#  AND  round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1)='#rcoords#'" >
 </cfif>
+<!----
+	rcoordslist is round(n,1) concatenated coordinates
+	in a pipe-separated list
+	Currently from edit geog
+---->
+
 <cfif isdefined("rcoordslist") AND len(rcoordslist) gt 0>
-
-	<cfoutput>
-
-		<br>rcoordslist: #rcoordslist#
-		<cfset rcl=listqualify(rcoordslist,"'","|")>
-		<br>rcl: #rcl#
-		<cfset rcl=listchangedelims(rcl,",","|")>
-		<br>rcl: #rcl#
-	</cfoutput>
-	<br>
-
+	<cfset rcl=listqualify(rcoordslist,"'","|")>
+	<cfset rcl=listchangedelims(rcl,",","|")>
 	<cfset mapurl = "#mapurl#&rcoordslist=#rcoordslist#">
 	<cfset basQual = "#basQual# AND round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1) in (#rcl#)" >
 </cfif>

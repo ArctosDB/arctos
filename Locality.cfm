@@ -527,7 +527,7 @@
     	if (opa.length>0){
     		var opastr=opa.join('|');
 
-    		var theURL=/SpecimenResults.cfm?geog_auth_rec_id=';
+    		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=';
     		theURL += $("#geog_auth_rec_id").val();
     		theURL += '&rcoordslist=' + opastr;
 
