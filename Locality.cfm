@@ -407,7 +407,6 @@
 
 	function initializeMap() {
 		var wkt=$("#wkt_polygon").val();
-		if (wkt.length==0){
 		var infowindow = new google.maps.InfoWindow();
 		var mapOptions = {
 			zoom: 3,
