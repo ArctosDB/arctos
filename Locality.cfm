@@ -495,10 +495,15 @@
         	for(var a=0; a<polygonArray.length; a++){
         		console.log('---');
         		console.log(polygonArray[a]);
+        		if  ( google.maps.geometry.poly.containsLocation(i.latLng, polygonArray[a]) ) {
+        			console.log('inside');
+       			} else {
+       				console.log('outside')
+       			}
         	}
 
 
-        	//if ( google.maps.geometry.poly.containsLocation(e.latLng, bermudaTriangle) ?
+        	//if
         	//)
         	//polygonArray
     	}
