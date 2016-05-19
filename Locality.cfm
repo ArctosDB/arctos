@@ -493,67 +493,20 @@
 
 	function openOutsidePoints(){
 		var opa=[];
-		//console.log('polygonArray.length: ' + polygonArray.length);
-		//console.log('this.markers.length: ' + this.markers.length);
-		//console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
-			//console.log('marker ' + i);
-
-        	//console.log(this.markers[i]);
-        	//var ll= new google.maps.LatLng(this.markers[i].lat(), this.markers[i].lng());
-        	//console.log('---ll---');
-        	//console.log(this.markers[i].position);
-
         	for(var a=0; a<polygonArray.length; a++){
-				//console.log('poly ' + a);
-        		//console.log('---');
-        		//console.log(polygonArray[a]);
         		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
-        			//console.log('outside');
-        			//console.log(this.markers[i].position);
-        			//console.log(this.markers[i].position.lat());
-        			//console.log(this.markers[i].position.lng());
-
-        			//var rla=Math.round(this.markers[i].position.lat() * 10) / 10;
-        			//var rlo=Math.round(this.markers[i].position.lng() * 10) / 10;
-
-					//console.log('marker position: ' + this.markers[i].title);
-					var rla=this.markers[i].position.lat();
-					var rlo=this.markers[i].position.lng();
-        			var tcp=rla + ',' + rlo;
-        			//console.log(tcp);
 					// we have to use title here; position is math-ed and won't match coordinates in DB
         			opa.push(this.markers[i].title);
-       			} else {
-       				//console.log('inside')
        			}
         	}
     	}
     	if (opa.length>0){
-    		var opastr=opa.join('|');
-    		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=';
-    		theURL += $("#geog_auth_rec_id").val();
-    		theURL += '&coordslist=' + opastr;
-
-    		//console.log(opastr);
-    		//console.log(theURL);
-    		window.open(theURL);
-/*
-			for(var o=0; o<opa.length; o++){
-				var tc=opa[o];
-
-				console.log('tc');
-				console.log(tc);
-				console.log('0::'+tc[0]);
-
-			}
-			$("#opatgt").val(opa);
-			*/
+    		window.open('/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val(); + '&coordslist=' + opa.join('|'));
 		} else {
 			alert('no outside points detected');
 		}
 	}
-
 </script>
 <cfset title = "Edit Geography">
 
