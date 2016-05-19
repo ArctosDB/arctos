@@ -492,7 +492,7 @@
 		console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
         	console.log(this.markers[i]);
-        	for(var i=0; a<polygonArray.length; a++){
+        	for(var a=0; a<polygonArray.length; a++){
         		console.log('---');
         		console.log(polygonArray[a]);
         	}
