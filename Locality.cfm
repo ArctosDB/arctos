@@ -397,7 +397,16 @@
 	    var len=pointsData.length;
 	    for (var i=0;i<len;i++)
 	    {
+
+
 	        var xy=pointsData[i].split(" ");
+
+
+
+	    	console.log('xy: ' || xy);
+
+
+
 	        var pt=new google.maps.LatLng(xy[1],xy[0]);
 
 
