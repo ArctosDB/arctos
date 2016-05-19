@@ -423,7 +423,9 @@
 			 console.log('tpd' + tpd + ':');
 
 
-		    var xy=tpd.split(" ");
+var xy = tpd.split(/(\s+)/);
+
+		    //var xy=tpd.split(" ");
 
 
 
