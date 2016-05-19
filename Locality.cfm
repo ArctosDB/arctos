@@ -711,23 +711,23 @@
 
 	function openOutsidePoints(){
 		var opa=[];
-		console.log('this.markers.length');
-		console.log(this.markers.length);
+		//console.log('this.markers.length');
+		//console.log(this.markers.length);
 
-		console.log('ptsArray.length');
-		console.log(ptsArray.length);
+		//console.log('ptsArray.length');
+		//console.log(ptsArray.length);
 
 
 		for(var i=0; i<this.markers.length; i++){
-			console.log('loopy ' + i);
+			//console.log('loopy ' + i);
 
         	for(var a=0; a<polygonArray.length; a++){
-        		console.log('array polygonArray[a] @ ' + a);
-        		console.log(polygonArray[a]);
+        		//console.log('array polygonArray[a] @ ' + a);
+        		//console.log(polygonArray[a]);
         		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
 						// we have to use title here; position is math-ed and won't match coordinates in DB
 	        			opa.push(this.markers[i].title);
-	        			console.log(this.markers[i].title);
+	        			//console.log(this.markers[i].title);
 	        		}
         		//for(var j=0; j<ptsArray[a].length; j++){
         		//	console.log('array ptsArray[a][j] @ ' + j);
