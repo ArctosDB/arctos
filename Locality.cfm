@@ -839,6 +839,10 @@
 						</label>
 						<input type="text" name="country" id="country" size="60" value="#country#">
 					</td>
+
+					<td rowspan="20">
+						I span all the rows
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -933,8 +937,6 @@
 						<input type="text" name="island" id="island" value="#island#" size="60">
 					</td>
 				</tr>
-			</table>
-			<table border>
 				<tr>
 	                <td>
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
@@ -972,9 +974,6 @@
 					<td>
 						<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
 	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>
-					</td>
-					<td rowspan="20">
-						I span all the rows
 					</td>
 				</tr>
 				<tr>
