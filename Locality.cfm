@@ -414,9 +414,9 @@
 
 
 	    for(var i=0;i<pointsData.length;i++){
-		    console.log('i am i: ' + i);
+		   // console.log('i am i: ' + i);
 
-		    console.log('pointsData[i]:' + pointsData[i] + ':');
+		   // console.log('pointsData[i]:' + pointsData[i] + ':');
 
 
 		    var tpd=pointsData[i];
@@ -429,9 +429,9 @@
 	        ptsArray.push(pt);
 	        bounds.extend(pt);
 
- console.log(xy);
+ //console.log(xy);
 
- console.log(pt);
+ //console.log(pt);
 
 
 		}
@@ -483,7 +483,7 @@
 		    Rings.push( results[1] );
 		}
 
-		console.log(Rings);
+		console.log('Rings: ' + Rings);
 
 
 		var polyLen=Rings.length;
