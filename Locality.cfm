@@ -424,6 +424,10 @@
 		while( results = regex.exec(wkt) ) {
 		    Rings.push( results[1] );
 		}
+
+		console.log(Rings);
+
+
 		var polyLen=Rings.length;
 		//now we need to draw the polygon for each of inner rings, but reversed
 		for(var i=0;i<polyLen;i++){
