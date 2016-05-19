@@ -493,8 +493,8 @@
 
 	function openOutsidePoints(){
 		var opa=[];
-		console.log('polygonArray.length: ' + polygonArray.length);
-		console.log('this.markers.length: ' + this.markers.length);
+		//console.log('polygonArray.length: ' + polygonArray.length);
+		//console.log('this.markers.length: ' + this.markers.length);
 		//console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
 			//console.log('marker ' + i);
@@ -535,8 +535,8 @@
     		theURL += $("#geog_auth_rec_id").val();
     		theURL += '&coordslist=' + opastr;
 
-    		console.log(opastr);
-    		console.log(theURL);
+    		//console.log(opastr);
+    		//console.log(theURL);
     		window.open(theURL);
 /*
 			for(var o=0; o<opa.length; o++){
