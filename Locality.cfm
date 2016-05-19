@@ -876,19 +876,6 @@
 						</div>
 						<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
-						<div id="wktinstr">
-							Large WKT (>~30K characters) will not work properly in the textarea. Instead,
-							<ol>
-								<li>Convert the spatial data to WKT POLYGON or MULTIPOLYGON format</li>
-								<li>Save as a text file (file extension .wkt is preferred by any will work)</li>
-								<li>Create Media; copy the media_id of the media record</li>
-								<li>In the WKT_Polygon box, enter
-										<code>
-											MEDIA::{media_id of the WKT data file}
-										</code>
-								</li>
-							</ol>
-						</div>
 		                <cfset wktpolydata=wkt_polygon>
 		                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,7) is 'MEDIA::'>
 			                <cfset meid=right(wkt_polygon,len(wkt_polygon)-7)>
@@ -904,8 +891,20 @@
 							</div>
 							<cfset wktpolydata=cfhttp.filecontent>
 						</cfif>
+						<div id="wktinstr">
+							Large WKT (>~30K characters) will not work properly in the textarea. Instead,
+							<ol>
+								<li>Convert the spatial data to WKT POLYGON or MULTIPOLYGON format</li>
+								<li>Save as a text file (file extension .wkt is preferred by any will work)</li>
+								<li>Create Media; copy the media_id of the media record</li>
+								<li>In the WKT_Polygon box, enter
+										<code>
+											MEDIA::{media_id of the WKT data file}
+										</code>
+								</li>
+							</ol>
+						</div>
 						<input type="hidden" id="wkt_poly_data" value="#wktpolydata#">
-
 					</td>
 				</tr>
 				<tr>
