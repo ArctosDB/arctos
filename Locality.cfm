@@ -718,12 +718,13 @@
 
         	for(var a=0; a<ptsArray.length; a++){
         		for(var j=0; j<ptsArray[a].length; j++){
+        			console.log(ptsArray[a][j]);
 
-	        		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, ptsArray[a][j]) ) {
+	        		//if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, ptsArray[a][j]) ) {
 						// we have to use title here; position is math-ed and won't match coordinates in DB
-	        			opa.push(this.markers[i].title);
-	        			console.log(this.markers[i].title);
-	        		}
+	        		//	opa.push(this.markers[i].title);
+	        		//	console.log(this.markers[i].title);
+	        		//}
        			}
         	}
     	}
