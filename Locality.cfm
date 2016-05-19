@@ -973,7 +973,7 @@
 					</td>
 				</tr>
 				<tr>
-	                <td>
+	                <td colspan="2">
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
 							<cfhttp method="get" url="#source_authority#"></cfhttp>
 							<cfset flds="continent_ocean,country,state_prov,sea,county,quad,feature,island_group,island">
@@ -1006,7 +1006,9 @@
 							<a target="_blank" class="external" href="#source_authority#">clicky</a>
 						</cfif>
 					</td>
-					<td>
+				</tr>
+				<tr>
+					<td colspan="2">
 						<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
 	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>
 					</td>
