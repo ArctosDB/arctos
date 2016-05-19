@@ -982,29 +982,25 @@
                				<cfquery name="fmed" datasource="uam_god">
 								select media_uri from media where media_id=#meid#
 							</cfquery>
-							<br>readingWKT data from #fmed.media_uri#...
+							<br>readingWKT data from #fmed.media_uri#
 							<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
-							<cfdump var=#cfhttp#>
 							<cfif left(cfhttp.statuscode,3) is "200">
 								<br>successfully got file...
 							</cfif>
 							<cfset wktpolydata=cfhttp.filecontent>
-							</cfif>
-
-						<input type="text" id="wkt_poly_data" value="#wktpolydata#">
-
+						</cfif>
+						<input type="hidden" id="wkt_poly_data" value="#wktpolydata#">
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
  						<div style="font-size:x-small">
 							Error is not displayed here; examine the locality before doing anything.
-
 							<cfif len(wkt_polygon) gt 0>
-								<br>Large WKT (>~30K characters) will not work properly
-								<br>The WKT was probably converted from KML or something and may be garbage
+								<br>Large WKT (>~30K characters) will not work properly;
+									use MEDIA::{media_id} to read from a text file loaded to Media
+								<br>The WKT was probably converted from KML or something and may be garbage; use these data with caution
 								<br><span class="likeLink" onclick="openOutsidePoints();">
 									Find specimens with coordinates "outside" the WKT shape (new window)
 								</span>
-
 							</cfif>
 						</div>
 						<div id="map"></div>
