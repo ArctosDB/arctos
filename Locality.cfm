@@ -934,13 +934,9 @@
 					</td>
 				</tr>
 			</table>
-newtable
 			<table border>
-
-
-
 				<tr>
-	                <td colspan="2">
+	                <td>
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
 							<cfhttp method="get" url="#source_authority#"></cfhttp>
 							<cfset flds="continent_ocean,country,state_prov,sea,county,quad,feature,island_group,island">
@@ -973,15 +969,13 @@ newtable
 							<a target="_blank" class="external" href="#source_authority#">clicky</a>
 						</cfif>
 					</td>
-				</tr>
-				<tr>
-	                <td colspan="4">
-	                	<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
+					<td>
+						<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
 	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>
-	                </td>
+					</td>
 				</tr>
 				<tr>
-	                <td colspan="4">
+	                <td>
 		                <cfset wktpolydata=wkt_polygon>
 		                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,7) is 'MEDIA::'>
 			                <cfset meid=right(wkt_polygon,len(wkt_polygon)-7)>
@@ -998,6 +992,8 @@ newtable
 						<input type="hidden" id="wkt_poly_data" value="#wktpolydata#">
 	                	<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
+	                </td>
+	                <td>
  						<div style="font-size:x-small">
 							Error is not displayed here; examine the locality before doing anything.
 							<cfif len(wkt_polygon) gt 0>
@@ -1016,7 +1012,7 @@ newtable
 					select * from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id#
 				</cfquery>
 				<tr>
-	                <td colspan="4">
+	                <td colspan="2">
 		                <div class="smaller">
 		                	<strong>Geog Terms</strong> are "non-standard" terms that might be useful in finding stuff or clarifying an entry.
 	                	</div>
@@ -1024,7 +1020,7 @@ newtable
 				</tr>
 					<input type="hidden" name="numGeogSrchTerms" id="numGeogSrchTerms" value="1">
 				<tr id="gst1">
-	                <td colspan="4">
+	                <td colspan="2">
 	                	<label for="new_geog_search_term_1">
 	                		Add Geog Search Term <span class="likeLink" onclick="addGeoSrchTerm();">[ add a row ]</span>
 	                	</label>
@@ -1032,20 +1028,20 @@ newtable
 	                </td>
 				</tr>
 				<tr>
-	                <td colspan="4">
+	                <td colspan="2">
 	                	<label for="">Existing Geog Search Term(s)</label>
 	                </td>
 				</tr>
 				<cfloop query="geog_search_term">
 					<tr>
-		                <td colspan="4">
+		                <td colspan="2">
 		                	<textarea name="geog_search_term_#geog_search_term_id#" id="geog_search_term_#geog_search_term_id#" class="longtextarea" rows="30" cols="1">#search_term#</textarea>
 		                	<span class="infoLink" onclick="clearTerm('geog_search_term_#geog_search_term_id#');">delete</span>
 		                </td>
 					</tr>
 				</cfloop>
 				<tr>
-	                <td colspan="4" nowrap align="center">
+	                <td colspan="2" nowrap align="center">
 
 						<cfif session.roles contains "manage_geography">
 							<input type="button"
