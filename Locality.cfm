@@ -533,7 +533,7 @@
 		var Rings = [];
 		var results;
 		while( results = regex.exec(wkt) ) {
-		    //Rings.push( results[1] );
+		    Rings.push( results[1] );
 
 		    console.log('Ring thingee');
 		    console.log();
