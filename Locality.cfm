@@ -469,7 +469,7 @@
 	}
 
 
-	function addAPolygon(d){
+	function addAPolygon(inc,d){
 
 		var ppts=[];
 
@@ -480,28 +480,14 @@
 		for(var i=0;i<da.length;i++){
 			var xy = da[i].split(" ");
 			var pt=new google.maps.LatLng(xy[1],xy[0]);
-			ppts.push(pt);
+			ptsArray.push(pt);
 			bounds.extend(pt);
 		}
 
 		console.log('I made an array of LatLng (ppts): ');
-		console.log(ppts);
-
-		 var poly = new google.maps.Polygon({
-			    paths: ppts,
-			    strokeColor: '#1E90FF',
-			    strokeOpacity: 0.8,
-			    strokeWeight: 2,
-			    fillColor: '#1E90FF',
-			    fillOpacity: 0.35
-			});
+		console.log(ptsArray);
 
 
-
-
-			poly.setMap(map);
-
-			console.log('i added the poly to the map');
 
 			//polygonArray.push(poly);
 
@@ -536,13 +522,12 @@
 		    Rings.push( results[1] );
 
 		    console.log('Ring thingee');
-		    console.log();
 		}
 
 		for(var i=0;i<Rings.length;i++){
 			console.log('set of points: Rings[i]');
 			console.log(Rings[i]);
-			addAPolygon(Rings[i]);
+			addAPolygon(i,Rings[i]);
 			//var ptsArray=[];
 
 		    ///AddPoints(Rings[i]);
@@ -557,9 +542,25 @@
 
 		//addAPolygon(poly2);
 
-		//console.log('im back to initmap with the array:');
-		//console.log(ppts);
+		console.log('im back to initmap with the array containing all of the points');
+		console.log(ptsArray);
 
+
+ var poly = new google.maps.Polygon({
+			    paths: ptsArray,
+			    strokeColor: '#1E90FF',
+			    strokeOpacity: 0.8,
+			    strokeWeight: 2,
+			    fillColor: '#1E90FF',
+			    fillOpacity: 0.35
+			});
+
+
+
+
+			poly.setMap(map);
+
+			console.log('i added the poly to the map');
 
 /*
 		//using regex, we will get the indivudal Rings
