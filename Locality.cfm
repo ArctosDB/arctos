@@ -427,9 +427,12 @@
 var repl= tpd.replace(/ /g, '|');
 
 			 console.log('repl:' + repl + ':');
-var xy = tpd.split(/(\s+)/);
 
-		    //var xy=tpd.split(" ");
+
+			 var xy=repl.split("|");
+
+		    //var xy = tpd.split(/(\s+)/);
+
 
 
 
