@@ -985,7 +985,7 @@
 							<br>readingWKT data from #fmed.media_uri#...
 							<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 							<cfdump var=#cfhttp#>
-							<cfif left(http.statuscode,3) is "200">
+							<cfif left(cfhttp.statuscode,3) is "200">
 								<br>successfully got file...
 							</cfif>
 							<cfset wktpolydata=cfhttp.filecontent>
