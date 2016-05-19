@@ -423,7 +423,7 @@
 			 console.log('tpd:' + tpd + ':');
 
 var str = "  12 34  00    ";
-    var res = str.split(" ");
+    var res = tpd.split(" ");
     console.log(res);
 
 var repl= tpd.replace(/ /g, '|');
