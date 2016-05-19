@@ -410,7 +410,7 @@
 	    {
 
 
-	        var xy=pointsData[i].split(" ");
+	        var xy=pointsData[i].split(",");
 
 
 
