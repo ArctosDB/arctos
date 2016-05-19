@@ -503,7 +503,8 @@
     	}
     	if (opa.length>0){
     		var opastr=opa.join('|');
-    		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val(); + '&coordslist=' + opastr;
+
+    		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&coordslist=' + opastr;
     		window.open(theURL);
 		} else {
 			alert('no outside points detected');
@@ -744,7 +745,7 @@
 							<cfif len(wkt_polygon) gt 0>
 								<div>
 									<span class="likeLink" onclick="openOutsidePoints();">
-										click here to view specimens coordinates "outside" the WKT shape (new window)
+										Find specimens with coordinates "outside" the WKT shape (new window)
 									</span>
 								</div>
 							</cfif>
