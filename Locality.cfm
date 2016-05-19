@@ -429,6 +429,11 @@
 
 
 		var polyLen=Rings.length;
+
+
+
+		console.log(polyLen);
+
 		//now we need to draw the polygon for each of inner rings, but reversed
 		for(var i=0;i<polyLen;i++){
 		    AddPoints(Rings[i]);
