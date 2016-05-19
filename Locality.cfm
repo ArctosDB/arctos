@@ -526,7 +526,7 @@
 			//poly.setMap(map);
 			polygonArray.push(poly);
 
-			poly[poly.length-1].setMap(map);
+			poly[polygonArray.length-1].setMap(map);
 
 
 		//
