@@ -405,7 +405,7 @@
 
 
 	    		console.log('pointsData.length: ' + pointsData.length);
-
+/*
 	    for (var pi=0;pi<pointsData.length;pi++) {
 			console.log('pi: ' || pi);
 			console.log('pointsData[pi]: ' || pointsData[pi]);
@@ -427,6 +427,8 @@
 	        ptsArray.push(pt);
 	        bounds.extend(pt);
 	    }
+
+	    */
 
 	}
 
