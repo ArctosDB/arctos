@@ -571,7 +571,6 @@
 		</cfquery>
 		<cfquery name="scoords" datasource="uam_god">
 			select distinct
-				locality_id,
 				round(dec_lat,1) || ',' || round(dec_long,1) rcords
 			from
 				flat
