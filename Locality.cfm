@@ -431,12 +431,7 @@
 
  console.log(xy);
 
-
- var str = "  12 34  00    ";
-    var res = str.split(" ");
-
- console.log(res);
-
+ console.log(pt);
 
 
 		}
