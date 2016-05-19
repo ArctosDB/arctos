@@ -735,8 +735,20 @@
 				</tr>
 				<tr>
 	                <td colspan="4">
+		                <cfset wktpolydata=wkt_polygon>
+		                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,6) is 'FILE::'>
+									<br>reading a file...
+									<cfset filename=right(wkt_polygon,len(wkt_polygon)-6)>
+									<br>filename: #filename#
+									<cfhttp method="GET" url=#filename#></cfhttp>
+									<cfdump var=#cfhttp#>
+									<cfset wktpolydata=cfhttp.filecontent>
+							</cfif>
+
+
+
 	                	<label for="wkt_polygon">wkt_polygon</label>
-	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
+	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wktpolydata#</textarea>
  						<div style="font-size:x-small">
 							Error is not displayed here; examine the locality before doing anything.
 
