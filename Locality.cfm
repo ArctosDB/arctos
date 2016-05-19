@@ -542,6 +542,7 @@
 		for(var i=0;i<Rings.length;i++){
 			console.log('set of points: Rings[i]');
 			console.log(Rings[i]);
+			addAPolygon(Rings[i]);
 			//var ptsArray=[];
 
 		    ///AddPoints(Rings[i]);
