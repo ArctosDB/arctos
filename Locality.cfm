@@ -528,6 +528,12 @@
 
 			polygonArray[polygonArray.length-1].setMap(map);
 
+			 console.log('polygonArray');
+			 console.log(polygonArray);
+
+
+
+
 
 		//
 
