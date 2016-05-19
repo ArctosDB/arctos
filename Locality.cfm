@@ -499,7 +499,7 @@
         	for(var a=0; a<polygonArray.length; a++){
         		console.log('---');
         		console.log(polygonArray[a]);
-        		if  ( google.maps.geometry.poly.containsLocation(ll, polygonArray[a]) ) {
+        		if  ( google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
         			console.log('inside');
        			} else {
        				console.log('outside')
