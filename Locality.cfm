@@ -422,16 +422,16 @@
 
 			 console.log('tpd:' + tpd + ':');
 
-var str = "  12 34  00    ";
-    var res = tpd.split(" ");
-    console.log(res);
+//var str = "  12 34  00    ";
+    var xy = tpd.split(" ");
+   // console.log(res);
 
-var repl= tpd.replace(/ /g, '|');
+//var repl= tpd.replace(/ /g, '|');
 
-			 console.log('repl:' + repl + ':');
+			// console.log('repl:' + repl + ':');
 
 
-			 var xy=repl.split("|");
+			 //var xy=repl.split("|");
 
 		    //var xy = tpd.split(/(\s+)/);
 
