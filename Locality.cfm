@@ -490,7 +490,7 @@
 
 	function test(){
 		var opa=[];
-
+		console.log('polygonArray.length: ' + polygonArray.length);
 		//console.log(markers);
 		for(var i=0; i<this.markers.length; i++){
         	//console.log(this.markers[i]);
