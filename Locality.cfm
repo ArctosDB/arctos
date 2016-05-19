@@ -521,7 +521,7 @@
         	}
 			if (opa.length>0){
 				for(var o=0; o<opa.length; o++){
-					var tc=opa[o].join('|');
+					var tc=opa[o];
 
 					console.log('tc');
 					console.log(tc);
