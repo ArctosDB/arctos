@@ -698,10 +698,19 @@
 		 initializeMap();
 	});
 
+
+
+
+
+
+
 	function openOutsidePoints(){
 		var opa=[];
 		console.log('this.markers.length');
 		console.log(this.markers.length);
+
+		console.log('ptsArray.length');
+		console.log(ptsArray.length);
 		for(var i=0; i<this.markers.length; i++){
 			console.log('loopy ' + i);
 
