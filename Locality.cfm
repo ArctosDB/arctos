@@ -437,7 +437,7 @@
 		});
 
 		poly.setMap(map);
-		polygonArray.push(polygon);
+		polygonArray.push(poly);
 		// now specimen points
 		var cfgml=$("#scoords").val();
 		if (cfgml.length==0){
