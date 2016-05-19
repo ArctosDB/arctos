@@ -413,7 +413,7 @@
 	    		console.log('pointsData.length: ' + pointsData.length);
 
 
-	    for(var i=0;i<pointsData.length;i++){
+	    for(var i=0;i<len;i++){
 		    console.log('i am i: ' || i);
 		}
 
