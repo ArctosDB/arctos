@@ -496,6 +496,7 @@
 		for(var i=0;i<polyLen;i++){
 		    AddPoints(Rings[i]);
 
+			 console.log('adding polygon: ' + ptsArray);
 
 		    var poly = new google.maps.Polygon({
 		    paths: ptsArray,
@@ -514,7 +515,7 @@
 		}
 
 
-		//console.log(ptsArray);
+		//
 
 
 
