@@ -468,7 +468,8 @@
 		var center=new google.maps.LatLng(lat, lon);
 
 		var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&rcoords=' + lat + ',' + lon + '">clickypop</a>';
-		//crcl = new google.maps.Circle(circleoptn);
+		//we must use original coordinates from the database as the title
+		// so we can recover them later; the position coordinates are math-ed
 		var marker = new google.maps.Marker({
 			position: center,
 			map: map,
@@ -519,8 +520,8 @@
 					var rlo=this.markers[i].position.lng();
         			var tcp=rla + ',' + rlo;
         			//console.log(tcp);
-
-        			opa.push(tcp);
+					// we have to use title here; position is math-ed and won't match coordinates in DB
+        			opa.push(this.markers[i].title);
        			} else {
        				//console.log('inside')
        			}
