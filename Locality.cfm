@@ -418,27 +418,11 @@
 
 		    console.log('pointsData[i]:' + pointsData[i] + ':');
 
-			var tpd=pointsData[i];
 
-			 console.log('tpd:' + tpd + ':');
-
-//var str = "  12 34  00    ";
-    var xy = tpd.split(" ");
-   // console.log(res);
-
-//var repl= tpd.replace(/ /g, '|');
-
-			// console.log('repl:' + repl + ':');
+		     var xy = pointsData[i].split(" ");
+ console.log('xy: ' || xy);
 
 
-			 //var xy=repl.split("|");
-
-		    //var xy = tpd.split(/(\s+)/);
-
-
-
-
-		    console.log('xy: ' || xy);
 		}
 
 
