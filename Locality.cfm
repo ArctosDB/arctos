@@ -418,6 +418,10 @@
 
 		    console.log('pointsData[i]:' + pointsData[i] + ':');
 
+			var tpd=pointsData[i];
+
+			 console.log('tpd' + tpd + ':');
+
 
 		    var xy=pointsData[i].split(" ");
 
