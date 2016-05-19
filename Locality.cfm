@@ -423,7 +423,7 @@
 			 console.log('tpd' + tpd + ':');
 
 
-		    var xy=pointsData[i].split(" ");
+		    var xy=tpd.split(" ");
 
 
 
