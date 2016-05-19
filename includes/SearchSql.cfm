@@ -159,7 +159,7 @@
 	<cfoutput>
 
 		<br>rcoordslist: #rcoordslist#
-		<cfset rcl=listqualify(rcoordslist,"'")>
+		<cfset rcl=listqualify(rcoordslist,"'","|")>
 		<br>rcl: #rcl#
 		<cfset rcl=listchangedelims(rcl,",")>
 		<br>rcl: #rcl#
