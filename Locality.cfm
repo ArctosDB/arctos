@@ -495,14 +495,9 @@
 		//now we need to draw the polygon for each of inner rings, but reversed
 		for(var i=0;i<polyLen;i++){
 		    AddPoints(Rings[i]);
-		}
 
 
-		console.log(ptsArray);
-
-
-
-		var poly = new google.maps.Polygon({
+		    var poly = new google.maps.Polygon({
 		    paths: ptsArray,
 		    strokeColor: '#1E90FF',
 		    strokeOpacity: 0.8,
@@ -513,6 +508,17 @@
 
 		poly.setMap(map);
 		polygonArray.push(poly);
+
+
+
+		}
+
+
+		//console.log(ptsArray);
+
+
+
+
 		// now specimen points
 		var cfgml=$("#scoords").val();
 		if (cfgml.length==0){
