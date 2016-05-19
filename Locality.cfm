@@ -474,6 +474,21 @@
 		console.log(d);
 		var da=d.split(",");
 		console.log(da);
+		for(var i=0;i<da.length;i++){
+			var xy = da[i].split(" ");
+			var pt=new google.maps.LatLng(xy[1],xy[0]);
+			ptsArray.push(pt);
+			bounds.extend(pt);
+		}
+
+		console.log('I made an array of LatLng: ');
+		console.log(ptsArray);
+
+
+
+
+
+
 	}
 	function initializeMap() {
 		var wkt=$("#wkt_poly_data").val();
