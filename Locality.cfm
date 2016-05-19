@@ -504,6 +504,8 @@
         		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
         			console.log('outside');
         			console.log(this.markers[i].position);
+        			console.log(this.markers[i].position.lat());
+        			console.log(this.markers[i].position.lng());
 
         			opa.push(this.markers[i].position);
        			} else {
