@@ -502,7 +502,9 @@
         		//console.log('---');
         		//console.log(polygonArray[a]);
         		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
-        			//console.log('outside');
+        			console.log('outside');
+        			console.log(this.markers[i].position);
+
         			opa.push(this.markers[i].position);
        			} else {
        				//console.log('inside')
