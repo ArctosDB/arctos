@@ -178,7 +178,7 @@
 	<cfset mapurl = "#mapurl#&coordslist=#coordslist#">
 	<cfset basQual = "#basQual# AND ( ">
 	<cfloop list="#coordslist#" delimiters="|" index="c">
-		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat=#listgetat(c,1)# and #session.flatTableName#.dec_long=#listgetat(c,2)#" >
+		<cfset basQual = "#basQual#  #session.flatTableName#.dec_lat=#listgetat(c,1)# and #session.flatTableName#.dec_long=#listgetat(c,2)#" >
 		<cfif listlast(coordslist,"|") is not c>
 			<cfset basQual = "#basQual# OR ">
 		</cfif>
