@@ -549,8 +549,8 @@
 
 		//addAPolygon(poly2);
 
-		console.log('im back to initmap with the array containing all of the points');
-		console.log(ptsArray);
+		//console.log('im back to initmap with the array containing all of the points');
+		//console.log(ptsArray);
 
 		/*
   		for (var i=0; i<ptsArray.length-1; i++) {
@@ -703,8 +703,10 @@
 		console.log('this.markers.length');
 		console.log(this.markers.length);
 		for(var i=0; i<this.markers.length; i++){
-        	for(var a=0; a<polygonArray.length; a++){
-        		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
+			console.log('loopy ' + i);
+
+        	for(var a=0; a<ptsArray.length; a++){
+        		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, ptsArray[a]) ) {
 					// we have to use title here; position is math-ed and won't match coordinates in DB
         			opa.push(this.markers[i].title);
        			}
