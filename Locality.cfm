@@ -898,9 +898,11 @@
 								<li>Save as a text file (file extension .wkt is preferred by any will work)</li>
 								<li>Create Media; copy the media_id of the media record</li>
 								<li>In the WKT_Polygon box, enter
+									<ul><li>
 										<code>
 											MEDIA::{media_id of the WKT data file}
 										</code>
+									</li></ul>
 								</li>
 							</ol>
 						</div>
