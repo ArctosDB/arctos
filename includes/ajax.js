@@ -891,7 +891,9 @@ function newPart (collection_object_id) {
 					}
 					p1.value=op1;
 					p2.value=op2;	
-					ss+=' = ' + result.COLLECTION[0] + ':' + result.CAT_NUM[0] + ' (' + result.CUSTOMIDTYPE[0] + ' ' + result.CUSTOMID[0] + ')';
+					ss+=' = <a href="/guid/' + result.COLLECTION[0] + ':' + result.CAT_NUM[0] + '">';
+					ss+= result.COLLECTION[0] + ':' + result.CAT_NUM[0] +'</a>';
+					ss+= ' (' + result.CUSTOMIDTYPE[0] + ' ' + result.CUSTOMID[0] + ')';
 				}
 				sDiv.innerHTML=ss;
 			}
