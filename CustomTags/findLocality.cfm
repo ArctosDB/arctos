@@ -303,8 +303,12 @@
 <cfif isdefined("state_prov") and len(#state_prov#) gt 0>
 	<cfset qual = "#qual# AND upper(state_prov) LIKE '%#ucase(escapeQuotes(state_prov))#%'">
 </cfif>
-<cfif isdefined("county") and len(#county#) gt 0>
-	<cfset qual = "#qual# AND upper(county) LIKE '%#ucase(escapeQuotes(county))#%'">
+<cfif isdefined("county") and len(county) gt 0>
+	<cfif county is "NULL">
+		<cfset qual = "#qual# AND county is null">
+	<cfelse>
+		<cfset qual = "#qual# AND upper(county) LIKE '%#ucase(escapeQuotes(county))#%'">
+	</cfif>
 </cfif>
 <cfif isdefined("quad") and len(#quad#) gt 0>
 	<cfset qual = "#qual# AND upper(quad) LIKE '%#ucase(escapeQuotes(quad))#%'">
