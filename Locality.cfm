@@ -817,7 +817,6 @@
 				dec_lat is not null and
 			 	geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
-		<cfdump var=#scoords#>
 		<input type="hidden" id="scoords" value="#valuelist(scoords.rcords,";")#">
 		<cfquery name="sspe" dbtype="query">
 			select sum(c) sct from specimen
