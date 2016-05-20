@@ -701,7 +701,7 @@
 		//var r=cpa[3];
 		var center=new google.maps.LatLng(lat, lon);
 
-		var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&rcoords=' + lat + ',' + lon + '">clickypop</a>';
+		var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&coordinates=' + lat + ',' + lon + '">clickypop</a>';
 		//we must use original coordinates from the database as the title
 		// so we can recover them later; the position coordinates are math-ed
 		var marker = new google.maps.Marker({
