@@ -184,7 +184,7 @@
 	<cfargument name="fileName" required="yes">
 	<cfset err="">
 	<cfset extension=listlast(fileName,".")>
-	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3,wav">
+	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3,wav,wkt">
 	<cfif listfindnocase(acceptExtensions,extension) is 0>
 		<cfset err="An valid file name extension (#acceptExtensions#) is required. extension=#extension#">
 	</cfif>
