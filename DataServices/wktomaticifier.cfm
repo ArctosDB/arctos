@@ -1,17 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="WKT-o-matic-ifier">
 <cfif action is "nothing">
-
-
-<script type="text/javascript">
-function PassFileName()
-{
-document.getElementById("fileName").value=document.getElementById("FiletoUpload").value;
-}
-</script>
-
-
-
-
+	<script type="text/javascript">
+		function PassFileName(){
+			document.getElementById("fileName").value=document.getElementById("FiletoUpload").value;
+		}
+	</script>
 	upload Fusion Tables KML
 	<form name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
@@ -22,16 +16,10 @@ document.getElementById("fileName").value=document.getElementById("FiletoUpload"
 </cfif>
 <cfif action is "getFile">
 <cfoutput>
-
 	<cfset outfilename=form.fileName>
 	<cfset inExt=listlast(outfilename,".")>
 	<cfset outfilename=replace(outfilename,inExt,"wkt")>
-
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	<cfdump var=#form#>
-
-<hr>
-
 	<cfset fileContent=replace(fileContent,",","|","all")>
 	<cfset fileContent=replace(fileContent," ","!","all")>
 	<cfset fileContent=replace(fileContent,"<Polygon><outerBoundaryIs><LinearRing><coordinates>","POLYGON((","all")>
@@ -46,20 +34,11 @@ document.getElementById("fileName").value=document.getElementById("FiletoUpload"
 	<cfset fileContent=replace(fileContent," 0.0))","))","all")>
 
 
-<cffile action = "write"
+	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/#outfilename#"
     	output = "#fileContent#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=#outfilename#" addtoken="false">
-
-
-
-	<cfdump var=#fileContent#>
-
-
-	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-
-
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
