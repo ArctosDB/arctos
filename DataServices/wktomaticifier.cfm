@@ -25,7 +25,7 @@ document.getElementById("fileName").value=document.getElementById("FiletoUpload"
 
 	<cfset outfilename=form.fileName>
 	<cfset inExt=listlast(outfilename,".")>
-	<cfset outfilename=replace(outfilename,inExt,"wkt">
+	<cfset outfilename=replace(outfilename,inExt,"wkt")>
 
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfdump var=#form#>
