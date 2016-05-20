@@ -12,9 +12,8 @@
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 
 
-	<cfset x=GetPageContext( FiletoUpload )>
 
-	<cfdump var=#x#>
+	<cfdump var=#FiletoUpload#>
 
 
 	<cfset fileContent=replace(fileContent,",","|","all")>
