@@ -24,6 +24,6 @@
 	<cfset fileContent=replace(fileContent," 0.0))","))","all")>
 
 	<cfdump var=#fileContent#>
-
+</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
