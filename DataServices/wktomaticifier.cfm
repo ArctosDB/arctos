@@ -10,6 +10,13 @@
 <cfif action is "getFile">
 <cfoutput>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+
+
+	<cfset x=GetPageContext().Include(FiletoUpload )>
+
+	<cfdump var=#x#>
+
+
 	<cfset fileContent=replace(fileContent,",","|","all")>
 	<cfset fileContent=replace(fileContent," ","!","all")>
 	<cfset fileContent=replace(fileContent,"<Polygon><outerBoundaryIs><LinearRing><coordinates>","POLYGON((","all")>
@@ -24,6 +31,11 @@
 	<cfset fileContent=replace(fileContent," 0.0))","))","all")>
 
 	<cfdump var=#fileContent#>
+
+
+	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+
+
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
