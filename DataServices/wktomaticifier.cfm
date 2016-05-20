@@ -11,7 +11,7 @@
 <cfoutput>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 
-<cfset var tmpPartsArray = Form.getPartsArray() />
+<cfset tmpPartsArray = Form.getPartsArray() />
 	<cfdump var=#tmpPartsArray#>
 <hr>
 
