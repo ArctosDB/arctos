@@ -15,7 +15,7 @@ document.getElementById("fileName").value=document.getElementById("FiletoUpload"
 	upload Fusion Tables KML
 	<form name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
-		<input type="file" name="FiletoUpload" size="45" onchange="PassFileName()">
+		<input type="file" name="FiletoUpload" id="FiletoUpload" size="45" onchange="PassFileName()">
 		<input type="hidden" id="fileName" size="20" name="fileName" />
 		<input type="submit" value="Upload this file" class="savBtn">
 	</form>
