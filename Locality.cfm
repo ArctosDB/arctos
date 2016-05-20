@@ -885,8 +885,9 @@
 								<br>#fmed.media_uri#
 								<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 								<cfif left(cfhttp.statuscode,3) is "200">
-									<br>successfully got file...
+									<br>GET success
 								</cfif>
+								<br>done
 							</div>
 							<cfset wktpolydata=cfhttp.filecontent>
 						</cfif>
