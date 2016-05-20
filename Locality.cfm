@@ -381,6 +381,7 @@
 			padding:1em;
 			margin:1em;
 			font-family:courier;
+			font-size:small;
 		}
 		#wktinstr{
 			border:1px solid black;
@@ -880,7 +881,8 @@
 								select media_uri from media where media_id=#meid#
 							</cfquery>
 							<div id="wktfetch">
-								readingWKT data from #fmed.media_uri#
+								readingWKT data from file
+								<br>#fmed.media_uri#
 								<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 								<cfif left(cfhttp.statuscode,3) is "200">
 									<br>successfully got file...
