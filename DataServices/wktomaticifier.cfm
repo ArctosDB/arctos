@@ -11,10 +11,10 @@
 <cfoutput>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 
+	<cfset x=GetPageContext().formScope().getUploadResource('atts').getName()>
 
-
-	<cfdump var=#FiletoUpload#>
-
+	<cfdump var=#x#>
+<hr>
 
 	<cfset fileContent=replace(fileContent,",","|","all")>
 	<cfset fileContent=replace(fileContent," ","!","all")>
