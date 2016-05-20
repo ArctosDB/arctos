@@ -1,18 +1,33 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
+
+
+<script type="text/javascript">
+function PassFileName()
+{
+document.getElementById("fileName").value=document.getElementById("FiletoUpload").value;
+}
+</script>
+
+
+
+
 	upload Fusion Tables KML
 	<form name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
-		<input type="file" name="FiletoUpload" size="45">
+		<input type="file" name="FiletoUpload" size="45" onchange="PassFileName()">
+		<input type="hidden" id="fileName" size="20" name="fileName" />
 		<input type="submit" value="Upload this file" class="savBtn">
 	</form>
 </cfif>
 <cfif action is "getFile">
 <cfoutput>
-	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 
-<cfset tmpPartsArray = Form.getPartsArray() />
-	<cfdump var=#tmpPartsArray#>
+
+
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cfdump var=#form#>
+
 <hr>
 
 	<cfset fileContent=replace(fileContent,",","|","all")>
