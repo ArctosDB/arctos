@@ -209,6 +209,7 @@
 	<cfparam name="island" default="">
 	<cfparam name="sea" default="">
 	<cfparam name="geog_auth_rec_id" default="">
+	<cfparam name="hasGeoWKT" default="">
 	<cfparam name="locality_name" default="">
 	<cfparam name="spec_locality" default="">
 	<cfparam name="collnOper" default="">
@@ -334,6 +335,16 @@
 								<td>
 									<label for="geog_auth_rec_id">Geog Auth Rec ID</label>
 									<input type="text" name="geog_auth_rec_id" id="geog_auth_rec_id" value="#geog_auth_rec_id#">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="hasGeoWKT">hasGeoWKT</label>
+									<select name="hasGeoWKT" id="hasGeoWKT">
+										<option value=""></option>
+										<option value="1">yes</option>
+										<option value="0">no</option>
+									</select>
 								</td>
 							</tr>
 						</table>

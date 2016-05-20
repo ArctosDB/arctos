@@ -282,6 +282,18 @@
 <cfif isdefined("locality_remarks") and len(#locality_remarks#) gt 0>
 	<cfset qual = "#qual# AND upper(locality_remarks) like '%#escapeQuotes(ucase(locality_remarks))#%'">
 </cfif>
+
+
+<cfif isdefined("hasGeoWKT") and len(hasGeoWKT) gt 0>
+	<cfif hasGeoWKT is 1>
+		<cfset qual = "#qual# AND geog_auth_rec.wkt_polygon is not null">
+	<cfelseif hasGeoWKT is 0>
+		<cfset qual = "#qual# AND geog_auth_rec.wkt_polygon is null">
+	</cfif>
+</cfif>
+
+
+
 <cfif isdefined("continent_ocean") and len(#continent_ocean#) gt 0>
 	<cfset qual = "#qual# AND upper(continent_ocean) LIKE '%#ucase(escapeQuotes(continent_ocean))#%'">
 </cfif>
