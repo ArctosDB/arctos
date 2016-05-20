@@ -398,6 +398,7 @@
 											<li><a target="_top" href="/DataServices/agent_splitter.cfm">Agent Deconcatenator</a></li>
 											<li><a target="_top" href="/DataServices/split_agent_namestring.cfm">Agent Namestring Formatter</a></li>
 											<li><a target="_top" href="/DataServices/findNonprintingCharacters.cfm">Find and replace nonprinting characters</a></li>
+											<li><a target="_top" href="/DataServices/wktomaticifier.cfm">Convert KML to WKT</a></li>										
 										</ul>
 									</li>
 								</ul>

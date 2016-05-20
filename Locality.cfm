@@ -891,9 +891,9 @@
 						<div id="wktinstr">
 							Large WKT (>~30K characters) will not work properly in the textarea. Instead,
 							<ol>
-								<li>Convert the spatial data to WKT POLYGON or MULTIPOLYGON format</li>
+								<li><a href="/DataServices/wktomaticifier.cfm">Convert</a> the spatial data to WKT POLYGON or MULTIPOLYGON format</li>
 								<li>Save as a text file (file extension .wkt is preferred by any will work)</li>
-								<li>Create Media; copy the media_id of the media record</li>
+								<li><a href="/media.cfm?action=newMedia">Create Media</a>; copy the media_id of the media record</li>
 								<li>In the WKT_Polygon box, enter
 									<ul><li>
 										<code>
