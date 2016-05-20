@@ -12,7 +12,7 @@
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 
 
-	<cfset x=GetPageContext().Include(FiletoUpload )>
+	<cfset x=GetPageContext( FiletoUpload )>
 
 	<cfdump var=#x#>
 
