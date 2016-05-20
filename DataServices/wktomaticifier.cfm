@@ -23,7 +23,9 @@ document.getElementById("fileName").value=document.getElementById("FiletoUpload"
 <cfif action is "getFile">
 <cfoutput>
 
-
+	<cfset outfilename=form.fileName>
+	<cfset inExt=listlast(outfilename,".")>
+	<cfset outfilename=replace(outfilename,inExt,"wkt">
 
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfdump var=#form#>
@@ -42,6 +44,15 @@ document.getElementById("fileName").value=document.getElementById("FiletoUpload"
 	<cfset fileContent=replace(fileContent,",0.0))","))","all")>
 	<cfset fileContent=replace(fileContent," 0.0,",",","all")>
 	<cfset fileContent=replace(fileContent," 0.0))","))","all")>
+
+
+<cffile action = "write"
+	    file = "#Application.webDirectory#/download/#outfilename#"
+    	output = "#fileContent#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=#outfilename#" addtoken="false">
+
+
 
 	<cfdump var=#fileContent#>
 
