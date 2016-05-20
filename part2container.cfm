@@ -93,6 +93,7 @@
 			<td>
 				<label for="new_container_type">Parent Cont Type</label>
 				<select name = "new_container_type" id="new_container_type" size="1" class="reqdClr">
+					<option value=""></option>
 					<cfloop query="ctContType">
 						<option value="#container_type#">#container_type#</option>
 					</cfloop>
