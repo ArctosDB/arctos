@@ -341,9 +341,9 @@
 								<td>
 									<label for="hasGeoWKT">hasGeoWKT</label>
 									<select name="hasGeoWKT" id="hasGeoWKT">
-										<option value=""></option>
-										<option value="1">yes</option>
-										<option value="0">no</option>
+										<option  value=""></option>
+										<option <cfif hasGeoWKT is "1">selected="selected"</cfif> value="1">yes</option>
+										<option <cfif hasGeoWKT is "0">selected="selected"</cfif> value="0">no</option>
 									</select>
 								</td>
 							</tr>
