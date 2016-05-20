@@ -11,9 +11,8 @@
 <cfoutput>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 
-	<cfset x=GetPageContext().formScope().getUploadResource('atts').getName()>
-
-	<cfdump var=#x#>
+<cfset var tmpPartsArray = Form.getPartsArray() />
+	<cfdump var=#tmpPartsArray#>
 <hr>
 
 	<cfset fileContent=replace(fileContent,",","|","all")>
