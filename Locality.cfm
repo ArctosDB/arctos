@@ -363,7 +363,7 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editGeog">
-<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			google_client_id,
 			google_private_key
@@ -382,7 +382,6 @@
 			margin:1em;
 			font-family:courier;
 		}
-
 		#wktinstr{
 			border:1px solid black;
 			margin:1em;
@@ -394,7 +393,6 @@
 			margin:1em;
 			padding:1em;
 		}
-
 	</style>
 <script>
 	var map;
@@ -812,7 +810,6 @@
 		</cfquery>
 		<cfquery name="scoords" datasource="uam_god">
 			select distinct
-				--round(dec_lat,1) || ',' || round(dec_long,1) rcords
 				dec_lat || ',' || dec_long rcords
 			from
 				flat
@@ -820,6 +817,7 @@
 				dec_lat is not null and
 			 	geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
+		<cfdump var=#scoords#>
 		<input type="hidden" id="scoords" value="#valuelist(scoords.rcords,";")#">
 		<cfquery name="sspe" dbtype="query">
 			select sum(c) sct from specimen
