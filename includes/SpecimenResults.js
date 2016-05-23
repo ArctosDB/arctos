@@ -99,7 +99,10 @@ function createMarker(p) {
         content: contentString
     });
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map,marker);
+    	 if (infowindow) {
+    	    infowindow.close();
+    	 }
+    	 infowindow.open(map,marker);
     });  
 }
 
