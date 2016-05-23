@@ -1017,8 +1017,7 @@
 	  		collection.collection_id
 	</cfquery>
 	<cfquery name="whatMedia" datasource="uam_god">
-	  	select
-	  		count(distinct(media_id)) num,
+	  	select distinct
 	  		media_id
 	  	from (
 	  		SELECT
@@ -1074,7 +1073,7 @@
 						</cfloop>
 						<cfif whatMedia.recordcount gt 0>
 							<li>
-								<a target="_top" href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#sum(valuelist(whatMedia.num))# Media records</a>
+								<a target="_top" href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.recordcount# Media records</a>
 							</li>
 						</cfif>
 					</ul>
