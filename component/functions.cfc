@@ -1074,7 +1074,7 @@
 						</cfloop>
 						<cfif whatMedia.recordcount gt 0>
 							<li>
-								<a target="_top" href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#sum(whatMedia.num)# Media records</a>
+								<a target="_top" href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#sum(valuelist(whatMedia.num))# Media records</a>
 							</li>
 						</cfif>
 					</ul>
