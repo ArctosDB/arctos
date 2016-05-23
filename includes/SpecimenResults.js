@@ -85,7 +85,7 @@ function createMarker(p) {
 		zIndex:-99
 	};
 	var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>'
-	contentString += '<br><a href="/SpecimenResults.cfm?coordinates=' + lat + ',' + lon + '">specimens @ coordiantes (new window)</a>';
+	contentString += '<br><a target="_blank" href="/SpecimenResults.cfm?coordinates=' + lat + ',' + lon + '">specimens @ coordiantes (new window)</a>';
 	crcl = new google.maps.Circle(circleoptn);
 	var marker = new google.maps.Marker({
 		position: center,
