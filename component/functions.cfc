@@ -3639,28 +3639,19 @@
 					  '#PART_NAME#'
 						,#collection_object_id#)
 			</cfquery>
-			<cfif len(#coll_object_remarks#) gt 0>
+			<cfif len(coll_object_remarks) gt 0>
 				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 					VALUES (#ccid.nv#, '#coll_object_remarks#')
 				</cfquery>
 			</cfif>
 			<cfif len(barcode) gt 0>
-				<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select container_id from coll_obj_cont_hist where collection_object_id=#ccid.nv#
-				</cfquery>
-				<cfquery name="pc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select container_id from container where barcode='#barcode#'
-				</cfquery>
-				<cfquery name="m2p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update container set parent_container_id=#pc.container_id# where container_id=#np.container_id#
-				</cfquery>
-				<cfif len(new_container_type) gt 0>
-					<cfquery name="uct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update container set container_type='#new_container_type#' where
-						container_id=#pc.container_id#
-					</cfquery>
-				</cfif>
+				<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#ccid.nv#"><!---- v_collection_object_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#barcode#"><!---- v_barcode ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_container_type#"><!---- v_parent_container_type ---->
+				</cfstoredproc>
 			</cfif>
 			<cfset q=queryNew("STATUS,PART_NAME,LOT_COUNT,COLL_OBJ_DISPOSITION,CONDITION,COLL_OBJECT_REMARKS,BARCODE,NEW_CONTAINER_TYPE")>
 			<cfset t = queryaddrow(q,1)>
