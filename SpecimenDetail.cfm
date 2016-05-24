@@ -135,7 +135,7 @@
 					    panControl: false,
 					    scaleControl: true
 					};
-					var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), myOptions);
+					var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
 
 
 					var center=new google.maps.LatLng(coords);
