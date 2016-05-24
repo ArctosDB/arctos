@@ -2,6 +2,11 @@
 <cftry>
 	<script>
 		jQuery(document).ready(function() {
+
+			/*
+
+			turn the maps off while experimenting with polygons
+
 			$.each($("div[id^='mapgohere-']"), function() {
 				var theElemID=this.id;
 				var theIDType=this.id.split('-')[1];
@@ -11,6 +16,7 @@
 					jQuery("#" + theElemID).html(data);
 				});
 			});
+			*/
 		});
 	</script>
 <cfif isdefined("collection_object_id")>
