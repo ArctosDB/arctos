@@ -16,7 +16,7 @@
 			console.log(x.coordinates);
 
 
-			var pl=polyline.encode([[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]]);
+			var pl=polyline.encode(x.coordinates);
 			console.log(pl);
 		}
 
