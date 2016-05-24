@@ -28,6 +28,9 @@
 				 }
 		</script>
 
+			<p>
+				To delete a record, enter DELETE in LOADED, tab out. Reload to refresh the view.
+			</p>
 			<cfif action is "ajaxGrid">
 				<cfoutput>
 					<cfquery name="cNames" datasource="uam_god">
