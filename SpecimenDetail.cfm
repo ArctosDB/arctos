@@ -14,13 +14,25 @@
 <cftry>
 	<script>
 
-		var map, map1, map2, map3, map4, map5, map6;
+		var mapObjects;
 		var bounds = new google.maps.LatLngBounds();
 		var markers = new Array();
 		var ptsArray=[];
 		var polygonArray = [];
 
 
+
+		 function geAllMapDivs() {
+		 	$("input[id^='coordinates_']").each(function(e){
+		 		var coords=this.value;
+				if (coords.length > 0 ){
+					var seid=this.id.replace('coordinates_','');
+					mapDivs.push(allDivs[i]);
+				}
+		 	}
+		 	return mapDivs;
+
+	    }
 
 
 		function addAPolygon(inc,d){
@@ -40,13 +52,21 @@
 
 
 
+		function initialize() {
+		        var mapDivs = getAllMapDivs(), i, L;
+		        mapObjects = [];
+		        for(i=0, L=mapDivs.length; i<L; i++) {
+		            //mapObjects.push(new google.maps.Map(mapDivs[i], myOptions));
+		            console.log(mapDivs[i]);
+		        }
+		    }
 
 
 
 
 
 
-		function initialize(condition) {
+		function initialize__old(condition) {
 			$("input[id^='coordinates_']").each(function(e){
 				var sid='coordinates_' + String(e+1);
 				console.log(this);
