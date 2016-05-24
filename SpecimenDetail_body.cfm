@@ -38,6 +38,12 @@
 		<cfset seid="">
 	</cfif>
 	<style>
+		#gmap{
+			width:600px;
+			height:600px;
+			border:1px solid green;
+			margin:1em;
+		}
 	    .highlightSEID {
 		   background:yellow;
 		}
@@ -765,7 +771,7 @@
 					</table>
 				</div>
 			</cfloop>
-			<div>imamap</div>
+			<div id="gmap">imamap</div>
 			</div>
 <!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
