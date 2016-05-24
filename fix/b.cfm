@@ -13,6 +13,10 @@
 			var w=$("#wkt").val();
 			var x=parse(w);
 			console.log(x);
+
+
+			var pl=polyline.encode(x);
+			console.log(pl);
 		}
 
 
