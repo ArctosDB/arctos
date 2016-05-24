@@ -176,7 +176,8 @@
 		higher_geog,
 		geog_auth_rec.SOURCE_AUTHORITY,
 		geog_search_term.SEARCH_TERM,
-		to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) err_in_m
+		to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) err_in_m,
+		geog_auth_rec.wkt_polygon geog_polygon
 	from
 		specimen_event,
 		collecting_event,
@@ -235,7 +236,8 @@
 		georeference_protocol,
 		locality_name,
 		higher_geog,
-		SOURCE_AUTHORITY
+		SOURCE_AUTHORITY,
+		geog_polygon
 	from
 		rawevent
 	group by
@@ -279,7 +281,8 @@
 		georeference_protocol,
 		locality_name,
 		higher_geog,
-		SOURCE_AUTHORITY
+		SOURCE_AUTHORITY,
+		geog_polygon
 </cfquery>
 <style>
 	.acceptedIdDiv {
@@ -730,11 +733,16 @@
 												---->
 											</cfif>
 
-											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#">
+											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#,#err_in_m#,#geog_a">
+											<input type="text" id="error_#specimen_event_id#" value="#err_in_m#">
+											<input type="text" id="geog_polygon_#specimen_event_id#" value="#geog_polygon#">
 										</td>
 									</tr>
 									<tr>
-										<td valign="top" align="right"><!---- map here ---><div id="colEventMedia"></div></td>
+										<td valign="top" align="right"><!---- map here<div id="colEventMedia"></div> --->
+										
+											<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
+										</td>
 									</tr>
 								</table>
 							</td>

@@ -5,13 +5,16 @@
 			google_private_key
 		from cf_global_settings
 	</cfquery>
+	<style>
+		.mapdiv{width:400px;height:400px;}
+	</style>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 <cftry>
 	<script>
 
-		var map;
+		var map1 map2 map3 map4 map5 map6;
 		var bounds = new google.maps.LatLngBounds();
 		var markers = new Array();
 		var ptsArray=[];
@@ -107,6 +110,16 @@
 		jQuery(document).ready(function() {
 
 			initializeMap();
+
+														<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
+
+
+											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#,#err_in_m#,#geog_a">
+											<input type="text" id="error_#specimen_event_id#" value="#err_in_m#">
+											<input type="text" id="geog_polygon_#specimen_event_id#" value="#geog_polygon#">
+
+
+
 
 			/*
 
