@@ -765,6 +765,7 @@
 					</table>
 				</div>
 			</cfloop>
+			<div>imamap</div>
 			</div>
 <!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
