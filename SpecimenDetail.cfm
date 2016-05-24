@@ -117,6 +117,11 @@
 				var seid=this.id.replace('coordinates_','');
 				console.log(seid);
 				console.log(this.value);
+				var coords=this.value;
+
+				if (coords.length > 0 ){
+					console.log('make a map');
+				}
 				//var coords=$("
 			});
 		}
