@@ -140,6 +140,7 @@
 
 					var center=new google.maps.LatLng(coords);
 
+					console.log(center);
 
 					var circleoptn = {
 						strokeColor: '#FF0000',
