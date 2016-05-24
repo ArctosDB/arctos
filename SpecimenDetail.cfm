@@ -215,6 +215,8 @@
 					}
 
 
+ this.getPath().forEach(function(element,index){bounds.extend(element)});
+
 
 					 if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
 				       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
