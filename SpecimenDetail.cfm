@@ -14,7 +14,7 @@
 <cftry>
 	<script>
 
-		var map1, map2, map3, map4, map5, map6;
+		var map, map1, map2, map3, map4, map5, map6;
 		var bounds = new google.maps.LatLngBounds();
 		var markers = new Array();
 		var ptsArray=[];
@@ -124,16 +124,37 @@
 
 					var errorm=$("#error_" + seid).val();
 
-				console.log(errorm);
+					console.log(errorm);
 
-					var wkt=$("#geog_polygon_" + seid).val();
-				console.log(wkt);
-					 var myOptions = {
-					        zoom: 14,
-					        center: new google.maps.LatLng(0.0, 0.0),
-					        mapTypeId: google.maps.MapTypeId.ROADMAP
-					    }
-				    var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), myOptions);
+						var wkt=$("#geog_polygon_" + seid).val();
+					console.log(wkt);
+					var mapOptions = {
+						zoom: 3,
+					    center: new google.maps.LatLng(55, -135),
+					    mapTypeId: google.maps.MapTypeId.ROADMAP,
+					    panControl: false,
+					    scaleControl: true
+					};
+					var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), myOptions);
+
+
+					var center=new google.maps.LatLng(coords);
+
+
+					var circleoptn = {
+						strokeColor: '#FF0000',
+						strokeOpacity: 0.8,
+						strokeWeight: 2,
+						fillColor: '#FF0000',
+						fillOpacity: 0.15,
+						map: map,
+						center: center,
+						radius: parseInt(errorm),
+						zIndex:-99
+					};
+					crcl = new google.maps.Circle(circleoptn);
+
+
 				}
 				//var coords=$("
 			});
