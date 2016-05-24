@@ -236,8 +236,7 @@
 		georeference_protocol,
 		locality_name,
 		higher_geog,
-		SOURCE_AUTHORITY,
-		geog_polygon
+		SOURCE_AUTHORITY
 	from
 		rawevent
 	group by
@@ -281,8 +280,7 @@
 		georeference_protocol,
 		locality_name,
 		higher_geog,
-		SOURCE_AUTHORITY,
-		geog_polygon
+		SOURCE_AUTHORITY
 </cfquery>
 <style>
 	.acceptedIdDiv {
