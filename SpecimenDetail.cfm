@@ -59,7 +59,8 @@
 			// for use in containsLocation
 			polygonArray.push(poly);
 			// now specimen points
-			var cfgml=$("#scoords").val();
+			//var cfgml=$("#scoords").val();
+			var cfgml;
 			if (cfgml.length==0){
 				return false;
 			}
