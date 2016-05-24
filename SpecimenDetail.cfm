@@ -121,6 +121,9 @@
 
 				if (coords.length > 0 ){
 
+							var bounds = new google.maps.LatLngBounds();
+
+
 
 				var lat=coords.split(',')[0];
 				var lng=coords.split(',')[1];
@@ -139,12 +142,36 @@
 					    panControl: false,
 					    scaleControl: true
 					};
+
+
+
 					var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
 
 
 					var center=new google.maps.LatLng(lat,lng);
 
 					console.log(center);
+
+
+
+
+
+
+
+
+
+					bounds.extend(center);
+			// Don't zoom in too far on only one marker
+
+
+
+
+
+
+
+
+
+
 
 					var circleoptn = {
 						strokeColor: '#FF0000',
@@ -189,7 +216,13 @@
 
 
 
-
+					 if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+				       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+				       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+				       bounds.extend(extendPoint1);
+				       bounds.extend(extendPoint2);
+				    }
+					map.fitBounds(bounds);
 
 
 
