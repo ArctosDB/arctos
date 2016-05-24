@@ -112,6 +112,7 @@
 			$("input[id^='coordinates_']").each(function(e){
 				var sid='coordinates_' + String(e+1);
 				console.log('init for ' + sid);
+				console.log(this.id);
 			});
 		}
 
