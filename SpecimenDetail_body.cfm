@@ -3,7 +3,25 @@
 </cfif>
 <script src="/includes/sorttable.js"></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-
+<style>
+		#gmap{
+			width:600px;
+			height:600px;
+			border:1px solid green;
+			margin:1em;
+		}
+	    .highlightSEID {
+		   background:yellow;
+		}
+		.taxaMeta{
+			font-size:.8em;
+			color:gray;
+			 padding-left: .5em;
+    		text-indent:-.5em;
+			max-height:2.5em;
+			overflow:auto;
+}
+	</style>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -37,25 +55,7 @@
 	<cfif not isdefined("seid") or seid is "undefined">
 		<cfset seid="">
 	</cfif>
-	<style>
-		#gmap{
-			width:600px;
-			height:600px;
-			border:1px solid green;
-			margin:1em;
-		}
-	    .highlightSEID {
-		   background:yellow;
-		}
-		.taxaMeta{
-			font-size:.8em;
-			color:gray;
-			 padding-left: .5em;
-    		text-indent:-.5em;
-			max-height:2.5em;
-			overflow:auto;
-}
-	</style>
+
 	<cfif len(seid) gt 0>
 	    <script>
 	    	jQuery(document).ready(function(){
