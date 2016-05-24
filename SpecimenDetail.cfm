@@ -15,6 +15,7 @@
 	<script>
 
 		var mapObjects;
+		var mapDivs =[];
 		var bounds = new google.maps.LatLngBounds();
 		var markers = new Array();
 		var ptsArray=[];
