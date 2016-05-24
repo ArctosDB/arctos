@@ -906,10 +906,16 @@
 		<cfoutput>
 			<cfset colname = StructKeyList(cfgridchanged)>
 			<cfset value = cfgridchanged[colname]>
-			<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update bulkloader_stage set  #colname# = '#value#'
-				where collection_object_id=#cfgridrow.collection_object_id#
-			</cfquery>
+			<cfif colname is "LOADED" and value is "DELETE">
+				<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from bulkloader_stage where collection_object_id=#cfgridrow.collection_object_id#
+				</cfquery>
+			<cfelse>
+				<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update bulkloader_stage set  #colname# = '#value#'
+					where collection_object_id=#cfgridrow.collection_object_id#
+				</cfquery>
+			</cfif>
 		</cfoutput>
 	</cffunction>
 </cfcomponent>
