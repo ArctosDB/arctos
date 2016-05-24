@@ -13,6 +13,7 @@
 			var w=$("#wkt").val();
 			var x=parse(w);
 			console.log(x);
+			console.log(x.coordinates);
 
 
 			var pl=polyline.encode([[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]]);
