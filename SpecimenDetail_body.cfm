@@ -733,14 +733,14 @@
 												---->
 											</cfif>
 
-											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#,#err_in_m#,#geog_a">
+											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#">
 											<input type="text" id="error_#specimen_event_id#" value="#err_in_m#">
 											<input type="text" id="geog_polygon_#specimen_event_id#" value="#geog_polygon#">
 										</td>
 									</tr>
 									<tr>
 										<td valign="top" align="right"><!---- map here<div id="colEventMedia"></div> --->
-										
+
 											<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
 										</td>
 									</tr>
