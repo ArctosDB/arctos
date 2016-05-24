@@ -14,7 +14,7 @@
 <cftry>
 	<script>
 
-		var mapObjects;
+		var mapObjects = [];
 		var mapDivs =[];
 		var bounds = new google.maps.LatLngBounds();
 		var markers = new Array();
@@ -38,7 +38,7 @@
 
 		function initialize() {
 	        var mapDivs = getAllMapDivs(), i, L;
-	        mapObjects = [];
+
 	        for(i=0, L=mapDivs.length; i<L; i++) {
 	        	var mapOptions = {
 					zoom: 3,
