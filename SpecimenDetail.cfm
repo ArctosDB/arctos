@@ -166,6 +166,33 @@
 						zIndex: 10
 					});
 
+					if (wkt.length) > 0{
+						var regex = /\(([^()]+)\)/g;
+						var Rings = [];
+						var results;
+						while( results = regex.exec(wkt) ) {
+						    Rings.push( results[1] );
+						}
+						for(var i=0;i<Rings.length;i++){
+							addAPolygon(i,Rings[i]);
+						}
+						var poly = new google.maps.Polygon({
+						    paths: ptsArray,
+						    strokeColor: '#1E90FF',
+						    strokeOpacity: 0.8,
+						    strokeWeight: 2,
+						    fillColor: '#1E90FF',
+						    fillOpacity: 0.35
+						});
+						poly.setMap(map);
+					}
+
+
+
+
+
+
+
 
 
 				}
