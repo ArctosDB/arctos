@@ -113,7 +113,7 @@
 				var sid='coordinates_' + String(e+1);
 				console.log('init for ' + sid);
 				console.log(this.id);
-				var seid=this.id.replace('coordinates_',''):
+				var seid=this.id.replace('coordinates_','');
 				console.log(seid);
 			});
 		}
