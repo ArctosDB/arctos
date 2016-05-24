@@ -738,7 +738,7 @@
 
 
 
-						<cfquery name="wtk" dbtype="query">
+						<cfquery name="wkt" dbtype="query">
 							select geog_polygon from rawevent where specimen_event_id=#specimen_event_id#
 						</cfquery>
 						<cfdump var=#wkt#>
