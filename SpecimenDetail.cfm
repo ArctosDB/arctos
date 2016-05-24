@@ -58,7 +58,6 @@
 				var coords=this.value;
 
 				if (coords.length > 0 ){
-					bounds = '';
 
 
 
