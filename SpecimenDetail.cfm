@@ -29,11 +29,20 @@
 					var seid=this.id.replace('coordinates_','');
 					mapDivs.push(allDivs[i]);
 				}
-		 	}
+		 	});
 		 	return mapDivs;
 
 	    }
 
+
+		function initialize() {
+	        var mapDivs = getAllMapDivs(), i, L;
+	        mapObjects = [];
+	        for(i=0, L=mapDivs.length; i<L; i++) {
+	            //mapObjects.push(new google.maps.Map(mapDivs[i], myOptions));
+	            console.log(mapDivs[i]);
+	        }
+	    }
 
 		function addAPolygon(inc,d){
 			var lary=[];
@@ -52,14 +61,7 @@
 
 
 
-		function initialize() {
-		        var mapDivs = getAllMapDivs(), i, L;
-		        mapObjects = [];
-		        for(i=0, L=mapDivs.length; i<L; i++) {
-		            //mapObjects.push(new google.maps.Map(mapDivs[i], myOptions));
-		            console.log(mapDivs[i]);
-		        }
-		    }
+
 
 
 
