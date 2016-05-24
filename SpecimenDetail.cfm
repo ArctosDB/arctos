@@ -120,6 +120,10 @@
 				var coords=this.value;
 
 				if (coords.length > 0 ){
+
+
+				var lat=coords.split(',')[0];
+				var lng=coords.split(',')[1];
 					console.log('make a map');
 
 					var errorm=$("#error_" + seid).val();
@@ -138,7 +142,7 @@
 					var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
 
 
-					var center=new google.maps.LatLng(coords);
+					var center=new google.maps.LatLng(lat,lng);
 
 					console.log(center);
 
