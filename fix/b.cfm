@@ -14,6 +14,7 @@
 			var x=parse(w);
 			console.log(x);
 			console.log('coords: ' + x.coordinates);
+			console.log(x.coordinates[0]);
 
 
 			var pl=polyline.encode(x.coordinates);
