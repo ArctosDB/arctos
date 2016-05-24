@@ -414,7 +414,7 @@
 				var xy = da[i].trim().split(" ");
 				var pt=new google.maps.LatLng(xy[1],xy[0]);
 				lary.push(pt);
-				//bounds.extend(pt);
+				bounds.extend(pt);
 			}
 			ptsArray.push(lary);
 		}
