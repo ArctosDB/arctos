@@ -28,7 +28,7 @@
 		 		var coords=this.value;
 				if (coords.length > 0 ){
 					var seid=this.id.replace('coordinates_','');
-					mapDivs.push('map_' + seid);
+					mapDivs.push('mapdiv_' + seid);
 				}
 		 	});
 		 	return mapDivs;
@@ -40,8 +40,17 @@
 	        var mapDivs = getAllMapDivs(), i, L;
 	        mapObjects = [];
 	        for(i=0, L=mapDivs.length; i<L; i++) {
-	            //mapObjects.push(new google.maps.Map(mapDivs[i], myOptions));
+	        	var mapOptions = {
+					zoom: 3,
+				    center: new google.maps.LatLng(55, -135),
+				    mapTypeId: google.maps.MapTypeId.ROADMAP,
+				    panControl: false,
+				    scaleControl: true
+				};
+
+	            mapObjects.push(new google.maps.Map(mapDivs[i], myOptions));
 	            console.log(mapDivs[i]);
+
 	        }
 	    }
 
