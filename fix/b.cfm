@@ -8,7 +8,6 @@
 	<cfdump var=#one#>
 
 	<script>
-var parse = require('wellknown');
 
 		function encthis(){
 			var w=$("#wkt").val();
