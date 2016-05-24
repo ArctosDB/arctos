@@ -122,7 +122,11 @@
 				if (coords.length > 0 ){
 					console.log('make a map');
 					var errorm=$("#error_" + sid).val();
+
+				console.log(errorm);
+
 					var wkt=$("#geog_polygon_" + sid).val();
+				console.log(wkt);
 					 var myOptions = {
 					        zoom: 14,
 					        center: new google.maps.LatLng(0.0, 0.0),
