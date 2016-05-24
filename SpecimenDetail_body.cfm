@@ -536,6 +536,7 @@
 					   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
 						   OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
 						</div>
+						<input type="text" id="specimen_event_id_#specimen_event_id#" value="#specimen_event_id#">
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
