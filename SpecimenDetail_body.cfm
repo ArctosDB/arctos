@@ -721,6 +721,7 @@
 											</table>
 										</td>
 										<td valign="top" align="right"><!---- map here --->
+										<cfset coordinates="">
 											 <cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 												<div id="mapgohere-locality_id-#locality_id#"></div>
 												<!----
@@ -729,9 +730,10 @@
 												</cfinvoke>
 												#contents#
 												---->
+												<cfset coordinates="#dec_lat#,#dec_long#">
 											</cfif>
 
-											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#">
+											<input type="text" id="coordinates_#specimen_event_id#" value="#coordinates#">
 											<input type="text" id="error_#specimen_event_id#" value="#err_in_m#">
 
 
