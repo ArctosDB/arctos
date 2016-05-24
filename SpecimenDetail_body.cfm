@@ -2,9 +2,7 @@
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
 
-<cfoutput>
-	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
-</cfoutput>
+
 <script src="/includes/sorttable.js"></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <style>

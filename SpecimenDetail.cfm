@@ -1,7 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
+<cfoutput>
+	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
+</cfoutput>
 <cftry>
 	<script>
-		
+
 		var map;
 		var bounds = new google.maps.LatLngBounds();
 		var markers = new Array();
@@ -95,9 +98,9 @@
 		    });
 		}
 		jQuery(document).ready(function() {
-			
+
 			initializeMap();
-		
+
 			/*
 
 			turn the maps off while experimenting with polygons
