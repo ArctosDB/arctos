@@ -733,6 +733,9 @@
 
 											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#">
 											<input type="text" id="error_#specimen_event_id#" value="#err_in_m#">
+
+
+											<cfset geog_polygon="5">
 											<input type="text" id="geog_polygon_#specimen_event_id#" value="#geog_polygon#">
 										</td>
 									</tr>
