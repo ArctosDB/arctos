@@ -737,6 +737,16 @@
 											<input type="text" id="error_#specimen_event_id#" value="#err_in_m#">
 
 
+
+						<cfquery name="wtk" dbtype="query">
+							select geog_polygon from rawevent where specimen_event_id=#specimen_event_id#
+						</cfquery>
+						<cfdump var=#wkt#>
+
+
+
+
+
 											<cfset geog_polygon="5">
 											<input type="text" id="geog_polygon_#specimen_event_id#" value="#geog_polygon#">
 										</td>
