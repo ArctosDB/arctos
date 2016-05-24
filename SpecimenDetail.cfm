@@ -121,6 +121,14 @@
 
 				if (coords.length > 0 ){
 					console.log('make a map');
+					var errorm=$("#error_" + sid).val();
+					var wkt=$("#geog_polygon_" + sid).val();
+					 var myOptions = {
+					        zoom: 14,
+					        center: new google.maps.LatLng(0.0, 0.0),
+					        mapTypeId: google.maps.MapTypeId.ROADMAP
+					    }
+				    var map = new google.maps.Map(document.getElementById("mapdiv_" + sid), myOptions);
 				}
 				//var coords=$("
 			});
