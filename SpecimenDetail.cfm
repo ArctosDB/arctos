@@ -105,7 +105,7 @@
 
 
 
-					var 'map' + condition = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
+					var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
 
 
 					var center=new google.maps.LatLng(lat,lng);
