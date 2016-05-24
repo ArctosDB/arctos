@@ -154,6 +154,14 @@
 					};
 					crcl = new google.maps.Circle(circleoptn);
 
+					var marker = new google.maps.Marker({
+						position: center,
+						map: map,
+						title: 'ima dot',
+						zIndex: 10
+					});
+
+
 
 				}
 				//var coords=$("
