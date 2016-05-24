@@ -22,7 +22,7 @@
 
 
 
-		 function geAllMapDivs() {
+		 function getAllMapDivs() {
 		 	$("input[id^='coordinates_']").each(function(e){
 		 		var coords=this.value;
 				if (coords.length > 0 ){
