@@ -166,7 +166,7 @@
 						zIndex: 10
 					});
 
-					if (wkt.length) > 0{
+					if (wkt.length > 0){
 						var regex = /\(([^()]+)\)/g;
 						var Rings = [];
 						var results;
