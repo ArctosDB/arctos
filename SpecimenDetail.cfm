@@ -28,7 +28,7 @@
 		 		var coords=this.value;
 				if (coords.length > 0 ){
 					var seid=this.id.replace('coordinates_','');
-					mapDivs.push(allDivs[i]);
+					mapDivs.push('map_' + seid);
 				}
 		 	});
 		 	return mapDivs;
