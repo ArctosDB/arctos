@@ -175,7 +175,8 @@
 		locality_name,
 		higher_geog,
 		geog_auth_rec.SOURCE_AUTHORITY,
-		geog_search_term.SEARCH_TERM
+		geog_search_term.SEARCH_TERM,
+		to_meters(MAX_ERROR_UNITS,MAX_ERROR_DISTANCE) err_in_m
 	from
 		specimen_event,
 		collecting_event,
@@ -228,6 +229,7 @@
 		DEPTH_UNITS,
 		MAX_ERROR_DISTANCE,
 		MAX_ERROR_UNITS,
+		err_in_m,
 		LOCALITY_REMARKS,
 		georeference_source,
 		georeference_protocol,
@@ -271,6 +273,7 @@
 		DEPTH_UNITS,
 		MAX_ERROR_DISTANCE,
 		MAX_ERROR_UNITS,
+		err_in_m,
 		LOCALITY_REMARKS,
 		georeference_source,
 		georeference_protocol,
@@ -538,7 +541,6 @@
 					   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
 						   OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
 						</div>
-						<input type="text" id="specimen_event_id_#specimen_event_id#" value="#specimen_event_id#">
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
@@ -727,6 +729,8 @@
 												#contents#
 												---->
 											</cfif>
+
+											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#">
 										</td>
 									</tr>
 									<tr>
