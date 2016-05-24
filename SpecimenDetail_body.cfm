@@ -741,14 +741,26 @@
 						<cfquery name="wkt" dbtype="query">
 							select geog_polygon from rawevent where specimen_event_id=#specimen_event_id#
 						</cfquery>
-						<cfdump var=#wkt#>
+
+						<cfset wkt_polygon=wkt.geog_polygon>
+		                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,7) is 'MEDIA::'>
+			                <cfset meid=right(wkt_polygon,len(wkt_polygon)-7)>
+               				<cfquery name="fmed" datasource="uam_god">
+								select media_uri from media where media_id=#meid#
+							</cfquery>
+								<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+
+							<cfset wkt_polygon=cfhttp.filecontent>
+						</cfif>
 
 
 
 
 
-											<cfset geog_polygon="5">
-											<input type="text" id="geog_polygon_#specimen_event_id#" value="#geog_polygon#">
+
+
+
+											<input type="text" id="geog_polygon_#specimen_event_id#" value="#wkt_polygon#">
 										</td>
 									</tr>
 									<tr>
