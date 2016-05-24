@@ -115,6 +115,8 @@
 				console.log(this.id);
 				var seid=this.id.replace('coordinates_','');
 				console.log(seid);
+				console.log(this().val());
+				//var coords=$("
 			});
 		}
 
