@@ -176,7 +176,7 @@
 		higher_geog,
 		geog_auth_rec.SOURCE_AUTHORITY,
 		geog_search_term.SEARCH_TERM,
-		to_meters(MAX_ERROR_UNITS,MAX_ERROR_DISTANCE) err_in_m
+		to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) err_in_m
 	from
 		specimen_event,
 		collecting_event,
