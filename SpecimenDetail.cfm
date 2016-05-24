@@ -111,6 +111,7 @@
 		function initialize(condition) {
 			$("input[id^='coordinates_']").each(function(e){
 				var sid='coordinates_' + String(e+1);
+				console.log(this);
 				console.log('init for ' + sid);
 				console.log(this.id);
 				var seid=this.id.replace('coordinates_','');
