@@ -132,7 +132,7 @@ var bounds = new google.maps.LatLngBounds();
 
 
 							var lary=[];
-							var da=d.split(",");
+							var da=Rings[i].split(",");
 							for(var i=0;i<da.length;i++){
 								var xy = da[i].trim().split(" ");
 								var pt=new google.maps.LatLng(xy[1],xy[0]);
