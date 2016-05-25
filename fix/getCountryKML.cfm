@@ -6,6 +6,10 @@ create table temp_iso_cc as select * from dlm.my_temp_cf;
 
 alter table temp_iso_cc add geog_auth_rec_id number;
 
+
+alter table temp_iso_cc add filename varchar2(255);
+
+
 UAM@ARCTOS> desc geog_auth_rec
  Name								   Null?    Type
  ----------------------------------------------------------------- -------- --------------------------------------------
@@ -151,6 +155,7 @@ update temp_iso_cc get geog_auth_rec_id = xxxxxxxxxxx where country = 'Western S
 update temp_iso_cc get geog_auth_rec_id = xxxxxxxxxxx where country = 'Aland Islands'
 ----->
 <cfoutput>
+	<cfif action is "getGeogID">
 	<cfquery name="c" datasource="uam_god">
 		select * from temp_iso_cc where geog_auth_rec_id is null
 	</cfquery>
@@ -207,4 +212,15 @@ update temp_iso_cc get geog_auth_rec_id = xxxxxxxxxxx where country = 'Aland Isl
 		</cfif>
 
 	</cfloop>
+
+	may wan tto get some of this later....
+	</cfif>
+	<cfif action is "getWKT">
+		<cfquery name="ucl" datasource="uam_god">
+			select * from temp_iso_cc where filename is null and geog_auth_rec_id is not null and rownum<2
+		</cfquery>
+		<cfloop query="ucl">
+			<br>#country#
+		</cfloop>
+	</cfif>
 </cfoutput>
