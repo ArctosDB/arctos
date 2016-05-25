@@ -52,12 +52,21 @@
 				};
 
 	            mapObjects.push(new google.maps.Map(mapDivs[i], mapOptions));
-	            console.log(mapDivs[i]);
+	            //console.log(mapDivs[i]);
 
 	        }
 	    }
 
-		function addAPolygon(inc,d){
+
+		jQuery(document).ready(function() {
+			initialize();
+		});
+	</script>
+
+	<!------------
+
+
+	function addAPolygon(inc,d){
 			var lary=[];
 			var da=d.split(",");
 			for(var i=0;i<da.length;i++){
@@ -68,7 +77,6 @@
 			}
 			ptsArray.push(lary);
 		}
-
 
 
 
@@ -208,30 +216,14 @@
 		}
 
 
-		jQuery(document).ready(function() {
-			initialize();
-
-			//initializeMap();
 
 
-			/*
 
-			turn the maps off while experimenting with polygons
 
-			$.each($("div[id^='mapgohere-']"), function() {
-				var theElemID=this.id;
-				var theIDType=this.id.split('-')[1];
-				var theID=this.id.split('-')[2];
-			  	var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
-			    jQuery.get(ptl, function(data){
-					jQuery("#" + theElemID).html(data);
-				});
-			});
-			*/
-		});
-	</script>
 
-	<!------------
+
+
+
 
 
 
