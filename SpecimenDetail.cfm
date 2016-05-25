@@ -19,7 +19,7 @@
 
 
 		var markers = new Array();
-		var ptsArray=[];
+
 
 
 
@@ -52,6 +52,7 @@ function initialize(condition) {
 
 var bounds = new google.maps.LatLngBounds();
 var polygonArray = [];
+var ptsArray=[];
 
 
 				var lat=coords.split(',')[0];
