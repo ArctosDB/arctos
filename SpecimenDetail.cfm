@@ -169,6 +169,24 @@ var bounds = new google.maps.LatLngBounds();
 					map.fitBounds(bounds);
 
 
+			var opa=[];
+			for(var i=0; i<this.markers.length; i++){
+	        	for(var a=0; a<polygonArray.length; a++){
+	        		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
+						opa.push(this.markers[i].title);
+		        	}
+	        	}
+	    	}
+	    	if (opa.length>0){
+	    		alert('no bueno!');
+			} else {
+				alert('no outside points detected!');
+			}
+
+
+
+
+
 
 
 
