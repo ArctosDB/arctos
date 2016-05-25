@@ -377,7 +377,7 @@
 		        <div id="annotateSpace">
 					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
-							decode(REVIEWER_AGENT_ID,NULL,1,0) isreviewed,
+							decode(REVIEWER_AGENT_ID,NULL,0,1) isreviewed,
 							count(*) cnt
 						from
 							annotations
