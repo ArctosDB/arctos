@@ -1560,6 +1560,35 @@
 </cfif>
 </cfoutput>
 <div id="dialog" title="Basic dialog">
-  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+	<table border>
+		<tr>
+			<th>Map Border</th>
+			<th>What's it mean?</th>
+		</tr>
+		<tr>
+			<td>
+				<div class="niceGeoSPatData">Green</div>
+			</td>
+			<td>
+				There is a polygon for the asserted geography, and the specimen's georeference is within the polygon.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="noWKT">Yellow</div>
+			</td>
+			<td>
+				There is no polygon for the asserted geography.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="uglyGeoSPatData">Red</div>
+			</td>
+			<td>
+				There is a polygon for the asserted geography, and the specimen's georeference is <strong>not</strong> within the polygon.
+			</td>
+		</tr>
+	</table>
 </div>
 <cf_customizeIFrame>
