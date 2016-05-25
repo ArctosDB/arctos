@@ -23,68 +23,7 @@
 		var polygonArray = [];
 
 
- function getAllMapDivs() {
-
- 	 console.log('mapDivs');
-        var allDivs = document.getElementsByTagName('DIV'), i, L;
-        var mapDivs = [];
-        for(i=0, L=allDivs.length; i<L; i++) {
-            if (allDivs[i].id.substring(0,6) == "mapdiv_") {
-                mapDivs.push(allDivs[i]);
-            }
-        }
-        return mapDivs;
-
-
-        console.log(mapDivs);
-    }
-
-
-
-
-		 function getAllMapDivsxxx() {
-		 	var mapDivs = [];
-		 	$("input[id^='coordinates_']").each(function(e){
-		 		var coords=this.value;
-				if (coords.length > 0 ){
-					var seid=this.id.replace('coordinates_','');
-					var mapdiv=$("#mapdiv_" + seid);
-					mapDivs.push(mapdiv);
-				}
-		 	});
-		 	return mapDivs;
-
-	    }
-
-
-		function initialize() {
-	        var mapDivs = getAllMapDivs(), i, L;
-			mapObjects = [];
-	        for(i=0, L=mapDivs.length; i<L; i++) {
-	        	var mapOptions = {
-					zoom: 3,
-				    center: new google.maps.LatLng(55, -135),
-				    mapTypeId: google.maps.MapTypeId.ROADMAP,
-				    panControl: false,
-				    scaleControl: true
-				};
-
-	            mapObjects.push(new google.maps.Map(mapDivs[i], mapOptions));
-	            //console.log(mapDivs[i]);
-
-	        }
-	    }
-
-
-		jQuery(document).ready(function() {
-			initialize();
-		});
-	</script>
-
-	<!------------
-
-
-	function addAPolygon(inc,d){
+function addAPolygon(inc,d){
 			var lary=[];
 			var da=d.split(",");
 			for(var i=0;i<da.length;i++){
@@ -97,17 +36,7 @@
 		}
 
 
-
-
-
-
-
-
-
-
-
-
-		function initialize__old(condition) {
+function initialize(condition) {
 			$("input[id^='coordinates_']").each(function(e){
 				var sid='coordinates_' + String(e+1);
 				console.log(this);
@@ -232,6 +161,28 @@
 				//var coords=$("
 			});
 		}
+
+		jQuery(document).ready(function() {
+			initialize();
+		});
+	</script>
+
+	<!------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
