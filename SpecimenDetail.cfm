@@ -19,17 +19,20 @@
 
 
 		jQuery(document).ready(function() {
+			$( "#dialog" ).dialog({
+				autoOpen: false
+			});
 
-			    $( "#dialog" ).dialog({
-      autoOpen: false
-    });
+			$( ".mapdialog" ).click(function() {
+				$( "#dialog" ).dialog( "open" );
+			});
 
-    $( ".mapdialog" ).click(function() {
-      $( "#dialog" ).dialog( "open" );
-    });
+			mapsYo();
 
+	});
 
-			$("input[id^='coordinates_']").each(function(e){
+	function mapsYo(){
+		$("input[id^='coordinates_']").each(function(e){
 			//var sid='coordinates_' + String(e+1);
 			//console.log(this);
 			//console.log('init for ' + sid);
@@ -133,7 +136,7 @@
 				$("#mapdiv_" + seid).remove();
 			}
 		});
-	});
+	}
 </script>
 
 	<!------------
