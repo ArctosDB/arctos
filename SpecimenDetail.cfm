@@ -15,7 +15,8 @@
 	<script>
 
 		var mapObjects;
-		var mapDivs =[];
+
+
 		var bounds = new google.maps.LatLngBounds();
 		var markers = new Array();
 		var ptsArray=[];
@@ -24,6 +25,7 @@
 
 
 		 function getAllMapDivs() {
+		 	var mapDivs = [];
 		 	$("input[id^='coordinates_']").each(function(e){
 		 		var coords=this.value;
 				if (coords.length > 0 ){
