@@ -84,6 +84,8 @@ function saveSDMap(){
 	$("div[id^='mapdiv_']").each(function(e){
 		$(this).removeClass().addClass(s);
 	});
+	$('#dialog').dialog('close')
+	mapsYo();
 }
 
 
