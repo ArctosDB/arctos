@@ -51,6 +51,9 @@ UAM@ARCTOS> desc geog_auth_rec
 				SEA is null
 			order by country
 		</cfquery>
+
+		<cfdump var=#cl#>
+		<!---
 		<cfif cl.recordcount is  1>
 			<cfquery name="ucl" datasource="uam_god">
 				update temp_iso_cc set geog_auth_rec_id=#geog_auth_rec_id# where country='#COUNTRY#'
@@ -59,5 +62,7 @@ UAM@ARCTOS> desc geog_auth_rec
 		<cfelse>
 			<cfdump var=#cl#>
 		</cfif>
+
+		---->
 	</cfloop>
 </cfoutput>
