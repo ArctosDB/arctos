@@ -750,6 +750,8 @@
 											<input type="hidden" id="geog_polygon_#specimen_event_id#" value="#wkt_polygon#">
 											<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
 											<span class="infoLink" onclick="showMapKey();">map tools</div>
+
+
 											<div id="dialog" title="Basic dialog">
   <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
 </div>
