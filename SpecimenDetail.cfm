@@ -180,7 +180,12 @@ var ptsArray=[];
 	        			console.log(center);
 	        			console.log(polygonArray[a]);
 						opa.push('ok');
-		        	}
+		        	} else {
+		        		console.log('center IS in polygonArray[a]');
+	        			console.log(center);
+	        			console.log(polygonArray[a]);
+	        			}
+
 	        	}
 
 	        	console.log(opa);
