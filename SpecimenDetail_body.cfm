@@ -24,6 +24,15 @@
 			overflow:auto;
 }
 	</style>
+
+
+	<div id="dialog" title="Basic dialog">
+  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
+
+
+
+
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -752,9 +761,6 @@
 											<span class="infoLink" onclick="showMapKey();">map tools</div>
 
 
-											<div id="dialog" title="Basic dialog">
-  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-</div>
 
 <button id="opener">Open Dialog</button>
 										</td>
