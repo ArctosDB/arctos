@@ -25,14 +25,6 @@
 }
 	</style>
 
-
-	<div id="dialog" title="Basic dialog">
-  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-</div>
-
-
-
-
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -758,11 +750,10 @@
 											<input type="hidden" id="error_#specimen_event_id#" value="#err_in_m#">
 											<input type="hidden" id="geog_polygon_#specimen_event_id#" value="#wkt_polygon#">
 											<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
-											<span class="infoLink" onclick="showMapKey();">map tools</div>
+											<span class="infoLink mapdialog" onclick="showMapKey();">map tools</div>
 
 
 
-<button id="opener">Open Dialog</button>
 										</td>
 									</tr>
 									<!----
@@ -1568,4 +1559,7 @@
 </form>
 </cfif>
 </cfoutput>
+<div id="dialog" title="Basic dialog">
+  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
 <cf_customizeIFrame>

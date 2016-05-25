@@ -32,7 +32,7 @@
       }
     });
 
-    $( "#opener" ).click(function() {
+    $( ".mapdialog" ).click(function() {
       $( "#dialog" ).dialog( "open" );
     });
 
