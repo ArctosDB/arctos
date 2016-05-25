@@ -13,6 +13,10 @@
 		.uglyGeoSPatData{border:4px solid red;margin:.3em;padding:1em;}
 		.niceGeoSPatData{border:3px solid green;margin:.3em;padding:1em;}
 		.noWKT{border:3px solid yellow;margin:.3em;padding:1em;}
+		.unReviewedAnnotation{color:red;}
+		.reviewedAnnotation{color:green;}
+
+
 	</style>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
@@ -385,9 +389,22 @@
 					<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
 						[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]
 					</span>
+					<cfloop query="existingAnnotations">
+						<cfif isreviewed is 1>
+							<span class="reviewedAnnotation">
+								#existingAnnotations.cnt#&nbsp;reviewed&nbsp;annotations
+							</span>
+						<cfelse>
+							<span class="unReviewedAnnotation">
+								#existingAnnotations.cnt#&nbsp;unreviewed&nbsp;annotations
+							</span>
+						</cfif>
+					</cfloop>
+					<!----
 					<cfif existingAnnotations.cnt gt 0>
 						<br>(#existingAnnotations.cnt#&nbsp;annotations)
 					</cfif>
+					---->
 					<cfif len(detail.web_link) gt 0>
 						<cfif len(detail.web_link_text) gt 0>
 							<cfset cLink=detail.web_link_text>
