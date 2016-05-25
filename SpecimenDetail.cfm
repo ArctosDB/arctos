@@ -32,6 +32,9 @@
             }
         }
         return mapDivs;
+
+
+        console.log(mapDivs);
     }
 
 
