@@ -13,14 +13,14 @@
 	</cfoutput>
 <cftry>
 	<script>
-
+/*
 		var mapObjects;
 
 
 
 		var markers = new Array();
 		var ptsArray=[];
-		var polygonArray = [];
+
 
 
 function addAPolygon(inc,d){
@@ -35,7 +35,7 @@ function addAPolygon(inc,d){
 			ptsArray.push(lary);
 		}
 
-
+*/
 function initialize(condition) {
 			$("input[id^='coordinates_']").each(function(e){
 				var sid='coordinates_' + String(e+1);
@@ -51,6 +51,7 @@ function initialize(condition) {
 
 
 var bounds = new google.maps.LatLngBounds();
+var polygonArray = [];
 
 
 				var lat=coords.split(',')[0];
