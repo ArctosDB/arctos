@@ -722,35 +722,26 @@
 											</table>
 										</td>
 										<td valign="top" align="right"><!---- map here --->
-										<cfset coordinates="">
-											 <cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-
-												<!----
-												<div id="mapgohere-locality_id-#locality_id#"></div>
-												<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-													<cfinvokeargument name="locality_id" value="#locality_id#">
-												</cfinvoke>
-												#contents#
-												---->
+											<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 												<cfset coordinates="#dec_lat#,#dec_long#">
-											</cfif>
-											<cfquery name="wkt" dbtype="query">
-												select geog_polygon from rawevent where specimen_event_id=#specimen_event_id#
-											</cfquery>
-											<cfset wkt_polygon=wkt.geog_polygon>
-							                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,7) is 'MEDIA::'>
-								                <cfset meid=right(wkt_polygon,len(wkt_polygon)-7)>
-					               				<cfquery name="fmed" datasource="uam_god">
-													select media_uri from media where media_id=#meid#
+												<cfquery name="wkt" dbtype="query">
+													select geog_polygon from rawevent where specimen_event_id=#specimen_event_id#
 												</cfquery>
-													<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
-												<cfset wkt_polygon=cfhttp.filecontent>
+												<cfset wkt_polygon=wkt.geog_polygon>
+								                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,7) is 'MEDIA::'>
+									                <cfset meid=right(wkt_polygon,len(wkt_polygon)-7)>
+						               				<cfquery name="fmed" datasource="uam_god">
+														select media_uri from media where media_id=#meid#
+													</cfquery>
+														<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+													<cfset wkt_polygon=cfhttp.filecontent>
+												</cfif>
+												<input type="hidden" id="coordinates_#specimen_event_id#" value="#coordinates#">
+												<input type="hidden" id="error_#specimen_event_id#" value="#err_in_m#">
+												<input type="hidden" id="geog_polygon_#specimen_event_id#" value="#wkt_polygon#">
+												<div class="#session.sdmapclass#" id="mapdiv_#specimen_event_id#"></div>
+												<span class="infoLink mapdialog">map tools</div>
 											</cfif>
-											<input type="hidden" id="coordinates_#specimen_event_id#" value="#coordinates#">
-											<input type="hidden" id="error_#specimen_event_id#" value="#err_in_m#">
-											<input type="hidden" id="geog_polygon_#specimen_event_id#" value="#wkt_polygon#">
-											<div class="#session.sdmapclass#" id="mapdiv_#specimen_event_id#"></div>
-											<span class="infoLink mapdialog">map tools</div>
 										</td>
 									</tr>
 									<!----
