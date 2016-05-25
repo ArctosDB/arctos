@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif not isdefined("session.sdmapclass") or len(session.sdmapclass) is 0>
+	<cfset session.sdmapclass='tinymap'>
+</cfif>
 <cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			google_client_id,
@@ -15,6 +18,50 @@
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 <cftry>
+
+	<!----
+
+
+											<div class="#session.sdmapclass#" id="mapdiv_#specimen_event_id#"></div>
+
+
+
+	if (s=='nomap') {
+		$("#srmapctrls-nomap").show();
+		$("#srmapctrls").hide();
+		$("#spresmapdiv").hide();
+	} else {
+		$("#srmapctrls-nomap").hide();
+		$("#srmapctrls").show();
+		$("#spresmapdiv").show();
+		$("#spresmapdiv").removeClass().addClass(s);
+		initializeMap();
+	}
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeUserPreference",
+			pref : "srmapclass",
+			val : s,
+			returnformat : "json",
+			queryformat : 'column'
+		}
+	);
+}
+
+
+
+	}
+	<label for="sdetmapsize">Map Size</label>
+	<select id="sdetmapsize">
+		<option <cfif session.sdmapclass is "tinymap"> selected="selected" </cfif> value="tinymap">tiny</option>
+		<option <cfif session.sdmapclass is "smallmap"> selected="selected" </cfif> value="smallmap">small</option>
+		<option <cfif session.sdmapclass is "largemap"> selected="selected" </cfif> value="largemap">large</option>
+		<option <cfif session.sdmapclass is "hugemap"> selected="selected" </cfif> value="hugemap">huge</option>
+	</select>
+	<input type="button" onclick="saveSDMap()" value="save
+
+
+---->
 	<script>
 
 
@@ -29,7 +76,20 @@
 
 			mapsYo();
 
+		});
+	function (){
+
+
+function saveSDMap(){
+	var s=$("#saveSDMap").val();
+	$("div[id^='mapdiv_']").each(function(e){
+		$this.removeClass().addClass(s);
 	});
+}
+
+
+
+
 
 	function mapsYo(){
 		$("input[id^='coordinates_']").each(function(e){

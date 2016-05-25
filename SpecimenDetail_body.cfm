@@ -749,11 +749,8 @@
 											<input type="hidden" id="coordinates_#specimen_event_id#" value="#coordinates#">
 											<input type="hidden" id="error_#specimen_event_id#" value="#err_in_m#">
 											<input type="hidden" id="geog_polygon_#specimen_event_id#" value="#wkt_polygon#">
-											<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
+											<div class="#session.sdmapclass#" id="mapdiv_#specimen_event_id#"></div>
 											<span class="infoLink mapdialog">map tools</div>
-
-
-
 										</td>
 									</tr>
 									<!----
@@ -1590,5 +1587,13 @@
 			</td>
 		</tr>
 	</table>
+	<label for="sdetmapsize">Map Size</label>
+	<select id="sdetmapsize">
+		<option <cfif session.sdmapclass is "tinymap"> selected="selected" </cfif> value="tinymap">tiny</option>
+		<option <cfif session.sdmapclass is "smallmap"> selected="selected" </cfif> value="smallmap">small</option>
+		<option <cfif session.sdmapclass is "largemap"> selected="selected" </cfif> value="largemap">large</option>
+		<option <cfif session.sdmapclass is "hugemap"> selected="selected" </cfif> value="hugemap">huge</option>
+	</select>
+	<input type="button" onclick="saveSDMap()" value="save map settings">
 </div>
 <cf_customizeIFrame>
