@@ -6,7 +6,7 @@
 		from cf_global_settings
 	</cfquery>
 	<style>
-		.mapdiv{width:150px;height:150px;}
+		.mapdiv{width:300px;height:300px;}
 		.uglyGeoSPatData{border:4px solid red;}
 		.niceGeoSPatData{border:3px solid green;}
 		.noWKT{border:3px solid yellow;}
