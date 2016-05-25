@@ -10,9 +10,9 @@
 	</cfquery>
 	<style>
 		.mapdiv{width:300px;height:300px;}
-		.uglyGeoSPatData{border:4px solid red;margin:1em;padding:1em;}
-		.niceGeoSPatData{border:3px solid green;}
-		.noWKT{border:3px solid yellow;}
+		.uglyGeoSPatData{border:4px solid red;margin:.3em;padding:1em;}
+		.niceGeoSPatData{border:3px solid green;margin:.3em;padding:1em;}
+		.noWKT{border:3px solid yellow;margin:.3em;padding:1em;}
 	</style>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
