@@ -58,7 +58,7 @@ UAM@ARCTOS> desc geog_auth_rec
 			</cfquery>
 
 		<cfelse>
-			<br>#country#
+			<br><input type="text" value="#country#">
 		</cfif>
 
 	</cfloop>
