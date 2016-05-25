@@ -22,7 +22,7 @@
 		jQuery(document).ready(function() {
 			$( "#dialog" ).dialog({
 				autoOpen: false,
-				 width: "90%"
+				 width: "50%"
 			});
 			$( ".mapdialog" ).click(function() {
 				$( "#dialog" ).dialog( "open" );
