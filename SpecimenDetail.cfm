@@ -384,7 +384,7 @@
 						where
 							collection_object_id = #detail.collection_object_id#
 						group by
-							decode(REVIEWER_AGENT_ID,NULL,1,0)
+							decode(REVIEWER_AGENT_ID,NULL,0,1)
 					</cfquery>
 					<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
 						[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]
