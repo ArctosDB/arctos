@@ -6,10 +6,10 @@
 		from cf_global_settings
 	</cfquery>
 	<style>
-		.mapdiv{width:400px;height:400px;}
+		.mapdiv{width:300px;height:300px;}
 		.uglyGeoSPatData{border:4px solid red;}
-		.niceGeoSPatData{border:1px solid green;}
-		.noWKT{border:1px solid yellow;}
+		.niceGeoSPatData{border:3px solid green;}
+		.noWKT{border:3px solid yellow;}
 		.mapProbs{font-size:.8em;font-weight:bold;}
 	</style>
 	<cfoutput>
@@ -96,7 +96,7 @@
 					poly.setMap(map);
 					polygonArray.push(poly);
 				} else {
-					$("#mapprobs_" + seid).html('Asserted georeference has not spatial data.').show();
+					$("#mapprobs_" + seid).html('Asserted georeference has no spatial data.').show();
 	        		$("#mapdiv_" + seid).addClass('noWKT');
 				}
 				if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
