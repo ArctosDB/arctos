@@ -24,6 +24,8 @@
 
 
  function getAllMapDivs() {
+
+ 	 console.log('mapDivs');
         var allDivs = document.getElementsByTagName('DIV'), i, L;
         var mapDivs = [];
         for(i=0, L=allDivs.length; i<L; i++) {
