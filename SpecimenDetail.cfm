@@ -33,11 +33,6 @@
 			});
 			mapsYo();
 		});
-
-
-
-
-
 		function saveSDMap(){
 			var s=$("#sdetmapsize").val();
 			$("div[id^='mapdiv_']").each(function(e){
@@ -57,26 +52,14 @@
 		}
 		function mapsYo(){
 			$("input[id^='coordinates_']").each(function(e){
-				//var sid='coordinates_' + String(e+1);
-				//console.log(this);
-				//console.log('init for ' + sid);
-				//console.log(this.id);
 				var seid=this.id.split('_')[1];
-				//this.id.replace('coordinates_','');
-				//console.log(seid);
-				//console.log(this.value);
 				var coords=this.value;
-
-
 				var bounds = new google.maps.LatLngBounds();
 				var polygonArray = [];
 				var ptsArray=[];
 				var lat=coords.split(',')[0];
 				var lng=coords.split(',')[1];
-				//console.log('make a map');
 				var errorm=$("#error_" + seid).val();
-				//console.log(errorm);
-				//console.log(wkt);
 				var mapOptions = {
 					zoom: 3,
 				    center: new google.maps.LatLng(55, -135),
@@ -135,7 +118,6 @@
 					poly.setMap(map);
 					polygonArray.push(poly);
 				} else {
-					//$("#mapprobs_" + seid).html('Asserted georeference has no spatial data.').show();
 	        		$("#mapdiv_" + seid).addClass('noWKT');
 				}
 				if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
@@ -147,58 +129,14 @@
 				map.fitBounds(bounds);
 	        	for(var a=0; a<polygonArray.length; a++){
 	        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
-	        			//console.log('center is not in polygonArray[a]');
-	        			//console.log(center);
-	        			//console.log(polygonArray[a]);
-	        			//$("#mapprobs_" + seid).html('Asserted georeference does not fall within asserted geography.').show();
 	        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
 		        	} else {
-		        		//$("#mapprobs_" + seid).html('Asserted georeference falls within asserted geography.').show();
-	        			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
+		    			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
 	        		}
 	        	}
 			});
 		}
 	</script>
-
-	<!------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-														<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
-
-
-											<input type="text" id="coordinates_#specimen_event_id#" value="#dec_lat#,#dec_long#,#err_in_m#,#geog_a">
-											<input type="text" id="error_#specimen_event_id#" value="#err_in_m#">
-											<input type="text" id="geog_polygon_#specimen_event_id#" value="#geog_polygon#">
-
------------->
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -355,24 +293,6 @@
 					#detail.partString#
 				</div>
 			</td>
-			<!----
-			<td valign="top" align="right">
-				<div id="SDheaderMap">
-				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
-
-					<div id="mapgohere-collection_object_id-#detail.collection_object_id#"></div>
-					<!---
-					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-						<cfinvokeargument name="collection_object_id" value="#detail.collection_object_id#">
-						<cfinvokeargument name="size" value="150x150">
-						<cfinvokeargument name="showCaption" value="false">
-					</cfinvoke>
-					#contents#
-					----->
-				</cfif>
-				</div>
-			</td>
-			---->
 		    <td valign="top" align="right">
 		        <div id="annotateSpace">
 					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -623,11 +543,6 @@
 							<li>
 								<span onclick="loadEditApp('Encumbrances')" class="likeLink" id="BTN_Encumbrances">Encumbrances</span>
 							</li>
-							<!----
-							<li>
-								<span onclick="loadEditApp('catalog')" class="likeLink" id="BTN_catalog">Catalog</span>
-							</li>
-							---->
 						</ul>
 	                </form>
 		        </td>
@@ -644,8 +559,6 @@
 </cfoutput>
 <cfcatch>
 	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
-
-	<cfdump var=#cfcatch#>
 	<div class="error">
 		Oh no! Part of this page has failed to load!
 		<br>This error has been logged. Please <a href="/contact.cfm?ref=specimendetail">contact us</a> with any useful information.
