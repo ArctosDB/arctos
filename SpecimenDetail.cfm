@@ -59,99 +59,97 @@
 				//console.log(seid);
 				//console.log(this.value);
 				var coords=this.value;
-				if (coords.length > 0 ){
-					var bounds = new google.maps.LatLngBounds();
-					var polygonArray = [];
-					var ptsArray=[];
-					var lat=coords.split(',')[0];
-					var lng=coords.split(',')[1];
-					//console.log('make a map');
-					var errorm=$("#error_" + seid).val();
-					//console.log(errorm);
-					//console.log(wkt);
-					var mapOptions = {
-						zoom: 3,
-					    center: new google.maps.LatLng(55, -135),
-					    mapTypeId: google.maps.MapTypeId.ROADMAP,
-					    panControl: false,
-					    scaleControl: true
-					};
-					var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
-					var center=new google.maps.LatLng(lat,lng);
-					bounds.extend(center);
-					var circleoptn = {
-						strokeColor: '#FF0000',
-						strokeOpacity: 0.8,
-						strokeWeight: 2,
-						fillColor: '#FF0000',
-						fillOpacity: 0.15,
-						map: map,
-						center: center,
-						radius: parseInt(errorm),
-						zIndex:-99
-					};
-					crcl = new google.maps.Circle(circleoptn);
-					var marker = new google.maps.Marker({
-						position: center,
-						map: map,
-						title: 'ima dot',
-						zIndex: 10
-					});
-					var wkt=$("#geog_polygon_" + seid).val();
-					if (wkt.length > 0){
-						var regex = /\(([^()]+)\)/g;
-						var Rings = [];
-						var results;
-						while( results = regex.exec(wkt) ) {
-						    Rings.push( results[1] );
-						}
-						for(var i=0;i<Rings.length;i++){
-							var lary=[];
-							var da=Rings[i].split(",");
-							for(var i=0;i<da.length;i++){
-								var xy = da[i].trim().split(" ");
-								var pt=new google.maps.LatLng(xy[1],xy[0]);
-								lary.push(pt);
-								bounds.extend(pt);
-							}
-							ptsArray.push(lary);
-						}
-						var poly = new google.maps.Polygon({
-						    paths: ptsArray,
-						    strokeColor: '#1E90FF',
-						    strokeOpacity: 0.8,
-						    strokeWeight: 2,
-						    fillColor: '#1E90FF',
-						    fillOpacity: 0.35
-						});
-						poly.setMap(map);
-						polygonArray.push(poly);
-					} else {
-						//$("#mapprobs_" + seid).html('Asserted georeference has no spatial data.').show();
-		        		$("#mapdiv_" + seid).addClass('noWKT');
+
+
+				var bounds = new google.maps.LatLngBounds();
+				var polygonArray = [];
+				var ptsArray=[];
+				var lat=coords.split(',')[0];
+				var lng=coords.split(',')[1];
+				//console.log('make a map');
+				var errorm=$("#error_" + seid).val();
+				//console.log(errorm);
+				//console.log(wkt);
+				var mapOptions = {
+					zoom: 3,
+				    center: new google.maps.LatLng(55, -135),
+				    mapTypeId: google.maps.MapTypeId.ROADMAP,
+				    panControl: false,
+				    scaleControl: true
+				};
+				var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
+				var center=new google.maps.LatLng(lat,lng);
+				bounds.extend(center);
+				var circleoptn = {
+					strokeColor: '#FF0000',
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					fillColor: '#FF0000',
+					fillOpacity: 0.15,
+					map: map,
+					center: center,
+					radius: parseInt(errorm),
+					zIndex:-99
+				};
+				crcl = new google.maps.Circle(circleoptn);
+				var marker = new google.maps.Marker({
+					position: center,
+					map: map,
+					title: 'ima dot',
+					zIndex: 10
+				});
+				var wkt=$("#geog_polygon_" + seid).val();
+				if (wkt.length > 0){
+					var regex = /\(([^()]+)\)/g;
+					var Rings = [];
+					var results;
+					while( results = regex.exec(wkt) ) {
+					    Rings.push( results[1] );
 					}
-					if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-				       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
-				       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
-				       bounds.extend(extendPoint1);
-				       bounds.extend(extendPoint2);
-				    }
-					map.fitBounds(bounds);
-		        	for(var a=0; a<polygonArray.length; a++){
-		        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
-		        			//console.log('center is not in polygonArray[a]');
-		        			//console.log(center);
-		        			//console.log(polygonArray[a]);
-		        			//$("#mapprobs_" + seid).html('Asserted georeference does not fall within asserted geography.').show();
-		        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
-			        	} else {
-			        		//$("#mapprobs_" + seid).html('Asserted georeference falls within asserted geography.').show();
-		        			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
-		        		}
-		        	}
+					for(var i=0;i<Rings.length;i++){
+						var lary=[];
+						var da=Rings[i].split(",");
+						for(var i=0;i<da.length;i++){
+							var xy = da[i].trim().split(" ");
+							var pt=new google.maps.LatLng(xy[1],xy[0]);
+							lary.push(pt);
+							bounds.extend(pt);
+						}
+						ptsArray.push(lary);
+					}
+					var poly = new google.maps.Polygon({
+					    paths: ptsArray,
+					    strokeColor: '#1E90FF',
+					    strokeOpacity: 0.8,
+					    strokeWeight: 2,
+					    fillColor: '#1E90FF',
+					    fillOpacity: 0.35
+					});
+					poly.setMap(map);
+					polygonArray.push(poly);
 				} else {
-					$("#mapdiv_" + seid).remove();
+					//$("#mapprobs_" + seid).html('Asserted georeference has no spatial data.').show();
+	        		$("#mapdiv_" + seid).addClass('noWKT');
 				}
+				if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+			       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+			       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+			       bounds.extend(extendPoint1);
+			       bounds.extend(extendPoint2);
+			    }
+				map.fitBounds(bounds);
+	        	for(var a=0; a<polygonArray.length; a++){
+	        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
+	        			//console.log('center is not in polygonArray[a]');
+	        			//console.log(center);
+	        			//console.log(polygonArray[a]);
+	        			//$("#mapprobs_" + seid).html('Asserted georeference does not fall within asserted geography.').show();
+	        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
+		        	} else {
+		        		//$("#mapprobs_" + seid).html('Asserted georeference falls within asserted geography.').show();
+	        			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
+	        		}
+	        	}
 			});
 		}
 	</script>

@@ -744,15 +744,6 @@
 											</cfif>
 										</td>
 									</tr>
-									<!----
-									<tr>
-										<td valign="top" align="right"><!---- map here<div id="colEventMedia"></div> --->
-
-											<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
-											<div class="mapProbs" id="mapprobs_#specimen_event_id#"></div>
-										</td>
-									</tr>
-									---->
 								</table>
 							</td>
 						</tr>
