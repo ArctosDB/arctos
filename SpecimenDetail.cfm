@@ -8,8 +8,8 @@
 	<style>
 		.mapdiv{width:400px;height:400px;}
 		.uglyGeoSPatData{border:4px solid red;}
-		.niceGeoSPatData(border:1px solid green;}
-		.noWKT(border:1px solid yellow;}
+		.niceGeoSPatData{border:1px solid green;}
+		.noWKT{border:1px solid yellow;}
 		.mapProbs{font-size:.8em;font-weight:bold;}
 	</style>
 	<cfoutput>
