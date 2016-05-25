@@ -93,7 +93,6 @@
 			<cfif hasEmail.recordcount is 1 and len(hasEmail.email) gt 0>
 				<cfset email=hasEmail.email>
 			</cfif>
-
 		</cfif>
 		<cffunction name="makeRandomString" returnType="string" output="false">
 		    <cfset var chars = "23456789ABCDEFGHJKMNPQRS">

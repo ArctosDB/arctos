@@ -372,8 +372,15 @@
 		    <td valign="top" align="right">
 		        <div id="annotateSpace">
 					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select count(*) cnt from annotations
-						where collection_object_id = #detail.collection_object_id#
+						select
+							decode(REVIEWER_AGENT_ID,NULL,1,0) isreviewed,
+							count(*) cnt
+						from
+							annotations
+						where
+							collection_object_id = #detail.collection_object_id#
+						group by
+							decode(REVIEWER_AGENT_ID,NULL,1,0)
 					</cfquery>
 					<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
 						[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]
