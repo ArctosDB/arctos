@@ -183,6 +183,9 @@ var ptsArray=[];
 	        			console.log('center is not in polygonArray[a]');
 	        			console.log(center);
 	        			console.log(polygonArray[a]);
+
+	        			$("#mapprobs_" + seid).html('I am lost');
+
 		        	} else {
 		        		console.log('center IS in polygonArray[a]');
 	        			console.log(center);
