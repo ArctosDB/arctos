@@ -1142,10 +1142,10 @@ function checkCoordinateError(){
 		<br>Tags:
 			<span style="font-weight:bold;">#locDet.s$geography#</span>
 		<div id="map-canvas"></div>
-		<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png"> is service-suggested,
-		<img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png"> is curatorially-asserted,
-		<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span> is locality WKT.
-		<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span> is geography WKT.
+		<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
+		<img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
+		<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span>=locality WKT,
+		<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span>=geography WKT.
 
 	</td></tr></table>
 	</form>
