@@ -15,41 +15,19 @@
 	</cfoutput>
 <cftry>
 	<script>
-/*
-		var mapObjects;
-
-
-
-		var markers = new Array();
-
-
-
-
-function addAPolygon(inc,d){
-			var lary=[];
-			var da=d.split(",");
-			for(var i=0;i<da.length;i++){
-				var xy = da[i].trim().split(" ");
-				var pt=new google.maps.LatLng(xy[1],xy[0]);
-				lary.push(pt);
-				bounds.extend(pt);
-			}
-			ptsArray.push(lary);
-		}
-
-*/
-function initialize(condition) {
+		jQuery(document).ready(function() {
 			$("input[id^='coordinates_']").each(function(e){
-				var sid='coordinates_' + String(e+1);
-				//console.log(this);
-				//console.log('init for ' + sid);
-				//console.log(this.id);
-				var seid=this.id.replace('coordinates_','');
-				//console.log(seid);
-				//console.log(this.value);
-				var coords=this.value;
+			var sid='coordinates_' + String(e+1);
+			//console.log(this);
+			//console.log('init for ' + sid);
+			//console.log(this.id);
+			var seid=this.id.split('_')[1];
 
-				if (coords.length > 0 ){
+			//this.id.replace('coordinates_','');
+			console.log(seid);
+			//console.log(this.value);
+			var coords=this.value;
+			if (coords.length > 0 ){
 
 
 var bounds = new google.maps.LatLngBounds();
@@ -210,10 +188,7 @@ var ptsArray=[];
 						$("#mapdiv_" + seid).remove();
 						}
 			});
-		}
 
-		jQuery(document).ready(function() {
-			initialize();
 		});
 	</script>
 
