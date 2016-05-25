@@ -10,7 +10,7 @@
 		.uglyGeoSPatData{border:4px solid red;}
 		.niceGeoSPatData{border:3px solid green;}
 		.noWKT{border:3px solid yellow;}
-		.mapProbs{font-size:.8em;font-weight:bold;}
+		.mapProbs{font-size:.8em;font-weight:bold;text-align:center;}
 	</style>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
