@@ -1538,7 +1538,7 @@
 </form>
 </cfif>
 </cfoutput>
-<div id="dialog" title="Basic dialog">
+<div id="dialog" title="Would you like maps with that?">
 	Map Border Key
 	<ul>
 		<li class="niceGeoSPatData">
