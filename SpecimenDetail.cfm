@@ -157,6 +157,7 @@ var ptsArray=[];
 						    fillOpacity: 0.35
 						});
 						poly.setMap(map);
+						polygonArray.push(poly);
 					}
 
 
@@ -191,13 +192,6 @@ var ptsArray=[];
 
 	        	}
 
-	        	console.log(opa);
-
-	    	if (opa.length>0){
-	    		alert('no bueno!');
-			} else {
-				alert('no outside points detected!');
-			}
 
 
 
