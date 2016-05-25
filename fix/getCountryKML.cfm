@@ -220,7 +220,7 @@ update temp_iso_cc get geog_auth_rec_id = xxxxxxxxxxx where country = 'Aland Isl
 			select * from temp_iso_cc where filename is null and geog_auth_rec_id is not null and rownum<2
 		</cfquery>
 		<cfloop query="ucl">
-			<br>#country#
+			<br>#country# #iso#
 		</cfloop>
 	</cfif>
 </cfoutput>
