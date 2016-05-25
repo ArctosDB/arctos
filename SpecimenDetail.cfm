@@ -37,7 +37,7 @@
 		$("#spresmapdiv").removeClass().addClass(s);
 		initializeMap();
 	}
-	
+
 }
 
 
@@ -65,15 +65,7 @@
 			$( ".mapdialog" ).click(function() {
 				$( "#dialog" ).dialog( "open" );
 			});
-			jQuery.getJSON("/component/functions.cfc",
-				{
-					method : "changeUserPreference",
-					pref : "sdmapclass",
-					val : s,
-					returnformat : "json",
-					queryformat : 'column'
-				}
-			);
+
 			mapsYo();
 
 		});
@@ -88,7 +80,16 @@ function saveSDMap(){
 	$("div[id^='mapdiv_']").each(function(e){
 		$(this).removeClass().addClass(s);
 	});
-	$('#dialog').dialog('close')
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeUserPreference",
+			pref : "sdmapclass",
+			val : s,
+			returnformat : "json",
+			queryformat : 'column'
+		}
+	);
+	$('#dialog').dialog('close');
 	mapsYo();
 }
 
