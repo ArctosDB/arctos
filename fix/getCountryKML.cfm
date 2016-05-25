@@ -221,6 +221,8 @@ update temp_iso_cc get geog_auth_rec_id = xxxxxxxxxxx where country = 'Aland Isl
 		</cfquery>
 		<cfloop query="ucl">
 			<br>#country# #iso#
+			<cfhttp method="get" url="http://mapproxy.org/static/polygons/#iso#.txt"></cfhttp>
+			<cfdump var=#cfhttp#>
 		</cfloop>
 	</cfif>
 </cfoutput>
