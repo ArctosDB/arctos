@@ -159,9 +159,7 @@ var ptsArray=[];
 						});
 						poly.setMap(map);
 						polygonArray.push(poly);
-					} else {
-						$("#mapdiv_" + seid).remove();
-						}
+					}
 
 
 
@@ -207,8 +205,9 @@ var ptsArray=[];
 
 
 
-				}
-				//var coords=$("
+				}else {
+						$("#mapdiv_" + seid).remove();
+						}
 			});
 		}
 
