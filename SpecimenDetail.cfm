@@ -82,7 +82,7 @@
 function saveSDMap(){
 
 	console.log('hello I am saveSDMap');
-	var s=$("#sdetmapsize").find(":selected").text();
+	var s=$("#sdetmapsize").val();
 	console.log(s);
 
 	$("div[id^='mapdiv_']").each(function(e){
