@@ -17,7 +17,7 @@
 		var mapObjects;
 
 
-		var bounds = new google.maps.LatLngBounds();
+
 		var markers = new Array();
 		var ptsArray=[];
 		var polygonArray = [];
@@ -50,7 +50,7 @@ function initialize(condition) {
 				if (coords.length > 0 ){
 
 
-
+var bounds = new google.maps.LatLngBounds();
 
 
 				var lat=coords.split(',')[0];
@@ -129,7 +129,22 @@ function initialize(condition) {
 						    Rings.push( results[1] );
 						}
 						for(var i=0;i<Rings.length;i++){
-							addAPolygon(i,Rings[i]);
+
+
+							var lary=[];
+							var da=d.split(",");
+							for(var i=0;i<da.length;i++){
+								var xy = da[i].trim().split(" ");
+								var pt=new google.maps.LatLng(xy[1],xy[0]);
+								lary.push(pt);
+								bounds.extend(pt);
+							}
+							ptsArray.push(lary);
+
+
+
+
+							//addAPolygon(i,Rings[i]);
 						}
 						var poly = new google.maps.Polygon({
 						    paths: ptsArray,
