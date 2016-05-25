@@ -77,7 +77,6 @@
 			mapsYo();
 
 		});
-	function (){
 
 
 function saveSDMap(){
