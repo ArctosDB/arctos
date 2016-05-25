@@ -13,7 +13,6 @@
 		.uglyGeoSPatData{border:4px solid red;}
 		.niceGeoSPatData{border:3px solid green;}
 		.noWKT{border:3px solid yellow;}
-		#dialog{width:50%;}
 	</style>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
@@ -22,13 +21,19 @@
 	<script>
 		jQuery(document).ready(function() {
 			$( "#dialog" ).dialog({
-				autoOpen: false
+				autoOpen: false,
+				 width: "90%"
 			});
 			$( ".mapdialog" ).click(function() {
 				$( "#dialog" ).dialog( "open" );
 			});
 			mapsYo();
 		});
+
+
+
+
+
 		function saveSDMap(){
 			var s=$("#sdetmapsize").val();
 			$("div[id^='mapdiv_']").each(function(e){
