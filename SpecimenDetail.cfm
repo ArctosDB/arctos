@@ -50,7 +50,7 @@
 				    scaleControl: true
 				};
 
-	            mapObjects.push(new google.maps.Map(mapDivs[i], myOptions));
+	            mapObjects.push(new google.maps.Map(mapDivs[i], mapOptions));
 	            console.log(mapDivs[i]);
 
 	        }
