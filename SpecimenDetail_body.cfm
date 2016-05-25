@@ -749,7 +749,7 @@
 											<input type="hidden" id="error_#specimen_event_id#" value="#err_in_m#">
 											<input type="hidden" id="geog_polygon_#specimen_event_id#" value="#wkt_polygon#">
 											<div class="mapdiv" id="mapdiv_#specimen_event_id#"></div>
-											<div class="mapProbs" id="mapprobs_#specimen_event_id#"></div>
+											<div class="mapProbs" id="mapprobs_#specimen_event_id#">key</div>
 
 
 										</td>

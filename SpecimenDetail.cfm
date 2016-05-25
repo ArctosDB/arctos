@@ -10,7 +10,6 @@
 		.uglyGeoSPatData{border:4px solid red;}
 		.niceGeoSPatData{border:3px solid green;}
 		.noWKT{border:3px solid yellow;}
-		.mapProbs{font-size:.8em;font-weight:bold;text-align:center;}
 	</style>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
@@ -96,7 +95,7 @@
 					poly.setMap(map);
 					polygonArray.push(poly);
 				} else {
-					$("#mapprobs_" + seid).html('Asserted georeference has no spatial data.').show();
+					//$("#mapprobs_" + seid).html('Asserted georeference has no spatial data.').show();
 	        		$("#mapdiv_" + seid).addClass('noWKT');
 				}
 				if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
@@ -111,10 +110,10 @@
 	        			//console.log('center is not in polygonArray[a]');
 	        			//console.log(center);
 	        			//console.log(polygonArray[a]);
-	        			$("#mapprobs_" + seid).html('Asserted georeference does not fall within asserted geography.').show();
+	        			//$("#mapprobs_" + seid).html('Asserted georeference does not fall within asserted geography.').show();
 	        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
 		        	} else {
-		        		$("#mapprobs_" + seid).html('Asserted georeference falls within asserted geography.').show();
+		        		//$("#mapprobs_" + seid).html('Asserted georeference falls within asserted geography.').show();
 	        			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
 	        		}
 	        	}
