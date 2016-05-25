@@ -183,7 +183,6 @@ var ptsArray=[];
 	        			console.log('center is not in polygonArray[a]');
 	        			console.log(center);
 	        			console.log(polygonArray[a]);
-						opa.push('ok');
 		        	} else {
 		        		console.log('center IS in polygonArray[a]');
 	        			console.log(center);
