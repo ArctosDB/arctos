@@ -23,8 +23,21 @@
 		var polygonArray = [];
 
 
+ function geAllMapDivs() {
+        var allDivs = document.getElementsByTagName('DIV'), i, L;
+        var mapDivs = [];
+        for(i=0, L=allDivs.length; i<L; i++) {
+            if (allDivs[i].id.substring(0,6) == "mapdiv_") {
+                mapDivs.push(allDivs[i]);
+            }
+        }
+        return mapDivs;
+    }
 
-		 function getAllMapDivs() {
+
+
+
+		 function getAllMapDivsxxx() {
 		 	var mapDivs = [];
 		 	$("input[id^='coordinates_']").each(function(e){
 		 		var coords=this.value;
