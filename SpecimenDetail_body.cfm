@@ -740,7 +740,7 @@
 												<input type="hidden" id="error_#specimen_event_id#" value="#err_in_m#">
 												<input type="hidden" id="geog_polygon_#specimen_event_id#" value="#wkt_polygon#">
 												<div class="#session.sdmapclass#" id="mapdiv_#specimen_event_id#"></div>
-												<span class="infoLink mapdialog">map tools</div>
+												<span class="infoLink mapdialog">map key/tools</div>
 											</cfif>
 										</td>
 									</tr>
