@@ -16,14 +16,10 @@
 	</cfoutput>
 <cftry>
 	<script>
-		
-		<div id="dialog" title="Basic dialog">
-  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-</div>
 
 
 		jQuery(document).ready(function() {
-			
+
 			    $( "#dialog" ).dialog({
       autoOpen: false,
       show: {
@@ -35,12 +31,12 @@
         duration: 1000
       }
     });
- 
+
     $( "#opener" ).click(function() {
       $( "#dialog" ).dialog( "open" );
     });
-    
-    
+
+
 			$("input[id^='coordinates_']").each(function(e){
 			//var sid='coordinates_' + String(e+1);
 			//console.log(this);
