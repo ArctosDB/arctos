@@ -7,6 +7,7 @@
 	</cfquery>
 	<style>
 		.mapdiv{width:400px;height:400px;}
+		.uglyGeoSPatData{border:4px solid red;}
 	</style>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
@@ -158,7 +159,10 @@ var ptsArray=[];
 						});
 						poly.setMap(map);
 						polygonArray.push(poly);
-					}
+					} else {
+						$("#mapdiv_" + seid).remove();
+						}
+
 
 
 
@@ -184,7 +188,8 @@ var ptsArray=[];
 	        			console.log(center);
 	        			console.log(polygonArray[a]);
 
-	        			$("#mapprobs_" + seid).html('I am lost');
+	        			$("#mapprobs_" + seid).html('Asserted georeference does not fall within asserted geography.').show();
+	        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
 
 		        	} else {
 		        		console.log('center IS in polygonArray[a]');
