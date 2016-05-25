@@ -228,6 +228,7 @@
 			<cfset session.killRow=0>
 		</cfif>
 		<cfset session.srmapclass = getPrefs.srmapclass>
+		<cfset session.sdmapclass = getPrefs.sdmapclass>
 		<cfset session.locSrchPrefs=getPrefs.locSrchPrefs>
 		<cfquery name="logLog" datasource="cf_dbuser">
 			update cf_users set last_login = sysdate where upper(username) = '#ucase(session.username)#'

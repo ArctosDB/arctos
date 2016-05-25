@@ -37,15 +37,7 @@
 		$("#spresmapdiv").removeClass().addClass(s);
 		initializeMap();
 	}
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "changeUserPreference",
-			pref : "srmapclass",
-			val : s,
-			returnformat : "json",
-			queryformat : 'column'
-		}
-	);
+	
 }
 
 
@@ -73,7 +65,15 @@
 			$( ".mapdialog" ).click(function() {
 				$( "#dialog" ).dialog( "open" );
 			});
-
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "changeUserPreference",
+					pref : "sdmapclass",
+					val : s,
+					returnformat : "json",
+					queryformat : 'column'
+				}
+			);
 			mapsYo();
 
 		});
