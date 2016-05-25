@@ -39,12 +39,12 @@ function addAPolygon(inc,d){
 function initialize(condition) {
 			$("input[id^='coordinates_']").each(function(e){
 				var sid='coordinates_' + String(e+1);
-				console.log(this);
-				console.log('init for ' + sid);
-				console.log(this.id);
+				//console.log(this);
+				//console.log('init for ' + sid);
+				//console.log(this.id);
 				var seid=this.id.replace('coordinates_','');
-				console.log(seid);
-				console.log(this.value);
+				//console.log(seid);
+				//console.log(this.value);
 				var coords=this.value;
 
 				if (coords.length > 0 ){
@@ -61,10 +61,10 @@ var ptsArray=[];
 
 					var errorm=$("#error_" + seid).val();
 
-					console.log(errorm);
+					//console.log(errorm);
 
 						var wkt=$("#geog_polygon_" + seid).val();
-					console.log(wkt);
+					//console.log(wkt);
 					var mapOptions = {
 						zoom: 3,
 					    center: new google.maps.LatLng(55, -135),
@@ -80,7 +80,7 @@ var ptsArray=[];
 
 					var center=new google.maps.LatLng(lat,lng);
 
-					console.log(center);
+					//console.log(center);
 
 
 
@@ -171,7 +171,10 @@ var ptsArray=[];
 					map.fitBounds(bounds);
 
 
-			var opa=[];
+
+	console.log('polygonArray');
+	console.log(polygonArray);
+
 	        	for(var a=0; a<polygonArray.length; a++){
 	        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
 
