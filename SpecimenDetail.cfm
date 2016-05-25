@@ -174,6 +174,11 @@ var ptsArray=[];
 			var opa=[];
 	        	for(var a=0; a<polygonArray.length; a++){
 	        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
+
+
+	        			console.log('center is not in polygonArray[a]');
+	        			console.log(center);
+	        			console.log(polygonArray[a]);
 						opa.push('ok');
 		        	}
 	        	}
