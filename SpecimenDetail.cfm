@@ -30,7 +30,8 @@
 		 		var coords=this.value;
 				if (coords.length > 0 ){
 					var seid=this.id.replace('coordinates_','');
-					mapDivs.push('mapdiv_' + seid);
+					var mapdiv=$("#mapdiv_" + seid);
+					mapDivs.push(mapdiv);
 				}
 		 	});
 		 	return mapDivs;
