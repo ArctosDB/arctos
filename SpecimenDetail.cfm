@@ -8,6 +8,7 @@
 	<style>
 		.mapdiv{width:400px;height:400px;}
 		.uglyGeoSPatData{border:4px solid red;}
+		.mapProbs{font-size:.8em;font-weight:bold;}
 	</style>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
