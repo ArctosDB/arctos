@@ -1557,6 +1557,19 @@
 </cfif>
 </cfoutput>
 <div id="dialog" title="Basic dialog">
+	Map Border Key
+	<ul>
+		<li class="niceGeoSPatData">
+			Green Border: There is a polygon for the asserted geography, and the specimen's georeference is within the polygon.
+		</li>
+		<li class="noWKT">
+			Yellow Border: There is no polygon for the asserted geography.
+		</li>
+		<li class="uglyGeoSPatData">
+			Red Border: There is a polygon for the asserted geography, and the specimen's georeference is <strong>not</strong> within the polygon.
+		</li>
+	</ul>
+	<!----
 	<table border>
 		<tr>
 			<th>Map Border</th>
@@ -1587,6 +1600,7 @@
 			</td>
 		</tr>
 	</table>
+	---->
 	<label for="sdetmapsize">Map Size</label>
 	<select id="sdetmapsize">
 		<option <cfif session.sdmapclass is "tinymap"> selected="selected" </cfif> value="tinymap">tiny</option>
