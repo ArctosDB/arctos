@@ -392,11 +392,11 @@
 					<cfloop query="existingAnnotations">
 						<cfif isreviewed is 1>
 							<span class="reviewedAnnotation">
-								#existingAnnotations.cnt#&nbsp;reviewed&nbsp;annotations
+								<br>#existingAnnotations.cnt#&nbsp;reviewed&nbsp;annotations
 							</span>
 						<cfelse>
 							<span class="unReviewedAnnotation">
-								#existingAnnotations.cnt#&nbsp;unreviewed&nbsp;annotations
+								<br>#existingAnnotations.cnt#&nbsp;unreviewed&nbsp;annotations
 							</span>
 						</cfif>
 					</cfloop>
