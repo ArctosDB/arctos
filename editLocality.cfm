@@ -226,6 +226,43 @@ function checkCoordinateError(){
 			  });
 			  poly.setMap(map);
         }
+
+        // add geowkt if available
+        var wkt=$("#geopoly").val(); //this is your WKT string
+        if (wkt.length>0){
+
+        	console.log('going geopoly...');
+			//using regex, we will get the indivudal Rings
+			var regex = /\(([^()]+)\)/g;
+			var Rings = [];
+			var results;
+			while( results = regex.exec(wkt) ) {
+			    Rings.push( results[1] );
+			    console.log('added ring');
+			}
+			var ptsArray=[];
+			var polyLen=Rings.length;
+			//now we need to draw the polygon for each of inner rings, but reversed
+			for(var i=0;i<polyLen;i++){
+			    AddPoints(Rings[i]);
+			    console.log('added polyring');
+			}
+
+			var poly = new google.maps.Polygon({
+					    paths: ptsArray,
+					    strokeColor: '#1E90FF',
+					    strokeOpacity: 0.8,
+					    strokeWeight: 2,
+					    fillColor: '#1E90FF',
+					    fillOpacity: 0.35
+					});
+
+
+			  poly.setMap(map);
+        }
+
+
+
 		//function to add points from individual rings, used in adding WKT to the map
 		function AddPoints(data){
 		    //first spilt the string into individual points
@@ -489,7 +526,8 @@ function checkCoordinateError(){
 			s$dec_long,
 			to_meters(locality.minimum_elevation,locality.orig_elev_units) min_elev_in_m,
 			to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m,
-			locality.wkt_polygon
+			locality.wkt_polygon,
+			geog_auth_rec.wkt_polygon geopoly
 		from
 			locality,
 			geog_auth_rec
@@ -1121,6 +1159,8 @@ function checkCoordinateError(){
 
         <label for="wkt_polygon" class="likeLink" onClick="getDocs('lat_long','wkt_polygon')">wkt_polygon</label>
         <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
+
+		<input type="hidden" id="geopoly" value="#locDet.geopoly#">
 		<br><input class="savBtn" type="submit" value="save WKT">
 	</form>
 

@@ -1,30 +1,42 @@
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
-
-
 <script src="/includes/sorttable.js"></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <style>
-		#gmap{
-			width:600px;
-			height:600px;
-			border:1px solid green;
-			margin:1em;
-		}
-	    .highlightSEID {
-		   background:yellow;
-		}
-		.taxaMeta{
-			font-size:.8em;
-			color:gray;
-			 padding-left: .5em;
-    		text-indent:-.5em;
-			max-height:2.5em;
-			overflow:auto;
-}
-	</style>
-
+	#gmap{
+		width:600px;
+		height:600px;
+		border:1px solid green;
+		margin:1em;
+	}
+    .highlightSEID {
+	   background:yellow;
+	}
+	.taxaMeta{
+		font-size:.8em;
+		color:gray;
+		 padding-left: .5em;
+   		text-indent:-.5em;
+		max-height:2.5em;
+		overflow:auto;
+	}
+	.acceptedIdDiv {
+		border:1px dotted green;
+	}
+	.unAcceptedIdDiv{
+		border:1px dotted gray;
+		background-color:#F8F8F8;
+		color:gray;
+		font-size:.8em;
+	}
+	.taxDetDiv {
+		padding-left:1em;
+	}
+	.sddoi {
+		font-size: smaller;
+	}
+</style>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -52,21 +64,18 @@
             $("##mediaUpClickThis").click(function(){
 			    addMedia('collection_object_id','#collection_object_id#');
 			});
-
 		});
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
 		<cfset seid="">
 	</cfif>
-
 	<cfif len(seid) gt 0>
 	    <script>
 	    	jQuery(document).ready(function(){
 	    	   $("##seidd_#seid#").addClass('highlightSEID').show();
 	        });
 	    </script>
-</cfif>
-
+	</cfif>
 </cfoutput>
 <cfset obj = CreateObject("component","component.functions")>
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -283,24 +292,6 @@
 		higher_geog,
 		SOURCE_AUTHORITY
 </cfquery>
-<style>
-	.acceptedIdDiv {
-		border:1px dotted green;
-	}
-	.unAcceptedIdDiv{
-		border:1px dotted gray;
-		background-color:#F8F8F8;
-		color:gray;
-		font-size:.8em;
-	}
-	.taxDetDiv {
-		padding-left:1em;
-	}
-	.sddoi {
-		font-size: smaller;
-	}
-</style>
-<cfset obj = CreateObject("component","component.functions")>
 <cfoutput query="one">
 	<cfif oneOfUs is 1>
 		<form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
@@ -402,25 +393,18 @@
 									<cfset metaDesc="">
 								</cfif>
 								<div class="taxDetDiv">
-
-
 									<cfif accepted_id_fg is 1>
 										<div class="taxaMeta">
 											#one.full_taxon_name#
 										</div>
 									</cfif>
-
 									<cfif thisCommonName.recordcount gt 0>
 										<div class="taxaMeta">
 											#valuelist(thisCommonName.common_name,'; ')#
 										</div>
 									</cfif>
-
-
 									<cfif len(short_citation) gt 0>
-										sensu <a href="/publication/#publication_id#" target="_mainFrame">
-												#short_citation#
-											</a><br>
+										sensu <a href="/publication/#publication_id#" target="_mainFrame">#short_citation#</a><br>
 									</cfif>
 									Identified by #agent_name#
 									<cfif len(made_date) gt 0>
@@ -620,15 +604,12 @@
 								<td id="SDCellRight">#LOCALITY_REMARKS#</td>
 							</tr>
 						</cfif>
-
-
 						<cfif len(habitat) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Habitat:</td>
 								<td id="SDCellRight">#habitat#</td>
 							</tr>
 						</cfif>
-
 						<cfif len(collecting_method) gt 0>
 							<div class="detailBlock">
 								<tr class="detailData">
@@ -1042,7 +1023,6 @@
 <cfquery name="mPart" dbtype="query">
 	select * from parts where sampled_from_obj_id is null order by part_name
 </cfquery>
-
 <cfquery name="ploan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		loan.loan_number,
@@ -1057,7 +1037,6 @@
 		loan_item.collection_object_id=specimen_part.collection_object_id AND
 		specimen_part.derived_from_cat_item=#one.collection_object_id#
 </cfquery>
-
 			<div class="detailCell">
 				<div class="detailLabel">&nbsp;<!---Parts--->
 					<cfif oneOfUs is 1>
