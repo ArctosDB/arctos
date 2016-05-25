@@ -10,7 +10,7 @@
 	</cfquery>
 	<style>
 		.mapdiv{width:300px;height:300px;}
-		.uglyGeoSPatData{border:4px solid red;}
+		.uglyGeoSPatData{border:4px solid red;margin:1em;padding:1em;}
 		.niceGeoSPatData{border:3px solid green;}
 		.noWKT{border:3px solid yellow;}
 	</style>
