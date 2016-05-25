@@ -58,7 +58,7 @@ UAM@ARCTOS> desc geog_auth_rec
 			</cfquery>
 
 		<cfelse>
-			<br><input type="text" value="#country#">
+			<br>update temp_iso_cc get geog_auth_rec_id = xxxxxxxxxxx where country = '#cl.COUNTRY#'
 		</cfif>
 
 	</cfloop>
