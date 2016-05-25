@@ -80,6 +80,8 @@
 
 
 function saveSDMap(){
+
+	console.log('hello I am saveSDMap');
 	var s=$("#saveSDMap").val();
 
 	console.log(s);
