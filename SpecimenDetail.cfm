@@ -23,7 +23,7 @@
 		var polygonArray = [];
 
 
- function geAllMapDivs() {
+ function getAllMapDivs() {
         var allDivs = document.getElementsByTagName('DIV'), i, L;
         var mapDivs = [];
         for(i=0, L=allDivs.length; i<L; i++) {
