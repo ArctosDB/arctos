@@ -1551,38 +1551,12 @@
 			Red Border: There is a polygon for the asserted geography, and the specimen's georeference is <strong>not</strong> within the polygon.
 		</li>
 	</ul>
-	<!----
-	<table border>
-		<tr>
-			<th>Map Border</th>
-			<th>What's it mean?</th>
-		</tr>
-		<tr>
-			<td>
-				<div class="niceGeoSPatData">Green</div>
-			</td>
-			<td>
-				There is a polygon for the asserted geography, and the specimen's georeference is within the polygon.
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div class="noWKT">Yellow</div>
-			</td>
-			<td>
-				There is no polygon for the asserted geography.
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div class="uglyGeoSPatData">Red</div>
-			</td>
-			<td>
-				There is a polygon for the asserted geography, and the specimen's georeference is <strong>not</strong> within the polygon.
-			</td>
-		</tr>
-	</table>
-	---->
+	Map Contents
+	<ul>
+		<li>Red Markers are specimen georeference point</li>
+		<li>Red circle, centered on markers, is uncertainty radius. Zero-radius errors indicate unknown uncertainty, not absolute precision.</li>
+		<li>Blue transparent polygon is the asserted geography's shape. Geography without supporting spatial data is ambiguous.</li>
+	</ul>
 	<label for="sdetmapsize">Map Size</label>
 	<select id="sdetmapsize">
 		<option <cfif session.sdmapclass is "tinymap"> selected="selected" </cfif> value="tinymap">tiny</option>
