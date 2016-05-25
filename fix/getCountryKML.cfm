@@ -44,6 +44,7 @@ UAM@ARCTOS> desc geog_auth_rec
 			ISLAND  is null and
 			ISLAND_GROUP is null and
 			SEA is null
+		order by country
 	</cfquery>
 	<cfoutput>
 	<cfloop query="c">
