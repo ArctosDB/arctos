@@ -78,7 +78,7 @@
 				var x=crcl.getBounds();
 
 				console.log(x);
-				//bounds.extend();
+				bounds.extend(x);
 
 				var marker = new google.maps.Marker({
 					position: center,
