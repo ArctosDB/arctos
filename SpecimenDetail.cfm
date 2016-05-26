@@ -348,19 +348,21 @@
 						}
 						.annobtn:hover {
 							cursor:pointer;
-							border-bottom:3px solid red;}
+							border-bottom:1px solid red;}
 						.gdAnnoCt{color:green}
 						.badAnnoCt{color:red;}
 
 					</style>
-					<cfset abv='<span class="abt">Report Bad Data</span>'>
-					<cfset abv=abv & '<span class="gdAnnoCt">[#gac#]</span>'>
-					<cfset abv=abv & '<span class="badAnnoCt">[#bac#]</span>'>
 
-					<button type="button" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn">#abv#</button>
+					<button type="button" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn">
+						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span
+					</button>
 
 					<!----
 
+	<cfset abv='<span class="abt">Report Bad Data&nbsp;</span>'>
+					<cfset abv=abv & '<span class="gdAnnoCt">[#gac#]</span>'>
+					<cfset abv=abv & '<span class="badAnnoCt">[#bac#]</span>'>
 
 					<cfif existingAnnotations.cnt gt 0>
 						<br>(#existingAnnotations.cnt#&nbsp;annotations)
