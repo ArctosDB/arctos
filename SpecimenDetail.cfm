@@ -346,7 +346,9 @@
 							padding:.2em;
 							margin:.1em;
 						}
-						.annobtn:hover { cursor:pointer;}
+						.annobtn:hover {
+							cursor:pointer;
+							border-bottom:3px solid red;}
 						.gdAnnoCt{color:green}
 						.badAnnoCt{color:red;}
 
