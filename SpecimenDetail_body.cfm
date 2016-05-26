@@ -442,8 +442,8 @@
 						CITATION_REMARKS,
 						doi
 				</cfquery>
-				<div class="detailCell">
-					<div class="detailLabel" style="max-height:200px;overflow:auto;">Citations</div>
+				<div class="detailCell" style="max-height:200px;overflow:auto;">
+					<div class="detailLabel" >Citations</div>
 					<cfloop query="citations">
 						<cfquery name="thisTaxLinks" dbtype="query">
 							select distinct taxsciname from raw_citations where citation_id=#citation_id# and
