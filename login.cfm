@@ -60,6 +60,7 @@
 	<cfoutput>
 		<cfset x = initSession('#username#','#password#')>
 
+		back from initsession.....
 		<cfdump var=#x#>
 
 
