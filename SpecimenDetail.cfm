@@ -343,8 +343,10 @@
 					<style>
 						.annobtn{
 							font-size:smaller;
+							padding:.2em;
+							margin:.1em;
 						}
-						.gdAnnoCt{folor:green}
+						.gdAnnoCt{color:green}
 						.badAnnoCt{color:red;}
 
 					</style>
