@@ -71,7 +71,13 @@
 					radius: parseInt(errorm),
 					zIndex:-99
 				};
+
+
+
 				crcl = new google.maps.Circle(circleoptn);
+
+				bounds.extend((crcl.getBounds());
+
 				var marker = new google.maps.Marker({
 					position: center,
 					map: map,
