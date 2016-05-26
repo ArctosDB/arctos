@@ -306,6 +306,14 @@
 						group by
 							decode(REVIEWER_AGENT_ID,NULL,0,1)
 					</cfquery>
+					<cfquery name="ra" dbtype="query">
+						select sum(cnt) c from existingAnnotations where isreviewed=1
+					</cfquery>
+					<cfquery name="ua" dbtype="query">
+						select sum(cnt) c from existingAnnotations where isreviewed=0
+					</cfquery>
+
+					<!---
 					<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
 						[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]
 					</span>
@@ -320,6 +328,22 @@
 							</span>
 						</cfif>
 					</cfloop>
+					---->
+
+					<style>
+						.annobtn{
+							font-size:smaller;
+						}
+						.badAnnoCt{folor:green}
+						.badAnnoCt{color:red;}
+
+					</style>
+					<cfset abv="Report Bad Data ">
+					<cfset abv=abv & '<span class="gdAnnoCt">[#ra.c#]</span>'>
+					<cfset abv=abv & '<span class="badAnnoCt">[#ua.c#]</span>'>
+
+					<button onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn">#abv#</button>
+
 					<!----
 					<cfif existingAnnotations.cnt gt 0>
 						<br>(#existingAnnotations.cnt#&nbsp;annotations)

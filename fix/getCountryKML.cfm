@@ -223,6 +223,11 @@ update temp_iso_cc get geog_auth_rec_id = xxxxxxxxxxx where country = 'Aland Isl
 			<br>#country# #iso#
 			<cfhttp method="get" url="http://mapproxy.org/static/polygons/#iso#.txt"></cfhttp>
 			<cfdump var=#cfhttp#>
+
+			<cfset x=cfhttp.Filecontent>
+			POLYGON ((6720354.8754099234938622 4007042.3132812362164259, 6715418.3427806273102760 4038880.3097358369268
+
+			POLYGON((-118.87699 34.80321,-118.88294 34.81792,-118.88189 34.79062
 		</cfloop>
 	</cfif>
 </cfoutput>
