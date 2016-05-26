@@ -75,8 +75,10 @@
 
 
 				crcl = new google.maps.Circle(circleoptn);
+				var x=crcl.getBounds();
 
-				bounds.extend(crcl.getBounds());
+				console.log(x);
+				//bounds.extend();
 
 				var marker = new google.maps.Marker({
 					position: center,
