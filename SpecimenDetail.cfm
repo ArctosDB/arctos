@@ -354,7 +354,7 @@
 					<cfset abv=abv & '<span class="gdAnnoCt">[#gac#]</span>'>
 					<cfset abv=abv & '<span class="badAnnoCt">[#bac#]</span>'>
 
-					<input type="button" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn">#abv#</button>
+					<input type="button" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn" value="#abv#">
 
 					<!----
 					<cfif existingAnnotations.cnt gt 0>
