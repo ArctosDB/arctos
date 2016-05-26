@@ -347,9 +347,11 @@
 							margin:.1em;
 						}
 
+						.annobtn:hover { cursor:pointer;font-size:huge;}
+
+
 						.gdAnnoCt{color:green}
 						.badAnnoCt{color:red;}
-						.abt:hover { cursor:pointer;}
 
 					</style>
 					<cfset abv='<span class="abt">Report Bad Data</span>'>
