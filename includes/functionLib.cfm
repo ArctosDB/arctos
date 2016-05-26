@@ -179,7 +179,7 @@
 			<cfset session.epw = "">
        		<cflocation url="/login.cfm?badPW=true&username=#username#" addtoken="false">
 		</cfif>
-		<cfset session.username=username>
+		<cfset session.username=getPrefs.username>
 		<cfquery name="dbrole" datasource="uam_god">
 			 select upper(granted_role) role_name
 	         	from
