@@ -312,6 +312,16 @@
 					<cfquery name="ua" dbtype="query">
 						select sum(cnt) c from existingAnnotations where isreviewed=0
 					</cfquery>
+					<cfif len(ra.c) is 0>
+						<cfset gac=0>
+					<cfelse>
+						<cfset gac=ra.c>
+					</cfif>
+					<cfif len(ua.c) is 0>
+						<cfset bac=0>
+					<cfelse>
+						<cfset bac=ua.c>
+					</cfif>
 
 					<!---
 					<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
@@ -339,8 +349,8 @@
 
 					</style>
 					<cfset abv="Report Bad Data ">
-					<cfset abv=abv & '<span class="gdAnnoCt">[#ra.c#]</span>'>
-					<cfset abv=abv & '<span class="badAnnoCt">[#ua.c#]</span>'>
+					<cfset abv=abv & '<span class="gdAnnoCt">[#gac#]</span>'>
+					<cfset abv=abv & '<span class="badAnnoCt">[#bac#]</span>'>
 
 					<button onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn">#abv#</button>
 
