@@ -276,7 +276,7 @@
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentification');">Edit</span>
 						</cfif>
 					</div>
-					<div class="detailBlock">
+					<div class="detailBlock" style="max-height:200px;overflow:auto;">
 						<span class="detailData">
 							<cfquery name="raw_identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								SELECT
@@ -443,7 +443,7 @@
 						doi
 				</cfquery>
 				<div class="detailCell">
-					<div class="detailLabel">Citations</div>
+					<div class="detailLabel" style="max-height:200px;overflow:auto;">Citations</div>
 					<cfloop query="citations">
 						<cfquery name="thisTaxLinks" dbtype="query">
 							select distinct taxsciname from raw_citations where citation_id=#citation_id# and
