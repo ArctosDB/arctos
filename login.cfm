@@ -57,18 +57,8 @@
 </cfif>
 <!------------------------------------------------------------>
 <CFIF action is "signIn">
-signin<cfabort>
 	<cfoutput>
-
-
-		<cfset x = initSession('#username#','#password#')>
-
-		back from initsession.....
-		<cfdump var=#x#>
-
-		<cfabort>
-
-
+		<cfset initSession('#username#','#password#')>
 		<cfif len(session.username) is 0>
 			<cfset u="/login.cfm?badPW=true&username=#username#">
 			<cfif isdefined("gotopage") and len(gotopage) gt 0>
