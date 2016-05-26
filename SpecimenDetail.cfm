@@ -346,9 +346,7 @@
 							padding:.2em;
 							margin:.1em;
 						}
-
-
-
+						.annobtn:hover { cursor:pointer;}
 						.gdAnnoCt{color:green}
 						.badAnnoCt{color:red;}
 
@@ -361,7 +359,6 @@
 
 					<!----
 
-											.annobtn:hover { cursor:pointer;}
 
 					<cfif existingAnnotations.cnt gt 0>
 						<br>(#existingAnnotations.cnt#&nbsp;annotations)
