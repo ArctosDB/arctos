@@ -145,11 +145,11 @@
 					<td>#dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#</td>
 					<td>
 						<cfif len(REVIEWER_COMMENT) gt 0>
-							#REVIEWER_COMMENT#
+							<span style="color:green">#REVIEWER_COMMENT#</span>
 						<cfelseif REVIEWED_FG is 0>
-							Not Reviewed
+							<span style="color:red">Not Reviewed</span>
 						<cfelse>
-							Reviewed
+							<span style="color:green">Reviewed</span>
 						</cfif>
 					</td>
 				</tr>
