@@ -249,10 +249,40 @@ body {
 	}
 /* END textarea styling and sizing */
 /* BEGIN SpecimenDetail */
-	#annotateSpace {
-		font-size:small;
-		padding-left:1em;
+	/* BEGIN annotations buttons */
+		#annotateSpace {
+			font-size:small;
+			padding-left:1em;
+		}
+		.annobtn{
+			padding:.2em;
+			margin:.1em;
+		}
+		.annobtn:hover {
+		    border: 1px solid red;
+		    cursor: pointer;
+		    font-weight: bold;
+		}
+		.gdAnnoCt{color:green}
+		.badAnnoCt{color:red;}
+	/* END annotations buttons */
+	/* BEGIN specimendetail map stuff */
+	.uglyGeoSPatData{
+		border:4px solid red;
+		margin:.3em;
+		padding:1em;
 	}
+	.niceGeoSPatData{
+		border:3px solid green;
+		margin:.3em;
+		padding:1em;
+	}
+	.noWKT{
+		border:3px solid yellow;
+			margin:.3em;
+			padding:1em;
+		}
+	/* END specimendetail map stuff */
 	#SDheaderCollCatNum {
 		font-size:x-large;
 		font-weight:bold;
@@ -307,7 +337,32 @@ body {
 			padding: .2em;
 		}
 	/* END related specimens cache and styling @specimendetail */
-
+	.highlightSEID {
+	   background:yellow;
+	}
+	.taxaMeta{
+		font-size:.8em;
+		color:gray;
+		 padding-left: .5em;
+   		text-indent:-.5em;
+		max-height:2.5em;
+		overflow:auto;
+	}
+	.acceptedIdDiv {
+		border:1px dotted green;
+	}
+	.unAcceptedIdDiv{
+		border:1px dotted gray;
+		background-color:#F8F8F8;
+		color:gray;
+		font-size:.8em;
+	}
+	.taxDetDiv {
+		padding-left:1em;
+	}
+	.sddoi {
+		font-size: smaller;
+	}
 /* END SpecimenDetail */
 
 /* BEGIN specimen results junk */

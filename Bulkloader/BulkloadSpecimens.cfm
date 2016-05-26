@@ -46,16 +46,16 @@
 			There is nothing in the staging table. You are free to proceed.
 		<cfelse>
 			<p>
-				This is a single-user application. There are data in the staging table. Don't be a jerk.
+				This is a single-user application. There are data in the staging table. Please be considerate.
 			</p>
 			<p>
-				If dates are recent, someone's probably working in here. Talk to them. They may be done, or they may be in the middle of a load.
+				If dates are recent, someone's probably working in here. Talk to them. They may be done, or they may be in the middle of a project.
 			</p>
 			<p>
 				If dates are more than a week old, you can probably just delete everything.
 			</p>
 			<p>
-				If all else fails, <a href="/contact.cfm">contact admin</a>.
+				<a href="/contact.cfm">Contact us</a> for assistance.
 			</p>
 			<table border>
 				<tr>

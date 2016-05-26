@@ -3,40 +3,6 @@
 </cfif>
 <script src="/includes/sorttable.js"></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-<style>
-	#gmap{
-		width:600px;
-		height:600px;
-		border:1px solid green;
-		margin:1em;
-	}
-    .highlightSEID {
-	   background:yellow;
-	}
-	.taxaMeta{
-		font-size:.8em;
-		color:gray;
-		 padding-left: .5em;
-   		text-indent:-.5em;
-		max-height:2.5em;
-		overflow:auto;
-	}
-	.acceptedIdDiv {
-		border:1px dotted green;
-	}
-	.unAcceptedIdDiv{
-		border:1px dotted gray;
-		background-color:#F8F8F8;
-		color:gray;
-		font-size:.8em;
-	}
-	.taxDetDiv {
-		padding-left:1em;
-	}
-	.sddoi {
-		font-size: smaller;
-	}
-</style>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
