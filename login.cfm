@@ -57,7 +57,10 @@
 </cfif>
 <!------------------------------------------------------------>
 <CFIF action is "signIn">
+signin<cfabort>
 	<cfoutput>
+
+
 		<cfset x = initSession('#username#','#password#')>
 
 		back from initsession.....
