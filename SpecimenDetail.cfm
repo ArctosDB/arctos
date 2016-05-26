@@ -355,7 +355,7 @@
 					</style>
 
 					<button type="button" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn">
-						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span
+						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
 					</button>
 
 					<!----
