@@ -347,12 +347,12 @@
 							margin:.1em;
 						}
 
-						.annobtn button:hover {cursor:pointer;}
 						.gdAnnoCt{color:green}
 						.badAnnoCt{color:red;}
+						.abt:hover { cursor:pointer;}
 
 					</style>
-					<cfset abv="Report Bad Data ">
+					<cfset abv='<span class="abt">Report Bad Data</span>'>
 					<cfset abv=abv & '<span class="gdAnnoCt">[#gac#]</span>'>
 					<cfset abv=abv & '<span class="badAnnoCt">[#bac#]</span>'>
 
