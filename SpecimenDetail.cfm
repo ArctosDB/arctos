@@ -344,7 +344,7 @@
 						.annobtn{
 							font-size:smaller;
 						}
-						.badAnnoCt{folor:green}
+						.gdAnnoCt{folor:green}
 						.badAnnoCt{color:red;}
 
 					</style>
