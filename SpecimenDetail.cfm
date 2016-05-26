@@ -347,7 +347,6 @@
 							margin:.1em;
 						}
 
-						.annobtn:hover { cursor:pointer;font-size:huge;}
 
 
 						.gdAnnoCt{color:green}
@@ -361,6 +360,9 @@
 					<button type="button" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn">#abv#</button>
 
 					<!----
+
+											.annobtn:hover { cursor:pointer;}
+
 					<cfif existingAnnotations.cnt gt 0>
 						<br>(#existingAnnotations.cnt#&nbsp;annotations)
 					</cfif>
