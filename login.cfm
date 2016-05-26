@@ -63,6 +63,8 @@
 		back from initsession.....
 		<cfdump var=#x#>
 
+		<cfabort>
+
 
 		<cfif len(session.username) is 0>
 			<cfset u="/login.cfm?badPW=true&username=#username#">
