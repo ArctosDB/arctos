@@ -71,13 +71,8 @@
 					radius: parseInt(errorm),
 					zIndex:-99
 				};
-
-
-
 				crcl = new google.maps.Circle(circleoptn);
-
 				bounds.union(crcl.getBounds());
-
 				var marker = new google.maps.Marker({
 					position: center,
 					map: map,
@@ -92,28 +87,21 @@
 					while( results = regex.exec(wkt) ) {
 					    Rings.push( results[1] );
 					}
-
-					console.log('Rings.length : ' + Rings.length);
 					for(var i=0;i<Rings.length;i++){
-						console.log('loopty ' + i);
+						// for every polygon in the WKT, create an array
 						var lary=[];
 						var da=Rings[i].split(",");
 						for(var j=0;j<da.length;j++){
+							// push the coordinate pairs to the array as LatLngs
 							var xy = da[j].trim().split(" ");
 							var pt=new google.maps.LatLng(xy[1],xy[0]);
 							lary.push(pt);
 							//console.log(lary);
 							bounds.extend(pt);
 						}
-						console.log('lary.length : ' + lary.length);
+						// now push the single-polygon array to the array of arrays (of polygons)
 						ptsArray.push(lary);
 					}
-
-
-						console.log('ptsArray.length : ' + ptsArray.length);
-
-					//console.log(ptsArray);
-
 					var poly = new google.maps.Polygon({
 					    paths: ptsArray,
 					    strokeColor: '#1E90FF',
