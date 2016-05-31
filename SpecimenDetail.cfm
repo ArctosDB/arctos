@@ -101,6 +101,7 @@
 							var xy = da[i].trim().split(" ");
 							var pt=new google.maps.LatLng(xy[1],xy[0]);
 							lary.push(pt);
+					console.log(lary);
 							bounds.extend(pt);
 						}
 						ptsArray.push(lary);
