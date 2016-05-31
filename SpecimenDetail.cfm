@@ -92,6 +92,8 @@
 					while( results = regex.exec(wkt) ) {
 					    Rings.push( results[1] );
 					}
+
+					console.log('Rings.length : ' + Rings.length);
 					for(var i=0;i<Rings.length;i++){
 						var lary=[];
 						var da=Rings[i].split(",");
