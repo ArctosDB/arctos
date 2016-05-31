@@ -103,8 +103,9 @@
 							lary.push(pt);
 					console.log(lary);
 							bounds.extend(pt);
+							ptsArray.push(lary);
 						}
-						ptsArray.push(lary);
+
 					}
 
 
