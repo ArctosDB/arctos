@@ -95,10 +95,11 @@
 
 					console.log('Rings.length : ' + Rings.length);
 					for(var i=0;i<Rings.length;i++){
+						console.log('loopty ' + i);
 						var lary=[];
 						var da=Rings[i].split(",");
-						for(var i=0;i<da.length;i++){
-							var xy = da[i].trim().split(" ");
+						for(var j=0;j<da.length;j++){
+							var xy = da[j].trim().split(" ");
 							var pt=new google.maps.LatLng(xy[1],xy[0]);
 							lary.push(pt);
 							//console.log(lary);
