@@ -104,10 +104,12 @@
 							//console.log(lary);
 							bounds.extend(pt);
 						}
+						console.log('lary.length : ' + lary.length);
 						ptsArray.push(lary);
 					}
 
 
+						console.log('ptsArray.length : ' + ptsArray.length);
 
 					//console.log(ptsArray);
 
