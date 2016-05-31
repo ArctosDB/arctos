@@ -101,15 +101,15 @@
 							var xy = da[i].trim().split(" ");
 							var pt=new google.maps.LatLng(xy[1],xy[0]);
 							lary.push(pt);
-					console.log(lary);
+							//console.log(lary);
 							bounds.extend(pt);
-							ptsArray.push(lary);
 						}
-
+						ptsArray.push(lary);
 					}
 
 
-					console.log(ptsArray);
+
+					//console.log(ptsArray);
 
 					var poly = new google.maps.Polygon({
 					    paths: ptsArray,
