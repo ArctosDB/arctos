@@ -49,13 +49,13 @@
 				This is a single-user application. There are data in the staging table. Please be considerate.
 			</p>
 			<p>
-				If dates are recent, someone's probably working in here. Talk to them. They may be done, or they may be in the middle of a project.
-			</p>
-			<p>
-				If dates are more than a week old, you can probably just delete everything.
-			</p>
-			<p>
-				<a href="/contact.cfm">Contact us</a> for assistance.
+				Please be aware that the bulkloader is a shared tool.  When you are using it, it is unavailable to others.
+				If your first attempt at upload contains errors that will take you longer than 30 minutes to correct, please download
+				the data with errors, delete your data from the staging table and make corrections locally so that others can
+				access the bulkloader.  If you are waiting to use the bulkloader, please allow at least 30 minutes
+				from the time the current user uploaded to the bulkloader page before contacting them.
+				If you do not receive a response from the person using the bulkloader within 30 minutes of contacting them,
+				please <a href="/contact.cfm">Contact us</a> for assistance.
 			</p>
 			<table border>
 				<tr>

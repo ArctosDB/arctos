@@ -776,7 +776,7 @@
 			<input type="hidden" name="action" value="delete">
 			<input type="hidden" name="returnaction" value="nothing">
 			<input type="hidden" name="returnlocalityid" value="#locality_id#">
-			<input type="submit" value="merge checked localities with this locality">
+			<input type="submit" class="delBtn" value="merge checked localities with this locality">
 			<table border id="t" class="sortable">
 				<tr>
 					<th>
