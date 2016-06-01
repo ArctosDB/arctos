@@ -61,7 +61,7 @@
 				var center=new google.maps.LatLng(lat,lng);
 				bounds.extend(center);
 
-				if (parseInt(errorm)>0{
+				if (parseInt(errorm)>0){
 					var circleoptn = {
 						strokeColor: '#FF0000',
 						strokeOpacity: 0.8,
