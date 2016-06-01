@@ -16,7 +16,7 @@
 		jQuery(document).ready(function() {
 			$( "#dialog" ).dialog({
 				autoOpen: false,
-				 width: "50%"
+				width: "50%"
 			});
 			$( ".mapdialog" ).click(function() {
 				$( "#dialog" ).dialog( "open" );
@@ -24,7 +24,6 @@
 			mapsYo();
 		});
 		function saveSDMap(){
-			var s=$("#sdetmapsize").val();
 			$("div[id^='mapdiv_']").each(function(e){
 				$(this).removeClass().addClass(s);
 			});
@@ -32,7 +31,7 @@
 				{
 					method : "changeUserPreference",
 					pref : "sdmapclass",
-					val : s,
+					val : $("#sdetmapsize").val(),
 					returnformat : "json",
 					queryformat : 'column'
 				}
