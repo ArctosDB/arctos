@@ -489,6 +489,7 @@
 					</cfif>
 				</div>
 
+				<cfdump var=#rawevent#>
 				<cfdump var=#event#>
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
