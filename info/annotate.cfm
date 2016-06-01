@@ -6,7 +6,6 @@
 	<cfset "#t#"="#v#">
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
-
 	<cfif listlen(v) eq 1>
 		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 			<cfset linky="collection_object_id=#collection_object_id#">
@@ -121,7 +120,7 @@
 		</label>
 	    <input type="text" name="captcha" id="captcha" <cfif len(session.username) gt 0>value="#captcha#"</cfif> class="reqdClr" size="60">
 		 <input type="hidden" name="captchaHash" id="captchaHash" value="#captchaHash#">
-		<label for="email">Email</label>
+		<label for="email">Email - <div style="color:red">Please help us help you by providing contact information.</div></label>
 		<input type="text" class="reqdClr" name="email" id="email" value="#email#">
 		<br>
 		<input type="button"
