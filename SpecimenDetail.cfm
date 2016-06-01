@@ -60,23 +60,25 @@
 				var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
 				var center=new google.maps.LatLng(lat,lng);
 				bounds.extend(center);
-				var circleoptn = {
-					strokeColor: '#FF0000',
-					strokeOpacity: 0.8,
-					strokeWeight: 2,
-					fillColor: '#FF0000',
-					fillOpacity: 0.15,
-					map: map,
-					center: center,
-					radius: parseInt(errorm),
-					zIndex:-99
-				};
-				crcl = new google.maps.Circle(circleoptn);
-				bounds.union(crcl.getBounds());
+
+				if (parseInt(errorm)>0{
+					var circleoptn = {
+						strokeColor: '#FF0000',
+						strokeOpacity: 0.8,
+						strokeWeight: 2,
+						fillColor: '#FF0000',
+						fillOpacity: 0.15,
+						map: map,
+						center: center,
+						radius: parseInt(errorm),
+						zIndex:-99
+					};
+					crcl = new google.maps.Circle(circleoptn);
+					bounds.union(crcl.getBounds());
+				}
 				var marker = new google.maps.Marker({
 					position: center,
 					map: map,
-					title: 'ima dot',
 					zIndex: 10
 				});
 				var wkt=$("#geog_polygon_" + seid).val();
