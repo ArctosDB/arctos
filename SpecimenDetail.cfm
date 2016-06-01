@@ -25,7 +25,7 @@
 		});
 		function saveSDMap(){
 			$("div[id^='mapdiv_']").each(function(e){
-				$(this).removeClass().addClass(s);
+				$(this).removeClass().addClass($("#sdetmapsize").val());
 			});
 			jQuery.getJSON("/component/functions.cfc",
 				{
