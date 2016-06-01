@@ -117,18 +117,18 @@
 		BEGAN_DATE,
 		ENDED_DATE,
 		CASE
-            WHEN '#one.encumbrances#' LIKE '%mask coordinates%'
+            WHEN #oneOfUs# != 1 and '#one.encumbrances#' LIKE '%mask coordinates%'
             THEN NULL
             ELSE verbatim_coordinates
         END verbatim_coordinates,
 		collecting_event_name,
 		CASE
-            WHEN '#one.encumbrances#' LIKE '%mask coordinates%'
+            WHEN #oneOfUs# != 1 and '#one.encumbrances#' LIKE '%mask coordinates%'
             THEN NULL
             ELSE locality.DEC_LAT
         END DEC_LAT,
 		CASE
-            WHEN '#one.encumbrances#' LIKE '%mask coordinates%'
+            WHEN #oneOfUs# != 1 and '#one.encumbrances#' LIKE '%mask coordinates%'
             THEN NULL
             ELSE locality.DEC_LONG
         END DEC_LONG,
