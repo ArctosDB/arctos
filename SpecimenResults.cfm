@@ -8,10 +8,8 @@
 	<cfset session.srmapclass='nomap'>
 </cfif>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js?v=3.41'></script>
-
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js?v=3.42'></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <style>
@@ -48,8 +46,6 @@
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="/includes/SearchSql.cfm">
-
-
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
@@ -282,7 +278,6 @@
 	</cfquery>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
-
 	<table width="100%">
 		<tr>
 			<td  class="valigntop" width="65%">
@@ -507,9 +502,6 @@
 								</option>
 							</optgroup>
 						</select>
-						<!----
-						<input type="button" value="Go" class="lnkBtn" onClick="reporter('#session.SpecSrchTab#');">
-						---->
 					</td>
 				</cfif>
 				<td>
@@ -521,17 +513,6 @@
 						Report Bad Data
 						</a>
 					</cfif>
-
-
-				<!----
-
-								<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
-
-
-
-										<span class="likeLink" onclick="openAnnotation('collection_object_id=#collObjIdList#')">Report Bad Data</span>
-
-					---->
 				</td>
 			</tr>
 		</table>
