@@ -488,9 +488,6 @@
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('specLocality');">Edit</span>
 					</cfif>
 				</div>
-
-				<cfdump var=#rawevent#>
-				<cfdump var=#event#>
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
 					   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
