@@ -120,7 +120,7 @@
 		</label>
 	    <input type="text" name="captcha" id="captcha" <cfif len(session.username) gt 0>value="#captcha#"</cfif> class="reqdClr" size="60">
 		 <input type="hidden" name="captchaHash" id="captchaHash" value="#captchaHash#">
-		<label for="email">Email - <div style="color:red">Please provide contact information!</div></label>
+		<label for="email">Email - <span style="color:red">Please provide contact information!</span></label>
 		<input type="text" class="reqdClr" name="email" id="email" value="#email#">
 		<br>
 		<input type="button"
