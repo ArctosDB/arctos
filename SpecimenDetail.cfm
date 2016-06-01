@@ -65,7 +65,6 @@
 					zIndex: 10
 				});
 				bounds.extend(center);
-
 				if (parseInt(errorm)>0){
 					var circleoptn = {
 						strokeColor: '#FF0000',
@@ -81,7 +80,6 @@
 					crcl = new google.maps.Circle(circleoptn);
 					bounds.union(crcl.getBounds());
 				}
-
 				var wkt=$("#geog_polygon_" + seid).val();
 				if (wkt.length > 0){
 					var regex = /\(([^()]+)\)/g;
