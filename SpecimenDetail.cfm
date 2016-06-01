@@ -59,6 +59,11 @@
 				};
 				var map = new google.maps.Map(document.getElementById("mapdiv_" + seid), mapOptions);
 				var center=new google.maps.LatLng(lat,lng);
+				var marker = new google.maps.Marker({
+					position: center,
+					map: map,
+					zIndex: 10
+				});
 				bounds.extend(center);
 
 				if (parseInt(errorm)>0){
@@ -76,11 +81,7 @@
 					crcl = new google.maps.Circle(circleoptn);
 					bounds.union(crcl.getBounds());
 				}
-				var marker = new google.maps.Marker({
-					position: center,
-					map: map,
-					zIndex: 10
-				});
+
 				var wkt=$("#geog_polygon_" + seid).val();
 				if (wkt.length > 0){
 					var regex = /\(([^()]+)\)/g;
