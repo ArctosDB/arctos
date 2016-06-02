@@ -423,300 +423,122 @@ grant all on cf_temp_collector to coldfusion_user;
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "validateFromFile">
-<!----
-	<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_specevent set status='guid not found'
-		where upper(username)='#ucase(session.username)#' and guid NOT IN (select guid from flat)
+	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_collector
+		set
+			status=NULL,
+			collection_object_id=null
+		where
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	---->
 
-
-
-create table cf_temp_collector (
-	key number not null,
-	username varchar2(255) not null,
-	agent_name varchar2(255) not null,
-	collector_role  varchar2(255) not null,
-	guid varchar2(60),
-	guid_prefix varchar2(60),
-	other_id_type varchar2(60),
-	other_id_number varchar2(60),
-	collector_position varchar2(60),
-	agent_id number,
-	collection_object_id number,
-	uuid varchar2(255),
-	status varchar2(255)
-
-
-	<cfquery name="SPECIMEN_EVENT_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_collector set status='SPECIMEN_EVENT_TYPE not found'
-		where upper(username)='#ucase(session.username)#' and SPECIMEN_EVENT_TYPE NOT IN (select SPECIMEN_EVENT_TYPE from CTSPECIMEN_EVENT_TYPE) and
-		guid is not null
+	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_collector
+		set
+			status=decode(status,
+				null,'click "get GUID Prefix" before validating',
+				status || '; click "get GUID Prefix" before validating')
+		where
+			upper(username)='#ucase(session.username)#' and
+			guid_prefix is null
 	</cfquery>
-	<cfquery name="COLLECTING_SOURCE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_specevent set status='COLLECTING_SOURCE not found'
+
+
+	<cfquery name="ctcitation_TYPE_STATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_collector
+		set
+			status=decode(status,
+				null,'bad agent_role',
+				status || '; bad agent_role')
+		where
+			status is null and
+			upper(username)='#ucase(session.username)#' and
+			collector_role not in (select collector_role from ctcollector_role)
+	</cfquery>
+
+
+	<cfquery name="agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_collector set agent_id=getAgentId(agent_name)
 		where upper(username)='#ucase(session.username)#' and
-		COLLECTING_SOURCE is not null and
-		COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE) and
 		guid is not null
 	</cfquery>
 
-	<cfquery name="geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        update cf_temp_specevent set status='HIGHER_GEOG not found'
-        where upper(username)='#ucase(session.username)#' and
-		COLLECTING_EVENT_ID IS NULL AND
-		LOCALITY_ID IS NULL AND
-		GEOG_AUTH_REC_ID IS NULL AND
-		HIGHER_GEOG NOT IN (select HIGHER_GEOG from GEOG_AUTH_REC)
-    </cfquery>
-	<cfquery name="coordeps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        update cf_temp_specevent set status='datum,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL'
-        where upper(username)='#ucase(session.username)#' and
-       orig_lat_long_units is not null AND
-	   (
-	       datum is null or
-	       GEOREFERENCE_SOURCE is null or
-	       GEOREFERENCE_PROTOCOL is null
-	   )
-    </cfquery>
 
-
-
-
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#' and
-		status is null and
-		rownum<=#numberToValidate# and
-		guid is not null
+	<cfquery name="agent_idfail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_collector
+		set
+			status=decode(status,
+				null,'agent not found',
+				status || '; agent not found')
+		where
+			agent_id is null and
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
-	<cfloop query="data">
-		<cfset s=''>
-		<cfset checkEvent=true>
-		<cfset checkLocality=true>
-		<cfset lcl_collection_object_id = 0>
-		<cfset lcl_collecting_event_id = 0>
-		<cfset lcl_locality_id = 0>
-		<cfset lcl_geog_auth_rec_id = 0>
 
-		<cfset lcl_event_assigned_id = 0>
-
-
-		<cfquery name="getCatItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select nvl(collection_object_id,0) collection_object_id from flat where guid='#guid#'
-		</cfquery>
-		<cfif getCatItem.collection_object_id is 0>
-			<cfset s=listappend(s,'guid not found',';')>
-		<cfelse>
-			<cfset lcl_collection_object_id=getCatItem.collection_object_id>
-		</cfif>
-		<cfquery name="aba" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select agent_id from agent_name where agent_name='#ASSIGNED_BY_AGENT#' group by agent_id
-		</cfquery>
-		<cfif aba.recordcount is 1 and len(aba.agent_id) gt 0>
-			<cfset lcl_event_assigned_id=aba.agent_id>
-		<cfelse>
-			<cfset s=listappend(s,'ASSIGNED_BY_AGENT not found',';')>
-		</cfif>
-		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select is_iso8601('#ASSIGNED_DATE#') isdate from dual
-		</cfquery>
-		<cfif dd.isdate is not "valid">
-			<cfset s=listappend(s,'ASSIGNED_DATE not a valid date',';')>
-		</cfif>
-		<cfif len(collecting_event_id) gt 0>
-			<cfset checkEvent=false>
-			<cfset checkLocality=false>
-			<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select collecting_event_id from collecting_event where collecting_event_id=#collecting_event_id#
-			</cfquery>
-			<cfif collecting_event.recordcount is not 1>
-				<cfset s=listappend(s,'not a valid collecting_event_id',';')>
-			<cfelse>
-				<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
-			</cfif>
-		</cfif>
-		<cfif len(collecting_event_name) gt 0>
-			<cfset checkEvent=false>
-			<cfset checkLocality=false>
-			<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select min(collecting_event_id) collecting_event_id from collecting_event where collecting_event_name='#collecting_event_name#'
-			</cfquery>
-			<cfif collecting_event.recordcount is 1 and len(collecting_event.collecting_event_id) gt 0>
-				<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
-			<cfelse>
-				<cfset s=listappend(s,'not a valid collecting_event_name',';')>
-			</cfif>
-		</cfif>
-		<cfif len(LOCALITY_ID) gt 0>
-			<cfset checkLocality=false>
-			<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select min(LOCALITY_ID) LOCALITY_ID from LOCALITY where LOCALITY_ID=#LOCALITY_ID#
-			</cfquery>
-			<cfdump var=#LOCALITY#>
-			<cfif LOCALITY.recordcount is 1 and len(LOCALITY.LOCALITY_ID) gt 0>
-				<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
-			<cfelse>
-				<cfset s=listappend(s,'not a valid LOCALITY_ID',';')>
-			</cfif>
-		</cfif>
-		<cfif len(LOCALITY_NAME) gt 0>
-			<cfset checkLocality=false>
-			<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select min(LOCALITY_ID) LOCALITY_ID from LOCALITY where LOCALITY_NAME='#LOCALITY_NAME#'
-			</cfquery>
-			<cfif LOCALITY.recordcount is 1 and len(LOCALITY.LOCALITY_ID) gt 0>
-				<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
-			<cfelse>
-				<cfset s=listappend(s,'not a valid LOCALITY_NAME',';')>
-			</cfif>
-		</cfif>
-		<cfif checkEvent is true>
-			<cfif len(VERBATIM_DATE) is 0>
-				<cfset s=listappend(s,'VERBATIM_DATE is required',';')>
-			</cfif>
-			<cfif len(VERBATIM_LOCALITY) is 0>
-				<cfset s=listappend(s,'VERBATIM_LOCALITY is required',';')>
-			</cfif>
-			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select is_iso8601('#BEGAN_DATE#') isdate from dual
-			</cfquery>
-			<cfif dd.isdate is not "valid">
-				<cfset s=listappend(s,'BEGAN_DATE is not a valid date',';')>
-			</cfif>
-			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select is_iso8601('#ENDED_DATE#') isdate from dual
-			</cfquery>
-			<cfif dd.isdate is not "valid">
-				<cfset s=listappend(s,'ENDED_DATE is not a valid date',';')>
-			</cfif>
-			<cfif len(ORIG_LAT_LONG_UNITS) gt 0>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from CTLAT_LONG_UNITS where ORIG_LAT_LONG_UNITS='#ORIG_LAT_LONG_UNITS#'
-				</cfquery>
-				<cfif dd.c is not 1>
-					<cfset s=listappend(s,'ORIG_LAT_LONG_UNITS is not valid',';')>
-				</cfif>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from ctDATUM where DATUM='#DATUM#'
-				</cfquery>
-				<cfif dd.c is not 1>
-					<cfset s=listappend(s,'DATUM is not valid',';')>
-				</cfif>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from ctGEOREFERENCE_PROTOCOL where GEOREFERENCE_PROTOCOL='#GEOREFERENCE_PROTOCOL#'
-				</cfquery>
-				<cfif dd.c is not 1>
-					<cfset s=listappend(s,'GEOREFERENCE_PROTOCOL is not valid',';')>
-				</cfif>
-				<cfif ORIG_LAT_LONG_UNITS is "decimal degrees">
-					<cfif DEC_LAT gt 90 or DEC_LAT lt -90 or DEC_LONG gt 180 or DEC_LONG lt -180>
-						<cfset s=listappend(s,'coordinates not valid',';')>
-					</cfif>
-				<cfelseif orig_lat_long_units is 'deg. min. sec.'>
-					<cfif LAT_DEG gt 90 or LAT_DEG lt 0 or
-						LAT_MIN lt 0 or LAT_MIN gt 60 or
-						LAT_SEC  lt 0 or LAT_SEC gt 60 or
-						LONG_DEG gt 90 or LONG_DEG lt 0 or
-						LONG_MIN lt 0 or LONG_MIN gt 60 or
-						LONG_SEC  lt 0 or LONG_SEC gt 60 or
-						(LAT_DIR is not "N" and LAT_DIR is not "S") or
-						(LONG_DIR is not "W" and LONG_DIR is not "E")>
-						<cfset s=listappend(s,'coordinates not valid',';')>
-					</cfif>
-				<cfelseif orig_lat_long_units is 'degrees dec. minutes'>
-					<cfif LAT_DEG gt 90 or LAT_DEG lt 0 or
-						DEC_LAT_MIN lt 0 or DEC_LAT_MIN gt 60 or
-						LONG_DEG gt 90 or LONG_DEG lt 0 or
-						DEC_LONG_MIN lt 0 or DEC_LONG_MIN gt 60 or
-						(LAT_DIR is not "N" and LAT_DIR is not "S") or
-						(LONG_DIR is not "W" and LONG_DIR is not "E")>
-						<cfset s=listappend(s,'coordinates not valid',';')>
-					</cfif>
-				<cfelseif orig_lat_long_units is 'UTM'>
-					<cfif not (isnumeric(UTM_EW) and isnumeric(UTM_NS))>
-						<cfset s=listappend(s,'coordinates not valid',';')>
-					</cfif>
-				</cfif>
-			</cfif>
-		</cfif>
-		<cfif checkLocality is true>
-			<cfif len(SPEC_LOCALITY) is 0>
-				<cfset s=listappend(s,'SPEC_LOCALITY is required',';')>
-			</cfif>
-			<cfif len(ORIG_ELEV_UNITS) gt 0>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from ctORIG_ELEV_UNITS where ORIG_ELEV_UNITS='#ORIG_ELEV_UNITS#'
-				</cfquery>
-				<cfif dd.c is not 1>
-					<cfset s=listappend(s,'ORIG_ELEV_UNITS is not valid',';')>
-				</cfif>
-				<cfif len(MINIMUM_ELEVATION) is 0 or len(MAXIMUM_ELEVATION) is 0 or (not isnumeric(MINIMUM_ELEVATION))
-					 or (not isnumeric(MAXIMUM_ELEVATION)) or (MINIMUM_ELEVATION gt MAXIMUM_ELEVATION)>
-					<cfset s=listappend(s,'elevation is wonky',';')>
-				</cfif>
-			</cfif>
-			<cfif len(DEPTH_UNITS) gt 0>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from ctDEPTH_UNITS where DEPTH_UNITS='#DEPTH_UNITS#'
-				</cfquery>
-				<cfif dd.c is not 1>
-					<cfset s=listappend(s,'DEPTH_UNITS is not valid',';')>
-				</cfif>
-				<cfif len(MIN_DEPTH) is 0 or len(MAX_DEPTH) is 0 or (not isnumeric(MIN_DEPTH))
-					 or (not isnumeric(MAX_DEPTH)) or (MIN_DEPTH gt MAX_DEPTH)>
-					<cfset s=listappend(s,'depth is wonky',';')>
-				</cfif>
-			</cfif>
-			<cfif len(MAX_ERROR_UNITS) gt 0>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from CTLAT_LONG_ERROR_UNITS  where LAT_LONG_ERROR_UNITS='#MAX_ERROR_UNITS#'
-				</cfquery>
-				<cfif dd.c is not 1>
-					<cfset s=listappend(s,'MAX_ERROR_UNITS is not valid',';')>
-				</cfif>
-				<cfif len(MAX_ERROR_DISTANCE) is 0>
-					<cfset s=listappend(s,'MAX_ERROR_DISTANCE is required when MAX_ERROR_UNITS is given',';')>
-				</cfif>
-			</cfif>
-			<cfif len(GEOG_AUTH_REC_ID) gt 0>
-				<cfquery name="GEOG_AUTH_REC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID from GEOG_AUTH_REC where GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID#
-				</cfquery>
-				<cfset lcl_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID>
-				<cfif GEOG_AUTH_REC.GEOG_AUTH_REC_ID is 0>
-					<cfset s=listappend(s,'GEOG_AUTH_REC_ID is not valid',';')>
-				</cfif>
-			<cfelseif len(HIGHER_GEOG) gt 0>
-				<cfquery name="GEOG_AUTH_REC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID  from GEOG_AUTH_REC where HIGHER_GEOG='#HIGHER_GEOG#'
-				</cfquery>
-				<cfset lcl_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID>
-				<cfif GEOG_AUTH_REC.GEOG_AUTH_REC_ID is 0>
-					<cfset s=listappend(s,'HIGHER_GEOG is not valid',';')>
-				</cfif>
-			<cfelse>
-				<cfset s=listappend(s,'Either HIGHER_GEOG or GEOG_AUTH_REC_ID is required.',';')>
-			</cfif>
-		</cfif>
-		<cfif len(s) eq 0>
-			<cfset s='valid'>
-		</cfif>
-		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_specevent
-			set
-				l_collection_object_id=#getCatItem.collection_object_id#,
-				l_collecting_event_id=#lcl_collecting_event_id#,
-				l_locality_id=#lcl_locality_id#,
-				l_geog_auth_rec_id=#lcl_geog_auth_rec_id#,
-				l_event_assigned_id=#lcl_event_assigned_id#,
-				status='#s#' where key=#key#
-		</cfquery>
-	</cfloop>
+	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_collector set COLLECTION_OBJECT_ID = (
+			select
+				cataloged_item.collection_object_id
+			from
+				cataloged_item,
+				collection
+			WHERE
+				cataloged_item.collection_id = collection.collection_id and
+				collection.guid_prefix = cf_temp_attributes.guid_prefix and
+				cat_num=cf_temp_collector.other_id_number
+		) where
+			status is null and
+			other_id_type = 'catalog number'
+			and upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_collector set COLLECTION_OBJECT_ID = (
+			select
+				cataloged_item.collection_object_id
+			from
+				cataloged_item,
+				collection,
+				coll_obj_other_id_num
+			WHERE
+				cataloged_item.collection_id = collection.collection_id and
+				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
+				collection.guid_prefix = cf_temp_attributes.guid_prefix and
+				other_id_type = cf_temp_collector.other_id_type and
+				display_value = cf_temp_collector.other_id_number
+		) where
+			status is null and
+			other_id_type != 'catalog number' and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_collector
+		set
+			status=decode(status,
+				null,'cataloged item not found',
+				status || '; cataloged item not found')
+		where
+			collection_object_id is null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="postsetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_collector
+		set
+			status='valid'
+		where
+			status is null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
 
 
-	did some validating - hit reload or go to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">managemystuff</a> if you think it's done.
+
+	did some validating - hit reload or go to <a href="BulkloadCollector.cfm?action=managemystuff">managemystuff</a> if you think it's done.
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "load">
@@ -727,10 +549,10 @@ create table cf_temp_collector (
 		</p>
 		<p>
 			SCROLL TO THE BOTTOM OF THIS PAGE after it stops loading, which will take a couple minutes. If there are timeout errors, hit reload or
-			go back to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">the manage screen</a> and hit load again.
+			go back to <a href="BulkloadCollector.cfm?action=managemystuff">the manage screen</a> and hit load again.
 		</p>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_specevent where status='valid' and upper(username)='#ucase(session.username)#'
+			select * from cf_temp_collector where status='valid' and upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfloop query="data">
 			<cftransaction>
