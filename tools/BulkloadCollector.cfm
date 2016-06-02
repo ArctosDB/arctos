@@ -89,8 +89,10 @@ end;
 			<td>yes (number)</td>
 			<td>
 				Relative order of collectors; value is unimportant. For example, you could use -1 to insure a new
-				collector lands in the first position, or 9999 to ensure a collector lands in the second collector
-				position.
+				collector lands in the first position (existing data are integers starting with 1),
+				or 9999 to ensure a collector lands in the second collector	position, or 1.1 to inject a new
+				collector between the existing first and second. Any duplication within the data here combined
+				with the existing data will result in arbitrary ordering for the non-unique records.
 			</td>
 		</tr>
 		<tr>
@@ -626,16 +628,32 @@ end;
 					select * from oldnnew order by COLL_ORDER
 				</cfquery>
 				<cfdump var=#oldnnew_o#>
-
-
-				<!----
-					<br>inserted for <a href="http://arctos.database.museum/SpecimenDetail.cfm?collection_object_id=#l_collection_object_id#">#l_collection_object_id#</a>
-					<cfquery name="gotit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						delete from cf_temp_specevent where key=#key#
+				<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from collector where collection_object_id=#collection_object_id#
+				</cfquery>
+				<cfset co=1>
+				<cfloop query="oldnnew_o">
+					<cfquery name="inscol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into collector (
+							AGENT_ID,
+							COLLECTION_OBJECT_ID,
+							COLLECTOR_ROLE,
+							COLL_ORDER
+						) values (
+							#AGENT_ID#,
+							#COLLECTION_OBJECT_ID#,
+							'#COLLECTOR_ROLE#',
+							#co#
+						)
 					</cfquery>
-					<br>deleted for #l_collection_object_id#
-					------------>
-				</p>
+					<cfset co=co+1>
+				</cfloop>
+				<br>inserted for <a href="http://arctos.database.museum/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection_object_idcollection_object_id#</a>
+				<!---- this may have inserted multiple rows, delete for specimen NOT key ---->
+				<cfquery name="gotit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from cf_temp_specevent where COLLECTION_OBJECT_ID=#COLLECTION_OBJECT_ID#
+				</cfquery>
+				<br>deleted for #collection_object_id#
 			</cftransaction>
 		</cfloop>
 	</cfoutput>
