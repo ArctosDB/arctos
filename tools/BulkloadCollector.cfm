@@ -603,7 +603,25 @@ end;
 					select * from collector where collection_object_id=#collection_object_id# order by coll_order
 				</cfquery>
 				<cfdump var=#ec#>
+				<cfquery name="oldnnew" dbtype="query">
+					select
+						AGENT_ID,
+						COLLECTION_OBJECT_ID,
+						COLLECTOR_ROLE,
+						COLL_ORDER
+					from
+						ec
+					union
+					select
+						AGENT_ID,
+						COLLECTION_OBJECT_ID,
+						COLLECTOR_ROLE,
+						collector_order as COLL_ORDER
+					from
+						tr
+				</cfquery>
 
+				<cfdump var=#oldnnew#>
 
 				<!----
 					<br>inserted for <a href="http://arctos.database.museum/SpecimenDetail.cfm?collection_object_id=#l_collection_object_id#">#l_collection_object_id#</a>
