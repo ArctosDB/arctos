@@ -1,3 +1,68 @@
+<cfif action is "addCollector">
+<script>
+		jQuery(document).ready(function() {
+
+			$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
+
+			$( "#theForm" ).submit(function( event ) {
+				event.preventDefault();
+				$.ajax({
+					url: "/component/Bulkloader.cfc?queryformat=column",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "saveNewCollector",
+						q: $('#theForm').serialize()
+					},
+					success: function(r) {
+						if (r=='success'){
+							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another ID.");
+							if( retVal == true ){
+						    	$("#dialog").dialog('close');
+						 	}
+						} else {
+							alert('Error: ' + r);
+						}
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
+			});
+		});
+	</script>
+	<cfoutput>
+		<cfquery name="ctcollector_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select collector_role from ctcollector_role order by collector_role
+		</cfquery>
+	    <label for="theForm"></label>Add Collector</label>
+		<form name="theForm" id="theForm">
+			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
+			<input type="hidden" name="nothing" id="nothing">
+			<label for="collector_role">Role</label>
+			<select name="collector_role" id="collector_role" size="1">
+				<option></option>
+				<cfloop query="ctcollector_role">
+					<option	value="#ctcollector_role.collector_role#">#ctcollector_role.collector_role#</option>
+				</cfloop>
+			</select>
+			<label for="coll_order">Order</label>
+			<select name="coll_order" id="coll_order" size="1">
+				<option></option>
+
+				<cfloop from="6" to="15" index="i">
+					<option	value="#i#">#i#</option>
+				</cfloop>
+			</select>
+			<label for="agent_name">Agent Name</label>
+			<input type="text" name="agent_name" id="agent_name" onchange="getAgent('nothing',this.id,'theForm',this.value);"
+				onkeypress="return noenter(event);">
+			<br><input type="submit" value="save">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------->
 <cfif action is "addIdReln">
 <script>
 		jQuery(document).ready(function() {

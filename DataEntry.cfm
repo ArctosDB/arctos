@@ -287,6 +287,7 @@
 											</td>
 											<td  id="d_collector_agent_#i#" nowrap="nowrap">
 												<span class="f11a">#i#</span>
+												<input type="hidden" id="nothing" name="nothing">
 												<input type="text" name="collector_agent_#i#"
 													<cfif i is 1>class="reqdClr"</cfif> id="collector_agent_#i#"
 													onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
@@ -1089,6 +1090,7 @@
 							<option value="addPart">Add Specimen Part</option>
 							<option value="addIdReln">Add ID/Relationship</option>
 							<option value="addAttribute">Add Specimen Attribute</option>
+							<option value="addCollector">Add Collector</option>
 						</select>
 					</td>
 					<td align="right" width="15%" nowrap="nowrap">

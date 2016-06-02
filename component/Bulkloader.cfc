@@ -7,7 +7,52 @@
 	</cfquery>
 	<cfreturn cc.collection_cde>
 </cffunction>
+<!----------------------------------------------------------------------------------------->
+<cffunction name="saveNewCollector" access="remote" returnformat="json" queryformat="column">
+	<cfargument name="q" required="yes">
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
+	<cfoutput>
+		<cfloop list="#q#" index="kv" delimiters="&">
+			<cfset k=listfirst(kv,"=")>
+			<cfset v=replace(kv,k & "=",'')>
+			<cfset "#k#"=urldecode(v)>
+		</cfloop>
+		<cfset fatalerrstr="">
+		<cfset required="UUID,collector_role,coll_order,agent_name,id_references">
+		<cfloop list="#required#" index="i">
+			<cfset thisVal=evaluate("variables." & i)>
+			<cfif len(thisVal) is 0>
+				<cfset fatalerrstr=listappend(fatalerrstr,'#i# is required',';')>
+			</cfif>
+		</cfloop>
 
+		<cfif len(fatalerrstr) is 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into cf_temp_collector (
+					status,
+					other_id_type,
+					other_id_number,
+					agent_name,
+					collector_role,
+					COLL_ORDER,
+					username
+				) values (
+					'linked to bulkloader',
+					'UUID',
+					'#uuid#',
+					'#agent_name#',
+					'#collector_role#',
+					'#COLL_ORDER#',
+					'#session.USERNAME#'
+				)
+			</cfquery>
+			<cfset fatalerrstr='success'>
+		</cfif>
+		<cfreturn fatalerrstr>
+	</cfoutput>
+</cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewIdentifier" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
