@@ -160,7 +160,13 @@ end;
 
 		<cfif gg.recordcount is 1>
 			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_collector set guid='#gg.guid#' where uuid='#uuid#'
+				update
+					cf_temp_collector
+				set
+					guid='#gg.guid#'
+				where
+					OTHER_ID_TYPE='UUID' and
+					OTHER_ID_NUMBER='#guid#'
 			</cfquery>
 		</cfif>
 	</cfloop>
