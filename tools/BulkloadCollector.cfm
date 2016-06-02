@@ -12,7 +12,7 @@ create table cf_temp_collector (
 	guid_prefix varchar2(60),
 	other_id_type varchar2(60),
 	other_id_number varchar2(60),
-	collector_position varchar2(60),
+	collector_order varchar2(60),
 	agent_id number,
 	collection_object_id number,
 	uuid varchar2(255),
@@ -48,7 +48,7 @@ end;
 <cfset title="Bulkload Collectors">
 
 
-<cfset thecolumns="agent_name,collector_role,guid,guid_prefix,other_id_type,other_id_number,collector_position">
+<cfset thecolumns="agent_name,collector_role,guid,guid_prefix,other_id_type,other_id_number,collector_order">
 <cfif action is "makeTemplate">
 	<cfset header=thecolumns>
 	<cffile action = "write"
@@ -85,7 +85,7 @@ end;
 			<td>any unique name of existing agent</td>
 		</tr>
 		<tr>
-			<td>collector_position</td>
+			<td>collector_order</td>
 			<td>yes (number)</td>
 			<td>
 				Relative order of collectors; value is unimportant. For example, you could use -1 to insure a new
@@ -595,12 +595,14 @@ end;
 			<cftransaction>
 				<!--- grab one record so we can sort out order --->
 				<cfquery name="tr" dbtype="query">
-					select * from data where collection_object_id=#collection_object_id# order by coll_order
+					select * from data where collection_object_id=#collection_object_id# order by collector_order
 				</cfquery>
+				<cfdump var=#tr#>
 				<!--- see what's there ---->
 				<cfquery name="ec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from collector where collection_object_id=#collection_object_id# order by coll_order
 				</cfquery>
+				<cfdump var=#ec#>
 
 
 				<!----
