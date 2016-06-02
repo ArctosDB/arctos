@@ -126,10 +126,12 @@
 		</div>
 		<br>
 		<div style="align:center;margin:.3em;">
+			<!----
 		<input type="button"
 			class="qutBtn"
 			value="Quit without Saving"
 			onclick="closeAnnotation()">
+			-------->
 		<input type="button"
 			class="savBtn"
 			value="Save Annotations"
