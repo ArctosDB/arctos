@@ -160,8 +160,6 @@
                         </ul>
                     </cfif>
                     <cfset mrel=func.getMediaRelations(findIDs.media_id)>
-
-					<cfdump var=#mrel#>
                     <cfif mrel.recordcount gt 0>
                         <ul>
                         <cfloop query="mrel">

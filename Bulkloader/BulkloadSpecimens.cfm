@@ -27,6 +27,9 @@
 		<a href="/Bulkloader/BulkloadSpecimens.cfm?action=delete">delete</a> everything from the bulkloader staging table
 		(or just load new data to delete)
 	</p>
+	<p>
+		<a href="/Bulkloader/BulkloadSpecimens.cfm">Cleanup Tools</a> for the bulkloader staging table
+	</p>
 
 	<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
