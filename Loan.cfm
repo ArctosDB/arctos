@@ -1965,14 +1965,8 @@ just fooling idiot cfclipse into using the right colors
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-
 	<cfif not isdefined("csv")>
 		<cfset csv=false>
-	</cfif>
-
-<cfif csv is true>
-	<cfdump var=#allLoans#>
-	<cfabort>
 	</cfif>
 	<cfif allLoans.recordcount is 0>
 		Nothing matched your search criteria.
@@ -1997,12 +1991,12 @@ just fooling idiot cfclipse into using the right colors
 	<cfif csv is true>
 		<cfset dlFile = "ArctosLoanData.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#dlFile#">
-	<cfset variables.encoding="UTF-8">
+		<cfset variables.encoding="UTF-8">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			d='loan_number,item_count,Recipient,nature_of_material,loan_type,loan_status,return_due_date,Transaction_Date,loan_instructions,auth_agent,ent_agent,trans_remarks,loan_description,Project';
 		 	variables.joFileWriter.writeLine(d);
-	</cfscript>
+		</cfscript>
 	</cfif>
 	<cfoutput query="allLoans" group="transaction_id">
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
