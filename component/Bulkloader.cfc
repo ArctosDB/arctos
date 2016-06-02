@@ -20,7 +20,7 @@
 			<cfset "#k#"=urldecode(v)>
 		</cfloop>
 		<cfset fatalerrstr="">
-		<cfset required="UUID,collector_role,coll_order,agent_name,id_references">
+		<cfset required="UUID,collector_role,coll_order,agent_name">
 		<cfloop list="#required#" index="i">
 			<cfset thisVal=evaluate("variables." & i)>
 			<cfif len(thisVal) is 0>
