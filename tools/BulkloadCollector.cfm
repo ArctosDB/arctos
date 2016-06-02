@@ -166,7 +166,7 @@ end;
 					guid='#gg.guid#'
 				where
 					OTHER_ID_TYPE='UUID' and
-					OTHER_ID_NUMBER='#guid#'
+					OTHER_ID_NUMBER='#uuid#'
 			</cfquery>
 		</cfif>
 	</cfloop>
