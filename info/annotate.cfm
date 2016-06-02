@@ -5,7 +5,6 @@
 	<cfset v=listgetat(q,2,"=")>
 	<cfset "#t#"="#v#">
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
-	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 	<cfif listlen(v) eq 1>
 		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 			<cfset linky="collection_object_id=#collection_object_id#">
@@ -74,7 +73,10 @@
 			</div>
 			<cfabort>
 		</cfif>
-		Annotations for #d.summary# (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)
+		Annotations for #d.summary#
+		<div style="font-size:smaller;padding-left:1em;">
+			<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Existing Annotation Details</a>
+		</div>
 	</cfif>
 	<form name="annotate" method="post" action="/info/annotate.cfm">
 		<input type="hidden" name="action" value="insert">
