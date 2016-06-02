@@ -460,6 +460,8 @@ end;
 	</cfquery>
 
 
+
+
 	<cfquery name="ctcitation_TYPE_STATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
@@ -493,6 +495,21 @@ end;
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
+	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_collector set COLLECTION_OBJECT_ID = (
+			select
+				cataloged_item.collection_object_id
+			from
+				cataloged_item,
+				collection
+			WHERE
+				cataloged_item.collection_id = collection.collection_id and
+				collection.guid_prefix || ':' || cataloged_item.cat_num = cf_temp_collector.guid
+		) where
+			status is null and
+			guid is not null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
 
 	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set COLLECTION_OBJECT_ID = (
@@ -507,8 +524,9 @@ end;
 				cat_num=cf_temp_collector.other_id_number
 		) where
 			status is null and
-			other_id_type = 'catalog number'
-			and upper(username)='#ucase(session.username)#'
+			other_id_type = 'catalog number' and
+			collection_object_id is null and
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set COLLECTION_OBJECT_ID = (
@@ -526,6 +544,7 @@ end;
 				display_value = cf_temp_collector.other_id_number
 		) where
 			status is null and
+			collection_object_id is null and
 			other_id_type != 'catalog number' and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
