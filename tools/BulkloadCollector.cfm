@@ -622,6 +622,11 @@ end;
 				</cfquery>
 
 				<cfdump var=#oldnnew#>
+				<cfquery name="oldnnew_o" dbtype="query">
+					select * from oldnnew order by COLL_ORDER
+				</cfquery>
+				<cfdump var=#oldnnew_o#>
+
 
 				<!----
 					<br>inserted for <a href="http://arctos.database.museum/SpecimenDetail.cfm?collection_object_id=#l_collection_object_id#">#l_collection_object_id#</a>
