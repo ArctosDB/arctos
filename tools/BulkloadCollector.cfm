@@ -24,6 +24,20 @@ create or replace public synonym cf_temp_collector for cf_temp_collector;
 
 grant all on cf_temp_collector to coldfusion_user;
 
+CREATE OR REPLACE TRIGGER cf_temp_collector_KEY
+before insert ON cf_temp_collector
+for each row
+begin
+    if :NEW.key is null then
+        select somerandomsequence.nextval into :new.key from dual;
+    end if;
+	 if :NEW.username is null then
+        select sys_context('USERENV', 'SESSION_USER') into :new.username from dual;
+    end if;
+end;
+/
+
+
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfsetting requestTimeOut = "1200">
@@ -489,7 +503,7 @@ grant all on cf_temp_collector to coldfusion_user;
 				collection
 			WHERE
 				cataloged_item.collection_id = collection.collection_id and
-				collection.guid_prefix = cf_temp_attributes.guid_prefix and
+				collection.guid_prefix = cf_temp_collector.guid_prefix and
 				cat_num=cf_temp_collector.other_id_number
 		) where
 			status is null and
