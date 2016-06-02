@@ -138,7 +138,7 @@ end;
 <!---------------------------------------------------------------------------->
 <cfif action is "getGuidUUID">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select uuid from cf_temp_collector where upper(username)='#ucase(session.username)#' and guid is null group by uuid
+		select OTHER_ID_NUMBER uuid from cf_temp_collector where OTHER_ID_TYPE='UUID' and upper(username)='#ucase(session.username)#' and guid is null group by uuid
 	</cfquery>
 	<cfloop query="mine">
 		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
