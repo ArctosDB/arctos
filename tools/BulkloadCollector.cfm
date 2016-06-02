@@ -456,7 +456,7 @@ end;
 				status || '; click "get GUID Prefix" before validating')
 		where
 			upper(username)='#ucase(session.username)#' and
-			guid_prefix is null
+			guid_prefix is null and guid is null
 	</cfquery>
 
 
