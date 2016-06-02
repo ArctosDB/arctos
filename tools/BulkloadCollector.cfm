@@ -556,6 +556,9 @@ grant all on cf_temp_collector to coldfusion_user;
 		</cfquery>
 		<cfloop query="data">
 			<cftransaction>
+				
+				
+				
 				<cfset lcl_locality_id=l_locality_id>
 				<cfset lcl_collecting_event_id=l_collecting_event_id>
 				<p>
