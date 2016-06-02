@@ -73,7 +73,7 @@
 			</div>
 			<cfabort>
 		</cfif>
-		<strong>Annotations for #d.summary#</strong>
+		<p>Annotations for #d.summary#</p>
 	</cfif>
 	<form name="annotate" method="post" action="/info/annotate.cfm">
 		<input type="hidden" name="action" value="insert">
