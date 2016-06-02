@@ -521,7 +521,7 @@ end;
 			WHERE
 				cataloged_item.collection_id = collection.collection_id and
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-				collection.guid_prefix = cf_temp_attributes.guid_prefix and
+				collection.guid_prefix = cf_temp_collector.guid_prefix and
 				other_id_type = cf_temp_collector.other_id_type and
 				display_value = cf_temp_collector.other_id_number
 		) where
