@@ -137,6 +137,7 @@
 		</div>
 	</form>
 	<cfif isdefined("prevAnn.recordcount") and prevAnn.recordcount gt 0>
+	<hr>
 	<p>Previous Annotations (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)</p>
 		<table id="tbl" border>
 			<th>Annotation</th>
