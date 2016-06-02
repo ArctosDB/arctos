@@ -1965,6 +1965,8 @@ just fooling idiot cfclipse into using the right colors
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+
+	<cfdump var=#allLoans#>
 	<cfif allLoans.recordcount is 0>
 		Nothing matched your search criteria.
 	<cfelse>
