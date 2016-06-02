@@ -648,7 +648,7 @@ end;
 					</cfquery>
 					<cfset co=co+1>
 				</cfloop>
-				<br>inserted for <a href="http://arctos.database.museum/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection_object_idcollection_object_id#</a>
+				<br>inserted for <a href="http://arctos.database.museum/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection_object_id#</a>
 				<!---- this may have inserted multiple rows, delete for specimen NOT key ---->
 				<cfquery name="gotit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					delete from cf_temp_specevent where COLLECTION_OBJECT_ID=#COLLECTION_OBJECT_ID#
