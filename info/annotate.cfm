@@ -124,6 +124,7 @@
 			<label for="email">Email - <span style="color:red">Please provide contact information!</span></label>
 			<input type="text" class="reqdClr" name="email" id="email" value="#email#" size="60">
 		</div>
+		<br>
 		<div style="align:center;margin:.3em;">
 		<input type="button"
 			class="qutBtn"
@@ -136,7 +137,7 @@
 		</div>
 	</form>
 	<cfif isdefined("prevAnn.recordcount") and prevAnn.recordcount gt 0>
-		<label for="tbl">Previous Annotations (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)</label>
+	<p>Previous Annotations (<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Click here for details</a>)</p>
 		<table id="tbl" border>
 			<th>Annotation</th>
 			<th>Made Date</th>
