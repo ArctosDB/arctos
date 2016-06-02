@@ -134,7 +134,7 @@
 			-------->
 		<input type="button"
 			class="savBtn"
-			value="Save Annotations"
+			value="Create Annotation"
 			onclick="saveThisAnnotation()">
 		</div>
 	</form>
