@@ -154,13 +154,19 @@ end;
 			select guid from flat,coll_obj_other_id_num where flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
 			other_id_type='UUID' and display_value='#uuid#'
 		</cfquery>
+
+		<cfdump var=#mine#>
+		<cfdump var=#gg#>
+
 		<cfif gg.recordcount is 1>
 			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_collector set guid='#gg.guid#' where uuid='#uuid#'
 			</cfquery>
 		</cfif>
 	</cfloop>
+	<!----
 	<cflocation url="BulkloadCollector.cfm?action=managemystuff" addtoken="false">
+	---->
 </cfif>
 <!---------------------------------------------------------------------------->
 
