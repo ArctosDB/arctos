@@ -73,10 +73,7 @@
 			</div>
 			<cfabort>
 		</cfif>
-		Annotations for #d.summary#
-		<div style="font-size:smaller;padding-left:1em;">
-			<a target="_blank" href="/info/reviewAnnotation.cfm?#linky#">Existing Annotation Details</a>
-		</div>
+		<strong>Annotations for #d.summary#</strong>
 	</cfif>
 	<form name="annotate" method="post" action="/info/annotate.cfm">
 		<input type="hidden" name="action" value="insert">
