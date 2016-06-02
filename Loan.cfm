@@ -1965,6 +1965,11 @@ just fooling idiot cfclipse into using the right colors
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+
+	<cfif not isdefined("csv")>
+		<cfset csv=false>
+	</cfif>
+
 <cfif csv is true>
 	<cfdump var=#allLoans#>
 	<cfabort>
@@ -1989,9 +1994,6 @@ just fooling idiot cfclipse into using the right colors
 	</cfoutput>
 	<table>
 	<cfset i=1>
-	<cfif not isdefined("csv")>
-		<cfset csv=false>
-	</cfif>
 	<cfif csv is true>
 		<cfset dlFile = "ArctosLoanData.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#dlFile#">
