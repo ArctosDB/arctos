@@ -122,7 +122,7 @@
 		 <input type="hidden" name="captchaHash" id="captchaHash" value="#captchaHash#">
 		<label for="email">Email - <span style="color:red">Please provide contact information!</span></label>
 		<input type="text" class="reqdClr" name="email" id="email" value="#email#" size="60">
-		<div style="align:center;">
+		<div style="align:center;margin:.3em;">
 		<input type="button"
 			class="qutBtn"
 			value="Quit without Saving"
