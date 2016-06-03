@@ -911,13 +911,6 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	</cfif>
 	<!------------------------------------------------->
 	<cfif action is "saveNew">
-
-		i am savenew
-
-		<cfdump var=#form#>
-
-
-		<cfabort>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into cf_barcodeseries (
 				barcodeseriessql,
@@ -1000,7 +993,6 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 				<textarea class="hugetextarea" name="barcodeseriessql"></textarea>
 				#doc_barcodeseriessql#
 			</div>
-
 			<label for="barcodeseriestxt">
 				Text - type a clear human-readable (and sortable) description of the series you are claiming
 			</label>
