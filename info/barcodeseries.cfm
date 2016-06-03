@@ -992,7 +992,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 		</cfquery>
 
 		<form name="t" method="post" action="barcodeseries.cfm">
-			<input type="action" value="saveNew">
+			<input type="hidden" name="action" id="action" value="saveNew">
 			<div style="border:1px solid black; margin:1em; padding:1em">
 				<label for="barcodeseriessql">
 					SQL
