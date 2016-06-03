@@ -687,10 +687,10 @@
 select BARCODESERIESSQL from cf_barcodeseries where key=102284020;
 
 update cf_barcodeseries set barcodeseriessql='regexp_like(barcode,''^[0-9]*$'') and to_number(barcode) between 2 and 405000' where key=102284020;
-	
-	
-	
-	
+
+
+
+
 
 	CREATE OR REPLACE FUNCTION is_claimed_barcode (barcode in varchar) return varchar
 as
@@ -911,6 +911,13 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 	</cfif>
 	<!------------------------------------------------->
 	<cfif action is "saveNew">
+
+		i am savenew
+
+		<cfdump var=#form#>
+
+
+		<cfabort>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into cf_barcodeseries (
 				barcodeseriessql,
