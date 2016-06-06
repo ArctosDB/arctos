@@ -506,6 +506,7 @@ end;
 		guid is not null
 	</cfquery>
 
+	<cfdump var=#agent_id#>
 
 	<cfquery name="agent_idfail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
