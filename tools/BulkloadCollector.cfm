@@ -130,7 +130,7 @@ end;
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
 	<cffile action = "write"
-	    file = "#Application.webDirectory#/download/BulkloadSpecimenEventData.csv"
+	    file = "#Application.webDirectory#/download/BulkloadCollector.csv"
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkloadCollector.csv" addtoken="false">
@@ -430,7 +430,7 @@ end;
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_collector  where upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cflocation url="BulkloadSpecimenEvent.cfm" addtoken="false">
+	<cflocation url="BulkloadCollector.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "getFileData">
