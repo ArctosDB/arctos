@@ -503,10 +503,9 @@ end;
 	<cfquery name="agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set agent_id=getAgentId(agent_name)
 		where upper(username)='#ucase(session.username)#' and
-		guid is not null
+		agent_id is not null
 	</cfquery>
 
-	<cfdump var=#agent_id#>
 
 	<cfquery name="agent_idfail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
@@ -532,7 +531,7 @@ end;
 				collection.guid_prefix || ':' || cataloged_item.cat_num = cf_temp_collector.guid
 		) where
 			status is null and
-			guid is not null and
+			COLLECTION_OBJECT_ID is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
