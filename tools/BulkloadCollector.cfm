@@ -461,7 +461,7 @@ end;
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "validateFromFile">
-	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery result="updateResult" name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
 		set
@@ -471,7 +471,8 @@ end;
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
-	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfdump var=#updateResult#>
+	<cfquery result="updateResult" name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
 		set
@@ -484,9 +485,10 @@ end;
 	</cfquery>
 
 
+	<cfdump var=#updateResult#>
 
 
-	<cfquery name="ctcitation_TYPE_STATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery result="updateResult" name="ctcitation_TYPE_STATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
 		set
@@ -498,6 +500,9 @@ end;
 			upper(username)='#ucase(session.username)#' and
 			collector_role not in (select collector_role from ctcollector_role)
 	</cfquery>
+
+
+	<cfdump var=#updateResult#>
 
 
 	<cfquery name="agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
