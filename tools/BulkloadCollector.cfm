@@ -470,7 +470,7 @@ end;
 			status=NULL,
 			collection_object_id=null
 		where
-			status != 'valid'
+			status != 'valid' and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
