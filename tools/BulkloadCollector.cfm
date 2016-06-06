@@ -546,6 +546,7 @@ end;
 				collection.guid_prefix || ':' || cataloged_item.cat_num = cf_temp_collector.guid
 		) where
 			status is null and
+			guid is not null and
 			COLLECTION_OBJECT_ID is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
