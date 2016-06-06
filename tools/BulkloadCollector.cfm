@@ -170,8 +170,9 @@ end;
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<!----
 	<cflocation url="BulkloadCollector.cfm?action=managemystuff" addtoken="false">
+
+	<!----
 	---->
 </cfif>
 <!---------------------------------------------------------------------------->
