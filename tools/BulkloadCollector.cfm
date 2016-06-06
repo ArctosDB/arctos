@@ -461,6 +461,8 @@ end;
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "validateFromFile">
+
+	<!--- reset everything unchecked for this run ---->
 	<cfquery result="updateResult" name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
@@ -468,10 +470,13 @@ end;
 			status=NULL,
 			collection_object_id=null
 		where
+			status != 'valid'
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
 	<cfdump var=#updateResult#>
+
+	<!--- need either guid or guid_prefix ---->
 	<cfquery result="updateResult" name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
@@ -487,6 +492,7 @@ end;
 
 	<cfdump var=#updateResult#>
 
+	<!--- from here on out, run only when status is NULL ---->
 
 	<cfquery result="updateResult" name="ctcitation_TYPE_STATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
@@ -505,14 +511,16 @@ end;
 	<cfdump var=#updateResult#>
 
 
-	<cfquery name="agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery result="updateResult" name="agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set agent_id=getAgentId(agent_name)
 		where upper(username)='#ucase(session.username)#' and
-		agent_id is not null
+		agent_id is null and
+		status is null
 	</cfquery>
+	<cfdump var=#updateResult#>
 
 
-	<cfquery name="agent_idfail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery result="updateResult" name="agent_idfail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
 		set
@@ -521,10 +529,12 @@ end;
 				status || '; agent not found')
 		where
 			agent_id is null and
+			status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+	<cfdump var=#updateResult#>
 
-	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery result="updateResult" name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set COLLECTION_OBJECT_ID = (
 			select
 				cataloged_item.collection_object_id
@@ -539,8 +549,9 @@ end;
 			COLLECTION_OBJECT_ID is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+	<cfdump var=#updateResult#>
 
-	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery result="updateResult" name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set COLLECTION_OBJECT_ID = (
 			select
 				cataloged_item.collection_object_id
@@ -557,7 +568,8 @@ end;
 			collection_object_id is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfdump var=#updateResult#>
+	<cfquery result="updateResult" name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set COLLECTION_OBJECT_ID = (
 			select
 				cataloged_item.collection_object_id
@@ -577,7 +589,8 @@ end;
 			other_id_type != 'catalog number' and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfdump var=#updateResult#>
+	<cfquery result="updateResult" name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
 		set
@@ -586,9 +599,11 @@ end;
 				status || '; cataloged item not found')
 		where
 			collection_object_id is null and
+			status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfquery name="postsetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfdump var=#updateResult#>
+	<cfquery result="updateResult" name="postsetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
 		set
@@ -597,6 +612,7 @@ end;
 			status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+	<cfdump var=#updateResult#>
 
 
 
