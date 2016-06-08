@@ -1820,7 +1820,7 @@ just fooling idiot cfclipse into using the right colors
 		</cfif>
 		<cfset frm="#frm#,preferred_agent_name trans_agent_name_1">
 		<cfset sql="#sql# and trans_agent_1.agent_id = trans_agent_name_1.agent_id">
-		<cfset sql = "#sql# AND upper(trans_agent_name_1.agent_name) like '%#ucase(agent_1)#%'">
+		<cfset sql = "#sql# AND upper(trans_agent_name_1.agent_name) like '%#ucase(escapeQuotes(agent_1))#%'">
 	</cfif>
 	<cfif isdefined("trans_agent_role_2") AND len(trans_agent_role_2) gt 0>
 		<cfset frm="#frm#,trans_agent trans_agent_2">
@@ -1834,7 +1834,7 @@ just fooling idiot cfclipse into using the right colors
 		</cfif>
 		<cfset frm="#frm#,preferred_agent_name trans_agent_name_2">
 		<cfset sql="#sql# and trans_agent_2.agent_id = trans_agent_name_2.agent_id">
-		<cfset sql = "#sql# AND upper(trans_agent_name_2.agent_name) like '%#ucase(agent_2)#%'">
+		<cfset sql = "#sql# AND upper(trans_agent_name_2.agent_name) like '%#ucase(escapeQuotes(agent_2))#%'">
 	</cfif>
 	<cfif isdefined("trans_agent_role_3") AND len(#trans_agent_role_3#) gt 0>
 		<cfset frm="#frm#,trans_agent trans_agent_3">
@@ -1848,7 +1848,7 @@ just fooling idiot cfclipse into using the right colors
 		</cfif>
 		<cfset frm="#frm#,preferred_agent_name trans_agent_name_3">
 		<cfset sql="#sql# and trans_agent_3.agent_id = trans_agent_name_3.agent_id">
-		<cfset sql = "#sql# AND upper(trans_agent_name_3.agent_name) like '%#ucase(agent_3)#%'">
+		<cfset sql = "#sql# AND upper(trans_agent_name_3.agent_name) like '%#ucase(escapeQuotes(agent_3))#%'">
 	</cfif>
 	<cfif isdefined("loan_number") AND len(#loan_number#) gt 0>
 		<cfset sql = "#sql# AND upper(loan_number) like '%#ucase(loan_number)#%'">
@@ -1859,16 +1859,16 @@ just fooling idiot cfclipse into using the right colors
 	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
 		<cfset sql = "#sql# AND trans.collection_id = #collection_id#">
 	</cfif>
-	<cfif isdefined("loan_type") AND len(#loan_type#) gt 0>
+	<cfif isdefined("loan_type") AND len(loan_type) gt 0>
 		<cfset sql = "#sql# AND loan_type = '#loan_type#'">
 	</cfif>
-	<cfif isdefined("loan_status") AND len(#loan_status#) gt 0>
+	<cfif isdefined("loan_status") AND len(loan_status) gt 0>
 		<cfset sql = "#sql# AND loan_status = '#loan_status#'">
 	</cfif>
-	<cfif isdefined("loan_instructions") AND len(#loan_instructions#) gt 0>
+	<cfif isdefined("loan_instructions") AND len(loan_instructions) gt 0>
 		<cfset sql = "#sql# AND upper(loan_instructions) LIKE '%#ucase(loan_instructions)#%'">
 	</cfif>
-	<cfif isdefined("rec_agent") AND len(#rec_agent#) gt 0>
+	<cfif isdefined("rec_agent") AND len(rec_agent) gt 0>
 		<cfset sql = "#sql# AND upper(recAgnt.agent_name) LIKE '%#ucase(escapeQuotes(rec_agent))#%'">
 	</cfif>
 	<cfif isdefined("auth_agent") AND len(#auth_agent#) gt 0>

@@ -1,4 +1,16 @@
 <cfinclude template="/includes/_header.cfm">
+<!-------------
+
+https://github.com/ArctosDB/arctos/issues/849#issuecomment-224385884
+
+update cf_ctuser_roles set DESCRIPTION='"Good student" basics. Manipulate most things at SpecimenDetail; manage Citations' where
+	ROLE_NAME='manage_specimens';
+	
+grant insert,update,delete on citation to manage_specimens;
+
+
+
+------------------------>
 <cfset title="User Roles">
 <cfif action IS "nothing">
 	<cfoutput>

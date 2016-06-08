@@ -220,10 +220,13 @@
 	<cfquery name="seid" dbtype="query">
 		select SPECIMEN_EVENT_ID from d group by SPECIMEN_EVENT_ID
 	</cfquery>
+
+	<!----
 	<cfif seid.recordcount gt 999>
 		This form works on a maximum of 1000 specimen-events.
 		<cfabort>
 	</cfif>
+	0----------->
 	<cfquery name="collevent" dbtype="query">
 		select
 			COLLECTING_EVENT_ID,
