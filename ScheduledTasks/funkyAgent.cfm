@@ -28,7 +28,9 @@
 	</cfquery>
 
 	<cfloop query="raw">
-		#preferred_agent_name#
+		<br>#preferred_agent_name#
+		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_')>
+		<br>   -->  #mname#
 	</cfloop>
 
 </cfoutput>
