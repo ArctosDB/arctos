@@ -9,7 +9,7 @@
 </cfsavecontent>
 <cfoutput>
 
-
+	<cfset baidlist="">
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
@@ -39,11 +39,14 @@
 		<cfdump var=#hasascii#>
 
 		<cfif hasascii.recordcount lt 1>
+			<cfset baidlist=listappend(baidlist,agent_id)>
 			<p>
 				-------this one has no good agent ---------
 			</p>
 		</cfif>
 	</cfloop>
+
+	these are funky: #baidlist#
 
 </cfoutput>
 	<!----------
