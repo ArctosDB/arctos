@@ -75,23 +75,34 @@
 	</p>
 
 	<cfquery name="creatorCollections"  datasource="uam_god">
+
 		select distinct
-			GRANTED_ROLE
+			a.GRANTEE
 		from
-			dba_role_privs,
-			agent_name,
-			collection
+			dba_role_privs a,
+			dba_role_privs b
 		where
-			dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
-			dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
-			agent_name.agent_name_type='login' and
-			agent_name.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+			a.grantee=b.grantee and
+			a.GRANTED_ROLE='MANAGE_COLLECTION' AND
+			b.GRANTED_ROLE in (
+			select distinct
+				GRANTED_ROLE
+			from
+				dba_role_privs,
+				agent_name,
+				collection
+			where
+				dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
+				dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
+				agent_name.agent_name_type='login' and
+				agent_name.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+			)
 	</cfquery>
 	<cfdump var=#creatorCollections#>
 
 	<p>
 
-		^^^^ is all collections which have users who have created funky agents
+		^^^^ is the collectionmanager of all collections which have users who have created funky agents
 
 	</p>
 
