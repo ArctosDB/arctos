@@ -34,7 +34,7 @@
 
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
-			 regexp_like(agent_name,'[^A-Za-z -.]')
+			 regexp_like(agent_name,'[A-Za-z -.]')
 		</cfquery>
 		<cfdump var=#hasascii#>
 
