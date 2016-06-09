@@ -193,28 +193,43 @@
 
 	</p>
 
+		<cfif isdefined("Application.version") and  Application.version is "prod">
+			<cfset subj="Arctos Noncompliant Agent Notification">
+			<cfset maddr=valuelist(addEmails.ADDRESS)>
+		<cfelse>
+			<cfset maddr=application.bugreportemail>
+			<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
+		</cfif>
+		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
 
-	<hr>
-		Agents which may not comply with the agent creation guidelines (https://arctosdb.org/documentation/agent/##create) have been detected.
-		<p>
-			If you are receiving this email, you have created a noncompliant agent, or
-			have manage_collection roles for a user who has created a noncompliant agent.
-		</p>
-		<p>
-			Please review the following agents and make corrections as appropriate.
-		</p>
-		<p>
-			If you are a collection manager, please ensure that everyone with manage_agents rights in your collection
-			has read and understands the agent creation guidelines.
-		</p>
-		<p>
-			<cfloop query="funk">
-				<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a>
-				<br>&nbsp;&nbsp;&nbsp;CreatedBy: #createdBy#
-				<br>&nbsp;&nbsp;&nbsp;Problem: #reason#
-			</cfloop>
-		</p>
-	<hr>
+			<cfif not isdefined("Application.version") or  Application.version is not "prod">
+				<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
+			</cfif>
+
+
+			Agents which may not comply with the agent creation guidelines (https://arctosdb.org/documentation/agent/##create)
+				have been detected.
+			<p>
+				If you are receiving this email, you have created a noncompliant agent, or
+				have manage_collection roles for a user who has created a noncompliant agent.
+			</p>
+			<p>
+				Please review the following agents and make corrections as appropriate.
+			</p>
+			<p>
+				If you are a collection manager, please ensure that everyone with manage_agents rights in your collection
+				has read and understands the agent creation guidelines.
+			</p>
+			<p>
+				<cfloop query="funk">
+					<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a>
+					<br>&nbsp;&nbsp;&nbsp;CreatedBy: #createdBy#
+					<br>&nbsp;&nbsp;&nbsp;Problem: #reason#
+				</cfloop>
+			</p>
+			#emailFooter#
+		</cfmail>
+
 
 <!-----
 	<cfloop query="creators">
@@ -315,46 +330,7 @@
 		<cfquery name="sp" dbtype="query">
 			select guid_prefix,nspc from raw where encumbrance_id=#encumbrance_id# group by guid_prefix,nspc
 		</cfquery>
-		<cfif isdefined("Application.version") and  Application.version is "prod">
-			<cfset subj="Arctos Encumbrance Notification">
-			<cfset maddr=valuelist(mt.collection_contact_email)>
-		<cfelse>
-			<cfset maddr=application.bugreportemail>
-			<cfset subj="TEST PLEASE IGNORE: Arctos Encumbrance Notification">
-		</cfif>
-		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="encumbrance_notification@#Application.fromEmail#" type="html">
-			<p>
-				You are receiving this message because you are a collection contact for a collection holding encumbered specimens.
-			</p>
-			<p>
-				Please review encumbrance <strong>#enc.ENCUMBRANCE#</strong> created by <strong>#enc.encumberer#</strong> on
-				<strong>#enc.MADE_DATE#</strong>, expires <strong>#enc.EXPIRATION_DATE#</strong>.
-			</p>
-			<p>
-				Specimen data are available at
-				<a href="#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">
-					#Application.serverRootURL#/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#
-				</a>
-			</p>
-			<p>
-				The encumbrance may be accessed at
-				<a href="#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#">
-					#Application.serverRootURL#/Encumbrances.cfm?action=updateEncumbrance&encumbrance_id=#encumbrance_id#
-				</a>
-			</p>
-			<p>
-				Please remove specimens from and delete any un-needed encumbrances.
-			</p>
-			<p>
-				Summary of encumbered specimens:
-				<cfloop query="sp">
-					<p>
-					#guid_prefix#: #nspc#
-					</p>
-				</cfloop>
-			</p>
-			#emailFooter#
-		</cfmail>
+
 	</cfloop>
 
 	----------->
