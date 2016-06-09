@@ -60,8 +60,13 @@
 	<p>
 		the funk:<cfdump var=#funk#>
 	</p>
+
+
+	<cfquery name="creators" dbtype="query">
+		select CREATED_BY_AGENT_ID from funk group by CREATED_BY_AGENT_ID
+	</cfquery>
 	<cfquery name="getCreatorEmail"  datasource="uam_god">
-		select distinct ADDRESS from address where address_type='email' and agent_id in (#baidlist#)
+		select distinct ADDRESS from address where address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID#)
 	</cfquery>
 
 
