@@ -10,6 +10,7 @@
 	</div>
 </cfsavecontent>
 <cfoutput>
+
 	<!--- start of encumbrance code --->
 	<!----
 		get encumbrances which are expiring in #mnths#
