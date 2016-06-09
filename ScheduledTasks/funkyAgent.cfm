@@ -34,7 +34,7 @@
 			<cfset baidlist=listappend(baidlist,agent_id)>
 		</cfif>
 	</cfloop>
-	<cfquery name="funk"  datasource="uam_god">
+	<cfquery name="funk1"  datasource="uam_god">
 		select
 			agent_id,
 			preferred_agent_name,
@@ -79,13 +79,14 @@
 			<cfset baidlist=listappend(baidlist,agent_id)>
 		</cfif>
 	</cfloop>
-	<cfquery name="funk"  datasource="uam_god">
+
+	<cfquery name="funk2"  datasource="uam_god">
 		select
 			agent_id,
 			preferred_agent_name,
 			CREATED_BY_AGENT_ID,
 			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
-			'no_ascii_variant' reason
+			'no_unabbreviated_variant' reason
 		from
 			agent
 		where
@@ -94,7 +95,13 @@
 			CREATED_BY_AGENT_ID,
 			preferred_agent_name
 	</cfquery>
-	<cfdump var=#funk#>
+	<cfdump var=#funk2#>
+
+
+
+	<cfquery name="creators" dbtype="query">
+		select * from funk1 union select * from funk2
+	</cfquery>
 
 
 
