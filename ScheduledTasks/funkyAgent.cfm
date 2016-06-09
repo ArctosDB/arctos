@@ -92,6 +92,22 @@
 		</cfquery>
 		<cfdump var=#creatorCollections#>
 
+		<cfloop query="creatorCollections">
+			<cfquery name="creatorCollectionManager"  datasource="uam_god">
+				select distinct
+					GRANTEE
+				from
+					dba_role_privs a,
+					dba_role_privs b
+				where
+					a.grantee=b.grantee and
+					a.GRANTED_ROLE='MANAGE_COLLECTION' AND
+					b.GRANTED_ROLE='#GRANTED_ROLE#'
+			</cfquery>
+			<cfdump var=#creatorCollectionManager#>
+
+		</cfloop>
+
 	</cfloop>
 	<!----
 	<cfquery name="getCreatorCollectionEmail"  datasource="uam_god">
