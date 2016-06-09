@@ -24,27 +24,16 @@
 			) and
 			regexp_like(preferred_agent_name,'[^A-Za-z -.]')
 	</cfquery>
-
 	<cfloop query="raw">
-		<br>#preferred_agent_name#
 		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_')>
-		<br>   -->  #mname#
-
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
 			<cfset baidlist=listappend(baidlist,agent_id)>
-			<p>
-				-------this one has no good agent ---------
-			</p>
 		</cfif>
 	</cfloop>
-
-	these are funky: #baidlist#
-
-
 	<cfquery name="funk"  datasource="uam_god">
 		select
 			agent_id,
@@ -61,9 +50,56 @@
 			preferred_agent_name
 	</cfquery>
 
-	<p>
-		the funk:<cfdump var=#funk#>
-	</p>
+
+
+	<cfquery name="raw" datasource="uam_god">
+		 select
+      		agent_id,
+			preferred_agent_name
+    	from
+			agent
+		where
+			CREATED_BY_AGENT_ID != 0 and
+    		agent_id not in (
+				select agent_id from  agent_relations where agent_relationship='bad duplicate of'
+			) and
+			(
+				lower(preferred_agent_name) like '% co.%' or
+				lower(preferred_agent_name) like '% inc.%'
+			)
+	</cfquery>
+	<cfloop query="raw">
+		<cfset mname=preferred_agent_name>
+		<cfset mname=replacenocase(mname,'inc.','incorporated')>
+		<cfset mname=replacenocase(mname,'inc.','incorporated')>
+		<cfquery name="hasascii"  datasource="uam_god">
+			 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
+		</cfquery>
+		<cfif hasascii.recordcount lt 1>
+			<cfset baidlist=listappend(baidlist,agent_id)>
+		</cfif>
+	</cfloop>
+	<cfquery name="funk"  datasource="uam_god">
+		select
+			agent_id,
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
+			'no_ascii_variant' reason
+		from
+			agent
+		where
+			agent_id in (#baidlist#)
+		order by
+			CREATED_BY_AGENT_ID,
+			preferred_agent_name
+	</cfquery>
+	<cfdump var=#funk#>
+
+
+
+
+
 
 
 	<cfquery name="creators" dbtype="query">
