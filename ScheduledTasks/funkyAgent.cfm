@@ -73,20 +73,43 @@
 	<p>
 		the getCreatorEmail:<cfdump var=#getCreatorEmail#>
 	</p>
+	<cfloop query="creators">
+		<br>#CREATED_BY_AGENT_ID#
+		<!--- find their collections ---->
+		<cfquery name="creatorCollections"  datasource="uam_god">
+			select distinct
+				GRANTEE,
+				GRANTED_ROLE
+			from
+				dba_role_privs,
+				agent_name,
+				collection
+			where
+				dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
+				dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix,':','_') and
+				agent_name.agent_name_type='login' and
+				agent_name.agent_id = #CREATED_BY_AGENT_ID#
+		</cfquery>
+		<cfdump var=#creatorCollections#>
+
+	</cfloop>
+	<!----
 	<cfquery name="getCreatorCollectionEmail"  datasource="uam_god">
 		select
 			GRANTEE,
 			GRANTED_ROLE
 		from
-			dba_role_privs,
-			agent_name
+			dba_role_privs creator,
+			agent_name creatoragent
 		where
-			dba_role_privs.GRANTEE=upper(agent_name) and
-			agent_name.agent_name_type='login' and
-			agent_name.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+			creator.GRANTEE=upper(creatoragent.agent_name) and
+			creatoragent.agent_name_type='login' and
+			creatoragent.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
 	</cfquery>
 
 	<cfdump var=#getCreatorCollectionEmail#>
+
+	---->
 
 
 
