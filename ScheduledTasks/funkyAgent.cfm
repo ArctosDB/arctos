@@ -37,6 +37,12 @@
 			 regexp_like(agent_name,'[^A-Za-z -.]')
 		</cfquery>
 		<cfdump var=#hasascii#>
+
+		<cfif hasascii.recordcount lt 1>
+			<p>
+				-------this one has no good agent ---------
+			</p>
+		</cfif>
 	</cfloop>
 
 </cfoutput>
