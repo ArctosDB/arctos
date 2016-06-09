@@ -86,7 +86,7 @@
 				collection
 			where
 				dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
-				dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix,':','_')) and
+				dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
 				agent_name.agent_name_type='login' and
 				agent_name.agent_id = #CREATED_BY_AGENT_ID#
 		</cfquery>
