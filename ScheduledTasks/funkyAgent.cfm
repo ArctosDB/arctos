@@ -107,6 +107,15 @@
 	</cfquery>
 	<cfdump var=#creatorCollections#>
 
+
+	<cfquery name="allAddEmails" dbtype="query">
+		select ADDRESS from getCreatorEmail union select address from creatorCollections
+	</cfquery>
+	<cfquery name="addEmails" dbtype="query">
+		select address from allAddEmails group by address
+	</cfquery>
+
+	<cfdump var=#addEmails#>
 	<p>
 
 		^^^^ is the collectionmanager of all collections which have users who have created funky agents
