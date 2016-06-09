@@ -69,11 +69,29 @@
 		select distinct ADDRESS from address where address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
 	</cfquery>
 
-
-
+	<br />
 	<p>
 		the getCreatorEmail:<cfdump var=#getCreatorEmail#>
 	</p>
+	<cfquery name="getCreatorCollectionEmail"  datasource="uam_god">
+		select
+			GRANTEE,
+			GRANTED_ROLE
+		from
+			dba_role_privs,
+			agent_name
+		where
+			dba_role_privs.GRANTEE=upper(agent_name) and
+			agent_name.agent_name_type='login' and
+			agent_name.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+	</cfquery>
+
+	<cfdump var=#getCreatorCollectionEmail#>
+
+
+
+
+
 
 </cfoutput>
 	<!----------
