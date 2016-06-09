@@ -124,7 +124,7 @@
 
 
 	<hr>
-		Agents which may not comply with the agent creation guidelines (https://arctosdb.org/documentation/agent/#create) have been detected.
+		Agents which may not comply with the agent creation guidelines (https://arctosdb.org/documentation/agent/##create) have been detected.
 		<p>
 			If you are receiving this email, you have created a noncompliant agent, or
 			have manage_collection roles for a user who has created a noncompliant agent.
@@ -138,7 +138,7 @@
 		</p>
 		<p>
 			<cfloop query="funk">
-				<br>#PREFERRED_AGENT_NAME# (created by #cb#)
+				<br><a href="#session.serverRootURL/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a> (created by #cb#)
 			</cfloop>
 		</p>
 	<hr>
