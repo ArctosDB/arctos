@@ -51,7 +51,7 @@
 	</cfquery>
 
 
-
+	<cfset baidlist="">
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
