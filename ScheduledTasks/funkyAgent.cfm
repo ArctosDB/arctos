@@ -138,7 +138,7 @@
 		</p>
 		<p>
 			<cfloop query="funk">
-				<br><a href="#session.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a> (created by #cb#)
+				<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a> (created by #cb#)
 			</cfloop>
 		</p>
 	<hr>
