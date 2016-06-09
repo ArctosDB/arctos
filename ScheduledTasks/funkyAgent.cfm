@@ -76,7 +76,6 @@
 
 	<cfquery name="creatorCollections"  datasource="uam_god">
 		select distinct
-			GRANTEE,
 			GRANTED_ROLE
 		from
 			dba_role_privs,
