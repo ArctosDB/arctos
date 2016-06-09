@@ -55,6 +55,9 @@
 			agent
 		where
 			agent_id in (#baidlist#)
+		order by
+			CREATED_BY_AGENT_ID,
+			preferred_agent_name
 	</cfquery>
 
 	<p>
