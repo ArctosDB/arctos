@@ -50,7 +50,8 @@
 			agent_id,
 			preferred_agent_name,
 			CREATED_BY_AGENT_ID,
-			getPreferredAgentName(CREATED_BY_AGENT_ID) cb
+			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
+			'no_ascii_variant' reason
 		from
 			agent
 		where
@@ -141,7 +142,9 @@
 		</p>
 		<p>
 			<cfloop query="funk">
-				<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a> (created by #cb#)
+				<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a>
+				<br>&nbsp;&nbsp;&nbsp;CreatedBy: #createdBy#
+				<br>&nbsp;&nbsp;&nbsp;Problem: #reason#
 			</cfloop>
 		</p>
 	<hr>
