@@ -13,9 +13,7 @@
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
-			preferred_agent_name,
-			CREATED_BY_AGENT_ID,
-			getPreferredAgentName(CREATED_BY_AGENT_ID) cb
+			preferred_agent_name
     	from
 			agent
 		where
@@ -36,8 +34,6 @@
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
 		</cfquery>
-		<cfdump var=#hasascii#>
-
 		<cfif hasascii.recordcount lt 1>
 			<cfset baidlist=listappend(baidlist,agent_id)>
 			<p>
@@ -47,6 +43,32 @@
 	</cfloop>
 
 	these are funky: #baidlist#
+
+
+	<cfquery name="funk"  datasource="uam_god">
+		select
+			agent_id,
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) cb
+		from
+			agent
+		where
+			agent_id in (#baidlist#)
+	</cfquery>
+
+	<p>
+		the funk:<cfdump var=#funk#>
+	</p>
+	<cfquery name="getCreatorEmail"  datasource="uam_god">
+		select distinct ADDRESS from address where address_type='email' and agent_id in (#baidlist#)
+	</cfquery>
+
+
+
+	<p>
+		the getCreatorEmail:<cfdump var=#getCreatorEmail#>
+	</p>
 
 </cfoutput>
 	<!----------
