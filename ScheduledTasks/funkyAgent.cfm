@@ -96,7 +96,7 @@
 
 	</p>
 
-
+<!-----
 	<cfloop query="creators">
 		<br>#CREATED_BY_AGENT_ID#
 		<!--- find their collections ---->
@@ -133,6 +133,8 @@
 		</cfloop>
 
 	</cfloop>
+
+	----->
 	<!----
 	<cfquery name="getCreatorCollectionEmail"  datasource="uam_god">
 		select
