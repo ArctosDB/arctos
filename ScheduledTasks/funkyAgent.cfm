@@ -98,9 +98,54 @@
 	<cfdump var=#funk2#>
 
 
+	<cfset baidlist="">
+	<cfquery name="raw" datasource="uam_god">
+		 select
+      		agent_id,
+			preferred_agent_name
+    	from
+			agent
+		where
+			CREATED_BY_AGENT_ID != 0 and
+    		agent_id not in (
+				select agent_id from  agent_relations where agent_relationship='bad duplicate of'
+			) and
+			(
+				lower(preferred_agent_name) like '%&%'
+			)
+	</cfquery>
+	<cfloop query="raw">
+		<cfset mname=preferred_agent_name>
+		<cfset mname=replacenocase(mname,'&','and')>
+		<cfquery name="hasascii"  datasource="uam_god">
+			 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
+		</cfquery>
+		<cfif hasascii.recordcount lt 1>
+			<cfset baidlist=listappend(baidlist,agent_id)>
+		</cfif>
+	</cfloop>
+
+	<cfquery name="funk3"  datasource="uam_god">
+		select
+			agent_id,
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
+			'no_unampersanded_variant' reason
+		from
+			agent
+		where
+			agent_id in (#baidlist#)
+		order by
+			CREATED_BY_AGENT_ID,
+			preferred_agent_name
+	</cfquery>
+	<cfdump var=#funk2#>
+
+
 
 	<cfquery name="funk" dbtype="query">
-		select * from funk1 union select * from funk2
+		select * from funk1 union select * from funk2 union select * from funk3
 	</cfquery>
 
 
