@@ -208,17 +208,13 @@
 
 
 			Agents which may not comply with the agent creation guidelines (https://arctosdb.org/documentation/agent/##create)
-				have been detected.
-			<p>
-				If you are receiving this email, you have created a noncompliant agent, or
-				have manage_collection roles for a user who has created a noncompliant agent.
+				have been detected. If you are receiving this email, you have either created a noncompliant agent or
+				have manage_collection roles for a user who has created a noncompliant agent. If you are a collection manager,
+				please ensure that everyone with manage_agents rights in your collection
+				has read and understands the agent creation guidelines.
 			</p>
 			<p>
 				Please review the following agents and make corrections as appropriate.
-			</p>
-			<p>
-				If you are a collection manager, please ensure that everyone with manage_agents rights in your collection
-				has read and understands the agent creation guidelines.
 			</p>
 			<p>
 				<cfloop query="funk">
