@@ -45,6 +45,12 @@
 			<p>
 				-------this one has no good agent ---------
 			</p>
+		<cfelse>
+
+
+			<p>
+				------- spiffy ---------
+			</p>
 		</cfif>
 	</cfloop>
 
