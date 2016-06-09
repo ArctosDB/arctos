@@ -77,13 +77,20 @@
 	<cfquery name="creatorCollections"  datasource="uam_god">
 
 		select distinct
-			a.GRANTEE
+			a.GRANTEE,
+			address
 		from
 			dba_role_privs a,
-			dba_role_privs b
+			dba_role_privs b,
+			agent_name,
+			address
 		where
 			a.grantee=b.grantee and
 			a.GRANTED_ROLE='MANAGE_COLLECTION' AND
+			address_type='email' and
+			a.grantee=upper(agent_name) and
+			agent_name_type='login' and
+			agent_name.agent_id=address.agent_id and
 			b.GRANTED_ROLE in (
 			select distinct
 				GRANTED_ROLE
