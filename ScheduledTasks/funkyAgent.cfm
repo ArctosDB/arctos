@@ -201,7 +201,7 @@
 		</cfif>
 
 
-		Agents which may not comply with the agent creation guidelines (https://arctosdb.org/documentation/agent/##create)
+		Agents which may not comply with the Arctos Agent Creation Guidelines (https://arctosdb.org/documentation/agent/##create)
 			have been detected. If you are receiving this email, you have either created a noncompliant agent or
 			have manage_collection roles for a user who has created a noncompliant agent. If you are a collection manager,
 			please ensure that everyone with manage_agents rights in your collection
