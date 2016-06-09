@@ -31,10 +31,7 @@
 		<br>#preferred_agent_name#
 		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_')>
 		<br>   -->  #mname#
-		<cfquery name="aan"  datasource="uam_god">
-			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#'
-		</cfquery>
-		<cfdump var=#aan#>
+
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
@@ -44,12 +41,6 @@
 		<cfif hasascii.recordcount lt 1>
 			<p>
 				-------this one has no good agent ---------
-			</p>
-		<cfelse>
-
-
-			<p>
-				------- spiffy ---------
 			</p>
 		</cfif>
 	</cfloop>
