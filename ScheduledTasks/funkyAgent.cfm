@@ -186,150 +186,38 @@
 		select address from allAddEmails group by address
 	</cfquery>
 
-	<cfdump var=#addEmails#>
-	<p>
 
-		^^^^ is the collectionmanager of all collections which have users who have created funky agents
+	<cfif isdefined("Application.version") and  Application.version is "prod">
+		<cfset subj="Arctos Noncompliant Agent Notification">
+		<cfset maddr=valuelist(addEmails.ADDRESS)>
+	<cfelse>
+		<cfset maddr=application.bugreportemail>
+		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
+	</cfif>
+	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
 
-	</p>
-
-		<cfif isdefined("Application.version") and  Application.version is "prod">
-			<cfset subj="Arctos Noncompliant Agent Notification">
-			<cfset maddr=valuelist(addEmails.ADDRESS)>
-		<cfelse>
-			<cfset maddr=application.bugreportemail>
-			<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
+		<cfif not isdefined("Application.version") or  Application.version is not "prod">
+			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
 		</cfif>
-		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
-
-			<cfif not isdefined("Application.version") or  Application.version is not "prod">
-				<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
-			</cfif>
 
 
-			Agents which may not comply with the agent creation guidelines (https://arctosdb.org/documentation/agent/##create)
-				have been detected. If you are receiving this email, you have either created a noncompliant agent or
-				have manage_collection roles for a user who has created a noncompliant agent. If you are a collection manager,
-				please ensure that everyone with manage_agents rights in your collection
-				has read and understands the agent creation guidelines.
-			</p>
-			<p>
-				Please review the following agents and make corrections as appropriate.
-			</p>
-			<p>
-				<cfloop query="funk">
-					<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a>
-					<br>&nbsp;&nbsp;&nbsp;CreatedBy: #createdBy#
-					<br>&nbsp;&nbsp;&nbsp;Problem: #reason#
-				</cfloop>
-			</p>
-			#emailFooter#
-		</cfmail>
-
-
-<!-----
-	<cfloop query="creators">
-		<br>#CREATED_BY_AGENT_ID#
-		<!--- find their collections ---->
-		<cfquery name="creatorCollections"  datasource="uam_god">
-			select distinct
-				GRANTEE,
-				GRANTED_ROLE
-			from
-				dba_role_privs,
-				agent_name,
-				collection
-			where
-				dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
-				dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
-				agent_name.agent_name_type='login' and
-				agent_name.agent_id = #CREATED_BY_AGENT_ID#
-		</cfquery>
-		<cfdump var=#creatorCollections#>
-
-		<cfloop query="creatorCollections">
-			<cfquery name="creatorCollectionManager"  datasource="uam_god">
-				select distinct
-					a.GRANTEE
-				from
-					dba_role_privs a,
-					dba_role_privs b
-				where
-					a.grantee=b.grantee and
-					a.GRANTED_ROLE='MANAGE_COLLECTION' AND
-					b.GRANTED_ROLE='#GRANTED_ROLE#'
-			</cfquery>
-			<cfdump var=#creatorCollectionManager#>
-
-		</cfloop>
-
-	</cfloop>
-
-	----->
-	<!----
-	<cfquery name="getCreatorCollectionEmail"  datasource="uam_god">
-		select
-			GRANTEE,
-			GRANTED_ROLE
-		from
-			dba_role_privs creator,
-			agent_name creatoragent
-		where
-			creator.GRANTEE=upper(creatoragent.agent_name) and
-			creatoragent.agent_name_type='login' and
-			creatoragent.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
-	</cfquery>
-
-	<cfdump var=#getCreatorCollectionEmail#>
-
-	---->
-
-
-
-
-
-
+		Agents which may not comply with the agent creation guidelines (https://arctosdb.org/documentation/agent/##create)
+			have been detected. If you are receiving this email, you have either created a noncompliant agent or
+			have manage_collection roles for a user who has created a noncompliant agent. If you are a collection manager,
+			please ensure that everyone with manage_agents rights in your collection
+			has read and understands the agent creation guidelines.
+		</p>
+		<p>
+			Please review the following agents and make corrections as appropriate.
+		</p>
+		<p>
+			<cfloop query="funk">
+				<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a>
+				<br>&nbsp;&nbsp;&nbsp;CreatedBy: #createdBy#
+				<br>&nbsp;&nbsp;&nbsp;Problem: #reason#
+			</cfloop>
+		</p>
+		#emailFooter#
+	</cfmail>
 </cfoutput>
-	<!----------
-	<cfquery name="enc" dbtype="query">
-		select
-			ENCUMBRANCE_ID,
-			EXPIRATION_DATE,
-			ENCUMBRANCE,
-			REMARKS,
-			MADE_DATE,
-			ENCUMBRANCE_ACTION,
-			encumberer
-		from
-			raw
-		group by
-			ENCUMBRANCE_ID,
-			EXPIRATION_DATE,
-			ENCUMBRANCE,
-			REMARKS,
-			MADE_DATE,
-			ENCUMBRANCE_ACTION,
-			encumberer
-	</cfquery>
-	<cfloop query="enc">
-		<cfquery name="mt" dbtype="query">
-			select
-				collection_contact_email
-			from
-				raw
-			where
-				collection_contact_email is not null and
-				encumbrance_id=#encumbrance_id#
-			group by
-				collection_contact_email
-		</cfquery>
-		<cfquery name="sp" dbtype="query">
-			select guid_prefix,nspc from raw where encumbrance_id=#encumbrance_id# group by guid_prefix,nspc
-		</cfquery>
-
-	</cfloop>
-
-	----------->
-
 <cfinclude template="/includes/_footer.cfm">
-	<!--- end of encumbrance code --->
