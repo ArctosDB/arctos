@@ -99,7 +99,7 @@
 
 
 
-	<cfquery name="creators" dbtype="query">
+	<cfquery name="funk" dbtype="query">
 		select * from funk1 union select * from funk2
 	</cfquery>
 
