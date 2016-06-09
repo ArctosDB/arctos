@@ -23,7 +23,7 @@
 			CREATED_BY_AGENT_ID != 0 and
     		agent_id not in (
 				select agent_id from  agent_relations where agent_relationship='bad duplicate of'
-			) and r
+			) and
 			regexp_like(preferred_agent_name,'[^A-Za-z -.]')
 	</cfquery>
 
