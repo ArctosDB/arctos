@@ -73,6 +73,30 @@
 	<p>
 		the getCreatorEmail:<cfdump var=#getCreatorEmail#>
 	</p>
+
+	<cfquery name="creatorCollections"  datasource="uam_god">
+		select distinct
+			GRANTEE,
+			GRANTED_ROLE
+		from
+			dba_role_privs,
+			agent_name,
+			collection
+		where
+			dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
+			dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
+			agent_name.agent_name_type='login' and
+			agent_name.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+	</cfquery>
+	<cfdump var=#creatorCollections#>
+
+	<p>
+
+		^^^^ is all collections which have users who have created funky agents
+
+	</p>
+
+
 	<cfloop query="creators">
 		<br>#CREATED_BY_AGENT_ID#
 		<!--- find their collections ---->
