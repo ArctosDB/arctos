@@ -66,7 +66,7 @@
 		select CREATED_BY_AGENT_ID from funk group by CREATED_BY_AGENT_ID
 	</cfquery>
 	<cfquery name="getCreatorEmail"  datasource="uam_god">
-		select distinct ADDRESS from address where address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID#)
+		select distinct ADDRESS from address where address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
 	</cfquery>
 
 
