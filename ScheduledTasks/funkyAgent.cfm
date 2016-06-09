@@ -95,8 +95,6 @@
 			CREATED_BY_AGENT_ID,
 			preferred_agent_name
 	</cfquery>
-	<cfdump var=#funk2#>
-
 
 	<cfset baidlist="">
 	<cfquery name="raw" datasource="uam_god">
@@ -140,19 +138,9 @@
 			CREATED_BY_AGENT_ID,
 			preferred_agent_name
 	</cfquery>
-	<cfdump var=#funk2#>
-
-
-
 	<cfquery name="funk" dbtype="query">
 		select * from funk1 union select * from funk2 union select * from funk3
 	</cfquery>
-
-
-
-
-
-
 
 	<cfquery name="creators" dbtype="query">
 		select CREATED_BY_AGENT_ID from funk group by CREATED_BY_AGENT_ID
@@ -161,13 +149,7 @@
 		select distinct ADDRESS from address where address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
 	</cfquery>
 
-	<br />
-	<p>
-		the getCreatorEmail:<cfdump var=#getCreatorEmail#>
-	</p>
-
 	<cfquery name="creatorCollections"  datasource="uam_god">
-
 		select distinct
 			a.GRANTEE,
 			address
@@ -197,9 +179,6 @@
 				agent_name.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
 			)
 	</cfquery>
-	<cfdump var=#creatorCollections#>
-
-
 	<cfquery name="allAddEmails" dbtype="query">
 		select ADDRESS from getCreatorEmail union select address from creatorCollections
 	</cfquery>
