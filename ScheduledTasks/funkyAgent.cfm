@@ -95,7 +95,7 @@
 		<cfloop query="creatorCollections">
 			<cfquery name="creatorCollectionManager"  datasource="uam_god">
 				select distinct
-					GRANTEE
+					a.GRANTEE
 				from
 					dba_role_privs a,
 					dba_role_privs b
