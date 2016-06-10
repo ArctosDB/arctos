@@ -8,7 +8,6 @@
 	</div>
 </cfsavecontent>
 <cfoutput>
-
 	<cfset baidlist="">
 	<cfquery name="raw" datasource="uam_god">
 		 select
@@ -49,7 +48,6 @@
 			CREATED_BY_AGENT_ID,
 			preferred_agent_name
 	</cfquery>
-
 
 	<cfset baidlist="">
 	<cfquery name="raw" datasource="uam_god">
@@ -193,12 +191,9 @@
 		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
 	</cfif>
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
-
 		<cfif not isdefined("Application.version") or  Application.version is not "prod">
 			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
 		</cfif>
-
-
 		Agents which may not comply with the Arctos Agent Creation Guidelines (https://arctosdb.org/documentation/agent/##create)
 			have been detected. If you are receiving this email, you have either created a noncompliant agent or
 			have manage_collection roles for a user who has created a noncompliant agent. If you are a collection manager,
