@@ -140,7 +140,7 @@ edit code to run this<cfabort>
 				<cfquery name="upm" datasource="uam_god">
 					update media set
 						media_uri='#REMOTE_URI#',
-						preview_uri='#LOCAL_TN#'
+						preview_uri='#REMOTE_TN#'
 					where
 						media_id=#media_id#
 				</cfquery>
