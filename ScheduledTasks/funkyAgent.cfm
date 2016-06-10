@@ -185,8 +185,6 @@
 	<cfquery name="addEmails" dbtype="query">
 		select address from allAddEmails group by address
 	</cfquery>
-
-
 	<cfif isdefined("Application.version") and  Application.version is "prod">
 		<cfset subj="Arctos Noncompliant Agent Notification">
 		<cfset maddr=valuelist(addEmails.ADDRESS)>
