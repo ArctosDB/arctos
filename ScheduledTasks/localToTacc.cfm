@@ -80,10 +80,10 @@ edit code to run this<cfabort>
 	</cfquery>
 	<cfloop query="d">
 		<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
-		<br>rm #localfPath#
+		<br>rm -rf #localfPath#
 		<cfif len(LOCAL_TN) gt 0>
 			<cfset localfPath=replace(LOCAL_TN,#application.serverRootUrl#,'#application.webDirectory#')>
-			<br>rm #localfPath#
+			<br>rm -rf #localfPath#
 		</cfif>
 
 
