@@ -78,7 +78,7 @@ edit code to run this<cfabort>
 <cfif action is "findMaybeAbandonedDeletableJunk">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from temp_abandoned_media where used_in_media_count is null and rownum<100
+			select * from temp_abandoned_media where used_in_media_count is null and rownum<500
 		</cfquery>
 		<cftransaction>
 			<cfloop query="d">
