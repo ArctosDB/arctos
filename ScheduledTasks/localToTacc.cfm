@@ -86,7 +86,7 @@ edit code to run this<cfabort>
 		<cfset rnum=0>
 	<cfloop query="root">
 		<cfset rnum=rnum+1>
-		<cfif rnum lt 101>
+		<cfif rnum lt 1001>
 		<cfif type is "file">
 			<!--- just ignore "new" stuff; let it cook for a while and get it later if it's still not used ---->
 			<cfif dateDiff('d',dateLastModified,now()) GT 60>
@@ -143,7 +143,6 @@ edit code to run this<cfabort>
 
 </cfif>
 		</cfif>
-		<hr>
 	</cfloop>
 
 
