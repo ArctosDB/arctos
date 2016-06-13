@@ -83,8 +83,16 @@ edit code to run this<cfabort>
 	<cfloop query="root">
 		<cfif type is "file">
 			<br>found #directory#/#name#
-
-
+			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+			<br>webpath: #webpath#
+			<cfquery name="isUsed" datasource="uam_god">
+				select media_id from media where
+					(
+						media_uri='#webpath#' or
+						preview_uri='#webpath#'
+					)
+			</cfquery>
+			<br>isUsed.recordcount: #isUsed.recordcount#
 
 			<!----
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
