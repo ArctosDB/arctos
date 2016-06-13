@@ -62,12 +62,95 @@ edit code to run this<cfabort>
 <br><a href="localToTacc.cfm?action=updateMedia">updateMedia</a> - I do hereby solemnly swear that nothing is jacked up, change real stuff
 
 
+<br><a href="localToTacc.cfm?action=recoverDisk">recoverDisk</a> - DELETE local files
 
 
 <cfsetting requesttimeout="300" />
 
+<!---------------------------------------------------------------------------------------------------------->
+
+<cfif action is "recoverDisk">
+
+<cfoutput>
+	<cfquery name="d" datasource="cf_dbuser">
+		select * from cf_tacc_transfer
+	</cfquery>
+	<cfdump var=#d#>
+
+	<cfabort>
 
 
+
+	<!--- local files are loaded to /SpecimenImages or mediaUploads. Find stuff there that's not in media and delete it --->
+	<cfdirectory action="LIST"
+    	directory="#Application.webDirectory#/SpecimenImages"
+        name="root"
+		recurse="yes">
+	<cfloop query="root">
+		<cfif type is "file">
+			<br>found #directory#/#name#
+			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+			<br>webpath: #webpath#
+			<cfquery name="isUsed" datasource="uam_god">
+				select media_id from media where
+					(
+						media_uri='#webpath#' or
+						preview_uri='#webpath#'
+					)
+			</cfquery>
+			<br>isUsed.recordcount: #isUsed.recordcount#
+			<cfif isUsed.recordcount is 0>
+				<br>going to delete
+				<cffile action="delete" file="#directory#/#name#">
+			</cfif>
+		<cfelse>
+			<cfdirectory action="list" directory="#directory#/#name#" name="current">
+			<br> got a directory #directory#/#name# containing #current.recordcount# files
+			<cfif current.recordcount is 0>
+				<br>deleting it
+				<cfdirectory action="delete" directory="#directory#/#name#">
+			</cfif>
+
+
+		</cfif>
+	</cfloop>
+
+	<cfdirectory action="LIST"
+    	directory="#Application.webDirectory#/mediaUploads"
+        name="root"
+		recurse="yes">
+	<cfloop query="root">
+		<cfif type is "file">
+			<br>found #directory#/#name#
+			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+			<br>webpath: #webpath#
+			<cfquery name="isUsed" datasource="uam_god">
+				select media_id from media where
+					(
+						media_uri='#webpath#' or
+						preview_uri='#webpath#'
+					)
+			</cfquery>
+			<br>isUsed.recordcount: #isUsed.recordcount#
+			<cfif isUsed.recordcount is 0>
+				<br>going to delete
+				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq ".">
+				 	<cffile action="delete" file="#directory#/#name#">
+				 </cfif>
+			</cfif>
+		<cfelse>
+			<cfdirectory action="list" directory="#directory#/#name#" name="current">
+			<br> got a directory #directory#/#name# containing #current.recordcount# files
+			<cfif current.recordcount is 0>
+				<br>deleting it
+				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq ".">
+				 	<cffile action="delete" file="#directory#/#name#">
+				 </cfif>
+			</cfif>
+		</cfif>
+	</cfloop>
+</cfoutput>
+</cfif>
 
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "downloadLocalPath">
