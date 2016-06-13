@@ -77,7 +77,39 @@ edit code to run this<cfabort>
 	<cfquery name="d" datasource="cf_dbuser">
 		select * from cf_tacc_transfer where status='media_updated'
 	</cfquery>
-	<cfdump var=#d#>
+	<cfloop query="d">
+		<hr>
+		<br>#REMOTE_URI#
+		<cfset newstatus=''>
+		<cfif len(REMOTE_URI) is 0>
+			<!--- wth this should never happen!! --->
+			<cfset newstatus='REMOTE_URI_null_at_recoverdisk'>
+		<cfelse>
+			<cfhttp url="#REMOTE_URI#" method="HEAD" />
+			<cfif left(cfhttp.statuscode,3) is "200">
+				<cfset newstatus="remote_uri_confirmed">
+			<cfelse>
+				<cfset newstatus="remote_uri_missing">
+			</cfif>
+		</cfif>
+
+		<br>#REMOTE_TN#
+		<cfif len(REMOTE_TN) is 0>
+			<!--- make sure there's not supposed to be one --->
+			<cfif len(LOCAL_TN) gt 0>
+				<cfset newstatus=listappend(newstatus,'remote_tn_notfound_but_localtn_exists',';')>
+			</cfif>
+		<cfelse>
+			<!--- there is a remote thumb, make sure it's happy ---->
+			<cfhttp url="#REMOTE_TN#" method="HEAD" />
+			<cfif left(cfhttp.statuscode,3) is "200">
+				<cfset newstatus=listappend(newstatus,'remote_tn_confirmed',';')>
+			<cfelse>
+				<cfset newstatus="remote_tn_missing">
+			</cfif>
+		</cfif>
+		<br>#newstatus#
+	</cfloop>
 </cfoutput>
 </cfif>
 
