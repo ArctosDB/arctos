@@ -63,9 +63,21 @@ edit code to run this<cfabort>
 
 
 
+<br><a href="localToTacc.cfm?action=recoverDisk">recoverDisk</a> - DELETE local files
+
 
 <cfsetting requesttimeout="300" />
 
+<!---------------------------------------------------------------------------------------------------------->
+
+<cfif action is "recoverDisk">
+
+<cfoutput>
+	<cfquery name="d" datasource="cf_dbuser">
+		select * from cf_tacc_transfer
+	</cfquery>
+	<cfdump var=#d#>
+</cfif>
 
 
 
