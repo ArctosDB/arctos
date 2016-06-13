@@ -52,7 +52,8 @@ edit code to run this<cfabort>
 
 <br><a href="localToTacc.cfm?action=checkchecksum">checkchecksum</a> - do this third, it checks that everything is happy
 
-<br><a href="localToTacc.cfm?action=cleanup_local">cleanup_local</a> - delete stuff
+<br><a href="localToTacc.cfm?action=cleanup_local">cleanup_local</a> - mark files where the local is confirmed delete
+	(and these can be deleted from the temp table; they're all done)
 
 
 <br><a href="localToTacc.cfm?action=showstatus">showstatus</a> - wut?
@@ -74,7 +75,7 @@ edit code to run this<cfabort>
 
 <cfoutput>
 	<cfquery name="d" datasource="cf_dbuser">
-		select * from cf_tacc_transfer
+		select * from cf_tacc_transfer where status='media_updated'
 	</cfquery>
 	<cfdump var=#d#>
 </cfoutput>
