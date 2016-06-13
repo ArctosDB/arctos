@@ -86,7 +86,7 @@ edit code to run this<cfabort>
 		<cfset rnum=0>
 	<cfloop query="root">
 		<cfset rnum=rnum+1>
-		<cfif rnum lt 10>
+		<cfif rnum lt 1001>
 		<cfif type is "file">
 			<br>found #directory#/#name# - dateLastModified=#dateLastModified#
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
