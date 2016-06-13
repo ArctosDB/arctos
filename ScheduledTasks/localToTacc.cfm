@@ -108,6 +108,13 @@ edit code to run this<cfabort>
 				<cfset newstatus="remote_tn_missing">
 			</cfif>
 		</cfif>
+
+		<cfquery name="uds" datasource="cf_dbuser">
+			udpate cf_tacc_transfer set status='#newstatus#' where key=#key#
+		</cfquery>
+
+
+
 		<br>#newstatus#
 	</cfloop>
 </cfoutput>
