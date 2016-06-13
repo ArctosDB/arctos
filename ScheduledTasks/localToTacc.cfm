@@ -69,7 +69,7 @@ edit code to run this<cfabort>
 
 <br><a href="localToTacc.cfm?action=getDeleteScript">getDeleteScript</a> - get scripts to clean up server
 <br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk">findMaybeAbandonedJunk</a>
-<br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk">findMaybeAbandonedDeletableJunk</a>
+<br><a href="localToTacc.cfm?action=findMaybeAbandonedDeletableJunk">findMaybeAbandonedDeletableJunk</a>
 
 
 <cfsetting requesttimeout="300" />
