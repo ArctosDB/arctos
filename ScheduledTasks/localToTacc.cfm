@@ -88,22 +88,35 @@ edit code to run this<cfabort>
 		<cfset rnum=rnum+1>
 		<cfif rnum lt 101>
 		<cfif type is "file">
-			<br>found #directory#/#name# - dateLastModified=#dateLastModified#
-			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
-			<br>webpath: #webpath#
-			<cfquery name="isUsed" datasource="uam_god">
-				select media_id from media where
-					(
-						media_uri='#webpath#' or
-						preview_uri='#webpath#'
-					)
-			</cfquery>
-			<br>isUsed.recordcount: #isUsed.recordcount#
+			<!--- just ignore "new" stuff; let it cook for a while and get it later if it's still not used ---->
 			<cfif dateDiff('d',dateLastModified,now()) GT 60 and isUsed.recordcount eq 0>
-				<br>^^^^^^^^^^^^ is old and unused and can probably be deleted ^^^^^^^^^^^^^^
+				<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+				<!--- see if it's used anywhere ---->
+				<cfquery name="isUsed" datasource="uam_god">
+					select media_id from media where
+						(
+							media_uri='#webpath#' or
+							preview_uri='#webpath#'
+						)
+				</cfquery>
+				<cfif isUsed.recordcount eq 0>
+								<br>found #webpath# - dateLastModified=#dateLastModified#
+
+				</cfif>
+
 
 			</cfif>
 			<!----
+
+
+			<br>webpath: #webpath#
+
+			<br>isUsed.recordcount: #isUsed.recordcount#
+
+
+
+
+				<br>^^^^^^^^^^^^ is old and unused and can probably be deleted ^^^^^^^^^^^^^^
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
 			<br>webpath: #webpath#
 			<cfquery name="isUsed" datasource="uam_god">
