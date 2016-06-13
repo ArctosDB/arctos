@@ -64,14 +64,43 @@ edit code to run this<cfabort>
 
 
 
-<br><a href="localToTacc.cfm?action=recoverDisk">recoverDisk</a> - DELETE local files
+<br><a href="localToTacc.cfm?action=recoverDisk_confirmRemote">recoverDisk_confirmRemote</a> - find local files which can be deleted
+
+
+<br><a href="localToTacc.cfm?action=getDeleteScript">getDeleteScript</a> - get scripts to clean up server
 
 
 <cfsetting requesttimeout="300" />
 
 <!---------------------------------------------------------------------------------------------------------->
+<cfif action is "getDeleteScript">
+<cfoutput>
+	<cfquery name="d" datasource="cf_dbuser">
+		select * from cf_tacc_transfer where status in ('remote_uri_confirmed;remote_tn_confirmed','remote_uri_confirmed')
+	</cfquery>
+	<cfloop query="d">
+		<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
+		<br>rm #localPath#
+		<cfif len(LOCAL_TN) gt 0>
+			<cfset localfPath=replace(LOCAL_TN,#application.serverRootUrl#,'#application.webDirectory#')>
+			<br>rm #localPath#
+		</cfif>
 
-<cfif action is "recoverDisk">
+
+	</cfloop>
+
+	<hr>
+
+	run the above, then
+
+	<p>
+		delete from cf_tacc_transfer where status in ('remote_uri_confirmed;remote_tn_confirmed','remote_uri_confirmed')
+	</p>
+
+</cfoutput>
+</cfif>
+
+<cfif action is "recoverDisk_confirmRemote">
 
 <cfoutput>
 	<cfquery name="d" datasource="cf_dbuser">
