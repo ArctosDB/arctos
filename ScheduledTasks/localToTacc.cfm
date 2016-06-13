@@ -89,7 +89,7 @@ edit code to run this<cfabort>
 		<cfif rnum lt 101>
 		<cfif type is "file">
 			<!--- just ignore "new" stuff; let it cook for a while and get it later if it's still not used ---->
-			<cfif dateDiff('d',dateLastModified,now()) GT 60 and isUsed.recordcount eq 0>
+			<cfif dateDiff('d',dateLastModified,now()) GT 60>
 				<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
 				<!--- see if it's used anywhere ---->
 				<cfquery name="isUsed" datasource="uam_god">
