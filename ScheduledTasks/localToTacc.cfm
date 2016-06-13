@@ -80,7 +80,12 @@ edit code to run this<cfabort>
     	directory="#Application.webDirectory#/mediaUploads"
         name="root"
 		recurse="yes">
+
+
+		<cfset rnum=0>
 	<cfloop query="root">
+		<cfset rnum=rnum+1>
+		<cfif rnum lt 10>
 		<cfif type is "file">
 			<br>found #directory#/#name#
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
@@ -118,6 +123,8 @@ edit code to run this<cfabort>
 			</cfif>
 
 ---->
+
+</cfif>
 		</cfif>
 	</cfloop>
 
