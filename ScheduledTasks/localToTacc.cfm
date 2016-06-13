@@ -69,10 +69,32 @@ edit code to run this<cfabort>
 
 <br><a href="localToTacc.cfm?action=getDeleteScript">getDeleteScript</a> - get scripts to clean up server
 <br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk">findMaybeAbandonedJunk</a>
+<br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk">findMaybeAbandonedDeletableJunk</a>
 
 
 <cfsetting requesttimeout="300" />
 
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "findMaybeAbandonedDeletableJunk">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from temp_abandoned_media where used_in_media_count is null and rownum<100
+		</cfquery>
+		<cfloop query="d">
+			<cfquery name="isUsed" datasource="uam_god">
+				select count(*) c from media where
+					(
+						media_uri='#media_uri#' or
+						preview_uri='#media_uri#'
+					)
+			</cfquery>
+			<cfquery name="udc" datasource="uam_god">
+				update temp_abandoned_media set used_in_media_count=#isUsed.c# where media_uri='#media_uri#'
+			</cfquery>
+		</cfloop>
+	</cfoutput>
+
+</cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "findMaybeAbandonedJunk">
 <hr>
