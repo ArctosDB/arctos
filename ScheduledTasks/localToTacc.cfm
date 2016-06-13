@@ -75,6 +75,7 @@ edit code to run this<cfabort>
 
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "findMaybeAbandonedJunk">
+<hr>
 <cfoutput>
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#/mediaUploads"
@@ -98,7 +99,10 @@ edit code to run this<cfabort>
 					)
 			</cfquery>
 			<br>isUsed.recordcount: #isUsed.recordcount#
+			<cfif dateDiff('d',dateLastModified,now()) GT 60 and isUsed.recordcount eq 0>
+				<br>^^^^^^^^^^^^ is old and unused and can probably be deleted ^^^^^^^^^^^^^^
 
+			</cfif>
 			<!----
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
 			<br>webpath: #webpath#
