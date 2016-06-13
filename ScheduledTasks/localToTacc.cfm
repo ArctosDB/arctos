@@ -80,18 +80,20 @@ edit code to run this<cfabort>
 		<cfquery name="d" datasource="uam_god">
 			select * from temp_abandoned_media where used_in_media_count is null and rownum<100
 		</cfquery>
-		<cfloop query="d">
-			<cfquery name="isUsed" datasource="uam_god">
-				select count(*) c from media where
-					(
-						media_uri='#media_uri#' or
-						preview_uri='#media_uri#'
-					)
-			</cfquery>
-			<cfquery name="udc" datasource="uam_god">
-				update temp_abandoned_media set used_in_media_count=#isUsed.c# where media_uri='#media_uri#'
-			</cfquery>
-		</cfloop>
+		<cftransaction>
+			<cfloop query="d">
+				<cfquery name="isUsed" datasource="uam_god">
+					select count(*) c from media where
+						(
+							media_uri='#media_uri#' or
+							preview_uri='#media_uri#'
+						)
+				</cfquery>
+				<cfquery name="udc" datasource="uam_god">
+					update temp_abandoned_media set used_in_media_count=#isUsed.c# where media_uri='#media_uri#'
+				</cfquery>
+			</cfloop>
+		</cftransaction>
 	</cfoutput>
 
 </cfif>
