@@ -80,7 +80,7 @@ edit code to run this<cfabort>
 	<cfloop query="d">
 		<hr>
 		<br>#REMOTE_URI#
-		<cfset newstatus=''>
+		<cfset newstatus='recoverDisk_failed'>
 		<cfif len(REMOTE_URI) is 0>
 			<!--- wth this should never happen!! --->
 			<cfset newstatus='REMOTE_URI_null_at_recoverdisk'>
