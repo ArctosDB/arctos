@@ -77,6 +77,7 @@ edit code to run this<cfabort>
 		select * from cf_tacc_transfer
 	</cfquery>
 	<cfdump var=#d#>
+</cfoutput>
 </cfif>
 
 
