@@ -130,6 +130,7 @@ edit code to run this<cfabort>
 
 </cfif>
 		</cfif>
+		<hr>
 	</cfloop>
 
 
