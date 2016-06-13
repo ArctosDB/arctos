@@ -76,6 +76,15 @@ edit code to run this<cfabort>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "findMaybeAbandonedJunk">
 <hr>
+
+drop table temp_abandoned_media;
+
+create table temp_abandoned_media (
+	userdir varchar2(255),
+	media_uri varchar2(4000),
+	datelastmodified varchar2(255),
+	used_in_media_count number
+);
 <cfoutput>
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#/mediaUploads"
@@ -84,10 +93,16 @@ edit code to run this<cfabort>
 
 
 		<cfset rnum=0>
+
+		<cftransaction>
 	<cfloop query="root">
-		<cfset rnum=rnum+1>
-		<cfif rnum lt 1001>
 		<cfif type is "file">
+			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+			<cfquery name="foundone" datasource="uam_god">
+				insert into temp_abandoned_media (userdir,media_uri,datelastmodified) values (
+				'#directory#','#webpath#','#dateformat(dateLastModified,"yyyy-mm-dd")#')
+			</cfquery>
+			<!----
 			<!--- just ignore "new" stuff; let it cook for a while and get it later if it's still not used ---->
 			<cfif dateDiff('d',dateLastModified,now()) GT 60>
 				<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
@@ -106,6 +121,8 @@ edit code to run this<cfabort>
 
 
 			</cfif>
+
+			---->
 			<!----
 
 
@@ -141,10 +158,9 @@ edit code to run this<cfabort>
 
 ---->
 
-</cfif>
 		</cfif>
 	</cfloop>
-
+</cftransaction>
 
 
 
