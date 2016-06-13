@@ -68,9 +68,76 @@ edit code to run this<cfabort>
 
 
 <br><a href="localToTacc.cfm?action=getDeleteScript">getDeleteScript</a> - get scripts to clean up server
+<br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk">findMaybeAbandonedJunk</a>
 
 
 <cfsetting requesttimeout="300" />
+
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "findMaybeAbandonedJunk">
+<cfoutput>
+	<cfdirectory action="LIST"
+    	directory="#Application.webDirectory#/mediaUploads"
+        name="root"
+		recurse="yes">
+	<cfloop query="root">
+		<cfif type is "file">
+			<br>found #directory#/#name#
+
+
+
+			<!----
+			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+			<br>webpath: #webpath#
+			<cfquery name="isUsed" datasource="uam_god">
+				select media_id from media where
+					(
+						media_uri='#webpath#' or
+						preview_uri='#webpath#'
+					)
+			</cfquery>
+			<br>isUsed.recordcount: #isUsed.recordcount#
+			<cfif isUsed.recordcount is 0>
+				<br>going to delete
+				<cffile action="delete" file="#directory#/#name#">
+			</cfif>
+		<cfelse>
+			<cfdirectory action="list" directory="#directory#/#name#" name="current">
+			<br> got a directory #directory#/#name# containing #current.recordcount# files
+			<cfif current.recordcount is 0>
+				<br>deleting it
+				<cfdirectory action="delete" directory="#directory#/#name#">
+			</cfif>
+
+---->
+		</cfif>
+	</cfloop>
+
+
+
+
+	<cfquery name="d" datasource="cf_dbuser">
+		select * from cf_tacc_transfer where status in ('remote_uri_confirmed;remote_tn_confirmed','remote_uri_confirmed')
+		order by LOCAL_URI
+	</cfquery>
+	<cfloop query="d">
+		<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
+		<br>rm -rf #localfPath#
+		<cfif len(LOCAL_TN) gt 0>
+			<cfset localfPath=replace(LOCAL_TN,#application.serverRootUrl#,'#application.webDirectory#')>
+			<br>rm -rf #localfPath#
+		</cfif>
+	</cfloop>
+	<hr>
+
+	run the above, then
+
+	<p>
+		delete from cf_tacc_transfer where status in ('remote_uri_confirmed;remote_tn_confirmed','remote_uri_confirmed')
+	</p>
+
+</cfoutput>
+</cfif>
 
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "getDeleteScript">
@@ -86,10 +153,7 @@ edit code to run this<cfabort>
 			<cfset localfPath=replace(LOCAL_TN,#application.serverRootUrl#,'#application.webDirectory#')>
 			<br>rm -rf #localfPath#
 		</cfif>
-
-
 	</cfloop>
-
 	<hr>
 
 	run the above, then
