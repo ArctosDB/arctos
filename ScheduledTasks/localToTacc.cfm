@@ -110,7 +110,7 @@ edit code to run this<cfabort>
 		</cfif>
 
 		<cfquery name="uds" datasource="cf_dbuser">
-			update cf_tacc_transfer set status='#newstatus#' media_id=#media_id#
+			update cf_tacc_transfer set status='#newstatus#' where media_id=#media_id#
 		</cfquery>
 
 
