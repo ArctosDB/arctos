@@ -77,6 +77,7 @@ edit code to run this<cfabort>
 <cfoutput>
 	<cfquery name="d" datasource="cf_dbuser">
 		select * from cf_tacc_transfer where status in ('remote_uri_confirmed;remote_tn_confirmed','remote_uri_confirmed')
+		order by LOCAL_URI
 	</cfquery>
 	<cfloop query="d">
 		<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
