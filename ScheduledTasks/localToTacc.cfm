@@ -96,11 +96,30 @@ edit code to run this<cfabort>
 		</cftransaction>
 	</cfoutput>
 
+	<br> did something - run again until SQL is happy.
+	<p>
+	select USED_IN_MEDIA_COUNT,count(*) from temp_abandoned_media group by USED_IN_MEDIA_COUNT;
+
+	</p>
+
+	<p>
+		clean up paths:
+<p>
+		 update temp_abandoned_media set USERDIR=replace(USERDIR,'/usr/local/httpd/htdocs/wwwarctos/mediaUploads/');
+</p>
+<p>
+update temp_abandoned_media set USERDIR=substr(USERDIR,1,instr(USERDIR,'/')-1);
+</p>
+select distinct media_uri,USERDIR,substr(USERDIR,1,instr(USERDIR,'/')-1) from temp_abandoned_media;
+	</p>
+	<p>
+	 select * from temp_abandoned_media where USED_IN_MEDIA_COUNT=0 and sysdate-to_date(DATELASTMODIFIED,'YYYY-MM-DD') > 60;
+	</p>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "findMaybeAbandonedJunk">
 <hr>
-
+<!----
 drop table temp_abandoned_media;
 
 create table temp_abandoned_media (
@@ -109,6 +128,11 @@ create table temp_abandoned_media (
 	datelastmodified varchar2(255),
 	used_in_media_count number
 );
+---->
+<cfquery name="foundone" datasource="uam_god">
+	delete from temp_abandoned_media
+</cfquery>
+
 <cfoutput>
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#/mediaUploads"
@@ -121,11 +145,15 @@ create table temp_abandoned_media (
 		<cftransaction>
 	<cfloop query="root">
 		<cfif type is "file">
-			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
-			<cfquery name="foundone" datasource="uam_god">
-				insert into temp_abandoned_media (userdir,media_uri,datelastmodified) values (
-				'#directory#','#webpath#','#dateformat(dateLastModified,"yyyy-mm-dd")#')
-			</cfquery>
+			<cfif dateDiff('d',dateLastModified,now()) GT 60>
+				<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+				<cfset uname=replace(directory,'/usr/local/httpd/htdocs/wwwarctos/mediaUploads/','')>
+				<cfset uname=listfirst(uname,'/')>
+				<cfquery name="foundone" datasource="uam_god">
+					insert into temp_abandoned_media (userdir,media_uri,datelastmodified) values (
+					'#uname#','#webpath#','#dateformat(dateLastModified,"yyyy-mm-dd")#')
+				</cfquery>
+			</cfif>
 			<!----
 			<!--- just ignore "new" stuff; let it cook for a while and get it later if it's still not used ---->
 			<cfif dateDiff('d',dateLastModified,now()) GT 60>
