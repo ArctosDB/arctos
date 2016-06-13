@@ -89,15 +89,14 @@ edit code to run this<cfabort>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "cleanup_local">
 	<cfquery name="d" datasource="cf_dbuser">
-		 select LOCAL_URI,REMOTE_URI from cf_tacc_transfer where status='media_updated' and rownum<1000
+		 select * from cf_tacc_transfer where status='media_updated' and rownum<1000
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
-
 			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
-
 			<cfif fileExists(localfPath)>
-				<br>this thing exists:
+
+				this thing exists:
 				<br>localfPath: #localfPath#
 				<br>LOCAL_URI: #LOCAL_URI#
 				<br>REMOTE_URI: #REMOTE_URI#
@@ -140,7 +139,7 @@ edit code to run this<cfabort>
 				<cfquery name="upm" datasource="uam_god">
 					update media set
 						media_uri='#REMOTE_URI#',
-						preview_uri='#LOCAL_TN#'
+						preview_uri='#REMOTE_TN#'
 					where
 						media_id=#media_id#
 				</cfquery>

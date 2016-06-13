@@ -155,9 +155,6 @@ end;
 			other_id_type='UUID' and display_value='#uuid#'
 		</cfquery>
 
-		<cfdump var=#mine#>
-		<cfdump var=#gg#>
-
 		<cfif gg.recordcount is 1>
 			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update
@@ -474,8 +471,6 @@ end;
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
-	<cfdump var=#updateResult#>
-
 	<!--- need either guid or guid_prefix ---->
 	<cfquery result="updateResult" name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
@@ -490,7 +485,6 @@ end;
 	</cfquery>
 
 
-	<cfdump var=#updateResult#>
 
 	<!--- from here on out, run only when status is NULL ---->
 
@@ -508,7 +502,6 @@ end;
 	</cfquery>
 
 
-	<cfdump var=#updateResult#>
 
 
 	<cfquery result="updateResult" name="agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -517,7 +510,6 @@ end;
 		agent_id is null and
 		status is null
 	</cfquery>
-	<cfdump var=#updateResult#>
 
 
 	<cfquery result="updateResult" name="agent_idfail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -532,7 +524,6 @@ end;
 			status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfdump var=#updateResult#>
 
 	<cfquery result="updateResult" name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set COLLECTION_OBJECT_ID = (
@@ -550,7 +541,6 @@ end;
 			COLLECTION_OBJECT_ID is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfdump var=#updateResult#>
 
 	<cfquery result="updateResult" name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set COLLECTION_OBJECT_ID = (
@@ -569,7 +559,6 @@ end;
 			collection_object_id is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfdump var=#updateResult#>
 	<cfquery result="updateResult" name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_collector set COLLECTION_OBJECT_ID = (
 			select
@@ -590,7 +579,6 @@ end;
 			other_id_type != 'catalog number' and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfdump var=#updateResult#>
 	<cfquery result="updateResult" name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
@@ -603,7 +591,6 @@ end;
 			status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfdump var=#updateResult#>
 	<cfquery result="updateResult" name="postsetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_collector
@@ -613,7 +600,6 @@ end;
 			status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfdump var=#updateResult#>
 
 
 
@@ -643,12 +629,10 @@ end;
 				<cfquery name="tr" dbtype="query">
 					select * from data where collection_object_id=#collection_object_id# order by COLL_ORDER
 				</cfquery>
-				<cfdump var=#tr#>
 				<!--- see what's there ---->
 				<cfquery name="ec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from collector where collection_object_id=#collection_object_id# order by coll_order
 				</cfquery>
-				<cfdump var=#ec#>
 				<cfquery name="oldnnew" dbtype="query">
 					select
 						AGENT_ID,
@@ -667,11 +651,9 @@ end;
 						tr
 				</cfquery>
 
-				<cfdump var=#oldnnew#>
 				<cfquery name="oldnnew_o" dbtype="query">
 					select * from oldnnew order by COLL_ORDER
 				</cfquery>
-				<cfdump var=#oldnnew_o#>
 				<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					delete from collector where collection_object_id=#collection_object_id#
 				</cfquery>
