@@ -262,11 +262,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<cfquery name="hasThis" dbtype="query">
 				select count(*) c from d where #thisTerm# is not null
 			</cfquery>
-			<cfdump var=#hasThis#>
 			<cfif hasThis.c gt 0>
 				<br>there are records with #thisTerm#
 				<cfset usedTerms=listappend(usedTerms,thisterm)>
-
 			</cfif>
 		</cfloop>
 		<br>these terms are used and need checked
@@ -288,8 +286,10 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 					<p>
 						INCONSISTENCY DETECTED!!
 					</p>
+					<cfdump var=#thisHigherCombined#>
+				<cfelse>
+					<br>#thisTerm#='#evaluate(thisTerm)#' is consistent
 				</cfif>
-				<cfdump var=#thisHigherCombined#>
 
 
 			</cfloop>
