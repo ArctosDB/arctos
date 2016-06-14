@@ -95,7 +95,8 @@ edit code to run this<cfabort>
 
 		<cfquery name="getCreatorEmail"  datasource="uam_god">
 			select distinct
-				ADDRESS
+				ADDRESS,
+				ADDRESS.agent_id
 			from
 				address,
 				agent_name
@@ -106,6 +107,39 @@ edit code to run this<cfabort>
 		</cfquery>
 
 		<cfdump var=#getCreatorEmail#>
+
+		<cfquery name="creatorCollections"  datasource="uam_god">
+			select distinct
+				a.GRANTEE,
+				address
+			from
+				dba_role_privs a,
+				dba_role_privs b,
+				agent_name,
+				address
+			where
+				a.grantee=b.grantee and
+				a.GRANTED_ROLE='MANAGE_COLLECTION' AND
+				address_type='email' and
+				a.grantee=upper(agent_name) and
+				agent_name_type='login' and
+				agent_name.agent_id=address.agent_id and
+				b.GRANTED_ROLE in (
+				select distinct
+					GRANTED_ROLE
+				from
+					dba_role_privs,
+					agent_name,
+					collection
+				where
+					dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
+					dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
+					agent_name.agent_name_type='login' and
+					agent_name.agent_id in (#valuelist(getCreatorEmail.agent_id)#)
+				)
+		</cfquery>
+
+		<cfdump var=#creatorCollections#>
 	</cfoutput>
 
 		<!---------------
