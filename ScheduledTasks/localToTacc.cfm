@@ -82,17 +82,6 @@ edit code to run this<cfabort>
 		<cfquery name="d" datasource="uam_god">
 			select distinct userdir from temp_abandoned_media
 		</cfquery>
-
-
-
-
-
-
-
-
-
-
-
 		<cfquery name="getCreatorEmail"  datasource="uam_god">
 			select distinct
 				ADDRESS,
@@ -103,6 +92,7 @@ edit code to run this<cfabort>
 			where
 				address.agent_id=agent_name.agent_id and
 				address_type='email' and
+				agent_name.agent_name_type='login' and
 				upper(agent_name.agent_name) in (#listqualify(ucase(valuelist(d.userdir)),"'")#)
 		</cfquery>
 
