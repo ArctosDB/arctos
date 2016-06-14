@@ -17,7 +17,7 @@ run these in order
 <cfif action is "checkConsistency">
 	<cfoutput>
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+			select * from CF_TEMP_CLASSIFICATION where status='go_go_check_consistency'
 		</cfquery>
 		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
 		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -66,6 +66,11 @@ run these in order
 					<p>
 						INCONSISTENCY DETECTED!!
 					</p>
+			        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update CF_TEMP_CLASSIFICATION set status='inconsistency detected at #thisTerm#=#termvalue#'
+						where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
+					</cfquery>
+
 					<cfdump var=#thisHigherCombined#>
 				<cfelse>
 					<br>#thisTerm#='#termvalue#' is consistent

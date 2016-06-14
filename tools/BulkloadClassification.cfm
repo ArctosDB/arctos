@@ -239,7 +239,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			update CF_TEMP_CLASSIFICATION set status='go_go_check_consistency' where upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<p>
-			Records have been flagged for consistency check. Come back in a while, or 
+			Records have been flagged for consistency check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
 		</p>
 
 	</cfoutput>
