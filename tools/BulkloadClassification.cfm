@@ -254,6 +254,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</cfquery>
 
 		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
+		<cfset usedTerms="">
 		<!--- deal with order==>phylorder ---->
 		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
 		<cfloop list="#oTerms#" index="thisTerm">
@@ -264,12 +265,20 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<cfdump var=#hasThis#>
 			<cfif hasThis.c gt 0>
 				<br>there are records with #thisTerm#
-				<cfquery name="uThisTerm" dbtype="query">
+				<cfset usedTerms=listappend(usedTerms,thisterm)<
+
+			</cfif>
+		</cfloop>
+		<br>these terms are used and need checked
+		#usedTerms#
+		<!----
+
+		<cfquery name="uThisTerm" dbtype="query">
 					select #thisTerm# from d group by #thisTerm#
 				</cfquery>
 				<cfdump var=#uThisTerm#>
-			</cfif>
-		</cfloop>
+
+				---->
 
 
 subgenus
