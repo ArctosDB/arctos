@@ -95,26 +95,13 @@ edit code to run this<cfabort>
 			</cfloop>
 		</cftransaction>
 	</cfoutput>
-
-	<br> did something - run again until SQL is happy.
+	<cfquery name="s" datasource="uam_god">
+		select USED_IN_MEDIA_COUNT,count(*) c from temp_abandoned_media group by USED_IN_MEDIA_COUNT
+	</cfquery>
 	<p>
-	select USED_IN_MEDIA_COUNT,count(*) from temp_abandoned_media group by USED_IN_MEDIA_COUNT;
-
+		Click reload until everything has a count
 	</p>
-
-	<p>
-		clean up paths:
-<p>
-		 update temp_abandoned_media set USERDIR=replace(USERDIR,'/usr/local/httpd/htdocs/wwwarctos/mediaUploads/');
-</p>
-<p>
-update temp_abandoned_media set USERDIR=substr(USERDIR,1,instr(USERDIR,'/')-1);
-</p>
-select distinct media_uri,USERDIR,substr(USERDIR,1,instr(USERDIR,'/')-1) from temp_abandoned_media;
-	</p>
-	<p>
-	 select * from temp_abandoned_media where USED_IN_MEDIA_COUNT=0 and sysdate-to_date(DATELASTMODIFIED,'YYYY-MM-DD') > 60;
-	</p>
+	<cfdump var=#s#>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "findMaybeAbandonedJunk">
@@ -138,8 +125,6 @@ create table temp_abandoned_media (
     	directory="#Application.webDirectory#/mediaUploads"
         name="root"
 		recurse="yes">
-
-
 		<cfset rnum=0>
 
 		<cftransaction>
