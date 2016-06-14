@@ -66,28 +66,27 @@ run these in order
 					<p>
 						INCONSISTENCY DETECTED!!
 					</p>
+					<!--- figure out what exactly is inconsistent ---->
+					<cfloop list="#thisHigherCombined.columnList#" index="c">
+						<cfquery name="dt" dbtype="query">
+							select #c# from thisHigherCombined group by #c#
+						</cfquery>
+						<cfif dt.recordcount neq 1>
+							<br><cfdump var=#dt#>
+						</cfif>
+					</cfloop>
 			        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update CF_TEMP_CLASSIFICATION set status='inconsistency detected at #thisTerm#=#termvalue#'
 						where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
 					</cfquery>
-
 					<cfdump var=#thisHigherCombined#>
-				<cfelse>
-					<br>#thisTerm#='#termvalue#' is consistent
 				</cfif>
 			</cfloop>
 		</cfloop>
-
-		<!----
-
-		<cfquery name="uThisTerm" dbtype="query">
-					select #thisTerm# from d group by #thisTerm#
-				</cfquery>
-				<cfdump var=#uThisTerm#>
-
-				---->
-
-
+		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='conssitency_check_passed'
+			where status='go_go_check_consistency'
+		</cfquery>
 
 	</cfoutput>
 </cfif>
