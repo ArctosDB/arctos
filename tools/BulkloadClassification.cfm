@@ -288,7 +288,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 					</p>
 					<cfdump var=#thisHigherCombined#>
 				<cfelse>
-					<br>#thisTerm#='#evaluate(thisTerm)#' is consistent
+					<br>#thisTerm#='#termvalue#' is consistent
 				</cfif>
 			</cfloop>
 		</cfloop>
