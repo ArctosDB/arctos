@@ -106,7 +106,7 @@ edit code to run this<cfabort>
 		</cfquery>
 
 		<cfdump var=#getCreatorEmail#>
-
+	</cfoutput>
 
 		<!---------------
 
