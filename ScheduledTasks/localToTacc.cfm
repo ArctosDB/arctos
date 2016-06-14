@@ -106,10 +106,13 @@ edit code to run this<cfabort>
 				dba_role_privs a,
 				dba_role_privs b,
 				agent_name,
-				address
+				address,
+				dba_users
 			where
 				a.grantee=b.grantee and
 				a.GRANTED_ROLE='MANAGE_COLLECTION' AND
+				a.GRANTEE=dba_users.USERNAME AND
+				dba_users.account_status='OPEN' and
 				address_type='email' and
 				a.grantee=upper(agent_name) and
 				agent_name_type='login' and
