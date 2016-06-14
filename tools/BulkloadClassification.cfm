@@ -16,7 +16,7 @@
 		author_text varchar2(255) null,
 		infraspecific_author varchar2(255) null,
 		nomenclatural_code varchar2(255) not null,
-		source_authority varchar2(255) null,
+		source_authority varchar2(4000) null,
 		valid_catalog_term_fg varchar2(255) null,
 		taxon_status varchar2(255) null,
 		remark varchar2(255),
@@ -40,6 +40,7 @@
 		phylorder varchar2(255) null,
 		suborder varchar2(255) null,
 		infraorder varchar2(255) null,
+		hypoorder varchar2(255) null,
 		superfamily varchar2(255) null,
 		family varchar2(255),
 		subfamily varchar2(255) null,
@@ -251,15 +252,23 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			order by
 				RELATIVE_POSITION desc
 		</cfquery>
-		<cfloop query="CTTAXON_TERM">
 
-			<br>#taxon_term#
+		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
+		<!--- deal with order==>phylorder ---->
+		<cfset oTerms=replace(oTerms,',order,',',phylorder,'>
+		<cfloop list="#oTerms#" index="i">
+			<cfset thisTerm=listgetat(oTerms,i)>
+			<br>#thisTerm#
 			<cfquery name="hasThis" dbtype="query">
-				select count(*) c from d where #taxon_term# is not null
+				select count(*) c from d where #thisTerm# is not null
 			</cfquery>
 			<cfdump var=#hasThis#>
 			<cfif hasThis.c gt 0>
-				<br>there are records with #taxon_term#
+				<br>there are records with #thisTerm#
+				<cfquery name="uThisTerm" dbtype="query">
+					select #thisTerm# from d group by #thisTerm#
+				</cfquery>
+				<cfdump var=#uThisTerm#>
 			</cfif>
 		</cfloop>
 
