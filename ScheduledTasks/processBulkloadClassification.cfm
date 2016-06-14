@@ -58,7 +58,10 @@ run these in order
 			<cfquery name="uThisTerm" dbtype="query">
 				select #thisTerm# termvalue from d group by #thisTerm#
 			</cfquery>
+			<!----
 			<cfif len(uThisTerm.termvalue) gt 0>
+			</cfif>
+			---->
 				<cfloop query="uThisTerm">
 					<cfquery name="thisHigherCombined" dbtype="query">
 						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
@@ -83,7 +86,7 @@ run these in order
 						<cfdump var=#thisHigherCombined#>
 					</cfif>
 				</cfloop>
-			</cfif>
+
 		</cfloop>
 		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_CLASSIFICATION set status='conssitency_check_passed'
