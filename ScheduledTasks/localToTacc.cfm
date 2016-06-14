@@ -70,10 +70,123 @@ edit code to run this<cfabort>
 <br><a href="localToTacc.cfm?action=getDeleteScript">getDeleteScript</a> - get scripts to clean up server
 <br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk">findMaybeAbandonedJunk</a>
 <br><a href="localToTacc.cfm?action=findMaybeAbandonedDeletableJunk">findMaybeAbandonedDeletableJunk</a>
+<br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk__finalize">findMaybeAbandonedJunk__finalize</a> - after the above, clean up
+	and format
 
 
 <cfsetting requesttimeout="300" />
 
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "findMaybeAbandonedJunk__finalize">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select distint userdir from temp_abandoned_media
+		</cfquery>
+
+
+
+
+
+
+
+
+
+
+
+		<cfquery name="getCreatorEmail"  datasource="uam_god">
+			select distinct
+				ADDRESS
+			from
+				address,
+				agent_name
+			where
+				address.agent_id=agent_name.agent_id and
+				address_type='email' and
+				upper(agent.agent_name) in ('#listqualify(upper(valuelist(d.userdir))#')
+		</cfquery>
+
+		<cfdump var=#getCreatorEmail#>
+
+
+		<!---------------
+
+	<cfquery name="creatorCollections"  datasource="uam_god">
+		select distinct
+			a.GRANTEE,
+			address
+		from
+			dba_role_privs a,
+			dba_role_privs b,
+			agent_name,
+			address
+		where
+			a.grantee=b.grantee and
+			a.GRANTED_ROLE='MANAGE_COLLECTION' AND
+			address_type='email' and
+			a.grantee=upper(agent_name) and
+			agent_name_type='login' and
+			agent_name.agent_id=address.agent_id and
+			b.GRANTED_ROLE in (
+			select distinct
+				GRANTED_ROLE
+			from
+				dba_role_privs,
+				agent_name,
+				collection
+			where
+				dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
+				dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
+				agent_name.agent_name_type='login' and
+				agent_name.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+			)
+	</cfquery>
+	<cfquery name="allAddEmails" dbtype="query">
+		select ADDRESS from getCreatorEmail union select address from creatorCollections
+	</cfquery>
+	<cfquery name="addEmails" dbtype="query">
+		select address from allAddEmails group by address
+	</cfquery>
+	<cfif isdefined("Application.version") and  Application.version is "prod">
+		<cfset subj="Arctos Noncompliant Agent Notification">
+		<cfset maddr=valuelist(addEmails.ADDRESS)>
+	<cfelse>
+		<cfset maddr=application.bugreportemail>
+		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
+</cfif>
+
+
+
+
+
+
+
+
+		<cftransaction>
+			<cfloop query="d">
+				<cfquery name="isUsed" datasource="uam_god">
+					select count(*) c from media where
+						(
+							media_uri='#media_uri#' or
+							preview_uri='#media_uri#'
+						)
+				</cfquery>
+				<cfquery name="udc" datasource="uam_god">
+					update temp_abandoned_media set used_in_media_count=#isUsed.c# where media_uri='#media_uri#'
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+	</cfoutput>
+	<cfquery name="s" datasource="uam_god">
+		select USED_IN_MEDIA_COUNT,count(*) c from temp_abandoned_media group by USED_IN_MEDIA_COUNT
+	</cfquery>
+	<p>
+		Click reload until everything has a count
+	</p>
+	<cfdump var=#s#>
+
+
+	-------------->
+</cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "findMaybeAbandonedDeletableJunk">
 	<cfoutput>
