@@ -284,6 +284,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<cfquery name="thisHigherCombined" dbtype="query">
 					select #thisHigher# from d where #thisTerm#='#evaluate(thisTerm)#' group by #thisHigher#
 				</cfquery>
+				<cfif thisHigherCombined.recordcount neq 1>
+					<p>
+						INCONSISTENCY DETECTED!!
+					</p>
+				</cfif>
 				<cfdump var=#thisHigherCombined#>
 
 
