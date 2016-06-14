@@ -135,6 +135,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 
 
+		<p>
+			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>.
+		</p>
+
+
 
 
 
@@ -225,6 +230,27 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			</cfloop>
 		</table>
 		---->
+	</cfoutput>
+</cfif>
+<!----------------------------------------------------------------->
+<cfif action is "checkConsistency">
+	<cfoutput>
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
+		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select taxon_term from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
+		</cfquery>
+		<cfloop query="CTTAXON_TERM">
+
+			<br>#taxon_term#
+		</cfloop>
+
+
+
+
+
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
