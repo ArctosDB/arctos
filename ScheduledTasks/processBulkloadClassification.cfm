@@ -63,6 +63,7 @@ run these in order
 			</cfif>
 			---->
 				<cfloop query="uThisTerm">
+				<cfif len(uThisTerm.termvalue) gt 0>
 					<cfquery name="thisHigherCombined" dbtype="query">
 						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
 					</cfquery>
@@ -84,6 +85,7 @@ run these in order
 							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
 						</cfquery>
 						<cfdump var=#thisHigherCombined#>
+					</cfif>
 					</cfif>
 				</cfloop>
 
