@@ -271,6 +271,13 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</cfloop>
 		<br>these terms are used and need checked
 		#usedTerms#
+		<cfloop list="#usedTerms#" index="thisTerm">
+			<cfquery name="uThisTerm" dbtype="query">
+				select #thisTerm# from d group by #thisTerm#
+			</cfquery>
+			<cfdump var=#uThisTerm#>
+		</cfloop>
+
 		<!----
 
 		<cfquery name="uThisTerm" dbtype="query">
