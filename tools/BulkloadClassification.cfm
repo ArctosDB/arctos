@@ -255,7 +255,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
 		<!--- deal with order==>phylorder ---->
-		<cfset oTerms=replace(oTerms,',order,',',phylorder,'>
+		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
 		<cfloop list="#oTerms#" index="i">
 			<cfset thisTerm=listgetat(oTerms,i)>
 			<br>#thisTerm#
