@@ -235,81 +235,12 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 </cfif>
 <!----------------------------------------------------------------->
 <cfif action is "checkConsistency">
-	<cfoutput>
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+			update CF_TEMP_CLASSIFICATION set status='go_go_check_consistency' where upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
-		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				taxon_term
-			from
-				CTTAXON_TERM
-			where
-				IS_CLASSIFICATION=1 and
-				-- ignore things which have no logical parent
-				taxon_term not in ('scientific_name')
-			order by
-				RELATIVE_POSITION desc
-		</cfquery>
-
-		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
-		<cfset usedTerms="">
-		<!--- deal with order==>phylorder ---->
-		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
-		<cfloop list="#oTerms#" index="thisTerm">
-			<br>#thisTerm#
-			<cfquery name="hasThis" dbtype="query">
-				select count(*) c from d where #thisTerm# is not null
-			</cfquery>
-			<cfif hasThis.c gt 0>
-				<br>there are records with #thisTerm#
-				<cfset usedTerms=listappend(usedTerms,thisterm)>
-			</cfif>
-		</cfloop>
-		<br>these terms are used and need checked
-		#usedTerms#
-		<cfset lNum=1>
-		<cfset thisHigher=usedTerms>
-		<cfloop list="#usedTerms#" index="thisTerm">
-			<!--- remove the current term; everything upstream should match ---->
-			<cfset thisHigher=listDeleteAt(thisHigher,1)>
-
-			<cfquery name="uThisTerm" dbtype="query">
-				select #thisTerm# termvalue from d group by #thisTerm#
-			</cfquery>
-			<cfloop query="uThisTerm">
-				<cfquery name="thisHigherCombined" dbtype="query">
-					select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
-				</cfquery>
-				<cfif thisHigherCombined.recordcount neq 1>
-					<p>
-						INCONSISTENCY DETECTED!!
-					</p>
-					<cfdump var=#thisHigherCombined#>
-				<cfelse>
-					<br>#thisTerm#='#termvalue#' is consistent
-				</cfif>
-			</cfloop>
-		</cfloop>
-
-		<!----
-
-		<cfquery name="uThisTerm" dbtype="query">
-					select #thisTerm# from d group by #thisTerm#
-				</cfquery>
-				<cfdump var=#uThisTerm#>
-
-				---->
-
-
-subgenus
-species
-subspecies
-forma
-scientific_name
-
-
+		<p>
+			Records have been flagged for consistency check. Come back in a while, or 
+		</p>
 
 	</cfoutput>
 </cfif>
