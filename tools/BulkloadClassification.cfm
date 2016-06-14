@@ -243,7 +243,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			if you're comfortable in and have rights to ScheduledTasks
 		</p>
 
-	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
 <cfif action is "deletemystuff">
