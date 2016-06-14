@@ -88,11 +88,14 @@ edit code to run this<cfabort>
 				ADDRESS.agent_id
 			from
 				address,
-				agent_name
+				agent_name,
+				dba_users
 			where
 				address.agent_id=agent_name.agent_id and
 				address_type='email' and
 				agent_name.agent_name_type='login' and
+				upper(agent_name.agent_name) = dba_users.USERNAME AND
+				dba_users.account_status='OPEN' and
 				upper(agent_name.agent_name) in (#listqualify(ucase(valuelist(d.userdir)),"'")#)
 		</cfquery>
 
