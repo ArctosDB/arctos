@@ -240,7 +240,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</cfquery>
 		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
 		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select taxon_term from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
+			select taxon_term from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION desc
 		</cfquery>
 		<cfloop query="CTTAXON_TERM">
 
@@ -248,6 +248,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</cfloop>
 
 
+subgenus
+species
+subspecies
+forma
+scientific_name
 
 
 
