@@ -80,7 +80,7 @@ edit code to run this<cfabort>
 <cfif action is "findMaybeAbandonedJunk__finalize">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select distint userdir from temp_abandoned_media
+			select distinct userdir from temp_abandoned_media
 		</cfquery>
 
 
