@@ -102,7 +102,7 @@ edit code to run this<cfabort>
 			where
 				address.agent_id=agent_name.agent_id and
 				address_type='email' and
-				upper(agent.agent_name) in ('#listqualify(upper(valuelist(d.userdir),"'"))#')
+				upper(agent.agent_name) in ('#listqualify(upper(valuelist(d.userdir)),"'")#')
 		</cfquery>
 
 		<cfdump var=#getCreatorEmail#>
