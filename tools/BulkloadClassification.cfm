@@ -279,10 +279,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				select #thisTerm# termvalue from d group by #thisTerm#
 			</cfquery>
 			<cfloop query="uThisTerm">
-				<br>select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
-				<!----
 				<cfquery name="thisHigherCombined" dbtype="query">
-					select #thisHigher# from d where #thisTerm#='#evaluate(thisTerm)#' group by #thisHigher#
+					select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
 				</cfquery>
 				<cfif thisHigherCombined.recordcount neq 1>
 					<p>
@@ -292,8 +290,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<cfelse>
 					<br>#thisTerm#='#evaluate(thisTerm)#' is consistent
 				</cfif>
-				---->
-
 			</cfloop>
 		</cfloop>
 
