@@ -240,7 +240,16 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</cfquery>
 		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
 		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select taxon_term from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION desc
+			select
+				taxon_term
+			from
+				CTTAXON_TERM
+			where
+				IS_CLASSIFICATION=1 and
+				-- ignore things which have no logical parent
+				taxon_term not in ('scientific_name')
+			order by
+				RELATIVE_POSITION desc
 		</cfquery>
 		<cfloop query="CTTAXON_TERM">
 
