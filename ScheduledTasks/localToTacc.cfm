@@ -52,7 +52,8 @@ edit code to run this<cfabort>
 
 <br><a href="localToTacc.cfm?action=checkchecksum">checkchecksum</a> - do this third, it checks that everything is happy
 
-<br><a href="localToTacc.cfm?action=cleanup_local">cleanup_local</a> - delete stuff
+<br><a href="localToTacc.cfm?action=cleanup_local">cleanup_local</a> - mark files where the local is confirmed delete
+	(and these can be deleted from the temp table; they're all done)
 
 
 <br><a href="localToTacc.cfm?action=showstatus">showstatus</a> - wut?
@@ -62,33 +63,236 @@ edit code to run this<cfabort>
 <br><a href="localToTacc.cfm?action=updateMedia">updateMedia</a> - I do hereby solemnly swear that nothing is jacked up, change real stuff
 
 
-<br><a href="localToTacc.cfm?action=recoverDisk">recoverDisk</a> - DELETE local files
+
+<br><a href="localToTacc.cfm?action=recoverDisk_confirmRemote">recoverDisk_confirmRemote</a> - find local files which can be deleted
+
+
+<br><a href="localToTacc.cfm?action=getDeleteScript">getDeleteScript</a> - get scripts to clean up server
+<br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk">findMaybeAbandonedJunk</a>
+<br><a href="localToTacc.cfm?action=findMaybeAbandonedDeletableJunk">findMaybeAbandonedDeletableJunk</a>
+<br><a href="localToTacc.cfm?action=findMaybeAbandonedJunk__finalize">findMaybeAbandonedJunk__finalize</a> - after the above, clean up
+	and format
 
 
 <cfsetting requesttimeout="300" />
 
 <!---------------------------------------------------------------------------------------------------------->
+<cfif action is "findMaybeAbandonedJunk__finalize">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select distinct userdir from temp_abandoned_media
+		</cfquery>
+		<cfquery name="getCreatorEmail"  datasource="uam_god">
+			select distinct
+				ADDRESS,
+				ADDRESS.agent_id
+			from
+				address,
+				agent_name,
+				dba_users
+			where
+				address.agent_id=agent_name.agent_id and
+				address_type='email' and
+				agent_name.agent_name_type='login' and
+				upper(agent_name.agent_name) = dba_users.USERNAME AND
+				dba_users.account_status='OPEN' and
+				upper(agent_name.agent_name) in (#listqualify(ucase(valuelist(d.userdir)),"'")#)
+		</cfquery>
 
-<cfif action is "recoverDisk">
+		<cfdump var=#getCreatorEmail#>
+
+		<cfquery name="creatorCollections"  datasource="uam_god">
+			select distinct
+				a.GRANTEE,
+				address
+			from
+				dba_role_privs a,
+				dba_role_privs b,
+				agent_name,
+				address,
+				dba_users
+			where
+				a.grantee=b.grantee and
+				a.GRANTED_ROLE='MANAGE_COLLECTION' AND
+				a.GRANTEE=dba_users.USERNAME AND
+				dba_users.account_status='OPEN' and
+				address_type='email' and
+				a.grantee=upper(agent_name) and
+				agent_name_type='login' and
+				agent_name.agent_id=address.agent_id and
+				b.GRANTED_ROLE in (
+				select distinct
+					GRANTED_ROLE
+				from
+					dba_role_privs,
+					agent_name,
+					collection
+				where
+					dba_role_privs.GRANTEE=upper(agent_name.agent_name) and
+					dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
+					agent_name.agent_name_type='login' and
+					agent_name.agent_id in (#valuelist(getCreatorEmail.agent_id)#)
+				)
+		</cfquery>
+
+		<cfdump var=#creatorCollections#>
+
+		<cfquery name="allAddEmails" dbtype="query">
+			select ADDRESS from getCreatorEmail union select address from creatorCollections
+		</cfquery>
+		<cfquery name="addEmails" dbtype="query">
+			select address from allAddEmails group by address
+		</cfquery>
+
+		<cfdump var=#addEmails#>
+	</cfoutput>
+
+		<!---------------
+
+	<cfquery name="allAddEmails" dbtype="query">
+		select ADDRESS from getCreatorEmail union select address from creatorCollections
+	</cfquery>
+	<cfquery name="addEmails" dbtype="query">
+		select address from allAddEmails group by address
+	</cfquery>
+	<cfif isdefined("Application.version") and  Application.version is "prod">
+		<cfset subj="Arctos Noncompliant Agent Notification">
+		<cfset maddr=valuelist(addEmails.ADDRESS)>
+	<cfelse>
+		<cfset maddr=application.bugreportemail>
+		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
+</cfif>
+
+
+
+
+
+
+
+
+		<cftransaction>
+			<cfloop query="d">
+				<cfquery name="isUsed" datasource="uam_god">
+					select count(*) c from media where
+						(
+							media_uri='#media_uri#' or
+							preview_uri='#media_uri#'
+						)
+				</cfquery>
+				<cfquery name="udc" datasource="uam_god">
+					update temp_abandoned_media set used_in_media_count=#isUsed.c# where media_uri='#media_uri#'
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+	</cfoutput>
+	<cfquery name="s" datasource="uam_god">
+		select USED_IN_MEDIA_COUNT,count(*) c from temp_abandoned_media group by USED_IN_MEDIA_COUNT
+	</cfquery>
+	<p>
+		Click reload until everything has a count
+	</p>
+	<cfdump var=#s#>
+
+
+	-------------->
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "findMaybeAbandonedDeletableJunk">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from temp_abandoned_media where used_in_media_count is null and rownum<500
+		</cfquery>
+		<cftransaction>
+			<cfloop query="d">
+				<cfquery name="isUsed" datasource="uam_god">
+					select count(*) c from media where
+						(
+							media_uri='#media_uri#' or
+							preview_uri='#media_uri#'
+						)
+				</cfquery>
+				<cfquery name="udc" datasource="uam_god">
+					update temp_abandoned_media set used_in_media_count=#isUsed.c# where media_uri='#media_uri#'
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+	</cfoutput>
+	<cfquery name="s" datasource="uam_god">
+		select USED_IN_MEDIA_COUNT,count(*) c from temp_abandoned_media group by USED_IN_MEDIA_COUNT
+	</cfquery>
+	<p>
+		Click reload until everything has a count
+	</p>
+	<cfdump var=#s#>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "findMaybeAbandonedJunk">
+<hr>
+<!----
+drop table temp_abandoned_media;
+
+create table temp_abandoned_media (
+	userdir varchar2(255),
+	media_uri varchar2(4000),
+	datelastmodified varchar2(255),
+	used_in_media_count number
+);
+---->
+<cfquery name="foundone" datasource="uam_god">
+	delete from temp_abandoned_media
+</cfquery>
 
 <cfoutput>
-	<cfquery name="d" datasource="cf_dbuser">
-		select * from cf_tacc_transfer
-	</cfquery>
-	<cfdump var=#d#>
-
-	<cfabort>
-
-
-
-	<!--- local files are loaded to /SpecimenImages or mediaUploads. Find stuff there that's not in media and delete it --->
 	<cfdirectory action="LIST"
-    	directory="#Application.webDirectory#/SpecimenImages"
+    	directory="#Application.webDirectory#/mediaUploads"
         name="root"
 		recurse="yes">
+		<cfset rnum=0>
+
+		<cftransaction>
 	<cfloop query="root">
 		<cfif type is "file">
-			<br>found #directory#/#name#
+			<cfif dateDiff('d',dateLastModified,now()) GT 60>
+				<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+				<cfset uname=replace(directory,'/usr/local/httpd/htdocs/wwwarctos/mediaUploads/','')>
+				<cfset uname=listfirst(uname,'/')>
+				<cfquery name="foundone" datasource="uam_god">
+					insert into temp_abandoned_media (userdir,media_uri,datelastmodified) values (
+					'#uname#','#webpath#','#dateformat(dateLastModified,"yyyy-mm-dd")#')
+				</cfquery>
+			</cfif>
+			<!----
+			<!--- just ignore "new" stuff; let it cook for a while and get it later if it's still not used ---->
+			<cfif dateDiff('d',dateLastModified,now()) GT 60>
+				<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+				<!--- see if it's used anywhere ---->
+				<cfquery name="isUsed" datasource="uam_god">
+					select media_id from media where
+						(
+							media_uri='#webpath#' or
+							preview_uri='#webpath#'
+						)
+				</cfquery>
+				<cfif isUsed.recordcount eq 0>
+								<br>found #webpath# - dateLastModified=#dateLastModified#
+
+				</cfif>
+
+
+			</cfif>
+
+			---->
+			<!----
+
+
+			<br>webpath: #webpath#
+
+			<br>isUsed.recordcount: #isUsed.recordcount#
+
+
+
+
+				<br>^^^^^^^^^^^^ is old and unused and can probably be deleted ^^^^^^^^^^^^^^
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
 			<br>webpath: #webpath#
 			<cfquery name="isUsed" datasource="uam_god">
@@ -111,46 +315,93 @@ edit code to run this<cfabort>
 				<cfdirectory action="delete" directory="#directory#/#name#">
 			</cfif>
 
+---->
 
 		</cfif>
 	</cfloop>
+</cftransaction>
 
-	<cfdirectory action="LIST"
-    	directory="#Application.webDirectory#/mediaUploads"
-        name="root"
-		recurse="yes">
-	<cfloop query="root">
-		<cfif type is "file">
-			<br>found #directory#/#name#
-			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
-			<br>webpath: #webpath#
-			<cfquery name="isUsed" datasource="uam_god">
-				select media_id from media where
-					(
-						media_uri='#webpath#' or
-						preview_uri='#webpath#'
-					)
-			</cfquery>
-			<br>isUsed.recordcount: #isUsed.recordcount#
-			<cfif isUsed.recordcount is 0>
-				<br>going to delete
-				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq ".">
-				 	<cffile action="delete" file="#directory#/#name#">
-				 </cfif>
-			</cfif>
+
+
+</cfoutput>
+</cfif>
+
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "getDeleteScript">
+<cfoutput>
+	<cfquery name="d" datasource="cf_dbuser">
+		select * from cf_tacc_transfer where status in ('remote_uri_confirmed;remote_tn_confirmed','remote_uri_confirmed')
+		order by LOCAL_URI
+	</cfquery>
+	<cfloop query="d">
+		<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
+		<br>rm -rf #localfPath#
+		<cfif len(LOCAL_TN) gt 0>
+			<cfset localfPath=replace(LOCAL_TN,#application.serverRootUrl#,'#application.webDirectory#')>
+			<br>rm -rf #localfPath#
+		</cfif>
+	</cfloop>
+	<hr>
+
+	run the above, then
+
+	<p>
+		delete from cf_tacc_transfer where status in ('remote_uri_confirmed;remote_tn_confirmed','remote_uri_confirmed')
+	</p>
+
+</cfoutput>
+</cfif>
+
+<cfif action is "recoverDisk_confirmRemote">
+
+<cfoutput>
+	<cfquery name="d" datasource="cf_dbuser">
+		select * from cf_tacc_transfer where status='media_updated'
+	</cfquery>
+	<cfloop query="d">
+		<hr>
+		<br>#REMOTE_URI#
+		<cfset newstatus='recoverDisk_failed'>
+		<cfif len(REMOTE_URI) is 0>
+			<!--- wth this should never happen!! --->
+			<cfset newstatus='REMOTE_URI_null_at_recoverdisk'>
 		<cfelse>
-			<cfdirectory action="list" directory="#directory#/#name#" name="current">
-			<br> got a directory #directory#/#name# containing #current.recordcount# files
-			<cfif current.recordcount is 0>
-				<br>deleting it
-				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq ".">
-				 	<cffile action="delete" file="#directory#/#name#">
-				 </cfif>
+			<cfhttp url="#REMOTE_URI#" method="HEAD" />
+			<cfif left(cfhttp.statuscode,3) is "200">
+				<cfset newstatus="remote_uri_confirmed">
+			<cfelse>
+				<cfset newstatus="remote_uri_missing">
 			</cfif>
 		</cfif>
+
+		<br>#REMOTE_TN#
+		<cfif len(REMOTE_TN) is 0>
+			<!--- make sure there's not supposed to be one --->
+			<cfif len(LOCAL_TN) gt 0>
+				<cfset newstatus=listappend(newstatus,'remote_tn_notfound_but_localtn_exists',';')>
+			</cfif>
+		<cfelse>
+			<!--- there is a remote thumb, make sure it's happy ---->
+			<cfhttp url="#REMOTE_TN#" method="HEAD" />
+			<cfif left(cfhttp.statuscode,3) is "200">
+				<cfset newstatus=listappend(newstatus,'remote_tn_confirmed',';')>
+			<cfelse>
+				<cfset newstatus="remote_tn_missing">
+			</cfif>
+		</cfif>
+
+		<cfquery name="uds" datasource="cf_dbuser">
+			update cf_tacc_transfer set status='#newstatus#' where media_id=#media_id#
+		</cfquery>
+
+
+
+		<br>#newstatus#
 	</cfloop>
 </cfoutput>
 </cfif>
+
+
 
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "downloadLocalPath">
@@ -172,14 +423,15 @@ edit code to run this<cfabort>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "cleanup_local">
 	<cfquery name="d" datasource="cf_dbuser">
-		 select * from cf_tacc_transfer where status='media_updated' and rownum<1000
+		 select LOCAL_URI,REMOTE_URI from cf_tacc_transfer where status='media_updated' and rownum<1000
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
-			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
-			<cfif fileExists(localfPath)>
 
-				this thing exists:
+			<cfset localfPath=replace(LOCAL_URI,#application.serverRootUrl#,'#application.webDirectory#')>
+
+			<cfif fileExists(localfPath)>
+				<br>this thing exists:
 				<br>localfPath: #localfPath#
 				<br>LOCAL_URI: #LOCAL_URI#
 				<br>REMOTE_URI: #REMOTE_URI#
