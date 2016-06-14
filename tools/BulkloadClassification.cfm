@@ -255,9 +255,12 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 			<br>#taxon_term#
 			<cfquery name="hasThis" dbtype="query">
-				select count(*) from d where #taxon_term# is not null
+				select count(*) c from d where #taxon_term# is not null
 			</cfquery>
 			<cfdump var=#hasThis#>
+			<cfif hasThis.c gt 0>
+				<br>there are records with #taxon_term#
+			</cfif>
 		</cfloop>
 
 
