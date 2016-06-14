@@ -271,11 +271,23 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</cfloop>
 		<br>these terms are used and need checked
 		#usedTerms#
+		<cfset lNum=1>
+		<cfset thisHigher=usedTerms>
 		<cfloop list="#usedTerms#" index="thisTerm">
+			<!--- remove the current term; everything upstream should match ---->
+			<cfset thisHigher=listDeleteAt(thisHigher,1)>
+
 			<cfquery name="uThisTerm" dbtype="query">
 				select #thisTerm# from d group by #thisTerm#
 			</cfquery>
-			<cfdump var=#uThisTerm#>
+			<cfloop query="uThisTerm">
+				<cfquery name="thisHigherCombined" dbtype="query">
+					select #thisHigher# from d where #thisTerm#='#evaluate(thisTerm)#' group by #thisHigher#
+				</cfquery>
+				<cfdump var=#thisHigherCombined#>
+
+
+			</cfloop>
 		</cfloop>
 
 		<!----
