@@ -38,7 +38,6 @@ run these in order
 		<!--- deal with order==>phylorder ---->
 		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
 		<cfloop list="#oTerms#" index="thisTerm">
-			<br>#thisTerm#
 			<cfquery name="hasThis" dbtype="query">
 				select count(*) c from d where #thisTerm# is not null
 			</cfquery>
@@ -47,37 +46,26 @@ run these in order
 				<cfset usedTerms=listappend(usedTerms,thisterm)>
 			</cfif>
 		</cfloop>
-		<br>these terms are used and need checked
-		#usedTerms#
 		<cfset lNum=1>
 		<cfset thisHigher=usedTerms>
 		<cfloop list="#usedTerms#" index="thisTerm">
 			<!--- remove the current term; everything upstream should match ---->
 			<cfset thisHigher=listDeleteAt(thisHigher,1)>
-
 			<cfquery name="uThisTerm" dbtype="query">
 				select #thisTerm# termvalue from d group by #thisTerm#
 			</cfquery>
-			<!----
-			<cfif len(uThisTerm.termvalue) gt 0>
-			</cfif>
-			---->
 			<cfloop query="uThisTerm">
 				<cfif len(uThisTerm.termvalue) gt 0>
 				<cfquery name="thisHigherCombined" dbtype="query">
 						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
 					</cfquery>
 					<cfif thisHigherCombined.recordcount neq 1>
-						<p>
-							INCONSISTENCY DETECTED!!
-						</p>
 						<!--- figure out what exactly is inconsistent ---->
 						<cfset probTerms="">
 						<cfloop list="#thisHigherCombined.columnList#" index="c">
 							<cfquery name="dt" dbtype="query">
 								select #c# from thisHigherCombined group by #c#
 							</cfquery>
-							<cfdump var=#dt#>
 							<cfif dt.recordcount neq 1>
 								<cfset probTerms="">
 								<cfloop query="dt">
@@ -87,11 +75,9 @@ run these in order
 									</cfif>
 									<cfset probTerms=listAppend(probTerms,thisP)>
 								</cfloop>
-
 								<cfset prob="#lcase(thisTerm)#=#termvalue# --> #lcase(c)# IN (#probTerms#)">
 							</cfif>
 						</cfloop>
-
 				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
 							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
@@ -104,7 +90,6 @@ run these in order
 			update CF_TEMP_CLASSIFICATION set status='conssitency_check_passed'
 			where status='go_go_check_consistency'
 		</cfquery>
-
 	</cfoutput>
 </cfif>
 
