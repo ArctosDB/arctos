@@ -62,12 +62,9 @@ run these in order
 			<cfif len(uThisTerm.termvalue) gt 0>
 			</cfif>
 			---->
-				<cfloop query="uThisTerm">
-					<cfif len(uThisTerm.termvalue) gt 0>
-						<br>#uThisTerm.termvalue# << is not zero-length
-
-
-					<cfquery name="thisHigherCombined" dbtype="query">
+			<cfloop query="uThisTerm">
+				<cfif len(uThisTerm.termvalue) gt 0>
+				<cfquery name="thisHigherCombined" dbtype="query">
 						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
 					</cfquery>
 					<cfif thisHigherCombined.recordcount neq 1>
@@ -93,14 +90,8 @@ run these in order
 						---->
 						<cfdump var=#thisHigherCombined#>
 					</cfif>
-
-<cfelse>
-						<br>#uThisTerm.termvalue# << is  zero-length we didn't do anything with it
-
-					</cfif>
-
-				</cfloop>
-
+				</cfif>
+			</cfloop>
 		</cfloop>
 		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_CLASSIFICATION set status='conssitency_check_passed'
