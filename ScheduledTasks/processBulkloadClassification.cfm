@@ -78,7 +78,12 @@ run these in order
 							</cfquery>
 							<cfif dt.recordcount neq 1>
 								<br><cfdump var=#dt#>
-								<br>#c# IN (#valuelist(evaluate("dt." & c))#)
+								<cfset probTerms="">
+								<cfloop query="dt">
+									<cfset probTerms=listAppend(probTerms,evaluate("dt." & c))>
+								</cfloop>
+
+								<br>#c# IN (#probTerms#)
 							</cfif>
 						</cfloop>
 
