@@ -86,10 +86,13 @@ run these in order
 								<br><cfdump var=#dt#>
 							</cfif>
 						</cfloop>
+
+						<!----
 				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							update CF_TEMP_CLASSIFICATION set status='inconsistency detected at #thisTerm#=#termvalue#'
 							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
 						</cfquery>
+						---->
 						<cfdump var=#thisHigherCombined#>
 					</cfif>
 
