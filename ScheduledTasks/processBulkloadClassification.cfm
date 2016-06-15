@@ -81,7 +81,11 @@ run these in order
 							<cfif dt.recordcount neq 1>
 								<cfset probTerms="">
 								<cfloop query="dt">
-									<cfset probTerms=listAppend(probTerms,evaluate("dt." & c))>
+									<cfset thisP=evaluate("dt." & c)>
+									<cfif len(thisP) is 0>
+										<cfset thisP="NULL">
+									</cfif>
+									<cfset probTerms=listAppend(probTerms,thisP)>
 								</cfloop>
 
 								<cfset prob="#lcase(thisTerm)#=#termvalue# --> #lcase(c)# IN (#probTerms#)">
