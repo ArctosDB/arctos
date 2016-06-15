@@ -83,7 +83,7 @@ run these in order
 									<cfset probTerms=listAppend(probTerms,evaluate("dt." & c))>
 								</cfloop>
 
-								<br>#c# IN (#probTerms#)
+								<br>#lcase(c)# IN (#probTerms#) for #lcase(thisTerm)#='#termvalue#'
 							</cfif>
 						</cfloop>
 
