@@ -3,6 +3,8 @@
 run these in order
 
 
+<br><a href="processBulkloadClassification.cfm?action=checkConsistency">checkConsistency</a>
+
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
 <br><a href="processBulkloadClassification.cfm?action=getTID">getTID</a>
 <br><a href="processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>
@@ -10,6 +12,87 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
 
 <!---------------------------------------------------------->
+
+
+<cfif action is "checkConsistency">
+	<cfoutput>
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from CF_TEMP_CLASSIFICATION where status='go_go_check_consistency'
+		</cfquery>
+		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
+		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				taxon_term
+			from
+				CTTAXON_TERM
+			where
+				IS_CLASSIFICATION=1 and
+				-- ignore things which have no logical parent
+				taxon_term not in ('scientific_name')
+			order by
+				RELATIVE_POSITION desc
+		</cfquery>
+
+		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
+		<cfset usedTerms="">
+		<!--- deal with order==>phylorder ---->
+		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
+		<cfloop list="#oTerms#" index="thisTerm">
+			<cfquery name="hasThis" dbtype="query">
+				select count(*) c from d where #thisTerm# is not null
+			</cfquery>
+			<cfif hasThis.c gt 0>
+				<cfset usedTerms=listappend(usedTerms,thisterm)>
+			</cfif>
+		</cfloop>
+		<cfset lNum=1>
+		<cfset thisHigher=usedTerms>
+		<cfloop list="#usedTerms#" index="thisTerm">
+			<!--- remove the current term; everything upstream should match ---->
+			<cfset thisHigher=listDeleteAt(thisHigher,1)>
+			<cfquery name="uThisTerm" dbtype="query">
+				select #thisTerm# termvalue from d group by #thisTerm#
+			</cfquery>
+			<cfloop query="uThisTerm">
+				<cfif len(uThisTerm.termvalue) gt 0 and len(thisHigher) gt 0>
+					<cfquery name="thisHigherCombined" dbtype="query">
+						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
+					</cfquery>
+					<cfif thisHigherCombined.recordcount neq 1>
+						<!--- figure out what exactly is inconsistent ---->
+						<cfset probTerms="">
+						<cfloop list="#thisHigherCombined.columnList#" index="c">
+							<cfquery name="dt" dbtype="query">
+								select #c# from thisHigherCombined group by #c#
+							</cfquery>
+							<cfif dt.recordcount neq 1>
+								<cfset probTerms="">
+								<cfloop query="dt">
+									<cfset thisP=evaluate("dt." & c)>
+									<cfif len(thisP) is 0>
+										<cfset thisP="NULL">
+									</cfif>
+									<cfset probTerms=listAppend(probTerms,thisP)>
+								</cfloop>
+								<cfset prob="#lcase(thisTerm)#=#termvalue# --> #lcase(c)# IN (#probTerms#)">
+							</cfif>
+						</cfloop>
+				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
+							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfloop>
+		</cfloop>
+		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='consitency_check_passed'
+			where status='go_go_check_consistency'
+		</cfquery>
+	</cfoutput>
+</cfif>
+
+
 
 <cfif action is "fill_in_the_blanks_from_genus">
 
@@ -478,4 +561,3 @@ run these in order
 
 
 </cfif>
-

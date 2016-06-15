@@ -1,8 +1,5 @@
 <!----
-
 	drop table cf_temp_classification;
-
-
 	create table cf_temp_classification (
 		-- admin junk
 		status varchar2(255),
@@ -16,7 +13,7 @@
 		author_text varchar2(255) null,
 		infraspecific_author varchar2(255) null,
 		nomenclatural_code varchar2(255) not null,
-		source_authority varchar2(255) null,
+		source_authority varchar2(4000) null,
 		valid_catalog_term_fg varchar2(255) null,
 		taxon_status varchar2(255) null,
 		remark varchar2(255),
@@ -40,6 +37,7 @@
 		phylorder varchar2(255) null,
 		suborder varchar2(255) null,
 		infraorder varchar2(255) null,
+		hyporder varchar2(255) null,
 		superfamily varchar2(255) null,
 		family varchar2(255),
 		subfamily varchar2(255) null,
@@ -53,15 +51,10 @@
 		subsp varchar2(255) null,
 		forma varchar2(255) null
 );
-
-
-
+alter table cf_temp_classification rename column hypoorder to hyporder;
 create or replace public synonym cf_temp_classification for cf_temp_classification;
-
 grant all on cf_temp_classification to coldfusion_user;
-
 create unique index iu_temp_class on cf_temp_classification(scientific_name) tablespace uam_idx_1;
-
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Classifications">
@@ -135,6 +128,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 
 
+		<p>
+			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>.
+		</p>
+
+
 
 
 
@@ -197,7 +195,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 		<!----
 		toobookoo
-
 		<cfquery name="dbcols" datasource="uam_god">
 			select
 				column_name
@@ -208,8 +205,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				lower(column_name) not in ('taxon_name_id','classification_id')
 			ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
-
-
 		<table border>
 			<tr>
 			<cfloop query="dbcols">
@@ -226,6 +221,17 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</table>
 		---->
 	</cfoutput>
+</cfif>
+<!----------------------------------------------------------------->
+<cfif action is "checkConsistency">
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='go_go_check_consistency' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<p>
+			Records have been flagged for consistency check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+
 </cfif>
 <!----------------------------------------------------------------->
 <cfif action is "deletemystuff">
@@ -394,4 +400,3 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 </cfif>
 
 <cfinclude template="/includes/_footer.cfm">
-
