@@ -78,13 +78,12 @@ run these in order
 								select #c# from thisHigherCombined group by #c#
 							</cfquery>
 							<cfif dt.recordcount neq 1>
-								<br><cfdump var=#dt#>
 								<cfset probTerms="">
 								<cfloop query="dt">
 									<cfset probTerms=listAppend(probTerms,evaluate("dt." & c))>
 								</cfloop>
 
-								<cfset prob="#lcase(c)# IN (#probTerms#) for #lcase(thisTerm)#=#termvalue#">
+								<cfset prob="#lcase(thisTerm)#=#termvalue# --> #lcase(c)# IN (#probTerms#)">
 							</cfif>
 						</cfloop>
 
@@ -92,7 +91,6 @@ run these in order
 							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
 							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
 						</cfquery>
-						<cfdump var=#thisHigherCombined#>
 					</cfif>
 				</cfif>
 			</cfloop>
