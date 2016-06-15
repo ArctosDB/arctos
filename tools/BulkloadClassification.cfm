@@ -40,7 +40,7 @@
 		phylorder varchar2(255) null,
 		suborder varchar2(255) null,
 		infraorder varchar2(255) null,
-		hypoorder varchar2(255) null,
+		hyporder varchar2(255) null,
 		superfamily varchar2(255) null,
 		family varchar2(255),
 		subfamily varchar2(255) null,
@@ -56,6 +56,7 @@
 );
 
 
+alter table cf_temp_classification rename column hypoorder to hyporder;
 
 create or replace public synonym cf_temp_classification for cf_temp_classification;
 

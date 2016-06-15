@@ -77,6 +77,7 @@ run these in order
 							<cfquery name="dt" dbtype="query">
 								select #c# from thisHigherCombined group by #c#
 							</cfquery>
+							<cfdump var=#dt#>
 							<cfif dt.recordcount neq 1>
 								<cfset probTerms="">
 								<cfloop query="dt">
