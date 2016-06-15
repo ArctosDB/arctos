@@ -42,7 +42,6 @@ run these in order
 				select count(*) c from d where #thisTerm# is not null
 			</cfquery>
 			<cfif hasThis.c gt 0>
-				<br>there are records with #thisTerm#
 				<cfset usedTerms=listappend(usedTerms,thisterm)>
 			</cfif>
 		</cfloop>
@@ -87,7 +86,7 @@ run these in order
 			</cfloop>
 		</cfloop>
 		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update CF_TEMP_CLASSIFICATION set status='conssitency_check_passed'
+			update CF_TEMP_CLASSIFICATION set status='consitency_check_passed'
 			where status='go_go_check_consistency'
 		</cfquery>
 	</cfoutput>
