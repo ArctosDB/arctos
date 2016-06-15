@@ -79,16 +79,17 @@ run these in order
 							</cfquery>
 							<cfif dt.recordcount neq 1>
 								<br><cfdump var=#dt#>
+								<cfset probTerms="">
 								<cfloop query="dt">
 									<cfset probTerms=listAppend(probTerms,evaluate("dt." & c))>
 								</cfloop>
 
-								<br>
+								<cfset prob="#lcase(c)# IN (#probTerms#) for #lcase(thisTerm)#=#termvalue#">
 							</cfif>
 						</cfloop>
 
 				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #lcase(c)# IN (#probTerms#) for #lcase(thisTerm)#=#termvalue#'
+							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
 							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
 						</cfquery>
 						<cfdump var=#thisHigherCombined#>
