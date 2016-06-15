@@ -55,8 +55,8 @@ run these in order
 				select #thisTerm# termvalue from d group by #thisTerm#
 			</cfquery>
 			<cfloop query="uThisTerm">
-				<cfif len(uThisTerm.termvalue) gt 0>
-				<cfquery name="thisHigherCombined" dbtype="query">
+				<cfif len(uThisTerm.termvalue) gt 0 and len(thisHigher) gt 0>
+					<cfquery name="thisHigherCombined" dbtype="query">
 						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
 					</cfquery>
 					<cfif thisHigherCombined.recordcount neq 1>
