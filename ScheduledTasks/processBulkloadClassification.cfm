@@ -63,6 +63,13 @@ run these in order
 			</cfif>
 			---->
 				<cfloop query="uThisTerm">
+					<cfif len(uThisTerm.termvalue) gt 0>
+						<br>#uThisTerm.termvalue# << is not zero-length
+					<cfelse>
+						<br>#uThisTerm.termvalue# << is  zero-length
+
+					</cfif>
+
 					<cfquery name="thisHigherCombined" dbtype="query">
 						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
 					</cfquery>
