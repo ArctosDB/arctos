@@ -96,7 +96,6 @@ run these in order
 
 <cfif action is "test_cf">
 
-	<cfset 1=2>
 			<cfmail subject="test_cf" to="dustymc@gmail.com" from="cf_works@#Application.fromEmail#" type="html">
 				I am mail
 			</cfmail>
