@@ -72,27 +72,25 @@ run these in order
 							INCONSISTENCY DETECTED!!
 						</p>
 						<!--- figure out what exactly is inconsistent ---->
+						<cfset probTerms="">
 						<cfloop list="#thisHigherCombined.columnList#" index="c">
 							<cfquery name="dt" dbtype="query">
 								select #c# from thisHigherCombined group by #c#
 							</cfquery>
 							<cfif dt.recordcount neq 1>
 								<br><cfdump var=#dt#>
-								<cfset probTerms="">
 								<cfloop query="dt">
 									<cfset probTerms=listAppend(probTerms,evaluate("dt." & c))>
 								</cfloop>
 
-								<br>#lcase(c)# IN (#probTerms#) for #lcase(thisTerm)#='#termvalue#'
+								<br>
 							</cfif>
 						</cfloop>
 
-						<!----
 				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							update CF_TEMP_CLASSIFICATION set status='inconsistency detected at #thisTerm#=#termvalue#'
+							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #lcase(c)# IN (#probTerms#) for #lcase(thisTerm)#=#termvalue#'
 							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
 						</cfquery>
-						---->
 						<cfdump var=#thisHigherCombined#>
 					</cfif>
 				</cfif>
