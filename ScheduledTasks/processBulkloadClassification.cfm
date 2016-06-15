@@ -78,7 +78,7 @@ run these in order
 							</cfquery>
 							<cfif dt.recordcount neq 1>
 								<br><cfdump var=#dt#>
-								<br>#c# IN (#valuelist(dt.#c#)#)
+								<br>#c# IN (#valuelist(evaluate("dt." & c))#)
 							</cfif>
 						</cfloop>
 
