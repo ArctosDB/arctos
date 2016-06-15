@@ -51,7 +51,7 @@
 		subsp varchar2(255) null,
 		forma varchar2(255) null
 );
-alter table cf_temp_classification rename column hypoorder to hyporder;
+--alter table cf_temp_classification rename column hypoorder to hyporder;
 create or replace public synonym cf_temp_classification for cf_temp_classification;
 grant all on cf_temp_classification to coldfusion_user;
 create unique index iu_temp_class on cf_temp_classification(scientific_name) tablespace uam_idx_1;
