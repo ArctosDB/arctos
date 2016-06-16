@@ -1,5 +1,5 @@
 <cfoutput>
-	<cfexecute  name = "ls"  variable = "x">
+	<cfexecute  name = "ls" timeout="10" variable = "x">
 	</cfexecute>
 
 	<cfdump var=#x#>
