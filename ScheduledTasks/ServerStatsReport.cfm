@@ -1,14 +1,11 @@
 <cfoutput>
-	<cfexecute
-	    name = "/bin/df"
-	    arguments = "-h #application.webDirectory#"
-	    variable = "x">
+	<cfexecute  name = "ls"  variable = "x">
 	</cfexecute>
 
-		<cfdump var=#cfexecute#>
+	<cfdump var=#x#>
 
 <!----
-	<cfdump var=#x#>
+ arguments = "-h #application.webDirectory#"
 ---->
 
 </cfoutput>
