@@ -127,7 +127,6 @@ hello I am file
 		<!---- /globals --->
 		<cfloop query="d">
 			<cfset updatedOrig=false>
-			<hr>running for #genus#
 			<cftransaction>
 			<!--- build a query object from this row of the existing data --->
 			<cfset nd=queryNew(knowncols)>
