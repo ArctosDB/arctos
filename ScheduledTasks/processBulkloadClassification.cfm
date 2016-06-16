@@ -93,16 +93,6 @@ run these in order
 </cfif>
 
 
-
-<cfif action is "test_cf">
-
-			<cfmail subject="test_cf" to="dustymc@gmail.com" from="cf_works@#Application.fromEmail#" type="html">
-				I am mail
-			</cfmail>
-			mail
-
-
-</cfif>
 <cfif action is "fill_in_the_blanks_from_genus">
 hello I am file
 <cfif not isdefined ("escapequotes")>
@@ -232,10 +222,6 @@ hello I am file
 					</cfcatch>
 					</cftry>
 				<cfelse>
-					<p>
-						updating genus-only record from Arctos
-					</p>
-
 
 					<cfset problem=listprepend(problem,'autofillintheblanks',':')>
 
