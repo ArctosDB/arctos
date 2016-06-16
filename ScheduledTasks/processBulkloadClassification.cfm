@@ -2,7 +2,6 @@
 
 run these in order
 
-
 <br><a href="processBulkloadClassification.cfm?action=checkConsistency">checkConsistency</a>
 
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
@@ -10,10 +9,7 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
-
 <!---------------------------------------------------------->
-
-
 <cfif action is "checkConsistency">
 	<cfoutput>
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -74,7 +70,7 @@ run these in order
 									</cfif>
 									<cfset probTerms=listAppend(probTerms,thisP)>
 								</cfloop>
-								<cfset prob="#lcase(thisTerm)#=#termvalue# --> #lcase(c)# IN (#probTerms#)">
+								<cfset prob="#lcase(thisTerm)#=#termvalue# --> IN #lcase(c)# (#probTerms#)">
 							</cfif>
 						</cfloop>
 				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -92,9 +88,7 @@ run these in order
 	</cfoutput>
 </cfif>
 
-
 <cfif action is "fill_in_the_blanks_from_genus">
-hello I am file
 <cfif not isdefined ("escapequotes")>
 	<cfinclude template="/includes/functionLib.cfm">
 </cfif>
