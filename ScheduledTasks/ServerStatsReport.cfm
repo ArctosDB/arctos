@@ -4,6 +4,9 @@
 	    arguments = "-h #application.webDirectory#"
 	    variable = "x">
 	</cfexecute>
+
+		<cfdump var=#cfexecute#>
+
 <!----
 	<cfdump var=#x#>
 ---->
