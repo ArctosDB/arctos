@@ -859,6 +859,9 @@ Upload CSV:
 		<cfelse>
 			<cfset lcl_collection_object_id=getCatItem.collection_object_id>
 		</cfif>
+		<cfdump var=#getCatItem#>
+
+		------<cfoutput>lcl_collection_object_id=#lcl_collection_object_id#</cfoutput>
 		<cfquery name="aba" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select agent_id from agent_name where agent_name='#ASSIGNED_BY_AGENT#' group by agent_id
 		</cfquery>
