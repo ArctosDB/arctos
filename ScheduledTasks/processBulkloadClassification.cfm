@@ -546,6 +546,4 @@ run these in order
 			</cftransaction>
 		</cfloop>
 	</cfoutput>
-
-
 </cfif>

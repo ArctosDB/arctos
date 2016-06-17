@@ -856,6 +856,7 @@ Upload CSV:
 		</cfquery>
 		<cfif getCatItem.collection_object_id is 0>
 			<cfset s=listappend(s,'guid not found',';')>
+			<cfset lcl_collection_object_id=-1>
 		<cfelse>
 			<cfset lcl_collection_object_id=getCatItem.collection_object_id>
 		</cfif>
@@ -1055,7 +1056,7 @@ Upload CSV:
 			update
 				cf_temp_specevent
 			set
-				l_collection_object_id=#getCatItem.collection_object_id#,
+				l_collection_object_id=#lcl_collection_object_id#,
 				l_collecting_event_id=#lcl_collecting_event_id#,
 				l_locality_id=#lcl_locality_id#,
 				l_geog_auth_rec_id=#lcl_geog_auth_rec_id#,
