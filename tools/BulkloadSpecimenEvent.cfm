@@ -856,7 +856,6 @@ Upload CSV:
 		</cfquery>
 		<cfif getCatItem.collection_object_id is 0>
 			<cfset s=listappend(s,'guid not found',';')>
-			<cfset lcl_collection_object_id=-1>
 		<cfelse>
 			<cfset lcl_collection_object_id=getCatItem.collection_object_id>
 		</cfif>
@@ -1052,6 +1051,10 @@ Upload CSV:
 		<cfif len(s) eq 0>
 			<cfset s='valid'>
 		</cfif>
+
+		<p>
+			lcl_collection_object_id=#lcl_collection_object_id#
+		</p>
 		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
 				cf_temp_specevent
