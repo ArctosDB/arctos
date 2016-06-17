@@ -852,9 +852,9 @@ Upload CSV:
 
 
 		<cfquery name="getCatItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select nvl(collection_object_id,0) collection_object_id from flat where guid='#guid#'
+			select collection_object_id from flat where guid='#guid#'
 		</cfquery>
-		<cfif getCatItem.collection_object_id is 0>
+		<cfif len(getCatItem.collection_object_id) is 0>
 			<cfset s=listappend(s,'guid not found',';')>
 		<cfelse>
 			<cfset lcl_collection_object_id=getCatItem.collection_object_id>
