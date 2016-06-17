@@ -70,6 +70,17 @@ create or replace public synonym cf_temp_specevent for cf_temp_specevent;
 grant all on cf_temp_specevent to coldfusion_user;
 
 
+CREATE OR REPLACE TRIGGER trg_cf_temp_specevent_biu
+    BEFORE INSERT OR UPDATE ON cf_temp_specevent
+    FOR EACH ROW
+    BEGIN
+	    -- Oracle is making some super-weird distinct
+  	if dbms_lob.getlength(:NEW.wkt_polygon) = 0 then
+    	:NEW.wkt_polygon:=NULL;
+    end if;
+end;
+/
+
 
 -- convert this to a run-on-demand by-user app so that we can use it from data entry
 -- see /Arctos/DDL/migration/6.4_DataEntry1ToMany.sql
@@ -1140,11 +1151,6 @@ Upload CSV:
 								<br>found existing locality
 								<cfset lcl_locality_id=eLoc.locality_id>
 							<cfelse>
-
-							<cfdump var=#eLoc#>
-							<cfabort>
-
-
 								<!--- make a locality ---->
 								<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									select sq_locality_id.nextval nv from dual
