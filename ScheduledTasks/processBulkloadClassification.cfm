@@ -42,6 +42,7 @@ run these in order
 	<cfset checkedTerms="">
 	<cfloop list="#ttList#" index="term">
 		<p>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird'
 		where
 			status='sciname_weird_check' and
@@ -54,6 +55,7 @@ run these in order
 				</cfif>
 			</cfloop>
 		scientific_name != '#term#'
+		</cfquery>
 		</p>
 		<cfset checkedTerms=listappend(checkedTerms,term)>
 		<cfset ttList=listDeleteAt(ttList,1)>
