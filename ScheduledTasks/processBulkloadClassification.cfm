@@ -208,17 +208,38 @@ run these in order
 				<cfif listLen(usedTerms) gt listPostion>
 					<!--- if it's not there's nothing to check ---->
 					<!---- local term's value ---->
-					<cfset lTermVal=evaluate("d." & currentTerm)>
-					<br>currentTerm=#currentTerm#
-					<br>lTermVal=#lTermVal#
-					<!--- next higher term ---->
+					<cfset currentTermVal=evaluate("d." & currentTerm)>
+						<cfif len(currentTermVal) gt 0>
+						<!--- if we're on a NULL value, there's nothing else to do here ---->
 
-					<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
+						<br>currentTerm=#currentTerm#
+						<br>currentTermVal=#currentTermVal#
+						<!--- next higher term ---->
 
-					<br>nextTerm=#nextTerm#
-					<cfset nextTermVal=evaluate("d." & nextTerm)>
+						<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
 
-					<br>nextTermVal=#nextTermVal#
+						<br>nextTerm=#C#
+						<cfset nextTermVal=evaluate("d." & nextTerm)>
+
+						<br>nextTermVal=#nextTermVal#
+						<!----
+							now query - all records (if any) with currentTerm=currentTermVal
+							should have nextTerm=nextTermVal
+						---->
+						<cfquery name="checkNext" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							select count(*) c from CF_TEMP_CLASSIFICATION
+							where #nextTerm#
+							<cfif len(nextTermVal) is 0>
+								is not null
+							<cfelse>
+								!= '#nextTermVal#'
+							</cfif>
+						</cfquery>
+						<cfif checkNext.c neq 0>
+							<cfdump var=#checkNext#>
+							<cfabort>
+						</cfif>
+					</cfif>
 				</cfif>
 
 
