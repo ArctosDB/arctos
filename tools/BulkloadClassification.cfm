@@ -131,27 +131,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 
 
-	<cfdump var=#fList#>
-
-
-	-----------------
-	<cfdump var=#oClassTerms#>
-
-
-
-	<cfset fList=valuelist(oClassTerms.taxon_term)>
-
-	<!--- put status right after scientific_name ---->
-	<cfset sp=listfindnocase(fList,"scientific_name")>
-	<cfset fList=ListInsertAt(fList,sp+1,'status')>
-	<cfdump var=#fList#>
-	<cfdump var=#mine.columnlist#>
-
-	<cfabort>
-
-
 	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=fList)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/BulkloadClassificationData.csv"
     	output = "#csv#"
