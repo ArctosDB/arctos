@@ -137,6 +137,39 @@ run these in order
 			<cfif len(prob) gt 0>
 				<cfset thisProb=listappend(thisProb,prob,';')>
 			</cfif>
+
+			<cfif len(subspecies) gt 0>
+				<cfif scientific_name neq "#genus# #species# #subspecies#">
+					<cfset thisProb=listappend(thisProb,"scientific_name is not genus+species+subspecies",';')>
+				</cfif>
+			<cfelseif len(species) gt 0>
+				<cfif scientific_name neq "#genus# #species#">
+					<cfset thisProb=listappend(thisProb,"scientific_name is not genus+species",';')>
+				</cfif>
+			</cfif>
+
+		<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
+		<cfset lttList=ttList>
+		<cfset checkedTerms="">
+		<cfset prob="">
+		<cfloop list="#lttList#" index="term">
+			<cfif len(prob) is 0>
+				<cfset thisTerm=evaluate("d." & term)>
+				<cfif len(thisTerm) gt 0>
+					<cfif compare(thisTerm,scientific_name) neq 0>
+						<cfset prob="scientific name is not #thisTerm# (#term#)">
+					</cfif>
+				</cfif>
+			</cfif>
+			<cfset checkedTerms=listappend(checkedTerms,term)>
+			<cfset ttList=listDeleteAt(ttList,1)>
+		</cfloop>
+		<cfif len(prob) gt 0>
+			<cfset thisProb=listappend(thisProb,prob,';')>
+		</cfif>
+
+
+
 			<p>
 				#scientific_name#-->thisProb: #thisProb#
 			</p>
@@ -146,6 +179,8 @@ run these in order
 			<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update CF_TEMP_CLASSIFICATION set status='#thisProb#' where scientific_name='#scientific_name#'
 			</cfquery>
+
+
 
 		</cftransaction>
 	</cfloop>
