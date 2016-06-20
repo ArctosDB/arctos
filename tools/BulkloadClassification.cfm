@@ -77,6 +77,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from CF_TEMP_CLASSIFICATION where 1=2
 	</cfquery>
+
+	<cfdump var=#mine#>
 	<!--- get column order ---->
 	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
