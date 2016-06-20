@@ -53,7 +53,7 @@ run these in order
 					#ct# is null
 						and
 				</cfloop>
-			 scientific_name != '#term#'
+			 scientific_name != #term#
 		</cfquery>
 
 		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
@@ -65,7 +65,7 @@ run these in order
 					#ct# is null
 						and
 				</cfloop>
-			 scientific_name != '#term#'
+			 scientific_name != #term#
 		</p>
 		<cfset checkedTerms=listappend(checkedTerms,term)>
 		<cfset ttList=listDeleteAt(ttList,1)>
