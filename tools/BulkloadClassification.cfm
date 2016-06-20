@@ -90,6 +90,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfset fList=valuelist(oClassTerms.taxon_term)>
 
 	<cfdump var=#fList#>
+	<cfdump var=#mine.columnlist#>
 
 	<cfabort>
 
