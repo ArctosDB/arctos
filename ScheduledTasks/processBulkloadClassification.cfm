@@ -148,21 +148,26 @@ run these in order
 				</cfif>
 			</cfif>
 
-		<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
 		<cfset lttList=ttList>
 		<cfset checkedTerms="">
 		<cfset prob="">
 		<cfloop list="#lttList#" index="term">
+			<br>term=#term#
 			<cfif len(prob) is 0>
+			<br>no probs yet
 				<cfset thisTerm=evaluate("d." & term)>
+
+			<br>thisTerm=#thisTerm#
 				<cfif len(thisTerm) gt 0>
+				<br>not null
 					<cfif compare(thisTerm,scientific_name) neq 0>
+						<br>no match is problem
 						<cfset prob="scientific name is not #thisTerm# (#term#)">
 					</cfif>
 				</cfif>
 			</cfif>
 			<cfset checkedTerms=listappend(checkedTerms,term)>
-			<cfset ttList=listDeleteAt(ttList,1)>
+			<cfset lttList=listDeleteAt(lttList,1)>
 		</cfloop>
 		<cfif len(prob) gt 0>
 			<cfset thisProb=listappend(thisProb,prob,';')>
