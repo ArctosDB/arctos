@@ -142,7 +142,13 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	    file = "#Application.webDirectory#/download/BulkloadClassificationData.csv"
     	output = "#csv#"
     	addNewLine = "no">
+
+
+	<!----
 	<cflocation url="/download.cfm?file=BulkloadClassificationData.csv" addtoken="false">
+	---->
+
+	<a href="/download.cfm?file=BulkloadClassificationData.csv">BulkloadClassificationData.csv</a>
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
