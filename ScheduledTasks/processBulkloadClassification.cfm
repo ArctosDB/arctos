@@ -51,7 +51,6 @@ run these in order
 			<cfloop list="#ttList#" index="term">
 				<cfset prob="">
 				<cfset thisTerm=evaluate("d." & term)>
-				<br>thisTerm: #thisTerm#
 				<!--- pretty much isValidTaxonName with some extra paranoia ---->
 				<cfif thisTerm contains "  ">
 					<cfset prob=listappend(prob,'double space detected in #term#=#thisTerm#',';')>
