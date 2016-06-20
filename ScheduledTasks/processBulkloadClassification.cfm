@@ -50,11 +50,9 @@ run these in order
 			species is null and
 			<cfloop list="#checkedTerms#" index="ct">
 				#ct# is null
-				<cfif ct is not listLast(checkedTerms)>
 					and
-				</cfif>
 			</cfloop>
-		scientific_name != '#term#'
+		 scientific_name != '#term#'
 		</cfquery>
 		</p>
 		<cfset checkedTerms=listappend(checkedTerms,term)>
