@@ -81,8 +81,16 @@ run these in order
 				</cfif>
 			</cfloop>
 		</cfloop>
+
+		<cfloop list="#usedTerms#" index="thisTerm">
+			<p>#thisTerm#</p>
+		</cfloop>
+
+
+
+
 		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update CF_TEMP_CLASSIFICATION set status='consitency_check_passed'
+			update CF_TEMP_CLASSIFICATION set status='consistency_check_passed'
 			where status='go_go_check_consistency'
 		</cfquery>
 	</cfoutput>
