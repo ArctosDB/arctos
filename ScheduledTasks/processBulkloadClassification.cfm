@@ -66,7 +66,7 @@ run these in order
 
 
 				<cfif compare(lcase(thisTerm), thisterm) neq 0>
-					<br>compare(lcase(thisTerm), thisterm: #compare(lcase(thisTerm), thisterm#
+					<br>compare(lcase(thisTerm), thisterm: #compare(lcase(thisTerm), thisterm)#
 
 
 					<cfset prob=listappend(prob,'Names should not be all lower-case detected in #term#=#thisTerm#',';')>
