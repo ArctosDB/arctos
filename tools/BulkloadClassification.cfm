@@ -286,7 +286,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 <!----------------------------------------------------------------->
 <cfif action is "doEverything">
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update CF_TEMP_CLASSIFICATION set status='doEverything' where upper(username)='#ucase(session.username)#'
+			update CF_TEMP_CLASSIFICATION set status='go_go_all' where upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<p>
 			Records have been flagged for doEverything.
