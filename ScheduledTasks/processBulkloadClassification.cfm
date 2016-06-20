@@ -10,6 +10,57 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
 <!---------------------------------------------------------->
+<cfif action is "sciname_weird_check">
+	<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			taxon_term
+		from
+			CTTAXON_TERM
+		where
+			IS_CLASSIFICATION=1 and
+			-- ignore things which make sloppy namestrings
+			taxon_term not in ('scientific_name','forma','subspecies','species','subgenus')
+		order by
+			RELATIVE_POSITION desc
+	</cfquery>
+	<!--- first deal with the stuff we ignored ---->
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird'
+		where status='sciname_weird_check' and subspecies is not null and
+		scientific_name != genus || ' ' || species || ' ' || subspecies
+	</cfquery>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird'
+		where
+			status='sciname_weird_check' and
+			subspecies is null and
+			species is not null and
+		scientific_name != genus || ' ' || species
+	</cfquery>
+	<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
+	<cfset checkedTerms="">
+	<cfloop list="#ttList#" index="term">
+		<p>
+			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird'
+		where
+			status='sciname_weird_check' and
+			subspecies is null and
+			species is null and
+			<cfloop list="#checkedTerms#" index="ct">
+				#ct# is null
+				<cfif ct is not listLast(checkedTerms)>
+					and
+				</cfif>
+			</cfloop>
+		scientific_name != '#term#'
+		</p>
+		<cfset checkedTerms=listappend(checkedTerms,term)>
+		<cfset ttList=listDeleteAt(ttList,1)>
+	</cfloop>
+
+
+</cfif>
+
 <cfif action is "checkConsistency">
 	<cfoutput>
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -81,14 +132,6 @@ run these in order
 				</cfif>
 			</cfloop>
 		</cfloop>
-
-		<cfloop list="#usedTerms#" index="thisTerm">
-			<p>#thisTerm#</p>
-		</cfloop>
-
-
-
-
 		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_CLASSIFICATION set status='consistency_check_passed'
 			where status='go_go_check_consistency'
