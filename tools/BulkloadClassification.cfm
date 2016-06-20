@@ -230,10 +230,27 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 
 
-
+<!------
 
 		<p>
-			NOTE: Many of the checks below may not be combined with other checks. For example, clicking Check for consistency
+			SUMMARY: One way of using this form
+			<ol>
+				<li>Load some data</li>
+				<li>Click "" if necessa</li>
+				<li>Click the 'Flag to run all data checks' link</li>
+				<li>Ensure that all records have been flagged for check (status "go_go_all")</li>
+				<li></li>
+				<li>Download everything</li>
+				<li>Fix any problems</li>
+				<li>Delete, re-upload</li>
+				<li>Run consistency check (because things happen, esp. when eg., Excel is involved)</li>
+				<li>Runse and repeat until 'consistency_check_passed' on everything</li>
+				<li>Move on to the next check; repeat if anything might have broken the consistency checker.</li>
+			</ol>
+
+
+
+			Many of the checks below may not be combined with other checks. For example, clicking Check for consistency
 			will set STATUS of <strong>all</strong> records to "go_go_check_consistency." The consistency checker will ignore
 			anything without a flagged status, and when done (which may take several days for large datasets) will leave no
 			records with that status. Doing anything else during the process will reset everything. The entire procedure for checking
@@ -249,7 +266,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<li>Runse and repeat until 'consistency_check_passed' on everything</li>
 				<li>Move on to the next check; repeat if anything might have broken the consistency checker.</li>
 			</ol>
-
+			------->
 		</p>
 		<!----
 		<p>
