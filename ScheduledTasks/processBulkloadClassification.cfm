@@ -34,6 +34,9 @@ run these in order
 		order by
 			RELATIVE_POSITION desc
 	</cfquery>
+	<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
+	<cfset ttList=replace(ttList,',order,',',phylorder,')>
+
 	<cfloop query="d">
 		<cftransaction>
 			<cfset thisProb="">
@@ -45,7 +48,7 @@ run these in order
 				<cfset thisProb=listappend(thisProb,'invalid scientific_name: #p.v#',';')>
 			</cfif>
 			<!--- weird junk in terms --->
-			<cfloop list="#valuelist(oClassTerms.taxon_term)#" index="term">
+			<cfloop list="#ttList#" index="term">
 				<cfset thisTerm=evaluate("d." & term)>
 				<br>thisTerm: #thisTerm#
 
