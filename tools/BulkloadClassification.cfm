@@ -183,13 +183,14 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a> and view column descriptions
 		</p>
 		<p>
-			<a href="BulkloadClassification.cfm?action=getCSV">Download all of your data</a>
+			<a href="BulkloadClassification.cfm?action=getCSV">Download all of your data</a>. Do this often as a backup.
 		</p>
 		<p>
-			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>
+			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>. Do this before re-loading
+			something you've downloaded and fixed.
 		</p>
 		<p>
-			Load (more) data
+			Load (more) data. This is additive; you may want to delete first.
 			<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadClassification.cfm">
 				<input type="hidden" name="action" value="getFileData">
 				<label for="">Load CSV. Will APPEND to existing data</label>
