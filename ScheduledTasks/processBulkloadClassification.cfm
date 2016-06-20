@@ -139,7 +139,7 @@ run these in order
 				<cfset thisProb=listappend(thisProb,prob,';')>
 			</cfif>
 			<p>
-				#scientific_name#-->prob: #prob#
+				#scientific_name#-->thisProb: #thisProb#
 			</p>
 			<cfif len(prob) is 0>
 				<cfset prob='all_checks_passed'>
