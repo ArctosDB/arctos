@@ -152,11 +152,13 @@ run these in order
 			<cfset lowestTermValue="">
 			<cfset lttList=ttList>
 			<!--- check genus and above only, so... ---->
-			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'forma'))>
-			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'subspecies'))>
-			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'species'))>
-			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'subgenus'))>
-
+			<cfset termsToIgnore="forma,subspecies,species,subgenus">
+			<cfloop list="#termsToIgnore#" index="t">
+				<cfif listfind(lttList,t)>
+					<cfset lttList=listdeleteat(lttList,listfindnocase(lttList,t))>
+					<br>deleted #t#
+				</cfif>
+			</cfloop>
 
 
 			<cfloop list="#lttList#" index="term">
