@@ -48,38 +48,35 @@ run these in order
 					taxon_name.scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif hmc.ccid neq 1>
-			<cfdump var=#hmc#>
 				<cfset prob="#hmc.ccid# classifications detected">
 			<cfelse>
 				<cfquery name="funkyTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select TERM_TYPE , term
+					select
+						TERM_TYPE , term
 					from
-					taxon_name,
-					taxon_term
-				where
-					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-					taxon_term.source='Arctos' and
-					taxon_name.scientific_name='#scientific_name#' and
-					( taxon_term.TERM_TYPE is null or
-				 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
-			)
+						taxon_name,
+						taxon_term
+					where
+						taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+						taxon_term.source='Arctos' and
+						taxon_name.scientific_name='#scientific_name#' and
+						(
+							taxon_term.TERM_TYPE is null or
+					 		taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
+						)
 				</cfquery>
-			<cfdump var=#funkyTerms#>
+				<cfloop query="funkyTerms">
+					<cfset prob=listappend(prob,'#term#=#TERM_TYPE#')>
+				</cfloop>
 			</cfif>
-			<!----
-
-
-			---->
-
+			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update CF_TEMP_CLASSIFICATION set status='existing_data_loss_warning: #prob#' where scientific_name='#scientific_name#'
+			</cfquery>
 		</cfloop>
-		<p>
-			The following scientific names will cause data loss. The corresponding data in Arctos contains unranked or unhandled terms.
-		</p>
-		<cfloop query="ins">
-			<br><a target="_blank" href="/name/#scientific_name#">#scientific_name#</a>
-		</cfloop>
+		<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='existing_data_check_pass' where status='go_go_gap_checker'
+		</cfquery>
 	</cfoutput>
-
 </cfif>
 
 
