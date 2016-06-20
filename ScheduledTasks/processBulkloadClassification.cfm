@@ -227,7 +227,7 @@ run these in order
 							should have nextTerm=nextTermVal
 						---->
 						<cfquery name="checkNext" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select count(*) c from CF_TEMP_CLASSIFICATION
+							select count(*) as c from CF_TEMP_CLASSIFICATION
 							where #nextTerm#
 							<cfif len(nextTermVal) is 0>
 								is not null
