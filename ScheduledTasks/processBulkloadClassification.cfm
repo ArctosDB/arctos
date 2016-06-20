@@ -209,6 +209,7 @@ run these in order
 				<cfset thisHigher=listDeleteAt(thisHigher,1)>
 				<!---- local term's value ---->
 				<cfset lTermVal=evaluate("d." & currentTerm)>
+				<br>currentTerm=#currentTerm#
 				<br>lTermVal=#lTermVal#
 				<!--- next higher term ---->
 				<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
