@@ -22,6 +22,18 @@ run these in order
 	 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 10
 	</cfquery>
+	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			taxon_term
+		from
+			CTTAXON_TERM
+		where
+			IS_CLASSIFICATION=1 and
+			-- ignore things which make sloppy namestrings
+			taxon_term not in ('scientific_name','forma','subspecies','species','subgenus')
+		order by
+			RELATIVE_POSITION desc
+	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
 			<cfset thisProb="">
@@ -32,6 +44,13 @@ run these in order
 			<cfif p.v is not "valid">
 				<cfset thisProb=listappend(thisProb,'invalid scientific_name: #p.v#',';')>
 			</cfif>
+			<!--- weird junk in terms --->
+			<cfloop list="#valuelist(oClassTerms.taxon_term)#" index="term">
+				<cfset thisTerm=evaluate("d." & term)>
+				<br>thisTerm: #thisTerm#
+
+			</cfloop>
+
 			<!---- checkGaps ---->
 			<cfquery name="hmc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
