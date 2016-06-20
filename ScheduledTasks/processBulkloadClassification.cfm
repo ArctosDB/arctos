@@ -49,10 +49,52 @@ run these in order
 			</cfif>
 			<!--- weird junk in terms --->
 			<cfloop list="#ttList#" index="term">
+				<cfset prob="">
 				<cfset thisTerm=evaluate("d." & term)>
 				<br>thisTerm: #thisTerm#
+				<!--- pretty much isValidTaxonName with some extra paranoia ---->
+				<cfif thisTerm contains "  ">
+					<cfset prob=listappend(prob,'double space detected in #term#=#thisTerm#',';')>
+				</cfif>
+				<cfif compare(trim(thisTerm), thisterm) neq 0>
+					<cfset prob=listappend(prob,'Leading or trailing spaces detected in #term#=#thisTerm#',';')>
+				</cfif>
+				<cfif compare(lcase(thisTerm), thisterm) neq 0>
+					<cfset prob=listappend(prob,'Names should not be all lower-case detected in #term#=#thisTerm#',';')>
+				</cfif>
+				<cfif compare(ucase(thisTerm), thisterm) neq 0>
+					<cfset prob=listappend(prob,'Names should not be all upper-case detected in #term#=#thisTerm#',';')>
+				</cfif>
+				<cfif refind(thisTerm,'[^A-Za-z -.üë×ö\(\)]')>
+					<cfset prob=listappend(prob,'Invalid characters in #term#=#thisTerm#',';')>
+				</cfif>
+				<cfif len(trim(thisTerm)) eq 1>
+					<cfset prob=listappend(prob,'Too short@#term#=#thisTerm#',';')>
+				</cfif>
+				<cfif lcase(thisTerm) contains ' x '>
+					<cfset prob=listappend(prob,'Looks like a hybrid@#term#=#thisTerm#',';')>
+				</cfif>
+				<cfif lcase(thisTerm) contains ' sp ' or right(lcase(thisTerm),3) is ' sp'>
+					<cfset prob=listappend(prob,'"sp" is not a valid name-part@#term#=#thisTerm#',';')>
+				</cfif>
+				<cfif lcase(thisTerm) contains ' ssp ' or right(lcase(thisTerm),4) is ' ssp'>
+					<cfset prob=listappend(prob,'"ssp" is not a valid name-part@#term#=#thisTerm#',';')>
+				</cfif>
+				<cfif lcase(thisTerm) contains ' or '>
+					<cfset prob=listappend(prob,'"or" is not a valid name-part@#term#=#thisTerm#',';')>
+				</cfif>
+				<cfif lcase(thisTerm) contains ' and '>
+					<cfset prob=listappend(prob,'"and" is not a valid name-part@#term#=#thisTerm#',';')>
+				</cfif>
+				<cfif lcase(thisTerm) contains '.' >
+					<cfset prob=listappend(prob,'"." is not a valid name-part@#term#=#thisTerm#',';')>
+				</cfif>
+				<cfif len(prob) gt 0>
+					<cfset thisProb=listappend(thisProb,prob,';')>
+				</cfif>
 
 			</cfloop>
+
 
 			<!---- checkGaps ---->
 			<cfquery name="hmc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
