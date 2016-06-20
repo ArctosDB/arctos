@@ -4,7 +4,9 @@ run these in order
 
 <br><a href="processBulkloadClassification.cfm?action=checkConsistency">checkConsistency</a>
 <br><a href="processBulkloadClassification.cfm?action=sciname_weird_check">sciname_weird_check</a>
+<br><a href="processBulkloadClassification.cfm?action=sciname_valid_check">sciname_valid_check</a>
 <br><a href="processBulkloadClassification.cfm?action=checkGaps">checkGaps</a>
+
 
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
 <br><a href="processBulkloadClassification.cfm?action=getTID">getTID</a>
@@ -12,7 +14,15 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
 <!---------------------------------------------------------->
+select isValidTaxonName('Bob') from dual;
 
+<cfif action is "sciname_valid_check">
+	<!--- get the stuff we care about ---->
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update CF_TEMP_CLASSIFICATION set status='sciname_valid_check: ' || isValidTaxonName(scientific_name)
+		where status='sciname_valid_check'
+	</cfquery>
+</cfif>
 <cfif action is "checkGaps">
 	<!--- get the stuff we care about ---->
 	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

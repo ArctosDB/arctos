@@ -160,6 +160,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			filling in blanks.
 		</p>
 
+		<p>
+			<a href="BulkloadClassification.cfm?action=sciname_valid_check">sciname_valid_check</a>. This will
+			check for scientific_names which do not seem to be valid (mostly formatting).
+		</p>
+
 
 
 
@@ -269,7 +274,24 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
 			if you're comfortable in and have rights to ScheduledTasks
 		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
+		</p>
+</cfif>
+<!----------------------------------------------------------------->
+<cfif action is "sciname_valid_check">
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='sciname_valid_check' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<p>
+			Records have been flagged for sciname_valid_check.
 
+			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
+		</p>
 </cfif>
 <!----------------------------------------------------------------->
 <cfif action is "checkConsistency">
@@ -279,6 +301,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>
 			Records have been flagged for consistency check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
 			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
 		</p>
 
 </cfif>
@@ -428,6 +453,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>
 			Records have been flagged for gap check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
 			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
 		</p>
 
 </cfif>
