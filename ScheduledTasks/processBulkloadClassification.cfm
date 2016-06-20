@@ -62,7 +62,13 @@ run these in order
 					<br>  compare(trim(thisTerm), thisterm): #compare(trim(thisTerm), thisterm)#
 					<cfset prob=listappend(prob,'Leading/trailing spaces@#term#=#thisTerm#',';')>
 				</cfif>
+
+
+
 				<cfif compare(lcase(thisTerm), thisterm) neq 0>
+					<br>compare(lcase(thisTerm), thisterm: #compare(lcase(thisTerm), thisterm#
+
+
 					<cfset prob=listappend(prob,'Names should not be all lower-case detected in #term#=#thisTerm#',';')>
 				</cfif>
 				<cfif compare(ucase(thisTerm), thisterm) neq 0>
