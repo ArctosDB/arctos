@@ -94,6 +94,15 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfset fList=listappend(fList,'status')>
 	<cfset fList=listappend(fList,valuelist(ncterm.taxon_term))>
 
+	<!--- make sure everything in the columnlist we just built from the code table is a table row ---->
+	<cfloop list="#fList#" index="t">
+		<cfif not listcontains(mine.columnlist,t)>
+			<p>
+				#t# is not in the table bad<cfabort>
+			</p>
+		</cfif>
+
+	</cfloop>
 
 	<cfdump var=#fList#>
 
