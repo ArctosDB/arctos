@@ -72,6 +72,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 <!----------------------------------------------------------------->
 
 <cfif action is "getCSV">
+<cfoutput>
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
 	</cfquery>
@@ -130,6 +131,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkloadClassificationData.csv" addtoken="false">
+</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
 
