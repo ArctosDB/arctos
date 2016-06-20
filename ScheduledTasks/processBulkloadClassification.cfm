@@ -20,7 +20,7 @@ run these in order
 <cfif action is "doEverything">
 <cfoutput>
 	 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 10
+		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 100
 	</cfquery>
 	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -52,8 +52,6 @@ run these in order
 				<cfset prob="">
 				<cfset thisTerm=evaluate("d." & term)>
 				<cfif len(thisTerm) gt 0>
-
-					<br>#term#=#thisTerm#
 					<!--- pretty much isValidTaxonName with some extra paranoia ---->
 					<cfif thisTerm contains "  ">
 						<cfset prob=listappend(prob,'double space detected in #term#=#thisTerm#',';')>
