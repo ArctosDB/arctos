@@ -205,17 +205,15 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 
 		<p>
-			After creating what you believe to be valid records (e.g., those with display_name), you should verify them.
+			<a href="BulkloadClassification.cfm?action=doEverything">Flag to run all data checks</a>: After creating what you believe to
+			 be valid records (e.g., those with display_name), you should verify them.
 			This will catch (most) problems which would prevent a record from loading, and many potential problems or inconsistencies
 			which you
 			may not wish to introduce into the data. If you plan to
 			fill_in_the_blanks_from_genus (e.g., fetch species and subspecies level data to make consistent
 			through this tool), you should verify before and after that step. You should also verify after
-			you've changed anything.
-			<p>
-				<a href="BulkloadClassification.cfm?action=doEverything">Flag to run all data checks</a>. This can be a slow (ca. 400 records/minute)
+			you've changed anything. This can be a slow (ca. 400 records/minute)
 				process; check status summary by reloading this page, and contact a DBA if nothing seems to be happening.
-			</p>
 		</p>
 
 
@@ -267,7 +265,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<li>Move on to the next check; repeat if anything might have broken the consistency checker.</li>
 			</ol>
 			------->
-		</p>
 		<!----
 		<p>
 			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>. This will flag records which appear
