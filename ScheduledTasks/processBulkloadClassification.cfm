@@ -22,6 +22,11 @@ run these in order
 	 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 100
 	</cfquery>
+	<cfquery name="CTTAXONOMY_SOURCE" datasource="uam_god">
+		select source from CTTAXONOMY_SOURCE
+	</cfquery>
+	<cfset validSourceList=valueList(CTTAXONOMY_SOURCE.source)>
+	<cfset validNomenCodeList='ICZN,ICBN'>
 	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			taxon_term
@@ -213,7 +218,6 @@ run these in order
 					<cfif len(currentTermVal) gt 0>
 						<cfset nextTermVal="">
 						<!--- if we're on a NULL value, there's nothing else to do here ---->
-
 						<!--- next higher USED term ---->
 						<cfloop condition="len(nextTermVal) eq 0">
 							<br>loopty
@@ -221,9 +225,6 @@ run these in order
 							<cfset nextTermVal=evaluate("d." & nextTerm)>
 							<cfset listPostion=listPostion+1>
 						</cfloop>
-
-
-
 						<!----
 							now query - all records (if any) with currentTerm=currentTermVal
 							should have nextTerm=nextTermVal
@@ -239,8 +240,6 @@ run these in order
 								!= '#nextTermVal#'
 							</cfif>
 						</cfquery>
-
-						<cfdump var=#checkNext#>
 						<cfif checkNext.c neq 0>
 							fail
 							<cfif len(nextTermVal) is 0>
@@ -248,100 +247,39 @@ run these in order
 							<cfelse>
 								<cfset ntv=nextTermVal>
 							</cfif>
-
 							<cfset prob="#nextTerm# != #ntv# where #currentTerm#=#currentTermVal# (#checkNext.c# records)">
 						</cfif>
 					</cfif>
 				</cfif>
-
-
-
 			</cfloop>
 			<cfif len(prob) gt 0>
 				<cfset thisProb=listappend(thisProb,"inconsistency detected: #prob#",';')>
 			</cfif>
 
-
-<!---------------
-
-
-
-
-		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
-		<cfset usedTerms="">
-		<!--- deal with order==>phylorder ---->
-		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
-		<cfloop list="#oTerms#" index="thisTerm">
-			<cfquery name="hasThis" dbtype="query">
-				select count(*) c from d where #thisTerm# is not null
-			</cfquery>
-			<cfif hasThis.c gt 0>
-				<cfset usedTerms=listappend(usedTerms,thisterm)>
+			<cfif len(display_name) eq 0>
+				<cfset thisProb=listappend(thisProb,"display_name is required",';')>
 			</cfif>
-		</cfloop>
-		<cfset lNum=1>
-		<cfset thisHigher=usedTerms>
-		<cfloop list="#usedTerms#" index="thisTerm">
-			<!--- remove the current term; everything upstream should match ---->
-			<cfset thisHigher=listDeleteAt(thisHigher,1)>
-			<cfquery name="uThisTerm" dbtype="query">
-				select #thisTerm# termvalue from d group by #thisTerm#
-			</cfquery>
-			<cfloop query="uThisTerm">
-				<cfif len(uThisTerm.termvalue) gt 0 and len(thisHigher) gt 0>
-					<cfquery name="thisHigherCombined" dbtype="query">
-						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
-					</cfquery>
-					<cfif thisHigherCombined.recordcount neq 1>
-						<!--- figure out what exactly is inconsistent ---->
-						<cfset probTerms="">
-						<cfloop list="#thisHigherCombined.columnList#" index="c">
-							<cfquery name="dt" dbtype="query">
-								select #c# from thisHigherCombined group by #c#
-							</cfquery>
-							<cfif dt.recordcount neq 1>
-								<cfset probTerms="">
-								<cfloop query="dt">
-									<cfset thisP=evaluate("dt." & c)>
-									<cfif len(thisP) is 0>
-										<cfset thisP="NULL">
-									</cfif>
-									<cfset probTerms=listAppend(probTerms,thisP)>
-								</cfloop>
-								<cfset prob="#lcase(thisTerm)#=#termvalue# --> IN #lcase(c)# (#probTerms#)">
-							</cfif>
-						</cfloop>
-				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
-							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
-						</cfquery>
-					</cfif>
-				</cfif>
-			</cfloop>
-
-
-
-		</cfloop>
-
-		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update CF_TEMP_CLASSIFICATION set status='consistency_check_passed'
-			where status='go_go_check_consistency'
-		</cfquery>
-	</cfoutput>
-</cfif>
-
-
-
-
-
-
-		------------->
-
-
-
-
-
-
+			<cfif not listFind(validSourceList,source)>
+				<cfset thisProb=listappend(thisProb,"source must be in (#validSourceList#)",';')>
+			</cfif>
+			<cfif not listFind(validNomenCodeList,nomenclatural_code)>
+				<cfset thisProb=listappend(thisProb,"nomenclatural_code must be in (#validNomenCodeList#)",';')>
+			</cfif>
+			<cfif nomenclatural_code is 'ICZN' and (len(forma) gt 0 or len(subsp) gt 0)>
+				<cfset thisProb=listappend(thisProb,"subspecies is the only acceptable ICZN infraspecific data",';')>
+			</cfif>
+			<cfif nomenclatural_code is not 'ICZN' and (len(subspecies) gt 0)>
+				<cfset thisProb=listappend(thisProb,"subspecies is ICZN-only",';')>
+			</cfif>
+			<cfif len(subspecies) gt 0 and (len(forma) gt 0 or len(subsp) gt 0)>
+				<cfset thisProb=listappend(thisProb,"only one infraspecific term may be given",';')>
+			</cfif>
+			<cfif len(forma) gt 0 and (len(subspecies) gt 0 or len(subsp) gt 0)>
+				<cfset thisProb=listappend(thisProb,"only one infraspecific term may be given",';')>
+			</cfif>
+			<cfif len(subsp) gt 0 and (len(subspecies) gt 0 or len(forma) gt 0)>
+				<cfset thisProb=listappend(thisProb,"only one infraspecific term may be given",';')>
+			</cfif>
 
 
 
