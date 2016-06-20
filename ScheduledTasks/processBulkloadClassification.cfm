@@ -282,21 +282,12 @@ run these in order
 			<cfif len(subsp) gt 0 and (len(subspecies) gt 0 or len(forma) gt 0)>
 				<cfset thisProb=listappend(thisProb,"only one infraspecific term may be given",';')>
 			</cfif>
-
-
-
-			<p>
-				#scientific_name#-->thisProb: #thisProb#
-			</p>
 			<cfif len(thisProb) is 0>
 				<cfset thisProb='all_checks_passed'>
 			</cfif>
 			<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update CF_TEMP_CLASSIFICATION set status='#thisProb#' where scientific_name='#scientific_name#'
 			</cfquery>
-
-
-
 		</cftransaction>
 	</cfloop>
 </cfoutput>
