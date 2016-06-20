@@ -3,6 +3,7 @@
 run these in order
 
 <br><a href="processBulkloadClassification.cfm?action=checkConsistency">checkConsistency</a>
+<br><a href="processBulkloadClassification.cfm?action=sciname_weird_check">sciname_weird_check</a>
 
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
 <br><a href="processBulkloadClassification.cfm?action=getTID">getTID</a>
@@ -10,6 +11,48 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
 <!---------------------------------------------------------->
+
+<cfif action is "checkGaps">
+	<!--- get the stuff we care about ---->
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			distinct CF_TEMP_CLASSIFICATION.scientific_name
+		from
+			CF_TEMP_CLASSIFICATION,
+			taxon_name,
+			taxon_term
+		where
+			CF_TEMP_CLASSIFICATION.scientific_name=taxon_name.scientific_name and
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+			taxon_term.source='Arctos' and
+			status='go_go_gap_checker' and
+			--upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#' and
+			( taxon_term.TERM_TYPE is null or
+				 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
+			)
+	</cfquery>
+	<cfoutput>
+		<!--- and for the things we caught above, figure out the problem ---->
+			<!----
+		<cfloop query="ins">
+			<cfquery name="fukyTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select TERM_TYPE from taxon_term
+			</cfquery>
+
+		</cfloop>
+		------->
+		<p>
+			The following scientific names will cause data loss. The corresponding data in Arctos contains unranked or unhandled terms.
+		</p>
+		<cfloop query="ins">
+			<br><a target="_blank" href="/name/#scientific_name#">#scientific_name#</a>
+		</cfloop>
+	</cfoutput>
+
+</cfif>
+
+
+
 <cfif action is "sciname_weird_check">
 	<cfoutput>
 		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -42,8 +85,7 @@ run these in order
 		<cfset ttList=replace(ttList,',order,',',phylorder,')>
 		<cfset checkedTerms="">
 		<cfloop list="#ttList#" index="term">
-			<p>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
 				where
 					status='sciname_weird_check' and
@@ -55,18 +97,6 @@ run these in order
 					</cfloop>
 				 scientific_name != #term#
 			</cfquery>
-
-			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
-				where
-					status='sciname_weird_check' and
-					subspecies is null and
-					species is null and
-					<cfloop list="#checkedTerms#" index="ct">
-						#ct# is null
-							and
-					</cfloop>
-				 scientific_name != #term#
-			</p>
 			<cfset checkedTerms=listappend(checkedTerms,term)>
 			<cfset ttList=listDeleteAt(ttList,1)>
 		</cfloop>

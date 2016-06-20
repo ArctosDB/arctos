@@ -129,6 +129,30 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			</cfform>
 		</p>
 		<p>
+			NOTE: Many of the checks below may not be combined with other checks. For example, clicking Check for consistency
+			will set STATUS of <strong>all</strong> records to "go_go_check_consistency." The consistency checker will ignore
+			anything without a flagged status, and when done (which may take several days for large datasets) will leave no
+			records with that status. Doing anything else during the process will reset everything. The entire procedure for checking
+			consistency is therefore:
+			<ol>
+				<li>Load some data</li>
+				<li>Click the 'Check for consistency' link</li>
+				<li>Ensure that all records have been processed (status 'inconsistency detected...' or 'consistency_check_passed')</li>
+				<li>Download everything</li>
+				<li>Fix any problems</li>
+				<li>Delete, re-upload</li>
+				<li>Run consistency check (because things happen, esp. when eg., Excel is involved)</li>
+				<li>Runse and repeat until 'consistency_check_passed' on everything</li>
+				<li>Move on to the next check; repeat if anything might have broken the consistency checker.</li>
+			</ol>
+
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>. This will flag records which appear
+			to have inconsistent "hierarchies" - eg, one genus --> two families.
+		</p>
+
+		<p>
 			<a href="BulkloadClassification.cfm?action=checkGaps">Check for gaps</a>. This will
 			find data in Arctos which has no place in this loader; these data will be lost if the
 			data are loaded as-is. This will time out for large (few thousand) datasets; send us an email.
@@ -137,16 +161,12 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 
 
-		<p>
-			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>.
-		</p>
+
 
 		<p>
-			<a href="BulkloadClassification.cfm?action=sciname_weird_check">Check for sciname_weird_check</a>.
+			<a href="BulkloadClassification.cfm?action=sciname_weird_check">Check for sciname_weird_check</a>. This will flag records where the
+			scientific name does not look correct, generally meaning that scientific_name != {lowest-ranking non-NULL term}.
 		</p>
-
-
-
 
 
 		<p>
@@ -244,7 +264,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			update CF_TEMP_CLASSIFICATION set status='sciname_weird_check' where upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<p>
-			Records have been flagged for sciname_weird_check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			Records have been flagged for sciname_weird_check.
+
+			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
 			if you're comfortable in and have rights to ScheduledTasks
 		</p>
 
@@ -400,29 +422,13 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 </cfif>
 <!----------------------------------------------------------------->
 <cfif action is "checkGaps">
-	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			distinct CF_TEMP_CLASSIFICATION.scientific_name
-		from
-			CF_TEMP_CLASSIFICATION,
-			taxon_name,
-			taxon_term
-		where
-			CF_TEMP_CLASSIFICATION.scientific_name=taxon_name.scientific_name and
-			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-			--upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#' and
-			( taxon_term.TERM_TYPE is null or
-				 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
-			)
-	</cfquery>
-	<cfoutput>
+	  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='go_go_gap_checker' where upper(username)='#ucase(session.username)#'
+		</cfquery>
 		<p>
-			The following scientific names will cause data loss. The corresponding data in Arctos contains unranked or unhandled terms.
+			Records have been flagged for gap check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
 		</p>
-		<cfloop query="ins">
-			<br><a target="_blank" href="/name/#scientific_name#">#scientific_name#</a>
-		</cfloop>
-	</cfoutput>
 
 </cfif>
 
