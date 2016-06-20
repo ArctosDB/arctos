@@ -26,12 +26,12 @@ run these in order
 	</cfquery>
 	<!--- first deal with the stuff we ignored ---->
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird'
+		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: ssp'
 		where status='sciname_weird_check' and subspecies is not null and
 		scientific_name != genus || ' ' || species || ' ' || subspecies
 	</cfquery>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird'
+		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: sp'
 		where
 			status='sciname_weird_check' and
 			subspecies is null and
@@ -44,7 +44,7 @@ run these in order
 	<cfloop list="#ttList#" index="term">
 		<p>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird'
+			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
 		where
 			status='sciname_weird_check' and
 			subspecies is null and
