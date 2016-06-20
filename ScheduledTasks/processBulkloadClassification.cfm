@@ -43,18 +43,29 @@ run these in order
 	<cfset checkedTerms="">
 	<cfloop list="#ttList#" index="term">
 		<p>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
-		where
-			status='sciname_weird_check' and
-			subspecies is null and
-			species is null and
-			<cfloop list="#checkedTerms#" index="ct">
-				#ct# is null
-					and
-			</cfloop>
-		 scientific_name != '#term#'
+			where
+				status='sciname_weird_check' and
+				subspecies is null and
+				species is null and
+				<cfloop list="#checkedTerms#" index="ct">
+					#ct# is null
+						and
+				</cfloop>
+			 scientific_name != '#term#'
 		</cfquery>
+
+		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
+			where
+				status='sciname_weird_check' and
+				subspecies is null and
+				species is null and
+				<cfloop list="#checkedTerms#" index="ct">
+					#ct# is null
+						and
+				</cfloop>
+			 scientific_name != '#term#'
 		</p>
 		<cfset checkedTerms=listappend(checkedTerms,term)>
 		<cfset ttList=listDeleteAt(ttList,1)>
