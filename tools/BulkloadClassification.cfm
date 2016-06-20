@@ -75,6 +75,22 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
 	</cfquery>
+	<!--- get column order ---->
+	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			taxon_term
+		from
+			CTTAXON_TERM
+
+		order by
+			IS_CLASSIFICATION ASC,
+			RELATIVE_POSITION DESC
+	</cfquery>
+	<cfdump var=#oClassTerms#>
+
+	<cfabort>
+
+
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
 	<cffile action = "write"

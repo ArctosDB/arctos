@@ -77,6 +77,13 @@ run these in order
 			<cfif p.v is not "valid">
 				<cfset thisProb=listappend(thisProb,'invalid scientific_name: #p.v#',';')>
 			</cfif>
+
+			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) c from taxon_name where scientific_name='#scientific_name#'
+			</cfquery>
+			<cfif p.1 is not 1>
+				<cfset thisProb=listappend(thisProb,'scientific_name does not exist',';')>
+			</cfif>
 			<!--- weird junk in terms --->
 			<cfloop list="#ttList#" index="term">
 				<cfset prob="">
