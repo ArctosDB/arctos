@@ -58,28 +58,19 @@ run these in order
 					<cfset prob=listappend(prob,'double space detected in #term#=#thisTerm#',';')>
 				</cfif>
 				<cfif compare(trim(thisTerm), thisterm) neq 0>
-
-					<br>  compare(trim(thisTerm), thisterm): #compare(trim(thisTerm), thisterm)#
 					<cfset prob=listappend(prob,'Leading/trailing spaces@#term#=#thisTerm#',';')>
 				</cfif>
 
 
 
-				<cfif compare(lcase(thisTerm), thisterm) neq 0>
-					<br>compare(lcase(thisTerm), thisterm: #compare(lcase(thisTerm), thisterm)#
-
-
+				<cfif compare(lcase(thisTerm), thisterm) eq 0>
 					<cfset prob=listappend(prob,'Names should not be all lower-case detected in #term#=#thisTerm#',';')>
 				</cfif>
-				<cfif compare(ucase(thisTerm), thisterm) neq 0>
+				<cfif compare(ucase(thisTerm), thisterm) eq 0>
 					<cfset prob=listappend(prob,'Names should not be all upper-case detected in #term#=#thisTerm#',';')>
 				</cfif>
-				<!---- -\.---->
 				<cfif refind('[^A-Za-züë×ö\. -]',thisTerm)>
-					<br>badchar
 					<cfset prob=listappend(prob,'Invalid characters in #term#=#thisTerm#',';')>
-					<cfelse>
-					<br>spiffychars
 				</cfif>
 				<cfif len(trim(thisTerm)) eq 1>
 					<cfset prob=listappend(prob,'Too short@#term#=#thisTerm#',';')>
