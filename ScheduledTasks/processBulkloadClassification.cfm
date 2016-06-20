@@ -151,6 +151,8 @@ run these in order
 			<cfset lowestTerm="">
 			<cfset lowestTermValue="">
 			<cfset lttList=ttList>
+
+			<cfdump var=#lttList#>
 			<!--- check genus and above only, so... ---->
 			<cfset termsToIgnore="forma,subspecies,species,subgenus">
 			<cfloop list="#termsToIgnore#" index="t">
@@ -161,6 +163,8 @@ run these in order
 			</cfloop>
 
 
+			<cfdump var=#lttList#>
+			s
 			<cfloop list="#lttList#" index="term">
 				<cfif len(lowestTerm) eq 0>
 					<cfset thisTerm=evaluate("d." & term)>
@@ -170,11 +174,12 @@ run these in order
 					</cfif>
 				</cfif>
 			</cfloop>
-			<br>lowestTerm=#lowestTerm#
-			<br>lowestTermValue=#lowestTermValue#
+
 
 			<cfif compare(lowestTermValue,scientific_name) neq 0>
 				<br>no match is problem
+				<br>lowestTerm=#lowestTerm#
+				<br>lowestTermValue=#lowestTermValue#
 				<cfset thisProb=listappend(thisProb,"scientific name is not #lowestTermValue# (#lowestTerm#)",';')>
 			</cfif>
 
