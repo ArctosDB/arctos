@@ -203,6 +203,7 @@ run these in order
 			---->
 
 			<cfset listPostion=0>
+			<cfset prob="">
 			<cfloop list="#usedTerms#" index="currentTerm">
 				<cfset listPostion=listPostion+1>
 				<cfif listLen(usedTerms) gt listPostion>
@@ -242,7 +243,13 @@ run these in order
 						<cfdump var=#checkNext#>
 						<cfif checkNext.c neq 0>
 							fail
-							<cfabort>
+							<cfif len(nextTermVal) is 0>
+								<cfset ntv="NULL">
+							<cfelse>
+								<cfset ntv=nextTermVal>
+							</cfif>
+
+							<cfset prob="nextTerm!=#ntv# where currentTerm=#currentTermVal# (#checkNext.c# records)">
 						</cfif>
 					</cfif>
 				</cfif>
@@ -250,7 +257,9 @@ run these in order
 
 
 			</cfloop>
-
+			<cfif len(prob) gt 0>
+				<cfset thisProb=listappend(thisProb,"inconsistency detected: #prob#",';')>
+			</cfif>
 
 
 <!---------------
