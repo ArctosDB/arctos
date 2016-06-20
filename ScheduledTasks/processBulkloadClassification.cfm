@@ -20,7 +20,7 @@ run these in order
 <cfif action is "doEverything">
 <cfoutput>
 	 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 10
+		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 100
 	</cfquery>
 	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -212,16 +212,12 @@ run these in order
 						<cfif len(currentTermVal) gt 0>
 						<!--- if we're on a NULL value, there's nothing else to do here ---->
 
-						<br>currentTerm=#currentTerm#
-						<br>currentTermVal=#currentTermVal#
 						<!--- next higher term ---->
 
 						<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
 
-						<br>nextTerm=#nextTerm#
 						<cfset nextTermVal=evaluate("d." & nextTerm)>
 
-						<br>nextTermVal=#nextTermVal#
 						<!----
 							now query - all records (if any) with currentTerm=currentTermVal
 							should have nextTerm=nextTermVal
