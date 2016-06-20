@@ -4,6 +4,7 @@ run these in order
 
 <br><a href="processBulkloadClassification.cfm?action=checkConsistency">checkConsistency</a>
 <br><a href="processBulkloadClassification.cfm?action=sciname_weird_check">sciname_weird_check</a>
+<br><a href="processBulkloadClassification.cfm?action=checkGaps">checkGaps</a>
 
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
 <br><a href="processBulkloadClassification.cfm?action=getTID">getTID</a>
@@ -33,14 +34,22 @@ run these in order
 	</cfquery>
 	<cfoutput>
 		<!--- and for the things we caught above, figure out the problem ---->
-			<!----
 		<cfloop query="ins">
-			<cfquery name="fukyTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="hmc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(distinct(classification_id)) ccid from taxon_name,taxon_term
+				where taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+			taxon_term.source='Arctos' and
+			taxon_name.scientific_name='#scientific_name#'
+			</cfquery>
+			<cfdump var=#hmc#>
+			<!----
+
+			<cfquery name="funkyTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select TERM_TYPE from taxon_term
 			</cfquery>
+			---->
 
 		</cfloop>
-		------->
 		<p>
 			The following scientific names will cause data loss. The corresponding data in Arctos contains unranked or unhandled terms.
 		</p>
