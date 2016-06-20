@@ -173,14 +173,17 @@ run these in order
 			<br>lowestTermValue=#lowestTermValue#
 
 			<cfif compare(lowestTermValue,scientific_name) neq 0>
-						<br>no match is problem
-						<cfset prob="scientific name is not #lowestTermValue# (#lowestTerm#)">
-					</cfif>
+				<br>no match is problem
+				<cfset thisProb=listappend(thisProb,"scientific name is not #lowestTermValue# (#lowestTerm#)",';')>
+			</cfif>
 
 
-		<cfif len(prob) gt 0>
-			<cfset thisProb=listappend(thisProb,prob,';')>
-		</cfif>
+
+
+
+
+
+
 
 
 
