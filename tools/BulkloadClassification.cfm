@@ -92,7 +92,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 	<cfset fList=valuelist(cterm.taxon_term)>
 	<cfset fList=listappend(fList,'status')>
-	<cfset fList=listappend(fList,valuelist(ncterm.taxon_term)>
+	<cfset fList=listappend(fList,valuelist(ncterm.taxon_term))>
 
 
 	<cfdump var=#fList#>
