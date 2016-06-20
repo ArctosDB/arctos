@@ -218,7 +218,7 @@ run these in order
 
 						<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
 
-						<br>nextTerm=#C#
+						<br>nextTerm=#nextTerm#
 						<cfset nextTermVal=evaluate("d." & nextTerm)>
 
 						<br>nextTermVal=#nextTermVal#
