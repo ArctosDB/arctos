@@ -11,6 +11,7 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
 <!---------------------------------------------------------->
 <cfif action is "sciname_weird_check">
+	<cfoutput>
 	<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			taxon_term
@@ -58,7 +59,7 @@ run these in order
 		<cfset ttList=listDeleteAt(ttList,1)>
 	</cfloop>
 
-
+	</cfoutput>
 </cfif>
 
 <cfif action is "checkConsistency">
