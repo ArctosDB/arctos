@@ -148,27 +148,36 @@ run these in order
 				</cfif>
 			</cfif>
 
-		<cfset lttList=ttList>
-		<cfset checkedTerms="">
-		<cfset prob="">
-		<cfloop list="#lttList#" index="term">
-			<br>term=#term#
-			<cfif len(prob) is 0>
-			<br>no probs yet
-				<cfset thisTerm=evaluate("d." & term)>
+			<cfset lowestTerm="">
+			<cfset lowestTermValue="">
+			<cfset lttList=ttList>
+			<!--- check genus and above only, so... ---->
+			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'scientific_name'))>
+			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'forma'))>
+			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'subspecies'))>
+			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'species'))>
+			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'subgenus'))>
 
-			<br>thisTerm=#thisTerm#
-				<cfif len(thisTerm) gt 0>
-				<br>not null
-					<cfif compare(thisTerm,scientific_name) neq 0>
-						<br>no match is problem
-						<cfset prob="scientific name is not #thisTerm# (#term#)">
+
+
+			<cfloop list="#lttList#" index="term">
+				<cfif len(lowestTerm) eq 0>
+					<cfset thisTerm=evaluate("d." & term)>
+					<cfif len(thisTerm) gt 0>
+						<cfset lowestTerm=term>
+						<cfset lowestTermValue=thisTerm>
 					</cfif>
 				</cfif>
-			</cfif>
-			<cfset checkedTerms=listappend(checkedTerms,term)>
-			<cfset lttList=listDeleteAt(lttList,1)>
-		</cfloop>
+			</cfloop>
+			<br>lowestTerm=#lowestTerm#
+			<br>lowestTermValue=#lowestTermValue#
+
+			<cfif compare(lowestTermValue,scientific_name) neq 0>
+						<br>no match is problem
+						<cfset prob="scientific name is not #lowestTermValue# (#lowestTerm#)">
+					</cfif>
+
+
 		<cfif len(prob) gt 0>
 			<cfset thisProb=listappend(thisProb,prob,';')>
 		</cfif>
