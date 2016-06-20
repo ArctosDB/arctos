@@ -66,7 +66,7 @@ run these in order
 				<cfif compare(ucase(thisTerm), thisterm) neq 0>
 					<cfset prob=listappend(prob,'Names should not be all upper-case detected in #term#=#thisTerm#',';')>
 				</cfif>
-				<cfif refind('[^A-Za-z -.üë×ö]',thisTerm)>
+				<cfif refind('[^[A-Za-z -.üë×ö]]',thisTerm)>
 					<br>badchar
 					<cfset prob=listappend(prob,'Invalid characters in #term#=#thisTerm#',';')>
 					<cfelse>
