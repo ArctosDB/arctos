@@ -58,7 +58,9 @@ run these in order
 					<cfset prob=listappend(prob,'double space detected in #term#=#thisTerm#',';')>
 				</cfif>
 				<cfif compare(trim(thisTerm), thisterm) neq 0>
-					<cfset prob=listappend(prob,'Leading or trailing spaces detected in #term#=#thisTerm#',';')>
+
+					<br>  compare(trim(thisTerm), thisterm): #compare(trim(thisTerm), thisterm)#
+					<cfset prob=listappend(prob,'Leading/trailing spaces@#term#=#thisTerm#',';')>
 				</cfif>
 				<cfif compare(lcase(thisTerm), thisterm) neq 0>
 					<cfset prob=listappend(prob,'Names should not be all lower-case detected in #term#=#thisTerm#',';')>
