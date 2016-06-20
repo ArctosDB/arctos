@@ -5,7 +5,7 @@
 
 	create table cf_temp_classification (
 		-- admin junk
-		status varchar2(255),
+		status varchar2(4000),
 		classification_id varchar2(4000),
 		username varchar2(255) not null,
 		source  varchar2(255) not null,
@@ -57,6 +57,12 @@
 
 
 alter table cf_temp_classification rename column hypoorder to hyporder;
+
+alter table cf_temp_classification modify status varchar2(4000);
+
+
+
+
 
 create or replace public synonym cf_temp_classification for cf_temp_classification;
 
@@ -144,9 +150,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
     	addNewLine = "no">
 
 
-	<!----
 	<cflocation url="/download.cfm?file=BulkloadClassificationData.csv" addtoken="false">
-	---->
 
 	<a href="/download.cfm?file=BulkloadClassificationData.csv">BulkloadClassificationData.csv</a>
 </cfoutput>
