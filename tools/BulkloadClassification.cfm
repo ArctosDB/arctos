@@ -141,6 +141,10 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>.
 		</p>
 
+		<p>
+			<a href="BulkloadClassification.cfm?action=sciname_weird_check">Check for sciname_weird_check</a>.
+		</p>
+
 
 
 
@@ -233,6 +237,17 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</table>
 		---->
 	</cfoutput>
+</cfif>
+<!----------------------------------------------------------------->
+<cfif action is "sciname_weird_check">
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='sciname_weird_check' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<p>
+			Records have been flagged for sciname_weird_check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+
 </cfif>
 <!----------------------------------------------------------------->
 <cfif action is "checkConsistency">
