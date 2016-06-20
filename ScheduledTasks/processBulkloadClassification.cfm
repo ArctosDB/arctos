@@ -2,6 +2,9 @@
 
 run these in order
 
+<br><a href="processBulkloadClassification.cfm?action=doEverything">doEverything</a>
+
+
 <br><a href="processBulkloadClassification.cfm?action=checkConsistency">checkConsistency</a>
 <br><a href="processBulkloadClassification.cfm?action=sciname_weird_check">sciname_weird_check</a>
 <br><a href="processBulkloadClassification.cfm?action=sciname_valid_check">sciname_valid_check</a>
