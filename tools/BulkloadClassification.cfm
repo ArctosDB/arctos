@@ -73,8 +73,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 <cfif action is "getCSV">
 <cfoutput>
+	<!---- just need a list of columns here --->
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+		select * from CF_TEMP_CLASSIFICATION where 1=2
 	</cfquery>
 	<!--- get column order ---->
 	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -129,7 +130,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 	</cfloop>
 
-
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select #fList# from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+	</cfquery>
 
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=mine,Fields=fList)>
