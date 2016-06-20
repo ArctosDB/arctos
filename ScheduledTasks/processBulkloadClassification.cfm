@@ -233,8 +233,10 @@ run these in order
 								!= '#nextTermVal#'
 							</cfif>
 						</cfquery>
+
+						<cfdump var=#checkNext#>
 						<cfif checkNext.c neq 0>
-							<cfdump var=#checkNext#>
+							fail
 							<cfabort>
 						</cfif>
 					</cfif>
