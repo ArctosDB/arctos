@@ -78,13 +78,27 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<!--- get column order ---->
 	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			taxon_term
+			*
 		from
 			CTTAXON_TERM
-		order by
-			IS_CLASSIFICATION DESC,
-			RELATIVE_POSITION DESC
 	</cfquery>
+
+	<cfquery name="cterm" dbtype="query">
+		select taxon_term from oClassTerms where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
+	</cfquery>
+	<cfquery name="ncterm" dbtype="query">
+		select taxon_term from oClassTerms where IS_CLASSIFICATION=0 order by taxon_term
+	</cfquery>
+
+	<cfset fList=valuelist(cterm.taxon_term)>
+	<cfset fList=listappend(fList,'status')>
+	<cfset fList=listappend(fList,valuelist(ncterm.taxon_term)>
+
+
+	<cfdump var=#fList#>
+
+
+	-----------------
 	<cfdump var=#oClassTerms#>
 
 
