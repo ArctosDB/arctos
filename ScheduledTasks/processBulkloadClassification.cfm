@@ -14,7 +14,66 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
 <!---------------------------------------------------------->
-select isValidTaxonName('Bob') from dual;
+<cfif action is "doEverything">
+	 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 10
+	</cfquery>
+	<cfloop query="d">
+		<cftransaction>
+			<cfset thisProb="">
+			<!---- sciname_valid_check ---->
+			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select isValidTaxonName('#scientific_name#') v from dual
+			</cfquery>
+			<cfif p.v is not "valid">
+				<cfset thisProb=listappend(thisProb,'invalid scientific_name: #p.v#',';')>
+			</cfif>
+			<!---- checkGaps ---->
+			<cfquery name="hmc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					count(distinct(classification_id)) ccid
+				from
+					taxon_name,
+					taxon_term
+				where
+					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+					taxon_term.source='Arctos' and
+					taxon_name.scientific_name='#scientific_name#'
+			</cfquery>
+			<cfif hmc.ccid neq 1>
+				<cfset thisProb=listappend(thisProb,'#hmc.ccid# classifications detected',';')>
+			</cfif>
+			<cfquery name="funkyTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					TERM_TYPE , term
+				from
+					taxon_name,
+					taxon_term
+				where
+					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+					taxon_term.source='Arctos' and
+					taxon_name.scientific_name='#scientific_name#' and
+					(
+						taxon_term.TERM_TYPE is null or
+				 		taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
+					)
+			</cfquery>
+			<cfset prob="">
+			<cfloop query="funkyTerms">
+				<cfset prob=listappend(prob,'#term#=#TERM_TYPE#')>
+			</cfloop>
+			<cfif len(prob) gt 0>
+				<cfset thisProb=listappend(thisProb,prob,';')>
+			</cfif>
+			<p>
+				prob: #prob#
+			</p>
+		</cftransaction>
+	</cfloop>
+</cfif>
+
+
+
 
 <cfif action is "sciname_valid_check">
 	<!--- get the stuff we care about ---->

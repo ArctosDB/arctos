@@ -151,6 +151,11 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>. This will flag records which appear
 			to have inconsistent "hierarchies" - eg, one genus --> two families.
 		</p>
+		<p>
+			<a href="BulkloadClassification.cfm?action=doEverything">doEverything</a>. Run all data checks.
+		</p>
+
+
 
 		<p>
 			<a href="BulkloadClassification.cfm?action=checkGaps">Check for gaps</a>. This will
@@ -278,6 +283,23 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<a href="BulkloadClassification.cfm">continue</a>
 		</p>
 </cfif>
+<!----------------------------------------------------------------->
+<cfif action is "doEverything">
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='doEverything' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<p>
+			Records have been flagged for doEverything.
+
+			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
+		</p>
+</cfif>
+
+
 <!----------------------------------------------------------------->
 <cfif action is "sciname_valid_check">
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
