@@ -249,7 +249,7 @@ run these in order
 								<cfset ntv=nextTermVal>
 							</cfif>
 
-							<cfset prob="nextTerm!=#ntv# where currentTerm=#currentTermVal# (#checkNext.c# records)">
+							<cfset prob="#nextTerm# != #ntv# where #currentTerm#=#currentTermVal# (#checkNext.c# records)">
 						</cfif>
 					</cfif>
 				</cfif>
