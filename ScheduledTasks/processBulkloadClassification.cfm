@@ -209,14 +209,17 @@ run these in order
 					<!--- if it's not there's nothing to check ---->
 					<!---- local term's value ---->
 					<cfset currentTermVal=evaluate("d." & currentTerm)>
-						<cfif len(currentTermVal) gt 0>
+					<cfif len(currentTermVal) gt 0>
+						<cfset nextTermVal="">
 						<!--- if we're on a NULL value, there's nothing else to do here ---->
 
-						<!--- next higher term ---->
+						<!--- next higher USED term ---->
+						<cfloop condition="len(nextTermVal) is 0">
+							<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
+							<cfset nextTermVal=evaluate("d." & nextTerm)>
+						</cfloop>
 
-						<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
 
-						<cfset nextTermVal=evaluate("d." & nextTerm)>
 
 						<!----
 							now query - all records (if any) with currentTerm=currentTermVal
