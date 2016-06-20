@@ -104,18 +104,15 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<!--- see /ScheduledTasks/processBulkloadClassification.cfm ---->
 		</p>
 		<p>
-			Replace classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
+			This form REPLACES classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
 			click any buttons unless you KNOW what they do.
 		<p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a> and view column descriptions
 		</p>
-
-
 		<p>
 			<a href="BulkloadClassification.cfm?action=getCSV">Download all of your data</a>
 		</p>
-
 		<p>
 			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>
 		</p>
@@ -128,6 +125,41 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<input type="submit" value="Upload this file">
 			</cfform>
 		</p>
+		<p>
+			Display_Name is required. You may <a href="BulkloadClassification.cfm?action=getDisplayName">autogenerate display_name</a>.
+			This may produce strange data; carefully verify the results of this operation. This will NOT over-write anything already in
+			display_name; download CSV, remove display_name, and re-upload to accomplish that.
+		</p>
+
+
+		<p>
+			After creating what you believe to be valid records (e.g., those with display_name), you should verify them.
+			This will catch (most) problems which would prevent a record from loading, and many potential problems or inconsistencies
+			which you
+			may not wish to introduce into the data. If you plan to
+			fill_in_the_blanks_from_genus (e.g., fetch species and subspecies level data to make consistent
+			through this tool), you should verify before and after that step. You should also verify after
+			you've changed anything.
+			<p>
+				<a href="BulkloadClassification.cfm?action=doEverything">Flag to run all data checks</a>. This can be a slow (ca. 400 records/minute)
+				process; check status summary by reloading this page, and contact a DBA if nothing seems to be happening.
+			</p>
+		</p>
+
+
+		<li>
+			<a href="BulkloadClassification.cfm?action=setstatus&status=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>.
+			Use this to set status of ALL of your data to "fill_in_the_blanks_from_genus." This will cause Arctos to insert species
+			and subspecies
+			data, and to fill in any gaps in the genus-only source record. Check stats below before clicking;
+			 this force-overwrites anything in STATUS.
+		</li>
+
+
+
+
+
+
 		<p>
 			NOTE: Many of the checks below may not be combined with other checks. For example, clicking Check for consistency
 			will set STATUS of <strong>all</strong> records to "go_go_check_consistency." The consistency checker will ignore
@@ -147,13 +179,12 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			</ol>
 
 		</p>
+		<!----
 		<p>
 			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>. This will flag records which appear
 			to have inconsistent "hierarchies" - eg, one genus --> two families.
 		</p>
-		<p>
-			<a href="BulkloadClassification.cfm?action=doEverything">doEverything</a>. Run all data checks.
-		</p>
+
 
 
 
@@ -179,11 +210,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 
 
-		<p>
-			Display_Name is required. You may <a href="BulkloadClassification.cfm?action=getDisplayName">autogenerate display_name</a>.
-			This may produce strange data; carefully verify the results of this operation. This will NOT over-write anything already in
-			display_name; download CSV, remove display_name, and re-upload to accomplish that.
-		</p>
+
 		<p>
 			The following options are slow, and so are performed asynchronously. Clicking these links simply updates STATUS.
 			Check status below for progress.
@@ -206,6 +233,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				</li>
 			</ul>
 		</p>
+
+		---->
 		<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				status,
