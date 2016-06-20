@@ -112,7 +112,7 @@ run these in order
 					taxon_term.source='Arctos' and
 					taxon_name.scientific_name='#scientific_name#'
 			</cfquery>
-			<cfif hmc.ccid neq 1>
+			<cfif hmc.ccid gt 1>
 				<cfset thisProb=listappend(thisProb,'#hmc.ccid# classifications detected',';')>
 			</cfif>
 			<cfquery name="funkyTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
