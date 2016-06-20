@@ -18,6 +18,7 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
 <!---------------------------------------------------------->
 <cfif action is "doEverything">
+<cfoutput>
 	 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 10
 	</cfquery>
@@ -73,6 +74,7 @@ run these in order
 			</p>
 		</cftransaction>
 	</cfloop>
+</cfoutput>
 </cfif>
 
 
