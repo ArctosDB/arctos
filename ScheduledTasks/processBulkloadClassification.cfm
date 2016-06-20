@@ -237,7 +237,6 @@ run these in order
 							</cfif>
 						</cfquery>
 						<cfif checkNext.c neq 0>
-							fail
 							<cfif len(nextTermVal) is 0>
 								<cfset ntv="NULL">
 							<cfelse>
