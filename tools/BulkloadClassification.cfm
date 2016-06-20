@@ -93,11 +93,25 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 	<cfset fList=valuelist(cterm.taxon_term)>
 	<cfset fList=listappend(fList,'status')>
+	<cfset fList=listappend(fList,'source')>
 	<cfset fList=listappend(fList,valuelist(ncterm.taxon_term))>
+	<cfset fList=replace(fList,',order,',',phylorder,')>
+
+
+	<cfset BulkTableColList=mine.columnlist>
+	<!--- remove admin stuff ---->
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'USERNAME'))>
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'TAXON_NAME_ID'))>
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'SOURCE'))>
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'CLASSIFICATION_ID'))>
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'SUBSP'))>
+
+
+
 
 	<!--- make sure everything in the columnlist we just built from the code table is a table row ---->
 	<cfloop list="#fList#" index="t">
-		<cfif not listfindnocase(mine.columnlist,t)>
+		<cfif not listfindnocase(BulkTableColList,t)>
 			<p>
 				#t# is in CTTAXON_TERM and is NOT in CF_TEMP_CLASSIFICATION
 			</p>
@@ -106,7 +120,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	</cfloop>
 
 	<!--- make sure everything in the table is also in the code table (plus the stuff we added up yonder) ---->
-	<cfloop list="#mine.columnlist#" index="t">
+	<cfloop list="#BulkTableColList#" index="t">
 		<cfif not listfindnocase(fList,t)>
 			<p>
 				#t# is in CF_TEMP_CLASSIFICATION and is NOT in CTTAXON_TERM - THIS IS FATAL
