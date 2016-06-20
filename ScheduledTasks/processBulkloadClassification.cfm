@@ -20,7 +20,7 @@ run these in order
 <cfif action is "doEverything">
 <cfoutput>
 	 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 100
+		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 10
 	</cfquery>
 	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -201,23 +201,26 @@ run these in order
 				usedTerms is set up before the loop. It's things that have at least one value.
 				Loop through them and make sure that all higher terms match this record
 			---->
-			<cfset thisHigher=usedTerms>
 
 			<cfset listPostion=0>
 			<cfloop list="#usedTerms#" index="currentTerm">
 				<cfset listPostion=listPostion+1>
-				<cfset thisHigher=listDeleteAt(thisHigher,1)>
-				<!---- local term's value ---->
-				<cfset lTermVal=evaluate("d." & currentTerm)>
-				<br>currentTerm=#currentTerm#
-				<br>lTermVal=#lTermVal#
-				<!--- next higher term ---->
-				<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
+				<cfif listLen(usedTerms) gt listPostion>
+					<!--- if it's not there's nothing to check ---->
+					<!---- local term's value ---->
+					<cfset lTermVal=evaluate("d." & currentTerm)>
+					<br>currentTerm=#currentTerm#
+					<br>lTermVal=#lTermVal#
+					<!--- next higher term ---->
 
-				<br>nextTerm=#nextTerm#
-				<cfset nextTermVal=evaluate("d." & nextTerm)>
+					<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
 
-				<br>nextTermVal=#nextTermVal#
+					<br>nextTerm=#nextTerm#
+					<cfset nextTermVal=evaluate("d." & nextTerm)>
+
+					<br>nextTermVal=#nextTermVal#
+				</cfif>
+
 
 
 			</cfloop>
