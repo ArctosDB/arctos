@@ -97,7 +97,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 	<!--- make sure everything in the columnlist we just built from the code table is a table row ---->
 	<cfloop list="#fList#" index="t">
-		<cfif not listcontains(mine.columnlist,t)>
+		<cfif not listfindnocase(mine.columnlist,t)>
 			<p>
 				#t# is not in the table and could be
 			</p>
@@ -107,7 +107,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 	<!--- make sure everything in the table is also in the code table (plus the stuff we added up yonder) ---->
 	<cfloop list="#mine.columnlist#" index="t">
-		<cfif not listcontains(fList,t)>
+		<cfif not listfindnocase(fList,t)>
 			<p>
 				#t# is not in the table and MUST be<cfabort>
 			</p>
