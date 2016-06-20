@@ -216,13 +216,13 @@ run these in order
 					<!---- local term's value ---->
 					<cfset currentTermVal=evaluate("d." & currentTerm)>
 					<cfif len(currentTermVal) gt 0>
-					<br>currentTerm=#currentTerm#
+						<br>currentTerm=#currentTerm#
 						<cfset nextTermVal="">
 						<!--- if we're on a NULL value, there's nothing else to do here ---->
 						<!--- next higher USED term ---->
 						<cfloop condition="len(nextTermVal) eq 0">
 							<br>loopty
-							<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
+							<cfset nextTerm=listGetAt(usedTerms,listPostion)>
 							<br>
 							<cfset nextTermVal=evaluate("d." & nextTerm)>
 							<cfset listPostion=listPostion+1>
