@@ -28,14 +28,39 @@ run these in order
 		from
 			CTTAXON_TERM
 		where
-			IS_CLASSIFICATION=1 and
-			-- ignore things which make sloppy namestrings
-			taxon_term not in ('scientific_name','forma','subspecies','species','subgenus')
+			IS_CLASSIFICATION=1
 		order by
 			RELATIVE_POSITION desc
 	</cfquery>
 	<cfset ttList=valuelist(oClassTerms.taxon_term)>
 	<cfset ttList=replace(ttList,',order,',',phylorder,')>
+	<!--- for terms to check thingee ---->
+	<cfset lttList=ttList>
+	<!--- check genus and above only, so... ---->
+	<cfset termsToIgnore="scientific_name,forma,subspecies,species,subgenus">
+	<cfloop list="#termsToIgnore#" index="t">
+		<cfif listfind(lttList,t)>
+			<cfset lttList=listdeleteat(lttList,listfindnocase(lttList,t))>
+		</cfif>
+	</cfloop>
+
+
+	<!---- for consistency checker, we need to know what's used in this dataset ---->
+	<!---- ignore scientific_name ---->
+	<cfset usedTerms=ttList>
+	<cfif listfind(usedTerms,"scientific_name")>
+		<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,"scientific_name"))>
+	</cfif>
+	<cfloop list="#usedTerms#" index="thisTerm">
+		<cfquery name="hasThis" dbtype="query">
+			select count(*) c from d where #thisTerm# is not null
+		</cfquery>
+		<cfif hasThis.c is 0>
+			<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,"thisTerm"))>
+		</cfif>
+	</cfloop>
+
+
 
 	<cfloop query="d">
 		<cftransaction>
@@ -150,21 +175,10 @@ run these in order
 
 			<cfset lowestTerm="">
 			<cfset lowestTermValue="">
-			<cfset lttList=ttList>
 
-			<cfdump var=#lttList#>
-			<!--- check genus and above only, so... ---->
-			<cfset termsToIgnore="forma,subspecies,species,subgenus">
-			<cfloop list="#termsToIgnore#" index="t">
-				<cfif listfind(lttList,t)>
-					<cfset lttList=listdeleteat(lttList,listfindnocase(lttList,t))>
-					<br>deleted #t#
-				</cfif>
-			</cfloop>
+			<!---- lttlist is created in header and reused for each loop ---->
 
 
-			<cfdump var=#lttList#>
-			s
 			<cfloop list="#lttList#" index="term">
 				<cfif len(lowestTerm) eq 0>
 					<cfset thisTerm=evaluate("d." & term)>
@@ -183,7 +197,106 @@ run these in order
 				<cfset thisProb=listappend(thisProb,"scientific name is not #lowestTermValue# (#lowestTerm#)",';')>
 			</cfif>
 
+			<!----
+				usedTerms is set up before the loop. It's things that have at least one value.
+				Loop through them and make sure that all higher terms match this record
+			---->
+			<cfset thisHigher=usedTerms>
 
+			<cfset listPostion=0>
+			<cfloop list="#usedTerms#" index="currentTerm">
+				<cfset listPostion=listPostion+1>
+				<cfset thisHigher=listDeleteAt(thisHigher,1)>
+				<!---- local term's value ---->
+				<cfset lTermVal=evaluate("d." & currentTerm)>
+				<br>lTermVal=#lTermVal#
+				<!--- next higher term ---->
+				<cfset nextTerm=listGetAt(usedTerms,listPostion+1)>
+
+				<br>nextTerm=#nextTerm#
+				<cfset nextTermVal=evaluate("d." & nextTerm)>
+
+				<br>nextTermVal=#nextTermVal#
+
+
+			</cfloop>
+
+
+
+<!---------------
+
+
+
+
+		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
+		<cfset usedTerms="">
+		<!--- deal with order==>phylorder ---->
+		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
+		<cfloop list="#oTerms#" index="thisTerm">
+			<cfquery name="hasThis" dbtype="query">
+				select count(*) c from d where #thisTerm# is not null
+			</cfquery>
+			<cfif hasThis.c gt 0>
+				<cfset usedTerms=listappend(usedTerms,thisterm)>
+			</cfif>
+		</cfloop>
+		<cfset lNum=1>
+		<cfset thisHigher=usedTerms>
+		<cfloop list="#usedTerms#" index="thisTerm">
+			<!--- remove the current term; everything upstream should match ---->
+			<cfset thisHigher=listDeleteAt(thisHigher,1)>
+			<cfquery name="uThisTerm" dbtype="query">
+				select #thisTerm# termvalue from d group by #thisTerm#
+			</cfquery>
+			<cfloop query="uThisTerm">
+				<cfif len(uThisTerm.termvalue) gt 0 and len(thisHigher) gt 0>
+					<cfquery name="thisHigherCombined" dbtype="query">
+						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
+					</cfquery>
+					<cfif thisHigherCombined.recordcount neq 1>
+						<!--- figure out what exactly is inconsistent ---->
+						<cfset probTerms="">
+						<cfloop list="#thisHigherCombined.columnList#" index="c">
+							<cfquery name="dt" dbtype="query">
+								select #c# from thisHigherCombined group by #c#
+							</cfquery>
+							<cfif dt.recordcount neq 1>
+								<cfset probTerms="">
+								<cfloop query="dt">
+									<cfset thisP=evaluate("dt." & c)>
+									<cfif len(thisP) is 0>
+										<cfset thisP="NULL">
+									</cfif>
+									<cfset probTerms=listAppend(probTerms,thisP)>
+								</cfloop>
+								<cfset prob="#lcase(thisTerm)#=#termvalue# --> IN #lcase(c)# (#probTerms#)">
+							</cfif>
+						</cfloop>
+				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
+							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfloop>
+
+
+
+		</cfloop>
+
+		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='consistency_check_passed'
+			where status='go_go_check_consistency'
+		</cfquery>
+	</cfoutput>
+</cfif>
+
+
+
+
+
+
+		------------->
 
 
 
@@ -213,6 +326,33 @@ run these in order
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------
 <cfif action is "sciname_valid_check">
 	<!--- get the stuff we care about ---->
 	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
