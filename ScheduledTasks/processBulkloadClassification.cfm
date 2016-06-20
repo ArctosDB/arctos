@@ -152,7 +152,6 @@ run these in order
 			<cfset lowestTermValue="">
 			<cfset lttList=ttList>
 			<!--- check genus and above only, so... ---->
-			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'scientific_name'))>
 			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'forma'))>
 			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'subspecies'))>
 			<cfset 	lttList=listdeleteat(lttList,listfindnocase(lttList,'species'))>
