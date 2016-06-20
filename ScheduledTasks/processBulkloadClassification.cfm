@@ -34,7 +34,7 @@ run these in order
 		order by
 			RELATIVE_POSITION desc
 	</cfquery>
-	<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
+	<cfset ttList=valuelist(oClassTerms.taxon_term)>
 	<cfset ttList=replace(ttList,',order,',',phylorder,')>
 
 	<cfloop query="d">
