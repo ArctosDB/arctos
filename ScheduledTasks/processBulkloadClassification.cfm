@@ -228,7 +228,9 @@ run these in order
 						---->
 						<cfquery name="checkNext" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select count(*) as c from CF_TEMP_CLASSIFICATION
-							where #nextTerm#
+							where
+								#currentTerm#='#currentTermVal#' and
+							 #nextTerm#
 							<cfif len(nextTermVal) is 0>
 								is not null
 							<cfelse>
