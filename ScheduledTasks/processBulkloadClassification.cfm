@@ -12,65 +12,68 @@ run these in order
 <!---------------------------------------------------------->
 <cfif action is "sciname_weird_check">
 	<cfoutput>
-	<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			taxon_term
-		from
-			CTTAXON_TERM
-		where
-			IS_CLASSIFICATION=1 and
-			-- ignore things which make sloppy namestrings
-			taxon_term not in ('scientific_name','forma','subspecies','species','subgenus')
-		order by
-			RELATIVE_POSITION desc
-	</cfquery>
-	<!--- first deal with the stuff we ignored ---->
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: ssp'
-		where status='sciname_weird_check' and subspecies is not null and
-		scientific_name != genus || ' ' || species || ' ' || subspecies
-	</cfquery>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: sp'
-		where
-			status='sciname_weird_check' and
-			subspecies is null and
-			species is not null and
-		scientific_name != genus || ' ' || species
-	</cfquery>
-	<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
-	<cfset ttList=replace(ttList,',order,',',phylorder,')>
-	<cfset checkedTerms="">
-	<cfloop list="#ttList#" index="term">
-		<p>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
+		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				taxon_term
+			from
+				CTTAXON_TERM
 			where
-				status='sciname_weird_check' and
-				subspecies is null and
-				species is null and
-				<cfloop list="#checkedTerms#" index="ct">
-					#ct# is null
-						and
-				</cfloop>
-			 scientific_name != #term#
+				IS_CLASSIFICATION=1 and
+				-- ignore things which make sloppy namestrings
+				taxon_term not in ('scientific_name','forma','subspecies','species','subgenus')
+			order by
+				RELATIVE_POSITION desc
 		</cfquery>
-
-		update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
+		<!--- first deal with the stuff we ignored ---->
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: ssp'
+			where status='sciname_weird_check' and subspecies is not null and
+			scientific_name != genus || ' ' || species || ' ' || subspecies
+		</cfquery>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: sp'
 			where
 				status='sciname_weird_check' and
 				subspecies is null and
-				species is null and
-				<cfloop list="#checkedTerms#" index="ct">
-					#ct# is null
-						and
-				</cfloop>
-			 scientific_name != #term#
-		</p>
-		<cfset checkedTerms=listappend(checkedTerms,term)>
-		<cfset ttList=listDeleteAt(ttList,1)>
-	</cfloop>
+				species is not null and
+			scientific_name != genus || ' ' || species
+		</cfquery>
+		<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
+		<cfset ttList=replace(ttList,',order,',',phylorder,')>
+		<cfset checkedTerms="">
+		<cfloop list="#ttList#" index="term">
+			<p>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
+				where
+					status='sciname_weird_check' and
+					subspecies is null and
+					species is null and
+					<cfloop list="#checkedTerms#" index="ct">
+						#ct# is null
+							and
+					</cfloop>
+				 scientific_name != #term#
+			</cfquery>
 
+			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
+				where
+					status='sciname_weird_check' and
+					subspecies is null and
+					species is null and
+					<cfloop list="#checkedTerms#" index="ct">
+						#ct# is null
+							and
+					</cfloop>
+				 scientific_name != #term#
+			</p>
+			<cfset checkedTerms=listappend(checkedTerms,term)>
+			<cfset ttList=listDeleteAt(ttList,1)>
+		</cfloop>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='sci_name_weirdcheck: pass' where
+			status='sciname_weird_check'
+		</cfquery>
 	</cfoutput>
 </cfif>
 
