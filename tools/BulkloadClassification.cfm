@@ -87,8 +87,13 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	</cfquery>
 	<cfdump var=#oClassTerms#>
 
+
+
 	<cfset fList=valuelist(oClassTerms.taxon_term)>
 
+	<!--- put status right after scientific_name ---->
+	<cfset sp=listfindnocase(fList,"scientific_name")>
+	<cfset fList=ListInsertAt(fList,sp,'status')>
 	<cfdump var=#fList#>
 	<cfdump var=#mine.columnlist#>
 
