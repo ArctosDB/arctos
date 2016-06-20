@@ -72,6 +72,13 @@ run these in order
 			<p>
 				prob: #prob#
 			</p>
+			<cfif len(prob) is 0>
+				<cfset prob='all_checks_passed'>
+			</cfif>
+			<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update CF_TEMP_CLASSIFICATION set status='#prob#' where scientific_name='#scientific_name#'
+			</cfquery>
+
 		</cftransaction>
 	</cfloop>
 </cfoutput>
