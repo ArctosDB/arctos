@@ -141,11 +141,11 @@ run these in order
 			<p>
 				#scientific_name#-->thisProb: #thisProb#
 			</p>
-			<cfif len(prob) is 0>
-				<cfset prob='all_checks_passed'>
+			<cfif len(thisProb) is 0>
+				<cfset thisProb='all_checks_passed'>
 			</cfif>
 			<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update CF_TEMP_CLASSIFICATION set status='#prob#' where scientific_name='#scientific_name#'
+				update CF_TEMP_CLASSIFICATION set status='#thisProb#' where scientific_name='#scientific_name#'
 			</cfquery>
 
 		</cftransaction>
