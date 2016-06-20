@@ -99,7 +99,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfloop list="#fList#" index="t">
 		<cfif not listfindnocase(mine.columnlist,t)>
 			<p>
-				#t# is not in the table and could be
+				#t# is in CTTAXON_TERM and is NOT in CF_TEMP_CLASSIFICATION
 			</p>
 		</cfif>
 
@@ -109,7 +109,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfloop list="#mine.columnlist#" index="t">
 		<cfif not listfindnocase(fList,t)>
 			<p>
-				#t# is not in the table and MUST be<cfabort>
+				#t# is in CF_TEMP_CLASSIFICATION and is NOT in CTTAXON_TERM - THIS IS FATAL
 			</p>
 		</cfif>
 
