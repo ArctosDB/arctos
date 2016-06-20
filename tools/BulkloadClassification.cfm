@@ -83,8 +83,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			CTTAXON_TERM
 
 		order by
-			IS_CLASSIFICATION ASC,
-			RELATIVE_POSITION DESC
+			IS_CLASSIFICATION DESC,
+			RELATIVE_POSITION ASC
 	</cfquery>
 	<cfdump var=#oClassTerms#>
 
