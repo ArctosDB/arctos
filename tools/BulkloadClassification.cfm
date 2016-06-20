@@ -81,12 +81,15 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			taxon_term
 		from
 			CTTAXON_TERM
-
 		order by
 			IS_CLASSIFICATION DESC,
 			RELATIVE_POSITION ASC
 	</cfquery>
 	<cfdump var=#oClassTerms#>
+
+	<cfset fList=valuelist(oClassTerms.taxon_term)>
+
+	<cfdump var=#fList#>
 
 	<cfabort>
 
