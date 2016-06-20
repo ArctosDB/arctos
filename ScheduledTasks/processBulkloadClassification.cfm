@@ -39,6 +39,7 @@ run these in order
 		scientific_name != genus || ' ' || species
 	</cfquery>
 	<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
+	<cfset ttList=replace(ttList,',order,',',phylorder,')>
 	<cfset checkedTerms="">
 	<cfloop list="#ttList#" index="term">
 		<p>
