@@ -99,11 +99,23 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfloop list="#fList#" index="t">
 		<cfif not listcontains(mine.columnlist,t)>
 			<p>
-				#t# is not in the table bad<cfabort>
+				#t# is not in the table and could be
 			</p>
 		</cfif>
 
 	</cfloop>
+
+	<!--- make sure everything in the table is also in the code table (plus the stuff we added up yonder) ---->
+	<cfloop list="#mine.columnlist#" index="t">
+		<cfif not listcontainsfList,t)>
+			<p>
+				#t# is not in the table and MUST be<cfabort>
+			</p>
+		</cfif>
+
+	</cfloop>
+
+
 
 	<cfdump var=#fList#>
 
