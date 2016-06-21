@@ -455,85 +455,6 @@ run these in order
 		</cfquery>
 	</cfoutput>
 </cfif>
-
-<cfif action is "checkConsistency">
-	<cfoutput>
-        <cfquery name="d" datasource="uam_god">
-			select * from CF_TEMP_CLASSIFICATION where status='go_go_check_consistency'
-		</cfquery>
-		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
-		<cfquery name="CTTAXON_TERM" datasource="uam_god">
-			select
-				taxon_term
-			from
-				CTTAXON_TERM
-			where
-				IS_CLASSIFICATION=1 and
-				-- ignore things which have no logical parent
-				taxon_term not in ('scientific_name')
-			order by
-				RELATIVE_POSITION desc
-		</cfquery>
-
-		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
-		<cfset usedTerms="">
-		<!--- deal with order==>phylorder ---->
-		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
-		<cfloop list="#oTerms#" index="thisTerm">
-			<cfquery name="hasThis" dbtype="query">
-				select count(*) c from d where #thisTerm# is not null
-			</cfquery>
-			<cfif hasThis.c gt 0>
-				<cfset usedTerms=listappend(usedTerms,thisterm)>
-			</cfif>
-		</cfloop>
-		<cfset lNum=1>
-		<cfset thisHigher=usedTerms>
-		<cfloop list="#usedTerms#" index="thisTerm">
-			<!--- remove the current term; everything upstream should match ---->
-			<cfset thisHigher=listDeleteAt(thisHigher,1)>
-			<cfquery name="uThisTerm" dbtype="query">
-				select #thisTerm# termvalue from d group by #thisTerm#
-			</cfquery>
-			<cfloop query="uThisTerm">
-				<cfif len(uThisTerm.termvalue) gt 0 and len(thisHigher) gt 0>
-					<cfquery name="thisHigherCombined" dbtype="query">
-						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
-					</cfquery>
-					<cfif thisHigherCombined.recordcount neq 1>
-						<!--- figure out what exactly is inconsistent ---->
-						<cfset probTerms="">
-						<cfloop list="#thisHigherCombined.columnList#" index="c">
-							<cfquery name="dt" dbtype="query">
-								select #c# from thisHigherCombined group by #c#
-							</cfquery>
-							<cfif dt.recordcount neq 1>
-								<cfset probTerms="">
-								<cfloop query="dt">
-									<cfset thisP=evaluate("dt." & c)>
-									<cfif len(thisP) is 0>
-										<cfset thisP="NULL">
-									</cfif>
-									<cfset probTerms=listAppend(probTerms,thisP)>
-								</cfloop>
-								<cfset prob="#lcase(thisTerm)#=#termvalue# --> IN #lcase(c)# (#probTerms#)">
-							</cfif>
-						</cfloop>
-				        <cfquery name="setStatus" datasource="uam_god">
-							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
-							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
-						</cfquery>
-					</cfif>
-				</cfif>
-			</cfloop>
-		</cfloop>
-		 <cfquery name="setStatus" datasource="uam_god">
-			update CF_TEMP_CLASSIFICATION set status='consistency_check_passed'
-			where status='go_go_check_consistency'
-		</cfquery>
-	</cfoutput>
-</cfif>
-
 <cfif action is "fill_in_the_blanks_from_genus">
 <cfif not isdefined ("escapequotes")>
 	<cfinclude template="/includes/functionLib.cfm">
@@ -601,8 +522,6 @@ run these in order
 					<cfset temp=QuerySetCell(nd, x, "")>
 				</cfloop>
 
-
-
 				<cfloop query="oneclass">
 					<cfif term_type is "order">
 						<cfset ttt="phylorder">
@@ -630,10 +549,7 @@ run these in order
 
 
 				<cfif len(nd.species) gt 0>
-
-
 					<cfset problem=listprepend(problem,'autoinsert',':')>
-
 					<cfset temp=QuerySetCell(nd, "status", problem)>
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
 					<cfset pos=0>
@@ -661,13 +577,11 @@ run these in order
 					</cfcatch>
 					</cftry>
 				<cfelse>
-
 					<cfset problem=listprepend(problem,'autofillintheblanks',':')>
 
 					<cfset temp=QuerySetCell(nd, "status", problem)>
 					<!---- ONLY update the original record when NULL ---->
 					<cfset sql="update CF_TEMP_CLASSIFICATION set ">
-
 					<cfloop list="#stuffToReplace#" index="col">
 						<cfset thisval=evaluate("nd." & col)>
 						<cfset origval=evaluate("d." & col)>
@@ -675,21 +589,13 @@ run these in order
 							<cfset sql=sql & " #col#='#escapeQuotes(thisval)#', ">
 						</cfif>
 						<!--- so the SQL will always work ---->
-
 					</cfloop>
-
 					<cfset sql=sql & "status='#problem#' ">
 					<cfset sql=sql & "WHERE SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#' ">
-
-
-
-
 						<cfquery name="updateorig" datasource="uam_god">
 							#preserveSingleQuotes(sql)#
 						</cfquery>
-
 						<cfset updatedOrig=true>
-
 				</cfif>
 			</cfloop>
 			<cfif updatedOrig is false>
@@ -697,14 +603,7 @@ run these in order
 					update CF_TEMP_CLASSIFICATION set status = 'autoupdatefail: nothing found'
 					where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
 				</cfquery>
-
 			</cfif>
-
-
-
-
-
-
 			</cftransaction>
 		</cfloop>
 	</cfoutput>
@@ -715,45 +614,6 @@ run these in order
 </cfif>
 <!---------------------------------------------------------->
 
-<cfif action is "checkMeta">
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='display_name is required' where status ='ready_to_check' and display_name is null
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='invalid source' where status ='ready_to_check' and source not in (
-			select source from CTTAXONOMY_SOURCE
-		)
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='invalid nomenclatural_code' where status ='ready_to_check' and nomenclatural_code not in ('ICZN','ICBN')
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='subspecies is the only acceptable ICZN infraspecific data'
-		where status='ready_to_check'  and nomenclatural_code = 'ICZN'
-		and (forma is not null or subsp is not null)
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='subspecies is ICZN-only'
-		where status ='ready_to_check' and nomenclatural_code != 'ICZN'
-		and subspecies is not null
-	</cfquery>
-
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='only one infraspecific term may be given'
-		where status='ready_to_check'  and
-		(
-			subspecies is not null and (forma is not null or subsp is not null) or
-			forma is not null and (subspecies is not null or subsp is not null) or
-			subsp is not null and (forma is not null or subspecies is not null)
-		)
-	</cfquery>
-
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='pass_meta' where status ='ready_to_check'
-	</cfquery>
-
-
-</cfif>
 <!---------------------------------------------------------->
 
 <cfif action is "getTID">
@@ -995,3 +855,126 @@ run these in order
 
 
 </cfif>
+
+
+<!--- this is submerged into doEverything
+<cfif action is "checkConsistency">
+	<cfoutput>
+        <cfquery name="d" datasource="uam_god">
+			select * from CF_TEMP_CLASSIFICATION where status='go_go_check_consistency'
+		</cfquery>
+		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
+		<cfquery name="CTTAXON_TERM" datasource="uam_god">
+			select
+				taxon_term
+			from
+				CTTAXON_TERM
+			where
+				IS_CLASSIFICATION=1 and
+				-- ignore things which have no logical parent
+				taxon_term not in ('scientific_name')
+			order by
+				RELATIVE_POSITION desc
+		</cfquery>
+
+		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
+		<cfset usedTerms="">
+		<!--- deal with order==>phylorder ---->
+		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
+		<cfloop list="#oTerms#" index="thisTerm">
+			<cfquery name="hasThis" dbtype="query">
+				select count(*) c from d where #thisTerm# is not null
+			</cfquery>
+			<cfif hasThis.c gt 0>
+				<cfset usedTerms=listappend(usedTerms,thisterm)>
+			</cfif>
+		</cfloop>
+		<cfset lNum=1>
+		<cfset thisHigher=usedTerms>
+		<cfloop list="#usedTerms#" index="thisTerm">
+			<!--- remove the current term; everything upstream should match ---->
+			<cfset thisHigher=listDeleteAt(thisHigher,1)>
+			<cfquery name="uThisTerm" dbtype="query">
+				select #thisTerm# termvalue from d group by #thisTerm#
+			</cfquery>
+			<cfloop query="uThisTerm">
+				<cfif len(uThisTerm.termvalue) gt 0 and len(thisHigher) gt 0>
+					<cfquery name="thisHigherCombined" dbtype="query">
+						select #thisHigher# from d where #thisTerm#='#termvalue#' group by #thisHigher#
+					</cfquery>
+					<cfif thisHigherCombined.recordcount neq 1>
+						<!--- figure out what exactly is inconsistent ---->
+						<cfset probTerms="">
+						<cfloop list="#thisHigherCombined.columnList#" index="c">
+							<cfquery name="dt" dbtype="query">
+								select #c# from thisHigherCombined group by #c#
+							</cfquery>
+							<cfif dt.recordcount neq 1>
+								<cfset probTerms="">
+								<cfloop query="dt">
+									<cfset thisP=evaluate("dt." & c)>
+									<cfif len(thisP) is 0>
+										<cfset thisP="NULL">
+									</cfif>
+									<cfset probTerms=listAppend(probTerms,thisP)>
+								</cfloop>
+								<cfset prob="#lcase(thisTerm)#=#termvalue# --> IN #lcase(c)# (#probTerms#)">
+							</cfif>
+						</cfloop>
+				        <cfquery name="setStatus" datasource="uam_god">
+							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
+							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfloop>
+		</cfloop>
+		 <cfquery name="setStatus" datasource="uam_god">
+			update CF_TEMP_CLASSIFICATION set status='consistency_check_passed'
+			where status='go_go_check_consistency'
+		</cfquery>
+	</cfoutput>
+</cfif>
+---->
+
+<!--- this is submerged into doEverything
+<cfif action is "checkMeta">
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='display_name is required' where status ='ready_to_check' and display_name is null
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='invalid source' where status ='ready_to_check' and source not in (
+			select source from CTTAXONOMY_SOURCE
+		)
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='invalid nomenclatural_code' where status ='ready_to_check' and nomenclatural_code not in ('ICZN','ICBN')
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='subspecies is the only acceptable ICZN infraspecific data'
+		where status='ready_to_check'  and nomenclatural_code = 'ICZN'
+		and (forma is not null or subsp is not null)
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='subspecies is ICZN-only'
+		where status ='ready_to_check' and nomenclatural_code != 'ICZN'
+		and subspecies is not null
+	</cfquery>
+
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='only one infraspecific term may be given'
+		where status='ready_to_check'  and
+		(
+			subspecies is not null and (forma is not null or subsp is not null) or
+			forma is not null and (subspecies is not null or subsp is not null) or
+			subsp is not null and (forma is not null or subspecies is not null)
+		)
+	</cfquery>
+
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='pass_meta' where status ='ready_to_check'
+	</cfquery>
+
+
+</cfif>
+---->
