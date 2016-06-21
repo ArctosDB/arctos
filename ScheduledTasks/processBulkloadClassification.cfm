@@ -1,9 +1,7 @@
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 
 run these in order
-
-<br><a href="processBulkloadClassification.cfm?action=doEverything">doEverything</a>
-
+<!--- merged into doEverything
 
 <br><a href="processBulkloadClassification.cfm?action=checkConsistency">checkConsistency</a>
 <br><a href="processBulkloadClassification.cfm?action=sciname_weird_check">sciname_weird_check</a>
@@ -12,6 +10,9 @@ run these in order
 
 
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
+
+----->
+<br><a href="processBulkloadClassification.cfm?action=doEverything">doEverything</a>
 <br><a href="processBulkloadClassification.cfm?action=getTID">getTID</a>
 <br><a href="processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
@@ -56,7 +57,6 @@ run these in order
 	<!---- for consistency checker, we need to know what's used in this dataset ---->
 	<!---- ignore scientific_name ---->
 	<cfset usedTerms=ttList>
-	<p>usedTerms: #usedTerms#</p>
 
 	<cfif listfind(usedTerms,"scientific_name")>
 		<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,"scientific_name"))>
@@ -66,14 +66,9 @@ run these in order
 			select count(*) c from CF_TEMP_CLASSIFICATION where #thisTerm# is not null
 		</cfquery>
 		<cfif hasThis.c is 0>
-
-			<p>deleting #thisTerm#</p>
 			<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,thisTerm))>
 		</cfif>
 	</cfloop>
-
-	<p>usedTerms: #usedTerms#</p>
-
 	<cfloop query="d">
 		<cftransaction>
 			<cfset thisProb="">
@@ -297,164 +292,7 @@ run these in order
 </cfoutput>
 </cfif>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----------------------------------------------------------------------------
-<cfif action is "sciname_valid_check">
-	<!--- get the stuff we care about ---->
-	<cfquery name="ins" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='sciname_valid_check: ' || isValidTaxonName(scientific_name)
-		where status='sciname_valid_check'
-	</cfquery>
-</cfif>
-<cfif action is "checkGaps">
-	<!--- get the stuff we care about ---->
-	<cfquery name="ins" datasource="uam_god">
-		select
-			distinct CF_TEMP_CLASSIFICATION.scientific_name
-		from
-			CF_TEMP_CLASSIFICATION,
-			taxon_name,
-			taxon_term
-		where
-			CF_TEMP_CLASSIFICATION.scientific_name=taxon_name.scientific_name and
-			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-			taxon_term.source='Arctos' and
-			status='go_go_gap_checker' and
-			--upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#' and
-			( taxon_term.TERM_TYPE is null or
-				 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
-			)
-	</cfquery>
-	<cfoutput>
-		<!--- and for the things we caught above, figure out the problem ---->
-		<cfloop query="ins">
-			<cfset prob="">
-			<cfquery name="hmc" datasource="uam_god">
-				select
-					count(distinct(classification_id)) ccid
-				from
-					taxon_name,
-					taxon_term
-				where
-					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-					taxon_term.source='Arctos' and
-					taxon_name.scientific_name='#scientific_name#'
-			</cfquery>
-			<cfif hmc.ccid neq 1>
-				<cfset prob="#hmc.ccid# classifications detected">
-			<cfelse>
-				<cfquery name="funkyTerms" datasource="uam_god">
-					select
-						TERM_TYPE , term
-					from
-						taxon_name,
-						taxon_term
-					where
-						taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-						taxon_term.source='Arctos' and
-						taxon_name.scientific_name='#scientific_name#' and
-						(
-							taxon_term.TERM_TYPE is null or
-					 		taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
-						)
-				</cfquery>
-				<cfloop query="funkyTerms">
-					<cfset prob=listappend(prob,'#term#=#TERM_TYPE#')>
-				</cfloop>
-			</cfif>
-			<cfquery name="ss" datasource="uam_god">
-				update CF_TEMP_CLASSIFICATION set status='existing_data_loss_warning: #prob#' where scientific_name='#scientific_name#'
-			</cfquery>
-		</cfloop>
-		<cfquery name="ss" datasource="uam_god">
-			update CF_TEMP_CLASSIFICATION set status='existing_data_check_pass' where status='go_go_gap_checker'
-		</cfquery>
-	</cfoutput>
-</cfif>
-
-
-
-<cfif action is "sciname_weird_check">
-	<cfoutput>
-		<cfquery name="CTTAXON_TERM" datasource="uam_god">
-			select
-				taxon_term
-			from
-				CTTAXON_TERM
-			where
-				IS_CLASSIFICATION=1 and
-				-- ignore things which make sloppy namestrings
-				taxon_term not in ('scientific_name','forma','subspecies','species','subgenus')
-			order by
-				RELATIVE_POSITION desc
-		</cfquery>
-		<!--- first deal with the stuff we ignored ---->
-		<cfquery name="d" datasource="uam_god">
-			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: ssp'
-			where status='sciname_weird_check' and subspecies is not null and
-			scientific_name != genus || ' ' || species || ' ' || subspecies
-		</cfquery>
-		<cfquery name="d" datasource="uam_god">
-			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: sp'
-			where
-				status='sciname_weird_check' and
-				subspecies is null and
-				species is not null and
-			scientific_name != genus || ' ' || species
-		</cfquery>
-		<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
-		<cfset ttList=replace(ttList,',order,',',phylorder,')>
-		<cfset checkedTerms="">
-		<cfloop list="#ttList#" index="term">
-			<cfquery name="d" datasource="uam_god">
-				update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
-				where
-					status='sciname_weird_check' and
-					subspecies is null and
-					species is null and
-					<cfloop list="#checkedTerms#" index="ct">
-						#ct# is null
-							and
-					</cfloop>
-				 scientific_name != #term#
-			</cfquery>
-			<cfset checkedTerms=listappend(checkedTerms,term)>
-			<cfset ttList=listDeleteAt(ttList,1)>
-		</cfloop>
-		<cfquery name="d" datasource="uam_god">
-			update CF_TEMP_CLASSIFICATION set status='sci_name_weirdcheck: pass' where
-			status='sciname_weird_check'
-		</cfquery>
-	</cfoutput>
-</cfif>
+<!------------------------------------------------------------------------------------>
 <cfif action is "fill_in_the_blanks_from_genus">
 <cfif not isdefined ("escapequotes")>
 	<cfinclude template="/includes/functionLib.cfm">
@@ -515,8 +353,6 @@ run these in order
 						taxon_term.source='Arctos' and
 						taxon_name.taxon_name_id=#taxon_name_id#
 				</cfquery>
-
-
 				<!----reset the stuff that we're changing in the query---->
 				<cfloop list='#stuffToReplace#' index="x">
 					<cfset temp=QuerySetCell(nd, x, "")>
@@ -546,8 +382,6 @@ run these in order
 				<!--- failures if there's no term scientific name, so force-update it from
 					taxon_name ---->
 				<cfset temp=QuerySetCell(nd, 'scientific_name', oneclass.scientific_name)>
-
-
 				<cfif len(nd.species) gt 0>
 					<cfset problem=listprepend(problem,'autoinsert',':')>
 					<cfset temp=QuerySetCell(nd, "status", problem)>
@@ -578,7 +412,6 @@ run these in order
 					</cftry>
 				<cfelse>
 					<cfset problem=listprepend(problem,'autofillintheblanks',':')>
-
 					<cfset temp=QuerySetCell(nd, "status", problem)>
 					<!---- ONLY update the original record when NULL ---->
 					<cfset sql="update CF_TEMP_CLASSIFICATION set ">
@@ -607,13 +440,7 @@ run these in order
 			</cftransaction>
 		</cfloop>
 	</cfoutput>
-
-
-
-
 </cfif>
-<!---------------------------------------------------------->
-
 <!---------------------------------------------------------->
 
 <cfif action is "getTID">
@@ -630,22 +457,6 @@ run these in order
 			status ='pass_meta' and
 			taxon_name_id is null
 	</cfquery>
-
-
-
-	<p>
-		update
-			CF_TEMP_CLASSIFICATION
-		set
-			status='found_name',
-			taxon_name_id=(
-				select taxon_name.taxon_name_id from taxon_name where
-				taxon_name.scientific_name = CF_TEMP_CLASSIFICATION.scientific_name
-			)
-		where
-			status ='pass_meta' and
-			taxon_name_id is null
-	</p>
 	<cfquery name="fail" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
@@ -655,25 +466,8 @@ run these in order
 			status ='pass_meta' and
 			taxon_name_id is null
 	</cfquery>
-
-
-	<p>
-
-	update
-			CF_TEMP_CLASSIFICATION
-		set
-			status='scientific_name not found'
-		where
-			status ='pass_meta' and
-			taxon_name_id is null
-
-
-
-	</p>
-
 </cfif>
 <!---------------------------------------------------------->
-
 <cfif action is "getClassificationID">
 	<cfquery name="mClassificationID" datasource="uam_god">
 		update
@@ -702,9 +496,6 @@ run these in order
 			    )
 			)
 	</cfquery>
-
-
-
 	<cfquery name="getClassificationID" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
@@ -732,20 +523,6 @@ run these in order
 			status ='found_name' and
 			classification_id is null
 	</cfquery>
-
-	<p>
-	update
-			CF_TEMP_CLASSIFICATION
-		set
-			classification_id='[NEW]'
-			status='ready_to_load'
-		where
-			status ='found_name' and
-			classification_id is null
-
-	</p>
-
-
 </cfif>
 <!--------------------------------------------------------------------------->
 <cfif action is "load">
@@ -848,12 +625,9 @@ run these in order
 			<cfquery name="git" datasource="uam_god">
 				update CF_TEMP_CLASSIFICATION set status='made_updates_all_done' where scientific_name='#d.scientific_name#'
 			</cfquery>
-
 			</cftransaction>
 		</cfloop>
 	</cfoutput>
-
-
 </cfif>
 
 
@@ -974,5 +748,131 @@ run these in order
 	</cfquery>
 
 
+</cfif>
+
+<cfif action is "sciname_weird_check">
+	<cfoutput>
+		<cfquery name="CTTAXON_TERM" datasource="uam_god">
+			select
+				taxon_term
+			from
+				CTTAXON_TERM
+			where
+				IS_CLASSIFICATION=1 and
+				-- ignore things which make sloppy namestrings
+				taxon_term not in ('scientific_name','forma','subspecies','species','subgenus')
+			order by
+				RELATIVE_POSITION desc
+		</cfquery>
+		<!--- first deal with the stuff we ignored ---->
+		<cfquery name="d" datasource="uam_god">
+			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: ssp'
+			where status='sciname_weird_check' and subspecies is not null and
+			scientific_name != genus || ' ' || species || ' ' || subspecies
+		</cfquery>
+		<cfquery name="d" datasource="uam_god">
+			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: sp'
+			where
+				status='sciname_weird_check' and
+				subspecies is null and
+				species is not null and
+			scientific_name != genus || ' ' || species
+		</cfquery>
+		<cfset ttList=valuelist(CTTAXON_TERM.taxon_term)>
+		<cfset ttList=replace(ttList,',order,',',phylorder,')>
+		<cfset checkedTerms="">
+		<cfloop list="#ttList#" index="term">
+			<cfquery name="d" datasource="uam_god">
+				update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
+				where
+					status='sciname_weird_check' and
+					subspecies is null and
+					species is null and
+					<cfloop list="#checkedTerms#" index="ct">
+						#ct# is null
+							and
+					</cfloop>
+				 scientific_name != #term#
+			</cfquery>
+			<cfset checkedTerms=listappend(checkedTerms,term)>
+			<cfset ttList=listDeleteAt(ttList,1)>
+		</cfloop>
+		<cfquery name="d" datasource="uam_god">
+			update CF_TEMP_CLASSIFICATION set status='sci_name_weirdcheck: pass' where
+			status='sciname_weird_check'
+		</cfquery>
+	</cfoutput>
+</cfif>
+<cfif action is "sciname_valid_check">
+	<!--- get the stuff we care about ---->
+	<cfquery name="ins" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='sciname_valid_check: ' || isValidTaxonName(scientific_name)
+		where status='sciname_valid_check'
+	</cfquery>
+</cfif>
+<cfif action is "checkGaps">
+	<!--- get the stuff we care about ---->
+	<cfquery name="ins" datasource="uam_god">
+		select
+			distinct CF_TEMP_CLASSIFICATION.scientific_name
+		from
+			CF_TEMP_CLASSIFICATION,
+			taxon_name,
+			taxon_term
+		where
+			CF_TEMP_CLASSIFICATION.scientific_name=taxon_name.scientific_name and
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+			taxon_term.source='Arctos' and
+			status='go_go_gap_checker' and
+			--upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#' and
+			( taxon_term.TERM_TYPE is null or
+				 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
+			)
+	</cfquery>
+	<cfoutput>
+		<!--- and for the things we caught above, figure out the problem ---->
+		<cfloop query="ins">
+			<cfset prob="">
+			<cfquery name="hmc" datasource="uam_god">
+				select
+					count(distinct(classification_id)) ccid
+				from
+					taxon_name,
+					taxon_term
+				where
+					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+					taxon_term.source='Arctos' and
+					taxon_name.scientific_name='#scientific_name#'
+			</cfquery>
+			<cfif hmc.ccid neq 1>
+				<cfset prob="#hmc.ccid# classifications detected">
+			<cfelse>
+				<cfquery name="funkyTerms" datasource="uam_god">
+					select
+						TERM_TYPE , term
+					from
+						taxon_name,
+						taxon_term
+					where
+						taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+						taxon_term.source='Arctos' and
+						taxon_name.scientific_name='#scientific_name#' and
+						(
+							taxon_term.TERM_TYPE is null or
+					 		taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
+						)
+				</cfquery>
+				<cfloop query="funkyTerms">
+					<cfset prob=listappend(prob,'#term#=#TERM_TYPE#')>
+				</cfloop>
+			</cfif>
+			<cfquery name="ss" datasource="uam_god">
+				update CF_TEMP_CLASSIFICATION set status='existing_data_loss_warning: #prob#' where scientific_name='#scientific_name#'
+			</cfquery>
+		</cfloop>
+		<cfquery name="ss" datasource="uam_god">
+			update CF_TEMP_CLASSIFICATION set status='existing_data_check_pass' where status='go_go_gap_checker'
+		</cfquery>
+	</cfoutput>
 </cfif>
 --->
