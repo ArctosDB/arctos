@@ -858,12 +858,14 @@ run these in order
 
 
 <!--- this is submerged into doEverything
+
+
+
 <cfif action is "checkConsistency">
 	<cfoutput>
         <cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where status='go_go_check_consistency'
 		</cfquery>
-		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
 		<cfquery name="CTTAXON_TERM" datasource="uam_god">
 			select
 				taxon_term
@@ -871,7 +873,6 @@ run these in order
 				CTTAXON_TERM
 			where
 				IS_CLASSIFICATION=1 and
-				-- ignore things which have no logical parent
 				taxon_term not in ('scientific_name')
 			order by
 				RELATIVE_POSITION desc
@@ -879,7 +880,6 @@ run these in order
 
 		<cfset oTerms=valuelist(CTTAXON_TERM.taxon_term)>
 		<cfset usedTerms="">
-		<!--- deal with order==>phylorder ---->
 		<cfset oTerms=replace(oTerms,',order,',',phylorder,')>
 		<cfloop list="#oTerms#" index="thisTerm">
 			<cfquery name="hasThis" dbtype="query">
@@ -935,9 +935,7 @@ run these in order
 		</cfquery>
 	</cfoutput>
 </cfif>
----->
 
-<!--- this is submerged into doEverything
 <cfif action is "checkMeta">
 	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='display_name is required' where status ='ready_to_check' and display_name is null
@@ -977,4 +975,4 @@ run these in order
 
 
 </cfif>
----->
+--->
