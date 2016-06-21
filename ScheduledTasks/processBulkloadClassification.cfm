@@ -100,24 +100,20 @@ run these in order
 				<cfset prob="">
 				<cfset thisTerm=evaluate("d." & term)>
 				<cfif len(thisTerm) gt 0>
-					<!---  ---->
 					<cfif thisTerm contains "  ">
-						<cfset prob=listappend(prob,'double space detected in #term#=#thisTerm#',';')>
+						<cfset prob=listappend(prob,'double space@#term#=#thisTerm#',';')>
 					</cfif>
 					<cfif compare(trim(thisTerm), thisterm) neq 0>
 						<cfset prob=listappend(prob,'Leading/trailing spaces@#term#=#thisTerm#',';')>
 					</cfif>
-
-
-
 					<cfif compare(lcase(thisTerm), thisterm) eq 0>
-						<cfset prob=listappend(prob,'Names should not be all lower-case detected in #term#=#thisTerm#',';')>
+						<cfset prob=listappend(prob,'All lower-case@#term#=#thisTerm#',';')>
 					</cfif>
 					<cfif compare(ucase(thisTerm), thisterm) eq 0>
-						<cfset prob=listappend(prob,'Names should not be all upper-case detected in #term#=#thisTerm#',';')>
+						<cfset prob=listappend(prob,'All upper-case@#term#=#thisTerm#',';')>
 					</cfif>
 					<cfif refind('[^A-Za-züë×ö\. -]',thisTerm)>
-						<cfset prob=listappend(prob,'Invalid characters in #term#=#thisTerm#',';')>
+						<cfset prob=listappend(prob,'Invalid characters@#term#=#thisTerm#',';')>
 					</cfif>
 					<cfif len(trim(thisTerm)) eq 1>
 						<cfset prob=listappend(prob,'Too short@#term#=#thisTerm#',';')>
@@ -144,11 +140,9 @@ run these in order
 						<cfset thisProb=listappend(thisProb,prob,';')>
 					</cfif>
 				</cfif>
-
 			</cfloop>
 
-
-			<!---- checkGaps ---->
+			<!---- Find stuff in classifications which would be deleted/lost if this proceeded ---->
 			<cfquery name="hmc" datasource="uam_god">
 				select
 					count(distinct(classification_id)) ccid
@@ -165,7 +159,8 @@ run these in order
 			</cfif>
 			<cfquery name="funkyTerms" datasource="uam_god">
 				select
-					TERM_TYPE , term
+					TERM_TYPE,
+					term
 				from
 					taxon_name,
 					taxon_term
@@ -183,7 +178,7 @@ run these in order
 				<cfset prob=listappend(prob,'#term#=#TERM_TYPE#')>
 			</cfloop>
 			<cfif len(prob) gt 0>
-				<cfset thisProb=listappend(thisProb,prob,';')>
+				<cfset thisProb=listappend(thisProb,'WillBeLost classifications: ' & prob,';')>
 			</cfif>
 
 			<cfif len(subspecies) gt 0>
