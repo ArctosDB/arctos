@@ -19,7 +19,7 @@ run these in order
 <!---------------------------------------------------------->
 <cfif action is "doEverything">
 <cfoutput>
-	 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	 <cfquery name="d" datasource="uam_god">
 		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 1000
 	</cfquery>
 	<cfquery name="CTTAXONOMY_SOURCE" datasource="uam_god">
@@ -27,7 +27,7 @@ run these in order
 	</cfquery>
 	<cfset validSourceList=valueList(CTTAXONOMY_SOURCE.source)>
 	<cfset validNomenCodeList='ICZN,ICBN'>
-	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="oClassTerms" datasource="uam_god">
 		select
 			taxon_term
 		from
@@ -71,14 +71,14 @@ run these in order
 		<cftransaction>
 			<cfset thisProb="">
 			<!---- sciname_valid_check ---->
-			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="p" datasource="uam_god">
 				select isValidTaxonName('#scientific_name#') v from dual
 			</cfquery>
 			<cfif p.v is not "valid">
 				<cfset thisProb=listappend(thisProb,'invalid scientific_name: #p.v#',';')>
 			</cfif>
 
-			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="p" datasource="uam_god">
 				select count(*) c from taxon_name where scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif p.c is not 1>
@@ -138,7 +138,7 @@ run these in order
 
 
 			<!---- checkGaps ---->
-			<cfquery name="hmc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="hmc" datasource="uam_god">
 				select
 					count(distinct(classification_id)) ccid
 				from
@@ -152,7 +152,7 @@ run these in order
 			<cfif hmc.ccid gt 1>
 				<cfset thisProb=listappend(thisProb,'#hmc.ccid# classifications detected',';')>
 			</cfif>
-			<cfquery name="funkyTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="funkyTerms" datasource="uam_god">
 				select
 					TERM_TYPE , term
 				from
@@ -232,7 +232,7 @@ run these in order
 							now query - all records (if any) with currentTerm=currentTermVal
 							should have nextTerm=nextTermVal
 						---->
-						<cfquery name="checkNext" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						<cfquery name="checkNext" datasource="uam_god">
 							select count(*) as c from CF_TEMP_CLASSIFICATION
 							where
 								#currentTerm#='#currentTermVal#' and
@@ -285,7 +285,7 @@ run these in order
 			<cfif len(thisProb) is 0>
 				<cfset thisProb='all_checks_passed'>
 			</cfif>
-			<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="ups" datasource="uam_god">
 				update CF_TEMP_CLASSIFICATION set status='#thisProb#' where scientific_name='#scientific_name#'
 			</cfquery>
 		</cftransaction>
@@ -325,14 +325,14 @@ run these in order
 ---------------------------------------------------------------------------
 <cfif action is "sciname_valid_check">
 	<!--- get the stuff we care about ---->
-	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ins" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='sciname_valid_check: ' || isValidTaxonName(scientific_name)
 		where status='sciname_valid_check'
 	</cfquery>
 </cfif>
 <cfif action is "checkGaps">
 	<!--- get the stuff we care about ---->
-	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ins" datasource="uam_god">
 		select
 			distinct CF_TEMP_CLASSIFICATION.scientific_name
 		from
@@ -353,7 +353,7 @@ run these in order
 		<!--- and for the things we caught above, figure out the problem ---->
 		<cfloop query="ins">
 			<cfset prob="">
-			<cfquery name="hmc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="hmc" datasource="uam_god">
 				select
 					count(distinct(classification_id)) ccid
 				from
@@ -367,7 +367,7 @@ run these in order
 			<cfif hmc.ccid neq 1>
 				<cfset prob="#hmc.ccid# classifications detected">
 			<cfelse>
-				<cfquery name="funkyTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				<cfquery name="funkyTerms" datasource="uam_god">
 					select
 						TERM_TYPE , term
 					from
@@ -386,11 +386,11 @@ run these in order
 					<cfset prob=listappend(prob,'#term#=#TERM_TYPE#')>
 				</cfloop>
 			</cfif>
-			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="ss" datasource="uam_god">
 				update CF_TEMP_CLASSIFICATION set status='existing_data_loss_warning: #prob#' where scientific_name='#scientific_name#'
 			</cfquery>
 		</cfloop>
-		<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="ss" datasource="uam_god">
 			update CF_TEMP_CLASSIFICATION set status='existing_data_check_pass' where status='go_go_gap_checker'
 		</cfquery>
 	</cfoutput>
@@ -400,7 +400,7 @@ run these in order
 
 <cfif action is "sciname_weird_check">
 	<cfoutput>
-		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="CTTAXON_TERM" datasource="uam_god">
 			select
 				taxon_term
 			from
@@ -413,12 +413,12 @@ run these in order
 				RELATIVE_POSITION desc
 		</cfquery>
 		<!--- first deal with the stuff we ignored ---->
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="d" datasource="uam_god">
 			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: ssp'
 			where status='sciname_weird_check' and subspecies is not null and
 			scientific_name != genus || ' ' || species || ' ' || subspecies
 		</cfquery>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="d" datasource="uam_god">
 			update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: sp'
 			where
 				status='sciname_weird_check' and
@@ -430,7 +430,7 @@ run these in order
 		<cfset ttList=replace(ttList,',order,',',phylorder,')>
 		<cfset checkedTerms="">
 		<cfloop list="#ttList#" index="term">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="d" datasource="uam_god">
 				update CF_TEMP_CLASSIFICATION set status='sci_name_looks_weird: #term#'
 				where
 					status='sciname_weird_check' and
@@ -445,7 +445,7 @@ run these in order
 			<cfset checkedTerms=listappend(checkedTerms,term)>
 			<cfset ttList=listDeleteAt(ttList,1)>
 		</cfloop>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="d" datasource="uam_god">
 			update CF_TEMP_CLASSIFICATION set status='sci_name_weirdcheck: pass' where
 			status='sciname_weird_check'
 		</cfquery>
@@ -454,11 +454,11 @@ run these in order
 
 <cfif action is "checkConsistency">
 	<cfoutput>
-        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+        <cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where status='go_go_check_consistency'
 		</cfquery>
 		<!--- run through ranks in order, make sure higher taxonomy is consistent ---->
-		<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="CTTAXON_TERM" datasource="uam_god">
 			select
 				taxon_term
 			from
@@ -515,7 +515,7 @@ run these in order
 								<cfset prob="#lcase(thisTerm)#=#termvalue# --> IN #lcase(c)# (#probTerms#)">
 							</cfif>
 						</cfloop>
-				        <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				        <cfquery name="setStatus" datasource="uam_god">
 							update CF_TEMP_CLASSIFICATION set status='inconsistency detected: #prob#'
 							where status='go_go_check_consistency' and #thisTerm#='#termvalue#'
 						</cfquery>
@@ -523,7 +523,7 @@ run these in order
 				</cfif>
 			</cfloop>
 		</cfloop>
-		 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		 <cfquery name="setStatus" datasource="uam_god">
 			update CF_TEMP_CLASSIFICATION set status='consistency_check_passed'
 			where status='go_go_check_consistency'
 		</cfquery>
