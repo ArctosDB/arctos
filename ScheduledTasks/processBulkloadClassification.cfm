@@ -85,18 +85,22 @@ run these in order
 				<cfset thisProb=listappend(thisProb,'invalid scientific_name: #p.v#',';')>
 			</cfif>
 
+			<!--- exists? ---->
 			<cfquery name="p" datasource="uam_god">
 				select count(*) c from taxon_name where scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif p.c is not 1>
 				<cfset thisProb=listappend(thisProb,'scientific_name does not exist',';')>
 			</cfif>
-			<!--- weird junk in terms --->
+			<!---
+				weird junk in terms
+				pretty much isValidTaxonName with some extra paranoia
+			--->
 			<cfloop list="#ttList#" index="term">
 				<cfset prob="">
 				<cfset thisTerm=evaluate("d." & term)>
 				<cfif len(thisTerm) gt 0>
-					<!--- pretty much isValidTaxonName with some extra paranoia ---->
+					<!---  ---->
 					<cfif thisTerm contains "  ">
 						<cfset prob=listappend(prob,'double space detected in #term#=#thisTerm#',';')>
 					</cfif>
