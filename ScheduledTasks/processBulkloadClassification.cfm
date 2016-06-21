@@ -52,7 +52,6 @@ run these in order
 		</cfif>
 	</cfloop>
 
-
 	<!---- for consistency checker, we need to know what's used in this dataset ---->
 	<!---- ignore scientific_name ---->
 	<cfset usedTerms=ttList>
@@ -60,7 +59,7 @@ run these in order
 		<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,"scientific_name"))>
 	</cfif>
 	<cfloop list="#usedTerms#" index="thisTerm">
-		<cfquery name="hasThis" dbtype="query">
+		<cfquery name="hasThis" datasource="uam_god">
 			select count(*) c from d where #thisTerm# is not null
 		</cfquery>
 		<cfif hasThis.c is 0>
@@ -68,7 +67,7 @@ run these in order
 		</cfif>
 	</cfloop>
 
-
+	<p>usedTerms: #usedTerms#</p>
 
 	<cfloop query="d">
 		<cftransaction>
