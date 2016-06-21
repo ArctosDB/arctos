@@ -22,6 +22,9 @@ run these in order
 	 <cfquery name="d" datasource="uam_god">
 		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 1000
 	</cfquery>
+	<cfif d.recordcount is 0>
+		<cfabort>
+	</cfif>
 	<cfquery name="CTTAXONOMY_SOURCE" datasource="uam_god">
 		select source from CTTAXONOMY_SOURCE
 	</cfquery>
