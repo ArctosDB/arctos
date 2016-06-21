@@ -20,11 +20,8 @@ run these in order
 <cfif action is "doEverything">
 <cfoutput>
 	 <cfquery name="d" datasource="uam_god">
-		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 10
+		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 100
 	</cfquery>
-
-	<cfdump var=#d#>
-
 
 	<cfif d.recordcount is 0>
 		<cfabort>
