@@ -22,6 +22,10 @@ run these in order
 	 <cfquery name="d" datasource="uam_god">
 		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 10
 	</cfquery>
+
+	<cfdump var=#d#>
+
+
 	<cfif d.recordcount is 0>
 		<cfabort>
 	</cfif>
@@ -55,6 +59,8 @@ run these in order
 	<!---- for consistency checker, we need to know what's used in this dataset ---->
 	<!---- ignore scientific_name ---->
 	<cfset usedTerms=ttList>
+	<p>usedTerms: #usedTerms#</p>
+
 	<cfif listfind(usedTerms,"scientific_name")>
 		<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,"scientific_name"))>
 	</cfif>
