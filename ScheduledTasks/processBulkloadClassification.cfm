@@ -159,7 +159,7 @@ run these in order
 			</cfif>
 			<cfquery name="funkyTerms" datasource="uam_god">
 				select
-					TERM_TYPE,
+					decode(TERM_TYPE,null,'[unranked]',term_type) term_type,
 					term
 				from
 					taxon_name,
