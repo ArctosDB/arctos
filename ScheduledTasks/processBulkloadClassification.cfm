@@ -60,7 +60,7 @@ run these in order
 	</cfif>
 	<cfloop list="#usedTerms#" index="thisTerm">
 		<cfquery name="hasThis" datasource="uam_god">
-			select count(*) c from d where #thisTerm# is not null
+			select count(*) c from CF_TEMP_CLASSIFICATION where #thisTerm# is not null
 		</cfquery>
 		<cfif hasThis.c is 0>
 			<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,"thisTerm"))>
