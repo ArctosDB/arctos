@@ -20,7 +20,7 @@ run these in order
 <cfif action is "doEverything">
 <cfoutput>
 	 <cfquery name="d" datasource="uam_god">
-		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 100
+		select * from CF_TEMP_CLASSIFICATION where status='go_go_all' and rownum <= 1000
 	</cfquery>
 
 	<cfif d.recordcount is 0>
@@ -195,8 +195,6 @@ run these in order
 			<cfset lowestTermValue="">
 
 			<!---- lttlist is created in header and reused for each loop ---->
-
-
 			<cfloop list="#lttList#" index="term">
 				<cfif len(lowestTerm) eq 0>
 					<cfset thisTerm=evaluate("d." & term)>
@@ -207,9 +205,8 @@ run these in order
 				</cfif>
 			</cfloop>
 
-
 			<cfif compare(lowestTermValue,scientific_name) neq 0>
-				<cfset thisProb=listappend(thisProb,"scientific name is not #lowestTermValue# (#lowestTerm#)",';')>
+				<cfset thisProb=listappend(thisProb,"scientific_name mismatch@#lowestTermValue# (#lowestTerm#)",';')>
 			</cfif>
 
 			<!----
@@ -264,6 +261,7 @@ run these in order
 				<cfset thisProb=listappend(thisProb,"inconsistency detected: #prob#",';')>
 			</cfif>
 
+			<!---------- static requirements ----------->
 			<cfif len(display_name) eq 0>
 				<cfset thisProb=listappend(thisProb,"display_name is required",';')>
 			</cfif>
