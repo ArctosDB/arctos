@@ -69,7 +69,9 @@ run these in order
 			select count(*) c from CF_TEMP_CLASSIFICATION where #thisTerm# is not null
 		</cfquery>
 		<cfif hasThis.c is 0>
-			<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,"thisTerm"))>
+
+			<p>deleting #thisTerm#</p>
+			<cfset usedTerms=listdeleteat(usedTerms,listfindnocase(usedTerms,thisTerm))>
 		</cfif>
 	</cfloop>
 
