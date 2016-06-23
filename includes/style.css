@@ -254,7 +254,7 @@ body {
 	/* used on project detail to scroll large "included" things */
 	.scrollyTextBlock {
 	    max-height: 30em;
-	    overflow: scroll;
+	    overflow: auto;
 	    max-width: 80%;
 	    margin-left: 3em;
 	}
