@@ -70,9 +70,8 @@ jQuery(document).ready(function(){
 	<cfif getUsers.recordcount gt 0>
 		<h2>Projects using contributed specimens</h2>
 		#getUsers.recordcount# Projects
-		<a href="/SpecimenResults.cfm?project_id=#project_id#&loan_project_id=#valuelist(getUsers.project_id)#">
-			used specimens contributed by this project
-		</a>. Those projects produced <span id="pucspc"></span> publications which include
+		<a href="/SpecimenResults.cfm?project_id=#project_id#&loan_project_id=#valuelist(getUsers.project_id)#">used specimens contributed by this projec</a>.
+			Those projects produced <span id="pucspc"></span> publications which include
 		<span id="pucspsc"></span> citations.
 		<cfset pucspc=0>
 		<cfset pucspsc=0>
