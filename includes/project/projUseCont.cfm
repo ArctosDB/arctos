@@ -77,7 +77,7 @@
 						<li>
 							<a href="/publication/#publication_id#">#short_citation#</a>
 							<cfif len(DOI) gt 0>
-								<a href="http://dx.doi.org/#doi#" target="_blank" class="exteral sddoi">#doi#</a>
+								<a href="http://dx.doi.org/#doi#" target="_blank" class="external sddoi">#doi#</a>
 							</cfif>
 							<ul>
 								<cfif numCits is 0>
