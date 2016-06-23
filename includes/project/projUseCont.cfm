@@ -1,8 +1,9 @@
+<script>
 jQuery(document).ready(function(){
 	$("#pucspc").html($("#v_pucspc").val());
 	$("#pucspsc").html($("#v_pucspsc").val());
 });
-
+</script>
 
 <cfoutput>
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
