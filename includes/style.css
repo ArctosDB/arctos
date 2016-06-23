@@ -248,6 +248,16 @@ body {
 		width:15em;
 	}
 /* END textarea styling and sizing */
+
+
+.10emscroll {
+	max-height:10em;
+	overflow:scroll;
+}
+
+
+
+
 /* BEGIN SpecimenDetail */
 	/* BEGIN annotations buttons */
 		#annotateSpace {
