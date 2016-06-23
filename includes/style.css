@@ -250,7 +250,7 @@ body {
 /* END textarea styling and sizing */
 
 
-.10emscroll {
+.max10emscroll {
 	max-height:10em;
 	overflow:scroll;
 }

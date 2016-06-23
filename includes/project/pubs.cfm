@@ -27,7 +27,7 @@
 		<h2>Publications</h2>
 		This project produced #pubs.recordcount# publications.
 		<cfset i=1>
-		<div class="10emscroll">
+		<div class="max10emscroll">
 
 			<cfloop query="pubs">
 				<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
