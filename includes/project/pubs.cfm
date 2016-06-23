@@ -27,6 +27,8 @@
 		<h2>Publications</h2>
 		This project produced #pubs.recordcount# publications.
 		<cfset i=1>
+		<div class="10emscroll">
+
 		<cfloop query="pubs">
 			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			    select distinct
@@ -45,7 +47,7 @@
 			         media_relations.media_relationship like '%publication' and
 			         media_relations.related_primary_key = #publication_id#
 			</cfquery>
-			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# class="10emscroll">
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<p class="indent">
 					#full_citation#
 				</p>
@@ -96,7 +98,9 @@
 					</cfloop>
 				</ul>
 			<cfset i=i+1>
+			</div>
 		</cfloop>
+		</div>
 	</cfif>
 	</cfoutput>
 
