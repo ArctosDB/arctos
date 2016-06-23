@@ -5,6 +5,25 @@ jQuery(document).ready(function(){
 });
 </script>
 
+<style>
+	.oneSubProject {
+		border:1px solid red;
+		margin-left:1em;
+	}
+	.oneSubProjectPubs {
+		border:1px solid green;
+		margin-left:1em;
+	}
+	.oneSubProjectPubsPub {
+		border:1px solid purple;
+		margin-left:1em;
+	}
+	.oneSubProjectPubsPubCit {
+		border:1px solid magenta;
+		margin-left:1em;
+	}
+
+</style>
 <cfoutput>
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
@@ -51,69 +70,61 @@ jQuery(document).ready(function(){
 		<h2>Projects using contributed specimens</h2>
 		#getUsers.recordcount# Projects
 		<a href="/SpecimenResults.cfm?project_id=#project_id#&loan_project_id=#valuelist(getUsers.project_id)#">
-			used specimens contributed by this project</a>.
-
-			Those projects produced <span id="pucspc"></span> publications which include
-			<span id="pucspsc"></span> citations.
-			<cfset pucspc=0>
-			<cfset pucspsc=0>
-
+			used specimens contributed by this project
+		</a>. Those projects produced <span id="pucspc"></span> publications which include
+		<span id="pucspsc"></span> citations.
+		<cfset pucspc=0>
+		<cfset pucspsc=0>
 		<div class="scrollyTextBlock">
-			<ul>
-				<cfloop query="getUsers">
-					<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
-					<cfquery name="pCits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select
-							short_citation,
-							publication.publication_id,
-							DOI,
-							count(citation.collection_object_id) numCits
-						from
-							publication,
-							project_publication,
-							citation
-						where
-							publication.publication_id=project_publication.publication_id and
-							publication.publication_id=citation.publication_id (+) and
-							project_publication.project_id=#project_id#
-						group by
-							short_citation,
-							publication.publication_id,
-							DOI
-						order by
-							short_citation
-					</cfquery>
-
-
-
-					<ul>
+			<cfloop query="getUsers">
+				<cfquery name="pCits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						short_citation,
+						publication.publication_id,
+						DOI,
+						count(citation.collection_object_id) numCits
+					from
+						publication,
+						project_publication,
+						citation
+					where
+						publication.publication_id=project_publication.publication_id and
+						publication.publication_id=citation.publication_id (+) and
+						project_publication.project_id=#project_id#
+					group by
+						short_citation,
+						publication.publication_id,
+						DOI
+					order by
+						short_citation
+				</cfquery>
+				<div class="oneSubProject">
+					<a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a>
+					<div class="oneSubProjectPubs">
 						<cfif pCits.recordcount is 0>
-							<li>
-								This project produced no publications.
-							</li>
+							This project produced no publications.
 						<cfelse>
 							<cfloop query="pCits">
 								<cfset pucspc=pucspc+1>
 								<cfset pucspsc=pucspsc+numCits>
-								<li>
+								<div class="oneSubProjectPubsPub">
 									<a href="/publication/#publication_id#">#short_citation#</a>
 									<cfif len(DOI) gt 0>
 										<a href="http://dx.doi.org/#doi#" target="_blank" class="external sddoi">#doi#</a>
 									</cfif>
-									<ul>
+									<div class="oneSubProjectPubsPubCit">
 										<cfif numCits is 0>
-											<li>This publication includes no citations.</li>
+											This publication includes no citations.
 										<cfelse>
-											<li><a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Citations</a></li>
+											<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Citations</a>
 										</cfif>
-									</ul>
-								</li>
+									</div>
+								</div>
 							</cfloop>
 						</cfif>
-					</ul>
-
-				</cfloop>
-			</ul>
+					</div>
+				</div>
+			</cfloop>
 		</div>
 		<input type="hidden" id="v_pucspc" value="#pucspc#">
 		<input type="hidden" id="v_pucspsc" value="#pucspsc#">
