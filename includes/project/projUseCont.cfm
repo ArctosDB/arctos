@@ -1,3 +1,9 @@
+jQuery(document).ready(function(){
+	$("#pucspc").html($("#v_pucspc").val());
+	$("#pucspsc").html($("#v_pucspsc").val());
+});
+
+
 <cfoutput>
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
@@ -45,6 +51,12 @@
 		#getUsers.recordcount# Projects
 		<a href="/SpecimenResults.cfm?project_id=#project_id#&loan_project_id=#valuelist(getUsers.project_id)#">
 			used specimens contributed by this project</a>.
+
+			Those projects produced <span id="pucspc"></span> publications which include
+			<span id="pucspsc"></span> citations.
+			<cfset pucspc=0>
+			<cfset pucspsc=0>
+
 		<div class="scrollyTextBlock">
 			<ul>
 				<cfloop query="getUsers">
@@ -70,6 +82,9 @@
 						order by
 							short_citation
 					</cfquery>
+
+
+
 					<ul>
 						<cfif pCits.recordcount is 0>
 							<li>
@@ -77,6 +92,8 @@
 							</li>
 						<cfelse>
 							<cfloop query="pCits">
+								<cfset pucspc=pucspc+1>
+								<cfset pucspsc=pucspsc+numCits>
 								<li>
 									<a href="/publication/#publication_id#">#short_citation#</a>
 									<cfif len(DOI) gt 0>
@@ -97,5 +114,7 @@
 				</cfloop>
 			</ul>
 		</div>
+		<input type="hidden" id="v_pucspc" value="#pucspc#">
+		<input type="hidden" id="v_pucspsc" value="#pucspsc#">
 	</cfif>
 </cfoutput>
