@@ -7,19 +7,17 @@ jQuery(document).ready(function(){
 
 <style>
 	.oneSubProject {
-		border:1px solid red;
-		margin-left:1em;
+		border:1px dashed green;
+		margin:1em;
+		padding: 0.5em;
 	}
 	.oneSubProjectPubs {
-		border:1px solid green;
 		margin-left:1em;
 	}
 	.oneSubProjectPubsPub {
-		border:1px solid purple;
 		margin-left:1em;
 	}
 	.oneSubProjectPubsPubCit {
-		border:1px solid magenta;
 		margin-left:1em;
 	}
 
