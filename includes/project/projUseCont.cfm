@@ -20,6 +20,7 @@ jQuery(document).ready(function(){
 	.oneSubProjectPubsPubCit {
 		margin-left:1em;
 	}
+	#pucspc,#pucspsc {font-weight:bold;}
 
 </style>
 <cfoutput>
