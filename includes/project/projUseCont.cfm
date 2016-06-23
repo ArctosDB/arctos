@@ -42,56 +42,60 @@
 	</cfquery>
 	<cfif getUsers.recordcount gt 0>
 		<h2>Projects using contributed specimens</h2>
-			#getUsers.recordcount# Projects <a href="/SpecimenResults.cfm?project_id=#project_id#&loan_project_id=#valuelist(getUsers.project_id)#">used specimens contributed by this project</a>.
-		<ul>
-		<cfloop query="getUsers">
-			<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
-			<cfquery name="pCits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select
-					short_citation,
-					publication.publication_id,
-					DOI,
-					count(citation.collection_object_id) numCits
-				from
-					publication,
-					project_publication,
-					citation
-				where
-					publication.publication_id=project_publication.publication_id and
-					publication.publication_id=citation.publication_id (+) and
-					project_publication.project_id=#project_id#
-				group by
-					short_citation,
-					publication.publication_id,
-					DOI
-				order by
-					short_citation
-			</cfquery>
+		#getUsers.recordcount# Projects
+		<a href="/SpecimenResults.cfm?project_id=#project_id#&loan_project_id=#valuelist(getUsers.project_id)#">
+			used specimens contributed by this project</a>.
+		<div class="scrollyTextBlock">
 			<ul>
-				<cfif pCits.recordcount is 0>
-					<li>
-						This project produced no publications.
-					</li>
-				<cfelse>
-					<cfloop query="pCits">
-						<li>
-							<a href="/publication/#publication_id#">#short_citation#</a>
-							<cfif len(DOI) gt 0>
-								<a href="http://dx.doi.org/#doi#" target="_blank" class="external sddoi">#doi#</a>
-							</cfif>
-							<ul>
-								<cfif numCits is 0>
-									<li>This publication includes no citations.</li>
-								<cfelse>
-									<li><a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Citations</a></li>
-								</cfif>
-							</ul>
-						</li>
-					</cfloop>
-				</cfif>
-			</ul>
+				<cfloop query="getUsers">
+					<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+					<cfquery name="pCits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+							short_citation,
+							publication.publication_id,
+							DOI,
+							count(citation.collection_object_id) numCits
+						from
+							publication,
+							project_publication,
+							citation
+						where
+							publication.publication_id=project_publication.publication_id and
+							publication.publication_id=citation.publication_id (+) and
+							project_publication.project_id=#project_id#
+						group by
+							short_citation,
+							publication.publication_id,
+							DOI
+						order by
+							short_citation
+					</cfquery>
+					<ul>
+						<cfif pCits.recordcount is 0>
+							<li>
+								This project produced no publications.
+							</li>
+						<cfelse>
+							<cfloop query="pCits">
+								<li>
+									<a href="/publication/#publication_id#">#short_citation#</a>
+									<cfif len(DOI) gt 0>
+										<a href="http://dx.doi.org/#doi#" target="_blank" class="external sddoi">#doi#</a>
+									</cfif>
+									<ul>
+										<cfif numCits is 0>
+											<li>This publication includes no citations.</li>
+										<cfelse>
+											<li><a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Citations</a></li>
+										</cfif>
+									</ul>
+								</li>
+							</cfloop>
+						</cfif>
+					</ul>
 
-		</cfloop>
-		</ul>
+				</cfloop>
+			</ul>
+		</div>
 	</cfif>
 </cfoutput>
