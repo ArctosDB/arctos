@@ -50,6 +50,7 @@
 				select
 					short_citation,
 					publication.publication_id,
+					DOI,
 					count(citation.collection_object_id) numCits
 				from
 					publication,
@@ -61,11 +62,34 @@
 					project_publication.project_id=#project_id#
 				group by
 					short_citation,
-					publication.publication_id
+					publication.publication_id,
+					DOI
 				order by
 					short_citation
 			</cfquery>
-			<cfdump var=#pCits#>
+			<ul>
+				<cfif pCits.recordcount is 0>
+					<li>
+						This project produced no publications.
+					</li>
+				<cfelse>
+					<cfloop query="pCits">
+						<li>
+							<a href="/publication/#publication_id#">#short_citation#</a>
+							<cfif len(DOI) gt 0>
+								<a href="http://dx.doi.org/#doi#" target="_blank" class="exteral sddoi">#doi#</a>
+							</cfif>
+							<ul>
+								<cfif numCits is 0>
+									<li>This publication includes no citations.</li>
+								<cfelse>
+									<li><a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Citations</a></li>
+								</cfif>
+							</ul>
+						</li>
+					</cfloop>
+				</cfif>
+			</ul>
 
 		</cfloop>
 		</ul>
