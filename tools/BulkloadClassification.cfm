@@ -1,8 +1,11 @@
 <!----
+
 	drop table cf_temp_classification;
+
+
 	create table cf_temp_classification (
 		-- admin junk
-		status varchar2(255),
+		status varchar2(4000),
 		classification_id varchar2(4000),
 		username varchar2(255) not null,
 		source  varchar2(255) not null,
@@ -51,10 +54,22 @@
 		subsp varchar2(255) null,
 		forma varchar2(255) null
 );
---alter table cf_temp_classification rename column hypoorder to hyporder;
+
+
+alter table cf_temp_classification rename column hypoorder to hyporder;
+
+alter table cf_temp_classification modify status varchar2(4000);
+
+
+
+
+
 create or replace public synonym cf_temp_classification for cf_temp_classification;
+
 grant all on cf_temp_classification to coldfusion_user;
+
 create unique index iu_temp_class on cf_temp_classification(scientific_name) tablespace uam_idx_1;
+
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Classifications">
@@ -63,16 +78,82 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 <!----------------------------------------------------------------->
 
 <cfif action is "getCSV">
+<cfoutput>
+	<!---- just need a list of columns here --->
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+		select * from CF_TEMP_CLASSIFICATION where 1=2
 	</cfquery>
+
+	<cfdump var=#mine#>
+	<!--- get column order ---->
+	<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			*
+		from
+			CTTAXON_TERM
+	</cfquery>
+
+	<cfquery name="cterm" dbtype="query">
+		select taxon_term from oClassTerms where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
+	</cfquery>
+	<cfquery name="ncterm" dbtype="query">
+		select taxon_term from oClassTerms where IS_CLASSIFICATION=0 order by taxon_term
+	</cfquery>
+
+	<cfset fList=valuelist(cterm.taxon_term)>
+	<cfset fList=listappend(fList,'status')>
+	<cfset fList=listappend(fList,valuelist(ncterm.taxon_term))>
+	<cfset fList=replace(fList,',order,',',phylorder,')>
+
+	<cfset fList=listappend(fList,'source')>
+
+
+	<cfset BulkTableColList=mine.columnlist>
+	<!--- remove admin stuff ---->
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'USERNAME'))>
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'TAXON_NAME_ID'))>
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'CLASSIFICATION_ID'))>
+	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'SUBSP'))>
+
+
+
+
+	<!--- make sure everything in the columnlist we just built from the code table is a table row ---->
+	<cfloop list="#fList#" index="t">
+		<cfif not listfindnocase(BulkTableColList,t)>
+			<p>
+				#t# is in CTTAXON_TERM and is NOT in CF_TEMP_CLASSIFICATION
+			</p>
+		</cfif>
+
+	</cfloop>
+
+	<!--- make sure everything in the table is also in the code table (plus the stuff we added up yonder) ---->
+	<cfloop list="#BulkTableColList#" index="t">
+		<cfif not listfindnocase(fList,t)>
+			<p>
+				#t# is in CF_TEMP_CLASSIFICATION and is NOT in CTTAXON_TERM - THIS IS FATAL
+			</p>
+		</cfif>
+
+	</cfloop>
+
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select #fList# from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+	</cfquery>
+
 	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=fList)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/BulkloadClassificationData.csv"
     	output = "#csv#"
     	addNewLine = "no">
+
+
 	<cflocation url="/download.cfm?file=BulkloadClassificationData.csv" addtoken="false">
+
+	<a href="/download.cfm?file=BulkloadClassificationData.csv">BulkloadClassificationData.csv</a>
+</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
 
@@ -95,23 +176,21 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<!--- see /ScheduledTasks/processBulkloadClassification.cfm ---->
 		</p>
 		<p>
-			Replace classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
+			This form REPLACES classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
 			click any buttons unless you KNOW what they do.
 		<p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a> and view column descriptions
 		</p>
-
-
 		<p>
-			<a href="BulkloadClassification.cfm?action=getCSV">Download all of your data</a>
-		</p>
-
-		<p>
-			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>
+			<a href="BulkloadClassification.cfm?action=getCSV">Download all of your data</a>. Do this often as a backup.
 		</p>
 		<p>
-			Load (more) data
+			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>. Do this before re-loading
+			something you've downloaded and fixed.
+		</p>
+		<p>
+			Load (more) data. This is additive; you may want to delete first.
 			<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadClassification.cfm">
 				<input type="hidden" name="action" value="getFileData">
 				<label for="">Load CSV. Will APPEND to existing data</label>
@@ -120,6 +199,83 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			</cfform>
 		</p>
 		<p>
+			Display_Name is required. You may <a href="BulkloadClassification.cfm?action=getDisplayName">autogenerate display_name</a>.
+			This may produce strange data; carefully verify the results of this operation. This will NOT over-write anything already in
+			display_name; download CSV, remove display_name, and re-upload to accomplish that.
+		</p>
+
+
+		<p>
+			<a href="BulkloadClassification.cfm?action=doEverything">Flag to run all data checks</a>: After creating what you believe to
+			 be valid records (e.g., those with display_name), you should verify them.
+			This will catch (most) problems which would prevent a record from loading, and many potential problems or inconsistencies
+			which you
+			may not wish to introduce into the data. If you plan to
+			fill_in_the_blanks_from_genus (e.g., fetch species and subspecies level data to make consistent
+			through this tool), you should verify before and after that step. You should also verify after
+			you've changed anything. This can be a slow (ca. 400 records/minute)
+				process; check status summary by reloading this page, and contact a DBA if nothing seems to be happening.
+		</p>
+
+
+		<li>
+			<a href="BulkloadClassification.cfm?action=setstatus&status=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>.
+			Use this to set status of ALL of your data to "fill_in_the_blanks_from_genus." This will cause Arctos to insert species
+			and subspecies
+			data, and to fill in any gaps in the genus-only source record. Check stats below before clicking;
+			 this force-overwrites anything in STATUS.
+		</li>
+
+
+
+
+<!------
+
+		<p>
+			SUMMARY: One way of using this form
+			<ol>
+				<li>Load some data</li>
+				<li>Click "" if necessa</li>
+				<li>Click the 'Flag to run all data checks' link</li>
+				<li>Ensure that all records have been flagged for check (status "go_go_all")</li>
+				<li></li>
+				<li>Download everything</li>
+				<li>Fix any problems</li>
+				<li>Delete, re-upload</li>
+				<li>Run consistency check (because things happen, esp. when eg., Excel is involved)</li>
+				<li>Runse and repeat until 'consistency_check_passed' on everything</li>
+				<li>Move on to the next check; repeat if anything might have broken the consistency checker.</li>
+			</ol>
+
+
+
+			Many of the checks below may not be combined with other checks. For example, clicking Check for consistency
+			will set STATUS of <strong>all</strong> records to "go_go_check_consistency." The consistency checker will ignore
+			anything without a flagged status, and when done (which may take several days for large datasets) will leave no
+			records with that status. Doing anything else during the process will reset everything. The entire procedure for checking
+			consistency is therefore:
+			<ol>
+				<li>Load some data</li>
+				<li>Click the 'Check for consistency' link</li>
+				<li>Ensure that all records have been processed (status 'inconsistency detected...' or 'consistency_check_passed')</li>
+				<li>Download everything</li>
+				<li>Fix any problems</li>
+				<li>Delete, re-upload</li>
+				<li>Run consistency check (because things happen, esp. when eg., Excel is involved)</li>
+				<li>Runse and repeat until 'consistency_check_passed' on everything</li>
+				<li>Move on to the next check; repeat if anything might have broken the consistency checker.</li>
+			</ol>
+			------->
+		<!----
+		<p>
+			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>. This will flag records which appear
+			to have inconsistent "hierarchies" - eg, one genus --> two families.
+		</p>
+
+
+
+
+		<p>
 			<a href="BulkloadClassification.cfm?action=checkGaps">Check for gaps</a>. This will
 			find data in Arctos which has no place in this loader; these data will be lost if the
 			data are loaded as-is. This will time out for large (few thousand) datasets; send us an email.
@@ -127,20 +283,21 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			filling in blanks.
 		</p>
 
-
 		<p>
-			<a href="BulkloadClassification.cfm?action=checkConsistency">Check for consistency</a>.
+			<a href="BulkloadClassification.cfm?action=sciname_valid_check">sciname_valid_check</a>. This will
+			check for scientific_names which do not seem to be valid (mostly formatting).
 		</p>
 
 
 
 
-
 		<p>
-			Display_Name is required. You may <a href="BulkloadClassification.cfm?action=getDisplayName">autogenerate display_name</a>.
-			This may produce strange data; carefully verify the results of this operation. This will NOT over-write anything already in
-			display_name; download CSV, remove display_name, and re-upload to accomplish that.
+			<a href="BulkloadClassification.cfm?action=sciname_weird_check">Check for sciname_weird_check</a>. This will flag records where the
+			scientific name does not look correct, generally meaning that scientific_name != {lowest-ranking non-NULL term}.
 		</p>
+
+
+
 		<p>
 			The following options are slow, and so are performed asynchronously. Clicking these links simply updates STATUS.
 			Check status below for progress.
@@ -163,6 +320,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				</li>
 			</ul>
 		</p>
+
+		---->
 		<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				status,
@@ -195,6 +354,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 		<!----
 		toobookoo
+
 		<cfquery name="dbcols" datasource="uam_god">
 			select
 				column_name
@@ -205,6 +365,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				lower(column_name) not in ('taxon_name_id','classification_id')
 			ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
+
+
 		<table border>
 			<tr>
 			<cfloop query="dbcols">
@@ -223,6 +385,53 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
+<cfif action is "sciname_weird_check">
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='sciname_weird_check' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<p>
+			Records have been flagged for sciname_weird_check.
+
+			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
+		</p>
+</cfif>
+<!----------------------------------------------------------------->
+<cfif action is "doEverything">
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='go_go_all' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<p>
+			Records have been flagged for doEverything.
+
+			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
+		</p>
+</cfif>
+
+
+<!----------------------------------------------------------------->
+<cfif action is "sciname_valid_check">
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='sciname_valid_check' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<p>
+			Records have been flagged for sciname_valid_check.
+
+			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
+		</p>
+</cfif>
+<!----------------------------------------------------------------->
 <cfif action is "checkConsistency">
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_CLASSIFICATION set status='go_go_check_consistency' where upper(username)='#ucase(session.username)#'
@@ -230,6 +439,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>
 			Records have been flagged for consistency check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
 			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
 		</p>
 
 </cfif>
@@ -373,29 +585,16 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 </cfif>
 <!----------------------------------------------------------------->
 <cfif action is "checkGaps">
-	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			distinct CF_TEMP_CLASSIFICATION.scientific_name
-		from
-			CF_TEMP_CLASSIFICATION,
-			taxon_name,
-			taxon_term
-		where
-			CF_TEMP_CLASSIFICATION.scientific_name=taxon_name.scientific_name and
-			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-			--upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#' and
-			( taxon_term.TERM_TYPE is null or
-				 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
-			)
-	</cfquery>
-	<cfoutput>
+	  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='go_go_gap_checker' where upper(username)='#ucase(session.username)#'
+		</cfquery>
 		<p>
-			The following scientific names will cause data loss. The corresponding data in Arctos contains unranked or unhandled terms.
+			Records have been flagged for gap check. Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
 		</p>
-		<cfloop query="ins">
-			<br><a target="_blank" href="/name/#scientific_name#">#scientific_name#</a>
-		</cfloop>
-	</cfoutput>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
+		</p>
 
 </cfif>
 
