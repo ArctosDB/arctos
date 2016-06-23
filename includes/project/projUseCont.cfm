@@ -50,7 +50,7 @@
 				select
 					short_citation,
 					publication.publication_id,
-					count(*) numCits
+					count(citation.collection_object_id) numCits
 				from
 					publication,
 					project_publication,
