@@ -46,6 +46,27 @@
 		<ul>
 		<cfloop query="getUsers">
 			<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+			<cfquery name="pCits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					short_citation,
+					publication.publication_id,
+					count(*) numCits
+				from
+					publication,
+					project_publication,
+					citation
+				where
+					publication.publication_id=project_publication.publication_id and
+					publication.publication_id=citation.publication_id (+) and
+					project_publication.project_id=#project_id#
+				group by
+					short_citation,
+					publication.publication_id
+				order by
+					short_citation
+			</cfquery>
+			<cfdump var=#pCits#>
+
 		</cfloop>
 		</ul>
 	</cfif>

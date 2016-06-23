@@ -249,13 +249,16 @@ body {
 	}
 /* END textarea styling and sizing */
 
+/* BEGIN text */
 
-.max10emscroll {
-	max-height:10em;
-	overflow:scroll;
-}
-
-
+	/* used on project detail to scroll large "included" things */
+	.scrollyTextBlock {
+	    max-height: 30em;
+	    overflow: scroll;
+	    max-width: 80%;
+	    margin-left: 3em;
+	}
+/* END text */
 
 
 /* BEGIN SpecimenDetail */
