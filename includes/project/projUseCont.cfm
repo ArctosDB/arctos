@@ -6,13 +6,15 @@ jQuery(document).ready(function(){
 </script>
 
 <style>
-	.oneSubProject {
-		border:1px dashed green;
-		margin:1em;
-		padding: 0.5em;
+.oneSubProject {
+    border: 1px dashed green;
+    margin: 1em;
+    padding: 0.5em;
+    font-size: 1.2em;
 	}
 	.oneSubProjectPubs {
-		margin-left:1em;
+	    margin-left: 1em;
+	    font-size: .8em;
 	}
 	.oneSubProjectPubsPub {
 		margin-left:1em;
@@ -103,6 +105,9 @@ jQuery(document).ready(function(){
 						<cfif pCits.recordcount is 0>
 							This project produced no publications.
 						<cfelse>
+							<div>
+								<strong>Publications:</strong>
+							</div>
 							<cfloop query="pCits">
 								<cfset pucspc=pucspc+1>
 								<cfset pucspsc=pucspsc+numCits>
