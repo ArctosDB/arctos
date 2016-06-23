@@ -45,7 +45,7 @@
 			         media_relations.media_relationship like '%publication' and
 			         media_relations.related_primary_key = #publication_id#
 			</cfquery>
-			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# class="10emscroll">
 				<p class="indent">
 					#full_citation#
 				</p>

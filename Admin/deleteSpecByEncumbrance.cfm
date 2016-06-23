@@ -7,6 +7,12 @@ delete from annotations where collection_object_id IN
 			encumbrance_id = #encumbrance_id#
 		)
 ;
+delete from specimen_archive where collection_object_id IN
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
 
 delete from coll_obj_other_id_num where collection_object_id IN
 		(
@@ -206,7 +212,16 @@ drop table temp;
 		<cfabort>
 	</cfif>
 <cftransaction>
-<cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+<cfquery name="specimen_archive" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from specimen_archive where collection_object_id IN
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+</cfquery>
+
+<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from annotations where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
