@@ -34,6 +34,7 @@ body {
  #menu {
 			display:none;
 		}
+		.browserCheck {display:none;}
 
 }
 
