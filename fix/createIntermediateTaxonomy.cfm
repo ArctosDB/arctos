@@ -89,7 +89,7 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 
 		<cfdump var=#temp#>
 
-		<cfset querysetcell(temp,"scientific_name","boogity",1)>
+		<cfset querysetcell(temp,"scientific_name",SCIENTIFIC_NAME,1)>
 
 		<cfdump var=#temp#>
 		<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
@@ -162,6 +162,8 @@ select
 	<br>got nothing do nothing
 <cfelseif thisDist.recordcount is 1>
 	<br>yippee use it
+			<cfset querysetcell(temp,"#thisTerm#",thisDist.term,1)>
+
 <cfelse>
 	<br>crap not hierarchical
 
@@ -191,6 +193,9 @@ select
 ---->
 
 				<br>
+
+												<cfdump var=#temp#>
+
 			</cfloop>
 
 		</cfif>
