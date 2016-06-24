@@ -147,7 +147,6 @@ select
 					</cfquery>
 								<cfdump var=#thisDist#>
 
-<!----
 <cfif thisDist.recordcount is 0>
 	<br>got nothing do nothing
 <cfelseif thisDist.recordcount is 1>
