@@ -138,24 +138,24 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 					<cfset querysetcell(temp,"#thisTerm#",valuelist(thisDist.term,';'),1)>
 				</cfif>
 			</cfloop>
-		</cfloop>
-	</cfif>
-	<cfquery name="nr" datasource="uam_god">
-		insert into temp_new_class_temp (
-		<cfloop list="#temp.columnlist#" index="t">
-			#t#
-			<cfif listlast(temp.columnlist) is not t>,</cfif>
-		</cfloop>
-		) values (
-		<cfloop list="#temp.columnlist#" index="t">
-			'#evaluate("temp." & t)#'
-			<cfif listlast(temp.columnlist) is not t>,</cfif>
-		</cfloop>
-		)
-	</cfquery>
-	<cfquery name="g" datasource="uam_god">
-		update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
-	</cfquery>
+		</cfif>
+		<cfquery name="nr" datasource="uam_god">
+			insert into temp_new_class_temp (
+			<cfloop list="#temp.columnlist#" index="t">
+				#t#
+				<cfif listlast(temp.columnlist) is not t>,</cfif>
+			</cfloop>
+			) values (
+			<cfloop list="#temp.columnlist#" index="t">
+				'#evaluate("temp." & t)#'
+				<cfif listlast(temp.columnlist) is not t>,</cfif>
+			</cfloop>
+			)
+		</cfquery>
+		<cfquery name="g" datasource="uam_god">
+			update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
+		</cfquery>
+	</cfloop>
 </cfoutput>
 
 
