@@ -88,6 +88,9 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 			<br>good rank
 			<cfset thisPosn=listfind(ctl,SOURCE_RANK)>
 			<br>thisPosn: #thisPosn#
+			<cfloop from="1" to="#thisPosn#" index="thisTerm">
+				<br>thisTerm: #thisTerm#
+			</cfloop>
 
 		</cfif>
 	</cfloop>
