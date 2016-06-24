@@ -127,7 +127,10 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 					b.term,b.term_type
 </cfquery>
 				---->
-				<br>select
+				<br>
+
+				<cfquery name="thisDist" datasource="uam_god">
+select
 					b.term,b.term_type
 					from
 						taxon_term a,
@@ -135,11 +138,14 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 					where
 						a.source='Arctos' and
 						a.classification_id=b.classification_id and
+						a.taxon_name_id=b.taxon_name_id and
 						a.TERM_TYPE='#SOURCE_RANK#' and
 						a.term='#SCIENTIFIC_NAME#' and
 						b.term_type='#thisTerm#'
 					group by
 					b.term,b.term_type
+					</cfquery>
+								<cfdump var=#thisDist#>
 
 <!----
 <cfif thisDist.recordcount is 0>
