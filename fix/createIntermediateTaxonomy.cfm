@@ -80,8 +80,6 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 <cfquery name="temp" datasource="uam_god">
 	select * from  temp_new_class_temp where 1=2
 </cfquery>
-
-<cfdump var=#ctl#>
 <cfquery name="d" datasource="uam_god">
 	select * from temp_new_names_fd where status is null and rownum <= 2
 </cfquery>
@@ -91,18 +89,11 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 		<cfquery name="temp"dbtype="query">
 			select * from temp where 1=2
 		</cfquery>
-
-
-		<cfdump var=#temp#>
 		<cfset queryaddrow(temp,1)>
-
-		<cfdump var=#temp#>
-
 		<cfset querysetcell(temp,"scientific_name",SCIENTIFIC_NAME,1)>
 		<cfset querysetcell(temp,"username",session.username,1)>
 		<cfset querysetcell(temp,"source",'Arctos',1)>
 		<cfset querysetcell(temp,"NOMENCLATURAL_CODE",'PENDING',1)>
-		<cfdump var=#temp#>
 		<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
 		<br>SOURCE_RANK: #SOURCE_RANK#
 		<br>SOURCE_NAME: #SOURCE_NAME#
@@ -129,7 +120,6 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 					group by
 						b.term,b.term_type
 				</cfquery>
-				<cfdump var=#thisDist#>
 				<cfif thisTerm is "order">
 					<cfset thisTerm="phylorder">
 				</cfif>
