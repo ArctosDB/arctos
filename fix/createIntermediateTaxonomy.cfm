@@ -130,6 +130,33 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 					b.term,b.term_type
 </cfquery>
 								<cfdump var=#thisDist#>
+<cfif thisDist.recordcount is 0>
+	<br>got nothing do nothing
+<cfelseif thisDist.recordcount is 1>
+	<br>yippee use it
+<cfelse>
+	<br>crap not hierarchical
+	<cfquery name="conflictNames" datasource="uam_god">
+		select
+			scientific_name
+		from
+			taxon_name,
+			taxon_term a,
+			taxon_term b
+		where
+			a.source='Arctos' and
+			b.source='Arctos' and
+			a.taxon_name_id=b.taxon_term_id and
+			a.TERM_TYPE='#SOURCE_RANK#' and
+			a.term='#SCIENTIFIC_NAME#' and
+			b.term_type='#thisTerm#' and
+			b.taxon_name_id=taxon_name.taxon_name_id
+					group by
+					scientific_name
+	</cfquery>
+								<cfdump var=#conflictNames#>
+
+</cfif>
 
 				<br>
 			</cfloop>
