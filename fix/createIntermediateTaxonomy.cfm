@@ -64,6 +64,11 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 
 create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1=2;
 
+-- huge bit of duplication caused by terms coming from lots of sources - ignore that for now, but keep it around in case it's useful later
+
+create table temp_new_names_nos as select SCIENTIFIC_NAME,SOURCE_RANK  from temp_new_names group by SCIENTIFIC_NAME,SOURCE_RANK;
+alter table temp_new_names_nos add status varchar2(4000);
+
 
 ----------->
 
@@ -89,7 +94,7 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 	select * from  temp_new_class_temp where 1=2
 </cfquery>
 <cfquery name="d" datasource="uam_god">
-	select * from temp_new_names_fd where status is null and rownum <= 2
+	select * from temp_new_names_nos where status is null and rownum <= 2
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
@@ -105,7 +110,6 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 			<cfset querysetcell(temp,"NOMENCLATURAL_CODE",'idk',1)>
 			<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
 			<br>SOURCE_RANK: #SOURCE_RANK#
-			<br>SOURCE_NAME: #SOURCE_NAME#
 			<cfif listfindnocase(ctl,SOURCE_RANK)>
 				<cfset thisPosn=listfind(ctl,SOURCE_RANK)>
 				<cfloop from="1" to="#thisPosn#" index="i">
@@ -178,7 +182,7 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 			</cfquery>
 			<cfdump var=#temp#>
 			<cfquery name="g" datasource="uam_god">
-				update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
+				update temp_new_names_nos set status ='k' where scientific_name='#scientific_name#'
 			</cfquery>
 		</cftransaction>
 	</cfloop>
