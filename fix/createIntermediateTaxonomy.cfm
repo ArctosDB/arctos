@@ -94,7 +94,8 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 		<cfdump var=#temp#>
 
 		<cfset querysetcell(temp,"scientific_name",SCIENTIFIC_NAME,1)>
-		<cfset querysetcell(temp,"username",#session.username#,1)>
+		<cfset querysetcell(temp,"username",session.username,1)>
+		<cfset querysetcell(temp,"source",'Arctos',1)>
 
 		<cfdump var=#temp#>
 		<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
