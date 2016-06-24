@@ -19,24 +19,6 @@
 	#stayright{margin-left:12em;}
 
 
-@media screen and (max-width: 500px) {
-  body {
-    background: green;
-  }
-
- #menu {
-			display:none;
-		}
-		.browserCheck {display:none;}
-	#stayright{margin-left:0em;}
-
-		.institutionheader {margin:.1em 0em .2em 0em;font-size:1em;font-weight:500;}
-
-
-}
-
-
-
 
 
 	.table {display:table;width:100%}
@@ -61,6 +43,28 @@
 		font-size:smaller;
 		margin-bottom:1em;
 	}
+
+
+
+@media screen and (max-width: 500px) {
+  body {
+    background: green;
+  }
+
+ #menu {
+			display:none;
+		}
+		.browserCheck {display:none;}
+	#stayright{margin-left:0em;}
+
+		.institutionheader {margin:.1em 0em .2em 0em;font-size:1em;font-weight:500;}
+
+
+}
+
+
+
+
 </style>
 <cfoutput>
 	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
