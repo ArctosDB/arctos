@@ -83,7 +83,7 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 
 <cfdump var=#ctl#>
 <cfquery name="d" datasource="uam_god">
-	select * from temp_new_names_fd where status is null and rownum < 2
+	select * from temp_new_names_fd where status is null and rownum <= 2
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
