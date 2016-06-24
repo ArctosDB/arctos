@@ -4,6 +4,31 @@
 
 	<style>
 
+
+body {
+  background: white;
+}
+
+@media screen and (min-width: 980px) /* Desktop */ {
+  body {
+    background: red;
+  }
+}
+
+@media screen  and (max-width: 979px) /* Tablet */ {
+  body {
+    background: blue;
+  }
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  body {
+    background: green;
+  }
+}
+
+
+
 		 #menu {
 			position:fixed;
 			top:20%;
