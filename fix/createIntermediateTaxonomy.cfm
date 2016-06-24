@@ -75,6 +75,9 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 	select TAXON_TERM from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
 </cfquery>
 <cfset ctl=valueList(classterms.TAXON_TERM)>
+	<cfset ctl=replace(ctl,',order,',',phylorder,')>
+
+
 <cfdump var=#ctl#>
 <cfquery name="d" datasource="uam_god">
 	select * from temp_new_names_fd where status is null and rownum < 2
