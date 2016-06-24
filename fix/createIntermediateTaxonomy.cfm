@@ -94,7 +94,7 @@ alter table temp_new_names_nos add status varchar2(4000);
 	select * from  temp_new_class_temp where 1=2
 </cfquery>
 <cfquery name="d" datasource="uam_god">
-	select * from temp_new_names_nos where status is null and rownum <= 20
+	select * from temp_new_names_nos where status is null and rownum <= 200
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
@@ -178,7 +178,6 @@ alter table temp_new_names_nos add status varchar2(4000);
 				</cfloop>
 				)
 			</cfquery>
-			<cfdump var=#temp#>
 			<cfquery name="g" datasource="uam_god">
 				update temp_new_names_nos set status ='k' where scientific_name='#scientific_name#'
 			</cfquery>
