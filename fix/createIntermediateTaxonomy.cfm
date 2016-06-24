@@ -109,10 +109,12 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 						TERM_TYPE='#SOURCE_RANK#' and
 						term='#SCIENTIFIC_NAME#'
 				</cfquery>
+								<cfdump var=#thisDist#>
+
 				---->
 				<br>
 				select
-					term,term_type
+					b.term,b.term_type
 					from
 						taxon_term a,
 						taxon_term b
@@ -123,10 +125,10 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 						a.TERM_TYPE='#SOURCE_RANK#' and
 						a.term='#SCIENTIFIC_NAME#' and
 						b.term_type='#thisTerm#'
-					group by term,term_type
+					group by
+					b.term,b.term_type
 
 
-				<cfdump var=#thisDist#>
 				<br>
 			</cfloop>
 
