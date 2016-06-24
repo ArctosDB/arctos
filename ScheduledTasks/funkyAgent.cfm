@@ -193,23 +193,6 @@
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
 	</cfif>
-
-
-	<cfdump var=#maddr#>
-
-		<cfloop query="funk">
-				<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a>
-				<br>&nbsp;&nbsp;&nbsp;CreatedBy: #createdBy#
-				<br>&nbsp;&nbsp;&nbsp;Problem: #reason#
-			</cfloop>
-
-
-
-			<cfabort>
-
-
-
-
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
 		<cfif not isdefined("Application.version") or Application.version is not "prod">
 			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
@@ -224,7 +207,7 @@
 			Please use the <a href="#application.serverRootURL#/contact.cfm?ref=noncompliant_agent_notice">contact</a> link at the bottom of any Arctos form
 			if you believe you have received this mail in error, or if you wish to discuss the Arctos Agent Creation Guidelines.
 		<p>
-			Please review the following agents and make corrections as appropriate.
+			Please review the following agents and make corrections or additions as appropriate.
 		</p>
 		<p>
 			<cfloop query="funk">
