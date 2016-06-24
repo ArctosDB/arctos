@@ -136,6 +136,8 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 	<br>yippee use it
 <cfelse>
 	<br>crap not hierarchical
+
+	<!----
 	<cfquery name="conflictNames" datasource="uam_god">
 		select
 			scientific_name
@@ -155,6 +157,7 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 					scientific_name
 	</cfquery>
 								<cfdump var=#conflictNames#>
+								---->
 
 </cfif>
 
