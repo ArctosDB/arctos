@@ -123,6 +123,7 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 						a.TERM_TYPE='#SOURCE_RANK#' and
 						a.term='#SCIENTIFIC_NAME#' and
 						b.term_type='#thisTerm#'
+					group by term,term_type
 
 
 				<cfdump var=#thisDist#>
