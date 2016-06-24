@@ -3,8 +3,8 @@
 <style>
 
 	<style>
-	@media screen{
-	    #menu {
+
+		 #menu {
 			position:fixed;
 			top:20%;
 			left:0;
@@ -14,11 +14,10 @@
 			margin:1em;
 			font-size:.8em;
 		}
-	}
     @media (max-width: 600px) {
-   #menu {
-		display:none;
-	}
+	   #menu {
+			display:none;
+		}
 }
 
 
