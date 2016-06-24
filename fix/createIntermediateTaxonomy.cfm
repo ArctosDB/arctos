@@ -204,7 +204,16 @@ select
 
 				<br>
 
-												<cfdump var=#temp#>
+
+
+												</p>
+
+			</cfloop>
+
+		</cfif>
+
+
+			<cfdump var=#temp#>
 
 												<p>
 																	<cfquery name="nr" datasource="uam_god">
@@ -225,11 +234,8 @@ select
 														update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
 													</cfquery>
 
-												</p>
 
-			</cfloop>
 
-		</cfif>
 	</cfloop>
 </cfoutput>
 
