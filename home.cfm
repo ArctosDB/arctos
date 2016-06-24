@@ -4,11 +4,6 @@
 
 	<style>
 
-
-body {
-  background: white;
-}
-
  #menu {
 			position:fixed;
 			top:20%;
@@ -19,7 +14,8 @@ body {
 			margin:1em;
 			font-size:.8em;
 		}
-}
+
+
 
 	#stayright{margin-left:12em;}
 
