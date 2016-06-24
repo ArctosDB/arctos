@@ -91,6 +91,20 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 			<cfloop from="1" to="#thisPosn#" index="i">
 				<cfset thisTerm=listgetat(ctl,i)>
 				<br>thisTerm: #thisTerm#
+				<!---
+					find unique values from Arctos classifications which share SOURCE_RANK=SOURCE_NAME
+				---->
+				<cfquery name="thisDist" datasource="uam_god">
+					select *
+					from
+						taxon_term
+					where
+						source='Arctos' and
+						TERM_TYPE='#SOURCE_RANK#' and
+						term='#SCIENTIFIC_NAME#'
+				</cfquery>
+				<cfdump var=#thisDist#>
+				<br>
 			</cfloop>
 
 		</cfif>
