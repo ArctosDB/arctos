@@ -37,7 +37,7 @@
 		#menu {
 			display:none;
 		}
-		.browserCheck {font-size:0.5em;}
+		.browserCheck {font-size:}
 		#stayright{margin-left:0em;}
 		.institutiongroup {border:1px dotted green;margin: .1em;padding:.1em;}
 		.institutionheader {margin:.1em 0em .2em 0em;font-size:1em;font-weight:500;}
