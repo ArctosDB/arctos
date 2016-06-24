@@ -97,7 +97,6 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 		<cfset querysetcell(temp,"username",session.username,1)>
 		<cfset querysetcell(temp,"source",'Arctos',1)>
 		<cfset querysetcell(temp,"NOMENCLATURAL_CODE",'PENDING',1)>
-
 		<cfdump var=#temp#>
 		<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
 		<br>SOURCE_RANK: #SOURCE_RANK#
@@ -109,47 +108,9 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 			<cfloop from="1" to="#thisPosn#" index="i">
 				<cfset thisTerm=listgetat(ctl,i)>
 				<br>thisTerm: #thisTerm#
-				<!---
-					find unique values from Arctos classifications which share SOURCE_RANK=SOURCE_NAME
-
-					eg with
-
-					suborder=Caniformia
-
-					"select order from taxonomy where suborder=Caniformia"
-
-					<cfquery name="thisDist" datasource="uam_god">
-					select *
-					from
-						taxon_term
-					where
-						source='Arctos' and
-						TERM_TYPE='#SOURCE_RANK#' and
-						term='#SCIENTIFIC_NAME#'
-				</cfquery>
-								<cfdump var=#thisDist#>
-<cfquery name="thisDist" datasource="uam_god">
-
-				select
-					b.term,b.term_type
-					from
-						taxon_term a,
-						taxon_term b
-					where
-						a.source='Arctos' and
-						a.classification_id=b.classification_id and
-						a.TERM_TYPE='#SOURCE_RANK#' and
-						a.term='#SCIENTIFIC_NAME#' and
-						b.term_type='#thisTerm#'
-					group by
-					b.term,b.term_type
-</cfquery>
-				---->
-				<br>
-
 				<cfquery name="thisDist" datasource="uam_god">
-select
-					b.term,b.term_type
+					select
+						b.term,b.term_type
 					from
 						taxon_term a,
 						taxon_term b
@@ -161,82 +122,40 @@ select
 						a.term='#SCIENTIFIC_NAME#' and
 						b.term_type='#thisTerm#'
 					group by
-					b.term,b.term_type
+						b.term,b.term_type
 					</cfquery>
-								<cfdump var=#thisDist#>
-
-<cfif thisDist.recordcount is 0>
-	<br>got nothing do nothing
-<cfelseif thisDist.recordcount is 1>
-	<br>yippee use it
-	<cfif thisTerm is "order">
-		<cfset thisTerm="phylorder">
-	</cfif>
-			<cfset querysetcell(temp,"#thisTerm#",thisDist.term,1)>
-
-<cfelse>
-	<br>crap not hierarchical
-
-	<!----
-	<cfquery name="conflictNames" datasource="uam_god">
-		select
-			scientific_name
-		from
-			taxon_name,
-			taxon_term a,
-			taxon_term b
-		where
-			a.source='Arctos' and
-			b.source='Arctos' and
-			a.taxon_name_id=b.taxon_term_id and
-			a.TERM_TYPE='#SOURCE_RANK#' and
-			a.term='#SCIENTIFIC_NAME#' and
-			b.term_type='#thisTerm#' and
-			b.taxon_name_id=taxon_name.taxon_name_id
-					group by
-					scientific_name
-	</cfquery>
-								<cfdump var=#conflictNames#>
-								---->
-
-</cfif>
----->
-
-				<br>
-
-
-
-												</p>
-
+					<cfdump var=#thisDist#>
+					<cfif thisTerm is "order">
+						<cfset thisTerm="phylorder">
+					</cfif>
+					<cfif thisDist.recordcount is 0>
+						<br>got nothing do nothing
+					<cfelseif thisDist.recordcount is 1>
+						<br>yippee use it
+						<cfset querysetcell(temp,"#thisTerm#",thisDist.term,1)>
+					<cfelse>
+						<br>crap not hierarchical
+						<cfset querysetcell(temp,"#thisTerm#",valuelist(thisDist.term,';'),1)>
+					</cfif>
+				</cfloop>
 			</cfloop>
-
 		</cfif>
-
-
-			<cfdump var=#temp#>
-
-												<p>
-																	<cfquery name="nr" datasource="uam_god">
-
-													insert into temp_new_class_temp (
-													<cfloop list="#temp.columnlist#" index="t">
-														#t#
-														<cfif listlast(temp.columnlist) is not t>,</cfif>
-													</cfloop>
-													) values (
-													<cfloop list="#temp.columnlist#" index="t">
-														'#evaluate("temp." & t)#'
-														<cfif listlast(temp.columnlist) is not t>,</cfif>
-													</cfloop>
-													)
-													</cfquery>
-													<cfquery name="g" datasource="uam_god">
-														update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
-													</cfquery>
-
-
-
-	</cfloop>
+		<cfquery name="nr" datasource="uam_god">
+			insert into temp_new_class_temp (
+			<cfloop list="#temp.columnlist#" index="t">
+				#t#
+				<cfif listlast(temp.columnlist) is not t>,</cfif>
+			</cfloop>
+			) values (
+			<cfloop list="#temp.columnlist#" index="t">
+				'#evaluate("temp." & t)#'
+				<cfif listlast(temp.columnlist) is not t>,</cfif>
+			</cfloop>
+			)
+		</cfquery>
+		<cfquery name="g" datasource="uam_god">
+			update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
+		</cfquery>
 </cfoutput>
 
 
