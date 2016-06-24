@@ -136,8 +136,11 @@
 			CREATED_BY_AGENT_ID,
 			preferred_agent_name
 	</cfquery>
-	<cfquery name="funk" dbtype="query">
+	<cfquery name="funk_norder" dbtype="query">
 		select * from funk1 union select * from funk2 union select * from funk3
+	</cfquery>
+	<cfquery name="funk" dbtype="query">
+		select * from funk_norder order by preferred_agent_name
 	</cfquery>
 
 	<cfquery name="creators" dbtype="query">
@@ -191,12 +194,12 @@
 		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
 	</cfif>
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
-		<cfif not isdefined("Application.version") or  Application.version is not "prod">
+		<cfif not isdefined("Application.version") or Application.version is not "prod">
 			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
 		</cfif>
 		Agents which may not comply with the Arctos Agent Creation Guidelines (https://arctosdb.org/documentation/agent/##create)
-			have been detected. If you are receiving this email, you have either created a noncompliant agent or
-			have manage_collection roles for a user who has created a noncompliant agent. If you are a collection manager,
+			have been detected. If you are receiving this email, you have either created a potentially noncompliant agent or
+			have manage_collection roles for a user who has created a potentially noncompliant agent. If you are a collection manager,
 			please ensure that everyone with manage_agents rights in your collection
 			has read and understands the agent creation guidelines.
 		</p>
@@ -204,7 +207,7 @@
 			Please use the <a href="#application.serverRootURL#/contact.cfm?ref=noncompliant_agent_notice">contact</a> link at the bottom of any Arctos form
 			if you believe you have received this mail in error, or if you wish to discuss the Arctos Agent Creation Guidelines.
 		<p>
-			Please review the following agents and make corrections as appropriate.
+			Please review the following agents and make corrections or additions as appropriate.
 		</p>
 		<p>
 			<cfloop query="funk">
