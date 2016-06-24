@@ -66,7 +66,15 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 
 
 ----------->
-<cfquery name="CTTAXON_TERM" datasource="uam_god">
+
+
+<!----
+	get some stuff that only needs to run once per call
+
+	Nothing much is likely to change while this is running, and we'll probably
+		run the same query over and over, so cache like crazy
+---->
+<cfquery name="CTTAXON_TERM" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select
 		*
 	from
@@ -77,7 +85,7 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 </cfquery>
 <cfset ctl=valueList(classterms.TAXON_TERM)>
 <cfset ctl_ro=replace(ctl,',order,',',phylorder,')>
-<cfquery name="temp" datasource="uam_god">
+<cfquery name="temp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from  temp_new_class_temp where 1=2
 </cfquery>
 <cfquery name="d" datasource="uam_god">
@@ -85,92 +93,94 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
-		<cfset thisStatus=''>
-		<cfquery name="temp"dbtype="query">
-			select * from temp where 1=2
-		</cfquery>
-		<cfset queryaddrow(temp,1)>
-		<cfset querysetcell(temp,"scientific_name",SCIENTIFIC_NAME,1)>
-		<cfset querysetcell(temp,"username",session.username,1)>
-		<cfset querysetcell(temp,"source",'Arctos',1)>
-		<cfset querysetcell(temp,"NOMENCLATURAL_CODE",'idk',1)>
-		<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
-		<br>SOURCE_RANK: #SOURCE_RANK#
-		<br>SOURCE_NAME: #SOURCE_NAME#
-		<cfif listfindnocase(ctl,SOURCE_RANK)>
-			<cfset thisPosn=listfind(ctl,SOURCE_RANK)>
-			<cfloop from="1" to="#thisPosn#" index="i">
-				<cfset thisTerm=listgetat(ctl,i)>
-				<cfquery name="thisDist" datasource="uam_god">
-					select
-						b.term,b.term_type
-					from
-						taxon_term a,
-						taxon_term b
-					where
-						a.source='Arctos' and
-						a.classification_id=b.classification_id and
-						a.taxon_name_id=b.taxon_name_id and
-						a.TERM_TYPE='#SOURCE_RANK#' and
-						a.term='#SCIENTIFIC_NAME#' and
-						b.term_type='#thisTerm#'
-					group by
-						b.term,b.term_type
-				</cfquery>
-				<cfif thisTerm is "order">
-					<cfset thisTerm="phylorder">
-				</cfif>
-				<cfif thisDist.recordcount is 0>
-				<cfelseif thisDist.recordcount is 1>
-					<cfset querysetcell(temp,"#thisTerm#",thisDist.term,1)>
-				<cfelse>
-					<cfset querysetcell(temp,"#thisTerm#",valuelist(thisDist.term,';'),1)>
-					<cfset thisStatus=listappend(thisStatus,'nohierarchical')>
-				</cfif>
-			</cfloop>
-		<cfelse>
-			<cfset thisStatus=listappend(thisStatus,'funky_source_rank')>
-		</cfif>
-		<!--- see if we can get a nomenclatural code ---->
-		<cfquery name="thisNC" datasource="uam_god">
-			select
-				b.term
-			from
-				taxon_term a,
-				taxon_term b
-			where
-				a.source='Arctos' and
-				a.classification_id=b.classification_id and
-				a.taxon_name_id=b.taxon_name_id and
-				a.TERM_TYPE='#SOURCE_RANK#' and
-				a.term='#SCIENTIFIC_NAME#' and
-				b.term_type='nomenclatural_code'
-			group by
-				b.term
-		</cfquery>
+		<cftransaction>
+			<cfset thisStatus=''>
+			<cfquery name="temp"dbtype="query">
+				select * from temp where 1=2
+			</cfquery>
+			<cfset queryaddrow(temp,1)>
+			<cfset querysetcell(temp,"scientific_name",SCIENTIFIC_NAME,1)>
+			<cfset querysetcell(temp,"username",session.username,1)>
+			<cfset querysetcell(temp,"source",'Arctos',1)>
+			<cfset querysetcell(temp,"NOMENCLATURAL_CODE",'idk',1)>
+			<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
+			<br>SOURCE_RANK: #SOURCE_RANK#
+			<br>SOURCE_NAME: #SOURCE_NAME#
+			<cfif listfindnocase(ctl,SOURCE_RANK)>
+				<cfset thisPosn=listfind(ctl,SOURCE_RANK)>
+				<cfloop from="1" to="#thisPosn#" index="i">
+					<cfset thisTerm=listgetat(ctl,i)>
+					<cfquery name="thisDist" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+						select
+							b.term,b.term_type
+						from
+							taxon_term a,
+							taxon_term b
+						where
+							a.source='Arctos' and
+							a.classification_id=b.classification_id and
+							a.taxon_name_id=b.taxon_name_id and
+							a.TERM_TYPE='#SOURCE_RANK#' and
+							a.term='#SCIENTIFIC_NAME#' and
+							b.term_type='#thisTerm#'
+						group by
+							b.term,b.term_type
+					</cfquery>
+					<cfif thisTerm is "order">
+						<cfset thisTerm="phylorder">
+					</cfif>
+					<cfif thisDist.recordcount is 0>
+					<cfelseif thisDist.recordcount is 1>
+						<cfset querysetcell(temp,"#thisTerm#",thisDist.term,1)>
+					<cfelse>
+						<cfset querysetcell(temp,"#thisTerm#",valuelist(thisDist.term,';'),1)>
+						<cfset thisStatus=listappend(thisStatus,'nohierarchical')>
+					</cfif>
+				</cfloop>
+			<cfelse>
+				<cfset thisStatus=listappend(thisStatus,'funky_source_rank')>
+			</cfif>
+			<!--- see if we can get a nomenclatural code ---->
+			<cfquery name="thisNC" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select
+					b.term
+				from
+					taxon_term a,
+					taxon_term b
+				where
+					a.source='Arctos' and
+					a.classification_id=b.classification_id and
+					a.taxon_name_id=b.taxon_name_id and
+					a.TERM_TYPE='#SOURCE_RANK#' and
+					a.term='#SCIENTIFIC_NAME#' and
+					b.term_type='nomenclatural_code'
+				group by
+					b.term
+			</cfquery>
 
-		<cfdump var=#thisNC#>
+			<cfdump var=#thisNC#>
 
-		<cfset querysetcell(temp,"nomenclatural_code",valuelist(thisNC.term),1)>
-		<cfset querysetcell(temp,"status",thisStatus,1)>
+			<cfset querysetcell(temp,"nomenclatural_code",valuelist(thisNC.term),1)>
+			<cfset querysetcell(temp,"status",thisStatus,1)>
 
-		<cfquery name="nr" datasource="uam_god">
-			insert into temp_new_class_temp (
-			<cfloop list="#temp.columnlist#" index="t">
-				#t#
-				<cfif listlast(temp.columnlist) is not t>,</cfif>
-			</cfloop>
-			) values (
-			<cfloop list="#temp.columnlist#" index="t">
-				'#evaluate("temp." & t)#'
-				<cfif listlast(temp.columnlist) is not t>,</cfif>
-			</cfloop>
-			)
-		</cfquery>
-		<cfdump var=#temp#>
-		<cfquery name="g" datasource="uam_god">
-			update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
-		</cfquery>
+			<cfquery name="nr" datasource="uam_god">
+				insert into temp_new_class_temp (
+				<cfloop list="#temp.columnlist#" index="t">
+					#t#
+					<cfif listlast(temp.columnlist) is not t>,</cfif>
+				</cfloop>
+				) values (
+				<cfloop list="#temp.columnlist#" index="t">
+					'#evaluate("temp." & t)#'
+					<cfif listlast(temp.columnlist) is not t>,</cfif>
+				</cfloop>
+				)
+			</cfquery>
+			<cfdump var=#temp#>
+			<cfquery name="g" datasource="uam_god">
+				update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
+			</cfquery>
+		</cftransaction>
 	</cfloop>
 </cfoutput>
 
