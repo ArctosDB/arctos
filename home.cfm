@@ -1,26 +1,17 @@
 <cfset title="Arctos Home">
 <cfinclude template="/includes/_header.cfm">
 <style>
-
-
- #menu {
-			position:fixed;
-			top:20%;
-			left:0;
-			width:6em;
-			border:1px solid green;
-			padding:1em;
-			margin:1em;
-			font-size:.8em;
-		}
-
-
-
+	 #menu {
+		position:fixed;
+		top:20%;
+		left:0;
+		width:6em;
+		border:1px solid green;
+		padding:1em;
+		margin:1em;
+		font-size:.8em;
+	}
 	#stayright{margin-left:12em;}
-
-
-
-
 	.table {display:table;width:100%}
 	.tr {display:table-row}
 	.td {display:table-cell;}
@@ -30,7 +21,6 @@
 	.widecell{width:70%;}
 	.collection_title{font-size:1.3em;}
 	.collection_description{font-size:.9em;margin:1em 2em 1em 2em;font-size:.9em;}
-
 	.anchortitle {
 		font-weight:bold;
 		margin-left:-.8em;
@@ -43,34 +33,20 @@
 		font-size:smaller;
 		margin-bottom:1em;
 	}
-
-
-
-@media screen and (max-width: 500px) {
-  body {
-    background: green;
-  }
-
- #menu {
+	@media screen and (max-width: 500px) {
+		#menu {
 			display:none;
 		}
-		.browserCheck {display:none;}
-	#stayright{margin-left:0em;}
-	.institutiongroup {border:1px dotted green;margin: .1em;padding:.1em;}
-
+		.browserCheck {font-size:0.5em;}
+		#stayright{margin-left:0em;}
+		.institutiongroup {border:1px dotted green;margin: .1em;padding:.1em;}
 		.institutionheader {margin:.1em 0em .2em 0em;font-size:1em;font-weight:500;}
-	.collectionrow {border:1px dotted black;margin:0em .2em 0em .2em;}
-
-	.collection_title{font-size:1.0em;}
-
-
+		.collectionrow {border:1px dotted black;margin:0em .2em 0em .2em;}
+		.collection_title{font-size:1.0em;}
 		.table {display:block;}
-	.tr {display:block;}
-	.td {display:block;}
-
-
-
-}
+		.tr {display:block;}
+		.td {display:block;}
+	}
 
 
 
