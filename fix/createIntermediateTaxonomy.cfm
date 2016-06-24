@@ -69,7 +69,10 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 create table temp_new_names_nos as select SCIENTIFIC_NAME,SOURCE_RANK  from temp_new_names group by SCIENTIFIC_NAME,SOURCE_RANK;
 alter table temp_new_names_nos add status varchar2(4000);
 
+-- so we can writeSQL
 
+create public synonym temp_new_class_temp for temp_new_class_temp;
+grant select on temp_new_class_temp to dlm;
 ----------->
 
 
@@ -107,7 +110,6 @@ alter table temp_new_names_nos add status varchar2(4000);
 			<cfset querysetcell(temp,"scientific_name",SCIENTIFIC_NAME,1)>
 			<cfset querysetcell(temp,"username",session.username,1)>
 			<cfset querysetcell(temp,"source",'Arctos',1)>
-			<cfset querysetcell(temp,"NOMENCLATURAL_CODE",'idk',1)>
 			<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
 			<br>SOURCE_RANK: #SOURCE_RANK#
 			<cfif listfindnocase(ctl,SOURCE_RANK)>
@@ -162,7 +164,12 @@ alter table temp_new_names_nos add status varchar2(4000);
 					b.term
 			</cfquery>
 
-			<cfset querysetcell(temp,"nomenclatural_code",valuelist(thisNC.term),1)>
+			<cfif len(valuelist(thisNC.term)) gt 0>
+				<cfset querysetcell(temp,"nomenclatural_code",valuelist(thisNC.term),1)>
+			<cfelse>
+				<cfset querysetcell(temp,"NOMENCLATURAL_CODE",'idk',1)>
+			</cfif>
+
 			<cfset querysetcell(temp,"status",thisStatus,1)>
 
 			<cfquery name="nr" datasource="uam_god">
