@@ -81,6 +81,14 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
+		<cfquery name="temp" datasource="uam_god">
+			select * from  CF_TEMP_CLASSIFICATION where 1=2
+		</cfquery>
+		<cfdump var=#temp#>
+		<cfset queryaddrow(temp,1)>
+
+		<cfdump var=#temp#>
+
 		<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
 		<br>SOURCE_RANK: #SOURCE_RANK#
 		<br>SOURCE_NAME: #SOURCE_NAME#
