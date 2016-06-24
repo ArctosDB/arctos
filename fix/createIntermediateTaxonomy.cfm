@@ -141,7 +141,7 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 					group by
 					b.term,b.term_type
 
-
+<!----
 <cfif thisDist.recordcount is 0>
 	<br>got nothing do nothing
 <cfelseif thisDist.recordcount is 1>
@@ -172,6 +172,7 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 								---->
 
 </cfif>
+---->
 
 				<br>
 			</cfloop>
