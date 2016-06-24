@@ -94,7 +94,7 @@ alter table temp_new_names_nos add status varchar2(4000);
 	select * from  temp_new_class_temp where 1=2
 </cfquery>
 <cfquery name="d" datasource="uam_god">
-	select * from temp_new_names_nos where status is null and rownum <= 2
+	select * from temp_new_names_nos where status is null and rownum <= 20
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
@@ -161,8 +161,6 @@ alter table temp_new_names_nos add status varchar2(4000);
 				group by
 					b.term
 			</cfquery>
-
-			<cfdump var=#thisNC#>
 
 			<cfset querysetcell(temp,"nomenclatural_code",valuelist(thisNC.term),1)>
 			<cfset querysetcell(temp,"status",thisStatus,1)>
