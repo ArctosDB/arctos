@@ -65,14 +65,17 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 
 
 ----------->
-<cfquery name="oClassTerms" datasource="uam_god">
+<cfquery name="CTTAXON_TERM" datasource="uam_god">
 	select
 		*
 	from
 		CTTAXON_TERM
 </cfquery>
-
-
+<cfquery name="classterms" dbtype="query">
+	select TAXON_TERM from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
+</cfquery>
+<cfset ctl=valueList(classterms.TAXON_TERM)>
+<cfdump var=#ctl#>
 <cfquery name="d" datasource="uam_god">
 	select * from temp_new_names_fd where status is null and rownum < 2
 </cfquery>
@@ -81,6 +84,12 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 		<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
 		<br>SOURCE_RANK: #SOURCE_RANK#
 		<br>SOURCE_NAME: #SOURCE_NAME#
+		<cfif listfindnocase(ctl,SOURCE_RANK)>
+			<br>good rank
+			<cfset thisPosn=listfind(ctl,SOURCE_RANK)>
+			<br>thisPosn: #thisPosn#
+
+		</cfif>
 	</cfloop>
 </cfoutput>
 
