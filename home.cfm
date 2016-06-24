@@ -1,16 +1,7 @@
 <cfset title="Arctos Home">
 <cfinclude template="/includes/_header.cfm">
 <style>
-	.table {display:table;width:100%}
-	.tr {display:table-row}
-	.td {display:table-cell;}
-	.institutiongroup {border:1px dotted green;margin: 1em;padding:1em;}
-	.institutionheader {margin:.1em 0em .2em 0em;font-size:2em;font-weight:900;}
-	.collectionrow {border:1px dotted black;margin:0em 2em 0em 2em;}
-	.widecell{width:70%;}
-	.collection_title{font-size:1.3em;}
-	.collection_description{font-size:.9em;margin:1em 2em 1em 2em;font-size:.9em;}
-	#menu {
+	 #menu {
 		position:fixed;
 		top:20%;
 		left:0;
@@ -21,6 +12,15 @@
 		font-size:.8em;
 	}
 	#stayright{margin-left:12em;}
+	.table {display:table;width:100%}
+	.tr {display:table-row}
+	.td {display:table-cell;}
+	.institutiongroup {border:1px dotted green;margin: 1em;padding:1em;}
+	.institutionheader {margin:.1em 0em .2em 0em;font-size:2em;font-weight:900;}
+	.collectionrow {border:1px dotted black;margin:0em 2em 0em 2em;}
+	.widecell{width:70%;}
+	.collection_title{font-size:1.3em;}
+	.collection_description{font-size:.9em;margin:1em 2em 1em 2em;font-size:.9em;}
 	.anchortitle {
 		font-weight:bold;
 		margin-left:-.8em;
@@ -32,6 +32,18 @@
 	.a {
 		font-size:smaller;
 		margin-bottom:1em;
+	}
+	@media screen and (max-width: 500px) {
+		#menu {display:none;}
+		.browserCheck {display:none;}
+		#stayright{margin-left:0em;}
+		.institutiongroup {border:1px dotted green;margin: .1em;padding:.1em;}
+		.institutionheader {margin:.1em 0em .2em 0em;font-size:1em;font-weight:500;}
+		.collectionrow {border:1px dotted black;margin:0em .2em 0em .2em;}
+		.collection_title{font-size:1.0em;}
+		.table {display:block;}
+		.tr {display:block;}
+		.td {display:block;}
 	}
 </style>
 <cfoutput>
@@ -74,21 +86,21 @@
 			CF_COLLECTION.DBUSERNAME,
 			CF_COLLECTION.DBPWD
 	</cfquery>
-	
+
 
 	<cfquery name="inst" dbtype="query">
-		select 
+		select
 			institution,
-			institution_acronym 
-		from 
-			raw 
+			institution_acronym
+		from
+			raw
 		where
 			institution is not null and
-			institution_acronym  is not null		
-		group by 
+			institution_acronym  is not null
+		group by
 			institution,
-			institution_acronym 
-		order by 
+			institution_acronym
+		order by
 			institution
 	</cfquery>
 	<cfquery name="insta" dbtype="query">
@@ -117,7 +129,7 @@
 		or use the links in the header to search for specimens, media, taxonomy, projects and publications, and more. Sign in or create an account to save
 		preferences and searches.
 		<cfquery name="summary" dbtype="query">
-			select 
+			select
 				sum(cnt) as total_specimens,
 				count(guid_prefix) as numCollections
 			 from raw
@@ -151,7 +163,7 @@
 								<div class="td widecell">
 									<div class="collection_title">#collection#</div>
 									<div class="collection_description">
-										#descr# 
+										#descr#
 									</div>
 								</div>
 								<cfquery name="PortalSpecimenCount" datasource="user_login" username="#coln_portals.dbusername#" password="#coln_portals.dbpwd#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -198,7 +210,7 @@
 										<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</a></li>
 									</ul>
 								</div>
-									
+
 							</div>
 						</div>
 					</div>
@@ -283,8 +295,8 @@
 			 and will provide specimen data in the form of
 			 <a href="http://en.wikipedia.org/wiki/Resource_Description_Framework" target="_blank" class="external">RDF</a> upon client request.</LI>
 		</ul>
-		
-		
+
+
 		<a name="nodes"></a>
 		<p><strong>Nodes</strong></p>
 		<p>Arctos may be thought of as a number of overlapping nodes.</p>
@@ -332,17 +344,17 @@
 				reference images to specimens, places, and people. Documents paginate scanned publications, such as field notes.
 			</li>
 		</ul>
-		
+
 		<a name="participation"></a>
 		<p><strong>Participation</strong></p>
 		Please see <a href="http://arctosdb.org/home/governance/joining-arctos/">http://arctosdb.org/home/governance/joining-arctos/</a>
 		for information about joining or using Arctos.
-		
-		
+
+
 
 		<a name="requirements"></a>
 		<p><strong>System Requirements</strong></p>
-		
+
 		We attempt to keep the client-side of Arctos applications as generic as possible,
 		but we have made some exceptions:
 		<ul>
@@ -378,10 +390,10 @@
 
 
 		<a name="data_usage"></a>
-		
+
 		<p><strong>Data Usage</strong></p>
 		Please see <a href="http://arctosdb.org/home/data/">http://arctosdb.org/home/data/</a> for more information on using Arctos data.
-		
+
 		<a name="faq"></a>
 		<p><strong>FAQ</strong></p>
 
@@ -396,7 +408,7 @@
 			qualifying your assertions. We strongly believe that this is a necessary part of managing the specimens and data with which
 			we have been entrusted.
 		</div>
-		
+
 		<div class="q">
 			Q: Where can I find more information about Arctos?
 		</div>
