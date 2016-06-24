@@ -93,8 +93,14 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 				<br>thisTerm: #thisTerm#
 				<!---
 					find unique values from Arctos classifications which share SOURCE_RANK=SOURCE_NAME
-				---->
-				<cfquery name="thisDist" datasource="uam_god">
+
+					eg with
+
+					suborder=Caniformia
+
+					"select order from taxonomy where suborder=Caniformia"
+
+					<cfquery name="thisDist" datasource="uam_god">
 					select *
 					from
 						taxon_term
@@ -103,6 +109,22 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 						TERM_TYPE='#SOURCE_RANK#' and
 						term='#SCIENTIFIC_NAME#'
 				</cfquery>
+				---->
+				<br>
+				select
+					term,term_type
+					from
+						taxon_term a,
+						taxon_term b
+					where
+						a.source='Arctos' and
+						b.source='Arctos' and
+						a.taxon_name_id=b.taxon_term_id and
+						a.TERM_TYPE='#SOURCE_RANK#' and
+						a.term='#SCIENTIFIC_NAME#' and
+						b.term_type='#thisTerm#'
+
+
 				<cfdump var=#thisDist#>
 				<br>
 			</cfloop>
