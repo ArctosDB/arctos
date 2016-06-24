@@ -19,7 +19,6 @@
 	#stayright{margin-left:12em;}
 
 
-/*
 @media screen and (max-width: 500px) {
   body {
     background: green;
@@ -34,7 +33,6 @@
 }
 
 
-*/
 
 
 
