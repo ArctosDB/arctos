@@ -62,6 +62,7 @@ alter table temp_new_names_fd add status varchar2(4000);
 
 create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME from temp_new_names group by SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME;
 
+create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1=2;
 
 
 ----------->
@@ -201,6 +202,21 @@ select
 				<br>
 
 												<cfdump var=#temp#>
+
+												<p>
+													insert into temp_new_class_temp (
+													<cfloop list="#temp.columnlist#" index="t">
+														#t#
+														<cfif listlast(temp.columnlist) is not t>,</cfif>
+													</cfloop>
+													) values (
+													<cfloop list="#temp.columnlist#" index="t">
+														#evaluate("temp." & t)#
+														<cfif listlast(temp.columnlist) is not t>,</cfif>
+													</cfloop>
+													)
+
+												</p>
 
 			</cfloop>
 
