@@ -123,39 +123,39 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 						b.term_type='#thisTerm#'
 					group by
 						b.term,b.term_type
-					</cfquery>
-					<cfdump var=#thisDist#>
-					<cfif thisTerm is "order">
-						<cfset thisTerm="phylorder">
-					</cfif>
-					<cfif thisDist.recordcount is 0>
-						<br>got nothing do nothing
-					<cfelseif thisDist.recordcount is 1>
-						<br>yippee use it
-						<cfset querysetcell(temp,"#thisTerm#",thisDist.term,1)>
-					<cfelse>
-						<br>crap not hierarchical
-						<cfset querysetcell(temp,"#thisTerm#",valuelist(thisDist.term,';'),1)>
-					</cfif>
-				</cfloop>
+				</cfquery>
+				<cfdump var=#thisDist#>
+				<cfif thisTerm is "order">
+					<cfset thisTerm="phylorder">
+				</cfif>
+				<cfif thisDist.recordcount is 0>
+					<br>got nothing do nothing
+				<cfelseif thisDist.recordcount is 1>
+					<br>yippee use it
+					<cfset querysetcell(temp,"#thisTerm#",thisDist.term,1)>
+				<cfelse>
+					<br>crap not hierarchical
+					<cfset querysetcell(temp,"#thisTerm#",valuelist(thisDist.term,';'),1)>
+				</cfif>
 			</cfloop>
-		</cfif>
-		<cfquery name="nr" datasource="uam_god">
-			insert into temp_new_class_temp (
-			<cfloop list="#temp.columnlist#" index="t">
-				#t#
-				<cfif listlast(temp.columnlist) is not t>,</cfif>
-			</cfloop>
-			) values (
-			<cfloop list="#temp.columnlist#" index="t">
-				'#evaluate("temp." & t)#'
-				<cfif listlast(temp.columnlist) is not t>,</cfif>
-			</cfloop>
-			)
-		</cfquery>
-		<cfquery name="g" datasource="uam_god">
-			update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
-		</cfquery>
+		</cfloop>
+	</cfif>
+	<cfquery name="nr" datasource="uam_god">
+		insert into temp_new_class_temp (
+		<cfloop list="#temp.columnlist#" index="t">
+			#t#
+			<cfif listlast(temp.columnlist) is not t>,</cfif>
+		</cfloop>
+		) values (
+		<cfloop list="#temp.columnlist#" index="t">
+			'#evaluate("temp." & t)#'
+			<cfif listlast(temp.columnlist) is not t>,</cfif>
+		</cfloop>
+		)
+	</cfquery>
+	<cfquery name="g" datasource="uam_god">
+		update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
+	</cfquery>
 </cfoutput>
 
 
