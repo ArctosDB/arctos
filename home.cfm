@@ -45,10 +45,6 @@
 		.tr {display:block;}
 		.td {display:block;}
 	}
-
-
-
-
 </style>
 <cfoutput>
 	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
