@@ -110,10 +110,7 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 						term='#SCIENTIFIC_NAME#'
 				</cfquery>
 								<cfdump var=#thisDist#>
-
-				---->
-				<br>
-				<cfquery name="thisDist" datasource="uam_god">
+<cfquery name="thisDist" datasource="uam_god">
 
 				select
 					b.term,b.term_type
@@ -129,7 +126,22 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 					group by
 					b.term,b.term_type
 </cfquery>
-								<cfdump var=#thisDist#>
+				---->
+				<br>select
+					b.term,b.term_type
+					from
+						taxon_term a,
+						taxon_term b
+					where
+						a.source='Arctos' and
+						a.classification_id=b.classification_id and
+						a.TERM_TYPE='#SOURCE_RANK#' and
+						a.term='#SCIENTIFIC_NAME#' and
+						b.term_type='#thisTerm#'
+					group by
+					b.term,b.term_type
+
+
 <cfif thisDist.recordcount is 0>
 	<br>got nothing do nothing
 <cfelseif thisDist.recordcount is 1>
