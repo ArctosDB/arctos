@@ -89,6 +89,9 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 
 		<cfdump var=#temp#>
 
+		<cfset querysetcell(temp,"scientific_name","boogity",1)>
+
+		<cfdump var=#temp#>
 		<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
 		<br>SOURCE_RANK: #SOURCE_RANK#
 		<br>SOURCE_NAME: #SOURCE_NAME#
