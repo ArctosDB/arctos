@@ -112,7 +112,8 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 								<cfdump var=#thisDist#>
 
 				---->
-				<br>
+				<br>					<cfquery name="thisDist" datasource="uam_god">
+
 				select
 					b.term,b.term_type
 					from
@@ -127,7 +128,8 @@ create table temp_new_names_fd as select SCIENTIFIC_NAME,SOURCE_RANK,SOURCE_NAME
 						b.term_type='#thisTerm#'
 					group by
 					b.term,b.term_type
-
+</cfquery>
+								<cfdump var=#thisDist#>
 
 				<br>
 			</cfloop>
