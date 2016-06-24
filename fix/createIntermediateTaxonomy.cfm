@@ -98,12 +98,9 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 		<br>SOURCE_RANK: #SOURCE_RANK#
 		<br>SOURCE_NAME: #SOURCE_NAME#
 		<cfif listfindnocase(ctl,SOURCE_RANK)>
-			<br>good rank
 			<cfset thisPosn=listfind(ctl,SOURCE_RANK)>
-			<br>thisPosn: #thisPosn#
 			<cfloop from="1" to="#thisPosn#" index="i">
 				<cfset thisTerm=listgetat(ctl,i)>
-				<br>thisTerm: #thisTerm#
 				<cfquery name="thisDist" datasource="uam_god">
 					select
 						b.term,b.term_type
@@ -124,15 +121,11 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 					<cfset thisTerm="phylorder">
 				</cfif>
 				<cfif thisDist.recordcount is 0>
-					<br>got nothing do nothing
 				<cfelseif thisDist.recordcount is 1>
-					<br>yippee use it
 					<cfset querysetcell(temp,"#thisTerm#",thisDist.term,1)>
 				<cfelse>
-					<br>crap not hierarchical
 					<cfset querysetcell(temp,"#thisTerm#",valuelist(thisDist.term,';'),1)>
 					<cfset thisStatus=listappend(thisStatus,'nohierarchical')>
-
 				</cfif>
 			</cfloop>
 		<cfelse>
