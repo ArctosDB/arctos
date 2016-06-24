@@ -9,10 +9,6 @@ body {
   background: white;
 }
 
-@media screen and (min-width: 501px) /* Desktop */ {
-  body {
-    background: red;
-  }
  #menu {
 			position:fixed;
 			top:20%;
