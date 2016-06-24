@@ -110,8 +110,6 @@ grant select on temp_new_class_temp to dlm;
 			<cfset querysetcell(temp,"scientific_name",SCIENTIFIC_NAME,1)>
 			<cfset querysetcell(temp,"username",session.username,1)>
 			<cfset querysetcell(temp,"source",'Arctos',1)>
-			<br>SCIENTIFIC_NAME: #SCIENTIFIC_NAME#
-			<br>SOURCE_RANK: #SOURCE_RANK#
 			<cfif listfindnocase(ctl,SOURCE_RANK)>
 				<cfset thisPosn=listfind(ctl,SOURCE_RANK)>
 				<cfloop from="1" to="#thisPosn#" index="i">
