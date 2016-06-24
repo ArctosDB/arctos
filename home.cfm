@@ -9,27 +9,11 @@ body {
   background: white;
 }
 
-@media screen and (min-width: 980px) /* Desktop */ {
+@media screen and (min-width: 501px) /* Desktop */ {
   body {
     background: red;
   }
-}
-
-@media screen  and (max-width: 979px) /* Tablet */ {
-  body {
-    background: blue;
-  }
-}
-
-@media screen and (max-width: 500px) /* Mobile */ {
-  body {
-    background: green;
-  }
-}
-
-
-
-		 #menu {
+ #menu {
 			position:fixed;
 			top:20%;
 			left:0;
@@ -39,11 +23,22 @@ body {
 			margin:1em;
 			font-size:.8em;
 		}
-    @media (max-width: 600px) {
-	   #menu {
+}
+
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  body {
+    background: green;
+  }
+
+ #menu {
 			display:none;
 		}
+
 }
+
+
+
 
 
 
