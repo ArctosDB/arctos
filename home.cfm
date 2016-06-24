@@ -25,6 +25,7 @@ body {
 		}
 }
 
+	#stayright{margin-left:12em;}
 
 @media screen and (max-width: 500px) /* Mobile */ {
   body {
@@ -35,6 +36,7 @@ body {
 			display:none;
 		}
 		.browserCheck {display:none;}
+	#stayright{margin-left:0em;}
 
 }
 
@@ -53,7 +55,6 @@ body {
 	.collection_title{font-size:1.3em;}
 	.collection_description{font-size:.9em;margin:1em 2em 1em 2em;font-size:.9em;}
 
-	#stayright{margin-left:12em;}
 	.anchortitle {
 		font-weight:bold;
 		margin-left:-.8em;
