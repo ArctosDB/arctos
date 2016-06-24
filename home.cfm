@@ -61,6 +61,7 @@
 		.institutionheader {margin:.1em 0em .2em 0em;font-size:1em;font-weight:500;}
 	.collectionrow {border:1px dotted black;margin:0em .2em 0em .2em;}
 
+	.collection_title{font-size:1.0em;}
 
 }
 
