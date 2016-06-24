@@ -77,7 +77,9 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 </cfquery>
 <cfset ctl=valueList(classterms.TAXON_TERM)>
 <cfset ctl_ro=replace(ctl,',order,',',phylorder,')>
-
+<cfquery name="temp" datasource="uam_god">
+	select * from  temp_new_class_temp where 1=2
+</cfquery>
 
 <cfdump var=#ctl#>
 <cfquery name="d" datasource="uam_god">
@@ -85,9 +87,12 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
-		<cfquery name="temp" datasource="uam_god">
-			select * from  temp_new_class_temp where 1=2
+		<cfset thisStatus=''>
+		<cfquery name="temp"dbtype="query">
+			select * from temp where 1=2
 		</cfquery>
+
+
 		<cfdump var=#temp#>
 		<cfset queryaddrow(temp,1)>
 
@@ -136,9 +141,16 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 				<cfelse>
 					<br>crap not hierarchical
 					<cfset querysetcell(temp,"#thisTerm#",valuelist(thisDist.term,';'),1)>
+					<cfset thisStatus=listappend(thisStatus,'nohierarchical')>
+
 				</cfif>
 			</cfloop>
+		<cfelse>
+			<cfset thisStatus=listappend(thisStatus,'funky_source_rank')>
 		</cfif>
+
+		<cfset querysetcell(temp,"status",thisStatus,1)>
+
 		<cfquery name="nr" datasource="uam_god">
 			insert into temp_new_class_temp (
 			<cfloop list="#temp.columnlist#" index="t">
@@ -152,6 +164,7 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 			</cfloop>
 			)
 		</cfquery>
+		<cfdump var=#temp#>
 		<cfquery name="g" datasource="uam_god">
 			update temp_new_names_fd set status ='k' where scientific_name='#scientific_name#'
 		</cfquery>
