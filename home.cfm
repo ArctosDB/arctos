@@ -63,6 +63,13 @@
 
 	.collection_title{font-size:1.0em;}
 
+
+		.table {display:block;}
+	.tr {display:block;}
+	.td {display:block;}
+
+
+
 }
 
 
