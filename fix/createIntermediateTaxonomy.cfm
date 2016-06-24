@@ -138,7 +138,27 @@ create table temp_new_class_temp as select * from CF_TEMP_CLASSIFICATION where 1
 		<cfelse>
 			<cfset thisStatus=listappend(thisStatus,'funky_source_rank')>
 		</cfif>
+		<!--- see if we can get a nomenclatural code ---->
+		<cfquery name="thisNC" datasource="uam_god">
+			select
+				b.term
+			from
+				taxon_term a,
+				taxon_term b
+			where
+				a.source='Arctos' and
+				a.classification_id=b.classification_id and
+				a.taxon_name_id=b.taxon_name_id and
+				a.TERM_TYPE='#SOURCE_RANK#' and
+				a.term='#SCIENTIFIC_NAME#' and
+				b.term_type='nomenclatural_code'
+			group by
+				b.term
+		</cfquery>
 
+		<cfdump var=#thisNC#>
+
+		<cfset querysetcell(temp,"nomenclatural_code",valuelist(thisNC.term),1)>
 		<cfset querysetcell(temp,"status",thisStatus,1)>
 
 		<cfquery name="nr" datasource="uam_god">
