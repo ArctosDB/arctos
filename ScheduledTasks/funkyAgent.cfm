@@ -25,7 +25,7 @@
 			regexp_like(preferred_agent_name,'[^A-Za-z -.]')
 	</cfquery>
 	<cfloop query="raw">
-		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_')>
+		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_','all')>
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
