@@ -193,6 +193,21 @@
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
 	</cfif>
+
+		<p>
+			<cfloop query="funk">
+				<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a>
+				<br>&nbsp;&nbsp;&nbsp;CreatedBy: #createdBy#
+				<br>&nbsp;&nbsp;&nbsp;Problem: #reason#
+			</cfloop>
+		</p>
+
+
+		<cfabort>
+
+
+
+
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
 		<cfif not isdefined("Application.version") or Application.version is not "prod">
 			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
