@@ -31,6 +31,10 @@
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
 			<cfset baidlist=listappend(baidlist,agent_id)>
+
+			<cfdump var=#hasascii#>
+
+
 		</cfif>
 	</cfloop>
 	<cfquery name="funk1"  datasource="uam_god">
