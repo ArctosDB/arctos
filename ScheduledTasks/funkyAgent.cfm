@@ -32,10 +32,6 @@
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
 			<cfset baidlist=listappend(baidlist,agent_id)>
-
-			<cfdump var=#hasascii#>
-
-
 		</cfif>
 	</cfloop>
 	<cfquery name="funk1"  datasource="uam_god">
@@ -152,7 +148,7 @@
 		select CREATED_BY_AGENT_ID from funk group by CREATED_BY_AGENT_ID
 	</cfquery>
 	<cfquery name="getCreatorEmail"  datasource="uam_god">
-		select distinct ADDRESS from address where address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+		select distinct ADDRESS from address where VALID_ADDR_FG=1 and address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
 	</cfquery>
 
 	<cfquery name="creatorCollections"  datasource="uam_god">
@@ -165,6 +161,7 @@
 			agent_name,
 			address
 		where
+			VALID_ADDR_FG=1 and
 			a.grantee=b.grantee and
 			a.GRANTED_ROLE='MANAGE_COLLECTION' AND
 			address_type='email' and
@@ -198,21 +195,6 @@
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
 	</cfif>
-
-		<p>
-			<cfloop query="funk">
-				<br><a href="#application.serverRootURL#/agents.cfm?agent_id=#agent_id#">#PREFERRED_AGENT_NAME#</a>
-				<br>&nbsp;&nbsp;&nbsp;CreatedBy: #createdBy#
-				<br>&nbsp;&nbsp;&nbsp;Problem: #reason#
-			</cfloop>
-		</p>
-
-
-		<cfabort>
-
-
-
-
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
 		<cfif not isdefined("Application.version") or Application.version is not "prod">
 			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
