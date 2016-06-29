@@ -41,6 +41,16 @@
 			MEMBER_AGENT_ID=#agent_id#
 		order by agent_name
 	</cfquery>
+	<cfquery name="agent_status" datasource="uam_god">
+		select
+			AGENT_STATUS,
+			STATUS_DATE
+		from
+			agent_status
+		where
+			AGENT_ID=#agent_id#
+		order by STATUS_DATE
+	</cfquery>
 	<cfoutput>
 		<cfsavecontent variable="response">
 			<div position="relative">
@@ -48,7 +58,7 @@
 				<div class="docTitle">Names & Relations</div>
 				<div class="docDef">
 					<div>
-						#pan.preferred_agent_name# (agent type: #d.agent_type#)
+						#pan.preferred_agent_name# (#d.agent_type#)
 					</div>
 					Names
 					<ul>
@@ -75,6 +85,14 @@
 					<ul>
 						<cfloop query="group_member">
 							<li><a target="_blank" href="/info/agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
+						</cfloop>
+					</ul>
+					<cfif agent_status.recordcount gt 0>
+						Status
+					</cfif>
+					<ul>
+						<cfloop query="agent_status">
+							<li>#AGENT_STATUS# (#STATUS_DATE#) </li>
 						</cfloop>
 					</ul>
 				</div>
