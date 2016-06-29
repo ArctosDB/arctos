@@ -113,7 +113,7 @@ sho err
 <cfset numLabels=10>
 <cfset numRelns=5>
 <cfquery name="email" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#" >
-	select ADDRESS from ADDRESS where ADDRESS_TYPE='email' and agent_id=#session.myAgentID#
+	select get_address(#session.myAgentID#,'email') ADDRESS from dual
 </cfquery>
 <cfset eml=valuelist(email.address)>
 <cfif len(eml) gt 0>
