@@ -19,12 +19,13 @@
 			agent_type='person' and
 			CREATED_BY_AGENT_ID != 0 and
     		agent_id not in (
-				select agent_id from  agent_relations where agent_relationship='bad duplicate of'
+				select agent_id from  agent_relations where agent_relationship='bad duplicate of' union
+				select related_agent_id from  agent_relations where agent_relationship='bad duplicate of'
 			) and
 			regexp_like(preferred_agent_name,'[^A-Za-z -.]')
 	</cfquery>
 	<cfloop query="raw">
-		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_')>
+		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_','all')>
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
@@ -147,7 +148,7 @@
 		select CREATED_BY_AGENT_ID from funk group by CREATED_BY_AGENT_ID
 	</cfquery>
 	<cfquery name="getCreatorEmail"  datasource="uam_god">
-		select distinct ADDRESS from address where address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+		select distinct ADDRESS from address where VALID_ADDR_FG=1 and address_type='email' and agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
 	</cfquery>
 
 	<cfquery name="creatorCollections"  datasource="uam_god">
@@ -160,6 +161,7 @@
 			agent_name,
 			address
 		where
+			VALID_ADDR_FG=1 and
 			a.grantee=b.grantee and
 			a.GRANTED_ROLE='MANAGE_COLLECTION' AND
 			address_type='email' and

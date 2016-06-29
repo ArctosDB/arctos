@@ -92,7 +92,8 @@ edit code to run this<cfabort>
 				dba_users
 			where
 				address.agent_id=agent_name.agent_id and
-				address_type='email' and
+				address.address_type='email' and
+				address.valid_addr_fg = 1 and
 				agent_name.agent_name_type='login' and
 				upper(agent_name.agent_name) = dba_users.USERNAME AND
 				dba_users.account_status='OPEN' and
@@ -117,6 +118,7 @@ edit code to run this<cfabort>
 				a.GRANTEE=dba_users.USERNAME AND
 				dba_users.account_status='OPEN' and
 				address_type='email' and
+				address.valid_addr_fg = 1 and
 				a.grantee=upper(agent_name) and
 				agent_name_type='login' and
 				agent_name.agent_id=address.agent_id and

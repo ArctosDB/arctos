@@ -446,6 +446,8 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset badbot=badbot & ",Domain,DeuSu">
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">
+	<cfset badbot=badbot & ",ltx71">
+	
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
 	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",re-animator">

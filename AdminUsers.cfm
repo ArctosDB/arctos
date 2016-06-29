@@ -63,6 +63,7 @@
 					agent_name
 				where
 					ADDRESS.agent_id=agent_name.agent_id and
+					ADDRESS.VALID_ADDR_FG=1 and
 					ADDRESS_TYPE='email' and
 					AGENT_NAME_TYPE='login' and
 					AGENT_NAME='#username#'
@@ -74,6 +75,7 @@
 					agent_name
 				where
 					ADDRESS.agent_id=agent_name.agent_id and
+					ADDRESS.VALID_ADDR_FG=1 and
 					ADDRESS_TYPE='email' and
 					AGENT_NAME_TYPE='login' and
 					AGENT_NAME='#session.username#'
