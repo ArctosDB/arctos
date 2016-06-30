@@ -106,6 +106,11 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'guid',"/")>
+
+
+<cfdump var=#request.rdurl#>
+
+<cfabort>
 	<cfif replace(request.rdurl,"/","","last") is "guid">
 		<cfinclude template="/SpecimenSearch.cfm">
 	<cfelse>
