@@ -267,6 +267,7 @@
 <cffunction name="onRequestStart" returnType="boolean" output="true">
 
 	<cfdump var=#request#>
+	<cfdump var=#cgi#>
 
 	<cfabort>
 
