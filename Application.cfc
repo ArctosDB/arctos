@@ -265,6 +265,12 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
+
+	<cfdump var=#request#>
+
+	<cfabort>
+
+
 	<!---
 		blacklist yourself? delete it via sql and uncomment this
 		<cfquery name="d" datasource="uam_god">
