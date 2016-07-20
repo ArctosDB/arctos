@@ -140,19 +140,19 @@
 
         <cfset nvars=ArrayNew(1)>
 
-		
+
 		<cfquery name="ds_ct_namesynonyms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select names from ds_ct_namesynonyms
 		</cfquery>
 
 		<cfloop query="ds_ct_namesynonyms">
 			<cfset ArrayAppend(nvars, names)>
-		</cfloop> 
+		</cfloop>
 
 
 
         <!--- make any changes here to info/dupAgent as well ---->
-       
+
 
         <cfset sqlinlist="">
 
@@ -655,6 +655,18 @@
 	<cfoutput>
 		<cftry>
 			<cftransaction>
+
+				<cfif session.username is "dlm" or session.username is "droberts">
+				<cfmail subject="agent save" to="dustymc@gmail.com" from="agentthingee@#application.fromEmail#" type="html">
+					<cfdump var=#session#>
+					<cfdump var=#cgi#>
+					<cfdump var=#url#>
+				</cfmail>
+
+			</cfif>
+
+
+
 				<!--- agent --->
 				<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE agent SET
