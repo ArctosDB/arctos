@@ -1,3 +1,42 @@
+<!--------
+drop table temp;
+
+create table temp as 
+ select
+      		agent_id,
+			preferred_agent_name
+    	from
+			agent
+		where
+			agent_type='person' and
+			CREATED_BY_AGENT_ID != 0 and
+    		agent_id not in (
+				select agent_id from  agent_relations where agent_relationship='bad duplicate of' union
+				select related_agent_id from  agent_relations where agent_relationship='bad duplicate of'
+			) and
+			regexp_like(preferred_agent_name,'[^A-Za-z -.]')
+		;
+		
+drop table temp2;
+
+create table temp2 as 
+select
+			agent_id,
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
+			'no_ascii_variant' reason
+		from
+			agent
+		where
+			agent_id in (#baidlist#)
+		order by
+			CREATED_BY_AGENT_ID,
+			preferred_agent_name	;
+			
+			
+			---------->
+			
 <cfsavecontent variable="emailFooter">
 	<div style="font-size:smaller;color:gray;">
 		--

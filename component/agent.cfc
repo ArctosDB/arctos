@@ -654,14 +654,6 @@
 	</cfif>
 	<cfoutput>
 		<cftry>
-			<cfif session.username is "dlm" or session.username is "droberts">
-				<cfmail subject="agent save" to="dustymc@gmail.com" from="agentthingee@#application.fromEmail#" type="html">
-					<cfdump var=#session#>
-					<cfdump var=#cgi#>
-					<cfdump var=#url#>
-				</cfmail>
-
-			</cfif>
 
 			<cftransaction>
 				<!--- agent --->
