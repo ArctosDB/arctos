@@ -269,7 +269,6 @@
 	<cfdump var=#request#>
 	<cfdump var=#cgi#>
 
-	<cfabort>
 
 
 	<!---

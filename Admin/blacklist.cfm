@@ -5,6 +5,12 @@
 	Just ignore everything that's timed out
 
 	THIS IS ALSO HARD_CODED IN Application.cfc
+	
+	
+	
+	July 2016 edits:
+	
+	see DDL/migration/xxxblacklist.sql
 ---->
 <cfset expiresIn="180">
 
