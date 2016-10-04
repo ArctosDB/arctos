@@ -4,10 +4,10 @@
 <cfif action is "nothing">
 	<script>
 		function nextPage(){
-			$("#pg").val($("#pg").val()+1);
+			$("#pg").val(parseInt($("#pg").val())+1);
 			}
 			function prevPage(){
-			$("#pg").val($("#pg").val()-1);
+			$("#pg").val(parseInt($("#pg").val())-1);
 			}
 	</script>
 
