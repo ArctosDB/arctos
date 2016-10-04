@@ -17,7 +17,7 @@
 	</cfquery>
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			subnet
+			*
 		from
 			uam.blacklist_subnet
 		where
