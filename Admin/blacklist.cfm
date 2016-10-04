@@ -22,7 +22,7 @@
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			SUBNET,
-			STATUS
+			STATUS,
 			to_char(INSERT_DATE,'yyyy-mm-dd') INSERT_DATE,
 			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE
 		from
