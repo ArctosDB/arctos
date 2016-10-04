@@ -71,7 +71,7 @@
 						</cfloop>
 					</table>
 				</td>
-				<cfset tsn=listgetat(d.ip,1) & '.' & listgetat(d.ip,2)>
+				<cfset tsn=listgetat(d.ip,1,'.') & '.' & listgetat(d.ip,2,'.')>
 				<cfquery name="tsnd" dbtype="query">
 					select * from sn where subnet='#tsn#'
 				</cfquery>
