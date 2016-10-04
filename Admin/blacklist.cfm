@@ -77,7 +77,8 @@
 		from
 			uam.blacklist
 		where
-			sysdate-LISTDATE<#sincedays#) a where rownum <= #stoprow#
+			sysdate-LISTDATE<#sincedays#
+			order by ip) a where rownum <= #stoprow#
 					) where rnum >= #startrow#
 	</cfquery>
 
