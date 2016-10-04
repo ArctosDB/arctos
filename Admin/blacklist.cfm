@@ -39,7 +39,7 @@
 	<cfquery name="subnetfromip" dbtype="query">
 		select
 			subnet
-		from d
+		from rip
 			group by
 			subnet
 	</cfquery>
