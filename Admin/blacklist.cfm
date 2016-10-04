@@ -52,9 +52,6 @@
 	</cfquery>
 
 
-<p>
-#rip.recordcount#
-</p>
 
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -114,7 +111,6 @@
 	</p>
 
 
-	<!----
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet/Tools</th>
@@ -198,7 +194,6 @@
 
 
 
-	----->
 	</cfoutput>
 </cfif>
 <!------------------------------------------>
