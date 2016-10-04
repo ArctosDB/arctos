@@ -77,7 +77,7 @@ log the attempt anyway
 	<cf_logError subject="new autoblacklist" message="#bl_reason#">
 	<cfinclude template="/errors/gtfo.cfm">
 
-	added #trim(request.ipaddress)# to the blacklist
+	added <cfdump var=#request.ipaddress#> to the blacklist
 	<cfabort>
 
 <!---- old stuff, just insert
