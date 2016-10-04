@@ -10,9 +10,9 @@
 	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			IP,
-			LISTDATE,
+			to_char(LISTDATE,'yyyy-mm-dd') LISTDATE,
 			STATUS,
-			LASTDATE,
+			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
 			substr(ip,1,instr(ip,'.',1,2)-1) subnet
 		from
 			uam.blacklist
@@ -21,7 +21,10 @@
 	</cfquery>
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			*
+			SUBNET,
+			STATUS
+			to_char(INSERT_DATE,'yyyy-mm-dd') INSERT_DATE,
+			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
 		from
 			uam.blacklist_subnet
 		where
