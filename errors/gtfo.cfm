@@ -1,18 +1,23 @@
-<cfif not isdefined("request.ipaddress") or len(request.ipaddress) eq 0>
-	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
-	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-		<CFSET ipaddress=CGI.Remote_Addr>
-	<cfelse>
-		<cfset ipaddress='unknown'>
-	</CFIF>
-<cfelse>
-	<cfset ipaddress=request.ipaddress>
-</cfif>
+
 <cfif not isdefined("action") or action is not "p">
 	<cfquery name="d" datasource="uam_god">
-		insert into blacklisted_entry_attempt (ip) values ('#ipaddress#')
+		insert into blacklisted_entry_attempt (ip) values ('#request.ipaddress#')
 	</cfquery>
+	<!---- is the subnet is hardblock, the IP range has been annoying enough for
+		someone to click the button, but not annoying enough to
+		firewall block. Check that
+	---->
+	<cfquery name="d" datasource="uam_god">
+		select count(*) c from blacklist_subnet where SUBNET='#request.requestingsubnet#' and status='hardblock'
+	</cfquery>
+
+
+	<cfdump var=#d#>
+
+	<cfabort>
+
+
+
 
 	Oops. It looks like you are on our blacklist. That's probably because someone from your IP
 	made a lame attempt to hack us, or possibly we were just feeling exceptionally paranoid when you
@@ -23,12 +28,8 @@
 
 
     <cfset isSubNetBlock=false>
-	<cfif listlen(ipaddress,".") is 4>
-        <cfset requestingSubnet=listgetat(ipaddress,1,".") & "." & listgetat(ipaddress,2,".")>
-    <cfelse>
-        <cfset requestingSubnet="0.0">
-    </cfif>
-    <cfif listfind(application.subnet_blacklist,requestingSubnet)>
+
+    <cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
 		<cfset isSubNetBlock=true>
         <p>
 		  Your subnet has been blocked. The self-serve option is not available. You must supply a message and an email address.
@@ -88,7 +89,7 @@
 		</cfif>
 		<cfif len(email) gt 0 and len(c) gt 0>
 			<cfmail subject="BlackList Objection" replyto="#email#" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
-				IP #ipaddress# ( #email# ) had this to say:
+				IP #request.ipaddress# ( #email# ) had this to say:
 				<p>
 					#c#
 				</p>
@@ -98,7 +99,7 @@
 				<hr>
 				<p>
 					If this looks like a legitimate request, make sure you're logged in (you may get blacklisted if you aren't!), then
-					<a href="#Application.serverRootUrl#/Admin/blacklist.cfm?action=del&ip=#ipaddress#">[ remove IP restrictions ]</a>.
+					<a href="#Application.serverRootUrl#/Admin/blacklist.cfm?action=del&ip=#request.ipaddress#">[ remove IP restrictions ]</a>.
 				</p>
 				<p>
 					Check the arctos.database email account (search for the IP);
@@ -113,11 +114,11 @@
 		</cfif>
 		<cfif isSubNetBlock is false>
 			<cfquery name="unbl" datasource="uam_god">
-			  update uam.blacklist set status='released' where status='active' and ip = '#ipaddress#'
+			  update uam.blacklist set status='released' where status='active' and ip = '#request.ipaddress#'
 			</cfquery>
-			<cfset application.blacklist=listDeleteAt(application.blacklist,listFind(application.blacklist,#ipaddress#))>
+			<cfset application.blacklist=listDeleteAt(application.blacklist,listFind(application.blacklist,#request.ipaddress#))>
 			<cfmail subject="BlackList Removed" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
-			  IP #ipaddress# has removed themselves from the blacklist.
+			  IP #request.ipaddress# has removed themselves from the blacklist.
 			</cfmail>
 
 			<p>
