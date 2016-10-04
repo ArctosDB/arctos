@@ -113,7 +113,7 @@
 		</cfif>
 		<cfif isSubNetBlock is false>
 			<cfquery name="unbl" datasource="uam_god">
-			  update uam.blacklist set statud='released' where status='active' and ip = '#ipaddress#'
+			  update uam.blacklist set status='released' where status='active' and ip = '#ipaddress#'
 			</cfquery>
 			<cfset application.blacklist=listDeleteAt(application.blacklist,listFind(application.blacklist,#ipaddress#))>
 			<cfmail subject="BlackList Removed" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
