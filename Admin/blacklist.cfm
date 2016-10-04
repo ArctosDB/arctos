@@ -1,15 +1,84 @@
 <cfset title="Manage IP and subnet blocking">
 <cfinclude template="/includes/_header.cfm">
+
+<cfif action is "nothing">
+	<script src="/includes/sorttable.js"></script>
+	<p>
+		This form shows only activity in the last 180 days.
+	</p>
+	<cfquery name="ip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			*
+		from
+			uam.blacklist
+		where
+			sysdate-LISTDATE<180
+	</cfquery>
+	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			subnet
+		from
+			uam.blacklist_subnet
+		where
+			sysdate-INSERT_DATE<180
+	</cfquery>
+
+	<cfset utilities = CreateObject("component","component.utilities")>
+	<cfset utilities.setAppBL()>
+
+
+	<cfquery name="d" dbtype="query">
+		select ip from ip group by ip
+	</cfquery>
+
+	<form name="i" method="post" action="blacklist.cfm">
+		<input type="hidden" name="action" value="ins">
+		<label for="ip">Add IP</label>
+		<input type="text" name="ip" id="ip">
+		<br><input type="submit" value="blacklist">
+	</form>
+
+	<table border id="t" class="sortable">
+		<tr>
+			<th>IP</th>
+			<!----
+			<th>listdate</th>
+			<th>tools</th>
+			---->
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#ip#</td>
+				<!----
+				<td>#listdate#</td>
+				<td>
+					<a href="blacklist.cfm?action=del&ip=#ip#">Remove</a>
+					<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
+				</td>
+				---->
+			</tr>
+		</cfloop>
+	</table>
+</cfif>
+
+
+
+
+
+
+
+
+
 <!----
 	Release blocks after a period of time.
 	Just ignore everything that's timed out
 
 	THIS IS ALSO HARD_CODED IN Application.cfc
-	
-	
-	
+
+
+
 	July 2016 edits:
-	
+
 	see DDL/migration/xxxblacklist.sql
 ---->
 <cfset expiresIn="180">
@@ -183,7 +252,7 @@
 	</cftry>
 </cfif>
 <!------------------------------------------>
-<cfif action is "nothing">
+<cfif action is "old_nothing">
 	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
