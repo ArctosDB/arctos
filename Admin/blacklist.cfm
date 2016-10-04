@@ -41,16 +41,35 @@
 			subnet
 	</cfquery>
 
-	<cfdump var=#subnetfromip#>
 
 
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
-		<label for="ip">Add IP</label>
+		<label for="ip">Manually block IP</label>
 		<input type="text" name="ip" id="ip">
 		<br><input type="submit" value="blacklist">
 	</form>
 
+	<p>
+		Use the form above (and update the filters or contact someone who can) to stop
+		malicious activity from a single IP.
+	</p>
+	<p>
+		IPs are generally auto-blacklisted. Users may remove IP restrictions from Arctos.
+	</p>
+	<p>
+		After 10 IPs from a subnet have been blocked, the subnet is automatically blocked. This controls
+		the size of application variables, and sends email alerting Arctos personnell to suspicious activity.
+		Users may remove this restriction from Arctos.
+	</p>
+	<p>
+		"Fairly malicious" subnets should be hard-blocked using the tools below. These blocks cannot be
+		removed by users. Use with caution.
+	</p>
+	<p>
+		"More than fairly" malicious subnets should be blocked at the firewall. Send email to TACC. Users from
+		firewall-blocked subnets cannot see Arctos at all. Use with extreme caution.
+	</p>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet</th>
@@ -62,18 +81,18 @@
 			---->
 		</tr>
 		<cfloop query="subnetfromip">
-
 			<tr>
-				<td>#subnet#</td>
+				<td valign="top">
+					#subnet#
+					<br><a href "blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">remove all subnet blocks</a>
+					<br><a href "blacklist.cfm?action=blockSubnet&subnet=#subnet#">hard-block the subnet</a>
+				</td>
 				<cfquery name="tsnd" dbtype="query">
 					select * from sn where subnet='#subnet#'
 				</cfquery>
-
-
 				<td valign="top">
 					<cfif tsnd.recordcount is 0>
 						no subnet blocks
-
 					<cfelse>
 						<table border>
 							<tr>
@@ -86,6 +105,9 @@
 									<td>#INSERT_DATE#</td>
 									<td>#LASTDATE#</td>
 									<td>#STATUS#</td>
+									<td>
+
+									</td>
 								</tr>
 							</cfloop>
 						</table>
@@ -101,6 +123,7 @@
 							<th>listdate</th>
 							<th>lastdate</th>
 							<th>status</th>
+							<th>tools</th>
 						</tr>
 						<cfloop query="#tl#">
 							<tr>
@@ -108,47 +131,87 @@
 								<td>#LISTDATE#</td>
 								<td>#LASTDATE#</td>
 								<td>#STATUS#</td>
+								<td>
+									<a href="blacklist.cfm?action=del&ip=#ip#">release IP</a>
+									<br><a target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a>
+									<br><a target="_blank" href="https://www.ipalyzer.com/#ip#">[ lookup @ipalyzer ]</a>
+									<br><a target="_blank" href="https://gwhois.org/#ip#">[ lookup @gwhois ]</a>
+
+
+
+
+								</td>
 							</tr>
 						</cfloop>
 					</table>
 				</td>
-
-
-
-				<!----
-				<td>#listdate#</td>
-				<td>
-					<a href="blacklist.cfm?action=del&ip=#ip#">Remove</a>
-					<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
-				</td>
-				---->
 			</tr>
 		</cfloop>
 	</table>
 	</cfoutput>
 </cfif>
+<!------------------------------------------>
+<cfif action is "ins">
+	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select protected_ip_list from cf_global_settings
+	</cfquery>
+	<cfif listfind(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
+		<cfset ee="
+			cgi.HTTP_X_Forwarded_For: #cgi.HTTP_X_Forwarded_For#
+			<br>cgi.Remote_Addr: #cgi.Remote_Addr#
+			<br>request.ipaddress: #request.ipaddress#
+			<br>request.requestingSubnet: #request.requestingSubnet#
+		">
+		<cfthrow message = "protected IP cannot be blacklisted" errorCode = "127001" extendedInfo="#ee#">
+		<cfabort>
+	</cfif>
+	<cfquery name="d" datasource="uam_god">
+		insert into uam.blacklist (
+			ip,
+			LISTDATE,
+			STATUS,
+			LASTDATE
+		) values (
+			'#ip#',
+			sysdate,
+			'active',
+			sysdate
+			)
+	</cfquery>
+	Added #ip#
+	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
+</cfif>
+<!------------------------------------------>
+<cfif action is "UNblockSubnet">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update blacklist_subnet set status='released' where subnet='#subnet#'
+	</cfquery>
+	Subnet #subnet# has been removed from the blacklist. You must send email to the network folks to remove and firewall blacklists.
 
+	<p>
+		You must now <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
+	</p>
+</cfif>
+<!------------------------------------------>
+<cfif action is "blockSubnet">
+	<cfif trim(subnet) is "127.0">
+		<cfthrow message = "Local subnet cannot be blacklisted" errorCode = "127001">
+		<cfabort>
+	</cfif>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into blacklist_subnet (subnet,INSERT_DATE,STATUS,LASTDATE) values ('#subnet#',sysdate,'hardblock',sysdate)
+	</cfquery>
 
+	Subnet #subnet# has been hard-blocked; users may not remove themselves.
+	You should consider sending email to the network folks asking them to blacklist it at the firewall.
+	<p>
+		You must <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
+	</p>
 
+</cfif>
 
+<!------------------
 
-
-
-
-
-<!----
-	Release blocks after a period of time.
-	Just ignore everything that's timed out
-
-	THIS IS ALSO HARD_CODED IN Application.cfc
-
-
-
-	July 2016 edits:
-
-	see DDL/migration/xxxblacklist.sql
----->
-<cfset expiresIn="180">
 
 <cfoutput>
 <cfif action is "subnet">
@@ -274,50 +337,12 @@
 		</cfloop>
 	</table>
 </cfif>
-<!------------------------------------------>
-<cfif action is "UNblockSubnet">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from blacklist_subnet where subnet='#subnet#'
-	</cfquery>
 
-	Subnet #subnet# has been removed from the blacklist. You must send email to the network folks to remove and firewall blacklists.
 
-	<p>
-		You must now <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
-	</p>
-</cfif>
+
+------------->
 <!------------------------------------------>
-<cfif action is "blockSubnet">
-	<cfif trim(subnet) is "127.0">
-		<cfthrow message = "Local subnet cannot be blacklisted" errorCode = "127001">
-		<cfabort>
-	</cfif>
-	<cftry>
-		<!--- see if it's expired; if it is, just re-up ---->
-		<cfquery name="exists" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from blacklist_subnet where subnet in ('#subnet#')
-		</cfquery>
-		<cfif len(exists.SUBNET) gt 0>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update blacklist_subnet set INSERT_DATE=sysdate where subnet in ('#subnet#')
-			</cfquery>
-			Subnet #subnet# has been <strong>RE</strong>added to the blacklist. You should definitely send email to the network folks and also
-		blacklist it at the firewall.
-		<cfelse>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into blacklist_subnet (subnet) values ('#subnet#')
-			</cfquery>
-			Subnet #subnet# has been added to the blacklist. You should probably send email to the network folks and also
-			blacklist it at the firewall.
-		</cfif>
-	<p>
-		You must <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
-	</p>
-	<cfcatch>
-		<cfdump var=#cfcatch#>
-	</cfcatch>
-	</cftry>
-</cfif>
+
 <!------------------------------------------>
 <cfif action is "old_nothing">
 	<script src="/includes/sorttable.js"></script>
@@ -377,47 +402,11 @@
 	</table>
 </cfif>
 <!------------------------------------------>
-<cfif action is "ins">
-	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select protected_ip_list from cf_global_settings
-	</cfquery>
-	<cfif listfind(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
-		<cfset ee="
-			cgi.HTTP_X_Forwarded_For: #cgi.HTTP_X_Forwarded_For#
-			<br>cgi.Remote_Addr: #cgi.Remote_Addr#
-			<br>request.ipaddress: #request.ipaddress#
-			<br>request.requestingSubnet: #request.requestingSubnet#
-		">
-		<cfthrow message = "protected IP cannot be blacklisted" errorCode = "127001" extendedInfo="#ee#">
-		<cfabort>
-	</cfif>
-	<cftry>
 
-		<!--- see if it's expired; if it is, just re-up ---->
-		<cfquery name="exists" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from uam.blacklist where ip in  ('#trim(ip)#')
-		</cfquery>
-		<cfif len(exists.IP) gt 0>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update uam.blacklist set LISTDATE=sysdate where IP in ('#trim(ip)#')
-			</cfquery>
-			Reupped the blacklist for #ip#; <strong>repeat offender alert</strong>
-		<cfelse>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into uam.blacklist (ip) values ('#trim(ip)#')
-			</cfquery>
-			Added #ip#
-		</cfif>
-		<cflocation url="/Admin/blacklist.cfm" addtoken="false">
-		<cfcatch>
-			<cfdump var=#cfcatch#>
-		</cfcatch>
-	</cftry>
-</cfif>
 <!------------------------------------------>
 <cfif action is "del">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from uam.blacklist where ip = '#ip#'
+		update uam.blacklist set status='released' where ip = '#ip#'
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
 </cfif>
