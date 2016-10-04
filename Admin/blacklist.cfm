@@ -113,12 +113,8 @@
 					<cfloop query="dip">
 						<table border>
 							<tr>
-								<th>IP/Tools</th>
-								<th>Details</th>
-							</tr>
-							<tr>
 								<td valign="top">
-									#ip#
+									IP: #ip#
 										<ul>
 											<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
 											<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a></li>
