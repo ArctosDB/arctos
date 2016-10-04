@@ -20,6 +20,18 @@
 	<cfparam name="pg" default="1">
 	<cfparam name="pgsize" default="100">
 
+	<cfset startrow=(pg*pgsize)-pgsize>
+
+	<p>
+		startrow: #startrow#
+	</p>
+
+
+	<cfset stoprow=startrow+pgsize>
+
+	<p>
+		startrow: #startrow#
+	</p>
 	<form method="post" action="blacklist.cfm">
 		<label for="sincedays">Days to include</label>
 		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
