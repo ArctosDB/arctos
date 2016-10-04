@@ -6,10 +6,14 @@
 	<cfoutput>
 	<hr>Filter
 	<cfparam name="sincedays" default="180">
+	<cfparam name="ipstartswith" default="">
 
 	<form method="post" action="blacklist.cfm">
 		<label for="sincedays">Days to include</label>
 		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
+
+		<label for="ipstartswith">IP (starts with)</label>
+		<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
 		<br><input type="submit" value="apply filter">
 	</form>
 
@@ -29,8 +33,6 @@
 		where
 			sysdate-LISTDATE<#sincedays#
 	</cfquery>
-
-	<cfdump var=#rip#>
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			SUBNET,
