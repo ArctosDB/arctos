@@ -100,12 +100,14 @@
 	<cfset utilities.setAppBL()>
 	<cfquery name="subnetfromip" dbtype="query">
 		select
-			subnet
+			subnet,LISTDATE
 		from rip
 			group by
 			subnet
 			order by LISTDATE desc
 	</cfquery>
+
+	<cfdump var=#subnetfromip#>
 	<hr>
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
