@@ -93,7 +93,7 @@
 				</td>
 				<td>
 					<cfquery name="tl" dbtype="query">
-						select * from rip where subnet='#subnet#'
+						select * from rip where subnet='#subnet#' order by ip,listdate
 					</cfquery>
 					<table border>
 						<tr>
