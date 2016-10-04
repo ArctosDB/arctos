@@ -84,8 +84,8 @@
 			<tr>
 				<td valign="top">
 					#subnet#
-					<br><a href "blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">remove all subnet blocks</a>
-					<br><a href "blacklist.cfm?action=blockSubnet&subnet=#subnet#">hard-block the subnet</a>
+					<br><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">remove all subnet blocks</a>
+					<br><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">hard-block the subnet</a>
 				</td>
 				<cfquery name="tsnd" dbtype="query">
 					select * from sn where subnet='#subnet#'
