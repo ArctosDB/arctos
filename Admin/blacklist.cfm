@@ -20,7 +20,7 @@
 	<cfparam name="pg" default="1">
 	<cfparam name="pgsize" default="100">
 
-	<cfset startrow=(pg*pgsize)-pgsize>
+	<cfset startrow=(pg*pgsize)-(pgsize+1)>
 
 	<p>
 		startrow: #startrow#
@@ -30,7 +30,7 @@
 	<cfset stoprow=startrow+pgsize>
 
 	<p>
-		startrow: #startrow#
+		stoprow: #stoprow#
 	</p>
 	<form method="post" action="blacklist.cfm">
 		<label for="sincedays">Days to include</label>
@@ -42,7 +42,7 @@
 
 		<label for="pg">page</label>
 		<input type="number" name="pg" id="pg" value="#pg#" required>
-		<label for="pagesize">pages size</label>
+		<label for="pagesize">page size</label>
 		<input type="number" name="pgsize" id="pgsize" value="#pgsize#" required>
 		<br><input type="submit" value="apply filter">
 	</form>
