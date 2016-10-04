@@ -43,6 +43,7 @@
 		<tr>
 			<th>IP</th>
 			<th>IP_Activity</th>
+			<th>subnet</th>
 			<!----
 			<th>listdate</th>
 			<th>tools</th>
@@ -69,6 +70,13 @@
 							</tr>
 						</cfloop>
 					</table>
+				</td>
+				<cfset tsn=listgetat(d.ip,1) & '.' & listgetat(d.ip,2)>
+				<cfquery name="tsnd" dbtype="query">
+					select * from sn where subnet='#tsn#'
+				</cfquery>
+				<td>
+					<cfdump var=#tsnd#>
 				</td>
 				<!----
 				<td>#listdate#</td>
