@@ -7,7 +7,6 @@
 	<hr>Filter
 	<cfparam name="sincedays" default="180">
 
-	<cfdump var=#sincedays#>
 	<form method="post" action="blacklist.cfm">
 		<label for="sincedays">Days to include</label>
 		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
@@ -28,7 +27,7 @@
 		from
 			uam.blacklist
 		where
-			sysdate-LISTDATE<180
+			sysdate-LISTDATE<#sincedays#
 	</cfquery>
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -39,7 +38,7 @@
 		from
 			uam.blacklist_subnet
 		where
-			sysdate-INSERT_DATE<180
+			sysdate-INSERT_DATE<#sincedays#
 	</cfquery>
 	<cfset utilities = CreateObject("component","component.utilities")>
 	<cfset utilities.setAppBL()>
