@@ -70,16 +70,18 @@
 	</p>
 	<table border id="t" class="sortable">
 		<tr>
-			<th>Subnet</th>
+			<th>Subnet/Tools</th>
 			<th>SubnetBlocks</th>
-			<th>IPBlocks</th>
+			<th>IPInfo</th>
 		</tr>
 		<cfloop query="subnetfromip">
 			<tr>
 				<td valign="top">
 					#subnet#
-					<br><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">remove all subnet blocks</a>
-					<br><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">hard-block the subnet</a>
+					<ul>
+						<li><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">remove all subnet blocks</a></li>
+						<li><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">hard-block the subnet</a></li>
+					</ul>
 				</td>
 				<cfquery name="tsnd" dbtype="query">
 					select * from sn where subnet='#subnet#'
@@ -111,7 +113,7 @@
 					<cfloop query="dip">
 						<table border>
 							<tr>
-								<th>IP</th>
+								<th>IP/Tools</th>
 								<th>Details</th>
 							</tr>
 							<tr>
