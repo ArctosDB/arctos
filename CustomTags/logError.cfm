@@ -174,20 +174,10 @@
 			<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
 		</p>
 	</cfif>
-	<cfif isdefined("exception.requestingsubnet") and len(exception.requestingsubnet) gt 0>
-		<p>
-			Nuke it from orbit option: Click this to blacklist an entire subnet. Use with caution.
-			<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=blockSubnet&subnet=#exception.requestingsubnet#">[ blacklist SUBNET #exception.requestingsubnet# ]</a>
-		</p>
-	<cfelse>
-		nope requestingsubnet
-	</cfif>
 	<cfif isdefined("exception.rawipaddress") and len(exception.rawipaddress) gt 0>
 		<p>
 			rawipaddress: #exception.rawipaddress#
 		</p>
-	<cfelse>
-		nope rawipaddress
 	</cfif>
 	<cfif structKeyExists(exception,"username")>
 		<br>username: #exception.username#
