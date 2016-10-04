@@ -17,7 +17,7 @@
 	</p>
 
 	<cfif bsn.c gt 0>
-		<cfset isSubNetBlock=false>
+		<cfset isSubNetBlock=true>
 		<p>
 		  Your subnet has been blocked. The self-release option is not available. You must supply a message and an email address.
 	   </p>
