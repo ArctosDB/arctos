@@ -115,7 +115,15 @@
 								<th>Details</th>
 							</tr>
 							<tr>
-								<td valign="top">#ip#</td>
+								<td valign="top">
+									#ip#
+										<ul>
+											<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
+											<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a></li>
+											<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ lookup @ipalyzer ]</a></li>
+											<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ lookup @gwhois ]</a></li>
+										</ul>
+								</td>
 								<td>
 									<cfquery name="tl" dbtype="query">
 										select * from rip where ip='#ip#' order by listdate
@@ -125,21 +133,12 @@
 											<th>listdate</th>
 											<th>lastdate</th>
 											<th>status</th>
-											<th>tools</th>
 										</tr>
 										<cfloop query="#tl#">
 											<tr>
 												<td>#LISTDATE#</td>
 												<td>#LASTDATE#</td>
 												<td>#STATUS#</td>
-												<td>
-													<ul>
-														<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
-														<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a></li>
-														<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ lookup @ipalyzer ]</a></li>
-														<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ lookup @gwhois ]</a></li>
-													</ul>
-												</td>
 											</tr>
 										</cfloop>
 									</table>
