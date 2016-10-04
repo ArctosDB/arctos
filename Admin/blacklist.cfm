@@ -5,9 +5,11 @@
 	<script>
 		function nextPage(){
 			$("#pg").val(parseInt($("#pg").val())+1);
+			$("#ff").submit();
 			}
 			function prevPage(){
 			$("#pg").val(parseInt($("#pg").val())-1);
+			$("#ff").submit();
 			}
 	</script>
 
@@ -32,7 +34,7 @@
 	<p>
 		stoprow: #stoprow#
 	</p>
-	<form method="post" action="blacklist.cfm">
+	<form method="post" id="ff" action="blacklist.cfm">
 		<label for="sincedays">Days to include</label>
 		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
 
@@ -140,8 +142,8 @@
 		Immediately contact Arctos personnel if unnecessary restrictions are being automatically added.
 	</p>
 
-	<span class="likeLink" onclick="nextPage()">Next Page</span>
 	<span class="likeLink" onclick="prevPage()">Previous Page</span>
+	<span class="likeLink" onclick="nextPage()">Next Page</span>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet/Tools</th>
