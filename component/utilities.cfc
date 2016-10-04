@@ -340,6 +340,26 @@
 	<cfset request.requestingSubnet=trim(requestingSubnet)>
 </cffunction>
 <!------------------------------------------------------------------------------------>
+
+<cffunction name="setAppBL">
+	<cfquery name="d" datasource="uam_god">
+		select ip from uam.blacklist where
+			status='active' and
+			sysdate-LISTDATE<180 and
+			substr(ip,1,instr(ip,'.',1,2)-1) not in (
+				select subnet from blacklist_subnet where status in ('active','autoinsert') and sysdate-INSERT_DATE<180
+			)
+	</cfquery>
+	<cfset Application.blacklist=valuelist(d.ip)>
+	<cfquery name="sn" datasource="uam_god">
+		select subnet from uam.blacklist_subnet where status in ('active','autoinsert') and sysdate-INSERT_DATE<180
+	</cfquery>
+	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
+</cffunction>
+
+<!------------------------------------------------------------------------------------>
+
+
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 	<cfif session.roles contains "coldfusion_user">

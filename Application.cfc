@@ -164,6 +164,9 @@
 		<cfdump var=#cgi# label="cgi">
 	</cfmail>
 	<cftry>
+		<cfset utilities.setAppBL()>
+		<!----
+
 		<cfquery name="d" datasource="uam_god">
 			select ip from uam.blacklist where
 				status='active' and
@@ -177,6 +180,7 @@
 			select subnet from uam.blacklist_subnet where status='active' and sysdate-INSERT_DATE<180
 		</cfquery>
 		<cfset application.subnet_blacklist=valuelist(sn.subnet)>
+		---->
 	<cfcatch>
 		<cfset Application.blacklist="">
 		<cfset Application.subnet_blacklist="">

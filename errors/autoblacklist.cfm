@@ -75,14 +75,49 @@ log the attempt anyway
 	</cfquery>
 	<cfquery name="blipc" datasource="uam_god">
 		select count(*) c from blacklist where
-		substr(ip,1,instr(ip,'.',1,2)-1) = substr('#request.ipaddress#',1,instr('#request.ipaddress#','.',1,2)-1)
+		status='active' and
+		substr(ip,1,instr(ip,'.',1,2)-1) = '#request.requestingSubnet#'
 	</cfquery>
 
 	<cfdump var=#blipc#>
 
+	<!---- if there are more than 10 blocked IPs from this subnet, it's probably something that
+		we don't have the resources to support. Auto-block the subnet, remove the IPs from
+		the application data.
+	---->
+	<cfif blipc.c gte 10>
+		<!--- add the subnet --->
+		<cfquery name="d" datasource="uam_god">
+			insert into uam.blacklist_subnet (
+				SUBNET,
+				INSERT_DATE,
+				STATUS,
+				LASTDATE
+			) values (
+				'#request.requestingSubnet#',
+				sysdate,
+				'autoinsert',
+				sysdate
+				)
+		</cfquery>
+		<!---- adjust the application variables ---->
+		<cfset utilities = CreateObject("component","component.utilities")>
+		<cfset utilities.setAppBL()>
+
+		blocked the subnet....
+
+
+	<cfelse>
+		<!---- just add the IP to the app var ---->
+			<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>
+		blocked the IP....
+
+	</cfif>
+
+
+
 	<cfabort>
 
-	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
 
 
 
