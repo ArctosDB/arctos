@@ -100,7 +100,7 @@
 	<cfset utilities.setAppBL()>
 	<cfquery name="subnetfromip" dbtype="query">
 		select
-			subnet,LISTDATE
+			subnet
 		from rip
 			group by
 			subnet
