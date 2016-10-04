@@ -104,6 +104,7 @@
 		from rip
 			group by
 			subnet
+			order by LISTDATE desc
 	</cfquery>
 	<hr>
 	<form name="i" method="post" action="blacklist.cfm">
