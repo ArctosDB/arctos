@@ -20,7 +20,7 @@
 	<cfparam name="pg" default="1">
 	<cfparam name="pgsize" default="100">
 
-	<cfset startrow=(pg*pgsize)-(pgsize+1)>
+	<cfset startrow=(pg*pgsize)-pgsize>
 
 	<p>
 		startrow: #startrow#
