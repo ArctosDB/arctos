@@ -70,7 +70,7 @@
 				</cfquery>
 
 
-				<td>
+				<td valign="top">
 					<cfif tsnd.recordcount is 0>
 						no subnet blocks
 
@@ -91,7 +91,7 @@
 						</table>
 					</cfif>
 				</td>
-				<td>
+				<td valign="top">
 					<cfquery name="tl" dbtype="query">
 						select * from rip where subnet='#subnet#' order by ip,listdate
 					</cfquery>
