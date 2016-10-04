@@ -6,6 +6,7 @@
 	<p>
 		This form shows only activity in the last 180 days.
 	</p>
+	<cfoutput>
 	<cfquery name="ip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			*
@@ -59,6 +60,7 @@
 			</tr>
 		</cfloop>
 	</table>
+	</cfoutput>
 </cfif>
 
 
