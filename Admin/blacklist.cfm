@@ -23,15 +23,17 @@
 	<cfparam name="pgsize" default="100">
 
 	<cfset startrow=(pg*pgsize)-pgsize>
-
+	<cfset stoprow=startrow+pgsize>
 
 	<form method="post" id="ff" action="blacklist.cfm">
 
 		<label for="ipstartswith">IP (starts with)</label>
 		<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
 
-		<label for="sincedays">Days to include *</label>
+		<label for="sincedays">Days to include*</label>
 		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
+
+
 
 		<label for="pg">page</label>
 		<input type="number" name="pg" id="pg" value="#pg#" required>
