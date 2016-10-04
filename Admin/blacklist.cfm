@@ -24,7 +24,7 @@
 			SUBNET,
 			STATUS
 			to_char(INSERT_DATE,'yyyy-mm-dd') INSERT_DATE,
-			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
+			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE
 		from
 			uam.blacklist_subnet
 		where
