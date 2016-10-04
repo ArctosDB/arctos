@@ -80,7 +80,7 @@
 			uam.blacklist
 		where
 			sysdate-LISTDATE<#sincedays#
-			order by LISTDATE) a where rownum <= #stoprow#
+			order by LISTDATE desc) a where rownum <= #stoprow#
 					) where rnum >= #startrow#
 	</cfquery>
 
