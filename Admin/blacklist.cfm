@@ -52,7 +52,9 @@
 	</cfquery>
 
 
+<cfdump var=#rip#>
 
+	<!--- get subnet blocks relevant to whatever was returned by the IP query ---->
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			SUBNET,
