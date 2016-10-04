@@ -4,7 +4,7 @@
 <cfif action is "nothing">
 	<script src="/includes/sorttable.js"></script>
 	<p>
-		This form shows only activity in the last 180 days.
+		This form shows only activity in the last 180 days; all IP-based access restrictions expire after 180 days.
 	</p>
 	<cfoutput>
 	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -27,12 +27,8 @@
 		where
 			sysdate-INSERT_DATE<180
 	</cfquery>
-
 	<cfset utilities = CreateObject("component","component.utilities")>
 	<cfset utilities.setAppBL()>
-
-
-
 	<cfquery name="subnetfromip" dbtype="query">
 		select
 			subnet
@@ -40,16 +36,12 @@
 			group by
 			subnet
 	</cfquery>
-
-
-
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
 		<label for="ip">Manually block IP</label>
 		<input type="text" name="ip" id="ip">
 		<br><input type="submit" value="blacklist">
 	</form>
-
 	<p>
 		Use the form above (and update the filters or contact someone who can) to stop
 		malicious activity from a single IP.
@@ -71,7 +63,10 @@
 		firewall-blocked subnets cannot see Arctos at all. Use with extreme caution.
 	</p>
 	<p>
-		Please carefully examine the relavent logs and consult with Arctos personnel before doing anything with this form.
+		Please carefully examine the relevant logs and consult with Arctos personnel before doing anything with this form.
+	</p>
+	<p>
+		Immediately contact Arctos personnel if unnecessary restrictions are being automatically added.
 	</p>
 	<table border id="t" class="sortable">
 		<tr>
@@ -110,34 +105,48 @@
 					</cfif>
 				</td>
 				<td valign="top">
-					<cfquery name="tl" dbtype="query">
-						select * from rip where subnet='#subnet#' order by ip,listdate
+					<cfquery name="dip" dbtype="query">
+						select ip from rip where subnet='#subnet#' group by ip order by ip
 					</cfquery>
-					<table border>
-						<tr>
-							<th>IP</th>
-							<th>listdate</th>
-							<th>lastdate</th>
-							<th>status</th>
-							<th>tools</th>
-						</tr>
-						<cfloop query="#tl#">
+					<cfloop query="dip">
+						<table border>
 							<tr>
-								<td>#ip#</td>
-								<td>#LISTDATE#</td>
-								<td>#LASTDATE#</td>
-								<td>#STATUS#</td>
+								<th>IP</th>
+								<th>Details</th>
+							</tr>
+							<tr>
+								<td valign="top">#ip#</td>
 								<td>
-									<ul>
-										<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
-										<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a></li>
-										<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ lookup @ipalyzer ]</a></li>
-										<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ lookup @gwhois ]</a></li>
-									</ul>
+									<cfquery name="tl" dbtype="query">
+										select * from rip where ip='#ip#' order by listdate
+									</cfquery>
+									<table border>
+										<tr>
+											<th>listdate</th>
+											<th>lastdate</th>
+											<th>status</th>
+											<th>tools</th>
+										</tr>
+										<cfloop query="#tl#">
+											<tr>
+												<td>#LISTDATE#</td>
+												<td>#LASTDATE#</td>
+												<td>#STATUS#</td>
+												<td>
+													<ul>
+														<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
+														<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a></li>
+														<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ lookup @ipalyzer ]</a></li>
+														<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ lookup @gwhois ]</a></li>
+													</ul>
+												</td>
+											</tr>
+										</cfloop>
+									</table>
 								</td>
 							</tr>
-						</cfloop>
-					</table>
+						</table>
+					</cfloop>
 				</td>
 			</tr>
 		</cfloop>
