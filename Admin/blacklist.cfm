@@ -3,6 +3,7 @@
 
 <cfif action is "nothing">
 	<script src="/includes/sorttable.js"></script>
+	<cfoutput>
 	<hr>Filter
 	<cfparam name="sincedays" default="180">
 
@@ -16,7 +17,7 @@
 	<p>
 		All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
 	</p>
-	<cfoutput>
+
 	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			IP,
