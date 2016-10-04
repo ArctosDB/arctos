@@ -33,8 +33,13 @@
 	</cfquery>
 
 	<cfquery name="subnetfromip" dbtype="query">
-		select listgetat(d.ip,1,'.') & '.' & listgetat(d.ip,2,'.') as lsn from d group by
-		listgetat(d.ip,1,'.') & '.' & listgetat(d.ip,2,'.')
+		select
+			listgetat(d.ip,1,'.') as fp,
+			listgetat(d.ip,2,'.') as lp
+		from d
+			group by
+			listgetat(d.ip,1,'.'),
+			listgetat(d.ip,2,'.')
 	</cfquery>
 
 	<cfdump var=#subnetfromip#>
