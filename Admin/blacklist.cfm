@@ -59,26 +59,25 @@
 	</p>
 	<p>
 		After 10 IPs from a subnet have been blocked, the subnet is automatically blocked. This controls
-		the size of application variables, and sends email alerting Arctos personnell to suspicious activity.
+		the size of application variables, and sends email alerting Arctos personnel to increased suspicious activity.
 		Users may remove this restriction from Arctos.
 	</p>
 	<p>
 		"Fairly malicious" subnets should be hard-blocked using the tools below. These blocks cannot be
-		removed by users. Use with caution.
+		removed by users. Users may fill in a form asking for removal; this must be evaluated by Arctos personnel. Use with caution.
 	</p>
 	<p>
 		"More than fairly" malicious subnets should be blocked at the firewall. Send email to TACC. Users from
 		firewall-blocked subnets cannot see Arctos at all. Use with extreme caution.
+	</p>
+	<p>
+		Please carefully examine the relavent logs and consult with Arctos personnel before doing anything with this form.
 	</p>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet</th>
 			<th>SubnetBlocks</th>
 			<th>IPBlocks</th>
-			<!----
-			<th>listdate</th>
-			<th>tools</th>
-			---->
 		</tr>
 		<cfloop query="subnetfromip">
 			<tr>
@@ -105,9 +104,6 @@
 									<td>#INSERT_DATE#</td>
 									<td>#LASTDATE#</td>
 									<td>#STATUS#</td>
-									<td>
-
-									</td>
 								</tr>
 							</cfloop>
 						</table>
@@ -132,14 +128,12 @@
 								<td>#LASTDATE#</td>
 								<td>#STATUS#</td>
 								<td>
-									<a href="blacklist.cfm?action=del&ip=#ip#">release IP</a>
-									<br><a target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a>
-									<br><a target="_blank" href="https://www.ipalyzer.com/#ip#">[ lookup @ipalyzer ]</a>
-									<br><a target="_blank" href="https://gwhois.org/#ip#">[ lookup @gwhois ]</a>
-
-
-
-
+									<ul>
+										<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
+										<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a></li>
+										<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ lookup @ipalyzer ]</a></li>
+										<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ lookup @gwhois ]</a></li>
+									</ul>
 								</td>
 							</tr>
 						</cfloop>
@@ -178,7 +172,6 @@
 			sysdate
 			)
 	</cfquery>
-	Added #ip#
 	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------>
@@ -186,11 +179,7 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update blacklist_subnet set status='released' where subnet='#subnet#'
 	</cfquery>
-	Subnet #subnet# has been removed from the blacklist. You must send email to the network folks to remove and firewall blacklists.
-
-	<p>
-		You must now <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
-	</p>
+	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------>
 <cfif action is "blockSubnet">
@@ -201,15 +190,15 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into blacklist_subnet (subnet,INSERT_DATE,STATUS,LASTDATE) values ('#subnet#',sysdate,'hardblock',sysdate)
 	</cfquery>
-
-	Subnet #subnet# has been hard-blocked; users may not remove themselves.
-	You should consider sending email to the network folks asking them to blacklist it at the firewall.
-	<p>
-		You must <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
-	</p>
-
+	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
 </cfif>
-
+<!------------------------------------------>
+<cfif action is "del">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update uam.blacklist set status='released' where ip = '#ip#'
+	</cfquery>
+	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
+</cfif>
 <!------------------
 
 
@@ -340,10 +329,7 @@
 
 
 
-------------->
-<!------------------------------------------>
 
-<!------------------------------------------>
 <cfif action is "old_nothing">
 	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -401,15 +387,5 @@
 		</cfloop>
 	</table>
 </cfif>
-<!------------------------------------------>
-
-<!------------------------------------------>
-<cfif action is "del">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update uam.blacklist set status='released' where ip = '#ip#'
-	</cfquery>
-	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
-</cfif>
-
-
+------------->
 <cfinclude template="/includes/_footer.cfm">
