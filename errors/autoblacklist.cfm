@@ -22,7 +22,6 @@
 	try{document.getElementById('loading').style.display='none';}catch(e){}
 </script>
 
-hello I am here to blacklist you<cfabort>
 <cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select protected_ip_list from cf_global_settings
 </cfquery>
@@ -39,6 +38,12 @@ hello I am here to blacklist you<cfabort>
 <cfif not isdefined("bl_reason")>
 	<cfset bl_reason="unknown">
 </cfif>
+
+<!----
+
+log the attempt anyway
+
+
 <!--- sometimes already-banned IPs end up here due to click-flooding etc. ---->
 <cfif listcontains(application.blacklist,request.ipaddress)>
 	<!--- they're already actively blacklisted - do nothing here---->
@@ -52,6 +57,32 @@ hello I am here to blacklist you<cfabort>
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
+---->
+
+
+<cfquery name="d" datasource="uam_god">
+		insert into uam.blacklist (
+			ip,
+			LISTDATE,
+			STATUS,
+			LASTDATE
+		) values (
+			'#trim(request.ipaddress)#',
+			sysdate,
+			'active',
+			sysdate
+			)
+	</cfquery>
+	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
+	<cf_logError subject="new autoblacklist" message="#bl_reason#">
+	<cfinclude template="/errors/gtfo.cfm">
+
+	added #trim(request.ipaddress)# to the blacklist
+	<cfabort>
+
+<!---- old stuff, just insert
+
+
 <!--- not currently on the nukelist --->
 <cfquery name="exists" datasource="uam_god">
 	select ip from uam.blacklist where ip='#trim(request.ipaddress)#'
@@ -73,3 +104,4 @@ hello I am here to blacklist you<cfabort>
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
+---->
