@@ -80,6 +80,9 @@
 			uam.blacklist
 		where
 			sysdate-LISTDATE<#sincedays#
+			<cfif len(ipstartswith) gt 0>
+				and ip like '#ipstartswith#%'
+			</cfif>
 			order by LISTDATE desc) a where rownum <= #stoprow#
 					) where rnum >= #startrow#
 	</cfquery>
@@ -106,8 +109,6 @@
 			subnet
 			order by LISTDATE desc
 	</cfquery>
-
-	<cfdump var=#subnetfromip#>
 	<hr>
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
