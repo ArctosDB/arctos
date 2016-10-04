@@ -7,7 +7,7 @@
 		This form shows only activity in the last 180 days.
 	</p>
 	<cfoutput>
-	<cfquery name="ip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			*
 		from
@@ -29,7 +29,7 @@
 
 
 	<cfquery name="d" dbtype="query">
-		select ip from ip group by ip
+		select ip from rip group by ip
 	</cfquery>
 
 	<form name="i" method="post" action="blacklist.cfm">
@@ -50,9 +50,9 @@
 		</tr>
 		<cfloop query="d">
 			<tr>
-				<td>#ip#</td>
+				<td>#d.ip#</td>
 				<cfquery name="tl" dbtype="query">
-					select * from ip where ip='#d.ip#'
+					select * from rip where ip='#d.ip#'
 				</cfquery>
 				<td>
 					<cfdump var=#tl#>
