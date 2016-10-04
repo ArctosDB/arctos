@@ -29,6 +29,8 @@
 		where
 			sysdate-LISTDATE<#sincedays#
 	</cfquery>
+
+	<cfdump var=#rip#>
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			SUBNET,
