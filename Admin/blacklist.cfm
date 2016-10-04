@@ -5,6 +5,8 @@
 	<script src="/includes/sorttable.js"></script>
 	<hr>Filter
 	<cfparam name="sincedays" default="180">
+
+	<cfdump var=#sincedays#>
 	<form method="post" action="blacklist.cfm">
 		<label for="sincedays">Days to include</label>
 		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
