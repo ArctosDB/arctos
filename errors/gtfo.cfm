@@ -3,7 +3,7 @@
 	<cfquery name="d" datasource="uam_god">
 		insert into blacklisted_entry_attempt (ip) values ('#request.ipaddress#')
 	</cfquery>
-	<!---- is the subnet is hardblock, the IP range has been annoying enough for
+	<!---- if the subnet is hardblock, the IP range has been annoying enough for
 		someone to click the button, but not annoying enough to
 		firewall block. Check that
 	---->
@@ -59,7 +59,6 @@
 	    <cfoutput>
 	    <input type="hidden" name="captchaHash" value="#captchaHash#">
         <input type="hidden" name="isSubNetBlock" value="#isSubNetBlock#">
-
 	    </cfoutput>
 		<br><input type="submit" value="go">
 	</cfform>
@@ -70,21 +69,14 @@
 			You did not enter the correct text; use your back button.
 			<cfabort>
 		</cfif>
-
 		<cfif isSubNetBlock is true and (len(email) is 0 or len(c) lt 20)>
 		  <p>You are on a blocked subnet. You must supply an email address and a message of at least 20 characters.</p>
 		  <cfabort>
 		</cfif>
-
-
-
 		<cfif len(email) is 0  and (len(c) gt 0 and len(c) lt 20)>
 			If you want to leave us a note, we need at least 20 characters and an email address.
 			<cfabort>
 		</cfif>
-
-
-
 		<cfif isSubNetBlock is false>
 			<cfquery name="unbl" datasource="uam_god">
 			  update uam.blacklist set status='released' where status='active' and ip = '#request.ipaddress#'
@@ -94,7 +86,6 @@
 			</cfquery>
 			<cfset f = CreateObject("component","component.utilities")>
 			<cfset f.setAppBL()>
-
 			<cfmail subject="BlackList Removed" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
 				IP #request.ipaddress# has removed themselves from the blacklist.
 				<p>
@@ -104,7 +95,6 @@
 					msg: #c#
 				</p>
 			</cfmail>
-
 			<p>
 			  Your IP has been removed from the blacklist. <a href="/">click here to continue</a>.
 			</p>
@@ -116,18 +106,16 @@
 				</p>
 
 				<p>
+					If you are seeing this, the subnet has been hard-blocked.
 					Hard-blocked subnets probably got that way for a reason; carefully check the arctos.database email account
 					before taking action.
 				</p>
-
 				<p>
 					If the request was legitimate and the blacklist should not
 					exist, inform the Arctos development team.
 				</p>
 			</cfmail>
 			<p>Your message has been delivered.</p>
-
-
 		</cfif>
 	</cfoutput>
 </cfif>

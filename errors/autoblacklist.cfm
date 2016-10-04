@@ -79,8 +79,6 @@ log the attempt anyway
 		substr(ip,1,instr(ip,'.',1,2)-1) = '#request.requestingSubnet#'
 	</cfquery>
 
-	<cfdump var=#blipc#>
-
 	<!---- if there are more than 10 blocked IPs from this subnet, it's probably something that
 		we don't have the resources to support. Auto-block the subnet, remove the IPs from
 		the application data.
@@ -100,32 +98,17 @@ log the attempt anyway
 				sysdate
 				)
 		</cfquery>
+		<cf_logError subject="new autoblacklist: subnet" message="#bl_reason#">
 		<!---- adjust the application variables ---->
 		<cfset utilities = CreateObject("component","component.utilities")>
 		<cfset utilities.setAppBL()>
-
-		blocked the subnet....
-
-
 	<cfelse>
 		<!---- just add the IP to the app var ---->
-			<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>
-		blocked the IP....
-
+		<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>
+		<cf_logError subject="new autoblacklist" message="#bl_reason#">
 	</cfif>
 
-
-
-	<cfabort>
-
-
-
-
-	<cf_logError subject="new autoblacklist" message="#bl_reason#">
 	<cfinclude template="/errors/gtfo.cfm">
-
-	added <cfdump var=#request.ipaddress#> to the blacklist
-	<cfabort>
 
 <!---- old stuff, just insert
 
