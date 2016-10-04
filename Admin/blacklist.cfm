@@ -21,6 +21,7 @@
 		All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
 	</p>
 
+	<!----
 	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			IP,
@@ -33,6 +34,26 @@
 		where
 			sysdate-LISTDATE<#sincedays#
 	</cfquery>
+	---------->
+	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		Select * from (
+						Select a.*, rownum rnum From (
+						select
+			IP,
+			to_char(LISTDATE,'yyyy-mm-dd') LISTDATE,
+			STATUS,
+			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
+			substr(ip,1,instr(ip,'.',1,2)-1) subnet
+		from
+			uam.blacklist
+		where
+			sysdate-LISTDATE<#sincedays#) a where rownum <= #stoprow#
+					) where rnum >= #startrow#
+	</cfquery>
+
+
+
+
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			SUBNET,
