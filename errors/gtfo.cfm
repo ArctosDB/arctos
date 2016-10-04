@@ -7,40 +7,35 @@
 		someone to click the button, but not annoying enough to
 		firewall block. Check that
 	---->
-	<cfquery name="d" datasource="uam_god">
+	<cfquery name="bsn" datasource="uam_god">
 		select count(*) c from blacklist_subnet where SUBNET='#request.requestingsubnet#' and status='hardblock'
 	</cfquery>
+	<p>
+		Your IP or organization has been blocked. You may wish to check your computer for malicious software and alert
+		others who may have accessed Arctos from your IP or organization. Further intrusion attempts may result in more
+		restrictive blocks.
+	</p>
 
-
-	<cfdump var=#d#>
-
-	<cfabort>
-
-
-
-
-	Oops. It looks like you are on our blacklist. That's probably because someone from your IP
-	made a lame attempt to hack us, or possibly we were just feeling exceptionally paranoid when you
-	tried to do something legit, so you ended up in our logs anyway. We get like that sometimes, and we'd
-	like to apologize now if you are neither a robot nor a hacker.
-	<p>Use the form below to remove yourself from the blacklist. Leave us a note if you have any problems or if this is a recurring event.</p>
-	<p>Sometimes the text gets messed up, so just click reload if you can't read it.</p>
-
-
-    <cfset isSubNetBlock=false>
-
-    <cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
-		<cfset isSubNetBlock=true>
-        <p>
-		  Your subnet has been blocked. The self-serve option is not available. You must supply a message and an email address.
+	<cfif bsn.c gt 0>
+		<cfset isSubNetBlock=false>
+		<p>
+		  Your subnet has been blocked. The self-release option is not available. You must supply a message and an email address.
 	   </p>
-    </cfif>
+	<cfelse>
+		<cfset isSubNetBlock=false>
+		<p>
+			You may use the form below to remove access restrictions. Please include a message if you have any information which
+			might help up provide uninterrupted service.
+		</p>
+	</cfif>
+	<p>
+		Just reload this page for new CAPTCHA text.
+	</p>
 	<cfset f = CreateObject("component","component.utilities")>
 	<cfset captcha = f.makeCaptchaString()>
 	<cfset captchaHash = hash(captcha)>
 	<cfform name="g" method="post" action="/errors/gtfo.cfm">
 		<input type="hidden" name="action" value="p">
-
 	    <cfimage
 	    	action="captcha"
 	    	width="300"
@@ -71,15 +66,8 @@
 </cfif>
 <cfif isdefined("action") and action is "p">
 	<cfoutput>
-
-
 		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
-			You did not enter the right text.
-			<cfabort>
-		</cfif>
-
-		<cfif len(email) is 0  and (len(c) gt 0 and len(c) lt 20)>
-			If you want to leave us a note, we need at least 20 characters and an email address.
+			You did not enter the correct text; use your back button.
 			<cfabort>
 		</cfif>
 
@@ -87,43 +75,59 @@
 		  <p>You are on a blocked subnet. You must supply an email address and a message of at least 20 characters.</p>
 		  <cfabort>
 		</cfif>
-		<cfif len(email) gt 0 and len(c) gt 0>
+
+
+
+		<cfif len(email) is 0  and (len(c) gt 0 and len(c) lt 20)>
+			If you want to leave us a note, we need at least 20 characters and an email address.
+			<cfabort>
+		</cfif>
+
+
+
+		<cfif isSubNetBlock is false>
+			<cfquery name="unbl" datasource="uam_god">
+			  update uam.blacklist set status='released' where status='active' and ip = '#request.ipaddress#'
+			</cfquery>
+			<cfquery name="unbl" datasource="uam_god">
+			  update uam.blacklist_subnet set status='released' where status in ('active','autoinsert') and SUBNET = '#request.requestingsubnet#'
+			</cfquery>
+			<cfset f = CreateObject("component","component.utilities")>
+			<cfset f.setAppBL()>
+
+			<cfmail subject="BlackList Removed" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
+				IP #request.ipaddress# has removed themselves from the blacklist.
+				<p>
+					email: #email#
+				</p>
+				<p>
+					msg: #c#
+				</p>
+			</cfmail>
+
+			<p>
+			  Your IP has been removed from the blacklist. <a href="/">click here to continue</a>.
+			</p>
+		<cfelse>
 			<cfmail subject="BlackList Objection" replyto="#email#" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
 				IP #request.ipaddress# ( #email# ) had this to say:
 				<p>
 					#c#
 				</p>
+
 				<p>
-				    isSubNetBlock: #isSubNetBlock#
+					Hard-blocked subnets probably got that way for a reason; carefully check the arctos.database email account
+					before taking action.
 				</p>
-				<hr>
+
 				<p>
-					If this looks like a legitimate request, make sure you're logged in (you may get blacklisted if you aren't!), then
-					<a href="#Application.serverRootUrl#/Admin/blacklist.cfm?action=del&ip=#request.ipaddress#">[ remove IP restrictions ]</a>.
-				</p>
-				<p>
-					Check the arctos.database email account (search for the IP);
-					there is probably an autoblacklist notification with a reason.
-					Inform the user how to avoid the problem in the future. If the request was legitimate and the blacklist should not
+					If the request was legitimate and the blacklist should not
 					exist, inform the Arctos development team.
-				</p>
-					Subnet blocks must be removed via Arctos forms. Firewall blocks must be removed by network personnel.
 				</p>
 			</cfmail>
 			<p>Your message has been delivered.</p>
-		</cfif>
-		<cfif isSubNetBlock is false>
-			<cfquery name="unbl" datasource="uam_god">
-			  update uam.blacklist set status='released' where status='active' and ip = '#request.ipaddress#'
-			</cfquery>
-			<cfset application.blacklist=listDeleteAt(application.blacklist,listFind(application.blacklist,#request.ipaddress#))>
-			<cfmail subject="BlackList Removed" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
-			  IP #request.ipaddress# has removed themselves from the blacklist.
-			</cfmail>
 
-			<p>
-			  Your IP has been successfully removed from the blacklist. <a href="/">click here to continue</a>.
-			</p>
+
 		</cfif>
 	</cfoutput>
 </cfif>
