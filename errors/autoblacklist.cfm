@@ -60,20 +60,32 @@ log the attempt anyway
 ---->
 
 
-<cfquery name="d" datasource="uam_god">
+	<cfquery name="d" datasource="uam_god">
 		insert into uam.blacklist (
 			ip,
 			LISTDATE,
 			STATUS,
 			LASTDATE
 		) values (
-			'#trim(request.ipaddress)#',
+			'#request.ipaddress#',
 			sysdate,
 			'active',
 			sysdate
 			)
 	</cfquery>
+	<cfquery name="blipc" datasource="uam_god">
+		select count(*) c from blacklist where
+		substr(ip,1,instr(ip,'.',1,2)-1) = substr('#request.ipaddress#',1,instr('#request.ipaddress#','.',1,2)-1)
+	</cfquery>
+
+	<cfdump var=#blipc#>
+
+	<cfabort>
+
 	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
+
+
+
 	<cf_logError subject="new autoblacklist" message="#bl_reason#">
 	<cfinclude template="/errors/gtfo.cfm">
 

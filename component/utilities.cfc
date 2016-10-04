@@ -336,8 +336,8 @@
 		<cfset ipaddress="0.0.0.0">
 	</cfif>
 	<cfset requestingSubnet=listgetat(ipaddress,1,".") & "." & listgetat(ipaddress,2,".")>
-	<cfset request.ipaddress=ipaddress>
-	<cfset request.requestingSubnet=requestingSubnet>
+	<cfset request.ipaddress=trim(ipaddress)>
+	<cfset request.requestingSubnet=trim(requestingSubnet)>
 </cffunction>
 <!------------------------------------------------------------------------------------>
 <cffunction name="checkRequest">
@@ -447,7 +447,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset badbot=badbot & ",Gluten">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",ltx71">
-	
+
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
 	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",re-animator">
