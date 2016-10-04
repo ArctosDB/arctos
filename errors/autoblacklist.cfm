@@ -21,6 +21,8 @@
 <script>
 	try{document.getElementById('loading').style.display='none';}catch(e){}
 </script>
+
+hello I am here to blacklist you<cfabort>
 <cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select protected_ip_list from cf_global_settings
 </cfquery>

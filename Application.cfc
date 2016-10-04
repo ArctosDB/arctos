@@ -165,11 +165,16 @@
 	</cfmail>
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
-			select ip from uam.blacklist where sysdate-LISTDATE<180
+			select ip from uam.blacklist where
+				status='active' and
+				sysdate-LISTDATE<#expiresIn# and
+				substr(ip,1,instr(ip,'.',1,2)-1) not in (
+					select subnet from blacklist_subnet where status='active' and sysdate-INSERT_DATE<#expiresIn#
+				)
 		</cfquery>
 		<cfset Application.blacklist=valuelist(d.ip)>
 		<cfquery name="sn" datasource="uam_god">
-			select subnet from uam.blacklist_subnet where sysdate-INSERT_DATE<180
+			select subnet from uam.blacklist_subnet where status='active' and sysdate-INSERT_DATE<180
 		</cfquery>
 		<cfset application.subnet_blacklist=valuelist(sn.subnet)>
 	<cfcatch>
