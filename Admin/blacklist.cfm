@@ -89,6 +89,9 @@
 	<p>
 		Immediately contact Arctos personnel if unnecessary restrictions are being automatically added.
 	</p>
+
+
+	<!----
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet/Tools</th>
@@ -169,6 +172,10 @@
 			</tr>
 		</cfloop>
 	</table>
+
+
+
+	----->
 	</cfoutput>
 </cfif>
 <!------------------------------------------>
