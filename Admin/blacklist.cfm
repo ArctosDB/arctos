@@ -42,7 +42,7 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<th>IP</th>
-			<th>TimesListed</th>
+			<th>IP_Activity</th>
 			<!----
 			<th>listdate</th>
 			<th>tools</th>
@@ -55,7 +55,20 @@
 					select * from rip where ip='#d.ip#'
 				</cfquery>
 				<td>
-					<cfdump var=#tl#>
+					<table border>
+						<tr>
+							<th>listdate</th>
+							<th>lastdate</th>
+							<th>status</th>
+						</tr>
+						<cfloop query="#tl#">
+							<tr>
+								<td>#LISTDATE#</td>
+								<td>#LASTDATE#</td>
+								<td>#STATUS#</td>
+							</tr>
+						</cfloop>
+					</table>
 				</td>
 				<!----
 				<td>#listdate#</td>
