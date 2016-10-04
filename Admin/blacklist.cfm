@@ -18,6 +18,7 @@
 	<cfparam name="sincedays" default="180">
 	<cfparam name="ipstartswith" default="">
 	<cfparam name="pg" default="1">
+	<cfparam name="pgsize" default="100">
 
 	<form method="post" action="blacklist.cfm">
 		<label for="sincedays">Days to include</label>
@@ -28,7 +29,9 @@
 
 
 		<label for="pg">page</label>
-		<input type="number" name="pg" id="pg" value="#pg#">
+		<input type="number" name="pg" id="pg" value="#pg#" required>
+		<label for="pagesize">pages size</label>
+		<input type="number" name="pgsize" id="pgsize" value="#pgsize#" required>
 		<br><input type="submit" value="apply filter">
 	</form>
 
