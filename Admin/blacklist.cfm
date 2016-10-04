@@ -32,9 +32,6 @@
 	<cfset utilities.setAppBL()>
 
 
-	<cfquery name="d" dbtype="query">
-		select ip from rip group by ip
-	</cfquery>
 
 	<cfquery name="subnetfromip" dbtype="query">
 		select
@@ -56,29 +53,58 @@
 
 	<table border id="t" class="sortable">
 		<tr>
-			<th>IP</th>
-			<th>IP_Activity</th>
-			<th>subnet</th>
+			<th>Subnet</th>
+			<th>SubnetBlocks</th>
+			<th>IPBlocks</th>
 			<!----
 			<th>listdate</th>
 			<th>tools</th>
 			---->
 		</tr>
-		<cfloop query="d">
+		<cfloop query="subnetfromip">
+
 			<tr>
-				<td>#d.ip#</td>
-				<cfquery name="tl" dbtype="query">
-					select * from rip where ip='#d.ip#'
+				<td>#subnet#</td>
+				<cfquery name="tsnd" dbtype="query">
+					select * from sn where subnet='#subnet#'
 				</cfquery>
+
+
 				<td>
+					<cfif tsnd.recordcount is 0>
+						no subnet blocks
+
+					<cfelse>
+						<table border>
+							<tr>
+								<th>subnet-listdate</th>
+								<th>lastdate</th>
+								<th>status</th>
+							</tr>
+							<cfloop query="#tsnd#">
+								<tr>
+									<td>#INSERT_DATE#</td>
+									<td>#LASTDATE#</td>
+									<td>#STATUS#</td>
+								</tr>
+							</cfloop>
+						</table>
+					</cfif>
+				</td>
+				<td>
+					<cfquery name="tl" dbtype="query">
+						select * from rip where subnet='#subnet#'
+					</cfquery>
 					<table border>
 						<tr>
+							<th>IP</th>
 							<th>listdate</th>
 							<th>lastdate</th>
 							<th>status</th>
 						</tr>
 						<cfloop query="#tl#">
 							<tr>
+								<td>#ip#</td>
 								<td>#LISTDATE#</td>
 								<td>#LASTDATE#</td>
 								<td>#STATUS#</td>
@@ -86,26 +112,9 @@
 						</cfloop>
 					</table>
 				</td>
-				<cfset tsn=listgetat(d.ip,1,'.') & '.' & listgetat(d.ip,2,'.')>
-				<cfquery name="tsnd" dbtype="query">
-					select * from sn where subnet='#tsn#'
-				</cfquery>
-				<td>
-					<table border>
-						<tr>
-							<th>listdate</th>
-							<th>lastdate</th>
-							<th>status</th>
-						</tr>
-						<cfloop query="#tsnd#">
-							<tr>
-								<td>#INSERT_DATE#</td>
-								<td>#LASTDATE#</td>
-								<td>#STATUS#</td>
-							</tr>
-						</cfloop>
-					</table>
-				</td>
+
+
+
 				<!----
 				<td>#listdate#</td>
 				<td>
