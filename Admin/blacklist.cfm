@@ -76,7 +76,20 @@
 					select * from sn where subnet='#tsn#'
 				</cfquery>
 				<td>
-					<cfdump var=#tsnd#>
+					<table border>
+						<tr>
+							<th>listdate</th>
+							<th>lastdate</th>
+							<th>status</th>
+						</tr>
+						<cfloop query="#tsnd#">
+							<tr>
+								<td>#INSERT_DATE#</td>
+								<td>#LASTDATE#</td>
+								<td>#STATUS#</td>
+							</tr>
+						</cfloop>
+					</table>
 				</td>
 				<!----
 				<td>#listdate#</td>
