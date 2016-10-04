@@ -53,16 +53,18 @@
 		IPs are generally auto-blacklisted. Users may remove IP restrictions from Arctos.
 	</p>
 	<p>
-		After 10 IPs from a subnet have been blocked, the subnet is automatically blocked. This controls
-		the size of application variables, and sends email alerting Arctos personnel to increased suspicious activity.
+		Subnets are automatically blocked with 10 active IP blocks from the subnet. This controls
+		the size of application variables, prevents "learning" attacks,
+		and sends email alerting Arctos personnel to increased suspicious activity.
 		Users may remove this restriction from Arctos.
 	</p>
 	<p>
 		"Fairly malicious" subnets should be hard-blocked using the tools below. These blocks cannot be
-		removed by users. Users may fill in a form asking for removal; this must be evaluated by Arctos personnel. Use with caution.
+		removed by users. Users may fill in a form asking for removal; this must be evaluated by Arctos personnel. Create and release
+		these restrictions with caution.
 	</p>
 	<p>
-		"More than fairly" malicious subnets should be blocked at the firewall. Send email to TACC. Users from
+		More-malicious subnets should be blocked at the firewall. Send email to TACC. Users from
 		firewall-blocked subnets cannot see Arctos at all. Use with extreme caution.
 	</p>
 	<p>
