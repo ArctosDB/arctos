@@ -3,8 +3,16 @@
 
 <cfif action is "nothing">
 	<script src="/includes/sorttable.js"></script>
+	<hr>Filter
+	<cfparam name="sincedays" default="180">
+	<form method="post" action="blacklist.cfm">
+		<label for="sincedays">Days to include</label>
+		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
+		<br><input type="submit" value="apply filter">
+	</form>
+
 	<p>
-		This form shows only activity in the last 180 days; all IP-based access restrictions expire after 180 days.
+		All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
 	</p>
 	<cfoutput>
 	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -39,12 +47,14 @@
 			group by
 			subnet
 	</cfquery>
+	<hr>
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
 		<label for="ip">Manually block IP</label>
 		<input type="text" name="ip" id="ip">
 		<br><input type="submit" value="blacklist">
 	</form>
+	<hr>
 	<p>
 		Use the form above (and update the filters or contact someone who can) to stop
 		malicious activity from a single IP.
