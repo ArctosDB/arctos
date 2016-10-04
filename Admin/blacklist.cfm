@@ -2,11 +2,22 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfif action is "nothing">
+	<script>
+		function nextPage(){
+			$("#pg").val($("#pg").val()+1);
+			}
+			function prevPage(){
+			$("#pg").val($("#pg").val()-1);
+			}
+	</script>
+
+
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
 	<hr>Filter
 	<cfparam name="sincedays" default="180">
 	<cfparam name="ipstartswith" default="">
+	<cfparam name="pg" default="1">
 
 	<form method="post" action="blacklist.cfm">
 		<label for="sincedays">Days to include</label>
@@ -14,6 +25,10 @@
 
 		<label for="ipstartswith">IP (starts with)</label>
 		<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
+
+
+		<label for="pg">page</label>
+		<input type="number" name="pg" id="pg" value="#pg#">
 		<br><input type="submit" value="apply filter">
 	</form>
 
@@ -50,9 +65,6 @@
 			sysdate-LISTDATE<#sincedays#) a where rownum <= #stoprow#
 					) where rnum >= #startrow#
 	</cfquery>
-
-
-<cfdump var=#rip#>
 
 	<!--- get subnet blocks relevant to whatever was returned by the IP query ---->
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -112,7 +124,8 @@
 		Immediately contact Arctos personnel if unnecessary restrictions are being automatically added.
 	</p>
 
-
+	<span class="likeLink" onclick="nextPage()">Next Page</span>
+	<span class="likeLink" onclick="prevPage()">Previous Page</span>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet/Tools</th>
