@@ -9,7 +9,11 @@
 	<cfoutput>
 	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			*
+			IP,
+			LISTDATE,
+			STATUS,
+			LASTDATE,
+			substr(ip,1,instr(ip,'.',1,2)-1) subnet
 		from
 			uam.blacklist
 		where
@@ -34,12 +38,10 @@
 
 	<cfquery name="subnetfromip" dbtype="query">
 		select
-			listgetat(d.ip,1,'.') as fp,
-			listgetat(d.ip,2,'.') as lp
+			subnet
 		from d
 			group by
-			listgetat(d.ip,1,'.'),
-			listgetat(d.ip,2,'.')
+			subnet
 	</cfquery>
 
 	<cfdump var=#subnetfromip#>
