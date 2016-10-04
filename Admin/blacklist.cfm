@@ -24,23 +24,14 @@
 
 	<cfset startrow=(pg*pgsize)-pgsize>
 
-	<p>
-		startrow: #startrow#
-	</p>
 
-
-	<cfset stoprow=startrow+pgsize>
-
-	<p>
-		stoprow: #stoprow#
-	</p>
 	<form method="post" id="ff" action="blacklist.cfm">
-		<label for="sincedays">Days to include</label>
-		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
 
 		<label for="ipstartswith">IP (starts with)</label>
 		<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
 
+		<label for="sincedays">Days to include *</label>
+		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
 
 		<label for="pg">page</label>
 		<input type="number" name="pg" id="pg" value="#pg#" required>
@@ -50,7 +41,7 @@
 	</form>
 
 	<p>
-		All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
+		* All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
 	</p>
 
 	<!----
