@@ -410,7 +410,6 @@
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
 </cfif>
-</cfoutput>
 
 
 <cfinclude template="/includes/_footer.cfm">
