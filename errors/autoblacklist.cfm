@@ -102,21 +102,6 @@ log the attempt anyway
 		<!---- adjust the application variables ---->
 		<cfset utilities = CreateObject("component","component.utilities")>
 		<cfset utilities.setAppBL()>
-	<cfelseif blipc.c gte 11>
-		<cfquery name="d" datasource="uam_god">
-			insert into uam.blacklist_subnet (
-				SUBNET,
-				INSERT_DATE,
-				STATUS,
-				LASTDATE
-			) values (
-				'#request.requestingSubnet#',
-				sysdate,
-				'autoinsert',
-				sysdate
-				)
-		</cfquery>
-		<cf_logError subject="CLICKFLOOD WARNING" message="#bl_reason# #blipc.c# blacklist entries for #request.requestingSubnet#">
 	<cfelse>
 		<!---- just add the IP to the app var ---->
 		<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>
