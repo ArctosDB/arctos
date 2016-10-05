@@ -206,7 +206,7 @@
 <cfelse>
 <h2>Saved Searches</h2>
 
-<div style="border:3px solid red;margin-left:15%;margin-right:15%;padding:1em;">
+<div class="importantNotification">
 	CAUTION: Copying and pasting saved searches which end with non-alphanumeric characters (such as punctuation) may produce
 	unexpected results. Use the "email" function to ensure proper encoding, or re-save the search using URL-safe characters.
 </div>
