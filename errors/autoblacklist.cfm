@@ -98,7 +98,7 @@ log the attempt anyway
 				sysdate
 				)
 		</cfquery>
-		<cf_logError subject="new autoblacklist: subnet" message="#bl_reason#">
+		<cf_logError subject="new autoblacklist: subnet has more than 10 blocks" message="#bl_reason#">
 		<!---- adjust the application variables ---->
 		<cfset utilities = CreateObject("component","component.utilities")>
 		<cfset utilities.setAppBL()>
