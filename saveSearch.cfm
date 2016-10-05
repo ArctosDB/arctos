@@ -218,7 +218,7 @@
 		<td><img src="/images/del.gif" class="likeLink" onClick="killSS('#canned_id#');" border="0"></td>
 		<td>#search_name#</td>
 		<td>
-			<a href="/saved/#search_name#">#Application.ServerRootUrl#/saved/#search_name#</a>
+			<a href="/saved/#URLEncodedFormat(search_name)#">#Application.ServerRootUrl#/saved/#URLEncodedFormat(search_name)#</a>
 		</td>
 		<td>
 			<span class="likeLink" onclick="window.open('/tools/mailSaveSearch.cfm?canned_id=#canned_id#','_mail','height=300,width=400,resizable,scrollbars')">Mail</span>
