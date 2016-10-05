@@ -20,13 +20,13 @@
 			<label for="address">Email Address (separate with commas)</label>
 			<input type="text" name="address" id="address" size="50">
 			<br>
-			<input type="submit" value="Preview Message" class="savBtn">	
+			<input type="submit" value="Preview Message" class="savBtn">
 		</form>
 		</cfoutput>
 	</cfif>
-	<cfif #action# is "preview">
+	<cfif action is "preview">
 		<cfoutput>
-		<cfif len(#address#) is 0>
+		<cfif len(address) is 0>
 			You must provide an email address.
 			Use your back button.<cfabort>
 		</cfif>
@@ -35,10 +35,10 @@
 			Subject: Arctos saved search: #SEARCH_NAME#<br>
 			<p>
 				#msg#<br>
-				To view specimens, click the following link:<br>				
-				<a href="#Application.ServerRootUrl#/saved/#search_name#">#SEARCH_NAME#</a><br>
+				To view specimens, click the following link:<br>
+				<a href="#Application.ServerRootUrl#/saved/#URLEncodedFormat(search_name)#">#URLEncodedFormat(SEARCH_NAME)#</a><br>
 				or paste this address into your browser:<br>
-				#Application.ServerRootUrl#/saved/#search_name#<br>
+				#Application.ServerRootUrl#/saved/#URLEncodedFormat(search_name)#<br>
 				-------------------------------------------------<br>
 				<span style="font-size:small">
 				This message was sent from #Application.ServerRootUrl# at the request of an Arctos user. Please report
@@ -52,25 +52,25 @@
 					<input type="hidden" name="SEARCH_NAME" value="#SEARCH_NAME#">
 					<input type="hidden" name="msg" value="#stripQuotes(msg)#">
 					<input type="hidden" name="address" value="#address#">
-			
+
 					<input type="submit" value="Send Message" class="savBtn"
-   						onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
+   						onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">
 				</form>
 			</p>
 		</cfoutput>
 	</cfif>
 	<cfif #action# is "mail">
-		<cfmail replyto="noreply@#Application.fromEmail#" 
+		<cfmail replyto="noreply@#Application.fromEmail#"
 			from="savedSearch@#Application.fromEmail#"
 			to="#address#"
-			subject="Arctos saved search: #SEARCH_NAME#" 
+			subject="Arctos saved search: #URLEncodedFormat(SEARCH_NAME)#"
 			type="html">
 				<p>
 					#msg#<br>
-					To view specimens, click the following link:<br>				
-					<a href="#Application.ServerRootUrl#/saved/#search_name#">#SEARCH_NAME#</a><br>
+					To view specimens, click the following link:<br>
+					<a href="#Application.ServerRootUrl#/saved/#URLEncodedFormat(search_name)#">#URLEncodedFormat(SEARCH_NAME)#</a><br>
 					or paste this address into your browser:<br>
-					#Application.ServerRootUrl#/saved/#search_name#<br>
+					#Application.ServerRootUrl#/saved/#URLEncodedFormat(search_name)#<br>
 					-------------------------------------------------<br>
 					<span style="font-size:small">
 					This message was sent from #Application.ServerRootUrl# at the request of an Arctos user. Please report
