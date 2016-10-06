@@ -45,11 +45,12 @@
 			<tr>
 				<td>#d.subnet#</td>
 				<td>#d.attempts#</td>
-				<td><a href="blacklistattempt.cfm?rptprd=#rptprd#&mincount=#mincount#&detailsn=#d.subnet#">details</a></td>
+				<td><a href="blacklistattempt.cfm?rptprd=#rptprd#&mincount=#mincount#&detailsn=#d.subnet###details">details</a></td>
 			</tr>
 		</cfloop>
 	</table>
 	<cfif isdefined("detailsn") and len(detailsn) gt 0>
+		<a name="details"></a>
 		<hr>Details for subnet #detailsn#
 		<ul>
 			<li>
