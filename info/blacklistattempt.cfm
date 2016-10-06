@@ -5,7 +5,7 @@
 <cfset inet_address = CreateObject("java", "java.net.InetAddress")>
 <cfoutput>
 	<cfparam name="rptprd" default=1>
-	<cfparam name="mincount" default=20>
+	<cfparam name="mincount" default=10>
 	<form name="f" method="post" action="blacklistattempt.cfm">
 		blacklisted_entry_attempt for the last <input type="number" name="rptprd" id="rptprd" value="#rptprd#">
 		 days, containining only those subnets originating > <input type="number" name="mincount" id="mincount" value="#mincount#"> attempts
