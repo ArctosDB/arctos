@@ -6,11 +6,14 @@
 		function nextPage(){
 			$("#pg").val(parseInt($("#pg").val())+1);
 			$("#ff").submit();
-			}
-			function prevPage(){
+		}
+		function prevPage(){
 			$("#pg").val(parseInt($("#pg").val())-1);
 			$("#ff").submit();
-			}
+		}
+		$( "#resetfilter" ).click(function() {
+		  document.location='blacklist.cfm';
+		});
 	</script>
 
 
@@ -26,20 +29,16 @@
 	<cfset stoprow=startrow+pgsize>
 
 	<form method="post" id="ff" action="blacklist.cfm">
-
 		<label for="ipstartswith">IP (starts with)</label>
 		<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
-
 		<label for="sincedays">Days to include*</label>
 		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
-
-
-
 		<label for="pg">page</label>
 		<input type="number" name="pg" id="pg" value="#pg#" required>
 		<label for="pagesize">page size</label>
 		<input type="number" name="pgsize" id="pgsize" value="#pgsize#" required>
 		<br><input type="submit" value="apply filter">
+		<br><input type="button" id="resetfilter" value="reset">
 	</form>
 
 	<p>
