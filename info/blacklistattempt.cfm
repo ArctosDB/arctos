@@ -3,7 +3,7 @@
 
 <cfset inet_address = CreateObject("java", "java.net.InetAddress")>
 <cfoutput>
-	<cfparam name="rptprd" default=7>
+	<cfparam name="rptprd" default=1>
 	<cfparam name="mincount" default=20>
 	<form name="f" method="post" action="blacklistattempt.cfm">
 		blacklisted_entry_attempt for the last <input type="number" name="rptprd" id="rptprd" value="#rptprd#">
@@ -36,15 +36,19 @@
 		<tr>
 			<th>Subnet</th>
 			<th>Last#rptprd#</th>
+			<th>Clickypop</th>
 		</tr>
 		<cfloop query="d">
 			<tr>
 				<td>#d.subnet#</td>
 				<td>#d.attempts#</td>
+				<td><a href="blacklistattempt.cfm?rptprd=#rptprd#&mincount=#mincount#&detailsn=#d.subnet#">details</a></td>
 			</tr>
 		</cfloop>
 	</table>
-
+	<cfif isdefined("detailsn") and len(detailsn) gt 0>
+		<hr>Diggin up detail for #detailsn#....
+	</cfif>
 
 <!------------
 	<hr>
