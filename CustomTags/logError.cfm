@@ -157,8 +157,10 @@
 </cfloop>
 <cfset logdata=logdata & "</logEntry>">
 <cftry>
-	<cfhttp url="freegeoip.net/csv/#exception.ipaddress#" timeout="5"></cfhttp>
-	<cfset ipinfo=cfhttp.fileContent>
+	<cfhttp url="freegeoip.net/json/#exception.ipaddress#" timeout="5"></cfhttp>
+	<cfset x=DeserializeJSON(cfhttp.fileContent)>
+	<cfset ipinfo=x.country_name & '; ' & x.region_name & x.city>
+
 <cfcatch><cfset ipinfo='ip info lookup failed'></cfcatch>
 </cftry>
 <cffile action="append" file="#theLogFile#" output="#logdata#">
