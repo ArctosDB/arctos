@@ -2,7 +2,7 @@
 <cfset title="system statistics">
 <cfoutput>
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select * from collection
+		select * from collection order by guid_prefix
 	</cfquery>
 	<br>this form caches for one hour
 	<table border>
@@ -26,7 +26,7 @@
 			<td>Number Institutions<a href="##rawinst" class="infoLink">list</a></td>
 			<td><input value="#inst.recordcount#"></td>
 		</tr>
-		
+
 		<cfquery name="cataloged_item" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from cataloged_item
 		</cfquery>
@@ -34,13 +34,13 @@
 			<td>Total Number Specimens</td>
 			<td><input value="#cataloged_item.c#"></td>
 		</tr>
-		
-		
+
+
 		<cfquery name="citype" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
+			select
 				CATALOGED_ITEM_TYPE,
-				count(*) c 
-			from 
+				count(*) c
+			from
 				cataloged_item
 			group by
 				CATALOGED_ITEM_TYPE
@@ -53,7 +53,7 @@
 				</cfloop>
 			</td>
 		</tr>
-		
+
 		<cfquery name="taxonomy" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from taxon_name
 		</cfquery>
@@ -68,7 +68,7 @@
 			<td>Number Localities</td>
 			<td><input value="#locality.c#"></td>
 		</tr>
-		
+
 		<cfquery name="collecting_event" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from collecting_event
 		</cfquery>
@@ -76,7 +76,7 @@
 			<td>Number Collecting Events</td>
 			<td><input value="#collecting_event.c#"></td>
 		</tr>
-		
+
 		<cfquery name="media" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from media
 		</cfquery>
