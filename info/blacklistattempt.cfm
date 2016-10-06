@@ -36,6 +36,7 @@
 			Last#rptprd#=number of attempts from the subnet in last #rptprd# days
 		</li>
 	</ul>
+	<a name="top"></a>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet</th>
@@ -53,7 +54,7 @@
 
 	<cfif isdefined("detailsn") and len(detailsn) gt 0>
 		<a name="details"></a>
-		<hr>Details for subnet #detailsn#
+		<hr>Details for subnet #detailsn# <a href="##top">back to main</a>
 		<ul>
 			<li>
 				Last#rptprd#=number of attempts from the subnet in last #rptprd# days
