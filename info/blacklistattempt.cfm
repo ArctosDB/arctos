@@ -26,6 +26,9 @@
 		 	count(*) DESC
 	</cfquery>
 
+	<p>
+		This form reports connection attempts from already-blacklisted IPs.
+	</p>
 	<hr>Subnet-only
 	<ul>
 		<li>
