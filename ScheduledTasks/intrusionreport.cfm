@@ -17,6 +17,10 @@
 		 	count(*) DESC
 	</cfquery>
 
+	<cfif d.recordcount is 0>
+		nothing to report<cfabort>
+	</cfif>
+
 	<cfquery name="ma" dbtype="query">
 		select max(attempts) as mat from d
 	</cfquery>
