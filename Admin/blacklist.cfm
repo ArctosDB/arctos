@@ -11,8 +11,11 @@
 			$("#pg").val(parseInt($("#pg").val())-1);
 			$("#ff").submit();
 		}
-		$( "#resetfilter" ).click(function() {
-		  document.location='blacklist.cfm';
+		$(document).ready(function() {
+
+			$( "#resetfilter" ).click(function() {
+			  document.location='blacklist.cfm';
+			});
 		});
 	</script>
 
