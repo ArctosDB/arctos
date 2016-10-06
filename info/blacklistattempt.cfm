@@ -65,31 +65,42 @@
 		<table border id="t" class="sortable">
 		<tr>
 			<th>alltime</th>
+			<th>Last#rptprd#</th>
 			<th>IP</th>
 			<th>Host</th>
 			<th>Click</th>
 		</tr>
-		<cfquery name="ips" datasource="uam_god">
+		<cfquery name="rips" datasource="uam_god">
 			select
 				ip,
-				count(*) c
+				timestamp
 			from
 				blacklisted_entry_attempt
 			where
 				ip like '#detailsn#.%'
-			group by
-				ip
-			order by
-				count(*) DESC
 		</cfquery>
-		<cfloop query="#ips#">
+		<cfquery name="dips" dbtype="query">
+			select ip from rips group by ip order by ip
+		</cfquery>
+
+		<cfloop query="#dips#">
+			<cfquery name="alla" dbtype="query">
+				select count(*) c from rips where ip='#ip#'
+			</cfquery>
+			<cfquery name="lastd" dbtype="query">
+				select count(*) c from rips where ip='#ip#' and dateDiff("d", timestamp, now()) < #rptprd#
+			</cfquery>
+
+
 			<cftry>
 				<cfset host_name = inet_address.getByName("#ip#").getHostName()>
 			<cfcatch>
 				<cfset host_name='idk'>
 			</cfcatch></cftry>
 			<tr>
-				<td>#c#</td>
+				<td>#alla.c#</td>
+				<td>#lastd.c#</td>
+
 				<td>#ip#</td>
 				<td>#host_name#</td>
 				<td>
@@ -103,13 +114,5 @@
 
 
 	</cfif>
-
-<!------------
-	<hr>
-	Including IPs
-
-
-
-	---------->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
