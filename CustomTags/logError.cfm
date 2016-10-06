@@ -172,6 +172,7 @@
 		<br><a href="https://gwhois.org/#exception.ipaddress#">[ lookup #exception.ipaddress# @gwhois ]</a>
 		<p>
 			<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
+			or manage IP and subnet restrictions
 		</p>
 	</cfif>
 	<cfif isdefined("exception.rawipaddress") and len(exception.rawipaddress) gt 0>
