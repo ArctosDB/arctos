@@ -159,7 +159,7 @@
 <cftry>
 	<cfhttp url="freegeoip.net/json/#exception.ipaddress#" timeout="5"></cfhttp>
 	<cfset x=DeserializeJSON(cfhttp.fileContent)>
-	<cfset ipinfo=x.country_name & '; ' & x.region_name & x.city>
+	<cfset ipinfo=x.country_name & '; ' & x.region_name & '; ' & x.city>
 
 <cfcatch><cfset ipinfo='ip info lookup failed'></cfcatch>
 </cftry>

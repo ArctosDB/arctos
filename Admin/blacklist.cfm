@@ -254,7 +254,7 @@
 			sysdate
 			)
 	</cfquery>
-	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
+	<cflocation url="/Admin/blacklist.cfm?ipstartswith=#ip#" addtoken="false">
 </cfif>
 <!------------------------------------------>
 <cfif action is "UNblockSubnet">
