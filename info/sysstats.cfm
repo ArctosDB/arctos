@@ -146,7 +146,6 @@
 	</p>
 	<p>Query and Download stats are available under the Reports tab.</p>
 	<a name="growth"></a>
-
 	<hr>
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfset variables.encoding="UTF-8">
@@ -188,8 +187,6 @@
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
-
-
 	<hr>
 	<a name="collections"></a>
 	<p>List of collections in Arctos:</p>
@@ -206,7 +203,5 @@
 			<li>#institution#</li>
 		</cfloop>
 	</ul>
-
-
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">

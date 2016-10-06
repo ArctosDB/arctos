@@ -157,7 +157,7 @@
 </cfloop>
 <cfset logdata=logdata & "</logEntry>">
 <cftry>
-	<cfhttp url="http://api.hostip.info/get_html.php?ip=#exception.ipaddress#" timeout="5"></cfhttp>
+	<cfhttp url="freegeoip.net/csv/#exception.ipaddress#" timeout="5"></cfhttp>
 	<cfset ipinfo=cfhttp.fileContent>
 <cfcatch><cfset ipinfo='ip info lookup failed'></cfcatch>
 </cftry>
