@@ -47,21 +47,17 @@
 		</cfloop>
 	</table>
 	<cfif isdefined("detailsn") and len(detailsn) gt 0>
-		<hr>Diggin up detail for #detailsn#....
-	</cfif>
+		<hr>Details for subnet #detailsn#
+		<ul>
+			<li>
+				Last#rptprd#=number of attempts from the subnet in last #rptprd# days
+			</li>
+			<li>
+				alltime=all-time connection attempts
+			</li>
+		</ul>
 
-<!------------
-	<hr>
-	Including IPs
-	<ul>
-		<li>
-			Last#rptprd#=number of attempts from the subnet in last #rptprd# days
-		</li>
-		<li>
-			alltime=all-time connection attempts from the IP
-		</li>
-	</ul>
-	<table border id="t" class="sortable">
+		<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet</th>
 			<th>Last#rptprd#</th>
@@ -78,7 +74,7 @@
 				from
 					blacklisted_entry_attempt
 				where
-					ip like '#d.subnet#.%'
+					ip like '#detailsn#.%'
 				group by
 					ip
 				order by
@@ -101,6 +97,15 @@
 			</cfloop>
 		</cfloop>
 	</table>
+
+
+	</cfif>
+
+<!------------
+	<hr>
+	Including IPs
+
+
 
 	---------->
 </cfoutput>
