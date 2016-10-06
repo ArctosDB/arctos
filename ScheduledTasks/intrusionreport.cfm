@@ -1,5 +1,5 @@
-<cfset rptprd=10>
-<cfset mincount=1>
+<cfset rptprd=1>
+<cfset mincount=10>
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 			SELECT
