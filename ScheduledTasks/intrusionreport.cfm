@@ -1,4 +1,4 @@
-<cfset rptprd=7>
+<cfset rptprd=1>
 <cfset mincount=20>
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
@@ -17,9 +17,13 @@
 		 	count(*) DESC
 	</cfquery>
 
-	<cfmail subject="blacklisted entry attempt report" to="dustymc@gmail.com" from="blacklistreport@#application.fromEmail#" type="html">
+	<cfquery name="ma" dbtpye="query">
+		select max(attempts) mat from d
+	</cfquery>
+
+	<cfmail subject="blacklisted entry attempt report (#ma.mat#)" to="dustymc@gmail.com" from="blacklistreport@#application.fromEmail#" type="html">
 		<p>
-			blacklisted_entry_attempt for the last #rptprd# days, containing only those subnets originating > #mincount# attempts
+			blacklisted_entry_attempt for the last #rptprd# day(s), containing only those subnets originating > #mincount# attempts
 		</p>
 		<p>
 			More info at <a href="#Application.serverRootURL#/info/blacklistattempt.cfm">#Application.serverRootURL#/info/blacklistattempt.cfm</a>

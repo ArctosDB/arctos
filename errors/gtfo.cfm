@@ -15,7 +15,6 @@
 		others who may have accessed Arctos from your IP or organization. Further intrusion attempts may result in more
 		restrictive blocks.
 	</p>
-
 	<cfif bsn.c gt 0>
 		<cfset isSubNetBlock=true>
 		<p>

@@ -51,7 +51,6 @@
 				Some features of this site may not work in your browser. <a href="/home.cfm##requirements">Learn more</a>
 			</div>
 		</cfif>
-
 		<div id="header_color" style='background-color:#session.header_color#;'>
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 				<tr>
@@ -215,20 +214,6 @@
 											<cfif listfind(formList,"/tools/BulkloadContainerEnvironment.cfm")>
 												<li><a target="_top" href="/tools/BulkloadContainerEnvironment.cfm">bulkload container environment</a></li>
 											</cfif>
-
-
-
-
-											<!----
-											<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
-
-											<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
-												<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
-											</cfif>
-
-
-											---->
-
 										</ul>
 									</li>
 								</cfif>

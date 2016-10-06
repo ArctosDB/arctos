@@ -165,22 +165,6 @@
 	</cfmail>
 	<cftry>
 		<cfset utilities.setAppBL()>
-		<!----
-
-		<cfquery name="d" datasource="uam_god">
-			select ip from uam.blacklist where
-				status='active' and
-				sysdate-LISTDATE<#expiresIn# and
-				substr(ip,1,instr(ip,'.',1,2)-1) not in (
-					select subnet from blacklist_subnet where status='active' and sysdate-INSERT_DATE<#expiresIn#
-				)
-		</cfquery>
-		<cfset Application.blacklist=valuelist(d.ip)>
-		<cfquery name="sn" datasource="uam_god">
-			select subnet from uam.blacklist_subnet where status='active' and sysdate-INSERT_DATE<180
-		</cfquery>
-		<cfset application.subnet_blacklist=valuelist(sn.subnet)>
-		---->
 	<cfcatch>
 		<cfset Application.blacklist="">
 		<cfset Application.subnet_blacklist="">
@@ -274,14 +258,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	<!---
-		blacklist yourself? delete it via sql and uncomment this
-		<cfquery name="d" datasource="uam_god">
-			select ip from uam.blacklist where sysdate-LISTDATE<180
-		</cfquery>
-		<cfset Application.blacklist=valuelist(d.ip)>
-	---->
-
 	<!--- uncomment for a break from googlebot
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
