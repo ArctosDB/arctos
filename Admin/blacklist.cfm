@@ -12,14 +12,11 @@
 			$("#ff").submit();
 		}
 		$(document).ready(function() {
-
 			$( "#resetfilter" ).click(function() {
 			  document.location='blacklist.cfm';
 			});
 		});
 	</script>
-
-
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
 	<hr>Filter
@@ -27,10 +24,8 @@
 	<cfparam name="ipstartswith" default="">
 	<cfparam name="pg" default="1">
 	<cfparam name="pgsize" default="100">
-
 	<cfset startrow=(pg*pgsize)-pgsize>
 	<cfset stoprow=startrow+pgsize>
-
 	<form method="post" id="ff" action="blacklist.cfm">
 		<label for="ipstartswith">IP (starts with)</label>
 		<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
@@ -43,45 +38,30 @@
 		<br><input type="submit" value="apply filter">
 		<br><input type="button" id="resetfilter" value="reset">
 	</form>
-
 	<p>
 		* All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
 	</p>
-
-	<!----
-	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			IP,
-			to_char(LISTDATE,'yyyy-mm-dd') LISTDATE,
-			STATUS,
-			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
-			substr(ip,1,instr(ip,'.',1,2)-1) subnet
-		from
-			uam.blacklist
-		where
-			sysdate-LISTDATE<#sincedays#
-	</cfquery>
-	---------->
 	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		Select * from (
-						Select a.*, rownum rnum From (
-						select
-			IP,
-			to_char(LISTDATE,'yyyy-mm-dd') LISTDATE,
-			STATUS,
-			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
-			substr(ip,1,instr(ip,'.',1,2)-1) subnet
-		from
-			uam.blacklist
-		where
-			sysdate-LISTDATE<#sincedays#
-			<cfif len(ipstartswith) gt 0>
-				and ip like '#ipstartswith#%'
-			</cfif>
-			order by LISTDATE desc) a where rownum <= #stoprow#
-					) where rnum >= #startrow#
+			Select a.*, rownum rnum From (
+				select
+					IP,
+					to_char(LISTDATE,'yyyy-mm-dd') LISTDATE,
+					STATUS,
+					to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
+					substr(ip,1,instr(ip,'.',1,2)-1) subnet
+				from
+					uam.blacklist
+				where
+					sysdate-LISTDATE<#sincedays#
+					<cfif len(ipstartswith) gt 0>
+						and ip like '#ipstartswith#%'
+					</cfif>
+					order by LISTDATE desc
+				) a
+				where rownum <= #stoprow#
+			) where rnum >= #startrow#
 	</cfquery>
-
 	<!--- get subnet blocks relevant to whatever was returned by the IP query ---->
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
