@@ -45,6 +45,8 @@
 		</cfloop>
 	</table>
 
+
+<!------------
 	<hr>
 	Including IPs
 	<ul>
@@ -95,5 +97,7 @@
 			</cfloop>
 		</cfloop>
 	</table>
+
+	---------->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">

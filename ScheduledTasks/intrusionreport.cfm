@@ -20,14 +20,28 @@
 	<cfquery name="ma" dbtype="query">
 		select max(attempts) as mat from d
 	</cfquery>
-
-
 	<cfquery name="sa" dbtype="query">
 		select sum(attempts) as sat from d
 	</cfquery>
+	<cfif sat lt 500>
+		<cfset subj='blacklisted entry attempt report (#ma.mat#: #sa.sat#)'>
+		<cfset mto=application.logEmail>
+		<cfset intro="CHILL: low activity, nothing to worry about here.">
+	<cfelseif sat lt 1000>
+		<cfset subj='IMPORTANT: blacklisted entry attempt report (#ma.mat#: #sa.sat#)'>
+		<cfset mto="#application.logEmail#,#Application.bugReportEmail#,#Application.DataProblemReportEmail#">
+		<cfset intro="You are receiving this report because increased activity from blocked IP addresses was detected.">
+	<cfelseif sat get 1000>
+		<cfset subj='URGENT: blacklisted entry attempt report (#ma.mat#: #sa.sat#)'>
+		<cfset mto="#application.logEmail#,#Application.bugReportEmail#,#Application.DataProblemReportEmail#">
+		<cfset intro="You are receiving this report because increased activity from blocked IP addresses was detected.
+			Please take immediate action to ensure that the Arctos technical team is aware of this message.">
+	</cfif>
 
-	<cfmail subject="blacklisted entry attempt report (#ma.mat#: #sa.sat#)" to="dustymc@gmail.com" from="blacklistreport@#application.fromEmail#" type="html">
+	<cfmail subject="#subj#" to="#mto#" from="blacklistreport@#application.fromEmail#" type="html">
 		<p>
+			#intro#
+		</p><p>
 			blacklisted_entry_attempt for the last #rptprd# day(s), containing only those subnets originating > #mincount# attempts
 		</p>
 		<p>
