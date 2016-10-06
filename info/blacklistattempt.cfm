@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="intrusion attempt report">
 <script src="/includes/sorttable.js"></script>
 
 <cfset inet_address = CreateObject("java", "java.net.InetAddress")>
