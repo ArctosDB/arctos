@@ -49,6 +49,7 @@
 			</tr>
 		</cfloop>
 	</table>
+
 	<cfif isdefined("detailsn") and len(detailsn) gt 0>
 		<a name="details"></a>
 		<hr>Details for subnet #detailsn#
@@ -63,42 +64,40 @@
 
 		<table border id="t" class="sortable">
 		<tr>
-			<th>Subnet</th>
-			<th>Last#rptprd#</th>
 			<th>alltime</th>
 			<th>IP</th>
 			<th>Host</th>
 			<th>Click</th>
 		</tr>
-		<cfloop query="d">
-			<cfquery name="ips" datasource="uam_god">
-				select
-					ip,
-					count(*) c
-				from
-					blacklisted_entry_attempt
-				where
-					ip like '#detailsn#.%'
-				group by
-					ip
-				order by
-					count(*) DESC
-			</cfquery>
-			<cfloop query="#ips#">
-				<cftry>
-					<cfset host_name = inet_address.getByName("#ip#").getHostName()>
-				<cfcatch>
-					<cfset host_name='idk'>
-				</cfcatch></cftry>
-				<tr>
-					<td>#d.subnet#</td>
-					<td>#d.attempts#</td>
-					<td>#c#</td>
-					<td>#ip#</td>
-					<td>#host_name#</td>
-					<td><a target="_blanl" class="external" href="http://whatismyipaddress.com/ip/#ip#">lookup</a></td>
-				</tr>
-			</cfloop>
+		<cfquery name="ips" datasource="uam_god">
+			select
+				ip,
+				count(*) c
+			from
+				blacklisted_entry_attempt
+			where
+				ip like '#detailsn#.%'
+			group by
+				ip
+			order by
+				count(*) DESC
+		</cfquery>
+		<cfloop query="#ips#">
+			<cftry>
+				<cfset host_name = inet_address.getByName("#ip#").getHostName()>
+			<cfcatch>
+				<cfset host_name='idk'>
+			</cfcatch></cftry>
+			<tr>
+				<td>#c#</td>
+				<td>#ip#</td>
+				<td>#host_name#</td>
+				<td>
+					<a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ @whatismyipaddress ]</a></li>
+					<br><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ @ipalyzer ]</a></li>
+					<br><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ @gwhois ]</a></li>
+				</td>
+			</tr>
 		</cfloop>
 	</table>
 

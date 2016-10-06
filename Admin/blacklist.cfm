@@ -190,9 +190,9 @@
 									IP: #ip#
 										<ul>
 											<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
-											<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ lookup @whatismyipaddress ]</a></li>
-											<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ lookup @ipalyzer ]</a></li>
-											<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ lookup @gwhois ]</a></li>
+											<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ @whatismyipaddress ]</a></li>
+											<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ @ipalyzer ]</a></li>
+											<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ @gwhois ]</a></li>
 										</ul>
 								</td>
 								<td>
