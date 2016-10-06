@@ -21,7 +21,12 @@
 		select max(attempts) as mat from d
 	</cfquery>
 
-	<cfmail subject="blacklisted entry attempt report (#ma.mat#)" to="dustymc@gmail.com" from="blacklistreport@#application.fromEmail#" type="html">
+
+	<cfquery name="sa" dbtype="query">
+		select sum(attempts) as sat from d
+	</cfquery>
+
+	<cfmail subject="blacklisted entry attempt report (#ma.mat#: #sa.sat#)" to="dustymc@gmail.com" from="blacklistreport@#application.fromEmail#" type="html">
 		<p>
 			blacklisted_entry_attempt for the last #rptprd# day(s), containing only those subnets originating > #mincount# attempts
 		</p>
