@@ -73,7 +73,7 @@
 		<cfquery name="rips" datasource="uam_god">
 			select
 				ip,
-				timestamp
+				to_date(sysdate, 'yyyy-mm-dd')-to_date(CAST(timestamp AS DATE), 'yyyy-mm-dd') daysAgo
 			from
 				blacklisted_entry_attempt
 			where
@@ -88,7 +88,7 @@
 				select count(*) c from rips where ip='#ip#'
 			</cfquery>
 			<cfquery name="lastd" dbtype="query">
-				select count(*) c from rips where ip='#ip#' and dateDiff("d", timestamp, now()) < #rptprd#
+				select count(*) c from rips where ip='#ip#' and daysAgo < #rptprd#
 			</cfquery>
 
 
