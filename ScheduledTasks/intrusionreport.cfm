@@ -18,7 +18,7 @@
 	</cfquery>
 
 	<cfquery name="ma" dbtpye="query">
-		select max(attempts) mat from d
+		select max(attempts) as mat from d
 	</cfquery>
 
 	<cfmail subject="blacklisted entry attempt report (#ma.mat#)" to="dustymc@gmail.com" from="blacklistreport@#application.fromEmail#" type="html">
