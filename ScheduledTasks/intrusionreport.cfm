@@ -17,7 +17,7 @@
 		 	count(*) DESC
 	</cfquery>
 
-	<cfquery name="ma" dbtpye="query">
+	<cfquery name="ma" dbtype="query">
 		select max(attempts) as mat from d
 	</cfquery>
 
