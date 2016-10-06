@@ -27,11 +27,11 @@
 	<cfquery name="sa" dbtype="query">
 		select sum(attempts) as sat from d
 	</cfquery>
-	<cfif sat lt 100>
+	<cfif sa.sat lt 100>
 		<cfset subj='blacklisted entry attempt report (#ma.mat#: #sa.sat#)'>
 		<cfset mto=application.logEmail>
 		<cfset intro="CHILL: low activity, nothing to worry about here.">
-	<cfelseif sat lt 250>
+	<cfelseif sa.sat lt 250>
 		<cfset subj='IMPORTANT: blacklisted entry attempt report (#ma.mat#: #sa.sat#)'>
 		<cfset mto="#application.logEmail#,#Application.bugReportEmail#,#Application.DataProblemReportEmail#">
 		<cfset intro="You are receiving this report because increased activity from blocked IP addresses was detected.">
