@@ -39,99 +39,51 @@
 	<cfset bl_reason="unknown">
 </cfif>
 
-<!----
+<cfquery name="d" datasource="uam_god">
+	insert into uam.blacklist (
+		ip,
+		LISTDATE,
+		STATUS,
+		LASTDATE
+	) values (
+		'#request.ipaddress#',
+		sysdate,
+		'active',
+		sysdate
+		)
+</cfquery>
+<cfquery name="blipc" datasource="uam_god">
+	select count(*) c from blacklist where
+	status='active' and
+	substr(ip,1,instr(ip,'.',1,2)-1) = '#request.requestingSubnet#'
+</cfquery>
 
-log the attempt anyway
-
-
-<!--- sometimes already-banned IPs end up here due to click-flooding etc. ---->
-<cfif listcontains(application.blacklist,request.ipaddress)>
-	<!--- they're already actively blacklisted - do nothing here---->
-	<cf_logError subject="existing active IP autoblacklisted"  message="#bl_reason#">
-	<cfinclude template="/errors/gtfo.cfm">
-	<cfabort>
-</cfif>
-<cfif listcontains(application.subnet_blacklist,request.requestingSubnet,",")>
-	<!--- they're already actively blacklisted - do nothing here---->
-	<cf_logError subject="existing active subnet autoblacklisted"  message="#bl_reason#">
-	<cfinclude template="/errors/gtfo.cfm">
-	<cfabort>
-</cfif>
+<!---- if there are more than 10 blocked IPs from this subnet, it's probably something that
+	we don't have the resources to support. Auto-block the subnet, remove the IPs from
+	the application data.
 ---->
-
-
+<cfif blipc.c gte 10>
+	<!--- add the subnet --->
 	<cfquery name="d" datasource="uam_god">
-		insert into uam.blacklist (
-			ip,
-			LISTDATE,
+		insert into uam.blacklist_subnet (
+			SUBNET,
+			INSERT_DATE,
 			STATUS,
 			LASTDATE
 		) values (
-			'#request.ipaddress#',
+			'#request.requestingSubnet#',
 			sysdate,
-			'active',
+			'autoinsert',
 			sysdate
 			)
 	</cfquery>
-	<cfquery name="blipc" datasource="uam_god">
-		select count(*) c from blacklist where
-		status='active' and
-		substr(ip,1,instr(ip,'.',1,2)-1) = '#request.requestingSubnet#'
-	</cfquery>
-
-	<!---- if there are more than 10 blocked IPs from this subnet, it's probably something that
-		we don't have the resources to support. Auto-block the subnet, remove the IPs from
-		the application data.
-	---->
-	<cfif blipc.c gte 10>
-		<!--- add the subnet --->
-		<cfquery name="d" datasource="uam_god">
-			insert into uam.blacklist_subnet (
-				SUBNET,
-				INSERT_DATE,
-				STATUS,
-				LASTDATE
-			) values (
-				'#request.requestingSubnet#',
-				sysdate,
-				'autoinsert',
-				sysdate
-				)
-		</cfquery>
-		<cf_logError subject="new autoblacklist: subnet has more than 10 blocks" message="#bl_reason#">
-		<!---- adjust the application variables ---->
-		<cfset utilities = CreateObject("component","component.utilities")>
-		<cfset utilities.setAppBL()>
-	<cfelse>
-		<!---- just add the IP to the app var ---->
-		<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>
-		<cf_logError subject="new autoblacklist" message="#bl_reason#">
-	</cfif>
-
-	<cfinclude template="/errors/gtfo.cfm">
-
-<!---- old stuff, just insert
-
-
-<!--- not currently on the nukelist --->
-<cfquery name="exists" datasource="uam_god">
-	select ip from uam.blacklist where ip='#trim(request.ipaddress)#'
-</cfquery>
-<cfif len(exists.ip) gt 0>
-	<cfquery name="d" datasource="uam_god">
-		update uam.blacklist set LISTDATE=sysdate where ip='#trim(request.ipaddress)#'
-	</cfquery>
-	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
-	<cf_logError subject="updated autoblacklist" message="#bl_reason#">
-	<cfinclude template="/errors/gtfo.cfm">
-	<cfabort>
+	<cf_logError subject="new autoblacklist: subnet has more than 10 active blocks" message="#bl_reason#">
+	<!---- adjust the application variables ---->
+	<cfset utilities = CreateObject("component","component.utilities")>
+	<cfset utilities.setAppBL()>
 <cfelse>
-	<cfquery name="d" datasource="uam_god">
-		insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
-	</cfquery>
-	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
+	<!---- just add the IP to the app var ---->
+	<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>
 	<cf_logError subject="new autoblacklist" message="#bl_reason#">
-	<cfinclude template="/errors/gtfo.cfm">
-	<cfabort>
 </cfif>
----->
+<cfinclude template="/errors/gtfo.cfm">
