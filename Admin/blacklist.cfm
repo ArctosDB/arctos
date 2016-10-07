@@ -1,6 +1,5 @@
 <cfset title="Manage IP and subnet blocking">
 <cfinclude template="/includes/_header.cfm">
-
 <cfif action is "nothing">
 	<script>
 		function nextPage(){
@@ -19,193 +18,187 @@
 	</script>
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
-	<hr>Filter
-	<cfparam name="sincedays" default="180">
-	<cfparam name="ipstartswith" default="">
-	<cfparam name="pg" default="1">
-	<cfparam name="pgsize" default="100">
-	<cfset startrow=(pg*pgsize)-pgsize>
-	<cfset stoprow=startrow+pgsize>
-	<form method="post" id="ff" action="blacklist.cfm">
-		<label for="ipstartswith">IP (starts with)</label>
-		<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
-		<label for="sincedays">Days to include*</label>
-		<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
-		<label for="pg">page</label>
-		<input type="number" name="pg" id="pg" value="#pg#" required>
-		<label for="pagesize">page size</label>
-		<input type="number" name="pgsize" id="pgsize" value="#pgsize#" required>
-		<br><input type="submit" value="apply filter">
-		<br><input type="button" id="resetfilter" value="reset">
-	</form>
-	<p>
-		* All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
-	</p>
-	<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		Select * from (
-			Select a.*, rownum rnum From (
-				select
-					IP,
-					to_char(LISTDATE,'yyyy-mm-dd') LISTDATE,
-					STATUS,
-					to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
-					substr(ip,1,instr(ip,'.',1,2)-1) subnet
-				from
-					uam.blacklist
-				where
-					sysdate-LISTDATE<#sincedays#
-					<cfif len(ipstartswith) gt 0>
-						and ip like '#ipstartswith#%'
-					</cfif>
-					order by LISTDATE desc
-				) a
-				where rownum <= #stoprow#
-			) where rnum >= #startrow#
-	</cfquery>
-	<!--- get subnet blocks relevant to whatever was returned by the IP query ---->
-	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			SUBNET,
-			STATUS,
-			to_char(INSERT_DATE,'yyyy-mm-dd') INSERT_DATE,
-			to_char(LASTDATE,'yyyy-mm-dd') LASTDATE
-		from
-			uam.blacklist_subnet
-		where
-			sysdate-INSERT_DATE<#sincedays#
-	</cfquery>
-	<cfset utilities = CreateObject("component","component.utilities")>
-	<cfset utilities.setAppBL()>
-	<cfquery name="subnetfromip" dbtype="query">
-		select
-			subnet
-		from rip
-			group by
-			subnet
-			order by LISTDATE desc
-	</cfquery>
-	<hr>
-	<form name="i" method="post" action="blacklist.cfm">
-		<input type="hidden" name="action" value="ins">
-		<label for="ip">Manually block IP</label>
-		<input type="text" name="ip" id="ip">
-		<br><input type="submit" value="blacklist">
-	</form>
-	<hr>
-	<p>
-		Use the form above (and update the filters or contact someone who can) to stop
-		malicious activity from a single IP.
-	</p>
-	<p>
-		IPs are generally auto-blacklisted. Users may remove IP restrictions from Arctos.
-	</p>
-	<p>
-		Subnets are automatically blocked with 10 active IP blocks from the subnet. This controls
-		the size of application variables, prevents "learning" attacks,
-		and sends email alerting Arctos personnel to increased suspicious activity.
-		Users may remove this restriction from Arctos.
-	</p>
-	<p>
-		"Fairly malicious" subnets should be hard-blocked using the tools below. These blocks cannot be
-		removed by users. Users may fill in a form asking for removal; this must be evaluated by Arctos personnel. Create and release
-		these restrictions with caution.
-	</p>
-	<p>
-		More-malicious subnets should be blocked at the firewall. Send email to TACC. Users from
-		firewall-blocked subnets cannot see Arctos at all. Use with extreme caution.
-	</p>
-	<p>
-		Please carefully examine the relevant logs and consult with Arctos personnel before doing anything with this form.
-	</p>
-	<p>
-		Immediately contact Arctos personnel if unnecessary restrictions are being automatically added.
-	</p>
-
-	<span class="likeLink" onclick="prevPage()">Previous Page</span>
-	<span class="likeLink" onclick="nextPage()">Next Page</span>
-	<table border id="t" class="sortable">
-		<tr>
-			<th>Subnet/Tools</th>
-			<th>SubnetBlocks</th>
-			<th>IPInfo</th>
-		</tr>
-		<cfloop query="subnetfromip">
+		<hr>Filter
+		<cfparam name="sincedays" default="180">
+		<cfparam name="ipstartswith" default="">
+		<cfparam name="pg" default="1">
+		<cfparam name="pgsize" default="100">
+		<cfset startrow=(pg*pgsize)-pgsize>
+		<cfset stoprow=startrow+pgsize>
+		<form method="post" id="ff" action="blacklist.cfm">
+			<label for="ipstartswith">IP (starts with)</label>
+			<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
+			<label for="sincedays">Days to include*</label>
+			<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
+			<label for="pg">page</label>
+			<input type="number" name="pg" id="pg" value="#pg#" required>
+			<label for="pagesize">page size</label>
+			<input type="number" name="pgsize" id="pgsize" value="#pgsize#" required>
+			<br><input type="submit" value="apply filter">
+			<br><input type="button" id="resetfilter" value="reset">
+		</form>
+		<p>
+			* All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
+		</p>
+		<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			Select * from (
+				Select a.*, rownum rnum From (
+					select
+						IP,
+						to_char(LISTDATE,'yyyy-mm-dd') LISTDATE,
+						STATUS,
+						to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
+						substr(ip,1,instr(ip,'.',1,2)-1) subnet
+					from
+						uam.blacklist
+					where
+						sysdate-LISTDATE<#sincedays#
+						<cfif len(ipstartswith) gt 0>
+							and ip like '#ipstartswith#%'
+						</cfif>
+						order by LISTDATE desc
+					) a
+					where rownum <= #stoprow#
+				) where rnum >= #startrow#
+		</cfquery>
+		<!--- get subnet blocks relevant to whatever was returned by the IP query ---->
+		<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				SUBNET,
+				STATUS,
+				to_char(INSERT_DATE,'yyyy-mm-dd') INSERT_DATE,
+				to_char(LASTDATE,'yyyy-mm-dd') LASTDATE
+			from
+				uam.blacklist_subnet
+			where
+				sysdate-INSERT_DATE<#sincedays#
+		</cfquery>
+		<cfset utilities = CreateObject("component","component.utilities")>
+		<cfset utilities.setAppBL()>
+		<cfquery name="subnetfromip" dbtype="query">
+			select
+				subnet
+			from rip
+				group by
+				subnet
+				order by LISTDATE desc
+		</cfquery>
+		<hr>
+		<form name="i" method="post" action="blacklist.cfm">
+			<input type="hidden" name="action" value="ins">
+			<label for="ip">Manually block IP</label>
+			<input type="text" name="ip" id="ip">
+			<br><input type="submit" value="blacklist">
+		</form>
+		<hr>
+		<p>
+			Use the form above (and update the filters or contact someone who can) to stop
+			malicious activity from a single IP.
+		</p>
+		<p>
+			IPs are generally auto-blacklisted. Users may remove IP restrictions from Arctos.
+			Immediately contact Arctos personnel if unnecessary restrictions are being automatically added.
+		</p>
+		<p>
+			Subnets are automatically blocked with 10 active IP blocks from the subnet. This controls
+			the size of application variables, prevents "learning" attacks,
+			and sends email alerting Arctos personnel to increased suspicious activity.
+			Users may remove this restriction from Arctos.
+		</p>
+		<p>
+			"Probably malicious" subnets should be hard-blocked using the tools below. These blocks cannot be
+			removed by users, but users may fill in a form asking for removal; this must be evaluated by Arctos personnel. Create and release
+			these restrictions with caution.
+		</p>
+		<p>
+			More-malicious subnets should be blocked at the firewall. Send email to TACC. Users from
+			firewall-blocked subnets cannot see Arctos at all. Use with extreme caution.
+		</p>
+		<p>
+			Please carefully examine the relevant logs and consult with Arctos personnel before doing anything with this form.
+		</p>
+		<span class="likeLink" onclick="prevPage()">Previous Page</span>
+		<span class="likeLink" onclick="nextPage()">Next Page</span>
+		<table border id="t" class="sortable">
 			<tr>
-				<td valign="top">
-					#subnet#
-					<ul>
-						<li><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">remove all subnet blocks</a></li>
-						<li><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">hard-block the subnet</a></li>
-					</ul>
-				</td>
-				<cfquery name="tsnd" dbtype="query">
-					select * from sn where subnet='#subnet#'
-				</cfquery>
-				<td valign="top">
-					<cfif tsnd.recordcount is 0>
-						no subnet blocks
-					<cfelse>
-						<table border>
-							<tr>
-								<th>subnet-listdate</th>
-								<th>lastdate</th>
-								<th>status</th>
-							</tr>
-							<cfloop query="#tsnd#">
-								<tr>
-									<td>#INSERT_DATE#</td>
-									<td>#LASTDATE#</td>
-									<td>#STATUS#</td>
-								</tr>
-							</cfloop>
-						</table>
-					</cfif>
-				</td>
-				<td valign="top">
-					<cfquery name="dip" dbtype="query">
-						select ip from rip where subnet='#subnet#' group by ip order by ip
-					</cfquery>
-					<cfloop query="dip">
-						<table border>
-							<tr>
-								<td valign="top">
-									IP: #ip#
-										<ul>
-											<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
-											<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ @whatismyipaddress ]</a></li>
-											<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ @ipalyzer ]</a></li>
-											<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ @gwhois ]</a></li>
-										</ul>
-								</td>
-								<td>
-									<cfquery name="tl" dbtype="query">
-										select * from rip where ip='#ip#' order by listdate
-									</cfquery>
-									<table border>
-										<tr>
-											<th>listdate</th>
-											<th>lastdate</th>
-											<th>status</th>
-										</tr>
-										<cfloop query="#tl#">
-											<tr>
-												<td>#LISTDATE#</td>
-												<td>#LASTDATE#</td>
-												<td>#STATUS#</td>
-											</tr>
-										</cfloop>
-									</table>
-								</td>
-							</tr>
-						</table>
-					</cfloop>
-				</td>
+				<th>Subnet/Tools</th>
+				<th>SubnetBlocks</th>
+				<th>IPInfo</th>
 			</tr>
-		</cfloop>
-	</table>
-
-
-
+			<cfloop query="subnetfromip">
+				<tr>
+					<td valign="top">
+						#subnet#
+						<ul>
+							<li><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">remove all subnet blocks</a></li>
+							<li><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">hard-block the subnet</a></li>
+						</ul>
+					</td>
+					<cfquery name="tsnd" dbtype="query">
+						select * from sn where subnet='#subnet#'
+					</cfquery>
+					<td valign="top">
+						<cfif tsnd.recordcount is 0>
+							no subnet blocks
+						<cfelse>
+							<table border>
+								<tr>
+									<th>subnet-listdate</th>
+									<th>lastdate</th>
+									<th>status</th>
+								</tr>
+								<cfloop query="#tsnd#">
+									<tr>
+										<td>#INSERT_DATE#</td>
+										<td>#LASTDATE#</td>
+										<td>#STATUS#</td>
+									</tr>
+								</cfloop>
+							</table>
+						</cfif>
+					</td>
+					<td valign="top">
+						<cfquery name="dip" dbtype="query">
+							select ip from rip where subnet='#subnet#' group by ip order by ip
+						</cfquery>
+						<cfloop query="dip">
+							<table border>
+								<tr>
+									<td valign="top">
+										IP: #ip#
+											<ul>
+												<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
+												<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ @whatismyipaddress ]</a></li>
+												<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ @ipalyzer ]</a></li>
+												<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ @gwhois ]</a></li>
+											</ul>
+									</td>
+									<td>
+										<cfquery name="tl" dbtype="query">
+											select * from rip where ip='#ip#' order by listdate
+										</cfquery>
+										<table border>
+											<tr>
+												<th>listdate</th>
+												<th>lastdate</th>
+												<th>status</th>
+											</tr>
+											<cfloop query="#tl#">
+												<tr>
+													<td>#LISTDATE#</td>
+													<td>#LASTDATE#</td>
+													<td>#STATUS#</td>
+												</tr>
+											</cfloop>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</cfloop>
+					</td>
+				</tr>
+			</cfloop>
+		</table>
 	</cfoutput>
 </cfif>
 <!------------------------------------------>
