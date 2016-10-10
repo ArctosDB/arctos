@@ -513,6 +513,13 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
+	<cfif isdefined("request.rdurl") and (request.rdurl contains "' and 'x'='x" or request.rdurl contains "%27%20and%20%27x%27%3D%27x")>
+		<cfset bl_reason="URL contains 'x'='x">
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
+	</cfif>
+
+
 	<cfif isdefined("request.rdurl") and request.rdurl contains "'A=0">
 		<cfset bl_reason="URL contains 'A=0">
 		<cfinclude template="/errors/autoblacklist.cfm">
@@ -537,12 +544,6 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 
 
 	<cfif isdefined("inp")>
-
-
-	gor inp
-
-
-
 		<cfif len(lurl) gt 0>
 		<!----
 			<cfif lurl contains "utl_inaddr" or lurl contains "get_host_address">
