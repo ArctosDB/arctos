@@ -30,7 +30,6 @@
 
 		<hr>
 
-		<cfdump var=#x#>
 
 
 
