@@ -537,19 +537,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 
 
 	<cfif isdefined("inp")>
-
-
-	<p>
-		hello I got inp
-
-
-
-
-	</p>
 		<cfif len(lurl) gt 0>
-
-
-		lurl: <cfdump var=#lurl#>
 		<!----
 			<cfif lurl contains "utl_inaddr" or lurl contains "get_host_address">
 				<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
@@ -561,8 +549,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
-
-			_----->
+			----->
 			<!---- random junk that in combination with an error is always indicitive of bot/spam/probe/etc. traffic---->
 			<cfset x="">
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0">
