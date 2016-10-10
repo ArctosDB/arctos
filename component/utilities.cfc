@@ -366,14 +366,6 @@
        <!---- never blacklist "us" ---->
        <cfreturn true>
     </cfif>
-
-
-
-	<cfdump var=#request#>
-
-
-
-
 	<!---
 
 
@@ -414,10 +406,6 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfelse>
 		<cfset lurl="">
 	</cfif>
-
-	lurl: <cfdump var=#lurl#>
-
-
 	<!--- now replace all potential delimiters with chr(7), so we can predictable loop ---->
 	<cfset lurl=replace(lurl,",",chr(7),"all")>
 	<cfset lurl=replace(lurl,".",chr(7),"all")>
@@ -520,9 +508,6 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-
-
-	<br>i am still here....
 	<cfif isdefined("request.rdurl") and (request.rdurl contains "%27A=0" or request.rdurl contains "%270=A")>
 		<cfset bl_reason="URL contains %27A=0 or %270=A">
 		<cfinclude template="/errors/autoblacklist.cfm">
