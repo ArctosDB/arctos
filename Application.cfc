@@ -30,6 +30,9 @@
 
 		<br>back from utilties call.....
 
+
+		<cfdump var=#x#>
+
 		<hr>
 
 
