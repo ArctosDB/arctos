@@ -104,7 +104,7 @@
 					publication.publication_id=project_publication.publication_id and
 					project_publication.PROJECT_ID=project_trans.PROJECT_ID and
 					project_trans.TRANSACTION_ID=cataloged_item.ACCN_ID and
-					cataloged_item.collection_id=#collection_id#
+					cataloged_item.collection_id=<cfqueryparam value = "#collection_id#" CFSQLType = "CF_SQL_NUMERIC" list = "yes" separator = ",">
 				group by
 					FULL_CITATION,
 					publication.publication_id,
@@ -136,7 +136,7 @@
 					project_trans.TRANSACTION_ID=loan_item.TRANSACTION_ID and
 					loan_item.COLLECTION_OBJECT_ID=specimen_part.COLLECTION_OBJECT_ID and
 					specimen_part.derived_from_cat_item=cataloged_item.COLLECTION_OBJECT_ID and
-					cataloged_item.collection_id=#collection_id#
+					cataloged_item.collection_id=<cfqueryparam value = "#collection_id#" CFSQLType = "CF_SQL_NUMERIC" list = "yes" separator = ",">
 				group by
 					FULL_CITATION,
 					publication.publication_id,
@@ -166,7 +166,7 @@
 					project_publication.PROJECT_ID=project_trans.PROJECT_ID and
 					project_trans.TRANSACTION_ID=loan_item.TRANSACTION_ID and
 					loan_item.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
-					cataloged_item.collection_id=#collection_id#
+					cataloged_item.collection_id=<cfqueryparam value = "#collection_id#" CFSQLType = "CF_SQL_NUMERIC" list = "yes" separator = ",">
 				group by
 					FULL_CITATION,
 					publication.publication_id,
