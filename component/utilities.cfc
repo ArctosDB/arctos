@@ -523,7 +523,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 
 
 	<br>i am still here....
-	<cfif isdefined("request.rdurl") and (request.rdurl contains "%27A=0" or request.rdurl contains "%270=A">
+	<cfif isdefined("request.rdurl") and (request.rdurl contains "%27A=0" or request.rdurl contains "%270=A")>
 		<cfset bl_reason="URL contains %27A=0 or %270=A">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
