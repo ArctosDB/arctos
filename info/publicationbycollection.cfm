@@ -74,7 +74,8 @@
 			where
 				publication.publication_id=citation.publication_id and
 				citation.collection_object_id=cataloged_item.collection_object_id and
-				cataloged_item.collection_id=#collection_id#
+				cataloged_item.collection_id=
+				<cfqueryparam value = "#collection_id#" CFSQLType = "CF_SQL_NUMERIC" list = "yes" separator = ",">
 			group by
 				FULL_CITATION,
 				publication.publication_id,
