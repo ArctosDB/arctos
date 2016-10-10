@@ -1,6 +1,10 @@
 <!---- make sure this stays at the top ---->
 
-I am missing<cfabort>
+I am missing
+
+<cfdump var="#request.rdurl#">
+
+<cfabort>
 
 
 
