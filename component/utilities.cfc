@@ -519,13 +519,21 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfdump var=#request.rdurl#>
 
 
+	<!---- various attempts at SQL injection ---->
 
-
-	<cfif isdefined("request.rdurl") and (request.rdurl contains "' and 'x'='x" or request.rdurl contains "%27%20and%20%27x%27%3D%27x")>
+	<cfif isdefined("request.rdurl") and (
+			request.rdurl contains "' and 'x'='x" or
+			request.rdurl contains "%27%20and%20%27x%27%3D%27x" or
+			request.rdurl contains "%22%20and%20%22x%22%3D%22x"
+		)>
 		<cfset bl_reason="URL contains 'x'='x">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
+
+
+
+
 
 
 	<cfif isdefined("request.rdurl") and request.rdurl contains "'A=0">
