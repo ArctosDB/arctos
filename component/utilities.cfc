@@ -465,20 +465,22 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<!--- keep this synced up with /ScheduledTasks/createRobots.cfm ---->
 	<cfset badbot="Baiduspider,bash">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
-	<cfset badbot=badbot & ",Domain,DeuSu">
-	<cfset badbot=badbot & ",Gluten">
+	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler">
+	<cfset badbot=badbot & ",Exabot">
+	<cfset badbot=badbot & ",Gluten,Gluten Free Crawler">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",ltx71">
-
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot">
 	<cfset badbot=badbot & ",naver,Nutch">
-	<cfset badbot=badbot & ",re-animator">
 	<cfset badbot=badbot & ",Qwantify">
+	<cfset badbot=badbot & ",re-animator">
 	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer">
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",Wotbox">
 	<cfset badbot=badbot & ",YandexBot,Yeti">
+
+
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">
 			<cfif cgi.HTTP_USER_AGENT contains b>
