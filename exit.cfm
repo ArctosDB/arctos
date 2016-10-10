@@ -1,3 +1,8 @@
+
+rdurl: /exit.cfm?target=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%2500 
+
+
+
 <cfinclude template="includes/_header.cfm">
 <cfset title="You are now leaving Arctos.">
 <cfoutput>

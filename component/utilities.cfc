@@ -536,6 +536,15 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 
 
 	<cfif isdefined("inp")>
+
+
+	<p>
+		hello I got inp
+
+
+
+
+	</p>
 		<cfif len(lurl) gt 0>
 		<!----
 			<cfif lurl contains "utl_inaddr" or lurl contains "get_host_address">
