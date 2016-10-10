@@ -273,6 +273,10 @@
 			ORDER BY
 				project_name
 		</cfquery>
+
+		<cfdump var=#projNames#>
+
+
 		<cfset i=1>
 		<cfset go="no">
 		<cfset basSQL = "SELECT
