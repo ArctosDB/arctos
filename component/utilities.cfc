@@ -546,6 +546,9 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 
 	</p>
 		<cfif len(lurl) gt 0>
+
+
+		lurl: #lurl#
 		<!----
 			<cfif lurl contains "utl_inaddr" or lurl contains "get_host_address">
 				<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
