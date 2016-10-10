@@ -310,9 +310,6 @@
 			<cfset relationships=''>
 		</cfif>
 		<cfloop list="#relationships#" delimiters="," index="thisRelationship">
-
-
-			<cfdump var=#relationships#>
 			<cfset tabls = "#tabls#,media_relations media_relations#n#">
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
 			<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">

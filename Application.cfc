@@ -21,6 +21,20 @@
 	<cfif showErr is 1>
 		<cfset subject="">
 		<cfset x=utilities.checkRequest(exception)>
+
+
+		<hr>
+
+		<cfdump var=#x#>
+
+
+
+
+		<hr>
+
+
+
+
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="403">
 			<cfif isdefined("exception.detail") and exception.detail contains "Unsupported browser-specific file request">
