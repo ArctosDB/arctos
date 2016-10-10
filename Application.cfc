@@ -28,6 +28,8 @@
 		<cfset x=utilities.checkRequest(exception)>
 
 
+		<br>back from utilties call.....
+
 		<hr>
 
 
