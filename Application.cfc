@@ -19,6 +19,11 @@
 		<cfreturn/>
 	</cfif>
 	<cfif showErr is 1>
+
+
+	<br>go showerr
+
+
 		<cfset subject="">
 		<cfset x=utilities.checkRequest(exception)>
 
