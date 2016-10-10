@@ -1,34 +1,15 @@
 <cfinclude template = "includes/_header.cfm">
-
-
-hello<cfabort>
-
-
-
 <cfoutput>
 <cfif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select niceURL(project_name) project_name from project where project_id=<cfqueryparam value="#project_id#" CFSQLType="cf_sql_integer">
 	</cfquery>
-
-
-	<cfdump var=#redir#>
-
-
-	<cfabort>
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/project/#redir.project_name#">
 <cfelseif isdefined("niceProjName")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id from project where niceURL(project_name)='#niceProjName#'
 	</cfquery>
-
-	<cfdump var=#redir#>
-
-	<cfabort>
-
-
-
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
 	<cfelse>
