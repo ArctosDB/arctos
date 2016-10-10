@@ -651,6 +651,8 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			</cfif>
 		</cfif>
 	</cfif>
+
+	<cfreturn 'done'>
 	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
 </cffunction>
 <!--------------------------------->
