@@ -4,6 +4,12 @@
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select niceURL(project_name) project_name from project where project_id=<cfqueryparam value="#project_id#" CFSQLType="cf_sql_integer">
 	</cfquery>
+
+
+	<cfdump var=#redir#>
+
+
+	<cfabort>
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/project/#redir.project_name#">
 <cfelseif isdefined("niceProjName")>
