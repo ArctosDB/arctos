@@ -1,6 +1,10 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
 <cfoutput>
+	<cfif listlen(q,"=") neq 2>
+		<cfthrow message = "bad annotate call" errorCode = "127002" extendedInfo="q=#q#">
+		<cfabort>
+	</cfif>
 	<cfset t=listgetat(q,1,"=")>
 	<cfset v=listgetat(q,2,"=")>
 	<cfset "#t#"="#v#">
