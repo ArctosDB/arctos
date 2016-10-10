@@ -78,7 +78,7 @@
 				get_address(collection_contacts.CONTACT_AGENT_ID,'email')
 		</cfquery>
 		<cfif isdefined("Application.version") and  Application.version is "prod">
-			<cfset maddr=valuelist(contact.ADDRESS)>
+			<cfset maddr=valuelist(cc.ADDRESS)>
 			<cfset subj="Potential Unused Reports">
 		<cfelse>
 			<cfset maddr=application.bugreportemail>
