@@ -366,6 +366,14 @@
        <!---- never blacklist "us" ---->
        <cfreturn true>
     </cfif>
+
+
+
+	<cfdump var=#request#>
+
+
+
+
 	<!---
 
 
