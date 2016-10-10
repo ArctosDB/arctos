@@ -414,6 +414,10 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfelse>
 		<cfset lurl="">
 	</cfif>
+
+	lurl: <cfdump var=#lurl#>
+
+
 	<!--- now replace all potential delimiters with chr(7), so we can predictable loop ---->
 	<cfset lurl=replace(lurl,",",chr(7),"all")>
 	<cfset lurl=replace(lurl,".",chr(7),"all")>
