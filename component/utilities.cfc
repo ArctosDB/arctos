@@ -423,6 +423,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset lurl=replace(lurl,"%28",chr(7),"all")>
 	<cfset lurl=replace(lurl,"%22",chr(7),"all")>
 	<cfset lurl=replace(lurl,"%3E",chr(7),"all")>
+	<cfset lurl=replace(lurl,"%2F",chr(7),"all")>
 
 
 	<!-----
