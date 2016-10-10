@@ -47,7 +47,7 @@ select
 	</div>
 </cfsavecontent>
 <cfoutput>
-	<cfset baidlist="">
+	<cfset baidlist="-9999999">
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
@@ -73,24 +73,22 @@ select
 			<cfset baidlist=listappend(baidlist,agent_id)>
 		</cfif>
 	</cfloop>
-	<cfif len(baidlist) gt 0>
-		<cfquery name="funk1"  datasource="uam_god">
-			select
-				agent_id,
-				preferred_agent_name,
-				CREATED_BY_AGENT_ID,
-				getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
-				'no_ascii_variant' reason
-			from
-				agent
-			where
-				agent_id in (#baidlist#)
-			order by
-				CREATED_BY_AGENT_ID,
-				preferred_agent_name
-		</cfquery>
-	</cfif>
-	<cfset baidlist="">
+	<cfquery name="funk1"  datasource="uam_god">
+		select
+			agent_id,
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
+			'no_ascii_variant' reason
+		from
+			agent
+		where
+			agent_id in (#baidlist#)
+		order by
+			CREATED_BY_AGENT_ID,
+			preferred_agent_name
+	</cfquery>
+	<cfset baidlist="-9999999">
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
@@ -119,24 +117,22 @@ select
 		</cfif>
 	</cfloop>
 
-	<cfif len(baidlist) gt 0>
-		<cfquery name="funk2"  datasource="uam_god">
-			select
-				agent_id,
-				preferred_agent_name,
-				CREATED_BY_AGENT_ID,
-				getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
-				'no_unabbreviated_variant' reason
-			from
-				agent
-			where
-				agent_id in (#baidlist#)
-			order by
-				CREATED_BY_AGENT_ID,
-				preferred_agent_name
-		</cfquery>
-	</cfif>
-	<cfset baidlist="">
+	<cfquery name="funk2"  datasource="uam_god">
+		select
+			agent_id,
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
+			'no_unabbreviated_variant' reason
+		from
+			agent
+		where
+			agent_id in (#baidlist#)
+		order by
+			CREATED_BY_AGENT_ID,
+			preferred_agent_name
+	</cfquery>
+	<cfset baidlist="-9999999">
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
@@ -163,24 +159,28 @@ select
 		</cfif>
 	</cfloop>
 
-		<cfquery name="funk3"  datasource="uam_god">
-			select
-				agent_id,
-				preferred_agent_name,
-				CREATED_BY_AGENT_ID,
-				getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
-				'no_unampersanded_variant' reason
-			from
-				agent
-			where
-				agent_id in (#baidlist#)
-			order by
-				CREATED_BY_AGENT_ID,
-				preferred_agent_name
-		</cfquery>
+	<cfquery name="funk3"  datasource="uam_god">
+		select
+			agent_id,
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
+			'no_unampersanded_variant' reason
+		from
+			agent
+		where
+			agent_id in (#baidlist#)
+		order by
+			CREATED_BY_AGENT_ID,
+			preferred_agent_name
+	</cfquery>
 	<cfquery name="funk_norder" dbtype="query">
 		select * from funk1 union select * from funk2 union select * from funk3
 	</cfquery>
+
+	<cfif funk_norder.recordcount lt 1>
+		no bad agents detected<cfabort>
+	</cfif>
 	<cfquery name="funk" dbtype="query">
 		select * from funk_norder order by preferred_agent_name
 	</cfquery>

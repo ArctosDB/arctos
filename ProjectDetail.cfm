@@ -10,6 +10,13 @@
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id from project where niceURL(project_name)='#niceProjName#'
 	</cfquery>
+
+	<cfdump var=#redir#>
+
+	<cfabort>
+
+
+
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
 	<cfelse>
