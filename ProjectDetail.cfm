@@ -1,4 +1,10 @@
 <cfinclude template = "includes/_header.cfm">
+
+
+hello<cfabort>
+
+
+
 <cfoutput>
 <cfif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
