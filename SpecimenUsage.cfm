@@ -274,7 +274,7 @@
 				project_name
 		</cfquery>
 
-		<cfdump var=#projNames#>
+		<cfdump var=#projects#>
 
 
 		<cfset i=1>
