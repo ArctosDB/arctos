@@ -461,6 +461,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 		<cfabort>
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
+	<!--- keep this synced up with /ScheduledTasks/createRobots.cfm ---->
 	<cfset badbot="Baiduspider,bash">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain,DeuSu">

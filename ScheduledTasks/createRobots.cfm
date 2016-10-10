@@ -128,9 +128,28 @@
 			<cfset robotscontent=robotscontent & chr(10) & "Disallow: /" & i>
 		</cfloop>
 
-		<cfset crapbots="MJ12bot,Baiduspider,ca-crawler,CCBot,DomainTunoCrawler,DeuSu,Gluten Free Crawler,HubSpot,MegaIndex,Nutch,NAVER,SemrushBot">
-		<cfset crapbots=crapbots & "spbot,Synapse,TweetmemeBot,UnisterBot,YandexBot">
-		<cfloop list="#crapbots#" index="i">
+		<!----
+			keep this synced up with /component/utilities.cfc
+		---->
+		<cfset badbot="Baiduspider,bash">
+		<cfset badbot=badbot & ",ca-crawler,CCBot">
+		<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler">
+		<cfset badbot=badbot & ",Exabot">
+		<cfset badbot=badbot & ",Gluten,Gluten Free Crawler">
+		<cfset badbot=badbot & ",HubSpot">
+		<cfset badbot=badbot & ",ltx71">
+		<cfset badbot=badbot & ",MegaIndex,MJ12bot">
+		<cfset badbot=badbot & ",naver,Nutch">
+		<cfset badbot=badbot & ",Qwantify">
+		<cfset badbot=badbot & ",re-animator">
+		<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer">
+		<cfset badbot=badbot & ",TweetmemeBot">
+		<cfset badbot=badbot & ",UnisterBot">
+		<cfset badbot=badbot & ",Wotbox">
+		<cfset badbot=badbot & ",YandexBot,Yeti">
+
+
+		<cfloop list="#badbot#" index="i">
 			<cfset robotscontent=robotscontent & chr(10) & chr(10) & "User-agent: " & i>
 			<cfset robotscontent=robotscontent & chr(10) & "Disallow: /">
 		</cfloop>
