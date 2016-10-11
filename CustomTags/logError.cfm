@@ -233,6 +233,21 @@
 			</cfloop>
 		</table>
 
+		Block history of this subnet:
+		<table border>
+			<tr>
+				<th>TimeStatus</th>
+				<th>Status</th>
+				<th>Count</th>
+			</tr>
+			<cfloop query="blsn">
+				<tr>
+					<td>#dstatus#</td>
+					<td>#status#</td>
+					<td>#c#</td>
+				</tr>
+			</cfloop>
+		</table>
 
 
 	</cfif>
