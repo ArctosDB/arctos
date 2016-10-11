@@ -170,7 +170,7 @@
 
 		console.log(theForm);
 
-		 $("theForm input[type=text]").each(function() {
+		 $("$('#geoResetBtn').closest('form') input[type=text]").each(function() {
             console.log(this.id);
         });
        // return false;
