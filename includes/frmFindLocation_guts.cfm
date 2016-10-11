@@ -167,6 +167,9 @@
 		// this page is only guts; we don't have the code which establishes the form so...
 		// we need to get the parent of the clear button
 		var theForm=$('#geoResetBtn').closest('form');
+
+		console.log(theForm);
+
 		 $("theForm input[type=text]").each(function() {
             console.log(this.id);
         });
