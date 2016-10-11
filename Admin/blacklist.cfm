@@ -148,6 +148,8 @@
 				<tr>
 					<td valign="top">
 						#calc_subnet#
+						<br>
+						<a href="blacklist.cfm?ipstartswith=#calc_subnet#">Show only this subnet</a>
 						<ul>
 							<li><a href="blacklist.cfm?action=UNblockSubnet&subnet=#calc_subnet#">remove all subnet blocks</a></li>
 							<li><a href="blacklist.cfm?action=blockSubnet&subnet=#calc_subnet#">hard-block the subnet</a></li>
