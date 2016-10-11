@@ -183,6 +183,7 @@
 	</cfif>
 	<cfif isdefined("exception.subject") and exception.subject contains "autoblacklist">
 		<!--- get some stats so that users can make informed decisions ---->
+		<cftry>
 		<cfquery name="bl" datasource="uam_god">
 			select
 				count(*) c,
@@ -248,7 +249,10 @@
 				</tr>
 			</cfloop>
 		</table>
-
+		<cfcatch>
+			----exception getting IP/Subnet info-----
+		</cfcatch>
+		</cftry>
 
 	</cfif>
 
