@@ -65,7 +65,7 @@
 	<cfif application.version is not "prod">
 		<script>
 			function autorelease(){
-				var x=document.getElementById("captcha").value='#captcha#';
+				var x=document.getElementById("captcha").value='<cfoutput>#captcha#</cfoutput>';
 				//document.getElementById("g").submit();
 			}
 		</script>
