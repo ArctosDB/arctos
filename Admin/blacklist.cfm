@@ -141,7 +141,7 @@
 						</ul>
 					</td>
 					<cfquery name="tsnd" dbtype="query">
-						select * from sn where subnet='#calc_subnet#'
+						select * from sn where subnet='#calc_subnet#' order by status
 					</cfquery>
 					<td valign="top">
 						<cfif tsnd.recordcount is 0>
