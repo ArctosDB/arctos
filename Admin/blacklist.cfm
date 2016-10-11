@@ -99,7 +99,7 @@
 		<hr>
 		<p>
 			Use the form above (and update the filters or contact someone who can) to stop
-			malicious activity from a single IP.
+			malicious activity from a single IP. IPs containing "ip starts with" search string are <span class="highlight">highlighted</span>.
 		</p>
 		<p>
 			IPs are generally auto-blacklisted. Users may remove IP restrictions from Arctos.
