@@ -33,7 +33,7 @@
 	<cfset f = CreateObject("component","component.utilities")>
 	<cfset captcha = f.makeCaptchaString()>
 	<cfset captchaHash = hash(captcha)>
-	<cfform name="g" method="post" action="/errors/gtfo.cfm">
+	<cfform name="g" id="g" method="post" action="/errors/gtfo.cfm">
 		<input type="hidden" name="action" value="p">
 	    <cfimage
 	    	action="captcha"
@@ -61,6 +61,17 @@
 	    </cfoutput>
 		<br><input type="submit" value="go">
 	</cfform>
+
+	<cfif application.version is not "prod">
+		<script>
+			function autorelease(){
+				$("##captcha").val('#captcha#');
+				$("##g").submit();
+			}
+		</script>
+		<span class="likeLink" onclick="autorelease()">autorelease</span>
+	</cfif>
+
 </cfif>
 <cfif isdefined("action") and action is "p">
 	<cfoutput>
