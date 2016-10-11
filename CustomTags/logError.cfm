@@ -203,7 +203,7 @@
 		<cfquery name="blsn" datasource="uam_god">
 			select
 				count(*) c,
-				    CASE when sysdate-LISTDATE > 180 then 'expired'
+				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
 				      else 'active'
 				    END dstatus,
 				    status
@@ -212,7 +212,7 @@
 				        where
 				        subnet='#request.requestingSubnet#'
 				        group by
-				    CASE when sysdate-LISTDATE > 180 then 'expired'
+				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
 				      else 'active'
 				    END,
 				    status
