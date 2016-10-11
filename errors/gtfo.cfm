@@ -65,8 +65,8 @@
 	<cfif application.version is not "prod">
 		<script>
 			function autorelease(){
-				$("##captcha").val('#captcha#');
-				$("##g").submit();
+				document.getElementById("captcha").value('#captcha#');
+				document.getElementById("g").submit();
 			}
 		</script>
 		<span class="likeLink" onclick="autorelease()">autorelease</span>
