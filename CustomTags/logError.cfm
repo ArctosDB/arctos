@@ -183,28 +183,57 @@
 	</cfif>
 	<cfif isdefined("exception.subject") and exception.subject contains "autoblacklist">
 		<!--- get some stats so that users can make informed decisions ---->
-		<cfquery name="blipc" datasource="uam_god">
+		<cfquery name="bl" datasource="uam_god">
 			select
-			  blacklist.ip,
-			  round(sysdate-blacklist.LISTDATE) bllistcnt,
-			  blacklist.STATUS,
-			  round(sysdate-blacklist_subnet.INSERT_DATE) snlistcnt,
-			  blacklist_subnet.STATUS sn_status
-			from
-			  blacklist,
-			  blacklist_subnet
-			where
-			  blacklist.CALC_SUBNET=blacklist_subnet.SUBNET (+) and
-			  blacklist.CALC_SUBNET='#request.requestingSubnet#'
+				count(*) c,
+				    CASE when sysdate-LISTDATE > 180 then 'expired'
+				      else 'active'
+				    END dstatus,
+				    status
+				    from
+				        blacklist
+				        where
+				        CALC_SUBNET='#request.requestingSubnet#'
+				        group by
+				    CASE when sysdate-LISTDATE > 180 then 'expired'
+				      else 'active'
+				    END,
+				    status
 		</cfquery>
-		<cfquery name="actns" dbtype="query">
-			select count(*) c from blipc
+		<cfquery name="blsn" datasource="uam_god">
+			select
+				count(*) c,
+				    CASE when sysdate-LISTDATE > 180 then 'expired'
+				      else 'active'
+				    END dstatus,
+				    status
+				    from
+				        blacklist_subnet
+				        where
+				        subnet='#request.requestingSubnet#'
+				        group by
+				    CASE when sysdate-LISTDATE > 180 then 'expired'
+				      else 'active'
+				    END,
+				    status
 		</cfquery>
-		<br>Blacklist Actions: #actns.c#
-		<cfquery name="active" dbtype="query">
-			select count(*) c from blipc where bllistcnt < 180 and STATUS='active'
-		</cfquery>
-		<br>Active blocks: #active.c#
+		Block history of IPs in this subnet:
+		<table border>
+			<tr>
+				<th>TimeStatus</th>
+				<th>Status</th>
+				<th>Count</th>
+			</tr>
+			<cfloop query="bl">
+				<tr>
+					<td>#dstatus#</td>
+					<td>#status#</td>
+					<td>#c#</td>
+				</tr>
+			</cfloop>
+		</table>
+
+
 
 	</cfif>
 
