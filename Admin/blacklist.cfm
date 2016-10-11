@@ -159,7 +159,7 @@
 					</td>
 					<td valign="top">
 						<cfquery name="dip" dbtype="query">
-							select ip from rip where subnet='#calc_subnet#' group by ip order by ip
+							select ip from rip where calc_subnet='#calc_subnet#' group by ip order by ip
 						</cfquery>
 						<cfloop query="dip">
 							<table border>
