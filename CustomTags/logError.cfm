@@ -181,6 +181,33 @@
 			rawipaddress: #exception.rawipaddress#
 		</p>
 	</cfif>
+	<cfif isdefined("exception.subject") and exception.subject contains "autoblacklist">
+		<!--- get some stats so that users can make informed decisions ---->
+		<cfquery name="blipc" datasource="uam_god">
+			select
+			  blacklist.ip,
+			  round(sysdate-blacklist.LISTDATE) bllistcnt,
+			  blacklist.STATUS,
+			  round(sysdate-blacklist_subnet.INSERT_DATE) snlistcnt,
+			  blacklist_subnet.STATUS sn_status
+			from
+			  blacklist,
+			  blacklist_subnet
+			where
+			  blacklist.CALC_SUBNET=blacklist_subnet.SUBNET (+) and
+			  blacklist.CALC_SUBNET='#request.requestingSubnet#'
+		</cfquery>
+		<cfquery name="actns" dbtype="query">
+			select count(*) c from blipc
+		</cfquery>
+		<br>Blacklist Actions: #actns.c#
+		<cfquery name="active" dbtype="query">
+			select count(*) c from blipc where bllistcnt < 180 and STATUS='active'
+		</cfquery>
+		<br>Active blocks: #active.c#
+
+	</cfif>
+
 	<cfif structKeyExists(exception,"username")>
 		<br>username: #exception.username#
 	</cfif>
