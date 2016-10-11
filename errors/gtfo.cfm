@@ -66,7 +66,7 @@
 		<script>
 			function autorelease(){
 				var x=document.getElementById("captcha").value='#captcha#';
-				document.getElementById("g").submit();
+				//document.getElementById("g").submit();
 			}
 		</script>
 		<span class="likeLink" onclick="autorelease()">autorelease</span>
