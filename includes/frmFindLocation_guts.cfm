@@ -171,7 +171,7 @@
 		console.log(theForm);
 
 		 $("#geoResetBtn").closest("form") .find(':input').each(function() {
-            this.val('');
+            $(this).val('');
         });
 
 
