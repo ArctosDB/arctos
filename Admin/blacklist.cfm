@@ -21,6 +21,15 @@
 		<hr>Filter
 		<cfparam name="sincedays" default="180">
 		<cfparam name="ipstartswith" default="">
+		<cfif listlen(ipstartswith,".") gt 2>
+			<cfset snstartswith=listgetat(ipstartswith,1,".") & "." & listgetat(ipstartswith,2,".")>
+		<cfelse>
+			<cfset snstartswith=ipstartswith>
+		</cfif>
+
+		<p>
+			snstartswith: #snstartswith#
+		</p>
 		<cfparam name="pg" default="1">
 		<cfparam name="pgsize" default="100">
 		<cfset startrow=(pg*pgsize)-pgsize>
@@ -54,7 +63,7 @@
 					where
 						sysdate-LISTDATE<#sincedays#
 						<cfif len(ipstartswith) gt 0>
-							and ip like '#ipstartswith#%'
+							and ip like '#snstartswith#%'
 						</cfif>
 						order by LISTDATE desc
 					) a
