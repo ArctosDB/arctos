@@ -21,6 +21,7 @@
 		<hr>Filter
 		<cfparam name="sincedays" default="180">
 		<cfparam name="ipstartswith" default="">
+		<cfset ipstartswith=trim(ipstartswith)>
 		<cfif listlen(ipstartswith,".") gt 2>
 			<cfset snstartswith=listgetat(ipstartswith,1,".") & "." & listgetat(ipstartswith,2,".")>
 		<cfelse>
