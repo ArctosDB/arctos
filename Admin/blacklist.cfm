@@ -123,6 +123,19 @@
 		<p>
 			Please carefully examine the relevant logs and consult with Arctos personnel before doing anything with this form.
 		</p>
+		<p>
+			One non-released subnet block blocks the entire subnet; "released" are kept as a history but do nothing.
+		</p>
+		<p>
+			All IPs from a blocked subnet are effectively blocked.
+		</p>
+		<p>
+			Individual IPs (from un-blocked subnets) behave as subnets; one non-released record prevents acceess, while all
+			released records are maintained only as a history.
+		</p>
+		<p>
+			IPs and subnets with a great deal of activity should receive extra scrutiny.
+		</p>
 		<span class="likeLink" onclick="prevPage()">Previous Page</span>
 		<span class="likeLink" onclick="nextPage()">Next Page</span>
 		<table border id="t" class="sortable">
