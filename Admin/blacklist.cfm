@@ -48,7 +48,7 @@
 						to_char(LISTDATE,'yyyy-mm-dd') LISTDATE,
 						STATUS,
 						to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
-						substr(ip,1,instr(ip,'.',1,2)-1) subnet
+						calc_subnet
 					from
 						uam.blacklist
 					where
@@ -77,10 +77,10 @@
 		<cfset utilities.setAppBL()>
 		<cfquery name="subnetfromip" dbtype="query">
 			select
-				subnet
+				cacl_subnet
 			from rip
 				group by
-				subnet
+				cacl_subnet
 				order by LISTDATE desc
 		</cfquery>
 		<hr>

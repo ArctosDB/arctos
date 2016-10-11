@@ -346,7 +346,7 @@
 		select distinct ip from uam.blacklist where
 			status='active' and
 			sysdate-LISTDATE<180 and
-			substr(ip,1,instr(ip,'.',1,2)-1) not in (
+			calc_subnet not in (
 				select subnet from blacklist_subnet where status in ('active','autoinsert') and sysdate-INSERT_DATE<180
 			)
 	</cfquery>
@@ -474,7 +474,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",Qwantify">
 	<cfset badbot=badbot & ",re-animator">
-	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer">
+	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp">
 	<cfset badbot=badbot & ",TweetmemeBot">
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",Wotbox">
