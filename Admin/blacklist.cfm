@@ -128,14 +128,14 @@
 			<cfloop query="subnetfromip">
 				<tr>
 					<td valign="top">
-						#subnet#
+						#calc_subnet#
 						<ul>
-							<li><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">remove all subnet blocks</a></li>
-							<li><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">hard-block the subnet</a></li>
+							<li><a href="blacklist.cfm?action=UNblockSubnet&subnet=#calc_subnet#">remove all subnet blocks</a></li>
+							<li><a href="blacklist.cfm?action=blockSubnet&subnet=#calc_subnet#">hard-block the subnet</a></li>
 						</ul>
 					</td>
 					<cfquery name="tsnd" dbtype="query">
-						select * from sn where subnet='#subnet#'
+						select * from sn where subnet='#calc_subnet#'
 					</cfquery>
 					<td valign="top">
 						<cfif tsnd.recordcount is 0>
