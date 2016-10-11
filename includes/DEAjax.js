@@ -395,12 +395,12 @@ function setPagePrefs(){
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				
-				//console.log('cName: ' + cName);
+				console.log('cName: ' + cName);
 
 				var cVal=eval("r.DATA." + columns[i]);
 				
 
-				//console.log('cVal: ' + cVal);
+				console.log('cVal: ' + cVal);
 				
 				
 				var eName=cName.toLowerCase();
