@@ -41,7 +41,7 @@
 			<label for="pagesize">page size</label>
 			<input type="number" name="pgsize" id="pgsize" value="#pgsize#" required>
 			<br><input type="submit" value="apply filter">
-			<br><input type="button" id="resetfilter" value="reset">
+			<input type="button" id="resetfilter" value="reset">
 		</form>
 		<p>
 			* All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
