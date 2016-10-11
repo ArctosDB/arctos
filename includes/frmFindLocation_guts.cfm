@@ -160,6 +160,20 @@
 			nada
 		);
 	}
+	function clearGeogForm(){
+		// this page is only guts; we don't have the code which establishes the form so...
+		// we need to get the parent of the clear button
+		var theForm=$('#geoResetBtn').closest('form');
+		 $("theForm input[type=text]").each(function() {
+            console.log(this.id);
+        });
+       // return false;
+
+
+	//	$('#geoResetBtn').closest('form');
+
+
+	}
 </script>
 <cfoutput>
 	<cfif not isdefined("showLocality")>
@@ -685,7 +699,7 @@
 							<input type="submit"
 								value="Find Matches"
 								class="schBtn">
-							<input type="reset"
+							<input type="button" id="geoResetBtn" onclick="clearGeogForm()"
 								value="Clear Form"
 								class="qutBtn">
 						</td>

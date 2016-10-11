@@ -388,26 +388,14 @@ function setPagePrefs(){
 		},
 		function(r) {
 			var columns=r.COLUMNS;
-			
-			//console.log(columns);
-			
-			
+			//console.log(columns);			
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
-				
-				console.log('cName: ' + cName);
-
+				//console.log('cName: ' + cName);
 				var cVal=eval("r.DATA." + columns[i]);
-				
-
-				console.log('cVal: ' + cVal);
-				
-				
+				//console.log('cVal: ' + cVal);
 				var eName=cName.toLowerCase();
-				
-
 				//console.log('eName: ' + eName);
-				
 				if (cVal==0){
 					$("#" + eName).val('');
 					$("#d_" + eName).hide();					
