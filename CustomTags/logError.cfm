@@ -188,7 +188,7 @@
 			select
 				count(*) c,
 				    CASE when sysdate-LISTDATE > 180 then 'expired'
-				      else 'active'
+				      else 'recent'
 				    END dstatus,
 				    status
 				    from
@@ -205,7 +205,7 @@
 			select
 				count(*) c,
 				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-				      else 'active'
+				      else 'recent'
 				    END dstatus,
 				    status
 				    from
