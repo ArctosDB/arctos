@@ -174,7 +174,12 @@
 							<table border>
 								<tr>
 									<td valign="top">
-										IP: #ip#
+										IP:
+										<cfif len(ipstartswith) gt 0 and find(ipstartswith, ip)>
+											<span class="highlight">#ip#</span>
+										<cfelse>
+											#ip#
+										</cfif>
 										<ul>
 											<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
 											<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ @whatismyipaddress ]</a></li>
