@@ -197,7 +197,7 @@
 				        CALC_SUBNET='#request.requestingSubnet#'
 				        group by
 				    CASE when sysdate-LISTDATE > 180 then 'expired'
-				      else 'active'
+				      else 'recent'
 				    END,
 				    status
 		</cfquery>
@@ -214,7 +214,7 @@
 				        subnet='#request.requestingSubnet#'
 				        group by
 				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-				      else 'active'
+				      else 'recent'
 				    END,
 				    status
 		</cfquery>
