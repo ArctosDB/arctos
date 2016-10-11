@@ -77,10 +77,10 @@
 		<cfset utilities.setAppBL()>
 		<cfquery name="subnetfromip" dbtype="query">
 			select
-				cacl_subnet
+				calc_subnet
 			from rip
 				group by
-				cacl_subnet
+				calc_subnet
 				order by LISTDATE desc
 		</cfquery>
 		<hr>
