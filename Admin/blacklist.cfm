@@ -127,7 +127,7 @@
 			One non-released subnet block blocks the entire subnet; "released" are kept as a history but do nothing.
 		</p>
 		<p>
-			All IPs from a blocked subnet are effectively blocked.
+			All IPs from a blocked subnet are effectively blocked; releasing individual IPs from a blocked subnet does nothing.
 		</p>
 		<p>
 			Individual IPs (from un-blocked subnets) behave as subnets; one non-released record prevents acceess, while all
