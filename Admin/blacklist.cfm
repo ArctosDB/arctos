@@ -27,10 +27,6 @@
 		<cfelse>
 			<cfset snstartswith=ipstartswith>
 		</cfif>
-
-		<p>
-			snstartswith: #snstartswith#
-		</p>
 		<cfparam name="pg" default="1">
 		<cfparam name="pgsize" default="100">
 		<cfset startrow=(pg*pgsize)-pgsize>
