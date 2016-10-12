@@ -97,6 +97,10 @@
 			<cfset f = CreateObject("component","component.utilities")>
 			<cfset f.setAppBL()>
 			<cfset sumry=f.getBlacklistHistory('#request.ipaddress#')>
+			<cfdump var=#sumry#>
+
+
+
 			<cfmail subject="BlackList Removed" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
 				IP #request.ipaddress# has removed themselves from the blacklist.
 
