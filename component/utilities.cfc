@@ -9,7 +9,7 @@
 		<cfif listlen(ip,'.') is not 4>
 			<cfabort>
 		</cfif>
-		<cfset sn=listgetat(ip,1,'.') and listgetat(ip,2,'.')>
+		<cfset sn=listgetat(ip,1,'.') & '.' & listgetat(ip,2,'.')>
 
 		<br>sn: #sn#
 		<cfquery name="bl" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
