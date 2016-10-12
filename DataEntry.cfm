@@ -173,6 +173,10 @@
 		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select orig_elev_units from ctorig_elev_units
 	    </cfquery>
+		<cfquery name="ctDepthUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select depth_units from ctdepth_units
+	    </cfquery>
+
 		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
 		</cfquery>
@@ -655,6 +659,21 @@
 												<option value=""></option>
 												<cfloop query="ctOrigElevUnits">
 													<option value="#orig_elev_units#">#orig_elev_units#</option>
+												</cfloop>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" id="d_depth_units">
+											<span class="f11a">Depth&nbsp;(min-max)&nbsp;between</span>
+											<input type="text" name="min_depth" size="4" id="min_depth">
+											<span class="infoLink"
+												onclick="document.getElementById('max_depth').value=document.getElementById('min_depth').value";>&nbsp;>>&nbsp;</span>
+											<input type="text" name="max_depth" size="4" id="max_depth">
+											<select name="depth_units" size="1" id="depth_units">
+												<option value=""></option>
+												<cfloop query="ctDepthUnits">
+													<option value="#depth_units#">#depth_units#</option>
 												</cfloop>
 											</select>
 										</td>

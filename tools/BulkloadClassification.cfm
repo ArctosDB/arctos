@@ -41,6 +41,7 @@
 		suborder varchar2(255) null,
 		infraorder varchar2(255) null,
 		hyporder varchar2(255) null,
+		subhyporder varchar2(255) null,
 		superfamily varchar2(255) null,
 		family varchar2(255),
 		subfamily varchar2(255) null,
@@ -68,6 +69,8 @@ create or replace public synonym cf_temp_classification for cf_temp_classificati
 
 grant all on cf_temp_classification to coldfusion_user;
 
+
+drop index iu_temp_class;
 create unique index iu_temp_class on cf_temp_classification(scientific_name) tablespace uam_idx_1;
 
 ---->
