@@ -96,6 +96,7 @@
 			</cfquery>
 			<cfset f = CreateObject("component","component.utilities")>
 			<cfset f.setAppBL()>
+			<cfset sumry=f.getBlacklistHistory('#request.ipaddress#')>
 			<cfmail subject="BlackList Removed" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
 				IP #request.ipaddress# has removed themselves from the blacklist.
 
@@ -105,77 +106,8 @@
 		<p>
 			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#exception.ipaddress#">[ manage manage IP and subnet restrictions ]</a>
 		</p>
+		<p>#sumry#</p>
 
-		<cftry>
-		<cfquery name="bl" datasource="uam_god">
-			select
-				count(*) c,
-				    CASE when sysdate-LISTDATE > 180 then 'expired'
-				      else 'recent'
-				    END dstatus,
-				    status
-				    from
-				        blacklist
-				        where
-				        CALC_SUBNET='#request.requestingSubnet#'
-				        group by
-				    CASE when sysdate-LISTDATE > 180 then 'expired'
-				      else 'recent'
-				    END,
-				    status
-		</cfquery>
-		<cfquery name="blsn" datasource="uam_god">
-			select
-				count(*) c,
-				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-				      else 'recent'
-				    END dstatus,
-				    status
-				    from
-				        blacklist_subnet
-				        where
-				        subnet='#request.requestingSubnet#'
-				        group by
-				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-				      else 'recent'
-				    END,
-				    status
-		</cfquery>
-		Block history of IPs in this subnet:
-		<table border>
-			<tr>
-				<th>TimeStatus</th>
-				<th>Status</th>
-				<th>Count</th>
-			</tr>
-			<cfloop query="bl">
-				<tr>
-					<td>#dstatus#</td>
-					<td>#status#</td>
-					<td>#c#</td>
-				</tr>
-			</cfloop>
-		</table>
-
-		Block history of this subnet:
-		<table border>
-			<tr>
-				<th>TimeStatus</th>
-				<th>Status</th>
-				<th>Count</th>
-			</tr>
-			<cfloop query="blsn">
-				<tr>
-					<td>#dstatus#</td>
-					<td>#status#</td>
-					<td>#c#</td>
-				</tr>
-			</cfloop>
-		</table>
-		<cfcatch>
-			----exception getting IP/Subnet info-----
-		</cfcatch>
-		</cftry>
 
 
 
