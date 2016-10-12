@@ -3,6 +3,7 @@
 	<cfargument name="ip" required="yes">
 	<!---- look up blacklist history; return email-safe HTML ---->
 
+<cfoutput>
 		<cfsavecontent variable="t">
 	<cftry>
 		<cfif listlen(ip,'.') is not 4>
@@ -81,6 +82,7 @@
 		</cfcatch>
 		</cftry>
 		</cfsavecontent>
+		</cfoutput>
 		<cfreturn t>
 
 </cffunction>
