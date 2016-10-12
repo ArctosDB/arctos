@@ -2,6 +2,8 @@
 <cffunction name="getBlacklistHistory" returnType="string" access="remote">
 	<cfargument name="ip" required="yes">
 	<!---- look up blacklist history; return email-safe HTML ---->
+
+		<cfsavecontent variable="t">
 	<cftry>
 		<cfif listlen(ip,'.') is not 4>
 			<cfabort>
@@ -41,7 +43,6 @@
 				    END,
 				    status
 		</cfquery>
-		<cfsavecontent variable="t">
 		Block history of IPs in this subnet:
 		<table border>
 			<tr>
