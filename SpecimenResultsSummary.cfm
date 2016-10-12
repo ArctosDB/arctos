@@ -42,7 +42,6 @@ Bad things? Last standalone copy of this form is in v6.11
 	<!---- now pull everything that's NOT groupby out of wherever it came from ---->
 	<cfset querystring="">
 	<cfloop list="#StructKeyList(form)#" index="key">
-
 		<cfif len(form[key]) gt 0 and key is not "groupby">
 			<cfset querystring=listappend(querystring,"#key#=#form[key]#","&")>
 		</cfif>
