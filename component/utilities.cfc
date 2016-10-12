@@ -43,7 +43,7 @@
 				    END,
 				    status
 				</cfquery>
-				Block history of IPs in this subnet:
+				Block history:
 				<table border>
 					<tr>
 						<th>BlockAt</th>
@@ -68,7 +68,7 @@
 						</tr>
 					</cfloop>
 				</table>
-				*** summary data may be cached; check Arctos for current stats ***
+				*** summary data are cached; check Arctos for current ***
 				<cfcatch>
 					----exception getting IP/Subnet info-----
 				</cfcatch>
