@@ -12,69 +12,63 @@
 				<cfquery name="bl" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 					select
 						count(*) c,
-						    CASE when sysdate-LISTDATE > 180 then 'expired'
-						      else 'recent'
-						    END dstatus,
-						    status
-						    from
-						        blacklist
-						        where
-						        CALC_SUBNET='#sn#'
-						        group by
-						    CASE when sysdate-LISTDATE > 180 then 'expired'
-						      else 'recent'
-						    END,
-						    status
+					    CASE when sysdate-LISTDATE > 180 then 'expired'
+					      else 'recent'
+					    END dstatus,
+					    status
+				    from
+				        blacklist
+				        where
+				        CALC_SUBNET='#sn#'
+				    group by
+					    CASE when sysdate-LISTDATE > 180 then 'expired'
+					      else 'recent'
+					    END,
+					    status
 				</cfquery>
 				<cfquery name="blsn" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 					select
 						count(*) c,
-						    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-						      else 'recent'
-						    END dstatus,
-						    status
-						    from
-						        blacklist_subnet
-						        where
-						        subnet='#sn#'
-						        group by
-						    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-						      else 'recent'
-						    END,
-						    status
+					    CASE when sysdate-INSERT_DATE > 180 then 'expired'
+					      else 'recent'
+					    END dstatus,
+					    status
+				    from
+				        blacklist_subnet
+				        where
+				        subnet='#sn#'
+				        group by
+				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
+				      else 'recent'
+				    END,
+				    status
 				</cfquery>
 				Block history of IPs in this subnet:
 				<table border>
 					<tr>
+						<th>BlockAt</th>
 						<th>TimeStatus</th>
 						<th>Status</th>
 						<th>Count</th>
 					</tr>
 					<cfloop query="bl">
 						<tr>
+							<td>IP</td>
 							<td>#dstatus#</td>
 							<td>#status#</td>
 							<td>#c#</td>
 						</tr>
 					</cfloop>
-				</table>
-
-				Block history of this subnet:
-				<table border>
-					<tr>
-						<th>TimeStatus</th>
-						<th>Status</th>
-						<th>Count</th>
-					</tr>
 					<cfloop query="blsn">
 						<tr>
+							<td>subnet</td>
 							<td>#dstatus#</td>
 							<td>#status#</td>
 							<td>#c#</td>
 						</tr>
 					</cfloop>
 				</table>
-				*** summary data may be cached; check Arctos for current data ***
+				*** summary data may be cached; check Arctos for current stats ***
 				<cfcatch>
 					----exception getting IP/Subnet info-----
 				</cfcatch>
