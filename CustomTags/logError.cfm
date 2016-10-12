@@ -173,7 +173,7 @@
 		<br><a href="https://gwhois.org/#exception.ipaddress#">[ lookup #exception.ipaddress# @gwhois ]</a>
 		<p>
 			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
-			or manage IP and subnet restrictions
+			<br><a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#exception.ipaddress#">[ manage IP and subnet restrictions ]</a>
 		</p>
 	</cfif>
 	<cfif isdefined("exception.rawipaddress") and len(exception.rawipaddress) gt 0>
