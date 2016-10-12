@@ -41,6 +41,7 @@
 				    END,
 				    status
 		</cfquery>
+		<cfsavecontent variable="t">
 		Block history of IPs in this subnet:
 		<table border>
 			<tr>
@@ -76,7 +77,8 @@
 			----exception getting IP/Subnet info-----
 		</cfcatch>
 		</cftry>
-
+		</cfsavecontent>
+		<cfreturn t>
 
 </cffunction>
 <!------------------>
