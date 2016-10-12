@@ -2,89 +2,85 @@
 <cffunction name="getBlacklistHistory" returnType="string" access="remote">
 	<cfargument name="ip" required="yes">
 	<!---- look up blacklist history; return email-safe HTML ---->
-
-<cfoutput>
+	<cfoutput>
 		<cfsavecontent variable="t">
-	<cftry>
-		<cfif listlen(ip,'.') is not 4>
-			<cfabort>
-		</cfif>
-		<cfset sn=listgetat(ip,1,'.') & '.' & listgetat(ip,2,'.')>
+			<cftry>
+				<cfif listlen(ip,'.') is not 4>
+					<cfabort>
+				</cfif>
+				<cfset sn=listgetat(ip,1,'.') & '.' & listgetat(ip,2,'.')>
+				<cfquery name="bl" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+					select
+						count(*) c,
+						    CASE when sysdate-LISTDATE > 180 then 'expired'
+						      else 'recent'
+						    END dstatus,
+						    status
+						    from
+						        blacklist
+						        where
+						        CALC_SUBNET='#sn#'
+						        group by
+						    CASE when sysdate-LISTDATE > 180 then 'expired'
+						      else 'recent'
+						    END,
+						    status
+				</cfquery>
+				<cfquery name="blsn" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+					select
+						count(*) c,
+						    CASE when sysdate-INSERT_DATE > 180 then 'expired'
+						      else 'recent'
+						    END dstatus,
+						    status
+						    from
+						        blacklist_subnet
+						        where
+						        subnet='#sn#'
+						        group by
+						    CASE when sysdate-INSERT_DATE > 180 then 'expired'
+						      else 'recent'
+						    END,
+						    status
+				</cfquery>
+				Block history of IPs in this subnet:
+				<table border>
+					<tr>
+						<th>TimeStatus</th>
+						<th>Status</th>
+						<th>Count</th>
+					</tr>
+					<cfloop query="bl">
+						<tr>
+							<td>#dstatus#</td>
+							<td>#status#</td>
+							<td>#c#</td>
+						</tr>
+					</cfloop>
+				</table>
 
-		<br>sn: #sn#
-		<cfquery name="bl" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-			select
-				count(*) c,
-				    CASE when sysdate-LISTDATE > 180 then 'expired'
-				      else 'recent'
-				    END dstatus,
-				    status
-				    from
-				        blacklist
-				        where
-				        CALC_SUBNET='#sn#'
-				        group by
-				    CASE when sysdate-LISTDATE > 180 then 'expired'
-				      else 'recent'
-				    END,
-				    status
-		</cfquery>
-		<cfquery name="blsn" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-			select
-				count(*) c,
-				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-				      else 'recent'
-				    END dstatus,
-				    status
-				    from
-				        blacklist_subnet
-				        where
-				        subnet='#sn#'
-				        group by
-				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-				      else 'recent'
-				    END,
-				    status
-		</cfquery>
-		Block history of IPs in this subnet:
-		<table border>
-			<tr>
-				<th>TimeStatus</th>
-				<th>Status</th>
-				<th>Count</th>
-			</tr>
-			<cfloop query="bl">
-				<tr>
-					<td>#dstatus#</td>
-					<td>#status#</td>
-					<td>#c#</td>
-				</tr>
-			</cfloop>
-		</table>
-
-		Block history of this subnet:
-		<table border>
-			<tr>
-				<th>TimeStatus</th>
-				<th>Status</th>
-				<th>Count</th>
-			</tr>
-			<cfloop query="blsn">
-				<tr>
-					<td>#dstatus#</td>
-					<td>#status#</td>
-					<td>#c#</td>
-				</tr>
-			</cfloop>
-		</table>
-		<cfcatch>
-			----exception getting IP/Subnet info-----
-		</cfcatch>
-		</cftry>
-		</cfsavecontent>
+				Block history of this subnet:
+				<table border>
+					<tr>
+						<th>TimeStatus</th>
+						<th>Status</th>
+						<th>Count</th>
+					</tr>
+					<cfloop query="blsn">
+						<tr>
+							<td>#dstatus#</td>
+							<td>#status#</td>
+							<td>#c#</td>
+						</tr>
+					</cfloop>
+				</table>
+				<cfcatch>
+					----exception getting IP/Subnet info-----
+				</cfcatch>
+				</cftry>
+			</cfsavecontent>
 		</cfoutput>
-		<cfreturn t>
-
+	<cfreturn t>
 </cffunction>
 <!------------------>
 <cffunction name="loadFile" output="false" returnType="string" access="remote">

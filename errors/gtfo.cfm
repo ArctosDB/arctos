@@ -97,26 +97,15 @@
 			<cfset f = CreateObject("component","component.utilities")>
 			<cfset f.setAppBL()>
 			<cfset sumry=f.getBlacklistHistory('#request.ipaddress#')>
-			<cfdump var=#sumry#>
-
-
-
 			<cfmail subject="BlackList Removed" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
 				IP #request.ipaddress# has removed themselves from the blacklist.
-
-		<br><a href="http://whatismyipaddress.com/ip/#request.ipaddress#">[ @whatismyipaddress ]</a>
-		<br><a href="https://www.ipalyzer.com/#request.ipaddress#">[ @ipalyzer ]</a>
-		<br><a href="https://gwhois.org/#request.ipaddress#">[ @gwhois ]</a>
-		<p>
-			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#request.ipaddress#">[ manage manage IP and subnet restrictions ]</a>
-		</p>
-		<p>#sumry#</p>
-
-
-
-
-
-
+				<br><a href="http://whatismyipaddress.com/ip/#request.ipaddress#">[ @whatismyipaddress ]</a>
+				<br><a href="https://www.ipalyzer.com/#request.ipaddress#">[ @ipalyzer ]</a>
+				<br><a href="https://gwhois.org/#request.ipaddress#">[ @gwhois ]</a>
+				<p>
+					<a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#request.ipaddress#">[ manage manage IP and subnet restrictions ]</a>
+				</p>
+				<p>#sumry#</p>
 
 				<p>
 					email: #email#
