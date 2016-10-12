@@ -74,6 +74,7 @@
 						</tr>
 					</cfloop>
 				</table>
+				*** summary data may be cached; check Arctos for current data ***
 				<cfcatch>
 					----exception getting IP/Subnet info-----
 				</cfcatch>
