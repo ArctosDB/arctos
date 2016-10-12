@@ -104,7 +104,7 @@
 		<br><a href="https://www.ipalyzer.com/#request.ipaddress#">[ @ipalyzer ]</a>
 		<br><a href="https://gwhois.org/#request.ipaddress#">[ @gwhois ]</a>
 		<p>
-			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#exception.ipaddress#">[ manage manage IP and subnet restrictions ]</a>
+			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#request.ipaddress#">[ manage manage IP and subnet restrictions ]</a>
 		</p>
 		<p>#sumry#</p>
 
