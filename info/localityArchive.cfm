@@ -50,7 +50,7 @@
 				millions of (or zero) specimens now.
 			</li>
 			<li>
-				"whodunit" is the agent who changed FROM the data in the row; each change is an archive of :OLD values
+				UserID is the agent who changed FROM the data in the row; each change is an archive of :OLD values
 				captured with Oracle triggers. That is, whodunit discarded the row on which their username appears,
 				creating the next-newer row.
 			</li>
