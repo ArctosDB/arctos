@@ -31,7 +31,8 @@
 		}
 		for(var i in result){
 		    clr=randomColor();
-		    cssd='{"background-color" : "' + clr + '","opacity": "0.5"}';
+		   // cssd='{"background-color" : "' + clr + '","opacity": "0.5"}';
+		    cssd='"background-color" : "' + clr + '"';
 		    console.log(cssd);
 			$('.datarow[data-lid="' + result[i] + '"]').css(cssd);
 		}
