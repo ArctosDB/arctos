@@ -41,7 +41,8 @@
 		}
 	}
 	function decolorizinate(){
-		$('.datarow[data-lid]').css('');
+		//$('.datarow[data-lid]').css("background-color",'');
+		$('.datarow[data-lid]').removeAttr( 'style' );
 	}
 </script>
 <cfoutput>
