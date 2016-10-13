@@ -124,7 +124,7 @@
 				<a target="_blank" href="/editLocality.cfm?locality_id=#LOCALITY_ID#">
 					#orig.LOCALITY_ID#
 				</a>
-				<br><a target="_blank" href="/SpecimenResult.cfm?locality_id=#LOCALITY_ID#">
+				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#LOCALITY_ID#">
 					[ specimens ]
 				</a>
 			</td>
