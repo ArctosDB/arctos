@@ -114,11 +114,11 @@
 			<th>GEO_ID</th>
 			<th>SpecLoc</th>
 			<th>LocName</th>
-			<th>Dpt</th>
+			<th>Depth</th>
 			<th>Elev</th>
 			<th>Datum</th>
 			<th>Coords</th>
-			<th>CrdErr</th>
+			<th>Error</th>
 			<th>Protocol</th>
 			<th>Source</th>
 			<th>WKT-hash</th>
