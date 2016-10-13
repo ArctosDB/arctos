@@ -19,6 +19,7 @@
 
 	function colorinate(){
 		var clr;
+		var css;
 		var items = {};
 		$('tr.datarow').each(function() {
 		    items[$(this).attr('data-lid')] = true;
@@ -29,8 +30,11 @@
 		    result.push(i);
 		}
 		for(var i in result){
-		    var clr=randomColor();
-			$('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr + ',"opacity: 0.5;"');
+		    clr=randomColor();
+		    css='{"background-color":"' + clr + '","opacity": "0.5"}';
+		    console.log(css);
+});
+			$('.datarow[data-lid="' + result[i] + '"]').css(css);
 		}
 	}
 	function decolorizinate(){
