@@ -20,7 +20,12 @@
 			<li>Changed values are are red</li>
 			<li>un-changed values are are green</li>
 			<li>[NULL] indicates a NULL data value, not the string "[NULL]"</li>
-			<li>Links go to (usually edit of) CURRENT data. geog_auth_rec_id=1 may be "here" now but was "not here" when the locality was edited.</li>
+			<li>
+				Links go to (usually edit of) CURRENT data.
+				geog_auth_rec_id=1 may be "here" now but was "not here" when the locality was edited.
+				A locality may have had zero (or millions) of specimens when it was edited, and
+				millions of (or zero) specimens now.
+			</li>
 			<li>All links open in a new window/tab</li>
 		</ul>
 	<hr>
