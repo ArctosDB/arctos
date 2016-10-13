@@ -29,7 +29,8 @@
 			</li>
 			<li>
 				"whodunit" is the agent who changed FROM the data in the row; each change is an archive of :OLD values
-				captured with Oracle triggers.
+				captured with Oracle triggers. That is, whodunit discarded the row on which their username appears,
+				creating the next-newer row.
 			</li>
 			<li>Polygons are represented by a "fingerprint" - contact a DBA if you need to know specific changes.</li>
 			<li>All links open in a new window/tab</li>
