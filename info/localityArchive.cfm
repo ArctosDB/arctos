@@ -2,9 +2,11 @@
 <cfset title="Locality Archive">
 <style>
 	.nochange{border:3px solid green;}
-	.haschange{
-		border:3px solid red;}
-		.original{border:2px solid black;}
+	.haschange{border:3px solid red;}
+	.original{
+		border:2px solid black;
+		font-weight:bold;
+	}
 
 
 </style>
