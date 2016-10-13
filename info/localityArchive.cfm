@@ -34,7 +34,7 @@
 		   // cssd='{"background-color" : ' + clr + ',"opacity": "0.5"}';
 		    cssd="{'background-color' : '" + clr + "'}";
 		    console.log(cssd);
-			$('.datarow[data-lid="' + result[i] + '"]').css("background-color" : #ed57a4);
+			$('.datarow[data-lid="' + result[i] + '"]').css("background-color" , clr);
 		}
 	}
 	function decolorizinate(){
