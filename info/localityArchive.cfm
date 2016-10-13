@@ -147,49 +147,45 @@
 				<td>#changedate#</td>
 				<td>#whodunit#</td>
 				<td>#LOCALITY_ID#</td>
-				<cfset thisgeoID=GEOG_AUTH_REC_ID>
-				<cfif thisGeoID is lastGeoID>
+				<cfif GEOG_AUTH_REC_ID is lastGeoID>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastGeoID=thisGeoID>
+				<cfset lastGeoID=GEOG_AUTH_REC_ID>
 				<td class="#thisStyle#">
-					#thisGeoID#
+					#GEOG_AUTH_REC_ID#
 				</td>
 
-				<cfset thisSpecLoc=SPEC_LOCALITY>
-				<cfif thisSpecLoc is lastSpecLoc>
+				<cfif SPEC_LOCALITY is lastSpecLoc>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastSpecLoc=thisSpecLoc>
+				<cfset lastSpecLoc=SPEC_LOCALITY>
 				<td class="#thisStyle#">
-					#thisSpecLoc#
+					#SPEC_LOCALITY#
 				</td>
 
 
-				<cfset thisLocName=LOCALITY_NAME>
-				<cfif thisLocName is lastLocName>
+				<cfif LOCALITY_NAME is lastLocName>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastLocName=thisLocName>
+				<cfset lastLocName=LOCALITY_NAME>
 				<td class="#thisStyle#">
-					#thisLocName#
+					#LOCALITY_NAME#
 				</td>
 
-				<cfset thisDepth=depth>
-				<cfif thisDepth is lastDepth>
+				<cfif depth is lastDepth>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastDepth=thisDepth>
+				<cfset lastDepth=depth>
 				<td class="#thisStyle#">
-					#thisDepth#
+					#depth#
 				</td>
 
 
@@ -225,70 +221,63 @@
 				</td>
 
 
-				<cfset thisCoordErr=coordinateError>
-				<cfif thisCoordErr is lastCoordErr>
+				<cfif coordinateError is lastCoordErr>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastCoordErr=thisCoordErr>
+				<cfset lastCoordErr=coordinateError>
 				<td class="#thisStyle#">
-					#thisCoordErr#
+					#coordinateError#
 				</td>
 
 
 
-				<cfset thisProt=GEOREFERENCE_PROTOCOL>
-				<cfif thisProt is lastProt>
+				<cfif GEOREFERENCE_PROTOCOL is lastProt>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastProt=thisProt>
+				<cfset lastProt=GEOREFERENCE_PROTOCOL>
 				<td class="#thisStyle#">
-					#thisProt#
+					#GEOREFERENCE_PROTOCOL#
 				</td>
 
 
 
-				<cfset thisSrc=GEOREFERENCE_SOURCE>
-				<cfif thisSrc is lastSrc>
+				<cfif GEOREFERENCE_SOURCE is lastSrc>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastSrc=thisSrc>
+				<cfset lastSrc=GEOREFERENCE_SOURCE>
 				<td class="#thisStyle#">
-					#thisSrc#
+					#GEOREFERENCE_SOURCE#
 				</td>
 
 
 
-				<cfset thisWKT=polyhash>
-				<cfif thisWKT is lastWKT>
+				<cfif polyhash is lastWKT>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastWKT=thisWKT>
+				<cfset lastWKT=polyhash>
 				<td class="#thisStyle#">
-					#thisWKT#
+					#polyhash#
 				</td>
 
 
 
-				<cfset thisrem=LOCALITY_REMARKS>
-				<cfif thisrem is lastRem>
+				<cfif LOCALITY_REMARKS is lastRem>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastRem=thisrem>
+				<cfset lastRem=LOCALITY_REMARKS>
 				<td class="#thisStyle#">
-					#thisrem#
+					#LOCALITY_REMARKS#
 				</td>
-
-
 
 
 			</tr>
