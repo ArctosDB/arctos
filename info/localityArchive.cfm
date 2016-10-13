@@ -37,7 +37,7 @@
 		    cssd='"background-color" , "#a0c0f7"';
 
 		    console.log(cssd);
-			$('.datarow[data-lid="' + result[i] + '"]').css(cssd);
+			$('.datarow[data-lid="' + result[i] + '"]').cssText(cssd);
 		}
 	}
 	function decolorizinate(){
