@@ -37,7 +37,7 @@
 		    cssd='"background-color" , "#a0c0f7"';
 
 		    console.log(cssd);
-			$('.datarow[data-lid="' + result[i] + '"]').cssText({'background-color':'#FFFF00','color':'#FF0000','font-family':'Arial','font-size':'18pt'});
+			$('.datarow[data-lid="' + result[i] + '"]').css({'background-color':'#FFFF00','color':'#FF0000','font-family':'Arial','font-size':'18pt'});
 		}
 	}
 	function decolorizinate(){
