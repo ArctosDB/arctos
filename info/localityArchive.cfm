@@ -110,19 +110,19 @@
 		<tr>
 			<th>ChangeDate</th>
 			<th>UserID</th>
-			<th>LOCALITY_ID</th>
-			<th>GEOG_AUTH_REC_ID</th>
-			<th>SPEC_LOCALITY</th>
-			<th>LOCALITY_NAME</th>
-			<th>Depth</th>
-			<th>Elevation</th>
-			<th>DATUM</th>
-			<th>Coordinates</th>
-			<th>CoordError</th>
-			<th>GEOREFERENCE_PROTOCOL</th>
-			<th>GEOREFERENCE_SOURCE</th>
-			<th>WKT(hash)</th>
-			<th>LOCALITY_REMARKS</th>
+			<th>LOC_ID</th>
+			<th>GEO_ID</th>
+			<th>SpecLoc</th>
+			<th>LocName</th>
+			<th>Dpt</th>
+			<th>Elev</th>
+			<th>Datum</th>
+			<th>Coords</th>
+			<th>CrdErr</th>
+			<th>Protocol</th>
+			<th>Source</th>
+			<th>WKT-hash</th>
+			<th>Remark</th>
 		</tr>
 	<cfloop list="#locality_id#" index="lid">
 		<cfquery name="orig" datasource="uam_god">
