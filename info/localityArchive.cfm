@@ -31,9 +31,9 @@
 		}
 		for(var i in result){
 		    clr=randomColor();
-		    css='{"background-color":"' + clr + '","opacity": "0.5"}';
-		    console.log(css);
-			$('.datarow[data-lid="' + result[i] + '"]').css(css);
+		    cssd='{"background-color":"' + clr + '","opacity": "0.5"}';
+		    console.log(cssd);
+			$('.datarow[data-lid="' + result[i] + '"]').css(cssd);
 		}
 	}
 	function decolorizinate(){
