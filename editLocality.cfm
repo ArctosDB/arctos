@@ -569,7 +569,7 @@ function checkCoordinateError(){
 	<cfset contents = obj.getLocalityContents(locality_id="#locality_id#")>
 	#contents#
 	<br>
-	<a href="/info/localityArchive.cfm?locality_id=#locality_id#">check archive</a>
+	<a target="_blank" href="/info/localityArchive.cfm?locality_id=#locality_id#">check archive (new tab)</a>
    	<div style="border:5px solid red; background-color:red;">
 		<br>Red is scary. This form is dangerous. Make sure you know what it's doing before you get all clicky.
 		<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
