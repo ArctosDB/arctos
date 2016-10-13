@@ -21,6 +21,7 @@
 			<li>un-changed values are are green</li>
 			<li>[NULL] indicates a NULL data value, not the string "[NULL]"</li>
 			<li>Links go to CURRENT data. geog_auth_rec_id=1 may be "here" now but was "not here" when the locality was edited.</li>
+			<li>All links open in a new window/tab</li>
 		</ul>
 	<hr>
 
@@ -111,14 +112,18 @@
 			<td class="original">
 				#orig.LOCALITY_ID#
 				<br><a target="_blank" href="/SpecimenResult.cfm?locality_id=#LOCALITY_ID#">
-					specimens (new tab)
+					specimens
 				</a>
 				<br><a target="_blank" href="/editLocality.cfm?locality_id=#LOCALITY_ID#">
-					edit locality (new tab)
+					edit locality
 				</a>
 			</td>
 			<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
-			<td class="original">#orig.GEOG_AUTH_REC_ID#</td>
+			<td class="original">
+				<a target="_blank" href="/geography.cfm?geog_auth_rec_id=#orig.GEOG_AUTH_REC_ID#">
+					#orig.GEOG_AUTH_REC_ID#
+				</a>
+			</td>
 
 			<cfset lastSpecLoc=orig.SPEC_LOCALITY>
 			<td class="original">#orig.SPEC_LOCALITY#</td>
@@ -176,7 +181,9 @@
 				</cfif>
 				<cfset lastGeoID=GEOG_AUTH_REC_ID>
 				<td class="#thisStyle#">
-					#GEOG_AUTH_REC_ID#
+					<a target="_blank" href="/geography.cfm?geog_auth_rec_id=#GEOG_AUTH_REC_ID#">
+						#GEOG_AUTH_REC_ID#
+					</a>
 				</td>
 
 				<cfif SPEC_LOCALITY is lastSpecLoc>
