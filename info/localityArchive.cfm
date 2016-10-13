@@ -1,5 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Locality Archive">
+<style>
+	.nochange{border:1px solid green;}
+	.haschange{border:1px solid red;}
+
+</style>
 <cfoutput>
 	<cfif not isdefined("locality_id")>
 		bad call<cfabort>
