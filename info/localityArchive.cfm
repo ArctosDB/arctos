@@ -34,7 +34,7 @@
 
 	for(var i in result)
 		{
-		    console.log('resultloop: ' + i);
+		    console.log('resultloop: ' + result[i]);
 		}
 
 
