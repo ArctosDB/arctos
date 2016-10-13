@@ -149,7 +149,7 @@ $("yourdiv").data("ts-speed");
 			<li>
 				You can
 				<span class="likeLink" onclick="colorinate();">randomly color things by localityID </span> or
-				<span class="likeLink" onclick="decolorizinate();">don't do that</span>.
+				<span class="likeLink" onclick="decolorizinate();">turn that off</span>.
 			</li>
 		</ul>
 	<hr>
