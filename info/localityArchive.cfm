@@ -30,7 +30,7 @@
 		}
 		for(var i in result){
 		    var clr=randomColor();
-			$('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr + ';pacity: 0.5;");
+			$('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr + ',"opacity: 0.5;");
 		}
 	}
 	function decolorizinate(){
