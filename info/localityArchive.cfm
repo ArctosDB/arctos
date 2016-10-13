@@ -19,7 +19,7 @@
 $(document).ready(function() {
 
 $("tr[data-lid]").val(function(){
-    console.log( $(this);
+    console.log( $(this) );
 });
 
 
