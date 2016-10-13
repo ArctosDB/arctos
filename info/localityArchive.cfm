@@ -30,7 +30,7 @@
 		}
 		for(var i in result){
 		    var clr=randomColor();
-			$('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr);
+			$('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr + ';pacity: 0.5;");
 		}
 	}
 	function decolorizinate(){
@@ -47,13 +47,13 @@
 		<ul>
 			<li>Sort is by passed-in locality_ids (if multiple), then by change date</li>
 			<li>Newest records are closest to the top</li>
-			<li>Changed values are are red</li>
-			<li>un-changed values are are green</li>
+			<li>Changed values are red</li>
+			<li>un-changed values are green</li>
 			<li>[NULL] indicates a NULL data value, not the string "[NULL]"</li>
 			<li>
-				Links go to (usually edit of) CURRENT data.
-				geog_auth_rec_id=1 may be "here" now but was "not here" when the locality was edited.
-				A locality may have had zero (or millions) of specimens when it was edited, and
+				Links go to (usually edit of) CURRENT data. Eg,
+				geog_auth_rec_id=1 may be "here" now but was "not here" when the locality was edited, or
+				a locality may have had zero (or millions) of specimens when it was edited, and
 				millions of (or zero) specimens now.
 			</li>
 			<li>
