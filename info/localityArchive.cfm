@@ -23,7 +23,15 @@ $(document).ready(function() {
 	var clocid;
 
 $("tr[data-lid]").val(function(){
+
+	console.log('llocid: ' + llocid);
+
 	clocid=$(this).data('lid');
+
+
+	console.log('clocid: ' + clocid);
+
+
 	if (llocid != clocid){
 		// new row, new color
 		var nClr=randomColor();
