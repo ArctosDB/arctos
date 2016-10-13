@@ -3,7 +3,6 @@
 <style>
 	.nochange{border:1px solid green;}
 	.haschange{border:1px solid red;}
-
 </style>
 <cfoutput>
 	<cfif not isdefined("locality_id")>
@@ -144,9 +143,9 @@
 				</cfif>
 				<cfset lastGeoID=thisGeoID>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisGeoID#
-					</span>
+					</div>
 				</td>
 
 				<cfset thisSpecLoc=SPEC_LOCALITY>
@@ -157,9 +156,9 @@
 				</cfif>
 				<cfset lastSpecLoc=thisSpecLoc>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisSpecLoc#
-					</span>
+					</div>
 				</td>
 
 
@@ -171,9 +170,9 @@
 				</cfif>
 				<cfset lastLocName=thisLocName>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisLocName#
-					</span>
+					</div>
 				</td>
 
 				<cfset thisDepth="#MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#">
@@ -184,9 +183,9 @@
 				</cfif>
 				<cfset lastDepth=thisDepth>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisDepth#
-					</span>
+					</div>
 				</td>
 
 
@@ -198,9 +197,9 @@
 				</cfif>
 				<cfset lastElev=thisElev>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisElev#
-					</span>
+					</div>
 				</td>
 
 
@@ -212,9 +211,9 @@
 				</cfif>
 				<cfset lastDatum=thisDatum>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisDatum#
-					</span>
+					</div>
 				</td>
 
 				<cfset thisCoords="#DEC_LAT#,#DEC_LONG#">
@@ -225,9 +224,9 @@
 				</cfif>
 				<cfset lastCoords=thisCoords>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisCoords#
-					</span>
+					</div>
 				</td>
 
 
@@ -239,9 +238,9 @@
 				</cfif>
 				<cfset lastCoordErr=thisCoordErr>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisCoordErr#
-					</span>
+					</div>
 				</td>
 
 
@@ -254,9 +253,9 @@
 				</cfif>
 				<cfset lastProt=thisProt>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisProt#
-					</span>
+					</div>
 				</td>
 
 
@@ -269,9 +268,9 @@
 				</cfif>
 				<cfset lastSrc=thisSrc>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisSrc#
-					</span>
+					</div>
 				</td>
 
 
@@ -284,9 +283,9 @@
 				</cfif>
 				<cfset lastWKT=thisWKT>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisWKT#
-					</span>
+					</div>
 				</td>
 
 
@@ -299,9 +298,9 @@
 				</cfif>
 				<cfset lastRem=thisrem>
 				<td>
-					<span class="#thisStyle#">
+					<div class="#thisStyle#">
 						#thisrem#
-					</span>
+					</div>
 				</td>
 
 
