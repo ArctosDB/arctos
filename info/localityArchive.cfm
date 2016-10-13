@@ -107,7 +107,15 @@
 		<tr>
 			<td class="original">currentData</td>
 			<td class="original">-n/a-</td>
-			<td class="original">#orig.LOCALITY_ID#</td>
+			<td class="original">
+				#orig.LOCALITY_ID#
+				<a target="_blank" href="/SpecimenResult.cfm?locality_id=#LOCALITY_ID#">
+					specimens (new tab)
+				</a>
+				<a target="_blank" href="/editLocality.cfm?locality_id=#LOCALITY_ID#">
+					edit locality (new tab)
+				</a>
+			</td>
 			<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
 			<td class="original">#orig.GEOG_AUTH_REC_ID#</td>
 
