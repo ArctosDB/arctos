@@ -19,6 +19,9 @@
 			MINIMUM_ELEVATION,
 			MAXIMUM_ELEVATION,
 			ORIG_ELEV_UNITS,
+			decode(DEPTH_UNITS,
+				null,'[NULL]',
+				MIN_DEPTH || '-' || MAX_DEPTH || ' ' || DEPTH_UNITS) depth,
 			MIN_DEPTH,
 			MAX_DEPTH,
 			DEPTH_UNITS,
@@ -69,9 +72,9 @@
 			MINIMUM_ELEVATION,
 			MAXIMUM_ELEVATION,
 			ORIG_ELEV_UNITS,
-			MIN_DEPTH,
-			MAX_DEPTH,
-			DEPTH_UNITS,
+			decode(DEPTH_UNITS,
+				null,'[NULL]',
+				MIN_DEPTH || '-' || MAX_DEPTH || ' ' || DEPTH_UNITS) depth,
 			decode(
 				MAX_ERROR_DISTANCE,
 				null,'[NULL]',
@@ -97,7 +100,7 @@
 			<cfset lastLocName=orig.LOCALITY_NAME>
 			<td>#orig.LOCALITY_NAME#</td>
 
-			<cfset lastDepth="#orig.MIN_DEPTH#-#orig.MAX_DEPTH# #orig.DEPTH_UNITS#">
+			<cfset lastDepth=orig.depth>
 			<td>#lastDepth#</td>
 
 			<cfset lastElev="#orig.MINIMUM_ELEVATION#-#orig.MAXIMUM_ELEVATION# #orig.ORIG_ELEV_UNITS#">
@@ -179,7 +182,7 @@
 					</div>
 				</td>
 
-				<cfset thisDepth="#MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#">
+				<cfset thisDepth=depth>
 				<cfif thisDepth is lastDepth>
 					<cfset thisStyle="nochange">
 				<cfelse>
