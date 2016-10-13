@@ -35,9 +35,15 @@ $("tr[data-lid]").val(function(){
 	if (llocid != clocid){
 		// new row, new color
 		var nClr=randomColor();
-		$(this).css("background-color",nClr);
-		console.log( $(this).data('lid') );
+		llocid=clocid;
+
+
 	}
+
+	$(this).css("background-color",nClr);
+	console.log( $(this).data('lid') );
+
+
 });
 
 
