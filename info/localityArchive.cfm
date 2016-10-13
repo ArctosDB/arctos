@@ -32,6 +32,13 @@
 		alert(result);
 
 
+	for(var i in result)
+		{
+		    console.log('resultloop: ' + i);
+		}
+
+
+//$('.slide-link[data-slide="0"]').addClass('active');
 
 
 
