@@ -19,7 +19,6 @@
 	$(document).ready(function() {
 		var llocid=0;
 		var nClr;
-		console.log('nClr: ' + nClr);
 		var clocid;
 
 		$("tr[data-lid]").val(function(){
