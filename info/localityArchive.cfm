@@ -12,5 +12,18 @@
 	<cfif d.recordcount is 0>
 		No archived information found.<cfabort>
 	</cfif>
+	<cfloop list="#locality_id#" index="lid">
+		<cfquery name="orig" datasource="uam_god">
+			select * from locality where locality_id=#lid#
+		</cfquery>
+		original data:
+		<cfdump var=#orig#>
+
+		<cfquery name="thisChanges" dbtype="query">
+			select * from d where locality_id=#lid# order by changedate
+		</cfquery>
+		changes:
+		<cfdump var=#thisChanges#>
+	</cfloop>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
