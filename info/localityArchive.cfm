@@ -19,7 +19,7 @@
 $(document).ready(function() {
 
 $("tr[data-lid]").val(function(){
-    console.log( $(this).id );
+    console.log( $(this).data('lid') );
 });
 
 
@@ -153,14 +153,14 @@ randomColor();
 			LOCALITY_NAME,
 		 	md5hash(WKT_POLYGON) polyhash from locality where locality_id=#lid#
 		</cfquery>
-		<tr class="datarow" data-lid="#LOCALITY_ID#">
+		<tr class="datarow" data-lid="#lid#">
 			<td class="original">currentData</td>
 			<td class="original">-n/a-</td>
 			<td class="original">
-				<a target="_blank" href="/editLocality.cfm?locality_id=#LOCALITY_ID#">
+				<a target="_blank" href="/editLocality.cfm?locality_id=#lid#">
 					#orig.LOCALITY_ID#
 				</a>
-				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#LOCALITY_ID#">
+				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#lid#">
 					[ specimens ]
 				</a>
 			</td>
