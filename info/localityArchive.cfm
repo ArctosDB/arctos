@@ -154,10 +154,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastGeoID=thisGeoID>
-				<td>
-					<div class="#thisStyle#">
+				<td class="#thisStyle#">
 						#thisGeoID#
-					</div>
 				</td>
 
 				<cfset thisSpecLoc=SPEC_LOCALITY>
