@@ -19,7 +19,7 @@
 $(document).ready(function() {
 	var llocid=0;
 	var nClr;
-	console.log(nClr);
+	console.log('nClr: ' + nClr);
 	var clocid;
 
 $("tr[data-lid]").val(function(){
@@ -41,6 +41,7 @@ $("tr[data-lid]").val(function(){
 		var nClr=randomColor();
 		llocid=clocid;
 		console.log('new ID');
+		console.log('nClr: ' + nClr);
 
 
 	}
