@@ -20,7 +20,7 @@
 			<li>Changed values are are red</li>
 			<li>un-changed values are are green</li>
 			<li>[NULL] indicates a NULL data value, not the string "[NULL]"</li>
-			<li>Links go to CURRENT data. geog_auth_rec_id=1 may be "here" now but was "not here" when the locality was edited.</li>
+			<li>Links go to (usually edit of) CURRENT data. geog_auth_rec_id=1 may be "here" now but was "not here" when the locality was edited.</li>
 			<li>All links open in a new window/tab</li>
 		</ul>
 	<hr>
@@ -110,12 +110,11 @@
 			<td class="original">currentData</td>
 			<td class="original">-n/a-</td>
 			<td class="original">
-				#orig.LOCALITY_ID#
-				<br><a target="_blank" href="/SpecimenResult.cfm?locality_id=#LOCALITY_ID#">
-					specimens
+				<a target="_blank" href="/editLocality.cfm?locality_id=#LOCALITY_ID#">
+					#orig.LOCALITY_ID#
 				</a>
-				<br><a target="_blank" href="/editLocality.cfm?locality_id=#LOCALITY_ID#">
-					edit locality
+				<br><a target="_blank" href="/SpecimenResult.cfm?locality_id=#LOCALITY_ID#">
+					[ specimens ]
 				</a>
 			</td>
 			<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
