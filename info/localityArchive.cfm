@@ -215,7 +215,7 @@ randomColor();
 			select * from d where locality_id=#lid# order by changedate desc
 		</cfquery>
 		<cfloop query="thisChanges">
-			<tr>
+			<tr class="datarow" data-lid="#lid#">
 
 				<td>#changedate#</td>
 				<td>#whodunit#</td>
