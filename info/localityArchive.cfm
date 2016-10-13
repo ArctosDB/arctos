@@ -1,11 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Locality Archive">
 <style>
-	.nochange{border:1px solid green;}
+	.nochange{border:3px solid green;}
 	.haschange{
-		border:1px solid red;
-		height:100%;
-		width:100%;}
+		border:3px solid red;}
 
 
 </style>
@@ -155,7 +153,7 @@
 				</cfif>
 				<cfset lastGeoID=thisGeoID>
 				<td class="#thisStyle#">
-						#thisGeoID#
+					#thisGeoID#
 				</td>
 
 				<cfset thisSpecLoc=SPEC_LOCALITY>
@@ -165,10 +163,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastSpecLoc=thisSpecLoc>
-				<td>
-					<div class="#thisStyle#">
-						#thisSpecLoc#
-					</div>
+				<td class="#thisStyle#">
+					#thisSpecLoc#
 				</td>
 
 
@@ -179,10 +175,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastLocName=thisLocName>
-				<td>
-					<div class="#thisStyle#">
-						#thisLocName#
-					</div>
+				<td class="#thisStyle#">
+					#thisLocName#
 				</td>
 
 				<cfset thisDepth=depth>
@@ -192,10 +186,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastDepth=thisDepth>
-				<td>
-					<div class="#thisStyle#">
-						#thisDepth#
-					</div>
+				<td class="#thisStyle#">
+					#thisDepth#
 				</td>
 
 
@@ -206,10 +198,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastElev=thisElev>
-				<td>
-					<div class="#thisStyle#">
-						#thisElev#
-					</div>
+				<td class="#thisStyle#">
+					#thisElev#
 				</td>
 
 
@@ -220,10 +210,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastDatum=thisDatum>
-				<td>
-					<div class="#thisStyle#">
-						#thisDatum#
-					</div>
+				<td class="#thisStyle#">
+					#thisDatum#
 				</td>
 
 				<cfset thisCoords="#DEC_LAT#,#DEC_LONG#">
@@ -233,10 +221,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastCoords=thisCoords>
-				<td>
-					<div class="#thisStyle#">
-						#thisCoords#
-					</div>
+				<td class="#thisStyle#">
+					#thisCoords#
 				</td>
 
 
@@ -247,10 +233,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastCoordErr=thisCoordErr>
-				<td>
-					<div class="#thisStyle#">
-						#thisCoordErr#
-					</div>
+				<td class="#thisStyle#">
+					#thisCoordErr#
 				</td>
 
 
@@ -262,10 +246,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastProt=thisProt>
-				<td>
-					<div class="#thisStyle#">
-						#thisProt#
-					</div>
+				<td class="#thisStyle#">
+					#thisProt#
 				</td>
 
 
@@ -277,10 +259,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastSrc=thisSrc>
-				<td>
-					<div class="#thisStyle#">
-						#thisSrc#
-					</div>
+				<td class="#thisStyle#">
+					#thisSrc#
 				</td>
 
 
@@ -292,10 +272,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastWKT=thisWKT>
-				<td>
-					<div class="#thisStyle#">
-						#thisWKT#
-					</div>
+				<td class="#thisStyle#">
+					#thisWKT#
 				</td>
 
 
@@ -307,10 +285,8 @@
 					<cfset thisStyle="haschange">
 				</cfif>
 				<cfset lastRem=thisrem>
-				<td>
-					<div class="#thisStyle#">
-						#thisrem#
-					</div>
+				<td class="#thisStyle#">
+					#thisrem#
 				</td>
 
 
