@@ -27,26 +27,14 @@
 		});
 
 		var result = new Array();
-		for(var i in items)
-		{
+		for(var i in items){
 		    result.push(i);
 		}
-		alert(result);
-
-
-	for(var i in result)
-		{
+		for(var i in result){
 		    console.log('resultloop: ' + result[i]);
 		    var clr=randomColor();
-		     console.log('got a clr: ' + clr);
-
-		     $('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr);
-
-
-
-
-
-
+		    console.log('got a clr: ' + clr);
+			$('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr);
 		}
 
 
@@ -55,6 +43,9 @@
 	});
 
 
+function decolorizinate(){
+	$('.datarow[data-lid]').css("background-color",'');
+	}
 
 
 
@@ -153,6 +144,9 @@ $("yourdiv").data("ts-speed");
 				do nothing, or updates to webservice-derived data) are not archived.
 			</li>
 			<li>All links open in a new window/tab</li>
+			<li>
+				Colors are randomly generated. <span class="likeLink" onclick="decolorizinate();">Make it stop.</span>
+			</li>
 		</ul>
 	<hr>
 
