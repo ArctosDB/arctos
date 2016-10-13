@@ -127,7 +127,7 @@
 		</tr>
 
 		<cfquery name="thisChanges" dbtype="query">
-			select * from d where locality_id=#lid# order by changedate
+			select * from d where locality_id=#lid# order by changedate desc
 		</cfquery>
 		<cfloop query="thisChanges">
 			<tr>
