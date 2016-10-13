@@ -148,7 +148,7 @@ $("yourdiv").data("ts-speed");
 			<li>All links open in a new window/tab</li>
 			<li>
 				You can
-				<span class="likeLink" onclick="colorinate();">randomly color things by localityID - click again for new colors - </span> or
+				<span class="likeLink" onclick="colorinate();">randomly color things by localityID </span> or
 				<span class="likeLink" onclick="decolorizinate();">don't do that</span>.
 			</li>
 		</ul>
