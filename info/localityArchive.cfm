@@ -11,6 +11,19 @@
 	<cfif not isdefined("locality_id")>
 		bad call<cfabort>
 	</cfif>
+
+	<hr>
+		Locality Change Log
+		<ul>
+			<li>Sort is by passed-in locality_ids (if multiple), then by change date</li>
+			<li>Newest records are closest to the top</li>
+			<li>Changed values are are red</li>
+			<li>un-changed values are are green</li>
+			<li>[NULL] indicates a NULL data value, not the string "[NULL]"</li>
+		</ul>
+	<hr>
+
+
 	<cfquery name="d" datasource="uam_god">
 		select
 			locality_archive_id,
