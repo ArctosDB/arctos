@@ -22,8 +22,10 @@
 			MIN_DEPTH,
 			MAX_DEPTH,
 			DEPTH_UNITS,
-			MAX_ERROR_DISTANCE,
-			MAX_ERROR_UNITS,
+			decode(
+				MAX_ERROR_DISTANCE,
+				null,'[NULL]',
+				MAX_ERROR_DISTANCE || ' ' || MAX_ERROR_UNITS) coordinateError,
 			DATUM,
 			LOCALITY_REMARKS,
 			GEOREFERENCE_SOURCE,
@@ -70,8 +72,10 @@
 			MIN_DEPTH,
 			MAX_DEPTH,
 			DEPTH_UNITS,
-			MAX_ERROR_DISTANCE,
-			MAX_ERROR_UNITS,
+			decode(
+				MAX_ERROR_DISTANCE,
+				null,'[NULL]',
+				MAX_ERROR_DISTANCE || ' ' || MAX_ERROR_UNITS) coordinateError,
 			DATUM,
 			LOCALITY_REMARKS,
 			GEOREFERENCE_SOURCE,
@@ -106,7 +110,7 @@
 			<cfset lastCoords="#orig.DEC_LAT#,#orig.DEC_LONG#">
 			<td>#lastCoords#</td>
 
-			<cfset lastCoordErr="#orig.MAX_ERROR_DISTANCE# #orig.MAX_ERROR_UNITS#">
+			<cfset lastCoordErr=orig.coordinateError>
 			<td>#lastCoordErr#</td>
 
 
@@ -230,7 +234,7 @@
 				</td>
 
 
-				<cfset thisCoordErr="#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#">
+				<cfset thisCoordErr=coordinateError>
 				<cfif thisCoordErr is lastCoordErr>
 					<cfset thisStyle="nochange">
 				<cfelse>
