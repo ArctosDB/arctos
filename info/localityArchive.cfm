@@ -19,6 +19,8 @@
 	$(document).ready(function() {
 
 
+	var clr;
+
 		var items = {};
 		$('tr.datarow').each(function() {
 		    items[$(this).attr('data-lid')] = true;
@@ -35,18 +37,28 @@
 	for(var i in result)
 		{
 		    console.log('resultloop: ' + result[i]);
+		    var clr=randomColor();
+		     console.log('got a clr: ' + clr);
+
+		     $('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr);
+
+
+
+
+
+
 		}
 
 
-//$('.slide-link[data-slide="0"]').addClass('active');
+//
+
+	});
 
 
 
 
 
-
-
-
+/*
 
 		var llocid=0;
 		var nClr;
@@ -83,8 +95,20 @@
 		});
 
 
-	});
-/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $("yourdiv").data("ts-speed");
 
