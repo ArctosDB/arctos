@@ -38,52 +38,58 @@
 <cfif not isdefined("bl_reason")>
 	<cfset bl_reason="unknown">
 </cfif>
-
-<cfquery name="d" datasource="uam_god">
-	insert into uam.blacklist (
-		ip,
-		LISTDATE,
-		STATUS,
-		LASTDATE
-	) values (
-		'#request.ipaddress#',
-		sysdate,
-		'active',
-		sysdate
-		)
-</cfquery>
-<cfquery name="blipc" datasource="uam_god">
-	select count(*) c from blacklist where
-	status='active' and
-	substr(ip,1,instr(ip,'.',1,2)-1) = '#request.requestingSubnet#'
-</cfquery>
-
-<!---- if there are more than 10 blocked IPs from this subnet, it's probably something that
-	we don't have the resources to support. Auto-block the subnet, remove the IPs from
-	the application data.
----->
-<cfif blipc.c gte 10>
-	<!--- add the subnet --->
+<!---- if the IP is currently blocked, just log and send them to the blocked page ---->
+<cfif listcontains(application.blacklist,request.ip)>
 	<cfquery name="d" datasource="uam_god">
-		insert into uam.blacklist_subnet (
-			SUBNET,
-			INSERT_DATE,
+		insert into blacklisted_entry_attempt (IP,TIMESTAMP) values ('#request.ip#',systimestamp)
+	</cfquery>
+<cfelse>
+	<!--- new customer ---->
+	<cfquery name="d" datasource="uam_god">
+		insert into uam.blacklist (
+			ip,
+			LISTDATE,
 			STATUS,
 			LASTDATE
 		) values (
-			'#request.requestingSubnet#',
+			'#request.ipaddress#',
 			sysdate,
-			'autoinsert',
+			'active',
 			sysdate
 			)
 	</cfquery>
-	<cf_logError subject="new autoblacklist: subnet has more than 10 active blocks" message="#bl_reason#">
-	<!---- adjust the application variables ---->
-	<cfset utilities = CreateObject("component","component.utilities")>
-	<cfset utilities.setAppBL()>
-<cfelse>
-	<!---- just add the IP to the app var ---->
-	<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>
-	<cf_logError subject="new autoblacklist" message="#bl_reason#">
+	<cfquery name="blipc" datasource="uam_god">
+		select count(*) c from blacklist where
+		status='active' and
+		substr(ip,1,instr(ip,'.',1,2)-1) = '#request.requestingSubnet#'
+	</cfquery>
+	<!---- if there are more than 10 blocked IPs from this subnet, it's probably something that
+		we don't have the resources to support. Auto-block the subnet, remove the IPs from
+		the application data.
+	---->
+	<cfif blipc.c gte 10>
+		<!--- add the subnet --->
+		<cfquery name="d" datasource="uam_god">
+			insert into uam.blacklist_subnet (
+				SUBNET,
+				INSERT_DATE,
+				STATUS,
+				LASTDATE
+			) values (
+				'#request.requestingSubnet#',
+				sysdate,
+				'autoinsert',
+				sysdate
+				)
+		</cfquery>
+		<cf_logError subject="new autoblacklist: subnet has more than 10 active blocks" message="#bl_reason#">
+		<!---- adjust the application variables ---->
+		<cfset utilities = CreateObject("component","component.utilities")>
+		<cfset utilities.setAppBL()>
+	<cfelse>
+		<!---- just add the IP to the app var ---->
+		<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>
+		<cf_logError subject="new autoblacklist" message="#bl_reason#">
+	</cfif>
 </cfif>
 <cfinclude template="/errors/gtfo.cfm">
