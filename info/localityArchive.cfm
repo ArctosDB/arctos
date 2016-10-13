@@ -160,9 +160,7 @@
 				<a target="_blank" href="/editLocality.cfm?locality_id=#lid#">
 					#orig.LOCALITY_ID#
 				</a>
-				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#lid#">
-					[ specimens ]
-				</a>
+				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#lid#">specimens</a>
 			</td>
 			<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
 			<td class="original">
