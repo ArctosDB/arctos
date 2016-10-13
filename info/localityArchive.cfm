@@ -2,7 +2,12 @@
 <cfset title="Locality Archive">
 <style>
 	.nochange{border:1px solid green;}
-	.haschange{border:1px solid red;}
+	.haschange{
+		border:1px solid red;
+		height:100%;
+		width:100%;}
+
+
 </style>
 <cfoutput>
 	<cfif not isdefined("locality_id")>
