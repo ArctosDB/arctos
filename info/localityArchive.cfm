@@ -34,10 +34,10 @@
 		   // cssd='{"background-color" : ' + clr + ',"opacity": "0.5"}';
 		    cssd="{'background-color' : '" + clr + "'}";
 
-		    cssd='"background-color" , "#a0c0f7"';
+		    cssd="'background-color':'#FFFF00','color':'#FF0000','font-family':'Arial','font-size':'18pt'";
 
 		    console.log(cssd);
-			$('.datarow[data-lid="' + result[i] + '"]').css({'background-color':'#FFFF00','color':'#FF0000','font-family':'Arial','font-size':'18pt'});
+			$('.datarow[data-lid="' + result[i] + '"]').css({' + cssd + '});
 		}
 	}
 	function decolorizinate(){
