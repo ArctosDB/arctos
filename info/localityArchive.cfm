@@ -33,7 +33,6 @@
 		    clr=randomColor();
 		    css='{"background-color":"' + clr + '","opacity": "0.5"}';
 		    console.log(css);
-});
 			$('.datarow[data-lid="' + result[i] + '"]').css(css);
 		}
 	}
