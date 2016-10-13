@@ -9,6 +9,8 @@
         list = "yes"
         separator = ","> )
 	</cfquery>
-	<cfdump var=#d#>
+	<cfif d.recordcount is 0>
+		No archived information found.<cfabort>
+	</cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
