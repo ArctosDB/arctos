@@ -17,11 +17,12 @@
 		 	locality_id,
 		 	geog_auth_rec_id,
 		 	spec_locality,
-		 	DEC_LAT,
-		 	DEC_LONG,
-			MINIMUM_ELEVATION,
-			MAXIMUM_ELEVATION,
-			ORIG_ELEV_UNITS,
+		 	decode(DEC_LAT,
+				null,'[NULL]',
+				DEC_LAT || ',' || DEC_LONG) coordinates,
+		 	decode(ORIG_ELEV_UNITS,
+				null,'[NULL]',
+				MINIMUM_ELEVATION || '-' || MAXIMUM_ELEVATION || ' ' || ORIG_ELEV_UNITS) elevation,
 			decode(DEPTH_UNITS,
 				null,'[NULL]',
 				MIN_DEPTH || '-' || MAX_DEPTH || ' ' || DEPTH_UNITS) depth,
@@ -70,11 +71,12 @@
 			select locality_id,
 		 	geog_auth_rec_id,
 		 	spec_locality,
-		 	DEC_LAT,
-		 	DEC_LONG,
-			MINIMUM_ELEVATION,
-			MAXIMUM_ELEVATION,
-			ORIG_ELEV_UNITS,
+		 	decode(DEC_LAT,
+				null,'[NULL]',
+				DEC_LAT || ',' || DEC_LONG) coordinates,
+		 	decode(ORIG_ELEV_UNITS,
+				null,'[NULL]',
+				MINIMUM_ELEVATION || '-' || MAXIMUM_ELEVATION || ' ' || ORIG_ELEV_UNITS) elevation,
 			decode(DEPTH_UNITS,
 				null,'[NULL]',
 				MIN_DEPTH || '-' || MAX_DEPTH || ' ' || DEPTH_UNITS) depth,
@@ -90,48 +92,48 @@
 		 	md5hash(WKT_POLYGON) polyhash from locality where locality_id=#lid#
 		</cfquery>
 		<tr>
-			<td>currentData</td>
-			<td>-n/a-</td>
-			<td>#orig.LOCALITY_ID#</td>
+			<td class="original">currentData</td>
+			<td class="original">-n/a-</td>
+			<td class="original">#orig.LOCALITY_ID#</td>
 			<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
-			<td>#orig.GEOG_AUTH_REC_ID#</td>
+			<td class="original">#orig.GEOG_AUTH_REC_ID#</td>
 
 			<cfset lastSpecLoc=orig.SPEC_LOCALITY>
-			<td>#orig.SPEC_LOCALITY#</td>
+			<td class="original">#orig.SPEC_LOCALITY#</td>
 
 
 			<cfset lastLocName=orig.LOCALITY_NAME>
-			<td>#orig.LOCALITY_NAME#</td>
+			<td class="original">#orig.LOCALITY_NAME#</td>
 
 			<cfset lastDepth=orig.depth>
-			<td>#lastDepth#</td>
+			<td class="original">#lastDepth#</td>
 
-			<cfset lastElev="#orig.MINIMUM_ELEVATION#-#orig.MAXIMUM_ELEVATION# #orig.ORIG_ELEV_UNITS#">
-			<td>#lastElev#</td>
+			<cfset lastElev=orig.elevation>
+			<td class="original">#lastElev#</td>
 
 			<cfset lastDatum=orig.DATUM>
-			<td>#orig.DATUM#</td>
+			<td class="original">#orig.DATUM#</td>
 
 
-			<cfset lastCoords="#orig.DEC_LAT#,#orig.DEC_LONG#">
-			<td>#lastCoords#</td>
+			<cfset lastCoords=orig.coordinates>
+			<td class="original">#lastCoords#</td>
 
 			<cfset lastCoordErr=orig.coordinateError>
-			<td>#lastCoordErr#</td>
+			<td class="original">#lastCoordErr#</td>
 
 
 			<cfset lastProt=orig.GEOREFERENCE_PROTOCOL>
-			<td>#orig.GEOREFERENCE_PROTOCOL#</td>
+			<td class="original">#orig.GEOREFERENCE_PROTOCOL#</td>
 
 			<cfset lastSrc=orig.GEOREFERENCE_SOURCE>
-			<td>#orig.GEOREFERENCE_SOURCE#</td>
+			<td class="original">#orig.GEOREFERENCE_SOURCE#</td>
 
 
 			<cfset lastWKT=orig.polyhash>
-			<td>#lastWKT#</td>
+			<td class="original">#lastWKT#</td>
 
 			<cfset lastRem=orig.LOCALITY_REMARKS>
-			<td>#orig.LOCALITY_REMARKS#</td>
+			<td class="original">#orig.LOCALITY_REMARKS#</td>
 
 
 		</tr>
@@ -191,38 +193,35 @@
 				</td>
 
 
-				<cfset thisElev="#MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
-				<cfif thisElev is lastElev>
+				<cfif elevation is lastElev>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastElev=thisElev>
+				<cfset lastElev=elevation>
 				<td class="#thisStyle#">
-					#thisElev#
+					#elevation#
 				</td>
 
 
-				<cfset thisDatum=DATUM>
-				<cfif thisDatum is lastDatum>
+				<cfif DATUM is lastDatum>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastDatum=thisDatum>
+				<cfset lastDatum=DATUM>
 				<td class="#thisStyle#">
-					#thisDatum#
+					#DATUM#
 				</td>
 
-				<cfset thisCoords="#DEC_LAT#,#DEC_LONG#">
-				<cfif thisCoords is lastCoords>
+				<cfif coordinates is lastCoords>
 					<cfset thisStyle="nochange">
 				<cfelse>
 					<cfset thisStyle="haschange">
 				</cfif>
-				<cfset lastCoords=thisCoords>
+				<cfset lastCoords=coordinates>
 				<td class="#thisStyle#">
-					#thisCoords#
+					#coordinates#
 				</td>
 
 
