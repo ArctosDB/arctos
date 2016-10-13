@@ -147,9 +147,9 @@ $("yourdiv").data("ts-speed");
 			</li>
 			<li>All links open in a new window/tab</li>
 			<li>
-				Colors are randomly generated.
-				<span class="likeLink" onclick="colorinate();">Try again</span> or
-				<span class="likeLink" onclick="decolorizinate();">make it stop</span>.
+				You can
+				<span class="likeLink" onclick="colorinate();">color things by localityID</span> or
+				<span class="likeLink" onclick="decolorizinate();">don't do that</span>.
 			</li>
 		</ul>
 	<hr>
