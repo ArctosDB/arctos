@@ -24,6 +24,10 @@ $(document).ready(function() {
 
 $("tr[data-lid]").val(function(){
 
+
+
+	console.log( $(this).data('lid') );
+
 	console.log('llocid: ' + llocid);
 
 	clocid=$(this).data('lid');
@@ -36,12 +40,12 @@ $("tr[data-lid]").val(function(){
 		// new row, new color
 		var nClr=randomColor();
 		llocid=clocid;
+		console.log('new ID');
 
 
 	}
 
 	$(this).css("background-color",nClr);
-	console.log( $(this).data('lid') );
 
 
 });
