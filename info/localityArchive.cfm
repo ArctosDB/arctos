@@ -19,6 +19,13 @@
 	$(document).ready(function() {
 
 
+
+
+//
+
+	});
+
+function colorinate(){
 	var clr;
 
 		var items = {};
@@ -37,12 +44,7 @@
 			$('.datarow[data-lid="' + result[i] + '"]').css("background-color",clr);
 		}
 
-
-//
-
-	});
-
-
+	}
 function decolorizinate(){
 	$('.datarow[data-lid]').css("background-color",'');
 	}
@@ -145,7 +147,9 @@ $("yourdiv").data("ts-speed");
 			</li>
 			<li>All links open in a new window/tab</li>
 			<li>
-				Colors are randomly generated. <span class="likeLink" onclick="decolorizinate();">Make it stop.</span>
+				Colors are randomly generated.
+				<span class="likeLink" onclick="colorinate();">Try again</span> or
+				<span class="likeLink" onclick="decolorizinate();">make it stop</span>.
 			</li>
 		</ul>
 	<hr>
