@@ -102,7 +102,7 @@
 			<cfset lastCoords="#orig.DEC_LAT#,#orig.DEC_LONG#">
 			<td>#lastCoords#</td>
 
-			<cfset lastCoordErr="#orig.MAX_ERROR_DISTANCE#,#orig.MAX_ERROR_UNITS#">
+			<cfset lastCoordErr="#orig.MAX_ERROR_DISTANCE# #orig.MAX_ERROR_UNITS#">
 			<td>#lastCoordErr#</td>
 
 
@@ -121,12 +121,193 @@
 
 
 		</tr>
-		original data:
-		<cfdump var=#orig#>
 
 		<cfquery name="thisChanges" dbtype="query">
 			select * from d where locality_id=#lid# order by changedate
 		</cfquery>
+		<cfloop query="thisChanges">
+			<tr>
+
+				<td>#changedate#</td>
+				<td>#whodunit#</td>
+				<td>#LOCALITY_ID#</td>
+				<cfset thisgeoID=GEOG_AUTH_REC_ID>
+				<cfif thisGeoID is lastGeoID>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastGeoID=thisGeoID>
+				<td>
+					<span class="#thisStyle#">
+						#thisGeoID#
+					</span>
+				</td>
+
+				<cfset thisSpecLoc=SPEC_LOCALITY>
+				<cfif thisSpecLoc is lastSpecLoc>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastSpecLoc=thisSpecLoc>
+				<td>
+					<span class="#thisStyle#">
+						#thisSpecLoc#
+					</span>
+				</td>
+
+
+				<cfset thisLocName=LOCALITY_NAME>
+				<cfif thisLocName is lastLocName>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastLocName=thisLocName>
+				<td>
+					<span class="#thisStyle#">
+						#thisLocName#
+					</span>
+				</td>
+
+				<cfset thisDepth="#MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#">
+				<cfif thisDepth is lastDepth>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastDepth=thisDepth>
+				<td>
+					<span class="#thisStyle#">
+						#thisDepth#
+					</span>
+				</td>
+
+
+				<cfset thisElev="#MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+				<cfif thisElev is lastElev>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastElev=thisElev>
+				<td>
+					<span class="#thisStyle#">
+						#thisElev#
+					</span>
+				</td>
+
+
+				<cfset thisDatum=DATUM>
+				<cfif thisDatum is lastDatum>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastDatum=thisDatum>
+				<td>
+					<span class="#thisStyle#">
+						#thisDatum#
+					</span>
+				</td>
+
+				<cfset thisCoords="#DEC_LAT#,#DEC_LONG#">
+				<cfif thisCoords is lastCoords>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastCoords=thisCoords>
+				<td>
+					<span class="#thisStyle#">
+						#thisCoords#
+					</span>
+				</td>
+
+
+				<cfset thisCoordErr="#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#">
+				<cfif thisCoordErr is lastCoordErr>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastCoordErr=thisCoordErr>
+				<td>
+					<span class="#thisStyle#">
+						#thisCoordErr#
+					</span>
+				</td>
+
+
+
+				<cfset thisProt=GEOREFERENCE_PROTOCOL>
+				<cfif thisProt is lastProt>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastProt=thisProt>
+				<td>
+					<span class="#thisStyle#">
+						#thisProt#
+					</span>
+				</td>
+
+
+
+				<cfset thisSrc=GEOREFERENCE_SOURCE>
+				<cfif thisSrc is lastSrc>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastSrc=thisSrc>
+				<td>
+					<span class="#thisStyle#">
+						#thisSrc#
+					</span>
+				</td>
+
+
+
+				<cfset thisWKT=polyhash>
+				<cfif thisWKT is lastWKT>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastWKT=thisWKT>
+				<td>
+					<span class="#thisStyle#">
+						#thisWKT#
+					</span>
+				</td>
+
+
+
+				<cfset thisrem=LOCALITY_REMARKS>
+				<cfif thisrem is lastRem>
+					<cfset thisStyle="nochange">
+				<cfelse>
+					<cfset thisStyle="haschange">
+				</cfif>
+				<cfset lastRem=thisrem>
+				<td>
+					<span class="#thisStyle#">
+						#thisrem#
+					</span>
+				</td>
+
+
+
+
+			</tr>
+
+
+
+
+		</cfloop>
 		changes:
 		<cfdump var=#thisChanges#>
 	</cfloop>
