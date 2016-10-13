@@ -26,6 +26,10 @@
 				A locality may have had zero (or millions) of specimens when it was edited, and
 				millions of (or zero) specimens now.
 			</li>
+			<li>
+				"whodunit" is the agent who changed FROM the data in the row; each change is an archive of :OLD values
+				captured with Oracle triggers.
+			</li>
 			<li>All links open in a new window/tab</li>
 		</ul>
 	<hr>
