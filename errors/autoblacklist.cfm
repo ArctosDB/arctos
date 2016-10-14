@@ -39,9 +39,9 @@
 	<cfset bl_reason="unknown">
 </cfif>
 <!---- if the IP is currently blocked, just log and send them to the blocked page ---->
-<cfif listcontains(application.blacklist,request.ip)>
+<cfif listcontains(application.blacklist,request.ipaddress)>
 	<cfquery name="d" datasource="uam_god">
-		insert into blacklisted_entry_attempt (IP,TIMESTAMP) values ('#request.ip#',systimestamp)
+		insert into blacklisted_entry_attempt (IP,TIMESTAMP) values ('#request.ipaddress#',systimestamp)
 	</cfquery>
 <cfelse>
 	<!--- new customer ---->
