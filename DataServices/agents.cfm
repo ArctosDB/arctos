@@ -504,6 +504,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			</cfloop>
 			<cfset fnProbs="">
 
+	<cfoutput>
 			<br>preferred_name="#preferred_name#",
 			<br>first_name="#fn#",
 			<br>middle_name="#mn#",
@@ -518,7 +519,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<cfdump var=#fnProbs#>
 
 	<cfflush>
-
+</cfoutput>
 			<cfset fnProbs=left(fnProbs,4000)>
 			<cfif len(fnProbs) is 0>
 				<cfset fnProbs='no problems detected'>
