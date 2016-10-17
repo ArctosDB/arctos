@@ -502,6 +502,18 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 					<cfset ln=thisName>
 				</cfif>
 			</cfloop>
+			<cfset fnProbs="">
+
+	<cfoutput>
+		<hr>
+			<br>preferred_name="#preferred_name#",
+			<br>first_name="#fn#",
+			<br>middle_name="#mn#",
+			<br>last_name="#ln#"
+
+
+
+
 			<cfset fnProbs = obj.checkAgent(
 				preferred_name="#preferred_name#",
 				agent_type="#agent_type#",
@@ -509,7 +521,21 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				middle_name="#mn#",
 				last_name="#ln#"
 			)>
+<!----
+			<br>results of...
+			<br>http://arctos.database.museum/component/agent.cfc?method=checkAgent&agent_type=person&preferred_name=#preferred_name#&first_name=#fn#&middle_name=#mn#&last_name=#ln#
+---->
+
 			<cfset fnProbs=left(fnProbs,4000)>
+
+			<br>#fnProbs#
+
+
+				<cfflush>
+</cfoutput>
+
+
+
 			<cfif len(fnProbs) is 0>
 				<cfset fnProbs='no problems detected'>
 			</cfif>
