@@ -502,6 +502,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 					<cfset ln=thisName>
 				</cfif>
 			</cfloop>
+			<cfset fnProbs="">
 			<cfset fnProbs = obj.checkAgent(
 				preferred_name="#preferred_name#",
 				agent_type="#agent_type#",
