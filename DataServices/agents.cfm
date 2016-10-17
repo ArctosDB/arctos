@@ -522,9 +522,17 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			)>
 
 			<br>POST-fnProbs="#fnProbs#"
-	<cfflush>
-</cfoutput>
+
 			<cfset fnProbs=left(fnProbs,4000)>
+
+			<br>TRIM/CUT-fnProbs="#fnProbs#"
+
+
+				<cfflush>
+</cfoutput>
+
+
+
 			<cfif len(fnProbs) is 0>
 				<cfset fnProbs='no problems detected'>
 			</cfif>
