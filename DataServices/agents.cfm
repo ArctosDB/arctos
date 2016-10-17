@@ -517,6 +517,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			)>
 			<cfdump var=#fnProbs#>
 
+	<cfflush>
 
 			<cfset fnProbs=left(fnProbs,4000)>
 			<cfif len(fnProbs) is 0>
