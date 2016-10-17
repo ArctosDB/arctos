@@ -25,6 +25,7 @@
     <!--- shared rules --->
     <cfset regexStripJunk='[ .,-]'>
     <cfset problems='UUID: ' & CreateUUID()>
+	<cfset problems=''>
     <cfset thisProb="">
     <cfset sql="">
 	<cfset varPNsql="">
@@ -452,8 +453,10 @@
     <cfset d = querynew("preferred_agent_name,agent_id,reasons,rcount")>
     <cfset i=1>
     <cfloop query="daid">
-        <!--- some really craptacular agents return thousands of "matches" --->
+        <!--- some really craptacular agents return thousands of "matches"
         <cfif i lt 20>
+
+		 --->
                 <cfquery name="thisReasons" dbtype="query">
                     select * from isdup where agent_id=#agent_id#
                 </cfquery>
@@ -463,7 +466,9 @@
                 <cfset temp = QuerySetCell(d, "reasons", valuelist(thisReasons.reason), i)>
                 <cfset temp = QuerySetCell(d, "rcount", thisReasons.recordcount, i)>
                 <cfset i=i+1>
+				<!----
         </cfif>
+		---->
     </cfloop>
     <cfquery name="ff" dbtype="query">
         select * from d order by rcount desc,preferred_agent_name
