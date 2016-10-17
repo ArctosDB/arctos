@@ -24,7 +24,7 @@
 
     <!--- shared rules --->
     <cfset regexStripJunk='[ .,-]'>
-    <cfset problems="">
+    <cfset problems='UUID: ' & CreateUUID()>
     <cfset thisProb="">
     <cfset sql="">
 	<cfset varPNsql="">
