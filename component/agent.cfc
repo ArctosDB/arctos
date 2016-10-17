@@ -29,6 +29,11 @@
     <cfset thisProb="">
     <cfset sql="">
 	<cfset varPNsql="">
+	<cfset strippedNamePermutations="">
+
+
+
+
 
 
     <cfset disallowCharacters="/,\,&">
