@@ -455,14 +455,21 @@
     <cfquery name="daid" dbtype="query">
         select preferred_agent_name,agent_id from isdup group by preferred_agent_name,agent_id
     </cfquery>
+	<CFIF DAID.RECORDCOUNT GT 20>
+		<cfset problems=problems & '; CAUTION: too many matches, not all data returned. Check manually.'>
+	</CFIF>
 
     <cfset d = querynew("preferred_agent_name,agent_id,reasons,rcount")>
     <cfset i=1>
     <cfloop query="daid">
         <!--- some really craptacular agents return thousands of "matches"
-        <cfif i lt 20>
+
 
 		 --->
+
+		  <cfif i lte 20>
+
+
                 <cfquery name="thisReasons" dbtype="query">
                     select * from isdup where agent_id=#agent_id#
                 </cfquery>
@@ -472,8 +479,12 @@
                 <cfset temp = QuerySetCell(d, "reasons", valuelist(thisReasons.reason), i)>
                 <cfset temp = QuerySetCell(d, "rcount", thisReasons.recordcount, i)>
                 <cfset i=i+1>
+
+				 </cfif>
+
+
 				<!----
-        </cfif>
+
 		---->
     </cfloop>
     <cfquery name="ff" dbtype="query">
