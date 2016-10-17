@@ -510,7 +510,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<br>first_name="#fn#",
 			<br>middle_name="#mn#",
 			<br>last_name="#ln#"
-			<br>PRE-fnProbs="#fnProbs#"
 
 
 
@@ -522,11 +521,10 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				middle_name="#mn#",
 				last_name="#ln#"
 			)>
-
+<!----
 			<br>results of...
 			<br>http://arctos.database.museum/component/agent.cfc?method=checkAgent&agent_type=person&preferred_name=#preferred_name#&first_name=#fn#&middle_name=#mn#&last_name=#ln#
-
-			<br>POST-fnProbs="#fnProbs#"
+---->
 
 			<cfset fnProbs=left(fnProbs,4000)>
 
