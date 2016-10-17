@@ -512,7 +512,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<br>last_name="#ln#"
 			<br>PRE-fnProbs="#fnProbs#"
 
-			<cfdump var=##>
+			<cfdump var=#fnProbs#>
 			<cfset fnProbs = obj.checkAgent(
 				preferred_name="#preferred_name#",
 				agent_type="#agent_type#",
