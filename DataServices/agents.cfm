@@ -503,6 +503,11 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				</cfif>
 			</cfloop>
 			<cfset fnProbs="">
+
+			<br>preferred_name="#preferred_name#",
+			<br>first_name="#fn#",
+			<br>middle_name="#mn#",
+			<br>last_name="#ln#"
 			<cfset fnProbs = obj.checkAgent(
 				preferred_name="#preferred_name#",
 				agent_type="#agent_type#",
@@ -510,6 +515,9 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				middle_name="#mn#",
 				last_name="#ln#"
 			)>
+			<cfdump var=#fnProbs#>
+
+
 			<cfset fnProbs=left(fnProbs,4000)>
 			<cfif len(fnProbs) is 0>
 				<cfset fnProbs='no problems detected'>
