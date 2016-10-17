@@ -443,7 +443,7 @@
             preferred_agent_name
     </cfquery>
 
-	<cfset problems=problems & ':::::sql:' & sql>
+	<cfset problems=problems & '<br><br>:::::sql:' & sql & '<br><br>'>
 
 
     <cfquery name="daid" dbtype="query">
