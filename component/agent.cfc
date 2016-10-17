@@ -30,6 +30,7 @@
     <cfset sql="">
 	<cfset varPNsql="">
 	<cfset strippedNamePermutations="">
+	<cfset schFormattedName="">
 
 
 
