@@ -528,7 +528,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 
 			<cfset fnProbs=left(fnProbs,4000)>
 
-			<br>TRIM/CUT-fnProbs="#fnProbs#"
+			<br>#fnProbs#
 
 
 				<cfflush>
