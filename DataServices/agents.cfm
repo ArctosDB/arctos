@@ -505,10 +505,14 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<cfset fnProbs="">
 
 	<cfoutput>
+		<hr>
 			<br>preferred_name="#preferred_name#",
 			<br>first_name="#fn#",
 			<br>middle_name="#mn#",
 			<br>last_name="#ln#"
+			<br>PRE-fnProbs="#fnProbs#"
+
+			<cfdump var=##>
 			<cfset fnProbs = obj.checkAgent(
 				preferred_name="#preferred_name#",
 				agent_type="#agent_type#",
@@ -516,8 +520,8 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				middle_name="#mn#",
 				last_name="#ln#"
 			)>
-			<cfdump var=#fnProbs#>
 
+			<br>POST-fnProbs="#fnProbs#"
 	<cfflush>
 </cfoutput>
 			<cfset fnProbs=left(fnProbs,4000)>
