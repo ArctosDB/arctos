@@ -24,7 +24,6 @@
 
     <!--- shared rules --->
     <cfset regexStripJunk='[ .,-]'>
-    <cfset problems='UUID: ' & CreateUUID()>
 	<cfset problems=''>
     <cfset thisProb="">
     <cfset sql="">
@@ -449,8 +448,9 @@
             preferred_agent_name
     </cfquery>
 
+	<!----
 	<cfset problems=problems & '<br><br>:::::sql:' & sql & '<br><br>'>
-
+---->
 
     <cfquery name="daid" dbtype="query">
         select preferred_agent_name,agent_id from isdup group by preferred_agent_name,agent_id
