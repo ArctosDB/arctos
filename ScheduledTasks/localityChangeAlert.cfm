@@ -55,7 +55,8 @@
 				collection_contacts
 			where
 				collection_contacts.contact_role='data quality' and
-				collection_contacts.collection_id in (#valuelist(d.collection_id)#)
+				collection_contacts.collection_id in (#valuelist(d.collection_id)#) and
+				get_address(collection_contacts.CONTACT_AGENT_ID,'email') is not null
 			group by
 				get_address(collection_contacts.CONTACT_AGENT_ID,'email')
 		</cfquery>
