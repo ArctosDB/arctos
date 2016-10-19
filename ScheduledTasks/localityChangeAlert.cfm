@@ -49,6 +49,9 @@
 			select sum(numChanges) c from d
 		</cfquery>
 
+		<cfquery name="allusr" dbtype="query">
+			select whodunit from d group by whodunit order by whodunit
+		</cfquery>
 
 		<cfdump var=#chgcnt#>
 
@@ -62,20 +65,20 @@
 					<th>Dataset</th>
 					<th>Change##</th>
 					<th>Locality##</th>
+					<th>User(s)</th>
 					<th>Link</th>
 				</tr>
-				<cfloop query="d">
-					<tr>
-						<td>everything</td>
-						<td>#chgcnt.c#</td>
-						<td>#totLC.recordcount#</td>
-						<td>
-							<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(totLC.locality_id)#">
-								click
-							</a>
-						</td>
-					</tr>
-				</cfloop>
+				<tr>
+					<td>everything</td>
+					<td>#chgcnt.c#</td>
+					<td>#totLC.recordcount#</td>
+					<td>#valuelist(allusr.whodunit)#</td>
+					<td>
+						<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(totLC.locality_id)#">
+							click
+						</a>
+					</td>
+				</tr>
 			</table>
 
 
