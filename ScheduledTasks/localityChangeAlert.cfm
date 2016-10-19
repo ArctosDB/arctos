@@ -4,8 +4,8 @@
 
 		<cfquery name="d" datasource="uam_god">
 			select
-				collection_id,
-				guid_prefix
+				collection.collection_id,
+				collection.guid_prefix
 			from
 				locality_archive,
 				collecting_event,
