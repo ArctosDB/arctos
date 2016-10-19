@@ -1,4 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
+<cfsavecontent variable="emailFooter">
+	<div style="font-size:smaller;color:gray;">
+		--
+		<br>Don't want these messages? Update Collection Contacts.
+		<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
+		<br>Links not working? Log in, log out, or check encumbrances.
+		<br>Need help? Send email to arctos.database@gmail.com
+	</div>
+</cfsavecontent>
 	<cfoutput>
 		<cfset title="locality changes">
 
@@ -182,6 +191,21 @@
 			group by
 				get_address(collection_contacts.CONTACT_AGENT_ID,'email')
 		</cfquery>
+
+
+		<cfif isdefined("Application.version") and  Application.version is "prod">
+			<cfset subj="Arctos Locality Change Notification">
+			<cfset maddr=valuelist(cc.collection_contact_email)>
+		<cfelse>
+			<cfset maddr=application.bugreportemail>
+			<cfset subj="TEST PLEASE IGNORE: Arctos Locality Change Notificatio">
+		</cfif>
+		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="locality_change@#Application.fromEmail#" type="html">
+			#bdy#
+			#emailFooter#
+		</cfmail>
+
+
 
 
 		<cfdump var=#cc#>
