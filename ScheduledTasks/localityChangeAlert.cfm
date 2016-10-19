@@ -20,7 +20,7 @@
 				specimen_event.collection_object_id=cataloged_item.collection_object_id and
 				cataloged_item.collection_id=collection.collection_id
 			group by
-				collection.≈,
+				collection.collection_id,
 				collection.guid_prefix,
 				whodunit
 		</cfquery>
