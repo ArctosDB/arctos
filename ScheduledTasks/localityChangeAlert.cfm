@@ -56,8 +56,12 @@
 		<cfsavecontent variable="bdy">
 			Localities used by a collection for which you are a contact have changed.
 
+
+			<p>
+
+			</p>
 			<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(d.locality_id)#">
-				View history for all affected localities
+				View all #chgcnt.c# changes to all #totLC.c# localities
 			</a>
 		<cfdump var=#cln#>
 			<p>
