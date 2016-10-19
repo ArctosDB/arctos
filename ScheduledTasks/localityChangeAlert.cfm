@@ -37,7 +37,7 @@
 		<cfdump var=#totLC#>
 
 
-		<cfquery name="chgcnt" dbtype="query">
+		<cfquery name="cln" dbtype="query">
 			select guid_prefix from d group by guid_prefix order by guid_prefix
 		</cfquery>
 
