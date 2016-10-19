@@ -30,12 +30,21 @@
 		<cfif d.recordcount is 0>
 			no changes<cfabort>
 		</cfif>
+		<cfquery name="totLC" dbtype="query">
+			select count(distinct(locality_id)) c from d
+		</cfquery>
+
+		<cfdump var=#totLC#>
 		<cfsavecontent variable="bdy">
 			Localities used by a collection for which you are a contact have changed.
 
 			<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(d.locality_id)#">
-				Click here to view all changes
+				View history for all affected localities
 			</a>
+			<cfquery name="cln" dbtype="query">
+				select guid_prefix from d group by guid_prefix order by guid_prefix
+			</cfquery>
+		<cfdump var=#cln#>
 			<p>
 				Summary:
 			</p>
