@@ -38,6 +38,14 @@
 
 
 		<cfquery name="chgcnt" dbtype="query">
+			select guid_prefix from d group by guid_prefix order by guid_prefix
+		</cfquery>
+
+
+		<cfdump var=#cln#>
+
+
+		<cfquery name="chgcnt" dbtype="query">
 			select sum(numChanges) c from d
 		</cfquery>
 
