@@ -28,8 +28,30 @@
 		<cfif d.recordcount is 0>
 			no changes<cfabort>
 		</cfif>
+		<cfsavecontent variable="bdy">
+			Localities used by a collection for which you are a contact have changed.
+			<p>
+				Summary:
+			</p>
+			<table border>
+				<tr>
+					<th>Collection</th>
+					<th>ChangeCount</th>
+					<th>User</th>
+				</tr>
+				<cfloop query="d">
+					<tr>
+						<td>#guid_prefix#</td>
+						<td>#numChanges#</td>
+						<td>#whodunit#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfsavecontent>
 
 
+
+		<cfdump var=#bdy#>
 		<cfdump var=#d#>
 
 
