@@ -79,6 +79,43 @@
 						</a>
 					</td>
 				</tr>
+				<cfloop query="cln">
+					<cfquery name="rc" dbtype="query">
+						select
+							locality_id,
+							numChanges,
+							whodunit
+						from
+							d
+						where
+							guid_prefix='#guid_prefix#'
+					</cfquery>
+					<cfquery name="cchgcnt" dbtype="query">
+						select sum(numChanges) c from rc
+					</cfquery>
+					<cfquery name="callusr" dbtype="query">
+						select whodunit from rc group by whodunit order by whodunit
+					</cfquery>
+
+					<cfquery name="ctotLC" dbtype="query">
+						select distinct(locality_id) locality_id from rc
+					</cfquery>
+					<tr>
+						<td>#guid_prefix#</td>
+						<td>#cchgcnt.c#</td>
+						<td>#ctotLC.recordcount#</td>
+						<td>#valuelist(callusr.whodunit)#</td>
+						<td>
+							<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(ctotLC.locality_id)#">
+								click
+							</a>
+						</td>
+
+					</tr>
+
+			</cfloop>
+
+
 			</table>
 
 
