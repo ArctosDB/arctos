@@ -7,6 +7,7 @@
 				collection.collection_id,
 				collection.guid_prefix,
 				whodunit,
+				locality_archive.locality_id,
 				count(*) numChanges
 			from
 				locality_archive,
@@ -22,7 +23,8 @@
 			group by
 				collection.collection_id,
 				collection.guid_prefix,
-				whodunit
+				whodunit,
+				locality_archive.locality_id,
 		</cfquery>
 
 		<cfif d.recordcount is 0>
