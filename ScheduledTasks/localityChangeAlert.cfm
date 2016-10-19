@@ -20,7 +20,7 @@
 				specimen_event.collection_object_id=cataloged_item.collection_object_id and
 				cataloged_item.collection_id=collection.collection_id
 			group by
-				collection.collection_id,
+				collection.≈,
 				collection.guid_prefix,
 				whodunit
 		</cfquery>
@@ -48,6 +48,21 @@
 				</cfloop>
 			</table>
 		</cfsavecontent>
+		<cfquery name="cc" datasource="uam_god">
+			select
+				get_address(collection_contacts.CONTACT_AGENT_ID,'email') address
+			FROM
+				collection_contacts
+			where
+				collection_contacts.contact_role='data quality' and
+				collection_contacts.collection_id in (#valuelist(d.collection_id)#)
+			group by
+				get_address(collection_contacts.CONTACT_AGENT_ID,'email')
+		</cfquery>
+
+
+		<cfdump var=#cc#>
+
 
 
 
