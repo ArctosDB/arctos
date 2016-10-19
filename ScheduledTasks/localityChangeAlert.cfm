@@ -31,7 +31,7 @@
 		<cfsavecontent variable="bdy">
 			Localities used by a collection for which you are a contact have changed.
 
-			<a href="Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(d.collection_id)#">
+			<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(d.collection_id)#">
 				Click here to view all changes
 			</a>
 			<p>
