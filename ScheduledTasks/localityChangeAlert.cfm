@@ -62,14 +62,14 @@
 
 			<table border>
 				<tr>
-					<th>Dataset</th>
+					<th>Collection</th>
 					<th>Change##</th>
 					<th>Locality##</th>
 					<th>User(s)</th>
 					<th>Link</th>
 				</tr>
 				<tr>
-					<td>everything</td>
+					<td>all below</td>
 					<td>#chgcnt.c#</td>
 					<td>#totLC.recordcount#</td>
 					<td>#valuelist(allusr.whodunit)#</td>
