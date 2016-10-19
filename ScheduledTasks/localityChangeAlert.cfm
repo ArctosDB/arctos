@@ -5,7 +5,8 @@
 		<cfquery name="d" datasource="uam_god">
 			select
 				collection.collection_id,
-				collection.guid_prefix
+				collection.guid_prefix,
+				whodunit
 			from
 				locality_archive,
 				collecting_event,
@@ -19,9 +20,13 @@
 				cataloged_item.collection_id=collection.collection_id
 			group by
 				collection.collection_id,
-				collection.guid_prefix
-
+				collection.guid_prefix,
+				whodunit
 		</cfquery>
+
+		<cfif d.recordcount is 0>
+			no changes<cfabort>
+		</cfif>
 
 
 		<cfdump var=#d#>
