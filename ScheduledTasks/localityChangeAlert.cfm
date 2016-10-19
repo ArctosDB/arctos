@@ -35,15 +35,22 @@
 		</cfquery>
 
 		<cfdump var=#totLC#>
+
+
+		<cfquery name="chgcnt" dbtype="query">
+			select sum(numChanges) c from d
+		</cfquery>
+
+
+		<cfdump var=#chgcnt#>
+
+
 		<cfsavecontent variable="bdy">
 			Localities used by a collection for which you are a contact have changed.
 
 			<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(d.locality_id)#">
 				View history for all affected localities
 			</a>
-			<cfquery name="cln" dbtype="query">
-				select guid_prefix from d group by guid_prefix order by guid_prefix
-			</cfquery>
 		<cfdump var=#cln#>
 			<p>
 				Summary:
