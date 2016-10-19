@@ -55,14 +55,24 @@
 
 		<cfsavecontent variable="bdy">
 			Localities used by a collection for which you are a contact have changed.
-
-
 			<p>
-
+				<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(totLC.locality_id)#">
+					View all #chgcnt.c# changes to all #totLC.recordcount# localities
+				</a>
 			</p>
-			<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(totLC.locality_id)#">
-				View all #chgcnt.c# changes to all #totLC.recordcount# localities
-			</a>
+			<cfloop query="cln">
+				<cfquery name="rc" dbtype="query">
+					select
+						locality_id,
+						numChanges,
+						whodunit
+					from
+						d
+					where
+						guid_prefix='#guid_prefix#'
+				</cfquery>
+				<cfdump var=#rc#>
+			</cfloop>
 		<cfdump var=#cln#>
 			<p>
 				Summary:
