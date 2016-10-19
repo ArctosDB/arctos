@@ -31,7 +31,7 @@
 			no changes<cfabort>
 		</cfif>
 		<cfquery name="totLC" dbtype="query">
-			select count(distinct(locality_id)) c from d
+			select distinct(locality_id) locality_id from d
 		</cfquery>
 
 		<cfdump var=#totLC#>
@@ -60,8 +60,8 @@
 			<p>
 
 			</p>
-			<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(d.locality_id)#">
-				View all #chgcnt.c# changes to all #totLC.c# localities
+			<a href="#Application.serverRootURL#/info/localityArchive.cfm?locality_id=#valuelist(totLC.locality_id)#">
+				View all #chgcnt.c# changes to all #totLC.recordcount# localities
 			</a>
 		<cfdump var=#cln#>
 			<p>
