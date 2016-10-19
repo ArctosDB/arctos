@@ -112,14 +112,28 @@
 						</td>
 
 					</tr>
-
-			</cfloop>
+				</cfloop>
 
 
 			</table>
+			<p>
+				This report reflects changes made in the last 24 hours to localities your specimens use at the end of the period.
+			</p>
+			<p>
+				The inclusion of <strong>Collection</strong> indicates that at least one locality linked to a specimen used by the
+					collection has changed. The affected locality or localities may contain specimens from several collections.
+			</p>
+			<p>
+				Changes may have been reversed. For example, locality=here changed to locality=there changed to locality=here
+				would be counted as two changes even though the end result is effectively zero changes. <strong>Change##</strong>
+				indicates the cumulative change count - 2, in this example.
+			</p>
+			<p>
+				Click the links and examine individual locality history. A complete history for each locality will be reported, not
+				only the events that triggered this report.
+			</p>
 
-
-
+<!----------
 			<p>
 
 			</p>
@@ -154,6 +168,7 @@
 					</tr>
 				</cfloop>
 			</table>
+			---------->
 		</cfsavecontent>
 		<cfquery name="cc" datasource="uam_god">
 			select
