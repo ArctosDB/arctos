@@ -24,7 +24,7 @@
 				collection.collection_id,
 				collection.guid_prefix,
 				whodunit,
-				locality_archive.locality_id,
+				locality_archive.locality_id
 		</cfquery>
 
 		<cfif d.recordcount is 0>
