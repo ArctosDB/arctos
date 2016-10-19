@@ -6,7 +6,8 @@
 			select
 				collection.collection_id,
 				collection.guid_prefix,
-				whodunit
+				whodunit,
+				count(*) numChanges
 			from
 				locality_archive,
 				collecting_event,
