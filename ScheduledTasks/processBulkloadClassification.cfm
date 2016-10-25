@@ -46,8 +46,16 @@ run these in order
 	<cfset ttList=replace(ttList,',order,',',phylorder,')>
 	<!--- for terms to check thingee ---->
 	<cfset lttList=ttList>
-	<!--- check genus and above only, so... ---->
-	<cfset termsToIgnore="scientific_name,forma,subspecies,species,subgenus">
+	<!--- check genus and above only, so...
+		no idea why we were ignoring this...
+		<cfset termsToIgnore="scientific_name,forma,subspecies,species,subgenus">
+
+
+		just ignore
+			1) scientific name - it'll always be itself....
+			2) subgenus - formatting is weird
+	 ---->
+	<cfset termsToIgnore="scientific_name,subgenus">
 	<cfloop list="#termsToIgnore#" index="t">
 		<cfif listfind(lttList,t)>
 			<cfset lttList=listdeleteat(lttList,listfindnocase(lttList,t))>
