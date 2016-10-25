@@ -369,7 +369,6 @@
 						PART_LOT_COUNT_#i#=null,
 						PART_DISPOSITION_#i#=null,
 						PART_REMARK_#i#=null
-					</cfloop>
 					where
 						PART_NAME_#i# is null
 				</cfquery>
@@ -386,7 +385,6 @@
 						ATTRIBUTE_DATE_#i#=null,
 						ATTRIBUTE_DET_METH_#i#=null,
 						ATTRIBUTE_DETERMINER_#i#=null
-					</cfloop>
 					where
 						ATTRIBUTE_#i# is null
 				</cfquery>
