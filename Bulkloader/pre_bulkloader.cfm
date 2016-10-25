@@ -217,6 +217,12 @@
 				</form>
 			</li>
 			<li>
+				<a href="pre_bulkloader.cfm?action=deleteUnusedStuff">deleteUnusedStuff</a>. Removed data from eg, part_remarks when
+				corresponding part_name is NULL. These are already ignored by bulkloader; this exists only to make the data
+				more readable/portable.
+			</li>
+
+			<li>
 				<a href="pre_bulkloader.cfm?action=ready_for_checkall">Mark for final check</a>. Click this when you think
 				everything will load. It'll take some time.
 			</li>
@@ -345,6 +351,56 @@
 		</cfif>
 		<cflocation url="pre_bulkloader.cfm" addtoken="false">
 	</cfif>
+
+
+
+	<!------------------------------------------------------->
+	<cfif action is "deleteUnusedStuff">
+		<cftransaction>
+			<cfset numberOfParts=12>
+			<cfloop from="1" to="#numberOfParts#" index="i">
+				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						pre_bulkloader
+					set
+						PART_CONDITION_#i#=null,
+						PART_BARCODE_#i#=null,
+						PART_CONTAINER_LABE_#i#=null,
+						PART_LOT_COUNT_#i#=null,
+						PART_DISPOSITION_#i#=null,
+						PART_REMARK_#i#=null
+					</cfloop>
+					where
+						PART_NAME_#i# is null
+				</cfquery>
+			</cfloop>
+			<cfset numberOfAttributes=10>
+			<cfloop from="1" to="#numberOfAttributes#" index="i">
+				<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update
+						pre_bulkloader
+					set
+						ATTRIBUTE_VALUE_#i#=null,
+						ATTRIBUTE_UNITS_#i#=null,
+						ATTRIBUTE_REMARKS_#i#=null,
+						ATTRIBUTE_DATE_#i#=null,
+						ATTRIBUTE_DET_METH_#i#=null,
+						ATTRIBUTE_DETERMINER_#i#=null
+					</cfloop>
+					where
+						ATTRIBUTE_#i# is null
+				</cfquery>
+			</cfloop>
+
+		</cftransaction>
+
+
+
+		<cflocation url="pre_bulkloader.cfm" addtoken="false">
+	</cfif>
+
+
+
 	<!------------------------------------------------------->
 	<cfif action is "setNullDefaults">
 		<cfset flds=form.FIELDNAMES>
