@@ -351,9 +351,6 @@
 		</cfif>
 		<cflocation url="pre_bulkloader.cfm" addtoken="false">
 	</cfif>
-
-
-
 	<!------------------------------------------------------->
 	<cfif action is "deleteUnusedStuff">
 		<cftransaction>
@@ -389,16 +386,9 @@
 						ATTRIBUTE_#i# is null
 				</cfquery>
 			</cfloop>
-
 		</cftransaction>
-
-
-
 		<cflocation url="pre_bulkloader.cfm" addtoken="false">
 	</cfif>
-
-
-
 	<!------------------------------------------------------->
 	<cfif action is "setNullDefaults">
 		<cfset flds=form.FIELDNAMES>
