@@ -198,8 +198,6 @@ run these in order
 			<cfset lowestTermValue="">
 
 			<!---- lttlist is created in header and reused for each loop ---->
-
-			lttList: #lttList#
 			<cfloop list="#lttList#" index="term">
 				<cfif len(lowestTerm) eq 0>
 					<cfset thisTerm=evaluate("d." & term)>
