@@ -177,11 +177,11 @@ run these in order
 			</cfif>
 
 			<cfif len(subspecies) gt 0>
-				<cfif scientific_name neq "#genus# #species# #subspecies#">
+				<cfif scientific_name neq "#subspecies#">
 					<cfset thisProb=listappend(thisProb,"scientific_name is not genus+species+subspecies",';')>
 				</cfif>
 			<cfelseif len(species) gt 0>
-				<cfif scientific_name neq "#genus# #species#">
+				<cfif scientific_name neq "#species#">
 					<cfset thisProb=listappend(thisProb,"scientific_name is not genus+species",';')>
 				</cfif>
 			</cfif>
