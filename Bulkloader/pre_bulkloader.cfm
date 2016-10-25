@@ -365,7 +365,7 @@
 					set
 						PART_CONDITION_#i#=null,
 						PART_BARCODE_#i#=null,
-						PART_CONTAINER_LABE_#i#=null,
+						PART_CONTAINER_LABEL_#i#=null,
 						PART_LOT_COUNT_#i#=null,
 						PART_DISPOSITION_#i#=null,
 						PART_REMARK_#i#=null
