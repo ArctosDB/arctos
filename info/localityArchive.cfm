@@ -58,7 +58,7 @@
 	<hr>
 		Locality Change Log
 		<ul>
-			<li>Sort is by passed-in locality_ids (if multiple), then by change date</li>
+			<li>Sort is by locality_ids, then by change date</li>
 			<li>Newest records are closest to the top</li>
 			<li>Changed values are red</li>
 			<li>un-changed values are green</li>
@@ -138,8 +138,6 @@
 			 	and locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
 			 </cfif>
 	</cfquery>
-
-	<cfdump var=#d#>
 
 	<cfquery name="dlocid" dbtype="query">
 		select distinct(locality_id) from d
