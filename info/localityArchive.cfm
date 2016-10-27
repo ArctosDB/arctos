@@ -12,7 +12,11 @@
 	// see if we can pre-fetch media relevance
 $(document).ready(function() {
 	$.each($("[id^='m_l_d_']"), function() {
-	    console.log(this.id);
+
+	    var mid=this.id;
+
+	    console.log(mid);
+
 	    var mds=this.id.replace('m_l_d_','');
 	    console.log(mds);
 	    $.getJSON("/component/functions.cfc",
@@ -25,7 +29,8 @@ $(document).ready(function() {
 			function(r) {
 				console.log(r);
 				//$('#' + this.id).append(' (' + r + ')' );
-				$('a#' + this.id).text('new text');
+				$('a#' + mid).text('new text');
+				console.log('setting ' + mid + ' ct ' + r);
 			}
 		);
 
