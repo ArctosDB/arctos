@@ -133,9 +133,9 @@
 		 from
 		 	locality_archive
 		 where
-		 	1=1 and
+		 	1=1
 		 	<cfif len(locality_id) gt 0>
-			 	locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
+			 	and locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
 			 </cfif>
 	</cfquery>
 	<cfif d.recordcount is 0>
