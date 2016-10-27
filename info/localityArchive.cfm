@@ -137,7 +137,7 @@
 		 	<cfif len(locality_id) gt 0>
 				and locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
 			</cfif>
-			<cffif len(sdate) gt 0>
+			<cfif len(sdate) gt 0>
 				and locality_id in (select locality_id from locality_archive where changedate>'#sdate#')
 			</cfif>
 	</cfquery>
