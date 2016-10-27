@@ -9,12 +9,23 @@
 	}
 </style>
 <script>
-	// see if we can pre-fetch media
+	// see if we can pre-fetch media relevance
 $(document).ready(function() {
 	$.each($("[id^='m_l_d_']"), function() {
 	    console.log(this.id);
 	    var mds=this.id.replace('m_l_d_','');
 	    console.log(mds);
+	    $.getJSON("/component/functions.cfc",
+			{
+				method : "getMediaLocalityCount",
+				locid : mds,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+			console.log(r);
+				}
+		);
 
 	});
 
