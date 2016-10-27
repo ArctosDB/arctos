@@ -95,6 +95,7 @@
 	<hr>
 
 	<cfparam name="locality_id" default="">
+	<cfparam name="sdate" default="">
 	<form method="get" action="localityArchive.cfm">
 		<label for="locality_id">Locality ID (comma-list OK)</label>
 		<input type="text" name="locality_id" value="#locality_id#">
