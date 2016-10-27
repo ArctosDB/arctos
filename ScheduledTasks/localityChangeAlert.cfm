@@ -27,7 +27,8 @@
 				locality_archive.locality_id=collecting_event.locality_id and
 				collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 				specimen_event.collection_object_id=cataloged_item.collection_object_id and
-				cataloged_item.collection_id=collection.collection_id
+				cataloged_item.collection_id=collection.collection_id and
+				CHANGEDATE >= SYSDATE - 1
 			group by
 				collection.collection_id,
 				collection.guid_prefix,
@@ -204,6 +205,12 @@
 			<cfset subj="TEST PLEASE IGNORE: Arctos Locality Change Notification">
 		</cfif>
 		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="locality_change@#Application.fromEmail#" type="html">
+			<cfif isdefined("Application.version") and  Application.version is not "prod">
+				<hr>
+					prodemaillist: #valuelist(cc.collection_contact_email)#
+				<hr>
+			</cfif>
+
 			#bdy#
 			#emailFooter#
 		</cfmail>
@@ -237,7 +244,7 @@
 		<cfset yesterday = dateformat(today-1,'yyyy-mm-dd') >
 		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">
 		<cfparam name="stop" default="#dateformat(now(),'yyyy-mm-dd')#" type="string">
-		DEFAULT is last 24 hours. You can change that by manipulating URL parameters. Example:
+
 		<a href="authority_change.cfm?start=#start#&stop=#stop#">authority_change.cfm?start=#start#&stop=#stop#</a>
 		<cfquery name="ctlogtbl" datasource="uam_god">
 			select
