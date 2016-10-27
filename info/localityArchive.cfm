@@ -194,9 +194,7 @@ $(document).ready(function() {
 					#orig.LOCALITY_ID#
 				</a>
 				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#lid#">specimens</a>
-				<div id="m_l_d_#lid#">
-					<br><a target="_blank" href="/MediaSearch.cfm?action=search&loc_evt_loc_id=#lid#">media</a>
-				</div>
+				<br><a id="m_l_d_#lid#" target="_blank" href="/MediaSearch.cfm?action=search&loc_evt_loc_id=#lid#">media</a>
 			</td>
 			<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
 			<td class="original">
