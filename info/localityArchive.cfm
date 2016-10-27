@@ -24,7 +24,7 @@ $(document).ready(function() {
 			},
 			function(r) {
 				console.log(r);
-				$('a#' + this.id).text('media (' + r + ')' );
+				$('#' + this.id).append(' (' + r + ')' );
 			}
 		);
 
