@@ -10,35 +10,23 @@
 </style>
 <script>
 	// see if we can pre-fetch media relevance
-$(document).ready(function() {
-	$.each($("[id^='m_l_d_']"), function() {
-
-	    var mid=this.id;
-
-	    console.log(mid);
-
-	    var mds=this.id.replace('m_l_d_','');
-	    console.log(mds);
-	    $.getJSON("/component/functions.cfc",
-			{
-				method : "getMediaLocalityCount",
-				locid : mds,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				console.log(r);
-				//$('#' + this.id).append(' (' + r + ')' );
-				$('a#' + mid).text('media (' + r + ')');
-				console.log('setting ' + mid + ' ct ' + r);
-			}
-		);
-
+	$(document).ready(function() {
+		$.each($("[id^='m_l_d_']"), function() {
+		    var mid=this.id;
+		    var mds=mid.replace('m_l_d_','');
+		    $.getJSON("/component/functions.cfc",
+				{
+					method : "getMediaLocalityCount",
+					locid : mds,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					$('a#' + mid).text('media (' + r + ')');
+				}
+			);
+		});
 	});
-
-
-
-});
 
 
 
@@ -87,6 +75,7 @@ $(document).ready(function() {
 				Media link find media which is
 					1) related to the locality, OR
 					2) related to an event which uses the locality.
+				( Media links will attempt to pre-fetch recordcount.)
 			</li>
 			<li>
 				UserID is the agent who changed FROM the data in the row; each change is an archive of :OLD values
