@@ -103,9 +103,9 @@
 		<label for="locality_id">Locality ID (comma-list OK)</label>
 		<input type="text" name="locality_id" value="#locality_id#">
 		<label for="sdate">After date</label>
-		<input type="text" name="sdate" value="#sdate#">
+		<input type="text" id="sdate" name="sdate" value="#sdate#">
 		<label for="edate">Before date</label>
-		<input type="text" name="edate" value="#edate#">
+		<input type="text" id="edate" name="edate" value="#edate#">
 		<br><input type="submit" value="filter">
 	</form>
 	<cfquery name="d" datasource="uam_god" result="r">
