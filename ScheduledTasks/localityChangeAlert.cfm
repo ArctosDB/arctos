@@ -83,6 +83,8 @@
 						where
 							guid_prefix='#guid_prefix#'
 					</cfquery>
+
+					<cfdump var=#rc#>
 					<cfquery name="cchgcnt" dbtype="query">
 						select sum(numChanges) c from rc
 					</cfquery>
