@@ -99,7 +99,7 @@
 	<cfparam name="locality_id" default="">
 	<form method="get" action="localityArchive.cfm">
 		<label for="locality_id">Locality ID (comma-list OK)</label>
-		<input type="text" name="lcoality_id" value="#locality_id#">
+		<input type="text" name="locality_id" value="#locality_id#">
 		<br><input type="submit" value="filter">
 	</form>
 	<cfquery name="d" datasource="uam_god">
@@ -135,7 +135,10 @@
 		 from
 		 	locality_archive
 		 where
-		 	locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
+		 	1=1 and
+		 	<cfif len(locality_id) gt 0>
+			 	locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
+			 </cfif>
 	</cfquery>
 	<cfif d.recordcount is 0>
 		No archived information found.<cfabort>
