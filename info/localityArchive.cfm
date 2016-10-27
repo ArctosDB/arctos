@@ -99,6 +99,7 @@
 	<cfparam name="locality_id" default="">
 	<cfparam name="sdate" default="">
 	<cfparam name="edate" default="">
+	<cfparam name="who" default="">
 	<form method="get" action="localityArchive.cfm">
 		<label for="locality_id">Locality ID (comma-list OK)</label>
 		<input type="text" name="locality_id" value="#locality_id#">
@@ -106,6 +107,8 @@
 		<input type="text" id="sdate" name="sdate" value="#sdate#">
 		<label for="edate">Before date</label>
 		<input type="text" id="edate" name="edate" value="#edate#">
+		<label for="who">Username</label>
+		<input type="text" id="who" name="who" value="#who#">
 		<br><input type="submit" value="filter">
 	</form>
 	<cfquery name="d" datasource="uam_god" result="r">
@@ -150,6 +153,9 @@
 			</cfif>
 			<cfif len(edate) gt 0>
 				and locality_id in (select locality_id from locality_archive where changedate <= '#edate#')
+			</cfif>
+			<cfif len(who) gt 0>
+				and locality_id in (select locality_id from locality_archive where upper(whodunit) like '%#ucase(who)#%')
 			</cfif>
 
 	</cfquery>
