@@ -11,6 +11,7 @@
 <script>
 	// see if we can pre-fetch media relevance
 	$(document).ready(function() {
+		$("#sdate").datepicker();
 		$.each($("[id^='m_l_d_']"), function() {
 		    var mid=this.id;
 		    var mds=mid.replace('m_l_d_','');
@@ -99,6 +100,8 @@
 	<form method="get" action="localityArchive.cfm">
 		<label for="locality_id">Locality ID (comma-list OK)</label>
 		<input type="text" name="locality_id" value="#locality_id#">
+		<label for="sdate">After date</label>
+		<input type="text" name="sdate" value="#sdate#">
 		<br><input type="submit" value="filter">
 	</form>
 	<cfquery name="d" datasource="uam_god" result="r">
