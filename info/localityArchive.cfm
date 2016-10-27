@@ -100,7 +100,7 @@
 		<input type="text" name="locality_id" value="#locality_id#">
 		<br><input type="submit" value="filter">
 	</form>
-	<cfquery name="d" datasource="uam_god">
+	<cfquery name="d" datasource="uam_god" result="r">
 		select
 			locality_archive_id,
 		 	locality_id,
@@ -141,6 +141,8 @@
 				and locality_id in (select locality_id from locality_archive where changedate>'#sdate#')
 			</cfif>
 	</cfquery>
+
+	<hr>#r.sql#<hr>
 
 	<cfquery name="dlocid" dbtype="query">
 		select distinct(locality_id) from d
