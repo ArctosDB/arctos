@@ -54,9 +54,7 @@
 	}
 </script>
 <cfoutput>
-	<cfif not isdefined("locality_id")>
-		bad call<cfabort>
-	</cfif>
+
 	<hr>
 		Locality Change Log
 		<ul>
