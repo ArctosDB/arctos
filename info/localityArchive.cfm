@@ -51,7 +51,7 @@
 			</li>
 			<li>
 				Media link find media which is
-					1) related to the locality, and
+					1) related to the locality, OR
 					2) related to an event which uses the locality.
 			</li>
 			<li>
