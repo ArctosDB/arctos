@@ -10,7 +10,6 @@
 </cfsavecontent>
 	<cfoutput>
 		<cfset title="locality changes">
-
 		<cfquery name="d" datasource="uam_god">
 			select
 				collection.collection_id,
@@ -202,7 +201,7 @@
 			<cfset maddr=valuelist(cc.collection_contact_email)>
 		<cfelse>
 			<cfset maddr=application.bugreportemail>
-			<cfset subj="TEST PLEASE IGNORE: Arctos Locality Change Notificatio">
+			<cfset subj="TEST PLEASE IGNORE: Arctos Locality Change Notification">
 		</cfif>
 		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="locality_change@#Application.fromEmail#" type="html">
 			#bdy#
