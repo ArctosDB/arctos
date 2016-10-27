@@ -461,6 +461,19 @@
 			<cfset mapurl="#mapurl#&collecting_event_id=#collecting_event_id#">
 		</cfif>
 
+		<!---- loc_evt_loc_id is two things:
+			media linked to locality
+			media linked to locality via event
+		---->
+		<cfif (isdefined("loc_evt_loc_id") and len(loc_evt_loc_id) gt 0)>
+			<cfset tabls = "#tabls#,media_relations mr_locality_mele">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_locality_mele.media_id ">
+			<cfset srch="#srch# AND mr_locality_mele.media_relationship like '% locality' and
+				mr_locality_mele.related_primary_key = #val(locality_id)#
+				or mr_locality_mele.related_primary_key in (select locality_id from collecting_event where locality_id = #val(locality_id)#)">
+			<cfset mapurl="#mapurl#&loc_evt_loc_id=#loc_evt_loc_id#">
+		</cfif>
+
 
 		<cfif (isdefined("specimen_accn_id") and len(specimen_accn_id) gt 0)>
 			<!--- cataloged item of one of the specimens in the accn to which the media we want is attached ---->
@@ -607,6 +620,22 @@
 			<cfabort>
 		</cfif>
 		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id">
+
+
+
+		<cfdump var=#ssql#>
+
+
+		<cfabort>
+
+
+
+
+
+
+
+
+
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
