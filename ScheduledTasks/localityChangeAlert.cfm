@@ -36,6 +36,13 @@
 				locality_archive.locality_id
 		</cfquery>
 
+
+
+<cfdump var=#d#>
+
+
+
+
 		<cfif d.recordcount is 0>
 			no changes<cfabort>
 		</cfif>
