@@ -42,33 +42,17 @@
 		<cfquery name="totLC" dbtype="query">
 			select distinct(locality_id) locality_id from d
 		</cfquery>
-
-		<cfdump var=#totLC#>
-
-
 		<cfquery name="cln" dbtype="query">
 			select guid_prefix from d group by guid_prefix order by guid_prefix
 		</cfquery>
-
-
-		<cfdump var=#cln#>
-
-
 		<cfquery name="chgcnt" dbtype="query">
 			select sum(numChanges) c from d
 		</cfquery>
-
 		<cfquery name="allusr" dbtype="query">
 			select whodunit from d group by whodunit order by whodunit
 		</cfquery>
-
-		<cfdump var=#chgcnt#>
-
-
 		<cfsavecontent variable="bdy">
 			Localities used by a collection for which you are a contact have changed.
-
-
 			<table border>
 				<tr>
 					<th>Collection</th>
@@ -99,17 +83,12 @@
 						where
 							guid_prefix='#guid_prefix#'
 					</cfquery>
-
-					<cfdump var=#rc#>
-
-
 					<cfquery name="cchgcnt" dbtype="query">
 						select sum(numChanges) c from rc
 					</cfquery>
 					<cfquery name="callusr" dbtype="query">
 						select whodunit from rc group by whodunit order by whodunit
 					</cfquery>
-
 					<cfquery name="ctotLC" dbtype="query">
 						select distinct(locality_id) locality_id from rc
 					</cfquery>
@@ -123,7 +102,6 @@
 								click
 							</a>
 						</td>
-
 					</tr>
 				</cfloop>
 
@@ -214,26 +192,6 @@
 			#bdy#
 			#emailFooter#
 		</cfmail>
-
-
-
-
-		<cfdump var=#cc#>
-
-
-
-
-#bdy#
-
-
-
-
-		<cfdump var=#d#>
-
-
-
-
-
 
 
 
