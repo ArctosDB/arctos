@@ -111,7 +111,7 @@
 		<input type="text" id="who" name="who" value="#who#">
 		<br><input type="submit" value="filter">
 	</form>
-	<cfquery name="d" datasource="uam_god" result="r">
+	<cfquery name="d" datasource="uam_god">
 		select
 			locality_archive_id,
 		 	locality_id,
@@ -157,16 +157,10 @@
 			<cfif len(who) gt 0>
 				and locality_id in (select locality_id from locality_archive where upper(whodunit) like '%#ucase(who)#%')
 			</cfif>
-
 	</cfquery>
-
-	<hr>#r.sql#<hr>
-
 	<cfquery name="dlocid" dbtype="query">
 		select distinct(locality_id) from d
 	</cfquery>
-
-
 	<cfif d.recordcount is 0>
 		No archived information found.<cfabort>
 	</cfif>
