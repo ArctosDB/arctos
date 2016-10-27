@@ -23,9 +23,9 @@ $(document).ready(function() {
 				queryformat : 'column'
 			},
 			function(r) {
-			console.log(r);
-			console.log(r.Response);
-				}
+				console.log(r);
+				$('a#' + this.id).text('media (' + r + ')' );
+			}
 		);
 
 	});
