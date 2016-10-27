@@ -141,6 +141,10 @@
 
 	<cfdump var=#d#>
 
+	<cfquery name="dlocid" dbtype="query">
+		select distinct(locality_id) from d
+	</cfquery>
+
 
 	<cfif d.recordcount is 0>
 		No archived information found.<cfabort>
@@ -163,7 +167,7 @@
 			<th>WKT-hash</th>
 			<th>Remark</th>
 		</tr>
-	<cfloop list="#locality_id#" index="lid">
+	<cfloop query="dlocid">
 		<cfquery name="orig" datasource="uam_god">
 			select locality_id,
 			 	geog_auth_rec_id,
@@ -190,17 +194,17 @@
 			 from
 			 	locality
 			 where
-			 	locality_id=<cfqueryparam value = "#lid#" CFSQLType = "CF_SQL_INTEGER">
+			 	locality_id=<cfqueryparam value = "#dlocid.locality_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
-		<tr class="datarow" data-lid="#lid#">
+		<tr class="datarow" data-lid="#dlocid.locality_id#">
 			<td class="original">currentData</td>
 			<td class="original">-n/a-</td>
 			<td class="original">
-				<a target="_blank" href="/editLocality.cfm?locality_id=#lid#">
+				<a target="_blank" href="/editLocality.cfm?locality_id=#dlocid.locality_id#">
 					#orig.LOCALITY_ID#
 				</a>
-				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#lid#">specimens</a>
-				<br><a id="m_l_d_#lid#" target="_blank" href="/MediaSearch.cfm?action=search&loc_evt_loc_id=#lid#">media</a>
+				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#dlocid.locality_id#">specimens</a>
+				<br><a id="m_l_d_#dlocid.locality_id#" target="_blank" href="/MediaSearch.cfm?action=search&loc_evt_loc_id=#dlocid.locality_id#">media</a>
 			</td>
 			<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
 			<td class="original">
@@ -248,10 +252,10 @@
 		</tr>
 
 		<cfquery name="thisChanges" dbtype="query">
-			select * from d where locality_id=#lid# order by changedate desc
+			select * from d where locality_id=#dlocid.locality_id# order by changedate desc
 		</cfquery>
 		<cfloop query="thisChanges">
-			<tr class="datarow" data-lid="#lid#">
+			<tr class="datarow" data-lid="#dlocid.locality_id#">
 				<td>#changedate#</td>
 				<td>#whodunit#</td>
 				<td>#LOCALITY_ID#</td>
