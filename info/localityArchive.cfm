@@ -12,6 +12,7 @@
 	// see if we can pre-fetch media relevance
 	$(document).ready(function() {
 		$("#sdate").datepicker();
+		$("#edate").datepicker();
 		$.each($("[id^='m_l_d_']"), function() {
 		    var mid=this.id;
 		    var mds=mid.replace('m_l_d_','');
@@ -97,11 +98,14 @@
 
 	<cfparam name="locality_id" default="">
 	<cfparam name="sdate" default="">
+	<cfparam name="edate" default="">
 	<form method="get" action="localityArchive.cfm">
 		<label for="locality_id">Locality ID (comma-list OK)</label>
 		<input type="text" name="locality_id" value="#locality_id#">
 		<label for="sdate">After date</label>
 		<input type="text" name="sdate" value="#sdate#">
+		<label for="edate">Before date</label>
+		<input type="text" name="edate" value="#edate#">
 		<br><input type="submit" value="filter">
 	</form>
 	<cfquery name="d" datasource="uam_god" result="r">
@@ -142,8 +146,12 @@
 				and locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
 			</cfif>
 			<cfif len(sdate) gt 0>
-				and locality_id in (select locality_id from locality_archive where changedate>'#sdate#')
+				and locality_id in (select locality_id from locality_archive where changedate >= '#sdate#')
 			</cfif>
+			<cfif len(edate) gt 0>
+				and locality_id in (select locality_id from locality_archive where changedate <= '#edate#')
+			</cfif>
+
 	</cfquery>
 
 	<hr>#r.sql#<hr>
