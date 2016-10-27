@@ -96,6 +96,12 @@
 		</ul>
 	<hr>
 
+	<cfparam name="locality_id" default="">
+	<form method="get" action="localityArchive.cfm">
+		<label for="locality_id">Locality ID (comma-list OK)</label>
+		<input type="text" name="lcoality_id" value="#locality_id#">
+		<br><input type="submit" value="filter">
+	</form>
 	<cfquery name="d" datasource="uam_god">
 		select
 			locality_archive_id,
