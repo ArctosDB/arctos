@@ -13,6 +13,9 @@
 $(document).ready(function() {
 	$.each($("[id^='m_l_d_']"), function() {
 	    console.log(this.id);
+	    var mds=this.id.replace('m_l_d_','');
+	    console.log(mds);
+
 	});
 
 
