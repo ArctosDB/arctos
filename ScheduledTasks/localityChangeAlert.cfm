@@ -37,12 +37,6 @@
 		</cfquery>
 
 
-
-<cfdump var=#d#>
-
-
-
-
 		<cfif d.recordcount is 0>
 			no changes<cfabort>
 		</cfif>
@@ -90,8 +84,6 @@
 						where
 							guid_prefix='#guid_prefix#'
 					</cfquery>
-
-					<cfdump var=#rc#>
 					<cfquery name="cchgcnt" dbtype="query">
 						select sum(numChanges) c from rc
 					</cfquery>
