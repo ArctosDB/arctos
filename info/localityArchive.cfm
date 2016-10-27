@@ -24,6 +24,7 @@ $(document).ready(function() {
 			},
 			function(r) {
 			console.log(r);
+			console.log(r.Response);
 				}
 		);
 
