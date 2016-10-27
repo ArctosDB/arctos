@@ -24,7 +24,8 @@ $(document).ready(function() {
 			},
 			function(r) {
 				console.log(r);
-				$('#' + this.id).append(' (' + r + ')' );
+				//$('#' + this.id).append(' (' + r + ')' );
+				$('a' + this.id').text('new text');
 			}
 		);
 
