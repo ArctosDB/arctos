@@ -138,6 +138,10 @@
 			 	and locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
 			 </cfif>
 	</cfquery>
+
+	<cfdump var=#d#>
+
+
 	<cfif d.recordcount is 0>
 		No archived information found.<cfabort>
 	</cfif>
