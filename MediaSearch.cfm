@@ -472,7 +472,7 @@
 			<cfset tabls = "#tabls#,media_relations mr_locality_mele">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_locality_mele.media_id ">
 			<cfset srch="#srch# AND mr_locality_mele.media_relationship like '% locality' and
-				mr_locality_mele.related_primary_key = #val(locality_id)#
+				mr_locality_mele.related_primary_key = #val(loc_evt_loc_id)#
 				or mr_locality_mele.related_primary_key in (select locality_id from collecting_event where locality_id = #val(loc_evt_loc_id)#)">
 			<cfset mapurl="#mapurl#&loc_evt_loc_id=#loc_evt_loc_id#">
 		</cfif>
