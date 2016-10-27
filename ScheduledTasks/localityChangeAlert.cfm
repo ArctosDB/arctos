@@ -207,7 +207,7 @@
 		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="locality_change@#Application.fromEmail#" type="html">
 			<cfif isdefined("Application.version") and  Application.version is not "prod">
 				<hr>
-					prodemaillist: #valuelist(cc.collection_contact_email)#
+					prodemaillist: #valuelist(cc.address)#
 				<hr>
 			</cfif>
 
@@ -229,6 +229,46 @@
 
 
 		<cfdump var=#d#>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 		<cfabort>
