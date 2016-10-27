@@ -29,7 +29,7 @@ $(document).ready(function() {
 			function(r) {
 				console.log(r);
 				//$('#' + this.id).append(' (' + r + ')' );
-				$('a#' + mid).text('new text');
+				$('a#' + mid).text('media (' + r + ')');
 				console.log('setting ' + mid + ' ct ' + r);
 			}
 		);
