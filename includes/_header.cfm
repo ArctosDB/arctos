@@ -154,6 +154,7 @@
 			                <li><a target="_top" href="/info/ctDocumentation.cfm">Code&nbsp;Tables</a></li>
 							<li><a target="_top" href="/googlesearch.cfm">Google&nbsp;Custom&nbsp;(BETA)</a></li>
 							<li><a target="_top" href="/spatialBrowse.cfm">Spatial&nbsp;Browse&nbsp;(BETA)</a></li>
+							<li><a target="_top" href="/agent.cfm">Agents</a></li>
 						</ul>
 					</li>
 					<cfif len(session.roles) gt 0 and session.roles is not "public">
