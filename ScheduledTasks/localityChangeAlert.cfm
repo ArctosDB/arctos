@@ -16,7 +16,7 @@
 				collection.guid_prefix,
 				whodunit,
 				locality_archive.locality_id,
-				count(distinct(locality_archive.locality_id)) numChanges
+				count(distinct(locality_archive.locality_archive_id)) numChanges
 			from
 				locality_archive,
 				collecting_event,
