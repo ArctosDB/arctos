@@ -1173,7 +1173,6 @@
 								select * from hasclass where term_type='#taxon_term#'
 							</cfquery>
 
-							<cfdump var=#thisTermData#>
 
 							<!---- loop to deal with multiple terms with the same rank ---->
 							<cfloop query="thisTermData">
