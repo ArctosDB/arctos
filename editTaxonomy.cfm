@@ -1136,16 +1136,26 @@
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
 			<cfset shouldUsuallyHave="kingdom,genus,species,subspecies,scientific_name">
 
+
+
+
+
 			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
+
+			<cfloop query="cttaxon_term_isclass">
+					<p>--#taxon_term#</p>
+
+			</cfloop>
+
+
+
+
 			<cfloop list="#aterms#" index="i">
 				<cfif listfind(shouldUsuallyHave,i)>
 
 
 					<cfset shouldUsuallyHave=listdeleteat(shouldUsuallyHave,listfind(shouldUsuallyHave,i))>
-				<cfelse>
-					<p>
-						missing #listfind(shouldUsuallyHave,i)# @ #i#
-					</p>
+
 
 				</cfif>
 			</cfloop>
