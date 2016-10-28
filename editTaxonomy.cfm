@@ -942,7 +942,7 @@
 				available from the code table. They will (not) show up as blank cells below
 				and may be difficult to distinguish from unranked terms.
 				Make sure you know what you're doing before saving!
-				Use the contact link in the footer if you need help.
+				Use the contact link in the footer BEFORE saving anything if this is not clear.
 				<ul>
 					<cfloop query="noct">
 						<li>#term_type#=#term#</li>
