@@ -1187,7 +1187,7 @@
 
 
 
-								<input size="60" type="text" id="term_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_#thisrow.POSITION_IN_CLASSIFICATION#" value="#thistermtype#" onchange="guessAtDisplayName(this.id)">
+								<input size="60" type="text" id="term_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_#thisrow.POSITION_IN_CLASSIFICATION#" value="#thisTermValue#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
 								<span class="likeLink" onclick="deleteThis('#thisrow.POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
