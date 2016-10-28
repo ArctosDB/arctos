@@ -620,9 +620,7 @@
 				</thead>
 				<tbody id="sortable">
 					<cfloop from="1" to="10" index="i">
-
 							<td>
-
 								<select  class="ac_isclass_tt" id="term_type_#i#" name="term_type_#i#">
 									<option value=""></option>
 									<cfloop query="cttaxon_term_isclass">
@@ -847,6 +845,20 @@
 		    $('html, body').animate({
 		        scrollTop: $("#dnWarning").offset().top
 		    }, 1000);
+		}
+
+		function magicTerms(){
+
+
+				}
+			var genus; // just so that we can italicize @fallback
+			var species;
+			var infraspecific_term;
+			var infraspecific_rank;
+			var speciesauthor;
+			var subspeciesauthor;
+			var dv_element=""; // element of the term type
+			var dv_value=""; // contents of the term
 		}
 	</script>
 	<cfoutput>
@@ -1127,7 +1139,14 @@
 			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
 			<cfloop list="#aterms#" index="i">
 				<cfif listfind(shouldUsuallyHave,i)>
+
+
 					<cfset shouldUsuallyHave=listdeleteat(shouldUsuallyHave,listfind(shouldUsuallyHave,i))>
+				<cfelse>
+					<p>
+						missing #listfind(shouldUsuallyHave,i)# @ #i#
+					</p>
+
 				</cfif>
 			</cfloop>
 
