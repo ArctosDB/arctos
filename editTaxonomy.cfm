@@ -1155,10 +1155,10 @@
 
 			<!----<cfset mClassTerms=QueryNew("POSITION_IN_CLASSIFICATION,TERM,TERM_TYPE,STATUS")>---->
 
-
+			<!--- make a table I can mess with, leave some gaps ---->
 			<cfquery name="mClassTerms" dbtype="query">
 				select
-					POSITION_IN_CLASSIFICATION,
+					POSITION_IN_CLASSIFICATION * 10 POSITION_IN_CLASSIFICATION,
 					TERM,
 					TERM_TYPE,
 					'exist' STATUS
@@ -1196,11 +1196,14 @@
 					<cfloop list="#findit#" index="tt">
 						<br>looking for #tt#
 						<cfquery name="fnt" dbtype="query">
-							select * from mClassTerms where term_type='#tt#'
+							select min(POSITION_IN_CLASSIFICATION) up from mClassTerms where term_type='#tt#'
 						</cfquery>
 						<cfdump var=#fnt#>
 						<cfif fnt.recordcount gt 0>
 							<br>found #tt# leaving now
+
+							<br>make a break
+
 							<cfbreak>
 						</cfif>
 					</cfloop>
