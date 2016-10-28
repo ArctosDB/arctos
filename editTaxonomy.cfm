@@ -1205,10 +1205,13 @@
 								<cfquery name="ckPosn" dbtype="query">
 									select * from mClassTerms where POSITION_IN_CLASSIFICATION=#availablePosition#
 								</cfquery>
+
+								<br>ckPosn
+								<cfdump var=#ckPosn#>
 								<cfif ckPosn.recordcount is 0>
 									<cfbreak>
 								<cfelse>
-									<cfset availablePosition=availablePosition-1>
+									<cfset availablePosition=availablePosition+1>
 								</cfif>
 
 							</cfloop>
