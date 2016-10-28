@@ -907,9 +907,12 @@
 			select term_type,term,POSITION_IN_CLASSIFICATION from d where POSITION_IN_CLASSIFICATION is not null
 			group by term_type,term,POSITION_IN_CLASSIFICATION order by POSITION_IN_CLASSIFICATION
 		</cfquery>
+
+		<!----------
 		<cfquery name="maxclass" dbtype="query">
 			select max(POSITION_IN_CLASSIFICATION) m from hasclass
 		</cfquery>
+		------------->
 		<cfquery name="maxnoclass" dbtype="query">
 			select count(*) m from noclass
 		</cfquery>
@@ -984,12 +987,13 @@
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#thisname.taxon_name_id#">
 			<input type="hidden" name="source" id="source" value="#thisname.source#">
+			<!------------
 			<cfif len(maxclass.m) is 0>
 				<cfset mc=0>
 			<cfelse>
 				<cfset mc=maxclass.m>
 			</cfif>
-			<input type="text" name="maxposn" id="maxposn" value="#mc#">
+			------------>
 			<cfif len(maxnoclass.m) is 0>
 				<cfset mc=0>
 			<cfelse>
@@ -1229,6 +1233,7 @@
 						</cfif>
 
 					</cfloop>
+			<input type="text" name="maxposn" id="maxposn" value="#thisrowinc#">
 
 
 					<!------------
