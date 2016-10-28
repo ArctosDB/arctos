@@ -1196,15 +1196,27 @@
 					<cfloop list="#findit#" index="tt">
 						<br>looking for #tt#
 						<cfquery name="fnt" dbtype="query">
-							select min(POSITION_IN_CLASSIFICATION) -1 up from mClassTerms where term_type='#tt#'
+							select min(POSITION_IN_CLASSIFICATION)  up from mClassTerms where term_type='#tt#'
 						</cfquery>
 						<cfdump var=#fnt#>
 						<cfif fnt.recordcount gt 0>
+							<cfset availablePosition=fnt.up>
+							<cfloop from="1" to="10" index="l">
+								<cfquery name="ckPosn" dbtype="query">
+									select * from mClassTerms where POSITION_IN_CLASSIFICATION=#availablePosition#
+								</cfquery>
+								<cfif ckPosn.recordcount is 0>
+									<cfbreak>
+								<cfelse>
+									<cfset availablePosition=availablePosition-1>
+								</cfif>
+
+							</cfloop>
 							<br>found #tt# leaving now
 
 							<!---- insert the should-be-there value one place before the next found value ---->
 
-							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#fnt.up#","TERM"="#i#","STATUS"="autoins"})>
+							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#availablePosition#","TERM"="#i#","STATUS"="autoins"})>
 
 							<cfbreak>
 						</cfif>
