@@ -1178,6 +1178,20 @@
 					<cfquery name="thisRelPosn" dbtype="query">
 						select relative_position from cttaxon_term where is_classification=1 and taxon_term='#i#'
 					</cfquery>
+					<cfquery name="possNextTerm" dbtype="query">
+						select
+							taxon_term
+						from
+							cttaxon_term
+						where
+							is_classification=1 and
+							relative_position >= #thisRelPosn.relative_position#
+						order by
+							relative_position
+					</cfquery>
+					<cfset findit=valuelist(possNextTerm.taxon_term)>
+
+					findit: #findit#
 					<cfdump var=#thisRelPosn#>
 
 
