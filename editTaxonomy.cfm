@@ -1220,7 +1220,7 @@
 
 							<!---- insert the should-be-there value one place before the next found value ---->
 
-							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#availablePosition#","TERM"="#i#","STATUS"="autoins"})>
+							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#availablePosition#","TERM_TYPE"="#i#","STATUS"="autoins"})>
 
 							<cfbreak>
 						</cfif>
