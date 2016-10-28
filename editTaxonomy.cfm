@@ -847,19 +847,7 @@
 		    }, 1000);
 		}
 
-		function magicTerms(){
 
-
-				}
-			var genus; // just so that we can italicize @fallback
-			var species;
-			var infraspecific_term;
-			var infraspecific_rank;
-			var speciesauthor;
-			var subspeciesauthor;
-			var dv_element=""; // element of the term type
-			var dv_value=""; // contents of the term
-		}
 	</script>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
