@@ -1127,6 +1127,44 @@
 							<p>
 								make a row
 							</p>
+
+							<tr id="cell_#thisrow.POSITION_IN_CLASSIFICATION#">
+								<td class="dragger">
+									(drag row here)
+								</td>
+							<td>
+
+								<!----
+								<input size="60" class="ac_isclass_tt" type="text"
+								id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#"
+								value="#term_type#" onchange="guessAtDisplayName(this.id)">
+								---->
+								<select
+									class="ac_isclass_tt"
+									id="term_type_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_type_#thisrow.POSITION_IN_CLASSIFICATION#"
+									onchange="guessAtDisplayName(this.id)">
+									<option value=""></option>
+									<cfloop query="cttaxon_term_isclass">
+										<option
+											<cfif cttaxon_term_isclass.taxon_term is thisrow.term_type> selected="selected" </cfif>
+											value="#taxon_term#">#taxon_term#</option>
+									</cfloop>
+								</select>
+
+
+							</td>
+							<td>
+								<input size="60" type="text" id="term_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_#thisrow.POSITION_IN_CLASSIFICATION#" value="#thisrow.term#" onchange="guessAtDisplayName(this.id)">
+							</td>
+							<td>
+								<span class="likeLink" onclick="deleteThis('#thisrow.POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
+							</td>
+						</tr>
+
+
+
+
+
 						</cfif>
 
 					</cfloop>
