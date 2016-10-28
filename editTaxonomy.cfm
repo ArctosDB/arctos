@@ -1237,6 +1237,11 @@
 							<cfbreak>
 						</cfif>
 					</cfloop>
+
+
+
+
+					<p>exiting loop, may not have found anything.....</p>
 					<cfdump var=#thisRelPosn#>
 
 
