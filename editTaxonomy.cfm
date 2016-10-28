@@ -1172,6 +1172,8 @@
 							<cfquery name="thisrow" dbtype="query">
 								select * from hasclass where term_type='#taxon_term#'
 							</cfquery>
+
+							<cfdump var=#thisrow#>
 							<!--- increment rowID ---->
 							<cfset thisrowinc=thisrowinc+1>
 
