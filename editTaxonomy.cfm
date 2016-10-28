@@ -1145,6 +1145,17 @@
 			<cfloop query="cttaxon_term_isclass">
 					<p>--#taxon_term#</p>
 
+					<cfif listfind(shouldUsuallyHave,taxon_term)>
+						<br>we should have #taxon_term#
+
+						<cfif listfind(aterms,taxon_term)>
+							<br>and we do
+						<cfelse>
+							<br>IT"S NOT THERER OF NOES!!
+
+						</cfif>
+					</cfif>
+
 			</cfloop>
 
 
