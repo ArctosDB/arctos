@@ -1154,6 +1154,11 @@
 
 
 
+
+			<cfdump var=#hasclass#>
+
+
+
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
@@ -1358,14 +1363,6 @@
 <!------------------------------------->
 <cfif action is "saveClassEdits">
 	<cfoutput>
-
-
-		<cfdump var=#form#>
-
-
-
-
-
 		<cftransaction>
 			<!---- clear everything out, start over - just easier this way ---->
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1406,51 +1403,27 @@
 				<cfset i=listlast(x,"_")>
 				<cfset thisterm=evaluate("TERM_" & i)>
 				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
-					<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						insert into taxon_term (
-							TAXON_NAME_ID,
-							CLASSIFICATION_ID,
-							TERM,
-							TERM_TYPE,
-							SOURCE,
-							LASTDATE,
-							POSITION_IN_CLASSIFICATION
-						) values (
-							#TAXON_NAME_ID#,
-							'#CLASSIFICATION_ID#',
-							'#thisterm#',
-							'#thistermtype#',
-							'#SOURCE#',
-							sysdate,
-							#listpos#
-						)
-					</cfquery>
-
-					<p>
+				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
-							TAXON_NAME_ID,
-							CLASSIFICATION_ID,
-							TERM,
-							TERM_TYPE,
-							SOURCE,
-							LASTDATE,
-							POSITION_IN_CLASSIFICATION
-						) values (
-							#TAXON_NAME_ID#,
-							'#CLASSIFICATION_ID#',
-							'#thisterm#',
-							'#thistermtype#',
-							'#SOURCE#',
-							sysdate,
-							#listpos#
-						)
-					</p>
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						#TAXON_NAME_ID#,
+						'#CLASSIFICATION_ID#',
+						'#thisterm#',
+						'#thistermtype#',
+						'#SOURCE#',
+						sysdate,
+						#listpos#
+					)
+				</cfquery>
 			</cfloop>
 		</cftransaction>
-
-
-				<cfabort>
-
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&TAXON_NAME_ID=#TAXON_NAME_ID#&classification_id=#classification_id#" addtoken="false">
 	</cfoutput>
 </cfif>
