@@ -1113,11 +1113,9 @@
 						<cfset dohave=false>
 						<p>--#taxon_term#</p>
 						<cfif listfind(shouldUsuallyHave,taxon_term)>
-							<br>we should have #taxon_term#
 							<cfset shouldhave=true>
 						</cfif>
 						<cfif listfind(aterms,taxon_term)>
-							<br>and we do, add row with value
 							<cfset doHave=true>
 						</cfif>
 						<!--- if EITHER shouldHave or doHave, add a row --->
