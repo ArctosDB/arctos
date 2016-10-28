@@ -1147,7 +1147,7 @@
 								select * from hasclass where term_type='#taxon_term#'
 							</cfquery>
 							<!--- increment rowID ---->
-							<cfset thisrowinc=thisrow+1>
+							<cfset thisrowinc=thisrowinc+1>
 
 
 							<tr id="cell_#thisrow#">
