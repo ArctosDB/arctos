@@ -1094,6 +1094,23 @@
 			<!--- see what we can glean from what we have ---->
 			<cfset probSpecies="">
 			<cfset probSubSpecies="">
+			<cfset probSciName="">
+
+			<cfquery name="gsciname" dbtype="query">
+				select * from hasclass where term_type='scientific_name'
+			</cfquery>
+				<cfdump var=#gsciname#>
+
+			<cfif len(gsciname.term) gt 0>
+				<cfset probSciName=gsciname.term>
+			<cfelse>
+				<cfset probSciName=thisname.scientific_name>
+
+			</cfif>
+
+
+
+
 			<cfif listlen(thisname.scientific_name,' ') gt 1>
 			<p>
 				looks subspecific
