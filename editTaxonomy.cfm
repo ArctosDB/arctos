@@ -1150,7 +1150,7 @@
 							<cfset thisrowinc=thisrowinc+1>
 
 
-							<tr id="cell_#thisrow#">
+							<tr id="cell_#thisrowinc#">
 								<td class="dragger">
 									(drag row here)
 								</td>
