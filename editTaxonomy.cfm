@@ -1193,7 +1193,11 @@
 					<cfset findit=valuelist(possNextTerm.taxon_term)>
 
 					findit: #findit#
-					<cfset findSuccess=false>
+
+
+					<cfset availablePosition=0>
+
+
 					<cfloop list="#findit#" index="tt">
 						<br>looking for #tt#
 						<cfquery name="fnt" dbtype="query">
@@ -1234,17 +1238,18 @@
 
 							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#availablePosition#","TERM_TYPE"="#i#","STATUS"="autoins","TERM"="#thisTermVal#"})>
 
-							<cfset findSuccess=true>
 							<cfbreak>
 						</cfif>
 					</cfloop>
+
+					<!--- if we didn't find anything, it's the so-far largest POSITION_IN_CLASSIFICATION ---->
 
 
 
 
 					<p>exiting loop, may not have found anything.....</p>
 
-					<br>findSuccess: #findSuccess#
+					<br>availablePosition: #availablePosition#
 
 
 					<cfdump var=#thisRelPosn#>
