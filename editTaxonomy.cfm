@@ -1092,11 +1092,50 @@
 				 Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom. Drag rows to sort.
 				 TermType will be ignored if Term is empty. Term will be saved regardless of TermType; unranked terms are OK.
 			</p>
+
+			<cfset shouldUsuallyHave="kingdom,genus,species,subspecies,scientific_name">
+
+
+
+
+
+			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
+
+
+
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
 				</thead>
 				<tbody id="sortable">
+					<cfloop query="cttaxon_term_isclass">
+						<cfset shouldHave=false>
+						<cfset dohave=false>
+						<p>--#taxon_term#</p>
+						<cfif listfind(shouldUsuallyHave,taxon_term)>
+							<br>we should have #taxon_term#
+							<cfset shouldhave=true>
+						</cfif>
+						<cfif listfind(aterms,taxon_term)>
+							<br>and we do, add row with value
+							<cfset doHave=true>
+						</cfif>
+						<!--- if EITHER shouldHave or doHave, add a row --->
+						<cfif shouldhave or dohave>
+							<p>
+								make a row
+							</p>
+						</cfif>
+
+					</cfloop>
+
+
+					<!------------
+
+					 old stuff works
+
+
+
 					<cfloop query="hasclass">
 						<tr id="cell_#POSITION_IN_CLASSIFICATION#">
 							<td class="dragger">
@@ -1131,32 +1170,17 @@
 							</td>
 						</tr>
 					</cfloop>
+
+
+					/old stuff works
+					------------------>
+
+
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
-			<cfset shouldUsuallyHave="kingdom,genus,species,subspecies,scientific_name">
 
 
-
-
-
-			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
-
-			<cfloop query="cttaxon_term_isclass">
-					<p>--#taxon_term#</p>
-
-					<cfif listfind(shouldUsuallyHave,taxon_term)>
-						<br>we should have #taxon_term#
-
-						<cfif listfind(aterms,taxon_term)>
-							<br>and we do
-						<cfelse>
-							<br>IT"S NOT THERER OF NOES!!
-
-						</cfif>
-					</cfif>
-
-			</cfloop>
 
 
 
