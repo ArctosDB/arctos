@@ -945,7 +945,6 @@
 				Use the contact link in the footer if you need help.
 				<ul>
 					<cfloop query="noct">
-						<cfquery name="asdjnfkasd" dbtype="query">
 						<li>#term_type#=#term#</li>
 					</cfloop>
 				</ul>
