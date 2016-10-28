@@ -376,7 +376,6 @@
 					<td class="#thisStyle#">
 						#polyhash#
 					</td>
-
 					<cfif LOCALITY_REMARKS is lastRem>
 						<cfset thisStyle="nochange">
 					<cfelse>
