@@ -1132,6 +1132,7 @@
 				</thead>
 				<tbody id="sortable">
 					<cfloop query="cttaxon_term_isclass">
+						<cfset thisrowinc=0>
 						<cfset shouldHave=false>
 						<cfset dohave=false>
 						<cfif listfind(shouldUsuallyHave,taxon_term)>
@@ -1145,9 +1146,11 @@
 							<cfquery name="thisrow" dbtype="query">
 								select * from hasclass where term_type='#taxon_term#'
 							</cfquery>
+							<!--- increment rowID ---->
+							<cfset thisrowinc=thisrow+1>
 
 
-							<tr id="cell_#thisrow.POSITION_IN_CLASSIFICATION#">
+							<tr id="cell_#thisrow#">
 								<td class="dragger">
 									(drag row here)
 								</td>
@@ -1160,7 +1163,7 @@
 								---->
 								<select
 									class="ac_isclass_tt"
-									id="term_type_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_type_#thisrow.POSITION_IN_CLASSIFICATION#"
+									id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
 									onchange="guessAtDisplayName(this.id)">
 									<option value=""></option>
 									<cfset thistermtype=taxon_term>
@@ -1187,10 +1190,10 @@
 
 
 
-								<input size="60" type="text" id="term_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_#thisrow.POSITION_IN_CLASSIFICATION#" value="#thisTermValue#" onchange="guessAtDisplayName(this.id)">
+								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#thisTermValue#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
-								<span class="likeLink" onclick="deleteThis('#thisrow.POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
+								<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
 							</td>
 						</tr>
 
@@ -1314,9 +1317,7 @@
 <cfif action is "saveClassEdits">
 	<cfoutput>
 
-		<cfdump var=#form#>
 
-		<cfabort>
 		<cftransaction>
 			<!---- clear everything out, start over - just easier this way ---->
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
