@@ -1172,7 +1172,7 @@
 				</cfquery>
 				<cfdump var=#ttchk#>
 
-				<cfif ttchk.rowcount is 0>
+				<cfif ttchk.recordcount is 0>
 					<p>no find #i#</p>
 					<!--- get ordered terms starting with what we're looking for ---->
 					<cfquery name="thisRelPosn" dbtype="query">
