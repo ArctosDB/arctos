@@ -1200,13 +1200,13 @@
 											<!----default ---->
 											<cfset thisTermValue=thisTermData.term>
 
-											<cfif thistermtype is "species" and len(thisTermValue) is 0 and len(probSpecies) gt 0>
+											<cfif thisTermData.term_type is "species" and len(thisTermValue) is 0 and len(probSpecies) gt 0>
 												****<cfset thisTermValue=probSpecies>
 											</cfif>
-											<cfif thistermtype is "subspecies" and len(thisTermValue) is 0 and len(probSubSpecies) gt 0>
+											<cfif thisTermData.term_type is "subspecies" and len(thisTermValue) is 0 and len(probSubSpecies) gt 0>
 												****<cfset thisTermValue=probSubSpecies>
 											</cfif>
-											<cfif thistermtype is "scientific_name" and len(thisTermValue) is 0 and len(probSciName) gt 0>
+											<cfif thisTermData.term_type is "scientific_name" and len(thisTermValue) is 0 and len(probSciName) gt 0>
 												****<cfset thisTermValue=probSciName>
 											</cfif>
 
