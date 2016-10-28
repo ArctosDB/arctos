@@ -1193,7 +1193,7 @@
 
 					findit: #findit#
 
-					<cfloop list-"#findit#" index="tt">
+					<cfloop list="#findit#" index="tt">
 						<br>looking for #tt#
 						<cfquery name="fnt" dbtype="query">
 							select * from mClassTerms where term_type='#tt#'
