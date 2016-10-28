@@ -932,7 +932,7 @@
 		<cfset x=ListQualify(valuelist(cttaxon_term.taxon_term),"'")>
 
 		<cfquery name="noct" dbtype="query">
-			select distinct term_type from d where term_type not in
+			select distinct term_type,TERM from d where term_type not in
 			(#PreserveSingleQuotes(x)#)
 		</cfquery>
 
@@ -945,7 +945,8 @@
 				Use the contact link in the footer if you need help.
 				<ul>
 					<cfloop query="noct">
-						<li>#term_type#</li>
+						<cfquery name="asdjnfkasd" dbtype="query">
+						<li>#term_type#=#term#</li>
 					</cfloop>
 				</ul>
 			</div>
@@ -1152,12 +1153,7 @@
 				Values preceeded by **** are suggestions; review them carefully before saving!
 			</p>
 
-			<!--- see if the limitations of this form will exclude anything ---->
-			<cfquery name="exclTerms" dbtype="query">
-				select * from  hasclass where term_type not in (#valuelist(cttaxon_term_isclass.taxon_term)#)
-			</cfquery>
 
-			<cfdump var=#exclTerms#>
 
 			<table id="clastbl" border="1">
 				<thead>
