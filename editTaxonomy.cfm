@@ -1131,8 +1131,9 @@
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
 				</thead>
 				<tbody id="sortable">
+					<cfset thisrowinc=0>
+
 					<cfloop query="cttaxon_term_isclass">
-						<cfset thisrowinc=0>
 						<cfset shouldHave=false>
 						<cfset dohave=false>
 						<cfif listfind(shouldUsuallyHave,taxon_term)>
