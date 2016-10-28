@@ -1120,6 +1120,10 @@
 						</cfif>
 						<!--- if EITHER shouldHave or doHave, add a row --->
 						<cfif shouldhave or dohave>
+							<cfquery name="thisrow" dbtype="query">
+								select * from hasclass where term_type='#taxon_term#'
+							</cfquery>
+							<cfdump var=#thisrow#>
 							<p>
 								make a row
 							</p>
