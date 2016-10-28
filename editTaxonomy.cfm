@@ -1169,64 +1169,73 @@
 						</cfif>
 						<!--- if EITHER shouldHave or doHave, add a row --->
 						<cfif shouldhave or dohave>
-							<cfquery name="thisrow" dbtype="query">
+							<cfquery name="thisTermData" dbtype="query">
 								select * from hasclass where term_type='#taxon_term#'
 							</cfquery>
 
-							<cfdump var=#thisrow#>
-							<!--- increment rowID ---->
-							<cfset thisrowinc=thisrowinc+1>
+							<cfdump var=#thisTermData#>
+
+							<!---- loop to deal with multiple terms with the same rank ---->
+							<cfloop query="thisTermData">
+								<!--- increment rowID ---->
+								<cfset thisrowinc=thisrowinc+1>
+								<tr id="cell_#thisrowinc#">
+									<td class="dragger">
+										(drag row here)
+									</td>
+									<td>
+										<select
+											class="ac_isclass_tt"
+											id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
+											onchange="guessAtDisplayName(this.id)">
+											<option value=""></option>
+											<cfset thistermtype=taxon_term>
+											<cfloop query="cttaxon_term_isclass">
+												<option
+													<cfif cttaxon_term_isclass.taxon_term is thistermtype> selected="selected" </cfif>
+													value="#taxon_term#">#taxon_term#</option>
+											</cfloop>
+										</select>
+									</td>
+									<td>
+											<!----default ---->
+											<cfset thisTermValue=thisTermData.term>
+
+											<cfif thistermtype is "species" and len(thisTermValue) is 0 and len(probSpecies) gt 0>
+												****<cfset thisTermValue=probSpecies>
+											</cfif>
+											<cfif thistermtype is "subspecies" and len(thisTermValue) is 0 and len(probSubSpecies) gt 0>
+												****<cfset thisTermValue=probSubSpecies>
+											</cfif>
+											<cfif thistermtype is "scientific_name" and len(thisTermValue) is 0 and len(probSciName) gt 0>
+												****<cfset thisTermValue=probSciName>
+											</cfif>
 
 
-							<tr id="cell_#thisrowinc#">
-								<td class="dragger">
-									(drag row here)
-								</td>
-							<td>
+
+
+											<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#thisTermValue#" onchange="guessAtDisplayName(this.id)">
+										</td>
+										<td>
+											<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
+										</td>
+									</tr>
+							</cfloop>
+
+
+
+
 
 								<!----
 								<input size="60" class="ac_isclass_tt" type="text"
 								id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#"
 								value="#term_type#" onchange="guessAtDisplayName(this.id)">
 								---->
-								<select
-									class="ac_isclass_tt"
-									id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
-									onchange="guessAtDisplayName(this.id)">
-									<option value=""></option>
-									<cfset thistermtype=taxon_term>
-									<cfloop query="cttaxon_term_isclass">
-										<option
-											<cfif cttaxon_term_isclass.taxon_term is thistermtype> selected="selected" </cfif>
-											value="#taxon_term#">#taxon_term#</option>
-									</cfloop>
-								</select>
-
-
-							</td>
-							<td>
-								<!----default ---->
-								<cfset thisTermValue=thisrow.term>
-
-								<cfif thistermtype is "species" and len(thisTermValue) is 0 and len(probSpecies) gt 0>
-									****<cfset thisTermValue=probSpecies>
-								</cfif>
-								<cfif thistermtype is "subspecies" and len(thisTermValue) is 0 and len(probSubSpecies) gt 0>
-									****<cfset thisTermValue=probSubSpecies>
-								</cfif>
-								<cfif thistermtype is "scientific_name" and len(thisTermValue) is 0 and len(probSciName) gt 0>
-									****<cfset thisTermValue=probSciName>
-								</cfif>
 
 
 
 
-								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#thisTermValue#" onchange="guessAtDisplayName(this.id)">
-							</td>
-							<td>
-								<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
-							</td>
-						</tr>
+
 
 
 
