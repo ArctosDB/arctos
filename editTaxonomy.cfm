@@ -1087,6 +1087,7 @@
 
 			<cfset shouldUsuallyHave="kingdom,genus,species,subspecies,scientific_name">
 
+			<cfset shouldUsuallyHave="scientific_name,subspecies,species,genus,kingdom">
 
 
 
