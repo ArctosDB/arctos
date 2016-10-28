@@ -1196,13 +1196,15 @@
 					<cfloop list="#findit#" index="tt">
 						<br>looking for #tt#
 						<cfquery name="fnt" dbtype="query">
-							select min(POSITION_IN_CLASSIFICATION) up from mClassTerms where term_type='#tt#'
+							select min(POSITION_IN_CLASSIFICATION) -1 up from mClassTerms where term_type='#tt#'
 						</cfquery>
 						<cfdump var=#fnt#>
 						<cfif fnt.recordcount gt 0>
 							<br>found #tt# leaving now
 
-							<br>make a break
+							<!---- insert the should-be-there value one place before the next found value ---->
+
+							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#fnt.up#","TERM"="#tt#","STATUS"="autoins"})>
 
 							<cfbreak>
 						</cfif>
@@ -1222,6 +1224,7 @@
 
 
 
+					<cfdump var=#mClassTerms#>
 			<cfdump var=#hasclass#>
 
 			<!---- see what we might be missing ---->
