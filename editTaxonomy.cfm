@@ -1154,7 +1154,7 @@
 
 			<!--- see if the limitations of this form will exclude anything ---->
 			<cfquery name="exclTerms" dbtype="query">
-				select * from  hasclass where term_type not in (#valuelist(cttaxon_term_isclass.taxon_term#)
+				select * from  hasclass where term_type not in (#valuelist(cttaxon_term_isclass.taxon_term)#)
 			</cfquery>
 
 			<cfdump var=#exclTerms#>
