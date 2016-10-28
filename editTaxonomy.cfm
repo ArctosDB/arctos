@@ -989,7 +989,7 @@
 			<cfelse>
 				<cfset mc=maxclass.m>
 			</cfif>
-			<input type="hidden" name="maxposn" id="maxposn" value="#mc#">
+			<input type="text" name="maxposn" id="maxposn" value="#mc#">
 			<cfif len(maxnoclass.m) is 0>
 				<cfset mc=0>
 			<cfelse>
