@@ -294,7 +294,6 @@
 						#SPEC_LOCALITY#
 					</td>
 
-
 					<cfif LOCALITY_NAME is lastLocName>
 						<cfset thisStyle="nochange">
 					<cfelse>
