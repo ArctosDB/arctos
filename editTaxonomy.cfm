@@ -1085,8 +1085,8 @@
 				 TermType will be ignored if Term is empty. Term will be saved regardless of TermType; unranked terms are OK.
 			</p>
 
-			<cfset shouldUsuallyHave="kingdom,genus,species,subspecies,scientific_name">
 
+			<!--- this must be ordered from "lowest" to "highest"---->
 			<cfset shouldUsuallyHave="scientific_name,subspecies,species,genus,kingdom">
 
 
@@ -1248,6 +1248,14 @@
 
 			shouldUsuallyHave
 
+
+			<!---- now get the ordered stuff ---->
+
+			<cfquery name="o" dbtype="query">
+				select * from mClassTerms order by position_in_classification
+			</cfquery>
+
+			<cfdump var=#o#>
 
 
 
