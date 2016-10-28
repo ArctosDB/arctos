@@ -1153,9 +1153,37 @@
 			</p>
 
 
+			<!----<cfset mClassTerms=QueryNew("POSITION_IN_CLASSIFICATION,TERM,TERM_TYPE,STATUS")>---->
+
+
+			<cfquery name="mClassTerms" dbtype="query">
+				select
+					POSITION_IN_CLASSIFICATION,
+					TERM,
+					TERM_TYPE,
+					'exist' STATUS
+				from
+					hasclass
+			</cfquery>
+
+			<cfloop list="#shouldUsuallyHave#" index="i">
+				<cfquery name="ttchk" dbtype="query">
+					select * from mClassTerms where TERM_TYPE='#i#'
+				</cfquery>
+				<cfdump var=#ttchk#>
+			</cfloop>
+
 
 
 			<cfdump var=#hasclass#>
+
+			<!---- see what we might be missing ---->
+
+
+			shouldUsuallyHave
+
+
+
 
 
 
