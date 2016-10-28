@@ -1171,6 +1171,24 @@
 					select * from mClassTerms where TERM_TYPE='#i#'
 				</cfquery>
 				<cfdump var=#ttchk#>
+
+				<cfif ttchk.rowcount is 0>
+					<p>no find #i#</p>
+					<!--- get ordered terms starting with what we're looking for ---->
+					<cfquery name="thisRelPosn" dbtype="query">
+						select relative_position from cttaxon_term where is_classification=1 and taxon_term='#i#'
+					</cfquery>
+					<cfdump var=#thisRelPosn#>
+
+
+
+
+
+
+					<cfloop list="#aterms#" index="et">
+
+					</cfloop>
+				</cfif>
 			</cfloop>
 
 
