@@ -1560,25 +1560,27 @@
 				<cfset i=listlast(x,"_")>
 				<cfset thisterm=evaluate("TERM_" & i)>
 				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
-				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into taxon_term (
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE,
-						POSITION_IN_CLASSIFICATION
-					) values (
-						#TAXON_NAME_ID#,
-						'#CLASSIFICATION_ID#',
-						'#thisterm#',
-						'#thistermtype#',
-						'#SOURCE#',
-						sysdate,
-						#listpos#
-					)
-				</cfquery>
+				<cfif len(thisterm) gt 0>
+					<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into taxon_term (
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM,
+							TERM_TYPE,
+							SOURCE,
+							LASTDATE,
+							POSITION_IN_CLASSIFICATION
+						) values (
+							#TAXON_NAME_ID#,
+							'#CLASSIFICATION_ID#',
+							'#thisterm#',
+							'#thistermtype#',
+							'#SOURCE#',
+							sysdate,
+							#listpos#
+						)
+					</cfquery>
+				</cfif>
 			</cfloop>
 		</cftransaction>
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&TAXON_NAME_ID=#TAXON_NAME_ID#&classification_id=#classification_id#" addtoken="false">
