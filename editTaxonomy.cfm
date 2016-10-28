@@ -1208,6 +1208,9 @@
 								<cfif thistermtype is "subspecies" and len(thisTermValue) is 0 and len(probSubSpecies) gt 0>
 									****<cfset thisTermValue=probSubSpecies>
 								</cfif>
+								<cfif thistermtype is "scientific_name" and len(thisTermValue) is 0 and len(probSciName) gt 0>
+									****<cfset thisTermValue=probSciName>
+								</cfif>
 
 
 
