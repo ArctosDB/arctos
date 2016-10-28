@@ -1219,8 +1219,20 @@
 							<br>found #tt# leaving now
 
 							<!---- insert the should-be-there value one place before the next found value ---->
+							<!--- use anything we guess at, if we can ---->
+							<cfset thisTermVal=''>
+							<cfif i is "scientific_name" and len(probSciName) gt 0>
+								<cfset thisTermVal=probSciName>
+							</cfif>
+							<cfif i is "species" and len(probSpecies) gt 0>
+								<cfset thisTermVal=probSpecies>
+							</cfif>
+							<cfif i is "subspecies" and len(probSubSpecies) gt 0>
+								<cfset thisTermVal=probSubSpecies>
+							</cfif>
 
-							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#availablePosition#","TERM_TYPE"="#i#","STATUS"="autoins"})>
+
+							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#availablePosition#","TERM_TYPE"="#i#","STATUS"="autoins","TERM"="#thisTermVal#"})>
 
 							<cfbreak>
 						</cfif>
