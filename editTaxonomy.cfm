@@ -1128,9 +1128,10 @@
 									id="term_type_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_type_#thisrow.POSITION_IN_CLASSIFICATION#"
 									onchange="guessAtDisplayName(this.id)">
 									<option value=""></option>
+									<cfset thistermtype=taxon_term>
 									<cfloop query="cttaxon_term_isclass">
 										<option
-											<cfif cttaxon_term_isclass.taxon_term is thisrow.term_type> selected="selected" </cfif>
+											<cfif cttaxon_term_isclass.taxon_term is thistermtype> selected="selected" </cfif>
 											value="#taxon_term#">#taxon_term#</option>
 									</cfloop>
 								</select>
