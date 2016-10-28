@@ -1192,6 +1192,17 @@
 					<cfset findit=valuelist(possNextTerm.taxon_term)>
 
 					findit: #findit#
+
+					<cfloop list-"#findit#" index="tt">
+						<cfquery name="fnt" dbtype="query">
+							select * from mClassTerms where term_type='#tt#'
+						</cfquery>
+						<cfdump var=#fnt#>
+						<cfif fnt.recordcount gt 0>
+							<br>found #tt# leaving now
+							<cfbreak>
+						</cfif>
+					</cfloop>
 					<cfdump var=#thisRelPosn#>
 
 
