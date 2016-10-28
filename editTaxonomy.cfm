@@ -1091,6 +1091,23 @@
 
 
 
+			<!--- see what we can glean from what we have ---->
+			<cfif listlen(thisname.scientific_name,' ') gt 1>
+				<!--- looks like species/subspecies ---->
+				<cfquery name="gspecies" dbtype="query">
+					select * from hasclass where term_type='species'
+				</cfquery>
+				<cfif len(gspecies.term) gt 0>
+					<cfset probSpecies=gspecies.term>
+				</cfif>
+				<cfquery name="gsspecies" dbtype="query">
+					select * from hasclass where term_type='subspecies'
+				</cfquery>
+				<cfif len(gsspecies.term) gt 0>
+					<cfset probSubSpecies=gsspecies.term>
+				</cfif>
+			</cfif>
+
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
@@ -1139,7 +1156,20 @@
 
 							</td>
 							<td>
-								<input size="60" type="text" id="term_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_#thisrow.POSITION_IN_CLASSIFICATION#" value="#thisrow.term#" onchange="guessAtDisplayName(this.id)">
+								<!----default ---->
+								<cfset thisTermValue=thisrow.term>
+
+								<cfif thistermtype is "species" and len(thisTermValue) is 0 and len(probSpecies) gt 0>
+									****<cfset thisTermValue=probSpecies>
+								</cfif>
+								<cfif thistermtype is "subspecies" and len(thisTermValue) is 0 and len(probSubSpecies) gt 0>
+									****<cfset thisTermValue=probSubSpecies>
+								</cfif>
+
+
+
+
+								<input size="60" type="text" id="term_#thisrow.POSITION_IN_CLASSIFICATION#" name="term_#thisrow.POSITION_IN_CLASSIFICATION#" value="#thistermtype#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
 								<span class="likeLink" onclick="deleteThis('#thisrow.POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
