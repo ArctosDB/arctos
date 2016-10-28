@@ -1126,6 +1126,10 @@
 
 			<br>probSpecies=#probSpecies#
 			<br>probSubSpecies=#probSubSpecies#
+
+			<p>
+				Values preceeded by **** are suggestions; review them carefully before saving!
+			</p>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
