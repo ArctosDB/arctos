@@ -1099,7 +1099,6 @@
 					<cfloop query="cttaxon_term_isclass">
 						<cfset shouldHave=false>
 						<cfset dohave=false>
-						<p>--#taxon_term#</p>
 						<cfif listfind(shouldUsuallyHave,taxon_term)>
 							<cfset shouldhave=true>
 						</cfif>
@@ -1111,10 +1110,7 @@
 							<cfquery name="thisrow" dbtype="query">
 								select * from hasclass where term_type='#taxon_term#'
 							</cfquery>
-							<cfdump var=#thisrow#>
-							<p>
-								make a row
-							</p>
+
 
 							<tr id="cell_#thisrow.POSITION_IN_CLASSIFICATION#">
 								<td class="dragger">
