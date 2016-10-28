@@ -178,7 +178,7 @@
 
 		<cfif isdefined("Application.version") and  Application.version is "prod">
 			<cfset subj="Arctos Locality Change Notification">
-			<cfset maddr=valuelist(cc.collection_contact_email)>
+			<cfset maddr=valuelist(cc.address)>
 		<cfelse>
 			<cfset maddr=application.bugreportemail>
 			<cfset subj="TEST PLEASE IGNORE: Arctos Locality Change Notification">

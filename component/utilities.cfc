@@ -558,7 +558,6 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset badbot=badbot & ",Wotbox">
 	<cfset badbot=badbot & ",YandexBot,Yeti">
 
-
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">
 			<cfif cgi.HTTP_USER_AGENT contains b>
@@ -662,7 +661,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2">
 			<cfset x=x & ",pma4,php5">
-			<cfset x=x & ",pma,phppgadmin,prescription">
+			<cfset x=x & ",pma,phppgadmin,prescription,proxy_ip,proxy_port">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sysobjects,svn">
@@ -672,6 +671,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
+
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
