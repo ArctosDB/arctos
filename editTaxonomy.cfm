@@ -1251,11 +1251,11 @@
 
 			<!---- now get the ordered stuff ---->
 
-			<cfquery name="o" dbtype="query">
+			<cfquery name="orderedClassTermsWithBlanks" dbtype="query">
 				select * from mClassTerms order by position_in_classification
 			</cfquery>
 
-			<cfdump var=#o#>
+			<cfdump var=#orderedClassTermsWithBlanks#>
 
 
 
@@ -1267,7 +1267,46 @@
 				</thead>
 				<tbody id="sortable">
 					<cfset thisrowinc=0>
+					<cfloop query="orderedClassTermsWithBlanks">
+						<!--- increment rowID ---->
+						<cfset thisrowinc=thisrowinc+1>
+						<tr id="cell_#thisrowinc#">
+							<td class="dragger">
+								(drag row here)
+							</td>
+							<td>
+								<select
+									class="ac_isclass_tt"
+									id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
+									onchange="guessAtDisplayName(this.id)">
+									<option value=""></option>
+									<cfloop query="cttaxon_term_isclass">
+										<option
+											<cfif cttaxon_term_isclass.taxon_term is orderedClassTermsWithBlanks.term_type> selected="selected" </cfif>
+											value="#taxon_term#">#taxon_term#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<cfif orderedClassTermsWithBlanks.status is "autoins">
+									****
+								</cfif>
 
+
+
+											<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClassTermsWithBlanks.term#" onchange="guessAtDisplayName(this.id)">
+										</td>
+										<td>
+											<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
+										</td>
+									</tr>
+
+					</cfloop>
+
+
+
+
+<!-----------
 					<cfloop query="cttaxon_term_isclass">
 						<cfset shouldHave=false>
 						<cfset dohave=false>
@@ -1334,6 +1373,7 @@
 
 
 
+
 								<!----
 								<input size="60" class="ac_isclass_tt" type="text"
 								id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#"
@@ -1351,7 +1391,10 @@
 
 						</cfif>
 
+
 					</cfloop>
+
+					--------------->
 			<input type="text" name="maxposn" id="maxposn" value="#thisrowinc#">
 
 
