@@ -90,7 +90,6 @@
 			</li>
 		</ul>
 	<hr>
-
 	<cfparam name="locality_id" default="">
 	<cfparam name="sdate" default="">
 	<cfparam name="edate" default="">
@@ -177,244 +176,219 @@
 			<th>WKT-hash</th>
 			<th>Remark</th>
 		</tr>
-	<cfloop query="dlocid">
-		<cfquery name="orig" datasource="uam_god">
-			select locality_id,
-			 	geog_auth_rec_id,
-			 	spec_locality,
-			 	decode(DEC_LAT,
-					null,'[NULL]',
-					DEC_LAT || ',' || DEC_LONG) coordinates,
-			 	decode(ORIG_ELEV_UNITS,
-					null,'[NULL]',
-					MINIMUM_ELEVATION || '-' || MAXIMUM_ELEVATION || ' ' || ORIG_ELEV_UNITS) elevation,
-				decode(DEPTH_UNITS,
-					null,'[NULL]',
-					MIN_DEPTH || '-' || MAX_DEPTH || ' ' || DEPTH_UNITS) depth,
-				decode(
-					MAX_ERROR_DISTANCE,
-					null,'[NULL]',
-					MAX_ERROR_DISTANCE || ' ' || MAX_ERROR_UNITS) coordinateError,
-				DATUM,
-				LOCALITY_REMARKS,
-				GEOREFERENCE_SOURCE,
-				GEOREFERENCE_PROTOCOL,
-				LOCALITY_NAME,
-			 	md5hash(WKT_POLYGON) polyhash
-			 from
-			 	locality
-			 where
-			 	locality_id=<cfqueryparam value = "#dlocid.locality_id#" CFSQLType = "CF_SQL_INTEGER">
-		</cfquery>
-		<tr class="datarow" data-lid="#dlocid.locality_id#">
-			<td class="original">currentData</td>
-			<td class="original">-n/a-</td>
-			<td class="original">
-				<a target="_blank" href="/editLocality.cfm?locality_id=#dlocid.locality_id#">
-					#orig.LOCALITY_ID#
-				</a>
-				<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#dlocid.locality_id#">specimens</a>
-				<br><a id="m_l_d_#dlocid.locality_id#" target="_blank" href="/MediaSearch.cfm?action=search&loc_evt_loc_id=#dlocid.locality_id#">media</a>
-			</td>
-			<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
-			<td class="original">
-				<a target="_blank" href="/geography.cfm?geog_auth_rec_id=#orig.GEOG_AUTH_REC_ID#">
-					#orig.GEOG_AUTH_REC_ID#
-				</a>
-			</td>
-
-			<cfset lastSpecLoc=orig.SPEC_LOCALITY>
-			<td class="original">#orig.SPEC_LOCALITY#</td>
-
-
-			<cfset lastLocName=orig.LOCALITY_NAME>
-			<td class="original">#orig.LOCALITY_NAME#</td>
-
-			<cfset lastDepth=orig.depth>
-			<td class="original">#lastDepth#</td>
-
-			<cfset lastElev=orig.elevation>
-			<td class="original">#lastElev#</td>
-
-			<cfset lastDatum=orig.DATUM>
-			<td class="original">#orig.DATUM#</td>
-
-
-			<cfset lastCoords=orig.coordinates>
-			<td class="original">#lastCoords#</td>
-
-			<cfset lastCoordErr=orig.coordinateError>
-			<td class="original">#lastCoordErr#</td>
-
-
-			<cfset lastProt=orig.GEOREFERENCE_PROTOCOL>
-			<td class="original">#orig.GEOREFERENCE_PROTOCOL#</td>
-
-			<cfset lastSrc=orig.GEOREFERENCE_SOURCE>
-			<td class="original">#orig.GEOREFERENCE_SOURCE#</td>
-
-
-			<cfset lastWKT=orig.polyhash>
-			<td class="original">#lastWKT#</td>
-
-			<cfset lastRem=orig.LOCALITY_REMARKS>
-			<td class="original">#orig.LOCALITY_REMARKS#</td>
-		</tr>
-
-		<cfquery name="thisChanges" dbtype="query">
-			select * from d where locality_id=#dlocid.locality_id# order by changedate desc
-		</cfquery>
-		<cfloop query="thisChanges">
+		<cfloop query="dlocid">
+			<cfquery name="orig" datasource="uam_god">
+				select locality_id,
+				 	geog_auth_rec_id,
+				 	spec_locality,
+				 	decode(DEC_LAT,
+						null,'[NULL]',
+						DEC_LAT || ',' || DEC_LONG) coordinates,
+				 	decode(ORIG_ELEV_UNITS,
+						null,'[NULL]',
+						MINIMUM_ELEVATION || '-' || MAXIMUM_ELEVATION || ' ' || ORIG_ELEV_UNITS) elevation,
+					decode(DEPTH_UNITS,
+						null,'[NULL]',
+						MIN_DEPTH || '-' || MAX_DEPTH || ' ' || DEPTH_UNITS) depth,
+					decode(
+						MAX_ERROR_DISTANCE,
+						null,'[NULL]',
+						MAX_ERROR_DISTANCE || ' ' || MAX_ERROR_UNITS) coordinateError,
+					DATUM,
+					LOCALITY_REMARKS,
+					GEOREFERENCE_SOURCE,
+					GEOREFERENCE_PROTOCOL,
+					LOCALITY_NAME,
+				 	md5hash(WKT_POLYGON) polyhash
+				 from
+				 	locality
+				 where
+				 	locality_id=<cfqueryparam value = "#dlocid.locality_id#" CFSQLType = "CF_SQL_INTEGER">
+			</cfquery>
 			<tr class="datarow" data-lid="#dlocid.locality_id#">
-				<td>#changedate#</td>
-				<td>#whodunit#</td>
-				<td>#LOCALITY_ID#</td>
-				<cfif GEOG_AUTH_REC_ID is lastGeoID>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastGeoID=GEOG_AUTH_REC_ID>
-				<td class="#thisStyle#">
-					<a target="_blank" href="/geography.cfm?geog_auth_rec_id=#GEOG_AUTH_REC_ID#">
-						#GEOG_AUTH_REC_ID#
+				<td class="original">currentData</td>
+				<td class="original">-n/a-</td>
+				<td class="original">
+					<a target="_blank" href="/editLocality.cfm?locality_id=#dlocid.locality_id#">
+						#orig.LOCALITY_ID#
+					</a>
+					<br><a target="_blank" href="/SpecimenResults.cfm?locality_id=#dlocid.locality_id#">specimens</a>
+					<br><a id="m_l_d_#dlocid.locality_id#" target="_blank" href="/MediaSearch.cfm?action=search&loc_evt_loc_id=#dlocid.locality_id#">media</a>
+				</td>
+				<cfset lastGeoID=orig.GEOG_AUTH_REC_ID>
+				<td class="original">
+					<a target="_blank" href="/geography.cfm?geog_auth_rec_id=#orig.GEOG_AUTH_REC_ID#">
+						#orig.GEOG_AUTH_REC_ID#
 					</a>
 				</td>
 
-				<cfif SPEC_LOCALITY is lastSpecLoc>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastSpecLoc=SPEC_LOCALITY>
-				<td class="#thisStyle#">
-					#SPEC_LOCALITY#
-				</td>
+				<cfset lastSpecLoc=orig.SPEC_LOCALITY>
+				<td class="original">#orig.SPEC_LOCALITY#</td>
 
 
-				<cfif LOCALITY_NAME is lastLocName>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastLocName=LOCALITY_NAME>
-				<td class="#thisStyle#">
-					#LOCALITY_NAME#
-				</td>
+				<cfset lastLocName=orig.LOCALITY_NAME>
+				<td class="original">#orig.LOCALITY_NAME#</td>
 
-				<cfif depth is lastDepth>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastDepth=depth>
-				<td class="#thisStyle#">
-					#depth#
-				</td>
+				<cfset lastDepth=orig.depth>
+				<td class="original">#lastDepth#</td>
+
+				<cfset lastElev=orig.elevation>
+				<td class="original">#lastElev#</td>
+
+				<cfset lastDatum=orig.DATUM>
+				<td class="original">#orig.DATUM#</td>
 
 
-				<cfif elevation is lastElev>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastElev=elevation>
-				<td class="#thisStyle#">
-					#elevation#
-				</td>
+				<cfset lastCoords=orig.coordinates>
+				<td class="original">#lastCoords#</td>
+
+				<cfset lastCoordErr=orig.coordinateError>
+				<td class="original">#lastCoordErr#</td>
 
 
-				<cfif DATUM is lastDatum>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastDatum=DATUM>
-				<td class="#thisStyle#">
-					#DATUM#
-				</td>
+				<cfset lastProt=orig.GEOREFERENCE_PROTOCOL>
+				<td class="original">#orig.GEOREFERENCE_PROTOCOL#</td>
 
-				<cfif coordinates is lastCoords>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastCoords=coordinates>
-				<td class="#thisStyle#">
-					#coordinates#
-				</td>
+				<cfset lastSrc=orig.GEOREFERENCE_SOURCE>
+				<td class="original">#orig.GEOREFERENCE_SOURCE#</td>
 
 
-				<cfif coordinateError is lastCoordErr>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastCoordErr=coordinateError>
-				<td class="#thisStyle#">
-					#coordinateError#
-				</td>
+				<cfset lastWKT=orig.polyhash>
+				<td class="original">#lastWKT#</td>
 
-
-
-				<cfif GEOREFERENCE_PROTOCOL is lastProt>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastProt=GEOREFERENCE_PROTOCOL>
-				<td class="#thisStyle#">
-					#GEOREFERENCE_PROTOCOL#
-				</td>
-
-
-
-				<cfif GEOREFERENCE_SOURCE is lastSrc>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastSrc=GEOREFERENCE_SOURCE>
-				<td class="#thisStyle#">
-					#GEOREFERENCE_SOURCE#
-				</td>
-
-
-
-				<cfif polyhash is lastWKT>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastWKT=polyhash>
-				<td class="#thisStyle#">
-					#polyhash#
-				</td>
-
-
-
-				<cfif LOCALITY_REMARKS is lastRem>
-					<cfset thisStyle="nochange">
-				<cfelse>
-					<cfset thisStyle="haschange">
-				</cfif>
-				<cfset lastRem=LOCALITY_REMARKS>
-				<td class="#thisStyle#">
-					#LOCALITY_REMARKS#
-				</td>
-
-
+				<cfset lastRem=orig.LOCALITY_REMARKS>
+				<td class="original">#orig.LOCALITY_REMARKS#</td>
 			</tr>
 
+			<cfquery name="thisChanges" dbtype="query">
+				select * from d where locality_id=#dlocid.locality_id# order by changedate desc
+			</cfquery>
+			<cfloop query="thisChanges">
+				<tr class="datarow" data-lid="#dlocid.locality_id#">
+					<td>#changedate#</td>
+					<td>#whodunit#</td>
+					<td>#LOCALITY_ID#</td>
+					<cfif GEOG_AUTH_REC_ID is lastGeoID>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastGeoID=GEOG_AUTH_REC_ID>
+					<td class="#thisStyle#">
+						<a target="_blank" href="/geography.cfm?geog_auth_rec_id=#GEOG_AUTH_REC_ID#">
+							#GEOG_AUTH_REC_ID#
+						</a>
+					</td>
+
+					<cfif SPEC_LOCALITY is lastSpecLoc>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastSpecLoc=SPEC_LOCALITY>
+					<td class="#thisStyle#">
+						#SPEC_LOCALITY#
+					</td>
 
 
+					<cfif LOCALITY_NAME is lastLocName>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastLocName=LOCALITY_NAME>
+					<td class="#thisStyle#">
+						#LOCALITY_NAME#
+					</td>
 
+					<cfif depth is lastDepth>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastDepth=depth>
+					<td class="#thisStyle#">
+						#depth#
+					</td>
+
+
+					<cfif elevation is lastElev>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastElev=elevation>
+					<td class="#thisStyle#">
+						#elevation#
+					</td>
+					<cfif DATUM is lastDatum>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastDatum=DATUM>
+					<td class="#thisStyle#">
+						#DATUM#
+					</td>
+					<cfif coordinates is lastCoords>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastCoords=coordinates>
+					<td class="#thisStyle#">
+						#coordinates#
+					</td>
+					<cfif coordinateError is lastCoordErr>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastCoordErr=coordinateError>
+					<td class="#thisStyle#">
+						#coordinateError#
+					</td>
+					<cfif GEOREFERENCE_PROTOCOL is lastProt>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastProt=GEOREFERENCE_PROTOCOL>
+					<td class="#thisStyle#">
+						#GEOREFERENCE_PROTOCOL#
+					</td>
+					<cfif GEOREFERENCE_SOURCE is lastSrc>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastSrc=GEOREFERENCE_SOURCE>
+					<td class="#thisStyle#">
+						#GEOREFERENCE_SOURCE#
+					</td>
+
+					<cfif polyhash is lastWKT>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastWKT=polyhash>
+					<td class="#thisStyle#">
+						#polyhash#
+					</td>
+
+					<cfif LOCALITY_REMARKS is lastRem>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastRem=LOCALITY_REMARKS>
+					<td class="#thisStyle#">
+						#LOCALITY_REMARKS#
+					</td>
+				</tr>
+			</cfloop>
 		</cfloop>
-	</cfloop>
-
-
 	</table>
-
-
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
