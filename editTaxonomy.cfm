@@ -1093,16 +1093,22 @@
 
 			<!--- see what we can glean from what we have ---->
 			<cfif listlen(thisname.scientific_name,' ') gt 1>
+			<p>
+				looks subspecific
+			</p>
 				<!--- looks like species/subspecies ---->
 				<cfquery name="gspecies" dbtype="query">
 					select * from hasclass where term_type='species'
 				</cfquery>
+				<cfdump var=#gspecies#>
+
 				<cfif len(gspecies.term) gt 0>
 					<cfset probSpecies=gspecies.term>
 				</cfif>
 				<cfquery name="gsspecies" dbtype="query">
 					select * from hasclass where term_type='subspecies'
 				</cfquery>
+				<cfdump var=#gsspecies#>
 				<cfif len(gsspecies.term) gt 0>
 					<cfset probSubSpecies=gsspecies.term>
 				</cfif>
