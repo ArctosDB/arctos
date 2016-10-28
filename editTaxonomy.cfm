@@ -1211,7 +1211,7 @@
 								<cfif ckPosn.recordcount is 0>
 									<cfbreak>
 								<cfelse>
-									<cfset availablePosition=availablePosition+1>
+									<cfset availablePosition=availablePosition-1>
 								</cfif>
 
 							</cfloop>
