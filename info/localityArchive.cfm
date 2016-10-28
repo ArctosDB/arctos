@@ -105,6 +105,10 @@
 		<input type="text" id="who" name="who" value="#who#">
 		<br><input type="submit" value="filter">
 	</form>
+
+	<cfif len(locality_id) is 0 and len(sdate) is 0 and len(edate) is 0 and len(who) is 0>
+		No criteria: aborting<cfabort>
+	</cfif>
 	<cfquery name="d" datasource="uam_god">
 		select
 			locality_archive_id,
