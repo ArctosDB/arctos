@@ -1151,6 +1151,14 @@
 			<p>
 				Values preceeded by **** are suggestions; review them carefully before saving!
 			</p>
+
+			<!--- see if the limitations of this form will exclude anything ---->
+			<cfquery name="exclTerms" dbtype="query">
+				select * from  hasclass where term_type not in (#valuelist(cttaxon_term_isclass.taxon_term#)
+			</cfquery>
+
+			<cfdump var=#exclTerms#>
+
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
