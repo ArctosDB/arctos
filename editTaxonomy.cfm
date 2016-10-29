@@ -1167,17 +1167,16 @@
 					hasclass
 			</cfquery>
 
-			<cfloop list="#shouldUsuallyHave#" index="i">
+			<cfloop list="#shouldUsuallyHave#" index="shouldHaveTermType">
 				<cfquery name="ttchk" dbtype="query">
-					select * from mClassTerms where TERM_TYPE='#i#'
+					select * from mClassTerms where TERM_TYPE='#shouldHaveTermType#'
 				</cfquery>
 				<cfdump var=#ttchk#>
-
 				<cfif ttchk.recordcount is 0>
 					<p>no find #i#</p>
 					<!--- get ordered terms starting with what we're looking for ---->
 					<cfquery name="thisRelPosn" dbtype="query">
-						select relative_position from cttaxon_term where is_classification=1 and taxon_term='#i#'
+						select relative_position from cttaxon_term where is_classification=1 and taxon_term='#shouldHaveTermType#'
 					</cfquery>
 					<cfquery name="possNextTerm" dbtype="query">
 						select
@@ -1222,6 +1221,29 @@
 							</cfloop>
 							<br>found #tt# leaving now
 
+
+
+
+							<cfbreak>
+						</cfif>
+					</cfloop>
+
+					<!--- if we didn't find anything, it's the so-far largest POSITION_IN_CLASSIFICATION ---->
+
+
+
+
+					<p>exiting loop, may not have found anything.....</p>
+
+					<br>availablePosition: #availablePosition#
+
+							<cfif availablePosition is 0>
+								<cfquery name="map" dbtype="query">
+									select max(POSITION_IN_CLASSIFICATION) +100 ap from mClassTerms
+								</cfquery>
+								<cfset availablePosition=map.ap>
+							</cfif>
+
 							<!---- insert the should-be-there value one place before the next found value ---->
 							<!--- use anything we guess at, if we can ---->
 							<cfset thisTermVal=''>
@@ -1236,20 +1258,11 @@
 							</cfif>
 
 
-							<cfset queryAddRow(mClassTerms,{"POSITION_IN_CLASSIFICATION"="#availablePosition#","TERM_TYPE"="#i#","STATUS"="autoins","TERM"="#thisTermVal#"})>
-
-							<cfbreak>
-						</cfif>
-					</cfloop>
-
-					<!--- if we didn't find anything, it's the so-far largest POSITION_IN_CLASSIFICATION ---->
-
-
-
-
-					<p>exiting loop, may not have found anything.....</p>
-
-					<br>availablePosition: #availablePosition#
+					<cfset queryAddRow(mClassTerms,{
+						"POSITION_IN_CLASSIFICATION"="#availablePosition#",
+						"TERM_TYPE"="#shouldHaveTermType#",
+						"STATUS"="autoins",
+						"TERM"="#thisTermVal#"})>
 
 
 					<cfdump var=#thisRelPosn#>
