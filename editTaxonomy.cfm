@@ -1247,13 +1247,13 @@
 							<!---- insert the should-be-there value one place before the next found value ---->
 							<!--- use anything we guess at, if we can ---->
 							<cfset thisTermVal=''>
-							<cfif i is "scientific_name" and len(probSciName) gt 0>
+							<cfif shouldHaveTermType is "scientific_name" and len(probSciName) gt 0>
 								<cfset thisTermVal=probSciName>
 							</cfif>
-							<cfif i is "species" and len(probSpecies) gt 0>
+							<cfif shouldHaveTermType is "species" and len(probSpecies) gt 0>
 								<cfset thisTermVal=probSpecies>
 							</cfif>
-							<cfif i is "subspecies" and len(probSubSpecies) gt 0>
+							<cfif shouldHaveTermType is "subspecies" and len(probSubSpecies) gt 0>
 								<cfset thisTermVal=probSubSpecies>
 							</cfif>
 
