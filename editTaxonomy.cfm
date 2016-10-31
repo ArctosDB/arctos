@@ -1111,7 +1111,7 @@
 						' ' & listGetAt(thisname.scientific_name,2,' ')
 						 & ' ' & listGetAt(thisname.scientific_name,3,' ')>
 				</cfif>
-			</cfif
+			</cfif>
 			<!--- make a table I can mess with, leave some gaps ---->
 			<cfquery name="mClassTerms" dbtype="query">
 				select
