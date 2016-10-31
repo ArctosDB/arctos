@@ -969,7 +969,7 @@
 					are ranked trinomials: "Poa abbreviata subsp. jordalii," not "jordalii."
 				</li>
 				<li>
-					There is no enforced order for classification terms. subpsecies-->kingdom-->genus is possible. Do not use this
+					There is no enforced order for classification terms. subspecies-->kingdom-->genus is possible. Do not use this
 					form if you're not sure of how to correctly order ranked terms. (Why? Usage varies. Animal people think "section" is somewhere
 					between order and family, while plant people think it's a subdivision of subgenus.)
 				</li>
@@ -1004,9 +1004,6 @@
 					<option value="#taxon_term#">#taxon_term#</option>
 				</cfloop>
 			</select>
-
-
-
 			<h3>
 				Non-Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
 			</h3>
@@ -1060,7 +1057,6 @@
 					<cfset shouldUsuallyHave=listdeleteat(shouldUsuallyHave,listfind(shouldUsuallyHave,i))>
 				</cfif>
 			</cfloop>
-
 			<cfif len(shouldUsuallyHave) gt 0>
 				<div class="warningDiv">
 					Possibly missing:
@@ -1073,23 +1069,14 @@
 			</cfif>
 			<h3>
 				Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
-
 			</h3>
 			<p style="font-size:small;">
 				 Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom. Drag rows to sort.
 				 TermType will be ignored if Term is empty. Term will be saved regardless of TermType; unranked terms are OK.
 			</p>
 
-
 			<!--- this must be ordered from "lowest" to "highest"---->
 			<cfset shouldUsuallyHave="scientific_name,subspecies,species,genus,kingdom">
-
-
-
-
-			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
-
-
 
 			<!--- see what we can glean from what we have ---->
 			<cfset probSpecies="">
@@ -1099,38 +1086,24 @@
 			<cfquery name="gsciname" dbtype="query">
 				select * from hasclass where term_type='scientific_name'
 			</cfquery>
-				<cfdump var=#gsciname#>
-
 			<cfif len(gsciname.term) gt 0>
 				<cfset probSciName=gsciname.term>
 			<cfelse>
 				<cfset probSciName=thisname.scientific_name>
-
 			</cfif>
-
-
-
-
 			<cfif listlen(thisname.scientific_name,' ') gt 1>
-			<p>
-				looks subspecific
-			</p>
 				<!--- looks like species/subspecies ---->
 				<cfquery name="gspecies" dbtype="query">
 					select * from hasclass where term_type='species'
 				</cfquery>
-				<cfdump var=#gspecies#>
-
 				<cfif len(gspecies.term) gt 0>
 					<cfset probSpecies=gspecies.term>
 				<cfelse>
 					<cfset probSpecies=listGetAt(thisname.scientific_name,1,' ') & ' ' & listGetAt(thisname.scientific_name,2,' ')>
-
 				</cfif>
 				<cfquery name="gsspecies" dbtype="query">
 					select * from hasclass where term_type='subspecies'
 				</cfquery>
-				<cfdump var=#gsspecies#>
 				<cfif len(gsspecies.term) gt 0>
 					<cfset probSubSpecies=gsspecies.term>
 				<cfelse>
@@ -1138,11 +1111,7 @@
 						' ' & listGetAt(thisname.scientific_name,2,' ')
 						 & ' ' & listGetAt(thisname.scientific_name,3,' ')>
 				</cfif>
-			</cfif>
-
-
-			<!----<cfset mClassTerms=QueryNew("POSITION_IN_CLASSIFICATION,TERM,TERM_TYPE,STATUS")>---->
-
+			</cfif
 			<!--- make a table I can mess with, leave some gaps ---->
 			<cfquery name="mClassTerms" dbtype="query">
 				select
@@ -1153,14 +1122,11 @@
 				from
 					hasclass
 			</cfquery>
-
 			<cfloop list="#shouldUsuallyHave#" index="shouldHaveTermType">
 				<cfquery name="ttchk" dbtype="query">
 					select * from mClassTerms where TERM_TYPE='#shouldHaveTermType#'
 				</cfquery>
-				<cfdump var=#ttchk#>
 				<cfif ttchk.recordcount is 0>
-					<p>no find #i#</p>
 					<!--- get ordered terms starting with what we're looking for ---->
 					<cfquery name="thisRelPosn" dbtype="query">
 						select relative_position from cttaxon_term where is_classification=1 and taxon_term='#shouldHaveTermType#'
@@ -1177,103 +1143,54 @@
 							relative_position
 					</cfquery>
 					<cfset findit=valuelist(possNextTerm.taxon_term)>
-
-					findit: #findit#
-
-
 					<cfset availablePosition=0>
-
-
 					<cfloop list="#findit#" index="tt">
-						<br>looking for #tt#
 						<cfquery name="fnt" dbtype="query">
 							select min(POSITION_IN_CLASSIFICATION)  up from mClassTerms where term_type='#tt#'
 						</cfquery>
-						<cfdump var=#fnt#>
 						<cfif fnt.recordcount gt 0>
 							<cfset availablePosition=fnt.up>
 							<cfloop from="1" to="10" index="l">
 								<cfquery name="ckPosn" dbtype="query">
 									select * from mClassTerms where POSITION_IN_CLASSIFICATION=#availablePosition#
 								</cfquery>
-
-								<br>ckPosn
-								<cfdump var=#ckPosn#>
 								<cfif ckPosn.recordcount is 0>
 									<cfbreak>
 								<cfelse>
 									<cfset availablePosition=availablePosition-1>
 								</cfif>
-
 							</cfloop>
-							<br>found #tt# leaving now
-
-
-
-
 							<cfbreak>
 						</cfif>
 					</cfloop>
-
 					<!--- if we didn't find anything, it's the so-far largest POSITION_IN_CLASSIFICATION ---->
-
-
-
-
-					<p>exiting loop, may not have found anything.....</p>
-
-					<br>availablePosition: #availablePosition#
-
-							<cfif availablePosition is 0>
-								<cfquery name="map" dbtype="query">
-									select max(POSITION_IN_CLASSIFICATION) +100 ap from mClassTerms
-								</cfquery>
-								<cfset availablePosition=map.ap>
-							</cfif>
-
-							<!---- insert the should-be-there value one place before the next found value ---->
-							<!--- use anything we guess at, if we can ---->
-							<cfset thisTermVal=''>
-							<cfif shouldHaveTermType is "scientific_name" and len(probSciName) gt 0>
-								<cfset thisTermVal=probSciName>
-							</cfif>
-							<cfif shouldHaveTermType is "species" and len(probSpecies) gt 0>
-								<cfset thisTermVal=probSpecies>
-							</cfif>
-							<cfif shouldHaveTermType is "subspecies" and len(probSubSpecies) gt 0>
-								<cfset thisTermVal=probSubSpecies>
-							</cfif>
-
-
+					<cfif availablePosition is 0>
+						<cfquery name="map" dbtype="query">
+							select max(POSITION_IN_CLASSIFICATION) +100 ap from mClassTerms
+						</cfquery>
+						<cfset availablePosition=map.ap>
+					</cfif>
+					<!---- insert the should-be-there value one place before the next found value ---->
+					<!--- use anything we guess at, if we can ---->
+					<cfset thisTermVal=''>
+					<cfif shouldHaveTermType is "scientific_name" and len(probSciName) gt 0>
+						<cfset thisTermVal=probSciName>
+					</cfif>
+					<cfif shouldHaveTermType is "species" and len(probSpecies) gt 0>
+						<cfset thisTermVal=probSpecies>
+					</cfif>
+					<cfif shouldHaveTermType is "subspecies" and len(probSubSpecies) gt 0>
+						<cfset thisTermVal=probSubSpecies>
+					</cfif>
 					<cfset queryAddRow(mClassTerms,{
 						"POSITION_IN_CLASSIFICATION"="#availablePosition#",
 						"TERM_TYPE"="#shouldHaveTermType#",
 						"STATUS"="autoins",
 						"TERM"="#thisTermVal#"})>
-
-
-					<cfdump var=#thisRelPosn#>
-
-
-
-
-
-
-					<cfloop list="#aterms#" index="et">
-
-					</cfloop>
 				</cfif>
 			</cfloop>
 
 
-
-					<cfdump var=#mClassTerms#>
-			<cfdump var=#hasclass#>
-
-			<!---- see what we might be missing ---->
-
-
-			shouldUsuallyHave
 
 
 			<!---- now get the ordered stuff ---->
@@ -1282,7 +1199,6 @@
 				select * from mClassTerms order by position_in_classification
 			</cfquery>
 
-			<cfdump var=#orderedClassTermsWithBlanks#>
 
 
 
@@ -1478,17 +1394,12 @@
 
 
 
-
+			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
 			<cfloop list="#aterms#" index="i">
 				<cfif listfind(shouldUsuallyHave,i)>
-
-
 					<cfset shouldUsuallyHave=listdeleteat(shouldUsuallyHave,listfind(shouldUsuallyHave,i))>
-
-
 				</cfif>
 			</cfloop>
-
 			<cfif len(shouldUsuallyHave) gt 0>
 				<div class="warningDiv">
 					Possibly missing:
