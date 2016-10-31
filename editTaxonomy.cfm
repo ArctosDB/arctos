@@ -1197,8 +1197,6 @@
 					<cfif shouldHaveTermType is "genus" and len(probGenus) gt 0>
 						<cfset thisTermVal=probGenus>
 					</cfif>
-
-
 					<cfset queryAddRow(mClassTerms,{
 						"POSITION_IN_CLASSIFICATION"="#availablePosition#",
 						"TERM_TYPE"="#shouldHaveTermType#",
@@ -1266,23 +1264,24 @@
 			</cfif>
 			<p>
 				<div id="dnWarning" style="border:2px solid red;padding:2em;margin:2em;">
-					<p>
-						IMPORTANT!! Each classification should generally have a (one!) non-classification term
-						"display_name" with corresponding HTML-formatted, discipline-specific value,
-						including authors, infraspecific rank, etc. This is stored in FLAT.FORMATTED_SCIENTIFIC_NAME and used on many forms and
-						labels. This suggestion is based on other data, including kingdom, nomenclatural_code, genus, species,
-						"subspecies" (including var., forma, etc.), infraspecific rank (such as var., forma, etc.), and infraspecific_author.
-					<strong>Bad suggestions here are an indication of missing or malformed data.</strong>
-					</p>
-					<label for="dng">Our guess at display_name</label>
-					<input id="dng" size="80">
-					<input type="button" class="lnkBtn" onclick="useDNG();" value="Use this suggestion">
-					<input type="button" class="lnkBtn" onclick="guessAtDisplayName();" value="Refresh suggestion">
-
-					<p>
-						Red borders around classification terms indicate manipulated or missing highly-suggested data;
-						review them and anything their insertion may have misplaced very carefully before saving.
-					</p>
+					<ul>
+						<li>
+							IMPORTANT!! Each classification should generally have a (one!) non-classification term
+							"display_name" with corresponding HTML-formatted, discipline-specific value,
+							including authors, infraspecific rank, etc. This is stored in FLAT.FORMATTED_SCIENTIFIC_NAME and used on many forms and
+							labels. This suggestion is based on other data, including kingdom, nomenclatural_code, genus, species,
+							"subspecies" (including var., forma, etc.), infraspecific rank (such as var., forma, etc.), and infraspecific_author.
+							<strong>Bad suggestions here are an indication of missing or malformed data.</strong>
+							<label for="dng">Our guess at display_name</label>
+							<input id="dng" size="80">
+							<input type="button" class="lnkBtn" onclick="useDNG();" value="Use this suggestion">
+							<input type="button" class="lnkBtn" onclick="guessAtDisplayName();" value="Refresh suggestion">
+						</li>
+						<li>
+							Red borders around classification terms indicate manipulated or missing highly-suggested data;
+							review them and anything their insertion may have misplaced very carefully before saving.
+						</li>
+					</ul>
 				</div>
 				<!--- needs to live somewhere after thisrowinc is set and not where it can mess with the flaky JS that is sortable ---->
 				<input type="hidden" name="maxposn" id="maxposn" value="#thisrowinc#">
