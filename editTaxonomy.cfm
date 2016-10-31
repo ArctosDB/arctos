@@ -1079,6 +1079,8 @@
 			<cfset shouldUsuallyHave="scientific_name,subspecies,species,genus,kingdom">
 
 			<!--- see what we can glean from what we have ---->
+
+			<cfset probGenus="">
 			<cfset probSpecies="">
 			<cfset probSubSpecies="">
 			<cfset probSciName="">
@@ -1111,6 +1113,16 @@
 						' ' & listGetAt(thisname.scientific_name,2,' ')
 						 & ' ' & listGetAt(thisname.scientific_name,3,' ')>
 				</cfif>
+			</cfif>
+			<!--- if for some crazy reason we got here and don't have genus....---->
+
+			<cfquery name="ggen" dbtype="query">
+				select * from hasclass where term_type='genus'
+			</cfquery>
+			<cfif len(ggen.term) gt 0>
+				<cfset probGenus=ggen.term>
+			<cfelse>
+				<cfset probGenus=listGetAt(thisname.scientific_name,1,' ')>
 			</cfif>
 			<!--- make a table I can mess with, leave some gaps ---->
 			<cfquery name="mClassTerms" dbtype="query">
@@ -1182,6 +1194,11 @@
 					<cfif shouldHaveTermType is "subspecies" and len(probSubSpecies) gt 0>
 						<cfset thisTermVal=probSubSpecies>
 					</cfif>
+					<cfif shouldHaveTermType is "genus" and len(probGenus) gt 0>
+						<cfset thisTermVal=probGenus>
+					</cfif>
+
+
 					<cfset queryAddRow(mClassTerms,{
 						"POSITION_IN_CLASSIFICATION"="#availablePosition#",
 						"TERM_TYPE"="#shouldHaveTermType#",
