@@ -1228,7 +1228,6 @@
 							</td>
 						</tr>
 					</cfloop>
-				<input type="hidden" name="maxposn" id="maxposn" value="#thisrowinc#">
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
@@ -1268,6 +1267,8 @@
 						review them and anything their insertion may have misplaced very carefully before saving.
 					</p>
 				</div>
+				<!--- needs to live somewhere after thisrowinc is set and not where it can mess with the flaky JS that is sortable ---->
+				<input type="hidden" name="maxposn" id="maxposn" value="#thisrowinc#">
 				<input type="button"  class="savBtn" onclick="submitForm();" value="Save Edits">
 			</p>
 			<p>
