@@ -1278,7 +1278,8 @@
 							<input type="button" class="lnkBtn" onclick="guessAtDisplayName();" value="Refresh suggestion">
 						</li>
 						<li>
-							Red borders around classification terms indicate manipulated or missing highly-suggested data;
+							Red borders around classification terms indicate suspected important missing data, and may
+							include suggested values;
 							review them and anything their insertion may have misplaced very carefully before saving.
 						</li>
 					</ul>
