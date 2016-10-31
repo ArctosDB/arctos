@@ -20,7 +20,7 @@
 ---->
 
 
-<cfset an=xd.ns:searchByScientificNameResponse>
+<cfset an=xd[ns:searchByScientificNameResponse]>
 
 		<br>author::::<cfdump var=#an#>
 	</cfloop>
