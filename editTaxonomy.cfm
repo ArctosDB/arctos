@@ -896,10 +896,6 @@
 				taxon_name_id
 		</cfquery>
 
-
-
-
-
 		<cfquery name="noclass" dbtype="query">
 			select term_type,term from d where POSITION_IN_CLASSIFICATION is null group by term_type,term order by term_type
 		</cfquery>
@@ -919,7 +915,6 @@
 		<cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cttaxon_term
 		</cfquery>
-
 
 		<cfquery name="cttaxon_term_noclass" dbtype="query">
 			select taxon_term from cttaxon_term where is_classification=0 order by taxon_term
@@ -1144,13 +1139,9 @@
 						 & ' ' & listGetAt(thisname.scientific_name,3,' ')>
 				</cfif>
 			</cfif>
-
-
-			<br>probSpecies=#probSpecies#
-			<br>probSubSpecies=#probSubSpecies#
-
 			<p>
-				Values preceeded by **** are suggestions; review them carefully before saving!
+				Red borders indicate manipulated or missing highly-suggested data; review them and anything their insertion
+				may have misplaced very carefully before saving!
 			</p>
 
 
@@ -1327,10 +1318,9 @@
 									</cfloop>
 								</select>
 							</td>
-							<td>
-								<cfif orderedClassTermsWithBlanks.status is "autoins">
-									****
-								</cfif>
+							<td	<cfif orderedClassTermsWithBlanks.status is "autoins">
+									class="importantNotification"
+								</cfif>>
 
 
 
