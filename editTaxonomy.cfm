@@ -1189,21 +1189,10 @@
 						"TERM"="#thisTermVal#"})>
 				</cfif>
 			</cfloop>
-
-
-
-
 			<!---- now get the ordered stuff ---->
-
 			<cfquery name="orderedClassTermsWithBlanks" dbtype="query">
 				select * from mClassTerms order by position_in_classification
 			</cfquery>
-
-
-
-
-
-
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
@@ -1218,8 +1207,7 @@
 								(drag row here)
 							</td>
 							<td>
-								<select
-									class="ac_isclass_tt"
+								<select	class="ac_isclass_tt"
 									id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
 									onchange="guessAtDisplayName(this.id)">
 									<option value=""></option>
@@ -1233,167 +1221,17 @@
 							<td	<cfif orderedClassTermsWithBlanks.status is "autoins">
 									class="importantNotification"
 								</cfif>>
-
-
-
-											<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClassTermsWithBlanks.term#" onchange="guessAtDisplayName(this.id)">
-										</td>
-										<td>
-											<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
-										</td>
-									</tr>
-
-					</cfloop>
-
-
-
-
-<!-----------
-					<cfloop query="cttaxon_term_isclass">
-						<cfset shouldHave=false>
-						<cfset dohave=false>
-						<cfif listfind(shouldUsuallyHave,taxon_term)>
-							<cfset shouldhave=true>
-						</cfif>
-						<cfif listfind(aterms,taxon_term)>
-							<cfset doHave=true>
-						</cfif>
-						<!--- if EITHER shouldHave or doHave, add a row --->
-						<cfif shouldhave or dohave>
-							<cfquery name="thisTermData" dbtype="query">
-								select * from hasclass where term_type='#taxon_term#'
-							</cfquery>
-
-
-							<!---- loop to deal with multiple terms with the same rank ---->
-							<cfloop query="thisTermData">
-								<!--- increment rowID ---->
-								<cfset thisrowinc=thisrowinc+1>
-								<tr id="cell_#thisrowinc#">
-									<td class="dragger">
-										(drag row here)
-									</td>
-									<td>
-										<select
-											class="ac_isclass_tt"
-											id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
-											onchange="guessAtDisplayName(this.id)">
-											<option value=""></option>
-											<cfloop query="cttaxon_term_isclass">
-												<option
-													<cfif cttaxon_term_isclass.taxon_term is thisTermData.term_type> selected="selected" </cfif>
-													value="#taxon_term#">#taxon_term#</option>
-											</cfloop>
-										</select>
-									</td>
-									<td>
-											<!----default ---->
-											<cfset thisTermValue=thisTermData.term>
-
-											<cfif thisTermData.term_type is "species" and len(thisTermValue) is 0 and len(probSpecies) gt 0>
-												****<cfset thisTermValue=probSpecies>
-											</cfif>
-											<cfif thisTermData.term_type is "subspecies" and len(thisTermValue) is 0 and len(probSubSpecies) gt 0>
-												****<cfset thisTermValue=probSubSpecies>
-											</cfif>
-											<cfif thisTermData.term_type is "scientific_name" and len(thisTermValue) is 0 and len(probSciName) gt 0>
-												****<cfset thisTermValue=probSciName>
-											</cfif>
-
-
-
-
-											<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#thisTermValue#" onchange="guessAtDisplayName(this.id)">
-										</td>
-										<td>
-											<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
-										</td>
-									</tr>
-							</cfloop>
-
-
-
-
-
-
-								<!----
-								<input size="60" class="ac_isclass_tt" type="text"
-								id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#"
-								value="#term_type#" onchange="guessAtDisplayName(this.id)">
-								---->
-
-
-
-
-
-
-
-
-
-
-						</cfif>
-
-
-					</cfloop>
-
-					--------------->
-			<input type="text" name="maxposn" id="maxposn" value="#thisrowinc#">
-
-
-					<!------------
-
-					 old stuff works
-
-
-
-					<cfloop query="hasclass">
-						<tr id="cell_#POSITION_IN_CLASSIFICATION#">
-							<td class="dragger">
-								(drag row here)
+								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClassTermsWithBlanks.term#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
-
-								<!----
-								<input size="60" class="ac_isclass_tt" type="text"
-								id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#"
-								value="#term_type#" onchange="guessAtDisplayName(this.id)">
-								---->
-								<select
-									class="ac_isclass_tt"
-									id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#"
-									onchange="guessAtDisplayName(this.id)">
-									<option value=""></option>
-									<cfloop query="cttaxon_term_isclass">
-										<option
-											<cfif cttaxon_term_isclass.taxon_term is hasclass.term_type> selected="selected" </cfif>
-											value="#taxon_term#">#taxon_term#</option>
-									</cfloop>
-								</select>
-
-
-							</td>
-							<td>
-								<input size="60" type="text" id="term_#POSITION_IN_CLASSIFICATION#" name="term_#POSITION_IN_CLASSIFICATION#" value="#term#" onchange="guessAtDisplayName(this.id)">
-							</td>
-							<td>
-								<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
+								<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
 							</td>
 						</tr>
 					</cfloop>
-
-
-					/old stuff works
-					------------------>
-
-
+				<input type="hidden" name="maxposn" id="maxposn" value="#thisrowinc#">
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
-
-
-
-
-
 			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
 			<cfloop list="#aterms#" index="i">
 				<cfif listfind(shouldUsuallyHave,i)>
