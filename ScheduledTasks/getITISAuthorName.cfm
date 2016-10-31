@@ -47,9 +47,17 @@
 
 <cfset an=xd['ns:searchByScientificNameResponse']['ns:return']['ax21:scientificNames']['ax21:author'].XmlText>
 <br>author::::#an#
-		<cfquery name="g1" datasource="uam_god">
-			update temp_class_an_lookup2 set itisauth='#an#' where scientific_name='#scientific_name#'
-		</cfquery>
+
+		<cfif len(an) is 0>
+			<cfquery name="g1" datasource="uam_god">
+				update temp_class_an_lookup2 set itisauth='no_data_found' where scientific_name='#scientific_name#'
+			</cfquery>
+		<cfelse>
+			<cfquery name="g1" datasource="uam_god">
+				update temp_class_an_lookup2 set itisauth='#an#' where scientific_name='#scientific_name#'
+			</cfquery>
+		</cfif>
+
 
 		<cfcatch>
 			<br /><br>error
