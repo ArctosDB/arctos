@@ -5,6 +5,12 @@
 <cfoutput>
 	<cfloop query="d">
 
+		<p>
+			#scientific_name#
+		</p>
+
+		<cfflush>
+
 		<cftransaction>
 
 		<cfhttp url="https://www.itis.gov/ITISWebService/services/ITISService/searchByScientificName?srchKey=#scientific_name#" method="get">
