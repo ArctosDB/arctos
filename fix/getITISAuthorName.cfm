@@ -11,6 +11,8 @@
 
 		</cfhttp>
 		<cfdump var=#cfhttp#>
+		<cfset xd=xmlparse(cfhttp.filecontent)>
+		<cfdump var=#xd#>
 	</cfloop>
 </cfoutput>
 
