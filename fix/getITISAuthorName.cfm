@@ -1,5 +1,5 @@
 <cfquery name="d" datasource="uam_god">
-	select distinct scientific_name from temp_class_an_lookup2 where itisauth is null and rownum < 20
+	select distinct scientific_name from temp_class_an_lookup2 where itisauth is null and rownum < 200
 </cfquery>
 
 <cfoutput>
