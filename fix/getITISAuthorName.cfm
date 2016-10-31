@@ -20,7 +20,7 @@
 ---->
 
 
-<cfset an=xd['ns:searchByScientificNameResponse']['ns:return']['ax21:scientificNames']['ax21:author']>
+<cfset an=xd['ns:searchByScientificNameResponse']['ns:return']['ax21:scientificNames']['ax21:author'].XmlText>
 
 		<br>author::::<cfdump var=#an#>
 	</cfloop>
