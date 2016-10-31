@@ -1139,10 +1139,6 @@
 						 & ' ' & listGetAt(thisname.scientific_name,3,' ')>
 				</cfif>
 			</cfif>
-			<p>
-				Red borders indicate manipulated or missing highly-suggested data; review them and anything their insertion
-				may have misplaced very carefully before saving!
-			</p>
 
 
 			<!----<cfset mClassTerms=QueryNew("POSITION_IN_CLASSIFICATION,TERM,TERM_TYPE,STATUS")>---->
@@ -1506,7 +1502,7 @@
 			<p>
 				<div id="dnWarning" style="border:2px solid red;padding:2em;margin:2em;">
 					<p>
-						IMPORTANT!! Classifications should generally have a (one!) non-classification term
+						IMPORTANT!! Each classification should generally have a (one!) non-classification term
 						"display_name" with corresponding HTML-formatted, discipline-specific value,
 						including authors, infraspecific rank, etc. This is stored in FLAT.FORMATTED_SCIENTIFIC_NAME and used on many forms and
 						labels. This suggestion is based on other data, including kingdom, nomenclatural_code, genus, species,
@@ -1517,6 +1513,11 @@
 					<input id="dng" size="80">
 					<input type="button" class="lnkBtn" onclick="useDNG();" value="Use this suggestion">
 					<input type="button" class="lnkBtn" onclick="guessAtDisplayName();" value="Refresh suggestion">
+
+					<p>
+						Red borders around classification terms indicate manipulated or missing highly-suggested data;
+						review them and anything their insertion may have misplaced very carefully before saving.
+					</p>
 				</div>
 				<input type="button"  class="savBtn" onclick="submitForm();" value="Save Edits">
 			</p>
