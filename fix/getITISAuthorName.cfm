@@ -14,9 +14,15 @@
 		<cfset xd=xmlparse(cfhttp.filecontent)>
 		<cfdump var=#xd#>
 
-		<cfset an=xd.ns:searchByScientificNameResponse.ns:return.ax21:scientificNames.ax21:author.XmlText>
 
-		<br>author::::#an#
+<!----
+		<cfset an=xd.ns:searchByScientificNameResponse.ns:return.ax21:scientificNames.ax21:author.XmlText>
+---->
+
+
+<cfset an=xd.ns:searchByScientificNameResponse>
+
+		<br>author::::<cfdump var=#an#>
 	</cfloop>
 </cfoutput>
 
