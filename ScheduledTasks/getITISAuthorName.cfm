@@ -32,7 +32,7 @@
 		<cfdump var=#xd#>
 
 
-					<br>error
+
 
 
 							<br>author::::<cfdump var=#an#>
@@ -46,12 +46,13 @@
 
 
 <cfset an=xd['ns:searchByScientificNameResponse']['ns:return']['ax21:scientificNames']['ax21:author'].XmlText>
-
+<br>author::::#an#
 		<cfquery name="g1" datasource="uam_god">
 			update temp_class_an_lookup2 set itisauth='#an#' where scientific_name='#scientific_name#'
 		</cfquery>
 
 		<cfcatch>
+			<br /><br>error
 			<cfquery name="g1" datasource="uam_god">
 				update temp_class_an_lookup2 set itisauth='itis_service_error' where scientific_name='#scientific_name#'
 			</cfquery>
