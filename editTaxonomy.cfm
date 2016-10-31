@@ -1287,6 +1287,12 @@
 </cfif>
 <!------------------------------------->
 <cfif action is "saveClassEdits">
+
+
+<cfdump var=#form#>
+
+
+
 	<cfoutput>
 		<cftransaction>
 			<!---- clear everything out, start over - just easier this way ---->
