@@ -4,23 +4,23 @@
 <cffunction name="getMediaLocalityCount" access="remote" returnformat="plain" queryFormat="column">
 
 	<cfparam name="locid" type="numeric">
-	
+
 	<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from (
-			select 
-    			media_id 
-			  from 
+			select
+    			media_id
+			  from
 			    media_relations
-			  where 
+			  where
 			    media_relationship like '% locality' and
 			    related_primary_key=#locid#
 			  union
-			    select 
-			    media_id 
-			  from 
+			    select
+			    media_id
+			  from
 			    media_relations,
 			    collecting_event
-			  where 
+			  where
 			    media_relationship like '% collecting_event' and
 			    media_relations.related_primary_key=collecting_event.collecting_event_id and
 			    collecting_event.locality_id= #locid#
@@ -1223,6 +1223,10 @@
 		<cftry>
 		<cfif idtype is 'DOI'>
 			<cfhttp url="http://www.crossref.org/openurl/?id=#identifier#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
+
+			<cfdump var=#cfhttp#>
+
+
 			<cfset r=xmlParse(cfhttp.fileContent)>
 			<cfif debug>
 				<cfdump var=#r#>
