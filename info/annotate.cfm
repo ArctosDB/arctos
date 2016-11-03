@@ -127,7 +127,7 @@
 		<div style="margin:.3em;">
 			<div class="importantNotification">
 				Please provide an email address where we can contact you with any questions regarding your annotation!
-				Any information you provide will be used only 
+				Any information you provide will be used only for this purpose.
 			</div>
 			<label for="email">Email</label>
 			<input type="text" class="reqdClr" name="email" id="email" value="#email#" size="60">
