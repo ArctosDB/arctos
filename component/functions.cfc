@@ -4155,7 +4155,7 @@
 						#gc.key#,
 						'#session.username#',
 						#val(id)#,
-						'#urldecode(annotation)#'
+						'#urldecode(annotation)#',
 						'#urldecode(email)#'
 					)
 				</cfquery>
