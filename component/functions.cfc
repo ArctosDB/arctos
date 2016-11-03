@@ -4133,6 +4133,8 @@
 	<cfargument name="idType" type="string" required="yes">
 	<cfargument name="idvalue" type="string" required="yes">
 	<cfargument name="annotation" type="string" required="yes">
+	<cfargument name="email" type="string" required="no">
+
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfoutput>
 	<cftry>
@@ -4146,12 +4148,14 @@
 						ANNOTATION_GROUP_ID,
 						cf_username,
 						#idType#,
-						annotation
+						annotation,
+						email
 					) values (
 						#gc.key#,
 						'#session.username#',
 						#val(id)#,
 						'#urldecode(annotation)#'
+						'#urldecode(email)#'
 					)
 				</cfquery>
 			</cfloop>

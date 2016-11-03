@@ -126,7 +126,8 @@
 		 <input type="hidden" name="captchaHash" id="captchaHash" value="#captchaHash#">
 		<div style="margin:.3em;">
 			<div class="importantNotification">
-				Please provide an email address where we can contact you if we have any questions regarding your annotation!
+				Please provide an email address where we can contact you with any questions regarding your annotation!
+				Any information you provide will be used only 
 			</div>
 			<label for="email">Email</label>
 			<input type="text" class="reqdClr" name="email" id="email" value="#email#" size="60">
