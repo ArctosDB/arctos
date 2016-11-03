@@ -1255,16 +1255,18 @@
 				<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
 				<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1],"journal_issue")>
 
-				there is issue
+				<br>there is issue
 
 
 					<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume,"volume")>
 
-						there is volume
+						<br>there is volume
+
 						<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume.volume.xmltext>
 
-						made it here
-
+						<br>made it here
+<cfelse>
+<br>no volume, rock on....
 
 					</cfif>
 					<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue,"issue")>
