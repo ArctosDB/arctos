@@ -39,6 +39,8 @@
 			<li>
 				<cfset headers=replace(headers,'"','','all')>
 				<cfset headers=replace(headers,chr(10),'','all')>
+				<cfset headers=replace(headers,chr(9),'','all')>
+				<cfset headers=replace(headers,chr(13),'','all')>
 
 				Build or find an empty table. pre_bulkloader often works.
 				<cfscript>
