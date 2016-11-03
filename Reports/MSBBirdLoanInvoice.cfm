@@ -246,10 +246,6 @@ select
 	  ORDER BY cat_num
 </cfquery>
 
-
-<cfdump var=#getItems#>
-
-
 <table width="1100"><tr>
   <td> <div align="right"><font size="-1"> Loan ## #getItems.loan_number# </font> <br>
     </div>
