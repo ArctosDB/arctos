@@ -356,9 +356,7 @@ function saveNewRecord () {
 					// switch to enter mode
 					$("#action").val('enter');
 					// reapple any customizations, etc.
-					
-					console.log('going to setPagePrefs now....');
-					
+					//console.log('going to setPagePrefs now....');
 					setPagePrefs();
 				}
 		},

@@ -262,13 +262,16 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "saveEdit">
 <cfoutput>
+	<cfif numberAuthors lt 1>
+		At least one author is required to save.<cfabort>
+	</cfif>
 	<cftransaction>
 		<cfif len(doi) gt 0>
 			<cfinvoke component="/component/functions" method="checkDOI" returnVariable="isok">
 				<cfinvokeargument name="doi" value="#doi#">
 			</cfinvoke>
 			<cfif isok is not "true">
-				<cfthrow message = "DOI #doi# failed validation with StatusCode #isok#"> 
+				<cfthrow message = "DOI #doi# failed validation with StatusCode #isok#">
 			</cfif>
 		</cfif>
 		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -391,7 +394,7 @@
 					msg = 'Please enter a DOI or PMID if one is available for this article is available\n';
 					msg+='Click OK to enter a DOI or PMID before creating this article, or Cancel to proceed.\n';
 					msg+='There are also tools on the next page to help find DOI.';
-	
+
 					var r = confirm(msg);
 					if (r == true) {
 					    return false;
@@ -488,9 +491,9 @@
 			display: inline-block;
 	</style>
 	<cfoutput>
-		
+
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
-		
+
 			<div id="pleaseusethis">
 				<p>
 					Please enter a DOI (preferred) or PMID if there is one available. DOIs are extremely valuable in
@@ -584,7 +587,8 @@
 						<td>
 							<input type="text" name="n_author_name#i#" id="n_author_name#i#" size="50"
 								onchange="getAgent('n_agent_id#i#',this.name,'newpub',this.value)"
-			 					onkeypress="return noenter(event);">
+			 					onkeypress="return noenter(event);"
+			 					<cfif i=1>required="required"</cfif>>
 						</td>
 						<td id="authSugg#i#">
 						</td>
@@ -633,7 +637,7 @@
 				<cfinvokeargument name="doi" value="#doi#">
 			</cfinvoke>
 			<cfif isok is not "true">
-				<cfthrow message = "DOI #doi# failed validation with StatusCode #isok#"> 
+				<cfthrow message = "DOI #doi# failed validation with StatusCode #isok#">
 			</cfif>
 		</cfif>
 		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
