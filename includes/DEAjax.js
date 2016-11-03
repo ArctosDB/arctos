@@ -279,8 +279,6 @@ function deleteThisRec () {
 function DEpartLookup(id){
 	var val=$("#" + id).val();
 	var gp=$("#guid_prefix").val();
-	
-	
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getCollectionCodeFromGuidPrefix",
@@ -358,6 +356,9 @@ function saveNewRecord () {
 					// switch to enter mode
 					$("#action").val('enter');
 					// reapple any customizations, etc.
+					
+					console.log('going to setPagePrefs now....');
+					
 					setPagePrefs();
 				}
 		},
@@ -411,6 +412,8 @@ function setPagePrefs(){
 			}
 			// stuff requested by collections
 			setNewRecDefaults();
+			// reset conditionally-required
+			requirePartAtts();
 			msg('template loaded - enter data','good');
 		}
 	);	
