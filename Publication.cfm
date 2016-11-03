@@ -588,7 +588,7 @@
 							<input type="text" name="n_author_name#i#" id="n_author_name#i#" size="50"
 								onchange="getAgent('n_agent_id#i#',this.name,'newpub',this.value)"
 			 					onkeypress="return noenter(event);"
-			 					<cfif i=1>required="required"</cfif>>
+			 					<cfif i is 1>required="required"</cfif>>
 						</td>
 						<td id="authSugg#i#">
 						</td>
