@@ -25,8 +25,6 @@
 			},
 			function (r) {
 				if (r.DATA.STATUS=='success'){
-
-					console.log('happy');
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
 				} else {
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
@@ -92,6 +90,7 @@
 				ANNOTATION,
 				to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
 				CF_USERNAME,
+				email,
 				REVIEWER_AGENT_ID,
 				getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
 				REVIEWED_FG,
@@ -185,6 +184,7 @@
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<div>
 				Annotation by <cfif len(CF_USERNAME) gt 0><strong>#CF_USERNAME#</strong><cfelse><strong>anonymous</strong></cfif>
+				<cfif len(email) gt 0><strong>#email#</strong><cfelse><strong>no adddress</strong></cfif>
 				on #ANNOTATE_DATE#
 			</div>
 			<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;display:inline-block;">
