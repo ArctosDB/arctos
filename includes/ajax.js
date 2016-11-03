@@ -495,6 +495,7 @@ function saveThisAnnotation() {
 						idType : idType,
 						idvalue : idvalue,
 						annotation : annotation,
+						email : $("#email").val(),
 						returnformat : "json",
 						queryformat : 'column'
 					},
