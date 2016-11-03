@@ -262,9 +262,6 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "saveEdit">
 <cfoutput>
-	<cfif numberAuthors lt 1>
-		At least one author is required to save.<cfabort>
-	</cfif>
 	<cftransaction>
 		<cfif len(doi) gt 0>
 			<cfinvoke component="/component/functions" method="checkDOI" returnVariable="isok">
@@ -316,6 +313,7 @@
 			</cfquery>
 		</cfif>
 
+		<cfset noAuthFail=true>
 		<cfloop from="1" to="#numberAuthors#" index="n">
 			<cfset publication_agent_id = evaluate("publication_agent_id" & n)>
 			<cfset agent_id = evaluate("agent_id" & n)>
@@ -327,6 +325,7 @@
 					publication_agent_id=#publication_agent_id#
 				</cfquery>
 			<cfelse>
+				<cfset noAuthFail=false>
 				<cfquery name="uAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update publication_agent set
 						agent_id=#agent_id#,
@@ -340,6 +339,7 @@
 			<cfset agent_id = evaluate("n_agent_id" & n)>
 			<cfset author_role = evaluate("n_author_role" & n)>
 			<cfif len(agent_id) gt 0>
+				<cfset noAuthFail=false>
 				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into publication_agent (
 						publication_id,
@@ -353,6 +353,9 @@
 				</cfquery>
 			</cfif>
 		</cfloop>
+		<cfif noAuthFail is true>
+			<cfthrow message="At least one author is required to save publication edits.">
+		</cfif>
 	</cftransaction>
 	<cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false">
 </cfoutput>
