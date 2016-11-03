@@ -241,6 +241,7 @@ select
 		cataloged_item.collection_id = collection.collection_id and
 		collecting_event.locality_id = locality.locality_id AND
 		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
+		specimen_event.specimen_event_type='accepted place of collection' and
 	  loan_item.transaction_id = #transaction_id#
 	  ORDER BY cat_num
 </cfquery>
