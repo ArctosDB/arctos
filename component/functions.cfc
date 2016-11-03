@@ -4135,7 +4135,7 @@
 	<cfargument name="annotation" type="string" required="yes">
 	<cfargument name="email" type="string" required="no">
 
-
+	<cfparam name="email" default="">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfoutput>
 	<cftry>
@@ -4156,7 +4156,7 @@
 						'#session.username#',
 						#val(id)#,
 						'#urldecode(annotation)#'
-						'#urldecode(Arguments.email)#'
+						'#urldecode(email)#'
 					)
 				</cfquery>
 			</cfloop>
