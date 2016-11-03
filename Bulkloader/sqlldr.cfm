@@ -37,6 +37,8 @@
 				Get the data into valid CSV. Don't let Excel eat your junk.
 			</li>
 			<li>
+				<cfset headers=replace(headers,'"','','all')>
+
 				Build or find an empty table. pre_bulkloader often works.
 				<cfscript>
 					ctl="create table " & tablename & " (" & chr(10);
