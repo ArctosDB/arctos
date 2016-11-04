@@ -475,7 +475,7 @@
 					<cfloop query="thisAuth">
 						<div>
 							#agent_name# (#project_agent_role#)
-							<div>#PROJECT_AGENT_REMARKS#</div>
+							<div style="margin-left:1em;font-size:x-small;font-style:italics">#PROJECT_AGENT_REMARKS#</div>
 						</div>
 					</cfloop>
 					#dateformat(start_date,"yyyy-mm-dd")# - #dateformat(end_date,"yyyy-mm-dd")#
