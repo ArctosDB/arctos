@@ -257,6 +257,10 @@
 		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
+
+		<cfdump var=#projects#>
+
+
 		<cfquery name="projNames" dbtype="query">
 			SELECT
 				project_id,
@@ -473,7 +477,7 @@
 					</a>
 
 					<cfloop query="thisAuth">
-						<div>
+						<div style="margin-left:1em;">
 							<a target="_blank" href="/agent.cfm?agent_name=#agent_name#">#agent_name#</a> (#project_agent_role#)
 							<div style="margin-left:1em;font-size:x-small;font-style:italics">#PROJECT_AGENT_REMARKS#</div>
 						</div>
