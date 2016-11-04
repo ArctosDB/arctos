@@ -258,10 +258,6 @@
 		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-
-		<cfdump var=#projects#>
-
-
 		<cfquery name="projNames" dbtype="query">
 			SELECT
 				project_id,
