@@ -146,6 +146,7 @@
 						</cfquery>
 						<cfif ist.recordcount gt 0>
 							is tissue inconsistency!!!
+							<cfdump var=ist>
 						<cfelse>
 							#ist.is_tissue#
 
