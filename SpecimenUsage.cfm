@@ -322,11 +322,11 @@
 			<cfset go="yes">
 		</cfif>
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
-			<cfif basFrom does not contain "publication_agent">
-				<cfset basFrom = "#basFrom#,publication_agent">
+			<cfif basFrom does not contain "pubAgentSrch">
+				<cfset basFrom = "#basFrom#,publication_agent pubAgentSrch">
 			</cfif>
-			<cfset basWhere = "#basWhere# AND publication.publication_id = publication_agent.publication_id
-				AND publication_agent.author_role='#agent_role#'">
+			<cfset basWhere = "#basWhere# AND publication.publication_id = pubAgentSrch.publication_id
+				AND pubAgentSrch.author_role='#agent_role#'">
 			<cfset go="yes">
 		</cfif>
 
