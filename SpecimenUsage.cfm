@@ -175,7 +175,7 @@
 			<cfset title = "#agent_role#">
 			<cfset go="yes">
 			<cfset frm=frm & ", project_agent pasrch">
-			<cfset whr = "#whr# AND project.project_id=pasrch.project_id and project_id.project_agent_role='#agent_role#'">
+			<cfset whr = "#whr# AND project.project_id=pasrch.project_id and pasrch.project_agent_role='#agent_role#'">
 		</cfif>
 
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
