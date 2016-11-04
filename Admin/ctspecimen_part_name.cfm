@@ -23,7 +23,7 @@
 					}
 				}
 			);
-		}		
+		}
 	}
 	function updatePart(ctspnid) {
 		var bgDiv = document.createElement('div');
@@ -40,7 +40,7 @@
 		$('#annotateDiv').append('<IFRAME id="frame_ctspid" width="100%" height="100%">');
 	  	var guts = "/includes/forms/f_ctspecimen_part_name.cfm?ctspnid=" + ctspnid;
 	    $('iframe#frame_ctspid').attr('src', guts);
-	    $('iframe#frame_ctspid').load(function() 
+	    $('iframe#frame_ctspid').load(function()
 	    {
 	        viewport.init("#annotateDiv");
 	    });
@@ -49,17 +49,17 @@
 		if(	upAllDesc==1 || upAllTiss==1 ) {
 			document.location=document.location;
 		}
-		
+
 		var r='<td>' + collection_cde + '</td><td>' + part_name + '</td><td>' + is_tissue + '</td>';
 		r+='<td>' + unescape(description) + '</td><td nowrap="nowrap">';
 		r+='<span class="likeLink" onclick="deletePart(' + ctspnid + ')">[ Delete ]</span><br>';
-		r+='<span class="likeLink" onclick="updatePart(' + ctspnid + ')">[ Update ]</span>';		
+		r+='<span class="likeLink" onclick="updatePart(' + ctspnid + ')">[ Update ]</span>';
 		$('tr#r' + ctspnid).children().remove();
 		$('tr#r' + ctspnid).append(r);
 		doneSaving();
 	}
-	
-	
+
+
 </script>
 
 
@@ -67,7 +67,7 @@
 
 <cfif action is "nothing">
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			*
 		from ctspecimen_part_name
 		ORDER BY
@@ -108,7 +108,7 @@
 						<textarea name="description" id="description" rows="4" cols="40"></textarea>
 					</td>
 					<td>
-						<input type="submit" value="Insert" class="insBtn">	
+						<input type="submit" value="Insert" class="insBtn">
 					</td>
 				</tr>
 			</form>
@@ -127,10 +127,10 @@
 					<td>#collection_cde#</td>
 					<td>#q.part_name#</td>
 					<td>#is_tissue#</td>
-					<td>#q.description#</td>				
+					<td>#q.description#</td>
 					<td nowrap="nowrap">
 						<span class="likeLink" onclick="deletePart(#ctspnid#)">[ Delete ]</span>
-						<br><span class="likeLink" onclick="updatePart(#ctspnid#)">[ Update ]</span>	
+						<br><span class="likeLink" onclick="updatePart(#ctspnid#)">[ Update ]</span>
 					</td>
 				</tr>
 				<cfset i = #i#+1>
@@ -139,6 +139,16 @@
 	</cfoutput>
 </cfif>
 <cfif action is "insert">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) from ctspecimen_part_name where part_name='#part_name#' and
+		(
+			nvl(description,'NULL') != nvl('#description#','NULL') or
+			is_tissue != #is_tissue#
+		)
+	</cfquery>
+	<cfif d.recordcount gt 0>
+		Definition and tissue status must match across collections.<cfabort>
+	</cfif>
 	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into ctspecimen_part_name (
 			collection_cde,
@@ -153,5 +163,5 @@
 		)
 	</cfquery>
 	<cflocation url="ctspecimen_part_name.cfm" addtoken="false">
-</cfif>	
+</cfif>
 <cfinclude template="/includes/_footer.cfm">
