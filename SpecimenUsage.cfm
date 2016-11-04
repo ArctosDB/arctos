@@ -474,7 +474,7 @@
 
 					<cfloop query="thisAuth">
 						<div>
-							#agent_name# (#project_agent_role#)
+							<a target="_blank" href="/agent.cfm?agent_name=#agent_name#">#agent_name#</a> (#project_agent_role#)
 							<div style="margin-left:1em;font-size:x-small;font-style:italics">#PROJECT_AGENT_REMARKS#</div>
 						</div>
 					</cfloop>
