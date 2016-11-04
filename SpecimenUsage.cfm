@@ -182,11 +182,6 @@
 
 		<cfif isdefined("proj_media") AND len(proj_media) gt 0>
 			<cfset go="yes">
-		</cfif>
-		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
-			<cfset title = "#agent_role#">
-			<cfset go="yes">
-
 			<cfset frm=frm & ", (select * from media_relations where media_relationship like '% project') projmedia">
 			<cfset whr = "#whr# AND project.project_id=projmedia.related_primary_key (+)">
 			<cfif proj_media is "require">
@@ -194,6 +189,16 @@
 			<cfelseif  proj_media is "exclude">
 				<cfset whr = "#whr# AND projmedia.media_id is null">
 			</cfif>
+		</cfif>
+
+
+		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
+			<cfset title = "#agent_role#">
+			<cfset go="yes">
+			<cfset frm=frm & ", project_agent pasrch">
+			<cfset whr = "#whr# AND project.project_id=pasrch.project_id and pasrch.project_agent_role='#agent_role#'">
+
+
 		</cfif>
 
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
