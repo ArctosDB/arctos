@@ -502,41 +502,42 @@
 		</td><td width="50%" valign="top">
 		<h3>
 			Publications
-			<cfif publication.recordcount is 0>
+			<cfquery name="pubs" dbtype="query">
+				SELECT
+					publication_id,
+					full_citation,
+					doi,
+					pmid,
+					publication_remarks,
+					NUMCITS
+				FROM
+					publication
+				GROUP BY
+					publication_id,
+					full_citation,
+					doi,
+					pmid,
+					publication_remarks,
+					NUMCITS
+				ORDER BY
+					full_citation
+			</cfquery>
+			<cfif pubs.recordcount is 0>
 				<div class="notFound">
 					No publications matched your criteria.
 				</div>
-			<cfelseif publication.recordcount is 1>
-				<cfset title = "#publication.full_citation#">
+			<cfelseif pubs.recordcount is 1>
+				<cfset title = "#pubs.full_citation#">
 			<cfelse>
-				<cfif publication.recordcount is maxNumberOfRows>
+				<cfif pubs.recordcount is maxNumberOfRows>
 					(CAUTION: This form will only return #maxNumberOfRows# results; you may not be seeing everything.)
 				<cfelse>
-					(#publication.recordcount# results)
+					(#pubs.recordcount# results)
 				</cfif>
 			</cfif>
 		</h3>
 
-		<cfquery name="pubs" dbtype="query">
-			SELECT
-				publication_id,
-				full_citation,
-				doi,
-				pmid,
-				publication_remarks,
-				NUMCITS
-			FROM
-				publication
-			GROUP BY
-				publication_id,
-				full_citation,
-				doi,
-				pmid,
-				publication_remarks,
-				NUMCITS
-			ORDER BY
-				full_citation
-		</cfquery>
+
 		<cfloop query="pubs">
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<p class="indent">
