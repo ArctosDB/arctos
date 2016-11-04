@@ -131,7 +131,7 @@
 						select * from q where part_name='#part_name#' order by collection_cde
 					</cfquery>
 					<td>
-						<cfloop query="">
+						<cfloop query="pd">
 							<div>
 								#collection_cde#
 							</div>
