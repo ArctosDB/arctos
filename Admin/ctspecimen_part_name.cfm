@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="ctspecimen_part_name editor">
 <script>
 	function doneSaving(){
 		$('#frame_ctspid').remove();
