@@ -147,17 +147,17 @@
 						project.project_name,
 						project.start_date,
 						project.end_date,
-						getPreferredAgentName(project_agent.agent_id) agent_name,
+						getPreferredAgentName(parslt.agent_id) agent_name,
 						PROJECT_AGENT_REMARKS,
 						project_agent_role,
 						agent_position">
 		<cfset frm="
 					FROM
 						project,
-						project_agent">
+						project_agent parslt">
 		<cfset whr="
 					WHERE
-						project.project_id = project_agent.project_id (+) ">
+						project.project_id = parslt.project_id (+) ">
 		<cfset go="no">
 		<cfif (isdefined("doi") AND len(doi) gt 0) or
 			(isdefined("publication_type") AND len(publication_type) gt 0) or
@@ -174,7 +174,8 @@
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
 			<cfset title = "#agent_role#">
 			<cfset go="yes">
-			<cfset whr = "#whr# AND project_agent.project_agent_role='#agent_role#'">
+			<cfset frm=frm & ", project_agent pasrch">
+			<cfset whr = "#whr# AND project.project_id=pasrch.project_id and project_id.project_agent_role='#agent_role#'">
 		</cfif>
 
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
