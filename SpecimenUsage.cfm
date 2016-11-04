@@ -586,9 +586,18 @@
 					<cfquery name="pauths" dbtype="query">
 						select authn from publication where publication_id=#publication_id# group by authn order by authn
 					</cfquery>
-					<cfdump var=#pauths#>
 
+					<cfif pauths.recordcount gt 0>
+						<li>
+							Publication Agents
+							<ul>
+								<cfloop query="pauths">
+									<li><a target="_blank" href="/agent.cfm?agent_name=#authn#">#authn#</a></li>
+								</cfloop>
+							</ul>
 
+						</li>
+					</cfif>
 					<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
 							media.media_id,
