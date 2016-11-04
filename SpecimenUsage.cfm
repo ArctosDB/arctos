@@ -75,10 +75,9 @@
 					<label for="proj_media">Project Media</label>
 					<select name="proj_media" id="proj_media">
 						<option value=""></option>
-						<option value="require">Require</option>
+						<option value="require">require</option>
 						<option value="exclude">exclude</option>
 					</select>
-
 				</td>
 				<td>
 					<h4>Publication</h4>
