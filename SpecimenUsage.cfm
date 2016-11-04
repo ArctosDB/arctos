@@ -72,6 +72,13 @@
 						<span class="helpLink" id="project_min_len">Project Description Minimum Length</span>
 					</label>
 					<input name="descr_len" id="descr_len" type="number" value="100" style="border:1px solid red;">
+					<label for="proj_media">Project Media</label>
+					<select name="proj_media" id="proj_media">
+						<option value=""></option>
+						<option value="require">Require</option>
+						<option value="exclude">exclude</option>
+					</select>
+
 				</td>
 				<td>
 					<h4>Publication</h4>
@@ -159,6 +166,8 @@
 					WHERE
 						project.project_id = parslt.project_id (+) ">
 		<cfset go="no">
+
+
 		<cfif (isdefined("doi") AND len(doi) gt 0) or
 			(isdefined("publication_type") AND len(publication_type) gt 0) or
 			(isdefined("collection_id") AND len(collection_id) gt 0) or
@@ -171,11 +180,21 @@
 			<cfset whr = "#whr# AND 1=2">
 			<cfset go="yes">
 		</cfif>
+
+		<cfif isdefined("proj_media") AND len(proj_media) gt 0>
+			<cfset go="yes">
+		</cfif>
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
 			<cfset title = "#agent_role#">
 			<cfset go="yes">
-			<cfset frm=frm & ", project_agent pasrch">
-			<cfset whr = "#whr# AND project.project_id=pasrch.project_id and pasrch.project_agent_role='#agent_role#'">
+
+			<cfset frm=frm & ", (select * from media_relations where media_relationship like '% project') projmedia">
+			<cfset whr = "#whr# AND project.project_id=projmedia.related_primary_key (+)">
+			<cfif proj_media is "require">
+				<cfset whr = "#whr# AND projmedia.media_id is not null">
+			<cfelseif  proj_media is "exclude">
+				<cfset whr = "#whr# AND projmedia.media_id is null">
+			</cfif>
 		</cfif>
 
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
