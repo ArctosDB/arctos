@@ -4,6 +4,115 @@
 
 
 
+select * from cf_crontab where job_name='upclass_getClassificationID';
+
+
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'upclass_getClassificationID',
+	'processBulkloadClassification.cfm?action=getClassificationID',
+	'600',
+	'classification bulkloader: get Taxon IDs',
+	'every hour at 25 after',
+	'0',
+	'25',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'upclass_checkMeta',
+	'processBulkloadClassification.cfm?action=checkMeta',
+	'60',
+	'classification bulkloader: prepare for processing',
+	'every hour at 5 after',
+	'0',
+	'05',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'upclass_fitbfg',
+	'processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus',
+	'60',
+	'classification bulkloader: fill in blanks when given genus',
+	'every 3 minutes',
+	'0',
+	'0/3',
+	'*',
+	'1/1',
+	'*',
+	'?'
+);
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'bulkload_classification_checkall',
+	'processBulkloadClassification.cfm?action=doEverything',
+	'60',
+	'Process things marked "go_go_all" in the classification bulkloader',
+	'every 2 minutes',
+	'0',
+	'0/2',
+	'*',
+	'1/1',
+	'*',
+	'?'
+);
+
 
 
 
