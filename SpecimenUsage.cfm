@@ -281,14 +281,17 @@
 			publication.publication_remarks,
 			publication.doi,
 			publication.pmid,
-			count(distinct(citation.collection_object_id)) numCits">
+			count(distinct(citation.collection_object_id)) numCits,
+			getPreferredAgentName(publication_agent.AGENT_ID) authn">
 		<cfset basFrom = "
 			FROM
 			publication,
-			citation">
+			citation,
+			publication_agent">
 		<cfset basWhere = "
 			WHERE
-				publication.publication_id = citation.publication_id (+)
+				publication.publication_id = citation.publication_id (+) and
+				publication.publication_id = publication_agent.publication_id (+)
 				">
 		<cfif (isdefined("project_type") AND len(project_type) gt 0)>
 			<cfset basWhere = "#basWhere# AND 1=2">
@@ -510,6 +513,7 @@
 				</cfif>
 			</cfif>
 		</h3>
+
 		<cfquery name="pubs" dbtype="query">
 			SELECT
 				publication_id,
