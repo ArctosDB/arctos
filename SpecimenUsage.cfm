@@ -282,16 +282,16 @@
 			publication.doi,
 			publication.pmid,
 			count(distinct(citation.collection_object_id)) numCits,
-			getPreferredAgentName(publication_agent.AGENT_ID) authn">
+			getPreferredAgentName(pauth.AGENT_ID) authn">
 		<cfset basFrom = "
 			FROM
 			publication,
 			citation,
-			publication_agent">
+			publication_agent pauth">
 		<cfset basWhere = "
 			WHERE
 				publication.publication_id = citation.publication_id (+) and
-				publication.publication_id = publication_agent.publication_id (+)
+				publication.publication_id = pauth.publication_id (+)
 				">
 		<cfif (isdefined("project_type") AND len(project_type) gt 0)>
 			<cfset basWhere = "#basWhere# AND 1=2">
@@ -357,14 +357,14 @@
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
 			<cfset go="yes">
-			<cfset author = #replace(author,"'","''","all")#>
-			<cfif basFrom does not contain "publication_agent">
-				<cfset basFrom = "#basFrom#,publication_agent">
-				<cfset basWhere = "#basWhere# AND publication.publication_id = publication_agent.publication_id">
+			<cfset author = replace(author,"'","''","all")>
+			<cfif basFrom does not contain "pubAgentSrch">
+				<cfset basFrom = "#basFrom#,publication_agent pubAgentSrch">
+				<cfset basWhere = "#basWhere# AND publication.publication_id = pubAgentSrch.publication_id">
 			</cfif>
 			<cfif basFrom does not contain "agent_name">
 				<cfset basFrom = "#basFrom#,agent_name">
-				<cfset basWhere = "#basWhere# AND publication_agent.agent_id=agent_name.agent_id">
+				<cfset basWhere = "#basWhere# AND pubAgentSrch.agent_id=agent_name.agent_id">
 			</cfif>
 			<cfset basWhere = "#basWhere# AND UPPER(agent_name.agent_name) LIKE '%#ucase(author)#%'">
 		</cfif>
@@ -424,7 +424,7 @@
 				publication.doi,
 				publication.pmid,
 				publication.publication_remarks,
-				getPreferredAgentName(publication_agent.AGENT_ID)
+				getPreferredAgentName(pauth.AGENT_ID)
 			ORDER BY
 				publication.full_citation,
 				publication.publication_id">
