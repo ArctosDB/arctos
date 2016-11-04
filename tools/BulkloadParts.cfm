@@ -725,6 +725,62 @@ validate
 		Big load? Use this:
 
 
+begin
+	for r in (select * from cf_temp_parts where username='DLM') loop
+		INSERT INTO coll_object (
+				COLLECTION_OBJECT_ID,
+				COLL_OBJECT_TYPE,
+				ENTERED_PERSON_ID,
+				COLL_OBJECT_ENTERED_DATE,
+				LAST_EDITED_PERSON_ID,
+				COLL_OBJ_DISPOSITION,
+				LOT_COUNT,
+				CONDITION,
+				FLAGS )
+			VALUES (
+				sq_collection_object_id.nextval,
+				'SP',
+				2072,
+				sysdate,
+				2072,
+				r.DISPOSITION,
+				r.LOT_COUNT,
+				r.CONDITION,
+				0 
+		);
+
+		INSERT INTO specimen_part (
+				COLLECTION_OBJECT_ID,
+				PART_NAME,
+				DERIVED_FROM_cat_item 
+			) VALUES (
+				sq_collection_object_id.currval,
+				r.PART_NAME,
+				r.collection_object_id
+			);
+
+		if r.REMARKS is not null then
+				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+				VALUES (sq_collection_object_id.currval, r.REMARKS)
+				;
+		end if;
+		if r.PART_ATTRIBUTE_TYPE_1 is not null and r.PART_ATTRIBUTE_VALUE_1 is not null then
+			insert into specimen_part_attribute (
+				PART_ATTRIBUTE_ID,
+				COLLECTION_OBJECT_ID,
+				ATTRIBUTE_TYPE,
+				ATTRIBUTE_VALUE
+			) values (
+				sq_PART_ATTRIBUTE_ID.nextval,
+				sq_collection_object_id.currval,
+				r.PART_ATTRIBUTE_TYPE_1,
+				r.PART_ATTRIBUTE_VALUE_1
+			);
+		end if;
+	end loop;
+end;
+/
+
 
 
 	---->
