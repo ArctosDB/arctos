@@ -462,30 +462,14 @@
 					ORDER BY
 						agent_position
 				</cfquery>
-				<cfquery name="thisSponsor" dbtype="query">
-					SELECT
-						PROJECT_AGENT_REMARKS,
-						agent_name
-					FROM
-						projects
-					WHERE
-						project_id = #project_id# and
-						PROJECT_AGENT_ROLE='Sponsor'
-					GROUP BY
-						PROJECT_AGENT_REMARKS,
-						agent_name
-					ORDER BY
-						agent_name
-				</cfquery>
+
 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<a href="/ProjectDetail.cfm?project_id=#project_id#">
 						<div class="indent">
 						#project_name#
 						</div>
 					</a>
-					<cfloop query="thisSponsor">
-						Sponsored by #agent_name# <cfif len(PROJECT_AGENT_REMARKS) gt 0>: #PROJECT_AGENT_REMARKS#</cfif><br>
-					</cfloop>
+
 					<cfloop query="thisAuth">
 						#agent_name# (#project_agent_role#)<br>
 					</cfloop>
