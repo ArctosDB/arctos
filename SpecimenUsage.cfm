@@ -149,8 +149,8 @@
 						project.end_date,
 						getPreferredAgentName(parslt.agent_id) agent_name,
 						PROJECT_AGENT_REMARKS,
-						project_agent_role,
-						agent_position">
+						parslt.project_agent_role,
+						parslt.agent_position">
 		<cfset frm="
 					FROM
 						project,
