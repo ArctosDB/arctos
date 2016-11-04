@@ -584,9 +584,9 @@
 						</cfif>
 					</cfif>
 					<cfquery name="pauths" dbtype="query">
-						select authn from publication group by authn order by authn
+						select authn from publication where publication_id=#publication_id# group by authn order by authn
 					</cfquery>
-					<cfdump var=#authn#>
+					<cfdump var=#pauths#>
 
 
 					<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
