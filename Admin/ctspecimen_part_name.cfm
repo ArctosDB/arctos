@@ -122,6 +122,40 @@
 				<th>IsTissue</th>
 				<th>Description</th>
 			</tr>
+			<cfquery name="pname" dbtype="query">
+				select part_name from q group by part_name order by part_name
+			</cfquery>
+			<cfloop query="pname">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<cfquery name="pd" dbtype="query">
+						select * from q where part_name='#part_name#' order by collection_cde
+					</cfquery>
+					<td>
+						<cfloop query="">
+							<div>
+								#collection_cde#
+							</div>
+						</cfloop>
+					</td>
+					<td>
+						#part_name#
+					</td>
+					<td>
+						<cfquery name="ist" dbtype="query">
+							select is_tissue from pd group by is_tissue
+						</cfquery>
+						<cfif ist.recordcount gt 0>
+							is tissue inconsistency!!!
+						<cfelse>
+							#ist.is_tissue#
+
+						</cfif>
+
+					</td>
+				</tr>
+			</cfloop>
+
+			<!----
 			<cfloop query="q">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="r#ctspnid#">
 					<td>#collection_cde#</td>
@@ -135,6 +169,7 @@
 				</tr>
 				<cfset i = #i#+1>
 			</cfloop>
+			---->
 		</table>
 	</cfoutput>
 </cfif>
