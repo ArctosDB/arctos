@@ -451,14 +451,16 @@
 				<cfquery name="thisAuth" dbtype="query">
 					SELECT
 						agent_name,
-						project_agent_role
+						project_agent_role,
+						PROJECT_AGENT_REMARKS
 					FROM
 						projects
 					WHERE
 						project_id = #project_id#
 					GROUP BY
 						agent_name,
-						project_agent_role
+						project_agent_role,
+						PROJECT_AGENT_REMARKS
 					ORDER BY
 						agent_position
 				</cfquery>
@@ -471,7 +473,10 @@
 					</a>
 
 					<cfloop query="thisAuth">
-						#agent_name# (#project_agent_role#)<br>
+						<div>
+							#agent_name# (#project_agent_role#)
+							<div>#PROJECT_AGENT_REMARKS#</div>
+						</div>
 					</cfloop>
 					#dateformat(start_date,"yyyy-mm-dd")# - #dateformat(end_date,"yyyy-mm-dd")#
 					<br><a href="javascript: openAnnotation('project_id=#project_id#')">Report Problem</a>
