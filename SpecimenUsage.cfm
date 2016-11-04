@@ -584,7 +584,7 @@
 						</cfif>
 					</cfif>
 					<cfquery name="pauths" dbtype="query">
-						select authn from publication where publication_id=#publication_id# group by authn order by authn
+						select authn from publication where authn is not null and publication_id=#publication_id# group by authn order by authn
 					</cfquery>
 
 					<cfif pauths.recordcount gt 0>
