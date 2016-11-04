@@ -423,7 +423,8 @@
 				publication.full_citation,
 				publication.doi,
 				publication.pmid,
-				publication.publication_remarks
+				publication.publication_remarks,
+				getPreferredAgentName(publication_agent.AGENT_ID)
 			ORDER BY
 				publication.full_citation,
 				publication.publication_id">
