@@ -583,6 +583,12 @@
 							<li><a href="/Project.cfm?action=addPub&publication_id=#publication_id#&project_id=#toproject_id#">Add to Project</a></li>
 						</cfif>
 					</cfif>
+					<cfquery name="pauths" dbtype="query">
+						select authn from publication group by authn order by authn
+					</cfquery>
+					<cfdump var=#authn#>
+
+
 					<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
 							media.media_id,
