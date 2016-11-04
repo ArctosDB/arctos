@@ -432,8 +432,6 @@
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (#preservesinglequotes(basSQL)#) where rownum<=#maxNumberOfRows#
 		</cfquery>
-
-		<cfdump var=#publication#>
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 			<a href="/Reports/SpecUsageReport.cfm?project_id=#valuelist(projects.project_id)#&publication_id=#valuelist(publication.publication_id)#">Create Report Data</a>
 		</cfif>
