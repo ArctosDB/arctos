@@ -151,7 +151,7 @@
 	---->
 	<cfloop query="a">
 		<div class="proj_agent">
-			#agent_name#: #project_agent_role#<cfif len(project_agent_remarks) gt 0> (#project_agent_remarks#)</cfif>
+			<a target="_blank" href="/agent.cfm?agent_name=#agent_name#">#agent_name#</a>: #project_agent_role#<cfif len(project_agent_remarks) gt 0> (#project_agent_remarks#)</cfif>
 		</div>
 	</cfloop>
 	<div class="cdiv">
