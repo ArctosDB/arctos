@@ -144,7 +144,7 @@
 						<cfquery name="ist" dbtype="query">
 							select is_tissue from pd group by is_tissue
 						</cfquery>
-						<cfif ist.recordcount gt 0>
+						<cfif ist.recordcount gt 1>
 							is tissue inconsistency!!!
 							<cfdump var=#ist#>
 						<cfelse>
