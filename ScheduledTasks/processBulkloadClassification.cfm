@@ -118,8 +118,6 @@ run these in order
 				</cfloop>
 
 
-			</cfif>
-
 
 
 
@@ -191,6 +189,8 @@ run these in order
 					where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
 				</cfquery>
 
+
+			</cfif>
 
 		</cfloop>
 	</cfoutput>
