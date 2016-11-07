@@ -116,7 +116,6 @@ run these in order
 					</p>
 
 
-					<cfabort>
 
 						<!----
 
@@ -133,7 +132,12 @@ run these in order
 					</cfloop>
 					---->
 					<cfset sql=sql & ")">
+					<cfset sql=replace(sql,"values (,'","values ('")>
 					#preserveSingleQuotes(sql)#
+
+
+
+					<cfabort>
 
 					<!-----------
 					<cftry>
