@@ -78,6 +78,11 @@ run these in order
 				<cfquery name="otherstuff" datasource="uam_god">
 					select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
 				</cfquery>
+
+
+				<cfdump var=#otherstuff#>
+
+
 				<cfset problem="">
 				<cfquery name="oneclass" datasource="uam_god">
 					select
