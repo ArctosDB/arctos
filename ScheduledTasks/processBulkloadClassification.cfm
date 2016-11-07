@@ -104,7 +104,7 @@ run these in order
 					<cfset pos=0>
 					<cfloop list="#knowncols#" index="c">
 						<cfquery name="thisv" dbtype="query">
-							select term from oneclass where ucase(TERM_TYPE)='#ucase(c)#'
+							select term from oneclass where TERM_TYPE='#lcase(c)#'
 						</cfquery>
 
 						<cfdump var=#thisv#>
