@@ -536,10 +536,7 @@ run these in order
 <cfif action is "load">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from CF_TEMP_CLASSIFICATION where status='ready_to_load'
-				and taxon_name_id is not null
-				and classification_id is not null
-				and rownum<10
+			select * from CF_TEMP_CLASSIFICATION where status='ready_to_load' and rownum<10
 		</cfquery>
 		<cfquery name="CTTAXON_TERM" datasource="uam_god">
 			select * from CTTAXON_TERM
@@ -564,8 +561,12 @@ run these in order
 					<cfset thisClassificationID=CreateUUID()>
 				<cfelse>
 					<cfset thisClassificationID=classification_id>
+					<cfquery name="delUnused" datasource="uam_god">
+						delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
+					</cfquery>
+					<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
 				</cfif>
-				<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
+
 
 				<cfloop list="#noclassterms#" index="thisTermType">
 					<cfset thisTermVal=evaluate("d." & thisTermType)>
@@ -596,8 +597,6 @@ run these in order
 						</cfquery>
 					</cfif>
 				</cfloop>
-
-
 				<cfset thisPosn=1>
 
 				<cfloop list="#classificationTerms#" index="thisTermType">
@@ -609,6 +608,11 @@ run these in order
 						<cfif thisTermType is "subsp">
 						<cfset thisTermType= thisTermType & '.'>
 						<br>issubsp
+					</cfif>
+
+
+					<cfif thisTermType is "phylorder">
+						<cfset thisTermType="order">
 					</cfif>
 					<br>
 					<cfquery name="inscterm" datasource="uam_god">
