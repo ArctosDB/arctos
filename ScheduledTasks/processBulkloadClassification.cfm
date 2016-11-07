@@ -65,109 +65,113 @@ run these in order
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
-			<p>#scientific_name#</p>
-			<!--- see if there's anything worth having ---->
-			<cfquery name="otherstuff" datasource="uam_god">
-				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
-			</cfquery>
-			<cfif otherstuff.recordcount lt 1>
-				<cfquery name="nope" datasource="uam_god">
-					update CF_TEMP_CLASSIFICATION2 set status='nothingfound' where scientific_name='#scientific_name#'
-				</cfquery>
-			<cfelse>
-				<!---- pull everything we can ---->
+
+			<cftransaction>
+				<p>#scientific_name#</p>
+				<!--- see if there's anything worth having ---->
 				<cfquery name="otherstuff" datasource="uam_god">
 					select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
 				</cfquery>
-				<cfloop query="otherstuff">
-					<cfset problem="">
-					<cfquery name="oneclass" datasource="uam_god">
-						select
-							taxon_name.scientific_name,
-							taxon_term.CLASSIFICATION_ID,
-							taxon_term.TERM_TYPE,
-							taxon_term.term
-						from
-							taxon_name,
-							taxon_term
-						where
-							taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-							taxon_term.source='Arctos Plants' and
-							taxon_name.taxon_name_id=#taxon_name_id#
+				<cfif otherstuff.recordcount lt 1>
+					<cfquery name="nope" datasource="uam_god">
+						update CF_TEMP_CLASSIFICATION2 set status='nothingfound' where scientific_name='#scientific_name#'
 					</cfquery>
-
-
-
-
-					<cfset sql="insert into CF_TEMP_CLASSIFICATION2 (#knowncols#) values (">
-					<cfset pos=0>
-					<cfloop list="#knowncols#" index="c">
-						<cfquery name="thisv" dbtype="query">
-							select term from oneclass where TERM_TYPE='#lcase(c)#'
+				<cfelse>
+					<!---- pull everything we can ---->
+					<cfquery name="otherstuff" datasource="uam_god">
+						select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
+					</cfquery>
+					<cfloop query="otherstuff">
+						<cfset problem="">
+						<cfquery name="oneclass" datasource="uam_god">
+							select
+								taxon_name.scientific_name,
+								taxon_term.CLASSIFICATION_ID,
+								taxon_term.TERM_TYPE,
+								taxon_term.term
+							from
+								taxon_name,
+								taxon_term
+							where
+								taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+								taxon_term.source='Arctos Plants' and
+								taxon_name.taxon_name_id=#taxon_name_id#
 						</cfquery>
 
-						<cfset sql="#sql#,'#escapeQuotes(thisv.term)#'">
+
+
+
+						<cfset sql="insert into CF_TEMP_CLASSIFICATION2 (#knowncols#) values (">
+						<cfset pos=0>
+						<cfloop list="#knowncols#" index="c">
+							<cfquery name="thisv" dbtype="query">
+								select term from oneclass where TERM_TYPE='#lcase(c)#'
+							</cfquery>
+
+							<cfset sql="#sql#,'#escapeQuotes(thisv.term)#'">
+						</cfloop>
+
+
+
+
+							<!----
+
+							<cfset thisval=evaluate("nd." & c)>
+							<cfif len(thisval) gt 0>
+								<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
+							<cfelse>
+								<cfset sql=sql & "NULL">
+							</cfif>
+							<cfset pos=pos+1>
+							<cfif pos lt numberOfColumns>
+								<cfset sql=sql & ",">
+							</cfif>
+						</cfloop>
+						---->
+						<cfset sql=sql & ")">
+						<cfset sql=replace(sql,"values (,'","values ('")>
+						#preserveSingleQuotes(sql)#
+
+						<cftry>
+							<cfquery name="insertone" datasource="uam_god">
+								#preserveSingleQuotes(sql)#
+							</cfquery>
+							<cfcatch>
+								<p>Something bad happened with this:</p>
+								<br>#sql#
+								<br>#cfcatch.detail#
+							</cfcatch>
+						</cftry>
+
+
+						<!-----------
+						<cftry>
+							<cfquery name="insertone" datasource="uam_god">
+								#preserveSingleQuotes(sql)#
+							</cfquery>
+							<cfcatch>
+								<p>Something bad happened with this:</p>
+								<br>#sql#
+								<br>#cfcatch.detail#
+							</cfcatch>
+						</cftry>
+
+						------------>
+
+
+
+
 					</cfloop>
 
+				</cfif>
 
-
-
-						<!----
-
-						<cfset thisval=evaluate("nd." & c)>
-						<cfif len(thisval) gt 0>
-							<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
-						<cfelse>
-							<cfset sql=sql & "NULL">
-						</cfif>
-						<cfset pos=pos+1>
-						<cfif pos lt numberOfColumns>
-							<cfset sql=sql & ",">
-						</cfif>
-					</cfloop>
-					---->
-					<cfset sql=sql & ")">
-					<cfset sql=replace(sql,"values (,'","values ('")>
-					#preserveSingleQuotes(sql)#
-
-					<cftry>
-						<cfquery name="insertone" datasource="uam_god">
-							#preserveSingleQuotes(sql)#
-						</cfquery>
-						<cfcatch>
-							<p>Something bad happened with this:</p>
-							<br>#sql#
-							<br>#cfcatch.detail#
-						</cfcatch>
-					</cftry>
-
-
-					<!-----------
-					<cftry>
-						<cfquery name="insertone" datasource="uam_god">
-							#preserveSingleQuotes(sql)#
-						</cfquery>
-						<cfcatch>
-							<p>Something bad happened with this:</p>
-							<br>#sql#
-							<br>#cfcatch.detail#
-						</cfcatch>
-					</cftry>
-
-					------------>
-
-
-
-
-				</cfloop>
-
-			</cfif>
-
+				<cfquery name="gotit" datasource="uam_god">
+					update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
+					where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
+				</cfquery>
+			</cftransaction>
 		</cfloop>
-		<cfquery name="gotit" datasource="uam_god">
-				update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
-				where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
-			</cfquery>
+
 	</cfoutput>
 </cfif>
 
