@@ -561,8 +561,12 @@ run these in order
 					<cfset thisClassificationID=CreateUUID()>
 				<cfelse>
 					<cfset thisClassificationID=classification_id>
+					<cfquery name="delUnused" datasource="uam_god">
+						delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
+					</cfquery>
+					<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
 				</cfif>
-				<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
+
 
 				<cfloop list="#noclassterms#" index="thisTermType">
 					<cfset thisTermVal=evaluate("d." & thisTermType)>

@@ -150,9 +150,18 @@
 							<cfdump var=#ist#>
 						<cfelse>
 							#ist.is_tissue#
-
 						</cfif>
-
+					</td>
+					<td>
+						<cfquery name="dsc" dbtype="query">
+							select description from pd group by description
+						</cfquery>
+						<cfif dsc.description gt 1>
+							description inconsistency!!!
+							<cfdump var=#dsc#>
+						<cfelse>
+							#ist.description#
+						</cfif>
 					</td>
 				</tr>
 			</cfloop>
