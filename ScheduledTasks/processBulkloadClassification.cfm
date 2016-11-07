@@ -115,6 +115,9 @@ run these in order
 					#sql#
 					</p>
 
+
+					<cfabort>
+
 						<!----
 
 						<cfset thisval=evaluate("nd." & c)>
