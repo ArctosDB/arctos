@@ -97,7 +97,6 @@ run these in order
 					</cfquery>
 
 
-					<cfdump var=#oneclass#>
 
 
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION2 (#knowncols#) values (">
@@ -107,7 +106,6 @@ run these in order
 							select term from oneclass where TERM_TYPE='#lcase(c)#'
 						</cfquery>
 
-						<cfdump var=#thisv#>
 						<cfset sql="#sql#,'#escapeQuotes(thisv.term)#'">
 					</cfloop>
 
@@ -146,7 +144,6 @@ run these in order
 						</cfcatch>
 					</cftry>
 
-					<cfabort>
 
 					<!-----------
 					<cftry>
