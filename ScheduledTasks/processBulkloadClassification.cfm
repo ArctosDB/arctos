@@ -109,9 +109,6 @@ run these in order
 						<cfset sql="#sql#,'#escapeQuotes(thisv.term)#'">
 					</cfloop>
 
-					<p>
-					#sql#
-					</p>
 
 
 
