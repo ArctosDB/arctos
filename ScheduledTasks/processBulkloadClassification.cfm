@@ -57,6 +57,9 @@ run these in order
 		<cfset knowncols=valuelist(dbcols.column_name)>
 		<cfset stuffToReplace="AUTHOR_TEXT,SOURCE_AUTHORITY,VALID_CATALOG_TERM_FG,TAXON_STATUS,REMARK,DISPLAY_NAME,SUBGENUS,SPECIES,SUBSPECIES">
 		<cfset numberOfColumns=listlen(knowncols)>
+
+
+
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION2 where
 			status='seed genus'
@@ -75,63 +78,11 @@ run these in order
 				</cfquery>
 			<cfelse>
 				<!---- pull everything we can ---->
-				<cfquery name="otherstuff" datasource="uam_god">
-					select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
-				</cfquery>
 
 
-				<cfdump var=#otherstuff#>
 
 
-				<cfset problem="">
-				<cfquery name="oneclass" datasource="uam_god">
-					select
-						taxon_name.scientific_name,
-						taxon_term.CLASSIFICATION_ID,
-						taxon_term.TERM_TYPE,
-						taxon_term.term
-					from
-						taxon_name,
-						taxon_term
-					where
-						taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-						taxon_term.source='Arctos Plants' and
-						taxon_name.taxon_name_id=#taxon_name_id#
-				</cfquery>
-				<cfloop list='#stuffToReplace#' index="x">
-					<cfset temp=QuerySetCell(nd, x, "")>
-				</cfloop>
-				<cfloop query="oneclass">
-					<cfif term_type is "order">
-						<cfset ttt="phylorder">
-					<cfelse>
-						<cfset ttt=term_type>
-					</cfif>
-					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,ttt)>
-						<cfif len(ttt) is 0>
-							<cfset clmn='[NULL]'>
-						<cfelse>
-							<cfset clmn=ttt>
-						</cfif>
-						<cfset problem=listappend(problem,'#clmn# is not a known column',';')>
-					</cfif>
-					<cfset this_TERM_TYPE=ttt>
-					<cfset this_term=TERM>
 
-					<cfif listfindnocase(stuffToReplace,ttt)>
-						<cfset temp=QuerySetCell(nd, ttt, this_term)>
-					</cfif>
-				</cfloop>
-
-				<cfset updatedOrig=false>
-				<cftransaction>
-				<!--- build a query object from this row of the existing data --->
-				<cfset nd=queryNew(knowncols)>
-				<cfset temp=queryAddRow(nd,1)>
-				<cfloop list="#knowncols#" index="c">
-					<cfset thisval=evaluate(c)>
-					<cfset temp=QuerySetCell(nd, c, thisval)>
-				</cfloop>
 				<cfquery name="otherstuff" datasource="uam_god">
 					select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
 				</cfquery>
@@ -182,6 +133,8 @@ run these in order
 						</cftry>
 
 					</cfif>
+
+
 					<cfquery name="gotit" datasource="uam_god">
 						update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
 						where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
