@@ -125,14 +125,14 @@ run these in order
 								<br>#sql#
 								<br>#cfcatch.detail#
 								<cfquery name="gotit" datasource="uam_god">
-									update CF_TEMP_CLASSIFICATION set status = 'something_wonky_happened'
+									update CF_TEMP_CLASSIFICATION2 set status = 'something_wonky_happened'
 									where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
 								</cfquery>
 							</cfcatch>
 						</cftry>
 					</cfloop>
 					<cfquery name="gotit" datasource="uam_god">
-						update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
+						update CF_TEMP_CLASSIFICATION2 set status = 'got_something_maybe'
 						where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
 					</cfquery>
 				</cfif>
