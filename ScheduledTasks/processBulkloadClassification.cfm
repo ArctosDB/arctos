@@ -17,6 +17,190 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
+
+<p>
+	Magic tools
+
+	<br><a href="processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus_nosource">fill_in_the_blanks_from_genus_nosource</a>
+
+</p>
+<!-------------------------------------------->
+<cfif action is "fill_in_the_blanks_from_genus_nosource">
+
+<!----
+	Stuff we want hiding out as plants
+
+	Get it, go from there
+
+
+---->
+<cfif not isdefined ("escapequotes")>
+	<cfinclude template="/includes/functionLib.cfm">
+</cfif>
+	<!---
+		grab genus (lowest term in supplied data)
+		find everything "below" that uses the same string
+		copy genus record with additional species/subspecies
+	---->
+	<cfoutput>
+		<!--- globals ---->
+		<cfquery name="dbcols" datasource="uam_god">
+			select
+				column_name
+			from
+				user_tab_cols
+			where
+				upper(table_name)='CF_TEMP_CLASSIFICATION' and
+				lower(column_name) not in ('taxon_name_id','classification_id')
+			ORDER BY INTERNAL_COLUMN_ID
+		</cfquery>
+		<cfset knowncols=valuelist(dbcols.column_name)>
+		<cfset stuffToReplace="AUTHOR_TEXT,SOURCE_AUTHORITY,VALID_CATALOG_TERM_FG,TAXON_STATUS,REMARK,DISPLAY_NAME,SUBGENUS,SPECIES,SUBSPECIES">
+		<cfset numberOfColumns=listlen(knowncols)>
+		<cfquery name="d" datasource="uam_god">
+			select * from CF_TEMP_CLASSIFICATION2 where
+			status='seed genus'
+			and rownum<101
+		</cfquery>
+		<!---- /globals --->
+		<cfloop query="d">
+			<!--- see if there's anything worth having ---->
+			<cfquery name="otherstuff" datasource="uam_god">
+				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
+			</cfquery>
+			<cfif otherstuff.recordcount lt 1>
+				<cfquery name="nope" datasource="uam_god">
+					update CF_TEMP_CLASSIFICATION2 set status='nothingfound' where scientific_name='#scientific_name#'
+				</cfquery>
+			<cfelse>
+				<!---- pull everything we can ---->
+				<cfquery name="otherstuff" datasource="uam_god">
+					select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
+				</cfquery>
+				<cfset problem="">
+				<cfquery name="oneclass" datasource="uam_god">
+					select
+						taxon_name.scientific_name,
+						taxon_term.CLASSIFICATION_ID,
+						taxon_term.TERM_TYPE,
+						taxon_term.term
+					from
+						taxon_name,
+						taxon_term
+					where
+						taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+						taxon_term.source='Arctos Plants' and
+						taxon_name.taxon_name_id=#taxon_name_id#
+				</cfquery>
+				<cfloop list='#stuffToReplace#' index="x">
+					<cfset temp=QuerySetCell(nd, x, "")>
+				</cfloop>
+				<cfloop query="oneclass">
+					<cfif term_type is "order">
+						<cfset ttt="phylorder">
+					<cfelse>
+						<cfset ttt=term_type>
+					</cfif>
+					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,ttt)>
+						<cfif len(ttt) is 0>
+							<cfset clmn='[NULL]'>
+						<cfelse>
+							<cfset clmn=ttt>
+						</cfif>
+						<cfset problem=listappend(problem,'#clmn# is not a known column',';')>
+					</cfif>
+					<cfset this_TERM_TYPE=ttt>
+					<cfset this_term=TERM>
+
+					<cfif listfindnocase(stuffToReplace,ttt)>
+						<cfset temp=QuerySetCell(nd, ttt, this_term)>
+					</cfif>
+				</cfloop>
+
+
+			</cfif>
+
+
+
+
+
+
+
+
+			<cfset updatedOrig=false>
+			<cftransaction>
+			<!--- build a query object from this row of the existing data --->
+			<cfset nd=queryNew(knowncols)>
+			<cfset temp=queryAddRow(nd,1)>
+			<cfloop list="#knowncols#" index="c">
+				<cfset thisval=evaluate(c)>
+				<cfset temp=QuerySetCell(nd, c, thisval)>
+			</cfloop>
+			<cfquery name="otherstuff" datasource="uam_god">
+				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
+			</cfquery>
+			<cfloop query="otherstuff">
+				<cfset problem="">
+				<cfquery name="oneclass" datasource="uam_god">
+					select
+						taxon_name.scientific_name,
+						taxon_term.CLASSIFICATION_ID,
+						taxon_term.TERM_TYPE,
+						taxon_term.term
+					from
+						taxon_name,
+						taxon_term
+					where
+						taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+						taxon_term.source='Arctos' and
+						taxon_name.taxon_name_id=#taxon_name_id#
+				</cfquery>
+				<!----reset the stuff that we're changing in the query---->
+				<cfif len(nd.species) gt 0>
+					<cfset problem=listprepend(problem,'autoinsert',':')>
+					<cfset temp=QuerySetCell(nd, "status", problem)>
+					<cfset sql="insert into CF_TEMP_CLASSIFICATION2 (#knowncols#) values (">
+					<cfset pos=0>
+					<cfloop list="#knowncols#" index="c">
+						<cfset thisval=evaluate("nd." & c)>
+						<cfif len(thisval) gt 0>
+							<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
+						<cfelse>
+							<cfset sql=sql & "NULL">
+						</cfif>
+						<cfset pos=pos+1>
+						<cfif pos lt numberOfColumns>
+							<cfset sql=sql & ",">
+						</cfif>
+					</cfloop>
+					<cfset sql=sql & ")">
+					<cftry>
+					<cfquery name="insertone" datasource="uam_god">
+						#preserveSingleQuotes(sql)#
+					</cfquery>
+					<cfcatch>
+						<p>Something bad happened with this:</p>
+						<br>#sql#
+						<br>#cfcatch.detail#
+					</cfcatch>
+					</cftry>
+
+				</cfif>
+				<cfquery name="gotit" datasource="uam_god">
+					update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
+					where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
+				</cfquery>
+
+
+		</cfloop>
+	</cfoutput>
+</cfif>
+
+
+
+
+
+
 <!---------------------------------------------------------->
 <cfif action is "doEverything">
 <cfoutput>
