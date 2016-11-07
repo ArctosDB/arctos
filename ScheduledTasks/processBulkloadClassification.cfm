@@ -103,6 +103,18 @@ run these in order
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION2 (#knowncols#) values (">
 					<cfset pos=0>
 					<cfloop list="#knowncols#" index="c">
+						<cfquery name="thisv" dbtype="query">
+							select term from oneclass where TERM_TYPE='#c#'
+						</cfquery>
+						<cfset sql="#sql#,'#escapeQuotes(thisv.term)#'">
+					</cfloop>
+
+					<p>
+					#sql#
+					</p>
+
+						<!----
+
 						<cfset thisval=evaluate("nd." & c)>
 						<cfif len(thisval) gt 0>
 							<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
@@ -114,6 +126,7 @@ run these in order
 							<cfset sql=sql & ",">
 						</cfif>
 					</cfloop>
+					---->
 					<cfset sql=sql & ")">
 					#preserveSingleQuotes(sql)#
 
