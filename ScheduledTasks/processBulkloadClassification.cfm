@@ -131,11 +131,11 @@ run these in order
 							</cfcatch>
 						</cftry>
 					</cfloop>
+					<cfquery name="gotit" datasource="uam_god">
+						update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
+						where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
+					</cfquery>
 				</cfif>
-				<cfquery name="gotit" datasource="uam_god">
-					update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
-					where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
-				</cfquery>
 			</cftransaction>
 		</cfloop>
 
