@@ -27,16 +27,16 @@ run these in order
 <!-------------------------------------------->
 <cfif action is "fill_in_the_blanks_from_genus_nosource">
 
-<!----
-	Stuff we want hiding out as plants
+	<!----
+		Stuff we want hiding out as plants
 
-	Get it, go from there
+		Get it, go from there
 
 
----->
-<cfif not isdefined ("escapequotes")>
-	<cfinclude template="/includes/functionLib.cfm">
-</cfif>
+	---->
+	<cfif not isdefined ("escapequotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
 	<!---
 		grab genus (lowest term in supplied data)
 		find everything "below" that uses the same string
@@ -110,24 +110,6 @@ run these in order
 
 							<cfset sql="#sql#,'#escapeQuotes(thisv.term)#'">
 						</cfloop>
-
-
-
-
-							<!----
-
-							<cfset thisval=evaluate("nd." & c)>
-							<cfif len(thisval) gt 0>
-								<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
-							<cfelse>
-								<cfset sql=sql & "NULL">
-							</cfif>
-							<cfset pos=pos+1>
-							<cfif pos lt numberOfColumns>
-								<cfset sql=sql & ",">
-							</cfif>
-						</cfloop>
-						---->
 						<cfset sql=sql & ")">
 						<cfset sql=replace(sql,"values (,'","values ('")>
 						#preserveSingleQuotes(sql)#
@@ -140,31 +122,14 @@ run these in order
 								<p>Something bad happened with this:</p>
 								<br>#sql#
 								<br>#cfcatch.detail#
+								<cfquery name="gotit" datasource="uam_god">
+									update CF_TEMP_CLASSIFICATION set status = 'something_wonky_happened'
+									where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
+								</cfquery>
 							</cfcatch>
 						</cftry>
-
-
-						<!-----------
-						<cftry>
-							<cfquery name="insertone" datasource="uam_god">
-								#preserveSingleQuotes(sql)#
-							</cfquery>
-							<cfcatch>
-								<p>Something bad happened with this:</p>
-								<br>#sql#
-								<br>#cfcatch.detail#
-							</cfcatch>
-						</cftry>
-
-						------------>
-
-
-
-
 					</cfloop>
-
 				</cfif>
-
 				<cfquery name="gotit" datasource="uam_god">
 					update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
 					where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
