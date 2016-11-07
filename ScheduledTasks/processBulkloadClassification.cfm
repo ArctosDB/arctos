@@ -58,8 +58,6 @@ run these in order
 		<cfset stuffToReplace="AUTHOR_TEXT,SOURCE_AUTHORITY,VALID_CATALOG_TERM_FG,TAXON_STATUS,REMARK,DISPLAY_NAME,SUBGENUS,SPECIES,SUBSPECIES">
 		<cfset numberOfColumns=listlen(knowncols)>
 
-
-
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION2 where
 			status='seed genus'
@@ -78,11 +76,6 @@ run these in order
 				</cfquery>
 			<cfelse>
 				<!---- pull everything we can ---->
-
-
-
-
-
 				<cfquery name="otherstuff" datasource="uam_god">
 					select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
 				</cfquery>
@@ -102,6 +95,11 @@ run these in order
 							taxon_term.source='Arctos' and
 							taxon_name.taxon_name_id=#taxon_name_id#
 					</cfquery>
+
+
+					<cfdump var=#oneclass#>
+
+
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION2 (#knowncols#) values (">
 					<cfset pos=0>
 					<cfloop list="#knowncols#" index="c">
@@ -117,6 +115,9 @@ run these in order
 						</cfif>
 					</cfloop>
 					<cfset sql=sql & ")">
+					#preserveSingleQuotes(sql)#
+
+					<!-----------
 					<cftry>
 						<cfquery name="insertone" datasource="uam_god">
 							#preserveSingleQuotes(sql)#
@@ -127,6 +128,8 @@ run these in order
 							<br>#cfcatch.detail#
 						</cfcatch>
 					</cftry>
+
+					------------>
 
 
 
