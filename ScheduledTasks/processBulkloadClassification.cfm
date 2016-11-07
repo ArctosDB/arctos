@@ -68,6 +68,7 @@ run these in order
 
 			<cftransaction>
 				<p>#scientific_name#</p>
+				<cfflush>
 				<!--- see if there's anything worth having ---->
 				<cfquery name="otherstuff" datasource="uam_god">
 					select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos Plants'
@@ -113,6 +114,7 @@ run these in order
 						<cfset sql=sql & ")">
 						<cfset sql=replace(sql,"values (,'","values ('")>
 						#preserveSingleQuotes(sql)#
+						<cfflush>
 
 						<cftry>
 							<cfquery name="insertone" datasource="uam_god">
