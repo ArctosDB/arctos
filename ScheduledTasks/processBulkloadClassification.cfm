@@ -135,7 +135,16 @@ run these in order
 					<cfset sql=replace(sql,"values (,'","values ('")>
 					#preserveSingleQuotes(sql)#
 
-
+					<cftry>
+						<cfquery name="insertone" datasource="uam_god">
+							#preserveSingleQuotes(sql)#
+						</cfquery>
+						<cfcatch>
+							<p>Something bad happened with this:</p>
+							<br>#sql#
+							<br>#cfcatch.detail#
+						</cfcatch>
+					</cftry>
 
 					<cfabort>
 
