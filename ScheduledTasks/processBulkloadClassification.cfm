@@ -106,6 +106,8 @@ run these in order
 						<cfquery name="thisv" dbtype="query">
 							select term from oneclass where TERM_TYPE='#c#'
 						</cfquery>
+
+						<cfdump var=#thisv#>
 						<cfset sql="#sql#,'#escapeQuotes(thisv.term)#'">
 					</cfloop>
 
