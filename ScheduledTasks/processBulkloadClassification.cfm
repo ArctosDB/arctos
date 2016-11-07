@@ -61,7 +61,7 @@ run these in order
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION2 where
 			status='seed genus'
-			and rownum<10
+			and rownum<101
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
