@@ -92,7 +92,7 @@ run these in order
 							taxon_term
 						where
 							taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-							taxon_term.source='Arctos' and
+							taxon_term.source='Arctos Plants' and
 							taxon_name.taxon_name_id=#taxon_name_id#
 					</cfquery>
 
