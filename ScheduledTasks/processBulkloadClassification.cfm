@@ -102,26 +102,22 @@ run these in order
 							taxon_term.source='Arctos' and
 							taxon_name.taxon_name_id=#taxon_name_id#
 					</cfquery>
-					<!----reset the stuff that we're changing in the query---->
-					<cfif len(nd.species) gt 0>
-						<cfset problem=listprepend(problem,'autoinsert',':')>
-						<cfset temp=QuerySetCell(nd, "status", problem)>
-						<cfset sql="insert into CF_TEMP_CLASSIFICATION2 (#knowncols#) values (">
-						<cfset pos=0>
-						<cfloop list="#knowncols#" index="c">
-							<cfset thisval=evaluate("nd." & c)>
-							<cfif len(thisval) gt 0>
-								<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
-							<cfelse>
-								<cfset sql=sql & "NULL">
-							</cfif>
-							<cfset pos=pos+1>
-							<cfif pos lt numberOfColumns>
-								<cfset sql=sql & ",">
-							</cfif>
-						</cfloop>
-						<cfset sql=sql & ")">
-						<cftry>
+					<cfset sql="insert into CF_TEMP_CLASSIFICATION2 (#knowncols#) values (">
+					<cfset pos=0>
+					<cfloop list="#knowncols#" index="c">
+						<cfset thisval=evaluate("nd." & c)>
+						<cfif len(thisval) gt 0>
+							<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
+						<cfelse>
+							<cfset sql=sql & "NULL">
+						</cfif>
+						<cfset pos=pos+1>
+						<cfif pos lt numberOfColumns>
+							<cfset sql=sql & ",">
+						</cfif>
+					</cfloop>
+					<cfset sql=sql & ")">
+					<cftry>
 						<cfquery name="insertone" datasource="uam_god">
 							#preserveSingleQuotes(sql)#
 						</cfquery>
@@ -130,20 +126,20 @@ run these in order
 							<br>#sql#
 							<br>#cfcatch.detail#
 						</cfcatch>
-						</cftry>
-
-					</cfif>
+					</cftry>
 
 
-					<cfquery name="gotit" datasource="uam_god">
-						update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
-						where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
-					</cfquery>
+
+
 				</cfloop>
 
 			</cfif>
 
 		</cfloop>
+		<cfquery name="gotit" datasource="uam_god">
+				update CF_TEMP_CLASSIFICATION set status = 'got_something_maybe'
+				where SCIENTIFIC_NAME='#d.SCIENTIFIC_NAME#'
+			</cfquery>
 	</cfoutput>
 </cfif>
 
