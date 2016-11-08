@@ -11,9 +11,10 @@
 		collecting_event.ENDED_DATE,
 		specimen_event.COLLECTING_METHOD,
 		locality.locality_name locality_nickname,
-		MINIMUM_ELEVATION,
-		MAXIMUM_ELEVATION,
-		ORIG_ELEV_UNITS
+		locality.MINIMUM_ELEVATION,
+		locality.MAXIMUM_ELEVATION,
+		locality.ORIG_ELEV_UNITS,
+		specimen_event.habitat
 	from
 		#session.SpecSrchTab#,
 		specimen_event,
@@ -34,9 +35,10 @@
 		collecting_event.ENDED_DATE,
 		specimen_event.COLLECTING_METHOD,
 		locality.locality_name,
-		MINIMUM_ELEVATION,
-		MAXIMUM_ELEVATION,
-		ORIG_ELEV_UNITS
+		locality.MINIMUM_ELEVATION,
+		locality.MAXIMUM_ELEVATION,
+		locality.ORIG_ELEV_UNITS,
+		specimen_event.habitat
 	order by
 		geog_auth_rec.HIGHER_GEOG,
 		locality.SPEC_LOCALITY,
