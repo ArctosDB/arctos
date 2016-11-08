@@ -8,7 +8,12 @@
 		locality.DEC_LONG,
 		collecting_event.BEGAN_DATE,
 		collecting_event.ENDED_DATE,
-		specimen_event.COLLECTING_METHOD
+		specimen_event.COLLECTING_METHOD,
+		locality.locality_name locality_nickname,
+		locality.MINIMUM_ELEVATION,
+		locality.MAXIMUM_ELEVATION,
+		locality.ORIG_ELEV_UNITS,
+		specimen_event.habitat
 	from
 		#session.SpecSrchTab#,
 		specimen_event,
@@ -27,7 +32,12 @@
 		locality.DEC_LONG,
 		collecting_event.BEGAN_DATE,
 		collecting_event.ENDED_DATE,
-		specimen_event.COLLECTING_METHOD
+		specimen_event.COLLECTING_METHOD,
+		locality.locality_name,
+		locality.MINIMUM_ELEVATION,
+		locality.MAXIMUM_ELEVATION,
+		locality.ORIG_ELEV_UNITS,
+		specimen_event.habitat
 	order by
 		geog_auth_rec.HIGHER_GEOG,
 		locality.SPEC_LOCALITY,
@@ -37,10 +47,7 @@
 		collecting_event.ENDED_DATE,
 		specimen_event.COLLECTING_METHOD
 </cfquery>
-
-
 <cfset fname = "collecting_event.csv">
-
 <cfset  util = CreateObject("component","component.utilities")>
 <cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
 <cffile action = "write"
@@ -48,4 +55,3 @@
    	output = "#csv#"
    	addNewLine = "no">
 <cflocation url="/download.cfm?file=#fname#" addtoken="false">
-
