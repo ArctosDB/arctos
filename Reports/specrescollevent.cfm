@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="download collecting event">
+
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		geog_auth_rec.HIGHER_GEOG,
@@ -9,7 +10,10 @@
 		collecting_event.BEGAN_DATE,
 		collecting_event.ENDED_DATE,
 		specimen_event.COLLECTING_METHOD,
-		locality.locality_name locality_nickname
+		locality.locality_name locality_nickname,
+		MINIMUM_ELEVATION,
+		MAXIMUM_ELEVATION,
+		ORIG_ELEV_UNITS
 	from
 		#session.SpecSrchTab#,
 		specimen_event,
@@ -29,7 +33,10 @@
 		collecting_event.BEGAN_DATE,
 		collecting_event.ENDED_DATE,
 		specimen_event.COLLECTING_METHOD,
-		locality.locality_name
+		locality.locality_name,
+		MINIMUM_ELEVATION,
+		MAXIMUM_ELEVATION,
+		ORIG_ELEV_UNITS
 	order by
 		geog_auth_rec.HIGHER_GEOG,
 		locality.SPEC_LOCALITY,
