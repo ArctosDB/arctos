@@ -8,7 +8,8 @@
 		locality.DEC_LONG,
 		collecting_event.BEGAN_DATE,
 		collecting_event.ENDED_DATE,
-		specimen_event.COLLECTING_METHOD
+		specimen_event.COLLECTING_METHOD,
+		locality.locality_name locality_nickname
 	from
 		#session.SpecSrchTab#,
 		specimen_event,
@@ -27,7 +28,8 @@
 		locality.DEC_LONG,
 		collecting_event.BEGAN_DATE,
 		collecting_event.ENDED_DATE,
-		specimen_event.COLLECTING_METHOD
+		specimen_event.COLLECTING_METHOD,
+		locality.locality_name
 	order by
 		geog_auth_rec.HIGHER_GEOG,
 		locality.SPEC_LOCALITY,
