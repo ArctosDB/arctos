@@ -36,7 +36,13 @@
 
 
 	function updatePart(pn) {
-		$("#prow_" + pn).addClass('edited');
+
+		var rid='prow_' + pn.replace(/\W/g, '_');
+		console.lof(rid);
+
+
+
+		$("#" + rid).addClass('edited');
 
 
 		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
@@ -177,7 +183,6 @@
 			</cfquery>
 			<cfloop query="pname">
 			<cfset rid=rereplace(part_name,"[^A-Za-z0-9]","_","all")>
-			#rid#
 
 				<cfset canedit=true>
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="prow_#rid#">
