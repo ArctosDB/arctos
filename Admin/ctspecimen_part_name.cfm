@@ -72,7 +72,7 @@
 	</cfquery>
 	<cfoutput>
 		Add record:
-		<table class="newRec" border="1">
+		<table class="newRec" border="1" >
 			<tr>
 				<th>Collection Type</th>
 				<th>Part Name</th>
@@ -109,7 +109,7 @@
 		</table>
 		<cfset i = 1>
 		Edit
-		<table id="partstbl" border="1">
+		<table id="partstbl" border="1" class="tablesorter">
 			<tr>
 				<th>Collection Type</th>
 				<th>part_name</th>
