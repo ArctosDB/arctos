@@ -2,7 +2,7 @@
 <cfset title="ctspecimen_part_name editor">
 
 <style>
-	.edited{border:2px solid red;}
+	.edited{background:#eaa8b4;}
 </style>
 <script>
 	function doneSaving(){
@@ -109,6 +109,9 @@
 			(and eg, expected result of a search for the part)
 			must be the same for all collections in which the part is used. That is, "operculum" cannot be used for fish gill covers
 			as it has already been claimed to describe snail anatomy.
+		</p>
+		<p class="edited">
+			Rows that look like this have been edited and may not be current; reload to refresh.
 		</p>
 	</div>
 
