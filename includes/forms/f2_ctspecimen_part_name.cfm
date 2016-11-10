@@ -2,23 +2,29 @@
 
 
 <cfdump var=#part_name#>
-
-
-<cfabort>
-
-
-
-
-<cfif action is "nothing">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from ctspecimen_part_name where ctspnid=#ctspnid#
+	select * from ctspecimen_part_name where part_name='#part_name#'
 </cfquery>
 <cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select distinct collection_cde from ctcollection_cde order by collection_cde
 </cfquery>
+<cfquery name="p" dbtype="query">
+	select distinct part_name from d
+</cfquery>
 <cfoutput>
+	<cfif action is "nothing">
 	<form name="f" method="post" action="">
 		<input type="hidden" name="action" value="update">
+		<p>
+			The name of used parts cannot be changed; contact a DBA.
+		</p>
+		<label for="part_name">Part Name</label>
+		<input type="text" name="part_name" id="part_name" value="#p.part_name#" size="50">
+
+		<p>
+
+		</p>
+<!---------
 		<input type="hidden" name="ctspnid" value="#ctspnid#">
 		<label for="collection_cde">Collection Code</label>
 		<select name="collection_cde" id="collection_cde" size="1">
@@ -28,8 +34,7 @@
 					value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
 			</cfloop>
 		</select>
-		<label for="part_name">Part Name</label>
-		<input type="text" name="part_name" id="part_name" value="#d.part_name#" size="50">
+
 		<label for="is_tissue">Tissue?</label>
 		<select name="is_tissue">
 			<option <cfif d.is_tissue is 0>selected="selected" </cfif>value="0">no</option>
@@ -51,14 +56,27 @@
 			<option value="1">Yes, update all part descriptions</option>
 		</select>
 		<br>
+		--------->
 		<input type="submit" value="Save" class="savBtn">
 		<input type="button" value="Quit" class="qutBtn" onclick="parent.doneSaving();">
 	</form>
 </cfoutput>
 </cfif>
 
+
+
+
+
 <cfif action is "update">
 <cfoutput>
+
+	<cfdump var=#form#>
+
+	<cfabort>
+
+
+
+
 	<cftry>
 	<cftransaction>
 		<cfquery name="usp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
