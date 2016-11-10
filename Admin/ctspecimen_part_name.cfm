@@ -38,7 +38,7 @@
 	function updatePart(pn) {
 
 		var rid='prow_' + pn.replace(/\W/g, '_');
-		console.lof(rid);
+		console.log(rid);
 
 
 
