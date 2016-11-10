@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 
 <script type="text/javascript" src="/includes/tablesorter/tablesorter.js"></script>
-<link rel="stylesheet" href="/includes/tablesorter/tehmes/blue/style.css">
+<link rel="stylesheet" href="/includes/tablesorter/themes/blue/style.css">
 
 <cfset title="ctspecimen_part_name editor">
 
