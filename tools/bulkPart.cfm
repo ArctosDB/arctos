@@ -16,6 +16,13 @@ $(document).ready(function() {
   		}
 	});
 
+	$('#existing_coll_obj_disposition').on('change', function() {
+		if (this.value.length > 0){
+  			$('#new_coll_obj_disposition').addClass('reqdClr').prop('required',true);
+  		} else {
+  			$('#new_coll_obj_disposition').removeClass('reqdClr').prop('required',false);
+  		}
+	});
 
 
 });
@@ -188,7 +195,7 @@ function copyEPt(){
             <tr>
                 <td>Disposition</td>
                 <td>
-                    <select name="existing_coll_obj_disposition" id="existing_coll_obj_disposition" size="1" class="reqdClr">
+                    <select name="existing_coll_obj_disposition" id="existing_coll_obj_disposition" size="1">
                         <option selected="selected" value="">ignore</option>
                             <cfloop query="existDisp">
                                 <option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
@@ -196,7 +203,7 @@ function copyEPt(){
                     </select>
                 </td>
                 <td>
-                    <select name="new_coll_obj_disposition" id="new_coll_obj_disposition" size="1"  class="reqdClr">
+                    <select name="new_coll_obj_disposition" id="new_coll_obj_disposition" size="1">
                         <option value="">no update</option>
                         <cfloop query="ctDisp">
                             <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
@@ -247,14 +254,14 @@ function copyEPt(){
                 </cfloop>
         </select>
         <label for="d_existing_lot_count">Existing Lot Count</label>
-        <select name="d_existing_lot_count" id="d_existing_lot_count" size="1" class="reqdClr">
+        <select name="d_existing_lot_count" id="d_existing_lot_count" size="1" >
             <option selected="selected" value="">ignore</option>
                 <cfloop query="existLotCount">
                     <option value="#lot_count#">#lot_count#</option>
                 </cfloop>
         </select>
         <label for="d_existing_coll_obj_disposition">Existing Disposition</label>
-        <select name="d_existing_coll_obj_disposition" id="d_existing_coll_obj_disposition" size="1" class="reqdClr">
+        <select name="d_existing_coll_obj_disposition" id="d_existing_coll_obj_disposition" size="1">
             <option selected="selected" value="">ignore</option>
                 <cfloop query="existDisp">
                     <option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
