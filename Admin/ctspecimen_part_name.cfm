@@ -1,10 +1,25 @@
 <cfinclude template="/includes/_header.cfm">
+
+<script type="text/javascript" src="/includes/tablesorter/tablesorter.js"></script>
+
+
 <cfset title="ctspecimen_part_name editor">
 
 <style>
 	.edited{background:#eaa8b4;}
 </style>
 <script>
+
+	//$("tr:odd").addClass("odd");
+
+	//$("tr:odd").addClass("odd");
+
+	$(document).ready(function()
+    {
+        $("#partstbl").tablesorter();
+    }
+);
+
 	function updatePart(pn) {
 		var rid='prow_' + pn.replace(/\W/g, '_');
 		$("#" + rid).addClass('edited');
@@ -29,12 +44,7 @@
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
 	}
-
 </script>
-
-
-
-
 <cfif action is "nothing">
 	<div class="importantNotification">
 		IMPORTANT!
@@ -99,7 +109,7 @@
 		</table>
 		<cfset i = 1>
 		Edit
-		<table border="1">
+		<table id="partstbl" border="1">
 			<tr>
 				<th>Collection Type</th>
 				<th>part_name</th>
