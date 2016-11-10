@@ -158,10 +158,9 @@
 							select description from pd group by description
 						</cfquery>
 						<cfif dsc.recordcount gt 1>
+							description inconsistency!!!
 							#valuelist(dsc.description)#
 							<cfset canedit=false>
-							description inconsistency!!!
-							<cfdump var=#dsc#>
 						<cfelse>
 							#dsc.description#
 						</cfif>
