@@ -2,6 +2,33 @@
 <!--------------------------------------------------------------------->
 <cfset title="Bulk Modify Parts">
 <cfif action is "nothing">
+<script>
+$(document).ready(function() {
+	$(".reqdClr:visible").each(function(e){
+	    $(this).prop('required',true);
+	});
+});
+
+function setRequireAdd(id){
+	var onoff=$("#"+id).val();
+	var tid=id.replace("part_name_",'');
+	if (onoff.length>0){
+		$('lot_count_'+tid).addClass('reqdClr').prop('required',true);
+		$('coll_obj_disposition_'+tid).addClass('reqdClr').prop('required',true);
+		$('condition_'+tid).addClass('reqdClr').prop('required',true);
+		$('coll_object_remarks_'+tid).addClass('reqdClr').prop('required',true);
+	} else {
+		$('lot_count_'+tid).removeClass('reqdClr').prop('required',false);
+		$('coll_obj_disposition_'+tid).removeClass('reqdClr').prop('required',false);
+		$('condition_'+tid).removeClass('reqdClr').prop('required',false);
+		$('coll_object_remarks_'+tid).removeClass('reqdClr').prop('required',false);
+	}
+
+
+}
+</script>
+
+
 <cfoutput>
     <cfset numParts=3>
     <cfif not isdefined("table_name")>
@@ -43,8 +70,8 @@
                  <cfloop from="1" to="#numParts#" index="i">
                     <td>
                         <label for="part_name_#i#">Add Part (#i#)</label>
-                        <input type="text" name="part_name_#i#" id="part_name_#i#" class="reqdClr"
-                            onchange="findPart(this.id,this.value,'#getColnCde.collection_cde#');"
+                        <input type="text" name="part_name_#i#" id="part_name_#i#"
+                            onchange="findPart(this.id,this.value,'#getColnCde.collection_cde#');setRequireAdd(this.id);"
                             onkeypress="return noenter(event);">
                         <label for="lot_count_#i#">Part Count (#i#)</label>
                         <input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
