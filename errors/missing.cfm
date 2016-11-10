@@ -1,5 +1,6 @@
 hi
 
+<cfdump var=#request.rdurl#>
 
 
 <!---- make sure this stays at the top ---->
