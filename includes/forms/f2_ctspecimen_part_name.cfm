@@ -32,7 +32,9 @@
 		</p>
 		<label for="part_name">Part Name</label>
 		<input type="text" name="part_name" id="part_name" value="#p.part_name#" size="50">
+		<cfset ctccde=valuelist(ctcollcde.collection_cde)>
 		<cfloop query="d">
+			<cfset ctccde=listdeleteat(ctccde,listfind(ctccde,'#collection_cde#'))>
 			<label for="collection_cde_#CTSPNID#">Available for Collection Type</label>
 			<select name="collection_cde_#CTSPNID#" id="collection_cde_#CTSPNID#" size="1">
 				<option value="">Remove from this collection type</option>
@@ -42,8 +44,8 @@
 		<label for="collection_cde_new">Make available for Collection Type</label>
 		<select name="collection_cde_new" id="collection_cde_new" size="1">
 			<option value=""></option>
-			<cfloop query="ctcollcde">
-				<option	value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+			<cfloop list="#ctccde#" index="ccde">
+				<option	value="#ccde#">#ccde#</option>
 			</cfloop>
 		</select>
 
