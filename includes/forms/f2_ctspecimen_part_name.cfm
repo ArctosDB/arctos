@@ -114,5 +114,7 @@
 
 </cftransaction>
 done
+
+<cflocation url="f2_ctspecimen_part_name.cfm?part_name=#part_name#" addtoken="false">
 </cfoutput>
 </cfif>
