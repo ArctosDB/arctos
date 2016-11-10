@@ -1,6 +1,7 @@
 hi
 
 <cfdump var=#request.rdurl#>
+<cfdump var=#cgi#>
 
 
 <!---- make sure this stays at the top ---->
