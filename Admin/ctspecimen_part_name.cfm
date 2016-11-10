@@ -163,7 +163,7 @@
 							<cfset canedit=false>
 							description inconsistency!!!
 						<cfelse>
-							#ist.description#
+							#dsc.description#
 						</cfif>
 					</td>
 					<td nowrap="nowrap">
