@@ -47,12 +47,21 @@
 </script>
 <cfif action is "nothing">
 	<div class="importantNotification">
-		IMPORTANT!
+		<strong>IMPORTANT!</strong>
 		<p>
 			Parts (including description and tissue-status) must be consistent across collection types; the definition
 			(and eg, expected result of a search for the part)
 			must be the same for all collections in which the part is used. That is, "operculum" cannot be used for fish gill covers
 			as it has already been claimed to describe snail anatomy.
+		</p>
+		<p>
+			Edit existing parts to make them available to other collections.
+		</p>
+		<p>
+			Delete and re-create to change a part name.
+		</p>
+		<p>
+			Please include a description or definition.
 		</p>
 		<p class="edited">
 			Rows that look like this may have been edited and may not be current; reload to refresh.
