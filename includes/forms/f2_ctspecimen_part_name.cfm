@@ -1,7 +1,6 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 
 
-<cfdump var=#part_name#>
 	<cfif action is "nothing">
 
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -27,8 +26,7 @@
 	<form name="f" method="post" action="">
 		<input type="hidden" name="action" value="update">
 		<p>
-			The name of used parts cannot be changed; contact a DBA. Type "delete" into part name and save
-			to delete this part.
+			The name of used parts cannot be changed; contact a DBA for assistance.
 		</p>
 		<label for="ppart_name">Part Name</label>
 		<input type="text" name="ppart_name" id="ppart_name" value="#p.part_name#" size="50">
@@ -57,6 +55,9 @@
 		<label for="description">Description</label>
 		<textarea name="description" id="description" rows="4" cols="40">#dec.description#</textarea>
 		<input type="submit" value="Save Changes" class="savBtn">
+		<p>
+			Removing a part from all collection types will delete the record.
+		</p>
 	</form>
 </cfoutput>
 </cfif>
@@ -66,6 +67,19 @@
 <cfoutput>
 
 	<cfdump var=#form#>
+	<cfloop list="#FIELDNAMES#" index="f">
+		<cfif left(f,15) is "COLLECTION_CDE_" and f is not "COLLECTION_CDE_NEW">
+			<!--- if the value is NULL, we're deleting that record ---->
+			<cfset thisCCVal=evaluate(f)>
+
+			<p>
+				thisCCVal: #thisCCVal#
+			</p>
+
+		</cfif>
+
+	</cfloop>
+
 	<cfif ppart_name is "delete">
 		delete....
 	</cfif>
