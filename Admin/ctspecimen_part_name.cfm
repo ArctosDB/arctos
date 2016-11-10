@@ -110,12 +110,15 @@
 		<cfset i = 1>
 		Edit
 		<table id="partstbl" border="1" class="tablesorter">
+			<thead>
 			<tr>
 				<th>Collection Type</th>
 				<th>part_name</th>
 				<th>IsTissue</th>
 				<th>Description</th>
 			</tr>
+			</thead>
+			<tbody>
 			<cfquery name="pname" dbtype="query">
 				select part_name from q group by part_name order by part_name
 			</cfquery>
@@ -188,6 +191,7 @@
 				<cfset i = #i#+1>
 			</cfloop>
 			---->
+			</tbody>
 		</table>
 	</cfoutput>
 </cfif>
