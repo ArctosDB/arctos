@@ -12,26 +12,27 @@ $(document).ready(function() {
 function setRequireAdd(id){
 	var onoff=$("#"+id).val();
 	var tid=id.replace("part_name_",'');
-
-	console.log(id);
-	console.log(tid);
-	console.log(onoff);
-
-
 	if (onoff.length>0){
-		console.log('making required');
 		$('#lot_count_'+tid).addClass('reqdClr').prop('required',true);
 		$('#coll_obj_disposition_'+tid).addClass('reqdClr').prop('required',true);
 		$('#condition_'+tid).addClass('reqdClr').prop('required',true);
 	} else {
-		console.log('making NOT required');
 		$('#lot_count_'+tid).removeClass('reqdClr').prop('required',false);
 		$('#coll_obj_disposition_'+tid).removeClass('reqdClr').prop('required',false);
 		$('#condition_'+tid).removeClass('reqdClr').prop('required',false);
 	}
-
-
 }
+function copyEPt(){
+	$("#new_part_name").val($("#exist_part_name").val());
+}
+$( "#existing_lot_count" ).change(function() {
+  if ($("#existing_lot_count").val().length > 0){
+  	$('#new_lot_count').addClass('reqdClr').prop('required',true);
+  } else {
+  	$('#new_lot_count').removeClass('reqdClr').prop('required',false);
+  }
+});
+
 </script>
 
 
@@ -156,6 +157,7 @@ function setRequireAdd(id){
                                 <option value="#Part_Name#">#Part_Name#</option>
                             </cfloop>
                     </select>
+					<span class="likeLink" onclick="copyEPt()">copy --></span>
                 </td>
                 <td>
                     <input type="text" name="new_part_name" id="new_part_name" class="reqdClr"
@@ -166,7 +168,7 @@ function setRequireAdd(id){
             <tr>
                 <td>Lot Count</td>
                 <td>
-                    <select name="existing_lot_count" id="existing_lot_count" size="1" class="reqdClr">
+                    <select name="existing_lot_count" id="existing_lot_count" size="1" class="">
                         <option selected="selected" value="">ignore</option>
                             <cfloop query="existLotCount">
                                 <option value="#lot_count#">#lot_count#</option>
@@ -174,7 +176,7 @@ function setRequireAdd(id){
                     </select>
                 </td>
                 <td>
-                    <input type="text" name="new_lot_count" id="new_lot_count" class="reqdClr">
+                    <input type="text" name="new_lot_count" id="new_lot_count" class="">
                 </td>
             </tr>
             <tr>
@@ -231,22 +233,22 @@ function setRequireAdd(id){
     <form name="delPart" method="post" action="bulkPart.cfm">
         <input type="hidden" name="action" value="delPart">
         <input type="hidden" name="table_name" value="#table_name#">
-        <label for="exist_part_name">Existing Part Name</label>
-        <select name="exist_part_name" id="exist_part_name" size="1" class="reqdClr">
+        <label for="d_exist_part_name">Existing Part Name</label>
+        <select name="d_exist_part_name" id="d_exist_part_name" size="1" class="reqdClr">
             <option selected="selected" value=""></option>
                 <cfloop query="existParts">
                     <option value="#Part_Name#">#Part_Name#</option>
                 </cfloop>
         </select>
-        <label for="existing_lot_count">Existing Lot Count</label>
-        <select name="existing_lot_count" id="existing_lot_count" size="1" class="reqdClr">
+        <label for="d_existing_lot_count">Existing Lot Count</label>
+        <select name="d_existing_lot_count" id="d_existing_lot_count" size="1" class="reqdClr">
             <option selected="selected" value="">ignore</option>
                 <cfloop query="existLotCount">
                     <option value="#lot_count#">#lot_count#</option>
                 </cfloop>
         </select>
-        <label for="existing_coll_obj_disposition">Existing Disposition</label>
-        <select name="existing_coll_obj_disposition" id="existing_coll_obj_disposition" size="1" class="reqdClr">
+        <label for="d_existing_coll_obj_disposition">Existing Disposition</label>
+        <select name="d_existing_coll_obj_disposition" id="d_existing_coll_obj_disposition" size="1" class="reqdClr">
             <option selected="selected" value="">ignore</option>
                 <cfloop query="existDisp">
                     <option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
@@ -377,12 +379,12 @@ function setRequireAdd(id){
                 specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
                 cataloged_item.collection_object_id=identification.collection_object_id and
                 accepted_id_fg=1 and
-                part_name='#exist_part_name#'
+                part_name='#d_exist_part_name#'
                 <cfif len(existing_lot_count) gt 0>
-                    and lot_count=#existing_lot_count#
+                    and lot_count=#d_existing_lot_count#
                 </cfif>
                 <cfif len(existing_coll_obj_disposition) gt 0>
-                    and coll_obj_disposition='#existing_coll_obj_disposition#'
+                    and coll_obj_disposition='#d_existing_coll_obj_disposition#'
                 </cfif>
             order by
                 collection.guid_prefix,cataloged_item.cat_num
