@@ -25,8 +25,7 @@ function setRequireAdd(id){
 function copyEPt(){
 	$("#new_part_name").val($("#exist_part_name").val());
 }
-$( "#existing_lot_count" ).change(function() {
-
+$("#existing_lot_count").on('change', function() {
 	console.log('change');
 	console.log($("#existing_lot_count").val());
 
