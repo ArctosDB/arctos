@@ -26,7 +26,59 @@
 			);
 		}
 	}
-	function updatePart(ctspnid) {
+	
+	
+	
+function addMedia(t,k){
+	var guts = "/picks/upLinkMedia.cfm?ktype=" + t + '&kval=' + k;
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Add Media',
+			width:800,
+ 			height:600,
+		close: function() {
+			$( this ).remove();
+		}
+	}).width(800-10).height(600-10);
+	$(window).resize(function() {
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}
+	
+	
+	
+	
+	function updatePart(pn) {
+		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + pn;
+		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'center'],
+			title: 'Edit Part',
+				width:800,
+	 			height:600,
+			close: function() {
+				$( this ).remove();
+			}
+		}).width(800-10).height(600-10);
+		$(window).resize(function() {
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+	}
+	
+	function updatePart2(ctspnid) {
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -67,6 +119,17 @@
 
 
 <cfif action is "nothing">
+	<div class="importantNotification">
+		IMPORTANT!
+		<p>
+			Parts (including description and tissue-status) must be consistent across collection types; the definition 
+			(and eg, expected result of a search for the part)
+			must be the same for all collections in which the part is used. That is, "operculum" cannot be used for fish gill covers
+			as it has already been claimed to describe snail anatomy.
+		</p>
+	</div>
+
+
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			*
