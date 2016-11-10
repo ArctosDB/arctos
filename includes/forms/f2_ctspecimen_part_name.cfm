@@ -66,7 +66,7 @@
 <cfoutput>
 
 	<cfdump var=#form#>
-	<cfif part_name is "delete">
+	<cfif ppart_name is "delete">
 		delete....
 	</cfif>
 
