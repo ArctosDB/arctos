@@ -27,7 +27,8 @@
 	<form name="f" method="post" action="">
 		<input type="hidden" name="action" value="update">
 		<p>
-			The name of used parts cannot be changed; contact a DBA.
+			The name of used parts cannot be changed; contact a DBA. Type "delete" into part name and save
+			to delete this part.
 		</p>
 		<label for="part_name">Part Name</label>
 		<input type="text" name="part_name" id="part_name" value="#p.part_name#" size="50">
@@ -90,8 +91,8 @@
 		</select>
 		<br>
 		--------->
-		<input type="submit" value="Save" class="savBtn">
-		<input type="button" value="Quit" class="qutBtn" onclick="parent.doneSaving();">
+		<input type="submit" value="Save Changes" class="savBtn">
+
 	</form>
 </cfoutput>
 </cfif>
