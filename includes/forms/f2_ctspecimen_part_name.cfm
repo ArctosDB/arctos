@@ -75,6 +75,11 @@
 			<p>
 				thisCCVal: #thisCCVal#
 			</p>
+			<cfif len(thisCCVal) is 0>
+				<cfset thisPartID=listlast(f,"_")>
+
+				<br>deleting #thisPartID#
+			</cfif>
 
 		</cfif>
 
