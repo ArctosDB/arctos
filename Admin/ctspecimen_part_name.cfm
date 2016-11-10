@@ -225,6 +225,7 @@ function addMedia(t,k){
 							#valuelist(dsc.description)#
 							<cfset canedit=false>
 							description inconsistency!!!
+							<cfdump var=#dsc#>
 						<cfelse>
 							#dsc.description#
 						</cfif>
