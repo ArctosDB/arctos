@@ -56,6 +56,7 @@
 		</select>
 		<label for="description">Description</label>
 		<textarea name="description" id="description" rows="4" cols="40">#dec.description#</textarea>
+		<br>
 		<input type="submit" value="Save Changes" class="savBtn">
 		<p>
 			Removing a part from all collection types will delete the record.
