@@ -56,7 +56,7 @@ function addMedia(t,k){
 
 
 	function updatePart(pn) {
-		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + pn;
+		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
