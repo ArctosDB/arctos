@@ -340,6 +340,49 @@
 			family, etc: collection's stuff
 		------------>
 	<cfset mapurl = "#mapurl#&taxon_name=#taxon_name#">
+	<cfset basQual = basQual & " and #flatTableName#.COLLECTION_OBJECT_ID in (
+    	-- any ID
+      select collection_object_id from identification where upper(scientific_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+      union
+      -- any term used by any ID
+      select collection_object_id from identification,identification_taxonomy,taxon_term
+         where
+      identification.identification_id=identification_taxonomy.identification_id and
+      identification_taxonomy.taxon_name_id=taxon_term.taxon_name_id and
+         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+      union
+      -- any common name of any ID
+      select collection_object_id from identification,identification_taxonomy,common_name
+         where
+      identification.identification_id=identification_taxonomy.identification_id and
+      identification_taxonomy.taxon_name_id=common_name.taxon_name_id and
+         upper(common_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+      union
+      -- any term of any taxa related FROM any ID
+       select collection_object_id from identification,identification_taxonomy,taxon_relations,taxon_term
+         where
+      identification.identification_id=identification_taxonomy.identification_id and
+      identification_taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+      taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and
+         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+      UNION
+      -- any term of any taxa related TO any ID
+       select collection_object_id from identification,identification_taxonomy,taxon_relations,taxon_term
+         where
+      identification.identification_id=identification_taxonomy.identification_id and
+      identification_taxonomy.taxon_name_id=taxon_relations.related_taxon_name_id  and
+      taxon_relations.taxon_name_id=taxon_term.taxon_name_id and
+         upper(term) LIKE #ucase(escapeQuotes(taxon_name))#%'
+)">
+
+
+
+
+
+
+
+
+	<!------------
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 	</cfif>
@@ -359,7 +402,7 @@
 
 	<cfset basQual = basQual & " and ( identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# ) )">
 
-
+	------------------>
 
 	<!----giant comment section removed - see v6.8.7 for comment ---->
 
