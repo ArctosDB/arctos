@@ -26,6 +26,11 @@ function copyEPt(){
 	$("#new_part_name").val($("#exist_part_name").val());
 }
 $( "#existing_lot_count" ).change(function() {
+
+	console.log('change');
+	console.log($("#existing_lot_count").val());
+
+
   if ($("#existing_lot_count").val().length > 0){
   	$('#new_lot_count').addClass('reqdClr').prop('required',true);
   } else {
