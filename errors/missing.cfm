@@ -1,9 +1,4 @@
 <!---- make sure this stays at the top ---->
-
-<cfif isdefined("session.username") and session.username is "dlm">
-	<cfdump var=#cgi#>
-	<cfdump var=#cgi.query_String#>
-</cfif>
 <cfif listfindnocase(request.rdurl,'m',"/")>
 	<!--- mobile handling ---->
 	<cfif listfindnocase(request.rdurl,'guid',"/")>
