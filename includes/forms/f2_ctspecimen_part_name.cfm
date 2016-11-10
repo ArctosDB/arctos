@@ -26,10 +26,12 @@
 	<form name="f" method="post" action="">
 		<input type="hidden" name="action" value="update">
 		<p>
+			<strong>Editing part name #part_name#</strong>
+		</p>
+		<p>
 			The name of used parts cannot be changed; contact a DBA for assistance.
 		</p>
-		<label for="ppart_name">Part Name</label>
-		<input type="text" name="ppart_name" id="ppart_name" value="#p.part_name#" size="50">
+		<input type="hidden" name="part_name" id="part_name" value="#p.part_name#" size="50">
 		<cfset ctccde=valuelist(ctcollcde.collection_cde)>
 		<cfloop query="d">
 			<cfset ctccde=listdeleteat(ctccde,listfind(ctccde,'#collection_cde#'))>
@@ -67,23 +69,53 @@
 <cfoutput>
 
 	<cfdump var=#form#>
+
+	<!--- first, delete anything that needs deleted ---->
 	<cfloop list="#FIELDNAMES#" index="f">
 		<cfif left(f,15) is "COLLECTION_CDE_" and f is not "COLLECTION_CDE_NEW">
 			<!--- if the value is NULL, we're deleting that record ---->
 			<cfset thisCCVal=evaluate(f)>
-
 			<p>
 				thisCCVal: #thisCCVal#
 			</p>
 			<cfif len(thisCCVal) is 0>
 				<cfset thisPartID=listlast(f,"_")>
-
 				<br>deleting #thisPartID#
+				<br>delete from ctspecimen_part_name where CTSPNID=#thisPartID#
 			</cfif>
+		</cfif>
+	</cfloop>
+	<!----
+		second, update everything that's left
+		If we've deleted everything this will just do nothing
+	---->
+		<p>
+			update ctspecimen_part_name set DESCRIPTION='#escapeQuotes(DESCRIPTION)#',IS_TISSUE='#IS_TISSUE#' where part_name='#part_name#'
+
+		</p>
+
+
+
+
+		<cfif i is "COLLECTION_CDE_NEW">
+			<p>
+				insert into ctspecimen_part_name (PART_NAME,COLLECTION_CDE,DESCRIPTION,IS_TISSUE
+			</p>
+
+		Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ PART_NAME							   NOT NULL VARCHAR2(255)
+ COLLECTION_CDE 						   NOT NULL VARCHAR2(5)
+ DESCRIPTION								    VARCHAR2(4000)
+ IS_TISSUE							   NOT NULL NUMBER(1)
+ CTSPNID							   NOT NULL NUMBER
+
+UAM@ARCTOS>
 
 		</cfif>
 
-	</cfloop>
+
+
 
 	<cfif ppart_name is "delete">
 		delete....
