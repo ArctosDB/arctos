@@ -94,32 +94,15 @@
 
 		</p>
 
+	<!--- last, insert new if there's one provided ---->
+	<cfif len(COLLECTION_CDE_NEW) gt 0>
+		<p>
+			insert into ctspecimen_part_name (PART_NAME,COLLECTION_CDE,DESCRIPTION,IS_TISSUE) values (
+			'#part_name#','#COLLECTION_CDE_NEW#','#escapeQuotes(DESCRIPTION)#','#IS_TISSUE#')
+		</p>
 
-
-
-		<cfif i is "COLLECTION_CDE_NEW">
-			<p>
-				insert into ctspecimen_part_name (PART_NAME,COLLECTION_CDE,DESCRIPTION,IS_TISSUE
-			</p>
-
-		Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- PART_NAME							   NOT NULL VARCHAR2(255)
- COLLECTION_CDE 						   NOT NULL VARCHAR2(5)
- DESCRIPTION								    VARCHAR2(4000)
- IS_TISSUE							   NOT NULL NUMBER(1)
- CTSPNID							   NOT NULL NUMBER
-
-UAM@ARCTOS>
-
-		</cfif>
-
-
-
-
-	<cfif ppart_name is "delete">
-		delete....
 	</cfif>
+
 
 
 	<cfabort>
