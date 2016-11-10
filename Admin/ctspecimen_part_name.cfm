@@ -127,6 +127,7 @@
 				select part_name from q group by part_name order by part_name
 			</cfquery>
 			<cfloop query="pname">
+				<cfset canedit=true>
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<cfquery name="pd" dbtype="query">
 						select * from q where part_name='#part_name#' order by collection_cde
@@ -147,7 +148,8 @@
 						</cfquery>
 						<cfif ist.recordcount gt 1>
 							is tissue inconsistency!!!
-							<cfdump var=#ist#>
+							#valuelist(ist.is_tissue)#
+							<cfset canedit=false>
 						<cfelse>
 							#ist.is_tissue#
 						</cfif>
@@ -157,11 +159,21 @@
 							select description from pd group by description
 						</cfquery>
 						<cfif dsc.description gt 1>
+							#valuelist(dsc.description)#
+							<cfset canedit=false>
 							description inconsistency!!!
-							<cfdump var=#dsc#>
 						<cfelse>
 							#ist.description#
 						</cfif>
+					</td>
+					<td nowrap="nowrap">
+						<cfif canedit is false>
+							Inconsistent data;contact a DBA.
+						<cfelse>
+							<span class="likeLink" onclick="deletePart('#part_name#')">[ Delete ]</span>
+							<br><span class="likeLink" onclick="updatePart('#part_name#')">[ Update ]</span>
+						</cfif>
+
 					</td>
 				</tr>
 			</cfloop>
