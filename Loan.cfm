@@ -1965,9 +1965,6 @@ just fooling idiot cfclipse into using the right colors
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	<cfif not isdefined("csv")>
-		<cfset csv=false>
-	</cfif>
 	<cfif allLoans.recordcount is 0>
 		Nothing matched your search criteria.
 	<cfelse>
@@ -1985,26 +1982,9 @@ just fooling idiot cfclipse into using the right colors
 		<input type="hidden" name="action" value="csv">
 		<input type="submit" value="downloadCSV">
 	</form>
-	<cfset rURL="Loan.cfm?csv=true">
-	<cfloop list="#StructKeyList(form)#" index="key">
-		<cfif len(form[key]) gt 0>
-			<cfset rURL='#rURL#&#key#=#form[key]#'>
-		 </cfif>
-	</cfloop>
-	<br><a href="#rURL#">[ download CSV ]</a>
 	</cfoutput>
 	<table>
 	<cfset i=1>
-	<cfif csv is true>
-		<cfset dlFile = "ArctosLoanData.csv">
-		<cfset variables.fileName="#Application.webDirectory#/download/#dlFile#">
-		<cfset variables.encoding="UTF-8">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			d='loan_number,item_count,Recipient,nature_of_material,loan_type,loan_status,return_due_date,Transaction_Date,loan_instructions,auth_agent,ent_agent,trans_remarks,loan_description,Project';
-		 	variables.joFileWriter.writeLine(d);
-		</cfscript>
-	</cfif>
 	<cfoutput query="allLoans" group="transaction_id">
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			<td>
@@ -2125,36 +2105,11 @@ just fooling idiot cfclipse into using the right colors
 				</table>
 			</td>
 		</tr>
-		<cfif csv is true>
-			<cfset d='"#escapeDoubleQuotes(guid_prefix)# #escapeDoubleQuotes(loan_number)#"'>
-			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(rec_agent)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(loan_type)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(loan_status)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(return_due_date)#"'>
-			<cfset d=d &',"#trans_date#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(loan_instructions)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(auth_agent)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(ent_agent)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(trans_remarks)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(loan_description)#"'>
-			<cfset d=d &',"#escapeDoubleQuotes(valuelist(p.project_name))#"'>
-			<cfscript>
-				variables.joFileWriter.writeLine(d);
-			</cfscript>
-		</cfif>
-		<cfset i=#i#+1>
+		<cfset i=i+1>
 	</cfoutput>
-	<cfif csv is true>
-		<cfscript>
-			variables.joFileWriter.close();
-		</cfscript>
-		<cflocation url="/download.cfm?file=#dlFile#" addtoken="false">
-	</cfif>
 </table>
 </cfif>
 <cfif action is "csv">
-	<cfdump var=#form#>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(sql)#
 	</cfquery>
@@ -2165,8 +2120,5 @@ just fooling idiot cfclipse into using the right colors
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=LoanResultsDownload.csv" addtoken="false">
-
 </cfif>
-
-
 <cfinclude template="includes/_footer.cfm">
