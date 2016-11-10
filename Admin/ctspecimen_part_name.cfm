@@ -26,9 +26,9 @@
 			);
 		}
 	}
-	
-	
-	
+
+
+
 function addMedia(t,k){
 	var guts = "/picks/upLinkMedia.cfm?ktype=" + t + '&kval=' + k;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
@@ -51,10 +51,10 @@ function addMedia(t,k){
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
 }
-	
-	
-	
-	
+
+
+
+
 	function updatePart(pn) {
 		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + pn;
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
@@ -77,7 +77,7 @@ function addMedia(t,k){
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
 	}
-	
+
 	function updatePart2(ctspnid) {
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
@@ -122,7 +122,7 @@ function addMedia(t,k){
 	<div class="importantNotification">
 		IMPORTANT!
 		<p>
-			Parts (including description and tissue-status) must be consistent across collection types; the definition 
+			Parts (including description and tissue-status) must be consistent across collection types; the definition
 			(and eg, expected result of a search for the part)
 			must be the same for all collections in which the part is used. That is, "operculum" cannot be used for fish gill covers
 			as it has already been claimed to describe snail anatomy.
@@ -233,10 +233,8 @@ function addMedia(t,k){
 						<cfif canedit is false>
 							Inconsistent data;contact a DBA.
 						<cfelse>
-							<span class="likeLink" onclick="deletePart('#part_name#')">[ Delete ]</span>
 							<br><span class="likeLink" onclick="updatePart('#part_name#')">[ Update ]</span>
 						</cfif>
-
 					</td>
 				</tr>
 			</cfloop>
