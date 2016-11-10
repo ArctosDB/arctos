@@ -2,6 +2,8 @@
 
 
 <cfdump var=#part_name#>
+	<cfif action is "nothing">
+
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ctspecimen_part_name where part_name='#part_name#'
 </cfquery>
@@ -12,7 +14,6 @@
 	select distinct part_name from d
 </cfquery>
 <cfoutput>
-	<cfif action is "nothing">
 	<form name="f" method="post" action="">
 		<input type="hidden" name="action" value="update">
 		<p>
