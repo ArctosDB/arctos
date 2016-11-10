@@ -1,9 +1,3 @@
-hi
-
-<cfdump var=#request.rdurl#>
-<cfdump var=#cgi#>
-<cfdump var=#cgi.query_string#>
-
 <!---- make sure this stays at the top ---->
 <cfif listfindnocase(request.rdurl,'m',"/")>
 	<!--- mobile handling ---->
@@ -112,14 +106,6 @@ hi
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'guid',"/")>
-
-
-
-guid
-
-
-
-
 	<cfif replace(request.rdurl,"/","","last") is "guid">
 		<cfinclude template="/SpecimenSearch.cfm">
 	<cfelse>
@@ -180,24 +166,11 @@ guid
 				<cfinclude template="/SpecimenDetail.cfm">
 			</cfif>
 			<cfcatch>
-
-
-				<cfdump var=#cfcatch#>
-
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'name',"/")>
-
-
-
-<p>
-name
-</p>
-
-
-
 	<cfif replace(replace(request.rdurl,"/","","last"),"/","","all") is "name">
 		<cfinclude template="/taxonomy.cfm">
 	<cfelse>
