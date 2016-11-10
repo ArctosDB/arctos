@@ -13,6 +13,20 @@
 <cfquery name="p" dbtype="query">
 	select distinct part_name from d
 </cfquery>
+
+
+<cfquery name="c" dbtype="query">
+	select distinct collection_cde from d order by collection_cde
+</cfquery>
+
+
+<cfquery name="t" dbtype="query">
+	select distinct is_tissue from d
+</cfquery>
+<cfquery name="dec" dbtype="query">
+	select distinct description from d
+</cfquery>
+
 <cfoutput>
 	<form name="f" method="post" action="">
 		<input type="hidden" name="action" value="update">
@@ -21,6 +35,24 @@
 		</p>
 		<label for="part_name">Part Name</label>
 		<input type="text" name="part_name" id="part_name" value="#p.part_name#" size="50">
+		<cfloop query="c">
+			<label for="collection_cde">Available for Collection Code</label>
+			<select name="collection_cde" id="collection_cde" size="1">
+				<cfloop query="ctcollcde">
+					<option
+						<cfif c.collection_cde is ctcollcde.collection_cde> selected="selected" </cfif>
+						value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+				</cfloop>
+			</select>
+		</cfloop>
+
+		<label for="is_tissue">Tissue?</label>
+		<select name="is_tissue">
+			<option <cfif t.is_tissue is 0>selected="selected" </cfif>value="0">no</option>
+			<option <cfif t.is_tissue is 1>selected="selected" </cfif>value="1">yes</option>
+		</select>
+		<label for="description">Description</label>
+		<textarea name="description" id="description" rows="4" cols="40">#dec.description#</textarea>
 
 		<p>
 
