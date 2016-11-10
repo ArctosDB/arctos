@@ -116,6 +116,7 @@
 				<th>part_name</th>
 				<th>IsTissue</th>
 				<th>Description</th>
+				<th>Edit</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -126,7 +127,7 @@
 			<cfset rid=rereplace(part_name,"[^A-Za-z0-9]","_","all")>
 
 				<cfset canedit=true>
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="prow_#rid#">
+				<tr id="prow_#rid#">
 					<cfquery name="pd" dbtype="query">
 						select * from q where part_name='#part_name#' order by collection_cde
 					</cfquery>
