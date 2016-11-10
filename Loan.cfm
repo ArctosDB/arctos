@@ -1978,6 +1978,13 @@ just fooling idiot cfclipse into using the right colors
 				<option value="/Reports/report_printer.cfm?transaction_id=#valuelist(allLoans.transaction_id)#">Reporter</option>
 			</select>
 	</cfif>
+
+
+	<form name="csv" method="post" action="Loan.cfm">
+		<input type="hidden" name="sql" value="#sql#">
+		<input type="hidden" name="action" value="csv">
+		<input type="submit" value="downloadCSV">
+	</form>
 	<cfset rURL="Loan.cfm?csv=true">
 	<cfloop list="#StructKeyList(form)#" index="key">
 		<cfif len(form[key]) gt 0>
@@ -2146,4 +2153,9 @@ just fooling idiot cfclipse into using the right colors
 	</cfif>
 </table>
 </cfif>
+<cfif action is "csv">
+	<cfdump var=#form#>
+</cfif>
+
+
 <cfinclude template="includes/_footer.cfm">
