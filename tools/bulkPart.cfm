@@ -12,6 +12,12 @@ $(document).ready(function() {
 function setRequireAdd(id){
 	var onoff=$("#"+id).val();
 	var tid=id.replace("part_name_",'');
+
+	console.log(id);
+	console.log(tid);
+	console.log(onoff);
+
+
 	if (onoff.length>0){
 		$('lot_count_'+tid).addClass('reqdClr').prop('required',true);
 		$('coll_obj_disposition_'+tid).addClass('reqdClr').prop('required',true);
@@ -71,7 +77,7 @@ function setRequireAdd(id){
                     <td>
                         <label for="part_name_#i#">Add Part (#i#)</label>
                         <input type="text" name="part_name_#i#" id="part_name_#i#"
-                            onchange="findPart(this.id,this.value,'#getColnCde.collection_cde#');setRequireAdd(this.id);"
+                            onchange="setRequireAdd(this.id);findPart(this.id,this.value,'#getColnCde.collection_cde#');"
                             onkeypress="return noenter(event);">
                         <label for="lot_count_#i#">Part Count (#i#)</label>
                         <input type="text" name="lot_count_#i#" id="lot_count_#i#" size="2">
