@@ -187,6 +187,15 @@ guid
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'name',"/")>
+
+
+
+<p>
+name
+</p>
+
+
+
 	<cfif replace(replace(request.rdurl,"/","","last"),"/","","all") is "name">
 		<cfinclude template="/taxonomy.cfm">
 	<cfelse>
