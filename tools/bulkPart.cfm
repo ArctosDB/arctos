@@ -19,11 +19,13 @@ function setRequireAdd(id){
 
 
 	if (onoff.length>0){
+		console.log('making required');
 		$('lot_count_'+tid).addClass('reqdClr').prop('required',true);
 		$('coll_obj_disposition_'+tid).addClass('reqdClr').prop('required',true);
 		$('condition_'+tid).addClass('reqdClr').prop('required',true);
 		$('coll_object_remarks_'+tid).addClass('reqdClr').prop('required',true);
 	} else {
+		console.log('making NOT required');
 		$('lot_count_'+tid).removeClass('reqdClr').prop('required',false);
 		$('coll_obj_disposition_'+tid).removeClass('reqdClr').prop('required',false);
 		$('condition_'+tid).removeClass('reqdClr').prop('required',false);
