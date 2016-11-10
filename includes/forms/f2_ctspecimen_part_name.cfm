@@ -56,57 +56,20 @@
 		</select>
 		<label for="description">Description</label>
 		<textarea name="description" id="description" rows="4" cols="40">#dec.description#</textarea>
-
-		<p>
-
-		</p>
-<!---------
-		<input type="hidden" name="ctspnid" value="#ctspnid#">
-		<label for="collection_cde">Collection Code</label>
-		<select name="collection_cde" id="collection_cde" size="1">
-			<cfloop query="ctcollcde">
-				<option
-					<cfif d.collection_cde is ctcollcde.collection_cde> selected="selected" </cfif>
-					value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-			</cfloop>
-		</select>
-
-		<label for="is_tissue">Tissue?</label>
-		<select name="is_tissue">
-			<option <cfif d.is_tissue is 0>selected="selected" </cfif>value="0">no</option>
-			<option <cfif d.is_tissue is 1>selected="selected" </cfif>value="1">yes</option>
-		</select>
-		<label for="upAllTiss">
-			Update is_tissue for all parts, regardless of collection, to this value?<br>
-		</label>
-		<select name="upAllTiss">
-			<option selected="selected" value="0">Just this one please</option>
-			<option value="1">Yes, update all default is_tissue flags</option>
-		</select>
-		<br>
-		<label for="description">Description</label>
-		<textarea name="description" id="description" rows="4" cols="40">#d.description#</textarea>
-		<label for="upAllDesc">Update description for all parts, regardless of collection, to this value?</label>
-		<select name="upAllDesc">
-			<option selected="selected" value="0">Just this one please</option>
-			<option value="1">Yes, update all part descriptions</option>
-		</select>
-		<br>
-		--------->
 		<input type="submit" value="Save Changes" class="savBtn">
-
 	</form>
 </cfoutput>
 </cfif>
-
-
-
 
 
 <cfif action is "update">
 <cfoutput>
 
 	<cfdump var=#form#>
+	<cfif part_name is "delete">
+		delete....
+	</cfif>
+
 
 	<cfabort>
 
