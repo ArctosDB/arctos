@@ -1,5 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="ctspecimen_part_name editor">
+
+<style>
+	.edited{border:2px solid red;}
+</style>
 <script>
 	function doneSaving(){
 		$('#frame_ctspid').remove();
@@ -56,6 +60,9 @@ function addMedia(t,k){
 
 
 	function updatePart(pn) {
+		$("prow_" + pn).addClass('edited');
+
+
 		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
@@ -191,7 +198,7 @@ function addMedia(t,k){
 			</cfquery>
 			<cfloop query="pname">
 				<cfset canedit=true>
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="prow_#part_name#">
 					<cfquery name="pd" dbtype="query">
 						select * from q where part_name='#part_name#' order by collection_cde
 					</cfquery>
@@ -238,6 +245,7 @@ function addMedia(t,k){
 						</cfif>
 					</td>
 				</tr>
+				<cfset i=i+1>
 			</cfloop>
 
 			<!----
