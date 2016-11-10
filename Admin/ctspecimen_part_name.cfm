@@ -176,7 +176,8 @@
 				select part_name from q group by part_name order by part_name
 			</cfquery>
 			<cfloop query="pname">
-			<cfset rid=rereplace(part_name,"^[AZaz]","_")>
+			<cfset rid=rereplace(part_name,"^[A-Za-z0-9]","_","all")>
+			#rid#
 
 				<cfset canedit=true>
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="prow_#rid#">
