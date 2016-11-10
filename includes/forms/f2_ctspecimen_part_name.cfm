@@ -21,7 +21,7 @@
 			<p>
 				Editing part name <strong>#part_name#</strong>
 			</p>
-			<input type="text" name="part_name" id="part_name" value="#p.part_name#" size="50">
+			<input type="hidden" name="part_name" id="part_name" value="#p.part_name#" size="50">
 			<cfset ctccde=valuelist(ctcollcde.collection_cde)>
 			<cfloop query="d">
 				<cfset ctccde=listdeleteat(ctccde,listfind(ctccde,'#collection_cde#'))>

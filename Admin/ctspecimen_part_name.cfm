@@ -55,7 +55,7 @@
 			as it has already been claimed to describe snail anatomy.
 		</p>
 		<p class="edited">
-			Rows that look like this have been edited and may not be current; reload to refresh.
+			Rows that look like this may have been edited and may not be current; reload to refresh.
 		</p>
 	</div>
 
