@@ -115,7 +115,7 @@
 </cftransaction>
 done
 <a href="f2_ctspecimen_part_name.cfm?part_name=#part_name#">f2_ctspecimen_part_name.cfm?part_name=#part_name#</a>
-<cflocation url="f2_ctspecimen_part_name.cfm?part_name=#part_name#" addtoken="false">
+<cflocation url="f2_ctspecimen_part_name.cfm?part_name=#URLEncodedFormat(part_name)#" addtoken="false">
 
 <!---
 
