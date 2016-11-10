@@ -63,6 +63,10 @@
 		<p>
 			Please include a description or definition.
 		</p>
+		<p>
+			Please be consistent, especially in complex parts. If "heart, kidney" exists do NOT create "kidney, heart."
+			Contact a DBA if you need assistance in creating consistency.
+		</p>
 		<p class="edited">
 			Rows that look like this may have been edited and may not be current; reload to refresh.
 		</p>

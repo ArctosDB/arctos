@@ -53,39 +53,38 @@
 		</form>
 	</cfoutput>
 </cfif>
-
 <cfif action is "update">
-<cfoutput>
-<cftransaction>
-	<!--- first, delete anything that needs deleted ---->
-	<cfloop list="#FIELDNAMES#" index="f">
-		<cfif left(f,15) is "COLLECTION_CDE_" and f is not "COLLECTION_CDE_NEW">
-			<!--- if the value is NULL, we're deleting that record ---->
-			<cfset thisCCVal=evaluate(f)>
-			<cfif len(thisCCVal) is 0>
-				<cfset thisPartID=listlast(f,"_")>
-				<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from ctspecimen_part_name where CTSPNID=#thisPartID#
+	<cfoutput>
+		<cftransaction>
+			<!--- first, delete anything that needs deleted ---->
+			<cfloop list="#FIELDNAMES#" index="f">
+				<cfif left(f,15) is "COLLECTION_CDE_" and f is not "COLLECTION_CDE_NEW">
+					<!--- if the value is NULL, we're deleting that record ---->
+					<cfset thisCCVal=evaluate(f)>
+					<cfif len(thisCCVal) is 0>
+						<cfset thisPartID=listlast(f,"_")>
+						<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							delete from ctspecimen_part_name where CTSPNID=#thisPartID#
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfloop>
+			<!----
+				second, update everything that's left
+				If we've deleted everything this will just do nothing
+			---->
+			<cfquery name="upf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update ctspecimen_part_name set DESCRIPTION='#escapeQuotes(DESCRIPTION)#',IS_TISSUE='#IS_TISSUE#' where part_name='#part_name#'
+			</cfquery>
+			<!--- last, insert new if there's one provided ---->
+			<cfif len(COLLECTION_CDE_NEW) gt 0>
+				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into ctspecimen_part_name (PART_NAME,COLLECTION_CDE,DESCRIPTION,IS_TISSUE) values (
+					'#part_name#','#COLLECTION_CDE_NEW#','#escapeQuotes(DESCRIPTION)#','#IS_TISSUE#')
 				</cfquery>
 			</cfif>
-		</cfif>
-	</cfloop>
-	<!----
-		second, update everything that's left
-		If we've deleted everything this will just do nothing
-	---->
-	<cfquery name="upf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update ctspecimen_part_name set DESCRIPTION='#escapeQuotes(DESCRIPTION)#',IS_TISSUE='#IS_TISSUE#' where part_name='#part_name#'
-	</cfquery>
-	<!--- last, insert new if there's one provided ---->
-	<cfif len(COLLECTION_CDE_NEW) gt 0>
-		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into ctspecimen_part_name (PART_NAME,COLLECTION_CDE,DESCRIPTION,IS_TISSUE) values (
-			'#part_name#','#COLLECTION_CDE_NEW#','#escapeQuotes(DESCRIPTION)#','#IS_TISSUE#')
-		</cfquery>
-	</cfif>
-</cftransaction>
-<cflocation url="f2_ctspecimen_part_name.cfm?part_name=#URLEncodedFormat(part_name)#" addtoken="false">
+		</cftransaction>
+		<cflocation url="f2_ctspecimen_part_name.cfm?part_name=#URLEncodedFormat(part_name)#" addtoken="false">
 
-</cfoutput>
+	</cfoutput>
 </cfif>
