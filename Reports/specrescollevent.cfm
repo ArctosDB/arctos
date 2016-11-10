@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="download collecting event">
+
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		geog_auth_rec.HIGHER_GEOG,
@@ -47,7 +48,10 @@
 		collecting_event.ENDED_DATE,
 		specimen_event.COLLECTING_METHOD
 </cfquery>
+
+
 <cfset fname = "collecting_event.csv">
+
 <cfset  util = CreateObject("component","component.utilities")>
 <cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
 <cffile action = "write"
