@@ -2,7 +2,7 @@ hi
 
 <cfdump var=#request.rdurl#>
 <cfdump var=#cgi#>
-
+<cfdump var=#cgi.query_string#>
 
 <!---- make sure this stays at the top ---->
 <cfif listfindnocase(request.rdurl,'m',"/")>
