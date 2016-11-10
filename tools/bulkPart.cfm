@@ -7,6 +7,20 @@ $(document).ready(function() {
 	$(".reqdClr:visible").each(function(e){
 	    $(this).prop('required',true);
 	});
+	$('#existing_lot_count').on('change', function() {
+	console.log('change');
+	console.log($("#existing_lot_count").val());
+
+
+  if ($("#existing_lot_count").val().length > 0){
+  	$('#new_lot_count').addClass('reqdClr').prop('required',true);
+  } else {
+  	$('#new_lot_count').removeClass('reqdClr').prop('required',false);
+  }
+});
+
+
+
 });
 
 function setRequireAdd(id){
@@ -27,17 +41,6 @@ function copyEPt(){
 }
 
 
-$('#existing_lot_count').on('change', function() {
-	console.log('change');
-	console.log($("#existing_lot_count").val());
-
-
-  if ($("#existing_lot_count").val().length > 0){
-  	$('#new_lot_count').addClass('reqdClr').prop('required',true);
-  } else {
-  	$('#new_lot_count').removeClass('reqdClr').prop('required',false);
-  }
-});
 
 </script>
 
