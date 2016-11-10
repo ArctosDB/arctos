@@ -74,15 +74,15 @@ function setRequireAdd(id){
                             onchange="findPart(this.id,this.value,'#getColnCde.collection_cde#');setRequireAdd(this.id);"
                             onkeypress="return noenter(event);">
                         <label for="lot_count_#i#">Part Count (#i#)</label>
-                        <input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
+                        <input type="text" name="lot_count_#i#" id="lot_count_#i#" size="2">
                         <label for="coll_obj_disposition_#i#">Disposition (#i#)</label>
-                        <select name="coll_obj_disposition_#i#" id="coll_obj_disposition_#i#" size="1"  class="reqdClr">
+                        <select name="coll_obj_disposition_#i#" id="coll_obj_disposition_#i#" size="1">
                             <cfloop query="ctDisp">
                                 <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
                             </cfloop>
                         </select>
                         <label for="condition_#i#">Condition (#i#)</label>
-                        <input type="text" name="condition_#i#" id="condition_#i#" class="reqdClr">
+                        <input type="text" name="condition_#i#" id="condition_#i#">
                         <label for="coll_object_remarks_#i#">Remark (#i#)</label>
                         <input type="text" name="coll_object_remarks_#i#" id="coll_object_remarks_#i#">
                     </td>
