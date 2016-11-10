@@ -36,7 +36,7 @@
 
 
 	function updatePart(pn) {
-		$("prow_" + pn).addClass('edited');
+		$("#prow_" + pn).addClass('edited');
 
 
 		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
