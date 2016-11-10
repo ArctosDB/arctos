@@ -30,8 +30,8 @@
 			The name of used parts cannot be changed; contact a DBA. Type "delete" into part name and save
 			to delete this part.
 		</p>
-		<label for="part_name">Part Name</label>
-		<input type="text" name="part_name" id="part_name" value="#p.part_name#" size="50">
+		<label for="ppart_name">Part Name</label>
+		<input type="text" name="ppart_name" id="ppart_name" value="#p.part_name#" size="50">
 		<cfset ctccde=valuelist(ctcollcde.collection_cde)>
 		<cfloop query="d">
 			<cfset ctccde=listdeleteat(ctccde,listfind(ctccde,'#collection_cde#'))>
