@@ -68,8 +68,7 @@
 
 <cfif action is "update">
 <cfoutput>
-
-	<cfdump var=#form#>
+<cftransaction>
 
 	<!--- first, delete anything that needs deleted ---->
 	<cfloop list="#FIELDNAMES#" index="f">
@@ -83,6 +82,10 @@
 				<cfset thisPartID=listlast(f,"_")>
 				<br>deleting #thisPartID#
 				<br>delete from ctspecimen_part_name where CTSPNID=#thisPartID#
+				<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from ctspecimen_part_name where CTSPNID=#thisPartID#
+				</cfquery>
+
 			</cfif>
 		</cfif>
 	</cfloop>
@@ -91,8 +94,10 @@
 		If we've deleted everything this will just do nothing
 	---->
 		<p>
-			update ctspecimen_part_name set DESCRIPTION='#escapeQuotes(DESCRIPTION)#',IS_TISSUE='#IS_TISSUE#' where part_name='#part_name#'
 
+		<cfquery name="upf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update ctspecimen_part_name set DESCRIPTION='#escapeQuotes(DESCRIPTION)#',IS_TISSUE='#IS_TISSUE#' where part_name='#part_name#'
+		</cfquery>
 		</p>
 
 	<!--- last, insert new if there's one provided ---->
@@ -101,48 +106,13 @@
 			insert into ctspecimen_part_name (PART_NAME,COLLECTION_CDE,DESCRIPTION,IS_TISSUE) values (
 			'#part_name#','#COLLECTION_CDE_NEW#','#escapeQuotes(DESCRIPTION)#','#IS_TISSUE#')
 		</p>
-
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into ctspecimen_part_name (PART_NAME,COLLECTION_CDE,DESCRIPTION,IS_TISSUE) values (
+			'#part_name#','#COLLECTION_CDE_NEW#','#escapeQuotes(DESCRIPTION)#','#IS_TISSUE#')
+		</cfquery>
 	</cfif>
 
-
-
-	<cfabort>
-
-
-
-
-	<cftry>
-	<cftransaction>
-		<cfquery name="usp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update ctspecimen_part_name set
-				collection_cde='#collection_cde#',
-				part_name='#part_name#',
-				is_tissue=#is_tissue#,
-				description='#description#'
-			where ctspnid=#ctspnid#
-		</cfquery>
-		<cfif upAllDesc is 1>
-			<cfquery name="upalld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ctspecimen_part_name set
-				description='#description#'
-				where
-				part_name='#part_name#'
-			</cfquery>
-		</cfif>
-		<cfif upAllTiss is 1>
-			<cfquery name="upallt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ctspecimen_part_name set
-				is_tissue=#is_tissue#
-				where
-				part_name='#part_name#'
-			</cfquery>
-		</cfif>
-		<script>
-			var desc=escape('#replace(description,"'","\'","all")#');
-			parent.successUpdate('#ctspnid#','#collection_cde#','#part_name#','#is_tissue#',desc,'#upAllDesc#','#upAllTiss#');
-		</script>
-	</cftransaction>
-	<cfcatch><cfdump var=#cfcatch#></cfcatch>
-	</cftry>
+</cftransaction>
+done
 </cfoutput>
 </cfif>
