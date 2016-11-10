@@ -221,7 +221,7 @@ function addMedia(t,k){
 						<cfquery name="dsc" dbtype="query">
 							select description from pd group by description
 						</cfquery>
-						<cfif dsc.description gt 1>
+						<cfif dsc.recordcount gt 1>
 							#valuelist(dsc.description)#
 							<cfset canedit=false>
 							description inconsistency!!!
