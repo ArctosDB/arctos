@@ -1975,13 +1975,13 @@ just fooling idiot cfclipse into using the right colors
 				<option value="/Reports/report_printer.cfm?transaction_id=#valuelist(allLoans.transaction_id)#">Reporter</option>
 			</select>
 	</cfif>
-
-
-	<form name="csv" method="post" action="Loan.cfm">
-		<input type="hidden" name="sql" value="#sql#">
-		<input type="hidden" name="action" value="csv">
-		<input type="submit" value="downloadCSV">
-	</form>
+	<p>
+		<form name="csv" method="post" action="Loan.cfm">
+			<input type="hidden" name="sql" value="#sql#">
+			<input type="hidden" name="action" value="csv">
+			<input type="submit" value="download CSV">
+		</form>
+	</p>
 	</cfoutput>
 	<table>
 	<cfset i=1>
