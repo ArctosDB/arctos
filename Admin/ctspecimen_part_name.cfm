@@ -5,46 +5,9 @@
 	.edited{background:#eaa8b4;}
 </style>
 <script>
-	function doneSaving(){
-		$('#frame_ctspid').remove();
-		$('#annotateDiv').remove();
-		$('#bgDiv').remove();
-	}
-	function deletePart(ctspnid){
-		var answer = confirm("Delete Part?")
-		if (answer){
-			$.getJSON("/component/functions.cfc",
-				{
-					method : "deleteCtPartName",
-					ctspnid : ctspnid,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function(r) {
-					if (r == ctspnid) {
-						$('tr#r' + ctspnid).remove();
-					} else {
-						alert('An error occured! \n ' + r);
-					}
-				}
-			);
-		}
-	}
-
-
-
-
-
 	function updatePart(pn) {
-
 		var rid='prow_' + pn.replace(/\W/g, '_');
-		console.log(rid);
-
-
-
 		$("#" + rid).addClass('edited');
-
-
 		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
@@ -66,41 +29,6 @@
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
 	}
-
-	function updatePart2(ctspnid) {
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		document.body.appendChild(bgDiv);
-		bgDiv.setAttribute('onclick','doneSaving()');
-		var theDiv = document.createElement('div');
-		theDiv.id = 'annotateDiv';
-		theDiv.className = 'annotateBox';
-		theDiv.innerHTML='';
-		theDiv.src = "";
-		document.body.appendChild(theDiv);
-		$('#annotateDiv').append('<IFRAME id="frame_ctspid" width="100%" height="100%">');
-	  	var guts = "/includes/forms/f_ctspecimen_part_name.cfm?ctspnid=" + ctspnid;
-	    $('iframe#frame_ctspid').attr('src', guts);
-	    $('iframe#frame_ctspid').load(function()
-	    {
-	        viewport.init("#annotateDiv");
-	    });
-	}
-	function successUpdate(ctspnid,collection_cde,part_name,is_tissue,description,upAllDesc,upAllTiss) {
-		if(	upAllDesc==1 || upAllTiss==1 ) {
-			document.location=document.location;
-		}
-
-		var r='<td>' + collection_cde + '</td><td>' + part_name + '</td><td>' + is_tissue + '</td>';
-		r+='<td>' + unescape(description) + '</td><td nowrap="nowrap">';
-		r+='<span class="likeLink" onclick="deletePart(' + ctspnid + ')">[ Delete ]</span><br>';
-		r+='<span class="likeLink" onclick="updatePart(' + ctspnid + ')">[ Update ]</span>';
-		$('tr#r' + ctspnid).children().remove();
-		$('tr#r' + ctspnid).append(r);
-		doneSaving();
-	}
-
 
 </script>
 
@@ -255,14 +183,10 @@
 </cfif>
 <cfif action is "insert">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) from ctspecimen_part_name where part_name='#part_name#' and
-		(
-			nvl(description,'NULL') != nvl('#description#','NULL') or
-			is_tissue != #is_tissue#
-		)
+		select count(*) from ctspecimen_part_name where part_name='#part_name#'
 	</cfquery>
 	<cfif d.recordcount gt 0>
-		Definition and tissue status must match across collections.<cfabort>
+		<cfthrow message="Part already exists; edit to add collection types.">
 	</cfif>
 	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into ctspecimen_part_name (
