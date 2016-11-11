@@ -4209,7 +4209,7 @@
 				<cfset subj="TEST PLEASE IGNORE: Annotation Submitted">
 			</cfif>
 			<cfmail to="#maddr#" from="annotation@#Application.fromEmail#" subject="#subj#" type="html">
-				An Arctos user (<cfif len(session.username) gt 0>#session.username#<cfelse>Anonymous</cfif>) has created an Annotation
+				An Arctos user (<cfif len(session.username) gt 0>#session.username#<cfelse>Anonymous</cfif> - #email#) has created an Annotation
 				concerning #listlen(idvalue)# #atype# record(s) potentially related to your collection(s).
 				<blockquote>
 					#annotation#
