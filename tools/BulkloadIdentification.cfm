@@ -188,84 +188,86 @@ sho err
 			  )
 	    </cfquery>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_id where status is null and rownum<500
+			select * from cf_temp_id where status is null
 		</cfquery>
 		<cfloop query="data">
-			<cfset problem="">
-			<cfset coid="">
-			<cfset tnid="">
-			<cfset tf="">
-			<cfif other_id_type is not "catalog number">
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT
-						coll_obj_other_id_num.collection_object_id
-					FROM
-						coll_obj_other_id_num,
-						cataloged_item,
-						collection
-					WHERE
-						coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
-						cataloged_item.collection_id = collection.collection_id and
-						collection.guid_prefix = '#guid_prefix#' and
-						coll_obj_other_id_num.other_id_type = '#trim(other_id_type)#' and
-						coll_obj_other_id_num.display_value = '#trim(other_id_number)#'
-				</cfquery>
-			<cfelse>
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT
-						collection_object_id
-					FROM
-						cataloged_item,
-						collection
-					WHERE
-						cataloged_item.collection_id = collection.collection_id and
-						collection.guid_prefix = '#guid_prefix#' and
-						cataloged_item.cat_num='#other_id_number#'
-				</cfquery>
-			</cfif>
-			<cfif collObj.recordcount is not 1>
-				<cfset problem=listappend(problem,"#data.other_id_number# #data.other_id_type# #data.guid_prefix# could not be found",";")>
-			<cfelse>
-				<cfset coid=collObj.collection_object_id>
-			</cfif>
-			<cfif right(scientific_name,4) is " sp.">
-				<cfset scientific_name=left(scientific_name,len(scientific_name) -4)>
-				<cfset tf = "A sp.">
-				<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 4)>
-			<cfelseif right(scientific_name,4) is " cf.">
-				<cfset scientific_name=left(scientific_name,len(scientific_name) -4)>
-				<cfset tf = "A cf.">
-				<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 4)>
-			<cfelseif right(scientific_name,2) is " ?">
-				<cfset scientific_name=left(scientific_name,len(scientific_name) -2)>
-				<cfset tf = "A ?">
-				<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 2)>
-			<cfelse>
-				<cfset  tf = "A">
-				<cfset TaxonomyTaxonName="#scientific_name#">
-			</cfif>
-			<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-                SELECT taxon_name_id FROM taxon_name WHERE scientific_name = '#TaxonomyTaxonName#'
-            </cfquery>
-			<cfif isTaxa.recordcount is not 1>
-				<cfset problem=listappend(problem,"taxonomy not found",";")>
-			<cfelse>
-				<cfset tnid=isTaxa.taxon_name_id>
-			</cfif>
-			<cfif len(problem) is 0>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-                    UPDATE cf_temp_id SET
-                       taxon_name_id = #tnid#,
-                       taxa_formula='#tf#',
-                       collection_object_id=#coid#,
-					   status='valid'
-                    where key = #key#
-                </cfquery>
-			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-                    UPDATE cf_temp_id SET status = '#problem#' where key = #key#
-                </cfquery>
-			</cfif>
+			<cftransaction>
+				<cfset problem="">
+				<cfset coid="">
+				<cfset tnid="">
+				<cfset tf="">
+				<cfif other_id_type is not "catalog number">
+					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						SELECT
+							coll_obj_other_id_num.collection_object_id
+						FROM
+							coll_obj_other_id_num,
+							cataloged_item,
+							collection
+						WHERE
+							coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
+							cataloged_item.collection_id = collection.collection_id and
+							collection.guid_prefix = '#guid_prefix#' and
+							coll_obj_other_id_num.other_id_type = '#trim(other_id_type)#' and
+							coll_obj_other_id_num.display_value = '#trim(other_id_number)#'
+					</cfquery>
+				<cfelse>
+					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						SELECT
+							collection_object_id
+						FROM
+							cataloged_item,
+							collection
+						WHERE
+							cataloged_item.collection_id = collection.collection_id and
+							collection.guid_prefix = '#guid_prefix#' and
+							cataloged_item.cat_num='#other_id_number#'
+					</cfquery>
+				</cfif>
+				<cfif collObj.recordcount is not 1>
+					<cfset problem=listappend(problem,"#data.other_id_number# #data.other_id_type# #data.guid_prefix# could not be found",";")>
+				<cfelse>
+					<cfset coid=collObj.collection_object_id>
+				</cfif>
+				<cfif right(scientific_name,4) is " sp.">
+					<cfset scientific_name=left(scientific_name,len(scientific_name) -4)>
+					<cfset tf = "A sp.">
+					<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 4)>
+				<cfelseif right(scientific_name,4) is " cf.">
+					<cfset scientific_name=left(scientific_name,len(scientific_name) -4)>
+					<cfset tf = "A cf.">
+					<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 4)>
+				<cfelseif right(scientific_name,2) is " ?">
+					<cfset scientific_name=left(scientific_name,len(scientific_name) -2)>
+					<cfset tf = "A ?">
+					<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 2)>
+				<cfelse>
+					<cfset  tf = "A">
+					<cfset TaxonomyTaxonName="#scientific_name#">
+				</cfif>
+				<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	                SELECT taxon_name_id FROM taxon_name WHERE scientific_name = '#TaxonomyTaxonName#'
+	            </cfquery>
+				<cfif isTaxa.recordcount is not 1>
+					<cfset problem=listappend(problem,"taxonomy not found",";")>
+				<cfelse>
+					<cfset tnid=isTaxa.taxon_name_id>
+				</cfif>
+				<cfif len(problem) is 0>
+					<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	                    UPDATE cf_temp_id SET
+	                       taxon_name_id = #tnid#,
+	                       taxa_formula='#tf#',
+	                       collection_object_id=#coid#,
+						   status='valid'
+	                    where key = #key#
+	                </cfquery>
+				<cfelse>
+					<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	                    UPDATE cf_temp_id SET status = '#problem#' where key = #key#
+	                </cfquery>
+				</cfif>
+			</cftransaction>
 		</cfloop>
 		validation has either finished or timed out - reload, you should quicky get here - if not, reload again or check the table for status
 		<a href="BulkloadIdentification.cfm?action=table">
