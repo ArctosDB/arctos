@@ -170,7 +170,7 @@ function copyEPt(){
                                 <option value="#Part_Name#">#Part_Name#</option>
                             </cfloop>
                     </select>
-					<span class="likeLink" onclick="copyEPt()">copy --></span>
+					<span class="likeLink" onclick="copyEPt()">copy (no change) --></span>
                 </td>
                 <td>
                     <input type="text" name="new_part_name" id="new_part_name" class="reqdClr"
