@@ -173,8 +173,6 @@
 				ANNOTATE_DATE DESC
 		) where rownum<101
 	</cfquery>
-
-	<cfdump var=#data#>
 	<hr>
 	<cfif data.recordcount is 100>
 		<div class="importantNotification">
