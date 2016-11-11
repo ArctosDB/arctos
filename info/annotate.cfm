@@ -130,7 +130,8 @@
 				Any information you provide will be used only for this purpose.
 			</div>
 			<label for="email">Email</label>
-			<input type="text" class="reqdClr" name="email" id="email" value="#email#" size="60">
+			<input type="text" class="reqdClr" name="email" id="email" value="#email#" size="60" oninvalid="Please provide a valid email address where we can contact you with any questions regarding your annotation.
+				Any information you provide will be used only for this purpose.">
 		</div>
 		<br>
 		<div style="align:center;margin:.3em;">
