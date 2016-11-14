@@ -461,6 +461,11 @@ run these in order
 			and status='fill_in_the_blanks_from_genus'
 			and rownum<101
 		</cfquery>
+
+		<cfdump var=#d#>
+
+
+
 		<!---- /globals --->
 		<cfloop query="d">
 
