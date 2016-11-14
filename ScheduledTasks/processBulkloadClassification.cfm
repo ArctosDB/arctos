@@ -463,6 +463,10 @@ run these in order
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
+
+		<p>
+			scientific_name: #scientific_name#
+		</p>
 			<cfset updatedOrig=false>
 			<cftransaction>
 			<!--- build a query object from this row of the existing data --->
@@ -566,6 +570,11 @@ run these in order
 						<cfquery name="updateorig" datasource="uam_god">
 							#preserveSingleQuotes(sql)#
 						</cfquery>
+
+
+						<p>
+							#preserveSingleQuotes(sql)#
+						</p>
 						<cfset updatedOrig=true>
 				</cfif>
 			</cfloop>
