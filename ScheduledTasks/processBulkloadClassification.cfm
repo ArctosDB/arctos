@@ -65,6 +65,21 @@ run these in order
 		</cfquery>
 		<cfdump var=#c#>
 
+		<cfloop query="oClassTerms">
+			<cfset thisSrcData=evaluate("r." & taxon_term)>
+			<cfif len(thisSrcData) gt 0>
+				<p>
+					update CF_TEMP_CLASSIFICATION set #taxon_term#='#thisSrcData#' where genus='#c.genus#' and #taxon_term# is null
+				</p>
+
+			<cfelse>
+				<p>
+					no #taxon_term# in source do nothing
+				</p>
+			</cfif>
+
+		</cfloop>
+
 	</cfloop>
 	</cfoutput>
 
