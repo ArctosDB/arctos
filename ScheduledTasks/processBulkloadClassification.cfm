@@ -33,6 +33,13 @@ run these in order
 	<cfquery name="d" datasource="uam_god">
 		select distinct genus from CF_TEMP_CLASSIFICATION where scientific_name in (select scientific_name from CF_TEMP_CLASSIFICATION2)
 	</cfquery>
+	<cfquery name="cols" datasource="uam_god">
+		select * from CF_TEMP_CLASSIFICATION where 1=2
+	</cfquery>
+
+
+
+	<cfdump var=#cols#>
 
 	<cfdump var=#d#>
 
