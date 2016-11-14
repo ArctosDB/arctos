@@ -33,13 +33,22 @@ run these in order
 	<cfquery name="d" datasource="uam_god">
 		select distinct genus from CF_TEMP_CLASSIFICATION where scientific_name in (select scientific_name from CF_TEMP_CLASSIFICATION2)
 	</cfquery>
-	<cfquery name="cols" datasource="uam_god">
-		select * from CF_TEMP_CLASSIFICATION where 1=2
+	<!---- just a list for now.... ---->
+
+<cfquery name="oClassTerms" datasource="uam_god">
+		select
+			taxon_term
+		from
+			CTTAXON_TERM
+		where
+			IS_CLASSIFICATION=1
+		order by
+			RELATIVE_POSITION desc
 	</cfquery>
 
 
 
-	<cfdump var=#cols#>
+	<cfdump var=#oClassTerms#>
 
 	<cfdump var=#d#>
 
