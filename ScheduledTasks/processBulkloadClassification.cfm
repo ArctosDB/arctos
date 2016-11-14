@@ -22,8 +22,33 @@ run these in order
 	Magic tools
 
 	<br><a href="processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus_nosource">fill_in_the_blanks_from_genus_nosource</a>
+	<br><a href="processBulkloadClassification.cfm?action=get_data_from_genus_record">get_data_from_genus_record</a>
 
 </p>
+<!-------------------------------------------->
+<cfif action is "">
+	<cfoutput>
+
+	<!--- after fill_in_the_blanks_from_genus_nosource; update seeded records to match genus ---->
+	<cfquery name="d" datasource="uam_god">
+		select distinct genus from CF_TEMP_CLASSIFICATION where scientific_name in (select scientific_name from CF_TEMP_CLASSIFICATION2)
+	</cfquery>
+	<cfloop query="d">
+		<cfquery name="r" datasource="uam_god">
+			select * from CF_TEMP_CLASSIFICATION where genus='#d.genus#' and species is null
+		</cfquery>
+		<p>
+			<cfdump var=#r#>
+		</p>
+		<cfquery name="c" datasource="uam_god">
+			select * from CF_TEMP_CLASSIFICATION where genus='#d.genus#' and species is not null
+		</cfquery>
+		<cfdump var=#c#>
+
+	</cfloop>
+	</cfoutput>
+
+</cfif>
 <!-------------------------------------------->
 <cfif action is "fill_in_the_blanks_from_genus_nosource">
 
