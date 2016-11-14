@@ -687,7 +687,7 @@ run these in order
 
 		<cfloop query="d">
 			<cftransaction>
-				<cfif classification_id is '[NEW]'>
+				<cfif classification_id is '[NEW]' or len(classification_id) is 0>
 					<cfset thisClassificationID=CreateUUID()>
 				<cfelse>
 					<cfset thisClassificationID=classification_id>
