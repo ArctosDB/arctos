@@ -33,6 +33,10 @@ run these in order
 	<cfquery name="d" datasource="uam_god">
 		select distinct genus from CF_TEMP_CLASSIFICATION where scientific_name in (select scientific_name from CF_TEMP_CLASSIFICATION2)
 	</cfquery>
+
+	<cfdump var=#d#>
+
+
 	<cfloop query="d">
 		<cfquery name="r" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where genus='#d.genus#' and species is null
