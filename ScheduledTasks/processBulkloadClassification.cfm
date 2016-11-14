@@ -26,7 +26,7 @@ run these in order
 
 </p>
 <!-------------------------------------------->
-<cfif action is "">
+<cfif action is "get_data_from_genus_record">
 	<cfoutput>
 
 	<!--- after fill_in_the_blanks_from_genus_nosource; update seeded records to match genus ---->
