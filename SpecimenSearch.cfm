@@ -284,41 +284,10 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="_scientific_name">Identification</span>
+				<span class="helpLink" id="_taxon_name">Any taxon/ID/common name:</span>
 			</td>
 			<td class="srch">
-				<table style="border:1px solid green;">
-					<tr>
-						<td>
-							<input type="text" name="scientific_name" id="scientific_name" size="50" placeholder="Identification (scientific name)">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table width="100%">
-								<tr>
-									<td width="50%">
-										<label for="scientific_name_scope">Include previous IDs?</label>
-										<select name="scientific_name_scope" id="scientific_name_scope">
-											<option value="currentID">Current ID only</option>
-											<option value="allID">Include all IDs</option>
-										</select>
-									</td>
-									<td>
-										<label id="_scientific_name_match_type" class="helpLink" style="text-align:left;" for="scientific_name_match_type">Match Type</label>
-										<select name="scientific_name_match_type" id="scientific_name_match_type">
-											<option value="startswith">starts with</option>
-											<option value="exact">is (case insensitive)</option>
-											<option value="notcontains">does not contain</option>
-											<option value="inlist">comma-list</option>
-											<option value="inlist_substring">comma-list (substring)</option>
-										</select>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
+				<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="identification; any taxon name; any classification + related taxa; common name">
 			</td>
 		</tr>
 	</table>

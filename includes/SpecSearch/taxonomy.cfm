@@ -1,5 +1,5 @@
 <script type="text/javascript" language="javascript">
-	jQuery(document).ready(function() {	
+	jQuery(document).ready(function() {
 		$("#begin_made_date").datepicker();
 		$("#end_made_date").datepicker();
 	});
@@ -12,27 +12,27 @@
 </cfquery>
 <!--------
 <cfquery name="ct_taxon_term_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select 
+	select
 		source,
 		PREFERRED_TAXONOMY_SOURCE
-	from 
+	from
 		mv_u_taxonterm_source,
 		collection
 	where
 		source=PREFERRED_TAXONOMY_SOURCE (+)
-	group by 
-		source,PREFERRED_TAXONOMY_SOURCE 
-	order by 
+	group by
+		source,PREFERRED_TAXONOMY_SOURCE
+	order by
 		source
 </cfquery>
 <!--- list of taxonomy columns in FLAT ----><cfset colnterms="PHYLCLASS,KINGDOM,PHYLUM,PHYLORDER,FAMILY,GENUS,SPECIES,SUBSPECIES">
 <cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select 
+	select
 		term_type
-	from 
+	from
 		taxon_term
 	where
-		term_type is not null and 
+		term_type is not null and
 		POSITION_IN_CLASSIFICATION is not null
 	group by term_type order by term_type
 </cfquery>
@@ -55,8 +55,8 @@
 			<input type="text" name="scientific_name" id="scientific_name" size="28">
 		</td>
 	</tr>
-	
-	
+
+
 	<select multiple size="3">
 	<option selected>Current Scientific Name</option>
 	<option>Previous Scientific Name(s)</option>
@@ -68,10 +68,41 @@
 	---->
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_taxon_name">Taxon Name:</span>
+			<span class="helpLink" id="_scientific_name">Identification</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="any taxon name; any classification + related taxa">
+			<table style="border:1px solid green;">
+				<tr>
+					<td>
+						<input type="text" name="scientific_name" id="scientific_name" size="50" placeholder="Identification (scientific name)">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table width="100%">
+							<tr>
+								<td width="50%">
+									<label for="scientific_name_scope">Include previous IDs?</label>
+									<select name="scientific_name_scope" id="scientific_name_scope">
+										<option value="currentID">Current ID only</option>
+										<option value="allID">Include all IDs</option>
+									</select>
+								</td>
+								<td>
+									<label id="_scientific_name_match_type" class="helpLink" style="text-align:left;" for="scientific_name_match_type">Match Type</label>
+									<select name="scientific_name_match_type" id="scientific_name_match_type">
+										<option value="startswith">starts with</option>
+										<option value="exact">is (case insensitive)</option>
+										<option value="notcontains">does not contain</option>
+										<option value="inlist">comma-list</option>
+										<option value="inlist_substring">comma-list (substring)</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	<tr>
@@ -141,7 +172,7 @@
 		 	<input type="text" name="kingdom" id="kingdom" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='!'+e.value;">[ NOT ]</span>	
+			<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -152,7 +183,7 @@
 		 	<input type="text" name="phylum" id="phylum" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='!'+e.value;">[ NOT ]</span>	
+			<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -163,7 +194,7 @@
 		 	<input type="text" name="phylclass" id="phylclass" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='!'+e.value;">[ NOT ]</span>	
+			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -174,7 +205,7 @@
 		 	<input type="text" name="phylorder" id="phylorder" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='!'+e.value;">[ NOT ]</span>	
+			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -185,7 +216,7 @@
 			<input type="text" name="family" id="family" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('family');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('family');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('family');e.value='!'+e.value;">[ NOT ]</span>	
+			<span class="infoLink" onclick="var e=document.getElementById('family');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -196,7 +227,7 @@
 			<input type="text" name="subfamily" id="subfamily" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='!'+e.value;">[ NOT ]</span>	
+			<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -207,7 +238,7 @@
 			<input type="text" name="tribe" id="tribe" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='!'+e.value;">[ NOT ]</span>	
+			<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -218,7 +249,7 @@
 			<input type="text" name="subtribe" id="subtribe" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('subtribe');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('subtribe');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('subtribe');e.value='!'+e.value;">[ NOT ]</span>	
+			<span class="infoLink" onclick="var e=document.getElementById('subtribe');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -255,6 +286,6 @@
 			<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
-	
+
 </table>
-</cfoutput>	
+</cfoutput>
