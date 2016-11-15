@@ -354,6 +354,9 @@
 
 	<!----
 	<!--- keep people/bots from browsing a dev server--->
+
+
+	---->
 	<cfif application.version neq "prod">
         <cfset cPath=GetTemplatePath()>
         <cfif
@@ -368,8 +371,6 @@
             <cflocation url="/errors/dev_login.cfm" addtoken="false">
         </cfif>
     </cfif>
-
-	---->
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
