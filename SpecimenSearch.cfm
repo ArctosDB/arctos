@@ -284,7 +284,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="_taxon_name">Any taxon/ID/common name:</span>
+				<span class="helpLink" id="_taxon_name">Any taxon, ID, common name:</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="identification; any taxon name; any classification + related taxa; common name">
