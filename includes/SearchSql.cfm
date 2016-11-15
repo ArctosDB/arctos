@@ -372,7 +372,7 @@
       identification.identification_id=identification_taxonomy.identification_id and
       identification_taxonomy.taxon_name_id=taxon_relations.related_taxon_name_id  and
       taxon_relations.taxon_name_id=taxon_term.taxon_name_id and
-         upper(term) LIKE #ucase(escapeQuotes(taxon_name))#%'
+         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
 )">
 
 
