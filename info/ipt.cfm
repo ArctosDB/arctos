@@ -52,9 +52,37 @@
 			order by guid_prefix
 	</cfquery>
 	<a name="top"></a>
+		<br><a href="##institution">institution</a>
 	<cfloop query="d">
 		<br><a href="###guid_prefix#">#guid_prefix#</a>
 	</cfloop>
+	<cfquery name="i" datasource="uam_god">
+		select
+			institution_acronym,
+			count(*) speccount
+		from
+			collection,
+			cataloged_item
+		where
+			collection.collection_id=cataloged_item.collection_id
+		group by
+			institution_acronym
+		order by
+			institution_acronym
+	</cfquery>
+	<a name="#institution#" href="##top">scroll to top</a>
+	<table border>
+		<tr>
+			<th>Institution</th>
+			<th>SpecimenCount</th>
+		</tr>
+		<cfloop query="i">
+			<tr>
+				<td>#institution_acronym#</td>
+				<td>#speccount#</td>
+			</tr>
+		</cfloop>
+	</table>
 	<cfloop query="d">
 		<br><a name="#guid_prefix#" href="##top">scroll to top</a>
 		<br>
