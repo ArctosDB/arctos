@@ -340,7 +340,7 @@
 			family, etc: collection's stuff
 		------------>
 	<cfset mapurl = "#mapurl#&taxon_name=#taxon_name#">
-	<cfset basQual = basQual & " and #flatTableName#.COLLECTION_OBJECT_ID in (
+	<cfset basQual = basQual & " and #session.flatTableName#.COLLECTION_OBJECT_ID in (
     	-- any ID
       select collection_object_id from identification where upper(scientific_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
       union
