@@ -25,6 +25,19 @@
 			</cfquery>
 		</cfif>
 	</cfoutput>
+
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="guid">GUID:</span>
+		</td>
+		<td class="srch">
+			<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
+				<textarea name="guid" id="guid" rows="6" cols="40" class="largetextarea"></textarea>
+			<cfelse>
+				<input type="text" name="guid" id="guid" size="50" value="" placeholder="DWC Triplet (GUID)">
+			</cfif>
+		</td>
+	</tr>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="other_id_type">Other&nbsp;Identifier&nbsp;Type:</span>
