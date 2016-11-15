@@ -70,7 +70,7 @@
 		order by
 			institution_acronym
 	</cfquery>
-	<a name="#institution#" href="##top">scroll to top</a>
+	<a name="institution" href="##top">scroll to top</a>
 	<table border>
 		<tr>
 			<th>Institution</th>
