@@ -22,8 +22,75 @@ run these in order
 	Magic tools
 
 	<br><a href="processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus_nosource">fill_in_the_blanks_from_genus_nosource</a>
+	<br><a href="processBulkloadClassification.cfm?action=get_data_from_genus_record">get_data_from_genus_record</a>
 
 </p>
+<!-------------------------------------------->
+<cfif action is "get_data_from_genus_record">
+	<cfoutput>
+
+	<!--- after fill_in_the_blanks_from_genus_nosource; update seeded records to match genus ---->
+	<cfquery name="d" datasource="uam_god">
+		select distinct genus from CF_TEMP_CLASSIFICATION where scientific_name in (select scientific_name from CF_TEMP_CLASSIFICATION2)
+	</cfquery>
+	<!---- just a list for now.... ---->
+
+<cfquery name="oClassTerms" datasource="uam_god">
+		select
+			taxon_term
+		from
+			CTTAXON_TERM
+		where
+			IS_CLASSIFICATION=1
+		order by
+			RELATIVE_POSITION desc
+	</cfquery>
+
+
+
+	<cfdump var=#oClassTerms#>
+
+	<cfdump var=#d#>
+
+
+	<cfloop query="d">
+		<cfquery name="r" datasource="uam_god">
+			select * from CF_TEMP_CLASSIFICATION where genus='#d.genus#' and species is null
+		</cfquery>
+		<p>
+			<cfdump var=#r#>
+		</p>
+		<cfquery name="c" datasource="uam_god">
+			select * from CF_TEMP_CLASSIFICATION where genus='#d.genus#' and species is not null
+		</cfquery>
+
+		<cfloop query="oClassTerms">
+			<cfif taxon_term is "order">
+				<cfset thistt="phylorder">
+			<cfelse>
+				<cfset thistt=taxon_term>
+			</cfif>
+			<cfset thisSrcData=evaluate("r." & thistt)>
+			<cfif len(thisSrcData) gt 0>
+				<p>
+					update CF_TEMP_CLASSIFICATION set #thistt#='#thisSrcData#' where genus='#c.genus#' and #thistt# is null
+				</p>
+		<cfquery name="udt" datasource="uam_god">
+			update CF_TEMP_CLASSIFICATION set #thistt#='#thisSrcData#' where genus='#c.genus#' and #thistt# is null
+		</cfquery>
+
+			<cfelse>
+				<p>
+					no #thistt# in source do nothing
+				</p>
+			</cfif>
+
+		</cfloop>
+
+	</cfloop>
+	</cfoutput>
+
+</cfif>
 <!-------------------------------------------->
 <cfif action is "fill_in_the_blanks_from_genus_nosource">
 
@@ -461,8 +528,17 @@ run these in order
 			and status='fill_in_the_blanks_from_genus'
 			and rownum<101
 		</cfquery>
+
+		<cfdump var=#d#>
+
+
+
 		<!---- /globals --->
 		<cfloop query="d">
+
+		<p>
+			scientific_name: #scientific_name#
+		</p>
 			<cfset updatedOrig=false>
 			<cftransaction>
 			<!--- build a query object from this row of the existing data --->
@@ -566,6 +642,11 @@ run these in order
 						<cfquery name="updateorig" datasource="uam_god">
 							#preserveSingleQuotes(sql)#
 						</cfquery>
+
+
+						<p>
+							#preserveSingleQuotes(sql)#
+						</p>
 						<cfset updatedOrig=true>
 				</cfif>
 			</cfloop>
@@ -687,7 +768,7 @@ run these in order
 
 		<cfloop query="d">
 			<cftransaction>
-				<cfif classification_id is '[NEW]'>
+				<cfif classification_id is '[NEW]' or len(classification_id) is 0>
 					<cfset thisClassificationID=CreateUUID()>
 				<cfelse>
 					<cfset thisClassificationID=classification_id>
