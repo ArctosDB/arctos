@@ -66,15 +66,20 @@ run these in order
 		<cfdump var=#c#>
 
 		<cfloop query="oClassTerms">
-			<cfset thisSrcData=evaluate("r." & taxon_term)>
+			<cfif taxon_term is "order">
+				<cfset thistt="phylorder">
+			<cfelse>
+				<cfset thistt=taxon_term>
+			</cfif>
+			<cfset thisSrcData=evaluate("r." & thistt)>
 			<cfif len(thisSrcData) gt 0>
 				<p>
-					update CF_TEMP_CLASSIFICATION set #taxon_term#='#thisSrcData#' where genus='#c.genus#' and #taxon_term# is null
+					update CF_TEMP_CLASSIFICATION set #thistt#='#thisSrcData#' where genus='#c.genus#' and #thistt# is null
 				</p>
 
 			<cfelse>
 				<p>
-					no #taxon_term# in source do nothing
+					no #thistt# in source do nothing
 				</p>
 			</cfif>
 
