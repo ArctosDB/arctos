@@ -341,7 +341,7 @@
 		------------>
 	<cfset mapurl = "#mapurl#&taxon_name=#taxon_name#">
 	<cfif left(taxon_name,1) is "=">
-		<cfset strm=ucase(mid(taxon_name,2,len(cataxon_nametnum)-1))>
+		<cfset strm=ucase(mid(taxon_name,2,len(taxon_name)-1))>
 
 		<cfset basQual = basQual & " and #session.flatTableName#.COLLECTION_OBJECT_ID in (
 		      select collection_object_id from identification where upper(scientific_name) = '#strm#'
