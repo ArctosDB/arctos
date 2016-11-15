@@ -63,7 +63,6 @@ run these in order
 		<cfquery name="c" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where genus='#d.genus#' and species is not null
 		</cfquery>
-		<cfdump var=#c#>
 
 		<cfloop query="oClassTerms">
 			<cfif taxon_term is "order">
@@ -76,6 +75,9 @@ run these in order
 				<p>
 					update CF_TEMP_CLASSIFICATION set #thistt#='#thisSrcData#' where genus='#c.genus#' and #thistt# is null
 				</p>
+		<cfquery name="udt" datasource="uam_god">
+			update CF_TEMP_CLASSIFICATION set #thistt#='#thisSrcData#' where genus='#c.genus#' and #thistt# is null
+		</cfquery>
 
 			<cfelse>
 				<p>
