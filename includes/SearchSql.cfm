@@ -340,36 +340,70 @@
 			family, etc: collection's stuff
 		------------>
 	<cfset mapurl = "#mapurl#&taxon_name=#taxon_name#">
-	<cfset basQual = basQual & " and #session.flatTableName#.COLLECTION_OBJECT_ID in (
-      select collection_object_id from identification where upper(scientific_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
-      union
-      select collection_object_id from identification,identification_taxonomy,taxon_term
-         where
-      identification.identification_id=identification_taxonomy.identification_id and
-      identification_taxonomy.taxon_name_id=taxon_term.taxon_name_id and
-         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
-      union
-      select collection_object_id from identification,identification_taxonomy,common_name
-         where
-      identification.identification_id=identification_taxonomy.identification_id and
-      identification_taxonomy.taxon_name_id=common_name.taxon_name_id and
-         upper(common_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
-      union
-       select collection_object_id from identification,identification_taxonomy,taxon_relations,taxon_term
-         where
-      identification.identification_id=identification_taxonomy.identification_id and
-      identification_taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
-      taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and
-         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
-      UNION
-       select collection_object_id from identification,identification_taxonomy,taxon_relations,taxon_term
-         where
-      identification.identification_id=identification_taxonomy.identification_id and
-      identification_taxonomy.taxon_name_id=taxon_relations.related_taxon_name_id  and
-      taxon_relations.taxon_name_id=taxon_term.taxon_name_id and
-         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
-)">
+	<cfif left(taxon_name,1) is "=">
+		<cfset strm=ucase(mid(taxon_name,2,len(cataxon_nametnum)-1))>
 
+		<cfset basQual = basQual & " and #session.flatTableName#.COLLECTION_OBJECT_ID in (
+		      select collection_object_id from identification where upper(scientific_name) = '#strm#'
+		      union
+		      select collection_object_id from identification,identification_taxonomy,taxon_term
+		         where
+		      identification.identification_id=identification_taxonomy.identification_id and
+		      identification_taxonomy.taxon_name_id=taxon_term.taxon_name_id and
+		         upper(term) = '#strm#'
+		      union
+		      select collection_object_id from identification,identification_taxonomy,common_name
+		         where
+		      identification.identification_id=identification_taxonomy.identification_id and
+		      identification_taxonomy.taxon_name_id=common_name.taxon_name_id and
+		         upper(common_name) = '#strm#'
+		      union
+		       select collection_object_id from identification,identification_taxonomy,taxon_relations,taxon_term
+		         where
+		      identification.identification_id=identification_taxonomy.identification_id and
+		      identification_taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+		      taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and
+		         upper(term) = '#strm#'
+		      UNION
+		       select collection_object_id from identification,identification_taxonomy,taxon_relations,taxon_term
+		         where
+		      identification.identification_id=identification_taxonomy.identification_id and
+		      identification_taxonomy.taxon_name_id=taxon_relations.related_taxon_name_id  and
+		      taxon_relations.taxon_name_id=taxon_term.taxon_name_id and
+		         upper(term) = '#strm#'
+		)">
+	<cfelse>
+
+		<cfset basQual = basQual & " and #session.flatTableName#.COLLECTION_OBJECT_ID in (
+	      select collection_object_id from identification where upper(scientific_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+	      union
+	      select collection_object_id from identification,identification_taxonomy,taxon_term
+	         where
+	      identification.identification_id=identification_taxonomy.identification_id and
+	      identification_taxonomy.taxon_name_id=taxon_term.taxon_name_id and
+	         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+	      union
+	      select collection_object_id from identification,identification_taxonomy,common_name
+	         where
+	      identification.identification_id=identification_taxonomy.identification_id and
+	      identification_taxonomy.taxon_name_id=common_name.taxon_name_id and
+	         upper(common_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+	      union
+	       select collection_object_id from identification,identification_taxonomy,taxon_relations,taxon_term
+	         where
+	      identification.identification_id=identification_taxonomy.identification_id and
+	      identification_taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+	      taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and
+	         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+	      UNION
+	       select collection_object_id from identification,identification_taxonomy,taxon_relations,taxon_term
+	         where
+	      identification.identification_id=identification_taxonomy.identification_id and
+	      identification_taxonomy.taxon_name_id=taxon_relations.related_taxon_name_id  and
+	      taxon_relations.taxon_name_id=taxon_term.taxon_name_id and
+	         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+	)">
+	</cfif>
 
 
 
