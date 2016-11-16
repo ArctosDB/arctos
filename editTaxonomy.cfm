@@ -1190,6 +1190,13 @@
 				<p>
 					no kingdom do something
 				</p>
+				<cfset x=getAppPosn('kingdom')>
+				<cfset queryaddrow(hasclass,
+					{POSITION_IN_CLASSIFICATION=x,
+					SRC='autosuggest',
+					TERM='',
+					TERM_TYPE='kingdom'}
+				)>
 			</cfif>
 			<!--- see if we have a genus. If not, add a blank row for it ---->
 			<cfquery name="hasterm" dbtype="query">
