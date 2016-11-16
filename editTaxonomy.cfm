@@ -877,7 +877,7 @@
 		</p>
 		<cfloop query="hasclass">
 			<br>#term# == #POSITION_IN_CLASSIFICATION#
-			<cfquery name="compRank">
+			<cfquery name="compRank" dbtype="query">
 				select relative_position from cttaxon_term where taxon_term='#TERM_TYPE#'
 			</cfquery>
 			<cfdump var=#compRank#>
