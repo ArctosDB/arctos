@@ -1204,10 +1204,16 @@
 			</cfquery>
 			<cfif hasterm.recordcount neq 1>
 				<cfset x=getAppPosn('genus')>
+				<cfif listlen(thisname.scientific_name,' ') gt 1>
+					<cfset g=listGetAt(thisname.scientific_name,' ',1)>
+				<cfelse>
+					<cfset g=thisname.scientific_name>
+				</cfif>
+
 				<cfset queryaddrow(hasclass,
 					{POSITION_IN_CLASSIFICATION=x,
 					SRC='flaky_autosuggest',
-					TERM=listGetAt(thisname.scientific_name,' ',1),
+					TERM=g,
 					TERM_TYPE='genus'}
 				)>
 				<p>
