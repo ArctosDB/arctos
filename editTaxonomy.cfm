@@ -1178,23 +1178,33 @@
 						<p>
 							no subspecies do something
 						</p>
-						<cfset queryaddrow(hasclass,
-							{POSITION_IN_CLASSIFICATION=getAppPosn('subspecies'),
-							SRC='autosuggest',
-							TERM=thisname.scientific_name,
-							TERM_TYPE='subspecies'}
-						)>
+						<!---- already got one? ---->
+						<cfquery name="ago" dbtype="query">
+							select count(*) c from hasclass where TERM_TYPE='subspecies'
+						</cfquery>
+						<!---- nuke everthing that looks like it might be a subspecific term, then re-add the suggestion --->
 						<cf_qoq>
 						    UPDATE
 						        hasclass
 						    SET
 						        src='probably_misrank'
 						    WHERE
-						        term_type='var.' or
+							       TERM_TYPE='subspecies' or
 						        term_type='subsp.' or
+						        term_type='var.' or
+						        term_type='variety' or
 						        term_type='forma' or
 						        term_type='f.'
 						</cf_qoq>
+						<cfif ago.c is not 1>
+							<cfset queryaddrow(hasclass,
+								{POSITION_IN_CLASSIFICATION=getAppPosn('subspecies'),
+								SRC='autosuggest',
+								TERM=thisname.scientific_name,
+								TERM_TYPE='subspecies'}
+							)>
+
+						</cfif>
 
 					<cfelseif thisname.scientific_name contains "var.">
 						<!---- already got one? ---->
@@ -1207,23 +1217,24 @@
 							</p>
 
 
-							<cfset x=getAppPosn('variety')>
 							<!--- all other sub-specific terms are almost certainly mis-ranked ---->
+							<!---- nuke everthing that looks like it might be a subspecific term, then re-add the suggestion --->
 							<cf_qoq>
 							    UPDATE
 							        hasclass
 							    SET
 							        src='probably_misrank'
 							    WHERE
-							        TERM_TYPE='subspecies' or
-							        term_type='var.' or
+								       TERM_TYPE='subspecies' or
 							        term_type='subsp.' or
+							        term_type='var.' or
+							        term_type='variety' or
 							        term_type='forma' or
 							        term_type='f.'
 							</cf_qoq>
 							<!--- insert the new suggestion, in order --->
 							<cfset queryaddrow(hasclass,
-								{POSITION_IN_CLASSIFICATION=x,
+								{POSITION_IN_CLASSIFICATION=getAppPosn('variety'),
 								SRC='autosuggest',
 								TERM=thisname.scientific_name,
 								TERM_TYPE='variety'}
@@ -1238,21 +1249,21 @@
 							select count(*) c from hasclass where TERM_TYPE='forma'
 						</cfquery>
 						<cfif ago.c is not 1>
-							<cfset x=getAppPosn('forma')>
 							<cf_qoq>
 							    UPDATE
 							        hasclass
 							    SET
 							        src='probably_misrank'
 							    WHERE
-							        TERM_TYPE='subspecies' or
-							        term_type='var.' or
+								       TERM_TYPE='subspecies' or
 							        term_type='subsp.' or
-							        term_type='f.' or
-							        term_type='variety'
+							        term_type='var.' or
+							        term_type='variety' or
+							        term_type='forma' or
+							        term_type='f.'
 							</cf_qoq>
 							<cfset queryaddrow(hasclass,
-									{POSITION_IN_CLASSIFICATION=x,
+									{POSITION_IN_CLASSIFICATION=getAppPosn('forma'),
 									SRC='autosuggest',
 									TERM=thisname.scientific_name,
 									TERM_TYPE='forma'}
