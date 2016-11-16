@@ -1150,8 +1150,9 @@
 						</p>
 					<cfelseif thisname.scientific_name contains "var.">
 						<p>
-							no variety do something
+							no variety do something #thisname.scientific_name# is suggested variety
 						</p>
+
 						<!--- see if it's erroneously listed as something else --->
 
 						<cf_qoq>
@@ -1171,6 +1172,21 @@
 
 				</cfif>
 			</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
