@@ -875,7 +875,7 @@
 		<p>
 			h
 		</p>
-		<cfset newPosition=0>
+		<cfset newPosition=0.001>
 		<cfloop query="hasclass">
 			<br>#term# == #POSITION_IN_CLASSIFICATION#
 			<cfquery name="compRank" dbtype="query">
@@ -897,7 +897,7 @@
 		<cfquery name="d" dbtype="query">
 			select * from d
 		</cfquery>
-		<cfreturn 900>
+		<cfreturn newPosition>
 
 	</cffunction>
 
