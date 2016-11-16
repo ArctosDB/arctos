@@ -1220,6 +1220,13 @@
 						        TERM_TYPE='subpsecies'
 						</cf_qoq>
 
+						<cf_qoq>
+						    UPDATE
+						        hasclass
+						    SET
+						        TERM='probably_misrank'
+						</cf_qoq>
+
 
 						<!------
 						<cf_qoq>
