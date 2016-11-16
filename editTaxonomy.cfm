@@ -1509,7 +1509,7 @@
 									</cfloop>
 								</select>
 							</td>
-							<td	<cfif orderedClass.status is "autoins" >
+							<td	<cfif orderedClass.src is "autoins" >
 									class="importantNotification"
 								</cfif>>
 								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClass.term#" onchange="guessAtDisplayName(this.id)">
