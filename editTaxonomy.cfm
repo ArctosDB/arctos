@@ -1133,7 +1133,7 @@
 
 					<cfdump var=#sprank#>
 					<cfquery name="belsp" dbtype="query">
-						select taxon_term from cttaxon_term where is_classification=1 and relative_position < #sprank.relative_position#
+						select taxon_term from cttaxon_term where is_classification=1 and relative_position > #sprank.relative_position#
 					</cfquery>
 
 					<cfdump var=#belsp#>
