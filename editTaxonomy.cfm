@@ -1314,7 +1314,7 @@
 							)>
 						</cfif>
 
-					<cfelseif thisname.scientific_name contains "f.">
+					<cfelseif thisname.scientific_name contains " f. " or thisname.scientific_name contains " forma ">
 						<p>
 							no forma do something
 						</p>
