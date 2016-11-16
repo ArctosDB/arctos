@@ -1224,7 +1224,7 @@
 						    UPDATE
 						        hasclass
 						    SET
-						        TERM='probably_misrank'
+						        TERM='probably_misrank' WHERE TERM_TYPE='kingdom'
 						</cf_qoq>
 
 
