@@ -853,6 +853,8 @@
 	<cffunction name="getAppPosn">
 		<cfargument name="rank" type="string" required="yes">
 
+
+
 		<cfquery name="tt_relp" dbtype="query">
 			select relative_position from cttaxon_term where taxon_term='#rank#'
 		</cfquery>
@@ -863,6 +865,9 @@
 			select taxon_term,relative_position from cttaxon_term where is_classification=1 order by relative_position desc
 		</cfquery>
 
+		<!--- find the row in hasclass where the term_type is ranked lower than the passed-in term ---->
+
+
 		<cfdump var=#trms#>
 
 
@@ -871,8 +876,11 @@
 			h
 		</p>
 		<cfloop query="hasclass">
-			#term#
-
+			<br>#term# == #POSITION_IN_CLASSIFICATION#
+			<cfquery name="compRank">
+				select relative_position from cttaxon_term where taxon_term='#TERM_TYPE#'
+			</cfquery>
+			<cfdump var=#compRank#>
 		</cfloop>
 
 
