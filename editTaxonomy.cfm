@@ -1207,7 +1207,7 @@
 				<cfset queryaddrow(hasclass,
 					{POSITION_IN_CLASSIFICATION=x,
 					SRC='flaky_autosuggest',
-					TERM=thisname.scientific_name,
+					TERM=listGetAt(thisname.scientific_name,' ',1),
 					TERM_TYPE='genus'}
 				)>
 				<p>
