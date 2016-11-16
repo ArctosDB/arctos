@@ -1143,6 +1143,38 @@
 
 			<!--- this must be ordered from "lowest" to "highest"---->
 
+
+
+
+
+
+
+
+
+			<!--- see if we have a scientific_name taxon term. If not, add  it ---->
+			<cfquery name="ago" dbtype="query">
+				select count(*) c from hasclass where TERM_TYPE='scientific_name'
+			</cfquery>
+			<cfif ago.c is not 1>
+				<p>
+					no scientific_name do something #thisname.scientific_name# is suggested scientific_name
+				</p>
+
+
+				<cfset x=getAppPosn('scientific_name')>
+				<!--- all other sub-specific terms are almost certainly mis-ranked ---->
+
+				<!--- insert the new suggestion, in order --->
+				<cfset queryaddrow(hasclass,
+					{POSITION_IN_CLASSIFICATION=x,
+					SRC='autosuggest',
+					TERM=thisname.scientific_name,
+					TERM_TYPE='scientific_name'}
+				)>
+			</cfif>
+
+
+
 			<!--- see if we have a kingdom. If not, add a blank row for it ---->
 			<cfquery name="hasterm" dbtype="query">
 				select term from hasclass where term_type='kingdom'
@@ -1170,6 +1202,17 @@
 					no genus do something (maybe?)
 				</p>
 			</cfif>
+
+
+
+
+
+
+
+
+
+
+
 			<!---- see if this looks like a multinomial ---->
 			<cfif listlen(thisname.scientific_name,' ') gt 1>
 				<p>
