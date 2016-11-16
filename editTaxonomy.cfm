@@ -1147,7 +1147,7 @@
 						    SET
 						        term_type = 'variety'
 						    WHERE
-						        term='subspecies'
+						        term_type='var.'
 						</cf_qoq>
 					<cfelseif thisname.scientific_name contains "f.">
 						<p>
