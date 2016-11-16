@@ -1123,20 +1123,24 @@
 				</cfif>
 				<cfif listlen(thisname.scientific_name,' ') gt 2>
 
-					<!--- grab all possible below-species terms, see if something sticks ---->
-					<cfquery name="sprank" dbtype="query">
-						select relative_position from cttaxon_term where taxon_term='species'
-					</cfquery>
+					<!--- grab all possible below-species terms, see if something sticks
 
+						valiant idea, but this stuff is all weird and abbreviated and etc.
+						probably gonna have to be hard-coded
+						yay taxonomic tradition....
 
+						<cfquery name="sprank" dbtype="query">
+							select relative_position from cttaxon_term where taxon_term='species'
+						</cfquery>
 
+						<cfdump var=#sprank#>
+						<cfquery name="belsp" dbtype="query">
+							select taxon_term from cttaxon_term where is_classification=1 and relative_position > #sprank.relative_position#
+						</cfquery>
 
-					<cfdump var=#sprank#>
-					<cfquery name="belsp" dbtype="query">
-						select taxon_term from cttaxon_term where is_classification=1 and relative_position > #sprank.relative_position#
-					</cfquery>
+						<cfdump var=#belsp#>
 
-					<cfdump var=#belsp#>
+					 ---->
 
 					<cfquery name="gsspecies" dbtype="query">
 						select * from hasclass where term_type='subspecies'
@@ -1144,7 +1148,18 @@
 
 					<cfif len(gsspecies.term) gt 0>
 						<cfset probSubSpecies=gsspecies.term>
+
+
+					<cfset psh.subspecies=gsspecies.term>
+
+
 					<cfelse>
+						<!--- is plant? ---->
+						<cfif gsciname.term contains "var.">
+							<cfset psh.variety=gsciname.term>
+						</cfif>
+
+
 						<!--- probably the whole shebang
 						<cfset probSubSpecies=listGetAt(thisname.scientific_name,1,' ')	 & ' ' & listGetAt(thisname.scientific_name,2,' ')>
 						<cfif listlen(thisname.scientific_name,' ') gt 2>
