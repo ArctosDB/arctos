@@ -1190,7 +1190,6 @@
 						    SET
 						        src='probably_misrank'
 						    WHERE
-						        TERM_TYPE='subspecies' or
 						        term_type='var.' or
 						        term_type='subsp.' or
 						        term_type='forma' or
