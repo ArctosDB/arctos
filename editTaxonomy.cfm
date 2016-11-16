@@ -1154,13 +1154,6 @@
 			<cfset shouldUsuallyHave="scientific_name,subspecies,species,genus,kingdom">
 
 			<!--- get what we have in a structure ---->
-			<cfloop query="hasclass">
-
-			</cfloop>
-
-		<cfquery name="hasclass" dbtype="query">
-			select term_type,term,POSITION_IN_CLASSIFICATION f
-
 
 
 
