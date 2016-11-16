@@ -1195,6 +1195,13 @@
 				select term from hasclass where term_type='genus'
 			</cfquery>
 			<cfif hasterm.recordcount neq 1>
+				<cfset x=getAppPosn('genus')>
+				<cfset queryaddrow(hasclass,
+					{POSITION_IN_CLASSIFICATION=x,
+					SRC='flaky_autosuggest',
+					TERM=thisname.scientific_name,
+					TERM_TYPE='genus'}
+				)>
 				<p>
 					no genus do something
 				</p>
