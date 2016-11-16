@@ -1239,7 +1239,7 @@
 						<cfif gsciname.term contains "var.">
 							<cfset psh.variety=gsciname.term>
 						<cfelseif gsciname.term contains "subsp.">
-							<cfset psh.subspecies=gsciname.term
+							<cfset psh.subspecies=gsciname.term>
 						</cfif>
 
 
