@@ -1209,7 +1209,8 @@
 			</cfloop>
 			<!---- now get the ordered stuff ---->
 			<cfquery name="orderedClassTermsWithBlanks" dbtype="query">
-				select * from mClassTerms where term is not null order by position_in_classification
+				select * from mClassTerms where
+				CAST(term AS varchar) <> ''  order by position_in_classification
 			</cfquery>
 			<table id="clastbl" border="1">
 				<thead>
