@@ -1107,6 +1107,8 @@
 					<cfquery name="gsspecies" dbtype="query">
 						select * from hasclass where term_type='subspecies'
 					</cfquery>
+
+					<cfdump var=#gsspecies#>
 					<cfif len(gsspecies.term) gt 0>
 						<cfset probSubSpecies=gsspecies.term>
 					<cfelse>
