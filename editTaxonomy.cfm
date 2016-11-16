@@ -1217,16 +1217,20 @@
 						    SET
 						        src='probably_misrank'
 						    WHERE
-						        term_type='var.'
+						        TERM_TYPE='subpsecies'
 						</cf_qoq>
+
+
+						<!------
 						<cf_qoq>
 						    UPDATE
 						        hasclass
 						    SET
 						        src='probably_misrank'
 						    WHERE
-						        term_type='subpsecies'
+						        term_type='var.'
 						</cf_qoq>
+
 						<cf_qoq>
 						    UPDATE
 						        hasclass
@@ -1236,7 +1240,7 @@
 						        term_type='subsp.'
 						</cf_qoq>
 
-
+---------->
 
 						<p>
 							x: #x#
