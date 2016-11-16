@@ -1103,15 +1103,17 @@
 				<cfelse>
 					<cfset probSpecies=listGetAt(thisname.scientific_name,1,' ') & ' ' & listGetAt(thisname.scientific_name,2,' ')>
 				</cfif>
-				<cfquery name="gsspecies" dbtype="query">
-					select * from hasclass where term_type='subspecies'
-				</cfquery>
-				<cfif len(gsspecies.term) gt 0>
-					<cfset probSubSpecies=gsspecies.term>
-				<cfelse>
-					<cfset probSubSpecies=listGetAt(thisname.scientific_name,1,' ')	 & ' ' & listGetAt(thisname.scientific_name,2,' ')>
-					<cfif listlen(thisname.scientific_name,' ') gt 2>
-						<cfset probSubSpecies=probSubSpecies & ' ' &  listGetAt(thisname.scientific_name,3,' ')>
+				<cfif listlen(thisname.scientific_name,' ') gt 2>
+					<cfquery name="gsspecies" dbtype="query">
+						select * from hasclass where term_type='subspecies'
+					</cfquery>
+					<cfif len(gsspecies.term) gt 0>
+						<cfset probSubSpecies=gsspecies.term>
+					<cfelse>
+						<cfset probSubSpecies=listGetAt(thisname.scientific_name,1,' ')	 & ' ' & listGetAt(thisname.scientific_name,2,' ')>
+						<cfif listlen(thisname.scientific_name,' ') gt 2>
+							<cfset probSubSpecies=probSubSpecies & ' ' &  listGetAt(thisname.scientific_name,3,' ')>
+						</cfif>
 					</cfif>
 				</cfif>
 			</cfif>
