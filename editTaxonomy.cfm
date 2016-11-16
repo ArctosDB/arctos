@@ -1217,18 +1217,9 @@
 						    SET
 						        src='probably_misrank'
 						    WHERE
-						        TERM_TYPE='subspecies'
+						        TERM_TYPE='subspecies' or term_type='genus'
 						</cf_qoq>
 
-						<cf_qoq>
-						    UPDATE
-						        hasclass
-						    SET
-						        src='probably_misrank' WHERE TERM_TYPE='kingdom'
-						</cf_qoq>
-
-
-						<!------
 						<cf_qoq>
 						    UPDATE
 						        hasclass
@@ -1245,6 +1236,22 @@
 						        src='probably_misrank'
 						    WHERE
 						        term_type='subsp.'
+						</cf_qoq>
+						<cf_qoq>
+						    UPDATE
+						        hasclass
+						    SET
+						        src='probably_misrank'
+						    WHERE
+						        term_type='forma'
+						</cf_qoq>
+						<cf_qoq>
+						    UPDATE
+						        hasclass
+						    SET
+						        src='probably_misrank'
+						    WHERE
+						        term_type='f.'
 						</cf_qoq>
 
 ---------->
