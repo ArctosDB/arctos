@@ -1209,7 +1209,7 @@
 			</cfloop>
 			<!---- now get the ordered stuff ---->
 			<cfquery name="orderedClassTermsWithBlanks" dbtype="query">
-				select * from mClassTerms where len(term) gt 0 order by position_in_classification
+				select * from mClassTerms where term is not null order by position_in_classification
 			</cfquery>
 			<table id="clastbl" border="1">
 				<thead>
@@ -1236,7 +1236,7 @@
 									</cfloop>
 								</select>
 							</td>
-							<td	<cfif orderedClassTermsWithBlanks.status is "autoins" and len(orderedClassTermsWithBlanks.term) gt 0>
+							<td	<cfif orderedClassTermsWithBlanks.status is "autoins" >
 									class="importantNotification"
 								</cfif>>
 								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClassTermsWithBlanks.term#" onchange="guessAtDisplayName(this.id)">
