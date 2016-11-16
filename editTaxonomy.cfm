@@ -959,8 +959,6 @@
 		<cfquery name="cttaxon_term_isclass" dbtype="query">
 			select taxon_term from cttaxon_term where is_classification=1 order by relative_position
 		</cfquery>
-		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
-		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
 		<cfset x=ListQualify(valuelist(cttaxon_term.taxon_term),"'")>
 
 		<cfquery name="noct" dbtype="query">
