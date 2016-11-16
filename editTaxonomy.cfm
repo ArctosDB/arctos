@@ -1158,7 +1158,8 @@
 						    UPDATE
 						        hasclass
 						    SET
-						        term_type = 'variety'
+						        term_type = 'variety',
+						        src='changedrank'
 						    WHERE
 						        term_type='var.'
 						</cf_qoq>
