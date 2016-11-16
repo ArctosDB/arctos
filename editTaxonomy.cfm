@@ -900,8 +900,21 @@
 			select term_type,term from d where POSITION_IN_CLASSIFICATION is null group by term_type,term order by term_type
 		</cfquery>
 		<cfquery name="hasclass" dbtype="query">
-			select term_type,term,POSITION_IN_CLASSIFICATION from d where POSITION_IN_CLASSIFICATION is not null
-			group by term_type,term,POSITION_IN_CLASSIFICATION order by POSITION_IN_CLASSIFICATION
+			select
+				term_type,
+				term,
+				POSITION_IN_CLASSIFICATION,
+				'orig' src
+			from
+				d
+			where
+				POSITION_IN_CLASSIFICATION is not null
+			group by
+				term_type,
+				term,
+				POSITION_IN_CLASSIFICATION
+			order by
+				POSITION_IN_CLASSIFICATION
 		</cfquery>
 
 		<!----------
