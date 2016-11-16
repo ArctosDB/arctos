@@ -1202,12 +1202,26 @@
 							no subspecies do something
 						</p>
 					<cfelseif thisname.scientific_name contains "var.">
+
 						<p>
 							no variety do something #thisname.scientific_name# is suggested variety
 						</p>
 
 
 						<cfset x=getAppPosn('variety')>
+
+						<!--- all other sub-specific terms are almost certainly mis-ranked ---->
+						<cf_qoq>
+						    UPDATE
+						        hasclass
+						    SET
+						        src='probably_misrank'
+						    WHERE
+						        term_type='var.' or term_type='subpsecies' or term_type='subsp.'
+						</cf_qoq>
+
+
+
 						<p>
 							x: #x#
 						</p>
@@ -1218,15 +1232,7 @@
 
 						<!--- see if it's erroneously listed as something else --->
 
-						<cf_qoq>
-						    UPDATE
-						        hasclass
-						    SET
-						        term_type = 'variety',
-						        src='changedrank'
-						    WHERE
-						        term_type='var.'
-						</cf_qoq>
+
 					<cfelseif thisname.scientific_name contains "f.">
 						<p>
 							no forma do something
