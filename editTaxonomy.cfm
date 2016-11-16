@@ -885,8 +885,8 @@
 			<cfdump var=#compRank#>
 
 			<cfif compRank.relative_position gt tt_relp.relative_position>
-				<br>the new term is BELOW this one....
-				<cfset newPosition=compRank.relative_position>
+				<br>the new term is ABOVE this one....
+				<cfset newPosition=compRank.relative_position + .01>
 			</cfif>
 		</cfloop>
 
