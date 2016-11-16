@@ -1209,7 +1209,7 @@
 			</cfloop>
 			<!---- now get the ordered stuff ---->
 			<cfquery name="orderedClassTermsWithBlanks" dbtype="query">
-				select * from mClassTerms order by position_in_classification
+				select * from mClassTerms where len(term) gt 0 order by position_in_classification
 			</cfquery>
 			<table id="clastbl" border="1">
 				<thead>
