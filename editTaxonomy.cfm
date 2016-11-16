@@ -1108,14 +1108,16 @@
 						select * from hasclass where term_type='subspecies'
 					</cfquery>
 
-					<cfdump var=#gsspecies#>
 					<cfif len(gsspecies.term) gt 0>
 						<cfset probSubSpecies=gsspecies.term>
 					<cfelse>
+						<!--- probably the whole shebang
 						<cfset probSubSpecies=listGetAt(thisname.scientific_name,1,' ')	 & ' ' & listGetAt(thisname.scientific_name,2,' ')>
 						<cfif listlen(thisname.scientific_name,' ') gt 2>
 							<cfset probSubSpecies=probSubSpecies & ' ' &  listGetAt(thisname.scientific_name,3,' ')>
 						</cfif>
+						---->
+						<cfset probSubSpecies=thisname.scientific_name>
 					</cfif>
 				</cfif>
 			</cfif>
