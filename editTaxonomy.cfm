@@ -1171,10 +1171,6 @@
 							TERM=thisname.scientific_name,
 							TERM_TYPE='subspecies'}
 						)>
-
-						<p>
-							no subspecies do something
-						</p>
 					</cfif>
 				<cfelseif listlen(thisname.scientific_name,' ') eq 4>
 					<!---- botanical ---->
@@ -1182,6 +1178,25 @@
 						<p>
 							no subspecies do something
 						</p>
+						<cfset queryaddrow(hasclass,
+							{POSITION_IN_CLASSIFICATION=getAppPosn('subspecies'),
+							SRC='autosuggest',
+							TERM=thisname.scientific_name,
+							TERM_TYPE='subspecies'}
+						)>
+						<cf_qoq>
+						    UPDATE
+						        hasclass
+						    SET
+						        src='probably_misrank'
+						    WHERE
+						        TERM_TYPE='subspecies' or
+						        term_type='var.' or
+						        term_type='subsp.' or
+						        term_type='forma' or
+						        term_type='f.'
+						</cf_qoq>
+
 					<cfelseif thisname.scientific_name contains "var.">
 						<!---- already got one? ---->
 						<cfquery name="ago" dbtype="query">
