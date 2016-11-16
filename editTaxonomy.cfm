@@ -854,7 +854,7 @@
 		<cfargument name="rank" type="string" required="yes">
 
 		<cfquery name="tt_relp" dbtype="query">
-			select relative_position from cttaxon_term_isclass where taxon_term='#rank#'
+			select relative_position from cttaxon_term where taxon_term='#rank#'
 		</cfquery>
 
 		<cfdump var=#tt_relp#>
