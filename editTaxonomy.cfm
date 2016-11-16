@@ -969,9 +969,7 @@
 		<cfif len(noct.term_type) gt 0>
 			<div style="border:10px solid red; padding:2em; margin:2em;">
 				Caution: The following term(s) are used in this classification and are not
-				available from the code table. They will (not) show up as blank cells below
-				and may be difficult to distinguish from unranked terms.
-				Make sure you know what you're doing before saving!
+				available from the code table. Proceed with caution!
 				Use the contact link in the footer BEFORE saving anything if this is not clear.
 				<ul>
 					<cfloop query="noct">
@@ -1066,12 +1064,6 @@
 											value="#taxon_term#">#taxon_term#</option>
 									</cfloop>
 								</select>
-
-								<!----
-								<input class="ac_noclass_tt" size="60"
-								type="text" id="ncterm_type_#thisrow#" name="ncterm_type_#thisrow#"
-								value="#term_type#" onchange="guessAtDisplayName(this.id)">
-								---->
 							</td>
 							<td>
 								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#stripQuotes(term)#" onchange="guessAtDisplayName(this.id)">
@@ -1085,6 +1077,9 @@
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">[ add a row ]</span>
+
+
+
 			<cfset shouldUsuallyHave="display_name,author_text,nomenclatural_code">
 			<cfset aterms=valuelist(noclass.TERM_TYPE)>
 			<cfloop list="#aterms#" index="i">
@@ -1110,32 +1105,14 @@
 				 TermType will be ignored if Term is empty. Term will be saved regardless of TermType; unranked terms are OK.
 			</p>
 
-			<!--- this must be ordered from "lowest" to "highest"---->
-
-
-
-
-
-
-
-
-
 			<!--- see if we have a scientific_name taxon term. If not, add  it ---->
 			<cfquery name="ago" dbtype="query">
 				select count(*) c from hasclass where TERM_TYPE='scientific_name'
 			</cfquery>
 			<cfif ago.c is not 1>
-				<p>
-					no scientific_name do something #thisname.scientific_name# is suggested scientific_name
-				</p>
-
-
-				<cfset x=getAppPosn('scientific_name')>
-				<!--- all other sub-specific terms are almost certainly mis-ranked ---->
-
 				<!--- insert the new suggestion, in order --->
 				<cfset queryaddrow(hasclass,
-					{POSITION_IN_CLASSIFICATION=x,
+					{POSITION_IN_CLASSIFICATION=getAppPosn('scientific_name'),
 					SRC='autosuggest',
 					TERM=thisname.scientific_name,
 					TERM_TYPE='scientific_name'}
