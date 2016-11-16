@@ -860,8 +860,10 @@
 		<cfdump var=#tt_relp#>
 
 		<cfquery name="trms" dbtype="query">
-			select taxon_term,relative_position from cttaxon_term_isclass where is_classification=1 order by relative_position
+			select taxon_term,relative_position from cttaxon_term where is_classification=1 order by relative_position desc
 		</cfquery>
+
+		<cfdump var=#trms#>
 
 
 
