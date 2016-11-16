@@ -1223,15 +1223,13 @@
 						        term_type='forma' or
 						        term_type='f.'
 						</cf_qoq>
-						<cf_qoq>
-							insert into hasclass (
-								POSITION_IN_CLASSIFICATION,SRC,TERM,TERM_TYPE
-							) values (
-								x,'autosuggest',thisname.scientific_name,'variety'
-							)
-						</cf_qoq>
+						<cfset queryaddrow(hasclass,[
+							{POSITION_IN_CLASSIFICATION=x}
+							{SRC='autosuggest'},
+							{TERM=thisname.scientific_name},
+							{TERM_TYPE='variety'}
+						])>
 
----------->
 
 						<p>
 							x: #x#
