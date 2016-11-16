@@ -852,7 +852,7 @@
 
 	<cffunction name="getAppPosn">
 		<cfargument name="rank" type="string" required="yes">
-
+<cfoutput>
 
 
 		<cfquery name="tt_relp" dbtype="query">
@@ -876,7 +876,7 @@
 			h
 		</p>
 		<cfset newPosition=0.001>
-		<cfoutput>
+
 		<cfloop query="hasclass">
 			<br>#term# == #POSITION_IN_CLASSIFICATION#
 			<cfquery name="compRank" dbtype="query">
@@ -890,7 +890,6 @@
 				<cfset newPosition=POSITION_IN_CLASSIFICATION - .1>
 			</cfif>
 		</cfloop>
-</cfoutput>
 		<p>
 			Final result: #newPosition#
 		</p>
@@ -899,6 +898,9 @@
 			select * from d
 		</cfquery>
 		<cfreturn newPosition>
+
+</cfoutput>
+
 
 	</cffunction>
 
