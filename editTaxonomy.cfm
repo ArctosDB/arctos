@@ -1135,7 +1135,7 @@
 			</cfif>
 			<!--- see if we have a genus. ---->
 			<cfquery name="hasterm" dbtype="query">
-				select term from hasclass where term_type='genus'
+				select count(*) c from hasclass where term_type='genus'
 			</cfquery>
 
 			<cfdump var=#hasterm#>
