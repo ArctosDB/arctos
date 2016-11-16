@@ -1202,33 +1202,38 @@
 							no subspecies do something
 						</p>
 					<cfelseif thisname.scientific_name contains "var.">
+						<!---- already got one? ---->
+						<cfquery name="ago" dbtype="query">
+							select count(*) c from hasclass where TERM_TYPE='variety'
+						</cfquery>
+						<cfif ago.c is not 1>
+							<p>
+								no variety do something #thisname.scientific_name# is suggested variety
+							</p>
 
-						<p>
-							no variety do something #thisname.scientific_name# is suggested variety
-						</p>
 
-
-						<cfset x=getAppPosn('variety')>
-						<!--- all other sub-specific terms are almost certainly mis-ranked ---->
-						<cf_qoq>
-						    UPDATE
-						        hasclass
-						    SET
-						        src='probably_misrank'
-						    WHERE
-						        TERM_TYPE='subspecies' or
-						        term_type='var.' or
-						        term_type='subsp.' or
-						        term_type='forma' or
-						        term_type='f.'
-						</cf_qoq>
-						<!--- insert the new suggestion, in order --->
-						<cfset queryaddrow(hasclass,
-							{POSITION_IN_CLASSIFICATION=x,
-							SRC='autosuggest',
-							TERM=thisname.scientific_name,
-							TERM_TYPE='variety'}
-						)>
+							<cfset x=getAppPosn('variety')>
+							<!--- all other sub-specific terms are almost certainly mis-ranked ---->
+							<cf_qoq>
+							    UPDATE
+							        hasclass
+							    SET
+							        src='probably_misrank'
+							    WHERE
+							        TERM_TYPE='subspecies' or
+							        term_type='var.' or
+							        term_type='subsp.' or
+							        term_type='forma' or
+							        term_type='f.'
+							</cf_qoq>
+							<!--- insert the new suggestion, in order --->
+							<cfset queryaddrow(hasclass,
+								{POSITION_IN_CLASSIFICATION=x,
+								SRC='autosuggest',
+								TERM=thisname.scientific_name,
+								TERM_TYPE='variety'}
+							)>
+						</cfif>
 
 					<cfelseif thisname.scientific_name contains "f.">
 						<p>
