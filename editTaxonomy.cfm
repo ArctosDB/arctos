@@ -1209,7 +1209,6 @@
 
 
 						<cfset x=getAppPosn('variety')>
-
 						<!--- all other sub-specific terms are almost certainly mis-ranked ---->
 						<cf_qoq>
 						    UPDATE
@@ -1223,24 +1222,13 @@
 						        term_type='forma' or
 						        term_type='f.'
 						</cf_qoq>
+						<!--- insert the new suggestion, in order --->
 						<cfset queryaddrow(hasclass,
 							{POSITION_IN_CLASSIFICATION=x,
 							SRC='autosuggest',
 							TERM=thisname.scientific_name,
 							TERM_TYPE='variety'}
 						)>
-
-
-						<p>
-							x: #x#
-						</p>
-						<!--- get the position_in_classification of the term which ranks higher than variety --->
-
-
-
-
-						<!--- see if it's erroneously listed as something else --->
-
 
 					<cfelseif thisname.scientific_name contains "f.">
 						<p>
@@ -1489,13 +1477,20 @@
 
 			<cfdump var=#psh#>
 
+
+
+
+			<cfquery name="orderedClass" dbtype="query">
+				select * from hasclass order by POSITION_IN_CLASSIFICATION
+			</cfquery>
+
 			<table id="clastbl" border="1">
 				<thead>
-					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
+					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th><th>Source</th></tr>
 				</thead>
 				<tbody id="sortable">
 					<cfset thisrowinc=0>
-					<cfloop query="orderedClassTermsWithBlanks">
+					<cfloop query="orderedClass">
 						<!--- increment rowID ---->
 						<cfset thisrowinc=thisrowinc+1>
 						<tr id="cell_#thisrowinc#">
@@ -1509,19 +1504,20 @@
 									<option value=""></option>
 									<cfloop query="cttaxon_term_isclass">
 										<option
-											<cfif cttaxon_term_isclass.taxon_term is orderedClassTermsWithBlanks.term_type> selected="selected" </cfif>
+											<cfif cttaxon_term_isclass.taxon_term is orderedClass.term_type> selected="selected" </cfif>
 											value="#taxon_term#">#taxon_term#</option>
 									</cfloop>
 								</select>
 							</td>
-							<td	<cfif orderedClassTermsWithBlanks.status is "autoins" >
+							<td	<cfif orderedClass.status is "autoins" >
 									class="importantNotification"
 								</cfif>>
-								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClassTermsWithBlanks.term#" onchange="guessAtDisplayName(this.id)">
+								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClass.term#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
 								<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
 							</td>
+							<td>#src#</td>
 						</tr>
 					</cfloop>
 				</tbody>
