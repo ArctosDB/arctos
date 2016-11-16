@@ -1137,7 +1137,7 @@
 			<cfquery name="hasterm" dbtype="query">
 				select term from hasclass where term_type='genus'
 			</cfquery>
-			<cfif hasterm.recordcount is 0>
+			<cfif hasterm.recordcount lt 1>
 				<!---
 					if some term is equal to scientific name at this point, we're probably not ending with a genus.
 					If not, we might be.
