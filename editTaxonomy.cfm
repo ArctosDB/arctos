@@ -1223,12 +1223,12 @@
 						        term_type='forma' or
 						        term_type='f.'
 						</cf_qoq>
-						<cfset queryaddrow(hasclass,[
-							{POSITION_IN_CLASSIFICATION=x},
-							{SRC='autosuggest'},
-							{TERM=thisname.scientific_name},
-							{TERM_TYPE='variety'}
-						])>
+						<cfset queryaddrow(hasclass,
+							{POSITION_IN_CLASSIFICATION=x,
+							SRC='autosuggest',
+							TERM=thisname.scientific_name,
+							TERM_TYPE='variety'}
+						)>
 
 
 						<p>
