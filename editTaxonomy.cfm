@@ -854,6 +854,10 @@
 		<cfargument name="rank" type="string" required="yes">
 <cfoutput>
 
+		<!--- scientific_name always goes last, if that's the term just use a very large order and return ---->
+		<cfif rank is "scientific_name">
+			<cfreturn 9000>
+		</cfif>
 
 		<cfquery name="tt_relp" dbtype="query">
 			select relative_position from cttaxon_term where taxon_term='#rank#'
