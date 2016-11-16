@@ -1255,7 +1255,7 @@
 					<cfset queryaddrow(hasclass,
 						{POSITION_IN_CLASSIFICATION=x,
 						SRC='autosuggest',
-						TERM=listgetat(thisname.scientific_name,1,' ') & listgetat(thisname.scientific_name,2,' '),
+						TERM=listgetat(thisname.scientific_name,1,' ') & ' ' & listgetat(thisname.scientific_name,2,' '),
 						TERM_TYPE='species'}
 					)>
 
