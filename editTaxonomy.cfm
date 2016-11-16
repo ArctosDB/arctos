@@ -1137,24 +1137,25 @@
 			<cfquery name="hasterm" dbtype="query">
 				select term from hasclass where term_type='genus'
 			</cfquery>
-			<!---
-				if some term is equal to scientific name at this point, we're probably not ending with a genus.
-				If not, we might be.
-			---->
-			<!--- where genus would go ---->
-			<cfset x=getAppPosn('genus')>
-			<cfquery name="nogen" dbtype="query">
-				select count(*) c from hasclass where term='#thisname.scientific_name#' and POSITION_IN_CLASSIFICATION >= #x#
-			</cfquery>
-			<cfdump var=#nogen#>
-			<cfif nogen.c is 0>
-				<cfif hasterm.recordcount neq 1>
-					<cfset queryaddrow(hasclass,
-						{POSITION_IN_CLASSIFICATION=getAppPosn('genus'),
-						SRC='flaky_autosuggest',
-						TERM=listGetAt(thisname.scientific_name,1,' '),
-						TERM_TYPE='genus'}
-					)>
+			<cfif hasterm.recordcount is 0>
+				<!---
+					if some term is equal to scientific name at this point, we're probably not ending with a genus.
+					If not, we might be.
+				---->
+				<!--- where genus would go ---->
+				<cfset x=getAppPosn('genus')>
+				<cfquery name="nogen" dbtype="query">
+					select count(*) c from hasclass where term='#thisname.scientific_name#' and POSITION_IN_CLASSIFICATION >= #x#
+				</cfquery>
+				<cfif nogen.c is 0>
+					<cfif hasterm.recordcount neq 1>
+						<cfset queryaddrow(hasclass,
+							{POSITION_IN_CLASSIFICATION=getAppPosn('genus'),
+							SRC='flaky_autosuggest',
+							TERM=listGetAt(thisname.scientific_name,1,' '),
+							TERM_TYPE='genus'}
+						)>
+					</cfif>
 				</cfif>
 			</cfif>
 			<!---- see if this looks like a multinomial ---->
