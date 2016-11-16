@@ -1119,19 +1119,13 @@
 				)>
 			</cfif>
 
-
-
 			<!--- see if we have a kingdom. If not, add a blank row for it ---->
 			<cfquery name="hasterm" dbtype="query">
 				select term from hasclass where term_type='kingdom'
 			</cfquery>
 			<cfif hasterm.recordcount neq 1>
-				<p>
-					no kingdom do something
-				</p>
-				<cfset x=getAppPosn('kingdom')>
 				<cfset queryaddrow(hasclass,
-					{POSITION_IN_CLASSIFICATION=x,
+					{POSITION_IN_CLASSIFICATION=getAppPosn('kingdom'),
 					SRC='autosuggest',
 					TERM='',
 					TERM_TYPE='kingdom'}
@@ -1142,65 +1136,27 @@
 				select term from hasclass where term_type='genus'
 			</cfquery>
 			<cfif hasterm.recordcount neq 1>
-				<cfset x=getAppPosn('genus')>
-				<!----
-				<cfif listlen(thisname.scientific_name,' ') gt 1>
-					<cfset g=listGetAt(thisname.scientific_name,' ',1)>
-				<cfelse>
-					<cfset g=thisname.scientific_name>
-				</cfif>
----->
 				<cfset queryaddrow(hasclass,
-					{POSITION_IN_CLASSIFICATION=x,
+					{POSITION_IN_CLASSIFICATION=getAppPosn('genus'),
 					SRC='flaky_autosuggest',
 					TERM=listGetAt(thisname.scientific_name,1,' '),
 					TERM_TYPE='genus'}
 				)>
-				<p>
-					no genus do something
-				</p>
 			</cfif>
-			<!--- see if we have a genus. If not, add a blank row for it ---->
-			<cfquery name="hasterm" dbtype="query">
-				select term from hasclass where term_type='genus'
-			</cfquery>
-			<cfif hasterm.recordcount neq 1>
-				<p>
-					no genus do something (maybe?)
-				</p>
-			</cfif>
-
-
-
-
-
-
-
-
-
-
 
 			<!---- see if this looks like a multinomial ---->
 			<cfif listlen(thisname.scientific_name,' ') gt 1>
-				<p>
-					is multinomial
-				</p>
 				<!--- see if we have a genus. If not, add a blank row for it ---->
 				<cfquery name="hasterm" dbtype="query">
 					select term from hasclass where term_type='species'
 				</cfquery>
 				<cfif hasterm.recordcount neq 1>
-					<cfset x=getAppPosn('species')>
 					<cfset queryaddrow(hasclass,
-						{POSITION_IN_CLASSIFICATION=x,
+						{POSITION_IN_CLASSIFICATION=getAppPosn('species'),
 						SRC='autosuggest',
 						TERM=listgetat(thisname.scientific_name,1,' ') & ' ' & listgetat(thisname.scientific_name,2,' '),
 						TERM_TYPE='species'}
 					)>
-
-					<p>
-						no species do something
-					</p>
 				</cfif>
 				<!--- >bi-nomial? ---->
 				<cfif listlen(thisname.scientific_name,' ') eq 3>
@@ -1209,6 +1165,13 @@
 						select term from hasclass where term_type='subspecies'
 					</cfquery>
 					<cfif hasterm.recordcount neq 1>
+						<cfset queryaddrow(hasclass,
+							{POSITION_IN_CLASSIFICATION=getAppPosn('subspecies'),
+							SRC='autosuggest',
+							TERM=thisname.scientific_name,
+							TERM_TYPE='subspecies'}
+						)>
+
 						<p>
 							no subspecies do something
 						</p>
