@@ -1217,7 +1217,7 @@
 						    SET
 						        src='probably_misrank'
 						    WHERE
-						        TERM_TYPE='subpsecies'
+						        TERM_TYPE='subspecies'
 						</cf_qoq>
 
 						<cf_qoq>
