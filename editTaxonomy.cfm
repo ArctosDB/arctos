@@ -1236,7 +1236,7 @@
 									</cfloop>
 								</select>
 							</td>
-							<td	<cfif orderedClassTermsWithBlanks.status is "autoins">
+							<td	<cfif orderedClassTermsWithBlanks.status is "autoins" and len(orderedClassTermsWithBlanks.term) gt 0>
 									class="importantNotification"
 								</cfif>>
 								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClassTermsWithBlanks.term#" onchange="guessAtDisplayName(this.id)">
