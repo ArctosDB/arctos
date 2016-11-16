@@ -1076,7 +1076,95 @@
 			</p>
 
 			<!--- this must be ordered from "lowest" to "highest"---->
+
+			<!--- see if we have a kingdom. If not, add a blank row for it ---->
+			<cfquery name="hasterm" dbtype="query">
+				select term from hasclass where term_type='kingdom'
+			</cfquery>
+			<cfif hasterm.recordcount neq 1>
+				<p>
+					no kingdom do something
+				</p>
+			</cfif>
+			<!--- see if we have a genus. If not, add a blank row for it ---->
+			<cfquery name="hasterm" dbtype="query">
+				select term from hasclass where term_type='genus'
+			</cfquery>
+			<cfif hasterm.recordcount neq 1>
+				<p>
+					no genus do something
+				</p>
+			</cfif>
+			<!--- see if we have a genus. If not, add a blank row for it ---->
+			<cfquery name="hasterm" dbtype="query">
+				select term from hasclass where term_type='genus'
+			</cfquery>
+			<cfif hasterm.recordcount neq 1>
+				<p>
+					no genus do something (maybe?)
+				</p>
+			</cfif>
+			<!---- see if this looks like a multinomial ---->
+			<cfif listlen(thisname.scientific_name,' ') gt 1>
+				<p>
+					is multinomial
+				</p>
+				<!--- see if we have a genus. If not, add a blank row for it ---->
+				<cfquery name="hasterm" dbtype="query">
+					select term from hasclass where term_type='species'
+				</cfquery>
+				<cfif hasterm.recordcount neq 1>
+					<p>
+						no species do something
+					</p>
+				</cfif>
+				<!--- >bi-nomial? ---->
+				<cfif listlen(thisname.scientific_name,' ') eq 3>
+					<!--- looks like animal subspecies ---->
+					<cfquery name="hasterm" dbtype="query">
+						select term from hasclass where term_type='subspecies'
+					</cfquery>
+					<cfif hasterm.recordcount neq 1>
+						<p>
+							no subspecies do something
+						</p>
+					</cfif>
+				<cfelseif listlen(thisname.scientific_name,' ') eq 4>
+					<!---- botanical ---->
+					<cfif thisname.scientific_name contains "subsp.">
+						<p>
+							no subspecies do something
+						</p>
+					<cfelseif thisname.scientific_name contains "var.">
+						<p>
+							no variety do something
+						</p>
+					<cfelseif thisname.scientific_name contains "f.">
+						<p>
+							no forma do something
+						</p>
+					</cfif>
+
+				</cfif>
+			</cfif>
+
+
+
+
 			<cfset shouldUsuallyHave="scientific_name,subspecies,species,genus,kingdom">
+
+			<!--- get what we have in a structure ---->
+			<cfloop query="hasclass">
+
+			</cfloop>
+
+		<cfquery name="hasclass" dbtype="query">
+			select term_type,term,POSITION_IN_CLASSIFICATION f
+
+
+
+
+
 
 			<!--- see what we can glean from what we have ---->
 
@@ -1157,6 +1245,8 @@
 						<!--- is plant? ---->
 						<cfif gsciname.term contains "var.">
 							<cfset psh.variety=gsciname.term>
+						<cfelseif gsciname.term contains "subsp.">
+							<cfset psh.subspecies=gsciname.term
 						</cfif>
 
 
