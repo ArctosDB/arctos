@@ -1177,37 +1177,32 @@
 				<cfelseif listlen(thisname.scientific_name,' ') eq 4>
 					<!---- botanical ---->
 					<cfif thisname.scientific_name contains "subsp.">
-						<p>
-							no subspecies do something
-						</p>
 						<!---- already got one? ---->
 						<cfquery name="ago" dbtype="query">
 							select count(*) c from hasclass where TERM_TYPE='subspecies'
 						</cfquery>
-						<!---- nuke everthing that looks like it might be a subspecific term, then re-add the suggestion --->
-						<cf_qoq>
-						    UPDATE
-						        hasclass
-						    SET
-						        src='probably_misrank'
-						    WHERE
-							       TERM_TYPE='subspecies' or
-						        term_type='subsp.' or
-						        term_type='var.' or
-						        term_type='variety' or
-						        term_type='forma' or
-						        term_type='f.'
-						</cf_qoq>
-						<cfif ago.c is not 1>
+						<cfif ago.c neq 1>
+							<!---- nuke everthing that looks like it might be a subspecific term, then re-add the suggestion --->
+							<cf_qoq>
+							    UPDATE
+							        hasclass
+							    SET
+							        src='probably_misrank'
+							    WHERE
+								       TERM_TYPE='subspecies' or
+							        term_type='subsp.' or
+							        term_type='var.' or
+							        term_type='variety' or
+							        term_type='forma' or
+							        term_type='f.'
+							</cf_qoq>
 							<cfset queryaddrow(hasclass,
 								{POSITION_IN_CLASSIFICATION=getAppPosn('subspecies'),
 								SRC='autosuggest',
 								TERM=thisname.scientific_name,
 								TERM_TYPE='subspecies'}
 							)>
-
 						</cfif>
-
 					<cfelseif thisname.scientific_name contains "var.">
 						<!---- already got one? ---->
 						<cfquery name="ago" dbtype="query">
