@@ -887,7 +887,7 @@
 
 			<cfif compRank.relative_position gt tt_relp.relative_position>
 				<br>the new term is ABOVE this one....
-				<cfset newPosition=POSITION_IN_CLASSIFICATION - .99>
+				<cfset newPosition=POSITION_IN_CLASSIFICATION - .1>
 			</cfif>
 		</cfloop>
 </cfoutput>
