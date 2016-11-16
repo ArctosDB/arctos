@@ -1139,6 +1139,16 @@
 						<p>
 							no variety do something
 						</p>
+						<!--- see if it's erroneously listed as something else --->
+
+						<cf_qoq>
+						    UPDATE
+						        hasclass
+						    SET
+						        term_type = 'variety'
+						    WHERE
+						        term='subspecies'
+						</cf_qoq>
 					<cfelseif thisname.scientific_name contains "f.">
 						<p>
 							no forma do something
@@ -1240,6 +1250,7 @@
 							<cfset psh.variety=gsciname.term>
 						<cfelseif gsciname.term contains "subsp.">
 							<cfset psh.subspecies=gsciname.term>
+
 						</cfif>
 
 
