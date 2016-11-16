@@ -1237,6 +1237,14 @@
 					select term from hasclass where term_type='species'
 				</cfquery>
 				<cfif hasterm.recordcount neq 1>
+					<cfset x=getAppPosn('species')>
+					<cfset queryaddrow(hasclass,
+						{POSITION_IN_CLASSIFICATION=x,
+						SRC='autosuggest',
+						TERM=listgetat(thisname.scientific_name,' ',1) & listgetat(thisname.scientific_name,' ',2),
+						TERM_TYPE='species'}
+					)>
+
 					<p>
 						no species do something
 					</p>
