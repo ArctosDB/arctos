@@ -852,6 +852,29 @@
 
 	<cffunction name="getAppPosn">
 		<cfargument name="rank" type="string" required="yes">
+
+		<cfquery name="tt_relp" dbtype="query">
+			select relative_position from cttaxon_term_isclass where taxon_term='#rank#'
+		</cfquery>
+
+		<cfdump var=#tt_relp#>
+
+		<cfquery name="trms" dbtype="query">
+			select taxon_term,relative_position from cttaxon_term_isclass where is_classification=1 order by relative_position
+		</cfquery>
+
+
+
+		<p>
+			h
+		</p>
+		<cfloop query="hasclass">
+			#term#
+
+		</cfloop>
+
+
+
 		<cfquery name="d" dbtype="query">
 			select * from d
 		</cfquery>
