@@ -1328,7 +1328,7 @@
 						        TERM_TYPE='subspecies' or
 						        term_type='var.' or
 						        term_type='subsp.' or
-						        term_type='f.'
+						        term_type='f.' or
 						        term_type='variety'
 						</cf_qoq>
 						<cfset queryaddrow(hasclass,
