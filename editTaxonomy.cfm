@@ -862,7 +862,7 @@
 		<cfdump var=#tt_relp#>
 
 		<cfquery name="trms" dbtype="query">
-			select taxon_term,relative_position from cttaxon_term where is_classification=1 order by relative_position desc
+			select taxon_term,relative_position from cttaxon_term where is_classification=1 order by relative_position
 		</cfquery>
 
 		<!--- find the row in hasclass where the term_type is ranked lower than the passed-in term ---->
