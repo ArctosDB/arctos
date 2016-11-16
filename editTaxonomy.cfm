@@ -1216,6 +1216,9 @@
 				select * from mClassTerms where
 				CAST(term AS varchar) <> ''  order by position_in_classification
 			</cfquery>
+
+
+			<cfdump var=#orderedClassTermsWithBlanks#>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
