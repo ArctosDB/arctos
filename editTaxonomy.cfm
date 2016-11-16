@@ -1110,10 +1110,30 @@
 				</cfquery>
 				<cfif len(gspecies.term) gt 0>
 					<cfset probSpecies=gspecies.term>
+
+
+					<cfset psh.species=gspecies.term>
+
 				<cfelse>
+
+					<cfset psh.species=listGetAt(thisname.scientific_name,1,' ') & ' ' & listGetAt(thisname.scientific_name,2,' ')>
+
+
 					<cfset probSpecies=listGetAt(thisname.scientific_name,1,' ') & ' ' & listGetAt(thisname.scientific_name,2,' ')>
 				</cfif>
 				<cfif listlen(thisname.scientific_name,' ') gt 2>
+
+					<!--- grab all possible below-species terms, see if something sticks ---->
+					<cfquery name="sprank" dbtype="query">
+						select relative_position from cttaxon_term_isclass where taxon_term='species'
+					</cfquery>
+					<cfdump var=#sprank#>
+					<cfquery name="belsp" dbtype="query">
+						select taxon_term from cttaxon_term_isclass where relative_position < #sprank.relative_position#
+					</cfquery>
+
+					<cfdump var=#belsp#>
+
 					<cfquery name="gsspecies" dbtype="query">
 						select * from hasclass where term_type='subspecies'
 					</cfquery>
