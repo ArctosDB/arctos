@@ -1259,7 +1259,15 @@
 			</cfif>
 
 
+<p>
 
+	post-manipulation hasclass dump
+
+	<cfdump var=#hasclass#>
+
+			END
+	post-manipulation hasclass dump
+</p>
 
 
 
