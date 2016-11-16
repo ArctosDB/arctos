@@ -1217,41 +1217,18 @@
 						    SET
 						        src='probably_misrank'
 						    WHERE
-						        TERM_TYPE='subspecies' or term_type='genus'
-						</cf_qoq>
-
-						<cf_qoq>
-						    UPDATE
-						        hasclass
-						    SET
-						        src='probably_misrank'
-						    WHERE
-						        term_type='var.'
-						</cf_qoq>
-
-						<cf_qoq>
-						    UPDATE
-						        hasclass
-						    SET
-						        src='probably_misrank'
-						    WHERE
-						        term_type='subsp.'
-						</cf_qoq>
-						<cf_qoq>
-						    UPDATE
-						        hasclass
-						    SET
-						        src='probably_misrank'
-						    WHERE
-						        term_type='forma'
-						</cf_qoq>
-						<cf_qoq>
-						    UPDATE
-						        hasclass
-						    SET
-						        src='probably_misrank'
-						    WHERE
+						        TERM_TYPE='subspecies' or
+						        term_type='var.' or
+						        term_type='subsp.' or
+						        term_type='forma' or
 						        term_type='f.'
+						</cf_qoq>
+						<cf_qoq>
+							insert into hasclass (
+								POSITION_IN_CLASSIFICATION,SRC,TERM,TERM_TYPE
+							) values (
+								x,'autosuggest',thisname.scientific_name,'variety'
+							)
 						</cf_qoq>
 
 ---------->
