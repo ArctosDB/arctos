@@ -852,61 +852,25 @@
 
 	<cffunction name="getAppPosn">
 		<cfargument name="rank" type="string" required="yes">
-<cfoutput>
-
 		<!--- scientific_name always goes last, if that's the term just use a very large order and return ---->
 		<cfif rank is "scientific_name">
 			<cfreturn 9000>
 		</cfif>
-
 		<cfquery name="tt_relp" dbtype="query">
 			select relative_position from cttaxon_term where taxon_term='#rank#'
 		</cfquery>
-
-		<cfdump var=#tt_relp#>
-
-		<cfquery name="trms" dbtype="query">
-			select taxon_term,relative_position from cttaxon_term where is_classification=1 order by relative_position
-		</cfquery>
-
 		<!--- find the row in hasclass where the term_type is ranked lower than the passed-in term ---->
-
-
-		<cfdump var=#trms#>
-
-
-
-		<p>
-			h
-		</p>
 		<cfset newPosition=0.001>
-
 		<cfloop query="hasclass">
-			<br>#term# == #POSITION_IN_CLASSIFICATION#
 			<cfquery name="compRank" dbtype="query">
 				select relative_position from cttaxon_term where taxon_term='#TERM_TYPE#'
 			</cfquery>
-
-			<cfdump var=#compRank#>
-
 			<cfif compRank.relative_position gt tt_relp.relative_position>
-				<br>the new term is ABOVE this one....
 				<cfset newPosition=POSITION_IN_CLASSIFICATION - .1>
 				<cfbreak>
 			</cfif>
 		</cfloop>
-		<p>
-			Final result: #newPosition#
-		</p>
-
-		<cfquery name="d" dbtype="query">
-			select * from d
-		</cfquery>
 		<cfreturn newPosition>
-
-</cfoutput>
-
-
 	</cffunction>
 
 	<cfoutput>
