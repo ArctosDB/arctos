@@ -1253,6 +1253,14 @@
 					</cfif>
 				</cfif>
 			</cfif>
+
+
+
+			<cfdump var=#hasclass#>
+
+
+
+
 			<!--- if for some crazy reason we got here and don't have genus....---->
 
 			<cfquery name="ggen" dbtype="query">
