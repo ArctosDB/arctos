@@ -876,6 +876,7 @@
 			h
 		</p>
 		<cfset newPosition=0.001>
+		<cfoutput>
 		<cfloop query="hasclass">
 			<br>#term# == #POSITION_IN_CLASSIFICATION#
 			<cfquery name="compRank" dbtype="query">
@@ -886,10 +887,10 @@
 
 			<cfif compRank.relative_position gt tt_relp.relative_position>
 				<br>the new term is ABOVE this one....
-				<cfset newPosition=compRank.relative_position + .01>
+				<cfset newPosition=POSITION_IN_CLASSIFICATION + .01>
 			</cfif>
 		</cfloop>
-
+</cfoutput>
 		<p>
 			Final result: #newPosition#
 		</p>
