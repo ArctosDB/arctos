@@ -964,7 +964,7 @@
 				term_type,
 				term,
 				POSITION_IN_CLASSIFICATION,
-				'orig' src
+				'original' src
 			from
 				d
 			where
@@ -1586,7 +1586,7 @@
 									</cfloop>
 								</select>
 							</td>
-							<td	<cfif orderedClass.src is "autoins" >
+							<td	<cfif orderedClass.src is not "original" >
 									class="importantNotification"
 								</cfif>>
 								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClass.term#" onchange="guessAtDisplayName(this.id)">
