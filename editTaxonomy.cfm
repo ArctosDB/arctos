@@ -875,15 +875,24 @@
 		<p>
 			h
 		</p>
+		<cfset newPosition=0>
 		<cfloop query="hasclass">
 			<br>#term# == #POSITION_IN_CLASSIFICATION#
 			<cfquery name="compRank" dbtype="query">
 				select relative_position from cttaxon_term where taxon_term='#TERM_TYPE#'
 			</cfquery>
+
 			<cfdump var=#compRank#>
+
+			<cfif compRank.relative_position gt tt_relp.relative_position>
+				<br>the new term is BELOW this one....
+				<cfset newPosition=compRank.relative_position>
+			</cfif>
 		</cfloop>
 
-
+		<p>
+			Final result: #newPosition#
+		</p>
 
 		<cfquery name="d" dbtype="query">
 			select * from d
