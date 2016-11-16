@@ -1318,6 +1318,25 @@
 						<p>
 							no forma do something
 						</p>
+						<cfset x=getAppPosn('forma')>
+						<cf_qoq>
+						    UPDATE
+						        hasclass
+						    SET
+						        src='probably_misrank'
+						    WHERE
+						        TERM_TYPE='subspecies' or
+						        term_type='var.' or
+						        term_type='subsp.' or
+						        term_type='f.'
+						        term_type='variety'
+						</cf_qoq>
+						<cfset queryaddrow(hasclass,
+								{POSITION_IN_CLASSIFICATION=x,
+								SRC='autosuggest',
+								TERM=thisname.scientific_name,
+								TERM_TYPE='forma'}
+							)>
 					</cfif>
 
 				</cfif>
