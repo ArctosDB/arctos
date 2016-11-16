@@ -1594,7 +1594,7 @@
 
 			<table id="clastbl" border="1">
 				<thead>
-					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th><th>Source</th></tr>
+					<tr><th>Drag Handle</th><th>OriginalTermType</th><th>Term Type</th><th>Term</th><th>Delete</th><th>Source</th></tr>
 				</thead>
 				<tbody id="sortable">
 					<cfset thisrowinc=0>
@@ -1605,6 +1605,7 @@
 							<td class="dragger">
 								(drag row here)
 							</td>
+							<td>#orderedClass.term_type#</td>
 							<td>
 								<select	class="ac_isclass_tt"
 									id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
