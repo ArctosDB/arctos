@@ -1085,13 +1085,23 @@
 			<cfset probSubSpecies="">
 			<cfset probSciName="">
 
+
+
+
+
 			<cfquery name="gsciname" dbtype="query">
 				select * from hasclass where term_type='scientific_name'
 			</cfquery>
 			<cfif len(gsciname.term) gt 0>
 				<cfset probSciName=gsciname.term>
+
+				<cfset psh.sccientific_name=gsciname.term>
+
 			<cfelse>
 				<cfset probSciName=thisname.scientific_name>
+
+				<cfset psh.sccientific_name=thisname.scientific_name>
+
 			</cfif>
 			<cfif listlen(thisname.scientific_name,' ') gt 1>
 				<!--- looks like species/subspecies ---->
@@ -1218,6 +1228,9 @@
 			</cfquery>
 
 
+
+
+			<cfdump var=#psh#>
 
 			<table id="clastbl" border="1">
 				<thead>
