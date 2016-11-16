@@ -849,6 +849,16 @@
 
 
 	</script>
+
+	<cffunction name="getAppPosn">
+		<cfargument name="rank" type="string" required="yes">
+		<cfquery name="d" dbtype="query">
+			select * from d
+		</cfquery>
+		<cfreturn 900>
+
+	</cffunction>
+
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
@@ -1152,6 +1162,16 @@
 						<p>
 							no variety do something #thisname.scientific_name# is suggested variety
 						</p>
+
+
+						<cfset x=getAppPosn('variety')>
+						<p>
+							x: #x#
+						</p>
+						<!--- get the position_in_classification of the term which ranks higher than variety --->
+
+
+
 
 						<!--- see if it's erroneously listed as something else --->
 
