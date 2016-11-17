@@ -82,10 +82,6 @@
 	<cfif isdefined('goxml') and goxml is true>
 		<cfset ColumnNames = ListToArray(buildIt.ColumnList)>
 <!--- Send the headers --->
-<cfheader name="Content-type" value="text/xml">
-<cfheader name="Pragma" value="public">
-<cfheader name="Cache-control" value="private">
-<cfheader name="Expires" value="-1">
 <cfsetting enablecfoutputonly="no"><?xml version="1.0" encoding="utf-8"?>
 <root>
 	<cfoutput query="buildIt">
