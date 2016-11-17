@@ -78,7 +78,7 @@
 
 <cfdump var=#session#>
 
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
+	<cfquery name="data" datasource="uam_god" >
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 
@@ -86,6 +86,12 @@
 
 
 	<cfabort>
+
+
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
+		#preserveSingleQuotes(SqlString)#
+	</cfquery>
+
 	<cfset x=serializeJSON(buildIt)>
 
 	<cfdump var=#x#>
