@@ -94,6 +94,17 @@
 	</row>
     </cfoutput>
 </root>
+	<cfelseif isdefined('gocsv') and gocsv is not false>
+
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=buildIt,Fields=buildIt.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/SpecimenResultsData.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=SpecimenResultsData.csv" addtoken="false">
+
+
 
 	<cfelse>
 	<cfset x=serializeJSON(buildIt)>
