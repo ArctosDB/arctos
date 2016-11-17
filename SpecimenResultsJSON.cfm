@@ -76,7 +76,7 @@
 
 
 
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 
