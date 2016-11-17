@@ -76,20 +76,20 @@
 	<cfdump var=#SqlString#>
 
 
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 
-	<cfdump var=#buildIt#>
+	<cfdump var=#data#>
 
 
+	<cfabort>
 	<cfset x=serializeJSON(buildIt)>
 
 	<cfdump var=#x#>
 
 
 
-	<cfabort>
 
 
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
