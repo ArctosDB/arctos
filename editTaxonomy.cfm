@@ -1055,10 +1055,10 @@
 						<cfquery name="isok" dbtype="query">
 							select count(*) c from noct where term_type='#noclass.term_type#'
 						</cfquery>
-						<cfif not isok.recordcount gte 1>
-							<cfset thisClass="importantNotification">
-						<cfelse>
+						<cfif isok.recordcount gte 1>
 							<cfset thisClass="">
+						<cfelse>
+							<cfset thisClass="importantNotification">
 						</cfif>
 						<tr id="nccell_#thisrow#">
 							<td class="#thisClass#">
