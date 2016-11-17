@@ -56,30 +56,42 @@
 		<font color="##FF0000" size="+2">You must enter some search criteria!</font>
 		<cfabort>
 	</cfif>
-	<!--- try to kill any old tables that they may have laying around --->
-	<cftry>
-		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			drop table #session.SpecSrchTab#
-		</cfquery>
-		<cfcatch><!--- not there, so what? --->
-		</cfcatch>
-	</cftry>
+
 	<!---- build a temp table --->
 	<cfset checkSql(SqlString)>
 	<cfif isdefined("debug") and debug is true>
 		#preserveSingleQuotes(SqlString)#
 	</cfif>
-
-
-
-
-
-
 	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 
-	<cfset x=serializeJSON(buildIt)>
-
-	<cfdump var=#x#>
-
+	<cfif isdefined('goxml') and goxml is true>
+		<cfset ColumnNames = ListToArray(buildIt.ColumnList)>
+		<!--- Send the headers --->
+		<cfsetting enablecfoutputonly="no"><?xml version="1.0" encoding="utf-8"?>
+		<root>
+			<cfoutput query="buildIt">
+			<row>
+				<cfloop from="1" to="#ArrayLen(ColumnNames)#" index="index">
+				<cfset column = LCase(ColumnNames[index])>
+				<cfset value = buildIt[column][buildIt.CurrentRow]>
+					<#column#><![CDATA[#value#]]></#column#>
+				</cfloop>
+			</row>
+		    </cfoutput>
+		</root>
+	<cfelseif isdefined('gocsv') and gocsv is true>
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfset csv = util.QueryToCSV2(Query=buildIt,Fields=buildIt.columnlist)>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/SpecimenResultsData.csv"
+	    	output = "#csv#"
+	    	addNewLine = "no">
+		<cflocation url="/download.cfm?file=SpecimenResultsData.csv" addtoken="false">
+	<cfelse>
+		<cfset x=serializeJSON(buildIt)>
+		<cfoutput>
+			#x#
+		</cfoutput>
+	</cfif>
