@@ -1151,7 +1151,7 @@
 				<cfquery name="nogen" dbtype="query">
 					select count(*) c from hasclass where term='#thisname.scientific_name#' and POSITION_IN_CLASSIFICATION >= #x#
 				</cfquery>
-				<cfif nogen.c is 0>
+				<cfif nogen.c neq 1>
 					<cfif hasterm.recordcount neq 1>
 						<cfset queryaddrow(hasclass,
 							{POSITION_IN_CLASSIFICATION=getAppPosn('genus'),
