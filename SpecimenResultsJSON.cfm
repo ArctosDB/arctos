@@ -94,7 +94,7 @@
 	</row>
     </cfoutput>
 </root>
-	<cfelseif isdefined('gocsv') and gocsv is not false>
+	<cfelseif isdefined('gocsv') and gocsv is true>
 
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=buildIt,Fields=buildIt.columnlist)>
