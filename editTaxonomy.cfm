@@ -1221,11 +1221,6 @@
 							select count(*) c from hasclass where TERM_TYPE='variety'
 						</cfquery>
 						<cfif ago.c is not 1>
-							<p>
-								no variety do something #thisname.scientific_name# is suggested variety
-							</p>
-
-
 							<!--- all other sub-specific terms are almost certainly mis-ranked ---->
 							<!---- nuke everthing that looks like it might be a subspecific term, then re-add the suggestion --->
 							<cf_qoq>
