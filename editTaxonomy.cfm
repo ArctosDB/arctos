@@ -1058,9 +1058,9 @@
 
 
 						<cfif isok.recordcount gte 1>
-							<cfset thisClass="">
-						<cfelse>
 							<cfset thisClass="importantNotification">
+						<cfelse>
+							<cfset thisClass="">
 						</cfif>
 						<tr id="nccell_#thisrow#">
 							<td class="#thisClass#">
