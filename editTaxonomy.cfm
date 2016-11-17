@@ -1140,6 +1140,8 @@
 
 			<cfdump var=#hasterm#>
 			<cfif hasterm.recordcount lt 1>
+
+			<br>hi
 				<!---
 					if some term is equal to scientific name at this point, we're probably not ending with a genus.
 					If not, we might be.
