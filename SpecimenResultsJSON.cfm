@@ -76,6 +76,8 @@
 	<cfdump var=#SqlString#>
 
 
+<cfdump var=#session#>
+
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
