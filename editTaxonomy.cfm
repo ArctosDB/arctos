@@ -970,9 +970,9 @@
 			<div style="border:10px solid red; padding:2em; margin:2em;">
 				Caution: The following term(s) are used in this classification and are not
 				available from the code table. Proceed with caution; do not confuse unranked terms
-				(no OriginalTermType, no TermType) with terms which are not in the code table (
-				something in OriginalTermType, not TermType).
-				Use the contact link in the footer BEFORE saving anything if this is not clear.
+				(no OriginalTermType, no TermType) with terms which are not in the code table
+				(something in OriginalTermType, not TermType).
+				Use the contact link in the footer BEFORE saving anything if this is not clear, or to request additional code table values.
 				<ul>
 					<cfloop query="noct">
 						<li>#term_type#=#term#</li>
