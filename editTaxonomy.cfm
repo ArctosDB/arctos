@@ -1135,11 +1135,11 @@
 			</cfif>
 			<!--- see if we have a genus. ---->
 			<cfquery name="hasterm" dbtype="query">
-				select count(*) c from hasclass where term_type='genus'
+				select term from hasclass where term_type='genus'
 			</cfquery>
 
 			<cfdump var=#hasterm#>
-			<cfif hasterm.c neq 1>
+			<cfif hasterm.recordcount lt 1>
 				<!---
 					if some term is equal to scientific name at this point, we're probably not ending with a genus.
 					If not, we might be.
