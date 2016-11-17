@@ -1303,19 +1303,14 @@
 								(drag row here)
 							</td>
 							<td>#orderedClass.term_type#</td>
-
 							<cfquery name="isok" dbtype="query">
 								select count(*) c from noct where term_type='#orderedClass.term_type#'
 							</cfquery>
-
 							<cfif isok.recordcount gte 1>
-							<cfset thisClass="importantNotification">
-						<cfelse>
-							<cfset thisClass="">
-						</cfif>
-
-
-
+								<cfset thisClass="importantNotification">
+							<cfelse>
+								<cfset thisClass="">
+							</cfif>
 							<td class="#thisClass#">
 								<select	class="ac_isclass_tt"
 									id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
