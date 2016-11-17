@@ -1052,8 +1052,17 @@
 				<tbody id="notsortable">
 					<cfset thisrow=1>
 					<cfloop query="noclass">
+						<cfquery name="isok" dbtype="query">
+							select count(*) c from noct where term_type='#noclass.term_type#'
+						</cfquery>
+						<cfif not isok.recordcount gte 1>
+							<cfset thisClass="importantNotification">
+						<cfelse>
+							<cfset thisClass="">
+						</cfif>
 						<tr id="nccell_#thisrow#">
-							<td>
+							<td class="#thisClass#">
+
 								<select
 									class="ac_noclass_tt"
 									id="ncterm_type_#thisrow#"
@@ -1273,13 +1282,6 @@
 					</cfif>
 				</cfif>
 			</cfif>
-
-
-
-
-
-
-
 
 
 			<cfquery name="orderedClass" dbtype="query">
