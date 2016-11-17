@@ -88,7 +88,7 @@
 	<row>
 		<cfloop from="1" to="#ArrayLen(ColumnNames)#" index="index">
 		<cfset column = LCase(ColumnNames[index])>
-		<cfset value = rsAll[column][rsAll.CurrentRow]>
+		<cfset value = buildIt[column][buildIt.CurrentRow]>
 			<#column#><![CDATA[#value#]]></#column#>
 		</cfloop>
 	</row>
