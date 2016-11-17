@@ -80,6 +80,7 @@
 	</cfquery>
 
 	<cfset x=serializeJSON(buildIt)>
-
-	<cfdump var=#x#>
+	<cfoutput>
+		#x#
+	</cfoutput>
 
