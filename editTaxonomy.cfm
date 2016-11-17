@@ -1064,7 +1064,6 @@
 						</cfif>
 						<tr id="nccell_#thisrow#">
 							<td class="#thisClass#">
-<p>--#isok.recordcount#--</p>
 								<select
 									class="ac_noclass_tt"
 									id="ncterm_type_#thisrow#"
