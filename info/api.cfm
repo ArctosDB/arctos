@@ -6,10 +6,10 @@
 		Partial list of ways to talk to Arctos
 	</h2>
 	<p>
-		You may search specimens using the <a href="/api/specsrch">SpecimenResults.cfm API</a>. 
+		You may search specimens using the <a href="/api/specsrch">SpecimenResults.cfm API</a>.
 	</p>
 	<p>
-		You may open KML files of Arctos data using the <a href="/api/kml">KML API</a>. 
+		You may open KML files of Arctos data using the <a href="/api/kml">KML API</a>.
 	</p>
 	You may link to specimens with the following:
 		<ul>
@@ -23,10 +23,10 @@
 				<br>
 			</li>
 		</ul>
-	or through Saved Searches (find specimens, click Save Search, provide a name, then click My Stuff/Saved Searches, then 
+	or through Saved Searches (find specimens, click Save Search, provide a name, then click My Stuff/Saved Searches, then
 	copy/paste/email/click the links.)
 	<p>
-		You may search taxonomy using the <a href="/api/taxsrch">taxonomy.cfm API</a>. 
+		You may search taxonomy using the <a href="/api/taxsrch">taxonomy.cfm API</a>.
 	</p>
 	<p>
 		You may link to taxon detail pages with URLs of the format:
@@ -39,7 +39,7 @@
 					</li>
 				</ul>
 			</li>
-		</ul>		
+		</ul>
 	</p>
 	<p>
 		You may search Media using the <a href="/api/mediasrch">MediaSearch.cfm API</a>
@@ -57,7 +57,7 @@
 		access to all portals (all collections) simultaneously. It is also possible to form URLs specific to
 		individual portals.
 	</p>
-	You may redirect users (those without overriding login preferences) to a specific "portal" by using the links from 
+	You may redirect users (those without overriding login preferences) to a specific "portal" by using the links from
 	<a href="/home.cfm">#Application.serverRootUrl#/home.cfm</a>
 	<p>
 		Generally, all collections have a portal of the format
@@ -148,7 +148,7 @@
 					<li><strong>5000</strong> (image number)</li>
 				</ul>
 			</td>
-		</tr>		
+		</tr>
 	</table>
 </cfif>
 <cfif action is "taxsrch">
@@ -178,7 +178,14 @@
 	<cfquery name="st" datasource="cf_dbuser">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
-	Base URL: #Application.serverRootUrl#/SpecimenResults.cfm
+	Base URLs:
+	<ul>
+		<li>#Application.serverRootUrl#/SpecimenResults.cfm = HTML</li>
+		<li>#Application.serverRootUrl#/SpecimenResultsJSON.cfm = JSON</li>
+		<li>#Application.serverRootUrl#/SpecimenResultsJSON.cfm?gocsv=true = CSV</li>
+		<li>#Application.serverRootUrl#/SpecimenResultsJSON.cfm?goxml=true = XML</li>
+	</ul>
+
 	<table border id="t" class="sortable">
 		<tr>
 			<th>term</th>
@@ -190,12 +197,12 @@
 		</tr>
 		<cfoutput>
 			<cfloop query="st">
-				<tr>				
+				<tr>
 					<td valign="top">
 						<cfif mdoc>
 							<a href="/doc/field_documentation.cfm?cf_variable=#CF_VARIABLE#">#CF_VARIABLE#</a>
 						<cfelse>
-							#CF_VARIABLE#	
+							#CF_VARIABLE#
 						</cfif>
 					</td>
 					<td valign="top">#DISPLAY_TEXT#</td>
@@ -225,81 +232,81 @@
 			<th>Variable</th>
 			<th>Values</th>
 			<th>Explanation</th>
-		</tr>		
+		</tr>
 		<tr>
 			<td>{search criteria}</td>
 			<td>{various}</td>
 			<td><a href="/api/specsrch">API</a></td>
-		</tr>		
+		</tr>
 		<tr>
 			<td>userFileName</td>
 			<td>Any string</td>
 			<td>Non-default file name. Will be URL-encoded, so use alphanumeric characters for predictability.</td>
-		</tr>		
+		</tr>
 		<tr>
 			<td rowspan="3">next</td>
 			<td>nothing</td>
 			<td>Proceed to a form where you may set all other criteria</td>
 		</tr>
-		<tr>		
+		<tr>
 			<td>colorByCollection</td>
 			<td>Map points are arranged by collection</td>
 		</tr>
-		<tr>		
+		<tr>
 			<td>colorBySpecies</td>
 			<td>Map points are arranged by collection</td>
 		</tr>
-		
+
 		<tr>
 			<td rowspan="3">method</td>
 			<td>download</td>
 			<td>Download a full KML file</td>
 		</tr>
-		<tr>		
+		<tr>
 			<td>gmap</td>
 			<td>Map in Google Maps</td>
 		</tr>
-		<tr>		
+		<tr>
 			<td>link</td>
 			<td>Download a KML Linkfile</td>
 		</tr>
-		
+
 		<tr>
 			<td rowspan="2">includeTimeSpan</td>
 			<td>0</td>
 			<td>Do not include time information</td>
 		</tr>
-		<tr>		
+		<tr>
 			<td>1</td>
 			<td>Include time information</td>
 		</tr>
-		
+
 		<tr>
 			<td rowspan="2">showUnaccepted</td>
 			<td>0</td>
 			<td>Include only accepted coordinate determinations</td>
 		</tr>
-		<tr>		
+		<tr>
 			<td>1</td>
 			<td>Include unaccepted coordinate determinations</td>
 		</tr>
-		
+
 		<tr>
 			<td rowspan="2">mapByLocality</td>
 			<td>0</td>
 			<td>Show only those specimens matching search criteria</td>
 		</tr>
-		<tr>		
+		<tr>
 			<td>1</td>
 			<td>Include all specimens from each locality</td>
 		</tr>
-		
+
 		<tr>
 			<td rowspan="2">showErrors</td>
 			<td>0</td>
 			<td>Map points only</td>
 		</tr>
-		<tr>		
+		<tr>
 			<td>1</td>
 			<td>Include error radii as circles</td>
 		</tr>
