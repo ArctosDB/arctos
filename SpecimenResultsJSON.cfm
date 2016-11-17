@@ -79,6 +79,26 @@
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 
+	<cfif isdefined('goxml') and goxml is true>
+		<cfset ColumnNames = ListToArray(buildIt.ColumnList)>
+<!--- Send the headers --->
+<cfheader name="Content-type" value="text/xml">
+<cfheader name="Pragma" value="public">
+<cfheader name="Cache-control" value="private">
+<cfheader name="Expires" value="-1">
+<cfsetting enablecfoutputonly="no"><?xml version="1.0" encoding="utf-8"?>
+<root>
+	<cfoutput query="buildIt">
+	<row>
+		<cfloop from="1" to="#ArrayLen(ColumnNames)#" index="index">
+		<cfset column = LCase(ColumnNames[index])>
+		<cfset value = rsAll[column][rsAll.CurrentRow]>
+			<#column#><![CDATA[#value#]]></#column#>
+		</cfloop>
+	</row>
+    </cfoutput>
+</root>
+	</cfif>
 	<cfset x=serializeJSON(buildIt)>
 	<cfoutput>
 		#x#
