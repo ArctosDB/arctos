@@ -98,9 +98,13 @@
 	</row>
     </cfoutput>
 </root>
-	</cfif>
+
+	<cfelse>
 	<cfset x=serializeJSON(buildIt)>
 	<cfoutput>
 		#x#
 	</cfoutput>
+
+	</cfif>
+
 
