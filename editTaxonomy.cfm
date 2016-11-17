@@ -1149,7 +1149,7 @@
 				<!--- where genus would go ---->
 				<cfset x=getAppPosn('genus')>
 				<cfquery name="nogen" dbtype="query">
-					select count(*) c from hasclass where term='#thisname.scientific_name#' and POSITION_IN_CLASSIFICATION >= #x#
+					select count(*) c from hasclass where term='#thisname.scientific_name#' and POSITION_IN_CLASSIFICATION <= #x#
 				</cfquery>
 			<cfdump var=#nogen#>
 				<cfif nogen.c neq 1>
