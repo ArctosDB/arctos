@@ -263,6 +263,30 @@
 		</cfquery>
 		<cfif bah.recordcount is not 0>
 			coordinate conflicts detected: dec_lat and other coordinates are given.
+
+			<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+				select * from pre_bulkloader where
+				(
+					(dec_lat is not null or dec_long is not null) and
+					(
+						LATDEG is not null or
+						DEC_LAT_MIN is not null or
+						LATMIN is not null or
+						LATSEC is not null or
+						LATDIR is not null or
+						LONGDEG is not null or
+						DEC_LONG_MIN is not null or
+						LONGMIN is not null or
+						LONGSEC is not null or
+						LONGDIR is not null or
+						UTM_ZONE is not null or
+						UTM_EW is not null or
+						UTM_NS is not null
+					)
+				)
+			</cfquery>
+			<cfdump var=#bah#>
+
 			<cfabort>
 		</cfif>
 		<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
