@@ -366,7 +366,7 @@
 				ORIG_LAT_LONG_UNITS='degrees dec. minutes'
 			where
 				ORIG_LAT_LONG_UNITS is null and
-				(LATDEG is not null or LONGDEG) and
+				(LATDEG is not null or LONGDEG  is not null ) and
 				(DEC_LAT_MIN is not null or DEC_LONG_MIN is not null)
 		</cfquery>
 		<cfdump var=#myQueryResult#>
