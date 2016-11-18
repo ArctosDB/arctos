@@ -377,6 +377,9 @@
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update pre_bulkloader set VERIFICATIONSTATUS='unverified' where VERIFICATIONSTATUS is null and ORIG_LAT_LONG_UNITS is not null
 		</cfquery>
+		<p>
+			All done, <a href="pre_bulkloader.cfm">continue</a>
+		</p>
 	</cfif>
 
 	<!------------------------------------------------------->
