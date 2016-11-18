@@ -261,6 +261,9 @@
 				)
 			)
 		</cfquery>
+
+		<cfdump var=#bah#>
+
 		<cfif bah.recordcount gt 0>
 			coordinate conflicts detected: dec_lat and other coordinates are given.
 
