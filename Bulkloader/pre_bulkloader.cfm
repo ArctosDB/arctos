@@ -204,6 +204,11 @@
 					<br><input type="submit" value="make all changes">
 				</form>
 			</li>
+
+			<li>
+				Coordinates: goGoCoordinateMagic
+
+			</li>
 			<li>
 				<a name="tysql"></a>
 				<form name="pdflt" method="post" action="pre_bulkloader.cfm">
@@ -233,6 +238,126 @@
 			</li>
 		</ol>
 	</cfif>
+	goGoCoordinateMagic
+	<cfif action is "goGoCoordinateMagic">
+		<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			select count(*) from pre_bulkloader where
+			(
+				(dec_lat is not null or dec_long is not null) and
+				(
+					LATDEG is not null or
+					DEC_LAT_MIN is not null or
+					LATMIN is not null or
+					LATSEC is not null or
+					LATDIR is not null or
+					LONGDEG is not null or
+					DEC_LONG_MIN is not null or
+					LONGMIN is not null or
+					LONGSEC is not null or
+					LONGDIR is not null or
+					UTM_ZONE is not null or
+					UTM_EW is not null or
+					UTM_NS is not null
+				)
+			)
+		</cfquery>
+		<cfif bah.recordcount is not 0>
+			coordinate conflicts detected: dec_lat and other coordinates are given.
+			<cfabort>
+		</cfif>
+		<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			select count(*) from pre_bulkloader where
+			(
+				(LATDEG is not null or LONGDEG is not null) and
+				(
+					DEC_LAT is not null or
+					DEC_LONG is not null or
+					UTM_ZONE is not null or
+					UTM_EW is not null or
+					UTM_NS is not null
+				)
+			)
+		</cfquery>
+		<cfif bah.recordcount is not 0>
+			coordinate conflicts detected: LATDEG and other coordinates are given.
+			<cfabort>
+		</cfif>
+
+
+		<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			select count(*) from pre_bulkloader where
+			(
+				(LATDEG is not null or LONGDEG is not null) and
+				(
+					DEC_LAT is not null or
+					DEC_LONG is not null or
+					UTM_ZONE is not null or
+					UTM_EW is not null or
+					UTM_NS is not null
+				)
+			)
+		</cfquery>
+		<cfif bah.recordcount is not 0>
+			coordinate conflicts detected: LATDEG and other coordinates are given.
+			<cfabort>
+		</cfif>
+		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			update pre_bulkloader set
+		</cfquery>
+		update
+
+
+ ORIG_LAT_LONG_UNITS							    VARCHAR2(255)
+
+ DEC_LAT								    VARCHAR2(255)
+ DEC_LONG								    VARCHAR2(255)
+
+
+
+ LATDEG 								    VARCHAR2(20)
+ DEC_LAT_MIN								    VARCHAR2(255)
+ LATMIN 								    VARCHAR2(255)
+ LATSEC 								    VARCHAR2(255)
+ LATDIR 								    VARCHAR2(50)
+ LONGDEG								    VARCHAR2(20)
+ DEC_LONG_MIN								    VARCHAR2(255)
+ LONGMIN								    VARCHAR2(255)
+ LONGSEC								    VARCHAR2(255)
+ LONGDIR								    VARCHAR2(50)
+
+
+ UTM_ZONE								    VARCHAR2(3)
+ UTM_EW 								    VARCHAR2(60)
+ UTM_NS 								    VARCHAR2(60)
+
+
+
+
+ DATUM									    VARCHAR2(255)
+ GEOREFERENCE_SOURCE							    VARCHAR2(255)
+ MAX_ERROR_DISTANCE							    VARCHAR2(255)
+ MAX_ERROR_UNITS							    VARCHAR2(255)
+ GEOREFERENCE_PROTOCOL							    VARCHAR2(255)
+ VERIFICATIONSTATUS							    VARCHAR2(255)
+
+
+ MAXIMUM_ELEVATION							    VARCHAR2(20)
+ MINIMUM_ELEVATION							    VARCHAR2(20)
+ ORIG_ELEV_UNITS							    VARCHAR2(255)
+
+
+ MIN_DEPTH								    VARCHAR2(20)
+ MAX_DEPTH								    VARCHAR2(20)
+ DEPTH_UNITS								    VARCHAR2(30)
+
+
+
+
+
+
+
+	</cfif>
+
 	<!------------------------------------------------------->
 	<cfif action is "ready_for_checkall">
 		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
