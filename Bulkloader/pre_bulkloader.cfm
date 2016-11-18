@@ -293,7 +293,7 @@
 			<cfabort>
 		</cfif>
 		<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
-			select count(*) from pre_bulkloader where
+			select count(*) c from pre_bulkloader where
 			(
 				(LATDEG is not null or LONGDEG is not null) and
 				(
@@ -305,7 +305,7 @@
 				)
 			)
 		</cfquery>
-		<cfif bah.recordcount is not 0>
+		<cfif bah.c gt 0>
 			coordinate conflicts detected: LATDEG and other coordinates are given.
 			<cfabort>
 		</cfif>
