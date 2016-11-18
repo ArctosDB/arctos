@@ -241,7 +241,7 @@
 
 	<cfif action is "goGoCoordinateMagic">
 		<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
-			select count(*) from pre_bulkloader where
+			select count(*) c from pre_bulkloader where
 			(
 				(dec_lat is not null or dec_long is not null) and
 				(
@@ -264,7 +264,7 @@
 
 		<cfdump var=#bah#>
 
-		<cfif bah.recordcount gt 0>
+		<cfif bah.c gt 0>
 			coordinate conflicts detected: dec_lat and other coordinates are given.
 
 			<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
