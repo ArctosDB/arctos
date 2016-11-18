@@ -355,7 +355,7 @@
 				ORIG_LAT_LONG_UNITS='deg. min. sec.'
 			where
 				ORIG_LAT_LONG_UNITS is null and
-				(LATDEG is not null or LONGDEG) and
+				(LATDEG is not null or LONGDEG is not null ) and
 				(DEC_LAT_MIN is null and DEC_LONG_MIN is null)
 		</cfquery>
 		<cfdump var=#myQueryResult#>
