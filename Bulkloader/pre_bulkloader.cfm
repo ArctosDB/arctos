@@ -312,7 +312,7 @@
 
 
 		<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
-			select count(*) from pre_bulkloader where
+			select count(*) c from pre_bulkloader where
 			(
 				(LATDEG is not null or LONGDEG is not null) and
 				(
@@ -324,7 +324,7 @@
 				)
 			)
 		</cfquery>
-		<cfif bah.recordcount is not 0>
+		<cfif bah.c gt 0>
 			coordinate conflicts detected: LATDEG and other coordinates are given.
 			<cfabort>
 		</cfif>
@@ -337,6 +337,7 @@
 				ORIG_LAT_LONG_UNITS is null and
 				(DEC_LAT is not null or DEC_LONG is not null)
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update
 				pre_bulkloader
@@ -346,6 +347,7 @@
 				ORIG_LAT_LONG_UNITS is null and
 				(UTM_ZONE is not null or UTM_EW is not null or UTM_NS is not null)
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update
 				pre_bulkloader
@@ -356,6 +358,7 @@
 				(LATDEG is not null or LONGDEG) and
 				(DEC_LAT_MIN is null and DEC_LONG_MIN is null)
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update
 				pre_bulkloader
@@ -366,6 +369,7 @@
 				(LATDEG is not null or LONGDEG) and
 				(DEC_LAT_MIN is not null or DEC_LONG_MIN is not null)
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<!-- miss anything? Make it obvious -->
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update
@@ -392,18 +396,23 @@
 					DEC_LONG_MIN is not null
 				)
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update pre_bulkloader set DATUM='unknown' where DATUM is null and ORIG_LAT_LONG_UNITS is not null
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update pre_bulkloader set GEOREFERENCE_SOURCE='unknown' where GEOREFERENCE_SOURCE is null and ORIG_LAT_LONG_UNITS is not null
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update pre_bulkloader set GEOREFERENCE_PROTOCOL='not recorded' where GEOREFERENCE_PROTOCOL is null and ORIG_LAT_LONG_UNITS is not null
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<cfquery name="udllu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			update pre_bulkloader set VERIFICATIONSTATUS='unverified' where VERIFICATIONSTATUS is null and ORIG_LAT_LONG_UNITS is not null
 		</cfquery>
+		<cfdump var=#myQueryResult#>
 		<p>
 			All done, <a href="pre_bulkloader.cfm">continue</a>
 		</p>
