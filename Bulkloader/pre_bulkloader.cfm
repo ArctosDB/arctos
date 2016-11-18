@@ -261,7 +261,7 @@
 				)
 			)
 		</cfquery>
-		<cfif bah.recordcount is not 0>
+		<cfif bah.recordcount gt 0>
 			coordinate conflicts detected: dec_lat and other coordinates are given.
 
 			<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
