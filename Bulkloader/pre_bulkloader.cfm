@@ -206,8 +206,8 @@
 			</li>
 
 			<li>
-				Coordinates: goGoCoordinateMagic
-
+				<a href="pre_bulkloader.cfm?action=goGoCoordinateMagic">goGoCoordinateMagic</a>. Guess at orig_lat_long_units,
+				set metadata defaults for NULL fields, flag problems.
 			</li>
 			<li>
 				<a name="tysql"></a>
@@ -238,7 +238,7 @@
 			</li>
 		</ol>
 	</cfif>
-	goGoCoordinateMagic
+
 	<cfif action is "goGoCoordinateMagic">
 		<cfquery name="bah" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			select count(*) from pre_bulkloader where
