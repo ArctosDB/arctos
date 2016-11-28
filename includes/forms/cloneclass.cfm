@@ -43,7 +43,7 @@
 							v_mv_sciname_term
 						where
 							taxon_name_id=#taxon_name_id# and
-							classification_id=#classification_id#
+							classification_id='#classification_id#'
 						order by
 							position_in_classification
 					</cfquery>
