@@ -15,14 +15,14 @@
 		<input type="hidden" name="action" value="newCC">
 		<p>
 			1) Pick a target taxon name (the one which will get the new data)
-			<input type="text" name="tgtName" class="reqdClr" size="50"
+			<input type="text" name="tgtName" class="reqdClr" size="50" required
 				onChange="taxaPick('tgt_taxon_name_id','tgtName','newCC',this.value); return false;"
 				onKeyPress="return noenter(event);">
 		</p>
 		<p>
 			2) Pick a source for the new classification
 			<br>
-			<select name="source" id="source" class="reqdClr">
+			<select name="source" id="source" class="reqdClr" required>
 				<option></option>
 				<cfloop query="cttaxonomy_source">
 					<option value="#source#">#source#</option>
