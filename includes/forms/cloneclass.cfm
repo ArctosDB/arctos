@@ -54,40 +54,18 @@
 							<li>#term_type#=#term#</li>
 						</cfloop>
 					</ul>
-					<table border>
-						<tr>
-							<th>Term</th>
-							<th>Value</th>
-						</tr>
-						<cfloop query="nct">
-							<tr>
-								<td>#term_type#</td>
-								<td>#term#</td>
-							</tr>
-						</cfloop>
-					</table>
 					<cfquery name="ct" dbtype="query">
 						select term,term_type from d where position_in_classification is not null order by position_in_classification
 					</cfquery>
-					<table border>
-						<tr>
-							<th>Term</th>
-							<th>Value</th>
-						</tr>
-						<cfset indent=0>
+					<br>Classification terms
+					<cfset indent=0>
+					<ul>
 						<cfloop query="ct">
-							<tr>
-								<td>
-									<div style="margin-left:#indent# em;">
-									#term_type#
-								</div>
-								</td>
-								<td>#term#</td>
-							</tr>
+							<li style="margin-left:#indent# em;">#term_type#=#term#</li>
 							<cfset indent=indent+1>
 						</cfloop>
-					</table>
-					<cfdump var=#d#>
+					</ul>
+
 				</p>
 
 
