@@ -14,10 +14,10 @@
 
 
 		<form name="newCC" method="post" action="cloneclass.cfm">
-				<input type="text" name="taxon_name_id" value="#taxon_name_id#">
-				<input type="text" name="tgt_taxon_name_id">
-				<input type="text" name="classification_id" value="#classification_id#">
-				<input type="text" name="action" value="newCC">
+				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
+				<input type="hidden" name="tgt_taxon_name_id">
+				<input type="hidden" name="classification_id" value="#classification_id#">
+				<input type="hidden" name="action" value="newCC">
 				<p>
 					1) Pick a target taxon name (the one which will get the new data)
 					<input type="text" name="tgtName" class="reqdClr" size="50"
@@ -126,7 +126,7 @@
 		You should have already been redirected to
 		<a href="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&TAXON_NAME_ID=#tgt_taxon_name_id#" target="_blank">
 			/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&TAXON_NAME_ID=#tgt_taxon_name_id#
-		</a>
+		</a> in a new window
 	</p>
 
 
