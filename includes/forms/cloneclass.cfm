@@ -37,7 +37,7 @@
 					<cfquery name="d" datasource="uam_god">
 						select
 							term,
-							term_type,
+							nvl(term_type,'[not given]') term_type,
 							position_in_classification
 						from
 							v_mv_sciname_term
@@ -49,6 +49,9 @@
 						select term,term_type from d where position_in_classification is null order by term_type
 					</cfquery>
 					<br>Non-classification terms
+					<ul>
+						<li>#term_type#=#term#</li>
+					</ul>
 					<table border>
 						<tr>
 							<th>Term</th>
