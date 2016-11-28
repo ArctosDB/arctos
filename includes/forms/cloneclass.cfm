@@ -15,7 +15,7 @@
 		<form name="newCC" method="post" action="cloneclass.cfm">
 				<input type="text" name="taxon_name_id" value="#taxon_name_id#">
 				<input type="text" name="tgt_taxon_name_id">
-				<input type="text" name="taxon_name_id" value="#classification_id#">
+				<input type="text" name="classification_id" value="#classification_id#">
 				<input type="text" name="action" value="newCC">
 				<p>
 					1) Pick a target taxon name (the one which will get the new data)
@@ -77,5 +77,56 @@
 </cfif>
 
 <cfif action is "newCC">
-	im gonna clone now....
+	<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			TERM,
+			TERM_TYPE,
+			POSITION_IN_CLASSIFICATION
+		from
+			taxon_term
+		where
+			taxon_name_id=#taxon_name_id# and
+			classification_id='#classification_id#'
+		group by
+			TERM,
+			TERM_TYPE,
+			POSITION_IN_CLASSIFICATION
+	</cfquery>
+	<cfset thisSourceID=CreateUUID()>
+	<cftransaction>
+		<cfloop query="seedClassification">
+			<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into taxon_term (
+					TAXON_NAME_ID,
+					CLASSIFICATION_ID,
+					TERM,
+					TERM_TYPE,
+					SOURCE,
+					POSITION_IN_CLASSIFICATION
+				) values (
+					#tgt_taxon_name_id#,
+					'#thisSourceID#',
+					'#TERM#',
+					'#TERM_TYPE#',
+					'#SOURCE#',
+					<cfif len(POSITION_IN_CLASSIFICATION) is 0>
+						NULL
+					<cfelse>
+						#POSITION_IN_CLASSIFICATION#
+					</cfif>
+				)
+			</cfquery>
+		</cfloop>
+	</cftransaction>
+
+	Classification cloned, if you can see this open
+	/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&TAXON_NAME_ID=#tgt_taxon_name_id#
+	in a new window (then file a bug report!).
+
+
+	 <script type="text/javascript">
+        window.open("/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&TAXON_NAME_ID=#tgt_taxon_name_id#", '_blank');
+    </script>
+
+
 </cfif>
