@@ -1,6 +1,6 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfif action is "nothing">
-
+<cfoutput>
 	<p>
 		This for clones (copies) a classification from one name to another. You MUST edit the new data, and you may need to delete
 		any "old" classification data.
@@ -21,7 +21,7 @@
 
 			</form>
 	</p>
-
+</cfoutput>
 	hi im here to clone a classification
 
 	<cfabort>
