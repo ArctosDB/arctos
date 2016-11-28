@@ -385,7 +385,7 @@ function loadTaxonomyMap(n,m){
 }
 
 function cloneRemoteCN(tid,cid){
-		var guts = "includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
+		var guts = "/includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
 
 		console.log('opening ' + guts);
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
