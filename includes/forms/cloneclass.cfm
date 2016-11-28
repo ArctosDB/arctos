@@ -50,7 +50,9 @@
 					</cfquery>
 					<br>Non-classification terms
 					<ul>
-						<li>#term_type#=#term#</li>
+						<cfloop query="nct">
+							<li>#term_type#=#term#</li>
+						</cfloop>
 					</ul>
 					<table border>
 						<tr>
