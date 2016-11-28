@@ -30,7 +30,7 @@
 			</select>
 		</p>
 		<p>
-			3) Review what's being cloned into the name you picked above
+			3) Review what's being cloned into the name you picked above. (You'll be able to edit after the cloning process.)
 
 			<cfquery name="d" datasource="uam_god">
 				select
