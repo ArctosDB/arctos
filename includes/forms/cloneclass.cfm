@@ -1,5 +1,27 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfif action is "nothing">
+
+	<p>
+		This for clones (copies) a classification from one name to another. You MUST edit the new data, and you may need to delete
+		any "old" classification data.
+	</p>
+
+	<p>
+		Pick a target taxon name (the one which will get the new data).
+
+		<form name="newCC" method="post" action="cloneclass.cfm">
+				<input type="text" name="taxon_name_id" value="#taxon_name_id#">
+				<input type="text" name="tgt_taxon_name_id">
+				<input type="text" name="taxon_name_id" value="#classification_id#">
+				<input type="text" name="action" value="newCC">
+
+						<input type="text" name="tgtName" class="reqdClr" size="50"
+							onChange="taxaPick('tgt_taxon_name_id','tgtName','newCC',this.value); return false;"
+							onKeyPress="return noenter(event);">
+
+			</form>
+	</p>
+
 	hi im here to clone a classification
 
 	<cfabort>
