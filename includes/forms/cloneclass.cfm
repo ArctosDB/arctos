@@ -120,9 +120,14 @@
 		</cfloop>
 	</cftransaction>
 
-	Classification cloned, if you can see this open
-	/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&TAXON_NAME_ID=#tgt_taxon_name_id#
-	in a new window (then file a bug report!).
+	Classification cloned, it is now safe to close this window.
+
+	<p>
+		You should have already been redirected to
+		<a href="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&TAXON_NAME_ID=#tgt_taxon_name_id#" target="_blank">
+			/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&TAXON_NAME_ID=#tgt_taxon_name_id#
+		</a>
+	</p>
 
 
 	 <script type="text/javascript">
