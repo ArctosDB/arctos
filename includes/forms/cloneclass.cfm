@@ -44,9 +44,44 @@
 						where
 							taxon_name_id=#taxon_name_id# and
 							classification_id='#classification_id#'
-						order by
-							position_in_classification
 					</cfquery>
+					<cfquery name="nct" dbtype="query">
+						select term,term_type from d where position_in_classification is null order by term_type
+					</cfquery>
+					<br>Non-classification terms
+					<table border>
+						<tr>
+							<th>Term</th>
+							<th>Value</th>
+						</tr>
+						<cfloop query="">
+							<tr>
+								<td>#term_type#</td>
+								<td>#term#</td>
+							</tr>
+						</cfloop>
+					</table>
+					<cfquery name="nct" dbtype="query">
+						select term,term_type from d where position_in_classification is not null order by position_in_classification
+					</cfquery>
+					<table border>
+						<tr>
+							<th>Term</th>
+							<th>Value</th>
+						</tr>
+						<cfset indent=0>
+						<cfloop query="">
+							<tr>
+								<td>
+									<div style="margin-left:#indent# em;">
+									#term_type#
+								</div>
+								</td>
+								<td>#term#</td>
+							</tr>
+							<cfset indent=indent+1>
+						</cfloop>
+					</table>
 					<cfdump var=#d#>
 				</p>
 
