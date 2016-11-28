@@ -384,7 +384,7 @@ function loadTaxonomyMap(n,m){
 	})
 }
 
-function cloneRemote(tid,cid){
+function cloneRemoteCN(tid,cid){
 		var guts = "includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
 
 		console.log('opening ' + guts);
@@ -646,7 +646,7 @@ function cloneRemote(tid,cid){
 						</cfif>
 						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&taxon_name_id=#taxon_name_id.taxon_name_id#&classification_id=#classification_id#">[ Clone Classification as new name ]</a>
 
-						<span class='likeLink' onclick="cloneRemote('#taxon_name_id.taxon_name_id#','#classification_id#')">[ Clone classification into existing name ]</span>
+						<span class='likeLink' onclick="cloneRemoteCN('#taxon_name_id.taxon_name_id#','#classification_id#')">[ Clone classification into existing name ]</span>
 
 
 					</cfif>
