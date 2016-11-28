@@ -1,25 +1,60 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfif action is "nothing">
 <cfoutput>
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select source from cttaxonomy_source order by source
+	</cfquery>
 	<p>
 		This for clones (copies) a classification from one name to another. You MUST edit the new data, and you may need to delete
 		any "old" classification data.
 	</p>
 
 	<p>
-		Pick a target taxon name (the one which will get the new data).
+
 
 		<form name="newCC" method="post" action="cloneclass.cfm">
 				<input type="text" name="taxon_name_id" value="#taxon_name_id#">
 				<input type="text" name="tgt_taxon_name_id">
 				<input type="text" name="taxon_name_id" value="#classification_id#">
 				<input type="text" name="action" value="newCC">
+				<p>
+					1) Pick a target taxon name (the one which will get the new data)
+					<input type="text" name="tgtName" class="reqdClr" size="50"
+						onChange="taxaPick('tgt_taxon_name_id','tgtName','newCC',this.value); return false;"
+						onKeyPress="return noenter(event);">
+				</p>
+				<p>
+					2) Pick a source for the new classification
+					<select name="source" id="source" class="reqdClr">
+						<cfloop query="cttaxonomy_source">
+							<option value="#source#">#source#</option>
+						</cfloop>
+					</select>
+				</p>
+				<p>
+					3) Review what's being cloned into the name you picked above
 
-						<input type="text" name="tgtName" class="reqdClr" size="50"
-							onChange="taxaPick('tgt_taxon_name_id','tgtName','newCC',this.value); return false;"
-							onKeyPress="return noenter(event);">
+					<cfquery name="d" datasource="uam_god">
+						select
+							term,
+							term_type,
+							position_in_classification
+						from
+							v_mv_sciname_term
+						where
+							taxon_name_id=#taxon_name_id# and
+							classification_id=#classification_id#
+						order by
+							position_in_classification
+					</cfquery>
+					<cfdump var=#d#>
+				</p>
 
-			</form>
+
+			4) Do it.
+
+			<br><input type="submit" value="create and edit classification">
+		</form>
 	</p>
 </cfoutput>
 	hi im here to clone a classification
