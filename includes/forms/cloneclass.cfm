@@ -54,14 +54,14 @@
 							<th>Term</th>
 							<th>Value</th>
 						</tr>
-						<cfloop query="">
+						<cfloop query="nct">
 							<tr>
 								<td>#term_type#</td>
 								<td>#term#</td>
 							</tr>
 						</cfloop>
 					</table>
-					<cfquery name="nct" dbtype="query">
+					<cfquery name="ct" dbtype="query">
 						select term,term_type from d where position_in_classification is not null order by position_in_classification
 					</cfquery>
 					<table border>
@@ -70,7 +70,7 @@
 							<th>Value</th>
 						</tr>
 						<cfset indent=0>
-						<cfloop query="">
+						<cfloop query="ct">
 							<tr>
 								<td>
 									<div style="margin-left:#indent# em;">
