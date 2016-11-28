@@ -1,6 +1,7 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-<cfif action is "nothing">
 <cfoutput>
+
+<cfif action is "nothing">
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select source from cttaxonomy_source order by source
 	</cfquery>
@@ -73,7 +74,7 @@
 			<br><input type="submit" value="create and edit classification">
 		</form>
 	</p>
-</cfoutput>
+
 </cfif>
 
 <cfif action is "newCC">
@@ -130,3 +131,4 @@
 
 
 </cfif>
+</cfoutput>
