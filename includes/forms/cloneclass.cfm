@@ -61,7 +61,7 @@
 					<cfset indent=0>
 					<ul>
 						<cfloop query="ct">
-							<li style="margin-left:#indent# em;">#term_type#=#term#</li>
+							<li style="margin-left:#indent#em;">#term_type#=#term#</li>
 							<cfset indent=indent+1>
 						</cfloop>
 					</ul>
