@@ -386,13 +386,15 @@ function loadTaxonomyMap(n,m){
 
 function cloneRemote(tid,cid){
 		var guts = "includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
+
+		console.log('opening ' + guts);
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
 			height: 'auto',
 			modal: true,
 			position: ['center', 'center'],
-			title: 'New Agent',
+			title: 'Clone Classification',
  			width:800,
   			height:600,
 			close: function() {
@@ -406,8 +408,8 @@ function cloneRemote(tid,cid){
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
 	}
-	
-	
+
+
 	</script>
 
 	<span class="annotateSpace">
@@ -643,7 +645,7 @@ function cloneRemote(tid,cid){
 							[ Editing non-local sources disallowed ]
 						</cfif>
 						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&taxon_name_id=#taxon_name_id.taxon_name_id#&classification_id=#classification_id#">[ Clone Classification as new name ]</a>
-						
+
 						<span class='likeLink' onclick="cloneRemote('#taxon_name_id.taxon_name_id#','#classification_id#')">[ Clone classification into existing name ]</span>
 
 
