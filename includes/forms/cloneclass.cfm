@@ -25,6 +25,7 @@
 				</p>
 				<p>
 					2) Pick a source for the new classification
+					<br>
 					<select name="source" id="source" class="reqdClr">
 						<cfloop query="cttaxonomy_source">
 							<option value="#source#">#source#</option>
@@ -48,7 +49,8 @@
 					<cfquery name="nct" dbtype="query">
 						select term,term_type from d where position_in_classification is null order by term_type
 					</cfquery>
-					<br>Non-classification terms
+					<p>
+					Non-classification terms
 					<ul>
 						<cfloop query="nct">
 							<li>#term_type#=#term#</li>
@@ -65,7 +67,7 @@
 							<cfset indent=indent+1>
 						</cfloop>
 					</ul>
-
+					</p>
 				</p>
 
 
