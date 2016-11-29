@@ -85,7 +85,7 @@
 		})
 		// convert project description, which is stored as markdown, to html
 		showdown.setFlavor('github');
-var text = $("##ht_desc_orig").html();
+var text = $("##ht_desc_orig").text();
 console.log(text);
 
 
