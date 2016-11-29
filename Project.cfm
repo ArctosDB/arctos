@@ -292,9 +292,12 @@
 						</td>
 					</tr>
 				</table>
-				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">
-					Description
+				<label for="project_description" >
+					<div class="likeLink" onClick="getDocs('project','description')">Description</div>
 					<div id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</div>
+					<div>
+						Markdown is supported
+					</div>
 				</label>
 				<textarea  name="project_description" id="project_description" cols="120" rows="20" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
 				<label for="project_remarks">Remarks</label>
