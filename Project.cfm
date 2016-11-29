@@ -131,6 +131,16 @@
 			$("#project_description").val(txt);
 
 		}
+		function enableMarkdown(){
+			var txt=$("#project_description").val();
+			txt=txt.replace(/<nomd>\n/g,"");
+			txt=txt.replace(/</nomd>\n/g,"");
+			$("#project_description").val(txt);
+
+		}
+
+
+
 	</script>
 
 
@@ -327,6 +337,11 @@
 								<span class="likeLink" onclick="disableMarkdown()">
 									Wrap project description in <nomd> tags to disable rendering to markdown
 								</span>
+								<span class="likeLink" onclick="enableMarkdown()">
+									or remove that here
+								</span>
+
+
 							</div>
 							<div>Click "detail page" above to preview; check results carefully!</div>
 							<div><strong>Markdown Cheatsheet</strong></div>
