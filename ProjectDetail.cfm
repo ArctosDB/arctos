@@ -120,7 +120,7 @@ $("##ht_desc_orig").addClass('importantNotification');
 		// add the HTML to the appropriate div
 		$("##ht_desc").html(htmlc);
 		// hide the original
-		$("##ht_desc_orig").addClass('importantNotification');
+		$("##ht_desc_orig").hide();
 
 
 
