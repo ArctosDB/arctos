@@ -299,25 +299,29 @@
 				</label>
 				<table>
 					<tr>
-						<td>
+						<td valign="top">
 							<textarea name="project_description" id="project_description" cols="120" rows="20" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
 						</td>
-						<td>
+						<td valign="top">
 							<div>
-						<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
-							Github-flavored Markdown
-						</a>
-							 is supported through the
-						<a href="https://github.com/showdownjs/showdown" target="_blank" class="external">
-							Showdown Library
-						</a>
-						; a
-						<a href="http://showdownjs.github.io/demo/" target="_blank" class="external">
-							demo editor
-						</a>
-						is available.
-					</div>
-					<div>Click "detail page" above to preview; check results carefully!</div>
+								<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
+									Github-flavored Markdown
+								</a>
+									 is supported through the
+								<a href="https://github.com/showdownjs/showdown" target="_blank" class="external">
+									Showdown Library
+								</a>
+								; a
+								<a href="http://showdownjs.github.io/demo/" target="_blank" class="external">
+									demo editor
+								</a>
+								is available.
+							</div>
+							<div>Click "detail page" above to preview; check results carefully!</div>
+							<div>Markdown Cheatsheet</div>
+							<div>
+								[link text](https://some/web/address)
+							</div>
 						</td>
 					</tr>
 				</table>
