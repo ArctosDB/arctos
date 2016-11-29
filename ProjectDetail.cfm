@@ -1,4 +1,23 @@
 <cfinclude template = "includes/_header.cfm">
+
+/*
+		var text = $("#ht_desc_orig").htmldocument.getElementById('sourceTA').value,
+      target = document.getElementById('targetDiv'),
+      converter = new showdown.Converter(),
+      html = converter.makeHtml(text);
+
+    target.innerHTML = html;
+
+
+    <div id="ht_desc"></div>
+	<div id="ht_desc_orig"></div>
+
+	*/
+
+
+
+
+
 <cfoutput>
 
 
@@ -69,19 +88,6 @@
 var text = $("##ht_desc_orig").html;
 console.log(text);
 
-/*
-		var text = $("#ht_desc_orig").htmldocument.getElementById('sourceTA').value,
-      target = document.getElementById('targetDiv'),
-      converter = new showdown.Converter(),
-      html = converter.makeHtml(text);
-
-    target.innerHTML = html;
-
-
-    <div id="ht_desc"></div>
-	<div id="ht_desc_orig"></div>
-
-	*/
 
 
 	});
