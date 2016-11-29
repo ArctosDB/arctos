@@ -339,7 +339,7 @@
 								.
 							</div>
 							<div>Regular HTML should render properly as well, and can be mixed with markdown.</div>
-							<div>Click "detail page" above to preview; check results carefully!</div>
+							<div>Save and click "detail page" above to preview; check results carefully!</div>
 							<div><strong>Markdown Cheatsheet</strong></div>
 							<div>
 								[link text](https://some/web/address)
