@@ -128,7 +128,7 @@
 	---->
 	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
 		 select collection_object_id from coll_obj_other_id_num where upper(display_value) LIKE '#ucase(anyid)#'
-		 union select collection_object_id from #session.flatTableName# where upper(cat_num) like '#ucase(anyid)#8704'
+		 union select collection_object_id from #session.flatTableName# where upper(cat_num) like '#ucase(anyid)#'
 		 union select collection_object_id from #session.flatTableName# where upper(guid) like '#ucase(anyid)#'
 		 union select collection_object_id from #session.flatTableName# where upper(accession) like '#ucase(anyid)#'
 		 union select derived_from_cat_item from specimen_part,coll_obj_cont_hist,container c, container p
