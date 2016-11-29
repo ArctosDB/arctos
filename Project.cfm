@@ -347,6 +347,17 @@
 							<div>**bold**</div>
 							<div>*italic*</div>
 							<div>&lt;sup&gt;superscript&lt;/sup&gt;</div>
+							<div>&lt;sub&gt;subscript&lt;/sub&gt;</div>
+							<div>
+								1. ordered list item
+								<br>2. ordered list item
+								<br>3. ordered list item
+							</div>
+							<div>
+								- unordered list item
+								<br>- unordered list item
+								<br>- unordered list item
+							</div>
 						</td>
 					</tr>
 				</table>
