@@ -346,7 +346,7 @@
 							</div>
 							<div>**bold**</div>
 							<div>*italic*</div>
-							<div></div>
+							<div>&lt;sup&gt;superscript&lt;/sup&gt;</div>
 						</td>
 					</tr>
 				</table>
