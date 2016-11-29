@@ -109,6 +109,7 @@ $("##ht_desc_orig").addClass('importantNotification');
 
 		// grab the markdown text
 		var mdtext = $("##ht_desc_orig").text();
+		console.log(mdtext);
 
 		alert(mdtext.trim().substring(0,6));
 
