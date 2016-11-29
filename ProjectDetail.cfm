@@ -109,6 +109,9 @@ $("##ht_desc_orig").addClass('importantNotification');
 		var converter = new showdown.Converter();
 		// people are used to github, so....
 		showdown.setFlavor('github');
+		converter.setOption('strikethrough', 'true');
+
+
 		// grab the markdown text
 		var mdtext = $("##ht_desc_orig").text();
 
@@ -123,9 +126,16 @@ $("##ht_desc_orig").addClass('importantNotification');
 		$("##ht_desc_orig").hide();
 
 
-
+		function showSettings(){
+			var thisConverterSpecificOptions = converter.getOptions();
+			alert(thisConverterSpecificOptions);
+			}
 	});
+
+
 </script>
+
+<span class="likeLink" onclick="showSettings()">showSettings</span>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			project.project_id,

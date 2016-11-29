@@ -318,10 +318,13 @@
 								is available.
 							</div>
 							<div>Click "detail page" above to preview; check results carefully!</div>
-							<div>Markdown Cheatsheet</div>
+							<div><strong>Markdown Cheatsheet</strong></div>
 							<div>
 								[link text](https://some/web/address)
 							</div>
+							<div>**bold**</div>
+							<div>*italic*</div>
+							<div></div>
 						</td>
 					</tr>
 				</table>
