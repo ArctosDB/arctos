@@ -125,6 +125,7 @@
 		because Oracle optimizer is weird,
 		a in (union everything) query performs
 		much better than ORs
+		See v7.4.1 for old code
 	---->
 	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
 		 select collection_object_id from coll_obj_other_id_num where upper(display_value) LIKE '#ucase(anyid)#'
@@ -137,32 +138,7 @@
     		c.parent_container_id=p.container_id and
     		upper(p.barcode) like '#ucase(anyid)#'
 		)">
-	<!----
-	 <cfif basJoin does not contain "specimen_part">
-        <cfset basJoin = " #basJoin# left outer JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
-    </cfif>
-    <cfif basJoin does not contain "coll_obj_cont_hist">
-        <cfset basJoin = " #basJoin# left outer JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)">
-    </cfif>
-    <cfif basJoin does not contain "coll_obj_container">
-        <cfset basJoin = " #basJoin# left outer JOIN container coll_obj_container ON (coll_obj_cont_hist.container_id = coll_obj_container.container_id)">
-    </cfif>
-    <cfif basJoin does not contain "parent_container">
-        <cfset basJoin = " #basJoin# left outer JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
-    </cfif>
-	 <cfif basJoin does not contain " otherIdSearch ">
-        <cfset basJoin = " #basJoin# left outer JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
-    </cfif>
-    <cfset basQual = " #basQual# AND (
-	   upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#' OR
-	   parent_container.barcode  like '#ucase(anyid)#' OR
-	   upper(#session.flatTableName#.guid) like '#ucase(anyid)#' OR
-	   upper(otherIdSearch.display_value) LIKE '#ucase(anyid)#' OR
-	   upper(#session.flatTableName#.accession) LIKE '#ucase(anyid)#'
-	)">
-	---->
 </cfif>
-
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
