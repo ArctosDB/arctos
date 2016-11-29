@@ -345,7 +345,7 @@
 								[link text](https://some/web/address)
 							</div>
 							<div>
-								<https://some/web/address>
+								https://some/web/address
 							</div>
 							<div>**bold**</div>
 							<div>*italic*</div>

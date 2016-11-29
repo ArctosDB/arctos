@@ -1,50 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
-
-<!----
-		var text = $("#ht_desc_orig").htmldocument.getElementById('sourceTA').value,
-      target = document.getElementById('targetDiv'),
-      converter = new showdown.Converter(),
-      html = converter.makeHtml(text);
-
-    target.innerHTML = html;
-
-
-    <div id="ht_desc"></div>
-	<div id="ht_desc_orig"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-target = $("##ht_desc"),
-      ,
-      html = converter.makeHtml(text);
-
-    target.innerHTML = html;
-
-console.log(text);
-
-var text = $("##ht_desc_orig").html();
-console.log(text);
-
-$("##ht_desc_orig").addClass('importantNotification');
------>
-
-
-
-
 <cfoutput>
-
-
-
-	<!-----------------
 <cfif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select niceURL(project_name) project_name from project where project_id=<cfqueryparam value="#project_id#" CFSQLType="cf_sql_integer">
@@ -73,9 +28,6 @@ $("##ht_desc_orig").addClass('importantNotification');
 	<cfthrow message="invalid project call">
 	<cfabort>
 </cfif>
-
-
----------------->
 <style>
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}
 	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
@@ -83,10 +35,6 @@ $("##ht_desc_orig").addClass('importantNotification');
 	.cdiv {text-align:center;}
 </style>
 <script type='text/javascript' language="javascript" src='https://cdn.rawgit.com/showdownjs/showdown/1.5.0/dist/showdown.min.js'></script>
-
-
-
-
 <script type="text/javascript" language="javascript">
 	function load(name){
 		var el=document.getElementById(name);
@@ -106,7 +54,6 @@ $("##ht_desc_orig").addClass('importantNotification');
 			 jQuery('##projMedia').html(data);
 		})
 		// convert project description, which is stored as markdown, to html
-
 		// grab the markdown text
 		var mdtext = $("##ht_desc_orig").html();
 		// users can disable this by using <nomd> tags
@@ -117,8 +64,6 @@ $("##ht_desc_orig").addClass('importantNotification');
 			showdown.setFlavor('github');
 			converter.setOption('strikethrough', 'true');
 			converter.setOption('simplifiedAutoLink', 'true');
-
-
 			// make some HTML
 			var htmlc = converter.makeHtml(mdtext);
 			// add the HTML to the appropriate div
