@@ -72,7 +72,7 @@
 			will contain data from the "source" and must be edited. You may need to delete "old" data as well. Click "view taxon page"
 			and carefully review what you've done before leaving.
 		<p>
-			<input type="submit" value="create and edit classification">
+			<input type="submit" class="insBtn" value="create and edit classification">
 		</p>
 	</form>
 </cfif>
