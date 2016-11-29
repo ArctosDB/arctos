@@ -126,13 +126,13 @@ $("##ht_desc_orig").addClass('importantNotification');
 		$("##ht_desc_orig").hide();
 
 
-		function showSettings(){
+
+	});
+
+function showSettings(){
 			var thisConverterSpecificOptions = converter.getOptions();
 			alert(thisConverterSpecificOptions);
 			}
-	});
-
-
 </script>
 
 <span class="likeLink" onclick="showSettings()">showSettings</span>
