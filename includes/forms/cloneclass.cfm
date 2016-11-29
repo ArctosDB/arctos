@@ -5,8 +5,9 @@
 		select source from cttaxonomy_source order by source
 	</cfquery>
 	<p>
-		This form clones (copies) a classification from one name to another. You MUST edit the new data, and you may need to delete
-		any "old" classification data.
+		This form clones (copies) a classification from one name to another. You MUST edit the new data, which will contain
+		information from the source classification, and you may need to delete
+		any "old" classification data in the record to which you're adding this classification.
 	</p>
 	<form name="newCC" method="post" action="cloneclass.cfm">
 		<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
@@ -66,8 +67,12 @@
 				</ul>
 			</p>
 		</p>
-		4) Finalize. A new window with the new data under the name you picked above will open.
-		<br><input type="submit" value="create and edit classification">
+		4) Finalize. A new window with the new data under the name you picked above will open. The new classification record
+			will contain data from the "source" and must be edited. You may need to delete "old" data as well. Click "view taxon page"
+			and carefully review what you've done before leaving.
+		<p>
+			<input type="submit" value="create and edit classification">
+		</p>
 	</form>
 </cfif>
 <cfif action is "newCC">
