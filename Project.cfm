@@ -296,10 +296,18 @@
 					<div class="likeLink" onClick="getDocs('project','description')">Description</div>
 					<div id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</div>
 					<div>
-						Github-flavoerd Markdown is supported;
-						<a href="http://showdownjs.github.io/demo/" target="_blank" class="external">
-							demo editor here
+						<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
+							Github-flavored Markdown
 						</a>
+							 is supported through the
+						<a href="https://github.com/showdownjs/showdown" target="_blank" class="external">
+							Showdown Library
+						</a>
+						; a
+						<a href="http://showdownjs.github.io/demo/" target="_blank" class="external">
+							demo editor
+						</a>
+						is available.
 					</div>
 				</label>
 				<textarea  name="project_description" id="project_description" cols="120" rows="20" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
