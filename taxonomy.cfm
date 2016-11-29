@@ -636,17 +636,30 @@ function cloneRemoteCN(tid,cid){
 			<cfloop query="source_classification">
 				<div class="classificationDiv">
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-						<a title="Create a copy of this classification under this name using any local source." href="/editTaxonomy.cfm?action=cloneClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a>
+						<a title="Create a copy of this classification under this name using any local source."
+							href="/editTaxonomy.cfm?action=cloneClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">
+								[ Clone Classification ]
+						</a>
 						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
-							<a href="/editTaxonomy.cfm?action=editClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
-							<span class="likeLink" onclick="deleteClassification('#classification_id#','#taxon_name_id.taxon_name_id#')">Delete Classification</span>
-
+							<a title="Edit this classification."
+								href="/editTaxonomy.cfm?action=editClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">
+								[ Edit Classification ]
+							</a>
+							<span title="Delete this classification" class="likeLink"
+								onclick="deleteClassification('#classification_id#','#taxon_name_id.taxon_name_id#')">
+									[ Delete Classification ]
+							</span>
 						<cfelse>
 							[ Editing non-local sources disallowed ]
 						</cfif>
-						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&taxon_name_id=#taxon_name_id.taxon_name_id#&classification_id=#classification_id#">[ Clone Classification as new name ]</a>
-
-						<span class='likeLink' onclick="cloneRemoteCN('#taxon_name_id.taxon_name_id#','#classification_id#')">[ Clone classification into existing name ]</span>
+						<a title="Create a new taxon name and `seed` it with data from this classification"
+							href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&taxon_name_id=#taxon_name_id.taxon_name_id#&classification_id=#classification_id#">
+								[ Clone Classification as new name ]
+						</a>
+						<span title="Copy this classification into an existing name"
+							class='likeLink' onclick="cloneRemoteCN('#taxon_name_id.taxon_name_id#','#classification_id#')">
+							[ Clone classification into existing name ]
+						</span>
 
 
 					</cfif>
