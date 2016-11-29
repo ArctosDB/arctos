@@ -41,6 +41,11 @@
 	.proj_agent {font-weight:800;text-align:center;}
 	.cdiv {text-align:center;}
 </style>
+<script type='text/javascript' language="javascript" src='https://cdn.rawgit.com/showdownjs/showdown/1.5.0/dist/showdown.min.js'></script>
+
+
+
+
 <script type="text/javascript" language="javascript">
 	function load(name){
 		var el=document.getElementById(name);
@@ -59,6 +64,26 @@
 		jQuery.get(am, function(data){
 			 jQuery('##projMedia').html(data);
 		})
+		// convert project description, which is stored as markdown, to html
+		showdown.setFlavor('github');
+var text = $("#ht_desc_orig").html;
+console.log(text);
+
+/*
+		var text = $("#ht_desc_orig").htmldocument.getElementById('sourceTA').value,
+      target = document.getElementById('targetDiv'),
+      converter = new showdown.Converter(),
+      html = converter.makeHtml(text);
+
+    target.innerHTML = html;
+
+
+    <div id="ht_desc"></div>
+	<div id="ht_desc_orig"></div>
+
+	*/
+
+
 	});
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -168,7 +193,9 @@
 		<p><a href="/Project.cfm?Action=editProject&project_id=#p.project_id#">Edit Project</a></p>
 	</cfif>
 	<h2>Description</h2>
-	#p.project_description#
+	<div id="ht_desc"></div>
+	<div id="ht_desc_orig">#p.project_description#</div>
+
 
 
 
