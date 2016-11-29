@@ -67,7 +67,8 @@
 				</ul>
 			</p>
 		</p>
-		4) Finalize. A new window with the new data under the name you picked above will open. The new classification record
+		4) Finalize. A new window with the new data under the name you picked above will open when you click the button below.
+			The new classification record
 			will contain data from the "source" and must be edited. You may need to delete "old" data as well. Click "view taxon page"
 			and carefully review what you've done before leaving.
 		<p>
