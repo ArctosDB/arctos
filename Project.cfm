@@ -332,10 +332,11 @@
 								<span class="likeLink" onclick="disableMarkdown()">
 									Wrap project description in <nomd> tags to disable rendering to markdown
 								</span>
+								or
 								<span class="likeLink" onclick="enableMarkdown()">
-									or remove that here
+									click here to attempt removal
 								</span>
-
+								.
 
 							</div>
 							<div>Click "detail page" above to preview; check results carefully!</div>
