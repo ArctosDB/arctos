@@ -109,37 +109,20 @@ $("##ht_desc_orig").addClass('importantNotification');
 
 		// grab the markdown text
 		var mdtext = $("##ht_desc_orig").html();
-		console.log(mdtext);
-
-		alert(mdtext.trim().substring(0,6));
-
+		// users can disable this by using <nomd> tags
 		if (mdtext.trim().substring(0,6) != '<nomd>'){
 			// convert to markdown
 			var converter = new showdown.Converter();
-		// people are used to github, so....
-		showdown.setFlavor('github');
-		converter.setOption('strikethrough', 'true');
-
-
-
-		console.log('mdtext: ' + mdtext);
-		// make some HTML
-		var htmlc = converter.makeHtml(mdtext);
-
-		console.log('htmlc: ' + htmlc);
-		// add the HTML to the appropriate div
-		$("##ht_desc").html(htmlc);
-		// hide the original
-		$("##ht_desc_orig").hide();
-
-
-			} else {
-			alert('not showing markdown');
-			}
-
-
-
-
+			// people are used to github, so....
+			showdown.setFlavor('github');
+			converter.setOption('strikethrough', 'true');
+			// make some HTML
+			var htmlc = converter.makeHtml(mdtext);
+			// add the HTML to the appropriate div
+			$("##ht_desc").html(htmlc);
+			// hide the original
+			$("##ht_desc_orig").hide();
+		}
 	});
 </script>
 

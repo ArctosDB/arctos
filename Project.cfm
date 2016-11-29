@@ -129,18 +129,13 @@
 			var txt=$("#project_description").val();
 			txt='<nomd>\n'  + txt + '\n</nomd>';
 			$("#project_description").val(txt);
-
 		}
 		function enableMarkdown(){
 			var txt=$("#project_description").val();
 			txt=txt.replace(/<nomd>\n/g,"");
 			txt=txt.replace(/<\/nomd>\n/g,"");
 			$("#project_description").val(txt);
-
 		}
-
-
-
 	</script>
 
 
