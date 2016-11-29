@@ -109,6 +109,9 @@ $("##ht_desc_orig").addClass('importantNotification');
 
 		// grab the markdown text
 		var mdtext = $("##ht_desc_orig").text();
+
+		alert(mdtext.trim().substring(0,6));
+
 		if (mdtext.trim().substring(0,6) != '**nomd**'){
 			// convert to markdown
 			var converter = new showdown.Converter();
