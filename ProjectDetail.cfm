@@ -12,6 +12,30 @@
     <div id="ht_desc"></div>
 	<div id="ht_desc_orig"></div>
 
+
+
+
+
+
+
+
+
+
+
+
+var text = $("##ht_desc_orig").text(),
+target = $("##ht_desc"),
+      ,
+      html = converter.makeHtml(text);
+
+    target.innerHTML = html;
+
+console.log(text);
+
+var text = $("##ht_desc_orig").html();
+console.log(text);
+
+$("##ht_desc_orig").addClass('importantNotification');
 ----->
 
 
@@ -83,20 +107,10 @@
 			 jQuery('##projMedia').html(data);
 		})
 		// convert project description, which is stored as markdown, to html
+		var converter = new showdown.Converter();
 		showdown.setFlavor('github');
-var text = $("##ht_desc_orig").text(),
-target = $("##ht_desc"),
-      converter = new showdown.Converter(),
-      html = converter.makeHtml(text);
 
-    target.innerHTML = html;
 
-console.log(text);
-
-var text = $("##ht_desc_orig").html();
-console.log(text);
-
-$("##ht_desc_orig").addClass('importantNotification');
 	});
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
