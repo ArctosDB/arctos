@@ -1,5 +1,9 @@
 <cfinclude template = "includes/_header.cfm">
 <cfoutput>
+
+
+
+	<!-----------------
 <cfif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select niceURL(project_name) project_name from project where project_id=<cfqueryparam value="#project_id#" CFSQLType="cf_sql_integer">
@@ -28,6 +32,9 @@
 	<cfthrow message="invalid project call">
 	<cfabort>
 </cfif>
+
+
+---------------->
 <style>
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}
 	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
