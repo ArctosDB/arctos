@@ -108,7 +108,7 @@ $("##ht_desc_orig").addClass('importantNotification');
 		// convert project description, which is stored as markdown, to html
 
 		// grab the markdown text
-		var mdtext = $("##ht_desc_orig").text();
+		var mdtext = $("##ht_desc_orig").html();
 		console.log(mdtext);
 
 		alert(mdtext.trim().substring(0,6));
