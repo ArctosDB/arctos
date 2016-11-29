@@ -107,14 +107,20 @@ $("##ht_desc_orig").addClass('importantNotification');
 		})
 		// convert project description, which is stored as markdown, to html
 		var converter = new showdown.Converter();
+		// people are used to github, so....
 		showdown.setFlavor('github');
+		// grab the markdown text
 		var mdtext = $("##ht_desc_orig").text();
 
 		console.log('mdtext: ' + mdtext);
+		// make some HTML
 		var htmlc = converter.makeHtml(mdtext);
 
 		console.log('htmlc: ' + htmlc);
-
+		// add the HTML to the appropriate div
+		$("##ht_desc").html(htmlc);
+		// hide the original
+		$("##ht_desc_orig").addClass('importantNotification');
 
 
 
