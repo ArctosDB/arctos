@@ -309,6 +309,7 @@
 						</a>
 						is available.
 					</div>
+					<div>Click "detail page" above to preview; check results carefully!</div>
 				</label>
 				<textarea  name="project_description" id="project_description" cols="120" rows="20" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
 				<label for="project_remarks">Remarks</label>
