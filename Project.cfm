@@ -59,8 +59,8 @@
 				<input type="text" name="start_date" id="start_date">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date">
-				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">
-					Description
+				<label for="end_date">
+					<span  class="likeLink" onClick="getDocs('project','description')">Description</span>
 					<br>Include what, why, how, who cares. Be <i>descriptive</i>.
 					<br><span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
 					<br>Markdown syntax OK; create and edit for more information.
