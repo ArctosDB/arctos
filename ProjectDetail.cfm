@@ -116,6 +116,9 @@ $("##ht_desc_orig").addClass('importantNotification');
 			// people are used to github, so....
 			showdown.setFlavor('github');
 			converter.setOption('strikethrough', 'true');
+			converter.setOption('simplifiedAutoLink', 'true');
+
+
 			// make some HTML
 			var htmlc = converter.makeHtml(mdtext);
 			// add the HTML to the appropriate div

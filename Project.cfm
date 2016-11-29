@@ -344,6 +344,9 @@
 							<div>
 								[link text](https://some/web/address)
 							</div>
+							<div>
+								<https://some/web/address>
+							</div>
 							<div>**bold**</div>
 							<div>*italic*</div>
 							<div>&lt;sup&gt;superscript&lt;/sup&gt;</div>
