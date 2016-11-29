@@ -127,7 +127,7 @@
 		});
 		function disableMarkdown(){
 			var txt=$("#project_description").val();
-			txt='<nomd>' + \l + txt + \l + '</nomd>';
+			txt='<nomd>' + \n + txt + \n + '</nomd>';
 			$("#project_description").val(txt);
 
 		}
