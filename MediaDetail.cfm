@@ -3,7 +3,7 @@
 	@media screen{
     .tbl{display:table;}
 	.tbl-row{display:table-row;}
-    .tbl-cell{display:table-cell;vertical-align: middle;}
+    .tbl-cell{display:table-cell;vertical-align: top;}
 	}
     @media (max-width: 600px) {
     .tbl{display:block;}
