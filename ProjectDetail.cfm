@@ -110,9 +110,9 @@ $("##ht_desc_orig").addClass('importantNotification');
 		// grab the markdown text
 		var mdtext = $("##ht_desc_orig").text();
 
-		alert(mdtext.trim().substring(0,6));
+		alert(mdtext.trim().substring(0,8));
 
-		if (mdtext.trim().substring(0,6) != '**nomd**'){
+		if (mdtext.trim().substring(0,8) != '**nomd**'){
 			// convert to markdown
 			var converter = new showdown.Converter();
 		// people are used to github, so....
