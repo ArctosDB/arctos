@@ -330,15 +330,15 @@
 							</div>
 							<div>
 								<span class="likeLink" onclick="disableMarkdown()">
-									Wrap project description in <nomd> tags to disable rendering to markdown
+									Wrap project description in &lt;nomd&gt; tags to disable rendering to markdown
 								</span>
 								or
 								<span class="likeLink" onclick="enableMarkdown()">
 									click here to attempt removal
 								</span>
 								.
-
 							</div>
+							<div>Regular HTML should render properly as well, and can be mixed with markdown.</div>
 							<div>Click "detail page" above to preview; check results carefully!</div>
 							<div><strong>Markdown Cheatsheet</strong></div>
 							<div>
