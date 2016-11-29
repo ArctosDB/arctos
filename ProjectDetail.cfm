@@ -23,7 +23,6 @@
 
 
 
-var text = $("##ht_desc_orig").text(),
 target = $("##ht_desc"),
       ,
       html = converter.makeHtml(text);
@@ -109,6 +108,14 @@ $("##ht_desc_orig").addClass('importantNotification');
 		// convert project description, which is stored as markdown, to html
 		var converter = new showdown.Converter();
 		showdown.setFlavor('github');
+		var mdtext = $("##ht_desc_orig").text();
+
+		console.log('mdtext: ' + mdtext);
+		var htmlc = converter.makeHtml(mdtext);
+
+		console.log('htmlc: ' + htmlc);
+
+
 
 
 	});
