@@ -62,6 +62,7 @@
 				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">
 					Description Include what, why, how, who cares. Be <i>descriptive</i>.
 					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
+					Markdown syntax OK; create and edit for more information.
 				</label>
 				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)"></textarea>
 				<label for="project_remarks">Remarks</label>
