@@ -1,6 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
 
-/*
+<!----
 		var text = $("#ht_desc_orig").htmldocument.getElementById('sourceTA').value,
       target = document.getElementById('targetDiv'),
       converter = new showdown.Converter(),
@@ -12,8 +12,7 @@
     <div id="ht_desc"></div>
 	<div id="ht_desc_orig"></div>
 
-	*/
-
+----->
 
 
 
