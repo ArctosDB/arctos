@@ -43,7 +43,7 @@
 			<tr>
 				<td>
 					<label for="project_name" class="likeLink" onClick="getDocs('project','title')">
-						Project Title (say something useful, not just "My favorite species {buzzword of the week}.")
+						Project Title (be descriptive!)
 					</label>
 					<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr"></textarea>
 				</td>
@@ -60,9 +60,10 @@
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">
-					Description Include what, why, how, who cares. Be <i>descriptive</i>.
-					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
-					Markdown syntax OK; create and edit for more information.
+					Description
+					<br>Include what, why, how, who cares. Be <i>descriptive</i>.
+					<br><span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
+					<br>Markdown syntax OK; create and edit for more information.
 				</label>
 				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)"></textarea>
 				<label for="project_remarks">Remarks</label>
