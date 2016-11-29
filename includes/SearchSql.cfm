@@ -121,6 +121,23 @@
 
 <cfif isdefined("anyid") and len(trim(anyid)) gt 0>
 	<cfset mapurl = "#mapurl#&anyid=#anyid#">
+	<!----
+		because Oracle optimizer is weird,
+		a in (union everything) query performs
+		much better than ORs
+	---->
+	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
+		 select collection_object_id from coll_obj_other_id_num where upper(display_value) LIKE '#ucase(anyid)#'
+		 union select collection_object_id from #session.flatTableName# where upper(cat_num) like '#ucase(anyid)#8704'
+		 union select collection_object_id from #session.flatTableName# where upper(guid) like '#ucase(anyid)#'
+		 union select collection_object_id from #session.flatTableName# where upper(accession) like '#ucase(anyid)#'
+		 union select derived_from_cat_item from specimen_part,coll_obj_cont_hist,container c, container p
+    		where specimen_part.COLLECTION_OBJECT_ID=coll_obj_cont_hist.COLLECTION_OBJECT_ID and
+    		coll_obj_cont_hist.container_id=c.container_id and
+    		c.parent_container_id=p.container_id and
+    		upper(p.barcode) like '#ucase(anyid)#'
+		)">
+	<!----
 	 <cfif basJoin does not contain "specimen_part">
         <cfset basJoin = " #basJoin# left outer JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
     </cfif>
@@ -143,6 +160,7 @@
 	   upper(otherIdSearch.display_value) LIKE '#ucase(anyid)#' OR
 	   upper(#session.flatTableName#.accession) LIKE '#ucase(anyid)#'
 	)">
+	---->
 </cfif>
 
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
