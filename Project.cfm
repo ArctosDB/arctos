@@ -295,7 +295,15 @@
 				<label for="project_description" >
 					<div class="likeLink" onClick="getDocs('project','description')">Description</div>
 					<div id="chrcnt" class="redBorder">A minimum of 100 characters is to show up in search.</div>
-					<div>
+
+				</label>
+				<table>
+					<tr>
+						<td>
+							<textarea name="project_description" id="project_description" cols="120" rows="20" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
+						</td>
+						<td>
+							<div>
 						<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
 							Github-flavored Markdown
 						</a>
@@ -310,8 +318,9 @@
 						is available.
 					</div>
 					<div>Click "detail page" above to preview; check results carefully!</div>
-				</label>
-				<textarea  name="project_description" id="project_description" cols="120" rows="20" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
+						</td>
+					</tr>
+				</table>
 				<label for="project_remarks">Remarks</label>
 				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3">#proj.project_remarks#</textarea>
 				<a name="agent"></a>
