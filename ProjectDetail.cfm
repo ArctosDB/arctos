@@ -128,8 +128,6 @@ $("##ht_desc_orig").addClass('importantNotification');
 		}
 	});
 </script>
-
-<span class="likeLink" onclick="showSettings()">showSettings</span>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			project.project_id,
