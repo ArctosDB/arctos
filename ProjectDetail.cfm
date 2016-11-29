@@ -88,6 +88,8 @@
 var text = $("##ht_desc_orig").text();
 console.log(text);
 
+var text = $("##ht_desc_orig").html();
+console.log(text);
 
 
 	});
