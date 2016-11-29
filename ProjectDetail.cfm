@@ -106,14 +106,17 @@ $("##ht_desc_orig").addClass('importantNotification');
 			 jQuery('##projMedia').html(data);
 		})
 		// convert project description, which is stored as markdown, to html
-		var converter = new showdown.Converter();
+
+		// grab the markdown text
+		var mdtext = $("##ht_desc_orig").text();
+		if (mdtext.substring(0,6) != '**nomd**'){
+			// convert to markdown
+			var converter = new showdown.Converter();
 		// people are used to github, so....
 		showdown.setFlavor('github');
 		converter.setOption('strikethrough', 'true');
 
 
-		// grab the markdown text
-		var mdtext = $("##ht_desc_orig").text();
 
 		console.log('mdtext: ' + mdtext);
 		// make some HTML
@@ -126,13 +129,14 @@ $("##ht_desc_orig").addClass('importantNotification');
 		$("##ht_desc_orig").hide();
 
 
+			} else {
+			alert('not showing markdown');
+			}
+
+
+
 
 	});
-
-function showSettings(){
-			var thisConverterSpecificOptions = converter.getOptions();
-			alert(thisConverterSpecificOptions);
-			}
 </script>
 
 <span class="likeLink" onclick="showSettings()">showSettings</span>
