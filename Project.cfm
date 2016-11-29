@@ -125,6 +125,12 @@
 		jQuery(document).ready(function() {
 			countChar($("#project_description").val());
 		});
+		function disableMarkdown(){
+			var txt=$("#project_description").val();
+			txt='<nomd>' + chr(10) + txt + chr(10) + '</nomd>';
+			$("#project_description").val(txt);
+
+		}
 	</script>
 
 
@@ -316,6 +322,11 @@
 									demo editor
 								</a>
 								is available.
+							</div>
+							<div>
+								<span class="likeLink" onclick="disableMarkdown()">
+									Wrap project description in <nomd> tags to disable rendering to markdown
+								</span>
 							</div>
 							<div>Click "detail page" above to preview; check results carefully!</div>
 							<div><strong>Markdown Cheatsheet</strong></div>
