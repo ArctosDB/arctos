@@ -84,7 +84,13 @@
 		})
 		// convert project description, which is stored as markdown, to html
 		showdown.setFlavor('github');
-var text = $("##ht_desc_orig").text();
+var text = $("##ht_desc_orig").text(),
+target = $("##ht_desc"),
+      converter = new showdown.Converter(),
+      html = converter.makeHtml(text);
+
+    target.innerHTML = html;
+
 console.log(text);
 
 var text = $("##ht_desc_orig").html();
