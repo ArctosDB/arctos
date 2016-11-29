@@ -294,7 +294,7 @@
 				</table>
 				<label for="project_description" >
 					<div class="likeLink" onClick="getDocs('project','description')">Description</div>
-					<div id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</div>
+					<div id="chrcnt" class="redBorder">A minimum of 100 characters is to show up in search.</div>
 					<div>
 						<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
 							Github-flavored Markdown
