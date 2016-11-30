@@ -3,17 +3,7 @@
 
 <script>
 	jQuery(document).ready(function() {
-		function goHTML(){
-			var converter = new showdown.Converter();
-			showdown.setFlavor('github');
-			converter.setOption('strikethrough', 'true');
-			converter.setOption('simplifiedAutoLink', 'true');
-			var mdtext = $("#md").val();
-			console.log('got ' + mdtext);
-			var htmlc = converter.makeHtml(mdtext);
-			console.log('made ' + htmlc);
-			$("#htm").html(htmlc);
-		}
+
 
 
 
@@ -30,7 +20,17 @@
 
 	});
 
-
+	function goHTML(){
+		var converter = new showdown.Converter();
+		showdown.setFlavor('github');
+		converter.setOption('strikethrough', 'true');
+		converter.setOption('simplifiedAutoLink', 'true');
+		var mdtext = $("#md").val();
+		console.log('got ' + mdtext);
+		var htmlc = converter.makeHtml(mdtext);
+		console.log('made ' + htmlc);
+		$("#htm").html(htmlc);
+	}
 </script>
 <style>
 	#htm {
