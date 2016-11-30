@@ -33,6 +33,20 @@
 		height: 30em;
 	}
 </style>
+<div>
+	<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
+		Github-flavored Markdown
+	</a>
+	is supported through the
+	<a href="https://github.com/showdownjs/showdown" target="_blank" class="external">
+		Showdown Library
+	</a>
+	; an instructive
+	<a href="http://showdownjs.github.io/demo/" target="_blank" class="external">
+		demo/editor
+	</a>
+	is available.
+</div>
 <cfoutput>
 	<cfif not isdefined("eid")>
 		did not get element ID; aborting<cfabort>
