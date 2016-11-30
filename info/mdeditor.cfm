@@ -7,6 +7,9 @@
 
 		console.log(mdtext);
 
+		var x = decodeURIComponent(mdtext);
+		console.log(x);
+
 		var x = unescape(mdtext);
 		console.log(x);
 
