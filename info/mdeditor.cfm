@@ -14,22 +14,23 @@
 		// jQuery is caching for some stoopid reason, val()
 		var mdtext = parent.$("#" + eid).val();
 
-console.log('mdtext');
+//console.log('mdtext');
 
-		console.log(mdtext);
-
-
-
-
-			var nocachemaybe=parent.$("#" + eid).attr( 'value' );
+		//console.log(mdtext);
 
 
 
-console.log('nocachemaybe');
 
-		console.log(nocachemaybe);
+		//	var nocachemaybe=parent.$("#" + eid).attr( 'value' );
 
-		$("#md").val(decodeEntities(mdtext));
+
+
+//console.log('nocachemaybe');
+
+		//console.log(nocachemaybe);
+
+		// $("#md").val(decodeEntities(mdtext));
+		$("#md").val(mdtext);
 		goHTML();
 	});
 	function goHTML(){
