@@ -336,20 +336,19 @@
 						<td valign="top">
 							<textarea name="project_description" id="project_description" cols="120" rows="20"
 								onkeyup="countChar(this.value)">#proj.project_description#</textarea>
-							<span class="likeLink" onclick="editMD('project_description');">Markdown Editor</span>
 						</td>
 						<td valign="top">
 							<div>
 								<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
 									Github-flavored Markdown
 								</a>
-									 is supported through the
+								is supported through the
 								<a href="https://github.com/showdownjs/showdown" target="_blank" class="external">
 									Showdown Library
 								</a>
-								; a
+								; an instructive
 								<a href="http://showdownjs.github.io/demo/" target="_blank" class="external">
-									demo editor
+									demo/editor
 								</a>
 								is available.
 							</div>
@@ -364,28 +363,10 @@
 								.
 							</div>
 							<div>Regular HTML should render properly as well, and can be mixed with markdown.</div>
-							<div>Save and click "detail page" above to preview; check results carefully!</div>
-							<div><strong>Markdown Cheatsheet</strong></div>
+							<div>Save and click "detail page" above to confirm your mark up/down; check results carefully!</div>
 							<div>
-								[link text](https://some/web/address)
-							</div>
-							<div>
-								https://some/web/address
-							</div>
-							<div>**bold**</div>
-							<div>*italic*</div>
-							<div>&lt;sup&gt;superscript&lt;/sup&gt;</div>
-							<div>&lt;sub&gt;subscript&lt;/sub&gt;</div>
-							<div>
-								1. ordered list item
-								<br>2. ordered list item
-								<br>3. ordered list item
-							</div>
-							<div>&nbsp;</div>
-							<div>
-								- unordered list item
-								<br>- unordered list item
-								<br>- unordered list item
+								A <span class="likeLink" onclick="editMD('project_description');">Markdown Editor/Preview</span>
+								is also available.
 							</div>
 						</td>
 					</tr>
