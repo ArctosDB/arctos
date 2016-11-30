@@ -3,16 +3,7 @@
 
 <script>
 	jQuery(document).ready(function() {
-		var eid=$("#eid").val();
-		var mdtext = parent.$("#" + eid).html();
-		console.log(mdtext);
-		$("#md").val(mdtext);
-
-		goHTML();
-
-	});
-
-	function goHTML(){
+		function goHTML(){
 		var converter = new showdown.Converter();
 		showdown.setFlavor('github');
 		converter.setOption('strikethrough', 'true');
@@ -23,6 +14,23 @@
 		console.log('made ' + htmlc);
 		$("#htm").html(htmlc);
 	}
+
+
+
+
+		var eid=$("#eid").val();
+		var mdtext = parent.$("#" + eid).html();
+		console.log(mdtext);
+		$("#md").val(mdtext);
+
+		goHTML();
+
+
+
+
+	});
+
+
 </script>
 <cfoutput>
 	<!-----
