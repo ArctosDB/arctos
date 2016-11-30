@@ -20,7 +20,7 @@ console.log('mdtext');
 
 
 
-			var nocachemaybe=parent.$("#" + eid).attr( 'value'e );
+			var nocachemaybe=parent.$("#" + eid).attr( 'value' );
 
 
 
