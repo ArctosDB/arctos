@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <script>
 	jQuery(document).ready(function() {
-		var eid=parent.$("#eid").val();
+		var eid=window.parent.$("#eid").val();
 		var mdtext = $("#" + eid).html();
 		console.log(mdtext);
 
