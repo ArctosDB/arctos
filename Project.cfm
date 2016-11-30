@@ -138,7 +138,7 @@
 			txt=txt.replace(/<nomd>\n/g,"");
 			txt=txt.replace(/\n<\/nomd>/g,"");
 			$("#project_description").val('');
-			$("#project_description").val('txt');
+			$("#project_description").val(txt);
 
 		}
 		function editMD (eid) {
