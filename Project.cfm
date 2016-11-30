@@ -147,8 +147,8 @@
 				modal: true,
 				position: ['center', 'center'],
 				title: 'Edit MarkDown',
-					width:800,
-		 			height:600,
+					width:'auto',
+		 			height:'auto',
 				close: function() {
 					$( this ).remove();
 				}
