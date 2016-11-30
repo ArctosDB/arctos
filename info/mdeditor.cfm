@@ -1,14 +1,36 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <script type='text/javascript' language="javascript" src='https://cdn.rawgit.com/showdownjs/showdown/1.5.0/dist/showdown.min.js'></script>
 <script>
+
+	function decodeEntities(encodedString) {
+    var textArea = document.createElement('textarea');
+    textArea.innerHTML = encodedString;
+    return textArea.value;
+}
+
+
 	jQuery(document).ready(function() {
 		var eid=$("#eid").val();
 		var mdtext = parent.$("#" + eid).html();
 
+
+
+
+
+console.log('decodeEntities');
+		var x = decodeEntities(mdtext);
+		console.log(x);
+
+
+
+console.log('mdtext');
+
 		console.log(mdtext);
+console.log('decodeURIComponent');
 
 		var x = decodeURIComponent(mdtext);
 		console.log(x);
+console.log('unescape');
 
 		var x = unescape(mdtext);
 		console.log(x);
