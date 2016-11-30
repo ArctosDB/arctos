@@ -36,7 +36,7 @@ console.log('unescape');
 		console.log(x);
 
 
-		$("#md").val(mdtext);
+		$("#md").val(decodeEntities(mdtext));
 		goHTML();
 	});
 	function goHTML(){
