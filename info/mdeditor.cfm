@@ -1,11 +1,7 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfoutput>
-	<script>
-		jQuery(document).ready(function() {
-			var eid=$("##eid").val();
-			var mdtext = $("#" + eid).html();
-			console.log(mdtext);
-			// users can disable this by using <nomd> tags
+	<!-----
+	// users can disable this by using <nomd> tags
 			if (mdtext.trim().substring(0,6) != '<nomd>'){
 				// convert to markdown
 				var converter = new showdown.Converter();
@@ -20,6 +16,13 @@
 				// hide the original
 				$("##ht_desc_orig").hide();
 			}
+			----->
+	<script>
+		jQuery(document).ready(function() {
+			var eid=$("##eid").val();
+			var mdtext = $("#" + eid).html();
+			console.log(mdtext);
+
 		});
 	</script>
 	<cfif not isdefined("eid")>
