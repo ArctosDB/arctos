@@ -338,7 +338,9 @@
 					<tr>
 						<td valign="top">
 							<textarea name="project_description" id="project_description" cols="120" rows="20"
-								onkeyup="countChar(this.value)">#proj.project_description#</textarea>
+								>#proj.project_description#</textarea>
+
+								<!----onkeyup="countChar(this.value)"---->
 						</td>
 						<td valign="top">
 							<div>
