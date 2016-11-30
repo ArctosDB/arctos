@@ -127,6 +127,11 @@
 		jQuery(document).ready(function() {
 			countChar($("#project_description").val());
 		});
+
+
+		function whatJQSees(){
+			alert(	$("#project_description").val() ):
+		}
 		function disableMarkdown(){
 			var txt=$("#project_description").val();
 			txt='<nomd>\n'  + txt + '\n</nomd>';
@@ -372,6 +377,12 @@
 							<div>
 								A <span class="likeLink" onclick="editMD('project_description');">Markdown Editor/Preview</span>
 								is also available.
+							</div>
+							<div>
+
+											<span class="likeLink" onclick="whatJQSees();">whatJQSees</span>
+
+
 							</div>
 						</td>
 					</tr>
