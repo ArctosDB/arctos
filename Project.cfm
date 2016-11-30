@@ -160,7 +160,7 @@
 			    $(".ui-dialog-titlebar-close").trigger('click');
 			});
 		}
-
+	</script>
 
 	<cfoutput>
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
@@ -334,7 +334,7 @@
 				<table>
 					<tr>
 						<td valign="top">
-							<textarea name="project_description" id="project_description" cols="120" rows="20" 
+							<textarea name="project_description" id="project_description" cols="120" rows="20"
 								onkeyup="countChar(this.value)">#proj.project_description#</textarea>
 							<span class="likeLink" onclick="editMD('project_description');">Markdown Editor</span>
 						</td>
