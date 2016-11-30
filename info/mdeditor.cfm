@@ -18,7 +18,9 @@
 		converter.setOption('strikethrough', 'true');
 		converter.setOption('simplifiedAutoLink', 'true');
 		var mdtext = $("#md").html();
+		console.log('got ' + mdtext);
 		var htmlc = converter.makeHtml(mdtext);
+		console.log('made ' + htmlc);
 		$("#htm").html(htmlc);
 	}
 </script>
