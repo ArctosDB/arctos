@@ -3,37 +3,19 @@
 <script>
 
 	function decodeEntities(encodedString) {
-    var textArea = document.createElement('textarea');
-    textArea.innerHTML = encodedString;
-    return textArea.value;
-}
+	    var textArea = document.createElement('textarea');
+	    textArea.innerHTML = encodedString;
+	    return textArea.value;
+	}
 
 
 	jQuery(document).ready(function() {
 		var eid=$("#eid").val();
 		var mdtext = parent.$("#" + eid).html();
 
-
-
-
-
-console.log('decodeEntities');
-		var x = decodeEntities(mdtext);
-		console.log(x);
-
-
-
 console.log('mdtext');
 
 		console.log(mdtext);
-console.log('decodeURIComponent');
-
-		var x = decodeURIComponent(mdtext);
-		console.log(x);
-console.log('unescape');
-
-		var x = unescape(mdtext);
-		console.log(x);
 
 
 		$("#md").val(decodeEntities(mdtext));
