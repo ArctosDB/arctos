@@ -7,6 +7,9 @@
 
 		console.log(mdtext);
 
+		var x = unescape(mdtext);
+		console.log(x);
+
 
 		$("#md").val(mdtext);
 		goHTML();
