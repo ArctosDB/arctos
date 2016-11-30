@@ -138,7 +138,28 @@
 			txt=txt.replace(/<\/nomd>\n/g,"");
 			$("#project_description").val(txt);
 		}
-	</script>
+		function editMD (eid) {
+			var guts = "/info/mdeditor.cfm?eid=" + eid;
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'center'],
+				title: 'Edit MarkDown',
+					width:800,
+		 			height:600,
+				close: function() {
+					$( this ).remove();
+				}
+			}).width(800-10).height(600-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+		}
 
 
 	<cfoutput>
@@ -313,7 +334,9 @@
 				<table>
 					<tr>
 						<td valign="top">
-							<textarea name="project_description" id="project_description" cols="120" rows="20" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
+							<textarea name="project_description" id="project_description" cols="120" rows="20" 
+								onkeyup="countChar(this.value)">#proj.project_description#</textarea>
+							<span class="likeLink" onclick="editMD('project_description');">Markdown Editor</span>
 						</td>
 						<td valign="top">
 							<div>
