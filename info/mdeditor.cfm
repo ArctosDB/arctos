@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+<script type='text/javascript' language="javascript" src='https://cdn.rawgit.com/showdownjs/showdown/1.5.0/dist/showdown.min.js'></script>
+
 <script>
 	jQuery(document).ready(function() {
 		var eid=$("#eid").val();
