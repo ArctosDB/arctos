@@ -130,7 +130,7 @@
 
 
 		function whatJQSees(){
-			alert(	$("#project_description").val() ):
+			alert(	$("#project_description").val() );
 		}
 		function disableMarkdown(){
 			var txt=$("#project_description").val();
