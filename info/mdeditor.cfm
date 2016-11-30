@@ -6,7 +6,19 @@
 		console.log(mdtext);
 		$("#md").val(mdtext);
 
+		goHTML();
+
 	});
+
+	function goHTML(){
+		var converter = new showdown.Converter();
+		showdown.setFlavor('github');
+		converter.setOption('strikethrough', 'true');
+		converter.setOption('simplifiedAutoLink', 'true');
+		var mdtext = $("#md").html();
+		var htmlc = converter.makeHtml(mdtext);
+		$("#htm").html(htmlc);
+	}
 </script>
 <cfoutput>
 	<!-----
@@ -35,6 +47,7 @@
 
 	<label for="md">Markdown</label>
 	<textarea name="md" id="md" cols="120" rows="20"></textarea>
+	<br><input type="button" value="preview HTML below" onclick="goHTML()">
 
 
 	<label for="htm">Rendering</label>
