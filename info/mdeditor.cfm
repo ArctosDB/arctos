@@ -8,15 +8,14 @@
 		goHTML();
 	});
 	function goHTML(){
-
+		var mdtext = $("#md").val();
 		if (mdtext.trim().substring(0,6) == '<nomd>'){
-			$("#htm").html($("#md").val());
+			$("#htm").html(mdtext);
 		} else {
 			var converter = new showdown.Converter();
 			showdown.setFlavor('github');
 			converter.setOption('strikethrough', 'true');
 			converter.setOption('simplifiedAutoLink', 'true');
-			var mdtext = $("#md").val();
 			var htmlc = converter.makeHtml(mdtext);
 			$("#htm").html(htmlc);
 		}
