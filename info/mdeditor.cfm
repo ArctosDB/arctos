@@ -4,6 +4,7 @@
 		var eid=$("#eid").val();
 		var mdtext = parent.$("#" + eid).html();
 		console.log(mdtext);
+		$("#md").val(mdtext);
 
 	});
 </script>
