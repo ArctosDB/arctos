@@ -1,35 +1,9 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <script type='text/javascript' language="javascript" src='https://cdn.rawgit.com/showdownjs/showdown/1.5.0/dist/showdown.min.js'></script>
 <script>
-
-	function decodeEntities(encodedString) {
-	    var textArea = document.createElement('textarea');
-	    textArea.innerHTML = encodedString;
-	    return textArea.value;
-	}
-
-
 	jQuery(document).ready(function() {
 		var eid=$("#eid").val();
-		// jQuery is caching for some stoopid reason, val()
 		var mdtext = parent.$("#" + eid).val();
-
-//console.log('mdtext');
-
-		//console.log(mdtext);
-
-
-
-
-		//	var nocachemaybe=parent.$("#" + eid).attr( 'value' );
-
-
-
-//console.log('nocachemaybe');
-
-		//console.log(nocachemaybe);
-
-		// $("#md").val(decodeEntities(mdtext));
 		$("#md").val(mdtext);
 		goHTML();
 	});
