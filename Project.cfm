@@ -135,7 +135,7 @@
 		function enableMarkdown(){
 			var txt=$("#project_description").val();
 			txt=txt.replace(/<nomd>\n/g,"");
-			txt=txt.replace(\n/<\/nomd>/g,"");
+			txt=txt.replace(/\n/<\/nomd>/g,"");
 			$("#project_description").val(txt);
 		}
 		function editMD (eid) {
