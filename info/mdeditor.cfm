@@ -1,4 +1,12 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+<script>
+	jQuery(document).ready(function() {
+		var eid=$("#eid").val();
+		var mdtext = $("#" + eid).html();
+		console.log(mdtext);
+
+	});
+</script>
 <cfoutput>
 	<!-----
 	// users can disable this by using <nomd> tags
@@ -17,14 +25,7 @@
 				$("##ht_desc_orig").hide();
 			}
 			----->
-	<script>
-		jQuery(document).ready(function() {
-			var eid=$("##eid").val();
-			var mdtext = $("#" + eid).html();
-			console.log(mdtext);
 
-		});
-	</script>
 	<cfif not isdefined("eid")>
 		did not get element ID; aborting<cfabort>
 	</cfif>
