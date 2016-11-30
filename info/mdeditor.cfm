@@ -32,6 +32,14 @@
 
 
 </script>
+<style>
+	#htm {
+		border:1px solid green;
+		padding:1em;
+		margin:1em;
+	}
+
+</style>
 <cfoutput>
 	<!-----
 	// users can disable this by using <nomd> tags
