@@ -38,7 +38,10 @@
 		padding:1em;
 		margin:1em;
 	}
-
+	#md {
+		width: 90%;
+		height: 20em;
+	}
 </style>
 <cfoutput>
 	<!-----
