@@ -11,7 +11,8 @@
 
 	jQuery(document).ready(function() {
 		var eid=$("#eid").val();
-		var mdtext = parent.$("#" + eid).html();
+		// jQuery is caching for some stoopid reason, val()
+		var mdtext = parent.$("#" + eid).val();
 
 console.log('mdtext');
 
