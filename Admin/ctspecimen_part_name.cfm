@@ -210,7 +210,7 @@
 </cfif>
 <cfif action is "insert">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) from ctspecimen_part_name where part_name='#part_name#'
+		select * from ctspecimen_part_name where part_name='#part_name#'
 	</cfquery>
 	<cfif d.recordcount gt 0>
 		<cfthrow message="Part already exists; edit to add collection types.">
