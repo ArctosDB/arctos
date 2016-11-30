@@ -127,11 +127,6 @@
 		jQuery(document).ready(function() {
 			countChar($("#project_description").val());
 		});
-
-
-		function whatJQSees(){
-			alert(	$("#project_description").val() );
-		}
 		function disableMarkdown(){
 			var txt=$("#project_description").val();
 			txt='<nomd>\n'  + txt + '\n</nomd>';
@@ -343,9 +338,7 @@
 					<tr>
 						<td valign="top">
 							<textarea name="project_description" id="project_description" cols="120" rows="20"
-								>#proj.project_description#</textarea>
-
-								<!----onkeyup="countChar(this.value)"---->
+								onkeyup="countChar(this.value)">#proj.project_description#</textarea>
 						</td>
 						<td valign="top">
 							<div>
@@ -376,13 +369,7 @@
 							<div>Save and click "detail page" above to confirm your mark up/down; check results carefully!</div>
 							<div>
 								A <span class="likeLink" onclick="editMD('project_description');">Markdown Editor/Preview</span>
-								is also available.
-							</div>
-							<div>
-
-											<span class="likeLink" onclick="whatJQSees();">whatJQSees</span>
-
-
+								is available.
 							</div>
 						</td>
 					</tr>
