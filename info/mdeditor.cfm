@@ -31,6 +31,11 @@
 		console.log('made ' + htmlc);
 		$("#htm").html(htmlc);
 	}
+	function pushBack(){
+		var eid=$("#eid").val();
+		parent.$("#" + eid).val($("#md").val());
+		parent.$(".ui-dialog-titlebar-close").trigger('click');
+	}
 </script>
 <style>
 	#htm {
@@ -71,6 +76,7 @@
 	<label for="md">Markdown</label>
 	<textarea name="md" id="md" cols="120" rows="20"></textarea>
 	<br><input type="button" value="preview HTML below" onclick="goHTML()">
+	<br><input type="button" value="save to form" onclick="pushBack()">
 
 
 	<label for="htm">Rendering</label>
