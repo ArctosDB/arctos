@@ -18,6 +18,16 @@ console.log('mdtext');
 		console.log(mdtext);
 
 
+
+
+			var nocachemaybe=parent.$("#" + eid).attr( 'value'e );
+
+
+
+console.log('nocachemaybe');
+
+		console.log(nocachemaybe);
+
 		$("#md").val(decodeEntities(mdtext));
 		goHTML();
 	});
