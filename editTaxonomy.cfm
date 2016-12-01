@@ -1169,7 +1169,7 @@
 				</cfif>
 			</cfif>
 			<!---- see if this looks like a multinomial ---->
-			<cfif listlen(thisname.scientific_name,' ') gt 1 and thisname.scientific_name not like '%(%'>
+			<cfif listlen(thisname.scientific_name,' ') gt 1 and thisname.scientific_name does not contain '('>
 				<!--- see if we have a genus. If not, add a blank row for it ---->
 				<cfquery name="hasterm" dbtype="query">
 					select term from hasclass where term_type='species'
