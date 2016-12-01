@@ -883,7 +883,7 @@ VALUES (
 		<cfdump var=#q#>
 
 
-
+<cfabort>
 
 	<cfloop query="publications">
 		<cfset queryaddrow(q,
