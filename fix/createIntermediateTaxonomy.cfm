@@ -101,6 +101,9 @@ grant select on temp_new_class_temp to dlm;
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
+		<p>
+			SCIENTIFIC_NAME<cfflush>
+		</p>
 		<cftransaction>
 			<cfset thisStatus=''>
 			<cfquery name="temp"dbtype="query">
