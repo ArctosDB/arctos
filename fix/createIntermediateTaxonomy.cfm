@@ -167,7 +167,6 @@ grant select on temp_new_class_temp to dlm;
 			<cfelse>
 				<cfset querysetcell(temp,"NOMENCLATURAL_CODE",'idk',1)>
 			</cfif>
-
 			<cfset querysetcell(temp,"status",thisStatus,1)>
 
 			<cfquery name="nr" datasource="uam_god">
