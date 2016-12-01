@@ -261,6 +261,10 @@
 							</cfquery>
 							<cfif taborder is "vertical">
 								<cfset thisTabIndex=((currentcolumn -1) *  numberRows) + currentrow>
+
+								<br>currentcolumn: #currentcolumn#
+								<br>numberRows: #numberRows#
+								<br>currentrow: #currentrow#
 							<cfelse>
 								<cfset thisTabIndex=thisCellNumber>
 							</cfif>
