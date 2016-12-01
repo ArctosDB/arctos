@@ -254,6 +254,8 @@
 							<!--- now, we can get the contents of this cell
 									First, get the container_id for this label from a
 									cached query, then get the contents from the DB
+
+									need to make adjustments for verticality first
 							---->
 
 							<cfif taborder is "vertical">
@@ -274,7 +276,6 @@
 								<span class="labelSpan">
 									#thisTabIndex#
 								</span>
-								thisCellNumber: #thisCellNumber#
 								<span class="innerSpan" id="theSpan#thisTabIndex#">
 									<cfif len(thisPos.container_id) gt 0>
 										<br>#thisPos.contentLabel#
