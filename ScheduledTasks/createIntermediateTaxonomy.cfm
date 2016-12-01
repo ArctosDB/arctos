@@ -111,7 +111,11 @@ grant select on temp_new_class_temp to dlm;
 			</cfquery>
 			<cfset queryaddrow(temp,1)>
 			<cfset querysetcell(temp,"scientific_name",SCIENTIFIC_NAME,1)>
-			<cfset querysetcell(temp,"username",session.username,1)>
+			<!---
+				if you're not me, change this....
+			---->
+
+			<cfset querysetcell(temp,"username",'dlm',1)>
 			<cfset querysetcell(temp,"source",'Arctos',1)>
 			<cfif listfindnocase(ctl,SOURCE_RANK)>
 				<cfset thisPosn=listfind(ctl,SOURCE_RANK)>
