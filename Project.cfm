@@ -886,7 +886,8 @@ VALUES (
 	<cfloop query="publications">
 		<cfset queryaddrow(q,
 			{
-				PROJECT_NAME=ps.project_name
+				PROJECT_NAME=ps.project_name,
+				PROJECT_URL=ps.proj_url
 			}
 		)>
 
