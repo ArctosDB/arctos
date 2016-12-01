@@ -884,7 +884,7 @@ VALUES (
 
 
 <cfabort>
-
+<!----
 	<cfloop query="publications">
 		<cfset queryaddrow(q,
 			{project_name=ps.project_name,
@@ -908,7 +908,7 @@ VALUES (
 
 	</cfloop>
 
-
+----->
 	<cfdump var=#q#>
 
 
