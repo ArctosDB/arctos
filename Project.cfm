@@ -886,7 +886,7 @@ VALUES (
 	<cfloop query="publications">
 		<cfset queryaddrow(q,{
 			PROJECT_NAME=ps.project_name,
-			PROJECT_URL=ps.proj_url,
+			PROJECT_URL=application.serverRootURL & '/project/' & ps.proj_url,
 			PROJECT_AGENTS=pas,
 			LINKED_DATA_TYPE='publication',
 			LINKED_DATA_SUMMARY=publications.full_citation,
