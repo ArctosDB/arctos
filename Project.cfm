@@ -892,12 +892,19 @@ VALUES (
 			LINKED_DATA_SUMMARY=publications.full_citation,
 			LINKED_DATA_URL='#application.serverRootURL#/publication/#publications.publication_id#'
 		})>
-
-
+	</cfloop>
+	<cfloop query="getAccns">
+		<cfset queryaddrow(q,{
+			PROJECT_NAME=ps.project_name,
+			PROJECT_URL=application.serverRootURL & '/project/' & ps.proj_url,
+			PROJECT_AGENTS=pas,
+			LINKED_DATA_TYPE='accession',
+			LINKED_DATA_SUMMARY='#guid_prefix#  #accn_number#',
+			LINKED_DATA_URL='#application.serverRootURL#/editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#'
+		})>
 
 
 	</cfloop>
-
 
 
 
@@ -906,27 +913,6 @@ VALUES (
 <!----
 
 
-<cfset queryaddrow(q,
-			{PROJECT_NAME=ps.project_name,
-			PROJECT_URL=ps.proj_url,
-			PROJECT_AGENTS=pas,
-			LINKED_DATA_TYPE='publication',
-			LINKED_DATA_SUMMARY=publications.full_citation,
-			LINKED_DATA_URL='#application.serverRootURL/publication/#publications.publication_id#'
-			}
-		)>
-
-	<cfset queryaddrow(hasclass,
-						{POSITION_IN_CLASSIFICATION=getAppPosn('species'),
-						SRC='autosuggest',
-						TERM=listgetat(thisname.scientific_name,1,' ') & ' ' & listgetat(thisname.scientific_name,2,' '),
-						TERM_TYPE='species'}
-					)>
-				</cfif>
-
-
-
-	<cfabort>
 
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
@@ -940,150 +926,7 @@ VALUES (
 
 
 
-			<form name="project" action="Project.cfm" method="post">
-				<input type="hidden" name="action" value="save">
-				<input type="hidden" name="project_id" id="project_id" value="#proj.project_id#">
-				<table>
-					<tr>
-						<td>
-							<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
-							<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr">#proj.project_name#</textarea>
-						</td>
-						<td>
-							<span class="infoLink" onclick="italicize('project_name')">italicize selected text</span>
-							<br><span class="infoLink" onclick="bold('project_name')">bold selected text</span>
-							<br><span class="infoLink" onclick="superscript('project_name')">superscript selected text</span>
-							<br><span class="infoLink" onclick="subscript('project_name')">subscript selected text</span>
-						</td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td>
-							<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Start&nbsp;Date</label>
-							<input type="text" name="start_date" id="start_date" value="#dateformat(proj.start_date,"yyyy-mm-dd")#">
-						</td>
-						<td>
-							<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
-							<input type="text" name="end_date" id="end_date" value="#dateformat(proj.end_date,"yyyy-mm-dd")#">
-						</td>
-						<td>
-							<label for="funded_usd" class="likeLink" onClick="getDocs('project','funded_usd')">Funded $ (US Dollars)</label>
-							<input type="text" name="funded_usd" id="funded_usd" value="#proj.funded_usd#">
-						</td>
-					</tr>
-				</table>
-				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Description
-					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span></label>
-				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
-				<label for="project_remarks">Remarks</label>
-				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3">#proj.project_remarks#</textarea>
-				<a name="agent"></a>
-				<table>
-				<tr>
-					<td colspan="2">
-						<a href="javascript:void(0);" onClick="getDocs('project','agent')">Project&nbsp;Agents</a>
-					</td>
-					<td>
-						<a href="javascript:void(0);" onClick="getDocs('project','agent_role')">Agent&nbsp;Role</a>
-					</td>
-					<td>Remark</td>
-				</tr>
-				<cfset i=0>
-				<cfloop query="agents">
-					 <cfset i = i+1>
-					<input type="hidden" name="agent_id_#i#" value="#agent_id#">
-					<input type="hidden" name="project_agent_id_#i#" value="#project_agent_id#">
-					<tr id="projAgentRow#i#"	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<td>
-							##
-							<select name="agent_position_#i#" size="1" class="reqdClr">
-								<cfloop from="1" to="#numberOfAgents#" index="a">
-									<option <cfif agent_position is a> selected="selected" </cfif> value="#a#">#a#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" name="agent_name_#i#" id="agent_name_#i#"
-								value="#agent_name#"
-								class="reqdClr"
-								onchange="getAgent('agent_id_#i#',this.id,'project',this.value); return false;"
-								onKeyPress="return noenter(event);">
-						</td>
-						<td>
-							<select name="project_agent_role_#i#" id="project_agent_role_#i#" size="1" class="reqdClr">
-								<cfloop query="ctProjAgRole">
-								<option
-									<cfif ctProjAgRole.project_agent_role is agents.project_agent_role>
-										selected="selected"
-									</cfif> value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
-								</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" name="project_agent_remarks_#i#" id="project_agent_remarks_#i#" value='#project_agent_remarks#'>
-						</td>
-						<td nowrap valign="center">
-							<input type="button"
-								value="Remove"
-								class="delBtn"
-								onclick="removeAgent(#i#);">
-						 </td>
-					</tr>
-				</cfloop>
-				<input type="hidden" name="numberOfAgents" value="#i#">
-				<tr class="newRec">
-					<td colspan="5">
-						Add Agent:
-					</td>
-				</tr>
-				<cfset numNewAgents=3>
-				<input type="hidden" name="numNewAgents" value="#numNewAgents#">
-				<cfloop from="1" to="#numNewAgents#" index="x">
-					<tr class="newRec">
-						<td>
-							##<select name="new_agent_position#x#" size="1" class="reqdClr">
-								<cfloop from="1" to="#numberOfAgents#" index="i">
-									<option
-										<cfif numberOfAgents is i> selected </cfif>	value="#i#">#i#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" name="new_agent_name#x#" id="new_agent_name#x#"
-								class="reqdClr"
-								onchange="getAgent('new_agent_id#x#',this.id,'project',this.value); return false;"
-								onKeyPress="return noenter(event);">
-							<input type="hidden" name="new_agent_id#x#" id="new_agent_id#x#">
-						</td>
-						<td>
-							<select name="new_role#x#" size="1" class="reqdClr">
-								<cfloop query="ctProjAgRole">
-									<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
-									</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" name="new_project_agent_remarks#x#" id="new_project_agent_remarks#x#">
-						</td>
-						<td>
-						</td>
-					</tr>
-				</cfloop>
-			</table>
-			<input type="button" value="Save Updates" class="savBtn" onclick="document.project.action.value='save';submit();">
-			<cfif agents.recordcount is 0 and
-				getAccns.recordcount is 0 and
-				getLoans.recordcount is 0 and
-				publications.recordcount is 0 and
-				taxonomy.recordcount is 0>
-				<input type="button" value="Delete Project" class="delBtn" onclick="document.project.action.value='deleteProject';submit();">
-			<cfelse>
-				-not deleteable-
-			</cfif>
-		</form>
+
 			<a name="trans"></a>
 			<p>
 				<strong>Project Accessions</strong>
