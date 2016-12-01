@@ -43,7 +43,7 @@
 			<tr>
 				<td>
 					<label for="project_name" class="likeLink" onClick="getDocs('project','title')">
-						Project Title (be descriptive!)
+						Project Title (say something useful, not just "My favorite species {buzzword of the week}.")
 					</label>
 					<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr"></textarea>
 				</td>
@@ -59,11 +59,9 @@
 				<input type="text" name="start_date" id="start_date">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date">
-				<label for="end_date">
-					<span  class="likeLink" onClick="getDocs('project','description')">Description</span>
-					<br>Include what, why, how, who cares. Be <i>descriptive</i>.
-					<br><span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
-					<br>Markdown syntax OK; create and edit for more information.
+				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">
+					Description Include what, why, how, who cares. Be <i>descriptive</i>.
+					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
 				</label>
 				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)"></textarea>
 				<label for="project_remarks">Remarks</label>
@@ -127,41 +125,8 @@
 		jQuery(document).ready(function() {
 			countChar($("#project_description").val());
 		});
-		function disableMarkdown(){
-			var txt=$("#project_description").val();
-			txt='<nomd>\n'  + txt + '\n</nomd>';
-			$("#project_description").val(txt);
-		}
-		function enableMarkdown(){
-			var txt=$("#project_description").val();
-			txt=txt.replace(/<nomd>\n/g,"");
-			txt=txt.replace(/\n<\/nomd>/g,"");
-			$("#project_description").val(txt);
-
-		}
-		function editMD (eid) {
-			var guts = "/info/mdeditor.cfm?eid=" + eid;
-			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-				autoOpen: true,
-				closeOnEscape: true,
-				height: 'auto',
-				modal: true,
-				position: ['center', 'center'],
-				title: 'Edit MarkDown',
-					width:1200,
-		 			height:800,
-				close: function() {
-					$( this ).remove();
-				}
-			}).width(1200-10).height(800-10);
-			$(window).resize(function() {
-				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-			});
-			$(".ui-widget-overlay").click(function(){
-			    $(".ui-dialog-titlebar-close").trigger('click');
-			});
-		}
 	</script>
+
 
 	<cfoutput>
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
@@ -327,51 +292,9 @@
 						</td>
 					</tr>
 				</table>
-				<label for="project_description" >
-					<div class="likeLink" onClick="getDocs('project','description')">Description</div>
-					<div id="chrcnt" class="redBorder">A minimum of 100 characters is to show up in search.</div>
-
-				</label>
-				<table>
-					<tr>
-						<td valign="top">
-							<textarea name="project_description" id="project_description" cols="120" rows="20"
-								onkeyup="countChar(this.value)">#proj.project_description#</textarea>
-						</td>
-						<td valign="top">
-							<div>
-								<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
-									Github-flavored Markdown
-								</a>
-								is supported through the
-								<a href="https://github.com/showdownjs/showdown" target="_blank" class="external">
-									Showdown Library
-								</a>
-								; an instructive
-								<a href="http://showdownjs.github.io/demo/" target="_blank" class="external">
-									demo/editor
-								</a>
-								is available.
-							</div>
-							<div>
-								<span class="likeLink" onclick="disableMarkdown()">
-									Wrap project description in &lt;nomd&gt; tags to disable rendering to markdown
-								</span>
-								or
-								<span class="likeLink" onclick="enableMarkdown()">
-									click here to attempt removal
-								</span>
-								.
-							</div>
-							<div>Regular HTML should render properly as well, and can be mixed with markdown.</div>
-							<div>Save and click "detail page" above to confirm your mark up/down; check results carefully!</div>
-							<div>
-								A <span class="likeLink" onclick="editMD('project_description');">Markdown Editor/Preview</span>
-								is available.
-							</div>
-						</td>
-					</tr>
-				</table>
+				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Description
+					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span></label>
+				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
 				<label for="project_remarks">Remarks</label>
 				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3">#proj.project_remarks#</textarea>
 				<a name="agent"></a>
@@ -819,4 +742,401 @@ VALUES (
  </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
+<cfif action is "getCSV">
+	<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		SELECT
+			project_agent_id,
+			project.project_id,
+			project_name,
+			niceURL(project_name) proj_url,
+			start_date,
+			end_date,
+			project_description,
+			preferred_agent_name.agent_name,
+			project_agent.agent_id,
+			project_agent_role,
+			project_remarks,
+			agent_position,
+			project_agent_remarks,
+			project.funded_usd
+		FROM
+			project,
+			preferred_agent_name,
+			project_agent
+		WHERE
+			project.project_id = project_agent.project_id (+) AND
+			project_agent.agent_id = preferred_agent_name.agent_id (+) AND
+			project.project_id = #project_id#
+	</cfquery>
+	<cfquery name="agents" dbtype="query">
+		select
+			project_agent_id,
+			agent_name,
+			agent_position,
+			agent_id,
+			project_agent_role,
+			project_agent_remarks
+		from
+			getDetails
+		where
+			agent_name is not null
+		group by project_agent_id,agent_name, agent_position, agent_id, project_agent_role,project_agent_remarks
+		order by agent_position
+	</cfquery>
+	<cfquery name="getLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			collection.guid_prefix,
+			loan.loan_number,
+			loan.transaction_id,
+			nature_of_material,
+			trans.trans_remarks,
+			loan_description
+		from
+			project_trans,
+			loan,
+			trans,
+			collection
+		where
+			project_trans.transaction_id=loan.transaction_id and
+			loan.transaction_id = trans.transaction_id and
+			trans.collection_id=collection.collection_id and
+			project_trans.project_id = #getDetails.project_id#
+		order by guid_prefix, loan_number
+	</cfquery>
+	<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			accn_number,
+			guid_prefix,
+			accn.transaction_id,
+			nature_of_material,
+			trans_remarks
+		from
+			project_trans,
+			accn,
+			trans,
+			collection
+		where
+			project_trans.transaction_id=accn.transaction_id and
+			accn.transaction_id = trans.transaction_id and
+			trans.collection_id=collection.collection_id and
+			project_id = #getDetails.project_id#
+			order by guid_prefix, accn_number
+	</cfquery>
+	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			taxon_name.taxon_name_id,
+			scientific_name
+		from
+			project_taxonomy,
+			taxon_name
+		where
+			taxon_name.taxon_name_id=project_taxonomy.taxon_name_id and
+			project_id = #getDetails.project_id#
+		order by
+			scientific_name
+	</cfquery>
+	<cfquery name="proj" dbtype="query">
+		SELECT
+			project_id,
+			project_name,
+			start_date,
+			end_date,
+			project_description,
+			project_remarks,
+			funded_usd
+		FROM
+			getDetails
+		group by
+			project_id,
+			project_name,
+			start_date,
+			end_date,
+			project_description,
+			project_remarks,
+			funded_usd
+	</cfquery>
+	<cfset q=querynew("project_name,project_url,project_agents,linked_data_type,linked_data_summary,linked_data_url")>
+	<cfquery name="ps" dbtype="query">
+		select project_name,proj_url from getDetails group by project_name,proj_url
+	</cfquery>
+	<cfquery name="pa" dbtype="query">
+		select agent_name,project_agent_role from getDetails group by agent_name,project_agent_role
+	</cfquery>
+	<cfset pas="">
+	<cfloop query="pa">
+		<cfset tpr=agent_name & ' (' & project_agent_role & ')'>
+		<cfset pas=listappend(pas,tpr,";")>
+	</cfloop>
+
+	<cfquery name="publications" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		SELECT
+			full_citation,
+			publication.publication_id
+		FROM
+			project_publication,
+			publication
+		WHERE
+			project_publication.publication_id = publication.publication_id AND
+			project_publication.project_id = #project_id#
+	</cfquery>
+	<cfloop query="publications">
+		<cfset queryaddrow(q,
+			{project_name=ps.project_name,
+			project_url=ps.proj_url,
+			project_agents=pas,
+			linked_data_type='publication',
+			linked_data_summary=publications.full_citation,
+			linked_data_url='#application.serverRootURL/publication/#publications.publication_id#'
+			}
+		)>
+	</cfloop>
+
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/projectSummary.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=projectSummary.csv" addtoken="false">
+
+
+	<cfabort>
+
+
+
+			<form name="project" action="Project.cfm" method="post">
+				<input type="hidden" name="action" value="save">
+				<input type="hidden" name="project_id" id="project_id" value="#proj.project_id#">
+				<table>
+					<tr>
+						<td>
+							<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
+							<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr">#proj.project_name#</textarea>
+						</td>
+						<td>
+							<span class="infoLink" onclick="italicize('project_name')">italicize selected text</span>
+							<br><span class="infoLink" onclick="bold('project_name')">bold selected text</span>
+							<br><span class="infoLink" onclick="superscript('project_name')">superscript selected text</span>
+							<br><span class="infoLink" onclick="subscript('project_name')">subscript selected text</span>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td>
+							<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Start&nbsp;Date</label>
+							<input type="text" name="start_date" id="start_date" value="#dateformat(proj.start_date,"yyyy-mm-dd")#">
+						</td>
+						<td>
+							<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
+							<input type="text" name="end_date" id="end_date" value="#dateformat(proj.end_date,"yyyy-mm-dd")#">
+						</td>
+						<td>
+							<label for="funded_usd" class="likeLink" onClick="getDocs('project','funded_usd')">Funded $ (US Dollars)</label>
+							<input type="text" name="funded_usd" id="funded_usd" value="#proj.funded_usd#">
+						</td>
+					</tr>
+				</table>
+				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Description
+					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span></label>
+				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
+				<label for="project_remarks">Remarks</label>
+				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3">#proj.project_remarks#</textarea>
+				<a name="agent"></a>
+				<table>
+				<tr>
+					<td colspan="2">
+						<a href="javascript:void(0);" onClick="getDocs('project','agent')">Project&nbsp;Agents</a>
+					</td>
+					<td>
+						<a href="javascript:void(0);" onClick="getDocs('project','agent_role')">Agent&nbsp;Role</a>
+					</td>
+					<td>Remark</td>
+				</tr>
+				<cfset i=0>
+				<cfloop query="agents">
+					 <cfset i = i+1>
+					<input type="hidden" name="agent_id_#i#" value="#agent_id#">
+					<input type="hidden" name="project_agent_id_#i#" value="#project_agent_id#">
+					<tr id="projAgentRow#i#"	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<td>
+							##
+							<select name="agent_position_#i#" size="1" class="reqdClr">
+								<cfloop from="1" to="#numberOfAgents#" index="a">
+									<option <cfif agent_position is a> selected="selected" </cfif> value="#a#">#a#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="agent_name_#i#" id="agent_name_#i#"
+								value="#agent_name#"
+								class="reqdClr"
+								onchange="getAgent('agent_id_#i#',this.id,'project',this.value); return false;"
+								onKeyPress="return noenter(event);">
+						</td>
+						<td>
+							<select name="project_agent_role_#i#" id="project_agent_role_#i#" size="1" class="reqdClr">
+								<cfloop query="ctProjAgRole">
+								<option
+									<cfif ctProjAgRole.project_agent_role is agents.project_agent_role>
+										selected="selected"
+									</cfif> value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
+								</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="project_agent_remarks_#i#" id="project_agent_remarks_#i#" value='#project_agent_remarks#'>
+						</td>
+						<td nowrap valign="center">
+							<input type="button"
+								value="Remove"
+								class="delBtn"
+								onclick="removeAgent(#i#);">
+						 </td>
+					</tr>
+				</cfloop>
+				<input type="hidden" name="numberOfAgents" value="#i#">
+				<tr class="newRec">
+					<td colspan="5">
+						Add Agent:
+					</td>
+				</tr>
+				<cfset numNewAgents=3>
+				<input type="hidden" name="numNewAgents" value="#numNewAgents#">
+				<cfloop from="1" to="#numNewAgents#" index="x">
+					<tr class="newRec">
+						<td>
+							##<select name="new_agent_position#x#" size="1" class="reqdClr">
+								<cfloop from="1" to="#numberOfAgents#" index="i">
+									<option
+										<cfif numberOfAgents is i> selected </cfif>	value="#i#">#i#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="new_agent_name#x#" id="new_agent_name#x#"
+								class="reqdClr"
+								onchange="getAgent('new_agent_id#x#',this.id,'project',this.value); return false;"
+								onKeyPress="return noenter(event);">
+							<input type="hidden" name="new_agent_id#x#" id="new_agent_id#x#">
+						</td>
+						<td>
+							<select name="new_role#x#" size="1" class="reqdClr">
+								<cfloop query="ctProjAgRole">
+									<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
+									</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="new_project_agent_remarks#x#" id="new_project_agent_remarks#x#">
+						</td>
+						<td>
+						</td>
+					</tr>
+				</cfloop>
+			</table>
+			<input type="button" value="Save Updates" class="savBtn" onclick="document.project.action.value='save';submit();">
+			<cfif agents.recordcount is 0 and
+				getAccns.recordcount is 0 and
+				getLoans.recordcount is 0 and
+				publications.recordcount is 0 and
+				taxonomy.recordcount is 0>
+				<input type="button" value="Delete Project" class="delBtn" onclick="document.project.action.value='deleteProject';submit();">
+			<cfelse>
+				-not deleteable-
+			</cfif>
+		</form>
+			<a name="trans"></a>
+			<p>
+				<strong>Project Accessions</strong>
+				[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
+				<cfset i=1>
+				<cfloop query="getAccns">
+	 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
+							<strong>#guid_prefix#  #accn_number#</strong>
+						</a>
+						<a href="/Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
+							[ Remove ]
+						</a>
+						<br>
+							#nature_of_material# - #trans_remarks#
+					</div>
+					<cfset i=i+1>
+				</cfloop>
+			</p>
+			<p>
+				<strong>Project Loans</strong>
+				<a href="/Loan.cfm?project_id=#getDetails.project_id#&Action=addItems">[ Add Loan ] </a>
+				<cfset i=1>
+				<cfloop query="getLoans">
+		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
+							<strong>#guid_prefix# #loan_number#</strong>
+						</a>
+						<a href="Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
+							[ Remove ]
+						</a>
+						<div>
+							#nature_of_material# - #LOAN_DESCRIPTION#
+						</div>
+					</div>
+					<cfset i=i+1>
+				</cfloop>
+			</p>
+			<a name="pub"></a>
+			<p>
+				<strong>Project Publications</strong>
+				<a href="/SpecimenUsage.cfm?toproject_id=#getDetails.project_id#">[ add Publication ]</a>
+				<cfset i=1>
+				<cfloop query="publications">
+		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<div>
+							#full_citation#
+						</div>
+						<br>
+						<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
+						<a href="/Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#">
+							[ Remove Publication ]
+						</a>
+					</div>
+					<cfset i=i+1>
+				</cfloop>
+			</p>
+			<p><a name="taxonomy"></a>
+				<strong>Project Taxonomy</strong>
+				<form name="tpick" method="post" action="Project.cfm">
+					<input type='hidden' name='project_id' value='#proj.project_id#'>
+					<input type='hidden' name='action' value='addtaxon'>
+					<label for="newtax">Add taxon name</label>
+					<input type="text" name="newtax" id="newtax" onchange="taxaPick('newTaxId',this.id,'tpick',this.value)"
+						onKeyPress="return noenter(event);">
+					<input type="hidden" name="newTaxId" id="newTaxId">
+					<input type="button" onclick="addProjTaxon()" value="Add Taxon">
+				</form>
+				<cfset i=1>
+				<cfloop query="taxonomy">
+		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<div>
+							<a href="/name/#scientific_name#">#scientific_name#</a>
+							<a href="/Project.cfm?action=removeTaxonomy&taxon_name_id=#taxon_name_id#&project_id=#project_id#">
+								[ Remove Name ]
+							</a>
+						</div>
+					</div>
+					<cfset i=i+1>
+				</cfloop>
+			</p>
+		</cfoutput>
+</cfif>
+
+
+
+
+
+
+
+
 <cfinclude template="/includes/_footer.cfm">
