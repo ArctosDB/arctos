@@ -255,10 +255,7 @@
 									First, get the container_id for this label from a
 									cached query, then get the contents from the DB
 							---->
-							<cfquery name="thisPos" dbtype="query">
-								select container_id, position_id,contentLabel,posConBc from positionContents
-								where label = '#thisCellNumber#'
-							</cfquery>
+
 							<cfif taborder is "vertical">
 								<cfset thisTabIndex=((currentcolumn -1) *  numberRows) + currentrow>
 
@@ -268,6 +265,11 @@
 							<cfelse>
 								<cfset thisTabIndex=thisCellNumber>
 							</cfif>
+							<cfquery name="thisPos" dbtype="query">
+								select container_id, position_id,contentLabel,posConBc from positionContents
+								where label = '#thisTabIndex#'
+							</cfquery>
+
 							<div class="ccellDiv">
 								<span class="labelSpan">
 									#thisTabIndex#
