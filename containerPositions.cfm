@@ -268,6 +268,7 @@
 								<span class="labelSpan">
 									#thisTabIndex#
 								</span>
+								thisCellNumber: #thisCellNumber#
 								<span class="innerSpan" id="theSpan#thisTabIndex#">
 									<cfif len(thisPos.container_id) gt 0>
 										<br>#thisPos.contentLabel#
