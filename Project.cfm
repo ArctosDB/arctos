@@ -888,7 +888,8 @@ VALUES (
 			{
 				PROJECT_NAME=ps.project_name,
 				PROJECT_URL=ps.proj_url,
-				PROJECT_AGENTS=pas
+				PROJECT_AGENTS=pas,
+				LINKED_DATA_TYPE='publication'
 			}
 		)>
 
