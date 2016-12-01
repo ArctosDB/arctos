@@ -891,6 +891,12 @@ VALUES (
 		)>
 	</cfloop>
 
+
+	<cfdump var=#q#>
+
+
+	<cfabort>
+
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
 	<cffile action = "write"
@@ -900,7 +906,6 @@ VALUES (
 	<cflocation url="/download.cfm?file=projectSummary.csv" addtoken="false">
 
 
-	<cfabort>
 
 
 
