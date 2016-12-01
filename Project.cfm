@@ -883,20 +883,29 @@ VALUES (
 		<cfdump var=#q#>
 
 
-<cfabort>
-<!----
 	<cfloop query="publications">
 		<cfset queryaddrow(q,
-			{project_name=ps.project_name,
-			project_url=ps.proj_url,
-			project_agents=pas,
-			linked_data_type='publication',
-			linked_data_summary=publications.full_citation,
-			linked_data_url='#application.serverRootURL/publication/#publications.publication_id#'
+			{PROJECT_NAME=ps.project_name,
+			PROJECT_URL=ps.proj_url,
+			PROJECT_AGENTS=pas,
+			LINKED_DATA_TYPE='publication',
+			LINKED_DATA_SUMMARY=publications.full_citation,
+			LINKED_DATA_URL='#application.serverRootURL/publication/#publications.publication_id#'
 			}
 		)>
 
-		<cfset queryaddrow(hasclass,
+
+
+
+	</cfloop>
+
+
+
+
+	<cfdump var=#q#>
+
+<!----
+	<cfset queryaddrow(hasclass,
 						{POSITION_IN_CLASSIFICATION=getAppPosn('species'),
 						SRC='autosuggest',
 						TERM=listgetat(thisname.scientific_name,1,' ') & ' ' & listgetat(thisname.scientific_name,2,' '),
@@ -904,12 +913,6 @@ VALUES (
 					)>
 				</cfif>
 
-
-
-	</cfloop>
-
-
-	<cfdump var=#q#>
 
 
 	<cfabort>
