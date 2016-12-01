@@ -899,18 +899,32 @@ VALUES (
 			PROJECT_URL=application.serverRootURL & '/project/' & ps.proj_url,
 			PROJECT_AGENTS=pas,
 			LINKED_DATA_TYPE='accession',
-			LINKED_DATA_SUMMARY='#guid_prefix#  #accn_number#',
+			LINKED_DATA_SUMMARY='#guid_prefix# #accn_number#',
 			LINKED_DATA_URL='#application.serverRootURL#/editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#'
 		})>
-
-
 	</cfloop>
-
-
-
+	<cfloop query="getLoans">
+		<cfset queryaddrow(q,{
+			PROJECT_NAME=ps.project_name,
+			PROJECT_URL=application.serverRootURL & '/project/' & ps.proj_url,
+			PROJECT_AGENTS=pas,
+			LINKED_DATA_TYPE='loan',
+			LINKED_DATA_SUMMARY='#guid_prefix# #loan_number#',
+			LINKED_DATA_URL='#application.serverRootURL#/Loan.cfm?action=editLoan&transaction_id=#transaction_id#'
+		})>
+	</cfloop>
+	<cfloop query="taxonomy">
+		<cfset queryaddrow(q,{
+			PROJECT_NAME=ps.project_name,
+			PROJECT_URL=application.serverRootURL & '/project/' & ps.proj_url,
+			PROJECT_AGENTS=pas,
+			LINKED_DATA_TYPE='taxonomy',
+			LINKED_DATA_SUMMARY=scientific_name,
+			LINKED_DATA_URL='#application.serverRootURL#//name/#scientific_name#'
+		})>
+	</cfloop>
 	<cfdump var=#q#>
 
-<!----
 
 
 
@@ -923,95 +937,6 @@ VALUES (
 	<cflocation url="/download.cfm?file=projectSummary.csv" addtoken="false">
 
 
-
-
-
-
-			<a name="trans"></a>
-			<p>
-				<strong>Project Accessions</strong>
-				[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
-				<cfset i=1>
-				<cfloop query="getAccns">
-	 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
-							<strong>#guid_prefix#  #accn_number#</strong>
-						</a>
-						<a href="/Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
-							[ Remove ]
-						</a>
-						<br>
-							#nature_of_material# - #trans_remarks#
-					</div>
-					<cfset i=i+1>
-				</cfloop>
-			</p>
-			<p>
-				<strong>Project Loans</strong>
-				<a href="/Loan.cfm?project_id=#getDetails.project_id#&Action=addItems">[ Add Loan ] </a>
-				<cfset i=1>
-				<cfloop query="getLoans">
-		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
-							<strong>#guid_prefix# #loan_number#</strong>
-						</a>
-						<a href="Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
-							[ Remove ]
-						</a>
-						<div>
-							#nature_of_material# - #LOAN_DESCRIPTION#
-						</div>
-					</div>
-					<cfset i=i+1>
-				</cfloop>
-			</p>
-			<a name="pub"></a>
-			<p>
-				<strong>Project Publications</strong>
-				<a href="/SpecimenUsage.cfm?toproject_id=#getDetails.project_id#">[ add Publication ]</a>
-				<cfset i=1>
-				<cfloop query="publications">
-		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<div>
-							#full_citation#
-						</div>
-						<br>
-						<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
-						<a href="/Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#">
-							[ Remove Publication ]
-						</a>
-					</div>
-					<cfset i=i+1>
-				</cfloop>
-			</p>
-			<p><a name="taxonomy"></a>
-				<strong>Project Taxonomy</strong>
-				<form name="tpick" method="post" action="Project.cfm">
-					<input type='hidden' name='project_id' value='#proj.project_id#'>
-					<input type='hidden' name='action' value='addtaxon'>
-					<label for="newtax">Add taxon name</label>
-					<input type="text" name="newtax" id="newtax" onchange="taxaPick('newTaxId',this.id,'tpick',this.value)"
-						onKeyPress="return noenter(event);">
-					<input type="hidden" name="newTaxId" id="newTaxId">
-					<input type="button" onclick="addProjTaxon()" value="Add Taxon">
-				</form>
-				<cfset i=1>
-				<cfloop query="taxonomy">
-		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<div>
-							<a href="/name/#scientific_name#">#scientific_name#</a>
-							<a href="/Project.cfm?action=removeTaxonomy&taxon_name_id=#taxon_name_id#&project_id=#project_id#">
-								[ Remove Name ]
-							</a>
-						</div>
-					</div>
-					<cfset i=i+1>
-				</cfloop>
-			</p>
-		</cfoutput>
-
-
-		----->
 
 
 
