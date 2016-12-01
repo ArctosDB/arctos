@@ -1794,7 +1794,7 @@
 </cfif>
 <cfif isdefined("any_geog") AND len(any_geog) gt 0>
 	<cfset mapurl = "#mapurl#&any_geog=#URLEncodedFormat(any_geog)#">
-	<cfset basJoin = " #basJoin# AND #session.flatTableName#.locality_id IN (
+	<cfset basQual = " #basQual# AND #session.flatTableName#.locality_id IN (
 		select locality_id from locality,geog_search_term where locality.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and
       		upper(geog_search_term.search_term) like '%#ucase(escapeQuotes(any_geog))#%'
 		UNION
