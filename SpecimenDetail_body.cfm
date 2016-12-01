@@ -901,9 +901,11 @@
 						</cfquery>
 						<cfset thisClass="">
 						<cfif id_references is "same individual as">
+							<!----
 							<script>
 								$("body").addClass("isDuplicateRecord");
 							</script>
+							---->
 							<cfset thisClass="isDuplicateRecord">
 						</cfif>
 						<div class="detailBlock #thisClass#">
