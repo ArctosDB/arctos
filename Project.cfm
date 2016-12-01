@@ -879,6 +879,12 @@ VALUES (
 			project_publication.publication_id = publication.publication_id AND
 			project_publication.project_id = #project_id#
 	</cfquery>
+
+		<cfdump var=#q#>
+
+
+
+
 	<cfloop query="publications">
 		<cfset queryaddrow(q,
 			{project_name=ps.project_name,
@@ -889,6 +895,17 @@ VALUES (
 			linked_data_url='#application.serverRootURL/publication/#publications.publication_id#'
 			}
 		)>
+
+		<cfset queryaddrow(hasclass,
+						{POSITION_IN_CLASSIFICATION=getAppPosn('species'),
+						SRC='autosuggest',
+						TERM=listgetat(thisname.scientific_name,1,' ') & ' ' & listgetat(thisname.scientific_name,2,' '),
+						TERM_TYPE='species'}
+					)>
+				</cfif>
+
+
+
 	</cfloop>
 
 
