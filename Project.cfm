@@ -403,6 +403,9 @@
 				-not deleteable-
 			</cfif>
 		</form>
+		<p>
+			<a href="Project.cfm?action=getCSV&project_id=#project_id#">download summary</a>
+		</p>
 			<a name="trans"></a>
 			<p>
 				<strong>Project Accessions</strong>
@@ -879,10 +882,6 @@ VALUES (
 			project_publication.publication_id = publication.publication_id AND
 			project_publication.project_id = #project_id#
 	</cfquery>
-
-		<cfdump var=#q#>
-
-
 	<cfloop query="publications">
 		<cfset queryaddrow(q,{
 			PROJECT_NAME=ps.project_name,
@@ -923,11 +922,6 @@ VALUES (
 			LINKED_DATA_URL='#application.serverRootURL#//name/#scientific_name#'
 		})>
 	</cfloop>
-	<cfdump var=#q#>
-
-
-
-
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
 	<cffile action = "write"
@@ -935,18 +929,5 @@ VALUES (
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=projectSummary.csv" addtoken="false">
-
-
-
-
-
 </cfif>
-
-
-
-
-
-
-
-
 <cfinclude template="/includes/_footer.cfm">
