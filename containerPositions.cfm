@@ -257,7 +257,6 @@
 
 									need to make adjustments for verticality first
 							---->
-
 							<cfif taborder is "vertical">
 								<cfset thisTabIndex=((currentcolumn -1) *  numberRows) + currentrow>
 							<cfelse>
@@ -301,9 +300,7 @@
 		</table>
 	</form>
 </cfoutput>
-
 </cfif>
-
 <!------------------------------------------------------------------------------>
 <cfif #action# is "allNewPositions">
 	<cfoutput>

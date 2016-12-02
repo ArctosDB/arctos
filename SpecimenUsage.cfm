@@ -23,8 +23,7 @@
 	<form action="SpecimenUsage.cfm" method="post">
 		<input name="action" type="hidden" value="search">
 		<cfif not isdefined("toproject_id")><cfset toproject_id=""></cfif>
-
-			<input name="toproject_id" type="hidden" value="#toproject_id#">
+		<input name="toproject_id" type="hidden" value="#toproject_id#">
 		<table width="90%">
 			<tr valign="top">
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
@@ -130,7 +129,6 @@
 						</cfif>
 					</label>
 					<input name="publication_remarks" id="publication_remarks" type="text">
-
 				</td>
 			</tr>
 			<tr>
@@ -201,7 +199,7 @@
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
 			<cfset title = "#p_title#">
 			<cfset go="yes">
-			<cfset whr = "#whr# AND upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#ucase(escapeQuotes(p_title))#%'">
+			<cfset whr = "#whr# AND upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#trim(ucase(escapeQuotes(p_title)))#%'">
 		</cfif>
 		<cfif isdefined("descr_len") AND len(descr_len) gt 0>
 			<cfset go="yes">
@@ -211,7 +209,7 @@
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN
 				( select project_id FROM project_agent,agent_name WHERE
-					project_agent.agent_id=agent_name.agent_id and upper(agent_name) like '%#escapeQuotes(ucase(author))#%' )">
+					project_agent.agent_id=agent_name.agent_id and upper(agent_name) like '%#trim(escapeQuotes(ucase(author)))#%' )">
 		</cfif>
 		<cfif isdefined("project_type") AND len(project_type) gt 0>
 			<cfset go="yes">
@@ -254,12 +252,12 @@
 		<cfif isdefined("year") AND isnumeric(year)>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND (
-				'#year#' between start_date AND end_date or start_date like '#year#%' or end_date like '#year#%'
+				'#year#' between start_date AND end_date or start_date like '#trim(year)#%' or end_date like '#trim(year)#%'
 				)">
 		</cfif>
 		<cfif isdefined("proj_pub_remark") AND len(proj_pub_remark) gt 0>
 			<cfset go="yes">
-			<cfset whr = "#whr# AND upper(PROJECT_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%' ">
+			<cfset whr = "#whr# AND upper(PROJECT_REMARKS) like '%#trim(escapeQuotes(ucase(proj_pub_remark)))#%' ">
 		</cfif>
 		<cfif isdefined("publication_id") AND len(publication_id) gt 0>
 			<cfset whr = "#whr# AND project.project_id in
@@ -294,6 +292,8 @@
 			ORDER BY
 				project_name
 		</cfquery>
+
+
 		<cfset i=1>
 		<cfset go="no">
 		<cfset basSQL = "SELECT
