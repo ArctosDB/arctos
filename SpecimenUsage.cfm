@@ -329,7 +329,7 @@
 						'%#escapeQuotes(ucase(right(publication_remarks,len(publication_remarks)-1)))#%')
 				">
 			<cfelse>
-				<cfset basWhere = "#basWhere# AND upper(publication.publication_remarks) like '%#escapeQuotes(ucase(publication_remarks))#%' ">
+				<cfset basWhere = "#basWhere# AND upper(publication.publication_remarks) like '%#trim(escapeQuotes(ucase(publication_remarks)))#%' ">
 			</cfif>
 		</cfif>
 		<cfif isdefined("doi") AND len(doi) gt 0>
@@ -341,7 +341,7 @@
 			<cfset go="yes">
 		</cfif>
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
-			<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication.full_citation,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
+			<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication.full_citation,'<[^>]*>')) LIKE '%#trim(ucase(escapeQuotes(p_title)))#%'">
 			<cfset go="yes">
 		</cfif>
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
@@ -389,7 +389,7 @@
 				<cfset basFrom = "#basFrom#,agent_name">
 				<cfset basWhere = "#basWhere# AND pubAgentSrch.agent_id=agent_name.agent_id">
 			</cfif>
-			<cfset basWhere = "#basWhere# AND UPPER(agent_name.agent_name) LIKE '%#ucase(author)#%'">
+			<cfset basWhere = "#basWhere# AND UPPER(agent_name.agent_name) LIKE '%#trim(ucase(author)#)%'">
 		</cfif>
 		<cfif isdefined("year") AND isnumeric(year)>
 			<cfset go="yes">
@@ -423,7 +423,7 @@
 				AND CURRENT_NAME_CITATION.collection_object_id = ci_current.collection_object_id (+)
 				AND ci_current.collection_object_id = catItemTaxa.collection_object_id
 				AND catItemTaxa.accepted_id_fg = 1
-				AND upper(catItemTaxa.scientific_name) LIKE '%#ucase(current_Sci_Name)#%'">
+				AND upper(catItemTaxa.scientific_name) LIKE '%#trim(ucase(current_Sci_Name))#%'">
 		</cfif>
 		<cfif isdefined("cited_Sci_Name") AND len(cited_Sci_Name) gt 0>
 			<cfset go="yes">
@@ -431,11 +431,11 @@
 				citation CITED_NAME_CITATION, identification CitTaxa">
 				<cfset basWhere = "#basWhere# AND publication.publication_id = CITED_NAME_CITATION.publication_id (+)
 					AND CITED_NAME_CITATION.identification_id = CitTaxa.identification_id (+)
-					AND upper(CitTaxa.scientific_name) LIKE '%#ucase(cited_Sci_Name)#%'">
+					AND upper(CitTaxa.scientific_name) LIKE '%#trim(ucase(cited_Sci_Name))#%'">
 		</cfif>
 		<cfif isdefined("proj_pub_remark") AND len(proj_pub_remark) gt 0>
 			<cfset go="yes">
-			<cfset basWhere = "#basWhere# AND upper(PUBLICATION_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%'">
+			<cfset basWhere = "#basWhere# AND upper(PUBLICATION_REMARKS) like '%#trim(escapeQuotes(ucase(proj_pub_remark)))#%'">
 		</cfif>
 		<cfif go is "no">
 			<cfset basWhere = "#basWhere# AND 1=2">
