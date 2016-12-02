@@ -389,7 +389,7 @@
 				<cfset basFrom = "#basFrom#,agent_name">
 				<cfset basWhere = "#basWhere# AND pubAgentSrch.agent_id=agent_name.agent_id">
 			</cfif>
-			<cfset basWhere = "#basWhere# AND UPPER(agent_name.agent_name) LIKE '%#trim(ucase(author)#)%'">
+			<cfset basWhere = "#basWhere# AND UPPER(agent_name.agent_name) LIKE '%#trim(ucase(author))#%'">
 		</cfif>
 		<cfif isdefined("year") AND isnumeric(year)>
 			<cfset go="yes">
