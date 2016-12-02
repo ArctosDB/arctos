@@ -450,6 +450,8 @@
 				publication.full_citation,
 				publication.publication_id">
 
+		<cfset checkSql(basSQL)>
+
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (#preservesinglequotes(basSQL)#) where rownum<=#maxNumberOfRows#
 		</cfquery>
