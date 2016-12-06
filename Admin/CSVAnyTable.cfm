@@ -2,6 +2,9 @@
 <cfsetting requestTimeOut = "600">
 <cfparam name="forcenodownload" default="false">
 <cfoutput>
+	<hr>
+		For ordered columns, use URL /Admin/CSVAnyTable.cfm?tableName=TBLNAME&forceColumnOrder=true
+	<hr>
 	<cfif not isdefined("tableName") or len(tableName) is 0>
 		<form method="get" action="CSVAnyTable.cfm">
 			<label for="tableName">Table</label>
