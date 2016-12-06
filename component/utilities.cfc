@@ -539,7 +539,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<!--- these are user-agents that regularly ignore the robots.txt file --->
+	<!--- these are user-agents that provide no value and regularly ignore the robots.txt file --->
 	<!--- keep this synced up with /ScheduledTasks/createRobots.cfm ---->
 	<cfset badbot="Baiduspider,bash">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
@@ -550,6 +550,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 	<cfset badbot=badbot & ",ltx71">
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get">
 	<cfset badbot=badbot & ",naver,Nutch">
+	<cfset badbot=badbot & ",proximic">
 	<cfset badbot=badbot & ",Qwantify">
 	<cfset badbot=badbot & ",re-animator">
 	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot">
