@@ -137,6 +137,96 @@ insert into temp_tax_funk (sciname,funky_term_type)
 
 -- now findLowestTerm
 
+
+
+-- this form is too slow, precompile into table
+
+alter table temp_tax_funk add gotit number;
+
+create table temp_funky_taxonomy (
+	source_term varchar2(255),
+	conflicting_term_type varchar2(255),
+	name_using_term varchar2(255),
+	names_term_val varchar2(255)
+);
+
+delete from temp_funky_taxonomy;
+update temp_tax_funk set gotit=null;
+
+
+
+exec DBMS_SCHEDULER.DROP_JOB('J_TEMP_UPDATE_JUNK');
+
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+tt varchar2(255);
+begin
+	for r in (select * from temp_tax_funk where gotit is null) loop
+		if lower(r.funky_term_type) = 'pylorder' then
+			tt:='ORDER';
+		else
+			tt:=r.funky_term_type;
+		end if;
+		--dbms_output.put_line(r.sciname);
+		--dbms_output.put_line(r.funky_term_type);
+		for c in (
+			select distinct
+				scientific_name,
+				term
+			from
+				taxon_term,
+				taxon_name
+			where
+				taxon_term.taxon_name_id=taxon_name.taxon_name_id and
+				upper(term_type)=upper(tt) and
+				source='Arctos' and
+				taxon_term.taxon_name_id in (
+					select taxon_name_id from taxon_term where upper(term)=upper(r.sciname) and source='Arctos'
+				)
+			order by term,scientific_name
+		) loop
+			insert into temp_funky_taxonomy (
+				source_term,
+				conflicting_term_type,
+				name_using_term,
+				names_term_val
+			) values (
+				r.sciname,
+				r.funky_term_type,
+				c.scientific_name,
+				c.term
+			);
+		end loop;
+		update temp_tax_funk set gotit=1 where sciname=r.sciname and funky_term_type=r.funky_term_type;
+		commit;
+	end loop;
+end;
+/
+
+
+
+select * from temp_tax_funk where gotit is not null;
+select * from temp_funky_taxonomy;
+
+
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_TEMP_UPDATE_JUNK',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'temp_update_junk',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/
+
+select * from temp_funky_taxonomy;
+
+
+
+
+
+
 ---->
 
 
@@ -192,24 +282,6 @@ insert into temp_tax_funk (sciname,funky_term_type)
 
 
 
-<cfquery name="f" datasource="uam_god">
-	select distinct
-		scientific_name,
-		term
-	from
-		taxon_term,
-		taxon_name
-	where
-		taxon_term.taxon_name_id=taxon_name.taxon_name_id and
-		upper(term_type)='#diff_term#' and
-		source='Arctos' and
-		taxon_term.taxon_name_id in (
-			select taxon_name_id from taxon_term where term='#src_term#' and source='Arctos'
-		)
-	order by term,scientific_name
-</cfquery>
-
-
 
 results for source_term=#src_term#, differences in #diff_term#
 <cfquery name="f" datasource="uam_god">
@@ -228,6 +300,11 @@ results for source_term=#src_term#, differences in #diff_term#
 		)
 	order by term,scientific_name
 </cfquery>
+
+<cfdump var=#f#>
+
+
+
 <table border>
 	<tr>
 		<th>ScientificName</th>
