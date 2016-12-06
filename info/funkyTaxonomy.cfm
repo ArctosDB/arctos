@@ -148,11 +148,8 @@ insert into temp_tax_funk (sciname,funky_term_type)
 			select column_name from user_tab_cols where table_name='TEMP_NEW_CLASS_TEMP' ORDER BY INTERNAL_COLUMN_ID desc
 		</cfquery>
 
-		<cfdump var=#cols#>
-
-
 		<cfquery name="d" datasource="uam_god">
-			select * from temp_tax_funk where lowest_term is null and rownum<2
+			select * from temp_tax_funk where lowest_term is null and rownum<200
 		</cfquery>
 		<cfloop query="cols">
 			<cfquery name="flt" datasource="uam_god">
