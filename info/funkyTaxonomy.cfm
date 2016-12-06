@@ -149,29 +149,31 @@ insert into temp_tax_funk (sciname,funky_term_type)
 		</cfquery>
 
 		<cfquery name="d" datasource="uam_god">
-			select * from temp_tax_funk where lowest_term is null and rownum<200
+			select * from temp_tax_funk where lowest_term is null
 		</cfquery>
-		<cfloop query="cols">
-			<cfquery name="flt" datasource="uam_god">
-				select
-					#cols.column_name# v
-				from
-					temp_new_class_temp
-				where scientific_name='#d.sciname#' and
-				#cols.column_name# is not null
-			</cfquery>
-			<cfdump var=#flt#>
-			<cfif len(flt.v) gt 0>
-				<p>
-					found something break
-				</p>
-				<cfquery name="fit" datasource="uam_god" result="x">
-					update temp_tax_funk set lowest_term='#flt.v#' where sciname='#d.sciname#'
+		<cfloop query="d">
+			<cfloop query="cols">
+				<cfquery name="flt" datasource="uam_god">
+					select
+						#cols.column_name# v
+					from
+						temp_new_class_temp
+					where scientific_name='#d.sciname#' and
+					#cols.column_name# is not null
 				</cfquery>
-				<cfdump var=#x#>
-				<cfbreak>
-			</cfif>
+				<cfdump var=#flt#>
+				<cfif len(flt.v) gt 0>
+					<p>
+						found something break
+					</p>
+					<cfquery name="fit" datasource="uam_god" result="x">
+						update temp_tax_funk set lowest_term='#flt.v#' where sciname='#d.sciname#'
+					</cfquery>
+					<cfdump var=#x#>
+					<cfbreak>
+				</cfif>
 
+			</cfloop>
 		</cfloop>
 
 	</cfif>
