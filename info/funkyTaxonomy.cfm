@@ -168,6 +168,9 @@ insert into temp_tax_funk (sciname,funky_term_type)
 				<p>
 					found something break<cfbreak>
 				</p>
+				<cfquery name="fit" datasource="uam_god">
+					update temp_tax_funk set lowest_term='#flt.v#' where sciname='#d.sciname#'
+				</cfquery>
 			</cfif>
 
 		</cfloop>
