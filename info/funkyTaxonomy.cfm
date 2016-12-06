@@ -166,11 +166,13 @@ insert into temp_tax_funk (sciname,funky_term_type)
 			<cfdump var=#flt#>
 			<cfif len(flt.v) gt 0>
 				<p>
-					found something break<cfbreak>
+					found something break
 				</p>
-				<cfquery name="fit" datasource="uam_god">
+				<cfquery name="fit" datasource="uam_god" result="x">
 					update temp_tax_funk set lowest_term='#flt.v#' where sciname='#d.sciname#'
 				</cfquery>
+				<cfdump var=#x#>
+				<cfbreak>
 			</cfif>
 
 		</cfloop>
