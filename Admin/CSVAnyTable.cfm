@@ -15,7 +15,7 @@
 		</cfquery>
 		<cfif isdefined("forceColumnOrder") and forceColumnOrder is "true">
 			<cfquery name="cols" datasource="uam_god">
-				select COLUMN_NAME from user_tab_cols order by INTERNAL_COLUMN_ID
+				select COLUMN_NAME from user_tab_cols where table_name = '#ucase(tableName)#' order by INTERNAL_COLUMN_ID
 			</cfquery>
 			<cfset cols=valuelist(cols.column_name)>
 		<cfelse>
