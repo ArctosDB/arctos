@@ -155,7 +155,7 @@ insert into temp_tax_funk (sciname,funky_term_type)
 			select * from temp_tax_funk where lowest_term is null and rownum<2
 		</cfquery>
 		<cfloop query="cols">
-			<cfquery name="lt" datasource="uam_god">
+			<cfquery name="flt" datasource="uam_god">
 				select
 					#cols.column_name# v
 				from
@@ -163,8 +163,8 @@ insert into temp_tax_funk (sciname,funky_term_type)
 				where scientific_name='#d.sciname#' and
 				#cols.column_name# is not null
 			</cfquery>
-			<cfdump var=#lt#>
-			<cfif len(lt.v) gt 0>
+			<cfdump var=#flt#>
+			<cfif len(flt.v) gt 0>
 				<p>
 					found something break<cfbreak>
 				</p>
