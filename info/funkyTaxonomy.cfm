@@ -192,10 +192,6 @@ insert into temp_tax_funk (sciname,funky_term_type)
 
 
 
-<cfset diff_term="nomenclatural_code">
-<cfset src_term="Asilini">
-
-
 <cfquery name="f" datasource="uam_god">
 	select distinct
 		scientific_name,
