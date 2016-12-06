@@ -1,7 +1,7 @@
 <cfinclude template = "/includes/_header.cfm">
 <cfoutput>
 <cfset diff_term="nomenclatural_code">
-<cfset src_term=Asilini"">
+<cfset src_term="Asilini"">
 
 results for source_term=#src_term#, differences in #diff_term#
 <cfquery name="f" datasource="uam_god">
