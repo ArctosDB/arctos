@@ -28,7 +28,7 @@ results for source_term=#src_term#, differences in #diff_term#
 
 <cfloop query="f">
 	<tr>
-		<td>#scientific_name#</td>
+		<td><a href="/name/#scientific_name#" target="_blank">#scientific_name#</a></td>
 		<td>#term#</td>
 	</tr>
 </cfloop>
