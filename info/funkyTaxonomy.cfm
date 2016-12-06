@@ -141,16 +141,37 @@ insert into temp_tax_funk (sciname,funky_term_type)
 
 
 <cfoutput>
-	<cfquery name="cols" datasource="uam_god">
-		select column_name from user_tab_cols where table_name='TEMP_NEW_CLASS_TEMP' ORDER BY INTERNAL_COLUMN_ID desc
-	</cfquery>
 
-	<cfdump var=#cols#>
 
 	<cfif action is "findLowestTerm">
-		<cfquery name="d" datasource="uam_god">
-			select * from temp_tax_funk where lowest_term is null
+		<cfquery name="cols" datasource="uam_god">
+			select column_name from user_tab_cols where table_name='TEMP_NEW_CLASS_TEMP' ORDER BY INTERNAL_COLUMN_ID desc
 		</cfquery>
+
+		<cfdump var=#cols#>
+
+
+		<cfquery name="d" datasource="uam_god">
+			select * from temp_tax_funk where lowest_term is null and rownum<2
+		</cfquery>
+		<cfloop query="cols">
+			<cfquery name="lt" datasource="uam_god">
+				select
+					#cols.column_name# v
+				from
+					temp_new_class_temp
+				where scientific_name='#d.sciname#' and
+				#cols.column_name# is not null
+			</cfquery>
+			<cfdump var=#lt#>
+			<cfif len(lt.v) gt 0>
+				<p>
+					found something break<cfbreak>
+				</p>
+			</cfif>
+
+		</cfloop>
+
 	</cfif>
 
 
