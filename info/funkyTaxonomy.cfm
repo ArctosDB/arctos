@@ -301,9 +301,6 @@ results for source_term=#src_term#, differences in #diff_term#
 	order by term,scientific_name
 </cfquery>
 
-<cfdump var=#f#>
-
-
 
 <table border>
 	<tr>
