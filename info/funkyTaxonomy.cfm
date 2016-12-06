@@ -18,7 +18,7 @@ results for source_term=#src_term#, differences in #diff_term#
 		taxon_term.taxon_name_id in (
 			select taxon_name_id from taxon_term where term='#src_term#' and source='Arctos'
 		)
-	order by term,scientific_name;
+	order by term,scientific_name
 </cfquery>
 <table border>
 	<tr>
