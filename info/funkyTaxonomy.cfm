@@ -142,7 +142,7 @@ insert into temp_tax_funk (sciname,funky_term_type)
 
 <cfoutput>
 	<cfquery name="cols" datasource="uam_god">
-		select column_name from user_tab_cols where table_name='TEMP_NEW_CLASS_TEMP' ORDER BY INTERNAL_COLUMN_ID
+		select column_name from user_tab_cols where table_name='TEMP_NEW_CLASS_TEMP' ORDER BY INTERNAL_COLUMN_ID desc
 	</cfquery>
 
 	<cfdump var=#cols#>
