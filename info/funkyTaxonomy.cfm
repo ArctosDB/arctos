@@ -293,7 +293,7 @@ results for source_term=#src_term#, differences in #diff_term#
 		taxon_name
 	where
 		taxon_term.taxon_name_id=taxon_name.taxon_name_id and
-		term_type='#diff_term#' and
+		upper(term_type)='#ucase(diff_term)#' and
 		source='Arctos' and
 		taxon_term.taxon_name_id in (
 			select taxon_name_id from taxon_term where term='#src_term#' and source='Arctos'
