@@ -142,6 +142,25 @@ insert into temp_tax_funk (sciname,funky_term_type)
 
 <cfoutput>
 
+	<cfif action is "nothing">
+		<cfquery name="d" datasource="uam_god">
+			select sciname,funky_term_type from temp_tax_funk order by sciname
+		</cfquery>
+
+	<cfloop query="d">
+		<br><a href="funkyTaxonomy.cfm?action=findOne&diff_term=#funky_term_type#&src_term=#sciname#">#sciname# (#funky_term_type#)</a>
+	</cfloop>
+	</cfif>
+
+<cfif action is "findOne">
+
+
+
+<cfset diff_term="nomenclatural_code">
+<cfset src_term="Asilini">
+
+
+	</cfloop>
 
 	<cfif action is "findLowestTerm">
 		<cfquery name="cols" datasource="uam_god">
