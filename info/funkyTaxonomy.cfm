@@ -212,6 +212,7 @@ results for source_term=#src_term#, differences in #diff_term#
 </cfloop>
 
 </table>
-</cfoutput>
 </cfif>
+</cfoutput>
+
 <cfinclude template = "/includes/_footer.cfm">
