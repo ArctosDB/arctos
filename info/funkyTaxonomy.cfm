@@ -205,9 +205,9 @@ end;
 
 
 select * from temp_tax_funk where gotit is not null;
-select * from temp_funky_taxonomy;
+select count(*) from temp_funky_taxonomy;
 
-
+select conflicting_term_type,count(*) from temp_funky_taxonomy group by conflicting_term_type;
 
 BEGIN
   DBMS_SCHEDULER.CREATE_JOB (
@@ -284,6 +284,12 @@ select * from temp_funky_taxonomy;
 
 
 results for source_term=#src_term#, differences in #diff_term#
+<cfif diff_term is "phylorder">
+	<cfset dterm='order'>
+<cfelse>
+	<cfset dterm=diff_term>
+
+</cfif>
 <cfquery name="f" datasource="uam_god">
 	select distinct
 		scientific_name,
@@ -293,7 +299,7 @@ results for source_term=#src_term#, differences in #diff_term#
 		taxon_name
 	where
 		taxon_term.taxon_name_id=taxon_name.taxon_name_id and
-		upper(term_type)='#ucase(diff_term)#' and
+		upper(term_type)='#ucase(dterm)#' and
 		source='Arctos' and
 		taxon_term.taxon_name_id in (
 			select taxon_name_id from taxon_term where term='#src_term#' and source='Arctos'
