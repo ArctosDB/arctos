@@ -280,10 +280,14 @@ select * from temp_funky_taxonomy;
 
 <cfif action is "findOne">
 
+<p>
+	This page is cached. <a href="funkyTaxonomy.cfm?action=findOne&diff_term=#diff_term#&src_term=#src_term#">click here for live data</a>
+</p>
 
 
 
 results for source_term=#src_term#, differences in #diff_term#
+
 
 <cfquery name="f" datasource="uam_god">
 	select *
@@ -294,7 +298,6 @@ results for source_term=#src_term#, differences in #diff_term#
 	order by using_name,used_as_rank
 </cfquery>
 
-		<cfdump var=#f#>
 <table border>
 	<tr>
 		<th>ScientificName</th>
