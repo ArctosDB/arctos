@@ -854,7 +854,18 @@
 			console.log(ls);
 			ls.val('nomenclatural_code');
 
-			console.log(ls[0].id);
+
+			$('#notsortable').find('tr:last').find'td:nth-last-child(2)').addClass('importantNotification');
+
+			 //$(this).closest('tr').find('td:nth-last-child(2)').text('asdf')
+//})
+
+
+
+
+			//var vcid=replace(ls[0].id,'ncterm_type_',4
+
+			//console.log(ls[0].id);
 
 //			$('#notsortable').find('td:last').addClass('importantNotification');
 		}
