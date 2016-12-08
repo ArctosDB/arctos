@@ -235,6 +235,7 @@ alter table temp_tax_funk add resolvedby varchar2(255);
 ---->
 
 	<script src="/includes/sorttable.js"></script>
+	<a href="funkyTaxonomy.cfm">funky taxonomy list page</a>
 
 <cfoutput>
 
