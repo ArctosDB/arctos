@@ -242,20 +242,9 @@ alter table temp_tax_funk add resolvedby varchar2(255);
 
 	<cfif action is "markFixed">
 		<cfloop list="#mf#" index="pp" delimiters=",">
-		<br>#pp#
-			<p>
-					update temp_tax_funk set RESOLVEDBY='#session.username#' where
-						SCINAME='#listGetAt(pp,1,'|')#' and
-						FUNKY_TERM_TYPE='#listGetAt(pp,2,'|')#'
-</p>
-			</cfloop>
 
-
-
-
-		<!----
 		<cftransaction>
-			<cfloop list="mf" index="pp" delimiters=",">
+			<cfloop list="#mf#" index="pp" delimiters=",">
 				<cfquery name="mr" datasource='uam_god'>
 					update temp_tax_funk set RESOLVEDBY='#session.username#' where
 						SCINAME='#listGetAt(pp,1,'|')#' and
@@ -265,7 +254,6 @@ alter table temp_tax_funk add resolvedby varchar2(255);
 			</cfloop>
 		</cftransaction>
 		<cflocation url="funkyTaxonomy.cfm" addtoken="false">
-		----->
 	</cfif>
 
 
