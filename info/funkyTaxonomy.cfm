@@ -1,4 +1,6 @@
 <cfinclude template = "/includes/_header.cfm">
+
+
 <!--- from the effort to create names for all terms
 
 https://github.com/ArctosDB/arctos/issues/891
@@ -283,7 +285,9 @@ select * from temp_funky_taxonomy;
 
 
 <p>
-	This page is cached. <a href="funkyTaxonomy.cfm?action=findOneLive&diff_term=#diff_term#&src_term=#src_term#">click here for live data</a>
+	This page is cached.
+	<a href="funkyTaxonomy.cfm?action=findOneLive&diff_term=#diff_term#&src_term=#src_term#">click here for live data</a>
+	and to refresh the cache.
 </p>
 
 
