@@ -279,6 +279,8 @@ select * from temp_funky_taxonomy;
 
 
 <cfif action is "findOne">
+	<script src="/includes/sorttable.js"></script>
+
 
 <p>
 	This page is cached. <a href="funkyTaxonomy.cfm?action=findOneLive&diff_term=#diff_term#&src_term=#src_term#">click here for live data</a>
@@ -297,7 +299,8 @@ results for source_term=#src_term#, differences in #diff_term#
 		wonky_term='#src_term#' and used_as_rank='#diff_term#'
 	order by used_as_rank,using_name
 </cfquery>
-<table border>
+
+<table id="t" border  class="sortable">
 	<tr>
 		<th>ScientificName</th>
 		<th>#diff_term#</th>
