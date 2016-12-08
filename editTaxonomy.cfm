@@ -851,7 +851,7 @@
 			nc_addARow();
 
 			var ls=$('#notsortable').find('select:last');
-			console.log(ls)l
+			console.log(ls);
 		}
 
 
