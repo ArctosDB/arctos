@@ -1108,6 +1108,9 @@
 						</cfloop>
 					</ul>
 				</div>
+				<cfif i is "nomenclatural_code">
+					no srsly!
+				</cfif>
 			</cfif>
 			<h3>
 				Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>

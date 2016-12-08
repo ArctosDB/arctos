@@ -229,21 +229,32 @@ select * from temp_funky_taxonomy;
 
 
 
+alter table temp_tax_funk add resolvedby varchar2(255);
+
+
 ---->
 
+	<script src="/includes/sorttable.js"></script>
+	<a href="funkyTaxonomy.cfm">funky taxonomy list page</a>
 
 <cfoutput>
 
-	<cfif action is "nothing">
-		<cfquery name="d" datasource="uam_god">
-			select sciname,funky_term_type from temp_tax_funk order by sciname
-		</cfquery>
 
-		<cfloop query="d">
-			<br><a href="funkyTaxonomy.cfm?action=findOne&diff_term=#funky_term_type#&src_term=#sciname#">#sciname# (#funky_term_type#)</a>
-		</cfloop>
+
+	<cfif action is "markFixed">
+
+		<cftransaction>
+			<cfloop list="#mf#" index="pp" delimiters=",">
+				<cfquery name="mr" datasource='uam_god'>
+					update temp_tax_funk set RESOLVEDBY='#session.username#' where
+						SCINAME='#listGetAt(pp,1,'|')#' and
+						FUNKY_TERM_TYPE='#listGetAt(pp,2,'|')#'
+				</cfquery>
+
+			</cfloop>
+		</cftransaction>
+		<cflocation url="funkyTaxonomy.cfm" addtoken="false">
 	</cfif>
-
 
 
 	<cfif action is "findLowestTerm">
@@ -281,7 +292,6 @@ select * from temp_funky_taxonomy;
 
 
 <cfif action is "findOne">
-	<script src="/includes/sorttable.js"></script>
 
 
 <p>
@@ -293,6 +303,26 @@ select * from temp_funky_taxonomy;
 
 
 results for source_term=#src_term#, differences in #diff_term#
+	<br>
+	<a href="funkyTaxonomy.cfm?action=markFixed&mf=#src_term#|#diff_term#">mark as resolved</a>
+
+<cfif action is "markFixed">
+
+		<cftransaction>
+			<cfloop list="#mf#" index="pp" delimiters=",">
+				<cfquery name="mr" datasource='uam_god'>
+					update temp_tax_funk set RESOLVEDBY='#session.username#' where
+						SCINAME='#listGetAt(pp,1,'|')#' and
+						FUNKY_TERM_TYPE='#listGetAt(pp,2,'|')#'
+				</cfquery>
+
+			</cfloop>
+		</cftransaction>
+		<cflocation url="funkyTaxonomy.cfm" addtoken="false">
+	</cfif>
+
+
+
 
 
 <cfquery name="f" datasource="uam_god">
@@ -384,6 +414,42 @@ results for source_term=#src_term#, differences in #diff_term#
 
 </table>
 </cfif>
+
+<cfif action is "nothing">
+	<cfquery name="d" datasource="uam_god">
+		select sciname,funky_term_type,RESOLVEDBY from temp_tax_funk order by sciname
+	</cfquery>
+	<form name="d" method="post" action="funkyTaxonomy.cfm">
+		<input type="submit" value="save markFixed">
+				<input type="hidden" name="action" value="markFixed">
+
+
+		<table id="t" border  class="sortable">
+			<tr>
+				<th>ScientificName</th>
+				<th>TermType</th>
+				<th>resolved</th>
+			</tr>
+
+			<cfloop query="d">
+				<tr>
+					<td><a href="funkyTaxonomy.cfm?action=findOne&diff_term=#funky_term_type#&src_term=#sciname#">#sciname#</a></td>
+					<td>#funky_term_type#</td>
+					<td>
+						<cfif len(RESOLVEDBY) gt 0>
+							by #RESOLVEDBY#
+						<cfelse>
+							<input type="checkbox" name="mf" value="#sciname#|#funky_term_type#">
+						</cfif>
+					</td>
+				</tr>
+			</cfloop>
+		</table
+						<input type="submit" value="save markFixed">
+			</form>
+	</cfif>
+
+
 </cfoutput>
 
 <cfinclude template = "/includes/_footer.cfm">
