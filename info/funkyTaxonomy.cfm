@@ -294,7 +294,7 @@ results for source_term=#src_term#, differences in #diff_term#
 	from
 		temp_related_funky_taxonomy
 	where
-		wonky_term='#src_term#'
+		wonky_term='#src_term#' and used_as_rank='#diff_term#'
 	order by using_name,used_as_rank
 </cfquery>
 
