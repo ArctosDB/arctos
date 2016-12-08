@@ -847,27 +847,12 @@
 		    }, 1000);
 		}
 		function forceAddNomCode() {
-			console.log('forceAddNomCode');
+			// add a row
 			nc_addARow();
-
-			var ls=$('#notsortable').find('select:last');
-			console.log(ls);
-			ls.val('nomenclatural_code');
-
-
+			// set the value
+			var ls=$('#notsortable').find('select:last').val('nomenclatural_code');
+			// make it scary and red
 			$('#notsortable').find('tr:last').find('td:nth-last-child(2)').addClass('importantNotification');
-
-			 //$(this).closest('tr').find('td:nth-last-child(2)').text('asdf')
-//})
-
-
-
-
-			//var vcid=replace(ls[0].id,'ncterm_type_',4
-
-			//console.log(ls[0].id);
-
-//			$('#notsortable').find('td:last').addClass('importantNotification');
 		}
 
 
@@ -1132,7 +1117,6 @@
 					</ul>
 				</div>
 				<cfif i is "nomenclatural_code">
-					no srsly!
 					<script>
 						forceAddNomCode();
 					</script>
