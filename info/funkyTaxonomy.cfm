@@ -239,7 +239,7 @@ select * from temp_funky_taxonomy;
 		<cfquery name="d" datasource="uam_god">
 			select sciname,funky_term_type from temp_tax_funk order by sciname
 		</cfquery>
-<form name="d" action="funkyTaxonomy.cfm">
+<form name="d" method="post" action="funkyTaxonomy.cfm">
 		<input type="submit" value="save markFixed">
 				<input type="hidden" name="action" value="markFixed">
 		<table id="t" border  class="sortable">
