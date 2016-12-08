@@ -846,6 +846,10 @@
 		        scrollTop: $("#dnWarning").offset().top
 		    }, 1000);
 		}
+		function forceAddNomCode() {
+			console.log('forceAddNomCode');
+			nc_addARow();
+		}
 
 
 	</script>
@@ -1110,6 +1114,9 @@
 				</div>
 				<cfif i is "nomenclatural_code">
 					no srsly!
+					<script>
+						forceAddNomCode();
+					</script>
 				</cfif>
 			</cfif>
 			<h3>
