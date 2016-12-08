@@ -245,8 +245,8 @@ alter table temp_tax_funk add resolvedby varchar2(255);
 			<cfloop list="mf" index="pp" delimiters=",">
 				<cfquery name="mr" datasource='uam_god'>
 					update temp_tax_funk set RESOLVEDBY='#session.username#' where
-						SCINAME='#lisGetAt(pp,1,'|')#' and
-						FUNKY_TERM_TYPE='#lisGetAt(pp,2,'|')#'
+						SCINAME='#listGetAt(pp,1,'|')#' and
+						FUNKY_TERM_TYPE='#listGetAt(pp,2,'|')#'
 				</cfquery>
 
 			</cfloop>
