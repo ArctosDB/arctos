@@ -303,6 +303,26 @@ alter table temp_tax_funk add resolvedby varchar2(255);
 
 
 results for source_term=#src_term#, differences in #diff_term#
+	<br>
+	<a href="funkyTaxonomy.cfm?action=markFixed&mf=#src_term#|#diff_term#">mark as resolved</a>
+
+<cfif action is "markFixed">
+
+		<cftransaction>
+			<cfloop list="#mf#" index="pp" delimiters=",">
+				<cfquery name="mr" datasource='uam_god'>
+					update temp_tax_funk set RESOLVEDBY='#session.username#' where
+						SCINAME='#listGetAt(pp,1,'|')#' and
+						FUNKY_TERM_TYPE='#listGetAt(pp,2,'|')#'
+				</cfquery>
+
+			</cfloop>
+		</cftransaction>
+		<cflocation url="funkyTaxonomy.cfm" addtoken="false">
+	</cfif>
+
+
+
 
 
 <cfquery name="f" datasource="uam_god">
