@@ -333,7 +333,6 @@ results for source_term=#src_term#, differences in #diff_term#
 		wonky_term='#src_term#' and used_as_rank='#diff_term#'
 	order by used_as_rank,using_name
 </cfquery>
-<cfdump var=#f#>
 <table id="t" border  class="sortable">
 	<tr>
 		<th>ScientificName</th>
