@@ -855,7 +855,7 @@
 			ls.val('nomenclatural_code');
 
 
-			$('#notsortable').find('tr:last').find'td:nth-last-child(2)').addClass('importantNotification');
+			$('#notsortable').find('tr:last').find('td:nth-last-child(2)').addClass('importantNotification');
 
 			 //$(this).closest('tr').find('td:nth-last-child(2)').text('asdf')
 //})
