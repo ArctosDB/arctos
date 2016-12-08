@@ -284,6 +284,38 @@ select * from temp_funky_taxonomy;
 
 
 results for source_term=#src_term#, differences in #diff_term#
+
+<cfquery name="f" datasource="uam_god">
+	select *
+	from
+		temp_related_funky_taxonomy
+	where
+		wonky_term='#src_term#'
+	order by using_name,used_as_rank
+</cfquery>
+
+		<cfdump var=#f#>
+<table border>
+	<tr>
+		<th>ScientificName</th>
+		<th>#diff_term#</th>
+	</tr>
+
+<cfloop query="f">
+	<tr>
+		<td><a href="/name/#scientific_name#" target="_blank">#scientific_name#</a></td>
+		<td>#term#</td>
+	</tr>
+</cfloop>
+
+</table>
+</cfif>
+<cfif action is "findOne__old">
+
+
+
+
+results for source_term=#src_term#, differences in #diff_term#
 <cfif diff_term is "phylorder">
 	<cfset dterm='order'>
 <cfelse>
