@@ -852,6 +852,7 @@
 
 			var ls=$('#notsortable').find('select:last');
 			console.log(ls);
+			$('#notsortable').find('select:last').val('nomenclatural_code');
 		}
 
 
