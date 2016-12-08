@@ -854,7 +854,7 @@
 			console.log(ls);
 			ls.val('nomenclatural_code');
 
-			console.log(ls.id);
+			console.log(ls[0].id);
 
 //			$('#notsortable').find('td:last').addClass('importantNotification');
 		}
