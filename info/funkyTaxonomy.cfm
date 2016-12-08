@@ -231,6 +231,7 @@ select * from temp_funky_taxonomy;
 
 ---->
 
+	<script src="/includes/sorttable.js"></script>
 
 <cfoutput>
 
@@ -238,12 +239,34 @@ select * from temp_funky_taxonomy;
 		<cfquery name="d" datasource="uam_god">
 			select sciname,funky_term_type from temp_tax_funk order by sciname
 		</cfquery>
+<form name="d" action="funkyTaxonomy.cfm">
+		<input type="submit" value="save markFixed">
+				<input type="hidden" name="action" value="markFixed">
+		<table id="t" border  class="sortable">
+			<tr>
+				<th>ScientificName</th>
+				<th>TermType</th>
+				<th>markFixed</th>
+			</tr>
 
-		<cfloop query="d">
-			<br><a href="funkyTaxonomy.cfm?action=findOne&diff_term=#funky_term_type#&src_term=#sciname#">#sciname# (#funky_term_type#)</a>
-		</cfloop>
+			<cfloop query="d">
+				<tr>
+					<td><a href="funkyTaxonomy.cfm?action=findOne&diff_term=#funky_term_type#&src_term=#sciname#">#sciname#</a></td>
+					<td>#funky_term_type#</td>
+					<td>
+						<input type="checkbox" name="mf" value="#sciname#|#funky_term_type#">
+					</td>
+				</tr>
+			</cfloop>
+		</table
+
+		<input type="submit" value="save markFixed">
+			</form>
 	</cfif>
 
+	<cfif action is "markFixed">
+		<cfdump var=#form#>
+	</cfif>
 
 
 	<cfif action is "findLowestTerm">
@@ -281,7 +304,6 @@ select * from temp_funky_taxonomy;
 
 
 <cfif action is "findOne">
-	<script src="/includes/sorttable.js"></script>
 
 
 <p>
