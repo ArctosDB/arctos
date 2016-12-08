@@ -852,9 +852,11 @@
 
 			var ls=$('#notsortable').find('select:last');
 			console.log(ls);
-			$('#notsortable').find('select:last').val('nomenclatural_code');
+			ls.val('nomenclatural_code');
 
-			$('#notsortable').find('td:last').addClass('importantNotification');
+			console.log(ls.id);
+
+//			$('#notsortable').find('td:last').addClass('importantNotification');
 		}
 
 
