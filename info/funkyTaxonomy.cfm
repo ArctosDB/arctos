@@ -241,7 +241,7 @@ alter table temp_tax_funk add resolvedby varchar2(255);
 
 
 	<cfif action is "markFixed">
-		<cfloop list="mf" index="pp" delimiters=",">
+		<cfloop list="#mf#" index="pp" delimiters=",">
 		<br>#pp#
 			<p>
 					update temp_tax_funk set RESOLVEDBY='#session.username#' where
