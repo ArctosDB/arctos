@@ -854,7 +854,7 @@
 			console.log(ls);
 			$('#notsortable').find('select:last').val('nomenclatural_code');
 
-			$('#notsortable').find('select:td').addClass('important_notification');
+			$('#notsortable').find('td:last').addClass('importantNotification');
 		}
 
 
