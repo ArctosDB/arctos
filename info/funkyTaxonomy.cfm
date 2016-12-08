@@ -281,7 +281,7 @@ select * from temp_funky_taxonomy;
 <cfif action is "findOne">
 
 <p>
-	This page is cached. <a href="funkyTaxonomy.cfm?action=findOne&diff_term=#diff_term#&src_term=#src_term#">click here for live data</a>
+	This page is cached. <a href="funkyTaxonomy.cfm?action=findOneLive&diff_term=#diff_term#&src_term=#src_term#">click here for live data</a>
 </p>
 
 
@@ -313,7 +313,7 @@ results for source_term=#src_term#, differences in #diff_term#
 
 </table>
 </cfif>
-<cfif action is "findOne__old">
+<cfif action is "findOneLive">
 
 
 
