@@ -343,8 +343,28 @@ results for source_term=#src_term#, differences in #diff_term#
 		)
 	order by term,scientific_name
 </cfquery>
-
-
+<!--- refresh while we're here --->
+<cftransaction>
+	<cfquery name="flush" datasource="uam_god">
+		delete from temp_related_funky_taxonomy where wonky_term='#src_term#' and used_as_rank='#diff_term#'
+	</cfquery>
+	<cfloop query="f">
+		<cfquery name="ins" datasource="uam_god">
+			insert into temp_related_funky_taxonomy (
+				wonky_term,
+				using_name,
+				used_as_rank,
+				used_value
+			) values (
+				'#src_term#',
+				'#f.scientific_name#',
+				'#diff_term#',
+				'#f.term#'
+			)
+		</cfquery>
+	</cfloop>
+</cftransaction>
+<br>cache refreshed
 <table border>
 	<tr>
 		<th>ScientificName</th>
