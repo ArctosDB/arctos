@@ -241,7 +241,6 @@ alter table temp_tax_funk add resolvedby varchar2(255);
 
 
 	<cfif action is "markFixed">
-		<cfloop list="#mf#" index="pp" delimiters=",">
 
 		<cftransaction>
 			<cfloop list="#mf#" index="pp" delimiters=",">
