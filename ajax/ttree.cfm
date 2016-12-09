@@ -3,12 +3,12 @@
 	<cfset dbid=replace(id,"id_","")>
 	<cfif dbid is "##">
 		<cfquery name="d" datasource="uam_god">
-			select term,tid from hierarchical_taxonomy where parent_tid is null
+			select term,tid,rank from hierarchical_taxonomy where parent_tid is null
 		</cfquery>
 		<cfset x="[">
 		<cfset i=1>
 		<cfloop query="d">
-			<cfset x=x & '{"id":"id_#tid#","text":"#term#","children":true}'>
+			<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
 			<cfif i lt d.recordcount>
 				<cfset x=x & ",">
 			</cfif>
