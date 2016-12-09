@@ -1,6 +1,7 @@
 
 <cfoutput>
-	<cfif id is "##">
+	<cfset dbid=replace(id,"id_","")>
+	<cfif dbid is "##">
 		<cfquery name="d" datasource="uam_god">
 			select term,tid from hierarchical_taxonomy where parent_tid is null
 		</cfquery>
@@ -17,7 +18,7 @@
 	<cfelse>
 		<!---- get children of the passed-in node ---->
 		<cfquery name="d" datasource="uam_god">
-			select term,tid from hierarchical_taxonomy where parent_tid = #id#
+			select term,tid from hierarchical_taxonomy where parent_tid = #dbid#
 		</cfquery>
 		<cfset x="[">
 		<cfset i=1>
