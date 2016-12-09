@@ -18,12 +18,12 @@
 	<cfelse>
 		<!---- get children of the passed-in node ---->
 		<cfquery name="d" datasource="uam_god">
-			select term,tid from hierarchical_taxonomy where parent_tid = #dbid#
+			select term,tid,rank from hierarchical_taxonomy where parent_tid = #dbid#
 		</cfquery>
 		<cfset x="[">
 		<cfset i=1>
 		<cfloop query="d">
-			<cfset x=x & '{"id":"id_#tid#","text":"#term#","state": "closed","children":true}'>
+			<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","state": "closed","children":true}'>
 			<cfif i lt d.recordcount>
 				<cfset x=x & ",">
 			</cfif>
