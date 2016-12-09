@@ -230,7 +230,19 @@ UAM@ARCTOS> desc taxon_term
 <script>
 
 	jQuery(document).ready(function() {
-		$('#container').jstree();
+		$(function() {
+  $('#container').jstree({
+    'core' : {
+      'data' : [
+        { "text" : "Root node", "children" : [
+            { "text" : "Child node 1" },
+            { "text" : "Child node 2" }
+          ]
+        }
+      ]
+    }
+  });
+});
 	});
 
 
@@ -241,13 +253,5 @@ UAM@ARCTOS> desc taxon_term
 
 ima tree
 <div id="container">
- <ul>
-    <li>Root node
-      <ul>
-        <li>Child node 1</li>
-        <li>Child node 2</li>
-      </ul>
-    </li>
-  </ul>
 </div>
 its up
