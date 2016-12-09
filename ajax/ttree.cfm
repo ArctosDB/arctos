@@ -7,7 +7,7 @@
 		<cfset x="[">
 		<cfset i=1>
 		<cfloop query="d">
-			<cfset x=x & '{"id":#tid#,"text":"#term#","children":true}'>
+			<cfset x=x & '{"id":"#tid#","text":"#term#","children":true}'>
 			<cfif i lt d.recordcount>
 				<cfset x=x & ",">
 			</cfif>
@@ -22,7 +22,7 @@
 		<cfset x="[">
 		<cfset i=1>
 		<cfloop query="d">
-			<cfset x=x & '{"text":"#term#","state": "closed"}'>
+			<cfset x=x & '{"id":"id_#tid#","parent","id_#id#","text":"#term#","state": "closed"}'>
 			<cfif i lt d.recordcount>
 				<cfset x=x & ",">
 			</cfif>
