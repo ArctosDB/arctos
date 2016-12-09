@@ -235,7 +235,9 @@ UAM@ARCTOS> desc taxon_term
     'core' : {
       'data' : {
         "url" : "/ajax/ttree.cfm",
-        "dataType" : "json" // needed only if you do not supply JSON headers
+        "data" : function (node) {
+          return { "id" : node.id };
+        }
       }
     }
   });
@@ -247,7 +249,21 @@ UAM@ARCTOS> desc taxon_term
 
 </script>
 
+<!-----
 
+
+		$(function() {
+  $('#container').jstree({
+    'core' : {
+      'data' : {
+        "url" : "/ajax/ttree.cfm",
+        "dataType" : "json" // needed only if you do not supply JSON headers
+      }
+    }
+  });
+});
+
+----->
 ima tree
 <div id="container">
 </div>
