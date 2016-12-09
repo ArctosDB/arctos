@@ -4,7 +4,7 @@
 			select term,tid from hierarchical_taxonomy where parent_tid is null
 		</cfquery>
 	</cfif>
-	<cfset x=parseJson(d)>
+	<cfset x=serializeJSON(d)>
 	#x#
 </cfoutput>
 <!----------
