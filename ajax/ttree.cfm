@@ -23,7 +23,7 @@
 		<cfset x="[">
 		<cfset i=1>
 		<cfloop query="d">
-			<cfset x=x & '{"id":"id_#tid#","text":"#term#","state": "closed","children":true}}'>
+			<cfset x=x & '{"text":"#term#","state": "closed","children":true}}'>
 			<cfif i lt d.recordcount>
 				<cfset x=x & ",">
 			</cfif>
@@ -40,6 +40,9 @@
 
 
 <!----------
+
+"id":"id_#tid#",
+
 
 
 [{
