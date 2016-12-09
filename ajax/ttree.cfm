@@ -8,7 +8,7 @@
 	<cfloop query="d">
 		<cfset x=x & '"id":#tid#,"text":"#term#"'>
 	</cfloop>
-	<cfset x=x &}]
+	<cfset x=x & "}]">
 	#x#
 </cfoutput>
 <!----------
