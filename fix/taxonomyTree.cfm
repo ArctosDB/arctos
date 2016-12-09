@@ -231,18 +231,18 @@ UAM@ARCTOS> desc taxon_term
 
 	jQuery(document).ready(function() {
 		$(function() {
-  $('#container').jstree({
-    'core' : {
-      'data' : {
-        "url" : "/ajax/ttree.cfm",
-        "dataType" : "json",
-        "data" : function (node) {
-          return { "id" : node.id };
-        }
-      }
-    }
-  });
-});
+		  $('#container').jstree({
+		    'core' : {
+		      'data' : {
+		        "url" : "/ajax/ttree.cfm",
+		        "dataType" : "json",
+		        "data" : function (node) {
+		          return { "id" : node.id };
+		        }
+		      }
+		    }
+		  });
+		});
 	});
 
 
@@ -265,7 +265,6 @@ UAM@ARCTOS> desc taxon_term
 });
 
 ----->
-ima tree
+doubleclick
 <div id="container">
 </div>
-its up
