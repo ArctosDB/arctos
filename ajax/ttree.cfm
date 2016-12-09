@@ -19,7 +19,7 @@
 		<cfquery name="d" datasource="uam_god">
 			select term,tid from hierarchical_taxonomy where parent_tid = #id#
 		</cfquery>
-		<cfdump var=#d#
+		<cfdump var=#d#>
 	</cfif>
 
 	#x#
