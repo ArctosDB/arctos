@@ -4,14 +4,24 @@
 			select term,tid from hierarchical_taxonomy where parent_tid is null
 		</cfquery>
 	</cfif>
-	<cfset x="[{">
+	<cfset x="[">
 	<cfloop query="d">
-		<cfset x=x & '"id":#tid#,"text":"#term#"'>
+		<cfset x=x & '{"id":#tid#,parent: "####", "text":"#term#"}'>
 	</cfloop>
-	<cfset x=x & "}]">
+	<cfset x=x & "]">
 	#x#
 </cfoutput>
 <!----------
+
+
+[
+       { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
+       { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+       { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
+       { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+]
+
+
 [{
   "id":1,"text":"Root node","children":[
     {"id":2,"text":"Child node 1","children":true},
