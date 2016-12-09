@@ -19,7 +19,6 @@
 		<cfquery name="d" datasource="uam_god">
 			select term,tid from hierarchical_taxonomy where parent_tid = #id#
 		</cfquery>
-		<cfdump var=#d#>
 		<cfset x="[">
 		<cfset i=1>
 		<cfloop query="d">
