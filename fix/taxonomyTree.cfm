@@ -233,13 +233,10 @@ UAM@ARCTOS> desc taxon_term
 		$(function() {
   $('#container').jstree({
     'core' : {
-      'data' : [
-        { "text" : "Root node", "children" : [
-            { "text" : "Child node 1" },
-            { "text" : "Child node 2" }
-          ]
-        }
-      ]
+      'data' : {
+        "url" : "/ajax/ttree.cfm",
+        "dataType" : "json" // needed only if you do not supply JSON headers
+      }
     }
   });
 });
