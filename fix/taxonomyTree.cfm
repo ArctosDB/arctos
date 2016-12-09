@@ -230,8 +230,7 @@ UAM@ARCTOS> desc taxon_term
 <script>
 
 	jQuery(document).ready(function() {
-	});
-	$('#container').jstree({
+		$('#container').jstree({
     'core' : {
         'data' : {
             "url" : "/ajax/ttree.cfm",
@@ -241,6 +240,8 @@ UAM@ARCTOS> desc taxon_term
         }
     }
 });
+	});
+
 
 
 
