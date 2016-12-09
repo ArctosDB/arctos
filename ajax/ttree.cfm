@@ -1,3 +1,9 @@
+[
+	{"id":82783984,parent: "##", "text":"Eukaryota"}
+	{"id":82783975,parent: "##", "text":"adassfas"}
+]
+<!----------
+
 <cfoutput>
 	<cfif id is "##">
 		<cfquery name="d" datasource="uam_god">
@@ -11,7 +17,6 @@
 	<cfset x=x & "]">
 	#x#
 </cfoutput>
-<!----------
 
 
 [
