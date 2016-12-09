@@ -2,6 +2,9 @@
 
 [{
   "id":1,"text":"Root node","children":true
+},
+{
+  "id":2,"text":"Root node2","children":true
 }]
 
 
