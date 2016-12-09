@@ -222,6 +222,32 @@ UAM@ARCTOS> desc taxon_term
 -- got a decent sample in temp_hierarcicized, write some tree code maybe....
 
 ---->
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/themes/default/style.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/jstree.min.js"></script>
+
+<script>
+
+	jQuery(document).ready(function() {
+	});
+	$('#container').jstree({
+    'core' : {
+        'data' : {
+            "url" : "/ajax/ttree.cfm",
+            "data" : function (node) {
+                return { "id" : node.id };
+            }
+        }
+    }
+});
+
+
+
+</script>
+
+<div id="container"></div>
+
 <cfoutput>
 	<hr>
     <cfform name="myform">
