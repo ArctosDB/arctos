@@ -20,6 +20,19 @@
 			select term,tid from hierarchical_taxonomy where parent_tid = #id#
 		</cfquery>
 		<cfdump var=#d#>
+		<cfset x="[">
+		<cfset i=1>
+		<cfloop query="d">
+			<cfset x=x & '{"id":#tid#,"parent","#id#","text":"#term#","children":true}'>
+			<cfif i lt d.recordcount>
+				<cfset x=x & ",">
+			</cfif>
+			<cfset i=i+1>
+		</cfloop>
+		<cfset x=x & "]">
+
+
+
 	</cfif>
 
 	#x#
