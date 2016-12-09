@@ -234,7 +234,7 @@ UAM@ARCTOS> desc taxon_term
   $('#container').jstree({
     'core' : {
       'data' : {
-        "url" : "/ajax/ttree.cfm",
+        "url" : "/ajax/ttree.cfm?lazy",
         "data" : function (node) {
           return { "id" : node.id };
         }
