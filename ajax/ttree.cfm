@@ -4,7 +4,11 @@
 			select term,tid from hierarchical_taxonomy where parent_tid is null
 		</cfquery>
 	</cfif>
-	<cfset x=serializeJSON(d)>
+	<cfset x="[{">
+	<cfloop query="d">
+		<cfset x=x & '"id":#tid#,"text":"#term#"'>
+	</cfloop>
+	<cfset x=x &}]
 	#x#
 </cfoutput>
 <!----------
