@@ -234,7 +234,7 @@ UAM@ARCTOS> desc taxon_term
 		  $('#container').jstree({
 		    'core' : {
 		      'data' : {
-		        "url" : "/ajax/ttree.cfm?getChild=true",
+		        "url" : "/ajax/ttree.cfm",
 		        "dataType" : "json",
 		        "data" : function (node) {
 		          return { "id" : node.id };
@@ -248,9 +248,9 @@ UAM@ARCTOS> desc taxon_term
 
 		$( "#srchTerm" ).click(function() {
 	console.log('clicky');
-	var newData='[{"id": "animal", "parent": "#", "text": "Animals2"} ]';
+	//var newData='[{"id": "animal", "parent": "#", "text": "Animals2"} ]';
  //$('#container').jstree(true).destroy();
-		$('#container').jstree(true).settings.core.data = newData;
+	//	$('#container').jstree(true).settings.core.data = newData;
     $('#container').jstree(true).refresh();
 
 /*
