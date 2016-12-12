@@ -257,8 +257,9 @@ function doATree(t)
  //$('#container').jstree(true).destroy();
 	//	$('#container').jstree(true).settings.core.data = newData;
    // $('#container').jstree(true).refresh();
+   $('#container').jstree(true).destroy();
    doATree('boogity');
-   $('#container').jstree(true).refresh();
+  // $('#container').jstree(true).refresh();
 
 /*
 		$('#container').jstree(true).settings.core.data = newData;
