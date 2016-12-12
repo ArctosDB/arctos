@@ -230,6 +230,8 @@ UAM@ARCTOS> desc taxon_term
 <script>
 function doATree(t)
 {
+
+	console.log('dt');
 		  $('#container').jstree({
 		    'core' : {
 		      'data' : {
