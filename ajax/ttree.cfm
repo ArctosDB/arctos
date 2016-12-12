@@ -43,7 +43,7 @@ SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid i
 				<!----
 				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
 				---->
-				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","parent": "##"}'>
+				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","parent": "##","children" : true}'>
 				<cfif i lt d.recordcount>
 					<cfset x=x & ",">
 				</cfif>
