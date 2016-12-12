@@ -1,5 +1,3 @@
-[{"id": "animal", "parent": "#", "text": "Animals<cfif isdefined("test")><cfoutput>#test#</cfoutput></cfif>"},{"id": "device", "parent": "#", "text": "Devices"},{"id": "dog", "parent": "animal", "text": "Dogs"} ]
-<!------
 
 <cfoutput>
 	<cfif isdefined('getChild')>
@@ -41,7 +39,9 @@
 		#x#
 	</cfif>
 </cfoutput>
+<!------
 
+[{"id": "animal", "parent": "#", "text": "Animals<cfif isdefined("test")><cfoutput>#test#</cfoutput></cfif>"},{"id": "device", "parent": "#", "text": "Devices"},{"id": "dog", "parent": "animal", "text": "Dogs"} ]
 
 
 -- this works
