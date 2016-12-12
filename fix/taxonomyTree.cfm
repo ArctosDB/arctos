@@ -255,7 +255,8 @@ function doATree(t)
 	//var newData='[{"id": "animal", "parent": "#", "text": "Animals2"} ]';
  //$('#container').jstree(true).destroy();
 	//	$('#container').jstree(true).settings.core.data = newData;
-    $('#container').jstree(true).refresh();
+   // $('#container').jstree(true).refresh();
+   doATree('boogity');
 
 /*
 		$('#container').jstree(true).settings.core.data = newData;
