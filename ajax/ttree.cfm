@@ -1,6 +1,5 @@
 
 <cfoutput>
-	<cfif isdefined('getChild')>
 		<cfset dbid=replace(id,"id_","")>
 		<cfif dbid is "##">
 			<cfquery name="d" datasource="uam_god">
@@ -37,7 +36,6 @@
 		</cfif>
 
 		#x#
-	</cfif>
 </cfoutput>
 <!------
 
