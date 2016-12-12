@@ -250,13 +250,8 @@ UAM@ARCTOS> desc taxon_term
 	console.log('clicky');
 	var newData='[{"id": "animal", "parent": "#", "text": "Animals2"} ]';
  //$('#container').jstree(true).destroy();
-		$('#container').jstree({
-   		 'core': {
-        'data': newData
-   		 }
-		});
-
- $('#container').jstree(true).refresh();
+		$('#container').jstree(true).settings.core.data = newData;
+    $('#container').jstree(true).refresh();
 
 /*
 		$('#container').jstree(true).settings.core.data = newData;
