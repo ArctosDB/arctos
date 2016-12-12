@@ -228,7 +228,7 @@ UAM@ARCTOS> desc taxon_term
 <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/jstree.min.js"></script>
 
 <script>
-function doATree()
+function doATree(t)
 {
 		  $('#container').jstree({
 		    'core' : {
@@ -237,7 +237,7 @@ function doATree()
 		        "dataType" : "json",
 		        "data" : function (node) {
 		          return {
-		          	test: "ttteeessstttt",
+		          	test: t,
 		          	"id" : node.id
 		          };
 		        }
