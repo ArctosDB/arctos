@@ -7,6 +7,19 @@ SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH tid in
 </cfquery>
 <cfdump var=#d#>
 
+<cfset x="[">
+			<cfset i=1>
+			<cfloop query="d">
+				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","parent":"id_#parent_tid#"}'>
+				<cfif i lt d.recordcount>
+					<cfset x=x & ",">
+				</cfif>
+				<cfset i=i+1>
+			</cfloop>
+			<cfset x=x & "]">
+
+
+
 
 
 		<cfelse>
