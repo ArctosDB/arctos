@@ -2,10 +2,12 @@
 <script src="/includes/sorttable.js"></script>
 <cfset title="Locality Statistics">
 <cfoutput>
-	<p>
-		See <a href="/Reports/georef.cfm">/Reports/FunkyData/GeoreferenceStatistics</a>
-		for a summary of georeferencing activity and efficacy by collection.
-	</p>
+	<cfif isdefined("session.roles") and session.roles contains "manage_locality">
+		<p>
+			See <a href="/Reports/georef.cfm">/Reports/FunkyData/GeoreferenceStatistics</a>
+			for a summary of georeferencing activity and efficacy by collection.
+		</p>
+	</cfif>
 	<table border class="sortable" id="t">
 		<tr>
 			<th>Thing</th>
