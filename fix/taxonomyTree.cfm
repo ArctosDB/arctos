@@ -228,8 +228,46 @@ UAM@ARCTOS> desc taxon_term
 <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/jstree.min.js"></script>
 
 <script>
+function doATree()
+{
+		  $('#container').jstree({
+		    'core' : {
+		      'data' : {
+		        "url" : "/ajax/ttree.cfm",
+		        "dataType" : "json",
+		        "data" : function (node) {
+		          return {
+		          	test: "ttteeessstttt",
+		          	"id" : node.id
+		          };
+		        }
+		      }
+		    }
+		  });
+		}
+
 
 	jQuery(document).ready(function() {
+		doATree();
+
+		$( "#srchTerm" ).click(function() {
+	console.log('clicky');
+	//var newData='[{"id": "animal", "parent": "#", "text": "Animals2"} ]';
+ //$('#container').jstree(true).destroy();
+	//	$('#container').jstree(true).settings.core.data = newData;
+    $('#container').jstree(true).refresh();
+
+/*
+		$('#container').jstree(true).settings.core.data = newData;
+
+		console.log('redataed');
+
+		$('#container').jstree(true).refresh();
+
+		console.log('refreshed');
+
+
+
 		$(function() {
 		  $('#container').jstree({
 		    'core' : {
@@ -249,21 +287,8 @@ UAM@ARCTOS> desc taxon_term
 
 
 
-		$( "#srchTerm" ).click(function() {
-	console.log('clicky');
-	//var newData='[{"id": "animal", "parent": "#", "text": "Animals2"} ]';
- //$('#container').jstree(true).destroy();
-	//	$('#container').jstree(true).settings.core.data = newData;
-    $('#container').jstree(true).refresh();
 
-/*
-		$('#container').jstree(true).settings.core.data = newData;
 
-		console.log('redataed');
-
-		$('#container').jstree(true).refresh();
-
-		console.log('refreshed');
 		*/
 });
 
