@@ -97,7 +97,8 @@
 		</cfquery>
 		<cfif isdefined("Application.version") and  Application.version is "prod">
 			<cfset subj="Arctos Encumbrance Notification">
-			<cfset maddr=valuelist(mt.collection_contact_email)>
+			<cfset maddr=Application.logEmail>
+			<cfset maddr=listappend(maddr,valuelist(mt.collection_contact_email))>
 		<cfelse>
 			<cfset maddr=application.bugreportemail>
 			<cfset subj="TEST PLEASE IGNORE: Arctos Encumbrance Notification">
@@ -233,7 +234,8 @@
 		</cfquery>
 		<cfif isdefined("Application.version") and  Application.version is "prod">
 			<cfset subj="Arctos Loan Notification">
-			<cfset maddr=valuelist(mailToAgentAddrs.address)>
+			<cfset maddr=Application.logEmail>
+			<cfset maddr=listappend(maddr,valuelist(mailToAgentAddrs.address))>
 		<cfelse>
 			<cfset maddr=application.bugreportemail>
 			<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
@@ -278,7 +280,10 @@
 		nopecount number,
 		checkdate date
 	);
-	---->
+
+
+	disabling this; https://goo.gl/T2NTqO
+
 
 	<cfquery name="dailyrefresh" datasource="uam_god">
 		insert into cf_doi_report (publication_type,hascount,nopecount,checkdate) (
@@ -321,6 +326,8 @@
 			See ScheduledTasks.cfm to stop this report of get the SQL.
 		</p>
 	</cfmail>
+
+	---->
 	<!---- /slip a DOI report in here for now.... ---->
 
 
@@ -348,7 +355,8 @@
 		<cfloop query="permit">
 			<cfif isdefined("Application.version") and  Application.version is "prod">
 				<cfset subj="Expiring Permits">
-				<cfset maddr=permit.ADDRESS>
+				<cfset maddr=Application.logEmail>
+				<cfset maddr=listappend(maddr,permit.ADDRESS)>
 				<cfset ft="">
 			<cfelse>
 				<cfset maddr=application.bugreportemail>
@@ -424,7 +432,9 @@
 					#emailFooter#
 				</cfsavecontent>
 				<cfif isdefined("Application.version") and  Application.version is "prod">
-					<cfset maddr=valuelist(contact.ADDRESS)>
+
+					<cfset maddr=Application.logEmail>
+					<cfset maddr=listappend(maddr,valuelist(contact.ADDRESS))>
 					<cfset subj="Bare Accession">
 				<cfelse>
 					<cfset maddr=application.bugreportemail>
@@ -490,7 +500,8 @@
 				</cfsavecontent>
 				<cfif isdefined("Application.version") and  Application.version is "prod">
 					<cfset subj="Reciprocal Relationship Notification">
-					<cfset maddr=valuelist(contacts.address)>
+					<cfset maddr=Application.logEmail>
+					<cfset maddr=listappend(maddr,valuelist(contacts.address))>
 				<cfelse>
 					<cfset maddr=application.bugreportemail>
 					<cfset subj="TEST PLEASE IGNORE: Reciprocal Relationship Notification">
