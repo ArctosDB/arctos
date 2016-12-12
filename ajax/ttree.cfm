@@ -5,7 +5,6 @@
 			<cfquery name="d" datasource="uam_god">
 SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid in (select tid from hierarchical_taxonomy where term like '#q#%')  CONNECT BY PRIOR parent_tid=tid
 </cfquery>
-<cfdump var=#d#>
 
 <cfset x="[">
 			<cfset i=1>
