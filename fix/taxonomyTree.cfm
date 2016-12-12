@@ -259,13 +259,14 @@ function doATree(t)
 	//	$('#container').jstree(true).settings.core.data = newData;
    // $('#container').jstree(true).refresh();
    doATree('boogity');
+   $('#container').jstree(true).refresh();
 
 /*
 		$('#container').jstree(true).settings.core.data = newData;
 
 		console.log('redataed');
 
-		$('#container').jstree(true).refresh();
+
 
 		console.log('refreshed');
 
