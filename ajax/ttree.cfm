@@ -1,4 +1,4 @@
-[{"id": "animal", "parent": "#", "text": "Animals"},{"id": "device", "parent": "#", "text": "Devices"},{"id": "dog", "parent": "animal", "text": "Dogs"} ]
+[{"id": "animal", "parent": "#", "text": "Animals<cfif isdefined("test")><cfoutput>#test#</cfoutput></cfif>"},{"id": "device", "parent": "#", "text": "Devices"},{"id": "dog", "parent": "animal", "text": "Dogs"} ]
 <!------
 
 <cfoutput>
