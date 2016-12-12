@@ -228,14 +228,14 @@ UAM@ARCTOS> desc taxon_term
 <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/jstree.min.js"></script>
 
 <script>
-function doATree(t)
+function doATree(q)
 {
 
-	console.log('dt; t=' + t);
+	console.log('dt; q=' + q);
 		  $('#container').jstree({
 		    'core' : {
 		      'data' : {
-		        "url" : "/ajax/ttree.cfm?test=" + t,
+		        "url" : "/ajax/ttree.cfm?q=" + q,
 		        "dataType" : "json",
 		        "data" : function (node) {
 		          return {
@@ -249,7 +249,7 @@ function doATree(t)
 
 
 	jQuery(document).ready(function() {
-		doATree();
+		doATree('');
 
 		$( "#srchTerm" ).click(function() {
 	console.log('clicky');
@@ -258,7 +258,7 @@ function doATree(t)
 	//	$('#container').jstree(true).settings.core.data = newData;
    // $('#container').jstree(true).refresh();
    $('#container').jstree(true).destroy();
-   doATree('boogity');
+   doATree($("#term").val());
   // $('#container').jstree(true).refresh();
 
 /*
