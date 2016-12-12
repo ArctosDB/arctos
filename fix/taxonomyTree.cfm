@@ -244,15 +244,21 @@ UAM@ARCTOS> desc taxon_term
 		  });
 		});
 
-	});
 
-$( "#srchTerm" ).click(function() {
+
+		$( "#srchTerm" ).click(function() {
 	console.log('clicky');
 	var newData='[{"id": "animal", "parent": "#", "text": "Animals"},{"id": "device", "parent": "#", "text": "Devices"},{"id": "dog", "parent": "animal", "text": "Dogs"} ]';
 
 		$('#container').jstree(true).settings.core.data = newData;
 		$('#container').jstree(true).refresh();
 });
+
+
+
+	});
+
+
 
 </script>
 
