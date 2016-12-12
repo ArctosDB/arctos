@@ -1,41 +1,43 @@
 
 <cfoutput>
-	<cfset dbid=replace(id,"id_","")>
-	<cfif dbid is "##">
-		<cfquery name="d" datasource="uam_god">
-			select term,tid,rank from hierarchical_taxonomy where parent_tid is null
-		</cfquery>
-		<cfset x="[">
-		<cfset i=1>
-		<cfloop query="d">
-			<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
-			<cfif i lt d.recordcount>
-				<cfset x=x & ",">
-			</cfif>
-			<cfset i=i+1>
-		</cfloop>
-		<cfset x=x & "]">
-	<cfelse>
-		<!---- get children of the passed-in node ---->
-		<cfquery name="d" datasource="uam_god">
-			select term,tid,rank from hierarchical_taxonomy where parent_tid = #dbid#
-		</cfquery>
-		<cfset x="[">
-		<cfset i=1>
-		<cfloop query="d">
-			<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","state": "closed","children":true}'>
-			<cfif i lt d.recordcount>
-				<cfset x=x & ",">
-			</cfif>
-			<cfset i=i+1>
-		</cfloop>
-		<cfset x=x & "]">
+	<cfif isdefined('getChild')>
+		<cfset dbid=replace(id,"id_","")>
+		<cfif dbid is "##">
+			<cfquery name="d" datasource="uam_god">
+				select term,tid,rank from hierarchical_taxonomy where parent_tid is null
+			</cfquery>
+			<cfset x="[">
+			<cfset i=1>
+			<cfloop query="d">
+				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
+				<cfif i lt d.recordcount>
+					<cfset x=x & ",">
+				</cfif>
+				<cfset i=i+1>
+			</cfloop>
+			<cfset x=x & "]">
+		<cfelse>
+			<!---- get children of the passed-in node ---->
+			<cfquery name="d" datasource="uam_god">
+				select term,tid,rank from hierarchical_taxonomy where parent_tid = #dbid#
+			</cfquery>
+			<cfset x="[">
+			<cfset i=1>
+			<cfloop query="d">
+				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","state": "closed","children":true}'>
+				<cfif i lt d.recordcount>
+					<cfset x=x & ",">
+				</cfif>
+				<cfset i=i+1>
+			</cfloop>
+			<cfset x=x & "]">
 
 
 
+		</cfif>
+
+		#x#
 	</cfif>
-
-	#x#
 </cfoutput>
 
 

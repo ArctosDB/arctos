@@ -234,7 +234,7 @@ UAM@ARCTOS> desc taxon_term
 		  $('#container').jstree({
 		    'core' : {
 		      'data' : {
-		        "url" : "/ajax/ttree.cfm",
+		        "url" : "/ajax/ttree.cfm?getChild=true",
 		        "dataType" : "json",
 		        "data" : function (node) {
 		          return { "id" : node.id };
@@ -243,6 +243,10 @@ UAM@ARCTOS> desc taxon_term
 		    }
 		  });
 		});
+		$( "#srchTerm" ).click(function() {
+		  alert( "Handler for .click() called." );
+		});
+
 	});
 
 
@@ -257,6 +261,9 @@ UAM@ARCTOS> desc taxon_term
 });
 
 ----->
+<label for="term">Search</label>
+<input name="term" id="term" placeholder="search">
+<input type="button" value='go' id="srchTerm">
 doubleclick
 <div id="container">
 </div>
