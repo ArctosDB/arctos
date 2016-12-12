@@ -255,8 +255,10 @@ UAM@ARCTOS> desc taxon_term
         'data': newData
     }
 
-    $('#container').jstree(true).refresh();
+
 });
+
+ $('#container').jstree(true).refresh();
 
 /*
 		$('#container').jstree(true).settings.core.data = newData;
