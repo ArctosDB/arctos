@@ -249,14 +249,12 @@ UAM@ARCTOS> desc taxon_term
 		$( "#srchTerm" ).click(function() {
 	console.log('clicky');
 	var newData='[{"id": "animal", "parent": "#", "text": "Animals2"} ]';
-
+ $('#container').jstree(true).destroy();
 		$('#container').jstree({
-    'core': {
+   		 'core': {
         'data': newData
-    }
-
-
-});
+   		 }
+		});
 
  $('#container').jstree(true).refresh();
 
