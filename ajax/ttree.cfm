@@ -40,6 +40,7 @@ SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid i
 			<cfset x="[">
 			<cfset i=1>
 			<cfloop query="d">
+
 				<!----
 				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
 				---->
@@ -54,12 +55,21 @@ SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid i
 		<cfelse>
 			<!---- get children of the passed-in node ---->
 			<cfquery name="d" datasource="uam_god">
-				select term,tid,rank from hierarchical_taxonomy where parent_tid = #dbid#
+				select term,tid,parent_tid, rank from hierarchical_taxonomy where parent_tid = #dbid#
 			</cfquery>
 			<cfset x="[">
 			<cfset i=1>
 			<cfloop query="d">
+				<cfif len(parent_tid) is 0>
+					<cfset p='##'>
+				<cfelse>
+					<cfset p='id_#parent_tid#'>
+				</cfif>
+				<!----
 				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","state": "closed","children":true}'>
+				---->
+				<cfset x=x & '{"id":"id_#tid#","parent": "#p#", "text":"#term# (#rank#)","state": "closed","children":true}'>
+
 				<cfif i lt d.recordcount>
 					<cfset x=x & ",">
 				</cfif>
