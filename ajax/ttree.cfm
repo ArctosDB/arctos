@@ -3,7 +3,7 @@
 		<cfif isdefined("q") and len(q) gt 0>
 			<!--- run a query ---->
 			<cfquery name="d" datasource="uam_god">
-SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid in (select tid from hierarchical_taxonomy where term like '#q#%')  CONNECT BY PRIOR parent_tid=tid
+SELECT TID,nvl(PARENT_TID,'#'),TERM, rank   FROM hierarchical_taxonomy   START WITH tid in (select tid from hierarchical_taxonomy where term like '#q#%')  CONNECT BY PRIOR parent_tid=tid
 </cfquery>
 
 <cfset x="[">
