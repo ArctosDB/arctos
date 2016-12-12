@@ -251,7 +251,12 @@ UAM@ARCTOS> desc taxon_term
 	var newData='[{"id": "animal", "parent": "#", "text": "Animals"},{"id": "device", "parent": "#", "text": "Devices"},{"id": "dog", "parent": "animal", "text": "Dogs"} ]';
 
 		$('#container').jstree(true).settings.core.data = newData;
+
+		console.log('redataed');
+
 		$('#container').jstree(true).refresh();
+
+		console.log('refreshed');
 });
 
 
