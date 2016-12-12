@@ -1,4 +1,20 @@
-
+[
+                    {"id": "animal", "parent": "#", "text": "Animals"},
+                    {"id": "device", "parent": "#", "text": "Devices"},
+                    {"id": "dog", "parent": "animal", "text": "Dogs"},
+                    {"id": "lion", "parent": "animal", "text": "Lions"},
+                    {"id": "mobile", "parent": "device", "text": "Mobile Phones"},
+                    {"id": "lappy", "parent": "device", "text": "Laptops"},
+                    {"id": "daburman", "parent": "dog", "text": "Dabur Man", "icon": "/"},
+                    {"id": "dalmatian", "parent": "dog", "text": "Dalmatian", "icon": "/"},
+                    {"id": "african", "parent": "lion", "text": "African Lion", "icon": "/"},
+                    {"id": "indian", "parent": "lion", "text": "Indian Lion", "icon": "/"},
+                    {"id": "apple", "parent": "mobile", "text": "Apple IPhone 6", "icon": "/"},
+                    {"id": "samsung", "parent": "mobile", "text": "Samsung Note II", "icon": "/"},
+                    {"id": "lenevo", "parent": "lappy", "text": "Lenevo", "icon": "/"},
+                    {"id": "hp", "parent": "lappy", "text": "HP", "icon": "/"}
+                ]
+				<!----
 <cfoutput>
 	<cfif isdefined('getChild')>
 		<cfset dbid=replace(id,"id_","")>
@@ -40,7 +56,7 @@
 	</cfif>
 </cfoutput>
 
-
+---->
 <!----------
 
 "id":"id_#tid#",
