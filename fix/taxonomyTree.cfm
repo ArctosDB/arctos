@@ -254,6 +254,8 @@ UAM@ARCTOS> desc taxon_term
     'core': {
         'data': newData
     }
+
+    $('#container').jstree(true).refresh();
 });
 
 /*
