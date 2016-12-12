@@ -250,15 +250,7 @@ UAM@ARCTOS> desc taxon_term
 
 </script>
 
-<!-----
-
-
-		$(function() {
-  $('#container').jstree({
-    'core' : {
-      'data' : {
-        "url" : "/ajax/ttree.cfm",
-        "dataType" : "json" // needed only if you do not supply JSON headers
+<!-----                               "dataType" : "json" // needed only if you do not supply JSON headers
       }
     }
   });

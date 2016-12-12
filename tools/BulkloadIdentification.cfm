@@ -63,7 +63,7 @@ sho err
 		<li style="color:red">nature_of_id</li>
 		<li style="color:red">accepted_fg (0 [no] or 1 [yes])</li>
 		<li>identification_remarks</li>
-		<li style="color:red">agent_1</li>
+		<li >agent_1</li>
 		<li>agent_2</li>
 	</ul>
 	<cfform name="oids" method="post" enctype="multipart/form-data">
@@ -134,8 +134,7 @@ sho err
 			guid_prefix is null or
 			scientific_name is null or
 			nature_of_id is null or
-			accepted_fg is null or
-			agent_1 is null
+			accepted_fg is null
 		</cfquery>
 		<cfquery name="noid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	        update cf_temp_id set status='invalid nature_of_id' where nature_of_id not in (select nature_of_id from ctnature_of_id) and
@@ -150,7 +149,9 @@ sho err
 			  cf_temp_id
 			set
 			  AGENT_1_ID=getAgentId(agent_1)
-		   where status is null
+		   where
+		   	status is null and
+		   	agent_1 is not null
 	    </cfquery>
 		<cfquery name="AGENT_2_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	        update
@@ -164,7 +165,7 @@ sho err
 	        update
 	          cf_temp_id
 	        set
-	          status='agent_1 not found' where AGENT_1_ID is null and status is null
+	          status='agent_1 not found' where agent_1 is not null and AGENT_1_ID is null and status is null
 	    </cfquery>
 		<cfquery name="AGENT_2_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	        update
@@ -280,11 +281,11 @@ sho err
 <script src="/includes/sorttable.js"></script>
 <cfoutput>
 
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select * from cf_temp_id order by status,
-            other_id_type,
-            other_id_number
-    </cfquery>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	        select * from cf_temp_id order by status,
+	            other_id_type,
+	            other_id_number
+	    </cfquery>
 
         <cfquery name="isProb" dbtype="query">
             select count(*) c from d where status != 'valid' and status != 'loaded'
@@ -336,7 +337,7 @@ sho err
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "loadData">
+<cfif action is "loadData">
 <cfoutput>
 	<p>
 	   data are loading
@@ -394,17 +395,19 @@ sho err
 				'A'
 			)
 		</cfquery>
-		<cfquery name="insertida1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into identification_agent (
-				IDENTIFICATION_ID,
-				AGENT_ID,
-				IDENTIFIER_ORDER
-			) values (
-				sq_identification_id.currval,
-				#agent_1_id#,
-				1
-			)
-		</cfquery>
+		<cfif len(agent_1_id) gt 0>
+			<cfquery name="insertida1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into identification_agent (
+					IDENTIFICATION_ID,
+					AGENT_ID,
+					IDENTIFIER_ORDER
+				) values (
+					sq_identification_id.currval,
+					#agent_1_id#,
+					1
+				)
+			</cfquery>
+		</cfif>
 		<cfif len(agent_2_id) gt 0>
 			<cfquery name="insertida1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into identification_agent (
