@@ -244,8 +244,7 @@ UAM@ARCTOS> desc taxon_term
 		  });
 		});
 		$( "#srchTerm" ).click(function() {
-		  alert( "Handler for .click() called." );
-		  $(function() {
+		 // alert( "Handler for .click() called." );
 		  $('#container').jstree({
 		    'core' : {
 		      'data' : {
@@ -257,7 +256,6 @@ UAM@ARCTOS> desc taxon_term
 		      }
 		    }
 		  });
-		});
 		});
 
 	});
