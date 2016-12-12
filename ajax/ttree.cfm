@@ -1,3 +1,6 @@
+[{"id": "animal", "parent": "#", "text": "Animals"},{"id": "device", "parent": "#", "text": "Devices"},{"id": "dog", "parent": "animal", "text": "Dogs"} ]
+<!------
+
 <cfoutput>
 	<cfif isdefined('getChild')>
 		<cfset dbid=replace(id,"id_","")>
@@ -40,7 +43,6 @@
 </cfoutput>
 
 
-<!------
 
 -- this works
 [
