@@ -237,7 +237,10 @@ UAM@ARCTOS> desc taxon_term
 		        "url" : "/ajax/ttree.cfm",
 		        "dataType" : "json",
 		        "data" : function (node) {
-		          return { "id" : node.id };
+		          return {
+		          	test: "ttteeessstttt",
+		          	"id" : node.id
+		          };
 		        }
 		      }
 		    }
