@@ -245,6 +245,19 @@ UAM@ARCTOS> desc taxon_term
 		});
 		$( "#srchTerm" ).click(function() {
 		  alert( "Handler for .click() called." );
+		  $(function() {
+		  $('#container').jstree({
+		    'core' : {
+		      'data' : {
+		        "url" : "/ajax/ttree.cfm?srch=true",
+		        "dataType" : "json",
+		        "data" : function (node) {
+		          return { "t" : $( "#srchTerm" ).val() };
+		        }
+		      }
+		    }
+		  });
+		});
 		});
 
 	});
