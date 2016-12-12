@@ -1,6 +1,21 @@
 
 <cfoutput>
-		<cfset dbid=replace(id,"id_","")>
+		<cfif isdefined("q") and len(q) gt 0>
+			<!--- run a query ---->
+			<cfquery name="d" datasource="uam_god">
+SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH tid in (select tid from hierarchical_taxonomy where term like '#q#%')  CONNECT BY PRIOR parent_tid=tid
+</cfquery>
+<cfdump var=#d#>
+
+
+
+		<cfelse>
+			<!--- initial load, or..... ---->
+			<cfset dbid=replace(id,"id_","")>
+
+
+
+
 		<cfif dbid is "##">
 			<cfquery name="d" datasource="uam_god">
 				select term,tid,rank from hierarchical_taxonomy where parent_tid is null
@@ -15,6 +30,7 @@
 				<cfset i=i+1>
 			</cfloop>
 			<cfset x=x & "]">
+			<!--- getting children of  anode ---->
 		<cfelse>
 			<!---- get children of the passed-in node ---->
 			<cfquery name="d" datasource="uam_god">
@@ -34,6 +50,7 @@
 
 
 		</cfif>
+			</cfif>
 
 		#x#
 </cfoutput>

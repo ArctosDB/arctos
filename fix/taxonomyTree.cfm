@@ -166,6 +166,28 @@
 
 SELECT  LPAD(' ', 2 * LEVEL - 1) || term   FROM hierarchical_taxonomy   START WITH parent_tid is null  CONNECT BY PRIOR tid = parent_tid;
 
+SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH parent_tid is null  CONNECT BY PRIOR tid = parent_tid;
+
+
+SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH tid=82796159  CONNECT BY PRIOR parent_tid=tid ;
+
+SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH tid in (select tid from hierarchical_taxonomy where term like 'Latia%')  CONNECT BY PRIOR parent_tid=tid ;
+
+
+select term from hierarchical_taxonomy where term like 'Latia%'
+
+
+	start with container_id IN (
+					#sql#
+				)
+				connect by prior parent_container_id = container_id
+				
+				
+				
+				
+ TID								   NOT NULL NUMBER
+ PARENT_TID								    NUMBER
+ TERM			
 
 
 
