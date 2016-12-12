@@ -235,11 +235,10 @@ function doATree(t)
 		  $('#container').jstree({
 		    'core' : {
 		      'data' : {
-		        "url" : "/ajax/ttree.cfm",
+		        "url" : "/ajax/ttree.cfm?test=" + t,
 		        "dataType" : "json",
 		        "data" : function (node) {
 		          return {
-		          	test: t,
 		          	"id" : node.id
 		          };
 		        }
