@@ -426,10 +426,7 @@ sho err
 		</cfquery>
 		</cftransaction>
 	</cfloop>
-
     <p>If you're seeing this, it's probably done - but check the table</p>
-
 </cfoutput>
 </cfif>
-
 <cfinclude template="/includes/_footer.cfm">
