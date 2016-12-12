@@ -243,7 +243,17 @@ UAM@ARCTOS> desc taxon_term
 		    }
 		  });
 		});
-		$( "#srchTerm" ).click(function() {
+
+	});
+
+
+
+
+</script>
+
+<!-----
+
+$( "#srchTerm" ).click(function() {
 		 // alert( "Handler for .click() called." );
 		 $(function() {
 		  $('#container').jstree({
@@ -258,16 +268,11 @@ UAM@ARCTOS> desc taxon_term
 		    }
 		  });
 		});
-		});
-
-	});
 
 
 
 
-</script>
-
-<!-----                               "dataType" : "json" // needed only if you do not supply JSON headers
+                           "dataType" : "json" // needed only if you do not supply JSON headers
       }
     }
   });
