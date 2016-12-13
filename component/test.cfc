@@ -39,10 +39,7 @@
 		<cfquery name="dc0" datasource="uam_god">
 			select distinct nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where upper(term) like '#ucase(q)#%'
 		</cfquery>
-		<p>
-			init query:
-		</p>
-		<cfdump var=#dc0#>
+
 		<!---- copy init query---->
 		<cfquery name="rsltQry" dbtype="query">
 			select * from dc0
@@ -51,33 +48,20 @@
 		<cfset thisIds=valuelist(dc0.parent_tid)>
 		<cfloop from="1" to="100" index="i">
 			<!---find next parent--->
-			<!----
-			<cfset thisIds=evaluate("valuelist(dc" & lastint & ".tid")>
-			---->
-
-			<p>
-				thisIds: #thisIds#
-			</p>
 			<cfquery name="q" datasource="uam_god">
 				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
 			</cfquery>
 			<!--- next loop --->
 			<cfif q.recordcount is 0>
-				<br>no more data
 				<cfbreak>
-
-
 			</cfif>
-			<cfdump var=#q#>
 			<cfset thisIds=valuelist(q.parent_tid)>
 			<cfloop query="q">
 				<!--- don't insert if we already have it ---->
 				<cfquery dbtype="query" name="alreadyGotOne">
 					select count(*) c from rsltQry where tid=#tid#
 				</cfquery>
-				<cfdump var=#alreadyGotOne#>
 				<cfif not alreadyGotONe.c gt 0>
-				<br>add a row....
 					<!--- insert ---->
 					<cfset queryaddrow(rsltQry,{
 						tid=q.tid,
@@ -90,10 +74,7 @@
 
 		</cfloop>
 
-		<p>
-			final result
-		</p>
-		<cfdump var=#rsltQry#>
+		<cfreturn rsltQry>
 
 <!-------------
 	<cfquery name="d" datasource="uam_god">
