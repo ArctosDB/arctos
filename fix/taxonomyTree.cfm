@@ -12,6 +12,8 @@
 		myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
 		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
 		myTree.enableDragAndDrop(true);
+		myTree.attachEvent("onDblClick","expandNode")
+
 		$.getJSON("/component/test.cfc",
 			{
 				method : "getInitTaxTree",
@@ -25,7 +27,10 @@
 		);
 	});
 
-
+function expandNode(id){
+	console.log('expand ' + id);
+	}
+//tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
 
 </script>
 
