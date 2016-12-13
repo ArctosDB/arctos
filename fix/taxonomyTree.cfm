@@ -61,6 +61,7 @@
 
 
 	function initTree(){
+		myTree.deleteChildItems(0);
 		$.getJSON("/component/test.cfc",
 			{
 				method : "getInitTaxTree",
