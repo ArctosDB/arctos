@@ -26,7 +26,7 @@ SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid i
 <cfset x='
 [
 
-	{"id":"id_82783984","text":"Eukaryota (superkingdom)","parent":"#"},
+	{"id":"id_82783984","text":"Eukaryota (superkingdom)","parent":"##"},
 	{"id":"id_82783985","text":"Metazoa (kingdom)","parent":"id_82783984"},
 	{"id":"id_82783986","text":"Mollusca (phylum)","parent":"id_82783985"},
 	{"id":"id_82783987","text":"Gastropoda (class)","parent":"id_82783986"},
