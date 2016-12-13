@@ -61,6 +61,7 @@
 			<cfquery name="dc#i#" datasource="uam_god">
 				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
 			</cfquery>
+			<cfdump var=#dc#i##>
 
 			#i#
 		</cfloop>
