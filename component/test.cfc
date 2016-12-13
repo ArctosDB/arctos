@@ -76,7 +76,7 @@
 					select count(*) c from rsltQry where tid=#tid#
 				</cfquery>
 				<cfdump var=#alreadyGotOne#>
-				<cfif alreadyGotONe.c is 0>
+				<cfif not alreadyGotONe.c gt 0>
 				<br>add a row....
 					<!--- insert ---->
 					<cfset queryaddrow(rsltQry,{
