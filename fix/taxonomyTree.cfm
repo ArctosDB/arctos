@@ -28,6 +28,7 @@
 				function (r) {
 					for (i=0;i<r.ROWCOUNT;i++) {
 						var d='"' + r.DATA.PARENT_TID + '","' +	r.DATA.TID + '","' + r.DATA.TERM + '",0,0,0,0';
+						console.log(d);
 						myTree.insertNewChild(d);
 					}
 					console.log(r);
