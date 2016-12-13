@@ -43,7 +43,7 @@
 			<tr>
 				<td>
 					<label for="project_name" class="likeLink" onClick="getDocs('project','title')">
-						Project Title (say something useful, not just "My favorite species {buzzword of the week}.")
+						Project Title (be descriptive!)
 					</label>
 					<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr"></textarea>
 				</td>
@@ -59,9 +59,11 @@
 				<input type="text" name="start_date" id="start_date">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date">
-				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">
-					Description Include what, why, how, who cares. Be <i>descriptive</i>.
-					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
+				<label for="end_date">
+					<span  class="likeLink" onClick="getDocs('project','description')">Description</span>
+					<br>Include what, why, how, who cares. Be <i>descriptive</i>.
+					<br><span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
+					<br>Markdown syntax OK; create and edit for more information.
 				</label>
 				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)"></textarea>
 				<label for="project_remarks">Remarks</label>
@@ -125,8 +127,40 @@
 		jQuery(document).ready(function() {
 			countChar($("#project_description").val());
 		});
+		function disableMarkdown(){
+			var txt=$("#project_description").val();
+			txt='<nomd>\n'  + txt + '\n</nomd>';
+			$("#project_description").val(txt);
+		}
+		function enableMarkdown(){
+			var txt=$("#project_description").val();
+			txt=txt.replace(/<nomd>\n/g,"");
+			txt=txt.replace(/\n<\/nomd>/g,"");
+			$("#project_description").val(txt);
+		}
+		function editMD (eid) {
+			var guts = "/info/mdeditor.cfm?eid=" + eid;
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'center'],
+				title: 'Edit MarkDown',
+					width:1200,
+		 			height:800,
+				close: function() {
+					$( this ).remove();
+				}
+			}).width(1200-10).height(800-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+		}
 	</script>
-
 
 	<cfoutput>
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
@@ -292,9 +326,51 @@
 						</td>
 					</tr>
 				</table>
-				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Description
-					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span></label>
-				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
+				<label for="project_description" >
+					<div class="likeLink" onClick="getDocs('project','description')">Description</div>
+					<div id="chrcnt" class="redBorder">A minimum of 100 characters is to show up in search.</div>
+
+				</label>
+				<table>
+					<tr>
+						<td valign="top">
+							<textarea name="project_description" id="project_description" cols="120" rows="20"
+								onkeyup="countChar(this.value)">#proj.project_description#</textarea>
+						</td>
+						<td valign="top">
+							<div>
+								<a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="external">
+									Github-flavored Markdown
+								</a>
+								is supported through the
+								<a href="https://github.com/showdownjs/showdown" target="_blank" class="external">
+									Showdown Library
+								</a>
+								; an instructive
+								<a href="http://showdownjs.github.io/demo/" target="_blank" class="external">
+									demo/editor
+								</a>
+								is available.
+							</div>
+							<div>
+								<span class="likeLink" onclick="disableMarkdown()">
+									Wrap project description in &lt;nomd&gt; tags to disable rendering to markdown
+								</span>
+								or
+								<span class="likeLink" onclick="enableMarkdown()">
+									click here to attempt removal
+								</span>
+								.
+							</div>
+							<div>Regular HTML should render properly as well, and can be mixed with markdown.</div>
+							<div>Save and click "detail page" above to confirm your mark up/down; check results carefully!</div>
+							<div>
+								A <span class="likeLink" onclick="editMD('project_description');">Markdown Editor/Preview</span>
+								is available.
+							</div>
+						</td>
+					</tr>
+				</table>
 				<label for="project_remarks">Remarks</label>
 				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3">#proj.project_remarks#</textarea>
 				<a name="agent"></a>
@@ -403,6 +479,7 @@
 				-not deleteable-
 			</cfif>
 		</form>
+
 		<p>
 			<a href="Project.cfm?action=getCSV&project_id=#project_id#">download summary</a>
 		</p>
@@ -489,7 +566,6 @@
 			</p>
 		</cfoutput>
 </cfif>
-
 
 <!------------------------------------------------------------------------------------------->
 <cfif action is "save">
