@@ -360,12 +360,9 @@ function doATree(q)
 		    }
 		  });
 
-
-
-  var tree = $("#container");
-		    tree.bind("refresh.jstree", function (event, data) {
-        data.instance.open_all();
-    });
+$("#container").bind("select_node.jstree", function (e, data) {
+    return data.instance.toggle_node(data.node);
+});
 
 
 		}
