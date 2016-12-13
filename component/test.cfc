@@ -49,7 +49,7 @@
 		</cfquery>
 		<!--- this will die if we ever get more than 100-deep ---->
 		<cfset thisIds=valuelist(dc0.parent_tid)>
-		<cfloop from="1" to="3" index="i">
+		<cfloop from="1" to="100" index="i">
 			<!---find next parent--->
 			<!----
 			<cfset thisIds=evaluate("valuelist(dc" & lastint & ".tid")>
@@ -75,6 +75,7 @@
 				<cfquery dbtype="query" name="alreadyGotOne">
 					select count(*) c from r where tid=#tid#
 				</cfquery>
+				<br>add a row....
 				<cfif alreadyGotONe.c is 0>
 					<!--- insert ---->
 					<cfset queryaddrow(r,{
