@@ -60,7 +60,7 @@
 	});
 
 
-	function init(){
+	function initTree(){
 		$.getJSON("/component/test.cfc",
 			{
 				method : "getInitTaxTree",
@@ -81,7 +81,7 @@
 <label for="srch">search (starts with)</label>
 <input id="srch">
 <br>
-<input type="button" value="reset" onclick="init()">
+<input type="button" value="reset" onclick="initTree()">
 
 
 <div id="treeBox" style="width:200;height:200"></div>
