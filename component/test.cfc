@@ -5,8 +5,6 @@
 	<cfquery name="d" datasource="uam_god">
 		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
 	</cfquery>
-
-	<cf
 	<cfset x="[">
 	<cfset i=1>
 	<cfloop query="d">
