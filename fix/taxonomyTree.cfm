@@ -16,6 +16,8 @@
 		myTree.attachEvent("onDblClick", function(id){
 		    // your code here
 		    console.log('expand ' + id);
+
+		    /*
 		    $.getJSON("/component/test.cfc",
 				{
 					method : "getTaxTreeChild",
@@ -28,6 +30,10 @@
 
 				}
 			);
+
+			*/
+
+			myTree.insertNewChild("82783975","82783976","Animalia",0,0,0,0);
 		});
 
 
