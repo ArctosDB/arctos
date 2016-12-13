@@ -36,7 +36,11 @@
 
 		myTree.attachEvent("onCheck", function(id){
 		    alert('this should edit ' + id);
-		});
+		    // uncheck everything
+		    var ids=myTree.getAllSubItems(0).split(",");
+    		for (var i=0; i<ids.length; i++)
+       			myTree.setCheck(ids[i],0);
+			});
 
 
 
