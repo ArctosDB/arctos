@@ -1,9 +1,35 @@
 
 <cfoutput>
+
+
+	<cfquery name="d" datasource="uam_god">
+		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
+	</cfquery>
+	<cfset x="[">
+	<cfset i=1>
+	<cfloop query="d">
+
+		<!----
+		<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
+		---->
+		<cfset x=x & '["#tid#","#parent_tid#","#rank#"]'>
+		<cfif i lt d.recordcount>
+			<cfset x=x & ",">
+		</cfif>
+		<cfset i=i+1>
+	</cfloop>
+	<cfset x=x & "]">
+
+		#x#
+	</cfoutput>
+	<!-----------------
+			myTree.parse([[1,0,"1111"], [2,0,"2222"], [3,0,"3333"], [4,2,"child"]], "jsarray");
+
+
 		<cfif isdefined("q") and len(q) gt 0>
 			<!--- run a query ---->
 			<cfquery name="d" datasource="uam_god">
-				SELECT 
+				SELECT
 					SYS_CONNECT_BY_PATH(tid || '\' || parent_tid || '\' || TERM || ' (' || rank || ')','|')  pth
 				FROM
 					hierarchical_taxonomy
@@ -16,14 +42,14 @@
 			<cfloop query="d">
 				<cfset x=x & '{'>
 				<cfloop list="#pth#" index="i" delimiters="|">
-					
+
 				</cfloop>
 			</cfloop>
 
 <!----
  || ' (' || rank || ')'
 			<cfquery name="d" datasource="uam_god">
-				
+
 SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid in (select tid from hierarchical_taxonomy where term like '#q#%')  CONNECT BY PRIOR parent_tid=tid
 </cfquery>
 
@@ -116,6 +142,9 @@ SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid i
 
 		#x#
 </cfoutput>
+
+
+------------>
 <!------
 
 [{"id": "animal", "parent": "#", "text": "Animals<cfif isdefined("test")><cfoutput>#test#</cfoutput></cfif>"},{"id": "device", "parent": "#", "text": "Devices"},{"id": "dog", "parent": "animal", "text": "Dogs"} ]
