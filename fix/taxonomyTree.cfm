@@ -2,8 +2,8 @@
 
 
 <script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
-<script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
-<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
+<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
+<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
 
 <script>
 
