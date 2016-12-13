@@ -37,7 +37,7 @@
 	<cfoutput>
 		<!---- first get the terms that match our search ---->
 		<cfquery name="dc0" datasource="uam_god">
-			select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where upper(term) like '#ucase(q)#%'
+			select distinct nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where upper(term) like '#ucase(q)#%'
 		</cfquery>
 		<p>
 			init query:
@@ -61,11 +61,39 @@
 			<cfquery name="q" datasource="uam_god">
 				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
 			</cfquery>
-			<cfdump var=#q#>
+			<!--- next loop --->
+			<cfif q.recordcount is 0>
+				<br>no more data
+				<cfbreak>
 
-			#i#
+
+			</cfif>
+			<cfdump var=#q#>
+			<cfset thisIds=valuelist(q.parent_tid)>
+			<cfloop query="q">
+				<!--- don't insert if we already have it ---->
+				<cfquery name="alreadyGotOne">
+					select count(*) c from r where tid=#tid#
+				</cfquery>
+				<cfif alreadyGotONe.c is 0>
+					<!--- insert ---->
+					<cfset queryaddrow(r,{
+						tid=q.tid,
+						parent_tid=q.parent_tid,
+						term=q.term,
+						rank=q.rank
+					})>
+				</cfif>
+			</cfloop>
+
 		</cfloop>
 
+		<p>
+			final result
+		</p>
+		<cfdump var=#r#>
+
+<!-------------
 	<cfquery name="d" datasource="uam_god">
 		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
 	</cfquery>
@@ -85,6 +113,7 @@
 	<cfset x=x & "]">
 
 		<cfreturn x>
+		--------->
 	</cfoutput>
 
 </cffunction>
