@@ -75,6 +75,7 @@
 				<cfquery dbtype="query" name="alreadyGotOne">
 					select count(*) c from rsltQry where tid=#tid#
 				</cfquery>
+				<cfdump var=#alreadyGotOne#>
 				<cfif alreadyGotONe.c is 0>
 				<br>add a row....
 					<!--- insert ---->
