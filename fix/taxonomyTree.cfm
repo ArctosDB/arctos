@@ -24,7 +24,7 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					tree.insertNewChild(r);
+					myTree.insertNewChild(r);
 
 				}
 			);
