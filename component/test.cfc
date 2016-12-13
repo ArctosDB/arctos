@@ -5,6 +5,8 @@
 	<cfquery name="d" datasource="uam_god">
 		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
 	</cfquery>
+
+	<cf
 	<cfset x="[">
 	<cfset i=1>
 	<cfloop query="d">
@@ -12,7 +14,7 @@
 		<!----
 		<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
 		---->
-		<cfset x=x & '["#tid#","#parent_tid#","#rank#"]'>
+		<cfset x=x & '["#tid#","#parent_tid#","#term#"]'>
 		<cfif i lt d.recordcount>
 			<cfset x=x & ",">
 		</cfif>
