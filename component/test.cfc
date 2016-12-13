@@ -39,6 +39,9 @@
 		<cfquery name="dc0" datasource="uam_god">
 			select distinct nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where upper(term) like '#ucase(q)#%'
 		</cfquery>
+		<cfif not dc0.recordcount gt 0>
+			<cfreturn 'ERROR: nothing found'>
+		</cfif>
 
 		<!---- copy init query---->
 		<cfquery name="rsltQry" dbtype="query">
