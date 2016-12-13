@@ -42,7 +42,7 @@
 		<p>
 			init query:
 		</p>
-		<cfdump var=#d#>
+		<cfdump var=#dc0#>
 		<!---- copy init query---->
 		<cfquery name="r" dbtype="query">
 			select * from dc0
