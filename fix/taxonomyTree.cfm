@@ -17,12 +17,12 @@
 		    // your code here
 		    console.log('expand ' + id);
 
-		    /*
+
 		    $.getJSON("/component/test.cfc",
 				{
 					method : "getTaxTreeChild",
 					id : id,
-					returnformat : "json",
+					returnformat : "plain",
 					queryformat : 'column'
 				},
 				function (r) {
@@ -31,9 +31,10 @@
 				}
 			);
 
-			*/
 
+  /*
 			myTree.insertNewChild("82783975","82783976","Animalia",0,0,0,0);
+			*/
 		});
 
 
