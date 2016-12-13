@@ -82,7 +82,7 @@
 <label for="srch">search (starts with)</label>
 <input id="srch">
 <br>
-<input type="button" value="reset" onclick="initTree()">
+<input type="button" value="reset tree" onclick="initTree()">
 
 
 <div id="treeBox" style="width:200;height:200"></div>
