@@ -33,10 +33,10 @@
 
 					for (i=0;i<r.ROWCOUNT;i++) {
 						var d='"' + r.DATA.PARENT_TID + '","' +	r.DATA.TID + '","' + r.DATA.TERM + '",0,0,0,0';
-						console.log(d);
 						//myTree.insertNewChild("82783975","82783976","Animalia",0,0,0,0);
 						var d='82783975,82783976,"Animalia",0,0,0,0';
 						myTree.insertNewChild(d);
+						console.log(d);
 						//myTree.insertNewChild(d);
 						//myTree.insertNewChild('"' + r.DATA.PARENT_TID + '","' +	r.DATA.TID + '","' + r.DATA.TERM + '",0,0,0,0');
 
