@@ -164,15 +164,107 @@
 
 
 
-SELECT  LPAD(' ', 2 * LEVEL - 1) || term   FROM hierarchical_taxonomy   START WITH parent_tid is null  CONNECT BY PRIOR tid = parent_tid;
+SELECT  LPAD(' ', 2 * LEVEL - 1) || term ,
+SYS_CONNECT_BY_PATH(term, '/')  FROM hierarchical_taxonomy  
+ START WITH parent_tid is null  CONNECT BY PRIOR tid = parent_tid;
+
+SELECT  LPAD(' ', 2 * LEVEL - 1) || term   FROM hierarchical_taxonomy   START WITH tid in ( select tid from hierarchical_taxonomy where term like 'Latia%') CONNECT BY PRIOR tid = parent_tid;
 
 SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH parent_tid is null  CONNECT BY PRIOR tid = parent_tid;
 
 
 SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH tid=82796159  CONNECT BY PRIOR parent_tid=tid ;
 
-SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH tid in (select tid from hierarchical_taxonomy where term like 'Latia%')  CONNECT BY PRIOR parent_tid=tid ;
+SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH 
+tid in (select tid from hierarchical_taxonomy where term like 'Latia%')  
+CONNECT BY PRIOR tid=parent_tid ;
 
+SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH 
+tid in (select tid from hierarchical_taxonomy where term like 'Latia%')  
+CONNECT BY PRIOR parent_tid=tid ;
+
+SELECT TID,PARENT_TID,TERM ,SYS_CONNECT_BY_PATH(term, '/')    FROM hierarchical_taxonomy   START WITH 
+ term like 'Latia%'
+CONNECT BY PRIOR tid=parent_tid ;
+
+SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy where term like 'Latia%'  
+CONNECT BY PRIOR tid=parent_tid ;
+
+SELECT  LPAD(' ', 2 * LEVEL - 1) || term   FROM hierarchical_taxonomy  
+where term like 'Latia%' START WITH parent_tid is null  CONNECT BY root tid = parent_tid;
+
+nocycle
+SELECT term , CONNECT_BY_ROOT parent_tid "Manager",
+   LEVEL-1 "Pathlen", SYS_CONNECT_BY_PATH(parent_tid, '/') "Path"
+   FROM hierarchical_taxonomy
+   WHERE  term like 'Latia%'
+   CONNECT BY PRIOR tid = parent_tid;
+
+SELECT
+term,
+ tid,
+  parent_tid
+FROM hierarchical_taxonomy
+start with term like 'Latia%'
+CONNECT BY PRIOR tid = parent_tid;
+
+SELECT
+term,
+ tid,
+  parent_tid
+FROM hierarchical_taxonomy
+start with tid in (select tid from hierarchical_taxonomy where term like 'Latia%')
+CONNECT BY PRIOR tid = parent_tid;
+
+SELECT
+term,
+ tid,
+  parent_tid
+FROM hierarchical_taxonomy
+start with parent_tid in (select parent_tid from hierarchical_taxonomy where term like 'Latia%')
+CONNECT BY PRIOR tid = parent_tid;
+
+
+select rpad('*',2*level,'*') || TID idstr, parent_tid, score,
+           (select sum(score)
+                  from hierarchical_taxonomy t2
+                     start with t2.TID = hierarchical_taxonomy.TID
+                     connect by prior TID = parent_tid) score2
+      from hierarchical_taxonomy
+    start with parent_tid is null
+    connect by prior TID = parent_tid
+    ;
+
+
+
+
+
+select *
+from EMP
+start with EMPNO = :x
+connect by prior MGR = EMPNO; 
+
+
+
+
+
+select * from (
+	SELECT  LPAD(' ', 2 * LEVEL - 1) || term term,
+	SYS_CONNECT_BY_PATH(term, '/') x  FROM hierarchical_taxonomy  
+	 START WITH parent_tid is null  CONNECT BY PRIOR tid = parent_tid
+) where term like '%Latia%';
+
+
+select 
+	lpad(' ',level*2,' ')||term term,
+SYS_CONNECT_BY_PATH(term, '/') x
+      from hierarchical_taxonomy
+     START WITH parent_tid is null
+    CONNECT BY PRIOR tid = parent_tid 
+	;
+
+
+SELECT TID,PARENT_TID,TERM term   FROM hierarchical_taxonomy   START WITH parent_tid in (select parent_tid from hierarchical_taxonomy where term like 'Latia%')  CONNECT BY PRIOR parent_tid=tid ;
 
 select term from hierarchical_taxonomy where term like 'Latia%'
 
