@@ -360,10 +360,6 @@ function doATree(q)
 		    }
 		  });
 
-$("#container").bind("select_node.jstree", function (e, data) {
-    return data.instance.toggle_node(data.node);
-});
-
 
 		}
 
@@ -452,6 +448,10 @@ $( "#srchTerm" ).click(function() {
 });
 
 ----->
+
+<input type="button" value="Expand All" onclick="$('#container').jstree('open_all');">
+
+
 <label for="term">Search</label>
 <input name="term" id="term" placeholder="search">
 <input type="button" value='go' id="srchTerm">
