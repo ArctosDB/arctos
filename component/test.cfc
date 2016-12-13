@@ -6,6 +6,9 @@
 		<cfquery name="d" datasource="uam_god">
 			select term,tid,nvl(parent_tid,0) parent_tid, rank from hierarchical_taxonomy where parent_tid = #id#
 		</cfquery>
+
+
+		<!----
 		<cfset x="[">
 		<cfset i=1>
 		<cfloop query="d">
@@ -18,6 +21,9 @@
 		</cfloop>
 		<cfset x=x & "]">
 		<cfreturn x>
+
+		---->
+		<cfreturn d>
 	</cfoutput>
 
 </cffunction>
