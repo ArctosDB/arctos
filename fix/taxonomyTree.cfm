@@ -9,17 +9,9 @@
 
 	jQuery(document).ready(function() {
 
-		var treeArray = new Array(
-["1","0","node 1"],
-["2","1","node 1.1"],
-["3","2","node 1.1.1"],
-["4","0","node 2"]
-);
-
 
 		var tree = new dhtmlXTreeObject("treeBox","100%","100%",0);
-		tree.load(treeArray,"json");
-
+			tree.parse([[1,0,"1111"], [2,0,"2222"], [3,0,"3333"], [4,2,"child"]], "jsarray");
 	});
 
 
