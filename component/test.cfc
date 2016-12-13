@@ -72,7 +72,7 @@
 			<cfset thisIds=valuelist(q.parent_tid)>
 			<cfloop query="q">
 				<!--- don't insert if we already have it ---->
-				<cfquery name="alreadyGotOne">
+				<cfquery dbtype="query" name="alreadyGotOne">
 					select count(*) c from r where tid=#tid#
 				</cfquery>
 				<cfif alreadyGotONe.c is 0>
