@@ -3,9 +3,30 @@
 		<cfif isdefined("q") and len(q) gt 0>
 			<!--- run a query ---->
 			<cfquery name="d" datasource="uam_god">
+				SELECT 
+					SYS_CONNECT_BY_PATH(tid || '\' || parent_tid || '\' || TERM || ' (' || rank || ')','|')  pth
+				FROM
+					hierarchical_taxonomy
+				where term like 'Latia%'
+					START WITH parent_tid is null
+					CONNECT BY PRIOR tid = parent_tid;
+			</cfquery>
+			<cfset x="[">
+			<cfset i=1>
+			<cfloop query="d">
+				<cfset x=x & '{'>
+				<cfloop list="#pth#" index="i" delimiters="|">
+					
+				</cfloop>
+			</cfloop>
+
+<!----
+ || ' (' || rank || ')'
+			<cfquery name="d" datasource="uam_god">
+				
 SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid in (select tid from hierarchical_taxonomy where term like '#q#%')  CONNECT BY PRIOR parent_tid=tid
 </cfquery>
-<!----
+
 <cfset x="[">
 			<cfset i=1>
 			<cfloop query="d">

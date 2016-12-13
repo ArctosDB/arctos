@@ -1,4 +1,23 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
+<script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
+<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
+
+<script>
+
+	jQuery(document).ready(function() {
+		var tree = new dhtmlXTreeObject("treeBox","100%","100%",0);
+
+	});
+
+
+
+</script>
+
+<div id="treeBox" style="width:200;height:200"></div>
+
 <!----
 	create a hierarchical data structure for classification data
 	import Arctos data
@@ -338,6 +357,24 @@ UAM@ARCTOS> desc taxon_term
 ---->
 
 
+
+
+
+
+
+
+
+
+
+
+
+<!------------------
+
+not very happy with jstree, try something else
+
+
+
+
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/themes/default/style.min.css" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/jstree.min.js"></script>
 
@@ -458,3 +495,4 @@ $( "#srchTerm" ).click(function() {
 doubleclick
 <div id="container">
 </div>
+-------------------->
