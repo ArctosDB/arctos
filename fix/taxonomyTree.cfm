@@ -19,7 +19,6 @@
 		});
 
 
-		myTree.attachEvent("onDblClick","expandNode")
 
 		$.getJSON("/component/test.cfc",
 			{
