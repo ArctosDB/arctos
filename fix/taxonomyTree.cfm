@@ -22,11 +22,11 @@
 				{
 					method : "getTaxTreeChild",
 					id : id,
-					returnformat : "plain",
+					returnformat : "json",
 					queryformat : 'column'
 				},
 				function (r) {
-					myTree.insertNewChild(r);
+					console.log(r);
 
 				}
 			);
