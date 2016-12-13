@@ -16,6 +16,18 @@
 		myTree.attachEvent("onDblClick", function(id){
 		    // your code here
 		    console.log('expand ' + id);
+		    $.getJSON("/component/test.cfc",
+				{
+					method : "getTaxTreeChild",
+					id : id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					tree.insertNewChild(r);
+
+				}
+			);
 		});
 
 
