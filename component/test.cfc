@@ -48,7 +48,7 @@
 			select * from dc0
 		</cfquery>
 		<!--- this will die if we ever get more than 100-deep ---->
-		<cfset thisIds=valuelist(dc0.tid)>
+		<cfset thisIds=valuelist(dc0.parent_tid)>
 		<cfloop from="1" to="3" index="i">
 			<!---find next parent--->
 			<!----
