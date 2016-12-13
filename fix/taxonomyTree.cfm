@@ -32,7 +32,7 @@
 
 
 					for (i=0;i<r.ROWCOUNT;i++) {
-						var d="myTree.insertNewChild(" + r.DATA.PARENT_TID+','+r.DATA.TID+',"'+r.DATA.TERM+'",0,0,0,0)';
+						var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+'",0,0,0,0)';
 						//myTree.insertNewChild("82783975","82783976","Animalia",0,0,0,0);
 						//var d='82783975,82783976,"Animalia",0,0,0,0';
 						console.log(d);
