@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-<cfoutput>
+
 <cfquery name="d" datasource="uam_god">
 	with rws as (
 SELECT SYS_CONNECT_BY_PATH(t || '##' || level , ',') || ',' pth
@@ -27,11 +27,11 @@ CONNECT BY PRIOR id = pid
   select distinct lpad(' ', lev * 2) || val, lev
   from   vals
   where  val is not null
-  order  by lev
+  order  by lev;
 </cfquery>
 
 <cfdump var=#d#>
-
+<cfoutput>
 
 
 Upload state CSV:
