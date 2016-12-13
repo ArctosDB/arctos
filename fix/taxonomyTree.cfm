@@ -14,10 +14,6 @@
 		myTree.enableDragAndDrop(true);
 
 		myTree.attachEvent("onDblClick", function(id){
-		    // your code here
-		    console.log('expand ' + id);
-
-
 		    $.getJSON("/component/test.cfc",
 				{
 					method : "getTaxTreeChild",
@@ -26,34 +22,13 @@
 					queryformat : 'column'
 				},
 				function (r) {
-
-					console.log(r);
-					//myTree.insertNewChild("82783975","82783976","Animalia",0,0,0,0);
-
-
 					for (i=0;i<r.ROWCOUNT;i++) {
+						//insertNewChild(var) does not work for some insane reason, so.....
 						var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+'",0,0,0,0)';
-						//myTree.insertNewChild("82783975","82783976","Animalia",0,0,0,0);
-						//var d='82783975,82783976,"Animalia",0,0,0,0';
-						console.log(d);
-
 						eval(d);
-
-
-						//myTree.insertNewChild(toString(d));
-
-						//myTree.insertNewChild(d);
-						//myTree.insertNewChild('"' + r.DATA.PARENT_TID + '","' +	r.DATA.TID + '","' + r.DATA.TERM + '",0,0,0,0');
-
 					}
-
-
 				}
 			);
-
-  /*
-			myTree.insertNewChild("82783975","82783976","Animalia",0,0,0,0);
-			*/
 		});
 
 
@@ -69,12 +44,21 @@
 
 			}
 		);
+
+
+		$( "#srch" ).change(function() {
+		  alert( "Handler for .change() called." );
+		});
 	});
 
 
 //tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
 
 </script>
+
+
+<input id="srch">
+
 
 <div id="treeBox" style="width:200;height:200"></div>
 
