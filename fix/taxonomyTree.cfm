@@ -47,7 +47,17 @@
 
 
 		$( "#srch" ).change(function() {
-		  alert( "Handler for .change() called." );
+		 $.getJSON("/component/test.cfc",
+			{
+				method : "getInitTaxTree",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				myTree.parse(r, "jsarray");
+
+			}
+		);
 		});
 	});
 
