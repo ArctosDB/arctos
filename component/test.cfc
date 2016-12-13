@@ -36,16 +36,31 @@
 	<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 	<cfoutput>
 		<!---- first get the terms that match our search ---->
-		<cfquery name="d" datasource="uam_god">
+		<cfquery name="dc0" datasource="uam_god">
 			select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where upper(term) like '#ucase(q)#%'
 		</cfquery>
+		<p>
+			init query:
+		</p>
 		<cfdump var=#d#>
+		<!---- copy init query---->
+		<cfquery name="r" dbtype="query">
+			select * from dc0
+		</cfquery>
+		<!--- this will die if we ever get more than 100-deep ---->
+		<cfloop from="1" to="100" index="i">
+			<!---find next parent--->
+			<cfset lastint=i-1>
+			<cfset thisIds=evaluate("valuelist(dc" & lastint & ".tid")>
+			<p>
+				thisIds: #thisIds#
+			</p>
+			<cfquery name="dc#i#" datasource="uam_god">
+				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
+			</cfquery>
 
-	<!--- this will die if we ever get more than 100-deep ---->
-	<cfloop from="1" to="100" index="i">
-		<!---find next parent--->
-		#i#
-	</cfloop>
+			#i#
+		</cfloop>
 
 	<cfquery name="d" datasource="uam_god">
 		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
