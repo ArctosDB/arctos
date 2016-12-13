@@ -13,6 +13,8 @@
 		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
 		myTree.enableDragAndDrop(true);
 
+		initTree();
+
 		myTree.attachEvent("onDblClick", function(id){
 		    $.getJSON("/component/test.cfc",
 				{
@@ -33,17 +35,7 @@
 
 
 
-		$.getJSON("/component/test.cfc",
-			{
-				method : "getInitTaxTree",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				myTree.parse(r, "jsarray");
 
-			}
-		);
 
 
 		$( "#srch" ).change(function() {
@@ -68,12 +60,28 @@
 	});
 
 
+	function init(){
+		$.getJSON("/component/test.cfc",
+			{
+				method : "getInitTaxTree",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				myTree.parse(r, "jsarray");
+
+			}
+		);
+	}
+
 //tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
 
 </script>
 
 <label for="srch">search (starts with)</label>
 <input id="srch">
+<br>
+<input type="button" value="reset" onclick="init()">
 
 
 <div id="treeBox" style="width:200;height:200"></div>
