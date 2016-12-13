@@ -9,8 +9,8 @@
 		<cfset x="[">
 		<cfset i=1>
 		<cfloop query="d">
-			<cfset x=x & '{#parent_tid#,#tid#,"#term#",0,0,0,0}'>
-			
+			<cfset x=x & '{"#parent_tid#","#tid#","#term#",0,0,0,0}'>
+
 			<cfif i lt d.recordcount>
 				<cfset x=x & ",">
 			</cfif>
