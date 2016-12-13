@@ -57,8 +57,9 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					myTree.parse(r, "jsarray");
-	
+					console.log(r);
+					//myTree.parse(r, "jsarray");
+
 				}
 			);
 		});
