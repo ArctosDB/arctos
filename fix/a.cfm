@@ -3,7 +3,7 @@
 
 <cfquery name="d" datasource="uam_god">
 	with rws as (
-SELECT SYS_CONNECT_BY_PATH(t || '##' || level , ',') || ',' pth
+SELECT SYS_CONNECT_BY_PATH(t || '||' || level , ',') || ',' pth
 FROM test
 where t like 'Sorex%'
 START WITH pid is null
@@ -11,12 +11,12 @@ CONNECT BY PRIOR id = pid
 ), vals as (
   select
   substr(pth,
-    instr(pth, '##', 1, column_value) + 2,
-    ( instr(pth, ',', 1, column_value + 1) - instr(pth, '##', 1, column_value) - 2 )
+    instr(pth, '||', 1, column_value) + 2,
+    ( instr(pth, ',', 1, column_value + 1) - instr(pth, '||', 1, column_value) - 2 )
   ) - 1 lev,
   substr(pth,
     instr(pth, ',', 1, column_value) + 1,
-    ( instr(pth, '##', 1, column_value) - instr(pth, ',', 1, column_value) - 1 )
+    ( instr(pth, '||', 1, column_value) - instr(pth, ',', 1, column_value) - 1 )
   ) val
   from rws, table ( cast ( multiset (
     select level l
@@ -27,7 +27,7 @@ CONNECT BY PRIOR id = pid
   select distinct lpad(' ', lev * 2) || val, lev
   from   vals
   where  val is not null
-  order  by lev;
+  order  by lev
 </cfquery>
 
 <cfdump var=#d#>
