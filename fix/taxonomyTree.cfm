@@ -60,7 +60,7 @@
 					console.log(r);
 					//myTree.parse(r, "jsarray");
 					myTree.parse(r, "jsarray");
-					myTree.expandAll();
+					myTree.openAllItems(0);
 
 				}
 			);
