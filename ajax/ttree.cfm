@@ -25,14 +25,14 @@ SELECT TID,PARENT_TID,TERM, rank   FROM hierarchical_taxonomy   START WITH tid i
 ---->
 <cfset x='
 [
-	{"id":"id_82783984","text":"Eukaryota (superkingdom)","parent":"##"},
-	{"id":"id_82783985","text":"Metazoa (kingdom)","parent":"id_82783984"},
-	{"id":"id_82783986","text":"Mollusca (phylum)","parent":"id_82783985"},
-	{"id":"id_82783987","text":"Gastropoda (class)","parent":"id_82783986"},
-	{"id":"id_82795321","text":"Basommatophora (order)","parent":"id_82783987"},
-	{"id":"id_82795322","text":"Latiidae (family)","parent":"id_82795321"},
-	{"id":"id_82795323","text":"Latia (genus)","parent":"id_82795322"},
-	{"id":"id_82795324","text":"Latia lateralis (species)","parent":"id_82795323"}
+	{"id":"id_82783984","text":"Eukaryota (superkingdom)","parent":"##","children" : true},
+	{"id":"id_82783985","text":"Metazoa (kingdom)","parent":"id_82783984","children" : true},
+	{"id":"id_82783986","text":"Mollusca (phylum)","parent":"id_82783985","children" : true},
+	{"id":"id_82783987","text":"Gastropoda (class)","parent":"id_82783986","children" : true},
+	{"id":"id_82795321","text":"Basommatophora (order)","parent":"id_82783987","children" : true},
+	{"id":"id_82795322","text":"Latiidae (family)","parent":"id_82795321","children" : true},
+	{"id":"id_82795323","text":"Latia (genus)","parent":"id_82795322","children" : true},
+	{"id":"id_82795324","text":"Latia lateralis (species)","parent":"id_82795323","children" : true}
 ] '>
 
 
