@@ -48,20 +48,20 @@
 			select * from dc0
 		</cfquery>
 		<!--- this will die if we ever get more than 100-deep ---->
+		<cfset thisIds=valuelist(dc0.tid)>
 		<cfloop from="1" to="3" index="i">
 			<!---find next parent--->
-			<cfset lastint=i-1>
 			<!----
 			<cfset thisIds=evaluate("valuelist(dc" & lastint & ".tid")>
 			---->
-			<cfset thisIds=valuelist(dc0.tid)>
+
 			<p>
 				thisIds: #thisIds#
 			</p>
-			<cfquery name="dc#i#" datasource="uam_god">
+			<cfquery name="q" datasource="uam_god">
 				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
 			</cfquery>
-			<cfdump var=#dc#i##>
+			<cfdump var=#q#>
 
 			#i#
 		</cfloop>
