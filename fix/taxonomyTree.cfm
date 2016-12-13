@@ -9,9 +9,10 @@
 
 	jQuery(document).ready(function() {
 
-
-		var tree = new dhtmlXTreeObject("treeBox","100%","100%",0);
-			tree.parse([[1,0,"1111"], [2,0,"2222"], [3,0,"3333"], [4,2,"child"]], "jsarray");
+		myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
+			myTree.setImagePath("../../../skins/web/imgs/dhxtree_web/");
+			myTree.enableDragAndDrop(true);
+			myTree.parse([[1,0,"1111"], [2,0,"2222"], [3,0,"3333"], [4,2,"child"]], "jsarray");
 	});
 
 
