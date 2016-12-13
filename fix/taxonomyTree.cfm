@@ -10,7 +10,7 @@
 	jQuery(document).ready(function() {
 
 		myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
-			myTree.setImagePath("../../../skins/web/imgs/dhxtree_web/");
+		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/");
 			myTree.enableDragAndDrop(true);
 			myTree.parse([[1,0,"1111"], [2,0,"2222"], [3,0,"3333"], [4,2,"child"]], "jsarray");
 	});
