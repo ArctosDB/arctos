@@ -59,6 +59,7 @@
 				function (r) {
 					console.log(r);
 					//myTree.parse(r, "jsarray");
+					myTree.parse(r, "jsarray");
 
 				}
 			);
