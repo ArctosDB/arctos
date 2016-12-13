@@ -52,10 +52,14 @@
 				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
 			</cfquery>
 			<!--- next loop --->
-			<cfif q.recordcount is 0>
+
+			<cfset thisIds=valuelist(q.parent_tid)>
+
+			<cfif len(thisIds) is 0>
 				<cfbreak>
 			</cfif>
-			<cfset thisIds=valuelist(q.parent_tid)>
+
+
 			<cfloop query="q">
 				<!--- don't insert if we already have it ---->
 				<cfquery dbtype="query" name="alreadyGotOne">
