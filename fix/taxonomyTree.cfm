@@ -18,7 +18,7 @@
 
 
 		var tree = new dhtmlXTreeObject("treeBox","100%","100%",0);
-		myTree.load(treeArray,"json");
+		tree.load(treeArray,"json");
 
 	});
 
