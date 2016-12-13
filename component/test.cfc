@@ -27,6 +27,48 @@
 	</cfoutput>
 
 </cffunction>
+
+
+<!-------------------------------------------------->
+
+<cffunction name="getTaxTreeSrch" access="remote">
+   <cfargument name="q" type="string" required="true">
+	<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
+	<cfoutput>
+		<!---- first get the terms that match our search ---->
+		<cfquery name="d" datasource="uam_god">
+			select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where upper(term) like '#ucase(q)#%'
+		</cfquery>
+		<cfdump var=#d#>
+
+	<!--- this will die if we ever get more than 100-deep ---->
+	<cfloop from="1" to="100" index="i">
+		<!---find next parent--->
+		#i#
+	</cfloop>
+
+	<cfquery name="d" datasource="uam_god">
+		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
+	</cfquery>
+	<cfset x="[">
+	<cfset i=1>
+	<cfloop query="d">
+
+		<!----
+		<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
+		---->
+		<cfset x=x & '["#tid#","#parent_tid#","#term#"]'>
+		<cfif i lt d.recordcount>
+			<cfset x=x & ",">
+		</cfif>
+		<cfset i=i+1>
+	</cfloop>
+	<cfset x=x & "]">
+
+		<cfreturn x>
+	</cfoutput>
+
+</cffunction>
 <!-------------------------------------------------->
 
 <cffunction name="getInitTaxTree" access="remote">

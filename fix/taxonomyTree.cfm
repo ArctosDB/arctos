@@ -49,17 +49,18 @@
 		$( "#srch" ).change(function() {
 			// blank canvas
 			myTree.deleteChildItems(0);
-		 $.getJSON("/component/test.cfc",
-			{
-				method : "getInitTaxTree",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				myTree.parse(r, "jsarray");
-
-			}
-		);
+			 $.getJSON("/component/test.cfc",
+				{
+					method : "getTaxTreeSrch",
+					q: $( "#srch" ).val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					myTree.parse(r, "jsarray");
+	
+				}
+			);
 		});
 	});
 
