@@ -34,6 +34,10 @@
 			);
 		});
 
+		myTree.attachEvent("onCheck", function(id){
+		    alert('this should edit ' + id);
+		});
+
 
 
 
