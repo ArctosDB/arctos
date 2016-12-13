@@ -1,4 +1,28 @@
 <cfcomponent>
+<cffunction name="getInitTaxTree" access="remote">
+
+	<cfquery name="d" datasource="uam_god">
+		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
+	</cfquery>
+	<cfset x="[">
+	<cfset i=1>
+	<cfloop query="d">
+
+		<!----
+		<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
+		---->
+		<cfset x=x & '["#tid#","#parent_tid#","#rank#"]'>
+		<cfif i lt d.recordcount>
+			<cfset x=x & ",">
+		</cfif>
+		<cfset i=i+1>
+	</cfloop>
+	<cfset x=x & "]">
+
+		<cfreturn x>
+	</cfoutput>
+
+</cffunction>
 
 <cffunction name="test" access="remote">
    <cfargument name="q" type="String" required="false" default=""/>

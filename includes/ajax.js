@@ -289,10 +289,9 @@ function checkReplaceNoPrint(event,elem){
 
 /* specimen search */
 function setSessionCustomID(v) {
-	$.getJSON("/component/functions.cfc",
+	$.getJSON("/component/test.cfc",
 		{
-			method : "setSessionCustomID",
-			val : v,
+			method : "getInitTaxTree",
 			returnformat : "json",
 			queryformat : 'column'
 		},

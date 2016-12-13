@@ -12,7 +12,17 @@
 		myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
 		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
 		myTree.enableDragAndDrop(true);
-		myTree.parse([[1,0,"1111"], [2,0,"2222"], [3,0,"3333"], [4,2,"child"]], "jsarray");
+		$.getJSON("/component/functions.cfc",
+			{
+				method : "setSessionCustomID",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				myTree.parse(r, "jsarray");
+
+			}
+		);
 	});
 
 
@@ -22,6 +32,21 @@
 <div id="treeBox" style="width:200;height:200"></div>
 
 <!----
+
+
+$.getJSON("/component/functions.cfc",
+		{
+			method : "setSessionCustomID",
+			val : v,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (getResult) {}
+	);
+
+
+
+
 	create a hierarchical data structure for classification data
 	import Arctos data
 	manage that stuff here
