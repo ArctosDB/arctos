@@ -44,7 +44,7 @@
 		</p>
 		<cfdump var=#dc0#>
 		<!---- copy init query---->
-		<cfquery name="r" dbtype="query">
+		<cfquery name="rsltQry" dbtype="query">
 			select * from dc0
 		</cfquery>
 		<!--- this will die if we ever get more than 100-deep ---->
@@ -73,12 +73,12 @@
 			<cfloop query="q">
 				<!--- don't insert if we already have it ---->
 				<cfquery dbtype="query" name="alreadyGotOne">
-					select count(*) c from r where tid=#tid#
+					select count(*) c from rsltQry where tid=#tid#
 				</cfquery>
-				<br>add a row....
 				<cfif alreadyGotONe.c is 0>
+				<br>add a row....
 					<!--- insert ---->
-					<cfset queryaddrow(r,{
+					<cfset queryaddrow(rsltQry,{
 						tid=q.tid,
 						parent_tid=q.parent_tid,
 						term=q.term,
@@ -92,7 +92,7 @@
 		<p>
 			final result
 		</p>
-		<cfdump var=#r#>
+		<cfdump var=#rsltQry#>
 
 <!-------------
 	<cfquery name="d" datasource="uam_god">
