@@ -581,28 +581,7 @@
 		<cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-------------------------------------------------------------->
-
-
-
 <cffunction name="moveContainer" returntype="string">
 	<cfargument name="treeID" required="yes" type="string">
 	<cfargument name="id" required="yes" type="numeric">
@@ -613,9 +592,6 @@
 	   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 		<cfreturn result>
 </cffunction>
-
-
-
 <!-------------------------------------------------------------->
 
 <cffunction name="getContChildren" returntype="string">
