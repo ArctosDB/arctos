@@ -10,6 +10,7 @@ function post(onOff,msg) {
 			var sev="ajaxError";
 			if (msg.length > 50) {
 				var fullMsg=msg;
+				console.log(fullMsg);
 				fullMsg=fullMsg.replace(/'/g,"`");
 				fullMsg =fullMsg.replace(/[\r\n]+/g, " ");
 				msg=msg.substring(0,30) + '...' ;
