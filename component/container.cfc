@@ -421,7 +421,7 @@
 		<cfset whr = "#whr# AND barcode IN (#bclist#)">
 	</cfif>
 	<cfif len(in_container_type) gt 0>
-		<cfset whr = "#whr# AND container.parent_container_id IN (select container_id from container where in_container_type='#in_container_type#')">
+		<cfset whr = "#whr# AND container.parent_container_id IN (select container_id from container where container_type='#in_container_type#')">
 	</cfif>
 	<cfif len(in_barcode) gt 0>
 		<cfset whr = "#whr# AND container.parent_container_id IN (select container_id from container where barcode IN  ( #ListQualify(in_barcode,'''')# ) " >
