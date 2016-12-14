@@ -424,7 +424,7 @@
 		<cfset whr = "#whr# AND container.parent_container_id IN (select container_id from container where container_type='#in_container_type#')">
 	</cfif>
 	<cfif len(in_barcode) gt 0>
-		<cfset whr = "#whr# AND container.parent_container_id IN (select container_id from container where barcode IN  ( #ListQualify(in_barcode,'''')# ) " >
+		<cfset whr = "#whr# AND container.parent_container_id IN (select container_id from container where barcode IN  ( #ListQualify(in_barcode,'''')# )) " >
 	</cfif>
 	<cfif len(container_label) gt 0>
 		<cfset whr = "#whr# AND upper(label) like '#ucase(container_label)#'">
