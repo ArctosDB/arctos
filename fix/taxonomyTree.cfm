@@ -10,7 +10,7 @@
 	jQuery(document).ready(function() {
 
 		myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
-		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
+		myTree.setImagesPath("/Arctos/includes/dhtmlxTree_v50_std/skins/skyblue/imgs/dhxtree_skyblue");
 		myTree.enableDragAndDrop(true);
 		myTree.enableCheckBoxes(true);
 		myTree.enableTreeLines(true);
