@@ -10,10 +10,12 @@
 	jQuery(document).ready(function() {
 
 		myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
-		//myTree.setImagesPath("/includes/dhtmlxTree_v50_std/skins/web/imgs/dhxtree_web");
+		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/skins/web/imgs/dhxtree_web");
+		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/skins/skyblue/imgs/dhxtree_skyblue");
 		myTree.enableDragAndDrop(true);
 		myTree.enableCheckBoxes(true);
 		myTree.enableTreeLines(true);
+		myTree.enableTreeImages(false);
 
 		initTree();
 
