@@ -70,6 +70,7 @@
 				<input type="text" name="cat_num" id="cat_num"  />
 				<label for="barcode">Barcode (comma-list OK)</label>
 				<input type="text" name="barcode" id="barcode"  />
+				
 				<label for="container_label">Label (% for wildcard)</label>
 				<input type="text" name="container_label" id="container_label"  />
 				<label for="collection_id">Collection</label>
@@ -102,6 +103,9 @@
 						<option value="#contType.container_type#">#contType.container_type#</option>
 					  </cfloop>
 				</select>
+				<label for="in_barcode">IN Barcode (comma-list OK)</label>
+				<input type="text" name="in_barcode" id="in_barcode"  />
+				
 				<label for="other_id_type">OID Type</label>
 				<select name="other_id_type" id="other_id_type" size="1" style="width:120px;">
 					<option value=""></option>

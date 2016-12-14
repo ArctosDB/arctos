@@ -299,6 +299,8 @@
 	<cfset loan_trans_id="">
 	<cfset table_name="">
 	<cfset in_container_type="">
+	<cfset in_barcode="">
+
 	<cfset transaction_id="">
 	<cfset container_id="">
 	<cfset begin_parent_install_date="">
@@ -322,6 +324,7 @@
 		len(loan_trans_id) is 0 and
 		len(table_name) is 0 and
 		len(in_container_type) is 0 and
+		len(in_barcode) is 0 and
 		len(transaction_id) is 0 and
 		len(container_id) is 0 and
 		len(begin_parent_install_date) is 0 and
@@ -416,6 +419,12 @@
 			</cfif>
 		</cfloop>
 		<cfset whr = "#whr# AND barcode IN (#bclist#)">
+	</cfif>
+	<cfif len(in_container_type) gt 0>
+		<cfset whr = "#whr# AND container.parent_container_id IN (select container_id from container where in_container_type='#in_container_type#')">
+	</cfif>
+	<cfif len(in_barcode) gt 0>
+		<cfset whr = "#whr# AND container.parent_container_id IN (select container_id from container where barcode IN  ( #ListQualify(in_barcode,'''')# ) " >
 	</cfif>
 	<cfif len(container_label) gt 0>
 		<cfset whr = "#whr# AND upper(label) like '#ucase(container_label)#'">
