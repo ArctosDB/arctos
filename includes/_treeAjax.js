@@ -14,6 +14,7 @@ function post(onOff,msg) {
 				fullMsg=fullMsg.replace(/'/g,"`");
 				fullMsg =fullMsg.replace(/[\r\n]+/g, " ");
 				msg=msg.substring(0,30) + '...' ;
+				console.log(fullMsg);
 				//alert(fullMsg);
 				var alrt='<span class="infoLink" onclick="alert(' + "'" + fullMsg + "'" + ')">View Full Error</span>';
 				msg +=alrt;
