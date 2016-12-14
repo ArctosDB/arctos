@@ -13,7 +13,7 @@ CONNECT BY PRIOR id = pid
   substr(pth,
     instr(pth, '##', 1, column_value) + 2,
     ( instr(pth, ',', 1, column_value + 1) - instr(pth, '##', 1, column_value) - 2 )
-  ) - 1 lev,
+  ) - 1 levl,
   substr(pth,
     instr(pth, ',', 1, column_value) + 1,
     ( instr(pth, '##', 1, column_value) - instr(pth, ',', 1, column_value) - 1 )
@@ -24,10 +24,10 @@ CONNECT BY PRIOR id = pid
     connect by level <= length(pth) - length(replace(pth, ','))
   ) as sys.odcinumberlist)) t
 )
-  select distinct lpad(' ', lev * 2) || val, lev
+  select distinct lpad(' ', levl * 2) || val, levl
   from   vals
   where  val is not null
-  order  by lev</cfquery>
+  order  by levl</cfquery>
 
 <cfdump var=#d#>
 <cfoutput>
