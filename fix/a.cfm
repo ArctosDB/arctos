@@ -29,7 +29,6 @@ CONNECT BY PRIOR id = pid
   where  valv is not null
   order  by levl</cfquery>
 
-<cfdump var=#d#>
 <cfoutput>
 
 
