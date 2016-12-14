@@ -88,7 +88,7 @@
 			<!----
 			<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
 			---->
-			<cfset x=x & '["#tid#","#parent_tid#","#term#"]'>
+			<cfset x=x & '["#tid#","#parent_tid#","#term# (#rank#)"]'>
 			<cfif i lt rsltQry.recordcount>
 				<cfset x=x & ",">
 			</cfif>
@@ -99,29 +99,6 @@
 		<cfreturn x>
 
 
-
-
-<!-------------
-	<cfquery name="d" datasource="uam_god">
-		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
-	</cfquery>
-	<cfset x="[">
-	<cfset i=1>
-	<cfloop query="d">
-
-		<!----
-		<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
-		---->
-		<cfset x=x & '["#tid#","#parent_tid#","#term#"]'>
-		<cfif i lt d.recordcount>
-			<cfset x=x & ",">
-		</cfif>
-		<cfset i=i+1>
-	</cfloop>
-	<cfset x=x & "]">
-
-		<cfreturn x>
-		--------->
 	</cfoutput>
 
 </cffunction>
@@ -140,7 +117,7 @@
 		<!----
 		<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
 		---->
-		<cfset x=x & '["#tid#","#parent_tid#","#term#"]'>
+		<cfset x=x & '["#tid#","#parent_tid#","#term# (#rank#)"]'>
 		<cfif i lt d.recordcount>
 			<cfset x=x & ",">
 		</cfif>

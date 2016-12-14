@@ -11,7 +11,6 @@
 
 		myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
 		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
-		//myTree.setImagesPath("/includes/dhtmlxTree_v50_std/skins/skyblue/imgs/dhxtree_skyblue");
 
 
 		myTree.enableDragAndDrop(true);
@@ -32,7 +31,7 @@
 				function (r) {
 					for (i=0;i<r.ROWCOUNT;i++) {
 						//insertNewChild(var) does not work for some insane reason, so.....
-						var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+'",0,0,0,0)';
+						var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK + ')",0,0,0,0)';
 						eval(d);
 					}
 				}
