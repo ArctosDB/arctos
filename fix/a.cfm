@@ -17,16 +17,16 @@ CONNECT BY PRIOR id = pid
   substr(pth,
     instr(pth, ',', 1, column_value) + 1,
     ( instr(pth, '##', 1, column_value) - instr(pth, ',', 1, column_value) - 1 )
-  ) val
+  ) valv
   from rws, table ( cast ( multiset (
     select level l
     from   dual
     connect by level <= length(pth) - length(replace(pth, ','))
   ) as sys.odcinumberlist)) t
 )
-  select distinct lpad(' ', levl * 2) || val, levl
+  select distinct lpad(' ', levl * 2) || valv, levl
   from   vals
-  where  val is not null
+  where  valv is not null
   order  by levl</cfquery>
 
 <cfdump var=#d#>
