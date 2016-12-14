@@ -10,13 +10,11 @@ function post(onOff,msg) {
 			var sev="ajaxError";
 			if (msg.length > 50) {
 				var fullMsg=msg;
-				console.log(fullMsg);
 				fullMsg=fullMsg.replace(/'/g,"`");
 				fullMsg=fullMsg.replace(/"/g,'``');
 				fullMsg =fullMsg.replace(/[\r\n]+/g, " ");
 				fullMsg =fullMsg.replace(/[\t]+/g, " ");
 				msg=msg.substring(0,30) + '...' ;
-				console.log(fullMsg);
 				//alert(fullMsg);
 				var alrt='<span class="infoLink" onclick="alert(' + "'" + fullMsg + "'" + ')">View Full Error</span>';
 				msg +=alrt;
