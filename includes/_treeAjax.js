@@ -12,6 +12,7 @@ function post(onOff,msg) {
 				var fullMsg=msg;
 				console.log(fullMsg);
 				fullMsg=fullMsg.replace(/'/g,"`");
+				fullMsg=fullMsg.replace(/"/g,'""');
 				fullMsg =fullMsg.replace(/[\r\n]+/g, " ");
 				msg=msg.substring(0,30) + '...' ;
 				console.log(fullMsg);
