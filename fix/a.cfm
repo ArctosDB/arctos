@@ -24,10 +24,12 @@ CONNECT BY PRIOR id = pid
     connect by level <= length(pth) - length(replace(pth, ','))
   ) as sys.odcinumberlist)) t
 )
-  select distinct lpad(' ', levl * 2) || valv, levl
+  select distinct lpad(' ', levl * 2) || valv valv, levl
   from   vals
   where  valv is not null
-  order  by levl</cfquery>
+  order  by levl
+
+</cfquery>
 
 <cfoutput>
 <cfloop query="d">
