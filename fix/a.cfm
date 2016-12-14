@@ -30,7 +30,9 @@ CONNECT BY PRIOR id = pid
   order  by levl</cfquery>
 
 <cfoutput>
-
+<cfloop query="d">
+	<br>#valv#
+</cfloop>
 
 Upload state CSV:
 	<form name="getFile" method="post" action="a.cfm" enctype="multipart/form-data">
