@@ -43,7 +43,7 @@
 
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
 			    // your code here
-			    console.log('UPDATE tablethingee SET parent_id=' + tId + ' where id=' + sId);
+				alert('UPDATE tablethingee SET parent_id=' + tId + ' where id=' + sId);
 			});
 
 
