@@ -36,7 +36,7 @@
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
-
+<cfoutput>
 				<p>
 				prefixed_cols: #prefixed_cols#
 				</p>
@@ -50,6 +50,12 @@
 				<p>
 				prefixed_cols: #prefixed_cols#
 				</p>
+</cfoutput>
+
+
+
+
+
 
 				<cfset basSelect = " SELECT #prefixed_cols# ">
 				<cfset basFrom = " FROM #session.flatTableName#">
