@@ -29,12 +29,6 @@
 						<cfset vval=listgetat(kv,2,"=")>
 						<cfset "#vname#"=vval>
 
-						<p>
-						vname: #vname#
-						</p>
-						<p>
-						vval: #vval#
-						</p>
 					</cfif>
 				</cfloop>
 				<cfif not listfindnocase(groupby,'collection_object_id')>
@@ -48,20 +42,13 @@
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
-				<p>
-				prefixed_cols: #prefixed_cols#
-				</p>
+
 				<cfif prefixed_cols contains "#session.flatTableName#.guid_prefix">
 					<cfset prefixed_cols=replace(
 						prefixed_cols,
 						"#session.flatTableName#.guid_prefix",
 						"substr(#session.flatTableName#.guid, 1,instr(#session.flatTableName#.guid,':',1,2) - 1) guid_prefix")>
 				</cfif>
-
-				<p>
-				prefixed_cols: #prefixed_cols#
-				</p>
-
 
 
 
@@ -82,9 +69,6 @@
 				---->
 
 
-				<p>
-					basSelect: #basSelect#
-				</p>
 
 
 
@@ -92,9 +76,6 @@
 				<cfinclude template="/includes/SearchSql.cfm">
 
 
-					<p>
-					basQual: #basQual#
-				</p>
 
 
 
@@ -134,19 +115,12 @@
 				<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 
 
-<p>
-	spcols: #spcols#
-</p>
+
 				<cfloop list="#spcols#" index="pt">
 
-					<p>
-						pt:#pt#
-					</p>
+
 					<cfset x=listgetat(pt,2,'.')>
 
-					<p>
-						x:#x#
-					</p>
 					<cfif thisLink contains x>
 						<!---
 							they searched for something that they also grouped by
@@ -169,17 +143,6 @@
 				</cfloop>
 
 
-
-				<p>
-	spcols: #spcols#
-</p>
-
-				<p>
-	thislink: #thislink#
-</p>
-
-
-
 				<cfif left(thislink,1) is '&'>
 					<cfset thisLInk=right(thisLink,len(thisLink)-1)>
 				</cfif>
@@ -191,9 +154,6 @@
 				<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
 				<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
 
-<p>
-				SqlString: <cfdump var=#SqlString#>
-				</p>
 				<!----
 				<p>
 				SqlString: <cfdump var=#SqlString#>
