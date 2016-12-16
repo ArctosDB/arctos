@@ -173,7 +173,7 @@
 				encumbrance.made_date,
 				encumbrance.expiration_date,
 				encumbrance.remarks,
-				count(coll_object_encumbrance.collection_object_id) spccnt
+				count(distinct(coll_object_encumbrance.collection_object_id)) spccnt
 			from
 				encumbrance,
 				coll_object_encumbrance">
