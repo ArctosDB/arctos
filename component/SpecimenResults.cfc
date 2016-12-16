@@ -135,7 +135,7 @@
 						<!--- they grouped by something they did not search by, add it to the specimen-link ---->
 
 						<cfif x is "guid_prefix">
-							<cfset thisLink=listappend(thisLink,"#x#=' || urlescape(substr(#session.FlatTableName#.guid, 1,instr(#session.FlatTableName#.guid,':',1,2))) || '","&")>
+							<cfset thisLink=listappend(thisLink,"#x#=' || urlescape(substr(#session.FlatTableName#.guid, 1,instr(#session.FlatTableName#.guid,':',1,2)-1)) || '","&")>
 						<cfelse>
 							<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#x#),'NULL')) || '","&")>
 						</cfif>
