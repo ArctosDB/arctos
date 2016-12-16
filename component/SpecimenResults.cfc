@@ -50,7 +50,6 @@
 				<p>
 				prefixed_cols: #prefixed_cols#
 				</p>
-</cfoutput>
 
 
 
@@ -106,6 +105,10 @@
 				</cfif>
 				<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 
+
+<p>
+	spcols: #spcols#
+</p>
 				<cfloop list="#spcols#" index="pt">
 					<cfset x=listgetat(pt,2,'.')>
 					<cfif thisLink contains x>
@@ -143,6 +146,7 @@
 				</p>
 				---->
 
+</cfoutput>
 
 
 				<!----
