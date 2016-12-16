@@ -23,6 +23,13 @@
 						<cfset vname=listgetat(kv,1,"=")>
 						<cfset vval=listgetat(kv,2,"=")>
 						<cfset "#vname#"=vval>
+
+						<p>
+						vname: #vname#
+						</p>
+						<p>
+						vval: #vval#
+						</p>
 					</cfif>
 				</cfloop>
 				<cfif not listfindnocase(groupby,'collection_object_id')>
