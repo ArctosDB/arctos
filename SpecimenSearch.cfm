@@ -170,11 +170,13 @@
 			PUBLIC_PORTAL_FG=1
 		order by collection.collection
 	</cfquery>
+	<!----
 	<cfif isdefined("collection_id") and len(collection_id) gt 0>
 		<cfset thisCollId = collection_id>
 	<cfelse>
 		<cfset thisCollId = "">
 	</cfif>
+	---->
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
@@ -191,14 +193,14 @@
 				<cfquery name="cfi" dbtype="query">
 					select institution from ctInst group by institution order by institution
 				</cfquery>
-				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
+				<select name="guid_prefix" id="guid_prefix" size="3" multiple="multiple">
 					<cfloop query="cfi">
 						<cfquery name="ic" dbtype="query">
 							select collection, collection_id,guid_prefix FROM ctInst where institution='#cfi.institution#' order by collection
 						</cfquery>
 						<optgroup label="#institution#">
 							<cfloop query="ic">
-								<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection# (#ic.guid_prefix#)</option>
+								<option value="#ic.guid_prefix#">#ic.collection# (#ic.guid_prefix#)</option>
 							</cfloop>
 						</optgroup>
 					</cfloop>
