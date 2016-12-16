@@ -489,7 +489,9 @@
 					</cfif>
 				</div>
 				<div>
-					<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">berkeleymapper</a>
+					<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
+						<img src="/images/bnhm.png" alt="BerkeleyMapper">
+					</a>
 
 
 
