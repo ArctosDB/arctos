@@ -126,6 +126,15 @@
 						<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#pt#),'NULL')) || '","&")>
 					</cfif>
 				</cfloop>
+
+
+
+				<p>
+	spcols: #spcols#
+</p>
+
+
+
 				<cfif left(thislink,1) is '&'>
 					<cfset thisLInk=right(thisLink,len(thisLink)-1)>
 				</cfif>
