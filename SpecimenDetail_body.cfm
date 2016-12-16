@@ -490,7 +490,9 @@
 				</div>
 				<div>
 					<a target="_blank" class="external" href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
-						BerkeleyMapper&nbsp;<img height="40px" src="/images/bnhm.png" alt="BerkeleyMapper">
+						<span id="editthis">
+							BerkeleyMapper&nbsp;<img height="40px" src="/images/bnhm.png" alt="BerkeleyMapper">
+						</span>
 					</a>
 					<cfquery name="sesumry" dbtype="query">
 						select SPECIMEN_EVENT_TYPE,count(*) c from event group by SPECIMEN_EVENT_TYPE order by SPECIMEN_EVENT_TYPE
