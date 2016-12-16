@@ -15,6 +15,11 @@
 				pass in querystring,groupby-->initial query + qid
 				pass in qid --> query of cache (eg, paging)
 		---->
+
+		<cfoutput>
+
+
+
 		<cftry>
 			<cfif len(qid) is 0>
 				<cfset querystring=URLDecode(querystring)>
@@ -43,7 +48,6 @@
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
-<cfoutput>
 				<p>
 				prefixed_cols: #prefixed_cols#
 				</p>
