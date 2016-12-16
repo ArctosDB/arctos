@@ -256,7 +256,7 @@
 		</cftry>
 
 
-		<br /><br /></cfoutput>
+		</cfoutput>
 
 
 
