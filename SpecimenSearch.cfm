@@ -116,6 +116,7 @@
 					<option value="individualcount">IndividualCount</option>
 					<option value="ispublished">IsPublished</option>
 					<option value="sex">sex</option>
+					<option value="guid_prefix">Collection</option>
 				</select>
 			</div>
 			<div id="kmlDiv" style="display:none;border:1px solid green;padding:.5em;">
