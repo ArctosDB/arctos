@@ -143,6 +143,10 @@
 						pt:#pt#
 					</p>
 					<cfset x=listgetat(pt,2,'.')>
+
+					<p>
+						x:#x#
+					</p>
 					<cfif thisLink contains x>
 						<!---
 							they searched for something that they also grouped by
