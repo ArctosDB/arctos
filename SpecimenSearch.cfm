@@ -602,7 +602,7 @@
 		jQuery.get("/form/browse.cfm", function(data){
 			 jQuery('body').append(data);
 		})
-		$("#collection_id").multiselect({
+		$("#guid_prefix").multiselect({
 			minWidth: "500",
 			height: "300"
 		});
