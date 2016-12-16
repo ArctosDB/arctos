@@ -133,6 +133,10 @@
 	spcols: #spcols#
 </p>
 
+				<p>
+	thislink: #thislink#
+</p>
+
 
 
 				<cfif left(thislink,1) is '&'>
