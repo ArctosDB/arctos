@@ -499,7 +499,6 @@
 						select SPECIMEN_EVENT_TYPE,count(*) c from event group by SPECIMEN_EVENT_TYPE order by SPECIMEN_EVENT_TYPE
 					</cfquery>
 					---->
-
 				</div>
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
