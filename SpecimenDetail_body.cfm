@@ -495,6 +495,8 @@
 						</span>
 					</a>
 					<!-----
+					query for https://github.com/ArctosDB/arctos/issues/1006
+					but I have no idea how to display
 					<cfquery name="sesumry" dbtype="query">
 						select SPECIMEN_EVENT_TYPE,count(*) c from event group by SPECIMEN_EVENT_TYPE order by SPECIMEN_EVENT_TYPE
 					</cfquery>
