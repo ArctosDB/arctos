@@ -494,13 +494,12 @@
 							BerkeleyMapper&nbsp;<img height="40px" src="/images/bnhm.png" alt="BerkeleyMapper">
 						</span>
 					</a>
+					<!-----
 					<cfquery name="sesumry" dbtype="query">
 						select SPECIMEN_EVENT_TYPE,count(*) c from event group by SPECIMEN_EVENT_TYPE order by SPECIMEN_EVENT_TYPE
 					</cfquery>
+					---->
 
-
-
-					<cfdump var=#sesumry#>
 				</div>
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
