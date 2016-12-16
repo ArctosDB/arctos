@@ -138,6 +138,10 @@
 	spcols: #spcols#
 </p>
 				<cfloop list="#spcols#" index="pt">
+
+					<p>
+						pt:#pt#
+					</p>
 					<cfset x=listgetat(pt,2,'.')>
 					<cfif thisLink contains x>
 						<!---
