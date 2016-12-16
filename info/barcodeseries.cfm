@@ -33,7 +33,7 @@
 
 
 
-
+update cf_barcodeseries set whodunit='jmetzgar' where barcodeseriestxt='H1000000-H1279999';
 
 
 

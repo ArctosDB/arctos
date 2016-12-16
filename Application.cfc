@@ -310,10 +310,6 @@
 			StructDelete(request, "fixAmp");
 		</cfscript>
 	</cfif>
-	<cfif not isdefined("session.roles")>
-		<cfinclude template="/includes/functionLib.cfm">
-		<cfset initSession()>
-	</cfif>
 	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())>
 	<!--- no reason for anyone to be in these, ever --->
 	<cfif currentPath contains "/CustomTags/">
