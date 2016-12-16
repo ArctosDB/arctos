@@ -491,7 +491,7 @@
 				<div>
 					<a target="_blank" class="external" href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
 						<span style="display: inline-block;">
-							BerkeleyMapper&nbsp;<img height="40px" src="/images/bnhm.png" alt="BerkeleyMapper">
+							<img height="40px" src="/images/bnhm.png" alt="BerkeleyMapper">BerkeleyMapper
 						</span>
 					</a>
 					<!-----
