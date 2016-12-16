@@ -489,6 +489,11 @@
 					</cfif>
 				</div>
 				<div>
+					<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">berkeleymapper</a>
+
+
+
+
 					<cfdump var=#event#>
 				</div>
 				<cfloop query="event">
