@@ -32,10 +32,18 @@
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
 					<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-					<cfif x is not "collection_object_id" and x is not "individualcount" and x is not "guid_prefix">
+					<cfif x is not "collection_object_id" and x is not "individualcount">
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
+				<cfif prefixed_cols contains "#session.flatTableName#.guid_prefix">
+					<cfset prefixed_cols=replace(
+						prefixed_cols,
+						"#session.flatTableName#.guid_prefix",
+						"substr(#session.flatTableName#.guid, 1,instr(#session.flatTableName#.guid,':',1,2) - 1) guid_prefix">
+				</cfif>
+
+
 				<cfset basSelect = " SELECT #prefixed_cols# ">
 				<cfset basFrom = " FROM #session.flatTableName#">
 				<cfset basJoin = "">
