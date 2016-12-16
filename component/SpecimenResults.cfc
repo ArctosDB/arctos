@@ -36,6 +36,10 @@
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
+
+				<p>
+				prefixed_cols: #prefixed_cols#
+				</p>
 				<cfif prefixed_cols contains "#session.flatTableName#.guid_prefix">
 					<cfset prefixed_cols=replace(
 						prefixed_cols,
@@ -43,6 +47,9 @@
 						"substr(#session.flatTableName#.guid, 1,instr(#session.flatTableName#.guid,':',1,2) - 1) guid_prefix")>
 				</cfif>
 
+				<p>
+				prefixed_cols: #prefixed_cols#
+				</p>
 
 				<cfset basSelect = " SELECT #prefixed_cols# ">
 				<cfset basFrom = " FROM #session.flatTableName#">
