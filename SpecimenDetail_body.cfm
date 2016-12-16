@@ -490,13 +490,15 @@
 				</div>
 				<div>
 					<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
-						<img src="/images/bnhm.png" alt="BerkeleyMapper">
+						<img height="20px" src="/images/bnhm.png" alt="BerkeleyMapper">
 					</a>
+					<cfquery name="sesumry" dbtype="query">oid
+						select SPECIMEN_EVENT_TYPE,count(*) c from event group by SPECIMEN_EVENT_TYPE order by SPECIMEN_EVENT_TYPE
+					</cfquery>
 
 
 
-
-					<cfdump var=#event#>
+					<cfdump var=#sesumry#>
 				</div>
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
