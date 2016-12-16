@@ -76,9 +76,6 @@
 				<cfif listfindnocase(group_cols,'individualcount')>
 					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
 				</cfif>
-				<cfif listfindnocase(group_cols,'guid_prefix')>
-					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'guid_prefix'))>
-				</cfif>
 
 
 				<!--- require some actual searching --->
