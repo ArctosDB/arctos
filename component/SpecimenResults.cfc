@@ -284,6 +284,12 @@
 					"qid":#qid#}'>
 			</cfoutput>
 		<cfcatch>
+
+			<cfdump var=#cfcatch#>
+
+
+
+
 			<cf_logError subject="Specimen Summary Error" attributeCollection=#cfcatch#>
 			<cfset result='{"Result":"ERROR","Message":"Error: #cfcatch.message#: #cfcatch.detail#"}'>
 			<cfset result = REReplace(result, "\r\n|\n\r|\n|\r", "", "all")>
