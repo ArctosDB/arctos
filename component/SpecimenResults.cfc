@@ -187,7 +187,7 @@
 				</p>
 				---->
 
-</cfoutput>
+
 
 
 				<!----
@@ -276,6 +276,12 @@
 			<cfset result = REReplace(result, "\r\n|\n\r|\n|\r", "", "all")>
 		</cfcatch>
 		</cftry>
+
+
+		<br /><br /></cfoutput>
+
+
+
 		<cfreturn result>
 	</cffunction>
 	<!--------------------------------------------------------------------------------------------------------->
