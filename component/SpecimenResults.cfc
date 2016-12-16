@@ -159,7 +159,12 @@
 						<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#x#),'NULL')) || '","&")>
 					<cfelse>
 						<!--- they grouped by something they did not search by, add it to the specimen-link ---->
-						<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#x#),'NULL')) || '","&")>
+
+						<cfif x is "guid_prefix">
+							<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#substr(#session.FlatTableName#.guid, 1,instr(#session.FlatTableName#,':',1,2)#),'NULL')) || '","&")>
+						<cfelse>
+							<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#x#),'NULL')) || '","&")>
+						</cfif>
 					</cfif>
 				</cfloop>
 
