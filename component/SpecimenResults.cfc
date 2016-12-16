@@ -40,7 +40,7 @@
 					<cfset prefixed_cols=replace(
 						prefixed_cols,
 						"#session.flatTableName#.guid_prefix",
-						"substr(#session.flatTableName#.guid, 1,instr(#session.flatTableName#.guid,':',1,2) - 1) guid_prefix">
+						"substr(#session.flatTableName#.guid, 1,instr(#session.flatTableName#.guid,':',1,2) - 1) guid_prefix")>
 				</cfif>
 
 
