@@ -174,7 +174,6 @@
 					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 				</cfif>
 
-				guid_prefix
 
 
 				<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
