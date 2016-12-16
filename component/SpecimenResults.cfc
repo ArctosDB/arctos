@@ -32,7 +32,7 @@
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
 					<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-					<cfif x is not "collection_object_id" and x is not "individualcount">
+					<cfif x is not "collection_object_id" and x is not "individualcount" and x is not "guid_prefix">
 						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
 					</cfif>
 				</cfloop>
@@ -55,6 +55,11 @@
 				<cfif listfindnocase(group_cols,'individualcount')>
 					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
 				</cfif>
+				<cfif listfindnocase(group_cols,'guid_prefix')>
+					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'guid_prefix'))>
+				</cfif>
+
+
 				<!--- require some actual searching --->
 				<cfset srchTerms="">
 				<cfloop list="#mapurl#" delimiters="&" index="t">
@@ -111,7 +116,9 @@
 				<cfset basSelect=basSelect & ",replace(#thisLink#,'==NULL','=NULL') AS linktospecimens ">
 				<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# ">
 
-
+<p>
+				SqlString: <cfdump var=#SqlString#>
+				</p>
 				<!----
 				<p>
 				SqlString: <cfdump var=#SqlString#>
@@ -127,6 +134,13 @@
 				<cfif listfindnocase(groupBy,'individualcount')>
 					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 				</cfif>
+				<cfif listfindnocase(groupBy,'individualcount')>
+					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
+				</cfif>
+
+				guid_prefix
+
+
 				<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 				<!----
 				<p>
