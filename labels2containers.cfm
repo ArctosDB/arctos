@@ -77,41 +77,7 @@
 			<cfset s.append(r)>
 		</cfloop>
 		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/ChangeContainer.csv" output="#s.toString()#">
-
-
-		<p>header: #header#
-
-		<!----
-
-
-
-
-		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/ChangeContainer.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			//variables.joFileWriter.writeLine(header);
-		</cfscript>
-		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
-			<cfset bc = barcode_prefix & i>
-			<cfset r='"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
-			<cfscript>
-				variables.joFileWriter.writeLine(r);
-			</cfscript>
-			<p>r: #r#
-			</p>
-		</cfloop>
-		-------->
-
-
-		<!----
-
-			<cfscript>
-			variables.joFileWriter.close();
-		</cfscript>
 		<cflocation url="/download.cfm?file=ChangeContainer.csv" addtoken="false">
-
-		---->
 		<a href="/download/ChangeContainer.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
