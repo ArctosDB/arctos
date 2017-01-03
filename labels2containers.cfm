@@ -68,17 +68,31 @@
 <cfif action IS "change">
 	<cfoutput>
 		<cfset header="BARCODE,OLD_CONTAINER_TYPE,CONTAINER_TYPE,LABEL,DESCRIPTION,CONTAINER_REMARKS,HEIGHT,LENGTH,WIDTH,NUMBER_POSITIONS">
+
+		<cfset s = createObject("java","java.lang.StringBuilder")>
+		<cfset newString = header>
+		<cfset s.append(newString)>
+		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
+			<cfset bc = barcode_prefix & i>
+			<cfset r='#chr(13)#"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
+			<cfset s.append(newString)>
+		</cfloop>
+		<cffile action="write" file="#Application.webDirectory#/download/ChangeContainer.csv" output="#s.toString()#">
+
+
+		<p>header: #header#
+
+		<!----
+
+
+
+
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.fileName="#Application.webDirectory#/download/ChangeContainer.csv">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			//variables.joFileWriter.writeLine(header);
 		</cfscript>
-
-		<p>header: #header#
-
-		<!----
-
 		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 			<cfset bc = barcode_prefix & i>
 			<cfset r='"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
@@ -89,11 +103,13 @@
 			</p>
 		</cfloop>
 		-------->
-		<cfscript>
-			variables.joFileWriter.close();
-		</cfscript>
+
 
 		<!----
+
+			<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
 		<cflocation url="/download.cfm?file=ChangeContainer.csv" addtoken="false">
 
 		---->
