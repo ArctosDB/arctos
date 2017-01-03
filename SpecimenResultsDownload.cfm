@@ -219,12 +219,48 @@
 		<cfinvokeargument name="table_name" value="#table_name#">
 	</cfinvoke>
 
+
+		<cfset header=ListQualify(clist,'"')>
+		<cfset s = createObject("java","java.lang.StringBuilder")>
+		<cfset newString = header>
+		<cfset s.append(newString)>
+
+		<cfloop query="getData">
+			<cfset oneLine = "">
+			<cfloop list="#clist#" index="c">
+				<cfset thisData = evaluate("getData." & c)>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfif len(oneLine) is 0>
+					<cfset oneLine = '"#thisData#"'>
+				<cfelse>
+					<cfset oneLine = '#oneLine#,"#thisData#"'>
+				</cfif>
+			</cfloop>
+			<cfset oneLine = chr(13) & trim(oneLine)>
+			<cfset s.append(oneLine)>
+		</cfloop>
+		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/download_4_bulkloader.csv" output="#s.toString()#">
+
+		<!----
+		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
+			<cfset bc = barcode_prefix & i>
+			<cfset r='#chr(13)#"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
+			<cfset s.append(r)>
+		</cfloop>
+		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/ChangeContainer.csv" output="#s.toString()#">
+
+
+
+
+
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=getData,Fields=getData.columnlist)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/download_4_bulkloader.csv"
 	   	output = "#csv#"
 	   	addNewLine = "no">
+
+	   	---->
 
 	<!----
 	<cfset fileDir = "#Application.webDirectory#">
