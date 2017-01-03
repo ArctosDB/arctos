@@ -30,6 +30,8 @@
 	FULL_CITATION,PUBLICATION_ID,GUID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,USE_EXISTING_ACCEPTED_ID,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS
 
 
+	<cflocation url="/download.cfm?file=bulkloader_citation.csv" addtoken="false">
+	<a href="/downloadbulkloader_citation.csv">Click here if your file does not automatically download.</a>
 
 </cfif>
 
