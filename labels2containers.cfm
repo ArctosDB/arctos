@@ -74,6 +74,9 @@
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			variables.joFileWriter.writeLine(header);
 		</cfscript>
+
+		<p>header: #header#
+
 		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 			<cfset bc = barcode_prefix & i>
 			<cfset r='"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
