@@ -529,12 +529,12 @@
 
 
 
-	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/#fname#.csv" output="#s.toString()#">
+	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/#fileName#.csv" output="#s.toString()#">
 
 
 
 
-			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			<cflocation url="/download.cfm?file=#fileName#.csv" addtoken="false">
 			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 	<!----
 
