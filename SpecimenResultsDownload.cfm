@@ -453,6 +453,11 @@
 		where
 			upper(table_name)=upper('#tableName#') order by DISP_ORDER
 	</cfquery>
+
+
+	<cfdump var=#cols#>
+
+
 	<cfif not listfindnocase(valuelist(cols.column_name),"collection_object_id")>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #tableName#
