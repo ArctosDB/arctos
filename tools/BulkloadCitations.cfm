@@ -99,7 +99,9 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	Include CSV column headings.
 
 	<ul>
-		<li><a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a></li>
+		<li><a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a>
+			<br>You may also download a "seeded" template from SpecimenResults, in the Manage widget
+		</li>
 		<li><a target="_blank" class="external" href="http://arctosdb.org/documentation/publications/specimen-citations/">Citations documentation</a></li>
 	</ul>
 	Citations are a combination of a Publication and an Identification.
