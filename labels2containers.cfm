@@ -77,6 +77,10 @@
 			<cfset r='#chr(13)#"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
 			<cfset s.append(r)>
 		</cfloop>
+
+		<cfdump var=#s#>
+
+
 		<cffile action="write" file="#Application.webDirectory#/download/ChangeContainer.csv" output="#s.toString()#">
 
 
