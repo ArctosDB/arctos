@@ -17,6 +17,10 @@
 		from #table_name#
 	</cfquery>
 
+	<cfdump var=#data#>
+
+
+
 		<cfset  util = CreateObject("component","component.utilities")>
 <cfset csv = util.QueryToCSV2(Query=data,Fields=data.columnlist)>
 <cffile action = "write"
