@@ -453,13 +453,6 @@
 		where
 			upper(table_name)=upper('#tableName#') order by DISP_ORDER
 	</cfquery>
-
-
-	<cfdump var=#cols#>
-
-
-<cfabort>
-
 	<cfif not listfindnocase(valuelist(cols.column_name),"collection_object_id")>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #tableName#
@@ -512,6 +505,42 @@
 	<cfif ListFindNoCase(ac,'INSTITUTION_ACRONYM')>
 		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'INSTITUTION_ACRONYM'))>
 	</cfif>
+	<cfset header=trim(ac)>
+	<cfset s = createObject("java","java.lang.StringBuilder")>
+	<cfset newString = header>
+	<cfset s.append(newString)>
+	<cfloop query="getData">
+		<cfset oneLine = "">
+		<cfloop list="#ac#" index="c">
+			<cfset thisData = evaluate(c)>
+			<cfif c is "MEDIA">
+				<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
+			</cfif>
+			<cfif len(oneLine) is 0>
+				<cfset oneLine = '"#thisData#"'>
+			<cfelse>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+			</cfif>
+		</cfloop>
+		<cfset oneLine = chr(13) & trim(oneLine)>
+		<cfset s.append(oneLine)>
+	</cfloop>
+
+
+
+	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/#fname#.csv" output="#s.toString()#">
+
+
+
+
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+	<!----
+
+
+
+
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfoutput>
 		<cfset variables.encoding="UTF-8">
@@ -547,5 +576,6 @@
 			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 	</cfoutput>
+	---->
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
