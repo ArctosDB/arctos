@@ -1,10 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="labels2containers">
 <!------------------------------------------>
-<!--- 
-	disabling this form after repeated failures of people to use the 
+<!---
+	disabling this form after repeated failures of people to use the
 	series functionality.
-	last functional version is in v7.0.1.2 
+	last functional version is in v7.0.1.2
 ---->
 <cfif action IS "nothing">
 	<p>
@@ -26,14 +26,14 @@
 					<option value="#container_type#">#container_type#</option>
 				</cfloop>
 			</select>
-			
+
 			<label for="newContType">New Container Type</label>
 			<select name="newContType" id="newContType" size="1" class="reqdClr">
 				<cfloop query="ctContainerType">
 					<option value="#container_type#">#container_type#</option>
 				</cfloop>
 			</select>
-			
+
 			<label for="barcode_prefix">Barcode Prefix (include spaces, leading zeros if necessary)</label>
 			<input type="text" name="barcode_prefix" id="barcode_prefix" size="3">
 			<!---
@@ -44,11 +44,11 @@
 			<input type="text" name="begin_barcode" id="begin_barcode" class="reqdClr">
 			<label for="end_barcode">High barcode (integer component)</label>
 			<input type="text" name="end_barcode" id="end_barcode" class="reqdClr">
-			
+
 			<p>
 				This form will leave LABEL NULL which should IGNORE current values. Edit the CSV if that's not OK.
 			</p>
-			
+
 			<label for="description">New Description</label>
 			<input type="text" name="description" id="description">
 			<label for="container_remarks">New Remark</label>
@@ -72,16 +72,18 @@
 		<cfset variables.fileName="#Application.webDirectory#/download/ChangeContainer.csv">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(header); 
+			variables.joFileWriter.writeLine(header);
 		</cfscript>
 		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 			<cfset bc = barcode_prefix & i>
 			<cfset r='"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
 			<cfscript>
-				variables.joFileWriter.writeLine(r); 
+				variables.joFileWriter.writeLine(r);
 			</cfscript>
+			<p>r: #r#
+			</p>
 		</cfloop>
-		<cfscript>	
+		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
 		<cflocation url="/download.cfm?file=ChangeContainer.csv" addtoken="false">
