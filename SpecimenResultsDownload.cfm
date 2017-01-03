@@ -14,7 +14,7 @@
 		select
 			GUID,
 			'' FULL_CITATION
-		from #tableName#
+		from #table_name#
 	</cfquery>
 
 		<cfset  util = CreateObject("component","component.utilities")>
