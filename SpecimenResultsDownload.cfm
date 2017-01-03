@@ -9,6 +9,24 @@
 
 <cfif action is "citationFormat">
 	hello I am citationFormat
+
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			GUID,
+			'' FULL_CITATION
+		from #tableName#
+	</cfquery>
+
+		<cfset  util = CreateObject("component","component.utilities")>
+<cfset csv = util.QueryToCSV2(Query=data,Fields=data.columnlist)>
+<cffile action = "write"
+    file = "#Application.webDirectory#/download/bulkloader_citation.csv"
+   	output = "#csv#"
+   	addNewLine = "no">
+	FULL_CITATION,PUBLICATION_ID,GUID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,USE_EXISTING_ACCEPTED_ID,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS
+
+
+
 </cfif>
 
 <cfif action is "bulkloaderFormat">
