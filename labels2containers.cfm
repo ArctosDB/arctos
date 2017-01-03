@@ -86,7 +86,11 @@
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
+
+		<!----
 		<cflocation url="/download.cfm?file=ChangeContainer.csv" addtoken="false">
+
+		---->
 		<a href="/download/ChangeContainer.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
