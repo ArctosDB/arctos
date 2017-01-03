@@ -7,8 +7,16 @@
 	order by internal_column_id
 </cfquery>
 <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from BULKLOADER_STAGE		
+	select * from BULKLOADER_STAGE
 </cfquery>
+<cfset  util = CreateObject("component","component.utilities")>
+<cfset csv = util.QueryToCSV2(Query=data,Fields=data.columnlist)>
+<cffile action = "write"
+    file = "#Application.webDirectory#/download/bulkloader_stage.csv"
+   	output = "#csv#"
+   	addNewLine = "no">
+
+<!----
 <cfoutput>
 	<cfset colList = valuelist(getCols.column_name)>
 	<cfset variables.fileName="#Application.webDirectory#/download/bulkloader_stage.csv">
@@ -33,7 +41,8 @@
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
 	</cfloop>
-	<cfscript>	
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
 </cfoutput>
+---->
