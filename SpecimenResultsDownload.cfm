@@ -17,7 +17,6 @@
 		from #table_name#
 	</cfquery>
 
-	<cfdump var=#data#>
 
 
 
