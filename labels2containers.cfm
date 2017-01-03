@@ -80,10 +80,11 @@
 
 
 		<cfset x=s.toString()>
-		<cfdump var=#x#>
+
+		====<cfdump var=#x#>====
 
 
-		<cffile action="write" file="#Application.webDirectory#/download/ChangeContainer.csv" output="#s.toString()#">
+		<cffile action="write" file="#Application.webDirectory#/download/ChangeContainer.csv" output="this is all">
 
 
 		<p>header: #header#
