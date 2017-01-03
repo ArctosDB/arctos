@@ -376,10 +376,35 @@ sho err
 </cfif>
 <cfif action is "download">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_agent_split
+		select
+			PREFERRED_NAME,
+			OTHER_NAME_1,
+			OTHER_NAME_TYPE_1,
+			OTHER_NAME_2,
+			OTHER_NAME_TYPE_2,
+			OTHER_NAME_3,
+			OTHER_NAME_TYPE_3,
+			OTHER_NAME_4,
+			OTHER_NAME_TYPE_4,
+			AGENT_REMARK,
+			SUGGESTIONS
+		from ds_temp_agent_split
 	</cfquery>
+
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=data,Fields=data.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/splitAgentNames.csv"
+	   	output = "#csv#"
+	   	addNewLine = "no">
+
+
+	   	<!----
 	<cfset theCols=data.columnList>
 	<cfset theCols=listdeleteat(theCols,listFindNoCase(theCols,"key"))>
+
+
+
 	<cfset variables.encoding="UTF-8">
 	<cfset variables.fileName="#Application.webDirectory#/download/splitAgentNames.csv">
 	<cfscript>
@@ -400,6 +425,7 @@ sho err
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
+	---->
 	<cflocation url="/download.cfm?file=splitAgentNames.csv" addtoken="false">
 	<a href="/download/splitAgentNames.csv">Click here if your file does not automatically download.</a>
 </cfif>
