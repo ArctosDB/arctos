@@ -75,7 +75,7 @@
 		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 			<cfset bc = barcode_prefix & i>
 			<cfset r='#chr(13)#"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
-			<cfset s.append(newString)>
+			<cfset s.append(r)>
 		</cfloop>
 		<cffile action="write" file="#Application.webDirectory#/download/ChangeContainer.csv" output="#s.toString()#">
 
