@@ -487,7 +487,10 @@
 									Parts table/download
 								</option>
 			                    <option value="/SpecimenResultsDownload.cfm?action=bulkloaderFormat">
-									Download for Bulkloader
+									Download for Specimen Bulkloader
+								</option>
+								 <option value="/SpecimenResultsDownload.cfm?action=citationFormat">
+									Download for Citation Bulkloader
 								</option>
 			                    <option value="/Reports/report_printer.cfm">
 									Print Any Report

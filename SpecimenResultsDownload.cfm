@@ -6,6 +6,11 @@
 	</div>
 	<cfabort>
 </cfif>
+
+<cfif action is "citationFormat">
+	hello I am citationFormat
+</cfif>
+
 <cfif action is "bulkloaderFormat">
 	<cfoutput>
 	<cfif len(table_name) is 0>
@@ -527,15 +532,10 @@
 		<cfset s.append(oneLine)>
 	</cfloop>
 
-
-
 	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/#fileName#.csv" output="#s.toString()#">
 
-
-
-
-			<cflocation url="/download.cfm?file=#fileName#.csv" addtoken="false">
-			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+	<cflocation url="/download.cfm?file=#fileName#.csv" addtoken="false">
+	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 	<!----
 
 
