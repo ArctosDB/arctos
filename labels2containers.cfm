@@ -72,7 +72,7 @@
 		<cfset variables.fileName="#Application.webDirectory#/download/ChangeContainer.csv">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(header);
+			//variables.joFileWriter.writeLine(header);
 		</cfscript>
 
 		<p>header: #header#
