@@ -53,6 +53,16 @@
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
+				<cfset fname = "BulkPendingData_#left(session.sessionKey,10)#.csv">
+
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfset csv = util.QueryToCSV2(Query=data,Fields=data.columnlist)>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/#fname#"
+	    	output = "#csv#"
+	    	addNewLine = "no">
+
+		<!----
 		<cfset variables.encoding="UTF-8">
 		<cfset fname = "BulkPendingData_#left(session.sessionKey,10)#.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
@@ -79,6 +89,8 @@
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
+
+		---->
 		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 	</cfoutput>
