@@ -84,7 +84,7 @@
 		====<cfdump var=#x#>====
 
 
-		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/ChangeContainer.csv" output="this is all">
+		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/ChangeContainer.csv" output="#s.toString()#">
 
 
 		<p>header: #header#
