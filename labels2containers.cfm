@@ -88,10 +88,11 @@
 			<p>r: #r#
 			</p>
 		</cfloop>
+		-------->
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
--------->
+
 		<!----
 		<cflocation url="/download.cfm?file=ChangeContainer.csv" addtoken="false">
 
