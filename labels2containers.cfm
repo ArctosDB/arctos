@@ -77,6 +77,8 @@
 
 		<p>header: #header#
 
+		<!----
+
 		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 			<cfset bc = barcode_prefix & i>
 			<cfset r='"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
@@ -89,7 +91,7 @@
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
-
+-------->
 		<!----
 		<cflocation url="/download.cfm?file=ChangeContainer.csv" addtoken="false">
 
