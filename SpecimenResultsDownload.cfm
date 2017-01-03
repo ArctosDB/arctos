@@ -12,7 +12,7 @@
 		This form requires table_name
 		<cfabort>
 	</cfif>
-	<!--- 
+	<!---
 		kinda stoopid but simple - copypasta columns list in, in order, frmo the function
 		so things don't come out alpha-sorted
 	---->
@@ -214,23 +214,32 @@
 	<cfset cList=replace(clist,' ','','all')>
 	<cfset cList=replace(clist,chr(10),'','all')>
 	<cfset cList=replace(clist,chr(9),'','all')>
-	<cfset cList=replace(clist,chr(13),'','all')>				
+	<cfset cList=replace(clist,chr(13),'','all')>
 	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="getData">
 		<cfinvokeargument name="table_name" value="#table_name#">
 	</cfinvoke>
+
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=getData,Fields=getData.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/download_4_bulkloader.csv"
+	   	output = "#csv#"
+	   	addNewLine = "no">
+
+	<!----
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfset variables.encoding="UTF-8">
 	<cfset fname = "download_4_bulkloader.csv">
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
+		variables.joFileWriter.writeLine(ListQualify(clist,'"'));
 	</cfscript>
 	<cfloop query="getData">
 		<cfset oneLine = "">
 		<cfloop list="#clist#" index="c">
 			<cfset thisData = evaluate("getData." & c)>
-			<cfset thisData=replace(thisData,'"','""','all')>			
+			<cfset thisData=replace(thisData,'"','""','all')>
 			<cfif len(oneLine) is 0>
 				<cfset oneLine = '"#thisData#"'>
 			<cfelse>
@@ -242,10 +251,11 @@
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
 	</cfloop>
-	<cfscript>	
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
-	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+	---->
+	<cflocation url="/download.cfm?file=download_4_bulkloader.csv" addtoken="false">
 	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 </cfoutput>
 </cfif>
@@ -255,7 +265,7 @@
 	<cfoutput>
 		<cfset title="Download Agreement">
 		<cfquery name="getUserData" datasource="cf_dbuser">
-			SELECT   
+			SELECT
 				cf_users.user_id,
 				first_name,
 		        middle_name,
@@ -264,14 +274,14 @@
 				email,
 				download_format,
 				ask_for_filename
-			FROM 
+			FROM
 				cf_user_data,
 				cf_users
 			WHERE
 				cf_users.user_id = cf_user_data.user_id (+) AND
 				username = '#session.username#'
 		</cfquery>
-		<cfif len(getUserData.first_name) is 0 or 
+		<cfif len(getUserData.first_name) is 0 or
 			len(getUserData.last_name) is 0 or
 			len(getUserData.affiliation) is 0>
 			<div class="error">
@@ -319,7 +329,7 @@
 				</form>
 			<cfelse>
 				<cflocation url="SpecimenResultsDownload.cfm?agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#left(session.sessionKey,10)#" addtoken="false">
-			</cfif>			
+			</cfif>
 		<cfelse>
 			<form method="post" action="SpecimenResultsDownload.cfm" name="dlForm">
 				<input type="hidden" name="tableName" value="#tableName#">
@@ -346,13 +356,13 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-						These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form 
-						without prior written consent from the Museum. Those wishing to include these data in analyses or reports must acknowledge 
+						These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form
+						without prior written consent from the Museum. Those wishing to include these data in analyses or reports must acknowledge
 						the provenance of the original data and notify the appropriate curator prior to publication. These are secondary data, and
-						 their accuracy is not guaranteed. Citation of the data is no substitute for examination of specimens. The Museum and its staff 
+						 their accuracy is not guaranteed. Citation of the data is no substitute for examination of specimens. The Museum and its staff
 						 are not responsible for loss or damages due to use of these data.
 						</td>
-						
+
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -361,7 +371,7 @@
 							I agree that the data that I am now downloading are for my own use and will not be repackaged, redistributed, or sold.
 						</font></a>
 						</td>
-						
+
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -382,13 +392,13 @@
 			</form>
 		</cfif>
 	</cfoutput>
-</cfif>	
+</cfif>
 <cfif action is "down">
 	<cfif agree is "no">
 		You must agree to the terms of usage to download these data.
 		<ul>
 			<li>Click <a href="/home.cfm">here</a> to return to the home page.</li>
-			<li>Use your browser's back button or click <a href="javascript: history.back();">here</a> 
+			<li>Use your browser's back button or click <a href="javascript: history.back();">here</a>
 				if you wish to agree to the terms and proceed with the download.</li>
 			<li>
 				<a href="/contact.cfm">Contact us</a> if you wish to discuss the terms of usage.
@@ -397,14 +407,14 @@
 		<cfabort>
 	</cfif>
 	<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
-			user_tab_cols.column_name 
-		from 
+		select
+			user_tab_cols.column_name
+		from
 			user_tab_cols
-			left outer join 
-				cf_spec_res_cols on 
-				(upper(user_tab_cols.column_name) = upper(cf_spec_res_cols.column_name)) 
-		where 
+			left outer join
+				cf_spec_res_cols on
+				(upper(user_tab_cols.column_name) = upper(cf_spec_res_cols.column_name))
+		where
 			upper(table_name)=upper('#tableName#') order by DISP_ORDER
 	</cfquery>
 	<cfif not listfindnocase(valuelist(cols.column_name),"collection_object_id")>
@@ -467,7 +477,7 @@
 			<cfset header=trim(ac)>
 			<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-				variables.joFileWriter.writeLine(header); 
+				variables.joFileWriter.writeLine(header);
 			</cfscript>
 			<cfloop query="getData">
 				<cfset oneLine = "">
@@ -488,7 +498,7 @@
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
 			</cfloop>
-			<cfscript>	
+			<cfscript>
 				variables.joFileWriter.close();
 			</cfscript>
 			<cflocation url="/download.cfm?file=#fname#" addtoken="false">

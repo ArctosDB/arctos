@@ -1181,10 +1181,30 @@ from geog_auth_rec where rownum<10
 </cfif>
 <cfif action is "csv">
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_geog
+		select
+			CONTINENT_OCEAN,
+			COUNTRY,
+			STATE_PROV,
+			COUNTY,
+			QUAD,
+			FEATURE,
+			ISLAND,
+			ISLAND_GROUP,
+			SEA,
+			HIGHER_GEOG,
+			STATUS
+		from ds_temp_geog
 			order by
 			HIGHER_GEOG
 	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=getData,Fields=data.getData)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/geog_lookup.csv"
+	   	output = "#csv#"
+	   	addNewLine = "no">
+
+	<!----
 	<cfset ac = getData.columnList>
 	<!--- strip internal columns --->
 	<cfif ListFindNoCase(ac,'PKEY')>
@@ -1218,8 +1238,9 @@ from geog_auth_rec where rownum<10
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
+	---->
 	<cfoutput>
-		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+		<cflocation url="/download.cfm?file=geog_lookup.csv" addtoken="false">
 		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
