@@ -2,7 +2,7 @@
 <cfset title="system statistics">
 <script>
 	$(document).ready(function() {
-		$("##thisIsSlowYo").hide();
+		$("#thisIsSlowYo").hide();
 	});
 </script>
 <cfoutput>
