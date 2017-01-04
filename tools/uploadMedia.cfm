@@ -247,15 +247,11 @@
 				<cfset mediatype="">
 			</cfif>
 			<!--- from header above --->
-			<cfset thisRow=chr(13) & '"#mpath#","#mimetype#","#mediatype#","#thumbpath#",""#blanks#'>
-			<cfset s.append(thisRow)>
+			<cfset thisRow='"#mpath#","#mimetype#","#mediatype#","#thumbpath#",""#blanks#'>
+			<cfset s.append(chr(13) & thisRow)>
 		</cfif>
 	</cfloop>
-
-
 	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#..csv" output="#s.toString()#">
-
-
 	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------->
