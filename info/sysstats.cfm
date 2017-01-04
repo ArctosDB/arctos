@@ -188,6 +188,23 @@
 			variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
 		</cfscript>
 	</cfif>
+
+			<cfquery name="qy" datasource="uam_god">
+	select
+    to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yr,
+    count(*) numberSpecimens,
+    count(distinct(collection_id)) numberCollections
+  from
+    cataloged_item,
+    coll_object
+  where cataloged_item.collection_object_id=coll_object.collection_object_id
+  group by
+    to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
+	order by to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
+	</cfquery>
+	<cfdump var=#qy#>
+		<!------------
+
 	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
 		<cfquery name="qy" datasource="uam_god">
  			select
@@ -210,7 +227,7 @@
 			</cfscript>
 		</cfif>
 	</cfloop>
-		<!------------
+
 
 	</table>
 		<cfif isdefined('getCSV') and getCSV is true>
