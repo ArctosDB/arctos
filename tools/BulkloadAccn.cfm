@@ -231,20 +231,14 @@ Step 1: Upload a comma-delimited text file (csv).
 		<cfquery name="q" datasource="uam_god">
 			select column_name from user_tab_cols where table_name='CF_TEMP_ACCN' and column_name not like 'I$%' order by INTERNAL_COLUMN_ID
 		</cfquery>
-
-		<cfset d=valuelist(q.column_name)>
-		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadAccn.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(d);
-			variables.joFileWriter.close();
-		</cfscript>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/BulkloadAccn.csv"
+		   	output = "#valuelist(q.column_name)#"
+		   	addNewLine = "no">
 		<cflocation url="/download.cfm?file=BulkloadAccn.csv" addtoken="false">
 		<a href="/download/BulkloadAccn.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
-
 <!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
