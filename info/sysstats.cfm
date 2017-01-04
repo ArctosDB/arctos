@@ -216,12 +216,11 @@
 
 	</cfloop>
 	---->
-			<cfif not isdefined('getCSV') or getCSV is not true>
-
-	<div id="thisIsSlowYo">
-		Fetching data....<img src="/images/indicator.gif">
-	</div>
-	<cfflush>
+	<cfif not isdefined('getCSV') or getCSV is not true>
+		<div id="thisIsSlowYo">
+			Fetching data....<img src="/images/indicator.gif">
+		</div>
+		<cfflush>
 	</cfif>
 <table border>
 		<tr>
@@ -257,26 +256,12 @@
 			</cfscript>
 		</cfif>
 	</cfloop>
-
-
 	</table>
 		<cfif isdefined('getCSV') and getCSV is true>
 			<cfscript>
 				variables.joFileWriter.close();
 			</cfscript>
-
-			redirecting to download....
-
-
-
-
-						<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-
-
-
-<!----<cfheader name="Content-disposition" value="attachment;filename=#fname#">
-			<cfcontent file="#fname#" type="text/csv">
-			---->
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 		</cfif>
 	<hr>
 	<a name="collections"></a>
