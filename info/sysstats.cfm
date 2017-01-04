@@ -95,14 +95,24 @@
 			select count(*) c from publication
 		</cfquery>
 		<tr>
-			<td>Number Publications (<a href="/info/MoreCitationStats.cfm">more detail</a>)</td>
+			<td>
+				Number Publications
+				<cfif session.roles contains "coldfusion_user">
+					(<a href="/info/MoreCitationStats.cfm">more detail</a>)
+				</cfif>
+			</td>
 			<td><input value="#publication.c#"></td>
 		</tr>
 		<cfquery name="project" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from project
 		</cfquery>
 		<tr>
-			<td>Number Projects (<a href="/info/MoreCitationStats.cfm">more detail</a>)</td>
+			<td>
+				Number Projects
+				<cfif session.roles contains "coldfusion_user">
+					(<a href="/info/MoreCitationStats.cfm">more detail</a>)
+				</cfif>
+			</td>
 			<td><input value="#project.c#"></td>
 		</tr>
 
