@@ -1,5 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
+<script>
+	$(document).ready(function() {
+		$("##thisIsSlowYo").hide();
+	});
+</script>
 <cfoutput>
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 		select * from collection order by guid_prefix
@@ -274,8 +279,5 @@
 			<li>#institution#</li>
 		</cfloop>
 	</ul>
-	<script>
-		$("##thisIsSlowYo").hide();
-	</script>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
