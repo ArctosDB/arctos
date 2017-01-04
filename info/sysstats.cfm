@@ -275,7 +275,7 @@
 		</cfloop>
 	</ul>
 	<script>
-		$("##thisIsSlowYo".hide();
+		$("##thisIsSlowYo").hide();
 	</script>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
