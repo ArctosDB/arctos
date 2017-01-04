@@ -147,6 +147,12 @@
 			<td><input value="#reln.c#"></td>
 		</tr>
 	</table>
+
+
+	<!------------
+
+
+
 	<!----
 	* The numbers above represent tables owned by the system owner.
 	There are about 85 "data tables" which contain primary specimen data. They're pretty useless by themselves - the other several hundred tables are user info,
@@ -167,7 +173,6 @@
 		<cfset variables.encoding="UTF-8">
 		<cfset fname = "arctos_by_year.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-
 	</cfif>
 	Specimens and collection by year
 
@@ -178,11 +183,11 @@
 			<th>Number Collections</th>
 			<th>Number Specimens</th>
 		</tr>
-		<cfif isdefined('getCSV') and getCSV is true>
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
-	</cfscript>
+	<cfif isdefined('getCSV') and getCSV is true>
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
+		</cfscript>
 	</cfif>
 	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
 		<cfquery name="qy" datasource="uam_god">
@@ -201,19 +206,18 @@
 			<td>#qy.numberSpecimens#</td>
 		</tr>
 		<cfif isdefined('getCSV') and getCSV is true>
-		<cfscript>
-			variables.joFileWriter.writeLine('"#y#","#qy.numberCollections#","#qy.numberSpecimens#"');
-		</cfscript>
-	</cfif>
+			<cfscript>
+				variables.joFileWriter.writeLine('"#y#","#qy.numberCollections#","#qy.numberSpecimens#"');
+			</cfscript>
+		</cfif>
 	</cfloop>
 	</table>
 		<cfif isdefined('getCSV') and getCSV is true>
-	<cfscript>
-		variables.joFileWriter.close();
-	</cfscript>
+			<cfscript>
+				variables.joFileWriter.close();
+			</cfscript>
 			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-
-	</cfif>
+		</cfif>
 	<hr>
 	<a name="collections"></a>
 	<p>List of collections in Arctos:</p>
@@ -230,5 +234,7 @@
 			<li>#institution#</li>
 		</cfloop>
 	</ul>
+
+	-------->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
