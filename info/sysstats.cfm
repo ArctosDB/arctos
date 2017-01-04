@@ -211,6 +211,9 @@
 
 	</cfloop>
 	---->
+	<div id="thisIsSlowYo">
+		Fetching data....<img src="/images/indicator.gif">
+	</div>
 	<cfflush>
 <table border>
 		<tr>
@@ -271,6 +274,8 @@
 			<li>#institution#</li>
 		</cfloop>
 	</ul>
-
+	<script>
+		$("##thisIsSlowYo".hide();
+	</script>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
