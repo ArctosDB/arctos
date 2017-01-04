@@ -168,9 +168,10 @@
 		<cfset fname = "arctos_by_year.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 
-	<a href="/info/sysstats.cfm?getCSV=true">CSV</a>
 	</cfif>
 	Specimens and collection by year
+
+	<a href="/info/sysstats.cfm?getCSV=true">CSV</a>
 	<table border>
 		<tr>
 			<th>Year</th>
