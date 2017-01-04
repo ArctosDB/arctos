@@ -152,10 +152,12 @@
 	<p>Query and Download stats are available under the Reports tab.</p>
 	<a name="growth"></a>
 	<hr>
-	<cfset fileDir = "#Application.webDirectory#">
-	<cfset variables.encoding="UTF-8">
-	<cfset fname = "arctos_by_year.csv">
-	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfif isdefined('getCSV') and getCSV is true>
+		<cfset fileDir = "#Application.webDirectory#">
+		<cfset variables.encoding="UTF-8">
+		<cfset fname = "arctos_by_year.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	</cfif>
 	Specimens and collection by year
 	<a href="/download/#fname#">CSV</a>
 	<table border>
@@ -164,10 +166,12 @@
 			<th>Number Collections</th>
 			<th>Number Specimens</th>
 		</tr>
+		<cfif isdefined('getCSV') and getCSV is true>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
 	</cfscript>
+	</cfif>
 	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
 		<cfquery name="qy" datasource="uam_god">
  			select
@@ -184,14 +188,18 @@
 			<td>#qy.numberCollections#</td>
 			<td>#qy.numberSpecimens#</td>
 		</tr>
+		<cfif isdefined('getCSV') and getCSV is true>
 		<cfscript>
 			variables.joFileWriter.writeLine('"#y#","#qy.numberCollections#","#qy.numberSpecimens#"');
 		</cfscript>
+	</cfif>
 	</cfloop>
 	</table>
+		<cfif isdefined('getCSV') and getCSV is true>
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
+	</cfif>
 	<hr>
 	<a name="collections"></a>
 	<p>List of collections in Arctos:</p>
