@@ -1084,7 +1084,12 @@
 			specimen_event.verificationstatus like 'verified by %' and
 			collecting_event.locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>
-
+	<cfquery name="wss" dbtype="query">
+	  	SELECT
+	  		sum(numOfSpecs) tnspec
+	  	from
+	  		whatSpecs
+	</cfquery>
 	<cfoutput>
 		<cfsavecontent variable="return">
 			<span class="importantNotification">
@@ -1094,9 +1099,14 @@
 					nothing. Please delete it if you don't have plans for it.
 				<cfelse>
 					<ul>
+						<li>
+							<a target="_top" href="SpecimenResults.cfm?locality_id=#locality_id">
+								#wss.tnspec# specimens
+							</a>
+						</li>
 						<cfloop query="whatSpecs">
 							<li>
-								<a target="_top" href="SpecimenResults.cfm?locality_id=#locality_id#&collection_id=#collection_id#">
+								<a target="_top" href="SpecimenResults.cfm?locality_id=#locality_id#&collection_id=#collection_id#&specimen_event_type=#whatSpecs.specimen_event_type#">
 									#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens (#whatSpecs.specimen_event_type#)
 								</a>
 							</li>
