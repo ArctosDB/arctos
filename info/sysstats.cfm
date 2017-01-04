@@ -211,6 +211,7 @@
 
 	</cfloop>
 	---->
+	<cfflush>
 <table border>
 		<tr>
 			<th>Year</th>
