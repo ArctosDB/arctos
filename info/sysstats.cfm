@@ -202,8 +202,8 @@
 		</cfquery>
 		<cfdump var=#thisyear#>
 
-		<cfset cCS=cCS+thisyear.numberSpecimens>
-		<cfset cCC=cCS+thisyear.numberCollections>
+		<cfset cCS=sum(thisyear.numberSpecimens)>
+		<cfset cCC=sum(thisyear.numberCollections)>
 		<p>
 			y: #yr#; cCS: #cCS#; cCC: #cCC#
 		</p>
