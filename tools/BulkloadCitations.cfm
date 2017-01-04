@@ -71,25 +71,21 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		select * from cf_temp_citation
 	</cfquery>
 	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,USE_EXISTING_ACCEPTED_ID,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
-	<cfset variables.encoding="UTF-8">
-	<cfset variables.fileName="#Application.webDirectory#/download/BulkCitationsDown.csv">
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(header);
-	</cfscript>
+
+	<cfset s = createObject("java","java.lang.StringBuilder")>
+	<cfset newString = header>
+	<cfset s.append(newString)>
 	<cfloop query="mine">
 		<cfset d=''>
 		<cfloop list="#header#" index="i">
 			<cfset t='"' & evaluate("mine." & i) & '"'>
 			<cfset d=listappend(d,t,",")>
 		</cfloop>
-		<cfscript>
-			variables.joFileWriter.writeLine(d);
-		</cfscript>
+		<cfset s.append(d)>
 	</cfloop>
-	<cfscript>
-		variables.joFileWriter.close();
-	</cfscript>
+
+	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/BulkCitationsDown.csv" output="#s.toString()#">
+
 	<cflocation url="/download.cfm?file=BulkCitationsDown.csv" addtoken="false">
 	<a href="/download/BulkCitationsDown.csv">Click here if your file does not automatically download.</a>
 </cfif>
