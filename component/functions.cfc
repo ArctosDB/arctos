@@ -1100,7 +1100,7 @@
 				<cfelse>
 					<ul>
 						<li>
-							<a target="_top" href="SpecimenResults.cfm?locality_id=#locality_id">
+							<a target="_top" href="SpecimenResults.cfm?locality_id=#locality_id#">
 								#wss.tnspec# specimens
 							</a>
 						</li>
