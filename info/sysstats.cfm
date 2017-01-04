@@ -189,7 +189,7 @@
 		</cfscript>
 	</cfif>
 
-			<cfquery name="qy" datasource="uam_god">
+			<cfquery name="sby" datasource="uam_god">
 	select
     to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yr,
     count(*) numberSpecimens,
@@ -202,8 +202,24 @@
     to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
 	order by to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
 	</cfquery>
-	<cfdump var=#qy#>
-		<!------------
+	<cfdump var=#sby#>
+
+	<cfset cCS=0>
+	<cfset cCC=0>
+
+	<cfloop query="sby">
+		<cfquery name="thisyear" dbtype="query">
+			select * from sby where yr <= #yr#
+		</cfquery>
+		<cfdump var=#sby#>
+
+		<cfset cCS=cCS+thistear.numberSpecimens>
+		<cfset cCC=cCS+thistear.numberCollections>
+		<p>
+			y: #yr#; cCS: #cCS#; cCC: #cCC#
+		</p>
+
+	</cfloop>
 
 	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
 		<cfquery name="qy" datasource="uam_god">
@@ -253,6 +269,5 @@
 		</cfloop>
 	</ul>
 
-	-------->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
