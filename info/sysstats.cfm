@@ -54,7 +54,7 @@
 			<td>Number Specimens by cataloged_item_type</td>
 			<td>
 				<cfloop query="citype">
-					#CATALOGED_ITEM_TYPE#: <input value="#c#"><br>
+					<input value="#c#"> #CATALOGED_ITEM_TYPE#<br>
 				</cfloop>
 			</td>
 		</tr>
