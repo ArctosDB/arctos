@@ -105,6 +105,8 @@
 			<td>Number Projects (<a href="/info/MoreCitationStats.cfm">more detail</a>)</td>
 			<td><input value="#project.c#"></td>
 		</tr>
+
+		<!----
 		<cfquery name="user_tables" datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
 			select TABLE_NAME from user_tables
 		</cfquery>
@@ -119,6 +121,7 @@
 			<td>Number Code Tables *</td>
 			<td><input value="#ct.recordcount#"></td>
 		</tr>
+		---->
 		<cfquery name="gb"  datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from coll_obj_other_id_num where OTHER_ID_TYPE = 'GenBank'
 		</cfquery>
@@ -134,6 +137,7 @@
 			<td><input value="#reln.c#"></td>
 		</tr>
 	</table>
+	<!----
 	* The numbers above represent tables owned by the system owner.
 	There are about 85 "data tables" which contain primary specimen data. They're pretty useless by themselves - the other several hundred tables are user info,
 	 VPD settings, user settings and customizations, temp CF bulkloading tables, CF admin stuff, cached data (collection-type-specific code tables),
@@ -141,6 +145,7 @@
 	 there are approximately 100,000 triggers, views, procedures, system tables, etc. - think of them as the duct tape that holds Arctos together.
 	 Arctos is a deeply-integrated system which heavily uses Oracle functionality; it is not a couple tables loosely held together by some
 	 middleware, a stark contrast to any other system with which we are familiar.
+	 ---->
 	<p>
 		Arctos access data are available from Google Analytics - ask any member of the Advisory Committee for access. http://www.google.com/analytics/
 	</p>
