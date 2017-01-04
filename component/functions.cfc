@@ -1029,7 +1029,8 @@
 	  	SELECT
 	  		count(cat_num) as numOfSpecs,
 	  		guid_prefix collection,
-	  		collection.collection_id
+	  		collection.collection_id,
+	  		SPECIMEN_EVENT_TYPE
 		from
 			cataloged_item,
 			collection,
@@ -1042,7 +1043,8 @@
 			collecting_event.locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
 		GROUP BY
 			guid_prefix,
-	  		collection.collection_id
+	  		collection.collection_id,
+	  		SPECIMEN_EVENT_TYPE
 	</cfquery>
 	<cfquery name="whatMedia" datasource="uam_god">
 	  	select distinct
@@ -1095,7 +1097,7 @@
 						<cfloop query="whatSpecs">
 							<li>
 								<a target="_top" href="SpecimenResults.cfm?locality_id=#locality_id#&collection_id=#collection_id#">
-									#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens
+									#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens (#whatSpecs.specimen_event_type#)
 								</a>
 							</li>
 						</cfloop>
