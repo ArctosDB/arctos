@@ -1,10 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
 <cfoutput>
-	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 		select * from collection order by guid_prefix
 	</cfquery>
-	<br>this form caches for one hour
+	<br>this form caches
 	<table border>
 		<tr><th>
 				Metric
@@ -27,7 +27,7 @@
 			<td><input value="#inst.recordcount#"></td>
 		</tr>
 
-		<cfquery name="cataloged_item" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="cataloged_item" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from cataloged_item
 		</cfquery>
 		<tr>
@@ -36,7 +36,7 @@
 		</tr>
 
 
-		<cfquery name="citype" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="citype" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select
 				CATALOGED_ITEM_TYPE,
 				count(*) c
@@ -54,14 +54,14 @@
 			</td>
 		</tr>
 
-		<cfquery name="taxonomy" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="taxonomy" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from taxon_name
 		</cfquery>
 		<tr>
 			<td>Number Taxon Names</td>
 			<td><input value="#taxonomy.c#"></td>
 		</tr>
-		<cfquery name="locality" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="locality" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from locality
 		</cfquery>
 		<tr>
@@ -69,7 +69,7 @@
 			<td><input value="#locality.c#"></td>
 		</tr>
 
-		<cfquery name="collecting_event" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="collecting_event" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from collecting_event
 		</cfquery>
 		<tr>
@@ -77,21 +77,21 @@
 			<td><input value="#collecting_event.c#"></td>
 		</tr>
 
-		<cfquery name="media" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="media" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from media
 		</cfquery>
 		<tr>
 			<td>Number Media</td>
 			<td><input value="#media.c#"></td>
 		</tr>
-		<cfquery name="agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from agent
 		</cfquery>
 		<tr>
 			<td>Number Agents</td>
 			<td><input value="#agent.c#"></td>
 		</tr>
-		<cfquery name="publication" datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="publication" datasource="uam_god"  cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from publication
 		</cfquery>
 		<tr>
@@ -103,7 +103,7 @@
 			</td>
 			<td><input value="#publication.c#"></td>
 		</tr>
-		<cfquery name="project" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="project" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from project
 		</cfquery>
 		<tr>
@@ -132,14 +132,14 @@
 			<td><input value="#ct.recordcount#"></td>
 		</tr>
 		---->
-		<cfquery name="gb"  datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="gb"  datasource="uam_god"  cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from coll_obj_other_id_num where OTHER_ID_TYPE = 'GenBank'
 		</cfquery>
 		<tr>
 			<td>Number GenBank Linkouts</td>
 			<td><input value="#gb.c#"></td>
 		</tr>
-		<cfquery name="reln"  datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="reln"  datasource="uam_god"  cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from coll_obj_other_id_num where ID_REFERENCES != 'self'
 		</cfquery>
 		<tr>
@@ -224,7 +224,7 @@
 		</cfscript>
 	</cfif>
 	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
-		<cfquery name="qy" datasource="uam_god">
+		<cfquery name="qy" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
  			select
 				count(*) numberSpecimens,
 				count(distinct(collection_id)) numberCollections
