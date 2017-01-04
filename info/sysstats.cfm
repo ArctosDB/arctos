@@ -261,6 +261,8 @@
 			<cfscript>
 				variables.joFileWriter.close();
 			</cfscript>
+
+			redirecting to download....
 			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 		</cfif>
 	<hr>
