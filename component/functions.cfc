@@ -1173,7 +1173,6 @@
 			verificationstatus like 'verified by %' and
 			specimen_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>
-
 	<cfoutput>
 		<cfsavecontent variable="return">
 			<span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
