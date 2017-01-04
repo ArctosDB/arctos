@@ -193,10 +193,12 @@
 <!---------------------------------------------------------------------------->
 <cfif action is "getBLTemp">
 	<cfdirectory action="LIST" directory="#baseFileDir#" name="dir">
-	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
-	<cfset variables.encoding="US-ASCII">
+
 
 	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license">
+
+
+
 	<cfloop from="1" to="10" index="i">
 		<cfset header=listappend(header,"media_label_#i#")>
 		<cfset header=listappend(header,"media_label_value_#i#")>
@@ -218,10 +220,11 @@
 	<cfloop from="1" to="35" index="i">
 		<cfset blanks=blanks & ',""'>
 	</cfloop>
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(header);
-	</cfscript>
+
+	<cfset s = createObject("java","java.lang.StringBuilder")>
+	<cfset newString = header>
+	<cfset s.append(newString)>
+
 	<cfloop query="dir">
 		<cfif left(name,3) is not "tn_">
 			<cfset mpath="#baseWebDir#/#name#">
@@ -244,15 +247,15 @@
 				<cfset mediatype="">
 			</cfif>
 			<!--- from header above --->
-			<cfset thisRow='"#mpath#","#mimetype#","#mediatype#","#thumbpath#",""#blanks#'>
-			<cfscript>
-				variables.joFileWriter.writeLine(thisRow);
-			</cfscript>
+			<cfset thisRow=chr(13) & '"#mpath#","#mimetype#","#mediatype#","#thumbpath#",""#blanks#'>
+			<cfset s.append(thisRow)>
 		</cfif>
 	</cfloop>
-	<cfscript>
-		variables.joFileWriter.close();
-	</cfscript>
+
+
+	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#..csv" output="#s.toString()#">
+
+
 	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------->

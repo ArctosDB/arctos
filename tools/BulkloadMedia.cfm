@@ -380,12 +380,11 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_media where username='#session.username#' order by key
 		</cfquery>
-		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaBack.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(mine.columnList);
-		</cfscript>
+
+		<cfset header=mine.columnList>
+		<cfset s = createObject("java","java.lang.StringBuilder")>
+		<cfset newString = header>
+		<cfset s.append(newString)>
 		<cfloop query="mine">
 			<cfset d=''>
 			<cfloop list="#mine.columnList#" index="i">
@@ -396,13 +395,9 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 				</cfif>
 				<cfset d=listappend(d,t,",")>
 			</cfloop>
-			<cfscript>
-				variables.joFileWriter.writeLine(d);
-			</cfscript>
+			<cfset s.append(chr(13) & d)>
 		</cfloop>
-		<cfscript>
-			variables.joFileWriter.close();
-		</cfscript>
+		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/BulkMediaBack.csv" output="#s.toString()#">
 		<cflocation url="/download.cfm?file=BulkMediaBack.csv" addtoken="false">
 		<a href="/download/BulkMediaBack.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>

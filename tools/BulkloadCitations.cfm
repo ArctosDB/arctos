@@ -81,7 +81,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<cfset t='"' & evaluate("mine." & i) & '"'>
 			<cfset d=listappend(d,t,",")>
 		</cfloop>
-		<cfset s.append(d)>
+		<cfset s.append(chr(13) & d)>
 	</cfloop>
 
 	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/BulkCitationsDown.csv" output="#s.toString()#">

@@ -58,13 +58,10 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<cfloop from="1" to="#numPartAttrs#" index="i">
 			<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUTE_DETERMINER_#i#,PART_ATTRIBUTE_REMARK_#i#">
 		</cfloop>
-		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadParts.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(d);
-			variables.joFileWriter.close();
-		</cfscript>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/BulkloadParts.csv"
+		   	output = "#d#"
+		   	addNewLine = "no">
 		<cflocation url="/download.cfm?file=BulkloadParts.csv" addtoken="false">
 		<a href="/download/BulkloadParts.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>

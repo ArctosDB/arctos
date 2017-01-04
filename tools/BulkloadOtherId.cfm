@@ -55,13 +55,7 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 <cfif action is "template">
 	<cfoutput>
 		<cfset d="GUID_PREFIX,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
-		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(d);
-			variables.joFileWriter.close();
-		</cfscript>
+		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/BulkloadOtherId.csv" output="#d#">
 		<cflocation url="/download.cfm?file=BulkloadOtherId.csv" addtoken="false">
 		<a href="/download/BulkloadOtherId.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
