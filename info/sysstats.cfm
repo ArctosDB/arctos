@@ -176,18 +176,7 @@
 	Specimens and collection by year
 
 	<a href="/info/sysstats.cfm?getCSV=true">CSV</a>
-	<table border>
-		<tr>
-			<th>Year</th>
-			<th>Number Collections</th>
-			<th>Number Specimens</th>
-		</tr>
-	<cfif isdefined('getCSV') and getCSV is true>
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
-		</cfscript>
-	</cfif>
+
 
 	<cfquery name="sby" datasource="uam_god">
 		select
@@ -220,7 +209,18 @@
 		</p>
 
 	</cfloop>
-
+<table border>
+		<tr>
+			<th>Year</th>
+			<th>Number Collections</th>
+			<th>Number Specimens</th>
+		</tr>
+	<cfif isdefined('getCSV') and getCSV is true>
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
+		</cfscript>
+	</cfif>
 	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
 		<cfquery name="qy" datasource="uam_god">
  			select
