@@ -37,7 +37,7 @@
 		</cfquery>
 		<tr>
 			<td>Total Number Specimens</td>
-			<td><input value="#cataloged_item.c#"></td>
+			<td><input value="#NumberFormat(cataloged_item.c)#"></td>
 		</tr>
 
 
@@ -64,14 +64,14 @@
 		</cfquery>
 		<tr>
 			<td>Number Taxon Names</td>
-			<td><input value="#taxonomy.c#"></td>
+			<td><input value="#NumberFormat(taxonomy.c)#"></td>
 		</tr>
 		<cfquery name="locality" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from locality
 		</cfquery>
 		<tr>
 			<td>Number Localities</td>
-			<td><input value="#locality.c#"></td>
+			<td><input value="#NumberFormat(locality.c)#"></td>
 		</tr>
 
 		<cfquery name="collecting_event" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
@@ -79,7 +79,7 @@
 		</cfquery>
 		<tr>
 			<td>Number Collecting Events</td>
-			<td><input value="#collecting_event.c#"></td>
+			<td><input value="#NumberFormat(collecting_event.c)#"></td>
 		</tr>
 
 		<cfquery name="media" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
@@ -87,14 +87,14 @@
 		</cfquery>
 		<tr>
 			<td>Number Media</td>
-			<td><input value="#media.c#"></td>
+			<td><input value="#NumberFormat(media.c)#"></td>
 		</tr>
 		<cfquery name="agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from agent
 		</cfquery>
 		<tr>
 			<td>Number Agents</td>
-			<td><input value="#agent.c#"></td>
+			<td><input value="#NumberFormat(agent.c)#"></td>
 		</tr>
 		<cfquery name="publication" datasource="uam_god"  cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from publication
@@ -106,7 +106,7 @@
 					(<a href="/info/MoreCitationStats.cfm">more detail</a>)
 				</cfif>
 			</td>
-			<td><input value="#publication.c#"></td>
+			<td><input value="#NumberFormat(publication.c)#"></td>
 		</tr>
 		<cfquery name="project" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from project
@@ -118,7 +118,7 @@
 					(<a href="/info/MoreCitationStats.cfm">more detail</a>)
 				</cfif>
 			</td>
-			<td><input value="#project.c#"></td>
+			<td><input value="#NumberFormat(project.c)#"></td>
 		</tr>
 
 		<!----
@@ -142,14 +142,14 @@
 		</cfquery>
 		<tr>
 			<td>Number GenBank Linkouts</td>
-			<td><input value="#gb.c#"></td>
+			<td><input value="#NumberFormat(gb.c)#"></td>
 		</tr>
 		<cfquery name="reln"  datasource="uam_god"  cachedwithin="#createtimespan(0,0,600,0)#">
 			select count(*) c from coll_obj_other_id_num where ID_REFERENCES != 'self'
 		</cfquery>
 		<tr>
 			<td>Number Inter-Specimen Relationships</td>
-			<td><input value="#reln.c#"></td>
+			<td><input value="#NumberFormat(reln.c)#"></td>
 		</tr>
 	</table>
 
@@ -248,7 +248,7 @@
 		<tr>
 			<td>#y#</td>
 			<td>#qy.numberCollections#</td>
-			<td>#qy.numberSpecimens#</td>
+			<td>#NumberFormat(qy.numberSpecimens)#</td>
 		</tr>
 		<cfif isdefined('getCSV') and getCSV is true>
 			<cfscript>
