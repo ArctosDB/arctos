@@ -177,7 +177,7 @@
 
 	<a href="/info/sysstats.cfm?getCSV=true">CSV</a>
 
-
+<!---
 	<cfquery name="sby" datasource="uam_god">
 		select
 	    to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yr,
@@ -210,6 +210,7 @@
 		</p>
 
 	</cfloop>
+	---->
 <table border>
 		<tr>
 			<th>Year</th>
