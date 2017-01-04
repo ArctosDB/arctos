@@ -149,7 +149,6 @@
 	</table>
 
 
-	<!------------
 
 
 
@@ -211,6 +210,8 @@
 			</cfscript>
 		</cfif>
 	</cfloop>
+		<!------------
+
 	</table>
 		<cfif isdefined('getCSV') and getCSV is true>
 			<cfscript>
