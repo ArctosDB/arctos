@@ -216,10 +216,13 @@
 
 	</cfloop>
 	---->
+			<cfif not isdefined('getCSV') or getCSV is not true>
+
 	<div id="thisIsSlowYo">
 		Fetching data....<img src="/images/indicator.gif">
 	</div>
 	<cfflush>
+	</cfif>
 <table border>
 		<tr>
 			<th>Year</th>
@@ -267,12 +270,12 @@
 
 
 
-			<cfheader name="Content-disposition" value="attachment;filename=#fname#">
+						<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+
+
+
+<!----<cfheader name="Content-disposition" value="attachment;filename=#fname#">
 			<cfcontent file="#fname#" type="text/csv">
-
-
-<!----
-			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 			---->
 		</cfif>
 	<hr>
