@@ -43,13 +43,10 @@ end;
 <cfif action is "template">
 	<cfoutput>
 		<cfset d="OTHER_ID_TYPE,OTHER_ID_NUMBER,ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,ATTRIBUTE_DATE,ATTRIBUTE_METH,DETERMINER,REMARKS,guid_prefix">
-		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadAttributesTemplate.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(d);
-			variables.joFileWriter.close();
-		</cfscript>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/BulkloadAttributesTemplate.csv"
+		   	output = "#d#"
+		   	addNewLine = "no">
 		<cflocation url="/download.cfm?file=BulkloadAttributesTemplate.csv" addtoken="false">
 		<a href="/download/BulkloadAttributesTemplate.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
