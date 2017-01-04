@@ -1104,6 +1104,7 @@
 								#wss.tnspec# specimens
 							</a>
 						</li>
+						<ul>
 						<cfloop query="whatSpecs">
 							<li>
 								<a target="_top" href="SpecimenResults.cfm?locality_id=#locality_id#&collection_id=#collection_id#&specimen_event_type=#whatSpecs.specimen_event_type#">
@@ -1116,6 +1117,7 @@
 								<a target="_top" href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.recordcount# Media records</a>
 							</li>
 						</cfif>
+						</ul>
 					</ul>
 				</cfif>
 				<cfif verifiedSpecs.c gt 0>
