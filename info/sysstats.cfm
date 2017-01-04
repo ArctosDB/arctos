@@ -263,7 +263,17 @@
 			</cfscript>
 
 			redirecting to download....
+
+
+
+
+			<cfheader name="Content-disposition" value="attachment;filename=#fname#">
+			<cfcontent file="#fname#" type="text/csv">
+
+
+<!----
 			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			---->
 		</cfif>
 	<hr>
 	<a name="collections"></a>
