@@ -58,7 +58,7 @@
 				<cfloop list="#groupBy#" index="x">
 					<br>: #x#
 					<cfquery name="gs" dbtype="query">
-						select SQL_ELEMENT from ssrch_field_doc where ucase(CF_VARIABLE)='#ucase(x)#'
+						select SQL_ELEMENT from ssrch_field_doc where CF_VARIABLE='#ucase(x)#'
 					</cfquery>
 					<cfdump var=#gs#>
 				</cfloop>
