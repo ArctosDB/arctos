@@ -109,6 +109,8 @@
 		<cfset tbl='collecting_event'>
 	<cfelseif ktype is "collection_object_id">
 		<cfset tbl='cataloged_item'>
+	<cfelseif ktype is "borrow_id">
+		<cfset tbl='borrow'>
 	<cfelse>
 		<!--- not handled, return nothing disallowing save ---->
 		<cfset tbl='ajksndfiouafvblvnasahihs'>
