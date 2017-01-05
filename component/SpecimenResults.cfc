@@ -181,9 +181,6 @@
 				<cfif listfindnocase(groupBy,'individualcount')>
 					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 				</cfif>
-				<cfif listfindnocase(groupBy,'individualcount')>
-					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
-				</cfif>
 
 
 
