@@ -4211,6 +4211,8 @@
 				<cfset atype='project'>
 			<cfelseif idType is "publication_id">
 				<cfset atype='publication'>
+			<cfelseif idType is "media_id">
+				<cfset atype='media'>
 			</cfif>
 			<cfset mailTo = valuelist(whoTo.address)>
 			<cfset mailTo=listappend(mailTo,Application.DataProblemReportEmail,",")>
