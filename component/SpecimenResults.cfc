@@ -132,6 +132,8 @@
 
 
 
+
+				<br>go go set search gadget
 				<cfloop list="#scols#" index="pt">
 
 
@@ -144,6 +146,7 @@
 							ADD the thing grouped (eg, more specific)
 						---->
 						<!--- replace search terms with stuff here ---->
+						<br>x: #x#
 						<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 						<cfif x is "guid_prefix">
@@ -169,6 +172,8 @@
 					</cfif>
 				</cfloop>
 
+				<br>thisLink: #thisLink#
+				<br>//go go set search gadget
 
 				<cfif left(thislink,1) is '&'>
 					<cfset thisLInk=right(thisLink,len(thisLink)-1)>
