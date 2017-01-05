@@ -114,6 +114,10 @@
 					<cfreturn result>
 				</cfif>
 				<cfset thisLink=mapurl>
+
+
+
+
 				<!---
 					mapURL probably contains taxon_scope
 					We have to over-ride that here to get the
@@ -128,7 +132,7 @@
 
 
 
-				<cfloop list="#spcols#" index="pt">
+				<cfloop list="#scols#" index="pt">
 
 
 					<cfset x=listgetat(pt,2,'.')>
@@ -184,7 +188,7 @@
 				<!----
 				<cfset checkSql(SqlString)>
 				---->
-				<cfset InnerSqlString = 'select COUNT(distinct(collection_object_id)) CountOfCatalogedItem, linktospecimens,'>
+				<cfset InnerSqlString = 'select COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem, linktospecimens,'>
 				<cfif listfindnocase(groupBy,'individualcount')>
 					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 				</cfif>
