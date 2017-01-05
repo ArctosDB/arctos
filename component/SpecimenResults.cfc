@@ -32,6 +32,8 @@
 					</cfif>
 				</cfloop>
 
+				<cfdump var=#variables#>
+
 
 				<cfif not listfindnocase(groupby,'collection_object_id')>
 					<cfset groupBy=listprepend(groupby,"collection_object_id")>
