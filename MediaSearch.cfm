@@ -738,11 +738,7 @@
 			<cfabort>
 		<cfelse>
 			<cfset title="Media Results: #findIDs.recordcount# records found">
-			<cfif findIDs.recordcount is 500>
-				<div style="border:2px solid red;text-align:center;margin:0 10em;">
-					Note: This form will return a maximum of 500 records.
-				</div>
-			</cfif>
+
 			<td><a href="/MediaSearch.cfm">[ Media Search ]</a></td>
 		</cfif>
 		<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm" target="_blank">
@@ -764,7 +760,43 @@
 
 		</td>
 			<td align="right">
-				annotate
+			<cfif findIDs.recordcount gt 1000>
+				Annotations are available only for <1K records.
+			<cfelse>
+				<div id="annotateSpace">
+					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+							decode(REVIEWER_AGENT_ID,NULL,0,1) isreviewed,
+							count(*) cnt
+						from
+							annotations
+						where
+							media_id = #media_id#
+						group by
+							decode(REVIEWER_AGENT_ID,NULL,0,1)
+					</cfquery>
+					<cfquery name="ra" dbtype="query">
+						select sum(cnt) c from existingAnnotations where isreviewed=1
+					</cfquery>
+					<cfquery name="ua" dbtype="query">
+						select sum(cnt) c from existingAnnotations where isreviewed=0
+					</cfquery>
+					<cfif len(ra.c) is 0>
+						<cfset gac=0>
+					<cfelse>
+						<cfset gac=ra.c>
+					</cfif>
+					<cfif len(ua.c) is 0>
+						<cfset bac=0>
+					<cfelse>
+						<cfset bac=ua.c>
+					</cfif>
+					<button type="button" onclick="openAnnotation('media_id=#media_id#')" class="annobtn">
+						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
+					</button>
+				</div>
+
+			</cfif>
 			</td>
 			</tr>
 		</table>
