@@ -245,7 +245,15 @@
                                         #media_type# (#mime_type#)
                                         <br><a href="/media/#media_id#">Media Details</a>
                                         <br>#alt_text#
-										<div id="annotateSpace">
+                                    </p>
+                                </div>
+                            </cfloop>
+                            <div class="thumb_spcr">&nbsp;</div>
+                        </div>
+                    </div>
+                </cfif>
+            </div>
+			<div id="annotateSpace">
 					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
 							decode(REVIEWER_AGENT_ID,NULL,0,1) isreviewed,
@@ -277,14 +285,6 @@
 						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
 					</button>
 				</div>
-                                    </p>
-                                </div>
-                            </cfloop>
-                            <div class="thumb_spcr">&nbsp;</div>
-                        </div>
-                    </div>
-                </cfif>
-            </div>
         </div>
     </div>
 <cfcatch>
