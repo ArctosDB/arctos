@@ -59,15 +59,19 @@
 
 				<!--- now build a query using groupby to look up the SQL variable ---->
 
+				<cfset scols="">
 				<cfloop list="#groupBy#" index="x">
 					<br>: #x#
 					<cfquery name="gs" dbtype="query">
 						select SQL_ELEMENT from ssrch_field_doc where CF_VARIABLE='#lcase(x)#'
 					</cfquery>
 					<cfdump var=#gs#>
+					<cfif gs.recordcount is 1>
+						<cfset scols=listappend(scols,replace(gs.SQL_ELEMENT,'flatTableName','#session.flatTableName#','all'))>
+					</cfif>
 				</cfloop>
 
-
+<br>scols: #scols#
 				<cfset prefixed_cols="">
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
