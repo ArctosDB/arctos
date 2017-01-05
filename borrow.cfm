@@ -586,6 +586,11 @@
 		<a href="/Reports/report_printer.cfm?transaction_id=#transaction_id#">[ Print ]</a>
 
 
+		<p>
+			Media....
+		</p>
+
+
 
 </td>
 	</tr></table>
