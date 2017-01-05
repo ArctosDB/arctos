@@ -135,6 +135,7 @@
 
 				<br>go go set search gadget
 				<cfloop list="#scols#" index="pt">
+					<br>pt:#pt#
 
 
 					<cfset x=listgetat(pt,2,'.')>
