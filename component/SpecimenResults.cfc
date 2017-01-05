@@ -159,7 +159,7 @@
 							<!---- do nothing, not a search term ---->
 
 						<cfelse>
-							<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#x#),'NULL')) || '","&")>
+							<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#session.FlatTableName#.#x#),'NULL')) || '","&")>
 						</cfif>
 
 
@@ -176,7 +176,7 @@
 							<!---- do nothing, not a search term ---->
 						<cfelse>
 							<br>appending
-							<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#x#),'NULL')) || '","&")>
+							<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#session.FlatTableName#.#x#),'NULL')) || '","&")>
 						</cfif>
 					</cfif>
 				</cfloop>
