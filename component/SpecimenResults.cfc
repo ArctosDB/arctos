@@ -26,11 +26,14 @@
 				<cfloop list="#querystring#" index="kv" delimiters="&?">
 					<cfif listlen(kv,"=") is 2>
 						<cfset vname=listgetat(kv,1,"=")>
+						<br>vname: #vname#
 						<cfset vval=listgetat(kv,2,"=")>
+						<br>vval: #vval#
 						<cfset "#vname#"=vval>
-
 					</cfif>
 				</cfloop>
+
+
 				<cfif not listfindnocase(groupby,'collection_object_id')>
 					<cfset groupBy=listprepend(groupby,"collection_object_id")>
 				</cfif>
