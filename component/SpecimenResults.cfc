@@ -139,6 +139,7 @@
 
 
 					<cfset x=listgetat(pt,2,'.')>
+					<br>x: #x#
 
 					<cfif thisLink contains x>
 						<!---
