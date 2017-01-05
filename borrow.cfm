@@ -587,7 +587,45 @@
 
 
 		<p>
-			Media....
+			<strong>Media associated with this Borrow</strong>
+			<br>
+			<span class="likeLink" onclick="addMediaHere('#getBorrow.collection# #getBorrow.BORROW_NUMBER#','#transaction_id#');">
+				Create Media
+			</span>
+			<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this Borrow.
+			<div id="mmmsgdiv"></div>
+				<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						media_uri,
+						preview_uri,
+						media_type,
+						media.media_id,
+						mime_type
+					from
+						media,
+						media_relations
+					where
+						media.media_id=media_relations.media_id and
+						media_relations.media_relationship='documents borrow' and
+						media_relations.related_primary_key=#transaction_id#
+				</cfquery>
+				<cfset obj = CreateObject("component","component.functions")>
+				<div id="thisLoanMediaDiv">
+				<cfloop query="media">
+					<cfset preview = obj.getMediaPreview(
+						preview_uri="#media.preview_uri#",
+						media_type="#media.media_type#")>
+						<br>
+						<a href="/media/#media_id#?open" target="_blank"><img src="#preview#" class="theThumb"></a>
+		                  	<p>
+							#media_type# (#mime_type#)
+		                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+						</p>
+				</cfloop>
+			</div>
+
+
+
 		</p>
 
 
