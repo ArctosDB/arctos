@@ -116,7 +116,9 @@
 				<cfset thisLink=mapurl>
 
 
-
+				<p>
+					mapurl: #mapurl#
+				</p>
 
 				<!---
 					mapURL probably contains taxon_scope
