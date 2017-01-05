@@ -4197,6 +4197,16 @@
 								identification.identification_id=identification_taxonomy.identification_id and
 								identification_taxonomy.taxon_name_id in (#idvalue#)
 						)
+					<cfelseif idType is "media_id">
+						cataloged_item.collection_object_id in (
+							select
+								related_primary_key
+							from
+								media_relations
+							where
+								media_relationship='shows cataloged_item' and
+								media_relations.media_id in (#idvalue#)
+						)
 					<cfelse>
 						1=0
 					</cfif>
@@ -4224,6 +4234,9 @@
 				<cfset subj="TEST PLEASE IGNORE: Annotation Submitted">
 			</cfif>
 			<cfmail to="#maddr#" from="annotation@#Application.fromEmail#" subject="#subj#" type="html">
+
+
+				---#mailTo#---
 				An Arctos user (<cfif len(session.username) gt 0>#session.username#<cfelse>Anonymous</cfif> - #email#) has created an Annotation
 				concerning #listlen(idvalue)# #atype# record(s) potentially related to your collection(s).
 				<blockquote>
