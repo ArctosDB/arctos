@@ -594,9 +594,8 @@
 
 
 			<span class="likeLink" onclick="addMedia('borrow_id','#transaction_id#');">
-				Create Media
+				Create or Link Media
 			</span>
-			<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this Borrow.
 			<div id="mmmsgdiv"></div>
 				<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
