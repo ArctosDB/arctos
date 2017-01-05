@@ -70,7 +70,7 @@
 		<cfabort>
 	</cfif>
 <cftry>
-	<div class="tbl">
+	<div class="tbl" style="width:100%;">
 	<div class="tbl-row">
 
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
@@ -86,7 +86,7 @@
 		</div>
 	</cfif>
 
-		<div class="tbl-cell">
+		<div class="tbl-cell" style="text-align:right;">
 	<div id="annotateSpace">
 					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
