@@ -25,7 +25,7 @@
 				<!--- grab the SQL + variables ---->
 				<cfquery name="ssrch_field_doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,120,0)#">
 					select
-						CF_VARIABLE,
+						lower(CF_VARIABLE) CF_VARIABLE,
 						SQL_ELEMENT
 					from
 						ssrch_field_doc
@@ -58,7 +58,7 @@
 				<cfloop list="#groupBy#" index="x">
 					<br>: #x#
 					<cfquery name="gs" dbtype="query">
-						select SQL_ELEMENT from ssrch_field_doc where CF_VARIABLE='#ucase(x)#'
+						select SQL_ELEMENT from ssrch_field_doc where CF_VARIABLE='#lcase(x)#'
 					</cfquery>
 					<cfdump var=#gs#>
 				</cfloop>
