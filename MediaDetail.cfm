@@ -108,38 +108,7 @@
 
 
 
-<div id="annotateSpace">
-					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select
-							decode(REVIEWER_AGENT_ID,NULL,0,1) isreviewed,
-							count(*) cnt
-						from
-							annotations
-						where
-							media_id = #media_id#
-						group by
-							decode(REVIEWER_AGENT_ID,NULL,0,1)
-					</cfquery>
-					<cfquery name="ra" dbtype="query">
-						select sum(cnt) c from existingAnnotations where isreviewed=1
-					</cfquery>
-					<cfquery name="ua" dbtype="query">
-						select sum(cnt) c from existingAnnotations where isreviewed=0
-					</cfquery>
-					<cfif len(ra.c) is 0>
-						<cfset gac=0>
-					<cfelse>
-						<cfset gac=ra.c>
-					</cfif>
-					<cfif len(ua.c) is 0>
-						<cfset bac=0>
-					<cfelse>
-						<cfset bac=ua.c>
-					</cfif>
-					<button type="button" onclick="openAnnotation('media_id=#media_id#')" class="annobtn">
-						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
-					</button>
-				</div>
+
 
 
 		<div class="tbl">
@@ -276,6 +245,38 @@
                                         #media_type# (#mime_type#)
                                         <br><a href="/media/#media_id#">Media Details</a>
                                         <br>#alt_text#
+										<div id="annotateSpace">
+					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+							decode(REVIEWER_AGENT_ID,NULL,0,1) isreviewed,
+							count(*) cnt
+						from
+							annotations
+						where
+							media_id = #media_id#
+						group by
+							decode(REVIEWER_AGENT_ID,NULL,0,1)
+					</cfquery>
+					<cfquery name="ra" dbtype="query">
+						select sum(cnt) c from existingAnnotations where isreviewed=1
+					</cfquery>
+					<cfquery name="ua" dbtype="query">
+						select sum(cnt) c from existingAnnotations where isreviewed=0
+					</cfquery>
+					<cfif len(ra.c) is 0>
+						<cfset gac=0>
+					<cfelse>
+						<cfset gac=ra.c>
+					</cfif>
+					<cfif len(ua.c) is 0>
+						<cfset bac=0>
+					<cfelse>
+						<cfset bac=ua.c>
+					</cfif>
+					<button type="button" onclick="openAnnotation('media_id=#media_id#')" class="annobtn">
+						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
+					</button>
+				</div>
                                     </p>
                                 </div>
                             </cfloop>
