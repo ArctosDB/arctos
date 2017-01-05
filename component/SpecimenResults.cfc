@@ -193,6 +193,13 @@
 
 
 				<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
+
+
+				<p>
+				InnerSqlString: #InnerSqlString#
+				</p>
+
+				<cfabort>
 				<cftry>
 					<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						drop table #session.SpecSumTab#
