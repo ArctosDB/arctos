@@ -53,6 +53,16 @@
 					groupBy: #groupBy#
 				</p>
 
+				<!--- now build a query using groupby to look up the SQL variable ---->
+
+				<cfloop list="#groupBy#" index="x">
+					<br>: #x#
+					<cfquery name="gs" dbtype="query">
+						select SQL_ELEMENT from ssrch_field_doc where ucase(CF_VARIABLE)='#ucase(x)#'
+					</cfquery>
+					<cfdump var=#gs#>
+				</cfloop>
+
 
 				<cfset prefixed_cols="">
 				<cfset spcols="">
