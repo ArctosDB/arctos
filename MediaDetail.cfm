@@ -71,23 +71,21 @@
 	</cfif>
 <cftry>
 	<div class="tbl" style="width:100%;">
-	<div class="tbl-row">
-
-	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-	  	<cfset h="/media.cfm?action=newMedia">
-        <cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
-        	<cfif url.relationship__1 is "cataloged_item">
-            	<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
-                ( find Media and pick an item to link to existing Media )<br>
-            </cfif>
-		</cfif>
-		<div class="tbl-cell">
-		<a href="#h#">[ Create media ]</a>
-		</div>
-	</cfif>
-
-		<div class="tbl-cell" style="text-align:right;">
-	<div id="annotateSpace">
+		<div class="tbl-row">
+			  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+			  	<cfset h="/media.cfm?action=newMedia">
+		        <cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
+		        	<cfif url.relationship__1 is "cataloged_item">
+		            	<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
+		                ( find Media and pick an item to link to existing Media )<br>
+		            </cfif>
+				</cfif>
+				<div class="tbl-cell">
+					<a href="#h#">[ Create media ]</a>
+				</div>
+			</cfif>
+			<div class="tbl-cell" style="text-align:right;">
+				<div id="annotateSpace">
 					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
 							decode(REVIEWER_AGENT_ID,NULL,0,1) isreviewed,
@@ -119,10 +117,9 @@
 						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
 					</button>
 				</div>
-
+			</div>
 		</div>
-			</div>
-			</div>
+	</div>
 
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select

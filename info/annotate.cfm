@@ -70,6 +70,19 @@
 			<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from annotations where publication_id=#publication_id#
 			</cfquery>
+		<cfelseif isdefined("media_id") and len(media_id) gt 0 >
+			<cfset linky="media_id=#media_id#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					'Media <strong>' || media_id || '</strong>' summary
+				from
+					media
+				where
+					media_id=#media_id#
+			</cfquery>
+			<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from annotations where media_id=#media_id#
+			</cfquery>
 		<cfelse>
 			<div class="error">
 				Oops! I can't handle that request. <a href="/contact.cfm?ref=failedAnnotationType">contact us</a>
