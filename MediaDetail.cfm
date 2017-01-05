@@ -70,6 +70,9 @@
 		<cfabort>
 	</cfif>
 <cftry>
+	<div class="tbl">
+	<div class="tbl-row">
+
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	  	<cfset h="/media.cfm?action=newMedia">
         <cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
@@ -78,8 +81,49 @@
                 ( find Media and pick an item to link to existing Media )<br>
             </cfif>
 		</cfif>
+		<div class="tbl-cell">
 		<a href="#h#">[ Create media ]</a>
+		</div>
 	</cfif>
+
+		<div class="tbl-cell">
+	<div id="annotateSpace">
+					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+							decode(REVIEWER_AGENT_ID,NULL,0,1) isreviewed,
+							count(*) cnt
+						from
+							annotations
+						where
+							media_id = #media_id#
+						group by
+							decode(REVIEWER_AGENT_ID,NULL,0,1)
+					</cfquery>
+					<cfquery name="ra" dbtype="query">
+						select sum(cnt) c from existingAnnotations where isreviewed=1
+					</cfquery>
+					<cfquery name="ua" dbtype="query">
+						select sum(cnt) c from existingAnnotations where isreviewed=0
+					</cfquery>
+					<cfif len(ra.c) is 0>
+						<cfset gac=0>
+					<cfelse>
+						<cfset gac=ra.c>
+					</cfif>
+					<cfif len(ua.c) is 0>
+						<cfset bac=0>
+					<cfelse>
+						<cfset bac=ua.c>
+					</cfif>
+					<button type="button" onclick="openAnnotation('media_id=#media_id#')" class="annobtn">
+						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
+					</button>
+				</div>
+
+		</div>
+			</div>
+			</div>
+
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			media_label,
@@ -253,38 +297,6 @@
                     </div>
                 </cfif>
             </div>
-			<div id="annotateSpace">
-					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select
-							decode(REVIEWER_AGENT_ID,NULL,0,1) isreviewed,
-							count(*) cnt
-						from
-							annotations
-						where
-							media_id = #media_id#
-						group by
-							decode(REVIEWER_AGENT_ID,NULL,0,1)
-					</cfquery>
-					<cfquery name="ra" dbtype="query">
-						select sum(cnt) c from existingAnnotations where isreviewed=1
-					</cfquery>
-					<cfquery name="ua" dbtype="query">
-						select sum(cnt) c from existingAnnotations where isreviewed=0
-					</cfquery>
-					<cfif len(ra.c) is 0>
-						<cfset gac=0>
-					<cfelse>
-						<cfset gac=ra.c>
-					</cfif>
-					<cfif len(ua.c) is 0>
-						<cfset bac=0>
-					<cfelse>
-						<cfset bac=ua.c>
-					</cfif>
-					<button type="button" onclick="openAnnotation('media_id=#media_id#')" class="annobtn">
-						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
-					</button>
-				</div>
         </div>
     </div>
 <cfcatch>
