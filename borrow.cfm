@@ -584,55 +584,44 @@
 		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
 				'resizable,scrollbars=yes,width=600,height=600')">
 	</form>
-
-		<a href="/Reports/report_printer.cfm?transaction_id=#transaction_id#">[ Print ]</a>
-
-
-		<p>
-			<strong>Media associated with this Borrow</strong>
-			<br>
-
-
-			<span class="likeLink" onclick="addMedia('borrow_id','#transaction_id#');">
-				Create or Link Media
-			</span>
-			<div id="mmmsgdiv"></div>
-				<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select
-						media_uri,
-						preview_uri,
-						media_type,
-						media.media_id,
-						mime_type
-					from
-						media,
-						media_relations
-					where
-						media.media_id=media_relations.media_id and
-						media_relations.media_relationship='documents borrow' and
-						media_relations.related_primary_key=#transaction_id#
-				</cfquery>
-				<cfset obj = CreateObject("component","component.functions")>
-				<div id="thisLoanMediaDiv">
-				<cfloop query="media">
-					<cfset preview = obj.getMediaPreview(
-						preview_uri="#media.preview_uri#",
-						media_type="#media.media_type#")>
-						<br>
-						<a href="/media/#media_id#?open" target="_blank"><img src="#preview#" class="theThumb"></a>
-		                  	<p>
-							#media_type# (#mime_type#)
-		                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-						</p>
-				</cfloop>
-			</div>
-
-
-
-		</p>
-
-
-
+	<a href="/Reports/report_printer.cfm?transaction_id=#transaction_id#">[ Print Stuff ]</a>
+	<p>
+		<strong>Media associated with this Borrow</strong>
+		<br>
+		<span class="likeLink" onclick="addMedia('borrow_id','#transaction_id#');">
+			Create or Link Media
+		</span>
+		<div id="mmmsgdiv"></div>
+			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					media_uri,
+					preview_uri,
+					media_type,
+					media.media_id,
+					mime_type
+				from
+					media,
+					media_relations
+				where
+					media.media_id=media_relations.media_id and
+					media_relations.media_relationship='documents borrow' and
+					media_relations.related_primary_key=#transaction_id#
+			</cfquery>
+			<cfset obj = CreateObject("component","component.functions")>
+			<div id="thisLoanMediaDiv">
+			<cfloop query="media">
+				<cfset preview = obj.getMediaPreview(
+					preview_uri="#media.preview_uri#",
+					media_type="#media.media_type#")>
+					<br>
+					<a href="/media/#media_id#?open" target="_blank"><img src="#preview#" class="theThumb"></a>
+	                  	<p>
+						#media_type# (#mime_type#)
+	                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+					</p>
+			</cfloop>
+		</div>
+	</p>
 </td>
 	</tr></table>
 <hr>
