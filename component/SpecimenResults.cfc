@@ -221,7 +221,7 @@
 
 				#SqlString#
 
-				<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
+				<cfset InnerSqlString = InnerSqlString & '#gbcols# from (#SqlString#) group by #gbcols#,linktospecimens order by #gbcols#'>
 				<!----
 				<p>
 				InnerSqlString: <cfdump var=#InnerSqlString#>
