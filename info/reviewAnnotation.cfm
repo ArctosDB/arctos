@@ -215,11 +215,13 @@
 					<div>Not yet reviewed.</div>
 				</cfif>
 			</cfif>
-			<cfquery name="grp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="grp" datasource="uam_god" >
 				select
 					getAnnotationObject(annotation_id) dlink
 				 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
 			</cfquery>
+
+
 			<div>
 				Annotated Object(s)
 				<cfif grp.recordcount gt 1 and grp.dlink contains '/guid/'>
