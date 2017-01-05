@@ -720,6 +720,9 @@
 			from
 				nodoc
 		</cfquery>
+		<table width="100%">
+			<tr>
+				<td>
 		<table cellpadding="10"><tr>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		    <cfset h="/media.cfm?action=newMedia">
@@ -758,6 +761,15 @@
 			<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		</tr></table>
+
+		</td>
+			<td align="right">
+				annotate
+			</td>
+			</tr>
+		</table>
+
+
 		<cfset q="">
 		<cfloop list="#StructKeyList(form)#" index="key">
 			<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
