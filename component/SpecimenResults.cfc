@@ -22,6 +22,17 @@
 
 		<cftry>
 			<cfif len(qid) is 0>
+				<!--- grab the SQL + variables ---->
+				<cfquery name="ssrch_field_doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,120,0)#">
+					select
+						CF_VARIABLE,
+						SQL_ELEMENT
+					from
+						ssrch_field_doc
+					where
+						SPECIMEN_QUERY_TERM=1
+				</cfquery>
+				<!--- set local variables ---->
 				<cfset querystring=URLDecode(querystring)>
 				<cfloop list="#querystring#" index="kv" delimiters="&?">
 					<cfif listlen(kv,"=") is 2>
@@ -32,23 +43,16 @@
 					</cfif>
 				</cfloop>
 
-				<cfdump var=#variables#>
 
-
+				<!--- need collection_object_id for query; will remove it later ---->
 				<cfif not listfindnocase(groupby,'collection_object_id')>
 					<cfset groupBy=listprepend(groupby,"collection_object_id")>
 				</cfif>
-				<cfquery name="ssrch_field_doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select
-						CF_VARIABLE,
-						SQL_ELEMENT
-					from
-						ssrch_field_doc
-					where
-						SPECIMEN_QUERY_TERM=1
-				</cfquery>
 
-				<cfdump var=#ssrch_field_doc#>
+				<p>
+					groupBy: #groupBy#
+				</p>
+
 
 				<cfset prefixed_cols="">
 				<cfset spcols="">
