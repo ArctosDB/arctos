@@ -36,6 +36,18 @@
 				<cfif not listfindnocase(groupby,'collection_object_id')>
 					<cfset groupBy=listprepend(groupby,"collection_object_id")>
 				</cfif>
+				<cfquery name="ssrch_field_doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						CF_VARIABLE,
+						SQL_ELEMENT
+					from
+						ssrch_field_doc
+					where
+						SPECIMEN_QUERY_TERM=1
+				</cfquery>
+
+				<cfdump var=#ssrch_field_doc#>
+
 				<cfset prefixed_cols="">
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
