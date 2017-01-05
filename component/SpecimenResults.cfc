@@ -150,7 +150,7 @@
 							ADD the thing grouped (eg, more specific)
 						---->
 						<!--- replace search terms with stuff here ---->
-						<br>x: #x#
+						<br>removing x: #x#
 						<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 						<cfif x is "guid_prefix">
@@ -164,13 +164,18 @@
 
 
 					<cfelse>
+						<br>addingx: #x#
 						<!--- they grouped by something they did not search by, add it to the specimen-link ---->
 
 						<cfif x is "guid_prefix">
+							<br>gp, nothing
 							<cfset thisLink=listappend(thisLink,"#x#=' || urlescape(substr(#session.FlatTableName#.guid, 1,instr(#session.FlatTableName#.guid,':',1,2)-1)) || '","&")>
 						<cfelseif x is "individualcount">
+
+							<br>individualcount, nothing
 							<!---- do nothing, not a search term ---->
 						<cfelse>
+							<br>appending
 							<cfset thisLink=listappend(thisLink,"#x#==' || urlescape(nvl(to_char(#x#),'NULL')) || '","&")>
 						</cfif>
 					</cfif>
