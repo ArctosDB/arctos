@@ -155,7 +155,7 @@
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 						<cfif x is "guid_prefix">
 							<cfset thisLink=listappend(thisLink,"#x#=' || urlescape(substr(#session.FlatTableName#.guid, 1,instr(#session.FlatTableName#.guid,':',1,2)-1)) || '","&")>
-						<cfelseif x is "individualcount">
+						<cfelseif x contains "individualcount">
 							<!---- do nothing, not a search term ---->
 
 						<cfelse>
@@ -170,7 +170,7 @@
 						<cfif x is "guid_prefix">
 							<br>gp, nothing
 							<cfset thisLink=listappend(thisLink,"#x#=' || urlescape(substr(#session.FlatTableName#.guid, 1,instr(#session.FlatTableName#.guid,':',1,2)-1)) || '","&")>
-						<cfelseif x is "individualcount">
+						<cfelseif x contains "individualcount">
 
 							<br>individualcount, nothing
 							<!---- do nothing, not a search term ---->
