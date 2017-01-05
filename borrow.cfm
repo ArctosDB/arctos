@@ -32,6 +32,8 @@
 		$("#borrow_number").val(v);
 		$("#collection_id").val(cid);
 	}
+
+
 </script>
 <style>
 	.nextnum{
@@ -589,7 +591,9 @@
 		<p>
 			<strong>Media associated with this Borrow</strong>
 			<br>
-			<span class="likeLink" onclick="addMediaHere('#getBorrow.collection# #getBorrow.BORROW_NUMBER#','#transaction_id#');">
+
+
+			<span class="likeLink" onclick="addMedia('borrow_id','#transaction_id#');">
 				Create Media
 			</span>
 			<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this Borrow.
