@@ -196,14 +196,11 @@
 				<p>
 					InnerSqlString: #InnerSqlString#
 				</p>
-				<cfif listfindnocase(groupBy,'individualcount')>
-					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
-				</cfif>
-				<cfif listfindnocase(groupBy,'individualcount')>
-					<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
-				</cfif>
+				<p>
+					SqlString: #SqlString#
+				</p>
 
-
+				#SqlString#
 
 				<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols#,linktospecimens order by #group_cols#'>
 				<!----
