@@ -487,6 +487,7 @@ validate
 			set
 				status = NULL
 			where
+				status != 'loaded' and
 				upper(username)='#ucase(session.username)#'
 		</cfquery>
 
@@ -701,10 +702,17 @@ validate
 <!-------------------------------------------------------------------------------------------->
 <cfif action is "loadToDb">
 <cfoutput>
+
+	<p>
+		Timeout errors? Just reload....
+	</p>
+	<cfflush>
+
+
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_parts where upper(username)='#ucase(session.username)#' and status='valid'
 	</cfquery>
-	<cftransaction>
+
 	<!----
 		OPTIONS;
 			1) came in WITHOUT use_part_id and WITH parent_container_id:
@@ -726,6 +734,7 @@ validate
 
 	---->
 		<cfloop query="getTempData">
+		<cftransaction>
 			<cfif len(use_part_id) is 0 AND len(parent_container_id) gt 0><!--- 1 ---->
 				<!--- new part, add container --->
 				<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -910,17 +919,37 @@ validate
 					 	)
 					</cfquery>
 				</cfif>
+
+				<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update cf_temp_parts set status='loaded' where key=#key#
+				</cfquery>
+
+
 			</cfloop>
+
+			</cftransaction>
 		</cfloop>
 		<!--- clean up ---->
-		<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from cf_temp_parts where upper(username)='#ucase(session.username)#' and status='valid'
-		</cfquery>
-	</cftransaction>
+
+
 	Spiffy, all done.
 	<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(getTempData.collection_object_id)#">
 		See in Specimen Results
 	</a>
+
+	<p>
+
+	<a href="BulkloadParts.cfm?action=deletemyloaded">
+		clean up the stuff that just loaded
+	</a>
+
+
+	</p>
 </cfoutput>
+</cfif>
+<cfif action is "deletemyloaded">
+	<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_parts where  status='loaded' and upper(username)='#ucase(session.username)#'
+	</cfquery>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
