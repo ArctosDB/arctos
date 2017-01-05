@@ -38,15 +38,44 @@
 				</cfquery>
 				<!--- set local variables ---->
 				<cfset querystring=URLDecode(querystring)>
+
+				<!--- make a table to hold this
+					term - everything we need to deal with
+					termval - value
+					is_q - is it part of the query?
+					is_g - is it part of the grouping?
+					sqlt - the SQL to get it
+				--->
+				<cfset trms=queryNew("term,termval,is_q,is_g,sqlt")>
+
+
 				<cfloop list="#querystring#" index="kv" delimiters="&?">
 					<cfif listlen(kv,"=") is 2>
 						<cfset vname=listgetat(kv,1,"=")>
 						<cfset vval=listgetat(kv,2,"=")>
 						<br>vname: #vname# == vval: #vval#
+						<!--- first loop through quer terms, figure out if they're also group terms, add them to the table ---->
+
+						<cfquery name="gs" dbtype="query">
+							select SQL_ELEMENT from ssrch_field_doc where CF_VARIABLE='#lcase(vname)#'
+						</cfquery>
+						<cfset isg=0>
+						<cfif listfindnocase(groupby,vname)>
+							<cfset isg=1>
+						</cfif>
+						<cfset queryaddrow(trms,{
+							term=vname,
+							termval=vval,
+							is_q=1,
+							is_g=isg,
+							sqlt=replace(gs.SQL_ELEMENT,'flatTableName','#session.flatTableName#')
+						})>
+						<!--- and set them as local variables --->
 						<cfset "#vname#"=vval>
 					</cfif>
 				</cfloop>
 
+				<cfdump var=#trms#>
 
 				<!--- need collection_object_id for query; will remove it later ---->
 				<cfif not listfindnocase(groupby,'collection_object_id')>
@@ -227,6 +256,7 @@
 				InnerSqlString: <cfdump var=#InnerSqlString#>
 				</p>
 				---->
+					groupBy: #groupBy#
 
 
 				<cfset InnerSqlString = 'create table #session.SpecSumTab# as ' & InnerSqlString>
