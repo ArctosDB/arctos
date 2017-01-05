@@ -98,60 +98,6 @@
 
 
 
-
-
-				<cfset prefixed_cols="">
-				<cfset spcols="">
-				<cfloop list="#groupBy#" index="x">
-					<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-					<cfif x is not "collection_object_id" and x is not "individualcount">
-						<cfset spcols = listappend(spcols,"#session.flatTableName#.#x#")>
-					</cfif>
-				</cfloop>
-
-				<cfif prefixed_cols contains "#session.flatTableName#.guid_prefix">
-					<cfset prefixed_cols=replace(
-						prefixed_cols,
-						"#session.flatTableName#.guid_prefix",
-						"substr(#session.flatTableName#.guid, 1,instr(#session.flatTableName#.guid,':',1,2) - 1) guid_prefix")>
-				</cfif>
-
-
-
-
-
-				<cfset basSelect = " SELECT #prefixed_cols# ">
-				<cfset basFrom = " FROM #session.flatTableName#">
-				<cfset basJoin = "">
-				<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
-				<cfset basQual = "">
-				<cfset mapurl="">
-				<!----
-				<cfoutput>
-				<p>
-					basSelect: #basSelect#
-				</p>
-				</cfoutput>
-				---->
-
-
-
-
-
-
-				<cfinclude template="/includes/SearchSql.cfm">
-
-
-
-
-
-				<cfset group_cols = groupBy>
-				<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
-				<cfif listfindnocase(group_cols,'individualcount')>
-					<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
-				</cfif>
-
-
 				<!--- require some actual searching --->
 				<cfset srchTerms="">
 				<cfloop list="#mapurl#" delimiters="&" index="t">
