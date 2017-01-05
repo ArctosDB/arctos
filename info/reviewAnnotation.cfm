@@ -119,6 +119,11 @@
 						<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
 					)
 				</cfif>
+				<cfif isdefined("media_id") and len(media_id) gt 0>
+					and annotations.media_id in (
+						<cfqueryparam value = "#media_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+					)
+				</cfif>
 				<cfif isdefined("annotation_id") and len(annotation_id) gt 0>
 					and annotations.annotation_id = (
 						<cfqueryparam value = "#annotation_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
