@@ -60,6 +60,7 @@
 				<!--- now build a query using groupby to look up the SQL variable ---->
 
 				<cfset scols="">
+				<cfset gbcols="">
 				<cfloop list="#groupBy#" index="x">
 					<br>: #x#
 					<cfquery name="gs" dbtype="query">
@@ -67,11 +68,38 @@
 					</cfquery>
 					<cfdump var=#gs#>
 					<cfif gs.recordcount is 1>
-						<cfset scols=listappend(scols,replace(gs.SQL_ELEMENT,'flatTableName','#session.flatTableName#','all'))>
+						<cfif x is "individualcount">
+							<!--- is weird, gets SUMmed, and ommitted from groupby ---->
+							<cfset scols=listappend(scols,'sum(#session.flatTableName#.individualcount) individualcount')>
+						<cfelse>
+							<!--- es normal --->
+							<cfset scols=listappend(scols,replace(gs.SQL_ELEMENT,'flatTableName','#session.flatTableName#','all'))>
+							<cfset gbcols=listappend(scols,replace(gs.SQL_ELEMENT,'flatTableName','#session.flatTableName#','all'))>
+						</cfif>
 					</cfif>
 				</cfloop>
 
 <br>scols: #scols#
+<br>gbcols: #gbcols#
+
+
+
+				<cfset basSelect = " SELECT #scols# ">
+				<cfset basFrom = " FROM #session.flatTableName#">
+				<cfset basJoin = "">
+				<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
+				<cfset basQual = "">
+				<cfset mapurl="">
+
+				<cfinclude template="/includes/SearchSql.cfm">
+
+
+
+
+
+
+
+
 				<cfset prefixed_cols="">
 				<cfset spcols="">
 				<cfloop list="#groupBy#" index="x">
