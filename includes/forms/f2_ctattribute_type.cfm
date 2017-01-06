@@ -58,7 +58,7 @@
 				<cfset thisCCVal=evaluate(f)>
 				<p>thisCCVal: #thisCCVal#</p>
 				<cfif left(thisCCVal,8) is 'DELETE__'>
-					<cfset thisCCVal=mid(thisCCVal,8,500)>
+					<cfset thisCCVal=mid(thisCCVal,9,500)>
 
 					<br>yup, bye!
 					<br>delete from ctattribute_type where attribute_type='#ATTRIBUTE_TYPE#' and collection_cde='#thisCCVal#'
