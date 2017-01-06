@@ -50,7 +50,7 @@
 </cfif>
 <cfif action is "update">
 
-<cfdump va=#form#>
+<cfdump var=#form#>
 	<cfoutput>
 		<cfloop list="#FIELDNAMES#" index="f">
 			<cfif left(f,15) is "COLLECTION_CDE_" and f is not "COLLECTION_CDE_NEW">
