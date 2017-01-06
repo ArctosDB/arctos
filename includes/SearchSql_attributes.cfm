@@ -2468,12 +2468,14 @@
 
 <cfif isdefined("sex") and len(sex) gt 0>
   <cfset mapurl = "#mapurl#&sex=#sex#">
-  <cfset basJoin = " #basJoin# left outer JOIN v_attributes tbl_sex ON (#session.flatTableName#.collection_object_id = tbl_sex.collection_object_id)">
+
+<cfif compare(sex,"NULL") is 0>
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'sex') is null">
+<cfelse>
+
+ <cfset basJoin = " #basJoin# left outer JOIN v_attributes tbl_sex ON (#session.flatTableName#.collection_object_id = tbl_sex.collection_object_id)">
   <cfset basQual = " #basQual# AND tbl_sex.attribute_type = 'sex'">
   <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_sex.is_encumbered = 0"></cfif>
-<cfif compare(sex,"NULL") is 0>
-      <cfset basQual = " #basQual# AND tbl_sex.attribute_value is null">
-<cfelse>
 
 
 <cfif sex neq "_">
