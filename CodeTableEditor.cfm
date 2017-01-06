@@ -27,6 +27,8 @@
 		<cflocation url="/info/geol_hierarchy.cfm" addtoken="false">
 	<cfelseif tbl is "ctspecimen_part_name"><!---------------------------------------------------->
 		<cflocation url="/Admin/ctspecimen_part_name.cfm" addtoken="false">
+	<cfelseif tbl is "ctattribtue_type"><!---------------------------------------------------->
+		<cflocation url="/Admin/ctattribute_type.cfm" addtoken="false">
 	<cfelseif tbl is "ctspec_part_att_att"><!---------------------------------------------------->
 		<cflocation url="/Admin/ctspec_part_att_att.cfm" addtoken="false">
 	<cfelseif tbl is "ctmedia_license"><!---------------------------------------------------->
