@@ -48,9 +48,27 @@
 		</form>
 	</cfoutput>
 </cfif>
-<!----------
 <cfif action is "update">
+
+<cfdump va=#form#>
 	<cfoutput>
+		<cfloop list="#FIELDNAMES#" index="f">
+			<cfif left(f,15) is "COLLECTION_CDE_" and f is not "COLLECTION_CDE_NEW">
+				gonna delete something
+				<!--- if the value is NULL, we're deleting that record ---->
+				<!----
+				<cfset thisCCVal=evaluate(f)>
+				<cfif len(thisCCVal) is 0>
+					<cfset thisPartID=listlast(f,"_")>
+					<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						delete from ctspecimen_part_name where CTSPNID=#thisPartID#
+					</cfquery>
+				</cfif>
+				------>
+			</cfif>
+		</cfloop>
+
+		<!----
 		<cftransaction>
 			<!--- first, delete anything that needs deleted ---->
 			<cfloop list="#FIELDNAMES#" index="f">
@@ -82,6 +100,7 @@
 		</cftransaction>
 		<cflocation url="f2_ctspecimen_part_name.cfm?part_name=#URLEncodedFormat(part_name)#" addtoken="false">
 
+		----->
+
 	</cfoutput>
 </cfif>
------------>
