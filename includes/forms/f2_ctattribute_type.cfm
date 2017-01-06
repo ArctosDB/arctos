@@ -26,7 +26,7 @@
 				<label for="collection_cde_#c#">Available for Collection Type</label>
 
 				<select name="collection_cde_#c#" id="collection_cde_#c#" size="1">
-					<option value="">Remove from this collection type</option>
+					<option value="DELETE__#d.collection_cde#">Remove from this collection type</option>
 					<option selected="selected" value="#d.collection_cde#">#d.collection_cde#</option>
 				</select>
 				<cfset c=c+1>
@@ -57,9 +57,15 @@
 				MAYBE gonna delete something
 				<cfset thisCCVal=evaluate(f)>
 				<p>thisCCVal: #thisCCVal#</p>
-				<cfif len(thisCCVal) is 0>
-					yup, bye!
+				<cfif left(thisCCVal,8) is 'DELETE__'>
+					<cfset thisCCVal=mid(thisCCVal,8,500)>
+
+					<br>yup, bye!
+					<br>delete from ctattribute_type where attribute_type='#ATTRIBUTE_TYPE#' and collection_cde='#thisCCVal#'
 				</cfif>
+
+									<option value="#d.collection_cde#">Remove from this collection type</option>
+
 				<!--- if the value is NULL, we're deleting that record ---->
 				<!----
 				<cfset thisCCVal=evaluate(f)>
