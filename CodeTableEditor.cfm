@@ -650,6 +650,10 @@
 				<cfset i=#i#+1>
 			</cfloop>
 		</table>
+	<cfelseif tbl is "ctcollection_cde"><!--- this IS the thing that makes this form funky.... --->
+	use SQL<cfabort>
+
+
 	<cfelse><!---------------------------- normal CTs --------------->
 		<cfquery name="getCols" datasource="uam_god">
 			select column_name from sys.user_tab_columns where table_name='#tbl#'
