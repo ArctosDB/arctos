@@ -23,7 +23,7 @@
 	function updateAttribute(a) {
 		var rid='prow_' + a.replace(/\W/g, '_');
 		$("#" + rid).addClass('edited');
-		var guts = "/includes/forms/f2_ctattribute_type.cfm.cfm?attribute_type=" + encodeURI(a);
+		var guts = "/includes/forms/f2_ctattribute_type.cfm?attribute_type=" + encodeURI(a);
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
