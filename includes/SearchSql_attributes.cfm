@@ -8,7 +8,7 @@
 <cfif isdefined("abundance") and len(abundance) gt 0>
   <cfset mapurl = "#mapurl#&abundance=#abundance#">
   <cfif compare(abundance,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"abundance") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'abundance') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_abundance ON (#session.flatTableName#.collection_object_id = tbl_abundance.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_abundance.attribute_type = 'abundance'">
@@ -33,7 +33,7 @@
 <cfif isdefined("age") and len(age) gt 0>
   <cfset mapurl = "#mapurl#&age=#age#">
   <cfif compare(age,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"age") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'age') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_age ON (#session.flatTableName#.collection_object_id = tbl_age.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_age.attribute_type = 'age'">
@@ -58,7 +58,7 @@
 <cfif isdefined("age_class") and len(age_class) gt 0>
   <cfset mapurl = "#mapurl#&age_class=#age_class#">
   <cfif compare(age_class,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"age_class") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'age_class') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_age_class ON (#session.flatTableName#.collection_object_id = tbl_age_class.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_age_class.attribute_type = 'age class'">
@@ -83,7 +83,7 @@
 <cfif isdefined("appraised_value") and len(appraised_value) gt 0>
   <cfset mapurl = "#mapurl#&appraised_value=#appraised_value#">
   <cfif compare(appraised_value,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"appraised_value") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'appraised_value') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_appraised_value ON (#session.flatTableName#.collection_object_id = tbl_appraised_value.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_appraised_value.attribute_type = 'appraised value'">
@@ -119,7 +119,7 @@
 <cfif isdefined("axillary_girth") and len(axillary_girth) gt 0>
   <cfset mapurl = "#mapurl#&axillary_girth=#axillary_girth#">
   <cfif compare(axillary_girth,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"axillary_girth") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'axillary_girth') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_axillary_girth ON (#session.flatTableName#.collection_object_id = tbl_axillary_girth.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_axillary_girth.attribute_type = 'axillary girth'">
@@ -157,7 +157,7 @@
 <cfif isdefined("body_condition") and len(body_condition) gt 0>
   <cfset mapurl = "#mapurl#&body_condition=#body_condition#">
   <cfif compare(body_condition,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"body_condition") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'body_condition') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_body_condition ON (#session.flatTableName#.collection_object_id = tbl_body_condition.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_body_condition.attribute_type = 'body condition'">
@@ -182,7 +182,7 @@
 <cfif isdefined("body_width") and len(body_width) gt 0>
   <cfset mapurl = "#mapurl#&body_width=#body_width#">
   <cfif compare(body_width,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"body_width") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'body_width') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_body_width ON (#session.flatTableName#.collection_object_id = tbl_body_width.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_body_width.attribute_type = 'body width'">
@@ -220,7 +220,7 @@
 <cfif isdefined("breadth") and len(breadth) gt 0>
   <cfset mapurl = "#mapurl#&breadth=#breadth#">
   <cfif compare(breadth,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"breadth") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'breadth') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_breadth ON (#session.flatTableName#.collection_object_id = tbl_breadth.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_breadth.attribute_type = 'breadth'">
@@ -258,7 +258,7 @@
 <cfif isdefined("brood_patch") and len(brood_patch) gt 0>
   <cfset mapurl = "#mapurl#&brood_patch=#brood_patch#">
   <cfif compare(brood_patch,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"brood_patch") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'brood_patch') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_brood_patch ON (#session.flatTableName#.collection_object_id = tbl_brood_patch.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_brood_patch.attribute_type = 'brood patch'">
@@ -283,7 +283,7 @@
 <cfif isdefined("bursa") and len(bursa) gt 0>
   <cfset mapurl = "#mapurl#&bursa=#bursa#">
   <cfif compare(bursa,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"bursa") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'bursa') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_bursa ON (#session.flatTableName#.collection_object_id = tbl_bursa.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_bursa.attribute_type = 'bursa'">
@@ -308,7 +308,7 @@
 <cfif isdefined("bursa_length") and len(bursa_length) gt 0>
   <cfset mapurl = "#mapurl#&bursa_length=#bursa_length#">
   <cfif compare(bursa_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"bursa_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'bursa_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_bursa_length ON (#session.flatTableName#.collection_object_id = tbl_bursa_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_bursa_length.attribute_type = 'bursa length'">
@@ -346,7 +346,7 @@
 <cfif isdefined("bursa_width") and len(bursa_width) gt 0>
   <cfset mapurl = "#mapurl#&bursa_width=#bursa_width#">
   <cfif compare(bursa_width,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"bursa_width") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'bursa_width') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_bursa_width ON (#session.flatTableName#.collection_object_id = tbl_bursa_width.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_bursa_width.attribute_type = 'bursa width'">
@@ -384,7 +384,7 @@
 <cfif isdefined("carapace_length") and len(carapace_length) gt 0>
   <cfset mapurl = "#mapurl#&carapace_length=#carapace_length#">
   <cfif compare(carapace_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"carapace_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'carapace_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_carapace_length ON (#session.flatTableName#.collection_object_id = tbl_carapace_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_carapace_length.attribute_type = 'carapace length'">
@@ -422,7 +422,7 @@
 <cfif isdefined("caste") and len(caste) gt 0>
   <cfset mapurl = "#mapurl#&caste=#caste#">
   <cfif compare(caste,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"caste") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'caste') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_caste ON (#session.flatTableName#.collection_object_id = tbl_caste.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_caste.attribute_type = 'caste'">
@@ -447,7 +447,7 @@
 <cfif isdefined("clutch_size") and len(clutch_size) gt 0>
   <cfset mapurl = "#mapurl#&clutch_size=#clutch_size#">
   <cfif compare(clutch_size,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"clutch_size") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'clutch_size') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_clutch_size ON (#session.flatTableName#.collection_object_id = tbl_clutch_size.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_clutch_size.attribute_type = 'clutch size'">
@@ -472,7 +472,7 @@
 <cfif isdefined("clutch_size_of_nest_parasite") and len(clutch_size_of_nest_parasite) gt 0>
   <cfset mapurl = "#mapurl#&clutch_size_of_nest_parasite=#clutch_size_of_nest_parasite#">
   <cfif compare(clutch_size_of_nest_parasite,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"clutch_size_of_nest_parasite") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'clutch_size_of_nest_parasite') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_clutch_size_of_nest_parasite ON (#session.flatTableName#.collection_object_id = tbl_clutch_size_of_nest_parasite.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_clutch_size_of_nest_parasite.attribute_type = 'clutch size of nest parasite'">
@@ -497,7 +497,7 @@
 <cfif isdefined("colors") and len(colors) gt 0>
   <cfset mapurl = "#mapurl#&colors=#colors#">
   <cfif compare(colors,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"colors") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'colors') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_colors ON (#session.flatTableName#.collection_object_id = tbl_colors.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_colors.attribute_type = 'colors'">
@@ -522,7 +522,7 @@
 <cfif isdefined("crown_rump_length") and len(crown_rump_length) gt 0>
   <cfset mapurl = "#mapurl#&crown_rump_length=#crown_rump_length#">
   <cfif compare(crown_rump_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"crown_rump_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'crown_rump_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_crown_rump_length ON (#session.flatTableName#.collection_object_id = tbl_crown_rump_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_crown_rump_length.attribute_type = 'crown-rump length'">
@@ -560,7 +560,7 @@
 <cfif isdefined("culmen_length") and len(culmen_length) gt 0>
   <cfset mapurl = "#mapurl#&culmen_length=#culmen_length#">
   <cfif compare(culmen_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"culmen_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'culmen_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_culmen_length ON (#session.flatTableName#.collection_object_id = tbl_culmen_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_culmen_length.attribute_type = 'culmen length'">
@@ -598,7 +598,7 @@
 <cfif isdefined("curvilinear_length") and len(curvilinear_length) gt 0>
   <cfset mapurl = "#mapurl#&curvilinear_length=#curvilinear_length#">
   <cfif compare(curvilinear_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"curvilinear_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'curvilinear_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_curvilinear_length ON (#session.flatTableName#.collection_object_id = tbl_curvilinear_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_curvilinear_length.attribute_type = 'curvilinear length'">
@@ -636,7 +636,7 @@
 <cfif isdefined("depth") and len(depth) gt 0>
   <cfset mapurl = "#mapurl#&depth=#depth#">
   <cfif compare(depth,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"depth") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'depth') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_depth ON (#session.flatTableName#.collection_object_id = tbl_depth.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_depth.attribute_type = 'depth'">
@@ -674,7 +674,7 @@
 <cfif isdefined("description") and len(description) gt 0>
   <cfset mapurl = "#mapurl#&description=#description#">
   <cfif compare(description,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"description") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'description') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_description ON (#session.flatTableName#.collection_object_id = tbl_description.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_description.attribute_type = 'description'">
@@ -699,7 +699,7 @@
 <cfif isdefined("diploid_number") and len(diploid_number) gt 0>
   <cfset mapurl = "#mapurl#&diploid_number=#diploid_number#">
   <cfif compare(diploid_number,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"diploid_number") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'diploid_number') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_diploid_number ON (#session.flatTableName#.collection_object_id = tbl_diploid_number.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_diploid_number.attribute_type = 'diploid number'">
@@ -724,7 +724,7 @@
 <cfif isdefined("ear_from_crown") and len(ear_from_crown) gt 0>
   <cfset mapurl = "#mapurl#&ear_from_crown=#ear_from_crown#">
   <cfif compare(ear_from_crown,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"ear_from_crown") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'ear_from_crown') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_ear_from_crown ON (#session.flatTableName#.collection_object_id = tbl_ear_from_crown.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_ear_from_crown.attribute_type = 'ear from crown'">
@@ -762,7 +762,7 @@
 <cfif isdefined("ear_from_notch") and len(ear_from_notch) gt 0>
   <cfset mapurl = "#mapurl#&ear_from_notch=#ear_from_notch#">
   <cfif compare(ear_from_notch,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"ear_from_notch") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'ear_from_notch') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_ear_from_notch ON (#session.flatTableName#.collection_object_id = tbl_ear_from_notch.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_ear_from_notch.attribute_type = 'ear from notch'">
@@ -800,7 +800,7 @@
 <cfif isdefined("ectoparasite_examination") and len(ectoparasite_examination) gt 0>
   <cfset mapurl = "#mapurl#&ectoparasite_examination=#ectoparasite_examination#">
   <cfif compare(ectoparasite_examination,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"ectoparasite_examination") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'ectoparasite_examination') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_ectoparasite_examination ON (#session.flatTableName#.collection_object_id = tbl_ectoparasite_examination.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_ectoparasite_examination.attribute_type = 'ectoparasite examination'">
@@ -825,7 +825,7 @@
 <cfif isdefined("ectoparasites_detected") and len(ectoparasites_detected) gt 0>
   <cfset mapurl = "#mapurl#&ectoparasites_detected=#ectoparasites_detected#">
   <cfif compare(ectoparasites_detected,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"ectoparasites_detected") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'ectoparasites_detected') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_ectoparasites_detected ON (#session.flatTableName#.collection_object_id = tbl_ectoparasites_detected.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_ectoparasites_detected.attribute_type = 'ectoparasites detected'">
@@ -850,7 +850,7 @@
 <cfif isdefined("egg_content_weight") and len(egg_content_weight) gt 0>
   <cfset mapurl = "#mapurl#&egg_content_weight=#egg_content_weight#">
   <cfif compare(egg_content_weight,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"egg_content_weight") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'egg_content_weight') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_egg_content_weight ON (#session.flatTableName#.collection_object_id = tbl_egg_content_weight.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_egg_content_weight.attribute_type = 'egg content weight'">
@@ -888,7 +888,7 @@
 <cfif isdefined("eggshell_thickness") and len(eggshell_thickness) gt 0>
   <cfset mapurl = "#mapurl#&eggshell_thickness=#eggshell_thickness#">
   <cfif compare(eggshell_thickness,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"eggshell_thickness") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'eggshell_thickness') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_eggshell_thickness ON (#session.flatTableName#.collection_object_id = tbl_eggshell_thickness.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_eggshell_thickness.attribute_type = 'eggshell thickness'">
@@ -926,7 +926,7 @@
 <cfif isdefined("embryo_weight") and len(embryo_weight) gt 0>
   <cfset mapurl = "#mapurl#&embryo_weight=#embryo_weight#">
   <cfif compare(embryo_weight,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"embryo_weight") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'embryo_weight') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_embryo_weight ON (#session.flatTableName#.collection_object_id = tbl_embryo_weight.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_embryo_weight.attribute_type = 'embryo weight'">
@@ -964,7 +964,7 @@
 <cfif isdefined("endoparasite_examination") and len(endoparasite_examination) gt 0>
   <cfset mapurl = "#mapurl#&endoparasite_examination=#endoparasite_examination#">
   <cfif compare(endoparasite_examination,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"endoparasite_examination") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'endoparasite_examination') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_endoparasite_examination ON (#session.flatTableName#.collection_object_id = tbl_endoparasite_examination.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_endoparasite_examination.attribute_type = 'endoparasite examination'">
@@ -989,7 +989,7 @@
 <cfif isdefined("endoparasites_detected") and len(endoparasites_detected) gt 0>
   <cfset mapurl = "#mapurl#&endoparasites_detected=#endoparasites_detected#">
   <cfif compare(endoparasites_detected,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"endoparasites_detected") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'endoparasites_detected') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_endoparasites_detected ON (#session.flatTableName#.collection_object_id = tbl_endoparasites_detected.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_endoparasites_detected.attribute_type = 'endoparasites detected'">
@@ -1014,7 +1014,7 @@
 <cfif isdefined("examined_for_parasites") and len(examined_for_parasites) gt 0>
   <cfset mapurl = "#mapurl#&examined_for_parasites=#examined_for_parasites#">
   <cfif compare(examined_for_parasites,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"examined_for_parasites") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'examined_for_parasites') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_examined_for_parasites ON (#session.flatTableName#.collection_object_id = tbl_examined_for_parasites.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_examined_for_parasites.attribute_type = 'examined for parasites'">
@@ -1039,7 +1039,7 @@
 <cfif isdefined("experimental") and len(experimental) gt 0>
   <cfset mapurl = "#mapurl#&experimental=#experimental#">
   <cfif compare(experimental,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"experimental") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'experimental') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_experimental ON (#session.flatTableName#.collection_object_id = tbl_experimental.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_experimental.attribute_type = 'experimental'">
@@ -1064,7 +1064,7 @@
 <cfif isdefined("extension") and len(extension) gt 0>
   <cfset mapurl = "#mapurl#&extension=#extension#">
   <cfif compare(extension,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"extension") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'extension') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_extension ON (#session.flatTableName#.collection_object_id = tbl_extension.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_extension.attribute_type = 'extension'">
@@ -1102,7 +1102,7 @@
 <cfif isdefined("fat_deposition") and len(fat_deposition) gt 0>
   <cfset mapurl = "#mapurl#&fat_deposition=#fat_deposition#">
   <cfif compare(fat_deposition,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"fat_deposition") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'fat_deposition') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_fat_deposition ON (#session.flatTableName#.collection_object_id = tbl_fat_deposition.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_fat_deposition.attribute_type = 'fat deposition'">
@@ -1127,7 +1127,7 @@
 <cfif isdefined("forearm_length") and len(forearm_length) gt 0>
   <cfset mapurl = "#mapurl#&forearm_length=#forearm_length#">
   <cfif compare(forearm_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"forearm_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'forearm_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_forearm_length ON (#session.flatTableName#.collection_object_id = tbl_forearm_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_forearm_length.attribute_type = 'forearm length'">
@@ -1165,7 +1165,7 @@
 <cfif isdefined("gonad") and len(gonad) gt 0>
   <cfset mapurl = "#mapurl#&gonad=#gonad#">
   <cfif compare(gonad,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"gonad") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'gonad') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_gonad ON (#session.flatTableName#.collection_object_id = tbl_gonad.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_gonad.attribute_type = 'gonad'">
@@ -1203,7 +1203,7 @@
 <cfif isdefined("head_length") and len(head_length) gt 0>
   <cfset mapurl = "#mapurl#&head_length=#head_length#">
   <cfif compare(head_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"head_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'head_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_head_length ON (#session.flatTableName#.collection_object_id = tbl_head_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_head_length.attribute_type = 'head length'">
@@ -1241,7 +1241,7 @@
 <cfif isdefined("head_width") and len(head_width) gt 0>
   <cfset mapurl = "#mapurl#&head_width=#head_width#">
   <cfif compare(head_width,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"head_width") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'head_width') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_head_width ON (#session.flatTableName#.collection_object_id = tbl_head_width.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_head_width.attribute_type = 'head width'">
@@ -1279,7 +1279,7 @@
 <cfif isdefined("height") and len(height) gt 0>
   <cfset mapurl = "#mapurl#&height=#height#">
   <cfif compare(height,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"height") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'height') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_height ON (#session.flatTableName#.collection_object_id = tbl_height.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_height.attribute_type = 'height'">
@@ -1317,7 +1317,7 @@
 <cfif isdefined("hind_foot_with_claw") and len(hind_foot_with_claw) gt 0>
   <cfset mapurl = "#mapurl#&hind_foot_with_claw=#hind_foot_with_claw#">
   <cfif compare(hind_foot_with_claw,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"hind_foot_with_claw") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'hind_foot_with_claw') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_hind_foot_with_claw ON (#session.flatTableName#.collection_object_id = tbl_hind_foot_with_claw.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_hind_foot_with_claw.attribute_type = 'hind foot with claw'">
@@ -1355,7 +1355,7 @@
 <cfif isdefined("hind_foot_without_claw") and len(hind_foot_without_claw) gt 0>
   <cfset mapurl = "#mapurl#&hind_foot_without_claw=#hind_foot_without_claw#">
   <cfif compare(hind_foot_without_claw,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"hind_foot_without_claw") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'hind_foot_without_claw') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_hind_foot_without_claw ON (#session.flatTableName#.collection_object_id = tbl_hind_foot_without_claw.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_hind_foot_without_claw.attribute_type = 'hind foot without claw'">
@@ -1393,7 +1393,7 @@
 <cfif isdefined("hind_limb_length") and len(hind_limb_length) gt 0>
   <cfset mapurl = "#mapurl#&hind_limb_length=#hind_limb_length#">
   <cfif compare(hind_limb_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"hind_limb_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'hind_limb_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_hind_limb_length ON (#session.flatTableName#.collection_object_id = tbl_hind_limb_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_hind_limb_length.attribute_type = 'hind limb length'">
@@ -1431,7 +1431,7 @@
 <cfif isdefined("image_confirmed") and len(image_confirmed) gt 0>
   <cfset mapurl = "#mapurl#&image_confirmed=#image_confirmed#">
   <cfif compare(image_confirmed,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"image_confirmed") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'image_confirmed') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_image_confirmed ON (#session.flatTableName#.collection_object_id = tbl_image_confirmed.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_image_confirmed.attribute_type = 'image confirmed'">
@@ -1456,7 +1456,7 @@
 <cfif isdefined("incubation_stage") and len(incubation_stage) gt 0>
   <cfset mapurl = "#mapurl#&incubation_stage=#incubation_stage#">
   <cfif compare(incubation_stage,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"incubation_stage") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'incubation_stage') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_incubation_stage ON (#session.flatTableName#.collection_object_id = tbl_incubation_stage.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_incubation_stage.attribute_type = 'incubation stage'">
@@ -1481,7 +1481,7 @@
 <cfif isdefined("left_gonad_length") and len(left_gonad_length) gt 0>
   <cfset mapurl = "#mapurl#&left_gonad_length=#left_gonad_length#">
   <cfif compare(left_gonad_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"left_gonad_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'left_gonad_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_left_gonad_length ON (#session.flatTableName#.collection_object_id = tbl_left_gonad_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_left_gonad_length.attribute_type = 'left gonad length'">
@@ -1519,7 +1519,7 @@
 <cfif isdefined("left_gonad_width") and len(left_gonad_width) gt 0>
   <cfset mapurl = "#mapurl#&left_gonad_width=#left_gonad_width#">
   <cfif compare(left_gonad_width,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"left_gonad_width") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'left_gonad_width') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_left_gonad_width ON (#session.flatTableName#.collection_object_id = tbl_left_gonad_width.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_left_gonad_width.attribute_type = 'left gonad width'">
@@ -1557,7 +1557,7 @@
 <cfif isdefined("location_in_host") and len(location_in_host) gt 0>
   <cfset mapurl = "#mapurl#&location_in_host=#location_in_host#">
   <cfif compare(location_in_host,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"location_in_host") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'location_in_host') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_location_in_host ON (#session.flatTableName#.collection_object_id = tbl_location_in_host.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_location_in_host.attribute_type = 'location in host'">
@@ -1582,7 +1582,7 @@
 <cfif isdefined("maximum_standard_length") and len(maximum_standard_length) gt 0>
   <cfset mapurl = "#mapurl#&maximum_standard_length=#maximum_standard_length#">
   <cfif compare(maximum_standard_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"maximum_standard_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'maximum_standard_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_maximum_standard_length ON (#session.flatTableName#.collection_object_id = tbl_maximum_standard_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_maximum_standard_length.attribute_type = 'maximum standard length'">
@@ -1620,7 +1620,7 @@
 <cfif isdefined("maximum_total_length") and len(maximum_total_length) gt 0>
   <cfset mapurl = "#mapurl#&maximum_total_length=#maximum_total_length#">
   <cfif compare(maximum_total_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"maximum_total_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'maximum_total_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_maximum_total_length ON (#session.flatTableName#.collection_object_id = tbl_maximum_total_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_maximum_total_length.attribute_type = 'maximum total length'">
@@ -1658,7 +1658,7 @@
 <cfif isdefined("middle_toe_length") and len(middle_toe_length) gt 0>
   <cfset mapurl = "#mapurl#&middle_toe_length=#middle_toe_length#">
   <cfif compare(middle_toe_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"middle_toe_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'middle_toe_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_middle_toe_length ON (#session.flatTableName#.collection_object_id = tbl_middle_toe_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_middle_toe_length.attribute_type = 'middle toe length'">
@@ -1696,7 +1696,7 @@
 <cfif isdefined("minimum_standard_length") and len(minimum_standard_length) gt 0>
   <cfset mapurl = "#mapurl#&minimum_standard_length=#minimum_standard_length#">
   <cfif compare(minimum_standard_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"minimum_standard_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'minimum_standard_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_minimum_standard_length ON (#session.flatTableName#.collection_object_id = tbl_minimum_standard_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_minimum_standard_length.attribute_type = 'minimum standard length'">
@@ -1734,7 +1734,7 @@
 <cfif isdefined("minimum_total_length") and len(minimum_total_length) gt 0>
   <cfset mapurl = "#mapurl#&minimum_total_length=#minimum_total_length#">
   <cfif compare(minimum_total_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"minimum_total_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'minimum_total_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_minimum_total_length ON (#session.flatTableName#.collection_object_id = tbl_minimum_total_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_minimum_total_length.attribute_type = 'minimum total length'">
@@ -1772,7 +1772,7 @@
 <cfif isdefined("molt_condition") and len(molt_condition) gt 0>
   <cfset mapurl = "#mapurl#&molt_condition=#molt_condition#">
   <cfif compare(molt_condition,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"molt_condition") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'molt_condition') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_molt_condition ON (#session.flatTableName#.collection_object_id = tbl_molt_condition.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_molt_condition.attribute_type = 'molt condition'">
@@ -1797,7 +1797,7 @@
 <cfif isdefined("nagpra_category") and len(nagpra_category) gt 0>
   <cfset mapurl = "#mapurl#&nagpra_category=#nagpra_category#">
   <cfif compare(nagpra_category,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"nagpra_category") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'nagpra_category') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_nagpra_category ON (#session.flatTableName#.collection_object_id = tbl_nagpra_category.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_nagpra_category.attribute_type = 'NAGPRA category'">
@@ -1822,7 +1822,7 @@
 <cfif isdefined("neck_width") and len(neck_width) gt 0>
   <cfset mapurl = "#mapurl#&neck_width=#neck_width#">
   <cfif compare(neck_width,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"neck_width") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'neck_width') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_neck_width ON (#session.flatTableName#.collection_object_id = tbl_neck_width.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_neck_width.attribute_type = 'neck width'">
@@ -1860,7 +1860,7 @@
 <cfif isdefined("nest_description") and len(nest_description) gt 0>
   <cfset mapurl = "#mapurl#&nest_description=#nest_description#">
   <cfif compare(nest_description,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"nest_description") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'nest_description') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_nest_description ON (#session.flatTableName#.collection_object_id = tbl_nest_description.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_nest_description.attribute_type = 'nest description'">
@@ -1885,7 +1885,7 @@
 <cfif isdefined("nest_phenology") and len(nest_phenology) gt 0>
   <cfset mapurl = "#mapurl#&nest_phenology=#nest_phenology#">
   <cfif compare(nest_phenology,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"nest_phenology") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'nest_phenology') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_nest_phenology ON (#session.flatTableName#.collection_object_id = tbl_nest_phenology.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_nest_phenology.attribute_type = 'nest phenology'">
@@ -1910,7 +1910,7 @@
 <cfif isdefined("nottitle") and len(nottitle) gt 0>
   <cfset mapurl = "#mapurl#&nottitle=#nottitle#">
   <cfif compare(nottitle,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"nottitle") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'nottitle') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_nottitle ON (#session.flatTableName#.collection_object_id = tbl_nottitle.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_nottitle.attribute_type = 'nottitle'">
@@ -1935,7 +1935,7 @@
 <cfif isdefined("number_of_labels") and len(number_of_labels) gt 0>
   <cfset mapurl = "#mapurl#&number_of_labels=#number_of_labels#">
   <cfif compare(number_of_labels,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"number_of_labels") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'number_of_labels') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_number_of_labels ON (#session.flatTableName#.collection_object_id = tbl_number_of_labels.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_number_of_labels.attribute_type = 'number of labels'">
@@ -1960,7 +1960,7 @@
 <cfif isdefined("numeric_abundance") and len(numeric_abundance) gt 0>
   <cfset mapurl = "#mapurl#&numeric_abundance=#numeric_abundance#">
   <cfif compare(numeric_abundance,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"numeric_abundance") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'numeric_abundance') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_numeric_abundance ON (#session.flatTableName#.collection_object_id = tbl_numeric_abundance.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_numeric_abundance.attribute_type = 'numeric abundance'">
@@ -1996,7 +1996,7 @@
 <cfif isdefined("numeric_age") and len(numeric_age) gt 0>
   <cfset mapurl = "#mapurl#&numeric_age=#numeric_age#">
   <cfif compare(numeric_age,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"numeric_age") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'numeric_age') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_numeric_age ON (#session.flatTableName#.collection_object_id = tbl_numeric_age.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_numeric_age.attribute_type = 'numeric age'">
@@ -2034,7 +2034,7 @@
 <cfif isdefined("ovum") and len(ovum) gt 0>
   <cfset mapurl = "#mapurl#&ovum=#ovum#">
   <cfif compare(ovum,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"ovum") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'ovum') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_ovum ON (#session.flatTableName#.collection_object_id = tbl_ovum.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_ovum.attribute_type = 'ovum'">
@@ -2072,7 +2072,7 @@
 <cfif isdefined("parasites_found") and len(parasites_found) gt 0>
   <cfset mapurl = "#mapurl#&parasites_found=#parasites_found#">
   <cfif compare(parasites_found,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"parasites_found") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'parasites_found') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_parasites_found ON (#session.flatTableName#.collection_object_id = tbl_parasites_found.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_parasites_found.attribute_type = 'parasites found'">
@@ -2097,7 +2097,7 @@
 <cfif isdefined("parts_examined") and len(parts_examined) gt 0>
   <cfset mapurl = "#mapurl#&parts_examined=#parts_examined#">
   <cfif compare(parts_examined,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"parts_examined") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'parts_examined') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_parts_examined ON (#session.flatTableName#.collection_object_id = tbl_parts_examined.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_parts_examined.attribute_type = 'parts examined'">
@@ -2122,7 +2122,7 @@
 <cfif isdefined("plastron_length") and len(plastron_length) gt 0>
   <cfset mapurl = "#mapurl#&plastron_length=#plastron_length#">
   <cfif compare(plastron_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"plastron_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'plastron_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_plastron_length ON (#session.flatTableName#.collection_object_id = tbl_plastron_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_plastron_length.attribute_type = 'plastron length'">
@@ -2160,7 +2160,7 @@
 <cfif isdefined("purchase_value") and len(purchase_value) gt 0>
   <cfset mapurl = "#mapurl#&purchase_value=#purchase_value#">
   <cfif compare(purchase_value,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"purchase_value") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'purchase_value') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_purchase_value ON (#session.flatTableName#.collection_object_id = tbl_purchase_value.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_purchase_value.attribute_type = 'purchase value'">
@@ -2196,7 +2196,7 @@
 <cfif isdefined("reproductive_data") and len(reproductive_data) gt 0>
   <cfset mapurl = "#mapurl#&reproductive_data=#reproductive_data#">
   <cfif compare(reproductive_data,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"reproductive_data") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'reproductive_data') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_reproductive_data ON (#session.flatTableName#.collection_object_id = tbl_reproductive_data.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_reproductive_data.attribute_type = 'reproductive data'">
@@ -2221,7 +2221,7 @@
 <cfif isdefined("right_gonad_length") and len(right_gonad_length) gt 0>
   <cfset mapurl = "#mapurl#&right_gonad_length=#right_gonad_length#">
   <cfif compare(right_gonad_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"right_gonad_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'right_gonad_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_right_gonad_length ON (#session.flatTableName#.collection_object_id = tbl_right_gonad_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_right_gonad_length.attribute_type = 'right gonad length'">
@@ -2259,7 +2259,7 @@
 <cfif isdefined("right_gonad_width") and len(right_gonad_width) gt 0>
   <cfset mapurl = "#mapurl#&right_gonad_width=#right_gonad_width#">
   <cfif compare(right_gonad_width,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"right_gonad_width") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'right_gonad_width') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_right_gonad_width ON (#session.flatTableName#.collection_object_id = tbl_right_gonad_width.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_right_gonad_width.attribute_type = 'right gonad width'">
@@ -2297,7 +2297,7 @@
 <cfif isdefined("sex") and len(sex) gt 0>
   <cfset mapurl = "#mapurl#&sex=#sex#">
   <cfif compare(sex,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"sex") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'sex') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_sex ON (#session.flatTableName#.collection_object_id = tbl_sex.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_sex.attribute_type = 'sex'">
@@ -2322,7 +2322,7 @@
 <cfif isdefined("skull_ossification") and len(skull_ossification) gt 0>
   <cfset mapurl = "#mapurl#&skull_ossification=#skull_ossification#">
   <cfif compare(skull_ossification,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"skull_ossification") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'skull_ossification') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_skull_ossification ON (#session.flatTableName#.collection_object_id = tbl_skull_ossification.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_skull_ossification.attribute_type = 'skull ossification'">
@@ -2347,7 +2347,7 @@
 <cfif isdefined("snout_vent_length") and len(snout_vent_length) gt 0>
   <cfset mapurl = "#mapurl#&snout_vent_length=#snout_vent_length#">
   <cfif compare(snout_vent_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"snout_vent_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'snout_vent_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_snout_vent_length ON (#session.flatTableName#.collection_object_id = tbl_snout_vent_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_snout_vent_length.attribute_type = 'snout-vent length'">
@@ -2385,7 +2385,7 @@
 <cfif isdefined("snv_results") and len(snv_results) gt 0>
   <cfset mapurl = "#mapurl#&snv_results=#snv_results#">
   <cfif compare(snv_results,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"snv_results") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'snv_results') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_snv_results ON (#session.flatTableName#.collection_object_id = tbl_snv_results.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_snv_results.attribute_type = 'SNV results'">
@@ -2410,7 +2410,7 @@
 <cfif isdefined("soft_part_color") and len(soft_part_color) gt 0>
   <cfset mapurl = "#mapurl#&soft_part_color=#soft_part_color#">
   <cfif compare(soft_part_color,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"soft_part_color") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'soft_part_color') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_soft_part_color ON (#session.flatTableName#.collection_object_id = tbl_soft_part_color.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_soft_part_color.attribute_type = 'soft part color'">
@@ -2435,7 +2435,7 @@
 <cfif isdefined("soft_parts") and len(soft_parts) gt 0>
   <cfset mapurl = "#mapurl#&soft_parts=#soft_parts#">
   <cfif compare(soft_parts,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"soft_parts") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'soft_parts') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_soft_parts ON (#session.flatTableName#.collection_object_id = tbl_soft_parts.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_soft_parts.attribute_type = 'soft parts'">
@@ -2460,7 +2460,7 @@
 <cfif isdefined("standard_length") and len(standard_length) gt 0>
   <cfset mapurl = "#mapurl#&standard_length=#standard_length#">
   <cfif compare(standard_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"standard_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'standard_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_standard_length ON (#session.flatTableName#.collection_object_id = tbl_standard_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_standard_length.attribute_type = 'standard length'">
@@ -2498,7 +2498,7 @@
 <cfif isdefined("stomach_contents") and len(stomach_contents) gt 0>
   <cfset mapurl = "#mapurl#&stomach_contents=#stomach_contents#">
   <cfif compare(stomach_contents,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"stomach_contents") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'stomach_contents') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_stomach_contents ON (#session.flatTableName#.collection_object_id = tbl_stomach_contents.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_stomach_contents.attribute_type = 'stomach contents'">
@@ -2523,7 +2523,7 @@
 <cfif isdefined("tail_base_width") and len(tail_base_width) gt 0>
   <cfset mapurl = "#mapurl#&tail_base_width=#tail_base_width#">
   <cfif compare(tail_base_width,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"tail_base_width") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'tail_base_width') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_tail_base_width ON (#session.flatTableName#.collection_object_id = tbl_tail_base_width.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_tail_base_width.attribute_type = 'tail base width'">
@@ -2561,7 +2561,7 @@
 <cfif isdefined("tail_condition") and len(tail_condition) gt 0>
   <cfset mapurl = "#mapurl#&tail_condition=#tail_condition#">
   <cfif compare(tail_condition,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"tail_condition") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'tail_condition') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_tail_condition ON (#session.flatTableName#.collection_object_id = tbl_tail_condition.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_tail_condition.attribute_type = 'tail condition'">
@@ -2586,7 +2586,7 @@
 <cfif isdefined("tail_length") and len(tail_length) gt 0>
   <cfset mapurl = "#mapurl#&tail_length=#tail_length#">
   <cfif compare(tail_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"tail_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'tail_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_tail_length ON (#session.flatTableName#.collection_object_id = tbl_tail_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_tail_length.attribute_type = 'tail length'">
@@ -2624,7 +2624,7 @@
 <cfif isdefined("tarsus_length") and len(tarsus_length) gt 0>
   <cfset mapurl = "#mapurl#&tarsus_length=#tarsus_length#">
   <cfif compare(tarsus_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"tarsus_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'tarsus_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_tarsus_length ON (#session.flatTableName#.collection_object_id = tbl_tarsus_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_tarsus_length.attribute_type = 'tarsus length'">
@@ -2662,7 +2662,7 @@
 <cfif isdefined("total_length") and len(total_length) gt 0>
   <cfset mapurl = "#mapurl#&total_length=#total_length#">
   <cfif compare(total_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"total_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'total_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_total_length ON (#session.flatTableName#.collection_object_id = tbl_total_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_total_length.attribute_type = 'total length'">
@@ -2700,7 +2700,7 @@
 <cfif isdefined("tragus_length") and len(tragus_length) gt 0>
   <cfset mapurl = "#mapurl#&tragus_length=#tragus_length#">
   <cfif compare(tragus_length,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"tragus_length") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'tragus_length') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_tragus_length ON (#session.flatTableName#.collection_object_id = tbl_tragus_length.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_tragus_length.attribute_type = 'tragus length'">
@@ -2738,7 +2738,7 @@
 <cfif isdefined("trap_identifier") and len(trap_identifier) gt 0>
   <cfset mapurl = "#mapurl#&trap_identifier=#trap_identifier#">
   <cfif compare(trap_identifier,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"trap_identifier") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'trap_identifier') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_trap_identifier ON (#session.flatTableName#.collection_object_id = tbl_trap_identifier.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_trap_identifier.attribute_type = 'trap identifier'">
@@ -2763,7 +2763,7 @@
 <cfif isdefined("trap_type") and len(trap_type) gt 0>
   <cfset mapurl = "#mapurl#&trap_type=#trap_type#">
   <cfif compare(trap_type,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"trap_type") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'trap_type') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_trap_type ON (#session.flatTableName#.collection_object_id = tbl_trap_type.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_trap_type.attribute_type = 'trap type'">
@@ -2788,7 +2788,7 @@
 <cfif isdefined("unformatted_measurements") and len(unformatted_measurements) gt 0>
   <cfset mapurl = "#mapurl#&unformatted_measurements=#unformatted_measurements#">
   <cfif compare(unformatted_measurements,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"unformatted_measurements") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'unformatted_measurements') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_unformatted_measurements ON (#session.flatTableName#.collection_object_id = tbl_unformatted_measurements.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_unformatted_measurements.attribute_type = 'unformatted measurements'">
@@ -2813,7 +2813,7 @@
 <cfif isdefined("verbatim_collector") and len(verbatim_collector) gt 0>
   <cfset mapurl = "#mapurl#&verbatim_collector=#verbatim_collector#">
   <cfif compare(verbatim_collector,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"verbatim_collector") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'verbatim_collector') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_verbatim_collector ON (#session.flatTableName#.collection_object_id = tbl_verbatim_collector.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_verbatim_collector.attribute_type = 'verbatim collector'">
@@ -2838,7 +2838,7 @@
 <cfif isdefined("verbatim_host_age") and len(verbatim_host_age) gt 0>
   <cfset mapurl = "#mapurl#&verbatim_host_age=#verbatim_host_age#">
   <cfif compare(verbatim_host_age,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"verbatim_host_age") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'verbatim_host_age') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_verbatim_host_age ON (#session.flatTableName#.collection_object_id = tbl_verbatim_host_age.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_verbatim_host_age.attribute_type = 'verbatim host age'">
@@ -2863,7 +2863,7 @@
 <cfif isdefined("verbatim_host_id") and len(verbatim_host_id) gt 0>
   <cfset mapurl = "#mapurl#&verbatim_host_id=#verbatim_host_id#">
   <cfif compare(verbatim_host_id,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"verbatim_host_id") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'verbatim_host_id') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_verbatim_host_id ON (#session.flatTableName#.collection_object_id = tbl_verbatim_host_id.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_verbatim_host_id.attribute_type = 'verbatim host ID'">
@@ -2888,7 +2888,7 @@
 <cfif isdefined("verbatim_host_sex") and len(verbatim_host_sex) gt 0>
   <cfset mapurl = "#mapurl#&verbatim_host_sex=#verbatim_host_sex#">
   <cfif compare(verbatim_host_sex,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"verbatim_host_sex") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'verbatim_host_sex') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_verbatim_host_sex ON (#session.flatTableName#.collection_object_id = tbl_verbatim_host_sex.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_verbatim_host_sex.attribute_type = 'verbatim host sex'">
@@ -2913,7 +2913,7 @@
 <cfif isdefined("verbatim_preservation_date") and len(verbatim_preservation_date) gt 0>
   <cfset mapurl = "#mapurl#&verbatim_preservation_date=#verbatim_preservation_date#">
   <cfif compare(verbatim_preservation_date,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"verbatim_preservation_date") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'verbatim_preservation_date') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_verbatim_preservation_date ON (#session.flatTableName#.collection_object_id = tbl_verbatim_preservation_date.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_verbatim_preservation_date.attribute_type = 'verbatim preservation date'">
@@ -2938,7 +2938,7 @@
 <cfif isdefined("weight") and len(weight) gt 0>
   <cfset mapurl = "#mapurl#&weight=#weight#">
   <cfif compare(weight,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"weight") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'weight') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_weight ON (#session.flatTableName#.collection_object_id = tbl_weight.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_weight.attribute_type = 'weight'">
@@ -2976,7 +2976,7 @@
 <cfif isdefined("width") and len(width) gt 0>
   <cfset mapurl = "#mapurl#&width=#width#">
   <cfif compare(width,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"width") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'width') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_width ON (#session.flatTableName#.collection_object_id = tbl_width.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_width.attribute_type = 'width'">
@@ -3014,7 +3014,7 @@
 <cfif isdefined("wing_chord") and len(wing_chord) gt 0>
   <cfset mapurl = "#mapurl#&wing_chord=#wing_chord#">
   <cfif compare(wing_chord,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"wing_chord") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'wing_chord') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_wing_chord ON (#session.flatTableName#.collection_object_id = tbl_wing_chord.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_wing_chord.attribute_type = 'wing chord'">
@@ -3052,7 +3052,7 @@
 <cfif isdefined("wing_span") and len(wing_span) gt 0>
   <cfset mapurl = "#mapurl#&wing_span=#wing_span#">
   <cfif compare(wing_span,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,"wing_span") is null">
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'wing_span') is null">
   <cfelse>
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_wing_span ON (#session.flatTableName#.collection_object_id = tbl_wing_span.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_wing_span.attribute_type = 'wing span'">
@@ -3086,3 +3086,4 @@
   </cfif>
 </cfif>
 </cfif>
+
