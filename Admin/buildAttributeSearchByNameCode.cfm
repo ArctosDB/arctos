@@ -116,7 +116,7 @@
 <cfset x='<cfif isdefined("#attrvar#") and len(#attrvar#) gt 0>'>
 <cfset x=x & chr(10) & '  <cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
 <cfset x=x & chr(10) & '  <cfif compare(#attrvar#,"NULL") is 0>'>
-<cfset x=x & chr(10) & '      <cfset basQual = " ##basQual## AND ConcatAttributeValue(flat.collection_object_id,"#attrvar#") is null">'>
+<cfset x=x & chr(10) & '      <cfset basQual = " ##basQual## AND ConcatAttributeValue(flat.collection_object_id,''#attrvar#'') is null">'>
 <cfset x=x & chr(10) & '  <cfelse>'>
 <cfset x=x & chr(10) & '    <cfset basJoin = " ##basJoin## INNER JOIN v_attributes tbl_#attrvar# ON (##session.flatTableName##.collection_object_id = tbl_#attrvar#.collection_object_id)">'>
 <cfset x=x & chr(10) & '    <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_type = ''#ATTRIBUTE_TYPE#''">'>
