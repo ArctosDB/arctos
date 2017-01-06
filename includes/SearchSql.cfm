@@ -1784,7 +1784,7 @@
 </cfif>
 <cfif isdefined("feature") AND len(feature) gt 0>
 	<cfif compare(feature,"NULL") is 0>
-		<cfset basQual = " #basQual# AND feature is null">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.feature is null">
 	<cfelse>
 		<cfif left(feature,1) is '='>
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.feature) = '#ucase(escapeQuotes(right(feature,len(feature)-1)))#'">
