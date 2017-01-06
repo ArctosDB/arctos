@@ -30,7 +30,7 @@
 			height: 'auto',
 			modal: true,
 			position: ['center', 'center'],
-			title: 'Edit Part',
+			title: 'Edit Attribute',
 				width:800,
 	 			height:600,
 			close: function() {

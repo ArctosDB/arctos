@@ -43,11 +43,12 @@
 			<br>
 			<input type="submit" value="Save Changes" class="savBtn">
 			<p>
-				Removing a part from all collection types will delete the record.
+				Removing an attribute from all collection types will delete the record.
 			</p>
 		</form>
 	</cfoutput>
 </cfif>
+<!----------
 <cfif action is "update">
 	<cfoutput>
 		<cftransaction>
@@ -83,3 +84,4 @@
 
 	</cfoutput>
 </cfif>
+----------->
