@@ -64,7 +64,6 @@
 					<br>delete from ctattribute_type where attribute_type='#ATTRIBUTE_TYPE#' and collection_cde='#thisCCVal#'
 				</cfif>
 
-									<option value="#d.collection_cde#">Remove from this collection type</option>
 
 				<!--- if the value is NULL, we're deleting that record ---->
 				<!----
