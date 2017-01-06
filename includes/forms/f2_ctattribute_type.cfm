@@ -25,7 +25,7 @@
 			<cfset c=1>
 			<cfloop query="d">
 				<br>before: #ctccde#
-				<br>#collection_cde#
+				<br>deleting #collection_cde#
 				<cfset ctccde=listdeleteat(ctccde,listfind(ctccde,'#collection_cde#'))>
 				<br>after: #ctccde#
 				<label for="collection_cde_#c#">Available for Collection Type</label>
