@@ -20,7 +20,7 @@
     }
 );
 
-	function updateAttr(a) {
+	function updateAttribute(a) {
 		var rid='prow_' + a.replace(/\W/g, '_');
 		$("#" + rid).addClass('edited');
 		var guts = "/includes/forms/f2_ctattribute_type.cfm.cfm?attribute_type=" + encodeURI(a);
