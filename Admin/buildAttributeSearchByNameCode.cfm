@@ -40,10 +40,10 @@
 		<cfset attrTimeUnits=listappend(attrTimeUnits,canconvert)>
 
 
-		<cfset x=x&'<cfset attrLengthUnits="#attrLengthUnits#">'>
-		<cfset x=x&'<cfset attrWeightUnits="#attrWeightUnits#">'>
-		<cfset x=x&'<cfset attrTimeUnits="#attrTimeUnits#">'>
-		<cfset x=x&'<cfset charattrschops="=,!"><cfset numattrschops="=,!,<,>">'>
+		<cfset x=x & chr(10) & '<cfset attrLengthUnits="#attrLengthUnits#">'>
+		<cfset x=x & chr(10) & '<cfset attrWeightUnits="#attrWeightUnits#">'>
+		<cfset x=x & chr(10) & '<cfset attrTimeUnits="#attrTimeUnits#">'>
+		<cfset x=x & chr(10) & '<cfset charattrschops="=,!"><cfset numattrschops="=,!,<,>">' & chr(10)>
 		<cfscript>
 			variables.josrch_field_doc = createObject('Component', '/component.FileWriter').init(variables.f_srch_field_doc, variables.encoding, 32768);
 			variables.josrch_field_doc.writeLine("delete from ssrch_field_doc where CATEGORY='attribute';#chr(10)#");
