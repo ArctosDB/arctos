@@ -77,6 +77,16 @@
 				------>
 			</cfif>
 		</cfloop>
+		<!----
+			second, update everything that's left
+			If we've deleted everything this will just do nothing
+		---->
+		<br>update ctattribute_type set DESCRIPTION='#escapeQuotes(DESCRIPTION)#' where attribute_type='#attribute_type#'
+			<!--- last, insert new if there's one provided ---->
+		<cfif len(COLLECTION_CDE_NEW) gt 0>
+			insert into ctattribute_type (attribute_type,COLLECTION_CDE,DESCRIPTION) values (
+					'#attribute_type#','#COLLECTION_CDE_NEW#','#escapeQuotes(DESCRIPTION)#')
+		</cfif>
 
 		<!----
 		<cftransaction>
