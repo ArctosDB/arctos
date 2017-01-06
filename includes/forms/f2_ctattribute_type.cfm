@@ -54,7 +54,12 @@
 	<cfoutput>
 		<cfloop list="#FIELDNAMES#" index="f">
 			<cfif left(f,15) is "COLLECTION_CDE_" and f is not "COLLECTION_CDE_NEW">
-				gonna delete something
+				MAYBE gonna delete something
+				<cfset thisCCVal=evaluate(f)>
+				<p>thisCCVal: #thisCCVal#</p>
+				<cfif len(thisCCVal) is 0>
+					yup, bye!
+				</cfif>
 				<!--- if the value is NULL, we're deleting that record ---->
 				<!----
 				<cfset thisCCVal=evaluate(f)>
