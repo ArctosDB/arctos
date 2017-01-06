@@ -2471,7 +2471,12 @@
   <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_sex ON (#session.flatTableName#.collection_object_id = tbl_sex.collection_object_id)">
   <cfset basQual = " #basQual# AND tbl_sex.attribute_type = 'sex'">
   <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_sex.is_encumbered = 0"></cfif>
-  <cfif sex neq "_">
+<cfif compare(sex,"NULL") is 0>
+      <cfset basQual = " #basQual# AND tbl_sex.attribute_value is null">
+<cfelse>
+
+
+<cfif sex neq "_">
     <cfset oper=left(sex,1)>
     <cfif listfind(charattrschops,oper)>
       <cfset schTerm=ucase(right(sex,len(sex)-1))>
@@ -2485,6 +2490,7 @@
       <cfset basQual = " #basQual# AND upper(tbl_sex.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
 	</cfif>
   </cfif>
+</cfif>
 </cfif>
 
 <cfif isdefined("skull_ossification") and len(skull_ossification) gt 0>
