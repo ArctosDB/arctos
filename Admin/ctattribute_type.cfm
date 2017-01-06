@@ -20,10 +20,10 @@
     }
 );
 
-	function updatePart(pn) {
-		var rid='prow_' + pn.replace(/\W/g, '_');
+	function updateAttr(a) {
+		var rid='prow_' + a.replace(/\W/g, '_');
 		$("#" + rid).addClass('edited');
-		var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
+		var guts = "/includes/forms/f2_ctattribute_type.cfm.cfm?attribute_type=" + encodeURI(a);
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
@@ -49,7 +49,7 @@
 	<div class="importantNotification">
 		<strong>IMPORTANT!</strong>
 		<p>
-			Attribues must be consistent across collection types; the definition
+			Attributes must be consistent across collection types; the definition
 			(and eg, expected result of a search for the attribute)
 			must be the same for all collections in which the term is used. That is, "some attribute" must have the same intent
 			across all collection types.
@@ -187,24 +187,22 @@
 </cfif>
 <cfif action is "insert">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ctspecimen_part_name where part_name='#part_name#'
+		select * from CTATTRIBUTE_TYPE where attribute_type='#attribute_type#'
 	</cfquery>
 	<cfif d.recordcount gt 0>
-		<cfthrow message="Part already exists; edit to add collection types.">
+		<cfthrow message="Attribute already exists; edit to add collection types.">
 	</cfif>
 	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into ctspecimen_part_name (
+		insert into CTATTRIBUTE_TYPE (
 			collection_cde,
-			part_name,
-			DESCRIPTION,
-			is_tissue
+			attribute_type,
+			DESCRIPTION
 		) values (
 			'#collection_cde#',
-			'#part_name#',
-			'#description#',
-			#is_tissue#
+			'#attribute_type#',
+			'#description#'
 		)
 	</cfquery>
-	<cflocation url="ctspecimen_part_name.cfm" addtoken="false">
+	<cflocation url="ctattribute_type.cfm" addtoken="false">
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
