@@ -1,25 +1,16 @@
 <cfinclude template="/includes/_header.cfm">
-
 <script type="text/javascript" src="/includes/tablesorter/tablesorter.js"></script>
 <link rel="stylesheet" href="/includes/tablesorter/themes/blue/style.css">
-
 <cfset title="ctattribute_type editor">
-
 <style>
 	.edited{background:#eaa8b4;}
 </style>
 <script>
-
-	//$("tr:odd").addClass("odd");
-
-	//$("tr:odd").addClass("odd");
-
 	$(document).ready(function()
-    {
-        $("#tbl").tablesorter();
-    }
-);
-
+	    {
+	        $("#tbl").tablesorter();
+	    }
+	);
 	function updateAttribute(a) {
 		var rid='prow_' + a.replace(/\W/g, '_');
 		$("#" + rid).addClass('edited');

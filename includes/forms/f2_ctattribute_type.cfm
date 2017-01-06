@@ -20,9 +20,14 @@
 			</p>
 			<input type="hidden" name="attribute_type" id="attribute_type" value="#p.attribute_type#" size="50">
 			<cfset ctccde=valuelist(ctcollcde.collection_cde)>
+
+			<br>#ctccde#
 			<cfset c=1>
 			<cfloop query="d">
+				<br>before: #ctccde#
+				<br>#collection_cde#
 				<cfset ctccde=listdeleteat(ctccde,listfind(ctccde,'#collection_cde#'))>
+				<br>after: #ctccde#
 				<label for="collection_cde_#c#">Available for Collection Type</label>
 
 				<select name="collection_cde_#c#" id="collection_cde_#c#" size="1">
