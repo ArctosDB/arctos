@@ -58,8 +58,6 @@
 			Rows that look like this may have been edited and may not be current; reload to refresh.
 		</p>
 	</div>
-
-
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			*
@@ -117,7 +115,6 @@
 			</cfquery>
 			<cfloop query="pname">
 			<cfset rid=rereplace(attribute_type,"[^A-Za-z0-9]","_","all")>
-
 				<cfset canedit=true>
 				<tr id="prow_#rid#">
 					<cfquery name="pd" dbtype="query">
@@ -133,7 +130,6 @@
 					<td>
 						#attribute_type#
 					</td>
-
 					<td>
 						<cfquery name="dsc" dbtype="query">
 							select description from pd group by description
@@ -156,22 +152,6 @@
 				</tr>
 				<cfset i=i+1>
 			</cfloop>
-
-			<!----
-			<cfloop query="q">
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="r#ctspnid#">
-					<td>#collection_cde#</td>
-					<td>#q.part_name#</td>
-					<td>#is_tissue#</td>
-					<td>#q.description#</td>
-					<td nowrap="nowrap">
-						<span class="likeLink" onclick="deletePart(#ctspnid#)">[ Delete ]</span>
-						<br><span class="likeLink" onclick="updatePart(#ctspnid#)">[ Update ]</span>
-					</td>
-				</tr>
-				<cfset i = #i#+1>
-			</cfloop>
-			---->
 			</tbody>
 		</table>
 	</cfoutput>

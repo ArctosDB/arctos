@@ -48,7 +48,6 @@
 	</cfoutput>
 </cfif>
 <cfif action is "update">
-
 	<cfoutput>
 		<cftransaction>
 			<cfloop list="#FIELDNAMES#" index="f">
