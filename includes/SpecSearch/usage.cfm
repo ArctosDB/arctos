@@ -70,5 +70,13 @@
 			<input type="text" name="publication_doi" id="publication_doi" size="50">
 		</td>
 	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_archive_name">in Archive:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="archive_name" id="archive_name" size="50">
+		</td>
+	</tr>
 </table>
 </cfoutput>
