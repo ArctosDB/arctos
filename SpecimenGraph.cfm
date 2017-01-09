@@ -163,12 +163,12 @@
 		<cfset y="Specimens">
 			<cfif listcontains("family,phylorder,genus",#item#)>
 				<cfset basSelect = "SELECT count(#session.flatTableName#.cat_num) as y_data,
-					getTaxa(#session.flatTableName#.collection_object_id,'#item#') as x_data">
-				<cfset basGroup = "GROUP BY getTaxa(#session.flatTableName#.collection_object_id,'#item#')">
+					get_taxonomy(#session.flatTableName#.collection_object_id,'#item#') as x_data">
+				<cfset basGroup = "GROUP BY get_taxonomy(#session.flatTableName#.collection_object_id,'#item#')">
 				<cfif orderby is "count">
 					<cfset ob="count(#session.flatTableName#.cat_num)">
 				<cfelse>
-					<cfset ob="getTaxa(#session.flatTableName#.collection_object_id,'#item#')">
+					<cfset ob="get_taxonomy(#session.flatTableName#.collection_object_id,'#item#')">
 				</cfif>
 			<cfelse>
 				<cfset basSelect = "SELECT count(#session.flatTableName#.cat_num) y_data,

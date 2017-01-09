@@ -166,9 +166,7 @@
 	 Arctos is a deeply-integrated system which heavily uses Oracle functionality; it is not a couple tables loosely held together by some
 	 middleware, a stark contrast to any other system with which we are familiar.
 	 ---->
-	<p>
-		Arctos access data are available from Google Analytics - ask any member of the Advisory Committee for access. http://www.google.com/analytics/
-	</p>
+
 	<p>Query and Download stats are available under the Reports tab.</p>
 	<a name="growth"></a>
 	<hr>
