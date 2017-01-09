@@ -61,7 +61,7 @@
 			<a href="CreateContainersForBarcodes.cfm?action=makeTemplate">get a template</a>
 		</p>
 		<cfquery name="ctContainer_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select container_type from ctcontainer_type where container_type like '%label%' order by container_type
+			select container_type from ctcontainer_type order by container_type
 		</cfquery>
 		<cfquery name="ctinstitution_acronym" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select institution_acronym from collection group by institution_acronym order by institution_acronym
@@ -75,7 +75,7 @@
 			<tr>
 				<td>CONTAINER_TYPE</td>
 				<td>yes</td>
-				<td>#valuelist(ctContainer_Type.container_type)# or "position"</td>
+				<td>#valuelist(ctContainer_Type.container_type)# </td>
 			</tr>
 			<tr>
 				<td>LABEL</td>
