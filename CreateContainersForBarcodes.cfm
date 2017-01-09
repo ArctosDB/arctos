@@ -48,9 +48,9 @@
 	</cfquery>
 	<cfoutput>
 		<p>
-			Before using this form, make sure that the container series (no matter how small) is in the
-			<a href="http://arctosdb.org/documentation/container/##purchase" class="external" target="_blank">
-				spreadsheet
+			Before using this form, make sure that the container series (no matter how small)
+			<a href="/info/barcodeseries.cfm">
+				has been claimed
 			</a> and that there are no potential conflicts with other collections.
 		</p>
 		<p>
