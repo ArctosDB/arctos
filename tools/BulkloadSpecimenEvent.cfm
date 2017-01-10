@@ -1132,6 +1132,10 @@ Upload CSV:
 							<cfelse>
 								<cfset wkthash=hash(wkt_polygon)>
 							</cfif>
+
+							<!---
+								locality_name IS NULL AND -- because we tested that above and will use it if it exists
+							--->
 							<cfquery name="eLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								select nvl(min(locality.locality_id),-1) locality_id
 					            FROM
@@ -1149,7 +1153,7 @@ Upload CSV:
 					            	NVL(dec_lat,-1) = nvl('#dec_lat#',-1) AND
 					            	NVL(dec_long,-1) = nvl('#dec_long#',-1) AND
                                     NVL(md5hash(wkt_polygon),'NULL') = nvl('#wkthash#','NULL') AND
-					            	locality_name IS NULL AND -- because we tested that above and will use it if it exists
+					            	locality_name IS NULL AND
 					                locality_id not in (select locality_id from geology_attributes)
 							</cfquery>
 							<cfif eLoc.locality_id gt 0>
@@ -1168,7 +1172,6 @@ Upload CSV:
 									</p>
 							<cfdump var=#eLoc#>
 
-							<cfabort>
 
 								<!--- make a locality ---->
 								<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
