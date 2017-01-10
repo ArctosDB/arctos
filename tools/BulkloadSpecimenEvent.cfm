@@ -1156,6 +1156,8 @@ Upload CSV:
 								<p>hash(wkt_polygon): #hash(wkt_polygon)#
 									</p>
 
+								<p>len(wkt_polygon): #len(wkt_polygon)#
+									</p>
 
 								<p>wkt_polygon: ==#wkt_polygon#==
 									</p>
