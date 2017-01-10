@@ -1160,18 +1160,7 @@ Upload CSV:
 								<br>found existing locality
 								<cfset lcl_locality_id=eLoc.locality_id>
 							<cfelse>
-
-
-								<p>hash(wkt_polygon): #hash(wkt_polygon)#
-									</p>
-
-								<p>len(wkt_polygon): #len(wkt_polygon)#
-									</p>
-
-								<p>wkt_polygon: ==#wkt_polygon#==
-									</p>
-							<cfdump var=#eLoc#>
-
+								<br>making locality
 
 								<!--- make a locality ---->
 								<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
