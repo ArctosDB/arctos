@@ -1151,6 +1151,14 @@ Upload CSV:
 								<br>found existing locality
 								<cfset lcl_locality_id=eLoc.locality_id>
 							<cfelse>
+
+
+								<p>hash(wkt_polygon): #hash(wkt_polygon)#
+									</p>
+
+
+								<p>wkt_polygon: ==#wkt_polygon#==
+									</p>
 							<cfdump var=#eLoc#>
 
 							<cfabort>
