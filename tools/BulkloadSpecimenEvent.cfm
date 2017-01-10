@@ -1151,6 +1151,10 @@ Upload CSV:
 								<br>found existing locality
 								<cfset lcl_locality_id=eLoc.locality_id>
 							<cfelse>
+							<cfdump var=#eLoc#>
+
+							<cfabort>
+
 								<!--- make a locality ---->
 								<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									select sq_locality_id.nextval nv from dual
