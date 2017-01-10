@@ -1127,6 +1127,11 @@ Upload CSV:
 							<cfelse>
 								<cfset verbatimcoordinates=''>
 							</cfif>
+							<cfif len(wkt_polygon) is 0>
+								<cfset wkthash=''>
+							<cfelse>
+								<cfset wkthash=hash(wkt_polygon)>
+							</cfif>
 							<cfquery name="eLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								select nvl(min(locality.locality_id),-1) locality_id
 					            FROM
@@ -1143,7 +1148,7 @@ Upload CSV:
 					            	NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
 					            	NVL(dec_lat,-1) = nvl('#dec_lat#',-1) AND
 					            	NVL(dec_long,-1) = nvl('#dec_long#',-1) AND
-                                    NVL(md5hash(wkt_polygon),'NULL') = nvl('#hash(wkt_polygon)#','NULL') AND
+                                    NVL(md5hash(wkt_polygon),'NULL') = nvl('#wkthash#','NULL') AND
 					            	locality_name IS NULL AND -- because we tested that above and will use it if it exists
 					                locality_id not in (select locality_id from geology_attributes)
 							</cfquery>
