@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+https://github.com/ArctosDB/arctos/issues/1027<cfabort>
 <cfsetting requesttimeout="600">
 
 <cfset title="Bulkload Identification">
