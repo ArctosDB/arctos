@@ -130,12 +130,14 @@
 		preferences and searches.
 		<cfquery name="summary" dbtype="query">
 			select
-				sum(cnt) as total_specimens,
 				count(guid_prefix) as numCollections
 			 from raw
 		</cfquery>
+		<cfquery name="getCount" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(collection_object_id) as cnt from cataloged_item
+		</cfquery>
 		<p>
-			Arctos is currently #numberformat(summary.total_specimens,"999,999")# specimens and observations in #summary.numCollections# collections.
+			Arctos currently serves data on #numberformat(getCount.cnt,"999,999")# specimens and observations in #summary.numCollections# collections.
 			<p>
 				<b>
 					Following the search links below will set your preferences to filter by a specific collection or portal. You may click
