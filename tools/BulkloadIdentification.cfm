@@ -107,9 +107,11 @@ sho err
 <cfif action is "nothing">
 	Upload a comma-delimited text file (csv). Include column headings, spelled exactly as below.
 	<br><a href="BulkloadIdentification.cfm?action=makeTemplate">get a template</a>
-	<div class="importantNotification">
-		This form will happily accept and create duplicates. Porceed with caution.
-	</div>
+	<p>
+		<div class="importantNotification">
+			This form will happily accept and create duplicates. Proceed with caution.
+		</div>
+	</p>
 	<table border>
 		<tr>
 			<th>Field</th>
