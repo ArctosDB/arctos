@@ -51,7 +51,7 @@ sho err
 ------>
 <cfif action is "nothing">
 	Upload a comma-delimited text file (csv).Include column headings, spelled exactly as below.
-	<br><a href="BulkloadIdentification?action=makeTemplate">get a template</a>
+	<br><a href="BulkloadIdentification.cfm?action=makeTemplate">get a template</a>
 
 
 	<table border>
