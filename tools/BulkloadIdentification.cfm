@@ -27,6 +27,9 @@ create table cf_temp_id (
 	agent_1_id number,
 	agent_2_id number
 );
+
+alter table cf_temp_id add guid varchar2(60);
+
 create public synonym cf_temp_id for cf_temp_id;
 grant select,insert,update,delete on cf_temp_id to manage_specimens;
 
@@ -48,24 +51,76 @@ sho err
 ------>
 <cfif action is "nothing">
 	Upload a comma-delimited text file (csv).Include column headings, spelled exactly as below.
+	<br><a hre="BulkloadIdentification?action=makeTemplate">get a template</a>
+
+
 	<br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
-		<div id="template" style="display:none;">
-			<label for="t">Copy the following code and save as a .csv file</label>
-			<textarea rows="2" cols="80" id="t">guid_prefix,other_id_type,other_id_number,scientific_name,made_date,nature_of_id,accepted_fg,identification_remarks,agent_1,agent_2</textarea>
-		</div>
-	<p></p>
-	<ul>
-		<li style="color:red">guid_prefix</li>
-		<li style="color:red">other_id_type ("catalog number" is OK)</li>
-		<li style="color:red">other_id_number</li>
-		<li style="color:red">scientific_name</li>
-		<li>made_date</li>
-		<li style="color:red">nature_of_id</li>
-		<li style="color:red">accepted_fg (0 [no] or 1 [yes])</li>
-		<li>identification_remarks</li>
-		<li >agent_1</li>
-		<li>agent_2</li>
-	</ul>
+	<table border>
+		<tr>
+			<th>Field</th>
+			<th>Required?</th>
+			<th>Def.</th>
+		</tr>
+		<tr>
+			<td>guid</td>
+			<td>conditionally</td>
+			<td>You must provide either GUID, or {guid_prefix,other_id_type,other_id_number}.</td>
+		</tr>
+		<tr>
+			<td>guid_prefix</td>
+			<td>conditionally</td>
+			<td>You must provide either GUID, or {guid_prefix,other_id_type,other_id_number}.</td>
+		</tr>
+		<tr>
+			<td>other_id_type</td>
+			<td>conditionally</td>
+			<td>
+				"catalog number" or value from <a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a>.
+				Must resolve to a single specimen.
+			</td>
+		</tr>
+		<tr>
+			<td>other_id_number</td>
+			<td>conditionally</td>
+			<td>Must resolve to a single specimen.</td>
+		</tr>
+		<tr>
+			<td>scientific_name</td>
+			<td>yes</td>
+			<td>any valid ID</td>
+		</tr>
+		<tr>
+			<td>nature_of_id</td>
+			<td>yes</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTNATURE_OF_ID">CTNATURE_OF_ID</a></td>
+		</tr>
+		<tr>
+			<td>made_date</td>
+			<td>no</td>
+			<td>ISO8601</td>
+		</tr>
+		<tr>
+			<td>accepted_fg</td>
+			<td>yes</td>
+			<td>1 (this will become the accepted ID) or 0 (this will not become the accepted ID)</td>
+		</tr>
+		<tr>
+			<td>identification_remarks</td>
+			<td>no</td>
+			<td>remarkable things</td>
+		</tr>
+		<tr>
+			<td>agent_1</td>
+			<td>no</td>
+			<td>any unique name</td>
+		</tr>
+		<tr>
+			<td>agent_2</td>
+			<td>no</td>
+			<td>any unique name</td>
+		</tr>
+	</table>
+
 	<cfform name="oids" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file"
@@ -75,6 +130,16 @@ sho err
 	</cfform>
 </cfif>
 <!------------------------------------------------------->
+<cfif action is "makeTemplate">
+	<cfset header="guid,guid_prefix,other_id_type,other_id_number,scientific_name,made_date,nature_of_id,accepted_fg,identification_remarks,agent_1,agent_2">
+	<cffile action = "write"
+    file = "#Application.webDirectory#/download/BulkloadIdentification.csv"
+    output = "#header#"
+    addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadIdentification.csv" addtoken="false">
+</cfif>
+<!------------------------------------------------------->
+
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
