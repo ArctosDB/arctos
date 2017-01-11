@@ -66,7 +66,7 @@ sho err
 		</tr>
 		<cfloop query="d">
 			<tr>
-				<td>#statud#</td>
+				<td>#status#</td>
 				<td>#c#</td>
 			</tr>
 		</cfloop>
