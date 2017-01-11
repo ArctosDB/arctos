@@ -134,7 +134,8 @@
 			 from raw
 		</cfquery>
 		<cfquery name="getCount" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select count(collection_object_id) as cnt from filtered_flat
+			select count(collection_object_id) as cnt from cataloged_item,filtered_flat where
+			cataloged_item.collection_object_id=filtered_flat.collection_object_id
 		</cfquery>
 		<p>
 			Arctos currently serves data on #numberformat(getCount.cnt,"999,999")# specimens and observations in #summary.numCollections# collections.
