@@ -222,9 +222,6 @@ sho err
 	       where status is null and
 		   agent_2 is not null
 	    </cfquery>
-
-
-
 		<cfquery name="AGENT_1_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
@@ -238,6 +235,7 @@ sho err
 	          status='agent_2 not found' where agent_2 is not null and AGENT_2_ID is null and status is null
 	    </cfquery>
 
+		<!----
 
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_id
@@ -245,12 +243,13 @@ sho err
 	    <cfdump var=#d#>
 
 	    <cfabort>
+		---->
 
 		<cfquery name="BADFORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
 	        set
-	          status='This form will not handle multi-taxa formulae or A-string IDs. File a bug report.'
+	          status='This form will not handle multi-taxa formulae or A-string IDs. File an Issue.'
 			where
 			  STATUS IS NULL AND (
 			       scientific_name LIKE '% / %' or
@@ -270,7 +269,30 @@ sho err
 				<cfset coid="">
 				<cfset tnid="">
 				<cfset tf="">
-				<cfif other_id_type is not "catalog number">
+				<cfif len(guid) gt 0>
+					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						SELECT
+							cataloged_item.collection_object_id
+						FROM
+							cataloged_item,
+							collection
+						WHERE
+							cataloged_item.collection_id = collection.collection_id and
+							collection.guid_prefix || ':' || cataloged_item.cat_num = '#guid#'
+					</cfquery>
+				<cfelseif other_id_type is "catalog number">
+					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						SELECT
+							collection_object_id
+						FROM
+							cataloged_item,
+							collection
+						WHERE
+							cataloged_item.collection_id = collection.collection_id and
+							collection.guid_prefix = '#guid_prefix#' and
+							cataloged_item.cat_num='#other_id_number#'
+					</cfquery>
+				<cfelse>
 					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						SELECT
 							coll_obj_other_id_num.collection_object_id
@@ -285,21 +307,10 @@ sho err
 							coll_obj_other_id_num.other_id_type = '#trim(other_id_type)#' and
 							coll_obj_other_id_num.display_value = '#trim(other_id_number)#'
 					</cfquery>
-				<cfelse>
-					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						SELECT
-							collection_object_id
-						FROM
-							cataloged_item,
-							collection
-						WHERE
-							cataloged_item.collection_id = collection.collection_id and
-							collection.guid_prefix = '#guid_prefix#' and
-							cataloged_item.cat_num='#other_id_number#'
-					</cfquery>
 				</cfif>
+
 				<cfif collObj.recordcount is not 1>
-					<cfset problem=listappend(problem,"#data.other_id_number# #data.other_id_type# #data.guid_prefix# could not be found",";")>
+					<cfset problem=listappend(problem,"#data.guid# or (#data.other_id_number# #data.other_id_type# #data.guid_prefix#) could not be found",";")>
 				<cfelse>
 					<cfset coid=collObj.collection_object_id>
 				</cfif>
@@ -376,6 +387,7 @@ sho err
 	<table border id="t" class="sortable">
 	   <tr>
           <th>status</th>
+		  <th>guid</th>
 		  <th>guid_prefix</th>
           <th>other_id_type</th>
           <th>other_id_number</th>
@@ -391,6 +403,7 @@ sho err
 		<cfloop query="d">
 		 <tr>
           <td>#status#</td>
+          <td>#guid#</td>
           <td>#guid_prefix#</td>
           <td>#other_id_type#</td>
           <td>#other_id_number#</td>
