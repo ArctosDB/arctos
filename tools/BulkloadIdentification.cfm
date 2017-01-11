@@ -2,14 +2,8 @@
 <cfsetting requesttimeout="600">
 
 <cfset title="Bulkload Identification">
-<a href="BulkloadIdentification.cfm?action=table">
-	view data in table
-</a>
-or
-<a href="BulkloadIdentification.cfm">
-	back to the start page
-</a>
-<hr>
+<p><a href="BulkloadIdentification.cfm?action=manage">manage your data</a></p>
+
 <!---- make the table
 
 drop table cf_temp_id;
@@ -17,9 +11,10 @@ drop public synonym cf_temp_id;
 
 create table cf_temp_id (
 	key number,
+	username varchar2(60),
 	collection_object_id number,
-	collection_cde varchar2(4),
-	institution_acronym varchar2(6),
+	guid varchar2(60),
+	guid_prefix varchar2(30),
 	other_id_type varchar2(60),
 	other_id_number varchar2(60),
 	scientific_name varchar2(255),
@@ -36,7 +31,6 @@ create table cf_temp_id (
 	agent_2_id number
 );
 
-alter table cf_temp_id add guid varchar2(60);
 
 create public synonym cf_temp_id for cf_temp_id;
 grant select,insert,update,delete on cf_temp_id to manage_specimens;
@@ -48,20 +42,61 @@ CREATE OR REPLACE TRIGGER cf_temp_id_key
     	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
     	end if;
+		 if :NEW.username is null then
+	        select sys_context('USERENV', 'SESSION_USER') into :new.username from dual;
+	    end if;
     end;
 /
 
-alter table cf_temp_id rename column collection_cde to guid_prefix;
-alter table cf_temp_id drop column institution_acronym;
-alter table cf_temp_id modify guid_prefix varchar2(30);
 
 sho err
 ------>
+<cfif action is "manage">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select status,count(*) c from  cf_temp_id where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<p>
+		Your data in the bulkloader:
+	</p>
+	<table border>
+		<tr>
+			<th>Status</th>
+			<th>Count</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#statud#</td>
+				<td>#c#</td>
+			</tr>
+		</cfloop>
+	</table>
+	<ul>
+		<li><a href="BulkloadIdentification.cfm">Load from CSV</a></li>
+		<li><a href="BulkloadIdentification.cfm?action=table">table-view of your data</a></li>
+		<li><a href="BulkloadIdentification.cfm?action=validate">validate (status=NULL only)</a></li>
+		<li><a href="BulkloadIdentification.cfm?action=loadData">load (status="valid" only)</a></li>
+		<li><a href="BulkloadIdentification.cfm?action=resetStatus">reset non-valid status to NULL</a></li>
+		<li><a href="BulkloadIdentification.cfm?action=deleteAll">delete ALL of your data</a></li>
+	</ul>
+</cfif>
+<!---------------------------------------------------------->
+<cfif action is "resetStatus">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_id set status=NULL where status != 'valid' and upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cflocation url="BulkloadIdentification.cfm?action=manage" addtoken="false">
+</cfif>
+<!---------------------------------------------------------->
+<cfif action is "resetStatus">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_id set status=NULL where status != 'valid' and upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cflocation url="BulkloadIdentification.cfm?action=manage" addtoken="false">
+</cfif>
+<!---------------------------------------------------------->
 <cfif action is "nothing">
 	Upload a comma-delimited text file (csv).Include column headings, spelled exactly as below.
 	<br><a href="BulkloadIdentification.cfm?action=makeTemplate">get a template</a>
-
-
 	<table border>
 		<tr>
 			<th>Field</th>
@@ -149,11 +184,6 @@ sho err
 
 <cfif action is "getFile">
 <cfoutput>
-	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from cf_temp_id
-	</cfquery>
-
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 
 	<cfset fileContent=replace(fileContent,"'","''","all")>
@@ -201,17 +231,19 @@ sho err
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_id set status='missing data'
 			where
-			scientific_name is null or
-			nature_of_id is null or
-			accepted_fg is null
+			upper(username)='#ucase(session.username)#' and (
+				scientific_name is null or
+				nature_of_id is null or
+				accepted_fg is null
+			)
 		</cfquery>
 		<cfquery name="noid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update cf_temp_id set status='invalid nature_of_id' where nature_of_id not in (select nature_of_id from ctnature_of_id) and
-			status is null
+			status is null and upper(username)='#ucase(session.username)#'
 	    </cfquery>
 		<cfquery name="accepted_fg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update cf_temp_id set status='invalid accepted_fg' where accepted_fg not in (0,1) and
-	        status is null
+	        status is null and upper(username)='#ucase(session.username)#'
 	    </cfquery>
 		<cfquery name="AGENT_1_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
@@ -220,7 +252,8 @@ sho err
 			  AGENT_1_ID=getAgentId(agent_1)
 		   where
 		   	status is null and
-		   	agent_1 is not null
+		   	agent_1 is not null and
+		   	upper(username)='#ucase(session.username)#'
 	    </cfquery>
 		<cfquery name="AGENT_2_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
@@ -228,19 +261,22 @@ sho err
 	        set
 	          AGENT_2_ID=getAgentId(agent_2)
 	       where status is null and
-		   agent_2 is not null
+		   agent_2 is not null and
+		   upper(username)='#ucase(session.username)#'
 	    </cfquery>
 		<cfquery name="AGENT_1_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
 	        set
-	          status='agent_1 not found' where agent_1 is not null and AGENT_1_ID is null and status is null
+	          status='agent_1 not found' where agent_1 is not null and AGENT_1_ID is null and status is null and
+	          upper(username)='#ucase(session.username)#'
 	    </cfquery>
 		<cfquery name="AGENT_2_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
 	        set
-	          status='agent_2 not found' where agent_2 is not null and AGENT_2_ID is null and status is null
+	          status='agent_2 not found' where agent_2 is not null and AGENT_2_ID is null and status is null and
+	          upper(username)='#ucase(session.username)#'
 	    </cfquery>
 
 		<cfquery name="BADFORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -256,10 +292,11 @@ sho err
 	               scientific_name LIKE '% x %' or
 	               scientific_name LIKE '%{%' or
 	               scientific_name LIKE '%}%'
-			  )
+			  ) and
+			  upper(username)='#ucase(session.username)#'
 	    </cfquery>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_id where status is null
+			select * from cf_temp_id where status is null and upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfloop query="data">
 			<cftransaction>
@@ -364,7 +401,8 @@ sho err
 <cfoutput>
 
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	        select * from cf_temp_id order by status,
+	        select * from cf_temp_id where upper(username)='#ucase(session.username)#'
+	        	order by status,
 	            other_id_type,
 	            other_id_number
 	    </cfquery>
@@ -377,10 +415,6 @@ sho err
         <cfelse>
             The data you loaded do not validate. See STATUS column in the table.
         </cfif>
-
-
-
-
 
 	<table border id="t" class="sortable">
 	   <tr>
@@ -433,7 +467,7 @@ sho err
 	</p>
 
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_id where status='valid'
+		select * from cf_temp_id where status='valid' and upper(username)='#ucase(session.username)#'
 	</cfquery>
 
 	<cfloop query="getTempData">
