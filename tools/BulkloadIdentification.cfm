@@ -18,7 +18,7 @@ create table cf_temp_id (
 	other_id_type varchar2(60),
 	other_id_number varchar2(60),
 	scientific_name varchar2(255),
-	made_date date,
+	made_date varchar2(255),
 	nature_of_id varchar2(30),
 	accepted_fg number(1),
 	identification_remarks varchar2(255),
@@ -52,6 +52,7 @@ CREATE OR REPLACE TRIGGER cf_temp_id_key
 sho err
 ------>
 <cfif action is "manage">
+	<cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select status,count(*) c from  cf_temp_id where upper(username)='#ucase(session.username)#' group by status
 	</cfquery>
@@ -78,6 +79,7 @@ sho err
 		<li><a href="BulkloadIdentification.cfm?action=resetStatus">reset non-valid status to NULL</a></li>
 		<li><a href="BulkloadIdentification.cfm?action=deleteAll">delete ALL of your data</a></li>
 	</ul>
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------->
 <cfif action is "resetStatus">
