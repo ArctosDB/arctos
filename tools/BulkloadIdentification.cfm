@@ -99,7 +99,7 @@ sho err
 <!---------------------------------------------------------->
 <cfif action is "resetStatus">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_id set status=NULL where status != 'valid' and upper(username)='#ucase(session.username)#'
+		update cf_temp_id set status=NULL where status != 'valid' and status != 'loaded' and upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cflocation url="BulkloadIdentification.cfm?action=manage" addtoken="false">
 </cfif>
