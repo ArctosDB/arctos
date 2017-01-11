@@ -78,13 +78,21 @@ sho err
 		<li><a href="BulkloadIdentification.cfm?action=loadData">load (status="valid" only)</a></li>
 		<li><a href="BulkloadIdentification.cfm?action=resetStatus">reset non-valid status to NULL</a></li>
 		<li><a href="BulkloadIdentification.cfm?action=deleteAll">delete ALL of your data</a></li>
+		<li><a href="BulkloadIdentification.cfm?action=deleteLoaded">delete "loaded" records</a></li>
 	</ul>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------->
-<cfif action is "resetStatus">
+<cfif action is "deleteLoaded">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_id set status=NULL where status != 'valid' and upper(username)='#ucase(session.username)#'
+		delete from cf_temp_id where status='loaded' and upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cflocation url="BulkloadIdentification.cfm?action=manage" addtoken="false">
+</cfif>
+<!---------------------------------------------------------->
+<cfif action is "deleteAll">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_id  where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cflocation url="BulkloadIdentification.cfm?action=manage" addtoken="false">
 </cfif>
