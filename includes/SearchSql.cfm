@@ -846,6 +846,11 @@
 		<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
 		<cfSet basQual = " #basQual# AND collector.collector_role='#coll_role#'">
 	</cfif>
+	<cfif session.flatTableName is not "flat">
+		<cfSet basQual = " #basQual# AND (#session.flatTableName#.encumbrances is null OR (
+			#session.flatTableName#.encumbrances not like '%collector%' and
+			#session.flatTableName#.encumbrances not like '%preparator%')) ">
+	</cfif>
 </cfif>
 <cfif isdefined("begin_made_date") AND len(begin_made_date) gt 0>
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
