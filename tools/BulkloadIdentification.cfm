@@ -2,6 +2,14 @@
 <cfsetting requesttimeout="600">
 
 <cfset title="Bulkload Identification">
+<a href="BulkloadIdentification.cfm?action=table">
+	view data in table
+</a>
+or
+<a href="BulkloadIdentification.cfm">
+	back to the start page
+</a>
+<hr>
 <!---- make the table
 
 drop table cf_temp_id;
@@ -235,16 +243,6 @@ sho err
 	          status='agent_2 not found' where agent_2 is not null and AGENT_2_ID is null and status is null
 	    </cfquery>
 
-		<!----
-
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_id
-		</cfquery>
-	    <cfdump var=#d#>
-
-	    <cfabort>
-		---->
-
 		<cfquery name="BADFORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
@@ -399,7 +397,6 @@ sho err
           <th>agent_1</th>
           <th>agent_2</th>
 		</tr>
-
 		<cfloop query="d">
 		 <tr>
           <td>#status#</td>
@@ -416,9 +413,6 @@ sho err
           <td>#agent_2#</td>
         </tr>
 		</cfloop>
-
-
-
 	</table>
 </cfoutput>
 </cfif>
