@@ -53,7 +53,7 @@ sho err
 ------>
 <cfif action is "manage">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select status,count(*) c from  cf_temp_id where upper(username)='#ucase(session.username)#'
+		select status,count(*) c from  cf_temp_id where upper(username)='#ucase(session.username)#' group by statud
 	</cfquery>
 	<p>
 		Your data in the bulkloader:
