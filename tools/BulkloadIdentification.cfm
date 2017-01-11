@@ -105,8 +105,11 @@ sho err
 </cfif>
 <!---------------------------------------------------------->
 <cfif action is "nothing">
-	Upload a comma-delimited text file (csv).Include column headings, spelled exactly as below.
+	Upload a comma-delimited text file (csv). Include column headings, spelled exactly as below.
 	<br><a href="BulkloadIdentification.cfm?action=makeTemplate">get a template</a>
+	<div class="importantNotification">
+		This form will happily accept and create duplicates. Porceed with caution.
+	</div>
 	<table border>
 		<tr>
 			<th>Field</th>
@@ -191,11 +194,9 @@ sho err
 	<cflocation url="/download.cfm?file=BulkloadIdentification.csv" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
-
 <cfif action is "getFile">
 <cfoutput>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset colNames="">
