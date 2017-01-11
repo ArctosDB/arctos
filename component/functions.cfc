@@ -3320,7 +3320,7 @@
 					coll_obj_other_id_num.other_id_type='#other_id_type#' and
 					coll_obj_other_id_num.display_value='#oidnum#'">
 		<cfelse>
-			<cfset w=w & " and cataloged_item.cat_num=#oidnum#">
+			<cfset w=w & " and cataloged_item.cat_num='#oidnum#'">
 		</cfif>
 		<cfif noBarcode is true>
 			<cfset w=w & " and (c.parent_container_id = 0 or c.parent_container_id is null or c.parent_container_id=476089)">
