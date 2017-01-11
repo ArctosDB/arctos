@@ -193,22 +193,19 @@ sho err
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_id set status='missing data'
 			where
-			other_id_type is null or
-			other_id_number is null or
-			guid_prefix is null or
 			scientific_name is null or
 			nature_of_id is null or
 			accepted_fg is null
 		</cfquery>
-		<cfquery name="noid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="noid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update cf_temp_id set status='invalid nature_of_id' where nature_of_id not in (select nature_of_id from ctnature_of_id) and
 			status is null
 	    </cfquery>
-		<cfquery name="accepted_fg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="accepted_fg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update cf_temp_id set status='invalid accepted_fg' where accepted_fg not in (0,1) and
 	        status is null
 	    </cfquery>
-		<cfquery name="AGENT_1_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="AGENT_1_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 			  cf_temp_id
 			set
@@ -217,7 +214,7 @@ sho err
 		   	status is null and
 		   	agent_1 is not null
 	    </cfquery>
-		<cfquery name="AGENT_2_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="AGENT_2_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
 	        set
@@ -225,19 +222,31 @@ sho err
 	       where status is null and
 		   agent_2 is not null
 	    </cfquery>
-		<cfquery name="AGENT_1_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+
+
+
+		<cfquery name="AGENT_1_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
 	        set
 	          status='agent_1 not found' where agent_1 is not null and AGENT_1_ID is null and status is null
 	    </cfquery>
-		<cfquery name="AGENT_2_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="AGENT_2_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
 	        set
 	          status='agent_2 not found' where agent_2 is not null and AGENT_2_ID is null and status is null
 	    </cfquery>
-		<cfquery name="BADFORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+
+
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_id
+		</cfquery>
+	    <cfdump var=#d#>
+
+	    <cfabort>
+
+		<cfquery name="BADFORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update
 	          cf_temp_id
 	        set
