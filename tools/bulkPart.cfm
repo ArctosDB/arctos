@@ -217,7 +217,7 @@ function copyEPt(){
                     Existing CONDITION will be ignored
                 </td>
                 <td>
-                    <input type="text" name="new_condition" id="new_condition" class="reqdClr">
+                    <input type="text" name="new_condition" id="new_condition">
                 </td>
             </tr>
             <tr>
