@@ -695,7 +695,16 @@
 		<cfset cl=listdeleteat(cl,listfindnocase(cl,'collection_cde'))>
 
 		<p>
-			insert into bulkloader (#cl#) (select #cl# from pre_bulkloader)
+			insert into bulkloader (
+				<cfloop list="#cl#" index="i">
+					<br>#i#
+				</cfloop>
+				<br>) (
+				<br>select
+				<cfloop list="#cl#" index="i">
+					<br>#i#
+				</cfloop>
+				<br>from pre_bulkloader)
 		</p>
 	</cfif>
 	<cfif action is "pushToBL_SUCCESS">
