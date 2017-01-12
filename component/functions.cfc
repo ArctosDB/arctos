@@ -3347,8 +3347,6 @@
 			<cfset t = QuerySetCell(q, "PART_NAME", "Error: #u.c# specimens match", 1)>
 		</cfif>
 	<cfcatch>
-
-		<cfdump var=#cfcatch#>
 		<!---
 		<cfset t = queryaddrow(theResult,1)>
 		<cfset t = QuerySetCell(theResult, "collection_object_id", "-1", 1)>
