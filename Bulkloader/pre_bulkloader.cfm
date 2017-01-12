@@ -693,16 +693,20 @@
 		</cfquery>
 		<cfset cl=c.columnList>
 		<cfset cl=listdeleteat(cl,listfindnocase(cl,'collection_cde'))>
-		<cfset r=1>
+
 		<p>
 			insert into bulkloader (
+				<cfset r=1>
 				<cfloop list="#cl#" index="i">
 					<br>#i#<cfif r lt listlen(cl)>,</cfif>
+					<cfset r=r+1>
 				</cfloop>
 				<br>) (
 				<br>select
+				<cfset r=1>
 				<cfloop list="#cl#" index="i">
 					<br>#i#<cfif r lt listlen(cl)>,</cfif>
+					<cfset r=r+1>
 				</cfloop>
 				<br>from pre_bulkloader)
 		</p>
