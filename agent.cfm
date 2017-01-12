@@ -218,7 +218,7 @@
 					select coll_object_encumbrance.collection_object_id from
 						coll_object_encumbrance,
 						encumbrance where
-						encumbrance.EXPIRATION_DATE < sysdate and
+						encumbrance.EXPIRATION_DATE > sysdate and
 						coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
 						encumbrance.encumbrance_action in ('mask collector','mask preparator','mask record')
 				)
