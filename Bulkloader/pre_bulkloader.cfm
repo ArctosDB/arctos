@@ -687,6 +687,17 @@
 			<a href="pre_bulkloader.cfm?action=pushToBL_SUCCESS">click here to avoid confusing yourself</a>.
 		</p>
 	</cfif>
+	<cfif action is "pushToBL_getSQL">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
+			select * from pre_bulkloader where 1=2
+		</cfquery>
+		<cfset cl=c.columnList>
+		<cfset cl=listdeleteat(cl,listfindnocase(cl,'collection_cde'))>
+
+		<p>
+			insert into bulkloader (#cl#) (select #cl# from pre_bulkloader)
+		</p>
+	</cfif>
 	<cfif action is "pushToBL_SUCCESS">
 		<cfquery name="uppc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="myQueryResult">
 			UPDATE pre_bulkloader SET loaded='pushed to BULKLOADER #dateformat(now(),"yyyy-mm-dd")# by #session.username#'
