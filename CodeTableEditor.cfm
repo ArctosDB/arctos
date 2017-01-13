@@ -474,6 +474,27 @@
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by sort_order,other_id_type
 		</cfquery>
+		<div class="importantNotification">
+			<strong>Base URL</strong> is a string which when prepended to values of OtherIDNumber in specimen records
+			creates a resolvable URI. Include necessary "punctuation"; the only operation Arctos will perform is
+			appending  OtherIDNumber onto BaseURL.
+
+			- trailing slash, variables
+			("?someStaticVar=someValue&thingYouWantToPassIn="
+			 Examples:
+			<ul>
+				<li>
+					<li>Desired result: <strong>https://www.ncbi.nlm.nih.gov/nuccore/KU199801</strong></li>
+					<li>What a user will enter as OtherIDNumber: <strong>KU199801</strong></li>
+					<li>Base URL: <strong>https://www.ncbi.nlm.nih.gov/nuccore/</strong></li>
+				</li>
+				<li>
+					<li>Desired result: <strong>https://mywebsite.com?someStaticVar=someValue&thingYouWantToPassIn=ABC123</strong></li>
+					<li>What a user will enter as OtherIDNumber: <strong>ABC123</strong></li>
+					<li>Base URL: <strong>https://mywebsite.com?someStaticVar=someValue&thingYouWantToPassIn=</strong></li>
+				</li>
+			</ul>
+		</div>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
 			<input type="hidden" name="tbl" value="ctcoll_other_id_type">
