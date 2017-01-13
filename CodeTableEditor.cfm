@@ -481,13 +481,13 @@
 			<p>Examples:</p>
 
 			<ul>
-				<li>Desired result: <strong>https://www.ncbi.nlm.nih.gov/nuccore/KU199801</strong></li>
+				<li>Desired link: <strong>https://www.ncbi.nlm.nih.gov/nuccore/KU199801</strong></li>
 				<li>What a user will enter as OtherIDNumber: <strong>KU199801</strong></li>
 				<li>Base URL: <strong>https://www.ncbi.nlm.nih.gov/nuccore/</strong></li>
 			</ul>
 
 			<ul>
-				<li>Desired result: <strong>https://mywebsite.com?someStaticVar=someValue&thingYouWantToPassIn=ABC123</strong></li>
+				<li>Desired link: <strong>https://mywebsite.com?someStaticVar=someValue&thingYouWantToPassIn=ABC123</strong></li>
 				<li>What a user will enter as OtherIDNumber: <strong>ABC123</strong></li>
 				<li>Base URL: <strong>https://mywebsite.com?someStaticVar=someValue&thingYouWantToPassIn=</strong></li>
 			</ul>
