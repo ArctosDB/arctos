@@ -478,10 +478,8 @@
 			<strong>Base URL</strong> is a string which when prepended to values of OtherIDNumber in specimen records
 			creates a resolvable URI. Include necessary "punctuation"; the only operation Arctos will perform is
 			appending  OtherIDNumber onto BaseURL.
+			<p>Examples:</p>
 
-			- trailing slash, variables
-			("?someStaticVar=someValue&thingYouWantToPassIn="
-			 Examples:
 			<ul>
 				<li><ul>
 					<li>Desired result: <strong>https://www.ncbi.nlm.nih.gov/nuccore/KU199801</strong></li>
