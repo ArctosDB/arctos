@@ -195,7 +195,6 @@
 			}
 		}
 		var cStr=eval('document.controls.' + list);
-
 		if (v=='1'){
 			cStr.checked=true;
 		} else {
