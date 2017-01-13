@@ -477,7 +477,11 @@
 		<div class="importantNotification">
 			<strong>Base URL</strong> is a string which when prepended to values of OtherIDNumber in specimen records
 			creates a resolvable URI. Include necessary "punctuation"; the only operation Arctos will perform is
-			appending  OtherIDNumber onto BaseURL.
+			appending  OtherIDNumber onto BaseURL. A URL describing the resource which initially created the OtherID or
+			a general page from which the data represented by the OtherID may be searched should be entered in Description.
+			Do NOT use Base URL for any purpose other than forming resolvable identifiers
+			from specimens to related records.
+
 			<p>Examples:</p>
 
 			<ul>
