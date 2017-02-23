@@ -766,9 +766,7 @@
 								<div style="border:2px solid red; margin:1em;padding:1em;font-weight:bold;">
 									Possible problems detected with this Source. Please double-check your data and the linked article
 									and review the
-									<a href="http://arctosdb.org/higher-geography/##guidelines" target="_blank" class="external">
-										Geography Creation Guidelines
-									</a>.
+									<span class="likeLink" onclick="getDocs('higher-guidelines','anchor')">Geography Creation Guidelines</span>.
 									<ul>#errs#</ul>
 								</div>
 							</cfif>
@@ -1738,7 +1736,7 @@ You deleted a collecting event.
 				<p>
 					The source_authority you specified has been used in other geography entries. That's probably an indication of
 					linking to the wrong thing. Please carefully review
-					<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/##guidelines">the higher geography creation guidelines</a>
+					<span class="likeLink" onclick="getDocs('higher-guidelines','anchor')">Geography Creation Guidelines</span>
 					and consider editing your entry and/or the links below before proceeding.
 				</p>
 				Geography using #source_authority#:
@@ -1820,7 +1818,7 @@ You deleted a collecting event.
 			<p>
 				The source_authority you specified has been used in other geography entries. That's probably an indication of
 				linking to the wrong thing. Please carefully review
-				<a target="_blank" class="external" href="http://arctosdb.org/higher-geography/##guidelines">the higher geography creation guidelines</a>
+				<span class="likeLink" onclick="getDocs('higher-guidelines','anchor')">Geography Creation Guidelines</span>
 				and consider editing your entry and/or the links below before proceeding.
 			</p>
 			Geography using #source_authority#:
