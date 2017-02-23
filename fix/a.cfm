@@ -22,11 +22,13 @@
 		<cfdump var=#cfhttp#>
 
 
-		<cfset s= left(cfhttp.statuscode,3)>
-		<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
-			<cfset as='anchor_notfound'>
-		<cfelse>
-			<cfset as='anchorhappy'>
+		<cfset s=left(cfhttp.statuscode,3)>
+		<cfif len(anchor) gt 0>
+			<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
+				<cfset as='anchor_notfound'>
+			<cfelse>
+				<cfset as='anchorhappy'>
+			</cfif>
 		</cfif>
 
 		<cfquery name="ud" datasource="prod">
