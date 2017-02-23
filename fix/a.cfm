@@ -26,6 +26,11 @@
 		<cfset s=left(cfhttp.statuscode,3)>
 		<cfif len(anchor) gt 0>
 			<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
+
+			<br>cfhttp.fileContent does not contain 'id="#anchor#"'
+
+
+
 				<cfset as='anchor_notfound'>
 				<cfif anchor contains "_">
 					<br>gonna try anchor magic....
