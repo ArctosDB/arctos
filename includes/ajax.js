@@ -1299,8 +1299,8 @@ function getDocs(url,anc){
 					modal: true,
 					position: ['center', 'center'],
 					title: 'Arctos Documentation',
-						width:800,
-			 			height:600,
+						width:1400,
+			 			height:800,
 					close: function() {
 						$( this ).remove();
 					}
