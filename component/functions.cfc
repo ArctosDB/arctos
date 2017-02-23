@@ -1499,7 +1499,7 @@
 	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfmail subject="doc_not_found" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
-			<br>----URI: #uri#
+			<br>URI: #uri#
 			<br>Anchor: #anchor#
 			<br>Called From: #cgi.HTTP_REFERER#
 		</cfmail>
@@ -1515,7 +1515,7 @@
 			<cfif cfhttp.fileContent does not contain '<h2 id="#anchor#">'>
 				<cfmail subject="busted_anchor" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="busted_anchor@#Application.fromEmail#" type="html">
 					#fullURI# seems to have a defective anchor
-					<br>----URI: #uri#
+					<br>URI: #uri#
 					<br>Anchor: #anchor#
 					<br>Called From: #cgi.HTTP_REFERER#
 				</cfmail>
