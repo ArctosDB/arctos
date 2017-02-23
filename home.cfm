@@ -125,7 +125,7 @@
 	<div id="stayright">
 		<a name="top"></a>
 		Arctos is an ongoing effort to integrate access to specimen data, collection-management tools, and external resources on the internet.
-		Read more about Arctos at our <a href="https://arctosdb.wordpress.com/">Documentation Site</a>, explore some <a href="/random.cfm">random content</a>,
+		Read more about Arctos at our <a href="https://arctosdb.org/">Documentation Site</a>, explore some <a href="/random.cfm">random content</a>,
 		or use the links in the header to search for specimens, media, taxonomy, projects and publications, and more. Sign in or create an account to save
 		preferences and searches.
 		<cfquery name="summary" dbtype="query">
@@ -227,7 +227,8 @@
 				proposed or limited functionality exists.
 			</li>
 			<li>
-				<a href="http://arctosdb.org/documentation/media/" target="_blank" class="external">Media</a>
+				<span class="likeLink" onclick="getDocs('media','')">Media</span>
+
 				link images, movies, sound files, and documents to
 				specimens, taxonomy, publications, projects, events, or people.
 				<br>
@@ -270,7 +271,8 @@
 				<a href="http://www.ncbi.nlm.nih.gov/Genbank/"  target="_blank" class="external">GenBank</a>,
 				<a href="http://www.tacc.utexas.edu"  target="_blank" class="external">TACC</a>,
 				and <a href="http://www.morphbank.net/"  target="_blank" class="external">MorphBank</a>).</li>
-			<li><a href="http://arctosdb.wordpress.com/documentation/identification/" target="_blank" class="external">Identifications</a>
+			<li>
+				<span class="likeLink" onclick="getDocs('identification','')">Identifications</span>
 				can be formulaic combinations
 				of terms drawn from a separate taxonomic authority.</li>
 			<li>Maintains history of determinations for taxonomic
@@ -279,16 +281,16 @@
 				citations, and much more can be entered or edited individually
 				or in batches.</li>
 			<li>
-				<a href="http://arctosdb.org/documentation/container/" target="_blank" class="external">Object-tracking</a>
+				<span class="likeLink" onclick="getDocs('container','')">Object-tracking</span>
 				using nested-containers model,
 				bar codes, and container-condition history.</li>
 			<li>
-				E-mail <a href="http://arctosdb.org/how-to/notifications/">reminders</a> for loans due,
+				E-mail <span class="likeLink" onclick="getDocs('notifications','')">reminders</span> for loans due,
 				permit expirations, etc. Intelligent reports detailing possible GenBank matches,
 				missing citations, unlikely publications, and various other potentially faulty or missing data.
 			</li>
 			<li>
-				<a href="http://arctosdb.org/documentation/encumbrance/" target="_blank" class="external">Encumbrances</a>
+				<span class="likeLink" onclick="getDocs('encumbrance','')">Encumbrances</span>
 				 can mask localities, collector names,
 				or entire records from unprivileged users.</li>
 			<li>Design and print labels, reports, transaction documents, etc. with a
@@ -307,7 +309,7 @@
 			<li>
 				<strong>Specimens</strong> are the core of Arctos. Traditional museum
 				"label data" live here.
-				<a href="http://arctosdb.org/documentation/attributes/" target="_blank" class="external">Attributes</a>
+				<span class="likeLink" onclick="getDocs('attributes','')">Attributes</span>
 				 allow collection-specific determinations
 				of most anything that can be recorded from a specimen, such as sex, weight, age, and various
 				measurements. Specimen Parts are the physical objects, and are grouped as Cataloged Items, which represent
@@ -416,7 +418,7 @@
 			Q: Where can I find more information about Arctos?
 		</div>
 		<div class="a">
-			A: <a href="http://arctosdb.wordpress.com" class="external" target="_blank">http://arctosdb.wordpress.com</a>
+			A: <a href="http://arctosdb.org" class="external" target="_blank">http://arctosdb.org</a>
 		</div>
 		<div class="q">
 			Q: Are these live data?
