@@ -1489,10 +1489,17 @@
 	</cfif>
 	---->
 	<cfif not isdefined("anchor") or anchor is "undefined" or len(anchor) is 0>
-		<cfset anchor="top">
+		<cfset anchor="">
 	</cfif>
 
-	<cfset fullURI="#Application.docURL#/#uri#.html###anchor#">
+	<cfset fullURI="#Application.docURL#/#uri#.html">
+	<cfif len(anchor) gt 0>
+		<cfset fullURI=fullURI & '##' & anchor>
+	</cfif>
+
+
+
+
 
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
 
@@ -1500,13 +1507,6 @@
 	<cfdump var=#cfhttp#>
 	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfoutput>
-
-			mailing...
-
-
-			mail subject="doc_not_found" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" f
-
-
 		<cfmail subject="doc_not_found" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
 			<br>----uri-#uri#
@@ -1517,6 +1517,24 @@
 
 		</cfoutput>
 		<cfset fullURI='404'>
+	<cfelse>
+		<!---
+			got a 200 statuscode, but anchors are an unholy mess on the github site
+			Pull the full page, see if we can see the craptacular fake GH anchor
+			If not, warn and send email
+		---->
+		<cfif len(anchor) gt 0>
+			<cfhttp url="#fullURI#" method="GET"></cfhttp>
+			<cfif cfhttp.fileContent does not contain '<h2 id="#anchor#">'>
+				<cfmail subject="busted_anchor" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="busted_anchor@#Application.fromEmail#" type="html">
+
+
+					#fullURI# seems to have a defective anchor
+				</cfmail>
+			</cfif>
+
+		</cfif>
+
 	</cfif>
 	<cfreturn fullURI>
 </cffunction>
