@@ -1496,6 +1496,8 @@
 
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
 
+
+	<cfdump var=#cfhttp#>
 	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfoutput>
 		<cfmail subject="doc_not_found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
