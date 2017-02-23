@@ -403,7 +403,7 @@
 			<cfif source is "Catalogue of Life">
 				<cfset srcHTML='<a href="http://www.catalogueoflife.org/" target="_blank" class="external">#source#</a>'>
 			<cfelseif source is "Arctos">
-				<cfset srcHTML='<span class="likeLink" onclick="getDocs(''taxonomy'',''arctos_source'')">#source#</span>'>
+				<cfset srcHTML='<span class="likeLink" onclick="getDocs(''taxonomy'',''source-arctos'')">#source#</span>'>
 			<cfelseif source is "GBIF Taxonomic Backbone">
 				<cfset srcHTML='<a href="http://www.gbif.org/informatics/name-services/using-names-data/taxonomic-backbone/" target="_blank" class="external">#source#</a>'>
 			<cfelseif source is "ITIS">
