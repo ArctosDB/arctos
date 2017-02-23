@@ -901,7 +901,7 @@
 			<!---
 			<a id="aboutSTWH" class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
 			---->
-			<a id="fbSWT" class="infoLink" href="/contact.cfm?ref=SpecimenResultsWidget">[ provide feedback ]</a>
+			<a id="fbSWT" class="likeLink" href="/contact.cfm?ref=SpecimenResultsWidget">[ provide feedback ]</a>
 			<div id="refineSearchTerms" style="#thisStyle#">
 			<form name="refineResults" id="refineResults">
 				<div id="ssttble_ctr">
