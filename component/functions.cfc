@@ -1530,6 +1530,8 @@
 
 
 					#fullURI# seems to have a defective anchor
+
+					<cfdump var=#cgi#>
 				</cfmail>
 			</cfif>
 
