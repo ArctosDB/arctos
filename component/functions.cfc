@@ -1492,16 +1492,9 @@
 		<cfset anchor="top">
 	</cfif>
 
-
-
-
-
 	<cfset fullURI="#Application.docURL#/#uri#.html###anchor#">
 
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
-
-	<cfdump var=#cfhttp#>
-
 
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfreturn fullURI>
@@ -1514,9 +1507,6 @@
 		</cfmail>
 		<cfreturn 404>
 	</cfif>
-
-<cfreturn fullURI>
-
 
 
 </cffunction>
