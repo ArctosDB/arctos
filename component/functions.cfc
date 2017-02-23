@@ -1512,7 +1512,7 @@
 		---->
 		<cfif len(anchor) gt 0>
 			<cfhttp url="#fullURI#" method="GET"></cfhttp>
-			<cfif cfhttp.fileContent does not contain '<h2 id="#anchor#">'>
+			<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
 				<cfmail subject="busted_anchor" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="busted_anchor@#Application.fromEmail#" type="html">
 					#fullURI# seems to have a defective anchor
 					<br>URI: #uri#
