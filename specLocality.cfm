@@ -58,7 +58,7 @@
 		);
 	}
 </script>
-<span class="pageHelp likeLink" onClick="getDocs('pageHelp/specLocality');">
+<span class="pageHelp likeLink" onClick="getDocs('specimen-event');">
 	Page Help
 </span>
 <script>
