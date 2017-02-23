@@ -1290,8 +1290,6 @@ function getDocs(url,anc){
 				alert('help not found');
 			} else {
 				//style='width:1400px;height:800px;'
-				
-				hello I am div
 				$("<iframe src='" + r + "' id='dialog' class='popupDialog' ></iframe>").dialog({
 					autoOpen: true,
 					closeOnEscape: true,
