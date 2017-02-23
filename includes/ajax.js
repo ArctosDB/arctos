@@ -1288,10 +1288,7 @@ function getDocs(url,anc){
 		function (r) {
 			if (r == '404') {
 				alert('help not found');
-			} else {
-				
-				console.log('opening ' + r);
-				
+			} else {				
 				$("<iframe src='" + r + "' id='dialog' class='popupDialog' style='width:1400px;height:800px;'></iframe>").dialog({
 					autoOpen: true,
 					closeOnEscape: true,
@@ -1311,13 +1308,9 @@ function getDocs(url,anc){
 				$(".ui-widget-overlay").click(function(){
 				    $(".ui-dialog-titlebar-close").trigger('click');
 				});
-				//siteHelpWin=windowOpener(r,"HelpWin","width=1400,height=800,resizable,scrollbars,location,toolbar");
 			}
-			// 
 		}
 	);
-	
-	
 }
 
 
