@@ -1290,7 +1290,7 @@ function getDocs(url,anc){
 				alert('help not found');
 			} else {
 				
-				console.log('opening ' + url);
+				console.log('opening ' + r);
 				
 				/*
 				$("<iframe src='" + url + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
