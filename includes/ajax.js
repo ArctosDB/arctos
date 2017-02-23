@@ -1288,8 +1288,9 @@ function getDocs(url,anc){
 		function (r) {
 			if (r == '404') {
 				alert('help not found');
-			} else {				
-				$("<iframe src='" + r + "' id='dialog' class='popupDialog' style='width:1400px;height:800px;'></iframe>").dialog({
+			} else {
+				//style='width:1400px;height:800px;'
+				$("<iframe src='" + r + "' id='dialog' class='popupDialog' ></iframe>").dialog({
 					autoOpen: true,
 					closeOnEscape: true,
 					height: 'auto',
