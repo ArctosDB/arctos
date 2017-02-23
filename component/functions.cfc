@@ -1503,6 +1503,31 @@
 			<br>anchor=#anchor#
 
 			<br>GetFunctionCalledName(): #GetFunctionCalledName()#
+
+			<cftry>
+
+<cfthrow />
+<cfcatch type="any">
+    <cfset stacktraceArray = ListToArray(Replace(cfcatch.stacktrace, "at ", " | ", "All"), "|") />
+
+    <!---Rip the right rows out of the stacktrace --->
+    <cfloop index ="i" to="1" from="#ArrayLen(stackTraceArray)#" step="-1">
+        <cfif not findNoCase("runFunction", stackTraceArray[i]) or FindNoCase("determineFunction", stackTraceArray[i])>
+            <cfset arrayDeleteAt(stackTraceArray, i) />
+        </cfif>
+    </cfloop>
+
+    <!---Whittle down the string to the func name --->
+    <cfset functionName =GetToken(stacktraceArray[1], 1, ".") />
+    <cfset functionName =GetToken(functionName, 2, "$")/>
+    <cfset functionName =ReplaceNoCase(functionName, "func", "", "once")/>
+
+    <br>caught #functionName#
+</cfcatch>
+			</cftry>
+
+
+
 			<cfdump var=#cgi#>
 		</cfmail>
 		<cfset fullURI='404'>
