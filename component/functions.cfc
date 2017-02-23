@@ -1491,20 +1491,11 @@
 	<cfif not isdefined("anchor") or anchor is "undefined" or len(anchor) is 0>
 		<cfset anchor="">
 	</cfif>
-
 	<cfset fullURI="#Application.docURL#/#uri#.html">
 	<cfif len(anchor) gt 0>
 		<cfset fullURI=fullURI & '##' & anchor>
 	</cfif>
-
-
-
-
-
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
-
-
-	<cfdump var=#cfhttp#>
 	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfmail subject="doc_not_found" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
@@ -1527,13 +1518,10 @@
 					<cfdump var=#cgi#>
 				</cfmail>
 			</cfif>
-
 		</cfif>
-
 	</cfif>
 	<cfreturn fullURI>
 </cffunction>
-
 <!------------------------------------------------------------------->
 <cffunction name="getExternalStatus" access="remote">
 	<cfargument name="uri" type="string" required="yes">
