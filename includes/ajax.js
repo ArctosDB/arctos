@@ -1291,6 +1291,8 @@ function getDocs(url,anc){
 			} else {
 				
 				console.log('opening ' + url);
+				
+				/*
 				$("<iframe src='" + url + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 					autoOpen: true,
 					closeOnEscape: true,
@@ -1310,7 +1312,7 @@ function getDocs(url,anc){
 				$(".ui-widget-overlay").click(function(){
 				    $(".ui-dialog-titlebar-close").trigger('click');
 				});
-				
+				*/
 				//siteHelpWin=windowOpener(r,"HelpWin","width=1400,height=800,resizable,scrollbars,location,toolbar");
 			}
 			// 
