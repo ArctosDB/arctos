@@ -1501,6 +1501,8 @@
 			#fullURI# is missing
 			<br>----uri-#uri#
 			<br>anchor=#anchor#
+
+			<br>GetFunctionCalledName(): #GetFunctionCalledName()#
 			<cfdump var=#cgi#>
 		</cfmail>
 		<cfset fullURI='404'>
