@@ -81,9 +81,7 @@
 				<td>LABEL</td>
 				<td>yes</td>
 				<td>
-					<a href="#Application.docURL#/container.html##label" class="external" target="_blank">
-						doc
-					</a>
+					<span class="likeLink" onclick="getDocs('container','label')">doc</span>
 				</td>
 			</tr>
 			<tr>
@@ -102,18 +100,14 @@
 				<td>DESCRIPTION</td>
 				<td>no</td>
 				<td>
-					<a href="#Application.docURL#/container.html##description" class="external" target="_blank">
-						doc
-					</a>
+					<span class="likeLink" onclick="getDocs('container','description')">doc</span>
 				</td>
 			</tr>
 			<tr>
 				<td>CONTAINER_REMARKS</td>
 				<td>no</td>
 				<td>
-					<a href="#Application.docURL#/container.html##remarks" class="external" target="_blank">
-						doc
-					</a>
+					<span class="likeLink" onclick="getDocs('container','remarks')">doc</span>
 				</td>
 			</tr>
 		</table>
