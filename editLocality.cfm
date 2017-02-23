@@ -328,7 +328,7 @@ function checkCoordinateError(){
 		hDiv.className = 'fancybox-help';
 		hDiv.id='hDiv';
 		//hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
-		hDiv.innerHTML='<span class="likeLink" onclick="getDocs(''geolocate'')">[ help ]</span>';
+		hDiv.innerHTML='<span class="likeLink" onclick="getDocs(\'geolocate\')">[ help ]</span>';
 
 		$("#popDiv").append(hDiv);
 		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
