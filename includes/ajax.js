@@ -1289,6 +1289,8 @@ function getDocs(url,anc){
 			if (r == '404') {
 				alert('help not found');
 			} else {
+				
+				console.log('opening ' + url);
 				$("<iframe src='" + url + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 					autoOpen: true,
 					closeOnEscape: true,
