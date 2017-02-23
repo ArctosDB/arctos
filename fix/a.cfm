@@ -20,6 +20,7 @@
 
 		<cfhttp url="#newlink#" method="GET"></cfhttp>
 
+			<cfdump var=#cfhttp#>
 
 
 		<cfset s=left(cfhttp.statuscode,3)>
@@ -33,6 +34,10 @@
 					<cfset nl=nl & '##' & anchor>
 					<br>nl is now #nl#
 					<cfhttp url="#nl#" method="GET"></cfhttp>
+
+
+					<cfdump var=#cfhttp#>
+
 					<cfif cfhttp.fileContent contains 'id="#anchor#"'>
 						happy!!
 						<cfset as='anchor_mod'>
