@@ -1455,12 +1455,16 @@
 </cfoutput>
 </cffunction>
 <!------------------------------------------------------------------->
+
+
 <cffunction name="get_docs" access="remote">
 	<!---
 		deal with whatever structure we have on the doc site here
 	--->
 	<cfargument name="uri" type="string" required="yes">
 	<cfargument name="anchor" type="string" required="no">
+
+	<!----
 	<cfif uri is "lat_long">
 		<cfset uri="documentation/places/coordinates">
 	<cfelseif uri is "collecting_event">
@@ -1483,6 +1487,7 @@
 	<cfelse>
 		<cfset uri="documentation/#uri#">
 	</cfif>
+	---->
 	<cfif not isdefined("anchor") or anchor is "undefined" or len(anchor) is 0>
 		<cfset anchor="top">
 	</cfif>
@@ -1491,10 +1496,8 @@
 
 
 
-	<cfset fullURI="http://arctosdb.wordpress.com/#uri#/###anchor#">
+	<cfset fullURI="#Application.docURL#/#uri#.html###anchor#">
 	<cfreturn fullURI>
-	<!---
-		wordpress randomly gets slow or something, so this is useless
 
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
 	<cfif left(cfhttp.statuscode,3) is "200">
@@ -1509,8 +1512,8 @@
 		<cfreturn 404>
 	</cfif>
 
-	--->
 </cffunction>
+
 <!------------------------------------------------------------------->
 <cffunction name="getExternalStatus" access="remote">
 	<cfargument name="uri" type="string" required="yes">
