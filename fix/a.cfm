@@ -7,6 +7,7 @@
 
 <cfoutput>
 	<cfloop query="d">
+		<cfset nl=newlink>
 		<hr>
 		<br>#newlink#
 		<cfif newlink contains "##">
@@ -25,6 +26,19 @@
 		<cfif len(anchor) gt 0>
 			<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
 				<cfset as='anchor_notfound'>
+				<cfif anchor contains "_">
+					<br>gonna try anchor magic....
+					<cfset anchor=replace(anchor,"_","-","all")>
+					<cfset nl=listdeleteat(nl,2,'##')>
+					<cfset nl=nl & '##' & anchor>
+					<br>nl is now #nl#
+					<cfhttp url="#nl#" method="GET"></cfhttp>
+					<cfif cfhttp.fileContent contains 'id="#anchor#"'>
+						happy!!
+						<cfset as='anchor_mod'>
+					</cfif>
+
+				</cfif>
 			<cfelse>
 				<cfset as='anchorhappy'>
 			</cfif>
@@ -34,7 +48,7 @@
 			update temp_dl_up set status='#s#',anchorstatus='#as#' where newlink='#newlink#'
 		</cfquery>
 
-		<br>update temp_dl_up set status='#s#',anchorstatus='#as#' where newlink='#newlink#'
+		<br>update temp_dl_up set newlink='#nl#',status='#s#',anchorstatus='#as#' where newlink='#newlink#'
 	</cfloop>
 </cfoutput>
 
