@@ -1292,7 +1292,7 @@ function getDocs(url,anc){
 				
 				console.log('opening ' + r);
 				
-				$("<iframe src='" + r + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				$("<iframe src='" + r + "' id='dialog' class='popupDialog' style='width:1400px;height:800px;'></iframe>").dialog({
 					autoOpen: true,
 					closeOnEscape: true,
 					height: 'auto',
