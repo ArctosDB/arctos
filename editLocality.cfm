@@ -327,7 +327,9 @@ function checkCoordinateError(){
 		var hDiv=document.createElement('div');
 		hDiv.className = 'fancybox-help';
 		hDiv.id='hDiv';
-		hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
+		//hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
+		hDiv.innerHTML='<span class="likeLink" onclick="getDocs('geolocate','')">[ help ]</span>';
+
 		$("#popDiv").append(hDiv);
 		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 		var theFrame = document.createElement('iFrame');
@@ -693,7 +695,7 @@ function checkCoordinateError(){
 					<p>
 						<strong>
 							If you're seeing this, users are
-							<a href="http://arctosdb.org/documentation/places/higher-geography/##locality" class="external" target="_blank">failing to find your specimens!</a>
+							<span class="likeLink" onclick="getDocs('higher-geography','locality')">failing to find your specimens!</span>
 						</strong>
 					</p>
 					<p>
@@ -747,7 +749,7 @@ function checkCoordinateError(){
 					<p>
 						<strong>
 							If you're seeing this, users are
-							<a href="http://arctosdb.org/documentation/places/higher-geography/##locality" class="external" target="_blank">failing to find your specimens!</a>
+							<span class="likeLink" onclick="getDocs('higher-geography','locality')">failing to find your specimens!</span>
 						</strong>
 					</p>
 					<p>
