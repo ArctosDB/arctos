@@ -636,7 +636,7 @@ function checkCoordinateError(){
 	   <form name="locality" id="locality" method="post" action="editLocality.cfm">
 	<p>
 		<strong>Locality</strong>
-		<span class="likeLink" onClick="getDocs('places/locality/','editlocality')">[ Page Help ]</span>
+		<span class="likeLink" onClick="getDocs('locality','edit-locality-form')">[ Page Help ]</span>
         <input type="submit" value="Save Locality Edits" class="savBtn">
         <input type="button" value="Save Locality Edits, push my agent + today's date to specimen events" class="savBtn"
 			onclick="$('##pushMeToEvent').val('push');submit();">
@@ -695,7 +695,7 @@ function checkCoordinateError(){
 					<p>
 						<strong>
 							If you're seeing this, users are
-							<span class="likeLink" onclick="getDocs('higher-geography','locality')">failing to find your specimens!</span>
+							<span class="likeLink" onclick="getDocs('higher-geography','guidelines-for-assigning-geography-to-specimens')">failing to find your specimens!</span>
 						</strong>
 					</p>
 					<p>
@@ -749,7 +749,7 @@ function checkCoordinateError(){
 					<p>
 						<strong>
 							If you're seeing this, users are
-							<span class="likeLink" onclick="getDocs('higher-geography','locality')">failing to find your specimens!</span>
+							<span class="likeLink" onclick="getDocs('higher-geography','guidelines-for-assigning-geography-to-specimens')">failing to find your specimens!</span>
 						</strong>
 					</p>
 					<p>
@@ -1066,7 +1066,7 @@ function checkCoordinateError(){
 		</cfif>
 		<br>
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
-		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
+		<span class="likeLink" onClick="getDocs('coordinates')">[ lat_long help ]</span>
 	</td>
 	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
@@ -1159,7 +1159,7 @@ function checkCoordinateError(){
             <input type="hidden" name="action" value="editwktp">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 
-        <label for="wkt_polygon" class="likeLink" onClick="getDocs('lat_long','wkt_polygon')">wkt_polygon</label>
+        <label for="wkt_polygon" class="likeLink" onClick="getDocs('coordinates','wkt_polygon')">wkt_polygon</label>
         <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
 
 		<input type="hidden" id="geopoly" value="#locDet.geopoly#">
