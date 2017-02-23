@@ -18,6 +18,10 @@
 
 
 		<cfhttp url="#newlink#" method="GET"></cfhttp>
+
+		<cfdump var=#cfhttp#>
+
+
 		<cfset s= left(cfhttp.statuscode,3)>
 		<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
 			<cfset as='anchor_notfound'>
