@@ -1277,7 +1277,7 @@ function windowOpener(url, name, args) {
 	popupWins[name].focus();
 }
 
-function getDocs(url,anc){
+function getDocs(url,anc,tgt){
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "get_docs",
@@ -1289,29 +1289,33 @@ function getDocs(url,anc){
 			if (r == '404') {
 				alert('help not found');
 			} else {
+				if (tgt == 'win'){
+					window.open(r);
+				} else {
 				//style='width:1400px;height:800px;'
-				$("<iframe src='" + r + "' id='dialog' class='popupDialog' ></iframe>").dialog({
-					autoOpen: true,
-					closeOnEscape: true,
-					height: 'auto',
-					modal: true,
-					position: ['center', 'center'],
-					title: 'Arctos Documentation',
-						//width:1400,
-			 			//height:800,
-					width: $(window).width() * 90 / 100,
-					height: $(window).height() * 90 / 100,
-					close: function() {
-						$( this ).remove();
-					}
-				}).width($(window).width() * (90 / 100)-10).height($(window).height() * (85 / 100)-10);
-				//.width(1400-10).height(800-10)
-				$(window).resize(function() {
-					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-				});
-				$(".ui-widget-overlay").click(function(){
-				    $(".ui-dialog-titlebar-close").trigger('click');
-				});
+					$("<iframe src='" + r + "' id='dialog' class='popupDialog' ></iframe>").dialog({
+						autoOpen: true,
+						closeOnEscape: true,
+						height: 'auto',
+						modal: true,
+						position: ['center', 'center'],
+						title: 'Arctos Documentation',
+							//width:1400,
+				 			//height:800,
+						width: $(window).width() * 90 / 100,
+						height: $(window).height() * 90 / 100,
+						close: function() {
+							$( this ).remove();
+						}
+					}).width($(window).width() * (90 / 100)-10).height($(window).height() * (85 / 100)-10);
+					//.width(1400-10).height(800-10)
+					$(window).resize(function() {
+						$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+					});
+					$(".ui-widget-overlay").click(function(){
+					    $(".ui-dialog-titlebar-close").trigger('click');
+					});
+				}
 			}
 		}
 	);

@@ -227,7 +227,7 @@
 				proposed or limited functionality exists.
 			</li>
 			<li>
-				<span class="likeLink" onclick="getDocs('media','')">Media</span>
+				<span class="likeLink" onclick="getDocs('media','','win')">Media</span>
 
 				link images, movies, sound files, and documents to
 				specimens, taxonomy, publications, projects, events, or people.
