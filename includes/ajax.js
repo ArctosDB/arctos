@@ -1304,7 +1304,7 @@ function getDocs(url,anc){
 					close: function() {
 						$( this ).remove();
 					}
-				});
+				}).width($(window).width() * 90 / 100).height($(window).height() * 90 / 100));
 				//.width(1400-10).height(800-10)
 				$(window).resize(function() {
 					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
