@@ -1496,19 +1496,16 @@
 
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
 
-	<cfif left(cfhttp.statuscode,3) is "200">
-		<cfreturn fullURI>
-	<cfelse>
+	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfmail subject="doc_not_found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
 			<br>----uri-#uri#
 			<br>anchor=#anchor#
 			<cfdump var=#cgi#>
 		</cfmail>
-		<cfreturn 404>
+		<cfset fullURI='404'>
 	</cfif>
-
-
+	<cfreturn fullURI>
 </cffunction>
 
 <!------------------------------------------------------------------->
