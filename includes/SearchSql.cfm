@@ -859,7 +859,7 @@
 	<cfif isdate.isdate is not "valid">
 		<div class="error">
 			The begin made date you entered is not a valid ISO8601 date.
-			See <a target="_blank" href="http://arctosdb.org/documentation/dates/">About Arctos Dates</a>
+			See <span class="likeLink" onclick="getDocs('dates','')">About Arctos Dates</span>
 		</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
@@ -874,7 +874,7 @@
 	<cfif isdate.isdate is not "valid">
 		<div class="error">
 			The end made date you entered is not a valid ISO8601 date.
-			See <a target="_blank" href="http://arctosdb.org/documentation/dates/">About Arctos Dates</a>
+			See <span class="likeLink" onclick="getDocs('dates','')">About Arctos Dates</span>
 		</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
@@ -1089,7 +1089,7 @@
 	<cfif isdate.isdate is not "valid">
 		<div class="error">
 			The begin date you entered is not a valid ISO8601 date.
-			See <a target="_blank" href="http://arctosdb.org/documentation/dates/">About Arctos Dates</a>
+			See <span class="likeLink" onclick="getDocs('dates','')">About Arctos Dates</span>
 		</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
@@ -1104,7 +1104,7 @@
 	<cfif isdate.isdate is not "valid">
 		<div class="error">
 			The ended date you entered is not a valid ISO8601 date.
-			See <a target="_blank" href="http://arctosdb.org/documentation/dates/">About Arctos Dates</a>
+			See <span class="likeLink" onclick="getDocs('dates','')">About Arctos Dates</span>
 		</div>
 		<script>hidePageLoad();</script>
 		<cfabort>

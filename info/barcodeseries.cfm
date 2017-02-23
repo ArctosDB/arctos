@@ -1023,9 +1023,8 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			<ul>
 				<li>
 					Review container documentation, especially
-					<a href="http://arctosdb.org/documentation/container/##purchase">
-						http://arctosdb.org/documentation/container/##purchase
-					</a>, before doing anything here.</li>
+					<span class="likeLink" onclick="getDocs('container','purchase')">container purchase guidelines</span>
+					, before doing anything here.</li>
 				<li>
 					<a href="/contact.cfm">contact us</a> if you need help with any part of the barcoding process or anything in Arctos,
 					including this form.

@@ -5,7 +5,7 @@
 	</cfquery>
 	<style>
 		/* override the error style for this page */
-		
+
 		.error{
 			position:absolute;
 			font-size:1em;
@@ -65,7 +65,7 @@
 						}
 					} else {
 						name='';
-					}				
+					}
 				}
 				if (name.length>0){
 					var rf=document.getElementById('agent_name');
@@ -113,7 +113,7 @@
 						if (benice===false || ($("#last_name").val().length == 0 && slastn.length>0)){
 							$("#last_name").val(slastn);
 						}
-					} else { 
+					} else {
 						alert('Unable to parse input. Please carefully check preferred name format');
 					}
 				}
@@ -157,7 +157,7 @@
 				function (r) {
 					if(r){
 						var q='There are potential problems with the agent you are trying to create.<ul>';
-	 					var errs = r.split(";"); 
+	 					var errs = r.split(";");
 						for (var i = 0; i < errs.length; i++) {
 						    q+='<li>' + errs[i] + '</li>';
 						}
@@ -206,8 +206,8 @@
 				Autogenerate name components from preferred name
 				<span class="likeLink" onclick="autosuggestNameComponents(true);">[ if blank ]</span>
 				<span class="likeLink" onclick="autosuggestNameComponents(false);">[ overwrite ]</span>
-				
-				
+
+
 				<label for="first_name">First Name</label>
 				<input type="text" name="first_name" id="first_name">
 				<label for="middle_name">Middle Name</label>
@@ -224,7 +224,8 @@
 			</div>
 		</form>
 		<div class="importantNotification">
-			Read <a href="http://arctosdb.org/documentation/agent/##create" class="external" target="_blank">documentation</a> BEFORE clicking buttons!
+			Read
+			<span class="likeLink" onclick="getDocs('agent','create')">documentation</span> BEFORE clicking buttons!
 		</div>
 		<cfif isdefined("agent_type") and agent_type is "person">
 			<script>
@@ -316,7 +317,7 @@
 		</cftransaction>
 		<cfif isdefined("status") and status is "force">
 			<cfmail subject="force agent creation" to="#Application.bugReportEmail#" from="ForceAgent@#Application.fromEmail#" type="html">
-				#session.username# just force-created agent 
+				#session.username# just force-created agent
 				<a href="#Application.serverRootUrl#/agents.cfm?agent_id=#agentID.nextAgentId#">#preferred_agent_name#</a>.
 				<p>
 					That's probably a bad idea.
