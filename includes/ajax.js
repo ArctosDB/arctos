@@ -1276,7 +1276,50 @@ function windowOpener(url, name, args) {
 	}
 	popupWins[name].focus();
 }
-function getDocs(url,anc) {
+
+function getDocs(url,anc){
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "get_docs",
+			uri : url,
+			anchor : anc,
+			returnformat : "json"
+		},
+		function (r) {
+			if (r == '404') {
+				alert('help not found');
+			} else {
+				$("<iframe src='" + url + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+					autoOpen: true,
+					closeOnEscape: true,
+					height: 'auto',
+					modal: true,
+					position: ['center', 'center'],
+					title: 'Arctos Documentation',
+						width:800,
+			 			height:600,
+					close: function() {
+						$( this ).remove();
+					}
+				}).width(800-10).height(600-10);
+				$(window).resize(function() {
+					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+				});
+				$(".ui-widget-overlay").click(function(){
+				    $(".ui-dialog-titlebar-close").trigger('click');
+				});
+				
+				//siteHelpWin=windowOpener(r,"HelpWin","width=1400,height=800,resizable,scrollbars,location,toolbar");
+			}
+			// 
+		}
+	);
+	
+	
+}
+
+
+function getDocs__old(url,anc) {
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "get_docs",
