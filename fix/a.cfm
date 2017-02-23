@@ -6,7 +6,7 @@
 </cfquery>
 
 <cfoutput>
-	<cfloop quer="d">
+	<cfloop query="d">
 		<hr>
 		<br>#newlink#
 		<cfif newlink contains "##">
