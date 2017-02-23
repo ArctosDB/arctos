@@ -19,7 +19,6 @@
 
 		<cfhttp url="#newlink#" method="GET"></cfhttp>
 
-		<cfdump var=#cfhttp#>
 
 
 		<cfset s=left(cfhttp.statuscode,3)>
