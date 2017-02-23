@@ -1500,6 +1500,13 @@
 	<cfdump var=#cfhttp#>
 	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfoutput>
+
+			mailing...
+
+
+			mail subject="doc_not_found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" f
+
+
 		<cfmail subject="doc_not_found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
 			<br>----uri-#uri#
@@ -1507,7 +1514,6 @@
 			<cfdump var=#cgi#>
 		</cfmail>
 
-		<cfdump var=#cfmail#>
 
 		</cfoutput>
 		<cfset fullURI='404'>
