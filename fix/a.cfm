@@ -2,10 +2,36 @@
 
 
 <cfquery name="d" datasource="prod">
-	select * from temp_dl_up
+	select * from temp_dl_up where status is null
 </cfquery>
 
-<cfdump var=#d#>
+<cfoutput>
+	<cfloop quer="d">
+		<hr>
+		<br>#newlink#
+		<cfif newlink contains "##">
+			<cfset anchor=listgetat(newlink,2,'##')>
+		<cfelse>
+			<cfset anchor=''>
+			<cfset as='noanchor'>
+		</cfif>
+
+
+		<cfhttp url="#newlink#" method="GET"></cfhttp>
+		<cfset s= left(cfhttp.statuscode,3)>
+		<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
+			<cfset as='anchor_notfound'>
+		<cfelse>
+			<cfset as='anchorhappy'>
+		</cfif>
+
+		<cfquery name="ud" datasource="prod">
+			update temp_dl_up set status='#s#',anchorstatus='#as#' where newlink='#newlink#'
+		</cfquery>
+
+		<br>update temp_dl_up set status='#s#',anchorstatus='#as#' where newlink='#newlink#'
+	</cfloop>
+</cfoutput>
 
 
 <cfabort>
