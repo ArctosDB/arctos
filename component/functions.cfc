@@ -1506,6 +1506,9 @@
 			<br>anchor=#anchor#
 			<cfdump var=#cgi#>
 		</cfmail>
+
+		<cfdump var=#cfmail#>
+
 		</cfoutput>
 		<cfset fullURI='404'>
 	</cfif>
