@@ -897,7 +897,10 @@
 			<cfelse>
 				<cfset thisStyle='display:none;'>
 			</cfif>
+			<span class="likeLink" onclick="getDocs('specimen-search-refine','')">[ About this Widget ]</span>
+			<!---
 			<a id="aboutSTWH" class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
+			---->
 			<a id="fbSWT" class="infoLink" href="/contact.cfm?ref=SpecimenResultsWidget">[ provide feedback ]</a>
 			<div id="refineSearchTerms" style="#thisStyle#">
 			<form name="refineResults" id="refineResults">
