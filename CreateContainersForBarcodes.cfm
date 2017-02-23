@@ -90,9 +90,7 @@
 				<td>BARCODE</td>
 				<td>yes</td>
 				<td>
-					<a href="#Application.docURL#/container.html##barcode" class="external" target="_blank">
-						doc
-					</a>
+					<span class="likeLink" onclick="getDocs('container','barcode')">doc</span>
 				</td>
 			</tr>
 			<tr>

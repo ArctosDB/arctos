@@ -349,7 +349,6 @@
 								<cfelse>
 									<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite as Operator</a>
 									<span class="likeLink" onclick="getDocs('users','create')">READ THIS FIRST!</span>
-									<a href="http://arctosdb.org/how-to/users/##create" target="blank" class="external">READ THIS FIRST!</a>
 								</cfif>
 							</td>
 						</tr>
