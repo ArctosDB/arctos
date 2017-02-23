@@ -1504,10 +1504,10 @@
 			mailing...
 
 
-			mail subject="doc_not_found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" f
+			mail subject="doc_not_found" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" f
 
 
-		<cfmail subject="doc_not_found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
+		<cfmail subject="doc_not_found" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
 			<br>----uri-#uri#
 			<br>anchor=#anchor#
