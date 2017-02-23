@@ -22,16 +22,14 @@
 	<cfquery name="d" datasource="cf_dbuser">
 		select * from ssrch_field_doc where cf_variable = '#lcase(fld)#'
 	</cfquery>
-	<cfset r='ima popup thingee  <div position="relative">'>
+	<cfset r='<div position="relative">'>
 	<cfif addCtl is 1>
 		<cfset r=r & '<span class="docControl" onclick="removeHelpDiv()">X</span>'>
 	</cfif>
 	<cfif d.recordcount is 1>
 		<cfset r=r & '<div class="docTitle">#d.DISPLAY_TEXT#</div><div class="docDef">#d.definition#</div><div class="docSrchTip">#d.search_hint#</div>'>
 		<cfif len(d.DOCUMENTATION_LINK) gt 0>
-			<!----
 			<cfset r=r & '<span class="likeLink" onclick="getDocs(''publications'',''full_citation'')" >Full Citation</label>'>
-			---->
 
 
 				<!----
