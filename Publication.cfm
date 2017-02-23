@@ -49,7 +49,7 @@
 					<br><span class="infoLink" onclick="bold('full_citation')">bold selected text</span>
 					<br><span class="infoLink" onclick="superscript('full_citation')">superscript selected text</span>
 					<br><span class="infoLink" onclick="subscript('full_citation')">subscript selected text</span>
-						<br><span class="infoLink" onclick="toProperCase('full_citation')">Proper Case selected text</span>
+					<br><span class="infoLink" onclick="toProperCase('full_citation')">Proper Case selected text</span>
 				</td>
 			</tr>
 		</table>

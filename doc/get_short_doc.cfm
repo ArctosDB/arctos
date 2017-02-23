@@ -29,13 +29,19 @@
 	<cfif d.recordcount is 1>
 		<cfset r=r & '<div class="docTitle">#d.DISPLAY_TEXT#</div><div class="docDef">#d.definition#</div><div class="docSrchTip">#d.search_hint#</div>'>
 		<cfif len(d.DOCUMENTATION_LINK) gt 0>
+			<cfset r=r & '<span class="likeLink" onclick="getDocs(''publications'',''full_citation'')" >Full Citation</label>'>
+
+
+				<!----
+
 				<cfset r=r & '<a class="docMoreInfo" href="#d.DOCUMENTATION_LINK#"'>
 				<cfif addCtl is 1>
 					<cfset r=r & 'target="_docMoreWin" onclick="removeHelpDiv()"'>
 				</cfif>
 				<cfset r=r & '>[ More Information ]</div>'>
+				---->
 		</cfif>
-		
+
 		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
 			<cfif left(d.CONTROLLED_VOCABULARY,2) is "CT">
 				<cfset vocab='<a class="docMoreInfo" href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#"'>
