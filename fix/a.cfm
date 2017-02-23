@@ -1,9 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 
-	<cfset Application.docURL = 'http://handbook.arctosdb.org/documentation'>
 
+<cfquery name="d" datasource="uam_prod">
+	select * from temp_dl_up
+</cfquery>
 
-done
+<cfdump var=#d#>
+
 
 <cfabort>
 
