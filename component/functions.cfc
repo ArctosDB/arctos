@@ -1499,36 +1499,9 @@
 	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfmail subject="doc_not_found" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
-			<br>----uri-#uri#
-			<br>anchor=#anchor#
-
-			<br>GetFunctionCalledName(): #GetFunctionCalledName()#
-
-			<cftry>
-
-<cfthrow />
-<cfcatch type="any">
-    <cfset stacktraceArray = ListToArray(Replace(cfcatch.stacktrace, "at ", " | ", "All"), "|") />
-
-    <!---Rip the right rows out of the stacktrace --->
-    <cfloop index ="i" to="1" from="#ArrayLen(stackTraceArray)#" step="-1">
-        <cfif not findNoCase("runFunction", stackTraceArray[i]) or FindNoCase("determineFunction", stackTraceArray[i])>
-            <cfset arrayDeleteAt(stackTraceArray, i) />
-        </cfif>
-    </cfloop>
-
-    <!---Whittle down the string to the func name --->
-    <cfset functionName =GetToken(stacktraceArray[1], 1, ".") />
-    <cfset functionName =GetToken(functionName, 2, "$")/>
-    <cfset functionName =ReplaceNoCase(functionName, "func", "", "once")/>
-
-    <br>caught #functionName#
-</cfcatch>
-			</cftry>
-
-
-
-			<cfdump var=#cgi#>
+			<br>----URI: #uri#
+			<br>Anchor: #anchor#
+			<br>Called From: #cgi.HTTP_REFERER#
 		</cfmail>
 		<cfset fullURI='404'>
 	<cfelse>
@@ -1542,7 +1515,9 @@
 			<cfif cfhttp.fileContent does not contain '<h2 id="#anchor#">'>
 				<cfmail subject="busted_anchor" to="dustymc@gmail.com,#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="busted_anchor@#Application.fromEmail#" type="html">
 					#fullURI# seems to have a defective anchor
-					<cfdump var=#cgi#>
+					<br>----URI: #uri#
+					<br>Anchor: #anchor#
+					<br>Called From: #cgi.HTTP_REFERER#
 				</cfmail>
 			</cfif>
 		</cfif>
