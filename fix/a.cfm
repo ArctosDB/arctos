@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 
 
-<cfquery name="d" datasource="uam_prod">
+<cfquery name="d" datasource="prod">
 	select * from temp_dl_up
 </cfquery>
 
