@@ -64,15 +64,15 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 		</select>
 		<label for="part_disposition">part_disposition</label>
 		<input type="text" id="part_disposition" name="part_disposition">
-		
+
 		<label for="part_condition">part_condition</label>
 		<input type="text" id="part_condition" name="part_condition">
-		
-		
+
+
 		<label for="item_description">item_description</label>
 		<input type="text" id="item_description" name="item_description">
-		
-		
+
+
 		<label for="item_remarks">item_remarks</label>
 		<input type="text" id="item_remarks" name="item_remarks">
 		<br>
@@ -92,7 +92,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(ListQualify(header,'"')); 
+		variables.joFileWriter.writeLine(ListQualify(header,'"'));
 	</cfscript>
 	<cfquery name="getLoanNumber" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select loan_number from loan where transaction_id=#transaction_id#
@@ -118,7 +118,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 		<cfset oneLine = "">
 		<cfloop list="#header#" index="c">
 			<cfset thisData = evaluate("getData." & c)>
-			<cfset thisData=replace(thisData,'"','""','all')>			
+			<cfset thisData=replace(thisData,'"','""','all')>
 			<cfif len(oneLine) is 0>
 				<cfset oneLine = '"#thisData#"'>
 			<cfelse>
@@ -130,10 +130,10 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
 	</cfloop>
-	<cfscript>	
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
-	
+
 	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 </cfoutput>
@@ -171,18 +171,18 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 				Part's immediate parent container - the cryovial holding a tissue sample, for example.
 				Used preferentially instead of cataloged item + part information.
 			</td>
-			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/container/">docs</a></td>
+			<td><span class="likeLink" onclick="getDocs('container','')">docs</span></td>
 		</tr>
 		<tr>
 			<td>guid_prefix</td>
 			<td>yes (or barcode)</td>
 			<td>find under Manage Collections - things like "UAM:Mamm"</td>
-			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
+			<td><span class="likeLink" onclick="getDocs('catalog','guid')">docs</span></td>
 		</tr>
 		<tr>
 			<td>other_id_type</td>
 			<td>yes (or barcode)</td>
-			<td>"catalog number" is valid but not in teh code table</td>
+			<td>"catalog number" is valid but not in the code table</td>
 			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
 		</tr>
 		<tr>

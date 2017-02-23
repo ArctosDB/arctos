@@ -5,10 +5,8 @@
 <cfset title="bulkload identifiers">
 <p>
 	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage Existing Data</a>~
-	<a href="http://arctosdb.org/documentation/other-id/">Docs</a>~
+	<span class="likeLink" onclick="getDocs('other-id','')">Docs</span>~
 	<a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CodeTable</a>
-
-
 </p>
 <!---- make the table
 
