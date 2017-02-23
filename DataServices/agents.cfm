@@ -158,7 +158,8 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 						</div>
 					</cfif>
 					Non-fatal errors have been detected. A member of the Arctos Advisory Committee can force-load these data. Please keep the following in mind.
-					Further documentation is available at <a href="http://arctosdb.org/documentation/agent/##create">http://arctosdb.org/documentation/agent/##create</a>
+					Further documentation is available
+					<span class="likeLink" onclick="getDocs('agent','create')">here</span>.
 					<p>
 						This application errs strongly on the side of preventing the introduction of potentially-problematic agents.
 					</p>
@@ -332,17 +333,22 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<tr>
 				<td>preferred_name</td>
 				<td>yes</td>
-				<td><a href="http://arctosdb.org/documentation/agent/#names">http://arctosdb.org/documentation/agent/#names</a></td>
+				<td>
+					<span class="likeLink" onclick="getDocs('agent','names')">names</span>
+				</td>
 			</tr>
 			<tr>
 				<td>other_name_n</td>
 				<td>no</td>
-				<td><a href="http://arctosdb.org/documentation/agent/#names">http://arctosdb.org/documentation/agent/#names</a></td>
+				<td>
+					<span class="likeLink" onclick="getDocs('agent','names')">names</span>
+				</td>
 			</tr>
 			<tr>
 				<td>other_name_type_n</td>
 				<td>if other_name_n is given</td>
-				<td><a href="/info/ctDocumentation.cfm?table=CTAGENT_NAME_TYPE">/info/ctDocumentation.cfm?table=CTAGENT_NAME_TYPE</a></td>
+				<td>
+					<a href="/info/ctDocumentation.cfm?table=CTAGENT_NAME_TYPE">/info/ctDocumentation.cfm?table=CTAGENT_NAME_TYPE</a></td>
 			</tr>
 			<tr>
 				<td>agent_status_n</td>
@@ -352,12 +358,16 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<tr>
 				<td>agent_status_date_n</td>
 				<td>if agent_status_n is given</td>
-				<td><a href="http://arctosdb.org/documentation/dates/">http://arctosdb.org/documentation/dates/</a></td>
+				<td>
+					<span class="likeLink" onclick="getDocs('dates','')">dates</span>
+				</td>
 			</tr>
 			<tr>
 				<td>agent_remark</td>
 				<td>no</td>
-				<td><a href="http://arctosdb.org/documentation/agent/#agent_remark">http://arctosdb.org/documentation/agent/#agent_remark</a></td>
+				<td>
+					<span class="likeLink" onclick="getDocs('agent','agent_remark')">agent_remark</span>
+				</td>
 			</tr>
 		</table>
 	</p>
