@@ -7,7 +7,12 @@
 <cfparam name="addCtl" default="1">
 <cfif action is "nothing">
 	<!--- this should be hard-coded - all installations should call the same docs, arctos.database.museum hosts everything --->
+
+	<!----  for testing
 	<cfhttp url="http://arctos-test.tacc.utexas.edu/doc/get_short_doc.cfm" charset="utf-8" method="get">
+	---->
+		<cfhttp url="http://arctos.database.museum/doc/get_short_doc.cfm" charset="utf-8" method="get">
+
 		<cfhttpparam type="url" name="action" value="getDoc">
 		<cfhttpparam type="url" name="fld" value="#fld#">
 		<cfhttpparam type="url" name="addCtl" value="#addCtl#">
@@ -29,17 +34,18 @@
 	<cfif d.recordcount is 1>
 		<cfset r=r & '<div class="docTitle">#d.DISPLAY_TEXT#</div><div class="docDef">#d.definition#</div><div class="docSrchTip">#d.search_hint#</div>'>
 		<cfif len(d.DOCUMENTATION_LINK) gt 0>
+
+			<!---- switch this in after dealing with data bits of https://github.com/ArctosDB/arctos/issues/1044
+
 			<cfset r=r & '<span class="likeLink" onclick="removeHelpDiv();getDocs(''publications'',''full_citation'')" >Full Citation</label>'>
 
-
-				<!----
+			----->
 
 				<cfset r=r & '<a class="docMoreInfo" href="#d.DOCUMENTATION_LINK#"'>
 				<cfif addCtl is 1>
 					<cfset r=r & 'target="_docMoreWin" onclick="removeHelpDiv()"'>
 				</cfif>
 				<cfset r=r & '>[ More Information ]</div>'>
-				---->
 		</cfif>
 
 		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
