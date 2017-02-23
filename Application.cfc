@@ -131,6 +131,7 @@
 	<cfset Application.DataProblemReportEmail = cf_global_settings.DATA_REPORT_EMAIL>
 	<cfset Application.logEmail = cf_global_settings.LOG_EMAIL>
 	<cfset Application.Google_uacct = cf_global_settings.GOOGLE_UACCT>
+	<cfset Application.docURL = 'http://handbook.arctosdb.org/documentation'>
 	<cfif serverName is "arctos.database.museum">
 		<cfset Application.version="prod">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">

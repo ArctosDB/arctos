@@ -1,5 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 
+	<cfset Application.docURL = 'http://handbook.arctosdb.org/documentation'>
+
+
+done
+
+<cfabort>
+
+
+
 
 <cfquery name="d" datasource="uam_god">
 with rws as (
