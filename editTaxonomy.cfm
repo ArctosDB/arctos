@@ -1,6 +1,7 @@
 <cfinclude template="includes/_header.cfm">
 <cfset noCloneTerms="author_text,display_name,infraspecific_author,remark,scientific_name,source_authority,species,subspecies,taxon_status">
-<a target="_blank" class="external" href="http://arctosdb.org/documentation/identification/taxonomy/#edit">editing guidelines</a>
+<span class="likeLink" onclick="getDocs('taxonomy','edit')">editing guidelines</span>
+
 <!------------------------------------------------------------------------------->
 <cfif action is "cloneClassificationNewName">
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
