@@ -1,3 +1,6 @@
+<cfdump var=#cgi#>
+<cfdump var=#request#>
+
 <!---- make sure this stays at the top ---->
 <cfif listfindnocase(request.rdurl,'m',"/")>
 	<!--- mobile handling ---->
