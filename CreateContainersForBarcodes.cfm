@@ -81,7 +81,7 @@
 				<td>LABEL</td>
 				<td>yes</td>
 				<td>
-					<a href="#Application.docURL#/container/##label" class="external" target="_blank">
+					<a href="#Application.docURL#/container.html##label" class="external" target="_blank">
 						doc
 					</a>
 				</td>
@@ -90,7 +90,7 @@
 				<td>BARCODE</td>
 				<td>yes</td>
 				<td>
-					<a href="#Application.docURL#/container/##barcode" class="external" target="_blank">
+					<a href="#Application.docURL#/container.html##barcode" class="external" target="_blank">
 						doc
 					</a>
 				</td>
@@ -104,7 +104,7 @@
 				<td>DESCRIPTION</td>
 				<td>no</td>
 				<td>
-					<a href="#Application.docURL#/container/##description" class="external" target="_blank">
+					<a href="#Application.docURL#/container.html##description" class="external" target="_blank">
 						doc
 					</a>
 				</td>
@@ -113,7 +113,7 @@
 				<td>CONTAINER_REMARKS</td>
 				<td>no</td>
 				<td>
-					<a href="#Application.docURL#/container/##remarks" class="external" target="_blank">
+					<a href="#Application.docURL#/container.html##remarks" class="external" target="_blank">
 						doc
 					</a>
 				</td>
