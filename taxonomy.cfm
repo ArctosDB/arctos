@@ -604,7 +604,7 @@ function cloneRemoteCN(tid,cid){
 				<cfset srcHTML='<a href="http://www.catalogueoflife.org/" target="_blank" class="external">#source#</a>'>
 			<cfelseif source is "Arctos">
 				<!----<cfset srcHTML='<a href="http://arctosdb.org/documentation/identification/taxonomy/##arctos_source" target="_blank" class="external">#source#</a>'>---->
-				<cfset srcHTML='<span class="likeLink" onclick="getDocs(''taxonomy'',''arctos_source'')">Taxonomy Documentation</span>'>
+				<cfset srcHTML='<span class="likeLink" onclick="getDocs(''taxonomy'',''arctos_source'')">#source#</span>'>
 
 			<cfelseif source is "GBIF Taxonomic Backbone">
 				<cfset srcHTML='<a href="http://www.gbif.org/informatics/name-services/using-names-data/taxonomic-backbone/" target="_blank" class="external">#source#</a>'>
