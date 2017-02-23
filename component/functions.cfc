@@ -1500,6 +1500,10 @@
 	<cfreturn fullURI>
 
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
+
+	<cfdump var=#cfhttp#>
+
+
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfreturn fullURI>
 	<cfelse>
