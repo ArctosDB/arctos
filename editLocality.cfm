@@ -611,7 +611,7 @@ function checkCoordinateError(){
 		<form name="x" method="post" action="editLocality.cfm">
 		    <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 	    	<input type="hidden" name="action" value="updateAllVerificationStatus">
-			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Update Verification Status for ALL specimen_events in this Locality to....</label>
+			<label for="VerificationStatus" class="likeLink" onClick="getDocs('specimen-event','verification-status')">Update Verification Status for ALL specimen_events in this Locality to....</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<option value=""></option>
 				<cfloop query="ctVerificationStatus">
