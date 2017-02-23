@@ -279,7 +279,9 @@ one would expect such a condition in a collection which downloads GPS data and p
 		for an update.
 	</li>
 	<li>
-		Understanding http://arctosdb.org/documentation/places/specimen-event/ is important. Any specimen may have any number of localities, any of which may be georeferenced.
+		Understanding
+		<span class="likeLink" onclick="getDocs('specimen-event','')">Specimen Events</span> is important.
+		Any specimen may have any number of localities, any of which may be georeferenced.
 	</li>
 	<li>
 		It is important to understand the history of a collection in the context of Arctos before drawing conclusions from these data. In part:

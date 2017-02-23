@@ -402,8 +402,10 @@
 		<div class="mobilesourceDiv">
 			<cfif source is "Catalogue of Life">
 				<cfset srcHTML='<a href="http://www.catalogueoflife.org/" target="_blank" class="external">#source#</a>'>
+			<!----
 			<cfelseif source is "Arctos">
 				<cfset srcHTML='<a href="http://arctosdb.org/documentation/identification/taxonomy/##arctos_source" target="_blank" class="external">#source#</a>'>
+			---->
 			<cfelseif source is "GBIF Taxonomic Backbone">
 				<cfset srcHTML='<a href="http://www.gbif.org/informatics/name-services/using-names-data/taxonomic-backbone/" target="_blank" class="external">#source#</a>'>
 			<cfelseif source is "ITIS">
