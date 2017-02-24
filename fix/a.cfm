@@ -1,4 +1,3 @@
-<cfinclude template="/includes/_header.cfm">
 	<cfset Application.docURL = 'http://handbook.arctosdb.org/documentation'>
 
 
