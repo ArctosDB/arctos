@@ -608,6 +608,16 @@ END;
 				<br>#testinclude#
 			</cfmail>
 
+
+	<cfquery name="sentEmail" datasource="uam_god">
+				update
+					cf_dup_agent
+				set
+					status='pass_email_sent',
+					last_date=sysdate
+				where
+					cf_dup_agent_id=#cf_dup_agent_id#
+			</cfquery>
 			---->
 
 
@@ -638,15 +648,7 @@ END;
 
 
 
-			<cfquery name="sentEmail" datasource="uam_god">
-				update
-					cf_dup_agent
-				set
-					status='pass_email_sent',
-					last_date=sysdate
-				where
-					cf_dup_agent_id=#cf_dup_agent_id#
-			</cfquery>
+
 		</cfloop>
 	</cfoutput>
 </cfif>
