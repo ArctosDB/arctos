@@ -1,4 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfset Application.docURL = 'http://handbook.arctosdb.org/documentation'>
+
+
+<cfabort>
+
+
 
 
 <cfquery name="d" datasource="prod">
@@ -61,9 +67,6 @@
 		<br>update temp_dl_up set newlink='#nl#',status='#s#',anchorstatus='#as#' where newlink='#newlink#'
 	</cfloop>
 </cfoutput>
-
-
-<cfabort>
 
 
 
