@@ -86,6 +86,7 @@
 		</cfcatch>
 
 		<cfif len(probs) gt 0>
+			<cfoutput>
 			<cfmail subject="documentation problems" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docprobs@#Application.fromEmail#" type="html">
 				Potential problems for #fld#.
 				<p>
@@ -97,6 +98,7 @@
 					</p>
 				</cfloop>
 			</cfmail>
+			</cfoutput>
 		</cfif>
 
 
