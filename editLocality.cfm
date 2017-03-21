@@ -719,7 +719,7 @@ function checkCoordinateError(){
 
 
 		<label for="spec_locality">
-			<span class="likeLink" onClick="getDocs('locality','specific_locality')">Specific Locality</span>
+			<span class="helpLink" id="_specific_locality">Specific Locality</span>
 		</label>
 		<input type="text"id="spec_locality" name="spec_locality" value="#stripQuotes(locDet.spec_locality)#" size="120">
 
@@ -748,7 +748,7 @@ function checkCoordinateError(){
 					<p>
 						<strong>
 							If you're seeing this, users are
-							<span class="likeLink" onclick="getDocs('higher-geography','guidelines-for-assigning-geography-to-specimens')">failing to find your specimens!</span>
+							<span class="helpLink" id="_higher_geog_specimen_guide">failing to find your specimens!</span>
 						</strong>
 					</p>
 					<p>
@@ -770,7 +770,7 @@ function checkCoordinateError(){
 			</cfif>
 		</cfif>
 		<label for="locality_name">
-			<span class="likeLink" onClick="getDocs('locality','locality_name')">Locality Nickname</span>
+			<span class="helpLink" id="_locality_name">Locality Nickname</span>
 			<cfif len(locDet.locality_name) is 0>
 				<span class="likeLink" onclick="$('##locality_name').val('#CreateUUID()#');"> [ Generate unique identifier ]<span>
 			</cfif>
@@ -783,20 +783,20 @@ function checkCoordinateError(){
 		<table>
 			<tr>
 				<td>
-					<label for="minimum_elevation" onClick="getDocs('locality','elevation')" class="likeLink">
+					<label for="minimum_elevation" class="helpLink" id="_elevation">
 						Min. Elev.
 					</label>
 					<input type="number" step="any" name="minimum_elevation" id="minimum_elevation" value="#locDet.minimum_elevation#" size="3">
 				</td>
 				<td>TO</td>
 				<td>
-					<label for="maximum_elevation" onClick="getDocs('locality','elevation')" class="likeLink">
+					<label for="maximum_elevation" class="helpLink" id="_elevation">
 						Max. Elev.
 					</label>
 					<input type="number" step="any" name="maximum_elevation" id="maximum_elevation" value="#locDet.maximum_elevation#" size="3">
 				</td>
 				<td>
-					<label for="orig_elev_units" onClick="getDocs('locality','elevation')" class="likeLink">
+					<label for="orig_elev_units" class="helpLink" id="_elevation">
 						Elev. Unit
 					</label>
 					<select name="orig_elev_units" size="1" id="orig_elev_units">
@@ -815,22 +815,16 @@ function checkCoordinateError(){
 		<table>
 			<tr>
 				<td>
-					<label for="min_depth" onClick="getDocs('locality','depth')" class="likeLink">
-						Min. Depth.
-					</label>
+					<label for="min_depth" class="helpLink" id="_depth">Min. Depth</label>
 					<input  type="number" step="any" name="min_depth" id="min_depth" value="#locDet.min_depth#" size="3">
 				</td>
 				<td>TO</td>
 				<td>
-					<label for="max_depth" class="likeLink" onClick="getDocs('locality','depth')">
-						Max. Depth.
-					</label>
+					<label for="max_depth" class="helpLink" id="_depth">Max. Depth</label>
 					<input  type="number" step="any" name="max_depth"  id="max_depth" value="#locDet.max_depth#" size="3">
 				</td>
 				<td>
-					<label for="depth_units" class="likeLink" onClick="getDocs('locality','depth')">
-						Depth Unit
-					</label>
+					<label for="depth_units" class="helpLink" id="_depth">Depth Units</label>
 					<select name="depth_units" size="1" id="depth_units">
 						<option value=""></option>
 	                    <cfloop query="ctDepthUnit">
@@ -998,11 +992,11 @@ function checkCoordinateError(){
 			<tr>
 				<td>
 					<input type="hidden" id="error_in_meters" value="#locDet.error_in_meters#">
-					<label for="max_error_distance" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error</label>
+					<label for="max_error_distance" class="helpLink" id="_maximum_error">Max Error</label>
 					<input type="number" step="any" min="0.001" name="max_error_distance" id="max_error_distance" value="#locDet.max_error_distance#" size="6">
 				</td>
 				<td>
-					<label for="max_error_units" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error Units</label>
+					<label for="max_error_units" class="helpLink" id="_maximum_error">Max Error Units</label>
 					<select name="max_error_units" size="1" id="max_error_units">
 						<option value=""></option>
 						<cfloop query="cterror">
@@ -1014,7 +1008,7 @@ function checkCoordinateError(){
 			</tr>
 		</table>
 		</fieldset>
-		<label for="datum" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
+		<label for="datum" class="helpLink" id="_datum">Datum</label>
 		<select name="datum" id="datum" size="1">
 			<option value=''></option>
 			<cfloop query="ctdatum">
