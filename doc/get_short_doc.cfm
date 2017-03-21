@@ -57,12 +57,12 @@
 			<cfif len(d.DOCUMENTATION_LINK) gt 0>
 				<cfset r=r & '<div><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
 				<!--- anchor? ---->
-				<cfif d.DOCUMENTATION_LINK contains "#">
+				<cfif d.DOCUMENTATION_LINK contains "##">
 					<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
 					<cfif left(cfhttp.statuscode,3) is not "200">
 						<cfset probs=listappend(probs,'DOCUMENTATION_LINK for #fld# is broken',';')>
 					</cfif>
-					<cfset anchor=listlast(d.DOCUMENTATION_LINK,'#')>
+					<cfset anchor=listlast(d.DOCUMENTATION_LINK,'##')>
 					<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
 						<cfset probs=listappend(probs,'DOCUMENTATION_LINK anchor for #fld# is broken',';')>
 					</cfif>
