@@ -636,7 +636,6 @@ function checkCoordinateError(){
 	   <form name="locality" id="locality" method="post" action="editLocality.cfm">
 	<p>
 		<strong>Locality</strong>
-		<span class="likeLink" onClick="getDocs('locality','edit-locality-form')">[ Page Help ]</span>
         <input type="submit" value="Save Locality Edits" class="savBtn">
         <input type="button" value="Save Locality Edits, push my agent + today's date to specimen events" class="savBtn"
 			onclick="$('##pushMeToEvent').val('push');submit();">
@@ -695,7 +694,7 @@ function checkCoordinateError(){
 					<p>
 						<strong>
 							If you're seeing this, users are
-							<span class="likeLink" onclick="getDocs('higher-geography','guidelines-for-assigning-geography-to-specimens')">failing to find your specimens!</span>
+							<span class="helpLink" id="_higher_geog_guidelines">failing to find your specimens!</span>
 						</strong>
 					</p>
 					<p>
