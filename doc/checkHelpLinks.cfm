@@ -1,2 +1,2 @@
-    <cfset res=  DirectoryList(Application.webDirectory,true,path,".cfm")>
+    <cfset res=  DirectoryList(Application.webDirectory,true,"path",".cfm")>
             <cfdump var="#res#">
