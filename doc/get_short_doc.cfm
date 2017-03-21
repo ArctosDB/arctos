@@ -81,9 +81,7 @@
 			</cfif>
 		</cfif>
 		<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
-		<cfcatch>
-			<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
-		</cfcatch>
+
 
 		<cfif len(probs) gt 0>
 			<cfoutput>
@@ -101,6 +99,9 @@
 			</cfoutput>
 		</cfif>
 
+		<cfcatch>
+			<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
+		</cfcatch>
 
 
 	</cftry>
