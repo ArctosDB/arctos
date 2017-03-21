@@ -1109,7 +1109,7 @@
 		<cfsavecontent variable="return">
 			<span class="importantNotification">
 				This Locality (#locality_id#)
-				<span class="helpLink" id="_locality">[ help ]</span> contains
+				<span class="helpLink" id="_locality_documentation">[ help ]</span> contains
 				<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
 					nothing. Please delete it if you don't have plans for it.
 				<cfelse>
