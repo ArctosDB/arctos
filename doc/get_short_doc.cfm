@@ -46,6 +46,8 @@
 		</cfmail>
 	<cfelse>
 		<cfset r=r & '<h2>#d.DISPLAY_TEXT# documentation</h2>'>
+
+		<!----
 		<cfset r=r & '<div style="margin:.5em">#d.definition#</div>'>
 		<cfif len(d.search_hint) gt 0>
 			<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
@@ -55,6 +57,9 @@
 		</cfif>
 		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
 		 <cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
+
+		 	---->
+
 	</cfif>
 
 	<cfset r='hello'>
