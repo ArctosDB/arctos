@@ -300,7 +300,7 @@ function checkCoordinateError(){
 	}
 
 	function geolocate(method) {
-		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
+		//alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
 		if (method=='adjust'){
 			guri+="&tab=result&points=" + $("#dec_lat").val() + "|" + $("#dec_long").val() + "|||" + $("#error_in_meters").val();
@@ -328,7 +328,7 @@ function checkCoordinateError(){
 		hDiv.className = 'fancybox-help';
 		hDiv.id='hDiv';
 		//hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
-		hDiv.innerHTML='<span class="helpLink" id="geolocate">[ help ]</span>';
+		//hDiv.innerHTML='<span class="helpLink" id="geolocate">[ help ]</span>';
 
 		$("#popDiv").append(hDiv);
 		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
@@ -1062,6 +1062,7 @@ function checkCoordinateError(){
 		<input type="button" value="Add Collecting Event" class="insBtn"
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
 		<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
+		<span class="helpLink" id="geolocate">[ GeoLocate help ]</span>
 		<cfif len(locDet.DEC_LONG) gt 0>
 			<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
 		</cfif>
