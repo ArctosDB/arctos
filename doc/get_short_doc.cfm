@@ -43,7 +43,7 @@
 
 				<cfset r=r & '<a class="docMoreInfo" href="#d.DOCUMENTATION_LINK#"'>
 				<cfif addCtl is 1>
-					<cfset r=r & 'target="_docMoreWin" onclick="removeHelpDiv()"'>
+					<cfset r=r & 'target="_blank" onclick="removeHelpDiv()"'>
 				</cfif>
 				<cfset r=r & '>[ More Information ]</div>'>
 		</cfif>
