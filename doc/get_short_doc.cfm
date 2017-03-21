@@ -62,7 +62,6 @@
 
 	</cfif>
 
-	<cfset r='hello'>
 	<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 	<cfcatch>
 		<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
