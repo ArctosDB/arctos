@@ -1022,9 +1022,10 @@ function checkCoordinateError(){
 				<option <cfif ctdatum.DATUM is locDet.DATUM> selected="selected" </cfif> value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
 			</cfloop>
 		</select>
-		<label for="georeference_source" class="helpLink" id="_georeference_source">georeference_source</label>
+		<label for="georeference_source" class="helpLink" id="_georeference_source">Georeference Source</label>
 		<input type="text" name="georeference_source" id="georeference_source" size="120" value='#preservesinglequotes(locDet.georeference_source)#' />
-		<label for="georeference_protocol" class="likeLink" onClick="getDocs('lat_long','georeference_protocol')">Georeference Protocol</label>
+
+		<label for="georeference_protocol" class="helpLink" id="_georeference_protocol">Georeference Protocol</label>
 		<select name="georeference_protocol" id="georeference_protocol" size="1">
 			<option value=''></option>
 			<cfloop query="ctgeoreference_protocol">
