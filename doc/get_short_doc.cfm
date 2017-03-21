@@ -33,23 +33,48 @@
 		This part runs ONLY on arctos.database.museum, the one and only source of this information.
 	--->
 	<cftry>
+		<cfset probs="">
 		<cfquery name="d" datasource="cf_dbuser">
 			select * from ssrch_field_doc where cf_variable = '#lcase(fld)#'
 		</cfquery>
 		<cfset r="">
 		<cfif d.recordcount is not 1>
 			<cfset r=r & '<div>No documentation is available for #fld#.</div>'>
-			<cfmail subject="doc not found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docMIA@#Application.fromEmail#" type="html">
-				short doc not found for #fld#
-			</cfmail>
+			<cfset probs=listappend(probs,'short doc not found for #fld#',';'>
 		<cfelse>
 			<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
 			<cfset r=r & '<div style="margin:.5em">#d.definition#</div>'>
+			<cfif len(#d.definition) is 0 or listlen(d.definition,' ') lt 5>
+				<cfset probs=listappend(probs,'definition for #fld# seems shady',';'>
+			</cfif>
 			<cfif len(d.search_hint) gt 0>
 				<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
+			<cfelse>
+				<cfif len(d.SPECIMEN_QUERY_TERM) gt 0>
+					<cfset probs=listappend(probs,'#fld# is marked as a SPECIMEN_QUERY_TERM and does not have a search_hint',';'>
+				</cfif>
 			</cfif>
 			<cfif len(d.DOCUMENTATION_LINK) gt 0>
 				<cfset r=r & '<div><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
+				<!--- anchor? ---->
+				<cfif d.DOCUMENTATION_LINK contains "#">
+					<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
+					<cfif left(cfhttp.statuscode,3) is not "200">
+						<cfset probs=listappend(probs,'DOCUMENTATION_LINK for #fld# is broken',';'>
+					</cfif>
+					<cfset anchor=listlast(d.DOCUMENTATION_LINK,'#')>
+					<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
+						<cfset probs=listappend(probs,'DOCUMENTATION_LINK anchor for #fld# is broken',';'>
+					</cfif>
+				<cfelse>
+					<!--- just HEAD ---->
+					<cfhttp url="#d.DOCUMENTATION_LINK#" method="HEAD"></cfhttp>
+					<cfif left(cfhttp.statuscode,3) is not "200">
+						<cfset probs=listappend(probs,'DOCUMENTATION_LINK for #fld# is broken',';'>
+					</cfif>
+				</cfif>
+			<cfelse>
+				<cfset probs=listappend(probs,'#fld# has no DOCUMENTATION_LINK',';'>
 			</cfif>
 			<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
 				<cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
@@ -59,6 +84,23 @@
 		<cfcatch>
 			<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
 		</cfcatch>
+
+		<cfif len(probs) gt 0>
+			<cfmail subject="documentation problems" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docprobs@#Application.fromEmail#" type="html">
+				Potential problems for #fld#.
+				<p>
+					Fix under Manage/Field-Level Documentation
+				</p>
+				<cfloop list="#probs#" delimiters=";" index="i">
+					<p>
+						#i#
+					</p>
+				</cfloop>
+			</cfmail>
+		</cfif>
+
+
+
 	</cftry>
 	<cfscript>
         getPageContext().getOut().clearBuffer();
