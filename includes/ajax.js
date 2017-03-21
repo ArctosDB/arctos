@@ -2,7 +2,7 @@ $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear:
 
 $(document).ready(function() {
 	$(".helpLink").live('click', function(e){
-		var guts = "/doc/get_short_doc.cfm?fld=" + this.id + "&addCtl=1";
+		var guts = "/doc/get_short_doc.cfm?fld=" + this.id;
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
