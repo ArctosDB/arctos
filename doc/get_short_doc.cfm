@@ -40,12 +40,12 @@
 		<cfset r="">
 		<cfif d.recordcount is not 1>
 			<cfset r=r & '<div>No documentation is available for #fld#.</div>'>
-			<cfset probs=listappend(probs,'short doc not found for #fld#',';'>
+			<cfset probs=listappend(probs,'short doc not found for #fld#',';')>
 		<cfelse>
 			<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
 			<cfset r=r & '<div style="margin:.5em">#d.definition#</div>'>
 			<cfif len(#d.definition) is 0 or listlen(d.definition,' ') lt 5>
-				<cfset probs=listappend(probs,'definition for #fld# seems shady',';'>
+				<cfset probs=listappend(probs,'definition for #fld# seems shady',';')>
 			</cfif>
 			<cfif len(d.search_hint) gt 0>
 				<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
@@ -60,21 +60,21 @@
 				<cfif d.DOCUMENTATION_LINK contains "#">
 					<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
 					<cfif left(cfhttp.statuscode,3) is not "200">
-						<cfset probs=listappend(probs,'DOCUMENTATION_LINK for #fld# is broken',';'>
+						<cfset probs=listappend(probs,'DOCUMENTATION_LINK for #fld# is broken',';')>
 					</cfif>
 					<cfset anchor=listlast(d.DOCUMENTATION_LINK,'#')>
 					<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
-						<cfset probs=listappend(probs,'DOCUMENTATION_LINK anchor for #fld# is broken',';'>
+						<cfset probs=listappend(probs,'DOCUMENTATION_LINK anchor for #fld# is broken',';')>
 					</cfif>
 				<cfelse>
 					<!--- just HEAD ---->
 					<cfhttp url="#d.DOCUMENTATION_LINK#" method="HEAD"></cfhttp>
 					<cfif left(cfhttp.statuscode,3) is not "200">
-						<cfset probs=listappend(probs,'DOCUMENTATION_LINK for #fld# is broken',';'>
+						<cfset probs=listappend(probs,'DOCUMENTATION_LINK for #fld# is broken',';')>
 					</cfif>
 				</cfif>
 			<cfelse>
-				<cfset probs=listappend(probs,'#fld# has no DOCUMENTATION_LINK',';'>
+				<cfset probs=listappend(probs,'#fld# has no DOCUMENTATION_LINK',';')>
 			</cfif>
 			<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
 				<cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
