@@ -84,7 +84,7 @@
 
 
 		<cfif len(probs) gt 0>
-			<cfset r=r & '....sending email....'>
+			<cfset r=r & '....sending email.... #probs#'>
 			<cfoutput>
 			<cfmail subject="documentation problems" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docprobs@#Application.fromEmail#" type="html">
 				Potential problems for #fld#.
