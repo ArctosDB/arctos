@@ -45,10 +45,11 @@
 			short doc not found for #fld#
 		</cfmail>
 	<cfelse>
-		<cfset r=r & '<h2>#d.DISPLAY_TEXT# documentation</h2>'>
+		<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
 
-		<!----
+
 		<cfset r=r & '<div style="margin:.5em">#d.definition#</div>'>
+		<!----
 		<cfif len(d.search_hint) gt 0>
 			<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
 		</cfif>
