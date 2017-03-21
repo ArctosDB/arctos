@@ -97,6 +97,8 @@
 				</cfloop>
 			</cfmail>
 			</cfoutput>
+		<cfelse>
+			<cfset r=r & 'no probs.....'>
 		</cfif>
 
 
