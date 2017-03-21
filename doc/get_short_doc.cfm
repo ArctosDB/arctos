@@ -44,7 +44,7 @@
 		<cfelse>
 			<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
 			<cfset r=r & '<div style="margin:.5em">#d.definition#</div>'>
-			<cfif len(#d.definition) is 0 or listlen(d.definition,' ') lt 5>
+			<cfif len(d.definition) is 0 or listlen(d.definition,' ') lt 5>
 				<cfset probs=listappend(probs,'definition for #fld# seems shady',';')>
 			</cfif>
 			<cfif len(d.search_hint) gt 0>
