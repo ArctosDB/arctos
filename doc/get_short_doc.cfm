@@ -80,7 +80,6 @@
 				<cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
 			</cfif>
 		</cfif>
-		<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 
 
 		<cfif len(probs) gt 0>
@@ -99,6 +98,10 @@
 			</cfmail>
 			</cfoutput>
 		</cfif>
+
+
+				<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
+
 
 		<cfcatch>
 			<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
