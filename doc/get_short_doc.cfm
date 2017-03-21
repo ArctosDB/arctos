@@ -34,7 +34,7 @@
 	--->
 	<cftry>
 
-		<!----
+
 	<cfquery name="d" datasource="cf_dbuser">
 		select * from ssrch_field_doc where cf_variable = '#lcase(fld)#'
 	</cfquery>
@@ -57,7 +57,6 @@
 		 <cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
 	</cfif>
 
-	---->
 	<cfset r='hello'>
 	<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 	<cfcatch>
