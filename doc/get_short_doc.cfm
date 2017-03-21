@@ -53,14 +53,13 @@
 		<cfif len(d.search_hint) gt 0>
 			<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
 		</cfif>
-		<!----
 		<cfif len(d.DOCUMENTATION_LINK) gt 0>
 			<cfset r=r & '<div><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
 		</cfif>
 		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
-		 <cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
+			<cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
+		</cfif>
 
-		 	---->
 
 	</cfif>
 
