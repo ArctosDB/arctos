@@ -162,7 +162,7 @@ sho err
 			<td></td>
 			<td></td>
 			<td></td>
-			<td>If provided, ignore all otehr locality components</td>
+			<td>If provided, ignore all other locality components</td>
 		</tr>
 		<tr>
 			<td>LOCALITY_NAME</td>
