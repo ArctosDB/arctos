@@ -68,22 +68,22 @@
 			$( "#f1" ).submit();
 		}
 	</script>
-	<cfoutput>	
+	<cfoutput>
 		Drag rows to sort specimen results columns.
 		<br>
-		Attributes are automagically generated and are ordered by name - they're not on here. 
+		Attributes are automagically generated and are ordered by name - they're not on here.
 		SEX (the one hard-coded attribute) should probably remain near the bottom - other attributes will follow, in alphabetical order
 		<br>Users will always see <span class="required">required</span> terms.
 		<br>Users may turn any other option on or off as they wish.
 		<br>GUID should remain at the top.
 		<br>CustomID is hard-coded in after GUID.
-		<br>Clowncolors are by CATEGORY - they should probably be grouped in some sort of logical order - "biggest" to "smallest" or related together or some 
+		<br>Clowncolors are by CATEGORY - they should probably be grouped in some sort of logical order - "biggest" to "smallest" or related together or some
 		indescribable combination thereof. Use the edit form to change CATEGORY.
 		<p>
 			<a href="field_documentation.cfm">back to edit docs</a> (or scroll to the bottom to save first)
 		</p>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				SSRCH_FIELD_DOC_ID,
 				CATEGORY,
 				CF_VARIABLE,
@@ -122,7 +122,7 @@
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        $('#jtdocdoc').jtable({
-	            title: 'Documentation',       
+	            title: 'Documentation',
 				paging: true, //Enable paging
 	            pageSize: 10, //Set page size (default: 10)
 	            sorting: true, //Enable sorting
@@ -156,9 +156,9 @@
 					SEARCH_HINT: {title: 'SEARCH_HINT'},
 					PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
 					CATEGORY: {title: 'CATEGORY',
-						options: { 
+						options: {
 							'': '-not specresults-',
-							'locality': 'locality', 
+							'locality': 'locality',
 							'specimen': 'specimen',
 							'required': 'required',
 							'sort': 'sort',
@@ -170,7 +170,7 @@
 					SPECIMEN_RESULTS_COL: {
 						title: 'SR',
 						type: 'radiobutton',
-	                    	options: { 
+	                    	options: {
 								'0': 'no',
 	                            '1': 'yes'
 							}
@@ -178,7 +178,7 @@
 					SPECIMEN_QUERY_TERM: {
 						title: 'SST',
 						type: 'radiobutton',
-	                    	options: { 
+	                    	options: {
 								'0': 'no',
 	                            '1': 'yes'
 							}
@@ -230,8 +230,8 @@
 		</tr>
 		<tr>
 			<td><strong>VARIABLE</strong></td>
-			<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Will be forced to lower-case. 
-			Must be a <a href="http://livedocs.adobe.com/coldfusion/8/Variables_03.html" target="_blank" class="external">valid ColdFusion variable string</a> and a 
+			<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Will be forced to lower-case.
+			Must be a <a href="http://livedocs.adobe.com/coldfusion/8/Variables_03.html" target="_blank" class="external">valid ColdFusion variable string</a> and a
 			<a href="http://docs.oracle.com/cd/E11882_01/server.112/e41084/sql_elements008.htm" target="_blank" class="external">valid Oracle column alias</a>
 			.
 			</td>
@@ -267,7 +267,7 @@
 		<tr>
 			<td><strong>ORD</strong> *</td>
 			<td>
-				Order (left to right) in which to display columns on specimenresults (and elsewhere). 
+				Order (left to right) in which to display columns on specimenresults (and elsewhere).
 				Use this to group terms within category, to keep related columns close together, etc.
 				This is a unique number (not integer) and serves only to order things.
 				<br><a href="field_documentation.cfm?action=integerizeOrder">click here to turn them into sequential integers</a>
@@ -281,7 +281,7 @@
 		<tr>
 			<td>SQL_ELEMENT *</td>
 			<td>
-				SQL to use in building dynamic queries. Don't guess at this. 
+				SQL to use in building dynamic queries. Don't guess at this.
 				<br>To pull from FLAT, use flatTableName.{flat column name} - this is case sensitive. Do not hard-code in flat or filtered_flat.
 				<br>use any Oracle function
 				<br>Only hard-code table names if you KNOW they'll be included in specimenresults. (Hint: none are.)
@@ -299,8 +299,22 @@
 	* must be given as a set: provide all or none
 	<br> <strong>BOLD</strong> elements are required
 	<p>
-		NOTE: Do not change category=attribute records. They are periodically auto-generated from the relevant code tables and 
+		NOTE: Do not change category=attribute records. They are periodically auto-generated from the relevant code tables and
 		anything you do here will be lost. Add documentation directly to CTATTRIBUTE_TYPE.
+	</p>
+	<p>
+		NOTE: ALL documentation now goes through this form. To create for example a link to the geography creation guidelines,
+		<ul>
+			<li>
+				Enter the ID of the relevant element (ID of "helpLink" elements) into variable. This is key; everything
+				else is fairly normal.
+			</li>
+			<li>Enter something clever into Display - perhaps "Geography Creation Guidelines"</li>
+			<li>Enter a definition - "Click the link for documentation." works.</li>
+			<li>Enter a link (probably to the Handbook).</li>
+			<li>Set both SR and SST to NO</li>
+			<li>Leave everything else blank</li>
+		</ul>
 	</p>
 	<hr>Filter records:
 	<div class="filtering">
