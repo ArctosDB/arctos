@@ -888,9 +888,7 @@ label.badPickLbl {
 
 .helpLink {
 	cursor:pointer;
-	color: blue;
-	text-align:right;
-}
+	color: blue;}
 .helpLink:hover {
 	color: #CC0000;
 	text-decoration:underline;
