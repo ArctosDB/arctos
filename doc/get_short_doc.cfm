@@ -33,40 +33,32 @@
 		This part runs ONLY on arctos.database.museum, the one and only source of this information.
 	--->
 	<cftry>
-
-
-	<cfquery name="d" datasource="cf_dbuser">
-		select * from ssrch_field_doc where cf_variable = '#lcase(fld)#'
-	</cfquery>
-	<cfset r="">
-	<cfif d.recordcount is not 1>
-		<cfset r=r & '<div>No documentation is available for #fld#.</div>'>
-		<cfmail subject="doc not found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docMIA@#Application.fromEmail#" type="html">
-			short doc not found for #fld#
-		</cfmail>
-	<cfelse>
-		<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
-
-
-		<cfset r=r & '<div style="margin:.5em">#d.definition#</div>'>
-
-		<cfif len(d.search_hint) gt 0>
-			<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
+		<cfquery name="d" datasource="cf_dbuser">
+			select * from ssrch_field_doc where cf_variable = '#lcase(fld)#'
+		</cfquery>
+		<cfset r="">
+		<cfif d.recordcount is not 1>
+			<cfset r=r & '<div>No documentation is available for #fld#.</div>'>
+			<cfmail subject="doc not found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docMIA@#Application.fromEmail#" type="html">
+				short doc not found for #fld#
+			</cfmail>
+		<cfelse>
+			<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
+			<cfset r=r & '<div style="margin:.5em">#d.definition#</div>'>
+			<cfif len(d.search_hint) gt 0>
+				<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
+			</cfif>
+			<cfif len(d.DOCUMENTATION_LINK) gt 0>
+				<cfset r=r & '<div><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
+			</cfif>
+			<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
+				<cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
+			</cfif>
 		</cfif>
-		<cfif len(d.DOCUMENTATION_LINK) gt 0>
-			<cfset r=r & '<div><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
-		</cfif>
-		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
-			<cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
-		</cfif>
-
-
-	</cfif>
-
-	<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
-	<cfcatch>
-		<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
-	</cfcatch>
+		<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
+		<cfcatch>
+			<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
+		</cfcatch>
 	</cftry>
 	<cfscript>
         getPageContext().getOut().clearBuffer();
