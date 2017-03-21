@@ -51,7 +51,7 @@
 				<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
 			<cfelse>
 				<cfif len(d.SPECIMEN_QUERY_TERM) gt 0>
-					<cfset probs=listappend(probs,'#fld# is marked as a SPECIMEN_QUERY_TERM and does not have a search_hint',';'>
+					<cfset probs=listappend(probs,'#fld# is marked as a SPECIMEN_QUERY_TERM and does not have a search_hint',';')>
 				</cfif>
 			</cfif>
 			<cfif len(d.DOCUMENTATION_LINK) gt 0>
