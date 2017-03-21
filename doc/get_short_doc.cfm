@@ -1,4 +1,8 @@
-<cfif not isdefined("fld")>bad call<cfabort></cfif>
+<cfif not isdefined("fld")>
+	<cfthrow message="get_doc called without field">
+	<cfabort>
+
+</cfif>
 <cfset fld=trim(fld)>
 <cfif left(fld,1) is "_" and len(fld) gt 2>
 	<cfset fld=right(fld,len(fld)-1)>
@@ -9,12 +13,12 @@
 	<!--- this should be hard-coded - all installations should call the same docs, arctos.database.museum hosts everything --->
 
 	<!----  for testing
-
-		<cfhttp url="http://arctos-test.tacc.utexas.edu/doc/get_short_doc.cfm" charset="utf-8" method="get">
-
-	---->
 			<cfhttp url="http://arctos.database.museum/doc/get_short_doc.cfm" charset="utf-8" method="get">
 
+
+	---->
+
+		<cfhttp url="http://arctos-test.tacc.utexas.edu/doc/get_short_doc.cfm" charset="utf-8" method="get">
 
 
 		<cfhttpparam type="url" name="action" value="getDoc">
