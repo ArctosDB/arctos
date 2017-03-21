@@ -1109,7 +1109,7 @@
 		<cfsavecontent variable="return">
 			<span class="importantNotification">
 				This Locality (#locality_id#)
-				<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
+				<span class="helpLink" id="_locality">[ help ]</span> contains
 				<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
 					nothing. Please delete it if you don't have plans for it.
 				<cfelse>
@@ -1460,9 +1460,9 @@
 <cffunction name="get_docs" access="remote">
 	<!---
 		deal with whatever structure we have on the doc site here
-		
-		
-		
+
+
+
 		/*
 	 * DO NOT USE THIS IN NEW CODE!!!!
 	 * make a direct call with class=helpLink
@@ -1470,10 +1470,10 @@
 	 * It's probably dicey.
 	 * Change, do NOT fix!
 	 */
-	 
-	 
-	 
-	 
+
+
+
+
 	--->
 	<cfargument name="uri" type="string" required="yes">
 	<cfargument name="anchor" type="string" required="no">
