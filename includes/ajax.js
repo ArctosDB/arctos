@@ -1278,6 +1278,13 @@ function windowOpener(url, name, args) {
 }
 
 function getDocs(url,anc,tgt){
+	/*
+	 * DO NOT USE THIS IN NEW CODE!!!!
+	 * make a direct call with class=helpLink
+	 * this is retained until the old stuff can be converted.
+	 * It's probably dicey.
+	 * Change, do NOT fix!
+	 */
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "get_docs",

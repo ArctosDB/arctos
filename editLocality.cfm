@@ -328,7 +328,7 @@ function checkCoordinateError(){
 		hDiv.className = 'fancybox-help';
 		hDiv.id='hDiv';
 		//hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
-		hDiv.innerHTML='<span class="likeLink" onclick="getDocs(\'geolocate\')">[ help ]</span>';
+		hDiv.innerHTML='<span class="helpLink" id="geolocate">[ help ]</span>';
 
 		$("#popDiv").append(hDiv);
 		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
@@ -1025,7 +1025,7 @@ function checkCoordinateError(){
 		<label for="georeference_source" class="helpLink" id="_georeference_source">Georeference Source</label>
 		<input type="text" name="georeference_source" id="georeference_source" size="120" value='#preservesinglequotes(locDet.georeference_source)#' />
 
-		<label for="georeference_protocol" class="helpLink" id="_georeference_protocol_fakebroken">Georeference Protocol</label>
+		<label for="georeference_protocol" class="helpLink" id="_georeference_protocol">Georeference Protocol</label>
 		<select name="georeference_protocol" id="georeference_protocol" size="1">
 			<option value=''></option>
 			<cfloop query="ctgeoreference_protocol">
@@ -1067,7 +1067,7 @@ function checkCoordinateError(){
 		</cfif>
 		<br>
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
-		<span class="likeLink" onClick="getDocs('coordinates')">[ lat_long help ]</span>
+		<span class="helpLink" id="_coordinates">[ lat_long help ]</span>
 	</td>
 	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
@@ -1160,7 +1160,7 @@ function checkCoordinateError(){
             <input type="hidden" name="action" value="editwktp">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 
-        <label for="wkt_polygon" class="likeLink" onClick="getDocs('coordinates','wkt_polygon')">wkt_polygon</label>
+        <label for="wkt_polygon" class="helpLink" id="_wkt_polygon">wkt_polygon</label>
         <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
 
 		<input type="hidden" id="geopoly" value="#locDet.geopoly#">

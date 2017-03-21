@@ -1460,6 +1460,20 @@
 <cffunction name="get_docs" access="remote">
 	<!---
 		deal with whatever structure we have on the doc site here
+		
+		
+		
+		/*
+	 * DO NOT USE THIS IN NEW CODE!!!!
+	 * make a direct call with class=helpLink
+	 * this is retained until the old stuff can be converted.
+	 * It's probably dicey.
+	 * Change, do NOT fix!
+	 */
+	 
+	 
+	 
+	 
 	--->
 	<cfargument name="uri" type="string" required="yes">
 	<cfargument name="anchor" type="string" required="no">
