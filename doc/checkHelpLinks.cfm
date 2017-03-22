@@ -48,6 +48,10 @@
 		delete from temp_doc_merge where in_docs ='yes';
 		
 		select cfvar from temp_doc_merge order by cfvar;
+		
+		select used_in_frm from temp_doc_merge where cfvar='yName';
+		
+		
 ---->
 <cfinclude template="/includes/_header.cfm">
 <p>
