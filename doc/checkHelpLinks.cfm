@@ -25,7 +25,7 @@
 				<cfloop array="#l#" index='h'>
 					<br>h: <textarea>#h#</textarea>
 
-					<cfset idSPos=find("id=",h)>
+					<cfset idSPos=find("id=",h)+4>
 					<br>idSPos: #idSPos#
 					<cfset nqPos=find('"',h,idsPos)>
 					<br>nqPos: #nqPos#
