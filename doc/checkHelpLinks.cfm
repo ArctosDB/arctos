@@ -7,6 +7,8 @@
 			<cffile action = "read" file = "#f#" variable = "fc">
 			<cfif fc contains "helpLink">
 				<br>-------------------------- something to check here ----------------
+				<cfset l = REMatch('(?i)<span[^>]+class="helpLink"[^>]*>(.+?)</span>', fc)>
+				<br>l: #l#
 			</cfif>
 		</cfif>
 
