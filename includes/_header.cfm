@@ -177,7 +177,7 @@
 											<li><a target="_top" href="/Bulkloader/">Bulkload Specimens</a></li>
 											<li><a target="_top" href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a></li>
 											<li><a target="_top" href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a></li>
-											<li><a target="_top" href="##" onclick="getDocs('Bulkloader/index')">Bulkloader Docs</a></li>
+											<li><a target="_top" href="##" class="helpLink" data-helplink="bulkloader">Bulkloader Docs</a></li>
 											<li><a target="_top" href="/Bulkloader/pre_bulkloader.cfm">Pre-Bulkloader</a></li>
 											<li><a target="_top" href="/Bulkloader/sqlldr.cfm">SQLLDR Builder</a></li>
 										</cfif>

@@ -223,7 +223,7 @@ just fooling idiot cfclipse into using the right colors
 <!-------------------------------------------------------------------------------------------------->
 <cfif  action is "newLoan">
 <cfset title="New Loan">
-	Initiate a loan: <span class="infoLink" onClick="getDocs('loan')">Help</span>
+	Initiate a loan: <span class="helpLink" data-helplink="loan">Help</span>
 	<cfoutput>
 		<form name="newloan" id="newloan" action="Loan.cfm" method="post" onSubmit="return noenter();">
 			<input type="hidden" name="action" value="makeLoan">
@@ -251,7 +251,7 @@ just fooling idiot cfclipse into using the right colors
 						<input type="hidden" name="auth_agent_id">
 					</td>
 					<td>
-						<label for="rec_agent_name"><a href="javascript:void(0);" onClick="getDocs('loan','to')">To:</a></label>
+						<label for="rec_agent_name" class="helpLink" data-helplink="loan_to">To:</label>
 						<input type="text" name="rec_agent_name" class="reqdClr" size="40"
 						  onchange="getAgent('rec_agent_id','rec_agent_name','newloan',this.value); return false;"
 						  onKeyPress="return noenter(event);">
@@ -745,13 +745,13 @@ just fooling idiot cfclipse into using the right colors
 				<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#</option>
 			</cfloop>
 		</select>
-		<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
+		<label for="project_name" class="helpLink" data-helplink="project_title">Project Title</label>
 		<textarea name="project_name" id="project_name" cols="50" rows="2" ></textarea>
-		<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Project Start Date</label>
+		<label for="start_date" class="helpLink" data-helplink="project_date">Project Start Date</label>
 		<input type="text" name="start_date" value="#loanDetails.trans_date#">
 		<label for="">Project End Date</label>
 		<input type="text" name="end_date">
-		<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Project Description (>100 characters for visibility)</label>
+		<label for="project_description" class="helpLink" data-helplink="project_description">Project Description (>100 characters for visibility)</label>
 		<textarea name="project_description"
 			id="project_description" cols="50" rows="6">#loanDetails.loan_description#</textarea>
 		<label for="project_remarks">Project Remark</label>

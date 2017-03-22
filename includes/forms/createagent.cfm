@@ -225,7 +225,7 @@
 		</form>
 		<div class="importantNotification">
 			Read
-			<span class="likeLink" onclick="getDocs('agent','create')">documentation</span> BEFORE clicking buttons!
+			<span class="helpLink" data-helplink="agent_create">documentation</span> BEFORE clicking buttons!
 		</div>
 		<cfif isdefined("agent_type") and agent_type is "person">
 			<script>
