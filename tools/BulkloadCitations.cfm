@@ -208,7 +208,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>scientific_name</td>
 			<td>if USE_EXISTING_ACCEPTED_ID is 0</td>
 			<td>Identification.scientific_name to apply to the specimen</td>
-			<td><span class="helpLink" data-helplink="identification.scientific_name">identification.scientific_name</span></td>
+			<td><span class="helpLink" data-helplink="identification_scientific_name">identification.scientific_name</span></td>
 		</tr>
 		<tr>
 			<td>accepted_id_fg</td>

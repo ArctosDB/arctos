@@ -58,7 +58,7 @@
 		);
 	}
 </script>
-<span class="helpLink" data-helplink="specimen-event">Page Help</span>
+<span class="helpLink" data-helplink="specimen_event">Page Help</span>
 <script>
 	function showLLFormat(orig_units) {
 		//alert(orig_units);

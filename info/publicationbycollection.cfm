@@ -30,7 +30,7 @@
 	</select>
 	<label for="citationonly">
 		Show publications related by ....
-		(<span class="helpLink" data-helplink="projects_relatedby">what's this?</span>)</label>
+		(<span class="helpLink" data-helplink="publication_project_related">what's this?</span>)</label>
 	<select name="citationonly" id="citationonly" size="1">
 		<option <cfif citationonly is true> selected="selected" </cfif> value="true">citations only</option>
 		<option <cfif citationonly is false> selected="selected" </cfif> value="false">citations and projects</option>
