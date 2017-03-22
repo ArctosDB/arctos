@@ -50,7 +50,7 @@
 			<cfif len(d.search_hint) gt 0>
 				<cfset r=r & '<div>Search Hint: '>
 				<cfif left(d.search_hint,4) is 'http'>
-					<cfset r=r & '<a href="#d.d.search_hint#" target="_blank">[ Search Hint ]</a></div>'>
+					<cfset r=r & '<a href="#d.search_hint#" target="_blank">[ Search Hint ]</a></div>'>
 				<cfelse>
 					<cfset r=r & '#d.search_hint#</div>'>
 				</cfif>
