@@ -18,17 +18,14 @@
 <table width="100%">
 	<tr>
 		<td>
-			Agent Search		
-		</td>
-		<td>
-			<span class="infoLink pageHelp" onclick="getDocs('agent');">Page Help</span>
+			Agent Search
 		</td>
 	</tr>
 </table>
 <cfoutput>
 <form name="agntSearch" action="AgentGrid.cfm" method="post" target="_pick">
 	<input type="hidden" name="Action" value="search">
-	<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
+	<label for="anyName" class="helpLink" id="agent_any_name_search">Any part of any name</label>
 	<input type="text" name="anyName" id="anyName" size="75">
 	<table width="100%">
 		<tr>
@@ -47,7 +44,7 @@
 			</td>
 		</tr>
 	</table>
-	<label for="address"><a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a></label>
+	<label for="address" class="helpLink" id="agent_address">Address</label>
 	<input type="text" name="address" id="address" size="75">
 	<table width="100%">
 		<tr>
@@ -119,12 +116,12 @@
 			</td>
 			<td><input type="reset" value="Clear Form" class="clrBtn"></td>
 			<td>
-			<input type="button" 
-				value="Create New Person Agent" 
+			<input type="button"
+				value="Create New Person Agent"
 				class="insBtn"
 				onClick="window.open('editAllAgent.cfm?action=newAgent&agent_type=person','_person');">
-			<input type="button" 
-				value="Create New Non-Person Agent" 
+			<input type="button"
+				value="Create New Non-Person Agent"
 				class="insBtn"
 				onClick="window.open('editAllAgent.cfm?action=newAgent','_person');">
 			</td>
@@ -132,5 +129,5 @@
 	</table>
 </form>
 </div>
-</cfoutput>	
+</cfoutput>
 <cfinclude template="includes/_pickFooter.cfm">

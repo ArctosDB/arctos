@@ -2,7 +2,7 @@
 <style>
 	#pagewrapper {
 		/* encloses tabled content */
-		width: 100%; 
+		width: 100%;
 		display: table;
 	}
 	#leftside, #maincell {
@@ -84,7 +84,7 @@
 				<div id="td_search">
 					<form name="agntSearch" id="agntSearch">
 						<fieldset class="compact">
-							<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
+							<label for="anyName"><span class="helpLink" id="agent_any_name_search">Any part of any name</span></label>
 							<input type="text" name="anyName" id="anyName" class="minput" placeholder="this is the search box you're looking for">
 							<div style="display:table;width:100%;">
 								<div style="display:table-cell">
@@ -182,7 +182,7 @@
 						</div>
 					</form>
 				</div>
-			 	<div id="agntRslCell"></div>  
+			 	<div id="agntRslCell"></div>
 			</div><!---/leftside--->
 			<div id="maincell">
 				<div id="agntEditCell"></div>
