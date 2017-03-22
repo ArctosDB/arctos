@@ -444,7 +444,7 @@
 				    <div id="right-col">
 						<div class="wrapper" id="sort_specevent">
 							<div class="item">
-								<div class="celltitle">Specimen/Event <span class="helpLink" data-helplink="specimen-event">[ documentation ]</span></div>
+								<div class="celltitle">Specimen/Event <span class="helpLink" data-helplink="specimen_event">[ documentation ]</span></div>
 								<table cellspacing="0" cellpadding="0" class="fs"><!----- Specimen/Event ---------->
 									<tr>
 										<td colspan="2">

@@ -42,10 +42,12 @@
 
 		first pass: just deal with the stuff that's in the code....
 
-		delete from temp_doc_merge where in_code is not null;
+		delete from temp_doc_merge where in_code ='no';
 
 		.....and not in the docs
-		delete from temp_doc_merge where in_docs is null;
+		delete from temp_doc_merge where in_docs ='yes';
+		
+		select cfvar from temp_doc_merge order by cfvar;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <p>

@@ -110,7 +110,7 @@
 						<option value="0">Cites no Specimens</option>
 					</select>
 					<label for="cited_sci_Name">
-						<span class="helpLink" id="cited_sci_Name">Cited Scientific Name</span>
+						<span class="helpLink" data-helplink="cited_sci_name">Cited Scientific Name</span>
 					</label>
 					<input name="cited_sci_Name" id="cited_sci_Name" type="text">
 					<label for="current_sci_Name">

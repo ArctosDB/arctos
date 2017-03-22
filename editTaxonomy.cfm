@@ -1782,7 +1782,7 @@
 			from common_name where taxon_name_id = #taxon_name_id#
 			order by common_name
 		</cfquery>
-		<span class="helpLink" data-helplink="common_names">Common Names</span>
+		<span class="helpLink" data-helplink="common_name">Common Names</span>
 		<form name="commonname" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 			<input type="hidden" name="action" value="saveCommon">

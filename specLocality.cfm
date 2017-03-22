@@ -490,7 +490,7 @@ function useGL(glat,glon,gerr){
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 
-			<label for="assigned_date" class="helpLink" data-helplink="specimen-event_date">Determined Date</label>
+			<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
 			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
 
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>

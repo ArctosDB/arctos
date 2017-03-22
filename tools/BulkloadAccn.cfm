@@ -213,7 +213,7 @@ Step 1: Upload a comma-delimited text file (csv).
 		<li style="text-align:left;" id="trans_date" class="helpLink">TRANS_DATE</li>
 		<li style="text-align:left;" id="received_date" class="helpLink">RECEIVED_DATE</li>
 		<li style="text-align:left;" id="trans_remarks" class="helpLink">TRANS_REMARKS</li>
-		<li style="text-align:left;" id="is_publica_fg" class="helpLink">IS_PUBLIC_FG (1=yes; anything else=no)</li>
+		<li style="text-align:left;" id="is_public_fg" class="helpLink">IS_PUBLIC_FG (1=yes; anything else=no)</li>
 		<li style="text-align:left;" id="trans_agent" class="helpLink">TRANS_AGENT_n (1-6)</li>
 		<li style="text-align:left;" id="trans_agent_role" class="helpLink">TRANS_AGENT_ROLE_n (1-6)</li>
 	</ul>
