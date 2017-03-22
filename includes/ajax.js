@@ -65,8 +65,10 @@ $(document).ready(function() {
 		
 		
 		
-		*/
+		
 	});
+	
+	*/
 	
 	$("#c_identifiers_cust").click(function(e){
 		var bgDiv = document.createElement('div');
