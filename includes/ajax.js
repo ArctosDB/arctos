@@ -9,24 +9,16 @@ $(document).ready(function() {
 	 
 	$(".helpLink").live('click', function(e){
 		// new and snazzy: use the data-helplink attribute to find help
-		
-		var f=$(this).data('helplink');
-		console.log(f);
-		
+		var f=$(this).data('helplink');		
 		if (f == null){
-			console.log('going for ID');
 			// fall back to old-n-busted (but still out there, because priorities)
 			var f=this.id;
-
 		}
 		
 
-		console.log(f);
-		/*
 		
 		
-		
-		var guts = "/doc/get_short_doc.cfm?fld=" + thisHelp;
+		var guts = "/doc/get_short_doc.cfm?fld=" + f;
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
@@ -47,7 +39,6 @@ $(document).ready(function() {
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
 		
-		*/
 		/*
 		
 		
