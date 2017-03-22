@@ -205,17 +205,17 @@ Step 1: Upload a comma-delimited text file (csv).
 
 	<ul>
 		<li style="text-align:left;" id="guid_prefix" class="helpLink">GUID_PREFIX (required)</li>
-		<li style="text-align:left;" id="ACCN_NUMBER" class="helpLink">ACCN_NUMBER (required)</li>
-		<li style="text-align:left;" id="ACCN_TYPE" class="helpLink">ACCN_TYPE (required)</li>
-		<li style="text-align:left;" id="ACCN_STATUS" class="helpLink">ACCN_STATUS (required)</li>
-		<li style="text-align:left;" id="NATURE_OF_MATERIAL" class="helpLink">NATURE_OF_MATERIAL (required)</li>
-		<li style="text-align:left;" id="ESTIMATED_COUNT" class="helpLink">ESTIMATED_COUNT</li>
-		<li style="text-align:left;" id="TRANS_DATE" class="helpLink">TRANS_DATE</li>
-		<li style="text-align:left;" id="RECEIVED_DATE" class="helpLink">RECEIVED_DATE</li>
-		<li style="text-align:left;" id="TRANS_REMARKS" class="helpLink">TRANS_REMARKS</li>
-		<li style="text-align:left;" id="IS_PUBLIC_FG" class="helpLink">IS_PUBLIC_FG (1=yes; anything else=no)</li>
-		<li style="text-align:left;" id="TRANS_AGENT" class="helpLink">TRANS_AGENT_n (1-6)</li>
-		<li style="text-align:left;" id="TRANS_AGENT_ROLE" class="helpLink">TRANS_AGENT_ROLE_n (1-6)</li>
+		<li style="text-align:left;" id="accn_number" class="helpLink">ACCN_NUMBER (required)</li>
+		<li style="text-align:left;" id="accn_type" class="helpLink">ACCN_TYPE (required)</li>
+		<li style="text-align:left;" id="accn_status" class="helpLink">ACCN_STATUS (required)</li>
+		<li style="text-align:left;" id="nature_of_material" class="helpLink">NATURE_OF_MATERIAL (required)</li>
+		<li style="text-align:left;" id="estimated_count" class="helpLink">ESTIMATED_COUNT</li>
+		<li style="text-align:left;" id="trans_date" class="helpLink">TRANS_DATE</li>
+		<li style="text-align:left;" id="received_date" class="helpLink">RECEIVED_DATE</li>
+		<li style="text-align:left;" id="trans_remarks" class="helpLink">TRANS_REMARKS</li>
+		<li style="text-align:left;" id="is_publica_fg" class="helpLink">IS_PUBLIC_FG (1=yes; anything else=no)</li>
+		<li style="text-align:left;" id="trans_agent" class="helpLink">TRANS_AGENT_n (1-6)</li>
+		<li style="text-align:left;" id="trans_agent_role" class="helpLink">TRANS_AGENT_ROLE_n (1-6)</li>
 	</ul>
 
 <cfform name="d" method="post" enctype="multipart/form-data">

@@ -14,7 +14,35 @@
 		select id || ' :: ' || frm from temp_doc_id_raw where id not in (select cf_variable from ssrch_field_doc@db_production) order by id;
 
 ---->
+<cfinclude template="/includes/_header.cfm">
+<p>
+	<a href="checkHelpLinks.cfm?action=getLinks">getLinks</a>
+	<a href="checkHelpLinks.cfm?action=checkProd">checkProd</a>
+	<br>
+</p>
+<cfif action is "checkProd">
+<cfoutput>
+	<cfquery name="d_raw" datasource="uam_god">
+		select * from temp_doc_id_raw
+	</cfquery>
 
+	<cfquery name="d" dbtype="query">
+		select distinct id from d_raw order by id
+	</cfquery>
+	<cfloop query="d">
+		<hr>
+		#id#
+		<cfquery name="dd" dbtype="query">
+			select frm,rawtag from d_raw where id='#id#'
+		</cfquery>
+		<cfloop query="dd">
+			<br>----#frm# ---- #rawtag#
+		</cfloop>
+	</cfloop>
+</cfoutput>
+</cfif>
+
+<cfif action is "getLinks">
 <cfset res=  DirectoryList(Application.webDirectory,true,"path","*.cf*")>
 <cfoutput>
 	<cftransaction>
@@ -92,3 +120,5 @@
 
 	</cftransaction>
 </cfoutput>
+</cfif>
+<cfinclude template="/includes/_footer.cfm">
