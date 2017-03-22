@@ -8,8 +8,7 @@ $(document).ready(function() {
 		var thisHelp=this.data('helplink');
 		alert('gor ' + thisHelp);
 		
-		
-		var guts = "/doc/get_short_doc.cfm?fld=" + this.id;
+		var guts = "/doc/get_short_doc.cfm?fld=" + thisHelp;
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
