@@ -39,6 +39,10 @@
 			<br>----#frm# ----
 			<textarea rows="4" cols="60">#rawtag#</textarea>
 		</cfloop>
+		<cfquery name="p" datasource="prod">
+			select * from ssrch_field_doc where cf_variable='#id#'
+		</cfquery>
+		<cfdump var=#p#>
 	</cfloop>
 </cfoutput>
 </cfif>
