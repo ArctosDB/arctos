@@ -16,7 +16,7 @@ $(document).ready(function() {
 		alert(this);
 		console.log(this);
 		
-		var thisHelp=this.data('helplink');
+		var thisHelp=$(this).data('helplink');
 		console.log(thisHelp);
 		/*
 		
