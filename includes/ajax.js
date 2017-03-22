@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 	$(".helpLink").live('click', function(e){
 		alert(this);
-		
+		console.log(this);
 		
 		var thisHelp=this.data('helplink');
 		
