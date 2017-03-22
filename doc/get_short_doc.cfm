@@ -60,7 +60,7 @@
 				</cfif>
 			</cfif>
 			<cfif len(d.DOCUMENTATION_LINK) gt 0>
-				<cfset r=r & '<divstyle="margin:.5em;padding:.5em;"><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
+				<cfset r=r & '<div style="margin:.5em;padding:.5em;"><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
 				<!--- anchor? ---->
 				<cfif d.DOCUMENTATION_LINK contains "##">
 					<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
