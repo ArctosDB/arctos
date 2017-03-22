@@ -13,6 +13,26 @@
 
 		select id || ' :: ' || frm from temp_doc_id_raw where id not in (select cf_variable from ssrch_field_doc@db_production) order by id;
 
+		create table temp_doc_merge (
+			cfvar varchar2(4000),
+			in_code  varchar2(4000),
+			in_docs  varchar2(4000),
+			CATEGORY varchar2(4000),
+			CONTROLLED_VOCABULARY varchar2(4000),
+			DATA_TYPE varchar2(4000),
+			DEFINITION varchar2(4000),
+			DISPLAY_TEXT varchar2(4000),
+			DOCUMENTATION_LINK varchar2(4000),
+			PLACEHOLDER_TEXT varchar2(4000),
+			SEARCH_HINT varchar2(4000),
+			SQL_ELEMENT varchar2(4000),
+			SPECIMEN_RESULTS_COL varchar2(4000),
+			DISP_ORDER varchar2(4000),
+			SPECIMEN_QUERY_TERM varchar2(4000),
+			used_in_frm varchar2(4000),
+			rawtags varchar2(4000)
+		);
+
 ---->
 <cfinclude template="/includes/_header.cfm">
 <p>
@@ -28,12 +48,99 @@
 	<cfquery name="p_raw" datasource="prod">
 		select * from ssrch_field_doc
 	</cfquery>
-
 	<cfquery name="allterms" dbtype="query">
 		select id cfvar from d_raw
 		union
 		select cf_variable cfvar from p_raw
 	</cfquery>
+	<cfloop query="allterms">
+		<cfquery name="p" dbtype="query">
+			select * from p_raw where cf_variable='#cfvar#'
+		</cfquery>
+		<cfquery name="c" dbtype="query">
+			select * from d_raw where id='#cfvar#'
+		</cfquery>
+		<cfif p.recordcount gt 0>
+			<cfset in_docs=1>
+		</cfif>
+
+		<cfif c.recordcount gt 0>
+			<cfset in_code=1>
+		</cfif>
+		<cfset used_in_frm="">
+		<cfset rawtags="">
+
+		<cfquery name="u_f" dbtype="query">
+			select distinct frm from c
+		</cfquery>
+		<cfloop query="u_f">
+			<cfset used_in_frm=listappend(used_in_frm,frm,';')>
+		</cfloop>
+
+		<cfquery name="u_t" dbtype="query">
+			select distinct rawtag from c
+		</cfquery>
+		<cfloop query="u_t">
+			<cfset rawtags=listappend(rawtags,rawtag,';')>
+		</cfloop>
+
+
+
+		<cfquery name="d_raw" datasource="uam_god">
+			insert into temp_doc_merge (
+				cfvar,
+				in_code,
+				in_docs,
+				CATEGORY,
+				CONTROLLED_VOCABULARY,
+				DATA_TYPE,
+				DEFINITION,
+				DISPLAY_TEXT,
+				DOCUMENTATION_LINK,
+				PLACEHOLDER_TEXT,
+				SEARCH_HINT,
+				SQL_ELEMENT,
+				SPECIMEN_RESULTS_COL,
+				DISP_ORDER,
+				SPECIMEN_QUERY_TERM,
+				used_in_frm,
+				rawtags
+			) values (
+				'#cfvar#',
+				'#in_code#',
+				'#in_docs#',
+				'#p.CATEGORY#',
+				'#p.CONTROLLED_VOCABULARY#',
+				'#p.DATA_TYPE#',
+				'#p.DEFINITION#',
+				'#p.DISPLAY_TEXT#',
+				'#p.DOCUMENTATION_LINK#',
+				'#p.PLACEHOLDER_TEXT#',
+				'#p.SEARCH_HINT#',
+				'#p.SQL_ELEMENT#',
+				'#p.SPECIMEN_RESULTS_COL#',
+				'#p.DISP_ORDER#',
+				'#p.SPECIMEN_QUERY_TERM#',
+				'#used_in_frm#',
+				'#rawtags#'
+			)
+		</cfquery>
+	</cfloop>
+	<cfquery name="r" datasource="uam_god">
+		select * from temp_doc_merge order by cf_var
+	</cfquery>
+
+	<cfdump var=#r#>
+
+
+	<!-----
+
+
+	 Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+
+
+
 
 	<cfdump var=#allterms#>
 
@@ -58,6 +165,7 @@
 			<cfdump var=#p#>
 		</cfif>
 	</cfloop>
+	---->
 </cfoutput>
 </cfif>
 
