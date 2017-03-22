@@ -36,6 +36,9 @@
 					<cfset tid= rereplace(h,'<span[^>]+?id="([^"]+)".*',"\1")>
 
 					---->
+					<cfquery name="d" datasource="uam_god">
+						insert into temp_doc_id_raw(id) values ('#theID#')
+					</cfquery>
 				</cfloop>
 			</cfif>
 		</cfif>
