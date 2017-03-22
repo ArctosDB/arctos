@@ -60,6 +60,8 @@
 		<cfquery name="c" dbtype="query">
 			select * from d_raw where id='#cfvar#'
 		</cfquery>
+		<cfset in_docs="">
+		<cfset in_code="">
 		<cfif p.recordcount gt 0>
 			<cfset in_docs=1>
 		</cfif>
