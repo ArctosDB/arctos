@@ -25,6 +25,18 @@
 	<cfquery name="d_raw" datasource="uam_god">
 		select * from temp_doc_id_raw
 	</cfquery>
+	<cfquery name="p_raw" datasource="prod">
+		select * from ssrch_field_doc
+	</cfquery>
+
+	<cfquery name="allterms" dbtype="query">
+		select id cfvar from d_raw
+		union
+		select cf_variable cfvar from p_raw
+	</cfquery>
+
+	<cfdump var=#allterms#>
+
 
 	<cfquery name="d" dbtype="query">
 		select distinct id from d_raw order by id
