@@ -88,7 +88,7 @@
 
 
 
-		<cfquery name="d_raw" datasource="uam_god">
+		<cfquery name="update" datasource="uam_god">
 			insert into temp_doc_merge (
 				cfvar,
 				in_code,
