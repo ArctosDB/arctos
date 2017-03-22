@@ -14,27 +14,23 @@
 	<cfloop array="#res#" index="f">
 		<!--- ignore cfr etc --->
 		<cfif listlast(f,".") is "cfm" or listlast(f,".") is "cfc">
-			<br>#f#
+			<!----<br>#f#---->
 			<cffile action = "read" file = "#f#" variable = "fc">
 			<cfif fc contains "helpLink">
 
 				<cfset x='<span class="helpLink" bla></span>'>
-				<br>-------------------------- something to check here ----------------
+				<!----<br>-------------------------- something to check here -------------------->
 				<cfset l = REMatch('(?i)<span[^>]+class="helpLink"[^>]*>(.+?)</span>', fc)>
-				<br>l: <cfdump var=#l#>
+				<!----	<br>l: <cfdump var=#l#>---->
 				<cfloop array="#l#" index='h'>
-					<br>h: <textarea>#h#</textarea>
+<!----					<br>h: <textarea>#h#</textarea>---->
 
 					<cfset idSPos=find("id=",h)+4>
-					<br>idSPos: #idSPos#
 					<cfset nqPos=find('"',h,idsPos)>
-					<br>nqPos: #nqPos#
 					<cfset theID=mid(h,idSPos,nqPos-idSPos)>
-					<br>theID: #theID#
 					<cfif left(theID,1) is "_">
 						<cfset theID=right(theID,len(theID)-1)>
 					</cfif>
-					<br>theID: #theID#
 					<!----
 
 					<cfset tid= rereplace(h,'<span[^>]+?id="([^"]+)".*',"\1")>
