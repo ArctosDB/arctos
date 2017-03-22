@@ -254,7 +254,7 @@
 		</tr>
 		<tr>
 			<td>SEARCH_HINT</td>
-			<td>Short "how it works" useful for guiding search.</td>
+			<td>Short "how it works" useful for guiding search, or URL (eg, of how-to page).</td>
 		</tr>
 		<tr>
 			<td><strong>SR</strong> *</td>
