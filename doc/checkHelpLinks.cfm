@@ -4,9 +4,12 @@
 
 	drop table temp_doc_id_raw;
 
-	create table temp_doc_id_raw (frm,id varchar2(4000));
+	create table temp_doc_id_raw (frm varchar2(4000),id varchar2(4000));
 
 	delete from temp_doc_id_raw;
+	
+	
+	select id || ' :: ' || frm from temp_doc_id_raw order by id;
 ---->
 
 <cfset res=  DirectoryList(Application.webDirectory,true,"path","*.cf*")>

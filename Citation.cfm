@@ -166,7 +166,7 @@
 			}
 		</style>
 		Citations for <b>#getPub.full_citation#</b>
-		<br><span class="helpLink"  onClick="getDocs('publication','citation')">[ help ]</span>
+		<br><span class="helpLink"  id="citation">[ help ]</span>
 		<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
 		<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
 		Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">Citation Bulkloader</a>.
