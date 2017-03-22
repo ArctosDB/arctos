@@ -5,8 +5,8 @@ $(document).ready(function() {
 
 	$(".helpLink").live('click', function(e){
 		
-		var thisHelp=$(this).data('helplink');
-		console.log('gor ' + thisHelp);
+		var thisHelp=this.data('helplink');
+		alert('gor ' + thisHelp);
 		
 		
 		var guts = "/doc/get_short_doc.cfm?fld=" + this.id;
