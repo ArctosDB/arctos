@@ -4,6 +4,11 @@ $(document).ready(function() {
 	
 
 	$(".helpLink").live('click', function(e){
+		
+		
+		console.log('hi');
+		
+		
 		alert(this);
 		console.log(this);
 		
