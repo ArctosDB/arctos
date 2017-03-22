@@ -48,7 +48,7 @@
 					<cfelseif h contains 'data-helplink='>
 					<br>got data tag
 
-						<cfset idSPos=find("data-helplink=",h)+14>
+						<cfset idSPos=find("data-helplink=",h)+15>
 						<br>idSPos: #idSPos#
 						<cfset nqPos=find('"',h,idsPos)>
 						<br>nqPos: #nqPos#
