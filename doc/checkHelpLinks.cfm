@@ -29,7 +29,7 @@
 					<br>idSPos: #idSPos#
 					<cfset nqPos=find('"',h,idsPos)>
 					<br>nqPos: #nqPos#
-					<cfset theID=mid(h,idSPos,idSPos-nqPos)>
+					<cfset theID=mid(h,idSPos,nqPos-idSPos)>
 					<br>theID: #theID#
 					<!----
 
