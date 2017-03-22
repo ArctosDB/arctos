@@ -84,10 +84,7 @@
 				<div id="td_search">
 					<form name="agntSearch" id="agntSearch">
 						<fieldset class="compact">
-							<label for="anyName"><span class="helpLink" data-helpLink="agent_any_name_search">Any part of any name</span></label>
-									<span onclick="alert('alerty');console.log('not broken');">broken?</span>
-
-
+							<label for="anyName" class="helpLink" data-helpLink="agent_any_name_search">Any part of any name</label>
 							<input type="text" name="anyName" id="anyName" class="minput" placeholder="this is the search box you're looking for">
 							<div style="display:table;width:100%;">
 								<div style="display:table-cell">
