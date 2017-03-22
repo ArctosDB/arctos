@@ -52,7 +52,7 @@
 		select used_in_frm from temp_doc_merge where cfvar='specimen-event';
 		
 		
-		select * from ssrch_field_doc@db_production where cf_variable='attribute';
+		select * from ssrch_field_doc@db_production where cf_variable='date';
 		
 		
 ---->
