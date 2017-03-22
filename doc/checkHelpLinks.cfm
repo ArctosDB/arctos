@@ -30,7 +30,7 @@
 				<br>l: <cfdump var=#l#>
 
 				<cfloop array="#l#" index='h'>
-					<cfif l contains 'id='>
+					<cfif h contains 'id='>
 					<br>got ID
 						h: <textarea rows="4" cols="80">#h#</textarea>
 
