@@ -1,6 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <cfset noCloneTerms="author_text,display_name,infraspecific_author,remark,scientific_name,source_authority,species,subspecies,taxon_status">
-<span class="likeLink" onclick="getDocs('taxonomy','edit')">editing guidelines</span>
+<span class="helpLink" data-helplink="taxonomy_edit">editing guidelines</span>
 
 <!------------------------------------------------------------------------------->
 <cfif action is "cloneClassificationNewName">
@@ -1665,7 +1665,7 @@
 				taxonomy_publication.taxon_name_id=#taxon_name_id#
 		</cfquery>
 		<cfset i = 1>
-		<span class="likeLink" onClick="getDocs('taxonomy','taxonomy_publication');">Related Publications</span>
+		<span class="helpLink" data-helplink="taxonomy_publication">Related Publications</span>
 			<form name="newPub" method="post" action="editTaxonomy.cfm">
 				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 				<input type="hidden" name="Action" value="newTaxonPub">
@@ -1709,7 +1709,7 @@
 				AND taxon_relations.taxon_name_id = #taxon_name_id#
 		</cfquery>
 		<cfset i = 1>
-		<span class="likeLink" onClick="getDocs('taxonomy','taxon_relations');">Related Taxa:</span>
+		<span class="helpLink" data-helplink="taxon_relations">Related Taxa:</span>
 		<table border="1">
 			<tr>
 				<th>Relationship</th>
@@ -1782,7 +1782,7 @@
 			from common_name where taxon_name_id = #taxon_name_id#
 			order by common_name
 		</cfquery>
-		<span class="likeLink" onClick="getDocs('taxonomy','common_names');">Common Names</span>
+		<span class="helpLink" data-helplink="common_names">Common Names</span>
 		<form name="commonname" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 			<input type="hidden" name="action" value="saveCommon">

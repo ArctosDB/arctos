@@ -5,7 +5,7 @@
 	<table cellpadding="0" cellspacing="0" class="fs">
 		<tr>
 			<td>
-				<img src="/images/info.gif" border="0" onClick="getDocs('geology_attributes')" class="likeLink" alt="[ help ]">
+				<img src="/images/info.gif" border="0" class="helpLink" data-helplink="geology" class="likeLink" alt="[ help ]">
 				<table cellpadding="0" cellspacing="0">
 					<tr>
 						<th nowrap="nowrap"><span class="f11a">Geol Att.</span></th>

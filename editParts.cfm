@@ -173,7 +173,7 @@
 				loan_item.collection_object_id=specimen_part.collection_object_id AND
 				specimen_part.derived_from_cat_item=#collection_object_id#
 		</cfquery>
-	 	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</span>
+	 	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="helpLink" data-helplink="parts">help</span>
 		<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
 		<cfset i = 1>
 		<cfset listedParts = "">

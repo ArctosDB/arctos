@@ -25,7 +25,7 @@
 	<cfoutput>
 		<form name="encumber" method="post" action="Encumbrances.cfm">
 			<input type="hidden" name="action" value="createEncumbrance">
-			<label for="encumberingAgent" class="likeLink" onclick="getDocs('encumbrance','encumbrancer')">
+			<label for="encumberingAgent" class="helpLink" data-helplink="encumbrancer">
 				Encumbering Agent
 			</label>
 			<input type="text" name="encumberingAgent" id="encumberingAgent" class="reqdClr"
@@ -34,11 +34,11 @@
 			<input type="hidden" name="encumberingAgentId" id="encumberingAgentId">
 			<label for="made_date">Made Date</label>
 			<input type="text" name="made_date" id="made_date" class="reqdClr">
-			<label for="expiration_date" class="likeLink" onclick="getDocs('encumbrance','expiration')">
+			<label for="expiration_date"class="helpLink" data-helplink="encumbrance_expiration">
 				Expiration Date
 			</label>
 			<input type="text" name="expiration_date" id="expiration_date" class="reqdClr" required>
-			<label for="encumbrance" class="likeLink" onclick="getDocs('encumbrance','encumbrance_name')">
+			<label for="encumbrance" class="helpLink" data-helplink="encumbrance_name">
 				Encumbrance
 			</label>
 			<input type="text" name="encumbrance" id="encumbrance" size="50" class="reqdClr">
@@ -358,10 +358,8 @@ Edit Encumbrance:
 	<table border="1">
 		<tr>
 			<td align="right">
-			<a href="javascript:void(0);"
-				class="novisit"
-				onClick="getDocs('encumbrance','encumbrancer')">Encumbering Agent:</a></td>
-				</td>
+				<span class="helpLink" data-helplink="encumbrancer">Encumbering Agent</td>
+			</td>
 			<td><input type="hidden" name="encumberingAgentId" id="encumberingAgentId" value="#encumbering_agent_id#">
 
 		<input type="text" name="encumberingAgent" class="reqdClr" value="#agent_name#"
@@ -375,18 +373,14 @@ Edit Encumbrance:
 		</tr>
 		<tr>
 			<td align="right">
-			<a href="javascript:void(0);"
-				class="novisit"
-				onClick="getDocs('encumbrance','expiration')">Expiration Date:</a>
-				</td>
+				<span class="helpLink" data-helplink="encumbrance_expiration">Expiration Date:
+			</td>
 			<td><input type="text" name="expiration_date" id="expiration_date"  value="#dateformat(expiration_date,'yyyy-mm-dd')#"></td>
 
 		</tr>
 		<tr>
 			<td align="right">
-			<a href="javascript:void(0);"
-				class="novisit"
-				onClick="getDocs('encumbrance','encumbrance_name')">Encumbrance:</a>
+			<span class="helpLink" data-helplink="encumbrance_name">Encumbrance:</a>
 				</td>
 			<td><input type="text" name="encumbrance" value="#encumbrance#"></td>
 			<td align="right">Encumbrance Action</td>

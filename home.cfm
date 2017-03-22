@@ -227,7 +227,7 @@
 				proposed or limited functionality exists.
 			</li>
 			<li>
-				<span class="likeLink" onclick="getDocs('media','','win')">Media</span>
+				<span class="helpLink" data-helplink="media">Media</span>
 
 				link images, movies, sound files, and documents to
 				specimens, taxonomy, publications, projects, events, or people.
@@ -272,7 +272,7 @@
 				<a href="http://www.tacc.utexas.edu"  target="_blank" class="external">TACC</a>,
 				and <a href="http://www.morphbank.net/"  target="_blank" class="external">MorphBank</a>).</li>
 			<li>
-				<span class="likeLink" onclick="getDocs('identification','','win')">Identifications</span>
+				<span class="helpLink" data-helplink="identification">Identifications</span>
 				can be formulaic combinations
 				of terms drawn from a separate taxonomic authority.</li>
 			<li>Maintains history of determinations for taxonomic
@@ -281,16 +281,16 @@
 				citations, and much more can be entered or edited individually
 				or in batches.</li>
 			<li>
-				<span class="likeLink" onclick="getDocs('container','','win')">Object-tracking</span>
+				<span class="helpLink" data-helplink="container">Object-tracking</span>
 				using nested-containers model,
 				bar codes, and container-condition history.</li>
 			<li>
-				E-mail <span class="likeLink" onclick="getDocs('notifications','','win')">reminders</span> for loans due,
+				E-mail <span class="helpLink" data-helplink="notifications">reminders</span> for loans due,
 				permit expirations, etc. Intelligent reports detailing possible GenBank matches,
 				missing citations, unlikely publications, and various other potentially faulty or missing data.
 			</li>
 			<li>
-				<span class="likeLink" onclick="getDocs('encumbrance','','win')">Encumbrances</span>
+				<span class="helpLink" data-helplink="encumbrance">Encumbrances</span>
 				 can mask localities, collector names,
 				or entire records from unprivileged users.</li>
 			<li>Design and print labels, reports, transaction documents, etc. with a
@@ -309,7 +309,7 @@
 			<li>
 				<strong>Specimens</strong> are the core of Arctos. Traditional museum
 				"label data" live here.
-				<span class="likeLink" onclick="getDocs('attributes','','win')">Attributes</span>
+				<span class="helpLink" data-helplink="attributes">Attributes</span>
 				 allow collection-specific determinations
 				of most anything that can be recorded from a specimen, such as sex, weight, age, and various
 				measurements. Specimen Parts are the physical objects, and are grouped as Cataloged Items, which represent
