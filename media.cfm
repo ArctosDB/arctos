@@ -170,7 +170,7 @@
 		select count(*) c from tag where media_id=#media_id#
 	</cfquery>
 	<p>
-		<span class="infoLink" onClick="getDocs('media','guide')">READ THE DOCUMENTATION!</span>
+		<span class="helpLink" data-helplink="media_guidelines">READ THE DOCUMENTATION!</span>
 	</p>
 	<cfoutput>
 		Edit Media
@@ -326,7 +326,7 @@
 <cfif action is "newMedia">
 	<cfoutput>
 	<p>
-		<span class="infoLink" onClick="getDocs('media','guide')">READ THE DOCUMENTATION!</span>
+		<span class="helpLink" data-helplink="media_guidelines">READ THE DOCUMENTATION!</span>
 	</p>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveNew">

@@ -42,7 +42,7 @@
 		<table>
 			<tr>
 				<td>
-					<label for="project_name" class="likeLink" onClick="getDocs('project','title')">
+					<label for="project_name" class="helpLink" data-helplink="project_title">
 						Project Title (be descriptive!)
 					</label>
 					<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr"></textarea>
@@ -55,12 +55,12 @@
 				</td>
 			</tr>
 		</table>
-			<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Start&nbsp;Date</label>
+			<label for="start_date" class="helpLink" data-helplink="project_date">Start&nbsp;Date</label>
 				<input type="text" name="start_date" id="start_date">
-				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
+				<label for="end_date"  class="helpLink" data-helplink="project_date">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date">
 				<label for="end_date">
-					<span  class="likeLink" onClick="getDocs('project','description')">Description</span>
+					<span class="helpLink" data-helplink="project_description">Description</span>
 					<br>Include what, why, how, who cares. Be <i>descriptive</i>.
 					<br><span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
 					<br>Markdown syntax OK; create and edit for more information.
@@ -299,7 +299,7 @@
 				<table>
 					<tr>
 						<td>
-							<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
+							<label for="project_name"  class="helpLink" data-helplink="project_title">Project Title</label>
 							<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr">#proj.project_name#</textarea>
 						</td>
 						<td>
@@ -313,22 +313,22 @@
 				<table>
 					<tr>
 						<td>
-							<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Start&nbsp;Date</label>
+							<label for="start_date"  class="helpLink" data-helplink="project_date">Start&nbsp;Date</label>
 							<input type="text" name="start_date" id="start_date" value="#dateformat(proj.start_date,"yyyy-mm-dd")#">
 						</td>
 						<td>
-							<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
+							<label for="end_date"  class="helpLink" data-helplink="project_date">End&nbsp;Date</label>
 							<input type="text" name="end_date" id="end_date" value="#dateformat(proj.end_date,"yyyy-mm-dd")#">
 						</td>
 						<td>
-							<label for="funded_usd" class="likeLink" onClick="getDocs('project','funded_usd')">Funded $ (US Dollars)</label>
+							<label for="funded_usd"  class="helpLink" data-helplink="project_funded_usd">Funded $ (US Dollars)</label>
 							<input type="text" name="funded_usd" id="funded_usd" value="#proj.funded_usd#">
 						</td>
 					</tr>
 				</table>
 				<label for="project_description" >
-					<div class="likeLink" onClick="getDocs('project','description')">Description</div>
-					<div id="chrcnt" class="redBorder">A minimum of 100 characters is to show up in search.</div>
+					<div  class="helpLink" data-helplink="project_description">Description</div>
+					<div id="chrcnt" class="redBorder">A minimum of 100 characters to show up in search.</div>
 
 				</label>
 				<table>
@@ -377,10 +377,10 @@
 				<table>
 				<tr>
 					<td colspan="2">
-						<a href="javascript:void(0);" onClick="getDocs('project','agent')">Project&nbsp;Agents</a>
+						<span class="helpLink" data-helplink="project_agent">Project&nbsp;Agents</span>
 					</td>
 					<td>
-						<a href="javascript:void(0);" onClick="getDocs('project','agent_role')">Agent&nbsp;Role</a>
+						<span class="helpLink" data-helplink="project_agent_role">Agent&nbsp;Role</a>
 					</td>
 					<td>Remark</td>
 				</tr>

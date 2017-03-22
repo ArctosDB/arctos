@@ -110,7 +110,7 @@
 		    	<table>
 		    		<tr>
 						<td>
-							<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_formula')">ID Formula:</a>
+							<span class="helpLink" data-helplink="id_formula">ID Formula:</span>
 						</td>
 						<td>
 							<cfif not isdefined("taxa_formula")>
@@ -137,7 +137,7 @@
 					</tr>
 					<tr id="userID" style="display:none;">
 						<td>
-							<div class="helpLink" id="user_identification">Identification:</div>
+							<div class="helpLink" id="identification">Identification:</div>
 						</td>
 						<td>
 							<input type="text" name="user_id" id="user_id" size="50">
@@ -155,7 +155,7 @@
 					<tr>
 						<td>
 							<div align="right">
-								<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
+								<span class="helpLink" data-helplink="identifier_agent">ID By:</span>
 							</div>
 						</td>
 						<td>
@@ -197,7 +197,7 @@
 					<tr>
 						<td>
 							<div align="right">
-								<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
+								<span  class="helpLink" data-helplink="id_date">ID Date:</span></td>
 							</div>
 						</td>
 						<td><input type="text" name="made_date" id="made_date"></td>
@@ -205,7 +205,7 @@
 					<tr>
 						<td>
 							<div align="right">
-								<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a></td>
+								<span  class="helpLink" data-helplink="nature_of_id"> Nature of ID:</span></td>
 							</div>
 						</td>
 						<td>

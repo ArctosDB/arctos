@@ -96,7 +96,7 @@
 								</select>
 							</td>
 							<td>
-								<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">Est. Cnt.</label>
+								<label for="estimated_count" class="helpLink" data-helplink="estimated_count">Est. Cnt.</label>
 								<input type="text" id="estimated_count" name="estimated_count">
 							</td>
 						</tr>
