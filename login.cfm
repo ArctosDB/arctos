@@ -179,7 +179,7 @@
 		&nbsp;or&nbsp;<input type="button" value="Create an Account" class="insBtn" onClick="isInfo();" tabindex="4">
 	</form>
 	<p>
-		<span class="likeLink" onclick="getDocs('users','create')">Operator documentation</span>
+		<span class="helpLink" data-helplink="users">Operator documentation</span>
 	</p>
 	<p>
 		<a href="/ChangePassword.cfm">Lost your password?</a> If you created a profile with an email address,
