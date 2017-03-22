@@ -37,7 +37,7 @@
 		</cfquery>
 		<cfloop query="dd">
 			<br>----#frm# ----
-			<textarea>#rawtag#</textarea>
+			<textarea rows="4" columns="60">#rawtag#</textarea>
 		</cfloop>
 	</cfloop>
 </cfoutput>
