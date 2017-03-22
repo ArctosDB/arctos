@@ -10,6 +10,9 @@
 	
 	
 	select id || ' :: ' || frm from temp_doc_id_raw order by id;
+	
+		select id || ' :: ' || frm from temp_doc_id_raw where id not in (select cf_variable from ssrch_field_doc@db_production) order by id;
+
 ---->
 
 <cfset res=  DirectoryList(Application.webDirectory,true,"path","*.cf*")>
