@@ -30,9 +30,9 @@
 				<br>l: <cfdump var=#l#>
 
 				<cfloop array="#l#" index='h'>
+					h: <textarea rows="4" cols="80">#h#</textarea>
 					<cfif h contains 'id='>
-					<br>got ID
-						h: <textarea rows="4" cols="80">#h#</textarea>
+						<br>got ID
 
 						<cfset idSPos=find("id=",h)+4>
 						<br>idSPos: #idSPos#
@@ -44,8 +44,27 @@
 							<cfset theID=right(theID,len(theID)-1)>
 						</cfif>
 
-					<br>theID: #theID#
-				</cfif>
+						<br>theID: #theID#
+					<cfelseif h contains 'data-helplink='>
+					<br>got data tag
+
+						<cfset idSPos=find("data-helplink=",h)+4>
+						<br>idSPos: #idSPos#
+						<cfset nqPos=find('"',h,idsPos)>
+						<br>nqPos: #nqPos#
+						<cfset theID=mid(h,idSPos,nqPos-idSPos)>
+						<br>theID: #theID#
+						<cfif left(theID,1) is "_">
+							<cfset theID=right(theID,len(theID)-1)>
+						</cfif>
+
+						<br>theID: #theID#
+					<cfelse>
+						<p>
+
+							========================================== bad juju ===================================
+						</p>
+					</cfif>
 
 					<!----
 
