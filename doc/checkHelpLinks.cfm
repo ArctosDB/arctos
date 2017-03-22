@@ -27,7 +27,7 @@
 
 				<!----<br>-------------------------- something to check here -------------------->
 				<cfset l = REMatch('(?i)<[^>]+class="helpLink"[^>]*>(.+?)>', fc)>
-				<br>l: <cfdump var=#l#
+				<br>l: <cfdump var=#l#>
 				<cfloop array="#l#" index='h'>
 <!----					<br>h: <textarea>#h#</textarea>---->
 
