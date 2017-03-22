@@ -31,7 +31,9 @@
 
 				<cfloop array="#l#" index='h'>
 					h: <textarea rows="4" cols="80">#h#</textarea>
+					<cfset go=false>
 					<cfif h contains 'id='>
+						<cfset go=true>
 						<br>got ID
 
 						<cfset idSPos=find("id=",h)+4>
@@ -46,6 +48,7 @@
 
 						<br>theID: #theID#
 					<cfelseif h contains 'data-helplink='>
+						<cfset go=true>
 					<br>got data tag
 
 						<cfset idSPos=find("data-helplink=",h)+15>
@@ -65,7 +68,11 @@
 							========================================== bad juju ===================================
 						</p>
 					</cfif>
-
+					<cfif go is true>
+						<cfquery name="d" datasource="uam_god">
+							insert into temp_doc_id_raw(frm,rawtag,id) values ('#f#','#h#','#theID#')
+						</cfquery>
+					</cfif>
 					<!----
 
 					<cfset tid= rereplace(h,'<span[^>]+?id="([^"]+)".*',"\1")>
