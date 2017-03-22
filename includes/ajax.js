@@ -1,7 +1,14 @@
 $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
 
 $(document).ready(function() {
+	
+
 	$(".helpLink").live('click', function(e){
+		
+		var thisHelp=$(this).data('helplink');
+		console.log('gor ' + thisHelp);
+		
+		
 		var guts = "/doc/get_short_doc.cfm?fld=" + this.id;
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,

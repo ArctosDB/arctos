@@ -184,7 +184,7 @@
 						<tr>
 							<td>
 								<label for="type_status">
-									<span class="likeLink" onClick="getDocs('publication','citation_type')">Citation Type</span>
+									<span class="helpLink" id="_citation_type">Citation Type</span>
 									<span class="likeLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">[ Define ]</span>
 								</label>
 								<select name="type_status" id="type_status" size="1" class="reqdClr">
@@ -195,7 +195,7 @@
 								</select>
 							</td>
 							<td>
-								<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
+								<label class="helpLink" id="_occurs_page_number" for="occurs_page_number">Page ##</label>
 								<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
 							</td>
 							<td>

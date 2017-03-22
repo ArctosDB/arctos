@@ -1192,7 +1192,7 @@
 		<cfsavecontent variable="return">
 			<span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
 				This Collecting Event (#collecting_event_id#)
-				<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
+				<span class="helpLink" id="_collecting_event">[ help ]</span> contains
 				<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
 					nothing. Please delete it if you don't have plans for it.
 				<cfelse>
