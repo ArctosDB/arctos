@@ -13,6 +13,11 @@
 
 		select id || ' :: ' || frm from temp_doc_id_raw where id not in (select cf_variable from ssrch_field_doc@db_production) order by id;
 
+
+		delete from temp_doc_merge;
+
+
+
 		create table temp_doc_merge (
 			cfvar varchar2(4000),
 			in_code  varchar2(4000),
@@ -33,6 +38,14 @@
 			rawtags varchar2(4000)
 		);
 
+		run checkProd to populate
+
+		first pass: just deal with the stuff that's in the code....
+
+		delete from temp_doc_merge where in_code is not null;
+
+		.....and not in the docs
+		delete from temp_doc_merge where in_docs is null;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <p>
@@ -60,14 +73,14 @@
 		<cfquery name="c" dbtype="query">
 			select * from d_raw where id='#cfvar#'
 		</cfquery>
-		<cfset in_docs="">
-		<cfset in_code="">
+		<cfset in_docs="no">
+		<cfset in_code="no">
 		<cfif p.recordcount gt 0>
-			<cfset in_docs=1>
+			<cfset in_docs="yes">
 		</cfif>
 
 		<cfif c.recordcount gt 0>
-			<cfset in_code=1>
+			<cfset in_code="yes">
 		</cfif>
 		<cfset used_in_frm="">
 		<cfset rawtags="">
@@ -128,11 +141,7 @@
 			)
 		</cfquery>
 	</cfloop>
-	<cfquery name="r" datasource="uam_god">
-		select * from temp_doc_merge order by cfvar
-	</cfquery>
 
-	<cfdump var=#r#>
 
 
 	<!-----
