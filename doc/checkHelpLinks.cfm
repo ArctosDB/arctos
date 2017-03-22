@@ -2,8 +2,9 @@
 	crawl through all code and get the helpLink IDs
 	make sure they all exist in ssrch_field_doc
 
+	drop table temp_doc_id_raw;
 
-	create table temp_doc_id_raw (id varchar2(4000));
+	create table temp_doc_id_raw (frm,id varchar2(4000));
 
 	delete from temp_doc_id_raw;
 ---->
@@ -37,7 +38,7 @@
 
 					---->
 					<cfquery name="d" datasource="uam_god">
-						insert into temp_doc_id_raw(id) values ('#theID#')
+						insert into temp_doc_id_raw(frm,id) values ('#f#','#theID#')
 					</cfquery>
 				</cfloop>
 			</cfif>
