@@ -43,7 +43,7 @@
         select * from cf_report_sql where report_id='#report_id#' order by report_name
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
-	<span class="likeLink" onclick="getDocs('label','')">READ THE DOCUMENTATION!</span>
+	<span class="helpLink" data-helplink="create_label">READ THE DOCUMENTATION!</span>
     <form method="get" action="reporter.cfm" enctype="text/plain">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="report_id" value="#e.report_id#">

@@ -280,7 +280,7 @@ one would expect such a condition in a collection which downloads GPS data and p
 	</li>
 	<li>
 		Understanding
-		<span class="likeLink" onclick="getDocs('specimen-event','')">Specimen Events</span> is important.
+		<span class="helpLink" data-helplink="specimen-event">Specimen Events</span> is important.
 		Any specimen may have any number of localities, any of which may be georeferenced.
 	</li>
 	<li>

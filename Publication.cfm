@@ -41,7 +41,7 @@
 		<table>
 			<tr>
 				<td>
-					<label for="full_citation" onclick="getDocs('publications','full_citation')" class="likeLink">Full Citation</label>
+					<label class="helpLink" data-helplink="full_citation">Full Citation</label>
 					<textarea name="full_citation" id="full_citation" class="reqdClr" rows="3" cols="80">#pub.full_citation#</textarea>
 				</td>
 				<td>
@@ -53,12 +53,12 @@
 				</td>
 			</tr>
 		</table>
-		<label for="short_citation" onclick="getDocs('publications','short_citation')" class="likeLink">Short Citation</label>
+		<label for="short_citation" class="helpLink" data-helplink="short_citation">Short Citation</label>
 		<input type="text" id="short_citation" name="short_citation" value="#pub.short_citation#" size="80">
 		<table>
 			<tr>
 				<td>
-					<label for="publication_type" onclick="getDocs('publications','type')" class="likeLink">Publication Type</label>
+					<label for="publication_type" class="helpLink" data-helplink="publication_type" class="likeLink">Publication Type</label>
 					<select name="publication_type" id="publication_type" class="reqdClr">
 						<option value=""></option>
 						<cfloop query="ctpublication_type">
@@ -68,26 +68,26 @@
 					</select>
 				</td>
 				<td>
-					<label for="is_peer_reviewed_fg" onclick="getDocs('publications','peer_review')" class="likeLink">Peer Reviewed?</label>
+					<label for="is_peer_reviewed_fg" class="helpLink" data-helplink="peer_review" class="likeLink">Peer Reviewed?</label>
 					<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
 						<option <cfif pub.is_peer_reviewed_fg is 1> selected="selected" </cfif>value="1">yes</option>
 						<option <cfif pub.is_peer_reviewed_fg is 0> selected="selected" </cfif>value="0">no</option>
 					</select>
 				</td>
 				<td>
-					<label for="published_year" onclick="getDocs('publications','published_year')" class="likeLink">Published Year</label>
+					<label for="published_year" class="helpLink" data-helplink="published_year">Published Year</label>
 					<input type="text" name="published_year" id="published_year" value="#pub.published_year#">
 				</td>
 			</tr>
 		</table>
-		<label for="doi" onclick="getDocs('publications','doi')" class="likeLink">Digital Object Identifier (DOI)</label>
+		<label for="doi" class="helpLink" data-helplink="publication_doi">Digital Object Identifier (DOI)</label>
 		<input type="text" id="doi" name="doi" value="#pub.doi#" size="80">
 		<cfif len(pub.doi) gt 0>
 			<a class="infoLink external" target="_blank" href="http://dx.doi.org/#pub.doi#">[ open DOI ]</a>
 		<cfelse>
 			<a id="addadoiplease" class="red likeLink" onclick="findDOI('#URLEncodedFormat(pub.full_citation)#')">Bah! No DOI! Click this!</a>
 		</cfif>
-		<label for="pmid" onclick="getDocs('publications','doi')" class="likeLink">PubMed ID (PMID)</label>
+		<label for="pmid" class="helpLink" data-helplink="publication_doi" class="likeLink">PubMed ID (PMID)</label>
 		<input type="text" id="pmid" name="pmid" value="#pub.pmid#" size="80">
 		<cfif len(pub.pmid) gt 0>
 			<a class="infoLink external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pub.pmid#">[ open PubMed ]</a>
@@ -98,7 +98,7 @@
 		<textarea name="publication_remarks" id="publication_remarks" class="largetextarea">#pub.publication_remarks#</textarea>
 
 		<p></p>
-		<span class="likeLink" onclick="getDocs('publications','author')">Current Authors</span>
+		<span class="helpLink" data-helplink="publication_author">Current Authors</span>
 		<table border id="authTab">
 			<tr>
 				<th>Role</th>
@@ -130,7 +130,7 @@
 			</cfloop>
 			<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
 		</table>
-		<span class="likeLink" onclick="getDocs('publications','author')">Add Authors</span>
+		<span class="helpLink" data-helplink="publication_author">Add Authors</span>
 		<table border id="authTab" class="newRec">
 			<tr>
 				<th>Role</th>
@@ -515,10 +515,10 @@
 				Shift-reload the page to start over.
 			</p>
 		</div>
-				<label for="doi" onclick="getDocs('publications','doi')" class="likeLink">Digital Object Identifier (DOI)</label>
+				<label for="doi" class="helpLink" data-helplink="publication_doi">Digital Object Identifier (DOI)</label>
 				<input type="text" id="doi" name="doi" value="" size="80">
 				<span class="likeLink" id="doilookup" onclick="getPubMeta('DOI');"> [ crossref ] </span>
-				<label for="pmid" onclick="getDocs('publications','doi')" class="likeLink">PubMed ID (PMID)</label>
+				<label for="pmid" class="helpLink" data-helplink="publication_doi" class="likeLink">PubMed ID (PMID)</label>
 				<input type="text" id="pmid" name="pmid" value="" size="80">
 				<span class="likeLink" id="pmidlookup" onclick="getPubMeta('PMID');"> [ pubmed ] </span>
 				<input type="hidden" name="action" value="createPub">
@@ -526,7 +526,7 @@
 			<table>
 				<tr>
 					<td>
-						<label for="full_citation" onclick="getDocs('publications','full_citation')" class="likeLink">Full Citation</label>
+						<label for="full_citation" class="helpLink" data-helplink="full_citation">Full Citation</label>
 						<textarea name="full_citation" id="full_citation" class="reqdClr" rows="3" cols="80"></textarea>
 					</td>
 					<td>
@@ -539,12 +539,12 @@
 					</td>
 				</tr>
 			</table>
-			<label for="short_citation" onclick="getDocs('publications','short_citation')" class="likeLink">Short Citation</label>
+			<label for="short_citation" class="helpLink" data-helplink="short_citation">Short Citation</label>
 			<input type="text" id="short_citation" name="short_citation" class="reqdClr" value="" size="80">
 			<table>
 				<tr>
 					<td>
-						<label for="publication_type" onclick="getDocs('publications','type')" class="likeLink">Publication Type</label>
+						<label for="publication_type" class="helpLink" data-helplink="publication_type">Publication Type</label>
 						<select name="publication_type" id="publication_type" class="reqdClr">
 							<option value=""></option>
 							<cfloop query="ctpublication_type">
@@ -553,14 +553,14 @@
 						</select>
 					</td>
 					<td>
-						<label for="is_peer_reviewed_fg" onclick="getDocs('publications','peer_review')" class="likeLink">Peer Reviewed?</label>
+						<label for="is_peer_reviewed_fg" class="helpLink" data-helplink="peer_review">Peer Reviewed?</label>
 						<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
 							<option value="1">yes</option>
 							<option value="0">no</option>
 						</select>
 					</td>
 					<td>
-						<label for="published_year" onclick="getDocs('publications','published_year')" class="likeLink">Published Year</label>
+						<label for="published_year" class="helpLink" data-helplink="published_year">Published Year</label>
 						<input type="text" name="published_year" id="published_year" value="">
 					</td>
 				</tr>
@@ -570,7 +570,7 @@
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="">
 			<p></p>
-			<span class="likeLink" onclick="getDocs('publications','author')">Add Authors</span>
+			<span class="helpLink" data-helplink="publication_author">Add Authors</span>
 			<table border id="authTab" class="newRec">
 				<tr>
 					<th>Role</th>

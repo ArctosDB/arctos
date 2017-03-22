@@ -58,9 +58,7 @@
 		);
 	}
 </script>
-<span class="pageHelp likeLink" onClick="getDocs('specimen-event');">
-	Page Help
-</span>
+<span class="helpLink" data-helplink="specimen-event">Page Help</span>
 <script>
 	function showLLFormat(orig_units) {
 		//alert(orig_units);
@@ -492,7 +490,7 @@ function useGL(glat,glon,gerr){
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 
-			<label for="assigned_date" class="infoLink" onClick="getDocs('specimen-event','event-date')">Determined Date</label>
+			<label for="assigned_date" class="helpLink" data-helplink="specimen-event_date">Determined Date</label>
 			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
 
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
@@ -500,7 +498,7 @@ function useGL(glat,glon,gerr){
 
 			<label for="habitat">Habitat</label>
 			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
-			<label for="collecting_source" class="infoLink" onClick="getDocs('specimen-event','collecting-source')">Collecting Source</label>
+			<label for="collecting_source" class="helpLink" data-helplink="collecting_source">Collecting Source</label>
 			<select name="collecting_source" id="collecting_source" size="1">
 				<option value=""></option>
 				<cfloop query="ctcollecting_source">
@@ -510,10 +508,10 @@ function useGL(glat,glon,gerr){
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
 
-			<label for="collecting_method" onClick="getDocs('specimen-event','collecting-method')" class="infoLink">Collecting Method</label>
+			<label for="collecting_method" class="helpLink" data-helplink="collecting_method">Collecting Method</label>
 			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
 
-			<label for="VerificationStatus" class="likeLink" onClick="getDocs('specimen-event','verification-status')">Verification Status</label>
+			<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<cfloop query="ctVerificationStatus">
 					<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
@@ -649,7 +647,7 @@ function useGL(glat,glon,gerr){
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
 
-			<label for="assigned_date" class="infoLink" onClick="getDocs('specimen-event','event-date')">Specimen/Event Assigned Date</label>
+			<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Specimen/Event Assigned Date</label>
 			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
 
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
@@ -658,7 +656,7 @@ function useGL(glat,glon,gerr){
 			<label for="habitat">Habitat</label>
 			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
 
-			<label for="collecting_source" class="infoLink" onClick="getDocs('specimen-event','collecting-source')">Collecting Source</label>
+			<label for="collecting_source" class="helpLink" data-helplink="collecting_source">Collecting Source</label>
 			<select name="collecting_source" id="collecting_source" size="1">
 				<option value=""></option>
 				<cfloop query="ctcollecting_source">
@@ -667,10 +665,10 @@ function useGL(glat,glon,gerr){
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
 
-			<label for="collecting_method" onClick="getDocs('specimen-event','collecting-method')" class="infoLink">Collecting Method</label>
+			<label for="collecting_method" class="helpLink" data-helplink="collecting_method">Collecting Method</label>
 			<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
 
-			<label for="VerificationStatus" class="likeLink" onClick="getDocs('specimen-event','verification-status')">Verification Status</label>
+			<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<cfloop query="ctVerificationStatus">
 					<option <cfif VerificationStatus is "unverified"> selected="selected"</cfif>value="#VerificationStatus#">#VerificationStatus#</option>
@@ -686,13 +684,8 @@ function useGL(glat,glon,gerr){
 			<br><input type="submit" value="Create this Specimen/Event" class="savBtn">
 		</cfform>
 	</div>
-
-
-
 	</cfoutput>
 </cfif>
-
-
 
 <cfif action is "delete">
 	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
