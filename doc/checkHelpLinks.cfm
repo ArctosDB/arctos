@@ -23,7 +23,7 @@
 				<cfset l = REMatch('(?i)<span[^>]+class="helpLink"[^>]*>(.+?)</span>', fc)>
 				<br>l: <cfdump var=#l#>
 				<cfloop array="#l#" index='h'>
-					<br>h: <code>#h#</code>
+					<br>h: <textarea>#h#</textarea>
 
 					<cfset idSPos=find("id=",h)>
 					<br>idSPos: #idSPos#
