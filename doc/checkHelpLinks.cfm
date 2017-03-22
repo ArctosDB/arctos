@@ -23,7 +23,10 @@
 				<cfset l = REMatch('(?i)<span[^>]+class="helpLink"[^>]*>(.+?)</span>', fc)>
 				<br>l: <cfdump var=#l#>
 				<cfloop array="#l#" index='h'>
-					<br>h: #h#
+					<br>h: <code>#h#</code>
+
+					<cfset idSPos=find("id=",h)>
+					<br>idSPos: #idSPos#
 					<!----
 
 					<cfset tid= rereplace(h,'<span[^>]+?id="([^"]+)".*',"\1")>
