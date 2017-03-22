@@ -29,22 +29,28 @@
 				<cfset l = REMatch('(?i)<[^>]+class="helpLink"[^>]*>(.+?)>', fc)>
 				<br>l: <cfdump var=#l#>
 				<cfloop array="#l#" index='h'>
-<!----					<br>h: <textarea>#h#</textarea>---->
+h: <textarea>#h#</textarea>
 
 					<cfset idSPos=find("id=",h)+4>
+					<br>idSPos: #idSPos#
 					<cfset nqPos=find('"',h,idsPos)>
+					<br>nqPos: #nqPos#
 					<cfset theID=mid(h,idSPos,nqPos-idSPos)>
+					<br>theID: #theID#
 					<cfif left(theID,1) is "_">
 						<cfset theID=right(theID,len(theID)-1)>
 					</cfif>
+					<br>theID: #theID#
 					<!----
 
 					<cfset tid= rereplace(h,'<span[^>]+?id="([^"]+)".*',"\1")>
 				<cfquery name="d" datasource="uam_god">
 						insert into temp_doc_id_raw(frm,rawtag,id) values ('#f#','#h#','#theID#')
 					</cfquery>
+
+
 					---->
-					<br>						insert into temp_doc_id_raw(frm,rawtag,id) values ('#f#','#h#','#theID#')
+					<br>
 
 				</cfloop>
 			</cfif>
