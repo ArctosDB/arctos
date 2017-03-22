@@ -155,7 +155,7 @@
 		<td valign="top">
 			<div style="margin-left:2em;">
 				<!--- and help/about/etc. gets 1/2 ---->
-				<span class="likeLink" onclick="getDocs('taxonomy','')">Taxonomy Documentation</span>
+				<span class="helpLink" data-helplink="taxonomy">Taxonomy Documentation</span>
 				<ul>
 					<li id="help_taxon_name">
 						<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core
@@ -604,7 +604,7 @@ function cloneRemoteCN(tid,cid){
 				<cfset srcHTML='<a href="http://www.catalogueoflife.org/" target="_blank" class="external">#source#</a>'>
 			<cfelseif source is "Arctos">
 				<!----<cfset srcHTML='<a href="http://arctosdb.org/documentation/identification/taxonomy/##arctos_source" target="_blank" class="external">#source#</a>'>---->
-				<cfset srcHTML='<span class="likeLink" onclick="getDocs(''taxonomy'',''source-arctos'')">#source#</span>'>
+				<cfset srcHTML='<span class="helpLink" data-helplink="taxonomy_source">#source#</span>'>
 
 			<cfelseif source is "GBIF Taxonomic Backbone">
 				<cfset srcHTML='<a href="http://www.gbif.org/informatics/name-services/using-names-data/taxonomic-backbone/" target="_blank" class="external">#source#</a>'>

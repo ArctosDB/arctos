@@ -171,13 +171,13 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 				Part's immediate parent container - the cryovial holding a tissue sample, for example.
 				Used preferentially instead of cataloged item + part information.
 			</td>
-			<td><span class="likeLink" onclick="getDocs('container','')">docs</span></td>
+			<td><span class="helpLink" data-helplink="container">docs</span></td>
 		</tr>
 		<tr>
 			<td>guid_prefix</td>
 			<td>yes (or barcode)</td>
 			<td>find under Manage Collections - things like "UAM:Mamm"</td>
-			<td><span class="likeLink" onclick="getDocs('catalog','guid')">docs</span></td>
+			<td><span class="likeLink" class="helpLink" data-helplink="guid">docs</span></td>
 		</tr>
 		<tr>
 			<td>other_id_type</td>

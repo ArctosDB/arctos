@@ -5,7 +5,7 @@
 <cfset title="bulkload identifiers">
 <p>
 	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage Existing Data</a>~
-	<span class="likeLink" onclick="getDocs('other-id','')">Docs</span>~
+	<span class="helpLink" data-helplink="other_id">Docs</span>~
 	<a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CodeTable</a>
 </p>
 <!---- make the table

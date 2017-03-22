@@ -98,7 +98,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<li><a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a>
 			<br>You may also download a "seeded" template from SpecimenResults, in the Manage widget
 		</li>
-		<li><span class="likeLink" onclick="getDocs('specimen-citations','')">Citations documentation</span></li>
+		<li><span class="helpLink" data-helplink="specimen_citations">Citations documentation</span></li>
 	</ul>
 	Citations are a combination of a Publication and an Identification.
 
@@ -146,13 +146,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>guid</td>
 			<td>conditionally - use guid OR guid_prefix+other_id_type+other_id_number</td>
 			<td>"UAM:Mamm:12"</td>
-			<td><span class="likeLink" onclick="getDocs('catalog','guid')">docs</span></td>
+			<td><span class="helpLink" data-helplink="guid">docs</span></td>
 		</tr>
 		<tr>
 			<td>guid_prefix</td>
 			<td>conditionally - use guid OR guid_prefix+other_id_type+other_id_number</td>
 			<td>find under Manage Collections or under the <a href="/home.cfm">Portals</a> tab - it's things like "UAM:Mamm"</td>
-			<td><span class="likeLink" onclick="getDocs('catalog','guid')">docs</span></td>
+			<td><span class="helpLink" data-helplink="guid">docs</span></td>
 		</tr>
 		<tr>
 			<td>other_id_type</td>
@@ -208,7 +208,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>scientific_name</td>
 			<td>if USE_EXISTING_ACCEPTED_ID is 0</td>
 			<td>Identification.scientific_name to apply to the specimen</td>
-			<td><span class="likeLink" onclick="getDocs('identification','scientific_name')">identification.scientific_name</span></td>
+			<td><span class="helpLink" data-helplink="identification.scientific_name">identification.scientific_name</span></td>
 		</tr>
 		<tr>
 			<td>accepted_id_fg</td>
@@ -236,7 +236,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				<br>0==>require and use the information provided in the identifier_x fields for identifier. Required if
 				identifier_1 is not given.
 			</td>
-			<td>0 or 1 - <span class="likeLink" onclick="getDocs('publications','author')">authors</span></td>
+			<td>0 or 1 - <span class="helpLink" data-helplink="publication_author">authors</span></td>
 		</tr>
 		<tr>
 			<td>identifier_1</td>
