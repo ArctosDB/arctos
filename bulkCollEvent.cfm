@@ -265,7 +265,7 @@
 					<cfquery name="c_assigned_date" dbtype="query">
 						select assigned_date from specimenList group by assigned_date
 					</cfquery>
-					<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+					<label for="assigned_date" class="helpLink" id="_event_assigned_date">Specimen/Event Assigned Date</label>
 					<cfif c_assigned_date.recordcount is 1>
 						<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(c_assigned_date.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
 					<cfelse>
@@ -302,7 +302,7 @@
 					<cfquery name="c_collecting_source" dbtype="query">
 						select collecting_source from specimenList group by collecting_source
 					</cfquery>
-					<label for="" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+					<label for="collecting_source" class="helpLink" id="_collecting_source">Collecting Source</label>
 					<cfif c_collecting_source.recordcount is 1>
 						<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 							<option value=""></option>
@@ -320,7 +320,7 @@
 					<cfquery name="c_collecting_method" dbtype="query">
 						select collecting_method from specimenList group by collecting_method
 					</cfquery>
-					<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+					<label for="collecting_method" class="helpLink" id="_collecting_method">Collecting Method</label>
 					<cfif c_collecting_method.recordcount is 1>
 						<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(c_collecting_method.COLLECTING_METHOD)#" size="75">
 					<cfelse>
@@ -332,7 +332,7 @@
 					<cfquery name="c_VerificationStatus" dbtype="query">
 						select VerificationStatus from specimenList group by VerificationStatus
 					</cfquery>
-					<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+					<label for="VerificationStatus" class="helpLink" id="_verification_status">Verification Status</label>
 					<cfif c_VerificationStatus.recordcount is 1>
 						<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 							<cfloop query="ctVerificationStatus">
@@ -609,7 +609,7 @@
 								 onKeyPress="return noenter(event);">
 							<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
 
-							<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+							<label for="assigned_date" class="helpLink" id="_event_assigned_date">Specimen/Event Assigned Date</label>
 							<input type="text" name="assigned_date" id="assigned_date" class="reqdClr" value="#dateformat(now(),'yyyy-mm-dd')#">
 
 
@@ -619,7 +619,7 @@
 							<label for="habitat">Habitat</label>
 							<input type="text" name="habitat" id="habitat" size="75">
 
-							<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+							<label for="collecting_source" class="helpLink" id="_collecting_source">Collecting Source</label>
 							<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 								<option value=""></option>
 								<cfloop query="ctcollecting_source">
@@ -628,10 +628,10 @@
 							</select>
 							<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
 
-							<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+							<label for="collecting_method" id="_collecting_method" class="helpLink">Collecting Method</label>
 							<input type="text" name="collecting_method" id="collecting_method" size="75">
 
-							<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+							<label for="VerificationStatus" class="helpLink" id="_verification_status">Verification Status</label>
 							<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 								<cfloop query="ctVerificationStatus">
 									<option value="#VerificationStatus#">#VerificationStatus#</option>
