@@ -9,7 +9,7 @@
 
 				<cfset x='<span class="helpLink" bla></span>'>
 				<br>-------------------------- something to check here ----------------
-				<cfset l = REMatch('(?i)<span[^>]+class="helpLink"[^>]*>(.+?)</span>', x)>
+				<cfset l = REMatch('(?i)<span[^>]+class="helpLink"[^>]*>(.+?)</span>', fc)>
 				<br>l: <cfdump var=#l#>
 			</cfif>
 		</cfif>
