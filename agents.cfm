@@ -84,7 +84,7 @@
 				<div id="td_search">
 					<form name="agntSearch" id="agntSearch">
 						<fieldset class="compact">
-							<label for="anyName"><span class="helpLink" id="agent_any_name_search">Any part of any name</span></label>
+							<label for="anyName"><span class="helpLink" data-helpLink="agent_any_name_search">Any part of any name</span></label>
 									<span onclick="alert('alerty');console.log('not broken');">broken?</span>
 
 
