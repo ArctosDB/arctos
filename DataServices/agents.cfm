@@ -159,7 +159,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 					</cfif>
 					Non-fatal errors have been detected. A member of the Arctos Advisory Committee can force-load these data. Please keep the following in mind.
 					Further documentation is available
-					<span class="likeLink" onclick="getDocs('agent','create')">here</span>.
+					<span class="helpLink" data-helplink="create_agent">here</span>.
 					<p>
 						This application errs strongly on the side of preventing the introduction of potentially-problematic agents.
 					</p>
@@ -334,14 +334,14 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				<td>preferred_name</td>
 				<td>yes</td>
 				<td>
-					<span class="likeLink" onclick="getDocs('agent','names')">names</span>
+					<span class="helpLink" data-helplink="agent_names">names</span>
 				</td>
 			</tr>
 			<tr>
 				<td>other_name_n</td>
 				<td>no</td>
 				<td>
-					<span class="likeLink" onclick="getDocs('agent','names')">names</span>
+					<span class="helpLink" data-helplink="agent_names">names</span>
 				</td>
 			</tr>
 			<tr>
@@ -359,14 +359,14 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				<td>agent_status_date_n</td>
 				<td>if agent_status_n is given</td>
 				<td>
-					<span class="likeLink" onclick="getDocs('dates','')">dates</span>
+					<span class="helpLink" data-helplink="dates">dates</span>
 				</td>
 			</tr>
 			<tr>
 				<td>agent_remark</td>
 				<td>no</td>
 				<td>
-					<span class="likeLink" onclick="getDocs('agent','agent_remark')">agent_remark</span>
+					<span class="helpLink" data-helplink="agent_remarks">agent_remark</span>
 				</td>
 			</tr>
 		</table>

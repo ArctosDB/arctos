@@ -39,7 +39,7 @@ sho err
 
 <cfif action is "nothing">
 	Load scientific name; get back Arctos matches.
-	<br>See <span class="likeLink" onclick="getDocs('bulkloader','taxa')">bulkloader taxonomy documentation</span>
+	<br>See <span class="helpLink" data-helplink="bulkloader_taxa">bulkloader taxonomy documentation</span>
 			 for the full scoop on taxonomy.
 
 	<br>This form considers only

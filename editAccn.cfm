@@ -224,7 +224,7 @@
 								id="rec_date">
 						</td>
 						<td>
-							<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
+							<label for="estimated_count" class="helpLink" data-helplink="estimated_count">
 								Est. Cnt.
 							</label>
 							<input type="text" validate="integer"

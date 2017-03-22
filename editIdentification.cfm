@@ -95,7 +95,7 @@
  	<td colspan="2">
 		<h3>
 			Add Determination
-			<span class="infoLink" onClick="getDocs('identification')">Documentation</span>
+			<span class="helpLink" data-helplink="identification">Documentation</span>
 		</h3>
 	</td>
  </tr>
@@ -239,7 +239,7 @@
 </form>
 
 <strong><font size="+1">Edit an Existing Determination</font></strong>
-<span class="likeLink" onClick="getDocs('identification')">Documentation</span>
+<span class="helpLink" data-helplink="identification">Documentation</span>
 <cfset i = 1>
 <cfquery name="distIds" dbtype="query">
 	SELECT
@@ -329,7 +329,7 @@
 					<br>
 					<label for="x">
 						Associated Taxa (pick names to link)
-						<span class="likeLink" onclick="getDocs('identification','astring')">[ help ]</span>
+						<span class="helpLink" data-helplink="identification_astring">[ help ]</span>
 						<span class="likeLink" onclick="addAssTax(#i#)">[ add a row ]</span>
 					</label>
 					<cfset n=1>

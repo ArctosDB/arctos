@@ -269,7 +269,7 @@
 		AgentID #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
 	</div>
 	<div style="border:2px dashed red;padding:.2em;margin:.2em;font-weight:bold;">
-		<span class="likeLink" onClick="getDocs('agent')">Read the documentation</span>
+		<span class="helpLink" data-helplink="agent">Read the documentation</span>
 		and <a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_blank">view the Agent Activity report</a>
 		before changing anything.
 	</div>
@@ -541,8 +541,8 @@
 			<legend>
 				Address
 				<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span>
-				<span class="likeLink" onclick="getDocs('address');">help</span>
-				<span class="likeLink shippingAddress" onclick="getDocs('address','used');">used shipment address</span>
+				<span class="helpLink" data-helplink="agent_address">help</span>
+				<span class="helpLink" data-helplink="agent_address_used">used shipment address</span>
 				<a href="/info/agentActivity.cfm?agent_id=#agent.agent_id###shipping" target="_blank">shipment details</a>
 			</legend>
 			<cfloop query="address">

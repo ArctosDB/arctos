@@ -81,14 +81,14 @@
 				<td>LABEL</td>
 				<td>yes</td>
 				<td>
-					<span class="likeLink" onclick="getDocs('container','label')">doc</span>
+					<span class="helpLink" data-helplink="container_label">doc</span>
 				</td>
 			</tr>
 			<tr>
 				<td>BARCODE</td>
 				<td>yes</td>
 				<td>
-					<span class="likeLink" onclick="getDocs('container','barcode')">doc</span>
+					<span class="helpLink" data-helplink="barcode">doc</span>
 				</td>
 			</tr>
 			<tr>
@@ -100,14 +100,14 @@
 				<td>DESCRIPTION</td>
 				<td>no</td>
 				<td>
-					<span class="likeLink" onclick="getDocs('container','description')">doc</span>
+					<span class="helpLink" data-helplink="container_description">doc</span>
 				</td>
 			</tr>
 			<tr>
 				<td>CONTAINER_REMARKS</td>
 				<td>no</td>
 				<td>
-					<span class="likeLink" onclick="getDocs('container','remarks')">doc</span>
+					<span class="helpLink" data-helplink="container_remarks">doc</span>
 				</td>
 			</tr>
 		</table>
