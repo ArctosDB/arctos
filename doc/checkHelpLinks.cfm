@@ -22,7 +22,7 @@
 				<br>-------------------------- something to check here ----------------
 				<cfset l = REMatch('(?i)<span[^>]+class="helpLink"[^>]*>(.+?)</span>', fc)>
 				<br>l: <cfdump var=#l#>
-				<cfloop array="l" index='h'>
+				<cfloop array="#l#" index='h'>
 					<br>h: #h#
 					<!----
 
