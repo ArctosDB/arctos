@@ -27,6 +27,10 @@
 
 					<cfset idSPos=find("id=",h)>
 					<br>idSPos: #idSPos#
+					<cfset nqPos=find('"',h,idsPos)>
+					<br>nqPos: #nqPos#
+					<cfset theID=mid(h,idSPos,nqPos)>
+					<br>theID: #theID#
 					<!----
 
 					<cfset tid= rereplace(h,'<span[^>]+?id="([^"]+)".*',"\1")>
