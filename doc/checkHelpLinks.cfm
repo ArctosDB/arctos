@@ -178,6 +178,7 @@ UAM@ARCTEST>
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
+			<hr>
 			<p>#DOCUMENTATION_LINK#</p>
 			<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
 			<cfif left(cfhttp.statuscode,3) is not "200">
