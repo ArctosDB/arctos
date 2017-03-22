@@ -36,7 +36,8 @@
 			select frm,rawtag from d_raw where id='#id#'
 		</cfquery>
 		<cfloop query="dd">
-			<br>----#frm# ---- #rawtag#
+			<br>----#frm# ----
+			<textarea>#rawtag#</textarea>
 		</cfloop>
 	</cfloop>
 </cfoutput>
