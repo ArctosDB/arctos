@@ -31,6 +31,10 @@
 					<br>nqPos: #nqPos#
 					<cfset theID=mid(h,idSPos,nqPos-idSPos)>
 					<br>theID: #theID#
+					<cfif left(theID,1) is "_">
+						<cfset theID=right(theID,len(theID)-1)>
+					</cfif>
+					<br>theID: #theID#
 					<!----
 
 					<cfset tid= rereplace(h,'<span[^>]+?id="([^"]+)".*',"\1")>
