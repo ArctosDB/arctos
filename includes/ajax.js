@@ -6,7 +6,6 @@ $(document).ready(function() {
 	        console.log('clicked');
 	    } );
 	 
-	 /*
 	 
 	$(".helpLink").live('click', function(e){
 		
@@ -18,7 +17,7 @@ $(document).ready(function() {
 		console.log(this);
 		
 		
-		
+		/*
 		var thisHelp=this.data('helplink');
 		
 		
@@ -62,13 +61,13 @@ $(document).ready(function() {
 		document.body.appendChild(theDiv);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		$(theDiv).load("/doc/get_short_doc.cfm",{fld: id, addCtl: 1});
-		
+		*/
 		
 		
 		
 	});
 	
-	*/
+	
 	
 	$("#c_identifiers_cust").click(function(e){
 		var bgDiv = document.createElement('div');
