@@ -48,7 +48,12 @@
 				<cfset probs=listappend(probs,'definition for #fld# seems shady',';')>
 			</cfif>
 			<cfif len(d.search_hint) gt 0>
-				<cfset r=r & '<div>Search Hint: #d.search_hint#</div>'>
+				<cfset r=r & '<div>Search Hint: '>
+				<cfif left(d.search_hint,4) is 'http'>
+					<cfset r=r & '<a href="#d.d.search_hint#" target="_blank">[ Search Hint ]</a></div>'>
+				<cfelse>
+					<cfset r=r & '#d.search_hint#</div>'>
+				</cfif>
 			<cfelse>
 				<cfif d.SPECIMEN_QUERY_TERM is 1>
 					<cfset probs=listappend(probs,'#fld# is marked as a SPECIMEN_QUERY_TERM and does not have a search_hint',';')>
