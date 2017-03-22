@@ -718,6 +718,8 @@ function checkCoordinateError(){
 		</cfif>
 
 
+		<span onclick="console.log('not broken')">broken?</span>
+
 		<label for="spec_locality">
 			<span class="helpLink" data-helplink="spec_locality">Specific Locality</span>
 		</label>
