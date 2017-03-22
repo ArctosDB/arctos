@@ -48,7 +48,7 @@
 				<cfset probs=listappend(probs,'definition for #fld# seems shady',';')>
 			</cfif>
 			<cfif len(d.search_hint) gt 0>
-				<cfset r=r & '<div>Search Hint: '>
+				<cfset r=r & '<div style="margin:.5em">Search Hint: '>
 				<cfif left(d.search_hint,4) is 'http'>
 					<cfset r=r & '<a href="#d.search_hint#" target="_blank">[ Search Hint ]</a></div>'>
 				<cfelse>
