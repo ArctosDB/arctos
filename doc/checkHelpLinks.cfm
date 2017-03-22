@@ -129,7 +129,7 @@
 		</cfquery>
 	</cfloop>
 	<cfquery name="r" datasource="uam_god">
-		select * from temp_doc_merge order by cf_var
+		select * from temp_doc_merge order by cfvar
 	</cfquery>
 
 	<cfdump var=#r#>
