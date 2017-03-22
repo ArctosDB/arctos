@@ -189,6 +189,7 @@ UAM@ARCTEST>
 				<cfset anchor=listlast(d.DOCUMENTATION_LINK,'##')>
 				<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
 					<br>DOCUMENTATION_LINK anchor no bueno
+					<cfdump var=#cfhttp#>
 				</cfif>
 			</cfif>
 		</cfloop>
