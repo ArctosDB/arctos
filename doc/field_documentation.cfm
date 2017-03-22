@@ -293,7 +293,9 @@
 		</tr>
 		<tr>
 			<td>DOCUMENTATION_LINK</td>
-			<td>Link to further documentation, probably on http://arctosdb.org/.</td>
+			<td>
+				Link to further documentation, probably on
+				<a href="http://handbook.arctosdb.org" target="_blank">http://handbook.arctosdb.org</a>.</td>
 		</tr>
 	</table>
 	* must be given as a set: provide all or none
@@ -315,6 +317,9 @@
 			<li>Set both SR and SST to NO</li>
 			<li>Leave everything else blank</li>
 		</ul>
+	</p>
+	<p>
+		Admin tools <a href="/doc/checkHelpLinks.cfm">here</a>
 	</p>
 	<hr>Filter records:
 	<div class="filtering">
