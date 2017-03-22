@@ -7,6 +7,8 @@ $(document).ready(function() {
 		alert(this);
 		console.log(this);
 		
+		
+		/*
 		var thisHelp=this.data('helplink');
 		
 		
@@ -31,7 +33,7 @@ $(document).ready(function() {
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
 		
-		
+		*/
 		/*
 		
 		
