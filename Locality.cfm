@@ -181,7 +181,7 @@
 		</td>
 		<td>
 			<!---<a href="javascript:void(0);" onClick="getDocs('higher_geography')"><img src="/images/what.gif" border="0"></a>--->
-			<span class="infoLink" onclick="getDocs('higher_geography');">Define</span>
+			<span class="helpLink" data-helplink="higher_geography">Define</span>
 		</td>
 	</tr>
 	<tr>
@@ -199,7 +199,7 @@
 			</form>
 		</td>
 		<td>
-			<span class="infoLink" onclick="getDocs('locality');">Define</span>
+			<span class="helpLink" data-helplink="locality">Define</span>
 		</td>
 	</tr>
 	<tr>
@@ -212,7 +212,7 @@
 		</td>
 		<td>(Find and clone to create new)</td>
 		<td>
-			<span class="infoLink" onclick="getDocs('collecting_event');">Define</span>
+			<span class="helpLink" data-helplink="collecting_event">Define</span>
 		</td>
 	</tr>
 </table>
@@ -521,7 +521,7 @@
 		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id#
 		</cfquery>
 		<h3>Edit Higher Geography</h3>
-		<span class="infoLink" onClick="getDocs('higher_geography')">help</span>
+		<span class="helpLink" data-helplink="higher_geography">help</span>
 		<cfquery name="localities" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from locality where geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
@@ -592,12 +592,12 @@
             <table border="1">
 				<tr>
 	                <td>
-						<label for="continent_ocean" class="likeLink" onClick="getDocs('higher_geography','continent_ocean')">
+						<label for="continent_ocean" class="helpLink" data-helplink="continent_ocean">
 							Continent or Ocean
 						</label>
 						<input type="text" name="continent_ocean" id="continent_ocean" value="#continent_ocean#" size="60"></td>
 	                <td>
-						<label for="country" class="likeLink" onClick="getDocs('higher_geography','country')">
+						<label for="country" class="helpLink" data-helplink="country">
 							Country
 						</label>
 						<input type="text" name="country" id="country" size="60" value="#country#">
@@ -658,7 +658,7 @@
 				<tr>
 					<td>
 						<label for="state_prov">
-							<span class="likeLink" onClick="getDocs('higher_geography','state_province')">State/Province</span>
+							<span class="helpLink" data-helplink="state_province">State/Province</span>
 
 							<cfif len(state_prov) gt 0>
 								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#state_prov#">search Wikipedia</a>
@@ -668,7 +668,7 @@
 					</td>
 					<td>
 						<label for="sea">
-							<span class="likeLink" onClick="getDocs('higher_geography','sea')">Sea</span>
+							<span class="helpLink" data-helplink="sea">Sea</span>
 							<cfif len(sea) gt 0>
 								<a target="_blank" class="external infoLink" href="https://en.wikipedia.org/w/index.php?search=#sea#">search Wikipedia</a>
 							</cfif>
@@ -679,7 +679,7 @@
 				<tr>
 					<td>
 						<label for="county">
-							<span class="likeLink" onClick="getDocs('higher_geography','county')">County</span>
+							<span class="helpLink" data-helplink="county">County</span>
 							<cfif len(county) gt 0>
 								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#county#">search Wikipedia</a>
 							</cfif>
@@ -687,7 +687,7 @@
 						<input type="text" name="county" id="county" value="#county#" size="60">
 					</td>
                 	<td>
-						<label for="quad" class="likeLink" onClick="getDocs('higher_geography','map_name')">
+						<label for="quad" class="helpLink" data-helplink="map_name">
 							Quad
 						</label>
 						<input type="text" name="quad" id="quad" value="#quad#" size="60">
@@ -701,7 +701,7 @@
 							<cfset thisFeature = "">
 						</cfif>
 						<label for="feature">
-							<span class="likeLink" onClick="getDocs('higher_geography','feature')">Feature</span>
+							<span class="helpLink" data-helplink="feature">Feature</span>
 							<cfif len(feature) gt 0>
 								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#feature#">search Wikipedia</a>
 							</cfif>
@@ -721,7 +721,7 @@
 				<tr>
 					<td>
 						<label for="island_group">
-							<span class="likeLink" onClick="getDocs('higher_geography','island_group')">Island Group</span>
+							<span class="helpLink" data-helplink="island_group">Island Group</span>
 							<cfif len(island_group) gt 0>
 								<a target="_blank" class="external" href="https://en.wikipedia.org/w/index.php?search=#island_group#">search Wikipedia</a>
 							</cfif>
@@ -736,7 +736,7 @@
 					</td>
 					<td >
 						<label for="island">
-							<span class="likeLink" onClick="getDocs('higher_geography','island')">Island</span>
+							<span class="helpLink" data-helplink="island">Island</span>
 							<span class="likeLink" onClick="asterisckificateisland();">
 								[ prefix with * ]
 							</span>
@@ -766,7 +766,7 @@
 								<div style="border:2px solid red; margin:1em;padding:1em;font-weight:bold;">
 									Possible problems detected with this Source. Please double-check your data and the linked article
 									and review the
-									<span class="likeLink" onclick="getDocs('higher-guidelines','anchor')">Geography Creation Guidelines</span>.
+									<span class="helpLink" data-helplink="geography_create">Geography Creation Guidelines</span>.
 									<ul>#errs#</ul>
 								</div>
 							</cfif>
@@ -997,7 +997,7 @@
 		<form name="x" method="post" action="Locality.cfm">
 		    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
 	    	<input type="hidden" name="action" value="updateAllVerificationStatus">
-	    	<span class="likeLink" onClick="getDocs('lat_long','verification_status')">[ verificationstatus documentation ]</span>
+	    	<span class="helpLink" data-helplink="verification_status">[ verificationstatus documentation ]</span>
 			<label for="VerificationStatus">
 				Mass-update specimen-events in this collecting event to.....
 			</label>
@@ -1028,7 +1028,7 @@
 			    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
 				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 				<input type="hidden" name="locality_id" id="locality_id" value="#locDet.locality_id#">
-				<label for="verbatim_locality" class="likeLink" onclick="getDocs('collecting_event','verbatim_locality')">
+				<label for="verbatim_locality" class="helpLink" data-helplink="verbatim_locality">
 					Verbatim Locality
 				</label>
 				<input type="text" name="verbatim_locality" id="verbatim_locality" value='#stripQuotes(locDet.verbatim_locality)#' size="50">
@@ -1039,20 +1039,20 @@
 					</label>
 					<input type="text" name="picked_spec_locality" id="picked_spec_locality" size="75" >
 				</div>
-				<label for="verbatim_date" class="likeLink" onclick="getDocs('collecting_event','verbatim_date')">
+				<label for="verbatim_date" class="helpLink" data-helplink="verbatim_date">
 					Verbatim Date
 				</label>
 				<input type="text" name="VERBATIM_DATE" id="verbatim_date" value="#locDet.VERBATIM_DATE#" class="reqdClr">
 				<table>
 					<tr>
 						<td>
-							<label for="began_date" class="likeLink" onclick="getDocs('collecting_event','began_date')">
+							<label for="began_date" class="helpLink" data-helplink="began_date">
 								Began Date/Time
 							</label>
 							<input type="text" name="began_date" id="began_date" value="#locDet.began_date#" size="20">
 						</td>
 						<td>
-							<label for="ended_date" class="likeLink" onclick="getDocs('collecting_event','ended_date')">
+							<label for="ended_date" class="helpLink" data-helplink="ended_date">
 								Ended Date/Time
 							</label>
 							<input type="text" name="ended_date" id="ended_date" value="#locDet.ended_date#" size="20">
@@ -1736,7 +1736,7 @@ You deleted a collecting event.
 				<p>
 					The source_authority you specified has been used in other geography entries. That's probably an indication of
 					linking to the wrong thing. Please carefully review
-					<span class="likeLink" onclick="getDocs('higher-guidelines','anchor')">Geography Creation Guidelines</span>
+					<span class="helpLink" data-helplink="geography_create">Geography Creation Guidelines</span>
 					and consider editing your entry and/or the links below before proceeding.
 				</p>
 				Geography using #source_authority#:
@@ -1818,7 +1818,7 @@ You deleted a collecting event.
 			<p>
 				The source_authority you specified has been used in other geography entries. That's probably an indication of
 				linking to the wrong thing. Please carefully review
-				<span class="likeLink" onclick="getDocs('higher-guidelines','anchor')">Geography Creation Guidelines</span>
+				<spanclass="helpLink" data-helplink="geography_create">Geography Creation Guidelines</span>
 				and consider editing your entry and/or the links below before proceeding.
 			</p>
 			Geography using #source_authority#:
