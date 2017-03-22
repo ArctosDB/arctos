@@ -9,15 +9,13 @@ $(document).ready(function() {
 	 
 	$(".helpLink").live('click', function(e){
 		// new and snazzy: use the data-helplink attribute to find help
+		// avoid all problems with unique ID
+		// yay HTML5
 		var f=$(this).data('helplink');		
 		if (f == null){
 			// fall back to old-n-busted (but still out there, because priorities)
 			var f=this.id;
 		}
-		
-
-		
-		
 		var guts = "/doc/get_short_doc.cfm?fld=" + f;
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,

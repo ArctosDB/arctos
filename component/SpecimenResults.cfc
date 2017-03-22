@@ -897,7 +897,7 @@
 			<cfelse>
 				<cfset thisStyle='display:none;'>
 			</cfif>
-			<span class="likeLink" onclick="getDocs('../how_to/How-to-Search-for-Specimens','customizing-results-of-a-search')">[ About this Widget ]</span>
+			<span class="helpLink" data-helplink="customizing-results-of-a-search">[ About this Widget ]</span>
 
 			<!---
 			<a id="aboutSTWH" class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
