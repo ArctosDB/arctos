@@ -85,6 +85,9 @@
 					<form name="agntSearch" id="agntSearch">
 						<fieldset class="compact">
 							<label for="anyName"><span class="helpLink" id="agent_any_name_search">Any part of any name</span></label>
+									<span onclick="alert('alerty');console.log('not broken');">broken?</span>
+
+
 							<input type="text" name="anyName" id="anyName" class="minput" placeholder="this is the search box you're looking for">
 							<div style="display:table;width:100%;">
 								<div style="display:table-cell">

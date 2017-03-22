@@ -718,10 +718,9 @@ function checkCoordinateError(){
 		</cfif>
 
 
-		<span onclick="console.log('not broken')">broken?</span>
 
 		<label for="spec_locality">
-			<span class="helpLink" data-helplink="spec_locality">Specific Locality</span>
+			<span class="helpLink" id="_spec_locality">Specific Locality</span>
 		</label>
 		<input type="text"id="spec_locality" name="spec_locality" value="#stripQuotes(locDet.spec_locality)#" size="120">
 
