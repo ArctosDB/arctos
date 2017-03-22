@@ -8,16 +8,20 @@ $(document).ready(function() {
 	 
 	 
 	$(".helpLink").live('click', function(e){
+		// new and snazzy: use the data-helplink attribute to find help
 		
+		var f=$(this).data('helplink');
+		console.log(f);
 		
-		console.log('hi');
+		if (f.lenght == 0){
+			console.log('going for ID');
+			// fall back to old-n-busted (but still out there, because priorities)
+			var f=this.id;
+
+		}
 		
-		
-		alert(this);
-		console.log(this);
-		
-		var thisHelp=$(this).data('helplink');
-		console.log(thisHelp);
+
+		console.log(f);
 		/*
 		
 		
