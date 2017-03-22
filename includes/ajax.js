@@ -13,7 +13,7 @@ $(document).ready(function() {
 		var f=$(this).data('helplink');
 		console.log(f);
 		
-		if (f.lenght == 0){
+		if (f == null){
 			console.log('going for ID');
 			// fall back to old-n-busted (but still out there, because priorities)
 			var f=this.id;
