@@ -85,10 +85,7 @@
 				<cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
 			</cfif>
 		</cfif>
-
-
 		<cfif len(probs) gt 0>
-			<cfset r=r & '....sending email.... #probs#'>
 			<cfoutput>
 			<cfmail subject="documentation problems" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docprobs@#Application.fromEmail#" type="html">
 				Potential problems for #fld#.
@@ -102,19 +99,11 @@
 				</cfloop>
 			</cfmail>
 			</cfoutput>
-		<cfelse>
-			<cfset r=r & 'no probs.....'>
 		</cfif>
-
-
-				<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
-
-
+		<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 		<cfcatch>
 			<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
 		</cfcatch>
-
-
 	</cftry>
 	<cfscript>
         getPageContext().getOut().clearBuffer();
