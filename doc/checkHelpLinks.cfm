@@ -46,22 +46,156 @@
 
 		.....and not in the docs
 		delete from temp_doc_merge where in_docs ='yes';
-		
+
 		select cfvar from temp_doc_merge order by cfvar;
-		
+
 		select used_in_frm from temp_doc_merge where cfvar='specimen-event';
-		
-		
+
+
 		select * from ssrch_field_doc@db_production where cf_variable='date';
-		
-		
+
+
+
+
+		download CSV - do thang - upload - then.....
+
+		select cf_variable from ssrch_field_doc where cf_variable in (select CFVAR from dlm.my_temp_cf);
+
+		-- nada, just insert
+
+		insert into ssrch_field_doc (
+			CF_VARIABLE,
+			DISPLAY_TEXT,
+			SSRCH_FIELD_DOC_ID,
+			SPECIMEN_RESULTS_COL,
+			SPECIMEN_QUERY_TERM,
+			CATEGORY,
+			CONTROLLED_VOCABULARY,
+			DATA_TYPE,
+			DEFINITION,
+			DOCUMENTATION_LINK,
+			PLACEHOLDER_TEXT,
+			SEARCH_HINT,
+			SQL_ELEMENT,
+			DISP_ORDER
+		) (
+			select
+				CFVAR,
+				decode (DISPLAY_TEXT,NULL,CFVAR,DISPLAY_TEXT),
+				sq_short_doc_id.nextval,
+				0,
+				0,
+				CATEGORY,
+				CONTROLLED_VOCABULARY,
+				DATA_TYPE,
+				DEFINITION,
+				DOCUMENTATION_LINK,
+				PLACEHOLDER_TEXT,
+				SEARCH_HINT,
+				SQL_ELEMENT,
+				DISP_ORDER
+			from
+				dlm.my_temp_cf
+			);
+
+
+				--- and done at prod 20170322
+
+
+
+
+	now see if we can find anything broken or sucky....
+
+	select distinct CF_VARIABLE from ssrch_field_doc;
+			select distinct DISPLAY_TEXT from ssrch_field_doc;
+
+						select distinct DOCUMENTATION_LINK from ssrch_field_doc;
+
+			DOCUMENTATION_LINK
+			Elapsed: 00:00:00.05
+UAM@ARCTOS> desc ssrch_field_doc
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ CATEGORY								    VARCHAR2(4000)
+ CF_VARIABLE							   NOT NULL VARCHAR2(4000)
+ CONTROLLED_VOCABULARY							    VARCHAR2(4000)
+ DATA_TYPE								    VARCHAR2(4000)
+ DEFINITION								    VARCHAR2(4000)
+ DISPLAY_TEXT							   NOT NULL VARCHAR2(4000)
+ DOCUMENTATION_LINK							    VARCHAR2(4000)
+ PLACEHOLDER_TEXT							    VARCHAR2(4000)
+ SEARCH_HINT								    VARCHAR2(4000)
+ SQL_ELEMENT								    VARCHAR2(4000)
+ SSRCH_FIELD_DOC_ID						   NOT NULL NUMBER
+ SPECIMEN_RESULTS_COL						   NOT NULL NUMBER
+ DISP_ORDER								    NUMBER
+ SPECIMEN_QUERY_TERM						   NOT NULL NUMBER
+
+
+
+
+
+
+		> desc dlm.my_temp_cf
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ CFVAR									    VARCHAR2(4000)
+ CONTROLLED_VOCABULARY							    VARCHAR2(4000)
+ DATA_TYPE								    VARCHAR2(4000)
+ DEFINITION								    VARCHAR2(4000)
+ DOCUMENTATION_LINK							    VARCHAR2(4000)
+ PLACEHOLDER_TEXT							    VARCHAR2(4000)
+ DISPLAY_TEXT								    VARCHAR2(4000)
+ DISP_ORDER								    VARCHAR2(4000)
+ IN_CODE								    VARCHAR2(4000)
+ IN_DOCS								    VARCHAR2(4000)
+ RAWTAGS								    VARCHAR2(4000)
+ SEARCH_HINT								    VARCHAR2(4000)
+ SPECIMEN_QUERY_TERM							    VARCHAR2(4000)
+ SPECIMEN_RESULTS_COL							    VARCHAR2(4000)
+ SQL_ELEMENT								    VARCHAR2(4000)
+ USED_IN_FRM								    VARCHAR2(4000)
+ CATEGORY								    VARCHAR2(4000)
+
+UAM@ARCTEST>
+
+
 ---->
 <cfinclude template="/includes/_header.cfm">
 <p>
 	<a href="checkHelpLinks.cfm?action=getLinks">getLinks</a>
-	<a href="checkHelpLinks.cfm?action=checkProd">checkProd</a>
-	<br>
+	<br><a href="checkHelpLinks.cfm?action=checkProd">checkProd</a>
+	<br><a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a>
+
 </p>
+
+<br />						select distinct DOCUMENTATION_LINK from ssrch_field_doc;
+
+
+<cfif action is "checkLinks">
+	<cfquery name="d" datasource="prod">
+		select distinct DOCUMENTATION_LINK from ssrch_field_doc
+	</cfquery>
+	<cfoutput>
+		<cfloop query="d">
+			<p>#DOCUMENTATION_LINK#</p>
+			<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
+			<cfif left(cfhttp.statuscode,3) is not "200">
+				<br>#cfhttp.statuscode#
+				<cfdump var=#cfhttp#>
+			</cfif>
+			<cfif d.DOCUMENTATION_LINK contains "##">
+				<cfset anchor=listlast(d.DOCUMENTATION_LINK,'##')>
+				<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
+					<br>DOCUMENTATION_LINK anchor no bueno
+				</cfif>
+			</cfif>
+		</cfloop>
+	</cfoutput>
+
+
+</cfif>
+
 <cfif action is "checkProd">
 <cfoutput>
 	<cfquery name="d_raw" datasource="uam_god">

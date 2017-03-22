@@ -1,12 +1,6 @@
 $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
 
 $(document).ready(function() {
-	
-	 $( "[data-helplink]" ).live( "click", function () {
-	        console.log('clicked');
-	    } );
-	 
-	 
 	$(".helpLink").live('click', function(e){
 		// new and snazzy: use the data-helplink attribute to find help
 		// avoid all problems with unique ID
