@@ -42,7 +42,9 @@
 		<cfquery name="p" datasource="prod">
 			select * from ssrch_field_doc where cf_variable='#id#'
 		</cfquery>
-		<cfdump var=#p#>
+		<cfif p.recordcount gt 0>
+			<cfdump var=#p#>
+		</cfif>
 	</cfloop>
 </cfoutput>
 </cfif>
