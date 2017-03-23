@@ -184,7 +184,7 @@ UAM@ARCTEST>
 	<a href="checkHelpLinks.cfm?action=checkUsedExists">checkUsedExists</a> - see if everything in the code has an entry in the doc table
 </p>
 <p>
-		<br><a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a> - fetch all distinct DOCUMENTATION_LINKs from the doc table
+	<a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a> - fetch all distinct DOCUMENTATION_LINKs from the doc table
 </p>
 
 
@@ -201,7 +201,7 @@ UAM@ARCTEST>
 			<hr>
 			<p>checking #DOCUMENTATION_LINK#....</p>
 			<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
-			<br>status: cfhttp.statuscode,3
+			<br>status: #cfhttp.statuscode#
 			<cfif left(cfhttp.statuscode,3) is not "200">
 				<br>ALERT: DOCUMENTATION_LINK seems to be broken; http dump follows
 				<cfdump var=#cfhttp#>
