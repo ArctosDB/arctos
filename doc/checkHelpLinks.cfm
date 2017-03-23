@@ -220,7 +220,9 @@ UAM@ARCTEST>
 						select rawtag from d where id='#id#'
 					</cfquery>
 					<td>
+						<xmp>
 						#valuelist(r.rawtag,";")#
+						</xmp>
 					</td>
 				</tr>
 
