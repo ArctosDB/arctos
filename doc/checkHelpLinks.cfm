@@ -194,138 +194,15 @@ UAM@ARCTEST>
 
 
 <cfif action is "checkUsedExists">
-<cfoutput>
-	<cfquery name="incode" datasource="uam_god">
-		select id from cf_temp_doc_page_link where id not in (select cf_variable from ssrch_field_doc)
-	</cfquery>
-	<cfdump var=#incode#>
-
-	<cfabort>
-
-	<cfquery name="indoc" datasource="uam_god">
-		select * from ssrch_field_doc
-	</cfquery>
-
-
-
-
-	<cfquery name="allterms" dbtype="query">
-		select id cfvar from d_raw
-		union
-		select cf_variable cfvar from p_raw
-	</cfquery>
-	<cfloop query="allterms">
-		<cfquery name="p" dbtype="query">
-			select * from p_raw where cf_variable='#cfvar#'
+	<cfoutput>
+		<cfquery name="incode" datasource="uam_god">
+			select id from cf_temp_doc_page_link where id not in (select cf_variable from ssrch_field_doc)
 		</cfquery>
-		<cfquery name="c" dbtype="query">
-			select * from d_raw where id='#cfvar#'
-		</cfquery>
-		<cfset in_docs="no">
-		<cfset in_code="no">
-		<cfif p.recordcount gt 0>
-			<cfset in_docs="yes">
-		</cfif>
-
-		<cfif c.recordcount gt 0>
-			<cfset in_code="yes">
-		</cfif>
-		<cfset used_in_frm="">
-		<cfset rawtags="">
-
-		<cfquery name="u_f" dbtype="query">
-			select distinct frm from c
-		</cfquery>
-		<cfloop query="u_f">
-			<cfset used_in_frm=listappend(used_in_frm,frm,';')>
-		</cfloop>
-
-		<cfquery name="u_t" dbtype="query">
-			select distinct rawtag from c
-		</cfquery>
-		<cfloop query="u_t">
-			<cfset rawtags=listappend(rawtags,rawtag,';')>
-		</cfloop>
-
-
-
-		<cfquery name="update" datasource="uam_god">
-			insert into temp_doc_merge (
-				cfvar,
-				in_code,
-				in_docs,
-				CATEGORY,
-				CONTROLLED_VOCABULARY,
-				DATA_TYPE,
-				DEFINITION,
-				DISPLAY_TEXT,
-				DOCUMENTATION_LINK,
-				PLACEHOLDER_TEXT,
-				SEARCH_HINT,
-				SQL_ELEMENT,
-				SPECIMEN_RESULTS_COL,
-				DISP_ORDER,
-				SPECIMEN_QUERY_TERM,
-				used_in_frm,
-				rawtags
-			) values (
-				'#cfvar#',
-				'#in_code#',
-				'#in_docs#',
-				'#p.CATEGORY#',
-				'#p.CONTROLLED_VOCABULARY#',
-				'#p.DATA_TYPE#',
-				'#p.DEFINITION#',
-				'#p.DISPLAY_TEXT#',
-				'#p.DOCUMENTATION_LINK#',
-				'#p.PLACEHOLDER_TEXT#',
-				'#p.SEARCH_HINT#',
-				'#p.SQL_ELEMENT#',
-				'#p.SPECIMEN_RESULTS_COL#',
-				'#p.DISP_ORDER#',
-				'#p.SPECIMEN_QUERY_TERM#',
-				'#used_in_frm#',
-				'#rawtags#'
-			)
-		</cfquery>
-	</cfloop>
-
-
-
-	<!-----
-
-
-	 Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
-
-
-
-
-	<cfdump var=#allterms#>
-
-
-	<cfquery name="d" dbtype="query">
-		select distinct id from d_raw order by id
-	</cfquery>
-	<cfloop query="d">
-		<hr>
-		#id#
-		<cfquery name="dd" dbtype="query">
-			select frm,rawtag from d_raw where id='#id#'
-		</cfquery>
-		<cfloop query="dd">
-			<br>----#frm# ----
-			<textarea rows="4" cols="60">#rawtag#</textarea>
-		</cfloop>
-		<cfquery name="p" datasource="prod">
-			select * from ssrch_field_doc where cf_variable='#id#'
-		</cfquery>
-		<cfif p.recordcount gt 0>
-			<cfdump var=#p#>
-		</cfif>
-	</cfloop>
-	---->
-</cfoutput>
+		<p>
+			Anything listed here is used in the code but does NOT exist in the documentation. Add it. Now!
+		</p>
+		<cfdump var=#incode#>
+	</cfoutput>
 </cfif>
 
 <cfif action is "xxxx">
