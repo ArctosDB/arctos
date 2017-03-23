@@ -218,7 +218,7 @@ UAM@ARCTEST>
 			<cfloop query="d">
 				<tr>
 					<td>
-						<a href="/doc/field_documentation.cfm?cf_variable=#CF_VARIABLE#" target="_blank">##CF_VARIABLE##</a>
+						<a href="/doc/field_documentation.cfm?cf_variable=#CF_VARIABLE#" target="_blank">#CF_VARIABLE#</a>
 					</td>
 					<td>#DEFINITION#</td>
 					<td>#DOCUMENTATION_LINK#</td>
