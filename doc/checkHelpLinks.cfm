@@ -183,15 +183,41 @@ UAM@ARCTEST>
 <p>
 	<a href="checkHelpLinks.cfm?action=checkUsedExists">checkUsedExists</a> - see if everything in the code has an entry in the doc table
 </p>
-
-
 <p>
-		<br><a href="checkHelpLinks.cfm?action=checkProd">checkProd</a>
-
-
+		<br><a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a> - fetch all distinct DOCUMENTATION_LINKs from the doc table
 </p>
-	<br><a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a>
 
+
+
+<cfif action is "checkLinks">
+	<cfquery name="d" datasource="uam_god">
+		select distinct DOCUMENTATION_LINK from ssrch_field_doc where DOCUMENTATION_LINK is not null
+	</cfquery>
+	<p>
+		splat-f "ALERT"
+	</p>
+	<cfoutput>
+		<cfloop query="d">
+			<hr>
+			<p>checking #DOCUMENTATION_LINK#....</p>
+			<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
+			<br>status: cfhttp.statuscode,3
+			<cfif left(cfhttp.statuscode,3) is not "200">
+				<br>ALERT: DOCUMENTATION_LINK seems to be broken; http dump follows
+				<cfdump var=#cfhttp#>
+			</cfif>
+			<cfif d.DOCUMENTATION_LINK contains "##">
+			<br>link has anchor....
+				<cfset anchor=listlast(d.DOCUMENTATION_LINK,'##')>
+				<br>anchor is #anchor#
+				<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
+					<br>ALERT: anchor appears to be busted; http dump follows
+					<cfdump var=#cfhttp#>
+				</cfif>
+			</cfif>
+		</cfloop>
+	</cfoutput>
+</cfif>
 
 <cfif action is "checkUsedExists">
 	<cfoutput>
@@ -203,32 +229,6 @@ UAM@ARCTEST>
 		</p>
 		<cfdump var=#incode#>
 	</cfoutput>
-</cfif>
-
-<cfif action is "xxxx">
-	<cfquery name="d" datasource="prod">
-		select distinct DOCUMENTATION_LINK from ssrch_field_doc
-	</cfquery>
-	<cfoutput>
-		<cfloop query="d">
-			<hr>
-			<p>#DOCUMENTATION_LINK#</p>
-			<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
-			<cfif left(cfhttp.statuscode,3) is not "200">
-				<br>#cfhttp.statuscode#
-				<cfdump var=#cfhttp#>
-			</cfif>
-			<cfif d.DOCUMENTATION_LINK contains "##">
-				<cfset anchor=listlast(d.DOCUMENTATION_LINK,'##')>
-				<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
-					<br>DOCUMENTATION_LINK anchor no bueno
-					<cfdump var=#cfhttp#>
-				</cfif>
-			</cfif>
-		</cfloop>
-	</cfoutput>
-
-
 </cfif>
 
 <cfif action is "showGetLinks">
