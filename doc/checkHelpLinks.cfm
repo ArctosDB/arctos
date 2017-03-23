@@ -187,8 +187,50 @@ UAM@ARCTEST>
 	<a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a> - fetch all distinct DOCUMENTATION_LINKs from the doc table
 </p>
 
+<p>
+	<a href="checkHelpLinks.cfm?action=showDocs">showDocs</a> - tableify documentation for all docs used in code
+</p>
 
-
+<cfif action is "showDocs">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * DOCUMENTATION_LINK from ssrch_field_doc where cf_variable in (select id from cf_temp_doc_page_link)
+			order by cf_variable
+		</cfquery>
+		<table border>
+			<tr>
+				<th>CF_VARIABLE</th>
+				<th>DEFINITION</th>
+				<th>DOCUMENTATION_LINK</th>
+				<th>DISPLAY_TEXT</th>
+				<th>CONTROLLED_VOCABULARY</th>
+				<th>PLACEHOLDER_TEXT</th>
+				<th>SEARCH_HINT</th>
+				<th>DATA_TYPE</th>
+				<th>SQL_ELEMENT</th>
+				<th>SPECIMEN_RESULTS_COL</th>
+				<th>SPECIMEN_QUERY_TERM</th>
+				<th>DISP_ORDER</th>
+			</tr>
+			<cfloop query="d">
+				<tr>
+					<td>#CF_VARIABLE#</td>
+					<td>#DEFINITION#</td>
+					<td>#DOCUMENTATION_LINK#</td>
+					<td>#DISPLAY_TEXT#</td>
+					<td>#CONTROLLED_VOCABULARY#</td>
+					<td>#PLACEHOLDER_TEXT#</td>
+					<td>#SEARCH_HINT#</td>
+					<td>#DATA_TYPE#</td>
+					<td>#SQL_ELEMENT#</td>
+					<td>#SPECIMEN_RESULTS_COL#</td>
+					<td>#SPECIMEN_QUERY_TERM#</td>
+					<td>#DISP_ORDER#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
 <cfif action is "checkLinks">
 	<cfquery name="d" datasource="uam_god">
 		select distinct DOCUMENTATION_LINK from ssrch_field_doc where DOCUMENTATION_LINK is not null
