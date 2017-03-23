@@ -251,7 +251,7 @@ div.jtable-input-field-container {
 
 			    	 setTimeout(function() {
 			    	console.log('now');
-				        $(".jtable-command-column > button:first-child").hide();
+				        $(".jtable-command-column > button:first-child").trigger("click");
 				    },1000);
 
 
