@@ -10,8 +10,6 @@
 <cfparam name="addCtl" default="1">
 <cfif action is "nothing">
 
-	<img src="/images/indicator.gif">
-	<cfabort>
 	<!--- this should be hard-coded - all installations should call the same docs, arctos.database.museum hosts everything --->
 
 	<!----  for testing
