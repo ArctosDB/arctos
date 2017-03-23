@@ -214,7 +214,7 @@ UAM@ARCTEST>
 						select frm from d where id='#id#'
 					</cfquery>
 					<td>
-						#valuelist(qid.frm,";")#
+						#valuelist(qid.frm,chr(10))#
 					</td>
 					<cfquery name="r" dbtype="query">
 						select rawtag from d where id='#id#'
