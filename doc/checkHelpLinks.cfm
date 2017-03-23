@@ -180,7 +180,9 @@ UAM@ARCTEST>
 <p>
 	<a href="checkHelpLinks.cfm?action=showGetLinks">showGetLinks</a> - see the results of getLinks
 </p>
-
+<p>
+	<a href="checkHelpLinks.cfm?action=checkUsedExists">checkUsedExists</a> - see if everything in the code has an entry in the doc table
+</p>
 
 
 <p>
@@ -191,76 +193,22 @@ UAM@ARCTEST>
 	<br><a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a>
 
 
-
-<cfif action is "showGetLinks">
-	<cfquery name="d" datasource="uam_god">
-		select * from cf_temp_doc_page_link
-	</cfquery>
-	<cfquery name="did" dbtype="query">
-		select id from d group by id order by id
-	</cfquery>
-
-	<cfoutput>
-		<table border>
-			<tr>
-				<th>cf_variable</th>
-				<th>called from</th>
-				<th>raw tag</th>
-			</tr>
-			<cfloop query="did">
-				<tr>
-					<td>#id#</td>
-					<cfquery name="qid" dbtype="query">
-						select frm from d where id='#id#'
-					</cfquery>
-					<td>
-						#valuelist(qid.frm,"<br>")#
-					</td>
-					<cfquery name="r" dbtype="query">
-						select rawtag from d where id='#id#'
-					</cfquery>
-					<td><xmp>#valuelist(r.rawtag,chr(10))#</xmp></td>
-				</tr>
-
-			</cfloop>
-		</table>
-	</cfoutput>
-</cfif>
-
-<cfif action is "checkLinks">
-	<cfquery name="d" datasource="prod">
-		select distinct DOCUMENTATION_LINK from ssrch_field_doc
-	</cfquery>
-	<cfoutput>
-		<cfloop query="d">
-			<hr>
-			<p>#DOCUMENTATION_LINK#</p>
-			<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
-			<cfif left(cfhttp.statuscode,3) is not "200">
-				<br>#cfhttp.statuscode#
-				<cfdump var=#cfhttp#>
-			</cfif>
-			<cfif d.DOCUMENTATION_LINK contains "##">
-				<cfset anchor=listlast(d.DOCUMENTATION_LINK,'##')>
-				<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
-					<br>DOCUMENTATION_LINK anchor no bueno
-					<cfdump var=#cfhttp#>
-				</cfif>
-			</cfif>
-		</cfloop>
-	</cfoutput>
-
-
-</cfif>
-
-<cfif action is "checkProd">
+<cfif action is "checkUsedExists">
 <cfoutput>
-	<cfquery name="d_raw" datasource="uam_god">
-		select * from temp_doc_id_raw
+	<cfquery name="incode" datasource="uam_god">
+		select id from cf_temp_doc_page_link where id not in (select cf_variable from ssrch_field_doc)
 	</cfquery>
-	<cfquery name="p_raw" datasource="prod">
+	<cfdump var=#incode#>
+
+	<cfabort>
+
+	<cfquery name="indoc" datasource="uam_god">
 		select * from ssrch_field_doc
 	</cfquery>
+
+
+
+
 	<cfquery name="allterms" dbtype="query">
 		select id cfvar from d_raw
 		union
@@ -380,62 +328,127 @@ UAM@ARCTEST>
 </cfoutput>
 </cfif>
 
+<cfif action is "xxxx">
+	<cfquery name="d" datasource="prod">
+		select distinct DOCUMENTATION_LINK from ssrch_field_doc
+	</cfquery>
+	<cfoutput>
+		<cfloop query="d">
+			<hr>
+			<p>#DOCUMENTATION_LINK#</p>
+			<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
+			<cfif left(cfhttp.statuscode,3) is not "200">
+				<br>#cfhttp.statuscode#
+				<cfdump var=#cfhttp#>
+			</cfif>
+			<cfif d.DOCUMENTATION_LINK contains "##">
+				<cfset anchor=listlast(d.DOCUMENTATION_LINK,'##')>
+				<cfif cfhttp.fileContent does not contain 'id="#anchor#"'>
+					<br>DOCUMENTATION_LINK anchor no bueno
+					<cfdump var=#cfhttp#>
+				</cfif>
+			</cfif>
+		</cfloop>
+	</cfoutput>
+
+
+</cfif>
+
+<cfif action is "showGetLinks">
+	<cfquery name="d" datasource="uam_god">
+		select * from cf_temp_doc_page_link
+	</cfquery>
+	<cfquery name="did" dbtype="query">
+		select id from d group by id order by id
+	</cfquery>
+	<cfoutput>
+		<table border>
+			<tr>
+				<th>cf_variable</th>
+				<th>called from</th>
+				<th>raw tag</th>
+			</tr>
+			<cfloop query="did">
+				<tr>
+					<td>#id#</td>
+					<cfquery name="qid" dbtype="query">
+						select frm from d where id='#id#'
+					</cfquery>
+					<td>
+						#valuelist(qid.frm,"<br>")#
+					</td>
+					<cfquery name="r" dbtype="query">
+						select rawtag from d where id='#id#'
+					</cfquery>
+					<td><xmp>#valuelist(r.rawtag,chr(10))#</xmp></td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
+
 <cfif action is "getLinks">
 <cfset res=  DirectoryList(Application.webDirectory,true,"path","*.cf*")>
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		delete from cf_temp_doc_page_link
 	</cfquery>
-
 	<cftransaction>
-	<cfloop array="#res#" index="f">
-		<!--- ignore cfr etc --->
-		<cfif listlast(f,".") is "cfm" or listlast(f,".") is "cfc">
-			<cffile action = "read" file = "#f#" variable = "fc">
-			<cfif fc contains "helpLink">
-
-				<!----<br>-------------------------- something to check here -------------------->
-				<cfset l = REMatch('(?i)<[^>]+class="helpLink"[^>]*>(.+?)>', fc)>
-
-				<cfloop array="#l#" index='h'>
-					<!----
-					h: <textarea rows="4" cols="80">#h#</textarea>
-					---->
-					<cfset go=false>
-					<cfif h contains 'id='>
-						<cfset go=true>
-
-						<cfset idSPos=find("id=",h)+4>
-						<cfset nqPos=find('"',h,idsPos)>
-						<cfset theID=mid(h,idSPos,nqPos-idSPos)>
-						<cfif left(theID,1) is "_">
-							<cfset theID=right(theID,len(theID)-1)>
+		<cfloop array="#res#" index="f">
+			<!--- ignore cfr etc --->
+			<cfif listlast(f,".") is "cfm" or listlast(f,".") is "cfc">
+				<cffile action = "read" file = "#f#" variable = "fc">
+				<cfif fc contains "helpLink">
+					<!----<br>-------------------------- something to check here -------------------->
+					<cfset l = REMatch('(?i)<[^>]+class="helpLink"[^>]*>(.+?)>', fc)>
+					<cfloop array="#l#" index='h'>
+						<!----
+						h: <textarea rows="4" cols="80">#h#</textarea>
+						---->
+						<cfset go=false>
+						<cfif h contains 'id='>
+							<cfset go=true>
+							<cfset idSPos=find("id=",h)+4>
+							<cfset nqPos=find('"',h,idsPos)>
+							<cfset theID=mid(h,idSPos,nqPos-idSPos)>
+							<cfif left(theID,1) is "_">
+								<cfset theID=right(theID,len(theID)-1)>
+							</cfif>
+						<cfelseif h contains 'data-helplink='>
+							<cfset go=true>
+							<cfset idSPos=find("data-helplink=",h)+15>
+							<cfset nqPos=find('"',h,idsPos)>
+							<cfset theID=mid(h,idSPos,nqPos-idSPos)>
+							<cfif left(theID,1) is "_">
+								<cfset theID=right(theID,len(theID)-1)>
+							</cfif>
 						</cfif>
-
-					<cfelseif h contains 'data-helplink='>
-						<cfset go=true>
-
-						<cfset idSPos=find("data-helplink=",h)+15>
-						<cfset nqPos=find('"',h,idsPos)>
-						<cfset theID=mid(h,idSPos,nqPos-idSPos)>
-						<cfif left(theID,1) is "_">
-							<cfset theID=right(theID,len(theID)-1)>
+						<cfif go is true>
+							<cfquery name="d" datasource="uam_god">
+								insert into cf_temp_doc_page_link(frm,rawtag,id) values ('#f#','#h#','#theID#')
+							</cfquery>
 						</cfif>
-
-					</cfif>
-					<cfif go is true>
-						<cfquery name="d" datasource="uam_god">
-							insert into cf_temp_doc_page_link(frm,rawtag,id) values ('#f#','#h#','#theID#')
-						</cfquery>
-					</cfif>
-				</cfloop>
+					</cfloop>
+				</cfif>
 			</cfif>
-		</cfif>
-
-	</cfloop>
-
+		</cfloop>
 	</cftransaction>
 	all done
 </cfoutput>
 </cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <cfinclude template="/includes/_footer.cfm">
