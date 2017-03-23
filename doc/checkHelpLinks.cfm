@@ -210,11 +210,11 @@ UAM@ARCTEST>
 			<cfloop query="did">
 				<tr>
 					<td>#id#</td>
-					<cfquery name="d" dbtype="query">
+					<cfquery name="qid" dbtype="query">
 						select frm from d where id='#id#'
 					</cfquery>
 					<td>
-						#valuelist(d.id,";")#
+						#valuelist(qid.id,";")#
 					</td>
 					<cfquery name="r" dbtype="query">
 						select rawtag from d where id='#id#'
@@ -430,17 +430,6 @@ UAM@ARCTEST>
 							insert into cf_temp_doc_page_link(frm,rawtag,id) values ('#f#','#h#','#theID#')
 						</cfquery>
 					</cfif>
-					<!----
-
-					<cfset tid= rereplace(h,'<span[^>]+?id="([^"]+)".*',"\1")>
-				<cfquery name="d" datasource="uam_god">
-						insert into temp_doc_id_raw(frm,rawtag,id) values ('#f#','#h#','#theID#')
-					</cfquery>
-
-
-					---->
-					all done
-
 				</cfloop>
 			</cfif>
 		</cfif>
@@ -448,6 +437,7 @@ UAM@ARCTEST>
 	</cfloop>
 
 	</cftransaction>
+	all done
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
