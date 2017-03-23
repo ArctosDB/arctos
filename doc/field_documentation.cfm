@@ -250,8 +250,8 @@ div.jtable-input-field-container {
 			    	console.log('open edit');
 
 			    	 setTimeout(function() {
-        $(".jtable-command-column button:first-child").trigger('click');
-    },10);
+				        $(".jtable-command-column button:first-child").hide();
+				    },100);
 
 
 
