@@ -221,7 +221,7 @@ UAM@ARCTEST>
 					</cfquery>
 					<td>
 						<xmp>
-						#valuelist(r.rawtag,";")#
+						#valuelist(r.rawtag,chr(10))#
 						</xmp>
 					</td>
 				</tr>
