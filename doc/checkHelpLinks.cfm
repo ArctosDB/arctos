@@ -1,4 +1,10 @@
 <!---
+	dependencies:
+
+		create table cf_temp_doc_page_link (frm varchar2(4000),rawtag varchar2(4000),id varchar2(4000));
+
+
+
 	crawl through all code and get the helpLinks
 	make sure they all exist in ssrch_field_doc
 
@@ -163,14 +169,65 @@ UAM@ARCTEST>
 ---->
 <cfinclude template="/includes/_header.cfm">
 <p>
-	<a href="checkHelpLinks.cfm?action=getLinks">getLinks</a>
-	<br><a href="checkHelpLinks.cfm?action=checkProd">checkProd</a>
-	<br><a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a>
-
+	This is an iterative (because it's slow) single-user form.
 </p>
 
-<br />						select distinct DOCUMENTATION_LINK from ssrch_field_doc;
+<p>
+	<a href="checkHelpLinks.cfm?action=getLinks">getLinks</a> - do this first, it crawls through Arctos code and
+	finds all helpLinks.
+</p>
 
+<p>
+	<a href="checkHelpLinks.cfm?action=showGetLinks">showGetLinks</a> - see the results of getLinks
+</p>
+
+
+
+<p>
+		<br><a href="checkHelpLinks.cfm?action=checkProd">checkProd</a>
+
+
+</p>
+	<br><a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a>
+
+
+
+<cfif action is "showGetLinks">
+	<cfquery name="d" datasource="uam_god">
+		select * from cf_temp_doc_page_link
+	</cfquery>
+	<cfquery name="did" dbtype="query">
+		select id from d group by id order by id
+	</cfquery>
+
+	<cfoutput>
+		<table border>
+			<tr>
+				<th>cf_variable</th>
+				<th>called from</th>
+				<th>raw tag</th>
+			</tr>
+			<cfloop query="did">
+				<tr>
+					<td>#id#</td>
+					<cfquery name="d" dbtype="query">
+						select frm from d where id='#id#'
+					</cfquery>
+					<td>
+						#valuelist(d.id,";")>
+					</td>
+					<cfquery name="r" dbtype="query">
+						select rawtag from d where id='#id#'
+					</cfquery>
+					<td>
+						#valuelist(r.rawtag,";")>
+					</td>
+				</tr>
+
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
 
 <cfif action is "checkLinks">
 	<cfquery name="d" datasource="prod">
@@ -328,11 +385,14 @@ UAM@ARCTEST>
 <cfif action is "getLinks">
 <cfset res=  DirectoryList(Application.webDirectory,true,"path","*.cf*")>
 <cfoutput>
+	<cfquery name="d" datasource="uam_god">
+		insert delete from cf_temp_doc_page_link
+	</cfquery>
+
 	<cftransaction>
 	<cfloop array="#res#" index="f">
 		<!--- ignore cfr etc --->
 		<cfif listlast(f,".") is "cfm" or listlast(f,".") is "cfc">
-			<br>#f#
 			<cffile action = "read" file = "#f#" variable = "fc">
 			<cfif fc contains "helpLink">
 
@@ -341,47 +401,34 @@ UAM@ARCTEST>
 				<br>l: <cfdump var=#l#>
 
 				<cfloop array="#l#" index='h'>
+					<!----
 					h: <textarea rows="4" cols="80">#h#</textarea>
+					---->
 					<cfset go=false>
 					<cfif h contains 'id='>
 						<cfset go=true>
-						<br>got ID
 
 						<cfset idSPos=find("id=",h)+4>
-						<br>idSPos: #idSPos#
 						<cfset nqPos=find('"',h,idsPos)>
-						<br>nqPos: #nqPos#
 						<cfset theID=mid(h,idSPos,nqPos-idSPos)>
-						<br>theID: #theID#
 						<cfif left(theID,1) is "_">
 							<cfset theID=right(theID,len(theID)-1)>
 						</cfif>
 
-						<br>theID: #theID#
 					<cfelseif h contains 'data-helplink='>
 						<cfset go=true>
-					<br>got data tag
 
 						<cfset idSPos=find("data-helplink=",h)+15>
-						<br>idSPos: #idSPos#
 						<cfset nqPos=find('"',h,idsPos)>
-						<br>nqPos: #nqPos#
 						<cfset theID=mid(h,idSPos,nqPos-idSPos)>
-						<br>theID: #theID#
 						<cfif left(theID,1) is "_">
 							<cfset theID=right(theID,len(theID)-1)>
 						</cfif>
 
-						<br>theID: #theID#
-					<cfelse>
-						<p>
-
-							========================================== bad juju ===================================
-						</p>
 					</cfif>
 					<cfif go is true>
 						<cfquery name="d" datasource="uam_god">
-							insert into temp_doc_id_raw(frm,rawtag,id) values ('#f#','#h#','#theID#')
+							insert into cf_temp_doc_page_link(frm,rawtag,id) values ('#f#','#h#','#theID#')
 						</cfquery>
 					</cfif>
 					<!----
@@ -393,7 +440,7 @@ UAM@ARCTEST>
 
 
 					---->
-					<br>
+					all done
 
 				</cfloop>
 			</cfif>
