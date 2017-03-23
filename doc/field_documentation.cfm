@@ -247,7 +247,8 @@ div.jtable-input-field-container {
 			    }, 2000);
 			    // edit?
 			    if ($.getUrlVar("popEdit") != null) {
-			    	    $(".jtable-edit-command-button").trigger('click');
+			    	console.log('open edit');
+			    	    $(".jtable-edit-command-button button").trigger('click');
 			    }
 			} else {
 	       		$('#jtdocdoc').jtable('load');
