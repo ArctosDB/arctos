@@ -245,6 +245,10 @@ div.jtable-input-field-container {
 			    $('html, body').animate({
 			        scrollTop: $("#jtdocdoc").offset().top
 			    }, 2000);
+			    // edit?
+			    if ($.getUrlVar("popEdit") != null) {
+			    	    $(".jtable-edit-command-button").trigger('click');
+			    }
 			} else {
 	       		$('#jtdocdoc').jtable('load');
 	       	}
