@@ -244,7 +244,7 @@ div.jtable-input-field-container {
 	           // and scroll to loaded table....
 			    $('html, body').animate({
 			        scrollTop: $("#jtdocdoc").offset().top
-			    }, 2000);
+			    }, 500);
 			    // edit?
 			    if ($.getUrlVar("popEdit") != null) {
 			    	console.log('gonna edit');
