@@ -34,20 +34,26 @@
 		This part runs ONLY on arctos.database.museum, the one and only source of this information.
 	--->
 	<cftry>
+		<!---
 		<cfset probs="">
+		--->
 		<cfquery name="d" datasource="cf_dbuser">
 			select * from ssrch_field_doc where cf_variable = '#lcase(fld)#'
 		</cfquery>
 		<cfset r="">
 		<cfif d.recordcount is not 1>
 			<cfset r=r & '<div>No documentation is available for #fld#.</div>'>
+			<!---
 			<cfset probs=listappend(probs,'short doc not found for #fld#',';')>
+			--->
 		<cfelse>
 			<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
 			<cfset r=r & '<div style="margin:1em;padding:1em;">#d.definition#</div>'>
+			<!---
 			<cfif len(d.definition) is 0 or listlen(d.definition,' ') lt 5>
 				<cfset probs=listappend(probs,'definition for #fld# seems shady',';')>
 			</cfif>
+			--->
 			<cfif len(d.search_hint) gt 0>
 				<cfset r=r & '<div style="margin:1em;background: ##ffffe6;padding:1em;"><strong>Search Hint:</strong> '>
 				<cfif left(d.search_hint,4) is 'http'>
@@ -55,13 +61,16 @@
 				<cfelse>
 					<cfset r=r & '#d.search_hint#</div>'>
 				</cfif>
+				<!---
 			<cfelse>
 				<cfif d.SPECIMEN_QUERY_TERM is 1>
 					<cfset probs=listappend(probs,'#fld# is marked as a SPECIMEN_QUERY_TERM and does not have a search_hint',';')>
 				</cfif>
+				--->
 			</cfif>
 			<cfif len(d.DOCUMENTATION_LINK) gt 0>
 				<cfset r=r & '<div style="margin:1em;padding:1em;"><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
+				<!----
 				<!--- anchor? ---->
 				<cfif d.DOCUMENTATION_LINK contains "##">
 					<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
@@ -81,11 +90,13 @@
 				</cfif>
 			<cfelse>
 				<cfset probs=listappend(probs,'#fld# has no DOCUMENTATION_LINK',';')>
+				---->
 			</cfif>
 			<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
 				<cfset r=r & '<div><a href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#" target="_blank">[ Controlled Vocabulary ]</a></div>'>
 			</cfif>
 		</cfif>
+		<!----
 		<cfif len(probs) gt 0>
 			<cfoutput>
 			<cfmail subject="documentation problems" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docprobs@#Application.fromEmail#" type="html">
@@ -101,6 +112,7 @@
 			</cfmail>
 			</cfoutput>
 		</cfif>
+		---->
 		<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 		<cfcatch>
 			<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
