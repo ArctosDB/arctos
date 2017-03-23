@@ -149,6 +149,9 @@
 					<cfset tgs="">
 					<cfloop query='r'>
 						<cfset rt=rawtag>
+						<cfset rt=replaceAll('\s\s+',' ')>
+
+
 						<cfset rt=replace(rt,chr(10),'-ten-',"all")>
 						<cfset tgs=listappend(tgs,rt,chr(10))>
 					</cfloop>
