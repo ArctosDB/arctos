@@ -43,12 +43,12 @@
 			<cfset probs=listappend(probs,'short doc not found for #fld#',';')>
 		<cfelse>
 			<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
-			<cfset r=r & '<div style="margin:.5em;padding:.5em;">#d.definition#</div>'>
+			<cfset r=r & '<div style="margin:1em;padding:1em;">#d.definition#</div>'>
 			<cfif len(d.definition) is 0 or listlen(d.definition,' ') lt 5>
 				<cfset probs=listappend(probs,'definition for #fld# seems shady',';')>
 			</cfif>
 			<cfif len(d.search_hint) gt 0>
-				<cfset r=r & '<div style="margin:.5em; font-size:smaller;background: ##ffffe6;padding:.5em;">Search Hint: '>
+				<cfset r=r & '<div style="margin:1em;background: ##ffffe6;padding:1em;">Search Hint: '>
 				<cfif left(d.search_hint,4) is 'http'>
 					<cfset r=r & '<a href="#d.search_hint#" target="_blank">[ Search Hint ]</a></div>'>
 				<cfelse>
@@ -60,7 +60,7 @@
 				</cfif>
 			</cfif>
 			<cfif len(d.DOCUMENTATION_LINK) gt 0>
-				<cfset r=r & '<div style="margin:.5em;padding:.5em;"><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
+				<cfset r=r & '<div style="margin:1em;padding:1em;"><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
 				<!--- anchor? ---->
 				<cfif d.DOCUMENTATION_LINK contains "##">
 					<cfhttp url="#d.DOCUMENTATION_LINK#" method="GET"></cfhttp>
