@@ -120,25 +120,23 @@
 	<script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 	<link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 	<style>
-	.col1
-		{
-		float:left;
-		padding: 5px 10px 5px 5px;
-		width: 45%;
-		}
-		.col2
-		{
-		float:right;
-		padding: 5px 5px 5px 10px;
-		width: 45%;
-		}
+	#jtable-create-form {
+    display: block;
+    width: 450px;
+    -moz-column-gap:40px;
+    -webkit-column-gap:40px;
+    column-gap:40px;
+    -moz-column-count:2;
+    -webkit-column-count:2;
+    column-count:2;
+}
 	</style>
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        $('#jtdocdoc').jtable({
 	            title: 'Documentation',
 				paging: true, //Enable paging
-	            pageSize: 10, //Set page size (default: 10)
+	            pageSize: 20, //Set page size (default: 10)
 	            sorting: true, //Enable sorting
 	            defaultSorting: 'GUID ASC', //Set default sorting
 				columnResizable: true,
@@ -203,10 +201,12 @@
 					SQL_ELEMENT: {title: 'SQL_ELEMENT',
 						type: 'textarea'}
 	            }
+	            /*
 	            , formCreated: function(event, data) {
 	            	data.form.children(':lt(11)').wrapAll('');
 	            	data.form.children(':gt(0)').wrapAll('');
 	            }
+	            */
 	        });
 			$.extend({
 				getUrlVars: function(){
