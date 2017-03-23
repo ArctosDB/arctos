@@ -248,7 +248,14 @@ div.jtable-input-field-container {
 			    // edit?
 			    if ($.getUrlVar("popEdit") != null) {
 			    	console.log('open edit');
-			    	    $(".jtable-edit-command-button button").trigger('click');
+
+			    	 setTimeout(function() {
+        $(".jtable-edit-command-button button").trigger('click');
+    },10);
+
+
+
+
 			    }
 			} else {
 	       		$('#jtdocdoc').jtable('load');
