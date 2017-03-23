@@ -241,9 +241,13 @@ div.jtable-input-field-container {
 				$('#jtdocdoc').jtable('load', {
 	               CF_VARIABLE: $.getUrlVar("cf_variable")
 	           });
+	           // and scroll to loaded table....
+			    $('html, body').animate({
+			        scrollTop: $("#jtdocdoc").offset().top
+			    }, 2000);
 			} else {
-	       $('#jtdocdoc').jtable('load');
-	       }
+	       		$('#jtdocdoc').jtable('load');
+	       	}
 	    });
 	</script>
 	<cfset title="form-field documentation">
