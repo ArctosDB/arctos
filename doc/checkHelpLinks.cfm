@@ -197,6 +197,9 @@ UAM@ARCTEST>
 			select * from ssrch_field_doc where cf_variable in (select id from cf_temp_doc_page_link)
 			order by cf_variable
 		</cfquery>
+		<p>
+			Click variable to edit
+		</p>
 		<table border>
 			<tr>
 				<th>CF_VARIABLE</th>
@@ -214,7 +217,9 @@ UAM@ARCTEST>
 			</tr>
 			<cfloop query="d">
 				<tr>
-					<td>#CF_VARIABLE#</td>
+					<td>
+						<a href="/doc/field_documentation.cfm?cf_variable=#CF_VARIABLE#" target="_blank">##CF_VARIABLE##</a>
+					</td>
 					<td>#DEFINITION#</td>
 					<td>#DOCUMENTATION_LINK#</td>
 					<td>#DISPLAY_TEXT#</td>
