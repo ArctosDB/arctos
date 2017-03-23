@@ -246,6 +246,10 @@ div.jtable-input-field-container {
 	    });
 	</script>
 	<cfset title="form-field documentation">
+
+	<div class="importantNotification">
+		IMPORTANT! The data from this form dynamically build Arctos forms. Do not do anything here unless you KNOW what you're doing!
+	</div>
 	<table border>
 		<tr>
 			<th>Column Name</th>
