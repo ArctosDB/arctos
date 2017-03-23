@@ -153,6 +153,7 @@
 
 
 						<cfset rt=replace(rt,chr(10),'-ten-',"all")>
+						<cfset rt=replace(rt,chr(9),'-t9-',"all")>
 						<cfset tgs=listappend(tgs,rt,chr(10))>
 					</cfloop>
 					<td><xmp>#tgs#</xmp></td>
