@@ -164,7 +164,8 @@ div.jtable-input-field-container {
 						title: 'DEFINITION',
 						type: 'textarea'
 					},
-					DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
+					DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK',
+						type: 'textarea'},
 					SEARCH_HINT: {
 						title: 'SEARCH_HINT',
 						type: 'textarea'
