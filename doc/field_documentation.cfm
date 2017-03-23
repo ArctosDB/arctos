@@ -119,6 +119,20 @@
 <cfif action is "nothing">
 	<script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 	<link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+	<style>
+	.col1
+		{
+		float:left;
+		padding: 5px 10px 5px 5px;
+		width: 45%;
+		}
+		.col2
+		{
+		float:right;
+		padding: 5px 5px 5px 10px;
+		width: 45%;
+		}
+	</style>
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        $('#jtdocdoc').jtable({
@@ -186,8 +200,11 @@
 	                            '1': 'yes'
 							}
 					},
-					SQL_ELEMENT: {title: 'SQL_ELEMENT'}
-	            }
+					SQL_ELEMENT: {title: 'SQL_ELEMENT',
+						type: 'textarea'}
+	            }, formCreated: function(event, data) { data.form.children(':lt(11)').wrapAll('
+'); data.form.children(':gt(0)').wrapAll('
+'); } });
 	        });
 			$.extend({
 				getUrlVars: function(){
