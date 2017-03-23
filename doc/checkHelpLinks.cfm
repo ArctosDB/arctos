@@ -214,13 +214,13 @@ UAM@ARCTEST>
 						select frm from d where id='#id#'
 					</cfquery>
 					<td>
-						#valuelist(d.id,";")>
+						#valuelist(d.id,";")#
 					</td>
 					<cfquery name="r" dbtype="query">
 						select rawtag from d where id='#id#'
 					</cfquery>
 					<td>
-						#valuelist(r.rawtag,";")>
+						#valuelist(r.rawtag,";")#
 					</td>
 				</tr>
 
