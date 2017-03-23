@@ -219,7 +219,7 @@ UAM@ARCTEST>
 					<cfquery name="r" dbtype="query">
 						select rawtag from d where id='#id#'
 					</cfquery>
-					<td><pre>#valuelist(r.rawtag,chr(10))#</pre></td>
+					<td><xmp>#valuelist(r.rawtag,chr(10))#</xmp></td>
 				</tr>
 
 			</cfloop>
