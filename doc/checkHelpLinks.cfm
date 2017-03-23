@@ -386,7 +386,7 @@ UAM@ARCTEST>
 <cfset res=  DirectoryList(Application.webDirectory,true,"path","*.cf*")>
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
-		insert delete from cf_temp_doc_page_link
+		delete from cf_temp_doc_page_link
 	</cfquery>
 
 	<cftransaction>
