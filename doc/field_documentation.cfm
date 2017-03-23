@@ -153,7 +153,10 @@
 						type: 'textarea'
 					},
 					DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
-					SEARCH_HINT: {title: 'SEARCH_HINT'},
+					SEARCH_HINT: {
+						title: 'SEARCH_HINT',
+						type: 'textarea'
+					},
 					PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
 					CATEGORY: {title: 'CATEGORY',
 						options: {
