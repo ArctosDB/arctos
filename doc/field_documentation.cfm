@@ -120,15 +120,15 @@
 	<script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 	<link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 	<style>
-	#jtable-create-form {
-    display: block;
-    width: 450px;
-    -moz-column-gap:40px;
-    -webkit-column-gap:40px;
-    column-gap:40px;
-    -moz-column-count:2;
-    -webkit-column-count:2;
-    column-count:2;
+	form.jtable-dialog-form {
+  width:800px;
+}
+
+
+div.jtable-input-field-container {
+  float: left;
+  margin: 0px 5px 5px 0;
+  padding: 2px;
 }
 	</style>
 	<script type="text/javascript">
