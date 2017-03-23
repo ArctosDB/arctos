@@ -11,19 +11,19 @@ $(document).ready(function() {
 			var f=this.id;
 		}
 		var guts = "/doc/get_short_doc.cfm?fld=" + f;
-		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:400px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
 			height: 'auto',
 			modal: true,
 			position: ['center', 'center'],
 			title: 'Documentation',
-				width:800,
-	 			height:600,
+				width:600,
+	 			height:400,
 			close: function() {
 				$( this ).remove();
 			}
-		}).width(800-10).height(600-10);
+		}).width(600-10).height(400-10);
 		$(window).resize(function() {
 			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 		});
