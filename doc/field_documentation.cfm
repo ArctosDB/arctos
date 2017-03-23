@@ -202,9 +202,11 @@
 					},
 					SQL_ELEMENT: {title: 'SQL_ELEMENT',
 						type: 'textarea'}
-	            }, formCreated: function(event, data) { data.form.children(':lt(11)').wrapAll('
-'); data.form.children(':gt(0)').wrapAll('
-'); }
+	            }
+	            , formCreated: function(event, data) {
+	            	data.form.children(':lt(11)').wrapAll('');
+	            	data.form.children(':gt(0)').wrapAll('');
+	            }
 	        });
 			$.extend({
 				getUrlVars: function(){
