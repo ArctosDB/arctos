@@ -142,7 +142,7 @@
 					</cfquery>
 					<td>
 						<cfloop query="qid">
-							<div style="font-size:small">#frm#</div>
+							<div style="font-size:small;white-space: nowrap;">#replace(frm,Application.webDirectory,'','all')#</div>
 						</cfloop>
 					</td>
 					<cfquery name="r" dbtype="query">
