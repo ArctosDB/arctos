@@ -23,15 +23,15 @@
 	<cfargument name="CATEGORY" type="string" required="false">
 	<cfargument name="DISP_ORDER" type="string" required="false">
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
-	<cfargument name="SQL_ELEMENT" type="string" required="false">	
-	<cfargument name="specimen_query_term" type="string" required="false">	
+	<cfargument name="SQL_ELEMENT" type="string" required="false">
+	<cfargument name="specimen_query_term" type="string" required="false">
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
 	<cftry>
-	
-	
-		
+
+
+
 		<cfif len(SQL_ELEMENT) gt 0>
 			<cfset ttelem=replace(sql_element,"flatTableName.","flat.","all")>
 			<cfquery name="test"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -71,7 +71,7 @@
 				)
 		</cfquery>
 		<cfquery name="trc" datasource="uam_god">
-			Select count(*) c from ssrch_field_doc 
+			Select count(*) c from ssrch_field_doc
 		</cfquery>
 		<cfquery name="d" datasource="uam_god">
 			select * from ssrch_field_doc where CF_VARIABLE='#CF_VARIABLE#'
@@ -105,9 +105,9 @@
 	<cfargument name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
 	<cftry>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from  
+			delete from
 				ssrch_field_doc
-			where 
+			where
 				SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#
 		</cfquery>
 		<cfset result='{"Result":"OK","Message":"success"}'>
@@ -141,12 +141,12 @@
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="SQL_ELEMENT" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
-	
+
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
 	<cftry>
-	
+
 		<cfif len(SQL_ELEMENT) gt 0>
 			<cfset ttelem=replace(sql_element,"flatTableName.","flat.","all")>
 			<cfquery name="test"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -154,9 +154,9 @@
 			</cfquery>
 		</cfif>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				ssrch_field_doc 
-			set  
+			update
+				ssrch_field_doc
+			set
 				CF_VARIABLE = '#escapeQuotes(CF_VARIABLE)#',
 				CONTROLLED_VOCABULARY = '#escapeQuotes(CONTROLLED_VOCABULARY)#',
 				DATA_TYPE = '#escapeQuotes(DATA_TYPE)#',
@@ -170,7 +170,7 @@
 				SPECIMEN_RESULTS_COL = '#escapeQuotes(SPECIMEN_RESULTS_COL)#',
 				SQL_ELEMENT = '#escapeQuotes(SQL_ELEMENT)#',
 				specimen_query_term = '#escapeQuotes(specimen_query_term)#'
-			where 
+			where
 				SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#
 		</cfquery>
 		<cfset result='{"Result":"OK","Message":"success"}'>
@@ -196,9 +196,10 @@
 	<cfargument name="DISPLAY" type="string" required="false">
 	<cfargument name="CATEGORY" type="string" required="false">
 	<cfargument name="SQL_ELEMENT" type="string" required="false">
-	
-		
-		
+	<cfargument name="DOCUMENTATION_LINK" type="string" required="false">
+
+
+
 	<cfparam name="jtStartIndex" type="integer" default="0">
 	<cfparam name="jtPageSize" type="integer" default="10">
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
@@ -229,11 +230,12 @@
 				<cfif isdefined("DISPLAY") and len(DISPLAY) gt 0> and lower(DISPLAY_TEXT) like '%#lcase(DISPLAY)#%'</cfif>
 				<cfif isdefined("CATEGORY") and len(CATEGORY) gt 0> and lower(CATEGORY) like '%#lcase(CATEGORY)#%'</cfif>
 				<cfif isdefined("SQL_ELEMENT") and len(SQL_ELEMENT) gt 0> and lower(SQL_ELEMENT) like '%#lcase(SQL_ELEMENT)#%'</cfif>
-			order by 
+				<cfif isdefined("DOCUMENTATION_LINK") and len(DOCUMENTATION_LINK) gt 0> and lower(DOCUMENTATION_LINK) like '%#lcase(DOCUMENTATION_LINK)#%'</cfif>
+			order by
 				#jtSorting#
 		</cfquery>
 		<cfquery name="trc" dbtype="query">
-			Select count(*) c from d 
+			Select count(*) c from d
 		</cfquery>
 		<cfoutput>
 			<cfset coredata=''>

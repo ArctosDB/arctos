@@ -232,7 +232,8 @@ div.jtable-input-field-container {
 	               specimen_query_term: $('#specimen_query_term').val(),
 	               DISPLAY: $('#DISPLAY').val(),
 	               CATEGORY: $('#CATEGORY').val(),
-	               SQL_ELEMENT: $('#SQL_ELEMENT').val()
+	               SQL_ELEMENT: $('#SQL_ELEMENT').val(),
+	               DOCUMENTATION_LINK: $('#DOCUMENTATION_LINK').val()
 	           });
 	       });
 	       if ($.getUrlVar("cf_variable") != null) {
@@ -352,6 +353,7 @@ div.jtable-input-field-container {
 	<div class="filtering">
 	    <form>
 	        CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
+	        DOC_LINK: <input type="text" name="DOCUMENTATION_LINK" id="DOCUMENTATION_LINK" />
 			 DISPLAY: <input type="text" name="DISPLAY" id="DISPLAY" />
 			SR:
 			<select name="SPECIMEN_RESULTS_COL" id="SPECIMEN_RESULTS_COL">
