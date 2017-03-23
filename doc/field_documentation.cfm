@@ -247,11 +247,12 @@ div.jtable-input-field-container {
 			    }, 2000);
 			    // edit?
 			    if ($.getUrlVar("popEdit") != null) {
-			    	console.log('open edit');
+			    	console.log('gonna edit');
 
 			    	 setTimeout(function() {
-				        $(".jtable-edit-command-button").hide();
-				    },100);
+			    	console.log('now');
+				        $(".jtable-edit-command-button > button:first-child").hide();
+				    },1000);
 
 
 
