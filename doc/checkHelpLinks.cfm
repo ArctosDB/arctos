@@ -141,10 +141,12 @@
 						select frm from d where id='#id#'
 					</cfquery>
 					<td>
-						#valuelist(qid.frm,"<br>")#
+						<cfloop query="qid">
+							<div style="font-size:small">#frm#</div>
+						</cfloop>
 					</td>
 					<cfquery name="r" dbtype="query">
-						select rawtag from d where id='#id#'
+						select rawtag from d where id='#id#' group by rawtag
 					</cfquery>
 					<cfset tgs="">
 					<cfloop query='r'>
