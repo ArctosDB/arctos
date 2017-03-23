@@ -186,7 +186,6 @@ UAM@ARCTEST>
 <p>
 	<a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a> - fetch all distinct DOCUMENTATION_LINKs from the doc table
 </p>
-
 <p>
 	<a href="checkHelpLinks.cfm?action=showDocs">showDocs</a> - tableify documentation for all docs used in code
 </p>
@@ -198,7 +197,7 @@ UAM@ARCTEST>
 			order by cf_variable
 		</cfquery>
 		<p>
-			Click variable to edit
+			Click variable to edit. READ THE EDIT FORM CAREFULLY BEFORE DOING ANYTHING!!
 		</p>
 		<table border>
 			<tr>
@@ -221,7 +220,11 @@ UAM@ARCTEST>
 						<a href="/doc/field_documentation.cfm?cf_variable=#CF_VARIABLE#&popEdit=true" target="_blank">#CF_VARIABLE#</a>
 					</td>
 					<td>#DEFINITION#</td>
-					<td>#DOCUMENTATION_LINK#</td>
+					<td>
+						<cfif len(DOCUMENTATION_LINK) gt 0>
+							<a href="#DOCUMENTATION_LINK#" target="_blank">#DOCUMENTATION_LINK#</a>
+						</cfif>
+					</td>
 					<td>#DISPLAY_TEXT#</td>
 					<td>#CONTROLLED_VOCABULARY#</td>
 					<td>#PLACEHOLDER_TEXT#</td>

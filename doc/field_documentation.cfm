@@ -253,10 +253,6 @@ div.jtable-input-field-container {
 			    	console.log('now');
 				        $(".jtable-command-column:first > button:first-child").trigger("click");
 				    },1000);
-
-
-
-
 			    }
 			} else {
 	       		$('#jtdocdoc').jtable('load');
@@ -364,7 +360,7 @@ div.jtable-input-field-container {
 		</ul>
 	</p>
 	<p>
-		Admin tools <a href="/doc/checkHelpLinks.cfm">here</a>
+		Maintenance tools <a href="/doc/checkHelpLinks.cfm">here</a>. 
 	</p>
 	<hr>Filter records:
 	<div class="filtering">
