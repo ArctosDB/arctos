@@ -156,6 +156,7 @@
 
 						<cfset rt=replace(rt,chr(10),'',"all")>
 						<cfset rt=replace(rt,chr(9),'',"all")>
+						<cfset rt=replace(rt,chr(13),'',"all")>
 						<cfset tgs=listappend(tgs,rt,chr(10))>
 					</cfloop>
 					<td><xmp>#tgs#</xmp></td>
