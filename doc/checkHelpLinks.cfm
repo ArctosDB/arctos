@@ -138,7 +138,7 @@
 				<tr>
 					<td>#id#</td>
 					<cfquery name="qid" dbtype="query">
-						select frm from d where id='#id#'
+						select frm from d where id='#id#' group by frm
 					</cfquery>
 					<td>
 						<cfloop query="qid">
