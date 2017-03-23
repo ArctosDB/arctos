@@ -146,7 +146,13 @@
 					<cfquery name="r" dbtype="query">
 						select rawtag from d where id='#id#'
 					</cfquery>
-					<td><xmp>#valuelist(replace(r.rawtag,chr(10),''),chr(10))#</xmp></td>
+					<cfset tgs="">
+					<cfloop query='r'>
+						<cfset rt=rawtag>
+						<cfset rt=replace(rt,chr(10),'',"all")>
+						<cfset tgs=listappend(tgs,rt,chr(10)>
+					</cfloop>
+					<td><xmp>#tgs#</xmp></td>
 				</tr>
 			</cfloop>
 		</table>
