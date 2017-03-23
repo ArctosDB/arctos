@@ -23,10 +23,10 @@
 	<a href="checkHelpLinks.cfm?action=checkUsedExists">checkUsedExists</a> - see if everything in the code has an entry in the doc table
 </p>
 <p>
-	<a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a> - fetch all distinct DOCUMENTATION_LINKs from the doc table
+	<a href="checkHelpLinks.cfm?action=checkLinks">checkLinks</a> - fetch all distinct DOCUMENTATION_LINKs from the doc table; check anchors
 </p>
 <p>
-	<a href="checkHelpLinks.cfm?action=showDocs">showDocs</a> - tableify documentation for all docs used in code
+	<a href="checkHelpLinks.cfm?action=showDocs">showDocs</a> - tableify documentation used in code
 </p>
 
 <cfif action is "showDocs">
