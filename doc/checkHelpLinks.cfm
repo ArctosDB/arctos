@@ -194,7 +194,7 @@ UAM@ARCTEST>
 <cfif action is "showDocs">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * DOCUMENTATION_LINK from ssrch_field_doc where cf_variable in (select id from cf_temp_doc_page_link)
+			select * from ssrch_field_doc where cf_variable in (select id from cf_temp_doc_page_link)
 			order by cf_variable
 		</cfquery>
 		<table border>
