@@ -332,7 +332,9 @@
 											<li><a target="_top" href="/AdminUsers.cfm">Arctos Users</a></li>
 											<li><a target="_top" href="/Admin/user_roles.cfm">Database Roles</a></li>
 											<li><a target="_top" href="/Admin/user_report.cfm">All User Stats</a></li>
+											<!---
 											<li><a target="_top" href="/Admin/manage_user_loan_request.cfm">User Loan</a></li>
+											---->
 										</ul>
 									</li>
 								</cfif>
@@ -356,7 +358,9 @@
 									<li><a target="_top" href="/info/localityStats.cfm">Locality Statistics</a></li>
 									<li><a target="_top" href="/info/sysstats.cfm">System Statistics</a></li>
 									<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
+									<!----
 									<li><a target="_top" href="/Admin/errorLogViewer.cfm">Error Logs</a></li>
+									---->
 									<li><a target="_top" href="/Reports/dataentry.cfm">Data Entry Stats</a></li>
 						            <cfif listfind(formList,"/tools/userSQL.cfm")>
 									    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
