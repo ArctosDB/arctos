@@ -14,14 +14,6 @@
 
 
 
-<cfquery name="nktbl" datasource="uam_god">
-				create table cf_temp_doc_page_link (frm varchar2(4000),rawtag varchar2(4000),id varchar2(4000))
-		</cfquery>
-
-		made a table....
-
-
-
 
 
 
