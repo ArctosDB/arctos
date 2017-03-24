@@ -9,13 +9,10 @@
 <cfparam name="action" default="nothing">
 <cfparam name="addCtl" default="1">
 <cfif action is "nothing">
-
-	<!--- this should be hard-coded - all installations should call the same docs, arctos.database.museum hosts everything --->
-
-	<!----  for testing
-		<cfhttp url="http://arctos-test.tacc.utexas.edu/doc/get_short_doc.cfm" charset="utf-8" method="get">
-
-
+	<!---
+		this should be hard-coded - all installations should call the same docs, arctos.database.museum hosts everything
+		for testing:
+			<cfhttp url="http://arctos-test.tacc.utexas.edu/doc/get_short_doc.cfm" charset="utf-8" method="get">
 	---->
 	<cfhttp url="http://arctos.database.museum/doc/get_short_doc.cfm" charset="utf-8" method="get">
 		<cfhttpparam type="url" name="action" value="getDoc">
@@ -24,16 +21,11 @@
 	</cfhttp>
 <cfoutput>#cfhttp.fileContent#</cfoutput>
 </cfif>
-
-
 <cfif action is "getDoc">
 	<!---
 		This part runs ONLY on arctos.database.museum, the one and only source of this information.
 	--->
 	<cftry>
-		<!---
-		<cfset probs="">
-		--->
 		<cfquery name="d" datasource="cf_dbuser">
 			select * from ssrch_field_doc where cf_variable = '#lcase(fld)#'
 		</cfquery>
