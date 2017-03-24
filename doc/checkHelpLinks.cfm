@@ -152,8 +152,6 @@
 					<cfloop query='r'>
 						<cfset rt=rawtag>
 						<cfset rt=replace(rt,'\s\s+',' ','all')>
-
-
 						<cfset rt=replace(rt,chr(10),'',"all")>
 						<cfset rt=replace(rt,chr(9),'',"all")>
 						<cfset rt=replace(rt,chr(13),'',"all")>
