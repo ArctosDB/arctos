@@ -13,14 +13,11 @@
 	<!--- this should be hard-coded - all installations should call the same docs, arctos.database.museum hosts everything --->
 
 	<!----  for testing
-			<cfhttp url="http://arctos.database.museum/doc/get_short_doc.cfm" charset="utf-8" method="get">
-
-
-	---->
-
 		<cfhttp url="http://arctos-test.tacc.utexas.edu/doc/get_short_doc.cfm" charset="utf-8" method="get">
 
 
+	---->
+	<cfhttp url="http://arctos.database.museum/doc/get_short_doc.cfm" charset="utf-8" method="get">
 		<cfhttpparam type="url" name="action" value="getDoc">
 		<cfhttpparam type="url" name="fld" value="#fld#">
 		<cfhttpparam type="url" name="addCtl" value="#addCtl#">
