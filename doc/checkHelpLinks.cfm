@@ -4,11 +4,16 @@
 		create table cf_temp_doc_page_link (frm varchar2(4000),rawtag varchar2(4000),id varchar2(4000));
 
 ---->
-		<cfquery name="d" datasource="uam_god">
+
+
+<cfinclude template="/includes/_header.cfm">
+
+
+<cfquery name="d" datasource="uam_god">
 				create table cf_temp_doc_page_link (frm varchar2(4000),rawtag varchar2(4000),id varchar2(4000))
 		</cfquery>
 
-<cfinclude template="/includes/_header.cfm">
+		made a table....
 <cfset title="find broke stuff">
 <p>
 	This is an iterative (because it's slow) single-user form.
