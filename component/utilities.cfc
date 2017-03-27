@@ -647,10 +647,10 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
 			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler,batch">
-			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
+			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract">
-			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries">
+			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS">
 			<cfset x=x & ",getmappingxpath,get_host_address">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana">
@@ -672,7 +672,6 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp">
 			<cfset x=x & ",zboard">
-
 
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register">
