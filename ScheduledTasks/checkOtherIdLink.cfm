@@ -1,5 +1,5 @@
 <cfoutput>
-	<cfhttp method="GET" url="http://www.boldsystems.org/connectivity/specimenlookup.php?processid=UAMIC076-12">
+	<cfhttp method="GET" url="http://www.ncbi.nlm.nih.gov/nuccore/KP827608">
 
 	</cfhttp>
 
