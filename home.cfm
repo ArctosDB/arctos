@@ -352,7 +352,7 @@
 
 		<a name="participation"></a>
 		<p><strong>Participation</strong></p>
-		Please see <a href="http://arctosdb.org/home/governance/joining-arctos/">http://arctosdb.org/home/governance/joining-arctos/</a>
+		Please see <a href="https://arctosdb.org/join-arctos/">https://arctosdb.org/join-arctos/</a>
 		for information about joining or using Arctos.
 
 
@@ -393,15 +393,17 @@
 			</li>
 		</ul>
 
-
+		<!----
 		<a name="data_usage"></a>
 
 		<p><strong>Data Usage</strong></p>
 		Please see <a href="http://arctosdb.org/home/data/">http://arctosdb.org/home/data/</a> for more information on using Arctos data.
-
+		---->
 		<a name="faq"></a>
-		<p><strong>FAQ</strong></p>
-
+		<p>
+			<a href="http://arctosdb.org/faq/">http://arctosdb.org/faq/</a> answers some frequently asked questions.
+		</p>
+		<!----
 		<div class="q">
 			Q: I hear Arctos is really complicated. What's up with that?
 		</div>
@@ -486,7 +488,7 @@
 			partitions data by user, roles, and context, and provides auditing. Incremental backup logs are maintained on mirrored disks,
 			and daily backups are maintained in 3 geographically separate secure locations.
 		</div>
-
+		---->
 		<a name="suggest"></a>
 		<p><strong>Suggestions?</strong></p>
 			 The utility of Arctos results from user input.
