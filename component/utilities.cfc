@@ -646,18 +646,18 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0">
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
-			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler,batch">
+			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract">
-			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder">
+			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS">
 			<cfset x=x & ",getmappingxpath,get_host_address">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus">
 			<cfset x=x & ",lib,lightbox,local-bin,LoginForm">
-			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests">
+			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market">
 			<cfset x=x & ",news,nyet">
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2">
@@ -667,11 +667,12 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sysobjects,svn,sap">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects">
-			<cfset x=x & ",trackback,TABLE_NAME">
+			<cfset x=x & ",trackback,TABLE_NAME,texteditor">
 			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp">
 			<cfset x=x & ",zboard">
+
 
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register">
