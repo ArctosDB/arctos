@@ -11,6 +11,7 @@ boogity56
 alter table cf_global_settings add monitor_email_addr varchar2(255);
 alter table cf_global_settings add monitor_email_pwd varchar2(255);
 
+update cf_global_settings set monitor_email_addr='arctos.is.not.dead',monitor_email_pwd='boogity56';
 ---->
 
 <cfquery name="p" datasource="uam_god">
@@ -18,9 +19,7 @@ alter table cf_global_settings add monitor_email_pwd varchar2(255);
 </cfquery>
 
 <cfoutput>
-
-<cfdump var=#p#>
- <cfimap
+	<cfimap
         server = "imap.gmail.com"
         username = "#p.monitor_email_addr#"
         action="open"
@@ -28,48 +27,65 @@ alter table cf_global_settings add monitor_email_pwd varchar2(255);
         password = "#p.monitor_email_pwd#"
         connection = "gmail"
 		>
-    <!--- everything all filtered messages. Should generally be one. --->
-    <cfimap
-        action="GetAll"
-		folder="inbox"
-        connection="gmail"
-        name="cart">
-    <cfdump var="#cart#">
+	    <!--- everything all filtered messages. Should generally be one. --->
+	    <cfimap
+	        action="GetAll"
+			folder="inbox"
+	        connection="gmail"
+	        name="cart">
 
-	<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
-	<cfset sendAlert="true">
-	<cfloop query="cart">
-		<cfif subject is "arctos is not dead">
-			<p>
-				SENTDATE: #SENTDATE#
-				<br><cfset tss=datediff('n',SENTDATE,now())>
-				tss:#tss#
-				<cfif tss lt 60>
-					<cfset sendAlert=false>
+		<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
+		<cfset sendAlert="true">
+		<cfloop query="cart">
+			<cfif subject is "arctos is not dead">
+				<p>
+					SENTDATE: #SENTDATE#
+					<br><cfset tss=datediff('n',SENTDATE,now())>
+					tss:#tss#
+					<cfif tss lt 60>
+						<cfset sendAlert=false>
+					</cfif>
+					<!---
+					move the message
+					should probably just delete but oh well
+					---->
+
+					<cfimap
+				        action="MoveMail"
+				        newfolder="was not dead"
+				        messagenumber="#MESSAGENUMBER#"
+				        stoponerror="true"
+				        connection="gmail">
 				</cfif>
-				<!---
-				move the message
-				should probably just delete but oh well
-				---->
+			</p>
+		</cfloop>
+	    <cfimap
+	        action="close"
+	        connection = "gmail">
 
-				<cfimap
-			        action="MoveMail"
-			        newfolder="was not dead"
-			        messagenumber="#MESSAGENUMBER#"
-			        stoponerror="true"
-			        connection="gmail">
+		<cfif sendAlert is true>
+			<cfif isdefined("Application.version") and  Application.version is "prod">
+				<cfset subj="IMPOORTANT: Arctos may be down">
+				<cfset maddr="dustymc@gmail.com,ctjordan@tacc.utexas.edu,ccicero@berkeley.edu,mkoo@berkeley.edu,arctos-working-group@googlegroups.com ">
+			<cfelse>
+				<cfset maddr=application.bugreportemail>
+				<cfset subj="TEST PLEASE IGNORE: Arctos may be having a bad time">
 			</cfif>
-		</p>
-	</cfloop>
-    <cfimap
-        action="close"
-        connection = "gmail">
+			<cfmail to="#maddr#" subject="#subj#" from="authority_notification@#Application.fromEmail#" type="html">
+				Arctos has missed a check-in.
 
-	<cfif sendAlert is true>
-		omg no email panicking now!!
-	<cfelse>
-		this doesn't need to be here, everything is happy
-	</cfif>
+				Check that Arctos.database.museum is responsive.
+
+				Check that email is being sent
+
+				Check that scheduled tasks are running
+
+				Check that #p.monitor_email_addr# is properly receiving email and allowing IMAP connections to Arctos. The password is
+				available under Global Settings.
+			</cfmail>
+		<cfelse>
+			this doesn't need to be here, everything is happy
+		</cfif>
 
 
 </cfoutput>
