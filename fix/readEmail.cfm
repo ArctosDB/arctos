@@ -34,6 +34,7 @@ update cf_global_settings set monitor_email_addr='arctos.is.not.dead',monitor_em
 	        connection="gmail"
 	        name="cart">
 
+	<cfdump var="#cart#">
 		<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
 		<cfset sendAlert="true">
 		<cfloop query="cart">
