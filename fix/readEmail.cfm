@@ -28,8 +28,14 @@ boogity56
         action="GetAll"
 		folder="the cart"
         connection="gmail"
-        name="allmail">
-    <cfdump var="#allmail#">
+        name="cart">
+    <cfdump var="#cart#">
+
+	<cfloop query="cart">
+		<p>
+			SENTDATE: #SENTDATE#
+		</p>
+	</cfloop>
     <cfimap
         action="close"
         connection = "gmail">
