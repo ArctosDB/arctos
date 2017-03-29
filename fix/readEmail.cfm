@@ -22,10 +22,10 @@ alter table cf_global_settings add monitor_email_pwd varchar2(255);
 <cfdump var=#p#>
  <cfimap
         server = "imap.gmail.com"
-        username = "#monitor_email_addr#"
+        username = "#p.monitor_email_addr#"
         action="open"
         secure="yes"
-        password = "#monitor_email_pwd#"
+        password = "#p.monitor_email_pwd#"
         connection = "gmail"
 		>
     <!--- everything all filtered messages. Should generally be one. --->
