@@ -6,6 +6,11 @@ create table temp_gmail (pwd varchar2(255));
 insert into temp_gmail(pwd)values('xxx');
 
 boogity56
+
+
+alter table cf_global_settings add monitor_email_addr varchar2(255);
+alter table cf_global_settings add monitor_email_pwd varchar2(255);
+
 ---->
 
 <cfquery name="p" datasource="uam_god">

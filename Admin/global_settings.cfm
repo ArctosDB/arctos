@@ -62,6 +62,17 @@
 			<label for="LOG_EMAIL">LOG_EMAIL (no-space comma-list; normal systems logs; heavy use)</label>
 			<textarea name="LOG_EMAIL" id="LOG_EMAIL" rows="6" cols="50" class="hugetextarea">#d.LOG_EMAIL#</textarea>
 
+			<!--- monitoring ---->
+
+
+			<label for="monitor_email_addr">monitor_email_addr</label>
+			<input type="text" name="monitor_email_addr" id="monitor_email_addr" size="80" value="#d.monitor_email_addr#">
+
+
+			<label for="monitor_email_pwd">monitor_email_pwd</label>
+			<input type="text" name="monitor_email_pwd" id="monitor_email_pwd" size="80" value="#d.monitor_email_pwd#">
+
+
 
 
 			<label for="PROTECTED_IP_LIST">PROTECTED_IP_LIST (never-blacklist IPs)</label>
@@ -109,7 +120,9 @@
 				DATA_REPORT_EMAIL='#DATA_REPORT_EMAIL#',
 				LOG_EMAIL='#LOG_EMAIL#',
 				PROTECTED_IP_LIST='#PROTECTED_IP_LIST#',
-				protect_ip_remark='#protect_ip_remark#'
+				protect_ip_remark='#protect_ip_remark#',
+				monitor_email_addr='#monitor_email_addr#',
+				monitor_email_pwd='#monitor_email_pwd#'
 		</cfquery>
 		<cflocation url="global_settings.cfm" addtoken="false">
 	</cfif>
