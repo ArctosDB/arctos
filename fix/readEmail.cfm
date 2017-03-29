@@ -26,6 +26,7 @@ boogity56
     <!--- Retrieve header information from the mailbox. --->
     <cfimap
         action="GetAll"
+		folder="the cart"
         connection="gmail"
         name="allmail">
     <cfdump var="#allmail#">
