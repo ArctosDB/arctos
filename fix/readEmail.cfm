@@ -15,7 +15,7 @@ insert into temp_gmail(pwd)values('xxx');
 <cfdump var=#p#>
  <cfimap
         server = "imap.gmail.com"
-        username = "arctos.database@gmail.com"
+        username = "arctos.database"
         action="open"
         secure="yes"
         password = "#p.pwd#"
