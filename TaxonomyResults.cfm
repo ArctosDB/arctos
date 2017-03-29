@@ -8,18 +8,8 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="#furl#">
 	<cfelse>
-		<cfthrow 
-		    detail = "TaxonomyResults problem"
-		    errorCode = "90000"
-		    extendedInfo = "soft 404: The page has moved and our redirects are broken. We're fixing it!"
-		    message = "The page has moved and our redirects are broken. We're fixing it!"
-		   >
+		<cfset furl="/taxonomy.cfm">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="#furl#">
 	</cfif>
-	
-	
-		   
-		   
-		   
-		   
-	
 </cfoutput>
