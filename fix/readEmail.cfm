@@ -11,9 +11,11 @@ insert into temp_gmail(pwd)values('xxx');
 </cfquery>
 
 <cfoutput>
+
+<cfdump var=#p#>
  <cfimap
-        server = "imap.gmail.com" <!------>
-        username = "arctos.database"
+        server = "imap.gmail.com"
+        username = "arctos.database@gmail.com"
         action="open"
         secure="yes"
         password = "#p.pwd#"
@@ -29,4 +31,3 @@ insert into temp_gmail(pwd)values('xxx');
         connection = "test.cf.gmail">
 
 
-	</cfoutput>
