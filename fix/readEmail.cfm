@@ -74,15 +74,19 @@ update cf_global_settings set monitor_email_addr='arctos.is.not.dead',monitor_em
 			</cfif>
 			<cfmail to="#maddr#" subject="#subj#" from="not_not_dead@#Application.fromEmail#" type="html">
 				Arctos has missed a check-in.
-
-				Check that Arctos.database.museum is responsive.
-
-				Check that email is being sent
-
-				Check that scheduled tasks are running
-
-				Check that #p.monitor_email_addr# is properly receiving email and allowing IMAP connections to Arctos. The password is
-				available under Global Settings.
+				<p>
+					Check that arctos.database.museum is responsive.
+				</p>
+				<p>
+					Check that email is being sent
+				</p>
+				<p>
+					Check that scheduled tasks are running
+				</p>
+				<p>
+					Check that #p.monitor_email_addr# is properly receiving email and allowing IMAP connections to Arctos. The password is
+					available under Global Settings.
+				</p>
 			</cfmail>
 		<cfelse>
 			this doesn't need to be here, everything is happy
