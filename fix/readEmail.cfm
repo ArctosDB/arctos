@@ -4,6 +4,8 @@ move to cf_global_settings if this works
 
 create table temp_gmail (pwd varchar2(255));
 insert into temp_gmail(pwd)values('xxx');
+
+boogity56
 ---->
 
 <cfquery name="p" datasource="uam_god">
@@ -15,11 +17,12 @@ insert into temp_gmail(pwd)values('xxx');
 <cfdump var=#p#>
  <cfimap
         server = "imap.gmail.com"
-        username = "arctos.database"
+        username = "arctos.is.not.dead"
         action="open"
         secure="yes"
-        password = "#p.pwd#"
-        connection = "test.cf.gmail">
+        password = "boogity56"
+        connection = "test.cf.gmail"
+		>
     <!--- Retrieve header information from the mailbox. --->
     <cfimap
         action="getHeaderOnly"
