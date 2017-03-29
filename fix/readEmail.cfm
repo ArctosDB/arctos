@@ -23,7 +23,7 @@ boogity56
         password = "boogity56"
         connection = "gmail"
 		>
-    <!--- Retrieve header information from the mailbox. --->
+    <!--- Retrieve header information from the incoming folder. --->
     <cfimap
         action="GetAll"
 		folder="the cart"
@@ -31,9 +31,12 @@ boogity56
         name="cart">
     <cfdump var="#cart#">
 
+	<cfset sendAlert="false">
 	<cfloop query="cart">
 		<p>
 			SENTDATE: #SENTDATE#
+			<br><cfset tss=datediff(now(),SENTDATE)>
+			tss:#tss#
 		</p>
 	</cfloop>
     <cfimap
