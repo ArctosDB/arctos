@@ -71,7 +71,7 @@ update cf_global_settings set monitor_email_addr='arctos.is.not.dead',monitor_em
 				<cfset maddr=application.bugreportemail>
 				<cfset subj="TEST PLEASE IGNORE: Arctos may be having a bad time">
 			</cfif>
-			<cfmail to="#maddr#" subject="#subj#" from="authority_notification@#Application.fromEmail#" type="html">
+			<cfmail to="#maddr#" subject="#subj#" from="not_not_dead@#Application.fromEmail#" type="html">
 				Arctos has missed a check-in.
 
 				Check that Arctos.database.museum is responsive.
