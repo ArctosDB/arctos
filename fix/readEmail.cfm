@@ -31,3 +31,4 @@ insert into temp_gmail(pwd)values('xxx');
         connection = "test.cf.gmail">
 
 
+</cfoutput>
