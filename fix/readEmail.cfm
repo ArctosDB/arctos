@@ -34,6 +34,7 @@ boogity56
 	<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
 	<cfset sendAlert="true">
 	<cfloop query="cart">
+		<cfif subject is "arctos is not dead"
 		<p>
 			SENTDATE: #SENTDATE#
 			<br><cfset tss=datediff('n',SENTDATE,now())>
