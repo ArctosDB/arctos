@@ -35,7 +35,7 @@ boogity56
 	<cfloop query="cart">
 		<p>
 			SENTDATE: #SENTDATE#
-			<br><cfset tss=datediff(now(),SENTDATE)>
+			<br><cfset tss=datediff('n',now(),SENTDATE)>
 			tss:#tss#
 		</p>
 	</cfloop>
