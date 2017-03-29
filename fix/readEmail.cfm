@@ -18,7 +18,7 @@ boogity56
  <cfimap
         server = "imap.gmail.com"
         username = "arctos.is.not.dead"
-        action="open"
+        action="ListAllFolders"
         secure="yes"
         password = "boogity56"
         connection = "test.cf.gmail"
