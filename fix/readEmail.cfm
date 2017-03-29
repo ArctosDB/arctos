@@ -18,20 +18,20 @@ boogity56
  <cfimap
         server = "imap.gmail.com"
         username = "arctos.is.not.dead"
-        action="ListAllFolders"
+        action="open"
         secure="yes"
         password = "boogity56"
-        connection = "test.cf.gmail"
+        connection = "gmail"
 		>
     <!--- Retrieve header information from the mailbox. --->
     <cfimap
-        action="getHeaderOnly"
-        connection="test.cf.gmail"
+        action="ListAllFolders"
+        connection="gmail"
         name="queryname">
     <cfdump var="#queryname#">
     <cfimap
         action="close"
-        connection = "test.cf.gmail">
+        connection = "gmail">
 
 
 </cfoutput>
