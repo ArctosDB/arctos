@@ -66,7 +66,7 @@
 
 
 			<label for="monitor_email_addr">monitor_email_addr</label>
-			<input type="text" name="monitor_email_addr" id="monitor_email_addr" size="80" value="#d.monitor_email_addr#">
+			<input type="text" name="monitor_email_addr" id="monitor_email_addr" size="80" value="#d.monitor_email_addr#">@gmail.com
 
 
 			<label for="monitor_email_pwd">monitor_email_pwd</label>

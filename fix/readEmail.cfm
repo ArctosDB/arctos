@@ -14,7 +14,7 @@ alter table cf_global_settings add monitor_email_pwd varchar2(255);
 ---->
 
 <cfquery name="p" datasource="uam_god">
-	select * from temp_gmail
+	select monitor_email_addr,monitor_email_pwd from cf_global_settings
 </cfquery>
 
 <cfoutput>
@@ -22,10 +22,10 @@ alter table cf_global_settings add monitor_email_pwd varchar2(255);
 <cfdump var=#p#>
  <cfimap
         server = "imap.gmail.com"
-        username = "arctos.is.not.dead"
+        username = "#monitor_email_addr#"
         action="open"
         secure="yes"
-        password = "boogity56"
+        password = "#monitor_email_pwd#"
         connection = "gmail"
 		>
     <!--- everything all filtered messages. Should generally be one. --->
