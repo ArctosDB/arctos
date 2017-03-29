@@ -34,25 +34,26 @@ boogity56
 	<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
 	<cfset sendAlert="true">
 	<cfloop query="cart">
-		<cfif subject is "arctos is not dead"
-		<p>
-			SENTDATE: #SENTDATE#
-			<br><cfset tss=datediff('n',SENTDATE,now())>
-			tss:#tss#
-			<cfif tss lt 60>
-				<cfset sendAlert=false>
-			</cfif>
-			<!---
-			move the message
-			should probably just delete but oh well
-			---->
+		<cfif subject is "arctos is not dead">
+			<p>
+				SENTDATE: #SENTDATE#
+				<br><cfset tss=datediff('n',SENTDATE,now())>
+				tss:#tss#
+				<cfif tss lt 60>
+					<cfset sendAlert=false>
+				</cfif>
+				<!---
+				move the message
+				should probably just delete but oh well
+				---->
 
-			<cfimap
-		        action="MoveMail"
-		        newfolder="was not dead"
-		        messagenumber="#MESSAGENUMBER#"
-		        stoponerror="true"
-		        connection="gmail">
+				<cfimap
+			        action="MoveMail"
+			        newfolder="was not dead"
+			        messagenumber="#MESSAGENUMBER#"
+			        stoponerror="true"
+			        connection="gmail">
+			</cfif>
 		</p>
 	</cfloop>
     <cfimap
