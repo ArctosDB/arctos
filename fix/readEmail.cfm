@@ -26,7 +26,7 @@ boogity56
     <!--- everything all filtered messages. Should generally be one. --->
     <cfimap
         action="GetAll"
-		folder="the cart"
+		folder="inbox"
         connection="gmail"
         name="cart">
     <cfdump var="#cart#">
