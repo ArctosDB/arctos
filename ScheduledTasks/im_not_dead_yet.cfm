@@ -89,6 +89,12 @@
 						---->
 						<br>moving #MESSAGEID# to archive
 						<cfimap
+					        action="MarkRead"
+					        messagenumber="#MESSAGEID#"
+					        stoponerror="true"
+					        connection="gmail">
+
+					        <cfimap
 					        action="MoveMail"
 					        newfolder="was not dead"
 					        messagenumber="#MESSAGEID#"
