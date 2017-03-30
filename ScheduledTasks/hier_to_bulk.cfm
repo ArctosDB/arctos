@@ -44,11 +44,11 @@
 		</cfloop>
 		insert into ....
 		<cfloop query="CTTAXON_TERM">
-			#TAXON_TERM#
+			#TAXON_TERM#,
 		</cfloop>
 		) values (
 		<cfloop query="CTTAXON_TERM">
-			#evaluate('variables.' & TAXON_TERM)#
+			'#evaluate('variables.' & TAXON_TERM)#'
 		</cfloop>
 
 	</p>
