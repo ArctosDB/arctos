@@ -170,7 +170,17 @@ insert into temp_ht (scientific_name,taxon_name_id) (
 	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
 	<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
 
+<span onclick="a()">a</span>
+<span onclick="b()">b</span>
 	<script>
+
+
+		function a (){
+			$('body').css('cursor', 'wait');
+		}
+		function b (){
+			$('body').css('cursor', 'auto');
+		}
 
 		jQuery(document).ready(function() {
 
