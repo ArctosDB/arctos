@@ -78,7 +78,7 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 				(taxon_name_id,dataset_name) not in (select taxon_name_id,dataset_name from temp_hierarcicized) and
 				rownum<10000
 		) loop
-			--dbms_output.put_line(t.scientific_name);
+			dbms_output.put_line(t.scientific_name);
 			-- we'll never have this, just insert
 			-- actually, I don't think we need this at all, it should usually be handled by eg, species (lowest-ranked term)
 
@@ -96,7 +96,7 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 				order by
 					position_in_classification ASC
 			) loop
-				--dbms_output.put_line(r.term_type || '=' || r.term);
+				dbms_output.put_line(r.term_type || '=' || r.term);
 				-- see if we already have one
 				select count(*) into v_c from hierarchical_taxonomy where term=r.term and rank=r.term_type;
 				if v_c=1 then
@@ -137,34 +137,15 @@ exec proc_hierac_tax;
 select count(*) from temp_hierarcicized;
 select count(*) from hierarchical_taxonomy;
 
+delete from temp_hierarcicized;
+delete from hierarchical_taxonomy;
 
-
-
-
-UAM@ARCTEST> desc temp_ht
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- SCIENTIFIC_NAME						   NOT NULL VARCHAR2(255)
- TAXON_NAME_ID							   NOT NULL NUMBER
-
-insert into temp_ht (scientific_name,taxon_name_id) (
-			select distinct
-				scientific_name,
-				taxon_name.taxon_name_id
-			from
-				taxon_name,
-				taxon_term
-			where
-				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-				taxon_term.source='Arctos' and
-				term_type='kingdom' and
-				taxon_name.taxon_name_id not in (select taxon_name_id from temp_hierarcicized)
-			);
 
 
 
 </cfif>
 <cfif action is "manageLocalTree">
+	<div id="statusDiv" style="position:absolute;top:0;left:0;border:1px solid red;"></div>
 
 	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
@@ -198,6 +179,7 @@ insert into temp_ht (scientific_name,taxon_name_id) (
 			initTree();
 
 			myTree.attachEvent("onDblClick", function(id){
+				$("#statusDiv").html('working...');
 				console.log('wait');
 				$('body').css('cursor', 'wait');
 
@@ -216,6 +198,7 @@ insert into temp_ht (scientific_name,taxon_name_id) (
 						}
 
 
+				$("#statusDiv").html('done');
 				$('body').css('cursor', 'auto');
 											console.log('auto');
 					}
