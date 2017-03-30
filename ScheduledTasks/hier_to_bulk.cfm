@@ -38,6 +38,7 @@
 				<cfset variables.TID=next.TID>
 				<cfset variables.PARENT_TID=next.PARENT_TID>
 				<cfset "variables.#next.RANK#"=next.term>
+				<br>#next.RANK#=#evaluate('variables.' & next.RANK)#
 			<cfelse>
 				<cfbreak>
 			</cfif>
