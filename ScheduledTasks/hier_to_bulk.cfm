@@ -20,15 +20,24 @@
 
 		#term# - #rank#
 
-		<cfset variables.TID=TID>
-		<cfset variables.PARENT_TID=PARENT_TID>
-		<cfset "variables.#RANK#"=term>
+		<cfset variables.TID=d.TID>
+		<cfset variables.PARENT_TID=d.PARENT_TID>
+		<cfset "variables.#RANK#"=d.term>
 
 
 	<cfdump var=#variables#>
 
 		<!---- loop a bunch...---->
 		<cfloop from="1" to="500" index="l">
+			<cfif len(variables.PARENT_TID) gt 0>
+				<br>got a parent, get it
+				<cfquery name="next" datasource="uam_god">
+					select * from hierarchical_taxonomy where tid=#variables.PARENT_TID#
+				</cfquery>
+				<cfdump var="#next#">
+			<cfelse>
+				<cfbreak>
+			</cfif>
 
 		</cfloop>
 	</p>
