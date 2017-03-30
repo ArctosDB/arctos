@@ -177,7 +177,7 @@ insert into temp_ht (scientific_name,taxon_name_id) (
 
 		function a (){
 			console.log('a');
-			$('body').css('cursor', 'wait');
+			$('body').css('cursor', 'progress');
 		}
 		function b (){
 			console.log('b');
