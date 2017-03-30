@@ -320,7 +320,7 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
-	<!--- protect "us" directories	 --->
+	<!--- protect "us" directories
 	<cfif (CGI.Remote_Addr is not "127.0.0.1" and CGI.Remote_Addr is not 0.0.0.0) and
 		(not isdefined("session.roles") or session.roles is "public" or len(session.roles) is 0) and
 		(currentPath contains "/Admin/" or
@@ -336,6 +336,7 @@
 			</cfscript>
 			<cfabort>
 	</cfif>
+	--->
 	<!--- disallow CF execution --->
 	<cfif currentPath contains "/images/" or
 		 currentPath contains "/download/" or
