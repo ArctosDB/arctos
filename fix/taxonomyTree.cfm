@@ -1,130 +1,137 @@
 <cfinclude template="/includes/_header.cfm">
 
+<cfif action is "nothing">
+	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct (dataset_name) from hierarchical_taxonomy
+	</cfquery>
+	<cfoutput>
+		select a dataset to edit...
+		<cfloop query="mg">
+			<p>
+				#dataset_name#
+			</p>
+		</cfloop>
 
-<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
-<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
-<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
+		... or <a href="taxonomyTree.cfm?action=impData">import more data</a>
+	</cfoutput>
+</cfif>
 
-<script>
+<cfif action is "impData">
+ impData
+</cfif>
+<cfif action is "manageLocalTree">
 
-	jQuery(document).ready(function() {
+	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
+	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
+	<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
 
-		myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
-		myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
+	<script>
+
+		jQuery(document).ready(function() {
+
+			myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
+			myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
 
 
-		myTree.enableDragAndDrop(true);
-		myTree.enableCheckBoxes(true);
-		myTree.enableTreeLines(true);
-		myTree.enableTreeImages(false);
+			myTree.enableDragAndDrop(true);
+			myTree.enableCheckBoxes(true);
+			myTree.enableTreeLines(true);
+			myTree.enableTreeImages(false);
 
-		initTree();
+			initTree();
 
-		myTree.attachEvent("onDblClick", function(id){
-		    $.getJSON("/component/test.cfc",
-				{
-					method : "getTaxTreeChild",
-					id : id,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-					for (i=0;i<r.ROWCOUNT;i++) {
-						//insertNewChild(var) does not work for some insane reason, so.....
-						var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
-						eval(d);
+			myTree.attachEvent("onDblClick", function(id){
+			    $.getJSON("/component/test.cfc",
+					{
+						method : "getTaxTreeChild",
+						id : id,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (r) {
+						for (i=0;i<r.ROWCOUNT;i++) {
+							//insertNewChild(var) does not work for some insane reason, so.....
+							var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
+							eval(d);
+						}
 					}
-				}
-			);
-		});
-
-
-
-			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
-			    // your code here
-				alert('UPDATE tablethingee SET parent_id=' + tId + ' where id=' + sId);
+				);
 			});
 
 
 
-		myTree.attachEvent("onCheck", function(id){
-		    alert('this should edit ' + id);
-		    // uncheck everything
-		    var ids=myTree.getAllSubItems(0).split(",");
-    		for (var i=0; i<ids.length; i++){
-       			myTree.setCheck(ids[i],0);
-    		}
+				myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
+				    // your code here
+					alert('UPDATE tablethingee SET parent_id=' + tId + ' where id=' + sId);
+				});
+
+
+
+			myTree.attachEvent("onCheck", function(id){
+			    alert('this should edit ' + id);
+			    // uncheck everything
+			    var ids=myTree.getAllSubItems(0).split(",");
+	    		for (var i=0; i<ids.length; i++){
+	       			myTree.setCheck(ids[i],0);
+	    		}
+			});
+
+
+
+
+
+
+
+			$( "#srch" ).change(function() {
+				// blank canvas
+				myTree.deleteChildItems(0);
+				 $.getJSON("/component/test.cfc",
+					{
+						method : "getTaxTreeSrch",
+						q: $( "#srch" ).val(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (r) {
+						console.log(r);
+						//myTree.parse(r, "jsarray");
+						myTree.parse(r, "jsarray");
+						myTree.openAllItems(0);
+
+					}
+				);
+			});
 		});
 
 
-
-
-
-
-
-		$( "#srch" ).change(function() {
-			// blank canvas
+		function initTree(){
 			myTree.deleteChildItems(0);
-			 $.getJSON("/component/test.cfc",
+			$.getJSON("/component/test.cfc",
 				{
-					method : "getTaxTreeSrch",
-					q: $( "#srch" ).val(),
+					method : "getInitTaxTree",
 					returnformat : "json",
 					queryformat : 'column'
 				},
 				function (r) {
-					console.log(r);
-					//myTree.parse(r, "jsarray");
 					myTree.parse(r, "jsarray");
-					myTree.openAllItems(0);
 
 				}
 			);
-		});
-	});
+		}
+
+	//tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
+
+	</script>
+
+	<label for="srch">search (starts with)</label>
+	<input id="srch">
+	<br>
+	<input type="button" value="reset tree" onclick="initTree()">
 
 
-	function initTree(){
-		myTree.deleteChildItems(0);
-		$.getJSON("/component/test.cfc",
-			{
-				method : "getInitTaxTree",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				myTree.parse(r, "jsarray");
-
-			}
-		);
-	}
-
-//tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
-
-</script>
-
-<label for="srch">search (starts with)</label>
-<input id="srch">
-<br>
-<input type="button" value="reset tree" onclick="initTree()">
-
-
-<div id="treeBox" style="width:200;height:200"></div>
-
+	<div id="treeBox" style="width:200;height:200"></div>
+</cfif>
 <!----
-
-
-$.getJSON("/component/functions.cfc",
-		{
-			method : "setSessionCustomID",
-			val : v,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (getResult) {}
-	);
-
-
 
 
 	create a hierarchical data structure for classification data
@@ -135,13 +142,20 @@ $.getJSON("/component/functions.cfc",
 	eventually including non-classification stuff (???)
 		-- maybe in another table linked by tid
 
+	drop table hierarchical_taxonomy;
+
+
 	create table hierarchical_taxonomy (
 		tid number not null,
 		parent_tid number,
 		term varchar2(255),
-		rank varchar2(255)
+		rank varchar2(255),
+		dataset_name varchar2(255) not null
 	);
 
+	create or replace public synonym hierarchical_taxonomy for hierarchical_taxonomy;
+
+	grant all on hierarchical_taxonomy to manage_taxonomy;
 
 	-- populate
 	-- first a root node
