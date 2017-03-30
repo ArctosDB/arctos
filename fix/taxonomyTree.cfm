@@ -10,11 +10,11 @@
 		<li>
 			This form creates hierarchical data from Arctos. Not all data in Arctos can be transformed, and some will be transformed
 				unpredictably. For example, given
-				<li>genus-->family-->order</li>
+				<ul><li><strong>genus</strong>--><strong>family</strong>--><strong>order</strong></li></ul>
 				 and
-				 <li>othergenus-->family-->otherorder</li>
-				 that is, inconsistent hierarchies - here one family split between two orders - then all family will end up
-				 as a child of either order or otherorder, whichever is encountered first.
+				 <ul><li><strong>othergenus</strong>--><strong>family</strong>--><strong>otherorder</strong></li></ul>
+				 that is, inconsistent hierarchies - here one family split between two orders - then all <strong>family</strong> will end up
+				 as a child of either <strong>order</strong> or <strong>otherorder</strong>, whichever is encountered first.
 		</li>
 	</ul>
 
