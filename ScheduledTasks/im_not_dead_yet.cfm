@@ -87,13 +87,14 @@
 						move the message
 						should probably just delete but oh well
 						---->
-						<br>moving #MESSAGEID# to archive
+						<br>moving #messagenumber# to archive
+						<!----
 						<cfimap
 					        action="MarkRead"
 					        messagenumber="#messagenumber#"
 					        stoponerror="true"
 					        connection="gmail">
-
+---->
 					        <cfimap
 					        action="MoveMail"
 					        newfolder="was not dead"
