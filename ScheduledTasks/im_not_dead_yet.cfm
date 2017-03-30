@@ -150,6 +150,9 @@
 				<p>Check that the password to #p.monitor_email_addr#@gmail.com works and matches at test and prod.</p>
 			</cfmail>
 		<cfelse>
-			this doesn't need to be here, everything is happy
+			<cfmail to="dustymc@gmail.com" subject="not dead" from="not_dead@#Application.fromEmail#" type="html">
+				monitoring scripts are happy.
+			</cfmail>
+
 		</cfif>
 </cfoutput>
