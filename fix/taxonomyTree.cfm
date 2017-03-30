@@ -62,7 +62,10 @@ commit;
 
 -- now let the stored procedure chew on things
 
+
+
 CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
+	-- note: https://github.com/ArctosDB/arctos/issues/1000#issuecomment-290556611
 	--declare
 		v_pid number;
 		v_tid number;
@@ -180,8 +183,7 @@ delete from hierarchical_taxonomy;
 
 			myTree.attachEvent("onDblClick", function(id){
 				$("#statusDiv").html('working...');
-				console.log('wait');
-				$('body').css('cursor', 'wait');
+
 
 			    $.getJSON("/component/test.cfc",
 					{
@@ -196,11 +198,8 @@ delete from hierarchical_taxonomy;
 							var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
 							eval(d);
 						}
+						$("#statusDiv").html('done');
 
-
-				$("#statusDiv").html('done');
-				$('body').css('cursor', 'auto');
-											console.log('auto');
 					}
 				);
 
@@ -210,8 +209,30 @@ delete from hierarchical_taxonomy;
 
 
 				myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
-				    // your code here
-					alert('UPDATE tablethingee SET parent_id=' + tId + ' where id=' + sId);
+
+					$("#statusDiv").html('working....');
+				    $.getJSON("/component/test.cfc",
+					{
+						method : "saveParentUpdate",
+						tid : sId,
+						parent_tid : tId,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (r) {
+						console.log(r);
+						if {(r=='success');
+							$("#statusDiv").html('successful save');
+						}else{
+							alert(r);
+						}
+
+					}
+				);
+
+
+
+					//alert('UPDATE tablethingee SET parent_id=' + tId + ' where id=' + sId);
 				});
 
 

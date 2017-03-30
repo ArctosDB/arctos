@@ -1,4 +1,20 @@
 <cfcomponent>
+
+	saveParentUpdate
+
+<cffunction name="saveParentUpdate" access="remote">
+   <cfargument name="tid" type="numeric" required="true">
+   <cfargument name="parent_tid" type="numeric" required="true">
+
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			update hierarchical_taxonomy set parent_tid=#parent_tid# where tid=#tid#
+		</cfquery>
+		<cfreturn 'success'>
+	</cfoutput>
+
+</cffunction>
+
 <cffunction name="getTaxTreeChild" access="remote">
    <cfargument name="id" type="numeric" required="true">
 
