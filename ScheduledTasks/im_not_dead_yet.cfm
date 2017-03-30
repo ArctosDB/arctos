@@ -74,6 +74,7 @@
 		<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
 		<cfset sendAlert="true">
 		<cfloop query="inbox">
+			<br>loopy....
 			<cfif from is acceptFrom and subject is "arctos is not dead">
 					<p>
 						SENTDATE: #SENTDATE#
@@ -86,7 +87,7 @@
 						move the message
 						should probably just delete but oh well
 						---->
-
+						<br>moving #MESSAGENUMBER# to archive
 						<cfimap
 					        action="MoveMail"
 					        newfolder="was not dead"
@@ -102,6 +103,9 @@
 
 		<!--- this is the one instance where we want to send email from test to everybody ---->
 		<cfif sendAlert is true>
+		<p>
+			sendAlert is true, here goes email
+		</p>
 			<cfset subj="IMPORTANT: Arctos may be down">
 			<cfset maddr="dustymc@gmail.com,ctjordan@tacc.utexas.edu,ccicero@berkeley.edu,mkoo@berkeley.edu,arctos-working-group@googlegroups.com ">
 
