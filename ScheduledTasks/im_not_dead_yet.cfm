@@ -103,9 +103,7 @@
 					</cfif>
 			</p>
 		</cfloop>
-	    <cfimap
-	        action="close"
-	        connection = "gmail">
+
 
 
 		<p>
@@ -118,6 +116,11 @@
 	        name="inbox">
 
 		<cfdump var="#inbox#">
+
+
+		  <cfimap
+	        action="close"
+	        connection = "gmail">
 
 		</p>
 		<!--- this is the one instance where we want to send email from test to everybody ---->
