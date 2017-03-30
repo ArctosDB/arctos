@@ -131,7 +131,6 @@
 			<cfset subj="IMPORTANT: Arctos may be down">
 			<cfset maddr="dustymc@gmail.com,ctjordan@tacc.utexas.edu,ccicero@berkeley.edu,mkoo@berkeley.edu,arctos-working-group@googlegroups.com ">
 
-
 			<cfmail to="dustymc@gmail.com" subject="#subj#" from="not_not_dead@#Application.fromEmail#" type="html">
 				<p>
 					final email list: #maddr#
