@@ -3,7 +3,7 @@
 	select * from hierarchical_taxonomy where status='ready_to_push_bl' and rownum < 5
 </cfquery>
 <!---- column names in order ---->
-<cfquery name="oClassTerms" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			*
 		from
@@ -12,6 +12,13 @@
 
 <cfoutput>
 	<cfloop query="d">
-		#term# - #rank#
+		<!--- reset variables ---->
+		<cfloop query="CTTAXON_TERM">
+				<cfset "v_#TAXON_TERM#"="">
+
+		</cfloop>
+	<p>	#term# - #rank#
+
+	</p>
 	</cfloop>
 </cfoutput>
