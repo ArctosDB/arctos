@@ -74,6 +74,7 @@
 		<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
 		<cfset sendAlert="true">
 		<cfloop query="inbox">
+			<br>loopy....
 			<cfif from is acceptFrom and subject is "arctos is not dead">
 					<p>
 						SENTDATE: #SENTDATE#
