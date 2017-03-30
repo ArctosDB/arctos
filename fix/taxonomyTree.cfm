@@ -1,6 +1,23 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfif action is "nothing">
+
+	ABOUT:
+	<ul>
+		<li>
+			This is a classification editor; it will NOT create, delete, or alter taxon_name.
+		</li>
+		<li>
+			This form creates hierarchical data from Arctos. Not all data in Arctos can be transformed, and some will be transformed
+				unpredictably. For example, given
+				<li>genus-->family-->order</li>
+				 and
+				 <li>othergenus-->family-->otherorder</li>
+				 that is, inconsistent hierarchies - here one family split between two orders - then all family will end up
+				 as a child of either order or otherorder, whichever is encountered first.
+		</li>
+	</ul>
+
 	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct (dataset_name) from hierarchical_taxonomy
 	</cfquery>
@@ -17,6 +34,131 @@
 </cfif>
 
 <cfif action is "impData">
+-- procedure to move stuff to the bulkloader
+
+alter table hierarchical_taxonomy add status varchar2(255);
+
+update hierarchical_taxonomy set status='ready_to_push_bl' where rownum<20;
+
+CREATE OR REPLACE PROCEDURE proc_hierac_tax_bl IS
+	-- every term is the lowest-ranked term in a row
+	-- order isn't important
+	v_scientific_name varchar2(255);
+	v_author_text varchar2(255);
+	v_infraspecific_author varchar2(255);
+	v_nomenclatural_code varchar2(255);
+	v_source_authority varchar2(255);
+	v_valid_catalog_term_fg varchar2(255);
+	v_taxon_status varchar2(255);
+	v_remark varchar2(255);
+	v_display_name varchar2(255);
+	v_superkingdom varchar2(255);
+	v_kingdom varchar2(255);
+	v_subkingdom varchar2(255);
+	v_infrakingdom varchar2(255);
+	v_superphylum varchar2(255);
+	v_phylum varchar2(255);
+	v_subphylum varchar2(255);
+	v_subdivision varchar2(255);
+	v_infraphylum varchar2(255);
+	v_superclass varchar2(255);
+	v_class varchar2(255);
+	v_subclass varchar2(255);
+	v_infraclass varchar2(255);
+	v_hyperorder varchar2(255);
+	v_superorder varchar2(255);
+	v_phylorder varchar2(255);
+	v_suborder varchar2(255);
+	v_infraorder varchar2(255);
+	v_hyporder varchar2(255);
+	v_subhyporder varchar2(255);
+	v_superfamily varchar2(255);
+	v_family varchar2(255);
+	v_subfamily varchar2(255);
+	v_supertribe varchar2(255);
+	v_tribe varchar2(255);
+	v_subtribe varchar2(255);
+	v_genus varchar2(255);
+	v_subgenus varchar2(255);
+	v_species varchar2(255);
+	v_subspecies varchar2(255);
+	v_subsp varchar2(255);
+	v_forma varchar2(255);
+
+
+BEGIN
+	dbms_output.put_line('ok');
+	for r in (select * from hierarchical_taxonomy where status='ready_to_push_bl' and rownum < 5) loop
+
+END;
+/
+
+
+
+
+	create table cf_temp_classification (
+		-- admin junk
+		status varchar2(4000),
+		classification_id varchar2(4000),
+		username varchar2(255) not null,
+		source  varchar2(255) not null,
+		taxon_name_id number,
+		-- key AND lowest-ranking classification term
+		scientific_name varchar2(255) not null,
+		--non-classification terms
+		author_text varchar2(255) null,
+		infraspecific_author varchar2(255) null,
+		nomenclatural_code varchar2(255) not null,
+		source_authority varchar2(4000) null,
+		valid_catalog_term_fg varchar2(255) null,
+		taxon_status varchar2(255) null,
+		remark varchar2(255),
+		display_name varchar2(255) null,
+		--classification terms - MAKE SURE THESE STAY ORDERED
+		superkingdom varchar2(255) null,
+		kingdom varchar2(255) null,
+		subkingdom varchar2(255) null,
+		infrakingdom varchar2(255) null,
+		superphylum varchar2(255) null,
+		phylum varchar2(255) null,
+		subphylum varchar2(255) null,
+		subdivision varchar2(255) null,
+		infraphylum varchar2(255) null,
+		superclass varchar2(255) null,
+		class varchar2(255) null,
+		subclass varchar2(255) null,
+		infraclass varchar2(255) null,
+		hyperorder varchar2(255) null,
+		superorder varchar2(255) null,
+		phylorder varchar2(255) null,
+		suborder varchar2(255) null,
+		infraorder varchar2(255) null,
+		hyporder varchar2(255) null,
+		subhyporder varchar2(255) null,
+		superfamily varchar2(255) null,
+		family varchar2(255),
+		subfamily varchar2(255) null,
+		supertribe varchar2(255) null,
+		tribe varchar2(255) null,
+		subtribe varchar2(255) null,
+		genus varchar2(255) null,
+		subgenus varchar2(255) null,
+		species varchar2(255) null,
+		subspecies varchar2(255) null,
+		subsp varchar2(255) null,
+		forma varchar2(255) null
+);
+
+
+		v_pid number;
+		v_tid number;
+		v_c number;
+	begin
+		v_pid:=NULL;
+
+
+
+
  impData
 
 -- temp_ht is a list of terms we need to get data and make it hierarchical for
@@ -81,12 +223,18 @@ insert into temp_ht (scientific_name,taxon_name_id,dataset_name,source) (
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 		taxon_term.source='Arctos'
 	);
-			
+
+
+
+
+-- unprocessed
+select count(*) from temp_ht where scientific_name not in (select TERM from hierarchical_taxonomy);
+
 
 1402338 rows created.
 
 Elapsed: 00:03:56.85
-	
+
 -- running for 10000 rows...
 exec proc_hierac_tax;
 00:00:56.33
@@ -95,7 +243,29 @@ Elapsed: 00:02:05.43
 select count(*) from hierarchical_taxonomy;
 select count(*) from temp_hierarcicized;
 
-	
+-- yea that's slow - will run in ~day or so tho - try more realistic import
+
+delete from temp_ht;
+
+delete from temp_hierarcicized;
+delete from hierarchical_taxonomy;
+
+insert into temp_ht (scientific_name,taxon_name_id,dataset_name,source) (
+	select distinct
+		scientific_name,
+		taxon_name.taxon_name_id,
+		'med_test',
+		'Arctos'
+	from
+		taxon_name,
+		taxon_term
+	where
+		taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+		taxon_term.source='Arctos' and
+		term_type='class' and
+		term='Aves'
+	);
+
 -- now let the stored procedure chew on things
 
 
@@ -111,6 +281,10 @@ DBMS_SCHEDULER.CREATE_JOB (
    comments           =>  'PROCESS HIERARCHICAL TAXONOMY');
 END;
 /
+
+select STATE,LAST_RUN_DURATION,MAX_RUN_DURATION,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_PROC_HIERAC_TAX';
+
+
 CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 	-- note: https://github.com/ArctosDB/arctos/issues/1000#issuecomment-290556611
 	--declare
@@ -148,10 +322,10 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 			) loop
 				--dbms_output.put_line(r.term_type || '=' || r.term);
 				-- see if we already have one
-				select count(*) into v_c from hierarchical_taxonomy where term=r.term and rank=r.term_type;
+				select /*+ result_cache */ count(*) into v_c from hierarchical_taxonomy where term=r.term and rank=r.term_type;
 				if v_c=1 then
 					-- grab the ID for use on the next record, move on
-					select tid into v_pid from hierarchical_taxonomy where term=r.term and rank=r.term_type;
+					select /*+ result_cache */ tid into v_pid from hierarchical_taxonomy where term=r.term and rank=r.term_type;
 				else
 					-- create the term
 					-- first grab the current ID
