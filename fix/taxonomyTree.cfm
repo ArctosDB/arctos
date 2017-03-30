@@ -82,9 +82,17 @@ insert into temp_ht (scientific_name,taxon_name_id,dataset_name,source) (
 		taxon_term.source='Arctos'
 	);
 			
-select count(*) from temp_ht;
+
+1402338 rows created.
+
+Elapsed: 00:03:56.85
 	
-			
+-- running for 10000 rows...
+exec proc_hierac_tax;
+00:00:56.33
+
+
+	
 -- now let the stored procedure chew on things
 
 
@@ -107,7 +115,7 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 				(taxon_name_id,dataset_name) not in (select taxon_name_id,dataset_name from temp_hierarcicized) and
 				rownum<10000
 		) loop
-			dbms_output.put_line(t.scientific_name);
+			--dbms_output.put_line(t.scientific_name);
 			-- we'll never have this, just insert
 			-- actually, I don't think we need this at all, it should usually be handled by eg, species (lowest-ranked term)
 
@@ -125,7 +133,7 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 				order by
 					position_in_classification ASC
 			) loop
-				dbms_output.put_line(r.term_type || '=' || r.term);
+				--dbms_output.put_line(r.term_type || '=' || r.term);
 				-- see if we already have one
 				select count(*) into v_c from hierarchical_taxonomy where term=r.term and rank=r.term_type;
 				if v_c=1 then

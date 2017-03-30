@@ -26,7 +26,7 @@ questions regarding Arctos.
 		<th>Email</th>
 		<th>Collection</th>
 	</tr>
-	<cfloop query="">
+	<cfloop query="d">
 		<tr>
 			<td>#agentName#</td>
 			<td>#email#</td>
