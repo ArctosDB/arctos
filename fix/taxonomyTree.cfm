@@ -60,9 +60,35 @@ select count(*) from temp_ht;
 
 commit;
 
+-- performance is awesome, so move on to...
+
+-- very large test
+
+delete from temp_hierarcicized;
+delete from temp_ht;
+delete from hierarchical_taxonomy;
+
+insert into temp_ht (scientific_name,taxon_name_id,dataset_name,source) (
+	select distinct
+		scientific_name,
+		taxon_name.taxon_name_id,
+		'small_test',
+		'Arctos'
+	from
+		taxon_name,
+		taxon_term
+	where
+		taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+		taxon_term.source='Arctos'
+	);
+			
+select count(*) from temp_ht;
+	
+			
 -- now let the stored procedure chew on things
 
 
+--- this needs to be on a job, constantly trying to refresh new imports
 
 CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 	-- note: https://github.com/ArctosDB/arctos/issues/1000#issuecomment-290556611
@@ -148,25 +174,14 @@ delete from hierarchical_taxonomy;
 
 </cfif>
 <cfif action is "manageLocalTree">
-	<div id="statusDiv" style="position:fixed;top:100;right:0;padding-right:10em;border:1px solid red;z-index:9999999;">status</div>
+	<div id="statusDiv" style="position:fixed;top:100;right:0;margin-right:2em;padding:.2em;border:1px solid red;z-index:9999999;">status</div>
 
 	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
 	<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
 
-<span onclick="a()">a</span>
-<span onclick="b()">b</span>
 	<script>
 
-
-		function a (){
-			console.log('a');
-			$('body').css('cursor', 'progress');
-		}
-		function b (){
-			console.log('b');
-			$('body').css('cursor', 'auto');
-		}
 
 		jQuery(document).ready(function() {
 
@@ -228,11 +243,7 @@ delete from hierarchical_taxonomy;
 
 					}
 				);
-
-
-
-					//alert('UPDATE tablethingee SET parent_id=' + tId + ' where id=' + sId);
-				});
+			});
 
 
 
