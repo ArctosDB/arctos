@@ -1,8 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfif action is "nothing">
-
-	ABOUT:
+	<p>
+		ABOUT:
+	</p>
 	<ul>
 		<li>
 			This is a classification editor; it will NOT create, delete, or alter taxon_name.
@@ -17,6 +18,19 @@
 				 as a child of either <strong>order</strong> or <strong>otherorder</strong>, whichever is encountered first.
 		</li>
 	</ul>
+	
+	<p>
+		DEPENDANCIES & COMPONENYS
+	</p>
+	<ul>
+		<li>Oracle table temp_ht holds "seed" records; those selected by the user to be hierarchicalicized.</li>
+		<li>Oracle table temp_hierarcicized is an internal processing log table</li>
+		<li>Oracle table cf_temp_classification is the hierarchical data</li>
+		<li>Oracle Procedure proc_hierac_tax populates cf_temp_classification from temp_ht</li>
+		<li>Oracle Job J_PROC_HIERAC_TAX runs proc_hierac_tax</li>
+		<li>CF Scheduled Task hier_to_bulk flattens the hierarchical data for re-import to Arctos</li>
+	</ul>
+	
 
 	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct (dataset_name) from hierarchical_taxonomy
