@@ -7,7 +7,7 @@
 		GUID_PREFIX,
 		COLLECTION,
 		INSTITUTION,
-		description,
+		DESCR,
 		getPreferredAgentName(CONTACT_AGENT_ID) agentName,
 		get_address(CONTACT_AGENT_ID, 'email') email
 	from
@@ -33,7 +33,7 @@ questions regarding Arctos.
 			<td>#agentName#</td>
 			<td>#email#</td>
 			<td>#INSTITUTION# #COLLECTION# (#GUID_PREFIX#)</td>
-			<td>#description#</td>
+			<td>#DESCR#</td>
 		</tr>
 	</cfloop>
 </table>
