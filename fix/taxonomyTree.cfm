@@ -186,6 +186,7 @@ insert into temp_ht (scientific_name,taxon_name_id) (
 			initTree();
 
 			myTree.attachEvent("onDblClick", function(id){
+				console.log('progress');
 				$('html,body').css('cursor','progress');
 
 			    $.getJSON("/component/test.cfc",
@@ -205,6 +206,7 @@ insert into temp_ht (scientific_name,taxon_name_id) (
 				);
 
 				$('html,body').css('cursor','initial');
+				console.log('initial');
 			});
 
 
