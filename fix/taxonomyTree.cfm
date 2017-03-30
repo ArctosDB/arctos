@@ -145,7 +145,7 @@ delete from hierarchical_taxonomy;
 
 </cfif>
 <cfif action is "manageLocalTree">
-	<div id="statusDiv" style="position:absolute;top:0;left:0;border:1px solid red;"></div>
+	<div id="statusDiv" style="position:fixed;top:0;right:0;border:1px solid red;">status</div>
 
 	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
