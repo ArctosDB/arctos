@@ -353,9 +353,9 @@
 	<!----
 	<!--- keep people/bots from browsing a dev server--->
 
+	---->
 
-
-	<cfif application.version neq "prod" and not (CGI.Remote_Addr is "127.0.0.1" or CGI.Remote_Addr is 0.0.0.0)>
+	<cfif application.version neq "prod" and not (CGI.Remote_Addr is "127.0.0.1" or CGI.Remote_Addr is "0.0.0.0")>
         <cfset cPath=GetTemplatePath()>
         <cfif
             cPath does not contain "/errors/dev_login.cfm" and
@@ -370,7 +370,7 @@
         </cfif>
     </cfif>
 
-		---->
+
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
