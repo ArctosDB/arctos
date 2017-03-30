@@ -202,11 +202,13 @@ insert into temp_ht (scientific_name,taxon_name_id) (
 							var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
 							eval(d);
 						}
+
+							$('html,body').css('cursor','initial');
+							console.log('initial');
 					}
 				);
 
-				$('html,body').css('cursor','initial');
-				console.log('initial');
+
 			});
 
 
