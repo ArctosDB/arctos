@@ -96,8 +96,7 @@
 					        connection="gmail">
 ---->
 					        <cfimap
-					        action="MoveMail"
-					        newfolder="was not dead"
+					        action="delete"
 					        messagenumber="#messagenumber#"
 					        stoponerror="true"
 					        connection="gmail">
