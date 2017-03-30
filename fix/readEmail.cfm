@@ -1,22 +1,6 @@
-<!----
-
-move to cf_global_settings if this works
-
-create table temp_gmail (pwd varchar2(255));
-insert into temp_gmail(pwd)values('xxx');
-
-boogity56
 
 
-alter table cf_global_settings add monitor_email_addr varchar2(255);
-alter table cf_global_settings add monitor_email_pwd varchar2(255);
 
-update cf_global_settings set monitor_email_addr='arctos.is.not.dead',monitor_email_pwd='boogity56';
----->
-
-<cfquery name="p" datasource="uam_god">
-	select monitor_email_addr,monitor_email_pwd from cf_global_settings
-</cfquery>
 
 <cfoutput>
 	<cfimap
@@ -84,7 +68,7 @@ update cf_global_settings set monitor_email_addr='arctos.is.not.dead',monitor_em
 					Check that scheduled tasks are running
 				</p>
 				<p>
-					Check that #p.monitor_email_addr# is properly receiving email and allowing IMAP connections to Arctos. The password is
+					Check that #p.monitor_email_addr#@gmail.com is properly receiving email and allowing IMAP connections to Arctos. The password is
 					available under Global Settings.
 				</p>
 			</cfmail>
