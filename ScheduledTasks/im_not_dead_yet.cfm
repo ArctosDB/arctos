@@ -107,6 +107,19 @@
 	        action="close"
 	        connection = "gmail">
 
+
+		<p>
+			after mailcheck:
+
+			<cfimap
+	        action="GetAll"
+			folder="inbox"
+	        connection="gmail"
+	        name="inbox">
+
+		<cfdump var="#inbox#">
+
+		</p>
 		<!--- this is the one instance where we want to send email from test to everybody ---->
 		<cfif sendAlert is true>
 		<p>
