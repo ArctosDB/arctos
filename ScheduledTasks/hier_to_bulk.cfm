@@ -35,6 +35,9 @@
 					select * from hierarchical_taxonomy where tid=#variables.PARENT_TID#
 				</cfquery>
 				<cfdump var="#next#">
+				<cfset variables.TID=next.TID>
+				<cfset variables.PARENT_TID=next.PARENT_TID>
+				<cfset "variables.#next.RANK#"=next.term>
 			<cfelse>
 				<cfbreak>
 			</cfif>
