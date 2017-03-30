@@ -103,6 +103,9 @@
 
 		<!--- this is the one instance where we want to send email from test to everybody ---->
 		<cfif sendAlert is true>
+		<p>
+			sendAlert is true, here goes email
+		</p>
 			<cfset subj="IMPORTANT: Arctos may be down">
 			<cfset maddr="dustymc@gmail.com,ctjordan@tacc.utexas.edu,ccicero@berkeley.edu,mkoo@berkeley.edu,arctos-working-group@googlegroups.com ">
 
