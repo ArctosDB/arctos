@@ -25,7 +25,6 @@
 		<cfset "variables.#RANK#"=d.term>
 
 
-	<cfdump var=#variables#>
 
 		<!---- loop a bunch...---->
 		<cfloop from="1" to="500" index="l">
@@ -42,8 +41,16 @@
 			<cfelse>
 				<cfbreak>
 			</cfif>
-
 		</cfloop>
+		insert into ....
+		<cfloop query="CTTAXON_TERM">
+			#TAXON_TERM#
+		</cfloop>
+		) values (
+		<cfloop query="CTTAXON_TERM">
+			#evaluate('variables.' & TAXON_TERM)#
+		</cfloop>
+
 	</p>
 	</cfloop>
 </cfoutput>
