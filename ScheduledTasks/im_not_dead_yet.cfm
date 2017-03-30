@@ -97,7 +97,7 @@
 ---->
 					        <cfimap
 					        action="delete"
-					        messagenumber="#messagenumber#"
+					        uid="#uid#"
 					        stoponerror="true"
 					        connection="gmail">
 					</cfif>
