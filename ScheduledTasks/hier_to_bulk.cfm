@@ -14,17 +14,18 @@
 	<cfloop query="d">
 		<!--- reset variables ---->
 		<cfloop query="CTTAXON_TERM">
-			<cfset "v_#TAXON_TERM#"="">
+			<cfset "variables.#TAXON_TERM#"="">
 		</cfloop>
 	<p>
 
 		#term# - #rank#
 
-		<cfset v_TID=TID>
-		<cfset v_PARENT_TID=PARENT_TID>
-		<cfset "v_#RANK#"=term>
+		<cfset variables.TID=TID>
+		<cfset variables.PARENT_TID=PARENT_TID>
+		<cfset "variables.#RANK#"=term>
 
 
+	<cfdump var=#variables#>
 
 		<!---- loop a bunch...---->
 		<cfloop from="1" to="500" index="l">
