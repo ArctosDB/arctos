@@ -208,10 +208,9 @@ delete from hierarchical_taxonomy;
 
 
 
-				myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
-
-					$("#statusDiv").html('working....');
-				    $.getJSON("/component/test.cfc",
+			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
+				$("#statusDiv").html('working....');
+			    $.getJSON("/component/test.cfc",
 					{
 						method : "saveParentUpdate",
 						tid : sId,
@@ -221,7 +220,7 @@ delete from hierarchical_taxonomy;
 					},
 					function (r) {
 						console.log(r);
-						if {(r=='success');
+						if (r=='success') {
 							$("#statusDiv").html('successful save');
 						}else{
 							alert(r);
