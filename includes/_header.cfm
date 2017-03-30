@@ -395,6 +395,7 @@
 					<li><a target="_top" href="/home.cfm">Portals</a></li>
 				    <li><a target="_top" href="/myArctos.cfm">My Stuff</a>
 				   		<ul>
+							<li><a target="_top" href="/info/mentor.cfm">Find a Mentor</a></li>
 							<cfif len(session.username) gt 0>
 								<li><a target="_top" href="/myArctos.cfm">Profile</a></li>
 							<cfelse>

@@ -90,14 +90,27 @@ Elapsed: 00:03:56.85
 -- running for 10000 rows...
 exec proc_hierac_tax;
 00:00:56.33
+Elapsed: 00:02:05.43
 
+select count(*) from hierarchical_taxonomy;
+select count(*) from temp_hierarcicized;
 
 	
 -- now let the stored procedure chew on things
 
 
---- this needs to be on a job, constantly trying to refresh new imports
-
+BEGIN
+DBMS_SCHEDULER.CREATE_JOB (
+   job_name           =>  'J_PROC_HIERAC_TAX',
+   job_type           =>  'STORED_PROCEDURE',
+   job_action         =>  'proc_hierac_tax',
+   start_date         =>  SYSTIMESTAMP,
+	repeat_interval    =>  'freq=minutely; interval=3',
+   enabled             =>  TRUE,
+   end_date           =>  NULL,
+   comments           =>  'PROCESS HIERARCHICAL TAXONOMY');
+END;
+/
 CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 	-- note: https://github.com/ArctosDB/arctos/issues/1000#issuecomment-290556611
 	--declare
