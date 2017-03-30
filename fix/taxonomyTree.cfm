@@ -204,8 +204,8 @@ insert into temp_ht (scientific_name,taxon_name_id) (
 						}
 
 
-				$(document.body).css({'cursor' : 'initial'});
-											console.log('initial');
+				$(document.body).css({'cursor' : 'auto'});
+											console.log('auto');
 					}
 				);
 
