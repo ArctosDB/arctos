@@ -16,6 +16,11 @@
 <cfoutput>
 <form>
 	[i will be a save button someday]
+	<br>
+	[ maybe a delete button too.
+	<br>but not sure what that could do.
+	<br>update {children_of_this} set parent_id={parent_of_this} and then flush the term maybe??
+	<br>does that break anything??
 
 	<table border>
 		<tr>
