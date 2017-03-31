@@ -17,16 +17,25 @@ hello I am hierarchicalTaxonomyEdit.cfm
 </cfquery>
 <cfoutput>
 <form>
-	<p>
-		Editing <strong>#d.term#</strong>
-	</p>
 	[i will be a save button someday]
-	<label for="rank">Rank</label>
-	<select name="rank" id="rank">
-		<cfloop query="c">
-			<option value="#TAXON_TERM#" <cfif c.taxon_term is d.rank> selected="taxon_term" </cfif> >#TAXON_TERM#</option>
-		</cfloop>
-	</select>
+
+	<table border>
+		<tr>
+			<td>
+				Editing <strong>#d.term#</strong>
+			</td>
+			<td>
+				<label for="rank">Rank</label>
+				<select name="rank" id="rank">
+					<cfloop query="c">
+						<option value="#TAXON_TERM#" <cfif c.taxon_term is d.rank> selected="taxon_term" </cfif> >#TAXON_TERM#</option>
+					</cfloop>
+				</select>
+			</td>
+		</tr>
+	</table>
+
+
 	<table border>
 		<tr>
 			<th>Term</th>
@@ -61,6 +70,7 @@ hello I am hierarchicalTaxonomyEdit.cfm
 
 	</table>
 
+	[wow so many save buttons might be here eventually!]
 
 </form>
 </cfoutput>
