@@ -564,7 +564,8 @@ delete from hierarchical_taxonomy;
 	</p>
 
 	<p>
-		When you are done seeding, you may manage these data in the classification tree editor. Link to tree here....
+		When you are done seeding, you may
+		<a href="taxonomyTree.cfm?action=manageLocalTree&dataset_name=#dataset_name#">manage these data in the classification tree editor</a>
 	</p>
 
 
@@ -735,6 +736,19 @@ $(function() { //shorthand document.ready function
 
 
 <cfif action is "manageLocalTree">
+
+	<cfif not isdefined("dataset_name") or len(dataset_name) is 0>
+		bad call<cfabort>
+	</cfif>
+	<cfquery name="did" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select datasource_id from htax_datasource where dataset_name='#dataset_name#'
+	</cfquery>
+
+
+
+	<cfoutput>
+		<input type="hidden" name="" id="#datasource_id#" value="#did.datasource_id#">
+	</cfoutput>
 	<div id="statusDiv" style="position:fixed;top:100;right:0;margin-right:2em;padding:.2em;border:1px solid red;z-index:9999999;">status</div>
 
 	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
@@ -850,6 +864,7 @@ $(function() { //shorthand document.ready function
 			$.getJSON("/component/test.cfc",
 				{
 					method : "getInitTaxTree",
+					datasource_id: $("#datasource_id").val(),
 					returnformat : "json",
 					queryformat : 'column'
 				},
