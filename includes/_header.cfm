@@ -403,7 +403,7 @@
 							<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
 						</ul>
 					</li>
-					<li><a target="_blank" href="##">About/Help</a>
+					<li><a target="_blank" href="http://arctosdb.org/">About/Help</a>
 						<ul>
 							<li><a target="_blank" class="external" href="http://arctosdb.org/">About</a></li>
 							<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/">Help</a></li>
