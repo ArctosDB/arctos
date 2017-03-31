@@ -660,12 +660,9 @@ $(function() { //shorthand document.ready function
 			</cfif>
 		)
 	</cfquery>
-	<p>
-		Result: <cfdump var=#r#>
-	</p>
-	<p>
-		<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#">back to manage</a>
-	</p>
+	<cfoutput>
+		<cflocation url="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#" addtoken="false">
+	</cfoutput>
 
 
 </cfif>
