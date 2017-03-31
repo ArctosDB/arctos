@@ -853,10 +853,15 @@ $(function() { //shorthand document.ready function
 						queryformat : 'column'
 					},
 					function (r) {
-						console.log(r);
-						//myTree.parse(r, "jsarray");
-						myTree.parse(r, "jsarray");
-						myTree.openAllItems(0);
+						if (r.toString().substring(0,5)=='ERROR'){
+							$("#statusDiv").html(r);
+							alert(r);
+						} else {
+							console.log(r);
+							//myTree.parse(r, "jsarray");
+							myTree.parse(r, "jsarray");
+							myTree.openAllItems(0);
+						}
 
 					}
 				);
