@@ -20,9 +20,16 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 <cfset tterms=valuelist(CTTAXON_TERM.taxon_term)>
 <!----
-<cfset tterms=listDeleteAt(tterms,listFind(tterms,'order'))>
+get rid of admin stuff
 <cfset tterms=listappend(tterms,'phylorder')>
 ---->
+
+<cfset tterms=listDeleteAt(tterms,listFind(tterms,'STATUS'))>
+<cfset tterms=listDeleteAt(tterms,listFind(tterms,'CLASSIFICATION_ID'))>
+<cfset tterms=listDeleteAt(tterms,listFind(tterms,'USERNAME'))>
+<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SOURCE'))>
+<cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
+<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
 <cfoutput>
 	<cfloop query="d">
 		<!--- reset variables ---->
