@@ -100,10 +100,11 @@
 <!-------------------------------------------------->
 
 <cffunction name="getTaxTreeSrch" access="remote">
-	<cfargument name="dataset_id" type="numeric" required="true"/>
+<cfargument name="dataset_id" type="numeric" required="true"/>
    <cfargument name="q" type="string" required="true">
 	<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 	<cfoutput>
+		<cftry>
 		<!---- first get the terms that match our search ---->
 		<cfquery name="dc0" datasource="uam_god">
 			select distinct nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where
@@ -168,7 +169,10 @@
 		<cfset x=x & "]">
 
 		<cfreturn x>
-
+<cfcatch>
+	<cfreturn 'ERROR: ' & cfcatch.message>
+</cfcatch>
+	</cftry>
 
 	</cfoutput>
 
