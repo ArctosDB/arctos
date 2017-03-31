@@ -170,7 +170,7 @@
 
 		<cfreturn x>
 <cfcatch>
-	<cfreturn 'ERROR: ' & cfcatch.message>
+	<cfreturn 'ERROR: ' & cfcatch.message & ' ' & cfcatch.detail>
 </cfcatch>
 	</cftry>
 
