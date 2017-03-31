@@ -498,6 +498,7 @@ delete from hierarchical_taxonomy;
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from htax_dataset where dataset_name='#dataset_name#'
 	</cfquery>
+	<cfdump var=#d#>
 	<cfoutput>
 		Managing #d.dataset_name# created #d.created_by# on #d.created_date#
 
