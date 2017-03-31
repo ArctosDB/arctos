@@ -1,4 +1,52 @@
 <cfcomponent>
+getSeedTaxSum
+
+<cffunction name="getSeedTaxSum" access="remote">
+	 <cfargument name="source" type="string" required="false">
+   <cfargument name="kingdom" type="string" required="false">
+   <cfargument name="phylum" type="string" required="false">
+   <cfargument name="class" type="string" required="false">
+   <cfargument name="order" type="string" required="false">
+   <cfargument name="family" type="string" required="false">
+   <cfargument name="genus" type="string" required="false">
+   <cfargument name="kingdom" type="string" required="false">
+
+
+
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select
+				count(distinct(scientific_name)) c
+			from
+				taxon_name,
+				taxon_term
+			where
+				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+				taxon_term.source='#source#'
+				<cfif len(kingdom) gt 0>
+					and term_type='kingdom' and term='#kingdom#'
+				</cfif>
+				<cfif len(phylum) gt 0>
+					and term_type='phylum' and term='#phylum#'
+				</cfif>
+				<cfif len(class) gt 0>
+					and term_type='class' and term='#class#'
+				</cfif>
+				<cfif len(order) gt 0>
+					and term_type='order' and term='#order#'
+				</cfif>
+				<cfif len(family) gt 0>
+					and term_type='family' and term='#family#'
+				</cfif>
+				<cfif len(genus) gt 0>
+					and term_type='genus' and term='#genus#'
+				</cfif>
+			)
+		</cfquery>
+		<cfreturn d>
+	</cfoutput>
+
+</cffunction>
 
 <cffunction name="saveParentUpdate" access="remote">
    <cfargument name="tid" type="numeric" required="true">

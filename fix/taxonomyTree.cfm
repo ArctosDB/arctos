@@ -394,7 +394,7 @@ delete from hierarchical_taxonomy;
 
 --------->
 <cfinclude template="/includes/_header.cfm">
-
+<cfset title="hierarchical taxonomy editor">
 
 <cfif action is "nothing">
 	<p>
@@ -556,14 +556,41 @@ delete from hierarchical_taxonomy;
 $(function() { //shorthand document.ready function
     $('#f_ds_filter').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
-        var data = $("#f_ds_filter :input").serializeArray();
-        console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+       // var data = $("#f_ds_filter :input").serializeArray();
+        //console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+         $.getJSON("/component/test.cfc",
+			{
+				method : "getSeedTaxSum",
+				source: $("#source").val(),
+				kingdom: $("#kingdom").val(),
+				phylum: $("#phylum").val(),
+				class: $("#class").val(),
+				order: $("#order").val(),
+				family: $("#family").val(),
+				genus: $("#genus").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				console.log(r);
+				//myTree.parse(r, "jsarray");
+				//myTree.parse(r, "jsarray");
+				//myTree.openAllItems(0);
+
+			}
+		);
+
     });
 });
 
 
 </script>
+
+<p>
+	Find seed taxonomy. Terms are exact-match case-sensitive.
+</p>
 <form id="f_ds_filter">
+	<input type="hidden" name="source" id="source" value="#d.source#">
 	<label for="kingdom">kingdom</label>
 	<input type="text" name="kingdom" id="kingdom" placeholder="kingdom" size="60">
 
@@ -726,6 +753,7 @@ $(function() { //shorthand document.ready function
 	<div id="treeBox" style="width:200;height:200"></div>
 </cfif>
 
+<cfinclude template="/includes/_footer.cfm">
 
 <!----
 
