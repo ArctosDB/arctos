@@ -847,6 +847,7 @@ $(function() { //shorthand document.ready function
 				 $.getJSON("/component/test.cfc",
 					{
 						method : "getTaxTreeSrch",
+						dataset_id: $("#dataset_id").val(),
 						q: $( "#srch" ).val(),
 						returnformat : "json",
 						queryformat : 'column'
