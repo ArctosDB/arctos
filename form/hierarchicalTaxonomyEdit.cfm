@@ -51,7 +51,7 @@
 			<td><input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#" size="60"></td>
 		</tr>
 	</cfloop>
-	<p>&nbsp;</p>
+	<br>
 	<cfloop from="1" to="10" index="i">
 		<tr>
 			<td>
