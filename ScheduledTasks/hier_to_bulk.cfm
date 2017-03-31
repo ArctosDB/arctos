@@ -119,11 +119,13 @@ get rid of admin stuff
 		<cfloop list="#tterms#" index="i">
 			#i#,
 		</cfloop>
-		STATUS) values (
+		STATUS,
+		username) values (
 		<cfloop list="#tterms#" index="i">
 			'#evaluate("variables." & i)#',
 		</cfloop>
-		'autoinsert_from_hierarchy'
+		'autoinsert_from_hierarchy',
+		'nouser'
 		)
 		</cfquery>
 	<cfquery name="goit" datasource="uam_god">
