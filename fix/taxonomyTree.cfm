@@ -855,7 +855,7 @@ $(function() { //shorthand document.ready function
 
 
 			myTree.attachEvent("onCheck", function(id){
-			    alert('this should edit ' + id);
+			  //  alert('this should edit ' + id);
 
 
 			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
