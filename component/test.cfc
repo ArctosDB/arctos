@@ -1,6 +1,4 @@
 <cfcomponent>
-getSeedTaxSum
-
 <cffunction name="getSeedTaxSum" access="remote">
 	 <cfargument name="source" type="string" required="false">
    <cfargument name="kingdom" type="string" required="false">
@@ -47,12 +45,15 @@ getSeedTaxSum
 </cffunction>
 
 <cffunction name="saveParentUpdate" access="remote">
+		<cfargument name="dataset_id" type="numeric" required="true"/>
+
    <cfargument name="tid" type="numeric" required="true">
    <cfargument name="parent_tid" type="numeric" required="true">
 
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			update hierarchical_taxonomy set parent_tid=#parent_tid# where tid=#tid#
+			update hierarchical_taxonomy set parent_tid=#parent_tid# where
+			dataset_id=#dataset_id# and tid=#tid#
 		</cfquery>
 		<cfreturn 'success'>
 	</cfoutput>
@@ -60,11 +61,14 @@ getSeedTaxSum
 </cffunction>
 
 <cffunction name="getTaxTreeChild" access="remote">
+
+	<cfargument name="dataset_id" type="numeric" required="true"/>
    <cfargument name="id" type="numeric" required="true">
 
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select term,tid,nvl(parent_tid,0) parent_tid, rank from hierarchical_taxonomy where parent_tid = #id#
+			select term,tid,nvl(parent_tid,0) parent_tid, rank from hierarchical_taxonomy where
+			dataset_id=#dataset_id# and parent_tid = #id#
 		</cfquery>
 
 
@@ -92,12 +96,15 @@ getSeedTaxSum
 <!-------------------------------------------------->
 
 <cffunction name="getTaxTreeSrch" access="remote">
+	<cfargument name="dataset_id" type="numeric" required="true"/>
    <cfargument name="q" type="string" required="true">
 	<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 	<cfoutput>
 		<!---- first get the terms that match our search ---->
 		<cfquery name="dc0" datasource="uam_god">
-			select distinct nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where upper(term) like '#ucase(q)#%'
+			select distinct nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where
+			dataset_id=#dataset_id# and
+			upper(term) like '#ucase(q)#%'
 		</cfquery>
 		<cfif not dc0.recordcount gt 0>
 			<cfreturn 'ERROR: nothing found'>
@@ -165,7 +172,7 @@ getSeedTaxSum
 <!-------------------------------------------------->
 
 <cffunction name="getInitTaxTree" access="remote">
-	   <cfargument name="dataset_id" type="numeric" required="true"/>
+	<cfargument name="dataset_id" type="numeric" required="true"/>
 
 
 	<cfoutput>
