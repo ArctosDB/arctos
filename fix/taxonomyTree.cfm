@@ -485,7 +485,7 @@ delete from hierarchical_taxonomy;
 			source,
 			comments
 		) values (
-			sq_someRandomSequence.nextval,
+			somerandomsequence.nextval,
 			'#dataset_name#',
 			'#session.username#',
 			'#dateformat(now(),"yyyy-mm-dd")#',
