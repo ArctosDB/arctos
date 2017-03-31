@@ -442,11 +442,11 @@ delete from hierarchical_taxonomy;
 		select a dataset to edit...
 		<cfloop query="mg">
 			<p>
-				#dataset_name#
+				<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#">#dataset_name#</a>
 			</p>
 		</cfloop>
 
-		... or <a href="taxonomyTree.cfm?action=createDataset">create a dataset</a>
+		... or <a href="taxonomyTree.cfm?action=createDataset">create a new dataset</a>
 	</cfoutput>
 </cfif>
 
@@ -520,7 +520,8 @@ delete from hierarchical_taxonomy;
 		select count(*) c from htax_seed where dataset_id=#d.dataset_id#
 	</cfquery>
 	<p>
-		#nht.c# records have been seeded. You may add more (use the form below).
+		#nht.c# records have been seeded. You may add more (use the form below). Duplicates are disallowed (and Oracle bug
+		qerltcInsertSelectRop_bad_state prevents ignoring them) - contact us if you need help.
 	</p>
 
 	<cfquery name="nht_il" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -629,10 +630,8 @@ $(function() { //shorthand document.ready function
 
 
 <cfif action is "go_seed_ds">
-
 	<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r">
 		insert
-		/*+ IGNORE_ROW_ON_DUPKEY_INDEX (htax_seed_taxdataset) */
 		into htax_seed (scientific_name,taxon_name_id,dataset_id) (
 		select distinct
 			scientific_name,
