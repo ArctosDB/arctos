@@ -842,34 +842,40 @@ $(function() { //shorthand document.ready function
 
 
 			$( "#srch" ).change(function() {
-				// blank canvas
-
-				$("#statusDiv").html('working...');
-				myTree.deleteChildItems(0);
-				 $.getJSON("/component/test.cfc",
-					{
-						method : "getTaxTreeSrch",
-						dataset_id: $("#dataset_id").val(),
-						q: $( "#srch" ).val(),
-						returnformat : "json",
-						queryformat : 'column'
-					},
-					function (r) {
-						if (r.toString().substring(0,5)=='ERROR'){
-							$("#statusDiv").html(r);
-							alert(r);
-						} else {
-							console.log(r);
-							//myTree.parse(r, "jsarray");
-							myTree.parse(r, "jsarray");
-							myTree.openAllItems(0);
-							$("#statusDiv").html('done');
-						}
-
-					}
-				);
+				performSearch();
+			});
+			$( "#srchBtn" ).click(function() {
+				performSearch();
 			});
 		});
+
+
+		function performSearch(){
+			$("#statusDiv").html('working...');
+			myTree.deleteChildItems(0);
+			$.getJSON("/component/test.cfc",
+				{
+					method : "getTaxTreeSrch",
+					dataset_id: $("#dataset_id").val(),
+					q: $( "#srch" ).val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					if (r.toString().substring(0,5)=='ERROR'){
+						$("#statusDiv").html(r);
+						alert(r);
+					} else {
+						console.log(r);
+						//myTree.parse(r, "jsarray");
+						myTree.parse(r, "jsarray");
+						myTree.openAllItems(0);
+						$("#statusDiv").html('done');
+					}
+				}
+			);
+
+		}
 
 
 		function initTree(){
@@ -894,6 +900,8 @@ $(function() { //shorthand document.ready function
 
 	<label for="srch">search (starts with)</label>
 	<input id="srch">
+	<input type="button" value="search" id="srchBtn"">
+
 	<br>
 	<input type="button" value="reset tree" onclick="initTree()">
 
