@@ -99,6 +99,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
  FORMA									    VARCHAR2(255)
 ---->
 <p>
+	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh
 		<cfloop query="CTTAXON_TERM">
 			#TAXON_TERM#,
@@ -107,8 +108,12 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		<cfloop query="CTTAXON_TERM">
 			'#evaluate('variables.' & TAXON_TERM)#',
 		</cfloop>
-		'autoinsert_from_hierarchy
+		'autoinsert_from_hierarchy'
 		)
+		</cfquery>
+	<cfquery name="goit" datasource="uam_god">
+		update hierarchical_taxonomy set status='pushed_to_bl' where tid=#d.tid#
+	</cfquery>
 </p>
 	</p>
 	</cfloop>
