@@ -1,184 +1,99 @@
-<cfinclude template="/includes/_header.cfm">
+<!----------
+-- intent:
 
-<cfif action is "nothing">
-	<p>
-		ABOUT:
-	</p>
-	<ul>
-		<li>
-			This is a classification editor; it will NOT create, delete, or alter taxon_name.
-		</li>
-		<li>
-			This form creates hierarchical data from Arctos. Not all data in Arctos can be transformed, and some will be transformed
-				unpredictably. For example, given
-				<ul><li><strong>genus</strong>--><strong>family</strong>--><strong>order</strong></li></ul>
-				 and
-				 <ul><li><strong>othergenus</strong>--><strong>family</strong>--><strong>otherorder</strong></li></ul>
-				 that is, inconsistent hierarchies - here one family split between two orders - then all <strong>family</strong> will end up
-				 as a child of either <strong>order</strong> or <strong>otherorder</strong>, whichever is encountered first.
-		</li>
-	</ul>
+	--	import Arctos data
+	-- manage that stuff here
+	-- periodically re-export to Arctos (or globalnames????)
 
-	<p>
-		DEPENDANCIES & COMPONENYS
-	</p>
-	<ul>
-		<li>Oracle table temp_ht holds "seed" records; those selected by the user to be hierarchicalicized.</li>
-		<li>Oracle table temp_hierarcicized is an internal processing log table</li>
-		<li>Oracle table cf_temp_classification is the hierarchical data</li>
-		<li>Oracle Procedure proc_hierac_tax populates cf_temp_classification from temp_ht</li>
-		<li>Oracle Job J_PROC_HIERAC_TAX runs proc_hierac_tax</li>
-		<li>CF Scheduled Task hier_to_bulk flattens the hierarchical data for re-import to Arctos</li>
-		<li>
-			cf_temp_classification_fh is populated by hier_to_bulk
-			<p>IMPORTANT: we may want to let hier_to_bulk write directly to the classification bulkloader table
-				with status set to autoinsert. That would fully automate repatriation. Check results THOROUGHLY first. </p>
-		</li>
-	</ul>
+	-- eventually including non-classification stuff (???)
+		-- maybe in another table linked by tid
 
 
-	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct (dataset_name) from hierarchical_taxonomy
-	</cfquery>
-	<cfoutput>
-		select a dataset to edit...
-		<cfloop query="mg">
-			<p>
-				#dataset_name#
-			</p>
-		</cfloop>
+-- create a half-key and metadata; make this a multi-user multi-classification environment
 
-		... or <a href="taxonomyTree.cfm?action=impData">import more data</a>
-	</cfoutput>
-</cfif>
+	create table htax_dataset (
+		dataset_id number not null,
+		dataset_name varchar2(255) not null,
+		created_by varchar2(255) not null,
+		created_date date not null,
+		comments varchar2(4000),
+		status varchar2(255) not null default 'working'
+	);
 
-<cfif action is "impData">
+	-- status does stuff, so...
+	alter table htax_dataset add constraint ck_htax_dataset_status
+   	CHECK (status IN(
+		'working',
+		'process_to_bulkloader'
+		)
+	);
+
+
+	ALTER TABLE htax_dataset ADD PRIMARY KEY (dataset_id);
+
+	create or replace public synonym htax_dataset for htax_dataset;
+	grant all on htax_dataset to manage_taxonomy;
+
+	--	create a hierarchical data structure for classification data
+
+	drop table htax_hierarchical_taxonomy;
+
+	create table htax_hierarchical_taxonomy (
+		tid number not null,
+		parent_tid number,
+		term varchar2(255),
+		rank varchar2(255),
+		dataset_id number not null
+	);
+
+	ALTER TABLE htax_hierarchical_taxonomy ADD PRIMARY KEY (tid);
+	ALTER TABLE htax_hierarchical_taxonomy ADD CONSTRAINT fk_parent_tid  FOREIGN KEY (dataset_id)
+  REFERENCES htax_dataset(dataset_id);
+
+
+	ALTER TABLE htax_hierarchical_taxonomy ADD CONSTRAINT fk_dataset_id  FOREIGN KEY (parent_tid)
+  REFERENCES htax_dataset(tid);
+
+
+	create or replace public synonym htax_hierarchical_taxonomy for htax_hierarchical_taxonomy;
+	grant all on htax_hierarchical_taxonomy to htax_hierarchical_taxonomy;
+
+
+	-- internal logging table; no need for permissions
+
+	create table htax_temp_hierarcicized (taxon_name_id number);
+
+	-- "seed" table
+	create table htax_seed (
+		scientific_name varchar2(255) not null,
+		taxon_name_id number not null,
+		dataset_id number not null
+	);
+	create or replace public synonym htax_seed for htax_seed;
+	grant all on htax_seed to manage_taxonomy;
+
+	ALTER TABLE htax_seed ADD CONSTRAINT fk_htax_dataset_id  FOREIGN KEY (dataset_id)
+  REFERENCES htax_dataset(dataset_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- procedure to move stuff to the bulkloader
 
 alter table hierarchical_taxonomy add status varchar2(255);
 
 update hierarchical_taxonomy set status='ready_to_push_bl' where status is null and rownum<20000;
 
-CREATE OR REPLACE PROCEDURE proc_hierac_tax_bl IS
-	-- every term is the lowest-ranked term in a row
-	-- order isn't important
-	v_scientific_name varchar2(255);
-	v_author_text varchar2(255);
-	v_infraspecific_author varchar2(255);
-	v_nomenclatural_code varchar2(255);
-	v_source_authority varchar2(255);
-	v_valid_catalog_term_fg varchar2(255);
-	v_taxon_status varchar2(255);
-	v_remark varchar2(255);
-	v_display_name varchar2(255);
-	v_superkingdom varchar2(255);
-	v_kingdom varchar2(255);
-	v_subkingdom varchar2(255);
-	v_infrakingdom varchar2(255);
-	v_superphylum varchar2(255);
-	v_phylum varchar2(255);
-	v_subphylum varchar2(255);
-	v_subdivision varchar2(255);
-	v_infraphylum varchar2(255);
-	v_superclass varchar2(255);
-	v_class varchar2(255);
-	v_subclass varchar2(255);
-	v_infraclass varchar2(255);
-	v_hyperorder varchar2(255);
-	v_superorder varchar2(255);
-	v_phylorder varchar2(255);
-	v_suborder varchar2(255);
-	v_infraorder varchar2(255);
-	v_hyporder varchar2(255);
-	v_subhyporder varchar2(255);
-	v_superfamily varchar2(255);
-	v_family varchar2(255);
-	v_subfamily varchar2(255);
-	v_supertribe varchar2(255);
-	v_tribe varchar2(255);
-	v_subtribe varchar2(255);
-	v_genus varchar2(255);
-	v_subgenus varchar2(255);
-	v_species varchar2(255);
-	v_subspecies varchar2(255);
-	v_subsp varchar2(255);
-	v_forma varchar2(255);
-
-
-BEGIN
-	dbms_output.put_line('ok');
-	for r in (select * from hierarchical_taxonomy where status='ready_to_push_bl' and rownum < 5) loop
-
-END;
-/
-
-
-
-
-	create table cf_temp_classification (
-		-- admin junk
-		status varchar2(4000),
-		classification_id varchar2(4000),
-		username varchar2(255) not null,
-		source  varchar2(255) not null,
-		taxon_name_id number,
-		-- key AND lowest-ranking classification term
-		scientific_name varchar2(255) not null,
-		--non-classification terms
-		author_text varchar2(255) null,
-		infraspecific_author varchar2(255) null,
-		nomenclatural_code varchar2(255) not null,
-		source_authority varchar2(4000) null,
-		valid_catalog_term_fg varchar2(255) null,
-		taxon_status varchar2(255) null,
-		remark varchar2(255),
-		display_name varchar2(255) null,
-		--classification terms - MAKE SURE THESE STAY ORDERED
-		superkingdom varchar2(255) null,
-		kingdom varchar2(255) null,
-		subkingdom varchar2(255) null,
-		infrakingdom varchar2(255) null,
-		superphylum varchar2(255) null,
-		phylum varchar2(255) null,
-		subphylum varchar2(255) null,
-		subdivision varchar2(255) null,
-		infraphylum varchar2(255) null,
-		superclass varchar2(255) null,
-		class varchar2(255) null,
-		subclass varchar2(255) null,
-		infraclass varchar2(255) null,
-		hyperorder varchar2(255) null,
-		superorder varchar2(255) null,
-		phylorder varchar2(255) null,
-		suborder varchar2(255) null,
-		infraorder varchar2(255) null,
-		hyporder varchar2(255) null,
-		subhyporder varchar2(255) null,
-		superfamily varchar2(255) null,
-		family varchar2(255),
-		subfamily varchar2(255) null,
-		supertribe varchar2(255) null,
-		tribe varchar2(255) null,
-		subtribe varchar2(255) null,
-		genus varchar2(255) null,
-		subgenus varchar2(255) null,
-		species varchar2(255) null,
-		subspecies varchar2(255) null,
-		subsp varchar2(255) null,
-		forma varchar2(255) null
-);
-
-
-		v_pid number;
-		v_tid number;
-		v_c number;
-	begin
-		v_pid:=NULL;
-
-
-
-
- impData
 
 -- temp_ht is a list of terms we need to get data and make it hierarchical for
 drop table temp_ht;
@@ -194,7 +109,7 @@ create table temp_ht (
 
 -- temp_hierarcicized is a log table so we can avoid weird oracle errors
 drop table temp_hierarcicized;
-	create table temp_hierarcicized (taxon_name_id number,dataset_name varchar2(255));
+create table temp_hierarcicized (taxon_name_id number,dataset_name varchar2(255));
 
 
 
@@ -385,6 +300,64 @@ delete from hierarchical_taxonomy;
 
 
 
+--------->
+<cfinclude template="/includes/_header.cfm">
+
+<cfif action is "nothing">
+	<p>
+		ABOUT:
+	</p>
+	<ul>
+		<li>
+			This is a classification editor; it will NOT create, delete, or alter taxon_name.
+		</li>
+		<li>
+			This form creates hierarchical data from Arctos. Not all data in Arctos can be transformed, and some will be transformed
+				unpredictably. For example, given
+				<ul><li><strong>genus</strong>--><strong>family</strong>--><strong>order</strong></li></ul>
+				 and
+				 <ul><li><strong>othergenus</strong>--><strong>family</strong>--><strong>otherorder</strong></li></ul>
+				 that is, inconsistent hierarchies - here one family split between two orders - then all <strong>family</strong> will end up
+				 as a child of either <strong>order</strong> or <strong>otherorder</strong>, whichever is encountered first.
+		</li>
+	</ul>
+
+	<p>
+		DEPENDANCIES & COMPONENYS
+	</p>
+	<ul>
+		<li>Oracle table temp_ht holds "seed" records; those selected by the user to be hierarchicalicized.</li>
+		<li>Oracle table temp_hierarcicized is an internal processing log table</li>
+		<li>Oracle table cf_temp_classification is the hierarchical data</li>
+		<li>Oracle Procedure proc_hierac_tax populates cf_temp_classification from temp_ht</li>
+		<li>Oracle Job J_PROC_HIERAC_TAX runs proc_hierac_tax</li>
+		<li>CF Scheduled Task hier_to_bulk flattens the hierarchical data for re-import to Arctos</li>
+		<li>
+			cf_temp_classification_fh is populated by hier_to_bulk
+			<p>IMPORTANT: we may want to let hier_to_bulk write directly to the classification bulkloader table
+				with status set to autoinsert. That would fully automate repatriation. Check results THOROUGHLY first. </p>
+		</li>
+	</ul>
+
+
+	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct (dataset_name) from hierarchical_taxonomy
+	</cfquery>
+	<cfoutput>
+		select a dataset to edit...
+		<cfloop query="mg">
+			<p>
+				#dataset_name#
+			</p>
+		</cfloop>
+
+		... or <a href="taxonomyTree.cfm?action=impData">import more data</a>
+	</cfoutput>
+</cfif>
+
+<cfif action is "impData">
+
+impData
 
 </cfif>
 <cfif action is "manageLocalTree">
@@ -525,109 +498,92 @@ delete from hierarchical_taxonomy;
 
 	<div id="treeBox" style="width:200;height:200"></div>
 </cfif>
+
+
 <!----
 
+	-- everything below here is old-n-busted and can probably be deleted
+	-- but keep it for not
+	-- because im a packrat
 
-	create a hierarchical data structure for classification data
-	import Arctos data
-	manage that stuff here
-	periodically re-export to Arctos (or globalnames????)
+	--- oldcrap
 
-	eventually including non-classification stuff (???)
-		-- maybe in another table linked by tid
+				-- populate
+				-- first a root node
+				insert into hierarchical_taxonomy (tid,parent_tid,term,rank) values (someRandomSequence.nextval,NULL,'everything',NULL);
 
-	drop table hierarchical_taxonomy;
+				-- now go through CTTAXON_TERM
+				-- first one is sorta weird
+				declare
+					pid number;
+				begin
+					for r in (select distinct(term) term from taxon_term where source='Arctos' and term_type='superkingdom') loop
+						select tid into pid from hierarchical_taxonomy where term='everything';
+						dbms_output.put_line(r.term);
 
+						insert into hierarchical_taxonomy (tid,parent_tid,term,rank) values (someRandomSequence.nextval,pid,r.term,'superkingdom');
 
-	create table hierarchical_taxonomy (
-		tid number not null,
-		parent_tid number,
-		term varchar2(255),
-		rank varchar2(255),
-		dataset_name varchar2(255) not null
-	);
+					end loop;
+				end;
+				/
+				-- shit, that don't work...
 
-	create or replace public synonym hierarchical_taxonomy for hierarchical_taxonomy;
+				Plan Bee:
 
-	grant all on hierarchical_taxonomy to manage_taxonomy;
-
-	-- populate
-	-- first a root node
-	insert into hierarchical_taxonomy (tid,parent_tid,term,rank) values (someRandomSequence.nextval,NULL,'everything',NULL);
-
-	-- now go through CTTAXON_TERM
-	-- first one is sorta weird
-	declare
-		pid number;
-	begin
-		for r in (select distinct(term) term from taxon_term where source='Arctos' and term_type='superkingdom') loop
-			select tid into pid from hierarchical_taxonomy where term='everything';
-			dbms_output.put_line(r.term);
-
-			insert into hierarchical_taxonomy (tid,parent_tid,term,rank) values (someRandomSequence.nextval,pid,r.term,'superkingdom');
-
-		end loop;
-	end;
-	/
-	-- shit, that don't work...
-
-	Plan Bee:
-
-	loop from 1 to....
-	select max(POSITION_IN_CLASSIFICATION) from taxon_term where source='Arctos';
-	MAX(POSITION_IN_CLASSIFICATION)
-	-------------------------------
-			     28
+				loop from 1 to....
+				select max(POSITION_IN_CLASSIFICATION) from taxon_term where source='Arctos';
+				MAX(POSITION_IN_CLASSIFICATION)
+				-------------------------------
+						     28
 
 
-	- grab distinct terms
-	- insert them
-	--- uhh, I get lost here
+				- grab distinct terms
+				- insert them
+				--- uhh, I get lost here
 
-	Plan Cee:
+				Plan Cee:
 
-	grab one whole record. Insert it. Grab another, reuse what's possible. Do not need "everything" for this - "the tree" will have
-		many roots.
-
-
-	create table temp_hierarcicized (taxon_name_id number);
-	-- dammit oracle
-	delete from hierarchical_taxonomy;
-	delete from temp_hierarcicized;
-
-	-- need to start at the top, have to change this query for every term in the code table, er sumthing...
+				grab one whole record. Insert it. Grab another, reuse what's possible. Do not need "everything" for this - "the tree" will have
+					many roots.
 
 
 
 
-	-- blargh, tooslow
-	create table temp_ht  as
-			select
-				scientific_name,
-				taxon_name.taxon_name_id
-			from
-				taxon_name,
-				taxon_term
-			where
-				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-				taxon_term.source='Arctos' and
-				term_type='superkingdom' and
-				taxon_name.taxon_name_id not in (select taxon_name_id from temp_hierarcicized)
-				;
 
-		insert into temp_ht (scientific_name,taxon_name_id) (
-			select distinct
-				scientific_name,
-				taxon_name.taxon_name_id
-			from
-				taxon_name,
-				taxon_term
-			where
-				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-				taxon_term.source='Arctos' and
-				term_type='kingdom' and
-				taxon_name.taxon_name_id not in (select taxon_name_id from temp_hierarcicized)
-			);
+
+
+				-- blargh, tooslow
+				create table temp_ht  as
+						select
+							scientific_name,
+							taxon_name.taxon_name_id
+						from
+							taxon_name,
+							taxon_term
+						where
+							taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+							taxon_term.source='Arctos' and
+							term_type='superkingdom' and
+							taxon_name.taxon_name_id not in (select taxon_name_id from temp_hierarcicized)
+							;
+
+					insert into temp_ht (scientific_name,taxon_name_id) (
+						select distinct
+							scientific_name,
+							taxon_name.taxon_name_id
+						from
+							taxon_name,
+							taxon_term
+						where
+							taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+							taxon_term.source='Arctos' and
+							term_type='kingdom' and
+							taxon_name.taxon_name_id not in (select taxon_name_id from temp_hierarcicized)
+						);
+
+
+
+
 
 
 	CREATE OR REPLACE PROCEDURE temp_update_junk IS
