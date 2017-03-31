@@ -733,7 +733,7 @@ $(function() { //shorthand document.ready function
 
 
 </cfif>
-
+<!------------------------------------------------------>
 
 <cfif action is "manageLocalTree">
 
@@ -741,9 +741,11 @@ $(function() { //shorthand document.ready function
 		bad call<cfabort>
 	</cfif>
 	<cfquery name="did" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select datasource_id from htax_datasource where dataset_name='#dataset_name#'
+		select datasource_id from htax_dataset where dataset_name='#dataset_name#'
 	</cfquery>
-
+	<cfif did.recordcount is not 1>
+		bad call: recordset not found<cfabort>
+	</cfif>
 
 
 	<cfoutput>
