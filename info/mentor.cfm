@@ -7,7 +7,8 @@
 		GUID_PREFIX,
 		COLLECTION,
 		INSTITUTION,
-		DESCR,
+		WEB_LINK,
+		collection_cde
 		getPreferredAgentName(CONTACT_AGENT_ID) agentName,
 		get_address(CONTACT_AGENT_ID, 'email') email
 	from
@@ -16,6 +17,9 @@
 	where
 		collection.collection_id=collection_contacts.collection_id and
 		CONTACT_ROLE='mentor'
+	order by
+		collection_cde,
+		getPreferredAgentName(CONTACT_AGENT_ID)
 </cfquery>
 
 The following people and collections have volunteered to serve as mentors; please contact any of them with any
@@ -26,14 +30,20 @@ questions regarding Arctos.
 		<th>Name</th>
 		<th>Email</th>
 		<th>Collection</th>
-		<th>Collection Description</th>
+		<th>More Information</th>
 	</tr>
 	<cfloop query="d">
 		<tr>
 			<td>#agentName#</td>
 			<td>#email#</td>
 			<td>#INSTITUTION# #COLLECTION# (#GUID_PREFIX#)</td>
-			<td>#DESCR#</td>
+			<td>
+				<cfif len() gt 0>
+					<a href="#WEB_LINK#" target="_blank" class="external">More Information</a>
+				<cfelse>
+					not available
+				</cfif>
+			</td>
 		</tr>
 	</cfloop>
 </table>

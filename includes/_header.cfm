@@ -395,18 +395,21 @@
 					<li><a target="_top" href="/home.cfm">Portals</a></li>
 				    <li><a target="_top" href="/myArctos.cfm">My Stuff</a>
 				   		<ul>
-							<li><a target="_top" href="/info/mentor.cfm">Find a Mentor</a></li>
 							<cfif len(session.username) gt 0>
 								<li><a target="_top" href="/myArctos.cfm">Profile</a></li>
 							<cfelse>
 								<li><a target="_top" href="/myArctos.cfm">Log In</a></li>
 							</cfif>
 							<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
-							<li><a target="_top" href="/info/api.cfm">API</a></li>
 						</ul>
 					</li>
 					<li>
-						<a target="_blank" href="http://arctosdb.org/">About/Help</a>
+						<ul>
+							<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/">Help</a></li>
+							<li><a target="_blank" class="external" href="http://arctosdb.org/">About</a></li>
+							<li><a target="_top" href="/info/mentor.cfm">Find a Mentor</a></li>
+							<li><a target="_top" href="/info/api.cfm">API</a></li>
+						</ul>
 					</li>
 				</ul>
 			</div>
