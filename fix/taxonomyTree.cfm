@@ -396,8 +396,6 @@ delete from hierarchical_taxonomy;
 <cfinclude template="/includes/_header.cfm">
 
 
-<cfdump var=#action#>
-
 <cfif action is "nothing">
 	<p>
 		ABOUT:
@@ -542,10 +540,15 @@ delete from hierarchical_taxonomy;
 
 	</cfoutput>
 
+<p>
+	Find records with which to "seed" the dataset. Large datasets (tested to 1.4m records) are manageable, but come with performance limitations; smaller datasets are much
+	easier to work with. Consider limiting your query to around 10,000 names.
+</p>
 
-Large datasets (tested to 1.4m records) are manageable, but come with performance limitations; smaller datasets are much
-easier to work with. Consider limiting your query to around 10,000 names.
-
+<form>
+	<label for="kingdom">kingdom</label>
+	<input type="text" name="kingdom" id="kingdom" placeholder="kingdom" size="60">
+</form>
 
 
 </cfif>
