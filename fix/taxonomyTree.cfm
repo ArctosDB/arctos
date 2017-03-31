@@ -544,12 +544,16 @@ delete from hierarchical_taxonomy;
 	</cfquery>
 	<cfif ht.c gt procSuccess.c>
 		<p>
-			trying to create names....
+			trying to create names.... The import has resulted in more terms than you seeded. Something is missing from
+			Arctos. This form will not create taxa. <a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">click here</a>
 		</p>
 	</cfif>
 	<cfif ht.c lt procSuccess.c>
 		<p>
-			something has gone missing....
+			 The import has resulted in fewer terms than you seeded.
+			 <a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">click here</a>
+			 and that needs added....
+
 		</p>
 	</cfif>
 
@@ -655,7 +659,27 @@ $(function() { //shorthand document.ready function
 
 
 </cfif>
+<cfif action is "mismatch_import">
+	<cfquery name="mia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			term
+		from
+			hierarchical_taxonomy,
+			htax_seed,
+			htax_dataset
+		where
+			hierarchical_taxonomy.dataset_id=htax_seed.dataset_id and
+			htax_seed.dataset_id=htax_dataset.dataset_id and
+			htax_dataset.dataset_name='#dataset_name#' and
+			term not in (
+				select scientific_name from taxon_name
+			)
+	</cfquery>
+	<cfdump var=#mia#>
 
+</cfif>
+
+ef="taxonomyTree.cfm?action=tryingToCreate&dataset_name=#dataset_name#">click here</a>
 
 <cfif action is "go_seed_ds">
 	<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r">
