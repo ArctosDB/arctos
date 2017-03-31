@@ -448,6 +448,7 @@ delete from hierarchical_taxonomy;
 </cfif>
 
 <cfif action is "createDataset">
+	<cfoutput>
 	Create a dataset. A dataset is a list of terms from an Arctos classification which will be made hierarchical, and accompanying metadata/
 	<form method="post" action="taxonomyTree.cfm">
 		<input type='hidden' namme='action' value='saveCreateDataset'>
@@ -466,8 +467,10 @@ delete from hierarchical_taxonomy;
 
 		<label for="comments">comments</label>
 		<input type="text" name="comments" placeholder="comments">
+		<br><input type='submit' value='create dataset'>
 
 	</form>
+	</cfoutput>
 </cfif>
 <cfif action is "saveCreateDataset">
 	<cfquery name="saveCreateDataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
