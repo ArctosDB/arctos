@@ -591,8 +591,8 @@ $(function() { //shorthand document.ready function
 </p>
 <form id="f_ds_filter" method="post" action="taxonomyTree.cfm">
 	<cfoutput>
-		<input type="hidden" name="datasource_id" id="datasource_id" value="#d.datasource_id">
-		<input type="hidden" name="dataset_name" id="dataset_name" value="#d.dataset_name">
+		<input type="hidden" name="datasource_id" id="datasource_id" value="#d.datasource_id#">
+		<input type="hidden" name="dataset_name" id="dataset_name" value="#d.dataset_name#">
 		<input type="hidden" name="action" id="action" value="go_seed_ds">
 		<input type="hidden" name="source" id="source" value="#d.source#">
 	</cfoutput>
