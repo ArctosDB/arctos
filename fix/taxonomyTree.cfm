@@ -775,8 +775,6 @@ $(function() { //shorthand document.ready function
 
 			myTree.attachEvent("onDblClick", function(id){
 				$("#statusDiv").html('working...');
-
-
 			    $.getJSON("/component/test.cfc",
 					{
 						method : "getTaxTreeChild",
@@ -799,8 +797,6 @@ $(function() { //shorthand document.ready function
 						}
 					}
 				);
-
-
 			});
 
 
@@ -810,6 +806,7 @@ $(function() { //shorthand document.ready function
 			    $.getJSON("/component/test.cfc",
 					{
 						method : "saveParentUpdate",
+						dataset_id: $("#dataset_id").val(),
 						tid : sId,
 						parent_tid : tId,
 						returnformat : "json",
@@ -822,7 +819,7 @@ $(function() { //shorthand document.ready function
 						}else{
 							alert(r);
 						}
-
+						$("#statusDiv").html('done');
 					}
 				);
 			});
