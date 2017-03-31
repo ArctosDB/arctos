@@ -676,7 +676,13 @@ $(function() { //shorthand document.ready function
 			)
 	</cfquery>
 	<p>
-		The following terms do not exist as taxon names in Arctos. You may need to delete your dataset, add them, and import again.
+		This app will not create taxon names.
+		The following terms do not exist as taxon names in Arctos but are terms in your import.
+		These probably exist because they're used in other terms - eg, a species (binomial) used as
+		a term in a subspecies and which does not exist as a name will appear here. Bad spellings of
+		Family etc. will also appear here.
+
+		You may need to delete your dataset, fix the problems (by adding taxa or correcting mistakes), and import again.
 	</p>
 	<cfoutput>
 		<cfloop query="mia">
