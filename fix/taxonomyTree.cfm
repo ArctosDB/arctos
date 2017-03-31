@@ -535,11 +535,26 @@ delete from hierarchical_taxonomy;
 
 
 
-	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
 	</cfquery>
+
+	<cfquery name="procSuccess" dbtype="query">
+		select c from nht_il where status='success'
+	</cfquery>
+	<cfif ht.c gt procSuccess>
+		<p>
+			trying to create names....
+		</p>
+	</cfif>
+	<cfif ht.c lt procSuccess>
+		<p>
+			something has gone missing....
+		</p>
+	</cfif>
+
 	<p>
-		#nht.c# records are available to manage hierarchically. Everything you've seeded should match what's here. The conversion
+		#ht.c# records are available to manage hierarchically. Everything you've seeded should match what's here. The conversion
 		process is automatic and should happen at the rate of a few thousand records per minute. Reload or return to this page to see
 		progress.
 	</p>
