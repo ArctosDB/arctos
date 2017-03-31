@@ -536,8 +536,6 @@ delete from hierarchical_taxonomy;
 		we probably need a link to view failures here
 	</p>
 
-
-
 	</cfoutput>
 
 <p>
