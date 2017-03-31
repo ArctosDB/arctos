@@ -56,10 +56,9 @@ get rid of admin stuff
 		<cfloop from="1" to="500" index="l">
 			<cfif len(variables.PARENT_TID) gt 0>
 				<br>got a parent, get it
-				<cfquery name="next" datasource="uam_god">
+				<cfquery name="next" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 					select * from hierarchical_taxonomy where tid=#variables.PARENT_TID#
 				</cfquery>
-				<cfdump var="#next#">
 				<cfset variables.TID=next.TID>
 				<cfset variables.PARENT_TID=next.PARENT_TID>
 				<cfset "variables.#next.RANK#"=next.term>
