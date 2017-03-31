@@ -541,13 +541,48 @@ delete from hierarchical_taxonomy;
 	</cfoutput>
 
 <p>
-	Find records with which to "seed" the dataset. Large datasets (tested to 1.4m records) are manageable, but come with performance limitations; smaller datasets are much
+	Find records with which to "seed" the dataset. Large datasets (tested to 1.4m records) are manageable,
+	but come with performance limitations; smaller datasets are much
 	easier to work with. Consider limiting your query to around 10,000 names.
+	<p>
+		Note that data in Arctos are independent; classifications are not related in any way.
+		This app will only update the records for which the taxon name
+		appears as a term here.
+	</p>
 </p>
+<script>
 
-<form>
+
+$(function() { //shorthand document.ready function
+    $('#f_ds_filter').on('submit', function(e) { //use on if jQuery 1.7+
+        e.preventDefault();  //prevent form from submitting
+        var data = $("#login_form :input").serializeArray();
+        console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+    });
+});
+
+
+</script>
+<form id="f_ds_filter">
 	<label for="kingdom">kingdom</label>
 	<input type="text" name="kingdom" id="kingdom" placeholder="kingdom" size="60">
+
+	<label for="phylum">phylum</label>
+	<input type="text" name="phylum" id="phylum" placeholder="phylum" size="60">
+
+	<label for="class">class</label>
+	<input type="text" name="class" id="class" placeholder="class" size="60">
+
+	<label for="order">order</label>
+	<input type="text" name="order" id="order" placeholder="order" size="60">
+
+
+	<label for="family">family</label>
+	<input type="text" name="family" id="family" placeholder="family" size="60">
+
+	<label for="genus">genus</label>
+	<input type="text" name="genus" id="genus" placeholder="genus" size="60">
+	<br><input type="submit" value="inspect">
 </form>
 
 
