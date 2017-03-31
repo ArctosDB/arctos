@@ -14,15 +14,15 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	from
 		CTTAXON_TERM
 </cfquery>
-<cfquery name="weirdvar" dbtype="query">
-	update CTTAXON_TERM set TAXON_TERM='phylorder' where taxon_term='order'
-</cfquery>
 
+<cfset tterms=valuelist(CTTAXON_TERM)>
+<cfset tterms=listDeleteAt(listFind(tterms,'order'))>
+<cfset tterms=listappend(tterms,'phylorder')>
 <cfoutput>
 	<cfloop query="d">
 		<!--- reset variables ---->
-		<cfloop query="CTTAXON_TERM">
-			<cfset "variables.#TAXON_TERM#"="">
+		<cfloop list="#tterms#" index="i">
+			<cfset "variables.#i#"="">
 		</cfloop>
 	<p>
 
@@ -104,12 +104,12 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <p>
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh
-		<cfloop query="CTTAXON_TERM">
-			#TAXON_TERM#,
+		<cfloop list="#tterms#" index="i">
+			#i#,
 		</cfloop>
 		STATUS) values (
-		<cfloop query="CTTAXON_TERM">
-			'#evaluate('variables.' & TAXON_TERM)#',
+		<cfloop list="#tterms#" index="i">
+			'#evaluate("variables." & i)#',
 		</cfloop>
 		'autoinsert_from_hierarchy'
 		)
