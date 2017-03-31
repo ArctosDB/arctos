@@ -29,14 +29,21 @@ UAM@ARCTEST>
 </cfquery>
 <cfoutput>
 <form>
-	Editing #d.term#
+	Editing <strong>#d.term#</strong>
 	<label for="rank">Rank</label>
 	<select name="rank" id="rank">
 		<cfloop query="c">
-			<option value="#TAXON_TERM#" <cfif c.taxon_term is d.rank> selected="selcted" </cfif> >#TAXON_TERM#</option>
-
+			<option value="#TAXON_TERM#" <cfif c.taxon_term is d.rank> selected="taxon_term" </cfif> >#TAXON_TERM#</option>
 		</cfloop>
 	</select>
+	<cfloop query="t">
+		<select name="nctermtype_#nc_tid#" id="nctermtype_#nc_tid#">
+			<cfloop query="nc">
+				<option value="#term_type#" <cfif t.term_type is nc.taxon_term> selected="selected" </cfif> >#term_type#</option>
+			</cfloop>
+		</select>
+			<input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#">
+	</cfloop>
 </form>
 </cfoutput>
 
