@@ -144,6 +144,8 @@ IS_CLASS_BOOL
 	ALTER TABLE htax_seed ADD CONSTRAINT fk_htax_dataset_id  FOREIGN KEY (dataset_id)
   REFERENCES htax_dataset(dataset_id);
 
+create unique index htax_seed_taxdataset on htax_seed (scientific_name,taxon_name_id,dataset_id) tablespace uam_idx_1;
+
 
 
 
@@ -416,7 +418,7 @@ delete from hierarchical_taxonomy;
 	</ul>
 
 	<p>
-		DEPENDANCIES & COMPONENYS
+		DEPENDANCIES & COMPONENTS
 	</p>
 	<ul>
 		<li>Oracle table temp_ht holds "seed" records; those selected by the user to be hierarchicalicized.</li>
@@ -511,14 +513,14 @@ delete from hierarchical_taxonomy;
 		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
 	</cfquery>
 	<p>
-		#nht.c# records are available to manage hierarchically.
+		#nht.c# records are available to manage hierarchically. Link to tree here....
 	</p>
 
 	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from htax_seed where dataset_id=#d.dataset_id#
 	</cfquery>
 	<p>
-		#nht.c# records have been seeded.
+		#nht.c# records have been seeded. You may add more (use the form below).
 	</p>
 
 	<cfquery name="nht_il" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -629,7 +631,9 @@ $(function() { //shorthand document.ready function
 <cfif action is "go_seed_ds">
 
 	<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r">
-		insert into htax_seed (scientific_name,taxon_name_id,dataset_id) (
+		insert
+		/*+ IGNORE_ROW_ON_DUPKEY_INDEX (htax_seed_taxdataset) */
+		into htax_seed (scientific_name,taxon_name_id,dataset_id) (
 		select distinct
 			scientific_name,
 			taxon_name.taxon_name_id,
