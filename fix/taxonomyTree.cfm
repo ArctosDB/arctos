@@ -741,7 +741,7 @@ $(function() { //shorthand document.ready function
 		bad call<cfabort>
 	</cfif>
 	<cfquery name="did" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select datasource_id from htax_dataset where dataset_name='#dataset_name#'
+		select dataset_id from htax_dataset where dataset_name='#dataset_name#'
 	</cfquery>
 	<cfif did.recordcount is not 1>
 		bad call: recordset not found<cfabort>
@@ -749,7 +749,7 @@ $(function() { //shorthand document.ready function
 
 
 	<cfoutput>
-		<input type="hidden" name="" id="#datasource_id#" value="#did.datasource_id#">
+		<input type="hidden" name="" id="#dataset_id#" value="#did.dataset_id#">
 	</cfoutput>
 	<div id="statusDiv" style="position:fixed;top:100;right:0;margin-right:2em;padding:.2em;border:1px solid red;z-index:9999999;">status</div>
 
@@ -866,7 +866,7 @@ $(function() { //shorthand document.ready function
 			$.getJSON("/component/test.cfc",
 				{
 					method : "getInitTaxTree",
-					datasource_id: $("#datasource_id").val(),
+					dataset_id: $("#dataset_id").val(),
 					returnformat : "json",
 					queryformat : 'column'
 				},
