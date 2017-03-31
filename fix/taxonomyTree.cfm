@@ -856,6 +856,32 @@ $(function() { //shorthand document.ready function
 
 			myTree.attachEvent("onCheck", function(id){
 			    alert('this should edit ' + id);
+
+
+			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
+				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:400px;'></iframe>").dialog({
+					autoOpen: true,
+					closeOnEscape: true,
+					height: 'auto',
+					modal: true,
+					position: ['center', 'center'],
+					title: 'Edit Term',
+						width:600,
+			 			height:400,
+					close: function() {
+						$( this ).remove();
+					}
+				}).width(600-10).height(400-10);
+				$(window).resize(function() {
+					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+				});
+				$(".ui-widget-overlay").click(function(){
+				    $(".ui-dialog-titlebar-close").trigger('click');
+				});
+
+
+
+
 			    // uncheck everything
 			    var ids=myTree.getAllSubItems(0).split(",");
 	    		for (var i=0; i<ids.length; i++){
