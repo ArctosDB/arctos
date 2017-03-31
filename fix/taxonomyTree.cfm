@@ -573,6 +573,7 @@ $(function() { //shorthand document.ready function
 			},
 			function (r) {
 				console.log(r);
+				alert('your search found ' + r.DATA.C[0] + ' taxa');
 				//myTree.parse(r, "jsarray");
 				//myTree.parse(r, "jsarray");
 				//myTree.openAllItems(0);
