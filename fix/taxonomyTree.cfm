@@ -590,7 +590,7 @@ $(function() { //shorthand document.ready function
 	Find seed taxonomy. Terms are exact-match case-sensitive.
 </p>
 <form id="f_ds_filter">
-	<input type="hidden" name="source" id="source" value="#d.source#">
+	<input type="hidden" name="source" id="source" value="<cfoutput>#d.source#</cfoutput>">
 	<label for="kingdom">kingdom</label>
 	<input type="text" name="kingdom" id="kingdom" placeholder="kingdom" size="60">
 
