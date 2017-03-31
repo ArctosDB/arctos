@@ -165,10 +165,13 @@ getSeedTaxSum
 <!-------------------------------------------------->
 
 <cffunction name="getInitTaxTree" access="remote">
+	   <cfargument name="dataset_id" type="numeric" required="true"/>
+
 
 	<cfoutput>
 	<cfquery name="d" datasource="uam_god">
-		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where parent_tid is null
+		select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where
+		dataset_id=#dataset_id# and parent_tid is null
 	</cfquery>
 	<cfset x="[">
 	<cfset i=1>
