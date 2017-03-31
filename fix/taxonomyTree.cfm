@@ -509,12 +509,6 @@ delete from hierarchical_taxonomy;
 		<p>
 			comments: #d.comments#
 		</p>
-	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
-	</cfquery>
-	<p>
-		#nht.c# records are available to manage hierarchically. Link to tree here....
-	</p>
 
 	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from htax_seed where dataset_id=#d.dataset_id#
@@ -538,6 +532,20 @@ delete from hierarchical_taxonomy;
 	<p>
 		we probably need a link to view failures here
 	</p>
+
+
+
+	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
+	</cfquery>
+	<p>
+		#nht.c# records are available to manage hierarchically. Everything you've seeded should match what's here.
+		 Link to tree here....
+	</p>
+
+
+
+
 
 	</cfoutput>
 
