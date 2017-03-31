@@ -843,6 +843,8 @@ $(function() { //shorthand document.ready function
 
 			$( "#srch" ).change(function() {
 				// blank canvas
+
+				$("#statusDiv").html('working...');
 				myTree.deleteChildItems(0);
 				 $.getJSON("/component/test.cfc",
 					{
@@ -861,6 +863,7 @@ $(function() { //shorthand document.ready function
 							//myTree.parse(r, "jsarray");
 							myTree.parse(r, "jsarray");
 							myTree.openAllItems(0);
+							$("#statusDiv").html('done');
 						}
 
 					}
