@@ -786,7 +786,7 @@ $(function() { //shorthand document.ready function
 						queryformat : 'column'
 					},
 					function (r) {
-						if (r.substr(0,5)=='ERROR'){
+						if (r.substring(0,5)=='ERROR'){
 							$("#statusDiv").html(r);
 							alert(r);
 						} else {
