@@ -859,19 +859,19 @@ $(function() { //shorthand document.ready function
 
 
 			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
-				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:400px;'></iframe>").dialog({
+				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 					autoOpen: true,
 					closeOnEscape: true,
 					height: 'auto',
 					modal: true,
 					position: ['center', 'center'],
 					title: 'Edit Term',
-						width:600,
-			 			height:400,
+						width:800,
+			 			height:600,
 					close: function() {
 						$( this ).remove();
 					}
-				}).width(600-10).height(400-10);
+				}).width(800-10).height(600-10);
 				$(window).resize(function() {
 					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 				});
