@@ -18,7 +18,7 @@
 				 as a child of either <strong>order</strong> or <strong>otherorder</strong>, whichever is encountered first.
 		</li>
 	</ul>
-	
+
 	<p>
 		DEPENDANCIES & COMPONENYS
 	</p>
@@ -29,8 +29,13 @@
 		<li>Oracle Procedure proc_hierac_tax populates cf_temp_classification from temp_ht</li>
 		<li>Oracle Job J_PROC_HIERAC_TAX runs proc_hierac_tax</li>
 		<li>CF Scheduled Task hier_to_bulk flattens the hierarchical data for re-import to Arctos</li>
+		<li>
+			cf_temp_classification_fh is populated by hier_to_bulk
+			<p>IMPORTANT: we may want to let hier_to_bulk write directly to the classification bulkloader table
+				with status set to autoinsert. That would fully automate repatriation. Check results THOROUGHLY first. </p>
+		</li>
 	</ul>
-	
+
 
 	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct (dataset_name) from hierarchical_taxonomy
@@ -52,7 +57,7 @@
 
 alter table hierarchical_taxonomy add status varchar2(255);
 
-update hierarchical_taxonomy set status='ready_to_push_bl' where rownum<20;
+update hierarchical_taxonomy set status='ready_to_push_bl' where status is null and rownum<20000;
 
 CREATE OR REPLACE PROCEDURE proc_hierac_tax_bl IS
 	-- every term is the lowest-ranked term in a row
