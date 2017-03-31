@@ -749,7 +749,7 @@ $(function() { //shorthand document.ready function
 
 
 	<cfoutput>
-		<input type="hidden" name="" id="#dataset_id#" value="#did.dataset_id#">
+		<input type="hidden" name="dataset_id" id="dataset_id" value="#did.dataset_id#">
 	</cfoutput>
 	<div id="statusDiv" style="position:fixed;top:100;right:0;margin-right:2em;padding:.2em;border:1px solid red;z-index:9999999;">status</div>
 
