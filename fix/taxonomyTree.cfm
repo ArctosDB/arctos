@@ -515,10 +515,10 @@ delete from hierarchical_taxonomy;
 	</p>
 
 	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
+		select count(*) c from htax_seed where dataset_id=#d.dataset_id#
 	</cfquery>
 	<p>
-		#nht.c# records are available to manage hierarchically.
+		#nht.c# records have been seeded.
 	</p>
 
 	<cfquery name="nht_il" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
