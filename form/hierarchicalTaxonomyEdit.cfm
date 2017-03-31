@@ -48,7 +48,7 @@
 					</cfloop>
 				</select>
 			</td>
-			<td><input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#"></td>
+			<td><input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#" size="60"></td>
 		</tr>
 	</cfloop>
 	<p>&nbsp;</p>
@@ -62,7 +62,7 @@
 					</cfloop>
 				</select>
 			</td>
-			<td><input name="nctermvalue_new_#i#" id="nctermvalue_new_#i#" type="text"></td>
+			<td><input name="nctermvalue_new_#i#" id="nctermvalue_new_#i#" type="text" size="60"></td>
 		</tr>
 
 	</cfloop>
