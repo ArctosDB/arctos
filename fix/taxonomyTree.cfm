@@ -675,11 +675,16 @@ $(function() { //shorthand document.ready function
 				select scientific_name from taxon_name
 			)
 	</cfquery>
-	<cfdump var=#mia#>
-
+	<p>
+		The following terms do not exist as taxon names in Arctos. You may need to delete your dataset, add them, and import again.
+	</p>
+	<cfoutput>
+		<cfloop query="mia">
+			<br>#term#
+		</cfloop>
+	</cfoutput>
 </cfif>
 
-ef="taxonomyTree.cfm?action=tryingToCreate&dataset_name=#dataset_name#">click here</a>
 
 <cfif action is "go_seed_ds">
 	<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r">
