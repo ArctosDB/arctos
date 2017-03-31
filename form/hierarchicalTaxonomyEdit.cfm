@@ -39,7 +39,7 @@ UAM@ARCTEST>
 	<cfloop query="t">
 		<select name="nctermtype_#nc_tid#" id="nctermtype_#nc_tid#">
 			<cfloop query="nc">
-				<option value="#term_type#" <cfif t.term_type is nc.taxon_term> selected="selected" </cfif> >#term_type#</option>
+				<option value="#t.term_type#" <cfif t.term_type is nc.taxon_term> selected="selected" </cfif> >#t.term_type#</option>
 			</cfloop>
 		</select>
 			<input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#">
