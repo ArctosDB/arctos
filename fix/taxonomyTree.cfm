@@ -879,6 +879,7 @@ $(function() { //shorthand document.ready function
 
 
 		function initTree(){
+			$("#statusDiv").html('initializing');
 			myTree.deleteChildItems(0);
 			$.getJSON("/component/test.cfc",
 				{
@@ -889,9 +890,9 @@ $(function() { //shorthand document.ready function
 				},
 				function (r) {
 					myTree.parse(r, "jsarray");
-
 				}
 			);
+			$("#statusDiv").html('ready');
 		}
 
 	//tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
