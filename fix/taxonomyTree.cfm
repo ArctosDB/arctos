@@ -539,8 +539,13 @@ delete from hierarchical_taxonomy;
 		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
 	</cfquery>
 	<p>
-		#nht.c# records are available to manage hierarchically. Everything you've seeded should match what's here.
-		 Link to tree here....
+		#nht.c# records are available to manage hierarchically. Everything you've seeded should match what's here. The conversion
+		process is automatic and should happen at the rate of a few thousand records per minute. Reload or return to this page to see
+		progress.
+	</p>
+
+	<p>
+		When you are done seeding, you may manage these data in the classification tree editor. Link to tree here....
 	</p>
 
 
