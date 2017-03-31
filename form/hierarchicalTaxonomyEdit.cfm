@@ -73,7 +73,3 @@
 
 </form>
 </cfoutput>
-
-<cfdump var=#d#>
-
-<cfdump var=#t#>
