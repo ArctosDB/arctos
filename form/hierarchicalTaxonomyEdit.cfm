@@ -3,18 +3,6 @@ hello I am hierarchicalTaxonomyEdit.cfm
 	select * from cttaxon_term
 </cfquery>
 
-UAM@ARCTEST> desc cttaxon_term
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- TAXON_TERM							   NOT NULL VARCHAR2(255)
- DESCRIPTION								    VARCHAR2(4000)
- IS_CLASSIFICATION						   NOT NULL NUMBER
- RELATIVE_POSITION							    NUMBER
- CTTAXON_TERM_ID						   NOT NULL NUMBER
-
-UAM@ARCTEST>
-
-
 <cfquery name="c" dbtype="query">
 	select TAXON_TERM from cttaxon_term where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
 </cfquery>
@@ -29,7 +17,10 @@ UAM@ARCTEST>
 </cfquery>
 <cfoutput>
 <form>
-	Editing <strong>#d.term#</strong>
+	<p>
+		Editing <strong>#d.term#</strong>
+	</p>
+	[i will be a save button someday]
 	<label for="rank">Rank</label>
 	<select name="rank" id="rank">
 		<cfloop query="c">
@@ -57,7 +48,7 @@ UAM@ARCTEST>
 		<tr>
 			<td>
 				<select name="nctermtype_new_#i#" id="nctermtype_new_#i#">
-					<option value="">pick one</option>
+					<option value="">pick to add term-value pair</option>
 					<cfloop query="nc">
 						<option value="#t.term_type#">#t.term_type#</option>
 					</cfloop>
