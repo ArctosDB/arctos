@@ -28,12 +28,18 @@
 
 
 	-- status does stuff, so...
+
+	alter table htax_dataset drop constraint ck_htax_dataset_status;
+
 	alter table htax_dataset add constraint ck_htax_dataset_status
    	CHECK (status IN(
 		'working',
-		'process_to_bulkloader'
+		'process_to_bulkloader',
+		'inserted_term',
+		'inserted_noclassterm'
 		)
 	);
+
 
 
 	ALTER TABLE htax_dataset ADD PRIMARY KEY (dataset_id);
@@ -148,9 +154,21 @@ create unique index htax_seed_taxdataset on htax_seed (scientific_name,taxon_nam
 
 
 
+ -- table for nonclassification terms
 
+create table htax_noclassterm (
+	nc_tid number not null,
+	tid number not null,
+	term_type varchar2(255) not null,
+	term_value varchar2(255) not null
+);
 
+	create or replace public synonym htax_noclassterm for htax_noclassterm;
+	grant all on htax_noclassterm to manage_taxonomy;
 
+	ALTER TABLE htax_noclassterm ADD PRIMARY KEY (nc_tid);
+
+	ALTER TABLE htax_noclassterm ADD CONSTRAINT fk_htaxnc_dataset_id  FOREIGN KEY (tid) REFERENCES hierarchical_taxonomy(tid);
 
 
 CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
@@ -216,15 +234,12 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 							t.dataset_id
 						);
 
-
 						-- now assign the term we just made's ID to parent so we can use it in the next loop
 						v_pid:=v_tid;
 					end if;
-
-
 				end loop;
 				-- log
-				insert into htax_temp_hierarcicized (taxon_name_id,dataset_id,status) values (t.taxon_name_id,t.dataset_id,'success');
+				insert into htax_temp_hierarcicized (taxon_name_id,dataset_id,status) values (t.taxon_name_id,t.dataset_id,'inserted_term');
 				exception when others then
 					insert into htax_temp_hierarcicized (taxon_name_id,dataset_id,status) values (t.taxon_name_id,t.dataset_id,'fail');
 				end;
@@ -232,6 +247,71 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 	end;
 	/
 sho err;
+
+CREATE OR REPLACE PROCEDURE proc_hierac_tax_noclass IS
+begin
+
+
+	 -- first get tid and DATASET_ID of inserted_term records
+	for r in (
+		select distinct
+			hierarchical_taxonomy.tid,
+			hierarchical_taxonomy.DATASET_ID,
+			htax_dataset.source,
+			htax_temp_hierarcicized.TAXON_NAME_ID
+		from
+			htax_temp_hierarcicized,
+			htax_seed,
+			htax_dataset,
+			hierarchical_taxonomy
+		where
+			htax_temp_hierarcicized.status='inserted_term' and
+			htax_temp_hierarcicized.TAXON_NAME_ID=htax_seed.TAXON_NAME_ID and
+			htax_temp_hierarcicized.DATASET_ID=htax_seed.DATASET_ID and
+			htax_seed.SCIENTIFIC_NAME=hierarchical_taxonomy.TERM and
+			htax_seed.DATASET_ID = hierarchical_taxonomy.DATASET_ID and
+			htax_seed.DATASET_ID = htax_dataset.DATASET_ID and
+			rownum < 10000
+	) loop
+		--dbms_output.put_line(r.tid || '=>' || r.TAXON_NAME_ID);
+		-- now get terms from Arctos
+		for t in (
+			select
+				term,
+				TERM_TYPE
+			from
+				taxon_term
+			where
+				TAXON_NAME_ID=r.TAXON_NAME_ID and
+				source=r.source and
+				POSITION_IN_CLASSIFICATION is null
+		) loop
+			--dbms_output.put_line('-----' || t.term || '=' || t.TERM_TYPE);
+			insert into  htax_noclassterm (
+				nc_tid,
+				tid,
+				term_type,
+				term_value
+			) values (
+				somerandomsequence.nextval,
+				r.tid,
+				t.TERM_TYPE,
+				t.term
+			);
+		end loop;
+		update htax_temp_hierarcicized set status='inserted_noclassterm' where TAXON_NAME_ID=r.TAXON_NAME_ID and DATASET_ID=r.DATASET_ID;
+	end loop;
+end;
+/
+sho err;
+
+
+
+
+exec proc_hierac_tax_noclass
+
+
+
 
 exec proc_hierac_tax;
 
@@ -832,17 +912,6 @@ $(function() { //shorthand document.ready function
 					}
 				);
 			});
-
-
-
-
-
-
-
-
-
-
-
 			$( "#srch" ).change(function() {
 				performSearch();
 			});
@@ -850,6 +919,7 @@ $(function() { //shorthand document.ready function
 				performSearch();
 			});
 		});
+		// end ready function
 
 
 		function performSearch(){
