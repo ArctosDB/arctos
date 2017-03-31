@@ -15,7 +15,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		CTTAXON_TERM
 </cfquery>
 <cfquery name="CTTAXON_TERM" datasource="uam_god">
-	select column_name from user_tab_cols where table_name=upper('cf_temp_classification_fh')
+	select column_name taxon_term from user_tab_cols where table_name=upper('cf_temp_classification_fh')
 </cfquery>
 
 <cfset tterms=valuelist(CTTAXON_TERM.taxon_term)>
