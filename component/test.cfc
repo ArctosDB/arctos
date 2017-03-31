@@ -1,7 +1,5 @@
 <cfcomponent>
 
-	saveParentUpdate
-
 <cffunction name="saveParentUpdate" access="remote">
    <cfargument name="tid" type="numeric" required="true">
    <cfargument name="parent_tid" type="numeric" required="true">

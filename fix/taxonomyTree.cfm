@@ -9,6 +9,10 @@
 		-- maybe in another table linked by tid
 
 
+	- keys (tid, parent_tid) are assigned at import and have no realationship to taxon_name_id/anything
+
+
+
 -- create a half-key and metadata; make this a multi-user multi-classification environment
 
 	create table htax_dataset (
@@ -16,9 +20,12 @@
 		dataset_name varchar2(255) not null,
 		created_by varchar2(255) not null,
 		created_date date not null,
+		source varchar2(255) not null,
 		comments varchar2(4000),
-		status varchar2(255) not null default 'working'
+		status varchar2(255)  default 'working' not null
 	);
+	alter table htax_dataset add source varchar2(255) not null;
+
 
 	-- status does stuff, so...
 	alter table htax_dataset add constraint ck_htax_dataset_status
@@ -36,9 +43,9 @@
 
 	--	create a hierarchical data structure for classification data
 
-	drop table htax_hierarchical_taxonomy;
+	drop table hierarchical_taxonomy;
 
-	create table htax_hierarchical_taxonomy (
+	create table hierarchical_taxonomy (
 		tid number not null,
 		parent_tid number,
 		term varchar2(255),
@@ -46,28 +53,90 @@
 		dataset_id number not null
 	);
 
-	ALTER TABLE htax_hierarchical_taxonomy ADD PRIMARY KEY (tid);
-	ALTER TABLE htax_hierarchical_taxonomy ADD CONSTRAINT fk_parent_tid  FOREIGN KEY (dataset_id)
+
+	ALTER TABLE hierarchical_taxonomy ADD PRIMARY KEY (tid);
+
+
+	--------------------- awaiting help from LKV
+
+	ALTER TABLE hierarchical_taxonomy ADD CONSTRAINT fk_parent_tid  FOREIGN KEY (dataset_id)
+  REFERENCES htax_dataset(dataset_id);
+	-- do not accept terms we can't deal with
+
+	-- in test anyway..
+	create unique index IU_CTTAXTERM_TERM on cttaxon_term(taxon_term) tablespace uam_idx_1;
+		ALTER TABLE cttaxon_term ADD PRIMARY KEY (taxon_term);
+
+	ALTER TABLE hierarchical_taxonomy ADD CONSTRAINT fk_term_type  FOREIGN KEY (rank) REFERENCES cttaxon_term(taxon_term);
+
+	SELECT DBMS_METADATA.GET_DDL('CONSTRAINT','PK_CTTAXON_TERM') FROM DUAL;
+	SELECT DBMS_METADATA.GET_DDL('CONSTRAINT','SYS_C0024359') FROM DUAL;
+	SELECT DBMS_METADATA.GET_DDL('CONSTRAINT','SYS_C0024358') FROM DUAL;
+	SELECT DBMS_METADATA.GET_DDL('CONSTRAINT','IS_CLASS_BOOL') FROM DUAL;
+
+	SELECT DBMS_METADATA.GET_DDL('INDEX','IU_CTTAXTERM_TERM') FROM DUAL;
+
+
+ALTER TABLE cttaxon_term DROP INDEX IU_CTTAXTERM_TERM;
+
+------------------------------------------------------------------------------------------
+IU_CTTAXTERM_TERM
+IU_TAXONTERM_RELPOS
+PK_CTTAXON_TERM
+
+
+
+
+UAM@ARCTEST> select CONSTRAINT_NAME from all_constraints where table_name='CTTAXON_TERM';
+
+CONSTRAINT_NAME
+------------------------------------------------------------------------------------------
+PK_CTTAXON_TERM
+SYS_C0024359
+SYS_C0024358
+IS_CLASS_BOOL
+
+------------------- /awaiting LKV
+
+
+
+
+
+
+
+
+	ALTER TABLE hierarchical_taxonomy ADD CONSTRAINT fk_dataset_id  FOREIGN KEY (dataset_id)
   REFERENCES htax_dataset(dataset_id);
 
 
-	ALTER TABLE htax_hierarchical_taxonomy ADD CONSTRAINT fk_dataset_id  FOREIGN KEY (parent_tid)
-  REFERENCES htax_dataset(tid);
+	create or replace public synonym hierarchical_taxonomy for hierarchical_taxonomy;
+	grant all on hierarchical_taxonomy to manage_taxonomy;
 
 
-	create or replace public synonym htax_hierarchical_taxonomy for htax_hierarchical_taxonomy;
-	grant all on htax_hierarchical_taxonomy to htax_hierarchical_taxonomy;
+	-- add permissions and error logging
+
+	drop table htax_temp_hierarcicized;
+
+	create table htax_temp_hierarcicized (
+		taxon_name_id number not null,
+		dataset_id number not null,
+		status varchar2(255)
+	);
+
+	create or replace public synonym htax_temp_hierarcicized for htax_temp_hierarcicized;
+	grant all on htax_temp_hierarcicized to manage_taxonomy;
 
 
-	-- internal logging table; no need for permissions
+	ALTER TABLE htax_temp_hierarcicized ADD CONSTRAINT fk_th_dataset_id  FOREIGN KEY (dataset_id)
+  REFERENCES htax_dataset(dataset_id);
 
-	create table htax_temp_hierarcicized (taxon_name_id number);
 
 	-- "seed" table
-	create table htax_seed (
+	create table d (
 		scientific_name varchar2(255) not null,
 		taxon_name_id number not null,
-		dataset_id number not null
+		dataset_id number not null,
+
 	);
 	create or replace public synonym htax_seed for htax_seed;
 	grant all on htax_seed to manage_taxonomy;
@@ -82,14 +151,125 @@
 
 
 
+CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
+	-- note: https://github.com/ArctosDB/arctos/issues/1000#issuecomment-290556611
+	--declare
+		v_pid number;
+		v_tid number;
+		v_c number;
+	begin
+		v_pid:=NULL;
+		for t in (
+			select
+				htax_seed.taxon_name_id,
+				htax_seed.scientific_name,
+				htax_seed.dataset_id,
+				htax_dataset.source
+			from
+				htax_seed,
+				htax_dataset
+			where
+				htax_seed.dataset_id=htax_dataset.dataset_id and
+				-- make sure we haven't already processed this record
+				(htax_seed.taxon_name_id,htax_seed.dataset_id) not in (select taxon_name_id,dataset_id from htax_temp_hierarcicized) and
+				rownum<10000
+		) loop
+			--dbms_output.put_line(t.scientific_name);
+			begin
+				for r in (
+					select
+						term,
+						term_type
+					from
+						taxon_term
+					where
+						taxon_term.taxon_name_id=t.taxon_name_id and
+						source=t.source and
+						position_in_classification is not null and
+						term_type != 'scientific_name'
+					order by
+						position_in_classification ASC
+				) loop
+					--dbms_output.put_line(r.term_type || '=' || r.term);
+					-- see if we already have one
+					select /*+ result_cache */ count(*) into v_c from hierarchical_taxonomy where term=r.term and rank=r.term_type;
+					if v_c=1 then
+						-- grab the ID for use on the next record, move on
+						select /*+ result_cache */ tid into v_pid from hierarchical_taxonomy where term=r.term and rank=r.term_type;
+					else
+						-- create the term
+						-- first grab the current ID
+						select someRandomSequence.nextval into v_tid from dual;
+						insert into hierarchical_taxonomy (
+							tid,
+							parent_tid,
+							term,
+							rank,
+							dataset_id
+						) values (
+							v_tid,
+							v_pid,
+							r.term,
+							r.term_type,
+							t.dataset_id
+						);
+
+
+						-- now assign the term we just made's ID to parent so we can use it in the next loop
+						v_pid:=v_tid;
+					end if;
+
+
+				end loop;
+				-- log
+				insert into htax_temp_hierarcicized (taxon_name_id,dataset_id,status) values (t.taxon_name_id,t.dataset_id,'success');
+				exception when others then
+					insert into htax_temp_hierarcicized (taxon_name_id,dataset_id,status) values (t.taxon_name_id,t.dataset_id,'fail');
+				end;
+		end loop;
+	end;
+	/
+sho err;
+
+exec proc_hierac_tax;
+
+BEGIN
+DBMS_SCHEDULER.DROP_JOB('J_PROC_HIERAC_TAX');
+END;
+/
+
+BEGIN
+DBMS_SCHEDULER.CREATE_JOB (
+   job_name           =>  'J_PROC_HIERAC_TAX',
+   job_type           =>  'STORED_PROCEDURE',
+   job_action         =>  'proc_hierac_tax',
+   start_date         =>  SYSTIMESTAMP,
+	repeat_interval    =>  'freq=minutely; interval=3',
+   enabled             =>  TRUE,
+   end_date           =>  NULL,
+   comments           =>  'PROCESS HIERARCHICAL TAXONOMY');
+END;
+/
+
+select STATE,LAST_RUN_DURATION,MAX_RUN_DURATION,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_PROC_HIERAC_TAX';
 
 
 
 
 
 
--- procedure to move stuff to the bulkloader
 
+
+
+
+
+
+
+
+
+
+
+------------------ old-n-busted follows -------------------------
 alter table hierarchical_taxonomy add status varchar2(255);
 
 update hierarchical_taxonomy set status='ready_to_push_bl' where status is null and rownum<20000;
@@ -203,94 +383,6 @@ insert into temp_ht (scientific_name,taxon_name_id,dataset_name,source) (
 -- now let the stored procedure chew on things
 
 
-BEGIN
-DBMS_SCHEDULER.CREATE_JOB (
-   job_name           =>  'J_PROC_HIERAC_TAX',
-   job_type           =>  'STORED_PROCEDURE',
-   job_action         =>  'proc_hierac_tax',
-   start_date         =>  SYSTIMESTAMP,
-	repeat_interval    =>  'freq=minutely; interval=3',
-   enabled             =>  TRUE,
-   end_date           =>  NULL,
-   comments           =>  'PROCESS HIERARCHICAL TAXONOMY');
-END;
-/
-
-select STATE,LAST_RUN_DURATION,MAX_RUN_DURATION,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_PROC_HIERAC_TAX';
-
-
-CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
-	-- note: https://github.com/ArctosDB/arctos/issues/1000#issuecomment-290556611
-	--declare
-		v_pid number;
-		v_tid number;
-		v_c number;
-	begin
-		v_pid:=NULL;
-		for t in (
-			select
-				*
-			from
-				temp_ht
-			where
-				(taxon_name_id,dataset_name) not in (select taxon_name_id,dataset_name from temp_hierarcicized) and
-				rownum<10000
-		) loop
-			--dbms_output.put_line(t.scientific_name);
-			-- we'll never have this, just insert
-			-- actually, I don't think we need this at all, it should usually be handled by eg, species (lowest-ranked term)
-
-			for r in (
-				select
-					term,
-					term_type
-				from
-					taxon_term
-				where
-					taxon_term.taxon_name_id =t.taxon_name_id and
-					source=t.source and
-					position_in_classification is not null and
-					term_type != 'scientific_name'
-				order by
-					position_in_classification ASC
-			) loop
-				--dbms_output.put_line(r.term_type || '=' || r.term);
-				-- see if we already have one
-				select /*+ result_cache */ count(*) into v_c from hierarchical_taxonomy where term=r.term and rank=r.term_type;
-				if v_c=1 then
-					-- grab the ID for use on the next record, move on
-					select /*+ result_cache */ tid into v_pid from hierarchical_taxonomy where term=r.term and rank=r.term_type;
-				else
-					-- create the term
-					-- first grab the current ID
-					select someRandomSequence.nextval into v_tid from dual;
-					insert into hierarchical_taxonomy (
-						tid,
-						parent_tid,
-						term,
-						rank,
-						dataset_name
-					) values (
-						v_tid,
-						v_pid,
-						r.term,
-						r.term_type,
-						t.dataset_name
-					);
-					-- now assign the term we just made's ID to parent so we can use it in the next loop
-					v_pid:=v_tid;
-				end if;
-
-
-			end loop;
-			-- log
-			insert into temp_hierarcicized (taxon_name_id,dataset_name) values (t.taxon_name_id,t.dataset_name);
-		end loop;
-	end;
-	/
-sho err;
-
-exec proc_hierac_tax;
 
 select count(*) from temp_hierarcicized;
 select count(*) from hierarchical_taxonomy;
@@ -355,9 +447,71 @@ delete from hierarchical_taxonomy;
 	</cfoutput>
 </cfif>
 
-<cfif action is "impData">
+<cfif action is "createDataset">
+	Create a dataset. A dataset is a list of terms from an Arctos classification which will be made hierarchical, and accompanying metadata/
+	<form method="post" action="taxonomyTree.cfm">
+		<input type='hidden' namme='action' value='saveCreateDataset'>
+		<label for="dataset_name">dataset_name</label>
+		<input type="text" name="dataset_name" placeholder="dataset_name">
+		<cfquery name="ctsource" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select source from CTTAXONOMY_SOURCE order by source
+		</cfquery>
+		<label for="source">source</label>
+		<select name="source">
+			<option value=""></option>
+			<cfloop query="ctsource">
+				<option value="#source#">#source#</option>
+			</cfloop>
+		</select>
 
-impData
+		<label for="comments">comments</label>
+		<input type="text" name="comments" placeholder="comments">
+
+	</form>
+</cfif>
+<cfif action is "saveCreateDataset">
+	<cfquery name="saveCreateDataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into htax_dataset (
+			dataset_id,
+			dataset_name,
+			created_by,
+			created_date,
+			source,
+			comments
+		) values (
+			sq_someRandomSequence.nextval,
+			'#dataset_name#',
+			'#session.username#',
+			'#dateformat(now(),"yyyy-mm-dd")#',
+			'#source#',
+			'#comments#'
+		)
+	</cfquery>
+	<cflocation url="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#" addtoken="false">
+
+</cfif>
+<cfif action is "manageDataset">
+
+Create a dataset. A dataset is a list of terms from an Arctos classification which will be made hierarchical.
+
+<form>
+
+</form>
+Large datasets (tested to 1.4m records) are manageable, but come with performance limitations; smaller datasets are much
+easier to work with. Consider limiting your query to around 10,000 names.
+
+
+	create table htax_dataset (
+		dataset_id number not null,
+		dataset_name varchar2(255) not null,
+		created_by varchar2(255) not null,
+		created_date date not null,
+		source varchar2(255) not null,
+		comments varchar2(4000),
+		status varchar2(255)  default 'working' not null
+	);
+	alter table htax_dataset add source varchar2(255) not null;
+
 
 </cfif>
 <cfif action is "manageLocalTree">
