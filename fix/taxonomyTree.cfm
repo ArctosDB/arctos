@@ -773,6 +773,17 @@ $(function() { //shorthand document.ready function
 
 			initTree();
 
+
+			myTree.attachEvent("onCheck", function(id){
+			    alert('this should edit ' + id);
+			    // uncheck everything
+			    var ids=myTree.getAllSubItems(0).split(",");
+	    		for (var i=0; i<ids.length; i++){
+	       			myTree.setCheck(ids[i],0);
+	    		}
+			});
+
+
 			myTree.attachEvent("onDblClick", function(id){
 				$("#statusDiv").html('working...');
 			    $.getJSON("/component/test.cfc",
@@ -799,8 +810,6 @@ $(function() { //shorthand document.ready function
 				);
 			});
 
-
-
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
 				$("#statusDiv").html('working....');
 			    $.getJSON("/component/test.cfc",
@@ -818,22 +827,15 @@ $(function() { //shorthand document.ready function
 							$("#statusDiv").html('successful save');
 						}else{
 							alert(r);
+							$("#statusDiv").html(r);
 						}
-						$("#statusDiv").html('done');
 					}
 				);
 			});
 
 
 
-			myTree.attachEvent("onCheck", function(id){
-			    alert('this should edit ' + id);
-			    // uncheck everything
-			    var ids=myTree.getAllSubItems(0).split(",");
-	    		for (var i=0; i<ids.length; i++){
-	       			myTree.setCheck(ids[i],0);
-	    		}
-			});
+
 
 
 
@@ -874,7 +876,6 @@ $(function() { //shorthand document.ready function
 					}
 				}
 			);
-
 		}
 
 
