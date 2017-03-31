@@ -30,6 +30,12 @@ get rid of admin stuff
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'SOURCE'))>
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
+<cfset tterms=listDeleteAt(tterms,listFind(tterms,'NOMENCLATURAL_CODE'))>
+
+
+
+
+
 <cfoutput>
 	<cfloop query="d">
 		<!--- reset variables ---->
