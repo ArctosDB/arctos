@@ -395,6 +395,8 @@ delete from hierarchical_taxonomy;
 --------->
 <cfinclude template="/includes/_header.cfm">
 
+
+<cfdump var=#action#>
 <cfif action is "nothing">
 	<p>
 		ABOUT:
