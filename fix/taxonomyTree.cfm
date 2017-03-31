@@ -433,7 +433,7 @@ delete from hierarchical_taxonomy;
 
 
 	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct (dataset_name) from hierarchical_taxonomy
+		select distinct (dataset_name) from htax_dataset
 	</cfquery>
 	<cfoutput>
 		select a dataset to edit...
@@ -443,7 +443,7 @@ delete from hierarchical_taxonomy;
 			</p>
 		</cfloop>
 
-		... or <a href="taxonomyTree.cfm?action=impData">import more data</a>
+		... or <a href="taxonomyTree.cfm?action=createDataset">create a dataset</a>
 	</cfoutput>
 </cfif>
 
