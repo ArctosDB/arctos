@@ -67,7 +67,7 @@
 		<cftry>
 			<cfquery name="d" datasource="uam_god">
 				select term,tid,nvl(parent_tid,0) parent_tid, rank from hierarchical_taxonomy where
-				dataset_id=#dataset_id# and parent_tid = #id#
+				dataset_id=#dataset_id# and parent_tid = #id# order by term
 			</cfquery>
 			<cfreturn d>
 		<cfcatch>
