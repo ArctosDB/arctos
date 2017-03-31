@@ -41,6 +41,7 @@ getSeedTaxSum
 					and term_type='genus' and term='#genus#'
 				</cfif>
 		</cfquery>
+		<cfdump var=#d#>
 		<cfreturn d>
 	</cfoutput>
 
