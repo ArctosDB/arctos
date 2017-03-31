@@ -9,7 +9,6 @@ getSeedTaxSum
    <cfargument name="order" type="string" required="false">
    <cfargument name="family" type="string" required="false">
    <cfargument name="genus" type="string" required="false">
-   <cfargument name="kingdom" type="string" required="false">
 
 
 
