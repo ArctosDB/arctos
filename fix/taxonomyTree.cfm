@@ -786,9 +786,7 @@ $(function() { //shorthand document.ready function
 						queryformat : 'column'
 					},
 					function (r) {
-						alert(r.toString().substring(0,5));
-						/*
-						if (r.substring(0,5)=='ERROR'){
+						if (r.toString().substring(0,5)=='ERROR'){
 							$("#statusDiv").html(r);
 							alert(r);
 						} else {
@@ -799,7 +797,6 @@ $(function() { //shorthand document.ready function
 							}
 							$("#statusDiv").html('done');
 						}
-						*/
 					}
 				);
 
