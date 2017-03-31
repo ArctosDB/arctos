@@ -780,18 +780,23 @@ $(function() { //shorthand document.ready function
 			    $.getJSON("/component/test.cfc",
 					{
 						method : "getTaxTreeChild",
+						dataset_id: $("#dataset_id").val(),
 						id : id,
 						returnformat : "json",
 						queryformat : 'column'
 					},
 					function (r) {
-						for (i=0;i<r.ROWCOUNT;i++) {
-							//insertNewChild(var) does not work for some insane reason, so.....
-							var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
-							eval(d);
+						if (r.substr(0,5)=='ERROR'){
+							$("#statusDiv").html(r);
+							alert(r);
+						} else {
+							for (i=0;i<r.ROWCOUNT;i++) {
+								//insertNewChild(var) does not work for some insane reason, so.....
+								var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
+								eval(d);
+							}
+							$("#statusDiv").html('done');
 						}
-						$("#statusDiv").html('done');
-
 					}
 				);
 
