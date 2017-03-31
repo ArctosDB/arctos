@@ -132,7 +132,7 @@ IS_CLASS_BOOL
 
 
 	-- "seed" table
-	create table d (
+	create table htax_seed (
 		scientific_name varchar2(255) not null,
 		taxon_name_id number not null,
 		dataset_id number not null,
@@ -554,8 +554,7 @@ delete from hierarchical_taxonomy;
 
 
 $(function() { //shorthand document.ready function
-    $('#f_ds_filter').on('submit', function(e) { //use on if jQuery 1.7+
-        e.preventDefault();  //prevent form from submitting
+    $('#inspect').on('click', function(e) { //use on if jQuery 1.7+
        // var data = $("#f_ds_filter :input").serializeArray();
         //console.log(data); //use the console for debugging, F12 in Chrome, not alerts
          $.getJSON("/component/test.cfc",
@@ -590,8 +589,16 @@ $(function() { //shorthand document.ready function
 <p>
 	Find seed taxonomy. Terms are exact-match case-sensitive.
 </p>
-<form id="f_ds_filter">
-	<input type="hidden" name="source" id="source" value="<cfoutput>#d.source#</cfoutput>">
+<form id="f_ds_filter" method="post" action="taxonomyTree.cfm">
+	<cfoutput>
+		<input type="hidden" name="datasource_id" id="datasource_id" value="#d.datasource_id">
+		<input type="hidden" name="dataset_name" id="dataset_name" value="#d.dataset_name">
+		<input type="hidden" name="action" id="action" value="go_seed_ds">
+		<input type="hidden" name="source" id="source" value="#d.source#">
+	</cfoutput>
+
+
+
 	<label for="kingdom">kingdom</label>
 	<input type="text" name="kingdom" id="kingdom" placeholder="kingdom" size="60">
 
@@ -610,11 +617,61 @@ $(function() { //shorthand document.ready function
 
 	<label for="genus">genus</label>
 	<input type="text" name="genus" id="genus" placeholder="genus" size="60">
-	<br><input type="submit" value="inspect">
+	<br><input type="button" id="inspect" value="inspect">
+	<p>
+		After using the "inspect" button, and having found a reasonable number of taxa,
+		<input type="submit" onclick="goPullSeed" value="pull seed data">
+	</p>
 </form>
 
 
 </cfif>
+
+
+<cfif action is "go_seed_ds">
+
+	<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r">
+		insert into htax_seed (scientific_name,taxon_name_id,dataset_id) (
+		select distinct (
+			scientific_name,
+			taxon_name.taxon_name_id,
+			#dataset_id#
+		from
+			taxon_name,
+			taxon_term
+		where
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+			taxon_term.source='#source#'
+			<cfif len(kingdom) gt 0>
+				and term_type='kingdom' and term='#kingdom#'
+			</cfif>
+			<cfif len(phylum) gt 0>
+				and term_type='phylum' and term='#phylum#'
+			</cfif>
+			<cfif len(class) gt 0>
+				and term_type='class' and term='#class#'
+			</cfif>
+			<cfif len(order) gt 0>
+				and term_type='order' and term='#order#'
+			</cfif>
+			<cfif len(family) gt 0>
+				and term_type='family' and term='#family#'
+			</cfif>
+			<cfif len(genus) gt 0>
+				and term_type='genus' and term='#genus#'
+			</cfif>
+	</cfquery>
+	<p>
+		Result: <cfdump var=#r#>
+	</p>
+	<p>
+		<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#">back to manage</a>
+	</p>
+
+
+</cfif>
+
+
 <cfif action is "manageLocalTree">
 	<div id="statusDiv" style="position:fixed;top:100;right:0;margin-right:2em;padding:.2em;border:1px solid red;z-index:9999999;">status</div>
 
