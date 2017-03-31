@@ -116,16 +116,19 @@ get rid of admin stuff
 <p>
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
-		<cfloop list="#tterms#" index="i">
-			#i#,
-		</cfloop>
-		STATUS,
-		username) values (
-		<cfloop list="#tterms#" index="i">
-			'#evaluate("variables." & i)#',
-		</cfloop>
-		'autoinsert_from_hierarchy',
-		'nouser'
+			<cfloop list="#tterms#" index="i">
+				#i#,
+			</cfloop>
+			STATUS,
+			username,
+			SOURCE
+		) values (
+			<cfloop list="#tterms#" index="i">
+				'#evaluate("variables." & i)#',
+			</cfloop>
+			'autoinsert_from_hierarchy',
+			'need user',
+			'need source'
 		)
 		</cfquery>
 	<cfquery name="goit" datasource="uam_god">
