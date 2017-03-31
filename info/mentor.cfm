@@ -38,7 +38,7 @@ questions regarding Arctos.
 			<td>#email#</td>
 			<td>#INSTITUTION# #COLLECTION# (#GUID_PREFIX#)</td>
 			<td>
-				<cfif len() gt 0>
+				<cfif len(WEB_LINK) gt 0>
 					<a href="#WEB_LINK#" target="_blank" class="external">More Information</a>
 				<cfelse>
 					not available
