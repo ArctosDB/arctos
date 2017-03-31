@@ -31,13 +31,13 @@ questions regarding Arctos.
 		<th>Email</th>
 		<th>Collection</th>
 		<th>CollectionCde</th>
-		<th>More Information (collection web link)</th>
+		<th>Web Link</th>
 	</tr>
 	<cfloop query="d">
 		<tr>
 			<td>#agentName#</td>
 			<td>#email#</td>
-			<td>#INSTITUTION# #COLLECTION# (#GUID_PREFIX#)</td>
+			<td>#INSTITUTION# #COLLECTION#</td>
 			<td>#collection_cde#</td>
 			<td>
 				<cfif len(WEB_LINK) gt 0>
