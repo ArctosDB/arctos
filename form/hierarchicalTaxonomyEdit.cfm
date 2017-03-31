@@ -52,10 +52,21 @@ UAM@ARCTEST>
 			</td>
 			<td><input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#"></td>
 		</tr>
-
+	</cfloop>
+	<cfloop from="1" to="10" index="i">
+		<tr>
+			<td>
+				<select name="nctermtype_new_#i#" id="nctermtype_new_#i#">
+					<option value="">pick one</option>
+					<cfloop query="nc">
+						<option value="#t.term_type#">#t.term_type#</option>
+					</cfloop>
+				</select>
+			</td>
+			<td><input name="nctermvalue_new_#i#" id="nctermvalue_new_#i#" type="text"></td>
+		</tr>
 
 	</cfloop>
-
 
 	</table>
 
