@@ -8,7 +8,7 @@
 		COLLECTION,
 		INSTITUTION,
 		WEB_LINK,
-		collection_cde
+		collection_cde,
 		getPreferredAgentName(CONTACT_AGENT_ID) agentName,
 		get_address(CONTACT_AGENT_ID, 'email') email
 	from
