@@ -542,12 +542,12 @@ delete from hierarchical_taxonomy;
 	<cfquery name="procSuccess" dbtype="query">
 		select c from nht_il where status='success'
 	</cfquery>
-	<cfif ht.c gt procSuccess>
+	<cfif ht.c gt procSuccess.c>
 		<p>
 			trying to create names....
 		</p>
 	</cfif>
-	<cfif ht.c lt procSuccess>
+	<cfif ht.c lt procSuccess.c>
 		<p>
 			something has gone missing....
 		</p>
