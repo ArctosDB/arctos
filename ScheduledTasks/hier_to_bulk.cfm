@@ -5,7 +5,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 <!---- data ---->
 <cfquery name="d" datasource="uam_god">
-	select * from hierarchical_taxonomy where status='ready_to_push_bl' and rownum < 5
+	select * from hierarchical_taxonomy where status='ready_to_push_bl' and rownum < 500
 </cfquery>
 <!---- column names in order ---->
 <cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
