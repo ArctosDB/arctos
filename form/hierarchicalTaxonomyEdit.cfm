@@ -63,7 +63,7 @@
 				<select name="nctermtype_new_#i#" id="nctermtype_new_#i#">
 					<option value="">pick to add term-value pair</option>
 					<cfloop query="nc">
-						<option value="#t.term_type#">#t.term_type#</option>
+						<option value="#nc.term_type#">#nc.term_type#</option>
 					</cfloop>
 				</select>
 			</td>
