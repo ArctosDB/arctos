@@ -661,7 +661,7 @@ $(function() { //shorthand document.ready function
 </cfif>
 <cfif action is "mismatch_import">
 	<cfquery name="mia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
+		select distinct
 			term
 		from
 			hierarchical_taxonomy,
