@@ -9,11 +9,14 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 </cfquery>
 <!---- column names in order ---->
 <cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			*
-		from
-			CTTAXON_TERM
-	</cfquery>
+	select
+		*
+	from
+		CTTAXON_TERM
+</cfquery>
+<cfquery name="weirdvar" dbtype="query">
+	update CTTAXON_TERM set TAXON_TERM='phylorder' where taxon_term='order'
+</cfquery>
 
 <cfoutput>
 	<cfloop query="d">
