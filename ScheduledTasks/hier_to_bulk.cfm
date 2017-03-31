@@ -19,8 +19,10 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 </cfquery>
 
 <cfset tterms=valuelist(CTTAXON_TERM.taxon_term)>
+<!----
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'order'))>
 <cfset tterms=listappend(tterms,'phylorder')>
+---->
 <cfoutput>
 	<cfloop query="d">
 		<!--- reset variables ---->
