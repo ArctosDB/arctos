@@ -103,7 +103,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 ---->
 <p>
 	<cfquery name="ins" datasource="uam_god">
-		insert into cf_temp_classification_fh
+		insert into cf_temp_classification_fh (
 		<cfloop list="#tterms#" index="i">
 			#i#,
 		</cfloop>
