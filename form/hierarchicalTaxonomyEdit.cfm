@@ -1,8 +1,6 @@
-hello I am hierarchicalTaxonomyEdit.cfm
 <cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from cttaxon_term
 </cfquery>
-
 <cfquery name="c" dbtype="query">
 	select TAXON_TERM from cttaxon_term where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
 </cfquery>
@@ -53,6 +51,7 @@ hello I am hierarchicalTaxonomyEdit.cfm
 			<td><input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#"></td>
 		</tr>
 	</cfloop>
+	<p>&nbsp;</p>
 	<cfloop from="1" to="10" index="i">
 		<tr>
 			<td>
