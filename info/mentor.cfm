@@ -30,7 +30,7 @@ questions regarding Arctos.
 		<th>Name</th>
 		<th>Email</th>
 		<th>Collection</th>
-		<th>CollectionCde</th>
+		<th>Collection Type</th>
 		<th>Web Link</th>
 	</tr>
 	<cfloop query="d">
