@@ -61,15 +61,19 @@
 </cffunction>
 
 <cffunction name="getTaxTreeChild" access="remote">
-
 	<cfargument name="dataset_id" type="numeric" required="true"/>
-   <cfargument name="id" type="numeric" required="true">
-
+	<cfargument name="id" type="numeric" required="true">
 	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select term,tid,nvl(parent_tid,0) parent_tid, rank from hierarchical_taxonomy where
-			dataset_id=#dataset_id# and parent_tid = #id#
-		</cfquery>
+		<cftry>
+			<cfquery name="d" datasource="uam_god">
+				select term,tid,nvl(parent_tid,0) parent_tid, rank from hierarchical_taxonomy where
+				dataset_id=#dataset_id# and parent_tid = #id#
+			</cfquery>
+			<cfreturn d>
+		<cfcatch>
+			<cfreturn 'ERROR: ' & cfcatch.message>
+		</cfcatch>
+		</cftry>
 
 
 		<!----
@@ -87,7 +91,7 @@
 		<cfreturn x>
 
 		---->
-		<cfreturn d>
+
 	</cfoutput>
 
 </cffunction>
