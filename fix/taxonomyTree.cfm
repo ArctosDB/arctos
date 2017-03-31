@@ -556,7 +556,7 @@ delete from hierarchical_taxonomy;
 $(function() { //shorthand document.ready function
     $('#f_ds_filter').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
-        var data = $("#login_form :input").serializeArray();
+        var data = $("#f_ds_filter :input").serializeArray();
         console.log(data); //use the console for debugging, F12 in Chrome, not alerts
     });
 });
