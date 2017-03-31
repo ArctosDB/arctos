@@ -497,26 +497,55 @@ delete from hierarchical_taxonomy;
 
 </cfif>
 <cfif action is "manageDataset">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from htax_dataset where dataset_name='#dataset_name#'
+	</cfquery>
+	<cfoutput>
+		Managing #d.dataset_name# created #d.created_by# on #d.created_date#
 
-Create a dataset. A dataset is a list of terms from an Arctos classification which will be made hierarchical.
+		<p>
+			Source: #d.source#
+		</p>
+		<p>
+			comments: #d.comments#
+		</p>
+	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
+	</cfquery>
+	<p>
+		#nht.c# records are available to manage hierarchically.
+	</p>
 
-<form>
+	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
+	</cfquery>
+	<p>
+		#nht.c# records are available to manage hierarchically.
+	</p>
 
-</form>
+	<cfquery name="nht_il" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select status,count(*) c from htax_temp_hierarcicized where dataset_id=#d.dataset_id# group by status order by status
+	</cfquery>
+
+	<p>
+		Import Status:
+	</p>
+	<cfloop query="nht_il">
+		<br>#status# : #c#
+	</cfloop>
+
+	<p>
+		we probably need a link to view failures here
+	</p>
+
+
+
+	</cfoutput>
+
+
 Large datasets (tested to 1.4m records) are manageable, but come with performance limitations; smaller datasets are much
 easier to work with. Consider limiting your query to around 10,000 names.
 
-
-	create table htax_dataset (
-		dataset_id number not null,
-		dataset_name varchar2(255) not null,
-		created_by varchar2(255) not null,
-		created_date date not null,
-		source varchar2(255) not null,
-		comments varchar2(4000),
-		status varchar2(255)  default 'working' not null
-	);
-	alter table htax_dataset add source varchar2(255) not null;
 
 
 </cfif>
