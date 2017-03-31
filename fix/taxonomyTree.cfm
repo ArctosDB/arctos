@@ -630,7 +630,7 @@ $(function() { //shorthand document.ready function
 
 	<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r">
 		insert into htax_seed (scientific_name,taxon_name_id,dataset_id) (
-		select distinct (
+		select distinct
 			scientific_name,
 			taxon_name.taxon_name_id,
 			#dataset_id#
