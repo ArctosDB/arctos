@@ -34,9 +34,14 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					alert('back; update parent and close if success');
+					if (r=='success'){
+
+						alert('back; update parent and close if success');
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-					//parent.t(theID,newVal);
+						parent.t(theID,newVal);
+					} else {
+						alert(r);
+					}
 				}
 			);
 
