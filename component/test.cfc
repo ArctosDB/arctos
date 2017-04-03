@@ -6,6 +6,10 @@
 	 <cfargument name="q" type="string" required="true">
 	 <cfdump var=#q#>
 <cfoutput>
+	<!---- de-serialize q ---->
+	<cfloop list="#q#" delimiters="&?" index="i">
+		<br>#i#
+	</cfloop>
 	 <p>
 		tid: #tid#
 	</p>
