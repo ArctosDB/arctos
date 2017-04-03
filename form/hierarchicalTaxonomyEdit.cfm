@@ -34,11 +34,12 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					alert('back');
+					alert('back; update parent and close if success');
+					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
+					//parent.t(theID,newVal);
 				}
 			);
-		alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-		parent.t(theID,newVal);
+
 
 	}
 </script>
