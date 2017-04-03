@@ -34,6 +34,7 @@
 				function (r) {
 					//console.log(r);
 					if (r=='success'){
+						alert('going to createdNewTerm');
 						parent.createdNewTerm(theID);
 					} else {
 						alert(r);
