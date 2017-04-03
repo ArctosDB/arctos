@@ -5,10 +5,12 @@
 <cffunction name="saveMetaEdit" access="remote">
 	 <cfargument name="q" type="string" required="true">
 	 <cfdump var=#q#>
-
+<cfoutput>
 	 <p>
 		tid: #tid#
 	</p>
+
+	</cfoutput>
 </cffunction>
 
 <cffunction name="getSeedTaxSum" access="remote">
