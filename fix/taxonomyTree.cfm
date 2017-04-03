@@ -641,7 +641,7 @@ delete from hierarchical_taxonomy;
 	</cfquery>
 	<p>
 		#nht.c# records have been seeded. You may add more (use the form below). Duplicates are disallowed (and Oracle bug
-		qerltcInsertSelectRop_bad_state prevents ignoring them) - contact us if you need help.
+		qerltcInsertSelectRop_bad_state prevents silently ignoring them) - contact us if you need help.
 	</p>
 
 	<cfquery name="nht_il" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -655,7 +655,9 @@ delete from hierarchical_taxonomy;
 		<br>#status# : #c#
 	</cfloop>
 
-
+	<p>
+		<a href="taxonomyTree.cfm?action=noSuccessimport&dataset_name=#dataset_name#">list not-success</a>
+	</p>
 
 
 	<cfquery name="ht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -791,6 +793,27 @@ $(function() { //shorthand document.ready function
 
 </cfif>
 
+
+<cfif action is "deleteDataset">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				taxon_name.scientific_name
+			from
+				taxon_name,
+				htax_temp_hierarcicized
+			where
+				taxon_name.TAXON_NAME_ID=htax_temp_hierarcicized.TAXON_NAME_ID and
+				DATASET_ID=#dataset_id# and
+				htax_temp_hierarcicized.status != 'success'
+			group by scientific_name order by scientific_name
+
+		</cfquery>
+		<cfloop query="d">
+			<br><a href="/name/#scientific_name#">#scientific_name#</a>
+		</cfloop>
+	</cfoutput>
+</cfif>
 
 <cfif action is "deleteDataset">
 	<cfoutput>
