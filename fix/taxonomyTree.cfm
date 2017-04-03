@@ -816,7 +816,12 @@ $(function() { //shorthand document.ready function
 				htax_dataset.dataset_name='#dataset_name#' and
 				htax_dataset.dataset_id=htax_temp_hierarcicized.dataset_id and
 				htax_temp_hierarcicized.status != 'success'
-			group by scientific_name order by scientific_name
+			group by
+				htax_temp_hierarcicized.status,
+				taxon_name.scientific_name
+			order by
+				htax_temp_hierarcicized.status,
+				taxon_name.scientific_name
 
 		</cfquery>
 		<cfloop query="d">
