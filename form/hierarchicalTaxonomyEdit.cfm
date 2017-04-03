@@ -128,7 +128,7 @@
 		 $.getJSON("/component/test.cfc",
 				{
 					method : "moveTermNewParent",
-					id=$("#tid").val(),
+					id : $("#tid").val(),
 					term: $("#newParentTermValue").val(),
 					returnformat : "json",
 					queryformat : 'column'
