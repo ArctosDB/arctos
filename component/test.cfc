@@ -32,6 +32,24 @@
 	 <p>
 		tid: #tid#
 	</p>
+	<cfloop query="qry">
+		<cfif left(qtrm,15) is "nctermtype_new_">
+			<br>
+			insert into htax_noclassterm (
+				NC_TID,
+				TID,
+				TERM_TYPE,
+				TERM_VALUE
+			) values (
+				somerandomsequence.nextval,
+				#tid#,
+				'#qtrm#',
+				'#qval#'
+			)
+
+
+		</cfif>
+	</cfloop>
 
 	</cfoutput>
 </cffunction>
