@@ -80,9 +80,9 @@
 			<br>thisval.QVAL=#thisval.QVAL#
 			<br>QVAL=#QVAL#
 			<cfif QVAL is "DELETE">
-				<br>delete from htax_noclassterm where tid=#thisIndex#
+				<br>delete from htax_noclassterm where NC_TID=#thisIndex#
 			<cfelse>
-				<br>update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where tid=#thisIndex#
+				<br>update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where NC_TID=#thisIndex#
 			</cfif>
 
 		</cfif>
