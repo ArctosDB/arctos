@@ -839,8 +839,6 @@ $(function() { //shorthand document.ready function
 
 	<script>
 
-			<input type="button" value="add a node" onclick="addNode()">
-
 function addNewNode(){
 	var d='Are you sure you want to add a node?\n';
 	d+='Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add';
