@@ -34,6 +34,7 @@
 					queryformat : 'column'
 				},
 				function (r) {
+					console.log(r);
 					if (r=='success'){
 
 						alert('back; update parent and close if success');
