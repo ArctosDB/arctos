@@ -17,7 +17,16 @@
 <!----------
 
 
-			$.getJSON("/component/test.cfc",
+
+			-------->
+<script>
+	function fcreateNewChildTerm(){
+		alert('fcreateNewChildTerm');
+
+		// create the term; if success, just expand the node to view
+			var theID=$("#tid").val();
+
+$.getJSON("/component/test.cfc",
 				{
 					method : "createTerm",
 					//dataset_id: $("#dataset_id").val(),
@@ -40,15 +49,6 @@
 				//	}
 				}
 			);
-			-------->
-<script>
-	function fcreateNewChildTerm(){
-		alert('fcreateNewChildTerm');
-
-		// create the term; if success, just expand the node to view
-			var theID=$("#tid").val();
-
-
 	    }
 
 
