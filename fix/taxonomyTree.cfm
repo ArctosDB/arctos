@@ -848,6 +848,8 @@ function t(tid,newVal){
 		myTree.setItemText(tid,newVal);
 
 		// now close the edit box
+		$("#statusDiv").html('term edits saved');
+
 		$(".ui-dialog-titlebar-close").trigger('click');
 
 	}
