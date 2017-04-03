@@ -846,6 +846,10 @@ function t(tid,newVal){
 		//onclick="var d=new Date(); myTree.setItemText(myTree.getSelectedItemId(),document.getElementById('ed1').value);"
 		//var myTree= window.parent.document.myTree;
 		myTree.setItemText(tid,newVal);
+
+		// now close the edit box
+		$(".ui-dialog-titlebar-close").trigger('click');
+
 	}
 
 		jQuery(document).ready(function() {
