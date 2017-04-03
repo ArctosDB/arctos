@@ -6,17 +6,26 @@
 	 <cfargument name="q" type="string" required="true">
 	 <cfdump var=#q#>
 <cfoutput>
-	<!---- de-serialize q ---->
+	<!----
+		de-serialize q
+		throw it in a query because easy
+	---->
+	<cfset qry=queryNew("qtrm,qval")>
 	<cfloop list="#q#" delimiters="&?" index="i">
 		<br>#i#
 		<cfif listlen(i,"=") eq 2>
 			<cfset t=listGetAt(i,1,"=")>
 			<cfset v=listGetAt(i,2,"=")>
+			<!----
 			<cfset "#t#"=v>
+			---->
+			<cfset queryAddRow(qry, {qtrm=t,qval=v})>
+
 		</cfif>
 	</cfloop>
+	<cfdump var=#qry#>
 	 <p>
-		tid: #tid#
+		tid: #qry.tid#
 	</p>
 
 	</cfoutput>
