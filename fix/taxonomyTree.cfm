@@ -1179,7 +1179,13 @@ function savedMetaEdit(tid,newVal){
 	//tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
 
 	</script>
-
+	<p>
+		Doubleclick terms to expand.
+		<br>Check the box to edit.
+		<br>Drag to re-order.
+		<br>All edits propagate to all children.
+		<br>Searches which return >1K records will fail; expand/browse instead.
+	</p>
 	<label for="srch">search (starts with)</label>
 	<input id="srch">
 	<input type="button" value="search" id="srchBtn">

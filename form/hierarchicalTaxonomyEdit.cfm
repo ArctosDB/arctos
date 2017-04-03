@@ -120,9 +120,13 @@
 
 	}
 </script>
+<table width="100%">
+	<tr>
+		<td width="50%"><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits"></td>
+		<td width="50%" align="right"><input type="button" onclick="deleteThis()" class="delBtn" value="Delete"></td>
+	</tr>
+</table>
 
-		<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits">
-		<br><input type="button" onclick="deleteThis()" class="delBtn" value="Delete">
 
 <cfoutput>
 <form id="tEditFrm">
