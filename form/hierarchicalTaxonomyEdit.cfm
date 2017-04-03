@@ -20,7 +20,7 @@
 		var theID=$("#tid").val();
 		var newVal=$("#term").val() + ' (' + $("#rank").val() + ')';
 		alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-		parent.t(theID);
+		parent.t(theID,newVal);
 
 	}
 </script>
