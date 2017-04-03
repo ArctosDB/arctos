@@ -13,6 +13,16 @@
 <cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select nc_tid,term_type,term_value from htax_noclassterm where tid=#tid#
 </cfquery>
+
+<script>
+	function t(){
+		alert('t');
+		//onclick="var d=new Date(); myTree.setItemText(myTree.getSelectedItemId(),document.getElementById('ed1').value);"
+		var myTree= window.parent.document.myTree;
+		myTree.setItemText(myTree.getSelectedItemId(),'boogity');
+	}
+</script>
+<span onclick="t()">tttt</span>
 <cfoutput>
 <form>
 	[i will be a save button someday]

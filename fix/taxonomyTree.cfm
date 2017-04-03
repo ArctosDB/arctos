@@ -840,6 +840,7 @@ $(function() { //shorthand document.ready function
 	<script>
 
 
+
 		jQuery(document).ready(function() {
 
 			myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
