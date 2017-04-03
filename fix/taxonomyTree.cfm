@@ -482,8 +482,9 @@ delete from hierarchical_taxonomy;
 --------->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="hierarchical taxonomy editor">
-				<a href="taxonomyTree.cfm?action=nothing">home</a>
-
+<p>
+	<a href="taxonomyTree.cfm?action=nothing">home</a>
+</p>
 
 <cfif action is "nothing">
 	<p>
@@ -616,9 +617,6 @@ delete from hierarchical_taxonomy;
 		<br>#status# : #c#
 	</cfloop>
 
-	<p>
-		we probably need a link to view failures here
-	</p>
 
 
 
@@ -653,6 +651,10 @@ delete from hierarchical_taxonomy;
 	<p>
 		When you are done seeding, you may
 		<a href="taxonomyTree.cfm?action=manageLocalTree&dataset_name=#dataset_name#">manage these data in the classification tree editor</a>
+	</p>
+
+	<p>
+		<a href="taxonomyTree.cfm?action=deleteDataset&dataset_name=#dataset_name#">Delete this dataset</a>. This cannot be undone.
 	</p>
 
 
@@ -744,6 +746,43 @@ $(function() { //shorthand document.ready function
 		<input type="submit" onclick="goPullSeed" value="pull seed data">
 	</p>
 </form>
+
+
+</cfif>
+
+		<a href="taxonomyTree.cfm?action=deleteDataset&dataset_name=#dataset_name#">Delete this dataset</a>. This cannot be undone.
+
+<cfif action is "deleteDataset">
+	<cfoutput>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from htax_dataset where dataset_name='#dataset_name#'
+	</cfquery>
+	<cftransaction>
+		<cfquery name="d_nc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from htax_noclassterm where tid in ( select tid from hierarchical_taxonomy where dataset_id=#d.dataset_id#)
+		</cfquery>
+		<cfquery name="d_htax_temp_hierarcicized" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from htax_temp_hierarcicized where dataset_id =#d.dataset_id#
+		</cfquery>
+		<cfquery name="d_htax_seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from htax_seed where dataset_id =#d.dataset_id#
+		</cfquery>
+		<cfquery name="d_hierarchical_taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from hierarchical_taxonomy where dataset_id =#d.dataset_id#
+		</cfquery>
+		<cfquery name="d_htax_dataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from htax_dataset where dataset_id =#d.dataset_id#
+		</cfquery>
+
+	</cftransaction>
+
+	</cfoutput>
+
+
+
+
+
+
 
 
 </cfif>
