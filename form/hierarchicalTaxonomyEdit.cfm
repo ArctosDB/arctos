@@ -26,7 +26,7 @@
 <span onclick="tt()">ttttt</span>
 <cfoutput>
 <form>
-	input type="hidden" id="tid" name="tid" value="#tid#">
+	<input type="hidden" id="tid" name="tid" value="#tid#">
 	[i will be a save button someday]
 	<br>
 	[ maybe a delete button too.
