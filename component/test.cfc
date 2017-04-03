@@ -34,6 +34,7 @@
 	</p>
 	<cftransaction>
 	<cfloop query="qry">
+		<hr>
 		<cfif left(qtrm,15) is "nctermtype_new_">
 			<!--- there should be a corresponding nctermvalue_new_1 ---->
 			<cfset thisIndex=listlast(qtrm,"_")>
