@@ -1,5 +1,19 @@
 <cfcomponent>
 
+
+<cffunction name="pickTerm" access="remote">
+	<cfargument name="term" type="string" required="true">
+	<cftry>
+		<cfoutput>
+
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from hierarchical_taxonomy where term='#term#'
+			</cfquery>
+			<cfreturn d>
+	</cfoutput>
+
+</cffunction>
+
 <cffunction name="createTerm" access="remote">
 	<cfargument name="id" type="numeric" required="true">
 	<cfargument name="newChildTerm" type="string" required="true">

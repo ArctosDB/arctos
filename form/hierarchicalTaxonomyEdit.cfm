@@ -124,6 +124,27 @@
 	}
 	function findSaveNewParent(){
 		alert('findSaveNewParent');
+		var theID=$("#tid").val();
+		 $.getJSON("/component/test.cfc",
+				{
+					method : "pickTerm",
+					//dataset_id: $("#dataset_id").val(),
+					term: $("#newParentTermValue").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					//console.log(r);
+					if (r=='success'){
+alert(r);
+						//alert('back; update parent and close if success');
+						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
+						//parent.savedMetaEdit(theID,newVal);
+					} else {
+						alert(r);
+					}
+				}
+			);
 	}
 
 </script>
