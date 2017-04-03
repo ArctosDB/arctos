@@ -793,18 +793,19 @@ $(function() { //shorthand document.ready function
 
 </cfif>
 
-
-<cfif action is "deleteDataset">
+<cfif action is "noSuccessimport">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				taxon_name.scientific_name
 			from
 				taxon_name,
-				htax_temp_hierarcicized
+				htax_temp_hierarcicized,
+				htax_dataset
 			where
 				taxon_name.TAXON_NAME_ID=htax_temp_hierarcicized.TAXON_NAME_ID and
-				DATASET_ID=#dataset_id# and
+				htax_dataset.dataset_name='#dataset_name#' and
+				htax_dataset.dataset_id=htax_temp_hierarcicized.dataset_id and
 				htax_temp_hierarcicized.status != 'success'
 			group by scientific_name order by scientific_name
 
