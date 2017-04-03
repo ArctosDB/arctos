@@ -9,7 +9,10 @@
 	select TAXON_TERM from cttaxon_term where IS_CLASSIFICATION=0 order by TAXON_TERM
 </cfquery>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select term,rank from hierarchical_taxonomy where tid=#tid#
+	select term,rank,parent_tid from hierarchical_taxonomy where tid=#tid#
+</cfquery>
+<cfquery name="d_p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select term,rank from hierarchical_taxonomy where tid=#d.parent_tid#
 </cfquery>
 <cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select nc_tid,term_type,term_value from htax_noclassterm where tid=#tid#
@@ -119,6 +122,10 @@
 
 
 	}
+	function findSaveNewParent(){
+		alert('findSaveNewParent');
+	}
+
 </script>
 <table width="100%">
 	<tr>
@@ -148,25 +155,7 @@
 		</tr>
 	</table>
 
-	<p>
-		Create a new child of this term.
-		Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add
-		does not already exist, you must create it before saving this dataset back to Arctos.
-		<br>New nodes will be created as a child of the term you are editing. Drag them to where they need to be and edit as usual.
-		<br>
-		<label for="newChildTerm">New Child Term Value</label>
-		<input name="newChildTerm" id="newChildTerm" type="text" value="" placeholder='new taxon term' size="60">
-		<label for="newChildTermRank">New Child Term Rank</label>
-		<select name="newChildTermRank" id="newChildTermRank">
-			<option value=''></option>
-			<cfloop query="c">
-				<option value="#TAXON_TERM#">#TAXON_TERM#</option>
-			</cfloop>
-		</select>
-		<br><input type="button" onclick="fcreateNewChildTerm()" class="insBtn" value="Create New Child Term">
 
-
-	</p>
 
 
 	<table border>
@@ -202,6 +191,32 @@
 		</tr>
 	</cfloop>
 	</table>
+	<p>
+		Create a new child of this term.
+		Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add
+		does not already exist, you must create it before saving this dataset back to Arctos.
+		<br>New nodes will be created as a child of the term you are editing. Drag them to where they need to be and edit as usual.
+		<br>
+		<label for="newChildTerm">New Child Term Value</label>
+		<input name="newChildTerm" id="newChildTerm" type="text" value="" placeholder='new taxon term' size="60">
+		<label for="newChildTermRank">New Child Term Rank</label>
+		<select name="newChildTermRank" id="newChildTermRank">
+			<option value=''></option>
+			<cfloop query="c">
+				<option value="#TAXON_TERM#">#TAXON_TERM#</option>
+			</cfloop>
+		</select>
+		<br><input type="button" onclick="fcreateNewChildTerm()" class="insBtn" value="Create New Child Term">
+	</p>
+
+	<p>
+		Instead of dragging, you can move this term to a new parent here.
+		<label for="newParentTermValue">New Parent Term Value (exact, case-sensitive)</label>
+		<input name="newParentTermValue" id="newParentTermValue" type="text" value="#d_p.term# (#d_p.rank#)" placeholder='new parent' size="60">
+		<input type="button" onclick="findSaveNewParent()" class="savBtn" value="findSaveNewParent">
+
+	</p>
+
 	<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits">
 </form>
 </cfoutput>
