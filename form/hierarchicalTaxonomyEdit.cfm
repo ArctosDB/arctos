@@ -18,8 +18,8 @@
 <script>
 	function deleteThis(){
 		var d='Are you sure you want to DELETE this record? Deleting will NOT do anything to data in Arctos; delete incorrect';
-		d+=' data in Arctos separately. Deleting this record will update all of this record''s children to children of this';
-		d+=' record''s parent. Click confirm if you are absolutely sure that''s what you want to do.'
+		d+=' data in Arctos separately. Deleting this record will update all of this record\'s children to children of this';
+		d+=' record\'s parent. Click confirm if you are absolutely sure that\'s what you want to do.'
 		var r = confirm(d);
 		if (r == true) {
 		    x = "You pressed OK!";
