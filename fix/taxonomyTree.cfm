@@ -182,6 +182,8 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 		v_pid number;
 		v_tid number;
 		v_c number;
+		 err_num varchar2(4000);
+			      err_msg varchar2(4000);
 	begin
 		v_pid:=NULL;
 		for t in (
@@ -246,7 +248,11 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 				-- log
 				insert into htax_temp_hierarcicized (taxon_name_id,dataset_id,status) values (t.taxon_name_id,t.dataset_id,'inserted_term');
 				exception when others then
-					insert into htax_temp_hierarcicized (taxon_name_id,dataset_id,status) values (t.taxon_name_id,t.dataset_id,'fail');
+				  err_num := SQLCODE;
+			      err_msg := SUBSTR(SQLERRM, 1, 100);
+
+
+				insert into htax_temp_hierarcicized (taxon_name_id,dataset_id,status) values (t.taxon_name_id,t.dataset_id,'fail: ' || err_msg);
 				end;
 		end loop;
 	end;
@@ -622,6 +628,7 @@ delete from hierarchical_taxonomy;
 	<cflocation url="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#" addtoken="false">
 
 </cfif>
+<!------------------------------------------------------------------------------------------------->
 <cfif action is "manageDataset">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from htax_dataset where dataset_name='#dataset_name#'
@@ -792,11 +799,13 @@ $(function() { //shorthand document.ready function
 
 
 </cfif>
+<!------------------------------------------------------------------------------------------------->
 
 <cfif action is "noSuccessimport">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
+				status,
 				taxon_name.scientific_name
 			from
 				taxon_name,
@@ -811,7 +820,7 @@ $(function() { //shorthand document.ready function
 
 		</cfquery>
 		<cfloop query="d">
-			<br><a href="/name/#scientific_name#">#scientific_name#</a>
+			<br>#status#: <a href="/name/#scientific_name#">#scientific_name#</a>
 		</cfloop>
 	</cfoutput>
 </cfif>
