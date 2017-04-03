@@ -127,39 +127,39 @@
 		var theID=$("#tid").val();
 		 $.getJSON("/component/test.cfc",
 				{
-					method : "pickTerm",
-					//dataset_id: $("#dataset_id").val(),
+					method : "moveTermNewParent",
+					id=$("#tid").val(),
 					term: $("#newParentTermValue").val(),
 					returnformat : "json",
 					queryformat : 'column'
 				},
 				function (r) {
-					//console.log(r);
+					console.log(r);
+					/*
 					if (r=='success'){
-alert(r);
-						//alert('back; update parent and close if success');
-						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-						//parent.savedMetaEdit(theID,newVal);
+						alert('got something');
 					} else {
-						alert(r);
+						alert('ERROR: ' + r);
 					}
+					*/
 				}
 			);
 	}
 
 </script>
-<table width="100%">
-	<tr>
-		<td width="50%"><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits"></td>
-		<td width="50%" align="right"><input type="button" onclick="deleteThis()" class="delBtn" value="Delete"></td>
-	</tr>
-</table>
+
 
 
 <cfoutput>
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
 	<input type="hidden" id="term" name="term" value="#d.term#">
+	<table width="100%">
+		<tr>
+			<td width="50%"><input type="button" onclick="saveAllEdits()" class="savBtn" value="Save Rank/Term Metadata Edits"></td>
+			<td width="50%" align="right"><input type="button" onclick="deleteThis()" class="delBtn" value="Delete this record"></td>
+		</tr>
+	</table>
 	<table border>
 		<tr>
 			<td>
@@ -177,7 +177,9 @@ alert(r);
 	</table>
 
 
-
+		<p>
+			Term Metadata
+		</p>
 
 	<table border>
 		<tr>
@@ -197,7 +199,6 @@ alert(r);
 			<td><input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#" size="60"></td>
 		</tr>
 	</cfloop>
-	<br>
 	<cfloop from="1" to="10" index="i">
 		<tr>
 			<td>
@@ -212,8 +213,9 @@ alert(r);
 		</tr>
 	</cfloop>
 	</table>
+	<hr>
 	<p>
-		Create a new child of this term.
+		Create a new term as a child of this term.
 		Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add
 		does not already exist, you must create it before saving this dataset back to Arctos.
 		<br>New nodes will be created as a child of the term you are editing. Drag them to where they need to be and edit as usual.
@@ -229,7 +231,7 @@ alert(r);
 		</select>
 		<br><input type="button" onclick="fcreateNewChildTerm()" class="insBtn" value="Create New Child Term">
 	</p>
-
+<hr>
 	<p>
 		Instead of dragging, you can move this term to a new parent here.
 		<label for="newParentTermValue">New Parent Term Value (exact, case-sensitive)</label>
@@ -238,6 +240,5 @@ alert(r);
 
 	</p>
 
-	<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits">
 </form>
 </cfoutput>

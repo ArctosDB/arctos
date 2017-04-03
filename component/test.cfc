@@ -1,13 +1,34 @@
 <cfcomponent>
 
 
-<cffunction name="pickTerm" access="remote">
+<cffunction name="moveTermNewParent" access="remote">
+	<cfargument name="id" type="numeric" required="true">
 	<cfargument name="term" type="string" required="true">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from hierarchical_taxonomy where term='#term#'
 		</cfquery>
-		<cfreturn d>
+		<cfif d.recordcount is 1 and len(d.tid) gt 0>
+			<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update hierarchical_taxonomy set parent_tid=#d.tid# where tid=#id#
+			</cfquery>
+			<!--- return
+				1) the parent; it's what we'll need to expand;
+				2) the child so we can focus it
+			---->
+			<cfreturn "#tid#:#d.tid#">
+			<cfset myStruct = {}>
+			<cfset myStruct.status='success'>
+			<cfset myStruct.child=tid>
+			<cfset myStruct.parent=d.tid>
+
+		<cfelse>
+			<cfset myStruct = {}>
+			<cfset myStruct.status='fail'>
+			<cfset myStruct.child=tid>
+			<cfset myStruct.parent=-1>
+		</cfif>
+		<cfreturn myStruct>
 	</cfoutput>
 </cffunction>
 
