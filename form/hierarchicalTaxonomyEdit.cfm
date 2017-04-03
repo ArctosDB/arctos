@@ -43,7 +43,7 @@
 
 	}
 </script>
-<button onclick="saveAllEdits()" class="savBtn">saveAllEdits</span>
+<button onclick="saveAllEdits()" class="savBtn">saveAllEdits</button>
 <cfoutput>
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
