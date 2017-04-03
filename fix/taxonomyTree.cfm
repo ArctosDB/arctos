@@ -1010,7 +1010,6 @@ function savedMetaEdit(tid,newVal){
 	//tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
 
 	</script>
-<span onclick="t()">ttttt</span>
 
 	<label for="srch">search (starts with)</label>
 	<input id="srch">

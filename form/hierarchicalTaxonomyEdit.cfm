@@ -16,6 +16,17 @@
 </cfquery>
 
 <script>
+	function deleteThis(){
+		var d='Are you sure you want to DELETE this record? Deleting will NOT do anything to data in Arctos; delete incorrect';
+		d+=' data in Arctos separately. Deleting this record will update all of this record''s children to children of this';
+		d+=' record''s parent. Click confirm if you are absolutely sure that''s what you want to do.'
+		var r = confirm(d);
+		if (r == true) {
+		    x = "You pressed OK!";
+		} else {
+		    x = "You pressed Cancel!";
+		}
+	}
 	function saveAllEdits(){
 		// get vars
 		var theID=$("#tid").val();
@@ -49,12 +60,12 @@
 
 	}
 </script>
-<button onclick="saveAllEdits()" class="savBtn">saveAllEdits</button>
+<button onclick="saveAllEdits()" class="savBtn">Save</button>
+<button onclick="deleteThis()" class="delBtn">Delete</button>
 <cfoutput>
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
 	<input type="hidden" id="term" name="term" value="#d.term#">
-	[i will be a save button someday]
 	<br>
 	[ maybe a delete button too.
 	<br>but not sure what that could do.
@@ -114,7 +125,7 @@
 
 	</table>
 
-	[wow so many save buttons might be here eventually!]
+	<button onclick="saveAllEdits()" class="savBtn">Save</button>
 
 </form>
 </cfoutput>
