@@ -18,7 +18,8 @@
 <script>
 	function tt(){
 		var theID=$("#tid").val();
-		alert('calling parent t with tid=' + theID);
+		var newVal=$("#term").val() + ' (' + $("#rank").val() + ')';
+		alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 		parent.t(theID);
 
 	}
@@ -27,6 +28,7 @@
 <cfoutput>
 <form>
 	<input type="hidden" id="tid" name="tid" value="#tid#">
+	<input type="hidden" id="term" name="term" value="#d.term#">
 	[i will be a save button someday]
 	<br>
 	[ maybe a delete button too.

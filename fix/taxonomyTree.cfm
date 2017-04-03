@@ -839,13 +839,13 @@ $(function() { //shorthand document.ready function
 
 	<script>
 
-function t(tid){
+function t(tid,newVal){
 		//alert('t');
 				alert('am parent t with tid=' + tid);
 
 		//onclick="var d=new Date(); myTree.setItemText(myTree.getSelectedItemId(),document.getElementById('ed1').value);"
 		//var myTree= window.parent.document.myTree;
-		myTree.setItemText(tid,'boogity');
+		myTree.setItemText(tid,newVal);
 	}
 
 		jQuery(document).ready(function() {
@@ -890,14 +890,12 @@ function t(tid){
 
 
 
-				/*
 			    // uncheck everything
 			    var ids=myTree.getAllSubItems(0).split(",");
 	    		for (var i=0; i<ids.length; i++){
 	       			myTree.setCheck(ids[i],0);
 	    		}
-	    		leave this checked for easy reference; uncheck on close
-	    		*/
+	    		//leave this checked for easy reference; uncheck on close
 			});
 
 
