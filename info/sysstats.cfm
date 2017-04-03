@@ -36,7 +36,7 @@
 			select count(*) c from cataloged_item
 		</cfquery>
 		<tr>
-			<td>Total Number Specimens</td>
+			<td>Total Number Specimen Records</td>
 			<td><input value="#NumberFormat(cataloged_item.c)#"></td>
 		</tr>
 
@@ -51,7 +51,7 @@
 				CATALOGED_ITEM_TYPE
 		</cfquery>
 		<tr>
-			<td>Number Specimens by cataloged_item_type</td>
+			<td>Number Specimen Records by cataloged_item_type</td>
 			<td>
 				<cfloop query="citype">
 					<input value="#NumberFormat(c)#"> #CATALOGED_ITEM_TYPE#<br>
@@ -176,7 +176,7 @@
 		<cfset fname = "arctos_by_year.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 	</cfif>
-	Specimens and collection by year
+	Specimen Records and collection by year
 
 	<a href="/info/sysstats.cfm?getCSV=true">CSV</a>
 
@@ -224,7 +224,7 @@
 		<tr>
 			<th>Year</th>
 			<th>Number Collections</th>
-			<th>Number Specimens</th>
+			<th>Number Specimen Records</th>
 		</tr>
 	<cfif isdefined('getCSV') and getCSV is true>
 		<cfscript>
