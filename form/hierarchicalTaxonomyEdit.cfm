@@ -35,7 +35,7 @@
 				},
 				function (r) {
 					console.log(r);
-					if (r=='success'){
+					if (r=='success--fail'){
 
 						alert('back; update parent and close if success');
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
