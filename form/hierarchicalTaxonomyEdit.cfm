@@ -135,9 +135,10 @@
 				},
 				function (r) {
 					console.log(r);
-					console.log(r.STATUS[0]);
+					console.log(r.STATUS);
 					if (r.STATUS=='success'){
 						alert('got something');
+						parent.movedToNewParent(r.CHILD,r.PARENT);
 					} else {
 						alert('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
 					}
