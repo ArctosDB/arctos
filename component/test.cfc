@@ -24,8 +24,13 @@
 		</cfif>
 	</cfloop>
 	<cfdump var=#qry#>
+	<!--- should always have this; fail if no --->
+	<cfquery name="x" dbtype="query">
+		select qval from qry where qtrm='tid'
+	</cfquery>
+	<cfset tid=x.qval>
 	 <p>
-		tid: #qry.tid#
+		tid: #tid#
 	</p>
 
 	</cfoutput>
