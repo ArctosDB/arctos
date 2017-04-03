@@ -858,7 +858,7 @@ function t(tid,newVal){
 			myTree.enableCheckBoxes(true);
 			myTree.enableTreeLines(true);
 			myTree.enableTreeImages(false);
-			myTree.enableItemEditor(true);
+			myTree.enableItemEditor(false);
 
 			initTree();
 
