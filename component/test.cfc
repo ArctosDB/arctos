@@ -4,7 +4,11 @@
 	<cfargument name="id" type="numeric" required="true">
 	<cfargument name="newChildTerm" type="string" required="true">
 	<cfargument name="newChildTermRank" type="string" required="true">
+	<cftry>
 		<cfoutput>
+			<cfif len(newChildTerm) is 0 or len(newChildTermRank) is 0>
+				<cfthrow message="newChildTerm and newChildTermRank are required">
+			</cfif>
 		<cftransaction>
 
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -28,6 +32,10 @@
 		</cftransaction>
 		<cfreturn 'success'>
 	</cfoutput>
+	<cfcatch>
+		<cfreturn cfcatch.detail>
+	</cfcatch>
+	</cftry>
 </cffunction>
 
 <cffunction name="deleteTerm" access="remote">
