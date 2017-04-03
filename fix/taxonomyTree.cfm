@@ -838,6 +838,23 @@ $(function() { //shorthand document.ready function
 	<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
 
 	<script>
+
+			<input type="button" value="add a node" onclick="addNode()">
+
+function addNode(){
+	var d='Are you sure you want to add a node?\n';
+	d+='Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add
+	d+=' does not already exist, you must create it before saving.\n';
+	d+='New nodes will be created at root-level. Drag them to where they need to be and edit as usual.';
+
+	var nt = prompt("Enter new term", "");
+
+    if (nt != null) {
+       alert('going with ' + nt);
+    }
+
+
+}
 function deletedRecord(theID){
 	// deleted something
 	// remove it from the view
@@ -1020,10 +1037,12 @@ function savedMetaEdit(tid,newVal){
 
 	<label for="srch">search (starts with)</label>
 	<input id="srch">
-	<input type="button" value="search" id="srchBtn"">
+	<input type="button" value="search" id="srchBtn">
 
 	<br>
 	<input type="button" value="reset tree" onclick="initTree()">
+	<br>
+	<input type="button" value="add a node" onclick="addNode()">
 
 
 	<div id="treeBox" style="width:200;height:200"></div>
