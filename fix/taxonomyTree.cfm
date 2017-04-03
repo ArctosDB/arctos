@@ -849,19 +849,21 @@ function deletedRecord(theID){
 	$(".ui-dialog-titlebar-close").trigger('click');
 }
 function createdNewTerm(id){
-	alert('am createdNewTerm have id=' + id);
-	alert(' close the modal');
+	//alert('am createdNewTerm have id=' + id);
+	//alert(' close the modal');
 	// close the modal
 	$(".ui-dialog-titlebar-close").trigger('click');
 	// expand the node
-	alert(' closed the modal; expanding node');
+	//alert(' closed the modal; expanding node');
 	expandNode(id);
-	alert(' expanded;updatestatus');
+	//alert(' expanded;updatestatus');
 	// update status
 	$("#statusDiv").html('created new term');
+	myTree.selectItem(id);
+	myTree.focusItem(id);
 }
 function expandNode(id){
-	alert('am expandNode');
+	//alert('am expandNode');
 	$("#statusDiv").html('working...');
     $.getJSON("/component/test.cfc",
 		{
@@ -889,7 +891,7 @@ function expandNode(id){
 		}
 	);
 
-		alert('am expandNode DONE');
+		//alert('am expandNode DONE');
 
 }
 

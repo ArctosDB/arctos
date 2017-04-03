@@ -21,12 +21,12 @@
 			-------->
 <script>
 	function fcreateNewChildTerm(){
-		alert('fcreateNewChildTerm');
+		//alert('fcreateNewChildTerm');
 
 		// create the term; if success, just expand the node to view
 			var theID=$("#tid").val();
 
-$.getJSON("/component/test.cfc",
+			$.getJSON("/component/test.cfc",
 				{
 					method : "createTerm",
 					//dataset_id: $("#dataset_id").val(),
@@ -37,12 +37,12 @@ $.getJSON("/component/test.cfc",
 					queryformat : 'column'
 				},
 				function (r) {
-					alert(r);
+					//alert(r);
 
 
 					//console.log(r);
 					if (r=='success'){
-						alert('going to createdNewTerm');
+						//alert('going to createdNewTerm');
 						parent.createdNewTerm(theID);
 					} else {
 						alert(r);
