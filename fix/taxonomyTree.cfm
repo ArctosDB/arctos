@@ -873,6 +873,9 @@ function expandNode(id){
 			} else {
 				for (i=0;i<r.ROWCOUNT;i++) {
 					//insertNewChild(var) does not work for some insane reason, so.....
+					// delete (if exists)
+					myTree.deleteItem(r.DATA.TID[i],false);
+
 					var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
 					eval(d);
 				}
@@ -881,9 +884,9 @@ function expandNode(id){
 		}
 	);
 }
-				
-				
-				
+
+
+
 function savedMetaEdit(tid,newVal){
 		//alert('t');
 		//alert('am parent t with tid=' + tid + ' i got newVal=' + newVal);
@@ -952,8 +955,8 @@ function savedMetaEdit(tid,newVal){
 
 			myTree.attachEvent("onDblClick", function(id){
 				expandNode(id);
-				
-				
+
+
 			});
 
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
