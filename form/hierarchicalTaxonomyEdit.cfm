@@ -16,8 +16,10 @@
 
 <script>
 	function tt(){
-		parent.t($("#tid").val());
-		alert('calling parent t with tid=' + $("#tid").val());
+		var theID=$("#tid").val();
+		alert('calling parent t with tid=' + theID);
+		parent.t(theID);
+
 	}
 </script>
 <span onclick="tt()">ttttt</span>
