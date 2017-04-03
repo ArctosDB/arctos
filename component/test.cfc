@@ -64,7 +64,7 @@
 				somerandomsequence.nextval,
 				#tid#,
 				'#qval#',
-				'#thisval.qval#'
+				'#URLDecode(thisval.qval)#'
 			)
 
 
