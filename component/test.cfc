@@ -1,4 +1,12 @@
 <cfcomponent>
+
+
+
+<cffunction name="saveMetaEdit" access="remote">
+	 <cfargument name="q" type="string" required="true">
+	 <cfdump var=#q#>
+</cffunction>
+
 <cffunction name="getSeedTaxSum" access="remote">
 	 <cfargument name="source" type="string" required="false">
    <cfargument name="kingdom" type="string" required="false">

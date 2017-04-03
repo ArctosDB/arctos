@@ -16,17 +16,35 @@
 </cfquery>
 
 <script>
-	function tt(){
+	function saveAllEdits(){
+		// get vars
 		var theID=$("#tid").val();
 		var newVal=$("#term").val() + ' (' + $("#rank").val() + ')';
+		var frm=$("#tEditFrm").serialize());
+		console.log(frm);
+		// save metadata
+		
+		 $.getJSON("/component/test.cfc",
+				{
+					method : "saveMetaEdit",
+					//dataset_id: $("#dataset_id").val(),
+					id : theID,
+					q: frm,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					alert('back');
+				}
+			);
 		alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 		parent.t(theID,newVal);
 
 	}
 </script>
-<span onclick="tt()">ttttt</span>
+<button onclick="saveAllEdits()" class="savBtn">saveAllEdits</span>
 <cfoutput>
-<form>
+<form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
 	<input type="hidden" id="term" name="term" value="#d.term#">
 	[i will be a save button someday]
