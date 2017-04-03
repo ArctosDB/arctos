@@ -840,8 +840,8 @@ $(function() { //shorthand document.ready function
 	<script>
 
 function t(tid){
-		alert('t');
-				alert('am parent t with tid=' tid);
+		//alert('t');
+				alert('am parent t with tid=' + tid);
 
 		//onclick="var d=new Date(); myTree.setItemText(myTree.getSelectedItemId(),document.getElementById('ed1').value);"
 		//var myTree= window.parent.document.myTree;
