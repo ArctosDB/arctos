@@ -14,11 +14,7 @@
 <cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select nc_tid,term_type,term_value from htax_noclassterm where tid=#tid#
 </cfquery>
-<!----------
 
-
-
-			-------->
 <script>
 	function fcreateNewChildTerm(){
 		//alert('fcreateNewChildTerm');
@@ -166,11 +162,12 @@
 		<input name="newChildTerm" id="newChildTerm" type="text" value="" placeholder='new taxon term' size="60">
 		<label for="newChildTermRank">New Child Term Rank</label>
 		<select name="newChildTermRank" id="newChildTermRank">
+			<option value=''></option>
 			<cfloop query="c">
 				<option value="#TAXON_TERM#">#TAXON_TERM#</option>
 			</cfloop>
 		</select>
-		<br><input type="button" onclick="fcreateNewChildTerm()" class="insBtn" value="fcreateNewChildTerm">
+		<br><input type="button" onclick="fcreateNewChildTerm()" class="insBtn" value="Create New Child Term">
 
 
 	</p>

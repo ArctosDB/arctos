@@ -5,10 +5,8 @@
 	<cfargument name="newChildTerm" type="string" required="true">
 	<cfargument name="newChildTermRank" type="string" required="true">
 		<cfoutput>
+		<cftransaction>
 
-<!----
-
-		----><cftransaction>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from hierarchical_taxonomy where tid=#id#
 			</cfquery>
