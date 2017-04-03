@@ -18,7 +18,6 @@
 <script>
 	function createNewChildTerm(){
 		// create the term; if success, just expand the node to view
-			alert('going with ' + nt);
 			var theID=$("#tid").val();
 
 
