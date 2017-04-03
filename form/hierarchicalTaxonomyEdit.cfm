@@ -16,12 +16,14 @@
 
 <script>
 	function tt(){
-		parent.t();
+		parent.t($("#tid").val());
+		alert('calling parent t with tid=' + $("#tid").val());
 	}
 </script>
 <span onclick="tt()">ttttt</span>
 <cfoutput>
 <form>
+	input type="hidden" id="tid" name="tid" value="#tid#">
 	[i will be a save button someday]
 	<br>
 	[ maybe a delete button too.
