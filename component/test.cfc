@@ -16,7 +16,6 @@
 				1) the parent; it's what we'll need to expand;
 				2) the child so we can focus it
 			---->
-			<cfreturn "#tid#:#d.tid#">
 			<cfset myStruct = {}>
 			<cfset myStruct.status='success'>
 			<cfset myStruct.child=id>
