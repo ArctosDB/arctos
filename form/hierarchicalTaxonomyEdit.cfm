@@ -124,8 +124,10 @@
 
 	}
 </script>
-<button onclick="saveAllEdits()" class="savBtn">Save</button>
-<button onclick="deleteThis()" class="delBtn">Delete</button>
+
+		<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits">
+		<br><input type="button" onclick="deleteThis()" class="delBtn" value="Delete">
+
 <cfoutput>
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
@@ -209,8 +211,7 @@
 	</cfloop>
 
 	</table>
-
-	<button onclick="saveAllEdits()" class="savBtn">Save</button>
+		<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits">
 
 </form>
 </cfoutput>
