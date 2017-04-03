@@ -848,8 +848,14 @@ function deletedRecord(theID){
 	$("#statusDiv").html('delete successful');
 	$(".ui-dialog-titlebar-close").trigger('click');
 }
-
-
+function createdNewTerm(id){
+	// close the modal
+	$(".ui-dialog-titlebar-close").trigger('click');
+	// expand the node
+	expandNode(id);
+	// update status
+	$("#statusDiv").html('created new term');
+}
 function expandNode(id){
 	$("#statusDiv").html('working...');
     $.getJSON("/component/test.cfc",

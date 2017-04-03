@@ -34,7 +34,7 @@
 				function (r) {
 					//console.log(r);
 					if (r=='success'){
-						parent.expandNode(theID);
+						parent.createdNewTerm(theID);
 					} else {
 						alert(r);
 					}
