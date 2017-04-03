@@ -168,7 +168,7 @@
 				<option value="#TAXON_TERM#">#TAXON_TERM#</option>
 			</cfloop>
 		</select>
-		<br><button onclick="fcreateNewChildTerm()" class="insBtn">fcreateNewChildTerm</button>
+		<br><input type="button" onclick="fcreateNewChildTerm()" class="insBtn" value="fcreateNewChildTerm">
 
 
 	</p>
