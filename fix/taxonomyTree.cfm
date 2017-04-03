@@ -841,7 +841,7 @@ $(function() { //shorthand document.ready function
 
 			<input type="button" value="add a node" onclick="addNode()">
 
-function addNode(){
+function addNewNode(){
 	var d='Are you sure you want to add a node?\n';
 	d+='Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add';
 	d+=' does not already exist, you must create it before saving.\n';
@@ -855,6 +855,9 @@ function addNode(){
 
 
 }
+
+
+
 function deletedRecord(theID){
 	// deleted something
 	// remove it from the view
@@ -1042,7 +1045,7 @@ function savedMetaEdit(tid,newVal){
 	<br>
 	<input type="button" value="reset tree" onclick="initTree()">
 	<br>
-	<input type="button" value="add a node" onclick="addNode()">
+	<input type="button" value="add a node" onclick="addNewNode()">
 
 
 	<div id="treeBox" style="width:200;height:200"></div>
