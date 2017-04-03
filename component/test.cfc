@@ -19,13 +19,13 @@
 			<cfreturn "#tid#:#d.tid#">
 			<cfset myStruct = {}>
 			<cfset myStruct.status='success'>
-			<cfset myStruct.child=tid>
+			<cfset myStruct.child=id>
 			<cfset myStruct.parent=d.tid>
 
 		<cfelse>
 			<cfset myStruct = {}>
 			<cfset myStruct.status='fail'>
-			<cfset myStruct.child=tid>
+			<cfset myStruct.child=id>
 			<cfset myStruct.parent=-1>
 		</cfif>
 		<cfreturn myStruct>
