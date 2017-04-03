@@ -65,8 +65,7 @@
 
 	--------------------- awaiting help from LKV
 
-	ALTER TABLE hierarchical_taxonomy ADD CONSTRAINT fk_parent_tid  FOREIGN KEY (dataset_id)
-  REFERENCES htax_dataset(dataset_id);
+	ALTER TABLE hierarchical_taxonomy ADD CONSTRAINT fk_parent_tid  FOREIGN KEY (dataset_id) REFERENCES htax_dataset(dataset_id);
 	-- do not accept terms we can't deal with
 
 	-- in test anyway..
@@ -74,6 +73,12 @@
 		ALTER TABLE cttaxon_term ADD PRIMARY KEY (taxon_term);
 
 	ALTER TABLE hierarchical_taxonomy ADD CONSTRAINT fk_term_type  FOREIGN KEY (rank) REFERENCES cttaxon_term(taxon_term);
+
+	-- unique within dataset
+
+	create unique index iu_term_ds on hierarchical_taxonomy (term,dataset_id);
+
+
 
 	SELECT DBMS_METADATA.GET_DDL('CONSTRAINT','PK_CTTAXON_TERM') FROM DUAL;
 	SELECT DBMS_METADATA.GET_DDL('CONSTRAINT','SYS_C0024359') FROM DUAL;
@@ -477,6 +482,8 @@ delete from hierarchical_taxonomy;
 --------->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="hierarchical taxonomy editor">
+				<a href="taxonomyTree.cfm?action=nothing">home</a>
+
 
 <cfif action is "nothing">
 	<p>
