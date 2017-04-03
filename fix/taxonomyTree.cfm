@@ -253,6 +253,25 @@ CREATE OR REPLACE PROCEDURE proc_hierac_tax IS
 	/
 sho err;
 
+
+BEGIN
+DBMS_SCHEDULER.DROP_JOB('J_PROC_HIERAC_TAX');
+END;
+/
+
+BEGIN
+DBMS_SCHEDULER.CREATE_JOB (
+   job_name           =>  'J_PROC_HIERAC_TAX',
+   job_type           =>  'STORED_PROCEDURE',
+   job_action         =>  'proc_hierac_tax',
+   start_date         =>  SYSTIMESTAMP,
+	repeat_interval    =>  'freq=minutely; interval=3',
+   enabled             =>  TRUE,
+   end_date           =>  NULL,
+   comments           =>  'PROCESS HIERARCHICAL TAXONOMY');
+END;
+/
+
 CREATE OR REPLACE PROCEDURE proc_hierac_tax_noclass IS
 begin
 
@@ -312,9 +331,28 @@ sho err;
 
 
 
+BEGIN
+DBMS_SCHEDULER.DROP_JOB('J_PROC_HIERAC_TAX_NC');
+END;
+/
+
+BEGIN
+DBMS_SCHEDULER.CREATE_JOB (
+   job_name           =>  'J_PROC_HIERAC_TAX_NC',
+   job_type           =>  'STORED_PROCEDURE',
+   job_action         =>  'proc_hierac_tax_noclass',
+   start_date         =>  SYSTIMESTAMP,
+	repeat_interval    =>  'freq=minutely; interval=3',
+   enabled             =>  TRUE,
+   end_date           =>  NULL,
+   comments           =>  'PROCESS HIERARCHICAL TAXONOMY (noclassification)');
+END;
+/
 
 exec proc_hierac_tax_noclass
 
+select STATE,LAST_RUN_DURATION,MAX_RUN_DURATION,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_PROC_HIERAC_TAX';
+select STATE,LAST_RUN_DURATION,MAX_RUN_DURATION,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_PROC_HIERAC_TAX_NC';
 
 
 
@@ -665,7 +703,7 @@ delete from hierarchical_taxonomy;
 
 <p>
 	Find records with which to "seed" the dataset. Large datasets (tested to 1.4m records) are manageable,
-	but come with performance limitations; smaller datasets are much
+	but come with performance limitations; you may need DBA assistance and a lot of memory. Smaller datasets are much
 	easier to work with. Consider limiting your query to around 10,000 names.
 	<p>
 		Note that data in Arctos are independent; classifications are not related in any way.
@@ -740,6 +778,9 @@ $(function() { //shorthand document.ready function
 
 	<label for="genus">genus</label>
 	<input type="text" name="genus" id="genus" placeholder="genus" size="60">
+	<p>
+		Click this ONCE! to get a recordcount. It may take some time. You'll get an alert when it's done.
+	</p>
 	<br><input type="button" id="inspect" value="inspect">
 	<p>
 		After using the "inspect" button, and having found a reasonable number of taxa,
@@ -750,7 +791,6 @@ $(function() { //shorthand document.ready function
 
 </cfif>
 
-		<a href="taxonomyTree.cfm?action=deleteDataset&dataset_name=#dataset_name#">Delete this dataset</a>. This cannot be undone.
 
 <cfif action is "deleteDataset">
 	<cfoutput>
@@ -801,6 +841,8 @@ $(function() { //shorthand document.ready function
 			term not in (
 				select scientific_name from taxon_name
 			)
+		order by
+			term
 	</cfquery>
 	<p>
 		This app will not create taxon names.
