@@ -981,11 +981,9 @@ function deletedRecord(theID){
 }
 
 function movedToNewParent(c,p){
-	alert('movedToNewParent(' + c + ';' + p);
 	// remove the child
 	myTree.deleteItem(c,false);
 	// expand the new parent
-
 	expandNode(p);
 	$("#statusDiv").html('move success');
 	$(".ui-dialog-titlebar-close").trigger('click');
@@ -1198,6 +1196,11 @@ function savedMetaEdit(tid,newVal){
 		<br>Drag to re-order.
 		<br>All edits propagate to all children.
 		<br>Searches which return >1K records will fail; expand/browse instead.
+	</p>
+	<p>
+		IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
+		If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
+		homonym in different ways. Coordinate updates, which may require splitting classifications.
 	</p>
 	<label for="srch">search (starts with)</label>
 	<input id="srch">

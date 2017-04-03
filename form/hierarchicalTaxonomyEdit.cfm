@@ -123,27 +123,23 @@
 
 	}
 	function findSaveNewParent(){
-		alert('findSaveNewParent');
 		var theID=$("#tid").val();
 		 $.getJSON("/component/test.cfc",
-				{
-					method : "moveTermNewParent",
-					id : $("#tid").val(),
-					term: $("#newParentTermValue").val(),
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-					console.log(r);
-					console.log(r.STATUS);
-					if (r.STATUS=='success'){
-						alert('got something');
-						parent.movedToNewParent(r.CHILD,r.PARENT);
-					} else {
-						alert('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
-					}
+			{
+				method : "moveTermNewParent",
+				id : $("#tid").val(),
+				term: $("#newParentTermValue").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				if (r.STATUS=='success'){
+					parent.movedToNewParent(r.CHILD,r.PARENT);
+				} else {
+					alert('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
 				}
-			);
+			}
+		);
 	}
 
 </script>
