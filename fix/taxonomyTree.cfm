@@ -887,12 +887,14 @@ function t(){
 
 
 
-
+				/*
 			    // uncheck everything
 			    var ids=myTree.getAllSubItems(0).split(",");
 	    		for (var i=0; i<ids.length; i++){
 	       			myTree.setCheck(ids[i],0);
 	    		}
+	    		leave this checked for easy reference; uncheck on close
+	    		*/
 			});
 
 
