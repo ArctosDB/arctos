@@ -14,13 +14,7 @@
 <cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select nc_tid,term_type,term_value from htax_noclassterm where tid=#tid#
 </cfquery>
-
-<script>
-	function fcreateNewChildTerm(){
-		alert('fcreateNewChildTerm');
-
-		// create the term; if success, just expand the node to view
-			var theID=$("#tid").val();
+<!----------
 
 
 			$.getJSON("/component/test.cfc",
@@ -46,6 +40,15 @@
 				//	}
 				}
 			);
+			-------->
+<script>
+	function fcreateNewChildTerm(){
+		alert('fcreateNewChildTerm');
+
+		// create the term; if success, just expand the node to view
+			var theID=$("#tid").val();
+
+
 	    }
 
 
