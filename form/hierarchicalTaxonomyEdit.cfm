@@ -21,7 +21,9 @@
 		d+='Deleting will NOT do anything to data in Arctos; delete incorrect';
 		d+=' data in Arctos separately. Deleting this record will update all of this record\'s children to children of this';
 		d+=' record\'s parent and remove this record from your dataset.\n'
-	 	d+='Click confirm if you are absolutely sure that\'s what you want to do.'
+	 	d+='Click confirm if you are absolutely sure that\'s what you want to do.\n'
+	 	d+='IMPORTANT: If you delete a root node, and you probably should not delete a root node, the tree may disappear.';
+	 	d+=' Click "reset tree" to rebuild.';
 		var r = confirm(d);
 		if (r == true) {
 			var theID=$("#tid").val();
