@@ -134,7 +134,8 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					console.log(r.STATUS);
+					console.log(r);
+					console.log(r.STATUS[0]);
 					if (r.STATUS=='success'){
 						alert('got something');
 					} else {
