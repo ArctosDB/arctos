@@ -24,7 +24,8 @@
 	 	d+='Click confirm if you are absolutely sure that\'s what you want to do.'
 		var r = confirm(d);
 		if (r == true) {
-		   $.getJSON("/component/test.cfc",
+			var theID=$("#tid").val();
+			$.getJSON("/component/test.cfc",
 				{
 					method : "deleteTerm",
 					//dataset_id: $("#dataset_id").val(),
@@ -87,8 +88,8 @@
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
 	<input type="hidden" id="term" name="term" value="#d.term#">
-	
-	
+
+
 	<br>
 	[ maybe a delete button too.
 	<br>but not sure what that could do.
