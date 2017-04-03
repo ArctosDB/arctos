@@ -135,13 +135,11 @@
 				},
 				function (r) {
 					console.log(r);
-					/*
-					if (r=='success'){
+					if (r.STATUS=='success'){
 						alert('got something');
 					} else {
-						alert('ERROR: ' + r);
+						alert('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
 					}
-					*/
 				}
 			);
 	}
