@@ -32,12 +32,26 @@
 	 <p>
 		tid: #tid#
 	</p>
+	<cftransaction>
 	<cfloop query="qry">
 		<cfif left(qtrm,15) is "nctermtype_new_">
 			<!--- there should be a corresponding nctermvalue_new_1 ---->
 			<cfset thisIndex=listlast(qtrm,"_")>
 			<cfquery name="thisval" dbtype="query">
 				select QVAL from qry where qtrm='nctermvalue_new_#thisIndex#'
+			</cfquery>
+			<cfquery name="insone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into htax_noclassterm (
+					NC_TID,
+					TID,
+					TERM_TYPE,
+					TERM_VALUE
+				) values (
+					somerandomsequence.nextval,
+					#tid#,
+					'#qval#',
+					'#thisval.qval#'
+				)
 			</cfquery>
 
 			<br>
@@ -56,6 +70,7 @@
 
 		</cfif>
 	</cfloop>
+	</cftransaction>
 
 	</cfoutput>
 </cffunction>
