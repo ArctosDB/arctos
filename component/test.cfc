@@ -9,7 +9,7 @@
 	<!---- de-serialize q ---->
 	<cfloop list="#q#" delimiters="&?" index="i">
 		<br>#i#
-		<cfif i contains "=">
+		<cfif listlen(i,"=") eq 2>
 			<cfset t=listGetAt(i,1,"+")>
 			<cfset v=listGetAt(i,2,"+")>
 			<cfset "#t#"=v>
