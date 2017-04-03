@@ -824,11 +824,16 @@ $(function() { //shorthand document.ready function
 				taxon_name.scientific_name
 
 		</cfquery>
+		<p>
+			fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated errors can generally be ignored, but are occasionally an
+			indication of inconsistent data (eg, TERM is ranked family in some records and subfamily in others).
+		</p>
 		<cfloop query="d">
 			<br>#status#: <a href="/name/#scientific_name#">#scientific_name#</a>
 		</cfloop>
 	</cfoutput>
 </cfif>
+<!------------------------------------------------------------------------------------------------->
 
 <cfif action is "deleteDataset">
 	<cfoutput>
@@ -1181,9 +1186,6 @@ function savedMetaEdit(tid,newVal){
 
 	<br>
 	<input type="button" value="reset tree" onclick="initTree()">
-	<br>
-	<input type="button" value="add a node" onclick="addNewNode()">
-
 
 	<div id="treeBox" style="width:200;height:200"></div>
 </cfif>

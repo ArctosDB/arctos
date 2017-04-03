@@ -128,14 +128,6 @@
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
 	<input type="hidden" id="term" name="term" value="#d.term#">
-
-
-	<br>
-	[ maybe a delete button too.
-	<br>but not sure what that could do.
-	<br>update {children_of_this} set parent_id={parent_of_this} and then flush the term maybe??
-	<br>does that break anything??
-
 	<table border>
 		<tr>
 			<td>
@@ -204,11 +196,8 @@
 			</td>
 			<td><input name="nctermvalue_new_#i#" id="nctermvalue_new_#i#" type="text" size="60"></td>
 		</tr>
-
 	</cfloop>
-
 	</table>
-		<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits">
-
+	<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="saveAllEdits">
 </form>
 </cfoutput>
