@@ -20,10 +20,10 @@
 		// get vars
 		var theID=$("#tid").val();
 		var newVal=$("#term").val() + ' (' + $("#rank").val() + ')';
-		var frm=$("#tEditFrm").serialize());
+		var frm=$("#tEditFrm").serialize();
 		console.log(frm);
 		// save metadata
-		
+
 		 $.getJSON("/component/test.cfc",
 				{
 					method : "saveMetaEdit",
