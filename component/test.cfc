@@ -73,10 +73,12 @@
 			<cfquery name="thisval" dbtype="query">
 				select QVAL from qry where qtrm='nctermvalue_#thisIndex#'
 			</cfquery>
+
 			<br>qtrm=#qtrm#
 			<br>thisIndex=#thisIndex#
 			<br>thisval.QVAL=#thisval.QVAL#
-			<cfif thisval.QVAL is "DELETE">
+			<br>QVAL=#QVAL#
+			<cfif QVAL is "DELETE">
 				<br>delete from htax_noclassterm where tid=#thisIndex#
 			<cfelse>
 				<br>update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where tid=#thisIndex#
