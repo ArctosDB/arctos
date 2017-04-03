@@ -80,8 +80,16 @@
 			<br>thisval.QVAL=#thisval.QVAL#
 			<br>QVAL=#QVAL#
 			<cfif QVAL is "DELETE">
+				<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from htax_noclassterm where NC_TID=#thisIndex#
+				</cfquery>
+
 				<br>delete from htax_noclassterm where NC_TID=#thisIndex#
 			<cfelse>
+				<cfquery name="uone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where NC_TID=#thisIndex#
+				</cfquery>
+
 				<br>update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where NC_TID=#thisIndex#
 			</cfif>
 
