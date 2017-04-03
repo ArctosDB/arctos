@@ -4,7 +4,6 @@
 
 <cffunction name="saveMetaEdit" access="remote">
 	 <cfargument name="q" type="string" required="true">
-	 <cfdump var=#q#>
 <cfoutput>
 	<!----
 		de-serialize q
