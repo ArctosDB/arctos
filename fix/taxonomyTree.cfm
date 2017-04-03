@@ -850,7 +850,7 @@ function addNewNode(){
 
     if (nt != null) {
        alert('going with ' + nt);
-       myTree.insertNewItem(NULL,3,nt);
+       myTree.insertNewItem('',3,nt);
     }
 
 
