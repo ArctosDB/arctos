@@ -843,7 +843,7 @@ $(function() { //shorthand document.ready function
 
 function addNode(){
 	var d='Are you sure you want to add a node?\n';
-	d+='Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add
+	d+='Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add';
 	d+=' does not already exist, you must create it before saving.\n';
 	d+='New nodes will be created at root-level. Drag them to where they need to be and edit as usual.';
 
