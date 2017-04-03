@@ -17,6 +17,9 @@
 					update hierarchical_taxonomy set PARENT_TID=#d.PARENT_TID# where parent_tid=#id#
 				</cfquery>
 			</cfif>
+				<cfquery name="bye" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from hierarchical_taxonomy where tid=#id#
+				</cfquery>
 				<cfquery name="deorphan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					delete from htax_noclassterm where tid=#id#
 				</cfquery>
