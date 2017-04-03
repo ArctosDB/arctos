@@ -9,6 +9,11 @@
 	<!---- de-serialize q ---->
 	<cfloop list="#q#" delimiters="&?" index="i">
 		<br>#i#
+		<cfif i contains "=">
+			<cfset t=listGetAt(i,1,"+")>
+			<cfset v=listGetAt(i,2,"+")>
+			<cfset "#t#"=v>
+		</cfif>
 	</cfloop>
 	 <p>
 		tid: #tid#
