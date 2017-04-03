@@ -8,6 +8,11 @@
 		select * from hierarchical_taxonomy where tid=#id#
 	</cfquery>
 	<cfdump var=#d#>
+	<cfif len(d.PARENT_TID) is 0>
+		got a parent...
+	<cfelse>
+		no parent!
+	</cfif>
 	</cfoutput>
 </cffunction>
 
