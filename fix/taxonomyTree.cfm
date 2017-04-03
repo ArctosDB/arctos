@@ -982,7 +982,13 @@ function deletedRecord(theID){
 
 function movedToNewParent(c,p){
 	alert('movedToNewParent(' + c + ';' + p);
+	// remove the child
+	myTree.deleteItem(c,false);
+	// expand the new parent
 
+	expandNode(p);
+	$("#statusDiv").html('move success');
+	$(".ui-dialog-titlebar-close").trigger('click');
 }
 
 
