@@ -979,10 +979,13 @@ function deletedRecord(theID){
 	$("#statusDiv").html('delete successful');
 	$(".ui-dialog-titlebar-close").trigger('click');
 }
+
 function movedToNewParent(c,p){
 	alert('movedToNewParent(' + c + ';' + p);
 
 }
+
+
 function createdNewTerm(id){
 	//alert('am createdNewTerm have id=' + id);
 	//alert(' close the modal');
