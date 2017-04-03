@@ -839,7 +839,12 @@ $(function() { //shorthand document.ready function
 
 	<script>
 
-
+function t(){
+		alert('t');
+		//onclick="var d=new Date(); myTree.setItemText(myTree.getSelectedItemId(),document.getElementById('ed1').value);"
+		//var myTree= window.parent.document.myTree;
+		myTree.setItemText(myTree.getSelectedItemId(),'boogity');
+	}
 
 		jQuery(document).ready(function() {
 
@@ -996,6 +1001,7 @@ $(function() { //shorthand document.ready function
 	//tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
 
 	</script>
+<span onclick="t()">ttttt</span>
 
 	<label for="srch">search (starts with)</label>
 	<input id="srch">

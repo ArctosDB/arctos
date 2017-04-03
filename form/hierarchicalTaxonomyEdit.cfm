@@ -15,14 +15,11 @@
 </cfquery>
 
 <script>
-	function t(){
-		alert('t');
-		//onclick="var d=new Date(); myTree.setItemText(myTree.getSelectedItemId(),document.getElementById('ed1').value);"
-		var myTree= window.parent.document.myTree;
-		myTree.setItemText(myTree.getSelectedItemId(),'boogity');
+	function tt(){
+		parent.t();
 	}
 </script>
-<span onclick="t()">tttt</span>
+<span onclick="tt()">ttttt</span>
 <cfoutput>
 <form>
 	[i will be a save button someday]
