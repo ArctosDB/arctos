@@ -805,7 +805,7 @@ $(function() { //shorthand document.ready function
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				status,
+				htax_temp_hierarcicized.status,
 				taxon_name.scientific_name
 			from
 				taxon_name,
