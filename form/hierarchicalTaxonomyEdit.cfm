@@ -35,11 +35,12 @@
 				},
 				function (r) {
 					//console.log(r);
+					alert(r);
 					if (r=='success'){
 
 						//alert('back; update parent and close if success');
 						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-						parent.savedMetaEdit(theID,newVal);
+						parent.deletedRecord(theID);
 					} else {
 						alert(r);
 					}

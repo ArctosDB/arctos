@@ -5,19 +5,23 @@
 	<cfargument name="id" type="numeric" required="true">
 	<cfoutput>
 		<cftransaction>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from hierarchical_taxonomy where tid=#id#
-	</cfquery>
-	<cfdump var=#d#>
-	<cfif len(d.PARENT_TID) is 0>
-		no parent!
-		update hierarchical_taxonomy set PARENT_TID=NULL where parent_tid=#id#
-	<cfelse>
-		update hierarchical_taxonomy set PARENT_TID=#d.PARENT_TID# where parent_tid=#id#
-		got parent....
-	</cfif>
-	<br>delete from htax_noclassterm where tid=#id#
-	</cftransaction>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from hierarchical_taxonomy where tid=#id#
+			</cfquery>
+			<cfif len(d.PARENT_TID) is 0>
+				<cfquery name="udc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update hierarchical_taxonomy set PARENT_TID=NULL where parent_tid=#id#
+				</cfquery>
+			<cfelse>
+				<cfquery name="udc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update hierarchical_taxonomy set PARENT_TID=#d.PARENT_TID# where parent_tid=#id#
+				</cfquery>
+			</cfif>
+				<cfquery name="deorphan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from htax_noclassterm where tid=#id#
+				</cfquery>
+		</cftransaction>
+		<cfreturn 'success'>
 	</cfoutput>
 </cffunction>
 

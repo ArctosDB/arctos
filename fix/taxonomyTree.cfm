@@ -838,6 +838,13 @@ $(function() { //shorthand document.ready function
 	<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
 
 	<script>
+function deletedRecord(theID){
+	// deleted something
+	// remove it from the view
+	myTree.deleteItem(theID,false);
+	$("#statusDiv").html('delete successful');
+	$(".ui-dialog-titlebar-close").trigger('click');
+}
 
 function savedMetaEdit(tid,newVal){
 		//alert('t');
