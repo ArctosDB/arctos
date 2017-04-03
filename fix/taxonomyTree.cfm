@@ -856,7 +856,7 @@ function t(){
 			myTree.enableCheckBoxes(true);
 			myTree.enableTreeLines(true);
 			myTree.enableTreeImages(false);
-			myTree.tree.enableItemEditor(true);
+			myTree.enableItemEditor(true);
 
 			initTree();
 
