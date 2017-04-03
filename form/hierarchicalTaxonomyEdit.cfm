@@ -16,6 +16,38 @@
 </cfquery>
 
 <script>
+	function createNewChildTerm(){
+		// create the term; if success, just expand the node to view
+			alert('going with ' + nt);
+			var theID=$("#tid").val();
+
+
+			$.getJSON("/component/test.cfc",
+				{
+					method : "createTerm",
+					//dataset_id: $("#dataset_id").val(),
+					id : theID,
+					newChildTerm: $("#newChildTerm").val(),
+					newChildTermRank: $("#newChildTermRank").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					//console.log(r);
+					if (r=='success'){
+						parent.expandNode(theID);
+					} else {
+						alert(r);
+					}
+				}
+			);
+	    }
+
+
+
+	}
+
+
 	function deleteThis(){
 		var d='Are you sure you want to DELETE this record?\n';
 		d+='Deleting will NOT do anything to data in Arctos; delete incorrect';
@@ -114,6 +146,25 @@
 			</td>
 		</tr>
 	</table>
+
+	<p>
+		Create a new child of this term.
+		Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add
+		does not already exist, you must create it before saving this dataset back to Arctos.
+		<br>New nodes will be created as a child of the term you are editing. Drag them to where they need to be and edit as usual.
+		<br>
+		<label for="newChildTerm">New Child Term Value</label>
+		<input name="newChildTerm" id="newChildTerm" type="text" value="" placeholder='new taxon term' size="60">
+		<label for="newChildTermRank">New Child Term Rank</label>
+		<select name="newChildTermRank" id="newChildTermRank">
+			<cfloop query="c">
+				<option value="#TAXON_TERM#">#TAXON_TERM#</option>
+			</cfloop>
+		</select>
+		<br><button onclick="createNewChildTerm()" class="insBty">createNewChildTerm</button>
+
+
+	</p>
 
 
 	<table border>

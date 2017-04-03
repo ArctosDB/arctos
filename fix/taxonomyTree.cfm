@@ -839,24 +839,6 @@ $(function() { //shorthand document.ready function
 
 	<script>
 
-function addNewNode(){
-	var d='Are you sure you want to add a node?\n';
-	d+='Adding here will NOT create Arctos taxonomy; if the taxon name of the term you are trying to add';
-	d+=' does not already exist, you must create it before saving.\n';
-	d+='New nodes will be created at root-level. Drag them to where they need to be and edit as usual.\n';
-	d+='Enter a new term and click OK to continue.'
-
-	var nt = prompt(d);
-
-    if (nt != null) {
-       alert('going with ' + nt);
-       myTree.insertNewItem('',3,nt);
-    }
-
-
-
-}
-
 
 
 function deletedRecord(theID){
@@ -867,6 +849,35 @@ function deletedRecord(theID){
 	$(".ui-dialog-titlebar-close").trigger('click');
 }
 
+
+function expandNode(id){
+	$("#statusDiv").html('working...');
+    $.getJSON("/component/test.cfc",
+		{
+			method : "getTaxTreeChild",
+			dataset_id: $("#dataset_id").val(),
+			id : id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (r) {
+			if (r.toString().substring(0,5)=='ERROR'){
+				$("#statusDiv").html(r);
+				alert(r);
+			} else {
+				for (i=0;i<r.ROWCOUNT;i++) {
+					//insertNewChild(var) does not work for some insane reason, so.....
+					var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
+					eval(d);
+				}
+				$("#statusDiv").html('done');
+			}
+		}
+	);
+}
+				
+				
+				
 function savedMetaEdit(tid,newVal){
 		//alert('t');
 		//alert('am parent t with tid=' + tid + ' i got newVal=' + newVal);
@@ -934,29 +945,9 @@ function savedMetaEdit(tid,newVal){
 
 
 			myTree.attachEvent("onDblClick", function(id){
-				$("#statusDiv").html('working...');
-			    $.getJSON("/component/test.cfc",
-					{
-						method : "getTaxTreeChild",
-						dataset_id: $("#dataset_id").val(),
-						id : id,
-						returnformat : "json",
-						queryformat : 'column'
-					},
-					function (r) {
-						if (r.toString().substring(0,5)=='ERROR'){
-							$("#statusDiv").html(r);
-							alert(r);
-						} else {
-							for (i=0;i<r.ROWCOUNT;i++) {
-								//insertNewChild(var) does not work for some insane reason, so.....
-								var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
-								eval(d);
-							}
-							$("#statusDiv").html('done');
-						}
-					}
-				);
+				expandNode(id);
+				
+				
 			});
 
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){

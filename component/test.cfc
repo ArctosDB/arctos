@@ -1,5 +1,34 @@
 <cfcomponent>
 
+<cffunction name="createTerm" access="remote">
+	<cfargument name="id" type="numeric" required="true">
+	<cfargument name="newChildTerm" type="string" required="true">
+	<cfargument name="newChildTermRank" type="string" required="true">
+
+	<cfoutput>
+		<cftransaction>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from hierarchical_taxonomy where tid=#id#
+			</cfquery>
+			<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into hierarchical_taxonomy (
+					TID,
+					PARENT_TID,
+					TERM,
+					RANK,
+					DATASET_ID
+				) values (
+					somerandomsequence.nextval,
+					#id#,
+					'#newChildTerm#',
+					'#newChildTermRank#',
+					#d.DATASET_ID#
+				)
+			</cfquery>
+		</cftransaction>
+		<cfreturn 'success'>
+	</cfoutput>
+</cffunction>
 
 <cffunction name="deleteTerm" access="remote">
 	<cfargument name="id" type="numeric" required="true">
