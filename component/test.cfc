@@ -39,6 +39,7 @@
 			<cfquery name="thisval" dbtype="query">
 				select QVAL from qry where qtrm='nctermvalue_new_#thisIndex#'
 			</cfquery>
+
 			<br>
 			insert into htax_noclassterm (
 				NC_TID,
@@ -48,7 +49,7 @@
 			) values (
 				somerandomsequence.nextval,
 				#tid#,
-				'#qtrm#',
+				'#qval#',
 				'#thisval.qval#'
 			)
 
