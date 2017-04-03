@@ -81,6 +81,7 @@
 		<tr>
 			<td>
 				<select name="nctermtype_#nc_tid#" id="nctermtype_#nc_tid#">
+					<option value='DELETE'>DELETE</option>
 					<cfloop query="nc">
 						<option value="#t.term_type#" <cfif t.term_type is nc.taxon_term> selected="selected" </cfif> >#t.term_type#</option>
 					</cfloop>
