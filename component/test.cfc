@@ -1,6 +1,15 @@
 <cfcomponent>
 
 
+<cffunction name="deleteTerm" access="remote">
+	<cfargument name="id" type="numeric" required="true">
+	<cfoutput>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from hierarchical_taxonomy where tid=#id#
+	</cfquery>
+	<cfdump var=#d#>
+	</cfoutput>
+</cffunction>
 
 <cffunction name="saveMetaEdit" access="remote">
 	 <cfargument name="q" type="string" required="true">

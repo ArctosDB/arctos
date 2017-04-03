@@ -24,7 +24,26 @@
 	 	d+='Click confirm if you are absolutely sure that\'s what you want to do.'
 		var r = confirm(d);
 		if (r == true) {
-		    x = "You pressed OK!";
+		   $.getJSON("/component/test.cfc",
+				{
+					method : "deleteTerm",
+					//dataset_id: $("#dataset_id").val(),
+					id : theID,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					//console.log(r);
+					if (r=='success'){
+
+						//alert('back; update parent and close if success');
+						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
+						parent.savedMetaEdit(theID,newVal);
+					} else {
+						alert(r);
+					}
+				}
+			);
 		} else {
 		    x = "You pressed Cancel!";
 		}
@@ -68,6 +87,8 @@
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
 	<input type="hidden" id="term" name="term" value="#d.term#">
+	
+	
 	<br>
 	[ maybe a delete button too.
 	<br>but not sure what that could do.
