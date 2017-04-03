@@ -16,8 +16,8 @@
 </cfquery>
 
 <script>
-	function createNewChildTerm(){
-		alert('createNewChildTerm');
+	function fcreateNewChildTerm(){
+		alert('fcreateNewChildTerm');
 
 		// create the term; if success, just expand the node to view
 			var theID=$("#tid").val();
@@ -165,7 +165,7 @@
 				<option value="#TAXON_TERM#">#TAXON_TERM#</option>
 			</cfloop>
 		</select>
-		<br><button onclick="createNewChildTerm()" class="insBty">createNewChildTerm</button>
+		<br><button onclick="fcreateNewChildTerm()" class="insBtn">fcreateNewChildTerm</button>
 
 
 	</p>
