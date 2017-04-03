@@ -71,7 +71,7 @@
 		<cfelseif left(qtrm,11) is "nctermtype_">
 			<cfset thisIndex=listlast(qtrm,"_")>
 			<cfquery name="thisval" dbtype="query">
-				select QVAL from qry where qtrm='nctermtype_#thisIndex#'
+				select QVAL from qry where qtrm='nctermvalue_#thisIndex#'
 			</cfquery>
 			<br>qtrm=#qtrm#
 			<br>thisIndex=#thisIndex#
