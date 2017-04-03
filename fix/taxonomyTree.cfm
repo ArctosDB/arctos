@@ -839,9 +839,9 @@ $(function() { //shorthand document.ready function
 
 	<script>
 
-function t(tid,newVal){
+function savedMetaEdit(tid,newVal){
 		//alert('t');
-				alert('am parent t with tid=' + tid + ' i got newVal=' + newVal);
+		//alert('am parent t with tid=' + tid + ' i got newVal=' + newVal);
 
 		//onclick="var d=new Date(); myTree.setItemText(myTree.getSelectedItemId(),document.getElementById('ed1').value);"
 		//var myTree= window.parent.document.myTree;

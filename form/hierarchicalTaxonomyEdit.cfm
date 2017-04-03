@@ -34,12 +34,12 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					console.log(r);
+					//console.log(r);
 					if (r=='success'){
 
-						alert('back; update parent and close if success');
-					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-						parent.t(theID,newVal);
+						//alert('back; update parent and close if success');
+						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
+						parent.savedMetaEdit(theID,newVal);
 					} else {
 						alert(r);
 					}
