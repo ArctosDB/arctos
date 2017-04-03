@@ -17,6 +17,8 @@
 
 <script>
 	function createNewChildTerm(){
+		alert('createNewChildTerm');
+
 		// create the term; if success, just expand the node to view
 			var theID=$("#tid").val();
 
@@ -34,13 +36,14 @@
 				function (r) {
 					alert(r);
 
+
 					//console.log(r);
-					if (r=='success'){
-						alert('going to createdNewTerm');
-						parent.createdNewTerm(theID);
-					} else {
-						alert(r);
-					}
+				//	if (r=='success'){
+					//	alert('going to createdNewTerm');
+						//parent.createdNewTerm(theID);
+				//	} else {
+					//	alert(r);
+				//	}
 				}
 			);
 	    }
