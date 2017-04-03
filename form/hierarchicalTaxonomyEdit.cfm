@@ -32,6 +32,8 @@
 					queryformat : 'column'
 				},
 				function (r) {
+					alert(r);
+
 					//console.log(r);
 					if (r=='success'){
 						alert('going to createdNewTerm');
