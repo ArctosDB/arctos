@@ -12,29 +12,19 @@
 	---->
 	<cfset qry=queryNew("qtrm,qval")>
 	<cfloop list="#q#" delimiters="&?" index="i">
-		<br>#i#
 		<cfif listlen(i,"=") eq 2>
 			<cfset t=listGetAt(i,1,"=")>
 			<cfset v=listGetAt(i,2,"=")>
-			<!----
-			<cfset "#t#"=v>
-			---->
 			<cfset queryAddRow(qry, {qtrm=t,qval=v})>
-
 		</cfif>
 	</cfloop>
-	<cfdump var=#qry#>
 	<!--- should always have this; fail if no --->
 	<cfquery name="x" dbtype="query">
 		select qval from qry where qtrm='tid'
 	</cfquery>
 	<cfset tid=x.qval>
-	 <p>
-		tid: #tid#
-	</p>
 	<cftransaction>
 	<cfloop query="qry">
-		<hr>
 		<cfif left(qtrm,15) is "nctermtype_new_">
 			<!--- there should be a corresponding nctermvalue_new_1 ---->
 			<cfset thisIndex=listlast(qtrm,"_")>
@@ -54,48 +44,24 @@
 					'#URLDecode(thisval.qval)#'
 				)
 			</cfquery>
-
-			<br>
-			insert into htax_noclassterm (
-				NC_TID,
-				TID,
-				TERM_TYPE,
-				TERM_VALUE
-			) values (
-				somerandomsequence.nextval,
-				#tid#,
-				'#qval#',
-				'#URLDecode(thisval.qval)#'
-			)
-
-
 		<cfelseif left(qtrm,11) is "nctermtype_">
 			<cfset thisIndex=listlast(qtrm,"_")>
 			<cfquery name="thisval" dbtype="query">
 				select QVAL from qry where qtrm='nctermvalue_#thisIndex#'
 			</cfquery>
-
-			<br>qtrm=#qtrm#
-			<br>thisIndex=#thisIndex#
-			<br>thisval.QVAL=#thisval.QVAL#
-			<br>QVAL=#QVAL#
 			<cfif QVAL is "DELETE">
 				<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					delete from htax_noclassterm where NC_TID=#thisIndex#
 				</cfquery>
-
-				<br>delete from htax_noclassterm where NC_TID=#thisIndex#
 			<cfelse>
 				<cfquery name="uone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where NC_TID=#thisIndex#
 				</cfquery>
-
-				<br>update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where NC_TID=#thisIndex#
 			</cfif>
-
 		</cfif>
 	</cfloop>
 	</cftransaction>
+	<cfreturn 'success'>
 
 	</cfoutput>
 </cffunction>
