@@ -9,9 +9,9 @@
 	</cfquery>
 	<cfdump var=#d#>
 	<cfif len(d.PARENT_TID) is 0>
-		got a parent...
-	<cfelse>
 		no parent!
+	<cfelse>
+		got parent....
 	</cfif>
 	</cfoutput>
 </cffunction>
