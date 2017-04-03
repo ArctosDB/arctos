@@ -76,6 +76,12 @@
 			<br>qtrm=#qtrm#
 			<br>thisIndex=#thisIndex#
 			<br>thisval.QVAL=#thisval.QVAL#
+			<cfif thisval.QVAL is "DELETE">
+				<br>delete from htax_noclassterm where tid=#thisIndex#
+			<cfelse>
+				update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where tid=#thisIndex#
+			</cfif>
+
 		</cfif>
 	</cfloop>
 	</cftransaction>
