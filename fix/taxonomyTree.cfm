@@ -895,6 +895,7 @@ delete from hierarchical_taxonomy;
 
 
 </cfif>
+<!--------------------------------------------------------------------------------------->
 <cfif action is "mismatch_import">
 	<cfquery name="mia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct
@@ -915,12 +916,22 @@ delete from hierarchical_taxonomy;
 	</cfquery>
 	<p>
 		This app will not create taxon names.
-		The following terms do not exist as taxon names in Arctos but are terms in your import.
-		These probably exist because they're used in other terms - eg, a species (binomial) used as
-		a term in a subspecies and which does not exist as a name will appear here. Bad spellings of
-		Family etc. will also appear here.
-
-		You may need to delete your dataset, fix the problems (by adding taxa or correcting mistakes), and import again.
+		The following terms do not exist as taxon names in Arctos but are terms in your import. This happens for two reasons:
+		<ol>
+			<li>
+				A term does not exist as a name. The Family of a record does not exist by itself, there is no genus above a species,
+				binomial for trinomial, etc. These should be created.
+				<a href="taxonomyTree.cfm?action=mismatch_importCSV&dataset_name=#dataset_name#">Click here for CSV</a>,
+				VERY carefully review, and send to a DBA for taxon creation BEFORE attempting to repatriate these data.
+			</li>
+			<li>
+				A cat wandered across someone's keyboard while they were creating classifications; the name is garbage and should
+				not exist anywhere for any reason. Be very sure that these are NOT included in the CSV of names to create.
+			</li>
+		</ol>
+		<p>
+			If this is extremely messy, it may be easier to delete your dataset, fix the problems (by adding taxa or correcting mistakes),
+			and import again.
 	</p>
 	<cfoutput>
 		<cfloop query="mia">
@@ -928,7 +939,35 @@ delete from hierarchical_taxonomy;
 		</cfloop>
 	</cfoutput>
 </cfif>
+<!--------------------------------------------------------------------------------------->
+<cfif action is "mismatch_importCSV">
+	<cfquery name="mia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct
+			term
+		from
+			hierarchical_taxonomy,
+			htax_seed,
+			htax_dataset
+		where
+			hierarchical_taxonomy.dataset_id=htax_seed.dataset_id and
+			htax_seed.dataset_id=htax_dataset.dataset_id and
+			htax_dataset.dataset_name='#dataset_name#' and
+			term not in (
+				select scientific_name from taxon_name
+			)
+		order by
+			term
+	</cfquery>
 
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mia,Fields=mia.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/funkyClassTerms.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=funkyClassTerms.csv" addtoken="false">
+	<a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">return</a>
+</cfif>
 
 <cfif action is "go_seed_ds">
 	<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r">
