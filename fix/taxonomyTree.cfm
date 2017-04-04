@@ -1127,6 +1127,10 @@ function savedMetaEdit(tid,newVal){
 
 			});
 
+			myTree.attachEvent("onRightClick", function(id){
+				alert('right-click ' + id);
+			});
+
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
 				$("#statusDiv").html('working....');
 			    $.getJSON("/component/test.cfc",
