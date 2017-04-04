@@ -678,7 +678,7 @@ delete from hierarchical_taxonomy;
 				<input type="hidden" name="dataset_id" value="#d.dataset_id#">
 				<input type="hidden" name="dataset_name" value="#d.dataset_name#">
 				<input type="hidden" name="action" value="saveCommentUpdate">
-				<textarea name="comments" rows="50" cols="10">#d.comments#</textarea>
+				<textarea name="comments" rows="10" cols="50">#d.comments#</textarea>
 				<br><input type="submit" value="save comment changes" class="savBtn">
 			</form>
 		</p>
@@ -814,16 +814,8 @@ delete from hierarchical_taxonomy;
 				<br>and make sure the task is in the scheduler
 			</p>
 		</p>
-
-
-
 	</cfoutput>
-
-
 </cfif>
-
-
-
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "saveCommentUpdate">
 	<cfoutput>
