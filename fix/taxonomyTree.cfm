@@ -114,6 +114,7 @@
 		    $('#inspect').on('click', function(e) { //use on if jQuery 1.7+
 		       // var data = $("#f_ds_filter :input").serializeArray();
 		        //console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+		        $('#inspect').val('working - be patient!');
 		         $.getJSON("/component/test.cfc",
 					{
 						method : "getSeedTaxSum",
@@ -129,6 +130,7 @@
 					},
 					function (r) {
 						console.log(r);
+						 $('#inspect').val('done - click to re-inspect');
 						alert('your search found ' + r.DATA.C[0] + ' taxa');
 						//myTree.parse(r, "jsarray");
 						//myTree.parse(r, "jsarray");
