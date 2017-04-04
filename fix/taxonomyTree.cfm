@@ -678,6 +678,7 @@ delete from hierarchical_taxonomy;
 				<input type="hidden" name="dataset_id" value="#d.dataset_id#">
 				<input type="hidden" name="dataset_name" value="#d.dataset_name#">
 				<input type="hidden" name="action" value="saveCommentUpdate">
+				<label for="comments">Comments</label>
 				<textarea name="comments" rows="10" cols="50">#d.comments#</textarea>
 				<br><input type="submit" value="save comment changes" class="savBtn">
 			</form>
