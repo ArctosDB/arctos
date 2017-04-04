@@ -278,10 +278,12 @@ DBMS_SCHEDULER.CREATE_JOB (
 END;
 /
 
+
+
+drop procedure proc_hierac_tax_noclass;
+
 CREATE OR REPLACE PROCEDURE proc_hierac_tax_noclass IS
 begin
-
-
 	 -- first get tid and DATASET_ID of inserted_term records
 	for r in (
 		select distinct
@@ -815,7 +817,7 @@ $(function() { //shorthand document.ready function
 				taxon_name.TAXON_NAME_ID=htax_temp_hierarcicized.TAXON_NAME_ID and
 				htax_dataset.dataset_name='#dataset_name#' and
 				htax_dataset.dataset_id=htax_temp_hierarcicized.dataset_id and
-				htax_temp_hierarcicized.status != 'success'
+				htax_temp_hierarcicized.status != 'inserted_noclassterm'
 			group by
 				htax_temp_hierarcicized.status,
 				taxon_name.scientific_name
