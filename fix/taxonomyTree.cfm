@@ -632,41 +632,130 @@ delete from hierarchical_taxonomy;
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "manageDataset">
+	<script>
+		$(function() { //shorthand document.ready function
+		    $('#inspect').on('click', function(e) { //use on if jQuery 1.7+
+		       // var data = $("#f_ds_filter :input").serializeArray();
+		        //console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+		         $.getJSON("/component/test.cfc",
+					{
+						method : "getSeedTaxSum",
+						source: $("#source").val(),
+						kingdom: $("#kingdom").val(),
+						phylum: $("#phylum").val(),
+						class: $("#class").val(),
+						order: $("#order").val(),
+						family: $("#family").val(),
+						genus: $("#genus").val(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (r) {
+						console.log(r);
+						alert('your search found ' + r.DATA.C[0] + ' taxa');
+						//myTree.parse(r, "jsarray");
+						//myTree.parse(r, "jsarray");
+						//myTree.openAllItems(0);
+
+					}
+				);
+
+		    });
+		});
+	</script>
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from htax_dataset where dataset_name='#dataset_name#'
 	</cfquery>
 	<cfoutput>
-		Managing #d.dataset_name# created #d.created_by# on #d.created_date#
+		Managing <strong>#d.dataset_name#</strong> created #d.created_by# on #d.created_date#
 
 		<p>
-			Source: #d.source#
+			Source: <strong>#d.source#</strong>
 		</p>
 		<p>
-			comments: #d.comments#
+			comments: <strong>#d.comments#</strong>
 		</p>
 
-	<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from htax_seed where dataset_id=#d.dataset_id#
-	</cfquery>
-	<p>
-		#nht.c# records have been seeded. You may add more (use the form below). Duplicates are disallowed (and Oracle bug
-		qerltcInsertSelectRop_bad_state prevents silently ignoring them) - contact us if you need help.
-	</p>
+		<hr>
+		Step One: Find records with which to "seed" the dataset. Large datasets (tested to 1.4m records) are manageable,
+		but come with performance limitations; you may need DBA assistance and a lot of memory. Smaller datasets are much
+		easier to work with. Consider limiting your query to around 50,000 names.
+		<p>
+			Note that data in Arctos are independent; classifications are not related in any way.
+			This app will only update the records for which the taxon name
+			appears as a term here.
+		</p>
+		<p>
+			You may return to this step and add names to your dataset at any time. Don't confuse yourself.
+		</p>
+		<p>
+			Find seed taxonomy. Terms are exact-match case-sensitive.
+		</p>
+		<form id="f_ds_filter" method="post" action="taxonomyTree.cfm">
+			<cfoutput>
+				<input type="hidden" name="dataset_id" id="dataset_id" value="#d.dataset_id#">
+				<input type="hidden" name="dataset_name" id="dataset_name" value="#d.dataset_name#">
+				<input type="hidden" name="action" id="action" value="go_seed_ds">
+				<input type="hidden" name="source" id="source" value="#d.source#">
+			</cfoutput>
 
-	<cfquery name="nht_il" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select status,count(*) c from htax_temp_hierarcicized where dataset_id=#d.dataset_id# group by status order by status
-	</cfquery>
 
-	<p>
-		Import Status:
-	</p>
-	<cfloop query="nht_il">
-		<br>#status# : #c#
-	</cfloop>
 
-	<p>
-		<a href="taxonomyTree.cfm?action=noSuccessimport&dataset_name=#dataset_name#">list not-success</a>
-	</p>
+			<label for="kingdom">kingdom</label>
+			<input type="text" name="kingdom" id="kingdom" placeholder="kingdom" size="60">
+
+			<label for="phylum">phylum</label>
+			<input type="text" name="phylum" id="phylum" placeholder="phylum" size="60">
+
+			<label for="class">class</label>
+			<input type="text" name="class" id="class" placeholder="class" size="60">
+
+			<label for="order">order</label>
+			<input type="text" name="order" id="order" placeholder="order" size="60">
+
+
+			<label for="family">family</label>
+			<input type="text" name="family" id="family" placeholder="family" size="60">
+
+			<label for="genus">genus</label>
+			<input type="text" name="genus" id="genus" placeholder="genus" size="60">
+			<p>
+				Click this ONCE! to get a recordcount. Nothing obvious will happen, and it may take some time.
+				You'll get an alert when it's done.
+			</p>
+			<br><input type="button" id="inspect" value="get match count">
+			<p>
+				After using the "get match count" button, and having found a reasonable number of taxa,
+				click to
+				<input type="submit" value="pull seed data">. The form will reload, and again may be slow.
+			</p>
+		</form>
+		<hr>
+		<p>
+			Step Two: Do nothing. Grab a donut maybe. The records you seeded will auto-process into a hierarchy at the rate of
+			a few thousand per minute. Then click reload and scroll down for summary statistics.
+		</p>
+		<hr>
+		<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from htax_seed where dataset_id=#d.dataset_id#
+		</cfquery>
+		<p>
+			#nht.c# records have been seeded. You may add more (use the form above). Duplicates are disallowed (and Oracle bug
+			qerltcInsertSelectRop_bad_state prevents silently ignoring them) - contact us if you need help.
+		</p>
+		<cfquery name="nht_il" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select status,count(*) c from htax_temp_hierarcicized where dataset_id=#d.dataset_id# group by status order by status
+		</cfquery>
+		<p>
+			Import Status:
+		</p>
+		<cfloop query="nht_il">
+			<br>#status# : #c#
+		</cfloop>
+		<p>
+			<a href="taxonomyTree.cfm?action=noSuccessimport&dataset_name=#dataset_name#">list non-successful taxa with errors</a>.
+		</p>
 
 
 	<cfquery name="ht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -711,93 +800,6 @@ delete from hierarchical_taxonomy;
 
 
 	</cfoutput>
-
-<p>
-	Find records with which to "seed" the dataset. Large datasets (tested to 1.4m records) are manageable,
-	but come with performance limitations; you may need DBA assistance and a lot of memory. Smaller datasets are much
-	easier to work with. Consider limiting your query to around 10,000 names.
-	<p>
-		Note that data in Arctos are independent; classifications are not related in any way.
-		This app will only update the records for which the taxon name
-		appears as a term here.
-	</p>
-</p>
-<script>
-
-
-$(function() { //shorthand document.ready function
-    $('#inspect').on('click', function(e) { //use on if jQuery 1.7+
-       // var data = $("#f_ds_filter :input").serializeArray();
-        //console.log(data); //use the console for debugging, F12 in Chrome, not alerts
-         $.getJSON("/component/test.cfc",
-			{
-				method : "getSeedTaxSum",
-				source: $("#source").val(),
-				kingdom: $("#kingdom").val(),
-				phylum: $("#phylum").val(),
-				class: $("#class").val(),
-				order: $("#order").val(),
-				family: $("#family").val(),
-				genus: $("#genus").val(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				console.log(r);
-				alert('your search found ' + r.DATA.C[0] + ' taxa');
-				//myTree.parse(r, "jsarray");
-				//myTree.parse(r, "jsarray");
-				//myTree.openAllItems(0);
-
-			}
-		);
-
-    });
-});
-
-
-</script>
-
-<p>
-	Find seed taxonomy. Terms are exact-match case-sensitive.
-</p>
-<form id="f_ds_filter" method="post" action="taxonomyTree.cfm">
-	<cfoutput>
-		<input type="hidden" name="dataset_id" id="dataset_id" value="#d.dataset_id#">
-		<input type="hidden" name="dataset_name" id="dataset_name" value="#d.dataset_name#">
-		<input type="hidden" name="action" id="action" value="go_seed_ds">
-		<input type="hidden" name="source" id="source" value="#d.source#">
-	</cfoutput>
-
-
-
-	<label for="kingdom">kingdom</label>
-	<input type="text" name="kingdom" id="kingdom" placeholder="kingdom" size="60">
-
-	<label for="phylum">phylum</label>
-	<input type="text" name="phylum" id="phylum" placeholder="phylum" size="60">
-
-	<label for="class">class</label>
-	<input type="text" name="class" id="class" placeholder="class" size="60">
-
-	<label for="order">order</label>
-	<input type="text" name="order" id="order" placeholder="order" size="60">
-
-
-	<label for="family">family</label>
-	<input type="text" name="family" id="family" placeholder="family" size="60">
-
-	<label for="genus">genus</label>
-	<input type="text" name="genus" id="genus" placeholder="genus" size="60">
-	<p>
-		Click this ONCE! to get a recordcount. It may take some time. You'll get an alert when it's done.
-	</p>
-	<br><input type="button" id="inspect" value="inspect">
-	<p>
-		After using the "inspect" button, and having found a reasonable number of taxa,
-		<input type="submit" onclick="goPullSeed" value="pull seed data">
-	</p>
-</form>
 
 
 </cfif>
