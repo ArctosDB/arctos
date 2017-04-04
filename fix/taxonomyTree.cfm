@@ -758,44 +758,56 @@ delete from hierarchical_taxonomy;
 		</p>
 
 
-	<cfquery name="ht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
-	</cfquery>
+		<cfquery name="ht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
+		</cfquery>
 
-	<cfquery name="procSuccess" dbtype="query">
-		select c from nht_il where status='success'
-	</cfquery>
-	<cfif ht.c gt procSuccess.c>
+		<cfquery name="procSuccess" dbtype="query">
+			select c from nht_il where status='success'
+		</cfquery>
+		<cfif ht.c gt procSuccess.c>
+			<p>
+				trying to create names.... The import has resulted in more terms than you seeded. Something is missing from
+				Arctos. This form will not create taxa. <a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">click here</a>
+			</p>
+		</cfif>
+		<cfif ht.c lt procSuccess.c>
+			<p>
+				 The import has resulted in fewer terms than you seeded.
+				 <a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">click here</a>
+				 and that needs added....
+
+			</p>
+		</cfif>
+
 		<p>
-			trying to create names.... The import has resulted in more terms than you seeded. Something is missing from
-			Arctos. This form will not create taxa. <a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">click here</a>
+			#ht.c# records are available to manage hierarchically. Everything you've seeded should match what's here.
+			 Reload or return to this page to see progress. If nothing changes for ~5 minutes it's probably done all that can be done,
+			 or something is stuck. Contact us if you need help.
 		</p>
-	</cfif>
-	<cfif ht.c lt procSuccess.c>
+		<hr>
+
 		<p>
-			 The import has resulted in fewer terms than you seeded.
-			 <a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">click here</a>
-			 and that needs added....
-
+			When you are done seeding, you may
+			<a href="taxonomyTree.cfm?action=manageLocalTree&dataset_name=#dataset_name#">manage these data in the classification tree editor</a>
 		</p>
-	</cfif>
-
-	<p>
-		#ht.c# records are available to manage hierarchically. Everything you've seeded should match what's here. The conversion
-		process is automatic and should happen at the rate of a few thousand records per minute. Reload or return to this page to see
-		progress.
-	</p>
-
-	<p>
-		When you are done seeding, you may
-		<a href="taxonomyTree.cfm?action=manageLocalTree&dataset_name=#dataset_name#">manage these data in the classification tree editor</a>
-	</p>
-
-	<p>
-		<a href="taxonomyTree.cfm?action=deleteDataset&dataset_name=#dataset_name#">Delete this dataset</a>. This cannot be undone.
-	</p>
-
-
+		<hr>
+		<p>
+			If you've made some sort of horrible mistake, you may
+			<a href="taxonomyTree.cfm?action=deleteDataset&dataset_name=#dataset_name#">delete this dataset</a>. This cannot be undone.
+		</p>
+		<hr>
+		<p>
+			After the data have been edited into a satisfactory hierarchy, you may mark them for export to the classification bulkloader.
+			<p>
+				this needs more work before going live
+				<br>do this:
+				<br>update hierarchical_taxonomy set status='ready_to_push_bl' where dataset_id in (
+					select dataset_id from 	 htax_dataset where dataset_name='#dataset_name#'
+				)
+				<br>and make sure the task is in the scheduler
+			</p>
+		</p>
 
 
 
