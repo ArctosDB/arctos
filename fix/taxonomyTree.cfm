@@ -674,7 +674,13 @@ delete from hierarchical_taxonomy;
 			Source: <strong>#d.source#</strong>
 		</p>
 		<p>
-			comments: <strong>#d.comments#</strong>
+			<form id="f_ds_filter" method="post" action="taxonomyTree.cfm">
+				<input type="hidden" name="dataset_id" value="#d.dataset_id#">
+				<input type="hidden" name="dataset_name" value="#d.dataset_name#">
+				<input type="hidden" name="action" value="saveCommentUpdate">
+				<textarea name="comments" rows="50" cols="10">#d.comments#</textarea>
+				<br><input type="submit" value="save comment changes" class="savBtn">
+			</form>
 		</p>
 
 		<hr>
@@ -815,8 +821,19 @@ delete from hierarchical_taxonomy;
 
 
 </cfif>
-<!------------------------------------------------------------------------------------------------->
 
+
+
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "saveCommentUpdate">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update htax_dataset set comments='#comments#' where dataset_id='#dataset_id#'
+		</cfquery>
+		<cflocation url="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#" addtoken="false">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------->
 <cfif action is "noSuccessimport">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -961,9 +978,7 @@ delete from hierarchical_taxonomy;
 
 </cfif>
 <!------------------------------------------------------>
-
 <cfif action is "manageLocalTree">
-
 	<cfif not isdefined("dataset_name") or len(dataset_name) is 0>
 		bad call<cfabort>
 	</cfif>
@@ -973,8 +988,6 @@ delete from hierarchical_taxonomy;
 	<cfif did.recordcount is not 1>
 		bad call: recordset not found<cfabort>
 	</cfif>
-
-
 	<cfoutput>
 		<input type="hidden" name="dataset_id" id="dataset_id" value="#did.dataset_id#">
 	</cfoutput>
@@ -985,184 +998,72 @@ delete from hierarchical_taxonomy;
 	<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
 
 	<script>
-
-
-
-function deletedRecord(theID){
-	// deleted something
-	// remove it from the view
-	myTree.deleteItem(theID,false);
-	$("#statusDiv").html('delete successful');
-	$(".ui-dialog-titlebar-close").trigger('click');
-}
-
-function movedToNewParent(c,p){
-	// remove the child
-	myTree.deleteItem(c,false);
-	// expand the new parent
-	expandNode(p);
-	$("#statusDiv").html('move success');
-	$(".ui-dialog-titlebar-close").trigger('click');
-}
-
-
-function createdNewTerm(id){
-	//alert('am createdNewTerm have id=' + id);
-	//alert(' close the modal');
-	// close the modal
-	$(".ui-dialog-titlebar-close").trigger('click');
-	// expand the node
-	//alert(' closed the modal; expanding node');
-	expandNode(id);
-	//alert(' expanded;updatestatus');
-	// update status
-	$("#statusDiv").html('created new term');
-	myTree.selectItem(id);
-	myTree.focusItem(id);
-}
-function expandNode(id){
-	//alert('am expandNode');
-	$("#statusDiv").html('working...');
-    $.getJSON("/component/test.cfc",
-		{
-			method : "getTaxTreeChild",
-			dataset_id: $("#dataset_id").val(),
-			id : id,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (r) {
-			if (r.toString().substring(0,5)=='ERROR'){
-				$("#statusDiv").html(r);
-				alert(r);
-			} else {
-				for (i=0;i<r.ROWCOUNT;i++) {
-					//insertNewChild(var) does not work for some insane reason, so.....
-					// delete (if exists)
-					myTree.deleteItem(r.DATA.TID[i],false);
-
-					var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
-					eval(d);
-				}
-				$("#statusDiv").html('done');
-			}
+		function deletedRecord(theID){
+			// deleted something
+			// remove it from the view
+			myTree.deleteItem(theID,false);
+			$("#statusDiv").html('delete successful');
+			$(".ui-dialog-titlebar-close").trigger('click');
 		}
-	);
 
-		//alert('am expandNode DONE');
+		function movedToNewParent(c,p){
+			// remove the child
+			myTree.deleteItem(c,false);
+			// expand the new parent
+			expandNode(p);
+			$("#statusDiv").html('move success');
+			$(".ui-dialog-titlebar-close").trigger('click');
+		}
 
-}
+		function createdNewTerm(id){
+			//alert('am createdNewTerm have id=' + id);
+			//alert(' close the modal');
+			// close the modal
+			$(".ui-dialog-titlebar-close").trigger('click');
+			// expand the node
+			//alert(' closed the modal; expanding node');
+			expandNode(id);
+			//alert(' expanded;updatestatus');
+			// update status
+			$("#statusDiv").html('created new term');
+			myTree.selectItem(id);
+			myTree.focusItem(id);
+		}
+		function expandNode(id){
+			//alert('am expandNode');
+			$("#statusDiv").html('working...');
+		    $.getJSON("/component/test.cfc",
+				{
+					method : "getTaxTreeChild",
+					dataset_id: $("#dataset_id").val(),
+					id : id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					if (r.toString().substring(0,5)=='ERROR'){
+						$("#statusDiv").html(r);
+						alert(r);
+					} else {
+						for (i=0;i<r.ROWCOUNT;i++) {
+							//insertNewChild(var) does not work for some insane reason, so.....
+							// delete (if exists)
+							myTree.deleteItem(r.DATA.TID[i],false);
 
-
-
-function savedMetaEdit(tid,newVal){
-		//alert('t');
-		//alert('am parent t with tid=' + tid + ' i got newVal=' + newVal);
-
-		//onclick="var d=new Date(); myTree.setItemText(myTree.getSelectedItemId(),document.getElementById('ed1').value);"
-		//var myTree= window.parent.document.myTree;
-		myTree.setItemText(tid,newVal);
-
-		// now close the edit box
-		$("#statusDiv").html('term edits saved');
-
-		$(".ui-dialog-titlebar-close").trigger('click');
-
-	}
-
-		jQuery(document).ready(function() {
-
-			myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
-			myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
-
-
-			myTree.enableDragAndDrop(true);
-			myTree.enableCheckBoxes(true);
-			myTree.enableTreeLines(true);
-			myTree.enableTreeImages(false);
-			myTree.enableItemEditor(false);
-
-			initTree();
-
-
-			myTree.attachEvent("onCheck", function(id){
-			  //  alert('this should edit ' + id);
-
-
-			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
-				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
-					autoOpen: true,
-					closeOnEscape: true,
-					height: 'auto',
-					modal: true,
-					position: ['center', 'center'],
-					title: 'Edit Term',
-						width:800,
-			 			height:600,
-					close: function() {
-						$( this ).remove();
-					}
-				}).width(800-10).height(600-10);
-				$(window).resize(function() {
-					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-				});
-				$(".ui-widget-overlay").click(function(){
-				    $(".ui-dialog-titlebar-close").trigger('click');
-				});
-
-
-
-			    // uncheck everything
-			    var ids=myTree.getAllSubItems(0).split(",");
-	    		for (var i=0; i<ids.length; i++){
-	       			myTree.setCheck(ids[i],0);
-	    		}
-	    		//leave this checked for easy reference; uncheck on close
-			});
-
-
-			myTree.attachEvent("onDblClick", function(id){
-				expandNode(id);
-
-
-			});
-
-			myTree.attachEvent("onRightClick", function(id){
-				alert('right-click ' + id);
-				myTree.closeItem(id);
-			});
-
-			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
-				$("#statusDiv").html('working....');
-			    $.getJSON("/component/test.cfc",
-					{
-						method : "saveParentUpdate",
-						dataset_id: $("#dataset_id").val(),
-						tid : sId,
-						parent_tid : tId,
-						returnformat : "json",
-						queryformat : 'column'
-					},
-					function (r) {
-						console.log(r);
-						if (r=='success') {
-							$("#statusDiv").html('successful save');
-						}else{
-							alert(r);
-							$("#statusDiv").html(r);
+							var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
+							eval(d);
 						}
+						$("#statusDiv").html('done');
 					}
-				);
-			});
-			$( "#srch" ).change(function() {
-				performSearch();
-			});
-			$( "#srchBtn" ).click(function() {
-				performSearch();
-			});
-		});
-		// end ready function
+				}
+			);
+		}
 
+		function savedMetaEdit(tid,newVal){
+			myTree.setItemText(tid,newVal);
+			$("#statusDiv").html('term edits saved');
+			$(".ui-dialog-titlebar-close").trigger('click');
+		}
 
 		function performSearch(){
 			$("#statusDiv").html('working...');
@@ -1208,13 +1109,90 @@ function savedMetaEdit(tid,newVal){
 			$("#statusDiv").html('ready');
 		}
 
-	//tree.insertNewChild(0,1,"New Node 1",0,0,0,0,"SELECT,CALL,TOP,CHILD,CHECKED");
+		jQuery(document).ready(function() {
+			myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
+			myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
+			myTree.enableDragAndDrop(true);
+			myTree.enableCheckBoxes(true);
+			myTree.enableTreeLines(true);
+			myTree.enableTreeImages(false);
+			myTree.enableItemEditor(false);
+			initTree();
+			myTree.attachEvent("onCheck", function(id){
+			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
+				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
+					autoOpen: true,
+					closeOnEscape: true,
+					height: 'auto',
+					modal: true,
+					position: ['center', 'center'],
+					title: 'Edit Term',
+						width:800,
+			 			height:600,
+					close: function() {
+						$( this ).remove();
+					}
+				}).width(800-10).height(600-10);
+				$(window).resize(function() {
+					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+				});
+				$(".ui-widget-overlay").click(function(){
+				    $(".ui-dialog-titlebar-close").trigger('click');
+				});
+			    // uncheck everything
+			    var ids=myTree.getAllSubItems(0).split(",");
+	    		for (var i=0; i<ids.length; i++){
+	       			myTree.setCheck(ids[i],0);
+	    		}
+			});
+
+			myTree.attachEvent("onDblClick", function(id){
+				expandNode(id);
+			});
+
+			myTree.attachEvent("onRightClick", function(id){
+				myTree.closeItem(id);
+			});
+
+			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
+				$("#statusDiv").html('working....');
+			    $.getJSON("/component/test.cfc",
+					{
+						method : "saveParentUpdate",
+						dataset_id: $("#dataset_id").val(),
+						tid : sId,
+						parent_tid : tId,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (r) {
+						console.log(r);
+						if (r=='success') {
+							$("#statusDiv").html('successful save');
+						}else{
+							alert(r);
+							$("#statusDiv").html(r);
+						}
+					}
+				);
+			});
+
+			$( "#srch" ).change(function() {
+				performSearch();
+			});
+
+			$( "#srchBtn" ).click(function() {
+				performSearch();
+			});
+		});
+		// end ready function
 
 	</script>
 	<p>
-		Doubleclick terms to expand.
-		<br>Check the box to edit.
-		<br>Drag to re-order.
+		<strong>Doubleclick</strong> terms to expand.
+		<br><strong>Check</strong> the box to edit.
+		<br><strong>Drag</strong> to re-order.
+		<br><strong>Rightclick</strong> to close a node.
 		<br>All edits propagate to all children.
 		<br>Searches which return >1K records will fail; expand/browse instead.
 	</p>
@@ -1256,7 +1234,8 @@ function savedMetaEdit(tid,newVal){
 						select tid into pid from hierarchical_taxonomy where term='everything';
 						dbms_output.put_line(r.term);
 
-						insert into hierarchical_taxonomy (tid,parent_tid,term,rank) values (someRandomSequence.nextval,pid,r.term,'superkingdom');
+						insert into hierarchical_taxonomy (tid,parent_tid,term,rank) values (
+							someRandomSequence.nextval,pid,r.term,'superkingdom');
 
 					end loop;
 				end;
