@@ -328,8 +328,24 @@
 
 		</cfquery>
 		<p>
-			fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated errors can generally be ignored, but are occasionally an
-			indication of inconsistent data (eg, TERM is ranked family in some records and subfamily in others).
+			<ul>
+				<li>
+					fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated errors are an indication of inconsistent data
+					(eg, TERM is ranked family in some records and subfamily in others).
+				</li>
+				<li>
+					inserted_term errors are those in which all classification terms excepting scientific_name (which should always be
+					redundant with other terms) was inserted, but the taxon name does not exist as a term. These are due to missing
+					or garbage classifications and are indications that the hierarchy you are trying to manage is incomplete. For example,
+					given a trinomial name (Anas platyrhynchos domestic) with a malformed species (platyrhynchos domestic), the
+					term in hierarchy will be platyrhynchos domestic NOT Anas platyrhynchos domestic; you will not repatriate any
+					data for Anas platyrhynchos domestic. Fix the garbage data in Arctos-proper, delete, re-import or manually create
+					the missing terms. Plant-like names (imported from ITIS) will also cause these: "Lagopus leucurus subsp. saxatilis".
+				</li>
+
+
+			</ul>
+
 		</p>
 		<cfloop query="d">
 			<br>#status#: <a href="/name/#scientific_name#">#scientific_name#</a>
