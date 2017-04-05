@@ -325,7 +325,7 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
-<cfif action is "findInconsistenData">
+<cfif action is "findInconsistentData">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			TAXON_NAME_ID
@@ -376,8 +376,8 @@
 					(eg, TERM is ranked family in some records and subfamily in others, which cannnot happen in hierarchical data).
 					Hierarchical data is structurally-consistent so these inconsistencies will be resolved when the data are pushed back to Arctos.
 					<br>
-					<a href="taxonomyTree.cfm?action=findInconsistenData&dataset_name=#dataset_name#">
-						click here to locate the inconsitent data
+					<a href="taxonomyTree.cfm?action=findInconsistentData&dataset_name=#dataset_name#">
+						click here to locate the inconsistent data
 					</a>
 
 
