@@ -325,6 +325,22 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
+<cfif action is "findInconsistenData">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			TAXON_NAME_ID
+		from
+			htax_temp_hierarcicized
+		where
+			dataset_id=(select dataset_id from htax_dataset where dataset_name='#dataset_name#') and
+			status='fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated'
+	</cfquery>
+	<cfdump var=#d#>
+</cfif>
+
+
+
+<!------------------------------------------------------------------------------------------------->
 <cfif action is "noSuccessimport">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -357,15 +373,23 @@
 			<ul>
 				<li>
 					fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated errors are an indication of inconsistent data
-					(eg, TERM is ranked family in some records and subfamily in others).
+					(eg, TERM is ranked family in some records and subfamily in others, which cannnot happen in hierarchical data).
+					Hierarchical data is structurally-consistent so these inconsistencies will be resolved when the data are pushed back to Arctos.
+					<br>
+					<a href="taxonomyTree.cfm?action=findInconsistenData&dataset_name=#dataset_name#">
+						click here to locate the inconsitent data
+					</a>
+
+
 				</li>
 				<li>
 					inserted_term errors are those in which all classification terms excepting scientific_name (which should always be
-					redundant with other terms) was inserted, but the taxon name does not exist as a term. These are due to missing
+					redundant with other terms) was inserted, but the taxon name does not exist as a term (and so were not found
+					by the nonclassification-term-inserter). These are due to missing
 					or garbage classifications and are indications that the hierarchy you are trying to manage is incomplete. For example,
 					given a trinomial name (Anas platyrhynchos domestic) with a malformed species (platyrhynchos domestic), the
 					term in hierarchy will be platyrhynchos domestic NOT Anas platyrhynchos domestic; you will not repatriate any
-					data for Anas platyrhynchos domestic. Fix the garbage data in Arctos-proper, delete, re-import or manually create
+					data for Anas platyrhynchos domestic. Fix the garbage data in Arctos-proper+delete+re-import, or manually create
 					the missing terms. Plant-like names (imported from ITIS) will also cause these: "Lagopus leucurus subsp. saxatilis".
 				</li>
 
