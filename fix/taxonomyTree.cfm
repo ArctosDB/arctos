@@ -353,6 +353,7 @@
 				htax_temp_hierarcicized.taxon_name_id=taxon_name.TAXON_NAME_ID and
 				taxon_term.position_in_classification is not null and
 				taxon_term.source=htax_dataset.source
+		)
 	</cfquery>
 
 	<!----
