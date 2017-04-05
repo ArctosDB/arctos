@@ -232,6 +232,7 @@
 		<cfquery name="ht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
 		</cfquery>
+		<p>Statistics</p>
 		<table border>
 			<tr>
 				<th>Operation</th>
