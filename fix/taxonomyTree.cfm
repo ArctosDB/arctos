@@ -343,7 +343,7 @@
 			select
 				#dsid.dataset_id#,
 				term,
-				rank
+				term_type
 			from
 				taxon_term,
 				htax_temp_hierarcicized
