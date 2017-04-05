@@ -352,7 +352,8 @@
 				htax_temp_hierarcicized.status='fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated' and
 				htax_temp_hierarcicized.taxon_name_id=taxon_term.TAXON_NAME_ID and
 				taxon_term.position_in_classification is not null and
-				taxon_term.source='#dsid.source#'
+				taxon_term.source='#dsid.source#' and
+				taxon_term.term_type != 'scientific_name'
 		)
 	</cfquery>
 
