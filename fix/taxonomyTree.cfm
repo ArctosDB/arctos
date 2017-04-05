@@ -251,7 +251,13 @@
 				</td>
 				<td>
 					<cfloop query="nht_il">
-						<div>#status# : #c#</div>
+						<div>
+							<cfif status is "inserted_noclassterm">
+								SUCCESS : #c#
+							<cfelse>
+								#status# : #c#
+							</cfif>
+						</div>
 					</cfloop>
 					<p>
 						<a href="taxonomyTree.cfm?action=noSuccessimport&dataset_name=#dataset_name#">error detail</a>
