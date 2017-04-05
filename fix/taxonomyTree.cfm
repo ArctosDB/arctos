@@ -327,7 +327,7 @@
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "findInconsistentData">
 	<cfquery name="dsid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select dataset_id from htax_dataset where dataset_name='#dataset_name#'
+		select dataset_id,source from htax_dataset where dataset_name='#dataset_name#'
 	</cfquery>
 
 	<cfquery name="flush" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -352,7 +352,7 @@
 				htax_temp_hierarcicized.status='fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated' and
 				htax_temp_hierarcicized.taxon_name_id=taxon_name.TAXON_NAME_ID and
 				taxon_term.position_in_classification is not null and
-				taxon_term.source=htax_dataset.source
+				taxon_term.source='#dsid.source#'
 		)
 	</cfquery>
 
