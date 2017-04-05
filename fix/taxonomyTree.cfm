@@ -362,11 +362,28 @@
 		select distinct term,rank from htax_inconsistent_terms where term in (select term from  (select distinct term, rank from htax_inconsistent_terms) group by term having count(*) > 1) order by term,rank
 	</cfquery>
 	<cfoutput>
-	<cfloop query="dups">
-		<div>
-			#term# #rank#
-		</div>
-	</cfloop>
+		<table border>
+			<tr>
+				<td>Term</td>
+				<td>Rank</td>
+				<td>Arctos</td>
+			</tr>
+			<cfloop query="dups">
+				<tr>
+					<td>#term#</td>
+					<td>#rank#</td>
+					<td>
+						<div>
+							<a href="/taxonomy.cfm?taxon_term=#term#&term_type=%3D#rank#&source=#dsid.source#">search term+rank+source</a>
+						</div>
+						<div>
+							<a href="/taxonomy.cfm?taxon_term=#term#&source=#dsid.source#">search term+source</a>
+						</div>
+					</td>
+
+				</tr>
+			</cfloop>
+		</table>
 	</cfoutput>
 
 
