@@ -8,7 +8,7 @@
 <p>
 	<a href="taxonomyTree.cfm?action=nothing">home</a>
 </p>
-
+<!------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<p>
 		ABOUT:
@@ -44,8 +44,6 @@
 				with status set to autoinsert. That would fully automate repatriation. Check results THOROUGHLY first. </p>
 		</li>
 	</ul>
-
-
 	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct (dataset_name) from htax_dataset
 	</cfquery>
@@ -60,7 +58,7 @@
 		... or <a href="taxonomyTree.cfm?action=createDataset">create a new dataset</a>
 	</cfoutput>
 </cfif>
-
+<!------------------------------------------------------------------------------------------------->
 <cfif action is "createDataset">
 	<cfoutput>
 	Create a dataset. A dataset is a list of terms from an Arctos classification which will be made hierarchical, and accompanying metadata/
@@ -82,10 +80,10 @@
 		<label for="comments">comments</label>
 		<input type="text" name="comments" placeholder="comments">
 		<br><input type="submit" value="create dataset">
-
 	</form>
 	</cfoutput>
 </cfif>
+<!------------------------------------------------------------------------------------------------->
 <cfif action is "saveCreateDataset">
 	<cfquery name="saveCreateDataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into htax_dataset (
@@ -164,9 +162,11 @@
 		</p>
 
 		<hr>
-		Step One: Find records with which to "seed" the dataset. Large datasets (tested to 1.4m records) are manageable,
-		but come with performance limitations; you may need DBA assistance and a lot of memory. Smaller datasets are much
-		easier to work with. Consider limiting your query to around 50,000 names.
+		Step One: Find records with which to "seed" the dataset. Large datasets (tested to ~1m records) are manageable,
+		but come with performance limitations; the automated steps
+		(data to hierarchies, data to bulkloader, etc.) will take much longer (perhaps days) to complete, and your browser may
+		have difficulty processing larger trees. Smaller datasets are much
+		easier to work with. Consider limiting your query to around 50,000 names if possible.
 		<p>
 			Note that data in Arctos are independent; classifications are not related in any way.
 			This app will only update the records for which the taxon name
@@ -226,55 +226,65 @@
 		<cfquery name="nht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from htax_seed where dataset_id=#d.dataset_id#
 		</cfquery>
-		<p>
-			#nht.c# records have been seeded. You may add more (use the form above). Duplicates are disallowed (and Oracle bug
-			qerltcInsertSelectRop_bad_state prevents silently ignoring them) - contact us if you need help.
-		</p>
 		<cfquery name="nht_il" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select status,count(*) c from htax_temp_hierarcicized where dataset_id=#d.dataset_id# group by status order by status
 		</cfquery>
-		<p>
-			Import Status:
-		</p>
-		<cfloop query="nht_il">
-			<br>#status# : #c#
-		</cfloop>
-		<p>
-			<a href="taxonomyTree.cfm?action=noSuccessimport&dataset_name=#dataset_name#">list non-successful taxa with errors</a>.
-		</p>
-
-
 		<cfquery name="ht" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from hierarchical_taxonomy where dataset_id=#d.dataset_id#
 		</cfquery>
+		<table border>
+			<tr>
+				<th>Operation</th>
+				<th>Status</th>
+			</tr>
+			<tr>
+				<td>Seed</td>
+				<td>
+					#nht.c# records have been seeded. You may add more (use the form above). Duplicates are disallowed (and Oracle bug
+					qerltcInsertSelectRop_bad_state prevents silently ignoring them) - contact us if you need help.
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Import
+				</td>
+				<td>
+					<cfloop query="nht_il">
+						<div>#status# : #c#</div>
+					</cfloop>
+					<p>
+						<a href="taxonomyTree.cfm?action=noSuccessimport&dataset_name=#dataset_name#">error detail</a>
+						<br>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Funky Data
+				</td>
+				<td>
+					<div>
+						<a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">Click here</a>
+						to view records which are in your import but not in Arctos. These are classification
+						terms which do not exist as names and should be corrected or created.
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>hierarchical terms</td>
+				<td>
+					#ht.c# records are available to manage hierarchically. This should match seed count (#nht.c#);
+					if it doesn't, there are errors or the import scripts are still running.
+					 Reload or return to this page to see progress. If nothing changes for ~5 minutes it's probably done all that can be done,
+					 or something is stuck. Contact us if you need help.
+				</td>
+			</tr>
+		</table>
 
-		<cfquery name="procSuccess" dbtype="query">
-			select c from nht_il where status='success'
-		</cfquery>
-		<cfif ht.c gt procSuccess.c>
-			<p>
-				trying to create names.... The import has resulted in more terms than you seeded. Something is missing from
-				Arctos. This form will not create taxa. <a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">click here</a>
-			</p>
-		</cfif>
-		<cfif ht.c lt procSuccess.c>
-			<p>
-				 The import has resulted in fewer terms than you seeded.
-				 <a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">click here</a>
-				 and that needs added....
-
-			</p>
-		</cfif>
-
-		<p>
-			#ht.c# records are available to manage hierarchically. Everything you've seeded should match what's here.
-			 Reload or return to this page to see progress. If nothing changes for ~5 minutes it's probably done all that can be done,
-			 or something is stuck. Contact us if you need help.
-		</p>
 		<hr>
 
 		<p>
-			When you are done seeding, you may
+			When you are done seeding and the import scripts are done (numbers above have stopped changing), you may
 			<a href="taxonomyTree.cfm?action=manageLocalTree&dataset_name=#dataset_name#">manage these data in the classification tree editor</a>
 		</p>
 		<hr>
