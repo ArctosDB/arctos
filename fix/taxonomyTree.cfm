@@ -326,7 +326,37 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "findInconsistentData">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="dsid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select dataset_id from htax_dataset where dataset_name='#dataset_name#'
+	</cfquery>
+
+	<cfquery name="flush" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from htax_inconsistent_terms where dataset_id=#dsid.dataset_id#
+	</cfquery>
+
+	<cfquery name="repop" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into htax_inconsistent_terms (
+			dataset_id,
+			term,
+			rank
+		) (
+			select
+				#dsid.dataset_id#,
+				term,
+				rank
+			from
+				taxon_term,
+				htax_temp_hierarcicized
+			where
+				htax_temp_hierarcicized.dataset_id=#dsid.dataset_id# and
+				htax_temp_hierarcicized.status='fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated' and
+				htax_temp_hierarcicized.taxon_name_id=taxon_name.TAXON_NAME_ID and
+				taxon_term.position_in_classification is not null and
+				taxon_term.source=htax_dataset.source
+	</cfquery>
+
+	<!----
+	<cfquery name="repop" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			htax_temp_hierarcicized.TAXON_NAME_ID,
 			taxon_name.scientific_name,
@@ -347,6 +377,7 @@
 			taxon_term.source=htax_dataset.source
 	</cfquery>
 	<cfdump var=#d#>
+	---->
 </cfif>
 
 
