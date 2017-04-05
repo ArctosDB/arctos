@@ -338,12 +338,14 @@
 		insert into htax_inconsistent_terms (
 			dataset_id,
 			term,
-			rank
+			rank,
+			fkey
 		) (
 			select
 				#dsid.dataset_id#,
 				term,
-				term_type
+				term_type,
+				term || '|' || term_type
 			from
 				taxon_term,
 				htax_temp_hierarcicized
