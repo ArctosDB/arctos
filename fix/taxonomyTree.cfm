@@ -262,7 +262,7 @@
 						</div>
 					</cfloop>
 					<p>
-						<a href="taxonomyTree.cfm?action=noSuccessimport&dataset_name=#dataset_name#">error detail</a>
+
 						<br>
 					</p>
 				</td>
@@ -273,9 +273,19 @@
 				</td>
 				<td>
 					<div>
+						Various ways of finding unpredictable data. Expect overlap between these reports;
+						fix incrementally.
+					</div>
+					<div>
 						<a href="taxonomyTree.cfm?action=mismatch_import&dataset_name=#dataset_name#">Click here</a>
 						to view records which are in your import but not in Arctos. These are classification
 						terms which do not exist as names and should be corrected or created.
+					</div>
+					<div>
+						<a href="taxonomyTree.cfm?action=noSuccessimport&dataset_name=#dataset_name#">import error details</a>
+					</div>
+					<div>
+						<a href="taxonomyTree.cfm?action=seedMIA&dataset_name=#dataset_name#">Seeded taxa not in your dataset</a>
 					</div>
 				</td>
 			</tr>
@@ -315,6 +325,27 @@
 		</p>
 	</cfoutput>
 </cfif>
+						<a href="taxonomyTree.cfm?action=&dataset_name=#dataset_name#">Seeded taxa not in your dataset</a>
+
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "seedMIA">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				SCIENTIFIC_NAME
+			from
+				htax_seed
+			where
+				dataset_id=(select dataset_id from htax_dataset where dataset_name=#dataset_name#) and
+				SCIENTIFIC_NAME not in (
+					select term from hierarchical_taxonomy where dataset_id=(select dataset_id from htax_dataset where dataset_name=#dataset_name#)
+				)
+		</cfquery>
+		<cfdump var=#d#>
+	</cfoutput>
+</cfif>
+
+
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "saveCommentUpdate">
 	<cfoutput>
