@@ -336,9 +336,11 @@
 			from
 				htax_seed
 			where
-				dataset_id=(select dataset_id from htax_dataset where dataset_name=#dataset_name#) and
+				dataset_id=(select dataset_id from htax_dataset where dataset_name='#dataset_name#') and
 				SCIENTIFIC_NAME not in (
-					select term from hierarchical_taxonomy where dataset_id=(select dataset_id from htax_dataset where dataset_name=#dataset_name#)
+					select term from hierarchical_taxonomy where dataset_id=(
+						select dataset_id from htax_dataset where dataset_name='#dataset_name#'
+					)
 				)
 		</cfquery>
 		<cfdump var=#d#>
