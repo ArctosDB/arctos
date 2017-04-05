@@ -165,8 +165,10 @@
 		Step One: Find records with which to "seed" the dataset. Large datasets (tested to ~1m records) are manageable,
 		but come with performance limitations; the automated steps
 		(data to hierarchies, data to bulkloader, etc.) will take much longer (perhaps days) to complete, and your browser may
-		have difficulty processing larger trees. Smaller datasets are much
-		easier to work with. Consider limiting your query to around 50,000 names if possible.
+		have difficulty processing larger trees, and queries (eg, expanding nodes) are slow. Smaller datasets are much
+		easier to work with. Consider limiting your query to around 50,000 names if possible. Contact us to discuss
+		possible strategies.
+
 		<p>
 			Note that data in Arctos are independent; classifications are not related in any way.
 			This app will only update the records for which the taxon name
@@ -346,6 +348,11 @@
 				taxon_name.scientific_name
 
 		</cfquery>
+		<p>
+			These are terms you seeded or terms from the classifications of terms you seeded which were not successfully imported.
+			If you continue without these, you will ultimately exclude them from the final update and create inconsistent data in Arctos.
+
+		</p>
 		<p>
 			<ul>
 				<li>
