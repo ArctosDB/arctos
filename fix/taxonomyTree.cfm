@@ -687,7 +687,6 @@
 			$("#statusDiv").html('working...');
 			myTree.deleteChildItems(0);
 
-			/*
 			$.getJSON("/component/test.cfc",
 				{
 					method : "getTaxTreeSrch",
@@ -709,7 +708,6 @@
 					}
 				}
 			);
-			*/
 		}
 
 
