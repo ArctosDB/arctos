@@ -328,12 +328,23 @@
 <cfif action is "findInconsistentData">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			TAXON_NAME_ID
+			htax_temp_hierarcicized.TAXON_NAME_ID,
+			taxon_name.scientific_name,
+			taxon_term.term,
+			taxon_term.term_type
 		from
-			htax_temp_hierarcicized
+			htax_temp_hierarcicized,
+			htax_dataset,
+			taxon_name,
+			taxon_term
 		where
-			dataset_id=(select dataset_id from htax_dataset where dataset_name='#dataset_name#') and
-			status='fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated'
+			htax_temp_hierarcicized.dataset_id=htax_dataset.dataset_id and
+			htax_dataset.dataset_name='#dataset_name#' and
+			htax_temp_hierarcicized.status='fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated' and
+			htax_temp_hierarcicized.TAXON_NAME_ID=taxon_name.TAXON_NAME_ID and
+			taxon_name.TAXON_NAME_ID=taxon_term.TAXON_NAME_ID and
+			taxon_term.position_in_classification is not null and
+			taxon_term.source=htax_dataset.source
 	</cfquery>
 	<cfdump var=#d#>
 </cfif>
