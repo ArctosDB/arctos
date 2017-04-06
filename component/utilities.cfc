@@ -66,11 +66,12 @@
 					</cfif>
 				</cfloop>
 				<br>sst=#sst#
+				<br>v_species=#v_species#
 
 				<cfif len(sst) gt 0>
 					<cfset itrm=replace(sst,v_species,'')>
-				<br>sst=#sst#
-					<cfset gdn=gdn & ' <i>#sst#</i>'>
+				<br>itrm=#itrm#
+					<cfset gdn=gdn & ' <i>#itrm#</i>'>
 				</cfif>
 				<cfif len(v_infraspecific_author) gt 0>
 					<cfset gdn=gdn & ' ' & v_infraspecific_author>
