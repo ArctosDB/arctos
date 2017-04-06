@@ -212,6 +212,15 @@
 							</option>
 						</cfloop>
 					</select>
+				<cfelseif t.term_type is "valid_catalog_term_fg">
+					<cfif not listcontains('0,1',t.term_value)>
+						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value or
+						THIS WILL BE DELETED ON SAVE!!
+					</cfif>
+					<select name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#">
+						<option <cfif t.term_value is "0"> selected="selected" </cfif>value="0">0</option>
+						<option <cfif t.term_value is "1"> selected="selected" </cfif>value="1">1</option>
+					</select>
 				<cfelse>
 					<input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#" size="60">
 				</cfif>
