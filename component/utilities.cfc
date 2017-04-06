@@ -40,6 +40,11 @@
 		<!--- start at the right, add stuff on until we have something ---->
 		<cfif formatstyle is "plant">
 			<br>imaplant
+			<!--- start at the right, work our way left ---->
+			<cfif len(v_infraspecific_author) gt 0>
+				<cfset gdn=v_infraspecific_author>
+			</cfif>
+
 		<cfelse>
 			<!---
 				default, I suppose....
