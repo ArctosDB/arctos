@@ -40,6 +40,7 @@
 		<!--- start at the right, add stuff on until we have something ---->
 		<cfif formatstyle is "plant">
 			<br>imaplant
+
 			<!--- start at the right, work our way left ---->
 			<cfif len(v_infraspecific_author) gt 0>
 				<cfset gdn=v_infraspecific_author>
@@ -60,7 +61,15 @@
 					</cfif>
 				</cfif>
 			</cfloop>
-
+			<cfif len(sst) gt 0>
+				<!--- if there's an infraspecific term then there should be a species too --->
+				<cfif len(v_species) gt 0>
+					<cfset ift=replace(sst,v_species)>
+					<br>ift: #ift#
+				<cfelse>
+					<br>weirdness - fail
+				</cfif>
+			</cfif>
 			<br>sst: #sst#
 		<cfelse>
 			<!---
