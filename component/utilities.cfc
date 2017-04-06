@@ -2,6 +2,7 @@
 <cffunction name="generateDisplayName" returnType="string" access="remote">
 	<cfargument name="cid" type="string" required="yes">
 	<cfoutput>
+		<cftry>
 		<cfset nomencode=''>
 		<cfset r=structNew()>
 		<cfquery name="ct" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
@@ -53,7 +54,6 @@
 			<cfelseif len(v_scientific_name) gt 0>
 				<cfset gdn=v_scientific_name>
 			<cfelse>
-
 				<!---- lowest-ranked term, no italics ---->
 				<cfquery name="genusrank" dbtype="query">
 					select RELATIVE_POSITION from ct where taxon_term='genus'
@@ -73,14 +73,9 @@
 						</cfif>
 					</cfif>
 				</cfloop>
-
-
-
 			</cfif>
-
 			<cfif len(v_author_text) gt 0>
 				<cfset gdn=gdn & ' ' & v_author_text>
-
 			</cfif>
 
 		</cfif>
@@ -112,6 +107,10 @@
 		<cfdump var=#d#>
 
 		<p></p>gdn=#gdn#
+		<cfcatch>
+			choke-n-die<cfdump var=#ccatch#>
+		</cfcatch>
+		</cftry>
 	</cfoutput>
 </cffunction>
 
