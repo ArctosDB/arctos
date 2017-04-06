@@ -3,9 +3,38 @@
 	<cfargument name="cid" type="string" required="yes">
 	<cfoutput>
 		<cfset nomencode=''>
-		<cfquery name="d" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-			select * from taxon_term where classification_id='#cid#'
+		<cfset r=structNew()>
+		<cfquery name="ct" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+			select * from cttaxon_term
 		</cfquery>
+		<!--- establish variables --->
+		<cfloop query="ct">
+			<cfset "v_#TAXON_TERM#"=''>
+		</cfloop>
+
+		<cfquery name="d" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+			select term,term_type from taxon_term where classification_id='#cid#'
+		</cfquery>
+		<!--- set variables --->
+		<cfloop query="d">
+			<cfset "v_#term_type#"=term>
+		</cfloop>
+
+		<cfset formatstyle=''>
+		<cfif v_nomenclatural_code is "ICBN">
+			<cfset formatstyle='plant'>
+		<cfelseif v_nomenclatural_code is "ICZN">
+			<cfset formatstyle='animal'>
+		<cfelseif v_kingdom is "Plantae">
+			<cfset formatstyle='plant'>
+		<cfelseif v_kingdom is "Animalia">
+			<cfset formatstyle='planimalant'>
+		</cfif>
+
+		<p>
+			formatstyle: #formatstyle#
+		</p>
+		<!----------
 		<cfquery name="nomenclatural_code" dbtype="query">
 			select distinct term from d where term_type='nomenclatural_code'
 		</cfquery>
@@ -22,9 +51,14 @@
 			</cfif>
 		</cfif>
 		<cfif len(nomencode) gt 0>
-			<!--- if we didn't get a nomenclatural_code we can't do anything here ---->
 			<br>nomencode=#nomencode# rock on....
+
+		<cfelse>
+			<!--- if we didn't get a nomenclatural_code we can't do much here ---->
+			<br>no nomencode
+
 		</cfif>
+		-------->
 		<cfdump var=#d#>
 	</cfoutput>
 </cffunction>
