@@ -1,6 +1,6 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select taxon_term from cttaxon_term order by taxon_term
+	select * from cttaxon_term
 </cfquery>
 <cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
