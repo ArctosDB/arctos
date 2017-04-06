@@ -5,7 +5,7 @@
 		<cftry>
 		<cfset nomencode=''>
 		<cfset r=structNew()>
-		<cfquery name="ct" datasource="uam_god">
+		<cfquery name="ct" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select * from cttaxon_term
 		</cfquery>
 		<!--- establish variables --->
@@ -13,7 +13,7 @@
 			<cfset "v_#TAXON_TERM#"=''>
 		</cfloop>
 
-		<cfquery name="d" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+		<cfquery name="d" datasource="uam_god">
 			select term,term_type from taxon_term where classification_id='#cid#'
 		</cfquery>
 		<!--- set variables --->
