@@ -71,7 +71,7 @@
 			</cfif>
 			<!--- genus separate, because italics ---->
 			<cfif len(gdn) is 0 and len(v_genus) gt 0>
-				<cfset gdn'<i>#v_genus#</i>'>
+				<cfset gdn='<i>#v_genus#</i>'>
 				<cfif len(v_author_text) gt 0>
 					<cfset gdn=gdn & ' #v_author_text#'>
 				</cfif>
