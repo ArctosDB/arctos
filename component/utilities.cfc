@@ -58,7 +58,7 @@
 
 				<cfquery name="abovegenusclasterms" dbtype="query">
 					select taxon_term from ct where RELATIVE_POSITION
-						RELATIVE_POSITION is not null and
+						len(RELATIVE_POSITION) gt 0 and
 						RELATIVE_POSITION < #genusrank.RELATIVE_POSITION#
 						order by RELATIVE_POSITION
 				</cfquery>
