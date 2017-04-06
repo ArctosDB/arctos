@@ -171,8 +171,6 @@
 			</td>
 		</tr>
 	</table>
-
-
 		<p>
 			Term Metadata
 		</p>
@@ -185,6 +183,9 @@
 	<cfloop query="t">
 		<tr>
 			<td>
+				<cfif not(listcontainsnocase,valuelist(nc.taxon_term),t.term_type)>
+					!!! CAUTTION !! Term-type not in code table! Pick a valid value or THIS WILL BE DELETED ON SAVE!!
+				</cfif>
 				<select name="nctermtype_#nc_tid#" id="nctermtype_#nc_tid#">
 					<option value='DELETE'>DELETE</option>
 					<cfloop query="nc">
