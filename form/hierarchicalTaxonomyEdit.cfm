@@ -208,7 +208,7 @@
 						<cfloop query="ctnomenclatural_code">
 							<option value="#nomenclatural_code#"
 								<cfif t.term_value is nomenclatural_code> selected="selected" </cfif> >
-								#t.term_value#
+								#nomenclatural_code#
 							</option>
 						</cfloop>
 					</select>
