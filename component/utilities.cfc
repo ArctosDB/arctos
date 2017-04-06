@@ -52,16 +52,16 @@
 			<cfloop query="ct">
 				<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
 				<cfif len(ct.RELATIVE_POSITION) gt 0 and ct.RELATIVE_POSITION gt sprank.RELATIVE_POSITION and len(sst) is 0>
-						using this...
+					using this...
 
-						<!----
-						<cfif len("v_#taxon_term#") gt 0>
-							<br>got this one
-							<cfset gdn=evaluate("v_" & taxon_term)>
-						</cfif>
-						---->
+					<cfif len("v_#taxon_term#") gt 0>
+						<br>got this one
+						<cfset sst=evaluate("v_" & taxon_term)>
 					</cfif>
-				</cfloop>
+				</cfif>
+			</cfloop>
+
+			<br>sst: #sst#
 		<cfelse>
 			<!---
 				default, I suppose....
