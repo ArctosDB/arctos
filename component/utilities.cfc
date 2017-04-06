@@ -68,7 +68,8 @@
 				<br>sst=#sst#
 
 				<cfif len(sst) gt 0>
-
+					<cfset itrm=replace(sst,v_species,'')>
+				<br>sst=#sst#
 					<cfset gdn=gdn & ' <i>#sst#</i>'>
 				</cfif>
 				<cfif len(v_infraspecific_author) gt 0>
