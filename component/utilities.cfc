@@ -71,6 +71,16 @@
 				<cfif len(sst) gt 0>
 					<cfset itrm=replace(sst,v_species,'')>
 				<br>itrm=#itrm#
+
+					<cfif listlen(itrm,' ') gt 0>
+						<!--- the last item is a name and needs italicized. The rest is rank stuff and does NOT need italicized. ---->
+						<cfset ttrm=listlast(itrm,' ')>
+						<cfset nttrm=listDeleteAt(itrm,listlen(itrm,' '),' ')>
+
+						<br>
+						<br>ttrm: #ttrm#
+						<br>nttrm: #nttrm#
+					</cfif>
 					<cfset gdn=gdn & ' <i>#itrm#</i>'>
 				</cfif>
 
