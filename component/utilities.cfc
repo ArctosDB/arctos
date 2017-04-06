@@ -50,10 +50,8 @@
 				<cfset gdn='<i>#v_species#</i>'>
 			<cfelseif len(v_genus) gt 0>
 				<cfset gdn='<i>#v_genus#</i>'>
-			<!----
 			<cfelseif len(v_scientific_name) gt 0>
-				<c fset gdn=v_scientific_name>
-				---->
+				<cfset gdn=v_scientific_name>
 			<cfelse>
 
 				<!---- lowest-ranked term, no italics ---->
