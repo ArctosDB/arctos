@@ -72,7 +72,10 @@
 <cffunction name="deleteTerm" access="remote">
 	<cfargument name="id" type="numeric" required="true">
 	<cfoutput>
+		<cftry>
 		<cftransaction>
+
+			<cfset 1=2>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from hierarchical_taxonomy where tid=#id#
 			</cfquery>
@@ -94,6 +97,10 @@
 			</cfquery>
 		</cftransaction>
 		<cfreturn 'success'>
+		<cfcatch>
+			<cfreturn 'FAIL: ' & cfcatch.message & '; ' & cfcatch.detail >
+		</cfcatch>
+		</cftry>
 	</cfoutput>
 </cffunction>
 
