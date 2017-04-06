@@ -64,7 +64,7 @@
 			<cfif len(sst) gt 0>
 				<!--- if there's an infraspecific term then there should be a species too --->
 				<cfif len(v_species) gt 0>
-					<cfset ift=replace(sst,v_species)>
+					<cfset ift=replace(sst,v_species,'')>
 					<br>ift: #ift#
 				<cfelse>
 					<br>weirdness - fail
