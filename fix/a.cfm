@@ -39,7 +39,7 @@ insert into temp_dnametest (
 
 
 select
-	'"' || display_name || '"---->"' || gdisplay_name || '"'
+	'"' || display_name || '"' || chr(9) || chr(9) || chr(9) || '"' || gdisplay_name || '"'
 from
 	temp_dnametest where
 	gdisplay_name not like 'ERROR%' and gdisplay_name is not null and display_name!=gdisplay_name;
