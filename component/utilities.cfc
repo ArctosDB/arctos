@@ -43,12 +43,9 @@
 				<cfquery name="sprank" dbtype="query">
 					select RELATIVE_POSITION from ct where taxon_term='species'
 				</cfquery>
-
-
 				<cfset sst=''>
 				<cfloop query="ct">
 					<cfif len(ct.RELATIVE_POSITION) gt 0 and ct.RELATIVE_POSITION gt sprank.RELATIVE_POSITION and len(sst) is 0>
-
 						<cfif len("v_#taxon_term#") gt 0>
 							<cfset sst=evaluate("v_" & taxon_term)>
 						</cfif>
@@ -56,14 +53,13 @@
 				</cfloop>
 				<cfif len(sst) gt 0>
 					<cfset itrm=replace(sst,v_species,'')>
-
 					<cfif listlen(itrm,' ') gt 0>
 						<!--- the last item is a name and needs italicized. The rest is rank stuff and does NOT need italicized. ---->
 						<cfset ttrm=listlast(itrm,' ')>
 						<cfset nttrm=listDeleteAt(itrm,listlen(itrm,' '),' ')>
 
 						<cfset gdn=gdn & ' #nttrm# <i>#ttrm#</i>'>
-					<cfelse>
+					<cfelseif len(itrm) gt 0>
 						<!--- shuold never, but whatever --->
 						<cfset gdn=gdn & ' <i>#itrm#</i>'>
 					</cfif>
