@@ -43,14 +43,17 @@ select display_name || '---->' || gdisplay_name from temp_dnametest where gdispl
 <cfoutput>
 	<cftransaction>
 	<cfloop query="d">
-		<br>scientific_name=#scientific_name#
-		<br>display_name=<pre>#display_name#</pre>
+
 		<cfset x=utilities.generateDisplayName(cid)>
 		<cfif len(x) is 0>
 			<cfset x='NORETURN'>
 		</cfif>
-		<br>x=<pre>#x#</pre>
 
+	<!----
+		<br>scientific_name=#scientific_name#
+		<br>display_name=<pre>#display_name#</pre>
+		<br>x=<pre>#x#</pre>
+		--->
 		<cfif x is not display_name>
 			<br>NOMATCH!!
 		</cfif>
