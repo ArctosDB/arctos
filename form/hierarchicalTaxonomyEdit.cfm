@@ -103,7 +103,6 @@
 		var frm=$("#tEditFrm").serialize();
 		//console.log(frm);
 		// save metadata
-		alert('here we go');
 		 $.getJSON("/component/test.cfc",
 				{
 					method : "saveMetaEdit",
@@ -115,17 +114,16 @@
 				},
 				function (r) {
 
-					alert(r);
 
 					//console.log(r);
-					//if (r=='success'){
+					if (r=='success'){
 
 						//alert('back; update parent and close if success');
 						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-					//	parent.savedMetaEdit(theID,newVal);
-					//} else {
-					//	alert(r);
-					//}
+						parent.savedMetaEdit(theID,newVal);
+					} else {
+						alert(r);
+					}
 				}
 			);
 
