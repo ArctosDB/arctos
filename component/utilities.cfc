@@ -166,7 +166,7 @@
 
 
 
-		<cfreturn gdn>
+		<cfreturn trim(gdn)>
 
 		<cfcatch>
 			choke-n-die<cfdump var=#cfcatch#>

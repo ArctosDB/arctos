@@ -34,7 +34,7 @@ insert into temp_dnametest (
 	);
 
 
-select display_name || '---->' || gdisplay_name from temp_dnametest where gdisplay_name is not null and display_name!=gdisplay_name;
+select '"' || display_name || '"---->"' || gdisplay_name || '"' from temp_dnametest where gdisplay_name is not null and display_name!=gdisplay_name;
 
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource="uam_god">
