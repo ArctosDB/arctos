@@ -1,4 +1,16 @@
 <cfcomponent>
+<cffunction name="generateDisplayName" returnType="string" access="remote">
+	<cfargument name="cid" type="numeric" required="yes">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+			select * from taxon_term where classification_id=#cid#
+		</cfquery>
+		<cfdump var=#d#>
+	</cfoutput>
+</cffunction>
+
+
+
 <cffunction name="getBlacklistHistory" returnType="string" access="remote">
 	<cfargument name="ip" required="yes">
 	<!---- look up blacklist history; return email-safe HTML ---->
