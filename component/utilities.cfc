@@ -80,8 +80,11 @@
 						<br>
 						<br>ttrm: #ttrm#
 						<br>nttrm: #nttrm#
+						<cfset gdn=gdn & ' #nttrm# <i>#ttrm#</i>'>
+					<cfelse>
+						<!--- shuold never, but whatever --->
+						<cfset gdn=gdn & ' <i>#itrm#</i>'>
 					</cfif>
-					<cfset gdn=gdn & ' <i>#itrm#</i>'>
 				</cfif>
 
 				<br>beforev==gdn=#gdn#
