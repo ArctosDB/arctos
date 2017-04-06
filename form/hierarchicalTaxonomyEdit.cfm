@@ -101,7 +101,7 @@
 		var theID=$("#tid").val();
 		var newVal=$("#term").val() + ' (' + $("#rank").val() + ')';
 		var frm=$("#tEditFrm").serialize();
-		console.log(frm);
+		//console.log(frm);
 		// save metadata
 
 		 $.getJSON("/component/test.cfc",
@@ -117,15 +117,15 @@
 
 					console.log('back');
 
-					console.log(r);
-					if (r=='success'){
+					//console.log(r);
+					//if (r=='success'){
 
 						//alert('back; update parent and close if success');
 						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-						parent.savedMetaEdit(theID,newVal);
-					} else {
-						alert(r);
-					}
+					//	parent.savedMetaEdit(theID,newVal);
+					//} else {
+					//	alert(r);
+					//}
 				}
 			);
 
