@@ -161,7 +161,7 @@
 		-------->
 
 		<cfset gdn=trim(replace(gdn,'<i></i>','','all'))>
-
+		 <cfset gdn=reReplace(gdn,"\s+"," ","All")>
 		<cfreturn gdn>
 
 		<cfcatch>
