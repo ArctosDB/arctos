@@ -1,6 +1,9 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select * from cttaxon_term
+	select taxon_term from cttaxon_term order by taxon_erm
+</cfquery>
+<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
 </cfquery>
 <cfquery name="c" dbtype="query">
 	select TAXON_TERM from cttaxon_term where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
@@ -184,7 +187,8 @@
 		<tr>
 			<td>
 				<cfif not listcontainsnocase(valuelist(nc.taxon_term),t.term_type)>
-					!!! CAUTTION !! Term-type <strong>#t.term_type#</strong> is not in code table! Pick a valid value or THIS WILL BE DELETED ON SAVE!!
+					!!! CAUTTION !! Term-type <strong>#t.term_type#</strong> is not valid!
+					Pick a valid value or THIS WILL BE DELETED ON SAVE!!
 				</cfif>
 				<select name="nctermtype_#nc_tid#" id="nctermtype_#nc_tid#">
 					<option value='DELETE'>DELETE</option>
@@ -193,7 +197,24 @@
 					</cfloop>
 				</select>
 			</td>
-			<td><input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#" size="60"></td>
+			<td>
+				<cfif t.term_type is "nomenclatural_code">
+					<cfif not listcontains(valuelist(ctnomenclatural_code.nomenclatural_code),t.term_value)>
+						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value or
+						THIS WILL BE DELETED ON SAVE!!
+					</cfif>
+
+					<select name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#">
+						<cfloop query="ctnomenclatural_code">
+							<option value="#nomenclatural_code#"
+								<cfif t.term_value is nomenclatural_code> selected="selected" </cfif> >
+							#t.term_value#</option>
+						</cfloop>
+					</select>
+				<cfelse>
+					<input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#" size="60">
+				</cfif>
+			</td>
 		</tr>
 	</cfloop>
 	<cfloop from="1" to="10" index="i">
