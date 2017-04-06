@@ -38,9 +38,13 @@ insert into temp_dnametest (
 	);
 
 
-select '"' || display_name || '"---->"' || gdisplay_name || '"' from temp_dnametest where gdisplay_name is not null and display_name!=gdisplay_name;
+select
+	'"' || display_name || '"---->"' || gdisplay_name || '"'
+from
+	temp_dnametest where
+	gdisplay_name not like 'ERROR%' and gdisplay_name is not null and display_name!=gdisplay_name;
 
-update temp_dnametest set gdisplay_name=null where gdisplay_name!=display_name;
+update temp_dnametest set gdisplay_name=null where gdisplay_name not like 'ERROR%' and gdisplay_name!=display_name;
 
 
 create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1;
@@ -48,7 +52,7 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource="uam_god">
-	select * from temp_dnametest where gdisplay_name is null and rownum<1000
+	select * from temp_dnametest where gdisplay_name is null and rownum<10000
 </cfquery>
 <cfoutput>
 	<cftransaction>
@@ -63,10 +67,11 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 		<br>scientific_name=#scientific_name#
 		<br>display_name=<pre>#display_name#</pre>
 		<br>x=<pre>#x#</pre>
-		--->
-		<cfif x is not display_name>
+			<cfif x is not display_name>
 			<br>NOMATCH!!
 		</cfif>
+		--->
+
 		<cfquery name="b" datasource="uam_god">
 			update temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id#
 		</cfquery>
