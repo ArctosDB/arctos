@@ -169,7 +169,7 @@
 		<cfreturn trim(gdn)>
 
 		<cfcatch>
-			<cfreturn 'ERROR: ' & cfcatch.msg>
+			<cfreturn 'ERROR: ' & cfcatch.message>
 		</cfcatch>
 		</cftry>
 	</cfoutput>

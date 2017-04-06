@@ -14,13 +14,17 @@ create table temp_dnametest (
 -- only get stuff with display name
 -- for stuff that doesn't match, figure out why
 
+
+delete from temp_dnametest where gdisplay_name is null;
+
+
 insert into temp_dnametest (
 	taxon_name_id,
 	scientific_name,
 	display_name,
 	cid
 ) (
-	select
+	select distinct
 		taxon_term.taxon_name_id,
 		taxon_name.scientific_name,
 		taxon_term.term display_name,
@@ -35,6 +39,12 @@ insert into temp_dnametest (
 
 
 select '"' || display_name || '"---->"' || gdisplay_name || '"' from temp_dnametest where gdisplay_name is not null and display_name!=gdisplay_name;
+
+update temp_dnametest set gdisplay_name=null where gdisplay_name!=display_name;
+
+
+create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1;
+
 
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource="uam_god">
