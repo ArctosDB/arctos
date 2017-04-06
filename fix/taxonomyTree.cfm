@@ -325,8 +325,6 @@
 		</p>
 	</cfoutput>
 </cfif>
-						<a href="taxonomyTree.cfm?action=&dataset_name=#dataset_name#">Seeded taxa not in your dataset</a>
-
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "seedMIA">
 	<cfoutput>
@@ -343,11 +341,13 @@
 					)
 				)
 		</cfquery>
-		<cfdump var=#d#>
+		<cfloop query="">
+			<div>
+				<a href="/name/#SCIENTIFIC_NAME#">#SCIENTIFIC_NAME#</a>
+			</div>
+		</cfloop>
 	</cfoutput>
 </cfif>
-
-
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "saveCommentUpdate">
 	<cfoutput>
