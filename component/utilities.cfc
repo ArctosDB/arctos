@@ -65,8 +65,8 @@
 				<cfdump var=#abovegenusclasterms#>
 			</cfif>
 
-			<cfif len(v_genus) gt 0>
-				<!--- sorta normal ---->
+			<cfif len(v_author_text) gt 0>
+				<cfset gdn=gdn & ' ' & v_author_text>
 
 			</cfif>
 
@@ -97,6 +97,8 @@
 		</cfif>
 		-------->
 		<cfdump var=#d#>
+
+		<p></p>gdn=#gdn#
 	</cfoutput>
 </cffunction>
 
