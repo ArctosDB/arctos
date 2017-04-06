@@ -169,7 +169,7 @@
 		<cfreturn trim(gdn)>
 
 		<cfcatch>
-			choke-n-die<cfdump var=#cfcatch#>
+			<cfreturn 'ERROR: ' & cfcatch.msg>
 		</cfcatch>
 		</cftry>
 	</cfoutput>
