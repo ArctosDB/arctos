@@ -4,7 +4,6 @@
 	<cfoutput>
 		<cftry>
 		<cfset nomencode=''>
-		<cfset r=structNew()>
 		<cfquery name="ct" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select * from cttaxon_term
 		</cfquery>
@@ -31,15 +30,9 @@
 		<cfelseif v_kingdom is "Animalia">
 			<cfset formatstyle='planimalant'>
 		</cfif>
-
-		<p>
-			formatstyle: #formatstyle#
-		</p>
-
 		<cfset gdn=''>
 		<!--- start at the right, add stuff on until we have something ---->
 		<cfif formatstyle is "plant">
-			<br>imaplant
 			<cfif len(v_species) gt 0>
 				<!--- most common, deal with it and leave when we can ---->
 				<cfset gdn='<i>#v_species#</i>'>
@@ -52,34 +45,23 @@
 				</cfquery>
 
 
-				<br>beforesst gdn=#gdn#
 				<cfset sst=''>
 				<cfloop query="ct">
-					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
 					<cfif len(ct.RELATIVE_POSITION) gt 0 and ct.RELATIVE_POSITION gt sprank.RELATIVE_POSITION and len(sst) is 0>
-						using this...
 
 						<cfif len("v_#taxon_term#") gt 0>
-							<br>got this one
 							<cfset sst=evaluate("v_" & taxon_term)>
 						</cfif>
 					</cfif>
 				</cfloop>
-				<br>sst=#sst#
-				<br>v_species=#v_species#
-
 				<cfif len(sst) gt 0>
 					<cfset itrm=replace(sst,v_species,'')>
-				<br>itrm=#itrm#
 
 					<cfif listlen(itrm,' ') gt 0>
 						<!--- the last item is a name and needs italicized. The rest is rank stuff and does NOT need italicized. ---->
 						<cfset ttrm=listlast(itrm,' ')>
 						<cfset nttrm=listDeleteAt(itrm,listlen(itrm,' '),' ')>
 
-						<br>
-						<br>ttrm: #ttrm#
-						<br>nttrm: #nttrm#
 						<cfset gdn=gdn & ' #nttrm# <i>#ttrm#</i>'>
 					<cfelse>
 						<!--- shuold never, but whatever --->
@@ -87,12 +69,9 @@
 					</cfif>
 				</cfif>
 
-				<br>beforev==gdn=#gdn#
 				<cfif len(v_infraspecific_author) gt 0>
 					<cfset gdn=gdn & ' ' & v_infraspecific_author>
 				</cfif>
-				<br>afterv
-				==gdn=#gdn#
 			</cfif>
 			<!--- genus separate, because italics ---->
 			<cfif len(gdn) is 0 and len(v_genus) gt 0>
@@ -114,9 +93,7 @@
 					select RELATIVE_POSITION from ct where taxon_term='genus'
 				</cfquery>
 				<cfloop query="ct">
-					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
 					<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt genusrank.RELATIVE_POSITION and len(gdn) is 0>
-						using this...
 						<cfif len("v_#taxon_term#") gt 0>
 							<br>got this one
 							<cfset gdn=evaluate("v_" & taxon_term)>
@@ -147,7 +124,6 @@
 				</cfquery>
 
 				<cfloop query="ct">
-					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
 					<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt genusrank.RELATIVE_POSITION and len(gdn) is 0>
 						using this...
 						<cfif len("v_#taxon_term#") gt 0>
@@ -187,9 +163,11 @@
 
 		</cfif>
 		-------->
-		<cfdump var=#d#>
 
-		<p></p>gdn=#gdn#
+
+
+		<cfreturn gdn>
+
 		<cfcatch>
 			choke-n-die<cfdump var=#cfcatch#>
 		</cfcatch>
