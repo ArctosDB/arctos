@@ -50,6 +50,9 @@
 				<cfquery name="sprank" dbtype="query">
 					select RELATIVE_POSITION from ct where taxon_term='species'
 				</cfquery>
+
+
+				<br>beforesst gdn=#gdn#
 				<cfset sst=''>
 				<cfloop query="ct">
 					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
@@ -62,7 +65,10 @@
 						</cfif>
 					</cfif>
 				</cfloop>
+				<br>sst=#sst#
+
 				<cfif len(sst) gt 0>
+
 					<cfset gdn=gdn & ' <i>#sst#</i>'>
 				</cfif>
 				<cfif len(v_infraspecific_author) gt 0>
