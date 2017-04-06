@@ -71,7 +71,7 @@
 						using this...
 						<cfif len("v_#taxon_term#") gt 0>
 							<br>got this one
-							<cfset gdn="v_#taxon_term#">
+							<cfset gdn=evaluate("v_" & taxon_term)>
 						</cfif>
 					</cfif>
 				</cfloop>
