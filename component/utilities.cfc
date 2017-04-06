@@ -67,7 +67,7 @@
 				<cfdump var=#abovegenusclasterms#>
 				<cfloop query="abovegenusclasterms">
 					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
-					<cfif RELATIVE_POSITION lt #genusrank.RELATIVE_POSITION#>
+					<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt #genusrank.RELATIVE_POSITION#>
 						using this...
 						<cfif len("v_#taxon_term#") gt 0>
 							<br>got this one
