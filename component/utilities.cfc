@@ -95,22 +95,24 @@
 					<cfset gdn=gdn & ' #v_author_text#'>
 				</cfif>
 			</cfif>
-			<!---- if we STILL didn't get anything, grab the lowest term ---->
-			<cfquery name="genusrank" dbtype="query">
-				select RELATIVE_POSITION from ct where taxon_term='genus'
-			</cfquery>
-			<cfloop query="ct">
-				<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
-				<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt genusrank.RELATIVE_POSITION and len(gdn) is 0>
-					using this...
-					<cfif len("v_#taxon_term#") gt 0>
-						<br>got this one
-						<cfset gdn=evaluate("v_" & taxon_term)>
+			<cfif len(gdn) is 0>
+				<!---- if we STILL didn't get anything, grab the lowest term ---->
+				<cfquery name="genusrank" dbtype="query">
+					select RELATIVE_POSITION from ct where taxon_term='genus'
+				</cfquery>
+				<cfloop query="ct">
+					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
+					<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt genusrank.RELATIVE_POSITION and len(gdn) is 0>
+						using this...
+						<cfif len("v_#taxon_term#") gt 0>
+							<br>got this one
+							<cfset gdn=evaluate("v_" & taxon_term)>
+						</cfif>
 					</cfif>
+				</cfloop>
+				<cfif len(v_author_text) gt 0>
+					<cfset gdn=gdn & ' #v_author_text#'>
 				</cfif>
-			</cfloop>
-			<cfif len(v_author_text) gt 0>
-				<cfset gdn=gdn & ' #v_author_text#'>
 			</cfif>
 		<cfelse>
 			<!---
