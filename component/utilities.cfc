@@ -5,7 +5,7 @@
 		<cftry>
 		<cfset nomencode=''>
 		<cfset r=structNew()>
-		<cfquery name="ct" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+		<cfquery name="ct" datasource="uam_god">
 			select * from cttaxon_term
 		</cfquery>
 		<!--- establish variables --->
