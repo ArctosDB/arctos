@@ -1,8 +1,65 @@
 <cfinclude template="/includes/_header.cfm">
-	<cfset Application.docURL = 'http://handbook.arctosdb.org/documentation'>
 
+drop table temp_dnametest;
+
+create table temp_dnametest (
+	taxon_name_id number,
+	scientific_name varchar2(255),
+	display_name varchar2(255),
+	gdisplay_name varchar2(255),
+	cid varchar2(255)
+);
+
+-- data
+-- only get stuff with display name
+-- for stuff that doesn't match, figure out why
+
+insert into temp_dnametest (
+	taxon_name_id,
+	scientific_name,
+	display_name,
+	cid
+) (
+	select
+		taxon_term.taxon_name_id,
+		taxon_name.scientific_name,
+		taxon_term.term display_name,
+		taxon_term.classification_id
+	from
+		taxon_term,
+		taxon_name
+	where
+		taxon_term.taxon_name_id=taxon_name.taxon_name_id and
+		taxon_term.term_type='display_name'
+	);
+
+
+<cfset utilities = CreateObject("component","component.utilities")>
+<cfquery name="d" datasource="uam_god">
+	select * from temp_dnametest where gdisplay_name is null and rownum<1000
+</cfquery>
+<cfoutput>
+	<cfloop query="d">
+		<br>scientific_name=#scientific_name#
+		<br>display_name=#display_name#
+		<cfset x=utilities.generateDisplayName(cid)>
+		<cfif len(x) is 0>
+			<cfset x='NORETURN'>
+		</cfif>
+		<br>x=#x#
+		<cfquery name="b" datasource="uam_god">
+			udpate temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id#
+		</cfquery>
+
+	</cfloop>
+</cfoutput>
 
 <cfabort>
+
+
+
+	<cfset Application.docURL = 'http://handbook.arctosdb.org/documentation'>
+
 
 
 
