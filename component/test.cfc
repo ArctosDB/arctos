@@ -76,6 +76,10 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from hierarchical_taxonomy where tid=#id#
 			</cfquery>
+
+			<cfquery name="deorphan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from htax_noclassterm where tid=#id#
+			</cfquery>
 			<cfif len(d.PARENT_TID) is 0>
 				<cfquery name="udc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update hierarchical_taxonomy set PARENT_TID=NULL where parent_tid=#id#
@@ -85,12 +89,9 @@
 					update hierarchical_taxonomy set PARENT_TID=#d.PARENT_TID# where parent_tid=#id#
 				</cfquery>
 			</cfif>
-				<cfquery name="bye" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from hierarchical_taxonomy where tid=#id#
-				</cfquery>
-				<cfquery name="deorphan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from htax_noclassterm where tid=#id#
-				</cfquery>
+			<cfquery name="bye" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from hierarchical_taxonomy where tid=#id#
+			</cfquery>
 		</cftransaction>
 		<cfreturn 'success'>
 	</cfoutput>
