@@ -550,20 +550,20 @@
 <cfif action is "mismatch_import">
 	<cfquery name="mia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct
-			term
-		from
-			hierarchical_taxonomy,
-			htax_seed,
-			htax_dataset
-		where
-			hierarchical_taxonomy.dataset_id=htax_seed.dataset_id and
-			htax_seed.dataset_id=htax_dataset.dataset_id and
-			htax_dataset.dataset_name='#dataset_name#' and
-			term not in (
-				select scientific_name from taxon_name
-			)
-		order by
-			term
+	      term
+	    from
+	      hierarchical_taxonomy,
+	      htax_seed,
+	      htax_dataset,
+	      taxon_name
+	    where
+	      hierarchical_taxonomy.dataset_id=htax_seed.dataset_id and
+	      htax_seed.dataset_id=htax_dataset.dataset_id and
+	      htax_dataset.dataset_name='#dataset_name#' and
+	      hierarchical_taxonomy.term=taxon_name.scientific_name (+) and
+	      taxon_name.taxon_name_id is null
+	    order by
+	      term
 	</cfquery>
 	<p>
 		This app will not create taxon names.
@@ -594,20 +594,20 @@
 <cfif action is "mismatch_importCSV">
 	<cfquery name="mia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct
-			term
-		from
-			hierarchical_taxonomy,
-			htax_seed,
-			htax_dataset
-		where
-			hierarchical_taxonomy.dataset_id=htax_seed.dataset_id and
-			htax_seed.dataset_id=htax_dataset.dataset_id and
-			htax_dataset.dataset_name='#dataset_name#' and
-			term not in (
-				select scientific_name from taxon_name
-			)
-		order by
-			term
+	      term
+	    from
+	      hierarchical_taxonomy,
+	      htax_seed,
+	      htax_dataset,
+	      taxon_name
+	    where
+	      hierarchical_taxonomy.dataset_id=htax_seed.dataset_id and
+	      htax_seed.dataset_id=htax_dataset.dataset_id and
+	      htax_dataset.dataset_name='#dataset_name#' and
+	      hierarchical_taxonomy.term=taxon_name.scientific_name (+) and
+	      taxon_name.taxon_name_id is null
+	    order by
+	      term
 	</cfquery>
 
 	<cfset  util = CreateObject("component","component.utilities")>
