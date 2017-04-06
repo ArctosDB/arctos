@@ -160,9 +160,9 @@
 		</cfif>
 		-------->
 
+		<cfset gdn=trim(replace(gdn,'<i></i>','','all'))>
 
-
-		<cfreturn trim(gdn)>
+		<cfreturn gdn>
 
 		<cfcatch>
 			<cfreturn 'ERROR: ' & cfcatch.message>
