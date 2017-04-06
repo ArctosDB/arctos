@@ -204,7 +204,7 @@
 			<td>
 				<cfif t.term_type is "nomenclatural_code">
 					<cfif not listcontains(valuelist(ctnomenclatural_code.nomenclatural_code),t.term_value)>
-						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value to save.
+						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value or DELETE this row to save.
 					</cfif>
 
 					<select name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#">
@@ -217,7 +217,7 @@
 					</select>
 				<cfelseif t.term_type is "valid_catalog_term_fg">
 					<cfif not listcontains('0,1',t.term_value)>
-						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value to save.
+						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value or DELETE this row to save.
 					</cfif>
 					<select name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#">
 						<option <cfif t.term_value is "0"> selected="selected" </cfif>value="0">0</option>
@@ -225,7 +225,7 @@
 					</select>
 				<cfelseif t.term_type is "taxon_status">
 					<cfif not listcontains(valuelist(cttaxon_status.taxon_status),t.term_value)>
-						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value to save.
+						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value or DELETE this row to save.
 					</cfif>
 					<select name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#">
 						<option value="">none</option>
