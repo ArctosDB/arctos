@@ -5,6 +5,9 @@
 <cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
 </cfquery>
+<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select taxon_status from cttaxon_status order by taxon_status
+</cfquery>
 <cfquery name="c" dbtype="query">
 	select TAXON_TERM from cttaxon_term where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
 </cfquery>
@@ -220,6 +223,19 @@
 					<select name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#">
 						<option <cfif t.term_value is "0"> selected="selected" </cfif>value="0">0</option>
 						<option <cfif t.term_value is "1"> selected="selected" </cfif>value="1">1</option>
+					</select>
+				<cfelseif t.term_type is "taxon_status">
+					<cfif not listcontains(valuelist(cttaxon_status.taxon_status),t.term_value)>
+						!!! CAUTTION !! #t.term_value# is not valid. Pick a valid value or
+						THIS WILL BE DELETED ON SAVE!!
+					</cfif>
+					<select name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#">
+						<cfloop query="cttaxon_status">
+							<option value="#taxon_status#"
+								<cfif t.term_value is taxon_status> selected="selected" </cfif> >
+								#taxon_status#
+							</option>
+						</cfloop>
 					</select>
 				<cfelse>
 					<input name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#" type="text" value="#t.term_value#" size="60">
