@@ -41,12 +41,12 @@ insert into temp_dnametest (
 <cfoutput>
 	<cfloop query="d">
 		<br>scientific_name=#scientific_name#
-		<br>display_name=#display_name#
+		<br>display_name=<pre>#display_name#</pre>
 		<cfset x=utilities.generateDisplayName(cid)>
 		<cfif len(x) is 0>
 			<cfset x='NORETURN'>
 		</cfif>
-		<br>x=#x#
+		<br>x=<pre>#x#</pre>
 
 		<cfif x is not display_name>
 			<br>NOMATCH!!
