@@ -116,6 +116,7 @@
 		select qval from qry where qtrm='tid'
 	</cfquery>
 	<cfset tid=x.qval>
+	<cftry>
 	<cftransaction>
 	<cfloop query="qry">
 		<cfif left(qtrm,15) is "nctermtype_new_">
@@ -155,6 +156,10 @@
 	</cfloop>
 	</cftransaction>
 	<cfreturn 'success'>
+	<cfcatch>
+		<cfreturn 'FAIL: ' & cfcatch.message & cfcatch.detail>
+	</cfcatch>
+	</cftry>
 
 	</cfoutput>
 </cffunction>
