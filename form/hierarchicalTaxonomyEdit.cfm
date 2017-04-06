@@ -114,6 +114,9 @@
 					queryformat : 'column'
 				},
 				function (r) {
+
+					console.log('back');
+
 					console.log(r);
 					if (r=='success'){
 
