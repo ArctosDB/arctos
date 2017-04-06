@@ -34,6 +34,43 @@
 		<p>
 			formatstyle: #formatstyle#
 		</p>
+
+		<cfset gdn=''>
+		<!--- start at the right, add stuff on until we have something ---->
+		<cfif formatstyle is "plant">
+			<br>imaplant
+		<cfelse>
+			<!---
+				default, I suppose....
+
+			--->
+			<cfif len(v_subspecies) gt 0>
+				<cfset gdn='<i>#v_subspecies#</i>'>
+			<cfelseif len(v_species) gt 0>
+				<cfset gdn='<i>#v_species#</i>'>
+			<cfelseif len(v_genus) gt 0>
+				<cfset gdn='<i>#v_genus#</i>'>
+			<cfelse>
+				<!---- lowest-ranked term, no italics ---->
+				<cfquery name="genusrank" dbtype="query">
+					select RELATIVE_POSITION from ct where taxon_term='genus'
+				</cfquery>
+
+				<cfquery name="abovegenusclasterms" dbtype="query">
+					select taxon_term from ct where RELATIVE_POSITION
+						RELATIVE_POSITION is not null and
+						RELATIVE_POSITION < #genusrank.RELATIVE_POSITION#
+						order by RELATIVE_POSITION
+				</cfquery>
+				<cfdump var=#abovegenusclasterms#>
+			</cfif>
+
+			<cfif len(v_genus) gt 0>
+				<!--- sorta normal ---->
+
+			</cfif>
+
+		</cfif>
 		<!----------
 		<cfquery name="nomenclatural_code" dbtype="query">
 			select distinct term from d where term_type='nomenclatural_code'
