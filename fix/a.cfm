@@ -47,6 +47,10 @@ insert into temp_dnametest (
 			<cfset x='NORETURN'>
 		</cfif>
 		<br>x=#x#
+
+		<cfif x is not display_name>
+			<br>NOMATCH!!
+		</cfif>
 		<cfquery name="b" datasource="uam_god">
 			update temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id#
 		</cfquery>
