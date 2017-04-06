@@ -44,7 +44,24 @@
 			<cfif len(v_infraspecific_author) gt 0>
 				<cfset gdn=v_infraspecific_author>
 			</cfif>
+			<!--- now see if there are any subspecific terms --->
+			<cfquery name="sprank" dbtype="query">
+				select RELATIVE_POSITION from ct where taxon_term='species'
+			</cfquery>
+			<cfset sst=''>
+			<cfloop query="ct">
+				<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
+				<cfif len(ct.RELATIVE_POSITION) gt 0 and ct.RELATIVE_POSITION lt sprank.RELATIVE_POSITION and len(sst) is 0>
+						using this...
 
+						<!----
+						<cfif len("v_#taxon_term#") gt 0>
+							<br>got this one
+							<cfset gdn=evaluate("v_" & taxon_term)>
+						</cfif>
+						---->
+					</cfif>
+				</cfloop>
 		<cfelse>
 			<!---
 				default, I suppose....
