@@ -103,7 +103,7 @@
 		var frm=$("#tEditFrm").serialize();
 		//console.log(frm);
 		// save metadata
-
+		alert('here we go');
 		 $.getJSON("/component/test.cfc",
 				{
 					method : "saveMetaEdit",
@@ -115,7 +115,7 @@
 				},
 				function (r) {
 
-					alert('back');
+					alert(r);
 
 					//console.log(r);
 					//if (r=='success'){
