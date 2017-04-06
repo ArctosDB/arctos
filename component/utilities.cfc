@@ -51,7 +51,7 @@
 			<cfset sst=''>
 			<cfloop query="ct">
 				<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
-				<cfif len(ct.RELATIVE_POSITION) gt 0 and ct.RELATIVE_POSITION lt sprank.RELATIVE_POSITION and len(sst) is 0>
+				<cfif len(ct.RELATIVE_POSITION) gt 0 and ct.RELATIVE_POSITION gt sprank.RELATIVE_POSITION and len(sst) is 0>
 						using this...
 
 						<!----
