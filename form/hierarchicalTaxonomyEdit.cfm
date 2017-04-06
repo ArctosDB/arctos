@@ -230,6 +230,7 @@
 						THIS WILL BE DELETED ON SAVE!!
 					</cfif>
 					<select name="nctermvalue_#nc_tid#" id="nctermvalue_#nc_tid#">
+						<option value="">none</option>
 						<cfloop query="cttaxon_status">
 							<option value="#taxon_status#"
 								<cfif t.term_value is taxon_status> selected="selected" </cfif> >
