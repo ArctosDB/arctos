@@ -48,7 +48,7 @@ insert into temp_dnametest (
 		</cfif>
 		<br>x=#x#
 		<cfquery name="b" datasource="uam_god">
-			udpate temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id#
+			update temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id#
 		</cfquery>
 
 	</cfloop>
