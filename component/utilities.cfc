@@ -2,9 +2,29 @@
 <cffunction name="generateDisplayName" returnType="string" access="remote">
 	<cfargument name="cid" type="string" required="yes">
 	<cfoutput>
+		<cfset nomencode=''>
 		<cfquery name="d" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select * from taxon_term where classification_id='#cid#'
 		</cfquery>
+		<cfquery name="nomenclatural_code" dbtype="query">
+			select distinct term from d where term_type='nomenclatural_code'
+		</cfquery>
+		<cfif nomenclatural_code.recordcount is 1>
+			<cfset nomencode=nomenclatural_code.term>
+		<cfelse>
+			<cfquery name="kingdom" dbtype="query">
+				select distinct term from d where term_type='kingdom'
+			</cfquery>
+			<cfif kingdom.term is "Plantae">
+				<cfset nomencode="ICBN">
+			<cfelseif kingdom.term is "Animalia">
+				<cfset nomencode="ICZN">
+			</cfif>
+		</cfif>
+		<cfif len(nomencode) gt 0>
+			<!--- if we didn't get a nomenclatural_code we can't do anything here ---->
+			<br>nomencode=#nomencode# rock on....
+		</cfif>
 		<cfdump var=#d#>
 	</cfoutput>
 </cffunction>
