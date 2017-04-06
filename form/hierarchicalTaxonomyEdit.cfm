@@ -115,7 +115,7 @@
 				},
 				function (r) {
 
-					console.log('back');
+					alert('back');
 
 					//console.log(r);
 					//if (r=='success'){
