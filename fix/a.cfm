@@ -34,11 +34,14 @@ insert into temp_dnametest (
 	);
 
 
+select display_name || '---->' || gdisplay_name from temp_dnametest where gdisplay_name is not null and display_name!=gdisplay_name;
+
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource="uam_god">
 	select * from temp_dnametest where gdisplay_name is null and rownum<1000
 </cfquery>
 <cfoutput>
+	<cftransaction>
 	<cfloop query="d">
 		<br>scientific_name=#scientific_name#
 		<br>display_name=<pre>#display_name#</pre>
@@ -56,6 +59,7 @@ insert into temp_dnametest (
 		</cfquery>
 
 	</cfloop>
+	</cftransaction>
 </cfoutput>
 
 <cfabort>
