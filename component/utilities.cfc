@@ -57,12 +57,18 @@
 				</cfquery>
 
 				<cfquery name="abovegenusclasterms" dbtype="query">
-					select taxon_term from ct where RELATIVE_POSITION
-						len(RELATIVE_POSITION) gt 0 and
-						RELATIVE_POSITION < #genusrank.RELATIVE_POSITION#
-						order by RELATIVE_POSITION
+					select taxon_term,RELATIVE_POSITION from ct order by RELATIVE_POSITION
 				</cfquery>
 				<cfdump var=#abovegenusclasterms#>
+				<cfloop query="abovegenusclasterms">
+					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
+					<cfif RELATIVE_POSITION gt #genusrank.RELATIVE_POSITION#>
+						using this...
+					</cfif>
+				</cfloop>
+
+
+
 			</cfif>
 
 			<cfif len(v_author_text) gt 0>
