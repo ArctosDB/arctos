@@ -73,9 +73,13 @@
 				<br>itrm=#itrm#
 					<cfset gdn=gdn & ' <i>#itrm#</i>'>
 				</cfif>
+
+				<br>beforev==gdn=#gdn#
 				<cfif len(v_infraspecific_author) gt 0>
 					<cfset gdn=gdn & ' ' & v_infraspecific_author>
 				</cfif>
+				<br>afterv
+				==gdn=#gdn#
 			</cfif>
 			<!--- genus separate, because italics ---->
 			<cfif len(gdn) is 0 and len(v_genus) gt 0>
