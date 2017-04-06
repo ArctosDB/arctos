@@ -108,7 +108,7 @@
 
 		<p></p>gdn=#gdn#
 		<cfcatch>
-			choke-n-die<cfdump var=#ccatch#>
+			choke-n-die<cfdump var=#cfcatch#>
 		</cfcatch>
 		</cftry>
 	</cfoutput>
