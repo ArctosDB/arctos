@@ -40,37 +40,66 @@
 		<!--- start at the right, add stuff on until we have something ---->
 		<cfif formatstyle is "plant">
 			<br>imaplant
+			<cfif len(v_species) gt 0>
+				<!--- most common, deal with it and leave when we can ---->
+				<cfset gdn='<i>#v_species#</i>'>
+				<cfif len(v_author_text) gt 0>
+					<cfset gdn=gdn & ' #v_author_text#'>
+				</cfif>
+				<!---- any subspecific terms we need to care about? ---->
+				<cfquery name="sprank" dbtype="query">
+					select RELATIVE_POSITION from ct where taxon_term='species'
+				</cfquery>
+				<cfset sst=''>
+				<cfloop query="ct">
+					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
+					<cfif len(ct.RELATIVE_POSITION) gt 0 and ct.RELATIVE_POSITION gt sprank.RELATIVE_POSITION and len(sst) is 0>
+						using this...
 
-			<!--- start at the right, work our way left ---->
-			<cfif len(v_infraspecific_author) gt 0>
-				<cfset gdn=v_infraspecific_author>
+						<cfif len("v_#taxon_term#") gt 0>
+							<br>got this one
+							<cfset sst=evaluate("v_" & taxon_term)>
+						</cfif>
+					</cfif>
+				</cfloop>
+				<cfif len(sst) gt 0>
+					<cfset gdn=gdn & ' <i>#sst#</i>'>
+				</cfif>
+				<cfif len(v_infraspecific_author) gt 0>
+					<cfset gdn=gdn & ' ' & v_infraspecific_author>
+				</cfif>
 			</cfif>
-			<!--- now see if there are any subspecific terms --->
-			<cfquery name="sprank" dbtype="query">
-				select RELATIVE_POSITION from ct where taxon_term='species'
+			<!--- genus separate, because italics ---->
+			<cfif len(gdn) is 0 and len(v_genus) gt 0>
+				<cfset gdn'<i>#v_genus#</i>'>
+				<cfif len(v_author_text) gt 0>
+					<cfset gdn=gdn & ' #v_author_text#'>
+				</cfif>
+			</cfif>
+			<!--- if if we didn't get anything, try scientific_name ---->
+			<cfif len(gdn) is 0 and len(v_scientific_name) gt 0>
+				<cfset gdn=v_scientific_name>
+				<cfif len(v_author_text) gt 0>
+					<cfset gdn=gdn & ' #v_author_text#'>
+				</cfif>
+			</cfif>
+			<!---- if we STILL didn't get anything, grab the lowest term ---->
+			<cfquery name="genusrank" dbtype="query">
+				select RELATIVE_POSITION from ct where taxon_term='genus'
 			</cfquery>
-			<cfset sst=''>
 			<cfloop query="ct">
 				<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
-				<cfif len(ct.RELATIVE_POSITION) gt 0 and ct.RELATIVE_POSITION gt sprank.RELATIVE_POSITION and len(sst) is 0>
+				<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt genusrank.RELATIVE_POSITION and len(gdn) is 0>
 					using this...
-
 					<cfif len("v_#taxon_term#") gt 0>
 						<br>got this one
-						<cfset sst=evaluate("v_" & taxon_term)>
+						<cfset gdn=evaluate("v_" & taxon_term)>
 					</cfif>
 				</cfif>
 			</cfloop>
-			<cfif len(sst) gt 0>
-				<!--- if there's an infraspecific term then there should be a species too --->
-				<cfif len(v_species) gt 0>
-					<cfset ift=replace(sst,v_species,'')>
-					<br>ift: #ift#
-				<cfelse>
-					<br>weirdness - fail
-				</cfif>
+			<cfif len(v_author_text) gt 0>
+				<cfset gdn=gdn & ' #v_author_text#'>
 			</cfif>
-			<br>sst: #sst#
 		<cfelse>
 			<!---
 				default, I suppose....
@@ -90,11 +119,7 @@
 					select RELATIVE_POSITION from ct where taxon_term='genus'
 				</cfquery>
 
-				<cfquery name="abovegenusclasterms" dbtype="query">
-					select taxon_term,RELATIVE_POSITION from ct order by RELATIVE_POSITION DESC
-				</cfquery>
-				<cfdump var=#abovegenusclasterms#>
-				<cfloop query="abovegenusclasterms">
+				<cfloop query="ct">
 					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
 					<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt genusrank.RELATIVE_POSITION and len(gdn) is 0>
 						using this...
