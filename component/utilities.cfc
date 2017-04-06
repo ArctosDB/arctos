@@ -50,7 +50,12 @@
 				<cfset gdn='<i>#v_species#</i>'>
 			<cfelseif len(v_genus) gt 0>
 				<cfset gdn='<i>#v_genus#</i>'>
+			<!----
+			<cfelseif len(v_scientific_name) gt 0>
+				<c fset gdn=v_scientific_name>
+				---->
 			<cfelse>
+
 				<!---- lowest-ranked term, no italics ---->
 				<cfquery name="genusrank" dbtype="query">
 					select RELATIVE_POSITION from ct where taxon_term='genus'
@@ -64,6 +69,10 @@
 					<br>taxon_term=#taxon_term# RELATIVE_POSITION=#RELATIVE_POSITION#
 					<cfif RELATIVE_POSITION lt #genusrank.RELATIVE_POSITION#>
 						using this...
+						<cfif len("v_#taxon_term#") gt 0>
+							<br>got this one
+							<cfset gdn="v_#taxon_term#">
+						</cfif>
 					</cfif>
 				</cfloop>
 
