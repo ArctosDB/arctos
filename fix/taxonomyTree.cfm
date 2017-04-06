@@ -341,7 +341,7 @@
 					)
 				)
 		</cfquery>
-		<cfloop query="">
+		<cfloop query="d">
 			<div>
 				<a href="/name/#SCIENTIFIC_NAME#">#SCIENTIFIC_NAME#</a>
 			</div>
