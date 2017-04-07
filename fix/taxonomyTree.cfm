@@ -717,20 +717,40 @@
 			right:0;
 			margin-right:2em;
 			padding:.2em;
-			border:1px solid red;
 			z-index:9999999;
+			border:1px solid green;
 		}
 		.working {
+			background:white;
+			position:fixed;
+			top:100;
+			right:0;
+			margin-right:2em;
+			padding:.2em;
+			z-index:9999999;
 			border:2px solid yellow;
-			after { content:url(/images/indicator.gif);
 		}
 		.working:after {
 		    content: url('/images/indicator.gif');
 		}
 		.done {
+			background:white;
+			position:fixed;
+			top:100;
+			right:0;
+			margin-right:2em;
+			padding:.2em;
+			z-index:9999999;
 			border:2px solid green;
 		}
 		.error {
+			background:white;
+			position:fixed;
+			top:100;
+			right:0;
+			margin-right:2em;
+			padding:.2em;
+			z-index:9999999;
 			border:5px solid red;
 		}
 	</style>
