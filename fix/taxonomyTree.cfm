@@ -897,7 +897,11 @@
 				performSearch();
 			});
 			*/
-
+			$('#srchBtn').keypress(function(e){
+		        if(e.which == 13){//Enter key pressed
+		            performSearch();
+		        }
+		    });
 			$( "#srchBtn" ).click(function() {
 				performSearch();
 			});
