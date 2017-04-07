@@ -5,9 +5,14 @@
 --------->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="hierarchical taxonomy editor">
-<p>
-	<a href="taxonomyTree.cfm?action=nothing">home</a>
-</p>
+<cfoutput>
+<select id="lclNav" onchange="document.location=this.value">
+	<option value="taxonomyTree.cfm">home</option>
+	<cfif isdefined("dataset_name") and len(dataset_name) gt 0>
+		<option value="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#">manage #dataset_name#</option>
+	</cfif>
+</select>
+</cfoutput>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<p>
@@ -918,7 +923,7 @@
 		 returned 20K usable results in 30s on test).
 		 <br>Re-searching while a previous search is still "working" can cause strange behavior.
 	</p>
-	<label for="srch">search #dataset_name#</label>
+	<label for="srch">search <cfoutput>#dataset_name#</cfoutput></label>
 	<input id="srch">
 	<input type="button" value="search" id="srchBtn">
 
