@@ -266,6 +266,55 @@
 		<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 		<cfoutput>
 			<cftry>
+				<cfset key=RandRange(1, 9999999999999999999999999999999)>
+
+			<!---- first get the terms that match our search ---->
+
+			create table htax_srchhlpr (
+		-- one-time use key
+		key number not null,
+		parent_tid number,
+		term varchar2(255),
+		tid number,
+		rank varchar2(255)
+	);
+			<cfquery name="dc0" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r_dc0">
+				insert into htax_srchhlpr (
+					key,
+					parent_tid
+				) (
+					select distinct
+						#key#,
+						nvl(parent_tid,0)
+					from
+						hierarchical_taxonomy
+					where
+						dataset_id=#dataset_id# and
+						upper(term) like '#ucase(q)#%'
+			</cfquery>
+
+			<cfdump var=#r_dc0#>
+
+
+			<cfif not dc0.recordcount gt 0>
+				<cfreturn 'ERROR: nothing found'>
+			</cfif>
+
+			<!---- copy init query---->
+			<cfquery name="rsltQry" dbtype="query">
+				select * from dc0
+			</cfquery>
+			<!--- this will die if we ever get more than 100-deep ---->
+			<cfset thisIds=valuelist(dc0.parent_tid)>
+			<cfloop from="1" to="100" index="i">
+				<!---find next parent--->
+				<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
+				</cfquery>
+
+			<!--- this works
+
+
 			<!---- first get the terms that match our search ---->
 			<cfquery name="dc0" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select distinct nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where
@@ -287,6 +336,9 @@
 				<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
 				</cfquery>
+
+
+				works----->
 				<!--- next loop --->
 
 				<cfset thisIds=valuelist(q.parent_tid)>
