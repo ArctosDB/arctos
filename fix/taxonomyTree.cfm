@@ -897,13 +897,12 @@
 				performSearch();
 			});
 			*/
-			$('#srchBtn').keypress(function(e){
-				console.log('keypress ' + e.which);
-		        if(e.which == 13){//Enter key pressed
-
-		            performSearch();
-		        }
-		    });
+			$("#srchBtn").keyup(function(e){
+		    if(e.keyCode == 13)
+		    {
+		       alert('enter');
+		    }
+		});
 			$( "#srchBtn" ).click(function() {
 				performSearch();
 			});
