@@ -261,12 +261,22 @@
 
 	<cffunction name="getTaxTreeSrch" access="remote">
 		<!---- hierarchical taxonomy editor ---->
-	<cfargument name="dataset_id" type="numeric" required="true"/>
+		<cfargument name="dataset_id" type="numeric" required="true"/>
 	   <cfargument name="q" type="string" required="true">
 		<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 		<cfoutput>
 			<cftry>
-				<cfset key=RandRange(1, 66)>
+				<cfset key=RandRange(1, 9999)>
+
+				<cfstoredproc procedure="proc_htax_srch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#dsid#"><!---- v_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#schterm#"><!---- v_parent_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#key#"><!---- v_container_type ---->
+				</cfstoredproc>
+
+
+
+			<!-------------
 
 			<!---- first get the terms that match our search ---->
 
@@ -377,6 +387,7 @@
 			<cfset x=x & "]">
 
 			<cfreturn x>
+			-------------->
 	<cfcatch>
 		<cfreturn 'ERROR: ' & cfcatch.message & ' ' & cfcatch.detail>
 	</cfcatch>
