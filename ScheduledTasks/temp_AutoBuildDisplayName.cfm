@@ -35,17 +35,23 @@ insert into temp_dnametest (
 		taxon_name
 	where
 		taxon_term.taxon_name_id=taxon_name.taxon_name_id and
-		taxon_term.term_type='display_name'
+		taxon_term.term_type='display_name' and
+		taxon_term.source in ('Arctos','Arctos Plants')
 	);
 
 
 select
-	'"' || display_name || '"' || chr(9) || chr(9) || chr(9) || '"' || gdisplay_name || '"'
+	'"' || display_name || '"' || chr(9) || '"' || gdisplay_name || '"'
 from
 	temp_dnametest where
 	gdisplay_name not like 'ERROR%' and gdisplay_name is not null and display_name!=gdisplay_name;
 
 update temp_dnametest set gdisplay_name=null where gdisplay_name not like 'ERROR%' and gdisplay_name!=display_name;
+
+
+
+
+select taxon_name_id,count(*) from temp_dnametest having count(*) > 1 group by taxon_name_id;
 
 
 create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1;
