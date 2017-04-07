@@ -144,7 +144,7 @@
 						queryformat : 'column'
 					},
 					function (r) {
-						console.log(r);
+						//console.log(r);
 						 $('#inspect').val('done - click to re-inspect');
 						alert('your search found ' + r.DATA.C[0] + ' taxa');
 						//myTree.parse(r, "jsarray");
@@ -704,18 +704,46 @@
 	<cfoutput>
 		<input type="hidden" name="dataset_id" id="dataset_id" value="#did.dataset_id#">
 	</cfoutput>
-	<div id="statusDiv" style="background:white;position:fixed;top:100;right:0;margin-right:2em;padding:.2em;border:1px solid red;z-index:9999999;">status</div>
+	<div id="statusDiv">status</div>
 
 	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
 	<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.css">
-
+	<style>
+		.default {
+			background:white;
+			position:fixed;
+			top:100;
+			right:0;
+			margin-right:2em;
+			padding:.2em;
+			border:1px solid red;
+			z-index:9999999;
+		}
+		.working {
+			border:2px solid yellow;
+			after { content:url(/images/indicator.gif);
+		}
+		.done {
+			border:2px solid green;
+		}
+		.error {
+			border:5px solid red;
+		}
+	</style>
 	<script>
+		function setStatus(msg,st){
+			$("#statusDiv").html(msg).removeClass().addClass('default').addClass(st).html(msg);
+
+//							$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+
+		}
+
 		function deletedRecord(theID){
 			// deleted something
 			// remove it from the view
 			myTree.deleteItem(theID,false);
-			$("#statusDiv").html('delete successful');
+			setStatus('delete successful');
 			$(".ui-dialog-titlebar-close").trigger('click');
 		}
 
@@ -724,7 +752,7 @@
 			myTree.deleteItem(c,false);
 			// expand the new parent
 			expandNode(p);
-			$("#statusDiv").html('move success');
+			setStatus('move success');
 			$(".ui-dialog-titlebar-close").trigger('click');
 		}
 
@@ -738,13 +766,13 @@
 			expandNode(id);
 			//alert(' expanded;updatestatus');
 			// update status
-			$("#statusDiv").html('created new term');
+			setStatus('created new term');
 			myTree.selectItem(id);
 			myTree.focusItem(id);
 		}
 		function expandNode(id){
 			//alert('am expandNode');
-			$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+			setStatus('working');
 		    $.getJSON("/component/taxonomy.cfc",
 				{
 					method : "getTaxTreeChild",
@@ -755,8 +783,7 @@
 				},
 				function (r) {
 					if (r.toString().substring(0,5)=='ERROR'){
-						$("#statusDiv").html(r);
-						alert(r);
+						setStatus(r,'error');
 					} else {
 						for (i=0;i<r.ROWCOUNT;i++) {
 							//insertNewChild(var) does not work for some insane reason, so.....
@@ -766,7 +793,7 @@
 							var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
 							eval(d);
 						}
-						$("#statusDiv").html('done');
+						setStatus('done');
 					}
 				}
 			);
@@ -774,17 +801,17 @@
 
 		function savedMetaEdit(tid,newVal){
 			myTree.setItemText(tid,newVal);
-			$("#statusDiv").html('term edits saved');
+			setStatus('term edits saved');
 			$(".ui-dialog-titlebar-close").trigger('click');
 		}
 
 		function performSearch(){
 
 			if ($( "#srch" ).val().length < 3){
-				$("#statusDiv").html('Enter at least three letters to search.');
+				setStatus('Enter at least three letters to search.');
 				return;
 			}
-			$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+			setStatus('working','working');
 			myTree.deleteChildItems(0);
 
 			$.getJSON("/component/taxonomy.cfc",
@@ -797,14 +824,13 @@
 				},
 				function (r) {
 					if (r.toString().substring(0,5)=='ERROR'){
-						$("#statusDiv").html(r);
-						alert(r);
+						setStatus(r,'error');
 					} else {
-						console.log(r);
+						//console.log(r);
 						//myTree.parse(r, "jsarray");
 						myTree.parse(r, "jsarray");
 						myTree.openAllItems(0);
-						$("#statusDiv").html('done');
+						setStatus('done','done');
 					}
 				}
 			);
@@ -812,7 +838,7 @@
 
 
 		function initTree(){
-			$("#statusDiv").html('initializing<img src="/images/indicator.gif">');
+			setStatus('initializing','working');
 			myTree.deleteChildItems(0);
 			$.getJSON("/component/taxonomy.cfc",
 				{
@@ -825,7 +851,7 @@
 					myTree.parse(r, "jsarray");
 				}
 			);
-			$("#statusDiv").html('ready');
+			setStatus('ready','done');
 		}
 
 		jQuery(document).ready(function() {
@@ -838,7 +864,7 @@
 			myTree.enableItemEditor(false);
 			initTree();
 			myTree.attachEvent("onCheck", function(id){
-				$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+				setStatus('working','working');
 			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
 				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 					autoOpen: true,
@@ -875,7 +901,7 @@
 			});
 
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
-				$("#statusDiv").html('working....<img src="/images/indicator.gif">');
+				setStatus('working','working');
 			    $.getJSON("/component/taxonomy.cfc",
 					{
 						method : "saveParentUpdate",
@@ -886,12 +912,11 @@
 						queryformat : 'column'
 					},
 					function (r) {
-						console.log(r);
+						//console.log(r);
 						if (r=='success') {
-							$("#statusDiv").html('successful save');
+							setStatus('successful save','success');
 						}else{
-							alert(r);
-							$("#statusDiv").html(r);
+							setStatus(r,'error');
 						}
 					}
 				);

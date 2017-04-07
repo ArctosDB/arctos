@@ -30,7 +30,7 @@
 	});
 
 	function fcreateNewChildTerm(){
-		$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+		parent.$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 		var theID=$("#tid").val();
 		$.getJSON("/component/taxonomy.cfc",
 			{
@@ -47,7 +47,7 @@
 				if (r=='success'){
 					parent.createdNewTerm(theID);
 				} else {
-					$("#statusDiv").html(r);
+					parent.$("#statusDiv").html(r);
 					alert(r);
 				}
 			}
@@ -64,7 +64,7 @@
 	 	d+=' Click "reset tree" to rebuild.';
 		var r = confirm(d);
 		if (r == true) {
-			$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+			parent.$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 			var theID=$("#tid").val();
 			$.getJSON("/component/taxonomy.cfc",
 				{
@@ -75,11 +75,10 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					alert(r);
 					if (r=='success'){
 						parent.deletedRecord(theID);
 					} else {
-						$("#statusDiv").html(r);
+						parent.$("#statusDiv").html(r);
 						alert(r);
 					}
 				}
@@ -87,7 +86,7 @@
 		}
 	}
 	function saveAllEdits(){
-		$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+		parent.$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 		// get vars
 		var theID=$("#tid").val();
 		var newVal=$("#term").val() + ' (' + $("#rank").val() + ')';
@@ -117,7 +116,7 @@
 		);
 	}
 	function findSaveNewParent(){
-		$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+		parent.$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 		var theID=$("#tid").val();
 		 $.getJSON("/component/taxonomy.cfc",
 			{
@@ -131,7 +130,7 @@
 				if (r.STATUS=='success'){
 					parent.movedToNewParent(r.CHILD,r.PARENT);
 				} else {
-					$("#statusDiv").html('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
+					parent.$("#statusDiv").html('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
 					alert('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
 				}
 			}
