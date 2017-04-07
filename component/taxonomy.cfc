@@ -275,7 +275,14 @@
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#key#"><!---- v_container_type ---->
 				</cfstoredproc>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select * from htax_srchhlpr where key=#key#
+					select
+						nvl(parent_tid,0) parent_tid,
+						tid,
+						term,
+						rank
+					from htax_srchhlpr
+					where key=#key#
+					order by parent_tid
 				</cfquery>
 				<!--- cf's query-->JSON is dumb and dhtmlxtree is too so....---->
 				<cfset x="[">
