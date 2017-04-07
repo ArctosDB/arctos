@@ -266,13 +266,18 @@
 		<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 		<cfoutput>
 			<cftry>
+				<!--- temp key ---->
 				<cfset key=RandRange(1, 9999)>
-
+				<!--- build rows in Oracle ---->
 				<cfstoredproc procedure="proc_htax_srch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#dataset_id#"><!---- v_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#q#"><!---- v_parent_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#key#"><!---- v_container_type ---->
 				</cfstoredproc>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from htax_srchhlpr where key=#key#
+				</cfquery>
+				<cfdump var=#d#>
 
 
 
