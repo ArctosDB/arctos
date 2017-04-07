@@ -56,85 +56,31 @@
         password = "#p.monitor_email_pwd#"
         connection = "gmail">
 
-		<cfimap
-	        action="GetAll"
-			folder="inbox"
-	        connection="gmail"
-	        name="inbox">
-
-		<cfdump var="#inbox#">
-
+		<cfimap action="GetAll"	folder="inbox" connection="gmail" name="inbox">
 		<cfif application.version is "test">
 			<!--- test only reads msgs from prod, so... --->
 			<cfset acceptFrom='notdead@arctos.database.museum'>
 		<cfelseif application.version is "prod">
 			<cfset acceptFrom='notdead@arctos-test.tacc.utexas.edu'>
 		</cfif>
-
 		<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
 		<cfset sendAlert="true">
 		<cfloop query="inbox">
-			<br>loopy....
 			<cfif from is acceptFrom and subject is "arctos is not dead">
-					<p>
-						SENTDATE: #SENTDATE#
-				<br><cfset tss=datediff('n',SENTDATE,now())>
-						tss:#tss#
-						<cfif tss lt 60>
-							<cfset sendAlert=false>
-						</cfif>
-						<!---
-						move the message
-						should probably just delete but oh well
-						---->
-						<br>moving #messagenumber# to archive
-						<!----
-						<cfimap
-					        action="MarkRead"
-					        messagenumber="#messagenumber#"
-					        stoponerror="true"
-					        connection="gmail">
----->
-					        <cfimap
-					        action="delete"
-					        uid="#uid#"
-					        stoponerror="true"
-					        connection="gmail">
-					</cfif>
-			</p>
+				<cfset tss=datediff('n',SENTDATE,now())>
+				<cfif tss lt 60>
+					<cfset sendAlert=false>
+				</cfif>
+				<cfimap action="delete" uid="#uid#" stoponerror="true" connection="gmail">
+			</cfif>
 		</cfloop>
+		<cfimap action="close" connection = "gmail">
 
-
-
-		<p>
-			after mailcheck:
-
-			<cfimap
-	        action="GetAll"
-			folder="inbox"
-	        connection="gmail"
-	        name="inbox">
-
-		<cfdump var="#inbox#">
-
-
-		  <cfimap
-	        action="close"
-	        connection = "gmail">
-
-		</p>
 		<!--- this is the one instance where we want to send email from test to everybody ---->
 		<cfif sendAlert is true>
-		<p>
-			sendAlert is true, here goes email
-		</p>
 			<cfset subj="IMPORTANT: Arctos may be down">
 			<cfset maddr="dustymc@gmail.com,ctjordan@tacc.utexas.edu,ccicero@berkeley.edu,mkoo@berkeley.edu,arctos-working-group@googlegroups.com ">
-
-			<cfmail to="dustymc@gmail.com" subject="#subj#" from="not_not_dead@#Application.fromEmail#" type="html">
-				<p>
-					final email list: #maddr#
-				</p>
+			<cfmail to="#maddr#" subject="#subj#" from="not_not_dead@#Application.fromEmail#" type="html">
 				An Arctos monitoring script has detected a problem.
 				<cfif application.version is "test">
 					<p>
@@ -164,13 +110,5 @@
 				</p>
 				<p>Check that the password to #p.monitor_email_addr#@gmail.com works and matches at test and prod.</p>
 			</cfmail>
-		<cfelse>
-		<p>
-			send happy email
-		</p>
-			<cfmail to="dustymc@gmail.com" subject="not dead" from="not_dead@#Application.fromEmail#" type="html">
-				monitoring scripts are happy.
-			</cfmail>
-
 		</cfif>
 </cfoutput>

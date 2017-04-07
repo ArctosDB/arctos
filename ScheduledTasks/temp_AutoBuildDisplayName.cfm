@@ -41,10 +41,16 @@ insert into temp_dnametest (
 
 
 select
-	'"' || display_name || '"' || chr(9) || '"' || gdisplay_name || '"'
+	--'"' || display_name || '"' || chr(9) || '"' || gdisplay_name || '"'
+	display_name || '------>' ||  gdisplay_name 
 from
 	temp_dnametest where
-	gdisplay_name not like 'ERROR%' and gdisplay_name is not null and display_name!=gdisplay_name;
+	gdisplay_name not like 'ERROR%' and gdisplay_name is not null and display_name!=gdisplay_name
+	order by display_name;
+	
+	select count(*) from temp_dnametest;
+	select count(*) from temp_dnametest where gdisplay_name is not null;
+	
 
 update temp_dnametest set gdisplay_name=null where gdisplay_name not like 'ERROR%' and gdisplay_name!=display_name;
 
