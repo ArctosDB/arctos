@@ -266,7 +266,7 @@
 		<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 		<cfoutput>
 			<cftry>
-				<cfset key=RandRange(1, 99999999999999)>
+				<cfset key=RandRange(1, 6)>
 
 			<!---- first get the terms that match our search ---->
 
