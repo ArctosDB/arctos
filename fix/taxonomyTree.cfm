@@ -175,11 +175,10 @@
 		<hr>
 		Step One: Find records with which to "seed" the dataset. Large datasets (tested to ~1m records) are manageable,
 		but come with performance limitations; the automated steps
-		(data to hierarchies, data to bulkloader, etc.) will take much longer (perhaps days) to complete, and your browser may
-		have difficulty processing larger trees, and queries (eg, expanding nodes) are slow. Smaller datasets are much
-		easier to work with. Consider limiting your query to around 50,000 names if possible. Contact us to discuss
-		possible strategies.
-
+		(data to hierarchies, data to bulkloader, etc.) will take much longer (perhaps days) to complete, your browser may
+		have difficulty processing larger trees, and queries (eg, expanding nodes) are slow. Small datasets are much
+		easier to work with; consider limiting your query to around 50,000 names if at all possible. Contact us to discuss
+		strategies.
 		<p>
 			Note that data in Arctos are independent; classifications are not related in any way.
 			This app will only update the records for which the taxon name
