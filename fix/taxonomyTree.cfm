@@ -728,7 +728,7 @@
 		.done {
 			border:2px solid green;
 		}
-		.error {
+		.err {
 			border:5px solid red;
 		}
 
@@ -739,7 +739,7 @@
 	<script>
 		function setStatus(msg,st){
 			$("#statusDiv").html(msg).removeClass().addClass('default').addClass(st).html(msg);
-			if (st=='error'){
+			if (st=='err'){
 				alert(msg);
 			}
 		}
@@ -788,7 +788,7 @@
 				},
 				function (r) {
 					if (r.toString().substring(0,5)=='ERROR'){
-						setStatus(r,'error','error');
+						setStatus(r,'error','err');
 					} else {
 						for (i=0;i<r.ROWCOUNT;i++) {
 							//insertNewChild(var) does not work for some insane reason, so.....
@@ -829,7 +829,7 @@
 				},
 				function (r) {
 					if (r.toString().substring(0,5)=='ERROR'){
-						setStatus(r,'error');
+						setStatus(r,'err');
 					} else {
 						//console.log(r);
 						//myTree.parse(r, "jsarray");
@@ -921,7 +921,7 @@
 						if (r=='success') {
 							setStatus('successful save','done');
 						}else{
-							setStatus(r,'error');
+							setStatus(r,'err');
 						}
 					}
 				);

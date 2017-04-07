@@ -47,7 +47,7 @@
 				if (r=='success'){
 					parent.createdNewTerm(theID);
 				} else {
-					parent.setStatus(r,'error');
+					parent.setStatus(r,'err');
 				}
 			}
 		);
@@ -77,7 +77,7 @@
 					if (r=='success'){
 						parent.deletedRecord(theID);
 					} else {
-						parent.setStatus(r,'error');
+						parent.setStatus(r,'err');
 					}
 				}
 			);
@@ -107,7 +107,7 @@
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 					parent.savedMetaEdit(theID,newVal);
 				} else {
-					parent.setStatus(r,'error');
+					parent.setStatus(r,'err');
 				}
 			}
 		);
@@ -127,7 +127,7 @@
 				if (r.STATUS=='success'){
 					parent.movedToNewParent(r.CHILD,r.PARENT);
 				} else {
-					parent.setStatus('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.','error');
+					parent.setStatus('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.','err');
 				}
 			}
 		);
