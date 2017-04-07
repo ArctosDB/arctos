@@ -719,11 +719,13 @@
 			padding:.2em;
 			border:1px solid red;
 			z-index:9999999;
-			content:url(/images/indicator.gif);
 		}
 		.working {
 			border:2px solid yellow;
 			after { content:url(/images/indicator.gif);
+		}
+		.working:after {
+		    content: url('/images/indicator.gif');
 		}
 		.done {
 			border:2px solid green;
