@@ -898,6 +898,7 @@
 			});
 			*/
 			$("#srchBtn").keyup(function(e){
+				  alert(e.keyCode);
 		    if(e.keyCode == 13)
 		    {
 		       alert('enter');
