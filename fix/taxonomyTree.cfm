@@ -838,6 +838,7 @@
 			myTree.enableItemEditor(false);
 			initTree();
 			myTree.attachEvent("onCheck", function(id){
+				$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
 				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 					autoOpen: true,
