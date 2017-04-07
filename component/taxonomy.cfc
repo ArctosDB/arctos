@@ -277,7 +277,10 @@
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from htax_srchhlpr where key=#key#
 				</cfquery>
+				<!----
 				<cfdump var=#d#>
+				--->
+				<cfreturn d>
 
 
 
