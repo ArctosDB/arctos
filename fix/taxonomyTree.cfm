@@ -7,6 +7,7 @@
 <cfset title="hierarchical taxonomy editor">
 <cfoutput>
 <select id="lclNav" onchange="document.location=this.value">
+	<option value="">go to....</option>
 	<option value="taxonomyTree.cfm">home</option>
 	<cfif isdefined("dataset_name") and len(dataset_name) gt 0>
 		<option value="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#">manage #dataset_name#</option>
