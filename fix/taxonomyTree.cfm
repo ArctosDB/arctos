@@ -864,7 +864,6 @@
 	    		for (var i=0; i<ids.length; i++){
 	       			myTree.setCheck(ids[i],0);
 	    		}
-				$("#statusDiv").html('ready');
 			});
 
 			myTree.attachEvent("onDblClick", function(id){

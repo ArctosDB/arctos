@@ -25,6 +25,10 @@
 </cfquery>
 
 <script>
+	jQuery(document).ready(function() {
+		$("#statusDiv").html('ready');
+	});
+
 	function fcreateNewChildTerm(){
 		$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 		var theID=$("#tid").val();
