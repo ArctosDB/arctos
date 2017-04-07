@@ -911,8 +911,9 @@
 	<p>
 		Search is case-sensitive contains;
 		"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
-		"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>." Large searches may be slow, and then eat your browser; try to limit your search to a few thousand
-		results.
+		"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find Mustela <strong>mus</strong>tela),
+		 Large searches may be slow, and then eat your browser; try to limit your search to a few thousand
+		results. Re-searching while a previous search is still "working" can cause strange behavior.
 	</p>
 	<label for="srch">search</label>
 	<input id="srch">
