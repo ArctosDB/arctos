@@ -704,7 +704,7 @@
 	<cfoutput>
 		<input type="hidden" name="dataset_id" id="dataset_id" value="#did.dataset_id#">
 	</cfoutput>
-	<div id="statusDiv" class="done">status</div>
+	<div id="statusDiv" class="default">loading...</div>
 
 	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
@@ -718,50 +718,21 @@
 			margin-right:2em;
 			padding:.2em;
 			z-index:9999999;
-			border:1px solid green;
 		}
 		.working {
-			background:white;
-			position:fixed;
-			top:100;
-			right:0;
-			margin-right:2em;
-			padding:.2em;
-			z-index:9999999;
 			border:2px solid yellow;
 		}
 		.working:after {
 		    content: url('/images/indicator.gif');
 		}
 		.done {
-			background:white;
-			position:fixed;
-			top:100;
-			right:0;
-			margin-right:2em;
-			padding:.2em;
-			z-index:9999999;
 			border:2px solid green;
 		}
 		.error {
-			background:white;
-			position:fixed;
-			top:100;
-			right:0;
-			margin-right:2em;
-			padding:.2em;
-			z-index:9999999;
 			border:5px solid red;
 		}
 
 		.caution {
-			background:white;
-			position:fixed;
-			top:100;
-			right:0;
-			margin-right:2em;
-			padding:.2em;
-			z-index:9999999;
 			border:2px solid yellow;
 		}
 	</style>
