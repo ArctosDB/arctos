@@ -28,7 +28,20 @@
 				 as a child of either <strong>order</strong> or <strong>otherorder</strong>, whichever is encountered first.
 		</li>
 	</ul>
-
+	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct (dataset_name) from htax_dataset
+	</cfquery>
+	<cfoutput>
+		<a href="taxonomyTree.cfm?action=createDataset">Create a new dataset</a>
+		or select an existing dataset to edit:
+		<ul>
+		<cfloop query="mg">
+			<li>
+				<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#">#dataset_name#</a>
+			</li>
+		</cfloop>
+		</ul>
+	</cfoutput>
 	<p>
 		DEPENDANCIES & COMPONENTS
 	</p>
@@ -54,20 +67,6 @@
 			</ul>
 		</li>
 	</ul>
-	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct (dataset_name) from htax_dataset
-	</cfquery>
-	<cfoutput>
-		<a href="taxonomyTree.cfm?action=createDataset">Create a new dataset</a>
-		or select an existing dataset to edit:
-		<ul>
-		<cfloop query="mg">
-			<li>
-				<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#">#dataset_name#</a>
-			</li>
-		</cfloop>
-		</ul>
-	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "createDataset">
