@@ -167,6 +167,7 @@
 		<tr>
 			<td>
 				Editing <strong>#d.term#</strong>
+				<a href="/name/#d.term#" target="_blank">Arctos record (new tab)</a>
 			</td>
 			<td>
 				<label for="rank">Rank</label>
