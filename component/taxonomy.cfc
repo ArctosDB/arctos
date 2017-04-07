@@ -267,7 +267,7 @@
 		<cfoutput>
 			<cftry>
 				<!--- temp key ---->
-				<cfset key=RandRange(1, 9999)>
+				<cfset key=RandRange(1, 999999)>
 				<!--- build rows in Oracle ---->
 				<cfstoredproc procedure="proc_htax_srch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#dataset_id#"><!---- v_container_id ---->
