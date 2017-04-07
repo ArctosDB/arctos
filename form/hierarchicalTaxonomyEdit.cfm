@@ -26,7 +26,7 @@
 
 <script>
 	jQuery(document).ready(function() {
-		$("#statusDiv").html('ready');
+		parent.$("#statusDiv").html('ready');
 	});
 
 	function fcreateNewChildTerm(){
