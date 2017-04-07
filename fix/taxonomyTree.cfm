@@ -392,7 +392,8 @@
 		)
 	</cfquery>
 	<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct term,rank from htax_inconsistent_terms where term in (select term from  (select distinct term, rank from htax_inconsistent_terms) group by term having count(*) > 1) order by term,rank
+		select distinct term,rank from htax_inconsistent_terms where dataset_id=#dsid.dataset_id# and term in
+		 (select term from  (select distinct term, rank from htax_inconsistent_terms) group by term having count(*) > 1) order by term,rank
 	</cfquery>
 	<cfoutput>
 		<table border>
