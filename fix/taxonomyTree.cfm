@@ -697,7 +697,7 @@
 	<cfoutput>
 		<input type="hidden" name="dataset_id" id="dataset_id" value="#did.dataset_id#">
 	</cfoutput>
-	<div id="statusDiv" style="position:fixed;top:100;right:0;margin-right:2em;padding:.2em;border:1px solid red;z-index:9999999;">status</div>
+	<div id="statusDiv" style="background:white;position:fixed;top:100;right:0;margin-right:2em;padding:.2em;border:1px solid red;z-index:9999999;">status</div>
 
 	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
@@ -906,7 +906,7 @@
 		<br>All edits propagate to all children.
 		<br>Searches which return >1K records will fail; expand/browse instead.
 	</p>
-	<p>
+	<p style="width:70%">
 		IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
 		If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
 		homonym in different ways. Coordinate updates, which may require splitting classifications.
