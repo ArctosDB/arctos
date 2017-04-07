@@ -779,6 +779,11 @@
 		}
 
 		function performSearch(){
+
+			if ($( "#srch" ).val().length < 3){
+				$("#statusDiv").html('Enter at least two letters to search.');
+				return;
+			}
 			$("#statusDiv").html('working...');
 			myTree.deleteChildItems(0);
 
@@ -898,12 +903,10 @@
 			});
 			*/
 			$("#srch").keyup(function(e){
-				  //alert(e.keyCode);
-		    if(e.keyCode == 13)
-		    {
-		      performSearch();
-		    }
-		});
+			    if(e.keyCode == 13) {
+		      		performSearch();
+		    	}
+			});
 			$( "#srchBtn" ).click(function() {
 				performSearch();
 			});
