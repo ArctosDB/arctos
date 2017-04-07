@@ -71,7 +71,7 @@
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "createDataset">
 	<cfoutput>
-	Create a dataset. A dataset is a list of terms from an Arctos classification which will be made hierarchical, and accompanying metadata/
+	Create a dataset. A dataset is a list of terms from an Arctos classification which will be made hierarchical, and accompanying metadata.
 	<form method="post" action="taxonomyTree.cfm">
 		<input type="hidden" name="action" value="saveCreateDataset">
 		<label for="dataset_name">dataset_name</label>
@@ -123,7 +123,7 @@
 		       // var data = $("#f_ds_filter :input").serializeArray();
 		        //console.log(data); //use the console for debugging, F12 in Chrome, not alerts
 		        $('#inspect').val('working - be patient!');
-		         $.getJSON("/component/test.cfc",
+		         $.getJSON("/component/taxonomy.cfc",
 					{
 						method : "getSeedTaxSum",
 						source: $("#source").val(),
@@ -738,7 +738,7 @@
 		function expandNode(id){
 			//alert('am expandNode');
 			$("#statusDiv").html('working...');
-		    $.getJSON("/component/test.cfc",
+		    $.getJSON("/component/taxonomy.cfc",
 				{
 					method : "getTaxTreeChild",
 					dataset_id: $("#dataset_id").val(),
@@ -775,7 +775,7 @@
 			$("#statusDiv").html('working...');
 			myTree.deleteChildItems(0);
 
-			$.getJSON("/component/test.cfc",
+			$.getJSON("/component/taxonomy.cfc",
 				{
 					method : "getTaxTreeSrch",
 					dataset_id: $("#dataset_id").val(),
@@ -802,7 +802,7 @@
 		function initTree(){
 			$("#statusDiv").html('initializing');
 			myTree.deleteChildItems(0);
-			$.getJSON("/component/test.cfc",
+			$.getJSON("/component/taxonomy.cfc",
 				{
 					method : "getInitTaxTree",
 					dataset_id: $("#dataset_id").val(),
@@ -863,7 +863,7 @@
 
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
 				$("#statusDiv").html('working....');
-			    $.getJSON("/component/test.cfc",
+			    $.getJSON("/component/taxonomy.cfc",
 					{
 						method : "saveParentUpdate",
 						dataset_id: $("#dataset_id").val(),

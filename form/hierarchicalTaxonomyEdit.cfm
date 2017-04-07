@@ -31,7 +31,7 @@
 		// create the term; if success, just expand the node to view
 			var theID=$("#tid").val();
 
-			$.getJSON("/component/test.cfc",
+			$.getJSON("/component/taxonomy.cfc",
 				{
 					method : "createTerm",
 					//dataset_id: $("#dataset_id").val(),
@@ -63,7 +63,7 @@
 		var r = confirm(d);
 		if (r == true) {
 			var theID=$("#tid").val();
-			$.getJSON("/component/test.cfc",
+			$.getJSON("/component/taxonomy.cfc",
 				{
 					method : "deleteTerm",
 					//dataset_id: $("#dataset_id").val(),
@@ -89,7 +89,7 @@
 		var frm=$("#tEditFrm").serialize();
 		//console.log(frm);
 		// save metadata
-		 $.getJSON("/component/test.cfc",
+		 $.getJSON("/component/taxonomy.cfc",
 			{
 				method : "saveMetaEdit",
 				//dataset_id: $("#dataset_id").val(),
@@ -112,7 +112,7 @@
 	}
 	function findSaveNewParent(){
 		var theID=$("#tid").val();
-		 $.getJSON("/component/test.cfc",
+		 $.getJSON("/component/taxonomy.cfc",
 			{
 				method : "moveTermNewParent",
 				id : $("#tid").val(),
