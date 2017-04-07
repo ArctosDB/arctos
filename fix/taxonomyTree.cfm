@@ -577,13 +577,11 @@
 			</li>
 			<li>
 				A cat wandered across someone's keyboard while they were creating classifications; the name is garbage and should
-				not exist anywhere for any reason. Be very sure that these are NOT included in the CSV of names to create.
+				not exist anywhere for any reason. Be very sure that these are NOT included in the CSV of names to create, and
+				are NOT repatriated with your data (eg, you need to delete them from your dataset).
 			</li>
 		</ol>
-		<p>
-			If this is extremely messy, it may be easier to delete your dataset, fix the problems (by adding taxa or correcting mistakes),
-			and import again.
-	</p>
+
 	<cfoutput>
 		<cfloop query="mia">
 			<br>#term#
