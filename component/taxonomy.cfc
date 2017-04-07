@@ -266,7 +266,7 @@
 		<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 		<cfoutput>
 			<cftry>
-				<cfset key=RandRange(1, 6)>
+				<cfset key=RandRange(1, 66)>
 
 			<!---- first get the terms that match our search ---->
 
@@ -291,6 +291,7 @@
 					where
 						dataset_id=#dataset_id# and
 						upper(term) like '#ucase(q)#%'
+				)
 			</cfquery>
 
 			<cfdump var=#r_dc0#>
