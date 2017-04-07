@@ -897,7 +897,7 @@
 				performSearch();
 			});
 			*/
-			$("#srchBtn").keyup(function(e){
+			$("#tttest").keyup(function(e){
 				  alert(e.keyCode);
 		    if(e.keyCode == 13)
 		    {
@@ -911,6 +911,7 @@
 		// end ready function
 
 	</script>
+	<input id="tttest">
 	<p>
 		<strong>Doubleclick</strong> terms to expand.
 		<br><strong>Check</strong> the box to edit.
