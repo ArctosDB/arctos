@@ -48,14 +48,15 @@
 		select distinct (dataset_name) from htax_dataset
 	</cfquery>
 	<cfoutput>
-		select a dataset to edit...
+		<a href="taxonomyTree.cfm?action=createDataset">Create a new dataset</a>
+		or select an existing dataset to edit:
+		<ul>
 		<cfloop query="mg">
-			<p>
+			<li>
 				<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#">#dataset_name#</a>
-			</p>
+			</li>
 		</cfloop>
-
-		... or <a href="taxonomyTree.cfm?action=createDataset">create a new dataset</a>
+		</ul>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
@@ -480,15 +481,24 @@
 		</p>
 		<p>
 			<ul>
+				<!----
+
+				the key on (term,rank) acused huge amounts of errors; drop it, just import the term the first time it's encountered
+				as whatever rank it's encountered as
+
+
 				<li>
-					fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated errors are an indication of inconsistent data
+					fail: ORA-00001:
+					 unique constraint (UAM.IU_TERM_DS) violated errors are an indication of inconsistent data
 					(eg, TERM is ranked family in some records and subfamily in others, which cannnot happen in hierarchical data).
 					Hierarchical data is structurally-consistent so these inconsistencies will be resolved when the data are pushed back to Arctos.
+					<br>EDIT:
 					<br>
 					<a href="taxonomyTree.cfm?action=findInconsistentData&dataset_name=#dataset_name#">
 						click here to locate the inconsistent data
 					</a>
 				</li>
+				------->
 				<li>
 					inserted_term errors are those in which all classification terms excepting scientific_name (which should always be
 					redundant with other terms) was inserted, but the taxon name does not exist as a term (and so were not found
@@ -501,6 +511,12 @@
 						<li>
 							No match between the taxon name and classification data (eg, someone who should REALLY not have admin powers
 							has admin powers): The species for "Acrulia tumidula" given as "Acruliopsis tumidula."
+						</li>
+						<li>
+							The presence of subgenus data - see Issue#1000.
+						</li>
+						<li>
+							Missing terms - genus=Disogmus, [no species data exists], scientific_name=Disogmus areolator
 						</li>
 					</ul>
 
