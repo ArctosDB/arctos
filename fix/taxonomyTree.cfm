@@ -904,14 +904,13 @@
 		<br><strong>Drag</strong> to re-order.
 		<br><strong>Rightclick</strong> to close a node.
 		<br>All edits propagate to all children.
-		<br>Searches which return >1K records will fail; expand/browse instead.
 	</p>
 	<p style="width:70%">
 		IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
 		If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
 		homonym in different ways. Coordinate updates, which may require splitting classifications.
 	</p>
-	<p>
+	<p style="width:70%">
 		Search is case-sensitive contains;
 		"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
 		"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find Mustela <strong>mus</strong>tela),
