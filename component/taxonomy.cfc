@@ -296,6 +296,12 @@
 				</cfloop>
 				<cfset x=x & "]">
 
+				<!--- now clean up, because we're cool like that ---->
+				<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from htax_srchhlpr where key=#key#
+				</cfquery>
+
+
 				<cfreturn x>
 				<!----
 				<cfdump var=#d#>
