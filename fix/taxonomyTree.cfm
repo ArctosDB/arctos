@@ -912,10 +912,11 @@
 	</p>
 	<p style="width:70%">
 		Search is case-sensitive contains;
-		"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
-		"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find Mustela <strong>mus</strong>tela),
-		 Large searches may be slow, and then eat your browser; try to limit your search to a few thousand
-		results. Re-searching while a previous search is still "working" can cause strange behavior.
+		<br>"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
+		<br>"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find "Mustela <strong>mus</strong>tela").
+		 <br>Large searches may be slow, and possibly cause local memory problem (but "mus" in Insecta
+		 returned 20K usable results in 30s on test).
+		 <br>Re-searching while a previous search is still "working" can cause strange behavior.
 	</p>
 	<label for="srch">search</label>
 	<input id="srch">
