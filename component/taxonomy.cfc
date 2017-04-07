@@ -270,14 +270,8 @@
 
 			<!---- first get the terms that match our search ---->
 
-			create table htax_srchhlpr (
-		-- one-time use key
-		key number not null,
-		parent_tid number,
-		term varchar2(255),
-		tid number,
-		rank varchar2(255)
-	);
+			<!--- result isn't working properly with this type of SQL so.... ---->
+			<cftransaction>
 			<cfquery name="dc0" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r_dc0">
 				insert into htax_srchhlpr (
 					key,
@@ -293,8 +287,12 @@
 						upper(term) like '#ucase(q)#%'
 				)
 			</cfquery>
+			<cfquery name="rst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r_dc0">
+				select count(*) c from htax_srchhlpr where key=#key#
+			</cfquery>
+			</cftransaction>
 
-			<cfdump var=#r_dc0#>
+			<cfdump var=#rst#>
 
 
 			<cfif not dc0.recordcount gt 0>
