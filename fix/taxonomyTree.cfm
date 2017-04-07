@@ -908,7 +908,13 @@
 		If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
 		homonym in different ways. Coordinate updates, which may require splitting classifications.
 	</p>
-	<label for="srch">search (starts with)</label>
+	<p>
+		Search is case-sensitive contains;
+		"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
+		"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>." Large searches may be slow, and then eat your browser; try to limit your search to a few thousand
+		results.
+	</p>
+	<label for="srch">search</label>
 	<input id="srch">
 	<input type="button" value="search" id="srchBtn">
 
