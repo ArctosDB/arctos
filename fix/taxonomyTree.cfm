@@ -513,7 +513,7 @@
 							has admin powers): The species for "Acrulia tumidula" given as "Acruliopsis tumidula."
 						</li>
 						<li>
-							The presence of subgenus data - see Issue#1000.
+							The presence of subgenus data - see Issue ##1000.
 						</li>
 						<li>
 							Missing terms - genus=Disogmus, [no species data exists], scientific_name=Disogmus areolator
