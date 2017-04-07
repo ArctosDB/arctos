@@ -718,6 +718,7 @@
 			margin-right:2em;
 			padding:.2em;
 			z-index:9999999;
+			max-width:20em;
 		}
 		.working {
 			border:2px solid yellow;
