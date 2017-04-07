@@ -487,23 +487,24 @@
 					<a href="taxonomyTree.cfm?action=findInconsistentData&dataset_name=#dataset_name#">
 						click here to locate the inconsistent data
 					</a>
-
-
 				</li>
 				<li>
 					inserted_term errors are those in which all classification terms excepting scientific_name (which should always be
 					redundant with other terms) was inserted, but the taxon name does not exist as a term (and so were not found
 					by the nonclassification-term-inserter). These are due to missing
-					or garbage classifications and are indications that the hierarchy you are trying to manage is incomplete. For example,
-					given a trinomial name (Anas platyrhynchos domestic) with a malformed species (platyrhynchos domestic), the
-					term in hierarchy will be platyrhynchos domestic NOT Anas platyrhynchos domestic; you will not repatriate any
-					data for Anas platyrhynchos domestic. Fix the garbage data in Arctos-proper+delete+re-import, or manually create
-					the missing terms. Plant-like names (imported from ITIS) will also cause these: "Lagopus leucurus subsp. saxatilis".
+					or garbage classifications and are indications that the hierarchy you are trying to manage is incomplete or inconsistent.
+					These errors are probably not limited to, but have been detected with:
+					<ul>
+						<li>Trinomial names (Anas platyrhynchos domestic) with malformed species (platyrhynchos domestic)</li>
+						<li>Plant-like names in taxon terms: "Lagopus leucurus subsp. saxatilis"</li>
+						<li>
+							No match between the taxon name and classification data (eg, someone who should REALLY not have admin powers
+							has admin powers): The species for "Acrulia tumidula" given as "Acruliopsis tumidula."
+						</li>
+					</ul>
+
 				</li>
-
-
 			</ul>
-
 		</p>
 		<cfloop query="d">
 			<br>#status#: <a href="/name/#scientific_name#">#scientific_name#</a>
@@ -581,7 +582,6 @@
 				are NOT repatriated with your data (eg, you need to delete them from your dataset).
 			</li>
 		</ol>
-
 	<cfoutput>
 		<cfloop query="mia">
 			<br>#term#
