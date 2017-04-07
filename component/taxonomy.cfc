@@ -269,8 +269,8 @@
 				<cfset key=RandRange(1, 9999)>
 
 				<cfstoredproc procedure="proc_htax_srch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					<cfprocparam cfsqltype="cf_sql_varchar" value="#dsid#"><!---- v_container_id ---->
-					<cfprocparam cfsqltype="cf_sql_varchar" value="#schterm#"><!---- v_parent_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#dataset_id#"><!---- v_container_id ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#q#"><!---- v_parent_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#key#"><!---- v_container_type ---->
 				</cfstoredproc>
 
