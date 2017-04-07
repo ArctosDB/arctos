@@ -26,31 +26,29 @@
 
 <script>
 	function fcreateNewChildTerm(){
-		//alert('fcreateNewChildTerm');
-
-		// create the term; if success, just expand the node to view
-			var theID=$("#tid").val();
-
-			$.getJSON("/component/taxonomy.cfc",
-				{
-					method : "createTerm",
-					//dataset_id: $("#dataset_id").val(),
-					id : theID,
-					newChildTerm: $("#newChildTerm").val(),
-					newChildTermRank: $("#newChildTermRank").val(),
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-					//console.log(r);
-					if (r=='success'){
-						parent.createdNewTerm(theID);
-					} else {
-						alert(r);
-					}
+		$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+		var theID=$("#tid").val();
+		$.getJSON("/component/taxonomy.cfc",
+			{
+				method : "createTerm",
+				//dataset_id: $("#dataset_id").val(),
+				id : theID,
+				newChildTerm: $("#newChildTerm").val(),
+				newChildTermRank: $("#newChildTermRank").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				//console.log(r);
+				if (r=='success'){
+					parent.createdNewTerm(theID);
+				} else {
+					$("#statusDiv").html(r);
+					alert(r);
 				}
-			);
-	    }
+			}
+		);
+    }
 
 	function deleteThis(){
 		var d='Are you sure you want to DELETE this record?\n';
@@ -62,6 +60,7 @@
 	 	d+=' Click "reset tree" to rebuild.';
 		var r = confirm(d);
 		if (r == true) {
+			$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 			var theID=$("#tid").val();
 			$.getJSON("/component/taxonomy.cfc",
 				{
@@ -76,6 +75,7 @@
 					if (r=='success'){
 						parent.deletedRecord(theID);
 					} else {
+						$("#statusDiv").html(r);
 						alert(r);
 					}
 				}
@@ -83,6 +83,7 @@
 		}
 	}
 	function saveAllEdits(){
+		$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 		// get vars
 		var theID=$("#tid").val();
 		var newVal=$("#term").val() + ' (' + $("#rank").val() + ')';
@@ -105,12 +106,14 @@
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 					parent.savedMetaEdit(theID,newVal);
 				} else {
+					$("#statusDiv").html(r);
 					alert(r);
 				}
 			}
 		);
 	}
 	function findSaveNewParent(){
+		$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 		var theID=$("#tid").val();
 		 $.getJSON("/component/taxonomy.cfc",
 			{
@@ -124,6 +127,7 @@
 				if (r.STATUS=='success'){
 					parent.movedToNewParent(r.CHILD,r.PARENT);
 				} else {
+					$("#statusDiv").html('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
 					alert('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
 				}
 			}

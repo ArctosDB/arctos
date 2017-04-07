@@ -744,7 +744,7 @@
 		}
 		function expandNode(id){
 			//alert('am expandNode');
-			$("#statusDiv").html('working...');
+			$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 		    $.getJSON("/component/taxonomy.cfc",
 				{
 					method : "getTaxTreeChild",
@@ -812,7 +812,7 @@
 
 
 		function initTree(){
-			$("#statusDiv").html('initializing');
+			$("#statusDiv").html('initializing<img src="/images/indicator.gif">');
 			myTree.deleteChildItems(0);
 			$.getJSON("/component/taxonomy.cfc",
 				{
@@ -874,7 +874,7 @@
 			});
 
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
-				$("#statusDiv").html('working....');
+				$("#statusDiv").html('working....<img src="/images/indicator.gif">');
 			    $.getJSON("/component/taxonomy.cfc",
 					{
 						method : "saveParentUpdate",
