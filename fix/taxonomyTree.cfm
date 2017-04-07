@@ -781,10 +781,10 @@
 		function performSearch(){
 
 			if ($( "#srch" ).val().length < 3){
-				$("#statusDiv").html('Enter at least two letters to search.');
+				$("#statusDiv").html('Enter at least three letters to search.');
 				return;
 			}
-			$("#statusDiv").html('working...');
+			$("#statusDiv").html('working...<img src="/images/indicator.gif">');
 			myTree.deleteChildItems(0);
 
 			$.getJSON("/component/taxonomy.cfc",
