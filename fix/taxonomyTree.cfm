@@ -884,9 +884,12 @@
 				);
 			});
 
+			/*
+			sort of annoying....
 			$( "#srch" ).change(function() {
 				performSearch();
 			});
+			*/
 
 			$( "#srchBtn" ).click(function() {
 				performSearch();
