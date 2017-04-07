@@ -57,14 +57,12 @@
 						<!--- the last item is a name and needs italicized. The rest is rank stuff and does NOT need italicized. ---->
 						<cfset ttrm=listlast(itrm,' ')>
 						<cfset nttrm=listDeleteAt(itrm,listlen(itrm,' '),' ')>
-
 						<cfset gdn=gdn & ' #nttrm# <i>#ttrm#</i>'>
 					<cfelseif len(itrm) gt 0>
 						<!--- shuold never, but whatever --->
 						<cfset gdn=gdn & ' <i>#itrm#</i>'>
 					</cfif>
 				</cfif>
-
 				<cfif len(v_infraspecific_author) gt 0>
 					<cfset gdn=gdn & ' ' & v_infraspecific_author>
 				</cfif>

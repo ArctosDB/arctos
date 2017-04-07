@@ -42,12 +42,8 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					//alert(r);
-
-
 					//console.log(r);
 					if (r=='success'){
-						//alert('going to createdNewTerm');
 						parent.createdNewTerm(theID);
 					} else {
 						alert(r);
@@ -55,10 +51,6 @@
 				}
 			);
 	    }
-
-
-
-
 
 	function deleteThis(){
 		var d='Are you sure you want to DELETE this record?\n';
@@ -80,20 +72,14 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					//console.log(r);
 					alert(r);
 					if (r=='success'){
-
-						//alert('back; update parent and close if success');
-						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 						parent.deletedRecord(theID);
 					} else {
 						alert(r);
 					}
 				}
 			);
-		} else {
-		    x = "You pressed Cancel!";
 		}
 	}
 	function saveAllEdits(){
@@ -104,30 +90,25 @@
 		//console.log(frm);
 		// save metadata
 		 $.getJSON("/component/test.cfc",
-				{
-					method : "saveMetaEdit",
-					//dataset_id: $("#dataset_id").val(),
-					id : theID,
-					q: frm,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-
-
-					//console.log(r);
-					if (r=='success'){
-
-						//alert('back; update parent and close if success');
-						//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-						parent.savedMetaEdit(theID,newVal);
-					} else {
-						alert(r);
-					}
+			{
+				method : "saveMetaEdit",
+				//dataset_id: $("#dataset_id").val(),
+				id : theID,
+				q: frm,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				//console.log(r);
+				if (r=='success'){
+					//alert('back; update parent and close if success');
+					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
+					parent.savedMetaEdit(theID,newVal);
+				} else {
+					alert(r);
 				}
-			);
-
-
+			}
+		);
 	}
 	function findSaveNewParent(){
 		var theID=$("#tid").val();
@@ -243,7 +224,7 @@
 			</td>
 		</tr>
 	</cfloop>
-	<cfloop from="1" to="10" index="i">
+	<cfloop from="1" to="5" index="i">
 		<tr>
 			<td>
 				<select name="nctermtype_new_#i#" id="nctermtype_new_#i#">
