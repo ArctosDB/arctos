@@ -753,20 +753,31 @@
 			z-index:9999999;
 			border:5px solid red;
 		}
+
+		.caution {
+			background:white;
+			position:fixed;
+			top:100;
+			right:0;
+			margin-right:2em;
+			padding:.2em;
+			z-index:9999999;
+			border:2px solid yellow;
+		}
 	</style>
 	<script>
 		function setStatus(msg,st){
 			$("#statusDiv").html(msg).removeClass().addClass('default').addClass(st).html(msg);
-
-//							$("#statusDiv").html('working...<img src="/images/indicator.gif">');
-
+			if (st=='error'){
+				alert(msg);
+			}
 		}
 
 		function deletedRecord(theID){
 			// deleted something
 			// remove it from the view
 			myTree.deleteItem(theID,false);
-			setStatus('delete successful');
+			setStatus('delete successful','done');
 			$(".ui-dialog-titlebar-close").trigger('click');
 		}
 
@@ -775,7 +786,7 @@
 			myTree.deleteItem(c,false);
 			// expand the new parent
 			expandNode(p);
-			setStatus('move success');
+			setStatus('move success','done');
 			$(".ui-dialog-titlebar-close").trigger('click');
 		}
 
@@ -789,13 +800,13 @@
 			expandNode(id);
 			//alert(' expanded;updatestatus');
 			// update status
-			setStatus('created new term');
+			setStatus('created new term','done');
 			myTree.selectItem(id);
 			myTree.focusItem(id);
 		}
 		function expandNode(id){
 			//alert('am expandNode');
-			setStatus('working');
+			setStatus('working','working');
 		    $.getJSON("/component/taxonomy.cfc",
 				{
 					method : "getTaxTreeChild",
@@ -806,7 +817,7 @@
 				},
 				function (r) {
 					if (r.toString().substring(0,5)=='ERROR'){
-						setStatus(r,'error');
+						setStatus(r,'error','error');
 					} else {
 						for (i=0;i<r.ROWCOUNT;i++) {
 							//insertNewChild(var) does not work for some insane reason, so.....
@@ -816,7 +827,7 @@
 							var d="myTree.insertNewChild(" + r.DATA.PARENT_TID[i]+','+r.DATA.TID[i]+',"'+r.DATA.TERM[i]+' (' + r.DATA.RANK[i] + ')",0,0,0,0)';
 							eval(d);
 						}
-						setStatus('done');
+						setStatus('expansion done','done');
 					}
 				}
 			);
@@ -824,14 +835,14 @@
 
 		function savedMetaEdit(tid,newVal){
 			myTree.setItemText(tid,newVal);
-			setStatus('term edits saved');
+			setStatus('term edits saved','done');
 			$(".ui-dialog-titlebar-close").trigger('click');
 		}
 
 		function performSearch(){
 
 			if ($( "#srch" ).val().length < 3){
-				setStatus('Enter at least three letters to search.');
+				setStatus('Enter at least three letters to search.','caution');
 				return;
 			}
 			setStatus('working','working');
@@ -937,7 +948,7 @@
 					function (r) {
 						//console.log(r);
 						if (r=='success') {
-							setStatus('successful save','success');
+							setStatus('successful save','done');
 						}else{
 							setStatus(r,'error');
 						}

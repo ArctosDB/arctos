@@ -26,11 +26,11 @@
 
 <script>
 	jQuery(document).ready(function() {
-		parent.$("#statusDiv").html('ready');
+		parent.setStatus('ready','done');
 	});
 
 	function fcreateNewChildTerm(){
-		parent.$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+		parent.setStatus('working','working');
 		var theID=$("#tid").val();
 		$.getJSON("/component/taxonomy.cfc",
 			{
@@ -47,8 +47,7 @@
 				if (r=='success'){
 					parent.createdNewTerm(theID);
 				} else {
-					parent.$("#statusDiv").html(r);
-					alert(r);
+					parent.setStatus(r,'error');
 				}
 			}
 		);
@@ -64,7 +63,7 @@
 	 	d+=' Click "reset tree" to rebuild.';
 		var r = confirm(d);
 		if (r == true) {
-			parent.$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+			parent.setStatus('working','working');
 			var theID=$("#tid").val();
 			$.getJSON("/component/taxonomy.cfc",
 				{
@@ -78,15 +77,14 @@
 					if (r=='success'){
 						parent.deletedRecord(theID);
 					} else {
-						parent.$("#statusDiv").html(r);
-						alert(r);
+						parent.setStatus(r,'error');
 					}
 				}
 			);
 		}
 	}
 	function saveAllEdits(){
-		parent.$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+		parent.setStatus('working','working');
 		// get vars
 		var theID=$("#tid").val();
 		var newVal=$("#term").val() + ' (' + $("#rank").val() + ')';
@@ -109,14 +107,13 @@
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 					parent.savedMetaEdit(theID,newVal);
 				} else {
-					$("#statusDiv").html(r);
-					alert(r);
+					parent.setStatus(r,'error');
 				}
 			}
 		);
 	}
 	function findSaveNewParent(){
-		parent.$("#statusDiv").html('working...<img src="/images/indicator.gif">');
+		parent.setStatus('working','working');
 		var theID=$("#tid").val();
 		 $.getJSON("/component/taxonomy.cfc",
 			{
@@ -130,8 +127,7 @@
 				if (r.STATUS=='success'){
 					parent.movedToNewParent(r.CHILD,r.PARENT);
 				} else {
-					parent.$("#statusDiv").html('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
-					alert('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.');
+					parent.setStatus('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.','error');
 				}
 			}
 		);
