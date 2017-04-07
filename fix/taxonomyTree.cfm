@@ -898,9 +898,9 @@
 			});
 			*/
 			$('#srchBtn').keypress(function(e){
-
+				console.log('keypress ' + e.which);
 		        if(e.which == 13){//Enter key pressed
-		        alert('enter');
+
 		            performSearch();
 		        }
 		    });
