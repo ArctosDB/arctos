@@ -704,7 +704,7 @@
 	<cfoutput>
 		<input type="hidden" name="dataset_id" id="dataset_id" value="#did.dataset_id#">
 	</cfoutput>
-	<div id="statusDiv">status</div>
+	<div id="statusDiv" class="done">status</div>
 
 	<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 	<script type="text/javascript" src="/includes/dhtmlxTree_v50_std/codebase/dhtmlxtree.js"></script>
