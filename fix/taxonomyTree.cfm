@@ -918,7 +918,7 @@
 		 returned 20K usable results in 30s on test).
 		 <br>Re-searching while a previous search is still "working" can cause strange behavior.
 	</p>
-	<label for="srch">search</label>
+	<label for="srch">search #dataset_name#</label>
 	<input id="srch">
 	<input type="button" value="search" id="srchBtn">
 
