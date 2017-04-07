@@ -277,10 +277,22 @@
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from htax_srchhlpr where key=#key#
 				</cfquery>
+				<!--- cf's query-->JSON is dumb and dhtmlxtree is too so....---->
+				<cfset x="[">
+				<cfset i=1>
+				<cfloop query="d">
+					<cfset x=x & '["#tid#","#parent_tid#","#term# (#rank#)"]'>
+					<cfif i lt d.recordcount>
+						<cfset x=x & ",">
+					</cfif>
+					<cfset i=i+1>
+				</cfloop>
+				<cfset x=x & "]">
+
+				<cfreturn x>
 				<!----
 				<cfdump var=#d#>
 				--->
-				<cfreturn d>
 
 
 
