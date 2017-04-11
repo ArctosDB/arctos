@@ -54,7 +54,7 @@ from
 
 update temp_dnametest set gdisplay_name=null where gdisplay_name not like 'ERROR%' and gdisplay_name!=display_name;
 
-
+select count(*) from temp_dnametest where gdisplay_name=null;
 
 
 select taxon_name_id,count(*) from temp_dnametest having count(*) > 1 group by taxon_name_id;

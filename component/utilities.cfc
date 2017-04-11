@@ -617,15 +617,6 @@
        <cfreturn true>
     </cfif>
 	<!---
-
-
-rdurl: /includes/"+("/picks/findAgentModal.cfm&agentIdFld=%22+b+%22&agentNameFld=%22+d+%22&name=%22+(%22undefined%22!=typeof%20e?e:%22%22))+%22
-
-
-rdurl: /home.cfm'A=0
-
-rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
-
 		first check if they're already blacklisted
 		If they are, just include the notification/form and abort
 	---->
@@ -820,7 +811,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
-			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide">
+			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS">
@@ -829,7 +820,7 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus">
 			<cfset x=x & ",lib,lightbox,local-bin,LoginForm">
-			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market">
+			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg">
 			<cfset x=x & ",news,nyet">
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2">
@@ -844,8 +835,6 @@ rdurl: /includes/forms/manyCatItemToMedia.cfm?media_id='+b+'
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp">
 			<cfset x=x & ",zboard">
-
-
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
