@@ -484,8 +484,8 @@
 		group by taxon_term.term_type
 		order by count(*)
 	</cfquery>
-	Usage of #term# (in local classifications):
 	<cfoutput>
+		Usage of #term# (in local classifications):
 		<table border>
 			<tr>
 				<td>Rank</td>
@@ -501,7 +501,6 @@
 							<a href="/taxonomy.cfm?source=LOCAL&taxon_term=#term#&term_type=#term_type#">search term@rank</a>
 						</div>
 					</td>
-
 				</tr>
 			</cfloop>
 		</table>
