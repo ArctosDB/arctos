@@ -46,6 +46,7 @@
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					pr+=r.DATA[i].TERM_TYPE + ' (' + r.DATA[i].TIMESUSED + ')';
 				}
+				alert(pr);
 				$("#srcconsistencycheckdiv").html(pr);
 
 			}
