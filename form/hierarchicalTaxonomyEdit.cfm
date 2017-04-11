@@ -47,7 +47,7 @@
 					pr.push(r.DATA.TERM_TYPE[i] + ' (' + r.DATA.TIMESUSED[i] + ')');
 				}
 				//alert(pr);
-				$("#srcconsistencycheckdiv").html('used in ' + pr.join(';'));
+				$("#srcconsistencycheckdiv").html('used in ' + pr.join('; '));
 
 			}
 		);
