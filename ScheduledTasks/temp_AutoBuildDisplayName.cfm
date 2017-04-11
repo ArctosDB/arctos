@@ -18,6 +18,8 @@ create table temp_dnametest (
 
 delete from temp_dnametest where gdisplay_name is null;
 
+drop table temp_dnametest;
+
 
 insert into temp_dnametest (
 	taxon_name_id,
@@ -61,6 +63,17 @@ from
 	gdisplay_name not like 'ERROR%' and gdisplay_name is not null and display_name!=gdisplay_name
 	order by display_name;
 
+
+select
+	display_name || '------>' ||  gdisplay_name
+from
+	temp_dnametest where
+	gdisplay_name is not null
+	order by display_name;
+
+
+
+
 	select count(*) from temp_dnametest;
 	select count(*) from temp_dnametest where gdisplay_name is not null;
 
@@ -78,7 +91,7 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 ---->
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource="uam_god">
-	select * from temp_dnametest where gdisplay_name is null and rownum<2
+	select * from temp_dnametest where gdisplay_name is null and rownum<500
 </cfquery>
 <cfoutput>
 	<cftransaction>
