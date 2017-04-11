@@ -470,9 +470,8 @@
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			taxon_name.taxon_name_id,
-			taxon_name.scientific_name,
-			taxon_term.term_type
+			taxon_term.term_type,
+			count(*) timesUsed
 		from
 			taxon_name,
 			taxon_term,
@@ -480,67 +479,26 @@
 		where
 			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 			taxon_term.source=CTTAXONOMY_SOURCE.source and
+			taxon_term.position_in_classification is not null and
 			taxon_term.term='#term#'
+		group by taxon_term.term_type
+		order by count(*)
 	</cfquery>
-
-
-	<cfdump var=#d#>
-
-
-
-	<cfabort>
-
-
-
-	<cfquery name="flush" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from htax_inconsistent_terms where dataset_id=#dsid.dataset_id#
-	</cfquery>
-
-	<cfquery name="repop" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into htax_inconsistent_terms (
-			dataset_id,
-			term,
-			rank,
-			fkey
-		) (
-			select
-				#dsid.dataset_id#,
-				term,
-				term_type,
-				term || '|' || term_type
-			from
-				taxon_term,
-				htax_temp_hierarcicized
-			where
-				htax_temp_hierarcicized.dataset_id=#dsid.dataset_id# and
-				htax_temp_hierarcicized.status='fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated' and
-				htax_temp_hierarcicized.taxon_name_id=taxon_term.TAXON_NAME_ID and
-				taxon_term.position_in_classification is not null and
-				taxon_term.source='#dsid.source#' and
-				taxon_term.term_type != 'scientific_name'
-		)
-	</cfquery>
-	<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct term,rank from htax_inconsistent_terms where dataset_id=#dsid.dataset_id# and term in
-		 (select term from  (select distinct term, rank from htax_inconsistent_terms) group by term having count(*) > 1) order by term,rank
-	</cfquery>
+	Usage of #term# (in local classifications):
 	<cfoutput>
 		<table border>
 			<tr>
-				<td>Term</td>
 				<td>Rank</td>
+				<td>TimesUsed</td>
 				<td>Arctos</td>
 			</tr>
 			<cfloop query="dups">
 				<tr>
-					<td>#term#</td>
-					<td>#rank#</td>
+					<td>#term_type#</td>
+					<td>#timesUsed#</td>
 					<td>
 						<div>
-							<a href="/taxonomy.cfm?taxon_term=#term#&term_type=%3D#rank#&source=#dsid.source#">search term+rank+source</a>
-						</div>
-						<div>
-							<a href="/taxonomy.cfm?taxon_term=#term#&source=#dsid.source#">search term+source</a>
+							<a href="/taxonomy.cfm?taxon_term=#term#&term_type=#term_type#">search term@rank</a>
 						</div>
 					</td>
 
