@@ -23,15 +23,15 @@
 	<p>
 		This is not HTML-formatted; see source code to copypasta
 	</p>
-	
+
 	find terms which are used by bird collections but do not have a class=Aves term, possibly because they have no classification anything
-	
+
 	First a temp table so we can try to get rank
-	
+
 	drop table temp_missedh;
-	
-	
-	
+
+
+
 	create table temp_missedh as select distinct
 		taxon_name.scientific_name,
 		taxon_name.taxon_name_id
@@ -50,10 +50,10 @@
 		collection.collection_cde='Bird' and
 		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
 		taxon_term.taxon_name_id is null;
-		
-		
+
+
 	alter table temp_missedh add rank varchar2(255);
-	
+
 	declare
 		hs number;
 		rk varchar2(255);
@@ -66,14 +66,14 @@
 			if hs > 0 then
 			dbms_output.put_line('gotsomething');
 				-- has classification, might have rank
-				select count(*) into hs from taxon_term where source='Arctos' and 
-					term_type != 'scientific_name' and 
+				select count(*) into hs from taxon_term where source='Arctos' and
+					term_type != 'scientific_name' and
 					term=r.scientific_name and
 					taxon_name_id=r.taxon_name_id;
 				if hs>0 then
 					-- yay, got rank
-					select term_type into rk from taxon_term where source='Arctos' and 
-					term_type != 'scientific_name' and 
+					select term_type into rk from taxon_term where source='Arctos' and
+					term_type != 'scientific_name' and
 					term=r.scientific_name and
 					taxon_name_id=r.taxon_name_id;
 					dbms_output.put_line('using rank ' || rk);
@@ -104,18 +104,19 @@
 	select scientific_name,rank from temp_missedh where rank not in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1);
 
 	--- deal with those manually
-	
-			
-	
+
+
+
 	<br>Insert them into the hierarchy directly under kingdom
 	<br>No other insert point is safe
 	<br>
 	select dataset_id from htax_dataset where dataset_name='bird';
 	<br> >	114013137
-	
+
 	<br>
 	select tid from hierarchical_taxonomy where term='Animalia' and dataset_id=114013137;
 	<br> > 114013138
+
 	insert into hierarchical_taxonomy (
 		TID,
 		PARENT_TID,
@@ -134,9 +135,38 @@
 		where
 			rank in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1)
 	);
-	
-	
-	
+
+	-- well that sucks - try different path...
+	delete from hierarchical_taxonomy where DATASET_ID=114013137 and TERM in (select scientific_name from temp_missedh);
+
+	insert into htax_seed (
+		SCIENTIFIC_NAME,
+		TAXON_NAME_ID,
+		DATASET_ID
+	) (
+		select
+			scientific_name,
+			TAXON_NAME_ID,
+			114013137
+		from
+			temp_missedh
+		where
+			rank in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1)
+	);
+
+UAM@ARCTOS> desc
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ 						   NOT NULL VARCHAR2(255)
+ 							   NOT NULL NUMBER
+ DATASET_ID							   NOT NULL NUMBER
+
+UAM@ARCTOS>
+
+
+
+
+
 	Elapsed: 00:00:00.01
 UAM@ARCTOS> desc hierarchical_taxonomy
  Name								   Null?    Type
@@ -147,7 +177,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
  RANK									    VARCHAR2(255)
  DATASET_ID							   NOT NULL NUMBER
 
-	
+
 	select distinct
 		taxon_name.scientific_name
 	from
@@ -165,8 +195,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		collection.collection_cde='Bird' and
 		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
 		taxon_term.taxon_name_id is null;
-		
-		
+
+
 		select distinct
 		taxon_name.scientific_name
 	from
@@ -184,11 +214,11 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		collection.collection_cde='Bird' and
 		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
 		taxon_term.taxon_name_id is null;
-		
-		
-		
-		
-	select 
+
+
+
+
+	select
 		taxon_name.scientific_name
 	from
 		taxon_name,
@@ -209,8 +239,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				taxon_term.term_type='class' and
 				taxon_term.term='Aves'
 		)
-		
-		
+
+
 	select distinct
 		taxon_name.scientific_name
 	from
@@ -228,8 +258,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		collection.collection_cde='Bird' and
 		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
 		taxon_term.taxon_name_id is null;
-		
-		
+
+
 			select taxon_name_id from taxon_term,CTTAXONOMY_SOURCE
 				where taxon_term.source=CTTAXONOMY_SOURCE.source and
 				taxon_term.term_type='class' and
@@ -823,7 +853,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				</li>
 				------->
 				<li>
-					inserted_term errors are those in which all classification terms excepting scientific_name (which should always be
+					missed_taxonname errors are those in which all classification terms excepting scientific_name (which should always be
 					redundant with other terms) was inserted, but the taxon name does not exist as a term (and so were not found
 					by the nonclassification-term-inserter). These are due to missing
 					or garbage classifications and are indications that the hierarchy you are trying to manage is incomplete or inconsistent.
@@ -1256,7 +1286,6 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		// end ready function
 
 	</script>
-	<input id="tttest">
 	<p>
 		<strong>Doubleclick</strong> terms to expand.
 		<br><strong>Check</strong> the box to edit.
