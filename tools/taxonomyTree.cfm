@@ -1282,7 +1282,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			$( "#srchBtn" ).click(function() {
 				performSearch();
 			});
-			if ($("#autosearch").val() == 'true'){
+			if ($("#autosearch").val().length>0){
 				console.log('go go autosearch');
 			}
 		});
@@ -1310,7 +1310,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		 <br>Re-searching while a previous search is still "working" can cause strange behavior.
 	</p>
 	<cfif not isdefined("autosearch")>
-		<cfset autosearch="false">
+		<cfset autosearch="">
 	</cfif>
 	<input type="hidden" name="autosearch" id="autosearch" value="#autosearch#">
 
