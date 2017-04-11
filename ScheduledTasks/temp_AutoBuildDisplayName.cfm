@@ -54,6 +54,8 @@ update temp_dnametest set display_name=(
 		taxon_term.taxon_name_id=temp_dnametest.taxon_name_id and
 		taxon_term.classification_id=temp_dnametest.cid
 	);
+	
+update temp_dnametest set gdisplay_name=null where gdisplay_name like '% ,%';
 
 select
 	--'"' || display_name || '"' || chr(9) || '"' || gdisplay_name || '"'
@@ -72,6 +74,13 @@ from
 	order by display_name;
 
 
+
+select
+	display_name || '------>' ||  gdisplay_name
+from
+	temp_dnametest where
+	gdisplay_name like '%ERROR%'
+	order by gdisplay_name;
 
 
 	select count(*) from temp_dnametest;

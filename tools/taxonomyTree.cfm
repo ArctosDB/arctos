@@ -829,6 +829,8 @@
 					queryformat : 'column'
 				},
 				function (r) {
+					console.log(r);
+
 					if (r.toString().substring(0,5)=='ERROR'){
 						setStatus(r,'err');
 					} else {
