@@ -47,12 +47,15 @@
 			function (r) {
 				var pr=[];
 				console.log(r);
-				for (i=0; i<r.ROWCOUNT; ++i) {
-					pr.push('<em>' + r.DATA.TERM_TYPE[i] + '</em> (' + r.DATA.TIMESUSED[i] + ')');
+				if (r.ROWCOUNT==0){
+					$("#srcconsistencycheckdiv").html('NOT USED!!');
+				} else {
+					for (i=0; i<r.ROWCOUNT; ++i) {
+						pr.push('<em>' + r.DATA.TERM_TYPE[i] + '</em> (' + r.DATA.TIMESUSED[i] + ')');
+					}
+					//alert(pr);
+					$("#srcconsistencycheckdiv").html('used as ' + pr.join('; '));
 				}
-				//alert(pr);
-				$("#srcconsistencycheckdiv").html('used as ' + pr.join('; '));
-
 			}
 		);
 	});

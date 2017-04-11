@@ -83,6 +83,13 @@ from
 	order by gdisplay_name;
 
 
+
+
+select * from temp_dnametest where taxon_name_id=10953865 and classification_id='0D23F50A-0CF8-6131-34419E4DA1A0FF71';
+
+
+
+
 	select count(*) from temp_dnametest;
 	select count(*) from temp_dnametest where gdisplay_name is not null;
 

@@ -16,6 +16,227 @@
 </select>
 </cfoutput>
 <!------------------------------------------------------------------------------------------------->
+<cfif action is "badSeed">
+	<p>
+		NOTE: this is just code. Modify as necessary, execute via SQL tools.
+	</p>
+	<p>
+		This is not HTML-formatted; see source code to copypasta
+	</p>
+	
+	find terms which are used by bird collections but do not have a class=Aves term, possibly because they have no classification anything
+	
+	First a temp table so we can try to get rank
+	
+	drop table temp_missedh;
+	
+	
+	
+	create table temp_missedh as select distinct
+		taxon_name.scientific_name,
+		taxon_name.taxon_name_id
+	from
+		taxon_name,
+		(select * from taxon_term where term_type='class' and term='Aves')taxon_term ,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
+		taxon_term.taxon_name_id is null;
+		
+		
+	alter table temp_missedh add rank varchar2(255);
+	
+	declare
+		hs number;
+		rk varchar2(255);
+	begin
+		for r in (select * from temp_missedh) loop
+			rk:=null;
+			dbms_output.put_line(r.scientific_name);
+			select count(*) into hs from taxon_term where source='Arctos' and taxon_name_id=r.taxon_name_id;
+			dbms_output.put_line('class terms: ' || hs);
+			if hs > 0 then
+			dbms_output.put_line('gotsomething');
+				-- has classification, might have rank
+				select count(*) into hs from taxon_term where source='Arctos' and 
+					term_type != 'scientific_name' and 
+					term=r.scientific_name and
+					taxon_name_id=r.taxon_name_id;
+				if hs>0 then
+					-- yay, got rank
+					select term_type into rk from taxon_term where source='Arctos' and 
+					term_type != 'scientific_name' and 
+					term=r.scientific_name and
+					taxon_name_id=r.taxon_name_id;
+					dbms_output.put_line('using rank ' || rk);
+				end if;
+			end if;
+			if rk is null then
+				dbms_output.put_line('didnt find rank try to guess by structure');
+				if r.scientific_name like '% % %' then
+					rk:='subspecies';
+					dbms_output.put_line('subspecies');
+				elsif r.scientific_name like '% %' then
+					rk:='species';
+					dbms_output.put_line('species');
+				elsif r.scientific_name like '% % % %' then
+					rk:='too_many_spaces';
+					dbms_output.put_line('too_many_spaces');
+				else
+					rk:='genus or something maybe IDK';
+					dbms_output.put_line('genus or something maybe IDK');
+				end if;
+			end if;
+			update temp_missedh set rank=rk where taxon_name_id=r.taxon_name_id;
+		end loop;
+	end;
+	/
+
+
+	select scientific_name,rank from temp_missedh where rank not in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1);
+
+	--- deal with those manually
+	
+			
+	
+	<br>Insert them into the hierarchy directly under kingdom
+	<br>No other insert point is safe
+	<br>
+	select dataset_id from htax_dataset where dataset_name='bird';
+	<br> >	114013137
+	
+	<br>
+	select tid from hierarchical_taxonomy where term='Animalia' and dataset_id=114013137;
+	<br> > 114013138
+	insert into hierarchical_taxonomy (
+		TID,
+		PARENT_TID,
+		TERM,
+		RANK,
+		DATASET_ID
+	) (
+		select
+			someRandomSequence.nextval,
+			114013138,
+			scientific_name,
+			rank,
+			114013137
+		from
+			temp_missedh
+		where
+			rank in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1)
+	);
+	
+	
+	
+	Elapsed: 00:00:00.01
+UAM@ARCTOS> desc hierarchical_taxonomy
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ TID								   NOT NULL NUMBER
+ PARENT_TID								    NUMBER
+ TERM									    VARCHAR2(255)
+ RANK									    VARCHAR2(255)
+ DATASET_ID							   NOT NULL NUMBER
+
+	
+	select distinct
+		taxon_name.scientific_name
+	from
+		taxon_name,
+		taxon_term,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
+		taxon_term.taxon_name_id is null;
+		
+		
+		select distinct
+		taxon_name.scientific_name
+	from
+		taxon_name,
+		(select * from taxon_term where term_type='class' and term='Aves')taxon_term ,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
+		taxon_term.taxon_name_id is null;
+		
+		
+		
+		
+	select 
+		taxon_name.scientific_name
+	from
+		taxon_name,
+		taxon_term,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id not in (
+			select taxon_name_id from taxon_term,CTTAXONOMY_SOURCE
+				where taxon_term.source=CTTAXONOMY_SOURCE.source and
+				taxon_term.term_type='class' and
+				taxon_term.term='Aves'
+		)
+		
+		
+	select distinct
+		taxon_name.scientific_name
+	from
+		taxon_name,
+		taxon_term,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
+		taxon_term.taxon_name_id is null;
+		
+		
+			select taxon_name_id from taxon_term,CTTAXONOMY_SOURCE
+				where taxon_term.source=CTTAXONOMY_SOURCE.source and
+				taxon_term.term_type='class' and
+				taxon_term.term='Aves'
+		)
+</cfif>
+<!------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<p>
 		ABOUT:
