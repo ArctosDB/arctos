@@ -44,7 +44,7 @@
 				var pr;
 				console.log(r);
 				for (i=0; i<r.ROWCOUNT; ++i) {
-					pr+=r.DATA[i].TERM_TYPE + ' (' + r.DATA[i].TIMESUSED + ')';
+					pr+=r.DATA.TERM_TYPE[i] + ' (' + r.DATA.TIMESUSED[i] + ')';
 				}
 				alert(pr);
 				$("#srcconsistencycheckdiv").html(pr);
