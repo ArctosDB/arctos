@@ -34,6 +34,12 @@
 				 that is, inconsistent hierarchies - here one family split between two orders - then all <strong>family</strong> will end up
 				 as a child of either <strong>order</strong> or <strong>otherorder</strong>, whichever is encountered first.
 		</li>
+		<li>
+			The hierarchical data structure exists independently of "real Arctos." It is created using the data you specify
+			in the seed process as they exist at the time. Changes here to nothing to "real Arctos" classification data until
+			you repatriate them, and subsequent changes to "real Arctos" classification data will not be reflected here.
+			You may need to employ an iterative approach: seed, fix stuff in Arctos, delete your dataset, re-seed, repeat.
+		</li>
 	</ul>
 	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct (dataset_name) from htax_dataset
