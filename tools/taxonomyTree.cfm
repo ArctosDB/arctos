@@ -1317,7 +1317,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	<cfif not isdefined("autosearch")>
 		<cfset autosearch="">
 	</cfif>
-	<input type="hidden" name="autosearch" id="autosearch" value="#autosearch#">
+	<input type="hidden" name="autosearch" id="autosearch" value="<cfoutput>#autosearch#</cfoutput>">
 
 	<label for="srch">search <cfoutput>#dataset_name#</cfoutput></label>
 	<input id="srch">
