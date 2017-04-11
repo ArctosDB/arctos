@@ -211,6 +211,7 @@
 											<li><a target="_top" href="/tools/BulkloadAccn.cfm">bulkload accessions</a></li>
 											<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
 												<li><a target="_top" href="/tools/BulkloadClassification.cfm">bulkload classifications (taxonomy)</a></li>
+												<li><a target="_top" href="/tools/taxonomyTree.cfm">Hierarchical Classifications</a></li>
 											</cfif>
 											<cfif listfind(formList,"/tools/BulkloadContainerEnvironment.cfm")>
 												<li><a target="_top" href="/tools/BulkloadContainerEnvironment.cfm">bulkload container environment</a></li>
