@@ -78,7 +78,7 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 ---->
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource="uam_god">
-	select * from temp_dnametest where gdisplay_name is null and rownum<500
+	select * from temp_dnametest where gdisplay_name is null and rownum<2
 </cfquery>
 <cfoutput>
 	<cftransaction>
