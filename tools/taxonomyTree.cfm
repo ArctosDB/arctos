@@ -1282,6 +1282,9 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			$( "#srchBtn" ).click(function() {
 				performSearch();
 			});
+			if ($("#autosearch").val() == 'true'){
+				console.log('go go autosearch');
+			}
 		});
 		// end ready function
 
@@ -1306,6 +1309,11 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		 returned 20K usable results in 30s on test).
 		 <br>Re-searching while a previous search is still "working" can cause strange behavior.
 	</p>
+	<cfif not isdefined("autosearch")>
+		<cfset autosearch="false">
+	</cfif>
+	<input type="hidden" name="autosearch" id="autosearch" value="#autosearch#">
+
 	<label for="srch">search <cfoutput>#dataset_name#</cfoutput></label>
 	<input id="srch">
 	<input type="button" value="search" id="srchBtn">
