@@ -492,7 +492,7 @@
 				<td>TimesUsed</td>
 				<td>Arctos</td>
 			</tr>
-			<cfloop query="dups">
+			<cfloop query="d">
 				<tr>
 					<td>#term_type#</td>
 					<td>#timesUsed#</td>
