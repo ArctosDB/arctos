@@ -876,9 +876,22 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				</li>
 			</ul>
 		</p>
-		<cfloop query="d">
-			<br>#status#: <a href="/name/#scientific_name#">#scientific_name#</a>
-		</cfloop>
+		<table border>
+			<tr>
+				<th>Status</th>
+				<th>Term</th>
+				<th>Arctos Taxonomy</th>
+				<th>Tree</th>
+			</tr>
+			<cfloop query="d">
+				<tr>
+					<td>#status#</td>
+					<td>#scientific_name#</td>
+					<td><a href="/name/#scientific_name#" target="_blank">Arctos Taxonomy (new tab)</a></td>
+					<td><a href="/tools/taxonomyTree.cfm?action=manageLocalTree&dataset_name=#dataset_name#&autosearch=#scientific_name#" target="_blank">tree (new tab)</a></td>
+				</tr>
+			</cfloop>
+		</table>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
