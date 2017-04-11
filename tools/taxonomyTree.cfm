@@ -1300,7 +1300,6 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				// grab the term, stuff it in the search box so as to not confuse people
 				$("#srch").val($("#autosearch").val());
 				// do nothing for a while, let stuff happen
-				window.setTimeout(partB,1000);
 				// doopty-doo
 				// wheeee
 				// done yet?
