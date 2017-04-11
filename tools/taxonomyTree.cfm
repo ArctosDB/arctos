@@ -485,7 +485,9 @@
 		order by count(*)
 	</cfquery>
 	<cfoutput>
-		Usage of #term# (in local classifications):
+		<p>
+			Usage of #term# (in local classifications):
+		</p>
 		<table border>
 			<tr>
 				<td>Rank</td>
