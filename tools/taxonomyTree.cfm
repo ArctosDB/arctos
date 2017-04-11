@@ -1284,6 +1284,11 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			});
 			if ($("#autosearch").val().length>0){
 				console.log('go go autosearch');
+				// grab the term, stuff it in the search box so as to not confuse people
+				$("#srch").val($("#autosearch").val());
+				// and kick off search
+				performSearch();
+
 			}
 		});
 		// end ready function
