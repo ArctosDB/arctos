@@ -833,6 +833,8 @@
 
 					if (r.toString().substring(0,5)=='ERROR'){
 						setStatus(r,'err');
+					} else if (r.length==0){
+						setStatus('Search found nothing','err');
 					} else {
 						//console.log(r);
 						//myTree.parse(r, "jsarray");
