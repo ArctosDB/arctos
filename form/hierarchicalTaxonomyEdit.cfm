@@ -18,7 +18,7 @@
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select term,rank,parent_tid from hierarchical_taxonomy where tid=#tid#
 </cfquery>
-<cfif tid len(d.parent_tid) is 0>
+<cfif len(d.parent_tid) is 0>
 	You cannot edit a root node.<cfabort>
 </cfif>
 <cfquery name="d_p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
