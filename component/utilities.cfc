@@ -132,32 +132,9 @@
 			</cfif>
 
 		</cfif>
-		<!----------
-		<cfquery name="nomenclatural_code" dbtype="query">
-			select distinct term from d where term_type='nomenclatural_code'
-		</cfquery>
-		<cfif nomenclatural_code.recordcount is 1>
-			<cfset nomencode=nomenclatural_code.term>
-		<cfelse>
-			<cfquery name="kingdom" dbtype="query">
-				select distinct term from d where term_type='kingdom'
-			</cfquery>
-			<cfif kingdom.term is "Plantae">
-				<cfset nomencode="ICBN">
-			<cfelseif kingdom.term is "Animalia">
-				<cfset nomencode="ICZN">
-			</cfif>
-		</cfif>
-		<cfif len(nomencode) gt 0>
-			<br>nomencode=#nomencode# rock on....
 
-		<cfelse>
-			<!--- if we didn't get a nomenclatural_code we can't do much here ---->
-			<br>no nomencode
 
-		</cfif>
-		-------->
-
+		<cfset gdn=trim(replace(gdn,' ,',',','all'))>
 		<cfset gdn=trim(replace(gdn,'<i></i>','','all'))>
 		 <cfset gdn=reReplace(gdn,"\s+"," ","All")>
 		<cfreturn gdn>
