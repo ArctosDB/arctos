@@ -1,5 +1,33 @@
 <cfcomponent>
+	{
+				method : "consistencyCheck",
+				//dataset_id: $("#dataset_id").val(),
+				term :$("#term").val(),
 
+<!--------------------------------------------------------------------------------------->
+	<cffunction name="consistencyCheck" access="remote">
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="term" type="string" required="true">
+		<cfoutput>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					taxon_term.term_type,
+					count(*) timesUsed
+				from
+					taxon_name,
+					taxon_term,
+					CTTAXONOMY_SOURCE
+				where
+					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+					taxon_term.source=CTTAXONOMY_SOURCE.source and
+					taxon_term.position_in_classification is not null and
+					taxon_term.term='#term#'
+				group by taxon_term.term_type
+				order by count(*)
+			</cfquery>
+			<cfreturn d>
+		</cfoutput>
+	</cffunction>
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="moveTermNewParent" access="remote">
 		<!---- hierarchical taxonomy editor ---->

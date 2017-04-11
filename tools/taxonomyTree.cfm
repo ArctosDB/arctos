@@ -40,6 +40,9 @@
 			you repatriate them, and subsequent changes to "real Arctos" classification data will not be reflected here.
 			You may need to employ an iterative approach: seed, fix stuff in Arctos, delete your dataset, re-seed, repeat.
 		</li>
+		<li>
+			When you repatriate these data, local data in real Arctos will be REPLACED with the data from the hierarchical classification.
+		</li>
 	</ul>
 	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct (dataset_name) from htax_dataset

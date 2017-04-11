@@ -31,6 +31,20 @@
 <script>
 	jQuery(document).ready(function() {
 		parent.setStatus('ready','done');
+		// check consistency, add to 	srcconsistencycheckdiv
+		$.getJSON("/component/taxonomy.cfc",
+			{
+				method : "consistencyCheck",
+				//dataset_id: $("#dataset_id").val(),
+				term :$("#term").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				console.log(r);
+
+			}
+		);
 	});
 
 	function fcreateNewChildTerm(){
@@ -156,7 +170,8 @@
 			<td>
 				Editing <strong>#d.term#</strong>
 				<a href="/name/#d.term#" target="_blank">[ Arctos record (new tab) ]</a>
-				<a href="/tools/taxonomyTree.cfm?action=findTermSource&term=#d.term#" target="_blank">[ Source Details (new tab) ] </a>
+				<a href="/tools/taxonomyTree.cfm?action=findTermSource&term=#d.term#" target="_blank">[ Source Details (new tab) ]</a>
+				<div id='srcconsistencycheckdiv'></div>
 			</td>
 			<td>
 				<label for="rank">Rank</label>
