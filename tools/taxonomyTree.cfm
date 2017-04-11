@@ -476,7 +476,7 @@
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			decode(taxon_term.term_type,null,'NULL',taxon_term.term_type) term_type,
+			taxon_term.term_type,
 			count(*) timesUsed
 		from
 			taxon_name,
@@ -506,7 +506,12 @@
 					<td>#timesUsed#</td>
 					<td>
 						<div>
-							<a href="/taxonomy.cfm?source=LOCAL&taxon_term==#term#&term_type==#term_type#">search term@rank</a>
+							<cfif len(term_type) is 0>
+								<cfset stt='=NULL'>
+							<cfelse>
+								<cfset stt='==#term_type#'>
+							</cfif>
+							<a href="/taxonomy.cfm?source=LOCAL&taxon_term==#term#&term_type#stt#">search term@rank</a>
 						</div>
 					</td>
 				</tr>
