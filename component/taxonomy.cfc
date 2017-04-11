@@ -1,9 +1,4 @@
 <cfcomponent>
-	{
-				method : "consistencyCheck",
-				//dataset_id: $("#dataset_id").val(),
-				term :$("#term").val(),
-
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="consistencyCheck" access="remote">
 		<!---- hierarchical taxonomy editor ---->
