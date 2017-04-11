@@ -51,7 +51,7 @@
 					pr.push('<em>' + r.DATA.TERM_TYPE[i] + '</em> (' + r.DATA.TIMESUSED[i] + ')');
 				}
 				//alert(pr);
-				$("#srcconsistencycheckdiv").html('used in ' + pr.join('; '));
+				$("#srcconsistencycheckdiv").html('used as ' + pr.join('; '));
 
 			}
 		);

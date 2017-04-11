@@ -4,7 +4,7 @@
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="term" type="string" required="true">
 		<cfoutput>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select
 					taxon_term.term_type,
 					count(*) timesUsed
