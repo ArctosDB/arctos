@@ -470,7 +470,7 @@
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			taxon_term.term_type,
+			decode(taxon_term.term_type,null,'NULL',taxon_term.term_type) term_type,
 			count(*) timesUsed
 		from
 			taxon_name,
