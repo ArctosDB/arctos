@@ -506,7 +506,7 @@
 					<td>#timesUsed#</td>
 					<td>
 						<div>
-							<a href="/taxonomy.cfm?source=LOCAL&taxon_term=#term#&term_type=#term_type#">search term@rank</a>
+							<a href="/taxonomy.cfm?source=LOCAL&taxon_term==#term#&term_type==#term_type#">search term@rank</a>
 						</div>
 					</td>
 				</tr>
