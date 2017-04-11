@@ -1,5 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-<cfif tid is 0>
+<cfif tid is 0 or len(parent_tid) is 0>
 	You cannot edit a root node.<cfabort>
 </cfif>
 <cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
