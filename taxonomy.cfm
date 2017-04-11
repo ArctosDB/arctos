@@ -250,7 +250,11 @@
 				<cfset tabls=tabls & " , taxon_term">
 				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=taxon_term.taxon_name_id">
 			</cfif>
-			<cfset whr=whr & " and upper(source) like '#escapeQuotes(ucase(source))#%'">
+			<cfif source is "LOCAL">
+				<cfset whr=whr & " and source in (select source from CTTAXONOMY_SOURCE) ">
+			<cfelse>
+				<cfset whr=whr & " and upper(source) like '#escapeQuotes(ucase(source))#%'">
+			</cfif>
 			<li>source STARTS WITH #source#</li>
 		</cfif>
 		<cfif len(common_name) gt 0>
