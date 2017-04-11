@@ -48,7 +48,7 @@
 				var pr=[];
 				console.log(r);
 				for (i=0; i<r.ROWCOUNT; ++i) {
-					pr.push(r.DATA.TERM_TYPE[i] + ' (' + r.DATA.TIMESUSED[i] + ')');
+					pr.push('<em>' + r.DATA.TERM_TYPE[i] + '</em> (' + r.DATA.TIMESUSED[i] + ')');
 				}
 				//alert(pr);
 				$("#srcconsistencycheckdiv").html('used in ' + pr.join('; '));
