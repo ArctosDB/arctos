@@ -16,6 +16,8 @@
 					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 					taxon_term.source=CTTAXONOMY_SOURCE.source and
 					taxon_term.position_in_classification is not null and
+					-- exclude usage as name
+					taxon_term.term_type != 'scientific_name' and
 					taxon_term.term='#term#'
 				group by taxon_term.term_type
 				order by count(*)
