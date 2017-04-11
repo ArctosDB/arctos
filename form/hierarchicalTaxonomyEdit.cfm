@@ -41,13 +41,13 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				var pr='used as ';
+				var pr=[];
 				console.log(r);
 				for (i=0; i<r.ROWCOUNT; ++i) {
-					pr+=r.DATA.TERM_TYPE[i] + ' (' + r.DATA.TIMESUSED[i] + ');';
+					pr.push(r.DATA.TERM_TYPE[i] + ' (' + r.DATA.TIMESUSED[i] + ')';
 				}
-				alert(pr);
-				$("#srcconsistencycheckdiv").html(pr);
+				//alert(pr);
+				$("#srcconsistencycheckdiv").html('used in ' + pr.join(';');
 
 			}
 		);
