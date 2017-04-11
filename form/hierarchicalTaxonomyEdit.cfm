@@ -41,7 +41,7 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				var pr;
+				var pr='';
 				console.log(r);
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					pr+=r.DATA.TERM_TYPE[i] + ' (' + r.DATA.TIMESUSED[i] + ')';
