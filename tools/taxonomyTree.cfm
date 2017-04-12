@@ -16,28 +16,36 @@
 </select>
 </cfoutput>
 <!------------------------------------------------------------------------------------------------->
-<cfif action is "badSeed">
+<cfif action is "aSeed_ins">
+
+
+	<cfoutput>
+	<cfdump var=#form#>
+
+
+	</cfoutput>
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "advancedSeed">
 	<p>
-		NOTE: this is just code. Modify as necessary, execute via SQL tools.
-	</p>
-	<p>
-		This is not HTML-formatted; see source code to copypasta
+		Maybe this will be a form someday.... it's just SQL for now
 	</p>
 
+	<cfoutput>
+
+
+<h3>
 	find terms which are used by bird collections but do not have a class=Aves term, possibly because they have no classification anything
-
+</h3>
 	First a temp table so we can try to get rank
-
+<pre>
 	drop table temp_missedh;
-
-
 
 	create table temp_missedh as select distinct
 		taxon_name.scientific_name,
 		taxon_name.taxon_name_id
 	from
 		taxon_name,
-		(select * from taxon_term where term_type='class' and term='Aves')taxon_term ,
+		(select * from taxon_term where term_type='class' and term='Aves') taxon_term ,
 		identification_taxonomy,
 		identification,
 		cataloged_item,
@@ -51,7 +59,29 @@
 		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
 		taxon_term.taxon_name_id is null;
 
+	insert into htax_seed (
+		SCIENTIFIC_NAME,
+		TAXON_NAME_ID,
+		DATASET_ID
+	) (
+		select
+			scientific_name,
+			TAXON_NAME_ID,
+			114013137
+		from
+			temp_missedh
+		where
+			rank in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1)
+	);
 
+</pre>
+<hr>Old-n-busted</h3>
+	-- this isn't really necessary; the import procedure now tries to guess at rank. Just leaving it here
+	in case it becomes useful somehow.
+
+	<p>
+	everything that follows is for historical purposes only
+	</p>
 	alter table temp_missedh add rank varchar2(255);
 
 	declare
@@ -139,35 +169,7 @@
 	-- well that sucks - try different path...
 	delete from hierarchical_taxonomy where DATASET_ID=114013137 and TERM in (select scientific_name from temp_missedh);
 
-	insert into htax_seed (
-		SCIENTIFIC_NAME,
-		TAXON_NAME_ID,
-		DATASET_ID
-	) (
-		select
-			scientific_name,
-			TAXON_NAME_ID,
-			114013137
-		from
-			temp_missedh
-		where
-			rank in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1)
-	);
 
-UAM@ARCTOS> desc
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- 						   NOT NULL VARCHAR2(255)
- 							   NOT NULL NUMBER
- DATASET_ID							   NOT NULL NUMBER
-
-UAM@ARCTOS>
-
-
-
-
-
-	Elapsed: 00:00:00.01
 UAM@ARCTOS> desc hierarchical_taxonomy
  Name								   Null?    Type
  ----------------------------------------------------------------- -------- --------------------------------------------
@@ -495,6 +497,12 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				<input type="submit" value="pull seed data">. The form will reload, and again may be slow.
 			</p>
 		</form>
+		<p>
+			Anything you can search here is almost certainly incomplete. There are no taxonomy "minimum data" standards in Arctos Proper.
+			Contact a DBA and we can help you find these data. There's some SQL on the
+			Use the	<a href="taxonomyTree.cfm?action=advancedSeed&dataset_name=#dataset_name#">advanced seed form</a>.
+
+		</p>
 		<hr>
 		<p>
 			Step Two: Do nothing. Grab a donut maybe. The records you seeded will auto-process into a hierarchy at the rate of
