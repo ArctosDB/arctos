@@ -15,22 +15,13 @@
 	</cfif>
 </select>
 </cfoutput>
-<!------------------------------------------------------------------------------------------------->
-<cfif action is "aSeed_ins">
 
-
-	<cfoutput>
-	<cfdump var=#form#>
-
-
-	</cfoutput>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "advancedSeed">
 	<p>
 		Maybe this will be a form someday.... it's just SQL for now
 	</p>
 
-	<cfoutput>
 
 
 <h3>
