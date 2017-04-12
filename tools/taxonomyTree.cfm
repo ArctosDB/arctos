@@ -459,12 +459,10 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			Find seed taxonomy. Terms are exact-match case-sensitive.
 		</p>
 		<form id="f_ds_filter" method="post" action="taxonomyTree.cfm">
-			<cfoutput>
 				<input type="hidden" name="dataset_id" id="dataset_id" value="#d.dataset_id#">
 				<input type="hidden" name="dataset_name" id="dataset_name" value="#d.dataset_name#">
 				<input type="hidden" name="action" id="action" value="go_seed_ds">
 				<input type="hidden" name="source" id="source" value="#d.source#">
-			</cfoutput>
 
 
 
