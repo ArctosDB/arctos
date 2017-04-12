@@ -27,8 +27,11 @@
 <h3>
 	find terms which are used by bird collections but do not have a class=Aves term, possibly because they have no classification anything
 </h3>
-	First a temp table so we can try to get rank
+
 <pre>
+
+	-- First a temp table, because
+
 	drop table temp_missedh;
 
 	create table temp_missedh as select distinct
@@ -67,6 +70,8 @@
 
 </pre>
 <hr>Old-n-busted</h3>
+
+<pre>
 	-- this isn't really necessary; the import procedure now tries to guess at rank. Just leaving it here
 	in case it becomes useful somehow.
 
@@ -258,6 +263,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				taxon_term.term_type='class' and
 				taxon_term.term='Aves'
 		)
+
+		</pre>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
