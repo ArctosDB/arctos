@@ -1416,7 +1416,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 
 	</script>
 	<div class="importantNotification">
-		<div style="max-height: 10em;">
+		<div style="max-height: 10em;overflow:auto;">
 			<h2>Read this!</h2>
 			<p>
 				<strong>Doubleclick</strong> terms to expand.
