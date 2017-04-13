@@ -1415,9 +1415,10 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		// end ready function
 
 	</script>
-	<div class="importantNotification">
+	<div class="importantNotification" style="width:70%">
 		<div style="max-height: 10em;overflow:auto;">
 			<h2>Read this!</h2>
+			<h3>Using the form</h3>
 			<p>
 				<strong>Doubleclick</strong> terms to expand.
 				<br><strong>Check</strong> the box to edit.
@@ -1425,12 +1426,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				<br><strong>Rightclick</strong> to close a node.
 				<br>All edits propagate to all children.
 			</p>
-			<p style="width:70%">
-				IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
-				If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
-				homonym in different ways. Coordinate updates, which may require splitting classifications.
-			</p>
-			<p style="width:70%">
+			<h3>Search</h3>
+			<p>
 				Search is case-sensitive contains;
 				<br>"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
 				<br>"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find "Mustela <strong>mus</strong>tela").
@@ -1438,6 +1435,16 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				 returned 20K usable results in 30s on test).
 				 <br>Re-searching while a previous search is still "working" can cause strange behavior.
 			</p>
+
+			<h3>Limitations</h3>
+			<p style="width:70%">
+				IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
+				If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
+				homonym in different ways. Coordinate updates, which may require splitting classifications.
+			</p>
+
+			<h3>Weird Data</h3>
+
 		</div>
 	</div>
 
