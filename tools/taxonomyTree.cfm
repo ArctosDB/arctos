@@ -1023,23 +1023,13 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		<cfquery name="d_htax_dataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from htax_dataset where dataset_id =#d.dataset_id#
 		</cfquery>
-
 	</cftransaction>
-
 
 	delete successful.
 		<p>
 			<a href="taxonomyTree.cfm?action=nothing">home</a>
 		</p>
 	</cfoutput>
-
-
-
-
-
-
-
-
 </cfif>
 <!--------------------------------------------------------------------------------------->
 <cfif action is "mismatch_import">
@@ -1425,26 +1415,32 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		// end ready function
 
 	</script>
-	<p>
-		<strong>Doubleclick</strong> terms to expand.
-		<br><strong>Check</strong> the box to edit.
-		<br><strong>Drag</strong> to re-order.
-		<br><strong>Rightclick</strong> to close a node.
-		<br>All edits propagate to all children.
-	</p>
-	<p style="width:70%">
-		IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
-		If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
-		homonym in different ways. Coordinate updates, which may require splitting classifications.
-	</p>
-	<p style="width:70%">
-		Search is case-sensitive contains;
-		<br>"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
-		<br>"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find "Mustela <strong>mus</strong>tela").
-		 <br>Large searches may be slow, and possibly cause local memory problem (but "mus" in Insecta
-		 returned 20K usable results in 30s on test).
-		 <br>Re-searching while a previous search is still "working" can cause strange behavior.
-	</p>
+	<div class="importantNotification">
+		<div style="max-height: 10em;">
+			<h2>Read this!</h2>
+			<p>
+				<strong>Doubleclick</strong> terms to expand.
+				<br><strong>Check</strong> the box to edit.
+				<br><strong>Drag</strong> to re-order.
+				<br><strong>Rightclick</strong> to close a node.
+				<br>All edits propagate to all children.
+			</p>
+			<p style="width:70%">
+				IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
+				If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
+				homonym in different ways. Coordinate updates, which may require splitting classifications.
+			</p>
+			<p style="width:70%">
+				Search is case-sensitive contains;
+				<br>"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
+				<br>"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find "Mustela <strong>mus</strong>tela").
+				 <br>Large searches may be slow, and possibly cause local memory problem (but "mus" in Insecta
+				 returned 20K usable results in 30s on test).
+				 <br>Re-searching while a previous search is still "working" can cause strange behavior.
+			</p>
+		</div>
+	</div>
+
 	<cfif not isdefined("autosearch")>
 		<cfset autosearch="">
 	</cfif>
