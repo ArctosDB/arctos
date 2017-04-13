@@ -991,6 +991,19 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 
 <cfif action is "deleteDataset">
 	<cfoutput>
+		<p>
+			Are you sure you want to DELETE dataset #dataset_name#? This cannot be undone!
+		</p>
+		<p>
+			<a href="taxonomyTree.cfm?action=srslydeleteDataset&dataset_name=#dataset_name#">Yes, continue to delete #dataset_name#</a>
+		</p>
+
+	</cfoutput>
+
+</cfif><!------------------------------------------------------------------------------------------------->
+
+<cfif action is "srslydeleteDataset">
+	<cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from htax_dataset where dataset_name='#dataset_name#'
 	</cfquery>
@@ -1013,6 +1026,11 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 
 	</cftransaction>
 
+
+	delete successful.
+		<p>
+			<a href="taxonomyTree.cfm?action=nothing">home</a>
+		</p>
 	</cfoutput>
 
 
