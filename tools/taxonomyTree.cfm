@@ -68,7 +68,96 @@
 			rank in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1)
 	);
 
+	-- now find terms related to those terms, and which we don't already have
+	-- these might also lead to related terms, so run this until it doesn't do anything
+
+	declare
+		v_wrk varchar2(4000);
+		v_tt varchar2(4000);
+		v_c number;
+		----- CAUTION HARDCODED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		v_dateset_id number := 114013137;
+		----- CAUTION HARDCODED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	begin
+		for r in (select taxon_name_id,scientific_name from temp_missedh) loop
+			dbms_output.put_line(r.scientific_name);
+			-- if the term looks like a multinomial we might be able to do something here
+			v_wrk:='';
+
+			if r.scientific_name like '% % % %' then
+				v_tt:='too_many_spaces';
+				dbms_output.put_line(v_tt);
+			elsif r.scientific_name like '% % %' then
+				v_tt:='subspecies';
+				dbms_output.put_line(v_tt);
+				v_wrk:=substr(r.scientific_name,0,instr(r.scientific_name,' ',1,2));
+			elsif r.scientific_name like '% %' then
+				v_tt:='species';
+				dbms_output.put_line(v_tt);
+				v_wrk:=substr(r.scientific_name,0,instr(r.scientific_name,' '));
+			else
+				v_tt:='genus or something maybe IDK';
+				dbms_output.put_line(v_tt);
+			end if;
+			-- see if we can find related
+			dbms_output.put_line('v_wrk=' || v_wrk);
+			for rt in (
+				select distinct scientific_name,taxon_name_id from taxon_name
+					--, taxon_term
+					where
+					--taxon_name.taxon_name_id=taxon_term.taxon_name_id
+					--and term
+					scientific_name=trim(v_wrk) and
+					taxon_name.taxon_name_id != r.taxon_name_id
+			) loop
+				dbms_output.put_line('parent=' || rt.scientific_name);
+				select count(*) into v_c from htax_seed where
+					dataset_id=v_dateset_id and
+					scientific_name=r.scientific_name;
+				if v_c=0 then
+					-- insert
+					insert into htax_seed (
+						SCIENTIFIC_NAME,
+						TAXON_NAME_ID,
+						DATASET_ID
+					) values (
+						r.scientific_name,
+						r.TAXON_NAME_ID,
+						v_dateset_id
+					);
+					dbms_output.put_line('inserted ' || r.scientific_name);
+				end if;
+			end loop;
+		end loop;
+	end;
+	/
+
+
+
 </pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <hr>Old-n-busted</h3>
 
 <pre>
