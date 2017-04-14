@@ -17,11 +17,50 @@
 </cfoutput>
 
 <!------------------------------------------------------------------------------------------------->
-<cfif action is "advancedSeed">
+<cfif action is "findProblemData">
 	<p>
 		Maybe this will be a form someday.... it's just SQL for now
 	</p>
 
+<h3>What's that doing there</h3>
+
+<pre>
+	select scientific_name from taxon_name,taxon_term a, taxon_term b where
+	taxon_name.taxon_name_id=a.taxon_name_id and
+	taxon_name.taxon_name_id=b.taxon_name_id and
+	a.source='Arctos' and
+	b.source='Arctos' and
+	a.term='Aves' and
+	b.term='Curculionoidea'
+	;
+
+
+	select distinct term_type from
+	taxon_term where
+	source='Arctos' and
+	taxon_name_id in (
+	select distinct
+		taxon_name.taxon_name_id
+	from
+		taxon_name,
+		taxon_term a
+		--, taxon_term b
+	where
+		taxon_name.taxon_name_id=a.taxon_name_id and
+	--taxon_name.taxon_name_id=b.taxon_name_id and
+	a.source='Arctos' and
+	--b.source='Arctos' and
+	--a.term='Aves' and
+	a.term='Curculionoidea'
+	)
+	;
+	-- nope...
+
+	select * from temp_missedh where scientific_name='Curculionidae';
+
+		select * from htax_seed where scientific_name='Curculionidae';
+		select * from hierarchical_taxonomy where term='Curculionidae';
+</pre>
 
 
 <h3>
@@ -584,8 +623,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		</form>
 		<p>
 			Anything you can search here is almost certainly incomplete. There are no taxonomy "minimum data" standards in Arctos Proper.
-			Contact a DBA and we can help you find these data. There's some SQL on the
-			Use the	<a href="taxonomyTree.cfm?action=advancedSeed&dataset_name=#dataset_name#">advanced seed form</a>.
+			Contact a DBA and we can help you find these data. There's some SQL at
+			<a href="taxonomyTree.cfm?action=findProblemData&dataset_name=#dataset_name#">Find Problem Data</a>.
 
 		</p>
 		<hr>
@@ -1444,6 +1483,21 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			</p>
 
 			<h3>Weird Data</h3>
+			<ul>
+				<li>
+					Orphaned nodes
+					<ul>
+						<li>
+							On import, terms are arranged hierarchically on a first-come, first-served basis. If you find an abandoned node, it was most
+							likely used inconsistently in Arctos data and "someone else got there first." Edit the term, click Source Details and/or
+							Arctos Record and click around to find the source of the term. There are eg, turtles cataloged in bird collections, which may
+							show up as outliers in "your" dataset. You may simply delete any terms you don't wish to manage - doing so will not affect
+							Arctos classification data in any way. (Anything you keep in your dataset WILL affect Arctos classification data when you
+							repatriate.)
+						</li>
+					</ul>
+				</li>
+			</ul>
 
 		</div>
 	</div>
