@@ -1495,8 +1495,25 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 							Arctos classification data in any way. (Anything you keep in your dataset WILL affect Arctos classification data when you
 							repatriate.)
 						</li>
+						<li>
+							Example: The genus of Nyroca americana (http://arctos.database.museum/name/Nyroca%20americana) was given as "Aythya."
+							This results in very strange inconsistencies across all Nyroca (and possbibly Aythya).
+						</li>
 					</ul>
 				</li>
+				<li>Non-hierarchical data</li>
+				<ul>
+					<li>
+						The tree will ideally be a continuous progression from kingdom (or whatever your top-level rank is) down to subspecies,
+						with every term's children being of the same rank. The tree should load with one term (eg, kingdom), expanding that should
+						find only terms ranked phylum (or whatever the second-level term in your classification is), etc. Expanding kingdom
+						should never find eg, one phylum and three families. This will almost never be true; children terms of mixed rank
+						are from inconssitent hierarchies, and should be rearranged into a single consistent hierarchy.
+						Species (and other lower-lever terms which have no (useful) classification may appear at the top of the tree
+						(eg, beside kingdom). Given the hierarchical structure of this app, we MAY be able to help with SQL; contact a
+						DBA for more information.
+					</li>
+				</ul>
 			</ul>
 
 		</div>
