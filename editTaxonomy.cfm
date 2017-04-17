@@ -19,6 +19,7 @@
 					$("#overrride_noCloneTerms").val('false');
 					$("#x").submit();
 				}
+			}
 		</script>
 	<cfoutput>
 		<div class="importantNotification" style="max-height:20em; overflow:auto;">
