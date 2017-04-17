@@ -53,6 +53,9 @@
 			minimum_elevation,
 			maximum_elevation,
 			orig_elev_units,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			DEPTH_UNITS,
 			georeference_source,
 			georeference_protocol,
 			locality_name,
@@ -69,6 +72,9 @@
 			minimum_elevation,
 			maximum_elevation,
 			orig_elev_units,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			DEPTH_UNITS,
 			georeference_source,
 			georeference_protocol,
 			locality_name,
@@ -100,10 +106,16 @@
 							(#georeference_source# - #georeference_protocol#)
 						</cfif>
 					</span>
-		  			<cfif len(#orig_elev_units#) gt 0>
+		  			<cfif len(orig_elev_units) gt 0>
 						<br>
 						<span style="font-size:.7em">
 							Elevation: #minimum_elevation#-#maximum_elevation# #orig_elev_units#
+						</span>
+					</cfif>
+					<cfif len(DEPTH_UNITS) gt 0>
+						<br>
+						<span style="font-size:.7em">
+							Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#
 						</span>
 					</cfif>
 				</td>
