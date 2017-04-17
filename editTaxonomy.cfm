@@ -11,16 +11,16 @@
 		select taxon_term from CTTAXON_TERM where taxon_term not in (#listqualify(noCloneTerms,"'")#) order by taxon_term
 	</cfquery>
 	<script>
-			function alsdnfkasjd(tf){
-				if (tf=='true'){
-					$("#overrride_noCloneTerms").val('true');
-					$("#x").submit();
-				} else {
-					$("#overrride_noCloneTerms").val('false');
-					$("#x").submit();
-				}
+		function alsdnfkasjd(tf){
+			if (tf=='true'){
+				$("#overrride_noCloneTerms").val('true');
+				$("#x").submit();
+			} else {
+				$("#overrride_noCloneTerms").val('false');
+				$("#x").submit();
 			}
-		</script>
+		}
+	</script>
 	<cfoutput>
 		<div class="importantNotification" style="max-height:20em; overflow:auto;">
 			<b>READ THIS!</b>
@@ -182,7 +182,7 @@
 		<p>
 			Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
 		</p>
-		<form name="x" method="post" action="editTaxonomy.cfm">
+		<form name="x" id="x" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="action" value="cloneClassification_insert">
 			<input type="hidden" name="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
@@ -192,7 +192,10 @@
 					<option value="#source#">#source#</option>
 				</cfloop>
 			</select>
-			<input type="submit" value="create classification">
+			<p>
+				<input type="submit" class="insBtn" value="create cloned classification">
+			</p>
+
 		</form>
 	</cfoutput>
 </cfif>
