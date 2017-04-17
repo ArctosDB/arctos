@@ -42,15 +42,15 @@ insert into temp_dnametest (
 
 select
 	--'"' || display_name || '"' || chr(9) || '"' || gdisplay_name || '"'
-	display_name || '------>' ||  gdisplay_name 
+	display_name || '------>' ||  gdisplay_name
 from
 	temp_dnametest where
 	gdisplay_name not like 'ERROR%' and gdisplay_name is not null and display_name!=gdisplay_name
 	order by display_name;
-	
+
 	select count(*) from temp_dnametest;
 	select count(*) from temp_dnametest where gdisplay_name is not null;
-	
+
 
 update temp_dnametest set gdisplay_name=null where gdisplay_name not like 'ERROR%' and gdisplay_name!=display_name;
 
@@ -68,7 +68,6 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 	select * from temp_dnametest where gdisplay_name is null and rownum<1000
 </cfquery>
 <cfoutput>
-	<cftransaction>
 	<cfloop query="d">
 
 		<cfset x=utilities.generateDisplayName(cid)>
@@ -90,6 +89,5 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 		</cfquery>
 
 	</cfloop>
-	</cftransaction>
 </cfoutput>
 
