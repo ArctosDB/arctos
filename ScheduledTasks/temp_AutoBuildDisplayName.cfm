@@ -18,44 +18,27 @@ create table temp_dnametest (
 
 delete from temp_dnametest where gdisplay_name is null;
 
-drop table temp_dnametest;
-
 
 insert into temp_dnametest (
 	taxon_name_id,
 	scientific_name,
-	--display_name,
+	display_name,
 	cid
 ) (
 	select distinct
 		taxon_term.taxon_name_id,
 		taxon_name.scientific_name,
-		--taxon_term.term display_name,
+		taxon_term.term display_name,
 		taxon_term.classification_id
 	from
 		taxon_term,
 		taxon_name
 	where
 		taxon_term.taxon_name_id=taxon_name.taxon_name_id and
-		--taxon_term.term_type='display_name' and
+		taxon_term.term_type='display_name' and
 		taxon_term.source in ('Arctos','Arctos Plants')
 	);
 
-
-create index ix_temp_dname_tid on temp_dnametest (taxon_name_id) tablespace uam_idx_1;
-create index ix_temp_dname_cid on temp_dnametest (cid) tablespace uam_idx_1;
-
-
--- now see what we have for later comparison
-
-update temp_dnametest set display_name=(
-	select taxon_term.term from taxon_term where
-		taxon_term.term_type='display_name' and
-		taxon_term.taxon_name_id=temp_dnametest.taxon_name_id and
-		taxon_term.classification_id=temp_dnametest.cid
-	);
-
-update temp_dnametest set gdisplay_name=null where gdisplay_name like '% ,%';
 
 select
 	--'"' || display_name || '"' || chr(9) || '"' || gdisplay_name || '"'
@@ -64,34 +47,6 @@ from
 	temp_dnametest where
 	gdisplay_name not like 'ERROR%' and gdisplay_name is not null and display_name!=gdisplay_name
 	order by display_name;
-
-
-select
-	SCIENTIFIC_NAME || ': ' || display_name || '------>' ||  gdisplay_name
-from
-	temp_dnametest
-where
-	gdisplay_name is not null and
-	gdisplay_name not like '%ERROR%' and
-	display_name != gdisplay_name
-	order by display_name;
-
-
-
-select
-	display_name || '------>' ||  gdisplay_name
-from
-	temp_dnametest where
-	gdisplay_name like '%ERROR%'
-	order by gdisplay_name;
-
-
-select distinct gdisplay_name from temp_dnametest where gdisplay_name like '%ERROR%' order by gdisplay_name;
-
-select * from temp_dnametest where taxon_name_id=10953865 and classification_id='0D23F50A-0CF8-6131-34419E4DA1A0FF71';
-
-
-
 
 	select count(*) from temp_dnametest;
 	select count(*) from temp_dnametest where gdisplay_name is not null;
@@ -110,10 +65,9 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 ---->
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource="uam_god">
-	select * from temp_dnametest where gdisplay_name is null and rownum<400
+	select * from temp_dnametest where gdisplay_name is null and rownum<1000
 </cfquery>
 <cfoutput>
-	<cftransaction>
 	<cfloop query="d">
 
 		<cfset x=utilities.generateDisplayName(cid)>
@@ -131,15 +85,9 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 		--->
 
 		<cfquery name="b" datasource="uam_god">
-			update temp_dnametest set
-				gdisplay_name='#x#',
-				display_name=(select term from taxon_term where
-				taxon_name_id=#taxon_name_id# and classification_id='#cid#' and
-				term_type='display_name')
-				 where taxon_name_id=#taxon_name_id# and cid='#cid#'
+			update temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id#
 		</cfquery>
 
 	</cfloop>
-	</cftransaction>
 </cfoutput>
 
