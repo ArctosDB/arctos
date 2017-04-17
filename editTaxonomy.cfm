@@ -70,8 +70,12 @@
 					<option value="#source#">#source#</option>
 				</cfloop>
 			</select>
-			<br><input type="button" class="insBtn" value="create name with cleaned classification" onclick="alsdnfkasjd()">
-			<br><input type="button" class="insBtn" value="create name with entire classification" onclick="alsdnfkasjd('true')">
+			<p>
+				<input type="button" class="insBtn" value="create name with cleaned classification" onclick="alsdnfkasjd()">
+			</p>
+			<p>
+				<input type="button" class="insBtn" value="create name with entire classification" onclick="alsdnfkasjd('true')">
+			</p>
 		</form>
 	</cfoutput>
 </cfif>
