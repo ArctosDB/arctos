@@ -53,7 +53,7 @@
 					<option value="#source#">#source#</option>
 				</cfloop>
 			</select>
-			<input type="submit" value="create name and classification">
+			<br><input type="submit" class="insBtn" value="create name and classification">
 		</form>
 	</cfoutput>
 </cfif>
