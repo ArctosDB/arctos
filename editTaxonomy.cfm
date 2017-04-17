@@ -10,6 +10,16 @@
 	<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select taxon_term from CTTAXON_TERM where taxon_term not in (#listqualify(noCloneTerms,"'")#) order by taxon_term
 	</cfquery>
+	<script>
+			function alsdnfkasjd(tf){
+				if (tf=='true'){
+					$("#overrride_noCloneTerms").val('true');
+					$("#x").submit();
+				} else {
+					$("#overrride_noCloneTerms").val('false');
+					$("#x").submit();
+				}
+		</script>
 	<cfoutput>
 		<div class="importantNotification" style="max-height:20em; overflow:auto;">
 			<b>READ THIS!</b>
@@ -27,8 +37,13 @@
 				Pick a source below, enter the new namestring, click the button, and then you'll have a chance to edit the classification you've created.
 			</p>
 			<p>
-				IMPORTANT: Only select terms from <a target="_blank" href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a>
+				IMPORTANT: Only terms from <a target="_blank" href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a>
 				will be cloned. Anything not in the list below will be ignored.
+			</p>
+			<p>
+				"Create name with cleaned classification" will exclude #noCloneTerms#. "Create name with entire classification"
+				will include everything in CTTAXON_TERM; CAREFULLY check results.
+			</p>
 
 				<ul>
 					<cfloop query="CTTAXON_TERM">
@@ -38,10 +53,12 @@
 
 				This may include terms that you do not wish to clone, and it may exclude terms which you do wish to clone. Please
 				carefully check everything before saving.
-			</p>
+
 		</div>
 
-		<form name="x" method="post" action="editTaxonomy.cfm">
+
+		<form name="x" id='x' method="post" action="editTaxonomy.cfm">
+			<input type="hidden" id="overrride_noCloneTerms" name="overrride_noCloneTerms" value="false">
 			<input type="hidden" name="action" value="cloneClassificationNewName_insert">
 			<input type="hidden" name="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
@@ -53,7 +70,8 @@
 					<option value="#source#">#source#</option>
 				</cfloop>
 			</select>
-			<br><input type="submit" class="insBtn" value="create name and classification">
+			<br><input type="button" class="insBtn" value="create name with cleaned classification" onclick="alsdnfkasjd()">
+			<br><input type="button" class="insBtn" value="create name with entire classification" onclick="alsdnfkasjd('true')">
 		</form>
 	</cfoutput>
 </cfif>
@@ -71,8 +89,12 @@
 			from
 				taxon_term
 			where
-				classification_id='#classification_id#' and
-				TERM_TYPE in (select taxon_term from CTTAXON_TERM where taxon_term not in (#listqualify(noCloneTerms,"'")#))
+				classification_id='#classification_id#' and TERM_TYPE in (
+					select taxon_term from CTTAXON_TERM
+						<cfif overrride_noCloneTerms is not "true">
+					 	 where taxon_term not in (#listqualify(noCloneTerms,"'")#)
+						</cfif>
+					)
 			order by
 				POSITION_IN_CLASSIFICATION
 		</cfquery>
