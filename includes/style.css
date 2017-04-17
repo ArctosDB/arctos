@@ -1547,7 +1547,7 @@ table.newRec {
 	}
 	/* readonly */
 	
-	readClr {
+	.readClr {
 		background-color:#CCCCCC;
 	}
 
