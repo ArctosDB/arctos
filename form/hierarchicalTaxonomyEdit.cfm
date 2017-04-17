@@ -1,4 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+
 <cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from cttaxon_term
 </cfquery>
@@ -17,16 +18,46 @@
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select term,rank,parent_tid from hierarchical_taxonomy where tid=#tid#
 </cfquery>
+<cfif len(d.parent_tid) is 0>
+	You cannot edit a root node.<cfabort>
+</cfif>
 <cfquery name="d_p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select term,rank from hierarchical_taxonomy where tid=#d.parent_tid#
 </cfquery>
 <cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select nc_tid,term_type,term_value from htax_noclassterm where tid=#tid#
 </cfquery>
-
+<style>
+	#srcconsistencycheckdiv {
+		font-size:small;
+	}
+</style>
 <script>
 	jQuery(document).ready(function() {
 		parent.setStatus('ready','done');
+		// check consistency, add to 	srcconsistencycheckdiv
+		$.getJSON("/component/taxonomy.cfc",
+			{
+				method : "consistencyCheck",
+				//dataset_id: $("#dataset_id").val(),
+				term :$("#term").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				var pr=[];
+				console.log(r);
+				if (r.ROWCOUNT==0){
+					$("#srcconsistencycheckdiv").html('NOT USED!!');
+				} else {
+					for (i=0; i<r.ROWCOUNT; ++i) {
+						pr.push('<em>' + r.DATA.TERM_TYPE[i] + '</em> (' + r.DATA.TIMESUSED[i] + ')');
+					}
+					//alert(pr);
+					$("#srcconsistencycheckdiv").html('used as ' + pr.join('; '));
+				}
+			}
+		);
 	});
 
 	function fcreateNewChildTerm(){
@@ -151,7 +182,9 @@
 		<tr>
 			<td>
 				Editing <strong>#d.term#</strong>
-				<a href="/name/#d.term#" target="_blank">Arctos record (new tab)</a>
+				<a href="/name/#d.term#" target="_blank">[ Arctos record (new tab) ]</a>
+				<a href="/tools/taxonomyTree.cfm?action=findTermSource&term=#d.term#" target="_blank">[ Source Details (new tab) ]</a>
+				<div id='srcconsistencycheckdiv'><img src="/images/indicator.gif"></div>
 			</td>
 			<td>
 				<label for="rank">Rank</label>
