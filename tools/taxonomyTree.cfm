@@ -15,6 +15,385 @@
 	</cfif>
 </select>
 </cfoutput>
+
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "findProblemData">
+	<p>
+		Maybe this will be a form someday.... it's just SQL for now
+	</p>
+
+<h3>What's that doing there</h3>
+
+<pre>
+	select scientific_name from taxon_name,taxon_term a, taxon_term b where
+	taxon_name.taxon_name_id=a.taxon_name_id and
+	taxon_name.taxon_name_id=b.taxon_name_id and
+	a.source='Arctos' and
+	b.source='Arctos' and
+	a.term='Aves' and
+	b.term='Curculionoidea'
+	;
+
+
+	select distinct term_type from
+	taxon_term where
+	source='Arctos' and
+	taxon_name_id in (
+	select distinct
+		taxon_name.taxon_name_id
+	from
+		taxon_name,
+		taxon_term a
+		--, taxon_term b
+	where
+		taxon_name.taxon_name_id=a.taxon_name_id and
+	--taxon_name.taxon_name_id=b.taxon_name_id and
+	a.source='Arctos' and
+	--b.source='Arctos' and
+	--a.term='Aves' and
+	a.term='Curculionoidea'
+	)
+	;
+	-- nope...
+
+	select * from temp_missedh where scientific_name='Curculionidae';
+
+		select * from htax_seed where scientific_name='Curculionidae';
+		select * from hierarchical_taxonomy where term='Curculionidae';
+</pre>
+
+
+<h3>
+	find terms which are used by bird collections but do not have a class=Aves term, possibly because they have no classification anything
+</h3>
+
+<pre>
+
+	-- First a temp table, because
+
+	drop table temp_missedh;
+
+	create table temp_missedh as select distinct
+		taxon_name.scientific_name,
+		taxon_name.taxon_name_id
+	from
+		taxon_name,
+		(select * from taxon_term where term_type='class' and term='Aves') taxon_term ,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
+		taxon_term.taxon_name_id is null;
+
+	insert into htax_seed (
+		SCIENTIFIC_NAME,
+		TAXON_NAME_ID,
+		DATASET_ID
+	) (
+		select
+			scientific_name,
+			TAXON_NAME_ID,
+			114013137
+		from
+			temp_missedh
+		where
+			rank in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1)
+	);
+
+	-- now find terms related to those terms, and which we don't already have
+	-- these might also lead to related terms, so run this until it doesn't do anything
+
+	declare
+		v_wrk varchar2(4000);
+		v_tt varchar2(4000);
+		v_c number;
+		----- CAUTION HARDCODED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		v_dateset_id number := 114013137;
+		----- CAUTION HARDCODED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	begin
+		for r in (select taxon_name_id,scientific_name from temp_missedh) loop
+			dbms_output.put_line(r.scientific_name);
+			-- if the term looks like a multinomial we might be able to do something here
+			v_wrk:='';
+
+			if r.scientific_name like '% % % %' then
+				v_tt:='too_many_spaces';
+				dbms_output.put_line(v_tt);
+			elsif r.scientific_name like '% % %' then
+				v_tt:='subspecies';
+				dbms_output.put_line(v_tt);
+				v_wrk:=substr(r.scientific_name,0,instr(r.scientific_name,' ',1,2));
+			elsif r.scientific_name like '% %' then
+				v_tt:='species';
+				dbms_output.put_line(v_tt);
+				v_wrk:=substr(r.scientific_name,0,instr(r.scientific_name,' '));
+			else
+				v_tt:='genus or something maybe IDK';
+				dbms_output.put_line(v_tt);
+			end if;
+			-- see if we can find related
+			dbms_output.put_line('v_wrk=' || v_wrk);
+			for rt in (
+				select distinct scientific_name,taxon_name_id from taxon_name
+					--, taxon_term
+					where
+					--taxon_name.taxon_name_id=taxon_term.taxon_name_id
+					--and term
+					scientific_name=trim(v_wrk) and
+					taxon_name.taxon_name_id != r.taxon_name_id
+			) loop
+				dbms_output.put_line('parent=' || rt.scientific_name);
+				select count(*) into v_c from htax_seed where
+					dataset_id=v_dateset_id and
+					scientific_name=r.scientific_name;
+				if v_c=0 then
+					-- insert
+					insert into htax_seed (
+						SCIENTIFIC_NAME,
+						TAXON_NAME_ID,
+						DATASET_ID
+					) values (
+						r.scientific_name,
+						r.TAXON_NAME_ID,
+						v_dateset_id
+					);
+					dbms_output.put_line('inserted ' || r.scientific_name);
+				end if;
+			end loop;
+		end loop;
+	end;
+	/
+
+
+
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>Old-n-busted</h3>
+
+<pre>
+	-- this isn't really necessary; the import procedure now tries to guess at rank. Just leaving it here
+	in case it becomes useful somehow.
+
+	<p>
+	everything that follows is for historical purposes only
+	</p>
+	alter table temp_missedh add rank varchar2(255);
+
+	declare
+		hs number;
+		rk varchar2(255);
+	begin
+		for r in (select * from temp_missedh) loop
+			rk:=null;
+			dbms_output.put_line(r.scientific_name);
+			select count(*) into hs from taxon_term where source='Arctos' and taxon_name_id=r.taxon_name_id;
+			dbms_output.put_line('class terms: ' || hs);
+			if hs > 0 then
+			dbms_output.put_line('gotsomething');
+				-- has classification, might have rank
+				select count(*) into hs from taxon_term where source='Arctos' and
+					term_type != 'scientific_name' and
+					term=r.scientific_name and
+					taxon_name_id=r.taxon_name_id;
+				if hs>0 then
+					-- yay, got rank
+					select term_type into rk from taxon_term where source='Arctos' and
+					term_type != 'scientific_name' and
+					term=r.scientific_name and
+					taxon_name_id=r.taxon_name_id;
+					dbms_output.put_line('using rank ' || rk);
+				end if;
+			end if;
+			if rk is null then
+				dbms_output.put_line('didnt find rank try to guess by structure');
+				if r.scientific_name like '% % %' then
+					rk:='subspecies';
+					dbms_output.put_line('subspecies');
+				elsif r.scientific_name like '% %' then
+					rk:='species';
+					dbms_output.put_line('species');
+				elsif r.scientific_name like '% % % %' then
+					rk:='too_many_spaces';
+					dbms_output.put_line('too_many_spaces');
+				else
+					rk:='genus or something maybe IDK';
+					dbms_output.put_line('genus or something maybe IDK');
+				end if;
+			end if;
+			update temp_missedh set rank=rk where taxon_name_id=r.taxon_name_id;
+		end loop;
+	end;
+	/
+
+
+	select scientific_name,rank from temp_missedh where rank not in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1);
+
+	--- deal with those manually
+
+
+
+	<br>Insert them into the hierarchy directly under kingdom
+	<br>No other insert point is safe
+	<br>
+	select dataset_id from htax_dataset where dataset_name='bird';
+	<br> >	114013137
+
+	<br>
+	select tid from hierarchical_taxonomy where term='Animalia' and dataset_id=114013137;
+	<br> > 114013138
+
+	insert into hierarchical_taxonomy (
+		TID,
+		PARENT_TID,
+		TERM,
+		RANK,
+		DATASET_ID
+	) (
+		select
+			someRandomSequence.nextval,
+			114013138,
+			scientific_name,
+			rank,
+			114013137
+		from
+			temp_missedh
+		where
+			rank in (select taxon_term from cttaxon_term where IS_CLASSIFICATION=1)
+	);
+
+	-- well that sucks - try different path...
+	delete from hierarchical_taxonomy where DATASET_ID=114013137 and TERM in (select scientific_name from temp_missedh);
+
+
+UAM@ARCTOS> desc hierarchical_taxonomy
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ TID								   NOT NULL NUMBER
+ PARENT_TID								    NUMBER
+ TERM									    VARCHAR2(255)
+ RANK									    VARCHAR2(255)
+ DATASET_ID							   NOT NULL NUMBER
+
+
+	select distinct
+		taxon_name.scientific_name
+	from
+		taxon_name,
+		taxon_term,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
+		taxon_term.taxon_name_id is null;
+
+
+		select distinct
+		taxon_name.scientific_name
+	from
+		taxon_name,
+		(select * from taxon_term where term_type='class' and term='Aves')taxon_term ,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
+		taxon_term.taxon_name_id is null;
+
+
+
+
+	select
+		taxon_name.scientific_name
+	from
+		taxon_name,
+		taxon_term,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id not in (
+			select taxon_name_id from taxon_term,CTTAXONOMY_SOURCE
+				where taxon_term.source=CTTAXONOMY_SOURCE.source and
+				taxon_term.term_type='class' and
+				taxon_term.term='Aves'
+		)
+
+
+	select distinct
+		taxon_name.scientific_name
+	from
+		taxon_name,
+		taxon_term,
+		identification_taxonomy,
+		identification,
+		cataloged_item,
+		collection
+	where
+		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+		identification_taxonomy.identification_id=identification.identification_id and
+		identification.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id=collection.collection_id and
+		collection.collection_cde='Bird' and
+		taxon_name.taxon_name_id =taxon_term.taxon_name_id (+) and
+		taxon_term.taxon_name_id is null;
+
+
+			select taxon_name_id from taxon_term,CTTAXONOMY_SOURCE
+				where taxon_term.source=CTTAXONOMY_SOURCE.source and
+				taxon_term.term_type='class' and
+				taxon_term.term='Aves'
+		)
+
+		</pre>
+</cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<p>
@@ -33,6 +412,15 @@
 				 <ul><li><strong>othergenus</strong>--><strong>family</strong>--><strong>otherorder</strong></li></ul>
 				 that is, inconsistent hierarchies - here one family split between two orders - then all <strong>family</strong> will end up
 				 as a child of either <strong>order</strong> or <strong>otherorder</strong>, whichever is encountered first.
+		</li>
+		<li>
+			The hierarchical data structure exists independently of "real Arctos." It is created using the data you specify
+			in the seed process as they exist at the time. Changes here to nothing to "real Arctos" classification data until
+			you repatriate them, and subsequent changes to "real Arctos" classification data will not be reflected here.
+			You may need to employ an iterative approach: seed, fix stuff in Arctos, delete your dataset, re-seed, repeat.
+		</li>
+		<li>
+			When you repatriate these data, local data in real Arctos will be REPLACED with the data from the hierarchical classification.
 		</li>
 	</ul>
 	<cfquery name="mg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -197,12 +585,10 @@
 			Find seed taxonomy. Terms are exact-match case-sensitive.
 		</p>
 		<form id="f_ds_filter" method="post" action="taxonomyTree.cfm">
-			<cfoutput>
 				<input type="hidden" name="dataset_id" id="dataset_id" value="#d.dataset_id#">
 				<input type="hidden" name="dataset_name" id="dataset_name" value="#d.dataset_name#">
 				<input type="hidden" name="action" id="action" value="go_seed_ds">
 				<input type="hidden" name="source" id="source" value="#d.source#">
-			</cfoutput>
 
 
 
@@ -235,6 +621,12 @@
 				<input type="submit" value="pull seed data">. The form will reload, and again may be slow.
 			</p>
 		</form>
+		<p>
+			Anything you can search here is almost certainly incomplete. There are no taxonomy "minimum data" standards in Arctos Proper.
+			Contact a DBA and we can help you find these data. There's some SQL at
+			<a href="taxonomyTree.cfm?action=findProblemData&dataset_name=#dataset_name#">Find Problem Data</a>.
+
+		</p>
 		<hr>
 		<p>
 			Step Two: Do nothing. Grab a donut maybe. The records you seeded will auto-process into a hierarchy at the rate of
@@ -464,6 +856,84 @@
 </cfif>
 
 
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "findTermSource">
+	<!--- pass in a term, figure out where it came from ---->
+
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			taxon_term.term_type,
+			count(*) timesUsed
+		from
+			taxon_name,
+			taxon_term,
+			CTTAXONOMY_SOURCE
+		where
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+			taxon_term.source=CTTAXONOMY_SOURCE.source and
+			taxon_term.position_in_classification is not null and
+			taxon_term.term='#term#'
+		group by taxon_term.term_type
+		order by count(*)
+	</cfquery>
+	<cfoutput>
+		<p>
+			Usage of #term# (in local classifications):
+		</p>
+		<table border>
+			<tr>
+				<td>Rank</td>
+				<td>TimesUsed</td>
+				<td>Arctos</td>
+			</tr>
+			<cfloop query="d">
+				<tr>
+					<td>#term_type#</td>
+					<td>#timesUsed#</td>
+					<td>
+						<div>
+							<cfif len(term_type) is 0>
+								<cfset stt='=NULL'>
+							<cfelse>
+								<cfset stt='==#term_type#'>
+							</cfif>
+							<a href="/taxonomy.cfm?source=LOCAL&taxon_term==#term#&term_type#stt#">search term@rank</a>
+						</div>
+					</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
+
+
+
+	<!----
+	<cfquery name="repop" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			htax_temp_hierarcicized.TAXON_NAME_ID,
+			taxon_name.scientific_name,
+			taxon_term.term,
+			taxon_term.term_type
+		from
+			htax_temp_hierarcicized,
+			htax_dataset,
+			taxon_name,
+			taxon_term
+		where
+			htax_temp_hierarcicized.dataset_id=htax_dataset.dataset_id and
+			htax_dataset.dataset_name='#dataset_name#' and
+			htax_temp_hierarcicized.status='fail: ORA-00001: unique constraint (UAM.IU_TERM_DS) violated' and
+			htax_temp_hierarcicized.TAXON_NAME_ID=taxon_name.TAXON_NAME_ID and
+			taxon_name.TAXON_NAME_ID=taxon_term.TAXON_NAME_ID and
+			taxon_term.position_in_classification is not null and
+			taxon_term.source=htax_dataset.source
+	</cfquery>
+	<cfdump var=#d#>
+	---->
+</cfif>
+
+
+
 
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "noSuccessimport">
@@ -515,7 +985,7 @@
 				</li>
 				------->
 				<li>
-					inserted_term errors are those in which all classification terms excepting scientific_name (which should always be
+					missed_taxonname errors are those in which all classification terms excepting scientific_name (which should always be
 					redundant with other terms) was inserted, but the taxon name does not exist as a term (and so were not found
 					by the nonclassification-term-inserter). These are due to missing
 					or garbage classifications and are indications that the hierarchy you are trying to manage is incomplete or inconsistent.
@@ -538,14 +1008,40 @@
 				</li>
 			</ul>
 		</p>
-		<cfloop query="d">
-			<br>#status#: <a href="/name/#scientific_name#">#scientific_name#</a>
-		</cfloop>
+		<table border>
+			<tr>
+				<th>Status</th>
+				<th>Term</th>
+				<th>Arctos Taxonomy</th>
+				<th>Tree</th>
+			</tr>
+			<cfloop query="d">
+				<tr>
+					<td>#status#</td>
+					<td>#scientific_name#</td>
+					<td><a href="/name/#scientific_name#" target="_blank">Arctos Taxonomy (new tab)</a></td>
+					<td><a href="/tools/taxonomyTree.cfm?action=manageLocalTree&dataset_name=#dataset_name#&autosearch=#scientific_name#" target="_blank">tree (new tab)</a></td>
+				</tr>
+			</cfloop>
+		</table>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 
 <cfif action is "deleteDataset">
+	<cfoutput>
+		<p>
+			Are you sure you want to DELETE dataset #dataset_name#? This cannot be undone!
+		</p>
+		<p>
+			<a href="taxonomyTree.cfm?action=srslydeleteDataset&dataset_name=#dataset_name#">Yes, continue to delete #dataset_name#</a>
+		</p>
+
+	</cfoutput>
+
+</cfif><!------------------------------------------------------------------------------------------------->
+
+<cfif action is "srslydeleteDataset">
 	<cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from htax_dataset where dataset_name='#dataset_name#'
@@ -566,18 +1062,13 @@
 		<cfquery name="d_htax_dataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from htax_dataset where dataset_id =#d.dataset_id#
 		</cfquery>
-
 	</cftransaction>
 
+	delete successful.
+		<p>
+			<a href="taxonomyTree.cfm?action=nothing">home</a>
+		</p>
 	</cfoutput>
-
-
-
-
-
-
-
-
 </cfif>
 <!--------------------------------------------------------------------------------------->
 <cfif action is "mismatch_import">
@@ -831,6 +1322,8 @@
 				function (r) {
 					if (r.toString().substring(0,5)=='ERROR'){
 						setStatus(r,'err');
+					} else if (r.length==0){
+						setStatus('Search found nothing','err');
 					} else {
 						//console.log(r);
 						//myTree.parse(r, "jsarray");
@@ -942,31 +1435,95 @@
 			$( "#srchBtn" ).click(function() {
 				performSearch();
 			});
+			if ($("#autosearch").val().length>0){
+				console.log('go go autosearch');
+				// grab the term, stuff it in the search box so as to not confuse people
+				$("#srch").val($("#autosearch").val());
+				// do nothing for a while, let stuff happen
+				// doopty-doo
+				// wheeee
+				// done yet?
+				// hope so
+
+				// and kick off search
+
+				setTimeout(performSearch,1000);
+
+			}
 		});
 		// end ready function
 
 	</script>
-	<input id="tttest">
-	<p>
-		<strong>Doubleclick</strong> terms to expand.
-		<br><strong>Check</strong> the box to edit.
-		<br><strong>Drag</strong> to re-order.
-		<br><strong>Rightclick</strong> to close a node.
-		<br>All edits propagate to all children.
-	</p>
-	<p style="width:70%">
-		IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
-		If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
-		homonym in different ways. Coordinate updates, which may require splitting classifications.
-	</p>
-	<p style="width:70%">
-		Search is case-sensitive contains;
-		<br>"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
-		<br>"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find "Mustela <strong>mus</strong>tela").
-		 <br>Large searches may be slow, and possibly cause local memory problem (but "mus" in Insecta
-		 returned 20K usable results in 30s on test).
-		 <br>Re-searching while a previous search is still "working" can cause strange behavior.
-	</p>
+	<div class="importantNotification" style="width:70%">
+		<div style="max-height: 10em;overflow:auto;">
+			<h2>Read this!</h2>
+			<h3>Using the form</h3>
+			<p>
+				<strong>Doubleclick</strong> terms to expand.
+				<br><strong>Check</strong> the box to edit.
+				<br><strong>Drag</strong> to re-order.
+				<br><strong>Rightclick</strong> to close a node.
+				<br>All edits propagate to all children.
+			</p>
+			<h3>Search</h3>
+			<p>
+				Search is case-sensitive contains;
+				<br>"<strong>Mus</strong>" finds "<strong>Mus</strong>" and "<strong>Mus</strong>tela";
+				<br>"<strong>mus</strong>" finds "Microtus oecono<strong>mus</strong>, NOT "Mustela" (but will find "Mustela <strong>mus</strong>tela").
+				 <br>Large searches may be slow, and possibly cause local memory problem (but "mus" in Insecta
+				 returned 20K usable results in 30s on test).
+				 <br>Re-searching while a previous search is still "working" can cause strange behavior.
+			</p>
+
+			<h3>Limitations</h3>
+			<p style="width:70%">
+				IMPORTANT: This form cannot deal with homonyms of any form. You will most likely find these by the presence of weird higher taxonomy.
+				If you simply "fix" these, they (and their children!) are exceedingly likely to be subsequently "fixed" by collections using the
+				homonym in different ways. Coordinate updates, which may require splitting classifications.
+			</p>
+
+			<h3>Weird Data</h3>
+			<ul>
+				<li>
+					Orphaned nodes
+					<ul>
+						<li>
+							On import, terms are arranged hierarchically on a first-come, first-served basis. If you find an abandoned node, it was most
+							likely used inconsistently in Arctos data and "someone else got there first." Edit the term, click Source Details and/or
+							Arctos Record and click around to find the source of the term. There are eg, turtles cataloged in bird collections, which may
+							show up as outliers in "your" dataset. You may simply delete any terms you don't wish to manage - doing so will not affect
+							Arctos classification data in any way. (Anything you keep in your dataset WILL affect Arctos classification data when you
+							repatriate.)
+						</li>
+						<li>
+							Example: The genus of Nyroca americana (http://arctos.database.museum/name/Nyroca%20americana) was given as "Aythya."
+							This results in very strange inconsistencies across all Nyroca (and possbibly Aythya).
+						</li>
+					</ul>
+				</li>
+				<li>Non-hierarchical data</li>
+				<ul>
+					<li>
+						The tree will ideally be a continuous progression from kingdom (or whatever your top-level rank is) down to subspecies,
+						with every term's children being of the same rank. The tree should load with one term (eg, kingdom), expanding that should
+						find only terms ranked phylum (or whatever the second-level term in your classification is), etc. Expanding kingdom
+						should never find eg, one phylum and three families. This will almost never be true; children terms of mixed rank
+						are from inconssitent hierarchies, and should be rearranged into a single consistent hierarchy.
+						Species (and other lower-lever terms which have no (useful) classification may appear at the top of the tree
+						(eg, beside kingdom). Given the hierarchical structure of this app, we MAY be able to help with SQL; contact a
+						DBA for more information.
+					</li>
+				</ul>
+			</ul>
+
+		</div>
+	</div>
+
+	<cfif not isdefined("autosearch")>
+		<cfset autosearch="">
+	</cfif>
+	<input type="hidden" name="autosearch" id="autosearch" value="<cfoutput>#autosearch#</cfoutput>">
+
 	<label for="srch">search <cfoutput>#dataset_name#</cfoutput></label>
 	<input id="srch">
 	<input type="button" value="search" id="srchBtn">
