@@ -131,7 +131,7 @@
 		<!----
 			keep this synced up with /component/utilities.cfc
 		---->
-		<cfset badbot="Baiduspider,bash">
+		<cfset badbot="Baiduspider,bash,BUbiNG">
 		<cfset badbot=badbot & ",ca-crawler,CCBot">
 		<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler">
 		<cfset badbot=badbot & ",Exabot">
