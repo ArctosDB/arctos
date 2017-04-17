@@ -11,31 +11,21 @@
 		select taxon_term from CTTAXON_TERM where taxon_term not in (#listqualify(noCloneTerms,"'")#) order by taxon_term
 	</cfquery>
 	<cfoutput>
-		<p>
-		Use this form to create a clone of a name and classification as another (e.g., local and editable) Source.
-		</p>
-		<p>
-			You are creating a new namestring.
-		</p>
-		<p>
-			You should not do that if the namestring (scientific name) exists, even if it's currently used for some other
-			biological entity. That is, Diptera (flies) and Diptera (plants) share a namestring, and a new name is not necessary (or possible).
-		</p>
-		<p>
-			Pick a source below, enter the new namestring, click the button, and then you'll have a chance to edit the classification you've created.
-		</p>
-		<form name="x" method="post" action="editTaxonomy.cfm">
-			<input type="hidden" name="action" value="cloneClassificationNewName_insert">
-			<input type="hidden" name="classification_id" value="#classification_id#">
-			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-			<label for="newName">New Namestring/Scientific Name</label>
-			<input type="text" name="newName" id="newName" class="reqdClr">
-			<label for="source">Clone into Source</label>
-			<select name="source" id="source" class="reqdClr">
-				<cfloop query="cttaxonomy_source">
-					<option value="#source#">#source#</option>
-				</cfloop>
-			</select>
+		<div class="importantNotification" style='max-height:20em; overflow:auto;">
+			<b>READ THIS!</b>
+			<p>
+			Use this form to create a clone of a name and classification as another (e.g., local and editable) Source.
+			</p>
+			<p>
+				You are creating a new namestring.
+			</p>
+			<p>
+				You should not do that if the namestring (scientific name) exists, even if it's currently used for some other
+				biological entity. That is, Diptera (flies) and Diptera (plants) share a namestring, and a new name is not necessary (or possible).
+			</p>
+			<p>
+				Pick a source below, enter the new namestring, click the button, and then you'll have a chance to edit the classification you've created.
+			</p>
 			<p>
 				IMPORTANT: Only select terms from <a target="_blank" href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a>
 				will be cloned. Anything not in the list below will be ignored.
@@ -49,7 +39,20 @@
 				This may include terms that you do not wish to clone, and it may exclude terms which you do wish to clone. Please
 				carefully check everything before saving.
 			</p>
+		</div>
 
+		<form name="x" method="post" action="editTaxonomy.cfm">
+			<input type="hidden" name="action" value="cloneClassificationNewName_insert">
+			<input type="hidden" name="classification_id" value="#classification_id#">
+			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
+			<label for="newName">New Namestring/Scientific Name</label>
+			<input type="text" name="newName" id="newName" class="reqdClr">
+			<label for="source">Clone into Source</label>
+			<select name="source" id="source" class="reqdClr">
+				<cfloop query="cttaxonomy_source">
+					<option value="#source#">#source#</option>
+				</cfloop>
+			</select>
 			<input type="submit" value="create name and classification">
 		</form>
 	</cfoutput>
