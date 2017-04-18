@@ -94,9 +94,6 @@
 	<cfquery name="allCatItemsRaw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-
-	<cfdump var=#allCatItemsRaw#>
-
 	<cfquery name="allCatItems" dbtype="query">
 		select * from allCatItemsRaw
 	</cfquery>
