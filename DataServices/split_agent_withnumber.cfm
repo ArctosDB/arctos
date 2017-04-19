@@ -18,6 +18,14 @@ maybe make this something else if if works
 		</cfquery>
 		<cfloop query="d">
 			<br>#rawagnt1#
+			<cfif listlen(rawagnt1,' ') gt 0>
+				<cfset n=trim(listlast(rawagnt1,' '))>
+				<cfset a=trim(replace(rawagnt1,n,'""','all'))>
+				<br>n==#n#
+				<br>a==#a#
+			<cfelse>
+				<br>~~~~nospace
+			</cfif>
 		</cfloop>
 	</cfoutput>
 
