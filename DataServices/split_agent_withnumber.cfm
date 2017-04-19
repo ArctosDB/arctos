@@ -34,7 +34,11 @@ maybe make this something else if if works
 		<cfloop query="d">
 			<br>#rawstring#
 			<cfset x=sagent(rawstring)>
+
+
 			<cfdump var=#x#>
+			<br>x[n]=#x[n]#
+			<br>x[a]=#x[a]#
 			<!----------
 			<cfif listlen(rawagnt1,' ') gt 1>
 				<cfset n=trim(listlast(rawagnt1,' '))>
@@ -49,6 +53,7 @@ maybe make this something else if if works
 			<cfquery name="u" datasource="prod">
 				update temp_uwbm_agentmess set agent1='#a#',number1='#n#' where rawagnt1='#rawagnt1#'
 			</cfquery>
+
 			---------->
 		</cfloop>
 	</cfoutput>
