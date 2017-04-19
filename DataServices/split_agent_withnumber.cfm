@@ -37,8 +37,8 @@ maybe make this something else if if works
 
 
 			<cfdump var=#x#>
-			<br>x[n]=#x[n]#
-			<br>x[a]=#x[a]#
+			<br>x.n=#x.n#
+			<br>x.a=#x.a#
 			<!----------
 			<cfif listlen(rawagnt1,' ') gt 1>
 				<cfset n=trim(listlast(rawagnt1,' '))>
