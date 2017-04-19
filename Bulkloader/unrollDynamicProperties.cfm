@@ -6,5 +6,7 @@ unrollDynamicProperties.cfm
 <cfoutput>
 	<cfloop query="d">
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
+		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
+		<cfdump var=#x#>
 	</cfloop>
 </cfoutput>
