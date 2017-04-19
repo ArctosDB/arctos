@@ -27,18 +27,28 @@ maybe make this something else if if works
 
 <cfif action is "nothing">
 	<cfoutput>
+		<cfset f="rawagnt1">
+		<cfset an="agent1">
+		<cfset nn="number1">
 		<cfquery name="d" datasource="prod">
-			select distinct rawagnt1 rawstring from temp_uwbm_agentmess where rawagnt1 is not null and
-			agent1 is null and rownum<500
+			select distinct #f# rawstring from temp_uwbm_agentmess where #f# is not null and
+			#an# is null and rownum<500
 		</cfquery>
 		<cfloop query="d">
-			<br>rawstring=#rawstring#
 			<cfset x=sagent(rawstring)>
+			<!----
+			<br>rawstring=#rawstring#
+
 
 
 			<cfdump var=#x#>
 			<br>x.n=#x.n#
 			<br>x.a=#x.a#
+			---->
+
+			<cfquery name="u" datasource="prod">
+				update temp_uwbm_agentmess set #an#='#x.a#',#nn#='#x.n#' where #f#='#rawstring#'
+			</cfquery>
 			<!----------
 			<cfif listlen(rawagnt1,' ') gt 1>
 				<cfset n=trim(listlast(rawagnt1,' '))>
