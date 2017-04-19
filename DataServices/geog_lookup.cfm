@@ -230,7 +230,7 @@ from geog_auth_rec where rownum<10
 
 
 <cfif action is "nothing">
-	Load random-ish geography; we'll try to find an appropriate Arctos higher_geog entry.
+	Load random-ish geography; we'll try to find an possibly-appropriate Arctos higher_geog entry.
 	<hr>Option One: Load "geog components"
 	All columns are optional
 	<ul>
