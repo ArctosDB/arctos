@@ -10,7 +10,7 @@ maybe make this something else if if works
 <cfset title='vertnet hates me'>
 <cfsetting requestTimeOut = "600">
 
-<cffunction name="">
+<cffunction name="sagent">
 	<cfargument name="ra" required="yes">
 	<cfif listlen(ra,' ') gt 1>
 		<cfset n=trim(listlast(ra,' '))>
