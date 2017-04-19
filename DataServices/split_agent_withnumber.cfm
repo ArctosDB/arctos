@@ -36,11 +36,17 @@ maybe make this something else if if works
 		<cfset an="agent1">
 		<cfset nn="number1">
 
-		---->
 
 		<cfset f="rawagnt2">
 		<cfset an="agent2">
 		<cfset nn="number2">
+		---->
+
+		<cfset f="rawagnt3">
+		<cfset an="agent3">
+		<cfset nn="number3">
+
+
 		<cfquery name="d" datasource="prod">
 			select distinct #f# rawstring from temp_uwbm_agentmess where #f# is not null and
 			#an# is null
