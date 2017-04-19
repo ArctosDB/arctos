@@ -19,7 +19,7 @@ maybe make this something else if if works
 		<cfset n=ra>
 		<cfset a=''>
 	</cfif>
-	<cfset r=[]>
+	<cfset r={}>
 	<cfset r.n=n>
 	<cfset r.a=a>
 	<cfreturn r>
