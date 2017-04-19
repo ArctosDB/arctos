@@ -14,7 +14,7 @@ maybe make this something else if if works
 	<cfoutput>
 		<cfquery name="d" datasource="prod">
 			select distinct rawagnt1 from temp_uwbm_agentmess where rawagnt1 is not null and
-			agent1 is null and rownum<50
+			agent1 is null and rownum<500
 		</cfquery>
 		<cfloop query="d">
 			<br>#rawagnt1#
