@@ -24,37 +24,25 @@ maybe make this something else if if works
 	<cfset r.a=a>
 	<cfreturn r>
 </cffunction>
-
+<cfoutput>
 <cfif action is "nothing">
-	<cfoutput>
-		<!----
 
-		these are done....
+	<br><a href="split_agent_withnumber.cfm?action=splitOrig">splitOrig</a>
 
-
-		<cfset f="rawagnt1">
-		<cfset an="agent1">
-		<cfset nn="number1">
-
-
-		<cfset f="rawagnt2">
-		<cfset an="agent2">
-		<cfset nn="number2">
-
-		<cfset f="rawagnt3">
-		<cfset an="agent3">
-		<cfset nn="number3">
-
-		<cfset f="rawagnt4">
-		<cfset an="agent4">
-		<cfset nn="number4">
+	<br><a href="split_agent_withnumber.cfm?action=splitRaw&num=1">splitRaw&num=1</a>
+	<br><a href="split_agent_withnumber.cfm?action=splitRaw&num=2">splitRaw&num=2</a>
+	<br><a href="split_agent_withnumber.cfm?action=splitRaw&num=3">splitRaw&num=3</a>
+	<br><a href="split_agent_withnumber.cfm?action=splitRaw&num=4">splitRaw&num=4</a>
+	<br><a href="split_agent_withnumber.cfm?action=splitRaw&num=5">splitRaw&num=5</a>
 
 
-		---->
 
-		<cfset f="rawagnt5">
-		<cfset an="agent5">
-		<cfset nn="number5">
+</cfif>
+	<cfif action is "splitRaw">
+
+		<cfset f="rawagnt#num#">
+		<cfset an="agent#num#">
+		<cfset nn="number#num#">
 
 
 		<cfquery name="d" datasource="prod">
@@ -63,69 +51,49 @@ maybe make this something else if if works
 		</cfquery>
 		<cfloop query="d">
 			<cfset x=sagent(rawstring)>
-			<!----
 			<br>rawstring=#rawstring#
 
 
 
-			<cfdump var=#x#>
 			<br>x.n=#x.n#
 			<br>x.a=#x.a#
-			---->
 
 			<cfquery name="u" datasource="prod">
 				update temp_uwbm_agentmess set #an#='#x.a#',#nn#='#x.n#' where #f#='#rawstring#'
 			</cfquery>
-			<!----------
-			<cfif listlen(rawagnt1,' ') gt 1>
-				<cfset n=trim(listlast(rawagnt1,' '))>
-				<cfset a=trim(replace(rawagnt1,n,'','all'))>
-				<br>n==#n#
-				<br>a==#a#
-			<cfelse>
-				<br>
-				<cfset n=rawagnt1>
-				<cfset a=''>
-			</cfif>
-			<cfquery name="u" datasource="prod">
-				update temp_uwbm_agentmess set agent1='#a#',number1='#n#' where rawagnt1='#rawagnt1#'
-			</cfquery>
 
-			---------->
 		</cfloop>
-	</cfoutput>
+
+</cfif>
+
+<cfif action is "splitOrig">
 
 
 
-
-	<!---- split into individuals (sometimes, maybe!!)
 	<cfquery name="d" datasource="prod">
-		select * from temp_uwbm_agentmess where rownum<5000 and rawagnt1 is null
+		select * from temp_uwbm_agentmess where rawagnt1 is null
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
 			<cfset i=1>
 			<br>#agent#
-			<cfif agent contains ",">
-				<cfloop list="#agent#" index="a">
+				<cfloop list="#agent#" index="a" delimiters=",;">
+					<!----
 					<cfquery name="u" datasource="prod">
 						update temp_uwbm_agentmess set rawagnt#i#='#a#' where agent='#d.agent#'
 					</cfquery>
+					---->
 
 					<br>-----#a#
 					<cfset i=i+1>
 				</cfloop>
-			<cfelse>
-				<!--- nothing to split, stuff everything to one ---->
-				<cfquery name="u" datasource="prod">
-					update temp_uwbm_agentmess set rawagnt1='#d.agent#' where agent='#d.agent#'
-				</cfquery>
-			</cfif>
+
 		</cfloop>
 	</cfoutput>
-	END split into individuals (sometimes, maybe!!) ---->
 
 
 
 </cfif>
+
+</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
