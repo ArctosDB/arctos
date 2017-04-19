@@ -32,7 +32,7 @@ maybe make this something else if if works
 		<cfset nn="number1">
 		<cfquery name="d" datasource="prod">
 			select distinct #f# rawstring from temp_uwbm_agentmess where #f# is not null and
-			#an# is null and rownum<500
+			#an# is null
 		</cfquery>
 		<cfloop query="d">
 			<cfset x=sagent(rawstring)>
