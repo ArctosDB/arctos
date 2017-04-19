@@ -14,7 +14,7 @@ maybe make this something else if if works
 	<cfoutput>
 		<cfquery name="d" datasource="prod">
 			select distinct rawagnt1 from temp_uwbm_agentmess where rawagnt1 is not null and
-			agent1 is null and rownum<500
+			agent1 is null and rownum<5000
 		</cfquery>
 		<cfloop query="d">
 			<br>#rawagnt1#
@@ -24,14 +24,18 @@ maybe make this something else if if works
 				<br>n==#n#
 				<br>a==#a#
 			<cfelse>
-				<br>~~~~nospace
+				<br>
+				<cfset n=rawagnt1>
+				<cfset a=''>
 			</cfif>
+			<cfquery name="u" datasource="prod">
+				update temp_uwbm_agentmess set agent1='#a#',number1='#n#' where rawagnt1='#rawagnt1#'
+			</cfquery>
+
 		</cfloop>
 	</cfoutput>
 
 
-alter table temp_uwbm_agentmess add agent1 VARCHAR2(4000);
-alter table temp_uwbm_agentmess add number1 VARCHAR2(4000);
 
 
 	<!---- split into individuals (sometimes, maybe!!)
