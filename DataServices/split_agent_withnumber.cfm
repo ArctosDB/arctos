@@ -16,8 +16,8 @@ maybe make this something else if if works
 		<cfset n=trim(listlast(ra,' '))>
 		<cfset a=trim(replace(ra,n,'','all'))>
 	<cfelse>
-		<cfset n=ra>
-		<cfset a=''>
+		<cfset a=ra>
+		<cfset n=''>
 	</cfif>
 	<cfset r={}>
 	<cfset r.n=n>
