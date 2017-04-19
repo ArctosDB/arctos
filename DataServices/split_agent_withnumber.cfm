@@ -10,14 +10,32 @@ maybe make this something else if if works
 <cfset title='vertnet hates me'>
 <cfsetting requestTimeOut = "600">
 
+<cffunction name="">
+	<cfargument name="ra" required="yes">
+	<cfif listlen(ra,' ') gt 1>
+		<cfset n=trim(listlast(ra,' '))>
+		<cfset a=trim(replace(ra,n,'','all'))>
+	<cfelse>
+		<cfset n=ra>
+		<cfset a=''>
+	</cfif>
+	<cfset r=[]>
+	<cfset r.n=n>
+	<cfset r.a=a>
+	<cfreturn r>
+</cffunction>
+
 <cfif action is "nothing">
 	<cfoutput>
 		<cfquery name="d" datasource="prod">
-			select distinct rawagnt1 from temp_uwbm_agentmess where rawagnt1 is not null and
-			agent1 is null and rownum<5000
+			select distinct rawagnt1 rawstring from temp_uwbm_agentmess where rawagnt1 is not null and
+			agent1 is null and rownum<50
 		</cfquery>
 		<cfloop query="d">
 			<br>#rawagnt1#
+			<cfset x=sagent(rawstring)>
+			<cfdump var=#x#>
+			<!----------
 			<cfif listlen(rawagnt1,' ') gt 1>
 				<cfset n=trim(listlast(rawagnt1,' '))>
 				<cfset a=trim(replace(rawagnt1,n,'','all'))>
@@ -31,7 +49,7 @@ maybe make this something else if if works
 			<cfquery name="u" datasource="prod">
 				update temp_uwbm_agentmess set agent1='#a#',number1='#n#' where rawagnt1='#rawagnt1#'
 			</cfquery>
-
+			---------->
 		</cfloop>
 	</cfoutput>
 
