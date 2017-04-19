@@ -17,6 +17,11 @@ maybe make this something else if if works
 	<cfoutput>
 		<cfloop query="d">
 			<br>#agent#
+			<cfif agent contains ",">
+				<cfloop list="#agent#" index="a">
+					<br>----->#a#
+				</cfloop>
+			</cfif>
 		</cfloop>
 	</cfoutput>
 
