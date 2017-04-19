@@ -11,6 +11,22 @@ maybe make this something else if if works
 <cfsetting requestTimeOut = "600">
 
 <cfif action is "nothing">
+	<cfoutput>
+		<cfquery name="d" datasource="prod">
+			select distinct rawagnt1 from temp_uwbm_agentmess where rawagnt1 is not null and
+			agent1 is null and rownum<50
+		</cfquery>
+		<cfloop query="d">
+			<br>#rawagnt1#
+		</cfloop>
+	</cfoutput>
+
+
+alter table temp_uwbm_agentmess add agent1 VARCHAR2(4000);
+alter table temp_uwbm_agentmess add number1 VARCHAR2(4000);
+
+
+	<!---- split into individuals (sometimes, maybe!!)
 	<cfquery name="d" datasource="prod">
 		select * from temp_uwbm_agentmess where rownum<5000 and rawagnt1 is null
 	</cfquery>
@@ -24,7 +40,7 @@ maybe make this something else if if works
 						update temp_uwbm_agentmess set rawagnt#i#='#a#' where agent='#d.agent#'
 					</cfquery>
 
-					<br>----->#a#
+					<br>-----#a#
 					<cfset i=i+1>
 				</cfloop>
 			<cfelse>
@@ -35,6 +51,8 @@ maybe make this something else if if works
 			</cfif>
 		</cfloop>
 	</cfoutput>
+	END split into individuals (sometimes, maybe!!) ---->
+
 
 
 </cfif>
