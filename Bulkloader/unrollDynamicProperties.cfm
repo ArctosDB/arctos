@@ -48,7 +48,7 @@ unrollDynamicProperties.cfm
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
 		<cfdump var=#x#>
 		<cfloop list="#structKeyList(x)#" index="key">
-			Key: #key#, Value: #x[key]#
+			<br>#key#==#x[key]#
 		</cfloop>
 	</cfloop>
 </cfoutput>
