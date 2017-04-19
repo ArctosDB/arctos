@@ -32,7 +32,7 @@ maybe make this something else if if works
 			agent1 is null and rownum<500
 		</cfquery>
 		<cfloop query="d">
-			<br>#rawstring#
+			<br>rawstring=#rawstring#
 			<cfset x=sagent(rawstring)>
 
 
