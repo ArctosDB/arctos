@@ -12,7 +12,7 @@ maybe make this something else if if works
 
 <cfif action is "nothing">
 	<cfquery name="d" datasource="prod">
-		select * from temp_uwbm_agentmess where rownum<100
+		select * from temp_uwbm_agentmess where rownum<5000
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
