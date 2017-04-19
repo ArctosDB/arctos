@@ -40,11 +40,15 @@ maybe make this something else if if works
 		<cfset f="rawagnt2">
 		<cfset an="agent2">
 		<cfset nn="number2">
-		---->
 
 		<cfset f="rawagnt3">
 		<cfset an="agent3">
 		<cfset nn="number3">
+		---->
+
+		<cfset f="rawagnt4">
+		<cfset an="agent4">
+		<cfset nn="number4">
 
 
 		<cfquery name="d" datasource="prod">
