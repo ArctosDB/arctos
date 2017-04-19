@@ -40,15 +40,25 @@ unrollDynamicProperties.cfm
 </cfquery>
 
 <cfquery name="d" datasource='prod'>
-	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm where rownum<100
+	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm where CATALOGNUMBER not in (select catnum from  cf_vnDynamicProps) and rownum<100
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
 		<cfdump var=#x#>
-		<cfloop list="#structKeyList(x)#" index="key">
-			<br>#key#==#x[key]#
-		</cfloop>
+
+		<cfquery name="insone" datasource='prod'>
+			insert into cf_vnDynamicProps (catnum
+			<cfloop list="#structKeyList(x)#" index="key">
+				,#key#
+			</cfloop>
+			) values (
+			'#CATALOGNUMBER#'
+			<cfloop list="#structKeyList(x)#" index="key">
+				,'#x[key]#'
+			</cfloop>
+			)
+		</cfquery>
 	</cfloop>
 </cfoutput>
