@@ -49,10 +49,48 @@ from
 	order by display_name;
 
 	select count(*) from temp_dnametest;
-	select count(*) from temp_dnametest where gdisplay_name is not null;
-
+	select count(*) from temp_dnametest where gdisplay_name is  null;
+  select count(*) from temp_dnametest where gdisplay_name  like 'ERROR%';
+  select distinct (gdisplay_name) from temp_dnametest where gdisplay_name  like 'ERROR%';
 
 update temp_dnametest set gdisplay_name=null where gdisplay_name not like 'ERROR%' and gdisplay_name!=display_name;
+
+------------------------------------------------------------------------------------------------------------------------
+ERROR: The string v_convar. is not a valid ColdFusion variable name.
+ERROR: The string v_canonical name is not a valid ColdFusion variable name.
+ERROR: The string v_nothof. is not a valid ColdFusion variable name.
+ERROR: The string v_subvar. is not a valid ColdFusion variable name.
+ERROR: The string v_prol. is not a valid ColdFusion variable name.
+ERROR: The string v_scientific name is not a valid ColdFusion variable name.
+ERROR: The request has exceeded the allowable time limit Tag: CFLOOP
+ERROR: The string v_subhybr. is not a valid ColdFusion variable name.
+ERROR: The string v_subsubvar. is not a valid ColdFusion variable name.
+ERROR: The string v_nothosubsp. is not a valid ColdFusion variable name.
+ERROR: The string v_lus. is not a valid ColdFusion variable name.
+ERROR: The string v_modif. is not a valid ColdFusion variable name.
+ERROR: The string v_nothovar. is not a valid ColdFusion variable name.
+ERROR: The string v_monstr. is not a valid ColdFusion variable name.
+ERROR: The request has exceeded the allowable time limit Tag: CFQUERY
+ERROR: The string v_name string is not a valid ColdFusion variable name.
+ERROR: The string v_nm. is not a valid ColdFusion variable name.
+ERROR: The string v_agamovar. is not a valid ColdFusion variable name.
+ERROR: The string v_mut. is not a valid ColdFusion variable name.
+ERROR: The string v_agamosp. is not a valid ColdFusion variable name.
+ERROR: The string v_canonical string is not a valid ColdFusion variable name.
+ERROR: The string v_subf. is not a valid ColdFusion variable name.
+ERROR: The string v_canonical_ name is not a valid ColdFusion variable name.
+
+update temp_dnametest set gdisplay_name=null where gdisplay_name ='ERROR: The request has exceeded the allowable time limit Tag: CFLOOP';
+update temp_dnametest set gdisplay_name=null where gdisplay_name ='ERROR: The request has exceeded the allowable time limit Tag: CFQUERY';
+update temp_dnametest set gdisplay_name=null where gdisplay_name ='ERROR: The string v_subsp. is not a valid ColdFusion variable name.';
+update temp_dnametest set gdisplay_name=null where gdisplay_name ='ERROR: The string v_var. is not a valid ColdFusion variable name.';
+update temp_dnametest set gdisplay_name=null where gdisplay_name ='xxxxxx';
+update temp_dnametest set gdisplay_name=null where gdisplay_name ='xxxxxx';
+update temp_dnametest set gdisplay_name=null where gdisplay_name ='xxxxxx';
+
+update temp_dnametest set gdisplay_name=null where gdisplay_name ='xxxxxx';
+
+
 
 select count(*) from temp_dnametest where gdisplay_name=null;
 
