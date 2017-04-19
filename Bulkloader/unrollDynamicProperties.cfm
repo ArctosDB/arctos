@@ -32,6 +32,7 @@ unrollDynamicProperties.cfm
 	alter table cf_vnDynamicProps add wth  varchar2(4000);
 	alter table cf_vnDynamicProps add foot_units  varchar2(4000);
 	alter table cf_vnDynamicProps add measurements  varchar2(4000);
+	alter table cf_vnDynamicProps add preps  varchar2(4000);
 
 
 ---->
@@ -40,14 +41,12 @@ unrollDynamicProperties.cfm
 </cfquery>
 
 <cfquery name="d" datasource='prod'>
-	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm where CATALOGNUMBER not in (select catnum from  cf_vnDynamicProps) and rownum<100
+	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm where CATALOGNUMBER not in (select catnum from  cf_vnDynamicProps) and rownum<1000
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
-		<cfdump var=#x#>
-
 		<cfquery name="insone" datasource='prod'>
 			insert into cf_vnDynamicProps (catnum
 			<cfloop list="#structKeyList(x)#" index="key">
