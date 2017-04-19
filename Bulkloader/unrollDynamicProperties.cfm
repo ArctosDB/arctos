@@ -47,11 +47,8 @@ unrollDynamicProperties.cfm
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
 		<cfdump var=#x#>
-		<cfloop from="1" to="#arrayLen(x)#" index="i">
-  			<cfset data = x[i]>
-			  <cfloop collection="#data#" item="key">
-			    #key#:#data[key]#
-			  </cfloop>
+		<cfloop list="#structKeyList(x)#" index="key">
+			Key: #key#, Value: #x[key]#
 		</cfloop>
 	</cfloop>
 </cfoutput>
