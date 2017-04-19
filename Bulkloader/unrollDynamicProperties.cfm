@@ -1,4 +1,43 @@
 unrollDynamicProperties.cfm
+<!----
+
+	-- just turn the junk from VN into usable variable names with replace
+
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"Accession Number"','"accn"');
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"Collector and Collector Number"','"colls"');
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"earLengthInMM"','"earmm"');
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"hindfootLengthInMM"','"hfmm"');
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"Preparator and Preparator Number"','"preps"');
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"total length measurement system"','""');
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"reproductive remarks"','"repro"');
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"Litter size"','"littersize"');
+	update temp_uwbm_mamm set DYNAMICPROPERTIES=replace(DYNAMICPROPERTIES,'"foot length measurement system"','"foot_units"');
+
+
+	-- temp table to hold this stuff
+	create table cf_vnDynamicProps (
+		catnum  varchar2(4000),
+		accn varchar2(4000),
+		colls varchar2(4000),
+		earmm varchar2(4000),
+		hfmm varchar2(4000),
+		tail varchar2(4000),
+		totalLength varchar2(4000),
+		weight varchar2(4000),
+		tl_units varchar2(4000),
+		repro varchar2(4000),
+		littersize varchar2(4000)
+	);
+
+	alter table cf_vnDynamicProps add wth  varchar2(4000);
+	alter table cf_vnDynamicProps add foot_units  varchar2(4000);
+	alter table cf_vnDynamicProps add measurements  varchar2(4000);
+
+
+---->
+<cfquery name="kc" datasource='prod'>
+	select * from cf_vnDynamicProps where 1=2
+</cfquery>
 
 <cfquery name="d" datasource='prod'>
 	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm where rownum<100
@@ -8,5 +47,11 @@ unrollDynamicProperties.cfm
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
 		<cfdump var=#x#>
+		<cfloop from="1" to="#arrayLen(x)#" index="i">
+  			<cfset data = x[i]>
+			  <cfloop collection="#data#" item="key">
+			    #key#:#data[key]#
+			  </cfloop>
+		</cfloop>
 	</cfloop>
 </cfoutput>
