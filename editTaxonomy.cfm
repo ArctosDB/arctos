@@ -1339,7 +1339,7 @@
 						update
 							hasclass
 						set
-							SRC='DUP_#src#'
+							SRC='DUPTRM_#src#'
 						where
 							TERM_TYPE='#TERM_TYPE#'
 					</cf_qoq>
@@ -1356,7 +1356,7 @@
 							update
 								hasclass
 							set
-								SRC='DUP_#src#'
+								SRC='DUPVAL_#src#'
 							where
 								TERM='#TERM#'
 						</cf_qoq>
