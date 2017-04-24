@@ -1409,8 +1409,7 @@
 
 			<cfdump var=#hasclass#>
 
-				select term_type from hasclass
-			</cfquery>
+
 
 			<cfquery name="orderedClass" dbtype="query">
 				select * from hasclass order by POSITION_IN_CLASSIFICATION
