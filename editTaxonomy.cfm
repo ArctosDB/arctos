@@ -1389,7 +1389,6 @@
 				</cfif>
 			</cfloop>
 			<cfif len(sugGenus) gt 0>
-			going...
 				<cfquery name="gsm" dbtype="query">
 					select term from hasclass where term_type='genus'
 				</cfquery>
@@ -1403,20 +1402,41 @@
 							TERM_type='genus'
 					</cf_qoq>
 				</cfif>
+
 			</cfif>
+			<cfif len(sugSpecies) gt 0>
+				<cfquery name="gsm" dbtype="query">
+					select term from hasclass where term_type='species'
+				</cfquery>
+				<cfif gsm.term is not sugSpecies>
+					<cf_qoq>
+						update
+							hasclass
+						set
+							SRC='MISMATCH: should be #sugSpecies#?'
+						where
+							TERM_type='species'
+					</cf_qoq>
+				</cfif>
 
-		<!----
+			</cfif>
+			<cfif len(sugSubpecies) gt 0>
+				<cfquery name="gsm" dbtype="query">
+					select term from hasclass where term_type='subspecies'
+				</cfquery>
+				<cfif gsm.term is not sugSubpecies>
+					<cf_qoq>
+						update
+							hasclass
+						set
+							SRC='MISMATCH: should be #sugSubpecies#?'
+						where
+							TERM_type='subspecies'
+					</cf_qoq>
+				</cfif>
 
-
-	<cfset sugGenus=''>
-			<cfset sugSpecies=''>
-			<cfset sugSubpecies=''>
-			<cfset sugInfUnkRnk=''>
-			---->
-
-
-			<cfdump var=#hasclass#>
-
+			</cfif>
+			<!--- deal with sugInfUnkRnk here eventually maybe?? ---->
 
 
 			<cfquery name="orderedClass" dbtype="query">
