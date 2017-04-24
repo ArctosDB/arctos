@@ -1350,7 +1350,7 @@
 			<!--- discourage duplicate terms; ignore scientific_name which should always be a dup ---->
 			<cfset hctl="">
 			<cfloop query="hasclass">
-				<cfif term is not "scientific_name">
+				<cfif TERM_TYPE is not "scientific_name">
 					<cfif listfindnocase(hctl,TERM)>
 						<cf_qoq>
 							update
