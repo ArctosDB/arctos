@@ -1168,7 +1168,7 @@
 			<cfquery name="ago" dbtype="query">
 				select count(*) c from hasclass where TERM_TYPE='scientific_name'
 			</cfquery>
-			<cfif ago.c is not 1>
+			<cfif ago.c lt 1>
 				<!--- insert the new suggestion, in order --->
 				<cfset queryaddrow(hasclass,
 					{POSITION_IN_CLASSIFICATION=getAppPosn('scientific_name'),
@@ -1332,6 +1332,10 @@
 			</cfif>
 
 			<cfdump var=#hasclass#>
+
+			<cfquery name="dup" dbtype="query">
+				select term_type from hasclass
+			</cfquery>
 
 			<cfquery name="orderedClass" dbtype="query">
 				select * from hasclass order by POSITION_IN_CLASSIFICATION
