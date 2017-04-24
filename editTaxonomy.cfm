@@ -1390,7 +1390,7 @@
 			</cfloop>
 			<cfif len(sugGenus) gt 0>
 				<cfquery name="gsm" dbtype="query">
-					select term from hasclass where term_type='genus'
+					select term,position_in_classification from hasclass where term_type='genus'
 				</cfquery>
 				<cfif gsm.term is not sugGenus>
 					<cf_qoq>
@@ -1401,9 +1401,17 @@
 						where
 							TERM_type='genus'
 					</cf_qoq>
-				</cfif>
+					<cfset queryaddrow(hasclass,
+							{POSITION_IN_CLASSIFICATION=getAppPosn('genus'),
+							SRC='autosuggest_funkyOriginal',
+							TERM=sugGenus,
+							TERM_TYPE='genus'}
+						)>
 
+
+				</cfif>
 			</cfif>
+
 			<cfif len(sugSpecies) gt 0>
 				<cfquery name="gsm" dbtype="query">
 					select term from hasclass where term_type='species'
@@ -1418,7 +1426,6 @@
 							TERM_type='species'
 					</cf_qoq>
 				</cfif>
-
 			</cfif>
 			<cfif len(sugSubpecies) gt 0>
 				<cfquery name="gsm" dbtype="query">
