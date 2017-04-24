@@ -1331,6 +1331,7 @@
 				</cfif>
 			</cfif>
 
+			<cfdump var=#hasclass#>
 
 			<cfquery name="orderedClass" dbtype="query">
 				select * from hasclass order by POSITION_IN_CLASSIFICATION
