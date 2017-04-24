@@ -1190,6 +1190,23 @@
 					TERM_TYPE='kingdom'}
 				)>
 			</cfif>
+			<!--- see if values are predictable ---->
+			<cfset sugGenus=''>
+			<cfset sugSpecies=''>
+			<cfset sugSubpecies=''>
+			<cfset sugInfUnkRnk=''>
+			<cfif listlen(thisName.scientific_name,' ') is 2>
+				<cfset sugGenus=listgetat(thisName.scientific_name,1,' ')>
+				<cfset sugSpecies=thisName.scientific_name>
+			<cfelseif  listlen(thisName.scientific_name,' ') is 3>
+				<cfset sugGenus=listgetat(thisName.scientific_name,1,' ')>
+				<cfset sugSpecies=listgetat(thisName.scientific_name,1,' ') & ' ' & listgetat(thisName.scientific_name,1,' ')>
+				<cfset sugSubpecies=thisName.scientific_name>
+			<cfelseif  listlen(thisName.scientific_name,' ') is 4>
+				<cfset sugGenus=listgetat(thisName.scientific_name,1,' ')>
+				<cfset sugSpecies=listgetat(thisName.scientific_name,1,' ') & ' ' & listgetat(thisName.scientific_name,1,' ')>
+				<cfset sugInfUnkRnk=thisName.scientific_name>
+			</cfif>
 			<!--- see if we have a genus. ---->
 			<cfquery name="hasterm" dbtype="query">
 				select term from hasclass where term_type='genus'
@@ -1364,10 +1381,34 @@
 					<cfset hctl=listappend(hctl,TERM)>
 				</cfif>
 			</cfloop>
+			<cfif len(sugGenus) gt 0>
+				<cfquery name="gsm" dbtype="query">
+					select term from hasclass where term_type='genus'
+				</cfquery>
+				<cfif gsm.term is not sugGenus>
+					<cf_qoq>
+						update
+							hasclass
+						set
+							SRC='MISMATCH: should be #sugGenus#?'
+						where
+							TERM='genus'
+					</cf_qoq>
+				</cfif>
+			</cfif>
+
+		<!----
+
+
+	<cfset sugGenus=''>
+			<cfset sugSpecies=''>
+			<cfset sugSubpecies=''>
+			<cfset sugInfUnkRnk=''>
+			---->
+
 
 			<cfdump var=#hasclass#>
 
-			<cfquery name="dup" dbtype="query">
 				select term_type from hasclass
 			</cfquery>
 
