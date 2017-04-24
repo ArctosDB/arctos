@@ -1207,6 +1207,13 @@
 				<cfset sugSpecies=listgetat(thisName.scientific_name,1,' ') & ' ' & listgetat(thisName.scientific_name,1,' ')>
 				<cfset sugInfUnkRnk=thisName.scientific_name>
 			</cfif>
+
+
+			<br>sugGenus: #sugGenus#
+			<br>sugSpecies: #sugSpecies#
+			<br>sugGenus: #sugGenus#
+			<br>sugSubpecies: #sugSubpecies#
+			<br>sugInfUnkRnk: #sugInfUnkRnk#
 			<!--- see if we have a genus. ---->
 			<cfquery name="hasterm" dbtype="query">
 				select term from hasclass where term_type='genus'
