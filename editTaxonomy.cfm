@@ -1389,6 +1389,7 @@
 				</cfif>
 			</cfloop>
 			<cfif len(sugGenus) gt 0>
+			going...
 				<cfquery name="gsm" dbtype="query">
 					select term from hasclass where term_type='genus'
 				</cfquery>
@@ -1399,7 +1400,7 @@
 						set
 							SRC='MISMATCH: should be #sugGenus#?'
 						where
-							TERM='genus'
+							TERM_type='genus'
 					</cf_qoq>
 				</cfif>
 			</cfif>
