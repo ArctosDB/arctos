@@ -1331,6 +1331,21 @@
 				</cfif>
 			</cfif>
 
+			<cfset hctl="">
+			<cfloop query="hasclass">
+				<cfif listfindnocase(hctl,TERM_TYPE)>
+					<cf_qoq>
+						update
+							hasclass
+						set
+							SRC='DUP_#src#'
+						where
+							TERM_TYPE='#TERM_TYPE#'
+					</cf_qoq>
+				</cfif>
+				<cfset hctl=listappend(hctl,term_type)>
+			</cfloop>
+
 			<cfdump var=#hasclass#>
 
 			<cfquery name="dup" dbtype="query">
