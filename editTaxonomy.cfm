@@ -1331,6 +1331,7 @@
 				</cfif>
 			</cfif>
 
+			<!--- discourage duplicate term types ---->
 			<cfset hctl="">
 			<cfloop query="hasclass">
 				<cfif listfindnocase(hctl,TERM_TYPE)>
@@ -1344,6 +1345,22 @@
 					</cf_qoq>
 				</cfif>
 				<cfset hctl=listappend(hctl,term_type)>
+			</cfloop>
+
+			<!--- discourage duplicate terms ---->
+			<cfset hctl="">
+			<cfloop query="hasclass">
+				<cfif listfindnocase(hctl,TERM)>
+					<cf_qoq>
+						update
+							hasclass
+						set
+							SRC='DUP_#src#'
+						where
+							TERM='#TERM#'
+					</cf_qoq>
+				</cfif>
+				<cfset hctl=listappend(hctl,TERM)>
 			</cfloop>
 
 			<cfdump var=#hasclass#>
