@@ -1347,20 +1347,22 @@
 				<cfset hctl=listappend(hctl,term_type)>
 			</cfloop>
 
-			<!--- discourage duplicate terms ---->
+			<!--- discourage duplicate terms; ignore scientific_name which should always be a dup ---->
 			<cfset hctl="">
 			<cfloop query="hasclass">
-				<cfif listfindnocase(hctl,TERM)>
-					<cf_qoq>
-						update
-							hasclass
-						set
-							SRC='DUP_#src#'
-						where
-							TERM='#TERM#'
-					</cf_qoq>
+				<cfif term is not "scientific_name">
+					<cfif listfindnocase(hctl,TERM)>
+						<cf_qoq>
+							update
+								hasclass
+							set
+								SRC='DUP_#src#'
+							where
+								TERM='#TERM#'
+						</cf_qoq>
+					</cfif>
+					<cfset hctl=listappend(hctl,TERM)>
 				</cfif>
-				<cfset hctl=listappend(hctl,TERM)>
 			</cfloop>
 
 			<cfdump var=#hasclass#>
