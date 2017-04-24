@@ -1425,6 +1425,12 @@
 						where
 							TERM_type='species'
 					</cf_qoq>
+					<cfset queryaddrow(hasclass,
+							{POSITION_IN_CLASSIFICATION=getAppPosn('species'),
+							SRC='autosuggest_funkyOriginal',
+							TERM=sugSpecies,
+							TERM_TYPE='species'}
+						)>
 				</cfif>
 			</cfif>
 			<cfif len(sugSubpecies) gt 0>
@@ -1440,6 +1446,12 @@
 						where
 							TERM_type='subspecies'
 					</cf_qoq>
+					<cfset queryaddrow(hasclass,
+							{POSITION_IN_CLASSIFICATION=getAppPosn('subspecies'),
+							SRC='autosuggest_funkyOriginal',
+							TERM=sugSubpecies,
+							TERM_TYPE='subspecies'}
+						)>
 				</cfif>
 
 			</cfif>
