@@ -127,7 +127,6 @@ CTSPEC_PART_ATT_ATT
 
 <cfif action="editWithCollectionCode">
 <!----------------------- handle any table with a collection_cde column here --------->
-
 	<script type="text/javascript" src="/includes/tablesorter/tablesorter.js"></script>
 	<link rel="stylesheet" href="/includes/tablesorter/themes/blue/style.css">
 	<style>
@@ -184,52 +183,52 @@ CTSPEC_PART_ATT_ATT
 		</p>
 	</div>
 	<cfoutput>
-	<cfquery name="d" datasource="uam_god">
-		select * from #tbl#
-	</cfquery>
-	<!--- if we're in this form, the table should always have three columns:
-		collection_cde
-		description
-		something else
-	---->
-	<cfset dataColName=d.columnlist>
-	<cfset dataColName=replacenocase(d,'collection_cde','')>
-	<cfset dataColName=replacenocase(d,'description','')>
-	<cfquery name="od" dbtype="query">
-		select distinct(#dataColName#) from d order by #dataColName#
-	</cfquery>
-	Add record:
-	<table class="newRec" border="1">
-		<tr>
-			<th>Collection Type</th>
-			<th>#dataColName#</th>
-			<th>Description</th>
-		</tr>
-		<form name="newData" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="collcde" value="#collcde#">
-			<input type="hidden" name="action" value="newValue">
-			<input type="hidden" name="tbl" value="#tbl#">
-			<input type="hidden" name="dataColName" value="#dataColName#">
+		<cfquery name="d" datasource="uam_god">
+			select * from #tbl#
+		</cfquery>
+		<!--- if we're in this form, the table should always have three columns:
+			collection_cde
+			description
+			something else
+		---->
+		<cfset dataColName=d.columnlist>
+		<cfset dataColName=replacenocase(d,'collection_cde','')>
+		<cfset dataColName=replacenocase(d,'description','')>
+		<cfquery name="od" dbtype="query">
+			select distinct(#dataColName#) from d order by #dataColName#
+		</cfquery>
+		Add record:
+		<table class="newRec" border="1">
 			<tr>
-				<td>
-					<select name="collection_cde" size="1">
-						<cfloop query="ctcollcde">
-							<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-					<input type="text" name="newData" >
-				</td>
-				<td>
-					<textarea name="description" id="description" rows="4" cols="40"></textarea>
-				</td>
-				<td>
-					<input type="submit" value="Insert"	class="insBtn">
-				</td>
+				<th>Collection Type</th>
+				<th>#dataColName#</th>
+				<th>Description</th>
 			</tr>
-		</form>
-	</table>
+			<form name="newData" method="post" action="CodeTableEditor.cfm">
+				<input type="hidden" name="collcde" value="#collcde#">
+				<input type="hidden" name="action" value="newValue">
+				<input type="hidden" name="tbl" value="#tbl#">
+				<input type="hidden" name="dataColName" value="#dataColName#">
+				<tr>
+					<td>
+						<select name="collection_cde" size="1">
+							<cfloop query="ctcollcde">
+								<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<input type="text" name="newData" >
+					</td>
+					<td>
+						<textarea name="description" id="description" rows="4" cols="40"></textarea>
+					</td>
+					<td>
+						<input type="submit" value="Insert"	class="insBtn">
+					</td>
+				</tr>
+			</form>
+		</table>
 
 		<cfset i = 1>
 		Edit
