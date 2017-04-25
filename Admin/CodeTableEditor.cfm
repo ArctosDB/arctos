@@ -146,7 +146,7 @@
 		</table>
 		<cfset i = 1>
 		Edit
-		<table id="partstbl" border="1" class="tablesorter">
+		<table id="partstbl" border="1" >
 			<thead>
 			<tr>
 				<th>Collection Type</th>
