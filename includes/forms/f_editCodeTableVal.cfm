@@ -20,7 +20,9 @@
 			<p>
 				Editing <strong>#fld#=#v#</strong>
 			</p>
-			<input type="hidden" name="#fld#" id="fld" value="#fld#" size="50">
+			<input type="hidden" name="fld" id="fld" value="#fld#">
+			<input type="hidden" name="tbl" id="tbl" value="#tbl#">
+			<input type="hidden" name="v" id="v" value="#v#">
 			<cfset ctccde=valuelist(ctcollcde.collection_cde)>
 			<cfset c=1>
 			<cfloop query="d">
@@ -58,7 +60,7 @@
 					<cfif left(thisCCVal,8) is 'DELETE__'>
 						<cfset thisCCVal=mid(thisCCVal,9,500)>
 						<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							delete from ctattribute_type where attribute_type='#ATTRIBUTE_TYPE#' and collection_cde='#thisCCVal#'
+							delete from #tbl# where #fld#='#v#' and collection_cde='#thisCCVal#'
 						</cfquery>
 					</cfif>
 				</cfif>
@@ -68,17 +70,17 @@
 				If we've deleted everything this will just do nothing
 			---->
 			<cfquery name="upf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ctattribute_type set DESCRIPTION='#escapeQuotes(DESCRIPTION)#' where attribute_type='#attribute_type#'
+				update #tbl# set DESCRIPTION='#escapeQuotes(DESCRIPTION)#' where #fld#='#v#'
 			</cfquery>
 			<!--- last, insert new if there's one provided ---->
 			<cfif len(COLLECTION_CDE_NEW) gt 0>
 				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into ctattribute_type (attribute_type,COLLECTION_CDE,DESCRIPTION
+					insert into  #tbl#  (#fld#,COLLECTION_CDE,DESCRIPTION
 						) values (
-					'#attribute_type#','#COLLECTION_CDE_NEW#','#escapeQuotes(DESCRIPTION)#')
+					'#v#','#COLLECTION_CDE_NEW#','#escapeQuotes(DESCRIPTION)#')
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		<cflocation url="f2_ctattribute_type.cfm?attribute_type=#URLEncodedFormat(attribute_type)#" addtoken="false">
+		<cflocation url="f_editCodeTableVal.cfm?fld#fld#&tbl=#tbl#&v=#URLEncodedFormat(v)#" addtoken="false">
 	</cfoutput>
 </cfif>
