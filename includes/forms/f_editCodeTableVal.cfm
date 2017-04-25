@@ -1,10 +1,6 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
 	<cfoutput>
-			var guts = "/includes/forms/f_editCodeTableVal.cfm?tbl=" + tbl + "&fld=" + fld + "&v=" + v & ;
-
-
-
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from #tbl# where #fld#='#v#'
@@ -24,7 +20,7 @@
 			<p>
 				Editing <strong>#fld#=#v#</strong>
 			</p>
-			<input type="hidden" name="#fld#" id="fld" value="#p.##" size="50">
+			<input type="hidden" name="#fld#" id="fld" value="#fld#" size="50">
 			<cfset ctccde=valuelist(ctcollcde.collection_cde)>
 			<cfset c=1>
 			<cfloop query="d">
