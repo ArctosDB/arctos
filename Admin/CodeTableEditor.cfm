@@ -287,7 +287,9 @@
 		---->
 		<cflocation url="CodeTableEditor.cfm?action=editGeologyTree">
 	<cfelseif tbl is "ctspecimen_part_name"><!---------------------------------------------------->
-		<cflocation url="/Admin/ctspecimen_part_name.cfm" addtoken="false">
+		<!----<cflocation url="/Admin/ctspecimen_part_name.cfm" addtoken="false">---->
+		<cflocation url="CodeTableEditor.cfm?action=editSpecimenPart">
+
 
 	<cfelseif tbl is "CTATTRIBUTE_TYPE"><!---------------------------------------------------->
 		<cflocation url="/Admin/ctattribute_type.cfm" addtoken="false">
