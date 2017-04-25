@@ -81,6 +81,6 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		<cflocation url="f_editCodeTableVal.cfm?fld#fld#&tbl=#tbl#&v=#URLEncodedFormat(v)#" addtoken="false">
+		<cflocation url="f_editCodeTableVal.cfm?fld=#fld#&tbl=#tbl#&v=#URLEncodedFormat(v)#" addtoken="false">
 	</cfoutput>
 </cfif>
