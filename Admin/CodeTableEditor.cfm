@@ -142,8 +142,8 @@ CTSPEC_PART_ATT_ATT
 			var tbl=$("#tbl").val();
 			var fld==$("#fld").val();
 			var v=encodeURI(a);
-			
-			
+
+
 			var guts = "/includes/forms/f_editCodeTableVal.cfm?tbl=" + tbl + "&fld=" + fld + "&v=" + v & ;
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 				autoOpen: true,
@@ -240,7 +240,7 @@ CTSPEC_PART_ATT_ATT
 			<thead>
 			<tr>
 				<th>Collection Type</th>
-				<th>#dataColName#</th>
+				<th>#fld#</th>
 				<th>Description</th>
 				<th>Edit</th>
 			</tr>
@@ -248,12 +248,12 @@ CTSPEC_PART_ATT_ATT
 			<tbody>
 
 			<cfloop query="od">
-				<cfset thisValue=evaluate("od." & dataColName)>
+				<cfset thisValue=evaluate("od." & fld)>
 				<cfset rid=rereplace(thisValue,"[^A-Za-z0-9]","_","all")>
 				<cfset canedit=true>
 				<tr id="prow_#rid#">
 					<cfquery name="pd" dbtype="query">
-						select * from d where #dataColName#='#thisValue#' order by collection_cde
+						select * from d where #fld#='#thisValue#' order by collection_cde
 					</cfquery>
 					<td>
 						<cfloop query="pd">
