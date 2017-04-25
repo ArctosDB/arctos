@@ -186,7 +186,6 @@ CTSPEC_PART_ATT_ATT
 		<cfquery name="d" datasource="uam_god">
 			select * from #tbl#
 		</cfquery>
-		<cfdump var=#d#>
 		<!--- if we're in this form, the table should always have three columns:
 			collection_cde
 			description
@@ -206,7 +205,6 @@ CTSPEC_PART_ATT_ATT
 				<th>Description</th>
 			</tr>
 			<form name="newData" method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="collcde" value="#collcde#">
 				<input type="hidden" name="action" value="newValue">
 				<input type="hidden" name="tbl" value="#tbl#">
 				<input type="hidden" name="dataColName" value="#dataColName#">
