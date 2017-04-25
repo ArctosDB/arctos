@@ -155,6 +155,7 @@
 							<li><a target="_top" href="/googlesearch.cfm">Google&nbsp;Custom&nbsp;(BETA)</a></li>
 							<li><a target="_top" href="/spatialBrowse.cfm">Spatial&nbsp;Browse&nbsp;(BETA)</a></li>
 							<li><a target="_top" href="/agent.cfm">Agents</a></li>
+							<li><a target="_top" href="/info/api.cfm">API</a></li>
 						</ul>
 					</li>
 					<cfif len(session.roles) gt 0 and session.roles is not "public">
@@ -310,7 +311,7 @@
 							<ul>
 								<cfif listfind(formList,"/Admin/CSVAnyTable.cfm")>
 									<li>
-										<a target="_top" href="##">Developer Widgets</a>
+										<a target="_top" href="##">Developer Tools</a>
 										<ul>
 											<li><a target="_top" href="/Admin/CSVAnyTable.cfm">CSVFromTable</a></li>
 											<li><a target="_top" href="/tools/loadToTable.cfm">CSVToTable</a></li>
@@ -409,7 +410,6 @@
 							<li><a target="_blank" class="external" href="http://arctosdb.org/">About</a></li>
 							<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/">Help</a></li>
 							<li><a target="_top" href="/info/mentor.cfm">Find a Mentor</a></li>
-							<li><a target="_top" href="/info/api.cfm">API</a></li>
 						</ul>
 					</li>
 				</ul>

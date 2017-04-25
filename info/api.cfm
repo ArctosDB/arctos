@@ -3,7 +3,7 @@
 <cfoutput>
 <cfif action is "nothing">
 	<h2>
-		Partial list of ways to talk to Arctos
+		Partial list of ways to talk to Arctos. <a href="/contact.cfm?ref=api">Contact us</a> for help or additional access.
 	</h2>
 	<p>
 		You may search specimens using the <a href="/api/specsrch">SpecimenResults.cfm API</a>.
@@ -45,7 +45,7 @@
 		You may search Media using the <a href="/api/mediasrch">MediaSearch.cfm API</a>
 	</p>
 	<p>
-		You may talk to our DiGIR portal at #Application.serverRootUrl#/digir
+		You may access DWC-format data at <a href="http://ipt.vertnet.org" target="_blank" class="external">http://ipt.vertnet.org</a>
 	</p>
 	<p>
 		You may link to specific <a href="/api/collections">collection's portals</a>.
