@@ -1,4 +1,4 @@
-<cfinclude template="includes/_header.cfm">
+<cfinclude template="/includes/_header.cfm">
 <!---
 	default code table editor
 ---->
@@ -1305,4 +1305,4 @@
 	</cftransaction>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 </cfif>
-<cfinclude template="includes/_footer.cfm">
+<cfinclude template="/includes/_footer.cfm">
