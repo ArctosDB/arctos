@@ -44,11 +44,9 @@
 
 		//$("tr:odd").addClass("odd");
 
-		$(document).ready(function()
-	    {
+		$(document).ready(function(){
 	        $("#partstbl").tablesorter();
-	    }
-	);
+	    });
 
 		function updatePart(pn) {
 			var rid='prow_' + pn.replace(/\W/g, '_');
@@ -108,9 +106,6 @@
 		from ctspecimen_part_name
 		ORDER BY
 			collection_cde,part_name
-	</cfquery>
-	<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct collection_cde from ctcollection_cde order by collection_cde
 	</cfquery>
 	<cfoutput>
 		Add record:
