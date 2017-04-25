@@ -248,7 +248,7 @@ CTSPEC_PART_ATT_ATT
 				<cfset canedit=true>
 				<tr id="prow_#rid#">
 					<cfquery name="pd" dbtype="query">
-						select * from od where #dataColName#='#thisValue#' order by collection_cde
+						select * from d where #dataColName#='#thisValue#' order by collection_cde
 					</cfquery>
 					<td>
 						<cfloop query="pd">
