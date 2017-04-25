@@ -186,6 +186,7 @@ CTSPEC_PART_ATT_ATT
 		<cfquery name="d" datasource="uam_god">
 			select * from #tbl#
 		</cfquery>
+		<cfdump var=#d#>
 		<!--- if we're in this form, the table should always have three columns:
 			collection_cde
 			description
