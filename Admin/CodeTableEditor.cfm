@@ -144,7 +144,7 @@ CTSPEC_PART_ATT_ATT
 			var v=encodeURI(a);
 
 
-			var guts = "/includes/forms/f_editCodeTableVal.cfm?tbl=" + tbl + "&fld=" + fld + "&v=" + v & ;
+			var guts = "/includes/forms/f_editCodeTableVal.cfm?tbl=" + tbl + "&fld=" + fld + "&v=" + v;
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 				autoOpen: true,
 				closeOnEscape: true,
