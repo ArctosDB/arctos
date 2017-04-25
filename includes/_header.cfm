@@ -283,7 +283,7 @@
 												<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
 											</cfif>
 											<cfif listfind(formList,"/CodeTableEditor.cfm")>
-												<li><a target="_top" href="/CodeTableEditor.cfm">Code Tables</a></li>
+												<li><a target="_top" href="/Admin/CodeTableEditor.cfm">Code Tables</a></li>
 											</cfif>
 											<cfif listfind(formList,"/Admin/global_settings.cfm")>
 												<li><a target="_top" href="/Admin/global_settings.cfm">Global Settings</a></li>
