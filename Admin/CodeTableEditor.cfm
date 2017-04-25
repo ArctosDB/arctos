@@ -125,7 +125,7 @@ CTSPEC_PART_ATT_ATT
 	</cfoutput>
 </cfif>
 
-<cfif action="editWithCollectionCode">
+<cfif action is "editWithCollectionCode">
 <!----------------------- handle any table with a collection_cde column here --------->
 	<script type="text/javascript" src="/includes/tablesorter/tablesorter.js"></script>
 	<link rel="stylesheet" href="/includes/tablesorter/themes/blue/style.css">
