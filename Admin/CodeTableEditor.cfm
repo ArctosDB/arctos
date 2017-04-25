@@ -278,7 +278,7 @@
 <!---------------------------------------------------------------------------->
 <cfif action is "edit">
 	<p>
-		<a href="/CodeTableEditor.cfm">Back to table list</a>
+		<a href="/Admin/CodeTableEditor.cfm">Back to table list</a>
 	</p>
 	<cfif tbl is "CTGEOLOGY_ATTRIBUTE">
 		<!----
