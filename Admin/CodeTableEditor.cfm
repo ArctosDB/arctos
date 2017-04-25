@@ -183,6 +183,7 @@ CTSPEC_PART_ATT_ATT
 			Rows that look like this may have been edited and may not be current; reload to refresh.
 		</p>
 	</div>
+	<cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select * from #tbl#
 	</cfquery>
