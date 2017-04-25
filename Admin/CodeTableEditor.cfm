@@ -193,8 +193,8 @@ CTSPEC_PART_ATT_ATT
 			something else
 		---->
 		<cfset dataColName=d.columnlist>
-		<cfset dataColName=listDeleteAt(dataColName,listfindnocase('collection_cde'))>
-		<cfset dataColName=listDeleteAt(dataColName,listfindnocase('description'))>
+		<cfset dataColName=listDeleteAt(dataColName,listfindnocase(dataColName,'collection_cde'))>
+		<cfset dataColName=listDeleteAt(dataColName,listfindnocase(dataColName,'description'))>
 		<cfquery name="od" dbtype="query">
 			select distinct(#dataColName#) from d order by #dataColName#
 		</cfquery>
