@@ -203,7 +203,7 @@
 		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update geology_attribute_hierarchy set parent_id=<cfif parent is "">NULL<cfelse>#parent#</cfif> where geology_attribute_hierarchy_id=#child#
 		</cfquery>
-		<cflocation url="geol_hierarchy.cfm" addtoken="false">
+		<cflocation url="CodeTableEditor.cfm?action=editGeologyTree" addtoken="false">
 	</cfoutput>
 </cfif>
 
