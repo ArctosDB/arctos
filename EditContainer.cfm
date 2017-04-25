@@ -508,15 +508,10 @@
 	<cfparam name="label" default="">
 	<cfparam name="checked_date" default="">
 	<cfparam name="container_remarks" default="">
-	<cfparam name="Fluid_Type" default="">
-	<cfparam name="concentration" default="">
-	<cfparam name="fluid_remarks" default="">
 	<cfif isdefined("container_type")>
 		<cfset ctype=container_type>
 	</cfif>
-	<cfif isdefined("fluid_type")>
-		<cfset ftype=fluid_type>
-	</cfif>
+
 	<cfoutput>
 		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(institution_acronym) institution_acronym from collection order by institution_acronym
@@ -524,13 +519,7 @@
 		<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_type from ctcontainer_type order by container_type
 		</cfquery>
-		<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select fluid_type from ctFluid_Type ORDER BY fluid_type
-		</cfquery>
 
-		<cfquery name="ctConc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select concentration from ctfluid_concentration order by concentration
-		</cfquery>
 		<h2>Create Container</h2>
 		<div style="margin:2em; padding:2em; border:5px solid red;font-size: xx-large;font-weight: bold; text-align: center;">
 			<p>

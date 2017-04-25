@@ -1,6 +1,82 @@
 <cfinclude template="/includes/_header.cfm">
 <!---
 	default code table editor
+	
+	This form assumes there's a DESCRIPTION column. Make that valid.
+	
+	select table_name from sys.user_tables where table_name like 'CT%' and table_name not in (
+	select table_name from user_tab_cols where column_name='DESCRIPTION');
+	
+	CTATTRIBUTE_CODE_TABLES
+	-- OK to ignore, not used here
+	
+	alter table CTAUTHOR_ROLE add description varchar2(4000);
+	alter table CTBORROW_STATUS add description varchar2(4000);
+	alter table CTCASTE add description varchar2(4000);
+	alter table CTDATUM add description varchar2(4000);
+	alter table CTDOWNLOAD_PURPOSE add description varchar2(4000);
+	alter table CTEW add description varchar2(4000);
+	alter table CTFLAGS add description varchar2(4000);
+	alter table CTFLUID_CONCENTRATION add description varchar2(4000);
+	alter table CTFLUID_TYPE add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+	alter table xxxxx add description varchar2(4000);
+
+
+
+	CTCOLLECTION_CDE
+	-- OK to ignore, has own handler
+	
+	CTCOLL_OBJECT_TYPE
+	-- not used, dropping. Current values, just in case:
+	UAM@ARCTOS> select * from CTCOLL_OBJECT_TYPE;
+
+		COLL_O
+		------
+		CI
+		HS
+		IO
+		KS
+		SP
+		SS
+		TP
+		TS
+		ss
+
+	
+	
+
+
+
+
+
+CTGEOG_SOURCE_AUTHORITY
+CTMONETARY_UNITS
+CTNS
+CTNUMERIC_AGE_UNITS
+CTPART_ATTRIBUTE_PART
+CTPERMIT_TYPE
+CTPREFIX
+CTSECTION_TYPE
+CTSHIPPED_CARRIER_METHOD
+CTSPECIMEN_PART_LIST_ORDER
+CTSPEC_PART_ATT_ATT
+CTTAXON_VARIABLE
+CTTISSUE_VOLUME_UNITS
+CTTRANSACTION_TYPE
+CTYES_NO
+
+
 ---->
 <cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct collection_cde from ctcollection_cde
@@ -27,40 +103,29 @@
 	</cfoutput>
 </cfif>
 
+<cfif action="editWithCollectionCode">
+<!----------------------- handle any table with a collection_cde column here --------->
 
-<!------------------------------------------- specimen parts are weird (is_tissue flag) so get their own code block ------------------>
-<!-------------------------------------------------->
-<cfif action is "editSpecimenPart">
 	<script type="text/javascript" src="/includes/tablesorter/tablesorter.js"></script>
 	<link rel="stylesheet" href="/includes/tablesorter/themes/blue/style.css">
-	<cfset title="ctspecimen_part_name editor">
-
 	<style>
 		.edited{background:#eaa8b4;}
 	</style>
 	<script>
-
-		//$("tr:odd").addClass("odd");
-
-		//$("tr:odd").addClass("odd");
-
 		$(document).ready(function(){
-	        $("#partstbl").tablesorter();
-	    });
-
-		function updatePart(pn) {
-			var rid= pn.replace(/\W/g, '_');
-			//$("#" + rid).addClass('edited');
-			$("#prow_ediv_" + rid).addClass('edited').html('EDITED! Reload to see current data.');
-
-			var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
+		    $("#tbl").tablesorter();
+		});
+		function updateRecord(a) {
+			var rid=a.replace(/\W/g, '_');
+			$("#" + rid).addClass('edited');
+			var guts = "/includes/forms/f_editCodeTableVal.cfm?attribute_type=" + encodeURI(a);
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 				autoOpen: true,
 				closeOnEscape: true,
 				height: 'auto',
 				modal: true,
 				position: ['center', 'center'],
-				title: 'Edit Part',
+				title: 'Edit Attribute',
 					width:800,
 		 			height:600,
 				close: function() {
@@ -78,48 +143,192 @@
 	<div class="importantNotification">
 		<strong>IMPORTANT!</strong>
 		<p>
-			Parts (including description and tissue-status) must be consistent across collection types; the definition
-			(and eg, expected result of a search for the part)
-			must be the same for all collections in which the part is used. That is, "operculum" cannot be used for fish gill covers
-			as it has already been claimed to describe snail anatomy.
+			Data must be consistent across collection types; the definition
+			(and eg, expected result of a search)
+			must be the same for all collections in which the term is used. That is, "some attribute" must have the same intent
+			across all collection types.
 		</p>
 		<p>
-			Edit existing parts to make them available to other collections.
+			Edit existing data to make them available to other collections.
 		</p>
 		<p>
-			Delete and re-create to change a part name.
+			Delete and re-create to change values name.
 		</p>
 		<p>
-			Please include a description or definition.
-		</p>
-		<p>
-			Please be consistent, especially in complex parts. If "heart, kidney" exists do NOT create "kidney, heart."
-			Contact a DBA if you need assistance in creating consistency.
+			Include a description or definition.
 		</p>
 		<p class="edited">
 			Rows that look like this may have been edited and may not be current; reload to refresh.
 		</p>
 	</div>
+	<cfquery name="getCols" datasource="uam_god">
+		select column_name from sys.user_tab_columns where table_name='#tbl#'
+	</cfquery>
+	
+	
+		<cfset collcde=listfindnocase(valuelist(getCols.column_name),"collection_cde")>
+		<cfset hasDescn=listfindnocase(valuelist(getCols.column_name),"description")>
+		<cfquery name="f" dbtype="query">
+			select column_name from getCols where lower(column_name) not in ('collection_cde','description')
+		</cfquery>
+		<cfset fld=f.column_name>
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select #fld# as data
+			<cfif collcde gt 0>
+				,collection_cde
+			</cfif>
+			<cfif hasDescn gt 0>
+				,description
+			</cfif>
+			from #tbl#
+			ORDER BY
+			<cfif collcde gt 0>
+				collection_cde,
+			</cfif>
+			#fld#
+		</cfquery>
+		Add record:
+		<table class="newRec" border="1">
+			<tr>
+				<cfif collcde gt 0>
+					<th>Collection Type</th>
+				</cfif>
+				<th>#fld#</th>
+				<cfif hasDescn gt 0>
+					<th>Description</th>
+				</cfif>
+			</tr>
+			<form name="newData" method="post" action="CodeTableEditor.cfm">
+				<input type="hidden" name="collcde" value="#collcde#">
+				<input type="hidden" name="action" value="newValue">
+				<input type="hidden" name="tbl" value="#tbl#">
+				<input type="hidden" name="hasDescn" value="#hasDescn#">
+				<input type="hidden" name="fld" value="#fld#">
+				<tr>
+					<cfif collcde gt 0>
+						<td>
+							<select name="collection_cde" size="1">
+								<cfloop query="ctcollcde">
+									<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+								</cfloop>
+							</select>
+						</td>
+					</cfif>
+					<td>
+						<input type="text" name="newData" >
+					</td>
+
+					<cfif hasDescn gt 0>
+						<td>
+							<textarea name="description" id="description" rows="4" cols="40"></textarea>
+						</td>
+					</cfif>
+					<td>
+						<input type="submit"
+							value="Insert"
+							class="insBtn">
+					</td>
+				</tr>
+			</form>
+		</table>
+		<cfset i = 1>
+		Edit #tbl#:
+		<table border="1">
+			<tr>
+				<cfif collcde gt 0>
+					<th>Collection Type</th>
+				</cfif>
+				<th>#fld#</th>
+				<cfif hasDescn gt 0>
+					<th>Description</th>
+				</cfif>
+			</tr>
+			<cfloop query="q">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+						<input type="hidden" name="Action">
+						<input type="hidden" name="tbl" value="#tbl#">
+						<input type="hidden" name="fld" value="#fld#">
+						<input type="hidden" name="collcde" value="#collcde#">
+						<input type="hidden" name="hasDescn" value="#hasDescn#">
+						<input type="hidden" name="origData" value="#q.data#">
+						<cfif collcde gt 0>
+							<input type="hidden" name="origcollection_cde" value="#q.collection_cde#">
+							<cfset thisColl=#q.collection_cde#>
+							<td>
+								<select name="collection_cde" size="1">
+									<cfloop query="ctcollcde">
+										<option
+											<cfif #thisColl# is "#ctcollcde.collection_cde#"> selected </cfif>value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+									</cfloop>
+								</select>
+							</td>
+						</cfif>
+						<td>
+							<input type="text" name="thisField" value="#q.data#" size="50">
+						</td>
+						<cfif hasDescn gt 0>
+							<td>
+								<textarea name="description" rows="4" cols="40">#q.description#</textarea>
+							</td>
+						</cfif>
+						<td>
+							<input type="button"
+								value="Save"
+								class="savBtn"
+								onclick="#tbl##i#.Action.value='saveEdit';submit();">
+							<input type="button"
+								value="Delete"
+								class="delBtn"
+								onclick="#tbl##i#.Action.value='deleteValue';submit();">
+
+						</td>
+					</form>
+				</tr>
+				<cfset i = #i#+1>
+			</cfloop>
+		</table>
+	</cfif>
+</cfif>
 
 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			*
-		from ctspecimen_part_name
+		from #tbl#
 		ORDER BY
-			collection_cde,part_name
+			collection_cde,attribute_type
+	</cfquery>
+	<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct collection_cde from ctcollection_cde order by collection_cde
 	</cfquery>
 	<cfoutput>
+		<input type="text" id="tbl" value="#tbl#">
 		Add record:
 		<table class="newRec" border="1" >
 			<tr>
 				<th>Collection Type</th>
-				<th>Part Name</th>
-				<td>IsTissue</td>
+				<th>Attribute</td>
 				<th>Description</th>
 			</tr>
-			<form name="newData" method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="action" value="insertSpecimenPart">
+			<form name="newData" method="post" action="">
+				<input type="hidden" name="action" value="insert">
 				<tr>
 					<td>
 						<select name="collection_cde" size="1">
@@ -129,13 +338,7 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" name="part_name">
-					</td>
-					<td>
-						<select name="is_tissue">
-							<option value="0">no</option>
-							<option value="1">yes</option>
-						</select>
+						<input type="text" name="attribute_type">
 					</td>
 					<td>
 						<textarea name="description" id="description" rows="4" cols="40"></textarea>
@@ -148,27 +351,25 @@
 		</table>
 		<cfset i = 1>
 		Edit
-		<table id="partstbl" border="1" class="tablesorter">
+		<table id="tbl" border="1" class="tablesorter">
 			<thead>
 			<tr>
 				<th>Collection Type</th>
-				<th>part_name</th>
-				<th>IsTissue</th>
+				<th>attribute_type</th>
 				<th>Description</th>
 				<th>Edit</th>
 			</tr>
 			</thead>
 			<tbody>
 			<cfquery name="pname" dbtype="query">
-				select part_name from q group by part_name order by part_name
+				select attribute_type from q group by attribute_type order by attribute_type
 			</cfquery>
 			<cfloop query="pname">
-			<cfset rid=rereplace(part_name,"[^A-Za-z0-9]","_","all")>
-
+			<cfset rid=rereplace(attribute_type,"[^A-Za-z0-9]","_","all")>
 				<cfset canedit=true>
 				<tr id="prow_#rid#">
 					<cfquery name="pd" dbtype="query">
-						select * from q where part_name='#part_name#' order by collection_cde
+						select * from q where attribute_type='#attribute_type#' order by collection_cde
 					</cfquery>
 					<td>
 						<cfloop query="pd">
@@ -178,19 +379,7 @@
 						</cfloop>
 					</td>
 					<td>
-						#part_name#
-					</td>
-					<td>
-						<cfquery name="ist" dbtype="query">
-							select is_tissue from pd group by is_tissue
-						</cfquery>
-						<cfif ist.recordcount gt 1>
-							is tissue inconsistency!!!
-							#valuelist(ist.is_tissue)#
-							<cfset canedit=false>
-						<cfelse>
-							#ist.is_tissue#
-						</cfif>
+						#attribute_type#
 					</td>
 					<td>
 						<cfquery name="dsc" dbtype="query">
@@ -208,61 +397,38 @@
 						<cfif canedit is false>
 							Inconsistent data;contact a DBA.
 						<cfelse>
-							<br><span class="likeLink" onclick="updatePart('#part_name#')">[ Update ]</span>
+							<br><span class="likeLink" onclick="updateAttribute('#attribute_type#')">[ Update ]</span>
 						</cfif>
-						<div id="prow_ediv_#rid#">
-
-						</div>
 					</td>
 				</tr>
 				<cfset i=i+1>
 			</cfloop>
-
-			<!----
-			<cfloop query="q">
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="r#ctspnid#">
-					<td>#collection_cde#</td>
-					<td>#q.part_name#</td>
-					<td>#is_tissue#</td>
-					<td>#q.description#</td>
-					<td nowrap="nowrap">
-						<span class="likeLink" onclick="deletePart(#ctspnid#)">[ Delete ]</span>
-						<br><span class="likeLink" onclick="updatePart(#ctspnid#)">[ Update ]</span>
-					</td>
-				</tr>
-				<cfset i = #i#+1>
-			</cfloop>
-			---->
 			</tbody>
 		</table>
 	</cfoutput>
 </cfif>
-<!-------------------------------------------------->
-<cfif action is "insertSpecimenPart">
+<!---------------------------------------------------------------------------->
+
+<cfif action is "insertWithCollectionCode">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ctspecimen_part_name where part_name='#part_name#'
+		select * from CTATTRIBUTE_TYPE where attribute_type='#attribute_type#'
 	</cfquery>
 	<cfif d.recordcount gt 0>
-		<cfthrow message="Part already exists; edit to add collection types.">
+		<cfthrow message="Attribute already exists; edit to add collection types.">
 	</cfif>
 	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into ctspecimen_part_name (
+		insert into CTATTRIBUTE_TYPE (
 			collection_cde,
-			part_name,
-			DESCRIPTION,
-			is_tissue
+			attribute_type,
+			DESCRIPTION
 		) values (
 			'#collection_cde#',
-			'#part_name#',
-			'#description#',
-			#is_tissue#
+			'#attribute_type#',
+			'#description#'
 		)
 	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?action=editSpecimenPart" addtoken="false">
+	<cflocation url="ctattribute_type.cfm" addtoken="false">
 </cfif>
-<!-------------------------------------------------->
-<!------------------------------------------- END weird specimen parts code block ------------------>
-
 
 
 
@@ -1554,6 +1720,240 @@
 
 
 
+<!------------------------------------------- specimen parts are weird (is_tissue flag) so get their own code block ------------------>
+<!-------------------------------------------------->
+<cfif action is "editSpecimenPart">
+	<script type="text/javascript" src="/includes/tablesorter/tablesorter.js"></script>
+	<link rel="stylesheet" href="/includes/tablesorter/themes/blue/style.css">
+	<cfset title="ctspecimen_part_name editor">
+
+	<style>
+		.edited{background:#eaa8b4;}
+	</style>
+	<script>
+
+		//$("tr:odd").addClass("odd");
+
+		//$("tr:odd").addClass("odd");
+
+		$(document).ready(function(){
+	        $("#partstbl").tablesorter();
+	    });
+
+		function updatePart(pn) {
+			var rid= pn.replace(/\W/g, '_');
+			//$("#" + rid).addClass('edited');
+			$("#prow_ediv_" + rid).addClass('edited').html('EDITED! Reload to see current data.');
+
+			var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'center'],
+				title: 'Edit Part',
+					width:800,
+		 			height:600,
+				close: function() {
+					$( this ).remove();
+				}
+			}).width(800-10).height(600-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+		}
+	</script>
+	<div class="importantNotification">
+		<strong>IMPORTANT!</strong>
+		<p>
+			Parts (including description and tissue-status) must be consistent across collection types; the definition
+			(and eg, expected result of a search for the part)
+			must be the same for all collections in which the part is used. That is, "operculum" cannot be used for fish gill covers
+			as it has already been claimed to describe snail anatomy.
+		</p>
+		<p>
+			Edit existing parts to make them available to other collections.
+		</p>
+		<p>
+			Delete and re-create to change a part name.
+		</p>
+		<p>
+			Please include a description or definition.
+		</p>
+		<p>
+			Please be consistent, especially in complex parts. If "heart, kidney" exists do NOT create "kidney, heart."
+			Contact a DBA if you need assistance in creating consistency.
+		</p>
+		<p class="edited">
+			Rows that look like this may have been edited and may not be current; reload to refresh.
+		</p>
+	</div>
+
+
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			*
+		from ctspecimen_part_name
+		ORDER BY
+			collection_cde,part_name
+	</cfquery>
+	<cfoutput>
+		Add record:
+		<table class="newRec" border="1" >
+			<tr>
+				<th>Collection Type</th>
+				<th>Part Name</th>
+				<td>IsTissue</td>
+				<th>Description</th>
+			</tr>
+			<form name="newData" method="post" action="CodeTableEditor.cfm">
+				<input type="hidden" name="action" value="insertSpecimenPart">
+				<tr>
+					<td>
+						<select name="collection_cde" size="1">
+							<cfloop query="ctcollcde">
+								<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<input type="text" name="part_name">
+					</td>
+					<td>
+						<select name="is_tissue">
+							<option value="0">no</option>
+							<option value="1">yes</option>
+						</select>
+					</td>
+					<td>
+						<textarea name="description" id="description" rows="4" cols="40"></textarea>
+					</td>
+					<td>
+						<input type="submit" value="Insert" class="insBtn">
+					</td>
+				</tr>
+			</form>
+		</table>
+		<cfset i = 1>
+		Edit
+		<table id="partstbl" border="1" class="tablesorter">
+			<thead>
+			<tr>
+				<th>Collection Type</th>
+				<th>part_name</th>
+				<th>IsTissue</th>
+				<th>Description</th>
+				<th>Edit</th>
+			</tr>
+			</thead>
+			<tbody>
+			<cfquery name="pname" dbtype="query">
+				select part_name from q group by part_name order by part_name
+			</cfquery>
+			<cfloop query="pname">
+			<cfset rid=rereplace(part_name,"[^A-Za-z0-9]","_","all")>
+
+				<cfset canedit=true>
+				<tr id="prow_#rid#">
+					<cfquery name="pd" dbtype="query">
+						select * from q where part_name='#part_name#' order by collection_cde
+					</cfquery>
+					<td>
+						<cfloop query="pd">
+							<div>
+								#collection_cde#
+							</div>
+						</cfloop>
+					</td>
+					<td>
+						#part_name#
+					</td>
+					<td>
+						<cfquery name="ist" dbtype="query">
+							select is_tissue from pd group by is_tissue
+						</cfquery>
+						<cfif ist.recordcount gt 1>
+							is tissue inconsistency!!!
+							#valuelist(ist.is_tissue)#
+							<cfset canedit=false>
+						<cfelse>
+							#ist.is_tissue#
+						</cfif>
+					</td>
+					<td>
+						<cfquery name="dsc" dbtype="query">
+							select description from pd group by description
+						</cfquery>
+						<cfif dsc.recordcount gt 1>
+							description inconsistency!!!
+							#valuelist(dsc.description)#
+							<cfset canedit=false>
+						<cfelse>
+							#dsc.description#
+						</cfif>
+					</td>
+					<td nowrap="nowrap">
+						<cfif canedit is false>
+							Inconsistent data;contact a DBA.
+						<cfelse>
+							<br><span class="likeLink" onclick="updatePart('#part_name#')">[ Update ]</span>
+						</cfif>
+						<div id="prow_ediv_#rid#">
+
+						</div>
+					</td>
+				</tr>
+				<cfset i=i+1>
+			</cfloop>
+
+			<!----
+			<cfloop query="q">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="r#ctspnid#">
+					<td>#collection_cde#</td>
+					<td>#q.part_name#</td>
+					<td>#is_tissue#</td>
+					<td>#q.description#</td>
+					<td nowrap="nowrap">
+						<span class="likeLink" onclick="deletePart(#ctspnid#)">[ Delete ]</span>
+						<br><span class="likeLink" onclick="updatePart(#ctspnid#)">[ Update ]</span>
+					</td>
+				</tr>
+				<cfset i = #i#+1>
+			</cfloop>
+			---->
+			</tbody>
+		</table>
+	</cfoutput>
+</cfif>
+<!-------------------------------------------------->
+<cfif action is "insertSpecimenPart">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ctspecimen_part_name where part_name='#part_name#'
+	</cfquery>
+	<cfif d.recordcount gt 0>
+		<cfthrow message="Part already exists; edit to add collection types.">
+	</cfif>
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into ctspecimen_part_name (
+			collection_cde,
+			part_name,
+			DESCRIPTION,
+			is_tissue
+		) values (
+			'#collection_cde#',
+			'#part_name#',
+			'#description#',
+			#is_tissue#
+		)
+	</cfquery>
+	<cflocation url="CodeTableEditor.cfm?action=editSpecimenPart" addtoken="false">
+</cfif>
+<!-------------------------------------------------->
+<!------------------------------------------- END weird specimen parts code block ------------------>
 
 
 
