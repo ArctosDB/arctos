@@ -1,15 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <!---
 	default code table editor
-	
+
 	This form assumes there's a DESCRIPTION column. Make that valid.
-	
+
 	select table_name from sys.user_tables where table_name like 'CT%' and table_name not in (
 	select table_name from user_tab_cols where column_name='DESCRIPTION');
-	
+
 	CTATTRIBUTE_CODE_TABLES
 	-- OK to ignore, not used here
-	
+
 	alter table CTAUTHOR_ROLE add description varchar2(4000);
 	alter table CTBORROW_STATUS add description varchar2(4000);
 	alter table CTCASTE add description varchar2(4000);
@@ -17,26 +17,24 @@
 	alter table CTDOWNLOAD_PURPOSE add description varchar2(4000);
 	alter table CTEW add description varchar2(4000);
 	alter table CTFLAGS add description varchar2(4000);
-	alter table CTFLUID_CONCENTRATION add description varchar2(4000);
-	alter table CTFLUID_TYPE add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
-	alter table xxxxx add description varchar2(4000);
+
+	alter table CTMONETARY_UNITS add description varchar2(4000);
+	alter table CTNS add description varchar2(4000);
+	alter table CTNUMERIC_AGE_UNITS add description varchar2(4000);
+	alter table CTPART_ATTRIBUTE_PART add description varchar2(4000);
+	alter table CTPERMIT_TYPE add description varchar2(4000);
+	alter table CTPREFIX add description varchar2(4000);
+	alter table CTSHIPPED_CARRIER_METHOD add description varchar2(4000);
+	alter table CTTAXON_VARIABLE add description varchar2(4000);
+	alter table CTTISSUE_VOLUME_UNITS add description varchar2(4000);
+	alter table CTTRANSACTION_TYPE add description varchar2(4000);
+	alter table CTYES_NO add description varchar2(4000);
 
 
 
 	CTCOLLECTION_CDE
 	-- OK to ignore, has own handler
-	
+
 	CTCOLL_OBJECT_TYPE
 	-- not used, dropping. Current values, just in case:
 	UAM@ARCTOS> select * from CTCOLL_OBJECT_TYPE;
@@ -53,28 +51,52 @@
 		TS
 		ss
 
-	
-	
+	-- old, replaced
+	create table fluid_cont_hist20170425 as select * from fluid_container_history;
+	drop table fluid_container_history;
+	drop table CTFLUID_CONCENTRATION;
+	drop table CTFLUID_TYPE;
+
+
+	drop table CTGEOG_SOURCE_AUTHORITY;
+
+
+UAM@ARCTOS> select * from CTSECTION_TYPE;
+
+FIELD_NOTE_SECT_TYPE
+------------------------------------------------------------------------------------------
+catalog
+catalog and species account
+chapter
+index
+journal
+journal and catalog
+journal and species account
+letter
+mixed
+species account
+table of contents
+
+
+
+
+	drop table CTSECTION_TYPE;
 
 
 
 
 
-CTGEOG_SOURCE_AUTHORITY
-CTMONETARY_UNITS
-CTNS
-CTNUMERIC_AGE_UNITS
-CTPART_ATTRIBUTE_PART
-CTPERMIT_TYPE
-CTPREFIX
-CTSECTION_TYPE
-CTSHIPPED_CARRIER_METHOD
+
+
 CTSPECIMEN_PART_LIST_ORDER
+-- has unique handler/function
+
 CTSPEC_PART_ATT_ATT
-CTTAXON_VARIABLE
-CTTISSUE_VOLUME_UNITS
-CTTRANSACTION_TYPE
-CTYES_NO
+-- has unique handler/function
+
+
+
+
 
 
 ---->
@@ -161,215 +183,73 @@ CTYES_NO
 			Rows that look like this may have been edited and may not be current; reload to refresh.
 		</p>
 	</div>
-	<cfquery name="getCols" datasource="uam_god">
-		select column_name from sys.user_tab_columns where table_name='#tbl#'
+	<cfquery name="d" datasource="uam_god">
+		select * from #tbl#
 	</cfquery>
-	
-	
-		<cfset collcde=listfindnocase(valuelist(getCols.column_name),"collection_cde")>
-		<cfset hasDescn=listfindnocase(valuelist(getCols.column_name),"description")>
-		<cfquery name="f" dbtype="query">
-			select column_name from getCols where lower(column_name) not in ('collection_cde','description')
-		</cfquery>
-		<cfset fld=f.column_name>
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select #fld# as data
-			<cfif collcde gt 0>
-				,collection_cde
-			</cfif>
-			<cfif hasDescn gt 0>
-				,description
-			</cfif>
-			from #tbl#
-			ORDER BY
-			<cfif collcde gt 0>
-				collection_cde,
-			</cfif>
-			#fld#
-		</cfquery>
-		Add record:
-		<table class="newRec" border="1">
-			<tr>
-				<cfif collcde gt 0>
-					<th>Collection Type</th>
-				</cfif>
-				<th>#fld#</th>
-				<cfif hasDescn gt 0>
-					<th>Description</th>
-				</cfif>
-			</tr>
-			<form name="newData" method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="collcde" value="#collcde#">
-				<input type="hidden" name="action" value="newValue">
-				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="hasDescn" value="#hasDescn#">
-				<input type="hidden" name="fld" value="#fld#">
-				<tr>
-					<cfif collcde gt 0>
-						<td>
-							<select name="collection_cde" size="1">
-								<cfloop query="ctcollcde">
-									<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-								</cfloop>
-							</select>
-						</td>
-					</cfif>
-					<td>
-						<input type="text" name="newData" >
-					</td>
-
-					<cfif hasDescn gt 0>
-						<td>
-							<textarea name="description" id="description" rows="4" cols="40"></textarea>
-						</td>
-					</cfif>
-					<td>
-						<input type="submit"
-							value="Insert"
-							class="insBtn">
-					</td>
-				</tr>
-			</form>
-		</table>
-		<cfset i = 1>
-		Edit #tbl#:
-		<table border="1">
-			<tr>
-				<cfif collcde gt 0>
-					<th>Collection Type</th>
-				</cfif>
-				<th>#fld#</th>
-				<cfif hasDescn gt 0>
-					<th>Description</th>
-				</cfif>
-			</tr>
-			<cfloop query="q">
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-						<input type="hidden" name="Action">
-						<input type="hidden" name="tbl" value="#tbl#">
-						<input type="hidden" name="fld" value="#fld#">
-						<input type="hidden" name="collcde" value="#collcde#">
-						<input type="hidden" name="hasDescn" value="#hasDescn#">
-						<input type="hidden" name="origData" value="#q.data#">
-						<cfif collcde gt 0>
-							<input type="hidden" name="origcollection_cde" value="#q.collection_cde#">
-							<cfset thisColl=#q.collection_cde#>
-							<td>
-								<select name="collection_cde" size="1">
-									<cfloop query="ctcollcde">
-										<option
-											<cfif #thisColl# is "#ctcollcde.collection_cde#"> selected </cfif>value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-									</cfloop>
-								</select>
-							</td>
-						</cfif>
-						<td>
-							<input type="text" name="thisField" value="#q.data#" size="50">
-						</td>
-						<cfif hasDescn gt 0>
-							<td>
-								<textarea name="description" rows="4" cols="40">#q.description#</textarea>
-							</td>
-						</cfif>
-						<td>
-							<input type="button"
-								value="Save"
-								class="savBtn"
-								onclick="#tbl##i#.Action.value='saveEdit';submit();">
-							<input type="button"
-								value="Delete"
-								class="delBtn"
-								onclick="#tbl##i#.Action.value='deleteValue';submit();">
-
-						</td>
-					</form>
-				</tr>
-				<cfset i = #i#+1>
-			</cfloop>
-		</table>
-	</cfif>
-</cfif>
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			*
-		from #tbl#
-		ORDER BY
-			collection_cde,attribute_type
+	<!--- if we're in this form, the table should always have three columns:
+		collection_cde
+		description
+		something else
+	---->
+	<cfset dataColName=d.columnlist>
+	<cfset dataColName=replacenocase(d,'collection_cde','')>
+	<cfset dataColName=replacenocase(d,'description','')>
+	<cfquery name="od" dbtype="query">
+		select distinct(#dataColName#) from d order by #dataColName#
 	</cfquery>
-	<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct collection_cde from ctcollection_cde order by collection_cde
-	</cfquery>
-	<cfoutput>
-		<input type="text" id="tbl" value="#tbl#">
-		Add record:
-		<table class="newRec" border="1" >
+	Add record:
+	<table class="newRec" border="1">
+		<tr>
+			<th>Collection Type</th>
+			<th>#dataColName#</th>
+			<th>Description</th>
+		</tr>
+		<form name="newData" method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="collcde" value="#collcde#">
+			<input type="hidden" name="action" value="newValue">
+			<input type="hidden" name="tbl" value="#tbl#">
+			<input type="hidden" name="dataColName" value="#dataColName#">
 			<tr>
-				<th>Collection Type</th>
-				<th>Attribute</td>
-				<th>Description</th>
+				<td>
+					<select name="collection_cde" size="1">
+						<cfloop query="ctcollcde">
+							<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<input type="text" name="newData" >
+				</td>
+				<td>
+					<textarea name="description" id="description" rows="4" cols="40"></textarea>
+				</td>
+				<td>
+					<input type="submit" value="Insert"	class="insBtn">
+				</td>
 			</tr>
-			<form name="newData" method="post" action="">
-				<input type="hidden" name="action" value="insert">
-				<tr>
-					<td>
-						<select name="collection_cde" size="1">
-							<cfloop query="ctcollcde">
-								<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td>
-						<input type="text" name="attribute_type">
-					</td>
-					<td>
-						<textarea name="description" id="description" rows="4" cols="40"></textarea>
-					</td>
-					<td>
-						<input type="submit" value="Insert" class="insBtn">
-					</td>
-				</tr>
-			</form>
-		</table>
+		</form>
+	</table>
+
 		<cfset i = 1>
 		Edit
-		<table id="tbl" border="1" class="tablesorter">
+		<table id="tbl" border="1" class="">
 			<thead>
 			<tr>
 				<th>Collection Type</th>
-				<th>attribute_type</th>
+				<th>#dataColName#</th>
 				<th>Description</th>
 				<th>Edit</th>
 			</tr>
 			</thead>
 			<tbody>
-			<cfquery name="pname" dbtype="query">
-				select attribute_type from q group by attribute_type order by attribute_type
-			</cfquery>
-			<cfloop query="pname">
-			<cfset rid=rereplace(attribute_type,"[^A-Za-z0-9]","_","all")>
+
+			<cfloop query="od">
+				<cfset thisValue=evaluate("od." & dataColName)>
+				<cfset rid=rereplace(thisValue,"[^A-Za-z0-9]","_","all")>
 				<cfset canedit=true>
 				<tr id="prow_#rid#">
 					<cfquery name="pd" dbtype="query">
-						select * from q where attribute_type='#attribute_type#' order by collection_cde
+						select * from od where #dataColName#='#thisValue#' order by collection_cde
 					</cfquery>
 					<td>
 						<cfloop query="pd">
@@ -379,7 +259,7 @@ CTYES_NO
 						</cfloop>
 					</td>
 					<td>
-						#attribute_type#
+						#thisValue#
 					</td>
 					<td>
 						<cfquery name="dsc" dbtype="query">
@@ -397,7 +277,7 @@ CTYES_NO
 						<cfif canedit is false>
 							Inconsistent data;contact a DBA.
 						<cfelse>
-							<br><span class="likeLink" onclick="updateAttribute('#attribute_type#')">[ Update ]</span>
+							<br><span class="likeLink" onclick="updateAttribute('#thisValue#')">[ Update ]</span>
 						</cfif>
 					</td>
 				</tr>
