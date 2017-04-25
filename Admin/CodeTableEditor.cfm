@@ -192,8 +192,8 @@ CTSPEC_PART_ATT_ATT
 			something else
 		---->
 		<cfset dataColName=d.columnlist>
-		<cfset dataColName=replacenocase(d,'collection_cde','')>
-		<cfset dataColName=replacenocase(d,'description','')>
+		<cfset dataColName=replacenocase(dataColName,'collection_cde','')>
+		<cfset dataColName=replacenocase(dataColName,'description','')>
 		<cfquery name="od" dbtype="query">
 			select distinct(#dataColName#) from d order by #dataColName#
 		</cfquery>
