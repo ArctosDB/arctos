@@ -1,24 +1,30 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
+	<cfoutput>
+			var guts = "/includes/forms/f_editCodeTableVal.cfm?tbl=" + tbl + "&fld=" + fld + "&v=" + v & ;
+
+
+
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ctattribute_type where attribute_type='#attribute_type#'
+		select * from #tbl# where #fld#='#v#'
 	</cfquery>
 	<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct collection_cde from ctcollection_cde order by collection_cde
 	</cfquery>
 	<cfquery name="p" dbtype="query">
-		select distinct attribute_type from d
+		select distinct #fld# from d
 	</cfquery>
 	<cfquery name="dec" dbtype="query">
 		select distinct description from d
 	</cfquery>
-	<cfoutput>
+
 		<form name="f" method="post" action="">
 			<input type="hidden" name="action" value="update">
 			<p>
-				Editing <strong>#attribute_type#</strong>
+				Editing <strong>#fld#=#v#</strong>
 			</p>
-			<input type="hidden" name="attribute_type" id="attribute_type" value="#p.attribute_type#" size="50">
+			<input type="hidden" name="#fld#" id="fld" value="#p.##" size="50">
 			<cfset ctccde=valuelist(ctcollcde.collection_cde)>
 			<cfset c=1>
 			<cfloop query="d">
@@ -42,7 +48,7 @@
 			<br>
 			<input type="submit" value="Save Changes" class="savBtn">
 			<p>
-				Removing an attribute from all collection types will delete the record.
+				Removing all collection types will delete the record.
 			</p>
 		</form>
 	</cfoutput>

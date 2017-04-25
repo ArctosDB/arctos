@@ -139,14 +139,19 @@ CTSPEC_PART_ATT_ATT
 		function updateRecord(a) {
 			var rid=a.replace(/\W/g, '_');
 			$("#" + rid).addClass('edited');
-			var guts = "/includes/forms/f_editCodeTableVal.cfm?attribute_type=" + encodeURI(a);
+			var tbl=$("#tbl").val();
+			var fld==$("#fld").val();
+			var v=encodeURI(a);
+			
+			
+			var guts = "/includes/forms/f_editCodeTableVal.cfm?tbl=" + tbl + "&fld=" + fld + "&v=" + v & ;
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 				autoOpen: true,
 				closeOnEscape: true,
 				height: 'auto',
 				modal: true,
 				position: ['center', 'center'],
-				title: 'Edit Attribute',
+				title: 'Edit Code Table',
 					width:800,
 		 			height:600,
 				close: function() {
@@ -191,23 +196,23 @@ CTSPEC_PART_ATT_ATT
 			description
 			something else
 		---->
-		<cfset dataColName=d.columnlist>
-		<cfset dataColName=listDeleteAt(dataColName,listfindnocase(dataColName,'collection_cde'))>
-		<cfset dataColName=listDeleteAt(dataColName,listfindnocase(dataColName,'description'))>
+		<cfset fld=d.columnlist>
+		<cfset fld=listDeleteAt(fld,listfindnocase(fld,'collection_cde'))>
+		<cfset fld=listDeleteAt(fld,listfindnocase(fld,'description'))>
 		<cfquery name="od" dbtype="query">
-			select distinct(#dataColName#) from d order by #dataColName#
+			select distinct(#fld#) from d order by #fld#
 		</cfquery>
 		Add record:
 		<table class="newRec" border="1">
 			<tr>
 				<th>Collection Type</th>
-				<th>#dataColName#</th>
+				<th>#fld#</th>
 				<th>Description</th>
 			</tr>
 			<form name="newData" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="newValue">
-				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="dataColName" value="#dataColName#">
+				<input type="hidden" name="tbl" id="tbl" value="#tbl#">
+				<input type="hidden" name="fld" id="fld" value="#fld#">
 				<tr>
 					<td>
 						<select name="collection_cde" size="1">
@@ -276,7 +281,7 @@ CTSPEC_PART_ATT_ATT
 						<cfif canedit is false>
 							Inconsistent data;contact a DBA.
 						<cfelse>
-							<br><span class="likeLink" onclick="updateAttribute('#thisValue#')">[ Update ]</span>
+							<br><span class="likeLink" onclick="updateRecord('#thisValue#')">[ Update ]</span>
 						</cfif>
 					</td>
 				</tr>
