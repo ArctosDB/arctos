@@ -3,8 +3,11 @@
 <cfoutput>
 <cfif action is "nothing">
 	<h2>
-		Partial list of ways to talk to Arctos. <a href="/contact.cfm?ref=api">Contact us</a> for help or additional access.
+		Partial list of ways to talk to Arctos.
 	</h2>
+	<p>
+		 <a href="/contact.cfm?ref=api">Contact us</a> for help or additional access.
+	</p>
 	<p>
 		You may search specimens using the <a href="/api/specsrch">SpecimenResults.cfm API</a>.
 	</p>
@@ -153,20 +156,48 @@
 </cfif>
 <cfif action is "taxsrch">
 	Base URL: #Application.serverRootUrl#/taxonomy.cfm
+	<p>
+		Accepted Variables
+	</p>
 	<table border>
 		<tr>
 			<th>term</th>
 			<th>comment</th>
 		</tr>
 		<tr>
-			<td>common_name</td>
-			<td></td>
+			<td>taxon_name</td>
+			<td>Formal taxon name available for use in identifications.</td>
 		</tr>
 		<tr>
-			<td>scientific_name</td>
-			<td></td>
+			<td>taxon_term</td>
+			<td>Any term from metadata. Author, kingdom, etc.</td>
+		</tr>
+		<tr>
+			<td>term_type</td>
+			<td>
+				Rank of term. Local terms are controlled by a
+				<a href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">Code-Table</a>;
+				those imported from GlobalNames are any string.
+			</td>
+		</tr>
+		<tr>
+			<td>source</td>
+			<td>
+				Includes both <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">local sources</a> and
+				<a href="http://resolver.globalnames.org/data_sources" target="_blank" class="external">GlobalNames sources</a>
+
+			</td>
+		</tr>
+		<tr>
+			<td>common_name</td>
+			<td>
+				Any recorded "common" name.
+			</td>
 		</tr>
 	</table>
+
+
+
 </cfif>
 <cfif action is "specsrch">
 	<script src="/includes/sorttable.js"></script>
