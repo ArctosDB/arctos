@@ -49,8 +49,10 @@
 	    });
 
 		function updatePart(pn) {
-			var rid='prow_' + pn.replace(/\W/g, '_');
-			$("#" + rid).addClass('edited');
+			var rid= pn.replace(/\W/g, '_');
+			//$("#" + rid).addClass('edited');
+			$("#prow_ediv_" + rid).addClass('edited').html('reload to see current data');
+
 			var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 				autoOpen: true,
@@ -208,6 +210,9 @@
 						<cfelse>
 							<br><span class="likeLink" onclick="updatePart('#part_name#')">[ Update ]</span>
 						</cfif>
+						<div id="prow_ediv_#rid#">
+
+						</div>
 					</td>
 				</tr>
 				<cfset i=i+1>
