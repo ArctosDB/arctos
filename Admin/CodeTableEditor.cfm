@@ -51,7 +51,7 @@
 		function updatePart(pn) {
 			var rid= pn.replace(/\W/g, '_');
 			//$("#" + rid).addClass('edited');
-			$("#prow_ediv_" + rid).addClass('edited').html('reload to see current data');
+			$("#prow_ediv_" + rid).addClass('edited').html('EDITED! Reload to see current data.');
 
 			var guts = "/includes/forms/f2_ctspecimen_part_name.cfm?part_name=" + encodeURI(pn);
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
