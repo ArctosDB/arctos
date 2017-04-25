@@ -140,7 +140,7 @@ CTSPEC_PART_ATT_ATT
 			var rid=a.replace(/\W/g, '_');
 			$("#" + rid).addClass('edited');
 			var tbl=$("#tbl").val();
-			var fld==$("#fld").val();
+			var fld=$("#fld").val();
 			var v=encodeURI(a);
 
 
