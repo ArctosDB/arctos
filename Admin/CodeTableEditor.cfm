@@ -857,7 +857,11 @@ Terms must be lower-case
 
 		function preSubmit(id){
 			console.log(id);
-			var dv=$("#" + id + " textarea[name='description']").val();
+			var f=$("#" + id);
+
+			console.log(f);
+
+			var dv=f.$("textarea[name='description']").val();
 
 			console.log(dv);
 			return false;
