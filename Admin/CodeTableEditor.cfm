@@ -938,8 +938,8 @@ Terms must be lower-case
 				<th>Sort</th>
 			</tr>
 			<cfloop query="q">
-				<cfset did=rereplace(other_id_type,"[^A-Za-z]","_")>
-				did: #did#
+				<cfset did=rereplace(other_id_type,"[^A-Za-z]","_","all")>
+				<br>did: #did#
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<td>
 			<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm">
