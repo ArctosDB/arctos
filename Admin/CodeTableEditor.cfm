@@ -968,7 +968,12 @@ Terms must be lower-case
 						</tr>
 						</table>
 						---->
+						<table>
+				<tr><td>
 						<input id="x" name="c" value="f">
+						</td>
+						</tr>
+						</table>
 						<input type="submit">
 					</form>
 				</td>
