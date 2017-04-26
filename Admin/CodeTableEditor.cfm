@@ -897,7 +897,7 @@ Terms must be lower-case
 						<input type="text" name="newData" >
 					</td>
 					<td>
-						<textarea name="description" rows="4" cols="40" required></textarea>
+						<textarea name="description" rows="4" cols="40" required="required"></textarea>
 					</td>
 					<td>
 						<input type="text" name="base_url" size="50">
@@ -931,7 +931,7 @@ Terms must be lower-case
 							<input type="text" name="other_id_type" value="#other_id_type#" size="50">
 						</td>
 						<td>
-							<textarea name="description" rows="4" cols="40" required>#description#</textarea>
+							<textarea name="description" rows="4" cols="40" required="required">#description#</textarea>
 						</td>
 						<td>
 							<input type="text" name="base_url" size="60" value="#base_url#">
