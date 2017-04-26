@@ -1181,7 +1181,7 @@ Terms must be lower-case
 			</tr>
 			<cfloop query="q">
 				<cfset did=rereplace(q.data,"[^A-Za-z]","_","all")>
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<tr id="#did#" #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
 						<input type="hidden" name="Action">
 						<input type="hidden" name="tbl" value="#tbl#">
