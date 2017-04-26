@@ -853,25 +853,16 @@ Terms must be lower-case
 <!---------------------------------------------------------------------------->
 <cfif action is "editCollOIDT">
 	<script>
+			jQuery(document).ready(function() {
 
+		$("form").submit(function (e) {
+		    e.preventDefault();
+		    var formId = this.id;  // "this" is a reference to the submitted form
+		    console.log(formId);
+		    return false;
+		});
 
-		function preSubmit(id){
-			id.preventDefault();
-
-			console.log(id);
-			return false;
-
-
-
-			var f=$("#" + id).id;
-
-			console.log(f);
-
-			var dv=$("#" + f + " textarea[name='description']").val();
-
-			console.log(dv);
-			return false;
-		}
+	});
 
 	</script>
 	<cfoutput>
