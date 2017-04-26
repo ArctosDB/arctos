@@ -594,7 +594,7 @@ CTSPEC_PART_ATT_ATT
 
 <!---------------------------------------------------------------------------->
 <cfif action is "editAttCodeTables">
-
+	<cfoutput>
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(attribute_type) from ctAttribute_type
 		</cfquery>
@@ -716,7 +716,7 @@ CTSPEC_PART_ATT_ATT
 			<cfset i=#i#+1>
 		</cfloop>
 	</table>
-
+</cfoutput>
 </cfif>
 
 
