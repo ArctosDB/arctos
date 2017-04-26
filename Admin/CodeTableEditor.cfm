@@ -122,7 +122,7 @@ CTSPEC_PART_ATT_ATT
 	<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
 		<cflocation url="CodeTableEditor.cfm?action=editPubAtt" addtoken="false" >
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editTaxTrm addtoken="false" ">
+		<cflocation url="CodeTableEditor.cfm?action=editTaxTrm" addtoken="false">
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
 		<cflocation url="CodeTableEditor.cfm?action=editCollOIDT" addtoken="false" >
 	<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
