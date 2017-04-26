@@ -852,6 +852,17 @@ Terms must be lower-case
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "editCollOIDT">
+	<script>
+		$(document).ready(function () {
+
+		  $("form").submit(function (e) {
+		    e.preventDefault();
+		    var formId = this.id;  // "this" is a reference to the submitted form
+		    console.log(this.description.val());
+});
+
+		});
+	</script>
 	<cfoutput>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by sort_order,other_id_type
@@ -923,7 +934,7 @@ Terms must be lower-case
 			</tr>
 			<cfloop query="q">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+					<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm">
 						<input type="hidden" name="action" value="">
 						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 						<input type="hidden" name="origData" value="#other_id_type#">
