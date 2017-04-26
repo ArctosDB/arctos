@@ -962,7 +962,7 @@ Terms must be lower-case
 							<input type="button"
 								value="Save"
 								class="savBtn"
-							   	onclick="#tbl##i#.action.value='saveEdit';#tbl##i#.submit();">
+							   	onclick="#tbl##i#.action.value='saveEdit';preSubmit('#tbl##i#');">
 							<input type="button"
 								value="Delete"
 								class="delBtn"
