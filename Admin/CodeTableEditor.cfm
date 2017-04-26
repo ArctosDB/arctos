@@ -170,7 +170,7 @@ CTSPEC_PART_ATT_ATT
 				<th>description</th>
 				<td>URI</td>
 			</tr>
-			<form name="newData" method="post" action="">
+			<form name="newData" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="editMediaLicense_insert">
 				<tr>
 					<td>
@@ -198,7 +198,7 @@ CTSPEC_PART_ATT_ATT
 			</tr>
 			<cfloop query="q">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="m#media_license_id#" id="m#media_license_id#">
+					<form name="m#media_license_id#" id="m#media_license_id#" action="CodeTableEditor.cfm">
 						<input name="action" type="hidden">
 						<input name="media_license_id" type="hidden" value="#media_license_id#">
 						<td><input type="text" name="display" class="reqdClr" value="#display#"></td>
