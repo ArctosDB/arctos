@@ -866,7 +866,6 @@ Terms must be lower-case
 
 
 		function preSubmit(id){
-			preventDefault();
 			console.log(id);
 			return false;
 		}
