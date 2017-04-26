@@ -937,7 +937,7 @@ Terms must be lower-case
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<td>
 			<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="action" value="">
+				<input type="hidden" name="action" value="saveEdit">
 						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 						<input type="hidden" name="origData" value="#other_id_type#">
 				<table>
@@ -956,7 +956,7 @@ Terms must be lower-case
 							<input type="number" name="sort_order" value="#sort_order#">
 						</td>
 						<td>
-							<input type="button"
+							<input type="submit"
 								value="Save"
 								class="savBtn"
 							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
