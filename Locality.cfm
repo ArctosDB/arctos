@@ -2201,6 +2201,12 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "csv">
 	<cf_findLocality type="locality">
+
+	<cfdump var=#localityResults#>
+
+	<cfabort>
+
+
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=localityResults,Fields=localityResults.columnlist)>
 	<cffile action = "write"
