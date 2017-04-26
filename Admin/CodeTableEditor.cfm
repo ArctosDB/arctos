@@ -558,6 +558,9 @@ CTSPEC_PART_ATT_ATT
 								#collection_cde#
 							</div>
 						</cfloop>
+						<cfset did=rereplace(thisValue,"[^A-Za-z]","_","all")>
+						<span id="#did#"></span>
+
 					</td>
 					<td>
 						#thisValue#
