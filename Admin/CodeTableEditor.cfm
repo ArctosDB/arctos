@@ -100,11 +100,11 @@ CTSPEC_PART_ATT_ATT
 
 
 ---->
-
+<p>
+	<a href="/Admin/CodeTableEditor.cfm">Back to table list</a>
+</p>
 <cfif action is "edit">
-	<p>
-		<a href="/Admin/CodeTableEditor.cfm">Back to table list</a>
-	</p>
+
 	<cfif tbl is "CTGEOLOGY_ATTRIBUTE">
 		<!----
 			<cflocation url="/info/geol_hierarchy.cfm" addtoken="false">
@@ -685,114 +685,6 @@ Terms must be lower-case
 			<input type="submit" class="savBtn" value="save all classification edits">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 		</form>
-
-		<!----
-		<table>
-			<tr>
-				<th>Term</th>
-				<th>RelativePosition</th>
-				<th>Classification</th>
-				<th>Definition</th>
-			</tr>
-			<cfloop query="q">
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-						<input type="hidden" name="action" value="">
-						<input type="hidden" name="tbl" value="cttaxon_term">
-						<input type="hidden" name="origData" value="#taxon_term#">
-						<td>
-							<input type="text" name="taxon_term" value="#taxon_term#" size="50">
-						</td>
-						<td>
-							<cfif is_classification is 1>
-								<input type="text" name="relative_position" value="#relative_position#" size="50">
-							<cfelse>
-								only for classification
-							</cfif>
-						</td>
-
-
-						<td>
-							<select name="classification">
-								<option <cfif is_classification is 1> selected="selected" </cfif>value="1">yes</option>
-								<option <cfif is_classification is 0> selected="selected" </cfif>value="0">no</option>
-							</select>
-						</td>
-
-						<td>
-							<textarea name="description" rows="4" cols="40">#description#</textarea>
-						</td>
-						<td>
-							<input type="button"
-								value="Save"
-								class="savBtn"
-							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
-							<input type="button"
-								value="Delete"
-								class="delBtn"
-								onclick="#tbl##i#.action.value='deleteValue';submit();">
-
-						</td>
-					</form>
-				</tr>
-				<cfset i = #i#+1>
-			</cfloop>
-		</table>
-
-
-		<table>
-			<tr>
-				<th>Term</th>
-				<th>RelativePosition</th>
-				<th>Classification</th>
-				<th>Definition</th>
-			</tr>
-			<cfloop query="q">
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-						<input type="hidden" name="action" value="">
-						<input type="hidden" name="tbl" value="cttaxon_term">
-						<input type="hidden" name="origData" value="#taxon_term#">
-						<td>
-							<input type="text" name="taxon_term" value="#taxon_term#" size="50">
-						</td>
-						<td>
-							<cfif is_classification is 1>
-								<input type="text" name="relative_position" value="#relative_position#" size="50">
-							<cfelse>
-								only for classification
-							</cfif>
-						</td>
-
-
-						<td>
-							<select name="classification">
-								<option <cfif is_classification is 1> selected="selected" </cfif>value="1">yes</option>
-								<option <cfif is_classification is 0> selected="selected" </cfif>value="0">no</option>
-							</select>
-						</td>
-
-						<td>
-							<textarea name="description" rows="4" cols="40">#description#</textarea>
-						</td>
-						<td>
-							<input type="button"
-								value="Save"
-								class="savBtn"
-							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
-							<input type="button"
-								value="Delete"
-								class="delBtn"
-								onclick="#tbl##i#.action.value='deleteValue';submit();">
-
-						</td>
-					</form>
-				</tr>
-				<cfset i = #i#+1>
-			</cfloop>
-		</table>
-		---->
-
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "editCollOIDT">
