@@ -857,7 +857,7 @@ Terms must be lower-case
 
 		function preSubmit(id){
 			console.log(id);
-			var f=$("#" + id);
+			var f=$("#" + id).id;
 
 			console.log(f);
 
