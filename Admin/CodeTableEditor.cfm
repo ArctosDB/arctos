@@ -931,7 +931,7 @@ Terms must be lower-case
 							<input type="text" name="other_id_type" value="#other_id_type#" size="50" required  class="reqdClr">
 						</td>
 						<td>
-							<textarea name="description" rows="4" cols="40" required="required"  class="reqdClr">#trim(description)#</textarea>
+							<textarea name="description" id="description#i#" rows="4" cols="40" required="required" class="reqdClr">#trim(description)#</textarea>
 						</td>
 						<td>
 							<input type="text" name="base_url" size="60" value="#base_url#">
