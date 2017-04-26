@@ -56,6 +56,7 @@
 	drop table fluid_container_history;
 	drop table CTFLUID_CONCENTRATION;
 	drop table CTFLUID_TYPE;
+drop table ctpublication_attribute;
 
 
 	drop table CTGEOG_SOURCE_AUTHORITY;
@@ -119,8 +120,6 @@ CTSPEC_PART_ATT_ATT
 		<cflocation url="CodeTableEditor.cfm?action=editMediaLicense" addtoken="false" >
 	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
 		<cflocation url="CodeTableEditor.cfm?action=editAttCodeTables&tbl=#tbl#" addtoken="false" >
-	<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editPubAtt&tbl=#tbl#" addtoken="false" >
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
 		<cflocation url="CodeTableEditor.cfm?action=editTaxTrm&tbl=#tbl#" addtoken="false">
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
@@ -720,99 +719,11 @@ CTSPEC_PART_ATT_ATT
 </cfif>
 
 
-<!---------------------------------------------------------------------------->
-<cfif action is "editPubAtt">
-
-
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ctpublication_attribute order by publication_attribute
-		</cfquery>
-		<cfquery name="allCTs" datasource="uam_god">
-			select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
-		</cfquery>
-		<form name="newData" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="action" value="newValue">
-			<input type="hidden" name="tbl" value="ctpublication_attribute">
-			<table class="newRec">
-				<tr>
-					<th>Publication Attribute</th>
-					<th>Description</th>
-					<th>Control</th>
-					<th></th>
-				</tr>
-				<tr>
-					<td>
-						<input type="text" name="newData" >
-					</td>
-					<td>
-						<textarea name="description" rows="4" cols="40"></textarea>
-					</td>
-					<td>
-						<select name="control">
-							<option value=""></option>
-							<cfloop query="allCTs">
-								<option value="#tablename#">#tablename#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td>
-						<input type="submit"
-							value="Insert"
-							class="insBtn">
-					</td>
-				</tr>
-			</table>
-		</form>
-		<cfset i = 1>
-		<table>
-			<tr>
-				<th>Type</th>
-				<th>Description</th>
-				<th>Control</th>
-			</tr>
-			<cfloop query="q">
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-						<input type="hidden" name="action" value="">
-						<input type="hidden" name="tbl" value="ctpublication_attribute">
-						<input type="hidden" name="origData" value="#publication_attribute#">
-						<td>
-							<input type="text" name="publication_attribute" value="#publication_attribute#" size="50">
-						</td>
-						<td>
-							<textarea name="description" rows="4" cols="40">#description#</textarea>
-						</td>
-						<td>
-							<select name="control">
-								<option value=""></option>
-								<cfloop query="allCTs">
-									<option <cfif q.control is allCTs.tablename> selected="selected" </cfif>value="#tablename#">#tablename#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="button"
-								value="Save"
-								class="savBtn"
-							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
-							<input type="button"
-								value="Delete"
-								class="delBtn"
-								onclick="#tbl##i#.action.value='deleteValue';submit();">
-
-						</td>
-					</form>
-				</tr>
-				<cfset i = #i#+1>
-			</cfloop>
-		</table>
-</cfif>
-
 
 <!---------------------------------------------------------------------------->
 <cfif action is "editTaxTrm">
 
-
+<cfoutput>
 Terms must be lower-case
 		<hr>
 		<style>
@@ -937,6 +848,7 @@ Terms must be lower-case
 			<input type="submit" class="savBtn" value="save all classification edits">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 		</form>
+		</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "editCollOIDT">
