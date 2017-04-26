@@ -894,10 +894,10 @@ Terms must be lower-case
 				</tr>
 				<tr>
 					<td>
-						<input type="text" name="newData" >
+						<input type="text" name="newData" required class="reqdClr">
 					</td>
 					<td>
-						<textarea name="description" rows="4" cols="40" required="required"></textarea>
+						<textarea name="description" rows="4" cols="40"  class="reqdClr" required="required"></textarea>
 					</td>
 					<td>
 						<input type="text" name="base_url" size="50">
@@ -928,10 +928,10 @@ Terms must be lower-case
 						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 						<input type="hidden" name="origData" value="#other_id_type#">
 						<td>
-							<input type="text" name="other_id_type" value="#other_id_type#" size="50">
+							<input type="text" name="other_id_type" value="#other_id_type#" size="50" required  class="reqdClr">
 						</td>
 						<td>
-							<textarea name="description" rows="4" cols="40" required="required">#trim(description)#</textarea>
+							<textarea name="description" rows="4" cols="40" required="required"  class="reqdClr">#trim(description)#</textarea>
 						</td>
 						<td>
 							<input type="text" name="base_url" size="60" value="#base_url#">
