@@ -852,8 +852,7 @@ Terms must be lower-case
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "editCollOIDT">
-
-
+	<cfoutput>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by sort_order,other_id_type
 		</cfquery>
@@ -952,10 +951,10 @@ Terms must be lower-case
 						</td>
 					</form>
 				</tr>
-				<cfset i = #i#+1>
+				<cfset i=i+1>
 			</cfloop>
 		</table>
-
+	</cfoutput>
 </cfif>
 
 
@@ -1443,24 +1442,13 @@ Terms must be lower-case
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						delete from cttaxon_term where cttaxon_term_id=#thisROWID#
 					</cfquery>
-
-
-											delete from cttaxon_term where cttaxon_term_id=#thisROWID#
-
 				<cfelse>
 					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
 					</cfquery>
-
-											update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
-
 				</cfif>
 			</cfif>
-			<!----
-
-						<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
-
-			---->
+			<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 		</cfloop>
 	</cftransaction>
 	</cfoutput>
@@ -1470,6 +1458,7 @@ Terms must be lower-case
 
 
 	<cftransaction>
+		<cfoutput>
 		<cfquery name="moveasideplease" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cttaxon_term set relative_position=relative_position+100000000 where relative_position is not null
 		</cfquery>
@@ -1494,6 +1483,7 @@ Terms must be lower-case
 				</cfquery>
 			</cfif>
 		</cfloop>
+		</cfoutput>
 	</cftransaction>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 </cfif>
