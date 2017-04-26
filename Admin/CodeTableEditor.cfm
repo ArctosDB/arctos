@@ -943,7 +943,7 @@ Terms must be lower-case
 			</tr>
 			<cfloop query="q">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm" onsubmit="preSubmit(this.id)">
+					<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm" onsubmit="event.preventDefault();preSubmit(this.id)">
 						<input type="hidden" name="action" value="">
 						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 						<input type="hidden" name="origData" value="#other_id_type#">
