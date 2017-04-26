@@ -931,7 +931,11 @@ Terms must be lower-case
 							<input type="text" name="other_id_type" value="#other_id_type#" size="50" required  class="reqdClr">
 						</td>
 						<td>
+<<<<<<< HEAD
 							<textarea name="description" rows="4" cols="40" required="required"  class="reqdClr">#trim(description)#</textarea>
+=======
+							<textarea name="description" rows="4" cols="40" required="required">#trim(description)#</textarea>
+>>>>>>> branch 'master' of https://github.com/ArctosDB/arctos.git
 						</td>
 						<td>
 							<input type="text" name="base_url" size="60" value="#base_url#">
