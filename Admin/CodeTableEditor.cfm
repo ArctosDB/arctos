@@ -937,12 +937,12 @@ Terms must be lower-case
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<td>
 			<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-				<!----
-				<table>
-				<tr>
-						<input type="hidden" name="action" value="">
+				<input type="hidden" name="action" value="">
 						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 						<input type="hidden" name="origData" value="#other_id_type#">
+				<table>
+				<tr>
+
 						<td>
 							<input type="text" name="other_id_type" value="#other_id_type#" size="50" required class="reqdClr">
 						</td>
@@ -967,14 +967,7 @@ Terms must be lower-case
 						</td>
 						</tr>
 						</table>
-						---->
-						<table>
-				<tr><td>
-						<input id="x" name="c" value="f">
-						</td>
-						</tr>
-						</table>
-						<input type="submit">
+
 					</form>
 				</td>
 </tr>
