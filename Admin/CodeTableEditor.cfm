@@ -939,8 +939,7 @@ Terms must be lower-case
 			</tr>
 			<cfloop query="q">
 				<cfset did=rereplace(other_id_type,"[^A-Za-z]","_","all")>
-				<br>did: #did#
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<tr id="#did#" #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<td>
 			<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="saveEdit">
@@ -1279,17 +1278,8 @@ Terms must be lower-case
 
 	</cfif>
 	<cfif action is "saveEdit">
-
-	<cfif tbl is "ctpublication_attribute">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update ctpublication_attribute set
-				publication_attribute='#publication_attribute#',
-				DESCRIPTION='#description#',
-				control='#control#'
-			where
-				publication_attribute='#origData#'
-		</cfquery>
-	<cfelseif tbl is "ctcoll_other_id_type">
+	<cfset did=''>
+	<cfif tbl is "ctcoll_other_id_type">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update ctcoll_other_id_type set
 				OTHER_ID_TYPE='#other_id_type#',
@@ -1303,6 +1293,8 @@ Terms must be lower-case
 			where
 				OTHER_ID_TYPE='#origData#'
 		</cfquery>
+		<cfset did=rereplace(other_id_type,"[^A-Za-z]","_","all")>
+
 	<cfelseif tbl is "ctattribute_code_tables">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE ctattribute_code_tables SET
@@ -1314,6 +1306,8 @@ Terms must be lower-case
 				value_code_table = '#oldvalue_code_table#' AND
 				units_code_table = '#oldunits_code_table#'
 		</cfquery>
+		<cfset did=rereplace(Attribute_type,"[^A-Za-z]","_","all")>
+
 	<cfelseif tbl is "ctspecimen_part_list_order">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE ctspecimen_part_list_order SET
@@ -1323,6 +1317,8 @@ Terms must be lower-case
 				partname = '#oldpartname#' AND
 				list_order = '#oldlist_order#'
 		</cfquery>
+
+		<cfset did=rereplace(partname,"[^A-Za-z]","_","all")>
 	<cfelse>
 		<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE #tbl# SET #fld# = '#thisField#'
@@ -1337,8 +1333,9 @@ Terms must be lower-case
 				 AND collection_cde='#origcollection_cde#'
 			</cfif>
 		</cfquery>
+		<cfset did=rereplace(fld,"[^A-Za-z]","_","all")>
 	</cfif>
-	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
+	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl####did#" addtoken="false">
 
 
 	</cfif>
