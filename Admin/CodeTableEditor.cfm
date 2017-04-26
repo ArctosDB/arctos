@@ -943,11 +943,11 @@ Terms must be lower-case
 							<input type="button"
 								value="Save"
 								class="savBtn"
-							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
+							   	onclick="#tbl##i#.action.value='saveEdit';#tbl##i#.submit();">
 							<input type="button"
 								value="Delete"
 								class="delBtn"
-								onclick="#tbl##i#.action.value='deleteValue';submit();">
+								onclick="#tbl##i#.action.value='deleteValue';#tbl##i#.submit();">
 						</td>
 					</form>
 				</tr>
