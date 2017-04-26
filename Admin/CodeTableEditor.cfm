@@ -510,17 +510,17 @@ CTSPEC_PART_ATT_ATT
 				<input type="hidden" name="fld" id="fld" value="#fld#">
 				<tr>
 					<td>
-						<select name="collection_cde" size="1">
+						<select name="collection_cde" size="1" class="reqdClr" required>
 							<cfloop query="ctcollcde">
 								<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
 							</cfloop>
 						</select>
 					</td>
 					<td>
-						<input type="text" name="newData" >
+						<input type="text" name="newData" size="80" class="reqdClr" required>
 					</td>
 					<td>
-						<textarea name="description" id="description" rows="4" cols="40"></textarea>
+						<textarea name="description" id="description" rows="4" cols="40" class="reqdClr" required></textarea>
 					</td>
 					<td>
 						<input type="submit" value="Insert"	class="insBtn">
@@ -1340,20 +1340,8 @@ Terms must be lower-case
 
 	</cfif>
 	<cfif action is "newValue">
-	<cfif tbl is "ctpublication_attribute">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into ctpublication_attribute (
-				publication_attribute,
-				DESCRIPTION,
-				control
-			) values (
-				'#newData#',
-				'#description#',
-				'#control#'
-			)
-		</cfquery>
-
-	<cfelseif tbl is "cttaxon_term">
+	<cfset did="">
+	<cfif tbl is "cttaxon_term">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into cttaxon_term (
 				taxon_term,
@@ -1371,6 +1359,8 @@ Terms must be lower-case
 				</cfif>
 			)
 		</cfquery>
+		<cfset did=rereplace(newData,"[^A-Za-z]","_","all")>
+
 	<cfelseif tbl is "ctcoll_other_id_type">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into ctcoll_other_id_type (
@@ -1389,6 +1379,7 @@ Terms must be lower-case
 				</cfif>
 			)
 		</cfquery>
+		<cfset did=rereplace(newData,"[^A-Za-z]","_","all")>
 	<cfelseif tbl is "ctattribute_code_tables">
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO ctattribute_code_tables (
@@ -1410,6 +1401,7 @@ Terms must be lower-case
 				</cfif>
 			)
 		</cfquery>
+		<cfset did=rereplace(Attribute_type,"[^A-Za-z]","_","all")>
 	<cfelseif tbl is "ctspecimen_part_list_order">
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO ctspecimen_part_list_order (
@@ -1421,6 +1413,7 @@ Terms must be lower-case
 				#list_order#
 			)
 		</cfquery>
+		<cfset did=rereplace(partname,"[^A-Za-z]","_","all")>
 	<cfelse>
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO #tbl#
@@ -1442,8 +1435,9 @@ Terms must be lower-case
 				</cfif>
 			)
 		</cfquery>
+		<cfset did=rereplace(newData,"[^A-Za-z]","_","all")>
 	</cfif>
-	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
+	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl####did#" addtoken="false">
 </cfif>
 
 

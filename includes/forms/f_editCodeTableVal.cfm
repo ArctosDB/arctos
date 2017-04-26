@@ -28,7 +28,7 @@
 			<cfloop query="d">
 				<cfset ctccde=listdeleteat(ctccde,listfind(ctccde,'#collection_cde#'))>
 				<label for="collection_cde_#c#">Available for Collection Type</label>
-				<select name="collection_cde_#c#" id="collection_cde_#c#" size="1">
+				<select name="collection_cde_#c#" id="collection_cde_#c#" size="1" class="reqdClr" required>
 					<option value="DELETE__#d.collection_cde#">Remove from this collection type</option>
 					<option selected="selected" value="#d.collection_cde#">#d.collection_cde#</option>
 				</select>
@@ -42,7 +42,7 @@
 				</cfloop>
 			</select>
 			<label for="description">Description</label>
-			<textarea name="description" id="description" rows="4" cols="40">#dec.description#</textarea>
+			<textarea name="description" id="description" rows="4" cols="40" class="reqdClr" required>#dec.description#</textarea>
 			<br>
 			<input type="submit" value="Save Changes" class="savBtn">
 			<p>
