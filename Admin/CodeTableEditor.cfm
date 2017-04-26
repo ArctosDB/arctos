@@ -856,6 +856,7 @@ Terms must be lower-case
 			jQuery(document).ready(function() {
 
 		$("form").submit(function (e) {
+			console.log('submitted');
 		    e.preventDefault();
 		    var formId = this.id;  // "this" is a reference to the submitted form
 		    console.log(formId);
