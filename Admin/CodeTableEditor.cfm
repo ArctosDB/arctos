@@ -161,9 +161,7 @@ CTSPEC_PART_ATT_ATT
 <!--------------------------------------------------------->
 
 <cfif action is "editPartAttAtt">
-
-<cfset title="part attribute controls">
-<cfif action is "nothing">
+	<cfset title="part attribute controls">
 	<cfoutput>
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(attribute_type) from ctspecpart_attribute_type
@@ -278,6 +276,7 @@ CTSPEC_PART_ATT_ATT
 		</table>
 	</cfoutput>
 </cfif>
+
 <cfif action is "editPartAttAtt_saveEdit">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update ctspec_part_att_att
