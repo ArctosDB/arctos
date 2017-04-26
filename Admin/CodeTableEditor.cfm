@@ -861,7 +861,7 @@ Terms must be lower-case
 
 			console.log(f);
 
-			var dv=$(f + "textarea[name='description']").val();
+			var dv=$("#" + f + " textarea[name='description']").val();
 
 			console.log(dv);
 			return false;
