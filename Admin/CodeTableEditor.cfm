@@ -1430,6 +1430,7 @@ Terms must be lower-case
 
 
 <cfif action is "saveEditsTaxonTermNoClass">
+<cfoutput>
 	<cftransaction>
 		<cfloop list="#FIELDNAMES#" index="i">
 			<cfif left(i,6) is "rowid_">
@@ -1462,6 +1463,7 @@ Terms must be lower-case
 			---->
 		</cfloop>
 	</cftransaction>
+	</cfoutput>
 
 	</cfif>
 	<cfif action is "saveEditsTaxonTermWithClass">
