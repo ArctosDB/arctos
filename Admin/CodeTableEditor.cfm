@@ -863,6 +863,14 @@ Terms must be lower-case
 });
 
 		});
+
+
+		function preSubmit(id){
+			preventDefault();
+			console.log(id);
+			return false;
+		}
+
 	</script>
 	<cfoutput>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -935,12 +943,12 @@ Terms must be lower-case
 			</tr>
 			<cfloop query="q">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+					<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm" onsubmit="preSubmit(this.id)">
 						<input type="hidden" name="action" value="">
 						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 						<input type="hidden" name="origData" value="#other_id_type#">
 						<td>
-							<input type="text" name="other_id_type" value="#other_id_type#" size="50" required  class="reqdClr">
+							<input type="text" name="other_id_type" value="#other_id_type#" size="50" required class="reqdClr">
 						</td>
 						<td>
 							<textarea name="description" id="description#i#" rows="4" cols="40" required="required" class="reqdClr">#trim(description)#</textarea>
