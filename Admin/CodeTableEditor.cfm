@@ -926,9 +926,7 @@ Terms must be lower-case
 						<input type="number" name="sort_order">
 					</td>
 					<td>
-						<input type="submit"
-							value="Insert"
-							class="insBtn">
+						<input type="submit" value="Insert" class="insBtn">
 					</td>
 				</tr>
 			</table>
@@ -942,8 +940,9 @@ Terms must be lower-case
 				<th>Sort</th>
 			</tr>
 			<cfloop query="q">
+									<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm" onsubmit="event.preventDefault();preSubmit(this.id)">
+
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm" onsubmit="event.preventDefault();preSubmit(this.id)">
 						<input type="hidden" name="action" value="">
 						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 						<input type="hidden" name="origData" value="#other_id_type#">
@@ -969,8 +968,8 @@ Terms must be lower-case
 								class="delBtn"
 								onclick="#tbl##i#.action.value='deleteValue';#tbl##i#.submit();">
 						</td>
-					</form>
-				</tr>
+				</tr>					</form>
+
 				<cfset i=i+1>
 			</cfloop>
 		</table>
