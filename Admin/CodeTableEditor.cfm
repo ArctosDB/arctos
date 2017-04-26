@@ -100,6 +100,51 @@ CTSPEC_PART_ATT_ATT
 
 
 ---->
+
+<cfif action is "edit">
+	<p>
+		<a href="/Admin/CodeTableEditor.cfm">Back to table list</a>
+	</p>
+	<cfif tbl is "CTGEOLOGY_ATTRIBUTE">
+		<!----
+			<cflocation url="/info/geol_hierarchy.cfm" addtoken="false">
+			let's do this inline
+		---->
+		<cflocation url="CodeTableEditor.cfm?action=editGeologyTree">
+	<cfelseif tbl is "ctspecimen_part_name"><!---------------------------------------------------->
+		<!----<cflocation url="/Admin/ctspecimen_part_name.cfm" addtoken="false">---->
+		<cflocation url="CodeTableEditor.cfm?action=editSpecimenPart">
+	<cfelseif tbl is "CTATTRIBUTE_TYPE"><!---------------------------------------------------->
+		<cflocation url="/Admin/ctattribute_type.cfm" addtoken="false">
+	<cfelseif tbl is "ctspec_part_att_att"><!---------------------------------------------------->
+		<cflocation url="/Admin/ctspec_part_att_att.cfm" addtoken="false">
+	<cfelseif tbl is "ctmedia_license"><!---------------------------------------------------->
+		<cflocation url="/Admin/ctmedia_license.cfm" addtoken="false">
+	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
+		<cflocation url="CodeTableEditor.cfm?action=editAttCodeTables">
+	<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
+		<cflocation url="CodeTableEditor.cfm?action=editPubAtt">
+	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
+		<cflocation url="CodeTableEditor.cfm?action=editTaxTrm">
+	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
+		<cflocation url="CodeTableEditor.cfm?action=editCollOIDT">
+	<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
+		<cflocation url="CodeTableEditor.cfm?action=editSpecPartOrder">
+	<cfelseif tbl is "ctcollection_cde"><!--- this IS the thing that makes this form funky.... --->
+		use SQL<cfabort>
+	<cfelse><!---------------------------- normal CTs --------------->
+		<cfquery name="asldfjaisakdshas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select * from #tbl# where 1=2
+		</cfquery>
+		<cfif listcontainsnocase(asldfjaisakdshas.columnlist,'collection_cde')>
+			<cflocation url="CodeTableEditor.cfm?action=editWithCollectionCode&tbl=#tbl#">
+		<cfelse>
+			<cflocation url="CodeTableEditor.cfm?action=editNoCollectionCode&tbl=#tbl#">
+		</cfif>
+	</cfif>
+</cfif>
+<!--------------------------------------------->
+
 <cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct collection_cde from ctcollection_cde
 </cfquery>
@@ -124,9 +169,9 @@ CTSPEC_PART_ATT_ATT
 		</cfloop>
 	</cfoutput>
 </cfif>
-
+<!------------------------------------------------------------------------------------------------------>
 <cfif action is "editWithCollectionCode">
-<!----------------------- handle any table with a collection_cde column here --------->
+	<!-------- handle any table with a collection_cde column here --------->
 	<script type="text/javascript" src="/includes/tablesorter/tablesorter.js"></script>
 	<link rel="stylesheet" href="/includes/tablesorter/themes/blue/style.css">
 	<style>
@@ -143,8 +188,6 @@ CTSPEC_PART_ATT_ATT
 			var tbl=$("#tbl").val();
 			var fld=$("#fld").val();
 			var v=encodeURI(a);
-
-
 			var guts = "/includes/forms/f_editCodeTableVal.cfm?tbl=" + tbl + "&fld=" + fld + "&v=" + v;
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 				autoOpen: true,
@@ -235,6 +278,8 @@ CTSPEC_PART_ATT_ATT
 			</form>
 		</table>
 
+
+
 		<cfset i = 1>
 		Edit
 		<table id="tbl" border="1" class="">
@@ -294,61 +339,10 @@ CTSPEC_PART_ATT_ATT
 </cfif>
 <!---------------------------------------------------------------------------->
 
-<cfif action is "insertWithCollectionCode">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from CTATTRIBUTE_TYPE where attribute_type='#attribute_type#'
-	</cfquery>
-	<cfif d.recordcount gt 0>
-		<cfthrow message="Attribute already exists; edit to add collection types.">
-	</cfif>
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into CTATTRIBUTE_TYPE (
-			collection_cde,
-			attribute_type,
-			DESCRIPTION
-		) values (
-			'#collection_cde#',
-			'#attribute_type#',
-			'#description#'
-		)
-	</cfquery>
-	<cflocation url="ctattribute_type.cfm" addtoken="false">
-</cfif>
-
-
-
-
-
-
-
-
-
-
-
 
 <!---------------------------------------------------------------------------->
-<cfif action is "edit">
-	<p>
-		<a href="/Admin/CodeTableEditor.cfm">Back to table list</a>
-	</p>
-	<cfif tbl is "CTGEOLOGY_ATTRIBUTE">
-		<!----
-			<cflocation url="/info/geol_hierarchy.cfm" addtoken="false">
-			let's do this inline
-		---->
-		<cflocation url="CodeTableEditor.cfm?action=editGeologyTree">
-	<cfelseif tbl is "ctspecimen_part_name"><!---------------------------------------------------->
-		<!----<cflocation url="/Admin/ctspecimen_part_name.cfm" addtoken="false">---->
-		<cflocation url="CodeTableEditor.cfm?action=editSpecimenPart">
+<cfif action is "editAttCodeTables">
 
-
-	<cfelseif tbl is "CTATTRIBUTE_TYPE"><!---------------------------------------------------->
-		<cflocation url="/Admin/ctattribute_type.cfm" addtoken="false">
-	<cfelseif tbl is "ctspec_part_att_att"><!---------------------------------------------------->
-		<cflocation url="/Admin/ctspec_part_att_att.cfm" addtoken="false">
-	<cfelseif tbl is "ctmedia_license"><!---------------------------------------------------->
-		<cflocation url="/Admin/ctmedia_license.cfm" addtoken="false">
-	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(attribute_type) from ctAttribute_type
 		</cfquery>
@@ -470,7 +464,14 @@ CTSPEC_PART_ATT_ATT
 			<cfset i=#i#+1>
 		</cfloop>
 	</table>
-	<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
+
+</cfif>
+
+
+<!---------------------------------------------------------------------------->
+<cfif action is "editPubAtt">
+
+
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctpublication_attribute order by publication_attribute
 		</cfquery>
@@ -553,8 +554,14 @@ CTSPEC_PART_ATT_ATT
 				<cfset i = #i#+1>
 			</cfloop>
 		</table>
-	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
-		Terms must be lower-case
+</cfif>
+
+
+<!---------------------------------------------------------------------------->
+<cfif action is "editTaxTrm">
+
+
+Terms must be lower-case
 		<hr>
 		<style>
 			.dragger {
@@ -785,7 +792,12 @@ CTSPEC_PART_ATT_ATT
 			</cfloop>
 		</table>
 		---->
-	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
+
+</cfif>
+<!---------------------------------------------------------------------------->
+<cfif action is "editCollOIDT">
+
+
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by sort_order,other_id_type
 		</cfquery>
@@ -887,7 +899,17 @@ CTSPEC_PART_ATT_ATT
 				<cfset i = #i#+1>
 			</cfloop>
 		</table>
-	<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
+
+</cfif>
+
+
+
+
+
+<!---------------------------------------------------------------------------->
+<cfif action is "editSpecPartOrder">
+
+
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctspecimen_part_list_order order by
 			list_order,partname
@@ -990,11 +1012,15 @@ CTSPEC_PART_ATT_ATT
 				<cfset i=#i#+1>
 			</cfloop>
 		</table>
-	<cfelseif tbl is "ctcollection_cde"><!--- this IS the thing that makes this form funky.... --->
-	use SQL<cfabort>
 
 
-	<cfelse><!---------------------------- normal CTs --------------->
+		</cfif>
+
+
+<!---------------------------------------------------------------------------->
+<cfif action is "editNoCollectionCode">
+
+
 		<cfquery name="getCols" datasource="uam_god">
 			select column_name from sys.user_tab_columns where table_name='#tbl#'
 		</cfquery>
@@ -1121,7 +1147,9 @@ CTSPEC_PART_ATT_ATT
 			</cfloop>
 		</table>
 	</cfif>
-</cfif>
+
+<!---------------------------------------------------------------------------->
+
 
 
 
