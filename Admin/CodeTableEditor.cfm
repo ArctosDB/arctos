@@ -133,9 +133,9 @@ CTSPEC_PART_ATT_ATT
 		.edited{background:#eaa8b4;}
 	</style>
 	<script>
-		$(document).ready(function(){
-		    $("#tbl").tablesorter();
-		});
+		//$(document).ready(function(){
+		//    $("#tbl").tablesorter();
+		//});
 		function updateRecord(a) {
 			var rid=a.replace(/\W/g, '_');
 			$("#" + rid).addClass('edited');

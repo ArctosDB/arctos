@@ -47,6 +47,7 @@
 			<input type="submit" value="Save Changes" class="savBtn">
 			<p>
 				Removing all collection types will delete the record.
+				<br>Delete and re-create to change.
 			</p>
 		</form>
 	</cfoutput>
