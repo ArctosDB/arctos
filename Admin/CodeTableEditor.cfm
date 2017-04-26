@@ -1145,7 +1145,7 @@ Terms must be lower-case
 				<tr>
 					<cfif collcde gt 0>
 						<td>
-							<select name="collection_cde" size="1">
+							<select name="collection_cde" size="1" class="reqdClr" required>
 								<cfloop query="ctcollcde">
 									<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
 								</cfloop>
@@ -1153,18 +1153,16 @@ Terms must be lower-case
 						</td>
 					</cfif>
 					<td>
-						<input type="text" name="newData" >
+						<input type="text" name="newData" class="reqdClr" required>
 					</td>
 
 					<cfif hasDescn gt 0>
 						<td>
-							<textarea name="description" id="description" rows="4" cols="40"></textarea>
+							<textarea name="description" id="description" rows="4" cols="40"class="reqdClr" required></textarea>
 						</td>
 					</cfif>
 					<td>
-						<input type="submit"
-							value="Insert"
-							class="insBtn">
+						<input type="submit" value="Insert"	class="insBtn">
 					</td>
 				</tr>
 			</form>
@@ -1182,6 +1180,7 @@ Terms must be lower-case
 				</cfif>
 			</tr>
 			<cfloop query="q">
+				<cfset did=rereplace(q.data,"[^A-Za-z]","_","all")>
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
 						<input type="hidden" name="Action">
@@ -1194,7 +1193,7 @@ Terms must be lower-case
 							<input type="hidden" name="origcollection_cde" value="#q.collection_cde#">
 							<cfset thisColl=#q.collection_cde#>
 							<td>
-								<select name="collection_cde" size="1">
+								<select name="collection_cde" size="1" class="reqdClr" required>
 									<cfloop query="ctcollcde">
 										<option
 											<cfif #thisColl# is "#ctcollcde.collection_cde#"> selected </cfif>value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
@@ -1203,27 +1202,27 @@ Terms must be lower-case
 							</td>
 						</cfif>
 						<td>
-							<input type="text" name="thisField" value="#q.data#" size="50">
+							<input type="text" name="thisField" value="#q.data#" size="50" class="reqdClr" required>
 						</td>
 						<cfif hasDescn gt 0>
 							<td>
-								<textarea name="description" rows="4" cols="40">#q.description#</textarea>
+								<textarea name="description" rows="4" cols="40" class="reqdClr" required>#q.description#</textarea>
 							</td>
 						</cfif>
 						<td>
-							<input type="button"
+							<input type="submit"
 								value="Save"
 								class="savBtn"
-								onclick="#tbl##i#.Action.value='saveEdit';submit();">
-							<input type="button"
+								onclick="#tbl##i#.Action.value='saveEdit';">
+							<input type="submit"
 								value="Delete"
 								class="delBtn"
-								onclick="#tbl##i#.Action.value='deleteValue';submit();">
+								onclick="#tbl##i#.Action.value='deleteValue';">
 
 						</td>
 					</form>
 				</tr>
-				<cfset i = #i#+1>
+				<cfset i = i+1>
 			</cfloop>
 		</table>
 		</cfoutput>
