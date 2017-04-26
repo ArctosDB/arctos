@@ -869,7 +869,7 @@ Terms must be lower-case
 	});
 
 	</script>
-	0----------------->
+	----------------->
 	<cfoutput>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by sort_order,other_id_type
@@ -944,10 +944,8 @@ Terms must be lower-case
 				<input type="hidden" name="action" value="saveEdit">
 						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 						<input type="hidden" name="origData" value="#other_id_type#">
-				<table>
-				<tr>
-
-						<td>
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<td>
 							<input type="text" name="other_id_type" value="#other_id_type#" size="50" required class="reqdClr">
 						</td>
 						<td>
@@ -971,11 +969,9 @@ Terms must be lower-case
 								onclick="#tbl##i#.action.value='deleteValue';">
 						</td>
 						</tr>
-						</table>
 
 					</form>
-				</td>
-</tr>
+
 				<cfset i=i+1>
 			</cfloop>
 		</table>
