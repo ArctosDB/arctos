@@ -856,7 +856,13 @@ Terms must be lower-case
 
 
 		function preSubmit(id){
+			id.preventDefault();
+
 			console.log(id);
+			return false;
+
+
+
 			var f=$("#" + id).id;
 
 			console.log(f);
@@ -936,7 +942,7 @@ Terms must be lower-case
 				<th>Sort</th>
 			</tr>
 			<cfloop query="q">
-			<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm" onsubmit="event.preventDefault();preSubmit(this.id)">
+			<form name="#tbl##i#" id="#tbl##i#" method="post" action="CodeTableEditor.cfm" onsubmit="preSubmit(this.id)">
 
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<input type="hidden" name="action" value="">
