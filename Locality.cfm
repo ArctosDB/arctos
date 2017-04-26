@@ -2234,6 +2234,7 @@ You deleted a collecting event.
 <cfoutput>
 
 	<cfdump var=#form#>
+	<cfdump var=#variables#>
 	<form name="csv" method="post" action="Locality.cfm">
 		<input type="hidden" name="action" value="csv">
 		<cfloop list="#StructKeyList(form)#" index="key">
