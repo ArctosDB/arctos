@@ -852,7 +852,10 @@ Terms must be lower-case
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "editCollOIDT">
+<!-----
 	<script>
+
+
 			jQuery(document).ready(function() {
 
 		$("form").submit(function (e) {
@@ -866,6 +869,7 @@ Terms must be lower-case
 	});
 
 	</script>
+	0----------------->
 	<cfoutput>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by sort_order,other_id_type
