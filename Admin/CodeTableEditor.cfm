@@ -1019,7 +1019,7 @@ Terms must be lower-case
 
 <!---------------------------------------------------------------------------->
 <cfif action is "editNoCollectionCode">
-
+	<cfoutput>
 
 		<cfquery name="getCols" datasource="uam_god">
 			select column_name from sys.user_tab_columns where table_name='#tbl#'
@@ -1146,6 +1146,7 @@ Terms must be lower-case
 				<cfset i = #i#+1>
 			</cfloop>
 		</table>
+		</cfoutput>
 	</cfif>
 
 <!---------------------------------------------------------------------------->
