@@ -672,7 +672,9 @@ CTSPEC_PART_ATT_ATT
 					<input type="hidden" name="oldAttribute_type" value="#Attribute_type#">
 					<input type="hidden" name="oldvalue_code_table" value="#value_code_table#">
 					<input type="hidden" name="oldunits_code_table" value="#units_code_table#">
-					<tr>
+					<cfset did=rereplace(thisRec.attribute_type,"[^A-Za-z]","_","all")>
+
+					<tr id="#did#">
 						<td>
 							<cfset thisAttType = #thisRec.attribute_type#>
 								<select name="attribute_type" size="1">
