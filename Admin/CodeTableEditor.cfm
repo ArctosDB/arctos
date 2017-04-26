@@ -961,10 +961,10 @@ Terms must be lower-case
 								class="savBtn">
 								<!----
 							   	onclick="#tbl##i#.action.value='saveEdit';submit();"---->
-							<input type="button"
+							<input type="submit"
 								value="Delete"
 								class="delBtn"
-								onclick="#tbl##i#.action.value='deleteValue';#tbl##i#.submit();">
+								onclick="#tbl##i#.action.value='deleteValue';">
 						</td>
 						</tr>
 						</table>
