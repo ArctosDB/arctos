@@ -118,15 +118,15 @@ CTSPEC_PART_ATT_ATT
 	<cfelseif tbl is "ctmedia_license"><!---------------------------------------------------->
 		<cflocation url="CodeTableEditor.cfm?action=editMediaLicense" addtoken="false" >
 	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editAttCodeTables" addtoken="false" >
+		<cflocation url="CodeTableEditor.cfm?action=editAttCodeTables&tbl=#tbl#" addtoken="false" >
 	<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editPubAtt" addtoken="false" >
+		<cflocation url="CodeTableEditor.cfm?action=editPubAtt&tbl=#tbl#" addtoken="false" >
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editTaxTrm" addtoken="false">
+		<cflocation url="CodeTableEditor.cfm?action=editTaxTrm&tbl=#tbl#" addtoken="false">
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editCollOIDT" addtoken="false" >
+		<cflocation url="CodeTableEditor.cfm?action=editCollOIDT&tbl=#tbl#" addtoken="false" >
 	<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
-		<cflocation url="CodeTableEditor.cfm?action=editSpecPartOrder" addtoken="false" >
+		<cflocation url="CodeTableEditor.cfm?action=editSpecPartOrder&tbl=#tbl#" addtoken="false" >
 	<cfelseif tbl is "ctcollection_cde"><!--- this IS the thing that makes this form funky.... --->
 		use SQL<cfabort>
 	<cfelse><!---------------------------- normal CTs --------------->
