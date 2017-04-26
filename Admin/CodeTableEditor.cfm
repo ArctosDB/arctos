@@ -958,9 +958,9 @@ Terms must be lower-case
 						<td>
 							<input type="submit"
 								value="Save"
-								class="savBtn">
-								<!----
-							   	onclick="#tbl##i#.action.value='saveEdit';submit();"---->
+								class="savBtn"
+								onclick="#tbl##i#.action.value='saveEdit';">
+
 							<input type="submit"
 								value="Delete"
 								class="delBtn"
