@@ -139,7 +139,7 @@ CTSPEC_PART_ATT_ATT
 		function updateRecord(a) {
 			var rid=a.replace(/\W/g, '_');
 			console.log(rid);
-			$("#" + rid).addClass('edited');
+			$("#prow_" + rid).addClass('edited');
 			var tbl=$("#tbl").val();
 			var fld=$("#fld").val();
 			var v=encodeURI(a);
