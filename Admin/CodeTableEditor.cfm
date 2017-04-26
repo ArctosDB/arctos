@@ -110,25 +110,23 @@ CTSPEC_PART_ATT_ATT
 			<cflocation url="/info/geol_hierarchy.cfm" addtoken="false">
 			let's do this inline
 		---->
-		<cflocation url="CodeTableEditor.cfm?action=editGeologyTree">
+		<cflocation url="CodeTableEditor.cfm?action=editGeologyTree"  addtoken="false" >
 	<cfelseif tbl is "ctspecimen_part_name"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editSpecimenPart">
+		<cflocation url="CodeTableEditor.cfm?action=editSpecimenPart" addtoken="false" >
 	<cfelseif tbl is "ctspec_part_att_att"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editPartAttAtt">
+		<cflocation url="CodeTableEditor.cfm?action=editPartAttAtt" addtoken="false" >
 	<cfelseif tbl is "ctmedia_license"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editMediaLicense">
-
-		<cflocation url="/Admin/ctmedia_license.cfm" addtoken="false">
+		<cflocation url="CodeTableEditor.cfm?action=editMediaLicense" addtoken="false" >
 	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editAttCodeTables">
+		<cflocation url="CodeTableEditor.cfm?action=editAttCodeTables" addtoken="false" >
 	<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editPubAtt">
+		<cflocation url="CodeTableEditor.cfm?action=editPubAtt" addtoken="false" >
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editTaxTrm">
+		<cflocation url="CodeTableEditor.cfm?action=editTaxTrm addtoken="false" ">
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
-		<cflocation url="CodeTableEditor.cfm?action=editCollOIDT">
+		<cflocation url="CodeTableEditor.cfm?action=editCollOIDT" addtoken="false" >
 	<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
-		<cflocation url="CodeTableEditor.cfm?action=editSpecPartOrder">
+		<cflocation url="CodeTableEditor.cfm?action=editSpecPartOrder" addtoken="false" >
 	<cfelseif tbl is "ctcollection_cde"><!--- this IS the thing that makes this form funky.... --->
 		use SQL<cfabort>
 	<cfelse><!---------------------------- normal CTs --------------->
@@ -136,9 +134,9 @@ CTSPEC_PART_ATT_ATT
 			select * from #tbl# where 1=2
 		</cfquery>
 		<cfif listcontainsnocase(asldfjaisakdshas.columnlist,'collection_cde')>
-			<cflocation url="CodeTableEditor.cfm?action=editWithCollectionCode&tbl=#tbl#">
+			<cflocation url="CodeTableEditor.cfm?action=editWithCollectionCode&tbl=#tbl#" addtoken="false" >
 		<cfelse>
-			<cflocation url="CodeTableEditor.cfm?action=editNoCollectionCode&tbl=#tbl#">
+			<cflocation url="CodeTableEditor.cfm?action=editNoCollectionCode&tbl=#tbl#" addtoken="false" >
 		</cfif>
 	</cfif>
 </cfif>
