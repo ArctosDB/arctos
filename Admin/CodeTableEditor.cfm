@@ -1335,7 +1335,7 @@ Terms must be lower-case
 				 AND collection_cde='#origcollection_cde#'
 			</cfif>
 		</cfquery>
-		<cfset did=rereplace(fld,"[^A-Za-z]","_","all")>
+		<cfset did=rereplace(thisField,"[^A-Za-z]","_","all")>
 	</cfif>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl####did#" addtoken="false">
 
