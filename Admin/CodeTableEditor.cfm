@@ -930,7 +930,7 @@ Terms must be lower-case
 			</table>
 		</form>
 		<cfset i = 1>
-		<table>
+		<table border>
 			<tr>
 				<th>Type</th>
 				<th>Description</th>
