@@ -1426,10 +1426,10 @@ Terms must be lower-case
 	</cfif>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
 </cfif>
-	<cfif action is "saveEditsTaxonTermNoClass">
 
 
 
+<cfif action is "saveEditsTaxonTermNoClass">
 	<cftransaction>
 		<cfloop list="#FIELDNAMES#" index="i">
 			<cfif left(i,6) is "rowid_">
@@ -1442,14 +1442,23 @@ Terms must be lower-case
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						delete from cttaxon_term where cttaxon_term_id=#thisROWID#
 					</cfquery>
+
+
+											delete from cttaxon_term where cttaxon_term_id=#thisROWID#
+
 				<cfelse>
 					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
 					</cfquery>
+
+											update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
+
 				</cfif>
 			</cfif>
-			<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 			<!----
+
+						<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
+
 			---->
 		</cfloop>
 	</cftransaction>
