@@ -778,21 +778,19 @@ Terms must be lower-case
 				</tr>
 				<tr>
 					<td>
-						<input type="text" name="newData" >
+						<input type="text" name="newData" size="60" class="reqdClr" required>
 					</td>
 					<td>
-						<select name="classification">
+						<select name="classification" class="reqdClr" required>
 							<option value="1">yes</option>
 							<option value="0">no</option>
 						</select>
 					</td>
 					<td>
-						<textarea name="description" rows="4" cols="40"></textarea>
+						<textarea name="description" rows="4" cols="40" class="reqdClr" required></textarea>
 					</td>
 					<td>
-						<input type="submit"
-							value="Insert"
-							class="insBtn">
+						<input type="submit" value="Insert"	class="insBtn">
 					</td>
 				</tr>
 			</table>
@@ -811,9 +809,9 @@ Terms must be lower-case
 					<input type="hidden" name="rowid_#cttaxon_term_id#" value="#cttaxon_term_id#">
 					<tr>
 						<td>
-							<input type="text" id="term_#cttaxon_term_id#"  name="term_#cttaxon_term_id#" value="#taxon_term#">
+							<input type="text" id="term_#cttaxon_term_id#"  name="term_#cttaxon_term_id#" value="#taxon_term#" class="reqdClr" required>
 						</td>
-						<td><textarea name="description_#cttaxon_term_id#" rows="4" cols="40">#description#</textarea></td>
+						<td><textarea name="description_#cttaxon_term_id#" rows="4" cols="40" class="reqdClr" required>#description#</textarea></td>
 						<td>
 							<span class="likeLink" onclick='$("##term_#cttaxon_term_id#").val("");'>delete</span>
 						</td>
@@ -840,9 +838,9 @@ Terms must be lower-case
 							(drag)
 						</td>
 						<td>
-							<input type="text" id="term_#cttaxon_term_id#"  name="term_#cttaxon_term_id#" value="#taxon_term#">
+							<input type="text" id="term_#cttaxon_term_id#"  name="term_#cttaxon_term_id#" value="#taxon_term#" class="reqdClr" required>
 						</td>
-						<td><textarea name="description_#cttaxon_term_id#" rows="4" cols="40">#description#</textarea></td>
+						<td><textarea name="description_#cttaxon_term_id#" rows="4" cols="40" class="reqdClr" required>#description#</textarea></td>
 						<td>
 							<span class="likeLink" onclick='$("##term_#cttaxon_term_id#").val("");'>delete</span>
 						</td>
