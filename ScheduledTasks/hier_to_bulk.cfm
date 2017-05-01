@@ -40,6 +40,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <cfset ctterms=valuelist(CTTAXON_TERM.TAXON_TERM)>
 <cfset knterms=tbldef.columnlist>
 
+<cfoutput>
 <!--- any terms which need added to the table? ---->
 <cfloop list="#knterms#" index="t">
 	<cfif not listfind(ctterms,t)>
@@ -48,7 +49,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 
 </cfloop>
-
+</cfoutput>
 
 
 
