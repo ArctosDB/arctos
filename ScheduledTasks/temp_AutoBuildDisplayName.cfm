@@ -1,5 +1,81 @@
 temp_AutoBuildDisplayName.cfm
 
+
+-- add phylum for DDS
+
+alter table temp_dname_diff add phylum varchar2(4000);
+
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+p varchar2(4000);
+begin
+	for r in (select * from temp_dname_diff where phylum is null and rownum<10000) loop
+	begin
+		dbms_output.put_line(r.scientific_name);
+		select term into p from taxon_term where source in ('Arctos','Arctos Plants') and
+		term_type='phylum' and
+		TAXON_NAME_ID=r.TAXON_NAME_ID;
+
+		update temp_dname_diff set phylum=p where taxon_name_id=r.taxon_name_id;
+	exception when others then
+		update temp_dname_diff set phylum='NOTFOUND' where taxon_name_id=r.taxon_name_id;
+	end;
+	end loop;
+end;
+/
+alter table temp_gdnerr add phylum varchar2(4000);
+
+declare
+	p varchar2(4000);
+begin
+	for r in (select * from temp_gdnerr where phylum is null and rownum<1000) loop
+	begin
+		dbms_output.put_line(r.scientific_name);
+		select term into p from taxon_term where source in ('Arctos','Arctos Plants') and
+		term_type='phylum' and
+		TAXON_NAME_ID=r.TAXON_NAME_ID;
+
+		update temp_gdnerr set phylum=p where taxon_name_id=r.taxon_name_id;
+	exception when others then
+		update temp_gdnerr set phylum='NOTFOUND' where taxon_name_id=r.taxon_name_id;
+	end;
+	end loop;
+end;
+/
+
+
+select phylum,count(*) from temp_gdnerr group by phylum;
+
+temp_gdnerr
+exec temp_update_junk;
+
+
+
+select phylum,count(*) from temp_dname_diff group by phylum;
+
+
+	    ----update temp_dname_diff set phylum=(
+			select term from taxon_term where
+				source in ('Arctos','Arctos Plants') and
+				term_type='phylum' and
+				taxon_term.TAXON_NAME_ID=r.TAXON_NAME_ID);
+
+
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_temp_update_junk',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'REFRESH_FILTERED_FLAT',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/
+
+select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
+
+
+
 <!----
 drop table temp_dnametest;
 
