@@ -119,6 +119,12 @@ get rid of admin stuff
  FORMA									    VARCHAR2(255)
 ---->
 <p>
+
+	<cfquery name="thisNoClass" datasource="uam_god">
+		select * from htax_noclassterm where tid=#variables.tid#
+	</cfquery>
+	<cfdump var=#thisNoClass#>
+
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
