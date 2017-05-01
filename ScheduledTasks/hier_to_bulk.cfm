@@ -284,14 +284,38 @@ get rid of admin stuff
 	<cfquery name="thisNoClass" datasource="uam_god">
 		select * from htax_noclassterm where tid=#d.tid#
 	</cfquery>
+
 	<cfdump var=#thisNoClass#>
+	<!--- if there are duplicate values, smoosh them ---->
+
+	<cfquery name="tncc" dbtype="query">
+		select distinct TERM_TYPE from thisNoClass
+	</cfquery>
+
+
+	<cfset nodupQ=queryNew("TERM_TYPE,TERM_VALUE")>
+
+	<cfloop query="tncc">
+		<cfquery name="thisValuQ" dbtype="query">
+			select #term_type# d from thisNoClass
+		</cfquery>
+		<cfset thisv=valuelist(thisValuQ.d,";")>
+		<cfset queryaddrow(nodupQ,
+					{TERM_TYPE=term_type,
+					TERM_VALUE=thisv
+					}
+				)>
+
+	</cfloop>
+
+	<cfdump var=#thisValuQ#>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
 				#i#,
 			</cfloop>
-			<cfloop query="thisNoClass">
+			<cfloop query="thisValuQ">
 				#TERM_TYPE#,
 			</cfloop>
 			STATUS,
@@ -302,7 +326,7 @@ get rid of admin stuff
 			<cfloop list="#tterms#" index="i">
 				'#evaluate("variables." & i)#',
 			</cfloop>
-			<cfloop query="thisNoClass">
+			<cfloop query="thisValuQ">
 				'#TERM_VALUE#',
 			</cfloop>
 			'autoinsert_from_hierarchy',
