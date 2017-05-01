@@ -42,8 +42,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 <cfoutput>
 <!--- any terms which need added to the table? ---->
-<cfloop list="#knterms#" index="t">
-	<cfif not listfindnocase(ctterms,t)>
+<cfloop list="#ctterms#" index="t">
+	<cfif not listfindnocase(knterms,t)>
 		<br>#t# is not in the table plz add
 	</cfif>
 
