@@ -3,6 +3,22 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
  --->
 
+<!---- verification: don't run if we can't ---->
+
+
+<cfquery name="src" datasource="uam_god">
+	select distinct(source) from htax_dataset,hierarchical_taxonomy where htax_dataset.dataset_id=hierarchical_taxonomy.dataset_id and
+	hierarchical_taxonomy.status='ready_to_push_bl'
+</cfquery>
+<cfif src.recordcount is not 1 or not len(src.source) gt 0>
+	bad src
+
+	<cfdump var=#src#>
+	<cfabort>
+</cfif>
+
+
+
 <!---- data ---->
 <cfquery name="d" datasource="uam_god">
 	select * from hierarchical_taxonomy where status='ready_to_push_bl' and rownum < 500
@@ -29,6 +45,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		CTTAXON_TERM
 	where IS_CLASSIFICATION=0
 </cfquery>
+
+
 
 
 <!----
