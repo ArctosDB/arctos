@@ -103,7 +103,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	select column_name taxon_term from user_tab_cols where table_name=upper('cf_temp_classification_fh')
 </cfquery>
 ---->
-<cfset tterms=valuelist(CTTAXON_TERM.taxon_term)>
+<cfset tterms=valuelist(classTERM.taxon_term)>
 <!----
 get rid of admin stuff
 <cfset tterms=listappend(tterms,'phylorder')>
@@ -241,7 +241,7 @@ get rid of admin stuff
 			</cfloop>
 			'autoinsert_from_hierarchy',
 			'need user',
-			'need source',
+			'#src.source#',
 			'#d.term#'
 		)
 		</cfquery>
