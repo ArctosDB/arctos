@@ -113,22 +113,23 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		To fix, edit and try this:
 	</p>
 	<pre>
-		insert into htax_noclassterm (
-			NC_TID,
+		 insert into htax_noclassterm (
 			TID,
 			TERM_TYPE,
 			TERM_VALUE
 		) (
 			select distinct
-				someRandomSequence.nextval,
 				tid,
 				'nomenclatural_code',
-				'XXXXXXXX'
+				'XXXXXXX'
 			from
 				hierarchical_taxonomy
 			where
 				 status='ready_to_push_bl' and
-				tid not in (select tid from htax_noclassterm where term_type='nomenclatural_code')
+				tid not in (
+					select tid from htax_noclassterm where term_type='nomenclatural_code'
+				)
+		);
 
 	</pre>
 	<cfabort>
