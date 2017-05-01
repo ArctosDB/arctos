@@ -297,9 +297,12 @@ get rid of admin stuff
 
 	<cfloop query="tncc">
 		<cfquery name="thisValuQ" dbtype="query">
-			select term_type d from thisNoClass
+			select TERM_VALUE from thisNoClass where TERM_TYPE='#TERM_TYPE#'
 		</cfquery>
-		<cfset thisv=valuelist(thisValuQ.d,";")>
+		<cfset thisv="">
+		<cfloop query="thisValuQ">
+			<cfset thisv=listapped(thisv,term_value,'; ')>
+		</cfloop>
 		<cfset queryaddrow(nodupQ,
 					{TERM_TYPE=term_type,
 					TERM_VALUE=thisv
