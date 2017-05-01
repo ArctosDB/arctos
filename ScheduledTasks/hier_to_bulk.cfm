@@ -308,14 +308,14 @@ get rid of admin stuff
 
 	</cfloop>
 
-	<cfdump var=#thisValuQ#>
+	<cfdump var=#nodupQ#>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
 				#i#,
 			</cfloop>
-			<cfloop query="thisValuQ">
+			<cfloop query="nodupQ">
 				#TERM_TYPE#,
 			</cfloop>
 			STATUS,
@@ -326,7 +326,7 @@ get rid of admin stuff
 			<cfloop list="#tterms#" index="i">
 				'#evaluate("variables." & i)#',
 			</cfloop>
-			<cfloop query="thisValuQ">
+			<cfloop query="nodupQ">
 				'#TERM_VALUE#',
 			</cfloop>
 			'autoinsert_from_hierarchy',
