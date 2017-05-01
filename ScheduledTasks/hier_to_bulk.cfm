@@ -14,7 +14,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 </cfquery>
 <cfif src.recordcount is not 1 or not len(src.source) gt 0>
 	bad src
-
 	<cfdump var=#src#>
 	<cfabort>
 </cfif>
@@ -35,7 +34,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		CTTAXON_TERM
 	where TAXON_TERM != 'scientific_name'
 </cfquery>
-<cfdump var=#CTTAXON_TERM#>
 
 
 
@@ -83,7 +81,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		(#ListQualify(valuelist(classTERM.TAXON_TERM),"'")#)
 </cfquery>
 
-<cfdump var=#ctt#>
 
 
 <cfquery name="cntt" datasource="uam_god">
@@ -134,25 +131,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	</pre>
 	<cfabort>
 </cfif>
-
-select count(*) from hierarchical_taxonomy where status='ready_to_push_bl';
-
-
-
-	select * from htax_noclassterm where tid=114132847;
-
-		tid not in (select tid from
-
-	htax_noclassterm.term_type from
-		htax_noclassterm,hierarchical_taxonomy
-		where hierarchical_taxonomy.status='ready_to_push_bl' and
-		htax_noclassterm.tid=hierarchical_taxonomy.tid and
-		htax_noclassterm.term_type not in
-		(#
-
-
-
-<cfdump var=#cntt#>
 
 
 
