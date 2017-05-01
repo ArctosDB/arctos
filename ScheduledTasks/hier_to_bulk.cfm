@@ -74,32 +74,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <cfquery name="d" datasource="uam_god">
 	select * from hierarchical_taxonomy where status='ready_to_push_bl' and rownum < 500
 </cfquery>
-<!---- column names in order ---->
-<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		IS_CLASSIFICATION,
-		replace(TAXON_TERM,'order','phylorder') TAXON_TERM
-	from
-		CTTAXON_TERM
-</cfquery>
-<cfquery name="classTERM" dbtype="query">
-	select
-		*
-	from
-		CTTAXON_TERM
-	where IS_CLASSIFICATION=1
-</cfquery>
-
-
-<cfdump var=#classTERM#>
-
-<cfquery name="noclassTERM" dbtype="query">
-	select
-		*
-	from
-		CTTAXON_TERM
-	where IS_CLASSIFICATION=0
-</cfquery>
 
 
 
