@@ -32,6 +32,27 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <cfdump var=#CTTAXON_TERM#>
 
 
+
+<cfquery name="tbldef" datasource="uam_god">
+	select * from cf_temp_classification_fh where 1=2
+</cfquery>
+
+<cfset ctterms=valuelist(CTTAXON_TERM.TAXON_TERM)>
+<cfset knterms=tbldef.columnlist>
+
+<!--- any terms which need added to the table? ---->
+<cfloop list="#knterms#" index="t">
+	<cfif not listfind(ctterms,t)>
+		<br>#t# is not in the table plz add
+	</cfif>
+
+
+</cfloop>
+
+
+
+
+
 <cfquery name="classTERM" dbtype="query">
 	select
 		TAXON_TERM
