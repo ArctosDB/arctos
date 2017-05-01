@@ -102,7 +102,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		tid
 	from
 		hierarchical_taxonomy
-	where tid not in (select tid from htax_noclassterm where term_type='nomenclatural_code')
+	where
+		 status='ready_to_push_bl' and
+		 tid not in (select tid from htax_noclassterm where term_type='nomenclatural_code')
 </cfquery>
 <cfif missingNomCode.recordcount gt 0>
 	missing nomenclatural code; cannot proceed.
@@ -117,7 +119,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			TERM_TYPE,
 			TERM_VALUE
 		) (
-			select
+			select distinct
 				someRandomSequence.nextval,
 				tid,
 				'nomenclatural_code',
@@ -125,11 +127,17 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			from
 				hierarchical_taxonomy
 			where
+				 status='ready_to_push_bl' and
 				tid not in (select tid from htax_noclassterm where term_type='nomenclatural_code')
 
 	</pre>
 	<cfabort>
 </cfif>
+
+select count(*) from hierarchical_taxonomy where status='ready_to_push_bl';
+
+
+
 	select * from htax_noclassterm where tid=114132847;
 
 		tid not in (select tid from
