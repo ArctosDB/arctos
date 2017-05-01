@@ -297,7 +297,7 @@ get rid of admin stuff
 
 	<cfloop query="tncc">
 		<cfquery name="thisValuQ" dbtype="query">
-			select #term_type# d from thisNoClass
+			select term_type d from thisNoClass
 		</cfquery>
 		<cfset thisv=valuelist(thisValuQ.d,";")>
 		<cfset queryaddrow(nodupQ,
