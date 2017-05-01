@@ -24,7 +24,11 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	select
 		IS_CLASSIFICATION,
 		RELATIVE_POSITION,
-		replace(TAXON_TERM,'order','phylorder') TAXON_TERM
+		case when TAXON_TERM='order' then
+			'phylorder'
+		else
+			TAXON_TERM
+		end AS TAXON_TERM
 	from
 		CTTAXON_TERM
 	where TAXON_TERM != 'scientific_name'

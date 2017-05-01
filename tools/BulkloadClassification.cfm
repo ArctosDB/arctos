@@ -57,6 +57,18 @@
 );
 
 
+
+
+infraphylorder is not in the table plz add
+subphylorder is not in the table plz add
+superphylorder is not in the table plz add
+hyperphylorder is not in the table plz add
+subhypphylorder is not in the table plz add
+hypphylorder is not in the table plz add
+variety is not in the table plz add 
+
+
+
 alter table cf_temp_classification rename column hypoorder to hyporder;
 
 alter table cf_temp_classification modify status varchar2(4000);
