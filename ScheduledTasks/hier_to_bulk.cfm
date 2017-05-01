@@ -131,7 +131,7 @@ get rid of admin stuff
 			<cfloop list="#tterms#" index="i">
 				#i#,
 			</cfloop>
-			<cfloop query="htax_noclassterm">
+			<cfloop query="thisNoClass">
 				#TERM_TYPE#,
 			</cfloop>
 			STATUS,
@@ -143,7 +143,7 @@ get rid of admin stuff
 			<cfloop list="#tterms#" index="i">
 				'#evaluate("variables." & i)#',
 			</cfloop>
-			<cfloop query="htax_noclassterm">
+			<cfloop query="thisNoClass">
 				'#TERM_VALUE#',
 			</cfloop>
 			'autoinsert_from_hierarchy',
