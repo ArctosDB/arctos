@@ -57,7 +57,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 <cfquery name="ctt" datasource="uam_god">
 	select distinct term_type from hierarchical_taxonomy where status='ready_to_push_bl' and term_type not in
-		(#ListQualify(valuelist(classTERM.TAXON_TERM),"'")
+		(#ListQualify(valuelist(classTERM.TAXON_TERM),"'")#)
 </cfquery>
 
 <cfdump var=#ctt#>
@@ -69,7 +69,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		where hierarchical_taxonomy.status='ready_to_push_bl' and
 		htax_noclassterm.tid=hierarchical_taxonomy.tid and
 		htax_noclassterm.term_type not in
-		(#ListQualify(valuelist(noClassTERM.TAXON_TERM),"'")
+		(#ListQualify(valuelist(noClassTERM.TAXON_TERM),"'")#)
 </cfquery>
 <cfdump var=#cntt#>
 
