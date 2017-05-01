@@ -11,7 +11,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		IS_CLASSIFICATION,
-		replace(term,'order','phylorder') term
+		replace(TAXON_TERM,'order','phylorder') TAXON_TERM
 	from
 		CTTAXON_TERM
 </cfquery>
