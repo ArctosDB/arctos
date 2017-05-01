@@ -27,6 +27,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		replace(TAXON_TERM,'order','phylorder') TAXON_TERM
 	from
 		CTTAXON_TERM
+	where TAXON_TERM != 'scientific_name'
 </cfquery>
 
 
