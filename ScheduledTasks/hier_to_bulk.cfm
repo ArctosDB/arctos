@@ -25,7 +25,11 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <!----
 get rid of admin stuff
 <cfset tterms=listappend(tterms,'phylorder')>
----->
+
+
+
+
+
 
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'STATUS'))>
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'CLASSIFICATION_ID'))>
@@ -34,6 +38,11 @@ get rid of admin stuff
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
 <cfset tterms=listDeleteAt(tterms,listFind(tterms,'NOMENCLATURAL_CODE'))>
+
+
+
+---->
+
 
 
 
