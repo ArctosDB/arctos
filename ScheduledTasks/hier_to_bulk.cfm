@@ -49,7 +49,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <!--- make sure we're not going to try to deal with any term type that we can't ---->
 
 <cfquery name="ctt" datasource="uam_god">
-	select distinct term_type from hierarchical_taxonomy where status='ready_to_push_bl' and term_type not in
+	select distinct RANK from hierarchical_taxonomy where status='ready_to_push_bl' and RANK not in
 		(#ListQualify(valuelist(classTERM.TAXON_TERM),"'")#)
 </cfquery>
 
