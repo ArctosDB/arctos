@@ -10,11 +10,26 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <!---- column names in order ---->
 <cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
+		IS_CLASSIFICATION,
+		replace(term,'order','phylorder') term
+	from
+		CTTAXON_TERM
+</cfquery>
+<cfquery name="classTERM" dbtype="query">
+	select
 		*
 	from
 		CTTAXON_TERM
 	where IS_CLASSIFICATION=1
 </cfquery>
+<cfquery name="noclassTERM" dbtype="query">
+	select
+		*
+	from
+		CTTAXON_TERM
+	where IS_CLASSIFICATION=0
+</cfquery>
+
 
 <!----
 <cfquery name="CTTAXON_TERM" datasource="uam_god">
