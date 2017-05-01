@@ -301,7 +301,7 @@ get rid of admin stuff
 		</cfquery>
 		<cfset thisv="">
 		<cfloop query="thisValuQ">
-			<cfset thisv=listapped(thisv,term_value,'; ')>
+			<cfset thisv=listappend(thisv,term_value,'; ')>
 		</cfloop>
 		<cfset queryaddrow(nodupQ,
 					{TERM_TYPE=term_type,
