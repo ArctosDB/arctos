@@ -89,6 +89,10 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		CTTAXON_TERM
 	where IS_CLASSIFICATION=1
 </cfquery>
+
+
+<cfdump var=#classTERM#>
+
 <cfquery name="noclassTERM" dbtype="query">
 	select
 		*
