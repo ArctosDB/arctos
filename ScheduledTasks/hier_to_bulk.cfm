@@ -29,6 +29,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		CTTAXON_TERM
 	where TAXON_TERM != 'scientific_name'
 </cfquery>
+<cfdump var=#CTTAXON_TERM#>
 
 
 <cfquery name="classTERM" dbtype="query">
