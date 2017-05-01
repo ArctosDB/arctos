@@ -18,6 +18,62 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 </cfif>
 
 
+<cfdump var=#src#>
+<!---- column names in order ---->
+<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select
+		IS_CLASSIFICATION,
+		RELATIVE_POSITION,
+		replace(TAXON_TERM,'order','phylorder') TAXON_TERM
+	from
+		CTTAXON_TERM
+</cfquery>
+
+<cfquery name="classTERM" dbtype="query">
+	select
+		IS_CLASSIFICATION,
+		replace(TAXON_TERM,'order','phylorder') TAXON_TERM
+	from
+		CTTAXON_TERM
+	order by RELATIVE_POSITION
+</cfquery>
+<cfquery name="classTERM" dbtype="query">
+	select
+		*
+	from
+		CTTAXON_TERM
+	where IS_CLASSIFICATION=1
+	order by RELATIVE_POSITION
+</cfquery>
+<cfquery name="noClassTERM" dbtype="query">
+	select
+		*
+	from
+		CTTAXON_TERM
+	where IS_CLASSIFICATION=0
+	order by RELATIVE_POSITION
+</cfquery>
+<!--- make sure we're not going to try to deal with any term type that we can't ---->
+
+<cfquery name="ctt" datasource="uam_god">
+	select distinct term_type from hierarchical_taxonomy where status='ready_to_push_bl' and term_type not in
+		(#ListQualify(valuelist(classTERM.TAXON_TERM),"'")
+</cfquery>
+
+<cfdump var=#ctt#>
+
+
+<cfquery name="cntt" datasource="uam_god">
+	select distinct htax_noclassterm.term_type from
+		htax_noclassterm,hierarchical_taxonomy
+		where hierarchical_taxonomy.status='ready_to_push_bl' and
+		htax_noclassterm.tid=hierarchical_taxonomy.tid and
+		htax_noclassterm.term_type not in
+		(#ListQualify(valuelist(noClassTERM.TAXON_TERM),"'")
+</cfquery>
+<cfdump var=#cntt#>
+
+
 
 <!---- data ---->
 <cfquery name="d" datasource="uam_god">
