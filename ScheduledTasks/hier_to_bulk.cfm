@@ -1,4 +1,6 @@
 <!--- local table just for this
+drop table cf_temp_classification_fh;
+
 create table cf_temp_classification_fh as select * from cf_temp_classification where 1=2;
 
  --->
@@ -92,6 +94,55 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		htax_noclassterm.term_type not in
 		(#ListQualify(valuelist(noClassTERM.TAXON_TERM),"'")#)
 </cfquery>
+
+
+<cfquery name="missingNomCode" datasource="uam_god">
+	select distinct
+		term,
+		tid
+	from
+		hierarchical_taxonomy
+	where tid not in (select tid from htax_noclassterm where term_type='nomenclatural_code')
+</cfquery>
+<cfif missingNomCode.recordcount gt 0>
+	missing nomenclatural code; cannot proceed.
+
+	<p>
+		To fix, edit and try this:
+	</p>
+	<pre>
+		insert into htax_noclassterm (
+			NC_TID,
+			TID,
+			TERM_TYPE,
+			TERM_VALUE
+		) (
+			select
+				someRandomSequence.nextval,
+				tid,
+				'nomenclatural_code',
+				'XXXXXXXX'
+			from
+				hierarchical_taxonomy
+			where
+				tid not in (select tid from htax_noclassterm where term_type='nomenclatural_code')
+
+	</pre>
+	<cfabort>
+</cfif>
+	select * from htax_noclassterm where tid=114132847;
+
+		tid not in (select tid from
+
+	htax_noclassterm.term_type from
+		htax_noclassterm,hierarchical_taxonomy
+		where hierarchical_taxonomy.status='ready_to_push_bl' and
+		htax_noclassterm.tid=hierarchical_taxonomy.tid and
+		htax_noclassterm.term_type not in
+		(#
+
+
+
 <cfdump var=#cntt#>
 
 

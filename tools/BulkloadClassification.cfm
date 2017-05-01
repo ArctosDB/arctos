@@ -58,14 +58,10 @@
 
 
 
+alter table cf_temp_classification add variety varchar2(255);
 
-infraphylorder is not in the table plz add
-subphylorder is not in the table plz add
-superphylorder is not in the table plz add
-hyperphylorder is not in the table plz add
-subhypphylorder is not in the table plz add
-hypphylorder is not in the table plz add
-variety is not in the table plz add 
+
+ is not in the table plz add 
 
 
 
