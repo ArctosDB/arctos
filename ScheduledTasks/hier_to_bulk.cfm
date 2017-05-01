@@ -122,7 +122,7 @@ get rid of admin stuff
 
 
 	<cfquery name="thisNoClass" datasource="uam_god">
-		select * from htax_noclassterm where tid=#variables.tid#
+		select * from htax_noclassterm where tid=#d.tid#
 	</cfquery>
 	<cfdump var=#thisNoClass#>
 
