@@ -87,7 +87,6 @@
 		<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct
 				TAXON_NAME_ID,
-				CLASSIFICATION_ID,
 				TERM,
 				TERM_TYPE,
 				POSITION_IN_CLASSIFICATION
@@ -178,6 +177,9 @@
 		</p>
 		<p>
 			Do NOT use this form to assert taxon relationships - use "edit non-classification data" for that.
+		</p>
+		<p>
+			Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
 		</p>
 		<p>
 			Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
