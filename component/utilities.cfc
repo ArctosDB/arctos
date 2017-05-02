@@ -28,7 +28,7 @@
 		<cfelseif v_kingdom is "Plantae">
 			<cfset formatstyle='plant'>
 		<cfelseif v_kingdom is "Animalia">
-			<cfset formatstyle='planimalant'>
+			<cfset formatstyle='animal'>
 		</cfif>
 		<cfset gdn=''>
 		<!--- start at the right, add stuff on until we have something ---->

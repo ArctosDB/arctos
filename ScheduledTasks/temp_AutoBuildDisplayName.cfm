@@ -11,6 +11,7 @@ create table temp_dnametest (
 	cid varchar2(255)
 );
 
+
 -- data
 -- only get stuff with display name
 -- for stuff that doesn't match, figure out why
@@ -57,14 +58,19 @@ select scientific_name from temp_dnametest having count(*) > 1 group by scientif
 
 update temp_dnametest set gdisplay_name=null where taxon_name_id in (select taxon_name_id from temp_these_were_homo);
 
+-- ugh
+
+update temp_dnametest set gdisplay_name=null where gdisplay_name like 'ERROR: The request has exceeded %';
+
+
+drop table temp_no_homo;
+
+create table temp_no_homo as select * from temp_dnametest where scientific_name in (select scientific_name from temp_these_were_homo) and
+gdisplay_name!=display_name;
 
 
 
-
-
-
-
-
+update temp_dnametest set gdisplay_name=null where scientific_name='Pecten maximus';
 
 
 
@@ -85,6 +91,7 @@ select count(*) from temp_dnametest where gdisplay_name=null;
 
 select taxon_name_id,count(*) from temp_dnametest having count(*) > 1 group by taxon_name_id;
 
+select scientific_name,gdisplay_name from temp_dnametest where scientific_name like 'Stelis%';
 
 create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1;
 
