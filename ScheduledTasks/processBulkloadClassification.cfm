@@ -792,6 +792,7 @@ run these in order
 					</cfif>
 					---->
 					<!---- new/hawt---->
+					<cfset thisClassificationID=CreateUUID()>
 					<cfquery name="delUnused" datasource="uam_god">
 						delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
 					</cfquery>
