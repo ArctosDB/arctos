@@ -104,11 +104,6 @@
 				POSITION_IN_CLASSIFICATION
 		</cfquery>
 
-		<cfdump var=#seedClassification#>
-
-		<cfabort>
-
-
 		<!----
 		<cfdump var=#seedClassification#>
 
