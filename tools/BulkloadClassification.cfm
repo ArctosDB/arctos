@@ -225,6 +225,9 @@ sho err;
 			 You should verify after
 			you've changed anything. This can be a slow (ca. 400 records/minute)
 				process; check status summary by reloading this page, and contact a DBA if nothing seems to be happening.
+				<p style='font-size:x-small;margin-left:2em;'>
+					/ScheduledTasks/processBulkloadClassification.cfm?action=doEverything
+				</p>
 		</p>
 		<p>
 			This form will NOT create names. This form REPLACES classifications; that is all.
