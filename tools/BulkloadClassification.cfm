@@ -215,8 +215,12 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			you've changed anything. This can be a slow (ca. 400 records/minute)
 				process; check status summary by reloading this page, and contact a DBA if nothing seems to be happening.
 		</p>
+		<p>
+			This form will NOT create names. This form REPLACES classifications; that is all.
+		</p>
 
-
+		<!----
+		weird bug-thing just confuses people
 		<li>
 			<a href="BulkloadClassification.cfm?action=setstatus&status=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>.
 			Use this to set status of ALL of your data to "fill_in_the_blanks_from_genus." This will cause Arctos to insert species
@@ -224,6 +228,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			data, and to fill in any gaps in the genus-only source record. Check stats below before clicking;
 			 this force-overwrites anything in STATUS.
 		</li>
+		---->
 
 
 

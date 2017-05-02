@@ -43,6 +43,7 @@ end;
 /
 
 
+
 select phylum,count(*) from temp_gdnerr group by phylum;
 
 temp_gdnerr
@@ -75,6 +76,7 @@ END;
 select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
 
 
+select * from temp_dnametest where scientific_name='Sittasomus atrogularis';
 
 <!----
 drop table temp_dnametest;
