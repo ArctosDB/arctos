@@ -815,13 +815,12 @@ run these in order
 					<cfset thisTermVal=evaluate("d." & thisTermType)>
 					<br>thisTermType: #thisTermType#
 					<br>thisTermVal: #thisTermVal#
-					<!----
+
 					<cfif len(thisTermVal) gt 0>
 						<cfif thisTermType is "subsp">
 						<cfset thisTermType= thisTermType & '.'>
 						<br>issubsp
 					</cfif>
-					---->
 
 					<cfif thisTermType is "phylorder">
 						<cfset thisTermType="order">
