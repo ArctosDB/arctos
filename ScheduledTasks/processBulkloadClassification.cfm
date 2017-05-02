@@ -471,19 +471,19 @@ run these in order
 			<cfif not listFind(validNomenCodeList,nomenclatural_code)>
 				<cfset thisProb=listappend(thisProb,"nomenclatural_code must be in (#validNomenCodeList#)",';')>
 			</cfif>
-			<cfif nomenclatural_code is 'ICZN' and (len(forma) gt 0 or len(subsp) gt 0)>
+			<cfif nomenclatural_code is 'ICZN' and (len(forma) gt 0 or len(variety) gt 0)>
 				<cfset thisProb=listappend(thisProb,"subspecies is the only acceptable ICZN infraspecific data",';')>
 			</cfif>
 			<cfif nomenclatural_code is not 'ICZN' and (len(subspecies) gt 0)>
 				<cfset thisProb=listappend(thisProb,"subspecies is ICZN-only",';')>
 			</cfif>
-			<cfif len(subspecies) gt 0 and (len(forma) gt 0 or len(subsp) gt 0)>
+			<cfif len(subspecies) gt 0 and (len(forma) gt 0 or len(variety) gt 0)>
 				<cfset thisProb=listappend(thisProb,"only one infraspecific term may be given",';')>
 			</cfif>
-			<cfif len(forma) gt 0 and (len(subspecies) gt 0 or len(subsp) gt 0)>
+			<cfif len(forma) gt 0 and (len(subspecies) gt 0 or len(variety) gt 0)>
 				<cfset thisProb=listappend(thisProb,"only one infraspecific term may be given",';')>
 			</cfif>
-			<cfif len(subsp) gt 0 and (len(subspecies) gt 0 or len(forma) gt 0)>
+			<cfif len(variety) gt 0 and (len(subspecies) gt 0 or len(forma) gt 0)>
 				<cfset thisProb=listappend(thisProb,"only one infraspecific term may be given",';')>
 			</cfif>
 			<cfif len(thisProb) is 0>
@@ -815,12 +815,13 @@ run these in order
 					<cfset thisTermVal=evaluate("d." & thisTermType)>
 					<br>thisTermType: #thisTermType#
 					<br>thisTermVal: #thisTermVal#
+					<!----
 					<cfif len(thisTermVal) gt 0>
 						<cfif thisTermType is "subsp">
 						<cfset thisTermType= thisTermType & '.'>
 						<br>issubsp
 					</cfif>
-
+					---->
 
 					<cfif thisTermType is "phylorder">
 						<cfset thisTermType="order">
