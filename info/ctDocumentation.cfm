@@ -248,7 +248,10 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 
 					</td>
 					<td>
-						<cfif is_Tissue eq 1>yes<cfelse>no</cfif>
+						<cfquery name="it" dbtype="query">
+							select distinct is_Tissue from ctspecimen_part_name where part_name='#part_name#'
+						</cfquery>
+						<cfif it.is_Tissue eq 1>yes<cfelse>no</cfif>
 					</td>
 					<td>
 						<cfquery name="ud" dbtype="query">
