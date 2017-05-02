@@ -51,8 +51,34 @@ from
 	select count(*) from temp_dnametest;
 	select count(*) from temp_dnametest where gdisplay_name is not null;
 
+create table temp_these_were_homo as select *  from temp_dnametest where scientific_name in (
+select scientific_name from temp_dnametest having count(*) > 1 group by scientific_name
+) ;
+
+update temp_dnametest set gdisplay_name=null where taxon_name_id in (select taxon_name_id from temp_these_were_homo);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 update temp_dnametest set gdisplay_name=null where gdisplay_name not like 'ERROR%' and gdisplay_name!=display_name;
+
+select * from temp_dnametest where SCIENTIFIC_NAME='Hahnia';
+
 
 select count(*) from temp_dnametest where gdisplay_name=null;
 
@@ -85,7 +111,7 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 		--->
 
 		<cfquery name="b" datasource="uam_god">
-			update temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id#
+			update temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id# and cid='#cid#'
 		</cfquery>
 
 	</cfloop>

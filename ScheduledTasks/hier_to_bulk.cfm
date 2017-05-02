@@ -3,6 +3,11 @@ drop table cf_temp_classification_fh;
 
 create table cf_temp_classification_fh as select * from cf_temp_classification where 1=2;
 
+
+run this then
+update cf_temp_classification_fh set username='DLM';
+
+insert into cf_temp_classification (select * from cf_temp_classification_fh);
  --->
 
 <!---- verification: don't run if we can't ---->
