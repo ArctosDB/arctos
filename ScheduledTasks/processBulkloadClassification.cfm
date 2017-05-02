@@ -314,7 +314,7 @@ run these in order
 <cfif action is "load">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from CF_TEMP_CLASSIFICATION where status='ready_to_load' and rownum<10
+			select * from CF_TEMP_CLASSIFICATION where status='ready_to_load' and rownum<1000
 		</cfquery>
 		<cfquery name="CTTAXON_TERM" datasource="uam_god">
 			select * from CTTAXON_TERM
