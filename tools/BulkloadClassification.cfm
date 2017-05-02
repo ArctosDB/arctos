@@ -182,9 +182,13 @@ sho err;
 			<!--- see /ScheduledTasks/processBulkloadClassification.cfm ---->
 		</p>
 		<p>
-			This form REPLACES classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
-			click any buttons unless you KNOW what they do.
+			This form REPLACES classifications; ALL classifications at the intersection of taxon_name.scientific_name and the source
+			from these data will be DELETED and replaced with these data.
 		<p>
+		<p>
+			Multiple classification warnings may be an indication of someone trying to create homonyms or similar. Check and preserve
+			the data elsewhere if possible.
+		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a> and view column descriptions
 		</p>
