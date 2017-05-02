@@ -93,7 +93,8 @@
 			from
 				taxon_term
 			where
-				classification_id='#classification_id#' and TERM_TYPE in (
+				classification_id='#classification_id#' and
+				taxon_name_id=#taxon_name_id# and TERM_TYPE in (
 					select taxon_term from CTTAXON_TERM
 						<cfif overrride_noCloneTerms is not "true">
 					 	 where taxon_term not in (#listqualify(noCloneTerms,"'")#)
