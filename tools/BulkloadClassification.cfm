@@ -52,15 +52,9 @@
 		subgenus varchar2(255) null,
 		species varchar2(255) null,
 		subspecies varchar2(255) null,
-		subsp varchar2(255) null,
-		forma varchar2(255) null
+		forma varchar2(255) null,
+		variety varchar2(4000)
 );
-
-
-alter table cf_temp_classification rename column hypoorder to hyporder;
-
-alter table cf_temp_classification modify status varchar2(4000);
-
 
 
 
@@ -72,6 +66,19 @@ grant all on cf_temp_classification to coldfusion_user;
 
 drop index iu_temp_class;
 create unique index iu_temp_class on cf_temp_classification(scientific_name) tablespace uam_idx_1;
+
+
+
+create or replace trigger trg_cf_temp_classification_key before insert on cf_temp_classification
+	FOR EACH ROW
+	begin
+		if :NEW.username is null then
+			select SYS_CONTEXT('USERENV', 'SESSION_USER') into :NEW.username from dual;
+		end if;
+	end;
+/
+sho err;
+
 
 ---->
 <cfinclude template="/includes/_header.cfm">
@@ -209,9 +216,13 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			 be valid records (e.g., those with display_name), you should verify them.
 			This will catch (most) problems which would prevent a record from loading, and many potential problems or inconsistencies
 			which you
-			may not wish to introduce into the data. If you plan to
+			may not wish to introduce into the data.
+			<!----
+			If you plan to
 			fill_in_the_blanks_from_genus (e.g., fetch species and subspecies level data to make consistent
-			through this tool), you should verify before and after that step. You should also verify after
+			through this tool), you should verify before and after that step.
+			---->
+			 You should verify after
 			you've changed anything. This can be a slow (ca. 400 records/minute)
 				process; check status summary by reloading this page, and contact a DBA if nothing seems to be happening.
 		</p>
