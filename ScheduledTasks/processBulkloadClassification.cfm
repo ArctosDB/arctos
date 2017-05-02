@@ -287,10 +287,13 @@ run these in order
 
 			<!--- exists? ---->
 			<cfquery name="p" datasource="uam_god">
-				select count(*) c from taxon_name where scientific_name='#scientific_name#'
+				select taxon_name_id from taxon_name where scientific_name='#scientific_name#'
 			</cfquery>
-			<cfif p.c is not 1>
+			<cfif len(p.taxon_name_id) lt 1>
+				<cfset thisTaxonNameID='NULL'>
 				<cfset thisProb=listappend(thisProb,'scientific_name does not exist',';')>
+			<cfelse>
+				<cfset thisTaxonNameID=p.taxon_name_id>
 			</cfif>
 			<!---
 				weird junk in terms
@@ -490,7 +493,10 @@ run these in order
 				<cfset thisProb='all_checks_passed'>
 			</cfif>
 			<cfquery name="ups" datasource="uam_god">
-				update CF_TEMP_CLASSIFICATION set status='#thisProb#' where scientific_name='#scientific_name#'
+				update CF_TEMP_CLASSIFICATION set
+					taxon_name_id=#thisTaxonNameID#,
+					status='#thisProb#'
+				where scientific_name='#scientific_name#'
 			</cfquery>
 		</cftransaction>
 	</cfloop>
