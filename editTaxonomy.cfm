@@ -171,21 +171,40 @@
 		select source from cttaxonomy_source order by source
 	</cfquery>
 	<cfoutput>
-		<p>
-		Use this form to create a clone of a classification as another (e.g., local and editable) Source.
-		</p>
-		<p>
-			Do NOT try to use this form to create names - use "create name" or "clone classification into new name" for that.
-		</p>
-		<p>
-			Do NOT use this form to assert taxon relationships - use "edit non-classification data" for that.
-		</p>
-		<p>
-			Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
-		</p>
-		<p>
-			Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
-		</p>
+		<div class="importantNotification" style="max-height:20em; overflow:auto;">
+			<b>READ THIS!</b>
+			<p>
+				Use this form to create a clone of a classification as another (e.g., local and editable) Source.
+			</p>
+			<p>
+				Do NOT try to use this form to create names - use "create name" or "clone classification into new name" for that.
+			</p>
+			<p>
+				Do NOT use this form to assert taxon relationships - use "edit non-classification data" for that.
+			</p>
+			<p>
+				Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
+			</p>
+			<p>
+				IMPORTANT: Only terms from <a target="_blank" href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a>
+				will be cloned. Anything not in the list below will be ignored.
+			</p>
+			<p>
+				"Create name with cleaned classification" will exclude #noCloneTerms#. "Create name with entire classification"
+				will include everything in CTTAXON_TERM; CAREFULLY check results.
+			</p>
+
+				<ul>
+					<cfloop query="CTTAXON_TERM">
+						<li>#taxon_term#</li>
+					</cfloop>
+				</ul>
+
+				This may include terms that you do not wish to clone, and it may exclude terms which you do wish to clone. Please
+				carefully check everything before saving.
+
+		</div>
+
 		<form name="x" id="x" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="action" value="cloneClassification_insert">
 			<input type="hidden" name="classification_id" value="#classification_id#">
