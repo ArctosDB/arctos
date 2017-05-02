@@ -779,6 +779,8 @@ run these in order
 				</cfquery>
 			<cfelse>
 				<cftransaction>
+
+					<!---- old/busted
 					<cfif classification_id is '[NEW]' or len(classification_id) is 0>
 						<cfset thisClassificationID=CreateUUID()>
 					<cfelse>
@@ -788,6 +790,11 @@ run these in order
 						</cfquery>
 						<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
 					</cfif>
+					---->
+					<!---- new/hawt---->
+					<cfquery name="delUnused" datasource="uam_god">
+						delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
+					</cfquery>
 
 
 					<cfloop list="#noclassterms#" index="thisTermType">
