@@ -242,8 +242,6 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 						<cfquery name="ubc" dbtype="query">
 							select distinct collection_cde from ctspecimen_part_name where part_name='#part_name#'
 						</cfquery>
-
-						</cfquery>
 						<cfloop query="ubc">
 							<div>#collection_cde#</div>
 						</cfloop>
