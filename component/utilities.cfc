@@ -28,7 +28,7 @@
 		<cfelseif v_kingdom is "Plantae">
 			<cfset formatstyle='plant'>
 		<cfelseif v_kingdom is "Animalia">
-			<cfset formatstyle='planimalant'>
+			<cfset formatstyle='animal'>
 		</cfif>
 		<cfset gdn=''>
 		<!--- start at the right, add stuff on until we have something ---->
@@ -119,9 +119,7 @@
 
 				<cfloop query="ct">
 					<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt genusrank.RELATIVE_POSITION and len(gdn) is 0>
-						using this...
 						<cfif len("v_#taxon_term#") gt 0>
-							<br>got this one
 							<cfset gdn=evaluate("v_" & taxon_term)>
 						</cfif>
 					</cfif>
