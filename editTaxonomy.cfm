@@ -170,6 +170,9 @@
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select source from cttaxonomy_source order by source
 	</cfquery>
+	<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select taxon_term from CTTAXON_TERM where taxon_term not in (#listqualify(noCloneTerms,"'")#) order by taxon_term
+	</cfquery>
 	<cfoutput>
 		<div class="importantNotification" style="max-height:20em; overflow:auto;">
 			<b>READ THIS!</b>
