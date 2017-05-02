@@ -44,9 +44,9 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 	</cfcatch>
 	</cftry>
 	<cfif docs.columnlist contains "collection_cde">
-			<cfquery name="ccde" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-				select collection_cde from ctcollection_cde order by collection_cde
-			</cfquery>
+		<cfquery name="ccde" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+			select collection_cde from ctcollection_cde order by collection_cde
+		</cfquery>
 		<form name="f" method="get" action="ctDocumentation.cfm">
 			<input type="hidden" name="table" value="#table#">
 			<label for="coln">Show only collection type</label>
@@ -222,6 +222,9 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctspecimen_part_name <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif> order by part_name,collection_cde,is_tissue
 		</cfquery>
+		<cfquery name="dpartName" dbtype="query">
+			select distinct(part_name) from ctspecimen_part_name order by part_name
+		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>Part_Name</th>
@@ -230,19 +233,32 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<th>Documentation</th>
 			</tr>
 			<cfset i=1>
-			<cfloop query="ctspecimen_part_name">
+			<cfloop query="dpartName">
 				<tr>
 					<td name="#Part_Name#">
 						#Part_Name#
 					</td>
 					<td>
-						#collection_cde#
+						<cfquery name="ubc" dbtype="query">
+							select distinct collection_cde from ctspecimen_part_name where part_name='#part_name#'
+						</cfquery>
+
+						</cfquery>
+						<cfloop query="ubc">
+							<div>#collection_cde#</div>
+						</cfloop>
+
 					</td>
 					<td>
 						<cfif is_Tissue eq 1>yes<cfelse>no</cfif>
 					</td>
 					<td>
-						#DESCRIPTION#
+						<cfquery name="ud" dbtype="query">
+							select distinct DESCRIPTION from ctspecimen_part_name where part_name='#part_name#'
+						</cfquery>
+						<cfloop query="ud">
+							<div>#DESCRIPTION#</div>
+						</cfloop>
 					</td>
 				</tr>
 			</cfloop>
