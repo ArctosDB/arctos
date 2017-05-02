@@ -31,7 +31,6 @@
 			<cfset formatstyle='animal'>
 		</cfif>
 		<cfset gdn=''>
-		<br>formatstyle: #formatstyle#
 		<!--- start at the right, add stuff on until we have something ---->
 		<cfif formatstyle is "plant">
 			<cfif len(v_species) gt 0>
