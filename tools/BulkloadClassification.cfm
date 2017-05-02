@@ -232,6 +232,19 @@ sho err;
 		<p>
 			This form will NOT create names. This form REPLACES classifications; that is all.
 		</p>
+		<p>
+			"WillBeLost classifications" errors are advisory indications of funky terms (those not in CTTAXON_TERM) in existing data.
+			Check that the data which will be lost is retained in a known term in your bulkload.
+		</p>
+		<p>
+
+			<a href="BulkloadClassification.cfm?action=markToLoad">Mark to load</a>: After verifying, click this to flag for loading.
+			Reload this page to check progress.
+
+			<p style='font-size:x-small;margin-left:2em;'>
+				/ScheduledTasks/processBulkloadClassification.cfm?action=load
+			</p>
+		</p>
 
 		<!----
 		weird bug-thing just confuses people
@@ -424,6 +437,21 @@ sho err;
 		</cfquery>
 		<p>
 			Records have been flagged for doEverything.
+
+			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
+			if you're comfortable in and have rights to ScheduledTasks
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm">continue</a>
+		</p>
+</cfif>
+<!----------------------------------------------------------------->
+<cfif action is "markToLoad">
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_CLASSIFICATION set status='ready_to_load' where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<p>
+			Records have been flagged to load.
 
 			 Check back later, or ScheduledTasks/processBulkloadClassification.cfm
 			if you're comfortable in and have rights to ScheduledTasks
