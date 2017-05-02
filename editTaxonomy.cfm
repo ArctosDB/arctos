@@ -192,19 +192,12 @@
 				IMPORTANT: Only terms from <a target="_blank" href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a>
 				will be cloned. Anything not in the list below will be ignored.
 			</p>
-			<p>
-				"Create name with cleaned classification" will exclude #noCloneTerms#. "Create name with entire classification"
-				will include everything in CTTAXON_TERM; CAREFULLY check results.
-			</p>
 
 				<ul>
 					<cfloop query="CTTAXON_TERM">
 						<li>#taxon_term#</li>
 					</cfloop>
 				</ul>
-
-				This may include terms that you do not wish to clone, and it may exclude terms which you do wish to clone. Please
-				carefully check everything before saving.
 
 		</div>
 
