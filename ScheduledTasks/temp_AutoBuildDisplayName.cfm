@@ -101,15 +101,17 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 			<cfset x='NORETURN'>
 		</cfif>
 
-	<!----
 		<br>scientific_name=#scientific_name#
 		<br>display_name=<pre>#display_name#</pre>
 		<br>x=<pre>#x#</pre>
 			<cfif x is not display_name>
 			<br>NOMATCH!!
 		</cfif>
-		--->
 
+<p>
+			update temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id# and cid='#cid#'
+
+</p>
 		<cfquery name="b" datasource="uam_god">
 			update temp_dnametest set gdisplay_name='#x#' where taxon_name_id=#taxon_name_id# and cid='#cid#'
 		</cfquery>
