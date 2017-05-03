@@ -78,6 +78,59 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAM
 
 select * from temp_dnametest where scientific_name='Sittasomus atrogularis';
 
+
+create table temp_nospacename as select distinct scientific_name,taxon_name.taxon_name_id from
+taxon_name,taxon_term where
+taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+source in ('Arctos','Arctos Plants') and
+scientific_name not like '% %';
+
+
+select count(*) from temp_nospacename;
+
+select count(*) from temp_hasauth_u,temp_nospacename where temp_hasauth_u.taxon_name_id=temp_nospacename.taxon_name_id;
+
+select scientific_name from temp_hasauth_u,temp_nospacename where temp_hasauth_u.taxon_name_id=temp_nospacename.taxon_name_id and rownum<1000;
+
+
+
+create table temp_spacename_u as select distinct scientific_name,taxon_name_id from temp_spacename;
+create table temp_hasauth_u as select distinct taxon_name_id from temp_hasauth;
+
+
+create table temp_hasauth as select taxon_name_id from taxon_term where term_type='author_text' and
+source in  ('Arctos','Arctos Plants');
+
+
+select count(*) from temp_spacename_u;
+select count(*) from temp_hasauth_u;
+select count(*) from temp_hasauth_u,temp_spacename_u where temp_hasauth_u.taxon_name_id=temp_spacename_u.taxon_name_id;
+
+  COUNT(*)
+----------
+    156751
+
+1 row selected.
+
+Elapsed: 00:00:00.03
+UAM@ARCTOS> select count(*) from temp_hasauth_u,temp_nospacename where temp_hasauth_u.taxon_name_id=temp_nospacename.taxon_name_id;
+
+  COUNT(*)
+----------
+     52019
+
+
+
+
+select 52019/156751 from dual;
+
+
+select scientific_name from temp_hasauth_u,temp_spacename_u where temp_hasauth_u.taxon_name_id=temp_spacename_u.taxon_name_id and rownum<1000;
+
+
+
+select count(*) from temp_hasauth;
+
 <!----
 drop table temp_dnametest;
 
