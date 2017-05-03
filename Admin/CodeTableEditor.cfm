@@ -1449,7 +1449,6 @@ Terms must be lower-case
 
 		<cfdump var=#form#>
 
-		<cfabort>
 
 
 		<cfloop list="#FIELDNAMES#" index="i">
@@ -1472,9 +1471,12 @@ Terms must be lower-case
 					</cfquery>
 				</cfif>
 			</cfif>
-			<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 		</cfloop>
 	</cftransaction>
+
+		<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
+
+		<cfabort>
 	</cfoutput>
 
 	</cfif>
