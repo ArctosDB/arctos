@@ -1453,9 +1453,6 @@ Terms must be lower-case
 				<cfset thisROWID=evaluate("rowid_" & rid)>
 				<cfset thisVAL=evaluate("term_" & thisROWID)>
 				<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
-
-				<cfdump var=#thisDEF#>
-				<cfabort>
 				<cfif len(thisVAL) is 0>
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						delete from cttaxon_term where cttaxon_term_id=#thisROWID#
