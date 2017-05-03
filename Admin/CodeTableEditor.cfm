@@ -727,7 +727,6 @@ CTSPEC_PART_ATT_ATT
 
 <!---------------------------------------------------------------------------->
 <cfif action is "editTaxTrm">
-
 <cfoutput>
 Terms must be lower-case
 		<hr>
@@ -1464,15 +1463,12 @@ Terms must be lower-case
 					</cfquery>
 				</cfif>
 			</cfif>
-			<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 		</cfloop>
 	</cftransaction>
+	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 	</cfoutput>
-
-	</cfif>
-	<cfif action is "saveEditsTaxonTermWithClass">
-
-
+</cfif>
+<cfif action is "saveEditsTaxonTermWithClass">
 	<cftransaction>
 		<cfoutput>
 		<cfquery name="moveasideplease" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1941,8 +1937,4 @@ Terms must be lower-case
 </cfif>
 <!-------------------------------------------------->
 <!------------------------------------------- END weird specimen parts code block ------------------>
-
-
-
-
 <cfinclude template="/includes/_footer.cfm">
