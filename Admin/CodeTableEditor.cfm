@@ -1468,9 +1468,7 @@ Terms must be lower-case
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 	</cfoutput>
 </cfif>
-	<cfif action is "saveEditsTaxonTermWithClass">
-
-
+<cfif action is "saveEditsTaxonTermWithClass">
 	<cftransaction>
 		<cfoutput>
 		<cfquery name="moveasideplease" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
