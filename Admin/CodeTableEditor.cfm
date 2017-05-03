@@ -1446,11 +1446,6 @@ Terms must be lower-case
 <cfif action is "saveEditsTaxonTermNoClass">
 <cfoutput>
 	<cftransaction>
-
-		<cfdump var=#form#>
-
-
-
 		<cfloop list="#FIELDNAMES#" index="i">
 			<cfif left(i,6) is "rowid_">
 				<!--- because CF UPPERs FIELDNAMES ---->
@@ -1473,13 +1468,9 @@ Terms must be lower-case
 			</cfif>
 		</cfloop>
 	</cftransaction>
-
-		<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
-
-		<cfabort>
+	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 	</cfoutput>
-
-	</cfif>
+</cfif>
 	<cfif action is "saveEditsTaxonTermWithClass">
 
 
