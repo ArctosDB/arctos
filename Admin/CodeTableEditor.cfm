@@ -1446,6 +1446,12 @@ Terms must be lower-case
 <cfif action is "saveEditsTaxonTermNoClass">
 <cfoutput>
 	<cftransaction>
+
+		<cfdump var=#form#>
+
+		<cfabort>
+
+
 		<cfloop list="#FIELDNAMES#" index="i">
 			<cfif left(i,6) is "rowid_">
 				<!--- because CF UPPERs FIELDNAMES ---->
