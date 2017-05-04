@@ -232,7 +232,10 @@
 				taxon_term
 			where
 				taxon_name_id=#taxon_name_id# and
-				classification_id='#classification_id#'
+				classification_id='#classification_id#' and
+				TERM_TYPE in (
+					select taxon_term from CTTAXON_TERM
+				)
 			group by
 				TAXON_NAME_ID,
 				CLASSIFICATION_ID,
