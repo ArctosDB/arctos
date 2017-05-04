@@ -2201,7 +2201,7 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "csv">
 	<cf_findLocality type="locality">
-	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=localityResults,Fields=localityResults.columnlist)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/LocalityResults.csv"
@@ -2229,14 +2229,14 @@ You deleted a collecting event.
 
 	<form name="csv" method="post" action="Locality.cfm">
 		<input type="hidden" name="action" value="csv">
-		<input type="hidden" name="table_name" value="#table_name#">
-		<!--- no need, just tablename ---
+		<cfif isdefined("table_name") and len(table_name) gt 0>
+			<input type="hidden" name="table_name" value="#table_name#">
+		</cfif>
 		<cfloop list="#StructKeyList(form)#" index="key">
 			<cfif len(form[key]) gt 0 and key is not "action">
 				<input type="hidden" name="#key#" value ="#form[key]#">
 			</cfif>
 		</cfloop>
-		---->
 		<input type="submit" value="getCSV">
 	</form>
 	<cf_findLocality type="locality">
