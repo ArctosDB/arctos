@@ -21,12 +21,12 @@
 			<p>
 				Editing part name <strong>#part_name#</strong>
 			</p>
-			<input type="hidden" name="part_name" id="part_name" value="#p.part_name#" size="50">
+			<input type="hidden" name="part_name" id="part_name" value="#p.part_name#" size="50" class="reqdClr" required="required">
 			<cfset ctccde=valuelist(ctcollcde.collection_cde)>
 			<cfloop query="d">
 				<cfset ctccde=listdeleteat(ctccde,listfind(ctccde,'#collection_cde#'))>
 				<label for="collection_cde_#CTSPNID#">Available for Collection Type</label>
-				<select name="collection_cde_#CTSPNID#" id="collection_cde_#CTSPNID#" size="1">
+				<select name="collection_cde_#CTSPNID#" id="collection_cde_#CTSPNID#" size="1" class="reqdClr" required="required">
 					<option value="">Remove from this collection type</option>
 					<option selected="selected" value="#d.collection_cde#">#d.collection_cde#</option>
 				</select>
@@ -39,12 +39,12 @@
 				</cfloop>
 			</select>
 			<label for="is_tissue">Tissue?</label>
-			<select name="is_tissue">
+			<select name="is_tissue" class="reqdClr" required="required">
 				<option <cfif t.is_tissue is 0>selected="selected" </cfif>value="0">no</option>
 				<option <cfif t.is_tissue is 1>selected="selected" </cfif>value="1">yes</option>
 			</select>
 			<label for="description">Description</label>
-			<textarea name="description" id="description" rows="4" cols="40">#dec.description#</textarea>
+			<textarea name="description" id="description" rows="4" cols="40" class="reqdClr" required="required">#dec.description#</textarea>
 			<br>
 			<input type="submit" value="Save Changes" class="savBtn">
 			<p>
