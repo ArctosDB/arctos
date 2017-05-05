@@ -15,15 +15,15 @@
 		<label for="collection_cde">Collection Code</label>
 		<select name="collection_cde" id="collection_cde" size="1">
 			<cfloop query="ctcollcde">
-				<option 
+				<option
 					<cfif d.collection_cde is ctcollcde.collection_cde> selected="selected" </cfif>
 					value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
 			</cfloop>
 		</select>
 		<label for="part_name">Part Name</label>
-		<input type="text" name="part_name" id="part_name" value="#d.part_name#" size="50">
+		<input type="text" name="part_name" id="part_name" value="#d.part_name#" size="50" class="reqdClr" required="required">
 		<label for="is_tissue">Tissue?</label>
-		<select name="is_tissue">
+		<select name="is_tissue" class="reqdClr" required="required">
 			<option <cfif d.is_tissue is 0>selected="selected" </cfif>value="0">no</option>
 			<option <cfif d.is_tissue is 1>selected="selected" </cfif>value="1">yes</option>
 		</select>
@@ -35,7 +35,7 @@
 			<option value="1">Yes, update all default is_tissue flags</option>
 		</select>
 		<br>
-		<label for="description">Description</label>
+		<label for="description" class="reqdClr" required="required">Description</label>
 		<textarea name="description" id="description" rows="4" cols="40">#d.description#</textarea>
 		<label for="upAllDesc">Update description for all parts, regardless of collection, to this value?</label>
 		<select name="upAllDesc">
@@ -43,8 +43,8 @@
 			<option value="1">Yes, update all part descriptions</option>
 		</select>
 		<br>
-		<input type="submit" value="Save" class="savBtn">	
-		<input type="button" value="Quit" class="qutBtn" onclick="parent.doneSaving();">	
+		<input type="submit" value="Save" class="savBtn">
+		<input type="button" value="Quit" class="qutBtn" onclick="parent.doneSaving();">
 	</form>
 </cfoutput>
 </cfif>
@@ -66,7 +66,7 @@
 				update ctspecimen_part_name set
 				description='#description#'
 				where
-				part_name='#part_name#'			
+				part_name='#part_name#'
 			</cfquery>
 		</cfif>
 		<cfif upAllTiss is 1>
@@ -74,7 +74,7 @@
 				update ctspecimen_part_name set
 				is_tissue=#is_tissue#
 				where
-				part_name='#part_name#'			
+				part_name='#part_name#'
 			</cfquery>
 		</cfif>
 		<script>
@@ -83,6 +83,6 @@
 		</script>
 	</cftransaction>
 	<cfcatch><cfdump var=#cfcatch#></cfcatch>
-	</cftry>			
+	</cftry>
 </cfoutput>
 </cfif>

@@ -1797,23 +1797,23 @@ Terms must be lower-case
 				<input type="hidden" name="action" value="insertSpecimenPart">
 				<tr>
 					<td>
-						<select name="collection_cde" size="1">
+						<select name="collection_cde" size="1" class="reqdClr" required="required">
 							<cfloop query="ctcollcde">
 								<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
 							</cfloop>
 						</select>
 					</td>
 					<td>
-						<input type="text" name="part_name">
+						<input type="text" name="part_name" class="reqdClr" required="required">
 					</td>
 					<td>
-						<select name="is_tissue">
+						<select name="is_tissue" class="reqdClr" required="required">
 							<option value="0">no</option>
 							<option value="1">yes</option>
 						</select>
 					</td>
 					<td>
-						<textarea name="description" id="description" rows="4" cols="40"></textarea>
+						<textarea name="description" id="description" rows="4" cols="40" class="reqdClr" required="required"></textarea>
 					</td>
 					<td>
 						<input type="submit" value="Insert" class="insBtn">
