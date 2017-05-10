@@ -5,6 +5,30 @@
 deal with UWBM mammal data from vertnet
 maybe make this something else if if works
 
+
+
+
+reset button:
+
+
+
+update temp_uwbm_allagent2 set
+	rawagnt1=null,
+	rawagnt2=null,
+	rawagnt3=null,
+	rawagnt4=null,
+	rawagnt5=null,
+	agent1=null,
+	agent2=null,
+	agent3=null,
+	agent4=null,
+	agent5=null,
+	number1=null,
+	number2=null,
+	number3=null,
+	number4=null,
+	number5=null
+ ;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title='vertnet hates me'>
@@ -46,7 +70,7 @@ maybe make this something else if if works
 
 
 		<cfquery name="d" datasource="prod">
-			select distinct #f# rawstring from temp_uwbm_agentmess where #f# is not null and
+			select distinct #f# rawstring from temp_uwbm_allagent2 where #f# is not null and
 			#an# is null
 		</cfquery>
 		<cfloop query="d">
@@ -59,7 +83,7 @@ maybe make this something else if if works
 			<br>x.a=#x.a#
 
 			<cfquery name="u" datasource="prod">
-				update temp_uwbm_agentmess set #an#='#x.a#',#nn#='#x.n#' where #f#='#rawstring#'
+				update temp_uwbm_allagent2 set #an#='#x.a#',#nn#='#x.n#' where #f#='#rawstring#'
 			</cfquery>
 
 		</cfloop>
@@ -71,18 +95,16 @@ maybe make this something else if if works
 
 
 	<cfquery name="d" datasource="prod">
-		select * from temp_uwbm_agentmess where rawagnt1 is null
+		select * from temp_uwbm_allagent2 where rawagnt1 is null
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
 			<cfset i=1>
 			<br>#agent#
 				<cfloop list="#agent#" index="a" delimiters=",;">
-					<!----
 					<cfquery name="u" datasource="prod">
-						update temp_uwbm_agentmess set rawagnt#i#='#a#' where agent='#d.agent#'
+						update temp_uwbm_allagent2 set rawagnt#i#='#a#' where agent='#d.agent#'
 					</cfquery>
-					---->
 
 					<br>-----#a#
 					<cfset i=i+1>
