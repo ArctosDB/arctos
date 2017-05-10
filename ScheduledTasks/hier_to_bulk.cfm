@@ -5,7 +5,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <!--- queue ---->
 
 <cfquery name="q" datasource="uam_god">
-	select * from htax_export where status='mark_to_export'
+	select * from htax_export where status='ready_to_push_bl'
 </cfquery>
 <cfif q.recordcount is 0>
 	nothing to do<cfabort>
