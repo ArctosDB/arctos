@@ -86,15 +86,19 @@ get rid of admin stuff
 				<cfbreak>
 			</cfif>
 		</cfloop>
-	<cfquery name="thisNoClass" datasource="uam_god">
-		select * from htax_noclassterm where tid=#variables.tid#
-	</cfquery>
+		<cfquery name="thisNoClass" datasource="uam_god">
+			select * from htax_noclassterm where tid=#variables.tid#
+		</cfquery>
+
 	<cfdump var=#thisNoClass#>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
 				#i#,
+			</cfloop>
+			<cfloop query="thisNoClass">
+				#TERM_TYPE#,
 			</cfloop>
 			STATUS,
 			username,
@@ -104,6 +108,9 @@ get rid of admin stuff
 		) values (
 			<cfloop list="#tterms#" index="i">
 				'#evaluate("variables." & i)#',
+			</cfloop>
+			<cfloop query="thisNoClass">
+				'#TERM_VALUE#',
 			</cfloop>
 			'autoinsert_from_hierarchy',
 			'#q.username#',
