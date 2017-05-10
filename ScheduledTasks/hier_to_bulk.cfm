@@ -106,8 +106,7 @@ get rid of admin stuff
 			STATUS,
 			username,
 			SOURCE,
-			SCIENTIFIC_NAME,
-			NOMENCLATURAL_CODE
+			SCIENTIFIC_NAME
 		) values (
 			<cfloop list="#tterms#" index="i">
 				'#evaluate("variables." & i)#',
@@ -118,8 +117,7 @@ get rid of admin stuff
 			'autoinsert_from_hierarchy',
 			'#q.username#',
 			'#dataset.source#',
-			'#d.term#',
-			'need NOMENCLATURAL_CODE'
+			'#d.term#'
 		)
 		</cfquery>
 	<cfquery name="goit" datasource="uam_god">
