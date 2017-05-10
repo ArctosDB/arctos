@@ -69,7 +69,7 @@ update temp_uwbm_allagent2 set
 		<cfset nn="number#num#">
 
 
-		<cfquery name="d" datasource="prod">
+		<cfquery name="d" datasource="uam_god">
 			select distinct #f# rawstring from temp_uwbm_allagent2 where #f# is not null and
 			#an# is null
 		</cfquery>
@@ -82,7 +82,7 @@ update temp_uwbm_allagent2 set
 			<br>x.n=#x.n#
 			<br>x.a=#x.a#
 
-			<cfquery name="u" datasource="prod">
+			<cfquery name="u" datasource="uam_god">
 				update temp_uwbm_allagent2 set #an#='#x.a#',#nn#='#x.n#' where #f#='#rawstring#'
 			</cfquery>
 
@@ -94,7 +94,7 @@ update temp_uwbm_allagent2 set
 
 
 
-	<cfquery name="d" datasource="prod">
+	<cfquery name="d" datasource="uam_god">
 		select * from temp_uwbm_allagent2 where rawagnt1 is null
 	</cfquery>
 	<cfoutput>
