@@ -101,7 +101,7 @@ update temp_uwbm_allagent2 set
 		<cfloop query="d">
 			<cfset i=1>
 			<br>#ORIGAGENT#
-				<cfloop list="#agent#" index="a" delimiters=",;">
+				<cfloop list="#ORIGAGENT#" index="a" delimiters=",;">
 					<cfquery name="u" datasource="prod">
 						update temp_uwbm_allagent2 set rawagnt#i#='#a#' where ORIGAGENT='#d.ORIGAGENT#'
 					</cfquery>
