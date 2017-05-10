@@ -2,11 +2,30 @@
 create table cf_temp_classification_fh as select * from cf_temp_classification where 1=2;
 
  --->
+<!--- queue ---->
+
+<cfquery name="q" datasource="uam_god">
+	select * from htax_export where status='ready_to_push_bl'
+</cfquery>
+<cfif q.recordcount is 0>
+	nothing to do<cfabort>
+</cfif>
 
 <!---- data ---->
 <cfquery name="d" datasource="uam_god">
-	select * from hierarchical_taxonomy where status='ready_to_push_bl' and rownum < 500
+	select * from hierarchical_taxonomy where status='#q.export_id#' and rownum < 500
 </cfquery>
+<cfif d.recordcount is 0>
+	<!--- it's all been processed, flag for next step ---->
+	<cfquery name="ud" datasource="uam_god">
+		update htax_export set status='export_done' where export_id='#q.export_id#'
+	</cfquery>
+</cfif>
+
+<cfquery name="dataset" datasource="uam_god">
+	select source from htax_dataset where dataset_id=#q.dataset_id#
+</cfquery>
+
 <!---- column names in order ---->
 <cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
@@ -67,68 +86,19 @@ get rid of admin stuff
 				<cfbreak>
 			</cfif>
 		</cfloop>
-		<!----
+		<cfquery name="thisNoClass" datasource="uam_god">
+			select * from htax_noclassterm where tid=#variables.tid#
+		</cfquery>
 
-		UAM@ARCTEST> desc ;
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- STATUS 								    VARCHAR2(255)
- CLASSIFICATION_ID							    VARCHAR2(4000)
- USERNAME							   NOT NULL VARCHAR2(255)
- SOURCE 							   NOT NULL VARCHAR2(255)
- TAXON_NAME_ID								    NUMBER
- SCIENTIFIC_NAME						   NOT NULL VARCHAR2(255)
- AUTHOR_TEXT								    VARCHAR2(255)
- INFRASPECIFIC_AUTHOR							    VARCHAR2(255)
- NOMENCLATURAL_CODE						   NOT NULL VARCHAR2(255)
- SOURCE_AUTHORITY							    VARCHAR2(4000)
- VALID_CATALOG_TERM_FG							    VARCHAR2(255)
- TAXON_STATUS								    VARCHAR2(255)
- REMARK 								    VARCHAR2(255)
- DISPLAY_NAME								    VARCHAR2(255)
- SUPERKINGDOM								    VARCHAR2(255)
- KINGDOM								    VARCHAR2(255)
- SUBKINGDOM								    VARCHAR2(255)
- INFRAKINGDOM								    VARCHAR2(255)
- SUPERPHYLUM								    VARCHAR2(255)
- PHYLUM 								    VARCHAR2(255)
- SUBPHYLUM								    VARCHAR2(255)
- SUBDIVISION								    VARCHAR2(255)
- INFRAPHYLUM								    VARCHAR2(255)
- SUPERCLASS								    VARCHAR2(255)
- CLASS									    VARCHAR2(255)
- SUBCLASS								    VARCHAR2(255)
- INFRACLASS								    VARCHAR2(255)
- HYPERORDER								    VARCHAR2(255)
- SUPERORDER								    VARCHAR2(255)
- PHYLORDER								    VARCHAR2(255)
- SUBORDER								    VARCHAR2(255)
- INFRAORDER								    VARCHAR2(255)
- HYPORDER								    VARCHAR2(255)
- SUPERFAMILY								    VARCHAR2(255)
- FAMILY 								    VARCHAR2(255)
- SUBFAMILY								    VARCHAR2(255)
- SUPERTRIBE								    VARCHAR2(255)
- TRIBE									    VARCHAR2(255)
- SUBTRIBE								    VARCHAR2(255)
- GENUS									    VARCHAR2(255)
- SUBGENUS								    VARCHAR2(255)
- SPECIES								    VARCHAR2(255)
- SUBSPECIES								    VARCHAR2(255)
- SUBSP									    VARCHAR2(255)
- FORMA									    VARCHAR2(255)
----->
-<p>
-
-	<cfquery name="thisNoClass" datasource="uam_god">
-		select * from htax_noclassterm where tid=#variables.tid#
-	</cfquery>
 	<cfdump var=#thisNoClass#>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
 				#i#,
+			</cfloop>
+			<cfloop query="thisNoClass">
+				#TERM_TYPE#,
 			</cfloop>
 			STATUS,
 			username,
@@ -139,9 +109,12 @@ get rid of admin stuff
 			<cfloop list="#tterms#" index="i">
 				'#evaluate("variables." & i)#',
 			</cfloop>
+			<cfloop query="thisNoClass">
+				'#TERM_VALUE#',
+			</cfloop>
 			'autoinsert_from_hierarchy',
-			'need user',
-			'need source',
+			'#q.username#',
+			'#dataset.source#',
 			'#d.term#',
 			'need NOMENCLATURAL_CODE'
 		)
