@@ -136,6 +136,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			<p>
 				failed at #term#=#rank# with #cfcatch.message#: #cfcatch.detail#
 			</p>
+			<p>
+				#cfcatch.sql#
+			</p>
 		</cfcatch>
 		</cftry>
 		<cfflush>
