@@ -57,6 +57,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'NOMENCLATURAL_CODE'))>
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SOURCE_AUTHORITY'))>
 
 
 
