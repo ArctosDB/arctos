@@ -154,7 +154,7 @@
 			},
 			function (r) {
 				if (r=='success'){
-					parent.setStatus('Export seeded. Manage this dataset to check status.','done');
+					parent.setStatus('Export seeded.','done');
 					alert('Export seeded. Manage this dataset to check status.');
 				} else {
 					parent.setStatus(r,'err');
