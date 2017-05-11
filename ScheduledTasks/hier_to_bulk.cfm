@@ -25,7 +25,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfloop query="rtn">
 
 
-		<cfmail to="#email#" subject="taxonomy export" cc="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="class_export@#Application.fromEmail#" type="html">
+		<cfmail to="#email#" subject="taxonomy export" cc="arctos.database@gmail.com" from="class_export@#Application.fromEmail#" type="html">
 			Dear #username#,
 
 			<p>
