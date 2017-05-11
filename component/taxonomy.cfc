@@ -9,7 +9,7 @@
 
 
 		<cfoutput>
-			<cftry>
+
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				insert into htax_export (
 					dataset_id,
@@ -31,10 +31,14 @@
 				)
 			</cfquery>
 			<cfreturn 'success'>
+
+			<!----
+			<cftry>
 			<cfcatch>
 				<cfreturn 'ERROR: ' & cfcatch.message>
 			</cfcatch>
 			</cftry>
+			---->
 		</cfoutput>
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
