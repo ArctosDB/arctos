@@ -114,9 +114,10 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			<cfquery name="tnctv" dbtype="query">
 				select * from thisNoClass where term_type='#taxon_term#'
 			</cfquery>
+			<cfset thisMergedVal=valuelist(tnctv.TERM_VALUE,";")>
 			<cfset queryaddrow(dNoClassTerm,
-				{TERM_TYPE=taxon_term),
-				TERM_VALUE=valuelist(tnctv.TERM_VALUE,";")}
+				{TERM_TYPE=taxon_term,
+				TERM_VALUE=thisMergedVal}
 			)>
 		</cfloop>
 
