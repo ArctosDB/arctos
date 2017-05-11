@@ -32,7 +32,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 				Your export of #SEED_TERM# and children is available at #EXPORT_ID#....
 			</p>
 		</cfmail>
-
+#email#
 		Dear #username#,
 
 			<p>
