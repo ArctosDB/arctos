@@ -143,6 +143,9 @@
 			}
 		);
 	}
+	function exportSeed(){
+		alert('ello guvnuh!');
+	}
 	function findSaveNewParent(){
 		parent.setStatus('working','working');
 		var theID=$("#tid").val();
@@ -174,8 +177,9 @@
 	<input type="hidden" id="term" name="term" value="#d.term#">
 	<table width="100%">
 		<tr>
-			<td width="50%"><input type="button" onclick="saveAllEdits()" class="savBtn" value="Save Rank/Term Metadata Edits"></td>
-			<td width="50%" align="right"><input type="button" onclick="deleteThis()" class="delBtn" value="Delete this record"></td>
+			<td width="33%"><input type="button" onclick="saveAllEdits()" class="savBtn" value="Save Rank/Term Metadata Edits"></td>
+			<td width="33%" align="center"><input type="button" onclick="exportSeed()" class="insBtn" value="Seed Export"></td>
+			<td width="33%" align="right"><input type="button" onclick="deleteThis()" class="delBtn" value="Delete this record"></td>
 		</tr>
 	</table>
 	<table border>
