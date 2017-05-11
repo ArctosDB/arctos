@@ -107,16 +107,29 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		<cfquery name="thisNoClass" datasource="uam_god">
 			select * from htax_noclassterm where tid=#d.tid#
 		</cfquery>
-			<cfloop query="thisNoClass">
+
+		<cfset dNoClassTerm=queryNew("TERM_TYPE,TERM_VALUE")>
+		<!---- need to merge ---->
+		<cfloop query="nct">
+			<cfquery name="tnctv" dbtype="query">
+				select * from thisNoClass where term_type='#taxon_term#'
+			</cfquery>
+			<cfset queryaddrow(dNoClassTerm,
+				{TERM_TYPE=taxon_term),
+				TERM_VALUE=valuelist(tnctv.TERM_VALUE,";")}
+			)>
+		</cfloop>
+
+		<cfloop query="dNoClassTerm">
 			<BR>'#TERM_TYPE#=====#TERM_VALUE#',
-			</cfloop>
+		</cfloop>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
 				#i#,
 			</cfloop>
-			<cfloop query="thisNoClass">
+			<cfloop query="dNoClassTerm">
 				#TERM_TYPE#,
 			</cfloop>
 			STATUS,
@@ -127,7 +140,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			<cfloop list="#tterms#" index="i">
 				'#evaluate("variables." & i)#',
 			</cfloop>
-			<cfloop query="thisNoClass">
+			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
 			</cfloop>
 			'autoinsert_from_hierarchy',
