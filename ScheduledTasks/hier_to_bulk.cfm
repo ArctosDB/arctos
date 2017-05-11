@@ -20,7 +20,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			status='export_done'
 	</cfquery>
 
-	<cfdump var=#rtn#>
 	<cfloop query="rtn">
 
 
@@ -52,7 +51,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		select * from htax_export where status='ready_to_push_bl'
 	</cfquery>
 
-	<cfdump var=#q#>
 	<cfif q.recordcount is 0>
 		nothing to do<cfabort>
 	</cfif>
@@ -160,7 +158,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 				select distinct(TERM_VALUE) from thisNoClass where term_type='#taxon_term#'
 			</cfquery>
 			<br>tnctv
-			<cfdump var=#tnctv#>
 			<cfset thisMergedVal=valuelist(tnctv.TERM_VALUE,";")>
 			<cfset queryaddrow(dNoClassTerm,
 				{TERM_TYPE="#nct.taxon_term#",
