@@ -19,7 +19,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfquery name="d" datasource="uam_god">
 		select * from hierarchical_taxonomy where status='#q.export_id#' and rownum < 500
 	</cfquery>
-	<cfdump var=#d#>
 	got #d.recordcount# records
 	<cfif d.recordcount is 0>
 		<!--- it's all been processed, flag for next step ---->
@@ -96,7 +95,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			</cfif>
 		</cfloop>
 		<cfquery name="thisNoClass" datasource="uam_god">
-			select * from htax_noclassterm where tid=#variables.tid#
+			select * from htax_noclassterm where tid=#d.tid#
 		</cfquery>
 
 	<cfdump var=#thisNoClass#>
