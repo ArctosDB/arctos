@@ -786,8 +786,6 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			<br>USERNAME=#exp.USERNAME#
 			<br>STATUS=#exp.STATUS#
 		</p>
-						    VARCHAR2(255)
-
 
 		<p>
 			If there are any errors, you should fix them in the hierarchy, delete this export, and re-export.
