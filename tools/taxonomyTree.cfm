@@ -840,7 +840,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			select * from cf_temp_classification_fh where export_id='#EXPORT_ID#'
 		</cfquery>
 		<cfquery name="cols" datasource="uam_god">
-			select COLUMN_NAME from user_tab_cols where table_name = '#ucase(cf_temp_classification_fh)#' order by INTERNAL_COLUMN_ID
+			select COLUMN_NAME from user_tab_cols where table_name = 'CF_TEMP_CLASSIFICATION_FH' order by INTERNAL_COLUMN_ID
 		</cfquery>
 		<cfset cols=valuelist(cols.column_name)>
 		<cfset  util = CreateObject("component","component.utilities")>
