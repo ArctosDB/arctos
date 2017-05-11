@@ -805,14 +805,14 @@
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sysobjects,svn,sap,ssh">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects">
-			<cfset x=x & ",trackback,TABLE_NAME,texteditor">
+			<cfset x=x & ",trackback,texteditor">
 			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp">
 			<cfset x=x & ",zboard">
 
 			<!--- just remember to not add these...---->
-			<cfset hasCausedProbsNoCheck="case,register">
+			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
 				<cfif listfindnocase(x,i)>
 					<cfset x=listdeleteat(x,listfindnocase(x,i))>
