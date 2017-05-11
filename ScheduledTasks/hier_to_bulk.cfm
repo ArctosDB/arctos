@@ -238,7 +238,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 						</cfif>
 					)
 				</cfquery>
-
+				<cfquery name="goit" datasource="uam_god">
+					update hierarchical_taxonomy set status='pushed_to_bl_FAIL' where tid=#d.tid#
+				</cfquery>
 
 
 
