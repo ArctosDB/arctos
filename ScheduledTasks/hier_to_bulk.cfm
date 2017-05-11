@@ -130,7 +130,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 </p>
 	</p>
 
-	<cfflush>
 
 	<cfcatch>
 		<p>
@@ -139,5 +138,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	</cfcatch>
 
 	</cftry>
+
+	<cfflush>
 	</cfloop>
 </cfoutput>
