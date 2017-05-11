@@ -731,7 +731,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			select * from htax_export where dataset_id=(select dataset_id from htax_dataset where dataset_name='#dataset_name#')
 		</cfquery>
 		<p>
-			Pending Exports
+			Pending Exports. Anything with status NOT "email_sent" is still working.
 			<table border>
 				<tr>
 					<th>ExportID</th>
@@ -741,7 +741,9 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				</tr>
 				<cfloop query="exp">
 					<tr>
-						<td>#EXPORT_ID#</td>
+						<td>
+							<a href="taxonomyTree.cfm?action=manageExports&EXPORT_ID=#EXPORT_ID#">#EXPORT_ID#</a>
+						</td>
 						<td>#SEED_TERM#</td>
 						<td>#USERNAME#</td>
 						<td>#STATUS#</td>
@@ -767,6 +769,44 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			</p>
 		</p>
 		---->
+	</cfoutput>
+</cfif>
+
+
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "manageExports">
+	<cfoutput>
+		<cfquery name="exp" datasource="uam_god">
+			select * from htax_export where EXPORT_ID='#EXPORT_ID#'
+		</cfquery>
+		<cfdump var=#exp#>
+
+		<hr>
+
+		Errors:
+
+		<cfquery name="expe" datasource="uam_god">
+			select * from htax_export_errors EXPORT_ID='#EXPORT_ID#'
+		</cfquery>
+		<table border>
+			<tr>
+				<th>term</th>
+				<th>message</th>
+				<th>detail</th>
+				<th>sql</th>
+			</tr>
+			<cfloop query="expe">
+				<tr>
+					<td>
+						#term# (#term_type#)
+					</td>
+					<td>#message#</td>
+					<td>#detail#</td>
+					<td>#sql#</td>
+				</tr>
+
+			</cfloop>
+		</table>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
