@@ -19,6 +19,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			agent_name_type='login' and
 			status='export_done'
 	</cfquery>
+
+	<cfdump var=#rtn#>
 	<cfloop query="rtn">
 
 <p></p>
