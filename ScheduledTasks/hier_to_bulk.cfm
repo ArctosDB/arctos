@@ -105,14 +105,14 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			</cfif>
 		</cfloop>
 		<cfquery name="thisNoClass" datasource="uam_god">
-			select * from htax_noclassterm where tid=#d.tid#
+			select TERM_TYPE,TERM_VALUE from htax_noclassterm where tid=#d.tid#
 		</cfquery>
 
 		<cfset dNoClassTerm=queryNew("TERM_TYPE,TERM_VALUE")>
 		<!---- need to merge ---->
 		<cfloop query="nct">
 			<cfquery name="tnctv" dbtype="query">
-				select * from thisNoClass where term_type='#taxon_term#'
+				select distinct(TERM_VALUE) from thisNoClass where term_type='#taxon_term#'
 			</cfquery>
 			<cfset thisMergedVal=valuelist(tnctv.TERM_VALUE,";")>
 			<cfset queryaddrow(dNoClassTerm,
