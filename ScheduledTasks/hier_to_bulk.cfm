@@ -29,7 +29,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			Dear #username#,
 
 			<p>
-				Your export of #SEED_TERM# and children is available at #EXPORT_ID#....
+				Your export of #SEED_TERM# and children is available at
+				#application.serverRootURL#//tools/taxonomyTree.cfm?action=manageExports&EXPORT_ID=#EXPORT_ID#
 			</p>
 		</cfmail>
 #email#
