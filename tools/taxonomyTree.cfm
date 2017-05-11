@@ -728,7 +728,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		</p>
 
 		<cfquery name="exp" datasource="uam_god">
-			select * from htax_export where dataset_id=(select dataset_id from htax_dataset where dataset_name=#dataset_name#)
+			select * from htax_export where dataset_id=(select dataset_id from htax_dataset where dataset_name='#dataset_name#')
 		</cfquery>
 		<p>
 			Pending Exports
