@@ -23,10 +23,25 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfdump var=#rtn#>
 	<cfloop query="rtn">
 
-<p></p>
+
+		<cfmail to="#email#" subject="taxonomy export" cc="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="class_export@#Application.fromEmail#" type="html">
+			Dear #username#,
+
+			<p>
+				Your export of #SEED_TERM# and children is available at #EXPORT_ID#....
+			</p>
+		</cfmail>
+
 		Dear #username#,
 
-		Your export is done, your email is #email#, come get your junk....
+			<p>
+				Your export of #SEED_TERM# and children is available at #EXPORT_ID#....
+			</p>
+
+		<cfquery name="sem" datasource="uam_god">
+			update htax_export set status='email_sent' where EXPORT_ID='#EXPORT_ID#'
+		</cfquery>
+
 	</cfloop>
 
 	export_done
