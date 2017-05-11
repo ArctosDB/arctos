@@ -835,7 +835,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
-<cfif action is "dlExport">
+<cfif action is "deleteExport">
 
 
 	<cfquery name="d" datasource="uam_god">
