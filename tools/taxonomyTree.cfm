@@ -850,6 +850,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				<th>message</th>
 				<th>detail</th>
 				<th>sql</th>
+				<th>srch</th>
 			</tr>
 			<cfloop query="expe">
 				<tr>
@@ -859,6 +860,9 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 					<td>#message#</td>
 					<td>#detail#</td>
 					<td>#sql#</td>
+					<td>
+						<a href="/tools/taxonomyTree.cfm?action=manageLocalTree&dataset_name=#exp.dataset_name&autosearch=#term#">tree</a>
+					</td>
 				</tr>
 
 			</cfloop>
