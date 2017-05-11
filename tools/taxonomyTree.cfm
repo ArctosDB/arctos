@@ -836,6 +836,10 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "deleteExport">
+	<cfquery name="r" datasource="uam_god">
+		select dataset_name from htax_export,htax_dataset where htax_export.dataset_id=htax_dataset.dataset_id and
+		htax_export.export_id='#EXPORT_ID#'
+	</cfquery>
 
 
 	<cfquery name="d" datasource="uam_god">
@@ -844,8 +848,12 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	<cfquery name="d2" datasource="uam_god">
 		delete from htax_export where export_id='#EXPORT_ID#'
 	</cfquery>
-
-	Deleted. Use the menu above to continue.
+	<p>
+		Deleted
+	</p>
+	<p>
+		<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#r.dataset_name#">back to manage #r.dataset_name#</a>
+	</p>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "dlExport">
