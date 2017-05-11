@@ -56,9 +56,18 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SOURCE'))>
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
-	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'NOMENCLATURAL_CODE'))>
-	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SOURCE_AUTHORITY'))>
 
+
+	<!--- AND GET RID OF NONCLASSIFICATION TERMS ---->
+
+	<CFQUERY NAME="nct" dbtype="query">
+		select taxon_term from CTTAXON_TERM where IS_CLASSIFICATION=0
+	</CFQUERY>
+	<cfloop query="nct">
+		<cfif listcontainsnocase(tterms,taxon_term)>
+			<cfset tterms=listDeleteAt(tterms,listFindnocase(tterms,taxon_term))>
+		</cfif>
+	</cfloop>
 
 
 
