@@ -63,6 +63,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		<cfloop list="#tterms#" index="i">
 			<cfset "variables.#i#"="">
 		</cfloop>
+
+
+		<cftry>
 	<p>
 
 		#term# - #rank#
@@ -128,5 +131,13 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	</p>
 
 	<cfflush>
+
+	<cfcatch>
+		<p>
+			failed at #term#=#rank# with #cfcatch.message#: #cfcatch.detail#
+		</p>
+	</cfcatch>
+
+	</cftry>
 	</cfloop>
 </cfoutput>
