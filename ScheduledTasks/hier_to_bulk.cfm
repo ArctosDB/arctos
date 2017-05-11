@@ -54,7 +54,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		<cfquery name="ud" datasource="uam_god">
 			update htax_export set status='export_done' where export_id='#q.export_id#'
 		</cfquery>
-		update htax_export set status='export_done' where export_id='#q.export_id#'
 		<cfabort>
 	</cfif>
 
