@@ -834,9 +834,6 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		</table>
 	</cfoutput>
 </cfif>
-
-			<a href="taxonomyTree.cfm?action=deleteExport&EXPORT_ID=#EXPORT_ID#">DELETE the export</a>. Please clean up
-
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "dlExport">
 
