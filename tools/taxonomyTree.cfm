@@ -786,7 +786,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		Errors:
 
 		<cfquery name="expe" datasource="uam_god">
-			select * from htax_export_errors EXPORT_ID='#EXPORT_ID#'
+			select * from htax_export_errors where EXPORT_ID='#EXPORT_ID#'
 		</cfquery>
 		<table border>
 			<tr>
