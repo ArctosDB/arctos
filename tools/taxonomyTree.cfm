@@ -851,9 +851,11 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	<p>
 		Deleted
 	</p>
+	<cfoutput>
 	<p>
 		<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#r.dataset_name#">back to manage #r.dataset_name#</a>
 	</p>
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "dlExport">
