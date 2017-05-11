@@ -794,10 +794,14 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			 Fixing anything anywhere else will just lead to the same error the next time you export.
 		</p>
 		<p>
-			<a href="taxonomyTree.cfm?action=dlExport&EXPORT_ID=#EXPORT_ID#">download</a>
-
+			<a href="taxonomyTree.cfm?action=dlExport&EXPORT_ID=#EXPORT_ID#">Download CSV</a>. This may be a convenient
+			way to check data. DO NOT USE the CSV if there were errors below when you downloaded it!
 		</p>
-		<cfdump var=#exp#>
+		<p>
+			<a href="taxonomyTree.cfm?action=deleteExport&EXPORT_ID=#EXPORT_ID#">DELETE the export</a>. Please clean up
+			after yourself; delete these data when you no longer need them.
+		</p>
+
 
 		<hr>
 
@@ -831,8 +835,21 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	</cfoutput>
 </cfif>
 
-			<a href="taxonomyTree.cfm?action=dlExport&EXPORT_ID=#EXPORT_ID#">download</a>
+			<a href="taxonomyTree.cfm?action=deleteExport&EXPORT_ID=#EXPORT_ID#">DELETE the export</a>. Please clean up
 
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "dlExport">
+
+
+	<cfquery name="d" datasource="uam_god">
+		delete from cf_temp_classification_fh where export_id='#EXPORT_ID#'
+	</cfquery>
+	<cfquery name="d2" datasource="uam_god">
+		delete from htax_export where export_id='#EXPORT_ID#'
+	</cfquery>
+
+	Deleted. Use the menu above to continue.
+</cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "dlExport">
 	<cfoutput>
