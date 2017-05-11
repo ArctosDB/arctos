@@ -805,7 +805,35 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			<a href="taxonomyTree.cfm?action=deleteExport&EXPORT_ID=#EXPORT_ID#">DELETE the export</a>. Please clean up
 			after yourself; delete these data when you no longer need them.
 		</p>
-
+		<p>
+			Howto:
+			<ol>
+				<li>
+					Click the Seed Export button. This will start an export (it runs asynchronously in the background) of the record
+					you seeded and all of it's children (and their children etc.)
+				</li>
+				<li>
+					Wait for the email; you should get a message from class_export@arctos.database.museum
+				</li>
+				<li>
+					Click the link. You'll end up here. Check for errors. All records in the dataset you select are processed one
+					time; anything with an error will NOT be in the export and MUST be cleaned up before you proceed. Loading partial
+					datasets is very likely to lead to inconsistencies.
+				</li>
+				<li>
+					Fix errors.
+					<ol>
+						<li>Edit individual records in the tree or contact a DBA for mass-update help.</li>
+						<li>DELETE this export.</li>
+						<li>Re-seed.</li>
+						<li>Wait for the email.</li>
+					</ol>
+				</li>
+				<li>
+					Once you have no errors, download the CSV and upload it to the classification bulkloader.
+				</li>
+			</ol>
+		</p>
 		<hr>
 
 
