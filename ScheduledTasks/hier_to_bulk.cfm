@@ -34,7 +34,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	</cfquery>
 
 	<!---- column names in order ---->
-	<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="dCTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			*
 		from
@@ -61,7 +61,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<!--- AND GET RID OF NONCLASSIFICATION TERMS ---->
 
 	<CFQUERY NAME="nct" dbtype="query">
-		select taxon_term from CTTAXON_TERM where IS_CLASSIFICATION=0
+		select taxon_term from dCTTAXON_TERM where IS_CLASSIFICATION=0
 	</CFQUERY>
 	<cfloop query="nct">
 		<cfif listcontainsnocase(tterms,taxon_term)>
