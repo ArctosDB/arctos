@@ -23,30 +23,17 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	</cfquery>
 
 	<cfloop query="rtn">
-
-
 		<cfmail to="#email#" subject="taxonomy export" cc="arctos.database@gmail.com" from="class_export@#Application.fromEmail#" type="html">
 			Dear #username#,
-
 			<p>
 				Your export of #SEED_TERM# and children is available at
 				#application.serverRootURL#//tools/taxonomyTree.cfm?action=manageExports&EXPORT_ID=#EXPORT_ID#
 			</p>
 		</cfmail>
-#email#
-		Dear #username#,
-
-			<p>
-				Your export of #SEED_TERM# and children is available at #EXPORT_ID#....
-			</p>
-
 		<cfquery name="sem" datasource="uam_god">
 			update htax_export set status='email_sent' where EXPORT_ID='#EXPORT_ID#'
 		</cfquery>
-
 	</cfloop>
-
-	export_done
 
 	<!--- queue ---->
 
@@ -62,7 +49,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfquery name="d" datasource="uam_god">
 		select * from hierarchical_taxonomy where status='#q.export_id#' and rownum < 500
 	</cfquery>
-	got #d.recordcount# records
 	<cfif d.recordcount is 0>
 		<!--- it's all been processed, flag for next step ---->
 		<cfquery name="ud" datasource="uam_god">
@@ -117,18 +103,12 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 
 	<cfloop query="d">
+
+	<cftransaction>
 		<!--- reset variables ---->
 		<cfloop list="#tterms#" index="i">
 			<cfset "variables.#i#"="">
 		</cfloop>
-	<p>
-
-		#term# - #rank#
-
-
-<!-----------
-
-		---------->
 <cftry>
 		<cfset variables.TID=d.TID>
 		<cfset variables.PARENT_TID=d.PARENT_TID>
@@ -169,9 +149,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			)>
 		</cfloop>
 
-		<cfloop query="dNoClassTerm">
-			<BR>'#TERM_TYPE#=====#TERM_VALUE#',
-		</cfloop>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
@@ -203,21 +180,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfquery name="goit" datasource="uam_god">
 		update hierarchical_taxonomy set status='pushed_to_bl' where tid=#d.tid#
 	</cfquery>
-</p>
-	</p>
 
-	<br />
 
 		<cfcatch>
-			<p>
-				failed at #term#=#rank# with #cfcatch.message#: #cfcatch.detail#
-			</p>
-			<p>
-				<cfif isdefined("cfcatch.sql")>
-					#cfcatch.sql#
-				</cfif>
-
-			</p>
 
 				<cfquery name="blargh" datasource="uam_god">
 					insert into htax_export_errors (
@@ -251,6 +216,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		</cftry>
 
 
-		<cfflush>
+
+		</cftransaction>
 	</cfloop>
 </cfoutput>
