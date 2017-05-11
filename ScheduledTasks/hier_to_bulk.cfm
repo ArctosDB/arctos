@@ -98,8 +98,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		<cfquery name="thisNoClass" datasource="uam_god">
 			select * from htax_noclassterm where tid=#d.tid#
 		</cfquery>
-
-	<cfdump var=#thisNoClass#>
+			<cfloop query="thisNoClass">
+			<BR>'#TERM_TYPE#=====#TERM_VALUE#',
+			</cfloop>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
