@@ -721,6 +721,41 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		</p>
 		<hr>
 		<p>
+			Export
+		</p>
+		<p>
+			Edit any record in the hierarchy, click "export" to save data back to Arctos.
+		</p>
+
+		<cfquery name="exp" datasource="uam_god">
+			select * from htax_export where dataset_id=(select dataset_id from htax_dataset where dataset_name=#dataset_name#)
+		</cfquery>
+		<p>
+			Pending Exports
+			<table border>
+				<tr>
+					<th>ExportID</th>
+					<th>SeedTerm</th>
+					<th>Username</th>
+					<th>Status</th>
+				</tr>
+				<cfloop query="exp">
+					<tr>
+						<td>#EXPORT_ID#</td>
+						<td>#SEED_TERM#</td>
+						<td>#USERNAME#</td>
+						<td>#STATUS#</td>
+					</tr>
+
+				</cfloop>
+			</table>
+
+		</p>
+
+
+
+		<!----
+		<p>
 			After the data have been edited into a satisfactory hierarchy, you may mark them for export to the classification bulkloader.
 			<p>
 				this needs more work before going live
@@ -731,6 +766,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				<br>and make sure the task is in the scheduler
 			</p>
 		</p>
+		---->
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
