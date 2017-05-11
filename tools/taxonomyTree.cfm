@@ -724,8 +724,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			Export
 		</p>
 		<p>
-			Edit any record in the hierarchy, click "export" to save data back to Arctos. You should get email; it may take a while.
-			Or reload this page. Click an export below for details and instructions.
+			Edit any record in the hierarchy, click "export" to save data back to Arctos. You should then get email; it may take a while.
+			Reload this page to check progress. Click an export below for details and instructions for proceeding.
 		</p>
 
 		<cfquery name="exp" datasource="uam_god">
