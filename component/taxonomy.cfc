@@ -1,4 +1,42 @@
 <cfcomponent>
+
+
+
+<!--------------------------------------------------------------------------------------->
+	<cffunction name="exportSeed" access="remote">
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="tid" type="string" required="true">
+
+
+		<cfoutput>
+			<cftry>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				insert into htax_export (
+					dataset_id,
+					seed_term,
+					username,
+					status,
+					export_id
+				) (
+					select
+						dataset_id,
+						term,
+						'#session.username#',
+						'mark_to_export',
+						SYS_GUID()
+					from
+						hierarchical_taxonomy
+					where
+						tid=#tid#
+				)
+			</cfquery>
+			<cfreturn 'success'>
+			<cfcatch>
+				<cfreturn 'ERROR: ' & cfcatch.message>
+			</cfcatch>
+			</cftry>
+		</cfoutput>
+	</cffunction>
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="consistencyCheck" access="remote">
 		<!---- hierarchical taxonomy editor ---->

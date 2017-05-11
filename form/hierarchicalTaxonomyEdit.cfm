@@ -144,7 +144,28 @@
 		);
 	}
 	function exportSeed(){
-		alert('ello guvnuh!');
+		parent.setStatus('working','working');
+
+		var theID=$("#tid").val();
+		 $.getJSON("/component/taxonomy.cfc",
+			{
+				method : "exportSeed",
+				id : $("#tid").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				if (r=='success'){
+					parent.setStatus('Export seeded. Manage this dataset to check status.','done');
+					alert('Export seeded. Manage this dataset to check status.');
+				} else {
+					parent.setStatus(r,'err');
+				}
+			}
+		);
+
+
+
 	}
 	function findSaveNewParent(){
 		parent.setStatus('working','working');
