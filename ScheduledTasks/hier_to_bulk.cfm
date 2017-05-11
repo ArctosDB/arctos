@@ -1,64 +1,65 @@
 <!--- local table just for this
 create table cf_temp_classification_fh as select * from cf_temp_classification where 1=2;
 
- --->
-<!--- queue ---->
-
-<cfquery name="q" datasource="uam_god">
-	select * from htax_export where status='ready_to_push_bl'
-</cfquery>
-<cfif q.recordcount is 0>
-	nothing to do<cfabort>
-</cfif>
-
-<!---- data ---->
-<cfquery name="d" datasource="uam_god">
-	select * from hierarchical_taxonomy where status='#q.export_id#' and rownum < 500
-</cfquery>
-got #d.recordcount# records
-<cfif d.recordcount is 0>
-	<!--- it's all been processed, flag for next step ---->
-	<cfquery name="ud" datasource="uam_god">
-		update htax_export set status='export_done' where export_id='#q.export_id#'
-	</cfquery>
-	update htax_export set status='export_done' where export_id='#q.export_id#'
-	<cfabort>
-</cfif>
-
-<cfquery name="dataset" datasource="uam_god">
-	select source from htax_dataset where dataset_id=#q.dataset_id#
-</cfquery>
-
-<!---- column names in order ---->
-<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		*
-	from
-		CTTAXON_TERM
-</cfquery>
-<cfquery name="CTTAXON_TERM" datasource="uam_god">
-	select column_name taxon_term from user_tab_cols where table_name=upper('cf_temp_classification_fh')
-</cfquery>
-
-<cfset tterms=valuelist(CTTAXON_TERM.taxon_term)>
-<!----
-get rid of admin stuff
-<cfset tterms=listappend(tterms,'phylorder')>
----->
-
-<cfset tterms=listDeleteAt(tterms,listFind(tterms,'STATUS'))>
-<cfset tterms=listDeleteAt(tterms,listFind(tterms,'CLASSIFICATION_ID'))>
-<cfset tterms=listDeleteAt(tterms,listFind(tterms,'USERNAME'))>
-<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SOURCE'))>
-<cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
-<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
-<cfset tterms=listDeleteAt(tterms,listFind(tterms,'NOMENCLATURAL_CODE'))>
-
-
-
-
-
+	 --->
 <cfoutput>
+
+	<!--- queue ---->
+
+	<cfquery name="q" datasource="uam_god">
+		select * from htax_export where status='ready_to_push_bl'
+	</cfquery>
+	<cfif q.recordcount is 0>
+		nothing to do<cfabort>
+	</cfif>
+
+	<!---- data ---->
+	<cfquery name="d" datasource="uam_god">
+		select * from hierarchical_taxonomy where status='#q.export_id#' and rownum < 500
+	</cfquery>
+	got #d.recordcount# records
+	<cfif d.recordcount is 0>
+		<!--- it's all been processed, flag for next step ---->
+		<cfquery name="ud" datasource="uam_god">
+			update htax_export set status='export_done' where export_id='#q.export_id#'
+		</cfquery>
+		update htax_export set status='export_done' where export_id='#q.export_id#'
+		<cfabort>
+	</cfif>
+
+	<cfquery name="dataset" datasource="uam_god">
+		select source from htax_dataset where dataset_id=#q.dataset_id#
+	</cfquery>
+
+	<!---- column names in order ---->
+	<cfquery name="CTTAXON_TERM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			*
+		from
+			CTTAXON_TERM
+	</cfquery>
+	<cfquery name="CTTAXON_TERM" datasource="uam_god">
+		select column_name taxon_term from user_tab_cols where table_name=upper('cf_temp_classification_fh')
+	</cfquery>
+
+	<cfset tterms=valuelist(CTTAXON_TERM.taxon_term)>
+	<!----
+	get rid of admin stuff
+	<cfset tterms=listappend(tterms,'phylorder')>
+	---->
+
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'STATUS'))>
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'CLASSIFICATION_ID'))>
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'USERNAME'))>
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SOURCE'))>
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'NOMENCLATURAL_CODE'))>
+
+
+
+
+
 	<cfloop query="d">
 		<!--- reset variables ---->
 		<cfloop list="#tterms#" index="i">
@@ -67,6 +68,8 @@ get rid of admin stuff
 	<p>
 
 		#term# - #rank#
+
+		<cftry>
 
 		<cfset variables.TID=d.TID>
 		<cfset variables.PARENT_TID=d.PARENT_TID>
@@ -125,5 +128,14 @@ get rid of admin stuff
 	</cfquery>
 </p>
 	</p>
+
+	<br />
+		<cfcatch>
+			<p>
+				failed at #term#=#rank# with #cfcatch.message#: #cfcatch.detail#
+			</p>
+		</cfcatch>
+		</cftry>
+		<cfflush>
 	</cfloop>
 </cfoutput>
