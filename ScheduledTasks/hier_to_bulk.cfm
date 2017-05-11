@@ -83,9 +83,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 
 <!-----------
-		<cftry>
-		---------->
 
+		---------->
+<cftry>
 		<cfset variables.TID=d.TID>
 		<cfset variables.PARENT_TID=d.PARENT_TID>
 		<cfset "variables.#RANK#"=d.term>
@@ -163,7 +163,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 	<br />
 
-	<!------------
 		<cfcatch>
 			<p>
 				failed at #term#=#rank# with #cfcatch.message#: #cfcatch.detail#
@@ -175,7 +174,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		</cftry>
 
 
-		------------->
 		<cfflush>
 	</cfloop>
 </cfoutput>
