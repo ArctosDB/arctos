@@ -145,12 +145,10 @@
 	}
 	function exportSeed(){
 		parent.setStatus('working','working');
-
-		var theID=$("#tid").val();
 		 $.getJSON("/component/taxonomy.cfc",
 			{
 				method : "exportSeed",
-				id : $("#tid").val(),
+				tid : $("#tid").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
