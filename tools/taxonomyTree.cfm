@@ -781,26 +781,34 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			select * from htax_export where EXPORT_ID='#EXPORT_ID#'
 		</cfquery>
 		<p>
-			manage export
+			manage export #EXPORT_ID#
+			<br>SEED_TERM=#exp.SEED_TERM#
+			<br>USERNAME=#exp.USERNAME#
+			<br>STATUS=#exp.STATUS#
 		</p>
-		
+						    VARCHAR2(255)
+
+
 		<p>
-			If there are any errors, you should fix them in the hierarchy. Fixing anything anywhere else will just lead 
-			to the same error the next time you export.
+			If there are any errors, you should fix them in the hierarchy, delete this export, and re-export.
+			 Fixing anything anywhere else will just lead to the same error the next time you export.
 		</p>
 		<p>
-			<a href="taxonomyTree.cfm?action=dlExport&EXPORT_ID=#EXPORT_ID#">#EXPORT_ID#</a>
+			<a href="taxonomyTree.cfm?action=dlExport&EXPORT_ID=#EXPORT_ID#">download</a>
 
 		</p>
 		<cfdump var=#exp#>
 
 		<hr>
 
-		Errors:
+
 
 		<cfquery name="expe" datasource="uam_god">
 			select * from htax_export_errors where EXPORT_ID='#EXPORT_ID#'
 		</cfquery>
+
+		Errors:
+
 		<table border>
 			<tr>
 				<th>term</th>
@@ -820,6 +828,29 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 
 			</cfloop>
 		</table>
+	</cfoutput>
+</cfif>
+
+			<a href="taxonomyTree.cfm?action=dlExport&EXPORT_ID=#EXPORT_ID#">download</a>
+
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "dlExport">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_classification_fh where export_id='#EXPORT_ID#'
+		</cfquery>
+		<cfquery name="cols" datasource="uam_god">
+			select COLUMN_NAME from user_tab_cols where table_name = '#ucase(cf_temp_classification_fh)#' order by INTERNAL_COLUMN_ID
+		</cfquery>
+		<cfset cols=valuelist(cols.column_name)>
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfset csv = util.QueryToCSV2(Query=d,Fields=cols)>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/class_bulk.csv"
+	    	output = "#csv#"
+	    	addNewLine = "no">
+		<cflocation url="/download.cfm?file=class_bulk.csv" addtoken="false">
+		<a href="/download.cfm?file=class_bulk.csv">class_bulk.csv</a>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
