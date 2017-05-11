@@ -168,8 +168,38 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 				failed at #term#=#rank# with #cfcatch.message#: #cfcatch.detail#
 			</p>
 			<p>
-				#cfcatch.sql#
+				<cfif isdefined("cfcatch.sql")>
+					#cfcatch.sql#
+				</cfif>
+
 			</p>
+
+				<cfquery name="blargh" datasource="uam_god">
+					insert into htax_export_errors (
+						export_id,
+						term,
+						term_type,
+						message,
+						detail,
+						sql
+					) values (
+						'#q.export_id#',
+						'#term#',
+						'#rank#',
+						'#cfcatch.message#',
+						'#cfcatch.detail#',
+						<cfif isdefined("cfcatch.sql")>
+							'#cfcatch.sql#'
+						<cfelse>
+							'NOT AVAILABLE'
+						</cfif>
+					)
+				</cfquery>
+
+
+
+
+
 		</cfcatch>
 		</cftry>
 
