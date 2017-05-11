@@ -846,7 +846,13 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				user_tab_cols
 			where
 				table_name = 'CF_TEMP_CLASSIFICATION_FH' AND
-				COLUMN_NAME NOT IN ('EXPORT_ID')
+				COLUMN_NAME NOT IN (
+					'EXPORT_ID',
+					'STATUS',
+					'CLASSIFICATION_ID',
+					'TAXON_NAME_ID',
+					'SUBSP'
+				)
 			order by
 				INTERNAL_COLUMN_ID
 		</cfquery>
