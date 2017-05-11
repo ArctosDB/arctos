@@ -778,8 +778,13 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 <cfif action is "manageExports">
 	<cfoutput>
 		<cfquery name="exp" datasource="uam_god">
-			select * from htax_export where EXPORT_ID='#EXPORT_ID#'
+			select * from htax_export,htax_dataset where
+			htax_export.dataset_id=htax_dataset.dataset_id and
+			EXPORT_ID='#EXPORT_ID#'
 		</cfquery>
+		<p>
+			<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#exp.dataset_name#">back to manage #exp.dataset_name#</a>
+		</p>
 		<p>
 			manage export #EXPORT_ID#
 			<br>SEED_TERM=#exp.SEED_TERM#
@@ -799,7 +804,6 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			<a href="taxonomyTree.cfm?action=deleteExport&EXPORT_ID=#EXPORT_ID#">DELETE the export</a>. Please clean up
 			after yourself; delete these data when you no longer need them.
 		</p>
-
 
 		<hr>
 
