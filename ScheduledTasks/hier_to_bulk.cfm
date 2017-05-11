@@ -3,6 +3,31 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 	 --->
 <cfoutput>
+	<!--- send email for any previous exports ---->
+	<cfquery name="rtn" datasource="uam_god">
+		select
+			DATASET_ID,
+			SEED_TERM,
+			USERNAME,
+			EXPORT_ID,
+			get_address(agent_id,'email') email
+		 from
+		 	htax_export,
+		 	agent_name
+		 where
+			upper(htax_export.username)=upper(agent_name.agent_name) and
+			agent_name_type='login' and
+			status='export_done'
+	</cfquery>
+	<cfloop query="rtn">
+
+<p></p>
+		Dear #username#,
+
+		Your export is done, your email is #email#, come get your junk....
+	</cfloop>
+
+	export_done
 
 	<!--- queue ---->
 
