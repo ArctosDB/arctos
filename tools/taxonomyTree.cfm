@@ -724,7 +724,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			Export
 		</p>
 		<p>
-			Edit any record in the hierarchy, click "export" to save data back to Arctos.
+			Edit any record in the hierarchy, click "export" to save data back to Arctos. You should get email; it may take a while.
+			Or reload this page. Click an export below for details and instructions.
 		</p>
 
 		<cfquery name="exp" datasource="uam_god">
@@ -779,6 +780,18 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		<cfquery name="exp" datasource="uam_god">
 			select * from htax_export where EXPORT_ID='#EXPORT_ID#'
 		</cfquery>
+		<p>
+			manage export
+		</p>
+		
+		<p>
+			If there are any errors, you should fix them in the hierarchy. Fixing anything anywhere else will just lead 
+			to the same error the next time you export.
+		</p>
+		<p>
+			<a href="taxonomyTree.cfm?action=dlExport&EXPORT_ID=#EXPORT_ID#">#EXPORT_ID#</a>
+
+		</p>
 		<cfdump var=#exp#>
 
 		<hr>

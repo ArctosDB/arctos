@@ -1,7 +1,9 @@
 <!--- local table just for this
 create table cf_temp_classification_fh as select * from cf_temp_classification where 1=2;
+	 alter table cf_temp_classification_fh add export_id varchar2(255);
 
 	 --->
+
 <cfoutput>
 	<!--- send email for any previous exports ---->
 	<cfquery name="rtn" datasource="uam_god">
@@ -180,7 +182,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			STATUS,
 			username,
 			SOURCE,
-			SCIENTIFIC_NAME
+			SCIENTIFIC_NAME,
+			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
 				'#evaluate("variables." & i)#',
@@ -191,7 +194,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			'autoinsert_from_hierarchy',
 			'#q.username#',
 			'#dataset.source#',
-			'#d.term#'
+			'#d.term#',
+			'#q.export_id#'
 		)
 		</cfquery>
 	<cfquery name="goit" datasource="uam_god">
