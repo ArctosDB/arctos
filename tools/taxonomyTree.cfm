@@ -724,7 +724,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			Export
 		</p>
 		<p>
-			Edit any record in the hierarchy, click "export" to save data back to Arctos. You should then get email; it may take a while.
+			Edit any record in the hierarchy, click "Seed Export" to start the process of saving data back to Arctos.
+			You should get email when it's ready; it may take a while.
 			Reload this page to check progress. Click an export below for details and instructions for proceeding.
 		</p>
 
