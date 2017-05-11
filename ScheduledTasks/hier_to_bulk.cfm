@@ -138,7 +138,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			<cfquery name="tnctv" dbtype="query">
 				select distinct(TERM_VALUE) from thisNoClass where term_type='#taxon_term#'
 			</cfquery>
-			<br>tnctv
 			<cfset thisMergedVal=valuelist(tnctv.TERM_VALUE,";")>
 			<cfset queryaddrow(dNoClassTerm,
 				{TERM_TYPE="#nct.taxon_term#",
