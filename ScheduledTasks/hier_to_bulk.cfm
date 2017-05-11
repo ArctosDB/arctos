@@ -139,6 +139,5 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 	</cftry>
 
-	<cfflush>
 	</cfloop>
 </cfoutput>
