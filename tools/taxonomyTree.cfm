@@ -653,6 +653,13 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				<td>
 					#nht.c# records have been seeded. You may add more (use the form above). Duplicates are disallowed (and Oracle bug
 					qerltcInsertSelectRop_bad_state prevents silently ignoring them) - contact us if you need help.
+
+					<p>
+						You can also <a href="taxonomyTree.cfm?action=unseed&dataset_name=#dataset_name#">delete what you've seeded</a>.
+						This removes the seeded data only, and does not affect anything already in the hierarchy. This can be handy when trying
+						to import data which overlaps with existing data.
+
+					</p>
 				</td>
 			</tr>
 			<tr>
@@ -775,6 +782,15 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 </cfif>
 
 
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "unseed">
+	<cfoutput>
+		<cfquery name="unseed" datasource="uam_god">
+			delete from htax_seed where dataset_id = (select dataset_id from htax_dataset where dataset_name='#dataset_name#')
+		</cfquery>
+		<cflocation url="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#" addtoken="false">
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "manageExports">
 	<cfoutput>
