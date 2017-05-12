@@ -163,7 +163,34 @@
 		);
 	}
 	function deleteWChildren () {
-		alert('hi')
+		parent.setStatus('working','working');
+		var d='Are you sure you want to DELETE this record and all of its children?\n';
+		d+='Deleting will NOT do anything to data in Arctos; delete incorrect';
+		d+=' data in Arctos separately. Deleting this record will remove it and its children from this';
+		d+=' dataset.\n'
+	 	d+='Click confirm to continue.\n'
+		var r = confirm(d);
+		if (r == true) {
+			 $.getJSON("/component/taxonomy.cfc",
+				{
+					method : "deleteSeed",
+					tid : $("#tid").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					if (r=='success'){
+						parent.setStatus('Marked for deletion.','done');
+						alert('Deletion process started; it may take a few minutes.');
+					} else {
+						parent.setStatus(r,'err');
+					}
+				}
+			);
+		} else {
+			parent.setStatus('Canceled','done');
+		}
+
 	}
 
 	function findSaveNewParent(){
