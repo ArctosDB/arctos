@@ -6,7 +6,7 @@
 		<cfargument name="tid" type="string" required="true">
 		<cfoutput>
 			<cftry>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into htax_markdeletetree (
 					seed_tid,
 					seed_term,
@@ -26,7 +26,6 @@
 						tid=#tid#
 				)
 			</cfquery>
-
 
 			insert into htax_markdeletetree (
 					seed_tid,
@@ -65,7 +64,7 @@
 		<cfargument name="tid" type="string" required="true">
 		<cfoutput>
 			<cftry>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into htax_export (
 					dataset_id,
 					seed_term,
