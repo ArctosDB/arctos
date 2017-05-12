@@ -18,8 +18,8 @@
 						#tid#,
 						term,
 						'#session.username#',
-						'mark_to_delete',
-						SYS_GUID()
+						SYS_GUID(),
+						'mark_to_delete'
 					from
 						hierarchical_taxonomy
 					where
