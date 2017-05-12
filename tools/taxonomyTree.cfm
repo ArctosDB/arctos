@@ -877,7 +877,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 					<td>#detail#</td>
 					<td>#sql#</td>
 					<td>
-						<a href="/tools/taxonomyTree.cfm?action=manageLocalTree&dataset_name=#exp.dataset_name&autosearch=#term#">tree</a>
+						<a href="/tools/taxonomyTree.cfm?action=manageLocalTree&dataset_name=#exp.dataset_name#&autosearch=#term#">tree</a>
 					</td>
 				</tr>
 
