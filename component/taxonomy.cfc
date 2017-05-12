@@ -26,6 +26,29 @@
 						tid=#tid#
 				)
 			</cfquery>
+
+
+			insert into htax_markdeletetree (
+					seed_tid,
+					seed_term,
+					username,
+					delete_id,
+					status
+				) (
+					select
+						#tid#,
+						term,
+						'#session.username#',
+						SYS_GUID(),
+						'mark_to_delete'
+					from
+						hierarchical_taxonomy
+					where
+						tid=#tid#
+				)
+
+
+
 			<cfreturn 'success'>
 			<cfcatch>
 				<cfreturn 'ERROR: ' & cfcatch.message>
