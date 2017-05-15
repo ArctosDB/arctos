@@ -24,16 +24,16 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 	<cfloop query="rtn">
 		<cfif len(email) gt 0>
-		<cfmail to="#email#" subject="taxonomy export" cc="arctos.database@gmail.com" from="class_export@#Application.fromEmail#" type="html">
-			Dear #username#,
-			<p>
-				Your export of #SEED_TERM# and children is available at
-				#application.serverRootURL#//tools/taxonomyTree.cfm?action=manageExports&EXPORT_ID=#EXPORT_ID#
-			</p>
-		</cfmail>
-		<cfquery name="sem" datasource="uam_god">
-			update htax_export set status='email_sent' where EXPORT_ID='#EXPORT_ID#'
-		</cfquery>
+			<cfmail to="#email#" subject="taxonomy export" cc="arctos.database@gmail.com" from="class_export@#Application.fromEmail#" type="html">
+				Dear #username#,
+				<p>
+					Your export of #SEED_TERM# and children is available at
+					#application.serverRootURL#//tools/taxonomyTree.cfm?action=manageExports&EXPORT_ID=#EXPORT_ID#
+				</p>
+			</cfmail>
+			<cfquery name="sem" datasource="uam_god">
+				update htax_export set status='email_sent' where EXPORT_ID='#EXPORT_ID#'
+			</cfquery>
 		<cfelse>
 			<cfquery name="sem" datasource="uam_god">
 				update htax_export set status='email_not_sent_noaddress' where EXPORT_ID='#EXPORT_ID#'
