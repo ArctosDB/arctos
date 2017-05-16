@@ -534,7 +534,7 @@
 		<cfoutput>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where
-				dataset_id=#dataset_id# and parent_tid is null
+				dataset_id=#dataset_id# and parent_tid is null order by term
 			</cfquery>
 			<cfset x="[">
 			<cfset i=1>
