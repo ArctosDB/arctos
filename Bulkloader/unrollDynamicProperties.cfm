@@ -99,7 +99,7 @@ patching everything back together is a PITA
 </cfquery>
 
 <cfquery name="d" datasource='uam_god'>
-	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm20170517 where CATALOGNUMBER not in (select catnum from  cf_vnDynamicProps) and
+	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm20170517 where
 	DYNAMICPROPERTIES like '%littersize%'
 </cfquery>
 <cfoutput>
