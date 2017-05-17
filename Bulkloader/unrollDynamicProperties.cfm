@@ -94,18 +94,19 @@ patching everything back together is a PITA
 	alter table cf_vnDynamicProps add measremk  varchar2(4000);
 	alter table cf_vnDynamicProps add moreparts  varchar2(4000);
 ---->
-<cfquery name="kc" datasource='prod'>
+<cfquery name="kc" datasource='uam_god'>
 	select * from cf_vnDynamicProps where 1=2
 </cfquery>
 
-<cfquery name="d" datasource='prod'>
-	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm where CATALOGNUMBER not in (select catnum from  cf_vnDynamicProps) and rownum<10000
+<cfquery name="d" datasource='uam_god'>
+	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm20170517 where CATALOGNUMBER not in (select catnum from  cf_vnDynamicProps) and
+	DYNAMICPROPERTIES like '%littersize%'
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
-		<cfquery name="insone" datasource='prod'>
+		<cfquery name="insone" datasource='uam_god'>
 			insert into cf_vnDynamicProps (catnum
 			<cfloop list="#structKeyList(x)#" index="key">
 				,#key#
