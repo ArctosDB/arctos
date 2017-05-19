@@ -122,6 +122,12 @@
 					The password is	available under Global Settings.
 				</p>
 				<p>Check that the password to #p.monitor_email_addr#@gmail.com works and matches at test and prod.</p>
+
+				<p>
+					If you are logged in to #Application.serverRootURL# with manage_collection permissions and you are SURE that the right
+					people are aware of this issue,	you may pause the monitoring scripts for 12 hours by visiting
+					<a href="#Application.serverRootURL#/Admin/pause_monitor.cfm">#Application.serverRootURL#/Admin/pause_monitor.cfm</a>.
+				</p>
 			</cfmail>
 		</cfif>
 </cfoutput>
