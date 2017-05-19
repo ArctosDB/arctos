@@ -43,7 +43,7 @@
 
 	alter table cf_global_settings add monitor_pause_end date;
 
-	update cf_global_settings set monitor_pause_end=sysdate + 12/24;
+	update cf_global_settings set monitor_pause_end=sysdate - 12/24;
 
 
 ---->
