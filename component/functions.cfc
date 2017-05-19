@@ -2,9 +2,7 @@
 <!------------------------------------->
 
 <cffunction name="getMediaLocalityCount" access="remote" returnformat="plain" queryFormat="column">
-
 	<cfparam name="locid" type="numeric">
-
 	<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from (
 			select

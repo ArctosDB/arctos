@@ -37,13 +37,29 @@
 
 
 
+-- add pause functionality
+
+	alter table cf_global_settings add monitor_pause_end varchar2(255);
 
 
 ---->
 <cfoutput>
 	<cfquery name="p" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select monitor_email_addr,monitor_email_pwd from cf_global_settings
+		select monitor_email_addr,monitor_email_pwd,monitor_pause_end from cf_global_settings
 	</cfquery>
+	<cfif now() lt p.monitor_pause_end>
+		<!--- this has been paused; do nothing --->
+		pause
+		<cfabort>
+	</cfif>
+
+	still going....
+
+
+	<cfabort>
+
+
+
 	<cfmail to="#p.monitor_email_addr#@gmail.com" from="notdead@#Application.fromEmail#" type="html" subject="arctos is not dead">
 		im not dead @ #now()#
 	</cfmail>
