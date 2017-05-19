@@ -39,7 +39,11 @@
 
 -- add pause functionality
 
-	alter table cf_global_settings add monitor_pause_end varchar2(255);
+	alter table cf_global_settings drop column monitor_pause_end;
+
+	alter table cf_global_settings add monitor_pause_end date;
+
+	update cf_global_settings set monitor_pause_end=sysdate + 12/24;
 
 
 ---->
@@ -47,6 +51,9 @@
 	<cfquery name="p" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select monitor_email_addr,monitor_email_pwd,monitor_pause_end from cf_global_settings
 	</cfquery>
+
+	<cfdump var=#p#>
+	<cfdump var=#now()#>
 	<cfif now() lt p.monitor_pause_end>
 		<!--- this has been paused; do nothing --->
 		pause
