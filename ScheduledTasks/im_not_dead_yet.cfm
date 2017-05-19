@@ -52,21 +52,10 @@
 	<cfquery name="p" datasource="uam_god">
 		select monitor_email_addr,monitor_email_pwd,monitor_pause_end from cf_global_settings
 	</cfquery>
-
-	<cfdump var=#p#>
-	<cfdump var=#now()#>
 	<cfif now() lt p.monitor_pause_end>
 		<!--- this has been paused; do nothing --->
-		pause
 		<cfabort>
 	</cfif>
-
-	still going....
-
-
-	<cfabort>
-
-
 
 	<cfmail to="#p.monitor_email_addr#@gmail.com" from="notdead@#Application.fromEmail#" type="html" subject="arctos is not dead">
 		im not dead @ #now()#
