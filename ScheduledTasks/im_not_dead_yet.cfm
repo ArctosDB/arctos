@@ -48,7 +48,8 @@
 
 ---->
 <cfoutput>
-	<cfquery name="p" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<!--- do not cache; need to catch pause settings ---->
+	<cfquery name="p" datasource="uam_god">
 		select monitor_email_addr,monitor_email_pwd,monitor_pause_end from cf_global_settings
 	</cfquery>
 
