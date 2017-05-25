@@ -11,7 +11,6 @@
 		<cfloop query="ct">
 			<cfset "v_#TAXON_TERM#"=''>
 		</cfloop>
-
 		<cfquery name="d" datasource="uam_god">
 			select term,term_type from taxon_term where classification_id='#cid#'
 		</cfquery>
@@ -19,7 +18,6 @@
 		<cfloop query="d">
 			<cfset "v_#term_type#"=term>
 		</cfloop>
-
 		<cfset formatstyle=''>
 		<cfif v_nomenclatural_code is "ICBN">
 			<cfset formatstyle='plant'>
@@ -116,7 +114,6 @@
 				<cfquery name="genusrank" dbtype="query">
 					select RELATIVE_POSITION from ct where taxon_term='genus'
 				</cfquery>
-
 				<cfloop query="ct">
 					<cfif len(RELATIVE_POSITION) gt 0 and RELATIVE_POSITION lt genusrank.RELATIVE_POSITION and len(gdn) is 0>
 						<cfif len("v_#taxon_term#") gt 0>
@@ -128,17 +125,17 @@
 			<cfif len(v_author_text) gt 0>
 				<cfset gdn=gdn & ' ' & v_author_text>
 			</cfif>
-
 		</cfif>
-
-
 		<cfset gdn=trim(replace(gdn,' ,',',','all'))>
 		<cfset gdn=trim(replace(gdn,'<i></i>','','all'))>
 		 <cfset gdn=reReplace(gdn,"\s+"," ","All")>
 		<cfreturn gdn>
 
 		<cfcatch>
+			<!---
 			<cfreturn 'ERROR: ' & cfcatch.message>
+			---->
+			<cfreturn ''>
 		</cfcatch>
 		</cftry>
 	</cfoutput>
