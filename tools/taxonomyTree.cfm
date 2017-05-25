@@ -653,6 +653,13 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				<td>
 					#nht.c# records have been seeded. You may add more (use the form above). Duplicates are disallowed (and Oracle bug
 					qerltcInsertSelectRop_bad_state prevents silently ignoring them) - contact us if you need help.
+
+					<p>
+						You can also <a href="taxonomyTree.cfm?action=unseed&dataset_name=#dataset_name#">delete what you've seeded</a>.
+						This removes the seeded data only, and does not affect anything already in the hierarchy. This can be handy when trying
+						to import data which overlaps with existing data.
+
+					</p>
 				</td>
 			</tr>
 			<tr>
@@ -721,6 +728,45 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		</p>
 		<hr>
 		<p>
+			Export
+		</p>
+		<p>
+			Edit any record in the hierarchy, click "Seed Export" to start the process of saving data back to Arctos.
+			You should get email when it's ready; it may take a while.
+			Reload this page to check progress. Click an export below for details and instructions for proceeding.
+		</p>
+
+		<cfquery name="exp" datasource="uam_god">
+			select * from htax_export where dataset_id=(select dataset_id from htax_dataset where dataset_name='#dataset_name#')
+		</cfquery>
+		<p>
+			Pending Exports. Anything with status NOT "email_sent" is still working.
+			<table border>
+				<tr>
+					<th>ExportID</th>
+					<th>SeedTerm</th>
+					<th>Username</th>
+					<th>Status</th>
+				</tr>
+				<cfloop query="exp">
+					<tr>
+						<td>
+							<a href="taxonomyTree.cfm?action=manageExports&EXPORT_ID=#EXPORT_ID#">#EXPORT_ID#</a>
+						</td>
+						<td>#SEED_TERM#</td>
+						<td>#USERNAME#</td>
+						<td>#STATUS#</td>
+					</tr>
+
+				</cfloop>
+			</table>
+
+		</p>
+
+
+
+		<!----
+		<p>
 			After the data have been edited into a satisfactory hierarchy, you may mark them for export to the classification bulkloader.
 			<p>
 				this needs more work before going live
@@ -731,6 +777,169 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				<br>and make sure the task is in the scheduler
 			</p>
 		</p>
+		---->
+	</cfoutput>
+</cfif>
+
+
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "unseed">
+	<cfoutput>
+		<cfquery name="unseed" datasource="uam_god">
+			delete from htax_seed where dataset_id = (select dataset_id from htax_dataset where dataset_name='#dataset_name#')
+		</cfquery>
+		<cflocation url="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#" addtoken="false">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "manageExports">
+	<cfoutput>
+		<cfquery name="exp" datasource="uam_god">
+			select * from htax_export,htax_dataset where
+			htax_export.dataset_id=htax_dataset.dataset_id and
+			EXPORT_ID='#EXPORT_ID#'
+		</cfquery>
+		<p>
+			<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#exp.dataset_name#">back to manage #exp.dataset_name#</a>
+		</p>
+		<p>
+			manage export #EXPORT_ID#
+			<br>SEED_TERM=#exp.SEED_TERM#
+			<br>USERNAME=#exp.USERNAME#
+			<br>STATUS=#exp.STATUS#
+		</p>
+
+		<p>
+			If there are any errors, you should fix them in the hierarchy, delete this export, and re-export.
+			 Fixing anything anywhere else will just lead to the same error the next time you export.
+		</p>
+		<p>
+			<a href="taxonomyTree.cfm?action=dlExport&EXPORT_ID=#EXPORT_ID#">Download CSV</a>. This may be a convenient
+			way to check data. DO NOT USE the CSV if there were errors below when you downloaded it!
+		</p>
+		<p>
+			<a href="taxonomyTree.cfm?action=deleteExport&EXPORT_ID=#EXPORT_ID#">DELETE the export</a>. Please clean up
+			after yourself; delete these data when you no longer need them.
+		</p>
+		<p>
+			Howto:
+			<ol>
+				<li>
+					Click the Seed Export button. This will start an export (it runs asynchronously in the background) of the record
+					you seeded and all of it's children (and their children etc.)
+				</li>
+				<li>
+					Wait for the email; you should get a message from class_export@arctos.database.museum
+				</li>
+				<li>
+					Click the link. You'll end up here. Check for errors. All records in the dataset you select are processed one
+					time; anything with an error will NOT be in the export and MUST be cleaned up before you proceed. Loading partial
+					datasets is very likely to lead to inconsistencies.
+				</li>
+				<li>
+					Fix errors.
+					<ol>
+						<li>Edit individual records in the tree or contact a DBA for mass-update help.</li>
+						<li>DELETE this export.</li>
+						<li>Re-seed.</li>
+						<li>Wait for the email.</li>
+					</ol>
+				</li>
+				<li>
+					Once you have no errors, download the CSV and upload it to the classification bulkloader.
+				</li>
+			</ol>
+		</p>
+		<hr>
+
+
+
+		<cfquery name="expe" datasource="uam_god">
+			select * from htax_export_errors where EXPORT_ID='#EXPORT_ID#'
+		</cfquery>
+
+		Errors:
+
+		<table border>
+			<tr>
+				<th>term</th>
+				<th>message</th>
+				<th>detail</th>
+				<th>sql</th>
+				<th>srch</th>
+			</tr>
+			<cfloop query="expe">
+				<tr>
+					<td>
+						#term# (#term_type#)
+					</td>
+					<td>#message#</td>
+					<td>#detail#</td>
+					<td>#sql#</td>
+					<td>
+						<a href="/tools/taxonomyTree.cfm?action=manageLocalTree&dataset_name=#exp.dataset_name#&autosearch=#term#">tree</a>
+					</td>
+				</tr>
+
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "deleteExport">
+	<cfquery name="r" datasource="uam_god">
+		select dataset_name from htax_export,htax_dataset where htax_export.dataset_id=htax_dataset.dataset_id and
+		htax_export.export_id='#EXPORT_ID#'
+	</cfquery>
+
+
+	<cfquery name="d" datasource="uam_god">
+		delete from cf_temp_classification_fh where export_id='#EXPORT_ID#'
+	</cfquery>
+	<cfquery name="d2" datasource="uam_god">
+		delete from htax_export where export_id='#EXPORT_ID#'
+	</cfquery>
+	<p>
+		Deleted
+	</p>
+	<cfoutput>
+	<p>
+		<a href="taxonomyTree.cfm?action=manageDataset&dataset_name=#r.dataset_name#">back to manage #r.dataset_name#</a>
+	</p>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------->
+<cfif action is "dlExport">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_classification_fh where export_id='#EXPORT_ID#'
+		</cfquery>
+		<cfquery name="cols" datasource="uam_god">
+			select
+				COLUMN_NAME
+			from
+				user_tab_cols
+			where
+				table_name = 'CF_TEMP_CLASSIFICATION_FH' AND
+				COLUMN_NAME NOT IN (
+					'EXPORT_ID',
+					'STATUS',
+					'CLASSIFICATION_ID',
+					'TAXON_NAME_ID',
+					'SUBSP'
+				)
+			order by
+				INTERNAL_COLUMN_ID
+		</cfquery>
+		<cfset cols=valuelist(cols.column_name)>
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfset csv = util.QueryToCSV2(Query=d,Fields=cols)>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/class_bulk.csv"
+	    	output = "#csv#"
+	    	addNewLine = "no">
+		<cflocation url="/download.cfm?file=class_bulk.csv" addtoken="false">
+		<a href="/download.cfm?file=class_bulk.csv">class_bulk.csv</a>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
