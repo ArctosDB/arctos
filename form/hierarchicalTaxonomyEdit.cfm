@@ -143,6 +143,56 @@
 			}
 		);
 	}
+	function exportSeed(){
+		parent.setStatus('working','working');
+		 $.getJSON("/component/taxonomy.cfc",
+			{
+				method : "exportSeed",
+				tid : $("#tid").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				if (r=='success'){
+					parent.setStatus('Export seeded.','done');
+					alert('Export seeded. Manage this dataset to check status.');
+				} else {
+					parent.setStatus(r,'err');
+				}
+			}
+		);
+	}
+	function deleteWChildren () {
+		parent.setStatus('working','working');
+		var d='Are you sure you want to DELETE this record and all of its children?\n';
+		d+='Deleting will NOT do anything to data in Arctos; delete incorrect';
+		d+=' data in Arctos separately. Deleting this record will remove it and its children from this';
+		d+=' dataset.\n'
+	 	d+='Click confirm to continue.\n'
+		var r = confirm(d);
+		if (r == true) {
+			 $.getJSON("/component/taxonomy.cfc",
+				{
+					method : "deleteSeed",
+					tid : $("#tid").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					if (r=='success'){
+						parent.setStatus('Marked for deletion.','done');
+						alert('Deletion process started; it may take a few minutes.');
+					} else {
+						parent.setStatus(r,'err');
+					}
+				}
+			);
+		} else {
+			parent.setStatus('Canceled','done');
+		}
+
+	}
+
 	function findSaveNewParent(){
 		parent.setStatus('working','working');
 		var theID=$("#tid").val();
@@ -174,8 +224,10 @@
 	<input type="hidden" id="term" name="term" value="#d.term#">
 	<table width="100%">
 		<tr>
-			<td width="50%"><input type="button" onclick="saveAllEdits()" class="savBtn" value="Save Rank/Term Metadata Edits"></td>
-			<td width="50%" align="right"><input type="button" onclick="deleteThis()" class="delBtn" value="Delete this record"></td>
+			<td width="25%"><input type="button" onclick="saveAllEdits()" class="savBtn" value="Save Rank/Term Metadata Edits"></td>
+			<td width="25%" align="center"><input type="button" onclick="exportSeed()" class="insBtn" value="Seed Export"></td>
+			<td width="25%" align="center"><input type="button" onclick="deleteThis()" class="delBtn" value="Delete this record"></td>
+			<td width="25%" align="right"><input type="button" onclick="deleteWChildren()" class="delBtn" value="Delete this record AND ALL ITS CHILDREN"></td>
 		</tr>
 	</table>
 	<table border>
