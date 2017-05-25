@@ -1222,11 +1222,11 @@
 				<cfset sugSpecies=thisName.scientific_name>
 			<cfelseif  listlen(thisName.scientific_name,' ') is 3>
 				<cfset sugGenus=listgetat(thisName.scientific_name,1,' ')>
-				<cfset sugSpecies=listgetat(thisName.scientific_name,1,' ') & ' ' & listgetat(thisName.scientific_name,1,' ')>
+				<cfset sugSpecies=listgetat(thisName.scientific_name,1,' ') & ' ' & listgetat(thisName.scientific_name,2,' ')>
 				<cfset sugSubpecies=thisName.scientific_name>
 			<cfelseif  listlen(thisName.scientific_name,' ') is 4>
 				<cfset sugGenus=listgetat(thisName.scientific_name,1,' ')>
-				<cfset sugSpecies=listgetat(thisName.scientific_name,1,' ') & ' ' & listgetat(thisName.scientific_name,1,' ')>
+				<cfset sugSpecies=listgetat(thisName.scientific_name,1,' ') & ' ' & listgetat(thisName.scientific_name,2,' ')>
 				<cfset sugInfUnkRnk=thisName.scientific_name>
 			</cfif>
 
