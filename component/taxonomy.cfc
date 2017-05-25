@@ -1,4 +1,77 @@
 <cfcomponent>
+
+<!--------------------------------------------------------------------------------------->
+	<cffunction name="deleteSeed" access="remote">
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="tid" type="string" required="true">
+		<cfoutput>
+			<cftry>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into htax_markdeletetree (
+					seed_tid,
+					seed_term,
+					username,
+					delete_id,
+					status
+				) (
+					select
+						#tid#,
+						term,
+						'#session.username#',
+						SYS_GUID(),
+						'mark_to_delete'
+					from
+						hierarchical_taxonomy
+					where
+						tid=#tid#
+				)
+			</cfquery>
+			<cfreturn 'success'>
+			<cfcatch>
+				<cfreturn 'ERROR: ' & cfcatch.message>
+			</cfcatch>
+			</cftry>
+			<!----
+
+			---->
+		</cfoutput>
+	</cffunction>
+<!--------------------------------------------------------------------------------------->
+	<cffunction name="exportSeed" access="remote">
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="tid" type="string" required="true">
+		<cfoutput>
+			<cftry>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into htax_export (
+					dataset_id,
+					seed_term,
+					username,
+					status,
+					export_id
+				) (
+					select
+						dataset_id,
+						term,
+						'#session.username#',
+						'mark_to_export',
+						SYS_GUID()
+					from
+						hierarchical_taxonomy
+					where
+						tid=#tid#
+				)
+			</cfquery>
+			<cfreturn 'success'>
+			<cfcatch>
+				<cfreturn 'ERROR: ' & cfcatch.message>
+			</cfcatch>
+			</cftry>
+			<!----
+
+			---->
+		</cfoutput>
+	</cffunction>
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="consistencyCheck" access="remote">
 		<!---- hierarchical taxonomy editor ---->
@@ -461,7 +534,7 @@
 		<cfoutput>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where
-				dataset_id=#dataset_id# and parent_tid is null
+				dataset_id=#dataset_id# and parent_tid is null order by term
 			</cfquery>
 			<cfset x="[">
 			<cfset i=1>
