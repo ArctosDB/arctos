@@ -790,7 +790,7 @@
 			<cfset x=x & ",getmappingxpath,get_host_address">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
-			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus">
+			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla">
 			<cfset x=x & ",lib,lightbox,local-bin,LoginForm">
 			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg">
 			<cfset x=x & ",news,nyet">
