@@ -1,4 +1,4 @@
-<cfinclude template="includes/_header.cfm">
+scien<cfinclude template="includes/_header.cfm">
 <cfset noCloneTerms="author_text,display_name,infraspecific_author,remark,scientific_name,source_authority,species,subspecies,taxon_status">
 <span class="helpLink" data-helplink="taxonomy_edit">editing guidelines</span>
 
@@ -158,7 +158,7 @@
 					'#newName#',
 					'scientific_name',
 					'#SOURCE#',
-					#pic#
+					NULL
 				)
 			</cfquery>
 		</cftransaction>
@@ -1186,6 +1186,7 @@
 				 TermType will be ignored if Term is empty. Term will be saved regardless of TermType; unranked terms are OK.
 			</p>
 
+			<!----
 			<!--- see if we have a scientific_name taxon term. If not, add  it ---->
 			<cfquery name="ago" dbtype="query">
 				select count(*) c from hasclass where TERM_TYPE='scientific_name'
@@ -1199,6 +1200,7 @@
 					TERM_TYPE='scientific_name'}
 				)>
 			</cfif>
+			---->
 
 			<!--- see if we have a kingdom. If not, add a blank row for it ---->
 			<cfquery name="hasterm" dbtype="query">
@@ -1665,7 +1667,7 @@
 <cfoutput>
 <cftransaction>
 	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,session.sessionKey)#">
-	UPDATE taxon_name SET scientific_name='#scientific_name#' where taxon_name_id=#taxon_name_id#
+		UPDATE taxon_name SET scientific_name='#scientific_name#' where taxon_name_id=#taxon_name_id#
 	</cfquery>
 	</cftransaction>
 	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
