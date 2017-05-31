@@ -144,18 +144,11 @@
 	</cfoutput>
 </cfif>
 <cfif isdefined("guid")>
-
-got guid
-
-<!-----
-
-
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/guid/#guid#">
 		<cfabort>
 	</cfif>
-	--------->
 	<cfset checkSql(guid)>
 	<cfif guid contains ":">
 		<cfoutput>
@@ -168,12 +161,6 @@ got guid
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(sql)#
 			</cfquery>
-
-
-			<cfdump var=#c#>
-
-
-
 		</cfoutput>
 	</cfif>
 	<cfif isdefined("c.collection_object_id") and len(c.collection_object_id) gt 0>
@@ -186,11 +173,6 @@ got guid
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
-
-
-hello....
-
-
 <cfset detSelect = "
 	SELECT
 		#session.flatTableName#.guid,
