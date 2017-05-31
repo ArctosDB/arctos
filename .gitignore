@@ -13,6 +13,7 @@ bnhmMaps/tabfiles/
 cache/
 download/
 sandbox/
+Reports/templates/
 
 #portals
 all_all
