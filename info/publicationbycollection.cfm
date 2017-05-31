@@ -236,7 +236,7 @@
 			<tr>
 				<td>#full_citation#</td>
 				<td><a href="/publication/#publication_id#">detail</a></td>
-				<td><a href="http://dx.doi.org/#doi#">#doi#</a></td>
+				<td><a href="https://doi.org/#doi#">#doi#</a></td>
 				<td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=#pmid#">#pmid#</a></td>
 				<td>#IS_PEER_REVIEWED#</td>
 				<td><a href="http://scholar.google.com/scholar?hl=en&q=#FULL_CITATION#">[ search ]</a></td>
