@@ -1,10 +1,3 @@
-
-				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
-					you are coldfusion_user
-				</cfif>
-
-
-
 <!---- make sure this stays at the top ---->
 <cfif listfindnocase(request.rdurl,'m',"/")>
 	<!--- mobile handling ---->
@@ -59,7 +52,6 @@
 		<cfif listlen(request.rdurl,"/") is gPos+2>
 			<cfset doi=doi & "/" & 	listgetat(request.rdurl,gPos+2,"/")>
 		</cfif>
-
 		<cfquery name="d" datasource="cf_dbuser">
 			select * from doi where upper(doi)='#ucase(doi)#'
 		</cfquery>
@@ -82,7 +74,6 @@
 			<cfinclude template="/errors/404.cfm">
 		</cfif>
 	<cfcatch>
-
 		<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
 			<cfdump var=#cfcatch#>
 		</cfif>
@@ -118,7 +109,6 @@
 				<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 				<cfcatch></cfcatch>
 			</cftry>
-
 			<cfinclude template="/document.cfm">
 			<cfcatch>
 				<cfif listlen(request.rdurl,"/") gt 2 and listgetat(request.rdurl,gPos+2,"/")>
@@ -134,11 +124,6 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'guid',"/")>
-
-<p>guid</p>
-
-
-
 	<cfif replace(request.rdurl,"/","","last") is "guid">
 		<cfinclude template="/SpecimenSearch.cfm">
 	<cfelse>
@@ -175,49 +160,15 @@
 				</cfloop>
 				</cfif>
 			<cfcatch>
-
-
-				probably not here
-
-
-
-
-
 				<cfset contentType="text/html">
 			</cfcatch>
 			</cftry>
-
-
-
 			<cfset gPos=listfindnocase(request.rdurl,"guid","/")>
 			<cfset temp = listgetat(request.rdurl,gPos+1,"/")>
-
-
-			<cfdump var=gPos>
-			<cfdump var=#gPos#>
-
-
-
-
 			<cfif listlen(temp,'?&') gt 1>
 				<cfset guid=listgetat(temp,1,"?&")>
-
-
-
-			<cfdump var=guid>
-			<cfdump var=#guid#>
-
-
-
 				<cfset t2=listdeleteat(temp,1,"?&")>
 				<cfloop list="#t2#" delimiters="?&" index="x">
-
-
-
-			<cfdump var=x>
-			<cfdump var=#x#>
-
-
 					<cfif listlen(x,"=") is 2>
 						<cfset vn=listgetat(x,1,"=")>
 						<cfset vv=listgetat(x,2,"=")>
@@ -225,24 +176,12 @@
 					</cfif>
 				</cfloop>
 			<cfelse>
-
-
-
-			<cfdump var=temp>
-			<cfdump var=#temp#>
 				<cfset guid=temp>
 			</cfif>
 			<cfif contentType is "application/rdf+xml">
-
-				nope
 				<cfinclude template="/SpecimenDetailRDF.cfm">
 			<cfelse>
-
-			at else
-
-			<!----
 				<cfinclude template="/SpecimenDetail.cfm">
-				---->
 			</cfif>
 			<cfcatch>
 				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
