@@ -11,7 +11,7 @@
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js?v=3.42'></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&libraries=places,geometry" type="text/javascript"></script>'>
+<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&libraries=places,geometry" type="text/javascript"></script>'>
 <style>
 	#usertools{border:3px solid #417bb5; }
 	#goWhere{border:3px solid #417bb5; }
