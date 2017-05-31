@@ -118,11 +118,11 @@
 	</cfmail>
 	---->
 	<cfset Application.session_timeout=90>
-	<cfset Application.serverRootUrl = "http://#serverName#">
+	<cfset Application.serverRootUrl = "https://#serverName#">
 	<cfset Application.user_login="user_login">
 	<cfset Application.max_pw_age = 180>
 	<cfset Application.fromEmail = "#serverName#">
-	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
+	<cfset Application.domain = replace(Application.serverRootUrl,"https://",".")>
 	<cfset Application.mobileURL="/m">
 	<cfquery name="cf_global_settings" datasource="uam_god">
 		select LOG_EMAIL,BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings

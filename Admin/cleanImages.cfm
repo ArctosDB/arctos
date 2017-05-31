@@ -30,7 +30,7 @@ create table temp_img_migr (path varchar2(4000),status varchar2(255));
 				<br>dirpath: #dirpath#
 				<cfset olddpath=replace(dirpath,"/usr/local/httpd/htdocs/wwwarctos",application.serverRootURL)>
 				<br>olddpath: #olddpath#
-				<cfset newpath=replace(dirpath,"/usr/local/httpd/htdocs/wwwarctos","http://web.corral.tacc.utexas.edu/UAF/arctos")>
+				<cfset newpath=replace(dirpath,"/usr/local/httpd/htdocs/wwwarctos","https://web.corral.tacc.utexas.edu/UAF/arctos")>
 				<br>newpath: #newpath#
 				<cfquery name="old_media" datasource="uam_god">
 					select count(*) c from media where media_uri='#olddpath#'

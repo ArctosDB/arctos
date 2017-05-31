@@ -355,7 +355,7 @@
 								</li>
 								<cfif len(doi) gt 0>
 									<li>
-										<a href="http://dx.doi.org/#doi#" target="_blank" class="external">#doi#</a>
+										<a href="https://doi.org/#doi#" target="_blank" class="external">#doi#</a>
 									</li>
 								</cfif>
 							</ul>
