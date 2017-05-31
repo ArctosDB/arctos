@@ -9,7 +9,7 @@
 		from cf_global_settings
 	</cfquery>
 	<cfoutput>
-		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
+		<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 <cftry>
 	<script>
@@ -144,6 +144,10 @@
 	</cfoutput>
 </cfif>
 <cfif isdefined("guid")>
+
+got guid<cfabort>
+
+
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/guid/#guid#">
@@ -173,6 +177,10 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
+
+
+hello....
+
 
 <cfset detSelect = "
 	SELECT
