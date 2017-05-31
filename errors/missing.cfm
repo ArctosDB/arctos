@@ -147,11 +147,29 @@
 				</cfloop>
 				</cfif>
 			<cfcatch>
+
+
+				probably not here
+
+
+
+
+
 				<cfset contentType="text/html">
 			</cfcatch>
 			</cftry>
+
+
+
 			<cfset gPos=listfindnocase(request.rdurl,"guid","/")>
 			<cfset temp = listgetat(request.rdurl,gPos+1,"/")>
+
+
+			<cfdump var=gPos>
+
+
+
+
 			<cfif listlen(temp,'?&') gt 1>
 				<cfset guid=listgetat(temp,1,"?&")>
 				<cfset t2=listdeleteat(temp,1,"?&")>
@@ -172,6 +190,7 @@
 			</cfif>
 			<cfcatch>
 
+				catch here
 
 				<cfdump var=#cfcatch#>
 
