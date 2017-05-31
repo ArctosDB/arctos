@@ -20,6 +20,9 @@
 			</cfif>
 			<cfinclude template="/m/SpecimenDetail.cfm">
 			<cfcatch>
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
@@ -32,7 +35,9 @@
 	            <cfset name = listgetat(request.rdurl,gPos+1,"/")>
 	            <cfinclude template="/m/taxonomy.cfm">
 	            <cfcatch>
-		            <cfdump var=#cfcatch#>
+					<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+						<cfdump var=#cfcatch#>
+					</cfif>
 	                <cfinclude template="/errors/404.cfm">
 	            </cfcatch>
 	        </cftry>
@@ -52,6 +57,9 @@
 			select * from doi where upper(doi)='#ucase(doi)#'
 		</cfquery>
 		<cfif d.recordcount is 0>
+			<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+				<cfdump var=#cfcatch#>
+			</cfif>
 			<cfinclude template="/errors/404.cfm">
 		</cfif>
 		<cfif d.media_id gt 0>
@@ -61,9 +69,16 @@
 			<cfset collection_object_id=d.collection_object_id>
 			<cfinclude template="/SpecimenDetail.cfm">
 		<cfelse>
+			<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+				<cfdump var=#cfcatch#>
+			</cfif>
 			<cfinclude template="/errors/404.cfm">
 		</cfif>
 	<cfcatch>
+
+		<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+			<cfdump var=#cfcatch#>
+		</cfif>
 		<cfinclude template="/errors/404.cfm">
 	</cfcatch>
 	</cftry>
@@ -166,6 +181,7 @@
 
 
 			<cfdump var=gPos>
+			<cfdump var=#gPos#>
 
 
 
@@ -320,10 +336,15 @@
 					</script>
 				</cfif>
 			<cfelse>
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfif>
 			<cfcatch>
-				<cfdump var=#cfcatch#>
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
@@ -371,7 +392,9 @@
 			</cfif>
 			---->
 			<cfcatch>
-				<cfdump var=#cfcatch#>
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
@@ -382,5 +405,9 @@
 	</cfscript>
 	<cfabort>
 <cfelse>
+	<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+		-final cfelse-
+		<cfdump var=#cfcatch#>
+	</cfif>
 	<cfinclude template="/errors/404.cfm">
 </cfif>
