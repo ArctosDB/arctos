@@ -1,3 +1,10 @@
+
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					you are coldfusion_user
+				</cfif>
+
+
+
 <!---- make sure this stays at the top ---->
 <cfif listfindnocase(request.rdurl,'m',"/")>
 	<!--- mobile handling ---->
@@ -91,6 +98,9 @@
 		<cfset guid=i & ":" & c & ":" & n>
 		<cfinclude template="/SpecimenDetail.cfm">
 		<cfcatch>
+			<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+				<cfdump var=#cfcatch#>
+			</cfif>
 			<cfinclude template="/errors/404.cfm">
 		</cfcatch>
 	</cftry>
@@ -115,6 +125,9 @@
 					<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 				<cfelse>
 					<cfset p=1>
+				</cfif>
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
 				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
@@ -205,16 +218,10 @@
 				<cfinclude template="/SpecimenDetail.cfm">
 			</cfif>
 			<cfcatch>
-
-				catch here
-
-				<cfdump var=#cfcatch#>
-
-
-
-<!----
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
-				---->
 			</cfcatch>
 		</cftry>
 	</cfif>
@@ -227,6 +234,9 @@
 			<cfset name = listgetat(request.rdurl,gPos+1,"/")>
 			<cfinclude template="/taxonomy.cfm">
 			<cfcatch>
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
@@ -239,6 +249,9 @@
 		</cfif>
 		<cfinclude template="/info/api.cfm">
 		<cfcatch>
+			<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+				<cfdump var=#cfcatch#>
+			</cfif>
 			<cfinclude template="/errors/404.cfm">
 		</cfcatch>
 	</cftry>
@@ -253,6 +266,9 @@
 			</cfif>
 			<cfinclude template="/ProjectDetail.cfm">
 			<cfcatch>
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
@@ -279,6 +295,10 @@
 			</cfif>
 			<cfinclude template="/MediaDetail.cfm">
 			<cfcatch>
+
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
@@ -295,6 +315,10 @@
 			</cfif>
 			<cfinclude template="/SpecimenUsage.cfm">
 			<cfcatch>
+
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
@@ -316,6 +340,10 @@
 					</cfquery>
 				</cfif>
 				<cfif d.recordcount is 0>
+
+					<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+						<cfdump var=#cfcatch#>
+					</cfif>
 					<cfinclude template="/errors/404.cfm">
 					<cfabort>
 				</cfif>
