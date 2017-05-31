@@ -201,8 +201,23 @@
 
 			<cfif listlen(temp,'?&') gt 1>
 				<cfset guid=listgetat(temp,1,"?&")>
+
+
+
+			<cfdump var=guid>
+			<cfdump var=#guid#>
+
+
+
 				<cfset t2=listdeleteat(temp,1,"?&")>
 				<cfloop list="#t2#" delimiters="?&" index="x">
+
+
+
+			<cfdump var=x>
+			<cfdump var=#x#>
+
+
 					<cfif listlen(x,"=") is 2>
 						<cfset vn=listgetat(x,1,"=")>
 						<cfset vv=listgetat(x,2,"=")>
@@ -210,11 +225,20 @@
 					</cfif>
 				</cfloop>
 			<cfelse>
+
+
+
+			<cfdump var=temp>
+			<cfdump var=#temp#>
 				<cfset guid=temp>
 			</cfif>
 			<cfif contentType is "application/rdf+xml">
+
+				nope
 				<cfinclude template="/SpecimenDetailRDF.cfm">
 			<cfelse>
+
+			at else
 				<cfinclude template="/SpecimenDetail.cfm">
 			</cfif>
 			<cfcatch>
