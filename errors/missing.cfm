@@ -399,9 +399,5 @@
 	</cfscript>
 	<cfabort>
 <cfelse>
-	<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
-		-final cfelse-
-		<cfdump var=#cfcatch#>
-	</cfif>
 	<cfinclude template="/errors/404.cfm">
 </cfif>
