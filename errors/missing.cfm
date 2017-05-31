@@ -239,7 +239,10 @@
 			<cfelse>
 
 			at else
+
+			<!----
 				<cfinclude template="/SpecimenDetail.cfm">
+				---->
 			</cfif>
 			<cfcatch>
 				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
