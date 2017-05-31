@@ -531,7 +531,7 @@ scien<cfinclude template="includes/_header.cfm">
 		$(function() {
 			// suggest some defaults
 			$("#ncterm_type_1").val('author_text');
-			$("#ncterm_type_2").val('display_name');
+			//$("#ncterm_type_2").val('display_name');
 			$("#ncterm_type_3").val('nomenclatural_code');
 			$("#ncterm_type_4").val('taxon_status');
 			$("#ncterm_type_5").val('infraspecific_author');
@@ -723,7 +723,7 @@ scien<cfinclude template="includes/_header.cfm">
 				handle: '.dragger'
 			});
 
-			guessAtDisplayName();
+			//guessAtDisplayName();
 		});
 		function submitForm() {
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
@@ -747,8 +747,8 @@ scien<cfinclude template="includes/_header.cfm">
 			++n;
 			var x='<tr id="cell_' + n + '">';
 			x+='<td class="dragger">(drag row here)</td>';
-			x+='<td><select class="ac_isclass_tt" id="term_type_' + n + '" name="term_type_' + n + '" onchange="guessAtDisplayName(this.id)"></select></td>';
-			x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
+			x+='<td><select class="ac_isclass_tt" id="term_type_' + n + '" name="term_type_' + n + '"></select></td>';
+			x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '" ></td>';
 			x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 			x+='</tr>';
 			$("#sortable").append(x);
@@ -760,8 +760,8 @@ scien<cfinclude template="includes/_header.cfm">
 			var n=parseInt($("#numnoclassrs").val());
 			++n;
 			var x='<tr id="nccell_' + n + '">';
-			x+='<td><select class="ac_noclass_tt"  id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></select></td>';
-			x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
+			x+='<td><select class="ac_noclass_tt"  id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></select></td>';
+			x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '"></td>';
 			x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 			x+='</tr>';
 			$("#notsortable").append(x);
@@ -1076,7 +1076,9 @@ scien<cfinclude template="includes/_header.cfm">
 		</p>
 		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 			<input type="button" class="savBtn" onclick="submitForm();" value="Save Edits">
+			<!----
 			<input type="button" class="lnkBtn" onclick="scrollDNW();" value="See display_name suggestions">
+			---->
 			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#thisname.taxon_name_id#">
@@ -1107,7 +1109,11 @@ scien<cfinclude template="includes/_header.cfm">
 				Non-Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
 			</h3>
 			<p style="font-size:small;font-weight:bold;color:red;">
-				These are paired terms; unpaired terms - those with either side blank - will be DELETED.
+				<ul>
+					<li>These are paired terms; unpaired terms - those with either side blank - will be DELETED.</li>
+					<li>Scientific_name will be auto-generated; anything you do here will be over-written</li>
+					<li>Display_name will be auto-generated; anything you do here will be over-written</li>
+				</ul>
 			</p>
 			<table id="clastbl" border="1">
 				<thead>
@@ -1131,8 +1137,7 @@ scien<cfinclude template="includes/_header.cfm">
 								<select
 									class="ac_noclass_tt"
 									id="ncterm_type_#thisrow#"
-									name="ncterm_type_#thisrow#"
-									onchange="guessAtDisplayName(this.id)">
+									name="ncterm_type_#thisrow#">
 									<option value=""></option>
 									<cfloop query="cttaxon_term_noclass">
 										<option
@@ -1142,7 +1147,7 @@ scien<cfinclude template="includes/_header.cfm">
 								</select>
 							</td>
 							<td>
-								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#stripQuotes(term)#" onchange="guessAtDisplayName(this.id)">
+								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#stripQuotes(term)#">
 							</td>
 							<td>
 								<span class="likeLink" onclick="nc_deleteThis('#thisrow#');">[ Delete this row ]</span>
@@ -1510,8 +1515,7 @@ scien<cfinclude template="includes/_header.cfm">
 							</cfif>
 							<td class="#thisClass#">
 								<select	class="ac_isclass_tt"
-									id="term_type_#thisrowinc#" name="term_type_#thisrowinc#"
-									onchange="guessAtDisplayName(this.id)">
+									id="term_type_#thisrowinc#" name="term_type_#thisrowinc#">
 									<option value=""></option>
 									<cfloop query="cttaxon_term_isclass">
 										<option
@@ -1523,7 +1527,7 @@ scien<cfinclude template="includes/_header.cfm">
 							<td	<cfif orderedClass.src is not "original" >
 									class="importantNotification"
 								</cfif>>
-								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClass.term#" onchange="guessAtDisplayName(this.id)">
+								<input size="60" type="text" id="term_#thisrowinc#" name="term_#thisrowinc#" value="#orderedClass.term#">
 							</td>
 							<td>
 								<span class="likeLink" onclick="deleteThis('#thisrowinc#');">[ Delete this row ]</span>
@@ -1552,9 +1556,11 @@ scien<cfinclude template="includes/_header.cfm">
 					</ul>
 				</div>
 			</cfif>
+
 			<p>
 				<div id="dnWarning" style="border:2px solid red;padding:2em;margin:2em;">
 					<ul>
+						<!----
 						<li>
 							IMPORTANT!! Each classification should generally have a (one!) non-classification term
 							"display_name" with corresponding HTML-formatted, discipline-specific value,
@@ -1567,6 +1573,7 @@ scien<cfinclude template="includes/_header.cfm">
 							<input type="button" class="lnkBtn" onclick="useDNG();" value="Use this suggestion">
 							<input type="button" class="lnkBtn" onclick="guessAtDisplayName();" value="Refresh suggestion">
 						</li>
+						---->
 						<li>
 							Red borders around classification terms indicate suspected important missing data, and may
 							include suggested values;
