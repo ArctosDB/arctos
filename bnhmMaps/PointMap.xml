@@ -7,7 +7,6 @@
 		<header location="http://arctos.database.museum/images/empty.gif"/>
 		<linkbackheader location="http://arctos.database.museum/"/>
 		
-		<footer location="http://arctos.database.museum/bnhmMaps/BerkMapFooter.html"/>
 	</metadata>
 
 	<colors method="field" fieldname="char120_3" label="Accepted LatLong">
