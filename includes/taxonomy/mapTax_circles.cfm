@@ -38,17 +38,17 @@ s
 	</cfif>
 	<cfif not fileexists("#internalPath##fn#")>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		 	select 
+		 	select
 		 		count(*) c,
 		 		locality_id,
-		 		scientific_name, 
+		 		scientific_name,
 		 		dec_lat,
 		 		dec_long,
 		 		datum,
 		 		coordinateuncertaintyinmeters
 		 	from filtered_flat
-		 	where 
-				dec_lat is not null and 
+		 	where
+				dec_lat is not null and
 		 		dec_long is not null and
 		 		<cfif method is "exact">
 					scientific_name = '#scientific_name#'
@@ -57,7 +57,7 @@ s
 				</cfif>
 		 	group by
 		 		locality_id,
-		 	 	scientific_name, 
+		 	 	scientific_name,
 		 		dec_lat,
 		 		dec_long,
 		 		datum,
@@ -71,18 +71,18 @@ s
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			//x='"c","locality_id","scientific_name","dec_lat","dec_long","datum","coordinateuncertaintyinmeters"';
-			//variables.joFileWriter.writeLine(x);      
+			//variables.joFileWriter.writeLine(x);
 		</cfscript>
 		<cfloop query="d">
 			<cfscript>
-				x='"#c#","#locality_id#","#scientific_name#","#dec_lat#","#dec_long#","#datum#","#coordinateuncertaintyinmeters#"';				
+				x='"#c#","#locality_id#","#scientific_name#","#dec_lat#","#dec_long#","#datum#","#coordinateuncertaintyinmeters#"';
 				variables.joFileWriter.writeLine(x);
 			</cfscript>
 		</cfloop>
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
-	</cfif>	
+	</cfif>
 	<cffile action="READ" file="#internalPath#/#fn#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
@@ -96,15 +96,15 @@ s
 		<cfset dec_long=arrResult[o][5]>
 		<cfset datum=arrResult[o][6]>
 		<cfset coordinateuncertaintyinmeters=arrResult[o][7]>
-		<cfset theJS=theJS & 'var latLng#o# = new google.maps.LatLng(#dec_lat#, #dec_long#);'>		
-		<cfset theJS=theJS & "var marker#o# = new google.maps.Marker({position: latLng#o#,map: map,icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'});">
+		<cfset theJS=theJS & 'var latLng#o# = new google.maps.LatLng(#dec_lat#, #dec_long#);'>
+		<cfset theJS=theJS & "var marker#o# = new google.maps.Marker({position: latLng#o#,map: map,icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'});">
 		<cfset theJS=theJS & 'var circleOptions = {center: latLng#o#,radius: Math.round(#coordinateuncertaintyinmeters#),map: map,editable: false};'>
 		<cfset theJS=theJS & 'var circle = new google.maps.Circle(circleOptions);'>
 		<cfset theJS=theJS & 'bounds.extend(latLng#o#);'>
 	</cfloop>
 	<script>
-	
-	
+
+
 	jQuery(document).ready(function() {
  		var map;
 			var defaultcenter = new google.maps.LatLng(49.496675, -102.65625);
@@ -125,10 +125,10 @@ s
 		map.fitBounds(bounds);
 		// and zoom back out a bit, if the points will still fit
 		// because the centering zooms WAY in if the points are close together
-		
+
 	});
 	</script>
-	
+
 	<span style="font-size:smaller;color:red;">Encumbered records are excluded.</span>
 		<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 
@@ -139,11 +139,11 @@ s
 			Showing fuzzy matches - <span class="likeLink" onclick="reloadThis('exact')"> show matches for exactly '#scientific_name#'</span>
 		</cfif>
 	</span>
-	
-	
+
+
 	<cfcatch>
 	<cfdump var=#cfcatch#>
 	</cfcatch>
-	
+
 	</cftry>
 </cfoutput>

@@ -113,7 +113,7 @@ jQuery(document).ready(function(){
 								<div class="oneSubProjectPubsPub">
 									<a href="/publication/#publication_id#">#short_citation#</a>
 									<cfif len(DOI) gt 0>
-										<a href="http://dx.doi.org/#doi#" target="_blank" class="external sddoi">#doi#</a>
+										<a href="https://doi.org/#doi#" target="_blank" class="external sddoi">#doi#</a>
 									</cfif>
 									<div class="oneSubProjectPubsPubCit">
 										<cfif numCits is 0>

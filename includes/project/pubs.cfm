@@ -60,7 +60,7 @@
 							</cfif>
 						</li>
 						<cfif len(doi) gt 0>
-							<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
+							<li><a class="external" target="_blank" href="https://doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 						</cfif>
 						<cfif len(pmid) gt 0>
 							<li><a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pmid#">PubMed</a></li>

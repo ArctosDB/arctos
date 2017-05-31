@@ -1951,6 +1951,7 @@
 	<cfset stripDOI=replace(stripDOI,'HTTPS://','','first')>
 	<cfset stripDOI=replace(stripDOI,'HTTP://','','first')>
 	<cfset stripDOI=replace(stripDOI,'DX.DOI.ORG/','','first')>
+	<cfset stripDOI=replace(stripDOI,'DOI.ORG/','','first')>
 	<cfif basJoin does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">
 	</cfif>
