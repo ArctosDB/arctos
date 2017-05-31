@@ -145,7 +145,9 @@
 </cfif>
 <cfif isdefined("guid")>
 
-got guid<cfabort>
+got guid
+
+<!-----
 
 
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
@@ -153,6 +155,7 @@ got guid<cfabort>
 		<cfheader name="Location" value="/guid/#guid#">
 		<cfabort>
 	</cfif>
+	--------->
 	<cfset checkSql(guid)>
 	<cfif guid contains ":">
 		<cfoutput>
