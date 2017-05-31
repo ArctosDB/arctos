@@ -1,4 +1,4 @@
-scien<cfinclude template="includes/_header.cfm">
+<cfinclude template="includes/_header.cfm">
 <cfset noCloneTerms="author_text,display_name,infraspecific_author,remark,scientific_name,source_authority,species,subspecies,taxon_status">
 <span class="helpLink" data-helplink="taxonomy_edit">editing guidelines</span>
 
