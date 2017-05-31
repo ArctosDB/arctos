@@ -83,7 +83,7 @@
 		<label for="doi" class="helpLink" data-helplink="publication_doi">Digital Object Identifier (DOI)</label>
 		<input type="text" id="doi" name="doi" value="#pub.doi#" size="80">
 		<cfif len(pub.doi) gt 0>
-			<a class="infoLink external" target="_blank" href="http://dx.doi.org/#pub.doi#">[ open DOI ]</a>
+			<a class="infoLink external" target="_blank" href="https://doi.org/#pub.doi#">[ open DOI ]</a>
 		<cfelse>
 			<a id="addadoiplease" class="red likeLink" onclick="findDOI('#URLEncodedFormat(pub.full_citation)#')">Bah! No DOI! Click this!</a>
 		</cfif>
