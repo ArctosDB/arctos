@@ -1305,7 +1305,9 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			<li>
 				A term does not exist as a name. The Family of a record does not exist by itself, there is no genus above a species,
 				binomial for trinomial, etc. These should be created.
-				<a href="taxonomyTree.cfm?action=mismatch_importCSV&dataset_name=#dataset_name#">Click here for CSV</a>,
+				<cfoutput>
+				<a href="taxonomyTree.cfm?action=mismatch_importCSV&dataset_name=#dataset_name#">Click here for CSV</a>
+				</cfoutput>,
 				VERY carefully review, and send to a DBA for taxon creation BEFORE attempting to repatriate these data.
 			</li>
 			<li>
