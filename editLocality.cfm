@@ -35,7 +35,7 @@ legend {
 	<cfset title="Edit Locality">
 	<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 	<cfoutput>
-		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
+		<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 <script language="javascript" type="text/javascript">
 	rad = function(x) {return x*Math.PI/180;}
@@ -157,7 +157,7 @@ function checkCoordinateError(){
 			var marker1 = new google.maps.Marker({
 			    position: latLng1,
 			    map: map,
-			    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+			    icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
 			});
 			var circleOptions = {
 	  			center: latLng1,
@@ -172,7 +172,7 @@ function checkCoordinateError(){
 			var marker2 = new google.maps.Marker({
 			    position: latLng2,
 			    map: map,
-			    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+			    icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
 			});
 		}
 		bounds.extend(latLng1);
@@ -1141,8 +1141,8 @@ function checkCoordinateError(){
 		<br>Tags:
 			<span style="font-weight:bold;">#locDet.s$geography#</span>
 		<div id="map-canvas"></div>
-		<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
-		<img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
+		<img src="https://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
+		<img src="https://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
 		<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span>=locality WKT,
 		<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span>=geography WKT.
 

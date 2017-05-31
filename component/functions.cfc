@@ -1020,7 +1020,7 @@
 		from cf_global_settings
 	</cfquery>
 	<cfscript>
-		baseURL = "http://maps.googleapis.com";
+		baseURL = "https://maps.googleapis.com";
 		urlParams &= '&client=' & cf_global_settings.google_client_id;
 		fullURL = baseURL & urlPath & "?" & urlParams;
 		urlToSign=urlPath & "?" & urlParams;
@@ -1226,7 +1226,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="checkDOI" access="remote">
 	<cfargument name="doi" type="string" required="yes">
-	<cfhttp method="head" url="http://dx.doi.org/#doi#"></cfhttp>
+	<cfhttp method="head" url="https://doi.org/#doi#"></cfhttp>
 	<cfif left(cfhttp.statuscode,3) is "404">
 		<cfreturn cfhttp.statuscode>
 	<cfelse>
