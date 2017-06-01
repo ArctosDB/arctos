@@ -22,9 +22,14 @@
 		<cfset subject="">
 		<cfset x=utilities.checkRequest(exception)>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
-			<cfset subject="403">
-			<cfif isdefined("exception.detail") and exception.detail contains "Unsupported browser-specific file request">
-				<cfset subject="browser garbage">
+			<cfif isdefined("HTTP_REFERER") and HTTP_REFERER contains "http://yandex.ru">
+				<cfset bl_reason='referrer is yandex'>
+				<cfinclude template="/errors/autoblacklist.cfm">
+			<cfelse>
+				<cfset subject="403">
+				<cfif isdefined("exception.detail") and exception.detail contains "Unsupported browser-specific file request">
+					<cfset subject="browser garbage">
+				</cfif>
 			</cfif>
 		<cfelse>
 			<cfif isdefined("exception.detail") and len(exception.detail) gt 0>

@@ -699,7 +699,6 @@
 			<cfif cgi.HTTP_USER_AGENT contains b>
 				<cfset bl_reason='HTTP_USER_AGENT is blocked crawler #b#'>
 				<cfinclude template="/errors/autoblacklist.cfm">
-
 				<cfabort>
 			</cfif>
 		</cfloop>
