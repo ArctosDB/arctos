@@ -15,6 +15,19 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 	<p>
 		<a href="cleanImages.cfm?action=listNew">listNew</a>
 	</p>
+
+	<cfif action is "checkFileServer">
+		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
+		<cfquery name="d" datasource="uam_god">
+			select * from  cf_media_migration where status!='found_on_corral' order by path
+		</cfquery>
+		<cfloop query="d">
+			<br>checking https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#
+			<cfhttp url='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#' method="head"></cfhttp>
+			<cfdump var=#cfhttp#>
+
+		</cfloop>
+	</cfif>
 	<cfif action is "listNew">
 		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
 		<cfquery name="found_new" datasource="uam_god">
