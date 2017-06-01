@@ -9,19 +9,30 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 ---->
 <cfoutput>
 
-	<CFDIRECTORY
-		ACTION="List"
-		DIRECTORY="#Application.webDirectory#/mediaUploads"
-		NAME="mediaUploads"
-		recurse="yes"
-		type="file">
-	<cfquery name="cf_media_migration" datasource="uam_god">
-		select * from cf_media_migration
-	</cfquery>
-	<cfloop query="mediaUploads">
-		<cfset dirpath="#DIRECTORY#/#name#">
-		<br>DIRECTORY: #DIRECTORY#
-		<br>name: #name#
+	<p>
+		<a href="cleanImages.cfm?action=checkLocalDir">checkLocalDir</a>
+	</p>
+	<cfif action is "checkLocalDir">
+		<!--- first make sure we know about everything in the local directory ---->
+		<CFDIRECTORY
+			ACTION="List"
+			DIRECTORY="#Application.webDirectory#/mediaUploads"
+			NAME="mediaUploads"
+			recurse="yes"
+			type="file">
+		<cfquery name="cf_media_migration" datasource="uam_god">
+			select * from cf_media_migration
+		</cfquery>
+		<cfloop query="mediaUploads">
+			<cfset dirpath="#DIRECTORY#/#name#">
+			<br>DIRECTORY: #DIRECTORY#
+			<br>name: #name#
+			<br>dirpath: #dirpath#
+			<cfset basepath=replace(dirpath,"#Application.webDirectory#/mediaUploads",'')>
+
+			<br>basepath: #basepath#
+		</cfloop>
+	</cfif>
 
 
 
@@ -153,8 +164,6 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			---->
 		</p>
 		---------->
-		<cfflush>
-	</cfloop>
 
 
 
