@@ -17,7 +17,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			NAME="mediaUploads"
 			recurse="yes"
 			type="file">
-		<cfdump var=##>
+		<cfdump var=#mediaUploads#>
 
 	</cfif>
 
