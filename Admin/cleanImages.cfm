@@ -11,13 +11,14 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 <cfoutput>
 
 	<p>
-		<a href="cleanImages.cfm?action=checkLocalDir">checkLocalDir</a>
+		First, <a href="cleanImages.cfm?action=checkLocalDir">checkLocalDir</a> to get all local media into the system
 	</p>
 	<p>
-		<a href="cleanImages.cfm?action=listNew">listNew</a>
+		Second, <a href="cleanImages.cfm?action=checkFileServer">checkFileServer</a> to see what's where
 	</p>
 	<p>
-		<a href="cleanImages.cfm?action=checkFileServer">checkFileServer</a>
+		Third, <a href="cleanImages.cfm?action=list_not_found">list_not_found</a> to get a list of the things that are NOT on
+		Corral. Send this to TACC, ask them to move stuff
 	</p>
 
 	<cfif action is "checkFileServer">
@@ -39,10 +40,10 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			</cfquery>
 		</cfloop>
 	</cfif>
-	<cfif action is "listNew">
+	<cfif action is "list_not_found">
 		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
 		<cfquery name="found_new" datasource="uam_god">
-			select * from  cf_media_migration where status='new' order by path
+			select * from  cf_media_migration where status='list_not_found' order by path
 		</cfquery>
 		<cfloop query="found_new">
 			<br>#Application.webDirectory#/mediaUploads#path#
