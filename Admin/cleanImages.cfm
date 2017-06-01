@@ -12,6 +12,19 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 	<p>
 		<a href="cleanImages.cfm?action=checkLocalDir">checkLocalDir</a>
 	</p>
+	<p>
+		<a href="cleanImages.cfm?action=listNew">listNew</a>
+	</p>
+	<cfif action is "listNew">
+		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
+		<cfquery name="found_new" datasource="uam_god">
+			select * from  cf_media_migration where status='new' order by path
+		</cfquery>
+		<cfloop query="found_new">
+			<br>#Application.webDirectory#/mediaUploads#path#
+		</cfloop>
+	</cfif>
+
 	<cfif action is "checkLocalDir">
 		<!--- first make sure we know about everything in the local directory ---->
 		<CFDIRECTORY
