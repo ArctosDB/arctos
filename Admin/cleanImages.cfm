@@ -8,25 +8,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 
 ---->
 <cfoutput>
-	<a href="cleanImages.cfm?action=getList">getList (step one)</a>
-	<p>
 
-	<a href="cleanImages.cfm?action=oldstuff">oldstuff (step one)</a>
-	</p>
-
-	<cfif action is "getList">
-		<CFDIRECTORY
-			ACTION="List"
-			DIRECTORY="#Application.webDirectory#/mediaUploads"
-			NAME="mediaUploads"
-			recurse="yes"
-			type="file">
-		<cfdump var=#mediaUploads#>
-
-	</cfif>
-
-
-	<cfif action is "oldstuff">
 	<CFDIRECTORY
 		ACTION="List"
 		DIRECTORY="#Application.webDirectory#/mediaUploads"
@@ -38,6 +20,13 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 	</cfquery>
 	<cfloop query="mediaUploads">
 		<cfset dirpath="#DIRECTORY#/#name#">
+		<br>DIRECTORY: #DIRECTORY#
+		<br>name: #name#
+
+
+
+<!----
+
 		<p>
 
 			<cfquery name="alreadygotone" dbtype="query">
@@ -47,8 +36,13 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 				<p>this file is already being processed.....</p>
 			<cfelse>
 				<p>
-					this file is new....
+					this file is new....inserting into migration workflow
 				</p>
+					<cfquery name="found_new" datasource="uam_god">
+						insert into cf_media_migration (path,status) values (
+					</cfquery>
+
+
 
 
 
@@ -158,10 +152,10 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			</cfif>
 			---->
 		</p>
+		---------->
 		<cfflush>
 	</cfloop>
 
-</cfif>
 
 
 </cfoutput>
