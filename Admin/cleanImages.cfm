@@ -35,6 +35,9 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			</cfquery>
 			<cfif alreadygotone.c lt 1>
 				<br>this is new insert into processing table
+				<cfquery name="found_new" datasource="uam_god">
+					insert into cf_media_migration (path,status) values ('#basepath#','new')
+				</cfquery>
 			</cfif>
 		</cfloop>
 	</cfif>
