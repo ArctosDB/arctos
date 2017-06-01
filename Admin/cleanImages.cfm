@@ -33,7 +33,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			<cfquery name="alreadygotone" dbtype="query">
 				select count(*) c from cf_media_migration where path='#basepath#'
 			</cfquery>
-			<cfif alreadygotone.c is 0>
+			<cfif alreadygotone.c lt 1>
 				<br>this is new insert into processing table
 			</cfif>
 		</cfloop>
