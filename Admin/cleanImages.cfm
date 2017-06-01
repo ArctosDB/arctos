@@ -43,7 +43,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 	<cfif action is "list_not_found">
 		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
 		<cfquery name="found_new" datasource="uam_god">
-			select * from  cf_media_migration where status='list_not_found' order by path
+			select * from  cf_media_migration where status='not_found_on_corral' order by path
 		</cfquery>
 		<cfloop query="found_new">
 			<br>#Application.webDirectory#/mediaUploads#path#
