@@ -9,6 +9,10 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 ---->
 <cfoutput>
 	<a href="cleanImages.cfm?action=getList">getList (step one)</a>
+	<p>
+
+	<a href="cleanImages.cfm?action=oldstuff">oldstuff (step one)</a>
+	</p>
 
 	<cfif action is "getList">
 		<CFDIRECTORY
@@ -40,12 +44,18 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 				select count(*) c from cf_media_migration where path='#dirpath#'
 			</cfquery>
 			<cfif alreadygotone.c gt 0>
-
+				<p>this file is already being processed.....</p>
 			<cfelse>
+				<p>
+					this file is new....
+				</p>
+
+
+
 				<br>dirpath: #dirpath#
 				<cfset olddpath=replace(dirpath,"/usr/local/httpd/htdocs/wwwarctos",application.serverRootURL)>
 				<br>olddpath: #olddpath#
-				<cfset newpath=replace(dirpath,"/usr/local/httpd/htdocs/wwwarctos","https://web.corral.tacc.utexas.edu/UAF/arctos")>
+				<cfset newpath=replace(dirpath,"/usr/local/httpd/htdocs/wwwarctos","http://web.corral.tacc.utexas.edu/UAF/arctos")>
 				<br>newpath: #newpath#
 				<cfquery name="old_media" datasource="uam_god">
 					select count(*) c from media where media_uri='#olddpath#'
@@ -68,40 +78,53 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 
 				<cfif old_media.c is 0 and old_thumb.c is 0 and (new_media.c gt 0 or new_thumb.c gt 0)>
 					<br>DELETING #DIRECTORY#/#name#
+
+					<!----
 					<cffile action = "delete" file = "#DIRECTORY#/#name#">
+					---->
 
 				<cfelseif old_media.c is 1 and new_media.c is 0>
 					<cfhttp url='#newpath#' method="head"></cfhttp>
 					<cfif cfhttp.statuscode is "200 OK">
 						<br>update media set media_uri='#newpath#' where media_uri='#olddpath#'
+
+						<!----
 						<cfquery name="udm" datasource="uam_god">
 							update media set media_uri='#newpath#' where media_uri='#olddpath#'
 						</cfquery>
+						---->
 					<cfelse>
+
+					<!----
 						<cfquery name="ss" datasource="uam_god">
 							insert into cf_media_migration (path,status) values ('#dirpath#','new_not_found')
 						</cfquery>
-
+					----->
 						<br>WONKY NEW NOT FOUND!!
 					</cfif>
 				<cfelseif old_thumb.c is 1 and new_thumb.c is 0>
 					<cfhttp url='#newpath#' method="head"></cfhttp>
 					<cfif cfhttp.statuscode is "200 OK">
 						<br>update media set preview_uri='#newpath#' where preview_uri='#olddpath#'
+						<!-----
 						<cfquery name="udmp" datasource="uam_god">
 							update media set preview_uri='#newpath#' where preview_uri='#olddpath#'
 						</cfquery>
-
+						---->
 					<cfelse>
+						<!----
 						<cfquery name="ss" datasource="uam_god">
 							insert into cf_media_migration (path,status) values ('#dirpath#','new_not_found')
 						</cfquery>
+						---->
 						<br>WONKY NEW NOT FOUND!!
 					</cfif>
 				<cfelse>
+				<!----
 						<cfquery name="ss" datasource="uam_god">
 							insert into cf_media_migration (path,status) values ('#dirpath#','not_used')
 						</cfquery>
+						---->
 					<br>CAUTION:
 					<br>old_media.c: #old_media.c#
 					<br>old_thumb.c: #old_thumb.c#
