@@ -4,25 +4,40 @@
 
 little cache to speed things along - probably a good idea to delete from this and start over
 
-create table temp_img_migr (path varchar2(4000),status varchar2(255));
+create table cf_media_migration (path varchar2(4000),status varchar2(255));
 
 ---->
 <cfoutput>
+	<a href="cleanImages.cfm?action=getList">getList (step one)</a>
+
+	<cfif action is "getList">
+		<CFDIRECTORY
+			ACTION="List"
+			DIRECTORY="#Application.webDirectory#/mediaUploads"
+			NAME="mediaUploads"
+			recurse="yes"
+			type="file">
+		<cfdump var=##>
+
+	</cfif>
+
+
+	<cfif action is "oldstuff">
 	<CFDIRECTORY
 		ACTION="List"
 		DIRECTORY="#Application.webDirectory#/mediaUploads"
 		NAME="mediaUploads"
 		recurse="yes"
 		type="file">
-	<cfquery name="temp_img_migr" datasource="uam_god">
-		select * from temp_img_migr
+	<cfquery name="cf_media_migration" datasource="uam_god">
+		select * from cf_media_migration
 	</cfquery>
 	<cfloop query="mediaUploads">
 		<cfset dirpath="#DIRECTORY#/#name#">
 		<p>
 
 			<cfquery name="alreadygotone" dbtype="query">
-				select count(*) c from temp_img_migr where path='#dirpath#'
+				select count(*) c from cf_media_migration where path='#dirpath#'
 			</cfquery>
 			<cfif alreadygotone.c gt 0>
 
@@ -64,7 +79,7 @@ create table temp_img_migr (path varchar2(4000),status varchar2(255));
 						</cfquery>
 					<cfelse>
 						<cfquery name="ss" datasource="uam_god">
-							insert into temp_img_migr (path,status) values ('#dirpath#','new_not_found')
+							insert into cf_media_migration (path,status) values ('#dirpath#','new_not_found')
 						</cfquery>
 
 						<br>WONKY NEW NOT FOUND!!
@@ -79,13 +94,13 @@ create table temp_img_migr (path varchar2(4000),status varchar2(255));
 
 					<cfelse>
 						<cfquery name="ss" datasource="uam_god">
-							insert into temp_img_migr (path,status) values ('#dirpath#','new_not_found')
+							insert into cf_media_migration (path,status) values ('#dirpath#','new_not_found')
 						</cfquery>
 						<br>WONKY NEW NOT FOUND!!
 					</cfif>
 				<cfelse>
 						<cfquery name="ss" datasource="uam_god">
-							insert into temp_img_migr (path,status) values ('#dirpath#','not_used')
+							insert into cf_media_migration (path,status) values ('#dirpath#','not_used')
 						</cfquery>
 					<br>CAUTION:
 					<br>old_media.c: #old_media.c#
@@ -123,7 +138,7 @@ create table temp_img_migr (path varchar2(4000),status varchar2(255));
 		<cfflush>
 	</cfloop>
 
-
+</cfif>
 
 
 </cfoutput>
