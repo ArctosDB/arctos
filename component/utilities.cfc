@@ -371,9 +371,6 @@
 				</cfif>
 			</cfif>
 			<cfif isdefined("cfhttp.statuscode") and not isnumeric(left(cfhttp.statuscode,3))>
-
-
-				<cfdump var=#cfhttp#>
 				<cfset result.status='failure'>
 				<cfset result.code=500>
 				<cfset result.msg='The resource is not responding correctly, and may be misconfigured or missing.'>
