@@ -20,7 +20,21 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 		Third, <a href="cleanImages.cfm?action=list_not_found">list_not_found</a> to get a list of the things that are NOT on
 		Corral. Send this to TACC, ask them to move stuff
 	</p>
+	<p>
+		After stuff has been moved, <a href="cleanImages.cfm?action=update_media_and_delete">update_media_and_delete</a>
+		to update the media records and delete the local file
+	</p>
 
+	<cfif action is "update_media_and_delete">
+		<cfquery name="d" datasource="uam_god">
+			select * from  cf_media_migration where status='found_on_corral' order by path
+		</cfquery>
+		<cfloop query="d">
+			<br>#path#
+		</cfloop>
+
+
+	</cfif>
 	<cfif action is "checkFileServer">
 		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
 		<cfquery name="d" datasource="uam_god">
