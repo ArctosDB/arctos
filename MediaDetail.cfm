@@ -41,6 +41,10 @@
 	<cfif isdefined("open") and open is not false>
 		<cfset  utils = CreateObject("component","component.utilities")>
 		<cfset x=utils.exitLink(target=URLEncodedFormat(findIDs.media_uri))>
+
+		<cfif session.username is "dlm">
+			<cfdump var=#x#>
+		</cfif>
 		<cfif x.code is "200">
 			<cfheader statuscode="303" statustext="Redirecting to external resource">
 			<cfheader name="Location" value="#x.http_target#">
