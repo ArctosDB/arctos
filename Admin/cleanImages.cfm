@@ -22,8 +22,8 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			select * from  cf_media_migration where status!='found_on_corral' order by path
 		</cfquery>
 		<cfloop query="d">
-			<br>checking https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#
-			<cfhttp url='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#' method="head"></cfhttp>
+			<br>checking http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#
+			<cfhttp url='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#' method="head"></cfhttp>
 			<cfdump var=#cfhttp#>
 
 		</cfloop>
