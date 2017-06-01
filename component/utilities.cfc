@@ -802,9 +802,10 @@
 			<cfset x=x & ",sysobjects,svn,sap,ssh">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects">
 			<cfset x=x & ",trackback,texteditor">
-			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
+			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp">
+			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
 
 			<!--- just remember to not add these...---->
