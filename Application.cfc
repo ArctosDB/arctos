@@ -4,6 +4,9 @@
 <cfset This.ClientManagement=false>
 <cfset utilities = CreateObject("component","component.utilities")>
 <!------------------>
+<cffunction name="onCFCRequest">
+	i am onCFCRequest()
+</cffunction>
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
