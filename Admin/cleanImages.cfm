@@ -4,6 +4,7 @@
 
 little cache to speed things along - probably a good idea to delete from this and start over
 
+
 create table cf_media_migration (path varchar2(4000),status varchar2(255));
 
 ---->
@@ -28,7 +29,14 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			<br>checking http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#
 			<cfhttp url='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#' method="head"></cfhttp>
 			<cfdump var=#cfhttp#>
-
+			<cfif cfhttp.Statuscode is "200">
+				<cfset newstatus='found_on_corral'>
+			<cfelse>
+				<cfset newstatus='not_found_on_corral'>
+			</cfif>
+			<cfquery name="u" datasource="uam_god">
+				update cf_media_migration set status='#newstatus#' where path='#path#'
+			</cfquery>
 		</cfloop>
 	</cfif>
 	<cfif action is "listNew">
