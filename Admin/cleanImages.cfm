@@ -29,8 +29,13 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			<br>name: #name#
 			<br>dirpath: #dirpath#
 			<cfset basepath=replace(dirpath,"#Application.webDirectory#/mediaUploads",'')>
-
 			<br>basepath: #basepath#
+			<cfquery name="alreadygotone" dbtype="query">
+				select count(*) c from cf_media_migration where path='#basepath#'
+			</cfquery>
+			<cfif alreadygotone.c is 0>
+				<br>this is new insert into processing table
+			</cfif>
 		</cfloop>
 	</cfif>
 
