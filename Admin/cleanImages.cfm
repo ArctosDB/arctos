@@ -15,6 +15,9 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 	<p>
 		<a href="cleanImages.cfm?action=listNew">listNew</a>
 	</p>
+	<p>
+		<a href="cleanImages.cfm?action=checkFileServer">checkFileServer</a>
+	</p>
 
 	<cfif action is "checkFileServer">
 		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
