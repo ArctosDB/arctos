@@ -75,12 +75,12 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 							'#lclHash#',
 							#session.myAgentID#
 						)
-
-
 					</cfif>
 
 				<cfelse>
-					<br>NO hash match!
+					<cfquery name="orp" datasource="uam_god">
+						update cf_media_migration set status='found_on_corral_not_used_in_media' where path='#path#'
+					</cfquery>
 				</cfif>
 			</cfif>
 
