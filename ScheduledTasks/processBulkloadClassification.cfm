@@ -373,6 +373,26 @@ run these in order
 
 						<cfif len(thisTermVal) gt 0>
 							<br>
+
+							<p>
+							insert into taxon_term (
+									TAXON_TERM_ID,
+									TAXON_NAME_ID,
+									CLASSIFICATION_ID,
+									TERM,
+									TERM_TYPE,
+									SOURCE,
+									LASTDATE
+								) values (
+									sq_TAXON_TERM_ID.nextval,
+									#TAXON_NAME_ID#,
+									'#thisClassificationID#',
+									'#thisTermVal#',
+									'#thisTermType#',
+									'#source#',
+									sysdate
+								)
+							</p>
 							<cfquery name="insncterm" datasource="uam_god">
 								insert into taxon_term (
 									TAXON_TERM_ID,
