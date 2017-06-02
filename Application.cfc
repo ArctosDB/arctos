@@ -3,8 +3,7 @@
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
 <cfset utilities = CreateObject("component","component.utilities")>
-<!------------------>
-
+<!-------
 <cffunction name="onCFCRequest" access="public"  returntype="any" output="true">
 	<cfargument type="string" name="cfc" required="true">
     <cfargument type="string" name="method" required="true">
@@ -13,7 +12,8 @@
 	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 	<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
 	<cfreturn true>
-</cffunction>
+</cffunction>----------->
+
 <!--------------------------------------------->
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
@@ -387,7 +387,7 @@
     </cfif>
 
 
-	<cfif listlast(cgi.script_name,".") is "cfm">
+	<cfif listlast(cgi.script_name,".") is "cfm" or listlast(cgi.script_name,".") is "cfc">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
 	</cfif>
