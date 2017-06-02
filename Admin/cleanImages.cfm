@@ -131,7 +131,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 	<cfif action is "checkFileServer">
 		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
 		<cfquery name="d" datasource="uam_god">
-			select * from  cf_media_migration where status!='found_on_corral' order by path
+			select * from  cf_media_migration where status not like 'found_on_corral%' order by path
 		</cfquery>
 		<cfloop query="d">
 			<br>checking http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#
