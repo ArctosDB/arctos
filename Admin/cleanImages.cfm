@@ -33,7 +33,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			<br>#path#
 			<!---- make sure we're using this thing --->
 			<cfquery name="mid" datasource="uam_god">
-				select media_id from media where replace(media_uri,'https://','http://')='#http://arctos.database.museum/mediaUploads#path##'
+				select media_id from media where replace(media_uri,'https://','http://')='http://arctos.database.museum/mediaUploads#path#'
 			</cfquery>
 			<cfdump var=#mid#>
 			<cfif len(mid.media_id) lt 1>
