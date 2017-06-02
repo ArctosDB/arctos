@@ -116,6 +116,7 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 			*
 		from
 			CTTAXON_TERM
+		WHERE TAXON_TERM !='display_name'
 	</cfquery>
 
 	<cfquery name="cterm" dbtype="query">
@@ -139,7 +140,6 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'TAXON_NAME_ID'))>
 	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'CLASSIFICATION_ID'))>
 	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'SUBSP'))>
-	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'DISPLAY_NAME'))>
 
 
 
