@@ -283,6 +283,9 @@ run these in order
 			<cfif not listFind(validNomenCodeList,nomenclatural_code)>
 				<cfset thisProb=listappend(thisProb,"nomenclatural_code must be in (#validNomenCodeList#)",';')>
 			</cfif>
+			<cfif len(nomenclatural_code) is 0>
+				<cfset thisProb=listappend(thisProb,"nomenclatural_code may not be NULL",';')>
+			</cfif>
 			<cfif nomenclatural_code is 'ICZN' and (len(forma) gt 0 or len(variety) gt 0)>
 				<cfset thisProb=listappend(thisProb,"subspecies is the only acceptable ICZN infraspecific data",';')>
 			</cfif>
