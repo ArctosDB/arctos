@@ -155,7 +155,7 @@
 			</cfif>
 		</li>
 		<li>
-			Review some <a href="http://g-arctos.appspot.com/arctosdoc/search_examples_TOC.html" target="_blank">sample searches</a> to learn about the power of Arctos.
+			<a href="http://arctosdb.org/learn/" target="_blank" class="external">Learn how to use Arctos</a>
 		</li>
 		<li><a href="/saveSearch.cfm?action=manage">Manage your Saved Searches</a>  (click Save Search from SpecimenResults to save a search)</li>
 	</ul>
