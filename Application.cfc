@@ -12,7 +12,7 @@
 	<!---- log the request  ---->
 	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 	<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
-	<cfreturn />
+	<cfreturn true>
 </cffunction>
 <!--------------------------------------------->
 <cffunction name="onError">
