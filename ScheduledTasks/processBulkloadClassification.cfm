@@ -272,9 +272,11 @@ run these in order
 			</cfif>
 
 			<!---------- static requirements ----------->
+			<!----
 			<cfif len(display_name) eq 0>
 				<cfset thisProb=listappend(thisProb,"display_name is required",';')>
 			</cfif>
+			---->
 			<cfif not listFind(validSourceList,source)>
 				<cfset thisProb=listappend(thisProb,"source must be in (#validSourceList#)",';')>
 			</cfif>

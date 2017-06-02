@@ -222,7 +222,7 @@ alter table cf_temp_classification drop column display_name;
 
 		<p>
 			<a href="BulkloadClassification.cfm?action=doEverything">Flag to run all data checks</a>: After creating what you believe to
-			 be valid records (e.g., those with display_name), you should verify them.
+			 be valid records, you should verify them.
 			This will catch (most) problems which would prevent a record from loading, and many potential problems or inconsistencies
 			which you
 			may not wish to introduce into the data.
