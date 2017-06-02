@@ -54,8 +54,31 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 					<cfinvokeargument name="uri" value="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#">
 				</cfinvoke>
 				<Cfdump var=#rmtHash#>
-				<cfif lclHash eq rmtHash>
-					<br>hash match
+				<cfif len(lclHash) gt 0 and len(rmtHash) gt 0 and lclHash eq rmtHash>
+					<br>hash match!
+					<!--- already got a hash stored with the image?? --->
+					<cfquery name="hh" datasource="uam_god">
+						select count(*) c from media_labels where media_label='MD5 checksum'
+					</cfquery>
+					<cfdump var=#hh#>
+					<cfif hh.c is 0>
+						<br>insert into media_labels (
+							MEDIA_LABEL_ID,
+							MEDIA_ID,
+							MEDIA_LABEL,
+							LABEL_VALUE,
+							ASSIGNED_BY_AGENT_ID
+						) values (
+							sq_MEDIA_LABEL_ID.nextval,
+							#mid.media_id#,
+							'MD5 checksum',
+							'#lclHash#',
+							#session.myAgentID#
+						)
+
+
+					</cfif>
+
 				<cfelse>
 					<br>NO hash match!
 				</cfif>
