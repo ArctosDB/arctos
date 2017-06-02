@@ -413,7 +413,30 @@ run these in order
 						<cfif thisTermType is "phylorder">
 							<cfset thisTermType="order">
 						</cfif>
-						<br>
+						<p>
+
+
+						insert into taxon_term (
+								TAXON_TERM_ID,
+								TAXON_NAME_ID,
+								CLASSIFICATION_ID,
+								TERM,
+								TERM_TYPE,
+								SOURCE,
+								LASTDATE,
+								POSITION_IN_CLASSIFICATION
+							) values (
+								sq_TAXON_TERM_ID.nextval,
+								#TAXON_NAME_ID#,
+								'#thisClassificationID#',
+								'#thisTermVal#',
+								'#thisTermType#',
+								'#source#',
+								sysdate,
+								#thisPosn#
+							)
+
+						</p>
 						<cfquery name="inscterm" datasource="uam_god">
 							insert into taxon_term (
 								TAXON_TERM_ID,
