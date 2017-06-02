@@ -5,7 +5,7 @@
 <cfset utilities = CreateObject("component","component.utilities")>
 <!------------------>
 
-<cffunction name="onCFCRequest" returntype="any" output="true">
+<cffunction name="onCFCRequest" access="public"  returntype="any" output="true">
 	<cfargument type="string" name="cfc" required="true">
     <cfargument type="string" name="method" required="true">
     <cfargument type="struct" name="args" required="true">
