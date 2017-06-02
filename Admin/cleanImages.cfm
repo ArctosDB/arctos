@@ -47,11 +47,13 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 					<cfinvokeargument name="returnFormat" value="plain">
 					<cfinvokeargument name="uri" value="#lclURL#/mediaUploads#path#">
 				</cfinvoke>
+				<Cfdump var=#lclHash#>
 				<!--- grab a hash for the remote file ---->
 				<cfinvoke component="/component/functions" method="genMD5" returnVariable="rmtHash">
 					<cfinvokeargument name="returnFormat" value="plain">
 					<cfinvokeargument name="uri" value="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#">
 				</cfinvoke>
+				<Cfdump var=#rmtHash#>
 				<cfif lclHash eq rmtHash>
 					<br>hash match
 				<cfelse>
