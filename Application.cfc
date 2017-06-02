@@ -5,12 +5,12 @@
 <cfset utilities = CreateObject("component","component.utilities")>
 <!------------------>
 
-<cffunction name="onCFCRequest">
-	<!---- log the request ---->
+<cffunction name="onCFCRequest" returntype="void">
+	<!---- log the request
 	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 	<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
-
 	<cfreturn true>
+ ---->
 </cffunction>
 <!--------------------------------------------->
 <cffunction name="onError">
