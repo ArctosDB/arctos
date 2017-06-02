@@ -42,7 +42,8 @@ run these in order
 		from
 			CTTAXON_TERM
 		where
-			IS_CLASSIFICATION=1
+			IS_CLASSIFICATION=1 and
+			taxon_term != 'display_name'
 		order by
 			RELATIVE_POSITION desc
 	</cfquery>
