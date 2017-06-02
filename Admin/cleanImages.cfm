@@ -58,7 +58,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 					<br>hash match!
 					<!--- already got a hash stored with the image?? --->
 					<cfquery name="hh" datasource="uam_god">
-						select count(*) c from media_labels where media_label='MD5 checksum'
+						select count(*) c from media_labels where MEDIA_ID=#mid.media_id# and media_label='MD5 checksum'
 					</cfquery>
 					<cfdump var=#hh#>
 					<cfif hh.c is 0>
