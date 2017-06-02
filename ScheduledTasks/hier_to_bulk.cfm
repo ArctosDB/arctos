@@ -141,14 +141,16 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		<cfset dNoClassTerm=queryNew("TERM_TYPE,TERM_VALUE")>
 		<!---- need to merge ---->
 		<cfloop query="nct">
-			<cfquery name="tnctv" dbtype="query">
-				select distinct(TERM_VALUE) from thisNoClass where term_type='#taxon_term#'
-			</cfquery>
-			<cfset thisMergedVal=valuelist(tnctv.TERM_VALUE,";")>
-			<cfset queryaddrow(dNoClassTerm,
-				{TERM_TYPE="#nct.taxon_term#",
-				TERM_VALUE="#thisMergedVal#"}
-			)>
+			<cfif taxon_term is not "scientific_name" and taxon_term is not "display_name">
+				<cfquery name="tnctv" dbtype="query">
+					select distinct(TERM_VALUE) from thisNoClass where term_type='#taxon_term#'
+				</cfquery>
+				<cfset thisMergedVal=valuelist(tnctv.TERM_VALUE,";")>
+				<cfset queryaddrow(dNoClassTerm,
+					{TERM_TYPE="#nct.taxon_term#",
+					TERM_VALUE="#thisMergedVal#"}
+				)>
+			</cfif>
 		</cfloop>
 
 
