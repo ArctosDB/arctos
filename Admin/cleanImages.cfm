@@ -40,15 +40,17 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 				not used!!
 			<cfelse>
 				used, rock on....
+				<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
+
 				<!--- grab a hash for the local file ---->
 				<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
 					<cfinvokeargument name="returnFormat" value="plain">
-					<cfinvokeargument name="uri" value="http://arctos.database.museum/mediaUploads#path#">
+					<cfinvokeargument name="uri" value="#lclURL#/mediaUploads#path#">
 				</cfinvoke>
 				<!--- grab a hash for the remote file ---->
 				<cfinvoke component="/component/functions" method="genMD5" returnVariable="rmtHash">
 					<cfinvokeargument name="returnFormat" value="plain">
-					<cfinvokeargument name="uri" value="http://arctos.database.museum/mediaUploads#path#">
+					<cfinvokeargument name="uri" value="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#">
 				</cfinvoke>
 				<cfif lclHash eq rmtHash>
 					<br>hash match
