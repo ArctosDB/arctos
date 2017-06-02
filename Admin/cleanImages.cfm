@@ -31,6 +31,34 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 		</cfquery>
 		<cfloop query="d">
 			<br>#path#
+			<!---- make sure we're using this thing --->
+			<cfquery name="mid" datasource="uam_god">
+				select media_id from media where replace(media_uri,'https://','http://')='#http://arctos.database.museum/mediaUploads#path##'
+			</cfquery>
+			<cfdump var=#mid#>
+			<cfif len(mid.media_id) lt 1>
+				not used!!
+			<cfelse>
+				used, rock on....
+				<!--- grab a hash for the local file ---->
+				<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
+					<cfinvokeargument name="returnFormat" value="plain">
+					<cfinvokeargument name="uri" value="http://arctos.database.museum/mediaUploads#path#">
+				</cfinvoke>
+				<!--- grab a hash for the remote file ---->
+				<cfinvoke component="/component/functions" method="genMD5" returnVariable="rmtHash">
+					<cfinvokeargument name="returnFormat" value="plain">
+					<cfinvokeargument name="uri" value="http://arctos.database.museum/mediaUploads#path#">
+				</cfinvoke>
+				<cfif lclHash eq rmtHash>
+					<br>hash match
+				<cfelse>
+					<br>NO hash match!
+				</cfif>
+			</cfif>
+
+
+
 		</cfloop>
 
 
