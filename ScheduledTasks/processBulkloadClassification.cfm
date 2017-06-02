@@ -323,7 +323,7 @@ run these in order
 			select * from CF_TEMP_CLASSIFICATION where status='ready_to_load' and rownum<1000
 		</cfquery>
 		<cfquery name="CTTAXON_TERM" datasource="uam_god">
-			select * from CTTAXON_TERM
+			select * from CTTAXON_TERM where taxon_term != 'display_name'
 		</cfquery>
 		<cfquery name="ncq" dbtype="query">
 			select * from CTTAXON_TERM where IS_CLASSIFICATION=0
