@@ -123,12 +123,8 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 					</cfquery>
 					<br>update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
 				</cfif>
-
-
-
+			</cfif>
 		</cfloop>
-
-
 	</cfif>
 	<cfif action is "checkFileServer">
 		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
