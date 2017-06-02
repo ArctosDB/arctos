@@ -9,6 +9,9 @@
 		information from the source classification, and you may need to delete
 		any "old" classification data in the record to which you're adding this classification.
 	</p>
+	<p>
+		Terms not in cttaxon_term will be ignored.
+	</p>
 	<form name="newCC" method="post" action="cloneclass.cfm">
 		<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 		<input type="hidden" name="tgt_taxon_name_id">
@@ -35,14 +38,16 @@
 
 			<cfquery name="d" datasource="uam_god">
 				select
-					term,
-					nvl(term_type,'[not given]') term_type,
-					position_in_classification
+					v_mv_sciname_term.term,
+					v_mv_sciname_term.term_type,
+					v_mv_sciname_term.position_in_classification
 				from
-					v_mv_sciname_term
+					v_mv_sciname_term,
+					cttaxon_term
 				where
 					taxon_name_id=#taxon_name_id# and
-					classification_id='#classification_id#'
+					classification_id='#classification_id#' and
+					v_mv_sciname_term.term_type=cttaxon_term.TAXON_TERM
 			</cfquery>
 			<cfquery name="nct" dbtype="query">
 				select term,term_type from d where position_in_classification is null order by term_type
@@ -83,10 +88,12 @@
 			TERM_TYPE,
 			POSITION_IN_CLASSIFICATION
 		from
-			taxon_term
+			taxon_term,
+			cttaxon_term
 		where
 			taxon_name_id=#taxon_name_id# and
-			classification_id='#classification_id#'
+			classification_id='#classification_id#' and
+			taxon_term.term_type=cttaxon_term.TAXON_TERM
 		group by
 			TERM,
 			TERM_TYPE,
