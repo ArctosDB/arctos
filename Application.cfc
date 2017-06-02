@@ -3,16 +3,6 @@
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
 <cfset utilities = CreateObject("component","component.utilities")>
-<!-------
-<cffunction name="onCFCRequest" access="public"  returntype="any" output="true">
-	<cfargument type="string" name="cfc" required="true">
-    <cfargument type="string" name="method" required="true">
-    <cfargument type="struct" name="args" required="true">
-	<!---- log the request  ---->
-	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
-	<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
-	<cfreturn true>
-</cffunction>----------->
 
 <!--------------------------------------------->
 <cffunction name="onError">
