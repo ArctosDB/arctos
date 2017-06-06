@@ -174,7 +174,7 @@ sho err
 						cataloged_item.collection_object_id sid,
 						specimen_part.collection_object_id pid
 					from
-						collection
+						collection,
 						cataloged_item,
 						specimen_part
 					where
