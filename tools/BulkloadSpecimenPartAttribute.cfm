@@ -184,10 +184,16 @@ sho err
 						specimen_part.part_name='#part_name#'
 				</cfquery>
 				<cfif a.recordcount is not 1 or len(a.sid) lt 1 or len(a.pid) lt 1>
-					fail
+					<br>fail
 					<cfdump var=#a#>
+					<cfquery name="uf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update cf_temp_specPartAttr set status='unique specimen/part combo not found' where key=#key#
+					</cfquery>
 				<cfelse>
-					<br>got spec and part
+				<br>woop
+					<cfquery name="uf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update cf_temp_specPartAttr set status='success',part_id=#a.pid#,spec_id =#a.sid# where key=#key#
+					</cfquery>
 				</cfif>
 
 				<cfflush>
