@@ -136,7 +136,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 		<cfloop query="d">
 			<br>checking http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#
 			<cfhttp url='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/#path#' method="head"></cfhttp>
-			<cfdump var=#cfhttp#>
+			<cfdump var=#cfhttp.Statuscode#>
 			<cfif left(cfhttp.Statuscode,3) is "200">
 				<cfset newstatus='found_on_corral'>
 			<cfelse>
