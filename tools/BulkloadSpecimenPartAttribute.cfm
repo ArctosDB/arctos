@@ -18,7 +18,8 @@ create table cf_temp_specPartAttr (
 	determiner  varchar2(60),
 	remark  varchar2(4000),
 	part_id number,
-	spec_id number
+	spec_id number,
+	agnt_id number
 );
 
 
@@ -170,6 +171,10 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specPartAttr
 	</cfquery>
+
+
+
+
 	<cfoutput>
 		<!--- all-or-nothing for now....--->
 		<cftransaction>
@@ -201,6 +206,12 @@ sho err
 				</cfif>
 
 			</cfloop>
+			<cfquery name="ag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cf_temp_specPartAttr set agnt_id=getAgentID(determiner) where determiner is not null
+			</cfquery>
+			<cfquery name="ag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cf_temp_specPartAttr set status='agent_not_found' where determiner is not null and agnt_id is null
+			</cfquery>
 		</cftransaction>
 	</cfoutput>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -236,7 +247,27 @@ sho err
 		</cfquery>
 		<cftransaction>
 			<cfloop query="data">
-				<br>insert....
+				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into specimen_part_attribute (
+						PART_ATTRIBUTE_ID,
+						COLLECTION_OBJECT_ID,
+						ATTRIBUTE_TYPE,
+						ATTRIBUTE_VALUE,
+						ATTRIBUTE_UNITS,
+						DETERMINED_DATE,
+						DETERMINED_BY_AGENT_ID,
+						ATTRIBUTE_REMARK
+					) values (
+						sq_PART_ATTRIBUTE_ID.nextval,
+						#part_id#,
+						'#ATTRIBUTE_TYPE#',
+						'#escapeQuotes(ATTRIBUTE_VALUE)#',
+						'#ATTRIBUTE_UNITS#',
+						'#DETERMINED_DATE#',
+						decode(#agnt_id#,null,null,#agnt_id#),
+						'#escapeQuotes(remark)#'
+					)
+				</cfquery>
 			</cfloop>
 		</cftransaction>
 	</cfoutput>
