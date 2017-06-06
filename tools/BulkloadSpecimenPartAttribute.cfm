@@ -169,6 +169,7 @@ sho err
 			<cftransaction>
 				<cfset sid=''>
 				<cfset pid=''>
+				<!---
 				<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						cataloged_item.collection_object_id sid,
@@ -189,6 +190,8 @@ sho err
 				<cfelse>
 					<br>got spec and part
 				</cfif>
+				---->
+				hi
 				<cfflush>
 
 			</cftransaction>
