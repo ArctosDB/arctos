@@ -191,6 +191,19 @@ sho err
 					<br>got spec and part
 				</cfif>
 				---->
+
+				select
+						cataloged_item.collection_object_id sid,
+						specimen_part.collection_object_id pid
+					from
+						collection,
+						cataloged_item,
+						specimen_part
+					where
+						collection.collection_id=cataloged_item.collection_id and
+						cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+						collection.guid_prefix || ':' || cataloged_item.cat_num = '#guid#' and
+						specimen_part.part_name='#part_name#'
 				hi
 				<cfflush>
 
