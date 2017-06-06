@@ -191,6 +191,7 @@
 									<li><a target="_top" href="##">Batch Tools</a>
 										<ul>
 											<li><a target="_top" href="/tools/BulkloadParts.cfm">Bulkload Parts</a></li>
+											<li><a target="_top" href="/tools/BulkloadSpecimenPartAttribute.cfm">Bulkload Part Attributess</a></li>
 											<li><a target="_top" href="/tools/BulkPartSample.cfm">Bulkload Part Subsamples (Lots)</a></li>
 											<li><a target="_top" href="/tools/BulkloadAttributes.cfm">Bulkload Attributes</a></li>
 											<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
