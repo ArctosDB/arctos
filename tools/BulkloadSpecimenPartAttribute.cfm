@@ -160,16 +160,40 @@ sho err
 
 <!---------------------------------------------------------------------------->
 <cfif action is "validate">
-	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_specPartAttr set spec_id=(
-			select cataloged_item.collection_object_id from
-			cataloged_item,
-			collection
-			where
-			cataloged_item.collection_id=collection.collection_id and
-			collection.guid_prefix || ':' || cataloged_item.cat_num = cf_temp_specPartAttr.guid
-		)
+
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_specPartAttr
 	</cfquery>
+	<cfoutput>
+		<cfloop query="d">
+			<cftransaction>
+				<cfset sid=''>
+				<cfset pid=''>
+				<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						cataloged_item.collection_object_id sid,
+						specimen_part.collection_object_id pid
+					from
+						collection
+						cataloged_item,
+						specimen_part
+					where
+						collection.collection_id=cataloged_item.collection_id and
+						cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+						collection.guid_prefix || ':' || cataloged_item.cat_num = '#guid#' and
+						specimen_part.part_name='#part_name#'
+				</cfquery>
+				<cfif a.recordcount is not 1 or len(a.sid) lt 1 or len(a.pid) lt 1>
+					fail
+					<cfdump var=#a#>
+				<cfelse>
+					<br>got spec and part
+				</cfif>
+
+
+			</cftransaction>
+		</cfloop>
+	</cfoutput>
 
 
 yokay
