@@ -169,19 +169,18 @@ sho err
 			<cftransaction>
 				<cfset sid=''>
 				<cfset pid=''>
-				<!---
 				<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
-						cataloged_item.collection_object_id sid,
+						flat.collection_object_id sid,
 						specimen_part.collection_object_id pid
 					from
 						collection,
-						cataloged_item,
+						flat,
 						specimen_part
 					where
-						collection.collection_id=cataloged_item.collection_id and
-						cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
-						collection.guid_prefix || ':' || cataloged_item.cat_num = '#guid#' and
+						collection.collection_id=flat.collection_id and
+						flat.collection_object_id=specimen_part.derived_from_cat_item and
+						flat.guid = '#guid#' and
 						specimen_part.part_name='#part_name#'
 				</cfquery>
 				<cfif a.recordcount is not 1 or len(a.sid) lt 1 or len(a.pid) lt 1>
@@ -190,21 +189,7 @@ sho err
 				<cfelse>
 					<br>got spec and part
 				</cfif>
-				---->
 
-				select
-						cataloged_item.collection_object_id sid,
-						specimen_part.collection_object_id pid
-					from
-						collection,
-						cataloged_item,
-						specimen_part
-					where
-						collection.collection_id=cataloged_item.collection_id and
-						cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
-						collection.guid_prefix || ':' || cataloged_item.cat_num = '#guid#' and
-						specimen_part.part_name='#part_name#'
-				hi
 				<cfflush>
 
 			</cftransaction>
