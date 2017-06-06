@@ -133,6 +133,10 @@ sho err
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "getFileData">
 	<cfoutput>
+		 <cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cf_temp_specPartAttr
+		</cfquery>
+
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
