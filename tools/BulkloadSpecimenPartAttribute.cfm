@@ -271,5 +271,11 @@ sho err
 			</cfloop>
 		</cftransaction>
 	</cfoutput>
+
+	If there are no errors above, load was successful.
+
+	<p>
+		If there are errors, the entire load has failed. Fix problems, file Issues, start again.
+	</p>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
