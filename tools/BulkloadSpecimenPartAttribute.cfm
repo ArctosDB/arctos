@@ -230,22 +230,15 @@ sho err
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "load">
 	<cfoutput>
-		<p>
-			IMPORTANT!! This application will load as many records as it can before it times out. That number varies wildly depending on
-			how much data must be created, heterogeneity of data being created, and maybe sunspot activity.
-		</p>
-		<p>
-			SCROLL TO THE BOTTOM OF THIS PAGE after it stops loading, which will take a couple minutes. If there are timeout errors, hit reload or
-			go back to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">the manage screen</a> and hit load again.
-		</p>
-		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_specevent where status='valid' and upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cfloop query="data">
-			<cftransaction>
 
-			</cftransaction>
-		</cfloop>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_specPartAttr
+		</cfquery>
+		<cftransaction>
+			<cfloop query="data">
+				<br>insert....
+			</cfloop>
+		</cftransaction>
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
