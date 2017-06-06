@@ -189,7 +189,7 @@ sho err
 				<cfelse>
 					<br>got spec and part
 				</cfif>
-
+				<cfflush>
 
 			</cftransaction>
 		</cfloop>
