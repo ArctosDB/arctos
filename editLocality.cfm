@@ -647,7 +647,7 @@ function checkCoordinateError(){
 		<input type="hidden" name="action" value="saveLocalityEdit">
         <input type="hidden" name="locality_id" value="#locDet.locality_id#">
         <input type="hidden" name="geog_auth_rec_id" value="#locDet.geog_auth_rec_id#">
-       	<label for="higher_geog">Higer Geography</label>
+       	<label for="higher_geog">Higher Geography</label>
 		<input type="text" name="higher_geog" id="higher_geog" value="#locDet.higher_geog#" size="120" class="readClr" readonly="yes">
 		<input type="button" value="Change for this Locality" class="picBtn" id="changeGeogButton"
 			onclick="GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
