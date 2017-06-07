@@ -35,7 +35,7 @@
 
 	<cfhttp url="#ftgt#" method="head" timeout="3"></cfhttp>
 
-		<cfdump var=#session.username#>
+
 	<cfif session.username is "dlm">
 		<cfdump var=#cfhttp#>
 	</cfif>
