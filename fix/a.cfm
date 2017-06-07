@@ -1,6 +1,6 @@
 
 <cffile
-    action = "move"
+    action = "copy"
 	source = "/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg"
     destination = "/corralZ/web/UAF/arctos/mediaUploads/cfUpload/chas.jpeg"
      >
