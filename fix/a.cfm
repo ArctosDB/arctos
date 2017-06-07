@@ -1,3 +1,32 @@
+<!---
+
+create table temp_test (u varchar2(255), p varchar2(255));
+insert into temp_test (u,p) values ('dustylee','xxxxxxx');
+---->
+<cfoutput>
+	<cfquery datasource='uam_god' name='p'>
+		select * from temp_test
+	</cfquery>
+	<cffile
+		action = "read"
+		file = "/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg"
+		variable = "thefile">
+
+	<cfhttp
+		method="post"
+		username="#p.u#"
+		password="#p.p#"
+		result="pr"
+		url="https://web.corral.tacc.utexas.edu/irods-rest/rest/fileContents/corralZ/web/UAF/arctos/mediaUploads/cfUpload/chas.jpeg">
+			<cfhttpparam type="header" name="accept" value="multipart/form-data">
+			<cfhttpparam type="file" name="chas.jpeg" file="#thefile#">
+	</cfhttp>
+
+	<cfdump var=#pr#>
+</cfoutput>
+
+<!------------
+
 
 <cffile
     action = "copy"
@@ -6,7 +35,6 @@
      >
 
 
-<!------------
 drop table temp_dnametest;
 
 create table temp_dnametest (
