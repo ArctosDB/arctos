@@ -1,5 +1,12 @@
-<cfinclude template="/includes/_header.cfm">
 
+<cffile
+    action = "move"
+	source = "/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg"
+    destination = "/corralZ/web/UAF/arctos/mediaUploads/cfUpload/chas.jpeg"
+     >
+
+
+<!------------
 drop table temp_dnametest;
 
 create table temp_dnametest (
@@ -356,6 +363,7 @@ create table temp_mc_log (cn varchar2(255));
 		insert into temp_mc_log (cn) values ('#td.cat_num#')
 	</cfquery>
 </cfloop>
+--------------->
 <!---------------------------------------------------------------------------------------------------->
 
 
