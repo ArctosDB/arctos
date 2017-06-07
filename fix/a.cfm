@@ -19,7 +19,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxxxx');
 		result="pr"
 		url="https://web.corral.tacc.utexas.edu/irods-rest/rest/fileContents/corralZ/web/UAF/arctos/mediaUploads/cfUpload/chas.jpeg">
 			<cfhttpparam type="header" name="accept" value="multipart/form-data">
-			<cfhttpparam type="file" name="chas.jpeg" file="#thefile#">
+			<cfhttpparam type="file" name="chas.jpeg" file="/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg">
 	</cfhttp>
 
 	<cfdump var=#pr#>
