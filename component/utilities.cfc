@@ -337,7 +337,14 @@
 	</cfif>
 	<cfif result.status is "spiffy">
 		<!---- check for a timely response ---->
-		<cfhttp url="#http_target#" method="head" timeout="3"></cfhttp>
+
+		<cfif http_target contains "https://arctos.database.museum">
+			<cfset ftgt=replace(http_target,'https://arctos.database.museum','http://arctos.database.museum')>
+		<cfelse>
+			<cfset ftgt=http_target>
+		</cfif>
+
+		<cfhttp url="#ftgt#" method="head" timeout="3"></cfhttp>
 		<!---- yay ---->
 		<cfif isdefined("cfhttp.statuscode") and left(cfhttp.statuscode,3) is "200">
 			<cfset result.status='success'>
