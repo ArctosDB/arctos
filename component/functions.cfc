@@ -462,7 +462,13 @@
 
 	<cfif len(preview_uri) gt 0>
 		<cftry>
-		<cfhttp method="head" url="#preview_uri#" timeout="1">
+
+		<cfif preview_uri contains "https://arctos.database.museum">
+			<cfset ftgt=replace(preview_uri,'https://arctos.database.museum','http://arctos.database.museum')>
+		<cfelse>
+			<cfset ftgt=preview_uri>
+		</cfif>
+		<cfhttp method="head" url="#ftgt#" timeout="1">
 		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200 and
 			cfhttp.Responseheader["Content-Length"] lte 64000>
 			<cfreturn preview_uri>
