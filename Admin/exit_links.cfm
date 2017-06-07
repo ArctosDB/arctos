@@ -46,8 +46,6 @@
 				<option <cfif x is ctstatus.status> selected="selected" </cfif> value="#ctstatus.status#">#ctstatus.status#</option>
 			</cfloop>
 		</select>
-
-
 		<br><input type="submit" value="go">
 	</form>
 	<cfif isdefined("form.fieldnames") and len(form.fieldnames)>

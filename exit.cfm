@@ -25,9 +25,15 @@
 			errorCode = "127002" extendedInfo="There may be a problem with the linked resource: the Media does not exist.">
 		<cfabort>
 	</cfif>
+	<!--- cheat... ---->
+	<cfif http_target contains "https://arctos.database.museum">
+		<cfset ftgt=replace(http_target,'https://arctos.database.museum','http://arctos.database.museum')>
+	<cfelse>
+		<cfset ftgt=http_target>
+	</cfif>
 
 
-	<cfhttp url="#http_target#" method="head" timeout="3"></cfhttp>
+	<cfhttp url="#ftgt#" method="head" timeout="3"></cfhttp>
 	<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
 		<cfset status="200">
 	<cfelse>
