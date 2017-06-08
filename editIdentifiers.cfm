@@ -262,7 +262,6 @@
 							</select>
 						</td>
 						<td>
-							::#oids.other_id_prefix#::
 							<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#" id="other_id_prefix_#i#"  placeholder="prefix">
 						</td>
 						<td>
@@ -352,14 +351,19 @@
 					COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
 				</cfquery>
 			<cfelse>
-				<pre>orig:::#thisOTHER_ID_PREFIX#::</pre>
+				<!---
+					CF QoQ strips spaces!!!! so replace them with something pretty and un-strip before update
 
+					chr(7) is seldom used so let's hope and....
+				---->
+				<!--- spaces --->
 				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,' ',chr(7),'all')>
+				<!---- HTML, because some browsers roll thataway ---->
 				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,'&nbsp;',chr(7),'all')>
+				<!---- nbsp's charcode, because I have no idea but it's in there ---->
 				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,chr(160),chr(7),'all')>
-				<pre>7:::#thisOTHER_ID_PREFIX#::</pre>
+				<!--- now replace all chr(7) with chr(32)=space --->
 				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,chr(7),chr(32),'all')>
-				<pre>32:::#thisOTHER_ID_PREFIX#::</pre>
 				<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE
 						coll_obj_other_id_num
