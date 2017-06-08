@@ -156,13 +156,16 @@
 		</div>
 		<br>
 		<div id="cloned" style="display:none" class="redBorder"></div>
+
+		<!---
+			CF QoQ strips spaces!!!! so replace them with something pretty and un-strip before update
+		---->
 		<cfquery name="getIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				COLL_OBJ_OTHER_ID_NUM_ID,
 				cat_num,
 				replace(other_id_prefix,' ','&nbsp;') other_id_prefix,
 				other_id_number,
-				'::'||other_id_prefix||'::' b,
 				other_id_suffix,
 				other_id_type,
 				cataloged_item.collection_id,
@@ -178,10 +181,6 @@
 				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
-
-		<cfdump var="#getIDs#">
-
-
 		<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select other_id_type from ctcoll_other_id_type order by sort_order,other_id_type
 		</cfquery>
@@ -201,7 +200,6 @@
 			select
 				COLL_OBJ_OTHER_ID_NUM_ID,
 				other_id_prefix,
-				':'||other_id_prefix||':' bracketed,
 				other_id_number,
 				other_id_suffix,
 				other_id_type,
@@ -220,7 +218,6 @@
 				id_references,
 				coll_obj_other_id_num_id
 		</cfquery>
-		<cfdump var=#oids#>
 		<h3>Identifiers</h3>
 		<b>Edit existing Identifiers:</b>
 		<form name="ids" id="formEdit" method="post" action="editIdentifiers.cfm">
