@@ -162,6 +162,7 @@
 				cat_num,
 				other_id_prefix,
 				other_id_number,
+				'::'||other_id_number||'::' b,
 				other_id_suffix,
 				other_id_type,
 				cataloged_item.collection_id,
@@ -177,6 +178,10 @@
 				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
+
+		<cfdump var="#getIDs#">
+
+
 		<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select other_id_type from ctcoll_other_id_type order by sort_order,other_id_type
 		</cfquery>
