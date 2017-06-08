@@ -479,7 +479,6 @@ grant all on cf_temp_parts to uam_query,uam_update;
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "validate">
-validate
 <cfoutput>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
@@ -599,6 +598,34 @@ validate
 			476089: UAM PARENTLESS VOID
 			397630: MVZ PARENTLESS VOID
 	---->
+	<cfquery name="hasDupParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_parts set status = status || ';duplicate parts detected'
+		where key in (
+			select key from (
+				select
+				  specimen_part.part_name,
+				  cf_temp_parts.key
+				from
+				  cf_temp_parts,
+				  specimen_part,
+				  coll_obj_cont_hist,
+				  container
+				where
+				  specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				  coll_obj_cont_hist.container_id=container.container_id and
+				  container.parent_container_id in (0,476089,397630) and
+				  specimen_part.derived_from_cat_item=cf_temp_parts.collection_object_id and
+				  specimen_part.part_name=cf_temp_parts.part_name and
+				  upper(cf_temp_parts.username)='#ucase(session.username)#' and
+				  cf_temp_parts.collection_object_id is not null and
+				  cf_temp_parts.USE_EXISTING=1 and
+				  cf_temp_parts.status is null
+				having count(*) > 1
+				group by specimen_part.part_name,
+				  cf_temp_parts.key
+			)
+		)
+	</cfquery>
 	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_parts set USE_PART_ID = (
@@ -618,7 +645,8 @@ validate
 		where
 			collection_object_id is not null and
 			USE_EXISTING=1 and
-			upper(username)='#ucase(session.username)#'
+			upper(username)='#ucase(session.username)#' and
+			cf_temp_parts.status is null
 	</cfquery>
 	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
