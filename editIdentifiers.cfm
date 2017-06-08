@@ -196,6 +196,7 @@
 			select
 				COLL_OBJ_OTHER_ID_NUM_ID,
 				other_id_prefix,
+				':'||other_id_prefix||':' bracketed,
 				other_id_number,
 				other_id_suffix,
 				other_id_type,
