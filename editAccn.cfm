@@ -419,7 +419,7 @@
 
 				<p>
 					<br>--- newmedia
-								<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
+								<a id="mediaUpClickThis">Attach/Upload Media</a>
 
 
 
