@@ -360,8 +360,8 @@
 				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,' ',chr(7),'all')>
 				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,'&nbsp;',chr(7),'all')>
 				<pre>7:::#thisOTHER_ID_PREFIX#::</pre>
-				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,chr(7),' ','all')>
-				<pre>space:::#thisOTHER_ID_PREFIX#::</pre>
+				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,chr(7),chr(32),'all')>
+				<pre>32:::#thisOTHER_ID_PREFIX#::</pre>
 				<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE
 						coll_obj_other_id_num
