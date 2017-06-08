@@ -258,7 +258,8 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#" id="other_id_prefix_#i#"  placeholder="prefix">
+							::#oids.other_id_prefix#::
+							<input type="text" value="#oids.other_id_prefix#|" size="12" name="other_id_prefix_#i#" id="other_id_prefix_#i#"  placeholder="prefix">
 						</td>
 						<td>
 							<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#" id="other_id_number_#i#" placeholder="integer">
