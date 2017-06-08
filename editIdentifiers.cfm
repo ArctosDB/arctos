@@ -358,6 +358,7 @@
 				<pre>orig:::#thisOTHER_ID_PREFIX#::</pre>
 
 				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,' ',chr(7),'all')>
+				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,'&nbsp;',chr(7),'all')>
 				<pre>7:::#thisOTHER_ID_PREFIX#::</pre>
 				<cfset thisOTHER_ID_PREFIX=replace(thisOTHER_ID_PREFIX,chr(7),' ','all')>
 				<pre>space:::#thisOTHER_ID_PREFIX#::</pre>
