@@ -160,7 +160,7 @@
 			select
 				COLL_OBJ_OTHER_ID_NUM_ID,
 				cat_num,
-				other_id_prefix,
+				replace(other_id_prefix,' ','&nbsp;') other_id_prefix,
 				other_id_number,
 				'::'||other_id_prefix||'::' b,
 				other_id_suffix,
