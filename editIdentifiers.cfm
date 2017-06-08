@@ -162,7 +162,7 @@
 				cat_num,
 				other_id_prefix,
 				other_id_number,
-				'::'||other_id_number||'::' b,
+				'::'||other_id_prefix||'::' b,
 				other_id_suffix,
 				other_id_type,
 				cataloged_item.collection_id,
