@@ -415,8 +415,6 @@
 					onclick="addMediaHere('#accnData.guid_prefix# #accnData.accn_number#','#transaction_id#');">
 						Create Media
 				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
-				<div id="accnMediaDiv"></div>
-
 
 
 				<p>
@@ -427,6 +425,15 @@
 
 					<br>---- /newmedia
 				</p>
+
+
+
+
+				<div id="accnMediaDiv"></div>
+
+
+
+
 		</div>
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
