@@ -111,6 +111,8 @@
 		<cfset tbl='cataloged_item'>
 	<cfelseif ktype is "borrow_id">
 		<cfset tbl='borrow'>
+	<cfelseif ktype is "accn_id">
+		<cfset tbl='accn'>
 	<cfelse>
 		<!--- not handled, return nothing disallowing save ---->
 		<cfset tbl='ajksndfiouafvblvnasahihs'>

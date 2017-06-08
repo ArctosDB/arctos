@@ -14,6 +14,11 @@
 			checkReplaceNoPrint(event,'nature_of_material');
 			checkReplaceNoPrint(event,'remarks');
 		});
+
+		 $("#mediaUpClickThis").click(function(){
+		 	var aid=$("#transaction_id").val();
+		    addMedia('accn_id',aid);
+		});
 	});
 
 	function addAccnContainer(transaction_id,barcode){
@@ -180,7 +185,7 @@
 		<table><tr><td valign="top">
 			<form action="editAccn.cfm" method="post" name="editAccn" id="editAccn">
 				<input type="hidden" name="action" value="saveChanges">
-				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
+				<input type="hidden" id="transaction_id" name="transaction_id" value="#accnData.transaction_id#">
 				<cfset tIA=accnData.collection_id>
 				<table border>
 					<tr>
@@ -411,6 +416,17 @@
 						Create Media
 				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
 				<div id="accnMediaDiv"></div>
+
+
+
+				<p>
+					<br>--- newmedia
+								<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
+
+
+
+					<br>---- /newmedia
+				</p>
 		</div>
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
