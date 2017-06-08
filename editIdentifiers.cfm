@@ -214,6 +214,7 @@
 				id_references,
 				coll_obj_other_id_num_id
 		</cfquery>
+		<cfdump var=#oids#>
 		<h3>Identifiers</h3>
 		<b>Edit existing Identifiers:</b>
 		<form name="ids" id="formEdit" method="post" action="editIdentifiers.cfm">
