@@ -46,6 +46,9 @@
 				trans.transaction_id =
 				 <cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
+		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_transactions")>
+	        <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">[ edit accession ]</a>
+	    </cfif>
 		<cfif d.is_public_fg is not 1>
 			<div class="error">Data restricted by collection.</div>
 			<cfabort>
