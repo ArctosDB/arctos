@@ -347,7 +347,7 @@
 					COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
 				</cfquery>
 			<cfelse>
-				<p>::thisOTHER_ID_PREFIX::</p>
+				<p>::#thisOTHER_ID_PREFIX#::</p>
 
 				<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE
