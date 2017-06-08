@@ -383,8 +383,6 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
-
-	<cfabort>
 	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
