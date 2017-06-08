@@ -612,7 +612,8 @@ validate
 					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 					coll_obj_cont_hist.container_id=container.container_id and
 					container.parent_container_id in (0,476089,397630) and
-					specimen_part.derived_from_cat_item=cf_temp_parts.collection_object_id
+					specimen_part.derived_from_cat_item=cf_temp_parts.collection_object_id and
+					specimen_part.part_name=cf_temp_parts.part_name
 			)
 		where
 			collection_object_id is not null and

@@ -7,10 +7,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxxxx');
 	<cfquery datasource='uam_god' name='p'>
 		select * from temp_test
 	</cfquery>
-	<cffile
-		action = "read"
-		file = "/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg"
-		variable = "thefile">
+
 
 	<cfhttp
 		method="post"
@@ -19,7 +16,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxxxx');
 		result="pr"
 		url="https://web.corral.tacc.utexas.edu/irods-rest/rest/fileContents/corralZ/web/UAF/arctos/mediaUploads/cfUpload/chas.jpeg">
 			<cfhttpparam type="header" name="accept" value="multipart/form-data">
-			<cfhttpparam type="file" name="chas.jpeg" file="/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg">
+			<cfhttpparam type="file" name="uploadFile" file="/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg">
 	</cfhttp>
 
 	<cfdump var=#pr#>
@@ -27,7 +24,12 @@ insert into temp_test (u,p) values ('dustylee','xxxxxxx');
 
 <!------------
 
-
+	<cffile
+		action = "read"
+		file = "/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg"
+		variable = "thefile">
+		
+		
 <cffile
     action = "copy"
 	source = "/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg"
