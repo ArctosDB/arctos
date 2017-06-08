@@ -347,6 +347,8 @@
 					COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
 				</cfquery>
 			<cfelse>
+				<p>::thisOTHER_ID_PREFIX::</p>
+
 				<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE
 						coll_obj_other_id_num
@@ -366,6 +368,8 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
+
+	<cfabort>
 	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
