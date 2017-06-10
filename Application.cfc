@@ -23,7 +23,7 @@
 		<cfset subject="">
 		<cfset x=utilities.checkRequest(exception)>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
-			<cfif isdefined("HTTP_REFERER") and HTTP_REFERER contains "http://yandex.ru">
+			<cfif isdefined("HTTP_REFERER") and HTTP_REFERER contains "//yandex.ru">
 				<cfset bl_reason='referrer is yandex'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 			<cfelse>
