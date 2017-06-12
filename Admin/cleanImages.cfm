@@ -123,8 +123,8 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 						update media set #usedas#='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#'
 							where media_id=#mid.media_id#
 						<!----  ....and delete the local file ---->
-						<cffile action = "delete" file = "#application.webDirectory#/mediaUploads/#path#">
 						<br>deleting #application.webDirectory#/mediaUploads/#path#
+						<cffile action = "delete" file = "#application.webDirectory#/mediaUploads/#path#">
 					<cfelse>
 						<cfquery name="orp" datasource="uam_god">
 							update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
