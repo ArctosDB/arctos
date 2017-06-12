@@ -31,6 +31,11 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 		Third, <a href="cleanImages.cfm?action=find_not_used">find_not_used</a> to mark things that are NOT used in media
 	</p>
 	<p>
+		Third, <a href="cleanImages.cfm?action=update_media_and_delete__dryRun">update_media_and_delete__dryRun</a>: dry run
+	</p>
+
+
+	<p>
 		After stuff has been moved, <a href="cleanImages.cfm?action=update_media_and_delete">update_media_and_delete</a>
 		to update the media records and delete the local file
 	</p>
@@ -74,6 +79,129 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 			</cftransaction>
 		</cfloop>
 	</cfif>
+
+	<cfif action is "update_media_and_delete__dryRun">
+		<!---barf out sql ---->
+		<cfquery name="d" datasource="uam_god">
+			select * from  cf_media_migration where status='found_on_corral_confirm_used_in_media' and rownum < 2 order by path
+		</cfquery>
+		<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
+		<cfloop query="d">
+			<cftransaction>
+				<br>#path#
+				<!---- make sure we're using this thing --->
+				<cfquery name="mid" datasource="uam_god">
+					select media_id from media where replace(media_uri,'https://','http://')='#lclURL#/mediaUploads#path#'
+				</cfquery>
+				<cfif len(mid.media_id) gt 0>
+					<cfset usedas='media_uri'>
+				<cfelse>
+					<cfquery name="mid" datasource="uam_god">
+						select media_id from media where replace(preview_uri,'https://','http://')='#lclURL#/mediaUploads#path#'
+					</cfquery>
+					<cfif len(mid.media_id) gt 0>
+						<cfset usedas='preview_uri'>
+					<cfelse>
+						<cfset usedas='nothing'>
+					</cfif>
+				</cfif>
+				<cfif usedas is 'nothing'>
+					<br>not used!!
+					<cfquery name="orp" datasource="uam_god">
+						update cf_media_migration set status='found_on_corral_not_used_in_media' where path='#path#'
+					</cfquery>
+				<cfelse>
+					<br>used, rock on....
+					<br>media_id: #mid.media_id#
+					<!--- grab a hash for the local file ---->
+					<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
+						<cfinvokeargument name="returnFormat" value="plain">
+						<cfinvokeargument name="uri" value="#lclURL#/mediaUploads#path#">
+					</cfinvoke>
+					<Cfdump var=#lclHash#>
+					<!--- grab a hash for the remote file ---->
+					<cfinvoke component="/component/functions" method="genMD5" returnVariable="rmtHash">
+						<cfinvokeargument name="returnFormat" value="plain">
+						<cfinvokeargument name="uri" value="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#">
+					</cfinvoke>
+					<Cfdump var=#rmtHash#>
+					<cfif len(lclHash) gt 0 and len(rmtHash) gt 0 and lclHash eq rmtHash>
+						<br>hash match!
+						<!--- already got a hash stored with the image?? --->
+						<cfquery name="hh" datasource="uam_god">
+							select count(*) c from media_labels where MEDIA_ID=#mid.media_id# and media_label='MD5 checksum'
+						</cfquery>
+						<cfdump var=#hh#>
+						<cfif hh.c is 0>
+							<br>insert into media_labels (
+								MEDIA_LABEL_ID,
+								MEDIA_ID,
+								MEDIA_LABEL,
+								LABEL_VALUE,
+								ASSIGNED_BY_AGENT_ID
+							) values (
+								sq_MEDIA_LABEL_ID.nextval,
+								#mid.media_id#,
+								'MD5 checksum',
+								'#lclHash#',
+								#session.myAgentID#
+							)
+							<!----
+							<cfquery name="ilbl" datasource="uam_god">
+								insert into media_labels (
+									MEDIA_LABEL_ID,
+									MEDIA_ID,
+									MEDIA_LABEL,
+									LABEL_VALUE,
+									ASSIGNED_BY_AGENT_ID
+								) values (
+									sq_MEDIA_LABEL_ID.nextval,
+									#mid.media_id#,
+									'MD5 checksum',
+									'#lclHash#',
+									#session.myAgentID#
+								)
+							</cfquery>
+							---->
+						</cfif>
+						<!--- now switcharoo media_uri or preview_uri.... ---->
+						<!----
+						<cfquery name="upmuri" datasource="uam_god">
+							update media set #usedas#='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#'
+							where media_id=#mid.media_id#
+						</cfquery>
+						---->
+						<br>
+						update media set #usedas#='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#'
+							where media_id=#mid.media_id#
+						<!----  ....and delete the local file ---->
+						<br>deleting #application.webDirectory#/mediaUploads/#path#
+						<!----
+						<cfquery name="orp" datasource="uam_god">
+							update cf_media_migration set status='add_moved_over_ready_to_delete' where path='#path#'
+						</cfquery>
+						---->
+						<cfquery name="orp" datasource="uam_god">
+							update cf_media_migration set status='dry_run_happy' where path='#path#'
+						</cfquery>
+						<br>update cf_media_migration set status='dry_run_happy' where path='#path#'
+
+						<!----
+						<cffile action = "delete" file = "#application.webDirectory#/mediaUploads/#path#">
+						---->
+					<cfelse>
+						<cfquery name="orp" datasource="uam_god">
+							update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
+						</cfquery>
+						<br>update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
+					</cfif>
+				</cfif>
+			</cftransaction>
+		</cfloop>
+	</cfif>
+
+
+
 	<cfif action is "update_media_and_delete">
 		<cfquery name="d" datasource="uam_god">
 			select * from  cf_media_migration where status='found_on_corral' and rownum < 2 order by path
