@@ -28,10 +28,49 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 		Corral. Send this to TACC, ask them to move stuff
 	</p>
 	<p>
+		Third, <a href="cleanImages.cfm?action=find_not_used">find_not_used</a> to mark things that are NOT used in media
+	</p>
+	<p>
 		After stuff has been moved, <a href="cleanImages.cfm?action=update_media_and_delete">update_media_and_delete</a>
 		to update the media records and delete the local file
 	</p>
 
+	<cfif action is "find_not_used">
+		<!--- find and flag stuff that's not used. That's it. ---->
+		<cfquery name="d" datasource="uam_god">
+			select * from  cf_media_migration where status='found_on_corral' and rownum < 2 order by path
+		</cfquery>
+		<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
+		<cfloop query="d">
+			<cftransaction>
+				<br>#path#
+				<!---- make sure we're using this thing --->
+				<cfquery name="mid" datasource="uam_god">
+					select media_id from media where replace(media_uri,'https://','http://')='#lclURL#/mediaUploads#path#'
+				</cfquery>
+				<cfif len(mid.media_id) gt 0>
+					<cfset usedas='media_uri'>
+				<cfelse>
+					<cfquery name="mid" datasource="uam_god">
+						select media_id from media where replace(preview_uri,'https://','http://')='#lclURL#/mediaUploads#path#'
+					</cfquery>
+					<cfif len(mid.media_id) gt 0>
+						<cfset usedas='preview_uri'>
+					<cfelse>
+						<cfset usedas='nothing'>
+					</cfif>
+				</cfif>
+				<cfif usedas is 'nothing'>
+					<br>not used!!
+					<cfquery name="orp" datasource="uam_god">
+						update cf_media_migration set status='found_on_corral_not_used_in_media' where path='#path#'
+					</cfquery>
+				<cfelse>
+					<br>is used, do nothing, moving on....
+				</cfif>
+			</cftransaction>
+		</cfloop>
+	</cfif>
 	<cfif action is "update_media_and_delete">
 		<cfquery name="d" datasource="uam_god">
 			select * from  cf_media_migration where status='found_on_corral' and rownum < 2 order by path
