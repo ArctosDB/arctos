@@ -62,7 +62,10 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 				</cfquery>
 				<br>happy
 			<cfelse>
-				<cfdump var=#cfhttp#>
+				<cfquery name="fl" datasource="uam_god">
+					update cf_media_migration set fullRemotePath='NOT #rp#' where path='#path#'
+				</cfquery>
+				<br>unhappy
 			</cfif>
 		</cfloop>
 	</cfif>
