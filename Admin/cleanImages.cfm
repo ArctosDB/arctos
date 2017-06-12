@@ -10,6 +10,13 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 ---->
 <cfoutput>
 
+	<!---- weird migration paths... ---->
+
+	<cfif action is "aren">
+
+	</cfif>
+
+
 	<p>
 		First, <a href="cleanImages.cfm?action=checkLocalDir">checkLocalDir</a> to get all local media into the system
 	</p>
@@ -27,7 +34,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 
 	<cfif action is "update_media_and_delete">
 		<cfquery name="d" datasource="uam_god">
-			select * from  cf_media_migration where status='found_on_corral' order by path
+			select * from  cf_media_migration where status='found_on_corral' and rownum < 2 order by path
 		</cfquery>
 		<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
 		<cfloop query="d">
