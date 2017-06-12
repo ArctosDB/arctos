@@ -58,16 +58,15 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 			<cfset rp='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/' & listlast(path,'/')>
 			<br>#rp#
 
-			<!----
 			<cfhttp method="head" url="#rp#"></cfhttp>
 			<cfif cfhttp.statusCode is '200 OK'>
 				<cfquery name="fl" datasource="uam_god">
 					update cf_media_migration set fullRemotePath='#rp#' where path='#path#'
 				</cfquery>
-				<br>happy
+				<br>ishappy
 			<cfelse>
 				<cfquery name="fl" datasource="uam_god">
-					update cf_media_migration set fullRemotePath='NOT #rp#' where path='#path#'
+					update cf_media_migration set fullRemotePath='STILLNOT #rp#' where path='#path#'
 				</cfquery>
 				<br>unhappy
 			</cfif>
