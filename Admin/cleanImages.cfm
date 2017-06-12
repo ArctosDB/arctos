@@ -66,7 +66,10 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 						update cf_media_migration set status='found_on_corral_not_used_in_media' where path='#path#'
 					</cfquery>
 				<cfelse>
-					<br>is used, do nothing, moving on....
+					<cfquery name="orp" datasource="uam_god">
+						update cf_media_migration set status='found_on_corral_confirm_used_in_media' where path='#path#'
+					</cfquery>
+					<br>is used, flag so we can ignore on next loop....
 				</cfif>
 			</cftransaction>
 		</cfloop>
