@@ -7,16 +7,29 @@ little cache to speed things along - probably a good idea to delete from this an
 
 create table cf_media_migration (path varchar2(4000),status varchar2(255));
 
+
+alter table cf_media_migration add fullLocalPath  varchar2(4000);
+alter table cf_media_migration add fullRemotePath  varchar2(4000);
 ---->
 <cfoutput>
 
 	<!---- weird migration paths... ---->
 
-	<cfif action is "aren">
-
+	<cfif action is "confirmFullLocalPath">
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_media_migration where fullLocalPath is null and rownum<10
+		</cfquery>
+		<cfloop query="d">
+			<cfset lp=replace(application.serverRootURL,'https://','http://') & #path#>
+			<cfhttp method="head" url="lp"></cfhttp>
+			<cfdump var=#cfhttp#>
+		</cfloop>
 	</cfif>
 
 
+	<p>
+		First, <a href="cleanImages.cfm?action=confirmFullLocalPath">confirmFullLocalPath</a>
+	</p>
 	<p>
 		First, <a href="cleanImages.cfm?action=checkLocalDir">checkLocalDir</a> to get all local media into the system
 	</p>
