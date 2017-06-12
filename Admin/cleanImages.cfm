@@ -124,7 +124,13 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 							where media_id=#mid.media_id#
 						<!----  ....and delete the local file ---->
 						<br>deleting #application.webDirectory#/mediaUploads/#path#
+
+						<cfquery name="orp" datasource="uam_god">
+							update cf_media_migration set status='add_moved_over_ready_to_delete' where path='#path#'
+						</cfquery>
+						<!----
 						<cffile action = "delete" file = "#application.webDirectory#/mediaUploads/#path#">
+						---->
 					<cfelse>
 						<cfquery name="orp" datasource="uam_god">
 							update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
