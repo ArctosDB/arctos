@@ -21,6 +21,7 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 		</cfquery>
 		<cfloop query="d">
 			<cfset lp=replace(application.serverRootURL,'https://','http://') & #path#>
+			<br>#lp#
 			<cfhttp method="head" url="#lp#"></cfhttp>
 			<cfdump var=#cfhttp#>
 		</cfloop>
