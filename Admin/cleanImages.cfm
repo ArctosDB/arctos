@@ -55,7 +55,7 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 		<cfloop query="d">
 			<cfset rp='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/' & #path#>
 			<br>#rp#
-			<cfhttp method="head" url="#lp#"></cfhttp>
+			<cfhttp method="head" url="#rp#"></cfhttp>
 			<cfif cfhttp.statusCode is '200 OK'>
 				<cfquery name="fl" datasource="uam_god">
 					update cf_media_migration set fullRemotePath='#rp#' where path='#path#'
