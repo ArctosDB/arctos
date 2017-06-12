@@ -38,7 +38,7 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 	<cfif action is "find_not_used">
 		<!--- find and flag stuff that's not used. That's it. ---->
 		<cfquery name="d" datasource="uam_god">
-			select * from  cf_media_migration where status='found_on_corral' and rownum < 21 order by path
+			select * from  cf_media_migration where status='found_on_corral' and rownum < 201 order by path
 		</cfquery>
 		<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
 		<cfloop query="d">
