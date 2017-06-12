@@ -20,7 +20,7 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 			select * from cf_media_migration where fullLocalPath is null and rownum<10
 		</cfquery>
 		<cfloop query="d">
-			<cfset lp=replace(application.serverRootURL,'https://','http://') & #path#>
+			<cfset lp=replace(application.serverRootURL,'https://','http://') & '/mediaUploads' & #path#>
 			<br>#lp#
 			<cfhttp method="head" url="#lp#"></cfhttp>
 			<cfdump var=#cfhttp#>
