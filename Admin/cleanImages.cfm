@@ -15,17 +15,6 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 
 	<!---- weird migration paths... ---->
 
-	<cfif action is "confirmFullLocalPath">
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_media_migration where fullLocalPath is null and rownum<10
-		</cfquery>
-		<cfloop query="d">
-			<cfset lp=replace(application.serverRootURL,'https://','http://') & '/mediaUploads' & #path#>
-			<br>#lp#
-			<cfhttp method="head" url="#lp#"></cfhttp>
-			<cfdump var=#cfhttp#>
-		</cfloop>
-	</cfif>
 
 
 	<p>
@@ -54,6 +43,27 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 		to update the media records and delete the local file
 	</p>
 
+
+
+
+	<cfif action is "confirmFullLocalPath">
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_media_migration where fullLocalPath is null and rownum<10
+		</cfquery>
+		<cfloop query="d">
+			<cfset lp=replace(application.serverRootURL,'https://','http://') & '/mediaUploads' & #path#>
+			<br>#lp#
+			<cfhttp method="head" url="#lp#"></cfhttp>
+			<cfif cfhttp.statusCode is '200 OK'>
+				<cfquery name="fl" datasource="uam_god">
+					update cf_media_migration set fullLocalPath='#lp#' where path='#path#'
+				</cfquery>
+				<br>happy
+			<cfelse>
+				<cfdump var=#cfhttp#>
+			</cfif>
+		</cfloop>
+	</cfif>
 	<cfif action is "find_not_used">
 		<!--- find and flag stuff that's not used. That's it. ---->
 		<cfquery name="d" datasource="uam_god">
