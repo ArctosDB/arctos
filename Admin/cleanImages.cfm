@@ -50,7 +50,7 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 
 	<cfif action is "confirmFullRemotePath">
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_media_migration where fullRemotePath is null and rownum<10
+			select * from cf_media_migration where fullRemotePath is null
 		</cfquery>
 		<cfloop query="d">
 			<cfset rp='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads' & #path#>
