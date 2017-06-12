@@ -18,6 +18,9 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 
 
 	<p>
+		First, <a href="cleanImages.cfm?action=confirmFullRemotePath">confirmFullRemotePath</a>
+	</p>
+	<p>
 		First, <a href="cleanImages.cfm?action=confirmFullLocalPath">confirmFullLocalPath</a>
 	</p>
 	<p>
@@ -45,7 +48,24 @@ alter table cf_media_migration add fullRemotePath  varchar2(4000);
 
 
 
-
+	<cfif action is "confirmFullRemotePath">
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_media_migration where fullRemotePath is null and rownum<10
+		</cfquery>
+		<cfloop query="d">
+			<cfset rp='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/' & #path#>
+			<br>#rp#
+			<cfhttp method="head" url="#lp#"></cfhttp>
+			<cfif cfhttp.statusCode is '200 OK'>
+				<cfquery name="fl" datasource="uam_god">
+					update cf_media_migration set fullRemotePath='#rp#' where path='#path#'
+				</cfquery>
+				<br>happy
+			<cfelse>
+				<cfdump var=#cfhttp#>
+			</cfif>
+		</cfloop>
+	</cfif>
 	<cfif action is "confirmFullLocalPath">
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_media_migration where fullLocalPath is null
