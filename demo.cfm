@@ -1,3 +1,13 @@
+
+<cfhttp method="head" url="http://web.corral.tacc.utexas.edu/MVZ/images/MVZ_img/images/jpg/img_15473.jpg">
+
+</cfhttp>
+<cfdump var=#cfhttp#>
+
+
+<cfabort>
+
+
 <cfinclude template="/includes/_header.cfm">
 
 	<cfparam name="p" default="1">
