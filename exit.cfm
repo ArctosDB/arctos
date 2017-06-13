@@ -37,11 +37,6 @@
 
 	<cfhttp url="#ftgt#" method="head" timeout="3"></cfhttp>
 
-<cfif session.username is "dlm">
-	isdlm
-			<cfdump var=#cfhttp#>
-			<cfabort>
-		</cfif>
 	<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
 		<cfset status="200">
 	<cfelse>

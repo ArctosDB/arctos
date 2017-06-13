@@ -349,6 +349,11 @@
 		<cfhttp url="#ftgt#" method="head" timeout="3"></cfhttp>
 
 
+<cfif session.username is "dlm">
+	isdlm
+			<cfdump var=#cfhttp#>
+			<cfabort>
+		</cfif>
 		<!---- yay ---->
 		<cfif isdefined("cfhttp.statuscode") and left(cfhttp.statuscode,3) is "200">
 			<cfset result.status='success'>
