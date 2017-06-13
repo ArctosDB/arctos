@@ -412,11 +412,6 @@
 	<!--- and return the results ---->
 
 
-	<cfif session.username is "dlm">
-	isdlm
-			<cfdump var=#cfhttp#>
-			<cfabort>
-		</cfif>
 
 
 
