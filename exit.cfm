@@ -38,6 +38,7 @@
 	<cfhttp url="#ftgt#" method="head" timeout="3"></cfhttp>
 
 <cfif session.username is "dlm">
+	isdlm
 			<cfdump var=#cfhttp#>
 			<cfabort>
 		</cfif>
