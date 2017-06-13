@@ -28,6 +28,8 @@
 	<!--- cheat... ---->
 	<cfif http_target contains "https://arctos.database.museum">
 		<cfset ftgt=replace(http_target,'https://arctos.database.museum','http://arctos.database.museum')>
+	<cfelseif http_target contains "https://web.corral.tacc.utexas.edu">
+		<cfset ftgt=replace(http_target,'https://web.corral.tacc.utexas.edu','http://web.corral.tacc.utexas.edu')>
 	<cfelse>
 		<cfset ftgt=http_target>
 	</cfif>

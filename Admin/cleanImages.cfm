@@ -10,6 +10,9 @@ create table cf_media_migration (path varchar2(4000),status varchar2(255));
 
 alter table cf_media_migration add fullLocalPath  varchar2(4000);
 alter table cf_media_migration add fullRemotePath  varchar2(4000);
+
+
+select * from cf_media_migration where fullRemotePath like 'STILL%';
 ---->
 <cfoutput>
 
