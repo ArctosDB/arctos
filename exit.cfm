@@ -41,6 +41,10 @@
 	<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
 		<cfset status="200">
 	<cfelse>
+		<cfif session.username is "dlm">
+			<cfdump var=#cfhttp#>
+			<cfabort>
+		</cfif>
 		<cfset isGoodLink=false>
 		<cfif isdefined("cfhttp.statuscode")>
 			<cfset status=cfhttp.statuscode>
