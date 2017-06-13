@@ -45,9 +45,6 @@
 			<cfheader statuscode="303" statustext="Redirecting to external resource">
 			<cfheader name="Location" value="#x.http_target#">
 		<cfelse>
-			<cfif session.username is "dlm">
-				<cfdump var=#x#>
-			</cfif>
 			<cfheader statuscode="#x.code#" statustext="#x.msg#">
 			<cftry>
 				<cfhtmlhead text='<title>An external resource is not responding properly</title>'>
