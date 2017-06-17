@@ -1,7 +1,6 @@
 <!-----
 BulkloadSpecimenPartAttribute.cfm
 
-
 drop table cf_temp_specPartAttr;
 
 
