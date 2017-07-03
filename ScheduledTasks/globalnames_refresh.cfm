@@ -134,7 +134,6 @@ This form may be called in two ways:
 		</p>
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
 
-		<cfdump var=#cfhttp#>
 		<cfif cfhttp.Responseheader.Status_Code contains "500">
 			<cfset theNameThatFailed=listgetat(theseNames,1,'|')>
 			<br>testing for failure: #theNameThatFailed#
@@ -327,5 +326,5 @@ This form may be called in two ways:
 	<cfif isdefined("name") and len(name) gt 0>
 		<!--- we came here on a name, redirect back to the taxon page ---->
 		<cflocation url="/name/#name#" addtoken="false">
-	</cfif>
+	</cfif>™
 </cfoutput>
