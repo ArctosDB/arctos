@@ -133,6 +133,8 @@ This form may be called in two ways:
 			http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#
 		</p>
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
+
+		<cfdump var=#cfhttp#>
 		<cfif cfhttp.Responseheader.Status contains "500">
 			<cfset theNameThatFailed=listgetat(theseNames,1,'|')>
 			<br>testing for failure: #theNameThatFailed#
