@@ -148,7 +148,6 @@ $(document).ready(function () {
 	jQuery.get(ptl, function(data){
 		jQuery("#cntr_refineSearchTerms").html(data);
 	});
-    initializeMap();
 	$( "#srmapctrls-nomap" ).click(function() {
 		//("#srmapctrls-nomap").hide();
 		//$("#spresmapdiv").show();
@@ -322,9 +321,7 @@ function formatPartDetail(){
 	$("div[id^='partdetail_']").each(function() {
 		var r = $.parseJSON($("#" + this.id).html());
 		
-		console.log(r);
 		var str = JSON.stringify(r, null, 2);
-		console.log(str);
 		$("#" + this.id).html('<pre>' + str + '</pre>');
 	});
 	
