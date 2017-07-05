@@ -317,6 +317,14 @@ function getPostLoadJunk(){
 	displayMedia();
 }
 
+function formatPartDetail(){
+	$("div[id^='partdetail_']").each(function() {
+		var r = $.parseJSON($("#" + this.id).html());
+		var str = JSON.stringify(r, null, 2);
+		$("#" + this.id).html(str);
+	});
+	
+}
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
 		var r = $.parseJSON($("#" + this.id).html());
