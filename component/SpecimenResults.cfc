@@ -677,6 +677,8 @@
 						</cfif>
 					<cfelseif i is "media">
 						<cfset temp ='"MEDIA":"<div id=\"jsonmedia_#collection_object_id#\">' & theData & '</div>"'>
+					<cfelseif i is "partdetail">
+						<cfset temp ='"PARTDETAIL":"<div id=\"partdetail_#collection_object_id#\">' & theData & '</div>"'>
 					<cfelse>
 						<cfset temp = '"#i#":"' & theData & '"'>
 					</cfif>
