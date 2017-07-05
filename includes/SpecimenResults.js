@@ -325,7 +325,7 @@ function formatPartDetail(){
 		console.log(r);
 		var str = JSON.stringify(r, null, 2);
 		console.log(str);
-		$("#" + this.id).html(str);
+		$("#" + this.id).html('<pre>' + str + ''</pre>');
 	});
 	
 }
