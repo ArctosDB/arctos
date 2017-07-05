@@ -321,7 +321,10 @@ function getPostLoadJunk(){
 function formatPartDetail(){
 	$("div[id^='partdetail_']").each(function() {
 		var r = $.parseJSON($("#" + this.id).html());
+		
+		console.log(r);
 		var str = JSON.stringify(r, null, 2);
+		console.log(str);
 		$("#" + this.id).html(str);
 	});
 	
