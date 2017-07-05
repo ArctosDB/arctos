@@ -148,6 +148,7 @@ $(document).ready(function () {
 	jQuery.get(ptl, function(data){
 		jQuery("#cntr_refineSearchTerms").html(data);
 	});
+    initializeMap();
 	$( "#srmapctrls-nomap" ).click(function() {
 		//("#srmapctrls-nomap").hide();
 		//$("#spresmapdiv").show();

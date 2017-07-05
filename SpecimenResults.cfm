@@ -522,9 +522,4 @@
 	</div>
 	<div id="specresults"></div>
 </cfoutput>
-
-<script>
-	    initializeMap();
-
-</script>
 <cfinclude template="/includes/_footer.cfm">
