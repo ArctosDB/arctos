@@ -315,6 +315,7 @@ function getPostLoadJunk(){
 	insertTypes(coidList);
 	injectLoanPick();
 	displayMedia();
+	formatPartDetail();
 }
 
 function formatPartDetail(){
