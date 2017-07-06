@@ -21,29 +21,29 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 
 	<p>
-		First, <a href="cleanImages.cfm?action=confirmFullRemotePath">confirmFullRemotePath</a>
+		 <a href="cleanImages.cfm?action=confirmFullRemotePath">confirmFullRemotePath</a>
 	</p>
 	<p>
-		First, <a href="cleanImages.cfm?action=confirmFullRemotePath2">confirmFullRemotePath2</a>
+		<a href="cleanImages.cfm?action=confirmFullRemotePath2">confirmFullRemotePath2</a>
 	</p>
 	<p>
-		First, <a href="cleanImages.cfm?action=confirmFullLocalPath">confirmFullLocalPath</a>
+		<a href="cleanImages.cfm?action=confirmFullLocalPath">confirmFullLocalPath</a>
 	</p>
 	<p>
-		First, <a href="cleanImages.cfm?action=checkLocalDir">checkLocalDir</a> to get all local media into the system
+		<a href="cleanImages.cfm?action=checkLocalDir">checkLocalDir</a> to get all local media into the system
 	</p>
 	<p>
-		Second, <a href="cleanImages.cfm?action=checkFileServer">checkFileServer</a> to see what's where
+		<a href="cleanImages.cfm?action=checkFileServer">checkFileServer</a> to see what's where
 	</p>
 	<p>
-		Third, <a href="cleanImages.cfm?action=list_not_found">list_not_found</a> to get a list of the things that are NOT on
+		<a href="cleanImages.cfm?action=list_not_found">list_not_found</a> to get a list of the things that are NOT on
 		Corral. Send this to TACC, ask them to move stuff
 	</p>
 	<p>
-		Third, <a href="cleanImages.cfm?action=find_not_used">find_not_used</a> to mark things that are NOT used in media
+		<a href="cleanImages.cfm?action=find_not_used">find_not_used</a> to mark things that are NOT used in media
 	</p>
 	<p>
-		Third, <a href="cleanImages.cfm?action=update_media_and_delete__dryRun">update_media_and_delete__dryRun</a>: dry run
+		<a href="cleanImages.cfm?action=update_media_and_delete__dryRun">update_media_and_delete__dryRun</a>: dry run
 	</p>
 
 
@@ -55,7 +55,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 	<cfif action is "confirmFullRemotePath2">
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_media_migration where fullRemotePath like 'NOT %'
+			select * from cf_media_migration where fullRemotePath like 'STILLNOT %'
 		</cfquery>
 		<cfloop query="d">
 			<cfset rp='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/' & listlast(path,'/')>
