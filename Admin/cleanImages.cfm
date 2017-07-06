@@ -73,7 +73,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 				<cfset DirectoryCreate("#application.webDirectory#/download/temp_media_notused/#uname#")>
 			</cfif>
 			<!--- now move --->
-			<br>moving #application.webDirectory#/mediaUploads/#path# to #application.webDirectory#/download/temp_media_notused/#uname#/#fname
+			<br>moving #application.webDirectory#/mediaUploads/#path# to #application.webDirectory#/download/temp_media_notused/#uname#/#fname#
 			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_notused/#uname#/#fname#"
 				source = "#application.webDirectory#/mediaUploads/#path#">
 			<br>moved....
