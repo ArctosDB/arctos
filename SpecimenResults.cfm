@@ -20,7 +20,7 @@
 		overflow:auto;
 	}
 	.noshrink{
-		border:2px solid red;
+		max-height: none;
 	}
 </style>
 <cfoutput>
