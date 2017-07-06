@@ -69,7 +69,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 				<br>ishappy
 			<cfelse>
 				<cfquery name="fl" datasource="uam_god">
-					update cf_media_migration set fullRemotePath='STILLNOT #rp#' where path='#path#'
+					update cf_media_migration set fullRemotePath='STILLNOTT #rp#' where path='#path#'
 				</cfquery>
 				<br>unhappy
 			</cfif>
