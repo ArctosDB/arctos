@@ -61,22 +61,23 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 			select path from cf_media_migration where status='found_on_corral_not_used_in_media' and rownum<2
 		</cfquery>
 
-
-
-
 		<cfloop query="d">
+			<cftransaction>
 			<br>#path#
 			<cfset uname=listgetat(path,1,"/")>
 			<cfset fname=listlast(path,"/")>
 			<!--- dir exists? --->
 			<cfif not DirectoryExists("#application.webDirectory#/download/temp_media_notused/#uname#")>
 				<!--- make it ---->
+				<br>does not exist,making #application.webDirectory#/download/temp_media_notused/#uname#
 				<cfset DirectoryCreate("#application.webDirectory#/download/temp_media_notused/#uname#")>
 			</cfif>
 			<!--- now move --->
+			<br>moving #application.webDirectory#/mediaUploads/#path# to #application.webDirectory#/download/temp_media_notused/#uname#/#fname
 			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_notused/#uname#/#fname#"
-				source = "#path#">
+				source = "#application.webDirectory#/mediaUploads/#path#">
 			<br>moved....
+			</cftransaction>
 		</cfloop>
 
 	</cfif>
