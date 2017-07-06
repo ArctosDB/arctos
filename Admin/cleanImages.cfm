@@ -117,6 +117,11 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	</cfif>
 	<cfif action is "find_not_used">
 		<!--- find and flag stuff that's not used. That's it. ---->
+		<!---
+
+		update cf_media_migration set status='found_on_corral' where fullRemotePath is not null;
+
+		--->
 		<cfquery name="d" datasource="uam_god">
 			select * from  cf_media_migration where status='found_on_corral' and rownum < 201 order by path
 		</cfquery>
