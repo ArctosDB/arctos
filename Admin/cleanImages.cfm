@@ -228,13 +228,13 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 					<!--- grab a hash for the local file ---->
 					<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
 						<cfinvokeargument name="returnFormat" value="plain">
-						<cfinvokeargument name="uri" value="#lclURL#/mediaUploads#path#">
+						<cfinvokeargument name="uri" value="#FULLLOCALPATH#">
 					</cfinvoke>
 					<Cfdump var=#lclHash#>
 					<!--- grab a hash for the remote file ---->
 					<cfinvoke component="/component/functions" method="genMD5" returnVariable="rmtHash">
 						<cfinvokeargument name="returnFormat" value="plain">
-						<cfinvokeargument name="uri" value="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#">
+						<cfinvokeargument name="uri" value="#FULLREMOTEPATH#">
 					</cfinvoke>
 					<Cfdump var=#rmtHash#>
 					<cfif len(lclHash) gt 0 and len(rmtHash) gt 0 and lclHash eq rmtHash>
