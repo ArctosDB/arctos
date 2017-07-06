@@ -76,7 +76,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 			<!--- now move --->
 			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_notused/#uname#/#fname#"
 				source = "#path#">
-			<br>moved....£
+			<br>moved....
 		</cfloop>
 
 	</cfif>
