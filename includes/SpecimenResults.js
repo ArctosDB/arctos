@@ -323,7 +323,7 @@ function unexpPartDet(){
 		$(this).removeClass('noshrink');
 	});
 	var bgn='<input type="button" id="pdcb" value="Collapse Part Detail" class="clrBtn" onclick="unexpPartDet()">';
-	$("#bgn").remove();
+	$("#pdcb").remove();
 	$("#ssControl").append(bgn);
 }
 function expPartDet(){
@@ -332,7 +332,7 @@ function expPartDet(){
 		$(this).addClass('noshrink');
 	});
 	var bgn='<input type="button" id="pdcb" value="Expand Part Detail" class="clrBtn" onclick="expPartDet()">';
-	$("#bgn").remove();
+	$("#pdcb").remove();
 	$("#ssControl").append(bgn);
 }
 function formatPartDetail(){
