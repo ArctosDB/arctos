@@ -19,6 +19,9 @@
 		max-height:10em;
 		overflow:auto;
 	}
+	.noshrink{
+		border:2px solid red;
+	}
 </style>
 <cfoutput>
 	<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>

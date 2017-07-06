@@ -320,6 +320,9 @@ function getPostLoadJunk(){
 function expPartDet(){
 	
 	alert('expPartDet');
+	$("div[id^='partdetail_']").each(function() {
+		$(this).addClass('noshrink');
+	});
 }
 function formatPartDetail(){
 	$("div[id^='partdetail_']").each(function() {
@@ -330,7 +333,7 @@ function formatPartDetail(){
 	});
 	// by default these are collapsed to 10em h
 	// option to biggenate
-	var bgn='<input type="button" value="Expand Part Detail" onclick="expPartDet()">';
+	var bgn='<input type="button" value="Expand Part Detail" class="clrBtn" onclick="expPartDet()">';
 	$("#ssControl").append(bgn);
 	
 }
