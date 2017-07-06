@@ -123,7 +123,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 		--->
 		<cfquery name="d" datasource="uam_god">
-			select * from  cf_media_migration where status='found_on_corral' and rownum < 201 order by path
+			select * from  cf_media_migration where status='found_on_corral' and rownum < 501 order by path
 		</cfquery>
 		<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
 		<cfloop query="d">
