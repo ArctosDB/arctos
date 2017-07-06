@@ -225,6 +225,8 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 				<cfelse>
 					<br>used, rock on....
 					<br>media_id: #mid.media_id#
+					<br>FULLLOCALPATH: #FULLLOCALPATH#
+					<br>FULLREMOTEPATH: #FULLREMOTEPATH#
 					<!--- grab a hash for the local file ---->
 					<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
 						<cfinvokeargument name="returnFormat" value="plain">
