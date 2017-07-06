@@ -15,6 +15,10 @@
 <style>
 	#usertools{border:3px solid #417bb5; }
 	#goWhere{border:3px solid #417bb5; }
+	[id^="partdetail_"] {
+		max-height:10em;
+		overflow:auto;
+	}
 </style>
 <cfoutput>
 	<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
