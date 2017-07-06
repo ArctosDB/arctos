@@ -45,6 +45,9 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	<p>
 		<a href="cleanImages.cfm?action=update_media_and_delete__dryRun">update_media_and_delete__dryRun</a>: dry run
 	</p>
+	<p>
+		<a href="cleanImages.cfm?action=stash_not_used">stash_not_used</a>
+	</p>
 
 
 	<p>
@@ -52,6 +55,31 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 		to update the media records and delete the local file
 	</p>
 
+
+	<cfif action is "stash_not_used">
+		<cfquery name="d" datasource="uam_god">
+			select path from cf_media_migration where status='found_on_corral_not_used_in_media' and rownum<2
+		</cfquery>
+
+
+
+
+		<cfloop query="d">
+			<br>#path#
+			<cfset uname=listgetat(path,1,"/")>
+			<cfset fname=listlast(path,"/")>
+			<!--- dir exists? --->
+			<cfif not DirectoryExists("#application.webDirectory#/download/temp_media_notused/#uname#")>
+				<!--- make it ---->
+				<cfset DirectoryCreate("#application.webDirectory#/download/temp_media_notused/#uname#")>
+			</cfif>
+			<!--- now move --->
+			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_notused/#uname#/#fname#"
+				source = "#path#">
+			<br>moved....£
+		</cfloop>
+
+	</cfif>
 
 	<cfif action is "confirmFullRemotePath2">
 		<cfquery name="d" datasource="uam_god">
