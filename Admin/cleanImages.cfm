@@ -195,7 +195,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	<cfif action is "update_media_and_delete__dryRun">
 		<!---barf out sql ---->
 		<cfquery name="d" datasource="uam_god">
-			select * from  cf_media_migration where status='found_on_corral_confirm_used_in_media' and rownum < 2 order by path
+			select * from  cf_media_migration where status='found_on_corral_confirm_used_in_media' and rownum < 20 order by path
 		</cfquery>
 		<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
 		<cfloop query="d">
