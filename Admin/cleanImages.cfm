@@ -58,7 +58,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 	<cfif action is "stash_not_used">
 		<cfquery name="d" datasource="uam_god">
-			select path from cf_media_migration where status='found_on_corral_not_used_in_media' and rownum<2
+			select path from cf_media_migration where status='found_on_corral_not_used_in_media' and rownum<20
 		</cfquery>
 
 		<cfloop query="d">
