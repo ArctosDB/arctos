@@ -77,6 +77,9 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_notused/#uname#/#fname#"
 				source = "#application.webDirectory#/mediaUploads/#path#">
 			<br>moved....
+			<cfquery name="ms" datasource="uam_god">
+				update cf_media_migration set status='stashed_as_notused' where path='#path#'
+			</cfquery>
 			</cftransaction>
 		</cfloop>
 
