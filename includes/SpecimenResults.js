@@ -321,9 +321,11 @@ function unexpPartDet(){
 	
 	$("div[id^='partdetail_']").each(function() {
 		$(this).removeClass('noshrink');
-	});
-	var bgn='<input type="button" id="pdcb" value="Collapse Part Detail" class="clrBtn" onclick="unexpPartDet()">';
+	});	
 	$("#pdcb").remove();
+
+	var bgn='<input type="button" id="pdcb" value="Expand Part Detail" class="clrBtn" onclick="expPartDet()">';
+
 	$("#ssControl").append(bgn);
 }
 function expPartDet(){
@@ -331,8 +333,8 @@ function expPartDet(){
 	$("div[id^='partdetail_']").each(function() {
 		$(this).addClass('noshrink');
 	});
-	var bgn='<input type="button" id="pdcb" value="Expand Part Detail" class="clrBtn" onclick="expPartDet()">';
 	$("#pdcb").remove();
+	var bgn='<input type="button" id="pdcb" value="Collapse Part Detail" class="clrBtn" onclick="unexpPartDet()">';
 	$("#ssControl").append(bgn);
 }
 function formatPartDetail(){
