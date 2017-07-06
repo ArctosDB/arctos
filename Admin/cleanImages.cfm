@@ -242,25 +242,14 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 					<cfif len(lclHash) gt 0 and len(rmtHash) gt 0 and lclHash eq rmtHash>
 						<br>hash match!
 						<!--- already got a hash stored with the image?? --->
-						<cfquery name="hh" datasource="uam_god">
-							select count(*) c from media_labels where MEDIA_ID=#mid.media_id# and media_label='MD5 checksum'
-						</cfquery>
-						<cfif hh.c is 0>
-							<br>insert into media_labels (
-								MEDIA_LABEL_ID,
-								MEDIA_ID,
-								MEDIA_LABEL,
-								LABEL_VALUE,
-								ASSIGNED_BY_AGENT_ID
-							) values (
-								sq_MEDIA_LABEL_ID.nextval,
-								#mid.media_id#,
-								'MD5 checksum',
-								'#lclHash#',
-								#session.myAgentID#
-							)
-							<cfquery name="ilbl" datasource="uam_god">
-								insert into media_labels (
+						<!--- only do this if it's media; not for thumbs ---->
+
+						<cfif  usedas is 'media_uri'>
+							<cfquery name="hh" datasource="uam_god">
+								select count(*) c from media_labels where MEDIA_ID=#mid.media_id# and media_label='MD5 checksum'
+							</cfquery>
+							<cfif hh.c is 0>
+								<br>insert into media_labels (
 									MEDIA_LABEL_ID,
 									MEDIA_ID,
 									MEDIA_LABEL,
@@ -273,7 +262,24 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 									'#lclHash#',
 									#session.myAgentID#
 								)
-							</cfquery>
+								<cfquery name="ilbl" datasource="uam_god">
+									insert into media_labels (
+										MEDIA_LABEL_ID,
+										MEDIA_ID,
+										MEDIA_LABEL,
+										LABEL_VALUE,
+										ASSIGNED_BY_AGENT_ID
+									) values (
+										sq_MEDIA_LABEL_ID.nextval,
+										#mid.media_id#,
+										'MD5 checksum',
+										'#lclHash#',
+										#session.myAgentID#
+									)
+								</cfquery>
+							</cfif>
+						<cfelse>
+							<br>is thumb, no label necessary
 						</cfif>
 						<!--- now switcharoo media_uri or preview_uri.... ---->
 						<!----
