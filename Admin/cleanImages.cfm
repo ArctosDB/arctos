@@ -245,7 +245,6 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 						<cfquery name="hh" datasource="uam_god">
 							select count(*) c from media_labels where MEDIA_ID=#mid.media_id# and media_label='MD5 checksum'
 						</cfquery>
-						<cfdump var=#hh#>
 						<cfif hh.c is 0>
 							<br>insert into media_labels (
 								MEDIA_LABEL_ID,
@@ -260,7 +259,6 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 								'#lclHash#',
 								#session.myAgentID#
 							)
-							<!----
 							<cfquery name="ilbl" datasource="uam_god">
 								insert into media_labels (
 									MEDIA_LABEL_ID,
@@ -276,7 +274,6 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 									#session.myAgentID#
 								)
 							</cfquery>
-							---->
 						</cfif>
 						<!--- now switcharoo media_uri or preview_uri.... ---->
 						<!----
