@@ -317,7 +317,10 @@ function getPostLoadJunk(){
 	displayMedia();
 	formatPartDetail();
 }
-
+function expPartDet(){
+	
+	alert('expPartDet');
+}
 function formatPartDetail(){
 	$("div[id^='partdetail_']").each(function() {
 		var r = $.parseJSON($("#" + this.id).html());
@@ -325,6 +328,10 @@ function formatPartDetail(){
 		var str = JSON.stringify(r, null, 2);
 		$("#" + this.id).html('<pre>' + str + '</pre>');
 	});
+	// by default these are collapsed to 10em h
+	// option to biggenate
+	var bgn='<input type="button" value="Expand Part Detail" onclick="expPartDet()">';
+	$("#ssControl").append(bgn);
 	
 }
 function displayMedia(idList){
