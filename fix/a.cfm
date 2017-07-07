@@ -1,5 +1,30 @@
 <cfinclude template="/includes/_header.cfm">
 
+<!---
+create table temp_test (u varchar2(255), p varchar2(255));
+insert into temp_test (u,p) values ('dustylee','xxxxxxx');
+---->
+<cfoutput>
+    <cfquery datasource='uam_god' name='p'>
+        select * from temp_test
+    </cfquery>
+
+
+    <cfhttp
+        method="post"
+        username="#p.u#"
+        password="#p.p#"
+        result="pr"
+        url="https://web.corral.tacc.utexas.edu/irods-rest/rest/fileContents/corralZ/web/UAF/arctos/mediaUploads/cfUpload/chas.jpeg">
+            <cfhttpparam type="header" name="accept" value="multipart/form-data">
+            <cfhttpparam type="file" name="chas.jpeg" file="/usr/local/httpd/htdocs/wwwarctos/images/chas.jpeg">
+    </cfhttp>
+
+    <cfdump var=#pr#>
+</cfoutput>
+
+
+<!----------------------------
 drop table temp_dnametest;
 
 create table temp_dnametest (
@@ -62,7 +87,6 @@ create index ix_temp_junk on temp_dnametest (taxon_name_id) tablespace uam_idx_1
 		<cfif len(x) is 0>
 			<cfset x='NORETURN'>
 		</cfif>
-
 	<!----
 		<br>scientific_name=#scientific_name#
 		<br>display_name=<pre>#display_name#</pre>
@@ -358,6 +382,7 @@ create table temp_mc_log (cn varchar2(255));
 </cfloop>
 <!---------------------------------------------------------------------------------------------------->
 
+--------->
 
 ----------->
 <cfinclude template="/includes/_footer.cfm">
