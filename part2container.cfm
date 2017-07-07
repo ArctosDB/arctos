@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' src='/includes/ajax.js'></script>
+<cfset title="part to container">
 <style>
 	.messageDiv {
 		background-color:lightgray;
@@ -16,7 +16,7 @@
 	}
 </style>
 <!------------------------------------------------------------------->
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 	<cfoutput>
 	<cfquery name="ctCollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select guid_prefix, collection_id FROM collection order by guid_prefix
