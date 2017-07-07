@@ -82,6 +82,7 @@
 				var wkt=$("#geog_polygon_" + seid).val();
 				if (wkt.length > 0){
 					console.log('got wkt gonna do stuff');
+					console.log(wkt);
 
 					// this should be WKT OR an integer
 					// if it's an integer, we need to fetch the media
