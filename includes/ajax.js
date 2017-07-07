@@ -831,6 +831,10 @@ function clonePart() {
 				queryformat : 'column'
 			},
 			function (r) {
+				
+				
+				console.log(r);
+				
 				if (toString(r.DATA.COLLECTION_OBJECT_ID[0]).indexOf('Error:')>-1) {
 					alert(r.DATA.COLLECTION_OBJECT_ID[0]);	
 				} else {
