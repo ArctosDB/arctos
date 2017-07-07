@@ -69,7 +69,7 @@ select status,count(*) from cf_media_migration group by status;
 
 	<cfif action is "ready_delete_flipped">
 		<cfquery name="d" datasource="uam_god">
-			select path from cf_media_migration where status='media_uris_flipped' and rownum<200
+			select path from cf_media_migration where status='media_uris_flipped' and rownum<2000
 		</cfquery>
 
 		<cfloop query="d">
