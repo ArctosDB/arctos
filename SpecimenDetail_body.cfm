@@ -933,6 +933,7 @@
 	select
 		specimen_part.collection_object_id part_id,
 		pc.label,
+		pc.barcode,
 		part_name,
 		sampled_from_obj_id,
 		coll_object.COLL_OBJ_DISPOSITION part_disposition,
@@ -968,6 +969,7 @@
 	select
 		part_id,
 		label,
+		barcode,
 		part_name,
 		sampled_from_obj_id,
 		part_disposition,
@@ -979,6 +981,7 @@
 	group by
 		part_id,
 		label,
+		barcode,
 		part_name,
 		sampled_from_obj_id,
 		part_disposition,
@@ -1023,6 +1026,7 @@
 								<th><span class="innerDetailLabel">Qty</span></th>
 								<cfif oneOfUs is 1>
 									<th><span class="innerDetailLabel">Label</span></th>
+									<th><span class="innerDetailLabel">Barcode</span></th>
 									<th><span class="innerDetailLabel">Loan</span></th>
 								</cfif>
 								<th><span class="innerDetailLabel">Remarks</span></th>
@@ -1037,6 +1041,7 @@
 									<td>#lot_count#</td>
 									<cfif oneOfUs is 1>
 										<td>#label#</td>
+										<td>#barcode#</td>
 										<cfquery dbtype="query" name="tlp">
 											select * from ploan where transaction_id is not null and collection_object_id=#part_id#
 										</cfquery>
@@ -1130,6 +1135,7 @@
 										<td>#lot_count#</td>
 										<cfif oneOfUs is 1>
 											<td>#label#</td>
+											<td>#barcode#</td>
 											<cfquery dbtype="query" name="tlp">
 												select * from ploan where transaction_id is not null and collection_object_id=#part_id#
 											</cfquery>
