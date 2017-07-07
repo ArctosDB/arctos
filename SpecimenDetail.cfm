@@ -79,9 +79,9 @@
 					crcl = new google.maps.Circle(circleoptn);
 					bounds.union(crcl.getBounds());
 				}
-				$.get( "/component/utilities.cfc?returnformat=plain&method=getGeogWKT&specimen_event_id=" + seid, function( data ) {
+				$.get( "/component/utilities.cfc?returnformat=plain&method=getGeogWKT&specimen_event_id=" + seid, function( wkt ) {
   					  console.log('got wkt from url');
-  					  if (data.length>0){
+  					  if (wkt.length>0){
 					 	 // this block build WKT
 						var regex = /\(([^()]+)\)/g;
 						var Rings = [];
