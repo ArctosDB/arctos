@@ -209,7 +209,7 @@
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
 					<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
 					<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
-					<div style="align:center">
+					<div style="text-align:center">
 						--------------------- OR ---------------------
 					</div>
 					<table>
