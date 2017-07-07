@@ -81,6 +81,13 @@
 				}
 				var wkt=$("#geog_polygon_" + seid).val();
 				if (wkt.length > 0){
+
+					// this should be WKT OR an integer
+					// if it's an integer, we need to fetch the media
+					if (wkt.isInteger){
+						console.log('is integer, fetch media....');
+					}
+
 					var regex = /\(([^()]+)\)/g;
 					var Rings = [];
 					var results;

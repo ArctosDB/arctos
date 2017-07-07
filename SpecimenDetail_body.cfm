@@ -694,6 +694,7 @@
 						               				<cfquery name="fmed" datasource="uam_god">
 														select media_uri from media where media_id=#meid#
 													</cfquery>
+													<cfset wkt_polygon=fmed.media_uri>
 													<!----
 													<cfhttp timeout="2" method="GET" url=#fmed.media_uri#></cfhttp>
 													<cfset wkt_polygon=cfhttp.filecontent>
