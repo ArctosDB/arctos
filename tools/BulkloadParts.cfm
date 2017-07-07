@@ -33,9 +33,96 @@ CREATE TABLE cf_temp_parts (
 
 
 
+alter table cf_temp_parts add PART_ATTRIBUTE_TYPE_1 VARCHAR2(60);
+alter table cf_temp_parts add PART_ATTRIBUTE_VALUE_1 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_UNITS_1 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_DATE_1 date;
+alter table cf_temp_parts add PART_ATTRIBUE_DETERMINER_1 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUE_REMARK_1 VARCHAR2(255);
+
+
+alter table cf_temp_parts add PART_ATTRIBUTE_TYPE_2 VARCHAR2(60);
+alter table cf_temp_parts add PART_ATTRIBUTE_VALUE_2 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_UNITS_2 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_DATE_2 date;
+alter table cf_temp_parts add PART_ATTRIBUE_DETERMINER_2 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUE_REMARK_2 VARCHAR2(255);
+
+
+alter table cf_temp_parts add PART_ATTRIBUTE_TYPE_3 VARCHAR2(60);
+alter table cf_temp_parts add PART_ATTRIBUTE_VALUE_3 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_UNITS_3 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_DATE_3 date;
+alter table cf_temp_parts add PART_ATTRIBUE_DETERMINER_3 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUE_REMARK_3 VARCHAR2(255);
+
+
+alter table cf_temp_parts add PART_ATTRIBUTE_TYPE_4 VARCHAR2(60);
+alter table cf_temp_parts add PART_ATTRIBUTE_VALUE_4 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_UNITS_4 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_DATE_4 date;
+alter table cf_temp_parts add PART_ATTRIBUE_DETERMINER_4 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUE_REMARK_4 VARCHAR2(255);
+
+
+alter table cf_temp_parts add PART_ATTRIBUTE_TYPE_5 VARCHAR2(60);
+alter table cf_temp_parts add PART_ATTRIBUTE_VALUE_5 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_UNITS_5 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_DATE_5 date;
+alter table cf_temp_parts add PART_ATTRIBUE_DETERMINER_5 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUE_REMARK_5 VARCHAR2(255);
+
+
+alter table cf_temp_parts add PART_ATTRIBUTE_TYPE_6 VARCHAR2(60);
+alter table cf_temp_parts add PART_ATTRIBUTE_VALUE_6 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_UNITS_6 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUTE_DATE_6 date;
+alter table cf_temp_parts add PART_ATTRIBUE_DETERMINER_6 VARCHAR2(255);
+alter table cf_temp_parts add PART_ATTRIBUE_REMARK_6 VARCHAR2(255);
+
+
+alter table cf_temp_parts rename column PART_ATTRIBUE_DETERMINER_1 to PART_ATTRIBUTE_DETERMINER_1;
+alter table cf_temp_parts rename column PART_ATTRIBUE_DETERMINER_2 to PART_ATTRIBUTE_DETERMINER_2;
+alter table cf_temp_parts rename column PART_ATTRIBUE_DETERMINER_3 to PART_ATTRIBUTE_DETERMINER_3;
+alter table cf_temp_parts rename column PART_ATTRIBUE_DETERMINER_4 to PART_ATTRIBUTE_DETERMINER_4;
+alter table cf_temp_parts rename column PART_ATTRIBUE_DETERMINER_5 to PART_ATTRIBUTE_DETERMINER_5;
+alter table cf_temp_parts rename column PART_ATTRIBUE_DETERMINER_6 to PART_ATTRIBUTE_DETERMINER_6;
+
+
+alter table cf_temp_parts rename column PART_ATTRIBUE_REMARK_1 to PART_ATTRIBUTE_REMARK_1;
+alter table cf_temp_parts rename column PART_ATTRIBUE_REMARK_2 to PART_ATTRIBUTE_REMARK_2;
+alter table cf_temp_parts rename column PART_ATTRIBUE_REMARK_3 to PART_ATTRIBUTE_REMARK_3;
+alter table cf_temp_parts rename column PART_ATTRIBUE_REMARK_4 to PART_ATTRIBUTE_REMARK_4;
+alter table cf_temp_parts rename column PART_ATTRIBUE_REMARK_5 to PART_ATTRIBUTE_REMARK_5;
+alter table cf_temp_parts rename column PART_ATTRIBUE_REMARK_6 to PART_ATTRIBUTE_REMARK_6;
+
+
+
+alter table cf_temp_parts add status VARCHAR2(255);
+alter table cf_temp_parts add username VARCHAR2(255) not null;
+
+CREATE OR REPLACE TRIGGER trg_cf_temp_parts_key before insert ON cf_temp_parts for each row
+    begin
+    	:new.username:=sys_context('USERENV', 'SESSION_USER');
+	    if :NEW.key is null then
+    		select somerandomsequence.nextval into :new.key from dual;
+    	end if;
+    end;
+/
+
+alter table cf_temp_parts modify part_name not null;
+alter table cf_temp_parts modify DISPOSITION not null;
+alter table cf_temp_parts modify CONDITION not null;
+alter table cf_temp_parts modify LOT_COUNT not null;
+alter table cf_temp_parts modify use_existing not null;
+alter table cf_temp_parts modify STATUS VARCHAR2(4000);
+
+ALTER TABLE cf_temp_parts ADD CONSTRAINT booluse_existing CHECK (use_existing in (0,1));
+
+
 
 create or replace public synonym cf_temp_parts for cf_temp_parts;
-grant all on cf_temp_parts to uam_query,uam_update;
+grant all on cf_temp_parts to manage_collection;
 
 ---->
 <cfinclude template="/includes/_header.cfm">
@@ -49,7 +136,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 <!------------------------------------------------------->
 <cfif action is "template">
 	<cfoutput>
-		<cfset d="guid_prefix,other_id_type,other_id_number,part_name,condition,disposition,lot_count,remarks,use_existing,container_barcode">
+		<cfset d="guid_prefix,other_id_type,other_id_number,part_name,condition,disposition,lot_count,remarks,use_existing,container_barcode,change_container_type,change_container_label">
 		<cfloop from="1" to="#numPartAttrs#" index="i">
 			<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUTE_DETERMINER_#i#,PART_ATTRIBUTE_REMARK_#i#">
 		</cfloop>
