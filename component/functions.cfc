@@ -3351,9 +3351,9 @@
 			<cfset t=t&" ,coll_obj_other_id_num">
 			<cfset w=w & " and cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
 					coll_obj_other_id_num.other_id_type='#other_id_type#' and
-					coll_obj_other_id_num.display_value='#oidnum#'">
+					upper(coll_obj_other_id_num.display_value)='#ucase(oidnum)#'">
 		<cfelse>
-			<cfset w=w & " and cataloged_item.cat_num='#oidnum#'">
+			<cfset w=w & " and upper(cataloged_item.cat_num)='#ucase(oidnum)#'">
 		</cfif>
 		<cfif noBarcode is true>
 			<cfset w=w & " and (c.parent_container_id = 0 or c.parent_container_id is null or c.parent_container_id=476089)">
