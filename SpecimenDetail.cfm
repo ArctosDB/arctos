@@ -79,10 +79,9 @@
 					crcl = new google.maps.Circle(circleoptn);
 					bounds.union(crcl.getBounds());
 				}
+				// WKT can be big and slow, so async fetch
 				$.get( "/component/utilities.cfc?returnformat=plain&method=getGeogWKT&specimen_event_id=" + seid, function( wkt ) {
-  					  console.log('got wkt from url');
   					  if (wkt.length>0){
-					 	 // this block build WKT
 						var regex = /\(([^()]+)\)/g;
 						var Rings = [];
 						var results;
@@ -118,32 +117,23 @@
   					  	} else {
   					  		$("#mapdiv_" + seid).addClass('noWKT');
   					  	}
-
-
   					  	if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-			       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
-			       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
-			       bounds.extend(extendPoint1);
-			       bounds.extend(extendPoint2);
-			    }
-				map.fitBounds(bounds);
-	        	for(var a=0; a<polygonArray.length; a++){
-	        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
-	        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
-		        	} else {
-		    			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
-	        		}
-	        	}
-
-				});
-
-
-
+					       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+					       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+					       bounds.extend(extendPoint1);
+					       bounds.extend(extendPoint2);
+					    }
+						map.fitBounds(bounds);
+			        	for(var a=0; a<polygonArray.length; a++){
+			        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
+			        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
+				        	} else {
+				    			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
+			        		}
+			        	}
+					});
 			});
 		}
-
-
-
 	</script>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>

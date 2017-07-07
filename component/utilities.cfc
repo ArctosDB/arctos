@@ -26,15 +26,6 @@
 	<cfelse>
 		<cfreturn d.WKT_POLYGON>
 	</cfif>
-
-
-</cffunction>
-
-
-<cffunction name="avoidcross" returnType="string" access="remote">
-	<cfargument name="uri" type="string" required="yes">
-	<cfhttp method="get" url="#uri#"></cfhttp>
-	<cfreturn cfhttp.filecontent>
 </cffunction>
 
 <cffunction name="generateDisplayName" returnType="string" access="remote">
