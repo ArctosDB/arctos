@@ -1,5 +1,5 @@
 <cfcomponent>
-	
+
 <cffunction name="getGeogWKT" returnType="string" access="remote">
 	<cfargument name="specimen_event_id" type="numeric" required="yes">
 	<cfquery name="d" datasource="uam_god">
@@ -17,7 +17,7 @@
 			specimen_event.specimen_event_id=#specimen_event_id#
 	</cfquery>
 	<cfif left(d.WKT_POLYGON,5) is 'MEDIA'>
-		<cfset mid=listfirst(d.WKT_POLYGON,':'>
+		<cfset mid=listfirst(d.WKT_POLYGON,':')>
 		<cfquery name="m" datasource="uam_god">
 			select media_uri from media where media_id=#mid#
 		</cfquery>
@@ -26,8 +26,8 @@
 	<cfelse>
 		<cfreturn d.WKT_POLYGO>
 	</cfif>
-	
-	
+
+
 </cffunction>
 
 
