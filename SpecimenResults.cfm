@@ -17,10 +17,12 @@
 	#goWhere{border:3px solid #417bb5; }
 	[id^="partdetail_"] {
 		max-height:10em;
+		max-width: 50em;
 		overflow:auto;
 	}
 	.noshrink{
 		max-height: none;
+		max-width: none;
 	}
 </style>
 <cfoutput>
