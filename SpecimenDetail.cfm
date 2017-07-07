@@ -92,36 +92,42 @@
   							//$( ".result" ).html( data );
   							//var wkt=data;
 							  console.log('got wkt from url');
-							  buildWKT(data,bounds,ptsArray);
+							  // this block build WKT
+								var regex = /\(([^()]+)\)/g;
+								var Rings = [];
+								var results;
+								while( results = regex.exec(wkt) ) {
+								    Rings.push( results[1] );
+								}
+								for(var i=0;i<Rings.length;i++){
+									// for every polygon in the WKT, create an array
+									var lary=[];
+									var da=Rings[i].split(",");
+									for(var j=0;j<da.length;j++){
+										// push the coordinate pairs to the array as LatLngs
+										var xy = da[j].trim().split(" ");
+										var pt=new google.maps.LatLng(xy[1],xy[0]);
+										lary.push(pt);
+										//console.log(lary);
+										bounds.extend(pt);
+									}
+									// now push the single-polygon array to the array of arrays (of polygons)
+									ptsArray.push(lary);
+								}
+								var poly = new google.maps.Polygon({
+								    paths: ptsArray,
+								    strokeColor: '#1E90FF',
+								    strokeOpacity: 0.8,
+								    strokeWeight: 2,
+								    fillColor: '#1E90FF',
+								    fillOpacity: 0.35
+								});
+								poly.setMap(map);
+								polygonArray.push(poly);
+								// END this block build WKT
 						});
 					} else {
-						buildWKT(wkt,bounds,ptsArray);
-					}
-
-
-				} else {
-	        		$("#mapdiv_" + seid).addClass('noWKT');
-				}
-				if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-			       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
-			       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
-			       bounds.extend(extendPoint1);
-			       bounds.extend(extendPoint2);
-			    }
-				map.fitBounds(bounds);
-	        	for(var a=0; a<polygonArray.length; a++){
-	        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
-	        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
-		        	} else {
-		    			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
-	        		}
-	        	}
-			});
-		}
-
-
-
-		function buildWKT(wkt,bounds,ptsArray){
+						// this block build WKT
 						var regex = /\(([^()]+)\)/g;
 						var Rings = [];
 						var results;
@@ -153,7 +159,32 @@
 						});
 						poly.setMap(map);
 						polygonArray.push(poly);
+						// END this block build WKT
 					}
+
+
+				} else {
+	        		$("#mapdiv_" + seid).addClass('noWKT');
+				}
+				if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+			       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+			       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+			       bounds.extend(extendPoint1);
+			       bounds.extend(extendPoint2);
+			    }
+				map.fitBounds(bounds);
+	        	for(var a=0; a<polygonArray.length; a++){
+	        		if  (! google.maps.geometry.poly.containsLocation(center, polygonArray[a]) ) {
+	        			$("#mapdiv_" + seid).addClass('uglyGeoSPatData');
+		        	} else {
+		    			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
+	        		}
+	        	}
+			});
+		}
+
+
+
 	</script>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
