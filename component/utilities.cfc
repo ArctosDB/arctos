@@ -16,7 +16,6 @@
 			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 			specimen_event.specimen_event_id=#specimen_event_id#
 	</cfquery>
-	<cfdump var=#d#>
 	<cfif left(d.WKT_POLYGON,5) is 'MEDIA'>
 		<cfset mid=listlast(d.WKT_POLYGON,':')>
 		<cfquery name="m" datasource="uam_god">
