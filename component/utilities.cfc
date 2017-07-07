@@ -13,7 +13,7 @@
 		where
 			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
 			locality.locality_id=collecting_event.locality_id and
-			collecting_event.collecting_event_id=specimen_event.specimen_event_id and
+			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 			specimen_event.specimen_event_id=#specimen_event_id#
 	</cfquery>
 	<cfdump var=#d#>
