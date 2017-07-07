@@ -17,7 +17,7 @@
 	#goWhere{border:3px solid #417bb5; }
 	[id^="partdetail_"] {
 		max-height:10em;
-		max-width: 50em;
+		max-width: 40em;
 		overflow:auto;
 	}
 	.noshrink{
