@@ -48,6 +48,9 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	<p>
 		<a href="cleanImages.cfm?action=stash_not_used">stash_not_used</a>
 	</p>
+	<p>
+		<a href="cleanImages.cfm?action=update_media">update_media</a>
+	</p>
 
 
 	<p>
@@ -57,7 +60,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 
 
-<cfif action is "update_media_and_delete__justmovereally">
+<cfif action is "update_media">
 		<!---barf out sql ---->
 		<cfquery name="d" datasource="uam_god">
 			select * from  cf_media_migration where status='dry_run_happy' and rownum < 2 order by path
@@ -105,7 +108,10 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 						<br>
 						update media set #usedas#='#FULLREMOTEPATH#' where media_id=#mid.media_id#
 						<!----  ....and delete the local file ---->
-						<br>deleting #application.webDirectory#/mediaUploads/#path#
+						<br>
+
+						update cf_media_migration set status='media_uris_flipped' where path='#path#'
+
 						<!----
 						<cfquery name="orp" datasource="uam_god">
 							update cf_media_migration set status='add_moved_over_ready_to_delete' where path='#path#'
@@ -122,12 +128,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 						<!----
 						<cffile action = "delete" file = "#application.webDirectory#/mediaUploads/#path#">
 						---->
-					<cfelse>
-						<cfquery name="orp" datasource="uam_god">
-							update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
-						</cfquery>
-						<br>update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
-					</cfif>
+
 				</cfif>
 			</cftransaction>
 		</cfloop>
