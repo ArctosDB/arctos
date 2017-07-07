@@ -2247,7 +2247,15 @@ You deleted a collecting event.
 		1000 record limit on mapping, sorry...
 	</cfif>
 	<br /><strong>Your query found #localityResults.recordcount# localities.</strong>
+	<form method="post" action="duplicateLocality.cfm" target="_blank">
+		<input type="hidden" name="action" value="detectdups" >
+		<input type="hidden" name="locality_id" value="#valuelist(localityResults.locality_id)#">
+		<input type="submit" value="Find Duplicates in Results">
+
+	</form>
+	<!----
 	<br><a href="/duplicateLocality.cfm?action=detectdups&locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Find Duplicates in Results</a>
+	--->
 	<table border id="t" class="sortable">
 		<tr>
 			<th><b>Geog</b></th>
