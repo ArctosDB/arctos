@@ -1,4 +1,10 @@
 <cfcomponent>
+<cffunction name="avoidcross" returnType="string" access="remote">
+	<cfargument name="uri" type="string" required="yes">
+	<cfhttp method="get" url="#uri#"></cfhttp>
+	<cfreturn cfhttp.filecontent>
+</cffunction>
+
 <cffunction name="generateDisplayName" returnType="string" access="remote">
 	<cfargument name="cid" type="string" required="yes">
 	<cfoutput>
