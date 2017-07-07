@@ -56,6 +56,90 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	</p>
 
 
+
+<cfif action is "update_media_and_delete__justmovereally">
+		<!---barf out sql ---->
+		<cfquery name="d" datasource="uam_god">
+			select * from  cf_media_migration where status='dry_run_happy' and rownum < 2 order by path
+		</cfquery>
+		<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
+		<cfloop query="d">
+			<cftransaction>
+				<br>#path#
+				<!---- make sure we're using this thing --->
+				<cfquery name="mid" datasource="uam_god">
+					select media_id from media where replace(media_uri,'https://','http://')='#lclURL#/mediaUploads#path#'
+				</cfquery>
+				<cfif len(mid.media_id) gt 0>
+					<cfset usedas='media_uri'>
+				<cfelse>
+					<cfquery name="mid" datasource="uam_god">
+						select media_id from media where replace(preview_uri,'https://','http://')='#lclURL#/mediaUploads#path#'
+					</cfquery>
+					<cfif len(mid.media_id) gt 0>
+						<cfset usedas='preview_uri'>
+					<cfelse>
+						<cfset usedas='nothing'>
+					</cfif>
+				</cfif>
+				<cfif usedas is 'nothing'>
+					<br>not used!!
+					<cfquery name="orp" datasource="uam_god">
+						update cf_media_migration set status='found_on_corral_not_used_in_media' where path='#path#'
+					</cfquery>
+				<cfelse>
+					<br>used, rock on....
+					<br>media_id: #mid.media_id#
+					<br>FULLLOCALPATH: #FULLLOCALPATH#
+					<br>FULLREMOTEPATH: #FULLREMOTEPATH#
+
+
+
+						<!--- now switcharoo media_uri or preview_uri.... ---->
+						<!----
+						<cfquery name="upmuri" datasource="uam_god">
+							update media set #usedas#='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads#path#'
+							where media_id=#mid.media_id#
+						</cfquery>
+						---->
+						<br>
+						update media set #usedas#='#FULLREMOTEPATH#' where media_id=#mid.media_id#
+						<!----  ....and delete the local file ---->
+						<br>deleting #application.webDirectory#/mediaUploads/#path#
+						<!----
+						<cfquery name="orp" datasource="uam_god">
+							update cf_media_migration set status='add_moved_over_ready_to_delete' where path='#path#'
+						</cfquery>
+
+
+						<cfquery name="orp" datasource="uam_god">
+							update cf_media_migration set status='dry_run_happy' where path='#path#'
+						</cfquery>
+						<br>update cf_media_migration set status='dry_run_happy' where path='#path#'
+						---->
+
+
+						<!----
+						<cffile action = "delete" file = "#application.webDirectory#/mediaUploads/#path#">
+						---->
+					<cfelse>
+						<cfquery name="orp" datasource="uam_god">
+							update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
+						</cfquery>
+						<br>update cf_media_migration set status='found_on_corral_bad_checksum' where path='#path#'
+					</cfif>
+				</cfif>
+			</cftransaction>
+		</cfloop>
+	</cfif>
+
+
+
+
+
+
+
+
 	<cfif action is "stash_not_used">
 		<cfquery name="d" datasource="uam_god">
 			select path from cf_media_migration where status='found_on_corral_not_used_in_media' and rownum<200
@@ -320,6 +404,11 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 
 	<cfif action is "update_media_and_delete">
+
+
+	<cfabort>
+
+
 		<cfquery name="d" datasource="uam_god">
 			select * from  cf_media_migration where status='found_on_corral' and rownum < 2 order by path
 		</cfquery>
