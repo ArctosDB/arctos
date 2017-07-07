@@ -88,6 +88,11 @@
 					// if it's a URL, we need to fetch the media
 					if (wkt.substring(0,4)=='http'){
 						console.log('is URL, fetch media....');
+						$.get( wkt, function( data ) {
+  							//$( ".result" ).html( data );
+  							var wkt=data;
+							  console.log('got wkt from url');
+						});
 					}
 
 					var regex = /\(([^()]+)\)/g;
