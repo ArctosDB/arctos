@@ -1,4 +1,36 @@
 <cfcomponent>
+	
+<cffunction name="getGeogWKT" returnType="string" access="remote">
+	<cfargument name="specimen_event_id" type="numeric" required="yes">
+	<cfquery name="d" datasource="uam_god">
+		select
+			geog_auth_rec.WKT_POLYGON
+		from
+			geog_auth_rec,
+			locality,
+			collecting_event,
+			specimen_event
+		where
+			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
+			locality.locality_id=collecting_event.locality_id and
+			collecting_event.collecting_event_id=specimen_event.specimen_event_id and
+			specimen_event.specimen_event_id=#specimen_event_id#
+	</cfquery>
+	<cfif left(d.WKT_POLYGON,5) is 'MEDIA'>
+		<cfset mid=listfirst(d.WKT_POLYGON,':'>
+		<cfquery name="m" datasource="uam_god">
+			select media_uri from media where media_id=#mid#
+		</cfquery>
+		<cfhttp method="get" url="#m.media_uri#"></cfhttp>
+		<cfreturn cfhttp.filecontent>
+	<cfelse>
+		<cfreturn d.WKT_POLYGO>
+	</cfif>
+	
+	
+</cffunction>
+
+
 <cffunction name="avoidcross" returnType="string" access="remote">
 	<cfargument name="uri" type="string" required="yes">
 	<cfhttp method="get" url="#uri#"></cfhttp>

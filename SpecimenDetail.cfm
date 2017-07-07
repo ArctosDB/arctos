@@ -79,55 +79,10 @@
 					crcl = new google.maps.Circle(circleoptn);
 					bounds.union(crcl.getBounds());
 				}
-				var wkt=$("#geog_polygon_" + seid).val();
-				if (wkt.length > 0){
-					console.log('got wkt gonna do stuff');
-					console.log(wkt);
-
-					// this should be WKT OR a URL
-					// if it's a URL, we need to fetch the media
-					if (wkt.substring(0,4)=='http'){
-						console.log('is URL, fetch media....');
-						$.get( "/component/utilities.cfc?returnformat=plain&method=avoidcross&uri=" + wkt, function( data ) {
-  							//$( ".result" ).html( data );
-  							//var wkt=data;
-							  console.log('got wkt from url');
-							  // this block build WKT
-								var regex = /\(([^()]+)\)/g;
-								var Rings = [];
-								var results;
-								while( results = regex.exec(wkt) ) {
-								    Rings.push( results[1] );
-								}
-								for(var i=0;i<Rings.length;i++){
-									// for every polygon in the WKT, create an array
-									var lary=[];
-									var da=Rings[i].split(",");
-									for(var j=0;j<da.length;j++){
-										// push the coordinate pairs to the array as LatLngs
-										var xy = da[j].trim().split(" ");
-										var pt=new google.maps.LatLng(xy[1],xy[0]);
-										lary.push(pt);
-										//console.log(lary);
-										bounds.extend(pt);
-									}
-									// now push the single-polygon array to the array of arrays (of polygons)
-									ptsArray.push(lary);
-								}
-								var poly = new google.maps.Polygon({
-								    paths: ptsArray,
-								    strokeColor: '#1E90FF',
-								    strokeOpacity: 0.8,
-								    strokeWeight: 2,
-								    fillColor: '#1E90FF',
-								    fillOpacity: 0.35
-								});
-								poly.setMap(map);
-								polygonArray.push(poly);
-								// END this block build WKT
-						});
-					} else {
-						// this block build WKT
+				$.get( "/component/utilities.cfc?returnformat=plain&method=getGeogWKT&specimen_event_id=" + seid, function( data ) {
+  					  console.log('got wkt from url');
+  					  if (data.length>0){
+					 	 // this block build WKT
 						var regex = /\(([^()]+)\)/g;
 						var Rings = [];
 						var results;
@@ -160,13 +115,12 @@
 						poly.setMap(map);
 						polygonArray.push(poly);
 						// END this block build WKT
-					}
+  					  	} else {
+  					  		$("#mapdiv_" + seid).addClass('noWKT');
+  					  	}
 
 
-				} else {
-	        		$("#mapdiv_" + seid).addClass('noWKT');
-				}
-				if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+  					  	if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
 			       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
 			       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
 			       bounds.extend(extendPoint1);
@@ -180,6 +134,11 @@
 		    			$("#mapdiv_" + seid).addClass('niceGeoSPatData');
 	        		}
 	        	}
+
+				});
+
+
+
 			});
 		}
 
