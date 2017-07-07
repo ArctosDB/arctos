@@ -84,10 +84,10 @@
 					console.log('got wkt gonna do stuff');
 					console.log(wkt);
 
-					// this should be WKT OR an integer
-					// if it's an integer, we need to fetch the media
-					if (wkt.isInteger){
-						console.log('is integer, fetch media....');
+					// this should be WKT OR a URL
+					// if it's a URL, we need to fetch the media
+					if (wkt.substring(0,4)=='http'){
+						console.log('is URL, fetch media....');
 					}
 
 					var regex = /\(([^()]+)\)/g;
