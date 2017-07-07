@@ -24,7 +24,7 @@
 		<cfhttp method="get" url="#m.media_uri#"></cfhttp>
 		<cfreturn cfhttp.filecontent>
 	<cfelse>
-		<cfreturn d.WKT_POLYGO>
+		<cfreturn d.WKT_POLYGON>
 	</cfif>
 
 
