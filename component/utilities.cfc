@@ -18,7 +18,7 @@
 	</cfquery>
 	<cfdump var=#d#>
 	<cfif left(d.WKT_POLYGON,5) is 'MEDIA'>
-		<cfset mid=listfirst(d.WKT_POLYGON,':')>
+		<cfset mid=listlast(d.WKT_POLYGON,':')>
 		<cfquery name="m" datasource="uam_god">
 			select media_uri from media where media_id=#mid#
 		</cfquery>
