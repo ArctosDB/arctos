@@ -3408,9 +3408,9 @@
 			<cfset t=t&" ,coll_obj_other_id_num">
 			<cfset w=w & " and cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
 					coll_obj_other_id_num.other_id_type='#other_id_type#' and
-					coll_obj_other_id_num.display_value='#oidnum#'">
+					upper(coll_obj_other_id_num.display_value)='#ucase(oidnum)#'">
 		<cfelse>
-			<cfset w=w & " and cataloged_item.cat_num=#oidnum#">
+			<cfset w=w & " and upper(cataloged_item.cat_num)='#ucase(oidnum)#'">
 		</cfif>
 		<cfset q = t & " " & w>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
