@@ -23,7 +23,7 @@
 		</p>
 		<!--- see if we can find moved stuff ---->
 		<cfquery name="whurditgo"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from media where upper(media_uri) like '%#listlast(ucase(trim(target)),"/"#'
+			select * from media where upper(media_uri) like '%#listlast(ucase(trim(target)),"/")#'
 		</cfquery>
 		<cfif whurditgo.recordcount gt 0>
 			<p>
