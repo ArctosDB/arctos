@@ -209,6 +209,7 @@
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
 					<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
 					<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
+					--------------------- OR ---------------------
 					<table>
 						<tr>
 							<td>
@@ -220,6 +221,7 @@
 									</cfloop>
 								</select>
 							</td>
+							<td>...AND...</td>
 							<td>
 								<label for="cat_num">Catalog Number</label>
 								<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation()">
