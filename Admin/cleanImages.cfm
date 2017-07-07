@@ -51,6 +51,9 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	<p>
 		<a href="cleanImages.cfm?action=update_media">update_media</a>
 	</p>
+	<p>
+		<a href="cleanImages.cfm?action=ready_delete_flipped">ready_delete_flipped</a>
+	</p>
 
 
 	<p>
@@ -59,6 +62,42 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	</p>
 
 select status,count(*) from cf_media_migration group by status;
+
+
+
+
+
+	<cfif action is "ready_delete_flipped">
+		<cfquery name="d" datasource="uam_god">
+			select path from cf_media_migration where status='media_uris_flipped' and rownum<2
+		</cfquery>
+
+		<cfloop query="d">
+			<cftransaction>
+			<br>#path#
+			<cfset uname=listgetat(path,1,"/")>
+			<cfset fname=listlast(path,"/")>
+			<!--- dir exists? --->
+			<cfif not DirectoryExists("#application.webDirectory#/download/temp_media_movetocorral/#uname#")>
+				<!--- make it ---->
+				<br>does not exist,making #application.webDirectory#/download/temp_media_movetocorral/#uname#
+				<cfset DirectoryCreate("#application.webDirectory#/download/temp_media_movetocorral/#uname#")>
+			</cfif>
+			<!--- now move --->
+			<br>moving #application.webDirectory#/mediaUploads/#path# to #application.webDirectory#/download/temp_media_movetocorral/#uname#/#fname#
+			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_movetocorral/#uname#/#fname#"
+				source = "#application.webDirectory#/mediaUploads/#path#">
+			<br>moved....
+			<cfquery name="ms" datasource="uam_god">
+				update cf_media_migration set status='moved_to_junk' where path='#path#'
+			</cfquery>
+			</cftransaction>
+		</cfloop>
+
+	</cfif>
+
+
+
 
 <cfif action is "update_media">
 		<!---barf out sql ---->
