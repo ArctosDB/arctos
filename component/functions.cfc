@@ -3448,6 +3448,7 @@
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_barcode#"><!---- v_barcode ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#new_container_type#"><!---- v_parent_container_type ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_label ---->
 			</cfstoredproc>
 			<cfif len(part_id2) gt 0>
 				<cfstoredproc procedure="movePartToContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -3455,6 +3456,7 @@
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_barcode#"><!---- v_barcode ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_container_type#"><!---- v_parent_container_type ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_label ---->
 				</cfstoredproc>
 			</cfif>
 
@@ -3742,6 +3744,7 @@
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#barcode#"><!---- v_barcode ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_container_type#"><!---- v_parent_container_type ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_label ---->
 				</cfstoredproc>
 			</cfif>
 			<cfset q=queryNew("STATUS,PART_NAME,LOT_COUNT,COLL_OBJ_DISPOSITION,CONDITION,COLL_OBJECT_REMARKS,BARCODE,NEW_CONTAINER_TYPE")>

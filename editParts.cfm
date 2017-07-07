@@ -472,6 +472,7 @@
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#thisnewCode#"><!---- v_barcode ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_type ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_label ---->
 				</cfstoredproc>
 			</cfif>
 		</cfloop>
@@ -535,6 +536,7 @@
 			<cfprocparam cfsqltype="cf_sql_varchar" value="#newPartContainerBarcode#"><!---- v_barcode ---->
 			<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_id ---->
 			<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_type ---->
+			<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_label ---->
 		</cfstoredproc>
 	</cfif>
 	</cftransaction>

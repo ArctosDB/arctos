@@ -13,31 +13,26 @@ CREATE TABLE cf_temp_parts (
 	KEY  NUMBER NOT NULL,
 	collection_object_id NUMBER,
 	institution_acronym VARCHAR2(60),
-	collection_cde VARCHAR2(60),
+	guid_prefix VARCHAR2(60),
 	OTHER_ID_TYPE VARCHAR2(60),
  	OTHER_ID_NUMBER VARCHAR2(60),
- 	part_name VARCHAR2(60),
-	part_modifier VARCHAR2(60),
-	preserve_method VARCHAR2(60),
+ 	part_name VARCHAR2(255),
 	disposition VARCHAR2(60),
 	condition VARCHAR2(60),
 	lot_count VARCHAR2(60),
 	remarks VARCHAR2(60),
 	use_existing varchar2(1),
 	container_barcode varchar2(255),
+	change_container_type varchar2(255),
+	change_container_label varchar2(255),
 	validated_status varchar2(255),
 	parent_container_id number,
-	use_part_id number,
-	change_container_type varchar2(255)
+	use_part_id number
 );
 
-alter table cf_temp_parts modify part_name varchar2(255);
-alter table cf_temp_parts drop column part_modifier;
-alter table cf_temp_parts drop column preserve_method;
 
 
 
-alter table cf_temp_parts rename column collection_cde to guid_prefix;
 
 create or replace public synonym cf_temp_parts for cf_temp_parts;
 grant all on cf_temp_parts to uam_query,uam_update;
@@ -189,6 +184,15 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<td>New type of container - change a "label" to a real container</td>
 			<td><a href="/info/ctDocumentation.cfm?table=CTCONTAINER_TYPE">CTCONTAINER_TYPE</a></td>
 		</tr>
+		<tr>
+			<td>change_container_label</td>
+			<td>no</td>
+			<td>UPDATE container identified by BARCODE to label=this text. NULL (=empty, not the string) = do nothing; make no changes.</td>
+			<td></td>
+		</tr>
+
+
+
 		<tr>
 			<td>PART_ATTRIBUTE_TYPE_n</td>
 			<td>no</td>
@@ -816,6 +820,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_barcode ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_container_id#"><!---- v_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#change_container_type#"><!---- v_parent_container_type ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#change_container_label#"><!---- v_parent_container_label ---->
 				</cfstoredproc>
 
 

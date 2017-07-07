@@ -218,6 +218,7 @@ sho err
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_barcode ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_container_id#"><!---- v_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#NEW_CONTAINER_TYPE#"><!---- v_parent_container_type ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_label ---->
 				</cfstoredproc>
 			</cfloop>
 		</cftransaction>
