@@ -105,6 +105,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 							where media_id=#mid.media_id#
 						</cfquery>
 						---->
+
 						<br>update media set #usedas#='#FULLREMOTEPATH#' where media_id=#mid.media_id#
 						<cfquery name="upm" datasource="uam_god">
 							update media set #usedas#='#FULLREMOTEPATH#' where media_id=#mid.media_id#
@@ -119,7 +120,6 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 						<!----  ....and delete the local file ---->
 						<br>update cf_media_migration set status='media_uris_flipped' where path='#path#'
-
 
 
 						<!----
