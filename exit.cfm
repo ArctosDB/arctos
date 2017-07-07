@@ -21,8 +21,26 @@
 		<p>
 			The Media does not exist at the URL you requested.
 		</p>
-		<cfthrow message = "Media Exit Link: No Match"
-			errorCode = "127002" extendedInfo="There may be a problem with the linked resource: the Media does not exist.">
+		<!--- see if we can find moved stuff ---->
+		<cfquery name="whurditgo"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from media where upper(media_uri) like '%#listlast(ucase(trim(target)),"/"#'
+		</cfquery>
+		<cfif whurditgo.recordcount gt 0>
+			<p>
+				One of the following links may be what you're looking for:
+				<ul>
+					<li>
+						<a href="/media/#whurditgo.media_id#?open">#whurditgo.media_uri#</a>
+					</li>
+				</ul>
+			</p>
+
+		<cfelse>
+			<cfthrow message = "Media Exit Link: No Match"
+				errorCode = "127002" extendedInfo="There may be a problem with the linked resource: the Media does not exist.">
+		</cfif>
+
+
 		<cfabort>
 	</cfif>
 	<!--- cheat... ---->

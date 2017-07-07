@@ -2,7 +2,7 @@
 
 <!---
 create table temp_test (u varchar2(255), p varchar2(255));
-insert into temp_test (u,p) values ('dustylee','xxxxxxx');
+insert into temp_test (u,p) values ('dustylee','xxxxx');
 ---->
 <cfoutput>
     <cfquery datasource='uam_god' name='p'>
