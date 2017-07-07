@@ -240,7 +240,7 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'media',"/")>
-	<cfif replace(request.rdurl,"/","","last") is  "media">
+	<cfif listlast(request.rdurl,"/") is  "media">
 		<cfinclude template="/MediaSearch.cfm">
 	<cfelse>
 		<cftry>
