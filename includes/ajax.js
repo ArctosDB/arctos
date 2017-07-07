@@ -815,8 +815,11 @@ function addPartToContainer () {
 
 function clonePart() {
 	var collection_id=document.getElementById('collection_id').value;
+	console.log(collection_id);
 	var other_id_type=document.getElementById('other_id_type').value;
+	console.log(other_id_type);
 	var oidnum=document.getElementById('oidnum').value;
+	console.log(oidnum);
 	if (collection_id.length>0 && other_id_type.length>0 && oidnum.length>0) {
 		$.getJSON("/component/functions.cfc",
 			{
