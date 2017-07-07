@@ -694,8 +694,7 @@
 						               				<cfquery name="fmed" datasource="uam_god">
 														select media_uri from media where media_id=#meid#
 													</cfquery>
-														<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
-														<cfdump var=#cfhttp#>
+													<cfhttp timeout="2" method="GET" url=#fmed.media_uri#></cfhttp>
 													<cfset wkt_polygon=cfhttp.filecontent>
 												</cfif>
 												<input type="hidden" id="coordinates_#specimen_event_id#" value="#coordinates#">
