@@ -192,7 +192,7 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'name',"/")>
-	<cfif replace(replace(request.rdurl,"/","","last"),"/","","all") is "name">
+	<cfif listlast(request.rdurl,"/") is  "name">
 		<cfinclude template="/taxonomy.cfm">
 	<cfelse>
 		<cftry>
@@ -222,7 +222,7 @@
 		</cfcatch>
 	</cftry>
 <cfelseif listfindnocase(request.rdurl,'project',"/") or replace(request.rdurl,"/","","last") is "project">
-	<cfif replace(request.rdurl,"/","","last") is "project">
+	<cfif listlast(request.rdurl,"/") is  "project">
 		<cfinclude template="/SpecimenUsage.cfm">
 	<cfelse>
 		<cftry>
@@ -270,7 +270,7 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'publication',"/")>
-	<cfif replace(request.rdurl,"/","","last") is "project">
+	<cfif listlast(request.rdurl,"/") is  "project">
 		<cfinclude template="/SpecimenUsage.cfm">
 	<cfelse>
 		<cftry>
