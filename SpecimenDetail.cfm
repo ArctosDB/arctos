@@ -92,10 +92,10 @@
   							//$( ".result" ).html( data );
   							//var wkt=data;
 							  console.log('got wkt from url');
-							  buildWKT(data,bounds);
+							  buildWKT(data,bounds,ptsArray);
 						});
 					} else {
-						buildWKT(wkt,bounds);
+						buildWKT(wkt,bounds,ptsArray);
 					}
 
 
@@ -121,7 +121,7 @@
 
 
 
-		function buildWKT(wkt,bounds){
+		function buildWKT(wkt,bounds,ptsArray){
 						var regex = /\(([^()]+)\)/g;
 						var Rings = [];
 						var results;
