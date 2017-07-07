@@ -58,12 +58,12 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 		to update the media records and delete the local file
 	</p>
 
-
+select status,count(*) from cf_media_migration group by status;
 
 <cfif action is "update_media">
 		<!---barf out sql ---->
 		<cfquery name="d" datasource="uam_god">
-			select * from  cf_media_migration where status='dry_run_happy' and rownum < 2 order by path
+			select * from  cf_media_migration where status='dry_run_happy' and rownum < 20 order by path
 		</cfquery>
 		<cfset lclURL=replace(application.serverRootURL,'https://','http://')>
 		<cfloop query="d">
