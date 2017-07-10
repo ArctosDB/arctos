@@ -1,6 +1,5 @@
 <cfcomponent>
 <!------------------------------------->
-
 <cffunction name="pickPermit" access="remote">
 	<cfparam name="q" type="string">
 	<cfloop list="#q#" delimiters="&" index="i">
@@ -10,8 +9,6 @@
 			<cfset "#a#"=b>
 		</cfif>
 	</cfloop>
-
-
 	<cfset sql = "select permit.permit_id,
 	issuedByPref.agent_name IssuedByAgent,
 	issuedToPref.agent_name IssuedToAgent,
@@ -58,7 +55,6 @@ where
 	<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
 </cfif>
 <cfset sql = "#sql# ORDER BY permit_id">
-<hr>
 <cfif #sql# is "select * from permit, agent_name issuedTo, agent_name issuedBy where permit.issued_by_agent_id = issuedBy.agent_id and permit.issued_to_agent_id = issuedTo.agent_id ">
 	<cfabort>
 </cfif>
