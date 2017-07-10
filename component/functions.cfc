@@ -54,7 +54,7 @@ where
 <cfif isdefined("permit_Type") and  len(#permit_Type#) gt 0>
 	<cfset sql = "#sql# AND permit_Type = '#permit_Type#'">
 </cfif>
-<cfif isdefined(permit_remarks"") and  len(#permit_remarks#) gt 0>
+<cfif isdefined("permit_remarks") and  len(#permit_remarks#) gt 0>
 	<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
 </cfif>
 <cfset sql = "#sql# ORDER BY permit_id">
