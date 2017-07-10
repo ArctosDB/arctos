@@ -368,39 +368,18 @@ where
 		<td>#contactAgent#</td>
 		<td>
 			<div>
-				<a href="Permit.cfm?permit_id=#permit_id#&action=editPermit">Edit Permit</a>
+				<a href="Permit.cfm?permit_id=#permit_id#&action=editPermit">Edit&nbsp;Permit</a>
 			</div>
 			<div>
-				<a href="editAccn.cfm?permit_id=#permit_id#&action=findAccessions">Accession List</a>
+				<a href="editAccn.cfm?permit_id=#permit_id#&action=findAccessions">Accession&nbsp;List</a>
 			</div>
+			<!----
 			<div>
 				<a href="Reports/permit.cfm?permit_id=#permit_id#">Permit Report</a>
 			</div>
-			<!----
-	<form action="Permit.cfm" method="post" name="Copy">
-	<input type="hidden" name="permit_id" value="#permit_id#">
-	<input type="hidden" name="Action" value="editPermit">
-		<input type="submit" value="Edit this permit" class="lnkBtn"
-   				onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-	</form>
-	<form action="editAccn.cfm" method="post">
-	<input type="hidden" name="permit_id" value="#permit_id#">
-	<input type="hidden" name="Action" value="findAccessions">
-		<input type="submit" value="Accession List" class="lnkBtn"
-				onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-	</form>
-	<form action="Reports/permit.cfm" method="post">
-	<input type="hidden" name="permit_id" value="#permit_id#">
-		<input type="submit" value="Permit Report" class="lnkBtn"
-				onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-	</form>
-	---->
+			---->
 		</td>
 	</tr>
-
-
-
-
 </cfoutput>
 </table>
 </cfif>
@@ -524,46 +503,35 @@ where
 <table border width="100%">
 	<tr>
 		<td width="50%"  valign="top">
-<cfform name="newPermit" action="Permit.cfm" method="post">
-	<input type="hidden" name="Action">
-	<input type="hidden" name="permit_id" value="#permit_id#">
-	<table>
-		<tr>
-			<td>Issued By</td>
-			<td colspan="3">
+			<form name="newPermit" action="Permit.cfm" method="post">
+				<input type="hidden" name="Action">
+				<input type="hidden" name="permit_id" value="#permit_id#">
+
+				<label for="IssuedByAgentId">Issued By</label>
 				<input type="hidden" name="IssuedByAgentId">
 				<input type="hidden" name="IssuedByOldAgentId" value="#IssuedByAgentID#">
 				<input type="text" name="IssuedByAgent" class="reqdClr" size="50"
-				value="#IssuedByAgent#"
-		 onchange="getAgent('IssuedByAgentId','IssuedByAgent','newPermit',this.value); return false;"
-			  onKeyUp="return noenter();">
+					value="#IssuedByAgent#"
+					onchange="getAgent('IssuedByAgentId','IssuedByAgent','newPermit',this.value); return false;"
+			  		onKeyUp="return noenter();">
 
-		  </td>
-		</tr>
-		<tr>
-			<td>Issued To</td>
-			<td colspan="3">
-				<input type="hidden" name="IssuedToAgentId">
+			  	<label for="IssuedToAgentId">Issued To</label>
+			  	<input type="hidden" name="IssuedToAgentId">
 				<input type="text" name="IssuedToAgent" class="reqdClr" size="50"
-				value="#IssuedToAgent#"
-		 onchange="getAgent('IssuedToAgentId','IssuedToAgent','newPermit',this.value); return false;"
-			  onKeyUp="return noenter();">
-			</td>
-		</tr>
-		<tr>
-			<td>Contact Person</td>
-			<td colspan="3">
-			<input type="hidden" name="contact_agent_id" value="#contact_agent_id#">
-			<input type="text" name="ContactAgent" class="reqdClr" size="50" value="#ContactAgent#"
-		 onchange="getAgent('contact_agent_id','ContactAgent','newPermit',this.value); return false;"
-			  onKeyUp="return noenter();">
+					value="#IssuedToAgent#"
+		 			onchange="getAgent('IssuedToAgentId','IssuedToAgent','newPermit',this.value); return false;"
+			  		onKeyUp="return noenter();">
 
+			  	<label for="ContactAgent">Contact Person</label>
+			  	<input type="hidden" name="contact_agent_id" value="#contact_agent_id#">
+				<input type="text" name="ContactAgent" class="reqdClr" size="50" value="#ContactAgent#"
+		 			onchange="getAgent('contact_agent_id','ContactAgent','newPermit',this.value); return false;"
+			  		onKeyUp="return noenter();">
+
+			  	<label for="issued_Date">Issued Date</label>
+				<input type="datetime" id="issued_date" name="issued_date" value="#dateformat(issued_Date,"yyyy-mm-dd")#">
 
 		</td>
-		</tr>
-		<tr>
-			<td>Issued Date</td>
-			<td><input type="datetime" name="issued_Date" value="#dateformat(issued_Date,"yyyy-mm-dd")#"></td>
 			<td>Renewed Date</td>
 			<td><input type="datetime" name="renewed_Date" value="#dateformat(renewed_Date,"yyyy-mm-dd")#"></td>
 		</tr>
@@ -603,29 +571,26 @@ where
 			</td>
 		</tr>
 	</table>
-</cfform>
+</form>
 
 </td>
 
 	<script>
 		jQuery(document).ready(function(){
-
+			$("#issued_date").datepicker();
             $("##mediaUpClickThis").click(function(){
 			    addMedia('permit_id','#permit_id#');
 			});
-
 			getMedia('permit','#permit_id#','pMedia','2','1');
-
 		});
 	</script>
-<td width="50%" valign="top">
-	<h3>Permit Media</h3>
-	<cfif listcontainsnocase(session.roles, "manage_media")>
-		<a class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
-	</cfif>
-	<div id="pMedia"></div>
-
-</td>
+		<td width="50%" valign="top">
+			<h3>Permit Media</h3>
+			<cfif listcontainsnocase(session.roles, "manage_media")>
+				<a class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
+			</cfif>
+			<div id="pMedia"></div>
+		</td>
 	</tr>
 </table>
 </cfoutput>
