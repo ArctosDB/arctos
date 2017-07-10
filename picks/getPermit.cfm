@@ -91,7 +91,6 @@ where
 </cfif>
 <cfset sql = "#sql# ORDER BY permit_id">
 <hr>
-<cfoutput>
 <cfif #sql# is "select * from permit, agent_name issuedTo, agent_name issuedBy where permit.issued_by_agent_id = issuedBy.agent_id and permit.issued_to_agent_id = issuedTo.agent_id ">
 	<cfabort>
 </cfif>
@@ -115,7 +114,6 @@ where
 </cfoutput>
 
 
-	</cfif>
 <cfif #Action# is "AddThisOne">
 	<cfoutput>
 		<cfif not (len(#transaction_id#) gt 0 and len(#permit_id#) gt 0)>
