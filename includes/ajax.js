@@ -1411,7 +1411,7 @@ function getPermit(PermitIDFld,PermitNumberFld,permit_number){
 	var url,oawin;
 	url="/picks/getPermit.cfm";
 	oawin=url+"?PermitIDFld="+PermitIDFld+"&PermitNumberFld="+PermitNumberFld+"&permit_number="+permit_number;
-	permitpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
+	permitpickwin=window.open(oawin,"","width=800,height=600, resizable,scrollbars");
 }
 function pickAgentModal(agentIdFld,agentNameFld,name){
 	// semi-experimental jquery modal agent pick
