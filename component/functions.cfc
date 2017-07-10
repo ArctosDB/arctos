@@ -2,9 +2,72 @@
 <!------------------------------------->
 
 <cffunction name="pickPermit" access="remote">
-
 	<cfparam name="q" type="string">
 	<cfdump var=#q#>
+	<cfloop list="#q#" delimiters="&" index="i">
+		<cfset a=listgetat(i,1,"=")>
+		<cfset b=listgetat(i,2,"=")>
+		<cfset "#a#"=b>
+
+	</cfloop>
+
+
+	<cfset sql = "select permit.permit_id,
+	issuedByPref.agent_name IssuedByAgent,
+	issuedToPref.agent_name IssuedToAgent,
+	issued_Date,
+	renewed_Date,
+	exp_Date,
+	permit_Num,
+	permit_Type,
+	permit_remarks
+from
+	permit,
+	preferred_agent_name issuedToPref,
+	preferred_agent_name issuedByPref,
+	agent_name issuedTo,
+	agent_name issuedBy
+where
+	permit.issued_by_agent_id = issuedBy.agent_id and
+	permit.issued_to_agent_id = issuedTo.agent_id and
+		permit.issued_by_agent_id = issuedByPref.agent_id and
+	permit.issued_to_agent_id = issuedToPref.agent_id ">
+
+<cfif isdefined("IssuedByAgent") and len(IssuedByAgent) gt 0>
+	<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
+</cfif>
+<cfif isdefined("IssuedToAgent") and  len(#IssuedToAgent#) gt 0>
+	<cfset sql = "#sql# AND upper(issuedTo.agent_name) like '%#ucase(IssuedToAgent)#%'">
+</cfif>
+<cfif isdefined("issued_Date") and  len(#issued_Date#) gt 0>
+	<cfset sql = "#sql# AND upper(issued_Date) like '%#ucase(issued_Date)#%'">
+</cfif>
+<cfif isdefined("renewed_Date") and  len(#renewed_Date#) gt 0>
+	<cfset sql = "#sql# AND upper(renewed_Date) like '%#ucase(renewed_Date)#%'">
+</cfif>
+<cfif isdefined("exp_Date") and  len(#exp_Date#) gt 0>
+	<cfset sql = "#sql# AND upper(exp_Date) like '%#ucase(exp_Date)#%'">
+</cfif>
+<cfif isdefined("permit_number") and  len(#permit_number#) gt 0>
+	<cfset sql = "#sql# AND permit_Num = '#permit_number#'">
+</cfif>
+<cfif isdefined("permit_Type") and  len(#permit_Type#) gt 0>
+	<cfset sql = "#sql# AND permit_Type = '#permit_Type#'">
+</cfif>
+<cfif isdefined(permit_remarks"") and  len(#permit_remarks#) gt 0>
+	<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
+</cfif>
+<cfset sql = "#sql# ORDER BY permit_id">
+<hr>
+<cfif #sql# is "select * from permit, agent_name issuedTo, agent_name issuedBy where permit.issued_by_agent_id = issuedBy.agent_id and permit.issued_to_agent_id = issuedTo.agent_id ">
+	<cfabort>
+</cfif>
+<cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	#preservesinglequotes(sql)#
+</cfquery>
+
+<cfreturn matchPermit>
+
 </cffunction>
 
 <cffunction name="getMediaLocalityCount" access="remote" returnformat="plain" queryFormat="column">
