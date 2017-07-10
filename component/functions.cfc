@@ -5,9 +5,11 @@
 	<cfparam name="q" type="string">
 	<cfdump var=#q#>
 	<cfloop list="#q#" delimiters="&" index="i">
-		<cfset a=listgetat(i,1,"=")>
-		<cfset b=listgetat(i,2,"=")>
-		<cfset "#a#"=b>
+		<cfif listlen(i,"=") is 2>
+			<cfset a=listgetat(i,1,"=")>
+			<cfset b=listgetat(i,2,"=")>
+			<cfset "#a#"=b>
+		</cfif>
 
 	</cfloop>
 
