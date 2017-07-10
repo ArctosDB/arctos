@@ -273,6 +273,26 @@
 	         media_flat.media_id=media_relations.media_id and
 	         media_relations.media_relationship like '% project' and
 	         media_relations.related_primary_key = #q#">
+	<cfelseif typ is "permit">
+		<cfset srchall="--nothing to search--">
+		<cfset mrdescr="Media linked to this Permit.">
+
+		<cfset sql=" select distinct
+	        media_flat.media_id,
+	        media_flat.media_uri,
+	        media_flat.mime_type,
+	        media_flat.media_type,
+	        media_flat.preview_uri,
+            alt_text,
+            license,
+            media_flat.descr
+	     from
+	         media_flat,
+	         media_relations
+	     where
+	         media_flat.media_id=media_relations.media_id and
+	         media_relations.media_relationship like '% permit' and
+	         media_relations.related_primary_key = #q#">
     <cfelseif typ is "specimen">
         <cfset srchall="/MediaSearch.cfm?collection_object_id=#q#">
 		<cfset mrdescr="Media linked to this Specimen.">

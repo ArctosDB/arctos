@@ -602,14 +602,18 @@ where
             $("##mediaUpClickThis").click(function(){
 			    addMedia('permit_id','#permit_id#');
 			});
+			
+			getMedia('permit','#permit_id#','pMedia','2','1');
+			
 		});
 	</script>
 <td>
 	Media here
-	<cfdump var=#session.roles#>
 	<cfif listcontainsnocase(session.roles, "manage_media")>
-			<a  id="mediaUpClickThis">Attach/Upload Media</a>
-		</cfif>
+		<a id="mediaUpClickThis">Attach/Upload Media</a>
+	</cfif>
+	<div id="pMedia"></div>
+
 </td>
 	</tr>
 </table>
