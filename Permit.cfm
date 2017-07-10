@@ -512,7 +512,7 @@ where
 <cfoutput query="permitInfo" group="permit_id">
 <table border width="100%">
 	<tr>
-		<td width="50%">
+		<td width="50%"  valign="top">
 <cfform name="newPermit" action="Permit.cfm" method="post">
 	<input type="hidden" name="Action">
 	<input type="hidden" name="permit_id" value="#permit_id#">
@@ -607,7 +607,7 @@ where
 
 		});
 	</script>
-<td width="50%">
+<td width="50%" valign="top">
 	<h3>Permit Media</h3>
 	<cfif listcontainsnocase(session.roles, "manage_media")>
 		<a class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
