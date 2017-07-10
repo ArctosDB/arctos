@@ -510,9 +510,9 @@ where
 </cfquery>
 </cfoutput>
 <cfoutput query="permitInfo" group="permit_id">
-<table>
+<table border width="100%">
 	<tr>
-		<td>
+		<td width="50%">
 <cfform name="newPermit" action="Permit.cfm" method="post">
 	<input type="hidden" name="Action">
 	<input type="hidden" name="permit_id" value="#permit_id#">
@@ -602,15 +602,15 @@ where
             $("##mediaUpClickThis").click(function(){
 			    addMedia('permit_id','#permit_id#');
 			});
-			
+
 			getMedia('permit','#permit_id#','pMedia','2','1');
-			
+
 		});
 	</script>
-<td>
-	Media here
+<td width="50%">
+	<h3>Permit Media</h3>
 	<cfif listcontainsnocase(session.roles, "manage_media")>
-		<a id="mediaUpClickThis">Attach/Upload Media</a>
+		<a class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
 	</cfif>
 	<div id="pMedia"></div>
 
