@@ -10,25 +10,16 @@
 <script>
 
 	function selectThisPermit(pid,ptxt){
-
-		alert('selected ' + pid + ': ' + ptxt);
-		 var pidfld=$("#PermitIDFld").val();
-		 var pnfld=$("#PermitNumberFld").val();
-
-		 console.log('pidfld=' + pidfld);
-		 console.log('pnfld=' + pnfld);
-
-		 opener.$("#" + pidfld).val(pid);
-		 opener.$("#" + pnfld).val(ptxt).removeClass('badPick').addClass('goodPick');
-
-
+		var pidfld=$("#PermitIDFld").val();
+		var pnfld=$("#PermitNumberFld").val();
+		opener.$("#" + pidfld).val(pid);
+		opener.$("#" + pnfld).val(ptxt).removeClass('badPick').addClass('goodPick');
+		self.close();
 	}
 
 	$(document).ready(function() {
 		$( "#findPermit" ).submit(function( event ) {
 			event.preventDefault();
-
-			console.log('triggered');
 			var q=$( this ).serialize();
 			$.getJSON("/component/functions.cfc",
 				{
@@ -38,9 +29,6 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					console.log('back');
-
-					console.log(r);
 					if (r.ROWCOUNT==0){
 						$("#psRes").html('Searh found no permits.');
 					} else {
@@ -57,8 +45,6 @@
 						h+='<th>clicky</th>';
 						h+='</tr>';
 						for (i=0;i<r.ROWCOUNT;i++) {
-							console.log(r.DATA.PERMIT_ID[i]);
-
 							h+='<tr>';
 							h+='<td>' + r.DATA.PERMIT_NUM[i] + '</td>';
 							h+='<td>' + r.DATA.PERMIT_TYPE[i] + '</td>';
@@ -81,10 +67,6 @@
 
 
 </script>
-<!----
-	WCOUNT":33,"COLUMNS":["PERMIT_ID","","","","","","","",""],"DATA":{"PERMIT_ID":
-
----->
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ctpermit_type order by permit_type
 </cfquery>
