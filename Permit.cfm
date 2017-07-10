@@ -606,6 +606,7 @@ where
 	</script>
 <td>
 	Media here
+	<cfdump var=#session.roles#>
 	<cfif isdefined("session.roles") and session.roles contains "manage_media">
 			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
 		</cfif>
