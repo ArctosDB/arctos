@@ -38,7 +38,7 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 		</cfloop>
 	</select>
 	<br><input type="submit" value="Search" class="schBtn">
-</cfform>
+</form>
 
 <cfset sql = "select permit.permit_id,
 	issuedByPref.agent_name IssuedByAgent,
