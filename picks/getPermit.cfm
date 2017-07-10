@@ -32,7 +32,7 @@
 						h+='<tr><th>PermitNumber</th></tr>';
 						for (i=0;i<r.ROWCOUNT;i++) {
 							console.log(r.DATA.PERMIT_ID[i]);
-							h+='<tr><td>' + r.DATA.PERMIT_ID[i] + '</td></tr>
+							h+='<tr><td>' + r.DATA.PERMIT_ID[i] + '</td></tr>';
 						}
 						h+='</table>';
 						$("#psRes").html(h);
