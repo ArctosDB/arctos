@@ -46,7 +46,7 @@ where
 	<cfset sql = "#sql# AND upper(exp_Date) like '%#ucase(exp_Date)#%'">
 </cfif>
 <cfif isdefined("permit_number") and  len(#permit_number#) gt 0>
-	<cfset sql = "#sql# AND permit_Num = '#permit_number#'">
+	<cfset sql = "#sql# AND upper(permit_Num) like '%#ucase(permit_number)#%'">
 </cfif>
 <cfif isdefined("permit_Type") and  len(#permit_Type#) gt 0>
 	<cfset sql = "#sql# AND permit_Type = '#permit_Type#'">
