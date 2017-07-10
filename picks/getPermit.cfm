@@ -8,6 +8,12 @@
 		permit_number: search parameter
 ---->
 <script>
+
+	function selectThisPermit(pid){
+
+		alert('selected ' + pid);
+	}
+
 	$(document).ready(function() {
 		$( "#findPermit" ).submit(function( event ) {
 			event.preventDefault();
@@ -52,7 +58,7 @@
 							h+='<td>' + r.DATA.RENEWED_DATE[i] + '</td>';
 							h+='<td>' + r.DATA.EXP_DATE[i] + '</td>';
 							h+='<td>' + r.DATA.PERMIT_REMARKS[i] + '</td>';
-							h+='<td>' + r.DATA.PERMIT_ID[i] + '</td>';
+							h+='<td><span class="likeLink" onclick="selectThisPermit(' + r.DATA.PERMIT_ID[i] + ')">select</span></td>';
 							h+='</tr>';
 						}
 						h+='</table>';
