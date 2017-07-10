@@ -21,6 +21,8 @@
 						queryformat : 'column'
 					},
 					function (r) {
+			console.log('back');
+
 						console.log(r);
 					}
 				);
@@ -33,34 +35,36 @@
 	select * from ctpermit_type order by permit_type
 </cfquery>
 <cfoutput>
-Search for permits. Any part of dates and names accepted, case isn't important.<br>
-<form name="findPermit" id="findPermit" action="PermitPick.cfm" method="post">
-	<input type="hidden" name="PermitIDFld" value="#PermitIDFld#">
-	<input type="hidden" name="PermitNumberFld" value="#PermitNumberFld#">
-	<label for="permit_number">Permit Number</label>
-	<input type="text" id="permit_number" name="permit_number" value="#permit_number#">
-	<label for="IssuedByAgent">Issued By</label>
-	<input type="text" id="IssuedByAgent" name="IssuedByAgent" >
-	<label for="IssuedToAgent">Issued To</label>
-	<input type="text" id="IssuedToAgent" name="IssuedToAgent" >
-	<label for="issued_Date">Issued Date</label>
-	<input type="text" id="issued_Date" name="issued_Date" >
-	<label for="renewed_Date">Renewed Date</label>
-	<input type="text" id="renewed_Date" name="renewed_Date" >
-	<label for="exp_Date">Expiration Date</label>
-	<input type="text" id="exp_Date" name="exp_Date" >
-	<label for="permit_remarks">Remarks</label>
-	<input type="text" id="permit_remarks" name="permit_remarks" >
-	<label for="permit_Type">Permit Type</label>
-	<select name="permit_Type" size="1">
-		<option value=""></option>
-		<cfloop query="ctPermitType">
-			<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-		</cfloop>
-	</select>
-	<br><input type="submit" value="Search" class="schBtn">
-</form>
+	Search for permits. Any part of dates and names accepted, case isn't important.<br>
+	<form name="findPermit" id="findPermit" action="PermitPick.cfm" method="post">
+		<input type="hidden" name="PermitIDFld" value="#PermitIDFld#">
+		<input type="hidden" name="PermitNumberFld" value="#PermitNumberFld#">
+		<label for="permit_number">Permit Number</label>
+		<input type="text" id="permit_number" name="permit_number" value="#permit_number#">
+		<label for="IssuedByAgent">Issued By</label>
+		<input type="text" id="IssuedByAgent" name="IssuedByAgent" >
+		<label for="IssuedToAgent">Issued To</label>
+		<input type="text" id="IssuedToAgent" name="IssuedToAgent" >
+		<label for="issued_Date">Issued Date</label>
+		<input type="text" id="issued_Date" name="issued_Date" >
+		<label for="renewed_Date">Renewed Date</label>
+		<input type="text" id="renewed_Date" name="renewed_Date" >
+		<label for="exp_Date">Expiration Date</label>
+		<input type="text" id="exp_Date" name="exp_Date" >
+		<label for="permit_remarks">Remarks</label>
+		<input type="text" id="permit_remarks" name="permit_remarks" >
+		<label for="permit_Type">Permit Type</label>
+		<select name="permit_Type" size="1">
+			<option value=""></option>
+			<cfloop query="ctPermitType">
+				<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+			</cfloop>
+		</select>
+		<br><input type="submit" value="Search" class="schBtn">
+	</form>
+</cfoutput>
 
+<!----
 <cfset sql = "select permit.permit_id,
 	issuedByPref.agent_name IssuedByAgent,
 	issuedToPref.agent_name IssuedToAgent,
@@ -153,4 +157,5 @@ where
 
 
 </cfif>
+---->
 <cfinclude template="../includes/_pickFooter.cfm">
