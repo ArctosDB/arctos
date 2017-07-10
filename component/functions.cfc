@@ -219,7 +219,7 @@
 		<cfelseif table_name is "permit">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
-					PERMIT_NUM || ' (' || PERMIT_TYPE || ')' data
+					'Permit Number ' || PERMIT_NUM || ' (' || PERMIT_TYPE || ')' data
 				from
 					permit
 				where
