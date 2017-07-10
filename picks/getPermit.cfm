@@ -29,7 +29,7 @@
 						$("#psRes").html('Searh found no permits.');
 					} else {
 						for (i=0;i<r.ROWCOUNT;i++) {
-							console.log(r.DATA[i].PERMIT_ID);
+							console.log(r.DATA.PERMIT_ID[i]);
 						}
 					}
 				}
