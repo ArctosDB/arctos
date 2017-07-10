@@ -29,9 +29,14 @@
 						$("#psRes").html('Searh found no permits.');
 					} else {
 						var h='<table border>';
-						h+='<tr><th>PermitNumber</th></tr>';
+						h+='<tr>';
+						h+='<th>PermitNumber</th>';
+						h+='<th>clicky</th>';
+						h+='</tr>';
 						for (i=0;i<r.ROWCOUNT;i++) {
 							console.log(r.DATA.PERMIT_ID[i]);
+
+							h+='<tr><td>' + r.DATA.PERMIT_NUM[i] + '</td></tr>';
 							h+='<tr><td>' + r.DATA.PERMIT_ID[i] + '</td></tr>';
 						}
 						h+='</table>';
@@ -41,7 +46,13 @@
 			);
 		});
 	});
+
+
 </script>
+<!----
+	WCOUNT":33,"COLUMNS":["PERMIT_ID","ISSUEDBYAGENT","ISSUEDTOAGENT","ISSUED_DATE","RENEWED_DATE","EXP_DATE","","PERMIT_TYPE","PERMIT_REMARKS"],"DATA":{"PERMIT_ID":
+
+---->
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ctpermit_type order by permit_type
 </cfquery>
