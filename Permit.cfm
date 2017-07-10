@@ -577,7 +577,7 @@ where
 
 	<script>
 		jQuery(document).ready(function(){
-			$("#issued_date").datepicker();
+			$("##issued_date").datepicker();
             $("##mediaUpClickThis").click(function(){
 			    addMedia('permit_id','#permit_id#');
 			});
