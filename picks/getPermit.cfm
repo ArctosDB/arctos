@@ -36,8 +36,10 @@
 						for (i=0;i<r.ROWCOUNT;i++) {
 							console.log(r.DATA.PERMIT_ID[i]);
 
-							h+='<tr><td>' + r.DATA.PERMIT_NUM[i] + '</td></tr>';
-							h+='<tr><td>' + r.DATA.PERMIT_ID[i] + '</td></tr>';
+							h+='<tr>';
+							h+='<td>' + r.DATA.PERMIT_NUM[i] + '</td>';
+							h+='<td>' + r.DATA.PERMIT_ID[i] + '</td>';
+							h+='</tr>';
 						}
 						h+='</table>';
 						$("#psRes").html(h);
