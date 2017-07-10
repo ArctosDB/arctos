@@ -367,6 +367,16 @@ where
 		<td>#permit_remarks#</td>
 		<td>#contactAgent#</td>
 		<td>
+			<div>
+				<a href="Permit.cfm?permit_id=#permit_id#&action=editPermit">Edit Permit</a>
+			</div>
+			<div>
+				<a href="editAccn.cfm?permit_id=#permit_id#&action=findAccessions">Accession List</a>
+			</div>
+			<div>
+				<a href="Reports/permit.cfm?permit_id=#permit_id#">Permit Report</a>
+			</div>
+			<!----
 	<form action="Permit.cfm" method="post" name="Copy">
 	<input type="hidden" name="permit_id" value="#permit_id#">
 	<input type="hidden" name="Action" value="editPermit">
@@ -384,6 +394,7 @@ where
 		<input type="submit" value="Permit Report" class="lnkBtn"
 				onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
 	</form>
+	---->
 		</td>
 	</tr>
 
