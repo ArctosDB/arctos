@@ -31,6 +31,13 @@
 						var h='<table border>';
 						h+='<tr>';
 						h+='<th>PermitNumber</th>';
+						h+='<th>PermitType</th>';
+						h+='<th>IssuedTo</th>';
+						h+='<th>IssuedBy</th>';
+						h+='<th>IssuedDate</th>';
+						h+='<th>RenewedDate</th>';
+						h+='<th>ExpireDate</th>';
+						h+='<th>Remark</th>';
 						h+='<th>clicky</th>';
 						h+='</tr>';
 						for (i=0;i<r.ROWCOUNT;i++) {
@@ -38,6 +45,13 @@
 
 							h+='<tr>';
 							h+='<td>' + r.DATA.PERMIT_NUM[i] + '</td>';
+							h+='<td>' + r.DATA.PERMIT_TYPE[i] + '</td>';
+							h+='<td>' + r.DATA.ISSUEDTOAGENT[i] + '</td>';
+							h+='<td>' + r.DATA.ISSUEDBYAGENT[i] + '</td>';
+							h+='<td>' + r.DATA.ISSUED_DATE[i] + '</td>';
+							h+='<td>' + r.DATA.RENEWED_DATE[i] + '</td>';
+							h+='<td>' + r.DATA.EXP_DATE[i] + '</td>';
+							h+='<td>' + r.DATA.PERMIT_REMARKS[i] + '</td>';
 							h+='<td>' + r.DATA.PERMIT_ID[i] + '</td>';
 							h+='</tr>';
 						}
@@ -52,7 +66,7 @@
 
 </script>
 <!----
-	WCOUNT":33,"COLUMNS":["PERMIT_ID","ISSUEDBYAGENT","ISSUEDTOAGENT","ISSUED_DATE","RENEWED_DATE","EXP_DATE","","PERMIT_TYPE","PERMIT_REMARKS"],"DATA":{"PERMIT_ID":
+	WCOUNT":33,"COLUMNS":["PERMIT_ID","","","","","","","",""],"DATA":{"PERMIT_ID":
 
 ---->
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
