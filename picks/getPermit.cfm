@@ -25,6 +25,13 @@
 					console.log('back');
 
 					console.log(r);
+					if (r.ROWCOUNT==0){
+						$("#psRes").html('Searh found no permits.');
+					} else {
+						for (i=0;i<r.ROWCOUNT;i++) {
+							console.log(r.DATA[i].PERMIT_ID;
+						}
+					}
 				}
 			);
 		});
@@ -61,6 +68,10 @@
 		</select>
 		<br><input type="submit" value="Search" class="schBtn">
 	</form>
+
+	<div id="psRes">
+
+	</div>
 </cfoutput>
 
 <!----
