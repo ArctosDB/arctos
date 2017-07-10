@@ -7,13 +7,18 @@
 		PermitNumberFld: ID of field to write summary (permit ID or whatever, it's just text)
 		permit_number: search parameter
 ---->
-}
+<script>
+	$( "#findPermit" ).submit(function( event ) {
+	  alert( "Handler for .submit() called." );
+	  event.preventDefault();
+	});
+</script>
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ctpermit_type order by permit_type
 </cfquery>
 <cfoutput>
 Search for permits. Any part of dates and names accepted, case isn't important.<br>
-<form name="findPermit" action="PermitPick.cfm" method="post">
+<form name="findPermit" id="findPermit" action="PermitPick.cfm" method="post">
 	<input type="hidden" name="PermitIDFld" value="#PermitIDFld#">
 	<input type="hidden" name="PermitNumberFld" value="#PermitNumberFld#">
 	<label for="permit_number">Permit Number</label>
