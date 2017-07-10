@@ -15,6 +15,9 @@
 		 var pidfld=$("#PermitIDFld").val();
 		 var pnfld=$("#PermitNumberFld").val();
 
+		 console.log('pidfld=' + pidfld);
+		 console.log('pnfld=' + pnfld);
+
 		 opener.$("#" + pidfld).val(pid);
 		 opener.$("#" + pnfld).val(ptxt).removeClass('badPick').addClass('goodPick');
 
