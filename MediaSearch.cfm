@@ -442,6 +442,12 @@
 			<cfset srch="#srch# AND mr_project.media_relationship like '% project' and mr_project.related_primary_key = #project_id#">
 			<cfset mapurl="#mapurl#&project_id=#project_id#">
 		</cfif>
+		<cfif (isdefined("permit_id") and len(permit_id) gt 0)>
+			<cfset tabls = "#tabls#,media_relations mr_permit">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_permit.media_id ">
+			<cfset srch="#srch# AND mr_permit.media_relationship like '% permit' and mr_permit.related_primary_key = #permit_id#">
+			<cfset mapurl="#mapurl#&permit_id=#permit_id#">
+		</cfif>
 		<cfif (isdefined("accn_id") and len(accn_id) gt 0)>
 			<cfset tabls = "#tabls#,media_relations mr_accn">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_accn.media_id ">

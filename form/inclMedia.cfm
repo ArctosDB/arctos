@@ -274,7 +274,7 @@
 	         media_relations.media_relationship like '% project' and
 	         media_relations.related_primary_key = #q#">
 	<cfelseif typ is "permit">
-		<cfset srchall="--nothing to search--">
+		<cfset srchall="/MediaSearch.cfm?action=search&permit_id=#q#">
 		<cfset mrdescr="Media linked to this Permit.">
 
 		<cfset sql=" select distinct
