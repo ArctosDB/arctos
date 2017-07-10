@@ -12,6 +12,13 @@
 	function selectThisPermit(pid,ptxt){
 
 		alert('selected ' + pid + ': ' + ptxt);
+		 var pidfld=$("#PermitIDFld").val();
+		 var pnfld=$("#PermitNumberFld").val();
+
+		 opener.$("#" + pidfld).val(pid);
+		 opener.$("#" + pnfld).val(ptxt).removeClass('badPick').addClass('goodPick');
+
+
 	}
 
 	$(document).ready(function() {
