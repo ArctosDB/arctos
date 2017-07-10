@@ -91,8 +91,8 @@
 <cfoutput>
 	Search for permits. Any part of dates and names accepted, case isn't important.<br>
 	<form name="findPermit" id="findPermit" action="" method="post">
-		<input type="hidden" name="PermitIDFld" value="#PermitIDFld#">
-		<input type="hidden" name="PermitNumberFld" value="#PermitNumberFld#">
+		<input type="hidden" id="PermitIDFld" name="PermitIDFld" value="#PermitIDFld#">
+		<input type="hidden" id="PermitNumberFld" name="PermitNumberFld" value="#PermitNumberFld#">
 		<label for="permit_number">Permit Number</label>
 		<input type="text" id="permit_number" name="permit_number" value="#permit_number#">
 		<label for="IssuedByAgent">Issued By</label>
