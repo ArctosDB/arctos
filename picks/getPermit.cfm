@@ -9,9 +9,9 @@
 ---->
 <script>
 
-	function selectThisPermit(pid){
+	function selectThisPermit(pid,ptxt){
 
-		alert('selected ' + pid);
+		alert('selected ' + pid + ': ' + ptxt);
 	}
 
 	$(document).ready(function() {
@@ -58,7 +58,7 @@
 							h+='<td>' + r.DATA.RENEWED_DATE[i] + '</td>';
 							h+='<td>' + r.DATA.EXP_DATE[i] + '</td>';
 							h+='<td>' + r.DATA.PERMIT_REMARKS[i] + '</td>';
-							h+='<td><span class="likeLink" onclick="selectThisPermit(' + r.DATA.PERMIT_ID[i] + ')">select</span></td>';
+							h+='<td><span class="likeLink" onclick="selectThisPermit(\'' + r.DATA.PERMIT_ID[i] + '\')">select</span></td>';
 							h+='</tr>';
 						}
 						h+='</table>';
