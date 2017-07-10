@@ -9,6 +9,7 @@
 ---->
 <script>
 	$(document).ready(function() {
+		 event.preventDefault();
 		$( "#findPermit" ).submit(function( event ) {
 			console.log('triggered');
 			var q=$( this ).serialize();
@@ -27,7 +28,6 @@
 					}
 				);
 			}
-		  event.preventDefault();
 		});
 	});
 </script>
