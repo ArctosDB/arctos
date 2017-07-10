@@ -42,7 +42,7 @@
 </cfquery>
 <cfoutput>
 	Search for permits. Any part of dates and names accepted, case isn't important.<br>
-	<form name="findPermit" id="findPermit" action="PermitPick.cfm" method="post">
+	<form name="findPermit" id="findPermit" action="" method="post">
 		<input type="hidden" name="PermitIDFld" value="#PermitIDFld#">
 		<input type="hidden" name="PermitNumberFld" value="#PermitNumberFld#">
 		<label for="permit_number">Permit Number</label>
