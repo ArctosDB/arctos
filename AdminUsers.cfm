@@ -514,6 +514,29 @@
 			<cfabort>
 		</cfif>
 		<cfif len(getTheirEmail.EMAIL) gt 0 and len(getMyEmail.EMAIL) gt 0 and getAgent.recordcount is 1>
+			<!--- does the agent have the email? --->
+			<cfquery name="hem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) c from address where agent_id=#getAgent.agent_id# and ADDRESS_TYPE='email' and address='#getTheirEmail.EMAIL#'
+			</cfquery>
+			<cfif hem.c is 0>
+				<cfquery name="giveThemEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into address (
+						ADDRESS_ID,
+						AGENT_ID,
+						ADDRESS_TYPE,
+						ADDRESS,
+						VALID_ADDR_FG,
+						ADDRESS_REMARK
+					) values (
+						sq_address_id.nextval,
+						#getAgent.agent_id#,
+						'email',
+						'#getTheirEmail.EMAIL#',
+						1,
+						'Auto-inserted from user info at operator invite'
+					)
+				</cfquery>
+			</cfif>
 			<cfquery name="gpw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into temp_allow_cf_user (user_id,allow,invited_by_email)
 				values (#user_id#,1,'#getMyEmail.EMAIL#')
