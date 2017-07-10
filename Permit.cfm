@@ -555,7 +555,7 @@ where
    						onCLick="newPermit.action.value='saveChanges';newPermit.submit();">
 
 				<br><input type="button" value="Delete" class="delBtn"
-				   onCLick="newPermit.Action.value='deletePermit';confirmDelete('newPermit');">
+				   onCLick="newPermit.action.value='deletePermit';confirmDelete('newPermit');">
 
 </form>
 
