@@ -113,6 +113,8 @@
 		<cfset tbl='borrow'>
 	<cfelseif ktype is "accn_id">
 		<cfset tbl='accn'>
+	<cfelseif ktype is "permit_id">
+		<cfset tbl='permit'>
 	<cfelse>
 		<!--- not handled, return nothing disallowing save ---->
 		<cfset tbl='ajksndfiouafvblvnasahihs'>

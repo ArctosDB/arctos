@@ -595,8 +595,20 @@ where
 </cfform>
 
 </td>
+
+	<script>
+		jQuery(document).ready(function(){
+
+            $("##mediaUpClickThis").click(function(){
+			    addMedia('permit_id','#permit_id#');
+			});
+		});
+	</script>
 <td>
 	Media
+	<cfif isdefined("session.roles") and session.roles contains "manage_media">
+			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
+		</cfif>
 </td>
 	</tr>
 </table>
