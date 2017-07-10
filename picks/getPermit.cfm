@@ -14,21 +14,19 @@
 
 			console.log('triggered');
 			var q=$( this ).serialize();
-		 	function setSessionCustomID(v) {
-				$.getJSON("/component/functions.cfc",
-					{
-						method : "pickPermit",
-						q : q,
-						returnformat : "json",
-						queryformat : 'column'
-					},
-					function (r) {
-			console.log('back');
+			$.getJSON("/component/functions.cfc",
+				{
+					method : "pickPermit",
+					q : q,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					console.log('back');
 
-						console.log(r);
-					}
-				);
-			}
+					console.log(r);
+				}
+			);
 		});
 	});
 </script>
