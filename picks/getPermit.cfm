@@ -8,9 +8,12 @@
 		permit_number: search parameter
 ---->
 <script>
-	$( "#findPermit" ).submit(function( event ) {
-	  alert( "Handler for .submit() called." );
-	  event.preventDefault();
+	$(document).ready(function() {
+
+		$( "#findPermit" ).submit(function( event ) {
+		  alert( "Handler for .submit() called." );
+		  event.preventDefault();
+		});
 	});
 </script>
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

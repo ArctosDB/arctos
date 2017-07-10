@@ -1,6 +1,12 @@
 <cfcomponent>
 <!------------------------------------->
 
+<cffunction name="pickPermit" access="remote">
+
+	<cfparam name="q" type="string">
+	<cfdump var=#q#>
+</cffunction>
+
 <cffunction name="getMediaLocalityCount" access="remote" returnformat="plain" queryFormat="column">
 
 	<cfparam name="locid" type="numeric">
