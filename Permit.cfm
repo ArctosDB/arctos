@@ -476,7 +476,7 @@ where
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------->
-<cfif #Action# is "editPermit">
+<cfif action is "editPermit">
 <font size="+1"><strong>Edit Permit</strong></font><br>
 <cfoutput>
 <cfif not isdefined("permit_id") OR len(#permit_id#) is 0>
@@ -510,6 +510,9 @@ where
 </cfquery>
 </cfoutput>
 <cfoutput query="permitInfo" group="permit_id">
+<table>
+	<tr>
+		<td>
 <cfform name="newPermit" action="Permit.cfm" method="post">
 	<input type="hidden" name="Action">
 	<input type="hidden" name="permit_id" value="#permit_id#">
@@ -590,6 +593,13 @@ where
 		</tr>
 	</table>
 </cfform>
+
+</td>
+<td>
+	Media
+</td>
+	</tr>
+</table>
 </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
