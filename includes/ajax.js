@@ -1407,6 +1407,12 @@ function getLoan(LoanIDFld,LoanNumberFld,loanNumber,collectionID){
 	oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
 	loanpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
 }
+function getPermit(PermitIDFld,PermitNumberFld,permit_number){
+	var url,oawin;
+	url="/picks/getPermit.cfm";
+	oawin=url+"?PermitIDFld="+PermitIDFld+"&PermitNumberFld="+PermitNumberFld+"&permit_number="+permit_number;
+	permitpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
+}
 function pickAgentModal(agentIdFld,agentNameFld,name){
 	// semi-experimental jquery modal agent pick
 	// initiated 20140916
@@ -1931,6 +1937,8 @@ function pickedRelationship (id){
 		findMedia(dispInputName,idInputName);
 	} else if (relatedTable=='loan'){
 		getLoan(idInputName,dispInputName);
+	} else if (relatedTable=='permit'){
+		getPermit(idInputName,dispInputName);
 	} else if (relatedTable=='delete'){
 		document.getElementById(dispInputName).value='Marked for deletion.....';
 	} else {
