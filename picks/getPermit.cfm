@@ -9,23 +9,22 @@
 ---->
 <script>
 	$(document).ready(function() {
-
 		$( "#findPermit" ).submit(function( event ) {
-		 var q=$( this ).serialize();
-		 function setSessionCustomID(v) {
-			$.getJSON("/component/functions.cfc",
-				{
-					method : "pickPermit",
-					q : q,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-					console.log(r);
-
-				}
-			);
-		}
+			console.log('triggered');
+			var q=$( this ).serialize();
+		 	function setSessionCustomID(v) {
+				$.getJSON("/component/functions.cfc",
+					{
+						method : "pickPermit",
+						q : q,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (r) {
+						console.log(r);
+					}
+				);
+			}
 		  event.preventDefault();
 		});
 	});
