@@ -504,9 +504,19 @@ where
 	<tr>
 		<td width="50%"  valign="top">
 			<form name="newPermit" action="Permit.cfm" method="post">
-				<input type="hidden" name="Action">
+				<input type="hidden" name="action">
 				<input type="hidden" name="permit_id" value="#permit_id#">
 
+				<label for="permit_Num">Permit Number</label>
+			  	<input type="text" name="permit_Num" value="#permit_Num#">
+
+				<label for="permit_Type">Permit Type</label>
+				<select name="permit_Type" size="1">
+					<option value=""></option>
+					<cfloop query="ctPermitType">
+						<option <cfif #ctPermitType.permit_type# is "#permitInfo.permit_type#"> selected </cfif>value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+					</cfloop>
+				</select>
 				<label for="IssuedByAgentId">Issued By</label>
 				<input type="hidden" name="IssuedByAgentId">
 				<input type="hidden" name="IssuedByOldAgentId" value="#IssuedByAgentID#">
@@ -531,46 +541,22 @@ where
 			  	<label for="issued_Date">Issued Date</label>
 				<input type="datetime" id="issued_date" name="issued_date" value="#dateformat(issued_Date,"yyyy-mm-dd")#">
 
-		</td>
-			<td>Renewed Date</td>
-			<td><input type="datetime" name="renewed_Date" value="#dateformat(renewed_Date,"yyyy-mm-dd")#"></td>
-		</tr>
-		<tr>
-			<td>Expiration Date</td>
-			<td><input type="datetime" name="exp_Date" value="#dateformat(exp_Date,"yyyy-mm-dd")#"></td>
-			<td>Permit Number</td>
-			<td><input type="text" name="permit_Num" value="#permit_Num#"></td>
-		</tr>
-		<tr>
-			<td>Permit Type</td>
-			<td>
-				<select name="permit_Type" size="1">
-					<option value=""></option>
-					<cfloop query="ctPermitType">
-						<option <cfif #ctPermitType.permit_type# is "#permitInfo.permit_type#"> selected </cfif>value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-					</cfloop>
-				</select>
-			</td>
-			<td>Remarks</td>
-			<td><input type="text" name="permit_remarks" value="#permit_remarks#"></td>
-		</tr>
-		<tr>
-			<td colspan="4" align="center">
-				<input type="submit" value="Save changes" class="savBtn"
-   					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
-					onCLick="newPermit.Action.value='saveChanges';">
+			  	<label for="renewed_date">Renewed Date</label>
+			  	<input type="datetime" id="renewed_date" name="renewed_date" value="#dateformat(renewed_Date,"yyyy-mm-dd")#">
 
-				<input type="button" value="Quit" class="qutBtn"
-   					onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'"
-					 onClick="document.location='Permit.cfm'">
 
-				<input type="button" value="Delete" class="delBtn"
-   onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-   onCLick="newPermit.Action.value='deletePermit';confirmDelete('newPermit');">
+			  	<label for="exp_date">Expiration Date</label>
+			  	<input type="datetime" id="exp_date" name="exp_date" value="#dateformat(exp_Date,"yyyy-mm-dd")#">
 
-			</td>
-		</tr>
-	</table>
+			  	<label for="permit_remarks">Remarks</label>
+			  	<textarea name="permit_remarks" class="largetextarea">#permit_remarks#</textarea>
+
+				<br><input type="button" value="Save changes" class="savBtn"
+   						onCLick="newPermit.action.value='saveChanges';newPermit.submit();">
+
+				<br><input type="button" value="Delete" class="delBtn"
+				   onCLick="newPermit.Action.value='deletePermit';confirmDelete('newPermit');">
+
 </form>
 
 </td>
@@ -578,6 +564,9 @@ where
 	<script>
 		jQuery(document).ready(function(){
 			$("##issued_date").datepicker();
+			$("##exp_date").datepicker();
+			$("##renewed_date").datepicker();
+
             $("##mediaUpClickThis").click(function(){
 			    addMedia('permit_id','#permit_id#');
 			});
