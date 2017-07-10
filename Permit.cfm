@@ -607,8 +607,8 @@ where
 <td>
 	Media here
 	<cfdump var=#session.roles#>
-	<cfif isdefined("session.roles") and session.roles contains "manage_media">
-			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
+	<cfif listcontainsnocase(session.roles, "manage_media")>
+			<a  id="mediaUpClickThis">Attach/Upload Media</a>
 		</cfif>
 </td>
 	</tr>
