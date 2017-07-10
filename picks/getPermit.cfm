@@ -9,8 +9,9 @@
 ---->
 <script>
 	$(document).ready(function() {
-		 event.preventDefault();
 		$( "#findPermit" ).submit(function( event ) {
+			event.preventDefault();
+
 			console.log('triggered');
 			var q=$( this ).serialize();
 		 	function setSessionCustomID(v) {
