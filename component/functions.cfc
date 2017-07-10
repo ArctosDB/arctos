@@ -9,7 +9,7 @@
 			<cfset "#a#"=b>
 		</cfif>
 	</cfloop>
-	<cfset sql = "select permit.permit_id,
+	<cfset sql = "select distinct permit.permit_id,
 	issuedByPref.agent_name IssuedByAgent,
 	issuedToPref.agent_name IssuedToAgent,
 	issued_Date,
