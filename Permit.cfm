@@ -551,28 +551,32 @@ where
 			  	<label for="permit_remarks">Remarks</label>
 			  	<textarea name="permit_remarks" class="largetextarea">#permit_remarks#</textarea>
 
-				<br><input type="button" value="Save changes" class="savBtn"
-   						onCLick="newPermit.action.value='saveChanges';newPermit.submit();">
+			  	<table width="100%">
+					<tr>
+						<td width="50%" align="left">
+							<input type="button" value="Save changes" class="savBtn"
+								onCLick="newPermit.action.value='saveChanges';newPermit.submit();">
+						</td>
+						<td width="50%" align="right">
+							<input type="button" value="Delete" class="delBtn"
+				   				onCLick="newPermit.action.value='deletePermit';confirmDelete('newPermit');">
+						</td>
+					</tr>
+				</table>
+			</form>
+		</td>
+		<script>
+			jQuery(document).ready(function(){
+				$("##issued_date").datepicker();
+				$("##exp_date").datepicker();
+				$("##renewed_date").datepicker();
 
-				<br><input type="button" value="Delete" class="delBtn"
-				   onCLick="newPermit.action.value='deletePermit';confirmDelete('newPermit');">
-
-</form>
-
-</td>
-
-	<script>
-		jQuery(document).ready(function(){
-			$("##issued_date").datepicker();
-			$("##exp_date").datepicker();
-			$("##renewed_date").datepicker();
-
-            $("##mediaUpClickThis").click(function(){
-			    addMedia('permit_id','#permit_id#');
+	            $("##mediaUpClickThis").click(function(){
+				    addMedia('permit_id','#permit_id#');
+				});
+				getMedia('permit','#permit_id#','pMedia','2','1');
 			});
-			getMedia('permit','#permit_id#','pMedia','2','1');
-		});
-	</script>
+		</script>
 		<td width="50%" valign="top">
 			<h3>Permit Media</h3>
 			<cfif listcontainsnocase(session.roles, "manage_media")>
