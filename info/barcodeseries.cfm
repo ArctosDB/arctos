@@ -952,7 +952,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			select * from cf_barcodeseries where key=#val(key)#
 		</cfquery>
 		<cfif d.whodunit is not session.username>
-			<cfquery name="sc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="sc" datasource="uam_god">
 				select
 					count(*) c
 				from
