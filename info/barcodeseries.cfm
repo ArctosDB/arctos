@@ -962,20 +962,20 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 				<label for="barcodeseriessql">
 					SQL
 				</label>
-				<textarea class="hugetextarea" name="barcodeseriessql">#d.barcodeseriessql#</textarea>
+				<textarea class="hugetextarea reqdClr" name="barcodeseriessql" >#d.barcodeseriessql#</textarea>
 				#doc_barcodeseriessql#
 			</div>
 			<label for="barcodeseriestxt">
 				Text - type a clear human-readable (and sortable) description of the series you are claiming
 			</label>
-			<textarea class="hugetextarea" name="barcodeseriestxt">#d.barcodeseriestxt#</textarea>
+			<textarea class="hugetextarea reqdClr" name="barcodeseriestxt">#d.barcodeseriestxt#</textarea>
 			<label for="institution">institution</label>
 			<a href="contact.cfm">Contact a DBA</a> to change institution.
 			<label for="notes">
 				Notes
 			</label>
-			<textarea class="hugetextarea" name="notes">#d.notes#</textarea>
-			<input type="submit" value="save edits">
+			<textarea class="hugetextarea reqdClr" name="notes">#d.notes#</textarea>
+			<br><input type="submit" value="save edits" class="savBtn">
 		</form>
 	</cfif>
 	<!------------------------------------------------->
