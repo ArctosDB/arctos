@@ -952,8 +952,33 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			select * from cf_barcodeseries where key=#val(key)#
 		</cfquery>
 		<cfif d.whodunit is not session.username>
-			Only #d.whodunit# may edit this record. <a href="contact.cfm">Contact a DBA</a> to update.
-			<cfabort>
+			<cfquery name="sc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					count(*) c
+				from
+					dba_role_privs,
+					collection
+				where
+					upper(dba_role_privs.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
+					upper(grantee) = '#ucase(session.username)#' and
+					granted_role in (
+						select
+							granted_role
+						from
+							dba_role_privs,
+							collection
+						where
+							upper(dba_role_privs.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
+							upper(grantee) = '#ucase(d.whodunit)#'
+					)
+ 			</cfquery>
+			<div class="importantNotification">
+				<cfif not sc.c gt 0>
+					You do not have access to edit this record. Only users who share collections with the creator may edit.<cfabort>
+				<cfelse>
+					You may edit this record, but proceed with caution.
+				</cfif>
+			</div>
 		</cfif>
 		<form name="t" method="post" action="barcodeseries.cfm">
 			<input type="hidden" name="action" value="saveEdit">
