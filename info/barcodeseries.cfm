@@ -970,7 +970,8 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			</label>
 			<textarea class="hugetextarea reqdClr" name="barcodeseriestxt">#d.barcodeseriestxt#</textarea>
 			<label for="institution">institution</label>
-			<a href="contact.cfm">Contact a DBA</a> to change institution.
+			<br>#institution#
+			<br><a href="contact.cfm">Contact a DBA</a> to change institution.
 			<label for="notes">
 				Notes
 			</label>
