@@ -340,29 +340,17 @@ function expPartDet(){
 	$("#ssControl").append(bgn);
 }
 function formatPartDetail(){
-	
-	
-if ($('div[id^="partdetail_"]').length){
-		
-		alert('got some');
-		
-	} else { alert('nope');
+	if ($('div[id^="partdetail_"]').length){
+		$("div[id^='partdetail_']").each(function() {
+			var r = $.parseJSON($("#" + this.id).html());
+			var str = JSON.stringify(r, null, 2);
+			$("#" + this.id).html('<pre>' + str + '</pre>');
+		});
+		// by default these are collapsed to 10em h
+		// option to biggenate
+		var bgn='<input type="button" id="pdcb" value="Expand Part Detail" class="clrBtn" onclick="expPartDet()">';
+		$("#ssControl").append(bgn);
 	}
-
-
-
-
-	$("div[id^='partdetail_']").each(function() {
-		var r = $.parseJSON($("#" + this.id).html());
-		
-		var str = JSON.stringify(r, null, 2);
-		$("#" + this.id).html('<pre>' + str + '</pre>');
-	});
-	// by default these are collapsed to 10em h
-	// option to biggenate
-	var bgn='<input type="button" id="pdcb" value="Expand Part Detail" class="clrBtn" onclick="expPartDet()">';
-	$("#ssControl").append(bgn);
-	
 }
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
