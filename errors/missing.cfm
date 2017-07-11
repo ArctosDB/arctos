@@ -261,7 +261,6 @@
 			</cfif>
 			<cfinclude template="/MediaDetail.cfm">
 			<cfcatch>
-
 				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
 					<cfdump var=#cfcatch#>
 				</cfif>
