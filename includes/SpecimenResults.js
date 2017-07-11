@@ -342,7 +342,7 @@ function expPartDet(){
 function formatPartDetail(){
 	
 	
-if ($('div[id^="partdetail_"]')){
+if ($('div[id^="partdetail_"]').length){
 		
 		alert('got some');
 		
