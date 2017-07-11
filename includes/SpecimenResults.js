@@ -318,12 +318,7 @@ function getPostLoadJunk(){
 	formatPartDetail();
 }
 function unexpPartDet(){
-	if ($('div[id^="partdetail_"]')){
-		
-		alert('got some');
-		
-	} else { alert('nope');
-	}
+	
 	
 	$("div[id^='partdetail_']").each(function() {
 		$(this).removeClass('noshrink');
@@ -336,6 +331,7 @@ function unexpPartDet(){
 }
 function expPartDet(){
 	
+	
 	$("div[id^='partdetail_']").each(function() {
 		$(this).addClass('noshrink');
 	});
@@ -344,6 +340,18 @@ function expPartDet(){
 	$("#ssControl").append(bgn);
 }
 function formatPartDetail(){
+	
+	
+if ($('div[id^="partdetail_"]')){
+		
+		alert('got some');
+		
+	} else { alert('nope');
+	}
+
+
+
+
 	$("div[id^='partdetail_']").each(function() {
 		var r = $.parseJSON($("#" + this.id).html());
 		
