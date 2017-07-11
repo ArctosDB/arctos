@@ -1,5 +1,11 @@
 <!----
 
+	alter table cf_barcodeseries add last_edit_by varchar2(60);
+	alter table cf_barcodeseries add last_edit_date date;
+
+
+
+
 	drop table cf_barcodeseries;
 
 	create table cf_barcodeseries (
@@ -21,10 +27,15 @@
 	create unique index pk_cf_barcodeseries on cf_barcodeseries (key) tablespace uam_idx_1;
 
 	 CREATE OR REPLACE TRIGGER trg_cf_barcodeseries_key
-	 before insert  ON cf_barcodeseries
+	 before insert  or update ON cf_barcodeseries
 	 for each row
 	    begin
-	    	select somerandomsequence.nextval into :new.key from dual;
+	    	if inserting then
+		    	select somerandomsequence.nextval into :new.key from dual;
+		    end if;
+
+		    :NEW.last_edit_by:=SYS_CONTEXT('USERENV', 'SESSION_USER');
+		    :NEW.last_edit_date:=sysdate;
 	    end;
 	/
 	sho err
@@ -1087,8 +1098,8 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 				<th>status</th>
 				<th>statusSQL</th>
 				<th>Inst</th>
-				<th>Date</th>
-				<th>Who</th>
+				<th>Created</th>
+				<th>Edited</th>
 				<th>Note</th>
 			</tr>
 			<cfloop query="d">
@@ -1123,8 +1134,8 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 					<td>#tststts#</td>
 					<td>#statusSQL#</td>
 					<td>#institution#</td>
-					<td>#createdate#</td>
-					<td>#whodunit#</td>
+					<td>#whodunit# @ #createdate#</td>
+					<td>#last_edit_by# @ #last_edit_date#</td>
 					<td>#notes#</td>
 				</tr>
 			</cfloop>
