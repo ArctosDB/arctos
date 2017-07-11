@@ -2,9 +2,7 @@
 
 <!---- relies on table
 
-
-SEE MIGRATION/6.4
-
+create table temp_cf_temp_parts20170710 as select * from cf_temp_parts;
 
 
 drop table cf_temp_parts;
