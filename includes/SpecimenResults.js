@@ -318,20 +318,14 @@ function getPostLoadJunk(){
 	formatPartDetail();
 }
 function unexpPartDet(){
-	
-	
 	$("div[id^='partdetail_']").each(function() {
 		$(this).removeClass('noshrink');
 	});	
 	$("#pdcb").remove();
-
 	var bgn='<input type="button" id="pdcb" value="Expand Part Detail" class="clrBtn" onclick="expPartDet()">';
-
 	$("#ssControl").append(bgn);
 }
 function expPartDet(){
-	
-	
 	$("div[id^='partdetail_']").each(function() {
 		$(this).addClass('noshrink');
 	});
