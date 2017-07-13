@@ -1,9 +1,32 @@
 <cfinclude template="/includes/_header.cfm">
+<!--- Create the thread object --->
+<cfobject type="JAVA" action="Create" name="thread" class="java.lang.Thread">
 
+<!--- Get all stack traces from the thread object --->
+<cfset stackTrace = thread.getAllStackTraces()>
+
+<!--- Convert the entrySet into an array --->
+<cfset stackArray = stackTrace.entrySet().toArray()>
+
+<cfoutput>
+    <!--- Loop over the entrySet array --->
+    <cfloop from="1" to="#ArrayLen(stackArray)#" index="sIndex">
+        <!--- Get the current thread values --->
+        <cfset thisThread = stackArray[sIndex].getValue()>
+        <!--- Loop over current thread values --->
+        <cfloop from="1" to="#ArrayLen(thisThread)#" index="tIndex">
+            <!--- Get the filename for this thread --->
+            <cfset thisThreadFile = thisThread[tIndex].getFileName()>
+            <!--- If the file name contains .cfm output it --->
+            <cfif isDefined("thisThreadFile") AND thisThreadFile CONTAINS ".cfm">
+                #thisThreadFile#<br>
+            </cfif>
+        </cfloop>
+    </cfloop>
+</cfoutput>
 <!---
 create table temp_test (u varchar2(255), p varchar2(255));
 insert into temp_test (u,p) values ('dustylee','xxxxx');
----->
 <cfoutput>
     <cfquery datasource='uam_god' name='p'>
         select * from temp_test
@@ -22,6 +45,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
     <cfdump var=#pr#>
 </cfoutput>
+---->
 
 
 <!----------------------------
