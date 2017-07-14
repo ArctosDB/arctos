@@ -695,7 +695,7 @@
 		<cfset cl=c.columnList>
 		<cfset cl=listdeleteat(cl,listfindnocase(cl,'collection_cde'))>
 
-		<textarea>#insert into bulkloader (#cl#) (select #cl# from pre_bulkloader)#</textarea>
+		<textarea>insert into bulkloader (#cl#) (select #cl# from pre_bulkloader)</textarea>
 		<p>
 			Copy/paste, then
 			<a href="pre_bulkloader.cfm?action=pushToBL_SUCCESS">click here to avoid confusing yourself</a>.
