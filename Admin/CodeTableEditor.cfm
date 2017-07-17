@@ -141,7 +141,7 @@ CTSPEC_PART_ATT_ATT
 </cfif>
 <!--------------------------------------------->
 
-<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select distinct collection_cde from ctcollection_cde
 </cfquery>
 
