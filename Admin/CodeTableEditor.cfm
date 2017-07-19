@@ -1012,7 +1012,7 @@ Terms must be lower-case
 
 	</script>
 <cfoutput>
-		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="ctspecimen_part_list_order" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctspecimen_part_list_order order by list_order,partname
 		</cfquery>
 
@@ -1053,21 +1053,20 @@ Terms must be lower-case
 		Edit part order
 
 		<form name="part" method="post" action="CodeTableEditor.cfm">
-					<input type="hidden" name="action" value="ctspecimen_part_list_order">
-					<input type="hidden" name="tbl" value="#tbl#">
-
-					<input type="text" name="classificationRowOrder" id="classificationRowOrder">
-
+			<input type="hidden" name="action" value="ctspecimen_part_list_order">
+			<input type="hidden" name="tbl" value="#tbl#">
+			<input type="text" name="classificationRowOrder" id="classificationRowOrder">
 			<table id="clastbl" border="1">
 				<thead>
 					<tr>
 						<th>Drag Handle</th>
 						<th>Part Name</th>
+						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody id="sortable">
 					<cfset thisrowinc=0>
-					<cfloop query="thisRec">
+					<cfloop query="ctspecimen_part_list_order">
 						<!--- increment rowID ---->
 						<cfset thisrowinc=thisrowinc+1>
 						<tr id="cell_#thisrowinc#">
@@ -1076,14 +1075,11 @@ Terms must be lower-case
 							</td>
 
 							<td>
-								<cfset thisPart = #thisRec.partname#>
-								<select name="partname_#thisrowinc#" id="partname__#thisrowinc#" size="1">
-									<option value="remove">REMOVE</option>
-									<cfloop query="ctspecimen_part_name">
-									<option
-									<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
-									</cfloop>
-								</select>
+								#partname#
+								<input type="hidden" name="partname_#thisrowinc#" id="partname__#thisrowinc#" value="#partname#">
+							</td>
+							<td>
+								clicky....
 							</td>
 						</tr>
 
