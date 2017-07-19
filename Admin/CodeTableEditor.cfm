@@ -1058,9 +1058,8 @@ Terms must be lower-case
 
 
 		Edit part order
-
 		<form name="part" id="part" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="action" value="ctspecimen_part_list_order">
+			<input type="hidden" name="action" value="saveEdit">
 			<input type="hidden" name="tbl" value="#tbl#">
 			<input type="text" name="partRowOrder" id="partRowOrder">
 			<table id="clastbl" border="1">
@@ -1089,19 +1088,12 @@ Terms must be lower-case
 								<input type="button" onclick="deletePart(#thisrowinc#);" value="delete" class="delBtn">
 							</td>
 						</tr>
-
-			</cfloop>
-						</tbody>
-					</table>
-
-					<input type="button"
-									value="Save"
-									class="savBtn"
-									onclick="submitForm();">
-
-				</form>
-
-</cfoutput>
+					</cfloop>
+				</tbody>
+			</table>
+			<input type="button" value="Save" class="savBtn" onclick="submitForm();">
+		</form>
+	</cfoutput>
 		</cfif>
 
 
@@ -1332,7 +1324,6 @@ Terms must be lower-case
 				</cfquery>
 			</cfloop>
 		</cftransaction>
-		<cfset did="">
 	<cfelse>
 		<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE #tbl# SET #fld# = '#thisField#'
