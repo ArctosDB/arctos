@@ -1009,6 +1009,9 @@ Terms must be lower-case
 
 		}
 
+		function deletePart(i){
+			alert('delete');
+		}
 
 	</script>
 <cfoutput>
@@ -1079,7 +1082,7 @@ Terms must be lower-case
 								<input type="hidden" name="partname_#thisrowinc#" id="partname__#thisrowinc#" value="#partname#">
 							</td>
 							<td>
-								clicky....
+								<input type="button" onclick="deletePart(#thisrowinc#);" value="delete" class="delBtn">
 							</td>
 						</tr>
 
