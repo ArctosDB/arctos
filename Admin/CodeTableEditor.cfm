@@ -999,7 +999,7 @@ Terms must be lower-case
 		}
 		.warningDiv {color:red;font-size:x-small;}
 	</style>
-
+<!----
 	<script>
 		// copy this with create classification
 		$(function() {
@@ -1010,6 +1010,7 @@ Terms must be lower-case
 			//guessAtDisplayName();
 		});
 	</script>
+	---------->
 <cfoutput>
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctspecimen_part_list_order order by
