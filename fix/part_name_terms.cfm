@@ -13,8 +13,8 @@
 
 <cfoutput>
 
-	<br><a href="part_name_term.cfm?action=getRaw">getRaw</a>
-	<br><a href="part_name_term.cfm?action=getCount">getCount</a>
+	<br><a href="part_name_terms.cfm?action=getRaw">getRaw</a>
+	<br><a href="part_name_terms.cfm?action=getCount">getCount</a>
 	<cfif action is "getCount">
 		<cfquery name="d" datasource="prod">
 			select * from temp_part_wrds
