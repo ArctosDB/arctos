@@ -1037,7 +1037,7 @@ Terms must be lower-case
 						<select name="partname" size="1">
 							<cfloop query="ctspecimen_part_name">
 							<option
-							value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.part_name#</option>
+							value="#ctspecimen_part_name.part_name#">#ctspecimen_part_name.part_name#</option>
 							</cfloop>
 						</select>
 					</td>
