@@ -1107,11 +1107,12 @@ Terms must be lower-case
 									</cfloop>
 								</select>
 							</td>
-							<td colspan="3">
-
+							<td >
+hi
 
 							</td>
 						</tr>
+						</tbody>
 					</table>
 
 					<input type="button"
