@@ -1005,7 +1005,8 @@ Terms must be lower-case
 
 		function submitForm() {
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
-			$( "#classificationRowOrder" ).val(linkOrderData);
+			$( "#partRowOrder" ).val(linkOrderData);
+			$("#part").submit();
 
 		}
 
@@ -1058,10 +1059,10 @@ Terms must be lower-case
 
 		Edit part order
 
-		<form name="part" method="post" action="CodeTableEditor.cfm">
+		<form name="part" id="part" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="ctspecimen_part_list_order">
 			<input type="hidden" name="tbl" value="#tbl#">
-			<input type="text" name="classificationRowOrder" id="classificationRowOrder">
+			<input type="text" name="partRowOrder" id="partRowOrder">
 			<table id="clastbl" border="1">
 				<thead>
 					<tr>
@@ -1267,13 +1268,6 @@ Terms must be lower-case
 					AND	units_code_table = '#oldunits_code_table#'
 				</cfif>
 		</cfquery>
-	<cfelseif tbl is "ctspecimen_part_list_order">
-		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			DELETE FROM ctspecimen_part_list_order
-			WHERE
-				partname = '#oldpartname#' AND
-				list_order = '#oldlist_order#'
-		</cfquery>
 	<cfelse>
 		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			DELETE FROM #tbl#
@@ -1318,16 +1312,27 @@ Terms must be lower-case
 		<cfset did=rereplace(Attribute_type,"[^A-Za-z]","_","all")>
 
 	<cfelseif tbl is "ctspecimen_part_list_order">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			UPDATE ctspecimen_part_list_order SET
-				partname = '#partname#',
-				list_order = '#list_order#'
-			WHERE
-				partname = '#oldpartname#' AND
-				list_order = '#oldlist_order#'
-		</cfquery>
-
-		<cfset did=rereplace(partname,"[^A-Za-z]","_","all")>
+		<!--- wipe everything --->
+		<cftransaction>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from ctspecimen_part_list_order
+			</cfquery>
+			<cfloop from="1" to="#listlen(partRowOrder)#" index="listpos">
+				<cfset x=listgetat(partRowOrder,listpos)>
+				<cfset i=listlast(x,"_")>
+				<cfset thisterm=evaluate("partname_" & i)>
+				<cfquery name="insNCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into ctspecimen_part_list_order (
+						PARTNAME,
+						LIST_ORDER
+					) values (
+						'#thisterm#',
+						#i#
+					)
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+		<cfset did="">
 	<cfelse>
 		<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE #tbl# SET #fld# = '#thisField#'
