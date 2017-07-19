@@ -1048,7 +1048,6 @@ Terms must be lower-case
 							</cfloop>
 						</select>
 					</td>
-
 					<td colspan="3">
 						<input type="submit" value="Create" class="insBtn">
 					</td>
@@ -1056,12 +1055,11 @@ Terms must be lower-case
 			</form>
 		</table>
 
-
 		Edit part order
 		<form name="part" id="part" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="saveEdit">
 			<input type="hidden" name="tbl" value="#tbl#">
-			<input type="text" name="partRowOrder" id="partRowOrder">
+			<input type="hidden" name="partRowOrder" id="partRowOrder">
 			<table id="clastbl" border="1">
 				<thead>
 					<tr>
