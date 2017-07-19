@@ -356,7 +356,6 @@
 		<cfabort>
 	</cfif>
 
-	<!----
 	<!--- keep people/bots from browsing a dev server--->
 
 
@@ -375,7 +374,6 @@
         </cfif>
     </cfif>
 
-	---->
 
 	<cfif listlast(cgi.script_name,".") is "cfm" or listlast(cgi.script_name,".") is "cfc">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
