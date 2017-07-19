@@ -987,7 +987,7 @@ Terms must be lower-case
 
 <!---------------------------------------------------------------------------->
 <cfif action is "editSpecPartOrder">
-
+<cfoutput>
 
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctspecimen_part_list_order order by
@@ -1092,7 +1092,7 @@ Terms must be lower-case
 			</cfloop>
 		</table>
 
-
+</cfoutput>
 		</cfif>
 
 
