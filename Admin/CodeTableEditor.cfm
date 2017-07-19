@@ -989,6 +989,28 @@ Terms must be lower-case
 <cfif action is "editSpecPartOrder">
 <cfoutput>
 
+<style>
+		.dragger {
+			cursor:move;
+		}
+		.isterm {
+			font-weight:bold;
+			font-style:italics;
+		}
+		.warningDiv {color:red;font-size:x-small;}
+	</style>
+
+	<script>
+		// copy this with create classification
+		$(function() {
+			$( "#sortable" ).sortable({
+				handle: '.dragger'
+			});
+
+			//guessAtDisplayName();
+		});
+
+
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctspecimen_part_list_order order by
 			list_order,partname
@@ -1044,53 +1066,64 @@ Terms must be lower-case
 			</form>
 		</table>
 		Edit part order
-		<table border>
-			<tr>
-				<th>Part Name</th>
-				<th>List Order</th>
-				<th>&nbsp;</th>
-			</tr>
-			<cfset i=1>
-			<cfloop query="thisRec">
-				<form name="part#i#" method="post" action="CodeTableEditor.cfm">
+
+		<form name="part" method="post" action="CodeTableEditor.cfm">
 					<input type="hidden" name="action" value="ctspecimen_part_list_order">
 					<input type="hidden" name="tbl" value="#tbl#">
-					<input type="hidden" name="oldlist_order" value="#list_order#">
-					<input type="hidden" name="oldpartname" value="#partname#">
-					<tr>
-						<td>
-							<cfset thisPart = #thisRec.partname#>
-							<select name="partname" size="1">
-								<cfloop query="ctspecimen_part_name">
-								<option
-								<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset thisLO = #thisRec.list_order#>
-							<select name="list_order" size="1">
-								<cfloop from="1" to="#mo.maxNum#" index="n">
-									<option <cfif #thisLO# is "#n#"> selected </cfif>value="#n#">#n#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td colspan="3">
-							<input type="button"
-								value="Save"
-								class="savBtn"
-								onclick="part#i#.action.value='saveEdit';submit();">
-							<input type="button"
-								value="Delete"
-								class="delBtn"
-							 	onclick="part#i#.action.value='deleteValue';submit();">
 
-						</td>
+			<table id="clastbl" border="1">
+				<thead>
+					<tr>
+						<th>Drag Handle</th>
+						<th>Part Name</th>
+						<th>List Order</th>
+						<th>--</th>
 					</tr>
+				</thead>
+				<tbody id="sortable">
+					<cfset thisrowinc=0>
+					<cfloop query="thisRec">
+						<!--- increment rowID ---->
+						<cfset thisrowinc=thisrowinc+1>
+						<tr id="cell_#thisrowinc#">
+							<td class="dragger">
+								(drag row here)
+							</td>
+
+							<td>
+								<cfset thisPart = #thisRec.partname#>
+								<select name="partname" size="1">
+									<cfloop query="ctspecimen_part_name">
+									<option
+									<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<cfset thisLO = #thisRec.list_order#>
+								<select name="list_order" size="1">
+									<cfloop from="1" to="#mo.maxNum#" index="n">
+										<option <cfif #thisLO# is "#n#"> selected </cfif>value="#n#">#n#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td colspan="3">
+
+
+							</td>
+						</tr>
+					</table>
+
+					<input type="button"
+									value="Save"
+									class="savBtn"
+									onclick="part#i#.action.value='saveEdit';submit();">
+								<input type="button"
+									value="Delete"
+									class="delBtn"
+								 	onclick="part#i#.action.value='deleteValue';submit();">
 				</form>
-				<cfset i=#i#+1>
 			</cfloop>
-		</table>
 
 </cfoutput>
 		</cfif>
