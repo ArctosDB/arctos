@@ -1066,6 +1066,8 @@ Terms must be lower-case
 				</tr>
 			</form>
 		</table>
+
+
 		Edit part order
 
 		<form name="part" method="post" action="CodeTableEditor.cfm">
@@ -1113,6 +1115,8 @@ hi
 
 							</td>
 						</tr>
+
+			</cfloop>
 						</tbody>
 					</table>
 
@@ -1125,7 +1129,6 @@ hi
 									class="delBtn"
 								 	onclick="part.action.value='deleteValue';submit();">
 				</form>
-			</cfloop>
 
 </cfoutput>
 		</cfif>
