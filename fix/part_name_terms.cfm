@@ -16,6 +16,7 @@
 			<cfloop list="#part_name#" index="p" delimiters=" ">
 				<cfset p=replace(p,'(','','all')>
 				<cfset p=replace(p,')','','all')>
+				<cfset p=replace(p,',','','all')>
 				<br>#p#
 			</cfloop>
 		</p>
