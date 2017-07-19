@@ -1304,22 +1304,7 @@ Terms must be lower-case
 		<cfset did=rereplace(Attribute_type,"[^A-Za-z]","_","all")>
 
 	<cfelseif tbl is "ctspecimen_part_list_order">
-<cfoutput>
-	<cfloop from="1" to="#listlen(partRowOrder)#" index="listpos">
-				<cfset x=listgetat(partRowOrder,listpos)>
-				<cfset i=listlast(x,"_")>
-				<cfset thisterm=evaluate("partname_" & i)>
-					<br>insert into ctspecimen_part_list_order (
-						PARTNAME,
-						LIST_ORDER
-					) values (
-						'#thisterm#',
-						#i#
-					)
-			</cfloop>
 
-			</cfoutput>
-		<cfabort>
 
 
 		<!--- wipe everything --->
@@ -1327,6 +1312,7 @@ Terms must be lower-case
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from ctspecimen_part_list_order
 			</cfquery>
+			<cfset rord=1>
 			<cfloop from="1" to="#listlen(partRowOrder)#" index="listpos">
 				<cfset x=listgetat(partRowOrder,listpos)>
 				<cfset i=listlast(x,"_")>
@@ -1337,9 +1323,10 @@ Terms must be lower-case
 						LIST_ORDER
 					) values (
 						'#thisterm#',
-						#i#
+						#rord#
 					)
 				</cfquery>
+				<cfset rord=rord+1>
 			</cfloop>
 		</cftransaction>
 	<cfelse>
