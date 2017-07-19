@@ -1304,7 +1304,7 @@ Terms must be lower-case
 		<cfset did=rereplace(Attribute_type,"[^A-Za-z]","_","all")>
 
 	<cfelseif tbl is "ctspecimen_part_list_order">
-
+<cfoutput>
 	<cfloop from="1" to="#listlen(partRowOrder)#" index="listpos">
 				<cfset x=listgetat(partRowOrder,listpos)>
 				<cfset i=listlast(x,"_")>
@@ -1317,6 +1317,8 @@ Terms must be lower-case
 						#i#
 					)
 			</cfloop>
+
+			</cfoutput>
 		<cfabort>
 
 
