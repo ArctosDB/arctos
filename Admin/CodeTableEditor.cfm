@@ -993,20 +993,14 @@ Terms must be lower-case
 		.dragger {
 			cursor:move;
 		}
-		.isterm {
-			font-weight:bold;
-			font-style:italics;
-		}
-		.warningDiv {color:red;font-size:x-small;}
+
 	</style>
 	<script>
-		// copy this with create classification
 		$(function() {
 			$( "#sortable" ).sortable({
 				handle: '.dragger'
 			});
 
-			//guessAtDisplayName();
 		});
 
 		function submitForm() {
@@ -1019,25 +1013,20 @@ Terms must be lower-case
 	</script>
 <cfoutput>
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ctspecimen_part_list_order order by
-			list_order,partname
+			select * from ctspecimen_part_list_order order by list_order,partname
 		</cfquery>
+
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select collection_cde, part_name partname from ctspecimen_part_name
-		</cfquery>
-		<cfquery name="mo" dbtype="query">
-			select max(list_order) +1 maxNum from thisRec
+			select  part_name from ctspecimen_part_name where part_name not in (select partname from ctspecimen_part_list_order)
 		</cfquery>
 		<p>
 			This application sets the order part names appear in certain reports and forms.
-			Nothing prevents you from making several parts the same
-			order, and doing so will just cause them to not be ordered. You don't have to order things you don't care about.
+			 You don't have to order things you don't care about.
 		</p>
-		Create part ordering
+		Add part to order. New insertions will go to the bottom; drag to re-order.
 		<table class="newRec" border>
 			<tr>
 				<th>Part Name</th>
-				<th>List Order</th>
 				<th></th>
 			</tr>
 			<form name="newPart" method="post" action="CodeTableEditor.cfm">
@@ -1045,29 +1034,16 @@ Terms must be lower-case
 				<input type="hidden" name="tbl" value="#tbl#">
 				<tr>
 					<td>
-						<cfset thisPart = #thisRec.partname#>
 						<select name="partname" size="1">
 							<cfloop query="ctspecimen_part_name">
 							<option
-							value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname# (#ctspecimen_part_name.collection_cde#)</option>
+							value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.part_name#</option>
 							</cfloop>
 						</select>
 					</td>
-					<cfquery name="mo" dbtype="query">
-						select max(list_order) +1 maxNum from thisRec
-					</cfquery>
-					<td>
-						<cfset thisLO = #thisRec.list_order#>
-						<select name="list_order" size="1">
-							<cfloop from="1" to="#mo.maxNum#" index="n">
-								<option value="#n#">#n#</option>
-							</cfloop>
-						</select>
-					</td>
+
 					<td colspan="3">
-						<input type="submit"
-							value="Create"
-							class="insBtn">
+						<input type="submit" value="Create" class="insBtn">
 					</td>
 				</tr>
 			</form>
@@ -1087,8 +1063,6 @@ Terms must be lower-case
 					<tr>
 						<th>Drag Handle</th>
 						<th>Part Name</th>
-						<th>List Order</th>
-						<th>--</th>
 					</tr>
 				</thead>
 				<tbody id="sortable">
@@ -1103,24 +1077,13 @@ Terms must be lower-case
 
 							<td>
 								<cfset thisPart = #thisRec.partname#>
-								<select name="partname" size="1">
+								<select name="partname_#thisrowinc#" id="partname__#thisrowinc#" size="1">
+									<option value="remove">REMOVE</option>
 									<cfloop query="ctspecimen_part_name">
 									<option
 									<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
 									</cfloop>
 								</select>
-							</td>
-							<td>
-								<cfset thisLO = #thisRec.list_order#>
-								<select name="list_order" size="1">
-									<cfloop from="1" to="#mo.maxNum#" index="n">
-										<option <cfif #thisLO# is "#n#"> selected </cfif>value="#n#">#n#</option>
-									</cfloop>
-								</select>
-							</td>
-							<td >
-hi
-
 							</td>
 						</tr>
 
@@ -1454,7 +1417,7 @@ hi
 				)
 			VALUES (
 				'#partname#',
-				#list_order#
+				(select max(list_order) + 1 from ctspecimen_part_list_order)
 			)
 		</cfquery>
 		<cfset did=rereplace(partname,"[^A-Za-z]","_","all")>
