@@ -21,7 +21,7 @@
 		</cfquery>
 		<cfloop query="d">
 			<cfquery name="dp" datasource="prod">
-				select count(distinct(part_name) c from ctspecimen_part_name where part_name like '%#wrd#%'
+				select count(distinct(part_name)) c from ctspecimen_part_name where part_name like '%#wrd#%'
 			</cfquery>
 			<cfquery name="udc" datasource="prod">
 				update temp_part_wrds set used_in_parts=#dp.c# where wrd='#wrd#'
