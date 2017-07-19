@@ -1010,7 +1010,10 @@ Terms must be lower-case
 		}
 
 		function deletePart(i){
-			alert('delete');
+			var l=confirm('Remove this part from ordering?');
+			if(l===true){
+				$("#cell_" + i).remove();
+			}
 		}
 
 	</script>
