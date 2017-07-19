@@ -1117,11 +1117,11 @@ Terms must be lower-case
 					<input type="button"
 									value="Save"
 									class="savBtn"
-									onclick="part#i#.action.value='saveEdit';submit();">
+									onclick="part.action.value='saveEdit';submit();">
 								<input type="button"
 									value="Delete"
 									class="delBtn"
-								 	onclick="part#i#.action.value='deleteValue';submit();">
+								 	onclick="part.action.value='deleteValue';submit();">
 				</form>
 			</cfloop>
 
