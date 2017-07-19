@@ -1008,6 +1008,14 @@ Terms must be lower-case
 
 			//guessAtDisplayName();
 		});
+
+		function submitForm() {
+			var linkOrderData=$("#sortable").sortable('toArray').join(',');
+			$( "#classificationRowOrder" ).val(linkOrderData);
+
+		}
+
+
 	</script>
 <cfoutput>
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1072,6 +1080,8 @@ Terms must be lower-case
 					<input type="hidden" name="action" value="ctspecimen_part_list_order">
 					<input type="hidden" name="tbl" value="#tbl#">
 
+					<input type="text" name="classificationRowOrder" id="classificationRowOrder">
+
 			<table id="clastbl" border="1">
 				<thead>
 					<tr>
@@ -1121,11 +1131,8 @@ hi
 					<input type="button"
 									value="Save"
 									class="savBtn"
-									onclick="part.action.value='saveEdit';submit();">
-								<input type="button"
-									value="Delete"
-									class="delBtn"
-								 	onclick="part.action.value='deleteValue';submit();">
+									onclick="submitForm();">
+
 				</form>
 
 </cfoutput>
