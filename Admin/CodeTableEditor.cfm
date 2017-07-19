@@ -987,7 +987,7 @@ Terms must be lower-case
 
 <!---------------------------------------------------------------------------->
 <cfif action is "editSpecPartOrder">
-<cfoutput>
+
 
 <style>
 		.dragger {
@@ -1009,8 +1009,8 @@ Terms must be lower-case
 
 			//guessAtDisplayName();
 		});
-
-
+	</script>
+<cfoutput>
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctspecimen_part_list_order order by
 			list_order,partname
