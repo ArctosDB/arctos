@@ -412,6 +412,9 @@
 							<li><a target="_top" href="/info/mentor.cfm">Find a Mentor</a></li>
 						</ul>
 					</li>
+					<li>
+						New! Something short here...
+					</li>
 				</ul>
 			</div>
 		</div><!--- end header div --->
