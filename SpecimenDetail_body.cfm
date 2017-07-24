@@ -945,7 +945,8 @@
 		attribute_units,
 		determined_date,
 		attribute_remark,
-		agent_name
+		agent_name,
+		getContainerParentage(pc.container_id) FCtree
 	from
 		specimen_part,
 		coll_object,
@@ -975,7 +976,8 @@
 		part_disposition,
 		part_condition,
 		lot_count,
-		part_remarks
+		part_remarks,
+		FCTree
 	from
 		rparts
 	group by
@@ -987,7 +989,8 @@
 		part_disposition,
 		part_condition,
 		lot_count,
-		part_remarks
+		part_remarks,
+		FCTree
 	order by
 		part_name
 </cfquery>
@@ -1027,6 +1030,7 @@
 								<cfif oneOfUs is 1>
 									<th><span class="innerDetailLabel">Label</span></th>
 									<th><span class="innerDetailLabel">Barcode</span></th>
+									<th><span class="innerDetailLabel">PLPath</span></th>
 									<th><span class="innerDetailLabel">Loan</span></th>
 								</cfif>
 								<th><span class="innerDetailLabel">Remarks</span></th>
@@ -1042,6 +1046,7 @@
 									<cfif oneOfUs is 1>
 										<td>#label#</td>
 										<td>#barcode#</td>
+										<td>#FCTree#</td>
 										<cfquery dbtype="query" name="tlp">
 											select * from ploan where transaction_id is not null and collection_object_id=#part_id#
 										</cfquery>
