@@ -1048,7 +1048,7 @@
 										<td>#barcode#</td>
 										<td>
 											<div style="word-wrap: break-word">
-												#replace(FCTree,':','←','all')#
+												#replace(FCTree,':','←<wbr>','all')#
 											</div>
 										</td>
 										<cfquery dbtype="query" name="tlp">
