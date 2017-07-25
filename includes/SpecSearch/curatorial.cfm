@@ -12,12 +12,15 @@
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select permit_type from ctpermit_type order by permit_type
 </cfquery>
+<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select container_type from ctcontainer_type where container_type != 'collection object' order by container_type
+</cfquery>
 <cfquery name="ctCollObjDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 </cfquery>
 <cfquery name="ctFlags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select flags from ctflags order by flags
-</cfquery>		
+</cfquery>
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
@@ -34,6 +37,20 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="anybarcode" id="anybarcode" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="part_container_type">Part-holding container type:</span>
+		</td>
+		<td class="srch">
+
+			<select name="part_container_type" id="part_container_type" size="1">
+				<option value=""></option>
+				<cfloop query="ctcontainer_type">
+					<option value = "#ctcontainer_type.container_type#">#ctcontainer_type.container_type#</option>
+				 </cfloop>
+  			</select>
 		</td>
 	</tr>
 	<tr>
@@ -71,7 +88,7 @@
 				<option value=""></option>
 				<cfloop query="ctPermitType">
 					<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-				 </cfloop>			
+				 </cfloop>
   			</select>
 		</td>
 	</tr>
@@ -162,6 +179,6 @@
 				</cfloop>
 			</select>
 		</td>
-	</tr>				
+	</tr>
 </table>
 </cfoutput>
