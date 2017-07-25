@@ -51,6 +51,7 @@
 					<option value = "#ctcontainer_type.container_type#">#ctcontainer_type.container_type#</option>
 				 </cfloop>
   			</select>
+			<span class="infoLink" onclick="getCtDoc('ctcontainer_type',SpecData.part_container_type.value);">Define</span>
 		</td>
 	</tr>
 	<tr>
@@ -90,6 +91,7 @@
 					<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
 				 </cfloop>
   			</select>
+			<span class="infoLink" onclick="getCtDoc('ctpermit_type',SpecData.permit_type.value);">Define</span>
 		</td>
 	</tr>
 	<tr>
