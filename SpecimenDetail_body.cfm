@@ -1046,7 +1046,7 @@
 									<cfif oneOfUs is 1>
 										<td>#label#</td>
 										<td>#barcode#</td>
-										<td>#FCTree#</td>
+										<td>#replace(FCTree,':','←','all')#</td>
 										<cfquery dbtype="query" name="tlp">
 											select * from ploan where transaction_id is not null and collection_object_id=#part_id#
 										</cfquery>
@@ -1141,7 +1141,7 @@
 										<cfif oneOfUs is 1>
 											<td>#label#</td>
 											<td>#barcode#</td>
-											<td>#FCTree#</td>
+											<td>#replace(FCTree,':','←','all')#</td>
 											<cfquery dbtype="query" name="tlp">
 												select * from ploan where transaction_id is not null and collection_object_id=#part_id#
 											</cfquery>
