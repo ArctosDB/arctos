@@ -1,8 +1,8 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <!------------------------------------------------------------------->
 <cfif #Action# is "nothing">
-<cfdocument 
-	format="flashpaper"
+<cfdocument
+	format="PDF"
 	pagetype="letter"
 	margintop="0"
 	marginbottom="0"
@@ -10,43 +10,43 @@
 	marginright="0"
 	orientation="portrait"
 	fontembed="yes" >
-	
+
 	<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
 <cf_getLoanFormInfo>
 
 <cfoutput>
-	
+
 <center>
 <table width="800"><tr>
           <td> <center>
-	
+
 		<div align="right">
 		  	<font size="1" face="Arial, Helvetica, sans-serif">
 		  		<b>Loan ## #getLoan.loan_number#</b>
-			</font> 
+			</font>
 		</div>
 		<center><b>
-              <font size="3">SPECIMEN&nbsp;&nbsp;INVOICE</font> 
+              <font size="3">SPECIMEN&nbsp;&nbsp;INVOICE</font>
 			  <font size="4">
-			  <br>MAMMAL&nbsp;&nbsp;COLLECTION 
+			  <br>MAMMAL&nbsp;&nbsp;COLLECTION
               <br>
               UNIVERSITY&nbsp;of&nbsp;NEW&nbsp;MEXICO&nbsp;&##45;&nbsp;MUSEUM of SOUTHWESTERN BIOLOGY
 			  </font>
 			  <font size="3">
 			<br>#dateformat(getLoan.shipped_date,"dd mmmm yyyy")#</b>
 		</center>
-			
-			 <table cellpadding="0" cellspacing="0" width="600"><tr><td> 
-			
-            <p> 
 
-  This document acknowledges the loan of 
-  specimens 
+			 <table cellpadding="0" cellspacing="0" width="600"><tr><td>
+
+            <p>
+
+  This document acknowledges the loan of
+  specimens
   <br>from the MSB Mammal Collection to:
 
 <p>
-	
+
 </p>
 <p>
 <table width="100%"><tr>
@@ -73,22 +73,22 @@
 
   <p>
   	<b>Loan Type:</b> #getLoan.loan_type#
-  
+
    <p><b>Nature of Material:</b>
   &nbsp;#replace(getLoan.nature_of_material,"#chr(10)#","<br>","all")#
   <cfif len(#getLoan.loan_description#) gt 0>
 <p><b>Description:</b>
  &nbsp;#replace(getLoan.loan_description,"#chr(10)#","<br>","all")#
   </cfif>
-  
-  
- 
-  
+
+
+
+
   <cfif len(#getLoan.loan_instructions#) gt 0>
   <p><b>Instructions:</b>
   &nbsp;#getLoan.loan_instructions#
   </cfif>
-  
+
   <cfif len(#getLoan.trans_remarks#) gt 0>
   <p><b>Remarks:</b>
  &nbsp;#getLoan.trans_remarks#
@@ -98,24 +98,24 @@
   </td></tr></table></center>
 <table width="780" cellpadding="0" cellspacing="0"><tr><td>
  <hr>
-                <font size="1" face="Verdana, Arial, Helvetica, sans-serif">M<font face="Arial">aterial 
-                loaned from the MSB Mammal Collection should be acknowledged by 
-                MSB catalog number in subsequent publications, reports, presentations 
-                or GenBank submissions. A copy of reprints should be provided 
-                to the MSB Mammal Collection. Please remember that you may only 
-                use these materials for the study outlined in your original proposal. 
-                You must obtain written permission from the MSB Curator of Mammals 
-                for any use outside of the scope of your proposal, including the 
-                transfer of MSB material to a third party. Thank you for your 
-                cooperation.</font></font> 
+                <font size="1" face="Verdana, Arial, Helvetica, sans-serif">M<font face="Arial">aterial
+                loaned from the MSB Mammal Collection should be acknowledged by
+                MSB catalog number in subsequent publications, reports, presentations
+                or GenBank submissions. A copy of reprints should be provided
+                to the MSB Mammal Collection. Please remember that you may only
+                use these materials for the study outlined in your original proposal.
+                You must obtain written permission from the MSB Curator of Mammals
+                for any use outside of the scope of your proposal, including the
+                transfer of MSB material to a third party. Thank you for your
+                cooperation.</font></font>
                 <hr>
 	</td></tr></table>
- 
+
   <p>
   <font size="3">
   <center>
   <table width="780" cellpadding="0" cellspacing="0"><tr><td colspan="2">
-   
+
    <p>UPON RECEIPT, SIGN AND RETURN ONE COPY TO:
    </tr></td>
    <tr><td>
@@ -145,7 +145,7 @@ website: http://msb.unm.edu<br>
                 <td align="right" width="300" valign="top"> <div align="left"><b>Expected return date: #dateformat(getLoan.return_due_date,"dd mmmm yyyy")#</b> </div>
                   <table width="100%" border="1" cellpadding="0" cellspacing="0">
   <tr>
-                      <td> <font size="2">Signature of recipient, date:</font> 
+                      <td> <font size="2">Signature of recipient, date:</font>
                         <br>
                         &nbsp;
 	<br>&nbsp;
@@ -157,16 +157,16 @@ website: http://msb.unm.edu<br>
   </td>
   </tr></table>
   </center>
-  
- 
+
+
    <table width="100%"><tr><td align="left">
-    <font size="1">Printed #dateformat(now(),"dd mmmm yyyy")#</font> 
+    <font size="1">Printed #dateformat(now(),"dd mmmm yyyy")#</font>
    </td>
   <td>
                   <div align="right">
-                    <font size="1" face="Arial, Helvetica, sans-serif">Loan processed 
+                    <font size="1" face="Arial, Helvetica, sans-serif">Loan processed
                     by #getLoan.processed_by_name#</font> </div></td>
-   </tr></table>   
+   </tr></table>
 		  </td></tr></table>
 </center>
 
@@ -190,8 +190,8 @@ website: http://msb.unm.edu<br>
 <cfoutput>
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 
-select 
-		cat_num, 
+select
+		cat_num,
 		cataloged_item.collection_object_id,
 		collection,
 		part_name,
@@ -207,7 +207,7 @@ select
 		 spec_locality,
 		 higher_geog,
 		 orig_lat_long_units,
-		 lat_deg, 
+		 lat_deg,
 		 lat_min,
 		 lat_sec,
 		 long_deg,
@@ -222,10 +222,10 @@ select
 		 max_error_distance,
 		 max_error_units,
  		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
-	 from 
-		loan_item, 
+	 from
+		loan_item,
 		loan,
-		specimen_part, 
+		specimen_part,
 		coll_object,
 		cataloged_item,
 		collection,
@@ -267,7 +267,7 @@ select
 	</cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>
    <br>
-      <font face="Courier New, Courier, mono"><b>Item List</b></font> 
+      <font face="Courier New, Courier, mono"><b>Item List</b></font>
       <p>
 </center>
 <table width="100%"border>
@@ -278,7 +278,7 @@ select
 		<td align="center">
 			<b>#session.CustomOtherIdentifier#</b>&nbsp;
 		</td>
-		
+
 		<td align="center">
 			<b>Scientific Name</b>
 		</td>
@@ -299,14 +299,14 @@ select
 			<b>Item Remarks</b>
 		</td>
 		---->
-		
+
 		<td align="center">
 			<b>Locality</b>
 		</td>
 		<td align="center">
 			<b>Encumbrance</b>
 		</td>
-		
+
 	</tr>
 	<cfset i=1>
 	<cfset p = 1>
@@ -321,7 +321,7 @@ select
 		<td>
 			#CustomID#&nbsp;
 		</td>
-		
+
 		<td>
 			<i>#scientific_name#</i>&nbsp;
 		</td>
@@ -332,7 +332,7 @@ select
 			<cfif len(#Condition#) gt 15>
 				See attached.
 			  <cfelse>
-			  	#Condition#	
+			  	#Condition#
 			</cfif>&nbsp;
 		</td>
 		<td>
@@ -350,48 +350,48 @@ select
 			#loan_Item_Remarks#&nbsp;
 		</td>
 			----->
-		
+
 		<td>
 			#higher_geog#. <br>#spec_locality#
 			<br>
 			<cfif #orig_lat_long_units# is "deg. min. sec.">
-				#lat_deg#<sup>0</sup> 
-				#lat_min#<sup>'</sup> 
-				#lat_sec#<sup>''</sup> 
-				#lat_dir# 
-				#long_deg#<sup>0</sup> 
+				#lat_deg#<sup>0</sup>
+				#lat_min#<sup>'</sup>
+				#lat_sec#<sup>''</sup>
+				#lat_dir#
+				#long_deg#<sup>0</sup>
 				#long_min#<sup>'</sup>
 				#long_sec#<sup>''</sup>
-				#long_dir# 
+				#long_dir#
 				&##177; #max_error_distance# #max_error_units#
 				<cfelseif #orig_lat_long_units# is "decimal degrees">
 					#dec_lat# #dec_long# &##177; #max_error_distance# #max_error_units#
 				<cfelseif #orig_lat_long_units# is "degrees dec. minutes">
-					#lat_deg#<sup>0</sup> 
-					#dec_lat_min#<sup>'</sup> 
-					#lat_dir# 
-					#long_deg#<sup>0</sup> 
+					#lat_deg#<sup>0</sup>
+					#dec_lat_min#<sup>'</sup>
+					#lat_dir#
+					#long_deg#<sup>0</sup>
 					#dec_long_min#<sup>'</sup>
 					#long_dir# &##177; #max_error_distance# #max_error_units#
 				<cfelse>
 					Not georeferenced.
 			</cfif>
-			
+
 		</td>
 		<td>
 			#Encumbrance# <cfif len(#agent_name#) gt 0> by #agent_name#</cfif>&nbsp;
 		</td>
-		
-		
+
+
 	</tr>
 	<cfset i=#i#+1>
 
 
 </cfloop></table>
-<div align="right"><font size="-1"> Loan ## #getItems.loan_number# </font> 
+<div align="right"><font size="-1"> Loan ## #getItems.loan_number# </font>
     </div>
 </td></tr></table>
-	
+
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------->
@@ -399,17 +399,17 @@ select
 <cfif #Action# is "showCondition">
 <cfoutput>
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-select 
-		cat_num, 
+select
+		cat_num,
 		collection,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		part_name,
 		condition,
 		loan_number
-	 from 
-		loan_item, 
+	 from
+		loan_item,
 		loan,
-		specimen_part, 
+		specimen_part,
 		coll_object,
 		cataloged_item,
 		collection
@@ -435,7 +435,7 @@ Loan ## #getItems.loan_number#
 	</cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>
    <br>
-      <font face="Courier New, Courier, mono"><b>Condition Appendix</b></font> 
+      <font face="Courier New, Courier, mono"><b>Condition Appendix</b></font>
       <p>
 </center>
 <table width="100%"border>
@@ -452,15 +452,15 @@ Loan ## #getItems.loan_number#
 		<td align="center">
 			<b>Condition</b>
 		</td>
-		
+
 	</tr>
 	<cfset i=1>
 	<cfset p = 1>
 	<cfloop query="getItems">
 
 <cfif len(#Condition#) gt 15>
-					
-			
+
+
 
 	<tr>
 		<td>
@@ -469,14 +469,14 @@ Loan ## #getItems.loan_number#
 		<td>
 			#CustomID#&nbsp;
 		</td>
-		
+
 		<td>
-			#part_name# 
+			#part_name#
 		</td>
 		<td>
 				#Condition#
 		</td>
-		
+
 	</tr>
 	<cfset i=#i#+1>
 
