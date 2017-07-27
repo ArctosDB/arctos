@@ -330,22 +330,26 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 					</cfif>
 				</tr>
 				<cfset i=1>
-				<cfloop query="theRest">
+				<cfloop query="ut">
 					<cfset thisVal=trim(evaluate(theColumnName))>
 					<cfif field is thisVal>
 						<tr style="font-weight:bold;">
 					<cfelse>
 						<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					</cfif>
+
 					<td name="#thisVal#">
 						#thisVal#
 					</td>
-					<cfif docs.columnlist contains "collection_cde">
-						<td>#collection_cde#</td>
-					</cfif>
-					<cfif docs.columnlist contains "description">
-						<td>#description#</td>
-					</cfif>
+					<cfquery name="thisC" dbtype="query">
+						select collection_cde from theRest where #theColumnName#='#thisVal#' group by collection_cde order by collection_cde
+					</cfquery>
+						<td>#valuelist(thisC.collection_cde)#</td>
+					<cfquery name="thisD" dbtype="query">
+						select description from theRest where #theColumnName#='#thisVal#' group by description order by description
+					</cfquery>
+					<td>#valuelist(thisD.description)#</td>
+
 					</tr>
 					<cfset i=i+1>
 				</cfloop>
