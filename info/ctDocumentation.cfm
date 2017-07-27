@@ -316,6 +316,40 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</table>
 		<cfelse>
 			got collection code....
+			<cfquery name="ut" dbtype="query">
+				select #theColumnName# from theRest group by #theColumnName# order by #theColumnName#
+			</cfquery>
+			<table border id="t" class="sortable">
+				<tr>
+					<th>
+						<strong>#theColumnName#</strong>
+					</th>
+						<th><strong>Collection</strong></th>
+					<cfif docs.columnlist contains "description">
+						<th><strong>Documentation</strong></th>
+					</cfif>
+				</tr>
+				<cfset i=1>
+				<cfloop query="theRest">
+					<cfset thisVal=trim(evaluate(theColumnName))>
+					<cfif field is thisVal>
+						<tr style="font-weight:bold;">
+					<cfelse>
+						<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					</cfif>
+					<td name="#thisVal#">
+						#thisVal#
+					</td>
+					<cfif docs.columnlist contains "collection_cde">
+						<td>#collection_cde#</td>
+					</cfif>
+					<cfif docs.columnlist contains "description">
+						<td>#description#</td>
+					</cfif>
+					</tr>
+					<cfset i=i+1>
+				</cfloop>
+			</table>
 		</cfif>
 	</cfif>
 </cfif>
