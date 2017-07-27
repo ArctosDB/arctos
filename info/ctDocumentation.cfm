@@ -350,7 +350,8 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 						</cfloop>
 					</td>
 					<cfquery name="thisD" dbtype="query">
-						select description from theRest where #theColumnName#='#thisVal#' group by description order by description
+						select description from theRest where description is not null and
+						#theColumnName#='#thisVal#' group by description order by description
 					</cfquery>
 					<td>
 						<cfloop query="thisD">
