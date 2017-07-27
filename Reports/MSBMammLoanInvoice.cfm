@@ -77,8 +77,8 @@
    <p><b>Nature of Material:</b>
   &nbsp;#replace(getLoan.nature_of_material,"#chr(10)#","<br>","all")#
   <cfif len(#getLoan.loan_description#) gt 0>
-<p><b>Description:</b>
- &nbsp;#replace(getLoan.loan_description,"#chr(10)#","<br>","all")#
+	<p><b>Description:</b>
+	 &nbsp;#replace(getLoan.loan_description,"#chr(10)#","<br>","all")#
   </cfif>
 
 
