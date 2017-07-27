@@ -344,11 +344,19 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 					<cfquery name="thisC" dbtype="query">
 						select collection_cde from theRest where #theColumnName#='#thisVal#' group by collection_cde order by collection_cde
 					</cfquery>
-						<td>#valuelist(thisC.collection_cde)#</td>
+					<td>
+						<cfloop query="thisC">
+							<div>#collection_cde#</div>
+						</cfloop>
+					</td>
 					<cfquery name="thisD" dbtype="query">
 						select description from theRest where #theColumnName#='#thisVal#' group by description order by description
 					</cfquery>
-					<td>#valuelist(thisD.description)#</td>
+					<td>
+						<cfloop query="thisD">
+							<div>#description#</div>
+						</cfloop>
+					</td>
 
 					</tr>
 					<cfset i=i+1>
