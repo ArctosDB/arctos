@@ -4,6 +4,8 @@
 <script>
 	function useThisOne(pid,ps){
 
+		console.log(pid);
+		console.log(ps);
 		ps=ps.replace("'","`");
 		console.log(ps);
 <!------
