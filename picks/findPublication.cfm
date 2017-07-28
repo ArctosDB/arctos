@@ -4,7 +4,7 @@
 <script>
 	function useThisOne(pid,ps){
 
-		ps=replace(ps,"'","`");
+		ps=ps.replace("'","`");
 
 			parent.$("###pubIdFld#").val(pid);
 			parent.$("###pubStringFld#").val(ps);
