@@ -86,7 +86,7 @@
 				<cfloop query="getPub">
 					<tr>
 						<td>
-							<span class="likeLink" onclick="useThisOne('#publication_id#','#short_citation#');">
+							<span class="likeLink" onclick="useThisOne('#publication_id#','#replace(getPub.short_citation,"'","`","all")#');">
 								#short_citation#
 							</span>
 							<blockquote>
