@@ -76,7 +76,7 @@
 			Nothing matched <strong>#publication_title#</strong>
 		<cfelseif getPub.recordcount is 1>
 			<script>
-				useThisOne('#getPub.publication_id#','#getPub.short_citation#');
+				useThisOne('#getPub.publication_id#','#replace(getPub.short_citation,"'","`","all")#');
 			</script>
 		<cfelse>
 			<table border>
