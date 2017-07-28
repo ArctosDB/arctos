@@ -6,11 +6,11 @@
 
 		ps=ps.replace("'","`");
 		console.log(ps);
-
+<!------
 			parent.$("###pubIdFld#").val(pid);
 			parent.$("###pubStringFld#").val(ps);
 			parent.$(".ui-dialog-titlebar-close").trigger('click');
-<!------
+
 			/*
 		console.log(frm);
 		var o=opener.document;
