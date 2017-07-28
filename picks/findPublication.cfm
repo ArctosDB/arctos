@@ -4,10 +4,15 @@
 <script>
 	function useThisOne(pid,ps){
 
-			parent.$("###pubIdFld#").val(pid);
-			parent.$("###pubStringFld#").val(ps);
-			parent.$(".ui-dialog-titlebar-close").trigger('click');
-<!------
+		parent.$("###pubIdFld#").val(pid);
+		parent.$("###pubStringFld#").val(ps);
+		parent.$(".ui-dialog-titlebar-close").trigger('click');
+<!------	console.log(pid);
+		console.log(ps);
+		ps=ps.replace("'","`");
+		console.log(ps);
+
+
 			/*
 		console.log(frm);
 		var o=opener.document;
@@ -71,7 +76,7 @@
 			Nothing matched <strong>#publication_title#</strong>
 		<cfelseif getPub.recordcount is 1>
 			<script>
-				useThisOne('#getPub.publication_id#','#getPub.short_citation#');
+				useThisOne('#getPub.publication_id#','#replace(getPub.short_citation,"'","`","all")#');
 			</script>
 		<cfelse>
 			<table border>
@@ -81,7 +86,7 @@
 				<cfloop query="getPub">
 					<tr>
 						<td>
-							<span class="likeLink" onclick="useThisOne('#publication_id#','#short_citation#');">
+							<span class="likeLink" onclick="useThisOne('#publication_id#','#replace(getPub.short_citation,"'","`","all")#');">
 								#short_citation#
 							</span>
 							<blockquote>
