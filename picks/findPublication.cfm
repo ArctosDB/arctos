@@ -5,6 +5,7 @@
 	function useThisOne(pid,ps){
 
 		ps=ps.replace("'","`");
+		console.log(ps);
 
 			parent.$("###pubIdFld#").val(pid);
 			parent.$("###pubStringFld#").val(ps);
