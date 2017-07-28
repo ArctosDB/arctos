@@ -4,6 +4,8 @@
 <script>
 	function useThisOne(pid,ps){
 
+		ps=replace(ps,"'","`");
+
 			parent.$("###pubIdFld#").val(pid);
 			parent.$("###pubStringFld#").val(ps);
 			parent.$(".ui-dialog-titlebar-close").trigger('click');
