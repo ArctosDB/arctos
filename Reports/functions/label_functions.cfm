@@ -134,6 +134,16 @@
 					<br>not first loop, processing.....
 					<cfif cn is lastcatnum+1>
 						<br>this is last plus one; we're in a series
+						<cfif len(startseriescatnum) is 0>
+							<cfset startseriescatnum=lastcatnum>
+						</cfif>
+						<!---- if the next number is this plus one, rock on. Else write it and reset ---->
+						<cfif listgetat(rcnl,listPos+1) is cn+1>
+							<br>next number is in the series, doing nothing
+						<cfelse>
+							<br>next number is not in series, write this one.....
+							<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#=#cn#">
+						</cfif>
 					</cfif>
 
 				</cfif>
