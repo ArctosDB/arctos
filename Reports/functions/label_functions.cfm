@@ -88,9 +88,11 @@
 
 	<cfset ColLst=d.columnList>
 	<cfset colLst=listdeleteat(colLst,listfindnocase(colLst,"cat_num"))>
-
-	<cfquery name="d" dbtype="query">
+	<cfquery name="us" dbtype="query">
 		select #colLst# from d group by #colLst#
+	</cfquery>
+	<cfquery name="d" dbtype="query">
+		select #colLst#, RandRange(1,100000) KEY from us
 	</cfquery>
 
   <cfreturn d>
