@@ -134,7 +134,7 @@
 					<cfset inseries=false>
 				</cfif>
 				catnumlist
-			<cfelse>
+			</cfif>
 
 			<!--- only do this if we're STILL not in a series ---->
 			<cfif inseries is false>
