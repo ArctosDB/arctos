@@ -115,7 +115,7 @@
 		</cfquery>
 		<cfdump var=#thisCatNum#>
 		<cfset cnl="">
-		<cfset lcn="">
+		<cfset lcn=0>
 		<cfloop query="thisCatNum">
 			<br>cat_num=#cat_num#
 			<cfset ccn=cat_num>
