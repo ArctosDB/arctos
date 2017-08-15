@@ -121,37 +121,31 @@
 		<cfset startseriescatnum="">
 		<cfset inseries=false>
 		<cfset listPos=1>
+
+		<cfset thisSeries="">
 		<cfif listlen(rcnl) is 1>
 			<cfset catnumlist=rcnl>
 		<cfelse>
 			<cfloop list="#rcnl#" index="cn">
 				<hr>
 				cn: #cn#
-				<cfif len(lastcatnum) is 0>
-					<!---- just prime ---->
-					<br>first loop, priming lastcatnum
+				<!--- if there's a next loop and if it's this+1, we're in a series ---->
+				<cfif listlen(rcnl) gt listpos and listgetat(rcnl,listPos+1) is cn+1>
+					<br> if there's a next loop and if it's this+1, we're in a series
+					<cfset thisSeries=listappend(thisSeries,cn)>
 				<cfelse>
-					<br>not first loop, processing.....
-					<cfif cn is lastcatnum+1>
-						<br>this is last plus one; we're in a series
-						<cfif len(startseriescatnum) is 0>
-							<cfset startseriescatnum=cn>
-						</cfif>
-						<!---- if the next number is this plus one, rock on. Else write it and reset ---->
-						<cfif listlen(rcnl) gt listpos and listgetat(rcnl,listPos+1) is cn+1>
-							<br>next number is in the series, doing nothing
-						<cfelse>
-							<br>next number is not in series, write this one.....
-							<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#-#cn#")>
-							<!--- reset series flag --->
-							<cfset startseriescatnum="">
-						</cfif>
-					<cfelse>
-						<br>not in series
-						<cfset catnumlist=listappend(catnumlist,cn)>
+					<br>not in a series, if there a series cache from last loop?
+					<cfif len(thisSeries) gt 0>
+						<br>there is a series, write it
+						<cfset catnumlist="#catnumlist#,#listfirst(thisSeries)#-#listlast(thisSeries)#">
+						<br>and reset
+						<cfset thisSeries="">
 					</cfif>
+					<br>and write current number
+					<cfset catnumlist="#catnumlist#,#cn#">
 				</cfif>
-				<cfset lastcatnum=cn>
+
+
 
 				<cfset listPos=listPos+1>
 			</cfloop>
