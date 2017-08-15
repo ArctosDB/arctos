@@ -111,8 +111,19 @@
 					<cfset lnum=lnum+1>
 				</cfif>
 			</cfloop>
+			order by cat_num
 		</cfquery>
 		<cfdump var=#thisCatNum#>
+		<cfset cnl="">
+		<cfset lcn="">
+		<cfloop query="thisCatNum">
+			<br>cat_num=#cat_num#
+			<cfset ccn=cat_num>
+			<cfif ccn=lcn+1>
+				<br>in series....
+			</cfif>
+
+		</cfloop>
 	</cfloop>
 
 
