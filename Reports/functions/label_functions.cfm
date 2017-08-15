@@ -147,7 +147,7 @@
 						</cfif>
 					<cfelse>
 						<br>not in series
-
+						<cfset catnumlist=listappend(catnumlist,cn)>
 					</cfif>
 				</cfif>
 
