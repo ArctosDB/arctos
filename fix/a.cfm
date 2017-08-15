@@ -1,9 +1,32 @@
 <cfinclude template="/includes/_header.cfm">
+<cfinclude template="Reports/functions/label_functions.cfm">
+
+<cfquery name="t" datasource="uam_god">
+	select
+		flat.scientific_name,
+		flat.family,
+		flat.country,
+		flat.state_prov,
+		flat.spec_locality,
+		flat.county,
+		'im a label!!' container_label,
+		flat.cat_num
+		FROM
+		flat
+		WHERE
+		flat.collection_object_id <30
+</cfquery>
+before
+<cfdump var=#t#>
+<cfset x = catnum_to_list(t)>
+after
+<cfdump var=#x#>
 
 <!---
 create table temp_test (u varchar2(255), p varchar2(255));
 insert into temp_test (u,p) values ('dustylee','xxxxx');
----->
+
+
 <cfoutput>
     <cfquery datasource='uam_god' name='p'>
         select * from temp_test
@@ -22,6 +45,25 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
     <cfdump var=#pr#>
 </cfoutput>
+
+
+
+
+
+
+---->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!----------------------------
