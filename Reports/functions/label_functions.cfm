@@ -140,12 +140,50 @@
 					<cfset nextCN=listgetat(rcnl,listPos+1)>
 				</cfif>
 				<br>nextCN: #nextCN#
+				<!----
+						if NOT (previous..this) and (this..next) : starting series
+
+						if (previous..this) and (this..next)     : in middle of series
+
+						if (previous..this) and NOT (this..next) : ending series
+
+						ELSE                                     : no series, single outlier-number
+
+
+				---->
+				<cfif previousCN+1 neq cn and cn+1=nextCN>
+					<br>we are starting a series. Add current to list, write nothing
+					<cfset thisSeries=listappend(thisSeries,cn)>
+				<cfelseif previousCN+1 eq cn and cn+1=nextCN>
+					<br>in middle of series, also write this to series
+					<cfset thisSeries=listappend(thisSeries,cn)>
+				<cfelseif previousCN+1 eq cn and cn+1 neq nextCN>
+					<br>ending series
+					<br>add current
+					<cfset thisSeries=listappend(thisSeries,cn)>
+					<Br>range will be ...
+					<br>#listfirst(thisSeries)#-#listlast(thisSeries)#
+					<br>flush series
+					<cfset thisSeries="">
+				<cfelse>
+					<brsingle outlier, just write it:
+					<br>#cn#
+
+
+				</cfif>
+
+<!----
+						if previous..this...next then we're in the middle of a series; do nothing
+
+						if previous..this
+
+
 				<cfif previousCN+1 is not cn and nextCN-1 is not cn>
 					<br>this number is not part of a series
 				</cfif>
 
 
-				<!----
+
 				<!--- if there's a next loop and if it's this+1, we're in a series ---->
 				<cfif listlen(rcnl) gt listpos and listgetat(rcnl,listPos+1) is cn+1>
 					<br> if there's a next loop and if it's this+1, we're in a series
