@@ -163,7 +163,7 @@
 					<cfset thisSeries=listappend(thisSeries,cn)>
 					<Br>range will be ...
 					<br>#listfirst(thisSeries)#-#listlast(thisSeries)#
-					<cfset catnumlist=listappend(catnumlist,"#listfirst(thisSeries)#-#listlast(thisSeries)#)">
+					<cfset catnumlist=listappend(catnumlist,"#listfirst(thisSeries)#-#listlast(thisSeries)#")>
 					<br>flush series
 					<cfset thisSeries="">
 				<cfelse>
