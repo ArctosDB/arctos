@@ -113,15 +113,40 @@
 			order by cat_num
 		</cfquery>
 		<cfset rcnl=valuelist(thisCatNum.cat_num)>
-
-
-
-
-		<cfdump var=#thisCatNum#>
-
 		<p>
 			rcnl: #rcnl#
 		</p>
+		<cfset catnumlist="">
+		<cfset lastcatnum="">
+		<cfset startseriescatnum="">
+		<cfset inseries=false>
+		<cfset listPos=1>
+		<cfif listlen(rcnl) is 1>
+			<cfset catnumlist=rcnl>
+		<cfelse>
+			<cfloop list="#rcnl#" index="cn">
+				<cfif len(lastcatnum) is 0>
+					<!---- just prime ---->
+					<br>first loop, priming lastcatnum
+					<cfset lastcatnum=cn>
+				<cfelse>
+					<br>not first loop, processing.....
+					<cfif cn is lastcatnum+1>
+						<br>this is last plus one; we're in a series
+					</cfif>
+
+				</cfif>
+
+				<cfset listPos=listPos+1>
+			</cfloop>
+		</cfif>
+
+
+	<!----
+
+		<cfdump var=#thisCatNum#>
+
+
 		<cfset catnumlist="">
 		<cfset lastcatnum=-99999>
 		<cfset startseriescatnum="">
@@ -161,6 +186,7 @@
 
 			<cfset lastcatnum=cat_num>
 		</cfloop>
+		---->
 		<p>catnumlist: #catnumlist#</p>
 	</cfloop>
 </cfoutput>
