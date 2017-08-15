@@ -150,6 +150,7 @@
 				<cfset listPos=listPos+1>
 			</cfloop>
 		</cfif>
+		<cfoutput>
 		<cf_qoq>
 		    UPDATE
 		        result
@@ -171,6 +172,7 @@
 					</cfif>
 				</cfloop>
 			</cf_qoq>
+			</cfoutput>
 	</cfloop>
   <cfreturn result>
 </cffunction>
