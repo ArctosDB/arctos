@@ -91,9 +91,27 @@
 	<cfquery name="us" dbtype="query">
 		select #colLst# from d group by #colLst#
 	</cfquery>
+	<cfloop query="us">
+		<cfquery name="thisCatNum" dbtype="query">
+			select cat_num from d where
+
+			<cfloop list="#ColLst#" index="c">
+				#c#='#evaluate("us." & c) and
+			</cfloop>
+			1=1
+		</cfquery>
+		<cfdump var=#thisCatNum#>
+	</cfloop>
+
+
 	<cfquery name="d" dbtype="query">
-		select #colLst#, #RandRange(1,100000)# as qKEY, '-' as catnumlist from us
+		select #colLst#, '' as qKEY, '-' as catnumlist from us
 	</cfquery>
+
+
+
+#RandRange(1,100000)
+
 
   <cfreturn d>
 </cffunction>
