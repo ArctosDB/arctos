@@ -92,7 +92,7 @@
 		select #colLst# from d group by #colLst#
 	</cfquery>
 	<cfquery name="d" dbtype="query">
-		select #colLst#, #RandRange(1,100000)# as qKEY from us
+		select #colLst#, #RandRange(1,100000)# as qKEY, '-' as catnumlist from us
 	</cfquery>
 
   <cfreturn d>
