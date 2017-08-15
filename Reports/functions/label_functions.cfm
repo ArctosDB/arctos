@@ -145,6 +145,8 @@
 
 			<cfset lastcatnum=cat_num>
 		</cfloop>
+
+		<p>catnumlist: #catnumlist#</p>
 	</cfloop>
 
 
