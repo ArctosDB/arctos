@@ -182,28 +182,6 @@
 				</cfif>
 
 
-					<cf_qoq>
-							    UPDATE
-							        result
-							    SET
-							        catnumlist='#catnumlist#'
-							    WHERE
-								   <cfset lnum=1>
-									<cfloop list="#ColLst#" index="c">
-										<cfset thisval=evaluate("us." & c)>
-										#c#
-										<cfif len(thisval) gt 0>
-											='#thisval#'
-										<cfelse>
-											is null
-										</cfif>
-
-										<cfif lnum lt listlen(ColLst)>
-											and
-											<cfset lnum=lnum+1>
-										</cfif>
-									</cfloop>
-							</cf_qoq>
 
 
 
@@ -240,7 +218,6 @@
 				<cfset listPos=listPos+1>
 			</cfloop>
 
-			<cfdump var=#result#>
 		</cfif>
 
 
@@ -290,7 +267,48 @@
 		</cfloop>
 		---->
 		<p>catnumlist: #catnumlist#</p>
+
+
+
+
+			<cf_qoq>
+							    UPDATE
+							        result
+							    SET
+							        catnumlist='#catnumlist#'
+							    WHERE
+								   <cfset lnum=1>
+									<cfloop list="#ColLst#" index="c">
+										<cfset thisval=evaluate("us." & c)>
+										#c#
+										<cfif len(thisval) gt 0>
+											='#thisval#'
+										<cfelse>
+											is null
+										</cfif>
+
+										<cfif lnum lt listlen(ColLst)>
+											and
+											<cfset lnum=lnum+1>
+										</cfif>
+									</cfloop>
+							</cf_qoq>
+
+
+
+
+
+
 	</cfloop>
+
+
+
+
+			<cfdump var=#result#>
+
+
+
+
 </cfoutput>
 
   <cfreturn d>
