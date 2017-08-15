@@ -125,6 +125,7 @@
 			<cfset catnumlist=rcnl>
 		<cfelse>
 			<cfloop list="#rcnl#" index="cn">
+				<br>cn: #cn#
 				<cfif len(lastcatnum) is 0>
 					<!---- just prime ---->
 					<br>first loop, priming lastcatnum
