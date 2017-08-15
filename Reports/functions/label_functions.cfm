@@ -83,22 +83,15 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="catnum_to_list" access="public" returntype="query">
-
     <cfargument name="d" required="true" type="query">
-	<cfoutput>
-
 	<cfset ColLst=d.columnList>
 	<cfset colLst=listdeleteat(colLst,listfindnocase(colLst,"cat_num"))>
 	<cfquery name="us" dbtype="query">
 		select #colLst# from d group by #colLst#
 	</cfquery>
-
-
 	<cfquery name="result" dbtype="query">
 		select #colLst#, '' as catnumlist from d group by #colLst#
 	</cfquery>
-
-
 	<cfloop query="us">
 		<cfquery name="thisCatNum" dbtype="query">
 			select (cast (cat_num as INTEGER)) as cat_num from d where
@@ -111,7 +104,6 @@
 				<cfelse>
 					is null
 				</cfif>
-
 				<cfif lnum lt listlen(ColLst)>
 					and
 					<cfset lnum=lnum+1>
@@ -120,33 +112,20 @@
 			order by cat_num
 		</cfquery>
 		<cfset rcnl=valuelist(thisCatNum.cat_num)>
-		<p>
-			rcnl: #rcnl#
-		</p>
 		<cfset catnumlist="">
-		<cfset lastcatnum="">
-		<cfset startseriescatnum="">
-		<cfset inseries=false>
-		<cfset listPos=1>
-
 		<cfset thisSeries="">
 		<cfif listlen(rcnl) is 1>
 			<cfset catnumlist=rcnl>
 		<cfelse>
 			<cfloop list="#rcnl#" index="cn">
-				<hr>
-				cn: #cn#
-				<!--- get previous number, if there is one ---->
 				<cfset previousCN=-5>
 				<cfif listpos gt 1>
 					<cfset previousCN=listgetat(rcnl,listPos-1)>
 				</cfif>
-				<br>previousCN: #previousCN#
 				<cfset nextCN=-5>
 				<cfif listlen(rcnl) gt listpos>
 					<cfset nextCN=listgetat(rcnl,listPos+1)>
 				</cfif>
-				<br>nextCN: #nextCN#
 				<!----
 						if NOT (previous..this) and (this..next) : starting series
 
@@ -155,162 +134,43 @@
 						if (previous..this) and NOT (this..next) : ending series
 
 						ELSE                                     : no series, single outlier-number
-
-
 				---->
 				<cfif previousCN+1 neq cn and cn+1 eq nextCN>
-					<br>we are starting a series. Add current to list, write nothing
 					<cfset thisSeries=listappend(thisSeries,cn)>
 				<cfelseif previousCN+1 eq cn and cn+1 eq nextCN>
-					<br>in middle of series, also write this to series
 					<cfset thisSeries=listappend(thisSeries,cn)>
 				<cfelseif previousCN+1 eq cn and cn+1 neq nextCN>
-					<br>ending series
-					<br>add current
 					<cfset thisSeries=listappend(thisSeries,cn)>
-					<Br>range will be ...
-					<br>#listfirst(thisSeries)#-#listlast(thisSeries)#
 					<cfset catnumlist=listappend(catnumlist,"#listfirst(thisSeries)#-#listlast(thisSeries)#")>
-					<br>flush series
 					<cfset thisSeries="">
 				<cfelse>
-					<brsingle outlier, just write it:
-					<br>#cn#
 					<cfset catnumlist=listappend(catnumlist,cn)>
-
-
 				</cfif>
-
-
-
-
-
-<!----
-						if previous..this...next then we're in the middle of a series; do nothing
-
-						if previous..this
-
-
-				<cfif previousCN+1 is not cn and nextCN-1 is not cn>
-					<br>this number is not part of a series
-				</cfif>
-
-
-
-				<!--- if there's a next loop and if it's this+1, we're in a series ---->
-				<cfif listlen(rcnl) gt listpos and listgetat(rcnl,listPos+1) is cn+1>
-					<br> if there's a next loop and if it's this+1, we're in a series
-					<cfset thisSeries=listappend(thisSeries,cn)>
-				<cfelse>
-					<br>not in a series, if there a series cache from last loop?
-					<cfif len(thisSeries) gt 0>
-						<br>there is a series, write it
-						<cfset catnumlist="#catnumlist#,#listfirst(thisSeries)#-#listlast(thisSeries)#">
-						<br>and reset
-						<cfset thisSeries="">
-					</cfif>
-					<br>and write current number
-					<cfset catnumlist="#catnumlist#,#cn#">
-				</cfif>
-
-				---->
-
 				<cfset listPos=listPos+1>
 			</cfloop>
-
 		</cfif>
-
-
-	<!----
-
-		<cfdump var=#thisCatNum#>
-
-
-		<cfset catnumlist="">
-		<cfset lastcatnum=-99999>
-		<cfset startseriescatnum="">
-		<cfset inseries=false>
-		<cfloop query="thisCatNum">
-			<hr>
-			<br>cat_num=#cat_num#
-			<br>lastcatnum=#lastcatnum#
-			<br>startseriescatnum=#startseriescatnum#
-			<br>inseries=#inseries#
-			<cfif inseries is true>
-				<!--- still going? ---->
-				<cfif cat_num is lastcatnum+1>
-					<!--- yup, do nothing ---->
-					<br>still in series
-				<cfelse>
-					<!---- nope, write it ---->
-					<br>leaving series
-					<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#-#lastcatnum#")>
-					<cfset inseries=false>
-				</cfif>
-				catnumlist
-			</cfif>
-
-			<!--- only do this if we're STILL not in a series ---->
-			<cfif inseries is false>
-				<!--- start a new series? --->
-				<cfif cat_num is lastcatnum+1>
-					<br>start series
-					<cfset inseries=true>
-					<cfset startseriescatnum=cat_num>
-				<cfelse>
-					<br>add, no series
-					<cfset catnumlist=listappend(catnumlist,cat_num)>
-				</cfif>
-			</cfif>
-
-			<cfset lastcatnum=cat_num>
-		</cfloop>
-		---->
-		<p>catnumlist: #catnumlist#</p>
-
-
-
-
-			<cf_qoq>
-							    UPDATE
-							        result
-							    SET
-							        catnumlist='#catnumlist#'
-							    WHERE
-								   <cfset lnum=1>
-									<cfloop list="#ColLst#" index="c">
-										<cfset thisval=evaluate("us." & c)>
-										#c#
-										<cfif len(thisval) gt 0>
-											='#thisval#'
-										<cfelse>
-											is null
-										</cfif>
-
-										<cfif lnum lt listlen(ColLst)>
-											and
-											<cfset lnum=lnum+1>
-										</cfif>
-									</cfloop>
-							</cf_qoq>
-
-
-
-
-
-
+		<cf_qoq>
+		    UPDATE
+		        result
+		    SET
+		        catnumlist='#catnumlist#'
+		    WHERE
+			   	<cfset lnum=1>
+				<cfloop list="#ColLst#" index="c">
+					<cfset thisval=evaluate("us." & c)>
+					#c#
+					<cfif len(thisval) gt 0>
+						='#thisval#'
+					<cfelse>
+						is null
+					</cfif>
+					<cfif lnum lt listlen(ColLst)>
+						and
+						<cfset lnum=lnum+1>
+					</cfif>
+				</cfloop>
+			</cf_qoq>
 	</cfloop>
-
-
-
-
-			<cfdump var=#result#>
-
-
-
-
-</cfoutput>
-
   <cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------->
