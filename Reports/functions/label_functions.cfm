@@ -151,10 +151,10 @@
 
 
 				---->
-				<cfif previousCN+1 neq cn and cn+1=nextCN>
+				<cfif previousCN+1 neq cn and cn+1 eq nextCN>
 					<br>we are starting a series. Add current to list, write nothing
 					<cfset thisSeries=listappend(thisSeries,cn)>
-				<cfelseif previousCN+1 eq cn and cn+1=nextCN>
+				<cfelseif previousCN+1 eq cn and cn+1 eq nextCN>
 					<br>in middle of series, also write this to series
 					<cfset thisSeries=listappend(thisSeries,cn)>
 				<cfelseif previousCN+1 eq cn and cn+1 neq nextCN>
