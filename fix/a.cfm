@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfinclude template="Reports/functions/label_functions.cfm">
+<cfinclude template="/Reports/functions/label_functions.cfm">
 
 <cfquery name="t" datasource="uam_god">
 	select
