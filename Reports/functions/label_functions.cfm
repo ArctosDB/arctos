@@ -96,7 +96,16 @@
 			select cat_num from d where
 			<cfset lnum=1>
 			<cfloop list="#ColLst#" index="c">
-				#c#='#evaluate("us." & c)#'
+				<cfset thisval=evaluate("us." & c)>
+
+
+				#c#
+				<cfif len(thisval) gt 0>
+					='#thisval#'
+				<cfelse>
+					is null
+				</cfif>
+
 				<cfif lnum lt listlen(ColLst)>
 					and
 					<cfset lnum=lnum+1>
