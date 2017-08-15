@@ -118,6 +118,7 @@
 		<cfset startseriescatnum="">
 		<cfset inseries=false>
 		<cfloop query="thisCatNum">
+			<hr>
 			<br>cat_num=#cat_num#
 			<br>lastcatnum=#lastcatnum#
 			<br>startseriescatnum=#startseriescatnum#
