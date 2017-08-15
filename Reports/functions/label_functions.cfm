@@ -311,7 +311,7 @@
 
 </cfoutput>
 
-  <cfreturn d>
+  <cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="format_cumv_multi" access="public" returntype="Query">
