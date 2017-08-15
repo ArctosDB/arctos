@@ -129,6 +129,20 @@
 			<cfloop list="#rcnl#" index="cn">
 				<hr>
 				cn: #cn#
+				<!--- get previous number, if there is one ---->
+				<cfset previousCN="">
+				<cfif listpos gt 1>
+					<cfset previousCN=listgetat(rcnl,listPos-1)>
+				</cfif>
+				<br>previousCN: #previousCN#
+				<cfset nextCN="">
+				<cfif listlen(rcnl) gt listpos>
+					<cfset nextCN=listgetat(rcnl,listPos+1)>
+				</cfif>
+				<br>nextCN: #nextCN#
+
+
+				<!----
 				<!--- if there's a next loop and if it's this+1, we're in a series ---->
 				<cfif listlen(rcnl) gt listpos and listgetat(rcnl,listPos+1) is cn+1>
 					<br> if there's a next loop and if it's this+1, we're in a series
@@ -145,7 +159,7 @@
 					<cfset catnumlist="#catnumlist#,#cn#">
 				</cfif>
 
-
+				---->
 
 				<cfset listPos=listPos+1>
 			</cfloop>
