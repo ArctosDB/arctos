@@ -114,6 +114,7 @@
 		<cfset rcnl=valuelist(thisCatNum.cat_num)>
 		<cfset catnumlist="">
 		<cfset thisSeries="">
+		<cfset listpos=1>
 		<cfif listlen(rcnl) is 1>
 			<cfset catnumlist=rcnl>
 		<cfelse>
