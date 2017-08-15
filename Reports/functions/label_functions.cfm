@@ -114,26 +114,38 @@
 			order by cat_num
 		</cfquery>
 		<cfdump var=#thisCatNum#>
-		<cfset cnl="">
-		<cfset lcn=0>
+		<cfset catnumlist="">
+		<cfset lastcatnum=0>
+		<cfset startseriescatnum="">
+		<cfset inseries=false>
 		<cfloop query="thisCatNum">
-			<br>cat_num=#cat_num#
-			<cfset ccn=cat_num>
-			<cfif ccn is lcn+1>
-				<br>in series....
+			<cfif inseries is true>
+				<!--- still going? ---->
+				<cfif cat_num is lastcatnum+1>
+					<!--- yup, do nothing ---->
+					<br>still in series
+				<cfelse>
+					<!---- nope, write it ---->
+					<br>leaving series
+					<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#-#lastcatnum#")>
+					<cfset inseries=false>
+				</cfif>
+				catnumlist
+			<cfelse>
+				<!--- start a new series? --->
+				<cfif cat_num is lastcatnum+1>
+					<br>start series
+					<cfset inseries=true>
+					<cfset startseriescatnum=cat_num>
+				<cfelse>
+					<br>add, no series
+					<cfset catnumlist=listappend(catnumlist,cat_num)>
+				</cfif>
 			</cfif>
 
+			<cfset lastcatnum=cat_num>
 		</cfloop>
 	</cfloop>
-
-
-	<cfquery name="d" dbtype="query">
-		select #colLst#, '' as qKEY, '-' as catnumlist from us
-	</cfquery>
-
-
-
-#RandRange(1,100000)
 
 
   <cfreturn d>
