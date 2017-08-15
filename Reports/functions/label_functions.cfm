@@ -125,7 +125,8 @@
 			<cfset catnumlist=rcnl>
 		<cfelse>
 			<cfloop list="#rcnl#" index="cn">
-				<br>cn: #cn#
+				<hr>
+				cn: #cn#
 				<cfif len(lastcatnum) is 0>
 					<!---- just prime ---->
 					<br>first loop, priming lastcatnum
@@ -142,10 +143,12 @@
 							<br>next number is in the series, doing nothing
 						<cfelse>
 							<br>next number is not in series, write this one.....
-							<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#=#cn#")>
+							<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#-#cn#")>
 						</cfif>
-					</cfif>
+					<cfelse>
+						<br>not in series
 
+					</cfif>
 				</cfif>
 
 				<cfset listPos=listPos+1>
