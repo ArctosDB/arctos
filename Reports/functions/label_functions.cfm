@@ -135,6 +135,9 @@
 				</cfif>
 				catnumlist
 			<cfelse>
+
+			<!--- only do this if we're STILL not in a series ---->
+			<cfif inseries is false>
 				<!--- start a new series? --->
 				<cfif cat_num is lastcatnum+1>
 					<br>start series
