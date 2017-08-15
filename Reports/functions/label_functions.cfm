@@ -92,6 +92,13 @@
 	<cfquery name="us" dbtype="query">
 		select #colLst# from d group by #colLst#
 	</cfquery>
+
+
+	<cfquery name="result" dbtype="query">
+		select #colLst#, '' as catnumlist from d group by #colLst#
+	</cfquery>
+
+
 	<cfloop query="us">
 		<cfquery name="thisCatNum" dbtype="query">
 			select (cast (cat_num as INTEGER)) as cat_num from d where
@@ -174,6 +181,32 @@
 
 				</cfif>
 
+
+					<cf_qoq>
+							    UPDATE
+							        result
+							    SET
+							        catnumlist='#catnumlist#'
+							    WHERE
+								   <cfset lnum=1>
+									<cfloop list="#ColLst#" index="c">
+										<cfset thisval=evaluate("us." & c)>
+										#c#
+										<cfif len(thisval) gt 0>
+											='#thisval#'
+										<cfelse>
+											is null
+										</cfif>
+
+										<cfif lnum lt listlen(ColLst)>
+											and
+											<cfset lnum=lnum+1>
+										</cfif>
+									</cfloop>
+							</cf_qoq>
+
+
+
 <!----
 						if previous..this...next then we're in the middle of a series; do nothing
 
@@ -206,6 +239,8 @@
 
 				<cfset listPos=listPos+1>
 			</cfloop>
+
+			<cfdump var=#result#>
 		</cfif>
 
 
