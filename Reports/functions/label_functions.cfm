@@ -140,6 +140,9 @@
 					<cfset nextCN=listgetat(rcnl,listPos+1)>
 				</cfif>
 				<br>nextCN: #nextCN#
+				<cfif previousCN+1 is not cn and nextCN-1 is not cn>
+					<br>this number is not part of a series
+				</cfif>
 
 
 				<!----
