@@ -93,7 +93,7 @@
 	</cfquery>
 	<cfloop query="us">
 		<cfquery name="thisCatNum" dbtype="query">
-			select cat_num from d where
+			select (cast cat_num as INTEGER) as cat_num from d where
 			<cfset lnum=1>
 			<cfloop list="#ColLst#" index="c">
 				<cfset thisval=evaluate("us." & c)>
