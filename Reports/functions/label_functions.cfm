@@ -94,9 +94,8 @@
 	<cfloop query="us">
 		<cfquery name="thisCatNum" dbtype="query">
 			select cat_num from d where
-
 			<cfloop list="#ColLst#" index="c">
-				#c#='#evaluate("us." & c) and
+				#c#='#evaluate("us." & c)#' and
 			</cfloop>
 			1=1
 		</cfquery>
