@@ -119,7 +119,7 @@
 		<cfloop query="thisCatNum">
 			<br>cat_num=#cat_num#
 			<cfset ccn=cat_num>
-			<cfif ccn=lcn+1>
+			<cfif ccn is lcn+1>
 				<br>in series....
 			</cfif>
 
