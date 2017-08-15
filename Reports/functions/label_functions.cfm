@@ -130,7 +130,6 @@
 				<cfif len(lastcatnum) is 0>
 					<!---- just prime ---->
 					<br>first loop, priming lastcatnum
-					<cfset lastcatnum=cn>
 				<cfelse>
 					<br>not first loop, processing.....
 					<cfif cn is lastcatnum+1>
@@ -150,6 +149,7 @@
 						<cfset catnumlist=listappend(catnumlist,cn)>
 					</cfif>
 				</cfif>
+				<cfset lastcatnum=cn>
 
 				<cfset listPos=listPos+1>
 			</cfloop>
