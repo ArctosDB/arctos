@@ -114,7 +114,7 @@
 		</cfquery>
 		<cfdump var=#thisCatNum#>
 		<cfset catnumlist="">
-		<cfset lastcatnum=0>
+		<cfset lastcatnum=-99999>
 		<cfset startseriescatnum="">
 		<cfset inseries=false>
 		<cfloop query="thisCatNum">
