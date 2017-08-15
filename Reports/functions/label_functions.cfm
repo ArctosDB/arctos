@@ -143,6 +143,8 @@
 						<cfelse>
 							<br>next number is not in series, write this one.....
 							<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#-#cn#")>
+							<!--- reset series flag --->
+							<cfset startseriescatnum="">
 						</cfif>
 					<cfelse>
 						<br>not in series
