@@ -87,7 +87,7 @@
     <cfargument name="d" required="true" type="query">
 
 	<cfset ColLst=d.columnList>
-	<cfset colLst=listdelete(listfindnocase,colLst,"cat_num")>
+	<cfset colLst=listdeleteat(listfindnocase,colLst,"cat_num")>
 
 	<cfquery name="d" dbtype="query">
 		select #colLst# from d group by #colLst#
