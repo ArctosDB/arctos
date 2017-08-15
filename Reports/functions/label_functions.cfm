@@ -94,10 +94,14 @@
 	<cfloop query="us">
 		<cfquery name="thisCatNum" dbtype="query">
 			select cat_num from d where
+			<cfset lnum=1>
 			<cfloop list="#ColLst#" index="c">
-				#c#='#evaluate("us." & c)#' and
+				#c#='#evaluate("us." & c)#'
+				<cfif lnum lt listlen(ColLst)>
+					and
+					<cfset lnum=lnum+1>
+				</cfif>
 			</cfloop>
-			1=1
 		</cfquery>
 		<cfdump var=#thisCatNum#>
 	</cfloop>
