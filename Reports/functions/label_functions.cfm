@@ -98,8 +98,6 @@
 			<cfset lnum=1>
 			<cfloop list="#ColLst#" index="c">
 				<cfset thisval=evaluate("us." & c)>
-
-
 				#c#
 				<cfif len(thisval) gt 0>
 					='#thisval#'
@@ -120,6 +118,10 @@
 		<cfset startseriescatnum="">
 		<cfset inseries=false>
 		<cfloop query="thisCatNum">
+			<br>cat_num=#cat_num#
+			<br>lastcatnum=#lastcatnum#
+			<br>startseriescatnum=#startseriescatnum#
+			<br>inseries=#inseries#
 			<cfif inseries is true>
 				<!--- still going? ---->
 				<cfif cat_num is lastcatnum+1>
