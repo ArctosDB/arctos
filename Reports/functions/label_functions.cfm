@@ -135,7 +135,7 @@
 					<cfif cn is lastcatnum+1>
 						<br>this is last plus one; we're in a series
 						<cfif len(startseriescatnum) is 0>
-							<cfset startseriescatnum=lastcatnum>
+							<cfset startseriescatnum=cn>
 						</cfif>
 						<!---- if the next number is this plus one, rock on. Else write it and reset ---->
 						<cfif listlen(rcnl) gt listpos and listgetat(rcnl,listPos+1) is cn+1>
