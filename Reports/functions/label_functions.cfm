@@ -85,6 +85,7 @@
 <cffunction name="catnum_to_list" access="public" returntype="query">
 
     <cfargument name="d" required="true" type="query">
+	<cfoutput>
 
 	<cfset ColLst=d.columnList>
 	<cfset colLst=listdeleteat(colLst,listfindnocase(colLst,"cat_num"))>
@@ -145,10 +146,9 @@
 
 			<cfset lastcatnum=cat_num>
 		</cfloop>
-
 		<p>catnumlist: #catnumlist#</p>
 	</cfloop>
-
+</cfoutput>
 
   <cfreturn d>
 </cffunction>
