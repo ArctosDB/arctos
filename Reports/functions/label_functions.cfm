@@ -130,12 +130,12 @@
 				<hr>
 				cn: #cn#
 				<!--- get previous number, if there is one ---->
-				<cfset previousCN="">
+				<cfset previousCN=-5>
 				<cfif listpos gt 1>
 					<cfset previousCN=listgetat(rcnl,listPos-1)>
 				</cfif>
 				<br>previousCN: #previousCN#
-				<cfset nextCN="">
+				<cfset nextCN=-5>
 				<cfif listlen(rcnl) gt listpos>
 					<cfset nextCN=listgetat(rcnl,listPos+1)>
 				</cfif>
