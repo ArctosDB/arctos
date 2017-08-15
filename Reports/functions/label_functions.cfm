@@ -142,7 +142,7 @@
 							<br>next number is in the series, doing nothing
 						<cfelse>
 							<br>next number is not in series, write this one.....
-							<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#=#cn#">
+							<cfset catnumlist=listappend(catnumlist,"#startseriescatnum#=#cn#")>
 						</cfif>
 					</cfif>
 
