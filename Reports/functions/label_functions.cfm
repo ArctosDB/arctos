@@ -112,7 +112,16 @@
 			</cfloop>
 			order by cat_num
 		</cfquery>
+		<cfset rcnl=valuelist(thisCatNum.cat_num)>
+
+
+
+
 		<cfdump var=#thisCatNum#>
+
+		<p>
+			rcnl: #rcnl#
+		</p>
 		<cfset catnumlist="">
 		<cfset lastcatnum=-99999>
 		<cfset startseriescatnum="">
