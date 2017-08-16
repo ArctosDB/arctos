@@ -1,5 +1,13 @@
 <!-------------------------------------------------------------->
 <cffunction name="format_cumv_single" access="public" returntype="Query">
+	<!----
+
+		INPUT: Parts with part attribute data
+
+		OUTPUT: Manipulated part names
+
+	---->
+
     <cfargument name="d" required="true" type="query">
 	<cfquery name="orig" dbtype="query">
 		select * from d
@@ -83,6 +91,15 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="catnum_to_list" access="public" returntype="query">
+
+	<!----
+
+		INPUT: Query containing cat_num as INTEGER
+
+		OUTPUT: everything except cat_num GROUPed, cat_num as range-containing list in variable catnumlist
+
+	---->
+
     <cfargument name="d" required="true" type="query">
 	<cfset ColLst=d.columnList>
 	<cfset colLst=listdeleteat(colLst,listfindnocase(colLst,"cat_num"))>
@@ -127,15 +144,6 @@
 				<cfif listlen(rcnl) gt listpos>
 					<cfset nextCN=listgetat(rcnl,listPos+1)>
 				</cfif>
-				<!----
-						if NOT (previous..this) and (this..next) : starting series
-
-						if (previous..this) and (this..next)     : in middle of series
-
-						if (previous..this) and NOT (this..next) : ending series
-
-						ELSE                                     : no series, single outlier-number
-				---->
 				<cfif previousCN+1 neq cn and cn+1 eq nextCN>
 					<cfset thisSeries=listappend(thisSeries,cn)>
 				<cfelseif previousCN+1 eq cn and cn+1 eq nextCN>
@@ -178,6 +186,23 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="format_cumv_multi" access="public" returntype="Query">
+
+	<!----
+
+		INPUT: Query containing
+			family
+			scientific_name
+			higher_geig
+			partdetail
+
+		OUTPUT: GROUPed data
+			one_family
+			one_higher_geog
+			one_scientific_name
+			individual_count
+
+	---->
+
     <cfargument name="d" required="true" type="query">
 	<cfquery name="family" dbtype="query">
 		select family from d group by family
@@ -235,6 +260,10 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="get_loan" access="public" returntype="Query">
+	<!-----
+		INPUT: transaction_id
+		OUTPUT: Loan summary (see CustomTags/getLoanFormInfo.cfm)
+	---->
     <cf_getLoanFormInfo>
     <cfquery name="d" dbtype="query">
         select * from getLoan
@@ -243,6 +272,10 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="get_loan_trunc" access="public" returntype="Query">
+	<!-----
+		INPUT: transaction_id
+		OUTPUT: Loan summary (see CustomTags/getLoanFormInfo.cfm), truncated
+	---->
     <cf_getLoanFormInfo>
     <cfquery name="d" dbtype="query">
         select * from getLoan
@@ -261,6 +294,24 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="format_uam_box" access="public" returntype="Query">
+	<!-----
+		INPUT: query containing
+			geography "fields"
+			sex
+			other_ids
+			collectors
+			attributes
+
+
+		OUTPUT: Query containing manipulated data in
+			locality
+			sexcode
+			idNum
+			formatted_collectors
+			measurements
+			formatted_parts
+			formatted_date
+	---->
     <cfargument name="d" required="true" type="query">
 	<cfset lAr = ArrayNew(1)>
 	<cfset sAr = ArrayNew(1)>
@@ -478,6 +529,25 @@
 </cffunction>
 <!---------------------------------------------------------------------->
 <cffunction name="format_uam_vial" access="public" returntype="Query">
+
+		<!-----
+		INPUT: query containing
+			geography "fields"
+			sex
+			other_ids
+			collectors
+			attributes
+
+
+		OUTPUT: Query containing manipulated data in
+			locality
+			sexcode
+			idNum
+			formatted_collectors
+			measurements
+			formatted_parts
+			formatted_date
+	---->
     <cfargument name="d" required="true" type="query">
 
 	<cfset lAr = ArrayNew(1)>
@@ -698,6 +768,21 @@
 
 <!-------------------------------------------------------------->
 <cffunction name="format_msb" access="public" returntype="Query">
+
+	<!-----
+		INPUT: query containing
+			geography "fields"
+			sex
+			coordinates
+
+
+		OUTPUT: Query containing manipulated data in
+			locality
+			geog
+			formatted_date
+	---->
+
+
     <cfargument name="d" required="true" type="query">
     <cfset lAr = ArrayNew(1)>
 	<cfset gAr = ArrayNew(1)>
@@ -776,6 +861,26 @@
 </cffunction>
 <!------------------------------>
 <cffunction name="format_ala" access="public" returntype="Query">
+	<!-----
+		INPUT: query containing
+			geography "fields"
+			coordinates
+			collectors
+			identified_by
+			project_name
+			attributes
+
+
+		OUTPUT: Query containing manipulated data in
+			locality
+			collector
+			determiner
+			project
+			ala
+			formatted_attributes
+			identification
+	---->
+
     <cfargument name="d" required="true" type="query">
 
     <cfset locAry = ArrayNew(1)>
@@ -791,14 +896,7 @@
     <cfloop query="d">
 	    <cfset identification = replace(sci_name_with_auth,"&","&amp;","all")>
         <cfset identAry[i] = "#identification#">
-
-
-
 		<cfset locality="">
-
-
-
-
 
 		<cfif len(#quad#) gt 0>
 			<cfif len(#locality#) gt 0>
@@ -853,8 +951,8 @@
 		 <cfif right(locality,1) is not ".">
 			 <cfset locality = "#locality#.">
 		</cfif>
-				<cfset locality = replace(locality,".:,",".: ","all")>
-				<cfset locality = replace(locality," & "," &amp; ","all")>
+		<cfset locality = replace(locality,".:,",".: ","all")>
+		<cfset locality = replace(locality," & "," &amp; ","all")>
 
         <cfset locAry[i] = "#locality#">
 
@@ -904,6 +1002,21 @@
 </cffunction>
 <!--------------------------------------->
 <cffunction name="format_ledger" access="public" returntype="Query">
+
+	<!-----
+		INPUT: (MVZ stuff)
+
+
+		OUTPUT: Query containing manipulated data in
+			coordinates
+			format_agents
+			highergeog
+			locality
+			cde
+			restIds
+	---->
+
+
 	<cfargument name="q" required="true" type="query">
 
 	<cfset colAr = ArrayNew(1)>
@@ -1096,8 +1209,22 @@
 	<cfset temp=queryAddColumn(q, "restIds", "VarChar", rAr)>
 	<cfreturn q>
 </cffunction>
-
+<!----------------------------------------------------------------------------->
 <cffunction name="format_label" access="public" returnType="Query">
+
+	<!-----
+		INPUT: (MVZ stuff)
+
+
+		OUTPUT: Query containing manipulated data in
+			geography
+			agent
+			agent_id
+			formatted_parts
+			formatted_sex
+	---->
+
+
 	<cfargument name="q" required="true" type="query">
 
 	<cfset geogAr = ArrayNew(1)>
@@ -1352,8 +1479,23 @@
 	<cfset temp = queryAddcolumn(q, "formatted_sex", "VarChar", sexAr)>
 	<cfreturn q>
 </cffunction>
-
+<!-------------------------------------------------------------->
 <cffunction name="format_label_mammal" access="public" returnType="Query">
+
+	<!-----
+		INPUT: (MVZ stuff)
+
+
+		OUTPUT: Query containing manipulated data in
+			geography
+			agent
+			agent_id
+			formatted_parts
+			formatted_sex
+
+	---->
+
+
 	<cfargument name="q" required="true" type="query">
 
 	<!--- variable declarations --->
@@ -1555,60 +1697,6 @@
 
 		<cfset pAr[i] = "#partString#">
 
-<!--- 		<cfif len(newParts) is not 0 and foundSkin is 1 and foundSkull is 1>
-				<!-- If there are preservation methods attached, we need to parse them out. -->
-				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
-				<cfset result = REFind(regex, newParts, 1, True)>
-				<cfif result.len[1] is not 0>
-					<cfset newParts = mid(newParts, result.pos[1], result.len[1]-1)>
-					<cfset newParts = trim(newParts)>
-				</cfif>
-				<!--  "skin, skull, other parts" ==> "+other parts" -->
-				<cfset newParts = "+#newParts#">
-
-			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is 0>
-				<!--  only "skull" ==> "skull"-->
-				<cfset newParts = "skull">
-
-			<cfelseif foundSkull is 1 and len(newParts) is not 0>
-				<!--  "skull, other parts (no skin/tissue)" ==> "skull, other parts"-->
-				<cfset tempIndex = 0>
-				<cfset tempNewParts = "">
-				<cfloop list="#newParts#" delimiters=";" index="p" >
-					<cfif tempIndex is index>
-						<cfif len(tempNewParts) is 0>
-							<cfset tempNewParts = "skull; #p#">
-						<cfelse>
-							<cfset tempNewParts = "#tempNewParts#; skull; #p#">
-						</cfif>
-					<cfelse>
-						<cfif len(tempNewParts) is 0>
-							<cfset tempNewParts = "#p#">
-						<cfelse>
-							<cfset tempNewParts = "#tempNewParts#; #p#">
-						</cfif>
-					</cfif>
-					<cfset tempIndex= tempIndex+1>
-				</cfloop>
-				<cfset newParts = tempNewParts>
-			<cfelseif foundSkull is 1 and foundSkin is 1 and len(newParts) is 0>
-				<!--  only "skull, skin" => "$@%" (replaced later to "")-->
-				<cfset newParts = "$@%">
-			</cfif>
-		</cfif>
-
-		<cfif len(newParts) is 0 or newParts is "whole organism">
-			<cfif len(excludeList) is 0>
-				<cfset excludeList = "#cat_num#">
-			<cfelse>
-				<cfset excludeList = "#excludeList#, #cat_num#">
-			</cfif>
-		</cfif>
-
-		<cfset newParts = "#replace(newParts,"$@%", "", "one")#">
-		<cfset pAr[i] = "#newParts#">
-		--->
-
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
 		<cfif trim(formatted_sex) is "unknown" or trim(formatted_sex) is 'recorded as unknown' or trim(formatted_sex) equal 'not recorded'>
@@ -1641,6 +1729,17 @@
 </cffunction>
 <!------------------------------------>
 <cffunction name="format_loan_invoice" access="public" returntype="query">
+
+	<!-----
+		INPUT: query containing datum
+
+
+		OUTPUT: Query containing manipulated data in
+			fDatum
+
+	---->
+
+
 	<cfargument name="q" required="true" type="query">
 	<cfset i = 1>
 	<cfset datumAr= ArrayNew(1)>
