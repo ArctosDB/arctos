@@ -1481,6 +1481,9 @@ where
 							where
 								preferred_agent_name.agent_id=agent_name.agent_id and
 								upper(agent_name.agent_name) like '%#ucase(a)#%'
+							group by
+								preferred_agent_name.agent_name,
+								preferred_agent_name.agent_id
 						) where rownum<=5
 					</cfquery>
 					<cfif a.recordcount gt 0>
