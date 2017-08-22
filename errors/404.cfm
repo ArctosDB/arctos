@@ -128,6 +128,11 @@
 	</p>
 	<cfif request.rdurl contains "mediaUploads">
 		is media see what we can find.....
+		<cfquery name="pm" datasource="uam_god">
+			select media_id from media where upper(media_uri) like '%#listlast(request.rdurl,"/")#%'
+		</cfquery>
+		<cfdump var="pm">
+
 
 	</cfif>
 
