@@ -80,9 +80,9 @@ function setContDim(h,w,l){
 					</tr>
 				</table>
 
-				<br><span class="likeLink" onclick="setContDim('5','13','13');">5,13,13</span>
-				<br><span class="likeLink" onclick="setContDim('7','13','13');">7,13,13</span>
-				<br><span class="likeLink" onclick="setContDim('','','');">reset</span>
+				<br><span class="likeLink" onclick="setContDim('5','13','13');">Set dimensions to (5,13,13)</span>
+				<br><span class="likeLink" onclick="setContDim('7','13','13');">Set dimensions to (7,13,13)</span>
+				<br><span class="likeLink" onclick="setContDim('','','');">reset dimensions</span>
 				</div>
 			</div>
 			<br>
