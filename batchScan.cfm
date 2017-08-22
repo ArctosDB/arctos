@@ -262,6 +262,25 @@ function setContDim(h,w,l){
 					select * from container where barcode='parent_barcode'
 				</cfquery>
 
+
+				<p>
+					<br>v_container_id=#updatingpgarent.container_id#
+					<br>v_parent_container_id=#updatingpgarent.parent_container_id#
+					<br>v_container_type=#new_parent_c_type#
+					<br>v_label=#updatingpgarent.label#
+					<br>v_description=#updatingpgarent.description#
+					<br>v_container_remarks=#updatingpgarent.CONTAINER_REMARKS#
+					<br>v_barcode=#updatingpgarent.barcode#
+					<br>v_width=#new_w#
+					<br>v_height=#new_h#
+					<br>v_length=#new_l#
+					<br>v_number_positions=#updatingpgarent.number_positions#
+					<br>v_locked_position=#updatingpgarent.locked_position#
+					<br>v_institution_acronym=#updatingpgarent.institution_acronym#
+
+
+
+				</p>
 				<cfstoredproc
 					datasource="user_login"
 					username="#session.dbuser#"
