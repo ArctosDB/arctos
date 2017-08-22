@@ -145,6 +145,8 @@
 			<cfquery name="updatingpgarent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from container where barcode='#parent_barcode#'
 			</cfquery>
+
+			<cfoutput>
 				<p>
 					<br>v_container_id=#updatingpgarent.container_id#
 					<br>v_parent_container_id=#updatingpgarent.parent_container_id#
@@ -160,6 +162,8 @@
 					<br>v_locked_position=#updatingpgarent.locked_position#
 					<br>v_institution_acronym=#updatingpgarent.institution_acronym#
 				</p>
+
+				</cfoutput>
 			<cfstoredproc
 				datasource="user_login"
 				username="#session.dbuser#"
