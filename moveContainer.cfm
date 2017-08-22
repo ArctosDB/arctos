@@ -7,7 +7,7 @@
        select container_type from ctcontainer_type where container_type!='collection object' order by container_type
     </cfquery>
 <style>
-	.red {background-color:#FF0000; } .green {background-color:#00FF00; } .yellow {background-color:#FFFF00; } 
+	.red {background-color:#FF0000; } .green {background-color:#00FF00; } .yellow {background-color:#FFFF00; }
 </style>
 <script>
 	if ( !Date.prototype.toISOString ) {
@@ -47,6 +47,9 @@
 				olddisp: $("#olddisp").val(),
 				childContainerType: $("#childContainerType").val(),
 				parentContainerType: $("#parentContainerType").val(),
+				new_h: $("#new_h").val(),
+				new_w: $("#new_w").val(),
+				new_l: $("#new_l").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -101,13 +104,18 @@
 				moveThisOne();
 			}
 		}
+	function setContDim(h,w,l){
+		$("#new_h").val(h);
+		$("#new_w").val(w);
+		$("#new_l").val(l);
+	}
 </script>
 <cfoutput>
 	<div class="infoBox" style="display:table;">
 		<a href="batchScan.cfm">
 			Batch Scan
 		</a>
-		is available if your network connection and this form cannot play nicely. 
+		is available if your network connection and this form cannot play nicely.
 	</div>
 	<form name="moveIt" onsubmit="moveThisOne(); return false;">
 		<br>
@@ -152,11 +160,11 @@
 			</label>
 			<select name="parentContainerType" id="parentContainerType" size="1">
 				<option value="">
-					change nothing 
+					change nothing
 				</option>
 				<cfloop query="ctcontainer_type">
 					<option value="#container_type#">
-						#container_type# 
+						#container_type#
 					</option>
 				</cfloop>
 			</select>
@@ -165,14 +173,40 @@
 			</label>
 			<select name="childContainerType" id="childContainerType" size="1">
 				<option value="">
-					change nothing 
+					change nothing
 				</option>
 				<cfloop query="ctcontainer_type">
 					<option value="#container_type#">
-						#container_type# 
+						#container_type#
 					</option>
 				</cfloop>
 			</select>
+			<div style="border:1px solid green; padding:.5em;margin:.5em;">
+				<label for="new_h">
+					On save, when
+					<ul>
+						<li>"force-change Parent Container" is "freezer box", and </li>
+						<li>ALL of (H, W, L) are provided</li>
+					</ul>
+					Change parent container	dimensions to....
+				</label>
+				<table border>
+					<tr>
+						<td>H</td>
+						<td>W</td>
+						<td>L</td>
+					</tr>
+					<tr>
+						<td><input type="number" id="new_h" name="new_h" placeholder="H"></td>
+						<td><input type="number" id="new_w" name="new_w" placeholder="W"></td>
+						<td><input type="number" id="new_l" name="new_l" placeholder="H"></td>
+					</tr>
+				</table>
+
+				<br><span class="likeLink" onclick="setContDim('5','13','13');">Set dimensions to (5,13,13)</span>
+				<br><span class="likeLink" onclick="setContDim('7','13','13');">Set dimensions to (7,13,13)</span>
+				<br><span class="likeLink" onclick="setContDim('','','');">reset dimensions</span>
+			</div>
 		</div>
 		Containers Moved:
 		<span id="counter" style="background-color:green">

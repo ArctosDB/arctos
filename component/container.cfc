@@ -132,9 +132,58 @@
 	<cfargument name="olddisp" type="string" required="yes">
     <cfargument name="childContainerType" type="string" required="no">
     <cfargument name="parentContainerType" type="string" required="no">
+    <cfargument name="new_h" type="string" required="no">
+    <cfargument name="new_w" type="string" required="no">
+    <cfargument name="new_l" type="string" required="no">
+
+
 	<cftry>
 		<cfparam name = "msg" default = "">
 		<cftransaction>
+
+		<cfif parentContainerType is "freezer box" and len(new_h) gt 0 and len(new_w) gt 0 and len(new_l) gt 0>
+			<cfquery name="updatingpgarent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from container where barcode='#parent_barcode#'
+			</cfquery>
+			<!----
+				<p>
+					<br>v_container_id=#updatingpgarent.container_id#
+					<br>v_parent_container_id=#updatingpgarent.parent_container_id#
+					<br>v_container_type=#new_parent_c_type#
+					<br>v_label=#updatingpgarent.label#
+					<br>v_description=#updatingpgarent.description#
+					<br>v_container_remarks=#updatingpgarent.CONTAINER_REMARKS#
+					<br>v_barcode=#updatingpgarent.barcode#
+					<br>v_width=#new_w#
+					<br>v_height=#new_h#
+					<br>v_length=#new_l#
+					<br>v_number_positions=#updatingpgarent.number_positions#
+					<br>v_locked_position=#updatingpgarent.locked_position#
+					<br>v_institution_acronym=#updatingpgarent.institution_acronym#
+				</p>
+			---->
+			<cfstoredproc
+				datasource="user_login"
+				username="#session.dbuser#"
+				password="#decrypt(session.epw,session.sessionKey)#"
+				procedure="updateContainer">
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.container_id#"><!----v_container_id---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.parent_container_id#"><!----v_parent_container_id---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#new_parent_c_type#"><!----v_container_type---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.label#"><!---- v_label ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.description#"><!---- v_description ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.CONTAINER_REMARKS#"><!---- v_container_remarks ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.barcode#"><!---- v_barcode ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#new_w#"><!---- v_width ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#new_h#"><!---- v_height ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#new_l#"><!---- v_length ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.number_positions#"><!---- v_number_positions ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.locked_position#"><!---- v_locked_position ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.institution_acronym#"><!---- v_institution_acronym ---->
+			</cfstoredproc>
+		</cfif>
+
+
 		<cfstoredproc
            datasource="user_login"
            username="#session.dbuser#"

@@ -63,30 +63,30 @@ function setContDim(h,w,l){
 					</cfloop>
 				</select>
 				<div style="border:1px solid green; padding:.5em;margin:.5em;">
-				<label for="new_h">
-					On save, when
-					<ul>
-						<li>"force-change Parent Container" is "freezer box", and </li>
-						<li>ALL of (H, W, L) are provided</li>
-					</ul>
-					Change parent container	dimensions to....
-				</label>
-				<table border>
-					<tr>
-						<td>H</td>
-						<td>W</td>
-						<td>L</td>
-					</tr>
-					<tr>
-						<td><input type="number" id="new_h" name="new_h" placeholder="H"></td>
-						<td><input type="number" id="new_w" name="new_w" placeholder="W"></td>
-						<td><input type="number" id="new_l" name="new_l" placeholder="H"></td>
-					</tr>
-				</table>
-
-				<br><span class="likeLink" onclick="setContDim('5','13','13');">Set dimensions to (5,13,13)</span>
-				<br><span class="likeLink" onclick="setContDim('7','13','13');">Set dimensions to (7,13,13)</span>
-				<br><span class="likeLink" onclick="setContDim('','','');">reset dimensions</span>
+					<label for="new_h">
+						On save, when
+						<ul>
+							<li>"force-change Parent Container" is "freezer box", and </li>
+							<li>ALL of (H, W, L) are provided</li>
+						</ul>
+						Change parent container	dimensions to....
+					</label>
+					<table border>
+						<tr>
+							<td>H</td>
+							<td>W</td>
+							<td>L</td>
+						</tr>
+						<tr>
+							<td><input type="number" id="new_h" name="new_h" placeholder="H"></td>
+							<td><input type="number" id="new_w" name="new_w" placeholder="W"></td>
+							<td><input type="number" id="new_l" name="new_l" placeholder="H"></td>
+						</tr>
+					</table>
+	
+					<br><span class="likeLink" onclick="setContDim('5','13','13');">Set dimensions to (5,13,13)</span>
+					<br><span class="likeLink" onclick="setContDim('7','13','13');">Set dimensions to (7,13,13)</span>
+					<br><span class="likeLink" onclick="setContDim('','','');">reset dimensions</span>
 				</div>
 			</div>
 			<br>
