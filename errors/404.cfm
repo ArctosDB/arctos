@@ -135,7 +135,7 @@
 			<cfif pm.recordcount gt 0>
 				or try these links:
 				<cfloop query="pm">
-					<a href="/media/#media_id#">#listlast(media_uri,"/")#</a>
+					<br><a href="/media/#media_id#">#listlast(media_uri,"/")#</a>
 				</cfloop>
 			</cfif>
 		</p>
