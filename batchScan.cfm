@@ -62,6 +62,7 @@ function setContDim(h,w,l){
 						</option>
 					</cfloop>
 				</select>
+				<div style="border:1px solid green">
 				<label for="new_h">
 					On save, only when "force-change Parent Container" (ignored otherwise) is "freezer box", change parent container
 					dimensions to....
@@ -82,6 +83,7 @@ function setContDim(h,w,l){
 				<br><span class="likeLink" onclick="setContDim('5','13','13');">5,13,13</span>
 				<br><span class="likeLink" onclick="setContDim('7','13','13');">7,13,13</span>
 				<br><span class="likeLink" onclick="setContDim('','','');">reset</span>
+				</div>
 			</div>
 			<br>
 			<input type="reset"	class="clrBtn"	value="Clear Form"	tabindex="-1">
