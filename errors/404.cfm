@@ -134,9 +134,11 @@
 			Media are stored on the fileserver only temporarily. Use <a href="/MediaSearch.cfm">MediaSearch</a> to find them
 			<cfif pm.recordcount gt 0>
 				or try these links:
+				<ul>
 				<cfloop query="pm">
-					<br><a href="/media/#media_id#">#listlast(media_uri,"/")#</a>
+					<li><a href="/media/#media_id#">#listlast(media_uri,"/")#</a></li>
 				</cfloop>
+				</ul>
 			</cfif>
 		</p>
 	</cfif>
