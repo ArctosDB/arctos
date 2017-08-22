@@ -261,8 +261,7 @@ function setContDim(h,w,l){
 				<cfquery name="updatingpgarent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from container where barcode='#parent_barcode#'
 				</cfquery>
-
-
+				<!----
 				<p>
 					<br>v_container_id=#updatingpgarent.container_id#
 					<br>v_parent_container_id=#updatingpgarent.parent_container_id#
@@ -277,10 +276,8 @@ function setContDim(h,w,l){
 					<br>v_number_positions=#updatingpgarent.number_positions#
 					<br>v_locked_position=#updatingpgarent.locked_position#
 					<br>v_institution_acronym=#updatingpgarent.institution_acronym#
-
-
-
 				</p>
+				---->
 				<cfstoredproc
 					datasource="user_login"
 					username="#session.dbuser#"
