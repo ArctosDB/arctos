@@ -80,9 +80,9 @@ function setContDim(h,w,l){
 				<input type="number" id="new_w" name="new_w">
 				<label for="new_l">L</label>
 				<input type="number" id="new_l" name="new_l">
-				<br><span class="likeLink" onclick="setContDim('5,13,13')">5,13,13</span>
-				<br><span class="likeLink" onclick="setContDim('7,13,13')">7,13,13</span>
-				<br><span class="likeLink" onclick="setContDim(',,')">reset</span>
+				<br><span class="likeLink" onclick="setContDim('5','13','13');">5,13,13</span>
+				<br><span class="likeLink" onclick="setContDim('7','13','13');">7,13,13</span>
+				<br><span class="likeLink" onclick="setContDim('','','');">reset</span>
 
 
 
