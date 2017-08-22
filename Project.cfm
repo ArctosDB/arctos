@@ -322,7 +322,7 @@
 						</td>
 						<td>
 							<label for="funded_usd"  class="helpLink" data-helplink="project_funded_usd">Funded $ (US Dollars)</label>
-							<input type="text" name="funded_usd" id="funded_usd" value="#proj.funded_usd#">
+							<input type="number" name="funded_usd" id="funded_usd" value="#proj.funded_usd#">
 						</td>
 					</tr>
 				</table>
