@@ -149,7 +149,7 @@
 				<p>
 					<br>v_container_id=#updatingpgarent.container_id#
 					<br>v_parent_container_id=#updatingpgarent.parent_container_id#
-					<br>v_container_type=#new_parent_c_type#
+					<br>v_container_type=#parentContainerType#
 					<br>v_label=#updatingpgarent.label#
 					<br>v_description=#updatingpgarent.description#
 					<br>v_container_remarks=#updatingpgarent.CONTAINER_REMARKS#
@@ -169,7 +169,7 @@
 				procedure="updateContainer">
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.container_id#"><!----v_container_id---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.parent_container_id#"><!----v_parent_container_id---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#new_parent_c_type#"><!----v_container_type---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#parentContainerType#"><!----v_container_type---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.label#"><!---- v_label ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.description#"><!---- v_description ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.CONTAINER_REMARKS#"><!---- v_container_remarks ---->
