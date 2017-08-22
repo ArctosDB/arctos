@@ -131,7 +131,7 @@
 		<cfquery name="pm" datasource="uam_god">
 			select media_id from media where upper(media_uri) like '%#listlast(request.rdurl,"/")#%'
 		</cfquery>
-		<cfdump var="pm">
+		<cfdump var="#pm#">
 
 
 	</cfif>
