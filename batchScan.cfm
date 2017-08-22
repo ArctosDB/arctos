@@ -4,6 +4,15 @@
 jQuery(document).ready(function() {
 	$("#parent_barcode").focus();
 });
+
+function setContDim(h,w,l){
+	$("#new_h").val(h);
+	$("#new_w").val(w);
+	$("#new_l").val(l);
+
+
+}
+
 </script>
 <cfif action is "nothing">
 	<cfoutput>
@@ -15,8 +24,8 @@ jQuery(document).ready(function() {
 		</div>
 		<p>
 		<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	   select container_type from ctcontainer_type where container_type!='collection object' order by container_type
-	</cfquery>
+		   select container_type from ctcontainer_type where container_type!='collection object' order by container_type
+		</cfquery>
 		<cfparam name="mode" default="tab">
 		<cfset numberFolders = 100>
 		<cfset colCount=5>
@@ -55,6 +64,22 @@ jQuery(document).ready(function() {
 						</option>
 					</cfloop>
 				</select>
+				<label for="new_h">
+					On save, only when "force-change Parent Container" (ignored otherwise) is "freezer box", change parent container
+					dimensions to....
+				</label>
+				<label for="new_h">H</label>
+				<input type="number" id="new_h" name="new_h">
+				<label for="new_w">W</label>
+				<input type="number" id="new_w" name="new_w">
+				<label for="new_l">L</label>
+				<input type="number" id="new_l" name="new_l">
+				<br><span class="likeLink" onclick="setContDim('5,13,13')">5,13,13</span>
+				<br><span class="likeLink" onclick="setContDim('7,13,13')">7,13,13</span>
+				<br><span class="likeLink" onclick="setContDim(',,')">reset</span>
+
+
+
 			</div>
 			<br>
 			<input type="reset"
