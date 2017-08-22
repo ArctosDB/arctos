@@ -62,7 +62,7 @@ function setContDim(h,w,l){
 						</option>
 					</cfloop>
 				</select>
-				<div style="border:1px solid green">
+				<div style="border:1px solid green; padding:.5em;margin:.5em;">
 				<label for="new_h">
 					On save, only when "force-change Parent Container" (ignored otherwise) is "freezer box", change parent container
 					dimensions to....
