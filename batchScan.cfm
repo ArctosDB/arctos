@@ -6,17 +6,9 @@ jQuery(document).ready(function() {
 });
 
 function setContDim(h,w,l){
-
-	console.log('setContDim');
-	console.log(h);
-	console.log(w);
-	console.log(l);
-
 	$("#new_h").val(h);
 	$("#new_w").val(w);
 	$("#new_l").val(l);
-
-
 }
 
 </script>
@@ -74,24 +66,25 @@ function setContDim(h,w,l){
 					On save, only when "force-change Parent Container" (ignored otherwise) is "freezer box", change parent container
 					dimensions to....
 				</label>
-				<label for="new_h">H</label>
-				<input type="number" id="new_h" name="new_h">
-				<label for="new_w">W</label>
-				<input type="number" id="new_w" name="new_w">
-				<label for="new_l">L</label>
-				<input type="number" id="new_l" name="new_l">
+				<table border>
+					<tr>
+						<td>H</td>
+						<td>W</td>
+						<td>L</td>
+					</tr>
+					<tr>
+						<td><input type="number" id="new_h" name="new_h" placeholder="H"></td>
+						<td><input type="number" id="new_w" name="new_w" placeholder="W"></td>
+						<td><input type="number" id="new_l" name="new_l" placeholder="H"></td>
+					</tr>
+				</table>
+
 				<br><span class="likeLink" onclick="setContDim('5','13','13');">5,13,13</span>
 				<br><span class="likeLink" onclick="setContDim('7','13','13');">7,13,13</span>
 				<br><span class="likeLink" onclick="setContDim('','','');">reset</span>
-
-
-
 			</div>
 			<br>
-			<input type="reset"
-				class="clrBtn"
-				value="Clear Form"
-				tabindex="-1">
+			<input type="reset"	class="clrBtn"	value="Clear Form"	tabindex="-1">
 			<br>
 			<input type="submit"
 				class="savBtn"
