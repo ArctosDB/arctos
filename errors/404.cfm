@@ -126,7 +126,10 @@
 			Occasionally, a specimen is recataloged. You may be able to find them by using Other Identifiers in Specimen Search.
 		</p>
 	</p>
+	<cfif request.rdurl contains "mediaUploads">
+		is media see what we can find.....
 
+	</cfif>
 
 	<cfif isGuid is false>
 		<cfset sub="404">
