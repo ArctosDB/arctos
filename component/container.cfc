@@ -162,6 +162,24 @@
 					<br>v_locked_position=#updatingpgarent.locked_position#
 					<br>v_institution_acronym=#updatingpgarent.institution_acronym#
 				</p>
+				<p>
+					updateContainer(
+						#updatingpgarent.container_id#,
+						#updatingpgarent.parent_container_id#,
+						'#parentContainerType#',
+						'#updatingpgarent.label#',
+						'#updatingpgarent.description#',
+						'#updatingpgarent.CONTAINER_REMARKS#',
+						'#updatingpgarent.barcode#',
+						'#new_w#',
+						'#new_h#',
+						'#new_l#',
+						'#updatingpgarent.number_positions#',
+						'#updatingpgarent.locked_position#',
+						'#updatingpgarent.institution_acronym#'
+						)
+
+				</p>
 
 				</cfoutput>
 			<cfstoredproc
