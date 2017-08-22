@@ -127,13 +127,18 @@
 		</p>
 	</p>
 	<cfif request.rdurl contains "mediaUploads">
-		is media see what we can find.....
 		<cfquery name="pm" datasource="uam_god">
-			select media_id from media where upper(media_uri) like '%#ucase(listlast(request.rdurl,"/"))#%' and rownum<11
+			select media_id, media_uri from media where upper(media_uri) like '%#ucase(listlast(request.rdurl,"/"))#%' and rownum<11
 		</cfquery>
-		<cfdump var="#pm#">
-
-
+		<p>
+			Media are stored on the fileserver only temporarily. Use <a href="/MediaSearch.cfm">MediaSearch</a> to find them
+			<cfif pm.recordcount gt 0>
+				or try these links:
+				<cfloop query="pm">
+					<a href="/media/#media_id#">#listlast(media_uri,"/")#</a>
+				</cfloop>
+			</cfif>
+		</p>
 	</cfif>
 
 	<cfif isGuid is false>
