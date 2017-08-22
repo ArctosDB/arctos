@@ -64,8 +64,12 @@ function setContDim(h,w,l){
 				</select>
 				<div style="border:1px solid green; padding:.5em;margin:.5em;">
 				<label for="new_h">
-					On save, only when "force-change Parent Container" (ignored otherwise) is "freezer box", change parent container
-					dimensions to....
+					On save, when
+					<ul>
+						<li>"force-change Parent Container" is "freezer box", and </li>
+						<li>ALL of (H, W, L) are provided</li>
+					</ul>
+					Change parent container	dimensions to....
 				</label>
 				<table border>
 					<tr>
@@ -253,6 +257,33 @@ function setContDim(h,w,l){
 		</p>
 		<cfset pf="">
 		<cftransaction>
+			<cfif new_parent_c_type is "freezer box" and len(new_h) gt 0 and len(new_w) gt 0 and len(new_l) gt 0>
+				<cfquery name="updatingpgarent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from container where barcode='parent_barcode'
+				</cfquery>
+
+				<cfstoredproc
+					datasource="user_login"
+					username="#session.dbuser#"
+					password="#decrypt(session.epw,session.sessionKey)#"
+					procedure="updateContainer">
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.container_id#"><!----v_container_id---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.parent_container_id#"><!----v_parent_container_id---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_parent_c_type#"><!----v_container_type---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.label#"><!---- v_label ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.description#"><!---- v_description ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.CONTAINER_REMARKS#"><!---- v_container_remarks ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.barcode#"><!---- v_barcode ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_w#"><!---- v_width ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_h#"><!---- v_height ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_l#"><!---- v_length ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.number_positions#"><!---- v_number_positions ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.locked_position#"><!---- v_locked_position ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.institution_acronym#"><!---- v_institution_acronym ---->
+				</cfstoredproc>
+			</cfif>
+
+
 			<cfset numberOfBarcodesScanned=0>
 			<cfset numberOfUniqueBarcodesScanned=0>
 			<cfset barcodescanlist="">
