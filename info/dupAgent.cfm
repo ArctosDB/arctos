@@ -456,11 +456,9 @@
 								max(substr(ended_date,1,4)) ldate
 							from
 								flat,
-								cataloged_item,
 								collector
 							where
-								collectflating_event.collection_object_id=cataloged_item.collection_object_id and
-								cataloged_item.collection_object_id=collector.collection_object_id and
+								flat.collection_object_id=collector.collection_object_id and
 								collector.agent_id=#id1#
 						</cfquery>
 						<div style="font-size:smaller;">
