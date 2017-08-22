@@ -6,6 +6,12 @@ jQuery(document).ready(function() {
 });
 
 function setContDim(h,w,l){
+
+	console.log('setContDim');
+	console.log(h);
+	console.log(w);
+	console.log(l);
+
 	$("#new_h").val(h);
 	$("#new_w").val(w);
 	$("#new_l").val(l);
