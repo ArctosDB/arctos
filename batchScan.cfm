@@ -259,7 +259,7 @@ function setContDim(h,w,l){
 		<cftransaction>
 			<cfif new_parent_c_type is "freezer box" and len(new_h) gt 0 and len(new_w) gt 0 and len(new_l) gt 0>
 				<cfquery name="updatingpgarent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select * from container where barcode='parent_barcode'
+					select * from container where barcode='#parent_barcode#'
 				</cfquery>
 
 
