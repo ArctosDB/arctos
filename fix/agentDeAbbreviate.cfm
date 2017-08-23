@@ -17,7 +17,7 @@ agentDeAbbreviate.cfm
 			<cfquery name="hgv" datasource="uam_god">
 				select * from agent_name where agent_name='#shouldFindName#' and agent_id=#agent_id#
 			</cfquery>
-			<cfif hg.recordcount hgv 1>
+			<cfif hgv.recordcount gte 1>
 				<br>has good variant do nothing
 			<cfelse>
 				<cfquery name="hg"  datasource="uam_god">
