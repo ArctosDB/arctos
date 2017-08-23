@@ -32,6 +32,13 @@
 
 
 		<br>|#mname#|
+
+
+		<cfquery name="hasascii"  datasource="uam_god">
+			 select agent_name from agent_name where agent_id=#agent_id# and agent_name = '#mname#'
+		</cfquery>
+		<cfdump var=#hasascii#>
+
 		<!----
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
