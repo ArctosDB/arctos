@@ -48,7 +48,7 @@ select
 </cfsavecontent>
 <cfoutput>
 
-
+	<cfset baidlist="-9999999">
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
