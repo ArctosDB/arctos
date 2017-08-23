@@ -27,7 +27,6 @@ agentDeAbbreviate.cfm
 					<br>DUPLICATE!!
 					<cfdump var=#hg#>
 
-				<!----
 					<cfquery name="insreln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into agent_relations (
 							AGENT_ID,
@@ -45,9 +44,7 @@ agentDeAbbreviate.cfm
 							sysdate
 						)
 					</cfquery>
-				---->
 				<cfelse>
-				<!----
 					<cfquery name="autoinsert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into agent_name (
 							AGENT_NAME_ID,
@@ -61,7 +58,6 @@ agentDeAbbreviate.cfm
 							'#shouldFindName#'
 						)
 					</cfquery>
-				---->
 					<br>can probably auto-insert a name
 
 				</cfif>
