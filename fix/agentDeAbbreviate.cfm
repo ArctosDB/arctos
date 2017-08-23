@@ -38,6 +38,9 @@
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name = '#mname#'
 		</cfquery>
 		<cfdump var=#hasascii#>
+		<cfif hasascii.recordcount lt 1>
+			<br>FUNKY ALERT
+		</cfif>
 
 		<!----
 		<cfquery name="hasascii"  datasource="uam_god">
