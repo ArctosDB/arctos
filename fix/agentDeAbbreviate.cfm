@@ -27,7 +27,7 @@ agentDeAbbreviate.cfm
 					<br>DUPLICATE!!
 					<cfdump var=#hg#>
 
-					<cfquery name="md"  datasource="uam_god">
+					<cfquery name="insreln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into agent_relations (
 							AGENT_ID,
 							RELATED_AGENT_ID,
