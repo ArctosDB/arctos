@@ -11,8 +11,10 @@ agentDeAbbreviate.cfm
 		</cfquery>
 		<cfloop query="d">
 			<br>#preferred_agent_name#
+			<cfset shouldFindName=replace(d.preferred_agent_name,' Dr.','','all')>
+			<br>#shouldFindName#
 			<cfquery name="hg"  datasource="uam_god">
-				select * from agent_name where agent_name='#replace(d.preferred_agent_name,' Dr.','','all')#'
+				select * from agent_name where agent_name='#shouldFindName#'
 			</cfquery>
 			<cfif hg.recordcount gte 1>
 				<cfdump var=#hg#>
