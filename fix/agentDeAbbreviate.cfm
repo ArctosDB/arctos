@@ -17,8 +17,8 @@
 			) and
 			regexp_like(preferred_agent_name,'[a-z]\.') and
 			preferred_agent_name not like 'Mrs. %' and
-			preferred_agent_name not like '$ Jr.' and
-			preferred_agent_name not like '$ Sr.'
+			preferred_agent_name not like '% Jr.' and
+			preferred_agent_name not like '% Sr.'
 	</cfquery>
 	<cfloop query="raw">
 
