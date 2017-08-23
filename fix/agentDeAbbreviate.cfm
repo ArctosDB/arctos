@@ -16,9 +16,7 @@
 				select related_agent_id from  agent_relations where agent_relationship='bad duplicate of'
 			) and
 			regexp_like(preferred_agent_name,'[a-z]\.') and
-			preferred_agent_name not like 'Mrs. %' and
-			preferred_agent_name not like '% Jr.' and
-			preferred_agent_name not like '% Sr.'
+			preferred_agent_name not like 'Mrs. %'
 	</cfquery>
 	<cfloop query="raw">
 
