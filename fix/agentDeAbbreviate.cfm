@@ -5,14 +5,14 @@ agentDeAbbreviate.cfm
 			select
 				agent_id,
 				preferred_agent_name from agent where
-			agent_type='person' and preferred_agent_name like '%Mr.%' and
+			agent_type='person' and preferred_agent_name like '%Capt.%' and
 			  agent_id not in (select agent_id from agent_relations union select related_agent_id from agent_relations )
 			order by preferred_agent_name
 		</cfquery>
 		<cfloop query="d">
 			<hr>
 			#preferred_agent_name#
-			<cfset shouldFindName=replace(d.preferred_agent_name,'Mr. ','','all')>
+			<cfset shouldFindName=replace(d.preferred_agent_name,'Capt. ','','all')>
 			<br>#shouldFindName#
 			<cfquery name="hgv" datasource="uam_god">
 				select * from agent_name where agent_name='#shouldFindName#' and agent_id=#agent_id#
