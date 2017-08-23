@@ -21,8 +21,7 @@ agentDeAbbreviate.cfm
 				<br>has good variant do nothing
 			<cfelse>
 				<cfquery name="hg"  datasource="uam_god">
-					select * from agent_name where agent_name='#shouldFindName#'  and agent_id!=#agent_id# and agent_name_type not in
-						('last name')
+					select * from agent where preferred_agent_name='#shouldFindName#'  and agent_id!=#agent_id#
 				</cfquery>
 				<cfif hg.recordcount gte 1>
 					<br>DUPLICATE!!
