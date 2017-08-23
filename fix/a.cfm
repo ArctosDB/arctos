@@ -1,9 +1,40 @@
 <cfinclude template="/includes/_header.cfm">
+<cfinclude template="/Reports/functions/label_functions.cfm">
+
+<cfquery name="t" datasource="uam_god">
+	select
+  flat.scientific_name,
+  flat.family,
+  flat.country,
+  flat.state_prov,
+  flat.spec_locality,
+  flat.county,
+  flat.cat_num,
+  contains_part_container.label container_label
+FROM
+  flat,
+  specimen_part,
+  coll_obj_cont_hist,
+  container part_container,
+  container contains_part_container
+WHERE
+  flat.collection_object_id=specimen_part.derived_from_cat_item and
+  specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+  coll_obj_cont_hist.container_id=part_container.container_id and
+  part_container.parent_container_id=contains_part_container.container_id and
+  contains_part_container.barcode='UCM_JAR-1'
+</cfquery>
+before
+<cfdump var=#t#>
+<cfset x = catnum_to_list(t)>
+after
+<cfdump var=#x#>
 
 <!---
 create table temp_test (u varchar2(255), p varchar2(255));
 insert into temp_test (u,p) values ('dustylee','xxxxx');
----->
+
+
 <cfoutput>
     <cfquery datasource='uam_god' name='p'>
         select * from temp_test
@@ -22,6 +53,25 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
     <cfdump var=#pr#>
 </cfoutput>
+
+
+
+
+
+
+---->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!----------------------------
