@@ -24,7 +24,11 @@
 		#preferred_agent_name#
 
 
-		<cfset mname=rereplace(preferred_agent_name,'(\w*\.\w+|\w+\.\w*)','_','all')>
+		<cfset mname=rereplace(preferred_agent_name,'[a-z]\.\1','_','all')>
+
+
+
+
 		<br>#mname#
 		<!----
 		<cfquery name="hasascii"  datasource="uam_god">
