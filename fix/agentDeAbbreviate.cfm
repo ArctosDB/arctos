@@ -24,7 +24,7 @@
 		#preferred_agent_name#
 
 
-		<cfset mname=rereplace(preferred_agent_name,'([A-Za-z]*[a-z]\.)','\1','all')>
+		<cfset mname=rereplace(preferred_agent_name,'([A-Za-z]*[a-z]\.)','_','all')>
 
 
 
