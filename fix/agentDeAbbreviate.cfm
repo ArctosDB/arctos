@@ -46,6 +46,20 @@ agentDeAbbreviate.cfm
 					</cfquery>
 
 				<cfelse>
+					<cfquery name="autoinsert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into agent_name (
+							AGENT_NAME_ID,
+							AGENT_ID,
+							AGENT_NAME_TYPE,
+							AGENT_NAME
+						) values (
+							sq_agent_name_id.nextval,
+							#agent_id#,
+							'aka',
+							'#shouldFindName#'
+						)
+					</cfquery>
+
 					<br>can probably auto-insert a name
 
 				</cfif>
