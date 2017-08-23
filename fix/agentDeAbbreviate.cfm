@@ -24,12 +24,12 @@
 		#preferred_agent_name#
 
 
-		<cfset mname=rereplace(preferred_agent_name,'([A-Za-z]*[a-z]\.)','_','all')>
+		<cfset mname=trim(rereplace(preferred_agent_name,'([A-Za-z]*[a-z]\.)','','all'))>
 
 
 
 
-		<br>#mname#
+		<br>|#mname#|
 		<!----
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
