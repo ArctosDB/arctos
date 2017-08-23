@@ -23,9 +23,28 @@ agentDeAbbreviate.cfm
 				<cfquery name="hg"  datasource="uam_god">
 					select * from agent where preferred_agent_name='#shouldFindName#'  and agent_id!=#agent_id#
 				</cfquery>
-				<cfif hg.recordcount gte 1>
+				<cfif hg.recordcount is 1>
 					<br>DUPLICATE!!
 					<cfdump var=#hg#>
+
+					<cfquery name="md"  datasource="uam_god">
+						insert into agent_relations (
+							AGENT_ID,
+							RELATED_AGENT_ID,
+							AGENT_RELATIONSHIP,
+							AGENT_RELATIONS_ID,
+							CREATED_BY_AGENT_ID,
+							CREATED_ON_DATE
+						) values (
+							#agent_id#,
+							#hg.agent_id#,
+							'bad duplicate of',
+							sq_agent_relations_id.nextval,
+							2072,
+							sysdate
+						)
+					</cfquery>
+
 				<cfelse>
 					<br>can probably auto-insert a name
 
