@@ -24,8 +24,7 @@
 	</cfquery>
 	<cfloop query="raw">
 
-		<hr>
-		#preferred_agent_name# (#CREATED_BY_AGENT_ID#)
+
 
 
 		<cfset mname=trim(rereplace(preferred_agent_name,'([A-Za-z]*[a-z]\.)','','all'))>
@@ -33,7 +32,6 @@
 
 
 
-		<br>|#mname#|
 
 
 		<cfquery name="hasascii"  datasource="uam_god">
@@ -41,6 +39,11 @@
 		</cfquery>
 
 		<cfif hasascii.recordcount lt 1>
+
+				<hr>
+		#preferred_agent_name# (#CREATED_BY_AGENT_ID#)
+				<br>|#mname#|
+
 			<br>FUNKY ALERT
 			<cfdump var=#hasascii#>
 		</cfif>
