@@ -5,7 +5,7 @@ agentDeAbbreviate.cfm
 			select
 				agent_id,
 				preferred_agent_name from agent where
-			agent_type='person' and preferred_agent_name like '%Dr.%' and
+			agent_type='person' and preferred_agent_name like '%Mr.%' and
 			  agent_id not in (select agent_id from agent_relations union select related_agent_id from agent_relations )
 			order by preferred_agent_name
 		</cfquery>
@@ -27,6 +27,7 @@ agentDeAbbreviate.cfm
 					<br>DUPLICATE!!
 					<cfdump var=#hg#>
 
+				<!----
 					<cfquery name="insreln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into agent_relations (
 							AGENT_ID,
@@ -44,8 +45,9 @@ agentDeAbbreviate.cfm
 							sysdate
 						)
 					</cfquery>
-
+				---->
 				<cfelse>
+				<!----
 					<cfquery name="autoinsert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into agent_name (
 							AGENT_NAME_ID,
@@ -59,7 +61,7 @@ agentDeAbbreviate.cfm
 							'#shouldFindName#'
 						)
 					</cfquery>
-
+				---->
 					<br>can probably auto-insert a name
 
 				</cfif>
