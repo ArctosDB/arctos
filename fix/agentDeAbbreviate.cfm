@@ -1,5 +1,47 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+
+	<cfset baidlist="-9999999">
+	<cfquery name="raw" datasource="uam_god">
+		 select
+      		agent_id,
+			preferred_agent_name
+    	from
+			agent
+		where
+			agent_type='person' and
+			--CREATED_BY_AGENT_ID != 0 and
+    		agent_id not in (
+				select agent_id from  agent_relations where agent_relationship='bad duplicate of' union
+				select related_agent_id from  agent_relations where agent_relationship='bad duplicate of'
+			) and
+			regexp_like(preferred_agent_name,'[a-z]\.') and
+			preferred_agent_name not like 'Mrs. %'
+	</cfquery>
+	<cfloop query="raw">
+
+		<hr>
+		#preferred_agent_name#
+
+
+		<cfset mname=rereplace(preferred_agent_name,'(\w*\.\w+|\w+\.\w*)','_','all')>
+		<br>#mname#
+		<!----
+		<cfquery name="hasascii"  datasource="uam_god">
+			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
+			 regexp_like(agent_name,'^[A-Za-z -.]*$')
+		</cfquery>
+		<cfif hasascii.recordcount lt 1>
+			<cfset baidlist=listappend(baidlist,agent_id)>
+		</cfif>
+		------->
+	</cfloop>
+
+
+
+
+
+	<!---------------------
 agentDeAbbreviate.cfm
 		<cfquery name="d" datasource="uam_god">
 			select
@@ -65,6 +107,6 @@ agentDeAbbreviate.cfm
 
 
 		</cfloop>
-
+------------->
 </cfoutput>
 
