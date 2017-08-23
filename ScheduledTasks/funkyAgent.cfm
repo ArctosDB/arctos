@@ -47,7 +47,8 @@ select
 	</div>
 </cfsavecontent>
 <cfoutput>
-	<cfset baidlist="-9999999">
+
+
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
@@ -174,8 +175,58 @@ select
 			CREATED_BY_AGENT_ID,
 			preferred_agent_name
 	</cfquery>
+
+
+	<cfset baidlist="-9999999">
+	<cfquery name="raw" datasource="uam_god">
+		 select
+      		agent_id,
+			preferred_agent_name
+		from
+			agent
+		where
+			agent_type='person' and
+			CREATED_BY_AGENT_ID != 0 and
+    		agent_id not in (
+				select agent_id from  agent_relations where agent_relationship='bad duplicate of' union
+				select related_agent_id from  agent_relations where agent_relationship='bad duplicate of'
+			) and
+			regexp_like(preferred_agent_name,'[a-z]\.') and
+			preferred_agent_name not like 'Mrs. %' and
+			preferred_agent_name not like '% Jr.' and
+			preferred_agent_name not like '% Sr.' and
+			preferred_agent_name not like '% St. %'
+	</cfquery>
+	<cfloop query="raw">
+		<cfset mname=trim(rereplace(preferred_agent_name,'([A-Za-z]*[a-z]\.)','','all'))>
+		<cfquery name="hasascii"  datasource="uam_god">
+			 select agent_name from agent_name where agent_id=#agent_id# and agent_name = '#mname#'
+		</cfquery>
+		<cfif hasascii.recordcount lt 1>
+			<cfset baidlist=listappend(baidlist,agent_id)>
+		</cfif>
+	</cfloop>
+	<cfquery name="funk4"  datasource="uam_god">
+		select
+			agent_id,
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) createdBy,
+			'no_unabbreviatedtitle_variant' reason
+		from
+			agent
+		where
+			agent_id in (#baidlist#)
+		order by
+			CREATED_BY_AGENT_ID,
+			preferred_agent_name
+	</cfquery>
+
+
+
+
 	<cfquery name="funk_norder" dbtype="query">
-		select * from funk1 union select * from funk2 union select * from funk3
+		select * from funk1 union select * from funk2 union select * from funk3 union select * from funk4
 	</cfquery>
 
 	<cfif funk_norder.recordcount lt 1>
