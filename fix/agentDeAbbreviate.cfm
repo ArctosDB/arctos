@@ -2,13 +2,21 @@
 <cfoutput>
 agentDeAbbreviate.cfm
 		<cfquery name="d" datasource="uam_god">
-			select preferred_agent_name from agent where
+			select
+				agent_id,
+				preferred_agent_name from agent where
 			agent_type='person' and preferred_agent_name like '%Dr.%' and
 			  agent_id not in (select agent_id from agent_relations where agent_relationship='bad duplicate of')
 			order by preferred_agent_name
 		</cfquery>
 		<cfloop query="d">
 			<br>#preferred_agent_name#
+			<cfquery name="hg"  datasource="uam_god">
+				select * from agent where agent_name='#replace(d.preferred_agent_name,' Dr.','','all')#'
+			</cfquery>
+			<cfif hg.recordcount gte 1>
+				<cfdump var=#hg#>
+			</cfif>
 
 		</cfloop>
 
