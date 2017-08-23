@@ -5,7 +5,8 @@
 	<cfquery name="raw" datasource="uam_god">
 		 select
       		agent_id,
-			preferred_agent_name
+			preferred_agent_name,
+			CREATED_BY_AGENT_ID
     	from
 			agent
 		where
@@ -24,7 +25,7 @@
 	<cfloop query="raw">
 
 		<hr>
-		#preferred_agent_name#
+		#preferred_agent_name# (#CREATED_BY_AGENT_ID#)
 
 
 		<cfset mname=trim(rereplace(preferred_agent_name,'([A-Za-z]*[a-z]\.)','','all'))>
