@@ -17,9 +17,10 @@
 <cfquery name="name" datasource="uam_god">
 	select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#agent_id#
 </cfquery>
-<p>
-	#agent.PREFERRED_AGENT_NAME# (#agent.agent_type#) created by #agent.createdby# on #agent.CREATED_DATE#
-</p>
+<h3>
+	#agent.PREFERRED_AGENT_NAME# (#agent.agent_type#)
+	<div style="font-size:x-small">created by #agent.createdby# on #agent.CREATED_DATE#</div>
+</h3>
 <p>
 Agent Names:
 	<ul>
