@@ -116,6 +116,12 @@
 									<input type="text" name="agent_name" id="agent_name" class="msinput" placeholder="non-preferred name">
 								</div>
 							</div>
+							<div style="display:table;width:100%;">
+								<div style="display:table-cell">
+									<label for="agent_remark">Agent Remark</label>
+									<input type="text" name="agent_remark" id="agent_remark" class="minput" placeholder="agent remark">
+								</div>
+							</div>
 						</fieldset>
 						<fieldset class="compact">
 							<label for="address">Address</label>
