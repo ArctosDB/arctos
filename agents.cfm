@@ -127,7 +127,7 @@
 							</div>
 							<div style="display:table;width:100%;">
 								<div style="display:table-cell">
-									<label for="used_by_collection">Used by Collection</label>
+								<label for="used_by_collection" class="helpLink" data-helplink="agent_used_collection_search">Used by Collection</label>
 									<select name="used_by_collection" size="1" id="used_by_collection">
 										<option value=""></option>
 										<cfloop query="ctguid_prefix">
