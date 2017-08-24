@@ -6,18 +6,21 @@
 	Please note: your login may prevent you from seeing some linked data. The summary data below are accurate.
 </div>
 <cfquery name="agent" datasource="uam_god">
-	select * FROM agent where agent_id=#agent_id#
+	select AGENT_ID,
+	AGENT_TYPE,
+	AGENT_REMARKS,
+	PREFERRED_AGENT_NAME,
+	getPreferredAgentName(CREATED_BY_AGENT_ID) createdby,
+	CREATED_DATE
+ 	FROM agent where agent_id=#agent_id#
 </cfquery>
 <cfquery name="name" datasource="uam_god">
 	select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#agent_id#
 </cfquery>
-<br>Agent:
-<table border>
-	<tr>
-		<td align="right"><strong>Agent Type:</strong></td>
-		<td>#agent.agent_type#</td>
-	</tr>
-</table>
+<p>
+	#agent.PREFERRED_AGENT_NAME# (#agent.agent_type#) created by #agent.createdby# on #agent.CREATED_DATE#
+</p>
+<p>
 Agent Names:
 	<ul>
 		<cfloop query="name">
@@ -39,6 +42,10 @@ Agent Names:
 			</ul>
 		</p>
 	</cfif>
+</p>
+<p>
+	Remarks: #agent.AGENT_REMARKS#
+</p>
 	Agent Relationships:
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
