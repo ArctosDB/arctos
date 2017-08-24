@@ -888,6 +888,21 @@
 	<cfset srch=false>
 
 
+	<cfif isdefined("used_by_collection") AND len(used_by_collection) gt 0>
+		<cfset srch=true>
+		<cfset sql = "#sql# AND agent.agent_id IN (
+			 select
+    			collector.agent_id
+			from
+     			collector,
+  				cataloged_item,
+  				collection
+  			where
+  				collector.collection_object_id=cataloged_item.collection_object_id and
+  				cataloged_item.collection_id=collection.collection_id and
+				collection.guid_prefix IN ( #listqualify(used_by_collection,chr(39))#)
+		)">
+	</cfif>
 
 	<cfif isdefined("agent_remark") AND len(agent_remark) gt 0>
 		<cfset srch=true>

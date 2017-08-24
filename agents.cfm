@@ -77,6 +77,9 @@
 <cfquery name="ctagent_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_status from ctagent_status order by agent_status
 </cfquery>
+<cfquery name="ctguid_prefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select guid_prefix from collection order by guid_prefix
+</cfquery>
 <cfoutput>
 	<div id="pagewrapper">
 		<div id="divrow">
@@ -122,6 +125,19 @@
 									<input type="text" name="agent_remark" id="agent_remark" class="minput" placeholder="agent remark">
 								</div>
 							</div>
+							<div style="display:table;width:100%;">
+								<div style="display:table-cell">
+									<label for="used_by_collection">Used by Collection</label>
+									<select name="used_by_collection" size="1" id="used_by_collection">
+										<option value=""></option>
+										<cfloop query="ctguid_prefix">
+											<option value="#guid_prefix#">#guid_prefix#</option>
+										</cfloop>
+									</select>
+								</div>
+							</div>
+
+
 						</fieldset>
 						<fieldset class="compact">
 							<label for="address">Address</label>
