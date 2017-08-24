@@ -901,6 +901,17 @@
   				collector.collection_object_id=cataloged_item.collection_object_id and
   				cataloged_item.collection_id=collection.collection_id and
 				collection.guid_prefix IN ( #listqualify(used_by_collection,chr(39))#)
+			UNION
+			 select
+    			trans_agent.agent_id
+			from
+     			trans_agent,
+  				trans,
+  				collection
+  			where
+  				trans_agent.transaction_id=trans.transaction_id and
+  				trans.collection_id=collection.collection_id and
+				collection.guid_prefix IN ( #listqualify(used_by_collection,chr(39))#)
 		)">
 	</cfif>
 
