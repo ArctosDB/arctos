@@ -886,6 +886,13 @@
 					agent.agent_id > -1
 					">
 	<cfset srch=false>
+
+
+
+	<cfif isdefined("agent_remark") AND len(agent_remark) gt 0>
+		<cfset srch=true>
+		<cfset sql = "#sql# AND upper(agent.AGENT_REMARKS) like '%#trim(ucase(escapeQuotes(agent_remark)))#%'">
+	</cfif>
 	<cfif isdefined("anyName") AND len(anyName) gt 0>
 		<cfset srch=true>
 		<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#trim(ucase(escapeQuotes(anyName)))#%'">
