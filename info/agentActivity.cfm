@@ -19,7 +19,7 @@
 </cfquery>
 <h3>
 	#agent.PREFERRED_AGENT_NAME# (#agent.agent_type#)
-	<div style="font-size:x-small">created by #agent.createdby# on #agent.CREATED_DATE#</div>
+	<div style="font-size:small; margin-left:1em;">created by #agent.createdby# on #agent.CREATED_DATE#</div>
 </h3>
 <p>
 Agent Names:
