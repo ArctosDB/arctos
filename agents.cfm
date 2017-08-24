@@ -136,8 +136,6 @@
 									</select>
 								</div>
 							</div>
-
-
 						</fieldset>
 						<fieldset class="compact">
 							<label for="address">Address</label>
@@ -171,20 +169,20 @@
 						<fieldset class="compact">
 							<div style="display:table;width:100%;">
 								<div style="display:table-cell">
-								<label for="created_by">Created By</label>
-										<input type="text" name="created_by" id="created_by" class="sinput" placeholder="created by agent">
+									<label for="created_by">Created By</label>
+									<input type="text" name="created_by" id="created_by" class="sinput" placeholder="created by agent">
 								</div>
 								<div style="display:table-cell">
-								<label for="create_date_oper">Match</label>
-										<select name="create_date_oper" size="1" id="create_date_oper">
-											<option value="<=">Before</option>
-											<option selected value="=" >At</option>
-											<option value=">=">After</option>
-										</select>
+									<label for="create_date_oper">Match</label>
+									<select name="create_date_oper" size="1" id="create_date_oper">
+										<option value="<=">Before</option>
+										<option selected value="=" >At</option>
+										<option value=">=">After</option>
+									</select>
 								</div>
 								<div style="display:table-cell">
-								<label for="created_date">Created Date</label>
-										<input type="datetime" name="created_date" id="created_date" size="15" placeholder="created date">
+									<label for="created_date">Created Date</label>
+									<input type="datetime" name="created_date" id="created_date" size="15" placeholder="created date">
 								</div>
 							</div>
 						</fieldset>
