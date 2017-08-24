@@ -45,7 +45,9 @@ Agent Names:
 	</cfif>
 </p>
 <p>
-	Remarks: #agent.AGENT_REMARKS#
+	Remarks:
+
+	<div>#agent.AGENT_REMARKS#</div>
 </p>
 	Agent Relationships:
 	<cfquery name="agent_relations" datasource="uam_god">
