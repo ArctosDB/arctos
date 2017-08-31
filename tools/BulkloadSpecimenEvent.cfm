@@ -1097,8 +1097,12 @@ Upload CSV:
 			<cftransaction>
 				<cfset lcl_locality_id=l_locality_id>
 				<cfset lcl_collecting_event_id=l_collecting_event_id>
+				<cfset verbatimcoordinates="">
 				<p>
 					running for <a href="/guid/#guid#" target="_blank">#guid#</a>
+					<br>lcl_locality_id: #lcl_locality_id#
+					<br>l_collecting_event_id: #l_collecting_event_id#
+
 					<cfif lcl_collecting_event_id is 0>
 						<!--- we'll have to find or build an event - see about locality ---->
 						<cfif lcl_locality_id is 0>
@@ -1239,6 +1243,7 @@ Upload CSV:
 								<cfset lcl_locality_id=lid>
 							</cfif>
 						</cfif>
+
 						<!--- we should have a locality_id here, so see if we have a collecting_event.---->
 						<cfquery name="findEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select
