@@ -1719,7 +1719,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 						with every term's children being of the same rank. The tree should load with one term (eg, kingdom), expanding that should
 						find only terms ranked phylum (or whatever the second-level term in your classification is), etc. Expanding kingdom
 						should never find eg, one phylum and three families. This will almost never be true; children terms of mixed rank
-						are from inconssitent hierarchies, and should be rearranged into a single consistent hierarchy.
+						are from inconsitent hierarchies, and should be rearranged into a single consistent hierarchy.
 						Species (and other lower-lever terms which have no (useful) classification may appear at the top of the tree
 						(eg, beside kingdom). Given the hierarchical structure of this app, we MAY be able to help with SQL; contact a
 						DBA for more information.

@@ -1099,6 +1099,9 @@ Upload CSV:
 				<cfset lcl_collecting_event_id=l_collecting_event_id>
 				<p>
 					running for <a href="/guid/#guid#" target="_blank">#guid#</a>
+					<br>lcl_locality_id: #lcl_locality_id#
+					<br>l_collecting_event_id: #l_collecting_event_id#
+
 					<cfif lcl_collecting_event_id is 0>
 						<!--- we'll have to find or build an event - see about locality ---->
 						<cfif lcl_locality_id is 0>
