@@ -270,6 +270,14 @@
 		<cfthrow message = "Local subnet cannot be blacklisted" errorCode = "127001">
 		<cfabort>
 	</cfif>
+
+			insert into blacklist_subnet (subnet,INSERT_DATE,STATUS,LASTDATE) values ('#subnet#',sysdate,'hardblock',sysdate)
+
+
+<cfabort>
+
+
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into blacklist_subnet (subnet,INSERT_DATE,STATUS,LASTDATE) values ('#subnet#',sysdate,'hardblock',sysdate)
 	</cfquery>
