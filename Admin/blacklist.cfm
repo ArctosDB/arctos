@@ -276,7 +276,7 @@
 		insert into blacklist_subnet (subnet,INSERT_DATE,STATUS,LASTDATE) values ('#subnet#',sysdate,'hardblock',sysdate)
 	</cfquery>
 	<cfoutput>
-		<cflocation url="/Admin/blacklist.cfm??ipstartswith=#subnet#" addtoken="false">
+		<cflocation url="/Admin/blacklist.cfm?ipstartswith=#subnet#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------>
