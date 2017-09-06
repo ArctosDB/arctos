@@ -270,9 +270,9 @@
 		<cfthrow message = "Local subnet cannot be blacklisted" errorCode = "127001">
 		<cfabort>
 	</cfif>
-
+<cfoutput>
 			insert into blacklist_subnet (subnet,INSERT_DATE,STATUS,LASTDATE) values ('#subnet#',sysdate,'hardblock',sysdate)
-
+</cfoutput>
 
 <cfabort>
 
