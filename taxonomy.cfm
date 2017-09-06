@@ -162,7 +162,7 @@
 						of every Taxonomy record.
 					</li>
 					<li id="help_taxon_term">
-						<strong>Taxon Term</strong> is the data value of either a classification term ("Animalia") or or classification metadata (such
+						<strong>Taxon Term</strong> is the data value of either a classification term ("Animalia") or classification metadata (such
 						as name authors).
 					</li>
 					<li id="help_term_type">
