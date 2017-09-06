@@ -275,7 +275,9 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into blacklist_subnet (subnet,INSERT_DATE,STATUS,LASTDATE) values ('#subnet#',sysdate,'hardblock',sysdate)
 	</cfquery>
-	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
+	<cfoutput>
+		<cflocation url="/Admin/blacklist.cfm??ipstartswith=#subnet#" addtoken="false">
+	</cfoutput>
 </cfif>
 <!------------------------------------------>
 <cfif action is "del">
