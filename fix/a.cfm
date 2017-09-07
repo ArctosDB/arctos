@@ -24,6 +24,9 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
 	<cfdump var=#p.locstring#>
 
+	<cfoutput>
+	#p.locstring#
+	</cfoutput>
 <!----------------------------
 
  IIf((higher_geog EQ "no higher geography recorded"),DE(""),
