@@ -16,7 +16,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 				p.higher_geog EQ "no higher geography recorded",
 				de(""),
 				de(REPLACE(p.higher_geog,"North America, United States","USA","all"))
-				)">
+				)>
 
 
 
