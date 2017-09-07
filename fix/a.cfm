@@ -14,7 +14,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 	</cfquery>
 	<cfdump var=#p#>
 
-	<cfset x=IIf((p.higher_geog EQ "no higher geography recorded"),DE(""),DE(REPLACE(p.higher_geog,"North America, United States","USA","all"))) & IIf((p.spec_locality EQ ""),DE(""),DE(IIf((p.spec_locality EQ "no specific locality recorded"),DE(""),DE(", " & p.spec_locality)))) >
+	<cfset x=IIf((p.higher_geog EQ "no higher geography recorded"),DE(""),DE(REPLACE(p.higher_geog,"North America, United States","USA","all"))) & IIf((p.spec_locality EQ ""),DE(""),DE(IIf((p.spec_locality EQ "no specific locality recorded"),DE(""),DE(", " & de(p.spec_locality))))) >
 
 	<cfoutput>
 	#x#
