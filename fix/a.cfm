@@ -14,7 +14,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 	</cfquery>
 	<cfdump var=#p#>
 
-	<cfset x= IIf(p.spec_locality EQ "","",'hi') >
+	<cfset x= IIf(p.spec_locality EQ "","",de("hi")) >
 
 	<cfoutput>
 	#x#
