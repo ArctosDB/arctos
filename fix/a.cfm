@@ -16,7 +16,18 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 				p.higher_geog EQ "no higher geography recorded",
 				"",
 				REPLACE(p.higher_geog,"North America, United States","USA","all")
-				) &
+				)">
+
+
+
+
+
+	<cfdump var=#x#>
+
+<!----------------------------
+
+
+ &
 				IIf(
 					p.spec_locality EQ "",
 					"",
@@ -27,12 +38,6 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 					)
 				)>
 
-
-
-
-	<cfdump var=#x#>
-
-<!----------------------------
 
 	<cfset x=IIf((p.higher_geog EQ "no higher geography recorded"),DE(""),DE(REPLACE(p.higher_geog,"North America, United States","USA","all"))) & IIf((p.spec_locality EQ ""),DE(""),DE(IIf((p.spec_locality EQ "no specific locality recorded"),DE(""),DE(", " & p.spec_locality)))) >
 
