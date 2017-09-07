@@ -20,15 +20,13 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 				&
 				IIf(
 					p.spec_locality EQ "",
-					"",
-					IIf(
+					DE(""),
+					DE(IIf(
 						p.spec_locality EQ "no specific locality recorded",
-						"",
-						", " & p.spec_locality
-					)
+						de(""),
+						de(", " & p.spec_locality)
+					))
 				)>
-
-
 
 
 
@@ -37,6 +35,11 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
 <!----------------------------
 
+ IIf((higher_geog EQ "no higher geography recorded"),DE(""),
+DE(REPLACE(higher_geog,"North America, United States","USA","all"))) &
+IIf((spec_locality EQ ""),
+DE(""),
+DE(IIf((spec_locality EQ "no specific locality recorded"),DE(""),DE(", " & spec_locality)))) is not a valid ColdFusion expression.
 
  &
 				IIf(
