@@ -139,6 +139,9 @@
 				</span>
 				<label for="source">Source</label>
 				<input type="text" name="source" id="source" value="#source#" onfocus="highlightHelp(this.id);">
+				<span class="infoLink" onclick="var e=document.getElementById('source');e.value='='+e.value;">
+					[ Prefix with = for exact match ]
+				</span>
 				<label for="common_name">Common Name</label>
 				<input type="text" name="common_name" id="common_name" value="#common_name#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('common_name');e.value='%'+e.value;">
@@ -252,10 +255,14 @@
 			</cfif>
 			<cfif source is "LOCAL">
 				<cfset whr=whr & " and source in (select source from CTTAXONOMY_SOURCE) ">
+				<li>source IS LOCAL</li>
+			<cfelseif left(source,1) is "=">
+				<cfset whr=whr & " and upper(source) = '#escapeQuotes(ucase(right(source,len(source)-1)))#' ">
+				<li>source IS #source#</li>
 			<cfelse>
 				<cfset whr=whr & " and upper(source) like '#escapeQuotes(ucase(source))#%'">
+				<li>source STARTS WITH #source#</li>
 			</cfif>
-			<li>source STARTS WITH #source#</li>
 		</cfif>
 		<cfif len(common_name) gt 0>
 			<cfif tabls does not contain "common_name">
