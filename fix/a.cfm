@@ -13,7 +13,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
 
 	<cfset x=IIf(
-				p.higher_geog EQ "no higher geography recorded"),
+				p.higher_geog EQ "no higher geography recorded",
 				"",
 				REPLACE(p.higher_geog,"North America, United States","USA","all")
 				) &
