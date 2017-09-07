@@ -393,7 +393,7 @@ function copyEPt(){
                 cataloged_item.collection_object_id=identification.collection_object_id and
                 accepted_id_fg=1 and
                 part_name='#d_exist_part_name#'
-                <cfif len(existing_lot_count) gt 0>
+                <cfif len(d_existing_lot_count) gt 0>
                     and lot_count=#d_existing_lot_count#
                 </cfif>
                 <cfif len(existing_coll_obj_disposition) gt 0>
@@ -402,6 +402,14 @@ function copyEPt(){
             order by
                 collection.guid_prefix,cataloged_item.cat_num
         </cfquery>
+
+
+
+
+
+
+
+
         <form name="modPart" method="post" action="bulkPart.cfm">
             <input type="hidden" name="action" value="delPart2">
             <input type="hidden" name="table_name" value="#table_name#">
