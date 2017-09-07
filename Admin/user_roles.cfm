@@ -5,7 +5,7 @@ https://github.com/ArctosDB/arctos/issues/849#issuecomment-224385884
 
 update cf_ctuser_roles set DESCRIPTION='"Good student" basics. Manipulate most things at SpecimenDetail; manage Citations' where
 	ROLE_NAME='manage_specimens';
-	
+
 grant insert,update,delete on citation to manage_specimens;
 
 
@@ -18,14 +18,18 @@ grant insert,update,delete on citation to manage_specimens;
 			select * from cf_ctuser_roles order by role_name
 		</cfquery>
 		The following table summarizes Arctos Operator Roles, and may be out of date. Please use the contact link in the footer if you notice errors.
-		<br>The [def] link is the ONLY authoritative "description" of Arctos user roles. Note that roles are additive; "manage_geography" does NOT include SELECT 
+		<br>The [def] link is the ONLY authoritative "description" of Arctos user roles. Note that roles are additive; "manage_geography" does NOT include SELECT
 		access to table geog_auth_rec; all users already have such access through the PUBLIC role.
 		<br>
 		<div class="importantNotification">
-			Before assigning roles to users, provide them with the "required reading" link from the table below, and ensure that they 
+			Before assigning roles to users, provide them with the "required reading" link from the table below, and ensure that they
 			understand the responsibilities of working in a shared system.
+			<p>
+				Ensure users have read and understand http://handbook.arctosdb.org/documentation/sharing-data-and-resources.html
+				<b>before</b> assigning them any role involving shared data.
+			</p>
 		</div>
-		
+
 		<table border>
 			<tr>
 				<td>Role Name</td>
