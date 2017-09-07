@@ -7,7 +7,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
 
     <cfquery datasource='uam_god' name='p'>
-		select higher_geog, replace(spec_locality,'#','[hash') spec_locality from flat where guid='CHAS:Egg:569'
+		select higher_geog, replace(spec_locality,'##','[hash]') spec_locality from flat where guid='CHAS:Egg:569'
 	</cfquery>
 	<cfdump var=#p#>
 
