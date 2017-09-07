@@ -396,7 +396,7 @@ function copyEPt(){
                 <cfif len(d_existing_lot_count) gt 0>
                     and lot_count=#d_existing_lot_count#
                 </cfif>
-                <cfif len(existing_coll_obj_disposition) gt 0>
+                <cfif len(d_existing_coll_obj_disposition) gt 0>
                     and coll_obj_disposition='#d_existing_coll_obj_disposition#'
                 </cfif>
             order by
