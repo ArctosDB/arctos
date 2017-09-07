@@ -16,7 +16,18 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 				p.higher_geog EQ "no higher geography recorded",
 				de(""),
 				de(REPLACE(p.higher_geog,"North America, United States","USA","all"))
+				)
+				&
+				IIf(
+					p.spec_locality EQ "",
+					"",
+					IIf(
+						p.spec_locality EQ "no specific locality recorded",
+						"",
+						", " & p.spec_locality
+					)
 				)>
+
 
 
 
