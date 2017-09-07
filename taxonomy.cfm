@@ -258,7 +258,7 @@
 				<li>source IS LOCAL</li>
 			<cfelseif left(source,1) is "=">
 				<cfset whr=whr & " and upper(source) = '#escapeQuotes(ucase(right(source,len(source)-1)))#' ">
-				<li>source IS #source#</li>
+				<li>source IS #right(source,len(source)-1)#</li>
 			<cfelse>
 				<cfset whr=whr & " and upper(source) like '#escapeQuotes(ucase(source))#%'">
 				<li>source STARTS WITH #source#</li>
