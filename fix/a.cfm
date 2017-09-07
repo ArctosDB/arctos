@@ -7,31 +7,22 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
 
     <cfquery datasource='uam_god' name='p'>
-		select higher_geog, replace(spec_locality,'##','[hash]') spec_locality from flat where guid='CHAS:Egg:569'
+		select
+			decode(replace(higher_geog,'North America, United States','USA'),
+				'no higher geography recorded','',
+				higher_geog
+			)
+			||
+			decode(
+				replace(spec_locality,'no specific locality recorded'),
+				NULL,NULL,
+				', ' || spec_locality
+			) locstring
+			from flat where guid='CHAS:Egg:569'
 	</cfquery>
 	<cfdump var=#p#>
 
-
-	<cfset x=IIf(
-				p.higher_geog EQ "no higher geography recorded",
-				de(""),
-				de(REPLACE(p.higher_geog,"North America, United States","USA","all"))
-				)
-				&
-				IIf(
-					p.spec_locality EQ "",
-					DE(""),
-					DE(IIf(
-						p.spec_locality EQ "no specific locality recorded",
-						de(""),
-						de(", " & p.spec_locality)
-					))
-				)>
-
-
-
-
-	<cfdump var=#x#>
+	<cfdump var=#p.locstring#>
 
 <!----------------------------
 
