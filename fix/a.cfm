@@ -4,7 +4,23 @@
 create table temp_test (u varchar2(255), p varchar2(255));
 insert into temp_test (u,p) values ('dustylee','xxxxx');
 ---->
+
+
+    <cfquery datasource='uam_god' name='p'>
+		select * from flat where guid='CHAS:Egg:569'
+	</cfquery>
+	<cfdump var=#p#>
+
+	<cfset x=IIf((p.higher_geog EQ "no higher geography recorded"),DE(""),DE(REPLACE(p.higher_geog,"North America, United States","USA","all"))) & IIf((p.spec_locality EQ ""),DE(""),DE(IIf((p.spec_locality EQ "no specific locality recorded"),DE(""),DE(", " & p.spec_locality)))) >
+
+	<cfdump var=#x#>
+
+<!----------------------------
+
+
 <cfoutput>
+
+
     <cfquery datasource='uam_god' name='p'>
         select * from temp_test
     </cfquery>
@@ -24,7 +40,6 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 </cfoutput>
 
 
-<!----------------------------
 drop table temp_dnametest;
 
 create table temp_dnametest (
