@@ -8,16 +8,8 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 
     <cfquery datasource='uam_god' name='p'>
 		select
-			decode(replace(higher_geog,'North America, United States','USA'),
-				'no higher geography recorded','',
-				higher_geog
-			)
-			||
-			decode(
-				replace(spec_locality,'no specific locality recorded'),
-				NULL,NULL,
-				', ' || spec_locality
-			) locstring
+		higher_geog,
+		replace(spec_locality,'#','##') spec_locality
 			from flat where guid='CHAS:Egg:569'
 	</cfquery>
 	<cfdump var=#p#>
