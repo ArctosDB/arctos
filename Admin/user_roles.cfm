@@ -32,7 +32,7 @@ grant insert,update,delete on citation to manage_specimens;
 					</ul>
 				</li>
 				<li>
-					The [def] link is the ONLY authoritative description of user roles. Click and review the table before
+					The [def] link is the ONLY authoritative description of user roles. Click and review before
 					granting roles.
 				</li>
 			</ul>
