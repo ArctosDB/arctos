@@ -57,6 +57,9 @@
 	</cfif>
 	<cfinclude template="/includes/SearchSql.cfm">
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
+	<cfif isdefined("debug") and debug is true>
+	<cfdump var=#SqlString#>
+	</cfif>
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
