@@ -49,7 +49,9 @@
 			INNER JOIN locality ON (collecting_event.locality_id=locality.locality_id)">
 	<cfset basWhere = " WHERE locality.dec_lat is not null AND specimen_event.specimen_event_type != 'unaccepted place of collection'">
 	<cfif flatTableName is "filtered_flat">
-		<cfset basWhere = basWhere & " and #flatTableName#.encumbrances not like '%mask coordinates%'">
+		<cfset basWhere = basWhere & " and (
+			#flatTableName#.encumbrances not like '%mask coordinates%' or
+			#flatTableName#.encumbrances is null) ">
 	</cfif>
 	<cfset basQual = "">
 	<cfif not isdefined("basJoin")>
@@ -57,6 +59,9 @@
 	</cfif>
 	<cfinclude template="/includes/SearchSql.cfm">
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
+	<cfif isdefined("debug") and debug is true>
+		<cfdump var=#SqlString#>
+	</cfif>
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
