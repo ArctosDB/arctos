@@ -2167,7 +2167,7 @@ function pickedLocality () {
 						$("#maximum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAXIMUM_ELEVATION[0]);
 						$("#minimum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MINIMUM_ELEVATION[0]);
 						$("#orig_elev_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.ORIG_ELEV_UNITS[0]);
-						$("#min_depth").attr("readOnly", true).removeClass().addClass('readClr').val(result.MIN_DEPTH[0]);
+						//$("#min_depth").attr("readOnly", true).removeClass().addClass('readClr').val(result.MIN_DEPTH[0]);
 						$("#max_depth").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_DEPTH[0]);
 						$("#depth_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEPTH_UNITS[0]);						
 						$("#spec_locality").attr("readOnly", true).removeClass().addClass('readClr').val(result.SPEC_LOCALITY[0]);
