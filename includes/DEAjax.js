@@ -2132,7 +2132,7 @@ function pickedEvent () {
 					//success_pickedLocality(r);
 					$("#locality_id").val(result.LOCALITY_ID[0]);
 					
-					pickedLocality();
+					//pickedLocality();
 				}
 			}
 		);
