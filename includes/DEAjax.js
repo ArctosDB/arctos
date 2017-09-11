@@ -2116,7 +2116,7 @@ function pickedEvent () {
 				if (result.COLLECTING_EVENT_ID[0] < 0) {
 					alert('Oops! Something bad happend with the collecting_event pick. ' + result.MSG);
 				} else {
-					$("#locality_id").val('');
+					
 					$("#fetched_eventid").val(result.COLLECTING_EVENT_ID[0]);
 					$("#began_date").val(result.BEGAN_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
 					$("#ended_date").val(result.ENDED_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
@@ -2129,7 +2129,10 @@ function pickedEvent () {
 						
 					$("#eventPicker").hide();
 					$("#eventUnPicker").show();
-					success_pickedLocality(r);
+					//success_pickedLocality(r);
+					$("#locality_id").val(result.LOCALITY_ID[0]);
+					
+					pickedLocality();
 				}
 			}
 		);
