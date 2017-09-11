@@ -2144,10 +2144,10 @@ function pickedLocality () {
 		var locality_id = document.getElementById('locality_id').value;
 		var pid = document.getElementById('fetched_locid').value;
 		var collecting_event_id = document.getElementById('collecting_event_id').value;
-		if (collecting_event_id.length>0){
-			locality_id.value='';
-			return false;
-		}
+		//if (collecting_event_id.length>0){
+		//	locality_id.value='';
+		//	return false;
+		//}
 		if (locality_id==pid){
 			return false;
 		}
