@@ -2111,31 +2111,31 @@ function pickedEvent () {
 				returnformat : "json",
 				queryformat : 'column'
 			},
-			success_pickedEvent
+			function (r) {
+				var result=r.DATA;
+				if (result.COLLECTING_EVENT_ID[0] < 0) {
+					alert('Oops! Something bad happend with the collecting_event pick. ' + result.MSG);
+				} else {
+					$("#locality_id").val('');
+					$("#fetched_eventid").val(result.COLLECTING_EVENT_ID[0]);
+					$("#began_date").val(result.BEGAN_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
+					$("#ended_date").val(result.ENDED_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
+					$("#verbatim_date").val(result.VERBATIM_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
+					$("#verbatim_locality").val(result.VERBATIM_LOCALITY[0]).removeClass().addClass('readClr').attr('readonly',true);
+					$("#coll_event_remarks").val(result.COLL_EVENT_REMARKS[0]).removeClass().addClass('readClr').attr('readonly',true);
+					//$("#collecting_method").val(result.COLLECTING_METHOD[0]).removeClass().addClass('readClr').attr('readonly',true);
+					//$("#habitat_desc").val(result.HABITAT_DESC[0]).removeClass().addClass('readClr').attr('readonly',true);	
+					$("#collecting_event_name").val(result.COLLECTING_EVENT_NAME[0]).removeClass().addClass('readClr').attr('readonly',true);	
+						
+					$("#eventPicker").hide();
+					$("#eventUnPicker").show();
+					success_pickedLocality(r);
+				}
+			}
 		);
 	}
 }
-function success_pickedEvent(r){
-	var result=r.DATA;
-	if (result.COLLECTING_EVENT_ID[0] < 0) {
-		alert('Oops! Something bad happend with the collecting_event pick. ' + result.MSG);
-	} else {
-		$("#locality_id").val('');
-		$("#fetched_eventid").val(result.COLLECTING_EVENT_ID[0]);
-		$("#began_date").val(result.BEGAN_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
-		$("#ended_date").val(result.ENDED_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
-		$("#verbatim_date").val(result.VERBATIM_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
-		$("#verbatim_locality").val(result.VERBATIM_LOCALITY[0]).removeClass().addClass('readClr').attr('readonly',true);
-		$("#coll_event_remarks").val(result.COLL_EVENT_REMARKS[0]).removeClass().addClass('readClr').attr('readonly',true);
-		//$("#collecting_method").val(result.COLLECTING_METHOD[0]).removeClass().addClass('readClr').attr('readonly',true);
-		//$("#habitat_desc").val(result.HABITAT_DESC[0]).removeClass().addClass('readClr').attr('readonly',true);	
-		$("#collecting_event_name").val(result.COLLECTING_EVENT_NAME[0]).removeClass().addClass('readClr').attr('readonly',true);	
-			
-		$("#eventPicker").hide();
-		$("#eventUnPicker").show();
-		success_pickedLocality(r);
-	}
-}
+
 function pickedLocality () {
 	if (document.getElementById('locality_id')){
 		var locality_id = document.getElementById('locality_id').value;
@@ -2156,101 +2156,69 @@ function pickedLocality () {
 					returnformat : "json",
 					queryformat : 'column'
 				},
-				success_pickedLocality
+				function (r) {
+					result=r.DATA;
+					if (result.LOCALITY_ID[0] < 0) {
+						alert('Oops! Something bad happend with the locality pick. ' + result.MSG[0]);
+					} else {
+						// picked localities are always either NULL or decimal degrees coordinates
+						$("#fetched_locid").val(result.LOCALITY_ID[0]);
+						$("#higher_geog").attr("readOnly", true).removeClass().addClass('readClr').val(result.HIGHER_GEOG[0]);
+						$("#maximum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAXIMUM_ELEVATION[0]);
+						$("#minimum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MINIMUM_ELEVATION[0]);
+						$("#orig_elev_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.ORIG_ELEV_UNITS[0]);
+						$("#min_depth").attr("readOnly", true).removeClass().addClass('readClr').val(result.MIN_DEPTH[0]);
+						$("#max_depth").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_DEPTH[0]);
+						$("#depth_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEPTH_UNITS[0]);						
+						$("#spec_locality").attr("readOnly", true).removeClass().addClass('readClr').val(result.SPEC_LOCALITY[0]);
+						$("#locality_remarks").attr("readOnly", true).removeClass().addClass('readClr').val(result.LOCALITY_REMARKS[0]);
+						$("#dec_lat").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LAT[0]);
+						$("#dec_long").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LONG[0]);
+						$("#max_error_distance").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_ERROR_DISTANCE[0]);
+						$("#max_error_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_ERROR_UNITS[0]);
+						$("#datum").attr("readOnly", true).removeClass().addClass('readClr').val(result.DATUM[0]);
+						$("#georeference_source").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_SOURCE[0]);
+						$("#georeference_protocol").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_PROTOCOL[0]);
+						$("#locality_name").attr("readOnly", true).removeClass().addClass('readClr').val(result.LOCALITY_NAME[0]);
+						$("#orig_lat_long_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.ORIG_LAT_LONG_UNITS[0]);
+						$("#localityPicker").hide();
+						$("#localityUnPicker").show();
+						switchActive(result.ORIG_LAT_LONG_UNITS[0]);
+						if (r.ROWCOUNT > 6) {
+							alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
+						}
+						try {
+						for (i=0;i<6;i++) {
+								var eNum=parseInt(i+1);
+								$("#geology_attribute_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+								$("#geo_att_value_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+								$("#geo_att_determiner_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+								$("#geo_att_determined_date_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+								$("#geo_att_determined_method_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+								$("#geo_att_remark_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+							}
+							for (i=0;i<r.ROWCOUNT;i++) {
+								if (i<5) {
+									var eNum=parseInt(i+1);
+									$("#geology_attribute_" + eNum).val(result.GEOLOGY_ATTRIBUTE[i]);
+									$("#geo_att_value_" + eNum).append('<option value="' + result.GEO_ATT_VALUE[i] + '">' + result.GEO_ATT_VALUE[i] + '</option>').val(result.GEO_ATT_VALUE[i]);
+									$("#geo_att_determiner_" + eNum).val(result.GEO_ATT_DETERMINER[i]);
+									$("#geo_att_determined_date_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
+									$("#geo_att_determined_method_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
+									$("#geo_att_remark_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
+								}
+							}
+						} catch(err) {
+							// whatever
+						}		
+					}
+					
+				}
 			);
 		}
 	}
 }
-function success_pickedLocality (r) {
-	result=r.DATA;
-	if (result.LOCALITY_ID[0] < 0) {
-		alert('Oops! Something bad happend with the locality pick. ' + result.MSG[0]);
-	} else {
-		// picked localities are always either NULL or decimal degrees coordinates
-		$("#fetched_locid").val(result.LOCALITY_ID[0]);
-		$("#higher_geog").attr("readOnly", true).removeClass().addClass('readClr').val(result.HIGHER_GEOG[0]);
-		$("#maximum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAXIMUM_ELEVATION[0]);
-		$("#minimum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MINIMUM_ELEVATION[0]);
-		$("#orig_elev_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.ORIG_ELEV_UNITS[0]);
-		
-		$("#min_depth").attr("readOnly", true).removeClass().addClass('readClr').val(result.MIN_DEPTH[0]);
-		$("#max_depth").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_DEPTH[0]);
-		$("#depth_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEPTH_UNITS[0]);
-		
-		
-		
-		
-		
-		
-		
-		$("#spec_locality").attr("readOnly", true).removeClass().addClass('readClr').val(result.SPEC_LOCALITY[0]);
-		$("#locality_remarks").attr("readOnly", true).removeClass().addClass('readClr').val(result.LOCALITY_REMARKS[0]);
-		//$("#latdeg").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DEG[0]);
-		//$("#decLAT_DEG").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DEG[0]);
-		//$("#latmin").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_MIN[0]);
-		//$("#latsec").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_SEC[0]);
-		//$("#latdir").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DIR[0]);
-		//$("#longdeg").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DEG[0]);
-		//$("#longmin").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_MIN[0]);
-		//$("#longsec").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_SEC[0]);
-		//$("#longdir").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DIR[0]);
-		//$("#dec_lat_min").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LAT_MIN[0]);
-		//$("#decLAT_DIR").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DIR[0]);
-		//$("#decLONGDEG").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DEG[0]);
-		//$("#dec_long_min").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LONG_MIN[0]);
-		//$("#decLONGDIR").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DIR[0]);
-		$("#dec_lat").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LAT[0]);
-		$("#dec_long").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LONG[0]);
-		$("#max_error_distance").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_ERROR_DISTANCE[0]);
-		$("#max_error_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_ERROR_UNITS[0]);
-		//$("#extent").attr("readOnly", true).removeClass().addClass('readClr').val(result.EXTENT[0]);
-		//$("#gpsaccuracy").attr("readOnly", true).removeClass().addClass('readClr').val(result.GPSACCURACY[0]);
-		$("#datum").attr("readOnly", true).removeClass().addClass('readClr').val(result.DATUM[0]);
-		//$("#determined_by_agent").attr("readOnly", true).removeClass().addClass('readClr').val(result.DETERMINED_BY[0]);
-		//$("#determined_date").attr("readOnly", true).removeClass().addClass('readClr').val(result.DETERMINED_DATE[0]);
-		//$("#lat_long_ref_source").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_LONG_REF_SOURCE[0]);
-		//$("#georefmethod").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFMETHOD[0]);
-		//$("#verificationstatus").attr("readOnly", true).removeClass().addClass('readClr').val(result.VERIFICATIONSTATUS[0]);
-		//$("#lat_long_remarks").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_LONG_REMARKS[0]);
-		//$("#utm_zone").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_ZONE[0]);
-		//$("#utm_ew").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_EW[0]);
-		//$("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
-		$("#georeference_source").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_SOURCE[0]);
-		$("#georeference_protocol").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_PROTOCOL[0]);
-		$("#locality_name").attr("readOnly", true).removeClass().addClass('readClr').val(result.LOCALITY_NAME[0]);
-		$("#orig_lat_long_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.ORIG_LAT_LONG_UNITS[0]);
-		$("#localityPicker").hide();
-		$("#localityUnPicker").show();
-		switchActive(result.ORIG_LAT_LONG_UNITS[0]);
-		if (r.ROWCOUNT > 6) {
-			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
-		}
-		try {
-		for (i=0;i<6;i++) {
-				var eNum=parseInt(i+1);
-				$("#geology_attribute_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
-				$("#geo_att_value_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
-				$("#geo_att_determiner_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
-				$("#geo_att_determined_date_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
-				$("#geo_att_determined_method_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
-				$("#geo_att_remark_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
-			}
-			for (i=0;i<r.ROWCOUNT;i++) {
-				if (i<5) {
-					var eNum=parseInt(i+1);
-					$("#geology_attribute_" + eNum).val(result.GEOLOGY_ATTRIBUTE[i]);
-					$("#geo_att_value_" + eNum).append('<option value="' + result.GEO_ATT_VALUE[i] + '">' + result.GEO_ATT_VALUE[i] + '</option>').val(result.GEO_ATT_VALUE[i]);
-					$("#geo_att_determiner_" + eNum).val(result.GEO_ATT_DETERMINER[i]);
-					$("#geo_att_determined_date_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
-					$("#geo_att_determined_method_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
-					$("#geo_att_remark_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
-				}
-			}
-		} catch(err) {
-			// whatever
-		}		
-	}
-}
+
 /* unused?
 function catNumSeq () {
 	var catnum = document.getElementById('cat_num').value;
