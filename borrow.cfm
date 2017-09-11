@@ -179,22 +179,22 @@
 			<cfset w=w & " and borrow_status = '#borrow_status#'">
 		</cfif>
 		<cfif isdefined("received_date_after") and len(received_date_after) gt 0>
-			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') >= '#received_date_after#'">
+			<cfset w=w & " and received_date >= '#received_date_after#'">
 		</cfif>
 		<cfif isdefined("received_date_before") and len(received_date_before) gt 0>
-			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') <= '#received_date_before#'">
+			<cfset w=w & " and received_date <= '#received_date_before#'">
 		</cfif>
 		<cfif isdefined("lenders_loan_date_after") and len(lenders_loan_date_after) gt 0>
-			<cfset w=w & " and to_char(lenders_loan_date,'yyyy-mm-dd') >= '#lenders_loan_date_after#'">
+			<cfset w=w & " and lenders_loan_date >= '#lenders_loan_date_after#'">
 		</cfif>
 		<cfif isdefined("lenders_loan_date_before") and len(lenders_loan_date_before) gt 0>
-			<cfset w=w & " and to_char(lenders_loan_date,'yyyy-mm-dd') <= '#lenders_loan_date_before#'">
+			<cfset w=w & " and lenders_loan_date <= '#lenders_loan_date_before#'">
 		</cfif>
 		<cfif isdefined("due_date_after") and len(due_date_after) gt 0>
-			<cfset w=w & " and to_char(due_date,'yyyy-mm-dd') >= '#due_date_after#'">
+			<cfset w=w & " and due_date >= '#due_date_after#'">
 		</cfif>
 		<cfif isdefined("due_date_before") and len(due_date_before) gt 0>
-			<cfset w=w & " and to_char(due_date,'yyyy-mm-dd') <= '#due_date_before#'">
+			<cfset w=w & " and due_date <= '#due_date_before#'">
 		</cfif>
 		<cfif isdefined("LENDERS_INSTRUCTIONS") and len(LENDERS_INSTRUCTIONS) gt 0>
 			<cfset w=w & " and upper(LENDERS_INSTRUCTIONS) like '%#ucase(LENDERS_INSTRUCTIONS)#%'">
@@ -304,7 +304,7 @@
 					#RECEIVED_DATE#
 				</td>
 				<td>
-					#dateformat(DUE_DATE,"yyyy-mm-dd")#
+					#DUE_DATE#
 				</td>
 				<td>
 					#BORROW_STATUS#
@@ -497,11 +497,11 @@
 				</td>
 				<td>
 					<label for="due_date">Due Date</label>
-					<input type="text" name="due_date" id="due_date" value="#dateformat(getBorrow.DUE_DATE,"yyyy-mm-dd")#">
+					<input type="text" name="due_date" id="due_date" value="#getBorrow.DUE_DATE#">
 				</td>
 				<td>
 					<label for="lenders_loan_date">Lender's Loan Date</label>
-					<input type="text" name="lenders_loan_date" id="lenders_loan_date" value="#dateformat(getBorrow.LENDERS_LOAN_DATE,"yyyy-mm-dd")#">
+					<input type="text" name="lenders_loan_date" id="lenders_loan_date" value="#getBorrow.LENDERS_LOAN_DATE#">
 				</td>
 			</tr>
 			<tr>
@@ -807,9 +807,9 @@
 		UPDATE borrow SET
 		LENDERS_INVOICE_RETURNED_FG = #LENDERS_INVOICE_RETURNED_FG#,
 		LENDERS_TRANS_NUM_CDE = '#LENDERS_TRANS_NUM_CDE#',
-		RECEIVED_DATE = to_date('#RECEIVED_DATE#','yyyy-mm-dd'),
-		DUE_DATE = to_date('#DUE_DATE#','yyyy-mm-dd'),
-		LENDERS_LOAN_DATE = to_date('#LENDERS_LOAN_DATE#','yyyy-mm-dd'),
+		RECEIVED_DATE = '#RECEIVED_DATE#',
+		DUE_DATE = '#DUE_DATE#',
+		LENDERS_LOAN_DATE = '#LENDERS_LOAN_DATE#',
 		LENDERS_INSTRUCTIONS = '#LENDERS_INSTRUCTIONS#',
 		BORROW_STATUS = '#BORROW_STATUS#'
 	WHERE
@@ -1157,7 +1157,7 @@
 			collection_id)
 		VALUES (
 			#transaction_id#,
-			to_date('#TRANS_DATE#','yyyy-mm-dd'),
+			'#TRANS_DATE#',
 			'#escapeQuotes(TRANS_REMARKS)#',
 			'borrow',
 			'#escapeQuotes(NATURE_OF_MATERIAL)#',
@@ -1180,9 +1180,9 @@
 			'#LENDERS_TRANS_NUM_CDE#',
 			'#Borrow_Number#',
 			#LENDERS_INVOICE_RETURNED_FG#,
-			to_date('#RECEIVED_DATE#','yyyy-mm-dd'),
-			to_date('#DUE_DATE#','yyyy-mm-dd'),
-			to_date('#LENDERS_LOAN_DATE#','yyyy-mm-dd'),
+			'#RECEIVED_DATE#',
+			'#DUE_DATE#',
+			'#LENDERS_LOAN_DATE#',
 			'#escapeQuotes(LENDERS_INSTRUCTIONS)#',
 			'#BORROW_STATUS#'
 		)
