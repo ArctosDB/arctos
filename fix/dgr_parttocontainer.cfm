@@ -15,6 +15,23 @@
 	<cfquery name="d" datasource="prod">
 		select * from temp_dgrloc where freezer='#f#' and rack='#r#' and box='#b#'
 	</cfquery>
+
+	<!---
+		this should match a DGR box
+		we should not have yet processed that box
+	--->
+
+	<cfquery name="dgrbox" datasource="uam_god">
+		select * from container where label='DGR-#d.freezer#-#d.rack#-#d.box#'
+	</cfquery>
+
+	<cfif dgrbox.recordcount is not 1>
+		dgrbox not found<cfabort>
+	</cfif>
+	<cfif dgrbox.container_remarks contains 'attempted specimen match'>
+		box has already been processed<cfabort>
+	</cfif>
+
 	<cftransaction>
 	<cfloop query="d">
 		<cfquery name="fTube" datasource="uam_god">
@@ -65,6 +82,9 @@
 				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-oinserted on ' || sysdate
 				where container_id=#fTube.container_id#
 			</cfquery>
+			<cfquery name="part2container" datasource="uam_god">
+				update container set parent_container_id=#fTube.container_id# where container_id=#part.container_id#
+			</cfquery>
 		<cfelse>
 			<!--- one specimen?? --->
 			<cfquery name="dspec" dbtype='query'>
@@ -84,6 +104,10 @@
 		</cfif>
 		<cfdump var=#part#>
 	</cfloop>
+	<cfquery name="markComplete" datasource="uam_god">
+			update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; attempted specimen match processed on ' || sysdate where
+			container_id=#dgrbox.container_id#
+	</cfquery>
 	</cftransaction>
 </cfoutput>
 
