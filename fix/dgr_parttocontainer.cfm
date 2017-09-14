@@ -47,7 +47,7 @@
 				flat.collection_object_id=specimen_part.derived_from_cat_item and
 				coll_obj_other_id_num.other_id_type='NK' and
 				coll_obj_other_id_num.display_value='#d.nk#' and
-				part_name='#d.PART_TRANSLATED#'
+				part_name='#d.cpart#'
 		</cfquery>
 		<cfdump var=#part#>
 	</cfloop>
