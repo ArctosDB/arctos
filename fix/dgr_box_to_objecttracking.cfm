@@ -63,7 +63,7 @@
 		<cfquery name="ist" dbtype="query">
 			select * from d where place=#p#
 		</cfquery>
-		<cfif ist.c is 1>
+		<cfif len(ist.nk) gt 0>
 			<cfquery name="cid" datasource="uam_god">
 				select sq_container_id.nextval id from dual
 			</cfquery>
