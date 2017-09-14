@@ -52,7 +52,7 @@
 				coll_obj_cont_hist.container_id=pc.container_id and
 				coll_obj_other_id_num.other_id_type='NK' and
 				coll_obj_other_id_num.display_value='#d.nk#' and
-				part_name='#d.cpart#'
+				specimen_part.part_name='#d.cpart#'
 		</cfquery>
 		<cfdump var=#part#>
 	</cfloop>
