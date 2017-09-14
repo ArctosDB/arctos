@@ -27,7 +27,8 @@
 				box.container_id=position.parent_container_id and
 				position.container_id=tube.parent_container_id and
 				box.label='DGR-#d.freezer#-#d.rack#-#d.box#' and
-				tube.label='NK #d.nk# #d.tissue_type#'
+				tube.label='NK #d.nk# #d.tissue_type#' and
+				position.label='#d.place#'
 		</cfquery>
 		<cfdump var=#fTube#>
 
