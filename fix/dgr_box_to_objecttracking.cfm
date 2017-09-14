@@ -58,7 +58,7 @@
 		</cfquery>
 		<cfset lpid=cid.id>
 		<!--- if and only if there's a tissue, make a cryovial ---->
-		<cfquery name="ist" ddtype="query">
+		<cfquery name="ist" dbtype="query">
 			select * from d where place=#p#
 		</cfquery>
 		<cfif ist.c is 1>
