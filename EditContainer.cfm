@@ -450,7 +450,7 @@
 		<cfquery name="dcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from container where parent_container_id=#dc.container_id#
 		</cfquery>
-		<cfif ddc.recordcount is not 1>
+		<cfif dcc.recordcount gt 0>
 			donor has children<cfabort>
 		</cfif>
 
