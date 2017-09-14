@@ -15,6 +15,7 @@
 	<cfquery name="d" datasource="prod">
 		select * from temp_dgrloc where freezer='#f#' and rack='#r#' and box='#b#'
 	</cfquery>
+	<cftransaction>
 	<cfloop query="d">
 		<cfquery name="fTube" datasource="uam_god">
 			select
@@ -53,11 +54,36 @@
 				coll_obj_other_id_num.other_id_type='NK' and
 				coll_obj_other_id_num.display_value='#d.nk#' and
 				trim(replace(specimen_part.part_name,'(frozen)'))=lower(trim('#d.cpart#'))
-
-
 		</cfquery>
+		<cfif part.recordcount is 0>
+			<cfquery name="uppartc" datasource="uam_god">
+				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part could not be found on ' || sysdate
+				where container_id=#fTube.container_id#
+			</cfquery>
+		<cfelseif part.recordcount is 1>
+			<cfquery name="uppartc" datasource="uam_god">
+				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-oinserted on ' || sysdate
+				where container_id=#fTube.container_id#
+			</cfquery>
+		<cfelse>
+			<!--- one specimen?? --->
+			<cfquery name="dspec" dbtype='query'>
+				select guid from part group by guid
+			</cfquery>
+			<cfif dspec.recordcount is 1>
+				<cfquery name="uppartc" datasource="uam_god">
+					update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; Multiple parts for specimen #dspec.guid# matched on ' || sysdate
+					where container_id=#fTube.container_id#
+				</cfquery>
+			<cfelse>
+				<cfquery name="uppartc" datasource="uam_god">
+					update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; Multiple specimens (#valuelist(dspec.guid)#) matched on ' || sysdate
+					where container_id=#fTube.container_id#
+				</cfquery>
+			</cfif>
+		</cfif>
 		<cfdump var=#part#>
 	</cfloop>
-
+	</cftransaction>
 </cfoutput>
 
