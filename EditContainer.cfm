@@ -455,10 +455,10 @@
 		</cfif>
 
 		<cftransaction>
-			<cfquery name="ddnr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="ddnr" datasource="uam_god">
 				delete from container where container_id=#dc.container_id#
 			</cfquery>
-			<cfquery name="abc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="abc" datasource="uam_god">
 				update container set barcode='#donorBarcode#' where  container_id=#container_id#
 			</cfquery>
 
