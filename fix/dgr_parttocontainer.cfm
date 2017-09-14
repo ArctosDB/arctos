@@ -1,7 +1,19 @@
 
 <cfoutput>
-	<cfquery name="d" datasource="uam_god">
-		select * from dgr_locator where freezer='#f#' and rack='#r#' and box='#b#'
+
+	<!-----
+
+			connect to prod from test
+
+			spooky!!
+
+			change plz
+
+		----->
+
+
+	<cfquery name="d" datasource="uam_prod">
+		select * from temp_dgrloc where freezer='#f#' and rack='#r#' and box='#b#'
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="fTube" datasource="uam_god">
@@ -20,6 +32,32 @@
 		<cfdump var=#fTube#>
 
 
+		<!-----
+
+			connect to prod from test
+
+			spooky!!
+
+			change plz
+
+		----->
+		<cfquery name="part" datasource="uam_prod">
+			select
+				specimen_part.collection_object_id,
+				specimen_part.part_name,
+				guid
+			from
+				flat,
+				coll_obj_other_id_num,
+				specimen_part
+			where
+				flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				flat.collection_object_id=specimen_part.derived_from_cat_item and
+				coll_obj_other_id_num.other_id_type='NK' and
+				coll_obj_other_id_num.display_value='#d.nk#' and
+				part_name='#d.PART_TRANSLATED#'
+		</cfquery>
+		<cfdump var=#part#>
 	</cfloop>
 
 </cfoutput>
