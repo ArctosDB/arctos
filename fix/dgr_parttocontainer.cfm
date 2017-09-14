@@ -12,7 +12,7 @@
 		----->
 
 
-	<cfquery name="d" datasource="uam_prod">
+	<cfquery name="d" datasource="prod">
 		select * from temp_dgrloc where freezer='#f#' and rack='#r#' and box='#b#'
 	</cfquery>
 	<cfloop query="d">
@@ -32,16 +32,7 @@
 		<cfdump var=#fTube#>
 
 
-		<!-----
-
-			connect to prod from test
-
-			spooky!!
-
-			change plz
-
-		----->
-		<cfquery name="part" datasource="uam_prod">
+		<cfquery name="part" datasource="uam_god">
 			select
 				specimen_part.collection_object_id,
 				specimen_part.part_name,
