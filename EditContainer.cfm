@@ -182,6 +182,7 @@
 					DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
 					<br>enter the barcode of a "donor" container.
 					<br>That container will be DELETED and the barcode will be assigned to this container.
+					<br>This runs as admin to bypass rules about changing barcodes; make sure you know what you're doing!
 					<br>maybe we should only do this for % label container types??
 
 				<label for="donorBarcode">Donor Barcode</label>
