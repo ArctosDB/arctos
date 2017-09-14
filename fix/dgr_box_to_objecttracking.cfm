@@ -2,7 +2,7 @@
 	select * from dgr_locator where freezer='1' and rack='1' and box='1'
 </cfquery>
 <cfoutput>
-
+<cftransaction>
 	<cfquery name="box" dbtype="query">
 		select freezer, rack, box from d group by freezer, rack, box
 	</cfquery>
@@ -17,13 +17,15 @@
 			parent_container_id,
 			container_type,
 			label,
-			institution_acronym
+			institution_acronym,
+			NUMBER_POSITIONS
 		) values (
 			#cid.id#,
 			15300802,
 			'freezer box',
 			'DGR-#box.freezer#-#box.rack#-#box.box#',
-			'MSB'
+			'MSB',
+			100
 		)
 	</cfquery>
 	<cfset boxid=cid.id>
@@ -51,7 +53,7 @@
 			) values (
 				#cid.id#,
 				#boxid#,
-				'position,
+				'position',
 				'#p#',
 				'MSB'
 			)
@@ -76,7 +78,7 @@
 				) values (
 					#cid.id#,
 					#lpid#,
-					'cryovial,
+					'cryovial',
 					'NK #ist.nk# #ist.tissue_type#',
 					'MSB',
 					'autocreated from DGR Locator data'
@@ -84,6 +86,6 @@
 			</cfquery>
 		</cfif>
 
-3	</cfloop>
-
+	</cfloop>
+</cftransaction>
 </cfoutput>
