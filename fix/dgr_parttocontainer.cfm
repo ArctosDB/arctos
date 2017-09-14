@@ -44,7 +44,7 @@
 				coll_obj_other_id_num,
 				specimen_part,
 				coll_obj_cont_hist,
-				container pc,
+				container pc
 			where
 				flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
 				flat.collection_object_id=specimen_part.derived_from_cat_item and
