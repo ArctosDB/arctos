@@ -56,7 +56,8 @@
 				specimen_part.collection_object_id,
 				specimen_part.part_name,
 				guid,
-				pc.parent_container_id
+				pc.parent_container_id,
+				pc.container_id
 			from
 				flat,
 				coll_obj_other_id_num,
@@ -78,13 +79,21 @@
 				where container_id=#fTube.container_id#
 			</cfquery>
 		<cfelseif part.recordcount is 1>
-			<cfquery name="uppartc" datasource="uam_god">
-				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-oinserted on ' || sysdate
-				where container_id=#fTube.container_id#
-			</cfquery>
-			<cfquery name="part2container" datasource="uam_god">
-				update container set parent_container_id=#fTube.container_id# where container_id=#part.container_id#
-			</cfquery>
+			<cfif part.parent_container_id is 0 or len(part.parent_containerid) is 0>
+				<cfquery name="uppartc" datasource="uam_god">
+					update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-inserted on ' || sysdate
+					where container_id=#fTube.container_id#
+				</cfquery>
+				<cfquery name="part2container" datasource="uam_god">
+					update container set parent_container_id=#fTube.container_id# where container_id=#part.container_id#
+				</cfquery>
+			<cfelse>
+				<cfquery name="uppartc" datasource="uam_god">
+					update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part already in container (#part.parent_container_id#) on ' || sysdate
+					where container_id=#fTube.container_id#
+				</cfquery>
+			</cfif>
+
 		<cfelse>
 			<!--- one specimen?? --->
 			<cfquery name="dspec" dbtype='query'>
