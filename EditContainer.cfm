@@ -173,8 +173,8 @@
 	<table><tr><td valign="top"><!---- left column ---->
 
 
-	<cfif len(getCont.barcode) is 0 and  (session.username is "dlm" or session.username is "campmlc")>
-						<div class="importantNotification">
+	<cfif len(getCont.barcode) is 0 and  (session.username is "dlm" or session.username is "campmlc" or session.username is 'i_am_tester')>
+		<div class="importantNotification">
 
 			<form name="formDangerousBarcodeThingee" method="post" action="EditContainer.cfm">
 				<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
@@ -188,9 +188,8 @@
 				<label for="donorBarcode">Donor Barcode</label>
 				<input type="text" name="donorBarcode">
 				<input type="submit" value="merge containers">
-								</div>
 			</form>
-
+		</div>
 	</cfif>
 
 
