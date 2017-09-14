@@ -62,6 +62,9 @@
 			select * from d where place=#p#
 		</cfquery>
 		<cfif ist.c is 1>
+			<cfquery name="cid" datasource="uam_god">
+				select sq_container_id.nextval id from dual
+			</cfquery
 			<cfquery name="mkbp" datasource="uam_god">
 				insert into container (
 					container_id,
