@@ -12,7 +12,7 @@
 
 
 	<cfquery name="isbox" datasource="uam_god">
-		select count(*) from container where label='DGR-#box.freezer#-#box.rack#-#box.box#'
+		select * from container where label='DGR-#box.freezer#-#box.rack#-#box.box#'
 	</cfquery>
 	<cfif len(isbox.container_id) gt 0>
 		box DGR-#box.freezer#-#box.rack#-#box.box# already exists - aborting
