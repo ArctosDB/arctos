@@ -188,7 +188,7 @@
 				<input type="text" name="donorBarcode">
 				<input type="submit" value="merge containers">
 								</div>
-
+			</form>
 
 	</cfif>
 
