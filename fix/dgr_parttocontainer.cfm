@@ -52,7 +52,9 @@
 				coll_obj_cont_hist.container_id=pc.container_id and
 				coll_obj_other_id_num.other_id_type='NK' and
 				coll_obj_other_id_num.display_value='#d.nk#' and
-				specimen_part.part_name='#d.cpart#'
+				trim(replace(specimen_part.part_name,'(frozen'))=lower(trim('#d.cpart')))
+
+
 		</cfquery>
 		<cfdump var=#part#>
 	</cfloop>
