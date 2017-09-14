@@ -1,11 +1,24 @@
 <cfquery name="d" datasource="uam_god">
-	select * from dgr_locator where freezer='1' and rack='1' and box='1'
+	select * from dgr_locator where freezer='#f#' and rack='#r#' and box='#b#'
 </cfquery>
 <cfoutput>
 <cftransaction>
 	<cfquery name="box" dbtype="query">
 		select freezer, rack, box from d group by freezer, rack, box
 	</cfquery>
+
+
+
+
+
+	<cfquery name="isbox" datasource="uam_god">
+		select count(*) from container where label='DGR-#box.freezer#-#box.rack#-#box.box#'
+	</cfquery>
+	<cfif len(isbox.container_id) gt 0>
+		box DGR-#box.freezer#-#box.rack#-#box.box# already exists - aborting
+
+		<cfabort>
+	</cfif>
 
 	<cfquery name="cid" datasource="uam_god">
 		select sq_container_id.nextval id from dual
