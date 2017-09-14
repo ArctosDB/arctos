@@ -171,6 +171,26 @@
 	<h2>Edit Container</h2>
 	<a href="/findContainer.cfm?container_id=#container_id#">view in tree</a>
 	<table><tr><td valign="top"><!---- left column ---->
+
+
+	<cfif len(getCont.barcode) is 0 and  (session.username is "dlm" or session.username is "campmlc")>
+			<form name="formDangerousBarcodeThingee" method="post" action="EditContainer.cfm">
+				<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
+				<input type="hidden" name="action" value="DGR_add_barcode">
+				<div style="importantNotification">
+					DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
+					<br>enter the barcode of a "donor" container.
+					<br>That container will be DELETED and the barcode will be assigned to this container.
+					<br>maybe we should only do this for % label container types??
+
+				</div>
+				<label for="donorBarcode">Donor Barcode</label>
+				<input type="text" name="donorBarcode">
+				<input type="submit" value="merge containers">
+
+	</cfif>
+
+
 	<form name="form1" method="post" action="EditContainer.cfm">
 		<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
 		<table cellpadding="0" cellspacing="0">
@@ -184,6 +204,7 @@
 					<input name="barcode" type="text" value="#getCont.barcode#" id="barcode">
 				</td>
 			</tr>
+
 			<tr>
 				<td>
 					 <label for="container_type">Container Type</label>
@@ -411,6 +432,61 @@
 </tr></table>
 </cfoutput>
 </cfif>
+
+
+<!-------------------------------------------------------------->
+
+
+<cfif action is "DGR_add_barcode">
+	<cfoutput>
+		<cfquery name="dc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from container where barcode='#donorBarcode#'
+		</cfquery>
+		<cfif dc.recordcount is not 1>
+			donor notfound<cfabort>
+		</cfif>
+		<cfquery name="dcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from container where parent_container_id=#dc.container_id#
+		</cfquery>
+		<cfif ddc.recordcount is not 1>
+			donor has children<cfabort>
+		</cfif>
+
+		<cftransaction>
+			<cfquery name="ddnr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from container where container_id=#dc.container_id#
+			</cfquery>
+			<cfquery name="abc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update container set barcode='#donorBarcode#' where  container_id=#container_id#
+			</cfquery>
+
+		</cftransaction>
+
+		<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">
+
+	</cfoutput>
+</cfif>
+
+
+	<cfif len(getCont.barcode) is 0 and  (session.username is "dlm" or session.username is "campmlc")>
+			<form name="formDangerousBarcodeThingee" method="post" action="EditContainer.cfm">
+				<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
+				<input type="hidden" name="action" value="">
+				<div style="importantNotification">
+					DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
+					<br>enter the barcode of a "donor" container.
+					<br>That container will be DELETED and the barcode will be assigned to this container.
+					<br>maybe we should only do this for % label container types??
+
+				</div>
+				<label for="donorBarcode">Donor Barcode</label>
+				<input type="text" name="donorBarcode">
+				<input type="submit" value="merge containers">
+
+	</cfif>
+
+
+
 <!-------------------------------------------------------------->
 
 
