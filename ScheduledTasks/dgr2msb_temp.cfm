@@ -11,6 +11,8 @@
 	update temp_dgr_box set status='done-before' where freezer=1 and rack=1 and box=2;
 	update temp_dgr_box set status='done-before' where freezer=1 and rack=1 and box=2;
 
+
+	select status, count(*) from temp_dgr_box group by status;
 --->
 
 <cfoutput>
