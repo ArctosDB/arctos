@@ -26,7 +26,21 @@
 			<cfquery datasource='uam_god' name='f'>
 				select * from container where label='DGR-#freezer#'
 			</cfquery>
-			<cfdump var=#f#>
+			<cfif d.recordcount is 1>
+				<br>DGR-#freezer# is happy...
+			<cfelse>
+				<br>BAD!!!!!!!!!!!!!!!!!!<cfdump var=#f#>
+			</cfif>
+			<cfquery datasource='uam_god' name='fc'>
+				select container_type, label from container where parent_container_id=#f.container_id#
+			</cfquery>
+			<cfif fc.recordcount gt 0>
+				<br>!!!!! bad <cfdump var=#fc#>
+			<cfelse>
+				<br>happy - no contents
+			</cfif>
+
+
 		</cfloop>
 	</cfif>
 
