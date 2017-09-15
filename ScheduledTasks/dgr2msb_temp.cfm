@@ -52,7 +52,7 @@
 						DESCRIPTION,
 						INSTITUTION_ACRONYM
 					) values (
-						sq....,
+						sq_container_id.nextval,
 						#fi.container_id#,
 						'freezer rack',
 						'DGR-#f.freezer#-#rs.rack#',
@@ -68,6 +68,10 @@
 
 
 	<cfif action is "confirm_freezers_exist">
+
+	<cfabort>
+
+
 		<cfquery datasource='uam_god' name='d'>
 			select distinct freezer from temp_dgr_box
 		</cfquery>
