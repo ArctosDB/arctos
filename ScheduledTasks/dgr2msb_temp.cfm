@@ -21,6 +21,14 @@
 --->
 
 <cfoutput>
+	<cfif action is "make_freezer_racks">
+		<cfquery datasource='uam_god' name='d'>
+			select distinct freezer, rack from temp_dgr_box order by freezer,rack
+		</cfquery>
+		<cfdump var=#d#>
+	</cfif>
+
+
 	<cfif action is "confirm_freezers_exist">
 		<cfquery datasource='uam_god' name='d'>
 			select distinct freezer from temp_dgr_box
