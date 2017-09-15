@@ -6,17 +6,14 @@
 	<cfquery name="box" dbtype="query">
 		select freezer, rack, box from d group by freezer, rack, box
 	</cfquery>
-
-
-
-
-
 	<cfquery name="isbox" datasource="uam_god">
 		select * from container where label='DGR-#box.freezer#-#box.rack#-#box.box#'
 	</cfquery>
 	<cfif len(isbox.container_id) gt 0>
 		box DGR-#box.freezer#-#box.rack#-#box.box# already exists - aborting
-
+		<cfquery name="ss" datasource="uam_god">
+			update temp_dgrbox set status=status || 'box_already_exists' where box='#box.box#' and rack='#rack.rack#' and freezer='#freezer.freezer#'
+		</cfquery>
 		<cfabort>
 	</cfif>
 
@@ -100,5 +97,9 @@
 		</cfif>
 
 	</cfloop>
+
+	<cfquery name="ss" datasource="uam_god">
+		update temp_dgrbox set status=status || 'box_create_success' where box='#box.box#' and rack='#box.rack#' and freezer='#box.freezer#'
+	</cfquery>
 </cftransaction>
 </cfoutput>

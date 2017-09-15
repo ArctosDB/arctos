@@ -26,12 +26,17 @@
 	</cfquery>
 
 	<cfif dgrbox.recordcount is not 1>
+		<cfquery name="ss" datasource="uam_god">
+			update temp_dgrbox set status=status || 'box_not_found|#dgrbox.recordcount#' where box='#d.box#' and rack='#d.rack#' and freezer='#d.freezer#'
+		</cfquery>
 		dgrbox not found<cfabort>
 	</cfif>
 	<cfif dgrbox.container_remarks contains 'attempted specimen match'>
+		<cfquery name="ss" datasource="uam_god">
+			update temp_dgrbox set status=status || 'box_already_processed' where box='#d.box#' and rack='#d.rack#' and freezer='#d.freezer#'
+		</cfquery>
 		box has already been processed<cfabort>
 	</cfif>
-
 	<cftransaction>
 	<cfloop query="d">
 		<cfquery name="fTube" datasource="uam_god">
@@ -48,8 +53,6 @@
 				tube.label='NK #d.nk# #d.tissue_type#' and
 				position.label='#d.place#'
 		</cfquery>
-		<cfdump var=#fTube#>
-
 
 		<cfquery name="part" datasource="uam_god">
 			select
@@ -73,49 +76,45 @@
 				coll_obj_other_id_num.display_value='#d.nk#' and
 				trim(replace(specimen_part.part_name,'(frozen)'))=lower(trim('#d.cpart#'))
 		</cfquery>
+
+		<cfset contRemStatus=''>
 		<cfif part.recordcount is 0>
-			<cfquery name="uppartc" datasource="uam_god">
-				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part could not be found on ' || sysdate
-				where container_id=#fTube.container_id#
-			</cfquery>
+			<cfset contRemStatus='#dateformat(now,"yyyy-mm-dd")#|part_not_found'>
 		<cfelseif part.recordcount is 1>
 			<cfif part.parent_container_id is 0 or len(part.parent_containerid) is 0>
-				<cfquery name="uppartc" datasource="uam_god">
-					update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-inserted on ' || sysdate
-					where container_id=#fTube.container_id#
-				</cfquery>
+				<cfset contRemStatus='#dateformat(now,"yyyy-mm-dd")#|part_auto_inserted'>
+				<!--- and move the part-container --->
 				<cfquery name="part2container" datasource="uam_god">
 					update container set parent_container_id=#fTube.container_id# where container_id=#part.container_id#
 				</cfquery>
 			<cfelse>
-				<cfquery name="uppartc" datasource="uam_god">
-					update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; part already in container (#part.parent_container_id#) on ' || sysdate
-					where container_id=#fTube.container_id#
-				</cfquery>
+				<cfset contRemStatus='#dateformat(now,"yyyy-mm-dd")#|part_found_in_container|container_id=#part.parent_container_id#'>
 			</cfif>
-
 		<cfelse>
 			<!--- one specimen?? --->
 			<cfquery name="dspec" dbtype='query'>
 				select guid from part group by guid
 			</cfquery>
 			<cfif dspec.recordcount is 1>
-				<cfquery name="uppartc" datasource="uam_god">
-					update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; Multiple parts for specimen #dspec.guid# matched on ' || sysdate
-					where container_id=#fTube.container_id#
-				</cfquery>
+				<cfset contRemStatus='#dateformat(now,"yyyy-mm-dd")#|multiple_part_match|guid=#dspec.guid#'>
 			<cfelse>
-				<cfquery name="uppartc" datasource="uam_god">
-					update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; Multiple specimens (#valuelist(dspec.guid)#) matched on ' || sysdate
-					where container_id=#fTube.container_id#
-				</cfquery>
+				<cfset contRemStatus='#dateformat(now,"yyyy-mm-dd")#|multiple_specimen_match|guidlist=#valuelist(dspec.guid)#'>
 			</cfif>
 		</cfif>
-		<cfdump var=#part#>
+
+		<cfquery name="uppartc" datasource="uam_god">
+			update container set CONTAINER_REMARKS=CONTAINER_REMARKS || ';1|#contRemStatus#'
+			where container_id=#fTube.container_id#
+		</cfquery>
 	</cfloop>
+
+
 	<cfquery name="markComplete" datasource="uam_god">
-			update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; attempted specimen match processed on ' || sysdate where
+			update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; #dateformat(now,"yyyy-mm-dd")# |attempted_specimen_match1' where
 			container_id=#dgrbox.container_id#
+	</cfquery>
+	<cfquery name="ss" datasource="uam_god">
+		update temp_dgrbox set status=status || 'attempted_specimen_match' where box='#d.box#' and rack='#d.rack#' and freezer='#d.freezer#'
 	</cfquery>
 	</cftransaction>
 </cfoutput>
