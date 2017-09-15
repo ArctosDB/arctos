@@ -24,7 +24,7 @@
 		</cfquery>
 		<cfloop query="d">
 			<cfquery datasource='uam_god' name='f'>
-				select * from container where label='DGR-#freezer#'>
+				select * from container where label='DGR-#freezer#'
 			</cfquery>
 			<cfdump var=#f#>
 		</cfloop>
