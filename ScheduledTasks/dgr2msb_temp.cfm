@@ -13,9 +13,24 @@
 
 
 	select status, count(*) from temp_dgr_box group by status;
+	select * from temp_dgr_box where status='box_create_success';
+
 --->
 
 <cfoutput>
+	<cfif action is "confirm_freezers_exist">
+		<cfquery datasource='uam_god' name='d'>
+			select distinct freezer from temp_dgr_box
+		</cfquery>
+		<cfloop query="d">
+			<cfquery datasource='uam_god' name='f'>
+				select * from container where label='DGR-#freezer#'>
+			</cfquery>
+			<cfdump var=#f#>
+		</cfloop>
+	</cfif>
+
+
 	<cfif action is "dgr_to_objecttracking">
 
 		<cfquery datasource='uam_god' name='srcbx'>
