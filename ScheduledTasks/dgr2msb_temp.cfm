@@ -3,7 +3,13 @@
 
 	create table temp_dgr_box as select distinct freezer, rack, box from dgr_locator;
 
-	alter table temp_dgrbox add status varchar2(255);
+	delete from temp_dgr_box where freezer='2';
+
+	alter table temp_dgr_box add status varchar2(255);
+
+	update temp_dgr_box set status='done-before' where freezer=1 and rack=1 and box=1;
+	update temp_dgr_box set status='done-before' where freezer=1 and rack=1 and box=2;
+	update temp_dgr_box set status='done-before' where freezer=1 and rack=1 and box=2;
 
 --->
 
