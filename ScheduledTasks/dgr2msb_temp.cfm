@@ -57,7 +57,7 @@
 						'freezer rack',
 						'DGR-#f.freezer#-#rs.rack#',
 						'rack autocreated from DGR Locator',
-						'MSB
+						'MSB'
 					)
 				</cfquery>
 			</cfloop>
