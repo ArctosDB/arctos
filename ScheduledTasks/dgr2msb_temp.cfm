@@ -43,7 +43,7 @@
 			</cfquery>
 			<cfloop query="#rs#">
 
-				<cfquery name="makerack" dbtype="query">
+				<cfquery name="makerack" datasource='uam_god'>
 					insert into container (
 						CONTAINER_ID,
 						PARENT_CONTAINER_ID,
