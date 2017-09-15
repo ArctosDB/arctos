@@ -25,6 +25,37 @@
 		<cfquery datasource='uam_god' name='d'>
 			select distinct freezer, rack from temp_dgr_box order by freezer,rack
 		</cfquery>
+		<cfquery name="f" dbtype="query">
+			select freezer from d group by freezer order by freezer
+		</cfquery>
+		<cfloop query="#f#">
+			<cfquery datasource='uam_god' name='fi'>
+				select * from container where label='DGR-#freezer#'
+			</cfquery>
+			<cfdump var=#fi#>
+			<cfquery name="rs" dbtype="query">
+				select rack from d where freezer=#freezer#
+			</cfquery>
+			<cfloop quer="#rs#">
+				<br>insert into container (
+					CONTAINER_ID,
+					PARENT_CONTAINER_ID,
+					CONTAINER_TYPE,
+					LABEL,
+					DESCRIPTION,
+					INSTITUTION_ACRONYM
+				) values (
+					sq....,
+					#fi.container_id#,
+					'freezer rack',
+					'DGR-#f.freezer#-#rs.rack#',
+					'rack autocreated from DGR Locator',
+					'MSB
+				)
+			</cfloop>
+		</cfloop>
+
+
 		<cfdump var=#d#>
 	</cfif>
 
