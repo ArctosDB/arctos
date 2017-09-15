@@ -23,7 +23,6 @@
 		</cfquery>
 
 		<cfloop query="srcbx">
-			<cfinclude template="/fix/dgr_box_to_objecttracking.cfm?f=#freezer#&r=#rack#&b=#box#">
 			<cfquery name="d" datasource="uam_god">
 				select * from dgr_locator where freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
 			</cfquery>
