@@ -22,6 +22,8 @@
 
 <cfoutput>
 	<cfif action is "make_freezer_racks">
+
+		<cftransaction>
 		<cfquery datasource='uam_god' name='d'>
 			select distinct freezer, rack from temp_dgr_box order by freezer,rack
 		</cfquery>
@@ -40,24 +42,27 @@
 				select rack from d where freezer=#freezer#
 			</cfquery>
 			<cfloop query="#rs#">
-				<br>insert into container (
-					CONTAINER_ID,
-					PARENT_CONTAINER_ID,
-					CONTAINER_TYPE,
-					LABEL,
-					DESCRIPTION,
-					INSTITUTION_ACRONYM
-				) values (
-					sq....,
-					#fi.container_id#,
-					'freezer rack',
-					'DGR-#f.freezer#-#rs.rack#',
-					'rack autocreated from DGR Locator',
-					'MSB
-				)
+
+				<cfquery name="makerack" dbtype="query">
+					insert into container (
+						CONTAINER_ID,
+						PARENT_CONTAINER_ID,
+						CONTAINER_TYPE,
+						LABEL,
+						DESCRIPTION,
+						INSTITUTION_ACRONYM
+					) values (
+						sq....,
+						#fi.container_id#,
+						'freezer rack',
+						'DGR-#f.freezer#-#rs.rack#',
+						'rack autocreated from DGR Locator',
+						'MSB
+					)
+				</cfquery>
 			</cfloop>
 		</cfloop>
-
+		</cftransaction>
 
 	</cfif>
 
