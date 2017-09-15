@@ -25,6 +25,9 @@
 		<cfquery datasource='uam_god' name='d'>
 			select distinct freezer, rack from temp_dgr_box order by freezer,rack
 		</cfquery>
+
+		<cfdump var=#d#>
+
 		<cfquery name="f" dbtype="query">
 			select freezer from d group by freezer order by freezer
 		</cfquery>
@@ -36,7 +39,7 @@
 			<cfquery name="rs" dbtype="query">
 				select rack from d where freezer=#freezer#
 			</cfquery>
-			<cfloop quer="#rs#">
+			<cfloop query="#rs#">
 				<br>insert into container (
 					CONTAINER_ID,
 					PARENT_CONTAINER_ID,
@@ -56,7 +59,6 @@
 		</cfloop>
 
 
-		<cfdump var=#d#>
 	</cfif>
 
 
