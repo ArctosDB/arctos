@@ -31,6 +31,7 @@
 			</cfquery>
 			<cfif f.recordcount is 1>
 				<br>DGR-#freezer# is happy...
+				<br>update container set parent_container_id=18230103 where container_id=#f.container_id#
 			<cfelse>
 				<br>BAD!!!!!!!!!!!!!!!!!!<cfdump var=#f#>
 			</cfif>
