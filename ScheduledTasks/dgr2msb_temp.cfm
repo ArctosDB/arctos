@@ -26,7 +26,7 @@
 			<cfquery datasource='uam_god' name='f'>
 				select * from container where label='DGR-#freezer#'
 			</cfquery>
-			<cfif d.recordcount is 1>
+			<cfif f.recordcount is 1>
 				<br>DGR-#freezer# is happy...
 			<cfelse>
 				<br>BAD!!!!!!!!!!!!!!!!!!<cfdump var=#f#>
