@@ -25,9 +25,7 @@
 
 
 
-<cfif not isdefined("action") or action is "nothing">
-	<cfabort>
-</cfif>
+
 
 <cfoutput>
 
@@ -96,10 +94,80 @@
 
 select count(*) from temp_dgrloc where p2c_status='autoinstalled-1';
 
+select count(*) from temp_dgrloc where p2c_status is null;
+
+create table temp_dgrlog_m1 as select
+	FREEZER,
+	RACK,
+	BOX,
+	PLACE,
+	NK,
+	TISSUE_TYPE
+from  temp_dgrloc where p2c_status is null;
+
+
+select tissue_type,count(*) from temp_dgrlog_m1 group by tissue_type;
+
+
+
+UAM@ARCTOS> desc temp_dgrloc
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ LOCATOR_ID							   NOT NULL NUMBER
+ COLLECTION_OBJECT_ID							    NUMBER
+ FREEZER							   NOT NULL NUMBER
+ 								   NOT NULL NUMBER
+ 								   NOT NULL NUMBER
+ 								   NOT NULL NUMBER
+ 									    NUMBER
+ 								    VARCHAR2(255)
+ PART_TRANSLATED							    VARCHAR2(255)
+ GUID									    VARCHAR2(255)
+ ARCTOS_PARTS								    VARCHAR2(4000)
+ CPART									    VARCHAR2(255)
+ CPART_FROMARCTOS							    VARCHAR2(255)
+ CPART_PID								    NUMBER
+ CPART_STATUS								    VARCHAR2(255)
+ KEY									    NUMBER
+ CURRENT_PART_BARCODE							    VARCHAR2(255)
+ PART_PARENT_CID							    NUMBER
+ TUBE_CONTAINER_ID							    NUMBER
+ PART_IS_CONTAINERIZED							    NUMBER
+ P2C_STATUS								    VARCHAR2(255)
+ PART_CONTAINER_ID							    NUMBER
+
+
+
 
 	---->
 
+
+<cfif not isdefined("action") or action is "nothing">
+	<cfabort>
+</cfif>
+
+
 <cfoutput>
+<cfif action is "findmp">
+	<cfquery datasource='uam_god' name='d'>
+		select * from temp_dgrloc where guid is not null and CPART_PID is null and rownum<20
+	</cfquery>
+	<cfloop query="d">
+		<cfquery datasource='uam_god' name='p'>
+			select * from specimen_part, flat where flat.collection_object_id= specimen_part.derived_from_cat_item and
+			flat.guid='#guid#' and
+			 trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
+		</cfquery>
+		<cfdump var="#p#">
+	</cfloop>
+
+
+</cfif>
+
+</cfoutput>
+<!----
+
+
 
 	<cfquery datasource='uam_god' name='d'>
 		select
@@ -152,8 +220,6 @@ select count(*) from temp_dgrloc where p2c_status='autoinstalled-1';
 
 
 
-</cfoutput>
-<!----
 
 
 
