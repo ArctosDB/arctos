@@ -109,6 +109,11 @@
 			p2c_status is null and
 			rownum<2
 	</cfquery>
+
+	<cfdump var=#d#>
+
+
+	<!-----------
 	<cfloop query="d">
 		<cftransaction>
 			<br>#tube_container_id#
@@ -135,7 +140,7 @@
 		</cftransaction>
 	</cfloop>
 
-
+------->
 </cfif>
 
 
