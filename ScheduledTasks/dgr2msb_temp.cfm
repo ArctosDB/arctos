@@ -113,7 +113,6 @@
 	<cfdump var=#d#>
 
 
-	<!-----------
 	<cfloop query="d">
 		<cftransaction>
 			<br>#tube_container_id#
@@ -140,7 +139,6 @@
 		</cftransaction>
 	</cfloop>
 
-------->
 </cfif>
 
 
