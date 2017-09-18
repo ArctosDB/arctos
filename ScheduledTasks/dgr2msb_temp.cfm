@@ -38,10 +38,31 @@
 				select container_id from container where container_type='freezer box' and
 				label='DGR-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#'
 			</cfquery>
+			<cfif d_b.recordcount is not 1>
+				<cfthrow message="box_not_found">
+			</cfif>
 
-			<cfdump var=#d_b#>
+
+			<cfdump var=#d#>
 
 			<cfloop query="d">
+				<cfquery datasource='uam_god' name='t'>
+					select
+						label,
+						container_id
+					from
+						container t,
+						container p
+					where
+						t.container_type='cryovial' and
+						p.container_type='position' and
+						t.parent_container_id=p.container_id and
+						p.parent_container_id=#d_b.container_id# and
+						t.label='NK #nk# #tissue_type#' and
+						p.label='#place#'
+				</cfquery>
+				<cfdump var=#t#>
+
 
 
 			</cfloop>
