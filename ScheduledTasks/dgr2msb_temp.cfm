@@ -20,6 +20,10 @@
 
 --->
 
+<cfif isdefined("action") and action is "dgr_to_objecttracking">
+	<cfabort>
+</cfif>
+
 <cfoutput>
 
 
