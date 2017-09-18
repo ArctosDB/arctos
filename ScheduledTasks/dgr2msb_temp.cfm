@@ -30,7 +30,7 @@
 		</cfquery>
 		<cfloop query="srcbx">
 
-			<cfquery datasource='d' name='srcbx'>
+			<cfquery datasource='uam_god' name='d'>
 				select * from temp_dgrloc where tube_container_id is null and
 				 freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
 			</cfquery>
