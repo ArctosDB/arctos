@@ -150,22 +150,38 @@ UAM@ARCTOS> desc temp_dgrloc
 <cfoutput>
 <cfif action is "findmp">
 	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where guid is not null and CPART_PID is null and rownum<20
+		select * from temp_dgrloc where guid is not null and CPART_PID is null p2c_status is null and and rownum<20
 	</cfquery>
 	<cfloop query="d">
 		<cfquery datasource='uam_god' name='p'>
 			select
+				parent_container_id,
 				specimen_part.part_name
 			from
 				specimen_part,
-				flat
+				flat,
+				coll_obj_cont_hist,
+				container
 			where
 				flat.collection_object_id= specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				coll_obj_cont_hist.container_id=container.container_id and
 				flat.guid='#guid#' and
 				SAMPLED_FROM_OBJ_ID is null and
 			 	trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
 		</cfquery>
 		<cfdump var="#p#">
+
+		<cfif p.recordcount gt 1>
+			<!--- can we eliminate anything that's in a container?? ---->
+
+
+		</cfif>
+		<cfif p.recordcount is 0>
+			<cfquery datasource='uam_god' name='x'>
+				update temp_dgrloc set p2c_status='zero_part_match' where key=#key#
+			</cfquery>
+		</cfif>
 	</cfloop>
 
 
