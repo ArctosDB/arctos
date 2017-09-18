@@ -8,6 +8,11 @@
 	delete from temp_dgr_box where freezer='10';
 
 
+	delete from temp_dgrloc where freezer='2';
+	delete from temp_dgrloc where freezer='12';
+	delete from temp_dgrloc where freezer='10';
+
+
 	alter table temp_dgr_box add status varchar2(255);
 
 	update temp_dgr_box set status='done-before' where freezer=1 and rack=1 and box=1;
@@ -30,7 +35,7 @@
 <!--- now loop through and find the tube's contianer_id --->
 
 		<cfquery datasource='uam_god' name='srcbx'>
-			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2
+			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<200
 		</cfquery>
 		<cfloop query="srcbx">
 			<cftransaction>
