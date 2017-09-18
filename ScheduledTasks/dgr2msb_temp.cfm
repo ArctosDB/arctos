@@ -150,9 +150,10 @@ UAM@ARCTOS> desc temp_dgrloc
 <cfoutput>
 <cfif action is "findmp">
 	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status is null  and rownum<20
+		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status is null  and rownum<200
 	</cfquery>
 	<cfloop query="d">
+		<cftransaction>
 		<cfquery datasource='uam_god' name='p'>
 			select
 				parent_container_id,
@@ -173,7 +174,6 @@ UAM@ARCTOS> desc temp_dgrloc
 				container.parent_container_id=0 and
 			 	trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
 		</cfquery>
-		<cfdump var="#p#">
 
 		<cfif p.recordcount gte 1>
 			<!--- can we eliminate anything that's in a container?? ---->
@@ -188,10 +188,13 @@ UAM@ARCTOS> desc temp_dgrloc
 			</cfquery>
 		</cfif>
 		<cfif p.recordcount is 0>
+			<br>nodice
 			<cfquery datasource='uam_god' name='x'>
 				update temp_dgrloc set p2c_status='zero_part_match' where key=#key#
 			</cfquery>
 		</cfif>
+
+		</cftransaction>
 	</cfloop>
 
 
