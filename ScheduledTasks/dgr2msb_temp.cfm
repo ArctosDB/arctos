@@ -168,6 +168,7 @@ UAM@ARCTOS> desc temp_dgrloc
 				coll_obj_cont_hist.container_id=container.container_id and
 				flat.guid='#guid#' and
 				SAMPLED_FROM_OBJ_ID is null and
+				container.parent_container_id=0 and
 			 	trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
 		</cfquery>
 		<cfdump var="#p#">
