@@ -138,17 +138,18 @@ UAM@ARCTOS> desc temp_dgrloc
 
 
 
-
-	---->
-
-
 <cfif not isdefined("action") or action is "nothing">
 	<cfabort>
 </cfif>
 
+<cfif action is "findmp">
+</cfif>
+	---->
+
+
 
 <cfoutput>
-<cfif action is "findmp">
+
 	<cfquery datasource='uam_god' name='d'>
 		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status is null  and rownum<200
 	</cfquery>
@@ -198,7 +199,7 @@ UAM@ARCTOS> desc temp_dgrloc
 	</cfloop>
 
 
-</cfif>
+
 
 </cfoutput>
 <!----
