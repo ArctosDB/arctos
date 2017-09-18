@@ -23,6 +23,18 @@
 <cfoutput>
 
 
+<!--- now loop through and find the tube's contianer_id --->
+
+		<cfquery datasource='uam_god' name='srcbx'>
+			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2
+		</cfquery>
+
+		<cfdump var="srcbx">
+
+
+
+
+
 
 
 
@@ -30,6 +42,8 @@
 
 
 	<cfif action is "dgr_to_objecttracking">
+		all done<cfabort>
+
 		<cfquery datasource='uam_god' name='srcbx'>
 			select * from temp_dgr_box where status is null and rownum <2
 		</cfquery>
@@ -196,7 +210,7 @@
 
 	<cfif action is "confirm_freezers_exist">
 
-	<cfabort>
+	all done<cfabort>
 
 
 		<cfquery datasource='uam_god' name='d'>
