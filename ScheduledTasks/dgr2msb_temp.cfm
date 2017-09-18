@@ -120,7 +120,6 @@ select count(*) from temp_dgrloc where p2c_status='autoinstalled-1';
 
 	<cfloop query="d">
 		<cftransaction>
-			<br>#tube_container_id#
 
 			<cfquery datasource='uam_god' name='uppc'>
 				update
