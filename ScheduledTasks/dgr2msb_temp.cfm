@@ -43,7 +43,7 @@
 					label='DGR-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#'
 				</cfquery>
 				<cfif d_b.recordcount is not 1>
-					<cfthrow message="box_not_found">
+					<cfthrow message="box_not_found" detail="DGR-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#">
 				</cfif>
 
 				<!---
