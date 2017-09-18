@@ -25,16 +25,107 @@
 
 --->
 
-<cfif isdefined("action") and action is "dgr_to_objecttracking">
+<cfif not isdefined("action") or action is "nothing">
 	<cfabort>
 </cfif>
 
 <cfoutput>
 
 
+<cfif action is "move_part_to_tube">
+	<!---
+
+		we have tube's container_id in tube_container_id
+
+		we have part ID in CPART_PID
+
+		put the part into the tube
+
+
+		alter table temp_dgrloc add part_is_containerized number;
+
+		alter table temp_dgrloc add p2c_status varchar2(255);
+
+
+		make sure none of the currently-identified parts are in containers
+
+		update temp_dgrloc set p2c_status='in container' where CURRENT_PART_BARCODE is not null;
+		update temp_dgrloc set p2c_status='in container_subquery' where key in (
+				select key
+		from
+			temp_dgrloc,
+			coll_obj_cont_hist,
+			container
+		where
+			p2c_status is not null and
+			temp_dgrloc.CPART_PID=coll_obj_cont_hist.collection_object_id and
+			coll_obj_cont_hist.container_id=container.container_id and
+			container.parent_container_id >0);
+
+
+
+		select
+			CPART_PID,
+			container.parent_container_id,
+			CURRENT_PART_BARCODE
+		from
+			temp_dgrloc,
+			coll_obj_cont_hist,
+			container
+		where
+			p2c_status is not null and
+			temp_dgrloc.CPART_PID=coll_obj_cont_hist.collection_object_id and
+			coll_obj_cont_hist.container_id=container.container_id and
+			container.parent_container_id >0;
+
+
+
+		select distinct CURRENT_PART_BARCODE from temp_dgrloc where CPART_PID is not null;
+
+	---->
+
+
+	<cfquery datasource='uam_god' name='d'>
+		select
+			key,
+			tube_container_id,
+			CPART_PID
+		from
+			temp_dgrloc
+		where
+			tube_container_id is not null and
+			CPART_PID is not null and
+			p2c_status is null and
+			rownum<2
+	</cfquery>
+	<cfloop query="d">
+		<br>#tube_container_id#
+	</cfloop>
+
+
+</cfif>
+
+
+
+
+
+
+
+
+</cfoutput>
+<!----
+
+
+
+
+
+
+
+
 <!--- now loop through and find the tube's contianer_id --->
 
-		<cfquery datasource='uam_god' name='srcbx'>
+
+<cfquery datasource='uam_god' name='srcbx'>
 			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2000
 		</cfquery>
 		<cfloop query="srcbx">
@@ -80,8 +171,10 @@
 
 
 
-</cfoutput>
-<!----
+
+
+
+
 
 
 
