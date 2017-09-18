@@ -34,7 +34,7 @@
 				select * from temp_dgrloc where tube_container_id is null and
 				 freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
 			</cfquery>
-			<cfquery datasource='d_b' name='srcbx'>
+			<cfquery datasource='uam_god' name='d_b'>
 				select container_id from container where container_type='freezer box' and
 				label='DRG-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#'
 			</cfquery>
