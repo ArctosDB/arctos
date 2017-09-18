@@ -181,7 +181,7 @@ UAM@ARCTOS> desc temp_dgrloc
 			<cfquery datasource='uam_god' name='x'>
 				update temp_dgrloc set
 					CPART_PID=#p.part_id#,
-					part_container_id=#p.container_id#
+					part_container_id=#p.container_id#,
 					p2c_status='found_random_dup_part'
 				where
 					key=#key#
