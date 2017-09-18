@@ -99,6 +99,7 @@ select count(*) from temp_dgrloc where p2c_status='autoinstalled-1';
 
 	---->
 
+<cfoutput>
 
 	<cfquery datasource='uam_god' name='d'>
 		select
