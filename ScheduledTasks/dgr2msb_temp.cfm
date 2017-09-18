@@ -150,7 +150,7 @@ UAM@ARCTOS> desc temp_dgrloc
 <cfoutput>
 <cfif action is "findmp">
 	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status is null and and rownum<20
+		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status is null  and rownum<20
 	</cfquery>
 	<cfloop query="d">
 		<cfquery datasource='uam_god' name='p'>
