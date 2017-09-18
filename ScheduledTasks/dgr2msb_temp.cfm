@@ -107,7 +107,7 @@
 			CPART_PID is not null and
 			part_container_id is not null and
 			p2c_status is null and
-			rownum<20
+			rownum<2000
 	</cfquery>
 
 
