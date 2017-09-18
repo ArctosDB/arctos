@@ -154,7 +154,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status;
 <cfoutput>
 
 	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status is null  and rownum<200
+		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status is null  and rownum<2000
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
