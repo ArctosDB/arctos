@@ -29,7 +29,7 @@
 			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2
 		</cfquery>
 
-		<cfdump var="srcbx">
+		<cfdump var="#srcbx#">
 
 
 
