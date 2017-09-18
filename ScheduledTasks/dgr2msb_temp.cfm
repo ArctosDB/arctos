@@ -154,9 +154,16 @@ UAM@ARCTOS> desc temp_dgrloc
 	</cfquery>
 	<cfloop query="d">
 		<cfquery datasource='uam_god' name='p'>
-			select specimen_part.part_name from specimen_part, flat where flat.collection_object_id= specimen_part.derived_from_cat_item and
-			flat.guid='#guid#' and
-			 trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
+			select
+				specimen_part.part_name
+			from
+				specimen_part,
+				flat
+			where
+				flat.collection_object_id= specimen_part.derived_from_cat_item and
+				flat.guid='#guid#' and
+				SAMPLED_FROM_OBJ_ID is null and
+			 	trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
 		</cfquery>
 		<cfdump var="#p#">
 	</cfloop>
