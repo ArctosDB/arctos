@@ -61,7 +61,7 @@
 							p.label='#place#'
 					</cfquery>
 					<cfquery datasource='uam_god' name='reup'>
-						update temp_dgrloc set TUBE_CONTAINER_ID=#t.container_id# where locator_id=#d.locator_id#
+						update temp_dgrloc set TUBE_CONTAINER_ID=#t.container_id# where key=#d.key#
 					</cfquery>
 				</cfloop>
 			</cftransaction>
