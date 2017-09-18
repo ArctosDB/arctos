@@ -36,7 +36,7 @@
 			</cfquery>
 			<cfquery datasource='uam_god' name='d_b'>
 				select container_id from container where container_type='freezer box' and
-				label='DRG-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#'
+				label='DGR-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#'
 			</cfquery>
 
 			<cfdump var=#d_b#>
