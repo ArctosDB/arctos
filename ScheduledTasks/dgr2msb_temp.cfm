@@ -23,7 +23,7 @@
 	select status, count(*) from temp_dgr_box group by status;
 	select * from temp_dgr_box where status='box_create_success';
 
---->
+
 
 <cfif not isdefined("action") or action is "nothing">
 	<cfabort>
@@ -31,8 +31,10 @@
 
 <cfoutput>
 
+--->
 
-<cfif action is "move_part_to_tube">
+
+
 	<!---
 
 		we have tube's container_id in tube_container_id
@@ -91,6 +93,10 @@
 				coll_obj_cont_hist.collection_object_id=temp_dgrloc.CPART_PID)
 				where CPART_PID is not null;
 
+
+select count(*) from temp_dgrloc where p2c_status='autoinstalled-1';
+
+
 	---->
 
 
@@ -138,7 +144,6 @@
 		</cftransaction>
 	</cfloop>
 
-</cfif>
 
 
 
