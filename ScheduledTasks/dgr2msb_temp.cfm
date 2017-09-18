@@ -48,8 +48,8 @@
 			<cfloop query="d">
 				<cfquery datasource='uam_god' name='t'>
 					select
-						label,
-						container_id
+						t.label,
+						t.container_id
 					from
 						container t,
 						container p
