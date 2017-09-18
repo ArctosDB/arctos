@@ -144,6 +144,9 @@ UAM@ARCTOS> desc temp_dgrloc
 
 <cfif action is "findmp">
 </cfif>
+
+
+select p2c_status,count(*) from temp_dgrloc group by p2c_status;
 	---->
 
 
