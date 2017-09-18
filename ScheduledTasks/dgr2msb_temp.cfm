@@ -35,7 +35,7 @@
 <!--- now loop through and find the tube's contianer_id --->
 
 		<cfquery datasource='uam_god' name='srcbx'>
-			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<200
+			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2000
 		</cfquery>
 		<cfloop query="srcbx">
 			<cftransaction>
