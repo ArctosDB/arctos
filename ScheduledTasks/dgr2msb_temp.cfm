@@ -156,7 +156,8 @@ UAM@ARCTOS> desc temp_dgrloc
 		<cfquery datasource='uam_god' name='p'>
 			select
 				parent_container_id,
-				specimen_part.part_name
+				specimen_part.part_name,
+				specimen_part.collection_object_id part_id
 			from
 				specimen_part,
 				flat,
@@ -173,9 +174,9 @@ UAM@ARCTOS> desc temp_dgrloc
 		</cfquery>
 		<cfdump var="#p#">
 
-		<cfif p.recordcount gt 1>
+		<cfif p.recordcount gte 1>
 			<!--- can we eliminate anything that's in a container?? ---->
-
+			<br>gonna use #p.part_name# (#p.part_id#) because reasons....
 
 		</cfif>
 		<cfif p.recordcount is 0>
