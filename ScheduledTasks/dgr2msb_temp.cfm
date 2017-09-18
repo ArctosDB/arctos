@@ -28,8 +28,27 @@
 		<cfquery datasource='uam_god' name='srcbx'>
 			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2
 		</cfquery>
+		<cfloop query="srcbx">
 
-		<cfdump var="#srcbx#">
+			<cfquery datasource='d' name='srcbx'>
+				select * from temp_dgrloc where tube_container_id is null and
+				 freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
+			</cfquery>
+			<cfquery datasource='d_b' name='srcbx'>
+				select container_id from container where container_type='freezer box' and
+				label='DRG-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#'
+			</cfquery>
+
+			<cfdump var=#d_b#>
+
+			<cfloop query="d">
+
+
+			</cfloop>
+
+		</cfloop>
+
+
 
 
 
