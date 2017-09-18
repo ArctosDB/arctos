@@ -82,6 +82,15 @@
 
 		select distinct CURRENT_PART_BARCODE from temp_dgrloc where CPART_PID is not null;
 
+
+		alter table temp_dgrloc add part_container_id number;
+
+
+		update temp_dgrloc set part_container_id=(
+			select container_id from coll_obj_cont_hist where
+				coll_obj_cont_hist.collection_object_id=temp_dgrloc.CPART_PID)
+				where CPART_PID is not null;
+
 	---->
 
 
@@ -89,17 +98,41 @@
 		select
 			key,
 			tube_container_id,
-			CPART_PID
+			CPART_PID,
+			part_container_id
 		from
 			temp_dgrloc
 		where
 			tube_container_id is not null and
 			CPART_PID is not null and
+			part_container_id is not null and
 			p2c_status is null and
 			rownum<2
 	</cfquery>
 	<cfloop query="d">
-		<br>#tube_container_id#
+		<cftransaction>
+			<br>#tube_container_id#
+
+			<cfquery datasource='uam_god' name='uppc'>
+				update
+					container
+				set
+					parent_container_id=#tube_container_id#
+				where
+					container_id=#part_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='uptc'>
+				update
+					container
+				set
+					CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-installed from DGR locator data'
+				where
+					container_id=#tube_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='autoinstalled-1' where key=#key#
+			</cfquery>
+		</cftransaction>
 	</cfloop>
 
 
