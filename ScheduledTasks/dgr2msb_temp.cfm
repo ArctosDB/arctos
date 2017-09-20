@@ -170,12 +170,43 @@ select min(collection_object_id) from temp_dgrloc where p2c_status='found_guid_n
 update temp_dgrloc set collection_object_id=(select collection_object_id from flat where flat.guid=temp_dgrloc.guid)
  where  guid is not null and p2c_status='found_guid_no_dgr';
 
+
+
+select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk_found';
 	---->
 
+<cfif not isdefined("action") or action is "nothing">
+	<cfabort>
+</cfif>
 
 
 <cfoutput>
 
+	<cfif action is "no_specimens_with_nk_found">
+
+<!---
+	move no_specimens_with_nk_found records out of the way
+--->
+	<cfquery datasource='uam_god' name='d'>
+		select * from temp_dgrloc where p2c_status='no_specimens_with_nk_found' and rownum<2
+	</cfquery>
+	<cfloop query="d">
+		<cftransaction>
+			<br>#tube_container_id#
+			<cfquery datasource='uam_god' name='upc'>
+				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; No specimens with NK #nk# number found on ' || sysdate
+				where container_id=#tube_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='no_specimens_with_nk_found-wroteToTubeContainer' where key=#key#
+			</cfquery>
+		</cftransaction>
+	</cfloop>
+
+</cfif>
+
+</cfoutput>
+<!----
 
 
 	<!---
@@ -228,12 +259,6 @@ update temp_dgrloc set collection_object_id=(select collection_object_id from fl
 	<!---
 		END install things where we have a partID and a containerID
 	---->
-
-
-
-
-</cfoutput>
-<!----
 
 
 
