@@ -174,7 +174,8 @@ update temp_dgrloc set collection_object_id=(select collection_object_id from fl
 
 select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk_found';
 
-
+<cfif action is "multiple_specimens_with_nk_found">
+	</cfif>
 	---->
 
 <cfif not isdefined("action") or action is "nothing">
@@ -183,7 +184,8 @@ select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk
 
 
 <cfoutput>
-<cfif action is "multiple_specimens_with_nk_found">
+
+
 <!---
 	move multiple_specimens_with_nk_found records out of the way
 --->
@@ -206,9 +208,8 @@ select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk
 		</cftransaction>
 	</cfloop>
 
-	</cfif>
 <!---
-	END move no_specimens_with_nk_found records out of the way
+	END move multiple_specimens_with_nk_found records out of the way
 --->
 </cfoutput>
 <!----
