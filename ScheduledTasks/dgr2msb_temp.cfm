@@ -147,11 +147,54 @@ UAM@ARCTOS> desc temp_dgrloc
 
 
 select p2c_status,count(*) from temp_dgrloc group by p2c_status;
+
+select tissue_type, CPART, count(*) from temp_dgrloc where p2c_status='zero_part_match' group by tissue_type ,CPART order by count(*);
+
+select tissue_type, CPART, ARCTOS_PARTS from temp_dgrloc where p2c_status='zero_part_match' order by tissue_type;
+
+
+select distinct nk from temp_dgrloc where p2c_status is null;
+select distinct guid from temp_dgrloc where p2c_status is null;
+
+create table temp_dgr_from_nk as select guid from temp_dgrloc where guid like 'DGR%';
+
 	---->
 
 
 
 <cfoutput>
+
+	<!--- get some more GUIDs, ignoring DGR collections ---->
+
+		<cfquery datasource='uam_god' name='d'>
+			select nk from temp_dgrloc where guid is null and p2c_status is null and rownum<500
+		</cfquery>
+		<cfloop query="d">
+			<cfquery datasource='uam_god' name='gg'>
+				 select distinct
+	        		guid_prefix || ':' || cat_num guid
+			      from
+			        collection,
+			        cataloged_item,
+			        coll_obj_other_id_num
+			      where
+			        collection.collection_id=cataloged_item.collection_id and
+			        cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+			        coll_obj_other_id_num.other_id_type='NK' and
+			        collection.guid_prefix not like '%Para%' and
+			        collection.guid_prefix not like '%DGR%' and
+			        coll_obj_other_id_num.display_value='#NK#'
+			</cfquery>
+			<cfdump var=#gg#>
+
+		</cfloop>
+
+	<!--- END some more GUIDs, ignoring DGR collections ---->
+
+</cfoutput>
+<!----
+
+
 
 
 	<!---
@@ -205,8 +248,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status;
 		END install things where we have a partID and a containerID
 	---->
 
-</cfoutput>
-<!----
 
 
 
