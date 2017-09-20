@@ -174,15 +174,44 @@ update temp_dgrloc set collection_object_id=(select collection_object_id from fl
 
 select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk_found';
 
+
+	---->
+
 <cfif not isdefined("action") or action is "nothing">
 	<cfabort>
 </cfif>
 
 
-	---->
-
-
 <cfoutput>
+<cfif action is "multiple_specimens_with_nk_found">
+<!---
+	move multiple_specimens_with_nk_found records out of the way
+--->
+	<cfquery datasource='uam_god' name='d'>
+		select * from temp_dgrloc where p2c_status like 'multiple_specimens_with_nk_found%' and rownum<2
+	</cfquery>
+	<cfloop query="d">
+		<cftransaction>
+			<cfset guidlist=listgetat(p2c_status,2,"|")>
+
+			<br>#tube_container_id#
+			<br>#guidlist#
+			<cfquery datasource='uam_god' name='upc'>
+				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; Multiple specimens with NK #nk# found on ' || sysdate || ': #guidlist#
+				where container_id=#tube_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='multiple_specimens_with_nk_found-wroteToTubeContainer' where key=#key#
+			</cfquery>
+		</cftransaction>
+	</cfloop>
+
+	</cfif>
+<!---
+	END move no_specimens_with_nk_found records out of the way
+--->
+</cfoutput>
+<!----
 
 
 <!---
@@ -203,11 +232,9 @@ select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk
 			</cfquery>
 		</cftransaction>
 	</cfloop>
-
-
-</cfoutput>
-<!----
-
+<!---
+	END move no_specimens_with_nk_found records out of the way
+--->
 
 	<!---
 		install things where we have a partID and a containerID
