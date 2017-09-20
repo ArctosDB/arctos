@@ -167,7 +167,7 @@ create table temp_dgr_from_nk as select guid from temp_dgrloc where guid like 'D
 	<!--- get some more GUIDs, ignoring DGR collections ---->
 
 		<cfquery datasource='uam_god' name='d'>
-			select nk from temp_dgrloc where guid is null and p2c_status is null and rownum<500
+			select nk, key from temp_dgrloc where guid is null and p2c_status is null and rownum<500
 		</cfquery>
 		<cfloop query="d">
 			<cfquery datasource='uam_god' name='gg'>
@@ -185,7 +185,20 @@ create table temp_dgr_from_nk as select guid from temp_dgrloc where guid like 'D
 			        collection.guid_prefix not like '%DGR%' and
 			        coll_obj_other_id_num.display_value='#NK#'
 			</cfquery>
-			<cfdump var=#gg#>
+			<cfif gg.recordcount is 1>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set guid='#gg.guid#',p2c_status='found_guid_no_dgr' where key=#key#
+				</cfquery>
+			<cfelseif gg.recordcount lt 1>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set p2c_status='no_specimens_with_nk_found' where key=#key#
+				</cfquery>
+			<cfelse>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set p2c_status='multiple_specimens_with_nk_found|#valuelist(gg.guid)#' where key=#key#
+				</cfquery>
+
+			</cfif>
 
 		</cfloop>
 
