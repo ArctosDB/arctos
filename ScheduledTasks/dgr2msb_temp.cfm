@@ -179,6 +179,66 @@ update temp_dgrloc set collection_object_id=(select collection_object_id from fl
 
 
 	<!---
+		install things where we have a partID and a containerID
+	---->
+
+	<cfquery datasource='uam_god' name='d'>
+		select
+			key,
+			tube_container_id,
+			CPART_PID,
+			part_container_id
+		from
+			temp_dgrloc
+		where
+			tube_container_id is not null and
+			CPART_PID is not null and
+			part_container_id is not null and
+			p2c_status ='found_random_dup_part' and
+			rownum<2000
+	</cfquery>
+
+
+
+	<cfloop query="d">
+		<cftransaction>
+
+			<cfquery datasource='uam_god' name='uppc'>
+				update
+					container
+				set
+					parent_container_id=#tube_container_id#
+				where
+					container_id=#part_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='uptc'>
+				update
+					container
+				set
+					CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-installed from DGR locator data'
+				where
+					container_id=#tube_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='autoinstalled-found_random_dup_part' where key=#key#
+			</cfquery>
+		</cftransaction>
+	</cfloop>
+
+	<!---
+		END install things where we have a partID and a containerID
+	---->
+
+
+
+
+</cfoutput>
+<!----
+
+
+
+
+	<!---
 		find things with multiple parts; choose one
 	--->
 
@@ -233,66 +293,6 @@ update temp_dgrloc set collection_object_id=(select collection_object_id from fl
 	<!---
 		END find things with multiple parts; choose one
 	--->
-
-
-
-
-</cfoutput>
-<!----
-
-
-
-
-	<!---
-		install things where we have a partID and a containerID
-	---->
-
-	<cfquery datasource='uam_god' name='d'>
-		select
-			key,
-			tube_container_id,
-			CPART_PID,
-			part_container_id
-		from
-			temp_dgrloc
-		where
-			tube_container_id is not null and
-			CPART_PID is not null and
-			part_container_id is not null and
-			p2c_status ='found_random_dup_part' and
-			rownum<2000
-	</cfquery>
-
-
-
-	<cfloop query="d">
-		<cftransaction>
-
-			<cfquery datasource='uam_god' name='uppc'>
-				update
-					container
-				set
-					parent_container_id=#tube_container_id#
-				where
-					container_id=#part_container_id#
-			</cfquery>
-			<cfquery datasource='uam_god' name='uptc'>
-				update
-					container
-				set
-					CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-installed from DGR locator data'
-				where
-					container_id=#tube_container_id#
-			</cfquery>
-			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set p2c_status='autoinstalled-found_random_dup_part' where key=#key#
-			</cfquery>
-		</cftransaction>
-	</cfloop>
-
-	<!---
-		END install things where we have a partID and a containerID
-	---->
 
 
 
