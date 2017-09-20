@@ -173,22 +173,23 @@ update temp_dgrloc set collection_object_id=(select collection_object_id from fl
 
 
 select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk_found';
-	---->
 
 <cfif not isdefined("action") or action is "nothing">
 	<cfabort>
 </cfif>
 
 
+	---->
+
+
 <cfoutput>
 
-	<cfif action is "no_specimens_with_nk_found">
 
 <!---
 	move no_specimens_with_nk_found records out of the way
 --->
 	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where p2c_status='no_specimens_with_nk_found' and rownum<2
+		select * from temp_dgrloc where p2c_status='no_specimens_with_nk_found' and rownum<2000
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
@@ -203,7 +204,6 @@ select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk
 		</cftransaction>
 	</cfloop>
 
-</cfif>
 
 </cfoutput>
 <!----
