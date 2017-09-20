@@ -194,7 +194,7 @@ select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk
 		<cftransaction>
 			<br>#tube_container_id#
 			<cfquery datasource='uam_god' name='upc'>
-				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; No specimens with NK #nk# number found on ' || sysdate
+				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; No specimens with NK #nk# found on ' || sysdate
 				where container_id=#tube_container_id#
 			</cfquery>
 			<cfquery datasource='uam_god' name='ups'>
