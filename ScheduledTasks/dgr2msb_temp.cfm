@@ -167,7 +167,7 @@ create table temp_dgr_from_nk as select guid from temp_dgrloc where guid like 'D
 	<!--- get some more GUIDs, ignoring DGR collections ---->
 
 		<cfquery datasource='uam_god' name='d'>
-			select nk, key from temp_dgrloc where guid is null and p2c_status is null and rownum<500
+			select nk, key from temp_dgrloc where guid is null and p2c_status is null
 		</cfquery>
 		<cfloop query="d">
 			<cfquery datasource='uam_god' name='gg'>
