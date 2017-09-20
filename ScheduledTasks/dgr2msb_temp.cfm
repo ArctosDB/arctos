@@ -146,7 +146,7 @@ UAM@ARCTOS> desc temp_dgrloc
 </cfif>
 
 
-select p2c_status,count(*) from temp_dgrloc group by p2c_status;
+select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
 
 select tissue_type, CPART, count(*) from temp_dgrloc where p2c_status='zero_part_match' group by tissue_type ,CPART order by count(*);
 
@@ -158,51 +158,84 @@ select distinct guid from temp_dgrloc where p2c_status is null;
 
 create table temp_dgr_from_nk as select guid from temp_dgrloc where guid like 'DGR%';
 
+
+select count(*) from temp_dgrloc where guid is not null and p2c_status='found_guid_no_dgr';
+select count(*) from temp_dgrloc where guid is null and p2c_status='found_guid_no_dgr';
+select count(*) from temp_dgrloc where collection_object_id is not null and p2c_status='found_guid_no_dgr';
+select count(*) from temp_dgrloc where collection_object_id is null and p2c_status='found_guid_no_dgr';
+
+select min(collection_object_id) from temp_dgrloc where p2c_status='found_guid_no_dgr';
+
+
+update temp_dgrloc set collection_object_id=(select collection_object_id from flat where flat.guid=temp_dgrloc.guid)
+ where  guid is not null and p2c_status='found_guid_no_dgr';
+
 	---->
 
 
 
 <cfoutput>
 
-	<!--- get some more GUIDs, ignoring DGR collections ---->
 
-		<cfquery datasource='uam_god' name='d'>
-			select nk, key from temp_dgrloc where guid is null and p2c_status is null
+
+	<!---
+		find things with multiple parts; choose one
+	--->
+
+
+	<cfquery datasource='uam_god' name='d'>
+		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status ='found_guid_no_dgr'  and rownum<2000
+	</cfquery>
+	<cfloop query="d">
+		<cftransaction>
+		<cfquery datasource='uam_god' name='p'>
+			select
+				parent_container_id,
+				specimen_part.part_name,
+				specimen_part.collection_object_id part_id,
+				container.container_id
+			from
+				specimen_part,
+				flat,
+				coll_obj_cont_hist,
+				container
+			where
+				flat.collection_object_id= specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				coll_obj_cont_hist.container_id=container.container_id and
+				flat.guid='#guid#' and
+				SAMPLED_FROM_OBJ_ID is null and
+				container.parent_container_id=0 and
+			 	trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
 		</cfquery>
-		<cfloop query="d">
-			<cfquery datasource='uam_god' name='gg'>
-				 select distinct
-	        		guid_prefix || ':' || cat_num guid
-			      from
-			        collection,
-			        cataloged_item,
-			        coll_obj_other_id_num
-			      where
-			        collection.collection_id=cataloged_item.collection_id and
-			        cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-			        coll_obj_other_id_num.other_id_type='NK' and
-			        collection.guid_prefix not like '%Para%' and
-			        collection.guid_prefix not like '%DGR%' and
-			        coll_obj_other_id_num.display_value='#NK#'
+
+		<cfif p.recordcount gte 1>
+			<!--- can we eliminate anything that's in a container?? ---->
+			<br>gonna use #p.part_name# (#p.part_id#) because reasons....
+			<cfquery datasource='uam_god' name='x'>
+				update temp_dgrloc set
+					CPART_PID=#p.part_id#,
+					part_container_id=#p.container_id#,
+					p2c_status='found_random_dup_part'
+				where
+					key=#key#
 			</cfquery>
-			<cfif gg.recordcount is 1>
-				<cfquery datasource='uam_god' name='gud'>
-					update temp_dgrloc set guid='#gg.guid#',p2c_status='found_guid_no_dgr' where key=#key#
-				</cfquery>
-			<cfelseif gg.recordcount lt 1>
-				<cfquery datasource='uam_god' name='gud'>
-					update temp_dgrloc set p2c_status='no_specimens_with_nk_found' where key=#key#
-				</cfquery>
-			<cfelse>
-				<cfquery datasource='uam_god' name='gud'>
-					update temp_dgrloc set p2c_status='multiple_specimens_with_nk_found|#valuelist(gg.guid)#' where key=#key#
-				</cfquery>
+		</cfif>
+		<cfif p.recordcount is 0>
+			<br>nodice
+			<cfquery datasource='uam_god' name='x'>
+				update temp_dgrloc set p2c_status='zero_part_match' where key=#key#
+			</cfquery>
+		</cfif>
 
-			</cfif>
+		</cftransaction>
+	</cfloop>
+	<!---
+		END find things with multiple parts; choose one
+	--->
 
-		</cfloop>
 
-	<!--- END some more GUIDs, ignoring DGR collections ---->
+
 
 </cfoutput>
 <!----
@@ -264,62 +297,47 @@ create table temp_dgr_from_nk as select guid from temp_dgrloc where guid like 'D
 
 
 
-	<!---
-		find things with multiple parts; choose one
-	--->
 
 
-	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where guid is not null and CPART_PID is null and p2c_status is null  and rownum<2000
-	</cfquery>
-	<cfloop query="d">
-		<cftransaction>
-		<cfquery datasource='uam_god' name='p'>
-			select
-				parent_container_id,
-				specimen_part.part_name,
-				specimen_part.collection_object_id part_id,
-				container.container_id
-			from
-				specimen_part,
-				flat,
-				coll_obj_cont_hist,
-				container
-			where
-				flat.collection_object_id= specimen_part.derived_from_cat_item and
-				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-				coll_obj_cont_hist.container_id=container.container_id and
-				flat.guid='#guid#' and
-				SAMPLED_FROM_OBJ_ID is null and
-				container.parent_container_id=0 and
-			 	trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
+	<!--- get some more GUIDs, ignoring DGR collections ---->
+
+		<cfquery datasource='uam_god' name='d'>
+			select nk, key from temp_dgrloc where guid is null and p2c_status is null
 		</cfquery>
-
-		<cfif p.recordcount gte 1>
-			<!--- can we eliminate anything that's in a container?? ---->
-			<br>gonna use #p.part_name# (#p.part_id#) because reasons....
-			<cfquery datasource='uam_god' name='x'>
-				update temp_dgrloc set
-					CPART_PID=#p.part_id#,
-					part_container_id=#p.container_id#,
-					p2c_status='found_random_dup_part'
-				where
-					key=#key#
+		<cfloop query="d">
+			<cfquery datasource='uam_god' name='gg'>
+				 select distinct
+	        		guid_prefix || ':' || cat_num guid
+			      from
+			        collection,
+			        cataloged_item,
+			        coll_obj_other_id_num
+			      where
+			        collection.collection_id=cataloged_item.collection_id and
+			        cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+			        coll_obj_other_id_num.other_id_type='NK' and
+			        collection.guid_prefix not like '%Para%' and
+			        collection.guid_prefix not like '%DGR%' and
+			        coll_obj_other_id_num.display_value='#NK#'
 			</cfquery>
-		</cfif>
-		<cfif p.recordcount is 0>
-			<br>nodice
-			<cfquery datasource='uam_god' name='x'>
-				update temp_dgrloc set p2c_status='zero_part_match' where key=#key#
-			</cfquery>
-		</cfif>
+			<cfif gg.recordcount is 1>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set guid='#gg.guid#',p2c_status='found_guid_no_dgr' where key=#key#
+				</cfquery>
+			<cfelseif gg.recordcount lt 1>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set p2c_status='no_specimens_with_nk_found' where key=#key#
+				</cfquery>
+			<cfelse>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set p2c_status='multiple_specimens_with_nk_found|#valuelist(gg.guid)#' where key=#key#
+				</cfquery>
 
-		</cftransaction>
-	</cfloop>
-	<!---
-		END find things with multiple parts; choose one
-	--->
+			</cfif>
 
+		</cfloop>
+
+	<!--- END some more GUIDs, ignoring DGR collections ---->
 
 
 
