@@ -188,7 +188,7 @@ select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk
 	move multiple_specimens_with_nk_found records out of the way
 --->
 	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where p2c_status like 'multiple_specimens_with_nk_found|%' and rownum<2
+		select * from temp_dgrloc where p2c_status like 'multiple_specimens_with_nk_found|%' and rownum<2000
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
