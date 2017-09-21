@@ -176,12 +176,14 @@ select tube_container_id from temp_dgrloc where p2c_status='no_specimens_with_nk
 
 <cfif action is "multiple_specimens_with_nk_found">
 	</cfif>
-	---->
+
 
 <cfif not isdefined("action") or action is "nothing">
 	<cfabort>
 </cfif>
 
+
+	---->
 
 <cfoutput>
 
