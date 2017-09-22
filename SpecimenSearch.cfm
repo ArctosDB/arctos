@@ -355,7 +355,7 @@
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-				<span class="secLabel">Biological Individual</span>
+				<span class="secLabel">Specimen Record</span>
 				<span class="secControl" id="c_biolindiv" onclick="showHide('biolindiv',1)">Show More Options</span>
 			</td>
 		</tr>
