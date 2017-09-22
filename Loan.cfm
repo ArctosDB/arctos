@@ -1891,8 +1891,7 @@ just fooling idiot cfclipse into using the right colors
 		<cfif not isdefined("to_trans_date") or len(to_trans_date) is 0>
 			<cfset to_trans_date=trans_date>
 		</cfif>
-		<cfset sql = "#sql# AND trans_date between to_date('#trans_date#')
-			and to_date('#to_trans_date#')">
+		<cfset sql = "#sql# AND trans_date between '#trans_date#' and '#to_trans_date#'">
 	</cfif>
 	<cfif isdefined("trans_remarks") AND len(#trans_remarks#) gt 0>
 		<cfset sql = "#sql# AND upper(trans_remarks) LIKE '%#ucase(trans_remarks)#%'">
