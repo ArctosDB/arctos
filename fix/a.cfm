@@ -1,5 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 
+request.requestingSubnet: #request.requestingSubnet#
+	<cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
+		subnetblock
+	</cfif>
+
+<cfabort>
+
+
 <!---
 create table temp_test (u varchar2(255), p varchar2(255));
 insert into temp_test (u,p) values ('dustylee','xxxxx');
