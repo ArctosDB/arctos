@@ -12,7 +12,7 @@ request.requestingSubnet: #request.requestingSubnet#
 <!---
 create table temp_test (u varchar2(255), p varchar2(255));
 insert into temp_test (u,p) values ('dustylee','xxxxx');
----->
+
 
 
     <cfquery datasource='uam_god' name='p'>
@@ -27,7 +27,7 @@ insert into temp_test (u,p) values ('dustylee','xxxxx');
 </cfloop>
 	<cfoutput>
 	#x#
-	</cfoutput>
+	</cfoutput>---->
 <!----------------------------
 
  IIf((higher_geog EQ "no higher geography recorded"),DE(""),
