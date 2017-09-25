@@ -1,10 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfoutput>
 
 request.requestingSubnet: #request.requestingSubnet#
 	<cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
 		subnetblock
 	</cfif>
-
+</cfoutput>
 <cfabort>
 
 
