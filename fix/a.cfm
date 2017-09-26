@@ -2,27 +2,50 @@
 	<cfoutput>
 
 	<form>
-		<input placeholder="pick a part">
-		<div style="border:1px solid green; margin-left:1em; padding:.5em;">
-			<input placeholder="pick a part attribute">
-			<br><input placeholder="part attribute value">
-			<br><input placeholder="part attribute metadata-thingee">
+		<div style="border:1px solid red; padding:.5em;">
+			<input placeholder="pick a part">
+			<input placeholder="condition">
+			<input placeholder="barcode">
+			<input placeholder="more part stuff">
+
+			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+				<input placeholder="pick a part attribute">
+				<br><input placeholder="part attribute value">
+				<br><input placeholder="part attribute metadata-thingee">
+			</div>
+			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+				<input placeholder="pick a part attribute">
+				<br><input placeholder="part attribute value">
+				<br><input placeholder="part attribute metadata-thingee">
+			</div>
+			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+				<button value="click to add more attributes"></button>
+			</div>
 		</div>
-		<div style="border:1px solid green; margin-left:1em; padding:.5em;">
-			<input placeholder="pick a part attribute">
-			<br><input placeholder="part attribute value">
-			<br><input placeholder="part attribute metadata-thingee">
+		<div style="border:1px solid red; padding:.5em;">
+			<input placeholder="pick a part">
+			<input placeholder="condition">
+			<input placeholder="barcode">
+			<input placeholder="more part stuff">
+
+			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+				<input placeholder="pick a part attribute">
+				<br><input placeholder="part attribute value">
+				<br><input placeholder="part attribute metadata-thingee">
+			</div>
+			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+				<input placeholder="pick a part attribute">
+				<br><input placeholder="part attribute value">
+				<br><input placeholder="part attribute metadata-thingee">
+			</div>
+			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+				<button value="click to add more attributes"></button>
+			</div>
 		</div>
-		<div style="border:1px solid green; margin-left:1em; padding:.5em;">
-			<input placeholder="pick a part attribute">
-			<br><input placeholder="part attribute value">
-			<br><input placeholder="part attribute metadata-thingee">
+		<div style="border:1px solid red; padding:.5em;">
+				<button value="click to add more parts"></button>
 		</div>
-		<div style="border:1px solid green; margin-left:1em; padding:.5em;">
-			<input placeholder="pick a part attribute">
-			<br><input placeholder="part attribute value">
-			<br><input placeholder="part attribute metadata-thingee">
-		</div>
+
 	</form>
 
 </cfoutput>
