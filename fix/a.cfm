@@ -10,13 +10,13 @@
 
 			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
 				<input placeholder="pick a part attribute">
-				<br><input placeholder="part attribute value">
-				<br><input placeholder="part attribute metadata-thingee">
+				<input placeholder="part attribute value">
+				<input placeholder="part attribute metadata-thingee">
 			</div>
 			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
 				<input placeholder="pick a part attribute">
-				<br><input placeholder="part attribute value">
-				<br><input placeholder="part attribute metadata-thingee">
+				<input placeholder="part attribute value">
+				<input placeholder="part attribute metadata-thingee">
 			</div>
 			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
 				<button value="click to add more attributes"></button>
@@ -30,13 +30,13 @@
 
 			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
 				<input placeholder="pick a part attribute">
-				<br><input placeholder="part attribute value">
-				<br><input placeholder="part attribute metadata-thingee">
+				<input placeholder="part attribute value">
+				<input placeholder="part attribute metadata-thingee">
 			</div>
 			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
 				<input placeholder="pick a part attribute">
-				<br><input placeholder="part attribute value">
-				<br><input placeholder="part attribute metadata-thingee">
+				<input placeholder="part attribute value">
+				<input placeholder="part attribute metadata-thingee">
 			</div>
 			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
 				<button value="click to add more attributes"></button>
