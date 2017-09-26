@@ -19,7 +19,7 @@
 				<input placeholder="part attribute metadata-thingee">
 			</div>
 			<div style="border:1px solid green; margin-left:1em; padding:.5em;">
-				<button value="click to add more attributes"></button>
+				<button>click to add more attributes</button>
 			</div>
 		</div>
 		<div style="border:1px solid red; padding:.5em;">
