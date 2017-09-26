@@ -203,7 +203,7 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 	---->
 
 <cfoutput>
-<cfquery datasource='uam_god' name='d'>
+	<cfquery datasource='uam_god' name='d'>
 		select * from temp_dgrloc where
 			guid is not null and
 			CPART_PID is null and
@@ -282,9 +282,6 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 			</cfif>
 			<cfif len(use_part_2) gt 0>
 				<br>use_part_2=#use_part_2#
-
-
-
 				<cfquery datasource='uam_god' name='p'>
 					select
 						parent_container_id,
@@ -310,32 +307,51 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 					<br> gonna use #p.part_name# (#p.part_id#) because exact match....
 					<cfset p2id=p.part_id>
 				<cfelse>
-				<!--- try with no parens --->
-				<cfquery datasource='uam_god' name='p'>
-					select
-						parent_container_id,
-						specimen_part.part_name,
-						specimen_part.collection_object_id part_id,
-						container.container_id
-					from
-						specimen_part,
-						flat,
-						coll_obj_cont_hist,
-						container
-					where
-						flat.collection_object_id= specimen_part.derived_from_cat_item and
-						specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-						coll_obj_cont_hist.container_id=container.container_id and
-						flat.guid='#guid#' and
-						SAMPLED_FROM_OBJ_ID is null and
-						container.parent_container_id=0 and
-					 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_2#', 0, instr('#use_part_2#','(')-1))
-				</cfquery>
-				<cfif p.recordcount gte 1>
-					<br>gonna use #p.part_name# (#p.part_id#) because noparens match....
-					<cfset p2id=p.part_id>
+					<!--- try with no parens --->
+					<cfquery datasource='uam_god' name='p'>
+						select
+							parent_container_id,
+							specimen_part.part_name,
+							specimen_part.collection_object_id part_id,
+							container.container_id
+						from
+							specimen_part,
+							flat,
+							coll_obj_cont_hist,
+							container
+						where
+							flat.collection_object_id= specimen_part.derived_from_cat_item and
+							specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+							coll_obj_cont_hist.container_id=container.container_id and
+							flat.guid='#guid#' and
+							SAMPLED_FROM_OBJ_ID is null and
+							container.parent_container_id=0 and
+						 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_2#', 0, instr('#use_part_2#','(')-1))
+					</cfquery>
+					<cfif p.recordcount gte 1>
+						<br>gonna use #p.part_name# (#p.part_id#) because noparens match....
+						<cfset p2id=p.part_id>
+					</cfif>
 				</cfif>
+				<cfif len(p2id) is 0>
+					<br>nodice for part2
+				</cfif>
+			</cfif>
 
+
+
+
+
+		</cftransaction>
+	</cfloop>
+
+
+			<!----	<cfif len(p1id) is 0>
+			<br>nodice for part1
+			<cfquery datasource='uam_god' name='x'>
+				update temp_dgrloc set p2c_status='zero_part_match' where key=#key#
+			</cfquery></cfif>
+			-------->
 				<!----
 				<cfquery datasource='uam_god' name='x'>
 					update temp_dgrloc set
@@ -346,36 +362,6 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 						key=#key#
 				</cfquery>
 				---->
-			</cfif>
-
-
-
-
-
-
-
-
-
-
-			</cfif>
-
-			<cfif len(p2id) is 0>
-				<br>nodice for part2
-			</cfif>
-
-
-			<!----	<cfif len(p1id) is 0>
-			<br>nodice for part1
-			<cfquery datasource='uam_god' name='x'>
-				update temp_dgrloc set p2c_status='zero_part_match' where key=#key#
-			</cfquery></cfif>
-			-------->
-
-
-		</cftransaction>
-	</cfloop>
-
-
 
 </cfoutput>
 <!----
