@@ -264,7 +264,7 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 				<cfif p.recordcount gte 1>
 					<br>exact match: gonna use #p.part_name# (#p.part_id#) because noparens match....
 					<cfset p1id=p.part_id>
-				<cfelse>
+				</cfif>
 
 				<!----
 				<cfquery datasource='uam_god' name='x'>
