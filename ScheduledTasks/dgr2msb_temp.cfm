@@ -207,6 +207,7 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 		select * from temp_dgrloc where
 			guid is not null and
 			CPART_PID is null and
+			use_part_1 is null and
 			p2c_status ='zero_part_match' and
 			rownum<2000
 	</cfquery>
