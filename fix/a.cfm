@@ -1,10 +1,30 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
 
-request.requestingSubnet: #request.requestingSubnet#
-	<cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
-		subnetblock
-	</cfif>
+	<form>
+		<input placeholder="pick a part">
+		<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+			<input placeholder="pick a part attribute">
+			<br><input placeholder="part attribute value">
+			<br><input placeholder="part attribute metadata-thingee">
+		</div>
+		<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+			<input placeholder="pick a part attribute">
+			<br><input placeholder="part attribute value">
+			<br><input placeholder="part attribute metadata-thingee">
+		</div>
+		<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+			<input placeholder="pick a part attribute">
+			<br><input placeholder="part attribute value">
+			<br><input placeholder="part attribute metadata-thingee">
+		</div>
+		<div style="border:1px solid green; margin-left:1em; padding:.5em;">
+			<input placeholder="pick a part attribute">
+			<br><input placeholder="part attribute value">
+			<br><input placeholder="part attribute metadata-thingee">
+		</div>
+	</form>
+
 </cfoutput>
 <cfabort>
 
