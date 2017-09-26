@@ -230,7 +230,7 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 				flat.guid='#guid#' and
 				SAMPLED_FROM_OBJ_ID is null and
 				container.parent_container_id=0 and
-			 	part_name=#use_part_1#
+			 	part_name='#use_part_1#'
 		</cfquery>
 
 		<cfif p.recordcount gte 1>
