@@ -599,7 +599,7 @@
 </cffunction>
 <!------------------------------------------------------------------------------------>
 
-<cffunction name="setAppBL">
+<cffunction name="setAppBL" access="remote">
 	<cfquery name="d" datasource="uam_god">
 		select distinct ip from uam.blacklist where
 			status='active' and
