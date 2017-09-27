@@ -198,7 +198,13 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
  group by cpart;
 
 	update temp_dgrloc set cpart='ear clip' where cpart='EAR-PUNCH';
+	update temp_dgrloc set p2c_status='got_part_1' where p2c_status='zero_part_match' and CPART_PID is not null;
 
+
+
+						where
+							key=#key#
+					</cfquery>
 
 	---->
 
@@ -283,7 +289,8 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 					<cfquery datasource='uam_god' name='x'>
 						update temp_dgrloc set
 							CPART_PID=#p.part_id#,
-							part_container_id=#p.container_id#
+							part_container_id=#p.container_id#,
+							p2c_status='got_part_1'
 						where
 							key=#key#
 					</cfquery>
