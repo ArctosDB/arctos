@@ -203,18 +203,22 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 	---->
 
 <cfoutput>
+
+
+	<!--- find part2 when possible --->
 	<cfquery datasource='uam_god' name='d'>
 		select * from temp_dgrloc where
 			guid is not null and
-			CPART_PID is null and
+			CPART_PID2 is null and
+			use_part_2 is not null
 			p2c_status ='zero_part_match' and
 			rownum<2000
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
-			<br>use_part_1=#use_part_1#
-			<cfset p1id="">
+
 			<cfset p2id="">
+			<br>use_part_2=#use_part_2#
 			<cfquery datasource='uam_god' name='p'>
 				select
 					parent_container_id,
@@ -233,12 +237,11 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 					flat.guid='#guid#' and
 					SAMPLED_FROM_OBJ_ID is null and
 					container.parent_container_id=0 and
-				 	part_name='#use_part_1#'
+				 	part_name='#use_part_2#'
 			</cfquery>
 			<cfif p.recordcount gte 1>
-				<!--- can we eliminate anything that's in a container?? ---->
 				<br> gonna use #p.part_name# (#p.part_id#) because exact match....
-				<cfset p1id=p.part_id>
+				<cfset p2id=p.part_id>
 			<cfelse>
 				<!--- try with no parens --->
 				<cfquery datasource='uam_god' name='p'>
@@ -259,83 +262,24 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 						flat.guid='#guid#' and
 						SAMPLED_FROM_OBJ_ID is null and
 						container.parent_container_id=0 and
-					 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_1#', 0, instr('#use_part_1#','(')-1))
+					 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_2#', 0, instr('#use_part_2#','(')-1))
 				</cfquery>
 				<cfif p.recordcount gte 1>
 					<br>gonna use #p.part_name# (#p.part_id#) because noparens match....
-					<cfset p1id=p.part_id>
-				</cfif>
-
-				<!----
-				<cfquery datasource='uam_god' name='x'>
-					update temp_dgrloc set
-						CPART_PID=#p.part_id#,
-						part_container_id=#p.container_id#,
-						p2c_status='found_random_dup_part'
-					where
-						key=#key#
-				</cfquery>
-				---->
-			</cfif>
-			<cfif len(p1id) is 0>
-				<br>nodice for part1
-			</cfif>
-			<cfif len(use_part_2) gt 0>
-				<br>use_part_2=#use_part_2#
-				<cfquery datasource='uam_god' name='p'>
-					select
-						parent_container_id,
-						specimen_part.part_name,
-						specimen_part.collection_object_id part_id,
-						container.container_id
-					from
-						specimen_part,
-						flat,
-						coll_obj_cont_hist,
-						container
-					where
-						flat.collection_object_id= specimen_part.derived_from_cat_item and
-						specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-						coll_obj_cont_hist.container_id=container.container_id and
-						flat.guid='#guid#' and
-						SAMPLED_FROM_OBJ_ID is null and
-						container.parent_container_id=0 and
-					 	part_name='#use_part_2#'
-				</cfquery>
-				<cfif p.recordcount gte 1>
-					<!--- can we eliminate anything that's in a container?? ---->
-					<br> gonna use #p.part_name# (#p.part_id#) because exact match....
 					<cfset p2id=p.part_id>
-				<cfelse>
-					<!--- try with no parens --->
-					<cfquery datasource='uam_god' name='p'>
-						select
-							parent_container_id,
-							specimen_part.part_name,
-							specimen_part.collection_object_id part_id,
-							container.container_id
-						from
-							specimen_part,
-							flat,
-							coll_obj_cont_hist,
-							container
+				</cfif>
+			</cfif>
+			<cfif len(p2id) is 0>
+				<br>nodice for part2
+			<cfelse>
+			<br>updating....
+					<cfquery datasource='uam_god' name='x'>
+						update temp_dgrloc set
+							CPART_PID2=#p.part_id#,
+							part_container_id2=#p.container_id#
 						where
-							flat.collection_object_id= specimen_part.derived_from_cat_item and
-							specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-							coll_obj_cont_hist.container_id=container.container_id and
-							flat.guid='#guid#' and
-							SAMPLED_FROM_OBJ_ID is null and
-							container.parent_container_id=0 and
-						 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_2#', 0, instr('#use_part_2#','(')-1))
+							key=#key#
 					</cfquery>
-					<cfif p.recordcount gte 1>
-						<br>gonna use #p.part_name# (#p.part_id#) because noparens match....
-						<cfset p2id=p.part_id>
-					</cfif>
-				</cfif>
-				<cfif len(p2id) is 0>
-					<br>nodice for part2
-				</cfif>
 			</cfif>
 
 
@@ -353,14 +297,7 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 			</cfquery></cfif>
 			-------->
 				<!----
-				<cfquery datasource='uam_god' name='x'>
-					update temp_dgrloc set
-						CPART_PID=#p.part_id#,
-						part_container_id=#p.container_id#,
-						p2c_status='found_random_dup_part'
-					where
-						key=#key#
-				</cfquery>
+
 				---->
 
 </cfoutput>
