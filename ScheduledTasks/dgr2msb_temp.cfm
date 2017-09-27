@@ -211,99 +211,62 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 <cfoutput>
 
 
-	<!--- find part1 when possible --->
+
+
+
+<!---
+		install things where we have a partID and a containerID
+	---->
+
 	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where
-			guid is not null and
-			CPART_PID is null and
-			use_part_1 is not null and
-			p2c_status ='zero_part_match' and
-			rownum<2000
+		select
+			key,
+			tube_container_id,
+			CPART_PID,
+			part_container_id
+		from
+			temp_dgrloc
+		where
+			tube_container_id is not null and
+			CPART_PID is not null and
+			part_container_id is not null and
+			p2c_status ='got_part_1' and
+			rownum<2
 	</cfquery>
+
+
+
 	<cfloop query="d">
 		<cftransaction>
-
-			<cfset p1id="">
-			<br>use_part_1=#use_part_1#
-			<cfquery datasource='uam_god' name='p'>
-				select
-					parent_container_id,
-					specimen_part.part_name,
-					specimen_part.collection_object_id part_id,
-					container.container_id
-				from
-					specimen_part,
-					flat,
-					coll_obj_cont_hist,
+			<br>#tube_container_id#
+			<cfquery datasource='uam_god' name='uppc'>
+				update
 					container
+				set
+					parent_container_id=#tube_container_id#
 				where
-					flat.collection_object_id= specimen_part.derived_from_cat_item and
-					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-					coll_obj_cont_hist.container_id=container.container_id and
-					flat.guid='#guid#' and
-					SAMPLED_FROM_OBJ_ID is null and
-					container.parent_container_id=0 and
-				 	part_name='#use_part_1#'
+					container_id=#part_container_id#
 			</cfquery>
-			<cfif p.recordcount gte 1>
-				<br> gonna use #p.part_name# (#p.part_id#) because exact match....
-				<cfset p1id=p.part_id>
-			<cfelse>
-				<!--- try with no parens --->
-				<cfquery datasource='uam_god' name='p'>
-					select
-						parent_container_id,
-						specimen_part.part_name,
-						specimen_part.collection_object_id part_id,
-						container.container_id
-					from
-						specimen_part,
-						flat,
-						coll_obj_cont_hist,
-						container
-					where
-						flat.collection_object_id= specimen_part.derived_from_cat_item and
-						specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-						coll_obj_cont_hist.container_id=container.container_id and
-						flat.guid='#guid#' and
-						SAMPLED_FROM_OBJ_ID is null and
-						container.parent_container_id=0 and
-					 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_1#', 0, instr('#use_part_1#','(')-1))
-				</cfquery>
-				<cfif p.recordcount gte 1>
-					<br>gonna use #p.part_name# (#p.part_id#) because noparens match....
-					<cfset p1id=p.part_id>
-				</cfif>
-			</cfif>
-			<cfif len(p1id) is 0>
-				<br>nodice for part1
-					<cfquery datasource='uam_god' name='x'>
-						update temp_dgrloc set
-							p2c_status='fail_find_part_1'
-						where
-							key=#key#
-					</cfquery>
-
-			<cfelse>
-			<br>updating....
-					<cfquery datasource='uam_god' name='x'>
-						update temp_dgrloc set
-							CPART_PID=#p.part_id#,
-							part_container_id=#p.container_id#,
-							p2c_status='got_part_1'
-						where
-							key=#key#
-					</cfquery>
-			</cfif>
-
-
-
-
-
+			<cfquery datasource='uam_god' name='uptc'>
+				update
+					container
+				set
+					CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-installed from DGR locator data'
+				where
+					container_id=#tube_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='autoinstalled-got_part_1' where key=#key#
+			</cfquery>
 		</cftransaction>
 	</cfloop>
 
-	<!--- END find part2 when possible --->
+	<!---
+		END install things where we have a partID and a containerID
+	---->
+
+
+
 
 
 </cfoutput>
@@ -401,61 +364,101 @@ select count(*) from temp_dgrlog_stilltodo where lower(cpart) not in (select par
 
 
 
-
-
-
-
-
-<!---
-		install things where we have a partID and a containerID
-	---->
-
+	<!--- find part1 when possible --->
 	<cfquery datasource='uam_god' name='d'>
-		select
-			key,
-			tube_container_id,
-			CPART_PID,
-			part_container_id
-		from
-			temp_dgrloc
-		where
-			tube_container_id is not null and
-			CPART_PID is not null and
-			part_container_id is not null and
-			p2c_status ='found_random_dup_part' and
+		select * from temp_dgrloc where
+			guid is not null and
+			CPART_PID is null and
+			use_part_1 is not null and
+			p2c_status ='zero_part_match' and
 			rownum<2000
 	</cfquery>
-
-
-
 	<cfloop query="d">
 		<cftransaction>
-			<br>#tube_container_id#
-			<cfquery datasource='uam_god' name='uppc'>
-				update
+
+			<cfset p1id="">
+			<br>use_part_1=#use_part_1#
+			<cfquery datasource='uam_god' name='p'>
+				select
+					parent_container_id,
+					specimen_part.part_name,
+					specimen_part.collection_object_id part_id,
+					container.container_id
+				from
+					specimen_part,
+					flat,
+					coll_obj_cont_hist,
 					container
-				set
-					parent_container_id=#tube_container_id#
 				where
-					container_id=#part_container_id#
+					flat.collection_object_id= specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=container.container_id and
+					flat.guid='#guid#' and
+					SAMPLED_FROM_OBJ_ID is null and
+					container.parent_container_id=0 and
+				 	part_name='#use_part_1#'
 			</cfquery>
-			<cfquery datasource='uam_god' name='uptc'>
-				update
-					container
-				set
-					CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-installed from DGR locator data'
-				where
-					container_id=#tube_container_id#
-			</cfquery>
-			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set p2c_status='autoinstalled-found_random_dup_part' where key=#key#
-			</cfquery>
+			<cfif p.recordcount gte 1>
+				<br> gonna use #p.part_name# (#p.part_id#) because exact match....
+				<cfset p1id=p.part_id>
+			<cfelse>
+				<!--- try with no parens --->
+				<cfquery datasource='uam_god' name='p'>
+					select
+						parent_container_id,
+						specimen_part.part_name,
+						specimen_part.collection_object_id part_id,
+						container.container_id
+					from
+						specimen_part,
+						flat,
+						coll_obj_cont_hist,
+						container
+					where
+						flat.collection_object_id= specimen_part.derived_from_cat_item and
+						specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+						coll_obj_cont_hist.container_id=container.container_id and
+						flat.guid='#guid#' and
+						SAMPLED_FROM_OBJ_ID is null and
+						container.parent_container_id=0 and
+					 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_1#', 0, instr('#use_part_1#','(')-1))
+				</cfquery>
+				<cfif p.recordcount gte 1>
+					<br>gonna use #p.part_name# (#p.part_id#) because noparens match....
+					<cfset p1id=p.part_id>
+				</cfif>
+			</cfif>
+			<cfif len(p1id) is 0>
+				<br>nodice for part1
+					<cfquery datasource='uam_god' name='x'>
+						update temp_dgrloc set
+							p2c_status='fail_find_part_1'
+						where
+							key=#key#
+					</cfquery>
+
+			<cfelse>
+			<br>updating....
+					<cfquery datasource='uam_god' name='x'>
+						update temp_dgrloc set
+							CPART_PID=#p.part_id#,
+							part_container_id=#p.container_id#,
+							p2c_status='got_part_1'
+						where
+							key=#key#
+					</cfquery>
+			</cfif>
+
+
+
+
+
 		</cftransaction>
 	</cfloop>
 
-	<!---
-		END install things where we have a partID and a containerID
-	---->
+	<!--- END find part2 when possible --->
+
+
 
 
 
