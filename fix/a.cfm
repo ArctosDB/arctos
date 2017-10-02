@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
     <cfquery datasource='uam_god' name="d">
-		select * from temp_msb_fish_l
+		select * from temp_msb_fish_l where lower(LOCALITY_REMARKS) like '%drainage%' and new_specloc is null
 	</cfquery>
 	<cfloop query="d">
 		<p>#spec_locality# : #LOCALITY_REMARKS#
