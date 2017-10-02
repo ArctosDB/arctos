@@ -211,8 +211,66 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 <cfoutput>
 
 
-	<!--------- deal with empbryos ---------------------------->
 
+
+<!---
+		install things where we have a partID and a containerID
+	---->
+
+	<cfquery datasource='uam_god' name='d'>
+		select
+			key,
+			tube_container_id,
+			CPART_PID,
+			part_container_id
+		from
+			temp_dgrloc
+		where
+			tube_container_id is not null and
+			CPART_PID is not null and
+			part_container_id is not null and
+			p2c_status ='got_part_1' and
+			rownum<2000
+	</cfquery>
+
+
+
+	<cfloop query="d">
+		<cftransaction>
+			<br>#tube_container_id#
+			<cfquery datasource='uam_god' name='uppc'>
+				update
+					container
+				set
+					parent_container_id=#tube_container_id#
+				where
+					container_id=#part_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='uptc'>
+				update
+					container
+				set
+					CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-installed from DGR locator data'
+				where
+					container_id=#tube_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='autoinstalled-got_part_1' where key=#key#
+			</cfquery>
+		</cftransaction>
+	</cfloop>
+
+	<!---
+		END install things where we have a partID and a containerID
+	---->
+
+
+
+</cfoutput>
+<!----
+
+
+	<!--------- deal with empbryos ---------------------------->
 
 	<cfquery datasource='uam_god' name='d'>
 		select * from temp_dgrloc where
@@ -257,48 +315,13 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 						where
 							key=#key#
 					</cfquery>
-
-				<cfelse>
-					no for #guid#
 				</cfif>
-			<!----
-			<cfif len(p1id) is 0>
-				<br>nodice for part1
-					<cfquery datasource='uam_god' name='x'>
-						update temp_dgrloc set
-							p2c_status='fail_find_part_1'
-						where
-							key=#key#
-					</cfquery>
 
-			<cfelse>
-			<br>updating....
-					<cfquery datasource='uam_god' name='x'>
-						update temp_dgrloc set
-							CPART_PID=#p.part_id#,
-							part_container_id=#p.container_id#,
-							p2c_status='got_part_1'
-						where
-							key=#key#
-					</cfquery>
-			</cfif>
-
-
-
-
----->
 		</cftransaction>
 	</cfloop>
 
 
 	<!--------- END deal with empbryos ---------------------------->
-
-
-</cfoutput>
-<!----
-
-
-
 
 
 
@@ -354,58 +377,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
-
-
-<!---
-		install things where we have a partID and a containerID
-	---->
-
-	<cfquery datasource='uam_god' name='d'>
-		select
-			key,
-			tube_container_id,
-			CPART_PID,
-			part_container_id
-		from
-			temp_dgrloc
-		where
-			tube_container_id is not null and
-			CPART_PID is not null and
-			part_container_id is not null and
-			p2c_status ='got_part_1' and
-			rownum<2000
-	</cfquery>
-
-
-
-	<cfloop query="d">
-		<cftransaction>
-			<br>#tube_container_id#
-			<cfquery datasource='uam_god' name='uppc'>
-				update
-					container
-				set
-					parent_container_id=#tube_container_id#
-				where
-					container_id=#part_container_id#
-			</cfquery>
-			<cfquery datasource='uam_god' name='uptc'>
-				update
-					container
-				set
-					CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-installed from DGR locator data'
-				where
-					container_id=#tube_container_id#
-			</cfquery>
-			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set p2c_status='autoinstalled-got_part_1' where key=#key#
-			</cfquery>
-		</cftransaction>
-	</cfloop>
-
-	<!---
-		END install things where we have a partID and a containerID
-	---->
 
 
 
