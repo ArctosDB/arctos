@@ -4,7 +4,7 @@
 		select distinct spec_locality,  LOCALITY_REMARKS from temp_msb_fish_l
 	</cfquery>
 	<cfloop query="d">
-		<br>#spec_locality# : #LOCALITY_REMARKS#
+		<p>#spec_locality# : #LOCALITY_REMARKS#
 
 		<cfif LOCALITY_REMARKS contains "drainage">
 			<cfset dp=findnocase("drainage",LOCALITY_REMARKS)>
