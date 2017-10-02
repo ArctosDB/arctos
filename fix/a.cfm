@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
     <cfquery datasource='uam_god' name="d">
-		select distinct spec_locality,  LOCALITY_REMARKS from temp_msb_fish_l
+		select * from temp_msb_fish_l
 	</cfquery>
 	<cfloop query="d">
 		<p>#spec_locality# : #LOCALITY_REMARKS#
@@ -10,6 +10,9 @@
 			<cfset dp=findnocase("drainage",LOCALITY_REMARKS)>
 			<cfset drg=left(LOCALITY_REMARKS,dp+7)>
 			<br>drg: #drg#
+			<cfquery name="udd" datasource="uam_god">
+				update temp_msb_fish_l set new_specloc='#drg#: #spec_locality#' where locality_id=#locality_id#
+			</cfquery>
 		</cfif>
 
 	</cfloop>
