@@ -1,26 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
     <cfquery datasource='uam_god' name="d">
-		select
-			locality.LOCALITY_REMARKS,
-			locality.spec_locality,
-			locality.locality_id
-		From
-			locality,
-			collecting_event,
-			specimen_event,
-			cataloged_item,
-			collection
-		where
-			locality.locality_id=collecting_event.locality_id and
-			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
-			specimen_event.collection_object_id=cataloged_item.collection_object_id and
-			cataloged_item.collection_id=collection.collection_id and
-			guid_prefix='MSB:Fish'
-		order by LOCALITY_REMARKS,spec_locality
+		select distinct spec_locality,  LOCALITY_REMARKS from temp_msb_fish_l
 	</cfquery>
 	<cfloop query="d">
 		<br>#spec_locality# : #LOCALITY_REMARKS#
+
+		<cfif LOCALITY_REMARKS contains "drainage">
+			<cfset dp=find(LOCALITY_REMARKS,"drainage")>
+			<cfset drg=left(LOCALITY_REMARKS,dp)>
+			<br>drg: #drg#
+		</cfif>
+
 	</cfloop>
 
 
