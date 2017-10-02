@@ -2,9 +2,9 @@
 	<cfoutput>
     <cfquery datasource='uam_god' name="d">
 		select
-			LOCALITY_REMARKS,
-			spec_locality,
-			locality_id
+			locality.LOCALITY_REMARKS,
+			locality.spec_locality,
+			locality.locality_id
 		From
 			locality,
 			collecting_event,
