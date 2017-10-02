@@ -19,7 +19,7 @@
 			guid_prefix='MSB:Fish'
 		order by LOCALITY_REMARKS,spec_locality
 	</cfquery>
-	<cfloop query-"d">
+	<cfloop query="d">
 		<br>#spec_locality# : #LOCALITY_REMARKS#
 	</cfloop>
 
