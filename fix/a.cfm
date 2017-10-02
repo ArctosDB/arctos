@@ -8,7 +8,7 @@
 
 		<cfif LOCALITY_REMARKS contains "drainage">
 			<cfset dp=findnocase("drainage",LOCALITY_REMARKS)>
-			<cfset drg=left(LOCALITY_REMARKS,dp)>
+			<cfset drg=left(LOCALITY_REMARKS,dp+7)>
 			<br>drg: #drg#
 		</cfif>
 
