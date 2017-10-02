@@ -1,7 +1,40 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
+    <cfquery datasource='uam_god' name="d">
+		select
+			LOCALITY_REMARKS,
+			spec_locality,
+			locality_id
+		From
+			locality,
+			collecting_event,
+			specimen_event,
+			cataloged_item,
+			collection
+		where
+			locality.locality_id=collecting_event.locality_id and
+			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
+			specimen_event.collection_object_id=cataloged_item.collection_object_id and
+			cataloged_item.collection_id=collection.collection_id and
+			guid_prefix='MSB:Fish'
+		order by LOCALITY_REMARKS,spec_locality
+	</cfquery>
+	<cfloop query-"d">
+		<br>#spec_locality# : #LOCALITY_REMARKS#
+	</cfloop>
 
-	<form>
+
+
+
+</cfoutput>
+<cfabort>
+
+
+<!---
+
+
+
+<form>
 		<div style="border:1px solid red; padding:.5em;">
 			<input placeholder="pick a part">
 			<input placeholder="condition">
@@ -48,11 +81,9 @@
 
 	</form>
 
-</cfoutput>
-<cfabort>
 
 
-<!---
+
 create table temp_test (u varchar2(255), p varchar2(255));
 insert into temp_test (u,p) values ('dustylee','xxxxx');
 
