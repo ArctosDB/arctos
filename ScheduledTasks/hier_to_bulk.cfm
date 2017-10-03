@@ -140,6 +140,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			select TERM_TYPE,TERM_VALUE from htax_noclassterm where tid=#d.tid#
 		</cfquery>
 
+
+		<cfdump var=#thisNoClass#>
+
 		<cfset dNoClassTerm=queryNew("TERM_TYPE,TERM_VALUE")>
 		<!---- need to merge ---->
 		<cfloop query="nct">
