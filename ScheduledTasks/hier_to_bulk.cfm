@@ -5,8 +5,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	 --->
 
 <cfoutput>
-
-
 	<!--- send email for any previous exports ---->
 	<cfquery name="rtn" datasource="uam_god">
 		select
@@ -44,8 +42,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	</cfloop>
 
 
-
-
 	<!--- queue ---->
 
 	<cfquery name="q" datasource="uam_god">
@@ -65,9 +61,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		<cfquery name="ud" datasource="uam_god">
 			update htax_export set status='export_done' where export_id='#q.export_id#'
 		</cfquery>
-
-
-
 
 		<cfabort>
 	</cfif>
@@ -112,9 +105,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			<cfset tterms=listDeleteAt(tterms,listFindnocase(tterms,taxon_term))>
 		</cfif>
 	</cfloop>
-
-	<!--- order, ugh... <cfset tterms=replace(tterms,"PHYLORDER","ORDER")>
-	---->
 
 
 	<cfloop query="d">
@@ -165,6 +155,11 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			</cfif>
 		</cfloop>
 
+	<!----
+		tterms comes from table column names
+		the rank that goes in column phylorder is order
+		manipulate the stream via var manI
+	---->
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
@@ -203,11 +198,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		update hierarchical_taxonomy set status='pushed_to_bl' where tid=#d.tid#
 	</cfquery>
 
-
-
-
 		<cfcatch>
-
 				<cfquery name="blargh" datasource="uam_god">
 					insert into htax_export_errors (
 						export_id,
