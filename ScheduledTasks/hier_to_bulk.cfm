@@ -105,8 +105,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	</cfloop>
 
 	<!--- order, ugh... ---->
-	<cfset tterms=replace(tterms,"phylorder","order")>
+	<cfset tterms=replace(tterms,"PHYLORDER","ORDER")>
 
+<cfdump var=#tterms#>
 
 	<cfloop query="d">
 
@@ -154,6 +155,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			</cfif>
 		</cfloop>
 
+	<cfdump var=#dNoClassTerm#>
+	<cfabort>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
