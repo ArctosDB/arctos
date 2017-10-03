@@ -4,6 +4,7 @@
 		select * from temp_msb_fish_l where lower(LOCALITY_REMARKS) like '%drainage%' and new_specloc is null
 	</cfquery>
 	<cfloop query="d">
+		<cftransaction></cftransaction>
 		<p>#spec_locality# : #LOCALITY_REMARKS#
 
 		<cfif LOCALITY_REMARKS contains "drainage">
