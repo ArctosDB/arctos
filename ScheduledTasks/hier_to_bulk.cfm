@@ -213,6 +213,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			'#q.export_id#'
 		)
 		</P>
+
+		<cfabort>
 	<cfquery name="goit" datasource="uam_god">
 		update hierarchical_taxonomy set status='pushed_to_bl' where tid=#d.tid#
 	</cfquery>
