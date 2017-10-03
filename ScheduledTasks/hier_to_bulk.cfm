@@ -41,6 +41,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		</cfif>
 	</cfloop>
 
+
 	<!--- queue ---->
 
 	<cfquery name="q" datasource="uam_god">
@@ -60,6 +61,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		<cfquery name="ud" datasource="uam_god">
 			update htax_export set status='export_done' where export_id='#q.export_id#'
 		</cfquery>
+
 		<cfabort>
 	</cfif>
 
@@ -105,8 +107,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	</cfloop>
 
 
-
-
 	<cfloop query="d">
 
 	<cftransaction>
@@ -138,6 +138,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			select TERM_TYPE,TERM_VALUE from htax_noclassterm where tid=#d.tid#
 		</cfquery>
 
+
+
 		<cfset dNoClassTerm=queryNew("TERM_TYPE,TERM_VALUE")>
 		<!---- need to merge ---->
 		<cfloop query="nct">
@@ -153,6 +155,11 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			</cfif>
 		</cfloop>
 
+	<!----
+		tterms comes from table column names
+		the rank that goes in column phylorder is order
+		manipulate the stream via var manI
+	---->
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
@@ -169,7 +176,12 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
-				'#evaluate("variables." & i)#',
+				<cfif i is "PHYLORDER">
+					<cfset manI="ORDER">
+				<cfelse>
+					<cfset manI=i>
+				</cfif>
+				'#evaluate("variables." & manI)#',
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
@@ -181,13 +193,12 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			'#q.export_id#'
 		)
 		</cfquery>
+
 	<cfquery name="goit" datasource="uam_god">
 		update hierarchical_taxonomy set status='pushed_to_bl' where tid=#d.tid#
 	</cfquery>
 
-
 		<cfcatch>
-
 				<cfquery name="blargh" datasource="uam_god">
 					insert into htax_export_errors (
 						export_id,
