@@ -7,7 +7,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 <cfoutput>
 
 
-	<!----
 	<!--- send email for any previous exports ---->
 	<cfquery name="rtn" datasource="uam_god">
 		select
@@ -44,7 +43,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		</cfif>
 	</cfloop>
 
-	---->
 
 
 
@@ -68,8 +66,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			update htax_export set status='export_done' where export_id='#q.export_id#'
 		</cfquery>
 
-		<br>
-					update htax_export set status='export_done' where export_id='#q.export_id#'
 
 
 
@@ -120,7 +116,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<!--- order, ugh... <cfset tterms=replace(tterms,"PHYLORDER","ORDER")>
 	---->
 
-<cfdump var=#tterms#>
 
 	<cfloop query="d">
 
@@ -154,7 +149,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		</cfquery>
 
 
-		<cfdump var=#thisNoClass#>
 
 		<cfset dNoClassTerm=queryNew("TERM_TYPE,TERM_VALUE")>
 		<!---- need to merge ---->
@@ -171,7 +165,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			</cfif>
 		</cfloop>
 
-	<cfdump var=#dNoClassTerm#>
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
@@ -206,41 +199,10 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		)
 		</cfquery>
 
-		<P>
-
-		insert into cf_temp_classification_fh (
-			<cfloop list="#tterms#" index="i">
-				#i#,
-			</cfloop>
-			<cfloop query="dNoClassTerm">
-				#TERM_TYPE#,
-			</cfloop>
-			STATUS,
-			username,
-			SOURCE,
-			SCIENTIFIC_NAME,
-			export_id
-		) values (
-			<cfloop list="#tterms#" index="i">
-				'#evaluate("variables." & i)#',
-			</cfloop>
-			<cfloop query="dNoClassTerm">
-				'#TERM_VALUE#',
-			</cfloop>
-			'autoinsert_from_hierarchy',
-			'#q.username#',
-			'#dataset.source#',
-			'#d.term#',
-			'#q.export_id#'
-		)
-		</P>
-
-<!----------
 	<cfquery name="goit" datasource="uam_god">
 		update hierarchical_taxonomy set status='pushed_to_bl' where tid=#d.tid#
 	</cfquery>
 
------------->
 
 
 
