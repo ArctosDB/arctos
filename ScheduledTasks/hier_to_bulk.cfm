@@ -188,7 +188,12 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
-				'#evaluate("variables." & i)#',
+				<cfif i is "PHYLORDER">
+					<cfset manI="ORDER">
+				<cfelse>
+					<cfset manI=i>
+				</cfif>
+				'#evaluate("variables." & manI)#',
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
