@@ -104,8 +104,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		</cfif>
 	</cfloop>
 
-	<!--- order, ugh... 	---->
-<cfset tterms=replace(tterms,"PHYLORDER","ORDER")>
+	<!--- order, ugh... <cfset tterms=replace(tterms,"PHYLORDER","ORDER")>
+	---->
 
 <cfdump var=#tterms#>
 
