@@ -817,12 +817,46 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
+	<cfif action is "confirm_freezers_exist">
+
+	all done<cfabort>
+
+
+		<cfquery datasource='uam_god' name='d'>
+			select distinct freezer from temp_dgr_box
+		</cfquery>
+		<cfloop query="d">
+			<cfquery datasource='uam_god' name='f'>
+				select * from container where label='DGR-#freezer#'
+			</cfquery>
+			<cfif f.recordcount is 1>
+				<br>DGR-#freezer# is happy...
+				<br>update container set parent_container_id=18230103 where container_id=#f.container_id#
+			<cfelse>
+				<br>BAD!!!!!!!!!!!!!!!!!!<cfdump var=#f#>
+			</cfif>
+			<cfquery datasource='uam_god' name='fc'>
+				select container_type, label from container where parent_container_id=#f.container_id#
+			</cfquery>
+			<cfif fc.recordcount gt 0>
+				<br>!!!!! bad <cfdump var=#fc#>
+			<cfelse>
+				<br>happy - no contents
+			</cfif>
+		</cfloop>
+	</cfif>
+
+
+---->
+
+
+
+
 	<cfif action is "make_freezer_racks">
 
-		all done<cfabort>
 		<cftransaction>
 		<cfquery datasource='uam_god' name='d'>
-			select distinct freezer, rack from temp_dgr_box order by freezer,rack
+			select distinct freezer, rack from temp_dgr_box where status is null order by freezer,rack
 		</cfquery>
 
 		<cfdump var=#d#>
@@ -864,44 +898,9 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 	</cfif>
 
 
-	<cfif action is "confirm_freezers_exist">
-
-	all done<cfabort>
-
-
-		<cfquery datasource='uam_god' name='d'>
-			select distinct freezer from temp_dgr_box
-		</cfquery>
-		<cfloop query="d">
-			<cfquery datasource='uam_god' name='f'>
-				select * from container where label='DGR-#freezer#'
-			</cfquery>
-			<cfif f.recordcount is 1>
-				<br>DGR-#freezer# is happy...
-				<br>update container set parent_container_id=18230103 where container_id=#f.container_id#
-			<cfelse>
-				<br>BAD!!!!!!!!!!!!!!!!!!<cfdump var=#f#>
-			</cfif>
-			<cfquery datasource='uam_god' name='fc'>
-				select container_type, label from container where parent_container_id=#f.container_id#
-			</cfquery>
-			<cfif fc.recordcount gt 0>
-				<br>!!!!! bad <cfdump var=#fc#>
-			<cfelse>
-				<br>happy - no contents
-			</cfif>
-		</cfloop>
-	</cfif>
-
-
----->
-
-
-
-
 
 	<cfif action is "dgr_to_objecttracking">
-
+<cfoutput>
 		<cfquery datasource='uam_god' name='srcbx'>
 			select * from temp_dgr_box where status is null and rownum <2
 		</cfquery>
@@ -1012,5 +1011,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 				</cfquery>
 			</cftransaction>
 		</cfloop>
+
+		</cfoutput>
 	</cfif>
 
