@@ -689,50 +689,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
-	<!--- get some more GUIDs, ignoring DGR collections ---->
-
-		<cfquery datasource='uam_god' name='d'>
-			select nk, key from temp_dgrloc where guid is null and p2c_status is null
-		</cfquery>
-		<cfloop query="d">
-			<cfquery datasource='uam_god' name='gg'>
-				 select distinct
-	        		guid_prefix || ':' || cat_num guid
-			      from
-			        collection,
-			        cataloged_item,
-			        coll_obj_other_id_num
-			      where
-			        collection.collection_id=cataloged_item.collection_id and
-			        cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-			        coll_obj_other_id_num.other_id_type='NK' and
-			        collection.guid_prefix not like '%Para%' and
-			        collection.guid_prefix not like '%DGR%' and
-			        coll_obj_other_id_num.display_value='#NK#'
-			</cfquery>
-			<cfif gg.recordcount is 1>
-				<cfquery datasource='uam_god' name='gud'>
-					update temp_dgrloc set guid='#gg.guid#',p2c_status='found_guid_no_dgr' where key=#key#
-				</cfquery>
-			<cfelseif gg.recordcount lt 1>
-				<cfquery datasource='uam_god' name='gud'>
-					update temp_dgrloc set p2c_status='no_specimens_with_nk_found' where key=#key#
-				</cfquery>
-			<cfelse>
-				<cfquery datasource='uam_god' name='gud'>
-					update temp_dgrloc set p2c_status='multiple_specimens_with_nk_found|#valuelist(gg.guid)#' where key=#key#
-				</cfquery>
-
-			</cfif>
-
-		</cfloop>
-
-	<!--- END some more GUIDs, ignoring DGR collections ---->
-
-
-
-
-
 
 
 
@@ -769,6 +725,64 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 ---->
 <cfoutput>
+
+
+
+	<!--- get some more GUIDs, ignoring DGR collections ---->
+
+		<cfquery datasource='uam_god' name='d'>
+			select nk, key from temp_dgrloc where guid is null and p2c_status is null
+		</cfquery>
+		<cfloop query="d">
+			<cfquery datasource='uam_god' name='gg'>
+				 select distinct
+	        		guid_prefix || ':' || cat_num guid
+			      from
+			        collection,
+			        cataloged_item,
+			        coll_obj_other_id_num
+			      where
+			        collection.collection_id=cataloged_item.collection_id and
+			        cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+			        coll_obj_other_id_num.other_id_type='NK'
+			        <!---
+			        and
+			        collection.guid_prefix not like '%Para%' and
+			        collection.guid_prefix not like '%DGR%' and
+			        ---->
+			        coll_obj_other_id_num.display_value='#NK#'
+			</cfquery>
+			<cfif gg.recordcount is 1>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set guid='#gg.guid#',p2c_status='found_guid_no_dgr' where key=#key#
+				</cfquery>
+			<cfelseif gg.recordcount lt 1>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set p2c_status='no_specimens_with_nk_found' where key=#key#
+				</cfquery>
+			<cfelse>
+				<cfquery datasource='uam_god' name='gud'>
+					update temp_dgrloc set p2c_status='multiple_specimens_with_nk_found|#valuelist(gg.guid)#' where key=#key#
+				</cfquery>
+
+			</cfif>
+
+		</cfloop>
+
+	<!--- END some more GUIDs, ignoring DGR collections ---->
+
+
+
+
+</cfoutput>
+
+
+<!------------
+
+
+
+
+
 
 
 		<cfquery datasource='uam_god' name='srcbx'>
@@ -813,17 +827,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 				</cfloop>
 			</cftransaction>
 		</cfloop>
-
-</cfoutput>
-
-
-<!------------
-
-
-
-
-
-
 
 
 	<cfif action is "confirm_freezers_exist">
