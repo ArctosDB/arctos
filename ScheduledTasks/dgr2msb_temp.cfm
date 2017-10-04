@@ -59,6 +59,7 @@
 
 	<cfif action is "dgr_to_objecttracking">
 
+hi
 		<cfquery datasource='uam_god' name='srcbx'>
 			select * from temp_dgr_box where status is null and rownum <2
 		</cfquery>
