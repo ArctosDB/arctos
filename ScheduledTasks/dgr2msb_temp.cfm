@@ -811,6 +811,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 				<cfquery datasource='uam_god' name='d'>
 					select * from temp_dgrloc where tube_container_id is null and
 					 freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
+					 and tissue_type is not null
 				</cfquery>
 				<cfquery datasource='uam_god' name='d_b'>
 					select container_id from container where container_type='freezer box' and
