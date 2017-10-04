@@ -208,13 +208,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 	---->
 
-<cfoutput>
 
-
-
-
-
-</cfoutput>
 <!----
 
 
@@ -755,50 +749,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 <!--- now loop through and find the tube's contianer_id --->
 
 
-<cfquery datasource='uam_god' name='srcbx'>
-			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2000
-		</cfquery>
-		<cfloop query="srcbx">
-			<cftransaction>
-				<cfquery datasource='uam_god' name='d'>
-					select * from temp_dgrloc where tube_container_id is null and
-					 freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
-				</cfquery>
-				<cfquery datasource='uam_god' name='d_b'>
-					select container_id from container where container_type='freezer box' and
-					label='DGR-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#'
-				</cfquery>
-				<cfif d_b.recordcount is not 1>
-					<cfthrow message="box_not_found" detail="DGR-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#">
-				</cfif>
-
-				<!---
-				<cfdump var=#d#>
-				--->
-				<cfloop query="d">
-					<cfquery datasource='uam_god' name='t'>
-						select
-							t.container_id
-						from
-							container t,
-							container p
-						where
-							t.container_type='cryovial' and
-							p.container_type='position' and
-							t.parent_container_id=p.container_id and
-							p.parent_container_id=#d_b.container_id# and
-							t.label='NK #nk# #tissue_type#' and
-							p.label='#place#'
-					</cfquery>
-					<cfquery datasource='uam_god' name='reup'>
-						update temp_dgrloc set TUBE_CONTAINER_ID=#t.container_id# where key=#d.key#
-					</cfquery>
-				</cfloop>
-			</cftransaction>
-		</cfloop>
-
-
-
 
 
 
@@ -848,12 +798,65 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 ---->
+<cfoutput>
 
 
+
+
+
+<cfquery datasource='uam_god' name='srcbx'>
+			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2000
+		</cfquery>
+		<cfloop query="srcbx">
+			<cftransaction>
+				<cfquery datasource='uam_god' name='d'>
+					select * from temp_dgrloc where tube_container_id is null and
+					 freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
+				</cfquery>
+				<cfquery datasource='uam_god' name='d_b'>
+					select container_id from container where container_type='freezer box' and
+					label='DGR-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#'
+				</cfquery>
+				<cfif d_b.recordcount is not 1>
+					<cfthrow message="box_not_found" detail="DGR-#srcbx.freezer#-#srcbx.rack#-#srcbx.box#">
+				</cfif>
+
+				<!---
+				<cfdump var=#d#>
+				--->
+				<cfloop query="d">
+					<cfquery datasource='uam_god' name='t'>
+						select
+							t.container_id
+						from
+							container t,
+							container p
+						where
+							t.container_type='cryovial' and
+							p.container_type='position' and
+							t.parent_container_id=p.container_id and
+							p.parent_container_id=#d_b.container_id# and
+							t.label='NK #nk# #tissue_type#' and
+							p.label='#place#'
+					</cfquery>
+					<cfquery datasource='uam_god' name='reup'>
+						update temp_dgrloc set TUBE_CONTAINER_ID=#t.container_id# where key=#d.key#
+					</cfquery>
+				</cfloop>
+			</cftransaction>
+		</cfloop>
+
+
+
+
+</cfoutput>
+
+
+<!------------
 
 
 	<cfif action is "make_freezer_racks">
-
+		done<cfabort>
 		<cftransaction>
 		<cfquery datasource='uam_god' name='d'>
 			select distinct freezer, rack from temp_dgr_box where status is null order by freezer,rack
@@ -900,6 +903,8 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 	<cfif action is "dgr_to_objecttracking">
+
+	done<cfabort>
 <cfoutput>
 		<cfquery datasource='uam_god' name='srcbx'>
 			select * from temp_dgr_box where status is null and rownum <200
@@ -1014,4 +1019,4 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 		</cfoutput>
 	</cfif>
-
+--------->
