@@ -902,7 +902,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 	<cfif action is "dgr_to_objecttracking">
 <cfoutput>
 		<cfquery datasource='uam_god' name='srcbx'>
-			select * from temp_dgr_box where status is null and rownum <2
+			select * from temp_dgr_box where status is null and rownum <200
 		</cfquery>
 		<cfloop query="srcbx">
 			<br>freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
