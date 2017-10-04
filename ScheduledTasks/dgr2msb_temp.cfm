@@ -15,12 +15,24 @@
 	select status, count(*) from temp_dgr_box group by status;
 	select * from temp_dgr_box where status='box_create_success';
 
+
+	-- add F10
+
+	insert into temp_dgr_box (
+		FREEZER,
+		RACK,
+		BOX
+	) (
+		select distinct
+		freezer, rack, box from dgr_locator where FREEZER=10);
+
+
 --->
 
 <cfoutput>
 	<cfif action is "confirm_freezers_exist">
 		<cfquery datasource='uam_god' name='d'>
-			select distinct freezer from temp_dgr_box
+			select distinct freezer from temp_dgr_box where status is null
 		</cfquery>
 		<cfloop query="d">
 			<cfquery datasource='uam_god' name='f'>
