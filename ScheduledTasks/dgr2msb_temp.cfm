@@ -767,43 +767,11 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
-	<cfif action is "confirm_freezers_exist">
-
-	all done<cfabort>
-
-
-		<cfquery datasource='uam_god' name='d'>
-			select distinct freezer from temp_dgr_box
-		</cfquery>
-		<cfloop query="d">
-			<cfquery datasource='uam_god' name='f'>
-				select * from container where label='DGR-#freezer#'
-			</cfquery>
-			<cfif f.recordcount is 1>
-				<br>DGR-#freezer# is happy...
-				<br>update container set parent_container_id=18230103 where container_id=#f.container_id#
-			<cfelse>
-				<br>BAD!!!!!!!!!!!!!!!!!!<cfdump var=#f#>
-			</cfif>
-			<cfquery datasource='uam_god' name='fc'>
-				select container_type, label from container where parent_container_id=#f.container_id#
-			</cfquery>
-			<cfif fc.recordcount gt 0>
-				<br>!!!!! bad <cfdump var=#fc#>
-			<cfelse>
-				<br>happy - no contents
-			</cfif>
-		</cfloop>
-	</cfif>
-
-
-
-
 ---->
 <cfoutput>
 
 
-<cfquery datasource='uam_god' name='srcbx'>
+		<cfquery datasource='uam_god' name='srcbx'>
 			select distinct freezer,rack,box from temp_dgrloc where tube_container_id is null and rownum<2000
 		</cfquery>
 		<cfloop query="srcbx">
@@ -811,7 +779,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 				<cfquery datasource='uam_god' name='d'>
 					select * from temp_dgrloc where tube_container_id is null and
 					 freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
-					 and tissue_type is not null
 				</cfquery>
 				<cfquery datasource='uam_god' name='d_b'>
 					select container_id from container where container_type='freezer box' and
@@ -847,14 +814,46 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			</cftransaction>
 		</cfloop>
 
-
-
-
-
 </cfoutput>
 
 
 <!------------
+
+
+
+
+
+
+
+
+	<cfif action is "confirm_freezers_exist">
+
+	all done<cfabort>
+
+
+		<cfquery datasource='uam_god' name='d'>
+			select distinct freezer from temp_dgr_box
+		</cfquery>
+		<cfloop query="d">
+			<cfquery datasource='uam_god' name='f'>
+				select * from container where label='DGR-#freezer#'
+			</cfquery>
+			<cfif f.recordcount is 1>
+				<br>DGR-#freezer# is happy...
+				<br>update container set parent_container_id=18230103 where container_id=#f.container_id#
+			<cfelse>
+				<br>BAD!!!!!!!!!!!!!!!!!!<cfdump var=#f#>
+			</cfif>
+			<cfquery datasource='uam_god' name='fc'>
+				select container_type, label from container where parent_container_id=#f.container_id#
+			</cfquery>
+			<cfif fc.recordcount gt 0>
+				<br>!!!!! bad <cfdump var=#fc#>
+			<cfelse>
+				<br>happy - no contents
+			</cfif>
+		</cfloop>
+	</cfif>
 
 
 	<cfif action is "make_freezer_racks">
