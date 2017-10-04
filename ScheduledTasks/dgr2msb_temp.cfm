@@ -744,9 +744,9 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			      where
 			        collection.collection_id=cataloged_item.collection_id and
 			        cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-			        coll_obj_other_id_num.other_id_type='NK'
+			        coll_obj_other_id_num.other_id_type='NK' and
 			        <!---
-			        and
+
 			        collection.guid_prefix not like '%Para%' and
 			        collection.guid_prefix not like '%DGR%' and
 			        ---->
