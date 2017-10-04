@@ -839,7 +839,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 							t.label='NK #nk# #tissue_type#' and
 							p.label='#place#'
 					</cfquery>
-					<cfdump var=#t#>
 
 					<cfquery datasource='uam_god' name='reup'>
 						update temp_dgrloc set TUBE_CONTAINER_ID=#t.container_id# where key=#d.key#
