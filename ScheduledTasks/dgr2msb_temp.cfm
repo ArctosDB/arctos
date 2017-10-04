@@ -731,7 +731,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 	<!--- get some more GUIDs, ignoring DGR collections ---->
 
 		<cfquery datasource='uam_god' name='d'>
-			select nk, key from temp_dgrloc where guid is null and p2c_status is null
+			select nk, key from temp_dgrloc where guid is null and p2c_status like 'multiple_specimens_with_nk_found%'
 		</cfquery>
 		<cfloop query="d">
 			<cfquery datasource='uam_god' name='gg'>
@@ -745,11 +745,8 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			        collection.collection_id=cataloged_item.collection_id and
 			        cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
 			        coll_obj_other_id_num.other_id_type='NK' and
-			        <!---
-
 			        collection.guid_prefix not like '%Para%' and
 			        collection.guid_prefix not like '%DGR%' and
-			        ---->
 			        coll_obj_other_id_num.display_value='#NK#'
 			</cfquery>
 			<cfif gg.recordcount is 1>
