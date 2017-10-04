@@ -63,6 +63,7 @@
 			select * from temp_dgr_box where status is null and rownum <2
 		</cfquery>
 
+	<cfdump var=#srcbx#>
 		<cfloop query="srcbx">
 			<cfquery name="d" datasource="uam_god">
 				select * from dgr_locator where freezer='#srcbx.freezer#' and rack='#srcbx.rack#' and box='#srcbx.box#'
