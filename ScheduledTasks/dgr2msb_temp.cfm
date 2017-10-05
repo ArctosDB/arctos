@@ -632,32 +632,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
-<!---
-	move multiple_specimens_with_nk_found records out of the way
---->
-	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgrloc where p2c_status like 'multiple_specimens_with_nk_found|%' and rownum<2000
-	</cfquery>
-	<cfloop query="d">
-		<cftransaction>
-			<cfset guidlist=listgetat(p2c_status,2,"|")>
-
-			<br>#tube_container_id#
-			<br>#guidlist#
-			<cfquery datasource='uam_god' name='upc'>
-				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; Multiple specimens with NK #nk# found on ' || sysdate || ': #guidlist#'
-				where container_id=#tube_container_id#
-			</cfquery>
-			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set p2c_status='multiple_specimens_with_nk_found-wroteToTubeContainer' where key=#key#
-			</cfquery>
-		</cftransaction>
-	</cfloop>
-
-<!---
-	END move multiple_specimens_with_nk_found records out of the way
---->
-
 
 <!---
 	move no_specimens_with_nk_found records out of the way
@@ -727,6 +701,42 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 <cfoutput>
 
 
+<!---
+	move multiple_specimens_with_nk_found records out of the way
+--->
+	<cfquery datasource='uam_god' name='d'>
+		select * from temp_dgrloc where p2c_status like 'multiple_specimens_with_nk_found|%' and rownum<2000
+	</cfquery>
+	<cfloop query="d">
+		<cftransaction>
+			<cfset guidlist=listgetat(p2c_status,2,"|")>
+
+			<br>#tube_container_id#
+			<br>#guidlist#
+			<cfquery datasource='uam_god' name='upc'>
+				update container set CONTAINER_REMARKS=CONTAINER_REMARKS || '; Multiple specimens with NK #nk# found on ' || sysdate || ': #guidlist#'
+				where container_id=#tube_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='multiple_specimens_with_nk_found-wroteToTubeContainer' where key=#key#
+			</cfquery>
+		</cftransaction>
+	</cfloop>
+
+<!---
+	END move multiple_specimens_with_nk_found records out of the way
+--->
+
+
+
+</cfoutput>
+
+
+<!------------
+
+
+
+
 
 	<!--- get some more GUIDs, ignoring DGR collections ---->
 
@@ -767,16 +777,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 		</cfloop>
 
 	<!--- END some more GUIDs, ignoring DGR collections ---->
-
-
-
-
-</cfoutput>
-
-
-<!------------
-
-
 
 
 
