@@ -590,7 +590,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			guid is not null and
 			CPART_PID is null and
 			use_part_1 is not null and
-			p2c_status ='zero_part_match' and
+			p2c_status ='found_guid_no_dgr' and
 			rownum<2000
 	</cfquery>
 	<cfloop query="d">
