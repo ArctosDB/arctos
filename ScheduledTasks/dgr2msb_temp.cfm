@@ -580,18 +580,23 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
+
+
+
 ---->
 <cfoutput>
 
 
-	<!--- find part1 when possible --->
+
+<!--- find part1 when possible --->
 	<cfquery datasource='uam_god' name='d'>
 		select * from temp_dgrloc where
 			guid is not null and
 			CPART_PID is null and
 			use_part_1 is not null and
-			p2c_status ='found_guid_no_dgr' and
-			rownum<2000
+			--p2c_status ='found_guid_no_dgr' and
+			--rownum<2000
+			 guid='MSB:Mamm:268325'
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
@@ -643,11 +648,19 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 						container.parent_container_id=0 and
 					 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_1#', 0, instr('#use_part_1#','(')-1))
 				</cfquery>
+
+
+
 				<cfif p.recordcount gte 1>
 					<br>gonna use #p.part_name# (#p.part_id#) because noparens match....
 					<cfset p1id=p.part_id>
 				</cfif>
 			</cfif>
+
+
+				<cfdump var=#p#>
+
+				<cfabort>
 			<cfif len(p1id) is 0>
 				<br>nodice for part1
 					<cfquery datasource='uam_god' name='x'>
@@ -677,10 +690,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 	</cfloop>
 
 	<!--- END find part2 when possible --->
-
-
-
-
 
 </cfoutput>
 
