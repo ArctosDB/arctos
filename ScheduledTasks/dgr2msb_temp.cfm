@@ -660,13 +660,12 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
-				<!----
 
 			<cfif len(p1id) is 0>
 				<br>nodice for part1
 					<cfquery datasource='uam_god' name='x'>
 						update temp_dgrloc set
-							p2c_status='fail_find_part_1'
+							p2c_status='refail_find_part_1'
 						where
 							key=#key#
 					</cfquery>
@@ -682,7 +681,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 							key=#key#
 					</cfquery>
 			</cfif>
----->
 
 
 
