@@ -646,7 +646,9 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 						flat.guid='#guid#' and
 						SAMPLED_FROM_OBJ_ID is null and
 						container.parent_container_id=0 and
-					 	trim(substr(part_name, 0, instr(part_name,'(')-1))=trim(substr('#use_part_1#', 0, instr('#use_part_1#','(')-1))
+					 	decode(instr(part_name,'('),0,part_name,trim(substr(part_name, 0, instr(part_name,'(')-1)))
+					 	=
+					 	decode(instr('#use_part_1#','('),0,'#use_part_1#',trim(substr('#use_part_1#', 0, instr('#use_part_1#','(')-1)))
 				</cfquery>
 
 
