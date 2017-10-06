@@ -721,7 +721,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 		</cfquery>
 		<cfif a.recordcount is 1>
 			<cfquery datasource='uam_god' name='x'>
-				update temp_dgrloc set p2c_status='fail_find_part_1-singleRecord' where key=#key#
+				update temp_dgrloc set p2c_status='fail_find_part_1-singleRecord' where guid='#d.guid#'
 			</cfquery>
 		<cfelse>
 			<cfquery datasource='uam_god' name='parts'>
