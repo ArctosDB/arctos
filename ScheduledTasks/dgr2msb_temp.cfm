@@ -689,6 +689,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
 ---->
 <cfoutput>
+	<cfinclude template="/includes/functions.cfm">
 
 	<!---
 		find things with multiple parts in locator
