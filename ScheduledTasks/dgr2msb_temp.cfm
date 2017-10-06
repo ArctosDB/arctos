@@ -748,7 +748,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			</cfquery>
 			<cfquery datasource='uam_god' name='svM'>
 				insert into temp_dgr_multiple_parts (guid,dgr_parts,arctos_parts) values (
-				'#d.guid#','#valuelist(a.USE_PART_1,"|")#','#valuelist(parts.part_name,"|")#')
+				'#d.guid#','#escapeQuotes(valuelist(a.USE_PART_1,"|"))#','#escapeQuotes(valuelist(parts.part_name,"|"))#')
 			</cfquery>
 			<cfquery datasource='uam_god' name='x'>
 				update temp_dgrloc set p2c_status='fail_find_part_1-gotMultiple' where guid='#d.guid#'
