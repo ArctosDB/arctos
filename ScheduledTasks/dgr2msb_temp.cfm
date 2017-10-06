@@ -711,7 +711,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			guid is not null and
 			CPART_PID is null and
 			p2c_status ='fail_find_part_1' and
-			rownum<20
+			rownum<2000
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
@@ -755,8 +755,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			</cfquery>
 
 
-			<cfdump var=#parts#>
-			<cfdump var=#a#>
 
 		</cfif>
 		<!----
