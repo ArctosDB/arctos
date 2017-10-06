@@ -695,7 +695,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 		select * from temp_dgrloc where
 			guid is not null and
 			CPART_PID is null and
-			use_part_1  like 'heart, kidney, liver, lung, spleen%' and
+			use_part_1  like 'heart, kidney, lung, spleen%' and
 			p2c_status ='refail_find_part_1' and
 			rownum<2000
 	</cfquery>
@@ -722,7 +722,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 					flat.guid='#guid#' and
 					SAMPLED_FROM_OBJ_ID is null and
 					container.parent_container_id=0 and
-				 	part_name like 'heart, kidney, lung, spleen%'
+				 	part_name like 'heart, kidney, liver, lung, spleen%'
 			</cfquery>
 			<cfif p.recordcount gte 1>
 				<br> gonna use #p.part_name# (#p.part_id#) because exact match....
