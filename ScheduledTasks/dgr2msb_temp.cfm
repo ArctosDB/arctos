@@ -707,7 +707,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 		<cftransaction>
 
 		<cfquery datasource='uam_god' name='a'>
-			select * from temp_dgrloc where p2c_status ='fail_find_part_1' and giud='#d.guid#'
+			select * from temp_dgrloc where p2c_status ='fail_find_part_1' and guid='#d.guid#'
 		</cfquery>
 		<cfif a.recordcount is 1>
 			<cfquery datasource='uam_god' name='x'>
