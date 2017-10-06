@@ -726,9 +726,22 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			</cfquery>
 			<cfif p.recordcount gte 1>
 				<br> gonna use #p.part_name# (#p.part_id#) because exact match....
-				<cfset p1id=p.part_id>
+				<cfquery datasource='uam_god' name='x'>
+						update temp_dgrloc set
+							CPART_PID=#p.part_id#,
+							part_container_id=#p.container_id#,
+							p2c_status='got_part_1'
+						where
+							key=#key#
+					</cfquery>
 			<cfelse>
 				<br>nope
+				<cfquery datasource='uam_god' name='x'>
+					update temp_dgrloc set
+						p2c_status='rerefail_find_part_1'
+					where
+						key=#key#
+				</cfquery>
 			</cfif>
 			<!--------
 				<!--- try with no parens --->
