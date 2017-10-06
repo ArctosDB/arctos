@@ -633,10 +633,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
----->
-<cfoutput>
-
-
 <!---
 		install things where we have a partID and a containerID
 	---->
@@ -687,6 +683,113 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 	<!---
 		END install things where we have a partID and a containerID
 	---->
+
+
+
+select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
+---->
+<cfoutput>
+
+	<!---
+		find things with multiple parts in locator
+		see if we can find a corresponding multi-part part in Arctos
+	---->
+
+
+	<cfquery datasource='uam_god' name='d'>
+		select distinct guid from temp_dgrloc where
+			guid is not null and
+			CPART_PID is null and
+			p2c_status ='fail_find_part_1'
+			rownum<20
+	</cfquery>
+	<cfloop query="d">
+		<cftransaction>
+
+		<cfquery datasource='uam_god' name='a'>
+			select * from temp_dgrloc where p2c_status ='fail_find_part_1' and giud='#d.guid#'
+		</cfquery>
+		<cfif a.recordcount is 1>
+			<cfquery datasource='uam_god' name='x'>
+				update temp_dgrloc set p2c_status='fail_find_part_1-singleRecord' where key=#key#
+			</cfquery>
+		<cfelse>
+			<cfquery datasource='uam_god' name='parts'>
+				select
+					parent_container_id,
+					specimen_part.part_name,
+					specimen_part.collection_object_id part_id,
+					container.container_id
+				from
+					specimen_part,
+					flat,
+					coll_obj_cont_hist,
+					container,
+					coll_object
+				where
+					flat.collection_object_id= specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					specimen_part.collection_object_id=coll_object.collection_object_id and
+					coll_obj_cont_hist.container_id=container.container_id and
+					coll_object.COLL_OBJ_DISPOSITION != 'transfer of custody' and
+					flat.guid='#guid#' and
+					SAMPLED_FROM_OBJ_ID is null and
+					(container.parent_container_id=0 or container.parent_container_id=17361530)
+			</cfquery>
+			<cfdump var=#parts#>
+			<cfdump var=#a#>
+
+		</cfif>
+		<!----
+		<cfquery datasource='uam_god' name='p'>
+			select
+				parent_container_id,
+				specimen_part.part_name,
+				specimen_part.collection_object_id part_id,
+				container.container_id
+			from
+				specimen_part,
+				flat,
+				coll_obj_cont_hist,
+				container
+			where
+				flat.collection_object_id= specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				coll_obj_cont_hist.container_id=container.container_id and
+				flat.guid='#guid#' and
+				SAMPLED_FROM_OBJ_ID is null and
+				container.parent_container_id=0 and
+			 	trim(replace(part_name,'(frozen)'))=lower(trim('#cpart#'))
+		</cfquery>
+
+		<cfif p.recordcount gte 1>
+			<!--- can we eliminate anything that's in a container?? ---->
+			<br>gonna use #p.part_name# (#p.part_id#) because reasons....
+			<cfquery datasource='uam_god' name='x'>
+				update temp_dgrloc set
+					CPART_PID=#p.part_id#,
+					part_container_id=#p.container_id#,
+					p2c_status='found_random_dup_part'
+				where
+					key=#key#
+			</cfquery>
+		</cfif>
+		<cfif p.recordcount is 0>
+			<br>nodice
+			<cfquery datasource='uam_god' name='x'>
+				update temp_dgrloc set p2c_status='zero_part_match' where key=#key#
+			</cfquery>
+		</cfif>
+		---->
+		</cftransaction>
+	</cfloop>
+	<!---
+		END find things with multiple parts; choose one
+	--->
+
+
+
+
 
 
 
