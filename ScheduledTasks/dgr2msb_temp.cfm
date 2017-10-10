@@ -738,7 +738,13 @@ fail_find_part_1
 				SAMPLED_FROM_OBJ_ID is null and
 				(container.parent_container_id=0 or container.parent_container_id=17361530)
 		</cfquery>
-		<cfdump var=#parts#>
+		<cfloop query="parts">
+			<br>--#part_name#
+			<cfif part_name contains 'tissue'>
+				<br>gonna just use tissue.....
+
+			</cfif>
+		</cfloop>
 
 	</cfloop>
 
