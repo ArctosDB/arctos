@@ -711,7 +711,7 @@ fail_find_part_1
 	<cfquery datasource='uam_god' name='d'>
 		select * from temp_dgrloc where guid is not null and
 		CPART_PID is null and
-		USE_PART_1 like '%,%' and rownum<50
+		USE_PART_1 like '%,%' and rownum<5000
 	</cfquery>
 	<cfloop query="d">
 	<cftransaction>
