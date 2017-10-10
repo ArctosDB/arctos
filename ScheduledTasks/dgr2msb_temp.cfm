@@ -687,11 +687,68 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
+
+alter table temp_dgrloc add partial_match_part varchar2(255);
+
 ---->
 <cfoutput>
-	<cfinclude template="/includes/functionLib.cfm">
-
+fail_find_part_1
 	<!---
+		find things with ONE parts in locator
+		see if we can find a corresponding multi-part part in Arctos
+
+
+
+		create table temp_dgr_single_parts (
+			guid varchar2(255),
+			dgr_parts varchar2(4000),
+			arctos_parts varchar2(4000)
+		);
+
+
+	---->
+
+	<cfquery datasource='uam_god' name='d'>
+		select * from temp_dgr_single_parts where p2c_status like 'fail_find_part_1%' and
+		USE_PART_1 like '%,%' and rownum<10
+	</cfquery>
+	<cfloop query="d">
+		<hr>#USE_PART_1#
+		<cfquery datasource='uam_god' name='parts'>
+			select
+				parent_container_id,
+				specimen_part.part_name,
+				specimen_part.collection_object_id part_id,
+				container.container_id
+			from
+				specimen_part,
+				flat,
+				coll_obj_cont_hist,
+				container,
+				coll_object
+			where
+				flat.collection_object_id= specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				specimen_part.collection_object_id=coll_object.collection_object_id and
+				coll_obj_cont_hist.container_id=container.container_id and
+				coll_object.COLL_OBJ_DISPOSITION != 'transfer of custody' and
+				flat.guid='#guid#' and
+				SAMPLED_FROM_OBJ_ID is null and
+				(container.parent_container_id=0 or container.parent_container_id=17361530)
+		</cfquery>
+		<cfdump var=#parts#>
+
+	</cfloop>
+
+
+
+
+
+</cfoutput>
+
+
+<!------------
+<!---
 		find things with multiple parts in locator
 		see if we can find a corresponding multi-part part in Arctos
 
@@ -705,6 +762,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 	---->
+	<cfinclude template="/includes/functionLib.cfm">
 
 
 	<cfquery datasource='uam_god' name='d'>
@@ -804,17 +862,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 	<!---
 		END find things with multiple parts; choose one
 	--->
-
-
-
-
-
-
-
-</cfoutput>
-
-
-<!------------
 
 
 <!--- weird mapping --->
