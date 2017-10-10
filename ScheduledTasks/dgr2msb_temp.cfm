@@ -766,9 +766,7 @@ fail_find_part_1
 				<cfset usepart=part_name>
 			</cfif>
 		</cfloop>
-	</cfloop>
-
-	<p>
+		<p>
 		update temp_dgrloc set
 							CPART_PID=#pid#,
 							part_container_id=#cid#,
@@ -777,6 +775,11 @@ fail_find_part_1
 						where
 							key=#key#
 	</p>
+
+
+
+	</cfloop>
+
 
 
 
