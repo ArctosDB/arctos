@@ -741,8 +741,8 @@ fail_find_part_1
 				(container.parent_container_id=0 or container.parent_container_id=17361530)
 		</cfquery>
 		<cfset psts='no_part_found'>
-		<cfset pid=''>
-		<cfset cid=''>
+		<cfset pid='NULL'>
+		<cfset cid='NULL'>
 		<cfset usepart=''>
 		<!--- first try tissue--->
 		<cfloop query="parts">
