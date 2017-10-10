@@ -716,6 +716,8 @@ fail_find_part_1
 	<cfloop query="d">
 		<hr>#USE_PART_1#
 		<br>#guid#
+		<cfset sp1=trim(replace(use_part_1,'(frozen)',''))>
+		<br>sp1: #sp1#
 		<cfquery datasource='uam_god' name='parts'>
 			select
 				parent_container_id,
@@ -742,6 +744,10 @@ fail_find_part_1
 			<br>--#part_name#
 			<cfif part_name contains 'tissue'>
 				<br>gonna just use tissue.....
+			<cfelseif part_name contains sp1>
+				<br>substringmatch gonna use #part_name#
+			<cfelse>
+				<br>nomatch
 
 			</cfif>
 		</cfloop>
