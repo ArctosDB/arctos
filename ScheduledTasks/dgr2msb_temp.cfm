@@ -709,7 +709,7 @@ fail_find_part_1
 	---->
 
 	<cfquery datasource='uam_god' name='d'>
-		select * from temp_dgr_single_parts where p2c_status like 'fail_find_part_1%' and
+		select * from temp_dgrloc where p2c_status like 'fail_find_part_1%' and
 		USE_PART_1 like '%,%' and rownum<10
 	</cfquery>
 	<cfloop query="d">
