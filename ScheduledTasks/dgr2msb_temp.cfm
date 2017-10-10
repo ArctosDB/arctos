@@ -776,7 +776,6 @@ fail_find_part_1
 							partial_match_part='#usepart#'
 						where
 							key=#key#
-					</cfquery>
 	</p>
 
 
