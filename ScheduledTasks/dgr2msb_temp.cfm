@@ -714,6 +714,7 @@ fail_find_part_1
 		USE_PART_1 like '%,%' and rownum<50
 	</cfquery>
 	<cfloop query="d">
+	<cftransaction>
 		<hr>#USE_PART_1#
 		<br>#guid#
 		<cfset sp1=trim(replace(use_part_1,'(frozen)',''))>
@@ -776,8 +777,17 @@ fail_find_part_1
 							key=#key#
 	</p>
 
+		<cfquery datasource='uam_god' name='upf'>
+			update temp_dgrloc set
+				CPART_PID=#pid#,
+				part_container_id=#cid#,
+				p2c_status='#psts#'
+				partial_match_part='#usepart#'
+			where
+				key=#key#
+		</cfquery>
 
-
+	</cftransaction>
 	</cfloop>
 
 
