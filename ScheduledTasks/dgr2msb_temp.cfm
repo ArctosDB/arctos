@@ -711,10 +711,11 @@ fail_find_part_1
 	<cfquery datasource='uam_god' name='d'>
 		select * from temp_dgrloc where guid is not null and
 		CPART_PID is null and
-		USE_PART_1 like '%,%' and rownum<10
+		USE_PART_1 like '%,%' and rownum<50
 	</cfquery>
 	<cfloop query="d">
 		<hr>#USE_PART_1#
+		<br>#guid#
 		<cfquery datasource='uam_god' name='parts'>
 			select
 				parent_container_id,
