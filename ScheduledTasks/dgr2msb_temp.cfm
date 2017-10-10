@@ -771,7 +771,7 @@ fail_find_part_1
 		update temp_dgrloc set
 							CPART_PID=#pid#,
 							part_container_id=#cid#,
-							p2c_status='#psts#'
+							p2c_status='#psts#',
 							partial_match_part='#usepart#'
 						where
 							key=#key#
@@ -781,7 +781,7 @@ fail_find_part_1
 			update temp_dgrloc set
 				CPART_PID=#pid#,
 				part_container_id=#cid#,
-				p2c_status='#psts#'
+				p2c_status='#psts#',
 				partial_match_part='#usepart#'
 			where
 				key=#key#
