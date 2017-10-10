@@ -740,21 +740,44 @@ fail_find_part_1
 				SAMPLED_FROM_OBJ_ID is null and
 				(container.parent_container_id=0 or container.parent_container_id=17361530)
 		</cfquery>
+		<cfset psts='no_part_found'>
+		<cfset pid=''>
+		<cfset cid=''>
+		<cfset usepart=''>
+		<!--- first try tissue--->
 		<cfloop query="parts">
 			<br>--#part_name#
 			<cfif part_name contains 'tissue'>
 				<br>gonna just use tissue.....
-			<cfelseif part_name contains sp1>
-				<br>substringmatch gonna use #part_name#
-			<cfelse>
-				<br>nomatch
-
+				<cfset psts='foundmatch: tissue'>
+				<cfset pid=part_id>
+				<cfset cid=container_id>
+				<cfset usepart=part_name>
 			</cfif>
 		</cfloop>
-
+		<!--- now try partial match; overwrite 'tissue' if we find something --->
+		<cfloop query="parts">
+			<br>--#part_name#
+			<cfif part_name contains sp1>
+				<br>substringmatch gonna use #part_name#
+				<cfset psts='foundmatch: substring'>
+				<cfset pid=part_id>
+				<cfset cid=container_id>
+				<cfset usepart=part_name>
+			</cfif>
+		</cfloop>
 	</cfloop>
 
-
+	<p>
+		update temp_dgrloc set
+							CPART_PID=#pid#,
+							part_container_id=#cid#,
+							p2c_status='#psts#'
+							partial_match_part='#usepart#'
+						where
+							key=#key#
+					</cfquery>
+	</p>
 
 
 
