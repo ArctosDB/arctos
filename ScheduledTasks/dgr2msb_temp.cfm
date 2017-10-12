@@ -751,10 +751,10 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 
 			<br>#guid#
 			<!--- create a part ---->
-			<cfquery name= "pid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name= "pid" datasource="uam_god">
 				SELECT sq_collection_object_id.nextval pid FROM dual
 			</cfquery>
-			<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="updateColl" datasource="uam_god">
 				INSERT INTO coll_object (
 					COLLECTION_OBJECT_ID,
 					COLL_OBJECT_TYPE,
@@ -774,7 +774,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 					1,
 					'unchecked')
 			</cfquery>
-			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="newTiss" datasource="uam_god">
 				INSERT INTO specimen_part (
 					  COLLECTION_OBJECT_ID,
 					  PART_NAME,
@@ -789,7 +789,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			<cfelse>
 				<cfset premk='part autocreated and installed from DGR Locator data'>
 			</cfif>
-			<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="newCollRem" datasource="uam_god">
 				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 				VALUES (#pid.pid#, '#premk#')
 			</cfquery>
