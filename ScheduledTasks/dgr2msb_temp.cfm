@@ -793,8 +793,8 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		from
 			temp_dgrloc
 		where
-			p2c_status  like 'autoinstalled-p_-nocontainer' and
-			rownum<2000
+			p2c_status  like 'autoinstalled-p2-nocontainer-MULTIPLE' and
+			rownum<2
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
@@ -820,6 +820,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				coll_object.collection_object_id=coll_object_remark.collection_object_id and
 				coll_object_remarks like 'part autocreated and installed from DGR Locator data%' and
 				(container.parent_container_id=0 or container.parent_container_id=17361530)
+				specimen_part.collection_object_id not in (select CPART_PID from temp_dgrloc)
 		</cfquery>
 		<cfif p.recordcount is 1>
 			<cfquery datasource='uam_god' name='ups'>
@@ -827,7 +828,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			</cfquery>
 		<cfelse>
 			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-MULTIPLE' where key=#key#
+				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-STILLMULTIPLE' where key=#key#
 			</cfquery>
 		</cfif>
 		</cftransaction>
