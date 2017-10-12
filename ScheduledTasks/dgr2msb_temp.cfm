@@ -724,6 +724,75 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 
 
 <!---
+		install things where we have a partID and a containerID
+	---->
+
+	<cfquery datasource='uam_god' name='d'>
+		select
+			key,
+			tube_container_id,
+			CPART_PID,
+			part_container_id,
+			USE_PART_1,
+			guid
+		from
+			temp_dgrloc
+		where
+			tube_container_id is not null and
+			CPART_PID is not null and
+			part_container_id is not null and
+			p2c_status like 'autoinstalled-p_-nocontainer' and
+			rownum<2
+	</cfquery>
+
+
+
+	<cfloop query="d">
+		<cftransaction>
+			<br>#tube_container_id#
+
+			<br>#guid#
+			<cfquery datasource='uam_god' name='uppc'>
+				update
+					container
+				set
+					parent_container_id=#tube_container_id#
+				where
+					container_id=#part_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='uptc'>
+				update
+					container
+				set
+					CONTAINER_REMARKS=CONTAINER_REMARKS || '; part auto-installed from DGR locator data'
+				where
+					container_id=#tube_container_id#
+			</cfquery>
+			<cfquery datasource='uam_god' name='hpr'>
+				select count(*) c from coll_object_remark where COLLECTION_OBJECT_ID=#CPART_PID#
+			</cfquery>
+
+
+
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='autoinstalled-madepart' where key=#key#
+			</cfquery>
+
+
+		</cftransaction>
+	</cfloop>
+
+	<!---
+		END install things where we have a partID and a containerID
+	---->
+
+</cfoutput>
+
+
+<!------------
+
+
+<!---
 		create and install whatever's left; last step here
 
 
@@ -812,12 +881,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		END create and install whatever's left; last step here
 	---->
 
-
-
-</cfoutput>
-
-
-<!------------
 
 
 <!---
