@@ -714,14 +714,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 	---->
 
 
-select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
-
-alter table temp_dgrloc add partial_match_part varchar2(255);
-
----->
-<cfoutput>
-
-
 
 <!---
 		install things where we have a partID and a containerID
@@ -786,6 +778,49 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		END install things where we have a partID and a containerID
 	---->
 
+
+
+select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
+
+alter table temp_dgrloc add partial_match_part varchar2(255);
+
+---->
+<cfoutput>
+
+<cfquery datasource='uam_god' name='d'>
+		select
+			*
+		from
+			temp_dgrloc
+		where
+			p2c_status  like 'autoinstalled-p_-nocontainer' and
+			rownum<2
+	</cfquery>
+	<cfloop query="d">
+		<cfquery datasource='uam_god' name='p'>
+			select
+				specimen_part.collection_object_id part_id
+			from
+				specimen_part,
+				flat,
+				coll_obj_cont_hist,
+				container,
+				coll_object,
+				coll_object_remark
+			where
+				flat.collection_object_id= specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				specimen_part.collection_object_id=coll_object.collection_object_id and
+				coll_obj_cont_hist.container_id=container.container_id and
+				coll_object.COLL_OBJ_DISPOSITION != 'transfer of custody' and
+				flat.guid='#guid#' and
+				SAMPLED_FROM_OBJ_ID is null and
+				coll_object.collection_object_id=coll_object_remark.collection_object_id and
+				coll_object_remarks like 'part autocreated and installed from DGR Locator data%' and
+				(container.parent_container_id=0 or container.parent_container_id=17361530)
+		</cfquery>
+		<cfdump var=#p#>
+	</cfloop>
 </cfoutput>
 
 
