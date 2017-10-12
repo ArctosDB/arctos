@@ -791,7 +791,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			</cfif>
 			<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-				VALUES (#pid.pid#, '#escapeQuotes(premk)#')
+				VALUES (#pid.pid#, '#premk#')
 			</cfquery>
 			<!----
 				part-container is auto-created
