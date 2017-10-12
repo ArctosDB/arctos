@@ -797,6 +797,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			rownum<2
 	</cfquery>
 	<cfloop query="d">
+		<cftransaction>
 		<cfquery datasource='uam_god' name='p'>
 			select
 				specimen_part.collection_object_id part_id
@@ -825,7 +826,12 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			<cfquery datasource='uam_god' name='ups'>
 				update temp_dgrloc set CPART_PID=#p.part_id#, p2c_status='autoinstalled-p2-nocontainer-gpid' where key=#key#
 			</cfquery>
+		<cfelse>
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-MULTIPLE' where key=#key#
+			</cfquery>
 		</cfif>
+		</cftransaction>
 	</cfloop>
 </cfoutput>
 
