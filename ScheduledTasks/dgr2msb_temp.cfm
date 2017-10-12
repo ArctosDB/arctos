@@ -821,7 +821,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				coll_object_remarks like 'part autocreated and installed from DGR Locator data%' and
 				(container.parent_container_id=0 or container.parent_container_id=17361530)
 		</cfquery>
-		<cfdump var=#p#>
 		<cfif p.recordcount is 1>
 			<cfquery datasource='uam_god' name='ups'>
 				update temp_dgrloc set CPART_PID=#p.part_id#, p2c_status='autoinstalled-p2-nocontainer-gpid' where key=#key#
