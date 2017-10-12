@@ -633,6 +633,16 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
+
+select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
+
+alter table temp_dgrloc add partial_match_part varchar2(255);
+
+---->
+<cfoutput>
+
+
+
 <!---
 		install things where we have a partID and a containerID
 	---->
@@ -642,15 +652,17 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			key,
 			tube_container_id,
 			CPART_PID,
-			part_container_id
+			part_container_id,
+			USE_PART_1,
+			guid
 		from
 			temp_dgrloc
 		where
 			tube_container_id is not null and
 			CPART_PID is not null and
 			part_container_id is not null and
-			p2c_status ='got_part_1' and
-			rownum<2000
+			p2c_status ='foundmatch: substring' and
+			rownum<2
 	</cfquery>
 
 
@@ -658,6 +670,8 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 	<cfloop query="d">
 		<cftransaction>
 			<br>#tube_container_id#
+
+			<br>#guid#
 			<cfquery datasource='uam_god' name='uppc'>
 				update
 					container
@@ -674,9 +688,33 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 				where
 					container_id=#tube_container_id#
 			</cfquery>
-			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set p2c_status='autoinstalled-got_part_1' where key=#key#
+			<cfquery datasource='uam_god' name='hpr'>
+				select count(*) c from coll_object_remark where COLLECTION_OBJECT_ID=#CPART_PID#
 			</cfquery>
+			<cfif hpr.c is 0>
+				<cfquery datasource='uam_god' name='nt'>
+					insert into coll_object_remark (COLLECTION_OBJECT_ID,COLL_OBJECT_REMARKS
+					) values (
+					#CPART_PID#,'Part given as #USE_PART_1# in DGR Locator; possible mismatch'
+					)
+				</cfquery>
+			<cfelse>
+				<cfquery datasource='uam_god' name='unt'>
+					update
+					coll_object_remark
+					set
+					COLL_OBJECT_REMARKS=COLL_OBJECT_REMARKS || '; Part given as #USE_PART_1# in DGR Locator; possible mismatch'
+					where
+					COLLECTION_OBJECT_ID=#CPART_PID#
+				</cfquery>
+			</cfif>
+
+
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set p2c_status='autoinstalled-foundmatchsubstring' where key=#key#
+			</cfquery>
+
+
 		</cftransaction>
 	</cfloop>
 
@@ -686,13 +724,12 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
-select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
+</cfoutput>
 
-alter table temp_dgrloc add partial_match_part varchar2(255);
 
----->
-<cfoutput>
-fail_find_part_1
+<!------------
+
+
 	<!---
 		find things with ONE parts in locator
 		see if we can find a corresponding multi-part part in Arctos
@@ -795,10 +832,6 @@ fail_find_part_1
 
 
 
-</cfoutput>
-
-
-<!------------
 <!---
 		find things with multiple parts in locator
 		see if we can find a corresponding multi-part part in Arctos
