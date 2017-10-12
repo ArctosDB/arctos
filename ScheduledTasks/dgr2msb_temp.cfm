@@ -739,6 +739,103 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		from
 			temp_dgrloc
 		where
+			p2c_status ='autoinstalled-p1-nocontainer' and
+			USE_PART_2 is not null
+			rownum<2
+	</cfquery>
+
+
+
+	<cfloop query="d">
+		<cftransaction>
+			<br>#tube_container_id#
+
+			<br>#guid#
+			<!--- create a part ---->
+			<cfquery name= "pid" datasource="uam_god">
+				SELECT sq_collection_object_id.nextval pid FROM dual
+			</cfquery>
+			<cfquery name="updateColl" datasource="uam_god">
+				INSERT INTO coll_object (
+					COLLECTION_OBJECT_ID,
+					COLL_OBJECT_TYPE,
+					ENTERED_PERSON_ID,
+					COLL_OBJECT_ENTERED_DATE,
+					LAST_EDITED_PERSON_ID,
+					COLL_OBJ_DISPOSITION,
+					LOT_COUNT,
+					CONDITION)
+				VALUES (
+					#pid.pid#,
+					'SP',
+					2072,
+					sysdate,
+					2072,
+					'in collection',
+					1,
+					'unchecked')
+			</cfquery>
+			<cfquery name="newTiss" datasource="uam_god">
+				INSERT INTO specimen_part (
+					  COLLECTION_OBJECT_ID,
+					  PART_NAME,
+					  DERIVED_FROM_cat_item
+				) VALUES (
+					#pid.pid#,
+					 '#USE_PART_2#'
+					,#collection_object_id#)
+			</cfquery>
+			<cfif len(USE_PART_REMARK) gt 0>
+				<cfset premk='part autocreated and installed from DGR Locator data; #USE_PART_REMARK#'>
+			<cfelse>
+				<cfset premk='part autocreated and installed from DGR Locator data'>
+			</cfif>
+			<cfquery name="newCollRem" datasource="uam_god">
+				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+				VALUES (#pid.pid#, '#premk#')
+			</cfquery>
+			<!----
+				part-container is auto-created
+				install part later to avoid pissing off any triggers
+			---->
+
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set CPART_PID=#pid.pid#, p2c_status='autoinstalled-p2-nocontainer' where key=#key#
+			</cfquery>
+
+
+
+		</cftransaction>
+	</cfloop>
+
+	<!---
+		END create and install whatever's left; last step here
+	---->
+
+
+
+</cfoutput>
+
+
+<!------------
+
+
+<!---
+		create and install whatever's left; last step here
+
+
+		IMPORTANTE: create one part on first pass;
+		create second with a modified version of this where necessary
+
+
+	---->
+
+	<cfquery datasource='uam_god' name='d'>
+		select
+			*
+		from
+			temp_dgrloc
+		where
 			p2c_status ='ready_create_part' and
 			rownum<2000
 	</cfquery>
@@ -811,12 +908,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		END create and install whatever's left; last step here
 	---->
 
-
-
-</cfoutput>
-
-
-<!------------
 
 
 	<!---
