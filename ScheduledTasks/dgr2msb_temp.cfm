@@ -800,7 +800,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		<cftransaction>
 		<cfquery datasource='uam_god' name='p'>
 			select
-				specimen_part.collection_object_id part_id
+				min(specimen_part.collection_object_id part_id)
 			from
 				specimen_part,
 				flat,
