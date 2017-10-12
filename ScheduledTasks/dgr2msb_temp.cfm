@@ -740,7 +740,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			temp_dgrloc
 		where
 			p2c_status ='autoinstalled-p1-nocontainer' and
-			USE_PART_2 is not null
+			USE_PART_2 is not null and
 			rownum<2
 	</cfquery>
 
