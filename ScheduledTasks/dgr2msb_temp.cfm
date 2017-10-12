@@ -662,7 +662,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			CPART_PID is not null and
 			part_container_id is not null and
 			p2c_status ='foundmatch: substring' and
-			rownum<2
+			rownum<500
 	</cfquery>
 
 
