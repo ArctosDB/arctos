@@ -814,6 +814,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				coll_obj_cont_hist.container_id=container.container_id and
 				coll_object.COLL_OBJ_DISPOSITION != 'transfer of custody' and
 				flat.guid='#guid#' and
+				specimen_part.part_name='#use_part_1#' and
 				SAMPLED_FROM_OBJ_ID is null and
 				coll_object.collection_object_id=coll_object_remark.collection_object_id and
 				coll_object_remarks like 'part autocreated and installed from DGR Locator data%' and
