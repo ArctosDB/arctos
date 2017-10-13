@@ -843,7 +843,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				where
 					container_id=#pctr.container_id#
 
-					<cfabort>
 			<cfquery datasource='uam_god' name='uppc'>
 				update
 					container
