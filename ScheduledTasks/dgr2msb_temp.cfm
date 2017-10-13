@@ -794,7 +794,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			temp_dgrloc
 		where
 			p2c_status  like 'duptryagain' and
-			rownum<2
+			rownum<2000
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
