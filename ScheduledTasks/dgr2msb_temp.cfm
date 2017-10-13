@@ -827,22 +827,22 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 
 
 		<cfif p.recordcount is 1 and len(p.part_id) gt 0>
+
+			<br>found part
 			<cfquery datasource='uam_god' name='pctr'>
 				select container_id from coll_obj_cont_hist where collection_object_id=#p.part_id#
 			</cfquery>
-			<cfdump var=#pctr#>
+			<br>partcontainerID: #pctr.container_id#>
 
 
-			<br>found part
 
-			<!----
 			<cfquery datasource='uam_god' name='uppc'>
 				update
 					container
 				set
 					parent_container_id=#tube_container_id#
 				where
-					container_id=#part_container_id#
+					container_id=#pctr.container_id#
 			</cfquery>
 			<cfquery datasource='uam_god' name='uptc'>
 				update
@@ -852,10 +852,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				where
 					container_id=#tube_container_id#
 			</cfquery>
-			<cfquery datasource='uam_god' name='hpr'>
-				select count(*) c from coll_object_remark where COLLECTION_OBJECT_ID=#CPART_PID#
-			</cfquery>
-
 
 
 			<cfquery datasource='uam_god' name='ups'>
@@ -863,22 +859,15 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			</cfquery>
 
 
-
-			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set CPART_PID=#p.part_id#, p2c_status='readyToInstallContainerp1' where key=#key#
-			</cfquery>
-			---->
 		<cfelse>
 
 
 		<br>bah
 
 			<cfdump var=#p#>
-			<!----
 			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-STILLMULTIPLE' where key=#key#
+				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-FAILNOFOUNDPART' where key=#key#
 			</cfquery>
-			---->
 		</cfif>
 		</cftransaction>
 	</cfloop>
