@@ -800,6 +800,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		<cftransaction>
 		<br>#guid#
 		<br>#use_part_1#
+		<br>tube_container_id: #tube_container_id#
 		<cfquery datasource='uam_god' name='p'>
 			select
 				min(specimen_part.collection_object_id) part_id
@@ -826,7 +827,10 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 
 
 		<cfif p.recordcount is 1 and len(p.part_id) gt 0>
-
+			<cfquery datasource='uam_god' name='pctr'>
+				select container_id from coll_obj_cont_hist where collection_object_id=#p.part_id#
+			</cfquery>
+			<cfdump var=#pctr#>
 
 
 			<br>found part
