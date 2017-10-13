@@ -787,6 +787,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 	<!---
 		END install things where we have a partID and a containerID
 	---->
+</cfoutput>
 
 <!------------
 
@@ -839,7 +840,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		</cfif>
 		</cftransaction>
 	</cfloop>
-</cfoutput>
 
 <!---
 		create and install whatever's left; last step here
