@@ -793,7 +793,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			temp_dgrloc
 		where
 			p2c_status  like 'autoinstalled-p2-nocontainer-gpid' and
-			rownum<2000
+			rownum<2
 
 	</cfquery>
 	<cfloop query="d">
