@@ -723,7 +723,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 ---->
 <cfoutput>
 
-
+<cfabort>
 
 <!---
 		install things where we have a partID and a containerID
