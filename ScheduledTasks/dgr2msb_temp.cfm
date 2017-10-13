@@ -829,6 +829,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		</cfquery>
 
 
+		<cfdump var=#p#><cfabort>
 		<cfif p.recordcount is 1 and len(p.part_id) gt 0>
 
 			<br>found part
