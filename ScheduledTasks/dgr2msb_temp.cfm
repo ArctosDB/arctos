@@ -823,7 +823,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				specimen_part.collection_object_id not in (select CPART_PID from temp_dgrloc where CPART_PID is not null)
 		</cfquery>
 
-		<cfdump var=#p#>
 		<cfif p.recordcount is 1>
 			<br>happy
 			<cfquery datasource='uam_god' name='ups'>
