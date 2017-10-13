@@ -822,7 +822,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				specimen_part.collection_object_id not in (select CPART_PID from temp_dgrloc where CPART_PID is not null)
 		</cfquery>
 
-		<cfif p.recordcount is 1>
+		<cfif p.recordcount is 1 and len(p.part_id) gt 0>
 			<br>happy
 			<cfquery datasource='uam_god' name='ups'>
 				update temp_dgrloc set CPART_PID=#p.part_id#, p2c_status='readyToInstallContainerp1' where key=#key#
