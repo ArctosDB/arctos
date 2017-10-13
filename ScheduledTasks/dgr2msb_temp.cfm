@@ -829,7 +829,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		</cfquery>
 
 
-		<cfdump var=#p#><cfabort>
 		<cfif p.recordcount is 1 and len(p.part_id) gt 0>
 
 			<br>found part
@@ -838,7 +837,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			</cfquery>
 			<br>partcontainerID: #pctr.container_id#>
 
-
+			<cfabort>
 
 			<cfquery datasource='uam_god' name='uppc'>
 				update
