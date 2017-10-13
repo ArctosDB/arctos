@@ -715,6 +715,16 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
+
+select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
+
+alter table temp_dgrloc add partial_match_part varchar2(255);
+
+---->
+<cfoutput>
+
+
+
 <!---
 		install things where we have a partID and a containerID
 	---->
@@ -733,7 +743,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 			tube_container_id is not null and
 			CPART_PID is not null and
 			part_container_id is not null and
-			p2c_status like 'autoinstalled-p_-nocontainer' and
+			p2c_status like 'autoinstalled-p2-nocontainer-gpid' and
 			rownum<2
 	</cfquery>
 
@@ -778,14 +788,7 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 		END install things where we have a partID and a containerID
 	---->
 
-
-
-select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
-
-alter table temp_dgrloc add partial_match_part varchar2(255);
-
----->
-<cfoutput>
+<!------------
 
 <cfquery datasource='uam_god' name='d'>
 		select
@@ -837,10 +840,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		</cftransaction>
 	</cfloop>
 </cfoutput>
-
-
-<!------------
-
 
 <!---
 		create and install whatever's left; last step here
