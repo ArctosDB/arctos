@@ -836,7 +836,14 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				select container_id from coll_obj_cont_hist where collection_object_id=#p.part_id#
 			</cfquery>
 
+	update
+					container
+				set
+					parent_container_id=#tube_container_id#
+				where
+					container_id=#pctr.container_id#
 
+					<cfabort>
 			<cfquery datasource='uam_god' name='uppc'>
 				update
 					container
@@ -846,7 +853,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 					container_id=#pctr.container_id#
 			</cfquery>
 
-						<cfabort>
+
 
 
 
