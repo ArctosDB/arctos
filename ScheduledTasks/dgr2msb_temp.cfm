@@ -793,7 +793,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 			temp_dgrloc
 		where
 			p2c_status  like 'autoinstalled-p2-nocontainer-gpid' and
-			rownum<2
+			rownum<2000
 
 	</cfquery>
 	<cfloop query="d">
@@ -864,7 +864,6 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 
 		<br>bah
 
-			<cfdump var=#p#>
 			<cfquery datasource='uam_god' name='ups'>
 				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-FAILNOFOUNDPART' where key=#key#
 			</cfquery>
