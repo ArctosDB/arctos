@@ -716,15 +716,6 @@ select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*
 
 
 
-select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
-
-alter table temp_dgrloc add partial_match_part varchar2(255);
-
----->
-<cfoutput>
-
-<cfabort>
-
 <!---
 		install things where we have a partID and a containerID
 	---->
@@ -787,6 +778,63 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 	<!---
 		END install things where we have a partID and a containerID
 	---->
+select p2c_status,count(*) from temp_dgrloc group by p2c_status order by count(*);
+
+alter table temp_dgrloc add partial_match_part varchar2(255);
+
+---->
+<cfoutput>
+
+
+<cfquery datasource='uam_god' name='d'>
+		select
+			*
+		from
+			temp_dgrloc
+		where
+			p2c_status  like 'autoinstalled-p2-nocontainer-gpid' and
+			rownum<2000
+	</cfquery>
+	<cfloop query="d">
+		<cftransaction>
+		<cfquery datasource='uam_god' name='p'>
+			select
+				min(specimen_part.collection_object_id) part_id
+			from
+				specimen_part,
+				flat,
+				coll_obj_cont_hist,
+				container,
+				coll_object,
+				coll_object_remark
+			where
+				flat.collection_object_id= specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				specimen_part.collection_object_id=coll_object.collection_object_id and
+				coll_obj_cont_hist.container_id=container.container_id and
+				coll_object.COLL_OBJ_DISPOSITION != 'transfer of custody' and
+				flat.guid='#guid#' and
+				specimen_part.part_name='#use_part_1#' and
+				SAMPLED_FROM_OBJ_ID is null and
+				coll_object.collection_object_id=coll_object_remark.collection_object_id and
+				coll_object_remarks like 'part autocreated and installed from DGR Locator data%' and
+				(container.parent_container_id=0 or container.parent_container_id=17361530) and
+				specimen_part.collection_object_id not in (select CPART_PID from temp_dgrloc where CPART_PID is not null)
+		</cfquery>
+
+		<cfif p.recordcount is 1>
+			<br>happy
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set CPART_PID=#p.part_id#, p2c_status='readyToInstallContainerp1' where key=#key#
+			</cfquery>
+		<cfelse>
+		<br>bah
+			<cfquery datasource='uam_god' name='ups'>
+				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-STILLMULTIPLE' where key=#key#
+			</cfquery>
+		</cfif>
+		</cftransaction>
+	</cfloop>
 </cfoutput>
 
 <!------------
