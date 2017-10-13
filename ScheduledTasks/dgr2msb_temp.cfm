@@ -801,6 +801,10 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		<br>#guid#
 		<br>#use_part_1#
 		<br>tube_container_id: #tube_container_id#
+
+		<cfabort>
+
+
 		<cfquery datasource='uam_god' name='p'>
 			select
 				min(specimen_part.collection_object_id) part_id
