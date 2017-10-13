@@ -793,7 +793,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		from
 			temp_dgrloc
 		where
-			p2c_status  like 'duptryagain' and
+			p2c_status  like 'autoinstalled-p2-nocontainer-MULTIPLE' and
 			rownum<2000
 	</cfquery>
 	<cfloop query="d">
