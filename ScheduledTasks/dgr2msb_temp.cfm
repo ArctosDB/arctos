@@ -792,14 +792,15 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		from
 			temp_dgrloc
 		where
-			p2c_status  like 'autoinstalled-p2-nocontainer-gpid' and
-			rownum<200
+			p2c_status  like 'autoinstalled-madepart' and
+			use_part_2 is not null and
+			rownum<2
 
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
 		<br>#guid#
-		<br>#use_part_1#
+		<br>#use_part_2#
 		<br>tube_container_id: #tube_container_id#
 
 
@@ -821,7 +822,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 				coll_obj_cont_hist.container_id=container.container_id and
 				coll_object.COLL_OBJ_DISPOSITION != 'transfer of custody' and
 				flat.guid='#guid#' and
-				specimen_part.part_name='#use_part_1#' and
+				specimen_part.part_name='#use_part_2#' and
 				SAMPLED_FROM_OBJ_ID is null and
 				coll_object.collection_object_id=coll_object_remark.collection_object_id and
 				coll_object_remarks like 'part autocreated and installed from DGR Locator data%' and
@@ -867,7 +868,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 
 
 			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set p2c_status='autoinstalled-madepart' where key=#key#
+				update temp_dgrloc set p2c_status='autoinstalled-madepart-2' where key=#key#
 			</cfquery>
 
 
@@ -877,7 +878,7 @@ alter table temp_dgrloc add partial_match_part varchar2(255);
 		<br>bah
 
 			<cfquery datasource='uam_god' name='ups'>
-				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-FAILNOFOUNDPART' where key=#key#
+				update temp_dgrloc set CPART_PID=NULL, p2c_status='autoinstalled-p2-nocontainer-FAILNOFOUNDPART-2' where key=#key#
 			</cfquery>
 		</cfif>
 		</cftransaction>
