@@ -181,8 +181,8 @@
 			<br>enter the barcode of a "donor" container.
 			<br>The donor must be a label.
 			<br>That container will be DELETED and the barcode will be assigned to this container.
+			br>Any barcode currently assigned to this container will be lost.
 			<br>This runs as admin to bypass rules about changing barcodes; make sure you know what you're doing!
-
 			<label for="donorBarcode">Donor Barcode</label>
 			<input type="text" name="donorBarcode">
 			<input type="submit" class="savBtn" value="merge containers">
