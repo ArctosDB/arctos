@@ -375,9 +375,9 @@ sho err
 				<cfelseif scientific_name contains "{">
 					<br>scientific_name: #scientific_name#
 					<cfset tf = "A {string}">
-					<cfset lpos=find(scientific_name,"{")>
+					<cfset lpos=find("{",scientific_name)>
 					<br>lpos: #lpos#
-					<cfset rpos=find(scientific_name,"}")>
+					<cfset rpos=find("}",scientific_name)>
 					<br>rpos: #rpos#
 					<cfset TaxonomyTaxonName=left(scientific_name,rpos - 2)>
 					<br>TaxonomyTaxonName: #TaxonomyTaxonName#
