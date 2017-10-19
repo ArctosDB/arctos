@@ -525,7 +525,7 @@ sho err
 				#ACCEPTED_FG#,
 				'#IDENTIFICATION_REMARKS#',
 				'#TAXA_FORMULA#',
-				'#SCIENTIFIC_NAME#'
+				'#id_sci_name#'
 			)
 		</cfquery>
 		<cfquery name="insertidt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
