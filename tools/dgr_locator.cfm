@@ -283,6 +283,67 @@
 			onmouseout="this.className='qutBtn'"
 			onClick="document.location='/tools/dgr_locator.cfm';">
 	</span>
+
+
+
+<!------------------------------------------------------------------------->
+<cfif #action# is "nothing">
+
+	These data should not be changed for any reason. Use core Arctos object tracking instead; all DGR data are there
+	as container labels.
+
+	<p>
+		Tools to find DGR data in Arctos. These are provided to facilitate locating low-quality data.
+	</p>
+
+	<ul>
+		<li>
+			Cryovials installed with remark "No specimens with NK" - these are data which was in the locator and matches (by NK)
+		no specimens in Arctos.
+			<br><a href="/findContainer.cfm?container_remark=No%20specimens%20with%20NK%20">container remark contains "No specimens with NK"</a>
+		</li>
+
+
+		<li>
+			Cryovials installed with remark "Multiple specimens with NK" - these are data which was in the locator and matches (by NK)
+		multiple specimens in Arctos.
+			<br><a href="/findContainer.cfm?container_remark=Multiple%20specimens%20with%20NK%20">container remark contains "Multiple specimens with NK"</a>
+		</li>
+
+	</ul>
+
+	<p><hr></p>
+	<form name="findIt" method="post" action="dgr_locator.cfm">
+		<input type="hidden" name="action">
+		<input type="button"
+			value="Find Location by DGR #"
+			class="lnkBtn"
+   			onmouseover="this.className='lnkBtn btnhov'"
+			onmouseout="this.className='lnkBtn'"
+			onClick="findIt.action.value='getLocation';submit();">
+		<br /><input type="button"
+			value="Browse By Box"
+			class="lnkBtn"
+   			onmouseover="this.className='lnkBtn btnhov'"
+			onmouseout="this.className='lnkBtn'"
+			onClick="findIt.action.value='getBox';submit();">
+		<br />
+		<input type="button"
+			value="Create New Freezer"
+			class="insBtn"
+   			onmouseover="this.className='insBtn btnhov'"
+			onmouseout="this.className='insBtn'"
+			onClick="findIt.action.value='newFreezer';submit();">
+	</form>
+
+</cfif>
+
+
+
+
+
+
+
 <!------------------------------------------------------------------------->
 <cfif #action# is "getBox">
 	<cfoutput>
@@ -315,31 +376,6 @@
 </cfif>
 
 
-<!------------------------------------------------------------------------->
-<cfif #action# is "nothing">
-	<form name="findIt" method="post" action="dgr_locator.cfm">
-		<input type="hidden" name="action">
-		<input type="button"
-			value="Find Location by DGR #"
-			class="lnkBtn"
-   			onmouseover="this.className='lnkBtn btnhov'"
-			onmouseout="this.className='lnkBtn'"
-			onClick="findIt.action.value='getLocation';submit();">
-		<br /><input type="button"
-			value="Browse By Box"
-			class="lnkBtn"
-   			onmouseover="this.className='lnkBtn btnhov'"
-			onmouseout="this.className='lnkBtn'"
-			onClick="findIt.action.value='getBox';submit();">
-		<br />
-		<input type="button"
-			value="Create New Freezer"
-			class="insBtn"
-   			onmouseover="this.className='insBtn btnhov'"
-			onmouseout="this.className='insBtn'"
-			onClick="findIt.action.value='newFreezer';submit();">
-	</form>
-</cfif>
 <!------------------------------------------------------------------------->
 <cfif #action# is "getLocation">
 	<form name="findLoc" method="post" action="dgr_locator.cfm">
