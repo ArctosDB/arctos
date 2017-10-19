@@ -6,6 +6,10 @@
 
 <!---- make the table
 
+
+-- deal with a string
+alter table cf_temp_id add id_sci_name varchar2(255);
+
 drop table cf_temp_id;
 drop public synonym cf_temp_id;
 
@@ -364,14 +368,17 @@ sho err
 					<cfset scientific_name=left(scientific_name,len(scientific_name) -4)>
 					<cfset tf = "A sp.">
 					<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 4)>
+					<cfset v_id_sci_name=scientific_name>
 				<cfelseif right(scientific_name,4) is " cf.">
 					<cfset scientific_name=left(scientific_name,len(scientific_name) -4)>
 					<cfset tf = "A cf.">
+					<cfset v_id_sci_name=scientific_name>
 					<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 4)>
 				<cfelseif right(scientific_name,2) is " ?">
 					<cfset scientific_name=left(scientific_name,len(scientific_name) -2)>
 					<cfset tf = "A ?">
 					<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 2)>
+					<cfset v_id_sci_name=scientific_name>
 				<cfelseif scientific_name contains "{">
 					<br>scientific_name: #scientific_name#
 					<cfset tf = "A {string}">
@@ -381,6 +388,8 @@ sho err
 					<br>rpos: #rpos#
 					<cfset TaxonomyTaxonName=left(scientific_name,lpos - 2)>
 					<br>TaxonomyTaxonName: #TaxonomyTaxonName#
+					<cfset v_id_sci_name=mid(scientific_name,lpos+1,rpos-lpos-1)>
+					<br>v_id_sci_name: #v_id_sci_name#
 				<cfelse>
 					<cfset  tf = "A">
 					<cfset TaxonomyTaxonName="#scientific_name#">
@@ -399,7 +408,8 @@ sho err
 	                       taxon_name_id = #tnid#,
 	                       taxa_formula='#tf#',
 	                       collection_object_id=#coid#,
-						   status='valid'
+						   status='valid',
+						   id_sci_name='#v_id_sci_name#'
 	                    where key = #key#
 	                </cfquery>
 				<cfelse>
