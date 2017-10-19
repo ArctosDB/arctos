@@ -177,7 +177,9 @@
 		<form name="scary_barcode_swapper" method="post" action="EditContainer.cfm">
 			<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
 			<input type="hidden" name="action" value="scary_barcode_swapper">
-			DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
+			<div text-align:center">
+				DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
+			</div>
 			<br>enter the barcode of a "donor" container.
 			<br>The donor must be a label.
 			<br>That container will be DELETED and the barcode will be assigned to this container.
