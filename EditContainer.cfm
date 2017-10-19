@@ -173,24 +173,21 @@
 	<table><tr><td valign="top"><!---- left column ---->
 
 
-	<cfif len(getCont.barcode) is 0 and  (session.username is "dlm" or session.username is "campmlc" or session.username is 'i_am_tester')>
-		<div class="importantNotification">
+	<div class="importantNotification">
+		<form name="scary_barcode_swapper" method="post" action="EditContainer.cfm">
+			<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
+			<input type="hidden" name="action" value="scary_barcode_swapper">
+			DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
+			<br>enter the barcode of a "donor" container.
+			<br>The donor must be a label.
+			<br>That container will be DELETED and the barcode will be assigned to this container.
+			<br>This runs as admin to bypass rules about changing barcodes; make sure you know what you're doing!
 
-			<form name="formDangerousBarcodeThingee" method="post" action="EditContainer.cfm">
-				<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
-				<input type="hidden" name="action" value="DGR_add_barcode">
-					DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
-					<br>enter the barcode of a "donor" container.
-					<br>That container will be DELETED and the barcode will be assigned to this container.
-					<br>This runs as admin to bypass rules about changing barcodes; make sure you know what you're doing!
-					<br>maybe we should only do this for % label container types??
-
-				<label for="donorBarcode">Donor Barcode</label>
-				<input type="text" name="donorBarcode">
-				<input type="submit" value="merge containers">
-			</form>
-		</div>
-	</cfif>
+			<label for="donorBarcode">Donor Barcode</label>
+			<input type="text" name="donorBarcode">
+			<input type="submit" class="savBtn" value="merge containers">
+		</form>
+	</div>
 
 
 	<form name="form1" method="post" action="EditContainer.cfm">
@@ -439,19 +436,20 @@
 <!-------------------------------------------------------------->
 
 
-<cfif action is "DGR_add_barcode">
+<cfif action is "scary_barcode_swapper">
 	<cfoutput>
 		<cfquery name="dc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from container where barcode='#donorBarcode#'
+			select * from container where barcode='#donorBarcode#' and container_type like '%label%'
 		</cfquery>
 		<cfif dc.recordcount is not 1>
-			donor notfound<cfabort>
+			<cfthrow message="donor container #donorBarcode# was not found.">
 		</cfif>
 		<cfquery name="dcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from container where parent_container_id=#dc.container_id#
 		</cfquery>
-		<cfif dcc.recordcount gt 0>
-			donor has children<cfabort>
+
+		<cfif dc.recordcount is not 1>
+			<cfthrow message="donor container #donorBarcode# has children.">
 		</cfif>
 
 		<cftransaction>
@@ -461,17 +459,10 @@
 			<cfquery name="abc" datasource="uam_god">
 				update container set barcode='#donorBarcode#' where  container_id=#container_id#
 			</cfquery>
-
 		</cftransaction>
-
 		<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">
-
 	</cfoutput>
 </cfif>
-
-
-
-
 <!-------------------------------------------------------------->
 
 
