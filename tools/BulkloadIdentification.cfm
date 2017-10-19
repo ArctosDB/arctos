@@ -302,9 +302,7 @@ sho err
 			       scientific_name LIKE '% / %' or
 	               scientific_name LIKE '% or %' or
 	               scientific_name LIKE '% and %' or
-	               scientific_name LIKE '% x %' or
-	               scientific_name LIKE '%{%' or
-	               scientific_name LIKE '%}%'
+	               scientific_name LIKE '% x %'
 			  ) and
 			  upper(username)='#ucase(session.username)#'
 	    </cfquery>
@@ -374,6 +372,11 @@ sho err
 					<cfset scientific_name=left(scientific_name,len(scientific_name) -2)>
 					<cfset tf = "A ?">
 					<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 2)>
+				<cfelseif scientific_name contains "{">
+					<cfset tf = "A {string}">
+					<cfset lpos=find(scientific_name,"{")>
+					<cfset rpos=find(scientific_name,"}")>
+					<cfset TaxonomyTaxonName=left(scientific_name,rpos - 2)>
 				<cfelse>
 					<cfset  tf = "A">
 					<cfset TaxonomyTaxonName="#scientific_name#">
