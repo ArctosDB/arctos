@@ -1,4 +1,3 @@
-<cfinclude template="includes/_frameHeader.cfm">
 <cfif not isdefined("container_id")>
 	<cfabort><!--- need an ID to do anything --->
 </cfif>
