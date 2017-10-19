@@ -379,7 +379,7 @@ sho err
 					<br>lpos: #lpos#
 					<cfset rpos=find("}",scientific_name)>
 					<br>rpos: #rpos#
-					<cfset TaxonomyTaxonName=left(scientific_name,rpos - 2)>
+					<cfset TaxonomyTaxonName=left(scientific_name,lpos - 2)>
 					<br>TaxonomyTaxonName: #TaxonomyTaxonName#
 				<cfelse>
 					<cfset  tf = "A">
