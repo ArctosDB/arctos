@@ -306,22 +306,22 @@
 		</li>
 
 		<li>
-			Cryovials installed with remark "Multiple specimens with NK" - these are data which was in the 
+			Cryovials installed with remark "Multiple specimens with NK" - these are data which was in the
 			locator and matches (by NK)	multiple specimens in Arctos.
 			<br>
 			<a href="/findContainer.cfm?container_remark=Multiple%20specimens%20with%20NK%20%20&container_type=cryovial">
 				findContainer: cryovial with container remark contains "Multiple specimens with NK"
 			</a>
 		</li>
-		
-		
+
+
 		<li>
-			Cryovials created with remark "autocreated from DGR Locator data" and which have no children - 
-			these are data which was in the 
-			locator and do not have an installed part
+			Cryovials created with remark "autocreated from DGR Locator data" and which have no children -
+			these are data which was in the
+			locator and do not have an installed part. These will include both 'no specimens with NK' and 'nultiple specimens with NK'
 			<br>
-			<a href="/findContainer.cfm?container_remark=Multiple%20specimens%20with%20NK%20%20&container_type=cryovial">
-				findContainer: cryovial with container remark contains "Multiple specimens with NK"
+			<a href="/findContainer.cfm?container_remark=autocreated%20from%20DGR%20Locator%20data&container_type=cryovial&has_children=false">
+				findContainer: cryovial with container remark contains "autocreated from DGR Locator data" and no children
 			</a>
 		</li>
 
