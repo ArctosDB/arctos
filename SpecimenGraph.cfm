@@ -197,8 +197,6 @@
 			<cfquery name="getGraph" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(SqlString)#
 			</cfquery>
-
-			<cfdump var=#getGraph#>
 			<cfchart format="#chartType#"
 				chartHeight = "#chartHeight#"
 				chartWidth = "#chartWidth#"
