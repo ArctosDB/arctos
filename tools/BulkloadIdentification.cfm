@@ -300,7 +300,7 @@ sho err
 	        update
 	          cf_temp_id
 	        set
-	          status='This form will not handle multi-taxa formulae or A-string IDs. File an Issue.'
+	          status='This form will not handle multi-taxa formulae. File an Issue.'
 			where
 			  STATUS IS NULL AND (
 			       scientific_name LIKE '% / %' or

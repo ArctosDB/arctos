@@ -941,6 +941,7 @@ grant all on cf_temp_parts to manage_collection;
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_barcode ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#parent_container_id#"><!---- v_container_id ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_parent_container_type ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#change_container_label#"><!---- v_parent_container_label ---->
 				</cfstoredproc>
 				<!----
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
