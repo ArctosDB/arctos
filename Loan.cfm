@@ -2115,6 +2115,10 @@ just fooling idiot cfclipse into using the right colors
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(sql)#
 	</cfquery>
+
+	<cfdump var=#d#>
+
+	<cfabort>
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
 	<cffile action = "write"
