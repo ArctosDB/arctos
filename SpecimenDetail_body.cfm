@@ -882,7 +882,7 @@
 								#display_value#
 							</cfif>
 							<cfif other_id_type is 'NK' and oneOfUs is 1>
-								<a target="_blank" href='/findContainer.cfm?container_type=cryovial&container_label=NK #display_value#%'>check containers</a>
+								<a target="_blank" href='/findContainer.cfm?container_type=cryovial&container_label=NK #display_value# %'>check containers</a>
 							</cfif>
 						</div>
 					</cfloop>
