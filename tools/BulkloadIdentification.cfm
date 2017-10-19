@@ -393,6 +393,7 @@ sho err
 				<cfelse>
 					<cfset  tf = "A">
 					<cfset TaxonomyTaxonName="#scientific_name#">
+					<cfset v_id_sci_name=scientific_name>
 				</cfif>
 				<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	                SELECT taxon_name_id FROM taxon_name WHERE scientific_name = '#TaxonomyTaxonName#'
