@@ -31,7 +31,7 @@ function post(onOff,msg) {
 function loadTree () {
 	post(1);
 	var theTreeDiv = document.getElementById('treePane');	
-	var flds="loan_number,cat_num,barcode,container_label,container_remark,description,container_type,part_name,collection_id,other_id_type,other_id_value,collection_object_id,loan_trans_id,table_name,in_container_type,in_barcode,transaction_id,container_id,begin_parent_install_date,end_parent_install_date";
+	var flds="loan_number,cat_num,barcode,container_label,container_remark,description,container_type,part_name,collection_id,has_children,other_id_type,other_id_value,collection_object_id,loan_trans_id,table_name,in_container_type,in_barcode,transaction_id,container_id,begin_parent_install_date,end_parent_install_date";
 	var arrFld = flds.split( "," );
 	var q="";
 	for (f in arrFld) {

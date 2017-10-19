@@ -364,6 +364,7 @@
 	<cfset container_type="">
 	<cfset part_name="">
 	<cfset collection_id="">
+	<cfset has_children="">
 	<cfset other_id_type="">
 	<cfset other_id_value="">
 	<cfset collection_object_id="">
@@ -390,6 +391,7 @@
 		len(container_type) is 0 AND
 		len(part_name) is 0 AND
 		len(collection_id) is 0 and
+		len(has_children) is 0 and
 		len(other_id_type) is 0 and
 		len(other_id_value) is 0 and
 		len(collection_object_id) is 0 and
@@ -565,6 +567,19 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
 	 </cfif>
+
+	<cfif len(has_children) gt 0>
+		<cfif has_children is "true">
+			<cfset whr = "#whr# AND container.container_id in (select parent_container_id from container) ">
+		</cfif>
+		<cfif has_children is "false">
+			<cfset whr = "#whr# AND container.container_id NOT in (select parent_container_id from container) ">
+		</cfif>
+	 </cfif>
+
+
+
+
 	 <cfif len(container_id) gt 0>
 		<cfset whr = "#whr# AND container.container_id = #container_id#">
 	</cfif>

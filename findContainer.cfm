@@ -84,6 +84,15 @@
 							<option value="#collection_id#">#guid_prefix#</option>
 				  		</cfloop>
 				</select>
+				
+				<label for="has_children">Has Children</label>
+				<select name="has_children" id="has_children" size="1">
+					<option value=""></option>
+					<option value="true">true</option>
+					<option value="false">false</option>
+				</select>
+				
+				
 				<label for="begin_parent_install_date">Earliest Install Date</label>
 				<input type="text" name="begin_parent_install_date" id="begin_parent_install_date"  />
 
