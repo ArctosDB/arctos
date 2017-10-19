@@ -380,16 +380,11 @@ sho err
 					<cfset TaxonomyTaxonName=left(scientific_name,len(scientific_name) - 2)>
 					<cfset v_id_sci_name=scientific_name>
 				<cfelseif scientific_name contains "{">
-					<br>scientific_name: #scientific_name#
 					<cfset tf = "A {string}">
 					<cfset lpos=find("{",scientific_name)>
-					<br>lpos: #lpos#
 					<cfset rpos=find("}",scientific_name)>
-					<br>rpos: #rpos#
 					<cfset TaxonomyTaxonName=left(scientific_name,lpos - 2)>
-					<br>TaxonomyTaxonName: #TaxonomyTaxonName#
 					<cfset v_id_sci_name=mid(scientific_name,lpos+1,rpos-lpos-1)>
-					<br>v_id_sci_name: #v_id_sci_name#
 				<cfelse>
 					<cfset  tf = "A">
 					<cfset TaxonomyTaxonName="#scientific_name#">
@@ -420,7 +415,8 @@ sho err
 				</cfif>
 			</cftransaction>
 		</cfloop>
-		validation has either finished or timed out - reload, you should quicky get here - if not, reload again or check the table for status
+		validation has either finished or timed out - reload, you should quickly get here -
+		if not, reload again or check the table for status
 		<a href="BulkloadIdentification.cfm?action=table">
 			view in table
 		</a>
