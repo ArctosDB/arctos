@@ -507,6 +507,27 @@ sho err
 				update identification set ACCEPTED_ID_FG=0 where COLLECTION_OBJECT_ID=#COLLECTION_OBJECT_ID#
 			</cfquery>
 		</cfif>
+		<P>
+		insert into identification (
+				IDENTIFICATION_ID,
+				COLLECTION_OBJECT_ID,
+				MADE_DATE,
+				NATURE_OF_ID,
+				ACCEPTED_ID_FG,
+				IDENTIFICATION_REMARKS,
+				TAXA_FORMULA,
+				SCIENTIFIC_NAME
+			) values (
+				sq_identification_id.nextval,
+				#COLLECTION_OBJECT_ID#,
+				'#MADE_DATE#',
+				'#NATURE_OF_ID#',
+				#ACCEPTED_FG#,
+				'#IDENTIFICATION_REMARKS#',
+				'#TAXA_FORMULA#',
+				'#id_sci_name#'
+			)
+		</P>
 		<cfquery name="insert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into identification (
 				IDENTIFICATION_ID,
@@ -528,6 +549,16 @@ sho err
 				'#id_sci_name#'
 			)
 		</cfquery>
+		<p>insert into identification_taxonomy (
+				IDENTIFICATION_ID,
+				TAXON_NAME_ID,
+				VARIABLE
+			) values (
+				sq_identification_id.currval,
+				#TAXON_NAME_ID#,
+				'A'
+			)
+		</p>
 		<cfquery name="insertidt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into identification_taxonomy (
 				IDENTIFICATION_ID,
@@ -540,6 +571,17 @@ sho err
 			)
 		</cfquery>
 		<cfif len(agent_1_id) gt 0>
+			<p>
+				insert into identification_agent (
+					IDENTIFICATION_ID,
+					AGENT_ID,
+					IDENTIFIER_ORDER
+				) values (
+					sq_identification_id.currval,
+					#agent_1_id#,
+					1
+				)
+			</p>
 			<cfquery name="insertida1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into identification_agent (
 					IDENTIFICATION_ID,
@@ -553,6 +595,17 @@ sho err
 			</cfquery>
 		</cfif>
 		<cfif len(agent_2_id) gt 0>
+			<p>
+			insert into identification_agent (
+					IDENTIFICATION_ID,
+					AGENT_ID,
+					IDENTIFIER_ORDER
+				) values (
+					sq_identification_id.currval,
+					#agent_2_id#,
+					2
+				)
+			</p>
 			<cfquery name="insertida1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into identification_agent (
 					IDENTIFICATION_ID,
