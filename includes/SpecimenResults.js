@@ -117,7 +117,7 @@ function confirmAddAllPartLoan(){
 	
 	
 	var part_name=$("#loan_all_part_name").val();
-	var msg='Are you sure you want to add all found ' + part_name + ' to the loan?';
+	var msg='Are you sure you want to add all found ' + part_name + ' to the loan, and change their disposition to `on loan`?';
 	var yesno=confirm(msg);
 	if (yesno==true) {
 		document.location='/Loan.cfm?action=addAllSrchResultLoanItems&transaction_id=' + $("#transaction_id").val() + '&part_name=' + encodeURIComponent(part_name);  		
@@ -128,7 +128,7 @@ function confirmAddAllPartLoan(){
 function confirmAddAllPartLoanSS(){
 	// we can get bad naming/IDs from injected forms, so MUST use....
 	var part_name=$("#loan_all_part_name").val();
-	var msg='Are you sure you want create subsample of all found ' + part_name + ' and add them to the loan?';
+	var msg='Are you sure you want create subsample of all found ' + part_name + ' and add them to the loan? New part disposition will be `on loan`.';
 	var yesno=confirm(msg);
 	if (yesno==true) {
 		document.location='/Loan.cfm?action=SS_addAllSrchResultLoanItems&transaction_id=' + $("#transaction_id").val() + '&part_name=' + encodeURIComponent(part_name);  		

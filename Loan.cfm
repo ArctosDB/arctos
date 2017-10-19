@@ -1639,7 +1639,7 @@ just fooling idiot cfclipse into using the right colors
 						sysdate,
 						#session.myAgentID#,
 						sysdate,
-						'#parentData.coll_obj_disposition#',
+						'on loan',
 						1,
 						'#parentData.condition#')
 				</cfquery>
@@ -1718,6 +1718,9 @@ just fooling idiot cfclipse into using the right colors
 						sysdate,
 						'#partDesc#'
 					)
+				</cfquery>
+				<cfquery name="updp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update coll_object set COLL_OBJ_DISPOSITION='on loan' where collection_object_id=#partID#
 				</cfquery>
 			</cfloop>
 		</cftransaction>
