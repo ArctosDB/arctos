@@ -359,6 +359,7 @@
 	<cfset cat_num="">
 	<cfset barcode="">
 	<cfset container_label="">
+	<cfset container_remark="">
 	<cfset description="">
 	<cfset container_type="">
 	<cfset part_name="">
@@ -384,6 +385,7 @@
 		len(cat_num) is 0 AND
 		len(barcode) is 0 AND
 		len(container_label) is 0 AND
+		len(container_remark) is 0 AND
 		len(description) is 0 AND
 		len(container_type) is 0 AND
 		len(part_name) is 0 AND
@@ -498,6 +500,9 @@
 	</cfif>
 	<cfif len(container_label) gt 0>
 		<cfset whr = "#whr# AND upper(label) like '#ucase(container_label)#'">
+	 </cfif>
+	<cfif len(container_remark) gt 0>
+		<cfset whr = "#whr# AND upper(container_remarks) like '%#ucase(container_remark)#%'">
 	 </cfif>
 	  <cfif len(description) gt 0>
 		<cfset whr = "#whr# AND upper(description) LIKE '%#ucase(description)#%'">

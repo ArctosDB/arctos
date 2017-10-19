@@ -73,6 +73,10 @@
 				
 				<label for="container_label">Label (% for wildcard)</label>
 				<input type="text" name="container_label" id="container_label"  />
+				
+				<label for="container_remark">Remark</label>
+				<input type="text" name="container_remark" id="container_remark"  />
+				
 				<label for="collection_id">Collection</label>
 				<select name="collection_id" id="collection_id" size="1">
 					<option value=""></option>
