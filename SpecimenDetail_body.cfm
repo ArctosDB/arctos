@@ -881,6 +881,9 @@
 							<cfelse>
 								#display_value#
 							</cfif>
+							<cfif other_id_type is 'NK' and oneOfUs is 1>
+								<a target="_blank" href='/findContainer.cfm?label=NK #display_value#%'>check containers</a>
+							</cfif>
 						</div>
 					</cfloop>
 				</div>
