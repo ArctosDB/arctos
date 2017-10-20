@@ -2135,7 +2135,7 @@ just fooling idiot cfclipse into using the right colors
 	</cfloop>
 
 	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=dnp,Fields=d.columnlist)>
+	<cfset csv = util.QueryToCSV2(Query=dnp,Fields=dnp.columnlist)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/LoanResultsDownload.csv"
     	output = "#csv#"
