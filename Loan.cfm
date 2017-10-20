@@ -1994,14 +1994,10 @@ just fooling idiot cfclipse into using the right colors
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			<td>
 				<table>
-				<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select count(*) c from loan_item where transaction_id=#transaction_id#
-				</cfquery>
 					<tr>
 						<td colspan="3">
 							<strong>#guid_prefix# #loan_number#</strong>
-							<cfif c.c gt 0>(#c.c# items)</cfif>
-							<br>#numberItems#
+							(#numberItems# items)
 						</td>
 					</tr>
 					<tr>
@@ -2064,21 +2060,22 @@ just fooling idiot cfclipse into using the right colors
 						<td align="right">Project:</td>
 						<td>
 							<cfquery name="p" dbtype="query">
-								select project_name,pid from allLoans where transaction_id=#transaction_id#
+								select project_name,pid from allLoans where transaction_id=#transaction_id# and project_name is not null
 								group by project_name,pid
 							</cfquery>
-							<cfloop query="p">
-								<cfif len(P.project_name)>
-									<CFIF P.RECORDCOUNT gt 1>
-										<img src="/images/li.gif" border="0">
-									</CFIF>
-									<a href="/Project.cfm?Action=editProject&project_id=#p.pid#">
-										#P.project_name#
-									</a><BR>
-								<cfelse>
-									None
-								</cfif>
-							</cfloop>
+							<cfif p.recordcount lt 1>
+								no projects
+							<cfelse>
+								<ul>
+								<cfloop query="p">
+									<li>
+										<a href="/Project.cfm?Action=editProject&project_id=#p.pid#">
+											#P.project_name#
+										</a>
+									</li>
+								</cfloop>
+								</ul>
+							</cfif>
 						</td>
 					</tr>
 					<tr>
