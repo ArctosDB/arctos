@@ -2118,6 +2118,7 @@ just fooling idiot cfclipse into using the right colors
 	</cfquery>
 	<cfset np_clist=d.columnlist>
 	<cfset np_clist=listdeleteat(np_clist,listfindnocase(np_clist,'PROJECT_NAME'))>
+	<cfset np_clist=listdeleteat(np_clist,listfindnocase(np_clist,'PID'))>
 
 
 	<cfquery name="dnp" dbtype="query">
