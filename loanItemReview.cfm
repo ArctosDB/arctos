@@ -138,13 +138,17 @@
 		</cfquery>
 		<cfif getDataLoanRequests.recordcount gt 0>
 			<hr>
-			<br>This loan contains cataloged items (data loan).
+			<br>This loan contains #getDataLoanRequests.recordcount# cataloged items (data loan).
 			<br><a href="/SpecimenResults.cfm?data_loan_trans_id=#transaction_id#">View in SpecimenResults</a> (EXCLUDES part loan items)
 			<br><a href="loanItemReview.cfm?action=downloadCSV_data&transaction_id=#transaction_id#">Download (with specimen data)</a>
 			<br><a href="loanItemReview.cfm?action=downloadCSV_bulk&transaction_id=#transaction_id#">Download (in Data Loan Bulkloader format)</a>
 			<br><a href="##" onclick="deleteDataLoan('#transaction_id#');">REMOVE them all</a>
 		<cfelse>
-			<p>This loan contains only parts; you can manage everything here.</p>
+			<cfquery name="partcount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) c from loan item where transaction_id = #transaction_id#
+			</cfquery>
+
+			<p>This loan contains #partcount.c# parts; you can manage everything here.</p>
 		</cfif>
 		<hr>
 		Remove ALL PARTS from the loan. This form will NOT work with any "on loan" parts; use the disposition-updater first.
