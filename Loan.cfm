@@ -2125,6 +2125,13 @@ just fooling idiot cfclipse into using the right colors
 	</cfquery>
 
 	<cfset queryAddColumn(dnp,'PROJECT_NAME','VarChar',ArrayNew(1))>
+
+	<cfloop query="dnp">
+		<cfquery name="p" dbtype="query">
+			select PROJECT_NAME from d where transaction_id=#transaction_id#
+		</cfquery>
+		<cfset querySetCell(dnp, "PROJECT_NAME", valuelist(p.PROJECT_NAME,";"), getArtists.currentRow) />
+	</cfloop>
 	<cfdump var=#dnp#>
 
 	<cfabort>
