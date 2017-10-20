@@ -2124,7 +2124,7 @@ just fooling idiot cfclipse into using the right colors
 		select #np_clist# from d group by #np_clist#
 	</cfquery>
 
-	<cfset queryAddColumn(dnp,'PROJECTS','VarChar')>
+	<cfset queryAddColumn(dnp,'PROJECT_NAME','VarChar',ArrayNew(1))>
 	<cfdump var=#dnp#>
 
 	<cfabort>
