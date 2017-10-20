@@ -2130,7 +2130,7 @@ just fooling idiot cfclipse into using the right colors
 		<cfquery name="p" dbtype="query">
 			select PROJECT_NAME from d where transaction_id=#transaction_id#
 		</cfquery>
-		<cfset querySetCell(dnp, "PROJECT_NAME", valuelist(p.PROJECT_NAME,";"), getArtists.currentRow) />
+		<cfset querySetCell(dnp, "PROJECT_NAME", valuelist(p.PROJECT_NAME,";"), dnp.currentRow) />
 	</cfloop>
 	<cfdump var=#dnp#>
 
