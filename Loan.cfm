@@ -2116,8 +2116,16 @@ just fooling idiot cfclipse into using the right colors
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(sql)#
 	</cfquery>
+	<cfset np_clist=d.columnlist>
+	<cfset np_clist=listdeleteat(np_clist,listfindnocase(np_clist,'PROJECT_NAME'))>
 
-	<cfdump var=#d#>
+
+	<cfquery name="dnp" dbtype="query">
+		select #np_clist# from d group by #np_clist#
+	</cfquery>
+
+	<cfset queryAddColumn(dnp,'PROJECTS','VarChar')>
+	<cfdump var=#dnp#>
 
 	<cfabort>
 	<cfset  util = CreateObject("component","component.utilities")>
