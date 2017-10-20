@@ -2124,8 +2124,10 @@ just fooling idiot cfclipse into using the right colors
 		select #np_clist# from d group by #np_clist#
 	</cfquery>
 
+	<cfdump var=#dnp#>
 	<cfset queryAddColumn(dnp,'PROJECT_NAME','VarChar',ArrayNew(1))>
 
+	<cfdump var=#dnp#>
 	<cfloop query="dnp">
 		<cfquery name="p" dbtype="query">
 			select PROJECT_NAME from d where transaction_id=#transaction_id#
