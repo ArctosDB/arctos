@@ -1793,7 +1793,8 @@ just fooling idiot cfclipse into using the right colors
 		trans_date,
 		project_name,
 		project.project_id pid,
-		collection.guid_prefix">
+		collection.guid_prefix,
+		count(loan_item.collection_object_id) numberItems">
 	<cfset frm = " from
 		loan,
 		trans,
@@ -1801,9 +1802,11 @@ just fooling idiot cfclipse into using the right colors
 		project,
 		permit_trans,
 		permit,
-		collection">
+		collection,
+		loan_item">
 	<cfset sql = "where
 		loan.transaction_id = trans.transaction_id AND
+		trans.transaction_id=loan_item.transaction_id (+) and
 		trans.collection_id = collection.collection_id AND
 		trans.transaction_id = project_trans.transaction_id (+) AND
 		project_trans.project_id = project.project_id (+) AND
@@ -1998,6 +2001,7 @@ just fooling idiot cfclipse into using the right colors
 						<td colspan="3">
 							<strong>#guid_prefix# #loan_number#</strong>
 							<cfif c.c gt 0>(#c.c# items)</cfif>
+							<br>#numberItems#
 						</td>
 					</tr>
 					<tr>
