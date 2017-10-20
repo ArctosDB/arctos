@@ -145,7 +145,7 @@
 			<br><a href="##" onclick="deleteDataLoan('#transaction_id#');">REMOVE them all</a>
 		<cfelse>
 			<cfquery name="partcount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) c from loan item where transaction_id = #transaction_id#
+				select count(*) c from loan_item where transaction_id = #transaction_id#
 			</cfquery>
 
 			<p>This loan contains #partcount.c# parts; you can manage everything here.</p>
