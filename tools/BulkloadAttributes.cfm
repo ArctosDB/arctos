@@ -146,6 +146,31 @@ end;
 	<cfoutput>
 		<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">back to my stuff</a>
 		<cfquery name="d" datasource="uam_god">
+			select  count(*) c,
+	        upper(username) username
+	      from
+	        cf_temp_attributes
+	      where
+	        upper(username) != 'DLM' and
+	        upper(username) in (
+	          select distinct
+	               my_privs.grantee
+	              from
+	                dba_role_privs user_privs,
+	                dba_role_privs my_privs,
+	                cf_collection user_colns,
+	                cf_collection my_colns
+	              where
+	                user_privs.granted_role = user_colns.portal_name and
+	                my_privs.granted_role = my_colns.portal_name and
+	                upper(user_privs.grantee)='#ucase(session.username)#' and
+	                user_colns.portal_name=my_colns.portal_name
+	              )
+	        group by username order by username
+			</cfquery>
+
+		<!--- old and slow
+		<cfquery name="d" datasource="uam_god">
 			select
 				count(*) c,
 				upper(username) username
@@ -172,6 +197,7 @@ end;
 					upper(grantee) in (select upper(grantee) from dba_role_privs where upper(granted_role) = 'DATA_ENTRY')
 					) group by upper(username) order by upper(username)
 		</cfquery>
+		---->
 		<form name="d" method="post" action="BulkloadAttributes.cfm">
 			<input type="hidden" name="action" value="saveClaimed">
 			<table border id="t" class="sortable">
