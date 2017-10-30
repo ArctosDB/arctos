@@ -1779,19 +1779,19 @@ just fooling idiot cfclipse into using the right colors
 	<cfset title="Loan Item List">
 	<cfset sel = "select
 		trans.transaction_id,
-		loan_number,
-		loan_type,
-		loan_status,
-		loan_instructions,
-		loan_description,
+		loan.loan_number,
+		loan.loan_type,
+		loan.loan_status,
+		loan.loan_instructions,
+		loan.loan_description,
 		concattransagent(trans.transaction_id,'authorized by') auth_agent,
 		concattransagent(trans.transaction_id,'entered by') ent_agent,
 		concattransagent(trans.transaction_id,'received by') rec_agent,
-		nature_of_material,
-		trans_remarks,
-		return_due_date,
-		trans_date,
-		project_name,
+		trans.nature_of_material,
+		trans.trans_remarks,
+		loan.return_due_date,
+		trans.trans_date,
+		project.project_name,
 		project.project_id pid,
 		collection.guid_prefix,
 		count(loan_item.collection_object_id) numberItems">
@@ -1906,18 +1906,14 @@ just fooling idiot cfclipse into using the right colors
 		<cfset sql = "#sql# AND upper(loan_description) LIKE '%#ucase(loan_description)#%'">
 	</cfif>
 	<cfif isdefined("collection_object_id") AND len(#collection_object_id#) gt 0>
-		<cfset frm="#frm#, loan_item">
-		<cfset sql = "#sql# AND loan.transaction_id=loan_item.transaction_id AND loan_item.collection_object_id IN (#collection_object_id#)">
+		<cfset sql = "#sql# AND loan_item.collection_object_id IN (#collection_object_id#)">
 	</cfif>
 	<cfif isdefined("notClosed") AND len(#notClosed#) gt 0>
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
 
 	<cfif (isdefined("part_name") AND len(part_name) gt 0) or (isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0)>
-		<cfif frm does not contain "loan_item">
-			<cfset frm="#frm#, loan_item">
-			<cfset sql = "#sql# AND loan.transaction_id=loan_item.transaction_id ">
-		</cfif>
+
 		<cfif frm does not contain "coll_object">
 			<cfset frm="#frm#,coll_object">
 			<cfset sql=sql & " and loan_item.collection_object_id=coll_object.collection_object_id ">
@@ -1951,22 +1947,22 @@ just fooling idiot cfclipse into using the right colors
 	<cfset sql ="#sel# #frm# #sql#
 		group by
 		 	trans.transaction_id,
-		   	loan_number,
-		    loan_type,
-		    loan_status,
-		    loan_instructions,
-		    loan_description,
+		   	loan.loan_number,
+		    loan.loan_type,
+		    loan.loan_status,
+		    loan.loan_instructions,
+		    loan.loan_description,
 			concattransagent(trans.transaction_id,'authorized by'),
 		 	concattransagent(trans.transaction_id,'entered by'),
 		 	concattransagent(trans.transaction_id,'received by'),
-		 	nature_of_material,
-		 	trans_remarks,
-		 	return_due_date,
-		  	trans_date,
-		   	project_name,
+		 	trans.nature_of_material,
+		 	trans.trans_remarks,
+		 	loan.return_due_date,
+		  	trans.trans_date,
+		   	project.project_name,
 		 	project.project_id,
 		 	collection.guid_prefix
-		ORDER BY loan_number">
+		ORDER BY loan.loan_number">
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
