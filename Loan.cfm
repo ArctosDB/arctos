@@ -1906,18 +1906,14 @@ just fooling idiot cfclipse into using the right colors
 		<cfset sql = "#sql# AND upper(loan_description) LIKE '%#ucase(loan_description)#%'">
 	</cfif>
 	<cfif isdefined("collection_object_id") AND len(#collection_object_id#) gt 0>
-		<cfset frm="#frm#, loan_item">
-		<cfset sql = "#sql# AND loan.transaction_id=loan_item.transaction_id AND loan_item.collection_object_id IN (#collection_object_id#)">
+		<cfset sql = "#sql# AND loan_item.collection_object_id IN (#collection_object_id#)">
 	</cfif>
 	<cfif isdefined("notClosed") AND len(#notClosed#) gt 0>
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
 
 	<cfif (isdefined("part_name") AND len(part_name) gt 0) or (isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0)>
-		<cfif frm does not contain "loan_item">
-			<cfset frm="#frm#, loan_item">
-			<cfset sql = "#sql# AND loan.transaction_id=loan_item.transaction_id ">
-		</cfif>
+
 		<cfif frm does not contain "coll_object">
 			<cfset frm="#frm#,coll_object">
 			<cfset sql=sql & " and loan_item.collection_object_id=coll_object.collection_object_id ">
