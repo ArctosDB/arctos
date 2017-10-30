@@ -815,14 +815,14 @@
 			<cfset x="">
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0">
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
-			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
+			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads">
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS">
-			<cfset x=x & ",getmappingxpath,get_host_address">
+			<cfset x=x & ",getmappingxpath,get_host_address,git">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla">
