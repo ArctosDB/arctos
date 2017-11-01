@@ -734,6 +734,50 @@
 				</div>
 			</cfloop>
 			</div>
+			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				SELECT project_name, project.project_id project_id FROM
+				project, project_trans
+				WHERE
+				project_trans.project_id = project.project_id AND
+				project_trans.transaction_id=#one.accn_id#
+				GROUP BY project_name, project.project_id
+		  </cfquery>
+		  <cfquery name="isLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				SELECT project_name, project.project_id FROM
+					loan_item,
+					project,
+					project_trans,
+					specimen_part
+				 WHERE
+				 	specimen_part.derived_from_cat_item = #one.collection_object_id# AND
+					loan_item.transaction_id=project_trans.transaction_id AND
+					project_trans.project_id=project.project_id AND
+					specimen_part.collection_object_id = loan_item.collection_object_id
+				GROUP BY
+					project_name, project.project_id
+		</cfquery>
+		<cfquery name="isLoanedItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT
+				loan_item.collection_object_id
+			FROM
+				loan_item,
+				specimen_part
+			WHERE
+				loan_item.collection_object_id=specimen_part.collection_object_id AND
+				specimen_part.derived_from_cat_item=#one.collection_object_id#
+			UNION
+			SELECT
+				loan_item.collection_object_id
+			FROM
+				loan_item
+			WHERE
+				loan_item.collection_object_id=#one.collection_object_id#
+		</cfquery>
+		</td>
+		<td valign="top" width="50%">
+
+
+
 <!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">Collector(s)
@@ -795,47 +839,9 @@
 					</div>
 				</div>
 			</cfif>
-			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT project_name, project.project_id project_id FROM
-				project, project_trans
-				WHERE
-				project_trans.project_id = project.project_id AND
-				project_trans.transaction_id=#one.accn_id#
-				GROUP BY project_name, project.project_id
-		  </cfquery>
-		  <cfquery name="isLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT project_name, project.project_id FROM
-					loan_item,
-					project,
-					project_trans,
-					specimen_part
-				 WHERE
-				 	specimen_part.derived_from_cat_item = #one.collection_object_id# AND
-					loan_item.transaction_id=project_trans.transaction_id AND
-					project_trans.project_id=project.project_id AND
-					specimen_part.collection_object_id = loan_item.collection_object_id
-				GROUP BY
-					project_name, project.project_id
-		</cfquery>
-		<cfquery name="isLoanedItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT
-				loan_item.collection_object_id
-			FROM
-				loan_item,
-				specimen_part
-			WHERE
-				loan_item.collection_object_id=specimen_part.collection_object_id AND
-				specimen_part.derived_from_cat_item=#one.collection_object_id#
-			UNION
-			SELECT
-				loan_item.collection_object_id
-			FROM
-				loan_item
-			WHERE
-				loan_item.collection_object_id=#one.collection_object_id#
-		</cfquery>
-		</td>
-		<td valign="top" width="50%">
+
+
+
 	<!------------------------------------ identifiers ---------------------------------------------->
 			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT
