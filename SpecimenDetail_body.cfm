@@ -487,7 +487,8 @@
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('specLocality');">Edit</span>
 					</cfif>
 				</div>
-				<div>
+
+				<div style="max-height:400px;overflow:auto;">
 					<a target="_blank" class="external" href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
 						<span style="display: inline-block;">
 							<img height="40px" src="/images/bnhm.png" alt="BerkeleyMapper">BerkeleyMapper
