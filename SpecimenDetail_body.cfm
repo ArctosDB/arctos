@@ -488,7 +488,7 @@
 					</cfif>
 				</div>
 
-				<div style="max-height:400px;overflow:auto;">
+				<div>
 					<a target="_blank" class="external" href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
 						<span style="display: inline-block;">
 							<img height="40px" src="/images/bnhm.png" alt="BerkeleyMapper">BerkeleyMapper
@@ -502,6 +502,7 @@
 					</cfquery>
 					---->
 				</div>
+				<div style="max-height:400px;overflow:auto;">
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
 					   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
@@ -734,6 +735,7 @@
 					</table>
 				</div>
 			</cfloop>
+			</div>
 			</div>
 			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id project_id FROM
