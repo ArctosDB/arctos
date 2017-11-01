@@ -1023,7 +1023,7 @@
 		loan_item.collection_object_id=specimen_part.collection_object_id AND
 		specimen_part.derived_from_cat_item=#one.collection_object_id#
 </cfquery>
-			<div class="detailCell">
+			<div class="detailCell" style="max-height:600px;overflow:auto;">
 				<div class="detailLabel">&nbsp;<!---Parts--->
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('editParts');">Edit</span>
