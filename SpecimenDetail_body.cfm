@@ -777,71 +777,6 @@
 		<td valign="top" width="50%">
 
 
-
-<!------------------------------------ collectors ---------------------------------------------->
-			<div class="detailCell">
-				<div class="detailLabel">Collector(s)
-					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
-					</cfif>
-				</div>
-				<div class="detailBlock">
-					<span class="detailData">
-						<span class="innerDetailLabel"></span>
-						<cfset collnks="">
-						<cfloop list="#collectors#" delimiters="," index="i">
-							<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
-							<cfset collnks=listappend(collnks,t,",")>
-						</cfloop>
-						#collnks#
-					</span>
-				</div>
-			</div>
-<!------------------------------------ preparators ---------------------------------------------->
-			<cfif len(preparators) gt 0>
-				<div class="detailCell">
-					<div class="detailLabel">Preparator(s)
-						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
-						</cfif>
-					</div>
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel"></span>
-							<cfset collnks="">
-							<cfloop list="#preparators#" delimiters="," index="i">
-								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
-								<cfset collnks=listappend(collnks,t,",")>
-							</cfloop>
-							#collnks#
-						</span>
-					</div>
-				</div>
-			</cfif>
-<!------------------------------------ makers ---------------------------------------------->
-			<cfif len(makers) gt 0>
-				<div class="detailCell">
-					<div class="detailLabel">Maker(s)
-						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
-						</cfif>
-					</div>
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel"></span>
-							<cfset collnks="">
-							<cfloop list="#makers#" delimiters="," index="i">
-								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
-								<cfset collnks=listappend(collnks,t,",")>
-							</cfloop>
-							#collnks#
-						</span>
-					</div>
-				</div>
-			</cfif>
-
-
-
 	<!------------------------------------ identifiers ---------------------------------------------->
 			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT
@@ -937,6 +872,71 @@
 					</cfloop>
 				</div>
 			</cfif>
+
+
+<!------------------------------------ collectors ---------------------------------------------->
+			<div class="detailCell">
+				<div class="detailLabel">Collector(s)
+					<cfif oneOfUs is 1>
+						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
+					</cfif>
+				</div>
+				<div class="detailBlock">
+					<span class="detailData">
+						<span class="innerDetailLabel"></span>
+						<cfset collnks="">
+						<cfloop list="#collectors#" delimiters="," index="i">
+							<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
+							<cfset collnks=listappend(collnks,t,",")>
+						</cfloop>
+						#collnks#
+					</span>
+				</div>
+			</div>
+<!------------------------------------ preparators ---------------------------------------------->
+			<cfif len(preparators) gt 0>
+				<div class="detailCell">
+					<div class="detailLabel">Preparator(s)
+						<cfif oneOfUs is 1>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
+						</cfif>
+					</div>
+					<div class="detailBlock">
+						<span class="detailData">
+							<span class="innerDetailLabel"></span>
+							<cfset collnks="">
+							<cfloop list="#preparators#" delimiters="," index="i">
+								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
+								<cfset collnks=listappend(collnks,t,",")>
+							</cfloop>
+							#collnks#
+						</span>
+					</div>
+				</div>
+			</cfif>
+<!------------------------------------ makers ---------------------------------------------->
+			<cfif len(makers) gt 0>
+				<div class="detailCell">
+					<div class="detailLabel">Maker(s)
+						<cfif oneOfUs is 1>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
+						</cfif>
+					</div>
+					<div class="detailBlock">
+						<span class="detailData">
+							<span class="innerDetailLabel"></span>
+							<cfset collnks="">
+							<cfloop list="#makers#" delimiters="," index="i">
+								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
+								<cfset collnks=listappend(collnks,t,",")>
+							</cfloop>
+							#collnks#
+						</span>
+					</div>
+				</div>
+			</cfif>
+
+
 <!------------------------------------ parts ---------------------------------------------->
 <cfquery name="rparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
