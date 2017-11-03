@@ -1067,8 +1067,6 @@
 										<cfquery dbtype="query" name="tlp">
 											select * from ploan where transaction_id is not null and collection_object_id=#part_id#
 										</cfquery>
-
-										<cfdump var=#tlp#>
 										<td>
 											<cfloop query="tlp">
 												<div>
@@ -1168,7 +1166,7 @@
 											</cfquery>
 											<td>
 												<cfloop query="tlp">
-													<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number#</a>
+													<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number# (#loan_status#)</a>
 												</cfloop>
 											</td>
 										</cfif>
