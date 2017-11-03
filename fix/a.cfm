@@ -1,5 +1,20 @@
 <cfinclude template="/includes/_header.cfm">
+Application.logfile
+<cfoutput>
+<cfexecute name = "tail #Application.logfile#"
+    arguments = "-500"
+    varibale = "x">
 
+</cfexecute>
+
+
+
+
+<cfdump var=#x#>
+</cfoutput>
+
+
+<!----------------
 <!---
 create table temp_test (u varchar2(255), p varchar2(255));
 insert into temp_test (u,p) values ('dustylee','xxxxx');
