@@ -502,7 +502,7 @@
 					</cfquery>
 					---->
 				</div>
-				<div style="max-height:400px;overflow:auto;">
+				<div style="max-height:800px;overflow:auto;">
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
 					   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
