@@ -1063,6 +1063,8 @@
 										<cfquery dbtype="query" name="tlp">
 											select * from ploan where transaction_id is not null and collection_object_id=#part_id#
 										</cfquery>
+
+										<cfdump var=#tlp#>
 										<td>
 											<cfloop query="tlp">
 												<div>
