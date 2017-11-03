@@ -1012,6 +1012,7 @@
 <cfquery name="ploan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		loan.loan_number,
+		loan.LOAN_STATUS,
 		loan.transaction_id,
 		loan_item.collection_object_id
 	FROM
@@ -1065,7 +1066,7 @@
 										<td>
 											<cfloop query="tlp">
 												<div>
-													<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number#</a>
+													<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number# (#LOAN_STATUS#)</a>
 												</div>
 											</cfloop>
 										</td>
