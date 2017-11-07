@@ -2,8 +2,14 @@
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
 <style>
-	.expandoscroll {
+	.expandoscroll-medium {
 		max-height:250px;overflow:auto;
+	}
+	.expandoscroll-small {
+		max-height:150px;overflow:auto;
+	}
+	.expandoscroll-large {
+		max-height:600px;overflow:auto;
 	}
 </style>
 <script src="/includes/sorttable.js"></script>
@@ -314,7 +320,7 @@
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentification');">Edit</span>
 						</cfif>
 					</div>
-					<div class="detailBlock expandoscroll" id="id_pane">
+					<div class="detailBlock expandoscroll-small" id="id_pane" data-expandoclass="expandoscroll-small">
 						<span class="detailData">
 							<cfquery name="raw_identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								SELECT
@@ -480,7 +486,7 @@
 						CITATION_REMARKS,
 						doi
 				</cfquery>
-				<div class="detailBlock expandoscroll" id="citn_pane">
+				<div class="detailBlock expandoscroll-small" id="citn_pane">
 					<div class="detailLabel" >Citations</div>
 					<cfloop query="citations">
 						<cfquery name="thisTaxLinks" dbtype="query">
@@ -541,7 +547,7 @@
 					</cfquery>
 					---->
 				</div>
-				<div class="detailBlock expandoscroll" id="locality_pane">
+				<div class="detailBlock expandoscroll-large" id="locality_pane">
 
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
