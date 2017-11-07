@@ -482,7 +482,10 @@
 						doi
 				</cfquery>
 				<div class="detailBlock expandoscroll-small" id="citn_pane" data-expandoclass="expandoscroll-small">
-					<div class="detailLabel" >Citations</div>
+					<div class="detailLabel">
+						Citations
+						<span class="expandoHolder" id="expando-citn_pane"></span>
+					</div>
 					<cfloop query="citations">
 						<cfquery name="thisTaxLinks" dbtype="query">
 							select distinct taxsciname from raw_citations where citation_id=#citation_id# and
@@ -523,6 +526,9 @@
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
+					Location
+					<span class="expandoHolder" id="expando-locality_pane"></span>
+
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('specLocality');">Edit</span>
 					</cfif>
@@ -915,6 +921,7 @@
 			<cfif len(ids.other_id_type) gt 0>
 				<div class="detailBlock expandoscroll-small" id="id_ids" data-expandoclass="expandoscroll-small">
 					<div class="detailLabel">Identifiers
+						<span class="expandoHolder" id="expando-id_ids"></span>
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
@@ -942,7 +949,10 @@
 			<cfif len(rels.other_id_type) gt 0>
 				<div class="detailBlock expandoscroll-small" id="id_relations" data-expandoclass="expandoscroll-small">
 
-					<div class="detailLabel">Relationships
+					<div class="detailLabel">
+						Relationships
+						<span class="expandoHolder" id="expando-id_relations"></span>
+
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
@@ -1068,7 +1078,9 @@
 </cfquery>
 			<div class="detailBlock expandoscroll-medium" id="id_parts" data-expandoclass="expandoscroll-medium">
 
-				<div class="detailLabel">&nbsp;<!---Parts--->
+				<div class="detailLabel">
+					Parts
+					<span class="expandoHolder" id="expando-id_parts"></span>
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('editParts');">Edit</span>
 					<cfelse>
@@ -1221,6 +1233,9 @@
 			<cfif len(attribute.attribute_type) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel"><!---Attributes--->
+						Attributes
+						<span class="expandoHolder" id="expando-id_attrs"></span>
+
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editBiolIndiv');">Edit</span>
 						</cfif>
@@ -1228,7 +1243,8 @@
 					<cfquery name="sex" dbtype="query">
 						select * from attribute where attribute_type = 'sex'
 					</cfquery>
-					<div class="detailBlock">
+					<div class="detailBlock expandoscroll-medium" id="id_attrs" data-expandoclass="expandoscroll-medium">
+
 						<cfloop query="sex">
 							<div class="detailBlock">
 								<span class="detailData">
