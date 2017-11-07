@@ -4,6 +4,7 @@
 <style>
 	.expandoscroll-medium {
 		max-height:250px;overflow:auto;
+		border:1px solid green;
 	}
 	.expandoscroll-small {
 		max-height:150px;overflow:auto;
