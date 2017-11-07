@@ -44,7 +44,7 @@
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
 				    console.log('too bookoo');
-				    $( "<div><span class=\"infoLink\" onclick=\"noscrollify('" + tid + "');\">descroll</span></div>" ).insertBefore( this );
+				    $( "<div id='expctl_" + tid + "'><span class=\"infoLink\" onclick=\"noscrollify('" + tid + "');\">descroll</span></div>" ).insertBefore( this );
 				} else {
 					console.log('nope');
 				    // your element doesn't have overflow
@@ -54,6 +54,16 @@
 		function noscrollify(id){
 			alert(id);
 			console.log(id);
+			$("##" + id).removeClass('expandoscroll');
+			var s="<span class=\"infoLink\" onclick=\"rescrollify('" + id + "');\">rescroll</span>";
+
+			$("##expctl_" + id).html(s);
+		}
+
+		function rescrollify(id){
+			$("##" + id).addClass('expandoscroll');
+			var s="<span class=\"infoLink\" onclick=\"noscrollify('" + id + "');\">descroll</span>";
+
 		}
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
