@@ -919,13 +919,16 @@
 				select * from oid where id_references='self' order by other_id_type
 			</cfquery>
 			<cfif len(ids.other_id_type) gt 0>
-				<div class="detailBlock expandoscroll-small" id="id_ids" data-expandoclass="expandoscroll-small">
-					<div class="detailLabel">Identifiers
+			<div class="detailLabel">Identifiers
 						<span class="expandoHolder" id="expando-id_ids"></span>
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
 					</div>
+
+
+				<div class="detailBlock expandoscroll-small" id="id_ids" data-expandoclass="expandoscroll-small">
+
 					<cfloop query="ids">
 						<div class="detailBlock">
 							<span class="innerDetailLabel">
