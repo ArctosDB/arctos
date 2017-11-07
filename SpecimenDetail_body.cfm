@@ -482,11 +482,12 @@
 						doi
 				</cfquery>
 			<div class="detailCell">
-				<div class="detailBlock expandoscroll-small" id="citn_pane" data-expandoclass="expandoscroll-small">
-					<div class="detailLabel">
+				<div class="detailLabel">
 						Citations
 						<span class="expandoHolder" id="expando-citn_pane"></span>
 					</div>
+				<div class="detailBlock expandoscroll-small" id="citn_pane" data-expandoclass="expandoscroll-small">
+
 					<cfloop query="citations">
 						<cfquery name="thisTaxLinks" dbtype="query">
 							select distinct taxsciname from raw_citations where citation_id=#citation_id# and
