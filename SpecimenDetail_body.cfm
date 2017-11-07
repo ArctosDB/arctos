@@ -4,7 +4,6 @@
 <style>
 	.expandoscroll-medium {
 		max-height:250px;overflow:auto;
-		border:1px solid green;
 	}
 	.expandoscroll-small {
 		max-height:150px;overflow:auto;
@@ -1242,7 +1241,6 @@
 					<div class="detailLabel"><!---Attributes--->
 						Attributes
 						<span class="expandoHolder" id="expando-id_attrs"></span>
-
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editBiolIndiv');">Edit</span>
 						</cfif>
@@ -1251,7 +1249,6 @@
 						select * from attribute where attribute_type = 'sex'
 					</cfquery>
 					<div class="detailBlock expandoscroll-medium" id="id_attrs" data-expandoclass="expandoscroll-medium">
-
 						<cfloop query="sex">
 							<div class="detailBlock">
 								<span class="detailData">
