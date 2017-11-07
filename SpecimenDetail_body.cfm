@@ -61,13 +61,13 @@
 		function noscrollify(id){
 			$("##" + id).removeClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"rescrollify('" + id + "');\">[ collapse ]</span>";
-			$("##expctl_" + id).html(s);
+			$("##expando-" + id).html(s);
 		}
 
 		function rescrollify(id){
 			$("##" + id).addClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
-			$("##expctl_" + id).html(s);
+			$("##expando-" + id).html(s);
 		}
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
