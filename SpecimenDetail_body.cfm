@@ -49,11 +49,11 @@
 			   var tid=this.id;
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
-				    	var theLabelDiv=$( this ).children( '.detailLabel' );
+				    var lk="<span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span>";
+				    $( "##expando-" + tid).html(lk);
 
 
-
-				    $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertAfter( theLabelDiv );
+				  //  $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertAfter( theLabelDiv );
 				}
 			});
 		});
@@ -309,6 +309,7 @@
 				<div class="detailCell">
 					<div class="detailLabel">
 						Identifications
+						<span class="expandoHolder" id="expando-id_pane"></span>
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentification');">Edit</span>
 						</cfif>
