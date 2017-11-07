@@ -1079,8 +1079,9 @@
 		loan_item.collection_object_id=specimen_part.collection_object_id AND
 		specimen_part.derived_from_cat_item=#one.collection_object_id#
 </cfquery>
+			<div class="detailCell">
 
-<div class="detailLabel">
+				<div class="detailLabel">
 					Parts
 					<span class="expandoHolder" id="expando-id_parts"></span>
 					<cfif oneOfUs is 1>
@@ -1234,6 +1235,7 @@
 					</span>
 				</div>
 			</div>
+		</div>
 <!------------------------------------ attributes ---------------------------------------------->
 			<cfif len(attribute.attribute_type) gt 0>
 				<div class="detailCell">
