@@ -35,8 +35,7 @@
             $("##mediaUpClickThis").click(function(){
 			    addMedia('collection_object_id','#collection_object_id#');
 			});
-
-			$('*[expandoscroll^="text"]').each(function(i, obj) {
+			$('*[class^="expandoscroll"]').each(function(i, obj) {
 			   console.log(obj);
 			   console.log(i);
 			   console.log(this.id);
