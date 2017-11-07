@@ -3,7 +3,7 @@
 </cfif>
 <style>
 	.expandoscroll {
-		max-height:400px;overflow:auto;
+		max-height:250px;overflow:auto;
 	}
 </style>
 <script src="/includes/sorttable.js"></script>
@@ -34,6 +34,11 @@
             getMedia('specimenLocCollEvent','#collection_object_id#','locColEventMedia','2','1');
             $("##mediaUpClickThis").click(function(){
 			    addMedia('collection_object_id','#collection_object_id#');
+			});
+
+			$('.expandoscroll').each(function(i, obj) {
+			   console.log(obj);
+			   console.log(i);
 			});
 		});
 	</script>
