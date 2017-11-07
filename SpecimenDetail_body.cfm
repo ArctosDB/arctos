@@ -313,7 +313,6 @@
 						</cfif>
 					</div>
 					<div class="detailBlock expandoscroll" id="id_pane">
-
 						<span class="detailData">
 							<cfquery name="raw_identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								SELECT
@@ -479,7 +478,7 @@
 						CITATION_REMARKS,
 						doi
 				</cfquery>
-				<div class="detailCell" style="max-height:200px;overflow:auto;">
+				<div class="detailBlock expandoscroll" id="citn_pane">
 					<div class="detailLabel" >Citations</div>
 					<cfloop query="citations">
 						<cfquery name="thisTaxLinks" dbtype="query">
@@ -540,7 +539,8 @@
 					</cfquery>
 					---->
 				</div>
-				<div style="max-height:800px;overflow:auto;">
+				<div class="detailBlock expandoscroll" id="locality_pane">
+
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
 					   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
