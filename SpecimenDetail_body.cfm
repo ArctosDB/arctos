@@ -481,49 +481,48 @@
 						CITATION_REMARKS,
 						doi
 				</cfquery>
-			<div class="detailCell">
-				<div class="detailLabel">
-						Citations
-						<span class="expandoHolder" id="expando-citn_pane"></span>
-					</div>
-				<div class="detailBlock expandoscroll-small" id="citn_pane" data-expandoclass="expandoscroll-small">
-
-					<cfloop query="citations">
-						<cfquery name="thisTaxLinks" dbtype="query">
-							select distinct taxsciname from raw_citations where citation_id=#citation_id# and
-							taxsciname is not null
-						</cfquery>
-						<cfset thisSciName="#idsciname#">
-						<cfloop query="thisTaxLinks">
-							<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
-							<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
-							<cfset i=i+1>
-						</cfloop>
-						<cfquery name="thisPubsMedia" dbtype="query">
-							select distinct preview_uri,media_type,media_uri,media_id from
-								raw_citations where media_id is not null and citation_id=#citation_id#
-						</cfquery>
-						<div class="detailBlock">
-							#type_status# of #thisSciName#
-							<cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
-							in <a href="#Application.serverRootURL#/publication/#PUBLICATION_ID#">#short_citation#</a>
-							<cfloop query="thisPubsMedia">
-								 <cfset mp = obj.getMediaPreview(
-									preview_uri="#preview_uri#",
-									media_type="#media_type#")>
-									<a href="/media/#media_id#?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
-							 </cfloop>
-							 <cfif len(doi) gt 0>
-									<a href="http://dx.doi.org/#doi#" target="_blank" class="external sddoi">DOI:#doi#</a>
-							</cfif>
-							 <cfif len(CITATION_REMARKS) gt 0>
-								<div class="detailCellSmall">
-									#CITATION_REMARKS#
-								</div>
-							</cfif>
+				<div class="detailCell">
+					<div class="detailLabel">
+							Citations
+							<span class="expandoHolder" id="expando-citn_pane"></span>
 						</div>
-					</cfloop>
-				</div>
+					<div class="detailBlock expandoscroll-small" id="citn_pane" data-expandoclass="expandoscroll-small">
+						<cfloop query="citations">
+							<cfquery name="thisTaxLinks" dbtype="query">
+								select distinct taxsciname from raw_citations where citation_id=#citation_id# and
+								taxsciname is not null
+							</cfquery>
+							<cfset thisSciName="#idsciname#">
+							<cfloop query="thisTaxLinks">
+								<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
+								<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
+								<cfset i=i+1>
+							</cfloop>
+							<cfquery name="thisPubsMedia" dbtype="query">
+								select distinct preview_uri,media_type,media_uri,media_id from
+									raw_citations where media_id is not null and citation_id=#citation_id#
+							</cfquery>
+							<div class="detailBlock">
+								#type_status# of #thisSciName#
+								<cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
+								in <a href="#Application.serverRootURL#/publication/#PUBLICATION_ID#">#short_citation#</a>
+								<cfloop query="thisPubsMedia">
+									 <cfset mp = obj.getMediaPreview(
+										preview_uri="#preview_uri#",
+										media_type="#media_type#")>
+										<a href="/media/#media_id#?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
+								 </cfloop>
+								 <cfif len(doi) gt 0>
+										<a href="http://dx.doi.org/#doi#" target="_blank" class="external sddoi">DOI:#doi#</a>
+								</cfif>
+								 <cfif len(CITATION_REMARKS) gt 0>
+									<div class="detailCellSmall">
+										#CITATION_REMARKS#
+									</div>
+								</cfif>
+							</div>
+						</cfloop>
+					</div>
 				</div>
 			</cfif>
 <!------------------------------------ locality ---------------------------------------------->
@@ -531,7 +530,6 @@
 				<div class="detailLabel">
 					Location
 					<span class="expandoHolder" id="expando-locality_pane"></span>
-
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('specLocality');">Edit</span>
 					</cfif>
@@ -552,240 +550,239 @@
 					---->
 				</div>
 				<div class="detailBlock expandoscroll-large" id="locality_pane" data-expandoclass="expandoscroll-large">
-
-				<cfloop query="event">
-					<div style="border:1px solid green; margin:1em;">
-					   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
-						   OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
-						</div>
-					<table id="SD_#specimen_event_id#" width="100%">
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
-							<td id="SDCellRight">#specimen_event_type#</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td id="SDCellRight" class="detailCellSmall">
-								assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')#
-							</td>
-						</tr>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Higher Geography:</td>
-							<td id="SDCellRight">
-								<cfif left(source_authority,4) is "http">
-									<a href="#source_authority#" target="_blank" class="external">#higher_geog#</a>
-								<cfelse>
-									#higher_geog#
-								</cfif>
-								<a href="/geography.cfm?geog_auth_rec_id=#geog_auth_rec_id#" class="infoLink">more</a>
-								<cfquery name="geosrchterms" dbtype="query">
-									select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by search_term
-								</cfquery>
-								<div style="margin-left:1em;max-height:3em;overflow:auto;" class="detailBlock">
-									<cfloop query='geosrchterms'>
-										<div class="detailCellSmall">#search_term#</div>
-									</cfloop>
-								</div>
-							</td>
-						</tr>
-						<cfif verbatim_locality is not spec_locality>
-							<cfif len(verbatim_locality) gt 0>
-								<tr class="detailData">
-									<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
-									<td id="SDCellRight">#verbatim_locality#
-									</td>
-								</tr>
-							</cfif>
-						</cfif>
-						<cfif len(locality_name) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Locality Nickname:</td>
-								<td id="SDCellRight">#locality_name#</td>
-							</tr>
-						</cfif>
-						<cfif len(collecting_event_name) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Event Nickname:</td>
-								<td id="SDCellRight">#collecting_event_name#</td>
-							</tr>
-						</cfif>
-						<cfif len(spec_locality) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
-								<td id="SDCellRight">
-									#spec_locality#
-								</td>
-							</tr>
-						</cfif>
-						<cfif len(specimen_event_remark) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Specimen/Event Remarks:</td>
-								<td id="SDCellRight">#specimen_event_remark#</td>
-							</tr>
-						</cfif>
-						<cfif len(COLL_EVENT_REMARKS) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Event Remarks:</td>
-								<td id="SDCellRight">#COLL_EVENT_REMARKS#</td>
-							</tr>
-						</cfif>
-						<cfif len(LOCALITY_REMARKS) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Locality Remarks:</td>
-								<td id="SDCellRight">#LOCALITY_REMARKS#</td>
-							</tr>
-						</cfif>
-						<cfif len(habitat) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Habitat:</td>
-								<td id="SDCellRight">#habitat#</td>
-							</tr>
-						</cfif>
-						<cfif len(collecting_method) gt 0>
-							<div class="detailBlock">
-								<tr class="detailData">
-									<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Method:</td>
-									<td id="SDCellRight">#collecting_method#</td>
-								</tr>
+					<cfloop query="event">
+						<div style="border:1px solid green; margin:1em;">
+						   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
+							   OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
 							</div>
-						</cfif>
-						<cfif len(collecting_source) gt 0>
-							<div class="detailBlock">
-								<tr class="detailData">
-									<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Source:</td>
-									<td id="SDCellRight">#collecting_source#</td>
-								</tr>
-							</div>
-						</cfif>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Event Date:</td>
-							<td id="SDCellRight">#began_date#<cfif ended_date neq began_date> to #ended_date#</cfif></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td id="SDCellRight" class="detailCellSmall">
-								Verbatim Date: #verbatim_date#
-							</td>
-						</tr>
-						<cfif len(VERIFICATIONSTATUS) gt 0>
-							<div class="detailBlock">
-								<tr class="detailData">
-									<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:</td>
-									<td id="SDCellRight">#VERIFICATIONSTATUS#</td>
-								</tr>
-							</div>
-						</cfif>
-						<cfif len(one.associated_species) gt 0>
-						<div class="detailBlock">
+						<table id="SD_#specimen_event_id#" width="100%">
 							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
-								<td id="SDCellRight">#one.associated_species#</td>
-							</tr>
-						</div>
-					</cfif>
-						<tr>
-							<td colspan="2">
-								<table width="100%">
-									<tr>
-										<td valign="top" align="right"><!---- text stuff here ---->
-											<table width="100%">
-												<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-													<tr>
-														<td align="right" valign="top">Coordinates:</td>
-														<td align="left">
-															#dec_lat# / #dec_long#
-															<cfif len(verbatim_coordinates) gt 0>
-																<div class="detailCellSmall">
-																	Verbatim Coordinates: #verbatim_coordinates#
-																</div>
-															</cfif>
-															<cfif len(DATUM) gt 0>
-																<div style="font-size:.8em;">
-																	Datum: #DATUM#
-																</div>
-															</cfif>
-															<cfif len(MAX_ERROR_UNITS) gt 0>
-																<div style="font-size:.8em;">Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
-															</cfif>
-															<cfif len(georeference_source) gt 0>
-																<div style="font-size:.8em;">Georeference&nbsp;Source: #georeference_source#</div>
-															</cfif>
-															<cfif len(georeference_protocol) gt 0>
-																<div style="font-size:.8em;">Georeference&nbsp;Protocol: #georeference_protocol#</div>
-															</cfif>
-														</td>
-													</tr>
-												</cfif>
-												<cfif len(orig_elev_units) gt 0>
-													<tr>
-														<td align="right">Elevation</td>
-														<td align="left">#minimum_elevation# to #maximum_elevation# #orig_elev_units#</td>
-													</tr>
-												</cfif>
-												<cfif len(DEPTH_UNITS) gt 0>
-													<tr>
-														<td align="right">Depth:</td>
-														<td align="left">#MIN_DEPTH# to #MAX_DEPTH# #DEPTH_UNITS#</td>
-													</tr>
-												</cfif>
-												<tr>
-													<td valign="top" colspan="2"><div id="locColEventMedia"></div></td>
-												</tr>
-											</table>
-										</td>
-										<td valign="top" align="right"><!---- map here --->
-											<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-												<cfset coordinates="#dec_lat#,#dec_long#">
-												<input type="hidden" id="coordinates_#specimen_event_id#" value="#coordinates#">
-												<input type="hidden" id="error_#specimen_event_id#" value="#err_in_m#">
-												<div class="#session.sdmapclass#" id="mapdiv_#specimen_event_id#"></div>
-												<span class="infoLink mapdialog">map key/tools</div>
-											</cfif>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select * from
-							geology_attributes,
-							preferred_agent_name
-							where
-							geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
-							 locality_id=#locality_id#
-						</cfquery>
-						<cfloop query="geology">
-							<tr>
-								 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
-								 <td id="SDCellRight">
-									 #GEO_ATT_VALUE#
-								</td>
+								<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
+								<td id="SDCellRight">#specimen_event_type#</td>
 							</tr>
 							<tr>
 								<td></td>
 								<td id="SDCellRight" class="detailCellSmall">
-									Determined by
-									<cfif len(agent_name) gt 0>
-										#agent_name#
-									<cfelse>
-										unknown
-									</cfif>
-									<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
-										on #dateformat(GEO_ATT_DETERMINED_DATE,"yyyy-mm-dd")#
-									</cfif>
-									<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
-										Method: #GEO_ATT_DETERMINED_METHOD#
-									</cfif>
-									<cfif len(GEO_ATT_REMARK) gt 0>
-										Remark: #GEO_ATT_REMARK#
-									</cfif>
+									assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')#
 								</td>
 							</tr>
-						</cfloop>
-					</table>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Higher Geography:</td>
+								<td id="SDCellRight">
+									<cfif left(source_authority,4) is "http">
+										<a href="#source_authority#" target="_blank" class="external">#higher_geog#</a>
+									<cfelse>
+										#higher_geog#
+									</cfif>
+									<a href="/geography.cfm?geog_auth_rec_id=#geog_auth_rec_id#" class="infoLink">more</a>
+									<cfquery name="geosrchterms" dbtype="query">
+										select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by search_term
+									</cfquery>
+									<div style="margin-left:1em;max-height:3em;overflow:auto;" class="detailBlock">
+										<cfloop query='geosrchterms'>
+											<div class="detailCellSmall">#search_term#</div>
+										</cfloop>
+									</div>
+								</td>
+							</tr>
+							<cfif verbatim_locality is not spec_locality>
+								<cfif len(verbatim_locality) gt 0>
+									<tr class="detailData">
+										<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
+										<td id="SDCellRight">#verbatim_locality#
+										</td>
+									</tr>
+								</cfif>
+							</cfif>
+							<cfif len(locality_name) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Locality Nickname:</td>
+									<td id="SDCellRight">#locality_name#</td>
+								</tr>
+							</cfif>
+							<cfif len(collecting_event_name) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Event Nickname:</td>
+									<td id="SDCellRight">#collecting_event_name#</td>
+								</tr>
+							</cfif>
+							<cfif len(spec_locality) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
+									<td id="SDCellRight">
+										#spec_locality#
+									</td>
+								</tr>
+							</cfif>
+							<cfif len(specimen_event_remark) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Specimen/Event Remarks:</td>
+									<td id="SDCellRight">#specimen_event_remark#</td>
+								</tr>
+							</cfif>
+							<cfif len(COLL_EVENT_REMARKS) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Event Remarks:</td>
+									<td id="SDCellRight">#COLL_EVENT_REMARKS#</td>
+								</tr>
+							</cfif>
+							<cfif len(LOCALITY_REMARKS) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Locality Remarks:</td>
+									<td id="SDCellRight">#LOCALITY_REMARKS#</td>
+								</tr>
+							</cfif>
+							<cfif len(habitat) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Habitat:</td>
+									<td id="SDCellRight">#habitat#</td>
+								</tr>
+							</cfif>
+							<cfif len(collecting_method) gt 0>
+								<div class="detailBlock">
+									<tr class="detailData">
+										<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Method:</td>
+										<td id="SDCellRight">#collecting_method#</td>
+									</tr>
+								</div>
+							</cfif>
+							<cfif len(collecting_source) gt 0>
+								<div class="detailBlock">
+									<tr class="detailData">
+										<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Source:</td>
+										<td id="SDCellRight">#collecting_source#</td>
+									</tr>
+								</div>
+							</cfif>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Event Date:</td>
+								<td id="SDCellRight">#began_date#<cfif ended_date neq began_date> to #ended_date#</cfif></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td id="SDCellRight" class="detailCellSmall">
+									Verbatim Date: #verbatim_date#
+								</td>
+							</tr>
+							<cfif len(VERIFICATIONSTATUS) gt 0>
+								<div class="detailBlock">
+									<tr class="detailData">
+										<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:</td>
+										<td id="SDCellRight">#VERIFICATIONSTATUS#</td>
+									</tr>
+								</div>
+							</cfif>
+							<cfif len(one.associated_species) gt 0>
+							<div class="detailBlock">
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
+									<td id="SDCellRight">#one.associated_species#</td>
+								</tr>
+							</div>
+						</cfif>
+							<tr>
+								<td colspan="2">
+									<table width="100%">
+										<tr>
+											<td valign="top" align="right"><!---- text stuff here ---->
+												<table width="100%">
+													<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+														<tr>
+															<td align="right" valign="top">Coordinates:</td>
+															<td align="left">
+																#dec_lat# / #dec_long#
+																<cfif len(verbatim_coordinates) gt 0>
+																	<div class="detailCellSmall">
+																		Verbatim Coordinates: #verbatim_coordinates#
+																	</div>
+																</cfif>
+																<cfif len(DATUM) gt 0>
+																	<div style="font-size:.8em;">
+																		Datum: #DATUM#
+																	</div>
+																</cfif>
+																<cfif len(MAX_ERROR_UNITS) gt 0>
+																	<div style="font-size:.8em;">Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
+																</cfif>
+																<cfif len(georeference_source) gt 0>
+																	<div style="font-size:.8em;">Georeference&nbsp;Source: #georeference_source#</div>
+																</cfif>
+																<cfif len(georeference_protocol) gt 0>
+																	<div style="font-size:.8em;">Georeference&nbsp;Protocol: #georeference_protocol#</div>
+																</cfif>
+															</td>
+														</tr>
+													</cfif>
+													<cfif len(orig_elev_units) gt 0>
+														<tr>
+															<td align="right">Elevation</td>
+															<td align="left">#minimum_elevation# to #maximum_elevation# #orig_elev_units#</td>
+														</tr>
+													</cfif>
+													<cfif len(DEPTH_UNITS) gt 0>
+														<tr>
+															<td align="right">Depth:</td>
+															<td align="left">#MIN_DEPTH# to #MAX_DEPTH# #DEPTH_UNITS#</td>
+														</tr>
+													</cfif>
+													<tr>
+														<td valign="top" colspan="2"><div id="locColEventMedia"></div></td>
+													</tr>
+												</table>
+											</td>
+											<td valign="top" align="right"><!---- map here --->
+												<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+													<cfset coordinates="#dec_lat#,#dec_long#">
+													<input type="hidden" id="coordinates_#specimen_event_id#" value="#coordinates#">
+													<input type="hidden" id="error_#specimen_event_id#" value="#err_in_m#">
+													<div class="#session.sdmapclass#" id="mapdiv_#specimen_event_id#"></div>
+													<span class="infoLink mapdialog">map key/tools</div>
+												</cfif>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								select * from
+								geology_attributes,
+								preferred_agent_name
+								where
+								geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
+								 locality_id=#locality_id#
+							</cfquery>
+							<cfloop query="geology">
+								<tr>
+									 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
+									 <td id="SDCellRight">
+										 #GEO_ATT_VALUE#
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td id="SDCellRight" class="detailCellSmall">
+										Determined by
+										<cfif len(agent_name) gt 0>
+											#agent_name#
+										<cfelse>
+											unknown
+										</cfif>
+										<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
+											on #dateformat(GEO_ATT_DETERMINED_DATE,"yyyy-mm-dd")#
+										</cfif>
+										<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
+											Method: #GEO_ATT_DETERMINED_METHOD#
+										</cfif>
+										<cfif len(GEO_ATT_REMARK) gt 0>
+											Remark: #GEO_ATT_REMARK#
+										</cfif>
+									</td>
+								</tr>
+							</cfloop>
+						</table>
+					</div>
+				</cfloop>
 				</div>
-			</cfloop>
-			</div>
 			</div>
 			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id project_id FROM
@@ -922,80 +919,78 @@
 				select * from oid where id_references='self' order by other_id_type
 			</cfquery>
 			<cfif len(ids.other_id_type) gt 0>
-			<div class="detailCell">
-			<div class="detailLabel">Identifiers
+				<div class="detailCell">
+					<div class="detailLabel">Identifiers
 						<span class="expandoHolder" id="expando-id_ids"></span>
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
 					</div>
+					<div class="detailBlock expandoscroll-small" id="id_ids" data-expandoclass="expandoscroll-small">
 
-
-				<div class="detailBlock expandoscroll-small" id="id_ids" data-expandoclass="expandoscroll-small">
-
-					<cfloop query="ids">
-						<div class="detailBlock">
-							<span class="innerDetailLabel">
-								#other_id_type#:
-							</span>
-							<cfif len(link) gt 0>
-								<a class="external" href="#link#" target="_blank">#display_value#</a>
-							<cfelse>
-								#display_value#
-							</cfif>
-							<cfif other_id_type is 'NK' and oneOfUs is 1>
-								<a target="_blank" href='/findContainer.cfm?container_type=cryovial&container_label=NK #display_value#%20%25'>check containers</a>
-							</cfif>
-						</div>
-					</cfloop>
-				</div>
+						<cfloop query="ids">
+							<div class="detailBlock">
+								<span class="innerDetailLabel">
+									#other_id_type#:
+								</span>
+								<cfif len(link) gt 0>
+									<a class="external" href="#link#" target="_blank">#display_value#</a>
+								<cfelse>
+									#display_value#
+								</cfif>
+								<cfif other_id_type is 'NK' and oneOfUs is 1>
+									<a target="_blank" href='/findContainer.cfm?container_type=cryovial&container_label=NK #display_value#%20%25'>check containers</a>
+								</cfif>
+							</div>
+						</cfloop>
+					</div>
 				</div>
 			</cfif>
 			<cfquery name="rels" dbtype="query">
 				select * from oid where id_references != 'self' order by id_references,other_id_type
 			</cfquery>
 			<cfif len(rels.other_id_type) gt 0>
-				<div class="detailBlock expandoscroll-small" id="id_relations" data-expandoclass="expandoscroll-small">
-
-					<div class="detailLabel">
-						Relationships
-						<span class="expandoHolder" id="expando-id_relations"></span>
-
-						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
-						</cfif>
-					</div>
-					<cfloop query="rels">
-						<cfquery name="relcache" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-							select * from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID# order by term
-						</cfquery>
-						<cfset thisClass="">
-						<cfif id_references is "same individual as">
-							<!----
-							<script>
-								$("body").addClass("isDuplicateRecord");
-							</script>
-							---->
-							<cfset thisClass="isDuplicateRecord">
-						</cfif>
-						<div class="detailBlock #thisClass#">
-							<span class="innerDetailLabel">
-								(<i>#id_references#</i>)
-							</span>
-							<cfif len(link) gt 0>
-								<a class="external" href="#link#" target="_blank">#other_id_type#:#display_value#</a>
-							<cfelse>
-								#other_id_type#:#display_value#
+				<div class="detailCell">
+					<div class="detailBlock expandoscroll-small" id="id_relations" data-expandoclass="expandoscroll-small">
+						<div class="detailLabel">
+							Relationships
+							<span class="expandoHolder" id="expando-id_relations"></span>
+							<cfif oneOfUs is 1>
+								<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 							</cfif>
-							<div class="relCacheDiv">
-								<cfloop query="relcache">
-									<div class="indivRelCacheTerm">
-										#TERM#@#dateformat(CACHEDATE,"yyyy-mm-dd")#: #VALUE#
-									</div>
-								</cfloop>
-							</div>
 						</div>
-					</cfloop>
+						<cfloop query="rels">
+							<cfquery name="relcache" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+								select * from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID# order by term
+							</cfquery>
+							<cfset thisClass="">
+							<cfif id_references is "same individual as">
+								<!----
+								<script>
+									$("body").addClass("isDuplicateRecord");
+								</script>
+								---->
+								<cfset thisClass="isDuplicateRecord">
+							</cfif>
+							<div class="detailBlock #thisClass#">
+								<span class="innerDetailLabel">
+									(<i>#id_references#</i>)
+								</span>
+								<cfif len(link) gt 0>
+									<a class="external" href="#link#" target="_blank">#other_id_type#:#display_value#</a>
+								<cfelse>
+									#other_id_type#:#display_value#
+								</cfif>
+								<div class="relCacheDiv">
+									<cfloop query="relcache">
+										<div class="indivRelCacheTerm">
+											#TERM#@#dateformat(CACHEDATE,"yyyy-mm-dd")#: #VALUE#
+										</div>
+									</cfloop>
+								</div>
+							</div>
+						</cfloop>
+					</div>
 				</div>
 			</cfif>
 
