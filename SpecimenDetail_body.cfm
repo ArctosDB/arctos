@@ -922,7 +922,7 @@
 				select * from oid where id_references='self' order by other_id_type
 			</cfquery>
 			<cfif len(ids.other_id_type) gt 0>
-				<div class="detailCell" style="max-height:200px;overflow:auto;">
+				<div class="detailBlock expandoscroll-small" id="id_ids" data-expandoclass="expandoscroll-small">
 					<div class="detailLabel">Identifiers
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
@@ -949,7 +949,8 @@
 				select * from oid where id_references != 'self' order by id_references,other_id_type
 			</cfquery>
 			<cfif len(rels.other_id_type) gt 0>
-				<div class="detailCell" id="relationshipsCell" style="max-height:200px;overflow:auto;">
+				<div class="detailBlock expandoscroll-small" id="id_relations" data-expandoclass="expandoscroll-small">
+
 					<div class="detailLabel">Relationships
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
@@ -1074,7 +1075,8 @@
 		loan_item.collection_object_id=specimen_part.collection_object_id AND
 		specimen_part.derived_from_cat_item=#one.collection_object_id#
 </cfquery>
-			<div class="detailCell" style="max-height:600px;overflow:auto;">
+			<div class="detailBlock expandoscroll-medium" id="id_parts" data-expandoclass="expandoscroll-medium">
+
 				<div class="detailLabel">&nbsp;<!---Parts--->
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('editParts');">Edit</span>
