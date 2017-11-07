@@ -63,7 +63,11 @@
 		function noscrollify(id){
 			alert('noscrollify: ' + id);
 			console.log(id);
-			$("##" + id).removeClass('expandoscroll');
+
+
+
+
+			$("##" + id).removeClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"rescrollify('" + id + "');\">[ collapse ]</span>";
 
 			$("##expctl_" + id).html(s);
@@ -71,7 +75,7 @@
 
 		function rescrollify(id){
 			alert('rescrollify: ' + id);
-			$("##" + id).addClass('expandoscroll');
+			$("##" + id).addClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
 			$("##expctl_" + id).html(s);
 
@@ -486,7 +490,7 @@
 						CITATION_REMARKS,
 						doi
 				</cfquery>
-				<div class="detailBlock expandoscroll-small" id="citn_pane">
+				<div class="detailBlock expandoscroll-small" id="citn_pane" data-expandoclass="expandoscroll-small">
 					<div class="detailLabel" >Citations</div>
 					<cfloop query="citations">
 						<cfquery name="thisTaxLinks" dbtype="query">
@@ -547,7 +551,7 @@
 					</cfquery>
 					---->
 				</div>
-				<div class="detailBlock expandoscroll-large" id="locality_pane">
+				<div class="detailBlock expandoscroll-large" id="locality_pane" data-expandoclass="expandoscroll-large">
 
 				<cfloop query="event">
 					<div style="border:1px solid green; margin:1em;">
