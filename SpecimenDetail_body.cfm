@@ -44,7 +44,7 @@
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
 				    console.log('too bookoo');
-				    $( "<div><span class=\"infoLink\" onclick=\"noscrollify(" + tid + ");\">descroll</span></div>" ).insertBefore( this );
+				    $( "<div><span class=\"infoLink\" onclick=\"noscrollify('" + tid + "');\">descroll</span></div>" ).insertBefore( this );
 				} else {
 					console.log('nope');
 				    // your element doesn't have overflow
