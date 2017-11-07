@@ -922,6 +922,7 @@
 				select * from oid where id_references='self' order by other_id_type
 			</cfquery>
 			<cfif len(ids.other_id_type) gt 0>
+			<div>
 			<div class="detailLabel">Identifiers
 						<span class="expandoHolder" id="expando-id_ids"></span>
 						<cfif oneOfUs is 1>
@@ -947,6 +948,7 @@
 							</cfif>
 						</div>
 					</cfloop>
+				</div>
 				</div>
 			</cfif>
 			<cfquery name="rels" dbtype="query">
