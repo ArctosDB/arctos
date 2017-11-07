@@ -39,6 +39,13 @@
 			$('.expandoscroll').each(function(i, obj) {
 			   console.log(obj);
 			   console.log(i);
+			   if (this.offsetHeight < this.scrollHeight ||
+				    this.offsetWidth < this.scrollWidth) {
+				    console.log('too bookoo');
+				} else {
+					console.log('nope');
+				    // your element doesn't have overflow
+				}
 			});
 		});
 	</script>
