@@ -44,6 +44,7 @@
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
 				    console.log('too bookoo');
+
 				    $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertBefore( this );
 				} else {
 					console.log('nope');
@@ -52,7 +53,7 @@
 			});
 		});
 		function noscrollify(id){
-			alert(id);
+			alert('noscrollify: ' + id);
 			console.log(id);
 			$("##" + id).removeClass('expandoscroll');
 			var s="<span class=\"likeLink\" onclick=\"rescrollify('" + id + "');\">[ collapse ]</span>";
@@ -61,6 +62,7 @@
 		}
 
 		function rescrollify(id){
+			alert('rescrollify: ' + id);
 			$("##" + id).addClass('expandoscroll');
 			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
 
