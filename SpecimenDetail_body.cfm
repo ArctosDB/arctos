@@ -65,6 +65,7 @@
 			alert('rescrollify: ' + id);
 			$("##" + id).addClass('expandoscroll');
 			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
+			$("##expctl_" + id).html(s);
 
 		}
 	</script>
