@@ -307,7 +307,8 @@
 			<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
 				<div class="detailCell">
-					<div class="detailLabel">&nbsp;
+					<div class="detailLabel">
+						Identifications
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentification');">Edit</span>
 						</cfif>
