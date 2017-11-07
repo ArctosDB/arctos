@@ -1079,9 +1079,8 @@
 		loan_item.collection_object_id=specimen_part.collection_object_id AND
 		specimen_part.derived_from_cat_item=#one.collection_object_id#
 </cfquery>
-			<div class="detailBlock expandoscroll-medium" id="id_parts" data-expandoclass="expandoscroll-medium">
 
-				<div class="detailLabel">
+<div class="detailLabel">
 					Parts
 					<span class="expandoHolder" id="expando-id_parts"></span>
 					<cfif oneOfUs is 1>
@@ -1090,6 +1089,9 @@
 						<span class="detailEditCell" onClick="getInfo('parts','#one.collection_object_id#');">Details</span>
 					</cfif>
 				</div>
+			<div class="detailBlock expandoscroll-medium" id="id_parts" data-expandoclass="expandoscroll-medium">
+
+
 				<div class="detailBlock">
 					<span class="detailData">
 						<table border>
