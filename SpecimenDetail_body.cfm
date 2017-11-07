@@ -1,6 +1,11 @@
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
+<style>
+	.expandoscroll {
+		max-height:400px;overflow:auto;
+	}
+</style>
 <script src="/includes/sorttable.js"></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <cfoutput>
@@ -275,7 +280,7 @@
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentification');">Edit</span>
 						</cfif>
 					</div>
-					<div class="detailBlock" style="max-height:200px;overflow:auto;">
+					<div class="detailBlock expandoscroll">
 						<span class="detailData">
 							<cfquery name="raw_identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								SELECT
