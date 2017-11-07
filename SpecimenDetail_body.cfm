@@ -42,7 +42,7 @@
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
 				    console.log('too bookoo');
-				    $( "<div><span class=\"infoLink\" onclick=\"noscrollify(1);\">descroll</span></div>" ).insertBefore( this );
+				    $( "<div><span class=\"infoLink\" onclick=\"noscrollify(" + this.id + ");\">descroll</span></div>" ).insertBefore( this );
 				} else {
 					console.log('nope');
 				    // your element doesn't have overflow
@@ -296,7 +296,8 @@
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentification');">Edit</span>
 						</cfif>
 					</div>
-					<div class="detailBlock expandoscroll">
+					<div class="detailBlock expandoscroll" id="id_pane">
+
 						<span class="detailData">
 							<cfquery name="raw_identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								SELECT
