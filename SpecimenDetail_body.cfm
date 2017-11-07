@@ -44,7 +44,7 @@
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
 				    console.log('too bookoo');
-				    $( "<div id='expctl_" + tid + "'><span class=\"infoLink\" onclick=\"noscrollify('" + tid + "');\">descroll</span></div>" ).insertBefore( this );
+				    $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertBefore( this );
 				} else {
 					console.log('nope');
 				    // your element doesn't have overflow
@@ -55,14 +55,14 @@
 			alert(id);
 			console.log(id);
 			$("##" + id).removeClass('expandoscroll');
-			var s="<span class=\"infoLink\" onclick=\"rescrollify('" + id + "');\">rescroll</span>";
+			var s="<span class=\"likeLink\" onclick=\"rescrollify('" + id + "');\">[ collapse ]</span>";
 
 			$("##expctl_" + id).html(s);
 		}
 
 		function rescrollify(id){
 			$("##" + id).addClass('expandoscroll');
-			var s="<span class=\"infoLink\" onclick=\"noscrollify('" + id + "');\">descroll</span>";
+			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
 
 		}
 	</script>
