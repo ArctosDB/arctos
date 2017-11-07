@@ -42,6 +42,7 @@
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
 				    console.log('too bookoo');
+				    $( "<p>Test</p>" ).insertBefore( this );
 				} else {
 					console.log('nope');
 				    // your element doesn't have overflow
