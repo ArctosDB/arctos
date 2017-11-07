@@ -45,40 +45,23 @@
 
 
 			$('*[class*="expandoscroll"]').each(function(i, obj) {
-			   console.log(obj);
-			   console.log(i);
-			   console.log(this.id);
 			   var tid=this.id;
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
-				    console.log('too bookoo');
-
 				    $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertBefore( this );
-				} else {
-					console.log('nope');
-				    // your element doesn't have overflow
 				}
 			});
 		});
 		function noscrollify(id){
-			alert('noscrollify: ' + id);
-			console.log(id);
-
-
-
-
 			$("##" + id).removeClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"rescrollify('" + id + "');\">[ collapse ]</span>";
-
 			$("##expctl_" + id).html(s);
 		}
 
 		function rescrollify(id){
-			alert('rescrollify: ' + id);
 			$("##" + id).addClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
 			$("##expctl_" + id).html(s);
-
 		}
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
