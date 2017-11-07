@@ -49,7 +49,11 @@
 			   var tid=this.id;
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
-				    $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertBefore( this );
+				    	var theLabelDiv=$( this ).children( '.detailLabel' );
+
+
+
+				    $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertAfter( theLabelDiv );
 				}
 			});
 		});
