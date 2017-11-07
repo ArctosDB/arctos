@@ -481,6 +481,7 @@
 						CITATION_REMARKS,
 						doi
 				</cfquery>
+			<div class="detailCell">
 				<div class="detailBlock expandoscroll-small" id="citn_pane" data-expandoclass="expandoscroll-small">
 					<div class="detailLabel">
 						Citations
@@ -521,6 +522,7 @@
 							</cfif>
 						</div>
 					</cfloop>
+				</div>
 				</div>
 			</cfif>
 <!------------------------------------ locality ---------------------------------------------->
