@@ -39,6 +39,8 @@
 			$('.expandoscroll').each(function(i, obj) {
 			   console.log(obj);
 			   console.log(i);
+			   console.log(this.id);
+			   console.log($.this.id);
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
 				    console.log('too bookoo');
