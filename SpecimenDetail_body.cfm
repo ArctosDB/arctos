@@ -951,14 +951,14 @@
 			</cfquery>
 			<cfif len(rels.other_id_type) gt 0>
 				<div class="detailCell">
+					<div class="detailLabel">
+						Relationships
+						<span class="expandoHolder" id="expando-id_relations"></span>
+						<cfif oneOfUs is 1>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
+						</cfif>
+					</div>
 					<div class="detailBlock expandoscroll-small" id="id_relations" data-expandoclass="expandoscroll-small">
-						<div class="detailLabel">
-							Relationships
-							<span class="expandoHolder" id="expando-id_relations"></span>
-							<cfif oneOfUs is 1>
-								<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
-							</cfif>
-						</div>
 						<cfloop query="rels">
 							<cfquery name="relcache" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 								select * from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID# order by term
