@@ -40,7 +40,6 @@
 			   console.log(obj);
 			   console.log(i);
 			   console.log(this.id);
-			   console.log($.this.id);
 			   if (this.offsetHeight < this.scrollHeight ||
 				    this.offsetWidth < this.scrollWidth) {
 				    console.log('too bookoo');
@@ -53,6 +52,7 @@
 		});
 		function noscrollify(id){
 			alert(id);
+			console.log(id);
 		}
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
