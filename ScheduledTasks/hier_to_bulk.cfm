@@ -185,7 +185,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 				</cfif>
 				<cftry>
 					'#evaluate("variables." & manI)#',
-				<cfcatch>#escapesinglequotes("''")#,</cfcatch>
+				<cfcatch>#PreserveSingleQuotes("''")#,</cfcatch>
 				</cftry>
 			</cfloop>
 			<cfloop query="dNoClassTerm">
