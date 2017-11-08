@@ -129,7 +129,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 				<cfquery name="next" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 					select * from hierarchical_taxonomy where tid=#variables.PARENT_TID#
 				</cfquery>
-				<cfdump var=#next#>
 				<cfset variables.TID=next.TID>
 				<cfset variables.PARENT_TID=next.PARENT_TID>
 				<cfset "variables.#next.RANK#"=next.term>
@@ -163,47 +162,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		the rank that goes in column phylorder is order
 		manipulate the stream via var manI
 	---->
-<cfdump var=#tterms#>
-<cfdump var=#variables#>
 
-<p>
-
-insert into cf_temp_classification_fh (
-			<cfloop list="#tterms#" index="i">
-				#i#,
-			</cfloop>
-			<cfloop query="dNoClassTerm">
-				#TERM_TYPE#,
-			</cfloop>
-			STATUS,
-			username,
-			SOURCE,
-			SCIENTIFIC_NAME,
-			export_id
-		) values (
-			<cfloop list="#tterms#" index="i">
-				<cfif i is "PHYLORDER">
-					<cfset manI="ORDER">
-				<cfelse>
-					<cfset manI=i>
-				</cfif>
-
-				<cfif StructKeyExists(variables, "#manI#")>
-					'#evaluate("variables." & manI)#',
-				<cfelse>
-					'',
-				</cfif>
-			</cfloop>
-			<cfloop query="dNoClassTerm">
-				'#TERM_VALUE#',
-			</cfloop>
-			'autoinsert_from_hierarchy',
-			'#q.username#',
-			'#dataset.source#',
-			'#d.term#',
-			'#q.export_id#'
-		)
-</p>
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
@@ -224,7 +183,12 @@ insert into cf_temp_classification_fh (
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
-				'#evaluate("variables." & manI)#'
+				<cfif StructKeyExists(variables, "#manI#")>
+					'#evaluate("variables." & manI)#',
+				<cfelse>
+					<!---- didn't get one, probably because (phyl)order is weird and overly complicated ---->
+					'',
+				</cfif>
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
