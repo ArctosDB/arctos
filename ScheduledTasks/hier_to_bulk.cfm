@@ -160,6 +160,8 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		the rank that goes in column phylorder is order
 		manipulate the stream via var manI
 	---->
+<cfdump var=#tterms#>
+
 
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
