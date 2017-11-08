@@ -166,7 +166,39 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	---->
 <cfdump var=#tterms#>
 
+<p>
 
+insert into cf_temp_classification_fh (
+			<cfloop list="#tterms#" index="i">
+				#i#,
+			</cfloop>
+			<cfloop query="dNoClassTerm">
+				#TERM_TYPE#,
+			</cfloop>
+			STATUS,
+			username,
+			SOURCE,
+			SCIENTIFIC_NAME,
+			export_id
+		) values (
+			<cfloop list="#tterms#" index="i">
+				<cfif i is "PHYLORDER">
+					<cfset manI="ORDER">
+				<cfelse>
+					<cfset manI=i>
+				</cfif>
+				<cftry>'#evaluate("variables." & manI)#',<cfcatch>----NULL----,</cfcatch></cftry>
+			</cfloop>
+			<cfloop query="dNoClassTerm">
+				'#TERM_VALUE#',
+			</cfloop>
+			'autoinsert_from_hierarchy',
+			'#q.username#',
+			'#dataset.source#',
+			'#d.term#',
+			'#q.export_id#'
+		)
+</p>
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
