@@ -218,7 +218,7 @@ insert into cf_temp_classification_fh (
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
-				<cftry>'#evaluate("variables." & manI)#',<cfcatch>----NULL----,</cfcatch></cftry>
+				'#evaluate("variables." & manI)#'
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
