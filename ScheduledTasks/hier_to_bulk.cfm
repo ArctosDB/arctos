@@ -207,7 +207,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 
 		<cfcatch>
 				<cfdump var=#cfcatch#>
-				<cfabort>
 				<cfquery name="blargh" datasource="uam_god">
 					insert into htax_export_errors (
 						export_id,
