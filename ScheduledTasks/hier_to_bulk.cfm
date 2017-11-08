@@ -161,6 +161,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		manipulate the stream via var manI
 	---->
 
+
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
@@ -181,7 +182,10 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
-				'#evaluate("variables." & manI)#',
+				<cftry>
+					'#evaluate("variables." & manI)#',
+				<cfcatch>'',</cfcatch>
+				</cftry>
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
