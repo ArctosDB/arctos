@@ -53,9 +53,6 @@
 			<div class="error">Data restricted by collection.</div>
 			<cfabort>
 		</cfif>
-		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_transactions")>
-	        <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">[ edit accession ]</a>
-	    </cfif>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				trans_agent_id,

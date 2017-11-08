@@ -785,9 +785,15 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "unseed">
 	<cfoutput>
+		<!---- delete the seed ---->
 		<cfquery name="unseed" datasource="uam_god">
 			delete from htax_seed where dataset_id = (select dataset_id from htax_dataset where dataset_name='#dataset_name#')
 		</cfquery>
+		<!---- and clean up anything that's been marked for processing ---->
+		<cfquery name="unmark" datasource="uam_god">
+			delete from htax_temp_hierarcicized where dataset_id= (select dataset_id from htax_dataset where dataset_name='#dataset_name#')
+		</cfquery>
+
 		<cflocation url="taxonomyTree.cfm?action=manageDataset&dataset_name=#dataset_name#" addtoken="false">
 	</cfoutput>
 </cfif>
