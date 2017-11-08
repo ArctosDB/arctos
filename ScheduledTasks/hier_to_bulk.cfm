@@ -130,6 +130,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 				<cfquery name="next" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 					select * from hierarchical_taxonomy where tid=#variables.PARENT_TID#
 				</cfquery>
+				<cfdump var=#next#>
 				<cfset variables.TID=next.TID>
 				<cfset variables.PARENT_TID=next.PARENT_TID>
 				<cfset "variables.#next.RANK#"=next.term>
