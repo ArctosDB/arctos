@@ -164,6 +164,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		manipulate the stream via var manI
 	---->
 <cfdump var=#tterms#>
+<cfdump var=#variables#>
 
 <p>
 
