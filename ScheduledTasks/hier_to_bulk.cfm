@@ -183,7 +183,10 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
-				'#evaluate("variables." & manI)#',
+				<cftry>
+					'#evaluate("variables." & manI)#',
+				<cfcatch>''</cfcatch>
+				</cftry>
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
