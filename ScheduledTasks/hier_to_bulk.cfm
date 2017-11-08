@@ -188,10 +188,10 @@ insert into cf_temp_classification_fh (
 					<cfset manI=i>
 				</cfif>
 
-				<cfif IsDefined(evaluate("variables." & manI))>
-				'#evaluate("variables." & manI)#',
+				<cfif StructKeyExists(variables, "#manI#"))>
+					'#evaluate("variables." & manI)#',
 				<cfelse>
-				ain't no suck thing
+					ain't no such thing
 				</cfif>
 			</cfloop>
 			<cfloop query="dNoClassTerm">
