@@ -180,6 +180,7 @@ insert into cf_temp_classification_fh (
 			SCIENTIFIC_NAME,
 			export_id
 		) values (
+		<!----
 			<cfloop list="#tterms#" index="i">
 				<cfif i is "PHYLORDER">
 					<cfset manI="ORDER">
@@ -187,6 +188,7 @@ insert into cf_temp_classification_fh (
 					<cfset manI=i>
 				</cfif>
 			</cfloop>
+			---->
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
 			</cfloop>
