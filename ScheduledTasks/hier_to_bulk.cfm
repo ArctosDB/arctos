@@ -187,7 +187,12 @@ insert into cf_temp_classification_fh (
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
+
+				<cfif IsDefined(evaluate("variables." & manI))>
 				'#evaluate("variables." & manI)#',
+				<cfelse>
+				ain't no suck thing
+				</cfif>
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
