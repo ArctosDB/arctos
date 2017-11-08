@@ -56,6 +56,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfquery name="d" datasource="uam_god">
 		select * from hierarchical_taxonomy where status='#q.export_id#' and rownum < 500
 	</cfquery>
+
+
+	<cfdump var=#d#>
 	<cfif d.recordcount is 0>
 		<!--- it's all been processed, flag for next step ---->
 		<cfquery name="ud" datasource="uam_god">
