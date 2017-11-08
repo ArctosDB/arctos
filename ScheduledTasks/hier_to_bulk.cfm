@@ -188,7 +188,7 @@ insert into cf_temp_classification_fh (
 					<cfset manI=i>
 				</cfif>
 
-				<cfif StructKeyExists(variables, "#manI#"))>
+				<cfif StructKeyExists(variables, "#manI#")>
 					'#evaluate("variables." & manI)#',
 				<cfelse>
 					ain't no such thing
