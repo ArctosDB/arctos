@@ -37,7 +37,7 @@
 
 			<br>i:#i#
 			<cfset hn=REFind("[0-9]+", i)>
-			<br<hn:#hn#
+			<br>hn:#hn#
 		</cfloop>
 
 
