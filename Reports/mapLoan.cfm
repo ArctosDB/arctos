@@ -13,16 +13,19 @@
 		from
 		ADDRESS where
 		address_type='shipping' and
-		 S$LASTDATE is null and rownum<20
+		 S$LASTDATE is null and rownum<2
 	</cfquery>
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfloop query="d">
+
+		<cfset mAddress=address>
+		<cfset mAddress=replace(mAddress,chr(10),", ","all")>
 		<p>
-			#address#
+			#mAddress#
 		</p>
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/geocode/json",
-			urlParams="address=#URLEncodedFormat('#ADDRESS#')#")>
+			urlParams="address=#URLEncodedFormat('#mAddress#')#")>
 		<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
 		<cfset llresult=DeserializeJSON(x.filecontent)>
 
