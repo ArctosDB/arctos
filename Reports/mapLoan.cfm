@@ -27,8 +27,12 @@
 			extract ZIP
 			start at the end, take the "first" thing that's numbers
 		 ---->
-
+		<!----
 		 <cfloop index="i" from="#listLen(mAddress)#" to="1" step="-1">
+		 ---->
+
+		 	<cfloop index="i" list="#mAddress#">
+
 			<cfset thisTerm=ListGetAt(mAddress,i)>
 
 			<br>#thisTerm#
