@@ -40,7 +40,7 @@
 				<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
 
 		<cfelse
-			<cfset coords="">
+			error...
 		</cfif>
 		<!---- update cache ---->
 		<p>
