@@ -20,10 +20,11 @@
 
 		<cfset mAddress=address>
 		<cfset mAddress=replace(mAddress,chr(10),", ","all")>
+		<p>#mAddress#</p>
+		<!--- first component is always agent name --->
+		<cfset mAddress=listdeleteat(mAddress,1,",")>
+		<p>#mAddress#</p>
 
-		<p>
-			#mAddress#
-		</p>
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/geocode/json",
 			urlParams="address=#URLEncodedFormat('#mAddress#')#")>
