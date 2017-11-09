@@ -33,8 +33,6 @@
 		 ---->
 		<cfset ttu="">
 	 	<cfloop index="i" list="#mAddress#">
-
-			<br>i:#i#
 			<cfif REFind("[0-9]+", i) gt 0>
 				<cfset ttu=i>
 			</cfif>
@@ -48,13 +46,10 @@
 			urlParams="address=#URLEncodedFormat('#ttu#')#")>
 		<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
 		<cfset llresult=DeserializeJSON(x.filecontent)>
-
-		<cfdump var=#llresult#>
-
 		<cfif llresult.status is "OK">
 			<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
 		<cfelse>
-				<cfset coords=''>
+			<cfset coords=''>
 		</cfif>
 		<p>
 			update address set
