@@ -31,14 +31,17 @@
 		 <cfloop index="i" from="#listLen(mAddress)#" to="1" step="-1">
 		 <cfset thisTerm=ListGetAt(mAddress,i)>
 		 ---->
-
-		 	<cfloop index="i" list="#mAddress#">
-
+		<cfset ttu="">
+	 	<cfloop index="i" list="#mAddress#">
 
 			<br>i:#i#
-			<cfset hn=REFind("[0-9]+", i)>
-			<br>hn:#hn#
+			<cfif REFind("[0-9]+", i) gt 0>
+				<cfset ttu=i>
+			</cfif>
 		</cfloop>
+		<p>
+			using #ttu#
+		</p>
 
 
 
