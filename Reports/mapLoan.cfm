@@ -17,6 +17,9 @@
 	</cfquery>
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfloop query="d">
+		<p>
+			#address#
+		</p>
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/geocode/json",
 			urlParams="address=#URLEncodedFormat('#ADDRESS#')#")>
