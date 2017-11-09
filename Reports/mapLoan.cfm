@@ -13,7 +13,7 @@
 		from
 		ADDRESS where
 		address_type='shipping' and
-		 S$LASTDATE is null and rownum<20
+		 S$LASTDATE is null and rownum<200
 	</cfquery>
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfloop query="d">
