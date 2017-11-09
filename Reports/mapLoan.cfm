@@ -29,7 +29,12 @@
 		 ---->
 
 		 <cfloop index="i" from="#listLen(mAddress)#" to="1" step="-1">
-			<br>#ListGetAt(mAddress,i)#
+			<cfset thisTerm=ListGetAt(mAddress,i)>
+
+			<br>#thisTerm#
+			<cfif REFind("[0-9]", thisTerm)>
+				has number use this....
+			</cfif>
 		</cfloop>
 
 
