@@ -25,6 +25,10 @@
 		<cfset mAddress=listdeleteat(mAddress,1,",")>
 		<p>#mAddress#</p>
 
+<cfset mAddress='90095-1606'>
+
+		<p>#mAddress#</p>
+
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/geocode/json",
 			urlParams="address=#URLEncodedFormat('#mAddress#')#")>
