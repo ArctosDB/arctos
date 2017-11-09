@@ -36,9 +36,8 @@
 			<cfset thisTerm=ListGetAt(mAddress,i)>
 
 			<br>#thisTerm#
-			<cfset hn=REFind("[0-9]", thisTerm)>
+			<cfset hn=REFind("[0-9]+", thisTerm)>
 			<br<hn:#hn#
-
 		</cfloop>
 
 
