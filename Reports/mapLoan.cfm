@@ -20,6 +20,8 @@
 
 		<cfset mAddress=address>
 		<cfset mAddress=replace(mAddress,chr(10),", ","all")>
+
+		<cfset mAddress="615 North Wolfe Street, Baltimore, Maryland 21205">
 		<p>
 			#mAddress#
 		</p>
