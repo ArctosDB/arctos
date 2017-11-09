@@ -50,6 +50,26 @@
 		<cfset llresult=DeserializeJSON(x.filecontent)>
 
 		<cfdump var=#llresult#>
+
+		<cfif llresult.status is "OK">
+			<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
+		<cfelse>
+				<cfset coords=''>
+		</cfif>
+		<p>
+			update address set
+				s$coordinates='#coords#',
+				s$lastdate=sysdate
+			where ADDRESS_ID=#ADDRESS_ID#
+		</p>
+		<cfquery name="upEsDollar" datasource="uam_god">
+			update address set
+				s$coordinates='#coords#',
+				s$lastdate=sysdate
+			where ADDRESS_ID=#ADDRESS_ID#
+		</cfquery>
+
+
 		<!--------
 
 		<p>#mAddress#</p>
