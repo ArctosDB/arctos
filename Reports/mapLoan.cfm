@@ -24,6 +24,8 @@
 		<cfset llresult=DeserializeJSON(x.filecontent)>
 
 		<cfdump var=#llresult#>
+
+		<!----
 		<cfif llresult.status is "OK">
 			<!-----
 				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
@@ -56,7 +58,7 @@
 			where ADDRESS_ID=#ADDRESS_ID#
 		</cfquery>
 
-
+---->
 
 	</cfloop>
 </cfoutput>
