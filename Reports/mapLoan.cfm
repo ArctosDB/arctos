@@ -28,7 +28,7 @@
 
 		<cfdump var=#llresult#>
 
-		<!----
+
 		<cfif llresult.status is "OK">
 			<!-----
 				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
@@ -41,11 +41,15 @@
 						</cfif>
 					</cfloop>
 				</cfloop>
+								<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
+
 				---->
-				<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
+
+				<cfset coords='boogity'>
 
 		<cfelse
-			error...
+
+				<cfset coords='bah'>
 		</cfif>
 		<!---- update cache ---->
 		<p>
@@ -61,7 +65,6 @@
 			where ADDRESS_ID=#ADDRESS_ID#
 		</cfquery>
 
----->
 
 	</cfloop>
 </cfoutput>
