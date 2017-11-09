@@ -35,7 +35,7 @@
 		 	<cfloop index="i" list="#mAddress#">
 
 
-			<br>#i#
+			<br>i:#i#
 			<cfset hn=REFind("[0-9]+", i)>
 			<br<hn:#hn#
 		</cfloop>
