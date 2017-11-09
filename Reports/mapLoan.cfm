@@ -19,7 +19,23 @@
 	<cfloop query="d">
 
 		<cfset mAddress=address>
+
 		<cfset mAddress=replace(mAddress,chr(10),", ","all")>
+
+		<p>#mAddress#</p>
+		<!----
+			extract ZIP
+			start at the end, take the "first" thing that's numbers
+		 ---->
+
+		 <cfloop index="i" from="#listLen(mAddress)#" to="1" step="-1">
+			<br>#ListGetAt(mAddress,i)#
+		</cfloop>
+
+
+
+		<!--------
+
 		<p>#mAddress#</p>
 		<!--- first component is always agent name --->
 		<cfset mAddress=listdeleteat(mAddress,1,",")>
@@ -72,7 +88,7 @@
 			where ADDRESS_ID=#ADDRESS_ID#
 		</cfquery>
 
-
+---->
 	</cfloop>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
