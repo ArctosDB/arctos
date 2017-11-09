@@ -36,9 +36,9 @@
 			<cfset thisTerm=ListGetAt(mAddress,i)>
 
 			<br>#thisTerm#
-			<cfif REFind("[0-9]", thisTerm)>
-				has number use this....
-			</cfif>
+			<cfset hn=REFind("[0-9]", thisTerm)>
+			<br<hn:#hn#
+
 		</cfloop>
 
 
