@@ -23,8 +23,9 @@
 		<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
 		<cfset llresult=DeserializeJSON(x.filecontent)>
 
-
+		<cfdump var=#llresult#>
 		<cfif llresult.status is "OK">
+			<!-----
 				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
 						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
@@ -35,6 +36,7 @@
 						</cfif>
 					</cfloop>
 				</cfloop>
+				---->
 				<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
 
 		<cfelse
