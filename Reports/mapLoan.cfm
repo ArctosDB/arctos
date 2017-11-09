@@ -43,8 +43,13 @@
 			using #ttu#
 		</p>
 
+		<cfset signedURL = obj.googleSignURL(
+			urlPath="/maps/api/geocode/json",
+			urlParams="address=#URLEncodedFormat('#ttu#')#")>
+		<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
+		<cfset llresult=DeserializeJSON(x.filecontent)>
 
-
+		<cfdump var=#llresult#>
 		<!--------
 
 		<p>#mAddress#</p>
