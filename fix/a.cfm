@@ -9,7 +9,6 @@
 
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
-	<br>#i#
 	<cfset t=listgetat(i,1,"|","yes")>
 	<cfset ipa=listgetat(i,5,"|","yes")>
 	<cfset r=listgetat(i,7,"|","yes")>
@@ -28,11 +27,23 @@ delete from x where ip='0.0.0.0'
 <cfloop query="dip">
 	<br>running for #ip#
 	<cfquery name="thisRequests" dbtype="query">
-		select * from x where ip='#ip#'
+		select * from x where ip='#ip#' order by ts
 	</cfquery>
 	<cfif thisrequests.recordcount lte 10>
 		<br>less than 10, ignore
 	<cfelse>
+
+		<cfset lastTime="2000-11-08T12:36:0">
+
+		<cfloop query="thisRequests">
+			<br>#ts#
+			<br>#rqst#
+			<cfset ttl=DateDiff("s", "lastTime", "ts")>
+			<br>#ttl#
+
+		</cfloop>
+
+
 		gonna loop....
 	</cfif>
 </cfloop>
