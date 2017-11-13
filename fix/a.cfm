@@ -24,6 +24,21 @@ Application.logfile
 delete from x where ip='0.0.0.0'
 </cf_qoq>
 
+<cfquery name="dip" dbtype="query">
+	select distinct(ip) from x
+</cfquery>
+<cfloop query="dip">
+	<br>running for #ip#
+	<cfquery name="thisRequests" dbtype="query">
+		select * from x where ip='#ip#'
+	</cfquery>
+	<cfif thisrequests.recordcount lte 10>
+		<br>less than 10, ignore
+	<cfelse>
+		gonna loop....
+	</cfif>
+</cfloop>
+
 <cfdump var=#x#>
 </cfoutput>
 
