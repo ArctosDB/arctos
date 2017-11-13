@@ -31,7 +31,6 @@
 
 
 <!---- write an XML config file specific to the critters they're mapping --->
-<cfoutput>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
 		a='<berkeleymapper>' & chr(10) &
