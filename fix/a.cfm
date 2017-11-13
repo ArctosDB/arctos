@@ -12,10 +12,10 @@ Application.logfile
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
 	<br>#i#
-	<cfset t=listgetat(i,1,"|")>
-	<cfset ipa=listgetat(i,5,"|")>
-	<cfset r=listgetat(i,7,"|")>
-	<cfset u=listgetat(i,3,"|")>
+	<cfset t=listgetat(i,1,"|","yes")>
+	<cfset ipa=listgetat(i,5,"|","yes")>
+	<cfset r=listgetat(i,7,"|","yes")>
+	<cfset u=listgetat(i,3,"|","yes")>
 	<cfset queryAddRow(x,{ts=t,ip=ipa,rqst=r,usrname=u})>
 </cfloop>
 
