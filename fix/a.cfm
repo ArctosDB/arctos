@@ -97,6 +97,8 @@ delete from x where ip='0.0.0.0'
 	</cfif>
 </cfloop>
 
+
+<cfdump var=#x#>
 </cfoutput>
 
 
