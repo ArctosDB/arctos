@@ -68,15 +68,25 @@ delete from x where ip='0.0.0.0'
 		<cfloop query="thisRequests">
 			<br>#ts#
 			<br>#rqst#
+
+			<cfset nrq=0>
+
 			<cfset thisTime=ISOToDateTime(ts)>
 			<cfset ttl=DateDiff("s", lastTime, thisTime)>
 			<br>#ttl#
+
+			<cfif ttl lte 10>
+				<br>this request is within 10 seconds of the last one....
+				<cfset nrq=nrq+1>
+			</cfif>
 
 			<cfset lastTime=thisTime>
 
 		</cfloop>
 
-
+		<p>
+			NRQ: #nrq#
+		</p>
 		gonna loop....
 	</cfif>
 </cfloop>
