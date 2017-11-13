@@ -62,8 +62,8 @@
 		a='<berkeleymapper>' & chr(10) &
 			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) &
 			chr(9) & '<concepts>' & chr(10) &
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:2" alias="Collection"/>' &
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:2" alias="Loan Number"/>' & chr(10) & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:2" alias="Collection"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:2" alias="Loan Number"/>' & chr(10) &
 			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) &
 			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) &
 			chr(9) & '</concepts>' & chr(10);
