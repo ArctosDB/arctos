@@ -49,14 +49,12 @@
 delete from x where ip='0.0.0.0'
 </cf_qoq>
 
-<cfdump var=#x#>
 
 <!--- for now, ignore cfc request ---->
 <cfquery name="x" dbtype="query">
 select * from x where rqst not like '%.cfc%'
 </cfquery>
 
-<cfdump var=#x#>
 
 
 <!----
@@ -114,6 +112,7 @@ delete from x where rqst like '%.cfc%'
 
 
 <cfloop list="maybeBad" index="o" delimiters=",">
+	<br>--o=#o#
 	<cfset thisIP=listgetat(o,1,"|")>
 	<cfset cfcnt=listgetat(o,2,"|")>
 
