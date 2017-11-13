@@ -85,6 +85,11 @@ delete from x where ip='0.0.0.0'
 
 		</cfloop>
 
+		<cfif nrq gt 10>
+			<p>
+				abuse....
+			</p>
+		</cfif>
 		<p>
 			NRQ: #nrq#
 		</p>
