@@ -29,6 +29,7 @@
 <cfoutput>
 
 
+<cfset fn="arctos_#randRange(1,1000)#">
 
 <cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.xml">
 <cfset variables.localTabFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.txt">
