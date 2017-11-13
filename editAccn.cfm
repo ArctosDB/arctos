@@ -290,6 +290,7 @@
 						</td>
 						<td>
 							<label for="">Public?</label>
+							<a href="/viewAccn.cfm?transaction_id=#transaction_id#" target="_blank">view public page</a>
 							<select name="is_public_fg" size="1" id="is_public_fg">
 								<option <cfif #accnData.is_public_fg# is "1">selected</cfif> value="1">public</option>
 								<option <cfif #accnData.is_public_fg# is "0">selected</cfif> value="0">private</option>
