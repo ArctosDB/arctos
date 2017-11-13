@@ -84,7 +84,7 @@
 	<cfset lng=listgetat(s$coordinates,2)>
 
 	<cfscript>
-		a= collection
+		a= collection &
 			chr(9) & lat  &
 			chr(9) & lng ;
 		variables.joFileWriter.writeLine(a);
