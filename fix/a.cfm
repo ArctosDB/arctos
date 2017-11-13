@@ -8,14 +8,9 @@ Application.logfile
 	 variable="exrslt"
 	 arguments = "-500 #Application.requestlog#" />
 
-
-<cfif len(errorOut)>
-    <cfthrow message="#errorOut#" />
-</cfif>
-<cfdump var=#exrslt#>
-ok...
-
-
+<cfloop list="#x#" delimiters="#chr(10)#" index="i">
+	<br>#i#
+</cfloop>
 
 
 
