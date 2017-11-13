@@ -1,12 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 Application.logfile
 <cfoutput>
-<cfexecute name = "/usr/bin/tail"     errorVariable="errorOut" variable="exrslt"  arguments = '"-500 #Application.webDirectory#/fix/a.cfm"'>
+<cfexecute name = "/usr/bin/tail"  errorVariable="errorOut" variable="exrslt"  arguments = '"-500 #Application.webDirectory#/fix/a.cfm"'>
 
 </cfexecute>
 
-
-<cfdump var=#variables#>
+<cfif len(errorOut)>
+    <cfthrow message="#errorOut#" />
+</cfif>
+<cfdump var=#exrslt#>
 ok...
 
 
