@@ -21,7 +21,7 @@ Application.logfile
 
 <!--- don't care about scheduled tasks ---->
 <cf_qoq>
-delte from x where ip='0.0.0.0'
+delete from x where ip='0.0.0.0'
 </cf_qoq>
 
 <cfdump var=#x#>
