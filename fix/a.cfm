@@ -8,12 +8,18 @@ Application.logfile
 	 variable="exrslt"
 	 arguments = "-500 #Application.requestlog#" />
 
+
+<cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
 	<br>#i#
+	<cfset t=listgetat(i,1,"|")>
+	<cfset ipa=listgetat(i,5,"|")>
+	<cfset r=listgetat(i,7,"|")>
+	<cfset u=listgetat(i,3,"|")>
+	<cfset queryAddRow(x,{ts=t,ip=ipa,rqst=r,usrname=u})>
 </cfloop>
 
-
-
+<cfdump var=#x#>
 </cfoutput>
 
 
