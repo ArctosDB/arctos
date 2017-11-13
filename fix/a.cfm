@@ -8,7 +8,7 @@ Application.logfile
 	 variable="exrslt"
 	 arguments = "-500 #Application.requestlog#" />
 
-<cfloop list="#x#" delimiters="#chr(10)#" index="i">
+<cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
 	<br>#i#
 </cfloop>
 
