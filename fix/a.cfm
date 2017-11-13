@@ -48,16 +48,15 @@
 <cf_qoq>
 delete from x where ip='0.0.0.0'
 </cf_qoq>
-<!--- for now, ignore cfc request ---->
 
 <cfdump var=#x#>
 
-
-<cfquery name="xnocfc" dbtype="query">
+<!--- for now, ignore cfc request ---->
+<cfquery name="x" dbtype="query">
 select * from x where rqst not like '%.cfc%'
 </cfquery>
 
-<cfdump var=#xnocfc#>
+<cfdump var=#x#>
 
 
 <!----
