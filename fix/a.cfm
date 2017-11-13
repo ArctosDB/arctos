@@ -81,7 +81,7 @@
 	</cfif>
 </cfloop>
 
-<cfmail to="#application.LOG_EMAIL#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
+<cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
 
 
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
