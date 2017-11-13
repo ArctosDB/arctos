@@ -57,7 +57,7 @@
 <cfset variables.remoteTabFile="#rmturl#/bnhmMaps/tabfiles/#fn#.txt">
 <cfset variables.encoding="UTF-8">
 <!---- write an XML config file specific to the critters they're mapping --->
-
+	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
 		a='<berkeleymapper>' & chr(10) &
 			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) &
