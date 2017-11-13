@@ -111,7 +111,7 @@ delete from x where rqst like '%.cfc%'
 </cfloop>
 
 
-<cfloop list="maybeBad" index="o" delimiters=",">
+<cfloop list="#maybeBad#" index="o" delimiters=",">
 	<br>--o=#o#
 	<cfset thisIP=listgetat(o,1,"|")>
 	<cfset cfcnt=listgetat(o,2,"|")>
