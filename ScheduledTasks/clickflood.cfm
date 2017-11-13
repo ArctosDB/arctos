@@ -91,9 +91,6 @@ mailing to #application.logemail#....
 			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?action=ins&ip=#thisIP#">[ blacklist #thisIP# ]</a>
 			<br><a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#thisIP#">[ manage IP and subnet restrictions ]</a>
 		</p>
-
-
-
 		<cfquery name="thisIPR" dbtype="query">
 			select * from x where ip='#thisIP#' order by ts
 		</cfquery>
@@ -103,8 +100,6 @@ mailing to #application.logemail#....
 	</cfloop>
 
 <cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
-
-
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
 		<cfset cfcnt=listgetat(o,2,"|")>
