@@ -72,6 +72,8 @@ delete from x where ip='0.0.0.0'
 			<cfset ttl=DateDiff("s", lastTime, thisTime)>
 			<br>#ttl#
 
+			<cfset lastTime=thisTime>
+
 		</cfloop>
 
 
