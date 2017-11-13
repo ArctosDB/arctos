@@ -7,10 +7,8 @@ Application.logfile
 
 </cfexecute>
 
+ok...
 
-
-
-<cfdump var=#x#>
 </cfoutput>
 
 
@@ -18,6 +16,9 @@ Application.logfile
 
 
 <!----------------
+
+
+<cfdump var=#x#>
 
 #Application.logfile#
 <!---
