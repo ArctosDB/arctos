@@ -184,5 +184,5 @@
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
-	 <noscript>BerkeleyMapper reqiures JavaScript.</noscript>
+	 <noscript>BerkeleyMapper requires JavaScript.</noscript>
 </cfoutput>

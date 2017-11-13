@@ -3,7 +3,6 @@
 		just georeference all shipping addresses
 		alter table address add s$coordinates varchar2(255);
 		alter table address add s$lastdate date;
-	--->
 
 
 
@@ -24,162 +23,51 @@
 		shipment.SHIPPED_TO_ADDR_ID=address.address_id and
 		s$coordinates is not null
 	;
-		
-	
+
+		--->
+
 <cfoutput>
 
-	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			google_client_id,
-			google_private_key
-		from cf_global_settings
-	</cfquery>
-	<cfoutput>
-		<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
-	</cfoutput>
-	<style>
-		#map-canvas { height: 300px;width:500px; }
-		#map{width: 450px;height: 400px;display:inline-block;}
-		#wktfetch{
-			background-color:black;
-			color:green;
-			padding:1em;
-			margin:1em;
-			font-family:courier;
-			font-size:small;
-		}
-		#wktinstr{
-			border:1px solid black;
-			margin:1em;
-			padding:1em;
-		}
-		#mapInst {
-			border:1px solid green;
-			font-size:smaller;
-			margin:1em;
-			padding:1em;
-		}
-	</style>
-	<script>
-		var map;
-		var bounds = new google.maps.LatLngBounds();
-		var markers = new Array();
-		var ptsArray=[];
-		var polygonArray = [];
-		function clearTerm(id){
-			$("#" + id).val('');
-		}
-		function asterisckificateisland(){
-			$("#island").val("*" + $("#island").val());
-		}
-		function addAPolygon(inc,d){
-			var lary=[];
-			var da=d.split(",");
-			for(var i=0;i<da.length;i++){
-				var xy = da[i].trim().split(" ");
-				var pt=new google.maps.LatLng(xy[1],xy[0]);
-				lary.push(pt);
-				bounds.extend(pt);
-			}
-			ptsArray.push(lary);
-		}
-		function initializeMap() {
-			var wkt=$("#wkt_poly_data").val();
-			var infowindow = new google.maps.InfoWindow();
-			var mapOptions = {
-				zoom: 3,
-			    center: new google.maps.LatLng(55, -135),
-			    mapTypeId: google.maps.MapTypeId.ROADMAP,
-			    panControl: false,
-			    scaleControl: true
-			};
-			map = new google.maps.Map(document.getElementById('map'),mapOptions);
-			var regex = /\(([^()]+)\)/g;
-			var Rings = [];
-			var results;
-			while( results = regex.exec(wkt) ) {
-			    Rings.push( results[1] );
-			}
-			for(var i=0;i<Rings.length;i++){
-				addAPolygon(i,Rings[i]);
-			}
-	 		var poly = new google.maps.Polygon({
-			    paths: ptsArray,
-			    strokeColor: '#1E90FF',
-			    strokeOpacity: 0.8,
-			    strokeWeight: 2,
-			    fillColor: '#1E90FF',
-			    fillOpacity: 0.35
-			});
-			poly.setMap(map);
-			// for use in containsLocation
-			polygonArray.push(poly);
-			// now specimen points
-			var cfgml=$("#scoords").val();
-			if (cfgml.length==0){
-				return false;
-			}
-			var arrCP = cfgml.split( ";" );
-			for (var i=0; i < arrCP.length; i++){
-				createMarker(arrCP[i]);
-			}
-			for (var i=0; i < markers.length; i++) {
-			   bounds.extend(markers[i].getPosition());
-			}
-			// Don't zoom in too far on only one marker
-		    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-		       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
-		       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
-		       bounds.extend(extendPoint1);
-		       bounds.extend(extendPoint2);
-		    }
-			map.fitBounds(bounds);
-		}
-		function createMarker(p) {
-			var cpa=p.split(",");
-			var lat=cpa[0];
-			var lon=cpa[1];
-			var center=new google.maps.LatLng(lat, lon);
-			var contentString='<a target="_blank" href="/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&coordinates=' + lat + ',' + lon + '">clickypop</a>';
-			//we must use original coordinates from the database as the title
-			// so we can recover them later; the position coordinates are math-ed
-			// during the transform to latLng
-			var marker = new google.maps.Marker({
-				position: center,
-				map: map,
-				title: lat + ',' + lon,
-				contentString: contentString,
-				zIndex: 10
-			});
-			markers.push(marker);
-		    var infowindow = new google.maps.InfoWindow({
-		        content: contentString
-		    });
-		    google.maps.event.addListener(marker, 'click', function() {
-		        infowindow.open(map,marker);
-		    });
-		}
-		jQuery(document).ready(function() {
-			 initializeMap();
-		});
-		function openOutsidePoints(){
-			var opa=[];
-			for(var i=0; i<this.markers.length; i++){
-	        	for(var a=0; a<polygonArray.length; a++){
-	        		if  (! google.maps.geometry.poly.containsLocation(this.markers[i].position, polygonArray[a]) ) {
-						opa.push(this.markers[i].title);
-		        	}
-	        	}
-	    	}
-	    	if (opa.length>0){
-	    		var opastr=opa.join('|');
-	    		var theURL='/SpecimenResults.cfm?geog_auth_rec_id=' + $("#geog_auth_rec_id").val() + '&coordslist=' + opastr;
-	    		window.open(theURL);
-			} else {
-				alert('no outside points detected!');
-			}
-		}
+
+
+<!---- write an XML config file specific to the critters they're mapping --->
+<cfoutput>
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
+		a='<berkeleymapper>' & chr(10) &
+			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) &
+			chr(9) & '<concepts>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:2" alias="Loan Number"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) &
+			chr(9) & '</concepts>' & chr(10);
+		variables.joFileWriter.writeLine(a);
+	</cfscript>
+	<cfscript>
+		a = chr(9) & '<logos>' & chr(10) &
+			chr(9) & chr(9) & '<logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>' & chr(10) &
+			chr(9) & '</logos>' & chr(10) &
+			'</berkeleymapper>';
+		variables.joFileWriter.writeLine(a);
+		variables.joFileWriter.close();
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
+	</cfscript>
+	<cfscript>
+		a='123' &
+			chr(9) & "-64" &
+			chr(9) & "128";
+		variables.joFileWriter.writeLine(a);
+	</cfscript>
+	<cfscript>
+		variables.joFileWriter.close();
+	</cfscript>
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
+	<script type="text/javascript" language="javascript">
+		document.location='#bnhmUrl#';
 	</script>
+	 <noscript>BerkeleyMapper requires JavaScript.</noscript>
+
+
 
 
 	<!----
