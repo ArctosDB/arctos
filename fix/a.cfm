@@ -49,9 +49,14 @@
 delete from x where ip='0.0.0.0'
 </cf_qoq>
 <!--- for now, ignore cfc request ---->
+
+<cfdump var=#x#>
 <cf_qoq>
 delete from x where rqst like '%.cfc%'
 </cf_qoq>
+
+<cfdump var=#x#>
+
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
