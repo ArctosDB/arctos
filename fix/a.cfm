@@ -14,6 +14,9 @@ Application.logfile
 </cfoutput>
 
 
+
+
+
 <!----------------
 <!---
 create table temp_test (u varchar2(255), p varchar2(255));
@@ -436,5 +439,4 @@ create table temp_mc_log (cn varchar2(255));
 
 --------->
 
------------>
 <cfinclude template="/includes/_footer.cfm">
