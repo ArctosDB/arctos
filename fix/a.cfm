@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-Application.logfile
 <cfoutput>
 <cfexecute
 	 timeout="10"
@@ -7,7 +6,6 @@ Application.logfile
 	 errorVariable="errorOut"
 	 variable="exrslt"
 	 arguments = "-500 #Application.requestlog#" />
-
 
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
@@ -39,7 +37,6 @@ delete from x where ip='0.0.0.0'
 	</cfif>
 </cfloop>
 
-<cfdump var=#x#>
 </cfoutput>
 
 
