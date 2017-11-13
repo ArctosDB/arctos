@@ -38,7 +38,7 @@ delete from x where ip='0.0.0.0'
 		<cfloop query="thisRequests">
 			<br>#ts#
 			<br>#rqst#
-			<cfset ttl=DateDiff("s", "lastTime", "ts")>
+			<cfset ttl=DateDiff("s", lastTime, ts)>
 			<br>#ttl#
 
 		</cfloop>
