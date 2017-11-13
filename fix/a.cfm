@@ -1,30 +1,30 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 
-	    <cffunction
-    name="ISOToDateTime"
-    access="public"
-    returntype="string"
-    output="false"
-    hint="Converts an ISO 8601 date/time stamp with optional dashes to a ColdFusion date/time stamp.">
+	<cffunction
+	    name="ISOToDateTime"
+	    access="public"
+	    returntype="string"
+	    output="false"
+	    hint="Converts an ISO 8601 date/time stamp with optional dashes to a ColdFusion date/time stamp.">
 
-    <!--- Define arguments. --->
-    <cfargument
-    name="Date"
-    type="string"
-    required="true"
-    hint="ISO 8601 date/time stamp."
-    />
+	    <!--- Define arguments. --->
+	    <cfargument
+	    name="Date"
+	    type="string"
+	    required="true"
+	    hint="ISO 8601 date/time stamp."
+	    />
 
-    <!---
-    When returning the converted date/time stamp,
-    allow for optional dashes.
-    --->
-    <cfreturn ARGUMENTS.Date.ReplaceFirst(
-    "^.*?(\d{4})-?(\d{2})-?(\d{2})T([\d:]+).*$",
-    "$1-$2-$3 $4"
-    ) />
-    </cffunction>
+	    <!---
+	    When returning the converted date/time stamp,
+	    allow for optional dashes.
+	    --->
+	    <cfreturn ARGUMENTS.Date.ReplaceFirst(
+	    "^.*?(\d{4})-?(\d{2})-?(\d{2})T([\d:]+).*$",
+	    "$1-$2-$3 $4"
+	    ) />
+</cffunction>
 
 
 
@@ -33,7 +33,7 @@
 	 name = "/usr/bin/tail"
 	 errorVariable="errorOut"
 	 variable="exrslt"
-	 arguments = "-500 #Application.requestlog#" />
+	 arguments = "-5000 #Application.requestlog#" />
 
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
@@ -46,23 +46,13 @@
 
 <!--- don't care about scheduled tasks ---->
 <cf_qoq>
-delete from x where ip='0.0.0.0'
+	delete from x where ip='0.0.0.0'
 </cf_qoq>
-
-
 <!--- for now, ignore cfc request ---->
 <cfquery name="x" dbtype="query">
-select * from x where rqst not like '%.cfc%'
+	select * from x where rqst not like '%.cfc%'
 </cfquery>
 
-
-
-<!----
-<cf_qoq>
-delete from x where rqst like '%.cfc%'
-</cf_qoq>
-
----->
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
@@ -73,46 +63,24 @@ delete from x where rqst like '%.cfc%'
 	<cfquery name="thisRequests" dbtype="query">
 		select * from x where ip='#ip#' order by ts
 	</cfquery>
-	<cfif thisrequests.recordcount lte 10>
-		<br>less than 10, ignore
-	<cfelse>
-
+	<cfif thisrequests.recordcount gte 10>
+		<!--- IPs making 10 or fewer requests just get ignored ---->
 		<cfset lastTime=ISOToDateTime("2000-11-08T12:36:0")>
 		<cfset nrq=0>
-
 		<cfloop query="thisRequests">
-			<br>#ts#
-			<br>#rqst#
-
-
 			<cfset thisTime=ISOToDateTime(ts)>
 			<cfset ttl=DateDiff("s", lastTime, thisTime)>
-			<br>#ttl#
-
 			<cfif ttl lte 10>
 				<cfset nrq=nrq+1>
 			</cfif>
-
 			<cfset lastTime=thisTime>
-
 		</cfloop>
-
 		<cfif nrq gt 10>
-			<p>
-				abuse....
-			</p>
 			<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
 		</cfif>
-		<p>
-			NRQ: #nrq#
-		</p>
-		gonna loop....
 	</cfif>
 </cfloop>
 
-<p>
-	maybeBad: #maybeBad#
-</p>
 <cfloop list="#maybeBad#" index="o" delimiters=",">
 	<br>--o=#o#
 	<cfset thisIP=listgetat(o,1,"|")>
@@ -129,8 +97,6 @@ delete from x where rqst like '%.cfc%'
 
 </cfloop>
 
-
-<cfdump var=#x#>
 </cfoutput>
 
 
