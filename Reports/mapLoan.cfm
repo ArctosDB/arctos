@@ -135,10 +135,10 @@
 
 
 	END 	init georeference
+	</cfloop>
 
 ---->
 
 
-	</cfloop>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
