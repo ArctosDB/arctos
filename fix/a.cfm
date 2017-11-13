@@ -101,7 +101,7 @@ delete from x where rqst like '%.cfc%'
 			<p>
 				abuse....
 			</p>
-			<cfset listappend(maybeBad,'#ip#|#nrq#',",")>
+			<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
 		</cfif>
 		<p>
 			NRQ: #nrq#
@@ -110,7 +110,9 @@ delete from x where rqst like '%.cfc%'
 	</cfif>
 </cfloop>
 
-
+<p>
+	maybeBad: #maybeBad#
+</p>
 <cfloop list="#maybeBad#" index="o" delimiters=",">
 	<br>--o=#o#
 	<cfset thisIP=listgetat(o,1,"|")>
