@@ -93,9 +93,16 @@
 		variables.joFileWriter.close();
 	</cfscript>
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
+
+	<!---
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
+	---->
+
+	<p>
+	<a href="#bnhmUrl#">#bnhmUrl#</a>
+	</p>
 	 <noscript>BerkeleyMapper requires JavaScript.</noscript>
 
 
