@@ -6,7 +6,7 @@ Application.logfile
 	 name = "/usr/bin/tail"
 	 errorVariable="errorOut"
 	 variable="exrslt"
-	 arguments = "-500 #Application.logfile#" />
+	 arguments = "-500 #Application.requestlog#" />
 
 
 <cfif len(errorOut)>
