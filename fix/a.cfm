@@ -2,15 +2,13 @@
 Application.logfile
 <cfoutput>
 <cfexecute name = "tail"
-    arguments = "#Application.webDirectory#/fix/a.cfm"
-    variable = "x">
+    arguments = "#Application.webDirectory#/fix/a.cfm">
 
 </cfexecute>
 
 ok...
 
 
-<cfdump var=#x#>
 
 
 
@@ -22,6 +20,7 @@ ok...
 
 <!----------------
 
+<cfdump var=#x#>
 
 
 #Application.logfile#
