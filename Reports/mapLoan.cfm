@@ -62,13 +62,15 @@
 		a='<berkeleymapper>' & chr(10) &
 			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) &
 			chr(9) & '<concepts>' & chr(10) &
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:2" alias="Collection"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:collectioncode" alias="Collection"/>' & chr(10) &
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:2" alias="Loan Number"/>' & chr(10) &
 			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) &
 			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) &
 			chr(9) & '</concepts>' & chr(10);
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
+
+
 	<cfscript>
 		a = chr(9) & '<logos>' & chr(10) &
 			chr(9) & chr(9) & '<logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>' & chr(10) &
