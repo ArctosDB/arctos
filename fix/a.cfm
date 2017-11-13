@@ -6,7 +6,7 @@ Application.logfile
 	 name = "/usr/bin/tail"
 	 errorVariable="errorOut"
 	 variable="exrslt"
-	 arguments = "-500 #Application.webDirectory#/fix/a.cfm" />
+	 arguments = "-500 #Application.logfile#" />
 
 
 <cfif len(errorOut)>
