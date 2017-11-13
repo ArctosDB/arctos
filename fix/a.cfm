@@ -87,6 +87,17 @@ mailing to #application.logemail#....
 		<cfset thisIP=listgetat(o,1,"|")>
 		<cfset cfcnt=listgetat(o,2,"|")>
 		<p>IP #thisIP# made #cfcnt# flood-like requests in the last 5000 overall requests.</p>
+
+		<a href="http://whatismyipaddress.com/ip/#thisIP#">[ lookup #thisIP# @whatismyipaddress ]</a>
+		<br><a href="https://www.ipalyzer.com/#thisIP#">[ lookup #thisIP# @ipalyzer ]</a>
+		<br><a href="https://gwhois.org/#thisIP#">[ lookup #thisIP# @gwhois ]</a>
+		<p>
+			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?action=ins&ip=#thisIP#">[ blacklist #thisIP# ]</a>
+			<br><a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#thisIP#">[ manage IP and subnet restrictions ]</a>
+		</p>
+
+
+
 		<cfquery name="thisIPR" dbtype="query">
 			select * from x where ip='#thisIP#' order by ts
 		</cfquery>
