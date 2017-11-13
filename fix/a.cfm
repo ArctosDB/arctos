@@ -48,7 +48,10 @@
 <cf_qoq>
 delete from x where ip='0.0.0.0'
 </cf_qoq>
-
+<!--- for now, ignore cfc request ---->
+<cf_qoq>
+delete from x where rqst like '%.cfc%'
+</cf_qoq>
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
@@ -77,7 +80,6 @@ delete from x where ip='0.0.0.0'
 			<br>#ttl#
 
 			<cfif ttl lte 10>
-				<br>this request is within 10 seconds of the last one....
 				<cfset nrq=nrq+1>
 			</cfif>
 
