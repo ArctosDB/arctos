@@ -9,6 +9,11 @@ Application.logfile
 
 ok...
 
+
+<cfdump var=#x#>
+
+
+
 </cfoutput>
 
 
@@ -18,7 +23,6 @@ ok...
 <!----------------
 
 
-<cfdump var=#x#>
 
 #Application.logfile#
 <!---
