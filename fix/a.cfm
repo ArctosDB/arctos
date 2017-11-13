@@ -68,6 +68,8 @@ delete from x where rqst like '%.cfc%'
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
+
+<cfset maybeBad="">
 <cfloop query="dip">
 	<br>running for #ip#
 	<cfquery name="thisRequests" dbtype="query">
@@ -78,10 +80,7 @@ delete from x where rqst like '%.cfc%'
 	<cfelse>
 
 		<cfset lastTime=ISOToDateTime("2000-11-08T12:36:0")>
-		<br>lastTime====
-
-			<cfset nrq=0>
-		<cfdump var=#lastTime#>
+		<cfset nrq=0>
 
 		<cfloop query="thisRequests">
 			<br>#ts#
@@ -104,12 +103,22 @@ delete from x where rqst like '%.cfc%'
 			<p>
 				abuse....
 			</p>
+			<cfset listappend(maybeBad,'#ip#|#nrq#',",")>
 		</cfif>
 		<p>
 			NRQ: #nrq#
 		</p>
 		gonna loop....
 	</cfif>
+</cfloop>
+
+
+<cfloop list="maybeBad" index="o" delimiters=",">
+	<cfset thisIP=listgetat(o,1,"|")>
+	<cfset cfcnt=listgetat(o,2,"|")>
+
+	<p>ip #thisIP# made #cfcnt# flood-like requests</p>
+
 </cfloop>
 
 
