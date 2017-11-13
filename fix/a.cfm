@@ -51,12 +51,21 @@ delete from x where ip='0.0.0.0'
 <!--- for now, ignore cfc request ---->
 
 <cfdump var=#x#>
+
+
+<cfquery name="xnocfc" dbtype="query">
+select * from x where rqst not like '%.cfc%'
+</cfquery>
+
+<cfdump var=#xnocfc#>
+
+
+<!----
 <cf_qoq>
 delete from x where rqst like '%.cfc%'
 </cf_qoq>
 
-<cfdump var=#x#>
-
+---->
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
