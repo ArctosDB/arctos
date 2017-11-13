@@ -81,22 +81,21 @@
 	</cfif>
 </cfloop>
 
-<cfloop list="#maybeBad#" index="o" delimiters=",">
-	<br>--o=#o#
-	<cfset thisIP=listgetat(o,1,"|")>
-	<cfset cfcnt=listgetat(o,2,"|")>
+<cfmail to="#application.LOG_EMAIL#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
 
-	<p>ip #thisIP# made #cfcnt# flood-like requests</p>
 
-	<cfquery name="thisIPR" dbtype="query">
-		select * from x where ip='#thisIP#' order by ts
-	</cfquery>
-	<cfloop query="thisIPR">
-		<br>#usrname#|#ts#|#rqst#|#ip#
+	<cfloop list="#maybeBad#" index="o" delimiters=",">
+		<cfset thisIP=listgetat(o,1,"|")>
+		<cfset cfcnt=listgetat(o,2,"|")>
+		<p>IP #thisIP# made #cfcnt# flood-like requests in the last 5000 overall requests.</p>
+		<cfquery name="thisIPR" dbtype="query">
+			select * from x where ip='#thisIP#' order by ts
+		</cfquery>
+		<cfloop query="thisIPR">
+			<br>#usrname#|#ts#|#rqst#|#ip#
+		</cfloop>
 	</cfloop>
-
-</cfloop>
-
+</cfmail>
 </cfoutput>
 
 
