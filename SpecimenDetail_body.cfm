@@ -1442,9 +1442,8 @@
 					<span class="detailData">
 						<cfif oneOfUs is 1>
 							Edit <a href="/editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="_blank">#accession#</a> or
-						<cfelse>
-							View <a href="/viewAccn.cfm?transaction_id=#one.accn_id#" target="_blank">#accession#</a>
 						</cfif>
+						View <a href="/viewAccn.cfm?transaction_id=#one.accn_id#" target="_blank">#accession#</a>
 						<div id="SpecAccnMedia"></div>
 					</span>
 				</div>
