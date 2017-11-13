@@ -51,8 +51,10 @@
 
 <cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.xml">
 <cfset variables.localTabFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.txt">
-<cfset variables.remoteXmlFile="#replace(#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.xml","https","http")>
-<cfset variables.remoteTabFile="#replace(#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.txt","https","http")>
+<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
+
+<cfset variables.remoteXmlFile="#rmturl#/bnhmMaps/tabfiles/#fn#.xml">
+<cfset variables.remoteTabFile="#rmturl#/bnhmMaps/tabfiles/#fn#.txt">
 <cfset variables.encoding="UTF-8">
 <!---- write an XML config file specific to the critters they're mapping --->
 
