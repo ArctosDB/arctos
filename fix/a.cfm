@@ -63,13 +63,14 @@ delete from x where ip='0.0.0.0'
 
 		<cfset lastTime=ISOToDateTime("2000-11-08T12:36:0")>
 		<br>lastTime====
+
+			<cfset nrq=0>
 		<cfdump var=#lastTime#>
 
 		<cfloop query="thisRequests">
 			<br>#ts#
 			<br>#rqst#
 
-			<cfset nrq=0>
 
 			<cfset thisTime=ISOToDateTime(ts)>
 			<cfset ttl=DateDiff("s", lastTime, thisTime)>
