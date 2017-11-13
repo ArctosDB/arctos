@@ -3,7 +3,7 @@ Application.logfile
 <cfoutput>
 <cfexecute name = "tail #Application.logfile#"
     arguments = "-500"
-    varibale = "x">
+    variable = "x">
 
 </cfexecute>
 
