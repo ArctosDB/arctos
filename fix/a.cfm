@@ -120,6 +120,13 @@ delete from x where rqst like '%.cfc%'
 
 	<p>ip #thisIP# made #cfcnt# flood-like requests</p>
 
+	<cfquery name="thisIPR" dbtype="query">
+		select * from x where ip='#thisIP#' order by ts
+	</cfquery>
+	<cfloop query="thisIPR">
+		<br>#usrname#|#ts#|#rqst#|#ip#
+	</cfloop>
+
 </cfloop>
 
 
