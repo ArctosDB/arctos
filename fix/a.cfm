@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 Application.logfile
 <cfoutput>
-<cfexecute name = "tail a.cfm"
+<cfexecute name = "tail #Application.webDirectory#/fix/a.cfm"
     arguments = "-500"
     variable = "x">
 
