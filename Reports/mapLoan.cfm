@@ -28,16 +28,34 @@
 
 <cfoutput>
 
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			 select
+		guid_prefix collection,
+		loan_number,
+		s$coordinates
+	from
+		collection,
+		trans,
+		loan,
+		shipment,
+		address
+	where
+		collection.collection_id=trans.collection_id and
+		trans.transaction_id=loan.transaction_id and
+		loan.transaction_id=shipment.transaction_id and
+		shipment.SHIPPED_TO_ADDR_ID=address.address_id and
+		s$coordinates is not null
+		</cfquery>
 
 <cfset fn="arctos_#randRange(1,1000)#">
 
 <cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.xml">
 <cfset variables.localTabFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.txt">
-<cfset variables.remoteXmlFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.xml">
-<cfset variables.remoteTabFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.txt">
+<cfset variables.remoteXmlFile="replace(#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.xml","https","http")>
+<cfset variables.remoteTabFile="replace(#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.txt","https","http")>
 <cfset variables.encoding="UTF-8">
 <!---- write an XML config file specific to the critters they're mapping --->
-	<cfscript>
+
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
 		a='<berkeleymapper>' & chr(10) &
 			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) &
@@ -57,12 +75,20 @@
 		variables.joFileWriter.close();
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
 	</cfscript>
+
+
+<cfloop query="d">
+	<cfset lat=listgetat(s$coordinates,1)>
+	<cfset lng=listgetat(s$coordinates,2)>
+
 	<cfscript>
-		a='123' &
-			chr(9) & "-64" &
-			chr(9) & "128";
+		a= & collection
+			chr(9) & lat  &
+			chr(9) & lng ;
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
+	</cfloop>
+
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
