@@ -78,8 +78,19 @@
 									</a>
 								</td>
 								<td>
-													This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+										<div id="ancmntDiv">
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+											This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
 
+										</div>
 								</td>
 							</tr>
 							<cfif len(session.header_credit) gt 0>
