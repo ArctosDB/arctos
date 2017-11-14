@@ -854,9 +854,10 @@
 							<cfif thisAddressType is 'shipping'>
 
 
+	<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 
 <cfhttp method="Get"
-url="#Application.serverRootURL#/components/utilities.cfc?method=georeferenceAddress&address=#thisAddress#" >
+url="#rmturl#/components/utilities.cfc?method=georeferenceAddress&address=#thisAddress#" >
 
 <cfdump var=#cfhttp#>
 
