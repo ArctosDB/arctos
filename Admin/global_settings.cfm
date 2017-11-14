@@ -1,3 +1,8 @@
+<!----
+	alter table cf_global_settings add announcement_text varchar2 (255);
+---->
+
+
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "nothing">
@@ -15,6 +20,10 @@
 		<h3>You can break everything here. Please don't.</h3>
 		<form method="post" action="global_settings.cfm" name="f" id="f">
 			<input type="hidden" name="action" value="save">
+
+			<label for="announcement_text">announcement_text (displays in header)</label>
+			<input type="text" name="announcement_text" id="announcement_text" size="80" value="#d.announcement_text#">
+
 
 			<!---- google ---->
 			<label for="GOOGLE_CLIENT_ID">GOOGLE_CLIENT_ID (https://google.secure.force.com)</label>
@@ -122,7 +131,8 @@
 				PROTECTED_IP_LIST='#PROTECTED_IP_LIST#',
 				protect_ip_remark='#protect_ip_remark#',
 				monitor_email_addr='#monitor_email_addr#',
-				monitor_email_pwd='#monitor_email_pwd#'
+				monitor_email_pwd='#monitor_email_pwd#',
+				announcement_text='#announcement_text#'
 		</cfquery>
 		<cflocation url="global_settings.cfm" addtoken="false">
 	</cfif>

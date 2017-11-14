@@ -4,6 +4,14 @@
 	<cfif not isdefined("session.header_color")>
 		<cfset setDbUser()>
 	</cfif>
+
+	<!----
+	cachedwithin="#createtimespan(0,0,60,0)#"
+	---->
+	<cfquery name="g_a_t" datasource="uam_god" >
+		select announcement_text from cf_global_settings
+	</cfquery>
+
 	<script language="javascript" type="text/javascript">
 		jQuery(document).ready(function(){
 	        jQuery("ul.sf-menu").supersubs({
@@ -72,7 +80,7 @@
 			padding:10px;
 			white-space: nowrap;
 			text-overflow: ellipsis;
-			transition: .5s;
+			transition: .2s;
 		}
 
 		#headerTable {
@@ -149,11 +157,13 @@
 							</span>
 						</a>
 					</div>
-					<div id="header-news-cell">
-						<div class="newsDefault">
-							News: is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
+					<cfif len(g_a_t.announcement_text) gt 0>
+						<div id="header-news-cell">
+							<div class="newsDefault">
+								#g_a_t.announcement_text#
+							</div>
 						</div>
-					</div>
+					</cfif>
 					<div id="header-login-cell">
 						<div id="header-login-inner">
 							<cfif len(session.username) gt 0>
