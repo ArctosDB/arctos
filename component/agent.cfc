@@ -856,7 +856,7 @@
 
 
 <cfhttp method="Get"
-url="/components/utilities.cfc?method=georeferenceAddress&address=#thisAddress#" >
+url="#Application.serverRootURL#/components/utilities.cfc?method=georeferenceAddress&address=#thisAddress#" >
 
 <cfdump var=#cfhttp#>
 
