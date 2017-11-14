@@ -22,12 +22,12 @@
 			console.log('hi');
 
 			  $("#ancmntDiv").on('mouseenter', function(){
-            			 $(this).addClass('newsMouseover',1000);
+            			 $(this).removeClass('newsDefault',1000).addClass('newsMouseover',1000);
 
 
         		})
         		.on('mouseleave', function(){
-           					 $(this).addClass('newsDefault',1000);
+           					  $(this).removeClass('newsMouseover',1000).addClass('newsDefault',1000);
         			})
 
 
