@@ -857,12 +857,16 @@
 	<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 
 <p>
-#rmturl#/component/utilities.cfc?method=georeferenceAddress&address=#thisAddress#
+#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#thisAddress#
 </p>
 <cfhttp method="Get"
-url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&address=#thisAddress#" >
+url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#thisAddress#" >
 
 <cfdump var=#cfhttp#>
+
+<cfset coords=cfhttp.fileContent>
+
+<br>coords:#coords#
 
 
 
