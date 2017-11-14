@@ -22,12 +22,12 @@
 			console.log('hi');
 
 			  $("#ancmntDiv").on('mouseenter', function(){
-            			 $(this).removeClass('newsDefault',1000).addClass('newsMouseover',1000);
+            			 $(this).removeClass('newsDefault',500).addClass('newsMouseover',500);
 
 
         		})
         		.on('mouseleave', function(){
-           					  $(this).removeClass('newsMouseover',1000).addClass('newsDefault',1000);
+           					  $(this).removeClass('newsMouseover',500).addClass('newsDefault',500);
         			})
 
 
@@ -50,7 +50,7 @@
 			margin-left:3em;
 			padding:10px;
 		}
-		#newsDefault{
+		.newsDefault{
 			border:1px solid red;
 			max-width:65%;
 			max-height:1.2em;
