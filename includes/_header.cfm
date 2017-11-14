@@ -23,21 +23,6 @@
 				$("#header_color").hide();
 				$("#_footerTable").hide();
 			}
-
-
-			/*
-			console.log('hi');
-
-			  $("#ancmntDiv").on('mouseenter', function(){
-            			 $(this).removeClass('newsDefault',500).addClass('newsMouseover',500);
-
-
-        		})
-        		.on('mouseleave', function(){
-           					  $(this).removeClass('newsMouseover',500).addClass('newsDefault',500);
-        			})
-
-				*/
 	    });
 	</script>
 
@@ -77,6 +62,7 @@
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			transition: .2s;
+			border-radius: 5px;
 		}
 
 		#headerTable {
