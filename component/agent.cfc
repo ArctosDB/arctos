@@ -856,6 +856,9 @@
 
 	<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 
+<p>
+#rmturl#/components/utilities.cfc?method=georeferenceAddress&address=#thisAddress#
+</p>
 <cfhttp method="Get"
 url="#rmturl#/components/utilities.cfc?method=georeferenceAddress&address=#thisAddress#" >
 
