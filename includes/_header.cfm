@@ -125,7 +125,7 @@ right: 0;
 								</td>
 								<td>
 										<div class="newsDefault">
-											This is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
+											News: is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
 										</div>
 
 								</td>
