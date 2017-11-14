@@ -821,11 +821,11 @@
 							<cfif len(thisAddressType) gt 0>
 								<cfset coords=''>
 								<cfif thisAddressType is 'shipping'>
-									<cfset obj = CreateObject("component","component.utilities")>
-									<!----
-									<cfset coords=obj.georeferenceAddress(thisAddress)>
-									---->
-									<cfset coords=12>
+									<!---- test is dumb.... ---->
+									<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
+									<!--- call remote so no transaction datasource conflicts---->
+									<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#thisAddress#" >
+									<cfset coords=cfhttp.fileContent>
 								</cfif>
 								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									INSERT INTO address (
@@ -852,25 +852,11 @@
 						<cfelse>
 							<cfset coords=''>
 							<cfif thisAddressType is 'shipping'>
-
-
-	<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
-
-<p>
-#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#thisAddress#
-</p>
-<cfhttp method="Get"
-url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#thisAddress#" >
-
-<cfdump var=#cfhttp#>
-
-<cfset coords=cfhttp.fileContent>
-
-<br>coords:#coords#
-
-
-
-
+								<!---- test is dumb.... ---->
+								<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
+								<!--- call remote so no transaction datasource conflicts---->
+								<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#thisAddress#" >
+								<cfset coords=cfhttp.fileContent>
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
@@ -889,7 +875,6 @@ url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=pl
 			</cftransaction>
 		<cfreturn "success">
 		<cfcatch>
-			<cfdump var=#cfcatch#>
 			<cf_logError subject="error caught: saveAgent" attributeCollection=#cfcatch#>
 			<cfset m=cfcatch.message & ': ' & cfcatch.detail>
 			<cfif isdefined("cfcatch.sql")>
