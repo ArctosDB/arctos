@@ -45,48 +45,31 @@
 		  #headerLoginDiv{display:none;}
 		}
 
-
-
-
-#growContainer{
-	display: table;
-	width:100%;
-	height:100%;
-}
-.grow{
-	display: table-cell;
-	height:100%;
-	width: 25%;
-	-webkit-transition:width 500ms;
-	-moz-transition:width 500ms;
-	transition:width 500ms;
-}
-#growContainer:hover .grow{
-	width:20%;
-}
-#growContainer:hover .grow:hover {
-	width:40%;
-}
-
-    .newsDefault:hover{
+  .newsDefault:hover{
 		 background-color: yellow;
+			max-height:20em;
+			max-width:80%;
+			white-space: normal;
+			position:absolute;
+			margin-left: auto;
+			margin-top: 0;
+margin-right: auto;
+left: 0;
+right: 0;
+			top:5;
+			z-index: 100000;
 		}
 
-		.newsMouseover {
-			border:1px solid red;
-			max-width:65%;
-			max-height:10em;
-			overflow:hidden;
-			margin-left:3em;
-			padding:10px;
-		}
 		.newsDefault{
 			border:1px solid red;
-			max-width:65%;
-			max-height:1.2em;
+			max-width:40%;
+			max-height:1em;
 			overflow:hidden;
 			margin-left:3em;
+			margin-bottom:.5em;
 			padding:10px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 
 
 		}
