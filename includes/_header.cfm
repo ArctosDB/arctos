@@ -25,6 +25,9 @@
             			alert('mouseover');
 
         		})
+        		.on('mouseleave', function(){
+            			alert('mouseout');
+		        })​
 	    });
 	</script>
 
