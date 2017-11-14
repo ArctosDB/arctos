@@ -45,24 +45,27 @@
 		  #headerLoginDiv{display:none;}
 		}
 
+
   .newsDefault:hover{
-		 background-color: yellow;
-			max-height:20em;
-			max-width:80%;
-			white-space: normal;
-			position:absolute;
-			margin-left: auto;
-			margin-top: 0;
-margin-right: auto;
-left: 0;
-right: 0;
-			top:5;
-			z-index: 100000;
+
+ background:bisque;
+      max-height:unset;
+      max-width:unset;
+    width:100%;
+      white-space: normal;
+      position:relative;
+      margin-left: auto;
+      margin-top: 0;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      z-index: 100000;
+
 		}
 
 		.newsDefault{
 			border:1px solid red;
-			max-width:250px;
+			width:250px;
 			max-height:1em;
 			overflow:hidden;
 			margin-left:3em;
@@ -70,18 +73,20 @@ right: 0;
 			padding:10px;
 			white-space: nowrap;
 			text-overflow: ellipsis;
-
+			transition: .5s;
 
 		}
 
 		#headerTable {
 			display:table;
+			width:100%;
 		}
 		#header-table-row {
 			display:table-row;
 		}
 		#header-img-cell {
 			display:table-cell;
+			padding:10px;
 		}
 		#header-link-cell {
 			display:table-cell;
@@ -91,7 +96,10 @@ right: 0;
 		}
 		#header-login-cell {
 			display:table-cell;
+			text-align: right;
+			vertical-align: top;
 		}
+
 
 	</style>
 	<cfoutput>
