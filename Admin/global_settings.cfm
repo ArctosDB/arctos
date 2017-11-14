@@ -21,7 +21,8 @@
 		<form method="post" action="global_settings.cfm" name="f" id="f">
 			<input type="hidden" name="action" value="save">
 
-			<label for="announcement_text">announcement_text (displays in header)</label>
+			<label for="announcement_text">announcement_text (displays in header) IMPORTANT: links should include  target="_blank" and class="external" - like this:
+				<a target="_blank" class="external" href="http://google.com">this is an HTML link to Google</a></label>
 			<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
 
 
