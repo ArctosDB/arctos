@@ -105,7 +105,14 @@ right: 0;
 		</cfif>
 		---->
 		<div id="header_color" style='background-color:#session.header_color#;'>
-			<div id="headerTable">ima header</div>
+			<div id="headerTable">
+				<div style="display:table-row;">
+					<div style="display:table-cell">
+						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
+					</div>
+				</div>
+
+				ima header</div>
 
 			<!-----
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
