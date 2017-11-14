@@ -100,6 +100,9 @@ right: 0;
 		</cfif>
 		---->
 		<div id="header_color" style='background-color:#session.header_color#;'>
+			<div>ima header</div>
+
+			<!-----
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 				<tr>
 					<td width="95" nowrap="nowrap" class="headerImageCell" id="headerImageCell">
@@ -143,6 +146,7 @@ right: 0;
 					</td>
 				</tr>
 			</table>
+			---->
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 		    	<cfif len(session.username) gt 0>
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
