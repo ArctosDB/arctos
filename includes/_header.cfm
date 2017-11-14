@@ -19,6 +19,9 @@
 				$("#header_color").hide();
 				$("#_footerTable").hide();
 			}
+
+
+			/*
 			console.log('hi');
 
 			  $("#ancmntDiv").on('mouseenter', function(){
@@ -30,7 +33,7 @@
            					  $(this).removeClass('newsMouseover',500).addClass('newsDefault',500);
         			})
 
-
+				*/
 	    });
 	</script>
 
@@ -41,6 +44,31 @@
 		@media (max-width: 600px) {
 		  #headerLoginDiv{display:none;}
 		}
+
+
+
+
+#growContainer{
+	display: table;
+	width:100%;
+	height:100%;
+}
+.grow{
+	display: table-cell;
+	height:100%;
+	width: 25%;
+	-webkit-transition:width 500ms;
+	-moz-transition:width 500ms;
+	transition:width 500ms;
+}
+#growContainer:hover .grow{
+	width:20%;
+}
+#growContainer:hover .grow:hover {
+	width:40%;
+}
+
+
 
 		.newsMouseover {
 			border:1px solid red;
@@ -111,9 +139,15 @@
 									</a>
 								</td>
 								<td>
-										<div id="ancmntDiv" class="newsDefault">
-											This is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
+									<div id="growContainer">
+										<div class="grow" style="background-color:#2A75A9;">
+
+																					This is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
+
+
 										</div>
+									</div>
+
 								</td>
 							</tr>
 							<cfif len(session.header_credit) gt 0>
