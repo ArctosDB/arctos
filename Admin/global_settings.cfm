@@ -23,9 +23,9 @@
 
 			<label for="announcement_text">announcement_text (displays in header)
 				IMPORTANT: links should include  target="_blank" and class="external" - like this:
-				<pre>
-				<a target="_blank" class="external" href="http://google.com">this is an HTML link to Google</a>
-				</pre>
+				<xmp>
+					<a target="_blank" class="external" href="http://google.com">this is an HTML link to Google</a>
+				</xmp>
 			</label>
 			<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
 
