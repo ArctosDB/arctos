@@ -1,5 +1,31 @@
 <cfcomponent>
 
+<cffunction name="georeferenceAddress" returnType="string" access="remote">
+	<cfargument name="address" type="string" required="yes">
+	<cfset obj = CreateObject("component","component.functions")>
+	<cfset coords="">
+	<cfset mAddress=address>
+	<cfset mAddress=replace(mAddress,chr(10),", ","all")>
+	<!----
+		extract ZIP
+		start at the end, take the "first" thing that's numbers
+	 ---->
+	<cfset ttu="">
+	<cfloop index="i" list="#mAddress#">
+		<cfif REFind("[0-9]+", i) gt 0>
+			<cfset ttu=i>
+		</cfif>
+	</cfloop>
+	<cfset signedURL = obj.googleSignURL(
+		urlPath="/maps/api/geocode/json",
+		urlParams="address=#URLEncodedFormat('#ttu#')#")>
+	<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
+	<cfset llresult=DeserializeJSON(x.filecontent)>
+	<cfif llresult.status is "OK">
+		<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
+	</cfif>
+	<cfreturn coords>
+</cffunction>
 <cffunction name="getGeogWKT" returnType="string" access="remote">
 	<cfargument name="specimen_event_id" type="numeric" required="yes">
 	<cfquery name="d" datasource="uam_god">

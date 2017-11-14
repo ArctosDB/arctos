@@ -821,28 +821,8 @@
 							<cfif len(thisAddressType) gt 0>
 								<cfset coords=''>
 								<cfif thisAddressType is 'shipping'>
-									<!--- georeference ---->
-									<cfset obj = CreateObject("component","component.functions")>
-									<cfset mAddress=thisAddress>
-									<cfset mAddress=replace(mAddress,chr(10),", ","all")>
-									<!----
-										extract ZIP
-										start at the end, take the "first" thing that's numbers
-									 ---->
-									<cfset ttu="">
-								 	<cfloop index="i" list="#mAddress#">
-										<cfif REFind("[0-9]+", i) gt 0>
-											<cfset ttu=i>
-										</cfif>
-									</cfloop>
-									<cfset signedURL = obj.googleSignURL(
-										urlPath="/maps/api/geocode/json",
-										urlParams="address=#URLEncodedFormat('#ttu#')#")>
-									<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
-									<cfset llresult=DeserializeJSON(x.filecontent)>
-									<cfif llresult.status is "OK">
-										<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
-									</cfif>
+									<cfset obj = CreateObject("component","component.utilities")>
+									<cfset coords=georeferenceAddress(thisAddress)>
 								</cfif>
 								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									INSERT INTO address (
@@ -869,29 +849,8 @@
 						<cfelse>
 							<cfset coords=''>
 							<cfif thisAddressType is 'shipping'>
-								<!--- georeference ---->
-								<cfset obj = CreateObject("component","component.functions")>
-								<cfset mAddress=thisAddress>
-								<cfset mAddress=replace(mAddress,chr(10),", ","all")>
-								<!----
-									extract ZIP
-									start at the end, take the "first" thing that's numbers
-								 ---->
-								<cfset ttu="">
-							 	<cfloop index="i" list="#mAddress#">
-									<cfif REFind("[0-9]+", i) gt 0>
-										<cfset ttu=i>
-									</cfif>
-								</cfloop>
-								<cfset signedURL = obj.googleSignURL(
-									urlPath="/maps/api/geocode/json",
-									urlParams="address=#URLEncodedFormat('#ttu#')#")>
-								<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
-								<cfdump var=#x#>
-								<cfset llresult=DeserializeJSON(x.filecontent)>
-								<cfif llresult.status is "OK">
-									<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
-								</cfif>
+								<cfset obj = CreateObject("component","component.utilities")>
+								<cfset coords=georeferenceAddress(thisAddress)>
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
