@@ -77,6 +77,21 @@ right: 0;
 		#headerTable {
 			display:table;
 		}
+		#header-table-row {
+			display:table-row;
+		}
+		#header-img-cell {
+			display:table-cell;
+		}
+		#header-link-cell {
+			display:table-cell;
+		}
+		#header-news-cell {
+			display:table-cell;
+		}
+		#header-login-cell {
+			display:table-cell;
+		}
 
 	</style>
 	<cfoutput>
@@ -106,11 +121,11 @@ right: 0;
 		---->
 		<div id="header_color" style='background-color:#session.header_color#;'>
 			<div id="headerTable">
-				<div style="display:table-row;">
-					<div style="display:table-cell">
+				<div id="header-table-row">
+					<div id="header-img-cell">
 						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
 					</div>
-					<div style="display:table-cell">
+					<div id="header-link-cell">
 						<cfif len(session.collection_link_text) gt 0>
 							<a target="_top" href="#session.collection_url#" class="novisit">
 								<span class="headerCollectionText">
@@ -125,12 +140,12 @@ right: 0;
 							</span>
 						</a>
 					</div>
-					<div style="display:table-cell">
+					<div id="header-news-cell">
 						<div class="newsDefault">
 							News: is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
 						</div>
 					</div>
-					<div style="display:table-cell">
+					<div id="header-login-cell">
 						<cfif len(session.username) gt 0>
 							<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 							<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
