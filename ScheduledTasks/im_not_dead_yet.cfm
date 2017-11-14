@@ -76,12 +76,12 @@
 		<cfelseif application.version is "prod">
 			<cfset acceptFrom='notdead@arctos-test.tacc.utexas.edu'>
 		</cfif>
-		<!--- loopty. should have something in the last hour. If so, done. If not, send frantic email --->
+		<!--- loopty. should have something in the last ~~hour~~ four hours per AWG. If so, done. If not, send frantic email --->
 		<cfset sendAlert="true">
 		<cfloop query="inbox">
 			<cfif from is acceptFrom and subject is "arctos is not dead">
 				<cfset tss=datediff('n',SENTDATE,now())>
-				<cfif tss lt 60>
+				<cfif tss lt 240>
 					<cfset sendAlert=false>
 				</cfif>
 				<cfimap action="delete" uid="#uid#" stoponerror="true" connection="gmail">
@@ -97,15 +97,21 @@
 				An Arctos monitoring script has detected a problem.
 				<cfif application.version is "test">
 					<p>
-						A check-in email was not received from production.
+						A check-in email was not received from production. This may mean that there is a problem
+						with the primary system.
 					</p>
 				<cfelse>
 					<p>
-						A check-in email was not received from test.
+						A check-in email was not received from test. This means the monitoring system is not functioning properly.
 					</p>
 				</cfif>
 
-				 Check the following items:
+				<p>
+					Arctos contacts may be found at https://arctosdb.org/arctos-down/. Please ensure that at least 
+					one of them is aware of this message if you cannot solve the problem.
+				</p>
+
+				 To diagnose the problem, check the following items:
 				<p>
 					Check that both arctos.database.museum and arctos-test.tacc.utexas.edu are responsive.
 				</p>

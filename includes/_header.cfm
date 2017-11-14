@@ -46,11 +46,13 @@
 				try our <a target="_top" href="/SpecimenSearchHTML.cfm">HTML SpecimenSearch</a> option.
 			</div>
 		</noscript>
+		<!----
 		<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
 			<div class="browserCheck">
 				Some features of this site may not work in your browser. <a href="/home.cfm##requirements">Learn more</a>
 			</div>
 		</cfif>
+		---->
 		<div id="header_color" style='background-color:#session.header_color#;'>
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 				<tr>
@@ -87,6 +89,9 @@
 							</cfif>
 						</table>
 					</td>
+				</tr>
+				<tr>
+					This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
 				</tr>
 			</table>
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
