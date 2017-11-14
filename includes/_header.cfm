@@ -77,6 +77,10 @@
 										</span>
 									</a>
 								</td>
+								<td>
+													This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
+
+								</td>
 							</tr>
 							<cfif len(session.header_credit) gt 0>
 								<tr>
@@ -89,9 +93,6 @@
 							</cfif>
 						</table>
 					</td>
-				</tr>
-				<tr>
-					This is an announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.
 				</tr>
 			</table>
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
