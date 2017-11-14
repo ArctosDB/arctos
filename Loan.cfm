@@ -1984,7 +1984,7 @@ just fooling idiot cfclipse into using the right colors
 		</form>
 	</p>
 	<p>
-		<form name="ms" method="post" action="Loan.cfm">
+		<form name="ms" method="post" action="Loan.cfm" target="_blank">
 			<input type="hidden" name="sql" value="#sql#">
 			<input type="hidden" name="action" value="mapShipment">
 			<input type="submit" value="Map Shipments">
@@ -2222,11 +2222,9 @@ just fooling idiot cfclipse into using the right colors
 		</cfscript>
 		<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
 
-		<!---
 		<script type="text/javascript" language="javascript">
 			document.location='#bnhmUrl#';
 		</script>
-		---->
 
 		<p>
 		<a href="#bnhmUrl#">#bnhmUrl#</a>
