@@ -140,11 +140,8 @@
 								</td>
 								<td>
 									<div id="growContainer">
-										<div class="grow" style="background-color:#2A75A9;">
-
-																					This is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
-
-
+										<div class="grow" style="background-color:##2A75A9;">
+											This is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
 										</div>
 									</div>
 
