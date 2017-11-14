@@ -22,11 +22,12 @@
 			console.log('hi');
 
 			  $("#ancmntDiv").on('mouseenter', function(){
-            			alert('mouseover');
+            			            $(this).animate({ margin: -10, width: "+=20", height: "+=20" });
+
 
         		})
         		.on('mouseleave', function(){
-        				alert('out');
+            $(this).animate({ margin: 0, width: "-=20", height: "-=20" });
         			})
 
 
