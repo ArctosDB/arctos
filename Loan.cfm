@@ -1983,6 +1983,13 @@ just fooling idiot cfclipse into using the right colors
 			<input type="submit" value="download CSV">
 		</form>
 	</p>
+	<p>
+		<form name="ms" method="post" action="Loan.cfm">
+			<input type="hidden" name="sql" value="#sql#">
+			<input type="hidden" name="action" value="mapShipment">
+			<input type="submit" value="Map Shipments">
+		</form>
+	</p>
 	</cfoutput>
 	<table>
 	<cfset i=1>
@@ -2115,21 +2122,16 @@ just fooling idiot cfclipse into using the right colors
 	<cfset np_clist=d.columnlist>
 	<cfset np_clist=listdeleteat(np_clist,listfindnocase(np_clist,'PROJECT_NAME'))>
 	<cfset np_clist=listdeleteat(np_clist,listfindnocase(np_clist,'PID'))>
-
-
 	<cfquery name="dnp" dbtype="query">
 		select #np_clist# from d group by #np_clist#
 	</cfquery>
-
 	<cfset queryAddColumn(dnp,'PROJECT_NAME','VarChar',ArrayNew(1))>
-
 	<cfloop query="dnp">
 		<cfquery name="p" dbtype="query">
 			select PROJECT_NAME from d where transaction_id=#transaction_id#
 		</cfquery>
 		<cfset querySetCell(dnp, "PROJECT_NAME", valuelist(p.PROJECT_NAME,";"), dnp.currentRow) />
 	</cfloop>
-
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=dnp,Fields=dnp.columnlist)>
 	<cffile action = "write"
@@ -2137,5 +2139,104 @@ just fooling idiot cfclipse into using the right colors
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=LoanResultsDownload.csv" addtoken="false">
+</cfif>
+
+<cfif action is "mapShipment">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			guid_prefix collection,
+			loan_number,
+			s$coordinates
+		from
+			collection,
+			trans,
+			loan,
+			shipment,
+			address
+		where
+			collection.collection_id=trans.collection_id and
+			trans.transaction_id=loan.transaction_id and
+			loan.transaction_id=shipment.transaction_id and
+			shipment.SHIPPED_TO_ADDR_ID=address.address_id and
+			s$coordinates is not null and
+			loan.transaction_id in (
+				select transaction_id from
+					(
+						#preserveSingleQuotes(sql)#
+					)
+				)
+	</cfquery>
+
+
+	<cfset fn="arctos_#randRange(1,1000)#">
+
+	<cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.xml">
+	<cfset variables.localTabFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.txt">
+	<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
+
+	<cfset variables.remoteXmlFile="#rmturl#/bnhmMaps/tabfiles/#fn#.xml">
+	<cfset variables.remoteTabFile="#rmturl#/bnhmMaps/tabfiles/#fn#.txt">
+	<cfset variables.encoding="UTF-8">
+	<!---- write an XML config file specific to the critters they're mapping --->
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
+			a='<berkeleymapper>' & chr(10) &
+				chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) &
+				chr(9) & '<concepts>' & chr(10) &
+				chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:collectioncode" alias="Collection"/>' & chr(10) &
+				chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:2" alias="Loan Number"/>' & chr(10) &
+				chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) &
+				chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) &
+				chr(9) & '</concepts>' & chr(10);
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+
+
+		<cfscript>
+			a = chr(9) & '<logos>' & chr(10) &
+				chr(9) & chr(9) & '<logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>' & chr(10) &
+				chr(9) & '</logos>' & chr(10) &
+				'</berkeleymapper>';
+			variables.joFileWriter.writeLine(a);
+			variables.joFileWriter.close();
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
+		</cfscript>
+
+
+	<cfloop query="d">
+		<cfset lat=listgetat(s$coordinates,1)>
+		<cfset lng=listgetat(s$coordinates,2)>
+
+		<cfscript>
+			a= collection &
+				chr(9) & loan_number  &
+				chr(9) & lat  &
+				chr(9) & lng ;
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+		</cfloop>
+
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
+
+		<!---
+		<script type="text/javascript" language="javascript">
+			document.location='#bnhmUrl#';
+		</script>
+		---->
+
+		<p>
+		<a href="#bnhmUrl#">#bnhmUrl#</a>
+		</p>
+		 <noscript>BerkeleyMapper requires JavaScript.</noscript>
+
+
+
+</cfoutput>
+
+
+
 </cfif>
 <cfinclude template="includes/_footer.cfm">
