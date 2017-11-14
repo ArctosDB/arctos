@@ -146,7 +146,7 @@ right: 0;
 					</td>
 				</tr>
 			</table>
-			---->
+
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 		    	<cfif len(session.username) gt 0>
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
@@ -198,6 +198,7 @@ right: 0;
 					</div>
 				</cfif>
 			</div>
+			---->
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
