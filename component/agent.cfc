@@ -857,6 +857,7 @@
 								<!--- call remote so no transaction datasource conflicts---->
 								<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#thisAddress#" >
 								<cfset coords=cfhttp.fileContent>
+								<cfdump var=#cfhttp#>
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
