@@ -819,19 +819,46 @@
 						<cfset thisAddressRemark=url["address_remark_#thisAddressID#"]>
 						<cfif thisAddressID contains "new">
 							<cfif len(thisAddressType) gt 0>
+								<cfset coords=''>
+								<cfif thisAddressType is 'shipping'>
+									<!--- georeference ---->
+									<cfset obj = CreateObject("component","component.functions")>
+									<cfset mAddress=thisAddress>
+									<cfset mAddress=replace(mAddress,chr(10),", ","all")>
+									<!----
+										extract ZIP
+										start at the end, take the "first" thing that's numbers
+									 ---->
+									<cfset ttu="">
+								 	<cfloop index="i" list="#mAddress#">
+										<cfif REFind("[0-9]+", i) gt 0>
+											<cfset ttu=i>
+										</cfif>
+									</cfloop>
+									<cfset signedURL = obj.googleSignURL(
+										urlPath="/maps/api/geocode/json",
+										urlParams="address=#URLEncodedFormat('#ttu#')#")>
+									<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
+									<cfset llresult=DeserializeJSON(x.filecontent)>
+									<cfif llresult.status is "OK">
+										<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
+									</cfif>
+								</cfif>
 								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									INSERT INTO address (
 										AGENT_ID
 										,address_type
 									 	,address
 									 	,VALID_ADDR_FG
-									 	,ADDRESS_REMARK
+									 	,ADDRESS_REMARK,
+									 	s$coordinates
 									 ) VALUES (
 										<cfqueryparam value = "#agent_ID#" CFSQLType = "CF_SQL_INTEGER">
 										,'#thisAddressType#'
 									 	,'#thisAddress#'
 									 	,#thisAddressValidFg#
-									 	,'#escapeQuotes(thisAddressRemark)#'
+									 	,'#escapeQuotes(thisAddressRemark)#',
+									 	'#coords#'
 									)
 								</cfquery>
 							</cfif>
@@ -840,13 +867,39 @@
 								delete from  address where address_id=<cfqueryparam value = "#thisAddressID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						<cfelse>
+							<cfset coords=''>
+							<cfif thisAddressType is 'shipping'>
+								<!--- georeference ---->
+								<cfset obj = CreateObject("component","component.functions")>
+								<cfset mAddress=thisAddress>
+								<cfset mAddress=replace(mAddress,chr(10),", ","all")>
+								<!----
+									extract ZIP
+									start at the end, take the "first" thing that's numbers
+								 ---->
+								<cfset ttu="">
+							 	<cfloop index="i" list="#mAddress#">
+									<cfif REFind("[0-9]+", i) gt 0>
+										<cfset ttu=i>
+									</cfif>
+								</cfloop>
+								<cfset signedURL = obj.googleSignURL(
+									urlPath="/maps/api/geocode/json",
+									urlParams="address=#URLEncodedFormat('#ttu#')#")>
+								<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
+								<cfset llresult=DeserializeJSON(x.filecontent)>
+								<cfif llresult.status is "OK">
+									<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
+								</cfif>
+							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
 								set
 									address_type='#thisAddressType#',
 									address='#thisAddress#',
 									VALID_ADDR_FG=#thisAddressValidFg#,
-									ADDRESS_REMARK='#escapeQuotes(thisAddressRemark)#'
+									ADDRESS_REMARK='#escapeQuotes(thisAddressRemark)#',
+									s$coordinates='#coords#'
 								where
 									address_id=<cfqueryparam value = "#thisAddressID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
