@@ -126,8 +126,7 @@ right: 0;
 						</a>
 					</div>
 				</div>
-
-				ima header</div>
+			</div>
 
 			<!-----
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
