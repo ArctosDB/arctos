@@ -62,7 +62,7 @@ right: 0;
 
 		.newsDefault{
 			border:1px solid red;
-			max-width:40%;
+			max-width:250px;
 			max-height:1em;
 			overflow:hidden;
 			margin-left:3em;
@@ -123,7 +123,7 @@ right: 0;
 										</span>
 									</a>
 								</td>
-								<td>
+								<td align="center">
 										<div class="newsDefault">
 											News: is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
 										</div>
