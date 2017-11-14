@@ -19,6 +19,18 @@
 				$("#header_color").hide();
 				$("#_footerTable").hide();
 			}
+
+
+			$("#ancmntDiv")
+.on('mouseenter', function(){
+    $(this).animate({ margin: -10, width: "+=20", height: "+=20" });
+})
+.on('mouseleave', function(){
+    $(this).animate({ margin: 0, width: "-=20", height: "-=20" });
+})​
+
+
+
 	    });
 	</script>
 	<style>
@@ -31,7 +43,7 @@
 		#ancmntDiv{
 			border:1px solid red;
 			max-width:65%;
-			max-height:2.5em;
+			max-height:1.2em;
 			overflow:hidden;
 			margin-left:3em;
 			padding:10px;
