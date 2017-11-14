@@ -820,7 +820,7 @@
 						<cfif thisAddressID contains "new">
 							<cfif len(thisAddressType) gt 0>
 								<cfset coords=''>
-								<cfif thisAddressType is 'shipping'>
+								<cfif thisAddressType is 'shipping'  or thisAddressType is 'correspondence'>
 									<!---- test is dumb.... ---->
 									<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 									<!--- call remote so no transaction datasource conflicts---->
@@ -851,7 +851,7 @@
 							</cfquery>
 						<cfelse>
 							<cfset coords=''>
-							<cfif thisAddressType is 'shipping'>
+							<cfif thisAddressType is 'shipping' or thisAddressType is 'correspondence'>
 								<!---- test is dumb.... ---->
 								<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 								<!--- call remote so no transaction datasource conflicts---->
