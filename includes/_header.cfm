@@ -73,6 +73,11 @@ right: 0;
 
 
 		}
+
+		#headerTable {
+			display:table;
+		}
+
 	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
@@ -100,7 +105,7 @@ right: 0;
 		</cfif>
 		---->
 		<div id="header_color" style='background-color:#session.header_color#;'>
-			<div>ima header</div>
+			<div id="headerTable">ima header</div>
 
 			<!-----
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
