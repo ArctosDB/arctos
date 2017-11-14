@@ -22,7 +22,7 @@
 			<input type="hidden" name="action" value="save">
 
 			<label for="announcement_text">announcement_text (displays in header)</label>
-			<input type="text" name="announcement_text" id="announcement_text" size="80" value="#d.announcement_text#">
+			<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
 
 
 			<!---- google ---->
