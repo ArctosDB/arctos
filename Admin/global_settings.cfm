@@ -21,7 +21,7 @@
 		<form method="post" action="global_settings.cfm" name="f" id="f">
 			<input type="hidden" name="action" value="save">
 
-			<label for="announcement_text">announcement_text (displays in header)
+			<label for="announcement_text">announcement_text (displays in header; 1-hour cache)
 				IMPORTANT: links should include  target="_blank" and class="external" - like this:
 				<xmp>
 					<a target="_blank" class="external" href="http://google.com">this is an HTML link to Google</a>
