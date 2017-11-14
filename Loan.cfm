@@ -2142,6 +2142,7 @@ just fooling idiot cfclipse into using the right colors
 </cfif>
 
 <cfif action is "mapShipment">
+	<cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			guid_prefix collection,
