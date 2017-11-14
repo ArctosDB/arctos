@@ -20,6 +20,11 @@
 				$("#_footerTable").hide();
 			}
 			console.log('hi');
+
+			  $("#ancmntDiv").on('mouseenter', function(){
+            			console.log('mouseover');
+
+        		})
 	    });
 	</script>
 
