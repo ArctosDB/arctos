@@ -98,7 +98,10 @@
 			vertical-align: top;
 		}
 
-
+		#header-login-inner{
+			display: flex;
+			justify-content: flex-end;
+		}
 	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
@@ -152,55 +155,57 @@
 						</div>
 					</div>
 					<div id="header-login-cell">
-						<cfif len(session.username) gt 0>
-							<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
-							<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
-								<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
-							</cfif>
-							<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
-								<br>
-								<span style="color:red;font-size:smaller;">
-									You have no email address in your profile. Please correct.
-								</span>
-							</cfif>
-						<cfelse>
-							<cfif isdefined("ref")><!--- passed in by Application.cfc before termination --->
-								<cfset gtp=ref>
+						<div id="header-login-inner">
+							<cfif len(session.username) gt 0>
+								<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
+								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
+									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
+								</cfif>
+								<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
+									<br>
+									<span style="color:red;font-size:smaller;">
+										You have no email address in your profile. Please correct.
+									</span>
+								</cfif>
 							<cfelse>
-								<cfset gtp="/" & request.rdurl>
-							</cfif>
-							<!--- run this twice to get /// --->
-							<cfset gtp=replace(gtp,"//","/","all")>
-							<cfset gtp=replace(gtp,"//","/","all")>
-							<div id="headerLoginDiv">
-								<form name="logIn" method="post" action="/login.cfm">
-									<input type="hidden" name="action" value="signIn">
-									<input type="hidden" name="gotopage" value="#gtp#">
+								<cfif isdefined("ref")><!--- passed in by Application.cfc before termination --->
+									<cfset gtp=ref>
+								<cfelse>
+									<cfset gtp="/" & request.rdurl>
+								</cfif>
+								<!--- run this twice to get /// --->
+								<cfset gtp=replace(gtp,"//","/","all")>
+								<cfset gtp=replace(gtp,"//","/","all")>
+								<div id="headerLoginDiv">
+									<form name="logIn" method="post" action="/login.cfm">
+										<input type="hidden" name="action" value="signIn">
+										<input type="hidden" name="gotopage" value="#gtp#">
 
-									<table border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td>
-												<input type="text" name="username" title="username" size="12"
-													class="loginTxt" placeholder="username" required>
-											</td>
-											<td>
-												<input type="password" name="password" title="password" placeholder="password" size="12" class="loginTxt" required>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" align="center">
-												<div class="loginTxt" style="padding-top:3px;">
-													<input type="submit" value="Log In" class="smallBtn">
-													or
-													<input type="button" value="Create Account" class="smallBtn"
-														onClick="logIn.action.value='newUser';submit();">
-												</div>
-									    	</td>
-										</tr>
-									</table>
-								</form>
-							</div>
-						</cfif>
+										<table border="0" cellpadding="0" cellspacing="0">
+											<tr>
+												<td>
+													<input type="text" name="username" title="username" size="12"
+														class="loginTxt" placeholder="username" required>
+												</td>
+												<td>
+													<input type="password" name="password" title="password" placeholder="password" size="12" class="loginTxt" required>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" align="center">
+													<div class="loginTxt" style="padding-top:3px;">
+														<input type="submit" value="Log In" class="smallBtn">
+														or
+														<input type="button" value="Create Account" class="smallBtn"
+															onClick="logIn.action.value='newUser';submit();">
+													</div>
+										    	</td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</cfif>
+						</div>
 					</div>
 				</div>
 			</div>
