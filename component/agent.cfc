@@ -852,7 +852,10 @@
 						<cfelse>
 							<cfset coords=''>
 							<cfif thisAddressType is 'shipping'>
-								<cfset fobj = CreateObject("component","component.utilities")>
+
+								<cfobject name="fobj" component="utilities">
+
+
 								<cfset coords=fobj.georeferenceAddress(thisAddress)>
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
