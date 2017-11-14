@@ -27,6 +27,17 @@
 		@media (max-width: 600px) {
 		  #headerLoginDiv{display:none;}
 		}
+
+		#ancmntDiv{
+			border:1px solid red;
+			max-width:65%;
+			max-height:2.5em;
+			overflow:hidden;
+			margin-left:3em;
+			padding:10px;
+
+
+		}
 	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
@@ -59,7 +70,7 @@
 					<td width="95" nowrap="nowrap" class="headerImageCell" id="headerImageCell">
 						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
 					</td>
-					<td align="left" valign="bottom" cellpadding="0" cellspacing="0">
+					<td align="left" cellpadding="0" cellspacing="0">
 						<table cellpadding="0" cellspacing="0">
 							<tr>
 								<td align="left" valign="bottom" nowrap="nowrap" id="collectionCell" class="collectionCell">
