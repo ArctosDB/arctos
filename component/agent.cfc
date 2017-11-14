@@ -853,10 +853,16 @@
 							<cfset coords=''>
 							<cfif thisAddressType is 'shipping'>
 
-								<cfobject name="fobj" component="utilities">
 
 
-								<cfset coords=fobj.georeferenceAddress(thisAddress)>
+<cfhttp method="Get"
+url="/components/utilities.cfc?method=georeferenceAddress&address=#thisAddress#" >
+
+<cfdump var=#cfhttp#>
+
+
+
+
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
