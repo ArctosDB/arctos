@@ -25,9 +25,11 @@
             			alert('mouseover');
 
         		})
-        		 $("#ancmntDiv").on('mouseleave', function(){
-            			alert('mouseout');
-		        })​
+        		.on('mouseleave', function(){
+        				alert('out');
+        			})
+
+
 	    });
 	</script>
 
