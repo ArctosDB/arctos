@@ -19,23 +19,11 @@
 				$("#header_color").hide();
 				$("#_footerTable").hide();
 			}
-
-		console.log('hi');
-
-
-
-
+			console.log('hi');
 	    });
 	</script>
 
-	<!----
-	$("#ancmntDiv").on('mouseenter', function(){
-				    $(this).animate({ margin: -10, width: "+=20", height: "+=20" });
-				})
-				.on('mouseleave', function(){
-				    $(this).animate({ margin: 0, width: "-=20", height: "-=20" });
-				})​
-				---->
+
 	<style>
 		.collectionCell {vertical-align:text-bottom;padding:0px 0px 7px 0px;}
 		.headerImageCell {padding:.3em 1em .3em .3em;text-align:right;}
