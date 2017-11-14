@@ -22,7 +22,7 @@
 			console.log('hi');
 
 			  $("#ancmntDiv").on('mouseenter', function(){
-            			console.log('mouseover');
+            			alert('mouseover');
 
         		})
 	    });
