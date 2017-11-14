@@ -22,12 +22,12 @@
 			console.log('hi');
 
 			  $("#ancmntDiv").on('mouseenter', function(){
-            			            $(this).animate({ width: "+=20", height: "+=20" });
+            			 $(this).addClass('newsMouseover',1000);
 
 
         		})
         		.on('mouseleave', function(){
-            $(this).animate({  width: "-=20", height: "-=20" });
+           					 $(this).addClass('newsDefault',1000);
         			})
 
 
@@ -42,7 +42,15 @@
 		  #headerLoginDiv{display:none;}
 		}
 
-		#ancmntDiv{
+		.newsMouseover {
+			border:1px solid red;
+			max-width:65%;
+			max-height:10em;
+			overflow:hidden;
+			margin-left:3em;
+			padding:10px;
+		}
+		#newsDefault{
 			border:1px solid red;
 			max-width:65%;
 			max-height:1.2em;
@@ -103,7 +111,7 @@
 									</a>
 								</td>
 								<td>
-										<div id="ancmntDiv">
+										<div id="ancmntDiv" class="newsDefault">
 											This is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
 										</div>
 								</td>
