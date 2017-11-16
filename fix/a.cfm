@@ -84,7 +84,7 @@ These will all be single-value selects, pretend they're "expanded" here
 </table>
 
 <h3>Permit Agent</h3>
-
+These will all be single-value selects, pretend they're "expanded" here
 <table border>
 	<tr>
 		<td>Agent</td>
