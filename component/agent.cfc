@@ -834,14 +834,16 @@
 									 	,address
 									 	,VALID_ADDR_FG
 									 	,ADDRESS_REMARK,
-									 	s$coordinates
+									 	s$coordinates,
+									 	S$LASTDATE
 									 ) VALUES (
 										<cfqueryparam value = "#agent_ID#" CFSQLType = "CF_SQL_INTEGER">
 										,'#thisAddressType#'
 									 	,'#thisAddress#'
 									 	,#thisAddressValidFg#
 									 	,'#escapeQuotes(thisAddressRemark)#',
-									 	'#coords#'
+									 	'#coords#',
+									 	sysdate
 									)
 								</cfquery>
 							</cfif>
@@ -865,7 +867,8 @@
 									address='#thisAddress#',
 									VALID_ADDR_FG=#thisAddressValidFg#,
 									ADDRESS_REMARK='#escapeQuotes(thisAddressRemark)#',
-									s$coordinates='#coords#'
+									s$coordinates='#coords#',
+									S$LASTDATE=sysdate
 								where
 									address_id=<cfqueryparam value = "#thisAddressID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
