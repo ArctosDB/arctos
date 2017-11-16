@@ -26,7 +26,7 @@ agent_role                     NOT NULL FKEY(ctpermit_agent_role)
 
 
 <h2>
-	Exapmle Create/Edit Permits Form
+	Example Create/Edit Permits Form
 </h2>
 <h3>Normal Stuff</h3>
 <label>
