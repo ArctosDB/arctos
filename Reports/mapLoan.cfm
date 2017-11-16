@@ -39,11 +39,15 @@
 		rownum<10
 		</cfquery>
 		<cfloop query="d">
+			<cfset coords=''>
 			<br>#address#
 			<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 			<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(address)#" >
 			<cfset coords=cfhttp.fileContent>
 			<br>#coords#
+			<cfquery name="p" datasource="prod" >
+				update address set S$COORDINATES='#coords#', S$LASTDATE=sysdate where address_id=#address_id#
+			</cfquery>
 
 		</cfloop>
 								<!--- call remote so no transaction datasource conflicts---->
