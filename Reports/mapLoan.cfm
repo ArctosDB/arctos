@@ -38,6 +38,19 @@
 		address_Type in ('shipping', 'correspondence') and
 		rownum<10
 		</cfquery>
+		<cfloop query="d">
+			<br>#address#
+			<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
+			<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(thisAddress)#" >
+			<cfset coords=cfhttp.fileContent>
+			<br>#coords#
+
+		</cfloop>
+								<!--- call remote so no transaction datasource conflicts---->
+
+
+
+
 <cfdump var=#d#>
 
 <!--------
