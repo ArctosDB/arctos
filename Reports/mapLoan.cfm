@@ -63,7 +63,7 @@ group by address_type;
 	where
 		s$lastdate is null and
 		address_Type in ('shipping', 'correspondence') and
-		rownum<100
+		rownum<200
 		</cfquery>
 
 					<cfset utilities = CreateObject("component","component.utilities")>
