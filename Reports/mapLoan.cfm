@@ -65,6 +65,9 @@ group by address_type;
 		address_Type in ('shipping', 'correspondence') and
 		rownum<10
 		</cfquery>
+
+					<cfset utilities = CreateObject("component","component.utilities")>
+
 		<cfloop query="d">
 			<cfset coords=''>
 			<br>#address#
@@ -72,13 +75,14 @@ group by address_type;
 			<!--- faster??--->
 
 
-			<cfset utilities = CreateObject("component","component.utilities")>
 			<cfset x=utilities.georeferenceAddress(address)>
 			<p>
 				<cfdump var=#x#>
 			</p>
 
-
+			<cfquery name="p" datasource="prod" >
+				update address set S$COORDINATES='#x#', S$LASTDATE=sysdate where address_id=#address_id#
+			</cfquery>
 			<!----
 
 
@@ -86,9 +90,7 @@ group by address_type;
 			<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(address)#" >
 			<cfset coords=cfhttp.fileContent>
 			<br>#coords#
-			<cfquery name="p" datasource="prod" >
-				update address set S$COORDINATES='#coords#', S$LASTDATE=sysdate where address_id=#address_id#
-			</cfquery>
+
 			---->
 
 		</cfloop>
