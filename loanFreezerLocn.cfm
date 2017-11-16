@@ -29,7 +29,7 @@
 	<cfset filterparts=listappend(filterparts,part3,"\")>
 	<cfset filterparts=listqualify(filterparts,"'","\")>
 	<cfset filterparts=replace(filterparts,"'\'","','","all")>
-	<cfset sel="select 
+	<cfset sel="select
 			guid_prefix || ':' || cat_num guid,
 			cataloged_item.collection_object_id,
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID,
@@ -44,11 +44,11 @@
 			collection,
 			specimen_part,
 			coll_obj_cont_hist,
-			coll_object">		
+			coll_object">
 	<cfset whr=" WHERE cataloged_item.collection_id = collection.collection_id AND
 			cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
 			specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
-			specimen_part.collection_object_id = coll_object.collection_object_id ">	
+			specimen_part.collection_object_id = coll_object.collection_object_id ">
 
 	<cfif len(transaction_id) gt 0>
 		<cfset frm="#frm# ,loan_item">
@@ -94,6 +94,7 @@
 	<cfquery name="allCatItemsRaw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+	<cfdump var=#allCatItemsRaw#>
 	<cfquery name="allCatItems" dbtype="query">
 		select * from allCatItemsRaw
 	</cfquery>
@@ -147,7 +148,7 @@
 		<cfloop query="allCatItems">
 			<cfif len(container_id) gt 0>
 				<cfquery name="freezer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
+					select
 						CONTAINER_ID,
 						PARENT_CONTAINER_ID,
 						CONTAINER_TYPE,
@@ -158,7 +159,7 @@
 						level
 					 from container
 					start with container_id=#container_id#
-					connect by prior parent_container_id = container_id 
+					connect by prior parent_container_id = container_id
 					order by level DESC
 				</cfquery>
 			</cfif>
@@ -170,7 +171,7 @@
 						<cfset pn=pn & "(subsample)">
 					</cfif>
 					<td>
-						#pn# 
+						#pn#
 					</td>
 					<cfif len(container_id) gt 0>
 						<cfset posn="">
@@ -194,7 +195,7 @@
 				<cfset oneLine=replace(oneLine,"</span>","","all")>
 				<cfset oneLine=replace(oneLine,'<span style="font-weight:bold;">',"","all")>
 				<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
-			
+
 		</cfloop>
 	</table>
 </cfoutput>
