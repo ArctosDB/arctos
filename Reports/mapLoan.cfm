@@ -74,7 +74,10 @@ group by address_type;
 
 			<cfset utilities = CreateObject("component","component.utilities")>
 			<cfset x=utilities.georeferenceAddress(address)>
-			<cfdump var=#x#>
+			<p>
+				<cfdump var=#x#>
+			</p>
+
 
 			<!----
 
