@@ -26,7 +26,34 @@
 
 		--->
 
+
+select
+	address_Type,
+	count(*)
+from
+	address,
+	shipment
+where
+	shipment.SHIPPED_TO_ADDR_ID=address.address_id
+group by address_type;
+
+
+select
+	address_Type,
+	count(*)
+from
+	address,
+	shipment
+where
+	shipment.SHIPPED_FROM_ADDR_ID=address.address_id
+group by address_type;
+
+
+
 <cfoutput>
+
+	select count(*) from address where address_Type in ('shipping', 'correspondence') ;
+	select count(*) from address where address_Type in ('shipping', 'correspondence') and s$lastdate is not null ;
 
 	<cfquery name="d" datasource="prod" >
 			 select
@@ -36,11 +63,22 @@
 	where
 		s$lastdate is null and
 		address_Type in ('shipping', 'correspondence') and
-		rownum<100
+		rownum<10
 		</cfquery>
 		<cfloop query="d">
 			<cfset coords=''>
 			<br>#address#
+
+			<!--- faster??--->
+
+
+			<cfset utilities = CreateObject("component","component.utilities")>
+			<cfset x=utilities.georeferenceAddress(address)>
+			<cfdump var=#x#>
+
+			<!----
+
+
 			<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 			<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(address)#" >
 			<cfset coords=cfhttp.fileContent>
@@ -48,6 +86,7 @@
 			<cfquery name="p" datasource="prod" >
 				update address set S$COORDINATES='#coords#', S$LASTDATE=sysdate where address_id=#address_id#
 			</cfquery>
+			---->
 
 		</cfloop>
 								<!--- call remote so no transaction datasource conflicts---->
