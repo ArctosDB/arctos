@@ -63,7 +63,7 @@ group by address_type;
 	where
 		s$lastdate is null and
 		address_Type in ('shipping', 'correspondence') and
-		rownum<10
+		rownum<100
 		</cfquery>
 
 					<cfset utilities = CreateObject("component","component.utilities")>
@@ -77,7 +77,7 @@ group by address_type;
 
 			<cfset x=utilities.georeferenceAddress(address)>
 			<p>
-				<cfdump var=#x#>
+				#x#
 			</p>
 
 			<cfquery name="p" datasource="prod" >
