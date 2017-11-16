@@ -1,6 +1,141 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 
+permit
+ -----------------------------------------------------------------
+ PERMIT_ID		     NOT NULL PKEY
+ ISSUED_DATE             NOT NULL DATE
+ EXP_DATE                   NOT NULL DATE
+ PERMIT_NUM	             NOT NULL VARCHAR2(25)
+ PERMIT_REMARKS    VARCHAR2(4000)
+
+new table permit_type
+---------------------------------------------------
+permit_type_id             NOT NULL PKEY
+permit_id                      NOT NULL FKEK(permit)
+PERMIT_TYPE               NOT NULL FKEY(ctpermit_type)
+regulation                     FKEY(ctpermit_regulation)
+
+permit_agent
+-------------------------------
+permit_agent_id            NOT NULL PKEY
+permit_id                       NOT NULL FKEY(permit)
+agent_id                        NOT NULL FKEY(agent)
+agent_role                     NOT NULL FKEY(ctpermit_agent_role)
+
+
+
+<h2>
+	Exapmle Create/Edit Permits Form
+</h2>
+<h3>Normal Stuff</h3>
+<label>
+	ISSUED_DATE
+</label>
+<input type="text" placeholder="datepicker">
+<label>
+	EXP_DATE
+</label>
+<input type="text" placeholder="datepicker">
+<label>
+	PERMIT_NUM
+</label>
+<input type="text" placeholder="this is required">
+<label>
+	PERMIT_REMARKS
+</label>
+<input type="text" placeholder="this is optional">
+
+<h3>Permit Type</h3>
+These will all be single-value selects, pretend they're "expanded" here
+<table border>
+	<tr>
+		<td>Permit Type</td>
+		<td>Regulation</td>
+	</tr>
+	<tr>
+		<td>
+			<select multiple>
+				<option>collect</option>
+				<option>export</option>
+				<option>import</option>
+				<option>research</option>
+				<option>salvage</option>
+				<option>transport</option>
+			</select>
+		</td>
+
+		<td>
+			<select multiple>
+				<option>CITES</option>
+				<option>BGEPA</option>
+				<option>ESA</option>
+				<option>MBTA</option>
+				<option>WBCA</option>
+				<option>MMPA</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			Click to add a row or etc. - you can have as many of these as you need.
+		</td>
+	</tr>
+</table>
+
+<h3>Permit Agent</h3>
+
+<table border>
+	<tr>
+		<td>Agent</td>
+		<td>Role</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="text" placeholder="agent-picker">
+
+		</td>
+
+		<td>
+			<select multiple>
+				<option>issued by</option>
+				<option>issued to</option>
+				<option>contact</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			Click to add a row or etc. - you can have as many of these as you need.
+		</td>
+	</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</cfoutput>
+
+
+
+
+
+<!----------------
+
+
+
+
+
 	<cffunction
 	    name="ISOToDateTime"
 	    access="public"
@@ -129,13 +264,12 @@ mailing to #application.logemail#....
 		</cfloop>
 	</cfloop>
 </cfmail>
-</cfoutput>
 
 
 
 
 
-<!----------------
+
 
 <cfdump var=#x#>
 
