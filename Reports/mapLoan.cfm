@@ -36,7 +36,7 @@
 	where
 		s$lastdate is null and
 		address_Type in ('shipping', 'correspondence') and
-		rownum<10
+		rownum<100
 		</cfquery>
 		<cfloop query="d">
 			<cfset coords=''>
@@ -55,7 +55,6 @@
 
 
 
-<cfdump var=#d#>
 
 <!--------
 
