@@ -41,7 +41,7 @@
 		<cfloop query="d">
 			<br>#address#
 			<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
-			<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(thisAddress)#" >
+			<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(address)#" >
 			<cfset coords=cfhttp.fileContent>
 			<br>#coords#
 
