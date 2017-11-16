@@ -28,24 +28,31 @@
 
 <cfoutput>
 
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="d" datasource="prod" >
 			 select
-		guid_prefix collection,
-		loan_number,
-		s$coordinates
+		*
 	from
-		collection,
-		trans,
-		loan,
-		shipment,
 		address
 	where
 		collection.collection_id=trans.collection_id and
 		trans.transaction_id=loan.transaction_id and
 		loan.transaction_id=shipment.transaction_id and
 		shipment.SHIPPED_TO_ADDR_ID=address.address_id and
-		s$coordinates is not null
+		s$lastdate is null and
+
+		address_Type in ('shipping', 'correspondence') and
+		rownum<10
 		</cfquery>
+<cfdump var=#d#>
+
+<!--------
+
+	<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
+								<!--- call remote so no transaction datasource conflicts---->
+								<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(thisAddress)#" >
+								<cfset coords=cfhttp.fileContent>
+
+
 
 <cfset fn="arctos_#randRange(1,1000)#">
 
@@ -113,7 +120,7 @@
 
 
 
-
+--------->
 	<!----
 
 
