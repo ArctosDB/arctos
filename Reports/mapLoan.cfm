@@ -34,12 +34,7 @@
 	from
 		address
 	where
-		collection.collection_id=trans.collection_id and
-		trans.transaction_id=loan.transaction_id and
-		loan.transaction_id=shipment.transaction_id and
-		shipment.SHIPPED_TO_ADDR_ID=address.address_id and
 		s$lastdate is null and
-
 		address_Type in ('shipping', 'correspondence') and
 		rownum<10
 		</cfquery>
