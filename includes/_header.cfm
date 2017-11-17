@@ -108,25 +108,21 @@
 			<div id="headerTable">
 				<div id="header-table-row">
 					<div id="header-img-cell">
-						<div id="headerImageCell">
-							<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
-						</div>
+						<a target="_top" href="#session.collection_url#">
+							<img src="#session.header_image#" alt="Arctos" border="0">
+						</a>
 					</div>
 					<div id="header-link-cell">
-						<div id="collectionCell">
+						<div id="collectionTextCell" class="headerCollectionText">
 							<cfif len(session.collection_link_text) gt 0>
 								<a target="_top" href="#session.collection_url#" class="novisit">
-									<span class="headerCollectionText">
-											#session.collection_link_text#
-									</span>
+									#session.collection_link_text#
 								</a>
 							</cfif>
 						</div>
-						<div>
+						<div id="headerInstitutionText" class="headerInstitutionText">
 							<a target="_top" href="#session.institution_url#" class="novisit">
-								<span class="headerInstitutionText">
-									#session.institution_link_text#
-								</span>
+								#session.institution_link_text#
 							</a>
 						</div>
 						<div id="creditCell"></div>

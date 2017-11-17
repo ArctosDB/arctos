@@ -18,31 +18,30 @@
 			try {
 			var header_color = document.getElementById('header_color');
 			header_color.style.backgroundColor='#getCollApp.header_color#';
-			var headerImageCell = document.getElementById('headerImageCell');
+			var headerImageCell = document.getElementById('header-img-cell');
 			headerImageCell.innerHTML='<a target="_top" href="#getCollApp.collection_url#"><img src="#getCollApp.header_image#" alt="Arctos" border="0"></a>';
 
 
 
-			var collectionCell = document.getElementById('header-link-cell');
-			var contents = '<div>';
-				contents += '<a target="_top" href="#getCollApp.collection_url#" class="novisit">';
-				contents += '<span class="headerInstitutionText">#getCollApp.collection_link_text#</span>';
+			var collectionCell = document.getElementById('collectionTextCell');
+			var contents = '<a target="_top" href="#getCollApp.collection_url#" class="novisit">';
+				contents += '#getCollApp.collection_link_text#';
 				contents += '</a>';
-			contents += '</div>';
+			collectionCell.innerHTML=contents;
 
-			contents += '<div>';
-			contents += '<a target="_top" href="#getCollApp.institution_url#" class="novisit">';
-			contents += '<span class="headerInstitutionText">#getCollApp.institution_link_text#</span>';
-			contents += '</a>';
-			contents += '</div>';
+			var headerInstitutionText = document.getElementById('headerInstitutionText');
+
+			var contents ='<a target="_top" href="#getCollApp.institution_url#" class="novisit">';
+				contents += '#getCollApp.institution_link_text#';
+				contents += '</a>';
+			headerInstitutionText.innerHTML=contents;
 
 			var hc='#getCollApp.header_credit#';
 			if (hc.length > 0)  {
-				contents += '<div>';
-				contents += '<span  class="hdrCredit">#getCollApp.header_credit#</span>';
-				contents += '</div>';
+				var creditCell = document.getElementById('creditCell');
+				var contents = '#getCollApp.header_credit#';
+				creditCell.innerHTML=contents;
 			}
-			collectionCell.innerHTML=contents;
 			changeStyle('#ssName#');
 			} catch(e) {}
 		</script>
