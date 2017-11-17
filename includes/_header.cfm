@@ -111,7 +111,6 @@
 						<div id="headerImageCell">
 							<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
 						</div>
-						<div id="creditCell"></div>
 					</div>
 					<div id="header-link-cell">
 						<div id="collectionCell">
@@ -130,6 +129,7 @@
 								</span>
 							</a>
 						</div>
+						<div id="creditCell"></div>
 					</div>
 					<cfif len(g_a_t.announcement_text) gt 0>
 						<div id="header-news-cell">
