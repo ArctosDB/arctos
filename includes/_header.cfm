@@ -63,6 +63,7 @@
 		}
 		#header-link-cell {
 			display:table-cell;
+			vertical-align: bottom;
 		}
 		#header-news-cell {
 			display:table-cell;
