@@ -63,7 +63,7 @@
 
 <cfset maybeBad="">
 
-<cfset timeBetweenQueries=5>
+<cfset timeBetweenQueries=3>
 <cfset numberOfQueries=10>
 <cfloop query="dip">
 	<br>running for #ip#
