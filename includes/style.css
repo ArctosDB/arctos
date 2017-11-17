@@ -1035,16 +1035,23 @@ td#SDCellRight{
 	color:#000066; 
 	font-weight:bold;
 }
-.headerInstitutionText a {
-	color:#000066; 
-}
+
+.headerInstitutionText a:link { color: #000066; }
+.headerInstitutionText a:visited { color: #000066; }
+.headerInstitutionText a:hover { color: #000066; }
+.headerInstitutionText a:active { color: #000066; }
+
+
+
 .headerCollectionText {
 	font-size:xx-large;
-	color:#000066;
 }
-.headerCollectionText a {
-	color:#000066;
-}
+.headerCollectionText a:link { color: #000066; }
+.headerCollectionText a:visited { color: #000066; }
+.headerCollectionText a:hover { color: #000066; }
+.headerCollectionText a:active { color: #000066; }
+
+
 
 .annotateSpace, .annotateSpace a:visited .annotateSpace a {
 	font-size:.75em;
