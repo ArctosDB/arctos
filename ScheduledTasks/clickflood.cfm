@@ -49,6 +49,10 @@
 	select * from x where rqst not like '%.cfc%'
 </cfquery>
 
+<cfquery name="x" dbtype="query">
+	select * from x where rqst not like '%/form/%'
+</cfquery>
+
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
@@ -99,6 +103,8 @@ mailing to #application.logemail#....
 		</cfloop>
 	</cfloop>
 
+
+<!----
 <cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
@@ -120,4 +126,5 @@ mailing to #application.logemail#....
 		</cfloop>
 	</cfloop>
 </cfmail>
+------->
 </cfoutput>
