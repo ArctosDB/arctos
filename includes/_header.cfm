@@ -125,7 +125,7 @@
 						<div id="headerImageCell">
 							<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
 						</div>
-						<div id="creditCell">creddits....</div>
+						<div id="creditCell"></div>
 					</div>
 					<div id="header-link-cell">
 						<div id="collectionCell">
