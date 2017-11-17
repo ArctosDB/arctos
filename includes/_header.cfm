@@ -59,7 +59,7 @@
 		}
 		#header-img-cell {
 			display:table-cell;
-			padding:10px;
+			padding:0;
 		}
 		#header-link-cell {
 			display:table-cell;
