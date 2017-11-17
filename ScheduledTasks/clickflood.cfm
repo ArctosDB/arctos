@@ -49,11 +49,22 @@
 	select * from x where rqst not like '%.cfc%'
 </cfquery>
 
+<cfquery name="x" dbtype="query">
+	select * from x where rqst not like '%/form/%'
+</cfquery>
+
+<cfquery name="x" dbtype="query">
+	select * from x where rqst not like '%/includes/%'
+</cfquery>
+
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
 
 <cfset maybeBad="">
+
+<cfset timeBetweenQueries=3>
+<cfset numberOfQueries=10>
 <cfloop query="dip">
 	<br>running for #ip#
 	<cfquery name="thisRequests" dbtype="query">
@@ -66,12 +77,12 @@
 		<cfloop query="thisRequests">
 			<cfset thisTime=ISOToDateTime(ts)>
 			<cfset ttl=DateDiff("s", lastTime, thisTime)>
-			<cfif ttl lte 10>
+			<cfif ttl lte timeBetweenQueries>
 				<cfset nrq=nrq+1>
 			</cfif>
 			<cfset lastTime=thisTime>
 		</cfloop>
-		<cfif nrq gt 10>
+		<cfif nrq gt numberOfQueries>
 			<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
 		</cfif>
 	</cfif>
@@ -99,6 +110,8 @@ mailing to #application.logemail#....
 		</cfloop>
 	</cfloop>
 
+
+<!----
 <cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
@@ -120,4 +133,5 @@ mailing to #application.logemail#....
 		</cfloop>
 	</cfloop>
 </cfmail>
+------->
 </cfoutput>
