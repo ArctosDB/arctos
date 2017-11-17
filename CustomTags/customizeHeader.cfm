@@ -18,7 +18,7 @@
 			try {
 			var header_color = document.getElementById('header_color');
 			header_color.style.backgroundColor='#getCollApp.header_color#';
-			var headerImageCell = document.getElementById('header-img-cell');
+			var headerImageCell = document.getElementById('headerImageCell');
 			headerImageCell.innerHTML='<a target="_top" href="#getCollApp.collection_url#"><img src="#getCollApp.header_image#" alt="Arctos" border="0"></a>';
 			var collectionCell = document.getElementById('header-link-cell');
 			var contents = '<a target="_top" href="#getCollApp.collection_url#" class="novisit">';
