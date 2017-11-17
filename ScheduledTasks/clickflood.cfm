@@ -62,6 +62,9 @@
 </cfquery>
 
 <cfset maybeBad="">
+
+<cfset timeBetweenQueries=5>
+<cfset numberOfQueries=10>
 <cfloop query="dip">
 	<br>running for #ip#
 	<cfquery name="thisRequests" dbtype="query">
@@ -74,12 +77,12 @@
 		<cfloop query="thisRequests">
 			<cfset thisTime=ISOToDateTime(ts)>
 			<cfset ttl=DateDiff("s", lastTime, thisTime)>
-			<cfif ttl lte 10>
+			<cfif ttl lte timeBetweenQueries>
 				<cfset nrq=nrq+1>
 			</cfif>
 			<cfset lastTime=thisTime>
 		</cfloop>
-		<cfif nrq gt 10>
+		<cfif nrq gt numberOfQueries>
 			<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
 		</cfif>
 	</cfif>
