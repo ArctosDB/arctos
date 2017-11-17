@@ -24,7 +24,7 @@
 			var collectionCell = document.getElementById('header-link-cell');
 			var contents = '<div>';
 				contents += '<a target="_top" href="#getCollApp.collection_url#" class="novisit">';
-				contents += '<span class="headerInstitutionText">#getCollApp.institution_link_text#</span>';
+				contents += '<span class="headerInstitutionText">#getCollApp.collection_link_text#</span>';
 				contents += '</a>';
 			contents += '</div>';
 
