@@ -48,7 +48,20 @@
 			transition: .2s;
 			border-radius: 5px;
 		}
-
+.newsDefault:hover{
+			background:bisque;
+			 max-height:unset;
+			 max-width:unset;
+			width:100%;
+			 white-space: normal;
+			 position:relative;
+			 margin-left: auto;
+			 margin-top: 0;
+			 margin-right: auto;
+			 left: 0;
+			 right: 0;
+			 z-index: 100000;
+		}
 
 		#headerTable {
 			display:table;
