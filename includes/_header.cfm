@@ -123,7 +123,7 @@
 				<div id="header-table-row">
 					<div id="header-img-cell">
 						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
-						<div id="creditCell"></div>
+						<div id="creditCell">creddits....</div>
 					</div>
 					<div id="header-link-cell">
 						<cfif len(session.collection_link_text) gt 0>
