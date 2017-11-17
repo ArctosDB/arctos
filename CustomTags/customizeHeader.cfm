@@ -20,16 +20,26 @@
 			header_color.style.backgroundColor='#getCollApp.header_color#';
 			var headerImageCell = document.getElementById('headerImageCell');
 			headerImageCell.innerHTML='<a target="_top" href="#getCollApp.collection_url#"><img src="#getCollApp.header_image#" alt="Arctos" border="0"></a>';
+
 			var collectionCell = document.getElementById('header-link-cell');
-			var contents = '<a target="_top" href="#getCollApp.collection_url#" class="novisit">';
-			contents += '<span class="headerCollectionText">#getCollApp.collection_link_text#</span></a>';
-			contents += '<br>';
+			var contents = '<div>';
+				contents += '<a target="_top" href="#getCollApp.collection_url#" class="novisit">';
+				contents += '<span class="headerInstitutionText">#getCollApp.institution_link_text#</span>';
+				contents += '</a>';
+			contents += '</div>';
+
+			contents += '<div>';
 			contents += '<a target="_top" href="#getCollApp.institution_url#" class="novisit">';
-			contents += '<span class="headerInstitutionText">#getCollApp.institution_link_text#</span></a>';
+			contents += '<span class="headerInstitutionText">#getCollApp.institution_link_text#</span>';
+			contents += '</a>';
+			contents += '</div>';
+
+			if (len(getCollApp.header_credit) gt 0)  {
+				contents += '<div>';
+				contents += '<span  class="hdrCredit">#getCollApp.header_credit#</span>';
+				contents += '</div>';
+			}
 			collectionCell.innerHTML=contents;
-			var creditCell = document.getElementById('creditCell');
-			var c='<span  class="hdrCredit">#getCollApp.header_credit#</span>';
-			creditCell.innerHTML=c;
 			changeStyle('#ssName#');
 			} catch(e) {}
 		</script>
