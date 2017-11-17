@@ -34,7 +34,7 @@
 			contents += '</a>';
 			contents += '</div>';
 
-			if (len(getCollApp.header_credit) gt 0)  {
+			if ('#getCollApp.header_credit#'.length > 0)  {
 				contents += '<div>';
 				contents += '<span  class="hdrCredit">#getCollApp.header_credit#</span>';
 				contents += '</div>';
