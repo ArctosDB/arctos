@@ -21,6 +21,8 @@
 			var headerImageCell = document.getElementById('headerImageCell');
 			headerImageCell.innerHTML='<a target="_top" href="#getCollApp.collection_url#"><img src="#getCollApp.header_image#" alt="Arctos" border="0"></a>';
 
+
+
 			var collectionCell = document.getElementById('header-link-cell');
 			var contents = '<div>';
 				contents += '<a target="_top" href="#getCollApp.collection_url#" class="novisit">';
