@@ -53,6 +53,10 @@
 	select * from x where rqst not like '%/form/%'
 </cfquery>
 
+<cfquery name="x" dbtype="query">
+	select * from x where rqst not like '%/includes/%'
+</cfquery>
+
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
