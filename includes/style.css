@@ -1032,10 +1032,12 @@ td#SDCellRight{
 	font-size:1em;
 }
 .headerInstitutionText {
+	color:#000066; 
 	font-weight:bold;
 }
 .headerCollectionText {
-	font-size:xx-large
+	font-size:xx-large;
+	color:#000066;
 }
 .annotateSpace, .annotateSpace a:visited .annotateSpace a {
 	font-size:.75em;
