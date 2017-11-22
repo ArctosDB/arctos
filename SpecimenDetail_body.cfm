@@ -1126,8 +1126,6 @@
 										<td>
 											<cfloop query="tlp">
 												<div>
-
-													hye....
 													<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number# (#LOAN_STATUS#)</a>
 												</div>
 											</cfloop>
