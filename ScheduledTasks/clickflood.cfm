@@ -75,9 +75,11 @@
 		<cfset lastTime=ISOToDateTime("2000-11-08T12:36:0")>
 		<cfset nrq=0>
 		<cfloop query="thisRequests">
+			<br>thisTime: #thisTime#
 			<cfset thisTime=ISOToDateTime(ts)>
 			<cfset ttl=DateDiff("s", lastTime, thisTime)>
 			<cfif ttl lte timeBetweenQueries>
+				<br>triggered!
 				<cfset nrq=nrq+1>
 			</cfif>
 			<cfset lastTime=thisTime>
