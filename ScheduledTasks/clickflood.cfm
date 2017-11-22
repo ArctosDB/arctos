@@ -57,7 +57,7 @@
 	select * from x where rqst not like '%/includes/%'
 </cfquery>
 <cfquery name="x" dbtype="query">
-	select * from x where len(usrname) eq 0
+	select * from x where usrname is null
 </cfquery>
 
 <cfquery name="dip" dbtype="query">
