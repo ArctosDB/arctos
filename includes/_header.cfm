@@ -80,6 +80,7 @@
 		}
 		#header-news-cell {
 			display:table-cell;
+			vertical-align: bottom;
 		}
 		#header-login-cell {
 			display:table-cell;
