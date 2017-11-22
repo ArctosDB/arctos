@@ -9,7 +9,7 @@
 	<cfif action is "nothing">
 	<script language="javascript" type="text/javascript">
 		jQuery(document).ready(function() {
-			jQuery("#announcement_expires").datepicker();
+			jQuery("##announcement_expires").datepicker();
 		});
 	</script>
 		<cfset title="Global Arctos Settings: be careful in here!">
