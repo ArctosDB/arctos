@@ -29,7 +29,7 @@
 	 name = "/usr/bin/tail"
 	 errorVariable="errorOut"
 	 variable="exrslt"
-	 arguments = "-5000 #Application.requestlog#" />
+	 arguments = "-50000 #Application.requestlog#" />
 
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
