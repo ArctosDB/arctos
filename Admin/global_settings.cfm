@@ -1,11 +1,17 @@
 <!----
 	alter table cf_global_settings add announcement_text varchar2 (255);
+	alter table cf_global_settings add announcement_expires date;
 ---->
 
 
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "nothing">
+	<script language="javascript" type="text/javascript">
+		jQuery(document).ready(function() {
+			jQuery("#announcement_expires").datepicker();
+		});
+	</script>
 		<cfset title="Global Arctos Settings: be careful in here!">
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_global_settings
@@ -28,6 +34,11 @@
 				</xmp>
 			</label>
 			<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
+
+			<label for="announcement_expires">announcement_expires (stop showing on DATE)
+
+			</label>
+			<input type="text" name="announcement_expires" id="announcement_expires" size="80" value="#d.announcement_expires#">
 
 
 			<!---- google ---->
@@ -137,7 +148,8 @@
 				protect_ip_remark='#protect_ip_remark#',
 				monitor_email_addr='#monitor_email_addr#',
 				monitor_email_pwd='#monitor_email_pwd#',
-				announcement_text='#announcement_text#'
+				announcement_text='#announcement_text#',
+				announcement_expires='#announcement_expires#'
 		</cfquery>
 		<cflocation url="global_settings.cfm" addtoken="false">
 	</cfif>
