@@ -123,9 +123,9 @@
 			<label for="protect_ip_remark">protect_ip_remark (document everything up there down here)</label>
 			<textarea name="protect_ip_remark" id="protect_ip_remark" rows="6" cols="50" class="hugetextarea">#d.protect_ip_remark#</textarea>
 
-
-
-			<input type="submit" value="saveAll" class="savBtn">
+			<p>
+				<input type="submit" value="saveAll" class="savBtn">
+			</p>
 		</form>
 	</cfif>
 	<cfif action is "save">
