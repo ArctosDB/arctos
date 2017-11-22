@@ -48,13 +48,16 @@
 <cfquery name="x" dbtype="query">
 	select * from x where rqst not like '%.cfc%'
 </cfquery>
-
+<!--- exclude "us" stuff, this is just to catch craptraffic ---->
 <cfquery name="x" dbtype="query">
 	select * from x where rqst not like '%/form/%'
 </cfquery>
 
 <cfquery name="x" dbtype="query">
 	select * from x where rqst not like '%/includes/%'
+</cfquery>
+<cfquery name="x" dbtype="query">
+	select * from x where len(usrname) eq 0
 </cfquery>
 
 <cfquery name="dip" dbtype="query">
