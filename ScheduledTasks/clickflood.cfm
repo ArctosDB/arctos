@@ -29,7 +29,7 @@
 	 name = "/usr/bin/tail"
 	 errorVariable="errorOut"
 	 variable="exrslt"
-	 arguments = "-50000 #Application.requestlog#" />
+	 arguments = "-5000 #Application.requestlog#" />
 
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
@@ -56,10 +56,11 @@
 <cfquery name="x" dbtype="query">
 	select * from x where rqst not like '%/includes/%'
 </cfquery>
+<cfdump var=#x#>
 <cfquery name="x" dbtype="query">
 	select * from x where usrname is null
 </cfquery>
-
+<cfdump var=#x#>
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
