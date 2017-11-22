@@ -35,7 +35,7 @@
 			</label>
 			<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
 
-			<label for="announcement_expires">announcement_expires (stop showing on DATE)
+			<label for="announcement_expires">announcement_expires (show through DATE)
 
 			</label>
 			<input type="text" name="announcement_expires" id="announcement_expires" size="80" value="#dateformat(d.announcement_expires,'YYYY-MM-DD')#">
