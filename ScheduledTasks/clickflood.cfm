@@ -57,11 +57,9 @@
 <cfquery name="x" dbtype="query">
 	select * from x where rqst not like '%/includes/%'
 </cfquery>
-<cfdump var=#x#>
 <cfquery name="x" dbtype="query">
 	select * from x where usrname =''
 </cfquery>
-<cfdump var=#x#>
 <cfquery name="dip" dbtype="query">
 	select distinct(ip) from x
 </cfquery>
