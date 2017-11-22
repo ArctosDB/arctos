@@ -4,7 +4,11 @@
 	<cfif not isdefined("session.header_color")>
 		<cfset setDbUser()>
 	</cfif>
-	<cfquery name="g_a_t" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+
+	<!----
+	cachedwithin="#createtimespan(0,0,60,0)#"
+	---->
+	<cfquery name="g_a_t" datasource="uam_god" >
 		select announcement_text from cf_global_settings
 	</cfquery>
 
