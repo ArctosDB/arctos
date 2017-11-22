@@ -58,7 +58,7 @@
 </cfquery>
 <cfdump var=#x#>
 <cfquery name="x" dbtype="query">
-	select * from x where usrname is null
+	select * from x where usrname =''
 </cfquery>
 <cfdump var=#x#>
 <cfquery name="dip" dbtype="query">
