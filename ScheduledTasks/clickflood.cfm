@@ -66,6 +66,7 @@
 <cfset timeBetweenQueries=3>
 <cfset numberOfQueries=10>
 <cfloop query="dip">
+<hr>
 	<br>running for #ip#
 	<cfquery name="thisRequests" dbtype="query">
 		select * from x where ip='#ip#' order by ts
