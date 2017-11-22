@@ -24,12 +24,13 @@
 	    ) />
 </cffunction>
 
+<cfset numberOfRequests=50000>
 <cfexecute
 	 timeout="10"
 	 name = "/usr/bin/tail"
 	 errorVariable="errorOut"
 	 variable="exrslt"
-	 arguments = "-5000 #Application.requestlog#" />
+	 arguments = "-#numberOfRequests# #Application.requestlog#" />
 
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
@@ -100,7 +101,7 @@ mailing to #application.logemail#....
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
 		<cfset cfcnt=listgetat(o,2,"|")>
-		<p>IP #thisIP# made #cfcnt# flood-like requests in the last 5000 overall requests.</p>
+		<p>IP #thisIP# made #cfcnt# flood-like requests in the last #numberOfRequests# overall requests.</p>
 
 		<a href="http://whatismyipaddress.com/ip/#thisIP#">[ lookup #thisIP# @whatismyipaddress ]</a>
 		<br><a href="https://www.ipalyzer.com/#thisIP#">[ lookup #thisIP# @ipalyzer ]</a>
