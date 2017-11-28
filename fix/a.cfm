@@ -2,12 +2,13 @@
 <cfoutput>
 
     <cfquery datasource='prod' name='d'>
-		select higher_geog from geog_auth_rec  order by higher_geog
+		select higher_geog from geog_auth_rec where higher_geog like '%Australia%; order by higher_geog
 	</cfquery>
 	<cfloop query="d">
+		<br>#higher_geog#
 		<cfset ulist=ListRemoveDuplicates(higher_geog)>
 		<cfif ulist neq higher_geog>
-			<br>#higher_geog#
+			<br>-----#higher_geog#
 		</cfif>
 	</cfloop>
 
