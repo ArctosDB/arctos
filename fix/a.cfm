@@ -2,17 +2,17 @@
 <cfoutput>
 
     <cfquery datasource='prod' name='d'>
-		select higher_geog from geog_auth_rec where rownum < 30 order by higher_geog
+		select higher_geog from geog_auth_rec  order by higher_geog
 	</cfquery>
 	<cfloop query="d">
 		<cfset wc=0>
-			<br>#higher_geog#
+
 		<cfloop list="#higher_geog#" index="i">
-			<br> ---- #i#
+
 			<cfset occurrences = ( Len(higher_geog) - Len(Replace(higher_geog,i,'','all'))  ) / Len(i) >
-			<br>====#occurrences#
-
-
+			<cfif occurrences gt 1>
+				<br>#higher_geog# (#i# @ #occurrences#)
+			</cfif>
 		</cfloop>
 
 	</cfloop>
