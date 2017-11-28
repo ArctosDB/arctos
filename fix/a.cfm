@@ -6,7 +6,7 @@
 	</cfquery>
 	<cfloop query="d">
 		<br>#higher_geog#
-		<cfset ulist=ListRemoveDuplicates(replace(higher_geog,", ",",","all")>
+		<cfset ulist=ListRemoveDuplicates(replace(higher_geog,", ",",","all"))>
 		<br>#ulist#
 		<cfif ulist neq higher_geog>
 			<br>-----#higher_geog#
