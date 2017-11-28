@@ -9,6 +9,10 @@
 			<br>#higher_geog#
 		<cfloop list="#higher_geog#" index="i">
 			<br> ---- #i#
+			<cfset occurrences = ( Len(higher_geog) - Len(Replace(higher_geog,i,'','all'))  ) / Len(i) >
+			<br>====#occurrences#
+
+
 		</cfloop>
 
 	</cfloop>
