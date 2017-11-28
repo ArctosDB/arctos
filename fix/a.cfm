@@ -2,7 +2,7 @@
 <cfoutput>
 
     <cfquery datasource='prod' name='d'>
-		select higher_geog from geog_auth_rec where rownum<500 order by higher_geog
+		select higher_geog from geog_auth_rec  order by higher_geog
 	</cfquery>
 	<cfloop query="d">
 		<cfset ulist=ListRemoveDuplicates(higher_geog)>
