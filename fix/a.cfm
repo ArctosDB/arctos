@@ -6,8 +6,9 @@
 	</cfquery>
 	<cfloop query="d">
 		<cfset wc=0>
+			<br>#higher_geog#
 		<cfloop list="#higher_geog#" index="i">
-
+			<br> ---- #i#
 		</cfloop>
 
 	</cfloop>
