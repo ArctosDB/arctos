@@ -1,6 +1,56 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 
+    <cfquery datasource='prod' name='d'>
+		select higher_geog from geog_auth_rec where rownum < 30 order by higher_geog
+	</cfquery>
+	<cfloop query="d">
+		<cfset wc=0>
+		<cfloop list="#higher_geog#" index="i">
+
+		</cfloop>
+
+	</cfloop>
+
+UAM@ARCTOS> desc geog_auth_rec
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ GEOG_AUTH_REC_ID						   NOT NULL NUMBER
+ CONTINENT_OCEAN							    VARCHAR2(50)
+ COUNTRY								    VARCHAR2(50)
+ STATE_PROV								    VARCHAR2(75)
+ COUNTY 								    VARCHAR2(50)
+ QUAD									    VARCHAR2(30)
+ FEATURE								    VARCHAR2(50)
+ ISLAND 								    VARCHAR2(50)
+ ISLAND_GROUP								    VARCHAR2(50)
+ SEA									    VARCHAR2(50)
+ VALID_CATALOG_TERM_FG						   NOT NULL NUMBER(3)
+ SOURCE_AUTHORITY						   NOT NULL VARCHAR2(255)
+ HIGHER_GEOG							   NOT NULL VARCHAR2(255)
+ STRIPPED_KEY							   NOT NULL VARCHAR2(4000)
+ GEOG_REMARK								    VARCHAR2(4000)
+ WKT_POLYGON								    CLOB
+
+
+
+
+
+
+
+
+
+
+</cfoutput>
+
+
+
+
+
+<!----------------
+
+
+
 permit
  -----------------------------------------------------------------
  PERMIT_ID		     NOT NULL PKEY
@@ -114,23 +164,6 @@ These will all be single-value selects, pretend they're "expanded" here
 
 
 
-
-
-
-
-
-
-
-
-
-
-</cfoutput>
-
-
-
-
-
-<!----------------
 
 
 
