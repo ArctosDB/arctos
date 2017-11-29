@@ -43,7 +43,7 @@
 						</p>
 						<p>
 							Loading this page clears the ColdFusion cache; you should be seeing current announcement_text
-							after save. Your browser may be caching as well - hard-reload (probalby shift-reload) this page
+							after save. Your browser may be caching as well - hard-reload (probably shift-reload) this page
 							and CAREFULLY confirm that the news is doing what you want and not breaking anything else before
 							leaving.
 						</p>

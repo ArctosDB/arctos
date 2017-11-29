@@ -1,4 +1,16 @@
 <cfcomponent>
+<cffunction name="isProtectedIp" returnType="string" access="remote">
+	<cfargument name="ip" type="string" required="yes">
+	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select protected_ip_list from cf_global_settings
+	</cfquery>
+	<cfif listfind(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
+		<cfreturn true>
+	<cfelse>
+		<cfreturn false>
+	</cfif>
+
+</cffunction>
 
 <cffunction name="georeferenceAddress" returnType="string" access="remote">
 	<cfargument name="address" type="string" required="yes">
