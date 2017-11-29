@@ -2,7 +2,15 @@
 	alter table cf_global_settings add announcement_text varchar2 (255);
 	alter table cf_global_settings add announcement_expires date;
 ---->
+<!---- force-refresh cache
 
+
+<cfquery datasource="myDSN" name="myQuery" cachedwithin="#CreateTimeSpan(0, 0, 0, 0)#">
+SELECT *
+FROM mytable;
+</cfquery>
+
+---->
 
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
