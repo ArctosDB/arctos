@@ -5,6 +5,10 @@
 		select protected_ip_list from cf_global_settings
 	</cfquery>
 	<cfdump var=#protected_ip_list#>
+	<cfloop list="#protected_ip_list.protected_ip_list#" index="i">
+		<br>#i#
+	</cfloop>
+
 	<cfif listfind(protected_ip_list.protected_ip_list,trim(ip))>
 		<cfreturn true>
 	<cfelse>
