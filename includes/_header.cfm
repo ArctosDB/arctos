@@ -448,7 +448,7 @@
 											<cfif listfind(formList,"/Encumbrances.cfm")>
 												<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
 											</cfif>
-											<cfif listfind(formList,"/CodeTableEditor.cfm")>
+											<cfif listfind(formList,"/Admin/CodeTableEditor.cfm")>
 												<li><a target="_top" href="/Admin/CodeTableEditor.cfm">Code Tables</a></li>
 											</cfif>
 											<cfif listfind(formList,"/Admin/global_settings.cfm")>
