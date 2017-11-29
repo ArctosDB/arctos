@@ -35,7 +35,7 @@
 						<label for="announcement_text">announcement_text</label>
 						<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
 					</div>
-					<div style="display:table-cell">
+					<div style="display:table-cell; border:1px solid red;margin:1em;">
 					 (displays in header; 1-hour cache)
 						IMPORTANT: links should include  target="_blank" and class="external" - like this:
 						<xmp>
