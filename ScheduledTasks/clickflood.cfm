@@ -64,6 +64,11 @@
 	select distinct(ip) from x
 </cfquery>
 
+<cfquery name="dsn" dbtype="query">
+	select distinct(listgetat(ip,1,'.') & '.' & listgetat(ip,2,'.')) as subnet from x
+</cfquery>
+<cfdump var=#dsn#>
+
 <cfset maybeBad="">
 
 <cfset timeBetweenQueries=3>
