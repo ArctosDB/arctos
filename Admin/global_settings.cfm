@@ -35,10 +35,10 @@
 						<label for="announcement_text">announcement_text</label>
 						<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
 					</div>
-					<div style="display:table-cell; border:1px solid red;margin:1em;">
-					 announcement_text displays in header
-					 <br>IMPORTANT: links should include  target="_blank" and class="external" - like this:
-					<br>&lt;a target="_blank" class="external" href="http://google.com"&gt;this is an HTML link to Google&lt;/a&gt;
+					<div style="display:table-cell; border:1px solid red;margin:1em;padding:1em;">
+						announcement_text displays in header
+						<br>IMPORTANT: links should include  target="_blank" and class="external" - like this:
+						<br>&lt;a target="_blank" class="external" href="http://google.com"&gt;this is an HTML link to Google&lt;/a&gt;
 					</div>
 				</div>
 
