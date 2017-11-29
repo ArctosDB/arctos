@@ -68,32 +68,37 @@
 
 <cfset timeBetweenQueries=3>
 <cfset numberOfQueries=10>
+<cfset utilities = CreateObject("component","component.utilities")>
+
 <cfloop query="dip">
 <hr>
 	<br>running for #ip#
-	<cfquery name="thisRequests" dbtype="query">
-		select * from x where ip='#ip#' order by ts
-	</cfquery>
-	<cfif thisrequests.recordcount gte 10>
-		<!--- IPs making 10 or fewer requests just get ignored ---->
-		<cfset lastTime=ISOToDateTime("2000-11-08T12:36:0")>
-		<cfset nrq=0>
-		<cfloop query="thisRequests">
-			<cfset thisTime=ISOToDateTime(ts)>
-			<!-----
-			<br>thisTime: #thisTime#::::#rqst#::::::#usrname#
-			---->
-			<cfset ttl=DateDiff("s", lastTime, thisTime)>
-			<cfif ttl lte timeBetweenQueries>
-				<!----
-				<br>triggered!
+	<cfif utilities.isProtectedIp(request.ipaddress) is false>
+
+		<cfquery name="thisRequests" dbtype="query">
+			select * from x where ip='#ip#' order by ts
+		</cfquery>
+		<cfif thisrequests.recordcount gte 10>
+			<!--- IPs making 10 or fewer requests just get ignored ---->
+			<cfset lastTime=ISOToDateTime("2000-11-08T12:36:0")>
+			<cfset nrq=0>
+			<cfloop query="thisRequests">
+				<cfset thisTime=ISOToDateTime(ts)>
+				<!-----
+				<br>thisTime: #thisTime#::::#rqst#::::::#usrname#
 				---->
-				<cfset nrq=nrq+1>
+				<cfset ttl=DateDiff("s", lastTime, thisTime)>
+				<cfif ttl lte timeBetweenQueries>
+					<!----
+					<br>triggered!
+					---->
+					<cfset nrq=nrq+1>
+				</cfif>
+				<cfset lastTime=thisTime>
+			</cfloop>
+			<cfif nrq gt numberOfQueries>
+				<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
 			</cfif>
-			<cfset lastTime=thisTime>
-		</cfloop>
-		<cfif nrq gt numberOfQueries>
-			<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
 		</cfif>
 	</cfif>
 </cfloop>
