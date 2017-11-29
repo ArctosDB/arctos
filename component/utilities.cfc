@@ -4,14 +4,9 @@
 	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select protected_ip_list from cf_global_settings
 	</cfquery>
-	<cfdump var=#protected_ip_list#>
-
-	<cfoutput>
-		<cfset isprot=false>
+	<cfset isprot=false>
 	<cfloop list="#protected_ip_list.protected_ip_list#" index="i">
 		<cfset lclip=ip>
-		<br>#i#
-		<br>#lclip#
 		<cfif listlast(i,".") is "*">
 			<cfset i=listDeleteAt(i,listlen(i,'.'),'.')>
 			<cfset lclip=listDeleteAt(lclip,listlen(lclip,'.'),'.')>
@@ -23,15 +18,8 @@
 		<cfif i is lclip>
 			<cfset isprot=true>
 		</cfif>
-		<br>---#i#
-		<br>====#lclip#
-
-
 	</cfloop>
-</cfoutput>
-
-		<cfreturn isprot>
-
+	<cfreturn isprot>
 </cffunction>
 
 <cffunction name="georeferenceAddress" returnType="string" access="remote">
