@@ -9,6 +9,18 @@
 	<cfoutput>
 	<cfloop list="#protected_ip_list.protected_ip_list#" index="i">
 		<br>#i#
+		<cfif listlast(i,".") is "*">
+			<cfset i=listDeleteAt(i,listen(i,'.'),'.')>
+			<cfset ip=listDeleteAt(ip,listen(ip,'.'),'.')>
+		</cfif>
+		<cfif listlast(i,".") is "*">
+			<cfset i=listDeleteAt(i,listen(i,'.'),'.')>
+			<cfset ip=listDeleteAt(ip,listen(ip,'.'),'.')>
+		</cfif>
+		<br>---#i#
+		<br>====#ip#
+
+
 	</cfloop>
 </cfoutput>
 	<cfif listfind(protected_ip_list.protected_ip_list,trim(ip))>
