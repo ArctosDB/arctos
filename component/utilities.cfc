@@ -4,6 +4,7 @@
 	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select protected_ip_list from cf_global_settings
 	</cfquery>
+	<cfdump var=#protected_ip_list#>
 	<cfif listfind(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
 		<cfreturn true>
 	<cfelse>
