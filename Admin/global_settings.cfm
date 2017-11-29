@@ -29,13 +29,22 @@
 		<form method="post" action="global_settings.cfm" name="f" id="f">
 			<input type="hidden" name="action" value="save">
 
-			<label for="announcement_text">announcement_text (displays in header; 1-hour cache)
-				IMPORTANT: links should include  target="_blank" and class="external" - like this:
-				<xmp>
-					<a target="_blank" class="external" href="http://google.com">this is an HTML link to Google</a>
-				</xmp>
-			</label>
-			<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
+			<div style="display:table">
+				<div style="display:table-row">
+					<div style="display:table-cell">
+						<label for="announcement_text">announcement_text</label>
+						<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
+					</div>
+					<div style="display:table-cell">
+					 (displays in header; 1-hour cache)
+						IMPORTANT: links should include  target="_blank" and class="external" - like this:
+						<xmp>
+							<a target="_blank" class="external" href="http://google.com">this is an HTML link to Google</a>
+						</xmp>
+					</div>
+				</div>
+
+
 
 			<label for="announcement_expires">announcement_expires (show announcement_text through DATE)
 
@@ -128,6 +137,7 @@
 			<p>
 				<input type="submit" value="saveAll" class="savBtn">
 			</p>
+			</div>
 		</form>
 	</cfif>
 	<cfif action is "save">
