@@ -7,6 +7,7 @@
 	<cfdump var=#protected_ip_list#>
 
 	<cfoutput>
+		<cfset isprot=false>
 	<cfloop list="#protected_ip_list.protected_ip_list#" index="i">
 		<br>#i#
 		<br>#ip#
@@ -18,17 +19,17 @@
 			<cfset i=listDeleteAt(i,listlen(i,'.'),'.')>
 			<cfset ip=listDeleteAt(ip,listlen(ip,'.'),'.')>
 		</cfif>
+		<cfif i is ip>
+			<cfset isprot=true>
+		</cfif>
 		<br>---#i#
 		<br>====#ip#
 
 
 	</cfloop>
 </cfoutput>
-	<cfif listfind(protected_ip_list.protected_ip_list,trim(ip))>
-		<cfreturn true>
-	<cfelse>
-		<cfreturn false>
-	</cfif>
+
+		<cfreturn isprot>
 
 </cffunction>
 
