@@ -9,21 +9,22 @@
 	<cfoutput>
 		<cfset isprot=false>
 	<cfloop list="#protected_ip_list.protected_ip_list#" index="i">
+		<cfset lclip=ip>
 		<br>#i#
-		<br>#ip#
+		<br>#lclip#
 		<cfif listlast(i,".") is "*">
 			<cfset i=listDeleteAt(i,listlen(i,'.'),'.')>
-			<cfset ip=listDeleteAt(ip,listlen(ip,'.'),'.')>
+			<cfset lclip=listDeleteAt(lclip,listlen(lclip,'.'),'.')>
 		</cfif>
 		<cfif listlast(i,".") is "*">
 			<cfset i=listDeleteAt(i,listlen(i,'.'),'.')>
-			<cfset ip=listDeleteAt(ip,listlen(ip,'.'),'.')>
+			<cfset lclip=listDeleteAt(lclip,listlen(lclip,'.'),'.')>
 		</cfif>
-		<cfif i is ip>
+		<cfif i is lclip>
 			<cfset isprot=true>
 		</cfif>
 		<br>---#i#
-		<br>====#ip#
+		<br>====#lclip#
 
 
 	</cfloop>
