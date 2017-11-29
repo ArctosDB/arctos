@@ -37,8 +37,19 @@
 					</div>
 					<div style="display:table-cell; border:1px solid red;margin:1em;padding:1em;">
 						announcement_text displays in header
-						<br>IMPORTANT: links should include  target="_blank" and class="external" - like this:
-						<br>&lt;a target="_blank" class="external" href="http://google.com"&gt;this is an HTML link to Google&lt;/a&gt;
+						<p>
+							IMPORTANT: links should include  target="_blank" and class="external" - like this:
+							<br>&lt;a target="_blank" class="external" href="http://google.com"&gt;this is an HTML link to Google&lt;/a&gt;
+						</p>
+						<p>
+							Loading this page clears the ColdFusion cache; you should be seeing current announcement_text
+							after save. Your browser may be caching as well - hard-reload (probalby shift-reload) this page
+							and CAREFULLY confirm that the news is doing what you want and not breaking anything else before
+							leaving.
+						</p>
+						<p>
+							Experiment in test, not production.
+						</p>
 					</div>
 				</div>
 
