@@ -108,39 +108,44 @@
 
 
 			<div style="display:table-row">
+				<div style="display:table-cell">
+					<label for="PROTECTED_IP_LIST">PROTECTED_IP_LIST (never-blacklist IPs)</label>
+					<textarea name="PROTECTED_IP_LIST" id="PROTECTED_IP_LIST" rows="6" cols="50" class="hugetextarea">#d.PROTECTED_IP_LIST#</textarea>
+				</div>
+				<div style="display:table-cell; border:1px solid red;margin:1em;padding:1em;">
+					IP FORMAT:
+					<ul>
+						<li>
+							IP addresses (1.2.3.4) separated by commas WITH NO SPACES
+							<ul>
+								<li>1.2.3.4,1.2.3.5</li>
+								<li>NOT: 1.2.3.4, 1.2.3.5</li>
+							</ul>
+						</li>
+						<li>
+							As above with * wildcards
+							<ul>
+								<li>1.2.3.* protects 1.2.3.1 and ... and 1.2.3.255</li>
+								<li>1.2.*.* protects subnet 1.2</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+			<div style="display:table-row">
 					<div style="display:table-cell">
-						<label for="PROTECTED_IP_LIST">PROTECTED_IP_LIST (never-blacklist IPs)</label>
-						<textarea name="PROTECTED_IP_LIST" id="PROTECTED_IP_LIST" rows="6" cols="50" class="hugetextarea">#d.PROTECTED_IP_LIST#</textarea>
+						<label for="protect_ip_remark">protect_ip_remark (document everything up there down here)</label>
+						<textarea name="protect_ip_remark" id="protect_ip_remark" rows="6" cols="50" class="hugetextarea">#d.protect_ip_remark#</textarea>
 					</div>
 					<div style="display:table-cell; border:1px solid red;margin:1em;padding:1em;">
-						<br>IP FORMAT:
-						<ul>
-							<li>
-								IP addresses (1.2.3.4) separated by commas WITH NO SPACES
-								<ul>
-									<li>1.2.3.4,1.2.3.5</li>
-									<li>NOT: 1.2.3.4, 1.2.3.5</li>
-								</ul>
-							</li>
-							<li>
-								As above with * wildcards
-								<ul>
-									<li>1.2.3.* protects 1.2.3.1 and ... and 1.2.3.255</li>
-									<li>1.2.*.* protects subnet 1.2</li>
-								</ul>
-							</li>
-						</ul>
+						You MUST document any protected IPs here!
 					</div>
 				</div>
 
 
 
-
-
-
-
-			<label for="protect_ip_remark">protect_ip_remark (document everything up there down here)</label>
-			<textarea name="protect_ip_remark" id="protect_ip_remark" rows="6" cols="50" class="hugetextarea">#d.protect_ip_remark#</textarea>
 
 			<p>
 				<input type="submit" value="saveAll" class="savBtn">
