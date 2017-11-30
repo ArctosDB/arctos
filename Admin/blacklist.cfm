@@ -229,10 +229,9 @@
 </cfif>
 <!------------------------------------------>
 <cfif action is "ins">
-	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select protected_ip_list from cf_global_settings
-	</cfquery>
-	<cfif listfind(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
+	<cfset utilities = CreateObject("component","component.utilities")>
+	<cfset isProtIP=utilities.isProtectedIp(request.ipaddress)>
+	<cfif isProtIP is true>
 		<cfset ee="
 			cgi.HTTP_X_Forwarded_For: #cgi.HTTP_X_Forwarded_For#
 			<br>cgi.Remote_Addr: #cgi.Remote_Addr#
