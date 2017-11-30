@@ -115,13 +115,20 @@
 	</cfif>
 </cfloop>
 
-
-<cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
-	<cfloop list="#maybeBad#" index="o" delimiters=",">
+<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
 		<cfset cfcnt=listgetat(o,2,"|")>
 		<cfset cfrt=listgetat(o,3,"|")>
 		<p>IP #thisIP# made #cfcnt# flood-like requests (#cfrt# flood ratio) in the last #numberOfRequests# overall requests.</p>
+
+
+		<cftry>
+			<cfhttp url="freegeoip.net/json/#thisIP#" timeout="5"></cfhttp>
+			<cfset x=DeserializeJSON(cfhttp.fileContent)>
+			<cfset ipinfo=x.country_name & '; ' & x.region_name & '; ' & x.city>
+		<cfcatch><cfset ipinfo='ip info lookup failed'></cfcatch>
+		</cftry>
+
 
 		<a href="http://whatismyipaddress.com/ip/#thisIP#">[ lookup #thisIP# @whatismyipaddress ]</a>
 		<br><a href="https://www.ipalyzer.com/#thisIP#">[ lookup #thisIP# @ipalyzer ]</a>
@@ -129,6 +136,11 @@
 		<p>
 			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?action=ins&ip=#thisIP#">[ blacklist #thisIP# ]</a>
 			<br><a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#thisIP#">[ manage IP and subnet restrictions ]</a>
+		</p>
+		<cfset thisBlackHist=utilities.getBlacklistHistory(thisIP)>
+
+		<p>
+			#thisBlackHist#
 		</p>
 		<cfquery name="thisIPR" dbtype="query">
 			select * from x where ip='#thisIP#' order by ts
@@ -138,5 +150,10 @@
 		</cfloop>
 	</cfloop>
 
+	<!----
+<cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
+
+
 </cfmail>
+---->
 </cfoutput>
