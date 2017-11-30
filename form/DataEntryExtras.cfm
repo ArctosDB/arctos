@@ -731,9 +731,6 @@
 		<cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select datum from ctdatum order by datum
 	    </cfquery>
-		<cfquery name="ctgeorefmethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	       	select georefmethod from ctgeorefmethod order by georefmethod
-	    </cfquery>
 		<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select verificationstatus from ctverificationstatus order by verificationstatus
 	    </cfquery>

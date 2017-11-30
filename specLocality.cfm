@@ -414,9 +414,6 @@ function useGL(glat,glon,gerr){
      <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select datum from ctdatum order by datum
      </cfquery>
-	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select georefMethod from ctgeorefmethod order by georefMethod
-	</cfquery>
 	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VerificationStatus from ctVerificationStatus order by VerificationStatus
 	</cfquery>

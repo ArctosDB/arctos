@@ -147,9 +147,6 @@
 <cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 	select distinct(feature) from ctfeature order by feature
 </cfquery>
-	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select georefMethod from ctgeorefmethod order by georefMethod
-</cfquery>
 <cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select VerificationStatus from ctVerificationStatus order by VerificationStatus
 </cfquery>
