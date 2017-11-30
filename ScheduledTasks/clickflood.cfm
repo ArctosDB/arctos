@@ -140,7 +140,7 @@
 		<cfset thisBlackHist=utilities.getBlacklistHistory(thisIP)>
 
 		<p>
-			#thisBlackHist#
+			<cfdump var=#thisBlackHist#>
 		</p>
 		<cfquery name="thisIPR" dbtype="query">
 			select * from x where ip='#thisIP#' order by ts
