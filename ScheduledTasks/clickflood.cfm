@@ -137,6 +137,8 @@
 			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?action=ins&ip=#thisIP#">[ blacklist #thisIP# ]</a>
 			<br><a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#thisIP#">[ manage IP and subnet restrictions ]</a>
 		</p>
+
+		<!----
 		<cfset thisBlackHist=utilities.getBlacklistHistory(thisIP)>
 
 		<p>
@@ -144,7 +146,7 @@
 		</p>
 
 		im a line
-
+----->
 
 
 
