@@ -100,12 +100,8 @@
 				<cfset lastTime=thisTime>
 			</cfloop>
 			<cfif nrq gt numberOfQueries>
-				<br>nrq: #nrq#
-				<br>thisRequests.recordcount: #thisRequests.recordcount#
 				<cfset cfrt=nrq/thisRequests.recordcount>
-				<br>cfrt: #cfrt#
-
-				<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
+				<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#|#cfrt#',",")>
 			</cfif>
 		</cfif>
 
@@ -119,7 +115,8 @@ mailing to #application.logemail#....
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
 		<cfset cfcnt=listgetat(o,2,"|")>
-		<p>IP #thisIP# made #cfcnt# flood-like requests in the last #numberOfRequests# overall requests.</p>
+		<cfset cfrt=listgetat(o,3,"|")>
+		<p>IP #thisIP# made #cfcnt# flood-like requests (#cfrt# flood ratio) in the last #numberOfRequests# overall requests.</p>
 
 		<a href="http://whatismyipaddress.com/ip/#thisIP#">[ lookup #thisIP# @whatismyipaddress ]</a>
 		<br><a href="https://www.ipalyzer.com/#thisIP#">[ lookup #thisIP# @ipalyzer ]</a>
