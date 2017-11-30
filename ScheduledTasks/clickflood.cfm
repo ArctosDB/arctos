@@ -102,7 +102,7 @@
 			<cfif nrq gt numberOfQueries>
 				<br>nrq: #nrq#
 				<br>thisRequests.recordcount: #thisRequests.recordcount#
-				<cfset cfrt=thisRequests.recordount/nrq>
+				<cfset cfrt=thisRequests.recordcount/nrq>
 				<br>cfrt: #cfrt#
 
 				<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
