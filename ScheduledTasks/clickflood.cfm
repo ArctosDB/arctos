@@ -73,9 +73,9 @@
 
 <cfloop query="dip">
 <hr>
-	<br>running for #ip#
-	<cfif utilities.isProtectedIp(request.ipaddress) is false>
 
+	<cfif utilities.isProtectedIp(ip) is false>
+		<br>running for #ip#
 		<cfquery name="thisRequests" dbtype="query">
 			select * from x where ip='#ip#' order by ts
 		</cfquery>
@@ -101,6 +101,9 @@
 				<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
 			</cfif>
 		</cfif>
+
+	<cfelse>
+		<br>PROTECTED:::::#ip#
 	</cfif>
 </cfloop>
 
