@@ -22,10 +22,6 @@
 	try{document.getElementById('loading').style.display='none';}catch(e){}
 </script>
 <cfset utilities = CreateObject("component","component.utilities")>
-<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-	select protected_ip_list from cf_global_settings
-</cfquery>
-
 <cfif utilities.isProtectedIp(request.ipaddress) is true>
 	<cfset ee="
 		cgi.HTTP_X_Forwarded_For: #cgi.HTTP_X_Forwarded_For#
