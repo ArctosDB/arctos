@@ -100,6 +100,11 @@
 				<cfset lastTime=thisTime>
 			</cfloop>
 			<cfif nrq gt numberOfQueries>
+				<br>nrq: #nrq#
+				<br>thisRequests.recordount: #thisRequests.recordount#
+				<cfset cfrt=thisRequests.recordount/nrq>
+				<br>cfrt: #cfrt#
+
 				<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#',",")>
 			</cfif>
 		</cfif>
