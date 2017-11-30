@@ -2,7 +2,7 @@
 <!------------------------------------------------------------------->
 <cfif #Action# is "nothing">
 <cfdocument
-	format="flashpaper"
+	format="pdf"
 	pagetype="letter"
 	margintop="0"
 	marginbottom="0"
