@@ -128,7 +128,7 @@
 		<cfcatch><br>ip info lookup failed</cfcatch>
 		</cftry>
 
-		<a href="http://whatismyipaddress.com/ip/#thisIP#">[ lookup #thisIP# @whatismyipaddress ]</a>
+		<br><a href="http://whatismyipaddress.com/ip/#thisIP#">[ lookup #thisIP# @whatismyipaddress ]</a>
 		<br><a href="https://www.ipalyzer.com/#thisIP#">[ lookup #thisIP# @ipalyzer ]</a>
 		<br><a href="https://gwhois.org/#thisIP#">[ lookup #thisIP# @gwhois ]</a>
 		<p>
@@ -136,15 +136,12 @@
 			<br><a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#thisIP#">[ manage IP and subnet restrictions ]</a>
 		</p>
 
-		<!----
 		<cfset thisBlackHist=utilities.getBlacklistHistory(thisIP)>
 
 		<p>
-			<cfdump var=#thisBlackHist#>
+			#thisBlackHist#
 		</p>
 
-		im a line
------>
 
 
 
