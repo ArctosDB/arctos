@@ -8,37 +8,48 @@
 
 	    <!--- Define arguments. --->
 	    <cfargument
-	    name="Date"
-	    type="string"
-	    required="true"
-	    hint="ISO 8601 date/time stamp."
-	    />
+		    name="Date"
+		    type="string"
+		    required="true"
+		    hint="ISO 8601 date/time stamp."
+		    />
 
 	    <!---
 	    When returning the converted date/time stamp,
 	    allow for optional dashes.
 	    --->
 	    <cfreturn ARGUMENTS.Date.ReplaceFirst(
-	    "^.*?(\d{4})-?(\d{2})-?(\d{2})T([\d:]+).*$",
-	    "$1-$2-$3 $4"
-	    ) />
+		    "^.*?(\d{4})-?(\d{2})-?(\d{2})T([\d:]+).*$",
+		    "$1-$2-$3 $4"
+		    ) />
 </cffunction>
 
+<!---
+	We're averaging about 50K requests/day at realease - revisit when/if necessary
+---->
 <cfset numberOfRequests=50000>
-
-
-<cfset maybeBad="">
-
+<!----
+	time between subsequent queries. E.g., queries 5s apart follow robots.txt and won't break anything;
+	this is only intended to detect abuse which might lead to issues, not tolerable usage
+---->
 <cfset timeBetweenQueries=1>
+<!----
+	Number of flood events necessary to trigger this. Eg, one query-burst is tolerable and can be ignored
+---->
 <cfset numberOfQueries=10>
+<!--- ratio of good:flood. Try to filter out legit usage ---->
+<cfset floodRatio=0.8>
+<!--- just a variable ---->
+<cfset maybeBad="">
+<cfset utilities = CreateObject("component","component.utilities")>
 
+<!--- grab logs ---->
 <cfexecute
 	 timeout="10"
 	 name = "/usr/bin/tail"
 	 errorVariable="errorOut"
 	 variable="exrslt"
 	 arguments = "-#numberOfRequests# #Application.requestlog#" />
-
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
 	<cfset t=listgetat(i,1,"|","yes")>
@@ -60,7 +71,6 @@
 <cfquery name="x" dbtype="query">
 	select * from x where rqst not like '%/form/%'
 </cfquery>
-
 <cfquery name="x" dbtype="query">
 	select * from x where rqst not like '%/includes/%'
 </cfquery>
@@ -71,13 +81,9 @@
 	select distinct(ip) from x
 </cfquery>
 
-<cfset utilities = CreateObject("component","component.utilities")>
-
 <cfloop query="dip">
-<hr>
-
+	<!--- ignore protected IPs; they have explicit permission presumably because they are not disruptive ---->
 	<cfif utilities.isProtectedIp(ip) is false>
-		<br>running for #ip#
 		<cfquery name="thisRequests" dbtype="query">
 			select * from x where ip='#ip#' order by ts
 		</cfquery>
@@ -101,19 +107,16 @@
 			</cfloop>
 			<cfif nrq gt numberOfQueries>
 				<cfset cfrt=nrq/thisRequests.recordcount>
-				<cfif cfrt gt .8>
+				<cfif cfrt gt floodRatio>
 					<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#|#cfrt#',",")>
 				</cfif>
 			</cfif>
 		</cfif>
-
-	<cfelse>
-		<br>PROTECTED:::::#ip#
 	</cfif>
 </cfloop>
 
-mailing to #application.logemail#....
 
+<cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
 		<cfset cfcnt=listgetat(o,2,"|")>
@@ -135,28 +138,5 @@ mailing to #application.logemail#....
 		</cfloop>
 	</cfloop>
 
-
-<!----
-<cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
-	<cfloop list="#maybeBad#" index="o" delimiters=",">
-		<cfset thisIP=listgetat(o,1,"|")>
-		<cfset cfcnt=listgetat(o,2,"|")>
-		<p>IP #thisIP# made #cfcnt# flood-like requests in the last 5000 overall requests.</p>
-
-		<br><a href="http://whatismyipaddress.com/ip/#thisIP#">[ lookup #thisIP# @whatismyipaddress ]</a>
-		<br><a href="https://www.ipalyzer.com/#thisIP#">[ lookup #thisIP# @ipalyzer ]</a>
-		<br><a href="https://gwhois.org/#thisIP#">[ lookup #thisIP# @gwhois ]</a>
-		<p>
-			<a href="#Application.serverRootURL#/Admin/blacklist.cfm?action=ins&ip=#thisIP#">[ blacklist #thisIP# ]</a>
-			<br><a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#thisIP#">[ manage IP and subnet restrictions ]</a>
-		</p>
-		<cfquery name="thisIPR" dbtype="query">
-			select * from x where ip='#thisIP#' order by ts
-		</cfquery>
-		<cfloop query="thisIPR">
-			<br>#usrname#|#ts#|#rqst#|#ip#
-		</cfloop>
-	</cfloop>
 </cfmail>
-------->
 </cfoutput>
