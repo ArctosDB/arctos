@@ -25,6 +25,13 @@
 </cffunction>
 
 <cfset numberOfRequests=50000>
+
+
+<cfset maybeBad="">
+
+<cfset timeBetweenQueries=1>
+<cfset numberOfQueries=10>
+
 <cfexecute
 	 timeout="10"
 	 name = "/usr/bin/tail"
@@ -64,11 +71,6 @@
 	select distinct(ip) from x
 </cfquery>
 
-
-<cfset maybeBad="">
-
-<cfset timeBetweenQueries=3>
-<cfset numberOfQueries=10>
 <cfset utilities = CreateObject("component","component.utilities")>
 
 <cfloop query="dip">
