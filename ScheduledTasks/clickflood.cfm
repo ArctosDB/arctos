@@ -121,14 +121,14 @@
 		<cfset cfrt=listgetat(o,3,"|")>
 		<p>IP #thisIP# made #cfcnt# flood-like requests (#cfrt# flood ratio) in the last #numberOfRequests# overall requests.</p>
 
-
+		<!----
 		<cftry>
 			<cfhttp url="freegeoip.net/json/#thisIP#" timeout="5"></cfhttp>
 			<cfset x=DeserializeJSON(cfhttp.fileContent)>
 			<cfset ipinfo=x.country_name & '; ' & x.region_name & '; ' & x.city>
 		<cfcatch><cfset ipinfo='ip info lookup failed'></cfcatch>
 		</cftry>
-
+---->
 
 		<a href="http://whatismyipaddress.com/ip/#thisIP#">[ lookup #thisIP# @whatismyipaddress ]</a>
 		<br><a href="https://www.ipalyzer.com/#thisIP#">[ lookup #thisIP# @ipalyzer ]</a>
