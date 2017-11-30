@@ -101,7 +101,9 @@
 			</cfloop>
 			<cfif nrq gt numberOfQueries>
 				<cfset cfrt=nrq/thisRequests.recordcount>
-				<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#|#cfrt#',",")>
+				<cfif cfrt gt .8>
+					<cfset maybeBad=listappend(maybeBad,'#ip#|#nrq#|#cfrt#',",")>
+				</cfif>
 			</cfif>
 		</cfif>
 
