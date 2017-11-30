@@ -101,7 +101,7 @@
 			</cfloop>
 			<cfif nrq gt numberOfQueries>
 				<br>nrq: #nrq#
-				<br>thisRequests.recordount: #thisRequests.recordount#
+				<br>thisRequests.recordcount: #thisRequests.recordcount#
 				<cfset cfrt=thisRequests.recordount/nrq>
 				<br>cfrt: #cfrt#
 
