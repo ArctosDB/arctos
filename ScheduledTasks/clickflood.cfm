@@ -142,6 +142,12 @@
 		<p>
 			<cfdump var=#thisBlackHist#>
 		</p>
+
+		im a line
+
+
+
+
 		<cfquery name="thisIPR" dbtype="query">
 			select * from x where ip='#thisIP#' order by ts
 		</cfquery>
