@@ -32,7 +32,7 @@
 			<div style="display:table">
 				<div style="display:table-row">
 					<div style="display:table-cell">
-						<label for="announcement_text">announcement_text</label>
+						<label for="announcement_text">c</label>
 						<textarea name="announcement_text" id="announcement_text" rows="6" cols="50" class="hugetextarea">#d.announcement_text#</textarea>
 					</div>
 					<div style="display:table-cell; border:1px solid red;margin:1em;padding:1em;">
@@ -49,6 +49,9 @@
 						</p>
 						<p>
 							Experiment in test, not production.
+						</p>
+						<p>
+							announcement_text will not display without an accompanying future announcement_expires value
 						</p>
 					</div>
 				</div>
