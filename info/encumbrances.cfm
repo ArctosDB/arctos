@@ -19,7 +19,7 @@
 		cataloged_item,
 		collection
 	where
-		encumbrance.EXPIRATION_DATE < sysdate and
+		encumbrance.EXPIRATION_DATE > sysdate and
 		encumbrance.encumbrance_id=coll_object_encumbrance.encumbrance_id and
 		coll_object_encumbrance.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
 		cataloged_item.collection_id=collection.collection_id
@@ -109,7 +109,7 @@
           coll_object_encumbrance,
           encumbrance
         where
-			encumbrance.EXPIRATION_DATE < sysdate and
+			encumbrance.EXPIRATION_DATE > sysdate and
           coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
           encumbrance_action='mask record'
     ) maskrecord,
@@ -120,7 +120,7 @@
           coll_object_encumbrance,
           encumbrance
         where
-			encumbrance.EXPIRATION_DATE < sysdate and
+			encumbrance.EXPIRATION_DATE > sysdate and
           coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
           encumbrance_action='restrict usage'
     ) restrictusage,
@@ -131,7 +131,7 @@
           coll_object_encumbrance,
           encumbrance
         where
-			encumbrance.EXPIRATION_DATE < sysdate and
+			encumbrance.EXPIRATION_DATE > sysdate and
           coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
           encumbrance_action not in ('restrict usage','mask record')
     ) infowithheld
