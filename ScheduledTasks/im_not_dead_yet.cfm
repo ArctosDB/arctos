@@ -72,6 +72,9 @@
         connection = "gmail">
 
 		<cfimap action="GetAll"	folder="inbox" connection="gmail" name="inbox">
+
+		<cfdump var=#inbox#>
+
 		<cfif application.version is "test">
 			<!--- test only reads msgs from prod, so... --->
 			<cfset acceptFrom='notdead@arctos.database.museum'>
