@@ -57,6 +57,8 @@
 		<cfabort>
 	</cfif>
 
+	<cfset alert_time=240>
+
 	<cfmail to="#p.monitor_email_addr#@gmail.com" from="notdead@#Application.fromEmail#" type="html" subject="arctos is not dead">
 		im not dead @ #now()#
 	</cfmail>
@@ -80,8 +82,10 @@
 		<cfset sendAlert="true">
 		<cfloop query="inbox">
 			<cfif from is acceptFrom and subject is "arctos is not dead">
+
 				<cfset tss=datediff('n',SENTDATE,now())>
-				<cfif tss lt 240>
+				<br>#tss#
+				<cfif tss lt alert_time>
 					<cfset sendAlert=false>
 				</cfif>
 				<cfimap action="delete" uid="#uid#" stoponerror="true" connection="gmail">
@@ -91,6 +95,9 @@
 
 		<!--- this is the one instance where we want to send email from test to everybody ---->
 		<cfif sendAlert is true>
+
+		sending<cfabort>
+
 			<cfset subj="IMPORTANT: Arctos may be down">
 			<cfset maddr="dustymc@gmail.com,ctjordan@tacc.utexas.edu,ccicero@berkeley.edu,mkoo@berkeley.edu,arctos-working-group@googlegroups.com ">
 			<cfmail to="#maddr#" subject="#subj#" from="not_not_dead@#Application.fromEmail#" type="html">
@@ -107,7 +114,7 @@
 				</cfif>
 
 				<p>
-					Arctos contacts may be found at https://arctosdb.org/arctos-down/. Please ensure that at least 
+					Arctos contacts may be found at https://arctosdb.org/arctos-down/. Please ensure that at least
 					one of them is aware of this message if you cannot solve the problem.
 				</p>
 
