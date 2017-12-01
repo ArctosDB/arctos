@@ -57,7 +57,8 @@
 		<cfabort>
 	</cfif>
 
-	<cfset alert_time=240>
+	<cfset alert_time_minutes=240>
+	<cfset delete_time_days=10>
 
 	<cfmail to="#p.monitor_email_addr#@gmail.com" from="notdead@#Application.fromEmail#" type="html" subject="arctos is not dead">
 		im not dead @ #now()#
@@ -81,19 +82,43 @@
 		<cfelseif application.version is "prod">
 			<cfset acceptFrom='notdead@arctos-test.tacc.utexas.edu'>
 		</cfif>
-		<!--- loopty. should have something in the last ~~hour~~ four hours per AWG. If so, done. If not, send frantic email --->
+		<!---
+			loopty. should have something in the last {alert_time_minutes} (currently four hours per AWG).
+			If so, done. If not, send frantic email
+		--->
 		<cfset sendAlert="true">
 		<cfloop query="inbox">
 			<cfif from is acceptFrom and subject is "arctos is not dead">
-
 				<cfset tss=datediff('n',SENTDATE,now())>
 				<br>#tss#
-				<cfif tss lt alert_time>
+				<cfif tss lt alert_time_minutes>
 					<cfset sendAlert=false>
 				</cfif>
 				<cfimap action="delete" uid="#uid#" stoponerror="true" connection="gmail">
 			</cfif>
 		</cfloop>
+
+		<!---- now reloop and delete anything over {delete_time_days} days old ---->
+
+		<cfloop query="inbox">
+			<cfset tss=datediff('d',SENTDATE,now())>
+			<br>#SENTDATE#
+			<br>#tss#
+			<cfif tss gt delete_time_days>
+				<br>DELETE....
+			</cfif>
+
+				<!----
+				<cfif tss lt alert_time_minutes>
+					<cfset sendAlert=false>
+				</cfif>
+				<cfimap action="delete" uid="#uid#" stoponerror="true" connection="gmail">
+				---->
+
+		</cfloop>
+
+
+
 		<cfimap action="close" connection = "gmail">
 
 		<!--- this is the one instance where we want to send email from test to everybody ---->
