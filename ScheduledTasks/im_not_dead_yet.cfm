@@ -47,6 +47,12 @@
 
 
 ---->
+
+
+<cfset alert_time_minutes=240>
+<cfset delete_time_days=10>
+
+
 <cfoutput>
 	<!--- do not cache; need to catch pause settings ---->
 	<cfquery name="p" datasource="uam_god">
@@ -57,8 +63,6 @@
 		<cfabort>
 	</cfif>
 
-	<cfset alert_time_minutes=240>
-	<cfset delete_time_days=10>
 
 	<cfmail to="#p.monitor_email_addr#@gmail.com" from="notdead@#Application.fromEmail#" type="html" subject="arctos is not dead">
 		im not dead @ #now()#
@@ -74,7 +78,6 @@
 
 		<cfimap action="GetAll"	folder="inbox" connection="gmail" name="inbox">
 
-		<cfdump var=#inbox#>
 
 		<cfif application.version is "test">
 			<!--- test only reads msgs from prod, so... --->
@@ -90,42 +93,25 @@
 		<cfloop query="inbox">
 			<cfif from is acceptFrom and subject is "arctos is not dead">
 				<cfset tss=datediff('n',SENTDATE,now())>
-				<br>#tss#
 				<cfif tss lt alert_time_minutes>
 					<cfset sendAlert=false>
 				</cfif>
-				<cfimap action="delete" uid="#uid#" stoponerror="true" connection="gmail">
 			</cfif>
 		</cfloop>
 
 		<!---- now reloop and delete anything over {delete_time_days} days old ---->
-
 		<cfloop query="inbox">
 			<cfset tss=datediff('d',SENTDATE,now())>
-			<br>#SENTDATE#
-			<br>#tss#
 			<cfif tss gt delete_time_days>
-				<br>DELETE....
-			</cfif>
-
-				<!----
-				<cfif tss lt alert_time_minutes>
-					<cfset sendAlert=false>
-				</cfif>
 				<cfimap action="delete" uid="#uid#" stoponerror="true" connection="gmail">
-				---->
-
+			</cfif>
 		</cfloop>
-
 
 
 		<cfimap action="close" connection = "gmail">
 
 		<!--- this is the one instance where we want to send email from test to everybody ---->
 		<cfif sendAlert is true>
-
-		sending<cfabort>
-
 			<cfset subj="IMPORTANT: Arctos may be down">
 			<cfset maddr="dustymc@gmail.com,ctjordan@tacc.utexas.edu,ccicero@berkeley.edu,mkoo@berkeley.edu,arctos-working-group@googlegroups.com ">
 			<cfmail to="#maddr#" subject="#subj#" from="not_not_dead@#Application.fromEmail#" type="html">
