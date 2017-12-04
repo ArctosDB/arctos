@@ -77,14 +77,20 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
 	 <cfquery datasource='prod' name='d'>
 		select taxon_name_id from taxon_name where scientific_name='#theName#'
 	</cfquery>
-	 <cfquery datasource='prod' name='hasr'>
-		select count(*) c from taxon_relations where TAXON_NAME_ID=#d.TAXON_NAME_ID# or RELATED_TAXON_NAME_ID=#d.TAXON_NAME_ID#
-	</cfquery>
-	<cfif hasr.c is 0>
-		can delete....
+	<cfif d.recordcount is 1>
+		<br>got one
+		 <cfquery datasource='prod' name='hasr'>
+			select count(*) c from taxon_relations where TAXON_NAME_ID=#d.TAXON_NAME_ID# or RELATED_TAXON_NAME_ID=#d.TAXON_NAME_ID#
+		</cfquery>
+		<cfif hasr.c is 0>
+			can delete....
+		<cfelse>
+			<br>hasr
+		</cfif>
 	<cfelse>
-		<br>hasr
+		<br>notfound
 	</cfif>
+
 
 
 
