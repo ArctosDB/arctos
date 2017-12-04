@@ -77,6 +77,7 @@ Muricanthus callindinus - the only reference on the internet is our Arctos entry
 Muricanthus saharieus - the only reference on the internet is our Arctos entry.  Probably a misspelling of Hexaplex saharicus
 ">
 
+<cftransaction>
  <cfloop list="#x#" index="i" delimiters="#chr(10)#">
 
 	<cfset theName=trim(listgetat(i,1,'-'))>
@@ -104,7 +105,14 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
 				<cfif src.recordcount gt 1>
 					<br>multiple source probably real::#valuelist(src.source)#
 				<cfelse>
-					<br>0/1 source go delete....
+					<br>0/1 source
+			 		<cfquery datasource='prod' name='deleteTerms'>
+						delete from taxon_term where  TAXON_NAME_ID=#d.TAXON_NAME_ID#
+					</cfquery>
+			 		<cfquery datasource='prod' name='deleteName'>
+						delete from taxon_name where  TAXON_NAME_ID=#d.TAXON_NAME_ID#
+					</cfquery>
+					<br>deleted
 				</cfif>
 
 			<cfelse>
@@ -122,7 +130,7 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
 
 
 </cfloop>
-
+</cftransaction>
 
 </cfoutput>
 
