@@ -4,6 +4,7 @@
 Haliotis assimilus - misspelling of Haliotis assimilis
 Haliotis cracherodi - misspelling of Haliotis cracherodii
 Haliotis kamtschatks and kamtschatkuna  - misspellings of Haliotis kamtschatkana
+Haliotis kamtschatkuna  - misspellings of Haliotis kamtschatkana
 Haliotis ovine - misspelling of Haliotis ovina
 Haliotis sorensoni - misspelling of Haliotis sorenseni
 Haliotis wallatensis - misspelling of Haliotis walallensis
@@ -84,6 +85,10 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
 		</cfquery>
 		<cfif hasr.c is 0>
 			can delete....
+			 <cfquery datasource='prod' name='hasr'>
+				select count(*) c from identification_taxonomy where TAXON_NAME_ID=#d.TAXON_NAME_ID#
+			</cfquery>
+			not used....
 		<cfelse>
 			<br>hasr
 		</cfif>
