@@ -80,7 +80,8 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
  <cfloop list="#x#" index="i" delimiters="#chr(10)#">
 
 	<cfset theName=trim(listgetat(i,1,'-'))>
-	<hr>#theName#
+	<hr>
+	<br><a href="http://arctos.database.museum/name/#theName#">#theName#</a>
 	 <cfquery datasource='prod' name='d'>
 		select taxon_name_id from taxon_name where scientific_name='#theName#'
 	</cfquery>
@@ -97,6 +98,11 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
 
 			<cfif hasid.c is 0>
 				<br>no IDs
+			 	<cfquery datasource='prod' name='src'>
+					select distinct source from taxon_term where TAXON_NAME_ID=#d.TAXON_NAME_ID#
+				</cfquery>
+				<cfdump var=#src#>
+
 			<cfelse>
 				<br>----->has IDs
 			</cfif>
