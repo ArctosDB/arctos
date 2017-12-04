@@ -101,7 +101,6 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
 			 	<cfquery datasource='prod' name='src'>
 					select distinct source from taxon_term where TAXON_NAME_ID=#d.TAXON_NAME_ID#
 				</cfquery>
-				<cfdump var=#src#>
 				<cfif src.recordcount gt 1>
 					<br>multiple source probably real
 					<br>#valuelist(src.source)#
