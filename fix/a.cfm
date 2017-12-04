@@ -1,5 +1,11 @@
+
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+<!-- take a list of names
+see if they're used
+delete if safe
+---->
+
 <cfset x="
 Haliotis assimilus - misspelling of Haliotis assimilis
 Haliotis cracherodi - misspelling of Haliotis cracherodii
@@ -74,31 +80,31 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
  <cfloop list="#x#" index="i" delimiters="#chr(10)#">
 
 	<cfset theName=trim(listgetat(i,1,'-'))>
-	<br>#theName#
+	<hr>#theName#
 	 <cfquery datasource='prod' name='d'>
 		select taxon_name_id from taxon_name where scientific_name='#theName#'
 	</cfquery>
 	<cfif d.recordcount is 1>
-		<br>got one
+		<br>isname
 		 <cfquery datasource='prod' name='hasr'>
 			select count(*) c from taxon_relations where TAXON_NAME_ID=#d.TAXON_NAME_ID# or RELATED_TAXON_NAME_ID=#d.TAXON_NAME_ID#
 		</cfquery>
 		<cfif hasr.c is 0>
-			can delete....
+			<br>no relationships
 			 <cfquery datasource='prod' name='hasid'>
 				select count(*) c from identification_taxonomy where TAXON_NAME_ID=#d.TAXON_NAME_ID#
 			</cfquery>
 
 			<cfif hasid.c is 0>
-				not used....
+				<br>no IDs
 			<cfelse>
-				<br>ids no delete
+				<br>----->has IDs
 			</cfif>
 		<cfelse>
-			<br>hasr
+			<br>---->has relationships
 		</cfif>
 	<cfelse>
-		<br>notfound
+		<br>---->notfound
 	</cfif>
 
 
