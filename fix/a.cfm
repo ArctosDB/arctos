@@ -1,7 +1,90 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+<cfset x="
+Haliotis assimilus - misspelling of Haliotis assimilis
+Haliotis cracherodi - misspelling of Haliotis cracherodii
+Haliotis kamtschatks and kamtschatkuna  - misspellings of Haliotis kamtschatkana
+Haliotis ovine - misspelling of Haliotis ovina
+Haliotis sorensoni - misspelling of Haliotis sorenseni
+Haliotis wallatensis - misspelling of Haliotis walallensis
+Haliotis maria - misspelling of Haliotis mariae
+Hippopus hippoeus - misspelling of Hippopus hippopus
+Hippopus hippopuss - misspelling of Hippopus hippopus
+Clyptemoda - looks like a misspelling of Glyptemoda
+Cloristellidae - misspelling of Choristellidae
+Haliotididae - misspelling of Haliotidae
+Vivipariidae - misspelling of Viviparidae
+Nerita albieilla - misspelling of Nerita albicilla
+Neritina tahitensis - misspelling of Neritina taitensis (now Neripteron taitense) which we'll add when we need it.
+Smaragdia viridus - misspelling of Smaragdia viridis
+Volutidae cassidula - creative combination of a family and a species - not used - delete.  Accepted as Lyria cassidula which is in Arctos
+Eutrochaetella - misspelling of Eutrochatella
+Radula barreti (and Radula) should be in Limidae (bivalve), though unaccepted, but are showing up in Neritopsidae (gastropod).  No one is using them so I would delete them.  Radula IS used by Arctos Plants.
+Neretina neglecta and Neretina (IDK) - misspelling of Neritina but not an accepted species either.  Not being used.
+Muricanthus rigritus - a misspelling of Muricanthus nigritus (which is no longer accepted anyway)
+Aspella prodcta pea - Must be a cat joke.  The species is Aspella producta (Pease, 1861)
+Chicoreus rossitei - misspelling of Chicoreus rossiteri
+Chicoreus rubinginosis - misspelling of Chicoreus rubiginosis
+Dermomurex paupercula - misspelling of Dermomurex pauperculus
+Haustellum bellegladeense - misspelling of Haustellum bellegladeensis - unaccepted - now Vokesimurex bellegladeensis
+Haustellum hastellum - misspelling of Haustellum haustellum
+Hexaplex chichoreus - misspelling of Hexaplex cichoreum
+Hexaplex chicoreus - misspelling of Hexaplex cichoreum
+Hexaplex cichoveum - more creative misspelling Hexaplex cichoreum
+Hexaplex erythrostoma - misspelling of Hexaplex erythrostomus
+Hexaplex kusterianus - misspelling of  Hexaplex kuesterianus
+Poirieria nutlingi - misspelling of Poirieria nuttingi
+Pterynotus martinetana - misspelling of Pterynotus martinetanus
+Colubrarca obscura - misspelling of Colubraria obscura
+Eburnea valentiniana and Eburnea zeylanica - misspelling of Eburna - fossil species
+Hastula gnomen - misspelling of Hastula gnomon
+Heterozona cariosa - misspelling of Heterozona cariosus
+Hexaplex anuglaris - misspelling of Hexaplex angularis
+Hindsia magnifca - misspelling of Hindsia magnifica which is unaccepted
+Hydatina amplustrum - misspelling of Hydatina amplustre which is unaccepted anyway
+Iphigenia altier - misspelling of Iphigenia altior
+Isognomon costellotum - misspelling of Isognomon costellatum
+Lambis artitica - misspelling of Lambis arthritica accepted as Harpago arthriticus
+Latirus polygonnus - misspelling of Latirus polygonus
+Leucozonia ceratus - Leucozonia cerata
+Leucozonia tuberculate - misspelling of Leucozonia tuberculata
+Leucozonia tuberculatus - misspelling of Leucozonia tuberculata
+Luria cinera - misspelling of Luria cinerea
+Lyropecten sunnodosus - misspelling of Lyropecten subnodosus which is unaccepted anyway
+Macros aethipos - misspelling of Macron aethiops
+Metula clarthata - misspelling of Metula clathrata
+Mitra ruepelli - misspelling of Mitra rueppellii
+Mitra ruepellii - closer but stiill a misspelling of Mitra rueppellii
+Mitra stricta - misspelling of Mitra stictica
+Molopophorus anglonanus - misspelling of Molopophorus anglonana
+Morum cancellata - misspelling of Morum cancellatum
+Smaragdia viridus - misspelling of Smaragdia viridis
+Lucina colombiana - probably a misspelling of Lucina colombiana
+Chedvillia stewarti - misspelling of fossil Chedevillia.  None in Arctos.
+Marinauris - unaccepted - accepted as Haliotis per WoRMS
+Marinauris roei - unaccepted - accepted as Haliotis roei
+Smaragdiinae - unaccepted - accepted as Neritidae
+Tanzaniella - the only thing I can find is in Arthropoda.  No children and not in use.
+Anabathronidae - unaccepted.  Should be Anabathridae
+Muricanthus callindinus - the only reference on the internet is our Arctos entry.
+Muricanthus saharieus - the only reference on the internet is our Arctos entry.  Probably a misspelling of Hexaplex saharicus
+">
 
-    <cfquery datasource='prod' name='d'>
+ <cfloop list="x" index="i">
+	<br>#i#
+</cfloop>
+
+
+</cfoutput>
+
+
+
+
+
+<!----------------
+
+
+ <cfquery datasource='prod' name='d'>
 		select higher_geog from geog_auth_rec
 		-- where higher_geog like '%Australia%'
 		order by higher_geog
@@ -14,42 +97,6 @@
 		</cfif>
 	</cfloop>
 
-UAM@ARCTOS> desc geog_auth_rec
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- GEOG_AUTH_REC_ID						   NOT NULL NUMBER
- CONTINENT_OCEAN							    VARCHAR2(50)
- COUNTRY								    VARCHAR2(50)
- STATE_PROV								    VARCHAR2(75)
- COUNTY 								    VARCHAR2(50)
- QUAD									    VARCHAR2(30)
- FEATURE								    VARCHAR2(50)
- ISLAND 								    VARCHAR2(50)
- ISLAND_GROUP								    VARCHAR2(50)
- SEA									    VARCHAR2(50)
- VALID_CATALOG_TERM_FG						   NOT NULL NUMBER(3)
- SOURCE_AUTHORITY						   NOT NULL VARCHAR2(255)
- HIGHER_GEOG							   NOT NULL VARCHAR2(255)
- STRIPPED_KEY							   NOT NULL VARCHAR2(4000)
- GEOG_REMARK								    VARCHAR2(4000)
- WKT_POLYGON								    CLOB
-
-
-
-
-
-
-
-
-
-
-</cfoutput>
-
-
-
-
-
-<!----------------
 
 
 
