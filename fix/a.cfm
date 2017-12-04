@@ -85,10 +85,15 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
 		</cfquery>
 		<cfif hasr.c is 0>
 			can delete....
-			 <cfquery datasource='prod' name='hasr'>
+			 <cfquery datasource='prod' name='hasid'>
 				select count(*) c from identification_taxonomy where TAXON_NAME_ID=#d.TAXON_NAME_ID#
 			</cfquery>
-			not used....
+
+			<cfif hasid.c is 0>
+				not used....
+			<cfelse>
+				<br>ids no delete
+			</cfif>
 		<cfelse>
 			<br>hasr
 		</cfif>
