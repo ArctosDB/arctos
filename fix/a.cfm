@@ -70,7 +70,7 @@ Muricanthus callindinus - the only reference on the internet is our Arctos entry
 Muricanthus saharieus - the only reference on the internet is our Arctos entry.  Probably a misspelling of Hexaplex saharicus
 ">
 
- <cfloop list="#x#" index="i">
+ <cfloop list="#x#" index="i" delimiters="#chr(10)#">
 	<br>#i#
 </cfloop>
 
