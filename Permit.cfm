@@ -80,7 +80,7 @@
 	permit.exp_Date,
 	permit.permit_Num,
 	permit.permit_Type,
-	permit.permit_remarks
+	permit.permit_remarks,
 	permit_type.permit_type,
 	permit_type.permit_regulation
 from
