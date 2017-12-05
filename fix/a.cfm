@@ -91,6 +91,7 @@
 		<cfif hastbl.c is 1>
 			<br>log_#tabl.table_name# exists
 		<cfelse>
+			<cfdump var=#hastbl#>
 			<br>log_#tabl.table_name# NOTFOUND!!
 		</cfif>
 
