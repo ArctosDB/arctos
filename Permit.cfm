@@ -70,21 +70,8 @@
 </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------->
-<cfif #Action# is "search">
-<cfparam name="IssuedByAgent" default="">
-<cfparam name="IssuedToAgent" default="">
-<cfparam name="issued_Date" default="">
-<cfparam name="renewed_Date" default="">
-<cfparam name="exp_Date" default="">
-<cfparam name="permit_Num" default="">
-<cfparam name="permit_Type" default="">
-<cfparam name="permit_remarks" default="">
-<cfparam name="permit_id" default="">
-<cfparam name="ContactAgent" default="">
+<cfif action is "search">
 <cfoutput>
-<!--- set dateformat --->
-<cfif not isdefined("sql") or len(#sql#) is 0>
-	<!--- regular old search ---->
 <cfset sql = "select
 	permit.permit_id,
 	getPreferredAgentName(permit_agent.agent_id) permit_agent,
