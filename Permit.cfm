@@ -222,7 +222,7 @@ where
 					#valuelist(ctc.permit_agent)#
 				</td>
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
-				<td>make pretty: #dateformat(exp_Date,"yyyy-mm-dd")# </td>
+				<td>#dateformat(exp_Date,"yyyy-mm-dd")# </td>
 				<td>
 					<cfif len(exp_Date) gt 0>
 						#datediff("d",now(),exp_Date)#
@@ -387,9 +387,8 @@ where
 <!--------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "editPermit">
-<font size="+1"><strong>Edit Permit</strong></font><br>
 <cfoutput>
-<cfif not isdefined("permit_id") OR len(#permit_id#) is 0>
+<cfif not isdefined("permit_id") OR len(permit_id) is 0>
 	Something bad happened. You didn't pass this form a permit_id. Go back and try again.<cfabort>
 </cfif>
 <cfquery name="permitInfo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
