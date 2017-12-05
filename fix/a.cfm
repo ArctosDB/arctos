@@ -145,7 +145,7 @@
 
 
 
-
+</cfloop>
 
 </cfoutput>
 
