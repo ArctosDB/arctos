@@ -13,13 +13,14 @@
 </cfquery>
 <cfif #action# is "nothing">
 <cfoutput>
-Search for permits. Any part of dates and names accepted, case isn't important.<br>
-Leave "until date" fields empty unless you use the field to its left.<br>
 
 <p>
 	<a href="Permit.cfm?action=newPermit">create permit</a>
 </p>
 
+<p>
+	Find Permits
+</p>
 <form name="findPermit" action="Permit.cfm" method="post">
 	<input type="hidden" name="Action" value="search">
 	<label for="IssuedByAgent">Issued By</label>
