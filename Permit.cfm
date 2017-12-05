@@ -77,7 +77,7 @@
 	getPreferredAgentName(permit_agent.agent_id) permit_agent,
 	permit_agent.agent_role,
 	permit.issued_Date,
-	permitexp_Date,
+	permit.exp_Date,
 	permit.permit_Num,
 	permit.permit_Type,
 	permit.permit_remarks
