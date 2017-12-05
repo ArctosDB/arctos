@@ -118,6 +118,35 @@
 
 
 <cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
+	<p>
+		This is an automated message from /ScheduledTasks/clickflood.cfm
+	</p>
+	<p>
+		The purpose of this application is to develop traffic which requests multiple pages in a short amount of time. This application
+		is primarily designed to detect automated requests ("bots") which do not follow the directives in /robots.txt
+	</p>
+	<p>
+		The last #numberOfRequests# logs are analyzed. That should be about 24h; if not, adjust variable numberOfRequests.
+	</p>
+	<p>
+		Queries which occur less than or equal to #timeBetweenQueries# are counted. Adjust variable timeBetweenQueries as necessary.
+	</p>
+	<p>
+		#numberOfQueries# events as described above trigger this email. Adjust variable numberOfQueries as necessary.
+	</p>
+	<p>
+		#floodRatio# requests from an IP must meet all criteria here to trigger this. That is, IPs with mostly non-abusive request patterns will
+		be ignored. Adjust variable floodRatio as necessary.
+	</p>
+	<p>
+		This application ignores .cfc requests, local IP requests, requests for the /form/ and /includes/ directories, requests from signed-in
+		users, and requests from protected IPs. (IPs may be protected in Global Settings.)
+	</p>
+	<p>
+		All of the following should probably be blocked. Adjust variables as necessary, with the goal of auto-listing abusive traffic.
+	</p>
+
+
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
 		<cfset cfcnt=listgetat(o,2,"|")>
