@@ -224,7 +224,9 @@ where
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
 				<td>make pretty: #dateformat(exp_Date,"yyyy-mm-dd")# </td>
 				<td>
-					#datediff("d",now(),exp_Date)#
+					<cfif len(exp_Date) gt 0>
+						#datediff("d",now(),exp_Date)#
+					</cfif>
 				</td>
 				<td>#permit_remarks#</td>
 				<td>
