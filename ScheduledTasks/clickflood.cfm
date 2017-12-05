@@ -122,7 +122,7 @@
 		This is an automated message from /ScheduledTasks/clickflood.cfm
 	</p>
 	<p>
-		The purpose of this application is to develop traffic which requests multiple pages in a short amount of time. This application
+		The purpose of this application is to capture traffic which requests multiple pages in a short amount of time. This application
 		is primarily designed to detect automated requests ("bots") which do not follow the directives in /robots.txt
 	</p>
 	<p>
