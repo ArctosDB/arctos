@@ -15,73 +15,55 @@
 <cfoutput>
 Search for permits. Any part of dates and names accepted, case isn't important.<br>
 Leave "until date" fields empty unless you use the field to its left.<br>
-<cfform name="findPermit" action="Permit.cfm" method="post">
+
+<p>
+	<a href="Permit.cfm?action=newPermit">create permit</a>
+</p>
+
+<form name="findPermit" action="Permit.cfm" method="post">
 	<input type="hidden" name="Action" value="search">
-	<table><tr>
-			<td align="right">Issued By</td>
-			<td><input type="text" name="IssuedByAgent"></td>
-			<td align="right">Issued To</td>
-			<td><input type="text" name="IssuedToAgent"></td>
-		</tr>
-		<tr>
-			<td align="right">Issued Date</td>
-			<td><input type="text" name="issued_date"></td>
-			<td align="right">Issued Until Date (leave blank otherwise)</td>
-			<td><input type="text" name="issued_until_date"></td>
-		</tr>
-		<tr>
-			<td align="right">Renewed Date</td>
-			<td><input type="text" name="renewed_date"></td>
-			<td align="right">Renewed Until Date (leave blank otherwise)</td>
-			<td><input type="text" name="renewed_until_date"></td>
-		</tr>
-		<tr>
-			<td align="right">Expiration Date</td>
-			<td><input type="text" name="exp_date"></td>
-			<td align="right">Expiration Until Date (leave blank otherwise)</td>
-			<td><input type="text" name="exp_until_date"></td>
-		</tr>
-		<tr>
-			<td align="right">Permit Type</td>
-			<td>
-				<select name="permit_type" size="1">
-					<option value=""></option>
-					<cfloop query="ctPermitType">
-						<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-					</cfloop>
-				</select>
-			</td>
-			<td align="right">Remarks</td>
-			<td><input type="text" name="permit_remarks"></td>
-		</tr>
-		<tr>
-			<td align="right">Permit Number</td>
-			<td><input type="text" name="permit_num"></td>
-			<td align="right">Contact Agent</td>
-			<td><input type="text" name="ContactAgent"></td>
-		</tr>
-		<tr>
-			<td colspan="4" align="center">
+	<label for="IssuedByAgent">Issued By</label>
+	<input type="text" name="IssuedByAgent">
 
-				<input type="button" value="Search" class="schBtn"
-   					onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'"
-					onClick="findPermit.Action.value='search';submit();">
+	<label for="IssuedToAgent">Issued To</label>
+	<input type="text" name="IssuedToAgent">
 
 
+	<label for="ContactAgent">Contact Agent</label>
+	<input type="text" name="ContactAgent">
+
+	<label for="IssuedAfter">Issued On/After Date</label>
+	<input type="datetime" name="IssuedAfter">
+
+	<label for="IssuedBefore">Issued On/Before Date</label>
+	<input type="datetime" name="IssuedBefore">
 
 
-				 <input type="reset" value="Clear" class="qutBtn"
-   onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'">
+	<label for="ExpiresAfter">Expires On/After Date</label>
+	<input type="datetime" name="ExpiresAfter">
 
-				<input type="button" value="Create New Permit" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-   onClick="findPermit.Action.value='newPermit';submit();">
 
-			</td>
-		</tr>
-	</table>
-</cfform>
-<hr>
+	<label for="ExpiresBefore">Expires On/Before Date</label>
+	<input type="datetime" name="ExpiresBefore">
+
+	<label for="permit_type">Permit Type</label>
+	<select name="permit_type" size="1">
+		<option value=""></option>
+		<cfloop query="ctPermitType">
+			<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+		</cfloop>
+	</select>
+
+	<label for="permit_remarks">Remarks</label>
+	<input type="text" name="permit_remarks">
+
+	<label for="permit_remarks">Permit Number</label>
+	<input type="text" name="permit_num">
+
+	<input type="submit" value="Search" class="schBtn">
+
+
+</form>
 </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------->
