@@ -1327,12 +1327,10 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	      term
 	    from
 	      hierarchical_taxonomy,
-	      htax_seed,
 	      htax_dataset,
 	      taxon_name
 	    where
-	      hierarchical_taxonomy.dataset_id=htax_seed.dataset_id and
-	      htax_seed.dataset_id=htax_dataset.dataset_id and
+	      hierarchical_taxonomy.dataset_id=htax_dataset.dataset_id and
 	      htax_dataset.dataset_name='#dataset_name#' and
 	      hierarchical_taxonomy.term=taxon_name.scientific_name (+) and
 	      taxon_name.taxon_name_id is null

@@ -218,10 +218,14 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 			Load (more) data. This is additive; you may want to delete first.
 			<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadClassification.cfm">
 				<input type="hidden" name="action" value="getFileData">
-				<label for="">Load CSV. Will APPEND to existing data</label>
+				<label for="">Load CSV. Will APPEND to existing data. Check "Count" in the table below.</label>
 				<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 				<input type="submit" value="Upload this file">
 			</cfform>
+			
+			<p>
+				The selected File name will be shown until it is uploaded.  Then the status will return to "no file selected."  No need to select it again.
+			</p>
 		</p>
 		<!-----
 		<p>
@@ -256,6 +260,10 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 			"WillBeLost classifications" errors are advisory indications of funky terms (those not in CTTAXON_TERM) in existing data.
 			Check that the data which will be lost is retained in a known term in your bulkload.
 		</p>
+		<p>
+			When the data checks are complete and accurate, the Status bar will read "go_go_all."  
+		</p>
+		
 		<p>
 
 			<a href="BulkloadClassification.cfm?action=markToLoad">Mark to load</a>: After verifying, click this to flag for loading.
