@@ -86,7 +86,7 @@
 
 		---->
 		<cfquery name="hastbl" datasource="uam_god">
-			select count(*) c from all_objects where object_name='log_#tabl.table_name#'
+			select count(*) c from all_objects where object_name='LOG_#tabl.table_name#'
 		</cfquery>
 		<cfif hastbl.c is 1>
 			<br>log_#tabl.table_name# exists
