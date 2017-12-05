@@ -23,6 +23,7 @@
 </p>
 <form name="findPermit" action="Permit.cfm" method="post">
 	<input type="hidden" name="Action" value="search">
+
 	<label for="IssuedByAgent">Issued By</label>
 	<input type="text" name="IssuedByAgent">
 
@@ -55,11 +56,12 @@
 		</cfloop>
 	</select>
 
+	<label for="permit_num">Permit Identifier</label>
+	<input type="text" name="permit_num">
+
 	<label for="permit_remarks">Remarks</label>
 	<input type="text" name="permit_remarks">
 
-	<label for="permit_remarks">Permit Number</label>
-	<input type="text" name="permit_num">
 
 	<input type="submit" value="Search" class="schBtn">
 
@@ -83,91 +85,84 @@
 <!--- set dateformat --->
 <cfif not isdefined("sql") or len(#sql#) is 0>
 	<!--- regular old search ---->
-<cfset sql = "select permit.permit_id,
-	issuedBy.agent_name as IssuedByAgent,
-	issuedTo.agent_name as IssuedToAgent,
-	Contact.agent_name as ContactAgent,
-	issued_Date,
-	renewed_Date,
-	exp_Date,
-	permit_Num,
-	permit_Type,
-	permit_remarks
+<cfset sql = "select
+	permit.permit_id,
+	getPreferredAgentName(permit_agent.agent_id) permit_agent,
+	permit_agent.agent_role,
+	permit.issued_Date,
+	permitexp_Date,
+	permit.permit_Num,
+	permit.permit_Type,
+	permit.permit_remarks
+	permit_type.permit_type,
+	permit_type.permit_regulation
 from
-	permit,  preferred_agent_name issuedTo, preferred_agent_name issuedBy, preferred_agent_name Contact
+	permit,
+	permit_agent,
+	permit_type
 where
-	permit.issued_by_agent_id = issuedBy.agent_id (+) and
-	permit.issued_to_agent_id = issuedTo.agent_id (+) and
-	permit.contact_agent_id = Contact.agent_id (+)">
+	permit.permit_id = permit_agent.permit_id (+) and
+	permit.permit_id = permit_type.permit_id (+) ">
 
-<cfif len(#IssuedByAgent#) gt 0>
-	<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
-</cfif>
-<cfif isdefined("ISSUED_BY_AGENT_ID") and len(#ISSUED_BY_AGENT_ID#) gt 0>
-	<cfset sql = "#sql# AND ISSUED_BY_AGENT_ID = #ISSUED_BY_AGENT_ID#">
-</cfif>
-<cfif isdefined("ISSUED_TO_AGENT_ID") and len(#ISSUED_TO_AGENT_ID#) gt 0>
-	<cfset sql = "#sql# AND ISSUED_TO_AGENT_ID = #ISSUED_TO_AGENT_ID#">
-</cfif>
-<cfif isdefined("CONTACT_AGENT_ID") and len(#CONTACT_AGENT_ID#) gt 0>
-	<cfset sql = "#sql# AND CONTACT_AGENT_ID = #CONTACT_AGENT_ID#">
+
+
+<cfif len(IssuedByAgent) gt 0>
+	<cfset sql = "#sql# AND permit_agent.agent_role='issued by' and permit_agent.agent_id in (select agent_id from agent_name where upper(agent_name) like '%#ucase(IssuedByAgent)#%')">
 </cfif>
 
-<cfif len(#IssuedToAgent#) gt 0>
-	<cfset sql = "#sql# AND upper(issuedTo.agent_name) like '%#ucase(IssuedToAgent)#%'">
+<cfif len(IssuedToAgent) gt 0>
+	<cfset sql = "#sql# AND permit_agent.agent_role='issued to' and permit_agent.agent_id in (select agent_id from agent_name where upper(agent_name) like '%#ucase(IssuedToAgent)#%')">
 </cfif>
-<cfif len(#issued_date#) gt 0>
-	<cfif len(#issued_until_date#) gt 0>
-		<cfset sql = "#sql# AND upper(issued_date) between to_date('#issued_date#', 'yyyy-mm-dd')
-														and to_date('#issued_until_date#', 'yyyy-mm-dd')">
-	<cfelse>
-		<cfset sql = "#sql# AND upper(issued_date) like to_date('#issued_date#', 'yyyy-mm-dd')">
-	</cfif>
+
+
+<cfif len(ContactAgent) gt 0>
+	<cfset sql = "#sql# AND permit_agent.agent_role='contact' and permit_agent.agent_id in (select agent_id from agent_name where upper(agent_name) like '%#ucase(ContactAgent)#%')">
 </cfif>
-<cfif len(#renewed_date#) gt 0>
-	<cfif len(#renewed_until_date#) gt 0>
-		<cfset sql = "#sql# AND upper(renewed_date) between to_date('#renewed_date#', 'yyyy-mm-dd')
-														and to_date('#renewed_until_date#', 'yyyy-mm-dd')">
-	<cfelse>
-		<cfset sql = "#sql# AND upper(renewed_date) like to_date('#renewed_date#', 'yyyy-mm-dd')">
-	</cfif>
+
+<cfif len(IssuedAfter) gt 0>
+	<cfset sql = "#sql# AND issued_date >= '#issued_date#'">
 </cfif>
-<cfif len(#exp_date#) gt 0>
-	<cfif len(#exp_until_date#) gt 0>
-		<cfset sql = "#sql# AND upper(exp_date) between to_date('#exp_date#', 'yyyy-mm-dd')
-														and to_date('#exp_until_date#', 'yyyy-mm-dd')">
-	<cfelse>
-		<cfset sql = "#sql# AND upper(exp_date) like to_date('#exp_date#', 'yyyy-mm-dd')">
-	</cfif>
+
+<cfif len(IssuedBefore) gt 0>
+	<cfset sql = "#sql# AND issued_date <= '#IssuedBefore#'">
 </cfif>
-<cfif len(#permit_Num#) gt 0>
+
+
+<cfif len(ExpiresAfter) gt 0>
+	<cfset sql = "#sql# AND exp_date >= '#ExpiresAfter#'">
+</cfif>
+
+
+<cfif len(ExpiresBefore) gt 0>
+	<cfset sql = "#sql# AND exp_date <= '#ExpiresBefore#'">
+</cfif>
+
+
+<cfif len(permit_num) gt 0>
 	<cfset sql = "#sql# AND upper(permit_Num) like '%#ucase(permit_Num)#%'">
 </cfif>
-<cfif len(#ContactAgent#) gt 0>
-	<cfset sql = "#sql# AND upper(Contact.agent_name) like '%#ucase(ContactAgent)#%'
-			AND permit.contact_agent_id = Contact.agent_id">
-</cfif>
-<cfif len(#permit_type#) gt 0>
-	<cfset permit_Type = #replace(permit_type,"'","''","All")#>
-	<cfset sql = "#sql# AND permit_type = '#permit_type#'">
-</cfif>
-<cfif len(#permit_remarks#) gt 0>
-	<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
-</cfif>
-<cfif len(#permit_id#) gt 0>
-	<cfset sql = "#sql# AND permit_id = #permit_id#">
+
+
+<cfif len(permit_type) gt 0>
+	<cfset sql = "#sql# AND permit.permit_id in (select permit_id from permit_type where permit_type = '#permit_type#')">
 </cfif>
 
-<cfif #sql# is "select * from permit, agent_name issuedTo, agent_name issuedBy where permit.issued_by_agent_id = issuedBy.agent_id and permit.issued_to_agent_id = issuedTo.agent_id ">
-	Enter some criteria.<cfabort>
+
+<cfif len(permit_remarks) gt 0>
+	<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
 </cfif>
-<cfset thisSql = #sql#>
-<cfelse><!--- came in with sql defined ---->
-	<cfset thisSql = "#sql# ORDER BY #order_by# #order_order#">
-</cfif><!--- end sql isdefined --->
+
+<cfif len(#permit_id#) gt 0>
+	<cfset sql = "#sql# AND permit.permit_id = #permit_id#">
+</cfif>
+
+
 <cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	#preservesinglequotes(thisSql)#
+	#preservesinglequotes(sql)#
 </cfquery>
+
+<cfdump var=#matchPermit#>
+
 
 <table border>
 	<tr>
