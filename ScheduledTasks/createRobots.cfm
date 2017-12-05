@@ -9,7 +9,7 @@
 
 
 <cfset robotscontent="User-agent: *">
-<cfset robotscontent=robotscontent & chr(10) & "crawl-delay: 10">
+<cfset robotscontent=robotscontent & chr(10) & "crawl-delay: 1">
 
 
 
