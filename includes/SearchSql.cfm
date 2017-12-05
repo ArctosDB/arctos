@@ -1897,7 +1897,7 @@
 	<cfif basJoin does not contain " specimen_part_attribute ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_part_attribute ON (specimen_part.collection_object_id = specimen_part_attribute.collection_object_id)">
 	</cfif>
-	<cfif left(specimen_part_attribute,1) is '='>
+	<cfif left(part_attribute_value,1) is '='>
 		<cfset basQual = " #basQual# AND upper(specimen_part_attribute.attribute_value) = '%#ucase(escapeQuotes(right(part_attribute_value,len(part_attribute_value)-1)))#%'">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(specimen_part_attribute.attribute_value) LIKE '%#ucase(escapeQuotes(part_attribute_value))#%'">
