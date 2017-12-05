@@ -15,7 +15,6 @@
 	select table_name from d group by table_name
 </cfquery>
 
-<cfoutput>
 	<cfloop query="tabl">
 		<cfquery name="cols" dbtype="query">
 			select * from d where table_name='#table_name#'
@@ -291,13 +290,13 @@ Muricanthus saharieus - the only reference on the internet is our Arctos entry. 
 				</cfif>
 
 			<cfelse>
-				<br>----->has IDs
+				<br>-----has IDs
 			</cfif>
 		<cfelse>
-			<br>---->has relationships
+			<br>----has relationships
 		</cfif>
 	<cfelse>
-		<br>---->notfound
+		<br>----notfound
 	</cfif>
 
 
