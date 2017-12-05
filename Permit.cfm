@@ -79,7 +79,6 @@
 	permit.issued_Date,
 	permit.exp_Date,
 	permit.permit_Num,
-	permit.permit_Type,
 	permit.permit_remarks,
 	permit_type.permit_type,
 	permit_type.permit_regulation
@@ -150,6 +149,23 @@ where
 
 <cfdump var=#matchPermit#>
 
+<cfquery name="base" dbtype="query">
+	select
+		permit_id,
+		issued_Date,
+		exp_Date,
+		permit_Num,
+		permit_remarks
+	from
+		matchPermit
+	group by
+		permit_id,
+		issued_Date,
+		exp_Date,
+		permit_Num,
+		permit_remarks
+</cfquery>
+<cfdump var=#base#>
 
 <table border>
 	<tr>
