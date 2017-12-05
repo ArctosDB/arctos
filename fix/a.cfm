@@ -91,7 +91,6 @@
 		<cfif hastbl.c gte 1>
 			<br>log_#tabl.table_name# exists
 		<cfelse>
-			<cfdump var=#hastbl#>
 			<br>log_#tabl.table_name# NOTFOUND!!
 		</cfif>
 
@@ -115,6 +114,18 @@
 		<p>
 			grant select on log_#tabl.table_name# to coldfusion_user;
 		</p>
+
+
+		<cfquery name="hastbl" datasource="uam_god">
+			select count(*) c from all_objects where object_name='TR_LOG_#tabl.table_name#'
+		</cfquery>
+		<cfif hastbl.c gte 1>
+			<br>TR_LOG_#tabl.table_name# exists
+		<cfelse>
+			<br>TR_LOG_#tabl.table_name# NOTFOUND!!
+		</cfif>
+
+
 
 		<cfset thisSQL="CREATE OR REPLACE TRIGGER TR_log_#table_name# AFTER INSERT or update or delete ON #table_name#
 			<br>FOR EACH ROW
