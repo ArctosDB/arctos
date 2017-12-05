@@ -57,7 +57,13 @@
 
 <cfset firstRequestLine=listgetat(exrslt,1,"#chr(10)#")>
 firstRequestLine: #firstRequestLine#
-<cfset firstRequestTime=ISOToDateTime(listgetat(firstRequestLine,1,"|"))>
+<cfset firstRequestTime=listgetat(firstRequestLine,1,"|")>
+
+
+			<cfset firstRequestTime=ISOToDateTime("#firstRequestTime#")>
+
+
+
 firstRequestTime: #firstRequestTime#
 
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
