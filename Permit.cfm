@@ -198,8 +198,18 @@ where
 					</cfquery>
 					#valuelist(it.permit_agent)#
 				</td>
-				<td>subquery</td>
-				<td>subquery</td>
+				<td>
+					<cfquery name="ib" dbtype="query">
+						select permit_agent from matchPermit where agent_role='issued by' and permit_id=#permit_id# group by permit_agent
+					</cfquery>
+					#valuelist(ib.permit_agent)#
+				</td>
+				<td>
+					<cfquery name="ctc" dbtype="query">
+						select permit_agent from matchPermit where agent_role='contact' and permit_id=#permit_id# group by permit_agent
+					</cfquery>
+					#valuelist(ctc.permit_agent)#
+				</td>
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
 				<td>make pretty: #dateformat(exp_Date,"yyyy-mm-dd")# </td>
 				<td>#permit_remarks#</td>
