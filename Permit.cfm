@@ -102,13 +102,13 @@ where
 
 
 <cfif len(ContactAgent) gt 0>
-	<cfset sql = "#sql# AND permit_id in (
-		select permit_id from
+	<cfset sql = "#sql# AND permit.permit_id in (
+		select permit_agent.permit_id from
 		permit_agent,agent_name
 		where
 		permit_agent.agent_id=agent_name.agent_id and
 		permit_agent.agent_role='contact' and
-		upper(agent_name) like '%#ucase(ContactAgent)#%')">
+		upper(agent_name.agent_name) like '%#ucase(ContactAgent)#%')">
 </cfif>
 
 <cfif len(IssuedAfter) gt 0>
