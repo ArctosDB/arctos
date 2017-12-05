@@ -139,7 +139,7 @@ where
 	<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
 </cfif>
 
-<cfif len(#permit_id#) gt 0>
+<cfif isdefined("permit_id") and len(permit_id) gt 0>
 	<cfset sql = "#sql# AND permit.permit_id = #permit_id#">
 </cfif>
 
