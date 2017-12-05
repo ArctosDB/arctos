@@ -28,6 +28,9 @@
 	We're averaging about 50K requests/day at realease - revisit when/if necessary
 ---->
 <cfset numberOfRequests=50000>
+
+
+<cfset minQueries=10>
 <!----
 	time between subsequent queries. E.g., queries 5s apart follow robots.txt and won't break anything;
 	this is only intended to detect abuse which might lead to issues, not tolerable usage
@@ -51,6 +54,11 @@
 	 variable="exrslt"
 	 arguments = "-#numberOfRequests# #Application.requestlog#" />
 <cfset x=queryNew("ts,ip,rqst,usrname")>
+
+<cfset firstRequestLine=listgetat(exrslt,1,"#chr(10)#")>
+<cfset firstRequestTime=listgetat(firstRequestLine,1,"|")>
+<cfset firstRequestTime=ISOToDateTime("#firstRequestTime#")>
+
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
 	<cfset t=listgetat(i,1,"|","yes")>
 	<cfset ipa=listgetat(i,5,"|","yes")>
@@ -87,7 +95,7 @@
 		<cfquery name="thisRequests" dbtype="query">
 			select * from x where ip='#ip#' order by ts
 		</cfquery>
-		<cfif thisrequests.recordcount gte 10>
+		<cfif thisrequests.recordcount gte #minQueries#>
 			<!--- IPs making 10 or fewer requests just get ignored ---->
 			<cfset lastTime=ISOToDateTime("2000-11-08T12:36:0")>
 			<cfset nrq=0>
@@ -97,7 +105,7 @@
 				<br>thisTime: #thisTime#::::#rqst#::::::#usrname#
 				---->
 				<cfset ttl=DateDiff("s", lastTime, thisTime)>
-				<cfif ttl lte timeBetweenQueries>
+				<cfif ttl lt timeBetweenQueries>
 					<!----
 					<br>triggered!
 					---->
@@ -118,6 +126,39 @@
 
 
 <cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
+	<p>
+		This is an automated message from /ScheduledTasks/clickflood.cfm
+	</p>
+	<p>
+		The purpose of this application is to capture traffic which requests multiple pages in a short amount of time. This application
+		is primarily designed to detect automated requests ("bots") which do not follow the directives in /robots.txt.
+	</p>
+	<p>
+		The last #numberOfRequests# (variable: numberOfRequests) logs are analyzed. That should be about 24h of traffic.
+		Actual: #firstRequestTime#-#now()#=#datediff('h',firstRequestTime,now())# hours.
+	</p>
+	<p>
+		Queries which occur less than #timeBetweenQueries# (variable: timeBetweenQueries) seconds apart are counted.
+	</p>
+	<p>
+		#numberOfQueries# (variable: numberOfQueries) events from an IP are necessary to trigger this email.
+	</p>
+	<p>
+		IPs making fewer than #minQueries# (variable: minQueries) are ignored.
+	</p>
+	<p>
+		#floodRatio# (variable: floodRatio) requests from an IP must meet all criteria here to trigger this;
+		 IPs with low ratios of abusive requests will be ignored.
+	</p>
+	<p>
+		This application ignores .cfc requests, local IP requests, requests for the /form/ and /includes/ directories, requests from signed-in
+		users, and requests from protected IPs. (IPs may be protected in Global Settings.)
+	</p>
+	<p>
+		All of the following should probably be blocked. Adjust variables as necessary, with the goal of auto-listing abusive traffic.
+	</p>
+
+
 	<cfloop list="#maybeBad#" index="o" delimiters=",">
 		<cfset thisIP=listgetat(o,1,"|")>
 		<cfset cfcnt=listgetat(o,2,"|")>
