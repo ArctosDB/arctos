@@ -184,13 +184,18 @@ where
 		<cfloop query="base">
 			<tr>
 				<td>#permit_Num#</td>
+				<td>
+					<cfquery name="it" dbtype="query">
+						select permit_agent from matchPermit where agent_role='issued to' and permit_id=#permit_id#
+					</cfquery>
+					#valulist(it.permit_agent)#
+				</td>
 				<td>subquery</td>
 				<td>subquery</td>
 				<td>subquery</td>
-				<td>subquery</td>
-				<td>#issued_Date#</td>
-				<td>make pretty: #exp_Date#</td>
-				<td>permit_remarks</td>
+				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
+				<td>make pretty: #dateformat(exp_Date,"yyyy-mm-dd")# </td>
+				<td>#permit_remarks#</td>
 				<td>
 					<div>
 						<a href="Permit.cfm?permit_id=#permit_id#&action=editPermit">Edit&nbsp;Permit</a>
