@@ -166,144 +166,44 @@ where
 		permit_remarks
 </cfquery>
 <cfdump var=#base#>
+<script src="/includes/sorttable.js"></script>
 
-<table border>
-	<tr>
-	<form name="reorder" method="post" action="Permit.cfm">
-		<input type="hidden" name="sql" value="#sql#">
-		<input type="hidden" name="action" value="search">
-		<input type="hidden" name="order_by">
-		<input type="hidden" name="order_order">
-		<td>
-			<strong>Permit Number</strong>
-			<cfset thisTerm = "permit_num">
-			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<br>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
-				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
-				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
-				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
-				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-		</td>
-		<td>
-			<strong>Permit Type</strong>
-			<cfset thisTerm = "permit_Type">
-			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<br>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
-				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
-				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
-				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
-				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-		</td>
-		<td>
-			<strong>Issued To</strong>
-			<cfset thisTerm = "IssuedToAgent">
-			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<br>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
-				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
-				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
-				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
-				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-		</td>
-		<td>
-			<strong>Issued By</strong>
-			<cfset thisTerm = "IssuedByAgent">
-			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<br>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
-				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
-				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
-				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
-				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-		</td>
-		<td>
-			<strong>Issued Date</strong>
-			<cfset thisTerm = "issued_Date">
-			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<br>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
-				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
-				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
-				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
-				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-		</td>
-		<td>
-			<strong>Renewed Date</strong>
-			<cfset thisTerm = "renewed_Date">
-			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<br>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
-				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
-				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
-				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
-				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-		</td>
-		<td>
-			<strong>Expires Date</strong>
-			<br>
-			<cfset thisTerm = "exp_Date">
-			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
-				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
-				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
-				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
-				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-		</td>
-		<td><strong>Remarks</strong></td>
-		<td>
-			<strong>Contact</strong>
-			<br>
-			<cfset thisTerm = "ContactAgent">
-			<cfset thisName = #replace(thisTerm,",","_","all")#>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='asc';reorder.submit();"
-				onMouseOver="self.status='Sort Ascending.';#thisName#up.src='/images/up_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#up.src='/images/up.gif';return true;">
-				<img src="/images/up.gif" border="0" name="#thisName#up"></a>
-			<a href="javascript: void"
-				onClick="reorder.order_by.value='#thisTerm#';reorder.order_order.value='desc';reorder.submit();"
-				onMouseOver="self.status='Sort Descending.';#thisName#dn.src='/images/down_mo.gif';return true;"
-				onmouseout="self.status='';#thisName#dn.src='/images/down.gif';return true;">
-				<img src="/images/down.gif" border="0" name="#thisName#dn"></a>
-		</td>
-		<td>&nbsp;</td>
+
+<table border id="t" class="sortable">
+		<tr>
+			<th>Permit Number</th>
+			<th>Permit Type/Regulation</th>
+			<th>Issued To</th>
+			<th>Issued By</th>
+			<th>Contact</th>
+			<th>Issued Date</th>
+			<th>Expires Date</th>
+			<th>Remarks</th>
+			<th>ctl</th>
+		</tr>
+		<cfloop query="base">
+			<tr>
+				<td>#permit_Num#</td>
+				<td>subquery</td>
+				<td>subquery</td>
+				<td>subquery</td>
+				<td>subquery</td>
+				<td>#issued_Date#</td>
+				<td>make pretty: #exp_Date#</td>
+				<td>permit_remarks</td>
+				<td>
+					<div>
+						<a href="Permit.cfm?permit_id=#permit_id#&action=editPermit">Edit&nbsp;Permit</a>
+					</div>
+					<div>
+						<a href="editAccn.cfm?permit_id=#permit_id#&action=findAccessions">Accession&nbsp;List</a>
+					</div>
+				</td>
+			</tr>
+		</cfloop>
+	</table>
+	</cfoutput>
+	<!----
 	</form>
 	</tr>
 </cfoutput>
@@ -363,6 +263,7 @@ where
 	</tr>
 </cfoutput>
 </table>
+---->
 </cfif>
 <!--------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------->
