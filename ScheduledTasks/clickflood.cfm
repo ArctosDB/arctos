@@ -28,6 +28,9 @@
 	We're averaging about 50K requests/day at realease - revisit when/if necessary
 ---->
 <cfset numberOfRequests=50000>
+
+
+<cfset minQueries=10>
 <!----
 	time between subsequent queries. E.g., queries 5s apart follow robots.txt and won't break anything;
 	this is only intended to detect abuse which might lead to issues, not tolerable usage
@@ -87,7 +90,7 @@
 		<cfquery name="thisRequests" dbtype="query">
 			select * from x where ip='#ip#' order by ts
 		</cfquery>
-		<cfif thisrequests.recordcount gte 10>
+		<cfif thisrequests.recordcount gte #minQueries#>
 			<!--- IPs making 10 or fewer requests just get ignored ---->
 			<cfset lastTime=ISOToDateTime("2000-11-08T12:36:0")>
 			<cfset nrq=0>
@@ -123,20 +126,23 @@
 	</p>
 	<p>
 		The purpose of this application is to capture traffic which requests multiple pages in a short amount of time. This application
-		is primarily designed to detect automated requests ("bots") which do not follow the directives in /robots.txt
+		is primarily designed to detect automated requests ("bots") which do not follow the directives in /robots.txt.
 	</p>
 	<p>
-		The last #numberOfRequests# logs are analyzed. That should be about 24h; if not, adjust variable numberOfRequests.
+		The last #numberOfRequests# (variable: numberOfRequests) logs are analyzed. That should be about 24h of traffic.
 	</p>
 	<p>
-		Queries which occur less than or equal to #timeBetweenQueries# are counted. Adjust variable timeBetweenQueries as necessary.
+		Queries which occur less than #timeBetweenQueries# (variable: timeBetweenQueries) seconds apart are counted.
 	</p>
 	<p>
-		#numberOfQueries# events as described above trigger this email. Adjust variable numberOfQueries as necessary.
+		#numberOfQueries# (variable: numberOfQueries) events from an IP are necessary to trigger this email.
 	</p>
 	<p>
-		#floodRatio# requests from an IP must meet all criteria here to trigger this. That is, IPs with mostly non-abusive request patterns will
-		be ignored. Adjust variable floodRatio as necessary.
+		IPs making fewer than #minQueries# (variable: minQueries) are ignored.
+	</p>
+	<p>
+		#floodRatio# (variable: floodRatio) requests from an IP must meet all criteria here to trigger this;
+		 IPs with low ratios of abusive requests will be ignored.
 	</p>
 	<p>
 		This application ignores .cfc requests, local IP requests, requests for the /form/ and /includes/ directories, requests from signed-in
