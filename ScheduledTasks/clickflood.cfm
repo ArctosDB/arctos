@@ -56,15 +56,8 @@
 <cfset x=queryNew("ts,ip,rqst,usrname")>
 
 <cfset firstRequestLine=listgetat(exrslt,1,"#chr(10)#")>
-firstRequestLine: #firstRequestLine#
 <cfset firstRequestTime=listgetat(firstRequestLine,1,"|")>
-
-
-			<cfset firstRequestTime=ISOToDateTime("#firstRequestTime#")>
-
-
-
-firstRequestTime: #firstRequestTime#
+<cfset firstRequestTime=ISOToDateTime("#firstRequestTime#")>
 
 <cfloop list="#exrslt#" delimiters="#chr(10)#" index="i">
 	<cfset t=listgetat(i,1,"|","yes")>
@@ -142,7 +135,7 @@ firstRequestTime: #firstRequestTime#
 	</p>
 	<p>
 		The last #numberOfRequests# (variable: numberOfRequests) logs are analyzed. That should be about 24h of traffic.
-		Actual: #firstRequestTime#-#now()#=#datediff('h',firstRequestTime,now())#
+		Actual: #firstRequestTime#-#now()#=#datediff('h',firstRequestTime,now())# hours.
 	</p>
 	<p>
 		Queries which occur less than #timeBetweenQueries# (variable: timeBetweenQueries) seconds apart are counted.
