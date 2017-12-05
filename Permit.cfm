@@ -184,6 +184,7 @@ where
 			<th>Contact</th>
 			<th>Issued Date</th>
 			<th>Expires Date</th>
+			<th>Expires Days</th>
 			<th>Remarks</th>
 			<th>ctl</th>
 		</tr>
@@ -222,6 +223,9 @@ where
 				</td>
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
 				<td>make pretty: #dateformat(exp_Date,"yyyy-mm-dd")# </td>
+				<td>
+					#datediff("d",now(),exp_Date)#
+				</td>
 				<td>#permit_remarks#</td>
 				<td>
 					<div>
