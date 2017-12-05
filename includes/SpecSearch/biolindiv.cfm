@@ -29,8 +29,8 @@
 			  </select>
 		</td>
 		<td class="srch">
-			
-			<input type="text" name="part_attribute_value" size="60">
+			<input type="text" id="part_attribute_value" name="part_attribute_value" size="60">
+			<span class="infoLink" onclick="var e=document.getElementById('part_attribute_value');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
 	
