@@ -188,7 +188,7 @@ where
 					<cfquery name="it" dbtype="query">
 						select permit_agent from matchPermit where agent_role='issued to' and permit_id=#permit_id#
 					</cfquery>
-					#valulist(it.permit_agent)#
+					#valuelist(it.permit_agent)#
 				</td>
 				<td>subquery</td>
 				<td>subquery</td>
