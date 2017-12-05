@@ -97,7 +97,7 @@
 				<br>thisTime: #thisTime#::::#rqst#::::::#usrname#
 				---->
 				<cfset ttl=DateDiff("s", lastTime, thisTime)>
-				<cfif ttl lte timeBetweenQueries>
+				<cfif ttl lt timeBetweenQueries>
 					<!----
 					<br>triggered!
 					---->
