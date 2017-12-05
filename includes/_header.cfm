@@ -487,6 +487,8 @@
 											<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
 											<li><a target="_top" href="/tools/makeGitIgnore.cfm">build .gitignore</a></li>
 											<li><a target="_top" href="/Admin/buildAttributeSearchByNameCode.cfm">Get Attributes Code</a></li>
+											<li><a target="_top" href="/Admin/generate_ct_log.cfm">Generate CT logs</a></li>
+
 										</ul>
 									</li>
 								</cfif>
