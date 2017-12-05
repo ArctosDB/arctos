@@ -193,7 +193,7 @@ where
 
 				<td>
 					<cfquery name="ptr" dbtype="query">
-						select permit_type,permit_regulation from matchPermit where permit_id=#permit_id#
+						select permit_type,permit_regulation from matchPermit where permit_id=#permit_id# group by permit_type,permit_regulation
 					</cfquery>
 					<cfloop query="ptr">
 						<div>
