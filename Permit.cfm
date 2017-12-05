@@ -191,7 +191,17 @@ where
 			<tr>
 				<td>#permit_Num#</td>
 
-				<td>subquery</td>
+				<td>
+					<cfquery name="ptr" dbtype="query">
+						select permit_type,permit_regulation from matchPermit where permit_id=#permit_id#
+					</cfquery>
+					<cfloop query="ptr">
+						<div>
+							#permit_type# - #permit_regulation#
+						</div>
+					</cfloop>
+
+				</td>
 				<td>
 					<cfquery name="it" dbtype="query">
 						select permit_agent from matchPermit where agent_role='issued to' and permit_id=#permit_id# group by permit_agent
