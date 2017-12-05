@@ -102,7 +102,13 @@ where
 
 
 <cfif len(ContactAgent) gt 0>
-	<cfset sql = "#sql# AND permit_agent.agent_role='contact' and permit_agent.agent_id in (select agent_id from agent_name where upper(agent_name) like '%#ucase(ContactAgent)#%')">
+	<cfset sql = "#sql# AND permit_id in (
+		select permit_id from
+		permit_agent,agent_name
+		where
+		permit_agent.agent_id=agent_name.agent_id and
+		permit_agent.agent_role='contact' and
+		upper(agent_name) like '%#ucase(ContactAgent)#%')">
 </cfif>
 
 <cfif len(IssuedAfter) gt 0>
@@ -184,13 +190,14 @@ where
 		<cfloop query="base">
 			<tr>
 				<td>#permit_Num#</td>
+
+				<td>subquery</td>
 				<td>
 					<cfquery name="it" dbtype="query">
 						select permit_agent from matchPermit where agent_role='issued to' and permit_id=#permit_id#
 					</cfquery>
 					#valuelist(it.permit_agent)#
 				</td>
-				<td>subquery</td>
 				<td>subquery</td>
 				<td>subquery</td>
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
