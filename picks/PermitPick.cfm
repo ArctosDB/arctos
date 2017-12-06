@@ -62,22 +62,19 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 <cfoutput>
 
 <cfset sql = "select
-	permit.permit_id,
-	getPreferredAgentName(permit_agent.agent_id) permit_agent,
-	permit_agent.agent_role,
-	permit.issued_Date,
-	permit.exp_Date,
-	permit.permit_Num,
-	permit.permit_remarks,
-	permit_type.permit_type,
-	permit_type.permit_regulation
+		permit.permit_id,
+		issued_Date,
+		exp_Date,
+		permit_Num,
+		permit_remarks,
+		getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+		getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
+		getPermitAgents(permit.permit_id, 'contact') ContactAgent,
+		getPermitTypeReg(permit.permit_id) permit_Type
 from
-	permit,
-	permit_agent,
-	permit_type
+	permit
 where
-	permit.permit_id = permit_agent.permit_id (+) and
-	permit.permit_id = permit_type.permit_id (+) ">
+	">
 
 
 
@@ -157,26 +154,6 @@ where
 </cfquery>
 
 
-<cfquery name="base" dbtype="query">
-	select
-		permit_id,
-		issued_Date,
-		exp_Date,
-		permit_Num,
-		permit_remarks,
-		getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
-		getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
-		getPermitAgents(permit.permit_id, 'contact') ContactAgent,
-		getPermitTypeReg(permit.permit_id) permit_Type
-	from
-		matchPermit
-	group by
-		permit_id,
-		issued_Date,
-		exp_Date,
-		permit_Num,
-		permit_remarks
-</cfquery>
 <script src="/includes/sorttable.js"></script>
 
 <cfset i=1>
@@ -193,7 +170,7 @@ where
 			<th>Remarks</th>
 			<th>ctl</th>
 		</tr>
-		<cfloop query="base">
+		<cfloop query="matchPermit">
 			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>#permit_Num#</td>
 
