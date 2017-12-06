@@ -262,6 +262,7 @@ where
 					<cfif len(permit_remarks) gt 0>
 						<cfset jpd=jpd & " Remarks: #permit_remarks#">
 					 </cfif>
+					 <cfset jpd=URLEncodedFormat(jpd)>
 					<form action="PermitPick.cfm" method="post" name="save">
 						<input type="hidden" value="#transaction_id#" name="transaction_id">
 						<input type="hidden" value="#callbackfunction#" name="callbackfunction">
@@ -379,8 +380,9 @@ where
 		<script>
 			console.log('triggering callbackfunction');
 			parent.#callbackfunction#('#permit_id#','#jpd#');
-
 			console.log('triggered callbackfunction');
+			self.close();
+
 		</script>
 		Added permit #permit_id# to transaction #transaction_id#.
 		<br>Search to add another permit to this accession or click
