@@ -460,9 +460,29 @@ where
 								</select>
 							</td>
 						</tr>
+					</cfloop>
+					<cfloop from="1" to="5" index="i">
+						<tr>
+							<td>
+								<select name="permit_type_new_#i#" size="1">
+									<option value=""></option>
+									<cfloop query="ctPermitType">
+										<option value="#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+
+								<select name="permit_regulation_new_#i#" size="1">
+									<option value=""></option>
+									<cfloop query="ctPermitRegulation">
+										<option value = "#ctPermitRegulation.permit_regulation#">#ctPermitRegulation.permit_regulation#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
 
 					</cfloop>
-
 				</table>
 
 
