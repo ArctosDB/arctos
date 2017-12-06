@@ -417,9 +417,7 @@
 					 <input type="submit" value="Remove this Permit" class="delBtn">
 				</form>
 			</cfloop>
-			<div id="addNewPermitsHere">
-
-			</div>
+			<div id="addNewPermitsHere"></div>
 
 			<script>
 				function addNewPermitsPicked(pid,r){
