@@ -1449,7 +1449,7 @@ function pickAgentModal(agentIdFld,agentNameFld,name){
 
 
 function addPermitToTrans(transaction_id,callbackfunction){
-	var guts = "/picks/PermitPick.cfm?transaction_id=" + agentIdFld + '&transaction_id=' + transaction_id + '&callbackfunction=' + callbackfunction;
+	var guts = "/picks/PermitPick.cfm?transaction_id=" + transaction_id +  '&callbackfunction=' + callbackfunction;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
