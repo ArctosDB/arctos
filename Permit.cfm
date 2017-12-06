@@ -296,6 +296,9 @@ where
 					<div>
 						<a href="Loan.cfm?permit_id=#permit_id#&action=listLoans">Loan&nbsp;List</a>
 					</div>
+					<div>
+						<a href="borrow.cfm?permit_id=#permit_id#&action=findEm">Borrow&nbsp;List</a>
+					</div>
 				</td>
 			</tr>
 			<cfset i=i+1>

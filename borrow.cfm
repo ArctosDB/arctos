@@ -205,6 +205,9 @@
 		<cfif isdefined("TRANS_REMARKS") and len(TRANS_REMARKS) gt 0>
 			<cfset w=w & " and upper(TRANS_REMARKS) like '%#ucase(TRANS_REMARKS)#%'">
 		</cfif>
+		<cfif isdefined("permit_id") and len(permit_id) gt 0>
+			<cfset w=w & " and borrow.transaction_id in (select transaction_id from permit_trans where permit_id=#permit_id#)">
+		</cfif>
 		<cfquery name="getBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				borrow.TRANSACTION_ID,
