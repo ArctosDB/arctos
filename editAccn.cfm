@@ -391,23 +391,19 @@
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				permit.permit_id,
-				issuedBy.agent_name as IssuedByAgent,
-				issuedTo.agent_name as IssuedToAgent,
+				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
 				issued_date,
 				renewed_date,
 				exp_date,
 				permit_Num,
-				permit_Type,
+				getPermitTypeReg(permit.permit_id) permit_Type,
 				permit_remarks
 			FROM
 				permit,
-				permit_trans,
-				preferred_agent_name issuedTo,
-				preferred_agent_name issuedBy
+				permit_trans
 			WHERE
-				permit.permit_id = permit_trans.permit_id AND
-				permit.issued_by_agent_id = issuedBy.agent_id AND
-				permit.issued_to_agent_id = issuedTo.agent_id AND
+				permit.permit_id = permit_trans.permit_id and
 				permit_trans.transaction_id = #accnData.transaction_id#
 		</cfquery>
 		<div style="float:left;width:55%;">
@@ -445,25 +441,6 @@
 				 <input type="button" value="Add a permit" class="picBtn"
 			   		onClick="addPermitToTrans('#accnData.transaction_id#','addNewPermitsPicked');">
 			</p>
-
-			   		<!----
-			<form name="addPermit" action="editAccn.cfm" method="post">
-				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
-				<input type="hidden" name="permit_id" >
-
-				function getPermit(PermitIDFld,PermitNumberFld,permit_number){
-
-
-			   		javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
-						'resizable,scrollbars=yes,width=600,height=600')">
-
-<!----
-				  <input type="button" value="Add a permit" class="picBtn"
-			   		onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
-						'resizable,scrollbars=yes,width=600,height=600')">
-						---->
-			</form>
-			---->
 		</td></tr></table>
 	</cfoutput>
 </cfif>
