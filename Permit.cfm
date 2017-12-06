@@ -614,9 +614,6 @@ where
 				<cfset thisPermitReg=evaluate("permit_regulation_" & thisPermitTypeId)>
 				<br>thisPermitReg: #thisPermitReg#
 				<cfif left(thisPermitTypeId,3) is "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
-					<!----
-
-					---->
 					<cfquery name="ipt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into permit_type (
 							permit_id,
@@ -628,33 +625,55 @@ where
 							'#thisPermitReg#'
 						)
 					</cfquery>
-					<br>got new stuff, insert
 				<cfelseif left(thisPermitTypeId,3) is not "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
-					<!----
-
-					---->
-<cfquery name="upt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfquery name="upt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update permit_type set
 							permit_type='#thisPermitType#',
 							permit_regulation='#thisPermitReg#'
 						where
 							permit_type_id=#thisPermitTypeId#
 					</cfquery>
-
-					<br>update...
 				<cfelseif left(thisPermitTypeId,3) is not "new" and len(thisPermitType) is 0 and len(thisPermitReg) is 0>
-					<!----
-
-					---->
-					<br>delete	<cfquery name="dpt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfquery name="dpt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						delete from permit_type
 						where
 							permit_type_id=#thisPermitTypeId#
 					</cfquery>
 				</cfif>
+			</cfif>
+			<cfif left(thisfield,12) is 'permit_agent_id_'>
+				<br>agent....
+				<cfset thisPermitAgentId=listlast(thisField,"_")>
+				<cfset thisPermitAgent=evaluate("permit_agent_id_" & thisPermitAgentId)>
+				<cfset thisPermitAgentRole=evaluate("permit_agent_role_" & thisPermitAgentId)>
 
+				<br>thisPermitAgentId: #thisPermitAgentId#
+				<br>thisPermitAgent: #thisPermitAgent#
+				<br>thisPermitAgentRole: #thisPermitAgentRole#
+				<cfif left(thisPermitAgentId,3) is "new" and len(thisPermitAgent) gt 0 and len(thisPermitAgentRole) gt 0>
+					<br>
+
+					insert into permit_agent (
+						permit_id,
+						agent_id,
+						agent_role
+					) values (
+						#permit_id#,
+						#thisPermitAgent#,
+						'#thisPermitAgentRole#'
+					)
+				<cfelseif left(thisPermitAgentId,3) is not "new">
+					<cfif thisPermitAgentRole is "DELETE">
+						<br>delete from permit_agent where permit_agent_id=#thisPermitAgentId#
+					<cfelse>
+						<br>update permit_agent set agent_id=#thisPermitAgent#,agent_role='#thisPermitAgentRole#' where  permit_agent_id=#thisPermitAgentId#
+					</cfif>
+
+				</cfif>
 
 			</cfif>
+
+
 		</CFLOOP>
 	</cftransaction>
 	<!----
