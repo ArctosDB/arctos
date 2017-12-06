@@ -419,7 +419,7 @@ where
 				<p>The Basics</p>
 
 				<label for="permit_Num">Permit Number</label>
-			  	<input type="text" name="permit_Num" value="#permitInfo.permit_Num#">
+			  	<input type="text" name="permit_num" id="permit_num" class="reqdClr" required value="#permitInfo.permit_Num#">
 
 				<label for="issued_Date">Issued Date</label>
 				<input type="datetime" id="issued_date" name="issued_date" value="#dateformat(permitInfo.issued_Date,"yyyy-mm-dd")#">
