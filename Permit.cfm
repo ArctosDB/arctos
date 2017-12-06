@@ -513,6 +513,7 @@ where
 									type="text"
 									name="permit_agent_name_#permit_agent_id#"
 									id="permit_agent_name_#permit_agent_id#"
+									value="#name#"
 									class="minput"
 									onchange="pickAgentModal('permit_agent_id_#permit_agent_id#',this.id,this.value); return false;"
 									onKeyPress="return noenter(event);"
