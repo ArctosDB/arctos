@@ -378,7 +378,7 @@ where
 
 		<script>
 			console.log('triggering callbackfunction');
-			parent.#callbackfunction#('#jpd#');
+			parent.#callbackfunction#('#permit_id#','#jpd#');
 
 			console.log('triggered callbackfunction');
 		</script>
