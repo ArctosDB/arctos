@@ -9,7 +9,10 @@
 </script>
 <!--- no security --->
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from ctpermit_type
+	select permit_type from ctpermit_type order by permit_type
+</cfquery>
+<cfquery name="ctPermitRegulation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select permit_regulation from ctpermit_regulation order by permit_regulation
 </cfquery>
 <cfif #action# is "nothing">
 <cfoutput>
@@ -392,42 +395,76 @@ where
 	Something bad happened. You didn't pass this form a permit_id. Go back and try again.<cfabort>
 </cfif>
 <cfquery name="permitInfo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select permit.permit_id,
-	issuedBy.agent_name as IssuedByAgent,
-	issuedBy.agent_id as IssuedByAgentID,
-	issuedTo.agent_name as IssuedToAgent,
-	issuedTo.agent_id as IssuedToAgentID,
-	contact_agent_id,
-	contact.agent_name as ContactAgent,
-	issued_Date,
-	renewed_Date,
-	exp_Date,
-	permit_Num,
-	permit_Type,
-	permit_remarks
+	select
+		permit.permit_id,
+		issued_Date,
+		exp_Date,
+		permit_Num,
+		permit_remarks
 	from
-		permit,
-		preferred_agent_name issuedTo,
-		preferred_agent_name issuedBy ,
-		preferred_agent_name contact
+		permit
 	where
-		permit.issued_by_agent_id = issuedBy.agent_id (+) and
-	permit.issued_to_agent_id = issuedTo.agent_id (+) AND
-	permit.contact_agent_id = contact.agent_id (+)
-	and permit_id=#permit_id#
-	order by permit_id
+		permit_id=#permit_id#
 </cfquery>
-</cfoutput>
-<cfoutput query="permitInfo" group="permit_id">
 <table border width="100%">
 	<tr>
 		<td width="50%"  valign="top">
-			<form name="newPermit" action="Permit.cfm" method="post">
-				<input type="hidden" name="action">
+			<form name="editPermit" action="Permit.cfm" method="post">
+				<input type="hidden" name="action" value="saveChanges">
 				<input type="hidden" name="permit_id" value="#permit_id#">
+
+				<p>The Basics</p>
 
 				<label for="permit_Num">Permit Number</label>
 			  	<input type="text" name="permit_Num" value="#permit_Num#">
+
+				<label for="issued_Date">Issued Date</label>
+				<input type="datetime" id="issued_date" name="issued_date" value="#dateformat(issued_Date,"yyyy-mm-dd")#">
+
+			  	<label for="exp_date">Expiration Date</label>
+			  	<input type="datetime" id="exp_date" name="exp_date" value="#dateformat(exp_Date,"yyyy-mm-dd")#">
+
+				<label for="permit_remarks">Remarks</label>
+			  	<textarea name="permit_remarks" class="largetextarea">#permit_remarks#</textarea>
+
+				<p>
+					Type & Regulation
+				</p>
+
+				<cfquery name="permitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from permit_type where permit_id=#permit_id#
+				</cfquery>
+				<table border>
+					<tr>
+						<th>Permit Type</th>
+						<th>Regulation</th>
+					</tr>
+					<cfloop query="permitType">
+						<tr>
+							<td>
+								<select name="permit_type_#permit_type_id#" size="1">
+									<option value=""></option>
+									<cfloop query="ctPermitType">
+										<option <cfif #ctPermitType.permit_type# is "#permitType.permit_type#"> selected </cfif>value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+
+								<select name="permit_regulation_#permit_type_id#" size="1">
+									<option value=""></option>
+									<cfloop query="ctPermitRegulation">
+										<option <cfif #ctPermitRegulation.permit_type# is "#permitType.permit_regulation#"> selected </cfif>
+										value = "#ctPermitRegulation.permit_type#">#ctPermitRegulation.permit_type#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+
+					</cfloop>
+
+				</table>
+
 
 				<label for="permit_Type">Permit Type</label>
 				<select name="permit_Type" size="1">
@@ -457,18 +494,6 @@ where
 		 			onchange="getAgent('contact_agent_id','ContactAgent','newPermit',this.value); return false;"
 			  		onKeyUp="return noenter();">
 
-			  	<label for="issued_Date">Issued Date</label>
-				<input type="datetime" id="issued_date" name="issued_date" value="#dateformat(issued_Date,"yyyy-mm-dd")#">
-
-			  	<label for="renewed_date">Renewed Date</label>
-			  	<input type="datetime" id="renewed_date" name="renewed_date" value="#dateformat(renewed_Date,"yyyy-mm-dd")#">
-
-
-			  	<label for="exp_date">Expiration Date</label>
-			  	<input type="datetime" id="exp_date" name="exp_date" value="#dateformat(exp_Date,"yyyy-mm-dd")#">
-
-			  	<label for="permit_remarks">Remarks</label>
-			  	<textarea name="permit_remarks" class="largetextarea">#permit_remarks#</textarea>
 
 			  	<table width="100%">
 					<tr>
