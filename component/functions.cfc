@@ -33,8 +33,8 @@
 <cfif isdefined("issued_Date") and  len(#issued_Date#) gt 0>
 	<cfset sql = "#sql# AND upper(issued_Date) like '%#ucase(issued_Date)#%'">
 </cfif>
-<cfif isdefined("renewed_Date") and  len(#renewed_Date#) gt 0>
-	<cfset sql = "#sql# AND upper(renewed_Date) like '%#ucase(renewed_Date)#%'">
+<cfif isdefined("exp_date") and  len(#exp_date#) gt 0>
+	<cfset sql = "#sql# AND upper(exp_date) like '%#ucase(exp_date)#%'">
 </cfif>
 <cfif isdefined("permit_number") and  len(#permit_number#) gt 0>
 	<cfset sql = "#sql# AND upper(permit_Num) like '%#ucase(permit_number)#%'">
