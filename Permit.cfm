@@ -68,6 +68,14 @@
 		</cfloop>
 	</select>
 
+	<label for="permit_regulation">Permit Regulation</label>
+	<select name="permit_regulation" size="1">
+		<option value=""></option>
+		<cfloop query="ctPermitRegulation">
+			<option value = "#ctPermitRegulation.permit_regulation#">#ctPermitRegulation.permit_regulation#</option>
+		</cfloop>
+	</select>
+
 
 	<label for="permit_remarks">Remarks</label>
 	<input type="text" name="permit_remarks">
@@ -170,6 +178,9 @@ where
 
 <cfif len(permit_type) gt 0>
 	<cfset sql = "#sql# AND permit.permit_id in (select permit_id from permit_type where permit_type = '#permit_type#')">
+</cfif>
+<cfif len(permit_regulation) gt 0>
+	<cfset sql = "#sql# AND permit.permit_id in (select permit_id from permit_type where permit_regulation = '#permit_regulation#')">
 </cfif>
 
 
