@@ -256,10 +256,10 @@ where
 					<cfset dtec="noExpDate">
 				<cfelseif dte lt 0>
 					<cfset dtec="expired">
-				<cfelseif dte gt 180>
-					<cfset dtec="sixmos">
-				<cfelseif dte gt 30>
+				<cfelseif dte between 0 and 30>
 					<cfset dtec="onemo">
+				<cfelseif dte between 30 and 180>
+					<cfset dtec="sixmos">
 				<cfelse>
 					<cfset dtec="eventually">
 				</cfif>
