@@ -536,25 +536,21 @@
 <td valign="top">
 	<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
-			permit.permit_id,
-			issuedBy.agent_name as IssuedByAgent,
-			issuedTo.agent_name as IssuedToAgent,
-			issued_Date,
-			renewed_Date,
-			exp_Date,
-			permit_Num,
-			permit_Type,
-			permit_remarks
-		FROM
-			permit,
-			permit_trans,
-			preferred_agent_name issuedTo,
-			preferred_agent_name issuedBy
-		WHERE
-			permit.permit_id = permit_trans.permit_id AND
-			permit.issued_by_agent_id = issuedBy.agent_id AND
-			permit.issued_to_agent_id = issuedTo.agent_id AND
-			permit_trans.transaction_id = #transaction_id#
+				permit.permit_id,
+				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
+				issued_date,
+				renewed_date,
+				exp_date,
+				permit_Num,
+				getPermitTypeReg(permit.permit_id) permit_Type,
+				permit_remarks
+			FROM
+				permit,
+				permit_trans
+			WHERE
+				permit.permit_id = permit_trans.permit_id and
+				permit_trans.transaction_id = #transaction_id#
 	</cfquery>
 	<br><strong>Permits:</strong>
 	<cfloop query="getPermits">
