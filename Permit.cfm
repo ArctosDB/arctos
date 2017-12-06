@@ -467,7 +467,7 @@ where
 						</tr>
 					</cfloop>
 					<cfloop from="1" to="5" index="i">
-						<tr>
+						<tr class="neewRec">
 							<td>New (save to add more)</td>
 							<td>
 								<select name="permit_type_new#i#" size="1">
