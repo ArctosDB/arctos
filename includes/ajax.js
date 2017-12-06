@@ -1449,20 +1449,22 @@ function pickAgentModal(agentIdFld,agentNameFld,name){
 
 
 function addPermitToTrans(transaction_id,callbackfunction){
+	// pass in transaction_id and callbackfunction
+	// returns callbackfunction(permit_id,permit_description_string)
 	var guts = "/picks/PermitPick.cfm?transaction_id=" + transaction_id +  '&callbackfunction=' + callbackfunction;
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:900px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
 		height: 'auto',
 		modal: true,
 		position: ['center', 'center'],
 		title: 'Pick Agent',
-			width:800,
+			width:900,
  			height:600,
 		close: function() {
 			$( this ).remove();
 		}
-	}).width(800-10).height(600-10);
+	}).width(900-10).height(600-10);
 	$(window).resize(function() {
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 	});

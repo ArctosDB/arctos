@@ -249,8 +249,6 @@ where
 				<cfelse>
 					<cfset dtec="eventually">
 				</cfif>
-
-
 				<td>
 					<div class="#dtec#">#dte#</div>
 				</td>
@@ -270,8 +268,7 @@ where
 						<input type="hidden" value="#jpd#" name="jpd">
 						<input type="hidden" name="permit_id" value="#permit_id#">
 						<input type="hidden" name="Action" value="addThisOne">
-
-					<input type="submit" value="Add this permit">
+						<input type="submit" value="Add this permit">
 					</form>
 				<!----
 					<input type="button" value="add permit to transaction" onclick="useThisOne('#permit_id#','#transaction_id#','#jpd#')">
@@ -366,7 +363,7 @@ where
 	</cfif>
 <cfif action is "AddThisOne">
 	<cfoutput>
-		<cfif not (len(#transaction_id#) gt 0 and len(#permit_id#) gt 0)>
+		<cfif not (len(transaction_id) gt 0 and len(permit_id) gt 0 and len(callbackfunction) gt 0)>
 			something bad happened <cfabort>
 		</cfif>
 		<cfquery name="addPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
