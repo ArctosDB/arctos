@@ -434,6 +434,9 @@ where
 					Type & Regulation
 					<div style="font-size:small;padding:1em;margin:1em;">
 						Choose TYPE and/or REGULATION, paired or not. Remove both to delete.
+						Code tables are
+						<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_TYPE">CTPERMIT_TYPE</a> and
+						<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_REGULATION">CTPERMIT_REGULATION</a>
 					</div>
 				</p>
 
@@ -498,6 +501,8 @@ where
 					Agents
 					<div style="font-size:small;padding:1em;margin:1em;">
 						Provide both an agent and role to create. Choose role DELETE to remove.
+						Code table is
+						<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_AGENT_ROLE">CTPERMIT_AGENT_ROLE</a>
 					</div>
 				</p>
 
