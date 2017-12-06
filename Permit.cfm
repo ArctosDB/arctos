@@ -99,11 +99,25 @@ where
 
 
 <cfif len(IssuedByAgent) gt 0>
-	<cfset sql = "#sql# AND permit_agent.agent_role='issued by' and permit_agent.agent_id in (select agent_id from agent_name where upper(agent_name) like '%#ucase(IssuedByAgent)#%')">
+	<cfset sql = "#sql# AND permit.permit_id in (
+		select permit_agent.permit_id from
+		permit_agent,agent_name
+		where
+		permit_agent.agent_id=agent_name.agent_id and
+		permit_agent.agent_role='issued by' and
+		upper(agent_name.agent_name) like '%#ucase(IssuedByAgent)#%')">
+
+
 </cfif>
 
 <cfif len(IssuedToAgent) gt 0>
-	<cfset sql = "#sql# AND permit_agent.agent_role='issued to' and permit_agent.agent_id in (select agent_id from agent_name where upper(agent_name) like '%#ucase(IssuedToAgent)#%')">
+	<cfset sql = "#sql# AND permit.permit_id in (
+		select permit_agent.permit_id from
+		permit_agent,agent_name
+		where
+		permit_agent.agent_id=agent_name.agent_id and
+		permit_agent.agent_role='issued to' and
+		upper(agent_name.agent_name) like '%#ucase(IssuedToAgent)#%')">
 </cfif>
 
 
