@@ -319,16 +319,16 @@ where
 				<p>The Basics</p>
 
 				<label for="permit_Num">Permit Identifier/Number</label>
-			  	<input type="text" name="permit_num" id="permit_num" class="reqdClr" required value="#permitInfo.permit_Num#">
+			  	<input type="text" name="permit_num" id="permit_num" class="reqdClr" required >
 
 				<label for="issued_Date">Issued Date</label>
-				<input type="datetime" id="issued_date" name="issued_date" value="#dateformat(permitInfo.issued_Date,"yyyy-mm-dd")#">
+				<input type="datetime" id="issued_date" name="issued_date" >
 
 			  	<label for="exp_date">Expiration Date</label>
-			  	<input type="datetime" id="exp_date" name="exp_date" value="#dateformat(permitInfo.exp_Date,"yyyy-mm-dd")#">
+			  	<input type="datetime" id="exp_date" name="exp_date" >
 
 				<label for="permit_remarks">Remarks</label>
-			  	<textarea name="permit_remarks" class="largetextarea">#permitInfo.permit_remarks#</textarea>
+			  	<textarea name="permit_remarks" class="largetextarea"></textarea>
 
 				<label for="permit_type">Permit Type</label>
 				<div style="font-size:small;padding:1em;margin:1em;">
