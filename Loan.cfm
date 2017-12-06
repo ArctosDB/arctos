@@ -1875,6 +1875,9 @@ just fooling idiot cfclipse into using the right colors
 	<cfif isdefined("loan_number") AND len(#loan_number#) gt 0>
 		<cfset sql = "#sql# AND upper(loan_number) like '%#ucase(loan_number)#%'">
 	</cfif>
+	<cfif isdefined("permit_id") AND len(permit_id) gt 0>
+		<cfset sql = "#sql# AND permit.permit_id = #permit_id#">
+	</cfif>
 	<cfif isdefined("permit_num") AND len(#permit_num#) gt 0>
 		<cfset sql = "#sql# AND PERMIT_NUM = '#PERMIT_NUM#'">
 	</cfif>
