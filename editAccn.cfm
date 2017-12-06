@@ -433,7 +433,7 @@
 
 
 					var x='<div>';
-					x+=r;
+					x+=' i am r ';
 					x+='<form name="killPerm' + nfid + '" method="post" action="editAccn.cfm">'>
 
 					/*
