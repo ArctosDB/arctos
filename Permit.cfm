@@ -606,7 +606,7 @@ where
 		</cfquery>
 		<CFLOOP index="thisfield" list="#FORM.FIELDNAMES#">
 			<cfif left(thisfield,12) is 'permit_type_'>
-				permit type....
+				<br>permit type....
 				<cfset thisPermitTypeId=listlast(thisField,"_")>
 				<br>thisPermitTypeId: #thisPermitTypeId#
 				<cfset thisPermitType=evaluate("permit_type_" & thisPermitTypeId)>
@@ -625,7 +625,7 @@ where
 							'#thisPermitReg#'
 						)
 					</cfquery>
-					got new stuff, insert
+					<br>got new stuff, insert
 				<cfelseif left(thisPermitTypeId,3) is not "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
 					<cfquery name="upt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update permit_type set
@@ -643,6 +643,7 @@ where
 						where
 							permit_type_id=#thisPermitTypeId#
 					</cfquery>
+					<br>delete
 				</cfif>
 
 
