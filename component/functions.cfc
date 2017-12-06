@@ -9,26 +9,20 @@
 			<cfset "#a#"=b>
 		</cfif>
 	</cfloop>
-	<cfset sql = "select distinct permit.permit_id,
-	issuedByPref.agent_name IssuedByAgent,
-	issuedToPref.agent_name IssuedToAgent,
-	issued_Date,
-	renewed_Date,
-	exp_Date,
-	permit_Num,
-	permit_Type,
-	permit_remarks
-from
-	permit,
-	preferred_agent_name issuedToPref,
-	preferred_agent_name issuedByPref,
-	agent_name issuedTo,
-	agent_name issuedBy
-where
-	permit.issued_by_agent_id = issuedBy.agent_id and
-	permit.issued_to_agent_id = issuedTo.agent_id and
-		permit.issued_by_agent_id = issuedByPref.agent_id and
-	permit.issued_to_agent_id = issuedToPref.agent_id ">
+	<cfset sql = "
+			SELECT
+				permit.permit_id,
+				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
+				issued_date,
+				exp_date,
+				permit_Num,
+				getPermitTypeReg(permit.permit_id) permit_Type,
+				permit_remarks
+			FROM
+				permit
+			WHERE
+				1=1 ">
 
 <cfif isdefined("IssuedByAgent") and len(IssuedByAgent) gt 0>
 	<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
@@ -41,9 +35,6 @@ where
 </cfif>
 <cfif isdefined("renewed_Date") and  len(#renewed_Date#) gt 0>
 	<cfset sql = "#sql# AND upper(renewed_Date) like '%#ucase(renewed_Date)#%'">
-</cfif>
-<cfif isdefined("exp_Date") and  len(#exp_Date#) gt 0>
-	<cfset sql = "#sql# AND upper(exp_Date) like '%#ucase(exp_Date)#%'">
 </cfif>
 <cfif isdefined("permit_number") and  len(#permit_number#) gt 0>
 	<cfset sql = "#sql# AND upper(permit_Num) like '%#ucase(permit_number)#%'">
