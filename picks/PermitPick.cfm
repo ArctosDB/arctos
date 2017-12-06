@@ -256,9 +256,9 @@ where
 				</td>
 				<td>#permit_remarks#</td>
 				<td>
-					<cfset jpd="Permit ID #permit_Num# (#valuelist(ptr.permit_type)# - (#valuelist(ptr.permit_regulation)#)">
+					<cfset jpd="Permit ID #permit_Num# (#valuelist(ptr.permit_type)# - #valuelist(ptr.permit_regulation)#)">
 					<cfset jpd=jpd & " issued to #valuelist(it.permit_agent)# by #valuelist(ib.permit_agent)#">
-					<cfset jpd=jpd & "on #dateformat(issued_date,'yyyy-mm-dd')#. Expires #dateformat(exp_date,'yyyy-mm-dd')#">
+					<cfset jpd=jpd & "on #dateformat(issued_date,'yyyy-mm-dd')#, expires #dateformat(exp_date,'yyyy-mm-dd')#">
 					<cfif len(permit_remarks) gt 0>
 						<cfset jpd=jpd & " Remarks: #permit_remarks#">
 					 </cfif>
@@ -364,30 +364,22 @@ where
 
 
 	</cfif>
-<cfif #Action# is "AddThisOne">
+<cfif action is "AddThisOne">
 	<cfoutput>
 		<cfif not (len(#transaction_id#) gt 0 and len(#permit_id#) gt 0)>
 			something bad happened <cfabort>
 		</cfif>
-
-		<!----
 		<cfquery name="addPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO permit_trans (permit_id, transaction_id) VALUES (#permit_id#, #transaction_id#)
 		</cfquery>
---->
-
-
-
 		<script>
-			console.log('triggering callbackfunction');
+			//console.log('triggering callbackfunction');
 			parent.#callbackfunction#('#permit_id#','#jpd#');
-			console.log('triggered callbackfunction');
+			//console.log('triggered callbackfunction');
 			parent.$(".ui-dialog-titlebar-close").trigger('click');
 
 		</script>
 		Added permit #permit_id# to transaction #transaction_id#.
-		<br>Search to add another permit to this accession or click
-		<a href="##" onclick="javascript: self.close();">here</a> to close this window.
 	</cfoutput>
 
 
