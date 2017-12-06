@@ -264,8 +264,6 @@ where
 					 </cfif>
 					 <cfset jpd=replace(jpd,"'","`","all")>
 					 <cfset jpd=replace(jpd,'"',"`","all")>
-
-					 #jpd#
 					<form action="PermitPick.cfm" method="post" name="save">
 						<input type="hidden" value="#transaction_id#" name="transaction_id">
 						<input type="hidden" value="#callbackfunction#" name="callbackfunction">
@@ -384,7 +382,7 @@ where
 			console.log('triggering callbackfunction');
 			parent.#callbackfunction#('#permit_id#','#jpd#');
 			console.log('triggered callbackfunction');
-			self.close();
+			parent.$(".ui-dialog-titlebar-close").trigger('click');
 
 		</script>
 		Added permit #permit_id# to transaction #transaction_id#.
