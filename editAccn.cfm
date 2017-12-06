@@ -418,7 +418,6 @@
 				</form>
 			</cfloop>
 			<div id="addNewPermitsHere"></div>
-
 			<script>
 				function addNewPermitsPicked(pid,r){
 					var nfid=Math.floor((Math.random() * 1000) + 100);

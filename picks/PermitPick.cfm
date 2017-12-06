@@ -163,7 +163,11 @@ where
 		issued_Date,
 		exp_Date,
 		permit_Num,
-		permit_remarks
+		permit_remarks,
+		getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+		getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
+		getPermitAgents(permit.permit_id, 'contact') ContactAgent,
+		getPermitTypeReg(permit.permit_id) permit_Type
 	from
 		matchPermit
 	group by
@@ -175,16 +179,6 @@ where
 </cfquery>
 <script src="/includes/sorttable.js"></script>
 
-
-<script>
-	function useThisOne(pid,tid,jpd){
-		console.log('useThisOne');
-		transaction_id
-
-
-		console.log(jpd);
-	}
-</script>
 <cfset i=1>
 <table border id="t" class="sortable">
 		<tr>
@@ -204,33 +198,16 @@ where
 				<td>#permit_Num#</td>
 
 				<td>
-					<cfquery name="ptr" dbtype="query">
-						select permit_type,permit_regulation from matchPermit where permit_id=#permit_id# group by permit_type,permit_regulation
-					</cfquery>
-					<cfloop query="ptr">
-						<div>
-							#permit_type# - #permit_regulation#
-						</div>
-					</cfloop>
-
+					#permit_Type#
 				</td>
 				<td>
-					<cfquery name="it" dbtype="query">
-						select permit_agent from matchPermit where agent_role='issued to' and permit_id=#permit_id# group by permit_agent
-					</cfquery>
-					#valuelist(it.permit_agent)#
+					#IssuedToAgent#
 				</td>
 				<td>
-					<cfquery name="ib" dbtype="query">
-						select permit_agent from matchPermit where agent_role='issued by' and permit_id=#permit_id# group by permit_agent
-					</cfquery>
-					#valuelist(ib.permit_agent)#
+					#IssuedByAgent#
 				</td>
 				<td>
-					<cfquery name="ctc" dbtype="query">
-						select permit_agent from matchPermit where agent_role='contact' and permit_id=#permit_id# group by permit_agent
-					</cfquery>
-					#valuelist(ctc.permit_agent)#
+					#ContactAgent#
 				</td>
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
 				<td>#dateformat(exp_Date,"yyyy-mm-dd")# </td>
