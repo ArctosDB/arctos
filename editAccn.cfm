@@ -433,7 +433,7 @@
 
 
 					var x='<div>';
-					x+=r;
+					//x+=r;
 					x+='<form name="killPerm' + nfid + '" method="post" action="editAccn.cfm">'>
 					x+='<input type="hidden" name="transaction_id" value="' + tid + '">';
 					x+='<input type="hidden" name="action" value="delePermit">';
