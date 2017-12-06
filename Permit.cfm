@@ -615,6 +615,8 @@ where
 				<br>thisPermitReg: #thisPermitReg#
 				<cfif left(thisPermitTypeId,3) is "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
 					<!----
+
+					---->
 					<cfquery name="ipt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into permit_type (
 							permit_id,
@@ -626,30 +628,29 @@ where
 							'#thisPermitReg#'
 						)
 					</cfquery>
-					---->
 					<br>got new stuff, insert
 				<cfelseif left(thisPermitTypeId,3) is not "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
 					<!----
-					<cfquery name="upt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+					---->
+<cfquery name="upt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update permit_type set
 							permit_type='#thisPermitType#',
 							permit_regulation='#thisPermitReg#'
 						where
 							permit_type_id=#thisPermitTypeId#
 					</cfquery>
-					---->
-
 
 					<br>update...
 				<cfelseif left(thisPermitTypeId,3) is not "new" and len(thisPermitType) is 0 and len(thisPermitReg) is 0>
 					<!----
-					<cfquery name="dpt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+					---->
+					<br>delete	<cfquery name="dpt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						delete from permit_type
 						where
 							permit_type_id=#thisPermitTypeId#
 					</cfquery>
-					---->
-					<br>delete
 				</cfif>
 
 
