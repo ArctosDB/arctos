@@ -263,6 +263,7 @@ where
 						<cfset jpd=jpd & " Remarks: #permit_remarks#">
 					 </cfif>
 					 <cfset jpd=replace(jpd,"'","`","all")>
+					 <cfset jpd=replace(jpd,'"',"`","all")>
 
 					 #jpd#
 					<form action="PermitPick.cfm" method="post" name="save">
