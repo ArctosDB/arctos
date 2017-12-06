@@ -454,8 +454,8 @@ where
 								<select name="permit_regulation_#permit_type_id#" size="1">
 									<option value=""></option>
 									<cfloop query="ctPermitRegulation">
-										<option <cfif #ctPermitRegulation.permit_type# is "#permitType.permit_regulation#"> selected </cfif>
-										value = "#ctPermitRegulation.permit_type#">#ctPermitRegulation.permit_type#</option>
+										<option <cfif #ctPermitRegulation.permit_regulation# is "#permitType.permit_regulation#"> selected </cfif>
+										value = "#ctPermitRegulation.permit_regulation#">#ctPermitRegulation.permit_regulation#</option>
 									</cfloop>
 								</select>
 							</td>
