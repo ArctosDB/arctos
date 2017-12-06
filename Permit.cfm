@@ -78,7 +78,7 @@
 <style>
 	.noExpDate {border: 8px solid orange;}
 	.expired {border: 4px solid gray;}
-	.sixmos {border: 4px solid yellow;}
+	.sixmos {border: 4px solid #f4cb42;}
 	.onemo {border: 4px solid red;}
 	.eventually {border: 4px solid green;}
 </style>
@@ -197,7 +197,7 @@ where
 </cfquery>
 <script src="/includes/sorttable.js"></script>
 
-
+<cfset i=1>
 <table border id="t" class="sortable">
 		<tr>
 			<th>Permit Number</th>
@@ -212,7 +212,7 @@ where
 			<th>ctl</th>
 		</tr>
 		<cfloop query="base">
-			<tr>
+			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>#permit_Num#</td>
 
 				<td>
@@ -276,6 +276,7 @@ where
 					</div>
 				</td>
 			</tr>
+			<cfset i=i+1>
 		</cfloop>
 	</table>
 	</cfoutput>
