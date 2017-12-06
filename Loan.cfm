@@ -799,6 +799,56 @@ just fooling idiot cfclipse into using the right colors
 				</p>
 		</cfloop>
 		</div>
+
+
+
+		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		SELECT
+				permit.permit_id,
+				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
+				issued_date,
+				renewed_date,
+				exp_date,
+				permit_Num,
+				getPermitTypeReg(permit.permit_id) permit_Type,
+				permit_remarks
+			FROM
+				permit,
+				permit_trans
+			WHERE
+				permit.permit_id = permit_trans.permit_id and
+				permit_trans.transaction_id = #loanDetails.transaction_id#
+	</cfquery>
+	<br><strong>Permits:</strong>
+	<cfloop query="getPermits">
+		<form name="killPerm#currentRow#" method="post" action="Loan.cfm">
+			<p>
+				<strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
+			 	#IssuedToAgent# by #IssuedByAgent# on
+				#dateformat(issued_Date,"yyyy-mm-dd")#.
+				Expires #dateformat(exp_Date,"yyyy-mm-dd")#
+				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif>
+				<br>
+				<input type="hidden" name="transaction_id" value="#transaction_id#">
+				<input type="hidden" name="action" value="delePermit">
+				<input type="hidden" name="permit_id" value="#permit_id#">
+				<input type="submit" value="Remove this Permit" class="delBtn">
+			</p>
+		</form>
+	</cfloop>
+	<form name="addPermit" action="Loan.cfm" method="post">
+		<input type="hidden" name="transaction_id" value="#transaction_id#">
+		<input type="hidden" name="permit_id">
+		<label for="">Click to add Permit. Reload to see added permits.</label>
+		<input type="button" value="Add a permit" class="picBtn"
+		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
+				'resizable,scrollbars=yes,width=600,height=600')">
+	</form>
+
+
+
+
 	</td></tr></table>
 	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from shipment where transaction_id = #transaction_id#
@@ -949,49 +999,7 @@ just fooling idiot cfclipse into using the right colors
 	</cfform>
 </td></tr>
 	</table>
-	<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT
-				permit.permit_id,
-				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
-				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
-				issued_date,
-				renewed_date,
-				exp_date,
-				permit_Num,
-				getPermitTypeReg(permit.permit_id) permit_Type,
-				permit_remarks
-			FROM
-				permit,
-				permit_trans
-			WHERE
-				permit.permit_id = permit_trans.permit_id and
-				permit_trans.transaction_id = #loanDetails.transaction_id#
-	</cfquery>
-	<br><strong>Permits:</strong>
-	<cfloop query="getPermits">
-		<form name="killPerm#currentRow#" method="post" action="Loan.cfm">
-			<p>
-				<strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
-			 	#IssuedToAgent# by #IssuedByAgent# on
-				#dateformat(issued_Date,"yyyy-mm-dd")#.
-				Expires #dateformat(exp_Date,"yyyy-mm-dd")#
-				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif>
-				<br>
-				<input type="hidden" name="transaction_id" value="#transaction_id#">
-				<input type="hidden" name="action" value="delePermit">
-				<input type="hidden" name="permit_id" value="#permit_id#">
-				<input type="submit" value="Remove this Permit" class="delBtn">
-			</p>
-		</form>
-	</cfloop>
-	<form name="addPermit" action="Loan.cfm" method="post">
-		<input type="hidden" name="transaction_id" value="#transaction_id#">
-		<input type="hidden" name="permit_id">
-		<label for="">Click to add Permit. Reload to see added permits.</label>
-		<input type="button" value="Add a permit" class="picBtn"
-		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
-				'resizable,scrollbars=yes,width=600,height=600')">
-	</form>
+
 </cfoutput>
 <script>
 	dCount();
