@@ -311,83 +311,68 @@ where
 </cfif>
 <!--------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------->
-<cfif #Action# is "newPermit">
-<font size="+1"><strong>New Permit</strong></font><br>
+<cfif action is "newPermit">
+	<h2>Create Permit</h2>
 	<cfoutput>
-	<cfform name="newPermit" action="Permit.cfm" method="post">
-	<input type="hidden" name="Action" value="createPermit">
-	<table>
-		<tr>
-			<td>Issued By</td>
-			<td colspan="3">
-			<input type="hidden" name="IssuedByAgentId">
-			<input type="text" name="IssuedByAgent" class="reqdClr" size="50"
-		 onchange="getAgent('IssuedByAgentId','IssuedByAgent','newPermit',this.value); return false;"
-			  onKeyUp="return noenter();">
+		<form name="newPermit" action="Permit.cfm" method="post">
+			<input type="hidden" name="action" value="createPermit">
+				<p>The Basics</p>
 
+				<label for="permit_Num">Permit Identifier/Number</label>
+			  	<input type="text" name="permit_num" id="permit_num" class="reqdClr" required value="#permitInfo.permit_Num#">
 
-</td>
-		</tr>
-			<tr>
-			<td>Issued To</td>
-			<td colspan="3">
-			<input type="hidden" name="IssuedToAgentId">
-			<input type="text" name="IssuedToAgent" class="reqdClr" size="50"
-		 onchange="getAgent('IssuedToAgentId','IssuedToAgent','newPermit',this.value); return false;"
-			  onKeyUp="return noenter();">
+				<label for="issued_Date">Issued Date</label>
+				<input type="datetime" id="issued_date" name="issued_date" value="#dateformat(permitInfo.issued_Date,"yyyy-mm-dd")#">
 
+			  	<label for="exp_date">Expiration Date</label>
+			  	<input type="datetime" id="exp_date" name="exp_date" value="#dateformat(permitInfo.exp_Date,"yyyy-mm-dd")#">
 
-		</td>
-		</tr>
-		<tr>
-			<td>Contact Person</td>
-			<td colspan="3">
-			<input type="hidden" name="contact_agent_id">
-			<input type="text" name="ContactAgent" size="50"
-		 		onchange="getAgent('contact_agent_id','ContactAgent','newPermit',this.value); return false;"
-			  	onKeyUp="return noenter();">
+				<label for="permit_remarks">Remarks</label>
+			  	<textarea name="permit_remarks" class="largetextarea">#permitInfo.permit_remarks#</textarea>
 
-
-		</td>
-		</tr>
-		<tr>
-			<td>Issued Date</td>
-			<td><input type="text" name="issued_Date"></td>
-			<td>Renewed Date</td>
-			<td><input type="text" name="renewed_Date"></td>
-		</tr>
-		<tr>
-			<td>Expiration Date</td>
-			<td><input type="text" name="exp_Date"></td>
-			<td>Permit Number</td>
-			<td><input type="text" name="permit_Num"></td>
-		</tr>
-		<tr>
-			<td>Permit Type</td>
-			<td>
-				<select name="permit_Type" size="1" class="reqdClr">
+				<label for="permit_type">Permit Type</label>
+				<div style="font-size:small;padding:1em;margin:1em;">
+					Create and edit to add more types and regulations.
+					<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_TYPE">CTPERMIT_TYPE</a>
+				</div>
+				<select name="permit_type" id="permit_type" class="reqdClr" required size="1">
 					<option value=""></option>
 					<cfloop query="ctPermitType">
-						<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+						<option value="#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
 					</cfloop>
 				</select>
-			</td>
-			<td>Remarks</td>
-			<td><input type="text" name="permit_remarks"></td>
-		</tr>
-		<tr>
-			<td colspan="4" align="center">
-				<input type="submit" value="Save this permit" class="insBtn"
-   					onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">
 
-					<input type="button" value="Quit" class="qutBtn"
-   					onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'"
-					 onClick="document.location='Permit.cfm'">
+				<div style="font-size:small;padding:1em;margin:1em;">
+					Save and edit to add more Agents
+					Code table is
+					<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_AGENT_ROLE">CTPERMIT_AGENT_ROLE</a>
+				</div>
+				<label for="issued_by">Issued By</label>
+				<input type="hidden" id="issued_by_agent_id" name="issued_by_agent_id">
+				<input
+					type="text"
+					name="issued_by"
+					id="issued_by"
+					class="minput"
+					onchange="pickAgentModal('issued_by_agent_id',this.id,this.value); return false;"
+					onKeyPress="return noenter(event);"
+					placeholder="Issued By Agent">
+				<label for="issued_to">Issued To</label>
+				<input type="hidden" id="issued_to_agent_id" name="issued_to_agent_id">
+				<input
+					type="text"
+					name="issued_to"
+					id="issued_to"
+					class="minput"
+					onchange="pickAgentModal('issued_to_agent_id',this.id,this.value); return false;"
+					onKeyPress="return noenter(event);"
+					placeholder="Issued To Agent">
+				<p>
+					<input type="submit" value="Create Permit" class="savBtn">
+				</p>
 
-			</td>
-		</tr>
-	</table>
-</cfform>
+			</form>
+
 	</cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
@@ -418,7 +403,7 @@ where
 
 				<p>The Basics</p>
 
-				<label for="permit_Num">Permit Number</label>
+				<label for="permit_Num">Permit Identifier/Number</label>
 			  	<input type="text" name="permit_num" id="permit_num" class="reqdClr" required value="#permitInfo.permit_Num#">
 
 				<label for="issued_Date">Issued Date</label>
@@ -766,55 +751,69 @@ where
 <cfquery name="nextPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select sq_permit_id.nextval nextPermit from dual
 </cfquery>
-<cfquery name="newPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-INSERT INTO permit (
-	 PERMIT_ID,
-	 ISSUED_BY_AGENT_ID
-	 <cfif len(#ISSUED_DATE#) gt 0>
-	 	,ISSUED_DATE
-	 </cfif>
-	 ,ISSUED_TO_AGENT_ID
-	  <cfif len(#RENEWED_DATE#) gt 0>
-	 	,RENEWED_DATE
-	 </cfif>
-	 <cfif len(#EXP_DATE#) gt 0>
-	 	,EXP_DATE
-	 </cfif>
-	 <cfif len(#PERMIT_NUM#) gt 0>
-	 	,PERMIT_NUM
-	 </cfif>
-	 ,PERMIT_TYPE
-	<cfif len(#PERMIT_REMARKS#) gt 0>
-	 	,PERMIT_REMARKS
-	 </cfif>
-	  <cfif len(#contact_agent_id#) gt 0>
-	 	,contact_agent_id
-	 </cfif>)
-VALUES (
-	#nextPermit.nextPermit#,
-	 #IssuedByAgentId#
-	 <cfif len(#ISSUED_DATE#) gt 0>
-	 	,'#dateformat(ISSUED_DATE,"yyyy-mm-dd")#'
-	 </cfif>
-	 ,#IssuedToAgentId#
-	  <cfif len(#RENEWED_DATE#) gt 0>
-	 	,'#dateformat(RENEWED_DATE,"yyyy-mm-dd")#'
-	 </cfif>
-	 <cfif len(#EXP_DATE#) gt 0>
-	 	,'#dateformat(EXP_DATE,"yyyy-mm-dd")#'
-	 </cfif>
-	 <cfif len(#PERMIT_NUM#) gt 0>
-	 	,'#PERMIT_NUM#'
-	 </cfif>
-	 ,'#PERMIT_TYPE#'
-	<cfif len(#PERMIT_REMARKS#) gt 0>
-	 	<cfset remarks = #replace(permit_remarks,"'","''")#>
-		,'#remarks#'
-	 </cfif>
-	   <cfif len(#contact_agent_id#) gt 0>
-	 	,#contact_agent_id#
-	 </cfif>)
-</cfquery>
+	<cftransaction>
+
+		<cfquery name="newPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO permit (
+		 		PERMIT_ID,
+		 		ISSUED_DATE,
+				EXP_DATE,
+				PERMIT_NUM,
+				PERMIT_REMARKS
+			) VALUES (
+				#nextPermit.nextPermit#,
+				<cfif len(ISSUED_DATE) gt 0>
+					'#dateformat(issued_date,"yyyy-mm-dd")#',
+				<cfelse>
+					NULL,
+				</cfif>
+				<cfif len(EXP_DATE) gt 0>
+					'#dateformat(EXP_DATE,"yyyy-mm-dd")#',
+				<cfelse>
+					NULL,
+				</cfif>
+				'#PERMIT_NUM#',
+				'#escapeQuotes(permit_remarks)#'
+			)
+		</cfquery>
+		<cfquery name="newPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into permit_type (
+				permit_type_id,
+				permit_id,
+				permit_type
+			) values (
+				sq_permit_type_id.nextval,
+				#nextPermit.nextPermit#,
+				'#permit_type#'
+			)
+		</cfquery>
+		<cfquery name="newPermitBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into permit_agent (
+				permit_agent_id,
+				permit_id,
+				agent_id,
+				agent_role
+			) values (
+				sq_permit_agent_id.nextval,
+				#nextPermit.nextPermit#,
+				#issued_by_agent_id#,
+				'issued by'
+			)
+		</cfquery>
+		<cfquery name="newPermitTo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into permit_agent (
+				permit_agent_id,
+				permit_id,
+				agent_id,
+				agent_role
+			) values (
+				sq_permit_agent_id.nextval,
+				#nextPermit.nextPermit#,
+				#issued_to_agent_id#,
+				'issued to'
+			)
+		</cfquery>
+	</cftransaction>
 	<cflocation url="Permit.cfm?Action=editPermit&permit_id=#nextPermit.nextPermit#" addtoken="false">
   </cfoutput>
 </cfif>
