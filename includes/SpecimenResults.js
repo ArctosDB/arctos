@@ -465,7 +465,9 @@ function injectLoanPick() {
 	if (transaction_id) {
 		var isdl=$("#isDataLoan").val();
 		alert(isdl);
-		
+		if (isdl=='yes'){
+			return;			
+		}
 		$( "body" ).append('<div id="ajaxStatus" class="ajaxStatus">Feching Loan Pick...</div>')
 		jQuery.getJSON("/component/SpecimenResults.cfc",
 			{
