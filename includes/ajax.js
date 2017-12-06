@@ -1449,14 +1449,6 @@ function pickAgentModal(agentIdFld,agentNameFld,name){
 
 
 function addPermitToTrans(transaction_id,callbackfunction){
-	name=encodeURIComponent(name);
-	$("#" + agentNameFld).addClass('badPick');
-	var an;
-	if ( typeof name != 'undefined') {
-		an=name;	
-	}else {
-		an='';
-	}
 	var guts = "/picks/PermitPick.cfm?transaction_id=" + agentIdFld + '&transaction_id=' + transaction_id + '&callbackfunction=' + callbackfunction;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
