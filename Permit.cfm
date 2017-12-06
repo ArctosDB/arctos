@@ -533,7 +533,7 @@ where
 						<tr>
 							<td>New</td>
 							<td>
-								<input type="hidden" name="permit_agent_id_new#i#" value="#agent_id#">
+								<input type="hidden" name="permit_agent_id_new#i#">
 								<input
 									type="text"
 									name="permit_agent_name_new#i#"
