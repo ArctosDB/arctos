@@ -422,26 +422,44 @@
 				</form>
 			</cfloop>
 			<div id="addNewPermitsHere">
-				
+
 			</div>
-			
+
 			<script>
-				function addNewPermitsPicked(r){
+				function addNewPermitsPicked(pid,r){
+					var nfid=Math.floor((Math.random() * 1000) + 100);
+					var tid=$("##transaction_id").val();
+
+
+
+					var x='<div>';
+					x+=r;
+					x+='<form name="killPerm' + nfid + '" method="post" action="editAccn.cfm">'>
+					x+='<input type="hidden" name="transaction_id" value="' + tid + '">';
+					x+='<input type="hidden" name="action" value="delePermit">';
+					x+=<input type="hidden" name="permit_id" value="' + pid + '">';
+					x+='<input type="submit" value="Remove this Permit" class="delBtn">';
+					x+='</form>';
+
+
+					x+='</div>';
+
+					$("#transaction_id").append(x);
 					console.log(r);
-					}
+				}
 			</script>
-			
+
 			 <input type="button" value="Add a permit" class="picBtn"
 			   		onClick="addPermitToTrans('#accnData.transaction_id#','addNewPermitsPicked');">
-			   		
+
 			   		<!----
 			<form name="addPermit" action="editAccn.cfm" method="post">
 				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 				<input type="hidden" name="permit_id" >
-				
+
 				function getPermit(PermitIDFld,PermitNumberFld,permit_number){
 
-			   		
+
 			   		javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
 						'resizable,scrollbars=yes,width=600,height=600')">
 
