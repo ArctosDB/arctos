@@ -72,6 +72,9 @@
 	<p>
 		<input type="submit" value="Search" class="schBtn">
 	</p>
+	<p>
+		<input type="reset" value="Clear Form" class="clrBtn">
+	</p>
 </form>
 </cfoutput>
 </cfif>
@@ -350,9 +353,6 @@ where
 					required>
 				<p>
 					<input type="submit" value="Create Permit" class="savBtn">
-				</p>
-				<p>
-					af<input type="reset" value="Clear Form" class="clrBtn">
 				</p>
 
 			</form>
