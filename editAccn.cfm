@@ -444,7 +444,7 @@
 
 					x+='</div>';
 
-					$("#transaction_id").append(x);
+					$("##addNewPermitsHere").append(x);
 					console.log(r);
 				}
 			</script>
