@@ -352,7 +352,7 @@ where
 					<input type="submit" value="Create Permit" class="savBtn">
 				</p>
 				<p>
-					<input type="reset" value="Clear Form" class="clrBtn">
+					af<input type="reset" value="Clear Form" class="clrBtn">
 				</p>
 
 			</form>
