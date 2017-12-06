@@ -78,11 +78,11 @@
 <!--------------------------------------------------------------------------->
 <cfif action is "search">
 <style>
-	.noExpDate {border 8px solid orange;}
-	.expired {border 4px solid gray;}
-	.sixmos {border 4px solid yellow;}
-	.onemo {border 4px solid red;}
-	.eventually {border 4px solid green;}
+	.noExpDate {border: 8px solid orange;}
+	.expired {border: 4px solid gray;}
+	.sixmos {border: 4px solid yellow;}
+	.onemo {border: 4px solid red;}
+	.eventually {border: 4px solid green;}
 </style>
 <cfoutput>
 <cfset sql = "select
