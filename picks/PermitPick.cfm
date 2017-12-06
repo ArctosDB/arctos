@@ -179,7 +179,7 @@ where
 <script>
 	function useThisOne(pid,jpd){
 		console.log('useThisOne');
-		console.log(jdp);
+		console.log(jpd);
 	}
 </script>
 <cfset i=1>
