@@ -253,6 +253,8 @@ where
 				</td>
 				<td>#permit_remarks#</td>
 				<td>
+
+					<!----
 					<form action="PermitPick.cfm" method="post" name="save">
 						<input type="hidden" value="#transaction_id#" name="transaction_id">
 						<input type="hidden" name="permit_id" value="#permit_id#">
@@ -260,8 +262,9 @@ where
 
 					<input type="submit" value="Add this permit">
 					</form>
+					---->
 					<cfset jpd="Permit ## #permit_Num# (#valuelist(ptr.permit_type)# - (#valuelist(ptr.permit_regulation)#)">
-					<cfset jpd=jpd & " issued t o#valuelist(it.permit_agent)# by #valuelist(ib.permit_agent)#">
+					<cfset jpd=jpd & " issued to #valuelist(it.permit_agent)# by #valuelist(ib.permit_agent)#">
 					<cfset jpd=jpd & "on #dateformat(issued_date,'yyyy-mm-dd')#. Expires #dateformat(exp_date,'yyyy-mm-dd')#">
 					<cfif len(permit_remarks) gt 0>
 						<cfset jpd=jpd & " Remarks: #permit_remarks#">
