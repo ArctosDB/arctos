@@ -837,6 +837,34 @@ just fooling idiot cfclipse into using the right colors
 			</p>
 		</form>
 	</cfloop>
+
+	<div id="addNewPermitsHere"></div>
+
+	<p>
+
+		<script>
+				function addNewPermitsPicked(pid,r){
+					var nfid=Math.floor((Math.random() * 1000) + 100);
+					var tid=$("##transaction_id").val();
+					var x='<div>';
+					x+=r;
+					x+='<form name="killPerm' + nfid + '" method="post" action="Loan.cfm">';
+					x+='<input type="hidden" name="transaction_id" value="' + tid + '">';
+					x+='<input type="hidden" name="action" value="delePermit">';
+					x+='<input type="hidden" name="permit_id" value="' + pid + '">';
+					x+='<input type="submit" value="Remove this Permit" class="delBtn">';
+					x+='</form>';
+					x+='</div>';
+					$("##addNewPermitsHere").append(x);
+				}
+			</script>
+			<p>
+				 <input type="button" value="Add a permit" class="picBtn"
+			   		onClick="addPermitToTrans('#transaction_id#','addNewPermitsPicked');">
+			</p>
+
+			<!----
+
 	<form name="addPermit" action="Loan.cfm" method="post">
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
 		<input type="hidden" name="permit_id">
@@ -845,7 +873,8 @@ just fooling idiot cfclipse into using the right colors
 		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
 				'resizable,scrollbars=yes,width=600,height=600')">
 	</form>
-
+	---->
+</p>
 
 
 
