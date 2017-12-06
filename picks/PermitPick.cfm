@@ -177,8 +177,11 @@ where
 
 
 <script>
-	function useThisOne(pid,jpd){
+	function useThisOne(pid,tid,jpd){
 		console.log('useThisOne');
+		transaction_id
+
+
 		console.log(jpd);
 	}
 </script>
@@ -253,23 +256,24 @@ where
 				</td>
 				<td>#permit_remarks#</td>
 				<td>
-
-					<!----
-					<form action="PermitPick.cfm" method="post" name="save">
-						<input type="hidden" value="#transaction_id#" name="transaction_id">
-						<input type="hidden" name="permit_id" value="#permit_id#">
-						<input type="hidden" name="Action" value="addThisOne">
-
-					<input type="submit" value="Add this permit">
-					</form>
-					---->
 					<cfset jpd="Permit ## #permit_Num# (#valuelist(ptr.permit_type)# - (#valuelist(ptr.permit_regulation)#)">
 					<cfset jpd=jpd & " issued to #valuelist(it.permit_agent)# by #valuelist(ib.permit_agent)#">
 					<cfset jpd=jpd & "on #dateformat(issued_date,'yyyy-mm-dd')#. Expires #dateformat(exp_date,'yyyy-mm-dd')#">
 					<cfif len(permit_remarks) gt 0>
 						<cfset jpd=jpd & " Remarks: #permit_remarks#">
 					 </cfif>
-					<input type="button" value="add permit to transaction" onclick="useThisOne('#permit_id#','#jpd#')">
+					<form action="PermitPick.cfm" method="post" name="save">
+						<input type="hidden" value="#transaction_id#" name="transaction_id">
+						<input type="hidden" value="#callbackfunction#" name="callbackfunction">
+						<input type="hidden" value="#jpd#" name="jpd">
+						<input type="hidden" name="permit_id" value="#permit_id#">
+						<input type="hidden" name="Action" value="addThisOne">
+
+					<input type="submit" value="Add this permit">
+					</form>
+				<!----
+					<input type="button" value="add permit to transaction" onclick="useThisOne('#permit_id#','#transaction_id#','#jpd#')">
+					---->
 				</td>
 			</tr>
 			<cfset i=i+1>
@@ -363,12 +367,21 @@ where
 		<cfif not (len(#transaction_id#) gt 0 and len(#permit_id#) gt 0)>
 			something bad happened <cfabort>
 		</cfif>
+
+		<!----
 		<cfquery name="addPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO permit_trans (permit_id, transaction_id) VALUES (#permit_id#, #transaction_id#)
 		</cfquery>
+--->
 
 
 
+		<script>
+			console.log('triggering callbackfunction');
+			parent.#callbackfunction#('#jpd#');
+
+			console.log('triggered callbackfunction');
+		</script>
 		Added permit #permit_id# to transaction #transaction_id#.
 		<br>Search to add another permit to this accession or click
 		<a href="##" onclick="javascript: self.close();">here</a> to close this window.
