@@ -392,7 +392,7 @@
 	<table>
 		<form name="borrow" method="post" action="borrow.cfm">
 			<input type="hidden" name="action" value="update">
-			<input type="hidden" name="transaction_id" value="#getBorrow.transaction_id#">
+			<input type="hidden" id="transaction_id" name="transaction_id" value="#getBorrow.transaction_id#">
 			<tr>
 				<td colspan="3">
 					<table border>
