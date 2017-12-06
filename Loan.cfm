@@ -496,7 +496,7 @@ just fooling idiot cfclipse into using the right colors
 	<table width="100%" border><tr><td valign="top"><!--- left cell ---->
 	<form name="editloan" id="editloan" action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="saveEdits">
-		<input type="hidden" name="transaction_id" value="#loanDetails.transaction_id#">
+		<input type="hidden" name="transaction_id" id="transaction_id" value="#loanDetails.transaction_id#">
 		<strong>Edit Loan #loanDetails.guid_prefix# #loanDetails.loan_number#</strong>
 		<span style="font-size:small;">Entered by #loanDetails.enteredby#</span>
 		<span style="font-size:small;"> (#numItems.c# items)</span>
