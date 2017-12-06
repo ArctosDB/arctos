@@ -470,7 +470,7 @@ where
 						<tr>
 							<td>New (save to add more)</td>
 							<td>
-								<select name="permit_type_new_#i#" size="1">
+								<select name="permit_type_new#i#" size="1">
 									<option value=""></option>
 									<cfloop query="ctPermitType">
 										<option value="#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
@@ -479,7 +479,7 @@ where
 							</td>
 							<td>
 
-								<select name="permit_regulation_new_#i#" size="1">
+								<select name="permit_regulation_new#i#" size="1">
 									<option value=""></option>
 									<cfloop query="ctPermitRegulation">
 										<option value = "#ctPermitRegulation.permit_regulation#">#ctPermitRegulation.permit_regulation#</option>
@@ -608,6 +608,10 @@ where
 			permit type....
 			<cfset thisPermitTypeId=listlast(thisField,"_")>
 			<br>thisPermitTypeId: #thisPermitTypeId#
+			<cfset thisPermitType=evaluate("permit_type_" & thisPermitTypeId)>
+			<br>thisPermitType: #thisPermitType#
+			<cfset thisPermitReg=evaluate("permit_regulation_" & thisPermitTypeId)>
+			<br>thisPermitReg: #thisPermitReg#
 		</cfif>
 	</CFLOOP>
 	<!----
