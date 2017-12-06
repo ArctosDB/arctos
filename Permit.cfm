@@ -67,11 +67,9 @@
 
 	<label for="permit_remarks">Remarks</label>
 	<input type="text" name="permit_remarks">
-
-
-	<input type="submit" value="Search" class="schBtn">
-
-
+	<p>
+		<input type="submit" value="Search" class="schBtn">
+	</p>
 </form>
 </cfoutput>
 </cfif>
