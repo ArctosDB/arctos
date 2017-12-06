@@ -177,8 +177,9 @@ where
 
 
 <script>
-	function useThisOne(){
+	function useThisOne(pid,jpd){
 		console.log('useThisOne');
+		console.log(jdp);
 	}
 </script>
 <cfset i=1>
@@ -259,6 +260,13 @@ where
 
 					<input type="submit" value="Add this permit">
 					</form>
+					<cfset jpd="Permit ## #permit_Num# (#valuelist(ptr.permit_type)# - (#valuelist(ptr.permit_regulation)#)">
+					<cfset jpd=jpd & " issued t o#valuelist(it.permit_agent)# by #valuelist(ib.permit_agent)#">
+					<cfset jpd=jpd & "on #dateformat(issued_date,'yyyy-mm-dd')#. Expires #dateformat(exp_date,'yyyy-mm-dd')#">
+					<cfif len(permit_remarks) gt 0>
+						<cfset jpd=jpd & " Remarks: #permit_remarks#">
+					 </cfif>
+					<input type="button" value="add permit to transaction" onclick="useThisOne('#permit_id#','#jpd#')">
 				</td>
 			</tr>
 			<cfset i=i+1>
