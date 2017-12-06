@@ -523,7 +523,7 @@ where
 								<select name="permit_agent_role_#permit_agent_id#" size="1">
 									<option value="DELETE">DELETE</option>
 									<cfloop query="ctPermitAgentRole">
-										<option <cfif permitAgent.permit_agent_role is ctPermitAgentRole.permit_agent_role> selected="selected" </cfif> value = "#ctPermitAgentRole.permit_agent_role#">#ctPermitAgentRole.permit_agent_role#</option>
+										<option <cfif permitAgent.agent_role is ctPermitAgentRole.permit_agent_role> selected="selected" </cfif> value = "#ctPermitAgentRole.permit_agent_role#">#ctPermitAgentRole.permit_agent_role#</option>
 									</cfloop>
 								</select>
 							</td>
