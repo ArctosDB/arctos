@@ -1457,8 +1457,8 @@ function addPermitToTrans(transaction_id,callbackfunction){
 	}else {
 		an='';
 	}
-	var guts = "/picks/findAgentModal.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&name=' + an;
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+	var guts = "/picks/PermitPick.cfm?transaction_id=" + agentIdFld + '&transaction_id=' + transaction_id + '&callbackfunction=' + callbackfunction;
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
 		height: 'auto',
