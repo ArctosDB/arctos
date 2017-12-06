@@ -545,7 +545,7 @@ where
 							</td>
 							<td>
 								<select name="permit_agent_role_new#i#" size="1">
-									<option value="DELETE">DELETE</option>
+									<option value=""></option>
 									<cfloop query="ctPermitAgentRole">
 										<option value = "#ctPermitAgentRole.permit_agent_role#">#ctPermitAgentRole.permit_agent_role#</option>
 									</cfloop>
