@@ -432,6 +432,9 @@ where
 
 				<p>
 					Type & Regulation
+					<div style="font-size:small;padding:1em;margin:1em;">
+						Choose TYPE and/or REGULATION, paired or not. Remove both to delete.
+					</div>
 				</p>
 
 				<cfquery name="permitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -493,6 +496,9 @@ where
 
 				<p>
 					Agents
+					<div style="font-size:small;padding:1em;margin:1em;">
+						Provide both an agent and role to create. Choose role DELETE to remove.
+					</div>
 				</p>
 
 				<cfquery name="permitAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
