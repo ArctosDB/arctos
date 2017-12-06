@@ -32,6 +32,10 @@
 <form name="findPermit" action="Permit.cfm" method="post">
 	<input type="hidden" name="Action" value="search">
 
+
+	<label for="permit_num">Permit Identifier/Number</label>
+	<input type="text" name="permit_num">
+
 	<label for="IssuedByAgent">Issued By</label>
 	<input type="text" name="IssuedByAgent">
 
@@ -64,8 +68,6 @@
 		</cfloop>
 	</select>
 
-	<label for="permit_num">Permit Identifier</label>
-	<input type="text" name="permit_num">
 
 	<label for="permit_remarks">Remarks</label>
 	<input type="text" name="permit_remarks">
@@ -804,9 +806,17 @@ where
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deletePermit">
 <cfoutput>
-<cfquery name="deletePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-DELETE FROM permit WHERE permit_id = #permit_id#
-</cfquery>
+	<cftransaction>
+		<cfquery name="deletePermitA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from permit_agent WHERE permit_id = #permit_id#
+		</cfquery>
+		<cfquery name="deletePermitt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from permit_type WHERE permit_id = #permit_id#
+		</cfquery>
+		<cfquery name="deletePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			DELETE FROM permit WHERE permit_id = #permit_id#
+		</cfquery>
+	</cftransaction>
 
 	<cflocation url="Permit.cfm" addtoken="false">
   </cfoutput>
