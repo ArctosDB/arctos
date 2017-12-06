@@ -592,41 +592,85 @@ where
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveChanges">
 <cfoutput>
-<cfquery name="updatePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-UPDATE permit SET
-	permit_id = #permit_id#
-	<cfif len(#issuedByAgentId#) gt 0>
-	 	,ISSUED_BY_AGENT_ID = #issuedByAgentId#
-    </cfif>
-	 <cfif len(#ISSUED_DATE#) gt 0>
-	 	,ISSUED_DATE = '#ISSUED_DATE#'
-	 </cfif>
-	 <cfif len(#IssuedToAgentId#) gt 0>
-	 	,ISSUED_TO_AGENT_ID = #IssuedToAgentId#
-	 </cfif>
-	 <cfif len(#RENEWED_DATE#) gt 0>
-	 	,RENEWED_DATE = '#RENEWED_DATE#'
-	 </cfif>
-	 <cfif len(#EXP_DATE#) gt 0>
-	 	,EXP_DATE = '#EXP_DATE#'
-	 </cfif>
-	 <cfif len(#PERMIT_NUM#) gt 0>
-	 	,PERMIT_NUM = '#PERMIT_NUM#'
-	 </cfif>
-	 <cfif len(#PERMIT_TYPE#) gt 0>
-	 	,PERMIT_TYPE = '#PERMIT_TYPE#'
-	 </cfif>
-	<cfif len(#PERMIT_REMARKS#) gt 0>
-	 	,PERMIT_REMARKS = '#PERMIT_REMARKS#'
+	<cfquery name="updatePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		UPDATE
+			permit
+		SET
+			ISSUED_DATE = '#ISSUED_DATE#',
+			EXP_DATE = '#EXP_DATE#',
+			PERMIT_NUM = '#PERMIT_NUM#',
+			PERMIT_REMARKS = '#PERMIT_REMARKS#'
+		where
+			permit_id = #permit_id#
+	</cfquery>
+	<CFLOOP index="thisfield" list="#FORM.FIELDNAMES#">
+		<cfif left(thisfield,12) is 'permit_type_'>
+			permit type....
+			<cfset thisPermitTypeId=listlast(thisField,"_")>
+			<br>thisPermitTypeId: #thisPermitTypeId#
+		</cfif>
+	</CFLOOP>
+	<!----
+		<cfloop query="permitType">
+						<tr>
+							<td>Existing</td>
+							<td>
+								<select name="permit_type_#permit_type_id#" size="1">
+									<option value=""></option>
+									<cfloop query="ctPermitType">
+										<option <cfif #ctPermitType.permit_type# is "#permitType.permit_type#"> selected </cfif>value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+
+								<select name="permit_regulation_#permit_type_id#" size="1">
+									<option value=""></option>
+									<cfloop query="ctPermitRegulation">
+										<option <cfif #ctPermitRegulation.permit_regulation# is "#permitType.permit_regulation#"> selected </cfif>
+										value = "#ctPermitRegulation.permit_regulation#">#ctPermitRegulation.permit_regulation#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+					<cfloop from="1" to="5" index="i">
+						<tr>
+							<td>New (save to add more)</td>
+							<td>
+								<select name="permit_type_new_#i#" size="1">
+									<option value=""></option>
+									<cfloop query="ctPermitType">
+										<option value="#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+
+								<select name="permit_regulation_new_#i#" size="1">
+									<option value=""></option>
+									<cfloop query="ctPermitRegulation">
+										<option value = "#ctPermitRegulation.permit_regulation#">#ctPermitRegulation.permit_regulation#</option>
+									</cfloop>
+								</select>
+							</td>
+
+
+
+
     </cfif>
 	 <cfif len(#contact_agent_id#) gt 0>
 	 	,contact_agent_id = #contact_agent_id#
 	<cfelse>
 		,contact_agent_id = null
 	 </cfif>
-	 where  permit_id = #permit_id#
-</cfquery>
+
+
+
+
 <cflocation url="Permit.cfm?Action=editPermit&permit_id=#permit_id#" addtoken="false">
+
+---->
 </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
