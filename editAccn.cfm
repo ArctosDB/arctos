@@ -381,16 +381,11 @@
 					</td>
 				</tr>
 			</table>
-						</form>
+		</form>
 
 			<strong>Media associated with this Accn:</strong>
-			<!----
-			<br><span class="likeLink"
-					onclick="addMediaHere('#accnData.guid_prefix# #accnData.accn_number#','#transaction_id#');">
-						Create Media
-				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
-		---->
-			<br><span class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
+
+			<br><span class="likeLink" id="mediaUpClickThis">Attach/Upload Media</span>
 			<div id="accnMediaDiv"></div>
 		</div>
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
