@@ -14,6 +14,9 @@
 <cfquery name="ctPermitRegulation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select permit_regulation from ctpermit_regulation order by permit_regulation
 </cfquery>
+<cfquery name="ctPermitAgentRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select permit_agent_role from ctpermit_agent_role order by permit_agent_role
+</cfquery>
 <cfif #action# is "nothing">
 <cfoutput>
 
@@ -488,48 +491,78 @@ where
 					</cfloop>
 				</table>
 
+				<p>
+					Agents
+				</p>
 
-				<label for="permit_Type">Permit Type</label>
-				<select name="permit_Type" size="1">
-					<option value=""></option>
-					<cfloop query="ctPermitType">
-						<option <cfif #ctPermitType.permit_type# is "#permitInfo.permit_type#"> selected </cfif>value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-					</cfloop>
-				</select>
-				<label for="IssuedByAgentId">Issued By</label>
-				<input type="hidden" name="IssuedByAgentId">
-				<input type="hidden" name="IssuedByOldAgentId" value="#IssuedByAgentID#">
-				<input type="text" name="IssuedByAgent" class="reqdClr" size="50"
-					value="#IssuedByAgent#"
-					onchange="getAgent('IssuedByAgentId','IssuedByAgent','newPermit',this.value); return false;"
-			  		onKeyUp="return noenter();">
-
-			  	<label for="IssuedToAgentId">Issued To</label>
-			  	<input type="hidden" name="IssuedToAgentId">
-				<input type="text" name="IssuedToAgent" class="reqdClr" size="50"
-					value="#IssuedToAgent#"
-		 			onchange="getAgent('IssuedToAgentId','IssuedToAgent','newPermit',this.value); return false;"
-			  		onKeyUp="return noenter();">
-
-			  	<label for="ContactAgent">Contact Person</label>
-			  	<input type="hidden" name="contact_agent_id" value="#contact_agent_id#">
-				<input type="text" name="ContactAgent" class="reqdClr" size="50" value="#ContactAgent#"
-		 			onchange="getAgent('contact_agent_id','ContactAgent','newPermit',this.value); return false;"
-			  		onKeyUp="return noenter();">
-
-
-			  	<table width="100%">
+				<cfquery name="permitAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select permit_agent_id,	permit_id,	agent_id,	agent_role, getPreerredAgentName(agent_id) name from permit_agent where permit_id=#permit_id#
+				</cfquery>
+				<table border>
 					<tr>
-						<td width="50%" align="left">
-							<input type="button" value="Save changes" class="savBtn"
-								onCLick="newPermit.action.value='saveChanges';newPermit.submit();">
-						</td>
-						<td width="50%" align="right">
-							<input type="button" value="Delete" class="delBtn"
-				   				onCLick="newPermit.action.value='deletePermit';confirmDelete('newPermit');">
-						</td>
+						<th>Status</th>
+						<th>Agent</th>
+						<th>Role</th>
 					</tr>
+					<cfloop query="permitAgent">
+						<tr>
+							<td>Existing</td>
+							<td>
+								<input type="hidden" name="permit_agent_id_#permit_agent_id#" value="#agent_id#">
+								<input
+									type="text"
+									name="permit_agent_name_#permit_agent_id#"
+									id="permit_agent_name_#permit_agent_id#"
+									class="minput"
+									onchange="pickAgentModal('permit_agent_id_#permit_agent_id#',this.id,this.value); return false;"
+									onKeyPress="return noenter(event);"
+									placeholder="agent">
+							</td>
+							<td>
+								<select name="permit_agent_role_#permit_agent_id#" size="1">
+									<option value="DELETE">DELETE</option>
+									<cfloop query="ctPermitAgentRole">
+										<option <cfif permitAgent.permit_agent_role is ctPermitAgentRole.permit_agent_role> selected="selected" </cfif> value = "#ctPermitAgentRole.permit_agent_role#">#ctPermitAgentRole.permit_agent_role#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+					<cfloop from="1" to="5" index="i">
+						<tr>
+							<td>New</td>
+							<td>
+								<input type="hidden" name="permit_agent_id_new#i#" value="#agent_id#">
+								<input
+									type="text"
+									name="permit_agent_name_new#i#"
+									id="permit_agent_name_new#i#"
+									class="minput"
+									onchange="pickAgentModal('permit_agent_id_new#i#',this.id,this.value); return false;"
+									onKeyPress="return noenter(event);"
+									placeholder="agent">
+							</td>
+							<td>
+								<select name="permit_agent_role_new#i#" size="1">
+									<option value="DELETE">DELETE</option>
+									<cfloop query="ctPermitAgentRole">
+										<option value = "#ctPermitAgentRole.permit_agent_role#">#ctPermitAgentRole.permit_agent_role#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+					</cfloop>
 				</table>
+
+				<p>
+					<input type="submit" value="Save changes" class="savBtn">
+				</p>
+				<p>
+					<input type="button" value="Delete" class="delBtn"
+				   				onCLick="document.location='Permit.cfm?permit_id=#permit_id#&action=deletePermit';">
+				</p>
+
 			</form>
 		</td>
 		<script>
