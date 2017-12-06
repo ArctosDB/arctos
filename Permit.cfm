@@ -508,7 +508,7 @@ where
 						<tr>
 							<td>Existing</td>
 							<td>
-								<input type="hidden" name="permit_agent_id_#permit_agent_id#" value="#agent_id#">
+								<input type="hidden" id="permit_agent_id_#permit_agent_id#" name="permit_agent_id_#permit_agent_id#" value="#agent_id#">
 								<input
 									type="text"
 									name="permit_agent_name_#permit_agent_id#"
@@ -533,7 +533,7 @@ where
 						<tr>
 							<td>New</td>
 							<td>
-								<input type="hidden" name="permit_agent_id_new#i#">
+								<input type="hidden" id="permit_agent_id_new#i#" name="permit_agent_id_new#i#">
 								<input
 									type="text"
 									name="permit_agent_name_new#i#"
