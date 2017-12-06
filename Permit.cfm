@@ -496,7 +496,7 @@ where
 				</p>
 
 				<cfquery name="permitAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select permit_agent_id,	permit_id,	agent_id,	agent_role, getPreerredAgentName(agent_id) name from permit_agent where permit_id=#permit_id#
+					select permit_agent_id,	permit_id,	agent_id,	agent_role, getPreferredAgentName(agent_id) name from permit_agent where permit_id=#permit_id#
 				</cfquery>
 				<table border>
 					<tr>
