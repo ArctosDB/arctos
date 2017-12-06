@@ -262,7 +262,7 @@ where
 					<cfif len(permit_remarks) gt 0>
 						<cfset jpd=jpd & " Remarks: #permit_remarks#">
 					 </cfif>
-					 <cfset jpd=URLEncodedFormat(jpd)>
+					 <cfset jpd=replace(jpd,"'","`","all")>
 					<form action="PermitPick.cfm" method="post" name="save">
 						<input type="hidden" value="#transaction_id#" name="transaction_id">
 						<input type="hidden" value="#callbackfunction#" name="callbackfunction">
