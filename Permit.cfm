@@ -641,7 +641,7 @@ where
 					</cfquery>
 				</cfif>
 			</cfif>
-			<cfif left(thisfield,12) is 'permit_agent_id_'>
+			<cfif left(thisfield,16) is 'permit_agent_id_'>
 				<br>agent....
 				<cfset thisPermitAgentId=listlast(thisField,"_")>
 				<cfset thisPermitAgent=evaluate("permit_agent_id_" & thisPermitAgentId)>
