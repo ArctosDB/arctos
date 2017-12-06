@@ -593,6 +593,8 @@ where
 <cfif #Action# is "saveChanges">
 <cfoutput>
 	<cftransaction>
+
+		<cfdump var=#form#>
 		<cfquery name="updatePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE
 				permit
