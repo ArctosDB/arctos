@@ -1447,6 +1447,38 @@ function pickAgentModal(agentIdFld,agentNameFld,name){
 	});
 }
 
+
+function addPermitToTrans(transaction_id,callbackfunction){
+	name=encodeURIComponent(name);
+	$("#" + agentNameFld).addClass('badPick');
+	var an;
+	if ( typeof name != 'undefined') {
+		an=name;	
+	}else {
+		an='';
+	}
+	var guts = "/picks/findAgentModal.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&name=' + an;
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Pick Agent',
+			width:800,
+ 			height:600,
+		close: function() {
+			$( this ).remove();
+		}
+	}).width(800-10).height(600-10);
+	$(window).resize(function() {
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}
+
 function findDOI(publication_title){
 	// super-simple + specialized call to get a DOI from title @ edit publication
 	var guts = "/picks/findDOI.cfm?publication_title=" + publication_title;

@@ -9,6 +9,7 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 <form name="findPermit" action="PermitPick.cfm" method="post">
 	<input type="hidden" name="Action" value="search">
 	<input type="hidden" name="transaction_id" value="#transaction_id#">
+	<input type="hidden" name="callbackfunction" value="#callbackfunction#">
 
 	<label for="IssuedByAgent">Issued By</label>
 	<input type="text" name="IssuedByAgent">
@@ -174,6 +175,12 @@ where
 </cfquery>
 <script src="/includes/sorttable.js"></script>
 
+
+<script>
+	function useThisOne(){
+		console.log('useThisOne');
+	}
+</script>
 <cfset i=1>
 <table border id="t" class="sortable">
 		<tr>

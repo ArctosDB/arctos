@@ -883,6 +883,7 @@
 			<cfset x=x & ",pma,phppgadmin,prescription">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
+			<cfset x=x & ",sftp-config">
 			<cfset x=x & ",sysobjects,svn,sap,ssh">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects">
 			<cfset x=x & ",trackback,texteditor">

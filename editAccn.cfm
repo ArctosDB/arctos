@@ -421,13 +421,37 @@
 					 <input type="submit" value="Remove this Permit" class="delBtn">
 				</form>
 			</cfloop>
+			<div id="addNewPermitsHere">
+				
+			</div>
+			
+			<script>
+				function addNewPermitsPicked(r){
+					console.log(r);
+					}
+			</script>
+			
+			 <input type="button" value="Add a permit" class="picBtn"
+			   		onClick="addPermitToTrans('#accnData.transaction_id#','addNewPermitsPicked');">
+			   		
+			   		<!----
 			<form name="addPermit" action="editAccn.cfm" method="post">
 				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
-				<input type="hidden" name="permit_id">
+				<input type="hidden" name="permit_id" >
+				
+				function getPermit(PermitIDFld,PermitNumberFld,permit_number){
+
+			   		
+			   		javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
+						'resizable,scrollbars=yes,width=600,height=600')">
+
+<!----
 				  <input type="button" value="Add a permit" class="picBtn"
 			   		onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
 						'resizable,scrollbars=yes,width=600,height=600')">
+						---->
 			</form>
+			---->
 		</td></tr></table>
 	</cfoutput>
 </cfif>
