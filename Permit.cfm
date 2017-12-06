@@ -613,7 +613,7 @@ where
 				<br>thisPermitType: #thisPermitType#
 				<cfset thisPermitReg=evaluate("permit_regulation_" & thisPermitTypeId)>
 				<br>thisPermitReg: #thisPermitReg#
-				<cfif left(thisPermitTypeId,3) is "new" and len(thisPermitType) gt 0 or len(thisPermitReg) gt 0>
+				<cfif left(thisPermitTypeId,3) is "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
 					<!----
 					<cfquery name="ipt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into permit_type (
