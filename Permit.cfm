@@ -18,6 +18,8 @@
 	select permit_agent_role from ctpermit_agent_role order by permit_agent_role
 </cfquery>
 <cfif #action# is "nothing">
+	<cfset title="permit search">
+
 <cfoutput>
 
 <p>
@@ -75,6 +77,7 @@
 </cfif>
 <!--------------------------------------------------------------------------->
 <cfif action is "search">
+<cfset title="permit search results">
 <style>
 	.noExpDate {border: 8px solid orange;}
 	.expired {border: 4px solid gray;}
@@ -280,71 +283,13 @@ where
 		</cfloop>
 	</table>
 	</cfoutput>
-	<!----
-	</form>
-	</tr>
-</cfoutput>
-<a href="Permit.cfm">Search Again</a>
-<cfoutput query="matchPermit" group="permit_id">
-	<cfif len(#exp_Date#) gt 0>
-		<cfset ExpiresInDays = #datediff("d",now(),exp_Date)#>
-		<cfif ExpiresInDays lt 0>
-			<cfset tabCol = "##666666">
-		<cfelseif ExpiresInDays lt 10>
-			<cfset tabCol = "##FF0000">
-		<cfelseif ExpiresInDays lt 30>
-			<cfset tabCol = "##FF8040">
-		<cfelseif ExpiresInDays lt 180>
-			<cfset tabCol = "##FFFF00">
-		<cfelseif ExpiresInDays gte 180>
-			<cfset tabCol = "##00FF00">
-		<cfelse>
-			<cfset tabCol = "##FFFFFF">
-		</cfif>
-	<cfelse>
-		<!--- there's a permit with no exp date - treat this as bad! --->
-		<cfset tabCol = "##FF0000">
-	</cfif>
-	<tr>
-		<td>#permit_Num#</td>
-		<td>#permit_Type#</td>
-		<td>#IssuedToAgent#</td>
-		<td>#IssuedByAgent#</td>
-		<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
-		<td>#dateformat(renewed_Date,"yyyy-mm-dd")#</td>
-		<td style="background-color:#tabCol#; ">
-			#dateformat(exp_Date,"yyyy-mm-dd")#
-			<cfif len(#exp_Date#) is 0>
-				not given!
-			<cfelseif #ExpiresInDays# lt 0>
-				<font size="-2"><br>(expired)</font>
-			<cfelse>
-				<font size="-2"><br>(exp in #ExpiresInDays# d.)</font>
-			</cfif>
-		</td>
-		<td>#permit_remarks#</td>
-		<td>#contactAgent#</td>
-		<td>
-			<div>
-				<a href="Permit.cfm?permit_id=#permit_id#&action=editPermit">Edit&nbsp;Permit</a>
-			</div>
-			<div>
-				<a href="editAccn.cfm?permit_id=#permit_id#&action=findAccessions">Accession&nbsp;List</a>
-			</div>
-			<!----
-			<div>
-				<a href="Reports/permit.cfm?permit_id=#permit_id#">Permit Report</a>
-			</div>
-			---->
-		</td>
-	</tr>
-</cfoutput>
-</table>
----->
+
 </cfif>
 <!--------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------->
 <cfif action is "newPermit">
+	<cfset title="create permit">
+
 	<h2>Create Permit</h2>
 	<cfoutput>
 		<form name="newPermit" action="Permit.cfm" method="post">
@@ -414,6 +359,8 @@ where
 <!--------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "editPermit">
+
+	<cfset title="edit permit">
 <cfoutput>
 <cfif not isdefined("permit_id") OR len(permit_id) is 0>
 	Something bad happened. You didn't pass this form a permit_id. Go back and try again.<cfabort>
