@@ -559,9 +559,6 @@
 				<strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
 			 	#IssuedToAgent# by #IssuedByAgent# on
 				#dateformat(issued_Date,"yyyy-mm-dd")#.
-				<cfif len(renewed_Date) gt 0>
-					(renewed #renewed_Date#)
-				</cfif>
 				Expires #dateformat(exp_Date,"yyyy-mm-dd")#
 				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif>
 				<br>
@@ -572,6 +569,30 @@
 			</p>
 		</form>
 	</cfloop>
+
+		<script>
+				function addNewPermitsPicked(pid,r){
+					var nfid=Math.floor((Math.random() * 1000) + 100);
+					var tid=$("##transaction_id").val();
+					var x='<div>';
+					x+=r;
+					x+='<form name="killPerm' + nfid + '" method="post" action="borrow.cfm">';
+					x+='<input type="hidden" name="transaction_id" value="' + tid + '">';
+					x+='<input type="hidden" name="action" value="delePermit">';
+					x+='<input type="hidden" name="permit_id" value="' + pid + '">';
+					x+='<input type="submit" value="Remove this Permit" class="delBtn">';
+					x+='</form>';
+					x+='</div>';
+					$("##addNewPermitsHere").append(x);
+				}
+			</script>
+			<p>
+				 <input type="button" value="Add a permit" class="picBtn"
+			   		onClick="addPermitToTrans('#transaction_id#','addNewPermitsPicked');">
+			</p>
+
+
+			<!----
 	<form name="addPermit" action="borrow.cfm" method="post">
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
 		<input type="hidden" name="permit_id">
@@ -580,6 +601,7 @@
 		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
 				'resizable,scrollbars=yes,width=600,height=600')">
 	</form>
+	---->
 	<a href="/Reports/report_printer.cfm?transaction_id=#transaction_id#">[ Print Stuff ]</a>
 	<p>
 		<strong>Media associated with this Borrow</strong>
