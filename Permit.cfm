@@ -77,6 +77,13 @@
 </cfif>
 <!--------------------------------------------------------------------------->
 <cfif action is "search">
+<style>
+	.noExpDate {border 8px solid orange;}
+	.expired {border 4px solid gray;}
+	.sixmos {border 4px solid yellow;}
+	.onemo {border 4px solid red;}
+	.eventually {border 4px solid green;}
+</style>
 <cfoutput>
 <cfset sql = "select
 	permit.permit_id,
@@ -173,7 +180,6 @@ where
 	#preservesinglequotes(sql)#
 </cfquery>
 
-<cfdump var=#matchPermit#>
 
 <cfquery name="base" dbtype="query">
 	select
@@ -191,7 +197,6 @@ where
 		permit_Num,
 		permit_remarks
 </cfquery>
-<cfdump var=#base#>
 <script src="/includes/sorttable.js"></script>
 
 
@@ -243,10 +248,25 @@ where
 				</td>
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
 				<td>#dateformat(exp_Date,"yyyy-mm-dd")# </td>
+				<cfset dte="">
+				<cfif len(exp_Date) gt 0>
+					<cfset dte=datediff("d",now(),exp_Date)>
+				</cfif>
+				<cfif len(dte) is 0>
+					<cfset dtec="noExpDate">
+				<cfelseif dte lt 0>
+					<cfset dtec="expired">
+				<cfelseif dte gt 180>
+					<cfset dtec="sixmos">
+				<cfelseif dte gt 30>
+					<cfset dtec="onemo">
+				<cfelse>
+					<cfset dtec="eventually">
+				</cfif>
+
+
 				<td>
-					<cfif len(exp_Date) gt 0>
-						#datediff("d",now(),exp_Date)#
-					</cfif>
+					<div class="#dtec#">#dte#</div>
 				</td>
 				<td>#permit_remarks#</td>
 				<td>
