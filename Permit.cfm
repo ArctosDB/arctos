@@ -330,11 +330,12 @@ where
 				<label for="permit_remarks">Remarks</label>
 			  	<textarea name="permit_remarks" class="largetextarea"></textarea>
 
-				<label for="permit_type">Permit Type</label>
 				<div style="font-size:small;padding:1em;margin:1em;">
 					Create and edit to add more types and regulations.
 					<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_TYPE">CTPERMIT_TYPE</a>
 				</div>
+
+				<label for="permit_type">Permit Type</label>
 				<select name="permit_type" id="permit_type" class="reqdClr" required size="1">
 					<option value=""></option>
 					<cfloop query="ctPermitType">
