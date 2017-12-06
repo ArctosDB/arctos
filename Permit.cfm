@@ -592,37 +592,63 @@ where
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveChanges">
 <cfoutput>
-	<cfquery name="updatePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		UPDATE
-			permit
-		SET
-			ISSUED_DATE = '#ISSUED_DATE#',
-			EXP_DATE = '#EXP_DATE#',
-			PERMIT_NUM = '#PERMIT_NUM#',
-			PERMIT_REMARKS = '#PERMIT_REMARKS#'
-		where
-			permit_id = #permit_id#
-	</cfquery>
-	<CFLOOP index="thisfield" list="#FORM.FIELDNAMES#">
-		<cfif left(thisfield,12) is 'permit_type_'>
-			permit type....
-			<cfset thisPermitTypeId=listlast(thisField,"_")>
-			<br>thisPermitTypeId: #thisPermitTypeId#
-			<cfset thisPermitType=evaluate("permit_type_" & thisPermitTypeId)>
-			<br>thisPermitType: #thisPermitType#
-			<cfset thisPermitReg=evaluate("permit_regulation_" & thisPermitTypeId)>
-			<br>thisPermitReg: #thisPermitReg#
-			<cfif left(thisPermitTypeId,3) is "new" and len(thisPermitType) gt 0 or len(thisPermitReg) gt 0>
-				got new stuff, insert
-			<cfelseif left(thisPermitTypeId,3) is not "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
-				<br>update...
-			<cfelseif left(thisPermitTypeId,3) is not "new" and len(thisPermitType) is 0 and len(thisPermitReg) is 0>
-				<br>delete
+	<cftransaction>
+		<cfquery name="updatePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			UPDATE
+				permit
+			SET
+				ISSUED_DATE = '#ISSUED_DATE#',
+				EXP_DATE = '#EXP_DATE#',
+				PERMIT_NUM = '#PERMIT_NUM#',
+				PERMIT_REMARKS = '#PERMIT_REMARKS#'
+			where
+				permit_id = #permit_id#
+		</cfquery>
+		<CFLOOP index="thisfield" list="#FORM.FIELDNAMES#">
+			<cfif left(thisfield,12) is 'permit_type_'>
+				permit type....
+				<cfset thisPermitTypeId=listlast(thisField,"_")>
+				<br>thisPermitTypeId: #thisPermitTypeId#
+				<cfset thisPermitType=evaluate("permit_type_" & thisPermitTypeId)>
+				<br>thisPermitType: #thisPermitType#
+				<cfset thisPermitReg=evaluate("permit_regulation_" & thisPermitTypeId)>
+				<br>thisPermitReg: #thisPermitReg#
+				<cfif left(thisPermitTypeId,3) is "new" and len(thisPermitType) gt 0 or len(thisPermitReg) gt 0>
+					<cfquery name="ipt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into permit_type (
+							permit_id,
+							permit_type,
+							permit_regulation
+						) values (
+							#permit_id#,
+							'#thisPermitType#',
+							'#thisPermitReg#'
+						)
+					</cfquery>
+					got new stuff, insert
+				<cfelseif left(thisPermitTypeId,3) is not "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
+					<cfquery name="upt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update permit_type set
+							permit_type='#thisPermitType#',
+							permit_regulation='#thisPermitReg#'
+						where
+							permit_type_id=#thisPermitTypeId#
+					</cfquery>
+
+
+					<br>update...
+				<cfelseif left(thisPermitTypeId,3) is not "new" and len(thisPermitType) is 0 and len(thisPermitReg) is 0>
+					<cfquery name="dpt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						delete from permit_type
+						where
+							permit_type_id=#thisPermitTypeId#
+					</cfquery>
+				</cfif>
+
+
 			</cfif>
-
-
-		</cfif>
-	</CFLOOP>
+		</CFLOOP>
+	</cftransaction>
 	<!----
 		<cfloop query="permitType">
 						<tr>
