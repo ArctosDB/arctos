@@ -354,22 +354,22 @@ where
 					type="text"
 					name="issued_by"
 					id="issued_by"
-					class="minput"
+					class="minput reqdClr"
 					onchange="pickAgentModal('issued_by_agent_id',this.id,this.value); return false;"
 					onKeyPress="return noenter(event);"
 					placeholder="Issued By Agent"
-					class="reqdClr" required>
+					required>
 				<label for="issued_to">Issued To</label>
 				<input type="hidden" id="issued_to_agent_id" name="issued_to_agent_id">
 				<input
 					type="text"
 					name="issued_to"
 					id="issued_to"
-					class="minput"
+					class="minput reqdClr"
 					onchange="pickAgentModal('issued_to_agent_id',this.id,this.value); return false;"
 					onKeyPress="return noenter(event);"
 					placeholder="Issued To Agent"
-					class="reqdClr" required>
+					required>
 				<p>
 					<input type="submit" value="Create Permit" class="savBtn">
 				</p>
