@@ -552,7 +552,6 @@ where
 							</td>
 						</tr>
 					</cfloop>
-					</cfloop>
 				</table>
 
 				<p>
