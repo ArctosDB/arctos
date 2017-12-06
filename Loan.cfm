@@ -808,7 +808,6 @@ just fooling idiot cfclipse into using the right colors
 				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
 				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
 				issued_date,
-				renewed_date,
 				exp_date,
 				permit_Num,
 				getPermitTypeReg(permit.permit_id) permit_Type,

@@ -129,23 +129,18 @@
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				permit.permit_id,
-				issuedBy.agent_name as IssuedByAgent,
-				issuedTo.agent_name as IssuedToAgent,
+				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
 				issued_date,
-				renewed_date,
 				exp_date,
 				permit_Num,
-				permit_Type,
+				getPermitTypeReg(permit.permit_id) permit_Type,
 				permit_remarks
 			FROM
 				permit,
-				permit_trans,
-				preferred_agent_name issuedTo,
-				preferred_agent_name issuedBy
+				permit_trans
 			WHERE
-				permit.permit_id = permit_trans.permit_id AND
-				permit.issued_by_agent_id = issuedBy.agent_id AND
-				permit.issued_to_agent_id = issuedTo.agent_id AND
+				permit.permit_id = permit_trans.permit_id and
 				permit_trans.transaction_id = <cfqueryparam value = "#d.transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
 		<p>
@@ -169,9 +164,6 @@
 						 	#dateformat(issued_date,"yyyy-mm-dd")#
 						<cfelse>
 							not recorded
-						</cfif>
-						<cfif len(renewed_date) gt 0>
-						 	<br><strong>Renewed on:</strong> #dateformat(renewed_date,"yyyy-mm-dd")#
 						</cfif>
 						<br><strong>Expiration Date:</strong>
 						<cfif len(exp_date) gt 0>
