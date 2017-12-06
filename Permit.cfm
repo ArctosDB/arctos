@@ -551,8 +551,6 @@ where
 			jQuery(document).ready(function(){
 				$("##issued_date").datepicker();
 				$("##exp_date").datepicker();
-				$("##renewed_date").datepicker();
-
 	            $("##mediaUpClickThis").click(function(){
 				    addMedia('permit_id','#permit_id#');
 				});

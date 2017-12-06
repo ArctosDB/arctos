@@ -1407,12 +1407,6 @@ function getLoan(LoanIDFld,LoanNumberFld,loanNumber,collectionID){
 	oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
 	loanpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
 }
-function getPermit(PermitIDFld,PermitNumberFld,permit_number){
-	var url,oawin;
-	url="/picks/getPermit.cfm";
-	oawin=url+"?PermitIDFld="+PermitIDFld+"&PermitNumberFld="+PermitNumberFld+"&permit_number="+permit_number;
-	permitpickwin=window.open(oawin,"","width=800,height=600, resizable,scrollbars");
-}
 function pickAgentModal(agentIdFld,agentNameFld,name){
 	// semi-experimental jquery modal agent pick
 	// initiated 20140916
@@ -1449,8 +1443,13 @@ function pickAgentModal(agentIdFld,agentNameFld,name){
 
 
 function addPermitToTrans(transaction_id,callbackfunction){
-	// pass in transaction_id and callbackfunction
-	// returns callbackfunction(permit_id,permit_description_string)
+	/*
+	 PARAMETERS
+	 	transaction_id: adds permit to permit_trans on select
+	 	callbackfunction: calls function in source with
+	 		permit_id
+	 		permit_description_string
+	 */
 	var guts = "/picks/PermitPick.cfm?transaction_id=" + transaction_id +  '&callbackfunction=' + callbackfunction;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:1200px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
@@ -1964,7 +1963,7 @@ function pickedRelationship (id){
 	} else if (relatedTable=='loan'){
 		getLoan(idInputName,dispInputName);
 	} else if (relatedTable=='permit'){
-		getPermit(idInputName,dispInputName);
+		alert('Edit permit to add Media');
 	} else if (relatedTable=='delete'){
 		document.getElementById(dispInputName).value='Marked for deletion.....';
 	} else {

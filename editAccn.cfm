@@ -6,7 +6,6 @@
 		$("#rec_date").datepicker();
 		$("#rec_until_date").datepicker();
 		$("#issued_date").datepicker();
-		$("#renewed_date").datepicker();
 		$("#exp_date").datepicker();
 
 		$("#editAccn").submit(function(event){
@@ -408,7 +407,7 @@
 		<div style="float:left;width:55%;">
 			<br><strong>Permits:</strong>
 			<cfloop query="getPermits">
-				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"yyyy-mm-dd")#. <cfif len(#renewed_date#) gt 0> (renewed #renewed_date#)</cfif>Expires #dateformat(exp_date,"yyyy-mm-dd")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif>
+				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"yyyy-mm-dd")#. Expires #dateformat(exp_date,"yyyy-mm-dd")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif>
 				<form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
 					<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 					<input type="hidden" name="action" value="delePermit">
@@ -591,10 +590,6 @@
 						<label  for="IssuedByAgent">Issued Date</label>
 						<input type="text" name="issued_date" id="issued_date">
 					</td>
-					<td>
-						<label  for="IssuedByAgent">Renewed Date</label>
-						<input type="text" name="renewed_date" id="renewed_date">
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -772,9 +767,6 @@
 		</cfif>
 		<cfif  isdefined("issued_date") and len(#issued_date#) gt 0>
 			<cfset sql = "#sql# AND upper(issued_date) like '%#ucase(issued_date)#%'">
-		</cfif>
-		<cfif  isdefined("renewed_date") and len(#renewed_date#) gt 0>
-			<cfset sql = "#sql# AND upper(renewed_date) like '%#ucase(renewed_date)#%'">
 		</cfif>
 		<cfif isdefined("exp_date") and  len(#exp_date#) gt 0>
 			<cfset sql = "#sql# AND upper(exp_date) like '%#ucase(exp_date)#%'">
