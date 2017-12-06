@@ -436,11 +436,13 @@ where
 				</cfquery>
 				<table border>
 					<tr>
+						<th>Status</th>
 						<th>Permit Type</th>
 						<th>Regulation</th>
 					</tr>
 					<cfloop query="permitType">
 						<tr>
+							<td>Existing</td>
 							<td>
 								<select name="permit_type_#permit_type_id#" size="1">
 									<option value=""></option>
@@ -463,6 +465,7 @@ where
 					</cfloop>
 					<cfloop from="1" to="5" index="i">
 						<tr>
+							<td>New (save to add more)</td>
 							<td>
 								<select name="permit_type_new_#i#" size="1">
 									<option value=""></option>
