@@ -74,6 +74,7 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 from
 	permit
 where
+	1=1
 	">
 
 
