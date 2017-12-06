@@ -612,6 +612,15 @@ where
 			<br>thisPermitType: #thisPermitType#
 			<cfset thisPermitReg=evaluate("permit_regulation_" & thisPermitTypeId)>
 			<br>thisPermitReg: #thisPermitReg#
+			<cfif left(thisPermitTypeId,3) is "new" and len(thisPermitType) gt 0 or len(thisPermitReg) gt 0>
+				got new stuff, insert
+			<cfelseif left(thisPermitTypeId,3) is not "new" and (len(thisPermitType) gt 0 or len(thisPermitReg) gt 0)>
+				<br>update...
+			<cfelseif left(thisPermitTypeId,3) is not "new" and len(thisPermitType) is 0 and len(thisPermitReg) is 0>
+				<br>delete
+			</cfif>
+
+
 		</cfif>
 	</CFLOOP>
 	<!----
