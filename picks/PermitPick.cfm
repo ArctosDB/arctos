@@ -209,8 +209,8 @@ where
 				</td>
 				<td>#permit_remarks#</td>
 				<td>
-					<cfset jpd="Permit ID #permit_Num# (#valuelist(ptr.permit_type)# - #valuelist(ptr.permit_regulation)#)">
-					<cfset jpd=jpd & " issued to #valuelist(it.permit_agent)# by #valuelist(ib.permit_agent)#">
+					<cfset jpd="Permit ID #permit_Num# (#permit_Type#)">
+					<cfset jpd=jpd & " issued to #IssuedToAgent# by #IssuedByAgent#">
 					<cfset jpd=jpd & "on #dateformat(issued_date,'yyyy-mm-dd')#, expires #dateformat(exp_date,'yyyy-mm-dd')#">
 					<cfif len(permit_remarks) gt 0>
 						<cfset jpd=jpd & " Remarks: #permit_remarks#">
