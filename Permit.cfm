@@ -654,21 +654,26 @@ where
 				<br>thisPermitAgentRole: #thisPermitAgentRole#
 				<cfif left(thisPermitAgentId,3) is "new" and len(thisPermitAgent) gt 0 and len(thisPermitAgentRole) gt 0>
 					<br>
-
-					insert into permit_agent (
-						permit_id,
-						agent_id,
-						agent_role
-					) values (
-						#permit_id#,
-						#thisPermitAgent#,
-						'#thisPermitAgentRole#'
-					)
+					<cfquery name="ipag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into permit_agent (
+							permit_id,
+							agent_id,
+							agent_role
+						) values (
+							#permit_id#,
+							#thisPermitAgent#,
+							'#thisPermitAgentRole#'
+						)
+					</cfquery>
 				<cfelseif left(thisPermitAgentId,3) is not "new">
 					<cfif thisPermitAgentRole is "DELETE">
-						<br>delete from permit_agent where permit_agent_id=#thisPermitAgentId#
+						<cfquery name="dpag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							delete from permit_agent where permit_agent_id=#thisPermitAgentId#
+						</cfquery>
 					<cfelse>
-						<br>update permit_agent set agent_id=#thisPermitAgent#,agent_role='#thisPermitAgentRole#' where  permit_agent_id=#thisPermitAgentId#
+						<cfquery name="dpag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							update permit_agent set agent_id=#thisPermitAgent#,agent_role='#thisPermitAgentRole#' where  permit_agent_id=#thisPermitAgentId#
+						</cfquery>
 					</cfif>
 
 				</cfif>
@@ -678,6 +683,9 @@ where
 
 		</CFLOOP>
 	</cftransaction>
+
+	<cflocation url="Permit.cfm?Action=editPermit&permit_id=#permit_id#" addtoken="false">
+
 	<!----
 		<cfloop query="permitType">
 						<tr>
@@ -736,7 +744,6 @@ where
 
 
 
-<cflocation url="Permit.cfm?Action=editPermit&permit_id=#permit_id#" addtoken="false">
 
 ---->
 </cfoutput>
