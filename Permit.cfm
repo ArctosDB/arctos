@@ -52,11 +52,10 @@
 	<cfinclude template="/includes/forms/permit_search_results.cfm">
 	<cfdump var=#sqlstring#>
 
-	<cfabort>
 
 
 <cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	#preservesinglequotes(sql)#
+	#preservesinglequotes(sqlstring)#
 </cfquery>
 
 
