@@ -8,7 +8,11 @@
 		permit.permit_Num,
 		permit.permit_remarks,
 		permit_type.permit_type,
-		permit_type.permit_regulation
+		permit_type.permit_regulation,
+		getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+		getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
+		getPermitAgents(permit.permit_id, 'contact') ContactAgent,
+		getPermitTypeReg(permit.permit_id) permit_Type
 	from">
 	<cfset whrtbls="
 		permit,
