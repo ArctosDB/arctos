@@ -782,7 +782,7 @@
 		</cfif>
 
 		<cfif isdefined("permit_Type") and len(#permit_Type#) gt 0>
-			<cfset sql = "#sql# AND permit.permid_id in (
+			<cfset sql = "#sql# AND permit.permit_id in (
 				select permit_id from permit_type where
 				permit_type='#permit_Type#')">
 		</cfif>
