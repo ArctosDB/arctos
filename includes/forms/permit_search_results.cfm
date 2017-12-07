@@ -58,7 +58,7 @@
 		<cfset whrcls=whrcls & " and permit.permit_id= permit_agent_AA.permit_id and
 			permit_agent_AA.agent_id=AnyAgentName.agent_id">
 	</cfif>
-	<cfset whrcls=whrcls & " and permit_agent_AA = 'anyAgentRole' ">
+	<cfset whrcls=whrcls & " and permit_agent_AA.agent_role = '#anyAgentRole#' ">
 </cfif>
 
 
