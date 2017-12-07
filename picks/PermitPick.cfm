@@ -16,7 +16,7 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 <cfif Action is "search">
 
 <cfoutput>
-
+<!----
 <cfset sql = "select
 		permit.permit_id,
 		issued_Date,
@@ -105,9 +105,10 @@ where
 	<cfset sql = "#sql# AND permit.permit_id = #permit_id#">
 </cfif>
 
+--->
 
 <cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	#preservesinglequotes(sql)#
+	#preservesinglequotes(sqlstring)#
 </cfquery>
 
 

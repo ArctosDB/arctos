@@ -1,8 +1,7 @@
 <cfoutput>
 	<!----
 		standard permit search SQL assembly
-		OLD: return agents/roles, permit_type/permit regulation on separate rows
-		NEW: return concatenations
+
 	---->
 	<cfset bsql = "select
 		permit.permit_id,
@@ -14,7 +13,7 @@
 		getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
 		getPermitAgents(permit.permit_id, 'contact') ContactAgent,
 		getPermitTypeReg(permit.permit_id) permit_Type
-	from">
+	from ">
 	<cfset whrtbls=" permit	">
 	<cfset whrcls=" where 1=1">
 
