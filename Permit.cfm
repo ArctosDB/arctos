@@ -215,9 +215,9 @@
 
 
 
-					if ($(this).val().length>0){
-						console.log('something in ' + $(this).id);
-						var bareID=$(this).id.replace('permit_agent_id_','');
+					if (this.val().length>0){
+						console.log('something in ' + this.id);
+						var bareID=this.id.replace('permit_agent_id_','');
 						console.log('bareID:' + bareID);
 						var matchRole='permit_agent_role_' + bareID;
 						console.log('matchRole: ' + matchRole);
