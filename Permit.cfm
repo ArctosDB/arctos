@@ -193,8 +193,8 @@
 
 				console.log('clicky');
 				$("select[id^='permit_type_']").each(function(e){
-					console.log(e);
-					console.log($(this).val());
+					//console.log(e);
+					//console.log($(this).val());
 					if ($(this).val().length>0){
 						hasPermitType=true;
 					}
@@ -202,7 +202,7 @@
 				});
 
 
-				$("select[id^='permit_agent_id_']").each(function(e){
+				$("input[id^='permit_agent_id_']").each(function(e){
 					console.log(e);
 					console.log($(this).val());
 					if ($(this).val().length>0){
