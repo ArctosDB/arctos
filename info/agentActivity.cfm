@@ -386,8 +386,7 @@ Permits:
 		select
 			permit.permit_id,
 			permit.PERMIT_NUM,
-			permit_type.PERMIT_TYPE,
-			permit_type.PERMIT_REGULATION,
+			getPermitTypeReg(permit.permit_id) permit_Type,
 			permit_agent.AGENT_ROLE
 		from
 			permit,
@@ -401,10 +400,31 @@ Permits:
 			PERMIT_NUM,
 			AGENT_ROLE
 	</cfquery>
+	<cfquery name="basepermit" dbtype="query">
+		select
+			permit_id,
+			permit_num,
+			permit_Type
+		from
+			permit_to
+		group by
+			permit_id,
+			permit_num,
+			permit_Type
+	</cfquery>
 	<ul>
-		<cfloop query="permit_to">
+		<cfloop query="basepermit">
 			<li>
-				<a href="/Permit.cfm?action=search&permit_id=#permit_id#">#PERMIT_NUM#</a> (#PERMIT_TYPE# - #PERMIT_REGULATION#): #AGENT_ROLE#
+				<a href="/Permit.cfm?action=search&permit_id=#permit_id#">#PERMIT_NUM#</a>
+				<ul>
+					<li>Type(s) & Regulation(s) #permit_type#</li>
+					<cfquery name="tpa" dbtype="query">
+						select AGENT_ROLE from basepermit where permit_id=#permit_id# group by AGENT_ROLE order by AGENT_ROLE
+					</cfquery>
+					<cfloop query="tpa">
+						<li>Role: #AGENT_ROLE#</li>
+					</cfloop>
+				</ul>
 			</li>
 		</cfloop>
 	</ul>
