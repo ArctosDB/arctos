@@ -180,6 +180,12 @@
 		</form>
 	</cfoutput>
 </cfif>
+<cfif action is "renewClone">
+	<cfoutput>
+		cloning #permit_id#
+	</cfoutput>
+</cfif>
+
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "editPermit">
 	<cfset title="edit permit">
@@ -225,6 +231,7 @@
 		function renewThisPermit(){
 			alert('renewing.....');
 			console.log('cloning ' +  $("#permit_id").val() );
+			document.location='Permit.cfm?action=renewClone&permit_id=' + $("#permit_id").val();
 		}
 	</script>
 	<cfoutput>
