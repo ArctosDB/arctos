@@ -259,7 +259,8 @@
 
 						<label for="permit_remarks" class="helpLink" id="_permit_remarks">Remarks</label>
 					  	<textarea name="permit_remarks" class="hugetextarea">#permitInfo.permit_remarks#</textarea>
-					  	<div>
+					  	<label for="remarks_as_HTML">Remarks as HTML</label>
+					  	<div style="padding:1em;margin:1em;border:1px solid black;">
 							#permitInfo.permit_remarks#
 						</div>
 						<p>
