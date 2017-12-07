@@ -329,6 +329,11 @@
 			where
 				permit_id=#permit_id#
 		</cfquery>
+		<cfif permitInfo.recordcount lt 1>
+			<div class="importantNotification">
+				Permit not found.
+			</div>
+		</cfif>
 		<table border width="100%">
 			<tr>
 				<td width="50%"  valign="top">
