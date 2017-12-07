@@ -185,53 +185,28 @@
 	<cfset title="edit permit">
 	<script>
 		$(document).ready(function() {
-
 			$('form').submit(function () {
 				var hasPermitType=false;
 				var hasIssuedTo=false;
 				var hasIssuedBy=false;
 				var theProbs=[];
-
-				console.log('clicky');
 				$("select[id^='permit_type_']").each(function(e){
-					//console.log(e);
-					//console.log($(this).val());
 					if ($(this).val().length>0){
 						hasPermitType=true;
 					}
-
 				});
-
-
 				$("input[id^='permit_agent_id_']").each(function(e){
-
-
-					console.log('val: ' + $(this).val());
-					console.log('id:' + this.id);
-
-
-
 					if ($(this).val().length>0){
-						console.log('something in ' + this.id);
 						var bareID=this.id.replace('permit_agent_id_','');
-						console.log('bareID:' + bareID);
 						var matchRole='permit_agent_role_' + bareID;
-						console.log('matchRole: ' + matchRole);
 						var theRole=$("#" + matchRole).val();
-							console.log('theRole:' + theRole);
 						if (theRole=='issued to'){
 							hasIssuedTo=true;
 						} else if (theRole=='issued by') {
 							hasIssuedBy=true;
 						}
 					}
-
 				});
-
-
-
-
-
 				if (hasPermitType==false){
 					theProbs.push('Provide at least one permit type.');
 				}
@@ -241,21 +216,11 @@
 				if (hasIssuedBy==false){
 					theProbs.push('Provide at least one agent in role `issued by`.');
 				}
-
-
 				if (theProbs.length > 0){
 					alert(theProbs.join("\n"));
 					return false;
 				}
-
-				alert('Text-field is empty.');
-	        	return false;
-
-
 			});
-
-
-
 		});
 	</script>
 	<cfoutput>
