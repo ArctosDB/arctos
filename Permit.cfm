@@ -188,7 +188,7 @@
 
 			$('form').submit(function () {
 				$("select[id^='permit_type_']").each(function(e,v){
-					console.log(v);
+					console.log($(this).val());
 				});
 
 				 alert('Text-field is empty.');
