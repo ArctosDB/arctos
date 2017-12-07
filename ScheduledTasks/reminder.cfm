@@ -340,7 +340,7 @@
 		---->
 		<cfquery name="permit" datasource="uam_god">
 			select
-				permit_id,
+				permit.permit_id,
 				EXP_DATE,
 				PERMIT_NUM,
 				get_address(permit_agent.agent_id,'email') ADDRESS,
