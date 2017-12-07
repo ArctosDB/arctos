@@ -248,7 +248,7 @@
 
 						<p>The Basics</p>
 
-						<label for="permit_Num">Permit Identifier/Number</label>
+						<label for="permit_Num" class="helpLink" id="_permit_num">Permit Identifier/Number</label>
 					  	<input type="text" name="permit_num" id="permit_num" class="reqdClr" required value="#permitInfo.permit_Num#">
 
 						<label for="issued_Date">Issued Date</label>
