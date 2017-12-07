@@ -43,8 +43,6 @@
 		<cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sqlstring)#
 		</cfquery>
-
-		<cfdump var=#matchPermit#>
 		<script src="/includes/sorttable.js"></script>
 		<cfset i=1>
 		<table border id="t" class="sortable">
