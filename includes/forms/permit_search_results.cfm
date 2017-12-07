@@ -17,7 +17,7 @@
 	<cfset whrtbls=" permit	">
 	<cfset whrcls=" where 1=1">
 
-<cfif len(IssuedByAgent) gt 0>
+<cfif isdefined("IssuedByAgent") and len(IssuedByAgent) gt 0>
 	<cfset whrtbls=whrtbls & ", agent_name IssuedByAgentName, permit_agent permit_agent_IBA ">
 	<cfset whrcls=whrcls & " and permit.permit_id= permit_agent_IBA.permit_id and
 			permit_agent_IBA.agent_role='issued by' and
@@ -25,14 +25,14 @@
 			upper(IssuedByAgentName.agent_name) like '%#ucase(IssuedByAgent)#%' ">
 </cfif>
 
-<cfif len(IssuedToAgent) gt 0>
+<cfif isdefined("IssuedToAgent") and len(IssuedToAgent) gt 0>
 	<cfset whrtbls=whrtbls & ", agent_name IssuedToAgentName, permit_agent permit_agent_ITA ">
 	<cfset whrcls=whrcls & " and permit.permit_id= permit_agent_ITA.permit_id and
 			permit_agent_ITA.agent_role='issued to' and
 			permit_agent_ITA.agent_id=IssuedToAgentName.agent_id and
 			upper(IssuedToAgentName.agent_name) like '%#ucase(IssuedToAgent)#%' ">
 </cfif>
-<cfif len(ContactAgent) gt 0>
+<cfif isdefined("ContactAgent") and len(ContactAgent) gt 0>
 	<cfset whrtbls=whrtbls & ", agent_name ContactAgentName, permit_agent permit_agent_CA ">
 	<cfset whrcls=whrcls & " and permit.permit_id= permit_agent_CA.permit_id and
 			permit_agent_CA.agent_role='issued to' and
@@ -59,26 +59,26 @@
 </cfif>
 
 
-<cfif len(IssuedAfter) gt 0>
+<cfif isdefined("IssuedAfter") and len(IssuedAfter) gt 0>
 	<cfset whrcls=whrcls & " AND issued_date >= '#IssuedAfter#'">
 </cfif>
 
-<cfif len(IssuedBefore) gt 0>
+<cfif isdefined("IssuedBefore") and len(IssuedBefore) gt 0>
 	<cfset whrcls=whrcls & " AND issued_date <= '#IssuedBefore#'">
 </cfif>
 
 
-<cfif len(ExpiresAfter) gt 0>
+<cfif isdefined("ExpiresAfter") and len(ExpiresAfter) gt 0>
 	<cfset whrcls=whrcls & " AND exp_date >= '#ExpiresAfter#'">
 </cfif>
 
 
-<cfif len(ExpiresBefore) gt 0>
+<cfif isdefined("ExpiresBefore") and len(ExpiresBefore) gt 0>
 	<cfset whrcls=whrcls & " AND exp_date <= '#ExpiresBefore#'">
 </cfif>
 
 
-<cfif len(permit_num) gt 0>
+<cfif isdefined("permit_num") and len(permit_num) gt 0>
 	<cfif left(permit_num,1) is "=">
 		<cfset whrcls=whrcls & " AND permit_num = '#ucase(mid(permit_num,2,len(permit_num)-1))#'">
 	<cfelse>
@@ -87,15 +87,15 @@
 </cfif>
 
 
-<cfif len(permit_type) gt 0>
+<cfif isdefined("permit_type") and len(permit_type) gt 0>
 	<cfset whrcls=whrcls & " AND permit.permit_id in (select permit_id from permit_type where permit_type = '#permit_type#')">
 </cfif>
-<cfif len(permit_regulation) gt 0>
+<cfif isdefined("permit_regulation") and len(permit_regulation) gt 0>
 	<cfset whrcls=whrcls & " AND permit.permit_id in (select permit_id from permit_type where permit_regulation = '#permit_regulation#')">
 </cfif>
 
 
-<cfif len(permit_remarks) gt 0>
+<cfif isdefined("permit_remarks") and len(permit_remarks) gt 0>
 	<cfset whrcls=whrcls & " AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
 </cfif>
 
