@@ -471,7 +471,7 @@
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------->
-<cfif actiona is "createPermit">
+<cfif action is "createPermit">
 	<cfoutput>
 		<cfquery name="nextPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_permit_id.nextval nextPermit from dual
