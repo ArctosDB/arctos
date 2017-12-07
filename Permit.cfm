@@ -187,6 +187,10 @@
 		$(document).ready(function() {
 
 		$('form').submit(function () {
+			$("select[id^='permit_type_']").each(function(e){
+				console.log(this.val()):
+			});
+
 
 		        alert('Text-field is empty.');
 		        return false;
@@ -253,7 +257,7 @@
 								<tr>
 									<td>Existing</td>
 									<td>
-										<select name="permit_type_#permit_type_id#" size="1">
+										<select id="permit_type_#permit_type_id#" name="permit_type_#permit_type_id#" size="1">
 											<option value=""></option>
 											<cfloop query="ctPermitType">
 												<option <cfif #ctPermitType.permit_type# is "#permitType.permit_type#"> selected </cfif>value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
@@ -276,7 +280,7 @@
 								<tr class="newRec">
 									<td>New (save to add more)</td>
 									<td>
-										<select name="permit_type_new#i#" size="1">
+										<select id="permit_type_new#i#" name="permit_type_new#i#" size="1">
 											<option value=""></option>
 											<cfloop query="ctPermitType">
 												<option value="#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
