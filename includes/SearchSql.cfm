@@ -2142,11 +2142,12 @@
 	<cfif basJoin does not contain " permit ">
 		<cfset basJoin = " #basJoin# INNER JOIN permit ON (permit_trans.permit_id = permit.permit_id)">
 	</cfif>
-	<cfif basJoin does not contain " permit_issued ">
-		<cfset basJoin = " #basJoin# INNER JOIN agent_name permit_issued ON (permit.issued_by_agent_id = permit_issued.agent_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND upper(permit_issued.agent_name) like '%#ucase(permit_issued_by)#%'">
+	<cfset basQual = " #basQual# AND permit.permit_id in (
+				select permit_id from permit_agent,agent_name where permit_agent.agent_id=agent_name.agent_id and
+				permit_agent.agent_role='issued by' and
+				upper(agent_name.agent_name)  like '%#ucase(permit_issued_by)#%')">
 </cfif>
+
 <cfif isdefined("permit_issued_to") AND len(permit_issued_to) gt 0>
 	<cfset mapurl = "#mapurl#&permit_issued_to=#URLEncodedFormat(permit_issued_to)#">
 	<cfif basJoin does not contain " permit_trans ">
@@ -2155,20 +2156,22 @@
 	<cfif basJoin does not contain " permit ">
 		<cfset basJoin = " #basJoin# INNER JOIN permit ON (permit_trans.permit_id = permit.permit_id)">
 	</cfif>
-	<cfif basJoin does not contain " permit_to ">
-		<cfset basJoin = " #basJoin# INNER JOIN agent_name permit_to ON (permit.issued_by_agent_id = permit_to.agent_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND upper(permit_to.agent_name) like '%#ucase(permit_issued_to)#%'">
+	<cfset basQual = " #basQual# AND permit.permit_id in (
+				select permit_id from permit_agent,agent_name where permit_agent.agent_id=agent_name.agent_id and
+				permit_agent.agent_role='issued to' and
+				upper(agent_name.agent_name)  like '%#ucase(permit_issued_to)#%')">
 </cfif>
 <cfif isdefined("permit_type") AND len(permit_type) gt 0>
-<cfset mapurl = "#mapurl#&permit_type=#permit_type#">
+	<cfset mapurl = "#mapurl#&permit_type=#permit_type#">
 	<cfif basJoin does not contain " permit_trans ">
 		<cfset basJoin = " #basJoin# INNER JOIN permit_trans ON (#session.flatTableName#.accn_id = permit_trans.transaction_id)">
 	</cfif>
 	<cfif basJoin does not contain " permit ">
 		<cfset basJoin = " #basJoin# INNER JOIN permit ON (permit_trans.permit_id = permit.permit_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND permit_type='#escapeQuotes(permit_type)#'">
+	<cfset basQual = "#basQual# AND permit.permit_id in (
+				select permit_id from permit_type where
+				permit_type='#permit_Type#')">
 </cfif>
 <cfif isdefined("permit_num") AND len(permit_num) gt 0>
 	<cfset mapurl = "#mapurl#&permit_num=#permit_num#">
