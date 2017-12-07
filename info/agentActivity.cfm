@@ -419,7 +419,7 @@ Permits:
 				<ul>
 					<li>Type(s) & Regulation(s) #permit_type#</li>
 					<cfquery name="tpa" dbtype="query">
-						select AGENT_ROLE from basepermit where permit_id=#permit_id# group by AGENT_ROLE order by AGENT_ROLE
+						select AGENT_ROLE from permit_to where permit_id=#permit_id# group by AGENT_ROLE order by AGENT_ROLE
 					</cfquery>
 					<cfloop query="tpa">
 						<li>Role: #AGENT_ROLE#</li>
