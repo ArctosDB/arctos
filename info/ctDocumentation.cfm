@@ -36,7 +36,8 @@
 <cfset title="#table# - code table documentation">
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
 	<cftry>
-	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
+	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 		select * from #wrd(table)# <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
 	</cfquery>
 	<cfcatch>
@@ -315,7 +316,6 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</cfloop>
 			</table>
 		<cfelse>
-			got collection code....
 			<cfquery name="ut" dbtype="query">
 				select #theColumnName# from theRest group by #theColumnName# order by #theColumnName#
 			</cfquery>
