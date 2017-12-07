@@ -640,8 +640,6 @@
 			received_date,
 			accn_status,
 			trans_remarks,
-			issuedTo.agent_name as issuedTo,
-			issuedBy.agent_name as issuedBy,
 			guid_prefix,
 			project_name,
 			project.project_id pid,
