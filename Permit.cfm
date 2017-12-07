@@ -136,7 +136,7 @@
 					</cfquery>
 					#valuelist(ctc.permit_agent)#
 					---->
-					ContactAgent
+					#ContactAgent#
 				</td>
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
 				<td>#dateformat(exp_Date,"yyyy-mm-dd")# </td>
