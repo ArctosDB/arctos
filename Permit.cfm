@@ -47,11 +47,12 @@
 	.onemo {border: 4px solid red;}
 	.eventually {border: 4px solid green;}
 </style>
-	<!--- assemble sqlstring (variable "sqlstring") --->
-	<cfinclude template="/includes/forms/permit_search_results.cfm">
-	<cfdump var=#sqlstring#>
 
 <cfoutput>
+
+	<!--- assemble sqlstring (variable "sqlstring") --->
+	<cfinclude template="/includes/forms/permit_search_results.cfm">
+
 
 
 <cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

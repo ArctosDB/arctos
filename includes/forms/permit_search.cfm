@@ -44,7 +44,7 @@
 	<label for="anyAgent">Any Agent</label>
 	<input type="text" name="anyAgent">
 
-	<label for="anyAgentRole">Agent Role</label>
+	<label for="anyAgentRole">Any Agent Role</label>
 	<select name="anyAgentRole" size="1">
 		<option value=""></option>
 		<cfloop query="ctPermitAgentRole">
