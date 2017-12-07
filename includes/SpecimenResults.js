@@ -464,7 +464,6 @@ function injectLoanPick() {
 	var transaction_id=$("#transaction_id").val();
 	if (transaction_id) {
 		var isdl=$("#isDataLoan").val();
-		alert(isdl);
 		if (isdl=='yes'){
 			return;			
 		}
