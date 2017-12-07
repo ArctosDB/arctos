@@ -259,6 +259,9 @@
 
 						<label for="permit_remarks" class="helpLink" id="_permit_remarks">Remarks</label>
 					  	<textarea name="permit_remarks" class="hugetextarea">#permitInfo.permit_remarks#</textarea>
+					  	<div>
+							#permitInfo.permit_remarks#
+						</div>
 						<p>
 							Type & Regulation
 							<div style="font-size:small;padding:1em;margin:1em;">
