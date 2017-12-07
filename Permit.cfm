@@ -262,6 +262,8 @@
 					where permit_id=#old_permit.permit_id#
 			</cfquery>
 		</cftransaction>
+		<cflocation url="Permit.cfm?Action=editPermit&permit_id=#pid.pid#" addtoken="false">
+
 	</cfoutput>
 </cfif>
 
