@@ -1,29 +1,16 @@
-<label for="permit_num">Permit Identifier/Number</label>
+	<!--- just in case, cached queries don't cost anything .. --->
+
+	<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select permit_type from ctpermit_type order by permit_type
+	</cfquery>
+	<cfquery name="ctPermitRegulation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select permit_regulation from ctpermit_regulation order by permit_regulation
+	</cfquery>
+	<cfquery name="ctPermitAgentRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select permit_agent_role from ctpermit_agent_role order by permit_agent_role
+	</cfquery>
+	<label for="permit_num">Permit Identifier/Number</label>
 	<input type="text" name="permit_num">
-
-	<label for="IssuedByAgent">Issued By</label>
-	<input type="text" name="IssuedByAgent">
-
-	<label for="IssuedToAgent">Issued To</label>
-	<input type="text" name="IssuedToAgent">
-
-
-	<label for="ContactAgent">Contact Agent</label>
-	<input type="text" name="ContactAgent">
-
-	<label for="IssuedAfter">Issued On/After Date</label>
-	<input type="datetime" name="IssuedAfter">
-
-	<label for="IssuedBefore">Issued On/Before Date</label>
-	<input type="datetime" name="IssuedBefore">
-
-
-	<label for="ExpiresAfter">Expires On/After Date</label>
-	<input type="datetime" name="ExpiresAfter">
-
-
-	<label for="ExpiresBefore">Expires On/Before Date</label>
-	<input type="datetime" name="ExpiresBefore">
 
 	<label for="permit_type">Permit Type</label>
 	<select name="permit_type" size="1">
@@ -41,6 +28,26 @@
 		</cfloop>
 	</select>
 
+	<label for="IssuedByAgent">Issued By</label>
+	<input type="text" name="IssuedByAgent">
+
+	<label for="IssuedToAgent">Issued To</label>
+	<input type="text" name="IssuedToAgent">
+
+	<label for="ContactAgent">Contact</label>
+	<input type="text" name="ContactAgent">
+
+	<label for="IssuedAfter">Issued On/After Date</label>
+	<input type="datetime" name="IssuedAfter">
+
+	<label for="IssuedBefore">Issued On/Before Date</label>
+	<input type="datetime" name="IssuedBefore">
+
+	<label for="ExpiresAfter">Expires On/After Date</label>
+	<input type="datetime" name="ExpiresAfter">
+
+	<label for="ExpiresBefore">Expires On/Before Date</label>
+	<input type="datetime" name="ExpiresBefore">
 
 	<label for="permit_remarks">Remarks</label>
 	<input type="text" name="permit_remarks">
