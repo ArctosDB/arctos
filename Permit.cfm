@@ -203,7 +203,10 @@
 
 
 				$("input[id^='permit_agent_id_']").each(function(e){
+					console.log('next=e');
 					console.log(e);
+					console.log('next=val');
+
 					console.log($(this).val());
 					if ($(this).val().length>0){
 						console.log('something in ' + $(this).id);
