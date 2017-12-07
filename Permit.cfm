@@ -190,6 +190,7 @@
 				var hasPermitType=false;
 				var hasIssuedTo=false;
 				var hasIssuedBy=false;
+				var theProbs=[];
 
 				console.log('clicky');
 				$("select[id^='permit_type_']").each(function(e){
@@ -203,14 +204,9 @@
 
 
 				$("input[id^='permit_agent_id_']").each(function(e){
-					console.log('next=e');
 
-					console.log($(this));
-					console.log(e);
-					console.log('next=val');
 
-					console.log($(this).val());
-
+					console.log('val: ' + $(this).val());
 					console.log('id:' + this.id);
 
 
@@ -221,6 +217,13 @@
 						console.log('bareID:' + bareID);
 						var matchRole='permit_agent_role_' + bareID;
 						console.log('matchRole: ' + matchRole);
+						var theRole=$("#" + matchRole).val();
+							console.log('theRole:' + theRole);
+						if (theRole=='issued to'){
+							hasIssuedTo=true;
+						} elseif (theTOle=='issued by') {
+							hasIssuedBy=true;
+						}
 					}
 
 				});
@@ -230,11 +233,22 @@
 
 
 				if (hasPermitType==false){
-					alert('Provide at least one permit type.');
+					theProb.push('Provide at least one permit type.');
+				}
+				if (hasIssuedTo==false){
+					theProb.push('Provide at least one agent in role `issued to`.');
+				}
+				if (hasIssuedBy==false){
+					theProb.push('Provide at least one agent in role `issued by`.');
+				}
+
+
+				if (theProb.lenght > 0){
+					alert(theProb.join("\n"));
 					return false;
 				}
 
-				 alert('Text-field is empty.');
+				alert('Text-field is empty.');
 	        	return false;
 
 
