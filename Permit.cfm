@@ -190,11 +190,14 @@
 				$("select[id^='permit_type_']").each(function(e){
 					console.log(this.val()):
 				});
+
+				 alert('Text-field is empty.');
+	        	return false;
+
+
 			});
 
-			        alert('Text-field is empty.');
-			        return false;
-			});
+
 
 		});
 	</script>
