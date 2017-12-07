@@ -60,22 +60,6 @@
 </cfquery>
 
 
-<cfquery name="base" dbtype="query">
-	select
-		permit_id,
-		issued_Date,
-		exp_Date,
-		permit_Num,
-		permit_remarks
-	from
-		matchPermit
-	group by
-		permit_id,
-		issued_Date,
-		exp_Date,
-		permit_Num,
-		permit_remarks
-</cfquery>
 <script src="/includes/sorttable.js"></script>
 
 <cfset i=1>
@@ -92,7 +76,7 @@
 			<th>Remarks</th>
 			<th>ctl</th>
 		</tr>
-		<cfloop query="base">
+		<cfloop query="matchPermit">
 			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>#permit_Num#</td>
 
