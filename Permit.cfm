@@ -204,6 +204,8 @@
 
 				$("input[id^='permit_agent_id_']").each(function(e){
 					console.log('next=e');
+
+					console.log($(this));
 					console.log(e);
 					console.log('next=val');
 
