@@ -6,28 +6,17 @@
 	---->
 	<cfset bsql = "select
 		permit.permit_id,
-		--getPreferredAgentName(permit_agent.agent_id) permit_agent,
-		--permit_agent.agent_role,
 		permit.issued_Date,
 		permit.exp_Date,
 		permit.permit_Num,
 		permit.permit_remarks,
-		--permit_type.permit_type,
-		--permit_type.permit_regulation,
 		getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
 		getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
 		getPermitAgents(permit.permit_id, 'contact') ContactAgent,
 		getPermitTypeReg(permit.permit_id) permit_Type
 	from">
-	<cfset whrtbls="
-		permit,
-		permit_agent,
-		permit_type
-		">
-	<cfset whrcls="
-	where
-		permit.permit_id = permit_agent.permit_id (+) and
-		permit.permit_id = permit_type.permit_id (+) ">
+	<cfset whrtbls=" permit	">
+	<cfset whrcls=" where ">
 
 <cfif len(IssuedByAgent) gt 0>
 	<cfset whrtbls=whrtbls & ", agent_name IssuedByAgentName, permit_agent permit_agent_IBA ">
