@@ -248,16 +248,16 @@
 
 						<p>The Basics</p>
 
-						<label for="permit_Num" class="helpLink" id="_permit_num">Permit Identifier/Number</label>
+						<label for="permit_num" class="helpLink" id="_permit_num">Permit Identifier/Number</label>
 					  	<input type="text" name="permit_num" id="permit_num" class="reqdClr" required value="#permitInfo.permit_Num#">
 
-						<label for="issued_Date">Issued Date</label>
+						<label for="issued_date" class="helpLink" id="_issued_date">Issued Date</label>
 						<input type="datetime" id="issued_date" name="issued_date" value="#dateformat(permitInfo.issued_Date,"yyyy-mm-dd")#">
 
-					  	<label for="exp_date">Expiration Date</label>
+					  	<label for="exp_date" class="helpLink" id="_exp_date">Expiration Date</label>
 					  	<input type="datetime" id="exp_date" name="exp_date" value="#dateformat(permitInfo.exp_Date,"yyyy-mm-dd")#">
 
-						<label for="permit_remarks">Remarks</label>
+						<label for="permit_remarks" class="helpLink" id="_permit_remarks">Remarks</label>
 					  	<textarea name="permit_remarks" class="hugetextarea">#permitInfo.permit_remarks#</textarea>
 						<p>
 							Type & Regulation
