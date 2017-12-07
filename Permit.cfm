@@ -48,9 +48,9 @@
 	.eventually {border: 4px solid green;}
 </style>
 <cfoutput>
-	<!--- assemble SQL (variable "sql") --->
+	<!--- assemble sqlstring (variable "sqlstring") --->
 	<cfinclude template="/includes/forms/permit_search_results.cfm">
-	<cfdump var=#sql#>
+	<cfdump var=#sqlstring#>
 
 	<cfabort>
 
