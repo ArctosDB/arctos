@@ -50,7 +50,7 @@
 <cfoutput>
 	<!--- assemble SQL (variable "sql") --->
 	<cfinclude template="/includes/forms/permit_search.cfm">
-
+	<cfdump var=#sql#>
 
 
 <cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
