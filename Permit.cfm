@@ -333,6 +333,7 @@
 			<div class="importantNotification">
 				Permit not found.
 			</div>
+			<cfabort>
 		</cfif>
 		<table border width="100%">
 			<tr>
