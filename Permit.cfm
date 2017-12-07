@@ -258,7 +258,7 @@
 					  	<input type="datetime" id="exp_date" name="exp_date" value="#dateformat(permitInfo.exp_Date,"yyyy-mm-dd")#">
 
 						<label for="permit_remarks">Remarks</label>
-					  	<textarea name="permit_remarks" class="largetextarea">#permitInfo.permit_remarks#</textarea>
+					  	<textarea name="permit_remarks" class="hugetextarea">#permitInfo.permit_remarks#</textarea>
 						<p>
 							Type & Regulation
 							<div style="font-size:small;padding:1em;margin:1em;">
