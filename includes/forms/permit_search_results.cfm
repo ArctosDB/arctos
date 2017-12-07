@@ -103,6 +103,15 @@
 	<cfset whrcls=whrcls & " AND permit.permit_id = #permit_id#">
 </cfif>
 
-<cfset sqlstring=bsql & whrtbls & whrcls>
+<cfset sqlstring=bsql & whrtbls & whrcls & " group by
+	permit.permit_id,
+	permit.issued_Date,
+	permit.exp_Date,
+	permit.permit_Num,
+	permit.permit_remarks,
+	getPermitAgents(permit.permit_id, 'issued to'),
+	getPermitAgents(permit.permit_id, 'issued by'),
+	getPermitAgents(permit.permit_id, 'contact'),
+	getPermitTypeReg(permit.permit_id) ">
 
 </cfoutput>
