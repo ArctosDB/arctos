@@ -46,7 +46,7 @@
 
 
 <cfif len(IssuedAfter) gt 0>
-	<cfset whrcls=whrcls & " AND issued_date >= '#issued_date#'">
+	<cfset whrcls=whrcls & " AND issued_date >= '#IssuedAfter#'">
 </cfif>
 
 <cfif len(IssuedBefore) gt 0>
