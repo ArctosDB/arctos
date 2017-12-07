@@ -221,7 +221,7 @@
 							console.log('theRole:' + theRole);
 						if (theRole=='issued to'){
 							hasIssuedTo=true;
-						} elseif (theTOle=='issued by') {
+						} else if (theRole=='issued by') {
 							hasIssuedBy=true;
 						}
 					}
