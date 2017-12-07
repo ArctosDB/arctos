@@ -184,10 +184,14 @@
 <cfif action is "editPermit">
 	<cfset title="edit permit">
 	<script>
+		$(document).ready(function() {
+
 		$('form').submit(function () {
 
 		        alert('Text-field is empty.');
 		        return false;
+		});
+
 		});
 	</script>
 	<cfoutput>
