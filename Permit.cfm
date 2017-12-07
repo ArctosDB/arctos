@@ -7,7 +7,6 @@
 		$("input[type='date'], input[type='datetime']" ).datepicker();
 	});
 </script>
-<!--- no security --->
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select permit_type from ctpermit_type order by permit_type
 </cfquery>
@@ -17,25 +16,16 @@
 <cfquery name="ctPermitAgentRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select permit_agent_role from ctpermit_agent_role order by permit_agent_role
 </cfquery>
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 	<cfset title="permit search">
-
-<cfoutput>
-
-<p>
-	<a href="Permit.cfm?action=newPermit">create permit</a>
-</p>
-
-<p>
-	Find Permits
-</p>
-<form name="findPermit" action="Permit.cfm" method="post">
-	<input type="hidden" name="action" value="search">
-	<cfinclude template="/includes/forms/permit_search.cfm">
-
-
-</form>
-</cfoutput>
+	<p>
+		<a href="Permit.cfm?action=newPermit">create permit</a>
+	</p>
+	<h3>Find Permits</h3>
+	<form name="findPermit" action="Permit.cfm" method="post">
+		<input type="hidden" name="action" value="search">
+		<cfinclude template="/includes/forms/permit_search.cfm">
+	</form>
 </cfif>
 <!--------------------------------------------------------------------------->
 <cfif action is "search">
@@ -52,7 +42,6 @@
 
 	<!--- assemble sqlstring (variable "sqlstring") --->
 	<cfinclude template="/includes/forms/permit_search_results.cfm">
-
 
 
 <cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
