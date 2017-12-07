@@ -116,7 +116,6 @@
 	</cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------->
 <cfif action is "newPermit">
 	<cfset title="create permit">
 	<h2>Create Permit</h2>
@@ -148,7 +147,6 @@
 					<option value="#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
 				</cfloop>
 			</select>
-
 			<div style="font-size:small;padding:1em;margin:1em;">
 				Save and edit to add more Agents
 				Code table is
@@ -183,9 +181,15 @@
 	</cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------->
 <cfif action is "editPermit">
 	<cfset title="edit permit">
+	<script>
+		$('form').submit(function () {
+
+		        alert('Text-field is empty.');
+		        return false;
+		});
+	</script>
 	<cfoutput>
 		<cfif not isdefined("permit_id") OR len(permit_id) is 0>
 			Something bad happened. You didn't pass this form a permit_id. Go back and try again.<cfabort>
@@ -469,7 +473,6 @@
 		<cflocation url="Permit.cfm?Action=editPermit&permit_id=#permit_id#" addtoken="false">
 	</cfoutput>
 </cfif>
-<!--------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "createPermit">
 	<cfoutput>
