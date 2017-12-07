@@ -224,6 +224,7 @@
 		});
 		function renewThisPermit(){
 			alert('renewing.....');
+			console.log( $("#editPermit").serialize() );
 		}
 	</script>
 	<cfoutput>
@@ -245,7 +246,7 @@
 		<table border width="100%">
 			<tr>
 				<td width="50%"  valign="top">
-					<form name="editPermit" action="Permit.cfm" method="post">
+					<form name="editPermit" id="editPermit" action="Permit.cfm" method="post">
 						<input type="hidden" name="action" value="saveChanges">
 						<input type="hidden" name="permit_id" value="#permit_id#">
 
