@@ -384,13 +384,30 @@ Coordinates:
 Permits:
 	<cfquery name="permit_to" datasource="uam_god">
 		select
-			PERMIT_NUM,
-			PERMIT_TYPE
+			permit.PERMIT_NUM,
+			permit_type.PERMIT_TYPE,
+			permit_type.regulation,
+			permit_agent.permit_agent_role
 		from
-			permit
+			permit,
+			permit_type,
+			permit_agent
 		where
-			ISSUED_TO_AGENT_ID=#agent_id#
+			permit.permit_id=permit_type.permit_id (+) and
+			permit.permit_id=permit_agent.permit_id and
+		where
+			permit_agent.agent_id=#agent_id#
+		order by
+			permit_agent_role
 	</cfquery>
+	<ul>
+		<cfloop query="permit_to">
+			<li>
+				#PERMIT_NUM# (#PERMIT_TYPE# - #regulation#): #permit_agent_role#
+			</li>
+		</cfloop>
+	</ul>
+	<!----
 	<ul>
 		<cfloop query="permit_to">
 			<li>
@@ -424,6 +441,7 @@ Permits:
 			</li>
 		</cfloop>
 	</ul>
+	---->
 Transactions
 	<ul>
 		<cfquery name="shipment" datasource="uam_god">
