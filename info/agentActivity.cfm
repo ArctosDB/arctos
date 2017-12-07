@@ -395,7 +395,6 @@ Permits:
 		where
 			permit.permit_id=permit_type.permit_id (+) and
 			permit.permit_id=permit_agent.permit_id and
-		where
 			permit_agent.agent_id=#agent_id#
 		order by
 			permit_agent_role
