@@ -65,7 +65,11 @@
 
 
 <cfif len(permit_num) gt 0>
-	<<cfset whrcls=whrcls & " AND upper(permit_Num) like '%#ucase(permit_Num)#%'">
+	<cfif left(permit_num,1) is "=">
+		<cfset whrcls=whrcls & " AND permit_num = '#ucase(mid(permit_num,2,len(permit_num)-1))#'">
+	<cfelse>
+		<cfset whrcls=whrcls & " AND upper(permit_Num) like '%#ucase(permit_Num)#%'">
+	</cfif>
 </cfif>
 
 

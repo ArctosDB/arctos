@@ -11,7 +11,9 @@
 	</cfquery>
 	<cfoutput>
 	<label for="permit_num">Permit Identifier/Number</label>
-	<input type="text" name="permit_num">
+	<input type="text" name="permit_num" id="permit_num">
+	<span class="infoLink" onclick="var e=document.getElementById('permit_num');e.value='='+e.value;">Add = for exact match</span>
+
 
 	<label for="permit_type">Permit Type</label>
 	<select name="permit_type" size="1">
