@@ -210,6 +210,11 @@
 					console.log('next=val');
 
 					console.log($(this).val());
+
+					console.log('id:' + $(this).id);
+
+
+
 					if ($(this).val().length>0){
 						console.log('something in ' + $(this).id);
 						var bareID=$(this).id.replace('permit_agent_id_','');
