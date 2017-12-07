@@ -16,7 +16,7 @@
 		getPermitTypeReg(permit.permit_id) permit_Type
 	from">
 	<cfset whrtbls=" permit	">
-	<cfset whrcls=" where ">
+	<cfset whrcls=" where 1=1">
 
 <cfif len(IssuedByAgent) gt 0>
 	<cfset whrtbls=whrtbls & ", agent_name IssuedByAgentName, permit_agent permit_agent_IBA ">
