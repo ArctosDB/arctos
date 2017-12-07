@@ -366,17 +366,8 @@
 				<cfset subj="TEST PLEASE IGNORE: Expiring Permits">
 				<cfset ft=permit.ADDRESS>
 			</cfif>
-
-			<br>#maddr#
-				You are receiving this message because you are the contact person for a permit which expires in #expires_in_days# days.
-				<p>
-					<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')#<br>
-				</p>
-				<br>#ft#
-				#emailFooter#
-
 			<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="reminder@#Application.fromEmail#" type="html">
-				You are receiving this message because you are the contact person for a permit which expires in #expires_in_days# days.
+				You are receiving this message because you are the contact agent for a permit which expires in #expires_in_days# days.
 				<p>
 					<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')#<br>
 				</p>
