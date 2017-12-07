@@ -343,13 +343,16 @@
 				permit_id,
 				EXP_DATE,
 				PERMIT_NUM,
-				get_address(contact_agent_id,'email') ADDRESS,
+				get_address(permit_agent.agent_id,'email') ADDRESS,
 				round(EXP_DATE - sysdate) expires_in_days,
 				EXP_DATE
 			FROM
-				permit
+				permit,
+				permit_agent
 			WHERE
-				get_address(contact_agent_id,'email') is not null and
+				permit.permit_id=permit_agent.permit_id and
+				permit_agent.agent_role='contact' and
+				get_address(permit_agent.agent_id,'email') is not null and
 				round(EXP_DATE - sysdate) IN (#cInt#)
 		</cfquery>
 		<cfloop query="permit">
