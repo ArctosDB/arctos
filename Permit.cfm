@@ -97,6 +97,8 @@
 				<td>#permit_Num#</td>
 
 				<td>
+
+					<!----
 					<cfquery name="ptr" dbtype="query">
 						select permit_type,permit_regulation from matchPermit where permit_id=#permit_id# group by permit_type,permit_regulation
 					</cfquery>
@@ -105,25 +107,36 @@
 							#permit_type# - #permit_regulation#
 						</div>
 					</cfloop>
+					--->
+					#permit_type#
 
 				</td>
 				<td>
+					<!----
 					<cfquery name="it" dbtype="query">
 						select permit_agent from matchPermit where agent_role='issued to' and permit_id=#permit_id# group by permit_agent
 					</cfquery>
 					#valuelist(it.permit_agent)#
+					---->
+					#IssuedToAgent#
 				</td>
 				<td>
+					<!-----
 					<cfquery name="ib" dbtype="query">
 						select permit_agent from matchPermit where agent_role='issued by' and permit_id=#permit_id# group by permit_agent
 					</cfquery>
 					#valuelist(ib.permit_agent)#
+					---->
+					#IssuedByAgent#
 				</td>
 				<td>
+					<!----
 					<cfquery name="ctc" dbtype="query">
 						select permit_agent from matchPermit where agent_role='contact' and permit_id=#permit_id# group by permit_agent
 					</cfquery>
 					#valuelist(ctc.permit_agent)#
+					---->
+					ContactAgent
 				</td>
 				<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
 				<td>#dateformat(exp_Date,"yyyy-mm-dd")# </td>

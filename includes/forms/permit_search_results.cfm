@@ -1,14 +1,19 @@
 <cfoutput>
+	<!----
+		standard permit search SQL assembly
+		OLD: return agents/roles, permit_type/permit regulation on separate rows
+		NEW: return concatenations
+	---->
 	<cfset bsql = "select
 		permit.permit_id,
-		getPreferredAgentName(permit_agent.agent_id) permit_agent,
-		permit_agent.agent_role,
+		--getPreferredAgentName(permit_agent.agent_id) permit_agent,
+		--permit_agent.agent_role,
 		permit.issued_Date,
 		permit.exp_Date,
 		permit.permit_Num,
 		permit.permit_remarks,
-		permit_type.permit_type,
-		permit_type.permit_regulation,
+		--permit_type.permit_type,
+		--permit_type.permit_regulation,
 		getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
 		getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
 		getPermitAgents(permit.permit_id, 'contact') ContactAgent,
