@@ -239,9 +239,7 @@ END;
 					</cfquery>
 					got latlong<br><cfflush>
 					<cfquery name="permit_to" datasource="uam_god">
-						update permit set
-							ISSUED_TO_AGENT_ID = #bads.related_agent_id# where
-							ISSUED_TO_AGENT_ID = #bads.agent_id#
+						update permit_agent set agent_id=#bads.related_agent_id# where agent_id= #bads.agent_id#
 					</cfquery>
 					update trans_agent set
 							AGENT_ID = #bads.related_agent_id# where
@@ -252,16 +250,7 @@ END;
 							AGENT_ID = #bads.agent_id#
 					</cfquery>
 					got tagent<br><cfflush>
-					<cfquery name="permit_by" datasource="uam_god">
-						update permit set
-							ISSUED_by_AGENT_ID = #bads.related_agent_id# where
-							ISSUED_by_AGENT_ID = #bads.agent_id#
-					</cfquery>
-					<cfquery name="permit_contact" datasource="uam_god">
-						update permit set
-							CONTACT_AGENT_ID = #bads.related_agent_id# where
-							CONTACT_AGENT_ID = #bads.agent_id#
-					</cfquery>
+
 					got permit<br><cfflush>
 					<cfquery name="shipment" datasource="uam_god">
 						update shipment set
