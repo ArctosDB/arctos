@@ -30,7 +30,7 @@
 
 
 
-<cfset sql=bsql & whrtbls & whrcls>
+<cfset sqlstring=bsql & whrtbls & whrcls>
 
 <!----
 

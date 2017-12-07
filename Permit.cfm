@@ -49,7 +49,7 @@
 </style>
 <cfoutput>
 	<!--- assemble SQL (variable "sql") --->
-	<cfinclude template="/includes/forms/permit_search.cfm">
+	<cfinclude template="/includes/forms/permit_search_results.cfm">
 	<cfdump var=#sql#>
 
 	<cfabort>
