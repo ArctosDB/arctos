@@ -182,7 +182,86 @@
 </cfif>
 <cfif action is "renewClone">
 	<cfoutput>
-		cloning #permit_id#
+		<cftransaction>
+			<!--- grab next permit_id --->
+			<cfquery name="pid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_permit_id.nextval pid from dual
+			</cfquery>
+			<!--- get existing info --->
+			<cfquery name="old_permit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from permit where permit_id=#permit_id#
+			</cfquery>
+			<cfquery name="old_permit_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from permit_type where permit_id=#permit_id#
+			</cfquery>
+			<cfquery name="old_permit_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from permit_agent where permit_id=#permit_id#
+			</cfquery>
+			<!--- create a permit --->
+
+			<cfquery name="new_permit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO permit (
+			 		PERMIT_ID,
+			 		ISSUED_DATE,
+					EXP_DATE,
+					PERMIT_NUM,
+					PERMIT_REMARKS
+				) VALUES (
+					#pid.pid#,
+					<cfif len(old_permit.ISSUED_DATE) gt 0>
+						'#dateformat(old_permit.issued_date,"yyyy-mm-dd")#',
+					<cfelse>
+						NULL,
+					</cfif>
+					<cfif len(old_permit.EXP_DATE) gt 0>
+						'#dateformat(old_permit.EXP_DATE,"yyyy-mm-dd")#',
+					<cfelse>
+						NULL,
+					</cfif>
+					'#old_permit.PERMIT_NUM#',
+					trim('Renewal of <a href="/Permit.cfm?Action=editPermit&permit_id=#old_permit.permit_id#">#old_permit.permit_id#</a>. #escapeQuotes(old_permit.permit_remarks)#')
+				)
+			</cfquery>
+			<!--- bring over old type(s) --->
+			<cfloop query="old_permit_type">
+				<cfquery name="newPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into permit_type (
+						permit_type_id,
+						permit_id,
+						permit_type,
+						PERMIT_REGULATION
+					) values (
+						sq_permit_type_id.nextval,
+						#pid.pid#,
+						'#old_permit_type.permit_type#',
+						'#old_permit_type.PERMIT_REGULATION#'
+					)
+				</cfquery>
+			</cfloop>
+
+			<!--- bring over old agent(s) --->
+			<cfloop query="old_permit_agent">
+				<cfquery name="newPermitBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into permit_agent (
+						permit_agent_id,
+						permit_id,
+						agent_id,
+						agent_role
+					) values (
+						sq_permit_agent_id.nextval,
+						#pid.pid#,
+						#old_permit_agent.agent_id#,
+						'#old_permit_agent.AGENT_ROLE#'
+					)
+				</cfquery>
+			</cfloop>
+			<!--- now add a link to the old permit --->
+			<cfquery name="linkold" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update permit set permit_remarks=trim(
+					'Renewed as <a href="/Permit.cfm?Action=editPermit&permit_id=#pid.pid#">#pid.pid#</a>. #old_permit.permit_remarks#')
+					where permit_id=#old_permit.permit_id#
+			</cfquery>
+		</cftransaction>
 	</cfoutput>
 </cfif>
 
