@@ -310,8 +310,6 @@
 			});
 		});
 		function renewThisPermit(){
-			alert('renewing.....');
-			console.log('cloning ' +  $("#permit_id").val() );
 			document.location='Permit.cfm?action=renewClone&permit_id=' + $("#permit_id").val();
 		}
 	</script>
@@ -497,7 +495,7 @@
 						</p>
 
 						<p>
-							Renewal
+							Renewals
 							<div style="font-size:small;padding:1em;margin:1em;">
 								Clicking this will:
 								<ul>
