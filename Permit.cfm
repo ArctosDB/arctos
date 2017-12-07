@@ -188,6 +188,8 @@
 
 			$('form').submit(function () {
 				var hasPermitType=false;
+				var hasIssuedTo=false;
+				var hasIssuedBy=false;
 
 				console.log('clicky');
 				$("select[id^='permit_type_']").each(function(e){
@@ -198,6 +200,24 @@
 					}
 
 				});
+
+
+				$("select[id^='permit_agent_id_']").each(function(e){
+					console.log(e);
+					console.log($(this).val());
+					if ($(this).val().length>0){
+						console.log('something in ' + $(this).id);
+						var bareID=$(this).id.replace('permit_agent_id_','');
+						console.log('bareID:' + bareID);
+						var matchRole='permit_agent_role_' + bareID;
+						console.log('matchRole: ' + matchRole);
+					}
+
+				});
+
+
+
+
 
 				if (hasPermitType==false){
 					alert('Provide at least one permit type.');
@@ -253,6 +273,7 @@
 						<p>
 							Type & Regulation
 							<div style="font-size:small;padding:1em;margin:1em;">
+								At least one permit type is required.
 								Choose TYPE and/or REGULATION, paired or not. Remove both to delete.
 								Code tables are
 								<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_TYPE">CTPERMIT_TYPE</a> and
@@ -317,6 +338,7 @@
 						<p>
 							Agents
 							<div style="font-size:small;padding:1em;margin:1em;">
+								At least one "issued to" and "issued by" agent is required.
 								Provide both an agent and role to create. Choose role DELETE to remove.
 								Code table is
 								<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_AGENT_ROLE">CTPERMIT_AGENT_ROLE</a>
@@ -347,7 +369,7 @@
 											placeholder="agent">
 									</td>
 									<td>
-										<select name="permit_agent_role_#permit_agent_id#" size="1">
+										<select id="permit_agent_role_#permit_agent_id#" name="permit_agent_role_#permit_agent_id#" size="1">
 											<option value="DELETE">DELETE</option>
 											<cfloop query="ctPermitAgentRole">
 												<option <cfif permitAgent.agent_role is ctPermitAgentRole.permit_agent_role> selected="selected" </cfif> value = "#ctPermitAgentRole.permit_agent_role#">#ctPermitAgentRole.permit_agent_role#</option>
@@ -371,7 +393,7 @@
 											placeholder="agent">
 									</td>
 									<td>
-										<select name="permit_agent_role_new#i#" size="1">
+										<select id="permit_agent_role_new#i#" name="permit_agent_role_new#i#" size="1">
 											<option value=""></option>
 											<cfloop query="ctPermitAgentRole">
 												<option value = "#ctPermitAgentRole.permit_agent_role#">#ctPermitAgentRole.permit_agent_role#</option>
