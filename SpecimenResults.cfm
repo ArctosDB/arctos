@@ -475,11 +475,6 @@
 								<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
 									MSB Mammals Vial Labels
 								</option>
-								<cfif isdefined('permit_num') and len(permit_num) gt 0>
-									<option value="/Reports/permit.cfm">
-										MVZ Permit Report
-									</option>
-								</cfif>
 								<option value="/Reports/kenai.cfm">
 									download bug .tex
 								</option>
