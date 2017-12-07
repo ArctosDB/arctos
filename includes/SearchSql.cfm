@@ -2145,7 +2145,7 @@
 	<cfset basQual = " #basQual# AND permit.permit_id in (
 				select permit_id from permit_agent,agent_name where permit_agent.agent_id=agent_name.agent_id and
 				permit_agent.agent_role='issued by' and
-				upper(agent_name.agent_name)  like '%#ucase(permit_issued_by)#%')">
+				upper(agent_name.agent_name)  like '%#ucase(escapeQuotes(permit_issued_by))#%')">
 </cfif>
 
 <cfif isdefined("permit_issued_to") AND len(permit_issued_to) gt 0>
@@ -2159,7 +2159,7 @@
 	<cfset basQual = " #basQual# AND permit.permit_id in (
 				select permit_id from permit_agent,agent_name where permit_agent.agent_id=agent_name.agent_id and
 				permit_agent.agent_role='issued to' and
-				upper(agent_name.agent_name)  like '%#ucase(permit_issued_to)#%')">
+				upper(agent_name.agent_name)  like '%#ucase(escapeQuotes(permit_issued_to))#%')">
 </cfif>
 <cfif isdefined("permit_type") AND len(permit_type) gt 0>
 	<cfset mapurl = "#mapurl#&permit_type=#permit_type#">
