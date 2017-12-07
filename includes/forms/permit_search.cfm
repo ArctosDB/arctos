@@ -9,6 +9,7 @@
 	<cfquery name="ctPermitAgentRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select permit_agent_role from ctpermit_agent_role order by permit_agent_role
 	</cfquery>
+	<cfoutput>
 	<label for="permit_num">Permit Identifier/Number</label>
 	<input type="text" name="permit_num">
 
@@ -57,3 +58,4 @@
 	<p>
 		<input type="reset" value="Clear Form" class="clrBtn">
 	</p>
+	</cfoutput>
