@@ -386,7 +386,7 @@ Permits:
 		select
 			permit.PERMIT_NUM,
 			permit_type.PERMIT_TYPE,
-			permit_type.regulation,
+			permit_type.PERMIT_REGULATION,
 			permit_agent.AGENT_ROLE
 		from
 			permit,
@@ -402,7 +402,7 @@ Permits:
 	<ul>
 		<cfloop query="permit_to">
 			<li>
-				#PERMIT_NUM# (#PERMIT_TYPE# - #regulation#): #AGENT_ROLE#
+				#PERMIT_NUM# (#PERMIT_TYPE# - #PERMIT_REGULATION#): #AGENT_ROLE#
 			</li>
 		</cfloop>
 	</ul>
