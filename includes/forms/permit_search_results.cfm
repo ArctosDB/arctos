@@ -43,6 +43,23 @@
 			upper(ContactAgentName.agent_name) like '%#ucase(ContactAgent)#%' ">
 </cfif>
 
+<cfif isdefined("anyAgent") and len(anyAgent) gt 0>
+	<cfif whrtbls does not contain "permit_agent_AA">
+		<cfset whrtbls=whrtbls & ", agent_name AnyAgentName, permit_agent permit_agent_AA ">
+		<cfset whrcls=whrcls & " and permit.permit_id= permit_agent_AA.permit_id and
+			permit_agent_AA.agent_id=AnyAgentName.agent_id">
+	</cfif>
+	<cfset whrcls=whrcls & " and upper(AnyAgentName.agent_name) like '%#ucase(anyAgent)#%' ">
+</cfif>
+
+<cfif isdefined("anyAgentRole") and len(anyAgentRole) gt 0>
+	<cfif whrtbls does not contain "permit_agent_AA">
+		<cfset whrtbls=whrtbls & ", agent_name AnyAgentName, permit_agent permit_agent_AA ">
+		<cfset whrcls=whrcls & " and permit.permit_id= permit_agent_AA.permit_id and
+			permit_agent_AA.agent_id=AnyAgentName.agent_id">
+	</cfif>
+	<cfset whrcls=whrcls & " and permit_agent_AA = 'anyAgentRole' ">
+</cfif>
 
 
 <cfif len(IssuedAfter) gt 0>

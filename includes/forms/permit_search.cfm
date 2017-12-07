@@ -40,6 +40,18 @@
 	<label for="ContactAgent">Contact</label>
 	<input type="text" name="ContactAgent">
 
+
+	<label for="anyAgent">Any Agent</label>
+	<input type="text" name="anyAgent">
+
+	<label for="anyAgentRole">Agent Role</label>
+	<select name="anyAgentRole" size="1">
+		<option value=""></option>
+		<cfloop query="ctPermitAgentRole">
+			<option value = "#ctPermitAgentRole.permit_agent_role#">#ctPermitAgentRole.permit_agent_role#</option>
+		</cfloop>
+	</select>
+
 	<label for="IssuedAfter">Issued On/After Date</label>
 	<input type="datetime" name="IssuedAfter">
 
