@@ -384,6 +384,7 @@ Coordinates:
 Permits:
 	<cfquery name="permit_to" datasource="uam_god">
 		select
+			permit.permit_id,
 			permit.PERMIT_NUM,
 			permit_type.PERMIT_TYPE,
 			permit_type.PERMIT_REGULATION,
@@ -397,12 +398,13 @@ Permits:
 			permit.permit_id=permit_agent.permit_id and
 			permit_agent.agent_id=#agent_id#
 		order by
+			PERMIT_NUM,
 			AGENT_ROLE
 	</cfquery>
 	<ul>
 		<cfloop query="permit_to">
 			<li>
-				#PERMIT_NUM# (#PERMIT_TYPE# - #PERMIT_REGULATION#): #AGENT_ROLE#
+				<a href="/Permit.cfm?action=search&permit_id=#permit_id#">#PERMIT_NUM#</a> (#PERMIT_TYPE# - #PERMIT_REGULATION#): #AGENT_ROLE#
 			</li>
 		</cfloop>
 	</ul>
