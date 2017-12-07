@@ -21,11 +21,11 @@
 		permit.permit_id = permit_type.permit_id (+) ">
 
 <cfif len(IssuedByAgent) gt 0>
-	<cfset whrtbls=whrtbls & ", agent_name IssuedByAgentName, permit_agent permit_agent_ITA ">
-	<cfset whrcls=whrcls & " and permit.permit_id= permit_agent_ITA.permit_id and
-			permit_agent_ITA.agent_role='issued by' and
-			permit_agent_ITA.agent_id=IssuedByAgentName.agent_id and
-			upper(IssuedByAgentName.agent_name) like '%#ucase(IssuedByAgent)#%') ">
+	<cfset whrtbls=whrtbls & ", agent_name IssuedByAgentName, permit_agent permit_agent_IBA ">
+	<cfset whrcls=whrcls & " and permit.permit_id= permit_agent_IBA.permit_id and
+			permit_agent_IBA.agent_role='issued by' and
+			permit_agent_IBA.agent_id=IssuedByAgentName.agent_id and
+			upper(IssuedByAgentName.agent_name) like '%#ucase(IssuedByAgent)#%' ">
 </cfif>
 
 
