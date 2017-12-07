@@ -510,6 +510,9 @@
 								<p>
 									Links will work from the "Remarks as HTML" section.
 								</p>
+								<p>
+									You will be redirected to the new permit; edit as appropriate.
+								</p>
 							</div>
 						</p>
 						<input type="button" value="Create a Renewal" class="insBtn" onclick="renewThisPermit()">
