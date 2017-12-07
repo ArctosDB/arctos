@@ -758,13 +758,13 @@
 
 
 		<cfif isdefined("IssuedByAgent") and len(#IssuedByAgent#) gt 0>
-			<cfset sql = "#sql# AND permit.permid_id in (
+			<cfset sql = "#sql# AND permit.permit_id in (
 				select permit_id from permit_agent,agent_name where permit_agent.agent_id=agent_name.agent_id and
 				permit_agent.agent_role='issued by' and
 				upper(agent_name.agent_name)  like '%#ucase(IssuedByAgent)#%')">
 		</cfif>
 		<cfif isdefined("IssuedToAgent") and len(#IssuedToAgent#) gt 0>
-			<cfset sql = "#sql# AND permit.permid_id in (
+			<cfset sql = "#sql# AND permit.permit_id in (
 				select permit_id from permit_agent,agent_name where permit_agent.agent_id=agent_name.agent_id and
 				permit_agent.agent_role='issued to' and
 				upper(agent_name.agent_name)  like '%#ucase(IssuedToAgent)#%')">
