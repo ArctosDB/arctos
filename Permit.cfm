@@ -224,7 +224,7 @@
 		});
 		function renewThisPermit(){
 			alert('renewing.....');
-			console.log( $("#editPermit").serialize() );
+			console.log('cloning ' +  $("#permit_id").val() );
 		}
 	</script>
 	<cfoutput>
@@ -248,7 +248,7 @@
 				<td width="50%"  valign="top">
 					<form name="editPermit" id="editPermit" action="Permit.cfm" method="post">
 						<input type="hidden" name="action" value="saveChanges">
-						<input type="hidden" name="permit_id" value="#permit_id#">
+						<input type="hidden" name="permit_id" id="permit_id" value="#permit_id#">
 
 						<p>The Basics</p>
 
