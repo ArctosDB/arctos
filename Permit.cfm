@@ -187,12 +187,22 @@
 		$(document).ready(function() {
 
 			$('form').submit(function () {
+				var hasPermitType=false;
 
 				console.log('clicky');
 				$("select[id^='permit_type_']").each(function(e){
 					console.log(e);
 					console.log($(this).val());
+					if ($(this).val().length>0){
+						hasPermitType=true;
+					}
+
 				});
+
+				if (hasPermitType==false){
+					alert('Provide at least one permit type.');
+					return false;
+				}
 
 				 alert('Text-field is empty.');
 	        	return false;
