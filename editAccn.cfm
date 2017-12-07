@@ -653,16 +653,12 @@
 			trans,
 			permit_trans,
 			permit,
-			preferred_agent_name issuedBy,
-			preferred_agent_name issuedTo,
 			collection,
 			project_trans,
 			project">
 		<cfset sql = " where accn.transaction_id = trans.transaction_id and
 			trans.transaction_id = permit_trans.transaction_id (+) and
 			permit_trans.permit_id = permit.permit_id (+) and
-			permit.issued_by_agent_id = issuedBy.agent_id (+) and
-			permit.issued_to_agent_id = issuedTo.agent_id (+) and
 			trans.transaction_id = project_trans.transaction_id (+) and
 			project_trans.project_id = project.project_id (+) AND
 			trans.collection_id=collection.collection_id ">
@@ -759,12 +755,21 @@
 
 			<cfset sql = "#sql# AND TRANS_DATE between '#b_ent_date#' and '#e_ent_date#'">
 		</cfif>
+
+
 		<cfif isdefined("IssuedByAgent") and len(#IssuedByAgent#) gt 0>
-			<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
+			<cfset sql = "#sql# AND permit.permid_id in (
+				select permit_id from permit_agent,agent_name where permit.permit_agent.agent_id=agent_name.agent_id and
+				permit_agent.agent_role='issued by' and
+				upper(agent_name.agent_name)  like '%#ucase(IssuedByAgent)#%')">
 		</cfif>
 		<cfif isdefined("IssuedToAgent") and len(#IssuedToAgent#) gt 0>
-			<cfset sql = "#sql# AND upper(issuedTo.agent_name) like '%#ucase(IssuedToAgent)#%'">
+			<cfset sql = "#sql# AND permit.permid_id in (
+				select permit_id from permit_agent,agent_name where permit.permit_agent.agent_id=agent_name.agent_id and
+				permit_agent.agent_role='issued to' and
+				upper(agent_name.agent_name)  like '%#ucase(IssuedToAgent)#%')">
 		</cfif>
+
 		<cfif  isdefined("issued_date") and len(#issued_date#) gt 0>
 			<cfset sql = "#sql# AND upper(issued_date) like '%#ucase(issued_date)#%'">
 		</cfif>
@@ -777,10 +782,13 @@
 		<cfif isdefined("permit_Num") and len(#permit_Num#) gt 0>
 			<cfset sql = "#sql# AND permit_Num = '#permit_Num#'">
 		</cfif>
-		<cfif  isdefined("permit_Type") and len(#permit_Type#) gt 0>
-			<cfset permit_Type = #replace(permit_type,"'","''","All")#>
-			<cfset sql = "#sql# AND permit_Type = '#permit_Type#'">
+
+		<cfif isdefined("permit_Type") and len(#permit_Type#) gt 0>
+			<cfset sql = "#sql# AND permit.permid_id in (
+				select permit_id from permit_type where
+				permit_type='#permit_Type#')">
 		</cfif>
+
 		<cfif  isdefined("permit_remarks") and len(#permit_remarks#) gt 0>
 			<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
 		</cfif>
