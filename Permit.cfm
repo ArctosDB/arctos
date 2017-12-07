@@ -222,6 +222,9 @@
 				}
 			});
 		});
+		function renewThisPermit(){
+			alert('renewing.....');
+		}
 	</script>
 	<cfoutput>
 		<cfif not isdefined("permit_id") OR len(permit_id) is 0>
@@ -403,6 +406,24 @@
 							<input type="button" value="Delete" class="delBtn"
 						   		onCLick="document.location='Permit.cfm?permit_id=#permit_id#&action=deletePermit';">
 						</p>
+
+						<p>
+							Renewal
+							<div style="font-size:small;padding:1em;margin:1em;">
+								Clicking this will:
+								<ul>
+									<li>Clone this permit as a new permit</li>
+									<li>Add a link to this permit from the new permit</li>
+									<li>Add a link to the new permit from this permit</li>
+								</ul>
+
+								Only SAVED information will be considered; save this first if you've made changes.
+								<p>
+									Links will work from the "Remarks as HTML" section.
+								</p>
+							</div>
+						</p>
+						<input type="button" value="Create a Renewal" class="insBtn" onclick="renewThisPermit()">
 					</form>
 				</td>
 				<script>
