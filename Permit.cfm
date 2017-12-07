@@ -43,6 +43,8 @@
 		<cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sqlstring)#
 		</cfquery>
+
+		<cfdump var=#matchPermit#>
 		<script src="/includes/sorttable.js"></script>
 		<cfset i=1>
 		<table border id="t" class="sortable">
@@ -123,21 +125,21 @@
 		<form name="newPermit" action="Permit.cfm" method="post">
 			<input type="hidden" name="action" value="createPermit">
 			<p>The Basics</p>
-			<label for="permit_Num">Permit Identifier/Number</label>
+			<label for="permit_num" class="helpLink" id="_permit_num">Permit Identifier/Number</label>
 		  	<input type="text" name="permit_num" id="permit_num" class="reqdClr" required >
 
-			<label for="issued_Date">Issued Date</label>
+				<label for="issued_date" class="helpLink" id="_issued_date">Issued Date</label>
 			<input type="datetime" id="issued_date" name="issued_date" >
 
-		  	<label for="exp_date">Expiration Date</label>
+			<label for="exp_date" class="helpLink" id="_exp_date">Expiration Date</label>
 		  	<input type="datetime" id="exp_date" name="exp_date" >
 
 			<label for="permit_remarks">Remarks</label>
 		  	<textarea name="permit_remarks" class="largetextarea"></textarea>
 
 			<div style="font-size:small;padding:1em;margin:1em;">
-				Create and edit to add more types and regulations.
-				<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_TYPE">CTPERMIT_TYPE</a>
+				Create and edit to add more types and regulations. Code table is
+				<a target="_blank" href="/info/ctDocumentation.cfm?table=CTPERMIT_TYPE">CTPERMIT_TYPE</a>.
 			</div>
 
 			<label for="permit_type">Permit Type</label>
