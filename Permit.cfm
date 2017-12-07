@@ -31,7 +31,7 @@
 </p>
 <form name="findPermit" action="Permit.cfm" method="post">
 	<input type="hidden" name="action" value="search">
-	<cfinclude template="/includes/form/permit_search.cfm">
+	<cfinclude template="/includes/forms/permit_search.cfm">
 
 
 </form>
