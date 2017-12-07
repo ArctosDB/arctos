@@ -106,6 +106,8 @@ where
 </cfif>
 
 --->
+<!--- assemble sqlstring (variable "sqlstring") --->
+<cfinclude template="/includes/forms/permit_search_results.cfm">
 
 <cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sqlstring)#
