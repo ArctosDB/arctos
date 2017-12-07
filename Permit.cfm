@@ -190,6 +190,7 @@
 
 				console.log('clicky');
 				$("select[id^='permit_type_']").each(function(e){
+					console.log(e);
 					console.log($(this).val());
 				});
 
