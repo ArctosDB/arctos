@@ -593,18 +593,6 @@
 				 <input type="button" value="Add a permit" class="picBtn"
 			   		onClick="addPermitToTrans('#transaction_id#','addNewPermitsPicked');">
 			</p>
-
-
-			<!----
-	<form name="addPermit" action="borrow.cfm" method="post">
-		<input type="hidden" name="transaction_id" value="#transaction_id#">
-		<input type="hidden" name="permit_id">
-		<label for="">Click to add Permit. Reload to see added permits.</label>
-		<input type="button" value="Add a permit" class="picBtn"
-		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
-				'resizable,scrollbars=yes,width=600,height=600')">
-	</form>
-	---->
 	<a href="/Reports/report_printer.cfm?transaction_id=#transaction_id#">[ Print Stuff ]</a>
 	<p>
 		<strong>Media associated with this Borrow</strong>

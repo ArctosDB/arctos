@@ -7,54 +7,10 @@
 
 Search for permits. Any part of dates and names accepted, case isn't important.<br>
 <form name="findPermit" action="PermitPick.cfm" method="post">
-	<input type="hidden" name="Action" value="search">
+	<input type="hidden" name="action" value="search">
 	<input type="hidden" name="transaction_id" value="#transaction_id#">
 	<input type="hidden" name="callbackfunction" value="#callbackfunction#">
-
-	<label for="IssuedByAgent">Issued By</label>
-	<input type="text" name="IssuedByAgent">
-
-	<label for="IssuedToAgent">Issued To</label>
-	<input type="text" name="IssuedToAgent">
-
-
-	<label for="ContactAgent">Contact Agent</label>
-	<input type="text" name="ContactAgent">
-
-	<label for="IssuedAfter">Issued On/After Date</label>
-	<input type="datetime" name="IssuedAfter">
-
-	<label for="IssuedBefore">Issued On/Before Date</label>
-	<input type="datetime" name="IssuedBefore">
-
-
-	<label for="ExpiresAfter">Expires On/After Date</label>
-	<input type="datetime" name="ExpiresAfter">
-
-
-	<label for="ExpiresBefore">Expires On/Before Date</label>
-	<input type="datetime" name="ExpiresBefore">
-
-	<label for="permit_type">Permit Type</label>
-	<select name="permit_type" size="1">
-		<option value=""></option>
-		<cfloop query="ctPermitType">
-			<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-		</cfloop>
-	</select>
-
-	<label for="permit_num">Permit Identifier</label>
-	<input type="text" name="permit_num">
-
-	<label for="permit_remarks">Remarks</label>
-	<input type="text" name="permit_remarks">
-	<p>
-		<input type="submit" value="Search" class="schBtn">
-	</p>
-	<p>
-		<input type="reset" value="Clear Form" class="clrBtn">
-	</p>
-
+	<cfinclude template="/includes/forms/permit_search.cfm">
 </form>
 </cfoutput>
 <cfif Action is "search">
