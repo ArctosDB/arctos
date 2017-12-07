@@ -387,7 +387,7 @@ Permits:
 			permit.PERMIT_NUM,
 			permit_type.PERMIT_TYPE,
 			permit_type.regulation,
-			permit_agent.permit_agent_role
+			permit_agent.AGENT_ROLE
 		from
 			permit,
 			permit_type,
@@ -397,12 +397,12 @@ Permits:
 			permit.permit_id=permit_agent.permit_id and
 			permit_agent.agent_id=#agent_id#
 		order by
-			permit_agent_role
+			AGENT_ROLE
 	</cfquery>
 	<ul>
 		<cfloop query="permit_to">
 			<li>
-				#PERMIT_NUM# (#PERMIT_TYPE# - #regulation#): #permit_agent_role#
+				#PERMIT_NUM# (#PERMIT_TYPE# - #regulation#): #AGENT_ROLE#
 			</li>
 		</cfloop>
 	</ul>
