@@ -233,18 +233,18 @@
 
 
 				if (hasPermitType==false){
-					theProb.push('Provide at least one permit type.');
+					theProbs.push('Provide at least one permit type.');
 				}
 				if (hasIssuedTo==false){
-					theProb.push('Provide at least one agent in role `issued to`.');
+					theProbs.push('Provide at least one agent in role `issued to`.');
 				}
 				if (hasIssuedBy==false){
-					theProb.push('Provide at least one agent in role `issued by`.');
+					theProbs.push('Provide at least one agent in role `issued by`.');
 				}
 
 
-				if (theProb.lenght > 0){
-					alert(theProb.join("\n"));
+				if (theProbs.length > 0){
+					alert(theProbs.join("\n"));
 					return false;
 				}
 
