@@ -272,6 +272,8 @@ select
 				dba_role_privs.GRANTED_ROLE=replace(upper(guid_prefix),':','_') and
 				agent_name.agent_name_type='login' and
 				agent_name.agent_id in (#valuelist(creators.CREATED_BY_AGENT_ID)#)
+			) and a.GRANTEE in (
+				SELECT username FROM dba_users WHERE account_status = 'OPEN'
 			)
 	</cfquery>
 	<cfquery name="allAddEmails" dbtype="query">
