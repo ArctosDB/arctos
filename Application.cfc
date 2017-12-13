@@ -274,6 +274,12 @@
 		<cfabort>
 	</cfif>
 	---->
+
+	<!--- pnwherbaria.org makes crazy requests, enough.... ---->
+	<cfif isdefined("HTTP_REFERER") and HTTP_REFERER contains "//pnwherbaria.org">
+		<cfabort>
+	</cfif>
+
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
 	<!---
