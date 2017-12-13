@@ -10,6 +10,14 @@ hello I am a bare web page
 	</cfif>
 </p>
 
+
+
+<cfquery name="d" datasource="uam_god">
+	insert into temp_cors_test (lastaccess) values (systimestamp)
+</cfquery>
+
+
+
 <cfabort>
 
 
