@@ -6,7 +6,7 @@ hello I am a bare web page
 
 <br>#application.serverRootURL#
 
-		<cfset bareSRURL = rereplace(application.serverRootURL,"/(^\w+:|^)\/\//","")>
+		<cfset bareSRURL = rereplace(application.serverRootURL,"(^\w+:|^)\/\/","")>
 <br>bareSRURL: #bareSRURL#
 
 
