@@ -1,7 +1,22 @@
 
 <cfinclude template="/includes/_header.cfm">
+
+<script>
+	$(document).ready(function() {
+
+	jQuery.ajax({
+      type: 'GET',
+      url: 'https://arctos.database.museum/demo'
+    });
+    	});
+
+</script>
 <cfoutput>
 
+</cfoutput>
+
+
+		<!----
 
 
 
@@ -20,7 +35,6 @@
 			select * from d where table_name='#table_name#'
 		</cfquery>
 
-		<!----
 		<cfset thisSQL="drop table log_#tabl.table_name#">
 		<cftry>
 			<cfquery name="drop" datasource="uam_god">
@@ -84,7 +98,6 @@
 		<cfquery name="buildtr" datasource="uam_god">#thisSQL#</cfquery>
 
 
-		---->
 		<cfquery name="hastbl" datasource="uam_god">
 			select count(*) c from all_objects where object_name='LOG_#tabl.table_name#'
 		</cfquery>
@@ -169,6 +182,7 @@
 
 
 
+		---->
 
 
 <!----------------
