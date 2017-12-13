@@ -2,6 +2,14 @@ hello I am a bare web page
 
 <cfdump var=#cgi#>
 
+<p>
+	<cfif isdefined("HTTP_X_REQUESTED_WITH")>
+		HTTP_X_REQUESTED_WITH: #HTTP_X_REQUESTED_WITH#
+	<cfelse>
+		no HTTP_X_REQUESTED_WITH
+	</cfif>
+</p>
+
 <cfabort>
 
 
