@@ -3,7 +3,7 @@ hello I am a bare web page
 
 <p>
 	<cfif isdefined("cgi.HTTP_X_REQUESTED_WITH")>
-		cgi.HTTP_X_REQUESTED_WITH: <cfdump var=#cgi.HTTP_X_REQUESTED_WITH#>
+		cgi.HTTP_X_REQUESTED_WITH: <cfoutput>#cgi.HTTP_X_REQUESTED_WITH#</cfoutput>
 	<cfelse>
 		no cgi.HTTP_X_REQUESTED_WITH
 	</cfif>
