@@ -3,6 +3,19 @@
 <cfoutput>
 
 
+<script>
+	$(document).ready(function() {
+
+	jQuery.ajax({
+      type: 'GET',
+      url: 'http://arctos-test.tacc.utexas.edu'
+    });
+    	});
+
+</script>
+
+
+<cfabort>
 
 
 
