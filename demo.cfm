@@ -1,13 +1,25 @@
 hello I am a bare web page
 
 
+ <cfoutput>
+
 <p>
 	<cfif isdefined("cgi.HTTP_X_REQUESTED_WITH")>
-		cgi.HTTP_X_REQUESTED_WITH: <cfoutput>#cgi.HTTP_X_REQUESTED_WITH#</cfoutput>
+		cgi.HTTP_X_REQUESTED_WITH:#cgi.HTTP_X_REQUESTED_WITH#
 	<cfelse>
 		no cgi.HTTP_X_REQUESTED_WITH
 	</cfif>
 </p>
+
+<p>
+	<cfif isdefined("cgi.origin")>
+		cgi.origin:#cgi.origin#
+	<cfelse>
+		no cgi.origin
+	</cfif>
+</p>
+
+</cfoutput>
 
 
 <cfquery name="d" datasource="uam_god">
