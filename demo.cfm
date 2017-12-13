@@ -3,7 +3,13 @@ hello I am a bare web page
 
  <cfoutput>
 
+
 <br>#application.serverRootURL#
+
+		<cfset bareSRURL = rereplace(application.serverRootURL,"/(^\w+:|^)\/\//","")>
+<br>bareSRURL: #bareSRURL#
+
+
 <p>
 	<cfif isdefined("cgi.HTTP_X_REQUESTED_WITH")>
 		cgi.HTTP_X_REQUESTED_WITH:#cgi.HTTP_X_REQUESTED_WITH#
@@ -31,6 +37,10 @@ hello I am a bare web page
 
 <cfabort>
 
+	<cfif isdefined("cgi.origin") and len(cgi.origin) gt 0>
+		<cfset orgn = rereplace(cgi.origin,"/(^\w+:|^)\/\//","")>
+
+	</cfif>
 
 
 <cfinclude template="/includes/_header.cfm">
