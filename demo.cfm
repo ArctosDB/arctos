@@ -1,5 +1,7 @@
 hello I am a bare web page
 
+<cfdump var=#cgi#>
+
 <cfabort>
 
 
