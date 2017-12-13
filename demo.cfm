@@ -3,6 +3,7 @@ hello I am a bare web page
 
  <cfoutput>
 
+<br>#application.serverRootURL#
 <p>
 	<cfif isdefined("cgi.HTTP_X_REQUESTED_WITH")>
 		cgi.HTTP_X_REQUESTED_WITH:#cgi.HTTP_X_REQUESTED_WITH#
