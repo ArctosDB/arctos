@@ -6,12 +6,15 @@
 
 	jQuery.ajax({
       type: 'GET',
-      url: 'http://arctos.database.museum/media/10468213'
+      url: 'http://arctos.database.museum/demo'
     });
     	});
 
 </script>
 <cfoutput>
+
+
+
 
 </cfoutput>
 
