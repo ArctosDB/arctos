@@ -275,11 +275,6 @@
 	</cfif>
 	---->
 
-	<!--- pnwherbaria.org makes crazy requests, enough.... ---->
-	<cfif isdefined("HTTP_REFERER") and HTTP_REFERER contains "//pnwherbaria.org">
-		<cfabort>
-	</cfif>
-
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
 	<!---
@@ -385,6 +380,23 @@
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
 	</cfif>
+
+
+	<!---
+		deny non-local XMLHttpRequest requests (eg, those from pnwherbaria.org)
+		Should probably move this to the top at some point, but for now log it and then abort
+	---->
+
+	<cfif isdefined("cgi.origin") and len(cgi.origin) gt 0>
+		<cfif rereplace(cgi.origin,"(^\w+:|^)\/\/","") is not rereplace(application.serverRootURL,"(^\w+:|^)\/\/","")>
+			<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#::DENIED CROSS-DOMAIN REQUEST||#request.uuid#">
+			<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
+			<cfabort>
+		</cfif>
+	</cfif>
+
+
+
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
