@@ -6,9 +6,7 @@ hello I am a bare web page
 
 <br>#application.serverRootURL#
 <cfif isdefined("cgi.origin") and len(cgi.origin) gt 0>
-		<cfset orgn = rereplace(cgi.origin,"(^\w+:|^)\/\/","")>
-		<cfset bareSRURL = rereplace(application.serverRootURL,"(^\w+:|^)\/\/","")>
-		<cfif orgn is not bareSRURL>
+		<cfif rereplace(cgi.origin,"(^\w+:|^)\/\/","") is not rereplace(application.serverRootURL,"(^\w+:|^)\/\/","")>
 			external request mismatch nogo bye<cfabort>
 		</cfif>
 	</cfif>
