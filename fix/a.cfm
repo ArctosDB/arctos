@@ -6,7 +6,7 @@
 
 	jQuery.ajax({
       type: 'GET',
-      url: 'https://arctos.database.museum/demo'
+      url: 'https://arctos.database.museum//media/10468213'
     });
     	});
 
