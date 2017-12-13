@@ -9,7 +9,7 @@ hello I am a bare web page
 		<cfset orgn = rereplace(cgi.origin,"(^\w+:|^)\/\/","")>
 		<cfset bareSRURL = rereplace(application.serverRootURL,"(^\w+:|^)\/\/","")>
 		<cfif orgn is not bareSRURL>
-			external request mismatch nogo bye
+			external request mismatch nogo bye<cfabort>
 		</cfif>
 	</cfif>
 
