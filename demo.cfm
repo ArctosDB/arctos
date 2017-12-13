@@ -1,6 +1,5 @@
 hello I am a bare web page
 
-<cfdump var=#cgi#>
 
 <p>
 	<cfif isdefined("HTTP_X_REQUESTED_WITH")>
@@ -9,7 +8,6 @@ hello I am a bare web page
 		no HTTP_X_REQUESTED_WITH
 	</cfif>
 </p>
-
 
 
 <cfquery name="d" datasource="uam_god">
