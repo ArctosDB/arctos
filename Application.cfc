@@ -358,8 +358,6 @@
 	</cfif>
 
 	<!--- keep people/bots from browsing a dev server
-
---->
 <cfif application.version neq "prod" and not (CGI.Remote_Addr is "127.0.0.1" or CGI.Remote_Addr is "0.0.0.0")>
         <cfset cPath=GetTemplatePath()>
         <cfif
@@ -374,6 +372,8 @@
             <cflocation url="/errors/dev_login.cfm" addtoken="false">
         </cfif>
     </cfif>
+
+--->
 
 
 	<cfif listlast(cgi.script_name,".") is "cfm" or listlast(cgi.script_name,".") is "cfc">
