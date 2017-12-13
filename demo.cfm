@@ -2,10 +2,10 @@ hello I am a bare web page
 
 
 <p>
-	<cfif isdefined("HTTP_X_REQUESTED_WITH")>
-		HTTP_X_REQUESTED_WITH: #HTTP_X_REQUESTED_WITH#
+	<cfif isdefined("cgi.HTTP_X_REQUESTED_WITH")>
+		cgi.HTTP_X_REQUESTED_WITH: #cgi.HTTP_X_REQUESTED_WITH#
 	<cfelse>
-		no HTTP_X_REQUESTED_WITH
+		no cgi.HTTP_X_REQUESTED_WITH
 	</cfif>
 </p>
 
