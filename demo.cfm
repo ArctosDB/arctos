@@ -14,7 +14,6 @@ hello I am a bare web page
 	</cfif>
 
 
-<br>bareSRURL: #bareSRURL#
 
 
 <p>
@@ -45,6 +44,7 @@ hello I am a bare web page
 <cfabort>
 
 
+<br>bareSRURL: #bareSRURL#
 
 
 <cfinclude template="/includes/_header.cfm">
