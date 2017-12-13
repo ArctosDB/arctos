@@ -1,3 +1,9 @@
+hello I am a bare web page
+
+<cfabort>
+
+
+
 <cfinclude template="/includes/_header.cfm">
 
 	<cfparam name="p" default="1">
@@ -90,7 +96,6 @@
 
 
 
-<cfabort>
 
 
 
