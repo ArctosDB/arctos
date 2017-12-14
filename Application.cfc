@@ -384,13 +384,21 @@
 		deny non-local XMLHttpRequest requests (eg, those from pnwherbaria.org)
 		Should probably move this to the top at some point, but for now log it and then abort
 	---->
-
 	<cfif isdefined("cgi.origin") and len(cgi.origin) gt 0>
 		<cfif rereplace(cgi.origin,"(^\w+:|^)\/\/","") is not rereplace(application.serverRootURL,"(^\w+:|^)\/\/","")>
 			<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#::DENIED CROSS-DOMAIN REQUEST||#request.uuid#">
 			<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
 			<cfabort>
 		</cfif>
+	</cfif>
+	<!---
+		and pnwherbaria.org is using Arctos HTML as image src
+		just block....
+
+	 --->
+	<cfif isdefined("cgi.referrer") and cgi.referrer contains "pnwherbaria.org">
+		pnwherbaria
+		<cfabort>
 	</cfif>
 
 
