@@ -274,6 +274,7 @@
 		<cfabort>
 	</cfif>
 	---->
+
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
 	<!---
@@ -358,8 +359,8 @@
 
 	<!--- keep people/bots from browsing a dev server
 
---->
-<cfif application.version neq "prod" and not (CGI.Remote_Addr is "127.0.0.1" or CGI.Remote_Addr is "0.0.0.0")>
+	--->
+	<cfif application.version neq "prod" and not (CGI.Remote_Addr is "127.0.0.1" or CGI.Remote_Addr is "0.0.0.0")>
         <cfset cPath=GetTemplatePath()>
         <cfif
             cPath does not contain "/errors/dev_login.cfm" and
@@ -373,12 +374,27 @@
             <cflocation url="/errors/dev_login.cfm" addtoken="false">
         </cfif>
     </cfif>
-
-
 	<cfif listlast(cgi.script_name,".") is "cfm" or listlast(cgi.script_name,".") is "cfc">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
 	</cfif>
+
+
+	<!---
+		deny non-local XMLHttpRequest requests (eg, those from pnwherbaria.org)
+		Should probably move this to the top at some point, but for now log it and then abort
+	---->
+
+	<cfif isdefined("cgi.origin") and len(cgi.origin) gt 0>
+		<cfif rereplace(cgi.origin,"(^\w+:|^)\/\/","") is not rereplace(application.serverRootURL,"(^\w+:|^)\/\/","")>
+			<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#::DENIED CROSS-DOMAIN REQUEST||#request.uuid#">
+			<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
+			<cfabort>
+		</cfif>
+	</cfif>
+
+
+
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
