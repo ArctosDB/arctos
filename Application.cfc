@@ -392,15 +392,14 @@
 	</cfif>
 	<!---
 		and pnwherbaria.org is using Arctos HTML as image src
+		does not seem to be any sane way to stop that
+		users at PNWherbaria generate a ridiculous amout of traffic - every click can be dozens of requests to Arctos
 		just block....
-
 	 --->
 	<cfif isdefined("cgi.referer") and cgi.referer contains "pnwherbaria.org">
-		pnwherbaria
+		Links from that source are blocked. Click in your browser's URL bar and hit <enter> to continue. Do not reload.
 		<cfabort>
 	</cfif>
-
-
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
