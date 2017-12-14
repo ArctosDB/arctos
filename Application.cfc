@@ -397,7 +397,7 @@
 		just block....
 	 --->
 	<cfif isdefined("cgi.referer") and cgi.referer contains "pnwherbaria.org">
-		Links from that source are blocked. Click in your browser's URL bar and hit <enter> to continue. Do not reload.
+		Links from that source are blocked. Click in your browser's URL bar and press ENTER to continue. Do not reload.
 		<cfabort>
 	</cfif>
 	<cfreturn true>
