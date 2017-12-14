@@ -395,11 +395,10 @@
 		just block....
 
 	 --->
-	<cfif isdefined("cgi.referrer") and cgi.referrer contains "pnwherbaria.org">
+	<cfif isdefined("cgi.referer") and cgi.referer contains "pnwherbaria.org">
 		pnwherbaria
 		<cfabort>
 	</cfif>
-
 
 
 	<cfreturn true>
