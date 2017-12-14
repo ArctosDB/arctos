@@ -379,7 +379,6 @@
 		<cffile action="append" file="#Application.requestlog#" output="#loginfo#">
 	</cfif>
 
-
 	<!---
 		deny non-local XMLHttpRequest requests (eg, those from pnwherbaria.org)
 		Should probably move this to the top at some point, but for now log it and then abort
