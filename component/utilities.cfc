@@ -863,11 +863,11 @@
 			<cfset x="">
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0">
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
-			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads">
+			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads,ackBulletin,aupm">
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker">
-			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup">
+			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS">
 			<cfset x=x & ",getmappingxpath,get_host_address,git">
@@ -892,6 +892,7 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
+
 
 
 			<!--- just remember to not add these...---->
