@@ -527,7 +527,7 @@
 											<li><a target="_top" href="/DataServices/coordinate_splitter.cfm">Coordinate Formatter</a></li>
 											<li><a target="_top" href="/DataServices/dateSplit.cfm">Date Formatter</a></li>
 											<li><a target="_top" href="/tools/barcode2guid.cfm">Find GUID from Barcode</a></li>
-											<li><a target="_top" href="/DataServices/getGeogFromSpecloc.cfm">Find Higher Geography from Specifi Locality</a></li>
+											<li><a target="_top" href="/DataServices/getGeogFromSpecloc.cfm">Find Higher Geography from Specific Locality</a></li>
 											<li><a target="_top" href="/DataServices/findNonprintingCharacters.cfm">Find/Replace Nonprinting Characters</a></li>
 											<li><a target="_top" href="/DataServices/geog_lookup.cfm">Higher Geog Lookup</a></li>
 											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Taxon Name Checker</a></li>
