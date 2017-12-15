@@ -510,9 +510,8 @@
 						<cfif listfind(formList,"/Admin/ActivityLog.cfm")>
 							<li><a target="_top" href="##">Reports/Services</a>
 								<ul>
-									<li><a target="_top" href="/Reports/reporter.cfm">Labels and Reports</a></li>
-
 									<li><a target="_top" href="##">Administrative Tools</a>
+									<li><a target="_top" href="/Reports/reporter.cfm">Labels and Reports</a></li>
 										<ul>
 											<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
 											<li><a target="_top" href="/Admin/errorLogViewer.cfm">Error Logs</a></li>
