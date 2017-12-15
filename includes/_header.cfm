@@ -508,61 +508,63 @@
 							</ul>
 						</li>
 						<cfif listfind(formList,"/Admin/ActivityLog.cfm")>
-							<li><a target="_top" href="##">Reports</a>
+							<li><a target="_top" href="##">Reports/Services</a>
 								<ul>
-									<li><a target="_top" href="/Reports/reporter.cfm">Create/Print Labels and Reports</a></li>
-						            <cfif listfind(formList,"/tools/userSQL.cfm")>
-									    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
-				                    </cfif>
-									<li><a target="_top" href="/info/reviewAnnotation.cfm">Review Annotations</a></li>
-									<li><a target="_top" href="##">View Stastics</a>
-										<ul>
-											<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Statistics</a></li>
-											<li><a target="_top" href="/info/Citations.cfm">More Citation Statistics</a></li>
-											<li><a target="_top" href="/info/MoreCitationStats.cfm">Usage Statistics</a></li>
-											<li><a target="_top" href="/Admin/download.cfm">Download Statistics</a></li>
-											<li><a target="_top" href="/info/queryStats.cfm">Query Statistics</a></li>
-											<li><a target="_top" href="/info/localityStats.cfm">Locality Statistics</a></li>
-											<li><a target="_top" href="/info/sysstats.cfm">System Statistics</a></li>
-											<li><a target="_top" href="/info/ipt.cfm">IPT/Collection Metadata Report</a></li>
-											<li><a target="_top" href="/Reports/dataentry.cfm">Data Entry Statistics</a></li>
-											<li><a target="_top" href="/Reports/georef.cfm">Georeference Statistics</a></li>
-											<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
-										</ul>
-									</li>
-									 <li><a target="_top" href="##">Find low-quality data</a>
-										<ul>
-											<li><a target="_top" href="/info/slacker.cfm">Publication/Loan/Project/Citation Problems</a></li>
-											<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank Discovery Tool</a></li>
-											<li><a target="_top" href="/info/undocumentedCitations.cfm">Undocumented Citations</a></li>
-											<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
-											<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
-											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
-											<li><a target="_top" href="/Reports/partusage.cfm">Part Usage</a></li>
-											<li><a target="_top" href="/info/dispVRemark.cfm">Disposition vs. Remark</a></li>
-										</ul>
-									</li>
+									<li><a target="_top" href="/Reports/reporter.cfm">Labels and Reports</a></li>
+
 									<li><a target="_top" href="##">Administrative Tools</a>
 										<ul>
 											<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
-											<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
 											<li><a target="_top" href="/Admin/errorLogViewer.cfm">Error Logs</a></li>
+											<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
 										</ul>
 									</li>
-									 <li><a target="_top" href="##">Data Services</a>
+
+									<li><a target="_top" href="##">Data Services</a>
 										<ul>
-											<li><a target="_top" href="/tools/barcode2guid.cfm">Find GUID from Barcode</a></li>
-											<li><a target="_top" href="/DataServices/getGeogFromSpecloc.cfm">Find higher_geog from specloc</a></li>
-											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Taxon Name Checker</a></li>
-											<li><a target="_top" href="/DataServices/geog_lookup.cfm">Higher Geog Lookup</a></li>
-											<li><a target="_top" href="/DataServices/dateSplit.cfm">Date Formatter</a></li>
-											<li><a target="_top" href="/DataServices/coordinate_splitter.cfm">Coordinate Formatter</a></li>
 											<li><a target="_top" href="/DataServices/agent_splitter.cfm">Agent Deconcatenator</a></li>
 											<li><a target="_top" href="/DataServices/split_agent_namestring.cfm">Agent Namestring Formatter</a></li>
-											<li><a target="_top" href="/DataServices/findNonprintingCharacters.cfm">Find and replace nonprinting characters</a></li>
 											<li><a target="_top" href="/DataServices/wktomaticifier.cfm">Convert KML to WKT</a></li>
+											<li><a target="_top" href="/DataServices/coordinate_splitter.cfm">Coordinate Formatter</a></li>
+											<li><a target="_top" href="/DataServices/dateSplit.cfm">Date Formatter</a></li>
+											<li><a target="_top" href="/tools/barcode2guid.cfm">Find GUID from Barcode</a></li>
+											<li><a target="_top" href="/DataServices/getGeogFromSpecloc.cfm">Find Higher Geography from Specifi Locality</a></li>
+											<li><a target="_top" href="/DataServices/findNonprintingCharacters.cfm">Find/Replace Nonprinting Characters</a></li>
+											<li><a target="_top" href="/DataServices/geog_lookup.cfm">Higher Geog Lookup</a></li>
+											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Taxon Name Checker</a></li>
 										</ul>
 									</li>
+									 <li><a target="_top" href="##">Find Low-Quality Data</a>
+										<ul>
+											<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
+											<li><a target="_top" href="/info/dispVRemark.cfm">Disposition vs. Remark</a></li>
+											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
+											<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank Discovery Tool</a></li>
+											<li><a target="_top" href="/Reports/partusage.cfm">Part Usage</a></li>
+											<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
+											<li><a target="_top" href="/info/slacker.cfm">Publication/Loan/Project/Citation Problems</a></li>
+											<li><a target="_top" href="/info/undocumentedCitations.cfm">Undocumented Citations</a></li>
+										</ul>
+									</li>
+									<li><a target="_top" href="/info/reviewAnnotation.cfm">Review Annotations</a></li>
+									<li><a target="_top" href="##">View Stastics</a>
+										<ul>
+											<li><a target="_top" href="/Reports/dataentry.cfm">Data Entry Statistics</a></li>
+											<li><a target="_top" href="/Admin/download.cfm">Download Statistics</a></li>
+											<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
+											<li><a target="_top" href="/Reports/georef.cfm">Georeference Statistics</a></li>
+											<li><a target="_top" href="/info/ipt.cfm">IPT/Collection Metadata Report</a></li>
+											<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Statistics</a></li>
+											<li><a target="_top" href="/info/localityStats.cfm">Locality Statistics</a></li>
+											<li><a target="_top" href="/info/Citations.cfm">More Citation Statistics</a></li>
+											<li><a target="_top" href="/info/queryStats.cfm">Query Statistics</a></li>
+											<li><a target="_top" href="/info/sysstats.cfm">System Statistics</a></li>
+											<li><a target="_top" href="/info/MoreCitationStats.cfm">Usage Statistics</a></li>
+										</ul>
+									</li>
+									<cfif listfind(formList,"/tools/userSQL.cfm")>
+									    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
+				                    </cfif>
 								</ul>
 							</li>
 					    </cfif>
