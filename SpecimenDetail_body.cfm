@@ -995,6 +995,30 @@
 
 
 <!------------------------------------ parts ---------------------------------------------->
+
+<cffunction name="getChildParts"  returnType="string">
+	<cfargument name="pid" type="string" required="yes">
+	<cfquery name="p" dbtype="query">
+		select
+		*
+		from
+			rparts
+		where
+			specimen_part.collection_object_id=specimen_part_attribute.collection_object_id (+) and
+			specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
+			specimen_part.collection_object_id=coll_object.collection_object_id and
+			coll_object.collection_object_id=coll_obj_cont_hist.collection_object_id and
+			coll_object.collection_object_id=coll_object_remark.collection_object_id (+) and
+			coll_obj_cont_hist.container_id=oc.container_id and
+			oc.parent_container_id=pc.container_id (+) and
+			part_id=#pid#
+	</cfquery>
+	<cfif p.recordcount is 0>
+		<cfreturn "hi">
+	</cfif>
+
+</cffunction>
+
 <cfquery name="rparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_part.collection_object_id part_id,
@@ -1112,6 +1136,8 @@
 								<tr>
 									<td>
 										#part_name#
+										<cfset zxc=getChildParts(part_id)>
+										==#zxc#--
 									</td>
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>

@@ -207,7 +207,7 @@
 					<cfif len(getParts.partID) gt 0>
 						<input type="hidden" name="partID#i#" id="partID#i#"  value="#getParts.partID#">
 						<!--- next couple lines and the if statement stop us from putting the same part in the
-						grid twice, which seems to happen when tehre are 2 parts in different containers -
+						grid twice, which seems to happen when there are 2 parts in different containers -
 						voodoo solution, but it works.....
 						---->
 						<cfif not listcontains(listedParts, getParts.partID)>
