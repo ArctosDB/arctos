@@ -13,11 +13,11 @@
 				 var r = confirm("Create a new part as a subsample of this part?");
 				 if (r == true) {
 				 	$("#parent_part_id").val($("#partID" + i).val());
-				 	newPart.part_name.value=$('#part_name#' + i).val();
-					newPart.lot_count.value=$('#lot_count#' + i).val();
-					newPart.coll_obj_disposition.value=$('#coll_obj_disposition#' + i).val();
-					newPart.condition.value=$('#condition#' + i).val();
-					newPart.coll_object_remarks.value=$('#coll_object_remarks#' + i).val();
+				 	newPart.part_name.value=$('#part_name' + i).val();
+					newPart.lot_count.value=$('#lot_count' + i).val();
+					newPart.coll_obj_disposition.value=$('#coll_obj_disposition' + i).val();
+					newPart.condition.value=$('#condition' + i).val();
+					newPart.coll_object_remarks.value=$('#coll_object_remarks' + i).val();
 				}
 			}
 	</script>
