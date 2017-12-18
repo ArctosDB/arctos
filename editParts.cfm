@@ -15,13 +15,10 @@
 				 	$("#ssinfodiv").html('Creating a subsample of ' + $('#part_name' + i).val() + ' (ID=' + $("#partID" + i).val() + ')');
 				 	$("#parent_part_id").val($("#partID" + i).val());
 				 	$("#newPart input[name=part_name]").val($('#part_name' + i).val());
-
 				 	$("#newPart input[name=lot_count]").val($('#lot_count' + i).val());
 				 	$("#newPart input[name=coll_obj_disposition]").val($('#coll_obj_disposition' + i).val());
 				 	$("#newPart input[name=condition]").val($('#condition' + i).val());
 				 	$("#newPart input[name=coll_object_remarks]").val($('#coll_object_remarks' + i).val());
-
-
 				}
 			}
 	</script>
@@ -280,7 +277,6 @@
 								<td align="middle">
 									<input type="button" value="Delete" class="delBtn"
 										onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
-									<br>
 									<input type="button"
 										value="Copy"
 										class="insBtn"
