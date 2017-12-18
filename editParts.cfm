@@ -6,6 +6,17 @@
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
+			function createSubsample(i){
+				 var r = confirm("Create a new part as a subsample of this part?");
+				 if (r == true) {
+				 	newPart.parent_part_id.value=$("#partID" + i).val();
+				 	newPart.part_name.value=$('#part_name#' + i).val();
+					newPart.lot_count.value=$('#lot_count#' + i).val();
+					newPart.coll_obj_disposition.value=$('#coll_obj_disposition#' + i).val();
+					newPart.condition.value=$('#condition#' + i).val();
+					newPart.coll_object_remarks.value=$('#coll_object_remarks#' + i).val();
+				}
+			}
 		});
 	</script>
 	<cfoutput>
@@ -183,7 +194,7 @@
 			<table border>
 				<cfloop query="getParts">
 					<cfif len(getParts.partID) gt 0>
-						<input type="hidden" name="partID#i#" value="#getParts.partID#">
+						<input type="hidden" name="partID#i#" id="partID#i#"  value="#getParts.partID#">
 						<!--- next couple lines and the if statement stop us from putting the same part in the
 						grid twice, which seems to happen when tehre are 2 parts in different containers -
 						voodoo solution, but it works.....
@@ -215,7 +226,7 @@
 								</td>
 								<td>
 									<label for="coll_obj_disposition#i#">Disposition</label>
-									<select name="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:150px";>
+									<select name="coll_obj_disposition#i#" id="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:150px";>
 						              <cfloop query="ctDisp">
 							              <option <cfif ctdisp.coll_obj_disposition is getParts.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 						              </cfloop>
@@ -272,6 +283,10 @@
 											newPart.coll_obj_disposition.value='#coll_obj_disposition#';
 											newPart.condition.value='#condition#';
 											newPart.coll_object_remarks.value='#coll_object_remarks#';">
+									<input type="button"
+										value="Subsample"
+										class="insBtn"
+										onClick="createSubsample(#i#)">
 
 								</td>
 							</tr>
@@ -355,6 +370,7 @@
 					<form name="newPart" method="post" action="editParts.cfm">
 						<input type="hidden" name="Action" value="newPart">
 						<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+						<input type="hidden" name="parent_part_id" id="parent_part_id">
 					    <table>
 					      <tr>
 					        <td><div align="right">Part Name: </div></td>
