@@ -1004,13 +1004,6 @@
 		from
 			rparts
 		where
-			specimen_part.collection_object_id=specimen_part_attribute.collection_object_id (+) and
-			specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
-			specimen_part.collection_object_id=coll_object.collection_object_id and
-			coll_object.collection_object_id=coll_obj_cont_hist.collection_object_id and
-			coll_object.collection_object_id=coll_object_remark.collection_object_id (+) and
-			coll_obj_cont_hist.container_id=oc.container_id and
-			oc.parent_container_id=pc.container_id (+) and
 			part_id=#pid#
 	</cfquery>
 	<cfif p.recordcount is 0>
