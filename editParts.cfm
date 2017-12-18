@@ -14,10 +14,13 @@
 				 if (r == true) {
 				 	$("#parent_part_id").val($("#partID" + i).val());
 				 	$("#newPart input[name=part_name]").val($('#part_name' + i).val());
-				 	newPart.lot_count.value=$('#lot_count' + i).val();
-					newPart.coll_obj_disposition.value=$('#coll_obj_disposition' + i).val();
-					newPart.condition.value=$('#condition' + i).val();
-					newPart.coll_object_remarks.value=$('#coll_object_remarks' + i).val();
+
+				 	$("#newPart input[name=lot_count]").val($('#lot_count' + i).val());
+				 	$("#newPart input[name=coll_obj_disposition]").val($('#coll_obj_disposition' + i).val());
+				 	$("#newPart input[name=condition]").val($('#condition' + i).val());
+				 	$("#newPart input[name=coll_object_remarks]").val($('#coll_object_remarks' + i).val());
+
+
 				}
 			}
 	</script>
