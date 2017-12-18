@@ -194,6 +194,10 @@
 		<form name="parts" method="post" action="editParts.cfm">
 			<input type="hidden" name="action" value="saveEdits">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+
+			<cfdump var=#getParts#>
+
+
 			<table border>
 				<cfloop query="getParts">
 					<cfif len(getParts.partID) gt 0>
