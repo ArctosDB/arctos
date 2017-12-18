@@ -60,6 +60,10 @@
 			ORDER BY sampled_from_obj_id DESC,part_name ASC
 		</cfquery>
 
+
+	<cfdump var=#raw#>
+
+
 		<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 		</cfquery>
