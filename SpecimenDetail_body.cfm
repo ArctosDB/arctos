@@ -1060,7 +1060,7 @@
 		<cfif patt.recordcount gt 0>
 			<tr>
 				<td colspan="6">
-					<table border id="patbl#mPart.pid#" class="detailCellSmall sortable">
+					<table border id="patbl#pid#" class="detailCellSmall sortable">
 						<tr>
 							<th>
 								Attribute
