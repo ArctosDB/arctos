@@ -369,7 +369,7 @@
 			<tr>
 				<td>
 					<strong>Add Specimen Part</strong>
-					<form name="newPart" method="post" action="editParts.cfm">
+					<form name="newPart" id="newPart" method="post" action="editParts.cfm">
 						<input type="hidden" name="Action" value="newPart">
 						<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 						<input type="text" name="parent_part_id" id="parent_part_id">
