@@ -12,7 +12,7 @@
 		function createSubsample(i){
 				 var r = confirm("Create a new part as a subsample of this part?");
 				 if (r == true) {
-				 	$("#ssinfodiv").html('Creating a subsample of ' + $('#part_name' + i).val() + ' (ID=' + $("#partID" + i).val() + ')';
+				 	$("#ssinfodiv").html('Creating a subsample of ' + $('#part_name' + i).val() + ' (ID=' + $("#partID" + i).val() + ')');
 				 	$("#parent_part_id").val($("#partID" + i).val());
 				 	$("#newPart input[name=part_name]").val($('#part_name' + i).val());
 
