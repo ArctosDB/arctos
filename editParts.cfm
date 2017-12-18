@@ -264,7 +264,6 @@
 									<input type="button" value="Delete" class="delBtn"
 										onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
 									<br>
-									<span class="infoLink"
 									<input type="button"
 										value="Copy"
 										class="insBtn"
@@ -273,6 +272,7 @@
 											newPart.coll_obj_disposition.value='#coll_obj_disposition#';
 											newPart.condition.value='#condition#';
 											newPart.coll_object_remarks.value='#coll_object_remarks#';">
+
 								</td>
 							</tr>
 							<cfquery name="pAtt" dbtype="query">
