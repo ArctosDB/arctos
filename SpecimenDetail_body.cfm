@@ -1131,6 +1131,7 @@
 									<td>
 										#part_name#
 										<cfset zxc=getChildParts(part_id,rparts)>
+										<cfdump var=#zxc#>
 										==#zxc#--
 									</td>
 									<td>#part_condition#</td>
