@@ -12,7 +12,7 @@
 		function createSubsample(i){
 				 var r = confirm("Create a new part as a subsample of this part?");
 				 if (r == true) {
-				 	newPart.parent_part_id.value=$("#partID" + i).val();
+				 	$("#parent_part_id").val($("#partID" + i).val());
 				 	newPart.part_name.value=$('#part_name#' + i).val();
 					newPart.lot_count.value=$('#lot_count#' + i).val();
 					newPart.coll_obj_disposition.value=$('#coll_obj_disposition#' + i).val();
@@ -372,7 +372,7 @@
 					<form name="newPart" method="post" action="editParts.cfm">
 						<input type="hidden" name="Action" value="newPart">
 						<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-						<input type="hidden" name="parent_part_id" id="parent_part_id">
+						<input type="text" name="parent_part_id" id="parent_part_id">
 					    <table>
 					      <tr>
 					        <td><div align="right">Part Name: </div></td>
