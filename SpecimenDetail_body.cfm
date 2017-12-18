@@ -998,11 +998,12 @@
 
 <cffunction name="getChildParts"  returnType="string">
 	<cfargument name="pid" type="string" required="yes">
+	<cfargument name="q" type="query" required="yes">
 	<cfquery name="p" dbtype="query">
 		select
 		*
 		from
-			rparts
+			q
 		where
 			part_id=#pid#
 	</cfquery>
@@ -1129,7 +1130,7 @@
 								<tr>
 									<td>
 										#part_name#
-										<cfset zxc=getChildParts(part_id)>
+										<cfset zxc=getChildParts(part_id,rparts)>
 										==#zxc#--
 									</td>
 									<td>#part_condition#</td>
