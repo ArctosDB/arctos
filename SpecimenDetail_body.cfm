@@ -1226,6 +1226,73 @@
 										</cfif>
 										<td>#part_remarks#</td>
 									</tr>
+									<cfquery name="patt" dbtype="query">
+									select
+										attribute_type,
+										attribute_value,
+										attribute_units,
+										determined_date,
+										attribute_remark,
+										agent_name
+									from
+										rparts
+									where
+										attribute_type is not null and
+										part_id=#part_id#
+									group by
+										attribute_type,
+										attribute_value,
+										attribute_units,
+										determined_date,
+										attribute_remark,
+										agent_name
+									order by
+										attribute_type,
+										determined_date
+								</cfquery>
+								<cfif patt.recordcount gt 0>
+									<tr>
+										<td colspan="6">
+											<table border id="patbl#mPart.part_id#" class="detailCellSmall sortable">
+												<tr>
+													<th>
+														Attribute
+													</th>
+													<th>
+														Value
+													</th>
+													<th>
+														Date
+													</th>
+													<th>
+														Dtr.
+													</th>
+													<th>
+														Rmk.
+													</th>
+												</tr>
+												<cfloop query="patt">
+													<tr>
+														<td>
+															#attribute_type#
+														</td>
+														<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
+															<td>masked</td>
+															<td>-</td>
+															<td>-</td>
+															<td>-</td>
+														<cfelse>
+															<td>#attribute_value# <cfif len(attribute_units) gt 0>#attribute_units#</cfif></td>
+															<td>#dateformat(determined_date,'yyyy-mm-dd')#</td>
+															<td>#agent_name#</td>
+															<td>#attribute_remark#</td>
+														</cfif>
+													</tr>
+												</cfloop>
+											</table>
+										</td>
+									</tr>
+								</cfif>
 								</cfloop>
 							</cfloop>
 						</table>
