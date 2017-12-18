@@ -289,7 +289,6 @@
 										value="Subsample"
 										class="insBtn"
 										onClick="createSubsample(#i#)">
-
 								</td>
 							</tr>
 							<cfquery name="pAtt" dbtype="query">
@@ -508,8 +507,6 @@
 		SELECT sq_collection_object_id.nextval pid FROM dual
 	</cfquery>
 	<cftransaction>
-
-
 	<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO coll_object (
 			COLLECTION_OBJECT_ID,
@@ -534,13 +531,20 @@
 	</cfquery>
 	<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO specimen_part (
-			  COLLECTION_OBJECT_ID,
-			  PART_NAME
-				,DERIVED_FROM_cat_item)
-			VALUES (
-				#pid.pid#,
-			  '#PART_NAME#'
-				,#collection_object_id#)
+			COLLECTION_OBJECT_ID,
+			PART_NAME,
+			DERIVED_FROM_cat_item
+			<cfif isdefined("parent_part_id") and len(parent_part_id) gt 0>
+				,SAMPLED_FROM_OBJ_ID
+			</cfif>
+		) VALUES (
+			#pid.pid#,
+			'#PART_NAME#',
+			#collection_object_id#
+			<cfif isdefined("parent_part_id") and len(parent_part_id) gt 0>
+				,#parent_part_id#
+			</cfif>
+		)
 	</cfquery>
 	<cfif len(coll_object_remarks) gt 0>
 		<!---- new remark --->
