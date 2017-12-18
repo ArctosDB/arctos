@@ -6,7 +6,10 @@
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
-			function createSubsample(i){
+
+		});
+
+		function createSubsample(i){
 				 var r = confirm("Create a new part as a subsample of this part?");
 				 if (r == true) {
 				 	newPart.parent_part_id.value=$("#partID" + i).val();
@@ -17,7 +20,6 @@
 					newPart.coll_object_remarks.value=$('#coll_object_remarks#' + i).val();
 				}
 			}
-		});
 	</script>
 	<cfoutput>
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
