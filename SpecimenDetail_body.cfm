@@ -1225,6 +1225,7 @@
 								<th><span class="innerDetailLabel">Remarks</span></th>
 							</tr>
 							<cfloop query="mPart">
+								#part_id#
 
 							<cfset zxc=getChildParts(part_id,rparts,ploan)>
 							#zxc#
