@@ -997,8 +997,11 @@
 <!------------------------------------ parts ---------------------------------------------->
 
 <cffunction name="getChildParts"  returnType="string">
+	<!---- build table row(s) for one part and any attributes ---->
+
 	<cfargument name="pid" type="string" required="yes">
-	<cfargument name="q" type="query" required="yes">
+	<cfargument name="p_q" type="query" required="yes">
+	<cfargument name="l_q" type="query" required="yes">
 	<cfquery name="p" dbtype="query">
 		select
 		*
@@ -1007,10 +1010,103 @@
 		where
 			part_id=#pid#
 	</cfquery>
-	<cfif p.recordcount is 0>
-		<cfreturn "hi">
-	</cfif>
-<cfreturn p.part_name>
+	<cfsavecontent variable="r">
+		<tr>
+			<td>#part_name#</td>
+			<td>#part_condition#</td>
+			<td>#part_disposition#</td>
+			<td>#lot_count#</td>
+			<cfif oneOfUs is 1>
+				<td>#label#</td>
+				<td>#barcode#</td>
+				<td>#replace(FCTree,':','←<wbr>','all')#</td>
+				<cfquery dbtype="query" name="tlp">
+					select * from l_q where transaction_id is not null and collection_object_id=#pid#
+				</cfquery>
+				<td>
+					<cfloop query="tlp">
+						<div>
+							<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number# (#LOAN_STATUS#)</a>
+						</div>
+					</cfloop>
+				</td>
+			</cfif>
+			<td>#part_remarks#</td>
+		</tr>
+		<cfquery name="patt" dbtype="query">
+			select
+				attribute_type,
+				attribute_value,
+				attribute_units,
+				determined_date,
+				attribute_remark,
+				agent_name
+			from
+				p_q
+			where
+				attribute_type is not null and
+				part_id=#pid#
+			group by
+				attribute_type,
+				attribute_value,
+				attribute_units,
+				determined_date,
+				attribute_remark,
+				agent_name
+			order by
+				attribute_type,
+				determined_date
+		</cfquery>
+		<cfif patt.recordcount gt 0>
+			<tr>
+				<td colspan="6">
+					<table border id="patbl#mPart.pid#" class="detailCellSmall sortable">
+						<tr>
+							<th>
+								Attribute
+							</th>
+							<th>
+								Value
+							</th>
+							<th>
+								Date
+							</th>
+							<th>
+								Dtr.
+							</th>
+							<th>
+								Rmk.
+							</th>
+						</tr>
+						<cfloop query="patt">
+							<tr>
+								<td>
+									#attribute_type#
+								</td>
+								<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
+									<td>masked</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+								<cfelse>
+									<td>#attribute_value# <cfif len(attribute_units) gt 0>#attribute_units#</cfif></td>
+									<td>#dateformat(determined_date,'yyyy-mm-dd')#</td>
+									<td>#agent_name#</td>
+									<td>#attribute_remark#</td>
+								</cfif>
+							</tr>
+						</cfloop>
+					</table>
+				</td>
+			</tr>
+		</cfif>
+	</cfsavecontent>
+
+
+
+
+
+<cfreturn r>
 </cffunction>
 
 <cfquery name="rparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1130,7 +1226,7 @@
 								<tr>
 									<td>
 										#part_name#
-										<cfset zxc=getChildParts(part_id,rparts)>
+										<cfset zxc=getChildParts(part_id,rparts,ploan)>
 										<cfdump var=#zxc#>
 										==#zxc#--
 									</td>
