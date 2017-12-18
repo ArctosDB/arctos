@@ -1416,9 +1416,10 @@
 											</table>
 										</td>
 									</tr>
-									---->
 								</cfif>
 								</cfloop>
+
+									---->
 							</cfloop>
 						</table>
 					</span>
