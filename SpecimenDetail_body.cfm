@@ -1010,7 +1010,7 @@
 	<cfif p.recordcount is 0>
 		<cfreturn "hi">
 	</cfif>
-
+<cfreturn "hi">
 </cffunction>
 
 <cfquery name="rparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
