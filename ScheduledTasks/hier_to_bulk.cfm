@@ -182,17 +182,22 @@ insert into cf_temp_classification_fh (
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
-				<cftry>
+
 
 					<cfif StructKeyExists(variables, manI)>
-						got this
-						<cfelse>nope
+						<br>got this
+						<br>'#evaluate("variables." & manI)#',
+						<cfelse>
+						<br>nope
+						<br>quote-quote here
 					</cfif>
-					'#evaluate("variables." & manI)#',
+					<!----
+					<cftry>
 				<cfcatch>
 					<cfdump var=#cfcatch#>
 					NULL,</cfcatch>
 				</cftry>
+				---------->
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
