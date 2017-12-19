@@ -1013,7 +1013,6 @@
 	</cfquery>
 	<cfsavecontent variable="r">
 		<cfset pdg=level-1>
-
 		<tr>
 			<td>
 				<div style="padding-left:#pdg#em;">
@@ -1111,11 +1110,6 @@
 			</tr>
 		</cfif>
 	</cfsavecontent>
-
-
-
-
-
 <cfreturn r>
 </cffunction>
 
@@ -1205,9 +1199,6 @@
 	CONNECT BY PRIOR collection_object_id = SAMPLED_FROM_OBJ_ID
 	ORDER SIBLINGS BY part_name
 </cfquery>
-<cfdump var=#orderedparts#>
-
-
 
 <cfquery name="ploan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
@@ -1255,10 +1246,8 @@
 								<th><span class="innerDetailLabel">Remarks</span></th>
 							</tr>
 							<cfloop query="orderedparts">
-								#part_id#
-
-							<cfset zxc=getChildParts(part_id,level,rparts,ploan)>
-							#zxc#
+								<cfset zxc=getChildParts(part_id,level,rparts,ploan)>
+								#zxc#
 
 							<!----
 
