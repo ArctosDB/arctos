@@ -24,7 +24,7 @@
 
 
 			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).removeClass('relted', "slow");
-			    $(this).bind('mouseleave');
+			   // $(this).bind('mouseleave');
 
 
 
