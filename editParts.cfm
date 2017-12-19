@@ -103,7 +103,7 @@
 										#partID#
 									</span>
 									<cfif len(sampled_from_obj_id) gt 0>
-										<br>Subsampled from <span class="ssspn" data-pid="pid_#sampled_from_obj_id#">#sampled_from_obj_id#</span>
+										<br><span class="ssspn likeLink" data-pid="pid_#sampled_from_obj_id#">Subsampled from #sampled_from_obj_id#</span>
 									</cfif>
 									<br><span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 								</label>
