@@ -138,7 +138,7 @@
 		from
 			p_q
 		where
-			part_id=#pid#
+			partID=#pid#
 	</cfquery>
 
 
