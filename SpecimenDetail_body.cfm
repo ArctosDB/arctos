@@ -1017,7 +1017,7 @@
 		<tr>
 			<td>
 				<div style="padding-left:#pdg#em;">
-					#level#-#p.part_name#
+					#p.part_name#
 				</div>
 			</td>
 			<td>#p.part_condition#</td>
@@ -1187,22 +1187,23 @@
 </cfquery>
 ---->
 <cfquery name="orderedparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-
-select
-	 collection_object_id part_id,
- 	level,
- 	part_name from (
- SELECT
- SAMPLED_FROM_OBJ_ID,
- collection_object_id,
- 	part_name
- FROM specimen_part
- where derived_from_cat_item=#one.collection_object_id#
- )
-START WITH SAMPLED_FROM_OBJ_ID is null
- CONNECT BY PRIOR collection_object_id = SAMPLED_FROM_OBJ_ID
- ORDER SIBLINGS BY part_name
-
+	select
+		collection_object_id part_id,
+ 		level,
+ 		part_name
+	from (
+ 		SELECT
+			SAMPLED_FROM_OBJ_ID,
+			collection_object_id,
+			part_name
+		FROM
+			specimen_part
+ 		where
+			derived_from_cat_item=#one.collection_object_id#
+ 		)
+	START WITH SAMPLED_FROM_OBJ_ID is null
+	CONNECT BY PRIOR collection_object_id = SAMPLED_FROM_OBJ_ID
+	ORDER SIBLINGS BY part_name
 </cfquery>
 <cfdump var=#orderedparts#>
 
