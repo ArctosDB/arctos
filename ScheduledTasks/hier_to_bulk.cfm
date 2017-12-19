@@ -206,7 +206,6 @@ insert into cf_temp_classification_fh (
 </p>
 
 
-<cfabort>
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
@@ -228,10 +227,17 @@ insert into cf_temp_classification_fh (
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
+				<cfif StructKeyExists(variables, manI)>
+					'#evaluate("variables." & manI)#',
+				<cfelse>
+					NULL,
+				</cfif>
+				<!----
 				<cftry>
 					'#evaluate("variables." & manI)#',
 				<cfcatch>NULL,</cfcatch>
 				</cftry>
+				---->
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
