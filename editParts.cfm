@@ -273,7 +273,7 @@
 									part_attribute_id is not null and
 									partID=#p.partID#
 							</cfquery>
-							<tr bgcolor="#bgc#">
+							<tr >
 								<td colspan="8" align="center">
 								<div style="padding-left:#level#em;">
 
