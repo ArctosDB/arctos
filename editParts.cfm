@@ -18,7 +18,7 @@
 		    });
 		    $(".ssspn").click(function(){
 		    	$('html, body').animate({
-			        scrollTop: $(this).attr("data-pid").offset().top
+			        scrollTop: $("#" + $(this).attr("data-pid")).offset().top
 			    }, 2000);
 		    });
 		});
