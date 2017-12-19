@@ -23,7 +23,7 @@
 			    }, 2000);
 
 
-			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).removeClass('relted', "slow");
+			    $(this).unbind('mouseleave').$("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).removeClass('relted', "slow").$(this).bind('mouseleave');
 			   // $(this).bind('mouseleave');
 
 
