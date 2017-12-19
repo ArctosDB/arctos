@@ -1012,10 +1012,11 @@
 			part_id=#pid#
 	</cfquery>
 	<cfsavecontent variable="r">
+		<cfset pdg=level-1>
 
 		<tr>
 			<td>
-				<div style="padding-left:#level#em;">
+				<div style="padding-left:#pdg#em;">
 					#level#-#p.part_name#
 				</div>
 			</td>
@@ -1066,6 +1067,8 @@
 		<cfif patt.recordcount gt 0>
 			<tr>
 				<td colspan="6">
+					<div style="padding-left:#level#em;">
+
 					<table border id="patbl#pid#" class="detailCellSmall sortable">
 						<tr>
 							<th>
@@ -1103,6 +1106,7 @@
 							</tr>
 						</cfloop>
 					</table>
+					</div>
 				</td>
 			</tr>
 		</cfif>
