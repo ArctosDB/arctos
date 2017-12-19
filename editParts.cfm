@@ -153,7 +153,7 @@
 							<tr>
 								<td>
 									<div style="padding-left:#pdg#em;">
-									<label for="part_name#i#">
+									<label for="part_name#pid#">
 										Part
 										<cfif len(sampled_from_obj_id) gt 0>
 											Subsample
