@@ -1011,15 +1011,16 @@
 			part_id=#pid#
 	</cfquery>
 	<cfsavecontent variable="r">
+
 		<tr>
-			<td>#p_q.part_name#</td>
-			<td>#p_q.part_condition#</td>
-			<td>#p_q.part_disposition#</td>
-			<td>#p_q.lot_count#</td>
+			<td>#p.part_name#</td>
+			<td>#p.part_condition#</td>
+			<td>#p.part_disposition#</td>
+			<td>#p.lot_count#</td>
 			<cfif oneOfUs is 1>
-				<td>#p_q.label#</td>
-				<td>#p_q.barcode#</td>
-				<td>#replace(p_q.FCTree,':','←<wbr>','all')#</td>
+				<td>#p.label#</td>
+				<td>#p.barcode#</td>
+				<td>#replace(p.FCTree,':','←<wbr>','all')#</td>
 				<cfquery dbtype="query" name="tlp">
 					select * from l_q where transaction_id is not null and collection_object_id=#pid#
 				</cfquery>
@@ -1031,7 +1032,7 @@
 					</cfloop>
 				</td>
 			</cfif>
-			<td>#p_q.part_remarks#</td>
+			<td>#p.part_remarks#</td>
 		</tr>
 		<cfquery name="patt" dbtype="query">
 			select
