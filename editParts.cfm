@@ -182,7 +182,7 @@
 										<cfif len(sampled_from_obj_id) gt 0>
 											<br>Subsampled from #sampled_from_obj_id#
 										</cfif>
-										&nbsp;<span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
+										<br><span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 
 									</label>
 									<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
