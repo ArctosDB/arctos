@@ -23,7 +23,7 @@
 		    	$('html, body').animate({
 			        scrollTop: $("#" + $(this).attr("data-pid")).offset().top
 			    }, 2000);
-			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).removeClass('relted', "slow");
+			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(5000).removeClass('relted', "slow");
 		    });
 		});
 		function createSubsample(i){
