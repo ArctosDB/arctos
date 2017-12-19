@@ -134,7 +134,18 @@
 
 	<cfquery name="p" dbtype="query">
 		select
-		*
+			partID,
+			part_name,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
+			collection_cde,
+			lot_count,
+			barcode,
+			label,
+			parentContainerId,
+			partContainerId,
+			coll_object_remarks
 		from
 			p_q
 		where
