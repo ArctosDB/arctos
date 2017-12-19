@@ -20,6 +20,14 @@
 		    	$('html, body').animate({
 			        scrollTop: $("#" + $(this).attr("data-pid")).offset().top
 			    }, 2000);
+
+
+			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(1000).queue(function(next){
+        			 $(this).attr("data-pid") ).removeClass('red');
+        			 next();
+   					 });
+
+
 		    });
 		});
 		function createSubsample(i){
