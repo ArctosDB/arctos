@@ -16,6 +16,7 @@
 		    function(){
 		        $("#" + $(this).attr("data-pid") ).removeClass('relted');
 		    });
+
 		    $(".ssspn").click(function(){
 		    	$('html, body').animate({
 			        scrollTop: $("#" + $(this).attr("data-pid")).offset().top
@@ -23,7 +24,7 @@
 
 
 			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(1000).queue(function(next){
-        			 $(this).attr("data-pid") ).removeClass('red');
+        			  $("#" + $(this).attr("data-pid") ).removeClass('red');
         			 next();
    					 });
 
