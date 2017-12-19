@@ -256,9 +256,7 @@
 										class="insBtn"
 										onClick="createSubsample(#i#)">
 								</td>
-								---->
 							</tr>
-							<!----
 							<cfquery name="pAtt" dbtype="query">
 								select
 									 part_attribute_id,
@@ -273,10 +271,13 @@
 									raw
 								where
 									part_attribute_id is not null and
-									partID=#partID#
+									partID=#p.partID#
 							</cfquery>
 							<tr bgcolor="#bgc#">
 								<td colspan="8" align="center">
+								<div style="padding-left:#level#em;">
+
+
 									<cfif pAtt.recordcount gt 0>
 									<table border>
 										<tr>
@@ -307,6 +308,7 @@
 												</td>
 											</tr>
 										</cfloop>
+										</div>
 									</td>
 								</table>
 								<cfelse>
