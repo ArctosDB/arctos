@@ -180,9 +180,9 @@
 								<td>
 									<div style="padding-left:#pdg#em;">
 									<label for="part_name#pid#">
-										Part
+										Part #partID#
 										<cfif len(sampled_from_obj_id) gt 0>
-											Subsample
+											Subsampled from #sampled_from_obj_id#
 										</cfif>
 										&nbsp;<span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 
