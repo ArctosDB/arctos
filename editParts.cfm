@@ -33,6 +33,19 @@
 				    }, 2000);
 				}
 			}
+			function createClone(i){
+			 	$("#ssinfodiv").html('Creating a clone of ' + $('#part_name' + i).val() + ' (ID=' + $("#partID" + i).val() + ')');
+			 	$("#parent_part_id").val($("#partID" + i).val());
+			 	$("#newPart input[name=part_name]").val($('#part_name' + i).val());
+			 	$("#newPart input[name=lot_count]").val($('#lot_count' + i).val());
+			 	$("#newPart input[name=coll_obj_disposition]").val($('#coll_obj_disposition' + i).val());
+			 	$("#newPart input[name=condition]").val($('#condition' + i).val());
+			 	$("#newPart input[name=coll_object_remarks]").val($('#coll_object_remarks' + i).val());
+
+			 	$('html, body').animate({
+		        	scrollTop: $("#tblnewRec").offset().top
+			    }, 2000);
+			}
 	</script>
 	<cfoutput>
 		<cffunction name="getChildParts"  returnType="string">
@@ -152,11 +165,7 @@
 							<input type="button"
 								value="Copy"
 								class="insBtn"
-								onClick="newPart.part_name.value='#p.part_name#';
-									newPart.lot_count.value='#p.lot_count#';
-									newPart.coll_obj_disposition.value='#p.coll_obj_disposition#';
-									newPart.condition.value='#p.condition#';
-									newPart.coll_object_remarks.value='#p.coll_object_remarks#';">
+								onClick="createClone(#i#)">
 							<input type="button"
 								value="Subsample"
 								class="insBtn"
