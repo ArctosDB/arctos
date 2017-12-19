@@ -1175,9 +1175,38 @@
 	order by
 		part_name
 </cfquery>
-<cfquery name="mPart" dbtype="query">
-	select * from parts where sampled_from_obj_id is null order by part_name
+<!---
+	now assemble part_ids in the order we want to see them
+---->
+
+<cfquery name="orderedparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+ SELECT
+ collection_object_id part_id,
+ 	level,
+ 	part_name
+ FROM specimen_part
+ START WITH derived_from_cat_item=#one.collection_object_id#
+ CONNECT BY PRIOR collection_object_id = SAMPLED_FROM_OBJ_ID
 </cfquery>
+
+
+
+
+<cfset opidlist="">
+<!---- first non-samples --->
+
+<cfquery name="mPart" dbtype="query">
+	select part_id from parts where sampled_from_obj_id is null order by part_name
+</cfquery>
+<cfloop query="mPart">
+	<cfset opidlist=listappend(opidlist,part_id)>
+	<!---- children? ---->
+	<cfquery name="c" dbtype="query">
+		select part_id from parts where sampled_from_obj_id = #part_id#
+	</cfquery>
+
+</cfloop>
+
 
 <cfdump var=#mPart#>
 <cfquery name="ploan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1225,7 +1254,7 @@
 								</cfif>
 								<th><span class="innerDetailLabel">Remarks</span></th>
 							</tr>
-							<cfloop query="mPart">
+							<cfloop query="orderedparts">
 								#part_id#
 
 							<cfset zxc=getChildParts(part_id,rparts,ploan)>
