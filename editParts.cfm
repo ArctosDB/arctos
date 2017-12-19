@@ -17,12 +17,13 @@
 		        $("#" + $(this).attr("data-pid") ).removeClass('relted');
 		    });
 		    $(".ssspn").click(function(){
+		    	$(this).unbind('mouseleave');
 		    	$('html, body').animate({
 			        scrollTop: $("#" + $(this).attr("data-pid")).offset().top
 			    }, 2000);
 
 
-			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).removeClass('relted', "slow");
+			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).removeClass('relted', "slow").bind('mouseleave');
 
 
 
