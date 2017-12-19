@@ -1259,7 +1259,7 @@
 							<cfloop query="orderedparts">
 								#part_id#
 
-							<cfset zxc=getChildParts(part_id,rparts,ploan, level)>
+							<cfset zxc=getChildParts(part_id,level,rparts,ploan)>
 							#zxc#
 
 							<!----
