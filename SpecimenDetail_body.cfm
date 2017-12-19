@@ -1189,7 +1189,7 @@
 <cfquery name="orderedparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 
 select
-	 collection_object_id,
+	 collection_object_id part_id,
  	level,
  	part_name from (
  SELECT
