@@ -24,10 +24,59 @@
 			    }, 2000);
 
 
+				function () {
+			       $("#" + $(this).attr("data-pid") ).addClass('relted');
+			        setTimeout(function() {
+			         //   $("#" + $(this).attr("data-pid") ).removeClass('relted');
+			        }, 2000); // 2000 is in mil sec eq to 2 sec.
+			    },
+			    function () {
+			        $("#" + $(this).attr("data-pid") ).removeClass('relted');
+			    }
+
+
+
+
+
+
+
+				/*
+
+					$("#" + $(this).attr("data-pid") ).addClass('relted');
+				setTimeout(function() {
+        	    	$("#" + $(this).attr("data-pid") ).removeClass("doorstatic");
+       			 }, 2000);
+
+
 			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(1000).queue(function(next){
         			  $("#" + $(this).attr("data-pid") ).removeClass('red');
         			 next();
    					 });
+*/
+
+
+$("#date_1").hover(
+    function () {
+        var $this = $(this);
+
+        $this.addClass("door");
+        setTimeout(function() {
+            $this.addClass("doorstatic");
+        }, 2000); // 2000 is in mil sec eq to 2 sec.
+    },
+    function () {
+        $(this).removeClass("door doorstatic");
+    }
+);
+
+
+
+
+
+
+
+
+
 
 
 		    });
