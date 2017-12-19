@@ -27,6 +27,10 @@
 				 	$("#newPart input[name=coll_obj_disposition]").val($('#coll_obj_disposition' + i).val());
 				 	$("#newPart input[name=condition]").val($('#condition' + i).val());
 				 	$("#newPart input[name=coll_object_remarks]").val($('#coll_object_remarks' + i).val());
+
+				 	$('html, body').animate({
+			        	scrollTop: $("#tblnewRec").offset().top
+				    }, 2000);
 				}
 			}
 	</script>
@@ -308,7 +312,7 @@
 			</table>
 		</form>
 		<a name="newPart"></a>
-		<table class="newRec">
+		<table class="newRec" id="tblnewRec">
 			<tr>
 				<td>
 					<strong>Add Specimen Part</strong>
