@@ -182,7 +182,7 @@
 									<label for="part_name#pid#">
 										Part #partID#
 										<cfif len(sampled_from_obj_id) gt 0>
-											Subsampled from #sampled_from_obj_id#
+											<br>Subsampled from #sampled_from_obj_id#
 										</cfif>
 										&nbsp;<span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 
