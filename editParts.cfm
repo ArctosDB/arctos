@@ -150,6 +150,19 @@
 			p_q
 		where
 			partID=#pid#
+		group by
+			partID,
+			part_name,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
+			collection_cde,
+			lot_count,
+			barcode,
+			label,
+			parentContainerId,
+			partContainerId,
+			coll_object_remarks
 	</cfquery>
 
 
