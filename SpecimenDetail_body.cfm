@@ -1187,13 +1187,22 @@
 </cfquery>
 ---->
 <cfquery name="orderedparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
- SELECT
- collection_object_id part_id,
+
+select
+	 collection_object_id,
  	level,
+ 	part_name from (
+ SELECT
+ SAMPLED_FROM_OBJ_ID,
+ collection_object_id,
  	part_name
  FROM specimen_part
- START WITH derived_from_cat_item=#one.collection_object_id#
+ where derived_from_cat_item=#one.collection_object_id#
+ )
+START WITH SAMPLED_FROM_OBJ_ID is null
  CONNECT BY PRIOR collection_object_id = SAMPLED_FROM_OBJ_ID
+ ORDER SIBLINGS BY part_name
+
 </cfquery>
 <cfdump var=#orderedparts#>
 
