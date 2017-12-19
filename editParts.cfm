@@ -108,7 +108,7 @@
 </cfquery>
 
 
-
+<cfdump var=#orderedparts#>
 
 
 
