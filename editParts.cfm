@@ -198,9 +198,9 @@
 									<div style="padding-left:#pdg#em;">
 									<label for="part_name#pid#">
 										Part
-										<div id="pid_#partID#">
+										<span id="pid_#partID#">
 											#partID#
-										</div>
+										</span>
 										<cfif len(sampled_from_obj_id) gt 0>
 											<br>Subsampled from <span class="ssspn" data-pid="pid_#sampled_from_obj_id#">#sampled_from_obj_id#</span>
 										</cfif>
