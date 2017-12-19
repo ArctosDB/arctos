@@ -1015,7 +1015,7 @@
 
 		<tr>
 			<td>
-				<div style="padding-left:#level#">
+				<div style="padding-left:#level# em;">
 					#level#-#p.part_name#
 				</div>
 			</td>
