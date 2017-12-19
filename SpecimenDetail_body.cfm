@@ -1014,8 +1014,11 @@
 	<cfsavecontent variable="r">
 
 		<tr>
-			<td>#level#</td>
-			<td>#p.part_name#</td>
+			<td>
+				<div style="padding-left:#level#">
+					#level#-#p.part_name#
+				</div>
+			</td>
 			<td>#p.part_condition#</td>
 			<td>#p.part_disposition#</td>
 			<td>#p.lot_count#</td>
