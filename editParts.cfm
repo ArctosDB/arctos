@@ -16,6 +16,11 @@
 		    function(){
 		        $("#" + $(this).attr("data-pid") ).removeClass('relted');
 		    });
+		    $(".ssspn").click(function(){
+		    	$('html, body').animate({
+			        scrollTop: $(this).attr("data-pid").offset().top
+			    }, 2000);
+		    });
 		});
 		function createSubsample(i){
 				 var r = confirm("Create a new part as a subsample of this part?");
