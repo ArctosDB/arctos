@@ -176,7 +176,6 @@ insert into cf_temp_classification_fh (
 			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
-				<br>i=#i#====
 				<cfif i is "PHYLORDER">
 					<cfset manI="ORDER">
 				<cfelse>
