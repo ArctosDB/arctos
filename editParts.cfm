@@ -26,7 +26,7 @@
 
 
 
-			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(1000).queue(function(next){
+			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).queue(function(next){
         			  $("#" + $(this).attr("data-pid") ).removeClass('red');
         			 next();
    					 });
