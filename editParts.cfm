@@ -15,7 +15,7 @@
 			$("#" + $(this).attr("data-pid") ).addClass('relted');
 			 },
 		    function(){
-		        $("#" + $(this).attr("data-pid") ).addClass('blue');
+		        $("#" + $(this).attr("data-pid") ).removeClass('relted');
 		    });
 
 
@@ -202,7 +202,7 @@
 											#partID#
 										</div>
 										<cfif len(sampled_from_obj_id) gt 0>
-											<br>Subsampled from <span class="ssspn" data-pid="pid_#partID#">#sampled_from_obj_id#</span>#sampled_from_obj_id#
+											<br>Subsampled from <span class="ssspn" data-pid="pid_#sampled_from_obj_id#">#sampled_from_obj_id#</span>
 										</cfif>
 										<br><span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 
