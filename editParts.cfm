@@ -318,9 +318,7 @@
 						   			onclick="mgPartAtts(#partID#);">
 								</td>
 							</tr>
-							<cfset i = i+1>
 						</cfif><!---- end of the list ---->
-						---->
 				</cfloop>
 
 				<!----
