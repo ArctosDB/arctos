@@ -1,13 +1,27 @@
 <cfinclude template="/includes/_header.cfm">
 <cf_customizeIFrame>
 <cfif action is "nothing">
+
+<style>
+	.relted {border:5px solid red;}
+</style>
 	<script language="javascript" type="text/javascript">
 		jQuery(document).ready(function() {
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
 
-		});
+		$(".ssspn").hover(function(){
+			#("#" + $(this).attr("data-pid") ).addClass('relted');
+			 },
+		    function(){
+		        #("#" + $(this).attr("data-pid") ).addClass('blue');
+		    });
+
+
+
+
+
 
 		function createSubsample(i){
 				 var r = confirm("Create a new part as a subsample of this part?");
@@ -178,9 +192,12 @@
 								<td>
 									<div style="padding-left:#pdg#em;">
 									<label for="part_name#pid#">
-										Part #partID#
+										Part
+										<div id="pid_#partID#">
+											#partID#
+										</div>
 										<cfif len(sampled_from_obj_id) gt 0>
-											<br>Subsampled from #sampled_from_obj_id#
+											<br>Subsampled from <span class="ssspn" data-pid="pid_#partID#">#sampled_from_obj_id#</span>#sampled_from_obj_id#
 										</cfif>
 										<br><span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 
