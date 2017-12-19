@@ -13,6 +13,7 @@
 
 		$(".ssspn").hover(function(){
 			$("#" + $(this).attr("data-pid") ).addClass('relted');
+			$(this).css('cursor','pointer');
 			 },
 		    function(){
 		        $("#" + $(this).attr("data-pid") ).removeClass('relted');
