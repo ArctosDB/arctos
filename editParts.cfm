@@ -193,15 +193,15 @@
 										onkeypress="return noenter(event);">
 									</div>
 								</td>
-								<!----
 								<td>
 									<label for="coll_obj_disposition#i#">Disposition</label>
 									<select name="coll_obj_disposition#i#" id="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:150px";>
 						              <cfloop query="ctDisp">
-							              <option <cfif ctdisp.coll_obj_disposition is getParts.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+							              <option <cfif ctdisp.coll_obj_disposition is p.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 						              </cfloop>
 						            </select>
 								</td>
+								<!----
 								<td>
 									<label for="condition#i#">Condition&nbsp;<span class="likeLink" style="font-weight:100" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
 									<textarea name="condition#i#" id="condition#i#" class="reqdClr mediumtextarea">#getparts.condition#</textarea>
