@@ -163,7 +163,7 @@
 							<input type="button" value="Delete" class="delBtn"
 								onclick="parts.action.value='deletePart';parts.partID.value='#p.partID#';confirmDelete('parts','#p.part_name#');">
 							<input type="button"
-								value="Copy"
+								value="Clone"
 								class="insBtn"
 								onClick="createClone(#i#)">
 							<input type="button"
