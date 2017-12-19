@@ -18,7 +18,7 @@
 		        #("#" + $(this).attr("data-pid") ).addClass('blue');
 		    });
 
-
+});
 
 
 
