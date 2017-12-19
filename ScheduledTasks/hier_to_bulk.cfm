@@ -176,21 +176,16 @@ insert into cf_temp_classification_fh (
 			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
-				<br>i=#i#
 				<cfif i is "PHYLORDER">
 					<cfset manI="ORDER">
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
-
-
-					<cfif StructKeyExists(variables, manI)>
-						<br>got this
-						<br>'#evaluate("variables." & manI)#',
-						<cfelse>
-						<br>nope
-						<br>quote-quote here
-					</cfif>
+				<cfif StructKeyExists(variables, manI)>
+					'#evaluate("variables." & manI)#',
+				<cfelse>
+					NULL,
+				</cfif>
 					<!----
 					<cftry>
 				<cfcatch>
