@@ -446,12 +446,23 @@
 			<table border>
 				<cfset i=1>
 				<cfloop query="orderedparts">
-
 					<cfset zxc=getChildParts(part_id,level,raw,ploan,i)>
-								#zxc#
-
+					#zxc#
 					<cfset i=i+1>
 				</cfloop>
+			</table>
+
+			<table border>
+
+				<tr bgcolor="##00CC00">
+					<td colspan="10" align="center">
+						<input type="button" value="Save All Changes" class="savBtn"
+						   onclick="parts.action.value='saveEdits';submit();">
+				   </td>
+				</tr>
+				<cfset numberOfParts= #i# - 1>
+				<input type="hidden" name="NumberOfParts" value="#orderedparts.recordcount#">
+				<input type="hidden" name="partID">
 			</table>
 		</form>
 
