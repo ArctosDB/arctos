@@ -201,27 +201,26 @@
 						              </cfloop>
 						            </select>
 								</td>
-								<!----
 								<td>
 									<label for="condition#i#">Condition&nbsp;<span class="likeLink" style="font-weight:100" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
-									<textarea name="condition#i#" id="condition#i#" class="reqdClr mediumtextarea">#getparts.condition#</textarea>
+									<textarea name="condition#i#" id="condition#i#" class="reqdClr mediumtextarea">#p.condition#</textarea>
 								</td>
 								<td>
 									<label for="lot_count#i#">##</label>
-									<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
+									<input type="text" id="lot_count#i#" name="lot_count#i#" value="#p.lot_count#"  class="reqdClr" size="2">
 								</td>
 								<td>
 									<label for="label#i#">In Container Label</label>
 									<span style="font-size:small">
-										<cfif len(getparts.label) gt 0>
-											#getparts.label#
+										<cfif len(p.label) gt 0>
+											#p.label#
 										<cfelse>
 											-NONE-
 										</cfif>
 									</span>
-									<input type="hidden" name="label#i#" value="#getparts.label#">
-									<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
-									<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
+									<input type="hidden" name="label#i#" value="#p.label#">
+									<input type="hidden" name="parentContainerId#i#" value="#p.parentContainerId#">
+									<input type="hidden" name="partContainerId#i#" value="#p.partContainerId#">
 								</td>
 								<td>
 									<label for="newCode#i#">Add to barcode</label>
@@ -229,10 +228,10 @@
 								</td>
 								<td>
 									<label for="coll_object_remarks#i#">Remark</label>
-									<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(getparts.coll_object_remarks)#</textarea>
+									<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(p.coll_object_remarks)#</textarea>
 								</td>
 								<cfquery dbtype="query" name="tlp">
-									select * from ploan where transaction_id is not null and collection_object_id=#partID#
+									select * from l_q where transaction_id is not null and collection_object_id=#partID#
 								</cfquery>
 								<td>
 									<cfloop query="tlp">
@@ -243,15 +242,15 @@
 								</td>
 								<td align="middle">
 									<input type="button" value="Delete" class="delBtn"
-										onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
+										onclick="parts.action.value='deletePart';parts.partID.value='#p.partID#';confirmDelete('parts','#p.part_name#');">
 									<input type="button"
 										value="Copy"
 										class="insBtn"
-										onClick="newPart.part_name.value='#part_name#';
-											newPart.lot_count.value='#lot_count#';
-											newPart.coll_obj_disposition.value='#coll_obj_disposition#';
-											newPart.condition.value='#condition#';
-											newPart.coll_object_remarks.value='#coll_object_remarks#';">
+										onClick="newPart.part_name.value='#p.part_name#';
+											newPart.lot_count.value='#p.lot_count#';
+											newPart.coll_obj_disposition.value='#p.coll_obj_disposition#';
+											newPart.condition.value='#p.condition#';
+											newPart.coll_object_remarks.value='#p.coll_object_remarks#';">
 									<input type="button"
 										value="Subsample"
 										class="insBtn"
