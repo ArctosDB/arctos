@@ -23,7 +23,7 @@
 			    }, 2000);
 
 
-			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(10000).queue(function(next){
+			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(1000).queue(function(next){
         			  $("#" + $(this).attr("data-pid") ).removeClass('red');
         			 next();
    					 });
