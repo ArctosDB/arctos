@@ -9,6 +9,8 @@
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
+			/*
+			hover and click combine to do weird things; just let users click to scroll+highlight for now
 			$(".ssspn").hover(function(){
 				$("#" + $(this).attr("data-pid") ).addClass('relted');
 				$(this).css('cursor','pointer');
@@ -16,21 +18,12 @@
 		    function(){
 		        $("#" + $(this).attr("data-pid") ).removeClass('relted');
 		    });
+		    */
 		    $(".ssspn").click(function(){
-		    	//$(this).unbind('mouseleave');
 		    	$('html, body').animate({
 			        scrollTop: $("#" + $(this).attr("data-pid")).offset().top
 			    }, 2000);
-
-
-			    $(this).unbind('mouseleave');
-			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).removeClass('relted', "slow"), function(){ $(this).bind('mouseleave');};
-			    $(this).bind('mouseleave');
-			   // $(this).bind('mouseleave');
-
-
-
-
+			    $("#" + $(this).attr("data-pid") ).addClass('relted').delay(2000).removeClass('relted', "slow");
 		    });
 		});
 		function createSubsample(i){
