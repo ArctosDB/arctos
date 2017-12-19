@@ -176,6 +176,7 @@ insert into cf_temp_classification_fh (
 			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
+				<br>i=#i#====
 				<cfif i is "PHYLORDER">
 					<cfset manI="ORDER">
 				<cfelse>
@@ -196,6 +197,9 @@ insert into cf_temp_classification_fh (
 			'#q.export_id#'
 		)
 </p>
+
+
+<cfabort>
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
@@ -211,7 +215,7 @@ insert into cf_temp_classification_fh (
 			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
-				<br>i=#i#====
+
 				<cfif i is "PHYLORDER">
 					<cfset manI="ORDER">
 				<cfelse>
@@ -233,7 +237,6 @@ insert into cf_temp_classification_fh (
 		)
 		</cfquery>
 
-<cfabort>
 
 	<cfquery name="goit" datasource="uam_god">
 		update hierarchical_taxonomy set status='pushed_to_bl' where tid=#d.tid#
