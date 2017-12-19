@@ -1000,6 +1000,7 @@
 	<!---- build table row(s) for one part and any attributes ---->
 
 	<cfargument name="pid" type="string" required="yes">
+	<cfargument name="level" type="string" required="yes">
 	<cfargument name="p_q" type="query" required="yes">
 	<cfargument name="l_q" type="query" required="yes">
 	<cfquery name="p" dbtype="query">
@@ -1013,6 +1014,7 @@
 	<cfsavecontent variable="r">
 
 		<tr>
+			<td>#level#</td>
 			<td>#p.part_name#</td>
 			<td>#p.part_condition#</td>
 			<td>#p.part_disposition#</td>
@@ -1257,7 +1259,7 @@
 							<cfloop query="orderedparts">
 								#part_id#
 
-							<cfset zxc=getChildParts(part_id,rparts,ploan)>
+							<cfset zxc=getChildParts(part_id,rparts,ploan, level)>
 							#zxc#
 
 							<!----
