@@ -184,7 +184,7 @@ insert into cf_temp_classification_fh (
 				</cfif>
 				<cftry>
 
-					<cfif isdefined(evaluate("variables." & manI))>
+					<cfif StructKeyExists(variables, manI)>
 						got this
 						<cfelse>nope
 					</cfif>
