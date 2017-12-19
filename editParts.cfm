@@ -9,6 +9,7 @@
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
+			/*
 			$(".ssspn").hover(function(){
 				$("#" + $(this).attr("data-pid") ).addClass('relted');
 				$(this).css('cursor','pointer');
@@ -16,7 +17,7 @@
 		    function(){
 		        $("#" + $(this).attr("data-pid") ).removeClass('relted');
 		    });
-
+*/
 		    $(".ssspn").click(function(){
 		    	$('html, body').animate({
 			        scrollTop: $("#" + $(this).attr("data-pid")).offset().top
