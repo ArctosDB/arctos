@@ -183,7 +183,9 @@ insert into cf_temp_classification_fh (
 				</cfif>
 				<cftry>
 					'#evaluate("variables." & manI)#',
-				<cfcatch>NULL,</cfcatch>
+				<cfcatch>
+					<cfdump var=#cfcatch#>
+					NULL,</cfcatch>
 				</cftry>
 			</cfloop>
 			<cfloop query="dNoClassTerm">
