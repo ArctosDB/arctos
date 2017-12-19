@@ -176,12 +176,18 @@ insert into cf_temp_classification_fh (
 			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
+				<br>i=#i#
 				<cfif i is "PHYLORDER">
 					<cfset manI="ORDER">
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
 				<cftry>
+
+					<cfif isdefined(evaluate("variables." & manI))>
+						got this
+						<cfelse>nope
+					</cfif>
 					'#evaluate("variables." & manI)#',
 				<cfcatch>
 					<cfdump var=#cfcatch#>
