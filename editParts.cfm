@@ -202,7 +202,7 @@
 						            </select>
 								</td>
 								<td>
-									<label for="condition#i#">Condition&nbsp;<span class="likeLink" style="font-weight:100" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
+									<label for="condition#i#">Condition&nbsp;<span class="likeLink" style="font-weight:100" onClick="chgCondition('#p.partID#')">[ History ]</span></label>
 									<textarea name="condition#i#" id="condition#i#" class="reqdClr mediumtextarea">#p.condition#</textarea>
 								</td>
 								<td>
@@ -231,7 +231,7 @@
 									<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(p.coll_object_remarks)#</textarea>
 								</td>
 								<cfquery dbtype="query" name="tlp">
-									select * from l_q where transaction_id is not null and collection_object_id=#partID#
+									select * from l_q where transaction_id is not null and collection_object_id=#p.partID#
 								</cfquery>
 								<td>
 									<cfloop query="tlp">
