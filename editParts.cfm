@@ -12,11 +12,16 @@
 			});
 
 		$(".ssspn").hover(function(){
-			#("#" + $(this).attr("data-pid") ).addClass('relted');
+			$("#" + $(this).attr("data-pid") ).addClass('relted');
 			 },
 		    function(){
-		        #("#" + $(this).attr("data-pid") ).addClass('blue');
+		        $("#" + $(this).attr("data-pid") ).addClass('blue');
 		    });
+
+
+
+
+
 
 });
 
