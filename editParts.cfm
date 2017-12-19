@@ -124,6 +124,8 @@
 	<cfargument name="level" type="string" required="yes">
 	<cfargument name="p_q" type="query" required="yes">
 	<cfargument name="l_q" type="query" required="yes">
+	<cfargument name="i" type="string" required="yes">
+
 
 
 
@@ -172,7 +174,7 @@
 
 
 		<cfloop query="p">
-			<input type="hidden" name="partID#pid#" id="partID#pid#"  value="#pid#">
+			<input type="hidden" name="partID#i#" id="partID#i#"  value="#pid#">
 
 							<tr>
 								<td>
@@ -185,9 +187,9 @@
 										&nbsp;<span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 
 									</label>
-									<input type="text" name="part_name#pid#" id="part_name#pid#" class="reqdClr"
+									<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
 										value="#p.part_name#" size="25"
-										onchange="findPart(this.id,this.value,'#thisCollectionCde.collection_cde#');"
+										onchange="findPart(this.id,this.value,'#p.collection_cde#');"
 										onkeypress="return noenter(event);">
 									</div>
 								</td>
@@ -444,12 +446,13 @@
 
 
 			<table border>
+				<cfset i=1>
 				<cfloop query="orderedparts">
 
-					<cfset zxc=getChildParts(part_id,level,raw,ploan)>
+					<cfset zxc=getChildParts(part_id,level,raw,ploan,i)>
 								#zxc#
 
-
+					<cfset i=i+1>
 				</cfloop>
 			</table>
 		</form>
