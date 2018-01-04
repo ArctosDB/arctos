@@ -491,7 +491,7 @@ function useGL(glat,glon,gerr){
 			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
 
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
-			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#escapeQuotes(l.specimen_event_remark)#" size="75">
+			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#stripQuotes(l.specimen_event_remark)#" size="75">
 
 			<label for="habitat">Habitat</label>
 			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
