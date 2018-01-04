@@ -161,7 +161,6 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 		manipulate the stream via var manI
 	---->
 
-
 	<cfquery name="ins" datasource="uam_god">
 		insert into cf_temp_classification_fh (
 			<cfloop list="#tterms#" index="i">
@@ -177,15 +176,23 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			export_id
 		) values (
 			<cfloop list="#tterms#" index="i">
+
 				<cfif i is "PHYLORDER">
 					<cfset manI="ORDER">
 				<cfelse>
 					<cfset manI=i>
 				</cfif>
+				<cfif StructKeyExists(variables, manI)>
+					'#evaluate("variables." & manI)#',
+				<cfelse>
+					NULL,
+				</cfif>
+				<!----
 				<cftry>
 					'#evaluate("variables." & manI)#',
-				<cfcatch>'',</cfcatch>
+				<cfcatch>NULL,</cfcatch>
 				</cftry>
+				---->
 			</cfloop>
 			<cfloop query="dNoClassTerm">
 				'#TERM_VALUE#',
@@ -197,6 +204,7 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 			'#q.export_id#'
 		)
 		</cfquery>
+
 
 	<cfquery name="goit" datasource="uam_god">
 		update hierarchical_taxonomy set status='pushed_to_bl' where tid=#d.tid#
