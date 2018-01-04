@@ -33,7 +33,10 @@
 }
 #right-col { 
 	float: right;
+	/*
+	nevermind...
 	width: 50%;
+	*/
 }      
 .nowrap {
  	white-space:nowrap;
