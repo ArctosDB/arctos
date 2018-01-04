@@ -480,7 +480,6 @@ function useGL(glat,glon,gerr){
 			    </cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
-
 			<label for="specimen_event_type">Event Determiner</label>
 			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
 				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
