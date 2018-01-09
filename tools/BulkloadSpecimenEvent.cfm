@@ -788,7 +788,7 @@ Upload CSV:
 	               <cfif i is "wkt_polygon">
 	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
 	                <cfelse>
-	            		'#stripQuotes(evaluate(i))#'
+	            		'#escapeQuotes(evaluate(i))#'
 	            	</cfif>
 	            	<cfif i is not listlast(cols)>
 	            		,
