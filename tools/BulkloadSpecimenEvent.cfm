@@ -796,7 +796,25 @@ Upload CSV:
 	            </cfloop>
 	            )
             </cfquery>
+
+			<p>
+
+			 insert into cf_temp_specevent (#cols#) values (
+	            <cfloop list="#cols#" index="i">
+	               <cfif i is "wkt_polygon">
+	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+	                <cfelse>
+	            		'#stripQuotes(evaluate(i))#'
+	            	</cfif>
+	            	<cfif i is not listlast(cols)>
+	            		,
+	            	</cfif>
+	            </cfloop>
+	            )</p>
         </cfloop>
+
+
+		<cfabort>
 		<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>

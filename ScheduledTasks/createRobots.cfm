@@ -143,7 +143,7 @@
 		<cfset badbot=badbot & ",Qwantify">
 		<cfset badbot=badbot & ",re-animator">
 		<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot">
-		<cfset badbot=badbot & ",TweetmemeBot">
+		<cfset badbot=badbot & ",TweetmemeBot,TurnitinBot">
 		<cfset badbot=badbot & ",UnisterBot">
 		<cfset badbot=badbot & ",Wotbox">
 		<cfset badbot=badbot & ",YandexBot,Yeti">
