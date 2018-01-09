@@ -790,7 +790,7 @@ Upload CSV:
 	                <cfelse>
 
 
-	            		'#stripQuotes(evaluate(i))#'
+	            		'#escapeQuotes(evaluate(i))#'
 	            	</cfif>
 	            	<cfif i is not listlast(cols)>
 	            		,
@@ -809,7 +809,7 @@ Upload CSV:
 	                <cfset thisData=evaluate(i)>
 
 	                	<cfdump var=#thisData#>
-	                	 <cfset thisData=stripQuotes(thisData)>
+	                	 <cfset thisData=escapeQuotes(thisData)>
 
 	                	<cfdump var=#thisData#>
 	            		'#stripQuotes(evaluate(i))#'
