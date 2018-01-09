@@ -798,7 +798,7 @@ Upload CSV:
             </cfquery>
 
 			<p>
-
+<pre>
 			 insert into cf_temp_specevent (#cols#) values (
 	            <cfloop list="#cols#" index="i">
 	               <cfif i is "wkt_polygon">
@@ -811,6 +811,7 @@ Upload CSV:
 	            	</cfif>
 	            </cfloop>
 	            )</p>
+	            </pre>
         </cfloop>
 
 
