@@ -978,7 +978,7 @@ Upload CSV:
 					<cfif LAT_DEG gt 90 or LAT_DEG lt 0 or
 						LAT_MIN lt 0 or LAT_MIN gt 60 or
 						LAT_SEC  lt 0 or LAT_SEC gt 60 or
-						LONG_DEG gt 90 or LONG_DEG lt 0 or
+						LONG_DEG gt 180 or LONG_DEG lt 0 or
 						LONG_MIN lt 0 or LONG_MIN gt 60 or
 						LONG_SEC  lt 0 or LONG_SEC gt 60 or
 						(LAT_DIR is not "N" and LAT_DIR is not "S") or
@@ -988,7 +988,7 @@ Upload CSV:
 				<cfelseif orig_lat_long_units is 'degrees dec. minutes'>
 					<cfif LAT_DEG gt 90 or LAT_DEG lt 0 or
 						DEC_LAT_MIN lt 0 or DEC_LAT_MIN gt 60 or
-						LONG_DEG gt 90 or LONG_DEG lt 0 or
+						LONG_DEG gt 180 or LONG_DEG lt 0 or
 						DEC_LONG_MIN lt 0 or DEC_LONG_MIN gt 60 or
 						(LAT_DIR is not "N" and LAT_DIR is not "S") or
 						(LONG_DIR is not "W" and LONG_DIR is not "E")>
