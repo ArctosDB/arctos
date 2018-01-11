@@ -79,6 +79,13 @@
 </cfif>
 <!------------------------------->
 <cfif action is "build_index">
+	<!--- don't do this - only include files which actually exist ---->
+
+	<cfset smaps=DirectoryList('#application.webDirectory#')>
+
+	<cfdump var=#smaps#>
+	<!-----------
+
 	<cfquery name="colls" datasource="uam_god">
 		select filename from cf_sitemaps
 	</cfquery>
@@ -97,6 +104,7 @@
 		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/sitemapindex.xml");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/sitemapindex.xml">
+	------------------->
 </cfif>
 <!--------------------------------->
 <cfif action is "build_sitemaps_stat">
