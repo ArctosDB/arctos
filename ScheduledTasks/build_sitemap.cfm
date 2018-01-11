@@ -103,8 +103,9 @@
 		zip = CreateObject("component", "/component.Zip");
 		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/sitemapindex.xml");
 	</cfscript>
+	<!----
 	<cffile action="delete" file="#Application.webDirectory#/sitemapindex.xml">
-
+---->
 </cfif>
 <!--------------------------------->
 <cfif action is "build_sitemaps_stat">
