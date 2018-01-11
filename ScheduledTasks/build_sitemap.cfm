@@ -79,16 +79,17 @@
 </cfif>
 <!------------------------------->
 <cfif action is "build_index">
-	<!--- don't do this - only include files which actually exist ---->
+	<!--- don't do this - only include files which actually exist
+		<cfquery name="colls" datasource="uam_god">
+			select filename from cf_sitemaps
+		</cfquery>
+	---->
 
-	<cfset smaps=DirectoryList('#application.webDirectory#',false,'name','*.xml.gz')>
+	<cfset smaps=DirectoryList('#application.webDirectory#',false,'query','*.xml.gz')>
 
-	<cfdump var=#smaps#>
 	<!-----------
 
-	<cfquery name="colls" datasource="uam_god">
-		select filename from cf_sitemaps
-	</cfquery>
+
 	<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>
 	<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9	http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">'>
 	<cfloop query="colls">
