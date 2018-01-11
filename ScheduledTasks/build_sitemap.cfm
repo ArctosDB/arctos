@@ -81,7 +81,7 @@
 <cfif action is "build_index">
 	<!--- don't do this - only include files which actually exist ---->
 
-	<cfset smaps=DirectoryList('#application.webDirectory#',false,'name','.xml.gz')>
+	<cfset smaps=DirectoryList('#application.webDirectory#',false,'name','*.xml.gz')>
 
 	<cfdump var=#smaps#>
 	<!-----------
