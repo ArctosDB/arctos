@@ -91,7 +91,7 @@
 
 	<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>
 	<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9	http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">'>
-	<cfloop query="colls">
+	<cfloop query="smaps">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#NAME#</loc>">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#dateformat(now(),'yyyy-mm-dd')#</lastmod>">
