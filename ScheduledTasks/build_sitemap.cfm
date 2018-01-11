@@ -87,6 +87,7 @@
 
 	<cfset smaps=DirectoryList('#application.webDirectory#',false,'query','*.xml.gz')>
 
+	<cfdump var=#smaps#>
 	<!-----------
 
 
