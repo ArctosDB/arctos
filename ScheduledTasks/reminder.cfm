@@ -21,7 +21,7 @@
 	<cfquery name="raw" datasource="uam_god">
 		select
 			collection.guid_prefix,
-			get_address(collection_contacts.contact_agent_id,'email') collection_contact_email,
+			get_address(collection_contacts.contact_agent_id,'email',1) collection_contact_email,
 			encumbrance.ENCUMBRANCE_ID,
 			getPreferredAgentName(encumbrance.ENCUMBERING_AGENT_ID) encumberer,
 			to_char(encumbrance.EXPIRATION_DATE,'yyyy-mm-dd') EXPIRATION_DATE,
@@ -58,7 +58,7 @@
 			encumbrance.REMARKS,
 			encumbrance.MADE_DATE,
 			encumbrance.ENCUMBRANCE_ACTION,
-			get_address(collection_contacts.contact_agent_id,'email')
+			get_address(collection_contacts.contact_agent_id,'email',1)
 	</cfquery>
 	<cfquery name="enc" dbtype="query">
 		select
@@ -155,9 +155,9 @@
 			loan.transaction_id,
 			to_char(RETURN_DUE_DATE,'yyyy-mm-dd') return_due_date,
 			LOAN_NUMBER,
-			get_address(collection_contacts.contact_agent_id,'email') collection_contact_email,
+			get_address(collection_contacts.contact_agent_id,'email',1) collection_contact_email,
 			getPreferredAgentName(collection_contacts.contact_agent_id) collection_contact_name,
-			get_address(trans_agent.AGENT_ID,'email') trans_agent_email,
+			get_address(trans_agent.AGENT_ID,'email',1) trans_agent_email,
 			getPreferredAgentName(trans_agent.AGENT_ID) trans_agent_name,
 			round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
 			trans_agent.trans_agent_role,
@@ -343,7 +343,7 @@
 				permit.permit_id,
 				EXP_DATE,
 				PERMIT_NUM,
-				get_address(permit_agent.agent_id,'email') ADDRESS,
+				get_address(permit_agent.agent_id,'email',1) ADDRESS,
 				round(EXP_DATE - sysdate) expires_in_days,
 				EXP_DATE
 			FROM
@@ -352,7 +352,7 @@
 			WHERE
 				permit.permit_id=permit_agent.permit_id and
 				permit_agent.agent_role='contact' and
-				get_address(permit_agent.agent_id,'email') is not null and
+				get_address(permit_agent.agent_id,'email',1) is not null and
 				round(EXP_DATE - sysdate) IN (#cInt#)
 		</cfquery>
 		<cfloop query="permit">

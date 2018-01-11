@@ -71,7 +71,7 @@
 				<cfloop query="whatsThere">
 						<cfquery name="cid" datasource="uam_god">
 							select
-								get_address(collection_contacts.CONTACT_AGENT_ID,'email') ADDRESS,
+								get_address(collection_contacts.CONTACT_AGENT_ID,'email',1) ADDRESS,
 								collection.guid_prefix
 							from
 								collection_contacts,
@@ -89,7 +89,7 @@
 						<cfquery name="enteredbyContact" datasource="uam_god">
 							select
 								preferred_agent_name.agent_name,
-								get_address(preferred_agent_name.agent_id,'email') ADDRESS
+								get_address(preferred_agent_name.agent_id,'email',1) ADDRESS
 							from
 								preferred_agent_name,
 								agent_name

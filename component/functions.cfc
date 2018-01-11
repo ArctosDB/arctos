@@ -282,7 +282,7 @@
 	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			getPreferredAgentName(collection_contacts.contact_agent_id) agent_name,
-			get_address(collection_contacts.contact_agent_id,'email') address
+			get_address(collection_contacts.contact_agent_id,'email',1) address
 		from
 			collection_contacts
 		where
@@ -506,7 +506,7 @@
 		select distinct agent_name,ADDRESS from (
 			select
 				getPreferredAgentName(agent.CREATED_BY_AGENT_ID) agent_name,
-				get_address(agent.CREATED_BY_AGENT_ID,'email') ADDRESS
+				get_address(agent.CREATED_BY_AGENT_ID,'email',1) ADDRESS
 			from
 				agent where agent_id in (#agent_id#)
 			union
@@ -520,7 +520,7 @@
 			union
 			select
 				getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID) agent_name,
-				get_address(collection_contacts.CONTACT_AGENT_ID,'email') ADDRESS
+				get_address(collection_contacts.CONTACT_AGENT_ID,'email',1) ADDRESS
 			from
 				collection_contacts
 			where
@@ -4238,7 +4238,7 @@
 			</cfloop>
 			<cfquery name="whoTo" datasource="uam_god">
 				select
-					get_address(collection_contacts.CONTACT_AGENT_ID,'email') address
+					get_address(collection_contacts.CONTACT_AGENT_ID,'email',1) address
 				FROM
 					cataloged_item,
 					collection,
@@ -4274,7 +4274,7 @@
 						1=0
 					</cfif>
 				group by
-					get_address(collection_contacts.CONTACT_AGENT_ID,'email')
+					get_address(collection_contacts.CONTACT_AGENT_ID,'email',1)
 			</cfquery>
 			<cfif idType is "collection_object_id">
 				<cfset atype='specimen'>
