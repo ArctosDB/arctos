@@ -88,14 +88,12 @@
 	<cfset smaps=DirectoryList('#application.webDirectory#',false,'query','*.xml.gz')>
 
 	<cfdump var=#smaps#>
-	<!-----------
-
 
 	<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>
 	<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9	http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">'>
 	<cfloop query="colls">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
-		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#filename#.gz</loc>">
+		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#NAME#</loc>">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#dateformat(now(),'yyyy-mm-dd')#</lastmod>">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>
 	</cfloop>
@@ -106,7 +104,7 @@
 		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/sitemapindex.xml");
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/sitemapindex.xml">
-	------------------->
+
 </cfif>
 <!--------------------------------->
 <cfif action is "build_sitemaps_stat">
