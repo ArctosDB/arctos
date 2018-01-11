@@ -1,4 +1,7 @@
 <cfoutput>
+	<!----
+		over-ride the default of getting addresses only for active operators on this form
+	---->
 <cfset transaction_id=caller.transaction_id>
 <cfquery name="caller.getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
        SELECT
@@ -9,10 +12,10 @@
 	    concattransagent(trans.transaction_id, 'inside contact')   inside_contact_name,
 		getAgentNameType(outside_contact.agent_id,'job title') outside_contact_title,
 		getAgentNameType(inside_contact.agent_id,'job title') inside_contact_title,
-		get_address(inside_contact.agent_id,'correspondence') inside_address,
-		get_address(outside_contact.agent_id,'correspondence') outside_address,
-		get_address(inside_contact.agent_id,'email') inside_email_address,
-		get_address(outside_contact.agent_id,'email') outside_email_address,
+		get_address(inside_contact.agent_id,'correspondence',0) inside_address,
+		get_address(outside_contact.agent_id,'correspondence',0) outside_address,
+		get_address(inside_contact.agent_id,'email',0) inside_email_address,
+		get_address(outside_contact.agent_id,'email',0) outside_email_address,
 		loan.return_due_date,
 		trans.nature_of_material,
 		trans.trans_remarks,
@@ -47,7 +50,7 @@
 		shipment.SHIPPED_TO_ADDR_ID	= ship_to_addr.address_id (+) and
 		shipment.SHIPPED_FROM_ADDR_ID	= ship_from_addr.address_id (+) and
 		trans.transaction_id = 	inside_contact.transaction_id (+) and
-		trans.transaction_id = 	outside_contact.transaction_id (+) and	
+		trans.transaction_id = 	outside_contact.transaction_id (+) and
 		trans.transaction_id = 	project_trans.transaction_id (+) and
 		project_trans.project_id =	project_sponsor.project_id (+) and
 		loan.transaction_id=#transaction_id#
@@ -59,10 +62,10 @@
 	    concattransagent(trans.transaction_id, 'inside contact'),
 		getAgentNameType(outside_contact.agent_id,'job title'),
 		getAgentNameType(inside_contact.agent_id,'job title'),
-		get_address(inside_contact.agent_id,'correspondence'),
-		get_address(outside_contact.agent_id,'correspondence'),
-		get_address(inside_contact.agent_id,'email'),
-		get_address(outside_contact.agent_id,'email'),
+		get_address(inside_contact.agent_id,'correspondence',0),
+		get_address(outside_contact.agent_id,'correspondence',0),
+		get_address(inside_contact.agent_id,'email',0),
+		get_address(outside_contact.agent_id,'email',0),
 		loan.return_due_date,
 		trans.nature_of_material,
 		trans.trans_remarks,
