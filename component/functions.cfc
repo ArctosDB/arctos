@@ -41,9 +41,8 @@
 	<cfset obj = CreateObject("component","component.docs")>
 	<!--- probably USUALLY fairly cheap so just pull everything....---->
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			rownum rnum,
-			guid_prefix || ':' || cat_num guid,
+		select a.*,rownum rnum from (
+		select guid_prefix || ':' || cat_num guid,
 			cataloged_item.collection_object_id,
 			guid_prefix collection,
 			part_name,
@@ -90,7 +89,7 @@
 			identification.accepted_id_fg = 1 AND
 			cataloged_item.collection_id=collection.collection_id AND
 		  	loan_item.transaction_id = #transaction_id#
-		ORDER BY #jtSorting#
+		ORDER BY #jtSorting#) a
 	</cfquery>
 	<cfdump var=#raw#>
 
