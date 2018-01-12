@@ -92,7 +92,8 @@
 		  	loan_item.transaction_id = #transaction_id#
 		ORDER BY #jtSorting#
 	</cfquery>
-	<cfdump var=#raw#
+	<cfdump var=#raw#>
+
 	<cfquery name="d" dbtype="query">
 		select * from raw where rnum between #jtStartIndex# and #jtStopIndex#
 	</cfquery>
