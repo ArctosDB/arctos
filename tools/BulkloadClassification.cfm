@@ -222,15 +222,17 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 				<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 				<input type="submit" value="Upload this file">
 			</cfform>
-			
+
 			<p>
-				The selected File name will be shown until it is uploaded.  Then the status will return to "no file selected."  No need to select it again.
+				The selected File name will be shown until it is uploaded.  Then the status will return to "no file selected."
+				No need to select it again.
 			</p>
 		</p>
 		<!-----
 		<p>
 			Display_Name is required. You may <a href="BulkloadClassification.cfm?action=getDisplayName">autogenerate display_name</a>.
-			This may produce strange data; carefully verify the results of this operation. This will NOT over-write anything already in
+			This may produce strange data; carefully verify the results of this operation. This will NOT over-write anything
+			already in
 			display_name; download CSV, remove display_name, and re-upload to accomplish that.
 		</p>
 		----->
@@ -257,18 +259,26 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 			This form will NOT create names. This form REPLACES classifications; that is all.
 		</p>
 		<p>
-			"WillBeLost classifications" errors are advisory indications of funky terms (those not in CTTAXON_TERM) in existing data.
+			"WillBeLost classifications" errors are advisory indications of funky terms (those not in CTTAXON_TERM) in
+			 existing data.
 			Check that the data which will be lost is retained in a known term in your bulkload.
 		</p>
 		<p>
-			When the data checks are complete and accurate, the Status bar will read "go_go_all."  
+			When the data checks are complete and accurate, the Status bar will read "go_go_all."
+			Reload page and Status Bar will begin to list errors or show that checks have passed.
+			If necessary Download your data, correct errors, delete data and reload corrected data.
+			Reload page until the Status bar reads "all_checks_passed." Marking to load when the Status bar
+			reads "go_go_all" will result in errors.
+
 		</p>
-		
+
 		<p>
 
-			<a href="BulkloadClassification.cfm?action=markToLoad">Mark to load</a>: After verifying, click this to flag for loading.
-			Reload this page to check progress.
+			<a href="BulkloadClassification.cfm?action=markToLoad">Mark to load</a>:
 
+			When the Status bar reads "all_checks_passed, click this to flag for loading.
+			Status bar will read "ready_to_load." Reload this page until it reads "made_updates_all done."
+			Delete all of your data using above link.
 			<p style='font-size:x-small;margin-left:2em;'>
 				/ScheduledTasks/processBulkloadClassification.cfm?action=load
 			</p>
