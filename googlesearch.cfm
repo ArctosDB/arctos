@@ -4,18 +4,20 @@ This form searches Arctos using Google's cache. Not everything in Arctos is inde
 We're working to make that better.
 <p>
 	Use one of the other search options if you don't find what you expect here.
-</p>			
-<div id="cse" style="width: 50%;">Loading</div>	
-
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en'});
-  google.setOnLoadCallback(function(){
-    var customSearchControl = new google.search.CustomSearchControl('011384802149075345004:_xhrdehjm50');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    customSearchControl.draw('cse');
-  }, true);
+</p>
+<div id="cse" style="width: 50%;">Loading</div>
+<script>
+  (function() {
+    var cx = '011384802149075345004:_xhrdehjm50';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
 </script>
+<gcse:search></gcse:search>
 <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
 
 
