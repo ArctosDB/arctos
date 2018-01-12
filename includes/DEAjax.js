@@ -2065,6 +2065,9 @@ function unpickLocality () {
 	$("#maximum_elevation").attr("readOnly", false).removeClass();
 	$("#minimum_elevation").attr("readOnly", false).removeClass();
 	$("#orig_elev_units").attr("readOnly", false).removeClass();
+	$("#min_depth").attr("readOnly", false).removeClass();
+	$("#max_depth").attr("readOnly", false).removeClass();
+	$("#depth_units").attr("readOnly", false).removeClass();
 	$("#locality_remarks").attr("readOnly", false).removeClass();
 	$("#max_error_distance").attr("readOnly", false).removeClass();
 	$("#max_error_units").attr("readOnly", false).removeClass();
