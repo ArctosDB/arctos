@@ -43,7 +43,7 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 
 		Select * from (
-						Select a.*, rownum rnum From (
+						Select a.*, rownum rnum2 From (
 							select
 			rownum rnum,
 			guid_prefix || ':' || cat_num guid,
@@ -95,7 +95,7 @@
 		  	loan_item.transaction_id = #transaction_id#
 		ORDER BY #jtSorting#
 						) a where rownum <= #jtStopIndex#
-					) where rnum >= #jtStartIndex#
+					) where rnum2 >= #jtStartIndex#
 
 
 
