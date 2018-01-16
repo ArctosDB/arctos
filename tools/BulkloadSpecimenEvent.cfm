@@ -1110,12 +1110,12 @@ Upload CSV:
 							<!--- coordinates? --->
 							<cfif orig_lat_long_units is 'deg. min. sec.'>
 								<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-									select  dms_to_string ('#latdeg#','#latmin#','#latsec#','#latdir#','#longdeg#','#longmin#','#longsec#','#longdir#') vc from dual
+									select  dms_to_string ('#lat_deg#','#lat_min#','#lat_sec#','#lat_dir#','#long_deg#','#long_min#','#long_sec#','#long_dir#') vc from dual
 								</cfquery>
 								<cfset verbatimcoordinates=data.vc>
 							<cfelseif orig_lat_long_units is 'degrees dec. minutes'>
 								<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-									select  dm_to_string ('#latdeg#','#dec_lat_min#','#latdir#','#longdeg#','#dec_long_min#''#longdir#') vc from dual
+									select  dm_to_string ('#lat_deg#','#dec_lat_min#','#lat_dir#','#long_deg#','#dec_long_min#''#long_dir#') vc from dual
 								</cfquery>
 								<cfset verbatimcoordinates=data.vc>
 							<cfelseif orig_lat_long_units is 'decimal degrees'>
