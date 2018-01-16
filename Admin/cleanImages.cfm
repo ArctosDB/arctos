@@ -44,6 +44,11 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 		<a href="cleanImages.cfm?action=checkFileServer">checkFileServer</a> to see what's where
 	</p>
 	<p>
+		<a href="cleanImages.cfm?action=checkFileServer2">checkFileServer2</a> to see what's where
+	</p>
+
+
+	<p>
 		<a href="cleanImages.cfm?action=list_not_found">list_not_found</a> to get a list of the things that are NOT on
 		Corral. Send this to TACC, ask them to move stuff
 	</p>
@@ -594,6 +599,30 @@ select status,count(*) from cf_media_migration group by status;
 			</cfquery>
 		</cfloop>
 	</cfif>
+	<cfif action is "checkFileServer2">
+		<!--- some stuff is in https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/{filename} --->
+		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
+		<cfquery name="d" datasource="uam_god">
+			select * from  cf_media_migration where status not like 'found_on_corral%' order by path
+		</cfquery>
+		<cfloop query="d">
+			<cfset filename=listgetat(path, 2,"/")>
+			<br>checking http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/#filename#
+			<cfhttp url='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/#filename#' method="head"></cfhttp>
+			<cfdump var=#cfhttp.Statuscode#>
+			<cfif left(cfhttp.Statuscode,3) is "200">
+				<cfset newstatus='found_on_corral'>
+			<cfelse>
+				<cfset newstatus='not_found_on_corral'>
+			</cfif>
+			<cfquery name="u" datasource="uam_god">
+				update cf_media_migration set status='#newstatus#' where path='#path#'
+			</cfquery>
+		</cfloop>
+	</cfif>
+
+
+
 	<cfif action is "list_not_found">
 		<!--- get 'new' stuff; list as text. Send this to TACC, request a move ---->
 		<cfquery name="found_new" datasource="uam_god">
