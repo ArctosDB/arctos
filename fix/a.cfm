@@ -1,6 +1,29 @@
 
 <cfinclude template="/includes/_header.cfm">
 
+
+
+<!--- This example shows how to retrieve the EXIF header information from a
+JPEG file. --->
+<!--- Create a ColdFusion image from an existing JPEG file. --->
+<cfimage source="https://web.corral.tacc.utexas.edu/UAF/es/2011_11_04/jpegs/ES29372.jpg" name="myImage">
+<!--- Retrieve the metadata associated with the image. --->
+<cfset data =ImageGetEXIFMetadata(myImage)>
+<!--- Display the ColdFusion image parameters. --->
+<cfdump var="#myImage#">
+<!--- Display the EXIF header information associated with the image
+(creation date, software, and so on). --->
+<cfdump var="#data#"><cfoutput>
+
+
+
+
+</cfoutput>
+
+
+		<!----
+
+
 <script>
 	$(document).ready(function() {
 
@@ -11,15 +34,6 @@
     	});
 
 </script>
-<cfoutput>
-
-
-
-
-</cfoutput>
-
-
-		<!----
 
 
 
