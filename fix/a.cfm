@@ -6,7 +6,7 @@
 <!--- This example shows how to retrieve the EXIF header information from a
 JPEG file. --->
 <!--- Create a ColdFusion image from an existing JPEG file. --->
-<cfimage source="https://web.corral.tacc.utexas.edu/UAF/es/2011_11_04/jpegs/ES29372.jpg" name="myImage">
+<cfimage source="https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/UA98_010_0001C.jpg" name="myImage">
 <!--- Retrieve the metadata associated with the image. --->
 <cfset data =ImageGetEXIFMetadata(myImage)>
 <!--- Display the ColdFusion image parameters. --->
