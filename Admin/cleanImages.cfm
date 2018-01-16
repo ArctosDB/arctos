@@ -606,6 +606,7 @@ select status,count(*) from cf_media_migration group by status;
 			select * from  cf_media_migration where status not like 'found_on_corral%' order by path
 		</cfquery>
 		<cfloop query="d">
+			<br>#path#
 			<cfset filename=listgetat(path, 2,"/")>
 			<br>checking http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/#filename#
 			<cfhttp url='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/#filename#' method="head"></cfhttp>
