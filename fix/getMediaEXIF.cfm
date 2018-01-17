@@ -20,6 +20,8 @@ where
   collection.guid_prefix='UAM:EH' and
   media.media_id not in (select media_id from media_labels where MEDIA_LABEL='made date')
 ;
+
+alter table temp_uam_eh_img modify exif_date varchar2(255);
 ---->
 
 <cfquery name="d" datasource="prod">
@@ -38,7 +40,7 @@ where
 	<br>idate: #idate#
 
 	<cfcatch>
-		<cfdump var=#cfcatch#>
+		<br>fail
 		<cfset idate='exif-not-accessible'>
 	</cfcatch>
 	</cftry>
