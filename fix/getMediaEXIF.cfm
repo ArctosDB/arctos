@@ -27,6 +27,7 @@ where
 </cfquery>
 
 <cfloop query="d">
+	<br>media_uri: #media_uri#
 	<cfimage source="#media_uri#" name="myImage">
 	<cfset data =ImageGetEXIFMetadata(myImage)>
 	<cfdump var="#data#">
