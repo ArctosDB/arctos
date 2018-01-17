@@ -29,7 +29,7 @@ where
 <cfloop query="d">
 	<cfimage source="#media_uri#" name="myImage">
 	<cfset data =ImageGetEXIFMetadata(myImage)>
-	<cfdump var="#data#"><cfoutput>
+	<cfdump var="#data#">
 	<cfset idate = #data["Date/Time"]# />
 
 	<cfset idate=dateformat(idate,"yyyy-mm-dd")>
