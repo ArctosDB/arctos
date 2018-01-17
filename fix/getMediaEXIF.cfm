@@ -28,6 +28,7 @@ where
 
 <cfloop query="d">
 	<br>media_uri: #media_uri#
+	<cftry>
 	<cfimage source="#media_uri#" name="myImage">
 	<cfset data =ImageGetEXIFMetadata(myImage)>
 	<cfdump var="#data#">
@@ -35,6 +36,11 @@ where
 
 	<cfset idate=dateformat(idate,"yyyy-mm-dd")>
 	<br>idate: #idate#
+
+	<cfcatch>
+		<cfdump var=#cfcatch#>
+	</cfcatch>
+	</cftry>
 </cfloop>
 
 
