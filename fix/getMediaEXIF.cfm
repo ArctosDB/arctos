@@ -34,7 +34,8 @@ where
 	<cfdump var="#data#">
 	<cfset idate = #data["Date/Time"]# />
 
-	<cfset idate=dateformat(idate,"yyyy-mm-dd")>
+	<cfset idate=listgetat(idate,1," ")>
+	<cfset idate=replace(idate,":","-","all")>
 	<br>idate: #idate#
 
 	<cfcatch>
