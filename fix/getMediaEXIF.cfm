@@ -31,7 +31,6 @@ where
 	<cftry>
 	<cfimage source="#media_uri#" name="myImage">
 	<cfset data =ImageGetEXIFMetadata(myImage)>
-	<cfdump var="#data#">
 	<cfset idate = #data["Date/Time"]# />
 
 	<cfset idate=listgetat(idate,1," ")>
@@ -40,8 +39,13 @@ where
 
 	<cfcatch>
 		<cfdump var=#cfcatch#>
+		<cfset idate='exif-not-accessible'>
 	</cfcatch>
 	</cftry>
+
+	<cfquery name="r" datasource="prod">
+		update temp_uam_eh_img set exif_date='#idate#' where media_uri='#media_uri#'
+	</cfquery>
 </cfloop>
 
 
