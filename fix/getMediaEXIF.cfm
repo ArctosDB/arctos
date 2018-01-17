@@ -25,6 +25,16 @@ alter table temp_uam_eh_img modify exif_date varchar2(255);
 
 select exif_date, count(*) from temp_uam_eh_img group by exif_date order by count(*);
 
+select media_uri,replace(media_uri,'https://arctos.database.museum','http://arctos.database.museum') from temp_uam_eh_img where
+exif_date='exif-not-accessible' ;
+
+
+update temp_uam_eh_img set media_uri=replace(media_uri,'https://arctos.database.museum','http://arctos.database.museum') where
+exif_date='exif-not-accessible' ;
+
+update temp_uam_eh_img set exif_date=null where exif_date='exif-not-accessible' ;
+
+
 ---->
 
 <cfquery name="d" datasource="prod">
