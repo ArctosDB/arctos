@@ -22,10 +22,13 @@ where
 ;
 
 alter table temp_uam_eh_img modify exif_date varchar2(255);
+
+select exif_date, count(*) from temp_uam_eh_img group by exif_date order by count(*);
+
 ---->
 
 <cfquery name="d" datasource="prod">
-	select * from temp_uam_eh_img where exif_date is null and rownum<10
+	select * from temp_uam_eh_img where exif_date is null and rownum<1000
 </cfquery>
 
 <cfloop query="d">
