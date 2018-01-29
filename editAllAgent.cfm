@@ -36,7 +36,6 @@
 		    $(this).prop('required',true);
 		});
 		 $("#mediaUpClickThis").click(function(){
-		 	alert($("#agent_id").val());
 		    addMedia('agent_id',$("#agent_id").val());
 		});
 		getMedia('agent',$("#agent_id").val(),'pMedia','2','1');
