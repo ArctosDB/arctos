@@ -22,6 +22,16 @@
 			getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID)
 	</cfquery>
 	<cfoutput>
+	<p>
+		<ul>
+			<li><strong>Email</strong> is email address attached to agent record</li>
+			<li>
+				<strong>Active Email</strong> is email address attached to agent record of active Operator. This is generally
+				the only address used when sending notifications to collection contacts.
+			</li>
+		</ul>
+	</p>
+
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Collection</th>
@@ -41,7 +51,7 @@
 					</cfquery>
 					<cfif hasDQ.c lt 1>
 						<div class="hasNoContact">
-							no data quality contact
+							no active data quality contact
 						</div>
 					</cfif>
 					<cfquery name="hasLR" dbtype="query">
@@ -50,7 +60,7 @@
 					</cfquery>
 					<cfif hasLR.c lt 1>
 						<div class="hasNoContact">
-							no loan request contact
+							no active loan request contact
 						</div>
 					</cfif>
 					<cfquery name="hasTS" dbtype="query">
@@ -59,7 +69,7 @@
 					</cfquery>
 					<cfif hasTS.c lt 1>
 						<div class="hasNoContact">
-							no technical support contact
+							no active technical support contact
 						</div>
 					</cfif>
 				</td>
