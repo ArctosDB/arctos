@@ -39,7 +39,7 @@
 				<cfelse>
 					<cfset thisStyle="">
 				</cfif>
-				<td style="#thisStyle#">#c.guid_prefix#</td>
+				<td class="#thisStyle#">#c.guid_prefix#</td>
 				<td>#c.contactName#</td>
 				<td>#c.CONTACT_ROLE#</td>
 				<td>#c.allEmail#</td>
