@@ -48,7 +48,7 @@
 						select count(*) c from c where guid_prefix='#guid_prefix#' and activeEmail is not null
 						and CONTACT_ROLE='loan request'
 					</cfquery>
-					<cfif hasDQ.c lt 1>
+					<cfif hasLR.c lt 1>
 						<div class="hasNoContact">
 							no loan request contact
 						</div>
@@ -57,7 +57,7 @@
 						select count(*) c from c where guid_prefix='#guid_prefix#' and activeEmail is not null
 						and CONTACT_ROLE='technical support'
 					</cfquery>
-					<cfif hasDQ.c lt 1>
+					<cfif hasTS.c lt 1>
 						<div class="hasNoContact">
 							no technical support contact
 						</div>
