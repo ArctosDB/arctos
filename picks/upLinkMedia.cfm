@@ -115,6 +115,8 @@
 		<cfset tbl='accn'>
 	<cfelseif ktype is "permit_id">
 		<cfset tbl='permit'>
+	<cfelseif ktype is "agent_id">
+		<cfset tbl='agent'>
 	<cfelse>
 		<!--- not handled, return nothing disallowing save ---->
 		<cfset tbl='ajksndfiouafvblvnasahihs'>

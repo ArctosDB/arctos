@@ -35,6 +35,12 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
+		 $("##mediaUpClickThis").click(function(){
+		    addMedia('agent_id',$("#agent_id".val());
+		});
+		getMedia('agent',$("#agent_id".val(),'pMedia','2','1');
+
+
 		// have to keep this here - it's not called from ajax.js on injected forms
 		$("input[type='date'], input[type='datetime']" ).datepicker();
 		$("#fEditAgent").submit(function(event){
@@ -609,6 +615,16 @@
 
 				<input type="button" onclick="addAddress()" value="add a row">
 			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>
+				Media
+			</legend>
+			<cfif listcontainsnocase(session.roles, "manage_media")>
+				<a class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
+			</cfif>
+			<div id="pMedia"></div>
 		</fieldset>
 		<input type="submit" value="save all changes" class="savBtn">
 	</form>
