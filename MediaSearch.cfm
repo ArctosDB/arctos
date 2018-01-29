@@ -392,6 +392,13 @@
 			<cfset srch="#srch# AND collector.agent_id=#collected_by_agent_id# ">
 		</cfif>
 
+		<cfif isdefined("agent_id") and len(agent_id) gt 0>
+			<cfset mapurl="#mapurl#&agent_id=#agent_id#">
+			<cfset tabls = "#tabls#,media_relations mr_aid_agnt">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_aid_agnt.media_id and mr_aid_agnt.MEDIA_RELATIONSHIP like '% agent' ">
+			<cfset srch="#srch# AND mr_aid_agnt.related_primary_key in ( #agent_id# )  ">
+		</cfif>
+
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
 			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
 			<cfset tabls = "#tabls#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
