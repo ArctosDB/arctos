@@ -35,7 +35,7 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
-		 $("##mediaUpClickThis").click(function(){
+		 $("#mediaUpClickThis").click(function(){
 		    addMedia('agent_id',$("#agent_id").val());
 		});
 		getMedia('agent',$("#agent_id").val(),'pMedia','2','1');
