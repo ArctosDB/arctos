@@ -65,6 +65,12 @@ create table cf_temp_specevent (
 	l_event_assigned_id number
 );
 
+
+alter table cf_temp_specevent add c$lat number;
+alter table cf_temp_specevent add c$long number;
+
+
+
 create or replace public synonym cf_temp_specevent for cf_temp_specevent;
 
 grant all on cf_temp_specevent to coldfusion_user;
@@ -78,6 +84,32 @@ CREATE OR REPLACE TRIGGER trg_cf_temp_specevent_biu
   	if dbms_lob.getlength(:NEW.wkt_polygon) = 0 then
     	:NEW.wkt_polygon:=NULL;
     end if;
+
+	IF :new.orig_lat_long_units = 'deg. min. sec.' THEN
+            :new.c$lat := :new.LAT_DEG + (:new.LAT_MIN / 60) + (nvl(:new.LAT_SEC,0) / 3600);
+            IF :new.LAT_DIR = 'S' THEN
+                :new.c$lat := :new.c$lat * -1;
+            END IF;
+            :new.c$long := :new.LONG_DEG + (:new.LONG_MIN / 60) + (nvl(:new.LONG_SEC,0) / 3600);
+            IF :new.LONG_DIR = 'W' THEN
+                :new.c$long := :new.c$long * -1;
+            END IF;
+        ELSIF :new.orig_lat_long_units = 'degrees dec. minutes' THEN
+            :new.c$lat := :new.LAT_DEG + (:new.dec_lat_min / 60);
+            if :new.LAT_DIR = 'S' THEN
+                :new.c$lat := :new.c$lat * -1;
+            end if;
+            :new.c$long := :new.LONG_DEG + (:new.DEC_LONG_MIN / 60);
+            IF :new.LONG_DIR = 'W' THEN
+                :new.c$long := :new.c$long * -1;
+            END IF;
+       ELSIF :new.orig_lat_long_units = 'decimal degrees' THEN
+           :new.c$lat := :new.DEC_LAT;
+           :new.c$long := :new.DEC_LONG;
+       ELSE
+            :new.c$lat := NULL;
+            :new.c$long := NULL;
+       END IF;
 end;
 /
 
@@ -1095,6 +1127,8 @@ Upload CSV:
 		</cfquery>
 		<cfloop query="data">
 			<cftransaction>
+
+
 				<cfset lcl_locality_id=l_locality_id>
 				<cfset lcl_collecting_event_id=l_collecting_event_id>
 				<cfset verbatimcoordinates="">
@@ -1154,8 +1188,8 @@ Upload CSV:
 					            	NVL(SPEC_LOCALITY,'NULL') = NVL('#spec_locality#','NULL') AND
 					            	NVL(LOCALITY_REMARKS,'NULL') = NVL('#locality_remarks#','NULL') AND
 					            	NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
-					            	NVL(dec_lat,-1) = nvl('#dec_lat#',-1) AND
-					            	NVL(dec_long,-1) = nvl('#dec_long#',-1) AND
+					            	NVL(dec_lat,-1) = nvl('#c$lat#',-1) AND
+					            	NVL(dec_long,-1) = nvl('#c$long#',-1) AND
                                     NVL(md5hash(wkt_polygon),'NULL') = nvl('#wkthash#','NULL') AND
 					            	locality_name IS NULL AND
 					                locality_id not in (select locality_id from geology_attributes)
@@ -1218,13 +1252,13 @@ Upload CSV:
 										<cfelse>
 											NULL
 										</cfif>,
-										<cfif len(DEC_LAT) gt 0>
-											#DEC_LAT#
+										<cfif len(c$LAT) gt 0>
+											#c$LAT#
 										<cfelse>
 											NULL
 										</cfif>,
-										<cfif len(DEC_LONG) gt 0>
-											#DEC_LONG#
+										<cfif len(c$LONG) gt 0>
+											#c$LONG#
 										<cfelse>
 											NULL
 										</cfif>,

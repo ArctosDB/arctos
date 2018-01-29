@@ -133,7 +133,7 @@
 		---->
 		<cfset badbot="Baiduspider,bash,BUbiNG">
 		<cfset badbot=badbot & ",ca-crawler,CCBot">
-		<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler">
+		<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
 		<cfset badbot=badbot & ",Exabot">
 		<cfset badbot=badbot & ",Gluten,Gluten Free Crawler,GrapeshotCrawler">
 		<cfset badbot=badbot & ",HubSpot">
