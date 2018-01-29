@@ -553,6 +553,7 @@
 											<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
 											<li><a target="_top" href="/Reports/georef.cfm">Georeference Statistics</a></li>
 											<li><a target="_top" href="/info/ipt.cfm">IPT/Collection Metadata Report</a></li>
+											<li><a target="_top" href="/info/collectionContacts.cfm">Collection Contact Report</a></li>
 											<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Statistics</a></li>
 											<li><a target="_top" href="/info/localityStats.cfm">Locality Statistics</a></li>
 											<li><a target="_top" href="/info/Citations.cfm">More Citation Statistics</a></li>
