@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+<cfset title="collection contact report">
 <style>
 	.hasNoContact{color:red;}
 </style>
@@ -26,7 +27,7 @@
 		<ul>
 			<li><strong>Email</strong> is email address attached to agent record</li>
 			<li>
-				<strong>Active Email</strong> is email address attached to agent record of active Operator. This is generally
+				<strong>Active Email</strong> is valid email address attached to agent record of active Operator. This is generally
 				the only address used when sending notifications to collection contacts.
 			</li>
 		</ul>
