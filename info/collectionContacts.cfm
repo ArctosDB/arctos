@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-
 <style>
 	.hasNoContact{color:red;}
 </style>
@@ -33,15 +32,37 @@
 		</tr>
 		<cfloop query="c">
 			<tr>
-				<cfquery name="hasAContact" dbtype="query">
-					select count(*) c from c where guid_prefix='#guid_prefix#' and activeEmail is not null
-				</cfquery>
-				<cfif hasAContact.c lt 1>
-					<cfset thisStyle="hasNoContact">
-				<cfelse>
-					<cfset thisStyle="">
-				</cfif>
-				<td class="#thisStyle#">#c.guid_prefix#</td>
+
+				<td>
+					#c.guid_prefix#
+					<cfquery name="hasDQ" dbtype="query">
+						select count(*) c from c where guid_prefix='#guid_prefix#' and activeEmail is not null
+						and CONTACT_ROLE='data quality'
+					</cfquery>
+					<cfif hasDQ.c lt 1>
+						<div class="hasNoContact">
+							no data quality contact
+						</div>
+					</cfif>
+					<cfquery name="hasLR" dbtype="query">
+						select count(*) c from c where guid_prefix='#guid_prefix#' and activeEmail is not null
+						and CONTACT_ROLE='loan request'
+					</cfquery>
+					<cfif hasDQ.c lt 1>
+						<div class="hasNoContact">
+							no loan request contact
+						</div>
+					</cfif>
+					<cfquery name="hasTS" dbtype="query">
+						select count(*) c from c where guid_prefix='#guid_prefix#' and activeEmail is not null
+						and CONTACT_ROLE='technical support'
+					</cfquery>
+					<cfif hasDQ.c lt 1>
+						<div class="hasNoContact">
+							no technical support contact
+						</div>
+					</cfif>
+				</td>
 				<td>#c.contactName#</td>
 				<td>#c.CONTACT_ROLE#</td>
 				<td>#c.allEmail#</td>
