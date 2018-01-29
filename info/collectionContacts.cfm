@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
+<style>
+	.hasNoContact{color:red;}
+</style>
 	<cfquery name="c" datasource="uam_god">
 		select
 			collection.guid_prefix,
@@ -27,7 +30,15 @@
 		</tr>
 		<cfloop query="c">
 			<tr>
-				<td>#c.guid_prefix#</td>
+				<cfquery name="hasAContact" dbtype="query">
+					select count(*) c from c where guid_prefix='#guid_prefix#' and activeEmail is not null
+				</cfquery>
+				<cfif hasAContact.c is 0>
+					<cfset thisStyle="hasNoContact">
+				<cfelse>
+					<cfset thisStyle="">
+				</cfif>
+				<td style="#thisStyle#">#c.guid_prefix#</td>
 				<td>#c.contactName#</td>
 				<td>#c.allEmail#</td>
 				<td>#c.activeEmail#</td>
