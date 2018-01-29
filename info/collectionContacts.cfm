@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
+
 <style>
 	.hasNoContact{color:red;}
 </style>
@@ -21,7 +23,7 @@
 			getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID)
 	</cfquery>
 	<cfoutput>
-	<table border>
+	<table border id="t" class="sortable">
 		<tr>
 			<th>Collection</th>
 			<th>Contact</th>

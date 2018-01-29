@@ -1,7 +1,6 @@
 <cfset title="Review Loan Items">
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/_loanReview.js'></script>
-<script src="/includes/sorttable.js"></script>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
