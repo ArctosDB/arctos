@@ -25,6 +25,7 @@
 		<tr>
 			<th>Collection</th>
 			<th>Contact</th>
+			<th>Role</th>
 			<th>Email</th>
 			<th>Active Email</th>
 		</tr>
@@ -33,13 +34,14 @@
 				<cfquery name="hasAContact" dbtype="query">
 					select count(*) c from c where guid_prefix='#guid_prefix#' and activeEmail is not null
 				</cfquery>
-				<cfif hasAContact.c is 0>
+				<cfif hasAContact.c lt 1>
 					<cfset thisStyle="hasNoContact">
 				<cfelse>
 					<cfset thisStyle="">
 				</cfif>
 				<td style="#thisStyle#">#c.guid_prefix#</td>
 				<td>#c.contactName#</td>
+				<td>#c.CONTACT_ROLE#</td>
 				<td>#c.allEmail#</td>
 				<td>#c.activeEmail#</td>
 
