@@ -301,7 +301,7 @@
 		<cfelseif scientific_name_match_type is "inlist">
 			<cfset l="">
 			<cfloop list="#scientific_name#" index="i">
-				<cfset l=l & trim(ucase(escapeQuotes(scientific_name)))>
+				<cfset l=listappend(l,trim(ucase(escapeQuotes(i))))>
 			</cfloop>
 			<p>
 				<cfoutput>
