@@ -303,11 +303,6 @@
 			<cfloop list="#scientific_name#" index="i">
 				<cfset l=listappend(l,trim(ucase(escapeQuotes(i))))>
 			</cfloop>
-			<p>
-				<cfoutput>
-				#l#
-				</cfoutput>
-			</p>
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(l,chr(39))#)">
 		<cfelseif scientific_name_match_type is "inlist_substring">
 			<cfset basQual = " #basQual# AND (">
@@ -334,7 +329,6 @@
 		</cfif>
 	</cfif>
 </cfif>
-
 
 <cfif isdefined("taxon_name") AND len(taxon_name) gt 0>
 	<!---- version: lots
