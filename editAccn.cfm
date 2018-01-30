@@ -550,11 +550,11 @@
 					<td>
 						<table cellspacing='0' cellpadding='0'>
 							<td>
-								<label  for="b_ent_date">Entry Date:</label>
+								<label  for="b_ent_date">Entry Date (on/after):</label>
 								<input type="text" name="b_ent_date" id="b_ent_date">
 							</td>
 							<td>
-								<label for="e_ent_date">Until: (leave blank otherwise)</label>
+								<label for="e_ent_date">Entry Date (on/before)</label>
 								<input type='text' name='e_ent_date' id='e_ent_date'>
 							</td>
 						</table>
@@ -747,13 +747,11 @@
 			<cfset sql = "#sql# AND upper(trans_remarks) like '%#ucase(remarks)#%'">
 		</cfif>
 		<cfif  isdefined("b_ent_date") and len(b_ent_date) gt 0>
-			<cfif not isdefined("e_ent_date") or len(e_ent_date) is 0>
-				<cfset e_ent_date=b_ent_date>
-			</cfif>
-
-			<cfset sql = "#sql# AND TRANS_DATE between '#b_ent_date#' and '#e_ent_date#'">
+			<cfset sql = "#sql# AND TRANS_DATE >= '#b_ent_date#'">
 		</cfif>
-
+		<cfif  isdefined("e_ent_date") and len(e_ent_date) gt 0>
+			<cfset sql = "#sql# AND TRANS_DATE <= '#b_ent_date#'">
+		</cfif>
 
 		<cfif isdefined("IssuedByAgent") and len(#IssuedByAgent#) gt 0>
 			<cfset sql = "#sql# AND permit.permit_id in (
