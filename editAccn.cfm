@@ -562,11 +562,11 @@
 					<td colspan=2 nowrap>
 						<table cellspacing='0' cellpadding='0'>
 							<td>
-								<label  for="rec_date">Received Date:</label>
+								<label  for="rec_date">Received Date (on/after):</label>
 								<input type="text" name="rec_date" id="rec_date">
 							</td>
 							<td>
-								<label for="rec_until_date">Until: (leave blank otherwise)</label>
+								<label for="rec_until_date">Received Date (on/before)</label>
 								<input type='text' name='rec_until_date' id='rec_until_date'>
 							</td>
 						</table>
@@ -726,13 +726,14 @@
 		<cfif  isdefined("accn_status") and len(#accn_status#) gt 0>
 			<cfset sql = "#sql# AND accn_status = '#accn_status#'">
 		</cfif>
+
+
 		<cfif  isdefined("rec_date") and len(#rec_date#) gt 0>
-			<cfif isdefined("rec_until_date") and len(#rec_until_date#) gt 0>
-				<cfset sql = "#sql# AND upper(received_date) between '#rec_date#'
-					and '#rec_until_date#'">
-			<cfelse>
-				<cfset sql = "#sql# AND upper(received_date) like '#rec_date#'">
-			</cfif>
+			<cfset sql = "#sql# AND received_date >= '#rec_date#'">
+		</cfif>
+
+		<cfif  isdefined("rec_until_date") and len(#rec_until_date#) gt 0>
+			<cfset sql = "#sql# AND received_date <= '#rec_until_date#'">
 		</cfif>
 		<cfif  isdefined("NATURE_OF_MATERIAL") and len(#NATURE_OF_MATERIAL#) gt 0>
 			<cfset sql = "#sql# AND upper(NATURE_OF_MATERIAL) like '%#ucase(escapeQuotes(NATURE_OF_MATERIAL))#%'">
