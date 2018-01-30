@@ -304,7 +304,9 @@
 				<cfset l=l & trim(ucase(escapeQuotes(scientific_name)))>
 			</cfloop>
 			<p>
+				<cfoutput>
 				#l#
+				</cfoutput>
 			</p>
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(l,chr(39))#)">
 		<cfelseif scientific_name_match_type is "inlist_substring">
