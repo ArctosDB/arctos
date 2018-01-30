@@ -344,10 +344,10 @@
 	</cfif>
 	<!---
 
-	cachedwithin="#createtimespan(0,0,60,0)#"
+
 
 	----->
-	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#" >
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif mediaResultsQuery.recordcount is 0>
