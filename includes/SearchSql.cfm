@@ -299,10 +299,11 @@
 		<cfelseif scientific_name_match_type is "notcontains">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "inlist">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in
-			<!----(#trim(listqualify(ucase(escapeQuotes(scientific_name)),chr(39)))#)---->
-			     (<cfqueryparam value="#ucase(scientific_name)#" CFSQLType = "CF_SQL_VARCHAR" list="true" separator=",">)
-			">
+			<cfset l="">
+			<cfloop list="#scientific_name#" index="i">
+				<cfset l=l & trim(ucase(escapeQuotes(scientific_name)))>
+			</cfloop>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(l,chr(39))#)">
 		<cfelseif scientific_name_match_type is "inlist_substring">
 			<cfset basQual = " #basQual# AND (">
 			<cfloop list="#scientific_name#" index="i" delimiters=",">
