@@ -37,17 +37,17 @@
 </cfquery>
 
 <cfquery name="ctgeology_attribute"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select attribute from geology_attribute_hierarchy group by attribute order by attribute 
+	select attribute from geology_attribute_hierarchy group by attribute order by attribute
 </cfquery>
 <cfquery name="ctgeology_attribute_val"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select attribute_value from geology_attribute_hierarchy group by attribute_value order by attribute_value 
+	select attribute_value from geology_attribute_hierarchy group by attribute_value order by attribute_value
 </cfquery>
 <cfquery name="ctlat_long_error_units"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select lat_long_error_units from ctlat_long_error_units group by lat_long_error_units order by lat_long_error_units 
+	select lat_long_error_units from ctlat_long_error_units group by lat_long_error_units order by lat_long_error_units
 </cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
-	
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_geology_attribute">Geology Attribute:</span>
@@ -58,9 +58,9 @@
 				<cfloop query="ctgeology_attribute">
 					<option value="#attribute#">#attribute#</option>
 				</cfloop>
-			</select>		
+			</select>
 		</td>
-	</tr>			
+	</tr>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_geology_attribute_value">Geology Attribute Value:</span>
@@ -77,7 +77,7 @@
 			<select name="geology_hierarchies" id="geology_hierarchies" size="1">
 				<option value="1">yes</option>
 				<option value="0">no</option>
-			</select>	
+			</select>
 		</td>
 	</tr>
 	<tr>
@@ -88,7 +88,7 @@
 			<select name="continent_ocean" id="continent_ocean" size="1">
 				<option value=""></option>
 				<option value="NULL">NULL</option>
-				<cfloop query="ContOcean"> 
+				<cfloop query="ContOcean">
 					<option value="#ContOcean.continent_ocean#">#ContOcean.continent_ocean#</option>
 				</cfloop>
 			</select>
@@ -102,7 +102,7 @@
 			<select name="sea" id="sea" size="1">
 				<option value=""></option>
 				<option value="NULL">NULL</option>
-				<cfloop query="ctsea"> 
+				<cfloop query="ctsea">
 					<option value="#ctsea.sea#">#ctsea.sea#</option>
 				</cfloop>
 			</select>
@@ -157,9 +157,9 @@
 			<select name="island_group" id="island_group" size="1">
 				  <option value=""></option>
 				  <option value="NULL">NULL</option>
-				  <cfloop query="IslGrp"> 
+				  <cfloop query="IslGrp">
 					<option value="#IslGrp.Island_Group#">#IslGrp.Island_Group#</option>
-				  </cfloop> 
+				  </cfloop>
 			</select>
 		</td>
 	</tr>
@@ -197,7 +197,7 @@
 			<span class="helpLink" id="elevation">Elevation:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="minimum_elevation" id="minimum_elevation" size="5"> - 
+			<input type="text" name="minimum_elevation" id="minimum_elevation" size="5"> -
 			<input type="text" name="maximum_elevation" id="maximum_elevation" size="5">
 			<select name="orig_elev_units" id="orig_elev_units" size="1">
 				<option value=""></option>
@@ -215,6 +215,14 @@
 			<input type="text" name="habitat" id="habitat" size="50">
 		</td>
 	</tr>
+	<td class="lbl">
+		<span class="helpLink" id="_georeference_source">Georeference&nbsp;Source:</span>
+	</td>
+	<td class="srch">
+		<input type="text" name="georeference_source" id="georeference_source" size="50">
+		<span class="infoLink" onclick="var e=document.getElementById('georeference_source');e.value='='+e.value;">Add = for exact match</span>
+		<span class="infoLink" onclick="document.getElementById('georeference_source').value='NULL';">[ NULL ]</span>
+	</td>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_isgeoreferenced">Georeferenced?</span>
