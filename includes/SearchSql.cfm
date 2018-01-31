@@ -1571,16 +1571,11 @@
 	<cfset mapurl = "#mapurl#&state_prov=#URLEncodedFormat(state_prov)#">
 </cfif>
 
-
-
-
-
 <cfif isdefined("island_group") AND len(island_group) gt 0>
 	<cfset temp=getFlatSql(fld="island_group", val=island_group)>
 </cfif>
 <cfif isdefined("Island") AND len(Island) gt 0>
 	<cfset temp=getFlatSql(fld="Island", val=Island)>
-
 </cfif>
 <cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
 	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) eq 0)>
@@ -1722,6 +1717,18 @@
 </cfif>
 <!--------- the above is legacy from the old spatial query and can probably be deprecated rather than updated when that becomes an issue ---->
 
+<cfif isdefined("georeference_source") and len(georeference_source) gt 0>
+	<cfset mapurl = "#mapurl#&georeference_source=#URLEncodedFormat(georeference_source)#">
+	<cfif compare(georeference_source,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.georeference_source is null">
+	<cfelse>
+		<cfif left(georeference_source,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.georeference_source) = '#ucase(escapeQuotes(right(georeference_source,len(georeference_source)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.georeference_source) like '%#ucase(escapeQuotes(georeference_source))#%'">
+		</cfif>
+	</cfif>
+</cfif>
 <cfif isdefined("spec_locality") and len(spec_locality) gt 0>
 	<cfset mapurl = "#mapurl#&spec_locality=#URLEncodedFormat(spec_locality)#">
 	<cfif compare(spec_locality,"NULL") is 0>
