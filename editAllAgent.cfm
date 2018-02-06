@@ -312,7 +312,7 @@
 	</cfquery>
 
 	<cfset fnProbs = a_obj.checkAgent(
-			preferred_name="#agent.preferred_name#",
+			preferred_name="#agent.preferred_agent_name#",
 			agent_type="#agent.agent_type#",
 			first_name="#f_name.agent_name#",
 			middle_name="#m_name.agent_name#",
