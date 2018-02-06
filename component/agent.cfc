@@ -86,16 +86,16 @@
         </cfloop>
         <!--- try to avoid unnecessary acronyms --->
         <cfif refind('[A-Z]{3,}',preferred_name) gt 0>
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of `unknown.`',';')>
+            <cfset problems=listappend(problems,'short-Check for abbreviations and acronyms. do not create unnecessary variations of `unknown.`',';')>
         </cfif>
         <cfif Compare(ucase(preferred_name), preferred_name) is 0 or Compare(lcase(preferred_name), preferred_name) is 0>
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
+            <cfset problems=listappend(problems,'case-Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
         </cfif>
         <cfif preferred_name does not contain " ">
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
+            <cfset problems=listappend(problems,'sapce-Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
         </cfif>
         <cfif preferred_name contains ".">
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
+            <cfset problems=listappend(problems,'dot-Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
         </cfif>
         <cfif len(first_name) is 0 and len(middle_name) is 0 and len(last_name) is 0>
             <cfset problems=listappend(problems,'FATAL ERROR: Person agents must have at least one of first, middle, last name.',';')>
