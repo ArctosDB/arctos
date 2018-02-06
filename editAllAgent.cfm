@@ -322,7 +322,7 @@
 
 
 
-<cfdump var="fnProbs">
+<cfdump var="#fnProbs#">
 
 
 
