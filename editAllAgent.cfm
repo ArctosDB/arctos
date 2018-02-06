@@ -319,9 +319,6 @@
 			last_name="#l_name.agent_name#"
 		)>
 
-	<cfif len(fnProbs) is 0>
-		<cfset fnProbs='no problems detected'>
-	</cfif>
 	<ul>
 	<cfloop list="#fnProbs#" delimiters=";" index="i">
 		<cfif i does not contain 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
@@ -332,7 +329,6 @@
 	</cfloop>
 	</ul>
 
-<cfdump var="#fnProbs#">
 
 
 
