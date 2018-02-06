@@ -366,7 +366,7 @@
             <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
         </cfif>
         <cfif preferred_name contains ".">
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
+            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not unnecessarily abbreviate names.',';')>
         </cfif>
         <cfset strippedNamePermutations=trim(escapeQuotes(strippedNamePermutations))>
         <cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
