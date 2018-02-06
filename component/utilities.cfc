@@ -760,7 +760,8 @@
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
 	<!--- keep this synced up with /ScheduledTasks/createRobots.cfm ---->
-	<cfset badbot="Baiduspider,bash,BUbiNG">
+	<cfset badbot="Apache-HttpClient">
+	<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
 	<cfset badbot=badbot & ",Exabot">
@@ -867,6 +868,7 @@
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
+			<cfset x=x & ",catalog,cart">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig">
@@ -883,7 +885,7 @@
 			<cfset x=x & ",pma,phppgadmin,prescription">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel,remote-sync">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
-			<cfset x=x & ",sftp-config">
+			<cfset x=x & ",sftp-config,store,shop">
 			<cfset x=x & ",sysobjects,svn,sap,ssh">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects">
 			<cfset x=x & ",trackback,texteditor">

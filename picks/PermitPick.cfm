@@ -14,6 +14,9 @@
 </cfoutput>
 <cfif action is "search">
 	<cfoutput>
+		<p>
+			<a href="/Permit.cfm?action=newPermit" target="_blank">Create a new Permit (new window)</a>
+		</p>
 		<!--- assemble sqlstring (variable "sqlstring") --->
 		<cfinclude template="/includes/forms/permit_search_results.cfm">
 		<cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

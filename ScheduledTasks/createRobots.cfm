@@ -131,14 +131,15 @@
 		<!----
 			keep this synced up with /component/utilities.cfc
 		---->
-		<cfset badbot="Baiduspider,bash,BUbiNG">
+		<cfset badbot="Apache-HttpClient">
+		<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG">
 		<cfset badbot=badbot & ",ca-crawler,CCBot">
 		<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
 		<cfset badbot=badbot & ",Exabot">
 		<cfset badbot=badbot & ",Gluten,Gluten Free Crawler,GrapeshotCrawler">
 		<cfset badbot=badbot & ",HubSpot">
 		<cfset badbot=badbot & ",ltx71">
-		<cfset badbot=badbot & ",MegaIndex,MJ12bot">
+		<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get">
 		<cfset badbot=badbot & ",naver,Nutch">
 		<cfset badbot=badbot & ",Qwantify">
 		<cfset badbot=badbot & ",re-animator">
