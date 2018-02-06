@@ -316,7 +316,7 @@
 			agent_type="#agent.agent_type#",
 			first_name="#f_name.agent_name#",
 			middle_name="#m_name.agent_name#",
-			last_name="#l_nam.agent_name#"
+			last_name="#l_name.agent_name#"
 		)>
 
 
