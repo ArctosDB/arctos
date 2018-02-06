@@ -828,6 +828,7 @@ just fooling idiot cfclipse into using the right colors
 				#dateformat(issued_Date,"yyyy-mm-dd")#.
 				Expires #dateformat(exp_Date,"yyyy-mm-dd")#
 				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif>
+				<br><a href="/Permit.cfm?Action=editPermit&permit_id=#permit_id#" target="_blank">[ edit permit ]</a>
 				<br>
 				<input type="hidden" name="transaction_id" value="#transaction_id#">
 				<input type="hidden" name="action" value="delePermit">
