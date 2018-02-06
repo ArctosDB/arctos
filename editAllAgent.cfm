@@ -298,6 +298,39 @@
 			</tr>
 		</cfloop>
 	</table>
+
+
+	<cfset a_obj = CreateObject("component","component.agent")>
+	<cfquery name="f_name" dbtype="query">
+		select agent_name from agent_names where AGENT_NAME_TYPE='first name'
+	</cfquery>
+	<cfquery name="m_name" dbtype="query">
+		select agent_name from agent_names where AGENT_NAME_TYPE='middle name'
+	</cfquery>
+	<cfquery name="l_name" dbtype="query">
+		select agent_name from agent_names where AGENT_NAME_TYPE='last name'
+	</cfquery>
+
+	<cfset fnProbs = a_obj.checkAgent(
+			preferred_name="#agent.preferred_name#",
+			agent_type="#agent.agent_type#",
+			first_name="#f_name.agent_name#",
+			middle_name="#m_name.agent_name#",
+			last_name="#l_nam.agent_namee#"
+		)>
+
+
+
+
+<cfdump var="fnProbs">
+
+
+
+
+
+
+
+
 	<cfif listcontainsnocase(session.roles,"manage_transactions")>
 		<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
