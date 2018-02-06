@@ -319,8 +319,14 @@
 			last_name="#l_name.agent_name#"
 		)>
 
-
-
+	<cfif len(fnProbs) is 0>
+		<cfset fnProbs='no problems detected'>
+	</cfif>
+	<ul>
+	<cfloop list="#fnProbs#" delimiters=";" index="i">
+		<li>#i#</li>
+	</cfloop>
+	</ul>
 
 <cfdump var="#fnProbs#">
 
