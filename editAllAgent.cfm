@@ -324,7 +324,11 @@
 	</cfif>
 	<ul>
 	<cfloop list="#fnProbs#" delimiters=";" index="i">
+		<cfif i does not contain 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
+
+
 		<li>#i#</li>
+		</cfif>
 	</cfloop>
 	</ul>
 
