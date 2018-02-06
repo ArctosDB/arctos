@@ -408,6 +408,7 @@
 			<br><strong>Permits:</strong>
 			<cfloop query="getPermits">
 				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"yyyy-mm-dd")#. Expires #dateformat(exp_date,"yyyy-mm-dd")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif>
+				<br><a href="/Permit.cfm?Action=editPermit&permit_id=#permit_id#" target="_blank">[ edit permit ]</a>
 				<form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
 					<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 					<input type="hidden" name="action" value="delePermit">
