@@ -357,16 +357,16 @@
 
         <!--- try to avoid unnecessary acronyms --->
         <cfif refind('[A-Z]{3,}',preferred_name) gt 0>
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of `unknown.`',';')>
+            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of `unknown.` (short word in preferred_name)',';')>
         </cfif>
         <cfif Compare(ucase(preferred_name), preferred_name) is 0 or Compare(lcase(preferred_name), preferred_name) is 0>
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
+            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.` (preferred_name case)',';')>
         </cfif>
         <cfif preferred_name does not contain " ">
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.`',';')>
+            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of `unknown.` (No space in preferred_name)',';')>
         </cfif>
         <cfif preferred_name contains ".">
-            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not unnecessarily abbreviate names.',';')>
+            <cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not unnecessarily abbreviate names. (dot in preferred name)',';')>
         </cfif>
         <cfset strippedNamePermutations=trim(escapeQuotes(strippedNamePermutations))>
         <cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
