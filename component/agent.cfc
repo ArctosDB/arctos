@@ -49,7 +49,7 @@
 		</cfif>
 	</cfif>
 	<cfif lcase(preferred_name) contains '&'>
-		<cfset mname=preferred_agent_name>
+		<cfset mname=preferred_name>
 		<cfset mname=replacenocase(mname,'&','and')>
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
