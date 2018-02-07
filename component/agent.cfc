@@ -70,7 +70,7 @@
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name = '#mname#'
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
-			<cfset probs=listappend(probs,'no unabbreviated title variant',';')>
+			<cfset probs=listappend(probs,'no unabbreviated title variant [#mname#]',';')>
 		</cfif>
 	</cfif>
 
