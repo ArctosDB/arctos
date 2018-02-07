@@ -320,6 +320,8 @@
 		)>
 
 
+	<br>fnProbs(o):::::#fnProbs#::::
+
 	<cfif fnProbs contains 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
 		<cfset fnProbs=listDeleteAt(fnProbs,listContains(fnProbs,'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'))>
 	</cfif>
@@ -333,8 +335,8 @@
 		)>
 
 
-	::::#fnProbs#::::
-	;;;;#fnProbs2#;;;;
+	<br>fnProbs:::::#fnProbs#::::
+	<br>fnProbs2;;;;#fnProbs2#;;;;
 	<cfif len(fnProbs) gt 0 or len(fnProbs2) gt 0>
 		<div style="padding:1em; margin:1em; border:2px solid red;">
 			<div>Potential problems with this record:</div>
