@@ -48,7 +48,7 @@
 			<cfset probs=listappend(probs,'no unabbreviated variant')>
 		</cfif>
 	</cfif>
-	<cfif lower(preferred_name) contains '&'>
+	<cfif lcase(preferred_name) contains '&'>
 		<cfset mname=preferred_agent_name>
 		<cfset mname=replacenocase(mname,'&','and')>
 		<cfquery name="hasascii"  datasource="uam_god">
