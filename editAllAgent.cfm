@@ -319,22 +319,29 @@
 			last_name="#l_name.agent_name#"
 		)>
 
-		<cfset fnProbs2 = a_obj.checkFunkyAgent(
+	<cfset fnProbs2 = a_obj.checkFunkyAgent(
 			preferred_name="#agent.preferred_agent_name#",
 			agent_id="#agent.agent_id#"
 		)>
 
-
-	<ul>
-		<cfloop list="#fnProbs#" delimiters=";" index="i">
-			<cfif i does not contain 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
+	<cfif len(fnProbs) gt 0 or len(fnProbs2) gt 0>
+		<div style="padding:1em; margin:1em; border:2 px solid red">
+			<div>Potential problems with this record:</div>
+		</div>
+		<ul>
+			<cfloop list="#fnProbs#" delimiters=";" index="i">
+				<cfif i does not contain 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
+					<li>#i#</li>
+				</cfif>
+			</cfloop>
+			<cfloop list="#fnProbs2#" delimiters=";" index="i">
 				<li>#i#</li>
-			</cfif>
-		</cfloop>
-		<cfloop list="#fnProbs2#" delimiters=";" index="i">
-			<li>#i#</li>
-		</cfloop>
-	</ul>
+			</cfloop>
+		</ul>
+
+	</cfif>
+
+
 
 
 
