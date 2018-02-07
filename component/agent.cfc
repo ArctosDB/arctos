@@ -37,7 +37,7 @@
 		</cfif>
 	</cfif>
 
-	<cfif lower(preferred_name) contains 'co.' or lower(preferred_name) contains 'inc.'>
+	<cfif lcase(preferred_name) contains 'co.' or lcase(preferred_name) contains 'inc.'>
 		<cfset mname=preferred_name>
 		<cfset mname=replacenocase(mname,' inc.',' incorporated')>
 		<cfset mname=replacenocase(mname,' co.',' company')>
