@@ -325,15 +325,15 @@
 		)>
 
 
-		<cfdump var=#fnProbs2#>
 	<ul>
-	<cfloop list="#fnProbs#" delimiters=";" index="i">
-		<cfif i does not contain 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
-
-
-		<li>#i#</li>
-		</cfif>
-	</cfloop>
+		<cfloop list="#fnProbs#" delimiters=";" index="i">
+			<cfif i does not contain 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
+				<li>#i#</li>
+			</cfif>
+		</cfloop>
+		<cfloop list="#fnProbs2#" delimiters=";" index="i">
+			<li>#i#</li>
+		</cfloop>
 	</ul>
 
 
