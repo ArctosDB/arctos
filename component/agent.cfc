@@ -14,20 +14,20 @@
 
 <!-------------------------------------------------------------------------------->
 <cffunction name="checkFunkyAgent">
-	<!--- 
-		For existing agents 
+	<!---
+		For existing agents
 		these are SUGGESTIONS not RULES
-		
+
 		This should share logic with /SchedulesTasks/funkyAgent, but different approach requires different code
-		
+
 	--->
     <cfargument name="agent_id" required="true" type="numeric">
     <cfargument name="preferred_name" required="true" type="string">
-	
+
 	<cfset probs="">
-	
+
 	<cfif not refind(preferred_name,'[^A-Za-z -.]')>
-		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_','all')>
+		<cfset mname=rereplace(preferred_name,'[^A-Za-z -.]','_','all')>
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
@@ -46,7 +46,7 @@
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
 			<cfset probs=listappend(probs,'no unabbreviated variant')>
-		</cfif>	
+		</cfif>
 	</cfif>
 	<cfif lower(preferred_name) contains '&'>
 		<cfset mname=preferred_agent_name>
@@ -56,13 +56,13 @@
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
 			<cfset probs=listappend(probs,'no `and` variant')>
-		</cfif>	
+		</cfif>
 	</cfif>
-	<cfif refind(preferred_name, '[a-z]\.') and 
+	<cfif refind(preferred_name, '[a-z]\.') and
 		left(preferred_name,5) is not 'Mrs. ' and
 		right(preferred_name,4) is not ' Jr.' and
 		right(preferred_name,4) is not ' Sr.' and
-		right(preferred_name,4) is not ' St.' 
+		right(preferred_name,4) is not ' St.'
 		>
 		<cfset mname=trim(rereplace(preferred_name,'([A-Za-z]*[a-z]\.)','','all'))>
 		<cfquery name="hasascii"  datasource="uam_god">
@@ -72,20 +72,20 @@
 			<cfset probs=listappend(probs,'no unabbreviated variant')>
 		</cfif>
 	</cfif>
-	
+
 	<cfreturn probs>
-			
+
 </cffunction>
 
 
 <!-------------------------------------------------------------------------------->
 <cffunction name="checkAgent" access="remote" returnformat="json">
-	<!--- 
-		primarily for new/pre-create agents 
+	<!---
+		primarily for new/pre-create agents
 		but also used by editAllAgent
 		which just strips out the fatal duplicate error
 	--->
-	
+
     <cfargument name="preferred_name" required="true" type="string">
     <cfargument name="agent_type" required="true" type="string">
     <cfargument name="first_name" required="false" type="string" default="">
