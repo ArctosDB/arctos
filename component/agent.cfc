@@ -13,7 +13,7 @@
 
 
 <!-------------------------------------------------------------------------------->
-<cffunction name="checkFunkyAgent">
+<cffunction name="checkFunkyAgent" access="remote">
 	<!---
 		For existing agents
 		these are SUGGESTIONS not RULES
