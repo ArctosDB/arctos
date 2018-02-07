@@ -319,6 +319,13 @@
 			last_name="#l_name.agent_name#"
 		)>
 
+		<cfset fnProbs2 = a_obj.checkFunkyAgent(
+			preferred_name="#agent.preferred_agent_name#",
+			agent_id="#agent.agent_id#"
+		)>
+
+
+		<cfdump var=#fnProbs2#>
 	<ul>
 	<cfloop list="#fnProbs#" delimiters=";" index="i">
 		<cfif i does not contain 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>

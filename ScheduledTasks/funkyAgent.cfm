@@ -1,4 +1,16 @@
 <!--------
+
+
+		This should share logic with /component/agent.cfc:checkFunkyAgent
+		, but different approach requires different code
+
+
+
+
+
+
+
+
 drop table temp;
 
 create table temp as
