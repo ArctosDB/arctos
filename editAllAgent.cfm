@@ -324,6 +324,9 @@
 			agent_id="#agent.agent_id#"
 		)>
 
+
+	::::#fnProbs#::::
+	;;;;#fnProbs2#;;;;
 	<cfif len(fnProbs) gt 0 or len(fnProbs2) gt 0>
 		<div style="padding:1em; margin:1em; border:2px solid red;">
 			<div>Potential problems with this record:</div>
