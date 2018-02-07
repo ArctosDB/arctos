@@ -45,7 +45,7 @@
 			 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
-			<cfset probs=listappend(probs,'no unabbreviated variant',';')>
+			<cfset probs=listappend(probs,'no unabbreviated variant[#mname#]',';')>
 		</cfif>
 	</cfif>
 	<cfif lcase(preferred_name) contains '&'>
