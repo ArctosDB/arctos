@@ -319,6 +319,14 @@
 			last_name="#l_name.agent_name#"
 		)>
 
+
+	<cfif fnProbs contains 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
+		<cfset fnProbs=listDeleteAt(listFind(fnProbs,'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'))>
+	</cfif>
+
+
+
+
 	<cfset fnProbs2 = a_obj.checkFunkyAgent(
 			preferred_name="#agent.preferred_agent_name#",
 			agent_id="#agent.agent_id#"
