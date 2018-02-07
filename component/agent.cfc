@@ -59,7 +59,7 @@
 		</cfif>
 	</cfif>
 
-	<cfif refind(preferred_name, '[a-z]\.')>
+	<cfif refind('[a-z]\.',preferred_name)>
 		yup...
 	</cfif>
 	<cfif refind(preferred_name, '[a-z]\.') and
