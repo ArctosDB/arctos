@@ -26,7 +26,7 @@
 
 	<cfset probs="">
 
-	<cfif not refind('[^A-Za-z -.]',preferred_name)>
+	<cfif refind('[^A-Za-z -.]',preferred_name)>
 		<cfset mname=rereplace(preferred_name,'[^A-Za-z -.]','_','all')>
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
