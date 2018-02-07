@@ -62,7 +62,7 @@
 	<cfif refind('[a-z]\.',preferred_name)>
 		yup...
 	</cfif>
-	<cfif refind(preferred_name, '[a-z]\.') and
+	<cfif refind('[a-z]\.',preferred_name) and
 		left(preferred_name,5) is not 'Mrs. ' and
 		right(preferred_name,4) is not ' Jr.' and
 		right(preferred_name,4) is not ' Sr.' and
