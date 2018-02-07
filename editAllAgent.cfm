@@ -321,7 +321,7 @@
 
 
 	<cfif fnProbs contains 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
-		<cfset fnProbs=listDeleteAt(listFind(fnProbs,'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'))>
+		<cfset fnProbs=listDeleteAt(fnProbs,listFind(fnProbs,'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'))>
 	</cfif>
 
 
