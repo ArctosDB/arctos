@@ -26,7 +26,7 @@
 
 	<cfset probs="">
 
-	<cfif not refind(preferred_name,'[^A-Za-z -.]')>
+	<cfif not refind('[^A-Za-z -.]',preferred_name)>
 		<cfset mname=rereplace(preferred_name,'[^A-Za-z -.]','_','all')>
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
@@ -59,9 +59,6 @@
 		</cfif>
 	</cfif>
 
-	<cfif refind('[a-z]\.',preferred_name)>
-		yup...
-	</cfif>
 	<cfif refind('[a-z]\.',preferred_name) and
 		left(preferred_name,5) is not 'Mrs. ' and
 		right(preferred_name,4) is not ' Jr.' and
@@ -73,7 +70,7 @@
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name = '#mname#'
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
-			<cfset probs=listappend(probs,'no unabbreviated variant')>
+			<cfset probs=listappend(probs,'no unabbreviated title variant')>
 		</cfif>
 	</cfif>
 
