@@ -318,34 +318,19 @@
 			middle_name="#m_name.agent_name#",
 			last_name="#l_name.agent_name#"
 		)>
-
-
-	<br>fnProbs(o):::::#fnProbs#::::
-
-	<cfif fnProbs contains 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
-
-		<cfset fnProbs=listDeleteAt(fnProbs,listContains(fnProbs,'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#',';'),';')>
-	</cfif>
-
-
-
-
 	<cfset fnProbs2 = a_obj.checkFunkyAgent(
 			preferred_name="#agent.preferred_agent_name#",
 			agent_id="#agent.agent_id#"
 		)>
-
-
-	<br>fnProbs:::::#fnProbs#::::
-	<br>fnProbs2;;;;#fnProbs2#;;;;
+	<cfif fnProbs contains 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
+		<cfset fnProbs=listDeleteAt(fnProbs,listContains(fnProbs,'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#',';'),';')>
+	</cfif>
 	<cfif len(fnProbs) gt 0 or len(fnProbs2) gt 0>
 		<div style="padding:1em; margin:1em; border:2px solid red;">
 			<div>Potential problems with this record:</div>
 			<ul>
 				<cfloop list="#fnProbs#" delimiters=";" index="i">
-					<cfif i does not contain 'FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#"'>
-						<li>#i#</li>
-					</cfif>
+					<li>#i#</li>
 				</cfloop>
 				<cfloop list="#fnProbs2#" delimiters=";" index="i">
 					<li>#i#</li>
@@ -353,16 +338,6 @@
 			</ul>
 		</div>
 	</cfif>
-
-
-
-
-
-
-
-
-
-
 
 	<cfif listcontainsnocase(session.roles,"manage_transactions")>
 		<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
