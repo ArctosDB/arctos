@@ -327,7 +327,13 @@
 	</cfif>
 	<cfif len(fnProbs) gt 0 or len(fnProbs2) gt 0>
 		<div style="padding:1em; margin:1em; border:2px solid red;">
-			<div>Potential problems with this record:</div>
+			<div>Potential problems with this record detected.</div>
+			<div style="font-size:smaller;">
+				Note: suggestions in square brackets are from the "funky agent" check. It may be necessary to
+				create multiple agent variations to satisfy these "requirements." These variations
+				exist to facilitate search and avoid duplicates, and should not be viewed as any form of
+				"correct," only helpful in avoiding known problems.
+			</div>
 			<ul>
 				<cfloop list="#fnProbs#" delimiters=";" index="i">
 					<li>#i#</li>

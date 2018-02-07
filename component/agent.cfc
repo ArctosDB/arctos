@@ -73,9 +73,7 @@
 			<cfset probs=listappend(probs,'no unabbreviated title variant [#mname#]',';')>
 		</cfif>
 	</cfif>
-
 	<cfreturn probs>
-
 </cffunction>
 
 
