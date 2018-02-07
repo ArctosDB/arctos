@@ -33,7 +33,7 @@
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
-			<cfset probs=listappend(probs,'no ASCII variant')>
+			<cfset probs=listappend(probs,'no ASCII variant',';')>
 		</cfif>
 	</cfif>
 
@@ -45,7 +45,7 @@
 			 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
-			<cfset probs=listappend(probs,'no unabbreviated variant')>
+			<cfset probs=listappend(probs,'no unabbreviated variant',';')>
 		</cfif>
 	</cfif>
 	<cfif lcase(preferred_name) contains '&'>
@@ -55,7 +55,7 @@
 			 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
-			<cfset probs=listappend(probs,'no `and` variant')>
+			<cfset probs=listappend(probs,'no `and` variant',';')>
 		</cfif>
 	</cfif>
 
@@ -70,7 +70,7 @@
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name = '#mname#'
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
-			<cfset probs=listappend(probs,'no unabbreviated title variant')>
+			<cfset probs=listappend(probs,'no unabbreviated title variant',';')>
 		</cfif>
 	</cfif>
 
