@@ -58,6 +58,10 @@
 			<cfset probs=listappend(probs,'no `and` variant')>
 		</cfif>
 	</cfif>
+
+	<cfif refind(preferred_name, '[a-z]\.')>
+		yup...
+	</cfif>
 	<cfif refind(preferred_name, '[a-z]\.') and
 		left(preferred_name,5) is not 'Mrs. ' and
 		right(preferred_name,4) is not ' Jr.' and
