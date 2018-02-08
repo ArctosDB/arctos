@@ -564,7 +564,7 @@
 								'B')
 						 </cfquery>
 					 </cfif>
-		</cfloop>
+			</cfloop>
 		</cftransaction>
 
 		<cflocation url="multiIdentification.cfm" addtoken="no">
