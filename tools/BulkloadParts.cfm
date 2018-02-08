@@ -504,6 +504,7 @@ grant all on cf_temp_parts to manage_collection;
 			<a href="BulkloadParts.cfm?action=validate">validate records</a>
 		</p>
 
+
 		<cfquery name="nv" dbtype="query">
 			select count(*) c from mine where guid_prefix is null and other_id_type='UUID'
 		</cfquery>
@@ -561,6 +562,10 @@ grant all on cf_temp_parts to manage_collection;
 		</form>
 	</cfoutput>
 </cfif>
+
+
+
+
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "deleteChecked">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -643,10 +648,44 @@ grant all on cf_temp_parts to manage_collection;
 			change_container_type is not null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+
+	<!----
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_parts where status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+	---->
+
+	<!--- get things that don't resolve to single specimens ---->
+	<cfquery name="collObjFail1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_parts
+		set
+			status='ambiguous_specimen_reference'
+		where
+			key in (
+			    select key
+			     from
+			        cf_temp_parts,
+			        cataloged_item,
+			        collection,
+			        coll_obj_other_id_num
+			      WHERE
+			        cataloged_item.collection_id = collection.collection_id and
+			        cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
+			        collection.guid_prefix = cf_temp_parts.guid_prefix and
+			        coll_obj_other_id_num.other_id_type = cf_temp_parts.other_id_type and
+			        coll_obj_other_id_num.display_value = cf_temp_parts.other_id_number and
+			        cf_temp_parts.other_id_type != 'catalog number' and
+					upper(username)='#ucase(session.username)#' and
+					status is null
+			      having
+			      	count(*) > 1
+			      group by
+			      	key
+			    )
+	</cfquery>
+
 
 	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_parts set COLLECTION_OBJECT_ID = (
@@ -659,7 +698,10 @@ grant all on cf_temp_parts to manage_collection;
 				cataloged_item.collection_id = collection.collection_id and
 				collection.guid_prefix = cf_temp_parts.guid_prefix and
 				cat_num=cf_temp_parts.other_id_number
-		) where other_id_type = 'catalog number'
+		) where
+			other_id_type = 'catalog number' and
+			upper(username)='#ucase(session.username)#' and
+			status is null
 	</cfquery>
 	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_parts set COLLECTION_OBJECT_ID = (
@@ -675,7 +717,10 @@ grant all on cf_temp_parts to manage_collection;
 				collection.guid_prefix = cf_temp_parts.guid_prefix and
 				coll_obj_other_id_num.other_id_type = cf_temp_parts.other_id_type and
 				coll_obj_other_id_num.display_value = cf_temp_parts.other_id_number
-		) where other_id_type != 'catalog number'
+		) where
+			other_id_type != 'catalog number' and
+			upper(username)='#ucase(session.username)#' and
+			status is null
 	</cfquery>
 
 	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
