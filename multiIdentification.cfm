@@ -220,6 +220,22 @@
 						</td>
 					</tr>
 					<tr>
+						<td>
+							<div align="right">
+								<span  class="helpLink" data-helplink="identification_publication">Sensu:</span></td>
+							</div>
+						</td>
+						<td>
+							<input type="hidden" name="new_publication_id" id="new_publication_id">
+							<input type="text" id="newPub"
+								onchange="getPublication(this.id,'new_publication_id',this.value,'newID')" size="50"
+								placeholder="Type+tab to pick publication">
+						</td>
+					</tr>
+
+
+
+					<tr>
 						<td><div align="right">Remarks:</div></td>
 						<td><input type="text" name="identification_remarks" size="50"></td>
 					</tr>
@@ -466,7 +482,8 @@
 							,IDENTIFICATION_REMARKS
 						</cfif>
 						,taxa_formula
-						,scientific_name)
+						,scientific_name,
+						PUBLICATION_ID)
 					VALUES (
 						sq_identification_id.nextval,
 						#collection_object_id#
@@ -479,37 +496,14 @@
 							,'#stripQuotes(IDENTIFICATION_REMARKS)#'
 						</cfif>
 						,'#taxa_formula#'
-						,'#scientific_name#')
+						,'#scientific_name#',
+						<cfif len(new_publication_id) gt 0>
+							#new_publication_id#
+						<cfelse>
+							NULL
+						</cfif>
+					)
 					</cfquery>
-					<br>
-
-					INSERT INTO identification (
-						IDENTIFICATION_ID,
-						COLLECTION_OBJECT_ID
-						<cfif len(MADE_DATE) gt 0>
-							,MADE_DATE
-						</cfif>
-						,NATURE_OF_ID
-						 ,ACCEPTED_ID_FG
-						 <cfif len(IDENTIFICATION_REMARKS) gt 0>
-							,IDENTIFICATION_REMARKS
-						</cfif>
-						,taxa_formula
-						,scientific_name)
-					VALUES (
-						sq_identification_id.nextval,
-						#collection_object_id#
-						<cfif len(#MADE_DATE#) gt 0>
-							,'#MADE_DATE#'
-						</cfif>
-						,'#NATURE_OF_ID#'
-						 ,1
-						 <cfif len(IDENTIFICATION_REMARKS) gt 0>
-							,'#stripQuotes(IDENTIFICATION_REMARKS)#'
-						</cfif>
-						,'#taxa_formula#'
-						,'#scientific_name#')
-
 
 					<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into identification_agent (
