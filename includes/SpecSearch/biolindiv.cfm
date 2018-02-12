@@ -23,6 +23,17 @@
 	select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 and category='attribute' order by cf_variable
 </cfquery>
 
+<script>
+	$(document).ready(function () {
+		$(document).on("change", '[id^="attribute_type_placeholder_"]', function(){
+			var i =  this.id;
+			i=i.replace("attribute_type_placeholder_", "");
+
+			$("#attribute_value_placeholder_" + i).html('changed');
+
+	});
+
+</script>
 
 
 
@@ -36,6 +47,9 @@
 						<option value="#srchAttrs.CF_VARIABLE#">#srchAttrs.DISPLAY_TEXT#</option>
 					</cfloop>
 			  </select>
+		</td>
+		<td class="srch" id="attribute_value_placeholder_1">
+
 		</td>
 	</tr>
 
