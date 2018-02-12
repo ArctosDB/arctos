@@ -84,9 +84,12 @@
 	</tr>
 	<tr id="attrCtlTR">
 		<td colspan="2">
-			<div style="margin-left:3em;border:1px solid green;">
+			<div style="margin-left:3em;margin:1em;padding:.5em;border:1px solid green;;">
 				<div><span class="likeLink" onclick="moreAttr()">add attribute</span></div>
-				<div>docs here, yo</div>
+				<div style="margin-left:1em;">
+					Click "add attribute" for more options. Click the label on new attributes for documentation.
+					Empty values are ignored.
+				</div>
 			</div>
 		</td>
 
