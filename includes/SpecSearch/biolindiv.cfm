@@ -85,9 +85,9 @@
 	<tr id="attrCtlTR">
 		<td colspan="2">
 			<div style="margin-left:3em;margin:1em;padding:.5em;border:1px solid green;;">
-				<div><span class="likeLink" onclick="moreAttr()">add attribute</span></div>
-				<div style="margin-left:1em;">
-					Click "add attribute" for more options. Click the label on new attributes for documentation.
+				<div>
+					<span class="likeLink" onclick="moreAttr()">Add attribute</span> for more search options.
+					Click the label after selecting an attribute type for more information.
 					Empty values are ignored.
 				</div>
 			</div>
