@@ -18,7 +18,34 @@
 <cfquery name="CTSPECPART_ATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select distinct(ATTRIBUTE_TYPE) from CTSPECPART_ATTRIBUTE_TYPE order by attribute_type
 		</cfquery>
+
+<cfquery name="srchAttrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 and category='attribute' order by cf_variable
+</cfquery>
+
+
+
+
 <table id="t_identifiers" class="ssrch">
+
+	<tr>
+		<td class="lbl">
+			<select name="attribute_type_placeholder_1" id="attribute_type_placeholder_1" size="1">
+				<option selected value="">[ pick an attribute ]</option>
+					<cfloop query="srchAttrs">
+						<option value="#srchAttrs.CF_VARIABLE#">#srchAttrs.DISPLAY_TEXT#</option>
+					</cfloop>
+			  </select>
+		</td>
+	</tr>
+
+
+
+
+
+
+
+
 	<tr>
 		<td class="lbl">
 			<select name="part_attribute" id="part_attribute" size="1">
@@ -33,7 +60,7 @@
 			<span class="infoLink" onclick="var e=document.getElementById('part_attribute_value');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_part_remark">Part Remark:</span>
@@ -42,6 +69,14 @@
 			<input type="text" name="part_remark" id="part_remark">
 		</td>
 	</tr>
+
+
+
+
+
+
+
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink infoLink" id="attribute_type">Help</span>
@@ -66,7 +101,7 @@
 			</span>
 			<input type="text" name="attribute_units_1" size="6">(units)
 		</td>
-		
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_attribute_remark">Attribute Remark:</span>
