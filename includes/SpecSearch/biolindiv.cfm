@@ -22,6 +22,9 @@
 		});
 	});
 
+	function moreAttr(){
+		alert('hi');
+		}
 </script>
 
 
@@ -65,7 +68,9 @@
 					</cfloop>
 			  </select>
 		</td>
-		<td class="srch" id="attribute_value_placeholder_1">
+		<td class="srch">
+			<span id="attribute_value_placeholder_1"></span>
+			<span class="likeLink" onclick="moreAttr()">add attribute</span>
 
 		</td>
 	</tr>
