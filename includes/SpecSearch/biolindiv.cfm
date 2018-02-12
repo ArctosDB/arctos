@@ -24,7 +24,7 @@
 
 	function moreAttr(){
 		alert('hi');
-		 $('[id^= "attribute_type_placeholder_"]).each(function(){
+		 $('[id^= "attribute_type_placeholder_"]').each(function(){
             alert(this.id);
         });
 
