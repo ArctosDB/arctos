@@ -1,3 +1,17 @@
+<script>
+	$(document).ready(function () {
+		$(document).on("change", '[id^="attribute_type_placeholder_"]', function(){
+			var i =  this.id;
+			i=i.replace("attribute_type_placeholder_", "");
+
+			$("#attribute_value_placeholder_" + i).html('changed');
+
+	});
+
+</script>
+
+
+
 <cfoutput>
 <cfif isdefined("session.portal_id") and session.portal_id gt 0>
 	<cftry>
@@ -23,17 +37,6 @@
 	select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 and category='attribute' order by cf_variable
 </cfquery>
 
-<script>
-	$(document).ready(function () {
-		$(document).on("change", '[id^="attribute_type_placeholder_"]', function(){
-			var i =  this.id;
-			i=i.replace("attribute_type_placeholder_", "");
-
-			$("#attribute_value_placeholder_" + i).html('changed');
-
-	});
-
-</script>
 
 
 
