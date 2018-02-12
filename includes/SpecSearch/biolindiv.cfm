@@ -4,6 +4,12 @@
 			var i =  this.id;
 			i=i.replace("attribute_type_placeholder_", "");
 			var thisVal=this.value;
+
+			if ($('#' + thisVal).length){
+
+				alert('already got one');
+			}
+
 			var thisTxt=$("#" + this.id + " option:selected").text();
 
 
