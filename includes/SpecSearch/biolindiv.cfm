@@ -5,7 +5,7 @@
 			i=i.replace("attribute_type_placeholder_", "");
 
 			$("#attribute_value_placeholder_" + i).html('changed');
-
+		});
 	});
 
 </script>
