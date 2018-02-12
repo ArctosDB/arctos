@@ -61,6 +61,19 @@
 
 		</td>
 	</tr>
+	<tr>
+		<td class="lbl">
+			<select name="attribute_type_placeholder_2" id="attribute_type_placeholder_2" size="1">
+				<option selected value="">[ pick an attribute ]</option>
+					<cfloop query="srchAttrs">
+						<option value="#srchAttrs.CF_VARIABLE#">#srchAttrs.DISPLAY_TEXT#</option>
+					</cfloop>
+			  </select>
+		</td>
+		<td class="srch" id="attribute_value_placeholder_2">
+
+		</td>
+	</tr>
 
 
 
