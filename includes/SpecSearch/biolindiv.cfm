@@ -4,7 +4,9 @@
 			var i =  this.id;
 			i=i.replace("attribute_type_placeholder_", "");
 
-			$("#attribute_value_placeholder_" + i).html('changed');
+			var nEl='<input type="text" name="' + this.value + '" id="' + this.value + '">';
+
+			$("#attribute_value_placeholder_" + i).html(nEl);
 		});
 	});
 
