@@ -23,29 +23,18 @@
 	});
 
 	function moreAttr(){
-		alert('hi');
 		var i;
 		 $('[id^= "attribute_type_placeholder_"]').each(function(){
             i=this.id.replace("attribute_type_placeholder_", "");
         });
         var lastNum=i;
         var nextNum=parseInt(i)+parseInt(1);
-
         var nelem='<tr><td class="lbl">';
         nelem+='<select name="attribute_type_placeholder_'+nextNum+'" id="attribute_type_placeholder_'+nextNum+'" size="1"></select>';
         nelem+='</td><td class="srch"><span id="attribute_value_placeholder_'+nextNum+'"></span></td></tr>';
-
         $('#attrCtlTR').before(nelem);
-
         $('#attribute_type_placeholder_1').find('option').clone().appendTo('#attribute_type_placeholder_' + nextNum);
-
-
-
-
-		alert('next: ' + i);
-
-
-		}
+	}
 </script>
 
 
@@ -91,14 +80,14 @@
 		</td>
 		<td class="srch">
 			<span id="attribute_value_placeholder_1"></span>
-
-
 		</td>
 	</tr>
 	<tr id="attrCtlTR">
 		<td colspan="2">
-			<div><span class="likeLink" onclick="moreAttr()">add attribute</span></div>
-			<div>docs here, yo</div>
+			<div style="margin-left:3em;border:1px solid green;">
+				<div><span class="likeLink" onclick="moreAttr()">add attribute</span></div>
+				<div>docs here, yo</div>
+			</div>
 		</td>
 
 	</tr>
