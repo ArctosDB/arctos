@@ -13,7 +13,7 @@
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
 			$("#attribute_value_placeholder_" + i).html(nEl);
 			// hide the placeholder/picker
-			var nlbl=<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
+			var nlbl='<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
 			$("#" + this.id).hide().after(nlbl);
 
 
