@@ -3,10 +3,13 @@
 		$(document).on("change", '[id^="attribute_type_placeholder_"]', function(){
 			var i =  this.id;
 			i=i.replace("attribute_type_placeholder_", "");
+			var thisVal=this.value;
+			var thisTxt=$("#" + this.id + " option:selected").text();
 
-			var nEl='<input type="text" name="' + this.value + '" id="' + this.value + '">';
 
-			$("#attribute_value_placeholder_" + i).html(nEl);
+
+			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
+
 		});
 	});
 
