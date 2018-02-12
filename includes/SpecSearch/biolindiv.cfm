@@ -4,21 +4,19 @@
 			var i =  this.id;
 			i=i.replace("attribute_type_placeholder_", "");
 			var thisVal=this.value;
-
 			if ($('#' + thisVal).length){
-
 				alert('That Attribute has already been added.');
 				$("#" + this.id).val('');
 				return;
 			}
-
 			var thisTxt=$("#" + this.id + " option:selected").text();
-
-
-
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
-
 			$("#attribute_value_placeholder_" + i).html(nEl);
+			// hide the placeholder/picker
+			var nlbl=<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
+			$("#" + this.id).hide().after(nlbl);
+
+
 		});
 	});
 
