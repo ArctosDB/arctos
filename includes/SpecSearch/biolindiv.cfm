@@ -11,12 +11,11 @@
 			}
 			var thisTxt=$("#" + this.id + " option:selected").text();
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
+			var nEl+='<span class="infoLink" onclick="resetAttr(' + this.id + ')">reset</span>';
 			$("#attribute_value_placeholder_" + i).html(nEl);
 			// hide the placeholder/picker
 			var nlbl='<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
 			$("#" + this.id).hide().after(nlbl);
-
-
 		});
 	});
 
