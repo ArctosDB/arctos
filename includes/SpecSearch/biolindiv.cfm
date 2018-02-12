@@ -26,7 +26,7 @@
 		alert('hi');
 		var i;
 		 $('[id^= "attribute_type_placeholder_"]').each(function(){
-            i=i.replace("attribute_type_placeholder_", "");
+            i=this.id.replace("attribute_type_placeholder_", "");
         });
         i=parseInt(i)+1;
 		alert('next: ' + i);
