@@ -80,6 +80,11 @@
 		</td>
 		<td class="srch">
 			<span id="attribute_value_placeholder_1"></span>
+
+
+			<span class="helpLink" id="_bursa_length" title="measured how?">bursa&nbsp;length</span>
+
+
 		</td>
 	</tr>
 	<tr id="attrCtlTR">
