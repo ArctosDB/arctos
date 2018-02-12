@@ -102,7 +102,7 @@
 	'#tctl.VALUE_CODE_TABLE#',
 	'#escapeQuotes(tctl.DESCRIPTION)#',
 	'#ATTRIBUTE_TYPE#',
-	'#Application.docURL#/attributes/##attribute_api',
+	'#Application.docURL#/attributes.html#searching-with-attributes',
 	'#ATTRIBUTE_TYPE#',
 	'#srchhint#',
 	'concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#'')',

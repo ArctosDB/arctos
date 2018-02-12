@@ -94,30 +94,6 @@
 		</td>
 
 	</tr>
-	<!----
-	<tr>
-		<td class="lbl">
-			<select name="attribute_type_placeholder_2" id="attribute_type_placeholder_2" size="1">
-				<option selected value="">[ pick an attribute ]</option>
-					<cfloop query="srchAttrs">
-						<option value="#srchAttrs.CF_VARIABLE#">#srchAttrs.DISPLAY_TEXT#</option>
-					</cfloop>
-			  </select>
-		</td>
-		<td class="srch" id="attribute_value_placeholder_2">
-
-		</td>
-	</tr>
-
-	---->
-
-
-
-
-
-
-
-
 	<tr>
 		<td class="lbl">
 			<select name="part_attribute" id="part_attribute" size="1">
@@ -132,7 +108,6 @@
 			<span class="infoLink" onclick="var e=document.getElementById('part_attribute_value');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
-
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_part_remark">Part Remark:</span>
@@ -142,7 +117,7 @@
 		</td>
 	</tr>
 
-
+<!----
 
 
 
@@ -183,6 +158,7 @@
 		</td>
 	</tr>
 	</tr>
+	---->
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="ocr_text">OCR Text:</span>
