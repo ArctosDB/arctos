@@ -11,7 +11,7 @@
 			}
 			var thisTxt=$("#" + this.id + " option:selected").text();
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
-			nEl+='<span class="infoLink" onclick="resetAttr(' + this.id + ')">reset</span>';
+			//nEl+='<span class="infoLink" onclick="resetAttr(' + this.id + ')">reset</span>';
 			$("#attribute_value_placeholder_" + i).html(nEl);
 			// hide the placeholder/picker
 			var nlbl='<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
@@ -19,6 +19,9 @@
 		});
 	});
 
+	function resetAttr(id){
+
+	}
 	function moreAttr(){
 		var i;
 		 $('[id^= "attribute_type_placeholder_"]').each(function(){
@@ -77,11 +80,6 @@
 		</td>
 		<td class="srch">
 			<span id="attribute_value_placeholder_1"></span>
-
-
-			<span class="helpLink" id="_bursa_length" title="measured how?">bursa&nbsp;length</span>
-
-
 		</td>
 	</tr>
 	<tr id="attrCtlTR">
