@@ -10,6 +10,7 @@
 
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
 
+			$("#attribute_value_placeholder_" + i).html(nEl);
 		});
 	});
 
