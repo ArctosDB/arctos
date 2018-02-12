@@ -7,7 +7,9 @@
 
 			if ($('#' + thisVal).length){
 
-				alert('already got one');
+				alert('That Attribute has already been added.');
+				$("#" + this.id).val('');
+				return;
 			}
 
 			var thisTxt=$("#" + this.id + " option:selected").text();
