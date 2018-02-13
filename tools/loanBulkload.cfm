@@ -610,7 +610,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 						,condition='#PART_CONDITION#'
 					</cfif>
 				where
-					collection_object_id=#partID#
+					collection_object_id=#thisPartId#
 			</cfquery>
 		</cfloop>
 	</cftransaction>
