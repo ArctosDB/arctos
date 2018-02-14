@@ -187,7 +187,7 @@ sho err
 		<input type="file"
 			name="FiletoUpload"
 			size="45" onchange="checkCSV(this);">
-		<input type="submit" value="Upload this file" #saveClr#>
+		<input type="submit" value="Upload this file" class="insBtn">
 	</cfform>
 </cfif>
 <!------------------------------------------------------->

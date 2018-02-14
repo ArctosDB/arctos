@@ -89,6 +89,25 @@
 			<cfif len(ref) gt 0>
 				<br>Referring page: #ref#
 			</cfif>
+			<p>
+				<cftry>
+					<cfhttp url="freegeoip.net/json/#exception.ipaddress#" timeout="5"></cfhttp>
+					<cfset x=DeserializeJSON(cfhttp.fileContent)>
+					<cfset ipinfo=x.country_name & '; ' & x.region_name & '; ' & x.city>
+				<cfcatch><cfset ipinfo='ip info lookup failed'></cfcatch>
+				</cftry>
+				<br>
+				ipinfo:#ipinfo#
+				<br>
+				<cfif isdefined("request.ipaddress")>
+					<a href="http://whatismyipaddress.com/ip/#request.ipaddress#">[ lookup #request.ipaddress# @whatismyipaddress ]</a>
+					<br><a href="https://www.ipalyzer.com/#request.ipaddress#">[ lookup #request.ipaddress# @ipalyzer ]</a>
+					<br><a href="https://gwhois.org/#request.ipaddress#">[ lookup #request.ipaddress# @gwhois ]</a>
+					<p>
+						<br><a href="#Application.serverRootURL#/Admin/blacklist.cfm?ipstartswith=#request.ipaddress#">[ manage IP and subnet restrictions ]</a>
+					</p>
+				</cfif>
+			</p>
 		</cfmail>
 		Thanks for contacting us. Your message has been delivered.
 	</cfoutput>
