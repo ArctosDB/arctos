@@ -546,7 +546,7 @@
 										</ul>
 									</li>
 									<li><a target="_top" href="/info/reviewAnnotation.cfm">Review Annotations</a></li>
-									<li><a target="_top" href="##">View Stastics</a>
+									<li><a target="_top" href="##">View Statistics</a>
 										<ul>
 											<li><a target="_top" href="/Reports/dataentry.cfm">Data Entry Statistics</a></li>
 											<li><a target="_top" href="/Admin/download.cfm">Download Statistics</a></li>
