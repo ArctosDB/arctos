@@ -132,7 +132,7 @@
 			keep this synced up with /component/utilities.cfc
 		---->
 		<cfset badbot="Apache-HttpClient">
-		<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG">
+		<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler">
 		<cfset badbot=badbot & ",ca-crawler,CCBot">
 		<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
 		<cfset badbot=badbot & ",Exabot">
