@@ -884,6 +884,44 @@
 </cfif>
 </cfif>
 
+<cfif isdefined("curved_carapace_length") and len(curved_carapace_length) gt 0>
+  <cfset mapurl = "#mapurl#&curved_carapace_length=#curved_carapace_length#">
+  <cfif compare(curved_carapace_length,"NULL") is 0>
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'curved_carapace_length') is null">
+  <cfelse>
+    <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_curved_carapace_length ON (#session.flatTableName#.collection_object_id = tbl_curved_carapace_length.collection_object_id)">
+    <cfset basQual = " #basQual# AND tbl_curved_carapace_length.attribute_type = 'curved carapace length'">
+    <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_curved_carapace_length.is_encumbered = 0"></cfif>
+    <cfif curved_carapace_length neq "_">
+    <cfset schunits="">
+    <cfset oper=left(curved_carapace_length,1)>
+    <cfif listfind(numattrschops,oper)>
+      <cfset schTerm=ucase(right(curved_carapace_length,len(curved_carapace_length)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(curved_carapace_length)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
+    <cfif len(temp) gt 0 and listfindnocase(attrLengthUnits,temp) and isnumeric(replace(schTerm,temp,""))>
+      <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
+    <cfelseif left(temp,1) eq "-" and listfindnocase(attrTimeUnits,trim(replace(temp,"-","")))>
+      <cfset schunits=trim(replace(temp,"-",""))>
+      <cfset low=trim(listgetat(numeric_age,1,"-"))>
+      <cfset high=trim(replacenocase(replace(replace(numeric_age,low,"","first"),"-",""),schunits,""))>
+      <cfset schTerm=trim(replace(replace(replace(numeric_age,schunits,""),low,""),high,""))>
+      <cfif len(low) gt 0 and len(high) gt 0 and len(schunits) gt 0><cfset oper="between"></cfif>
+    </cfif>
+    <cfif oper is "between">
+      <cfset basQual = " #basQual# AND to_days(tbl_curved_carapace_length.attribute_value,tbl_curved_carapace_length.attribute_units) #oper# to_days(#low#,'#schunits#') and to_days(#high#,'#schunits#')">
+    <cfelseif len(schunits) gt 0>
+      <cfset basQual = " #basQual# AND to_meters(tbl_curved_carapace_length.attribute_value,tbl_curved_carapace_length.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
+    <cfelse>
+      <cfset basQual = " #basQual# AND tbl_curved_carapace_length.attribute_value #oper# '#schTerm#'">
+    </cfif>
+  </cfif>
+</cfif>
+</cfif>
+
 <cfif isdefined("curvilinear_length") and len(curvilinear_length) gt 0>
   <cfset mapurl = "#mapurl#&curvilinear_length=#curvilinear_length#">
   <cfif compare(curvilinear_length,"NULL") is 0>
@@ -2633,31 +2671,6 @@
 </cfif>
 </cfif>
 
-<cfif isdefined("parasites_detected") and len(parasites_detected) gt 0>
-  <cfset mapurl = "#mapurl#&parasites_detected=#parasites_detected#">
-  <cfif compare(parasites_detected,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'parasites_detected') is null">
-  <cfelse>
-    <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_parasites_detected ON (#session.flatTableName#.collection_object_id = tbl_parasites_detected.collection_object_id)">
-    <cfset basQual = " #basQual# AND tbl_parasites_detected.attribute_type = 'parasites detected'">
-    <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_parasites_detected.is_encumbered = 0"></cfif>
-    <cfif parasites_detected neq "_">
-    <cfset oper=left(parasites_detected,1)>
-    <cfif listfind(charattrschops,oper)>
-      <cfset schTerm=ucase(right(parasites_detected,len(parasites_detected)-1))>
-    <cfelse>
-      <cfset oper="like"><cfset schTerm=ucase(parasites_detected)>
-    </cfif>
-    <cfif oper is "!"><cfset oper="!="></cfif>
-    <cfif oper is "like">
-      <cfset basQual = " #basQual# AND upper(tbl_parasites_detected.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
-	<cfelse>
-      <cfset basQual = " #basQual# AND upper(tbl_parasites_detected.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
-	</cfif>
-  </cfif>
-</cfif>
-</cfif>
-
 <cfif isdefined("parasites_found") and len(parasites_found) gt 0>
   <cfset mapurl = "#mapurl#&parasites_found=#parasites_found#">
   <cfif compare(parasites_found,"NULL") is 0>
@@ -3257,6 +3270,44 @@
 	<cfelse>
       <cfset basQual = " #basQual# AND upper(tbl_stomach_contents.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
 	</cfif>
+  </cfif>
+</cfif>
+</cfif>
+
+<cfif isdefined("straight_carapace_length") and len(straight_carapace_length) gt 0>
+  <cfset mapurl = "#mapurl#&straight_carapace_length=#straight_carapace_length#">
+  <cfif compare(straight_carapace_length,"NULL") is 0>
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'straight_carapace_length') is null">
+  <cfelse>
+    <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_straight_carapace_length ON (#session.flatTableName#.collection_object_id = tbl_straight_carapace_length.collection_object_id)">
+    <cfset basQual = " #basQual# AND tbl_straight_carapace_length.attribute_type = 'straight carapace length'">
+    <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_straight_carapace_length.is_encumbered = 0"></cfif>
+    <cfif straight_carapace_length neq "_">
+    <cfset schunits="">
+    <cfset oper=left(straight_carapace_length,1)>
+    <cfif listfind(numattrschops,oper)>
+      <cfset schTerm=ucase(right(straight_carapace_length,len(straight_carapace_length)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(straight_carapace_length)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
+    <cfif len(temp) gt 0 and listfindnocase(attrLengthUnits,temp) and isnumeric(replace(schTerm,temp,""))>
+      <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
+    <cfelseif left(temp,1) eq "-" and listfindnocase(attrTimeUnits,trim(replace(temp,"-","")))>
+      <cfset schunits=trim(replace(temp,"-",""))>
+      <cfset low=trim(listgetat(numeric_age,1,"-"))>
+      <cfset high=trim(replacenocase(replace(replace(numeric_age,low,"","first"),"-",""),schunits,""))>
+      <cfset schTerm=trim(replace(replace(replace(numeric_age,schunits,""),low,""),high,""))>
+      <cfif len(low) gt 0 and len(high) gt 0 and len(schunits) gt 0><cfset oper="between"></cfif>
+    </cfif>
+    <cfif oper is "between">
+      <cfset basQual = " #basQual# AND to_days(tbl_straight_carapace_length.attribute_value,tbl_straight_carapace_length.attribute_units) #oper# to_days(#low#,'#schunits#') and to_days(#high#,'#schunits#')">
+    <cfelseif len(schunits) gt 0>
+      <cfset basQual = " #basQual# AND to_meters(tbl_straight_carapace_length.attribute_value,tbl_straight_carapace_length.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
+    <cfelse>
+      <cfset basQual = " #basQual# AND tbl_straight_carapace_length.attribute_value #oper# '#schTerm#'">
+    </cfif>
   </cfif>
 </cfif>
 </cfif>
@@ -3913,4 +3964,3 @@
   </cfif>
 </cfif>
 </cfif>
-
