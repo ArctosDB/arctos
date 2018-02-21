@@ -12,6 +12,9 @@
 			select * from #table_name#
 		</cfquery>
 
+		<cfif not listfind(t.columnList,'DESCRIPTION')>
+			<br>HAS NO DESCRIPTION!!
+		</cfif>
 		<cfdump var=#t.columnList#>
 	</cfloop>
 
