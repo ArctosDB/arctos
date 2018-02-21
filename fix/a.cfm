@@ -2,9 +2,18 @@
 <cfinclude template="/includes/_header.cfm">
 
 
- <cfquery datasource='prod' name='d'>
+ 	<cfquery datasource='prod' name='d'>
 		select table_name from user_tables where table_name like 'CT%' order by table_name
 	</cfquery>
+
+	<cfloop query="d">
+
+		<cfquery datasource='prod' name='t'>
+			select * from #table_name# where description is null
+		</cfquery>
+
+		<cfdump var=#t.columnList#>
+	</cfloop>
 	<cfdump var=#d#>
 
 
