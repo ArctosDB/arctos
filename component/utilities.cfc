@@ -891,11 +891,9 @@
 			<cfset x=x & ",trackback,texteditor">
 			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra,vscode">
-			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay">
+			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
-
-
 
 
 			<!--- just remember to not add these...---->
