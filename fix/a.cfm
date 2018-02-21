@@ -1,6 +1,13 @@
 
 <cfinclude template="/includes/_header.cfm">
+<!---
 
+create table temp_cd_nodef (
+	table_name varchar2(255),
+	column_name varchar2(255),
+	we_have_no_idea_what_this_means varcahr2(255)
+);
+---->
 
  	<cfquery datasource='prod' name='d'>
 		select table_name from user_tables where table_name like 'CT%' order by table_name
@@ -12,8 +19,15 @@
 			select * from #table_name#
 		</cfquery>
 
-		<cfif not listfind(t.columnList,'DESCRIPTION')>
-			<br>HAS NO DESCRIPTION!!
+		<cfif listfind(t.columnList,'DESCRIPTION')>
+			<cfset theCN=t.columnList>
+			<cfset theCN=listdeleteat(theCN,listfind(theCN,'DESCRIPTION'))>
+			<cfif listfind(t.columnList,'COLLECTION_CDE')>
+				<cfset theCN=listdeleteat(theCN,listfind(theCN,'DESCRIPTION'))>
+			</cfif>
+
+			<BR>theCN: #theCN#
+
 		</cfif>
 		<cfdump var=#t.columnList#>
 	</cfloop>
