@@ -2,6 +2,24 @@
 <cfinclude template="/includes/_header.cfm">
 
 
+ <cfquery datasource='prod' name='d'>
+		select table_name from user_tables where table_name like 'CT%' order by table_name
+	</cfquery>
+	<cfdump var=#d#>
+
+
+
+
+
+		<!----
+
+
+
+
+
+
+
+
 
 <!--- This example shows how to retrieve the EXIF header information from a
 JPEG file. --->
@@ -21,7 +39,6 @@ JPEG file. --->
 </cfoutput>
 
 
-		<!----
 
 
 <script>
