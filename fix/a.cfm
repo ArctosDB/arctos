@@ -23,7 +23,7 @@ create table temp_cd_nodef (
 			<cfset theCN=t.columnList>
 			<cfset theCN=listdeleteat(theCN,listfind(theCN,'DESCRIPTION'))>
 			<cfif listfind(t.columnList,'COLLECTION_CDE')>
-				<cfset theCN=listdeleteat(theCN,listfind(theCN,'DESCRIPTION'))>
+				<cfset theCN=listdeleteat(theCN,listfind(theCN,'COLLECTION_CDE'))>
 			</cfif>
 
 			<BR>theCN: #theCN#
