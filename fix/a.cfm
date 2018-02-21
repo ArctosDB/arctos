@@ -28,6 +28,11 @@ create table temp_cd_nodef (
 
 			<P>theCN: #theCN#</P>
 
+			<CFQUERY NAME="NOD" DBTYPE="QUERY">
+				SELECT DISTINCT #THECN# FROM t where DESCRIPTION is null
+			</CFQUERY>
+			<cfdump var=#nod#>
+
 		</cfif>
 		<cfdump var=#t.columnList#>
 	</cfloop>
