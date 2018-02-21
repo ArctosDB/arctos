@@ -736,7 +736,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
 	</cfif>
 	<cfset basQual = "#basQual#  AND parent_container.container_type='#part_container_type#'">
-	<cfset mapurl = "#mapurl#&barcode=#barcode#">
+	<cfset mapurl = "#mapurl#&part_container_type=#part_container_type#">
 </cfif>
 <cfif isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0>
 	<cfif basJoin does not contain "specimen_part">
