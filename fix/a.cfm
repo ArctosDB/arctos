@@ -5,18 +5,17 @@
  	<cfquery datasource='prod' name='d'>
 		select table_name from user_tables where table_name like 'CT%' order by table_name
 	</cfquery>
-
+<cfoutput>
 	<cfloop query="d">
-
+		<p>#table_name#</p>
 		<cfquery datasource='prod' name='t'>
-			select * from #table_name# where description is null
+			select * from #table_name#
 		</cfquery>
 
 		<cfdump var=#t.columnList#>
 	</cfloop>
-	<cfdump var=#d#>
 
-
+</cfoutput>
 
 
 
