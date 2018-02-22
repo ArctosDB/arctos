@@ -1942,9 +1942,7 @@
 </cfif>
 <cfif isdefined("is_tissue") AND is_tissue is 1>
 	<cfset mapurl = "#mapurl#&is_tissue=#is_tissue#">
-	<cfset basJoin = " #basJoin# INNER JOIN specimen_part spt ON (#session.flatTableName#.collection_object_id = spt.derived_from_cat_item)
-		inner join ctspecimen_part_name on (spt.part_name=ctspecimen_part_name.part_name)">
-	<cfset basQual = " #basQual# AND ctspecimen_part_name.is_tissue = 1">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.has_tissue = 1">
 </cfif>
 <cfif isdefined("part_disposition") AND len(part_disposition) gt 0>
 	<cfset mapurl = "#mapurl#&part_disposition=#URLEncodedFormat(part_disposition)#">

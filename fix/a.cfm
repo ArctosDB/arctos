@@ -9,13 +9,13 @@ create table temp_cd_nodef (
 );
 ---->
 
- 	<cfquery datasource='prod' name='d'>
+ 	<cfquery datasource='uam_god' name='d'>
 		select table_name from user_tables where table_name like 'CT%' order by table_name
 	</cfquery>
 <cfoutput>
 	<cfloop query="d">
-		<p>#table_name#</p>
-		<cfquery datasource='prod' name='t'>
+		
+		<cfquery datasource='uam_god' name='t'>
 			select * from #table_name#
 		</cfquery>
 
