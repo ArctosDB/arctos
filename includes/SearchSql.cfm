@@ -1942,7 +1942,7 @@
 </cfif>
 <cfif isdefined("is_tissue") AND is_tissue is 1>
 	<cfset mapurl = "#mapurl#&is_tissue=#is_tissue#">
-	<cfset basQual = " #basQual# AND #session.flatTableName#.has_tissue = 1">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.has_tissues = 1">
 </cfif>
 <cfif isdefined("part_disposition") AND len(part_disposition) gt 0>
 	<cfset mapurl = "#mapurl#&part_disposition=#URLEncodedFormat(part_disposition)#">
