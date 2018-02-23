@@ -14,7 +14,7 @@ create table temp_cd_nodef (
 	</cfquery>
 <cfoutput>
 	<cfloop query="d">
-		
+
 		<cfquery datasource='uam_god' name='t'>
 			select * from #table_name#
 		</cfquery>
@@ -38,7 +38,6 @@ create table temp_cd_nodef (
 	</cfloop>
 
 </cfoutput>
-
 
 
 		<!----
