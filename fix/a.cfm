@@ -30,7 +30,6 @@ create table temp_cd_nodef (
 				SELECT DISTINCT #THECN# FROM t where DESCRIPTION is null
 			</CFQUERY>
 
-
 			<cfdump var=#nod#>
 
 		</cfif>
