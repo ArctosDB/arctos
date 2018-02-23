@@ -7,7 +7,6 @@ create table temp_cd_nodef (
 	we_have_no_idea_what_this_means varcahr2(255)
 );
 ---->
-
  	<cfquery datasource='uam_god' name='d'>
 		select table_name from user_tables where table_name like 'CT%' order by table_name
 	</cfquery>
@@ -30,6 +29,8 @@ create table temp_cd_nodef (
 			<CFQUERY NAME="NOD" DBTYPE="QUERY">
 				SELECT DISTINCT #THECN# FROM t where DESCRIPTION is null
 			</CFQUERY>
+
+
 			<cfdump var=#nod#>
 
 		</cfif>
@@ -37,7 +38,6 @@ create table temp_cd_nodef (
 	</cfloop>
 
 </cfoutput>
-
 
 		<!----
 
