@@ -47,6 +47,11 @@
 		</cfquery>
 		<br>Account Status: #acts.account_status#
 
+		<cfquery name="addr" datasource="uam_god">
+			select * from address where agent_id=#users.agent_id#
+		</cfquery>
+		<cfdump var=#addr#>
+
 	</cfloop>
 
 
