@@ -9,7 +9,7 @@
 	<cfquery name="coln" datasource="uam_god">
 		select guid_prefix, collection_id from collection where upper(guid_prefix)='#ucase(guid_prefix)#'
 	</cfquery>
-	<cfif coln.recordcout neq 1>
+	<cfif coln.recordcount neq 1>
 		collection not found<cfabort>
 	</cfif>
 	<cfquery name="users" datasource="uam_god">
