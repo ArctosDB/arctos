@@ -1,5 +1,8 @@
 <cfinclude template="includes/_header.cfm">
-<cfif not isdefined("project_id")><cfset project_id = -1></cfif>
+<cfif not isdefined("project_id")>
+	<cfset project_id = -1>
+</cfif>
+
 <cfquery name="ctLoanType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select loan_type from ctloan_type order by loan_type
 </cfquery>
@@ -1989,6 +1992,10 @@ just fooling idiot cfclipse into using the right colors
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+
+
+	<cfdump var="#allLoans#">
+
 	<cfif allLoans.recordcount is 0>
 		Nothing matched your search criteria.
 	<cfelse>
