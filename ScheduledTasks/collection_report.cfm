@@ -26,6 +26,8 @@
 			upper(dba_role_privs.grantee) = upper(agent_name.agent_name) and
 			agent_name.agent_name_type='login' and
 			agent_name.agent_id=agent.agent_id
+		order by
+			agent.preferred_agent_name
 	</cfquery>
 
 	<p>
