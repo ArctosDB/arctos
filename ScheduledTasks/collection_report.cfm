@@ -70,6 +70,20 @@
 				</tr>
 			</cfloop>
 		</table>
+
+		<cfquery name="role" datasource="uam_god">
+		select
+					granted_role role_name
+				from
+					dba_role_privs,
+					collection
+				where
+					upper(dba_role_privs.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
+					upper(grantee) = '#users.username#'
+			</cfquery>
+
+
+			<cfdump var=#roles#>
 	</cfloop>
 
 
