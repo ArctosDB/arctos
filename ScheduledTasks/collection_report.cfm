@@ -27,7 +27,7 @@
 	</p>
 
 	<cfloop query="users">
-		<br>#users.username# #agent.preferred_agent_name#
+		<br>#users.username# #users.preferred_agent_name#
 
 	</cfloop>">
 
