@@ -64,7 +64,7 @@
 			</tr>
 			<cfloop query="addr">
 				<tr>
-					<td>#ADDRESS_TYPE#</td>
+					<td>#replace(ADDRESS_TYPE,chr(10),"<br>","all")#</td>
 					<td><cfif VALID_ADDR_FG is 1>yes<cfelse>no</cfif></td>
 					<td>#ADDRESS#</td>
 				</tr>
