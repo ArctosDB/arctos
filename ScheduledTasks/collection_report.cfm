@@ -83,7 +83,7 @@
 			</cfquery>
 
 
-			<cfdump var=#roles#>
+			<cfdump var=#role#>
 	</cfloop>
 
 
