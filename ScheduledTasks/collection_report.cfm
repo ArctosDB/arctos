@@ -51,6 +51,26 @@
 			select * from address where agent_id=#users.agent_id#
 		</cfquery>
 		<cfdump var=#addr#>
+		<p>
+			Addresses
+		</p>
+
+
+
+		<table border>
+			<tr>
+				<th>Type</th>
+				<th>Valid?</th>
+				<th>Address</th>
+			</tr>
+			<cfloop query="addr">
+				<tr>
+					<td>#ADDRESS_TYPE#</td>
+					<td>#VALID_ADDR_FG#</td>
+					<td>#ADDRESS#</td>
+				</tr>
+			</cfloop>
+		</table>
 
 	</cfloop>
 
