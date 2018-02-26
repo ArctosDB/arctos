@@ -52,39 +52,25 @@
 		<cfquery name="addr" datasource="uam_god">
 			select * from address where agent_id=#users.agent_id#
 		</cfquery>
-		<p>
-			Addresses
-		</p>
-
-
-		<table border>
-			<tr>
-				<th>Type</th>
-				<th>Valid?</th>
-				<th>Address</th>
-			</tr>
-			<cfloop query="addr">
-				<tr>
-					<td>#replace(ADDRESS_TYPE,chr(10),"<br>","all")#</td>
-					<td><cfif VALID_ADDR_FG is 1>yes<cfelse>no</cfif></td>
-					<td>#ADDRESS#</td>
-				</tr>
-			</cfloop>
-		</table>
-
+		<cfloop query="addr">
+			<br>#replace(ADDRESS_TYPE,chr(10),"<br>","all")#: #ADDRESS# (<cfif VALID_ADDR_FG is 1>valid<cfelse>not valid</cfif>)
+		</cfloop>
 		<cfquery name="role" datasource="uam_god">
-		select
-					granted_role
-				from
-					dba_role_privs
-				where
-					upper(grantee) = '#users.username#'
-					and granted_role not in (select upper(replace(guid_prefix,':','_')) from collection)
+			select
+				granted_role
+			from
+				dba_role_privs
+			where
+				upper(grantee) = '#users.username#'
+				and granted_role not in (select upper(replace(guid_prefix,':','_')) from collection)
 				order by granted_role
-			</cfquery>
-	<p>Roles</p>
-	#valuelist(role.granted_role)#
-
+		</cfquery>
+		<p>Roles</p>
+		<ul>
+			<cfloop query="role">
+				<li>#granted_role#</li>
+			</cfloop>
+		</ul>
 	</cfloop>
 
 
