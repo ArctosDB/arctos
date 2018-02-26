@@ -16,7 +16,7 @@
 			agent_name,
 			agent
 		where
-			upper(dba_role_privs.granted_role) = upper(replace(#guid_prefix#,':','_')) and
+			upper(dba_role_privs.granted_role) = upper(replace('#guid_prefix#',':','_')) and
 			upper(dba_role_privs.grantee) = upper(agent_name.agent_name) and
 			agent_name.agent_name_type='login' and
 			agent_name.agent_id=agent.agent_id
@@ -25,6 +25,7 @@
 	<cfdump var=#users#>
 
 
+<!----
 
 select
 					granted_role role_name
@@ -35,7 +36,9 @@ select
 					upper(dba_role_privs.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
 					upper(grantee) = '#ucasename#'
 
-<!----
+
+
+
 	<cfquery name="c" datasource="uam_god">
 		select
 			collection.guid_prefix,
