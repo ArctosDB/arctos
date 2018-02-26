@@ -38,6 +38,8 @@ create table temp_cd_nodef (
 
 </cfoutput>
 
+
+
 		<!----
 
 
