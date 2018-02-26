@@ -87,9 +87,7 @@
 	</cfsavecontent>
 	Summary
 
-	<cfdump var=#summary#>
 
-	<!----
 	<table border>
 		<tr>
 			<th>Username</th>
@@ -104,7 +102,6 @@
 			</tr>
 		</cfloop>
 	</table>
-	---->
 	<p></p>
 	#details#
 
