@@ -73,14 +73,16 @@
 
 		<cfquery name="role" datasource="uam_god">
 		select
-					granted_role role_name
+					granted_role
 				from
 					dba_role_privs
 				where
 					upper(grantee) = '#users.username#'
 					and granted_role not in (select upper(replace(guid_prefix,':','_')) from collection)
+				order by granted_role
 			</cfquery>
-
+	<p>Roles</p>
+	#valuelist(role.granted_role)#
 
 			<cfdump var=#role#>
 	</cfloop>
