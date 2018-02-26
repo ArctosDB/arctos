@@ -6,7 +6,12 @@
 </style>
 
 <cfoutput>
-
+	<cfquery name="coln" datasource="uam_god">
+		select guid_prefix, collection_id from collection where upper(guid_prefix)='#ucase(guid_prefix)#'
+	</cfquery>
+	<cfif coln.recordcout neq 1>
+		collection not found<cfabort>
+	</cfif>
 	<cfquery name="users" datasource="uam_god">
 		select
 			agent.agent_id,
@@ -30,7 +35,9 @@
 	<cfloop query="users">
 		<br>#users.username# #users.preferred_agent_name#
 		<cfquery name="cct" datasource="uam_god">
-			select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id# order by CONTACT_ROLE
+			select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id#  and
+			collection_contacts.collection_id=#coln.collection_id#
+			order by CONTACT_ROLE
 		</cfquery>
 		<cfloop query="cct">
 			<br>Collection Contact Role: #cct.CONTACT_ROLE#
