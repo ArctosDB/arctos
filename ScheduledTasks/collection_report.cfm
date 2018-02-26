@@ -29,12 +29,13 @@
 	</cfquery>
 
 	<p>
-		User report for collection #guid_prefix#
+		User report for collection #coln.guid_prefix#
 	</p>
 
 	<cfloop query="users">
 		<hr>
-		<br>#users.username# #users.preferred_agent_name#
+		<br>Preferred Name: #users.preferred_agent_name#
+		<br>Username: #users.username#
 		<cfquery name="cct" datasource="uam_god">
 			select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id#  and
 			collection_contacts.collection_id=#coln.collection_id#
@@ -84,7 +85,6 @@
 	<p>Roles</p>
 	#valuelist(role.granted_role)#
 
-			<cfdump var=#role#>
 	</cfloop>
 
 
