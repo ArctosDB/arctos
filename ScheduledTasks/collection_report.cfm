@@ -5,7 +5,10 @@
 	.hasNoContact{color:red;}
 </style>
 
+<cfset summary=querynew(u,p,s)>
 <cfoutput>
+	<cfsavecontent variable="details">
+
 	<cfquery name="coln" datasource="uam_god">
 		select guid_prefix, collection_id from collection where upper(guid_prefix)='#ucase(guid_prefix)#'
 	</cfquery>
@@ -38,6 +41,15 @@
 		<cfquery name="acts" datasource="uam_god">
 			select account_status FROM dba_users where username='#users.username#'
 		</cfquery>
+
+		<cfset queryaddrow(summary,
+			{u=users.username,
+			p=users.preferred_agent_name,
+			s=acts.account_status}
+		)>
+
+
+
 		<hr>
 		<br>Preferred Name: #users.preferred_agent_name#
 		<br>Username: #users.username# (Account Status: #acts.account_status#)
@@ -72,6 +84,24 @@
 			</cfloop>
 		</ul>
 	</cfloop>
+	</cfsavecontent>
+	Summary
+	<table border>
+		<tr>
+			<th>Username</th>
+			<th>Preferred Name</th>
+			<th>Account Status</th>
+		</tr>
+		<cfloop query="summary">
+			<tr>
+				<td>#u#</td>
+				<td>#p#</td>
+				<td>#s#</td>
+			</tr>
+		</cfloop>
+	</table>
+	<p></p>
+	#details#
 
 
 <!----
