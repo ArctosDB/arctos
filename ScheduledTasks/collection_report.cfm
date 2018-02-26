@@ -75,10 +75,8 @@
 		select
 					granted_role role_name
 				from
-					dba_role_privs,
-					collection
+					dba_role_privs
 				where
-					upper(dba_role_privs.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
 					upper(grantee) = '#users.username#'
 			</cfquery>
 
