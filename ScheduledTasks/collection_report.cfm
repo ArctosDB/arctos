@@ -5,7 +5,7 @@
 	.hasNoContact{color:red;}
 </style>
 
-<cfset summary=querynew("u","p","s")>
+<cfset summary=querynew("u,p,s")>
 <cfoutput>
 	<cfsavecontent variable="details">
 
