@@ -966,6 +966,12 @@
 					<cfabort>
 				</cfif>
 			</cfif>
+			<!--- 403s from Yandex are some crazy Russian phishing thing --->
+			<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "//yandex.ru/">
+				<cfset bl_reason='HTTP_REFERER contains //yandex.ru/'>
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
 		</cfif>
 	</cfif>
 
