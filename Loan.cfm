@@ -1814,7 +1814,7 @@ just fooling idiot cfclipse into using the right colors
 		project.project_name,
 		project.project_id pid,
 		collection.guid_prefix,
-		count(loan_item.collection_object_id) numberItems">
+		count(distinct(loan_item.collection_object_id)) numberItems">
 	<cfset frm = " from
 		loan,
 		trans,
@@ -1938,7 +1938,6 @@ just fooling idiot cfclipse into using the right colors
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
 	<cfif (isdefined("part_name") AND len(part_name) gt 0) or (isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0)>
-
 		<cfif frm does not contain "coll_object">
 			<cfset frm="#frm#,coll_object">
 			<cfset sql=sql & " and loan_item.collection_object_id=coll_object.collection_object_id ">
