@@ -9,6 +9,7 @@
 
 	<cfquery name="users" datasource="uam_god">
 		select
+			agent.agent_id,
 			grantee username,
 			agent.preferred_agent_name
 		from
@@ -28,8 +29,13 @@
 
 	<cfloop query="users">
 		<br>#users.username# #users.preferred_agent_name#
-
-	</cfloop>">
+		<cfquery name="cct" datasource="uam_god">
+			select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id# order by CONTACT_ROLE
+		</cfquery>
+		<cfloop query="cct">
+			<br>Collection Contact Role: #cct.CONTACT_ROLE#
+		</cfloop>
+	</cfloop>
 
 
 <!----
