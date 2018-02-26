@@ -22,7 +22,14 @@
 			agent_name.agent_id=agent.agent_id
 	</cfquery>
 
-	<cfdump var=#users#>
+	<p>
+		User report for collection #guid_prefix#
+	</p>
+
+	<cfloop query="users">
+		<br>#users.username# #agent.preferred_agent_name#
+
+	</cfloop>">
 
 
 <!----
