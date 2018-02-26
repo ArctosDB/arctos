@@ -1991,8 +1991,6 @@ just fooling idiot cfclipse into using the right colors
 		#preservesinglequotes(sql)#
 	</cfquery>
 
-	<cfdump var="#allLoans#">
-
 	<cfif allLoans.recordcount is 0>
 		Nothing matched your search criteria.
 	<cfelse>
