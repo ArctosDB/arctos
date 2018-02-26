@@ -4,6 +4,38 @@
 <style>
 	.hasNoContact{color:red;}
 </style>
+
+<cfoutput>
+
+	<cfquery name="users" datasource="uam_god">
+		select
+			grantee username,
+			agent.preferred_agent_name
+		from
+			dba_role_privs,
+			agent_name,
+			agent
+		where
+			upper(dba_role_privs.granted_role) = upper(replace(guid_prefix,':','_')) and
+			upper(dba_role_privs.grantee) = upper(agent_name.agent_name) and
+			agent_name.agent_name_type='login' and
+			agent_name.agent_id=agent.agent_id
+	</cfquery>
+
+	<cfdump var=#users#>
+
+
+
+select
+					granted_role role_name
+				from
+					dba_role_privs,
+					collection
+				where
+					upper(dba_role_privs.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
+					upper(grantee) = '#ucasename#'
+
+<!----
 	<cfquery name="c" datasource="uam_god">
 		select
 			collection.guid_prefix,
@@ -23,7 +55,6 @@
 			collection_contacts.CONTACT_ROLE,
 			getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID)
 	</cfquery>
-	<cfoutput>
 	<p>
 		<ul>
 			<li><strong>Email</strong> is email address attached to agent record</li>
@@ -83,5 +114,6 @@
 			</tr>
 		</cfloop>
 	</table>
+	--->
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
