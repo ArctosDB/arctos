@@ -33,9 +33,12 @@
 	</p>
 
 	<cfloop query="users">
+		<cfquery name="acts" datasource="uam_god">
+			select account_status FROM dba_users where username='#users.username#'
+		</cfquery>
 		<hr>
 		<br>Preferred Name: #users.preferred_agent_name#
-		<br>Username: #users.username#
+		<br>Username: #users.username# (Account Status: #acts.account_status#)
 		<cfquery name="cct" datasource="uam_god">
 			select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id#  and
 			collection_contacts.collection_id=#coln.collection_id#
@@ -44,11 +47,6 @@
 		<cfloop query="cct">
 			<br>Collection Contact Role: #cct.CONTACT_ROLE#
 		</cfloop>
-		<cfquery name="acts" datasource="uam_god">
-			select account_status FROM dba_users where username='#users.username#'
-		</cfquery>
-		<br>Account Status: #acts.account_status#
-
 		<cfquery name="addr" datasource="uam_god">
 			select * from address where agent_id=#users.agent_id#
 		</cfquery>
