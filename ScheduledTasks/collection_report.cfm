@@ -78,6 +78,7 @@
 					dba_role_privs
 				where
 					upper(grantee) = '#users.username#'
+					and granted_role not in (select upper(replace(guid_prefix,':','_')) from collection)
 			</cfquery>
 
 
