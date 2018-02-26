@@ -42,6 +42,11 @@
 		<cfloop query="cct">
 			<br>Collection Contact Role: #cct.CONTACT_ROLE#
 		</cfloop>
+		<cfquery name="acts" datasource="uam_god">
+			select account_status FROM dba_users where username='#users.username#'
+		</cfquery>
+		<br>Account Status: #acts.account_status#
+
 	</cfloop>
 
 
