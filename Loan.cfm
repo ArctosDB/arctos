@@ -1937,7 +1937,6 @@ just fooling idiot cfclipse into using the right colors
 	<cfif isdefined("notClosed") AND len(#notClosed#) gt 0>
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
-
 	<cfif (isdefined("part_name") AND len(part_name) gt 0) or (isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0)>
 
 		<cfif frm does not contain "coll_object">
