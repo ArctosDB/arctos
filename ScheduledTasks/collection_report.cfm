@@ -33,6 +33,7 @@
 	</p>
 
 	<cfloop query="users">
+		<hr>
 		<br>#users.username# #users.preferred_agent_name#
 		<cfquery name="cct" datasource="uam_god">
 			select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id#  and
@@ -50,11 +51,9 @@
 		<cfquery name="addr" datasource="uam_god">
 			select * from address where agent_id=#users.agent_id#
 		</cfquery>
-		<cfdump var=#addr#>
 		<p>
 			Addresses
 		</p>
-
 
 
 		<table border>
@@ -66,12 +65,11 @@
 			<cfloop query="addr">
 				<tr>
 					<td>#ADDRESS_TYPE#</td>
-					<td>#VALID_ADDR_FG#</td>
+					<td><cfif VALID_ADDR_FG is 1>yes<cfelse>no</cfif></td>
 					<td>#ADDRESS#</td>
 				</tr>
 			</cfloop>
 		</table>
-
 	</cfloop>
 
 
