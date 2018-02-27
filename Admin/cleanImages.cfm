@@ -120,6 +120,18 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 			<cfinvokeargument name="returnFormat" value="plain">
 			<cfinvokeargument name="uri" value="#TACC_URL#">
 		</cfinvoke>
+
+		<cfquery name="up" datasource="uam_god">
+			update ct_media_migration_aftermove set
+			local_checksum='#lclHash#',
+			remote_checksum='#rmtHash#',
+			status='got_checksums'
+			where relevant_path='#relevant_path#'
+		</cfquery>
+
+
+
+
 		<Cfdump var=#rmtHash#>
 	</cfloop>
 
