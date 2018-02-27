@@ -107,7 +107,7 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 
 	 --->
 	<cfquery name="d" datasource="uam_god">
-		select * from ct_media_migration_aftermove where status ='found_in_arctos_media' and rownum < 200
+		select * from ct_media_migration_aftermove where status ='found_in_arctos_media' and rownum < 2000
 	</cfquery>
 	<cfloop query="d">
 		<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
