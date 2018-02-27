@@ -5,7 +5,7 @@
 	.hasNoContact{color:red;}
 </style>
 
-<cfset summary=querynew("u,p,s")>
+<cfset summary=querynew("u,p,s,c")>
 <cfoutput>
 	<cfsavecontent variable="details">
 
@@ -42,11 +42,7 @@
 			select account_status FROM dba_users where username='#users.username#'
 		</cfquery>
 
-		<cfset queryaddrow(summary,
-			{u=users.username,
-			p=users.preferred_agent_name,
-			s=acts.account_status}
-		)>
+
 
 
 
@@ -58,6 +54,21 @@
 			collection_contacts.collection_id=#coln.collection_id#
 			order by CONTACT_ROLE
 		</cfquery>
+
+		<cfif acts.account_statu neq 'OPEN' and cct.recordcount gt 0>
+			<cfset ctn='LOCKED COLLECTION CONTACT'>
+		<cfelse>
+			<cfset ctn=''>
+		</cfif>
+		<cfset queryaddrow(summary,
+			{u=users.username,
+			p=users.preferred_agent_name,
+			s=acts.account_status,
+			c=ctn}
+		)>
+
+
+
 		<cfloop query="cct">
 			<br>Collection Contact Role: #cct.CONTACT_ROLE#
 		</cfloop>
@@ -87,18 +98,23 @@
 	</cfsavecontent>
 	Summary
 
+	<cfquery name="os" dbtype="query">
+		select * from summary order by c,s,u
+	</cfquery>
 
 	<table border>
 		<tr>
 			<th>Username</th>
 			<th>Preferred Name</th>
 			<th>Account Status</th>
+			<th>Problem</th>
 		</tr>
-		<cfloop query="summary">
+		<cfloop query="os">
 			<tr>
 				<td>#u#</td>
 				<td>#p#</td>
 				<td>#s#</td>
+				<td>#c#</td>
 			</tr>
 		</cfloop>
 	</table>
