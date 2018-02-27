@@ -4,11 +4,15 @@
 <p>
 	Move media from webserver to archives.
 </p>
+
+<!----
+
+
 <p>
 	To the great astonishment of absolutely noone, this didn't turn into a nice script. Proceed with caution; aborting.
 	<cfabort>
 </p>
-<!----
+
 
 little cache to speed things along - probably a good idea to delete from this and start over
 
@@ -250,12 +254,16 @@ select status,count(*) from cf_media_migration group by status;
 			---------->
 		</cfloop>
 	</cfif>
+
+
+
+
 	<cfif action is "confirmFullRemotePath">
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_media_migration where fullRemotePath is null
 		</cfquery>
 		<cfloop query="d">
-			<cfset rp='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads' & #path#>
+			<cfset rp='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/' & #path#>
 			<br>#rp#
 			<cfhttp method="head" url="#rp#"></cfhttp>
 			<cfif cfhttp.statusCode is '200 OK'>
