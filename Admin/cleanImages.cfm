@@ -93,6 +93,23 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	<cfloop index="i" from="1" to="#arrayLen(dir)#">
 		<cfset folder = dir[i].XmlChildren[1].xmlText>
 		<br>folder: #folder#
+		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/ala/#folder#" charset="utf-8" method="get"></cfhttp>
+
+		<hr>got #folder#....
+		<cfset ximgStr=cfhttp.FileContent>
+		<!--- goddamned xmlns bug in CF --->
+		<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
+		<cfset xImgAll=xmlparse(ximgStr)>
+		<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
+		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
+			<cfset fname = xImage[i].XmlChildren[1].xmlText>
+			<br>fname: #fname#
+		</cfloop>
+
+
+
+
+
 	</cfloop>
 
 </cfif>
