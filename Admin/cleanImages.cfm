@@ -66,9 +66,6 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	<p>
 		<a href="cleanImages.cfm?action=ready_delete_flipped">ready_delete_flipped</a>
 	</p>
-	<p>
-		<a href="cleanImages.cfm?action=find_mediaUploads2018">find_mediaUploads2018</a>
-	</p>
 
 
 	<p>
@@ -78,6 +75,70 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 
 
+<p>
+
+AFTER THINGS HAVE BEEN MOVED TO TACC:
+
+1)
+<p>
+		<a href="cleanImages.cfm?action=find_mediaUploads2018">find_mediaUploads2018</a>
+	</p>
+
+URLs will need changed. Get the relative path and fill TACC url of everything we just moved.
+
+
+2) find the file on the arctos webserver
+
+<p>
+		<a href="cleanImages.cfm?action=find_movedMediaOnArctos">find_movedMediaOnArctos</a>
+	</p>
+
+<cfif action is "find_movedMediaOnArctos">
+ <!---
+
+	-- need a place to stash status
+	alter table ct_media_migration_aftermove add status varchar2(255);
+	-- and the arctos.database url
+
+	alter table ct_media_migration_aftermove add webserver_url varchar2(4000);
+
+---->
+	<cfquery name="d" datasource="uam_god">
+		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 200
+	</cfquery>
+	<cfloop query="d">
+		<cfquery name="gm" datasource="uam_god">
+			select * from media where media_uri like '%#relevant_path#'
+		</cfquery>
+		<cfif gm.recordcount is 0>
+			<!--- this can return zero rows, because something's all mucked up ---->
+			<cfquery name="rslt" datasource="uam_god">
+				update ct_media_migration_aftermove set status='not_found_in_arctos_media' where relevant_path='#relevant_path#'
+			</cfquery>
+		<cfelseif gm.recordcount gt 1>
+			<!--- this can return multiple rows, because it's not an exact match ---->
+			<cfquery name="rslt" datasource="uam_god">
+				update ct_media_migration_aftermove set status='multiple_found_in_arctos_media' where relevant_path='#relevant_path#'
+			</cfquery>
+		<cfelseif gm.recordcount eq 1>
+			<!--- this can return one row, because yay ---->
+			<cfquery name="rslt" datasource="uam_god">
+				update ct_media_migration_aftermove set
+					status='found_in_arctos_media',
+					webserver_url='#gm.media_uri#'
+					where relevant_path='#relevant_path#'
+			</cfquery>
+		<cfelse>
+			<!--- should never get here but still.... ---->
+			<cfquery name="rslt" datasource="uam_god">
+				update ct_media_migration_aftermove set
+					status='unknown_if_found_in_arctos_media'
+					where relevant_path='#relevant_path#'
+			</cfquery>
+		</cfif>
+	</cfloop>
+
+</cfif>
 <cfif action is "find_mediaUploads2018">
 	<!--- get path of everything that was just moved to TACC ---->
 	<!--- create a new temp table for this, because....
