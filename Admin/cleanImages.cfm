@@ -78,25 +78,48 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 <p>
 
 AFTER THINGS HAVE BEEN MOVED TO TACC:
-
-1)
 <p>
+1)
+
 		<a href="cleanImages.cfm?action=find_mediaUploads2018">find_mediaUploads2018</a>
-	</p>
+
 
 URLs will need changed. Get the relative path and fill TACC url of everything we just moved.
-
-
+	</p>
+<p>
 2) find the file on the arctos webserver
 
-<p>
+
 		<a href="cleanImages.cfm?action=find_movedMediaOnArctos">find_movedMediaOnArctos</a>
 	</p>
 
-
-	3) generate checksums
 <p>
+	3) generate checksums
+
 		<a href="cleanImages.cfm?action=generatechecksums">generatechecksums</a>
+	</p>
+
+
+	<p>
+	4) SqLtime
+
+
+	select * from ct_media_migration_aftermove where status='got_checksums' and local_checksum is null;
+
+		select * from ct_media_migration_aftermove where status='got_checksums' and remote_checksum is null;
+
+-- uhh - try again?
+
+update  ct_media_migration_aftermove set status='found_in_arctos_media' where status='got_checksums' and remote_checksum is null;
+
+-- okeedokee, worked....
+
+select * from ct_media_migration_aftermove where status='got_checksums' and local_checksum != remote_checksum;
+
+-- crap
+
+update ct_media_migration_aftermove set status=null where status='got_checksums' and local_checksum != remote_checksum;
+
 	</p>
 <cfif action is "generatechecksums">
 	<!--- this is probably better done in find_movedMediaOnArctos --->
@@ -156,7 +179,7 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="gm" datasource="uam_god">
-			select * from media where media_uri like '%#relevant_path#' or PREVIEW_URI like '%#relevant_path#'
+			select * from media where media_uri like '%/#relevant_path#' or PREVIEW_URI like '%/#relevant_path#'
 		</cfquery>
 		<cfif gm.recordcount is 0>
 			<!--- this can return zero rows, because something's all mucked up ---->
