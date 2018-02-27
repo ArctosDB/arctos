@@ -93,8 +93,43 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 		<a href="cleanImages.cfm?action=find_movedMediaOnArctos">find_movedMediaOnArctos</a>
 	</p>
 
+
+	3) generate checksums
+<p>
+		<a href="cleanImages.cfm?action=generatechecksums">generatechecksums</a>
+	</p>
+<cfif action is "generatechecksums">
+	<!--- this is probably better done in find_movedMediaOnArctos --->
+	<!---
+
+		alter table ct_media_migration_aftermove add local_checksum varchar2(4000);
+		alter table ct_media_migration_aftermove add remote_checksum varchar2(4000);
+
+	 --->
+	<cfquery name="d" datasource="uam_god">
+		select * from ct_media_migration_aftermove where status ='found_in_arctos_media' and rownum < 20
+	</cfquery>
+	<cfloop query="d">
+		<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
+			<cfinvokeargument name="returnFormat" value="plain">
+			<cfinvokeargument name="uri" value="#WEBSERVER_URL#">
+		</cfinvoke>
+		<Cfdump var=#lclHash#>
+		<!--- grab a hash for the remote file ---->
+		<cfinvoke component="/component/functions" method="genMD5" returnVariable="rmtHash">
+			<cfinvokeargument name="returnFormat" value="plain">
+			<cfinvokeargument name="uri" value="#TACC_URL#">
+		</cfinvoke>
+		<Cfdump var=#rmtHash#>
+	</cfloop>
+
+
+</cfif>
+
 <cfif action is "find_movedMediaOnArctos">
  <!---
+	-- these don't matter...
+	delete from ct_media_migration_aftermove where relevant_path like '%Parent Directory';
 
 	-- need a place to stash status
 	alter table ct_media_migration_aftermove add status varchar2(255);
@@ -102,6 +137,9 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 	alter table ct_media_migration_aftermove add webserver_url varchar2(4000);
 
 	select status,count(*) from ct_media_migration_aftermove group by status;
+
+	select * from ct_media_migration_aftermove where status='not_found_in_arctos_media';
+
 ---->
 	<cfquery name="d" datasource="uam_god">
 		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 2000
