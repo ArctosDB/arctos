@@ -55,7 +55,7 @@
 			order by CONTACT_ROLE
 		</cfquery>
 
-		<cfif acts.account_statu neq 'OPEN' and cct.recordcount gt 0>
+		<cfif acts.account_status neq 'OPEN' and cct.recordcount gt 0>
 			<cfset ctn='LOCKED COLLECTION CONTACT'>
 		<cfelse>
 			<cfset ctn=''>
