@@ -178,37 +178,45 @@ update ct_media_migration_aftermove set status=null where status='got_checksums'
 		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 20
 	</cfquery>
 	<cfloop query="d">
+		<cfset theURL=''>
 		<cfquery name="gm" datasource="uam_god">
-			select * from media where media_uri like '%/#relevant_path#' or PREVIEW_URI like '%/#relevant_path#'
+			select * from media where media_uri like '%/#relevant_path#'
 		</cfquery>
 
-		<cfdump var=#gm#>
+		<cfif gm.recordcount is 1>
+				<cfset theURL=gm.media_uri>
+		<cfelse>
+			<!--- maybe it's preview --->
+			<cfquery name="gpm" datasource="uam_god">
+				select * from media where PREVIEW_URI like '%/#relevant_path#'
+			</cfquery>
+			<cfif gpm.recordcount is 1>
+				<cfset theURL=gpm.PREVIEW_URI>
+			</cfif>
+		</cfif>
 
-		<cfif gm.recordcount is 0>
-			<!--- this can return zero rows, because something's all mucked up ---->
-			<cfquery name="rslt" datasource="uam_god">
-				update ct_media_migration_aftermove set status='not_found_in_arctos_media' where relevant_path='#relevant_path#'
-			</cfquery>
-		<cfelseif gm.recordcount gt 1>
-			<!--- this can return multiple rows, because it's not an exact match ---->
-			<cfquery name="rslt" datasource="uam_god">
-				update ct_media_migration_aftermove set status='multiple_found_in_arctos_media' where relevant_path='#relevant_path#'
-			</cfquery>
-		<cfelseif gm.recordcount eq 1>
-			<!--- this can return one row, because yay ---->
+		<cfif len(theURL) gt 0>
 			<cfquery name="rslt" datasource="uam_god">
 				update ct_media_migration_aftermove set
 					status='found_in_arctos_media',
-					webserver_url='#gm.media_uri#'
+					webserver_url='#theURL#'
 					where relevant_path='#relevant_path#'
 			</cfquery>
+			<br>update ct_media_migration_aftermove set
+					status='found_in_arctos_media',
+					webserver_url='#theURL#'
+					where relevant_path='#relevant_path#'
 		<cfelse>
-			<!--- should never get here but still.... ---->
 			<cfquery name="rslt" datasource="uam_god">
 				update ct_media_migration_aftermove set
-					status='unknown_if_found_in_arctos_media'
+					status='NOT__found_in_arctos_media',
+					webserver_url='#theURL#'
 					where relevant_path='#relevant_path#'
 			</cfquery>
+			<br>update ct_media_migration_aftermove set
+					status='NOT__found_in_arctos_media',
+					webserver_url='#theURL#'
+					where relevant_path='#relevant_path#'
 		</cfif>
 	</cfloop>
 
