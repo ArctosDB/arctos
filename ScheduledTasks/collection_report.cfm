@@ -99,7 +99,7 @@
 	Summary
 
 	<cfquery name="os" dbtype="query">
-		select * from summary order by c desc,s,u
+		select * from summary order by c desc,s desc,u
 	</cfquery>
 
 	<table border>
