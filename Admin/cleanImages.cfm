@@ -175,12 +175,15 @@ update ct_media_migration_aftermove set status=null where status='got_checksums'
 
 ---->
 	<cfquery name="d" datasource="uam_god">
-		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 2000
+		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 20
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="gm" datasource="uam_god">
 			select * from media where media_uri like '%/#relevant_path#' or PREVIEW_URI like '%/#relevant_path#'
 		</cfquery>
+
+		<cfdump var=#gm#>
+
 		<cfif gm.recordcount is 0>
 			<!--- this can return zero rows, because something's all mucked up ---->
 			<cfquery name="rslt" datasource="uam_god">
