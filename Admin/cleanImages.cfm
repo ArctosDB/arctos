@@ -79,12 +79,21 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 
 <cfif action is "find_mediaUploads2018">
+	<!--- get path of everything that was just moved to TACC ---->
+	<cfset fpaths=querynew("p")>
+
 	<cfhttp method="get" url="https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/"></cfhttp>
 	<cfdump var=#cfhttp#>
 	<cfset xStr=cfhttp.FileContent>
 	<cfset xStr= replace(xStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
 	<cfset xdir=xmlparse(xStr)>
 	<cfdump var=#xdir#>
+	<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
+
+	<cfloop index="i" from="1" to="#arrayLen(dir)#">
+		<cfset folder = dir[i].XmlChildren[1].xmlText>
+		<br>folder: #folder#
+	</cfloop>
 
 </cfif>
 
