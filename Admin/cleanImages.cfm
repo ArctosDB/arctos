@@ -66,6 +66,9 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 	<p>
 		<a href="cleanImages.cfm?action=ready_delete_flipped">ready_delete_flipped</a>
 	</p>
+	<p>
+		<a href="cleanImages.cfm?action=find_mediaUploads2018">find_mediaUploads2018</a>
+	</p>
 
 
 	<p>
@@ -73,10 +76,12 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 		to update the media records and delete the local file
 	</p>
 
-select status,count(*) from cf_media_migration group by status;
 
 
-
+<cfif action is "find_mediaUploads2018">
+	<cfhttp method="get" url="https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/"></cfhttp>
+	<cfdump var=#cfhttp#>
+</cfif>
 
 
 	<cfif action is "ready_delete_flipped">
