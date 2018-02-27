@@ -92,7 +92,7 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 	<cfset fpaths=querynew("p")>
 
-	<cfset baseURL='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/'>
+	<cfset baseURL='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018'>
 
 	<cfhttp method="get" url="#baseURL#"></cfhttp>
 	<cfset xStr=cfhttp.FileContent>
