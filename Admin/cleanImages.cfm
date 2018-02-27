@@ -102,9 +102,10 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 
 	alter table ct_media_migration_aftermove add webserver_url varchar2(4000);
 
+	select status,count(*) from ct_media_migration_aftermove group by status;
 ---->
 	<cfquery name="d" datasource="uam_god">
-		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 200
+		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 2000
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="gm" datasource="uam_god">
