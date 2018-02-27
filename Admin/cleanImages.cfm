@@ -175,7 +175,7 @@ update ct_media_migration_aftermove set status=null where status='got_checksums'
 
 ---->
 	<cfquery name="d" datasource="uam_god">
-		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 20
+		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 2000
 	</cfquery>
 	<cfloop query="d">
 		<cfset theURL=''>
