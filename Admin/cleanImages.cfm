@@ -107,14 +107,13 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 
 	 --->
 	<cfquery name="d" datasource="uam_god">
-		select * from ct_media_migration_aftermove where status ='found_in_arctos_media' and rownum < 20
+		select * from ct_media_migration_aftermove where status ='found_in_arctos_media' and rownum < 200
 	</cfquery>
 	<cfloop query="d">
 		<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
 			<cfinvokeargument name="returnFormat" value="plain">
 			<cfinvokeargument name="uri" value="#WEBSERVER_URL#">
 		</cfinvoke>
-		<Cfdump var=#lclHash#>
 		<!--- grab a hash for the remote file ---->
 		<cfinvoke component="/component/functions" method="genMD5" returnVariable="rmtHash">
 			<cfinvokeargument name="returnFormat" value="plain">
@@ -132,7 +131,6 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 
 
 
-		<Cfdump var=#rmtHash#>
 	</cfloop>
 
 
