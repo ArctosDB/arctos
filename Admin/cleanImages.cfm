@@ -80,16 +80,24 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 
 <cfif action is "find_mediaUploads2018">
 	<!--- get path of everything that was just moved to TACC ---->
+	<!--- create a new temp table for this, because....
+		drop table ct_media_migration_aftermove;
+
+		create table ct_media_migration_aftermove (
+			relevant_path varchar2(4000),
+			tacc_url varchar2(4000)
+		);
+	---->
+
+
 	<cfset fpaths=querynew("p")>
 
 	<cfset baseURL='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/'>
 
 	<cfhttp method="get" url="#baseURL#"></cfhttp>
-	<cfdump var=#cfhttp#>
 	<cfset xStr=cfhttp.FileContent>
 	<cfset xStr= replace(xStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
 	<cfset xdir=xmlparse(xStr)>
-	<cfdump var=#xdir#>
 	<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
 
 	<cfloop index="i" from="1" to="#arrayLen(dir)#">
@@ -106,6 +114,14 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
 			<cfset fname = xImage[i].XmlChildren[1].xmlText>
 			<br>fname: #fname#
+			<cfquery name="d" datasource="uam_god">
+				insert into ct_media_migration_aftermove (
+					relevant_path,
+					tacc_url) values (
+					'#folder#/#fname#',
+					'#baseURL#/#folder#/#fname#'
+				)
+			</cfquery>
 		</cfloop>
 
 
