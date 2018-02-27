@@ -339,6 +339,7 @@ select status,count(*) from cf_media_migration group by status;
 					<br>is used, flag so we can ignore on next loop....
 				</cfif>
 			</cftransaction>
+			<cfflush>
 		</cfloop>
 	</cfif>
 
