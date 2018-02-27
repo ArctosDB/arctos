@@ -99,7 +99,6 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 	-- need a place to stash status
 	alter table ct_media_migration_aftermove add status varchar2(255);
 	-- and the arctos.database url
-
 	alter table ct_media_migration_aftermove add webserver_url varchar2(4000);
 
 	select status,count(*) from ct_media_migration_aftermove group by status;
@@ -109,7 +108,7 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="gm" datasource="uam_god">
-			select * from media where media_uri like '%#relevant_path#'
+			select * from media where media_uri like '%#relevant_path#' or PREVIEW_URI like '%#relevant_path#'
 		</cfquery>
 		<cfif gm.recordcount is 0>
 			<!--- this can return zero rows, because something's all mucked up ---->
