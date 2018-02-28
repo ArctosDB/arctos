@@ -101,7 +101,9 @@ URLs will need changed. Get the relative path and fill TACC url of everything we
 
 
 	<p>
-	4) SqLtime
+	4) SqLtime - see code for proper formatting.
+	</p>
+	<p>
 
 
 	select * from ct_media_migration_aftermove where status='got_checksums' and local_checksum is null;
@@ -119,6 +121,142 @@ select * from ct_media_migration_aftermove where status='got_checksums' and loca
 -- crap
 
 update ct_media_migration_aftermove set status=null where status='got_checksums' and local_checksum != remote_checksum;
+
+-- OK happy now
+-- got checksums
+-- everything matches
+-- update media
+-- procedure, because less messy
+-- not enough data to worry about speed
+
+-- paranoid though so...
+
+create table temp_media20180227 as select * from media where media_uri in (select WEBSERVER_URL from ct_media_migration_aftermove);
+insert into temp_media20180227 (select * from media where PREVIEW_URI in (select WEBSERVER_URL from ct_media_migration_aftermove));
+
+UAM@ARCTOS> select count(*) from temp_media20180227;
+
+  COUNT(*)
+----------
+      7231
+
+
+UAM@ARCTOS> select count(*) from ct_media_migration_aftermove where status='got_checksums';
+
+  COUNT(*)
+----------
+      7231
+
+-- OK, do it
+lock table media in exclusive mode nowait;
+lock table media_labels in exclusive mode nowait;
+lock table media_relations in exclusive mode nowait;
+begin
+	for r in (select * from ct_media_migration_aftermove where status='got_checksums') loop
+		-- URI
+		update media set media_uri=r.TACC_URL where media_uri=r.WEBSERVER_URL;
+	end loop;
+end;
+/
+select count(*) from media where media_uri in (select webserver_url from ct_media_migration_aftermove);
+select count(*) from media where PREVIEW_URI in (select webserver_url from ct_media_migration_aftermove);
+
+
+
+lock table media in exclusive mode nowait;
+lock table media_labels in exclusive mode nowait;
+lock table media_relations in exclusive mode nowait;
+
+
+begin
+	for r in (select * from ct_media_migration_aftermove where status='got_checksums' and rownum < 100) loop
+		dbms_output.put_line(r.WEBSERVER_URL);
+
+		-- and preview
+		update media set PREVIEW_URI=r.TACC_URL where PREVIEW_URI=r.WEBSERVER_URL;
+
+		update ct_media_migration_aftermove set status='set_preview_got_checksums' where relevant_path=r.relevant_path;
+	end loop;
+end;
+/
+- wtf super slow OK...
+
+
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+begin
+  	for r in (select * from ct_media_migration_aftermove where status='got_checksums') loop
+		update media set PREVIEW_URI=r.TACC_URL where PREVIEW_URI=r.WEBSERVER_URL;
+	end loop;
+end;
+/
+
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_TEMP_UPDATE_JUNK',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'temp_update_junk',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/
+
+
+select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
+
+
+
+		update media set PREVIEW_URI='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/edbril/tn_UA2006_001_0002AB.jpg'
+		where PREVIEW_URI='https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg';
+
+
+edbril/tn_UA2006_001_0002AB.jpg
+https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/edbril/tn_UA2006_001_0002AB.jpg
+got_checksums
+https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
+
+
+	</p>
+
+	5) move local files to a directory from which they can be deleted
+
+		<a href="cleanImages.cfm?action=moveLocalForDeletion">moveLocalForDeletion</a>
+	</p>
+
+	<cfif action is "moveLocalForDeletion">
+		<!----
+			need a directory
+
+			make it manually
+
+			-bash-4.1$ mkdir onTaccReadyDelete
+
+
+		---->
+		<cfquery name="d" datasource="uam_god">
+			select * from ct_media_migration_aftermove where status='ready_to_delete' and rownum=1
+		</cfquery>
+		<cfloop query="d">
+			<cfquery name="finalCheck" datasource="uam_god">
+				select * from media where PREVIEW_URI like '%/#relevant_path#' or media_uri like '%/#relevant_path#'
+			</cfquery>
+			<cfif finalCheck.recordcount is 0>
+				<br>#relevant_path# is ready to delete
+				<cfdump var=#finalCheck#>
+			</cfif>
+			<!----
+			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_movetocorral/#uname#/#fname#"
+				source = "#application.webDirectory#/mediaUploads/#path#">
+
+			---->
+		</cfloop>
+
+
+	</cfif>
+
+	<p>
+
 
 	</p>
 <cfif action is "generatechecksums">
