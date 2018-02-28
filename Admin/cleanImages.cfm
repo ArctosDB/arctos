@@ -250,12 +250,16 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 				<cfdump var=#finalCheck#>
 			<cfif finalCheck.recordcount is 0>
 				<br>#relevant_path# is ready to delete
-			</cfif>
-			<!----
+				<cfset fle=listlast(relevant_path,"/")>
+				<cfset fldr=listfirst(relevant_path,"/")>
+				<br>fle: #fle#
+				<br>fldr: #fldr#
+<!---
 			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_movetocorral/#uname#/#fname#"
-				source = "#application.webDirectory#/mediaUploads/#path#">
+				source = "#application.webDirectory#/mediaUploads/#relevant_path#">
+				--->
+			</cfif>
 
-			---->
 		</cfloop>
 
 
