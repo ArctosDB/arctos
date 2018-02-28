@@ -4,6 +4,11 @@
 <p>
 	Move media from webserver to archives.
 </p>
+
+
+
+
+
 <p>
 	To the great astonishment of absolutely noone, this didn't turn into a nice script. Proceed with caution; aborting.
 	<cfabort>
@@ -69,10 +74,459 @@ select * from cf_media_migration where fullRemotePath like 'STILL%';
 		to update the media records and delete the local file
 	</p>
 
-select status,count(*) from cf_media_migration group by status;
+
+
+<p>
+
+AFTER THINGS HAVE BEEN MOVED TO TACC:
+<p>
+1)
+
+		<a href="cleanImages.cfm?action=find_mediaUploads2018">find_mediaUploads2018</a>
+
+
+URLs will need changed. Get the relative path and fill TACC url of everything we just moved.
+	</p>
+<p>
+2) find the file on the arctos webserver
+
+
+		<a href="cleanImages.cfm?action=find_movedMediaOnArctos">find_movedMediaOnArctos</a>
+	</p>
+
+<p>
+	3) generate checksums
+
+		<a href="cleanImages.cfm?action=generatechecksums">generatechecksums</a>
+	</p>
+
+
+	<p>
+	4) SqLtime - see code for proper formatting.
+	</p>
+	<p>
+
+
+	select * from ct_media_migration_aftermove where status='got_checksums' and local_checksum is null;
+
+		select * from ct_media_migration_aftermove where status='got_checksums' and remote_checksum is null;
+
+-- uhh - try again?
+
+update  ct_media_migration_aftermove set status='found_in_arctos_media' where status='got_checksums' and remote_checksum is null;
+
+-- okeedokee, worked....
+
+select * from ct_media_migration_aftermove where status='got_checksums' and local_checksum != remote_checksum;
+
+-- crap
+
+update ct_media_migration_aftermove set status=null where status='got_checksums' and local_checksum != remote_checksum;
+
+-- OK happy now
+-- got checksums
+-- everything matches
+-- update media
+-- procedure, because less messy
+-- not enough data to worry about speed
+
+-- paranoid though so...
+
+create table temp_media20180227 as select * from media where media_uri in (select WEBSERVER_URL from ct_media_migration_aftermove);
+insert into temp_media20180227 (select * from media where PREVIEW_URI in (select WEBSERVER_URL from ct_media_migration_aftermove));
+
+UAM@ARCTOS> select count(*) from temp_media20180227;
+
+  COUNT(*)
+----------
+      7231
+
+
+UAM@ARCTOS> select count(*) from ct_media_migration_aftermove where status='got_checksums';
+
+  COUNT(*)
+----------
+      7231
+
+-- OK, do it
+lock table media in exclusive mode nowait;
+lock table media_labels in exclusive mode nowait;
+lock table media_relations in exclusive mode nowait;
+begin
+	for r in (select * from ct_media_migration_aftermove where status='got_checksums') loop
+		-- URI
+		update media set media_uri=r.TACC_URL where media_uri=r.WEBSERVER_URL;
+	end loop;
+end;
+/
+select count(*) from media where media_uri in (select webserver_url from ct_media_migration_aftermove);
+select count(*) from media where PREVIEW_URI in (select webserver_url from ct_media_migration_aftermove);
 
 
 
+lock table media in exclusive mode nowait;
+lock table media_labels in exclusive mode nowait;
+lock table media_relations in exclusive mode nowait;
+
+
+begin
+	for r in (select * from ct_media_migration_aftermove where status='got_checksums' and rownum < 100) loop
+		dbms_output.put_line(r.WEBSERVER_URL);
+
+		-- and preview
+		update media set PREVIEW_URI=r.TACC_URL where PREVIEW_URI=r.WEBSERVER_URL;
+
+		update ct_media_migration_aftermove set status='set_preview_got_checksums' where relevant_path=r.relevant_path;
+	end loop;
+end;
+/
+- wtf super slow OK...
+
+
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+begin
+  	for r in (select * from ct_media_migration_aftermove where status='got_checksums') loop
+		update media set PREVIEW_URI=r.TACC_URL where PREVIEW_URI=r.WEBSERVER_URL;
+	end loop;
+end;
+/
+
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_TEMP_UPDATE_JUNK',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'temp_update_junk',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/
+
+
+select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
+
+
+
+		update media set PREVIEW_URI='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/edbril/tn_UA2006_001_0002AB.jpg'
+		where PREVIEW_URI='https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg';
+
+
+
+
+	</p>
+
+	5) move local files to a directory from which they can be deleted
+
+		<a href="cleanImages.cfm?action=moveLocalForDeletion">moveLocalForDeletion</a>
+	</p>
+
+
+	periodically ) delete old unused stuff
+
+		<a href="cleanImages.cfm?action=delteOldUnused">delteOldUnused</a>
+	</p>
+
+
+
+	<cfif action is "delteOldUnused">
+
+		<!----
+			in support of https://github.com/ArctosDB/arctos/issues/897
+
+
+			find and delte anything that's
+
+			1) not used
+			2) more than 90D old
+		---->
+
+		<cfdirectory
+		    directory = "#application.webDirectory#/mediaUploads/"
+		    action = "list"
+		    name = "mupldir"
+		    recurse = "yes"
+		    type = "file">
+<!----
+		    <cfdump var=#mupldir#>
+ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
+---->
+	<cfset rcnt=0>
+	<cfloop query="mupldir">
+		<br>DIRECTORY: #DIRECTORY#
+		<br>NAME: #NAME#
+		<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
+		<br>dold: #dold#
+		<cfif rcnt lt 100>
+
+			<!-- exclude onTaccReadyDelete, it's there to be deleted already --->
+			<cfif dold gt 90 and directory does not contain "onTaccReadyDelete" and directory does not contain "oldNotUsed">
+
+				<cfset rcnt=rcnt+1>
+
+
+				<cfset rpath="/mediaUploads/" & listlast(DIRECTORY,"/") & name>
+
+
+
+				<cfquery name="isUsed" datasource="uam_god">
+					select * from media where
+					 PREVIEW_URI like '%arctos.database.museum/%/#rpath#' or
+					 media_uri like '%arctos.database.museum/%/#rpath#'
+				</cfquery>
+				<cfif isUsed.recordcount lt 1>
+					<br>DATELASTMODIFIED: #DATELASTMODIFIED#
+
+
+
+
+					<br>rpath: #rpath#
+					<br>not used, can delete
+					<cfset src="#DIRECTORY#/#NAME#">
+					<br>src: #src#
+
+
+					<cfset dstFldr="#application.webDirectory#/mediaUploads/oldNotUsed/#listlast(DIRECTORY,'/')#">
+
+
+					<cfset dst="#dstFldr#/#name#">
+					<br>dst: #dst#
+
+
+					<cfif not directoryExists(dstFldr)>
+					 <cfdirectory action="create" directory="#dstFldr#">
+					</cfif>
+
+
+
+					<cffile action = "move" destination = "#dst#" source = "#src#">
+
+				<cfelse>
+					<br>rpath: #rpath#
+					<br>used in #isUsed.media_id#
+
+				</cfif>
+			</cfif>
+		</cfif>
+	</cfloop>
+
+
+	</cfif>
+
+	<cfif action is "moveLocalForDeletion">
+		<!----
+			need a directory
+
+			make it manually
+
+			-bash-4.1$ mkdir onTaccReadyDelete
+
+
+		---->
+
+
+		<cfquery name="d" datasource="uam_god">
+			select * from ct_media_migration_aftermove where status='ready_to_delete' and rownum<1000
+		</cfquery>
+
+
+
+		<cfloop query="d">
+			<cfquery name="finalCheck" datasource="uam_god">
+				select * from media where
+				 PREVIEW_URI like '%arctos.database.museum/%/#relevant_path#' or
+				 media_uri like '%arctos.database.museum/%/#relevant_path#'
+			</cfquery>
+			<cfif finalCheck.recordcount is 0>
+				<br>#relevant_path# is ready to delete
+				<cfset fle=listlast(relevant_path,"/")>
+				<cfset fldr=listfirst(relevant_path,"/")>
+				<br>fle: #fle#
+				<br>fldr: #fldr#
+				<cfset dstFldr="#application.webDirectory#/mediaUploads/onTaccReadyDelete/#fldr#">
+
+				<br>dstFldr: #dstFldr#
+
+				<cfset dstFullPath="#dstFldr#/#fle#">
+
+				<br>dstFullPath: #dstFullPath#
+
+				<cfif not directoryExists(dstFldr)>
+					 <cfdirectory action="create" directory="#dstFldr#">
+				</cfif>
+
+
+				<cffile action = "move" destination = "#dstFullPath#"
+					source = "#application.webDirectory#/mediaUploads/#relevant_path#">
+				<cfquery name="d" datasource="uam_god">
+					update ct_media_migration_aftermove set status='moved_to_delete_folder' where  relevant_path='#relevant_path#'
+				</cfquery>
+
+
+			</cfif>
+
+		</cfloop>
+
+
+	</cfif>
+
+	<p>
+
+
+	</p>
+<cfif action is "generatechecksums">
+	<!--- this is probably better done in find_movedMediaOnArctos --->
+	<!---
+
+		alter table ct_media_migration_aftermove add local_checksum varchar2(4000);
+		alter table ct_media_migration_aftermove add remote_checksum varchar2(4000);
+
+	 --->
+	<cfquery name="d" datasource="uam_god">
+		select * from ct_media_migration_aftermove where status ='found_in_arctos_media' and rownum < 2000
+	</cfquery>
+	<cfloop query="d">
+		<cfinvoke component="/component/functions" method="genMD5" returnVariable="lclHash">
+			<cfinvokeargument name="returnFormat" value="plain">
+			<cfinvokeargument name="uri" value="#WEBSERVER_URL#">
+		</cfinvoke>
+		<!--- grab a hash for the remote file ---->
+		<cfinvoke component="/component/functions" method="genMD5" returnVariable="rmtHash">
+			<cfinvokeargument name="returnFormat" value="plain">
+			<cfinvokeargument name="uri" value="#TACC_URL#">
+		</cfinvoke>
+
+		<cfquery name="up" datasource="uam_god">
+			update ct_media_migration_aftermove set
+			local_checksum='#lclHash#',
+			remote_checksum='#rmtHash#',
+			status='got_checksums'
+			where relevant_path='#relevant_path#'
+		</cfquery>
+
+
+
+
+	</cfloop>
+
+
+</cfif>
+
+<cfif action is "find_movedMediaOnArctos">
+ <!---
+	-- these don't matter...
+	delete from ct_media_migration_aftermove where relevant_path like '%Parent Directory';
+
+	-- need a place to stash status
+	alter table ct_media_migration_aftermove add status varchar2(255);
+	-- and the arctos.database url
+	alter table ct_media_migration_aftermove add webserver_url varchar2(4000);
+
+	select status,count(*) from ct_media_migration_aftermove group by status;
+
+	select * from ct_media_migration_aftermove where status='not_found_in_arctos_media';
+
+---->
+	<cfquery name="d" datasource="uam_god">
+		select relevant_path from ct_media_migration_aftermove where status is null and rownum < 2000
+	</cfquery>
+	<cfloop query="d">
+		<cfset theURL=''>
+		<cfquery name="gm" datasource="uam_god">
+			select * from media where media_uri like '%/#relevant_path#'
+		</cfquery>
+
+		<cfif gm.recordcount is 1>
+				<cfset theURL=gm.media_uri>
+		<cfelse>
+			<!--- maybe it's preview --->
+			<cfquery name="gpm" datasource="uam_god">
+				select * from media where PREVIEW_URI like '%/#relevant_path#'
+			</cfquery>
+			<cfif gpm.recordcount is 1>
+				<cfset theURL=gpm.PREVIEW_URI>
+			</cfif>
+		</cfif>
+
+		<cfif len(theURL) gt 0>
+			<cfquery name="rslt" datasource="uam_god">
+				update ct_media_migration_aftermove set
+					status='found_in_arctos_media',
+					webserver_url='#theURL#'
+					where relevant_path='#relevant_path#'
+			</cfquery>
+			<br>update ct_media_migration_aftermove set
+					status='found_in_arctos_media',
+					webserver_url='#theURL#'
+					where relevant_path='#relevant_path#'
+		<cfelse>
+			<cfquery name="rslt" datasource="uam_god">
+				update ct_media_migration_aftermove set
+					status='NOT__found_in_arctos_media',
+					webserver_url='#theURL#'
+					where relevant_path='#relevant_path#'
+			</cfquery>
+			<br>update ct_media_migration_aftermove set
+					status='NOT__found_in_arctos_media',
+					webserver_url='#theURL#'
+					where relevant_path='#relevant_path#'
+		</cfif>
+	</cfloop>
+
+</cfif>
+<cfif action is "find_mediaUploads2018">
+	<!--- get path of everything that was just moved to TACC ---->
+	<!--- create a new temp table for this, because....
+		drop table ct_media_migration_aftermove;
+
+		create table ct_media_migration_aftermove (
+			relevant_path varchar2(4000),
+			tacc_url varchar2(4000)
+		);
+	---->
+
+
+	<cfset fpaths=querynew("p")>
+
+	<cfset baseURL='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018'>
+
+	<cfhttp method="get" url="#baseURL#"></cfhttp>
+	<cfset xStr=cfhttp.FileContent>
+	<cfset xStr= replace(xStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
+	<cfset xdir=xmlparse(xStr)>
+	<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
+
+	<cfloop index="i" from="1" to="#arrayLen(dir)#">
+		<cfset folder = dir[i].XmlChildren[1].xmlText>
+		<br>folder: #folder#
+		<cfhttp url="#baseURL#/#folder#" charset="utf-8" method="get"></cfhttp>
+
+		<hr>got #folder#....
+		<cfset ximgStr=cfhttp.FileContent>
+		<!--- goddamned xmlns bug in CF --->
+		<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
+		<cfset xImgAll=xmlparse(ximgStr)>
+		<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
+		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
+			<cfset fname = xImage[i].XmlChildren[1].xmlText>
+			<br>fname: #fname#
+			<cfquery name="d" datasource="uam_god">
+				insert into ct_media_migration_aftermove (
+					relevant_path,
+					tacc_url) values (
+					'#folder#/#fname#',
+					'#baseURL#/#folder#/#fname#'
+				)
+			</cfquery>
+		</cfloop>
+
+
+
+
+
+	</cfloop>
+
+</cfif>
 
 
 	<cfif action is "ready_delete_flipped">
@@ -250,12 +704,16 @@ select status,count(*) from cf_media_migration group by status;
 			---------->
 		</cfloop>
 	</cfif>
+
+
+
+
 	<cfif action is "confirmFullRemotePath">
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_media_migration where fullRemotePath is null
 		</cfquery>
 		<cfloop query="d">
-			<cfset rp='http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads' & #path#>
+			<cfset rp='https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/' & #path#>
 			<br>#rp#
 			<cfhttp method="head" url="#rp#"></cfhttp>
 			<cfif cfhttp.statusCode is '200 OK'>
@@ -331,6 +789,7 @@ select status,count(*) from cf_media_migration group by status;
 					<br>is used, flag so we can ignore on next loop....
 				</cfif>
 			</cftransaction>
+			<cfflush>
 		</cfloop>
 	</cfif>
 
