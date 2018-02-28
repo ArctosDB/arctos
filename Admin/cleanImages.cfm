@@ -262,7 +262,7 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 
 				<cfset dstFullPath="#dstFldr#/#fle#">
 
-				<br>dstFullPath: #dstFldr#
+				<br>dstFullPath: #dstFullPath#
 
 
 				<cfif not directoryExists(dstFldr)>
