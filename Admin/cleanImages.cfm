@@ -270,10 +270,13 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 				</cfif>
 
 
-<!---
-			<cffile action = "move" destination = "#application.webDirectory#/download/mediaUploads/onTaccReadyDelete/#relevant_path#"
-				source = "#application.webDirectory#/mediaUploads/#relevant_path#">
-				--->
+				<cffile action = "move" destination = "#dstFullPath#"
+					source = "#application.webDirectory#/mediaUploads/#relevant_path#">
+				<cfquery name="d" datasource="uam_god">
+					update ct_media_migration_aftermove set status='moved_to_delete_folder' where  relevant_path='#relevant_path#'
+				</cfquery>
+
+
 			</cfif>
 
 		</cfloop>
