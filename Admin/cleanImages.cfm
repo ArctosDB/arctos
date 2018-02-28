@@ -256,7 +256,7 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 				<cfset fldr=listfirst(relevant_path,"/")>
 				<br>fle: #fle#
 				<br>fldr: #fldr#
-				<cfset dstFldr="#application.webDirectory#/download/mediaUploads/onTaccReadyDelete/#fldr#">
+				<cfset dstFldr="#application.webDirectory#/mediaUploads/onTaccReadyDelete/#fldr#">
 
 				<br>dstFldr: #dstFldr#
 
