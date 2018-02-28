@@ -211,10 +211,6 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAM
 		where PREVIEW_URI='https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg';
 
 
-edbril/tn_UA2006_001_0002AB.jpg
-https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads2018/edbril/tn_UA2006_001_0002AB.jpg
-got_checksums
-https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 
 
 	</p>
@@ -223,6 +219,39 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 
 		<a href="cleanImages.cfm?action=moveLocalForDeletion">moveLocalForDeletion</a>
 	</p>
+
+
+	periodically ) delete old unused stuff
+
+		<a href="cleanImages.cfm?action=delteOldUnused">delteOldUnused</a>
+	</p>
+
+
+
+	<cfif action is "delteOldUnused">
+
+		<!----
+			in support of https://github.com/ArctosDB/arctos/issues/897
+
+
+			find and delte anything that's
+
+			1) not used
+			2) more than 90D old
+		---->
+
+		<cfdirectory
+		    directory = "#application.webDirectory#/mediaUploads/"
+		    action = "list"
+		    name = "mupldir"
+		    recurse = "yes"
+		    type = "file">
+
+		    <cfdump var=#mupldir#>
+
+
+
+	</cfif>
 
 	<cfif action is "moveLocalForDeletion">
 		<!----
