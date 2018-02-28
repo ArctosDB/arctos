@@ -254,6 +254,11 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 		<br>DATELASTMODIFIED: #DATELASTMODIFIED#
 		<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
 		<br>dold: #dold#
+		<cfif dold gt 90>
+
+			<br>DIRECTORY: #DIRECTORY#
+			<br>NAME: #NAME#
+		</cfif>
 	</cfloop>
 
 
