@@ -237,10 +237,9 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 
 
 		<cfquery name="d" datasource="uam_god">
-			select * from ct_media_migration_aftermove where status='ready_to_delete' and rownum=1
+			select * from ct_media_migration_aftermove where status='ready_to_delete' and rownum<2000
 		</cfquery>
 
-		<cfdump var=#d#>
 
 
 		<cfloop query="d">
@@ -249,7 +248,6 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 				 PREVIEW_URI like '%arctos.database.museum/%/#relevant_path#' or
 				 media_uri like '%arctos.database.museum/%/#relevant_path#'
 			</cfquery>
-				<cfdump var=#finalCheck#>
 			<cfif finalCheck.recordcount is 0>
 				<br>#relevant_path# is ready to delete
 				<cfset fle=listlast(relevant_path,"/")>
@@ -263,7 +261,6 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 				<cfset dstFullPath="#dstFldr#/#fle#">
 
 				<br>dstFullPath: #dstFullPath#
-
 
 				<cfif not directoryExists(dstFldr)>
 					 <cfdirectory action="create" directory="#dstFldr#">
