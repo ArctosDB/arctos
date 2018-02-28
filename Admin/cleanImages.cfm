@@ -237,7 +237,7 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 
 
 		<cfquery name="d" datasource="uam_god">
-			select * from ct_media_migration_aftermove where status='ready_to_delete' and rownum<2000
+			select * from ct_media_migration_aftermove where status='ready_to_delete' and rownum<1000
 		</cfquery>
 
 
