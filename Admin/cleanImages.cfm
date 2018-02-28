@@ -253,19 +253,16 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 	<cfset rcnt=0>
 	<cfloop query="mupldir">
 		<cfif rcnt lt 100>
-			<br>DATELASTMODIFIED: #DATELASTMODIFIED#
 			<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
-			<br>dold: #dold#
 			<!-- exclude onTaccReadyDelete, it's there to be deleted already --->
 			<cfif dold gt 90 and directory does not contain "onTaccReadyDelete">
 
 				<cfset rcnt=rcnt+1>
 
-				<br>DIRECTORY: #DIRECTORY#
-				<br>NAME: #NAME#
+
 				<cfset rpath="/mediaUploads/" & listlast(DIRECTORY,"/") & name>
 
-				<br>rpath: #rpath#
+
 
 				<cfquery name="isUsed" datasource="uam_god">
 					select * from media where
@@ -273,8 +270,26 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 					 media_uri like '%arctos.database.museum/%/#rpath#'
 				</cfquery>
 				<cfif isUsed.recordcount lt 1>
+					<br>DATELASTMODIFIED: #DATELASTMODIFIED#
+					<br>dold: #dold#
+
+					<br>DIRECTORY: #DIRECTORY#
+					<br>NAME: #NAME#
+					<br>rpath: #rpath#
 					<br>not used, can delete
+					<cfset src="#DIRECTORY#/#NAME#">
+					<br>src: #src#
+
+					<cfset dst="#application.webDirectory#/mediaUploads/oldNotUsed/#listlast(DIRECTORY,'/')#/#name#">
+					<br>dst: #dst#
+					<!----
+					<cffile action = "move" destination = "/mediaUploads/oldNotUsed/" & listlast(DIRECTORY,'/') & name"
+						source = "#application.webDirectory#/mediaUploads/#relevant_path#">
+					oldNotUsed
+					---->
+
 				<cfelse>
+					<br>rpath: #rpath#
 					<br>used in #isUsed.media_id#
 
 				</cfif>
