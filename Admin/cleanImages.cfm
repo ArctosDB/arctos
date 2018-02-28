@@ -237,6 +237,10 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 		<cfquery name="d" datasource="uam_god">
 			select * from ct_media_migration_aftermove where status='ready_to_delete' and rownum=1
 		</cfquery>
+
+		<cfdump var=#d#>
+
+
 		<cfloop query="d">
 			<cfquery name="finalCheck" datasource="uam_god">
 				select * from media where PREVIEW_URI like '%/#relevant_path#' or media_uri like '%/#relevant_path#'
