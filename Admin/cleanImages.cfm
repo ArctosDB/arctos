@@ -250,28 +250,33 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAM
 		    <cfdump var=#mupldir#>
 ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 ---->
+	<cfset rcnt=0>
 	<cfloop query="mupldir">
-		<br>DATELASTMODIFIED: #DATELASTMODIFIED#
-		<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
-		<br>dold: #dold#
-		<cfif dold gt 90>
+		<cfif rcnt lt 100>
+			<br>DATELASTMODIFIED: #DATELASTMODIFIED#
+			<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
+			<br>dold: #dold#
+			<cfif dold gt 90>
 
-			<br>DIRECTORY: #DIRECTORY#
-			<br>NAME: #NAME#
-			<cfset rpath="/mediaUploads/" & listlast(DIRECTORY,"/") & name>
+				<cfset rcnt=rcnt+1>
 
-			<br>rpath: #rpath#
+				<br>DIRECTORY: #DIRECTORY#
+				<br>NAME: #NAME#
+				<cfset rpath="/mediaUploads/" & listlast(DIRECTORY,"/") & name>
 
-			<cfquery name="isUsed" datasource="uam_god">
-				select * from media where
-				 PREVIEW_URI like '%arctos.database.museum/%/#rpath#' or
-				 media_uri like '%arctos.database.museum/%/#rpath#'
-			</cfquery>
-			<cfif isUsed.recordcount lt 1>
-				<br>not used, can delete
-			<cfelse>
-				<br>used in #isUsed.media_id#
+				<br>rpath: #rpath#
 
+				<cfquery name="isUsed" datasource="uam_god">
+					select * from media where
+					 PREVIEW_URI like '%arctos.database.museum/%/#rpath#' or
+					 media_uri like '%arctos.database.museum/%/#rpath#'
+				</cfquery>
+				<cfif isUsed.recordcount lt 1>
+					<br>not used, can delete
+				<cfelse>
+					<br>used in #isUsed.media_id#
+
+				</cfif>
 			</cfif>
 		</cfif>
 	</cfloop>
