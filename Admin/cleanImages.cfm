@@ -252,8 +252,12 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 ---->
 	<cfset rcnt=0>
 	<cfloop query="mupldir">
+		<br>DIRECTORY: #DIRECTORY#
+		<br>NAME: #NAME#
+		<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
+		<br>dold: #dold#
 		<cfif rcnt lt 100>
-			<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
+
 			<!-- exclude onTaccReadyDelete, it's there to be deleted already --->
 			<cfif dold gt 90 and directory does not contain "onTaccReadyDelete" and directory does not contain "oldNotUsed">
 
@@ -271,10 +275,10 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 				</cfquery>
 				<cfif isUsed.recordcount lt 1>
 					<br>DATELASTMODIFIED: #DATELASTMODIFIED#
-					<br>dold: #dold#
 
-					<br>DIRECTORY: #DIRECTORY#
-					<br>NAME: #NAME#
+
+
+
 					<br>rpath: #rpath#
 					<br>not used, can delete
 					<cfset src="#DIRECTORY#/#NAME#">
