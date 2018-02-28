@@ -243,11 +243,13 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 
 		<cfloop query="d">
 			<cfquery name="finalCheck" datasource="uam_god">
-				select * from media where PREVIEW_URI like '%/#relevant_path#' or media_uri like '%/#relevant_path#'
+				select * from media where
+				 PREVIEW_URI like '%arctos.database.museum/%/#relevant_path#' or
+				 media_uri like '%arctos.database.museum/%/#relevant_path#'
 			</cfquery>
+				<cfdump var=#finalCheck#>
 			<cfif finalCheck.recordcount is 0>
 				<br>#relevant_path# is ready to delete
-				<cfdump var=#finalCheck#>
 			</cfif>
 			<!----
 			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_movetocorral/#uname#/#fname#"
