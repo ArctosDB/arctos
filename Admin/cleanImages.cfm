@@ -234,6 +234,8 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 
 
 		---->
+
+
 		<cfquery name="d" datasource="uam_god">
 			select * from ct_media_migration_aftermove where status='ready_to_delete' and rownum=1
 		</cfquery>
@@ -254,8 +256,14 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 				<cfset fldr=listfirst(relevant_path,"/")>
 				<br>fle: #fle#
 				<br>fldr: #fldr#
+
+				<cfif not directoryExists("#application.webDirectory#/download/mediaUploads/onTaccReadyDelete/#fldr#")>
+					 <cfdirectory action="create" directory="#application.webDirectory#/download/mediaUploads/onTaccReadyDelete/#fldr#">
+				</cfif>
+
+
 <!---
-			<cffile action = "move" destination = "#application.webDirectory#/download/temp_media_movetocorral/#uname#/#fname#"
+			<cffile action = "move" destination = "#application.webDirectory#/download/mediaUploads/onTaccReadyDelete/#relevant_path#"
 				source = "#application.webDirectory#/mediaUploads/#relevant_path#">
 				--->
 			</cfif>
