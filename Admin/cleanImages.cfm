@@ -255,7 +255,7 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 		<cfif rcnt lt 100>
 			<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
 			<!-- exclude onTaccReadyDelete, it's there to be deleted already --->
-			<cfif dold gt 90 and directory does not contain "onTaccReadyDelete">
+			<cfif dold gt 90 and directory does not contain "onTaccReadyDelete" and directory does not contain "oldNotUsed">
 
 				<cfset rcnt=rcnt+1>
 
