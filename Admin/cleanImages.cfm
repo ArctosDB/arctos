@@ -282,11 +282,7 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 
 					<cfset dst="#application.webDirectory#/mediaUploads/oldNotUsed/#listlast(DIRECTORY,'/')#/#name#">
 					<br>dst: #dst#
-					<!----
-					<cffile action = "move" destination = "/mediaUploads/oldNotUsed/" & listlast(DIRECTORY,'/') & name"
-						source = "#application.webDirectory#/mediaUploads/#relevant_path#">
-					oldNotUsed
-					---->
+					<cffile action = "move" destination = "#dst#" source = "#src#">
 
 				<cfelse>
 					<br>rpath: #rpath#
