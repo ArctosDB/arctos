@@ -256,9 +256,17 @@ https://arctos.database.museum/mediaUploads/edbril/tn_UA2006_001_0002AB.jpg
 				<cfset fldr=listfirst(relevant_path,"/")>
 				<br>fle: #fle#
 				<br>fldr: #fldr#
+				<cfset dstFldr="#application.webDirectory#/download/mediaUploads/onTaccReadyDelete/#fldr#">
 
-				<cfif not directoryExists("#application.webDirectory#/download/mediaUploads/onTaccReadyDelete/#fldr#")>
-					 <cfdirectory action="create" directory="#application.webDirectory#/download/mediaUploads/onTaccReadyDelete/#fldr#">
+				<br>dstFldr: #dstFldr#
+
+				<cfset dstFullPath="#dstFldr#/#fle#">
+
+				<br>dstFullPath: #dstFldr#
+
+
+				<cfif not directoryExists(dstFldr)>
+					 <cfdirectory action="create" directory="#dstFldr#">
 				</cfif>
 
 
