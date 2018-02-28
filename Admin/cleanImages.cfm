@@ -246,9 +246,15 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAM
 		    name = "mupldir"
 		    recurse = "yes"
 		    type = "file">
-
+<!----
 		    <cfdump var=#mupldir#>
-
+ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
+---->
+	<cfloop query="mupldir">
+		<br>DATELASTMODIFIED: #DATELASTMODIFIED#
+		<cfset dold=DateDiff("d", DATELASTMODIFIED, now())>
+		<br>dold: #dold#
+	</cfloop>
 
 
 	</cfif>
