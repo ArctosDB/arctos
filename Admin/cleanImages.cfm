@@ -280,8 +280,20 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 					<cfset src="#DIRECTORY#/#NAME#">
 					<br>src: #src#
 
-					<cfset dst="#application.webDirectory#/mediaUploads/oldNotUsed/#listlast(DIRECTORY,'/')#/#name#">
+
+					<cfset dstFldr="#application.webDirectory#/mediaUploads/oldNotUsed/#listlast(DIRECTORY,'/')#">
+
+
+					<cfset dst="#dstFldr#/#name#">
 					<br>dst: #dst#
+
+
+					<cfif not directoryExists(dstFldr)>
+					 <cfdirectory action="create" directory="#dstFldr#">
+					</cfif>
+
+
+
 					<cffile action = "move" destination = "#dst#" source = "#src#">
 
 				<cfelse>
