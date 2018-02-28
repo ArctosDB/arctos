@@ -258,6 +258,21 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 
 			<br>DIRECTORY: #DIRECTORY#
 			<br>NAME: #NAME#
+			<cfset rpath="/mediaUploads/" & listlast(DIRECTORY,"/") & name>
+
+			<br>rpath: #rpath#
+
+			<cfquery name="isUsed" datasource="uam_god">
+				select * from media where
+				 PREVIEW_URI like '%arctos.database.museum/%/#rpath#' or
+				 media_uri like '%arctos.database.museum/%/#rpath#'
+			</cfquery>
+			<cfif isUsed.recordcount lt 1>
+				<br>not used, can delete
+			<cfelse>
+				<br>used in #isUsed.media_id#
+
+			</cfif>
 		</cfif>
 	</cfloop>
 
