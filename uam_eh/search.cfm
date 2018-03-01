@@ -115,6 +115,22 @@
 				<input type="text" name="culture_of_origin" id="culture_of_origin" size="50">
 			</td>
 		</tr>
+		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="_culture_of_use">Culture of Use</span>
+			</td>
+			<td class="srch">
+				<input type="text" name="culture_of_use" id="culture_of_use" size="50">
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="_description">Description</span>
+			</td>
+			<td class="srch">
+				<input type="text" name="description" id="description" size="50">
+			</td>
+		</tr>
 
 
 
