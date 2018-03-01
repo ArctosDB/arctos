@@ -69,7 +69,6 @@
 
 		<cfdump var=#session#>
 
-		<cfabort>
 
 		<cfif len(session.username) is 0>
 
