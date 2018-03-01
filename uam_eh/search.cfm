@@ -10,7 +10,7 @@
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			Access to #numberformat(getCount.cnt,",")# records
+			Access to #numberformat(getCount.cnt,",")# UAM:EH records
 			<div>
 				<a href="/all_all.cfm">Search all of Arctos</a>
 			</div>
@@ -185,4 +185,4 @@
 		selectFirst:false
 	});
 </script>
-<cfinclude template = "includes/_footer.cfm">
+<cfinclude template = "/includes/_footer.cfm">
