@@ -371,7 +371,7 @@
             cPath does not contain "/get_short_doc.cfm" and
             cPath does not contain "/errors/gtfo.cfm" and
             len(session.username) is 0>
-
+			<cfdump var=#cPath#>
 				denied<cfabort>
             <cflocation url="/errors/dev_login.cfm" addtoken="false">
         </cfif>

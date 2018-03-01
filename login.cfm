@@ -143,7 +143,6 @@
 			<cfdump var=#session#>
 
 
-			<cfabort>
 				<cflocation url="#gotopage#" addtoken="no">
 			</cfif>
 			<cfif len(getUserData.email) is 0>
