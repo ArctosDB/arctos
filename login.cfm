@@ -139,7 +139,11 @@
 				<a href="#gotopage#">Continue to #gotopage#</a>
 			<cfelse>
 
-			gonig #gotopage#<cfabort>
+			gonig #gotopage#
+			<cfdump var=#session#>
+
+
+			<cfabort>
 				<cflocation url="#gotopage#" addtoken="no">
 			</cfif>
 			<cfif len(getUserData.email) is 0>
