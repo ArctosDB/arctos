@@ -107,8 +107,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink infoLink" id="_culture_of_origin">Help</span>
-				Culture of Origin
+				<span class="helpLink" id="_culture_of_origin">Culture of Origin</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="culture_of_origin" id="culture_of_origin" size="50">
