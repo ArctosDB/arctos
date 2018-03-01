@@ -5,7 +5,7 @@
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select count(cataloged_item.collection_object_id) as cnt from cataloged_item,filtered_flat where
 			cataloged_item.collection_object_id=filtered_flat.collection_object_id
-			and filtered_flat.guid_prefix like 'UAM:EH%'
+			and filtered_flat.guid like 'UAM:EH%'
 </cfquery>
 <table cellpadding="0" cellspacing="0">
 	<tr>
