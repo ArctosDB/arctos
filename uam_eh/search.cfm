@@ -130,12 +130,6 @@
 				<input type="text" name="description" id="description" size="50">
 			</td>
 		</tr>
-
-
-
-
-
-
 </table>
 
 <table>

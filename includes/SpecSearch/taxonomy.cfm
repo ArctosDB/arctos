@@ -94,6 +94,7 @@
 										<option value="startswith">starts with</option>
 										<option value="exact">is (case insensitive)</option>
 										<option value="notcontains">does not contain</option>
+										<option value="contains">contains</option>
 										<option value="inlist">comma-list</option>
 										<option value="inlist_substring">comma-list (substring)</option>
 									</select>
