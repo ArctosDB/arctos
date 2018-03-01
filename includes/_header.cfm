@@ -511,8 +511,9 @@
 							<li><a target="_top" href="##">Reports/Services</a>
 								<ul>
 									<li><a target="_top" href="##">Administrative Tools</a></li>
-									<li><a target="_top" href="/Reports/reporter.cfm">Labels and Reports</a>
+									<li><a target="_top" href="##">Labels and Reports</a>
 										<ul>
+											<li><a target="_top" href="/Reports/reporter.cfm">Reporter</a></li>
 											<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
 											<li><a target="_top" href="/Admin/errorLogViewer.cfm">Error Logs</a></li>
 											<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
