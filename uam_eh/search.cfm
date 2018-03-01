@@ -18,6 +18,8 @@
 	</tr>
 </table>
 <form method="post" action="/SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues();">
+	<input type="hidden" name="guid_prefix" id="guid_prefix" value="UAM:EH">
+
 <table>
 	<tr>
 		<td valign="top">
