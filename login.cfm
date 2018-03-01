@@ -1,10 +1,4 @@
 <cfinclude template = "/includes/_header.cfm">
-
-hi
-
-<cfabort>
-
-
 <cfif isdefined("session.username") and len(session.username) gt 0 and action neq "signOut">
 	<cflocation url="myArctos.cfm" addtoken="false">
 </cfif>
@@ -70,6 +64,12 @@ hi
 			<cfif isdefined("gotopage") and len(gotopage) gt 0>
 				<cfset u=u & '&gotopage=#gotopage#'>
 			</cfif>
+
+
+			hi
+
+<cfabort>
+
 			<cflocation url="#u#" addtoken="false">
 		</cfif>
 		<cfif (not isdefined("gotopage") or len(gotopage) is 0) and len(request.rdurl) gt 0>
