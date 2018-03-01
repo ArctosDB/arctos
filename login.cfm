@@ -67,6 +67,10 @@
 
 		backinit
 
+		<cfdump var=#session#>
+
+		<cfabort>
+
 		<cfif len(session.username) is 0>
 
 			no username<cfabort>
