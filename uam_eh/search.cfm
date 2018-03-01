@@ -12,7 +12,7 @@
 		<td>
 			Access to #numberformat(getCount.cnt,",")# UAM:EH records
 			<div>
-				<a href="/all_all.cfm">Search all of Arctos</a>
+				<a href="/all_all">Search all of Arctos</a>
 			</div>
 		</td>
 	</tr>
