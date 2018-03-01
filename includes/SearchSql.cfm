@@ -310,8 +310,10 @@
 				<cfset basQual = " #basQual# upper(#session.flatTableName#.scientific_name) like '%#ucase(escapeQuotes(i))#%' OR ">
 			</cfloop>
 			<cfset basQual = left(basQual,len(basQual)-4) & ")">
+		<cfelseif scientific_name_match_type is "contains">
+				<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelse>
-			<!--- old "contains" new "startswith" whatever - just the default ---->
+			<!--- default=startswith; best performance ---->
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '#ucase(escapeQuotes(scientific_name))#%'">
 		</cfif>
 	<cfelseif scientific_name_scope is "allID">
