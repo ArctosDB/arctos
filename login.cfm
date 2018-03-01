@@ -65,9 +65,13 @@
 
 		<cfset initSession('#username#','#password#')>
 
-		backinit<cfabort>
+		backinit
 
 		<cfif len(session.username) is 0>
+
+			no username<cfabort>
+
+
 			<cfset u="/login.cfm?badPW=true&username=#username#">
 			<cfif isdefined("gotopage") and len(gotopage) gt 0>
 				<cfset u=u & '&gotopage=#gotopage#'>
@@ -105,6 +109,10 @@
 			<cfset gotopage = "/SpecimenSearch.cfm">
 		</cfif>
 		<cfif session.roles contains "coldfusion_user">
+
+		has cf
+
+
 			<cfquery name="getUserData" datasource="cf_dbuser">
 				SELECT
 					cf_users.user_id,
@@ -130,12 +138,16 @@
 				</div>
 				<a href="#gotopage#">Continue to #gotopage#</a>
 			<cfelse>
+
+			gonig #gotopage#<cfabort>
 				<cflocation url="#gotopage#" addtoken="no">
 			</cfif>
 			<cfif len(getUserData.email) is 0>
 				<cfset session.needEmailAddr=1>
 			</cfif>
 		<cfelse>
+
+		going2#gotopage#<cfabort>
 			<cflocation url="#gotopage#" addtoken="no">
 		</cfif>
 	</cfoutput>
