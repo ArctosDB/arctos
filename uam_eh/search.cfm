@@ -10,7 +10,7 @@
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			Access to #numberformat(getCount.cnt,",")# UAM:EH records
+			Access to #numberformat(getCount.cnt,",")# <strong>UAM:EH</strong> records
 			<div>
 				<a href="/all_all">Search all of Arctos</a>
 			</div>
