@@ -13,7 +13,11 @@
 <script src="/includes/sorttable.js"></script>
 <cfset title="collection contact report">
 <style>
-	.hasNoContact{color:red;}
+	.hasNoContact{
+		color:red;
+		margin:1em;
+		padding:1em;
+	}
 </style>
 <cfoutput>
 	<cfquery name="colns" datasource="uam_god">
@@ -83,9 +87,9 @@
 			select count(*) c from contacts where address is not null and CONTACT_ROLE='#CONTACT_ROLE#'
 		</cfquery>
 		<cfif hasActiveContact.c lt 1>
-			<p>
+			<div class="hasNoContact">
 				WARNING: collection has no active #CONTACT_ROLE# contact!
-			</p>
+			</div>
 		</cfif>
 	</cfloop>
 
