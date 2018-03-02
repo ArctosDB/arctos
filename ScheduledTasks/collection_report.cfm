@@ -112,7 +112,7 @@
 			<cfelse>
 				<cfset mt=Application.DataProblemReportEmail>
 				<cfset intro='You are receiving this message because you are a data report contact for Arctos,
-					and collection #guid_prefix# has not data quality contact.'>
+					and collection #guid_prefix# has no data quality contact.'>
 
 			</cfif>
 
