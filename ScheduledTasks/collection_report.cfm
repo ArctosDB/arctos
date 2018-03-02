@@ -11,6 +11,11 @@
 
 <cfset summary=querynew("u,p,s,c")>
 <cfoutput>
+
+		<cfquery name="CTCOLL_CONTACT_ROLE" datasource="uam_god">
+			select CONTACT_ROLE from CTCOLL_CONTACT_ROLE order by guid_prefix
+		</cfquery>
+
 	<cfquery name="colns" datasource="uam_god">
 		select * from collection order by guid_prefix
 	</cfquery>
@@ -21,19 +26,36 @@
 
 		<cfquery name="users" datasource="uam_god">
 			select
-				grantee
+				grantee,
+				preferred_agent_name
 			from
 				dba_role_privs,
 				agent_name,
-				dba_users
+				dba_users,
+				agent
 			where
-			upper(dba_role_privs.granted_role)= upper(replace('#guid_prefix#',':','_')) and
-			dba_role_privs.grantee=upper(agent_name.agent_name) and
-			agent_name.agent_name_type='login' and
-			dba_role_privs.grantee=dba_users.username and
-			dba_users.account_status='OPEN'
+				upper(dba_role_privs.granted_role)= upper(replace('#guid_prefix#',':','_')) and
+				dba_role_privs.grantee=upper(agent_name.agent_name) and
+				agent_name.agent_name_type='login' and
+				agent_name.agent_id=agent.agent_id and
+				dba_role_privs.grantee=dba_users.username and
+				dba_users.account_status='OPEN'
 		</cfquery>
-		<cfdump var="#users#">
+		<p>
+			Active Collection Users
+			<table border>
+				<tr>
+					<td>PreferredName</td>
+					<td>Username</td>
+				</tr>
+				<cfloop query="users">
+					<tr>
+						<td>#preferred_agent_name#</td>
+						<td>#grantee#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</p>
 
 		<cfquery name="contacts"  datasource="uam_god">
 			select
@@ -47,9 +69,23 @@
 				collection_contacts.collection_id=#collection_id# and
 				collection_contacts.contact_agent_id=agent.agent_id
 		</cfquery>
-
-		<cfdump var=#contacts#>
-
+		<p>
+			Collection Contacts
+			<br>NOTE: contacts without an email address may not have a "valid" email, or their account may be locked.
+			<table border>
+				<tr>
+					<td>PreferredName</td>
+					<td>Role</td>
+					<td>Email</td>
+				</tr>
+				<cfloop query="users">
+					<tr>
+						<td>#preferred_agent_name#</td>
+						<td>#CONTACT_ROLE#</td>
+						<td>#address#</td>
+					</tr>
+				</cfloop>
+			</table>
 
 	</cfloop>
 <!----
