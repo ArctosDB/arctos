@@ -28,7 +28,7 @@
 	</cfquery>
 
 	<cfloop query="colns">
-
+		<cfsavecontent variable="crept">
 		<hr>	Collection and User report for #guid_prefix#
 
 		<cfquery name="users" datasource="uam_god">
@@ -115,7 +115,6 @@
 				<cfset mt=Application.DataProblemReportEmail>
 				<cfset intro='You are receiving this message because you are a data report contact for Arctos,
 					and collection #guid_prefix# has no data quality contact.'>
-
 			</cfif>
 
 			<p>
@@ -124,6 +123,11 @@
 			<p>
 				intro: #intro#
 			</p>
+			</cfsavecontent>
+			<cfmail to="dustymc@gmail.com" subject="collection report" from="collection_report@#Application.fromEmail#" type="html">
+				#crept#
+			</cfmail>
+
 	</cfloop>
 <!----
 
