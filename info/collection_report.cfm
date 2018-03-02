@@ -15,6 +15,30 @@
 <style>
 	.hasNoContact{color:red;}
 </style>
+	<cfquery name="colns" datasource="uam_god">
+		select guid_prefix from collection order by guid_prefix
+	</cfquery>
+	<cfquery name="CTCOLL_CONTACT_ROLE" datasource="uam_god">
+		select
+			CONTACT_ROLE
+		from
+			CTCOLL_CONTACT_ROLE
+		where
+			CONTACT_ROLE not in ('mentor')
+		order by
+			CONTACT_ROLE
+	</cfquery>
+	<form action="collection_report.cfm">
+		<label for="guid_prefix">GUID Prefix</label>
+
+		<select name="guid_prefix">
+			<option value=""></option>
+			<cfloop query="colns">
+				<option value="#guid_prefix#">#guid_prefix#</option>
+			</cfloop>
+		</select>
+		<input type="submit" value="go" class="lnkBtn">
+	</form>
 
 <cfset summary=querynew("u,p,s,c")>
 <cfoutput>
