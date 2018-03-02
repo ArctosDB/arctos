@@ -117,7 +117,7 @@
 	<cfset summary=querynew("u,p,s,c")>
 	<cfsavecontent variable="details">
 		<p>
-			User report for collection #coln.guid_prefix#
+			User Details report for collection #coln.guid_prefix#
 		</p>
 
 
