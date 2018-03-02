@@ -49,6 +49,29 @@
 				dba_users.account_status='OPEN'
 			order by preferred_agent_name
 		</cfquery>
+		<cfquery name="contacts"  datasource="uam_god">
+			select
+				get_address(collection_contacts.contact_agent_id,'email') address,
+				collection_contacts.CONTACT_ROLE,
+				agent.preferred_agent_name
+			from
+				collection_contacts,
+				agent
+			where
+				collection_contacts.collection_id=#collection_id# and
+				collection_contacts.contact_agent_id=agent.agent_id
+			order by preferred_agent_name
+		</cfquery>
+		<cfloop query="CTCOLL_CONTACT_ROLE">
+			<cfquery name="hasActiveContact" dbtype="query">
+				select count(*) c from contacts where address is not null and CONTACT_ROLE='#CONTACT_ROLE#'
+			</cfquery>
+			<cfif hasActiveContact.c lt 1>
+				<p>
+					WARNING: collection has no active #CONTACT_ROLE# contact!
+				</p>
+			</cfif>
+		</cfloop>
 		<p>
 			Active Collection Users
 			<table border>
@@ -65,19 +88,6 @@
 			</table>
 		</p>
 
-		<cfquery name="contacts"  datasource="uam_god">
-			select
-				get_address(collection_contacts.contact_agent_id,'email') address,
-				collection_contacts.CONTACT_ROLE,
-				agent.preferred_agent_name
-			from
-				collection_contacts,
-				agent
-			where
-				collection_contacts.collection_id=#collection_id# and
-				collection_contacts.contact_agent_id=agent.agent_id
-			order by preferred_agent_name
-		</cfquery>
 		<p>
 			Collection Contacts
 			<br>NOTE: contacts without an email address may not have a "valid" email, or their account may be locked.
@@ -95,16 +105,8 @@
 					</tr>
 				</cfloop>
 			</table>
-			<cfloop query="CTCOLL_CONTACT_ROLE">
-				<cfquery name="hasActiveContact" dbtype="query">
-					select count(*) c from contacts where address is not null and CONTACT_ROLE='#CONTACT_ROLE#'
-				</cfquery>
-				<cfif hasActiveContact.c lt 1>
-					<p>
-						CAUTION: collection has no active #CONTACT_ROLE# contact!
-					</p>
-				</cfif>
-			</cfloop>
+
+
 			<cfquery name="mailto" dbtype="query">
 				select distinct address from contacts where CONTACT_ROLE in ('data quality')
 			</cfquery>
@@ -124,10 +126,35 @@
 				intro: #intro#
 			</p>
 			</cfsavecontent>
+			<cfif isdefined("Application.version") and  Application.version is "prod">
+				<cfset subj="Arctos Collection Report">
+				<cfset maddr="#mt#, arctos.database@gmail.com">
+			<cfelse>
+				<cfset maddr=application.bugreportemail>
+				<cfset subj="TEST PLEASE IGNORE: Arctos Collection Report">
+			</cfif>
+
+			<p>
+				subj: #subj#
+			</p>
+			<p>
+				mt: #mt#
+			</p>
+			<p>
+				maddr: #maddr#
+			</p>
+
+			<p>
+				body...
+			</p>
+			<p>
+				#crept#
+			</p>
+			<!----
 			<cfmail to="dustymc@gmail.com" subject="collection report" from="collection_report@#Application.fromEmail#" type="html">
 				#crept#
 			</cfmail>
-
+			--->
 	</cfloop>
 <!----
 
