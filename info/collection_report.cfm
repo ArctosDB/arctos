@@ -17,6 +17,7 @@
 		color:red;
 		margin:1em;
 		padding:1em;
+		border:3px solid red;
 	}
 </style>
 <cfoutput>
