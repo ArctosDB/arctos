@@ -110,7 +110,7 @@
 				<cfset mt=valuelist(mailto.address)>
 				<cfset intro='You are receiving this message because you are a data quality contact for collection #guid_prefix#.'>
 			<cfelse>
-				<cfset mt=application.DATA_REPORT_EMAIL>
+				<cfset mt=Application.DataProblemReportEmail>
 				<cfset intro='You are receiving this message because you are a data report contact for Arctos,
 					and collection #guid_prefix# has not data quality contact.'>
 
