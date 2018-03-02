@@ -112,8 +112,6 @@
 					</tr>
 				</cfloop>
 			</table>
-
-
 			<cfquery name="mailto" dbtype="query">
 				select distinct address from contacts where CONTACT_ROLE in ('data quality')
 			</cfquery>
@@ -126,12 +124,6 @@
 					and collection #guid_prefix# has no data quality contact.'>
 			</cfif>
 
-			<p>
-				mailto: #mt#
-			</p>
-			<p>
-				intro: #intro#
-			</p>
 			</cfsavecontent>
 			<cfif isdefined("Application.version") and  Application.version is "prod">
 				<cfset subj="Arctos Collection Report">
@@ -140,7 +132,13 @@
 				<cfset maddr=application.bugreportemail>
 				<cfset subj="TEST PLEASE IGNORE: Arctos Collection Report">
 			</cfif>
-
+<!----
+			<p>
+				mailto: #mt#
+			</p>
+			<p>
+				intro: #intro#
+			</p>
 			<p>
 				subj: #subj#
 			</p>
@@ -157,11 +155,15 @@
 			<p>
 				#crept#
 			</p>
-			<!----
-			<cfmail to="dustymc@gmail.com" subject="collection report" from="collection_report@#Application.fromEmail#" type="html">
-				#crept#
+			---->
+			<cfmail to="#maddr#" subject="#subj#" from="collection_report@#Application.fromEmail#" type="html">
+				<p>
+					#intro#
+				</p>
+				<p>
+					#crept#
+				</p>
 			</cfmail>
-			--->
 	</cfloop>
 <!----
 
