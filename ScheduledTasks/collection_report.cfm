@@ -24,11 +24,14 @@
 				grantee
 			from
 				dba_role_privs,
-				agent_name
+				agent_name,
+				dba_users
 			where
 			upper(dba_role_privs.granted_role)= upper(replace('#guid_prefix#',':','_')) and
 			dba_role_privs.grantee=upper(agent_name.agent_name) and
-			agent_name.agent_name_type='login'
+			agent_name.agent_name_type='login' and
+			dba_role_privs.grantee=dba_users.username and
+			dba_users.account_status='OPEN'
 		</cfquery>
 		<cfdump var="#users#">
 	</cfloop>
