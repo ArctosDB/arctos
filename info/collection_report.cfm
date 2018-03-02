@@ -58,6 +58,7 @@
 
 
 		<hr>
+		<span id="#users.username#"></span>
 		<br>Preferred Name: #users.preferred_agent_name#
 		<br>Username: #users.username# (Account Status: #acts.account_status#)
 		<cfquery name="cct" datasource="uam_god">
@@ -122,7 +123,7 @@
 		</tr>
 		<cfloop query="os">
 			<tr>
-				<td>#u#</td>
+				<td><a href="###u#">#u#</a></td>
 				<td>#p#</td>
 				<td>#s#</td>
 				<td>#c#</td>
