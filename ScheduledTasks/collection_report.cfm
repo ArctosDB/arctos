@@ -34,6 +34,23 @@
 			dba_users.account_status='OPEN'
 		</cfquery>
 		<cfdump var="#users#">
+
+		<cfquery name="contacts"  datasource="uam_god">
+			select
+				get_address(collection_contacts.contact_agent_id,'email') address,
+				collection_contacts.CONTACT_ROLE,
+				agent.preferred_agent_name
+			from
+				collection_contacts,
+				agent
+			where
+				collection_contacts.collection_id=#collection_id# and
+				collection_contacts.contact_agent_id=agent.agent_id
+		</cfquery>
+
+		<cfdump var=#contacts#>
+
+
 	</cfloop>
 <!----
 
