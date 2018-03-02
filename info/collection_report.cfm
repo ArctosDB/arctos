@@ -102,6 +102,7 @@
 	</cfloop>
 	<p>
 		Collection Contacts
+		<a href="/Admin/Collection.cfm?action=findColl&collection_id=#coln.collection_id#">Manage Contacts</a>
 		<br>NOTE: contacts without an email address may not have a "valid" email, or their account may be locked.
 		<table border>
 			<tr>
