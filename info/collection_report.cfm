@@ -42,10 +42,6 @@
 	</form>
 
 <cfif not isdefined("guid_prefix") or len(guid_prefix) is 0><cfabort></cfif>
-<cfset summary=querynew("u,p,s,c")>
-
-	<cfsavecontent variable="details">
-
 	<cfquery name="coln" datasource="uam_god">
 		select guid_prefix, collection_id from collection where upper(guid_prefix)='#ucase(guid_prefix)#'
 	</cfquery>
@@ -69,6 +65,38 @@
 		order by
 			agent.preferred_agent_name
 	</cfquery>
+	<cfquery name="contacts"  datasource="uam_god">
+		select
+			get_address(collection_contacts.contact_agent_id,'email') address,
+			collection_contacts.CONTACT_ROLE,
+			agent.preferred_agent_name
+		from
+			collection_contacts,
+			agent
+		where
+			collection_contacts.collection_id=#coln.collection_id# and
+			collection_contacts.contact_agent_id=agent.agent_id
+		order by preferred_agent_name
+	</cfquery>
+	<cfloop query="CTCOLL_CONTACT_ROLE">
+		<cfquery name="hasActiveContact" dbtype="query">
+			select count(*) c from contacts where address is not null and CONTACT_ROLE='#CONTACT_ROLE#'
+		</cfquery>
+		<cfif hasActiveContact.c lt 1>
+			<p>
+				WARNING: collection has no active #CONTACT_ROLE# contact!
+			</p>
+		</cfif>
+	</cfloop>
+
+
+	<cfset summary=querynew("u,p,s,c")>
+
+	<cfsavecontent variable="details">
+
+
+
+
 
 	<p>
 		User report for collection #coln.guid_prefix#
