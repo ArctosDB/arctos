@@ -96,34 +96,29 @@
 			</div>
 		</cfif>
 	</cfloop>
-
-	Collection Contacts
-			<br>NOTE: contacts without an email address may not have a "valid" email, or their account may be locked.
-			<table border>
-				<tr>
-					<td>PreferredName</td>
-					<td>Role</td>
-					<td>Email</td>
-				</tr>
-				<cfloop query="contacts">
-					<tr>
-						<td>#preferred_agent_name#</td>
-						<td>#CONTACT_ROLE#</td>
-						<td>#address#</td>
-					</tr>
-				</cfloop>
-			</table>
-	<cfset summary=querynew("u,p,s,c")>
-
-	<cfsavecontent variable="details">
-
-
-
-
-
 	<p>
-		User report for collection #coln.guid_prefix#
+		Collection Contacts
+		<br>NOTE: contacts without an email address may not have a "valid" email, or their account may be locked.
+		<table border>
+			<tr>
+				<td>PreferredName</td>
+				<td>Role</td>
+				<td>Email</td>
+			</tr>
+			<cfloop query="contacts">
+				<tr>
+					<td>#preferred_agent_name#</td>
+					<td>#CONTACT_ROLE#</td>
+					<td>#address#</td>
+				</tr>
+			</cfloop>
+		</table>
 	</p>
+	<cfset summary=querynew("u,p,s,c")>
+	<cfsavecontent variable="details">
+		<p>
+			User report for collection #coln.guid_prefix#
+		</p>
 
 
 
@@ -188,28 +183,30 @@
 		</ul>
 	</cfloop>
 	</cfsavecontent>
-	Summary
+
 
 	<cfquery name="os" dbtype="query">
 		select * from summary order by c desc,s desc,u
 	</cfquery>
-
-	<table border>
-		<tr>
-			<th>Username</th>
-			<th>Preferred Name</th>
-			<th>Account Status</th>
-			<th>Problem</th>
-		</tr>
-		<cfloop query="os">
+	<p>
+		Users Summary
+		<table border>
 			<tr>
-				<td><a href="###u#">#u#</a></td>
-				<td>#p#</td>
-				<td>#s#</td>
-				<td>#c#</td>
+				<th>Username</th>
+				<th>Preferred Name</th>
+				<th>Account Status</th>
+				<th>Problem</th>
 			</tr>
-		</cfloop>
-	</table>
+			<cfloop query="os">
+				<tr>
+					<td><a href="###u#">#u#</a></td>
+					<td>#p#</td>
+					<td>#s#</td>
+					<td>#c#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</p>
 	<p></p>
 	#details#
 
