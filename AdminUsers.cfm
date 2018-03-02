@@ -18,14 +18,35 @@
 			why the account was locked.	Search the arctos.database gmail account for information; do not assume anything.
 		</p>
 		<p>
-			The account owner will be required to select a new password, and must have a valid email address in their
-			user profile or agent record.
+			Option One: Unlock and reset. The account owner will be required to select a new password, and must have a valid email address in their
+			user profile or agent record. This is almost always the best way to proceed.
+			<a href="AdminUsers.cfm?action=submitUnlockOracleAccount&username=#username#">Unlock and reset account #username#</a>
 		</p>
 		<p>
-			If you want to proceed to unlock account #username#, <a href="AdminUsers.cfm?action=submitUnlockOracleAccount&username=#username#">click this</a>.
+			Option Two: Unlock only.
+			<a href="AdminUsers.cfm?action=submitUnlockOnlyOracleAccount&username=#username#">Unlock #username#</a>
+
+		</p>
+		<p>
+
 		</p>
 	</cfoutput>
 </cfif>
+
+
+<cfif action is "submitUnlockOnlyOracleAccount">
+	<cfoutput>
+		<cfquery name="uact" datasource="uam_god">
+			alter user #username# account unlock
+		</cfquery>
+
+		Success - #username# is now unlocked
+
+	</cfoutput>
+</cfif>
+
+
+
 <cfif action is "submitUnlockOracleAccount">
 	<cfoutput>
 		<cfset charList = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,z,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0">
