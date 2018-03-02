@@ -31,6 +31,13 @@
 		<cfsavecontent variable="crept">
 		<hr>	Collection and User report for #guid_prefix#
 
+		<p>
+			Details and tools are available at
+			<a href="#Application.serverRootUrl#/info/collection_report.cfm?guid_prefix=#guid_prefix#">
+				#Application.serverRootUrl#/info/collection_report.cfm?guid_prefix=#guid_prefix#
+			</a>
+		</p>
+
 		<cfquery name="users" datasource="uam_god">
 			select
 				grantee,
