@@ -54,6 +54,10 @@
 	<cfif coln.recordcount neq 1>
 		collection not found<cfabort>
 	</cfif>
+	<p>
+		User and Contacts report for collection #coln.guid_prefix#
+	</p>
+
 	<cfquery name="users" datasource="uam_god">
 		select
 			agent.agent_id,
@@ -116,9 +120,6 @@
 	</p>
 	<cfset summary=querynew("u,p,s,c")>
 	<cfsavecontent variable="details">
-		<p>
-			User Details report for collection #coln.guid_prefix#
-		</p>
 
 
 
