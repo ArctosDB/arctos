@@ -32,7 +32,7 @@ select
 			where
 			upper(dba_role_privs.granted_role)= upper(replace('#guid_prefix#',':','_'))
 		</cfquery>
-		<cfdump var="users">
+		<cfdump var="#users#">
 	</cfloop>
 <!----
 
