@@ -90,7 +90,7 @@
 				<cfquery name="hasActiveContact" dbtype="query">
 					select count(*) c from contacts where address is not null and CONTACT_ROLE='#CONTACT_ROLE#'
 				</cfquery>
-				<cfif hasActiveContact.0 lt 1>
+				<cfif hasActiveContact.c lt 1>
 					<p>
 						CAUTION: collection has not active #CONTACT_ROLE# contact!
 					</p>
