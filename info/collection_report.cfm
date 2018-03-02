@@ -54,9 +54,9 @@
 	<cfif coln.recordcount neq 1>
 		collection not found<cfabort>
 	</cfif>
-	<p>
+	<h2>
 		User and Contacts report for collection #coln.guid_prefix#
-	</p>
+	</h2>
 
 	<cfquery name="users" datasource="uam_god">
 		select
