@@ -102,8 +102,26 @@
 						CAUTION: collection has no active #CONTACT_ROLE# contact!
 					</p>
 				</cfif>
-
 			</cfloop>
+			<cfquery name="mailto" dbtype="query">
+				select distinct address from contacts where CONTACT_ROLE in ('data quality')
+			</cfquery>
+			<cfif len(valuelist(mailto.address)) gt 0>
+				<cfset mt=valuelist(mailto.address)>
+				<cfset intro='You are receiving this message because you are a data quality contact for collection #guid_prefix#.'>
+			<cfelse>
+				<cfset mt=application.DATA_REPORT_EMAIL>
+				<cfset intro='You are receiving this message because you are a data report contact for Arctos,
+					and collection #guid_prefix# has not data quality contact.'>
+
+			</cfif>
+
+			<p>
+				mailto: #mt#
+			</p>
+			<p>
+				intro: #intro#
+			</p>
 	</cfloop>
 <!----
 
