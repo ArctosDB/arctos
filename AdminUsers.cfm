@@ -27,10 +27,6 @@
 			Option Two: Unlock only. This will not help a user who doesn't know their password. DO NOT use this option
 			for any reason other than the account timing out due to 90 days of inactivity.
 			<a href="AdminUsers.cfm?action=submitUnlockOnlyOracleAccount&username=#username#">Unlock #username#</a>
-
-		</p>
-		<p>
-
 		</p>
 	</cfoutput>
 </cfif>
