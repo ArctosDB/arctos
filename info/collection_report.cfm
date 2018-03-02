@@ -54,14 +54,14 @@
 		</cfquery>
 
 		<hr>
-		<span id="#users.username#"></span>
-		<br>Preferred Name: #users.preferred_agent_name#
+		<div id="#users.username#">
+			Preferred Name: #users.preferred_agent_name#
+		</div>
 		<br>Username: #users.username#
 		<br>Account Status: #acts.account_status#
 		<br><a href="/AdminUsers.cfm?action=edit&username=#users.username#">manage user account</a>
 		<br><a href="/agents.cfm?agent_id=#users.agent_id#">manage agent record</a>
 		<br><a href="/info/agentActivity.cfm?agent_id2072#users.agent_id#">view agent activity report</a>
-		<br><a
 		<cfquery name="cct" datasource="uam_god">
 			select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id#  and
 			collection_contacts.collection_id=#coln.collection_id#
