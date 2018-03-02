@@ -23,7 +23,8 @@
 			<a href="AdminUsers.cfm?action=submitUnlockOracleAccount&username=#username#">Unlock and reset account #username#</a>
 		</p>
 		<p>
-			Option Two: Unlock only.
+			Option Two: Unlock only. This will not help a user who doesn't know their password. DO NOT use this option
+			for any reason other than the account timing out due to 90 days of inactivity.
 			<a href="AdminUsers.cfm?action=submitUnlockOnlyOracleAccount&username=#username#">Unlock #username#</a>
 
 		</p>
@@ -40,7 +41,9 @@
 			alter user #username# account unlock
 		</cfquery>
 
-		Success - #username# is now unlocked
+		Success - #username# is now unlocked.
+		<br><a href="/AdminUsers.cfm?action=edit&username=#username#">back to manage</a>
+
 
 	</cfoutput>
 </cfif>
@@ -144,6 +147,7 @@
 				</p>
 			</cfmail>
 			Success - #username# is now unlocked. Please direct them to check their email for a new password.
+			<br><a href="/AdminUsers.cfm?action=edit&username=#username#">back to manage</a>
 		</cftransaction>
 	</cfoutput>
 </cfif>
