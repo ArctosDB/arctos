@@ -102,7 +102,7 @@
 	</cfloop>
 	<p>
 		Collection Contacts
-		<a href="/Admin/Collection.cfm?action=findColl&collection_id=#coln.collection_id#">Manage Contacts</a>
+		<br><a href="/Admin/Collection.cfm?action=findColl&collection_id=#coln.collection_id#">Manage Contacts</a>
 		<br>NOTE: contacts without an email address may not have a "valid" email, or their account may be locked.
 		<table border>
 			<tr>
@@ -121,72 +121,64 @@
 	</p>
 	<cfset summary=querynew("u,p,s,c")>
 	<cfsavecontent variable="details">
+		<cfloop query="users">
+			<cfquery name="acts" datasource="uam_god">
+				select account_status FROM dba_users where username='#users.username#'
+			</cfquery>
 
+			<hr>
+			<div id="#users.username#">
+				Preferred Name: #users.preferred_agent_name#
+			</div>
+			<br>Username: #users.username#
+			<br>Account Status: #acts.account_status#
+			<br><a href="/AdminUsers.cfm?action=edit&username=#users.username#">manage user account</a>
+			<br><a href="/agents.cfm?agent_id=#users.agent_id#">manage agent record</a>
+			<br><a href="/info/agentActivity.cfm?agent_id=#users.agent_id#">view agent activity report</a>
+			<cfquery name="cct" datasource="uam_god">
+				select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id#  and
+				collection_contacts.collection_id=#coln.collection_id#
+				order by CONTACT_ROLE
+			</cfquery>
 
-
-	<cfloop query="users">
-		<cfquery name="acts" datasource="uam_god">
-			select account_status FROM dba_users where username='#users.username#'
-		</cfquery>
-
-		<hr>
-		<div id="#users.username#">
-			Preferred Name: #users.preferred_agent_name#
-		</div>
-		<br>Username: #users.username#
-		<br>Account Status: #acts.account_status#
-		<br><a href="/AdminUsers.cfm?action=edit&username=#users.username#">manage user account</a>
-		<br><a href="/agents.cfm?agent_id=#users.agent_id#">manage agent record</a>
-		<br><a href="/info/agentActivity.cfm?agent_id=#users.agent_id#">view agent activity report</a>
-		<cfquery name="cct" datasource="uam_god">
-			select * from collection_contacts where CONTACT_AGENT_ID=#users.agent_id#  and
-			collection_contacts.collection_id=#coln.collection_id#
-			order by CONTACT_ROLE
-		</cfquery>
-
-		<cfif acts.account_status neq 'OPEN' and cct.recordcount gt 0>
-			<cfset ctn='LOCKED COLLECTION CONTACT'>
-		<cfelse>
-			<cfset ctn=''>
-		</cfif>
-		<cfset queryaddrow(summary,
-			{u=users.username,
-			p=users.preferred_agent_name,
-			s=acts.account_status,
-			c=ctn}
-		)>
-
-
-
-		<cfloop query="cct">
-			<br>Collection Contact Role: #cct.CONTACT_ROLE#
-		</cfloop>
-		<cfquery name="addr" datasource="uam_god">
-			select * from address where agent_id=#users.agent_id#
-		</cfquery>
-		<cfloop query="addr">
-			<br>#replace(ADDRESS_TYPE,chr(10),"<br>","all")#: #ADDRESS# (<cfif VALID_ADDR_FG is 1>valid<cfelse>not valid</cfif>)
-		</cfloop>
-		<cfquery name="role" datasource="uam_god">
-			select
-				granted_role
-			from
-				dba_role_privs
-			where
-				upper(grantee) = '#users.username#'
-				and granted_role not in (select upper(replace(guid_prefix,':','_')) from collection)
-				order by granted_role
-		</cfquery>
-		<p>Roles</p>
-		<ul>
-			<cfloop query="role">
-				<li>#granted_role#</li>
+			<cfif acts.account_status neq 'OPEN' and cct.recordcount gt 0>
+				<cfset ctn='LOCKED COLLECTION CONTACT'>
+			<cfelse>
+				<cfset ctn=''>
+			</cfif>
+			<cfset queryaddrow(summary,
+				{u=users.username,
+				p=users.preferred_agent_name,
+				s=acts.account_status,
+				c=ctn}
+			)>
+			<cfloop query="cct">
+				<br>Collection Contact Role: #cct.CONTACT_ROLE#
 			</cfloop>
-		</ul>
-	</cfloop>
+			<cfquery name="addr" datasource="uam_god">
+				select * from address where agent_id=#users.agent_id#
+			</cfquery>
+			<cfloop query="addr">
+				<br>#replace(ADDRESS_TYPE,chr(10),"<br>","all")#: #ADDRESS# (<cfif VALID_ADDR_FG is 1>valid<cfelse>not valid</cfif>)
+			</cfloop>
+			<cfquery name="role" datasource="uam_god">
+				select
+					granted_role
+				from
+					dba_role_privs
+				where
+					upper(grantee) = '#users.username#'
+					and granted_role not in (select upper(replace(guid_prefix,':','_')) from collection)
+					order by granted_role
+			</cfquery>
+			<p>Roles</p>
+			<ul>
+				<cfloop query="role">
+					<li>#granted_role#</li>
+				</cfloop>
+			</ul>
+		</cfloop>
 	</cfsavecontent>
-
-
 	<cfquery name="os" dbtype="query">
 		select * from summary order by c desc,s desc,u
 	</cfquery>
