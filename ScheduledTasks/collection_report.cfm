@@ -47,6 +47,7 @@
 				agent_name.agent_id=agent.agent_id and
 				dba_role_privs.grantee=dba_users.username and
 				dba_users.account_status='OPEN'
+			order by preferred_agent_name
 		</cfquery>
 		<p>
 			Active Collection Users
@@ -75,6 +76,7 @@
 			where
 				collection_contacts.collection_id=#collection_id# and
 				collection_contacts.contact_agent_id=agent.agent_id
+			order by preferred_agent_name
 		</cfquery>
 		<p>
 			Collection Contacts
