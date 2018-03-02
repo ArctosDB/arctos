@@ -78,7 +78,7 @@
 					<td>Role</td>
 					<td>Email</td>
 				</tr>
-				<cfloop query="users">
+				<cfloop query="contacts">
 					<tr>
 						<td>#preferred_agent_name#</td>
 						<td>#CONTACT_ROLE#</td>
