@@ -14,8 +14,9 @@
 			guessed at their forgotton password too many times; these are almost always safe.
 		</p>
 		<p>
-			<strong><em>Do not</em></strong> unlock an account if there are any security concerns, suspicious activity, or not indication of
-			why the account was locked.	Search the arctos.database gmail account for information; do not assume anything.
+			<strong><em>Do not</em></strong> unlock an account if there are any security concerns, suspicious activity, or no
+			indication of why the account was locked.
+			Search the arctos.database gmail account for information; do not assume anything.
 		</p>
 		<p>
 			Option One: Unlock and reset. The account owner will be required to select a new password, and must have a valid email address in their
