@@ -89,7 +89,22 @@
 		</cfif>
 	</cfloop>
 
-
+	Collection Contacts
+			<br>NOTE: contacts without an email address may not have a "valid" email, or their account may be locked.
+			<table border>
+				<tr>
+					<td>PreferredName</td>
+					<td>Role</td>
+					<td>Email</td>
+				</tr>
+				<cfloop query="contacts">
+					<tr>
+						<td>#preferred_agent_name#</td>
+						<td>#CONTACT_ROLE#</td>
+						<td>#address#</td>
+					</tr>
+				</cfloop>
+			</table>
 	<cfset summary=querynew("u,p,s,c")>
 
 	<cfsavecontent variable="details">
@@ -101,6 +116,8 @@
 	<p>
 		User report for collection #coln.guid_prefix#
 	</p>
+
+
 
 	<cfloop query="users">
 		<cfquery name="acts" datasource="uam_god">
