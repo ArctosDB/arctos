@@ -18,7 +18,12 @@
 	<cfloop query="colns">
 
 		<hr>	Collection and User report for #guid_prefix#
-
+select
+				grantee
+			from
+				dba_role_privs
+			where
+			upper(dba_role_privs.granted_role)= upper(replace('#guid_prefix#',':','_'))
 		<cfquery name="users" datasource="uam_god">
 			select
 				grantee
