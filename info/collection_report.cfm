@@ -15,6 +15,7 @@
 <style>
 	.hasNoContact{color:red;}
 </style>
+<cfoutput>
 	<cfquery name="colns" datasource="uam_god">
 		select guid_prefix from collection order by guid_prefix
 	</cfquery>
@@ -40,8 +41,9 @@
 		<input type="submit" value="go" class="lnkBtn">
 	</form>
 
+<cfif not isdefined("guid_prefix") or len(guid_prefix) is 0><cfabort></cfif>
 <cfset summary=querynew("u,p,s,c")>
-<cfoutput>
+
 	<cfsavecontent variable="details">
 
 	<cfquery name="coln" datasource="uam_god">
