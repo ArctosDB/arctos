@@ -13,7 +13,14 @@
 <cfoutput>
 
 		<cfquery name="CTCOLL_CONTACT_ROLE" datasource="uam_god">
-			select CONTACT_ROLE from CTCOLL_CONTACT_ROLE order by CONTACT_ROLE
+			select
+				CONTACT_ROLE
+			from
+				CTCOLL_CONTACT_ROLE
+			where
+				CONTACT_ROLE not in ('mentor')
+			order by
+				CONTACT_ROLE
 		</cfquery>
 
 	<cfquery name="colns" datasource="uam_god">
@@ -92,7 +99,7 @@
 				</cfquery>
 				<cfif hasActiveContact.c lt 1>
 					<p>
-						CAUTION: collection has not active #CONTACT_ROLE# contact!
+						CAUTION: collection has no active #CONTACT_ROLE# contact!
 					</p>
 				</cfif>
 
