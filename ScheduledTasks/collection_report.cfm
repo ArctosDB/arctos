@@ -1,7 +1,7 @@
 <!---
 	IMPORTANT
 
-	this is a companion file to ScheduledTasks/collection_report.
+	this is a companion file to info/collection_report.
 
 	ScheduledTasks is fast, minimal, and send email.
 
@@ -9,37 +9,51 @@
 
 ---->
 
-<cfinclude template="/includes/_header.cfm">
-<script src="/includes/sorttable.js"></script>
-<cfset title="collection contact report">
-<style>
-	.hasNoContact{color:red;}
-</style>
-
 <cfset summary=querynew("u,p,s,c")>
 <cfoutput>
-	<cfsavecontent variable="details">
-
-	<cfquery name="coln" datasource="uam_god">
-		select guid_prefix, collection_id from collection where upper(guid_prefix)='#ucase(guid_prefix)#'
+	<cfquery name="colns" datasource="uam_god">
+		select * from collection order by guid_prefix
 	</cfquery>
-	<cfif coln.recordcount neq 1>
-		collection not found<cfabort>
-	</cfif>
+
+	<cfloop query="colns">
+
+		<hr>	Collection and User report for #guid_prefix#
+
+		<cfquery name="users" datasource="uam_god">
+			select
+				grantee
+			from
+				dba_role_privs
+			where
+			upper(dba_role_privs.granted_role)= upper(replace('#guid_prefix#',':','_'))
+		</cfquery>
+		<cfdump var="users">
+	</cfloop>
+<!----
+
 	<cfquery name="users" datasource="uam_god">
 		select
 			agent.agent_id,
-			grantee username,
-			agent.preferred_agent_name
+			agent.preferred_agent_name,
+			agent_name.agent_name,
+			collection.guid_prefix,
+			collection_contacts.CONTACT_ROLE,
+			get_address(collection_contacts.contact_agent_id,'email') address
 		from
-			dba_role_privs,
+			agent,
 			agent_name,
-			agent
+			dba_role_privs,
+			collection,
+			collection_contacts
 		where
-			upper(dba_role_privs.granted_role) = upper(replace('#guid_prefix#',':','_')) and
-			upper(dba_role_privs.grantee) = upper(agent_name.agent_name) and
-			agent_name.agent_name_type='login' and
-			agent_name.agent_id=agent.agent_id
+			agent.agent_id=agent_name.agent_id and
+			upper(agent_name.agent_name)=upper(dba_role_privs.grantee) and
+			upper(dba_role_privs.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
+			collection.collection_id=collection_contacts.collection_id (+) and
+			agent_name.agent_name_type='login'
+			--and
+			-dba_role_privs.GRANTEE=dba_users.username and
+			dba_users.account_status='OPEN'
 		order by
 			agent.preferred_agent_name
 	</cfquery>
@@ -132,7 +146,7 @@
 	<p></p>
 	#details#
 
-
+---->
 <!----
 
 select
