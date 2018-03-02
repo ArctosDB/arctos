@@ -18,6 +18,7 @@
 		margin:1em;
 		padding:1em;
 		border:3px solid red;
+		display:inline-block;
 	}
 </style>
 <cfoutput>
@@ -88,8 +89,10 @@
 			select count(*) c from contacts where address is not null and CONTACT_ROLE='#CONTACT_ROLE#'
 		</cfquery>
 		<cfif hasActiveContact.c lt 1>
-			<div class="hasNoContact">
-				WARNING: collection has no active #CONTACT_ROLE# contact!
+			<div>
+				<div class="hasNoContact">
+					WARNING: collection has no active #CONTACT_ROLE# contact!
+				</div>
 			</div>
 		</cfif>
 	</cfloop>
