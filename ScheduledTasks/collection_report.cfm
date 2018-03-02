@@ -13,7 +13,7 @@
 <cfoutput>
 
 		<cfquery name="CTCOLL_CONTACT_ROLE" datasource="uam_god">
-			select CONTACT_ROLE from CTCOLL_CONTACT_ROLE order by guid_prefix
+			select CONTACT_ROLE from CTCOLL_CONTACT_ROLE order by CONTACT_ROLE
 		</cfquery>
 
 	<cfquery name="colns" datasource="uam_god">
