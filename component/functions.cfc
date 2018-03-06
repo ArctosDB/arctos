@@ -1111,7 +1111,7 @@
 			collecting_event
 		where
 			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-			specimen_event.verificationstatus like 'verified by %' and
+			specimen_event.verificationstatus = 'verified and locked' and
 			collecting_event.locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>
 	<cfquery name="wss" dbtype="query">
@@ -1153,7 +1153,7 @@
 				<cfif verifiedSpecs.c gt 0>
 					<br>
 					#verifiedSpecs.c#
-					<a href="/SpecimenResults.cfm?locality_id=#locality_id#&verificationstatus=verified by">
+					<a href="/SpecimenResults.cfm?locality_id=#locality_id#&verificationstatus=verified and locked">
 						Specimens
 					</a> are verified to this locality; updates are disallowed.
 				</cfif>
@@ -1200,7 +1200,7 @@
 		from
 			specimen_event
 		where
-			verificationstatus like 'verified by %' and
+			verificationstatus like 'verified and locked %' and
 			specimen_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>
 	<cfoutput>
@@ -1229,7 +1229,7 @@
 				<cfif verifiedSpecs.c gt 0>
 					<br>
 					#verifiedSpecs.c#
-					<a href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&verificationstatus=verified by">
+					<a href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&verificationstatus=verified and locked">
 						Specimens
 					</a> are verified to this event; updates are disallowed.
 				</cfif>

@@ -47,7 +47,7 @@
 			INNER JOIN collection ON (#flatTableName#.collection_id=collection.collection_id)
 			INNER JOIN collecting_event ON (specimen_event.collecting_event_id =collecting_event.collecting_event_id)
 			INNER JOIN locality ON (collecting_event.locality_id=locality.locality_id)">
-	<cfset basWhere = " WHERE locality.dec_lat is not null AND specimen_event.specimen_event_type != 'unaccepted place of collection'">
+	<cfset basWhere = " WHERE locality.dec_lat is not null AND specimen_event.verificationstatus != 'unaccepted'">
 	<cfif flatTableName is "filtered_flat">
 		<cfset basWhere = basWhere & " and (
 			#flatTableName#.encumbrances not like '%mask coordinates%' or
