@@ -499,7 +499,7 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 
 			<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
-			<input type="date" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+			<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
 
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#stripQuotes(l.specimen_event_remark)#" size="75">
