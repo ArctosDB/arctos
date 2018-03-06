@@ -190,7 +190,7 @@ function useGL(glat,glon,gerr){
 		}
 </script>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    	select
+    		select
 			 COLLECTING_EVENT.COLLECTING_EVENT_ID,
 			 specimen_event_id,
 			 locality.LOCALITY_ID,
@@ -252,7 +252,10 @@ function useGL(glat,glon,gerr){
 			GEO_ATT_REMARK,
 			geog_auth_rec.geog_auth_rec_id,
 			higher_geog,
-			specimen_event_remark
+			specimen_event_remark,
+			specimen_event.VERIFIED_BY_AGENT_ID,
+			getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID) verified_by_agent_name,
+			specimen_event.VERIFIED_DATE
 		from
 			geog_auth_rec,
 			locality,
@@ -515,6 +518,20 @@ function useGL(glat,glon,gerr){
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
+			<label for="verified_by_agent_name">Verified By</label>
+
+			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" class="reqdClr" value="#l.verified_by_agent_name#" size="40"
+				 onchange="getAgent('verified_by_agent_id','verified_by_agent_name','loc#f#',this.value); return false;"
+				 onKeyPress="return noenter(event);">
+			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
+
+			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
+			<input type="text" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#" class="reqdClr">
+
+
+
+
+
 			<h4>
 				Collecting Event
 				<a style="font-size:small;" href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
