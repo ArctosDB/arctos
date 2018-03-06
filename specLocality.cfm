@@ -530,8 +530,16 @@ function useGL(glat,glon,gerr){
 			<label for="verified_by_agent_name">Verified By</label>
 
 			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
-				 onchange="getAgent('verified_by_agent_id','verified_by_agent_name','loc#f#',this.value); return false;"
+				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
+
+
+
+
+
+
+
+
 			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
 
 			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
