@@ -324,7 +324,10 @@ function useGL(glat,glon,gerr){
 			geog_auth_rec_id,
 			higher_geog,
 			specimen_event_id,
-			specimen_event_remark
+			specimen_event_remark,
+			VERIFIED_BY_AGENT_ID,
+			verified_by_agent_name,
+			VERIFIED_DATE
 			from raw group by
 			COLLECTING_EVENT_ID,
 			 LOCALITY_ID,
@@ -379,7 +382,10 @@ function useGL(glat,glon,gerr){
 			geog_auth_rec_id,
 			higher_geog,
 			specimen_event_id,
-			specimen_event_remark
+			specimen_event_remark,
+			VERIFIED_BY_AGENT_ID,
+			verified_by_agent_name,
+			VERIFIED_DATE
 		order by
 		specimen_event_type
 	</cfquery>
