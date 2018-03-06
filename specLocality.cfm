@@ -165,6 +165,9 @@
 	 		}
 	    }
 	}
+	$(document).ready(function() {
+		$("input[type='date'], input[type='datetime']" ).datepicker();
+	});
 </script>
 <cfif action is "nothing">
 <cfoutput>
@@ -496,7 +499,7 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 
 			<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
-			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+			<input type="date" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
 
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#stripQuotes(l.specimen_event_remark)#" size="75">
@@ -526,13 +529,13 @@ function useGL(glat,glon,gerr){
 			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
 			<label for="verified_by_agent_name">Verified By</label>
 
-			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" class="reqdClr" value="#l.verified_by_agent_name#" size="40"
+			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
 				 onchange="getAgent('verified_by_agent_id','verified_by_agent_name','loc#f#',this.value); return false;"
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
 
 			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
-			<input type="text" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#" class="reqdClr">
+			<input type="date" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
 
 
 
