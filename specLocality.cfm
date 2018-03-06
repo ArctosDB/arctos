@@ -472,7 +472,7 @@ function useGL(glat,glon,gerr){
 	<cfloop query="l">
 		<div style="border:2px solid black; margin:1em;">
 		<table border="1" width="100%"><tr><td>
-		<cfform name="loc#f#" method="post" action="specLocality.cfm">
+		<form name="loc#f#" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -529,8 +529,8 @@ function useGL(glat,glon,gerr){
 			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
 			<label for="verified_by_agent_name">Verified By</label>
 
-			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
-				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
+			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name#f#" value="#l.verified_by_agent_name#" size="40"
+				 onchange="pickAgentModal('verified_by_agent_id#f#',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
 
 
@@ -540,7 +540,7 @@ function useGL(glat,glon,gerr){
 
 
 
-			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
+			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id#f#" value="#l.verified_by_agent_id#">
 
 			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
 			<input type="datetime" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
@@ -576,7 +576,7 @@ function useGL(glat,glon,gerr){
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
 			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">
 
-	</cfform>
+	</form>
 	<cfset obj = CreateObject("component","component.functions")>
 	</td><td valign="top">
 		<h4>Geography</h4>
