@@ -535,11 +535,7 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
 
 			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
-			<input type="date" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
-
-
-
-
+			<input type="datetime" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
 
 			<h4>
 				Collecting Event
@@ -757,7 +753,13 @@ function useGL(glat,glon,gerr){
 			COLLECTING_METHOD='#escapeQuotes(COLLECTING_METHOD)#',
 			COLLECTING_SOURCE='#COLLECTING_SOURCE#',
 			VERIFICATIONSTATUS='#VERIFICATIONSTATUS#',
-			habitat='#escapeQuotes(habitat)#'
+			habitat='#escapeQuotes(habitat)#',
+			<cfif len(verified_by_agent_id) gt 0>
+				verified_by_agent_id=#verified_by_agent_id#,
+			<cfelse>
+				verified_by_agent_id=null,
+			</cfif>
+			verified_date='#verified_date#'
 		where
 			SPECIMEN_EVENT_ID=#SPECIMEN_EVENT_ID#
 	</cfquery>
