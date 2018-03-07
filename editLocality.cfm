@@ -479,7 +479,11 @@ function checkCoordinateError(){
 		$("#dec_lat").val(dec_lat);
 		$("#dec_long").val(dec_long);
 	}
-
+	function verifByMe(f,i,u){
+		$("#verified_by_agent_name" + f).val(u);
+		$("#verified_by_agent_id" + f).val(i);
+		$("#verified_date" + f).val(getFormattedDate());
+	}
 </script>
 <cfoutput>
 	<!----
@@ -611,13 +615,29 @@ function checkCoordinateError(){
 		<form name="x" method="post" action="editLocality.cfm">
 		    <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 	    	<input type="hidden" name="action" value="updateAllVerificationStatus">
-			<label for="VerificationStatus" class="helpLink" id="_verification_status">Update Verification Status for ALL specimen_events in this Locality to....</label>
+			<label for="VerificationStatus" class="helpLink" id="_verification_status">
+				Update Verification Status for ALL specimen_events in this Locality to....
+				(enter user and date to update, leave blank to retain current values)
+			</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<option value=""></option>
 				<cfloop query="ctVerificationStatus">
 					<option value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
+
+			<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name_fu" value="" size="40"
+				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
+				 onKeyPress="return noenter(event);">
+
+			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id_fu">
+
+			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date_fu" value="">
+			<span class="infoLink" onclick="verifByMe('_fu','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+
+
+
+
 			<label for="VerificationStatusIs">
 				.....where current verificationstatus IS (leave blank to get everything)
 			</label>
@@ -1266,6 +1286,12 @@ function checkCoordinateError(){
 				specimen_event
 			set
 				VerificationStatus='#VerificationStatus#'
+				<cfif len(verified_by_agent_id) gt 0>
+					,verified_by_agent_id=#verified_by_agent_id#
+				</cfif>
+				<cfif len(verified_date) gt 0>
+					,verified_date='#verified_date#'
+				</cfif>
 			where
 				COLLECTING_EVENT_ID in (select COLLECTING_EVENT_ID from COLLECTING_EVENT where locality_id = #locality_id#) and
 				COLLECTION_OBJECT_ID in (select COLLECTION_OBJECT_ID from cataloged_item) -- keep things on the right side of the VPD
