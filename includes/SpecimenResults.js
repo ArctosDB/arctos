@@ -326,6 +326,27 @@ function unexpPartDet(){
 	var bgn='<input type="button" id="pdcb" value="Expand Part Detail" class="clrBtn" onclick="expPartDet()">';
 	$("#ssControl").append(bgn);
 }
+
+
+function unexpLocDet(){
+	$("div[id^='jsonlocality_']").each(function() {
+		$(this).removeClass('noshrink');
+	});	
+	$("#pdcb").remove();
+	var bgn='<input type="button" id="ldcb" value="Expand JSON Locality" class="clrBtn" onclick="expLocDet()">';
+	$("#ssControl").append(bgn);
+}
+
+
+function expLocDet(){
+	$("div[id^='jsonlocality_']").each(function() {
+		$(this).addClass('noshrink');
+	});
+	$("#ldcb").remove();
+	var bgn='<input type="button" id="ldcb" value="Collapse JSON Locality" class="clrBtn" onclick="unexpLocDet()">';
+	$("#ssControl").append(bgn);
+}
+
 function expPartDet(){
 	$("div[id^='partdetail_']").each(function() {
 		$(this).addClass('noshrink');
