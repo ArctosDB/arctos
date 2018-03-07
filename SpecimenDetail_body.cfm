@@ -569,7 +569,7 @@
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
-					Location
+					Location (#event.recordcount# Events)
 					<span class="expandoHolder" id="expando-locality_pane"></span>
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('specLocality');">Edit</span>
