@@ -894,6 +894,13 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editCollEvnt">
 <cfset title="Edit Collecting Event">
+<script>
+	function verifByMe(f,i,u){
+		$("#verified_by_agent_name" + f).val(u);
+		$("#verified_by_agent_id" + f).val(i);
+		$("#verified_date" + f).val(getFormattedDate());
+	}
+</script>
 <cfoutput>
       <cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select
@@ -1004,14 +1011,14 @@
 					<option value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
-			<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="" size="40"
+			<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name_fu" value="" size="40"
 				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
 
-			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="v">
+			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id_fu" value="v">
 
-			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date" value="">
-			<span class="infoLink" onclick="verifByMe('','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date_fu" value="">
+			<span class="infoLink" onclick="verifByMe('_fu','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
 
 
