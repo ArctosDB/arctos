@@ -677,6 +677,11 @@
 											#VERIFICATIONSTATUS#
 											<cfif VERIFICATIONSTATUS is "verified and locked">
 												&##9989;
+											<cfelseif VERIFICATIONSTATUS is "verified and locked">
+												&##9888;
+											<cfelseif  VERIFICATIONSTATUS is "unchecked">
+												&##2623;
+
 											</cfif>
 
 										</td>
