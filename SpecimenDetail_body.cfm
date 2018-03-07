@@ -675,7 +675,7 @@
 										<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:</td>
 										<td id="SDCellRight">
 											#VERIFICATIONSTATUS#
-											<cfif is "verified and locked">
+											<cfif VERIFICATIONSTATUS is "verified and locked">
 												&##9989;
 											</cfif>
 
