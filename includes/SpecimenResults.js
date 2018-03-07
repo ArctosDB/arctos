@@ -316,6 +316,7 @@ function getPostLoadJunk(){
 	injectLoanPick();
 	displayMedia();
 	formatPartDetail();
+	formatJSONLocality();
 }
 function unexpPartDet(){
 	$("div[id^='partdetail_']").each(function() {
@@ -332,6 +333,20 @@ function expPartDet(){
 	$("#pdcb").remove();
 	var bgn='<input type="button" id="pdcb" value="Collapse Part Detail" class="clrBtn" onclick="unexpPartDet()">';
 	$("#ssControl").append(bgn);
+}
+
+function formatJSONLocality(){
+	if ($('div[id^="jsonlocality_"]').length){
+		$("div[id^='jsonlocality_']").each(function() {
+			var r = $.parseJSON($("#" + this.id).html());
+			var str = JSON.stringify(r, null, 2);
+			$("#" + this.id).html('<pre>' + str + '</pre>');
+		});
+		// by default these are collapsed to 10em h
+		// option to biggenate
+		var bgn='<input type="button" id="ldcb" value="Expand JSON Locality" class="clrBtn" onclick="expLocDet()">';
+		$("#ssControl").append(bgn);
+	}
 }
 function formatPartDetail(){
 	if ($('div[id^="partdetail_"]').length){
