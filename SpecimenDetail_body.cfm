@@ -76,7 +76,7 @@
 				    this.offsetWidth < this.scrollWidth) {
 				    var lk="<span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span>";
 				    $( "##expando-" + tid).html(lk);
-				    console.log('wrote to expando-' + tid);
+				    --console.log('wrote to expando-' + tid);
 
 
 				  //  $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertAfter( theLabelDiv );
@@ -729,7 +729,6 @@
 											<cfelseif  VERIFICATIONSTATUS is "unverified">
 												&##9888;
 											</cfif>
-
 										</td>
 									</tr>
 									<tr>

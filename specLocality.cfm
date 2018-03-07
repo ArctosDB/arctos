@@ -539,7 +539,7 @@ function useGL(glat,glon,gerr){
 			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name#f#" value="#l.verified_by_agent_name#" size="40"
 				 onchange="pickAgentModal('verified_by_agent_id#f#',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
-			<span class="likeLink" onclick="verifByMe('#f#','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+			<span class="infoLink" onclick="verifByMe('#f#','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
 			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id#f#" value="#l.verified_by_agent_id#">
 
