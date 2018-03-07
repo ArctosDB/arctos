@@ -627,7 +627,7 @@ function checkCoordinateError(){
 			</select>
 
 			<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name_fu" value="" size="40"
-				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
+				 onchange="pickAgentModal('verified_by_agent_id_fu',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
 
 			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id_fu">
