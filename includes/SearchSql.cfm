@@ -1843,7 +1843,7 @@
 	---->
 	<cfset basJoin = " #basJoin# INNER JOIN specimen_event segc ON (#session.flatTableName#.collection_object_id = segc.collection_object_id)">
 	<cfset basJoin = " #basJoin# INNER JOIN cache_anygeog  ON (segc.specimen_event_id = cache_anygeog.specimen_event_id)">
-	<cfset basQual = " #basQual# AND cache_anygeog.geostring like '%#upper(any_geog)#%'">
+	<cfset basQual = " #basQual# AND cache_anygeog.geostring like '%#ucase(any_geog)#%'">
 
 
 	<!----
