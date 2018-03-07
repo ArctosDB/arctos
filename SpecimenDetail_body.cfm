@@ -11,6 +11,28 @@
 	.expandoscroll-large {
 		max-height:600px;overflow:auto;
 	}
+	.verified_and_locked{
+		border:6px solid green;
+		margin:1em;
+	}
+	.verified_unaccepted{
+		border:3px solid red;
+		margin:1em;
+		background-color:gray;
+	}
+	.verified_unverified{
+		border:3px solid yellow;
+		margin:1em;
+	}
+	.verified_default{
+		border:3px solid black;
+		margin:1em;
+	}
+
+
+
+
+
 </style>
 <script src="/includes/sorttable.js"></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
@@ -566,7 +588,16 @@
 				</div>
 				<div class="detailBlock expandoscroll-large" id="locality_pane" data-expandoclass="expandoscroll-large">
 					<cfloop query="event">
-						<div style="border:8px solid green; margin:1em;">
+						<cfif VERIFICATIONSTATUS is "verified and locked">
+							<cfset thisClass="verified_and_locked">
+						<cfelseif VERIFICATIONSTATUS is "unaccepted">
+							<cfset thisClass="verified_unaccepted">
+						<cfelseif VERIFICATIONSTATUS is "unverified">
+							<cfset thisClass="verified_unverified">
+						<cfelse>
+							<cfset thisClass="verified_default">
+						</cfif>
+						<div style="#thisClass#">
 						   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
 							   OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
 							</div>
