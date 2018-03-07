@@ -1027,9 +1027,6 @@
 			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date_fu" value="">
 			<span class="infoLink" onclick="verifByMe('_fu','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
-
-
-
 			<label for="VerificationStatusIs">
 				.....where current verificationstatus IS (leave blank to get everything)
 			</label>

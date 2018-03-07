@@ -1200,7 +1200,7 @@
 		from
 			specimen_event
 		where
-			verificationstatus like 'verified and locked %' and
+			verificationstatus = 'verified and locked' and
 			specimen_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>
 	<cfoutput>
