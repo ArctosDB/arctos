@@ -203,7 +203,7 @@
 		collecting_event.locality_id=locality.locality_id and
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 		geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id (+) and
-		specimen_event.verificationstatus != 'unaccepted' and
+		--specimen_event.verificationstatus != 'unaccepted' and
 		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 	order by
 		specimen_event_type
