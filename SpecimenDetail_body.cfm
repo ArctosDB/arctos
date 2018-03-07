@@ -597,7 +597,7 @@
 						<cfelse>
 							<cfset thisClass="verified_default">
 						</cfif>
-						<div style="#thisClass#">
+						<div class="#thisClass#">
 						   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
 							   OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
 							</div>
