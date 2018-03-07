@@ -881,6 +881,12 @@
 				specimen_event
 			set
 				VerificationStatus='#VerificationStatus#'
+				<cfif len(verified_by_agent_id) gt 0>
+					,verified_by_agent_id=#verified_by_agent_id#
+				</cfif>
+				<cfif len(verified_date) gt 0>
+					,verified_date='#verified_date#'
+				</cfif>
 			where
 				COLLECTING_EVENT_ID='#COLLECTING_EVENT_ID#' and
 				COLLECTION_OBJECT_ID in (select COLLECTION_OBJECT_ID from cataloged_item) -- keep things on the right side of the VPD
@@ -1004,6 +1010,7 @@
 	    	<span class="helpLink" data-helplink="verification_status">[ verificationstatus documentation ]</span>
 			<label for="VerificationStatus">
 				Mass-update specimen-events in this collecting event to.....
+				(enter user and date to update, leave blank to retain current values)
 			</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr" placeholder="verificationstatus">
 				<option value=""></option>
