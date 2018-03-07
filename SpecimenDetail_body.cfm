@@ -259,7 +259,7 @@
 		SOURCE_AUTHORITY,
 		 verifiedBy,
  		VERIFIED_DATE,
-order_by_vs
+		order_by_vs
 	from
 		rawevent
 	group by
@@ -305,8 +305,10 @@ order_by_vs
 		higher_geog,
 		SOURCE_AUTHORITY,
 		 verifiedBy,
- 		VERIFIED_DATE
-order by order_by_vs
+ 		VERIFIED_DATE,
+		order_by_vs
+	order by
+		order_by_vs
 </cfquery>
 <cfoutput query="one">
 	<cfif oneOfUs is 1>
