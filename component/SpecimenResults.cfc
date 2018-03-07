@@ -68,6 +68,10 @@
 			<cfset x=QueryToArray(d)>
 
 			<cfdump var=#x#>
+
+
+			<cfset j=SerializeJSON(x)>
+			<cfdump var=#j#>
 		</cfoutput>
 			<!----
  Name
