@@ -1004,14 +1004,14 @@
 					<option value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
-			<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="vv" size="40"
+			<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="" size="40"
 				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
-			<span class="infoLink" onclick="verifByMe('','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
 			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="v">
 
-			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date" value="v">
+			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date" value="">
+			<span class="infoLink" onclick="verifByMe('','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
 
 
