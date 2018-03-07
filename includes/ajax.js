@@ -1425,7 +1425,7 @@ function pickAgentModal(agentIdFld,agentNameFld,name){
 		closeOnEscape: true,
 		height: 'auto',
 		modal: true,
-		position: ['center', 'center'],
+		position: ['center', 'top'],
 		title: 'Pick Agent',
 			width:800,
  			height:600,
