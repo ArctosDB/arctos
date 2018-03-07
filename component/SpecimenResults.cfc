@@ -26,6 +26,7 @@
 					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 					specimen_event.collection_object_id=#collection_object_id#
 			</cfquery>
+		</cfoutput>
 			<!----
 
 							    CLOB
