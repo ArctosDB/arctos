@@ -1850,7 +1850,7 @@
 			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 			collecting_event.locality_id=locality.locality_id and
 			locality.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and
-      		upper(geog_search_term.search_term) like '%#ucase(escapeQuotes(any_geog))#%'
+      		upper(geog_search_term.search_term) like '%#ucase(escapeQuotes(any_geog2))#%'
 		UNION
 			select
 				specimen_event.collection_object_id
@@ -1859,7 +1859,7 @@
 			where
 				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 				collecting_event.locality_id=locality.locality_id and
-				upper(spec_locality) LIKE '%#ucase(escapeQuotes(any_geog))#%'
+				upper(spec_locality) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
 		UNION
 			select
 				specimen_event.collection_object_id
@@ -1869,7 +1869,7 @@
 				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 				collecting_event.locality_id=locality.locality_id and
 				locality.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and
-				upper(higher_geog) LIKE '%#ucase(escapeQuotes(any_geog))#%'
+				upper(higher_geog) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
 		UNION
 			select
 				specimen_event.collection_object_id
@@ -1878,7 +1878,7 @@
 			where
 				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 				collecting_event.locality_id=locality.locality_id and
-				upper(S$GEOGRAPHY) LIKE '%#ucase(escapeQuotes(any_geog))#%'
+				upper(S$GEOGRAPHY) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
 		UNION
 			select
 				specimen_event.collection_object_id
@@ -1887,7 +1887,7 @@
 			where
 				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 				collecting_event.locality_id=locality.locality_id and
-				upper(LOCALITY_NAME) LIKE '%#ucase(escapeQuotes(any_geog))#%'
+				upper(LOCALITY_NAME) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
 		UNION
 			select
 				specimen_event.collection_object_id
@@ -1895,7 +1895,7 @@
 				specimen_event,collecting_event
 			where
 				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-				upper(verbatim_locality) LIKE '%#ucase(escapeQuotes(any_geog))#%'
+				upper(verbatim_locality) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
 	)">
 </cfif>
 
