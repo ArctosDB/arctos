@@ -675,8 +675,17 @@
 										<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:</td>
 										<td id="SDCellRight">
 											#VERIFICATIONSTATUS#
-											<cfif len(verifiedBy) gt 0> by #verifiedBy#</cfif>
-											<cfif len(VERIFIED_DATE) gt 0> on #VERIFIED_DATE#</cfif>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td id="SDCellRight" class="detailCellSmall">
+											<cfif len(verifiedBy) gt 0>
+												<div>Verified By:  #verifiedBy#</div>
+											</cfif>
+											<cfif len(VERIFIED_DATE) gt 0>
+												<div>Verified Date:  #VERIFIED_DATE#</div>
+											</cfif>
 										</td>
 									</tr>
 								</div>
