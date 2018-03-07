@@ -2,7 +2,7 @@
 
 <!--------------------------------------------------------------------------------------------------------->
 <cffunction name="getSpecimenLocalityStack" access="remote" returnformat="plain" queryFormat="column">
-		<cfparam name="collection_object_id" type="number" required="true">
+		<cfparam name="collection_object_id" type="numeric">
 
 
 		<cfoutput>
