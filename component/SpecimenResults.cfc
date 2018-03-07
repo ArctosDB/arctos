@@ -1,28 +1,13 @@
 <cfcomponent>
-<cffunction name="QueryToStruct" access="public" output="false" returntype="any" hint="">
-        <cfargument name="qList" type="query" />
-        <cfargument name="convertcase" default="upper" />
-
-        <cfset var retData = [] />
-        <cfloop query="arguments.qList">
-            <cfset var rowStruct = QueryRowData(arguments.qList,currentrow) />
-            <cfif arguments.convertcase NEQ "">
-                <cfset var newRowStruct = {} />
-                <cfset var key = "" />
-                <cfloop collection="#rowStruct#" item="key">
-                    <cfif arguments.convertcase EQ "upper">
-                        <cfset newRowStruct[UCASE(key)] = rowStruct[key] />
-                    <cfelseif arguments.convertcase EQ "lower">
-                        <cfset newRowStruct[LCASE(key)] = rowStruct[key] />
-                    <cfelse>
-                        <cfset newRowStruct[key] = rowStruct[key] />
-                    </cfif>
-                </cfloop>
-                <cfset rowStruct = newRowStruct />
-            </cfif>
-            <cfset arrayAppend(retData, rowStruct) />
-        </cfloop>
-        <cfreturn retData />
+<cffunction name="QueryToArray" access="public" output="false" returntype="array" hint="">
+        <cfargument name="queryObject" type="query">
+        <cfset var rows = [] />
+        <cfscript>
+            for(var s in arguments.queryObject){
+                arrayAppend(rows,s);
+            }
+        </cfscript>
+        <cfreturn rows />
 </cffunction>
 <!--------------------------------------------------------------------------------------------------------->
 <cffunction name="getSpecimenLocalityStack" access="remote" returnformat="plain" queryFormat="column">
@@ -80,7 +65,7 @@
 			</cfquery>
 
 
-			<cfset x=QueryToStruct(d)>
+			<cfset x=QueryToArray(d)>
 
 			<cfdump var=#x#>
 		</cfoutput>
