@@ -73,6 +73,9 @@
 			<cfset j=SerializeJSON(x)>
 			<cfdump var=#j#>
 		</cfoutput>
+
+
+		<cfreturn j>
 			<!----
  Name
 
@@ -404,7 +407,6 @@ UAM@ARCTOSTE>
 		<cfreturn result>
 
 		---->
-		<cfreturn d>
 </cffunction>
 
 
