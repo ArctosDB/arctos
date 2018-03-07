@@ -10,10 +10,10 @@
 				select
 					geog_auth_rec.HIGHER_GEOG,
 					locality.SPEC_LOCALITY,
-					decode(locality.DEC_LAT,null,null, locality.DEC_LAT || ',' ||locality.DEC_LONG) coordinates,
+					decode(locality.DEC_LAT,null,null, locality.DEC_LAT || ',' || locality.DEC_LONG) coordinates,
 					decode(locality.ORIG_ELEV_UNITS,
 						null,null,
-						locality.MINIMUM_ELEVATION || '-' ||locality.MAXIMUM_ELEVATION || ' ' || locality.ORIG_ELEV_UNITS)
+						locality.MINIMUM_ELEVATION || '-' || locality.MAXIMUM_ELEVATION || ' ' || locality.ORIG_ELEV_UNITS
 					) elevation
 				from
 					geog_auth_rec,
