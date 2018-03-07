@@ -191,7 +191,15 @@
 		geog_search_term.SEARCH_TERM,
 		to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) err_in_m,
 		getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID)  verifiedBy,
- 		VERIFIED_DATE
+ 		VERIFIED_DATE,
+ 		case
+		       when specimen_event.verificationstatus = 'verified and locked' then 1
+		       when specimen_event.verificationstatus = 'checked by collector' then 2
+		       when specimen_event.verificationstatus = 'accepted' then 3
+		       when specimen_event.verificationstatus = 'unverified' then 4
+		       when specimen_event.verificationstatus = 'unaccepted' then 5
+		       else 6
+		    end order_by_vs
 	from
 		specimen_event,
 		collecting_event,
@@ -205,15 +213,6 @@
 		geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id (+) and
 		--specimen_event.verificationstatus != 'unaccepted' and
 		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
-		order by
-		    case
-		       when specimen_event.verificationstatus = 'verified and locked' then 1
-		       when specimen_event.verificationstatus = 'checked by collector' then 2
-		       when specimen_event.verificationstatus = 'accepted' then 3
-		       when specimen_event.verificationstatus = 'unverified' then 4
-		       when specimen_event.verificationstatus = 'unaccepted' then 5
-		       else 6
-		    end
 </cfquery>
 <cfquery name="event" dbtype="query">
 	select
@@ -259,7 +258,8 @@
 		higher_geog,
 		SOURCE_AUTHORITY,
 		 verifiedBy,
- 		VERIFIED_DATE
+ 		VERIFIED_DATE,
+order_by_vs
 	from
 		rawevent
 	group by
@@ -306,6 +306,7 @@
 		SOURCE_AUTHORITY,
 		 verifiedBy,
  		VERIFIED_DATE
+order by order_by_vs
 </cfquery>
 <cfoutput query="one">
 	<cfif oneOfUs is 1>
