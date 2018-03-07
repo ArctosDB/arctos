@@ -58,12 +58,11 @@
 		);
 	}
 
-				<span class="likeLink" onclick="verifByMe('#f#','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
-
 	function verifByMe(f,i,u){
 		$("#verified_by_agent_name" + f).val(u);
 		$("#verified_by_agent_id" + f).val(i);
 		$("#verified_date" + f).val(getFormattedDate());
+	}
 
 </script>
 <span class="helpLink" data-helplink="specimen_event">Page Help</span>
