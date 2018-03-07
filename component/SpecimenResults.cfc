@@ -14,7 +14,35 @@
 					decode(locality.ORIG_ELEV_UNITS,
 						null,null,
 						locality.MINIMUM_ELEVATION || '-' || locality.MAXIMUM_ELEVATION || ' ' || locality.ORIG_ELEV_UNITS
-					) elevation
+					) elevation,
+					decode(locality.DEPTH_UNITS,
+						null,null,
+						locality.MIN_DEPTH || '-' || locality.MAX_DEPTH || ' ' || locality.DEPTH_UNITS
+					) depth,
+					decode(locality.MAX_ERROR_UNITS,
+						null,null,
+						locality.MAX_ERROR_DISTANCE ||  ' ' || locality.MAX_ERROR_UNITS
+					) coordinate_error,
+					locality.DATUM,
+					locality.LOCALITY_REMARKS,
+					locality.GEOREFERENCE_SOURCE,
+					locality.GEOREFERENCE_PROTOCOL,
+					locality.LOCALITY_NAME,
+					collecting_event.BEGAN_DATE,
+					collecting_event.ENDED_DATE,
+					collecting_event.VERBATIM_DATE,
+					collecting_event.VERBATIM_LOCALITY,
+					collecting_event.COLL_EVENT_REMARKS,
+					getPreferredAgentName(specimen_event.ASSIGNED_BY_AGENT_ID) event_assigned_by,
+					specimen_event.ASSIGNED_DATE event_assigned_date,
+					getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID) event_verified_by,
+					specimen_event.VERIFIED_DATE,
+					specimen_event.SPECIMEN_EVENT_REMARK,
+					specimen_event.SPECIMEN_EVENT_TYPE,
+					specimen_event.COLLECTING_METHOD,
+					specimen_event.COLLECTING_SOURCE,
+					specimen_event.VERIFICATIONSTATUS,
+					specimen_event.HABITAT
 				from
 					geog_auth_rec,
 					locality,
@@ -28,30 +56,74 @@
 			</cfquery>
 		</cfoutput>
 			<!----
+ Name
 
-							    CLOB
+					    NUMBER(12,10)
+ CALCULATED_DLONG							    NUMBER(13,10)
 
-UAM@ARCTOSTE> desc locality
+UAM@ARCTOSTE> desc specimen_event
  Name								   Null?    Type
  ----------------------------------------------------------------- -------- --------------------------------------------
+ SPECIMEN_EVENT_ID						   NOT NULL NUMBER
+ COLLECTION_OBJECT_ID						   NOT NULL NUMBER
+ COLLECTING_EVENT_ID						   NOT NULL NUMBER
+ 						   NOT NULL NUMBER
+ 							   NOT NULL DATE
+ 							    VARCHAR2(4000)
+ 						   NOT NULL VARCHAR2(60)
+ 							    VARCHAR2(4000)
+ 							    VARCHAR2(60)
+ 						   NOT NULL VARCHAR2(60)
+ 								    VARCHAR2(4000)
+ 							    NUMBER
+ 								    VARCHAR2(30)
+
+UAM@ARCTOSTE>
+
+
+
+
+				   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ COLLECTING_EVENT_ID						   NOT NULL NUMBER
  LOCALITY_ID							   NOT NULL NUMBER
- GEOG_AUTH_REC_ID						   NOT NULL NUMBER
- SPEC_LOCALITY								    VARCHAR2(255)
+ 								    VARCHAR2(60)
+ 							    VARCHAR2(4000)
+ 							    VARCHAR2(4000)
+ 								    VARCHAR2(22)
+ 								    VARCHAR2(22)
+ VERBATIM_COORDINATES							    VARCHAR2(255)
+ COLLECTING_EVENT_NAME							    VARCHAR2(255)
+ LAT_DEG								    NUMBER
+ DEC_LAT_MIN								    NUMBER(8,6)
+ LAT_MIN								    NUMBER
+ LAT_SEC								    NUMBER(8,6)
+ LAT_DIR								    CHAR(1)
+ LONG_DEG								    NUMBER
+ DEC_LONG_MIN								    NUMBER(10,8)
+ LONG_MIN								    NUMBER
+ LONG_SEC								    NUMBER(8,6)
+ LONG_DIR								    CHAR(1)
  DEC_LAT								    NUMBER(12,10)
  DEC_LONG								    NUMBER(13,10)
- MINIMUM_ELEVATION							    NUMBER
- MAXIMUM_ELEVATION							    NUMBER
- ORIG_ELEV_UNITS							    VARCHAR2(30)
- MIN_DEPTH								    NUMBER
- MAX_DEPTH								    NUMBER
- DEPTH_UNITS								    VARCHAR2(30)
- MAX_ERROR_DISTANCE							    NUMBER
+ DATUM									    VARCHAR2(55)
+ UTM_ZONE								    VARCHAR2(3)
+ UTM_EW 								    NUMBER
+ UTM_NS 								    NUMBER
+ ORIG_LAT_LONG_UNITS							    VARCHAR2(20)
+ CACLULATED_DLAT							    NUMBER(12,10)
+ CALCULATED_DLONG							    NUMBER(13,10)
+
+
+
+
+
  MAX_ERROR_UNITS							    VARCHAR2(30)
- DATUM									    VARCHAR2(255)
- LOCALITY_REMARKS							    VARCHAR2(4000)
- GEOREFERENCE_SOURCE							    VARCHAR2(4000)
- GEOREFERENCE_PROTOCOL							    VARCHAR2(255)
- LOCALITY_NAME								    VARCHAR2(255)
+ 									    VARCHAR2(255)
+ 							    VARCHAR2(4000)
+ 							    VARCHAR2(4000)
+ 							    VARCHAR2(255)
+ 								    VARCHAR2(255)
  S$ELEVATION								    NUMBER
  S$GEOGRAPHY								    VARCHAR2(4000)
  S$DEC_LAT								    NUMBER
