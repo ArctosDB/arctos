@@ -332,7 +332,7 @@ function unexpLocDet(){
 	$("div[id^='jsonlocality_']").each(function() {
 		$(this).removeClass('noshrink');
 	});	
-	$("#pdcb").remove();
+	$("#ldcb").remove();
 	var bgn='<input type="button" id="ldcb" value="Expand JSON Locality" class="clrBtn" onclick="expLocDet()">';
 	$("#ssControl").append(bgn);
 }
