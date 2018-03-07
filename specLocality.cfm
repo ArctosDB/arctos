@@ -57,6 +57,14 @@
 			}
 		);
 	}
+
+				<span class="likeLink" onclick="verifByMe('#f#','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+
+	function verifByMe(f,i,u){
+		$("#verified_by_agent_name" + f).val(u);
+		$("#verified_by_agent_id" + f).val(i);
+		$("#verified_date" + f).val(getFormattedDate());
+
 </script>
 <span class="helpLink" data-helplink="specimen_event">Page Help</span>
 <script>
@@ -532,18 +540,12 @@ function useGL(glat,glon,gerr){
 			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name#f#" value="#l.verified_by_agent_name#" size="40"
 				 onchange="pickAgentModal('verified_by_agent_id#f#',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
-
-
-
-
-
-
-
+			<span class="likeLink" onclick="verifByMe('#f#','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
 			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id#f#" value="#l.verified_by_agent_id#">
 
 			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
-			<input type="datetime" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
+			<input type="datetime" name="verified_date" id="verified_date#f#" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
 
 			<h4>
 				Collecting Event

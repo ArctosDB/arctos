@@ -82,6 +82,20 @@ $(document).ready(function() {
 });
 
 
+function getFormattedDate() {
+    var date = new Date();
+    var str = date.getFullYear() + "-" + getFormattedPartTime(date.getMonth()) + "-" + getFormattedPartTime(date.getDate());
+    return str;
+}
+
+function getFormattedPartTime(partTime){
+    if (partTime<10)
+       return "0"+partTime;
+    return partTime;
+}
+
+
+
 function addMedia(t,k){
 	var guts = "/picks/upLinkMedia.cfm?ktype=" + t + '&kval=' + k;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
