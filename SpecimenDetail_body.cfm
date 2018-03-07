@@ -15,6 +15,10 @@
 		border:6px solid green;
 		margin:1em;
 	}
+	.verified_accepted{
+		border:3px solid green;
+		margin:1em;
+	}
 	.verified_unaccepted{
 		border:3px solid red;
 		margin:1em;
@@ -590,6 +594,8 @@
 					<cfloop query="event">
 						<cfif VERIFICATIONSTATUS is "verified and locked">
 							<cfset thisClass="verified_and_locked">
+						<cfelseif VERIFICATIONSTATUS is "accepted">
+							<cfset thisClass="verified_accepted">
 						<cfelseif VERIFICATIONSTATUS is "unaccepted">
 							<cfset thisClass="verified_unaccepted">
 						<cfelseif VERIFICATIONSTATUS is "unverified">
