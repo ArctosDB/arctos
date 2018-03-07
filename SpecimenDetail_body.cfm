@@ -189,7 +189,9 @@
 		higher_geog,
 		geog_auth_rec.SOURCE_AUTHORITY,
 		geog_search_term.SEARCH_TERM,
-		to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) err_in_m
+		to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) err_in_m,
+		getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID)  verifiedBy,
+ 		VERIFIED_DATE
 	from
 		specimen_event,
 		collecting_event,
@@ -248,7 +250,9 @@
 		georeference_protocol,
 		locality_name,
 		higher_geog,
-		SOURCE_AUTHORITY
+		SOURCE_AUTHORITY,
+		 verifiedBy,
+ 		VERIFIED_DATE
 	from
 		rawevent
 	group by
@@ -292,7 +296,9 @@
 		georeference_protocol,
 		locality_name,
 		higher_geog,
-		SOURCE_AUTHORITY
+		SOURCE_AUTHORITY,
+		 verifiedBy,
+ 		VERIFIED_DATE
 </cfquery>
 <cfoutput query="one">
 	<cfif oneOfUs is 1>
@@ -667,7 +673,11 @@
 								<div class="detailBlock">
 									<tr class="detailData">
 										<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:</td>
-										<td id="SDCellRight">#VERIFICATIONSTATUS#</td>
+										<td id="SDCellRight">
+											#VERIFICATIONSTATUS#
+											<cfif len(verifiedBy) gt 0> by #verifiedBy#</cfif>
+											<cfif len(VERIFIED_DATE) gt 0> on #VERIFIED_DATE#</cfif>
+										</td>
 									</tr>
 								</div>
 							</cfif>
