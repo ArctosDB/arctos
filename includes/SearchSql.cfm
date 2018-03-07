@@ -1835,74 +1835,19 @@
 </cfif>
 
 
-<cfif isdefined("any_geog2") AND len(any_geog2) gt 0>
-	<cfset mapurl = "#mapurl#&any_geog2=#URLEncodedFormat(any_geog2)#">
-	<!---
-		old-n-busted: hit "preferred" locality
-		new-n-hawtL hit all locality data
-	--->
-	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
-		select
-			specimen_event.collection_object_id
-		from
-			specimen_event,collecting_event,locality,geog_search_term
-		where
-			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-			collecting_event.locality_id=locality.locality_id and
-			locality.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and
-      		upper(geog_search_term.search_term) like '%#ucase(escapeQuotes(any_geog2))#%'
-		UNION
-			select
-				specimen_event.collection_object_id
-			from
-				specimen_event,collecting_event,locality
-			where
-				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-				collecting_event.locality_id=locality.locality_id and
-				upper(spec_locality) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
-		UNION
-			select
-				specimen_event.collection_object_id
-			from
-				specimen_event,collecting_event,locality,geog_search_term
-			where
-				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-				collecting_event.locality_id=locality.locality_id and
-				locality.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and
-				upper(higher_geog) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
-		UNION
-			select
-				specimen_event.collection_object_id
-			from
-				specimen_event,collecting_event,locality
-			where
-				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-				collecting_event.locality_id=locality.locality_id and
-				upper(S$GEOGRAPHY) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
-		UNION
-			select
-				specimen_event.collection_object_id
-			from
-				specimen_event,collecting_event,locality
-			where
-				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-				collecting_event.locality_id=locality.locality_id and
-				upper(LOCALITY_NAME) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
-		UNION
-			select
-				specimen_event.collection_object_id
-			from
-				specimen_event,collecting_event
-			where
-				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-				upper(verbatim_locality) LIKE '%#ucase(escapeQuotes(any_geog2))#%'
-	)">
-</cfif>
-
-
-
 <cfif isdefined("any_geog") AND len(any_geog) gt 0>
 	<cfset mapurl = "#mapurl#&any_geog=#URLEncodedFormat(any_geog)#">
+	<!---
+		old-n-busted: a bunch of SQL
+		new-n-hawt: cache
+	---->
+	<cfset basJoin = " #basJoin# INNER JOIN specimen_event segc ON (#session.flatTableName#.collection_object_id = segc.collection_object_id)">
+	<cfset basJoin = " #basJoin# INNER JOIN cache_anygeog  ON (segc.specimen_event_id = cache_anygeog.specimen_event_id)">
+	<cfset basQual = " #basQual# AND cache_anygeog.geostring like '%#upper(any_geog)#%'">
+
+
+	<!----
+
 	<cfset basQual = " #basQual# AND #session.flatTableName#.locality_id IN (
 		select locality_id from locality,geog_search_term where locality.geog_auth_rec_id=geog_search_term.geog_auth_rec_id and
       		upper(geog_search_term.search_term) like '%#ucase(escapeQuotes(any_geog))#%'
@@ -1918,6 +1863,9 @@
 		UNION
 		select locality_id from collecting_event where upper(verbatim_locality) LIKE '%#ucase(escapeQuotes(any_geog))#%'
 	)">
+
+		--->
+
 </cfif>
 <cfif isdefined("geog_auth_rec_id") AND len(geog_auth_rec_id) gt 0>
 	<cfset basQual = " #basQual# AND #session.flatTableName#.geog_auth_rec_id=#geog_auth_rec_id#">
