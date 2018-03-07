@@ -1268,7 +1268,11 @@
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(specimen_event.verificationstatus) like '%#ucase(verificationstatus)#%'">
+	<cfif left(verificationstatus,1) is '!'>
+			<cfset basQual = " #basQual# AND specimen_event.verificationstatus != '#right(verificationstatus,len(verificationstatus)-1)#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND specimen_event.verificationstatus = '#verificationstatus#'">
+		</cfif>
 </cfif>
 
 <cfif isdefined("locality_id") AND len(locality_id) gt 0>

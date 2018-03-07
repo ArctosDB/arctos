@@ -9,10 +9,10 @@
 	select collecting_source from ctcollecting_source order by collecting_source
 </cfquery>
 <cfquery name="ctverificationstatus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select verificationstatus from ctverificationstatus group by verificationstatus order by verificationstatus 
+	select verificationstatus from ctverificationstatus group by verificationstatus order by verificationstatus
 </cfquery>
 <cfquery name="ctspecimen_event_type"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select specimen_event_type from ctspecimen_event_type group by specimen_event_type order by specimen_event_type 
+	select specimen_event_type from ctspecimen_event_type group by specimen_event_type order by specimen_event_type
 </cfquery>
 
 
@@ -44,7 +44,7 @@
 							<option value="09">September</option>
 							<option value="10">October</option>
 							<option value="11">November</option>
-							<option value="12">December</option>						
+							<option value="12">December</option>
 						</select>
 					</td>
 					<td>
@@ -73,7 +73,7 @@
 			<table>
 				<tr>
 					<td>
-						<label for="endYear">Year</label>						
+						<label for="endYear">Year</label>
 						<input type="number" min="1000" max="2500" step="1" name="endYear" id="endYear">
 					</td>
 					<td>
@@ -91,7 +91,7 @@
 							<option value="09">September</option>
 							<option value="10">October</option>
 							<option value="11">November</option>
-							<option value="12">December</option>						
+							<option value="12">December</option>
 						</select>
 					</td>
 					<td>
@@ -130,7 +130,7 @@
 				<option value="'09'">September</option>
 				<option value="'10'">October</option>
 				<option value="'11'">November</option>
-				<option value="'12'">December</option>						
+				<option value="'12'">December</option>
 			</select>
 		</td>
 	</tr>
@@ -161,7 +161,7 @@
 			<input type="text" name="chronological_extent" id="chronological_extent">
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_specimen_event_type">Specimen/Event Type:</span>
@@ -175,7 +175,7 @@
 			</select>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_specimen_event_remark">Specimen/Event Remark:</span>
@@ -198,7 +198,7 @@
 			</select>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_collecting_method">Collecting Method:</span>
@@ -215,10 +215,13 @@
 		<td class="srch">
 			<select name="verificationstatus" id="verificationstatus" size="1">
 				<option value=""></option>
+				<option value="!unaccepted">NOT unaccepted</option>
 				<cfloop query="ctverificationstatus">
 					<option value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
 				</cfloop>
 			</select>
+			<span class="infoLink" onclick="getCtDoc('ctverificationstatus',SpecData.verificationstatus.value);">Define</span>
+
 		</td>
 	</tr>
 	<tr>
@@ -230,7 +233,7 @@
 			<span class="infoLink" onclick="var e=document.getElementById('verbatim_locality');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_coll_event_remarks">Collecting Event Remark:</span>
