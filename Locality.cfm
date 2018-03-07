@@ -1022,7 +1022,7 @@
 				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
 
-			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id_fu" value="v">
+			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id_fu">
 
 			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date_fu" value="">
 			<span class="infoLink" onclick="verifByMe('_fu','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
