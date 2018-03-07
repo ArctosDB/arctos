@@ -72,7 +72,7 @@
 			VERBATIM_COORDINATES,
 			COLLECTING_EVENT_NAME
 	</cfquery>
-	Updating events used in verified specimen-events will fail. (You can mass-update verificationstatus from edit event.)
+	Updating events used in "verified and locked" specimen-events will fail. (You can mass-update verificationstatus from edit event.)
 	<p>
 		Use this form to update all specimens in the table below to the locality coordinates. If you need more control, use other tools.
 	</p>
@@ -998,12 +998,24 @@
 			<label for="VerificationStatus">
 				Mass-update specimen-events in this collecting event to.....
 			</label>
-			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr" placeholder="verificationstatus">
 				<option value=""></option>
 				<cfloop query="ctVerificationStatus">
 					<option value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
+			<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name#" value="vv" size="40"
+				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
+				 onKeyPress="return noenter(event);">
+			<span class="infoLink" onclick="verifByMe('','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+
+			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="v">
+
+			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date" value="v">
+
+
+
+
 			<label for="VerificationStatusIs">
 				.....where current verificationstatus IS (leave blank to get everything)
 			</label>
