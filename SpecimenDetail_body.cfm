@@ -566,7 +566,7 @@
 				</div>
 				<div class="detailBlock expandoscroll-large" id="locality_pane" data-expandoclass="expandoscroll-large">
 					<cfloop query="event">
-						<div style="border:1px solid green; margin:1em;">
+						<div style="border:8px solid green; margin:1em;">
 						   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
 							   OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
 							</div>
