@@ -8,7 +8,7 @@
 	<cfset session.srmapclass='nomap'>
 </cfif>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js?v=3.433'></script>
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js?v=3.433'></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&libraries=places,geometry" type="text/javascript"></script>'>
@@ -16,6 +16,11 @@
 	#usertools{border:3px solid #417bb5; }
 	#goWhere{border:3px solid #417bb5; }
 	[id^="partdetail_"] {
+		max-height:10em;
+		max-width: 40em;
+		overflow:auto;
+	}
+	[id^="jsonlocality_"] {
 		max-height:10em;
 		max-width: 40em;
 		overflow:auto;
