@@ -464,7 +464,7 @@ function insertMedia(idList) {
 	);
 }
 
-function insertEvtCt(isList) {
+function insertEvtCt(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatusE';
 	s.className='ajaxStatus';
