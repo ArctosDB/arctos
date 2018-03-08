@@ -1070,7 +1070,8 @@
 		from
 			specimen_event
 		where
-			collection_object_id in (#idList#)
+			collection_object_id in (#idList#) and
+			count(*)>1
 		group by
 			collection_object_id
 	</cfquery>
