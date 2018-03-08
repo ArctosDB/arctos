@@ -789,6 +789,12 @@ label.badPickLbl {
 	margin-left:.1em;
 	padding:.2em;
 }
+.showEvtCt {
+	font-size:small;
+	color:green;
+	border:1px dotted green;
+	padding-left:5px;
+}
 .showType {
 	font-size:small;
 	color:green;

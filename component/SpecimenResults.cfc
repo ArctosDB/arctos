@@ -1054,6 +1054,29 @@
 	</cfloop>
 	<cfreturn theResult>
 </cffunction>
+
+
+
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="getEventCount" access="remote">
+	<cfargument name="idList" type="string" required="yes">
+	<cfif len(idList) is 0>
+		<cfreturn>
+	</cfif>
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			specimen_event.collection_object_id,
+			count(*) numEvents
+		from
+			specimen_event
+		where
+			collection_object_id in (#idList#)
+		group by
+			collection_object_id
+	</cfquery>
+
+	<cfreturn raw>
+</cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getTypes" access="remote">
 	<cfargument name="idList" type="string" required="yes">

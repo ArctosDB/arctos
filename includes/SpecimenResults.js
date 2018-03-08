@@ -313,6 +313,7 @@ function getPostLoadJunk(){
 	var coidList = coidlistAR.toString();
 	insertMedia(coidList);
 	insertTypes(coidList);
+	insertEvtCt(coidList);
 	injectLoanPick();
 	displayMedia();
 	formatPartDetail();
@@ -461,6 +462,42 @@ function insertMedia(idList) {
 			}
 		}
 	);
+}
+
+function insertEvtCt(isList) {
+	var s=document.createElement('DIV');
+	s.id='ajaxStatusE';
+	s.className='ajaxStatus';
+	s.innerHTML='Checking for Events...';
+	document.body.appendChild(s);
+	jQuery.getJSON("/component/SpecimenResults.cfc",
+		{
+			method : "getEventCount",
+			idList : idList,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (result) {
+			var sBox=document.getElementById('ajaxStatusE');
+			try{
+				sBox.innerHTML='Processing Events....';
+				for (i=0; i<result.ROWCOUNT; ++i) {
+					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
+					var tl=result.DATA.NUMEVENTS[i];
+					var sel='CatItem_' + sid;
+					if (sel.length>0){
+						var el=document.getElementById(sel);
+						var ns='<div class="showEvtCt">' + tl + ' Events</div>';
+						el.innerHTML+=ns;
+					}
+				}
+			}
+			catch(e){}
+			document.body.removeChild(sBox);
+		}
+	);
+	
+	
 }
 function insertTypes(idList) {
 	var s=document.createElement('DIV');
