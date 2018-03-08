@@ -1064,6 +1064,7 @@
 		<cfreturn>
 	</cfif>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from (
 		select
 			specimen_event.collection_object_id,
 			count(*) numEvents
@@ -1071,9 +1072,9 @@
 			specimen_event
 		where
 			collection_object_id in (#idList#) and
-			count(*)>1
 		group by
 			collection_object_id
+		) where numEvents > 1
 	</cfquery>
 
 	<cfreturn raw>
