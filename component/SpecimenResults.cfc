@@ -1071,7 +1071,7 @@
 		from
 			specimen_event
 		where
-			collection_object_id in (#idList#) and
+			collection_object_id in (#idList#)
 		group by
 			collection_object_id
 		) where numEvents > 1
