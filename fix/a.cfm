@@ -17,7 +17,7 @@ create table temp_cd_nodef (
 		<br>fname: #fname#
 		<cfset burl=listdeleteat(burl,listlen(burl,'/'),'/')>
 		<br>burl: #burl#
-		<cfset tpath="#burl#/tb/tn_fname">
+		<cfset tpath="#burl#/tb/tn_#fname#">
 		<br>tpath: #tpath#
 
 	</cfloop>
