@@ -893,7 +893,7 @@
 			<!--- if we got some sort of response AND it's been a while....--->
 			<cfif len(locality_id) gt 0 and daysSinceLast gt 180>
 
-
+				<br>hello
 				<cfset geoList="">
 				<cfset slat="">
 				<cfset slon="">
