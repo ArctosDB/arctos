@@ -23,6 +23,10 @@ create table temp_cd_nodef (
 		<br>burl: #burl#
 		<cfset tpath="#burl#/tb/tn_#replace(fname,'.JPG','.jpg','all')#">
 		<br>tpath: #tpath#
+	 	<cfquery datasource='prod' name='ipu'>
+			update media set preview_uri='#tpath#' where media_id=#media_id#
+		</cfquery>
+
 
 	</cfloop>
 
