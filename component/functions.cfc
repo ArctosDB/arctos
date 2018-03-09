@@ -691,6 +691,13 @@
 	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfargument name="forceOverrideCache" type="boolean" required="no" default="false">
+
+
+	text
+
+
+
+
 	<cftry>
 		<cfif len(locality_id) gt 0>
 			<cfif forceOverrideCache>
