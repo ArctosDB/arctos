@@ -691,13 +691,6 @@
 	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfargument name="forceOverrideCache" type="boolean" required="no" default="false">
-
-
-	text
-
-
-
-
 	<cftry>
 		<cfif len(locality_id) gt 0>
 			<cfif forceOverrideCache>
@@ -897,15 +890,8 @@
 			<cfelse>
 				<cfset daysSinceLast=DateDiff("d", "#s_lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
 			</cfif>
-
-			going in....
-
-
-
 			<!--- if we got some sort of response AND it's been a while....--->
 			<cfif len(locality_id) gt 0 and daysSinceLast gt 180>
-
-				<br>hello
 				<cfset geoList="">
 				<cfset slat="">
 				<cfset slon="">
@@ -916,10 +902,6 @@
 						urlPath="/maps/api/geocode/json",
 						urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-
-
-					<cfdump var=#cfhttp#>
-
 					<cfif cfhttp.responseHeader.Status_Code is 200>
 						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 						<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
