@@ -8,10 +8,14 @@ create table temp_cd_nodef (
 );
 ---->
  	<cfquery datasource='prod' name='d'>
-		select media_uri from media where media_uri like '%/UAF/uam_mamm/Lepusamericanus/%'
+		select media_uri, media_id, preview_uri from media where media_uri like '%/UAF/uam_mamm/Lepusamericanus/%'
 	</cfquery>
 <cfoutput>
 	<cfloop query="d">
+
+		<br>media_uri: #media_uri#
+		<br>media_id: #media_id#
+		<br>preview_uri: #preview_uri#
 		<cfset burl=media_uri>
 		<cfset fname=listlast(burl,"/")>
 		<br>fname: #fname#
