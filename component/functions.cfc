@@ -904,6 +904,10 @@
 						urlPath="/maps/api/geocode/json",
 						urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+
+
+					<cfdump var=#cfhttp#>
+
 					<cfif cfhttp.responseHeader.Status_Code is 200>
 						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 						<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
