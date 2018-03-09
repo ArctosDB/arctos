@@ -7,33 +7,19 @@ create table temp_cd_nodef (
 	we_have_no_idea_what_this_means varcahr2(255)
 );
 ---->
- 	<cfquery datasource='uam_god' name='d'>
-		select table_name from user_tables where table_name like 'CT%' order by table_name
+ 	<cfquery datasource='prod' name='d'>
+		select media_uri from media where media_uri like '%/UAF/uam_mamm/Lepusamericanus/%'
 	</cfquery>
 <cfoutput>
 	<cfloop query="d">
+		<cfset burl=media_uri>
+		<cfset fname=listlast(burl,"/")>
+		<br>fname: #fname#
+		<cfset burl=listdeleteat(burl,listlen(burl,'/'),'/')>
+		<br>burl: #burl#
+		<cfset tpath="#burl#/tb/tn_fname">
+		<br>tpath: #tpath#
 
-		<cfquery datasource='uam_god' name='t'>
-			select * from #table_name#
-		</cfquery>
-
-		<cfif listfind(t.columnList,'DESCRIPTION')>
-			<cfset theCN=t.columnList>
-			<cfset theCN=listdeleteat(theCN,listfind(theCN,'DESCRIPTION'))>
-			<cfif listfind(t.columnList,'COLLECTION_CDE')>
-				<cfset theCN=listdeleteat(theCN,listfind(theCN,'COLLECTION_CDE'))>
-			</cfif>
-
-			<P>theCN: #theCN#</P>
-
-			<CFQUERY NAME="NOD" DBTYPE="QUERY">
-				SELECT DISTINCT #THECN# FROM t where DESCRIPTION is null
-			</CFQUERY>
-
-			<cfdump var=#nod#>
-
-		</cfif>
-		<cfdump var=#t.columnList#>
 	</cfloop>
 
 </cfoutput>
