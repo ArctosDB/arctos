@@ -22,6 +22,9 @@
 		<cfif len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
 			<cfset signedURL = obj.googleSignURL(urlPath="/maps/api/geocode/json",urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
 			<cfhttp result="x" method="GET" url="#signedURL#" timeout="20" />
+
+			<cfdump var=#x#>
+
 			<cfset llresult=DeserializeJSON(x.filecontent)>
 			<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 				<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
