@@ -372,7 +372,7 @@ Identification:
 			</li>
 		</cfloop>
 	</ul>
-Coordinates:
+Specimen-Events:
 	<cfquery name="assigned_by_agent_id" datasource="uam_god">
 		select
 			count(*) cnt,
