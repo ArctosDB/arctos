@@ -381,6 +381,16 @@ Coordinates:
 	<ul>
 		<li>Assigned #assigned_by_agent_id.cnt# events for #assigned_by_agent_id.specs# specimens</li>
 	</ul>
+	<cfquery name="VERIFIED_BY_AGENT_ID" datasource="uam_god">
+		select
+			count(*) cnt,
+			count(distinct(collection_object_id)) specs from SPECIMEN_EVENT where VERIFIED_BY_AGENT_ID=#agent_id#
+	</cfquery>
+	<ul>
+		<li>Verified #VERIFIED_BY_AGENT_ID.cnt# events for #VERIFIED_BY_AGENT_ID.specs# specimens</li>
+	</ul>
+
+
 Permits:
 	<cfquery name="permit_to" datasource="uam_god">
 		select

@@ -237,6 +237,12 @@ END;
 						ASSIGNED_BY_AGENT_ID = #bads.related_agent_id# where
 						ASSIGNED_BY_AGENT_ID = #bads.agent_id#
 					</cfquery>
+					<cfquery name="specimen_event2" datasource="uam_god">
+						update
+						specimen_event set
+						VERIFIED_BY_AGENT_ID = #bads.related_agent_id# where
+						VERIFIED_BY_AGENT_ID = #bads.agent_id#
+					</cfquery>
 					got latlong<br><cfflush>
 					<cfquery name="permit_to" datasource="uam_god">
 						update permit_agent set agent_id=#bads.related_agent_id# where agent_id= #bads.agent_id#
