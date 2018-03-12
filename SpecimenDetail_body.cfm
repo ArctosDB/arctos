@@ -76,9 +76,6 @@
 				    this.offsetWidth < this.scrollWidth) {
 				    var lk="<span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span>";
 				    $( "##expando-" + tid).html(lk);
-				    --console.log('wrote to expando-' + tid);
-
-
 				  //  $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertAfter( theLabelDiv );
 				}
 			});
@@ -725,7 +722,7 @@
 											<cfif VERIFICATIONSTATUS is "verified and locked">
 												&##9989;
 											<cfelseif VERIFICATIONSTATUS is "unaccepted">
-												&##9763;
+												&##10060;
 											<cfelseif  VERIFICATIONSTATUS is "unverified">
 												&##9888;
 											</cfif>
