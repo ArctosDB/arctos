@@ -717,7 +717,7 @@
 								<div class="detailBlock">
 									<tr class="detailData">
 										<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:
-											<span class="infoLink" onclick="getCtDoc('ctverificationstatus','##VERIFICATIONSTATUS#');">Define</span>
+											<span class="infoLink" onclick="getCtDoc('ctverificationstatus','#VERIFICATIONSTATUS#');">Define</span>
 										</td>
 										<td id="SDCellRight">
 											#VERIFICATIONSTATUS#
