@@ -716,7 +716,9 @@
 							<cfif len(VERIFICATIONSTATUS) gt 0>
 								<div class="detailBlock">
 									<tr class="detailData">
-										<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:</td>
+										<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:
+											<span class="infoLink" onclick="getCtDoc('ctverificationstatus','##VERIFICATIONSTATUS#');">Define</span>
+										</td>
 										<td id="SDCellRight">
 											#VERIFICATIONSTATUS#
 											<cfif VERIFICATIONSTATUS is "verified and locked">
