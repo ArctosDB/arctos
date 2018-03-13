@@ -217,7 +217,7 @@ select
 			preferred_agent_name not like '% Jr.' and
 			preferred_agent_name not like '% Sr.' and
 			preferred_agent_name not like '% St. %' and
-			preferred_agent_name not like '% Dr. %'
+			preferred_agent_name not like '%Dr. %'
 	</cfquery>
 	<cfloop query="raw">
 		<cfset mname=trim(rereplace(preferred_agent_name,'([A-Za-z]*[a-z]\.)','','all'))>
