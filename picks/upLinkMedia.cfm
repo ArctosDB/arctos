@@ -113,6 +113,8 @@
 		<cfset tbl='borrow'>
 	<cfelseif ktype is "accn_id">
 		<cfset tbl='accn'>
+	<cfelseif ktype is "loan_id">
+		<cfset tbl='loan'>
 	<cfelseif ktype is "permit_id">
 		<cfset tbl='permit'>
 	<cfelseif ktype is "agent_id">

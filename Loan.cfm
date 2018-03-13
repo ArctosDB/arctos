@@ -1,6 +1,6 @@
-<cfinclude template="includes/_header.cfm">
+<cfinclude template="/includes/_header.cfm">
 <cfif not isdefined("project_id")>
-	<cfset project_id = -1>
+	<cfset project_id = "-1">
 </cfif>
 
 <cfquery name="ctLoanType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -763,16 +763,37 @@ just fooling idiot cfclipse into using the right colors
 		<input type="checkbox" value="yes" name="saveNewProject" id="saveNewProject">
 		</div>
 	</form>
+
+		<script>
+					jQuery(document).ready(function(){
+			            $("##mediaUpClickThis").click(function(){
+						    addMedia('loan_id','#loanDetails.transaction_id#');
+						});
+						getMedia('loan','#loanDetails.transaction_id#','lMedia','2','1');
+					});
+				</script>
+<cfif listcontainsnocase(session.roles, "manage_media")>
+						<a class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
+					</cfif>
+	<div id="lMedia">
+
+	</div>
+
 	<hr>
 
 
 	<strong>Media associated with this loan</strong>
+
+
+		<!----
 		<br>
 		<span class="likeLink" onclick="addMediaHere('#loanDetails.guid_prefix# #loanDetails.loan_number#','#transaction_id#');">
 			Create Media
 		</span>
 		<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this loan.
 		<div id="mmmsgdiv"></div>
+
+
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				media_uri,
@@ -802,7 +823,7 @@ just fooling idiot cfclipse into using the right colors
 				</p>
 		</cfloop>
 		</div>
-
+---->
 
 
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
