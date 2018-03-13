@@ -49,7 +49,7 @@
 
 <cfif not isdefined("guid_prefix") or len(guid_prefix) is 0><cfabort></cfif>
 	<cfquery name="coln" datasource="uam_god">
-		select guid_prefix, collection_id from collection where upper(guid_prefix)='#ucase(guid_prefix)#'
+		select * from collection where upper(guid_prefix)='#ucase(guid_prefix)#'
 	</cfquery>
 	<cfif coln.recordcount neq 1>
 		collection not found<cfabort>
@@ -57,7 +57,27 @@
 	<h2>
 		User and Contacts report for collection #coln.guid_prefix#
 	</h2>
+	<h3>
+		Collection Data
+	</h3>
+	<cfquery name="license" datasource="uam_god">
+			select  * from  ctmedia_license where MEDIA_LICENSE_ID=#coln.USE_LICENSE_ID#
+	</cfquery>
 
+	<div>Code Tables: #coln.COLLECTION_CDE#</div>
+	<div>Institution Acronym: #coln.INSTITUTION_ACRONYM#</div>
+	<div>Descrption: #coln.DESCR#</div>
+	<div>Collection: #coln.COLLECTION#</div>
+	<div>CollectionID: #coln.COLLECTION_ID#</div>
+	<div>WEB_LINK: #coln.WEB_LINK#</div>
+	<div>WEB_LINK_TEXT: #coln.WEB_LINK_TEXT#</div>
+	<div>LOAN_POLICY_URL: #coln.LOAN_POLICY_URL#</div>
+	<div>INSTITUTION: #coln.INSTITUTION#</div>
+	<div>GUID_PREFIX: #coln.GUID_PREFIX#</div>
+	<div>License: #license.DISPLAY# (URL: #license.URI# Description: #license.DESCRIPTION#)</div>
+	<div>CITATION: #coln.CITATION#</div>
+	<div>PREFERRED_TAXONOMY_SOURCE: #coln.PREFERRED_TAXONOMY_SOURCE#</div>
+	<div>CATALOG_NUMBER_FORMAT: #coln.CATALOG_NUMBER_FORMAT#</div>
 	<cfquery name="users" datasource="uam_god">
 		select
 			agent.agent_id,
