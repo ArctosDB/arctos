@@ -461,6 +461,12 @@
 			<cfset srch="#srch# AND mr_accn.media_relationship like '% accn' and mr_accn.related_primary_key = #accn_id#">
 			<cfset mapurl="#mapurl#&accn_id=#accn_id#">
 		</cfif>
+		<cfif (isdefined("loan_id") and len(loan_id) gt 0)>
+			<cfset tabls = "#tabls#,media_relations mr_loan">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_loan.media_id ">
+			<cfset srch="#srch# AND mr_loan.media_relationship like '% loan' and mr_loan.related_primary_key = #loan_id#">
+			<cfset mapurl="#mapurl#&loan_id=#loan_id#">
+		</cfif>
 		<cfif (isdefined("locality_id") and len(locality_id) gt 0)>
 			<cfset tabls = "#tabls#,media_relations mr_locality">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_locality.media_id ">

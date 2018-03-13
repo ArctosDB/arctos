@@ -110,6 +110,36 @@
                     license,
                         media_flat.descr
 			">
+	<cfelseif typ is "loan">
+		<cfset srchall="/MediaSearch.cfm?action=search&loan_id=#q#">
+		<cfset mrdescr="Media linked to a Loan.">
+		<cfset sql="
+			   	select
+			   		media_flat.media_id,
+			        media_flat.media_uri,
+			        media_flat.mime_type,
+			        media_flat.media_type,
+			        media_flat.preview_uri,
+                    alt_text,
+                    license,
+                    media_flat.descr
+				from
+					media_flat,
+					media_relations
+				where
+					 media_flat.media_id=media_relations.media_id and
+				     media_relations.media_relationship like '% loan' and
+				     media_relations.related_primary_key=#q#
+				group by
+				 	media_flat.media_id,
+			        media_flat.media_uri,
+			        media_flat.mime_type,
+			        media_flat.media_type,
+			        media_flat.preview_uri,
+                    alt_text,
+                    license,
+                    media_flat.descr
+			">
 	<cfelseif typ is "specimenCollectingEvent">
 		<cfset mrdescr="Media linked to a specimen's Collecting Event.">
 		<!--- media related to a collecting event which is being used by a specimen ---->
