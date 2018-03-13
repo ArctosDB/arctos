@@ -115,13 +115,22 @@ select
 			) and
 			(
 				lower(preferred_agent_name) like '% co.%' or
-				lower(preferred_agent_name) like '% inc.%'
+				lower(preferred_agent_name) like '% co %' or
+				lower(preferred_agent_name) like '% inc.%' or
+				lower(preferred_agent_name) like '% inc %' or
+				lower(preferred_agent_name) like '% corp.%' or
+				lower(preferred_agent_name) like '% corp %'
 			)
 	</cfquery>
 	<cfloop query="raw">
 		<cfset mname=preferred_agent_name>
 		<cfset mname=replacenocase(mname,' inc.',' incorporated')>
+		<cfset mname=replacenocase(mname,' inc ',' incorporated ')>
 		<cfset mname=replacenocase(mname,' co.',' company')>
+		<cfset mname=replacenocase(mname,' co ',' company ')>
+		<cfset mname=replacenocase(mname,' corp.',' corporation')>
+		<cfset mname=replacenocase(mname,' corp ',' corporation ')>
+		<cfset mname=trim(mname)>
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
 		</cfquery>
