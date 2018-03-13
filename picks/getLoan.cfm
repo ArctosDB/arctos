@@ -2,6 +2,10 @@
 	<cfif not isdefined("loan_number") or loan_number is 'undefined'>
 		<cfset loan_number=''>
 	</cfif>
+	<cfquery name="ctcoln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select guid_prefix,collection_id from collection order by guid_prefix
+	</cfquery>
+
 	<cfif not isdefined("collection_id") or collection_id is 'undefined'>
 		<cfset collection_id=''>
 	</cfif>
@@ -9,7 +13,13 @@
 	<cfif len(loan_number) is 0>
 		<form name="f" action="getLoan.cfm" method="post">
 			<label for="collection_id">Collection</label>
-			<input type="text" name="collection_id" id="collection_id">
+			<select name="collection_id" id="collection_id">
+				<option value=""></option>
+				<cfloop query="ctcoln">
+					<option value="#collection_id#">#guid_prefix#</option>
+				</cfloop>
+			</select>
+
 			<label for="loan_number">Loan Number</label>
 			<input type="text" name="loan_number" id="loan_number">
 			<input type="submit" value="Search"	class="lnkBtn">
@@ -22,7 +32,7 @@
 	</cfif>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				guid_prefix,
 				loan_number,
 				loan.transaction_id
@@ -41,7 +51,7 @@
 				guid_prefix,loan_number
 		</cfquery>
 		<cfif d.recordcount is 0>
-			Nothing matched #loan_number#. 
+			Nothing matched #loan_number#.
 			<!----<a href="getLoan.cfm?mediaIdFld=#mediaIdFld#&mediaStringFld=#mediaStringFld#">Try again.</a>---->
 		<cfelse>
 	<table border>
