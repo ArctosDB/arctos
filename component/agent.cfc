@@ -46,7 +46,7 @@
 			<br>mname:#mname#
 			<cfset mname=replacenocase(mname,' #abr#',' #spld# ')>
 			<br>mname:#mname#
-			<cfset mname=replacenocase(mname,' #abr#.',' #spld# ')>
+			<cfset mname=replacenocase(mname,' #abr#.',' #spld#.')>
 			<br>mname:#mname#
 			<cfquery name="hasascii"  datasource="uam_god">
 				 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
