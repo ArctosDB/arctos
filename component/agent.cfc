@@ -37,7 +37,33 @@
 		</cfif>
 	</cfif>
 
-	<cfif lcase(preferred_name) contains 'co.' or lcase(preferred_name) contains 'inc.'>
+	<cfset abbrList="co|company,inc|incorporated,corp|corporation">
+	<cfloop list="#abbrList#" index="i">
+		<cfset abr=listgetat(i,1,"|")>
+		<cfset spld=listgetat(i,2,"|")>
+
+		<cfif lcase(preferred_name) contains ' #abr# ' or lcase(preferred_name) contains ' #abr#.'>
+			<cfset mname=preferred_name>
+			<cfset mname=replacenocase(mname,' #abr#',' #spld# ')>
+			<cfset mname=replacenocase(mname,' #abr#.',' #spld# ')>
+			<cfquery name="hasascii"  datasource="uam_god">
+				 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
+			</cfquery>
+			<cfif hasascii.recordcount lt 1>
+				<cfset probs=listappend(probs,'no unabbreviated variant [#mname#]',';')>
+			</cfif>
+		</cfif>
+	</cfloop>
+	<!----
+	<cfif
+		lcase(preferred_name) contains 'co.' or
+		lcase(preferred_name) contains 'co ' or
+		lcase(preferred_name) contains 'inc. ' or
+		lcase(preferred_name) contains 'inc ' or
+		lcase(preferred_name) contains 'corp. ' or
+		lcase(preferred_name) contains 'corp ' or
+		lcase(preferred_name) contains 'co ' or
+		lcase(preferred_name) contains 'inc.'>
 		<cfset mname=preferred_name>
 		<cfset mname=replacenocase(mname,' inc.',' incorporated')>
 		<cfset mname=replacenocase(mname,' co.',' company')>
@@ -47,6 +73,7 @@
 		<cfif hasascii.recordcount lt 1>
 			<cfset probs=listappend(probs,'no unabbreviated variant [#mname#]',';')>
 		</cfif>
+		---->
 	</cfif>
 	<cfif lcase(preferred_name) contains '&'>
 		<cfset mname=preferred_name>
