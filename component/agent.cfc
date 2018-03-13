@@ -36,7 +36,7 @@
 			<cfset probs=listappend(probs,'no ASCII variant',';')>
 		</cfif>
 	</cfif>
-
+<cfoutput>
 	<cfset abbrList="co|company,inc|incorporated,corp|corporation">
 	<cfloop list="#abbrList#" index="i">
 		<cfset abr=listgetat(i,1,"|")>
@@ -56,6 +56,8 @@
 			</cfif>
 		</cfif>
 	</cfloop>
+
+	</cfoutput>
 	<!----
 	<cfif
 		lcase(preferred_name) contains 'co.' or
