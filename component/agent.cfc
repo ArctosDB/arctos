@@ -41,7 +41,6 @@
 	<cfloop list="#abbrList#" index="i">
 		<cfset abr=listgetat(i,1,"|")>
 		<cfset spld=listgetat(i,2,"|")>
-
 		<cfif lcase(preferred_name) contains ' #abr# ' or lcase(preferred_name) contains ' #abr#.'>
 			<cfset mname=preferred_name>
 			<cfset mname=replacenocase(mname,' #abr#',' #spld# ')>
@@ -73,8 +72,9 @@
 		<cfif hasascii.recordcount lt 1>
 			<cfset probs=listappend(probs,'no unabbreviated variant [#mname#]',';')>
 		</cfif>
-		---->
 	</cfif>
+		---->
+
 	<cfif lcase(preferred_name) contains '&'>
 		<cfset mname=preferred_name>
 		<cfset mname=replacenocase(mname,'&','and')>
