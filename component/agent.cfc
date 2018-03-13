@@ -69,7 +69,8 @@
 		left(preferred_name,5) is not 'Mrs. ' and
 		right(preferred_name,4) is not ' Jr.' and
 		right(preferred_name,4) is not ' Sr.' and
-		right(preferred_name,4) is not ' St.'
+		right(preferred_name,4) is not ' St.' and
+		left(preferred_name,4) is not 'Dr. '
 		>
 		<!--- only if person --->
 		<cfquery name="atype"  datasource="uam_god">
