@@ -765,65 +765,19 @@ just fooling idiot cfclipse into using the right colors
 	</form>
 
 		<script>
-					jQuery(document).ready(function(){
-			            $("##mediaUpClickThis").click(function(){
-						    addMedia('loan_id','#loanDetails.transaction_id#');
-						});
-						getMedia('loan','#loanDetails.transaction_id#','lMedia','2','1');
-					});
-				</script>
-<cfif listcontainsnocase(session.roles, "manage_media")>
-						<a class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
-					</cfif>
-	<div id="lMedia">
+			jQuery(document).ready(function(){
+	            $("##mediaUpClickThis").click(function(){
+				    addMedia('loan_id','#loanDetails.transaction_id#');
+				});
+				getMedia('loan','#loanDetails.transaction_id#','lMedia','2','1');
+			});
+		</script>
+		<hr>	<strong>Media associated with this loan</strong>
+		<cfif listcontainsnocase(session.roles, "manage_media")>
+			<a class="likeLink" id="mediaUpClickThis">Attach/Upload Media</a>
+		</cfif>
+		<div id="lMedia"></div>
 
-	</div>
-
-	<hr>
-
-
-	<strong>Media associated with this loan</strong>
-
-
-		<!----
-		<br>
-		<span class="likeLink" onclick="addMediaHere('#loanDetails.guid_prefix# #loanDetails.loan_number#','#transaction_id#');">
-			Create Media
-		</span>
-		<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this loan.
-		<div id="mmmsgdiv"></div>
-
-
-		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				media_uri,
-				preview_uri,
-				media_type,
-				media.media_id,
-				mime_type
-			from
-				media,
-				media_relations
-			where
-				media.media_id=media_relations.media_id and
-				media_relations.media_relationship='documents loan' and
-				media_relations.related_primary_key=#transaction_id#
-		</cfquery>
-		<cfset obj = CreateObject("component","component.functions")>
-		<div id="thisLoanMediaDiv">
-		<cfloop query="media">
-			<cfset preview = obj.getMediaPreview(
-				preview_uri="#media.preview_uri#",
-				media_type="#media.media_type#")>
-				<br>
-				<a href="/media/#media_id#?open" target="_blank"><img src="#preview#" class="theThumb"></a>
-                  	<p>
-					#media_type# (#mime_type#)
-                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-				</p>
-		</cfloop>
-		</div>
----->
 
 
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
