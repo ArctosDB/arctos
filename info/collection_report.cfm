@@ -64,20 +64,21 @@
 			select  * from  ctmedia_license where MEDIA_LICENSE_ID=#coln.USE_LICENSE_ID#
 	</cfquery>
 
-	<div>Code Tables: #coln.COLLECTION_CDE#</div>
-	<div>Institution Acronym: #coln.INSTITUTION_ACRONYM#</div>
-	<div>Descrption: #coln.DESCR#</div>
-	<div>Collection: #coln.COLLECTION#</div>
-	<div>CollectionID: #coln.COLLECTION_ID#</div>
-	<div>WEB_LINK: #coln.WEB_LINK#</div>
-	<div>WEB_LINK_TEXT: #coln.WEB_LINK_TEXT#</div>
-	<div>LOAN_POLICY_URL: #coln.LOAN_POLICY_URL#</div>
-	<div>INSTITUTION: #coln.INSTITUTION#</div>
-	<div>GUID_PREFIX: #coln.GUID_PREFIX#</div>
-	<div>License: #license.DISPLAY# (URL: #license.URI# Description: #license.DESCRIPTION#)</div>
-	<div>CITATION: #coln.CITATION#</div>
-	<div>PREFERRED_TAXONOMY_SOURCE: #coln.PREFERRED_TAXONOMY_SOURCE#</div>
-	<div>CATALOG_NUMBER_FORMAT: #coln.CATALOG_NUMBER_FORMAT#</div>
+	<div><strong>GUID_PREFIX:</strong> #coln.GUID_PREFIX#</div>
+	<div><strong>CollectionID:</strong> #coln.COLLECTION_ID#</div>
+	<div><strong>Code Tables:</strong> #coln.COLLECTION_CDE#</div>
+	<div><strong>Collection:</strong> #coln.COLLECTION#</div>
+	<div><strong>Institution Acronym:</strong> #coln.INSTITUTION_ACRONYM#</div>
+	<div><strong>INSTITUTION:</strong> #coln.INSTITUTION#</div>
+
+	<div><strong>Description:</strong> #coln.DESCR#</div>
+	<div><strong>Web Link:</strong> #coln.WEB_LINK#</div>
+	<div><strong>Web Link Text:</strong> #coln.WEB_LINK_TEXT#</div>
+	<div><strong>Loan Policy:</strong> #coln.LOAN_POLICY_URL#</div>
+	<div><strong>License:</strong> #license.DISPLAY# (URL: #license.URI# Description: #license.DESCRIPTION#)</div>
+	<div><strong>Citation:</strong> #coln.CITATION#</div>
+	<div><strong>Taxonomy Source:</strong> #coln.PREFERRED_TAXONOMY_SOURCE#</div>
+	<div><strong>Catalog NUmber Format:</strong> #coln.CATALOG_NUMBER_FORMAT#</div>
 	<cfquery name="users" datasource="uam_god">
 		select
 			agent.agent_id,
