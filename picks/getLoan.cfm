@@ -10,27 +10,27 @@
 		<cfset collection_id=''>
 	</cfif>
 	<!--- make sure we're searching for something --->
-	<cfif len(loan_number) is 0>
-		<form name="f" action="getLoan.cfm" method="post">
-			<label for="collection_id">Collection</label>
-			<select name="collection_id" id="collection_id">
-				<option value=""></option>
-				<cfloop query="ctcoln">
-					<option value="#collection_id#">#guid_prefix#</option>
-				</cfloop>
-			</select>
-
-			<label for="loan_number">Loan Number</label>
-			<input type="text" name="loan_number" id="loan_number">
-			<input type="submit" value="Search"	class="lnkBtn">
-			<cfoutput>
-				<input type="hidden" name="LoanIDFld" value="#LoanIDFld#">
-				<input type="hidden" name="LoanNumberFld" value="#LoanNumberFld#">
-			</cfoutput>
-		</form>
-		<cfabort>
-	</cfif>
 	<cfoutput>
+		<cfif len(loan_number) is 0>
+			<form name="f" action="getLoan.cfm" method="post">
+				<label for="collection_id">Collection</label>
+				<select name="collection_id" id="collection_id">
+					<option value=""></option>
+					<cfloop query="ctcoln">
+						<option value="#collection_id#">#guid_prefix#</option>
+					</cfloop>
+				</select>
+
+				<label for="loan_number">Loan Number</label>
+				<input type="text" name="loan_number" id="loan_number">
+				<input type="submit" value="Search"	class="lnkBtn">
+				<cfoutput>
+					<input type="hidden" name="LoanIDFld" value="#LoanIDFld#">
+					<input type="hidden" name="LoanNumberFld" value="#LoanNumberFld#">
+				</cfoutput>
+			</form>
+			<cfabort>
+		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				guid_prefix,
