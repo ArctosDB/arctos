@@ -44,7 +44,7 @@
 		<cfif lcase(preferred_name) contains ' #abr# ' or lcase(preferred_name) contains ' #abr#.'>
 			<cfset mname=preferred_name>
 			<br>mname:#mname#
-			<cfset mname=replacenocase(mname,' #abr#',' #spld# ')>
+			<cfset mname=replacenocase(mname,' #abr# ',' #spld# ')>
 			<br>mname:#mname#
 			<cfset mname=replacenocase(mname,' #abr#.',' #spld#.')>
 			<br>mname:#mname#
