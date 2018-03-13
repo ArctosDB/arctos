@@ -43,17 +43,13 @@
 		<cfset spld=listgetat(i,2,"|")>
 		<cfif lcase(preferred_name) contains ' #abr# ' or lcase(preferred_name) contains ' #abr#.'>
 			<cfset mname=preferred_name>
-			<br>mname:#mname#
 			<cfset mname=replacenocase(mname,' #abr# ',' #spld# ')>
-			<br>mname:#mname#
 			<cfset mname=replacenocase(mname,' #abr#.',' #spld#')>
-			<br>mname:#mname#
 			<cfset mname=trim(mname)>
 			<cfquery name="hasascii"  datasource="uam_god">
 				 select agent_name from agent_name where agent_id=#agent_id# and lower(agent_name) like '#lcase(mname)#'
 			</cfquery>
 			<cfif hasascii.recordcount lt 1>
-				<br>adding [#mname#]
 				<cfset probs=listappend(probs,'no unabbreviated variant [#mname#]',';')>
 			</cfif>
 		</cfif>
@@ -99,12 +95,18 @@
 		right(preferred_name,4) is not ' Sr.' and
 		right(preferred_name,4) is not ' St.'
 		>
-		<cfset mname=trim(rereplace(preferred_name,'([A-Za-z]*[a-z]\.)','','all'))>
-		<cfquery name="hasascii"  datasource="uam_god">
-			 select agent_name from agent_name where agent_id=#agent_id# and agent_name = '#mname#'
+		<!--- only if person --->
+		<cfquery name="atype"  datasource="uam_god">
+			select agent_type from agent where agent_id=#agent_id#
 		</cfquery>
-		<cfif hasascii.recordcount lt 1>
-			<cfset probs=listappend(probs,'no unabbreviated title variant [#mname#]',';')>
+		<cfif atype.agent_type is "person">
+			<cfset mname=trim(rereplace(preferred_name,'([A-Za-z]*[a-z]\.)','','all'))>
+			<cfquery name="hasascii"  datasource="uam_god">
+				 select agent_name from agent_name where agent_id=#agent_id# and agent_name = '#mname#'
+			</cfquery>
+			<cfif hasascii.recordcount lt 1>
+				<cfset probs=listappend(probs,'no unabbreviated title variant [#mname#]',';')>
+			</cfif>
 		</cfif>
 	</cfif>
 	<cfreturn probs>
