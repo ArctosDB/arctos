@@ -510,7 +510,9 @@
 						<cfif listfind(formList,"/Admin/ActivityLog.cfm")>
 							<li><a target="_top" href="##">Reports/Services</a>
 								<ul>
+									<!---- why is this here??
 									<li><a target="_top" href="##">Administrative Tools</a></li>
+									--->
 									<li><a target="_top" href="##">Labels and Reports</a>
 										<ul>
 											<li><a target="_top" href="/Reports/reporter.cfm">Reporter</a></li>
@@ -549,6 +551,7 @@
 									<li><a target="_top" href="/info/reviewAnnotation.cfm">Review Annotations</a></li>
 									<li><a target="_top" href="##">View Statistics</a>
 										<ul>
+											<li><a target="_top" href="/info/flat_status.cfm">FLAT status</a></li>
 											<li><a target="_top" href="/Reports/dataentry.cfm">Data Entry Statistics</a></li>
 											<li><a target="_top" href="/Admin/download.cfm">Download Statistics</a></li>
 											<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
