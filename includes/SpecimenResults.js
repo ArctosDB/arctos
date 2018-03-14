@@ -389,6 +389,7 @@ function displayMedia(idList){
 		var r = $.parseJSON($("#" + this.id).html());
 		if (r.length>0){
 			console.log('got something');
+			console.log(r);
 			
 		}
 		jQuery.each(r, function(index, itemData) {
