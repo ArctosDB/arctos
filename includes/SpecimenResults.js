@@ -388,9 +388,9 @@ function displayMedia(idList){
 		console.log('i am doing media stuff');
 		var r = $.parseJSON($("#" + this.id).html());
 		jQuery.each(r, function(index, itemData) {
-			//console.log(itemData.MEDIA_ID);
+			console.log(itemData.MEDIA_ID);
 		});
-		}
+	
 		/*
 		if (r.ROWCOUNT>0){
 			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
