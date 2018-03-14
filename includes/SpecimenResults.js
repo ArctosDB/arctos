@@ -435,10 +435,7 @@ function insertMedia(idList) {
 		function (result) {
 			try{
 				var sBox=document.getElementById('ajaxStatus');
-				sBox.innerHTML='Processing Media....';
-				console.log(result);
-				
-				/*
+				sBox.innerHTML='Processing Media....';				
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sel;
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
@@ -457,7 +454,6 @@ function insertMedia(idList) {
 						el.innerHTML+=ns;
 					}
 				}
-				*/
 				document.body.removeChild(sBox);
 				}
 			catch(e) {
