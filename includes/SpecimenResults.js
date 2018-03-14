@@ -417,6 +417,13 @@ function displayMedia(idList){
 				});
 			}
 		});
+		
+		if (r.length>0){
+			theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
+			$("#" + this.id).html(theHTML);
+		} else {
+			$("#" + this.id).html('');
+		}
 	
 		/*
 		if (r.ROWCOUNT>0){
