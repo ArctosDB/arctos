@@ -388,7 +388,7 @@ function displayMedia(idList){
 		console.log('i am doing media stuff');
 		var r = $.parseJSON($("#" + this.id).html());
 		jQuery.each(r, function(index, itemData) {
-			console.log(itemData.MEDIA_ID);
+			//console.log(itemData.MEDIA_ID);
 		});
 		}
 		/*
