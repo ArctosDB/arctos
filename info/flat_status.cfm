@@ -15,20 +15,21 @@
 <cfquery name="c" dbtype="query">
 	select c from fs where stale_flag=0
 </cfquery>
-<table border>
-	<tr>
-		<th>Status</th>
-		<th>NumberRecords</th>
-	</tr>
-	<tr>
-		<td>Current</td>
-		<td>#c.c#</td>
-	</tr>
-	<tr>
-		<td>Processing</td>
-		<td>#nc.c#</td>
-	</tr>
-</table>
-
+<cfoutput>
+	<table border>
+		<tr>
+			<th>Status</th>
+			<th>NumberRecords</th>
+		</tr>
+		<tr>
+			<td>Current</td>
+			<td>#c.c#</td>
+		</tr>
+		<tr>
+			<td>Processing</td>
+			<td>#nc.c#</td>
+		</tr>
+	</table>
+</cfoutput>
 
 <cfinclude template="/includes/_footer.cfm">
