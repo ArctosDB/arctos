@@ -327,7 +327,10 @@
 	</cfif>
 	<cfif len(fnProbs) gt 0 or len(fnProbs2) gt 0>
 		<div style="padding:1em; margin:1em; border:2px solid red;">
-			<div>Potential problems with this record detected.</div>
+			<div>
+				Potential problems with this record detected. Please review the
+				<span class="helpLink" data-helplink="agent_create">Creating and Maintaining Agents Documentation</span>
+			</div>
 			<div style="font-size:smaller;">
 				Note: suggestions in square brackets are from the "funky agent" check. It may be necessary to
 				create multiple agent variations to satisfy these "requirements." These variations

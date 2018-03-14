@@ -424,40 +424,6 @@ function displayMedia(idList){
 		} else {
 			$("#" + this.id).html('');
 		}
-	
-		/*
-		if (r.ROWCOUNT>0){
-			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
-			for (i=0; i<r.ROWCOUNT; ++i) {
-				if (r.DATA.mimecat[i]=='audio' && r.DATA.media_uri[i].split('.').pop()=='mp3'){
-					theHTML+='<div class="one_thumb">';
-					theHTML+='<audio controls>';
-					theHTML+='<source src="' + r.DATA.media_uri[i] + '" type="audio/mp3">';
-					theHTML+='<a href="/media/' + r.DATA.media_id[i] + '?open" target="_blank">download</a>';
-					theHTML+='</audio> ';
-					theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
-				} else {
-					var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.mimecat[i] + '&returnformat=json&queryformat=column';
-					$.ajax({
-						url: theURL,
-						dataType: 'json',
-						async: false,
-						success: function(result) {
-							theHTML+='<div class="one_thumb">';
-							theHTML+='<a href="/media/' + r.DATA.media_id[i] + '?open" target="_blank">';
-							theHTML+='<img src="' + result + '" class="theThumb"></a>';
-							theHTML+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
-							theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
-						}
-					});
-				}
-			}
-			theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
-			$("#" + this.id).html(theHTML);
-		} else {
-			$("#" + this.id).html('');
-		}
-		*/
 	});
 }
 function insertMedia(idList) {

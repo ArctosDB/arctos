@@ -547,6 +547,8 @@
 			<cfset thisData = evaluate(c)>
 			<!----
 			<cfif c is "MEDIA">
+				this is now JSON so just push it out
+				leave it commented here in case someone wants to somehow process the JSON
 				<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
 			</cfif>
 			---->
