@@ -385,7 +385,8 @@ function formatPartDetail(){
 }
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
-		var r = $.parseJSON($("#" + this.id).html());
+		console.log('i am doing media stuff');
+		//var r = $.parseJSON($("#" + this.id).html());
 		/*
 		if (r.ROWCOUNT>0){
 			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
