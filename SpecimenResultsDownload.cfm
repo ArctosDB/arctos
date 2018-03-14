@@ -545,9 +545,11 @@
 		<cfset oneLine = "">
 		<cfloop list="#ac#" index="c">
 			<cfset thisData = evaluate(c)>
+			<!----
 			<cfif c is "MEDIA">
 				<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
 			</cfif>
+			---->
 			<cfif len(oneLine) is 0>
 				<cfset oneLine = '"#thisData#"'>
 			<cfelse>
