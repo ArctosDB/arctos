@@ -386,6 +386,7 @@ function formatPartDetail(){
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
 		var r = $.parseJSON($("#" + this.id).html());
+		/*
 		if (r.ROWCOUNT>0){
 			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 			for (i=0; i<r.ROWCOUNT; ++i) {
@@ -417,6 +418,7 @@ function displayMedia(idList){
 		} else {
 			$("#" + this.id).html('');
 		}
+		*/
 	});
 }
 function insertMedia(idList) {
