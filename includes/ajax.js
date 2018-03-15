@@ -84,6 +84,7 @@ $(document).ready(function() {
 
 function getFormattedDate() {
     var date = new Date();
+    console.log(date);
     var str = date.getFullYear() + "-" + getFormattedPartTime(date.getMonth()) + "-" + getFormattedPartTime(date.getDate());
     return str;
 }
