@@ -323,13 +323,8 @@
 		<cfset fileName=fName & '.' & fext>
 
 
-		<cfset x=isValidMediaUpload(fileName)>
+		<cfset r.msg=isValidMediaUpload(fileName)>
 
-
-		<cfreturn x>
-
-
-		<cfabort>
 
 
 
