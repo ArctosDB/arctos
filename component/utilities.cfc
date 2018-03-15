@@ -498,6 +498,9 @@
 	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
 		<cfset err="Filenames may contain only letters, numbers, dash, and underscore.">
 	</cfif>
+	<cfif REFind("[^A-Za-z0-9]",left(name,1)) gt 0>
+		<cfset err="Filenames must start with a letter or number.">
+	</cfif>
 	<cfreturn err>
 </cffunction>
 <!----------------------->
