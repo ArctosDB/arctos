@@ -39,6 +39,16 @@
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 		<cfset fName=replace(fName,'__','_','all')>
 		<cfset fileName=fName & '.' & fext>
+
+
+
+		#func.isValidMediaUpload(fileName)#
+
+
+		<cfabort>
+
+
+
 		<cfif len(func.isValidMediaUpload(fileName)) gt 0>
 			#func.isValidMediaUpload(fileName)#
 			<cfabort>
