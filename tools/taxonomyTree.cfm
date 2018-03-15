@@ -945,6 +945,10 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "seedMIA">
 	<cfoutput>
+		<p>
+			These errors involve the last SEED and are not cumulative.
+		</p>
+
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				SCIENTIFIC_NAME
@@ -1171,6 +1175,11 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		<p>
 			These are terms you seeded or terms from the classifications of terms you seeded which were not successfully imported.
 			If you continue without these, you will ultimately exclude them from the final update and create inconsistent data in Arctos.
+
+		</p>
+		<p>
+			These errors involve an initial import. This may not be accurate if you've re-seeded. Repatriate to Arctos and
+			start over to refresh.
 
 		</p>
 		<p>
