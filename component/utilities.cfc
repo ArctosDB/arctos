@@ -329,6 +329,9 @@
 		<cfreturn x>
 
 
+		<cfabort>
+
+
 
 		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
 		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
