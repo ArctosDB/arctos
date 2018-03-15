@@ -7,28 +7,17 @@ create table temp_cd_nodef (
 	we_have_no_idea_what_this_means varcahr2(255)
 );
 ---->
- 	<cfquery datasource='prod' name='d'>
-		select media_uri, media_id, preview_uri from media where media_uri like '%/UAF/uam_mamm/Lepusamericanus/%'
-	</cfquery>
+
 <cfoutput>
-	<cfloop query="d">
-
-		<br>media_uri: #media_uri#
-		<br>media_id: #media_id#
-		<br>preview_uri: #preview_uri#
-		<cfset burl=media_uri>
-		<cfset fname=listlast(burl,"/")>
-		<br>fname: #fname#
-		<cfset burl=listdeleteat(burl,listlen(burl,'/'),'/')>
-		<br>burl: #burl#
-		<cfset tpath="#burl#/tb/tn_#replace(fname,'.JPG','.jpg','all')#">
-		<br>tpath: #tpath#
-	 	<cfquery datasource='prod' name='ipu'>
-			update media set preview_uri='#tpath#' where media_id=#media_id#
-		</cfquery>
+		<cfset  func = CreateObject("component","component.utilities")>
 
 
-	</cfloop>
+		<cfset f=".hi">
+
+		<cfset x=func.isValidMediaUpload(f)>
+
+		<br>f: #f#
+		<br>x:#x#
 
 </cfoutput>
 
