@@ -12,7 +12,6 @@ create table temp_cd_nodef (
 		<cfset  func = CreateObject("component","component.utilities")>
 
 
-		<cfset f=".hi">
 
 		<cfset x=func.isValidMediaUpload(f)>
 
