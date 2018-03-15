@@ -501,6 +501,9 @@
 	<cfif REFind("^[A-Za-z0-9]",left(name,1)) gt 0>
 		<cfset err="Filenames must start with a letter or number.">
 	</cfif>
+
+	<cfset err="pass.....">
+
 	<cfreturn err>
 </cffunction>
 <!----------------------->
