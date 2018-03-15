@@ -1861,7 +1861,7 @@
 				<input type="hidden" name="Action" value="newTaxonPub">
 				<input type="hidden" name="new_publication_id" id="new_publication_id">
 				<label for="new_pub">Pick Publication</label>
-				<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newPub')" size="80">
+				<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newPub')" size="80"  onKeyPress="return noenter(event);">
 				<input type="submit" value="Add Publication" class="insBtn">
 			</form>
 			<cfif tax_pub.recordcount gt 0>
