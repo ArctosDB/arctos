@@ -323,7 +323,13 @@
 		<cfset fileName=fName & '.' & fext>
 
 
+		<cfset vfn=isValidMediaUpload(fileName)>
 
+		<cfif len(vfn) gt 0>
+			 <cfset r.statusCode=400>
+			<cfset r.msg=vfn>
+			<cfreturn serializeJSON(r)>
+		</cfif>
 
 
 
@@ -346,9 +352,6 @@
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
-
-		 <cfset r.statusCode=400>
-		<cfset r.msg=isValidMediaUpload(fileName)>
 
 
 
@@ -518,8 +521,6 @@
 	<cfif REFind("[^A-Za-z0-9]",left(name,1)) gt 0>
 		<cfset err="Filenames must start with a letter or number.">
 	</cfif>
-
-
 	<cfreturn err>
 </cffunction>
 <!----------------------->
