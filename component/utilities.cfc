@@ -519,7 +519,6 @@
 		<cfset err="Filenames must start with a letter or number.">
 	</cfif>
 
-	<cfset err="pass.....">
 
 	<cfreturn err>
 </cffunction>
