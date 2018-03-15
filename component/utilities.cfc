@@ -323,7 +323,6 @@
 		<cfset fileName=fName & '.' & fext>
 
 
-		<cfset r.msg=isValidMediaUpload(fileName)>
 
 
 
@@ -347,6 +346,13 @@
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
+
+		 <cfset r.statusCode=400>
+		<cfset r.msg=isValidMediaUpload(fileName)>
+
+
+
+
 		<cfcatch>
 			<cftry>
 				<cfset r.statusCode=400>
