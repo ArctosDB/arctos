@@ -317,11 +317,7 @@
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 		<cfset fName=replace(fName,'__','_','all')>
 
-
-
-
 		<cfset fileName=fName & '.' & fext>
-
 
 		<cfset vfn=isValidMediaUpload(fileName)>
 
@@ -330,8 +326,6 @@
 			<cfset r.msg=vfn>
 			<cfreturn serializeJSON(r)>
 		</cfif>
-
-
 
 		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
 		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
@@ -352,9 +346,6 @@
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
-
-
-
 
 		<cfcatch>
 			<cftry>
