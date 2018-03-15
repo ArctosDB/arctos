@@ -90,7 +90,7 @@ function getFormattedDate() {
     console.log(getFormattedPartTime(date.getMonth()));
     console.log(getFormattedPartTime(date.getDate()));
     
-    var str = date.getFullYear() + "-" + getFormattedPartTime(date.getMonth()) + "-" + getFormattedPartTime(date.getDate());
+    var str = date.getFullYear() + "-" + getFormattedPartTime(date.getMonth() + 1) + "-" + getFormattedPartTime(date.getDate());
     return str;
 }
 
