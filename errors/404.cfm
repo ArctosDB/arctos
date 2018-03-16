@@ -56,8 +56,9 @@
 	</h2>
 
 	<cfdirectory name="dlist" directory="#application.webDirectory#" action="list" recurse="true">
-	<cfset fileName=listlast(request.rdurl,"/")>
-	<cfset fileName=listfirst(fileName,".")>
+	<cfset fileinfo=listlast(request.rdurl,"/")>
+	<cfset fileName=listfirst(fileinfo,".")>
+	<cfset queryString=listLast(fileinfo,"?")>
 
 	<!---- this is for public - limit this to root dir ---->
 	<cfquery name="fq" dbtype="query">
@@ -71,7 +72,7 @@
 			<ul>
 				<cfloop query="#fq#">
 					<li>
-						<a href="#name#">#name#</a>
+						<a href="#name#?#querystring#">#name#?#querystring#</a>
 					</li>
 				</cfloop>
 			</ul>
