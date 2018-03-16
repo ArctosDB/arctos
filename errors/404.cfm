@@ -55,10 +55,11 @@
 		404! The page you tried to access does not exist.
 	</h2>
 
-
+	<cfset tm = getTickcount()/>
 	<cfdirectory name="dlist" directory="#application.webDirectory#" action="list" recurse="true">
+	<cfset times = getTickcount() - tm/>
 
-	<cfdump var=#dlist#>
+	<cfdump var=#times#>
 
 	<script type="text/javascript">
 		var GOOG_FIXURL_LANG = 'en';
