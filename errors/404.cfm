@@ -61,6 +61,15 @@
 
 	<cfdump var=#times#>
 
+	<cfset fileName=listlast(request.rdurl,"/")>
+
+	<br>fileName: #fileName#
+
+	<cfquery name="fq" dbtype="query">
+		select * from dlist where upper(name) like '%#upper(fileName)#%'
+	</cfquery>
+	<cfdump var=#fq#>
+
 	<script type="text/javascript">
 		var GOOG_FIXURL_LANG = 'en';
 		var GOOG_FIXURL_SITE = 'http://arctos.database.museum/';
