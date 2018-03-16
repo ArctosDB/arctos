@@ -55,23 +55,28 @@
 		404! The page you tried to access does not exist.
 	</h2>
 
-	<cfset tm = getTickcount()/>
 	<cfdirectory name="dlist" directory="#application.webDirectory#" action="list" recurse="true">
-	<cfset times = getTickcount() - tm/>
-
-	<cfdump var=#times#>
-
 	<cfset fileName=listlast(request.rdurl,"/")>
 	<cfset fileName=listfirst(fileName,".")>
 
-	<br>fileName: #fileName#
 	<!---- this is for public - limit this to root dir ---->
 	<cfquery name="fq" dbtype="query">
 		select * from dlist where
 			upper(name) like '%#ucase(fileName)#%' and
 			directory ='#application.webDirectory#'
 	</cfquery>
-	<cfdump var=#fq#>
+	<cfif fq.recordcount gt 0>
+		<p>
+			Did you mean?
+			<ul>
+				<cfloop query="#fq#">
+					<li>
+						<a href="#name#">#name#</a>
+					</li>
+				</cfloop>
+			</ul>
+		</p>
+	</cfif>
 
 	<script type="text/javascript">
 		var GOOG_FIXURL_LANG = 'en';
