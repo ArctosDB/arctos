@@ -54,6 +54,12 @@
 	<h2>
 		404! The page you tried to access does not exist.
 	</h2>
+
+
+	<cfdirectory name="dlist" directory="#application.webDirectory#" action="list" recurse="true">
+
+	<cfdump var=#dlist#>
+
 	<script type="text/javascript">
 		var GOOG_FIXURL_LANG = 'en';
 		var GOOG_FIXURL_SITE = 'http://arctos.database.museum/';
