@@ -62,6 +62,7 @@
 	<cfdump var=#times#>
 
 	<cfset fileName=listlast(request.rdurl,"/")>
+	<cfset fileName=listfirst(fileName,".")>
 
 	<br>fileName: #fileName#
 
