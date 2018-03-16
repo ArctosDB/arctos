@@ -65,9 +65,11 @@
 	<cfset fileName=listfirst(fileName,".")>
 
 	<br>fileName: #fileName#
-
+	<!---- this is for public - limit this to root dir ---->
 	<cfquery name="fq" dbtype="query">
-		select * from dlist where upper(name) like '%#ucase(fileName)#%'
+		select * from dlist where
+			upper(name) like '%#ucase(fileName)#%' and
+			directory ='#application.webDirectory#'
 	</cfquery>
 	<cfdump var=#fq#>
 
