@@ -66,7 +66,7 @@
 	<br>fileName: #fileName#
 
 	<cfquery name="fq" dbtype="query">
-		select * from dlist where upper(name) like '%#upper(fileName)#%'
+		select * from dlist where ucase(name) like '%#ucase(fileName)#%'
 	</cfquery>
 	<cfdump var=#fq#>
 
