@@ -57,27 +57,17 @@
 
 	<cfdirectory name="dlist" directory="#application.webDirectory#" action="list" recurse="true">
 	<cfset fileinfo=listlast(request.rdurl,"/")>
-
-
-	<br>request.rdurl: #request.rdurl#
-
-
-	<br>fileinfo: #fileinfo#
 	<cfset fileName=listfirst(fileinfo,".")>
-	<br>fileName: #fileName#
 	<cfset queryStringS=FindOneOf("&?",request.rdurl)>
-	<br>queryStringS: #queryStringS#
 	<cfif queryStringS gt 0>
-		<cfset queryString=right(request.rdurl,len(request.rdurl)-queryStringS)>
+		<cfset queryString="?" & right(request.rdurl,len(request.rdurl)-queryStringS)>
 	<cfelse>
 		<cfset queryString="">
 	</cfif>
-
-
-
-	<br>queryString: #queryString#
-
-	<!---- this is for public - limit this to root dir ---->
+	<!----
+		this is for public - limit this to root dir
+		exclude things that require data
+	---->
 	<cfquery name="fq" dbtype="query">
 		select * from dlist where
 			upper(name) like '%#ucase(fileName)#%' and
@@ -90,7 +80,7 @@
 			<ul>
 				<cfloop query="#fq#">
 					<li>
-						<a href="#name#?#querystring#">#name#?#querystring#</a>
+						<a href="#name#?#querystring#">#name##querystring#</a>
 					</li>
 				</cfloop>
 			</ul>
