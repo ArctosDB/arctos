@@ -65,7 +65,16 @@
 	<br>fileinfo: #fileinfo#
 	<cfset fileName=listfirst(fileinfo,".")>
 	<br>fileName: #fileName#
-	<cfset queryString=listLast(fileinfo,"?")>
+	<cfset queryStringS=FindOneOf("&?",request.rdurl)>
+	<br>queryStringS: #queryStringS#
+	<cfif queryStringS gt 0>
+		<cfset queryString=right(request.rdurl,len(request.rdurl)-queryStringS)>
+	<cfelse>
+		<cfset queryString="">
+	</cfif>
+
+
+
 	<br>queryString: #queryString#
 
 	<!---- this is for public - limit this to root dir ---->
