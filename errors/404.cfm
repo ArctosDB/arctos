@@ -57,6 +57,11 @@
 
 	<cfdirectory name="dlist" directory="#application.webDirectory#" action="list" recurse="true">
 	<cfset fileinfo=listlast(request.rdurl,"/")>
+
+
+	<br>request.rdurl: #request.rdurl#
+
+
 	<br>fileinfo: #fileinfo#
 	<cfset fileName=listfirst(fileinfo,".")>
 	<br>fileName: #fileName#
