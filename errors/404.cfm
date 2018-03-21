@@ -81,7 +81,8 @@
 	<cfquery name="fq" dbtype="query">
 		select * from dlist where
 			upper(name) like '%#ucase(fileName)#%' and
-			directory ='#application.webDirectory#'
+			directory ='#application.webDirectory#' and
+			name != 'SpecimenResultsDownload.cfm'
 	</cfquery>
 	<cfif fq.recordcount gt 0>
 		<p>
