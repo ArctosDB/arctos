@@ -57,8 +57,11 @@
 
 	<cfdirectory name="dlist" directory="#application.webDirectory#" action="list" recurse="true">
 	<cfset fileinfo=listlast(request.rdurl,"/")>
+	<br>fileinfo: #fileinfo#
 	<cfset fileName=listfirst(fileinfo,".")>
+	<br>fileName: #fileName#
 	<cfset queryString=listLast(fileinfo,"?")>
+	<br>queryString: #queryString#
 
 	<!---- this is for public - limit this to root dir ---->
 	<cfquery name="fq" dbtype="query">
