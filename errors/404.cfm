@@ -86,7 +86,7 @@
 	</cfquery>
 	<cfif fq.recordcount gt 0>
 		<p>
-			Did you mean?
+			<h3>Did you mean?</h3>
 			<ul>
 				<cfloop query="#fq#">
 					<li>
