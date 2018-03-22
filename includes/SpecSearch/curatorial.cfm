@@ -151,6 +151,14 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_condition">Part Condition:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="part_condition" id="part_condition" size="50" />
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_print_flag">Print Flag:</span>
 		</td>
 		<td class="srch">
