@@ -117,6 +117,8 @@
 	}
 </script>
 <cfif action is "findNoPartTube">
+	<script src="/includes/sorttable.js"></script>
+
 	<cfoutput>
 		Find containers which are in positions and do not have children. Example: cryovials in positions in boxes which do not hold parts.
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -140,13 +142,13 @@
 			connect by tube.parent_container_id = prior tube.container_id
 			    start with tube.container_id=#container_id#
 		</cfquery>
-		<table border>
+		<table border  id="t" class="sortable">
 			<tr>
 				<th>Parent-of-position barcode</th>
 				<th>Parent-of-position type</th>
 				<th>Position Label</th>
-				<th>Child-of-position barcode</th>
-				<th>Child-of-position type</th>
+				<th>Empty Container barcode</th>
+				<th>Empty Container type</th>
 			</tr>
 			<cfloop query="d">
 				<tr>
@@ -404,7 +406,7 @@
 	</table>
 </form>
 <p>
-	<a href="EditContainer.cfm?action=findNoPartTube&container_id=#getCont.container_id#">findNoPartTube</a>
+	<a href="EditContainer.cfm?action=findNoPartTube&container_id=#getCont.container_id#">Find empty containers which have positions as parents</a>
 </p>
 <h2>Container Environment</h2>
 
