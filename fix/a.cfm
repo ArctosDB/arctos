@@ -103,7 +103,7 @@ create table temp_cd_nodef (
 	 <cfhttpparam
         type="header"
         name="secretKey"
-        value="#d.s3_secretkey"
+        value="#d.s3_secretkey#"
         />
 
     <cfhttpparam
