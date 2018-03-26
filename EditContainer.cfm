@@ -406,7 +406,9 @@
 	</table>
 </form>
 <p>
-	<a href="EditContainer.cfm?action=findNoPartTube&container_id=#getCont.container_id#">Find empty containers which have positions as parents</a>
+	<a href="EditContainer.cfm?action=findNoPartTube&container_id=#getCont.container_id#">
+		Find empty containers in this container which have positions as parents
+	</a>
 </p>
 <h2>Container Environment</h2>
 
