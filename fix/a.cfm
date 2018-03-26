@@ -26,7 +26,8 @@ create table temp_cd_nodef (
     store. While this resource address looks like a file path, it is
     a single key.
 --->
-<cfset resource = "/testing.arctos.database.museum/Arctos-generic-header.png" />
+<cfset bucket="testing.arctos.database.museum">
+<cfset resource = "Arctos-generic-header.png" />
 
 
 <!--- ----------------------------------------------------- --->
@@ -93,12 +94,12 @@ create table temp_cd_nodef (
 <cfhttp
     result="put"
     method="put"
-    url="#d.s3_endpoint##resource#">
+    url="#d.s3_endpoint##bucket#">
 
     <cfhttpparam
         type="header"
         name="accessKey"
-        value="#d.s3_accesskey#:#signature#"
+        value="#d.s3_accesskey#"
         />
 	 <cfhttpparam
         type="header"
@@ -106,6 +107,15 @@ create table temp_cd_nodef (
         value="#d.s3_secretkey#"
         />
 
+
+
+
+    <cfhttpparam
+        type="header"
+        name="x-amz-acl"
+        value="bucket-owner-full-control"
+        />
+		<!----
     <cfhttpparam
         type="header"
         name="Content-Length"
@@ -128,7 +138,7 @@ create table temp_cd_nodef (
         type="body"
         value="#content#"
         />
-
+------->
 </cfhttp>
 
 
