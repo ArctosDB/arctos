@@ -135,7 +135,8 @@
 			where
 			  tube.parent_container_id=position.container_id and
 			  position.parent_container_id=box.container_id and
-			  tube.container_id not in (select parent_container_id from container)
+			  tube.container_id not in (select parent_container_id from container) and
+			  position.container_type='position'
 			connect by tube.parent_container_id = prior tube.container_id
 			    start with tube.container_id=#container_id#
 		</cfquery>
