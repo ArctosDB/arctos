@@ -12,7 +12,7 @@ create table temp_cd_nodef (
 	<cfquery name="d" datasource="uam_god">
 		select * from cf_global_settings
 	</cfquery>
-	<cfdirectory action="create" directory="s3:#d.s3_endpoint#/testingone"/>
+	<cfdirectory action="create" directory="#replace(d.s3_endpoint,'http','s3')#/testingone"/>
 
 <!---------
 <!---
