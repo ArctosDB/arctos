@@ -9,14 +9,132 @@ create table temp_cd_nodef (
 ---->
 
 <cfoutput>
-		<cfset  func = CreateObject("component","component.utilities")>
+	<cfquery name="d" datasource="uam_god">
+		select * from cf_global_settings
+	</cfquery>
+	<cfdirectory action="create" directory="s3:#d.s3_endpont#/testingone"/>
+
+<!---------
+<!---
+    This is the file we are going to upload. We need to read in the
+    binary file since we aren't posting it like a form field - we're
+    posting it as the BODY of the PUT request.
+--->
+<cfset content = fileReadBinary( expandPath( "/images/Arctos-generic-header.png" ) ) />
+
+<!---
+    When uploading the file, we are going to save it at the
+    following "Key". NOTE: S3 is NOT A FILE SYSTEM. It's a key/value
+    store. While this resource address looks like a file path, it is
+    a single key.
+--->
+<cfset resource = "/testing.arctos.database.museum/Arctos-generic-header.png" />
 
 
+<!--- ----------------------------------------------------- --->
+<!--- ----------------------------------------------------- --->
 
-		<cfset x=func.isValidMediaUpload(f)>
 
-		<br>f: #f#
-		<br>x:#x#
+<!---
+    All requests to the S3 API have to be authenticated. Here, we are
+    going to create the "signature" to be used in the Authorization
+    header of the PUT request.
+--->
+
+<!---
+    A timestamp is required for all authenticated requests (NOTE: This
+    does not apply to query-string-authentication based requests).
+--->
+<cfset currentTime = getHttpTimeString( now() ) />
+
+<!---
+    The content type is not required; but it will be stored as meta-
+    data with the object if supplied.
+--->
+<cfset contentType = "image/png" />
+
+<!---
+    Set up the part of the string to sign - we are not including any
+    X-AMZ headers in this.
+--->
+<cfset stringToSignParts = [
+    "PUT",
+    "",
+    contentType,
+    currentTime,
+    resource
+] />
+
+<!--- Collapse the parts into a newline-delimited list. --->
+<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+
+<!---
+    The target string is then signed to Hmac-Sha1 hashing, and
+    must be encoded as Base64. For this, I am using my Crypto.cfc
+    component.
+    NOTE: If you have ColdFusion 10, the hmac() function will now
+    do this with a single function call.
+--->
+<cfset signature = new Crypto().hmacSha1(
+    aws.secretKey,
+    stringToSign,
+    "base64"
+) />
+
+
+<!--- ----------------------------------------------------- --->
+<!--- ----------------------------------------------------- --->
+
+
+<!---
+    Post the actual binary to the S3 bucket at the given resouce.
+    NOTE: Since we have not provided any ACL (Access Control List)
+    permissions, the resource will be stored as *private* by default.
+--->
+<cfhttp
+    result="put"
+    method="put"
+    url="https://s3.amazonaws.com#resource#">
+
+    <cfhttpparam
+        type="header"
+        name="Authorization"
+        value="AWS #aws.accessID#:#signature#"
+        />
+
+    <cfhttpparam
+        type="header"
+        name="Content-Length"
+        value="#arrayLen( content )#"
+        />
+
+    <cfhttpparam
+        type="header"
+        name="Content-Type"
+        value="#contentType#"
+        />
+
+    <cfhttpparam
+        type="header"
+        name="Date"
+        value="#currentTime#"
+        />
+
+    <cfhttpparam
+        type="body"
+        value="#content#"
+        />
+
+</cfhttp>
+
+
+<!--- Dump out the Amazon S3 response. --->
+<cfdump
+    var="#put#"
+    label="S3 Response"
+/>
+
+-------->
 
 </cfoutput>
 
