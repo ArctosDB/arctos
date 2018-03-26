@@ -97,8 +97,13 @@ create table temp_cd_nodef (
 
     <cfhttpparam
         type="header"
-        name="Authorization"
-        value="AWS #d.s3_accesskey#:#signature#"
+        name="accessKey"
+        value="#d.s3_accesskey#:#signature#"
+        />
+	 <cfhttpparam
+        type="header"
+        name="secretKey"
+        value="#d.s3_secretkey"
         />
 
     <cfhttpparam
