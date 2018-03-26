@@ -124,7 +124,7 @@
 		  tube.container_id tube_id,
 		  tube.container_type tube_type,
 		  box.barcode box_barcode,
-		  box.container_id box_id
+		  box.container_id box_id,
 		  box.container_type box_type,
 		  position.label position_label
 		from
