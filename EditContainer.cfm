@@ -149,10 +149,17 @@
 			</tr>
 			<cfloop query="d">
 				<tr>
-					<td>#box_barcode#</td>
+					<td>
+						#box_barcode#
+						[<a href="/findContainer.cfm?container_id=#box_id#">view in tree</a>]
+					</td>
 					<td>#box_type#</td>
 					<td>#position_label#</td>
-					<td>#tube_barcode#</td>
+					<td>
+						#tube_barcode#
+
+						[<a href="/findContainer.cfm?container_id=#tube_id#">view in tree</a>]
+					</td>
 					<td>#tube_type#</td>
 				</tr>
 			</cfloop>
