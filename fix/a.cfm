@@ -97,7 +97,7 @@ create table temp_cd_nodef (
 <cfhttp
     result="put"
     method="put"
-    url="#d.s3_endpoint#/#bucket#/#resource#">
+    url="#d.s3_endpoint#/testing.mctesty/#resource#">
 
     <cfhttpparam
         type="header"
@@ -142,6 +142,10 @@ create table temp_cd_nodef (
         />
 </cfhttp>
 </cfif>
+
+
+
+
 <cfif action is "makebucket">
 <cfhttp
     result="put"
