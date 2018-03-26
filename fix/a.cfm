@@ -12,9 +12,7 @@ create table temp_cd_nodef (
 	<cfquery name="d" datasource="uam_god">
 		select * from cf_global_settings
 	</cfquery>
-	<cfdirectory action="create" directory="#replace(d.s3_endpoint,'http','s3')#/testingone"/>
 
-<!---------
 <!---
     This is the file we are going to upload. We need to read in the
     binary file since we aren't posting it like a form field - we're
@@ -74,12 +72,13 @@ create table temp_cd_nodef (
     component.
     NOTE: If you have ColdFusion 10, the hmac() function will now
     do this with a single function call.
---->
-<cfset signature = new Crypto().hmacSha1(
+	cfset signature = new Crypto().hmacSha1(
     aws.secretKey,
     stringToSign,
     "base64"
 ) />
+--->
+<cfset signature = d.s3_secretKey>
 
 
 <!--- ----------------------------------------------------- --->
@@ -94,12 +93,12 @@ create table temp_cd_nodef (
 <cfhttp
     result="put"
     method="put"
-    url="https://s3.amazonaws.com#resource#">
+    url="#d.s3_endpoint##resource#">
 
     <cfhttpparam
         type="header"
         name="Authorization"
-        value="AWS #aws.accessID#:#signature#"
+        value="AWS #d.s3_accesskey#:#signature#"
         />
 
     <cfhttpparam
