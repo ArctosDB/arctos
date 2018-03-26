@@ -117,46 +117,47 @@
 	}
 </script>
 <cfif action is "findNoPartTube">
-	Find containers which are in positions and do not have children. Example: cryovials in positions in boxes which do not hold parts.
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-		  tube.barcode tube_barcode,
-		  tube.container_id tube_id,
-		  tube.container_type tube_type,
-		  box.barcode box_barcode,
-		  box.container_id box_id,
-		  box.container_type box_type,
-		  position.label position_label
-		from
-		  container tube,
-		  container position,
-		  container box
-		where
-		  tube.parent_container_id=position.container_id and
-		  position.parent_container_id=box.container_id and
-		  tube.container_id not in (select parent_container_id from container)
-		connect by tube.parent_container_id = prior tube.container_id
-		    start with tube.container_id=#container_id#
-	</cfquery>
-	<table border>
-		<tr>
-			<th>Parent-of-position barcode</th>
-			<th>Parent-of-position type</th>
-			<th>Position Label</th>
-			<th>Child-of-position barcode</th>
-			<th>Child-of-position type</th>
-		</tr>
-		<cfloop query="d">
+	<cfoutput>
+		Find containers which are in positions and do not have children. Example: cryovials in positions in boxes which do not hold parts.
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+			  tube.barcode tube_barcode,
+			  tube.container_id tube_id,
+			  tube.container_type tube_type,
+			  box.barcode box_barcode,
+			  box.container_id box_id,
+			  box.container_type box_type,
+			  position.label position_label
+			from
+			  container tube,
+			  container position,
+			  container box
+			where
+			  tube.parent_container_id=position.container_id and
+			  position.parent_container_id=box.container_id and
+			  tube.container_id not in (select parent_container_id from container)
+			connect by tube.parent_container_id = prior tube.container_id
+			    start with tube.container_id=#container_id#
+		</cfquery>
+		<table border>
 			<tr>
-				<td>#box_barcode#</td>
-				<td>#box_type#</td>
-				<td>#position_label#</td>
-				<td>#tube_barcode#</td>
-				<td>#tube_type#</td>
+				<th>Parent-of-position barcode</th>
+				<th>Parent-of-position type</th>
+				<th>Position Label</th>
+				<th>Child-of-position barcode</th>
+				<th>Child-of-position type</th>
 			</tr>
-		</cfloop>
-	</table>
-
+			<cfloop query="d">
+				<tr>
+					<td>#box_barcode#</td>
+					<td>#box_type#</td>
+					<td>#position_label#</td>
+					<td>#tube_barcode#</td>
+					<td>#tube_type#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
 </cfif>
 
 <!---------------------------------------------------------------->
