@@ -91,10 +91,62 @@ create table temp_cd_nodef (
     NOTE: Since we have not provided any ACL (Access Control List)
     permissions, the resource will be stored as *private* by default.
 --->
+
+
+<cfif action is "putfile">
 <cfhttp
     result="put"
     method="put"
-    url="#d.s3_endpoint##bucket#">
+    url="#d.s3_endpoint#/#bucket#/#resource#">
+
+    <cfhttpparam
+        type="header"
+        name="accessKey"
+        value="#d.s3_accesskey#"
+        />
+	 <cfhttpparam
+        type="header"
+        name="secretKey"
+        value="#d.s3_secretkey#"
+        />
+
+
+
+
+    <cfhttpparam
+        type="header"
+        name="x-amz-acl"
+        value="bucket-owner-full-control"
+        />
+    <cfhttpparam
+        type="header"
+        name="Content-Length"
+        value="#arrayLen( content )#"
+        />
+
+    <cfhttpparam
+        type="header"
+        name="Content-Type"
+        value="#contentType#"
+        />
+
+    <cfhttpparam
+        type="header"
+        name="Date"
+        value="#currentTime#"
+        />
+
+    <cfhttpparam
+        type="body"
+        value="#content#"
+        />
+</cfhttp>
+</cfif>
+<cfif action is "makebucket">
+<cfhttp
+    result="put"
+    method="put"
+    url="#d.s3_endpoint#/#bucket#">
 
     <cfhttpparam
         type="header"
@@ -140,7 +192,7 @@ create table temp_cd_nodef (
         />
 ------->
 </cfhttp>
-
+</cfif>
 
 <!--- Dump out the Amazon S3 response. --->
 <cfdump
@@ -148,7 +200,6 @@ create table temp_cd_nodef (
     label="S3 Response"
 />
 
--------->
 
 </cfoutput>
 
