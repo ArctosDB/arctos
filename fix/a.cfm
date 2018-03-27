@@ -46,6 +46,8 @@ create table temp_cd_nodef (
     bucket & "/" & resource
 ] />
 
+
+stringToSignParts: #stringToSignParts#
 <!--- ----------------------------------------------------- --->
 <!--- ----------------------------------------------------- --->
 
@@ -88,7 +90,6 @@ create table temp_cd_nodef (
     stringToSign,
     "HMACSHA256"
 ) />
-
 
 
 
