@@ -29,7 +29,6 @@ create table temp_cd_nodef (
 
 
 
-<br>stringToSignParts: <cfdump var=#stringToSignParts#>
 <!--- ----------------------------------------------------- --->
 <!--- ----------------------------------------------------- --->
 
@@ -59,7 +58,6 @@ create table temp_cd_nodef (
 
 <!--- Collapse the parts into a newline-delimited list. --->
 
-<br>stringToSign: #stringToSign#
 
 <!---
     The target string is then signed to Hmac-Sha1 hashing, and
@@ -80,7 +78,6 @@ create table temp_cd_nodef (
 
 ---->
 
-<br>signature: #signature#
 
 
 <!---
