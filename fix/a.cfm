@@ -50,7 +50,7 @@ create table temp_cd_nodef (
 ] />
 
 
-stringToSignParts: <cfdump var=#stringToSignParts#>
+<br>stringToSignParts: <cfdump var=#stringToSignParts#>
 <!--- ----------------------------------------------------- --->
 <!--- ----------------------------------------------------- --->
 
@@ -81,6 +81,8 @@ stringToSignParts: <cfdump var=#stringToSignParts#>
 <!--- Collapse the parts into a newline-delimited list. --->
 <cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
 
+<br>stringToSign: #stringToSign#
+
 <!---
     The target string is then signed to Hmac-Sha1 hashing, and
     must be encoded as Base64. For this, I am using my Crypto.cfc
@@ -96,6 +98,7 @@ stringToSignParts: <cfdump var=#stringToSignParts#>
 
 
 
+<br>signature: #signature#
 
 
 <!---
