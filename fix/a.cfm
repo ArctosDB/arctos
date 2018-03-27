@@ -18,7 +18,6 @@ create table temp_cd_nodef (
     binary file since we aren't posting it like a form field - we're
     posting it as the BODY of the PUT request.
 --->
-<cfset content = fileReadBinary( expandPath( "/images/Arctos-generic-header.png" ) ) />
 
 <!---
     When uploading the file, we are going to save it at the
@@ -26,27 +25,8 @@ create table temp_cd_nodef (
     store. While this resource address looks like a file path, it is
     a single key.
 --->
-<cfset bucket="testing.mctesty">
-<cfset resource = "Arctos-generic-header.png" />
-
-<cfset currentTime = getHttpTimeString( now() ) />
 
 
-
-
-
-<cfset contentType = "image/png" />
-
-<cfset contentLength=arrayLen( content )>
-
-
-<cfset stringToSignParts = [
-    "PUT",
-    "",
-    contentType,
-    currentTime,
-    "/" & bucket & "/" & resource
-] />
 
 
 <br>stringToSignParts: <cfdump var=#stringToSignParts#>
@@ -78,7 +58,6 @@ create table temp_cd_nodef (
 
 
 <!--- Collapse the parts into a newline-delimited list. --->
-<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
 
 <br>stringToSign: #stringToSign#
 
@@ -90,14 +69,6 @@ create table temp_cd_nodef (
     do this with a single function call.
 --->
 
-
-<cfset signature = binaryEncode(
-		binaryDecode(
-			hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
-			"hex"
-		),
-		"base64"
-	)>
 
 	<!----
 
@@ -138,70 +109,75 @@ create table temp_cd_nodef (
 
 
 <cfif action is "putfile">
-<cfhttp
-    result="put"
-    method="put"
-    url="#d.s3_endpoint#/testing.mctesty/#resource#">
+	<cfset content = fileReadBinary( expandPath( "/images/Arctos-generic-header.png" ) ) />
+	<cfset bucket="testing.mctesty/subtester">
+	<cfset resource = "Arctos-generic-header.png" />
+	<cfset currentTime = getHttpTimeString( now() ) />
+	<cfset contentType = "image/png" />
+	<cfset contentLength=arrayLen( content )>
+
+	<cfset stringToSignParts = [
+	    "PUT",
+	    "",
+	    contentType,
+	    currentTime,
+	    "/" & bucket & "/" & resource
+	] />
+
+	<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+
+	<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
 
 
-<!----
-    <cfhttpparam
-        type="header"
-        name="accessKey"
-        value="#d.s3_accesskey#"
-        />
-	 <cfhttpparam
-        type="header"
-        name="secretKey"
-        value="#d.s3_secretkey#"
-        />
+	<cfhttp
+	    result="put"
+	    method="put"
+	    url="#d.s3_endpoint#/testing.mctesty/#resource#">
 
-
-    <cfhttpparam
-        type="header"
-        name="x-amz-acl"
-        value="bucket-owner-full-control"
-        />
-
-
-----><cfhttpparam
-        type="header"
-        name="Authorization"
-        value="AWS #d.s3_accesskey#:#signature#"
-/>
+		<cfhttpparam
+	        type="header"
+	        name="Authorization"
+	        value="AWS #d.s3_accesskey#:#signature#"
+		/>
 
 
 
 
-    <cfhttpparam
-        type="header"
-        name="Content-Length"
-        value="#contentLength#"
-        />
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Length"
+	        value="#contentLength#"
+	        />
 
-    <cfhttpparam
-        type="header"
-        name="Content-Length"
-        value="#arrayLen( content )#"
-        />
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Length"
+	        value="#arrayLen( content )#"
+	        />
 
-    <cfhttpparam
-        type="header"
-        name="Content-Type"
-        value="#contentType#"
-        />
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Type"
+	        value="#contentType#"
+	        />
 
-    <cfhttpparam
-        type="header"
-        name="Date"
-        value="#currentTime#"
-        />
+	    <cfhttpparam
+	        type="header"
+	        name="Date"
+	        value="#currentTime#"
+	        />
 
-    <cfhttpparam
-        type="body"
-        value="#content#"
-        />
-</cfhttp>
+	    <cfhttpparam
+	        type="body"
+	        value="#content#"
+	        />
+	</cfhttp>
 </cfif>
 
 
