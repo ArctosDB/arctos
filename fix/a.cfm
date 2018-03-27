@@ -43,7 +43,7 @@ create table temp_cd_nodef (
     "",
     contentType,
     currentTime,
-    bucket & "/" & resource
+    "/" & bucket & "/" & resource
 ] />
 
 
