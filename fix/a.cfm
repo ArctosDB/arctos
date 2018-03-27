@@ -13,6 +13,37 @@ create table temp_cd_nodef (
 		select * from cf_global_settings
 	</cfquery>
 
+
+
+<cfscript>
+credentials = CreateObject(
+	'java',
+	'com.amazonaws.auth.BasicAWSCredentials'
+).init(
+	'YourAWSAccessKeyID',
+	'YourAWSSecretAccessKey'
+);
+
+s3 = CreateObject(
+	'java',
+	'com.amazonaws.services.s3.AmazonS3Client'
+).init(
+	credentials
+);
+
+buckets = s3.listBuckets();
+
+buckets_iterator = buckets.listIterator();
+
+while ( buckets_iterator.hasNext() ) {
+
+	bucket = buckets_iterator.next();
+	writedump( bucket.getName() );
+
+}
+
+
+</cfscript>
 <!---
     This is the file we are going to upload. We need to read in the
     binary file since we aren't posting it like a form field - we're
@@ -103,6 +134,12 @@ create table temp_cd_nodef (
     NOTE: Since we have not provided any ACL (Access Control List)
     permissions, the resource will be stored as *private* by default.
 --->
+
+upload.zip.test
+<cfif action is "ziptest">
+
+</cfif>
+
 
 
 <cfif action is "putfile">
