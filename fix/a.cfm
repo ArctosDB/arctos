@@ -44,7 +44,6 @@ create table temp_cd_nodef (
     "PUT",
     "",
     contentType,
-	contentLength,
     currentTime,
     "/" & bucket & "/" & resource
 ] />
@@ -90,13 +89,25 @@ create table temp_cd_nodef (
     NOTE: If you have ColdFusion 10, the hmac() function will now
     do this with a single function call.
 --->
+
+
+<cfset signature = binaryEncode(
+		binaryDecode(
+			hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+			"hex"
+		),
+		"base64"
+	)>
+
+	<!----
+
 <cfset signature =hmac(
     d.s3_secretKey,
     stringToSign,
     "HMACSHA256"
 ) />
 
-
+---->
 
 <br>signature: #signature#
 
