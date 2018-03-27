@@ -79,7 +79,7 @@ create table temp_cd_nodef (
 <cfset signature =hmac(
     d.s3_secretKey,
     stringToSign,
-    "base64"
+    "HMACSHA256"
 ) />
 
 
