@@ -107,8 +107,12 @@ create table temp_cd_nodef (
 
 <cfif action is "putfile">
 	<cfset lclfile="/images/Arctos_schema.gif">
-	<cfset resource = listlast(lslfile,"/")>
+
+	<br>lclfile: #lclfile#
+	<cfset resource = listlast(lclfile,"/")>
+	<br>resource: #resource#
 	<cfset fPath=replace(lclfile,resource,"","last")>
+	<br>fPath: #fPath#
 
 	<cfset content = fileReadBinary( expandPath( "#lclfile#" ) ) />
 
