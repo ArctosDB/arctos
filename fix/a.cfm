@@ -47,7 +47,7 @@ create table temp_cd_nodef (
 ] />
 
 
-stringToSignParts: #stringToSignParts#
+stringToSignParts: <cfdump var=#stringToSignParts#>
 <!--- ----------------------------------------------------- --->
 <!--- ----------------------------------------------------- --->
 
