@@ -37,11 +37,14 @@ create table temp_cd_nodef (
 
 <cfset contentType = "image/png" />
 
+<cfset contentLength=arrayLen( content )>
+
 
 <cfset stringToSignParts = [
     "PUT",
     "",
     contentType,
+	contentLength,
     currentTime,
     "/" & bucket & "/" & resource
 ] />
@@ -155,6 +158,12 @@ stringToSignParts: <cfdump var=#stringToSignParts#>
 
 
 
+
+    <cfhttpparam
+        type="header"
+        name="Content-Length"
+        value="#contentLength#"
+        />
 
     <cfhttpparam
         type="header"
