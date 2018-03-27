@@ -64,8 +64,28 @@ create table temp_cd_nodef (
     resource
 ] />
 
+
+
 <!--- Collapse the parts into a newline-delimited list. --->
 <cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+
+<!---
+    The target string is then signed to Hmac-Sha1 hashing, and
+    must be encoded as Base64. For this, I am using my Crypto.cfc
+    component.
+    NOTE: If you have ColdFusion 10, the hmac() function will now
+    do this with a single function call.
+--->
+<cfset signature = new Crypto().hmacSha1(
+    d.s3_secretKey,
+    stringToSign,
+    "base64"
+) />
+
+
+
+
+
 
 <!---
     The target string is then signed to Hmac-Sha1 hashing, and
@@ -79,7 +99,6 @@ create table temp_cd_nodef (
     "base64"
 ) />
 --->
-<cfset signature = d.s3_secretKey>
 
 
 <!--- ----------------------------------------------------- --->
@@ -99,6 +118,8 @@ create table temp_cd_nodef (
     method="put"
     url="#d.s3_endpoint#/testing.mctesty/#resource#">
 
+
+<!----
     <cfhttpparam
         type="header"
         name="accessKey"
@@ -111,13 +132,22 @@ create table temp_cd_nodef (
         />
 
 
-
-
     <cfhttpparam
         type="header"
         name="x-amz-acl"
         value="bucket-owner-full-control"
         />
+
+
+----><cfhttpparam
+        type="header"
+        name="Authorization"
+        value="AWS #d.accessID#:#signature#"
+/>
+
+
+
+
     <cfhttpparam
         type="header"
         name="Content-Length"
