@@ -108,6 +108,7 @@ create table temp_cd_nodef (
 <cfif action is "putfile">
 	<cfset content = fileReadBinary( expandPath( "/images/arctos_logo.gif" ) ) />
 	<cfset bucket="testing.mctesty/mai_bukkit">
+	<cfset resource = "arctos_logo.gif" />
 	<cfset currentTime = getHttpTimeString( now() ) />
 	<cfset contentType = "image/gif" />
 	<cfset contentLength=arrayLen( content )>
