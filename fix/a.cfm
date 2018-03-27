@@ -26,9 +26,25 @@ create table temp_cd_nodef (
     store. While this resource address looks like a file path, it is
     a single key.
 --->
-<cfset bucket="testing.arctos.database.museum">
+<cfset bucket="testing.mctesty">
 <cfset resource = "Arctos-generic-header.png" />
 
+<cfset currentTime = getHttpTimeString( now() ) />
+
+
+
+
+
+<cfset contentType = "image/png" />
+
+
+<cfset stringToSignParts = [
+    "PUT",
+    "",
+    contentType,
+    currentTime,
+    bucket & "/" & resource
+] />
 
 <!--- ----------------------------------------------------- --->
 <!--- ----------------------------------------------------- --->
@@ -44,25 +60,16 @@ create table temp_cd_nodef (
     A timestamp is required for all authenticated requests (NOTE: This
     does not apply to query-string-authentication based requests).
 --->
-<cfset currentTime = getHttpTimeString( now() ) />
 
 <!---
     The content type is not required; but it will be stored as meta-
     data with the object if supplied.
 --->
-<cfset contentType = "image/png" />
 
 <!---
     Set up the part of the string to sign - we are not including any
     X-AMZ headers in this.
 --->
-<cfset stringToSignParts = [
-    "PUT",
-    "",
-    contentType,
-    currentTime,
-    resource
-] />
 
 
 
