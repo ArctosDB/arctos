@@ -106,11 +106,10 @@ create table temp_cd_nodef (
 
 
 <cfif action is "putfile">
-	<cfset content = fileReadBinary( expandPath( "/images/Arctos-generic-header.png" ) ) />
-	<cfset bucket="testing.mctesty/subtester">
-	<cfset resource = "Arctos-generic-header.png" />
+	<cfset content = fileReadBinary( expandPath( "/images/arctos_logo.gif" ) ) />
+	<cfset bucket="testing.mctesty/mai_bukkit">
 	<cfset currentTime = getHttpTimeString( now() ) />
-	<cfset contentType = "image/png" />
+	<cfset contentType = "image/gif" />
 	<cfset contentLength=arrayLen( content )>
 
 	<cfset stringToSignParts = [
