@@ -76,7 +76,7 @@ create table temp_cd_nodef (
     NOTE: If you have ColdFusion 10, the hmac() function will now
     do this with a single function call.
 --->
-<cfset signature = new Crypto().hmacSha1(
+<cfset signature =hmac(
     d.s3_secretKey,
     stringToSign,
     "base64"
