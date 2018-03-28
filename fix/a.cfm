@@ -157,7 +157,6 @@ create table temp_cd_nodef (
 	    "GET",
 	    "",
 	    "",
-	    contentType,
 	    currentTime,
 	    "/" & bucket
 	] />
