@@ -12,131 +12,45 @@ create table temp_cd_nodef (
 	<cfquery name="d" datasource="uam_god">
 		select * from cf_global_settings
 	</cfquery>
+ S3_ENDPOINT								    VARCHAR2(4000)
+ S3_ACCESSKEY								    VARCHAR2(4000)
+ S3_SECRETKEY								    VARCHAR2(4000)
 
 
 
-<cfscript>
-credentials = CreateObject(
-	'java',
-	'com.amazonaws.auth.BasicAWSCredentials'
-).init(
-	'YourAWSAccessKeyID',
-	'YourAWSSecretAccessKey'
-);
-
-s3 = CreateObject(
-	'java',
-	'com.amazonaws.services.s3.AmazonS3Client'
-).init(
-	credentials
-);
-
-buckets = s3.listBuckets();
-
-buckets_iterator = buckets.listIterator();
-
-while ( buckets_iterator.hasNext() ) {
-
-	bucket = buckets_iterator.next();
-	writedump( bucket.getName() );
-
-}
-
-
-</cfscript>
-<!---
-    This is the file we are going to upload. We need to read in the
-    binary file since we aren't posting it like a form field - we're
-    posting it as the BODY of the PUT request.
---->
-
-<!---
-    When uploading the file, we are going to save it at the
-    following "Key". NOTE: S3 is NOT A FILE SYSTEM. It's a key/value
-    store. While this resource address looks like a file path, it is
-    a single key.
---->
-
-
-
-
-<!--- ----------------------------------------------------- --->
-<!--- ----------------------------------------------------- --->
-
-
-<!---
-    All requests to the S3 API have to be authenticated. Here, we are
-    going to create the "signature" to be used in the Authorization
-    header of the PUT request.
---->
-
-<!---
-    A timestamp is required for all authenticated requests (NOTE: This
-    does not apply to query-string-authentication based requests).
---->
-
-<!---
-    The content type is not required; but it will be stored as meta-
-    data with the object if supplied.
---->
-
-<!---
-    Set up the part of the string to sign - we are not including any
-    X-AMZ headers in this.
---->
-
-
-
-<!--- Collapse the parts into a newline-delimited list. --->
-
-
-<!---
-    The target string is then signed to Hmac-Sha1 hashing, and
-    must be encoded as Base64. For this, I am using my Crypto.cfc
-    component.
-    NOTE: If you have ColdFusion 10, the hmac() function will now
-    do this with a single function call.
---->
-
-
-	<!----
-
-<cfset signature =hmac(
-    d.s3_secretKey,
-    stringToSign,
-    "HMACSHA256"
-) />
-
----->
-
-
-
-<!---
-    The target string is then signed to Hmac-Sha1 hashing, and
-    must be encoded as Base64. For this, I am using my Crypto.cfc
-    component.
-    NOTE: If you have ColdFusion 10, the hmac() function will now
-    do this with a single function call.
-	cfset signature = new Crypto().hmacSha1(
-    aws.secretKey,
-    stringToSign,
-    "base64"
-) />
---->
-
-
-<!--- ----------------------------------------------------- --->
-<!--- ----------------------------------------------------- --->
-
-
-<!---
-    Post the actual binary to the S3 bucket at the given resouce.
-    NOTE: Since we have not provided any ACL (Access Control List)
-    permissions, the resource will be stored as *private* by default.
---->
-
-upload.zip.test
 <cfif action is "ziptest">
+
+<cfset expDate = DateConvert("local2utc", now())>
+<cfset expDate = DateAdd("n", 15, expDate)><!--- policy expires in 15 minutes --->
+<cfset fileName = CreateUUID() & ".jpg">
+<cfoutput>
+<cfsavecontent name="jsonPolicy">
+{ "expiration": "#DateFormat(expDate, "yyyy-mm-dd")#T#TimeFormat(expDate, "HH:mm")#:00.000Z",
+  "conditions": [
+    {"bucket": "testing.mctesty" },
+    ["eq", "$key", "#JSStringFormat(fileName)#"],
+    {"acl": "public-read" },
+    {"redirect": "https://example.com/upload-complete.cfm" },
+    ["content-length-range", 1, 1048576],
+    ["starts-with", "$Content-Type", "image/"]
+  ]
+}
+</cfsavecontent>
+</cfoutput>
+<cfset b64Policy = toBase64(Trim(jsonPolicy), "utf-8")>
+<cfset signature = HMac(b64Policy, d.S3_SECRETKEY, "HMACSHA1", "utf-8")>
+<!--- convert signature from hex to base64 --->
+<cfset signature = binaryEncode( binaryDecode( signature, "hex" ), "base64")>
+<form action="http://129.114.52.101:9003/minio/testing.mctesty/" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="key" value="#EncodeForHTMLAttribute(fileName)#" /
+    <input type="hidden" name="acl" value="public-read" />
+    <input type="hidden" name="redirect" value="https://example.com/upload-complete.cfm" >
+    <input type="hidden" name="AWSAccessKeyId " value="#EncodeForHTMLAttribute(d.S3_ACCESSKEY)#" />
+    <input type="hidden" name="Policy" value="#b64Policy#" />
+    <input type="hidden" name="Signature" value="#signature#" />
+    File: <input type="file" name="file" />
+    <input type="submit" name="submit" value="Upload to Amazon S3" />
+</form>
 
 </cfif>
 
