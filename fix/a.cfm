@@ -146,6 +146,59 @@ create table temp_cd_nodef (
 
 
 
+<cfif action is "list">
+
+
+	<cfset currentTime = getHttpTimeString( now() ) />
+
+	<cfset contentType = "text/html" />
+	<cfset bucket="testing.mctesty">
+
+<cfset stringToSignParts = [
+	    "GET",
+	    "",
+	    contentType,
+	    currentTime,
+	    "/" & bucket
+	] />
+	<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+
+	<br>stringToSign: #stringToSign#
+	<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
+
+<cfhttp
+    method="get"
+    url="#d.s3_endpoint#/#bucket#">
+
+	<cfhttpparam
+	        type="header"
+	        name="Authorization"
+	        value="AWS #d.s3_accesskey#:#signature#"
+		/>
+
+
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Type"
+	        value="#contentType#"
+	        />
+	    <cfhttpparam
+	        type="header"
+	        name="Date"
+	        value="#currentTime#"
+	        />
+
+
+</cfhttp>
+
+<cfdump var=#cfhttp#>
+</cfif>
 
 <cfif action is "makebucket">
 	<cfset currentTime = getHttpTimeString( now() ) />
