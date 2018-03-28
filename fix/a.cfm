@@ -163,6 +163,7 @@ create table temp_cd_nodef (
 	    "PUT",
 	    "",
 	    currentTime,
+	    "bucket-owner-full-control",
 	    "/" & bucket
 	] />
 
