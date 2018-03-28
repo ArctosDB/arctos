@@ -156,12 +156,13 @@ create table temp_cd_nodef (
 <cfif action is "makebucket">
 	<cfset currentTime = getHttpTimeString( now() ) />
 
+	<cfset contentType = "text/html" />
 	<cfset bucket="maitoplevelbucket">
 
-
-	<cfset stringToSignParts = [
+<cfset stringToSignParts = [
 	    "PUT",
 	    "",
+	    contentType,
 	    currentTime,
 	    "/" & bucket
 	] />
