@@ -156,6 +156,7 @@ create table temp_cd_nodef (
 	<cfset stringToSignParts = [
 	    "GET",
 	    "",
+	    "",
 	    contentType,
 	    currentTime,
 	    "/" & bucket
