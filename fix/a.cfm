@@ -152,7 +152,7 @@ create table temp_cd_nodef (
 	<cfset currentTime = getHttpTimeString( now() ) />
 	<cfset contentType = "text/html" />
 	<!--- leave blank to list all --->
-	<cfset bucket="testing.mctesty">
+	<cfset bucket="?prefix=A">
 
 	<cfset stringToSignParts = [
 	    "GET",
@@ -174,7 +174,7 @@ create table temp_cd_nodef (
 			"base64"
 		)>
 
-	<cfhttp method="GET" url="#d.s3_endpoint#?prefix=A" charset="utf-8">
+	<cfhttp method="GET" url="#d.s3_endpoint#" charset="utf-8">
 	    <cfhttpparam type="header" name="Date" value="#currentTime#">
 		<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#">
 	</cfhttp>
