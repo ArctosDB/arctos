@@ -156,7 +156,7 @@ create table temp_cd_nodef (
 <cfif action is "makebucket">
 	<cfset currentTime = getHttpTimeString( now() ) />
 
-	<cfset bucket="testing.mctesty/another_bucket">
+	<cfset bucket="toplevelbucket">
 
 
 	<cfset stringToSignParts = [
