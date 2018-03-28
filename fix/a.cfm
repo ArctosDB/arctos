@@ -119,12 +119,6 @@ create table temp_cd_nodef (
 
 	    <cfhttpparam
 	        type="header"
-	        name="Content-Length"
-	        value="#arrayLen( content )#"
-	        />
-
-	    <cfhttpparam
-	        type="header"
 	        name="Content-Type"
 	        value="#contentType#"
 	        />
@@ -194,6 +188,11 @@ create table temp_cd_nodef (
 		/>
 
 
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Type"
+	        value="#contentType#"
+	        />
 	    <cfhttpparam
 	        type="header"
 	        name="Date"
