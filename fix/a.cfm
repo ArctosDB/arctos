@@ -180,7 +180,7 @@ create table temp_cd_nodef (
 	</cfhttp>
 
 <cfdump var=#cfhttp#>
-<cfset x=xmlparse(cfhtt.filecontent)>
+<cfset x=xmlparse(cfhttp.Filecontent)>
 <cfdump var=#x#>
 </cfif>
 
