@@ -156,14 +156,13 @@ create table temp_cd_nodef (
 <cfif action is "makebucket">
 	<cfset currentTime = getHttpTimeString( now() ) />
 
-	<cfset bucket="toplevelbucket">
+	<cfset bucket="maitoplevelbucket">
 
 
 	<cfset stringToSignParts = [
 	    "PUT",
 	    "",
 	    currentTime,
-	    len('bucket-owner-full-control'),
 	    "/" & bucket
 	] />
 
@@ -200,12 +199,12 @@ create table temp_cd_nodef (
 	        />
 
 
+		<!----
     <cfhttpparam
         type="header"
         name="x-amz-acl"
         value="bucket-owner-full-control"
         />
-		<!----
     <cfhttpparam
         type="header"
         name="Content-Length"
