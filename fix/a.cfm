@@ -151,7 +151,7 @@ create table temp_cd_nodef (
 	<cfset currentTime = getHttpTimeString( now() ) />
 
 	<cfset contentType = "text/html" />
-	<cfset bucket="maitoplevelbucket">
+	<cfset bucket="maitoplevelbucket/maisecondlevelbucket">
 
 <cfset stringToSignParts = [
 	    "PUT",
