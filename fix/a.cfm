@@ -134,6 +134,14 @@ create table temp_cd_nodef (
 	        value="#content#"
 	        />
 	</cfhttp>
+
+
+	<!--- Dump out the Amazon S3 response. --->
+<cfdump
+    var="#put#"
+    label="S3 Response"
+/>
+
 </cfif>
 
 
@@ -189,13 +197,15 @@ create table temp_cd_nodef (
         />
 ------->
 </cfhttp>
-</cfif>
 
 <!--- Dump out the Amazon S3 response. --->
 <cfdump
     var="#put#"
     label="S3 Response"
 />
+
+</cfif>
+
 
 
 </cfoutput>
