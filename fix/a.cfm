@@ -162,7 +162,9 @@ create table temp_cd_nodef (
 	] />
 	<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
 
+	<cfset dsts=replace(stringToSign,chr(10),"\n","all")>
 	<br>stringToSign: #stringToSign#
+	<br>dsts: #dsts#
 	<cfset signature = binaryEncode(
 			binaryDecode(
 				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
