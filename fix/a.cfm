@@ -163,7 +163,7 @@ create table temp_cd_nodef (
 	    "PUT",
 	    "",
 	    currentTime,
-	    "/" & bucket & "/" & resource
+	    "/" & bucket
 	] />
 
 	<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
