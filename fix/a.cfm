@@ -23,7 +23,6 @@ create table temp_cd_nodef (
 <cfset expDate = DateConvert("local2utc", now())>
 <cfset expDate = DateAdd("n", 15, expDate)><!--- policy expires in 15 minutes --->
 <cfset fileName = CreateUUID() & ".jpg">
-<cfoutput>
 <cfsavecontent variable="jsonPolicy">
 { "expiration": "#DateFormat(expDate, "yyyy-mm-dd")#T#TimeFormat(expDate, "HH:mm")#:00.000Z",
   "conditions": [
@@ -36,7 +35,6 @@ create table temp_cd_nodef (
   ]
 }
 </cfsavecontent>
-</cfoutput>
 <cfset b64Policy = toBase64(Trim(jsonPolicy), "utf-8")>
 <cfset signature = HMac(b64Policy, d.S3_SECRETKEY, "HMACSHA1", "utf-8")>
 <!--- convert signature from hex to base64 --->
