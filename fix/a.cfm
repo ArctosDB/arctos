@@ -12,6 +12,8 @@ create table temp_cd_nodef (
 	<cfquery name="d" datasource="uam_god">
 		select * from cf_global_settings
 	</cfquery>
+
+
  S3_ENDPOINT								    VARCHAR2(4000)
  S3_ACCESSKEY								    VARCHAR2(4000)
  S3_SECRETKEY								    VARCHAR2(4000)
@@ -20,35 +22,35 @@ create table temp_cd_nodef (
 
 <cfif action is "ziptest">
 
-<cfset expDate = DateConvert("local2utc", now())>
-<cfset expDate = DateAdd("n", 15, expDate)><!--- policy expires in 15 minutes --->
-<cfset fileName = CreateUUID() & ".jpg">
-<cfsavecontent variable="jsonPolicy">
-{ "expiration": "#DateFormat(expDate, "yyyy-mm-dd")#T#TimeFormat(expDate, "HH:mm")#:00.000Z",
-  "conditions": [
-    {"bucket": "testing.mctesty" },
-    ["eq", "$key", "#JSStringFormat(fileName)#"],
-    {"acl": "public-read" },
-    {"redirect": "https://example.com/upload-complete.cfm" },
-    ["content-length-range", 1, 1048576],
-    ["starts-with", "$Content-Type", "image/"]
-  ]
-}
-</cfsavecontent>
-<cfset b64Policy = toBase64(Trim(jsonPolicy), "utf-8")>
-<cfset signature = HMac(b64Policy, d.S3_SECRETKEY, "HMACSHA1", "utf-8")>
-<!--- convert signature from hex to base64 --->
-<cfset signature = binaryEncode( binaryDecode( signature, "hex" ), "base64")>
-<form action="http://129.114.52.101:9003/minio/testing.mctesty/" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="key" value="#EncodeForHTMLAttribute(fileName)#" /
-    <input type="hidden" name="acl" value="public-read" />
-    <input type="hidden" name="redirect" value="https://example.com/upload-complete.cfm" >
-    <input type="hidden" name="AWSAccessKeyId " value="#EncodeForHTMLAttribute(d.S3_ACCESSKEY)#" />
-    <input type="hidden" name="Policy" value="#b64Policy#" />
-    <input type="hidden" name="Signature" value="#signature#" />
-    File: <input type="file" name="file" />
-    <input type="submit" name="submit" value="Upload to Amazon S3" />
-</form>
+	<cfset expDate = DateConvert("local2utc", now())>
+	<cfset expDate = DateAdd("n", 15, expDate)><!--- policy expires in 15 minutes --->
+	<cfset fileName = CreateUUID() & ".jpg">
+	<cfsavecontent variable="jsonPolicy">
+	{ "expiration": "#DateFormat(expDate, "yyyy-mm-dd")#T#TimeFormat(expDate, "HH:mm")#:00.000Z",
+	  "conditions": [
+	    {"bucket": "testing.mctesty" },
+	    ["eq", "$key", "#JSStringFormat(fileName)#"],
+	    {"acl": "public-read" },
+	    {"redirect": "https://example.com/upload-complete.cfm" },
+	    ["content-length-range", 1, 1048576],
+	    ["starts-with", "$Content-Type", "image/"]
+	  ]
+	}
+	</cfsavecontent>
+	<cfset b64Policy = toBase64(Trim(jsonPolicy), "utf-8")>
+	<cfset signature = HMac(b64Policy, d.S3_SECRETKEY, "HMACSHA1", "utf-8")>
+	<!--- convert signature from hex to base64 --->
+	<cfset signature = binaryEncode( binaryDecode( signature, "hex" ), "base64")>
+	<form action="http://129.114.52.101:9003/minio/testing.mctesty/" method="post" enctype="multipart/form-data">
+	    <input type="hidden" name="key" value="#EncodeForHTMLAttribute(fileName)#" />
+	    <input type="hidden" name="acl" value="public-read" />
+	    <input type="hidden" name="redirect" value="https://example.com/upload-complete.cfm" >
+	    <input type="hidden" name="AWSAccessKeyId " value="#EncodeForHTMLAttribute(d.S3_ACCESSKEY)#" />
+	    <input type="hidden" name="Policy" value="#b64Policy#" />
+	    <input type="hidden" name="Signature" value="#signature#" />
+	    File: <input type="file" name="file" />
+	    <input type="submit" name="submit" value="Upload to Amazon S3" />
+	</form>
 
 </cfif>
 
