@@ -152,7 +152,7 @@ create table temp_cd_nodef (
 	<cfset currentTime = getHttpTimeString( now() ) />
 	<cfset contentType = "text/html" />
 	<!--- leave blank to list all --->
-	<cfset bucket="">
+	<cfset bucket="testing.mctesty">
 
 	<cfset stringToSignParts = [
 	    "GET",
