@@ -177,7 +177,7 @@ create table temp_cd_nodef (
 	<cfhttp method="GET" url="#d.s3_endpoint#/#bucket#" charset="utf-8">
 	    <cfhttpparam type="header" name="Date" value="#currentTime#">
 		<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#">
-	    <cfhttpparam type="header" name="prefix" value="A">
+	    <cfhttpparam type="header" name="prefix" value="/mai_bukkit/">
 	</cfhttp>
 
 <cfdump var=#cfhttp#>
