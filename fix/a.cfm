@@ -171,7 +171,7 @@ create table temp_cd_nodef (
 			"base64"
 		)>
 
-	<cfhttp method="GET" url="#d.s3_endpoint#/#bucket#">
+	<cfhttp method="GET" url="#d.s3_endpoint#/#bucket#" charset="utf-8">
 		<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#">
 	    <cfhttpparam type="header" name="Date" value="#currentTime#">
 	</cfhttp>
