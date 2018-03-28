@@ -20,6 +20,12 @@ create table temp_cd_nodef (
 
 
 
+<cfif action is "fupl">
+
+
+</cfif>
+
+
 <cfif action is "ziptest">
 
 	<cfset expDate = DateConvert("local2utc", now())>
@@ -148,23 +154,48 @@ create table temp_cd_nodef (
 
 
 <cfif action is "makebucket">
+
+	<cfset bucket="testing.mctesty/another_bucket">
+
+
+	<cfset stringToSignParts = [
+	    "PUT",
+	    "",
+	    currentTime,
+	    "/" & bucket & "/" & resource
+	] />
+
+	<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+
+	<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
+
+
+
+
+
 <cfhttp
     result="put"
     method="put"
     url="#d.s3_endpoint#/#bucket#">
 
-    <cfhttpparam
-        type="header"
-        name="accessKey"
-        value="#d.s3_accesskey#"
-        />
-	 <cfhttpparam
-        type="header"
-        name="secretKey"
-        value="#d.s3_secretkey#"
-        />
+	<cfhttpparam
+	        type="header"
+	        name="Authorization"
+	        value="AWS #d.s3_accesskey#:#signature#"
+		/>
 
 
+	    <cfhttpparam
+	        type="header"
+	        name="Date"
+	        value="#currentTime#"
+	        />
 
 
     <cfhttpparam
