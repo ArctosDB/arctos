@@ -24,7 +24,7 @@ create table temp_cd_nodef (
 <cfset expDate = DateAdd("n", 15, expDate)><!--- policy expires in 15 minutes --->
 <cfset fileName = CreateUUID() & ".jpg">
 <cfoutput>
-<cfsavecontent name="jsonPolicy">
+<cfsavecontent variable="jsonPolicy">
 { "expiration": "#DateFormat(expDate, "yyyy-mm-dd")#T#TimeFormat(expDate, "HH:mm")#:00.000Z",
   "conditions": [
     {"bucket": "testing.mctesty" },
