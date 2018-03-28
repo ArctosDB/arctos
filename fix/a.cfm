@@ -159,7 +159,7 @@ create table temp_cd_nodef (
 	    "",
 	    "",
 	    currentTime,
-	    bucket & "/"
+	    "/" &  bucket
 	] />
 	<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
 
@@ -174,10 +174,11 @@ create table temp_cd_nodef (
 			"base64"
 		)>
 
-	<cfhttp method="GET" url="#bucket#.#d.s3_endpoint#" charset="utf-8">
+	<cfhttp method="GET" url="#d.s3_endpoint#/#bucket#" charset="utf-8">
 	    <cfhttpparam type="header" name="Date" value="#currentTime#">
 		<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#">
 	    <cfhttpparam type="header" name="prefix" value="/mai_bukkit/">
+	    <cfhttpparam type="header" name="list-type" value="2">
 	</cfhttp>
 
 <cfdump var=#cfhttp#>
