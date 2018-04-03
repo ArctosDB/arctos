@@ -156,9 +156,6 @@
 			<th>EndedDate</th>
 			<th>Remark</th>
 		</tr>
-
-
-
 		<cfloop query="dlocid">
 			<cfquery name="orig" datasource="uam_god">
 				select
@@ -176,8 +173,6 @@
 				 where
 				 	collecting_event_id=<cfqueryparam value = "#dlocid.collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
-
-
 			<tr class="datarow" data-lid="#dlocid.collecting_event_id#">
 				<td class="original">currentData</td>
 				<td class="original">-n/a-</td>
@@ -194,30 +189,21 @@
 						#orig.locality_id#
 					</a>
 				</td>
-
 				<cfset lastVLoc=orig.VERBATIM_LOCALITY>
 				<td class="original">#orig.VERBATIM_LOCALITY#</td>
-
-
 				<cfset lastEName=orig.COLLECTING_EVENT_NAME>
 				<td class="original">#orig.COLLECTING_EVENT_NAME#</td>
-
 				<cfset lastBDate=orig.BEGAN_DATE>
 				<td class="original">#orig.BEGAN_DATE#</td>
-
 				<cfset lastEDate=orig.ENDED_DATE>
 				<td class="original">#orig.ENDED_DATE#</td>
-
-
 				<cfset lastRem=orig.COLL_EVENT_REMARKS>
 				<td class="original">#orig.COLL_EVENT_REMARKS#</td>
 			</tr>
-
 			<cfquery name="thisChanges" dbtype="query">
 				select * from d where collecting_event_id=#dlocid.collecting_event_id# order by changedate desc
 			</cfquery>
 			<cfloop query="thisChanges">
-
 				<tr class="datarow" data-lid="#dlocid.collecting_event_id#">
 					<td>#changedate#</td>
 					<td>#whodunit#</td>
@@ -233,7 +219,6 @@
 							#locality_id#
 						</a>
 					</td>
-
 					<cfif VERBATIM_LOCALITY is lastVLoc>
 						<cfset thisStyle="nochange">
 					<cfelse>
@@ -243,9 +228,6 @@
 					<td class="#thisStyle#">
 						#VERBATIM_LOCALITY#
 					</td>
-
-
-
 					<cfif COLLECTING_EVENT_NAME is lastEName>
 						<cfset thisStyle="nochange">
 					<cfelse>
@@ -265,8 +247,6 @@
 					<td class="#thisStyle#">
 						#BEGAN_DATE#
 					</td>
-
-
 					<cfif ENDED_DATE is lastEDate>
 						<cfset thisStyle="nochange">
 					<cfelse>
@@ -276,8 +256,6 @@
 					<td class="#thisStyle#">
 						#ENDED_DATE#
 					</td>
-
-
 					<cfif COLL_EVENT_REMARKS is lastRem>
 						<cfset thisStyle="nochange">
 					<cfelse>
