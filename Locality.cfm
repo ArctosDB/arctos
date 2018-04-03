@@ -970,6 +970,8 @@
 
 	#contents#
 	<br>
+	<a href="/info/collectingEventArchive.cfm?collecting_event_id=#collecting_event_id#">View Edit Archive</a>
+
 	<div style="border:5px solid red; background-color:red;">
 		<br>Red is scary. This form is dangerous. Make sure you know what it's doing before you get all clicky.
 		<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
