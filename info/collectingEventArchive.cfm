@@ -224,7 +224,7 @@
 
 
 
-				<tr class="datarow" data-lid="#dlocid.locality_id#">
+				<tr class="datarow" data-lid="#dlocid.collecting_event_id#">
 					<td>#changedate#</td>
 					<td>#whodunit#</td>
 					<td>#collecting_event_id#</td>
