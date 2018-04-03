@@ -218,12 +218,6 @@
 			</cfquery>
 			<cfloop query="thisChanges">
 
-
-			<th>Remark</th>
-
-
-
-
 				<tr class="datarow" data-lid="#dlocid.collecting_event_id#">
 					<td>#changedate#</td>
 					<td>#whodunit#</td>
