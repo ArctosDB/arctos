@@ -168,8 +168,6 @@
 					ENDED_DATE,
 					COLLECTING_EVENT_NAME,
 					VERBATIM_COORDINATES,
-					whodunit,
-					changedate,
 				 	VERBATIM_DATE,
 				 	VERBATIM_LOCALITY,
 				 	COLL_EVENT_REMARKS
