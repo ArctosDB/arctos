@@ -882,7 +882,7 @@
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
-			<cfset x=x & ",catalog,cart">
+			<cfset x=x & ",catalog,cart,CoordinatorPortType">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway">

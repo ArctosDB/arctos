@@ -912,6 +912,9 @@
 			<cfquery name="cleardups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update collecting_event set locality_id=#locality_id# where locality_id in (#deleteLocalityID#)
 			</cfquery>
+			<cfquery name="cleardups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update tag set locality_id=#locality_id# where locality_id in (#deleteLocalityID#)
+			</cfquery>
 			<cfquery name="cleardupsMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update media_relations set related_primary_key=#locality_id# where
 				media_relationship like '% locality' and
