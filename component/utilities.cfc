@@ -782,7 +782,7 @@
 	<cfset badbot=badbot & ",Gluten,Gluten Free Crawler,GrapeshotCrawler">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",ltx71">
-	<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get">
+	<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get,MauiBot,meg">
 	<cfset badbot=badbot & ",naver,Nutch">
 	<cfset badbot=badbot & ",Qwantify">
 	<cfset badbot=badbot & ",re-animator">
@@ -899,7 +899,7 @@
 			<cfset x=x & ",pma,phppgadmin,prescription">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel,remote-sync">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
-			<cfset x=x & ",sftp-config,store,shop">
+			<cfset x=x & ",sftp-config,store,shop,server_info">
 			<cfset x=x & ",sysobjects,svn,sap,ssh">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects">
 			<cfset x=x & ",trackback,texteditor">
@@ -908,7 +908,6 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
-
 
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME">
