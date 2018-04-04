@@ -19,7 +19,7 @@
 		    $.getJSON("/component/functions.cfc",
 				{
 					method : "getMediaCollectingEventCount",
-					locid : mds,
+					cid : mds,
 					returnformat : "json",
 					queryformat : 'column'
 				},
