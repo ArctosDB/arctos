@@ -18,7 +18,7 @@
 		    var mds=mid.replace('m_l_d_','');
 		    $.getJSON("/component/functions.cfc",
 				{
-					method : "getMediaLocalityCount",
+					method : "getMediaCollectingEventCount",
 					locid : mds,
 					returnformat : "json",
 					queryformat : 'column'
