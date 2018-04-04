@@ -86,6 +86,15 @@
 				<span class="likeLink" onclick="colorinate();">randomly color things by collecting_event_id </span> or
 				<span class="likeLink" onclick="decolorizinate();">turn that off</span>.
 			</li>
+			<li>
+				Changes where
+				<ul>
+					<li>User is UAM</li>
+					<li>Only Locality_ID has changed</li>
+					<li>The old Locality does not exist</li>
+				</ul>
+				are almost certainly automated locality mergers.
+			</li>
 		</ul>
 	<hr>
 	<cfparam name="collecting_event_id" default="">
