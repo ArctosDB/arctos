@@ -182,6 +182,14 @@
 					</form>
 				</div>
 
+				<div id="uploadmediaform">
+					<form id="mydz" action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone needsclick dz-clickable">
+						<div class="dz-message needsclick">
+							Drop ONE file here or click to upload for s3.
+						</div>
+					</form>
+				</div>
+
 		<!----
 			<form id="form1" enctype="multipart/form-data" method="post" action="">
 				<div class="drop-files-container">
