@@ -311,13 +311,9 @@
 	    <cfset x=x & ":::::" & #Form[i]#>
 	</cfloop>
 ---->
-<cfsavecontent variable="x">
-	<cfdump var=#form#>
-</cfsavecontent>
 
 
-
-			<cfreturn serializeJSON(x)>
+			<cfreturn getHttpRequestData().content>
 
 
 		<cfquery name="d" datasource="uam_god">
