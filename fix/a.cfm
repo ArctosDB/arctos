@@ -194,7 +194,7 @@ create table temp_cd_nodef (
 	<cfset currentTime = getHttpTimeString( now() ) />
 
 	<cfset contentType = "text/html" />
-	<cfset bucket="usernaaame/ddaaattee">
+	<cfset bucket="usernaaame">
 
 <cfset stringToSignParts = [
 	    "PUT",
