@@ -315,7 +315,7 @@
 
 
 
-			<cfreturn serializeJSON(getHttpRequestData().content)>
+			<cfreturn getHttpRequestData().content>
 
 
 		<cfquery name="d" datasource="uam_god">
