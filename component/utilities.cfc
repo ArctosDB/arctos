@@ -392,7 +392,7 @@
 		    "",
 		    contentType,
 		    currentTime,
-		    "/" & bucket & "/" & resource
+		    "/" & bucket & "/" & fileName
 		] />
 
 		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
@@ -409,7 +409,7 @@
 	<cfhttp
 	    result="put"
 	    method="put"
-	    url="#d.s3_endpoint#/#bucket#/#resource#">
+	    url="#d.s3_endpoint#/#bucket#/#fileName#">
 
 		<cfhttpparam
 	        type="header"
