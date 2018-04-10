@@ -420,7 +420,7 @@
 
 
 
-
+<!----
 		<!--- deal with mime type --->
 		<cfif fext is "jpg" or fext is "jpeg">
 			<cfset contentType = "image/jpeg" />
@@ -443,7 +443,9 @@
 			<cfset r.msg=fext & " is not a valid extension.">
 			<cfreturn serializeJSON(r)>
 		</cfif>
+--->
 
+<cfset contentType=mimetype>
 		<cfset contentLength=arrayLen( content )>
 
 		<cfset stringToSignParts = [
