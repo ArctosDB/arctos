@@ -308,7 +308,7 @@
 			select * from cf_global_settings
 		</cfquery>
 
-		<cfset fileName=cffile.serverfile>
+		<cfset fileName=file>
 
 		<cfset fext=listlast(fileName,".")>
 		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
