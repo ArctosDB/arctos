@@ -304,7 +304,7 @@
 
 <cffunction name="loadFileS3" output="false" returnType="any" access="remote">
 	<cftry>
-
+<!----
 	<cfsavecontent variable="x">
 		<cfdump var=#file#>
 	</cfsavecontent>
@@ -312,6 +312,7 @@
 
 			<cfreturn serializeJSON(x)>
 
+-------->
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_global_settings
 		</cfquery>
@@ -334,6 +335,8 @@
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
 		<cfset fileName=cffile.serverfile>
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
+
+
 		<cfset fext=listlast(fileName,".")>
 		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
@@ -351,8 +354,8 @@
 
 		<cfset lclFile="#Application.sandbox#/#fileName#">
 
+	<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#fileName#">
 
-		<cfset content = fileReadBinary( expandPath( "#lclFile#" ) ) />
 
 
 		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
