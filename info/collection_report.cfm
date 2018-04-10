@@ -60,9 +60,12 @@
 	<h3>
 		Collection Data
 	</h3>
-	<cfquery name="license" datasource="uam_god">
-			select  * from  ctmedia_license where MEDIA_LICENSE_ID=#coln.USE_LICENSE_ID#
-	</cfquery>
+	<cfif len(coln.USE_LICENSE_ID) gt 0>
+		<cfquery name="license" datasource="uam_god">
+				select  * from  ctmedia_license where MEDIA_LICENSE_ID=#coln.USE_LICENSE_ID#
+		</cfquery>
+
+	</cfif>
 
 	<div><strong>GUID_PREFIX:</strong> #coln.GUID_PREFIX#</div>
 	<div><strong>CollectionID:</strong> #coln.COLLECTION_ID#</div>
@@ -75,7 +78,13 @@
 	<div><strong>Web Link:</strong> #coln.WEB_LINK#</div>
 	<div><strong>Web Link Text:</strong> #coln.WEB_LINK_TEXT#</div>
 	<div><strong>Loan Policy:</strong> #coln.LOAN_POLICY_URL#</div>
-	<div><strong>License:</strong> #license.DISPLAY# (URL: #license.URI# Description: #license.DESCRIPTION#)</div>
+	<div><strong>License:</strong>
+	<cfif len(coln.USE_LICENSE_ID) gt 0>
+		#license.DISPLAY# (URL: #license.URI# Description: #license.DESCRIPTION#)
+	<cfelse>
+		NONE
+	</cfif>
+	</div>
 	<div><strong>Citation:</strong> #coln.CITATION#</div>
 	<div><strong>Taxonomy Source:</strong> #coln.PREFERRED_TAXONOMY_SOURCE#</div>
 	<div><strong>Catalog NUmber Format:</strong> #coln.CATALOG_NUMBER_FORMAT#</div>
