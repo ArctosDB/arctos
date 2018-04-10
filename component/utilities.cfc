@@ -336,6 +336,106 @@
 			<cfreturn serializeJSON(r)>
 		</cfif>
 
+		<cfset lclFile="#Application.sandbox#/#fileName#">
+
+
+		<cfset content = fileReadBinary( expandPath( "#lclFile#" ) ) />
+
+
+		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
+
+		<cfset currentTime = getHttpTimeString( now() ) />
+
+		<!--- deal with mime type --->
+		<cfif fext is "jpg" or fext is "jpeg">
+			<cfset contentType = "image/jpeg" />
+		<cfelseif fext is "gif">
+			<cfset contentType = "image/gif" />
+		<cfelseif fext is "png">
+			<cfset contentType = "image/png" />
+		<cfelseif fext is "pdf">
+			<cfset contentType = "application/pdf" />
+		<cfelseif fext is "txt" or fext is "wkt">
+			<cfset contentType = "text/plain" />
+		<cfelseif fext is "m4v">
+			<cfset contentType = "video/mp4" />
+		<cfelseif fext is "mp3">
+			<cfset contentType = "audio/mpeg3" />
+		<cfelseif fext is "wav">
+			<cfset contentType = "audio/x-wav" />
+		<cfelse>
+			 <cfset r.statusCode=400>
+			<cfset r.msg=fext & " is not a valid extension.">
+			<cfreturn serializeJSON(r)>
+		</cfif>
+
+		<cfset contentLength=arrayLen( content )>
+
+		<cfset stringToSignParts = [
+		    "PUT",
+		    "",
+		    contentType,
+		    currentTime,
+		    "/" & bucket & "/" & resource
+		] />
+
+		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+
+	<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
+
+
+	<cfhttp
+	    result="put"
+	    method="put"
+	    url="#d.s3_endpoint#/#bucket#/#resource#">
+
+		<cfhttpparam
+	        type="header"
+	        name="Authorization"
+	        value="AWS #d.s3_accesskey#:#signature#"
+		/>
+
+
+
+
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Length"
+	        value="#contentLength#"
+	        />
+
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Type"
+	        value="#contentType#"
+	        />
+
+	    <cfhttpparam
+	        type="header"
+	        name="Date"
+	        value="#currentTime#"
+	        />
+
+	    <cfhttpparam
+	        type="body"
+	        value="#content#"
+	        />
+	</cfhttp>
+
+	<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
+
+
+	    <cfset r.statusCode=200>
+		<cfset r.filename="#fileName#">
+		<cfset r.media_uri="#media_uri#">
+
+		<!----
 
 			<cfreturn serializeJSON(fileName)>
 
@@ -421,7 +521,7 @@
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
-
+---->
 		<cfcatch>
 			<cftry>
 				<cfset r.statusCode=400>
