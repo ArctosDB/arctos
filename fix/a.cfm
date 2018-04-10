@@ -73,7 +73,7 @@ create table temp_cd_nodef (
 
 	<cfset content = fileReadBinary( expandPath( "#lclfile#" ) ) />
 
-	<cfset bucket="maitoplevelbucket/mainewsecondlevelbucket/this_is_new">
+	<cfset bucket="usernaaame/ddaaattee">
 	<cfset currentTime = getHttpTimeString( now() ) />
 	<cfset contentType = "image/gif" />
 	<cfset contentLength=arrayLen( content )>
