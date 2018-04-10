@@ -302,7 +302,7 @@
 
 
 
-<cffunction name="loadFileS3" output="false" returnType="string" access="remote">
+<cffunction name="loadFileS3" output="false" returnType="any" access="remote">
 	<cftry>
 
 	<!----
