@@ -305,16 +305,12 @@
 <cffunction name="loadFileS3" output="false" returnType="any" access="remote">
 	<cftry>
 
-	<!----
-	<cfset x="">
-	<cfloop index="i" list="#Form.FieldNames#" delimiters=",">
-	    <cfset x=x & ":::::" & #Form[i]#>
-	</cfloop>
----->
+	<cfsavecontent variable="x">
+		<cfdump var=#file#>
+	</cfsavecontent>
 
 
-			<cfreturn getHttpRequestData().content>
-
+			<cfreturn serializeJSON(x)>
 
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_global_settings
