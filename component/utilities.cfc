@@ -358,53 +358,6 @@
 
 
 
-		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
-
-		<cfset currentTime = getHttpTimeString( now() ) />
-
-		<!--- deal with mime type --->
-		<cfif fext is "jpg" or fext is "jpeg">
-			<cfset contentType = "image/jpeg" />
-		<cfelseif fext is "gif">
-			<cfset contentType = "image/gif" />
-		<cfelseif fext is "png">
-			<cfset contentType = "image/png" />
-		<cfelseif fext is "pdf">
-			<cfset contentType = "application/pdf" />
-		<cfelseif fext is "txt" or fext is "wkt">
-			<cfset contentType = "text/plain" />
-		<cfelseif fext is "m4v">
-			<cfset contentType = "video/mp4" />
-		<cfelseif fext is "mp3">
-			<cfset contentType = "audio/mpeg3" />
-		<cfelseif fext is "wav">
-			<cfset contentType = "audio/x-wav" />
-		<cfelse>
-			 <cfset r.statusCode=400>
-			<cfset r.msg=fext & " is not a valid extension.">
-			<cfreturn serializeJSON(r)>
-		</cfif>
-
-		<cfset contentLength=arrayLen( content )>
-
-		<cfset stringToSignParts = [
-		    "PUT",
-		    "",
-		    contentType,
-		    currentTime,
-		    "/" & bucket & "/" & fileName
-		] />
-
-		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-
-	<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-
 
 		<!---- make a username bucket ---->
 		<cfset currentTime = getHttpTimeString( now() ) />
@@ -456,6 +409,61 @@
 		</cfhttp>
 
 		<!--- now load the file ---->
+
+
+		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
+
+
+
+		<cfset currentTime = getHttpTimeString( now() ) />
+
+
+
+
+		<!--- deal with mime type --->
+		<cfif fext is "jpg" or fext is "jpeg">
+			<cfset contentType = "image/jpeg" />
+		<cfelseif fext is "gif">
+			<cfset contentType = "image/gif" />
+		<cfelseif fext is "png">
+			<cfset contentType = "image/png" />
+		<cfelseif fext is "pdf">
+			<cfset contentType = "application/pdf" />
+		<cfelseif fext is "txt" or fext is "wkt">
+			<cfset contentType = "text/plain" />
+		<cfelseif fext is "m4v">
+			<cfset contentType = "video/mp4" />
+		<cfelseif fext is "mp3">
+			<cfset contentType = "audio/mpeg3" />
+		<cfelseif fext is "wav">
+			<cfset contentType = "audio/x-wav" />
+		<cfelse>
+			 <cfset r.statusCode=400>
+			<cfset r.msg=fext & " is not a valid extension.">
+			<cfreturn serializeJSON(r)>
+		</cfif>
+
+		<cfset contentLength=arrayLen( content )>
+
+		<cfset stringToSignParts = [
+		    "PUT",
+		    "",
+		    contentType,
+		    currentTime,
+		    "/" & bucket & "/" & fileName
+		] />
+
+		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+
+	<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
+
+
 
 	<cfhttp
 	    result="put"
