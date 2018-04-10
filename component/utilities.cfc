@@ -450,6 +450,7 @@
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
+		<cfset r.put="#put#">
 
 		<!----
 
