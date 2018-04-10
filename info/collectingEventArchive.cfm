@@ -67,8 +67,7 @@
 				millions of (or zero) specimens now.
 			</li>
 			<li>
-				Media link finds media which is
-					1) related to the event
+				Media link finds media which is related to the event
 				( Media links will attempt to pre-fetch recordcount.)
 			</li>
 			<li>

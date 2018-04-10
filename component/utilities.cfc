@@ -298,6 +298,92 @@
 		</cfoutput>
 	<cfreturn t>
 </cffunction>
+
+
+<cffunction name="loadFiles3" output="false" returnType="string" access="remote">
+	<cftry>
+		<cfset tempName=createUUID()>
+		<cfset loadPath = "#Application.webDirectory#/mediaUploads/s3/#session.username#">
+		<cftry>
+			<cfdirectory action="create" directory="#loadPath#" mode="775">
+			<cfcatch>
+	    		<!--- it already exists, do nothing--->
+			</cfcatch>
+		</cftry>
+		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
+		<cfset fileName=cffile.serverfile>
+		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
+		<cfset fext=listlast(fileName,".")>
+		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+		<cfset fName=replace(fName,'__','_','all')>
+
+		<cfset fileName=fName & '.' & fext>
+
+		<cfset vfn=isValidMediaUpload(fileName)>
+
+		<cfif len(vfn) gt 0>
+			 <cfset r.statusCode=400>
+			<cfset r.msg=vfn>
+			<cfreturn serializeJSON(r)>
+		</cfif>
+
+		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
+		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
+		<cfif IsImageFile("#loadPath#/#fileName#")>
+			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
+			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
+			<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
+			<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
+			<cfset newwidth = x*imagetemp.width>
+	      	<cfset newheight = x*imagetemp.height>
+	   		<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
+				destination="#tnAbsPath#" overwrite="false">
+			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
+			<cfset r.preview_uri="#preview_uri#">
+		<cfelse>
+			<cfset r.preview_uri="">
+		</cfif>
+	    <cfset r.statusCode=200>
+		<cfset r.filename="#fileName#">
+		<cfset r.media_uri="#media_uri#">
+
+		<cfcatch>
+			<cftry>
+				<cfset r.statusCode=400>
+				<cfif cfcatch.message contains "already exists">
+					<cfset umpth=#ucase(session.username)# & "/" & #ucase(fileName)#>
+					<cfquery name="fexist" datasource="uam_god">
+						select media_id from media where upper(media_uri) like '%#umpth#'
+					</cfquery>
+					<cfset midl=valuelist(fexist.media_id)>
+					<cfset msg="The file \n\n#Application.serverRootURL#/mediaUploads/#session.username#/#fileName#\n\n">
+					<cfset msg=msg & "already exists">
+					<cfif len(midl) gt 0>
+						<cfset msg=msg & " and may be used by \n\n#Application.ServerRootURL#/media/#midl#\n\nCheck the media_URL above.">
+						<cfset msg=msg & " Link to the media using the media_id (#midl#) in the form below.">
+					<cfelse>
+						<cfset msg=msg & " and does not seem to be used for existing Media. Create media with the already-loaded file by">
+						<cfset msg=msg & " pasting the above media_uri into ">
+						<cfset msg=msg & "\n\n#Application.serverRootURL#/media.cfm?action=newMedia">
+						<cfset msg=msg & "\n\nA preview may exist at ">
+						<cfset msg=msg & "\n\n#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
+					</cfif>
+					<cfset msg=msg & "\n\nRe-name and re-load the file ONLY if you are sure it does not exist on the sever.">
+					<cfset msg=msg & " Do not create duplicates.">
+				<cfelse>
+					<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
+				</cfif>
+				<cfset r.msg=msg>
+			<cfcatch>
+				<cfset r.statusCode=400>
+				<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
+			</cfcatch>
+			</cftry>
+		</cfcatch>
+	</cftry>
+	<cfreturn serializeJSON(r)>
+</cffunction>
 <!------------------>
 <cffunction name="loadFile" output="false" returnType="string" access="remote">
 	<cftry>
@@ -882,7 +968,7 @@
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
-			<cfset x=x & ",catalog,cart,CoordinatorPortType">
+			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway">
@@ -890,14 +976,14 @@
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla">
-			<cfset x=x & ",lib,lightbox,local-bin,LoginForm">
-			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg,modules">
+			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization">
+			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg,modules,mychat">
 			<cfset x=x & ",news,nyet">
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
-			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2">
+			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pmc">
 			<cfset x=x & ",pma4,php5">
-			<cfset x=x & ",pma,phppgadmin,prescription">
-			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel,remote-sync">
+			<cfset x=x & ",pma,phppgadmin,prescription,phpmychat">
+			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel,remote-sync,regex">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sftp-config,store,shop,server_info">
 			<cfset x=x & ",sysobjects,svn,sap,ssh">
@@ -908,7 +994,6 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
-
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
