@@ -530,7 +530,7 @@
 	    <cfset tfilename="tn_#barefilename#.jpg">
 
 	   	<cfimage action="convert" source="#Application.sandbox#/#tempName#.tmp" width="#newwidth#" height="#newheight#" name="theJPG">
-	   	<cfimage action="resize" source="#theJPG" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#">
+	   	<cfimage action="resize" source="#theJPG#" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#">
 
 	   	<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
 		<cfset currentTime = getHttpTimeString( now() ) />
