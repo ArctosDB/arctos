@@ -343,6 +343,8 @@
 		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		</cfhttp>
+		
+		
 		<!---- make a username/date bucket ---->
 		<cfset currentTime = getHttpTimeString( now() ) />
 		<cfset contentType = "text/html" />
