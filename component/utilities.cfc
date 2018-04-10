@@ -319,6 +319,58 @@
 
 
 
+		<!---- make a username bucket ---->
+		<cfset currentTime = getHttpTimeString( now() ) />
+		<cfset contentType = "text/html" />
+		<cfset bucket="#session.username#">
+		<cfset stringToSignParts = [
+			    "PUT",
+			    "",
+			    contentType,
+			    currentTime,
+			    "/" & bucket
+			] />
+		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+		<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
+		<cfhttp result="mkunamebkt"  method="put" url="#d.s3_endpoint#/#bucket#">
+			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
+		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
+		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
+		</cfhttp>
+		<!---- make a username/date bucket ---->
+		<cfset currentTime = getHttpTimeString( now() ) />
+		<cfset contentType = "text/html" />
+		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
+		<cfset stringToSignParts = [
+			    "PUT",
+			    "",
+			    contentType,
+			    currentTime,
+			    "/" & bucket
+			] />
+		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+		<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
+		<cfhttp result="mkudatebky"  method="put" url="#d.s3_endpoint#/#bucket#">
+			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
+		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
+		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
+		</cfhttp>
+
+
+
+
 		<cfset tempName=createUUID()>
 		<!----
 		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
@@ -360,54 +412,7 @@
 
 <cfset r.mimetype=#mimetype#>
 
-		<!---- make a username bucket ---->
-		<cfset currentTime = getHttpTimeString( now() ) />
-		<cfset contentType = "text/html" />
-		<cfset bucket="#session.username#">
-		<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket
-			] />
-		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-		<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-		<cfhttp result="put"  method="put" url="#d.s3_endpoint#/#bucket#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
-		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
-		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-		</cfhttp>
-		<!---- make a username/date bucket ---->
-		<cfset currentTime = getHttpTimeString( now() ) />
-		<cfset contentType = "text/html" />
-		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
-		<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket
-			] />
-		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-		<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-		<cfhttp result="put"  method="put" url="#d.s3_endpoint#/#bucket#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
-		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
-		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-		</cfhttp>
+
 
 		<!--- now load the file ---->
 
@@ -446,6 +451,7 @@
 --->
 
 <cfset contentType=mimetype>
+
 		<cfset contentLength=arrayLen( content )>
 
 		<cfset stringToSignParts = [
