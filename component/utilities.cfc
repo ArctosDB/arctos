@@ -521,6 +521,89 @@
 	<cfif IsImageFile("#Application.sandbox#/#tempName#.tmp")>
 
 	    <cfset r.IsImageFile="yeppers">
+		<cfimage action="info" structname="imagetemp" source="#Application.sandbox#/#tempName#.tmp">
+		<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
+		<cfset newwidth = x*imagetemp.width>
+	    <cfset newheight = x*imagetemp.height>
+
+	    <cfset barefilename=listgetat(filename,1,".")>
+	    <cfset tfilename="tn_#barefilename#.jpg">
+
+	   	<cfimage action="convert" source="#Application.sandbox#/#tempName#.tmp" width="#newwidth#" height="#newheight#" name="theJPG">
+	   	<cfimage action="resize" source="#theJPG" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#">
+
+	   	<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
+		<cfset currentTime = getHttpTimeString( now() ) />
+		<cfset contentType = "image/jpeg" />
+
+		<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tfilename#">
+
+
+		<cfset contentLength=arrayLen( theThumb )>
+
+		<cfset stringToSignParts = [
+		    "PUT",
+		    "",
+		    contentType,
+		    currentTime,
+		    "/" & bucket & "/" & tfilename
+		] />
+
+		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+
+	<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
+
+
+
+	<cfhttp
+	    result="putTN"
+	    method="put"
+	    url="#d.s3_endpoint#/#bucket#/#tfilename#">
+
+		<cfhttpparam
+	        type="header"
+	        name="Authorization"
+	        value="AWS #d.s3_accesskey#:#signature#"
+		/>
+
+
+
+
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Length"
+	        value="#contentLength#"
+	        />
+
+	    <cfhttpparam
+	        type="header"
+	        name="Content-Type"
+	        value="#contentType#"
+	        />
+
+	    <cfhttpparam
+	        type="header"
+	        name="Date"
+	        value="#currentTime#"
+	        />
+
+	    <cfhttpparam
+	        type="body"
+	        value="#content#"
+	        />
+	</cfhttp>
+
+
+
+	<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#/tn/#tfilename#">
+
+
 
 	    	<!----
 			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
@@ -547,6 +630,7 @@
 		<cfset r.media_uri="#media_uri#">
 		<cfset r.mkunamebkt="#mkunamebkt#">
 		<cfset r.put="#put#">
+		<cfset r.putTN="#putTN#">
 
 		<!----
 
