@@ -354,7 +354,7 @@
 
 		<cfset lclFile="#Application.sandbox#/#fileName#">
 
-	<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#fileName#">
+	<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tempName#.tmp">
 
 
 
