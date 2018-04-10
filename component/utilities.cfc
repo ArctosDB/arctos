@@ -308,6 +308,41 @@
 			select * from cf_global_settings
 		</cfquery>
 
+
+
+			<cfset tempName=createUUID()>
+		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
+		<cftry>
+			<cfdirectory action="create" directory="#loadPath#" mode="775">
+			<cfcatch>
+	    		<!--- it already exists, do nothing--->
+			</cfcatch>
+		</cftry>
+		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
+		<cfset fileName=cffile.serverfile>
+		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
+		<cfset fext=listlast(fileName,".")>
+		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+		<cfset fName=replace(fName,'__','_','all')>
+
+		<cfset fileName=fName & '.' & fext>
+
+		<cfset vfn=isValidMediaUpload(fileName)>
+
+		<cfif len(vfn) gt 0>
+			 <cfset r.statusCode=400>
+			<cfset r.msg=vfn>
+			<cfreturn serializeJSON(r)>
+		</cfif>
+
+
+			<cfreturn serializeJSON(fileName)>
+
+
+		<cfabort>
+
+
 		<cfset fileName=file>
 
 
