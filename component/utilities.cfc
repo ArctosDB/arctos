@@ -343,8 +343,8 @@
 		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		</cfhttp>
-		
-		
+
+		<!----
 		<!---- make a username/date bucket ---->
 		<cfset currentTime = getHttpTimeString( now() ) />
 		<cfset contentType = "text/html" />
@@ -371,7 +371,7 @@
 		</cfhttp>
 
 
-
+---->
 
 		<cfset tempName=createUUID()>
 		<!----
@@ -521,7 +521,6 @@
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
 		<cfset r.mkunamebkt="#mkunamebkt#">
-		<cfset r.mkudatebky="#mkudatebky#">
 		<cfset r.put="#put#">
 
 		<!----
