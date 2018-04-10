@@ -356,8 +356,9 @@
 
 	<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tempName#.tmp">
 
+	<cfset mimetype=FilegetMimeType("#Application.sandbox#/#tempName#.tmp")>
 
-
+<cfset r.mimetype=#mimetype#>
 
 		<!---- make a username bucket ---->
 		<cfset currentTime = getHttpTimeString( now() ) />
