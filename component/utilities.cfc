@@ -539,7 +539,7 @@
 		<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tfilename#">
 
 
-		<cfset contentLength=arrayLen( theThumb )>
+		<cfset contentLength=arrayLen( content )>
 
 		<cfset stringToSignParts = [
 		    "PUT",
@@ -601,7 +601,7 @@
 
 
 
-	<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#/tn/#tfilename#">
+	<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/tn/#tfilename#">
 
 
 
