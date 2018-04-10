@@ -304,7 +304,20 @@
 
 <cffunction name="loadFileS3" output="false" returnType="string" access="remote">
 	<cftry>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_global_settings
+		</cfquery>
+		<cfdump var=#cffile#>
+
+
+		<cfabort>
+
+
 		<cfset tempName=createUUID()>
+		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
+
+
+
 		<cfset loadPath = "#Application.webDirectory#/mediaUploads/s3/#session.username#">
 		<cftry>
 			<cfdirectory action="create" directory="#loadPath#" mode="775">
@@ -312,7 +325,6 @@
 	    		<!--- it already exists, do nothing--->
 			</cfcatch>
 		</cftry>
-		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
 		<cfset fileName=cffile.serverfile>
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
 		<cfset fext=listlast(fileName,".")>
