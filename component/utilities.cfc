@@ -720,8 +720,10 @@
 		<cfset r.media_uri="#media_uri#">
 ---->
 		<cfcatch>
+		<!----
 			<cftry>
 				<cfset r.statusCode=400>
+
 				<cfif cfcatch.message contains "already exists">
 					<cfset umpth=#ucase(session.username)# & "/" & #ucase(fileName)#>
 					<cfquery name="fexist" datasource="uam_god">
@@ -751,6 +753,9 @@
 				<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
 			</cfcatch>
 			</cftry>
+			---->
+			<cfset r.statusCode=400>
+			<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
 		</cfcatch>
 	</cftry>
 	<cfreturn serializeJSON(r)>
