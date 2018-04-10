@@ -310,14 +310,19 @@
 
 
 
-			<cfset tempName=createUUID()>
+		<cfset tempName=createUUID()>
+		<!----
 		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
+
 		<cftry>
 			<cfdirectory action="create" directory="#loadPath#" mode="775">
 			<cfcatch>
 	    		<!--- it already exists, do nothing--->
 			</cfcatch>
 		</cftry>
+		---->
+
+
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
 		<cfset fileName=cffile.serverfile>
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
