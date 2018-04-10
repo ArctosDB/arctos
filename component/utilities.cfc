@@ -312,11 +312,10 @@
 	</cfloop>
 ---->
 
-<cfset myData = deserializeJSON(getHttpRequestData().content) />
 
 
 
-			<cfreturn serializeJSON(myData)>
+			<cfreturn serializeJSON(getHttpRequestData().content)>
 
 
 		<cfquery name="d" datasource="uam_god">
