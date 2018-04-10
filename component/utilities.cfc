@@ -299,7 +299,6 @@
 	<cfreturn t>
 </cffunction>
 
-
 <cffunction name="loadFiles3" output="false" returnType="string" access="remote">
 	<cftry>
 		<cfset tempName=createUUID()>
