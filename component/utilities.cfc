@@ -310,6 +310,9 @@
 
 		<cfset fileName=file>
 
+
+			<cfreturn serializeJSON(fileName)>
+
 		<cfset fext=listlast(fileName,".")>
 		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
