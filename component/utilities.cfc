@@ -529,8 +529,8 @@
 	    <cfset barefilename=listgetat(filename,1,".")>
 	    <cfset tfilename="tn_#barefilename#.jpg">
 
-	   	<cfimage action="convert" source="#Application.sandbox#/#tempName#.tmp" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#">
-	   	<cfimage action="resize" source="#Application.sandbox#/#tfilename#" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#">
+	   	<cfimage action="convert" source="#Application.sandbox#/#tempName#.tmp" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
+	   	<cfimage action="resize" source="#Application.sandbox#/#tfilename#" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
 
 	   	<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
 		<cfset currentTime = getHttpTimeString( now() ) />
