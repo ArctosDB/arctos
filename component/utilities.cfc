@@ -307,7 +307,29 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_global_settings
 		</cfquery>
-		<cfdump var=#cffile#>
+
+		<cfset fileName=cffile.serverfile>
+
+		<cfset fext=listlast(fileName,".")>
+		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+		<cfset fName=replace(fName,'__','_','all')>
+
+		<cfset fileName=fName & '.' & fext>
+
+		<cfset vfn=isValidMediaUpload(fileName)>
+
+		<cfif len(vfn) gt 0>
+			 <cfset r.statusCode=400>
+			<cfset r.msg=vfn>
+			<cfreturn serializeJSON(vfn)>
+		</cfif>
+
+
+			<cfreturn serializeJSON(fileName)>
+
+
+
 
 
 		<cfabort>
