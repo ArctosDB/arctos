@@ -518,6 +518,8 @@
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
+		<cfset r.mkunamebkt="#mkunamebkt#">
+		<cfset r.mkudatebky="#mkudatebky#">
 		<cfset r.put="#put#">
 
 		<!----
