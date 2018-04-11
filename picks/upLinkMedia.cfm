@@ -9,7 +9,7 @@
 		    $(this).prop('required',true);
 		});
 		 $('#nm').on('submit', function(e) {
-	       $('#nm_sbmt').background: url('<img src="/images/indicator.gif">');
+	       $('#nm_sbmt').hide().after('<img src="/images/indicator.gif">');
 	    });
 
 
