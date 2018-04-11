@@ -85,6 +85,8 @@
 		$('#ctmedia_relationship').find('option').clone().appendTo('#media_relationship');
 		$("#made_date").datepicker();
 		$("#mime_type").val(result.MIME_TYPE);
+		console.log('media type: ' + result.MEDIA_TYPE);
+
 		$("#media_type").val(result.MEDIA_TYPE);
 		$("#created_agent_id").val($("#myAgentID").val());
 		$("#creator").val($("#username").val());
