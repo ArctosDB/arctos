@@ -9,14 +9,9 @@
 		    $(this).prop('required',true);
 		});
 		 $(document).on('click',"#nm_sbmt",function () {
-	       	console.log('submit');
 	       $('#nm_sbmt').hide();
 	       $("#sbmtbd").html('<img src="/images/indicator.gif">');
 	    });
-
-
-
-
 		Dropzone.options.mydz = {
 			maxFiles: 1,
 			init: function () {
@@ -94,8 +89,6 @@
 		$('#ctmedia_relationship').find('option').clone().appendTo('#media_relationship');
 		$("#made_date").datepicker();
 		$("#mime_type").val(result.MIME_TYPE);
-		console.log('media type: ' + result.MEDIA_TYPE);
-
 		$("#media_type").val(result.MEDIA_TYPE);
 		$("#created_agent_id").val($("#myAgentID").val());
 		$("#creator").val($("#username").val());
