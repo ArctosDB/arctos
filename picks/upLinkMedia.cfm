@@ -8,10 +8,12 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
-		 $('#nm_sbmt').on('click', function(e) {
-		 	console.log('submit');
+		 $(document).on('click',"#nm_sbmt",function () {
+	       	console.log('submit');
 	       $('#nm_sbmt').hide().after('<img src="/images/indicator.gif">');
 	    });
+
+
 
 
 		Dropzone.options.mydz = {
