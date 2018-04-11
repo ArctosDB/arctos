@@ -73,9 +73,9 @@
 	    h+='<input type="text" name="description" id="description" size="80">';
 		h+='<label for="made_date">Made Date</label>';
 	    h+='<input type="text" name="made_date" id="made_date">';
+		h+='<span class="infoLink" onclick="clearDate();">clear</span>';
 		h+='<label for="MD5_checksum">MD5 checksum</label>';
 	    h+='<input type="text" name="MD5_checksum" id="MD5_checksum" size="80" value="' + result.MD5 + '">';
-		h+='<span class="infoLink" onclick="clearDate();">clear</span>';
 		h+='<br><input type="submit" class="insBtn" value="create media">';
 		h+='</form>';
 		$("#newMediaUpBack").html(h);
