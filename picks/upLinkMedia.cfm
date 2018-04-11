@@ -10,7 +10,8 @@
 		});
 		 $(document).on('click',"#nm_sbmt",function () {
 	       	console.log('submit');
-	       $('#nm_sbmt').hide().after('<img src="/images/indicator.gif">');
+	       $('#nm_sbmt').hide().insertAfter('<img src="/images/indicator.gif">');
+	       //$("#sbmtbr").after('<img src="/images/indicator.gif">');
 	    });
 
 
@@ -84,7 +85,7 @@
 		h+='<span class="infoLink" onclick="clearDate();">clear</span>';
 		h+='<label for="MD5_checksum">MD5 checksum</label>';
 	    h+='<input type="text" name="MD5_checksum" id="MD5_checksum" size="80" value="' + result.MD5 + '">';
-		h+='<br><input type="submit" class="insBtn" id="nm_sbmt" value="create media">';
+		h+='<br id="sbmtbr"><input type="submit" class="insBtn" id="nm_sbmt" value="create media">';
 		h+='</form>';
 		$("#newMediaUpBack").html(h);
 		$('#ctmedia_license').find('option').clone().appendTo('#media_license_id');
