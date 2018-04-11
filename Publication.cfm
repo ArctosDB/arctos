@@ -221,9 +221,10 @@
 			</div>
 		</cfif>
 		<div class="cellDiv">
-			mmmmm
 		<cfif isdefined("session.roles") and session.roles contains "manage_media">
-			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
+			<a  id="mediaUpClickThis">Attach/Upload Media</a>
+		<cfelse>
+			You do not have permission to add Media.
 		</cfif>
 		<!----
 			Add Media:
