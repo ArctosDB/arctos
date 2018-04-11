@@ -410,6 +410,11 @@
 
 	<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tempName#.tmp">
 
+
+	<!--- generate a checksum while we're holding the binary ---->
+	<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinarycontent)>
+	<cfset r.md5=md5>
+
 	<cfset mimetype=FilegetMimeType("#Application.sandbox#/#tempName#.tmp")>
 
 	<cfset r.mimetype=#mimetype#>
@@ -604,19 +609,6 @@
 	<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#tfilename#">
 
 
-
-	    	<!----
-			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
-			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
-			<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
-			<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
-			<cfset newwidth = x*imagetemp.width>
-	      	<cfset newheight = x*imagetemp.height>
-	   		<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
-				destination="#tnAbsPath#" overwrite="false">
-			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
-			<cfset r.preview_uri="#preview_uri#">
-			--->
 		<cfelse>
 	    <cfset r.IsImageFile="nope">
 			<cfset r.preview_uri="">
