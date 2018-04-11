@@ -359,7 +359,7 @@
 		<cfif ckck.recordcount gt 0>
 			<cfset r.statusCode=400>
 			<cfset r.msg='Media Exists'>
-			<cfloop list="#valulist(ckck.media_id)#" index="i">
+			<cfloop list="#valuelist(ckck.media_id)#" index="i">
 				<cfset r.msg=r.msg & '\n#Application.serverRootURL#/media/#i#'>
 			</cfloop>
 			<cfreturn serializeJSON(r)>
