@@ -1807,8 +1807,7 @@
 
 	<div class="detailBlock">
 		<span class="detailData">
-		<div id="specMediaDv">
-		</div>
+		<div id="specMediaDv"></div>
 	</div>
 </div>
 		<cftry>

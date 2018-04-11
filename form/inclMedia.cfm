@@ -283,6 +283,26 @@
 				media_relations.media_relationship='documents accn' and
 				media_relations.media_id=media_flat.media_id and
 				cataloged_item.collection_object_id=#q#">
+	<cfelseif typ is "publication">
+		<cfset srchall="/MediaSearch.cfm?action=search&publication_id=#q#">
+		<cfset mrdescr="Media linked to this Publication.">
+
+		<cfset sql=" select distinct
+	        media_flat.media_id,
+	        media_flat.media_uri,
+	        media_flat.mime_type,
+	        media_flat.media_type,
+	        media_flat.preview_uri,
+            alt_text,
+            license,
+            media_flat.descr
+	     from
+	         media_flat,
+	         media_relations
+	     where
+	         media_flat.media_id=media_relations.media_id and
+	         media_relations.media_relationship like '% publication' and
+	         media_relations.related_primary_key = #q#">
 	<cfelseif typ is "project">
 		<cfset srchall="/MediaSearch.cfm?action=search&project_id=#q#">
 		<cfset mrdescr="Media linked to this Project.">
