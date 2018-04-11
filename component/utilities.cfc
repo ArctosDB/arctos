@@ -444,7 +444,7 @@
 			<cfset r.preview_uri="">
 		</cfif>
 		<!--- statuscode of putting the actual file - the important thing--->
-	    <cfset r.statusCode=putfile.statusCode>
+	    <cfset r.statusCode=left(putfile.statusCode,3)>
 		<cfset r.filename="#fileName#">
 		<cfset r.mime_type=mimetype>
 		<cfset r.media_uri="#media_uri#">
