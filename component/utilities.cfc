@@ -601,7 +601,7 @@
 
 
 
-	<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/tn/#tfilename#">
+	<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/tn/#tfilename#">
 
 
 
