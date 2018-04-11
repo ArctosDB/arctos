@@ -304,22 +304,10 @@
 
 <cffunction name="loadFileS3" output="false" returnType="any" access="remote">
 	<cftry>
-<!----
-	<cfsavecontent variable="x">
-		<cfdump var=#file#>
-	</cfsavecontent>
-
-
-			<cfreturn serializeJSON(x)>
-
--------->
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_global_settings
 		</cfquery>
-
-
-
-		<!---- make a username bucket ---->
+		<!---- make a username bucket if it doesn't exist ---->
 		<cfset currentTime = getHttpTimeString( now() ) />
 		<cfset contentType = "text/html" />
 		<cfset bucket="#session.username#">
@@ -344,76 +332,41 @@
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		</cfhttp>
 
-		<!----
-		<!---- make a username/date bucket ---->
-		<cfset currentTime = getHttpTimeString( now() ) />
-		<cfset contentType = "text/html" />
-		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
-		<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket
-			] />
-		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-		<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-		<cfhttp result="mkudatebky"  method="put" url="#d.s3_endpoint#/#bucket#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
-		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
-		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-		</cfhttp>
-
-
----->
 
 		<cfset tempName=createUUID()>
-		<!----
-		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
-
-		<cftry>
-			<cfdirectory action="create" directory="#loadPath#" mode="775">
-			<cfcatch>
-	    		<!--- it already exists, do nothing--->
-			</cfcatch>
-		</cftry>
-		---->
-
-
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
 		<cfset fileName=cffile.serverfile>
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
-
-
 		<cfset fext=listlast(fileName,".")>
 		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 		<cfset fName=replace(fName,'__','_','all')>
-
 		<cfset fileName=fName & '.' & fext>
-
 		<cfset vfn=isValidMediaUpload(fileName)>
-
 		<cfif len(vfn) gt 0>
-			 <cfset r.statusCode=400>
+			<cfset r.statusCode=400>
 			<cfset r.msg=vfn>
 			<cfreturn serializeJSON(r)>
 		</cfif>
-
 		<cfset lclFile="#Application.sandbox#/#fileName#">
+		<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tempName#.tmp">
+		<!--- generate a checksum while we're holding the binary ---->
+		<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
+		<!--- see if the image exists ---->
+		<cfquery name="ckck" datasource="uam_god">
+			select media_id from media_labels where MEDIA_LABEL='MD5 checksum' and LABEL_VALUE='#md5#'
+		</cfquery>
+		<cfif ckck.recordcount gt 0>
+			<cfset r.statusCode=400>
+			<cfset r.msg='Media Exists'>
+			<cfloop list="#valulist(ckck.media_id)#" index="i">
+				<cfset r.msg=r.msg & '\n#Application.serverRootURL#/media/#i#'>
+			</cfloop>
+			<cfreturn serializeJSON(r)>
+		</cfif>
 
-	<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tempName#.tmp">
 
-
-	<!--- generate a checksum while we're holding the binary ---->
-	<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
-	<cfset r.md5=md5>
+		<cfset r.md5=md5>
 
 	<cfset mimetype=FilegetMimeType("#Application.sandbox#/#tempName#.tmp")>
 
