@@ -84,23 +84,18 @@
 		$('#ctmedia_type').find('option').clone().appendTo('#media_type');
 		$('#ctmedia_relationship').find('option').clone().appendTo('#media_relationship');
 		$("#made_date").datepicker();
-		// guess mime/media type
+		// guess media type
 
 		var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
-		if (fext=='jpg' || fext=='jpeg'){
-			//$("#mime_type").val('image/jpeg');
+		if (fext=='jpg' || fext=='jpeg' || fext=='dng'){
 			$("#media_type").val('image');
 		} else if (fext=='pdf'){
-			//$("#mime_type").val('application/pdf');
 			$("#media_type").val('text');
 		} else if (fext=='png'){
-			//$("#mime_type").val('image/png');
 			$("#media_type").val('image');
 		} else if (fext=='txt'){
-			//$("#mime_type").val('text/plain');
 			$("#media_type").val('text');
 		} else if (fext=='txt'){
-			//$("#mime_type").val('text/html');
 			$("#media_type").val('text');
 		}
 		$("#mime_type").val(result.MIME_TYPE);
