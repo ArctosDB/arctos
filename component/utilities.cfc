@@ -304,10 +304,11 @@
 
 <cffunction name="loadFileS3" output="false" returnType="any" access="remote">
 	<cftry>
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_global_settings
+		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
 		</cfquery>
-		<!---- make a username bucket if it doesn't exist ---->
+
+		<!---- make a username bucket. This will create or return an error of some sort. ---->
 		<cfset currentTime = getHttpTimeString( now() ) />
 		<cfset contentType = "text/html" />
 		<cfset bucket="#session.username#">
@@ -321,13 +322,13 @@
 		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
 		<cfset signature = binaryEncode(
 			binaryDecode(
-				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
 				"hex"
 			),
 			"base64"
 		)>
-		<cfhttp result="mkunamebkt"  method="put" url="#d.s3_endpoint#/#bucket#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
+		<cfhttp result="mkunamebkt"  method="put" url="#s3.s3_endpoint#/#bucket#">
+			<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
 		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		</cfhttp>
@@ -386,13 +387,13 @@
 		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
 		<cfset signature = binaryEncode(
 			binaryDecode(
-				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
 				"hex"
 			),
 			"base64"
 		)>
-		<cfhttp result="put"  method="put" url="#d.s3_endpoint#/#bucket#/#fileName#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
+		<cfhttp result="putfile" method="put" url="#s3.s3_endpoint#/#bucket#/#fileName#">
+			<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
 		    <cfhttpparam type="header" name="Content-Length" value="#contentLength#" />
 		    <cfhttpparam type="header" name="Content-Type" value="#contentType#"/>
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
@@ -423,67 +424,34 @@
 			    "/" & bucket & "/" & tfilename
 			] />
 			<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-		<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-		<cfhttp result="putTN" method="put" url="#d.s3_endpoint#/#bucket#/#tfilename#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
-		    <cfhttpparam type="header" name="Content-Length"  value="#contentLength#" />
-		    <cfhttpparam type="header" name="Content-Type"  value="#contentType#" />
-		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-		    <cfhttpparam type="body" value="#content#" />
-		</cfhttp>
-		<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#tfilename#">
-	<cfelse>
-		<cfset r.preview_uri="">
-	</cfif>
-    <cfset r.statusCode=200>
-	<cfset r.filename="#fileName#">
-	<cfset r.mime_type=mimetype>
-	<cfset r.media_uri="#media_uri#">
+			<cfset signature = binaryEncode(
+				binaryDecode(
+					hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
+					"hex"
+				),
+				"base64"
+			)>
+			<cfhttp result="putTN" method="put" url="#s3.s3_endpoint#/#bucket#/#tfilename#">
+				<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
+			    <cfhttpparam type="header" name="Content-Length"  value="#contentLength#" />
+			    <cfhttpparam type="header" name="Content-Type"  value="#contentType#" />
+			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
+			    <cfhttpparam type="body" value="#content#" />
+			</cfhttp>
+			<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#tfilename#">
+		<cfelse>
+			<cfset r.preview_uri="">
+		</cfif>
+		<!--- statuscode of putting the actual file - the important thing--->
+	    <cfset r.statusCode=putfile.statusCode>
+		<cfset r.filename="#fileName#">
+		<cfset r.mime_type=mimetype>
+		<cfset r.media_uri="#media_uri#">
 
-		<cfcatch>
-			<cftry>
-				<cfset r.statusCode=400>
-				<cfset r.msg=msg>
-				<!----
-				<cfif cfcatch.message contains "already exists">
-					<cfset umpth=#ucase(session.username)# & "/" & #ucase(fileName)#>
-					<cfquery name="fexist" datasource="uam_god">
-						select media_id from media where upper(media_uri) like '%#umpth#'
-					</cfquery>
-					<cfset midl=valuelist(fexist.media_id)>
-					<cfset msg="The file \n\n#Application.serverRootURL#/mediaUploads/#session.username#/#fileName#\n\n">
-					<cfset msg=msg & "already exists">
-					<cfif len(midl) gt 0>
-						<cfset msg=msg & " and may be used by \n\n#Application.ServerRootURL#/media/#midl#\n\nCheck the media_URL above.">
-						<cfset msg=msg & " Link to the media using the media_id (#midl#) in the form below.">
-					<cfelse>
-						<cfset msg=msg & " and does not seem to be used for existing Media. Create media with the already-loaded file by">
-						<cfset msg=msg & " pasting the above media_uri into ">
-						<cfset msg=msg & "\n\n#Application.serverRootURL#/media.cfm?action=newMedia">
-						<cfset msg=msg & "\n\nA preview may exist at ">
-						<cfset msg=msg & "\n\n#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
-					</cfif>
-					<cfset msg=msg & "\n\nRe-name and re-load the file ONLY if you are sure it does not exist on the sever.">
-					<cfset msg=msg & " Do not create duplicates.">
-				<cfelse>
-					<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
-				</cfif>
-				<cfset r.msg=msg>
-				---->
 			<cfcatch>
 				<cfset r.statusCode=400>
 				<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
 			</cfcatch>
-			</cftry>
-			<cfset r.statusCode=400>
-			<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
-		</cfcatch>
 	</cftry>
 	<cfreturn serializeJSON(r)>
 </cffunction>
