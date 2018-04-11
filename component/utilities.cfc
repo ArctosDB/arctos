@@ -415,8 +415,8 @@
 			<cfreturn serializeJSON(r)>
 		</cfif>
 
-		<cfset r.mediatype=mediatype>
-		<cfset r.mimetype=mimetype>
+		<cfset r.media_type=mediatype>
+		<cfset r.mime_type=mimetype>
 
 		<!--- now load the file ---->
 		<!--- "virtual" date-bucket inside the username bucket ---->
@@ -493,7 +493,6 @@
 		<!--- statuscode of putting the actual file - the important thing--->
 	    <cfset r.statusCode=left(putfile.statusCode,3)>
 		<cfset r.filename="#fileName#">
-		<cfset r.mime_type=mimetype>
 		<cfset r.media_uri="#media_uri#">
 
 			<cfcatch>
