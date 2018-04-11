@@ -5,7 +5,21 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "edit">
 <cfset title = "Edit Publication">
+	<script>
+		jQuery(document).ready(function(){
+            $("##mediaUpClickThis").click(function(){
+			    addMedia('publication_id','#publication_id#');
+			});
+		});
+	</script>
 <cfoutput>
+	<script>
+		jQuery(document).ready(function(){
+            $("##mediaUpClickThis").click(function(){
+			    addMedia('publication_id','#publication_id#');
+			});
+		});
+	</script>
 	<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Publication Details</a>
 	<br>
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -36,7 +50,7 @@
 	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
 		<br><input type="button" value="save" class="savBtn" onclick="editPub.action.value='saveEdit';editPub.submit();">
-		<input type="hidden" name="publication_id" value="#pub.publication_id#">
+		<input type="hidden" name="publication_id" id="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
 		<table>
 			<tr>
@@ -214,6 +228,10 @@
 			</div>
 		</cfif>
 		<div class="cellDiv">
+		<cfif isdefined("session.roles") and session.roles contains "manage_media">
+			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
+		</cfif>
+		<!----
 			Add Media:
 			<div style="font-size:small">
 				 Yellow cells are only required if you supply or create a URI. You may leave this section blank.
@@ -239,6 +257,7 @@
 			</select>
 			<label for="media_desc">Media Description</label>
 			<input type="text" name="media_desc" id="media_desc" size="80" class="reqdClr">
+			---->
 		</div>
 			<input type="hidden" name="origNumberLinks" id="origNumberLinks" value="#i#">
 			<input type="hidden" name="numberLinks" id="numberLinks" value="#i#">
