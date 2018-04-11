@@ -8,7 +8,8 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
-		 $('#nm').on('submit', function(e) {
+		 $('#nm_sbmt').on('click', function(e) {
+		 	console.log('submit');
 	       $('#nm_sbmt').hide().after('<img src="/images/indicator.gif">');
 	    });
 
