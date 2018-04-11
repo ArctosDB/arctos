@@ -412,7 +412,7 @@
 
 
 	<!--- generate a checksum while we're holding the binary ---->
-	<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinarycontent)>
+	<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
 	<cfset r.md5=md5>
 
 	<cfset mimetype=FilegetMimeType("#Application.sandbox#/#tempName#.tmp")>
