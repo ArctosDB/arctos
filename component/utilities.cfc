@@ -619,11 +619,14 @@
 
 	    <cfset r.statusCode=200>
 		<cfset r.filename="#fileName#">
+		<cfset r.mime_type=mimetype>
 		<cfset r.media_uri="#media_uri#">
+
+		<!----
 		<cfset r.mkunamebkt="#mkunamebkt#">
 		<cfset r.put="#put#">
 		<cfset r.putTN="#putTN#">
-
+		---->
 		<!----
 
 			<cfreturn serializeJSON(fileName)>
