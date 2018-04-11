@@ -67,6 +67,8 @@
 	    h+='<input type="text" name="description" id="description" size="80">';
 		h+='<label for="made_date">Made Date</label>';
 	    h+='<input type="text" name="made_date" id="made_date">';
+		h+='<label for="MD5_checksum">MD5 checksum</label>';
+	    h+='<input type="text" name="MD5_checksum" id="MD5_checksum" size="80" value="' + result.MD5 + '">';
 		h+='<span class="infoLink" onclick="clearDate();">clear</span>';
 		h+='<br><input type="submit" class="insBtn" value="create media">';
 		h+='</form>';
@@ -94,6 +96,7 @@
 			$("#mime_type").val('text/html');
 			$("#media_type").val('text');
 		}
+		$("#MD5_checksum").val($("#myAgentID").val());
 		$("#created_agent_id").val($("#myAgentID").val());
 		$("#creator").val($("#username").val());
 		$(".reqdClr:visible").each(function(e){
@@ -419,6 +422,22 @@
 					)
 				</cfquery>
 			</cfif>
+			<cfif len(MD5_checksum) gt 0>
+				<cfquery name="MD5_checksum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_labels (
+						MEDIA_ID,
+						MEDIA_LABEL,
+						LABEL_VALUE,
+						ASSIGNED_BY_AGENT_ID
+					) values (
+						#mid.mid#,
+						'MD5 checksum',
+						'#MD5_checksum#',
+						#session.myAgentId#
+					)
+				</cfquery>
+			</cfif>
+
 			<cfif len(made_date) gt 0>
 				<cfquery name="made_date" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into media_labels (
