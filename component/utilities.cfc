@@ -362,6 +362,7 @@
 			<cfloop list="#valuelist(ckck.media_id)#" index="i">
 				<cfset r.msg=r.msg & '\n#Application.serverRootURL#/media/#i#'>
 			</cfloop>
+			<cfset r.msg=r.msg & '\nUse the "link to existing" option'>
 			<cfreturn serializeJSON(r)>
 		</cfif>
 
