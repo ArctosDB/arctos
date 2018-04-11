@@ -9,9 +9,8 @@
 		    $(this).prop('required',true);
 		});
 		 $('#nm').on('submit', function(e) {
-	       $('#nm_sbmt').html('<img src="/images/indicator.gif">');
+	       $('#nm_sbmt').background: url('<img src="/images/indicator.gif">');
 	    });
-
 
 
 		Dropzone.options.mydz = {
