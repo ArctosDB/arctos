@@ -11,7 +11,7 @@
 		 $(document).on('click',"#nm_sbmt",function () {
 	       	console.log('submit');
 	       $('#nm_sbmt').hide();
-	       $("#sbmtbr").insertAfter('<img src="/images/indicator.gif">');
+	       $("#sbmtbr").after('<img src="/images/indicator.gif">');
 	    });
 
 
