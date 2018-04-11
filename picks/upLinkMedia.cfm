@@ -16,9 +16,15 @@
 					if (result.STATUSCODE=='200'){
 						makeSaveForm(result);
 					} else {
-						var msg=result.MSG.replace(/\\n/g,'\n');
-						alert('ERROR: ' + msg);
-						this.removeAllFiles();
+						try {
+	   						var msg=result.MSG.replace(/\\n/g,'\n');
+							alert('ERROR: ' + msg);
+							this.removeAllFiles();
+						} catch(err) {
+						    alert('UNEXPECTED ERROR: + r);
+							this.removeAllFiles();
+						}
+
 					}
 				});
 				this.on("maxfilesexceeded", function(file){
