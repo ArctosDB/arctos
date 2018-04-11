@@ -332,7 +332,6 @@
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		</cfhttp>
 
-
 		<cfset tempName=createUUID()>
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
 		<cfset fileName=cffile.serverfile>
@@ -367,53 +366,15 @@
 
 
 		<cfset r.md5=md5>
-
-	<cfset mimetype=FilegetMimeType("#Application.sandbox#/#tempName#.tmp")>
-
-	<cfset r.mimetype=#mimetype#>
-
-
+		<cfset mimetype=FilegetMimeType("#Application.sandbox#/#tempName#.tmp")>
+		<cfset r.mimetype=mimetype>
 
 		<!--- now load the file ---->
-
 		<!--- "virtual" date-bucket inside the username bucket ---->
 		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
-
-
-
 		<cfset currentTime = getHttpTimeString( now() ) />
-
-
-
-<!----
-		<!--- deal with mime type --->
-		<cfif fext is "jpg" or fext is "jpeg">
-			<cfset contentType = "image/jpeg" />
-		<cfelseif fext is "gif">
-			<cfset contentType = "image/gif" />
-		<cfelseif fext is "png">
-			<cfset contentType = "image/png" />
-		<cfelseif fext is "pdf">
-			<cfset contentType = "application/pdf" />
-		<cfelseif fext is "txt" or fext is "wkt">
-			<cfset contentType = "text/plain" />
-		<cfelseif fext is "m4v">
-			<cfset contentType = "video/mp4" />
-		<cfelseif fext is "mp3">
-			<cfset contentType = "audio/mpeg3" />
-		<cfelseif fext is "wav">
-			<cfset contentType = "audio/x-wav" />
-		<cfelse>
-			 <cfset r.statusCode=400>
-			<cfset r.msg=fext & " is not a valid extension.">
-			<cfreturn serializeJSON(r)>
-		</cfif>
---->
-
-<cfset contentType=mimetype>
-
+		<cfset contentType=mimetype>
 		<cfset contentLength=arrayLen( content )>
-
 		<cfset stringToSignParts = [
 		    "PUT",
 		    "",
@@ -423,255 +384,73 @@
 		] />
 
 		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-
-	<cfset signature = binaryEncode(
+		<cfset signature = binaryEncode(
 			binaryDecode(
 				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
 				"hex"
 			),
 			"base64"
 		)>
-
-
-
-	<cfhttp
-	    result="put"
-	    method="put"
-	    url="#d.s3_endpoint#/#bucket#/#fileName#">
-
-		<cfhttpparam
-	        type="header"
-	        name="Authorization"
-	        value="AWS #d.s3_accesskey#:#signature#"
-		/>
-
-
-
-
-	    <cfhttpparam
-	        type="header"
-	        name="Content-Length"
-	        value="#contentLength#"
-	        />
-
-	    <cfhttpparam
-	        type="header"
-	        name="Content-Type"
-	        value="#contentType#"
-	        />
-
-	    <cfhttpparam
-	        type="header"
-	        name="Date"
-	        value="#currentTime#"
-	        />
-
-	    <cfhttpparam
-	        type="body"
-	        value="#content#"
-	        />
-	</cfhttp>
-
-	<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
-
-
-
-	<cfif IsImageFile("#Application.sandbox#/#tempName#.tmp")>
-
-	    <cfset r.IsImageFile="yeppers">
-		<cfimage action="info" structname="imagetemp" source="#Application.sandbox#/#tempName#.tmp">
-		<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
-		<cfset newwidth = x*imagetemp.width>
-	    <cfset newheight = x*imagetemp.height>
-
-	    <cfset barefilename=listgetat(filename,1,".")>
-	    <cfset tfilename="tn_#barefilename#.jpg">
-
-	   	<cfimage action="convert" source="#Application.sandbox#/#tempName#.tmp" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
-	   	<cfimage action="resize" source="#Application.sandbox#/#tfilename#" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
-
-	   	<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
-		<cfset currentTime = getHttpTimeString( now() ) />
-		<cfset contentType = "image/jpeg" />
-
-		<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tfilename#">
-
-
-		<cfset contentLength=arrayLen( content )>
-
-		<cfset stringToSignParts = [
-		    "PUT",
-		    "",
-		    contentType,
-		    currentTime,
-		    "/" & bucket & "/" & tfilename
-		] />
-
-		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-
-	<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-
-
-
-	<cfhttp
-	    result="putTN"
-	    method="put"
-	    url="#d.s3_endpoint#/#bucket#/#tfilename#">
-
-		<cfhttpparam
-	        type="header"
-	        name="Authorization"
-	        value="AWS #d.s3_accesskey#:#signature#"
-		/>
-
-
-
-
-	    <cfhttpparam
-	        type="header"
-	        name="Content-Length"
-	        value="#contentLength#"
-	        />
-
-	    <cfhttpparam
-	        type="header"
-	        name="Content-Type"
-	        value="#contentType#"
-	        />
-
-	    <cfhttpparam
-	        type="header"
-	        name="Date"
-	        value="#currentTime#"
-	        />
-
-	    <cfhttpparam
-	        type="body"
-	        value="#content#"
-	        />
-	</cfhttp>
-
-
-
-	<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#tfilename#">
-
-
-		<cfelse>
-	    <cfset r.IsImageFile="nope">
-			<cfset r.preview_uri="">
-		</cfif>
-
-
-
-
-	    <cfset r.statusCode=200>
-		<cfset r.filename="#fileName#">
-		<cfset r.mime_type=mimetype>
-		<cfset r.media_uri="#media_uri#">
-
-		<!----
-		<cfset r.mkunamebkt="#mkunamebkt#">
-		<cfset r.put="#put#">
-		<cfset r.putTN="#putTN#">
-		---->
-		<!----
-
-			<cfreturn serializeJSON(fileName)>
-
-
-		<cfabort>
-
-
-		<cfset fileName=file>
-
-
-			<cfreturn serializeJSON(fileName)>
-
-		<cfset fext=listlast(fileName,".")>
-		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
-		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
-		<cfset fName=replace(fName,'__','_','all')>
-
-		<cfset fileName=fName & '.' & fext>
-
-		<cfset vfn=isValidMediaUpload(fileName)>
-
-		<cfif len(vfn) gt 0>
-			 <cfset r.statusCode=400>
-			<cfset r.msg=vfn>
-			<cfreturn serializeJSON(vfn)>
-		</cfif>
-
-
-			<cfreturn serializeJSON(fileName)>
-
-
-
-
-
-		<cfabort>
-
-
-		<cfset tempName=createUUID()>
-		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
-
-
-
-		<cfset loadPath = "#Application.webDirectory#/mediaUploads/s3/#session.username#">
-		<cftry>
-			<cfdirectory action="create" directory="#loadPath#" mode="775">
-			<cfcatch>
-	    		<!--- it already exists, do nothing--->
-			</cfcatch>
-		</cftry>
-		<cfset fileName=cffile.serverfile>
-		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
-		<cfset fext=listlast(fileName,".")>
-		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
-		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
-		<cfset fName=replace(fName,'__','_','all')>
-
-		<cfset fileName=fName & '.' & fext>
-
-		<cfset vfn=isValidMediaUpload(fileName)>
-
-		<cfif len(vfn) gt 0>
-			 <cfset r.statusCode=400>
-			<cfset r.msg=vfn>
-			<cfreturn serializeJSON(r)>
-		</cfif>
-
-		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
-		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-		<cfif IsImageFile("#loadPath#/#fileName#")>
-			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
-			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName>
-			<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
+		<cfhttp result="put"  method="put" url="#d.s3_endpoint#/#bucket#/#fileName#">
+			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
+		    <cfhttpparam type="header" name="Content-Length" value="#contentLength#" />
+		    <cfhttpparam type="header" name="Content-Type" value="#contentType#"/>
+		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
+		    <cfhttpparam type="body" value="#content#" />
+		</cfhttp>
+		<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
+
+		<cfif IsImageFile("#Application.sandbox#/#tempName#.tmp")>
+			<!---- make a thumbnail ---->
+			<cfimage action="info" structname="imagetemp" source="#Application.sandbox#/#tempName#.tmp">
 			<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
 			<cfset newwidth = x*imagetemp.width>
-	      	<cfset newheight = x*imagetemp.height>
-	   		<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
-				destination="#tnAbsPath#" overwrite="false">
-			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
-			<cfset r.preview_uri="#preview_uri#">
-		<cfelse>
-			<cfset r.preview_uri="">
-		</cfif>
-	    <cfset r.statusCode=200>
-		<cfset r.filename="#fileName#">
-		<cfset r.media_uri="#media_uri#">
----->
+	    	<cfset newheight = x*imagetemp.height>
+		    <cfset barefilename=listgetat(filename,1,".")>
+		    <cfset tfilename="tn_#barefilename#.jpg">
+		   	<cfimage action="convert" source="#Application.sandbox#/#tempName#.tmp" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
+		   	<cfimage action="resize" source="#Application.sandbox#/#tfilename#" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
+		   	<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
+			<cfset currentTime = getHttpTimeString( now() ) />
+			<cfset contentType = "image/jpeg" />
+			<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tfilename#">
+			<cfset contentLength=arrayLen( content )>
+			<cfset stringToSignParts = [
+			    "PUT",
+			    "",
+			    contentType,
+			    currentTime,
+			    "/" & bucket & "/" & tfilename
+			] />
+			<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+		<cfset signature = binaryEncode(
+			binaryDecode(
+				hmac( stringToSign, d.s3_secretKey, "HmacSHA1", "utf-8" ),
+				"hex"
+			),
+			"base64"
+		)>
+		<cfhttp result="putTN" method="put" url="#d.s3_endpoint#/#bucket#/#tfilename#">
+			<cfhttpparam type="header" name="Authorization" value="AWS #d.s3_accesskey#:#signature#"/>
+		    <cfhttpparam type="header" name="Content-Length"  value="#contentLength#" />
+		    <cfhttpparam type="header" name="Content-Type"  value="#contentType#" />
+		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
+		    <cfhttpparam type="body" value="#content#" />
+		</cfhttp>
+		<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#tfilename#">
+	<cfelse>
+		<cfset r.preview_uri="">
+	</cfif>
+    <cfset r.statusCode=200>
+	<cfset r.filename="#fileName#">
+	<cfset r.mime_type=mimetype>
+	<cfset r.media_uri="#media_uri#">
+
 		<cfcatch>
-		<!----
 			<cftry>
 				<cfset r.statusCode=400>
-
+				<cfset r.msg=msg>
+				<!----
 				<cfif cfcatch.message contains "already exists">
 					<cfset umpth=#ucase(session.username)# & "/" & #ucase(fileName)#>
 					<cfquery name="fexist" datasource="uam_god">
@@ -696,12 +475,12 @@
 					<cfset msg=cfcatch.message & '; ' & cfcatch.detail>
 				</cfif>
 				<cfset r.msg=msg>
+				---->
 			<cfcatch>
 				<cfset r.statusCode=400>
 				<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
 			</cfcatch>
 			</cftry>
-			---->
 			<cfset r.statusCode=400>
 			<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
 		</cfcatch>
