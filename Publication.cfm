@@ -5,13 +5,6 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "edit">
 <cfset title = "Edit Publication">
-	<script>
-		jQuery(document).ready(function(){
-            $("##mediaUpClickThis").click(function(){
-			    addMedia('publication_id','#publication_id#');
-			});
-		});
-	</script>
 <cfoutput>
 	<script>
 		jQuery(document).ready(function(){
@@ -228,6 +221,7 @@
 			</div>
 		</cfif>
 		<div class="cellDiv">
+			mmmmm
 		<cfif isdefined("session.roles") and session.roles contains "manage_media">
 			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
 		</cfif>
