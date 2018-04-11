@@ -457,6 +457,8 @@
 </cffunction>
 <!------------------>
 <cffunction name="loadFile" output="false" returnType="string" access="remote">
+	<!--- keep this as we're testing loadFileS3; delete when that has demonstrated stability --->
+
 	<cftry>
 		<cfset tempName=createUUID()>
 		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
