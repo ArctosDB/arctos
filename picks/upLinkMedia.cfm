@@ -97,7 +97,7 @@
 			//$("#mime_type").val('text/html');
 			$("#media_type").val('text');
 		}
-		$("#mime_type").val(result.mime_type);
+		$("#mime_type").val(result.MIME_TYPE);
 		$("#created_agent_id").val($("#myAgentID").val());
 		$("#creator").val($("#username").val());
 		$(".reqdClr:visible").each(function(e){
