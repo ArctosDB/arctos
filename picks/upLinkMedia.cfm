@@ -84,21 +84,8 @@
 		$('#ctmedia_type').find('option').clone().appendTo('#media_type');
 		$('#ctmedia_relationship').find('option').clone().appendTo('#media_relationship');
 		$("#made_date").datepicker();
-		// guess media type
-
-		var fext=result.MEDIA_URI.split('.').pop().toLowerCase();
-		if (fext=='jpg' || fext=='jpeg' || fext=='dng'){
-			$("#media_type").val('image');
-		} else if (fext=='pdf'){
-			$("#media_type").val('text');
-		} else if (fext=='png'){
-			$("#media_type").val('image');
-		} else if (fext=='txt'){
-			$("#media_type").val('text');
-		} else if (fext=='txt'){
-			$("#media_type").val('text');
-		}
 		$("#mime_type").val(result.MIME_TYPE);
+		$("#media_type").val(result.MEDIA_TYPE);
 		$("#created_agent_id").val($("#myAgentID").val());
 		$("#creator").val($("#username").val());
 		$(".reqdClr:visible").each(function(e){

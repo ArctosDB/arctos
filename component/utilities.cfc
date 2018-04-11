@@ -368,7 +368,54 @@
 
 
 		<cfset r.md5=md5>
-		<cfset mimetype=FilegetMimeType("#Application.sandbox#/#tempName#.tmp")>
+		<!----
+			this does not work properly; Adobe ColdFusion thinks Adobe DNGs are TIFFs
+			<cfset mimetype=FilegetMimeType("#Application.sandbox#/#tempName#.tmp")>
+			<cfset r.mimetype=mimetype>
+		 ---->
+		<cfif fext is "jpg" or fext is "jpeg">
+			<cfset mimetype="image/jpeg">
+			<cfset mediatype="image">
+		<cfelseif fext is "dng">
+			<cfset mimetype="image/dng">
+			<cfset mediatype="image">
+		<cfelseif fext is "pdf">
+			<cfset mimetype="application/pdf">
+			<cfset mediatype="text">
+		<cfelseif fext is "png">
+			<cfset mimetype="image/png">
+			<cfset mediatype="image">
+		<cfelseif fext is "txt">
+			<cfset mimetype="text/plain">
+			<cfset mediatype="text">
+		<cfelseif fext is "wav">
+			<cfset mimetype="audio/x-wav">
+			<cfset mediatype="audio">
+		<cfelseif fext is "m4v">
+			<cfset mimetype="video/mp4">
+			<cfset mediatype="video">
+		<cfelseif fext is "tif" or fext is "tiff">
+			<cfset mimetype="image/tiff">
+			<cfset mediatype="image">
+		<cfelseif fext is "mp3">
+			<cfset mimetype="audio/mpeg3">
+			<cfset mediatype="audio">
+		<cfelseif fext is "mov">
+			<cfset mimetype="video/quicktime">
+			<cfset mediatype="video">
+		<cfelseif fext is "xml">
+			<cfset mimetype="application/xml">
+			<cfset mediatype="text">
+		<cfelseif fext is "wkt">
+			<cfset mimetype="text/plain">
+			<cfset mediatype="text">
+		<cfelse>
+			<cfset r.statusCode=400>
+			<cfset r.msg='Invalid filetype'>
+			<cfreturn serializeJSON(r)>
+		</cfif>
+
+		<cfset r.mediatype=mediatype>
 		<cfset r.mimetype=mimetype>
 
 		<!--- now load the file ---->
@@ -661,7 +708,7 @@
 	<cfargument name="fileName" required="yes">
 	<cfset err="">
 	<cfset extension=listlast(fileName,".")>
-	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3,wav,wkt,dng">
+	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3,wav,wkt,dng,tif,tiff,mov,xml">
 	<cfif listfindnocase(acceptExtensions,extension) is 0>
 		<cfset err="An valid file name extension (#acceptExtensions#) is required. extension=#extension#">
 	</cfif>
