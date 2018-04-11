@@ -21,7 +21,7 @@
 							alert('ERROR: ' + msg);
 							this.removeAllFiles();
 						} catch(err) {
-						    alert('UNEXPECTED ERROR: + r);
+						    alert('UNEXPECTED ERROR: ' + r);
 							this.removeAllFiles();
 						}
 
