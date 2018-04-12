@@ -162,16 +162,16 @@
 			<input type="hidden" name="numNewAuths" id="numNewAuths" value="#numNewAuths#">
 		</table>
 
-		<div id="pubMediaDv"></div>
-
-
 		<div class="cellDiv">
 			<cfif isdefined("session.roles") and session.roles contains "manage_media">
-				<a href="##" id="mediaUpClickThis">Attach/Upload Media</a>
+				<span class="likeLink" id="mediaUpClickThis">Attach/Upload Media</span>
 			<cfelse>
 				You do not have permission to add Media.
 			</cfif>
 		</div>
+		<div id="pubMediaDv"></div>
+
+
 			<input type="hidden" name="origNumberLinks" id="origNumberLinks" value="#i#">
 			<input type="hidden" name="numberLinks" id="numberLinks" value="#i#">
 			<br><input type="button" value="save" class="savBtn" onclick="editPub.action.value='saveEdit';editPub.submit();">
