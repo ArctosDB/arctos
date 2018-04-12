@@ -52,12 +52,15 @@
 	  	// prefetch these to avoid 'undefined' when there's not relationship/we're just loading
 	  	var kvl;
 	  	var ktp;
+
+	  	console.log('kvl before:'+kvl);
 	  	if ($("#kval").length){
 	  		kvl=$("#kval").val();
 	  	}
 	  	if ($("#ktype").length){
 	  		ktp=$("#ktype").val();
 	  	}
+	  	console.log('kvl after:'+kvl);
 	  	var h='<form name="nm" id="nm" method="post" action="upLinkMedia.cfm">';
 	  	h+='<input type="hidden" name="ktype"  value="' + ktp + '">';
 	  	h+='<input type="hidden" name="kval"  value="' + kvl + '">';
