@@ -126,10 +126,10 @@
 	<script>
 		jQuery(document).ready(function() {
 			countChar($("#project_description").val());
-			  $("##mediaUpClickThis").click(function(){
-			    addMedia('project_id','#project_id#');
+			$("#mediaUpClickThis").click(function(){
+			    addMedia('project_id',$("#project_id".val());
 			});
-			 getMedia('project','#project_id#','projMediaDv','20','1');
+			 getMedia('project',$("#project_id".val(),'projMediaDv','20','1');
 		});
 
 		});
@@ -169,6 +169,7 @@
 	</script>
 
 	<cfoutput>
+
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
 		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
