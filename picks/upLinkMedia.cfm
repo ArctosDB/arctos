@@ -217,27 +217,29 @@
 		</div>
 		<div id="newMediaUpBack"></div>
 	</div>
-	<div class="grpDiv">
-		Option 2: Link to existing Arctos Media.
-		<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
-		<form id="picklink" method="post" action="upLinkMedia.cfm">
-			<input type="hidden" name="action" value="linkpicked">
-			<input type="hidden" id="ktype" name="ktype" value="#ktype#">
-			<input type="hidden" id="kval" name="kval" value="#kval#">
-			<label for="">Media ID</label>
-			<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
-			<label for="p_media_uri">Picked MediaURI</label>
-			<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
-			<label for="media_relationship">Relationship</label>
-			<select name="media_relationship" id="media_relationship">
-			<cfloop query="ctmedia_relationship">
-				<option value="#media_relationship#">#media_relationship#</option>
-			</cfloop>
-		</select>
-			<br><input type="submit" class="insBtn" value="link to picked media">
-		</form>
-	</div>
-
+	<cfif len(kval) gt 0>
+		<!--- don't include this with the 'just upload' option --->
+		<div class="grpDiv">
+			Option 2: Link to existing Arctos Media.
+			<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
+			<form id="picklink" method="post" action="upLinkMedia.cfm">
+				<input type="hidden" name="action" value="linkpicked">
+				<input type="hidden" id="ktype" name="ktype" value="#ktype#">
+				<input type="hidden" id="kval" name="kval" value="#kval#">
+				<label for="">Media ID</label>
+				<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
+				<label for="p_media_uri">Picked MediaURI</label>
+				<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
+				<label for="media_relationship">Relationship</label>
+				<select name="media_relationship" id="media_relationship">
+				<cfloop query="ctmedia_relationship">
+					<option value="#media_relationship#">#media_relationship#</option>
+				</cfloop>
+			</select>
+				<br><input type="submit" class="insBtn" value="link to picked media">
+			</form>
+		</div>
+	</cfif>
 	<!---
 
 	what does this do? investigate/uncomment....
@@ -251,98 +253,98 @@
 	------->
 
 	<cfif len(tbl) gt 0>
-	Existing Media for this object
-	<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct
-			media.media_id,
-			media.MEDIA_URI,
-			media.MIME_TYPE,
-			media.MEDIA_TYPE,
-			media.PREVIEW_URI,
-			media.MEDIA_LICENSE_ID,
-			media.MEDIA_URI,
-			ctmedia_license.DISPLAY,
-			ctmedia_license.DESCRIPTION,
-			ctmedia_license.URI
-		from
-			media_relations,
-			media,
-			ctmedia_license
-		where
-			media_relations.media_relationship like '% #tbl#' and
-			media_relations.related_primary_key=#kval# and
-			media_relations.media_id=media.media_id and
-			media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+)
-		order by
-			media_id
-	</cfquery>
-	<style>
-		.tbl{
-			display: table;
-			width:80%;
-			border:1px solid black;
-			margin:1em;
-			padding:1em;}
-		.tr{display: table-row;}
-		.td-left{
-			display: table-cell;
-			width:30%;
-			vertical-align: middle;
-		}
-		.td-right{
-			display: table-cell;
-			width:68%;
-			vertical-align: middle;
-			padding:0 0 0 1em;
-		}
-		.grpDiv {
-			padding:1em;
-			margin:1em;
-			border:1px solid black;
-		}
-	</style>
-	<cfset  func = CreateObject("component","component.functions")>
-	<cfloop query="smed">
-		<cfset relns=func.getMediaRelations(media_id=#media_id#)>
-		<cfset mp = func.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-		<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select MEDIA_LABEL,LABEL_VALUE from media_labels where media_id=#media_id# order by media_label,label_value
+		Existing Media for this object
+		<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select distinct
+				media.media_id,
+				media.MEDIA_URI,
+				media.MIME_TYPE,
+				media.MEDIA_TYPE,
+				media.PREVIEW_URI,
+				media.MEDIA_LICENSE_ID,
+				media.MEDIA_URI,
+				ctmedia_license.DISPLAY,
+				ctmedia_license.DESCRIPTION,
+				ctmedia_license.URI
+			from
+				media_relations,
+				media,
+				ctmedia_license
+			where
+				media_relations.media_relationship like '% #tbl#' and
+				media_relations.related_primary_key=#kval# and
+				media_relations.media_id=media.media_id and
+				media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+)
+			order by
+				media_id
 		</cfquery>
-		<div class="tbl">
-			<div class="tr">
-				<div class="td-left">
-					<a target="_blank" href="#MEDIA_URI#"><img src="#mp#" style="max-width:150px;max-height:150px;"></a>
-					<a target="_blank" href="/media.cfm?action=edit&media_id=#media_id#">Edit Media</a>
-					<cfif len(DISPLAY) gt 0>
-						<a style="font-size:x-small" href="#media_id#" class="external" target="_blank">#DISPLAY# (#DESCRIPTION#)</a>
-					</cfif>
-				</div>
-				<div class="td-right">
-					<div style="font-size:small">
-						<cfloop query="relns">
-							<br>#MEDIA_RELATIONSHIP#
-							<cfif len(LINK) gt 0>
-								<a href="#LINK#" target="_blank">#SUMMARY#</a>
-							<cfelse>
-								#SUMMARY#
-							</cfif>
-						</cfloop>
-						<cfloop query="lbl">
-							<br>#MEDIA_LABEL#: #LABEL_VALUE#
-						</cfloop>
+		<style>
+			.tbl{
+				display: table;
+				width:80%;
+				border:1px solid black;
+				margin:1em;
+				padding:1em;}
+			.tr{display: table-row;}
+			.td-left{
+				display: table-cell;
+				width:30%;
+				vertical-align: middle;
+			}
+			.td-right{
+				display: table-cell;
+				width:68%;
+				vertical-align: middle;
+				padding:0 0 0 1em;
+			}
+			.grpDiv {
+				padding:1em;
+				margin:1em;
+				border:1px solid black;
+			}
+		</style>
+		<cfset  func = CreateObject("component","component.functions")>
+		<cfloop query="smed">
+			<cfset relns=func.getMediaRelations(media_id=#media_id#)>
+			<cfset mp = func.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
+			<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select MEDIA_LABEL,LABEL_VALUE from media_labels where media_id=#media_id# order by media_label,label_value
+			</cfquery>
+			<div class="tbl">
+				<div class="tr">
+					<div class="td-left">
+						<a target="_blank" href="#MEDIA_URI#"><img src="#mp#" style="max-width:150px;max-height:150px;"></a>
+						<a target="_blank" href="/media.cfm?action=edit&media_id=#media_id#">Edit Media</a>
+						<cfif len(DISPLAY) gt 0>
+							<a style="font-size:x-small" href="#media_id#" class="external" target="_blank">#DISPLAY# (#DESCRIPTION#)</a>
+						</cfif>
+					</div>
+					<div class="td-right">
+						<div style="font-size:small">
+							<cfloop query="relns">
+								<br>#MEDIA_RELATIONSHIP#
+								<cfif len(LINK) gt 0>
+									<a href="#LINK#" target="_blank">#SUMMARY#</a>
+								<cfelse>
+									#SUMMARY#
+								</cfif>
+							</cfloop>
+							<cfloop query="lbl">
+								<br>#MEDIA_LABEL#: #LABEL_VALUE#
+							</cfloop>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</cfloop>
+		</cfloop>
 	<cfelse>
-		<div class="importantNotification">
-			You are creating Media with no relationships. You will need to Edit Media and add relationships
-			after uploading. This process may be easier from the data object (agent, specimen, etc.) to which
-			you are adding Media.
-		</div>
-	</cfif>
-</cfoutput>
+			<div class="importantNotification">
+				You are creating Media with no relationships. You will need to Edit Media and add relationships
+				after uploading. This process may be easier from the data object (agent, specimen, etc.) to which
+				you are adding Media.
+			</div>
+		</cfif>
+	</cfoutput>
 </cfif>
 
 <cfif action is "linkpicked">
@@ -391,19 +393,22 @@
 					</cfif>
 				)
 			</cfquery>
-			<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into media_relations (
-					MEDIA_ID,
-					MEDIA_RELATIONSHIP,
-					CREATED_BY_AGENT_ID,
-					RELATED_PRIMARY_KEY
-				) values (
-					#mid.mid#,
-					'#media_relationship#',
-					#session.myAgentId#,
-					#kval#
-				)
-			</cfquery>
+			<!--- allow a just-make-media option --->
+			<cfif len(kval) gt 0>
+				<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_relations (
+						MEDIA_ID,
+						MEDIA_RELATIONSHIP,
+						CREATED_BY_AGENT_ID,
+						RELATED_PRIMARY_KEY
+					) values (
+						#mid.mid#,
+						'#media_relationship#',
+						#session.myAgentId#,
+						#kval#
+					)
+				</cfquery>
+			</cfif>
 			<cfif len(created_agent_id) gt 0>
 				<cfquery name="created_agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into media_relations (
