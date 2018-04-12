@@ -54,7 +54,7 @@
 		h+=' <span class="likeLink" onclick="resetDZ();">click here to start over</span>';
 	  	$("#uploadtitle").html(h);
 	  	$("#uploadmediaform").hide();
-	  	var h='<form name="nm" method="post" action="upLinkMedia.cfm">';
+	  	var h='<form name="nm" id="nm" method="post" action="upLinkMedia.cfm">';
 	  	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
 	  	h+='<input type="hidden" name="kval"  value="' + $("#kval").val() + '">';
 	  	h+='<input type="hidden" name="action"  value="createNewMedia">';
