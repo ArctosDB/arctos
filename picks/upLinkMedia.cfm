@@ -102,7 +102,7 @@
 	}
 </script>
 
-
+<span onclick="makeSaveForm()">makeSaveForm</span>
 
 <cfoutput>
 	<cfif ktype is "collecting_event_id">
