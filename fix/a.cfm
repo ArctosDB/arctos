@@ -1,9 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 
-<cfimage action="captcha"  text="username: i_am_tester" difficulty="high"
+<cfimage action="captcha"  text="username: i_am_tester" difficulty="medium"
 		    	overwrite="yes"
 		    	destination="#application.webdirectory#/temp/testuname.png">
 		<img src="/temp/testuname.png">
+
+<cfimage action="captcha"  text="pwd: seekrut.passwerd123" difficulty="medium"
+		    	overwrite="yes"
+		    	destination="#application.webdirectory#/temp/testpwd.png">
+		<img src="/temp/testpwd.png">
 
 
 
