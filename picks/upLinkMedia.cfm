@@ -127,6 +127,13 @@
 	<cfelseif ktype is "project_id">
 		<cfset tbl='project'>
 	<cfelse>
+
+
+
+	<p>
+
+		no tbl setting stuff to null
+	</p>
 		<!--- allow upload without relationships; see code below before changing this ---->
 		<cfset tbl=''>
 		<cfset kval=''>
