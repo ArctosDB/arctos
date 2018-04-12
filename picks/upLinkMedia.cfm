@@ -101,8 +101,9 @@
 		});
 	}
 </script>
+<cfset x=SerializeJSON('{"MIME_TYPE":"image\/png","MD5":"f417f2e526cb9d6506f24fb356602d5d","FILENAME":"Screen_Shot_2017_09_27_at_7_42_13_AM.png","STATUSCODE":200,"MEDIA_URI":"https:\/\/web.corral.tacc.utexas.edu\/arctos-s3\/dlm\/2018-04-12\/Screen_Shot_2017_09_27_at_7_42_13_AM.png","MEDIA_TYPE":"image","PREVIEW_URI":"https:\/\/web.corral.tacc.utexas.edu\/arctos-s3\/dlm\/2018-04-12\/tn\/tn_Screen_Shot_2017_09_27_at_7_42_13_AM.jpg"}')>
 
-<span onclick="makeSaveForm('{"MIME_TYPE":"image\/png","MD5":"f417f2e526cb9d6506f24fb356602d5d","FILENAME":"Screen_Shot_2017_09_27_at_7_42_13_AM.png","STATUSCODE":200,"MEDIA_URI":"https:\/\/web.corral.tacc.utexas.edu\/arctos-s3\/dlm\/2018-04-12\/Screen_Shot_2017_09_27_at_7_42_13_AM.png","MEDIA_TYPE":"image","PREVIEW_URI":"https:\/\/web.corral.tacc.utexas.edu\/arctos-s3\/dlm\/2018-04-12\/tn\/tn_Screen_Shot_2017_09_27_at_7_42_13_AM.jpg"}')">makeSaveForm</span>
+<span onclick="makeSaveForm('#x#')">makeSaveForm</span>
 
 <cfoutput>
 	<cfif ktype is "collecting_event_id">
