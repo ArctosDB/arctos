@@ -1,4 +1,18 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+ <cfimage
+          action="captcha"
+                    height="75"
+                    width="363"
+                    text="Login: i_am_tester"
+                    difficulty="medium"
+                    fonts="verdana,arial,times new roman,courier"
+                    fontsize="28"
+/>
+
+
+
 <!---
 
 create table temp_cd_nodef (
