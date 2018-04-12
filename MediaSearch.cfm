@@ -19,19 +19,16 @@
 
 	<cfif action is "nothing">
 	<!----------------------------------------------------------------------------------------->
-	<!----
 
 	<script>
 		jQuery(document).ready(function() {
 
-			$( ":input" ).hover(function() {
-				//$("#srchHelp").html(this.id);
+		  $("#mediaUpClickThis").click(function(){
+			    addMedia();
 			});
 		});
 
 	</script>
-	---->
-
 	<cfoutput>
 	    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select media_relationship from ctmedia_relationship order by media_relationship
@@ -46,7 +43,10 @@
 			select mime_type from ctmime_type order by mime_type
 		</cfquery>
 		 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+	        <!----
 	        <a href="/media.cfm?action=newMedia">[ create media ]</a>
+	        ---->
+	        <span class="likeLink" id="mediaUpClickThis">Attach/Upload Media</span>
 	    </cfif>
 		<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select SEARCH_NAME,URL

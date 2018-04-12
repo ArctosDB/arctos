@@ -324,6 +324,8 @@
 
 <!----------------------------------------------------------------------------------------->
 <cfif action is "newMedia">
+
+	deprecated - please file an Issue<cfabort>
 	<cfoutput>
 	<p>
 		<span class="helpLink" data-helplink="media_guidelines">READ THE DOCUMENTATION!</span>
