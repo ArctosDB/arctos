@@ -127,9 +127,9 @@
 		jQuery(document).ready(function() {
 			countChar($("#project_description").val());
 			$("#mediaUpClickThis").click(function(){
-			    addMedia('project_id',$("#project_id".val());
+			    addMedia('project_id',$("#project_id").val());
 			});
-			 getMedia('project',$("#project_id".val(),'projMediaDv','20','1');
+			 getMedia('project',$("#project_id").val(),'projMediaDv','20','1');
 		});
 
 		});
