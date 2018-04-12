@@ -52,21 +52,12 @@
 	  	// prefetch these to avoid 'undefined' when there's not relationship/we're just loading
 	  	var kvl;
 	  	var ktp;
-
-
-		if($("#kval")){
-			console.log('truthy');
-			console.log($("#kval"));
-			}else{console.log('falsy');
-			}
-	  	console.log('kvl before:'+kvl);
 	  	if ($("#kval").length){
 	  		kvl=$("#kval").val();
 	  	}
 	  	if ($("#ktype").length){
 	  		ktp=$("#ktype").val();
 	  	}
-	  	console.log('kvl after:'+kvl);
 	  	var h='<form name="nm" id="nm" method="post" action="upLinkMedia.cfm">';
 	  	h+='<input type="hidden" name="ktype"  value="' + ktp + '">';
 	  	h+='<input type="hidden" name="kval"  value="' + kvl + '">';
@@ -77,14 +68,10 @@
 	  	h+='<label for="preview_uri">Preview URI</label>';
 	  	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
 	  	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
-	  	console.log('kvl len: ' + kvl.length);
-
 	  	if (kvl.length){
 		  	h+='<label for="media_relationship">Media Relationship</label>';
 		  	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
 	 	}
-
-
 	  	h+='<label for="media_license_id">License</label>';
 	  	h+='<select name="media_license_id" id="media_license_id"></select>';
 		h+='<label for="mime_type">MIME Type</label>';
@@ -123,11 +110,7 @@
 </script>
 <cfset x=SerializeJSON('{"MIME_TYPE":"image\/png","MD5":"f417f2e526cb9d6506f24fb356602d5d","FILENAME":"Screen_Shot_2017_09_27_at_7_42_13_AM.png","STATUSCODE":200,"MEDIA_URI":"https:\/\/web.corral.tacc.utexas.edu\/arctos-s3\/dlm\/2018-04-12\/Screen_Shot_2017_09_27_at_7_42_13_AM.png","MEDIA_TYPE":"image","PREVIEW_URI":"https:\/\/web.corral.tacc.utexas.edu\/arctos-s3\/dlm\/2018-04-12\/tn\/tn_Screen_Shot_2017_09_27_at_7_42_13_AM.jpg"}')>
 
-<span onclick="makeSaveForm('#x#')">makeSaveForm</span>
-
 <cfoutput>
-	<br />kvalpre::#kval#
-
 	<cfif ktype is "collecting_event_id">
 		<cfset tbl='collecting_event'>
 	<cfelseif ktype is "collection_object_id">
@@ -147,13 +130,6 @@
 	<cfelseif ktype is "project_id">
 		<cfset tbl='project'>
 	<cfelse>
-
-
-
-	<p>
-
-		no tbl setting stuff to null
-	</p>
 		<!--- allow upload without relationships; see code below before changing this ---->
 		<cfset tbl=''>
 		<cfset kval=''>
@@ -161,9 +137,6 @@
 		<input type="hidden" id="ktype" name="ktype" value="#ktype#">
 		<input type="hidden" id="kval" name="kval" value="#kval#">
 	</cfif>
-
-
-<br>kvalpost::#kval#
 
 	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_license order by DISPLAY
@@ -209,11 +182,6 @@
 		<input type="hidden" id="username" value="#session.username#">
 	</div>
 	<div class="grpDiv">
-
-
-
-
-
 		<div id="uploadtitle">Option 1: Upload Media</div>
 				<!--- keep this as we're testing the S3 upload
 
@@ -429,10 +397,7 @@
 				)
 			</cfquery>
 			<!--- allow a just-make-media option --->
-kval::#kval#
-
 			<cfif len(kval) gt 0>
-
 				<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into media_relations (
 						MEDIA_ID,
@@ -509,7 +474,7 @@ kval::#kval#
 			</cfif>
 		</cftransaction>
 		<cfif len(kval) is 0>
-			Media created. <a target="_parent" href="/media.cfm?action=edit&media_id=#mid.mid#">Click here to edit Media</a>
+			Media ID #mid.mid# created. <a target="_parent" href="/media.cfm?action=edit&media_id=#mid.mid#">Click here to edit Media</a>
 		<cfelse>
 			<cflocation url="upLinkMedia.cfm?ktype=#ktype#&kval=#kval#&" addtoken="false">
 		</cfif>
