@@ -49,9 +49,18 @@
 		h+=' <span class="likeLink" onclick="resetDZ();">click here to start over</span>';
 	  	$("#uploadtitle").html(h);
 	  	$("#uploadmediaform").hide();
+	  	// prefetch these to avoid 'undefined' when there's not relationship/we're just loading
+	  	var kvl;
+	  	var ktp;
+	  	if ($("#kval").length){
+	  		kvl=$("#kval").val();
+	  	}
+	  	if ($("#ktype").length){
+	  		ktp=$("#ktype").val();
+	  	}
 	  	var h='<form name="nm" id="nm" method="post" action="upLinkMedia.cfm">';
-	  	h+='<input type="hidden" name="ktype"  value="' + $("#ktype").val() + '">';
-	  	h+='<input type="hidden" name="kval"  value="' + $("#kval").val() + '">';
+	  	h+='<input type="hidden" name="ktype"  value="' + ktp + '">';
+	  	h+='<input type="hidden" name="kval"  value="' + kvl + '">';
 	  	h+='<input type="hidden" name="action"  value="createNewMedia">';
 	  	h+='<label for="media_uri">Media URI</label>';
 	  	h+='<input type="text" name="media_uri" class="reqdClr" id="media_uri" size="80" value="' + result.MEDIA_URI + '">';
@@ -59,9 +68,9 @@
 	  	h+='<label for="preview_uri">Preview URI</label>';
 	  	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
 	  	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
-	  	console.log('kval len: ' + $("#kval").length);
+	  	console.log('kvl len: ' + kvl.length);
 
-	  	if ($("#kval").length = 0){
+	  	if (kvl.length){
 		  	h+='<label for="media_relationship">Media Relationship</label>';
 		  	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
 	 	}
