@@ -129,9 +129,7 @@
 			$("#mediaUpClickThis").click(function(){
 			    addMedia('project_id',$("#project_id").val());
 			});
-			 getMedia('project',$("#project_id").val(),'projMediaDv','20','1');
-		});
-
+			getMedia('project',$("#project_id").val(),'projMediaDv','20','1');
 		});
 		function disableMarkdown(){
 			var txt=$("#project_description").val();
