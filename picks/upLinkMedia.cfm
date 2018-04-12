@@ -8,8 +8,7 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
-
-	 $("#nm").on("submit", function(e) {
+		$(document).on('submit', '#nm', function(e){
 
 	       alert('go');
 		 	e.preventDefault();
