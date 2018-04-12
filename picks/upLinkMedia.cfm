@@ -59,8 +59,10 @@
 	  	h+='<label for="preview_uri">Preview URI</label>';
 	  	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
 	  	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
-	  	h+='<label for="media_relationship">Media Relationship</label>';
-	  	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
+	  	if ($("#kval").val().length > 0){
+		  	h+='<label for="media_relationship">Media Relationship</label>';
+		  	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
+	 	}
 	  	h+='<label for="media_license_id">License</label>';
 	  	h+='<select name="media_license_id" id="media_license_id"></select>';
 		h+='<label for="mime_type">MIME Type</label>';
