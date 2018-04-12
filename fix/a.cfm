@@ -5,6 +5,12 @@
 endcaptcha
 </form>
 
+
+
+--
+<cfimage action="captcha" text="The quick brown fox" />
+
+--
 <!---
 
 create table temp_cd_nodef (
@@ -18,7 +24,6 @@ create table temp_cd_nodef (
 	<cfquery name="d" datasource="uam_god">
 		select * from cf_global_settings
 	</cfquery>
-
 
  S3_ENDPOINT								    VARCHAR2(4000)
  S3_ACCESSKEY								    VARCHAR2(4000)
