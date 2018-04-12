@@ -126,6 +126,12 @@
 	<script>
 		jQuery(document).ready(function() {
 			countChar($("#project_description").val());
+			  $("##mediaUpClickThis").click(function(){
+			    addMedia('project_id','#project_id#');
+			});
+			 getMedia('project','#project_id#','projMediaDv','20','1');
+		});
+
 		});
 		function disableMarkdown(){
 			var txt=$("#project_description").val();
@@ -540,6 +546,19 @@
 					<cfset i=i+1>
 				</cfloop>
 			</p>
+
+			<p><a name="media"></a>
+
+
+
+			<div class="cellDiv">
+				<cfif isdefined("session.roles") and session.roles contains "manage_media">
+					<a href="##" id="mediaUpClickThis">Attach/Upload Media</a>
+				<cfelse>
+					You do not have permission to add Media.
+				</cfif>
+			</div>
+			<div id="projMediaDv"></div>
 			<p><a name="taxonomy"></a>
 				<strong>Project Taxonomy</strong>
 				<form name="tpick" method="post" action="Project.cfm">
