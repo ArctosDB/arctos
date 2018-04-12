@@ -396,7 +396,10 @@
 				)
 			</cfquery>
 			<!--- allow a just-make-media option --->
+kval::#kval#
+
 			<cfif len(kval) gt 0>
+
 				<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into media_relations (
 						MEDIA_ID,
