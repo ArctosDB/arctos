@@ -9,13 +9,8 @@
 		    $(this).prop('required',true);
 		});
 		$(document).on('submit', '#nm', function(e){
-
-	       alert('go');
-		 	e.preventDefault();
 	       $("#sbmtbd").html('<img src="/images/indicator.gif">');
 	       $('#nm_sbmt').hide();
-	       alert('done');
-	       return false;
 	    });
 		Dropzone.options.mydz = {
 			maxFiles: 1,
