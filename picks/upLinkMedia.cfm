@@ -59,9 +59,9 @@
 	  	h+='<label for="preview_uri">Preview URI</label>';
 	  	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
 	  	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
-	  	console.log('kval len: ' + $("#kval").val());
+	  	console.log('kval len: ' + $("#kval").val().length);
 
-	  	if ($("#kval").val() != 'unknown'){
+	  	if ($("#kval").val().length = 0){
 		  	h+='<label for="media_relationship">Media Relationship</label>';
 		  	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
 	 	}
@@ -127,6 +127,7 @@
 	<cfelse>
 		<!--- allow upload without relationships; see code below before changing this ---->
 		<cfset tbl=''>
+		<cfset kval=''>
 	</cfif>
 
 	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
