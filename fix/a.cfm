@@ -1,29 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 
-<cfimage action="captcha"  text="username: i_am_tester" difficulty="medium"
-		    	overwrite="yes"
-		    	destination="#application.webdirectory#/temp/testuname.png">
-		<img src="/temp/testuname.png">
-
-<cfimage action="captcha"  text="pwd: seekrut.passwerd123" difficulty="medium"
-		    	overwrite="yes"
-		    	destination="#application.webdirectory#/temp/testpwd.png">
-		<img src="/temp/testpwd.png">
-
-
-
-<form>
-	captcha
-<cfimage action="captcha" width="800" height="600" text="adgssdf" fonts="verdana,arial" difficulty ="medium">
-endcaptcha
-</form>
-
-
-
---
-<cfimage action="captcha" text="The quick brown fox" />
-
---
 <!---
 
 create table temp_cd_nodef (
