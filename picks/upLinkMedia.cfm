@@ -8,7 +8,7 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
-		 $(document).on('submit',"#nm",function (e) {
+		 $("#nm").submit(function (e) {
 		 	e.preventDefault();
 	       $("#sbmtbd").html('<img src="/images/indicator.gif">');
 	       $('#nm_sbmt').hide();
