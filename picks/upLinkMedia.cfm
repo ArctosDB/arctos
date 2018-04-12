@@ -59,9 +59,9 @@
 	  	h+='<label for="preview_uri">Preview URI</label>';
 	  	h+='<input type="text" name="preview_uri" id="preview_uri" size="80" value="' + result.PREVIEW_URI + '">';
 	  	h+='<a href="' + result.PREVIEW_URI + '" target="_blank" class="external">open</a>';
-	  	console.log('kval len: ' + $("#kval").val().length);
+	  	console.log('kval len: ' + $("#kval").val());
 
-	  	if ($("#kval").val().length > 0){
+	  	if ($("#kval").val() != 'unknown'){
 		  	h+='<label for="media_relationship">Media Relationship</label>';
 		  	h+='<select name="media_relationship" id="media_relationship" class="reqdClr"></select>';
 	 	}
