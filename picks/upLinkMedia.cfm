@@ -8,9 +8,9 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
-		 $(document).on('click',"#nm_sbmt",function () {
-	       $('#nm_sbmt').hide();
+		 $(document).on('submit',"#nm",function () {
 	       $("#sbmtbd").html('<img src="/images/indicator.gif">');
+	       $('#nm_sbmt').hide();
 	    });
 		Dropzone.options.mydz = {
 			maxFiles: 1,
