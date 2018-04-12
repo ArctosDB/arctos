@@ -120,8 +120,8 @@
 	<cfelseif ktype is "project_id">
 		<cfset tbl='project'>
 	<cfelse>
-		<!--- not handled, return nothing disallowing save ---->
-		<cfset tbl='ajksndfiouafvblvnasahihs'>
+		<!--- allow upload without relationships; see code below before changing this ---->
+		<cfset tbl=''>
 	</cfif>
 
 	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
