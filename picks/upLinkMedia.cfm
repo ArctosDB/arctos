@@ -244,7 +244,7 @@
 
 	------->
 
-
+	<cfif len(tbl) gt 0>
 	Existing Media for this object
 	<cfquery name="smed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct
@@ -329,6 +329,13 @@
 			</div>
 		</div>
 	</cfloop>
+	<cfelse>
+		<div class="importantNotification">
+			You are creating Media with no relationships. You will need to Edit Media and add relationships
+			after uploading. This process may be easier from the data object (agent, specimen, etc.) to which
+			you are adding Media.
+		</div>
+	</cfif>
 </cfoutput>
 </cfif>
 
