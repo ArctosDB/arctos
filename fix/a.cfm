@@ -1,6 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <form>
+	captcha
 <cfimage action="captcha" width="800" height="600" text="adgssdf" fonts="verdana,arial" difficulty ="medium">
+endcaptcha
 </form>
 
 <!---
