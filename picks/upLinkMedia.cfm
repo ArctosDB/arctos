@@ -117,6 +117,8 @@
 		<cfset tbl='agent'>
 	<cfelseif ktype is "publication_id">
 		<cfset tbl='publication'>
+	<cfelseif ktype is "project_id">
+		<cfset tbl='project'>
 	<cfelse>
 		<!--- not handled, return nothing disallowing save ---->
 		<cfset tbl='ajksndfiouafvblvnasahihs'>
