@@ -53,6 +53,11 @@
 	  	var kvl;
 	  	var ktp;
 
+
+		if($("#kval")){
+			console.log('truthy');
+			}else{console.log('falsy');
+			}
 	  	console.log('kvl before:'+kvl);
 	  	if ($("#kval").length){
 	  		kvl=$("#kval").val();
