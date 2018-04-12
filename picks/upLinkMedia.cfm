@@ -56,6 +56,7 @@
 
 		if($("#kval")){
 			console.log('truthy');
+			console.log($("#kval"));
 			}else{console.log('falsy');
 			}
 	  	console.log('kvl before:'+kvl);
@@ -125,6 +126,8 @@
 <span onclick="makeSaveForm('#x#')">makeSaveForm</span>
 
 <cfoutput>
+	<br />kvalpre::#kval#
+
 	<cfif ktype is "collecting_event_id">
 		<cfset tbl='collecting_event'>
 	<cfelseif ktype is "collection_object_id">
@@ -155,6 +158,9 @@
 		<cfset tbl=''>
 		<cfset kval=''>
 	</cfif>
+
+
+<br>kvalpost::#kval#
 
 	<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_license order by DISPLAY
