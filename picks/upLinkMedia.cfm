@@ -470,7 +470,11 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		<cflocation url="upLinkMedia.cfm?ktype=#ktype#&kval=#kval#&" addtoken="false">
+		<cfif len(kval) is 0>
+			Media created. <a target="_parent" href="/media.cfm?action=edit&media_id=#mid.mid#">Click here to edit Media</a>
+		<cfelse>
+			<cflocation url="upLinkMedia.cfm?ktype=#ktype#&kval=#kval#&" addtoken="false">
+		</cfif>
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_pickFooter.cfm">
