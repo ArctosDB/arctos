@@ -157,6 +157,9 @@
 		<!--- allow upload without relationships; see code below before changing this ---->
 		<cfset tbl=''>
 		<cfset kval=''>
+		<!--- these are normally in the form that's not included when we do this, so.... --->
+		<input type="hidden" id="ktype" name="ktype" value="#ktype#">
+		<input type="hidden" id="kval" name="kval" value="#kval#">
 	</cfif>
 
 
