@@ -111,7 +111,7 @@
 			function deleteThisAccn(tid){
 				var yesno=confirm('Are you sure you want to delete this accn?');
 				if (yesno===true) {
-			  		document.location(editAccn.cfm?action=deleteAccn&transaction_id=' + tid);
+			  		document.location='editAccn.cfm?action=deleteAccn&transaction_id=' + tid;
 			 	} else {
 				  	return false;
 			  	}
@@ -341,7 +341,7 @@
 				 		<input type="button" value="Discard unsaved changes" class="qutBtn"
 							onclick = "document.location = 'editAccn.cfm?action=edit&transaction_id=#transaction_id#'">
 							---->
-						<input type="button" value="Delete" class="delBtn" onClick="deleteThisAccn(#transaction_id#)">
+						<input type="button" value="Delete" class="delBtn" onClick="deleteThisAccn(#transaction_id#);">
 
 
 
