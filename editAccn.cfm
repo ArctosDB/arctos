@@ -328,13 +328,7 @@
 					<tr>
 						<td colspan="6" align="center">
 
-							<cfif getPermits.recordcount lt 1>
-								<label for="ckpmt">Select Permits to the right or a value here.</label>
-								<select name="ckpmt" id="ckpmt" class="reqdClr" required>
-									<option value=""></option>
-									<option value="x">I do not wish to enter permit information at this time</option>
-								</select>
-							</cfif>
+
 
 
 
@@ -352,6 +346,14 @@
 						 	onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#');">
 				       	<input type="button" value="BerkeleyMapper" class="lnkBtn"
 							onclick = "window.open('/bnhmMaps/bnhmMapData.cfm?accn_number=#accnData.accn_number#','_blank');">
+
+						<cfif getPermits.recordcount lt 1>
+								<label for="ckpmt">Select Permits to the right or a value here.</label>
+								<select name="ckpmt" id="ckpmt" class="reqdClr" required>
+									<option value=""></option>
+									<option value="x">I do not wish to enter permit information at this time</option>
+								</select>
+							</cfif>
 						</td>
 					</tr>
 				</table>
