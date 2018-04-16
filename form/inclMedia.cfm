@@ -179,11 +179,49 @@
 	<cfelseif typ is "specimenLocCollEvent">
 
 		<!---
+			IN: collecting_event_id
+			DO: find Media linked to Events in the Locality used by q
+
+
 			media related to an event which uses the locality of the event used by a specimen
 			<cfset mrdescr="Media linked to a Collecting Event which shares the specimen's Locality.">
 		 ---->
 		<cfset mrdescr="Media from the same Place.">
         <cfset srchall="/MediaSearch.cfm?action=search&specimen_loc_event_id=#q#">
+		 <cfset sql="
+			 select
+	          	media_flat.media_id,
+	            media_flat.media_uri,
+	            media_flat.mime_type,
+	            media_flat.media_type,
+	            media_flat.preview_uri,
+				alt_text,
+                license,
+                media_flat.descr
+      		from
+		        media_flat,
+		        media_relations,
+		        collecting_event ubsce,
+		        collecting_event hmlce
+      		where
+		      ubsce.locality_id=hmlce.locality_id and
+		      media_relations.related_primary_key=hmlce.collecting_event_id and
+		      media_flat.media_id=media_relations.media_id and
+		      media_relations.media_relationship like '% collecting_event' and
+		      ubsce.collecting_event_id=#q#
+     		group by
+	        	media_flat.media_id,
+	            media_flat.media_uri,
+	            media_flat.mime_type,
+	            media_flat.media_type,
+	            media_flat.preview_uri,
+	            alt_text,
+	            license,
+	            media_flat.descr
+			">
+
+
+		<!----
 		 <cfset sql="
 			 select
 	          	media_flat.media_id,
@@ -217,6 +255,8 @@
 	            license,
 	            media_flat.descr
 			">
+			---->
+
 	<cfelseif typ is "collecting_event">
 		<cfset mrdescr="Media linked to a Collecting Event.">
 		<cfset srchall="/MediaSearch.cfm?action=search&collecting_event_id=#q#">
