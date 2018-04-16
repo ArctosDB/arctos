@@ -108,6 +108,14 @@
 			jQuery(document).ready(function() {
 				getMedia('accn','#transaction_id#','accnMediaDiv','6','1');
 			});
+			function deleteThisAccn(tid){
+				var yesno=confirm('Are you sure you want to delete this accn?');
+				if (yesno===true) {
+			  		document.location(editAccn.cfm?action=deleteAccn&transaction_id=' + tid);
+			 	} else {
+				  	return false;
+			  	}
+			}
 		</script>
 		<cfset title="Edit Accession">
 		<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -333,7 +341,7 @@
 				 		<input type="button" value="Discard unsaved changes" class="qutBtn"
 							onclick = "document.location = 'editAccn.cfm?action=edit&transaction_id=#transaction_id#'">
 							---->
-						<input type="button" value="Delete" class="delBtn" onClick="editAccn.action.value='deleteAccn';confirmDelete('editAccn');">
+						<input type="button" value="Delete" class="delBtn" onClick="deleteThisAccn(#transaction_id#)">
 
 
 
