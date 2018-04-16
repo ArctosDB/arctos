@@ -63,7 +63,6 @@
 
 
 			$("div[id^='locColEventMedia_']").each(function(e){
-				//<div id="locColEventMedia_#specimen_event_id#_#collecting_event_id#_#locality_id#"></div>
 				var f = this.id.split(/_/);
 				var seid=f[1];
 				var ceid=f[2];
