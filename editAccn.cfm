@@ -303,7 +303,7 @@
 							<cfif getPermits.recordcount lt 1>
 								Select Permits to the right or a value here.
 								<select id="ckpmt" class="reqdClr" required>
-									<option></option>
+									<option value=""></option>
 									<option value="x">I do not wish to enter permit information at this time</option>
 								</select>
 							</cfif>
