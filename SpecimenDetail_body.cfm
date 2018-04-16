@@ -60,16 +60,11 @@
 	</cfif>
 	<script>
 		jQuery(document).ready(function(){
-
-
 			$("div[id^='locColEventMedia_']").each(function(e){
 				var f = this.id.split(/_/);
 				var seid=f[1];
 				var ceid=f[2];
 				var lid=f[3];
-				console.log('seid: ' + seid);
-				console.log('ceid: ' + ceid);
-				console.log('lid: ' + lid);
             	getMedia('specimenLocCollEvent',ceid,this.id,'2','1');
             });
             $("div[id^='colEventMedia_']").each(function(e){
@@ -77,9 +72,6 @@
 				var seid=f[1];
 				var ceid=f[2];
 				var lid=f[3];
-				console.log('seid: ' + seid);
-				console.log('ceid: ' + ceid);
-				console.log('lid: ' + lid);
 				getMedia('specimenCollectingEvent',ceid,this.id,'2','1');
             });
 

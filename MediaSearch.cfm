@@ -545,19 +545,21 @@
 		</cfif>
 		<cfif (isdefined("specimen_loc_event_id") and len(specimen_loc_event_id) gt 0)>
 			<!---
-				IN: collection_object_id
+				IN: COLLECTING_EVENT_ID
 				FIND: Media linked to collecting_event used by locality of event used by IN
 			---->
 
 
-			<cfset tabls = "#tabls#,specimen_event mrl_specevent,collecting_event ubsce,collecting_event hmlce, media_relations mrl_collectingevent">
+			<cfset tabls = "#tabls#,collecting_event ubsce,collecting_event hmlce, media_relations mrl_collectingevent">
 			<cfset whr ="#whr# AND
 				media_flat.media_id = mrl_collectingevent.media_id AND
 				mrl_specevent.collecting_event_id=ubsce.collecting_event_id and
 				ubsce.locality_id=hmlce.locality_id and
 				mrl_collectingevent.related_primary_key=hmlce.collecting_event_id and
 				mrl_collectingevent.media_relationship like '% collecting_event' and
-				mrl_specevent.collection_object_id=#specimen_loc_event_id#">
+				ubsce.collecting_event_id=#specimen_loc_event_id#">
+
+
 			<cfset mapurl="#mapurl#&specimen_loc_event_id=#specimen_loc_event_id#">
 		</cfif>
 		<cfif (isdefined("taxon_name_id") and len(taxon_name_id) gt 0)>
