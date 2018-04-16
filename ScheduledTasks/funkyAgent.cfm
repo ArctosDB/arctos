@@ -85,6 +85,13 @@ select
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
 			<cfset baidlist=listappend(baidlist,agent_id)>
+			<!---
+				This script is basically looking for diacritics, which isn't the whole case.
+				Iis the entire preferred name is Unicode, assume that any AKAs are proper translations
+			--->
+			<cfif len(replace(mname,"_","") is 0>
+				<br>mname is all non-ascii
+			</cfif>
 		</cfif>
 	</cfloop>
 	<cfquery name="funk1"  datasource="uam_god">
