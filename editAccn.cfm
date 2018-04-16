@@ -307,16 +307,7 @@
 						<td colspan="2">
 							Entered by #accnData.enteredby#, #accnData.trans_date#
 						</td>
-						<td>
-							<cfif getPermits.recordcount lt 1>
-								Select Permits to the right or a value here.
-								<select name="ckpmt" id="ckpmt" class="reqdClr" required>
-									<option value=""></option>
-									<option value="x">I do not wish to enter permit information at this time</option>
-								</select>
-							</cfif>
 
-						</td>
 						<td colspan="2">
 							<label for="">Has Correspondence?</label>
 							<select name="CORRESP_FG" size="1" id="CORRESP_FG">
@@ -336,6 +327,18 @@
 					</tr>
 					<tr>
 						<td colspan="6" align="center">
+
+							<cfif getPermits.recordcount lt 1>
+								<label for="ckpmt">Select Permits to the right or a value here.</label>
+								<select name="ckpmt" id="ckpmt" class="reqdClr" required>
+									<option value=""></option>
+									<option value="x">I do not wish to enter permit information at this time</option>
+								</select>
+							</cfif>
+
+
+
+
 						<input type="submit" value="Save Changes" class="savBtn">
 						<!----
 				 		<input type="button" value="Discard unsaved changes" class="qutBtn"
