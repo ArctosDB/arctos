@@ -89,7 +89,7 @@ select
 				This script is basically looking for diacritics, which isn't the whole case.
 				Iis the entire preferred name is Unicode, assume that any AKAs are proper translations
 			--->
-			<cfif len(replace(mname,"_","") is 0>
+			<cfif len(replace(mname,"_","")) is 0>
 				<br>mname is all non-ascii
 			</cfif>
 		</cfif>
