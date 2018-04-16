@@ -404,6 +404,7 @@
 	----->
 	<cfif isdefined("session.roles") and session.roles contains "manage_media">
 		<cfset cachetime=createtimespan(0,0,0,0)>
+		nocache
 	<cfelse>
 		<cfset cachetime=createtimespan(0,0,60,0)>
 	</cfif>
