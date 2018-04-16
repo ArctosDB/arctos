@@ -403,7 +403,7 @@
 		don't cache for "us"
 	----->
 	<cfif isdefined("session.roles") and session.roles contains "manage_media">
-		<cfset cachetime=createtimespan(0,0,60,0)>
+		<cfset cachetime=createtimespan(0,0,0,0)>
 	<cfelse>
 		<cfset cachetime=createtimespan(0,0,60,0)>
 	</cfif>
