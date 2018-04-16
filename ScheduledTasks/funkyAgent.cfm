@@ -86,7 +86,6 @@ select
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
 		</cfquery>
 		<cfif hasascii.recordcount lt 1>
-			<cfset baidlist=listappend(baidlist,agent_id)>
 			<!---
 				This script is basically looking for diacritics, which isn't the whole case.
 				Iis the entire preferred name is Unicode, assume that any AKAs are proper translations
@@ -102,9 +101,13 @@ select
 							'full'
 						)
 				</cfquery>
-				<cfif hasAKA.recordcount gt 0>
-					<cfdump var=#hasAKA#>
+				<cfif not hasAKA.recordcount gt 0>
+					<cfset baidlist=listappend(baidlist,agent_id)>
+				<cfelse>
+					<br>funk
 				</cfif>
+			<cfelse>
+				<cfset baidlist=listappend(baidlist,agent_id)>
 			</cfif>
 		</cfif>
 	</cfloop>
