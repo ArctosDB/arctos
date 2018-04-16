@@ -478,19 +478,20 @@
 	<cfset pp=pg-1>
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
 	<!---class="" title="#mrdescr#"---->
-		Showing <div>Media results</div> #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
+		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
 		<cfif len(srchall) gt 0>
 			[ <a href="#srchall#">[ view details ]</a>
 		</cfif>
 
 		<cfif cnt GT rpp>
-			<br>
+			<div>
 			<cfif (pg*rpp) GT rpp>
 				<span class="likeLink" onclick="getMedia('#typ#','#q#','#tgt#','#rpp#','#pp#');"> &lt;&lt;Previous </span>
 			</cfif>
 			<cfif stop lt cnt>
 				<span class="likeLink" onclick="getMedia('#typ#','#q#','#tgt#','#rpp#','#np#');"> Next&gt;&gt; </span>
 			</cfif>
+			</div>
 		</cfif>
 	</div>
 	<cfset rownum=1>
