@@ -553,7 +553,6 @@
 			<cfset tabls = "#tabls#,collecting_event ubsce,collecting_event hmlce, media_relations mrl_collectingevent">
 			<cfset whr ="#whr# AND
 				media_flat.media_id = mrl_collectingevent.media_id AND
-				mrl_specevent.collecting_event_id=ubsce.collecting_event_id and
 				ubsce.locality_id=hmlce.locality_id and
 				mrl_collectingevent.related_primary_key=hmlce.collecting_event_id and
 				mrl_collectingevent.media_relationship like '% collecting_event' and
