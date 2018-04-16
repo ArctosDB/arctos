@@ -60,24 +60,24 @@
 	</cfif>
 	<script>
 		jQuery(document).ready(function(){
+			//these are structured as
+			//locColEventMedia_{specimen_event_id}_{collecting_event_id}_{locality_id}
+			//they're in separate DIVs because paging replaces contents
+			// just take what we need
 			$("div[id^='locColEventMedia_']").each(function(e){
 				var f = this.id.split(/_/);
-				var seid=f[1];
+				//var seid=f[1];
 				var ceid=f[2];
-				var lid=f[3];
+				//var lid=f[3];
             	getMedia('specimenLocCollEvent',ceid,this.id,'2','1');
             });
             $("div[id^='colEventMedia_']").each(function(e){
 				var f = this.id.split(/_/);
-				var seid=f[1];
+				//var seid=f[1];
 				var ceid=f[2];
-				var lid=f[3];
+				//var lid=f[3];
 				getMedia('specimenCollectingEvent',ceid,this.id,'2','1');
             });
-
-
-
-
 
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
