@@ -469,13 +469,12 @@ function checkCSV(obj) {
 }
 function getMedia(typ,q,tgt,rpp,pg){
 	var ptl;
-	$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
+	$('#' + tgt).find($('#imgBrowserCtlDiv')).append('<img src="/images/indicator.gif">');
 	
 	ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&pg="+pg;
 	
 	$.get(ptl, function(data){
-		// $('#' + tgt).html(data);
-		 $('#' + tgt).append(data);
+		$('#' + tgt).html(data);
 	});
 }
 function blockSuggest (onoff) {
