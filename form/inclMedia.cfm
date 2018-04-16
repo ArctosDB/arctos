@@ -141,8 +141,8 @@
                     media_flat.descr
 			">
 	<cfelseif typ is "specimenCollectingEvent">
-		
-		<!--- 
+
+		<!---
 		media related to a collecting event which is being used by a specimen '
 		<cfset mrdescr="Media linked to a specimen's Collecting Event.">---->
 		<cfset mrdescr="Media from the same Place and Time as this Specimen.">
@@ -177,8 +177,8 @@
                  media_flat.descr
 		">
 	<cfelseif typ is "specimenLocCollEvent">
-		
-		<!--- 
+
+		<!---
 			media related to an event which uses the locality of the event used by a specimen
 			<cfset mrdescr="Media linked to a Collecting Event which shares the specimen's Locality.">
 		 ---->
@@ -400,11 +400,16 @@
 		<cfabort>
 	</cfif>
 	<!---
-
-
-
+		don't cache for "us"
 	----->
-	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#" >
+	<cfif isdefined("session.roles") and session.roles contains "manage_media">
+		<cfset cachetime=createtimespan(0,0,60,0)>
+	<cfelse>
+		<cfset cachetime=createtimespan(0,0,60,0)>
+	</cfif>
+
+
+	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#cachetime#" >
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif mediaResultsQuery.recordcount is 0>
