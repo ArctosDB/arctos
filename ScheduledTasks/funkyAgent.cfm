@@ -78,7 +78,9 @@ select
 	</cfquery>
 	<cfloop query="raw">
 		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_','all')>
+		<br>preferred_agent_name: #preferred_agent_name#
 		<br>mname: #mname#
+		<br>repl:#replace(mname,"_","","all")#
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
@@ -89,7 +91,7 @@ select
 				This script is basically looking for diacritics, which isn't the whole case.
 				Iis the entire preferred name is Unicode, assume that any AKAs are proper translations
 			--->
-			<cfif len(replace(mname,"_","")) is 0>
+			<cfif len(replace(mname,"_","","all")) is 0>
 				<br>mname is all non-ascii
 			</cfif>
 		</cfif>
