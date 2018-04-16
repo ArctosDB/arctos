@@ -307,6 +307,11 @@
 									<option value="x">I do not wish to enter permit information at this time</option>
 								</select>
 							</cfif>
+
+							<select name="somename" required>
+     <option value="">Please select</option>
+     <option value="one">One</option>
+</select>
 						</td>
 						<td colspan="2">
 							<label for="">Has Correspondence?</label>
