@@ -409,7 +409,7 @@
 		<cfset cachetime=createtimespan(0,0,60,0)>
 	</cfif>
 
-
+cachetime<cfdump var=#cachetime#>
 	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#cachetime#" >
 	   	#preservesinglequotes(sql)#
 	</cfquery>
