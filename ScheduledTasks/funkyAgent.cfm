@@ -78,9 +78,6 @@ select
 	</cfquery>
 	<cfloop query="raw">
 		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_','all')>
-		<br>preferred_agent_name: #preferred_agent_name#
-		<br>mname: #mname#
-		<br>repl:#replace(mname,"_","","all")#
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
@@ -88,10 +85,9 @@ select
 		<cfif hasascii.recordcount lt 1>
 			<!---
 				This script is basically looking for diacritics, which isn't the whole case.
-				Iis the entire preferred name is Unicode, assume that any AKAs are proper translations
+				If the entire preferred name is Unicode, assume that any AKAs are proper translations
 			--->
 			<cfif len(replace(mname,"_","","all")) is 0>
-				<br>mname is all non-ascii
 				<!--- "AKAs" are non-special, non-component names --->
 				<cfquery name="hasAKA"  datasource="uam_god">
 					 select agent_name from agent_name where agent_id=#agent_id# and agent_name_type  in
@@ -103,8 +99,6 @@ select
 				</cfquery>
 				<cfif not hasAKA.recordcount gt 0>
 					<cfset baidlist=listappend(baidlist,agent_id)>
-				<cfelse>
-					<br>funk
 				</cfif>
 			<cfelse>
 				<cfset baidlist=listappend(baidlist,agent_id)>
@@ -336,9 +330,7 @@ select
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
 	</cfif>
-	<!----
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
-	---->
 		<cfif not isdefined("Application.version") or Application.version is not "prod">
 			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
 		</cfif>
@@ -362,8 +354,6 @@ select
 			</cfloop>
 		</p>
 		#emailFooter#
-		<!----
 	</cfmail>
-	---->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
