@@ -152,6 +152,26 @@
 				trans_agent_role,
 				agent_name
 		</cfquery>
+
+		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT
+				permit.permit_id,
+				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
+				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
+				issued_date,
+				exp_date,
+				permit_Num,
+				getPermitTypeReg(permit.permit_id) permit_Type,
+				permit_remarks
+			FROM
+				permit,
+				permit_trans
+			WHERE
+				permit.permit_id = permit_trans.permit_id and
+				permit_trans.transaction_id = #accnData.transaction_id#
+		</cfquery>
+
+
 		<div style="clear:both"><strong>Edit Accession</strong></div>
 		<table><tr><td valign="top">
 			<form action="editAccn.cfm" method="post" name="editAccn" id="editAccn">
@@ -276,10 +296,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="3">
+						<td colspan="2">
 							<em>Entered by</em>
 							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#accnData.trans_date#</strong>
 						</td>
+						<td>#getPermits.recordcount#</td>
 						<td colspan="2">
 							<label for="">Has Correspondence?</label>
 							<select name="CORRESP_FG" size="1" id="CORRESP_FG">
@@ -387,23 +408,7 @@
 			<br><span class="likeLink" id="mediaUpClickThis">Attach/Upload Media</span>
 			<div id="accnMediaDiv"></div>
 		</div>
-		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT
-				permit.permit_id,
-				getPermitAgents(permit.permit_id, 'issued to') IssuedToAgent,
-				getPermitAgents(permit.permit_id, 'issued by') IssuedByAgent,
-				issued_date,
-				exp_date,
-				permit_Num,
-				getPermitTypeReg(permit.permit_id) permit_Type,
-				permit_remarks
-			FROM
-				permit,
-				permit_trans
-			WHERE
-				permit.permit_id = permit_trans.permit_id and
-				permit_trans.transaction_id = #accnData.transaction_id#
-		</cfquery>
+
 		<div style="float:left;width:55%;">
 			<br><strong>Permits:</strong>
 			<cfloop query="getPermits">

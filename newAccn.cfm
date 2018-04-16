@@ -128,8 +128,10 @@
 							</td>
 							<td>&nbsp;</td>
 						</tr>
+
 						<tr>
 							<td colspan="6" align="center">
+
 							<input type="submit"
 								value="Save this Accession"
 								class="savBtn">
