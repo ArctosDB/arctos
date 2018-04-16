@@ -78,6 +78,7 @@ select
 	</cfquery>
 	<cfloop query="raw">
 		<cfset mname=rereplace(preferred_agent_name,'[^A-Za-z -.]','_','all')>
+		<br>mname: #mname#
 		<cfquery name="hasascii"  datasource="uam_god">
 			 select agent_name from agent_name where agent_id=#agent_id# and agent_name like '#mname#' and
 			 regexp_like(agent_name,'^[A-Za-z -.]*$')
@@ -311,7 +312,9 @@ select
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
 	</cfif>
+	<!----
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
+	---->
 		<cfif not isdefined("Application.version") or Application.version is not "prod">
 			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
 		</cfif>
@@ -335,6 +338,8 @@ select
 			</cfloop>
 		</p>
 		#emailFooter#
+		<!----
 	</cfmail>
+	---->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
