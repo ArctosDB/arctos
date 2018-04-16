@@ -141,8 +141,11 @@
                     media_flat.descr
 			">
 	<cfelseif typ is "specimenCollectingEvent">
-		<cfset mrdescr="Media linked to a specimen's Collecting Event.">
-		<!--- media related to a collecting event which is being used by a specimen ---->
+		
+		<!--- 
+		media related to a collecting event which is being used by a specimen '
+		<cfset mrdescr="Media linked to a specimen's Collecting Event.">---->
+		<cfset mrdescr="Media from the same Place and Time as this Specimen.">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_collecting_event_id=#q#">
 		<cfset sql="
 		   	select
@@ -174,8 +177,12 @@
                  media_flat.descr
 		">
 	<cfelseif typ is "specimenLocCollEvent">
-		<cfset mrdescr="Media linked to a Collecting Event which shares the specimen's Locality.">
-		<!--- media related to an event which uses the locality of the event used by a specumen ---->
+		
+		<!--- 
+			media related to an event which uses the locality of the event used by a specimen
+			<cfset mrdescr="Media linked to a Collecting Event which shares the specimen's Locality.">
+		 ---->
+		<cfset mrdescr="Media from the same Place as this Specimen.">
         <cfset srchall="/MediaSearch.cfm?action=search&specimen_loc_event_id=#q#">
 		 <cfset sql="
 			 select
