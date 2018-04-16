@@ -304,7 +304,7 @@
 								Select Permits to the right or a value here.
 								<select id="ckpmt" class="reqdClr" required>
 									<option></option>
-									<option value="x">I just entered a permit, or do not wish to enter permit information at this time</option>
+									<option value="x">I do not wish to enter permit information at this time</option>
 								</select>
 							</cfif>
 						</td>
@@ -443,6 +443,8 @@
 					x+='</form>';
 					x+='</div>';
 					$("##addNewPermitsHere").append(x);
+					// get rid of the "require" thing
+					$("##ckpmt").remove();
 				}
 			</script>
 			<p>
