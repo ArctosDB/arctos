@@ -297,10 +297,11 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<em>Entered by</em>
-							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#accnData.trans_date#</strong>
+							Entered by #accnData.enteredby#, #accnData.trans_date#
 						</td>
-						<td>#getPermits.recordcount#</td>
+						<td>
+							#getPermits.recordcount#
+						</td>
 						<td colspan="2">
 							<label for="">Has Correspondence?</label>
 							<select name="CORRESP_FG" size="1" id="CORRESP_FG">
