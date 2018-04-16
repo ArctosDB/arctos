@@ -60,10 +60,15 @@
 	</cfif>
 	<script>
 		jQuery(document).ready(function(){
-			getMedia('specimenCollectingEvent','#collection_object_id#','colEventMedia','2','1');
+
+
+			$("div[id^='locColEventMedia_']").each(function(e){
+            	getMedia('specimenLocCollEvent','#collection_object_id#',this.id,'2','1');
+				getMedia('specimenCollectingEvent','#collection_object_id#',this.id,'2','1');
+            });
+
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
-            getMedia('specimenLocCollEvent','#collection_object_id#','locColEventMedia','2','1');
             $("##mediaUpClickThis").click(function(){
 			    addMedia('collection_object_id','#collection_object_id#');
 			});
@@ -796,7 +801,7 @@
 														</tr>
 													</cfif>
 													<tr>
-														<td valign="top" colspan="2"><div id="locColEventMedia"></div></td>
+														<td valign="top" colspan="2"><div id="locColEventMedia_#specimen_event_id#"></div></td>
 													</tr>
 												</table>
 											</td>
