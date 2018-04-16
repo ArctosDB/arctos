@@ -151,7 +151,7 @@
 
 		media related to a collecting event which is being used by a specimen '
 		<cfset mrdescr="Media linked to a specimen's Collecting Event.">---->
-		<cfset mrdescr="Media from the same Place and Time as this Specimen.">
+		<cfset mrdescr="Media from the same Place and Time.">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_collecting_event_id=#q#">
 		<cfset sql="
 		   	select

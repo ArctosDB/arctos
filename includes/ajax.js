@@ -474,7 +474,8 @@ function getMedia(typ,q,tgt,rpp,pg){
 	ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&pg="+pg;
 	
 	$.get(ptl, function(data){
-		 $('#' + tgt).html(data);
+		// $('#' + tgt).html(data);
+		 $('#' + tgt).append(data);
 	});
 }
 function blockSuggest (onoff) {
