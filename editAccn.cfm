@@ -302,7 +302,7 @@
 						<td>
 							<cfif getPermits.recordcount lt 1>
 								Select Permits to the right or a value here.
-								<select id="ckpmt" class="reqdClr" required>
+								<select name="ckpmt" id="ckpmt" class="reqdClr" required>
 									<option value=""></option>
 									<option value="x">I do not wish to enter permit information at this time</option>
 								</select>
