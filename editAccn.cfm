@@ -301,8 +301,11 @@
 						</td>
 						<td>
 							<cfif getPermits.recordcount lt 1>
-								Select Permits to the right, or check this to save.
-								<input type="checkbox" id="ckpmt" class="reqdClr" required>
+								Select Permits to the right or a value here.
+								<select id="ckpmt" class="reqdClr" required>
+									<option></option>
+									<option value="x">I just entered a permit, or do not wish to enter permit information at this time</option>
+								</select>
 							</cfif>
 						</td>
 						<td colspan="2">
