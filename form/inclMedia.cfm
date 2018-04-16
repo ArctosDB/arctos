@@ -143,6 +143,12 @@
 	<cfelseif typ is "specimenCollectingEvent">
 
 		<!---
+
+		IN: collecting_event_id
+
+		DO: get Media from same event
+
+
 		media related to a collecting event which is being used by a specimen '
 		<cfset mrdescr="Media linked to a specimen's Collecting Event.">---->
 		<cfset mrdescr="Media from the same Place and Time as this Specimen.">
@@ -159,13 +165,11 @@
                 media_flat.descr
 			from
 				media_flat,
-				media_relations,
-				specimen_event
+				media_relations
 			where
 				 media_flat.media_id=media_relations.media_id and
 			     media_relations.media_relationship like '% collecting_event' and
-			     media_relations.related_primary_key=specimen_event.collecting_event_id and
-				specimen_event.collection_object_id=#q#
+			     media_relations.related_primary_key=#q#
 			group by
 			 	media_flat.media_id,
 		        media_flat.media_uri,

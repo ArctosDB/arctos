@@ -70,8 +70,8 @@
 				console.log('seid: ' + seid);
 				console.log('ceid: ' + ceid);
 				console.log('lid: ' + lid);
-            	getMedia('specimenLocCollEvent','#collection_object_id#',this.id,'2','1');
-				getMedia('specimenCollectingEvent','#collection_object_id#',this.id,'2','1');
+            	getMedia('specimenLocCollEvent',ceid,this.id,'2','1');
+				getMedia('specimenCollectingEvent',ceid,this.id,'2','1');
             });
 
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
