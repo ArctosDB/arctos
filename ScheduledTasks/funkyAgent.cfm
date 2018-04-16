@@ -93,6 +93,18 @@ select
 			--->
 			<cfif len(replace(mname,"_","","all")) is 0>
 				<br>mname is all non-ascii
+				<!--- "AKAs" are non-special, non-component names --->
+				<cfquery name="hasAKA"  datasource="uam_god">
+					 select agent_name from agent_name where agent_id=#agent_id# and agent_name_type  in
+						(
+							'aka',
+							'alternate spelling',
+							'full'
+						)
+				</cfquery>
+				<cfif hasAKA.recordcount gt 0>
+					<cfdump var=#hasAKA#>
+				</cfif>
 			</cfif>
 		</cfif>
 	</cfloop>
