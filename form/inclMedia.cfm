@@ -182,7 +182,7 @@
 			media related to an event which uses the locality of the event used by a specimen
 			<cfset mrdescr="Media linked to a Collecting Event which shares the specimen's Locality.">
 		 ---->
-		<cfset mrdescr="Media from the same Place as this Specimen.">
+		<cfset mrdescr="Media from the same Place.">
         <cfset srchall="/MediaSearch.cfm?action=search&specimen_loc_event_id=#q#">
 		 <cfset sql="
 			 select

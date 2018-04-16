@@ -63,6 +63,14 @@
 
 
 			$("div[id^='locColEventMedia_']").each(function(e){
+				//<div id="locColEventMedia_#specimen_event_id#_#collecting_event_id#_#locality_id#"></div>
+				var f = this.id.split(/_/);
+				var seid=f[1];
+				var ceid=f[2];
+				var lid=f[3];
+				console.log('seid: ' + seid);
+				console.log('ceid: ' + ceid);
+				console.log('lid: ' + lid);
             	getMedia('specimenLocCollEvent','#collection_object_id#',this.id,'2','1');
 				getMedia('specimenCollectingEvent','#collection_object_id#',this.id,'2','1');
             });
@@ -801,7 +809,7 @@
 														</tr>
 													</cfif>
 													<tr>
-														<td valign="top" colspan="2"><div id="locColEventMedia_#specimen_event_id#"></div></td>
+														<td valign="top" colspan="2"><div id="locColEventMedia_#specimen_event_id#_#collecting_event_id#_#locality_id#"></div></td>
 													</tr>
 												</table>
 											</td>
