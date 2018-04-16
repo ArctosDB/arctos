@@ -300,7 +300,10 @@
 							Entered by #accnData.enteredby#, #accnData.trans_date#
 						</td>
 						<td>
-							#getPermits.recordcount#
+							<cfif getPermits.recordcount lt 1>
+								Select Permits to the right, or check this to save.
+								<input type="checkbox" id="ckpmt" class="reqdClr" required>
+							</cfif>
 						</td>
 						<td colspan="2">
 							<label for="">Has Correspondence?</label>
