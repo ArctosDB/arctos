@@ -59,7 +59,10 @@
 				</cfquery>
 				<td>
 					<cfset r=de.checkExtendedData(collection_object_id)>
-					<cfdump var=#r#>
+					<cfloop collection="#r#" item="key">
+					     #key#: #myStructure[key]#<br />
+					</cfloop>
+
 				</td>
 				<cfloop query="cNames">
 					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
