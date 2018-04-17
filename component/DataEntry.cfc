@@ -11,21 +11,25 @@
 			<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_specevent  where UUID='#d.idval#'
 			</cfquery>
+	<cfdump var=#cf_temp_specevent#>
 			<cfset r.specevent=SerializeJSON(cf_temp_specevent)>
 
 			<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_parts  where other_id_number='#d.idval#'
 			</cfquery>
+	<cfdump var=#cf_temp_parts#>
 			<cfset r.parts=SerializeJSON(cf_temp_parts)>
 
 			<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_attributes  where other_id_number='#d.idval#'
 			</cfquery>
+	<cfdump var=#cf_temp_attributes#>
 			<cfset r.attributes=SerializeJSON(cf_temp_attributes)>
 
 			<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#d.idval#'
 			</cfquery>
+	<cfdump var=#cf_temp_oids#>
 			<cfset r.otherIDs=SerializeJSON(cf_temp_oids)>
 	</cfif>
 	<cfdump var=#d#>
