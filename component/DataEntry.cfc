@@ -3,43 +3,31 @@
 <cffunction name="checkExtendedData" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			idtype,
-			idval
-		from (
-				select OTHER_ID_NUM_1 idval,OTHER_ID_NUM_TYPE_1 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
-				select OTHER_ID_NUM_2 idval,OTHER_ID_NUM_TYPE_2 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
-				select OTHER_ID_NUM_3 idval,OTHER_ID_NUM_TYPE_3 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
-				select OTHER_ID_NUM_4 idval,OTHER_ID_NUM_TYPE_4 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
-				select OTHER_ID_NUM_5 idval,OTHER_ID_NUM_TYPE_5 idtype from bulkloader where collection_object_id=#collection_object_id#
-			)
-		where
-			idtype='UUID'
-		group by
-			idtype,
-			idval
+		select OTHER_ID_NUM_4 idval from bulkloader where OTHER_ID_NUM_TYPE_4='UUID' and collection_object_id=#collection_object_id#
 	</cfquery>
 	<cfif d.recordcount is 0>
 		<cfset r.msg="no extras found">
 	<cfelse>
-		<cfloop query="d">
 			<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_specevent  where UUID='#idval#'
+				select * from  cf_temp_specevent  where UUID='#d.idval#'
 			</cfquery>
-			<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_parts  where other_id_number='#idval#'
-			</cfquery>
-			<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_attributes  where other_id_number='#idval#'
-			</cfquery>
-			<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#idval#'
-			</cfquery>
-		</cfloop>
-		<cfif cf_temp_specevent.recordcount gt 0>
 			<cfset r.specevent=parseJSON(cf_temp_specevent)>
-		</cfif>
-		<cfset r.msg="boogity">
+
+			<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from  cf_temp_parts  where other_id_number='#d.idval#'
+			</cfquery>
+			<cfset r.parts=parseJSON(cf_temp_parts)>
+
+			<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from  cf_temp_attributes  where other_id_number='#d.idval#'
+			</cfquery>
+			<cfset r.attributes=parseJSON(cf_temp_attributes)>
+
+			<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#d.idval#'
+			</cfquery>
+			<cfset r.otherIDs=parseJSON(cf_temp_oids)>
+		</cfloop>
 	</cfif>
 	<cfdump var=#d#>
 		<cfreturn r>
