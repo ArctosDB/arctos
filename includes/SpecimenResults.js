@@ -388,15 +388,15 @@ function formatPartDetail(){
 }
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
-		console.log('i am doing media stuff');
+		//console.log('i am doing media stuff');
 		var r = $.parseJSON($("#" + this.id).html());
 		if (r.length>0){
-			console.log('got something');
-			console.log(r);
+			//console.log('got something');
+			//console.log(r);
 			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 		}
 		jQuery.each(r, function(index, DATA) {
-			console.log(DATA.MEDIA_ID);
+			//console.log(DATA.MEDIA_ID);
 			if (DATA.MIMECAT=='audio' && DATA.MEDIA_URI.split('.').pop()=='mp3'){
 				theHTML+='<div class="one_thumb">';
 				theHTML+='<audio controls>';
