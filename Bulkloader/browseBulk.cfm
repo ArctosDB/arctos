@@ -36,10 +36,10 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 
-<cfquery name="cNames" datasource="uam_god">
-	select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
-	order by internal_column_id
-</cfquery>
+	<cfquery name="cNames" datasource="uam_god">
+		select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
+		order by internal_column_id
+	</cfquery>
 
 	<cfset cNames="extras,#valuelist(cNames.column_name)#">
 
