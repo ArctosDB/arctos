@@ -371,6 +371,8 @@ function formatJSONLocality(){
 	}
 }
 function formatPartDetail(){
+
+	$("#pdcb").remove();
 	if ($('div[id^="partdetail_"]').length){
 		$("div[id^='partdetail_']").each(function() {
 			var r = $.parseJSON($("#" + this.id).html());
