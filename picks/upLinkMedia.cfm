@@ -184,7 +184,7 @@
 	<div class="grpDiv">
 		<div id="uploadtitle">Option 1: Upload Media</div>
 				<!--- keep this as we're testing the S3 upload
-
+--->
 				<div id="uploadmediaform">
 					<form id="mydz" action="/component/utilities.cfc?method=loadFile&returnFormat=json" class="dropzone needsclick dz-clickable">
 						<div class="dz-message needsclick">
@@ -192,11 +192,11 @@
 						</div>
 					</form>
 				</div>
-				--->
+
 				<div id="uploadmediaform">
 					<form id="mydz" action="/component/utilities.cfc?method=loadFileS3&returnFormat=json" class="dropzone needsclick dz-clickable">
 						<div class="dz-message needsclick">
-							Drop ONE file here or click to upload for s3.
+							This is broken so use ^^ that one. Drop ONE file here or click to upload for s3.
 						</div>
 					</form>
 				</div>
