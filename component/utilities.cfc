@@ -494,6 +494,7 @@
 	    <cfset r.statusCode=left(putfile.statusCode,3)>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
+		<cfset r.putfile=putfile>
 
 			<cfcatch>
 				<cfset r.statusCode=400>
