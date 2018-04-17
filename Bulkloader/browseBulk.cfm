@@ -21,6 +21,9 @@
 <!----------------------------------------------------------->
 <cfif action is "showExtras">
 <cfoutput>
+
+	<cfset de = CreateObject("component","component.DataEntry")>
+
 	<cfset sql = "select * from bulkloader where 1=1">
 	<cfif isdefined("enteredby") and len(enteredby) gt 0>
 		<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
@@ -55,7 +58,9 @@
 					select * from data where collection_object_id=#data.collection_object_id#
 				</cfquery>
 				<td>
-					ima a new column
+					<cfset r=de.checkExtendedData(collection_object_id)>
+					<cfset rq=DeserializeJSON(r)>
+					#rq#
 				</td>
 				<cfloop query="cNames">
 					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
