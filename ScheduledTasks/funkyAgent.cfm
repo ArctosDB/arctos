@@ -86,12 +86,11 @@ select
 			<!---
 				This script is basically looking for diacritics, which isn't the whole case.
 				If the entire preferred name is Unicode, assume that any AKAs are proper translations
-			--->
 			<br>preferred_agent_name: #preferred_agent_name#
 			<br>mname: #mname#
 			<br>replace(mname,"_","","all"): #replace(mname,"_","","all")#
-
 			<br>rereplace(mname,' _','','all'):::#rereplace(mname,'[ _]','','all')#===
+			--->
 			<cfif len(rereplace(mname,'[ _]','','all')) is 0>
 				<!--- "AKAs" are non-special, non-component names --->
 				<cfquery name="hasAKA"  datasource="uam_god">
@@ -336,8 +335,9 @@ select
 		<cfset subj="TEST PLEASE IGNORE: Arctos Noncompliant Agent Notification">
 	</cfif>
 	<!----
-	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
 	---->
+		<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="suspect_agent@#Application.fromEmail#" type="html">
+
 		<cfif not isdefined("Application.version") or Application.version is not "prod">
 			<hr>prod would have sent this email to #valuelist(addEmails.ADDRESS)#<hr>
 		</cfif>
@@ -361,8 +361,9 @@ select
 			</cfloop>
 		</p>
 		#emailFooter#
-		<!----
 	</cfmail>
+
+		<!----
 	---->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
