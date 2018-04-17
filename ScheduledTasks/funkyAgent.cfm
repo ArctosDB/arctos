@@ -92,7 +92,6 @@ select
 			<br>replace(mname,"_","","all"): #replace(mname,"_","","all")#
 
 			<br>rereplace(mname,' _','','all'):::#rereplace(mname,' _','','all')#===
-			<br>len\: #len(rereplace(mname,' _','','all')#
 			<cfif len(rereplace(mname,' _','','all')) is 0>
 				<!--- "AKAs" are non-special, non-component names --->
 				<cfquery name="hasAKA"  datasource="uam_god">
