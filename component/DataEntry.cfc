@@ -35,6 +35,7 @@
 			</cfif>
 	</cfif>
 	<cfset r=SerializeJSON(r)>
+	<cfdump var=#r#>
 		<cfreturn r>
 </cffunction>
 <!---------------------------------------------------------------->
