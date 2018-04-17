@@ -59,8 +59,7 @@
 				</cfquery>
 				<td>
 					<cfset r=de.checkExtendedData(collection_object_id)>
-					<cfset rq=DeserializeJSON(r)>
-					<cfdump var=#rq#>
+					#r#
 				</td>
 				<cfloop query="cNames">
 					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
