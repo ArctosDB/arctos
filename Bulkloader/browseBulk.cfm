@@ -41,12 +41,12 @@
 		order by internal_column_id
 	</cfquery>
 
-	<cfset cNames="extras,#valuelist(cNames.column_name)#">
+	<cfset clist="extras,#valuelist(cNames.column_name)#">
 
 	<div class="blTabDiv">
 		<table border id="t" class="sortable">
 			<tr>
-			<cfloop query="cNames">
+			<cfloop query="clist">
 				<th>#column_name#</th>
 			</cfloop>
 			<cfloop query="data">
