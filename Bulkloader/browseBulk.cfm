@@ -275,6 +275,7 @@
 					 			<input type="button" value="SQL" class="lnkBtn" onclick="f.action.value='sqlTab';f.submit();">
 								<input type="button" value="AJAX grid" class="lnkBtn" onclick="f.action.value='ajaxGrid';f.submit();">
 								<input type="button" value="CSV" class="lnkBtn" onclick="f.action.value='download';f.submit();">
+								<input type="button" value="Extras" class="lnkBtn" onclick="f.action.value='showExtras';f.submit();">
 
 
 							</td>
