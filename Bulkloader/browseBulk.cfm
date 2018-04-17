@@ -16,6 +16,62 @@
 		<cfset enteredby=listqualify(enteredby,"'")>
 	</cfif>
 </cfif>
+
+
+<!----------------------------------------------------------->
+<cfif action is "showExtras">
+<cfoutput>
+	<cfset sql = "select * from bulkloader where 1=1">
+	<cfif isdefined("enteredby") and len(enteredby) gt 0>
+		<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
+	</cfif>
+	<cfif isdefined("accn") and len(accn) gt 0>
+		<cfset sql = "#sql# AND accn IN (#accn#)">
+	</cfif>
+	<cfif isdefined("colln") and len(colln) gt 0>
+		<cfset sql = "#sql# AND guid_prefix IN (#colln#)">
+	</cfif>
+	<cfset sql="#sql# and collection_object_id>500 and rownum<500">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		#preservesinglequotes(sql)#
+	</cfquery>
+
+<cfquery name="cNames" datasource="uam_god">
+	select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
+	order by internal_column_id
+</cfquery>
+
+	<cfset cNames="extras,#valuelist(cNames.column_name)#">
+
+	<div class="blTabDiv">
+		<table border id="t" class="sortable">
+			<tr>
+			<cfloop query="cNames">
+				<th>#column_name#</th>
+			</cfloop>
+			<cfloop query="data">
+				<tr>
+				<cfquery name="thisRec" dbtype="query">
+					select * from data where collection_object_id=#data.collection_object_id#
+				</cfquery>
+				<td>
+					ima a new column
+				</td>
+				<cfloop query="cNames">
+					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
+					<td>#thisData#</td>
+				</cfloop>
+				</tr>
+			</cfloop>
+			</tr>
+		</table>
+	</div>
+</cfoutput>
+</cfif>
+
+
+
+
 <cfif action is "loadAll">
 	<cfoutput>
 		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE collection_object_id > 500" >
