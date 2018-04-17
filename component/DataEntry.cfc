@@ -13,6 +13,8 @@
 				select OTHER_ID_NUM_4 idval,OTHER_ID_NUM_TYPE_4 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
 				select OTHER_ID_NUM_5 idval,OTHER_ID_NUM_TYPE_5 idtype from bulkloader where collection_object_id=#collection_object_id#
 			)
+		where
+			idtype='UUID'
 		group by
 			idtype,
 			idval
