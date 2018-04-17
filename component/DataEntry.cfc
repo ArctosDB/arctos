@@ -27,7 +27,6 @@
 				select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#d.idval#'
 			</cfquery>
 			<cfset r.otherIDs=parseJSON(cf_temp_oids)>
-		</cfloop>
 	</cfif>
 	<cfdump var=#d#>
 		<cfreturn r>
