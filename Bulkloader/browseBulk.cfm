@@ -60,7 +60,7 @@
 				<td>
 					<cfset r=de.checkExtendedData(collection_object_id)>
 					<cfloop collection="#r#" item="key">
-					     #key#: #myStructure[key]#<br />
+					     #key#: #r[key]#<br />
 					</cfloop>
 
 				</td>
