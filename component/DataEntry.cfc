@@ -2,7 +2,7 @@
 <!------------------------------------------------------------------------------->
 <cffunction name="checkExtendedData" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			idtype,
 			idval
