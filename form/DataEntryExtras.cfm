@@ -1,3 +1,13 @@
+
+<!----------------------------------------------------------------->
+<cfif action is "seeWhatsThereByCollectionObjectID">
+	<cfset de = CreateObject("component","component.DataEntry")>
+	<cfset r=de.checkExtendedData(collection_object_id)>
+	<cfdump var=#r#>
+
+</cfif>
+
+
 <cfif action is "addCollector">
 <script>
 		jQuery(document).ready(function() {
