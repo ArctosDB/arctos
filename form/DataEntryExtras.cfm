@@ -504,6 +504,12 @@
 		</cfquery>
 		<cfset UUID=gg.OTHER_ID_NUM_4>
 	</cfif>
+	<cfif isdefined("CFGRIDKEY")>
+		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select OTHER_ID_NUM_4 from bulkloader where OTHER_ID_NUM_TYPE_4='UUID' and collection_object_id=#CFGRIDKEY#
+		</cfquery>
+		<cfset UUID=gg.OTHER_ID_NUM_4>
+	</cfif>
 
 	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from  cf_temp_specevent  where UUID='#UUID#'
