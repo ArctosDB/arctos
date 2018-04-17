@@ -46,7 +46,7 @@
 	<div class="blTabDiv">
 		<table border id="t" class="sortable">
 			<tr>
-			<cfloop query="clist">
+			<cfloop list="#clist#" index="column_name">
 				<th>#column_name#</th>
 			</cfloop>
 			<cfloop query="data">
