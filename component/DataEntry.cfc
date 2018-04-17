@@ -36,7 +36,7 @@
 				select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#idval#'
 			</cfquery>
 		</cfloop>
-		<cfif cf_temp_specevent.recodcount gt 0>
+		<cfif cf_temp_specevent.recordcount gt 0>
 			<cfset r.specevent=parseJSON(cf_temp_specevent)>
 		</cfif>
 		<cfset r.msg="boogity">
