@@ -27,13 +27,13 @@
 				select * from  cf_temp_specevent  where UUID='#idval#'
 			</cfquery>
 			<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_parts  where other_id_number='#UUID#'
+				select * from  cf_temp_parts  where other_id_number='#idval#'
 			</cfquery>
 			<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_attributes  where other_id_number='#UUID#'
+				select * from  cf_temp_attributes  where other_id_number='#idval#'
 			</cfquery>
 			<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#UUID#'
+				select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#idval#'
 			</cfquery>
 		</cfloop>
 		<cfif cf_temp_specevent.recodcount gt 0>
