@@ -6,7 +6,7 @@
 		select OTHER_ID_NUM_4 idval from bulkloader where OTHER_ID_NUM_TYPE_4='UUID' and collection_object_id=#collection_object_id#
 	</cfquery>
 	<cfif d.recordcount is 0>
-		<cfset r.msg="no extras found">
+		<cfset r="no extras found">
 	<cfelse>
 			<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_specevent  where UUID='#d.idval#'
