@@ -1,5 +1,28 @@
 <cfcomponent>
 <!------------------------------------------------------------------------------->
+<cffunction name="checkExtendedData" access="remote">
+	<cfargument name="collection_object_id" type="numeric" required="yes">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			idtype,
+			idval
+		from (
+				select OTHER_ID_NUM_1 idval,OTHER_ID_NUM_TYPE_1 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
+				select OTHER_ID_NUM_2 idval,OTHER_ID_NUM_TYPE_2 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
+				select OTHER_ID_NUM_3 idval,OTHER_ID_NUM_TYPE_3 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
+				select OTHER_ID_NUM_4 idval,OTHER_ID_NUM_TYPE_4 idtype from bulkloader where collection_object_id=#collection_object_id# UNION
+				select OTHER_ID_NUM_5 idval,OTHER_ID_NUM_TYPE_5 idtype from bulkloader where collection_object_id=#collection_object_id#
+			)
+		group by
+			idtype,
+			idval
+	</cfquery>
+	<cfdump var=#d#>
+		<cfreturn 'skippy'>
+</cffunction>
+<!---------------------------------------------------------------->
+
+<!------------------------------------------------------------------------------->
 <cffunction name="isValidISODate"  access="remote">
 	<cfargument name="datestring" type="string" required="yes">
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
