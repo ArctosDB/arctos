@@ -34,6 +34,7 @@
 			<cfset r.otherIDs=SerializeJSON(cf_temp_oids)>
 			</cfif>
 	</cfif>
+	<cfset r=SerializeJSON(r)>
 		<cfreturn r>
 </cffunction>
 <!---------------------------------------------------------------->
