@@ -358,6 +358,7 @@ function expPartDet(){
 }
 
 function formatJSONLocality(){
+	$("#ldcb").remove();
 	if ($('div[id^="jsonlocality_"]').length){
 		$("div[id^='jsonlocality_']").each(function() {
 			var r = $.parseJSON($("#" + this.id).html());
