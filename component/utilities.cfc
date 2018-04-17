@@ -304,11 +304,11 @@
 
 <cffunction name="loadFileS3" output="false" returnType="any" access="remote">
 	<cftry>
-		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+		<cfquery name="s3" datasource="uam_god" >
 			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
 		</cfquery>
 
-		<!---- make a username bucket. This will create or return an error of some sort. ---->
+		<!---- make a username bucket. This will create or return an error of some sort. cachedWithin="#CreateTimeSpan(0,1,0,0)#"---->
 		<cfset currentTime = getHttpTimeString( now() ) />
 		<cfset contentType = "text/html" />
 		<cfset bucket="#session.username#">
