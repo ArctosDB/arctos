@@ -29,6 +29,7 @@
 			<cfset r.otherIDs=SerializeJSON(cf_temp_oids)>
 	</cfif>
 	<cfdump var=#d#>
+	<cfdump var=#r#>
 		<cfreturn r>
 </cffunction>
 <!---------------------------------------------------------------->
