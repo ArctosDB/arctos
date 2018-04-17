@@ -19,8 +19,14 @@
 			idtype,
 			idval
 	</cfquery>
+	<cfif d.recordcount is 0>
+		<cfset r.msg="no extras found">
+	<cfelse>
+
+		<cfset r.msg="boogity">
+	</cfif>
 	<cfdump var=#d#>
-		<cfreturn 'skippy'>
+		<cfreturn r>
 </cffunction>
 <!---------------------------------------------------------------->
 
