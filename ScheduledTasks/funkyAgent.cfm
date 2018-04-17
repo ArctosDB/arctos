@@ -90,7 +90,9 @@ select
 			<br>preferred_agent_name: #preferred_agent_name#
 			<br>mname: #mname#
 			<br>replace(mname,"_","","all"): #replace(mname,"_","","all")#
-			<cfif len(replace(mname,"_","","all")) is 0>
+
+			<br>rereplace(preferred_agent_name,'_ ','','all'):#rereplace(preferred_agent_name,'_ ','','all')#
+			<cfif len(rereplace(preferred_agent_name,'_ ','','all')) is 0>
 				<!--- "AKAs" are non-special, non-component names --->
 				<cfquery name="hasAKA"  datasource="uam_god">
 					 select agent_name from agent_name where agent_id=#agent_id# and agent_name_type  in
