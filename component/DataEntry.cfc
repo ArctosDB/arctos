@@ -37,8 +37,7 @@
 			</cfquery>
 		</cfloop>
 		<cfif cf_temp_specevent.recodcount gt 0>
-			<cfset r.specevent=parseJSON(cf_temp_specevent)
-		<cfelse>
+			<cfset r.specevent=parseJSON(cf_temp_specevent)>
 		</cfif>
 		<cfset r.msg="boogity">
 	</cfif>
