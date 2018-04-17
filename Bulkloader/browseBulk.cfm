@@ -59,7 +59,7 @@
 				</cfquery>
 				<td>
 					<cfset r=de.checkExtendedData(collection_object_id)>
-					#r#
+					<cfdump var=#r#>
 				</td>
 				<cfloop query="cNames">
 					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
