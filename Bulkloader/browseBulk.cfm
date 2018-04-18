@@ -59,9 +59,19 @@
 				</cfquery>
 				<td>
 					<cfset r=de.checkExtendedData(collection_object_id)>
-					<cfloop collection="#r#" item="key">
-					     #key#: #r[key]#<br />
+					<cfloop collection="#r#" item="key" >
+						<br>#key#
+						<div style="margin-left:1em;">
+							<cfloop collection="#r[key]#" item="key2" >
+								<cfif len(r[key][key2]) gt 0>
+										#key2#: #r[key][key2]#
+								</cfif>
+							</cfloop>
+						</div>
 					</cfloop>
+
+
+
 
 				</td>
 				<cfloop query="cNames">

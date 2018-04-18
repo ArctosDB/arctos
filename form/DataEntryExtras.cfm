@@ -5,7 +5,6 @@
 		<cfset de = CreateObject("component","component.DataEntry")>
 		<cfset r=de.checkExtendedData(collection_object_id)>
 		<!-- returns a struct containing structs ---->
-		<cfdump var=#r#>
 		<cfloop collection="#r#" item="key" >
 			<br>KEY: #key#
 			<br>r[key]:
