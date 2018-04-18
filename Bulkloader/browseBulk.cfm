@@ -64,7 +64,9 @@
 						<div style="margin-left:1em;">
 							<cfloop collection="#r[key]#" item="key2" >
 								<cfif len(r[key][key2]) gt 0>
+									<div>
 										#key2#: #r[key][key2]#
+									</div>
 								</cfif>
 							</cfloop>
 						</div>
