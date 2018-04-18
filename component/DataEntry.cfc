@@ -7,8 +7,7 @@
 	</cfquery>
 
 	<cfif d.recordcount is 0>
-	<cfset r={}>
-		<cfset r.message="no extras found">
+		<cfset r="no extras found">
 	<cfelse>
 		<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_specevent  where UUID='#d.idval#'
