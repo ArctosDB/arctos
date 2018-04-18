@@ -40,42 +40,43 @@
 	</cfquery>
 
 	<cfquery name="cNames" datasource="uam_god">
-		select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
+		select column_name from user_tab_cols where table_name='BULKLOADER' and
+		column_name not like '%$%' and
+		column_name != 'COLLECTION_OBJECT_ID'
 		order by internal_column_id
 	</cfquery>
 
-	<cfset clist="extras,#valuelist(cNames.column_name)#">
+	<cfset clist="extras,collection_object_id,#valuelist(cNames.column_name)#">
 
 	<div class="blTabDiv">
 		<table border id="t" class="sortable">
 			<tr>
-			<cfloop list="#clist#" index="column_name">
-				<th>#column_name#</th>
-			</cfloop>
+				<cfloop list="#clist#" index="column_name">
+					<th>#column_name#</th>
+				</cfloop>
 			<cfloop query="data">
 				<tr>
-				<cfquery name="thisRec" dbtype="query">
-					select * from data where collection_object_id=#data.collection_object_id#
-				</cfquery>
-				<td>
-					<cfset r=de.checkExtendedData(collection_object_id)>
-					<cfloop collection="#r#" item="key" >
-						<br>#key#
-						<div style="margin-left:1em;">
-							<cfloop collection="#r[key]#" item="key2" >
-								<cfif len(r[key][key2]) gt 0>
-									<div>
-										#key2#: #r[key][key2]#
-									</div>
-								</cfif>
-							</cfloop>
-						</div>
-					</cfloop>
-
-
-
-
-				</td>
+					<cfquery name="thisRec" dbtype="query">
+						select * from data where collection_object_id=#data.collection_object_id#
+					</cfquery>
+					<td>
+						<cfset r=de.checkExtendedData(collection_object_id)>
+						<cfloop collection="#r#" item="key" >
+							<br>#key#
+							<div style="margin-left:1em;">
+								<cfloop collection="#r[key]#" item="key2" >
+									<cfif len(r[key][key2]) gt 0>
+										<div>
+											#key2#: #r[key][key2]#
+										</div>
+									</cfif>
+								</cfloop>
+							</div>
+						</cfloop>
+					</td>
+					<td>
+						<a href="/DataEntry.cfm?action=edit&ImAGod=yes&CFGRIDKEY=#thisRec.collection_object_id#">Edit #thisRec.collection_object_id#</a>
+					</td>
 				<cfloop query="cNames">
 					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
 					<td>#thisData#</td>
