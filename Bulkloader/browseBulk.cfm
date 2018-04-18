@@ -149,36 +149,6 @@
 		    file = "#Application.webDirectory#/download/#fname#"
 	    	output = "#csv#"
 	    	addNewLine = "no">
-
-		<!----
-		<cfset variables.encoding="UTF-8">
-		<cfset fname = "BulkPendingData_#left(session.sessionKey,10)#.csv">
-		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-		<cfset header=#trim(valuelist(cNames.column_name))#>
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(header);
-		</cfscript>
-		<cfloop query="data">
-			<cfset oneLine = "">
-			<cfloop list="#valuelist(cNames.column_name)#" index="c">
-				<cfset thisData = #evaluate(c)#>
-				<cfif len(oneLine) is 0>
-					<cfset oneLine = '"#thisData#"'>
-				<cfelse>
-					<cfset oneLine = '#oneLine#,"#thisData#"'>
-				</cfif>
-			</cfloop>
-			<cfset oneLine = trim(oneLine)>
-			<cfscript>
-				variables.joFileWriter.writeLine(oneLine);
-			</cfscript>
-		</cfloop>
-		<cfscript>
-			variables.joFileWriter.close();
-		</cfscript>
-
-		---->
 		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 	</cfoutput>

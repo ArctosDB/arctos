@@ -910,7 +910,13 @@
 		<cfset gridsortcolumn="collection_object_id">
 	</cfif>
 <cfoutput>
-	<cfset sql="select * from bulkloader where collection_object_id > 500 ">
+
+	<cfquery name="cNames" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
+		order by internal_column_id
+	</cfquery>
+
+	<cfset sql="select #valuelist(cNames.column_name)# from bulkloader where collection_object_id > 500 ">
 	<cfif len(accn) gt 0>
 		<cfset sql=sql & " and accn IN (#accn#)">
 	</cfif>
@@ -926,7 +932,7 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfoutput>
-	      <cfreturn queryconvertforgrid(data,page,pagesize)/>
+	<cfreturn queryconvertforgrid(data,page,pagesize)/>
 </cffunction>
 <!--------------------------------------->
 <cffunction name="editRecord" access="remote">
