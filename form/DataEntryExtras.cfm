@@ -10,8 +10,11 @@
 	<cfset r=de.checkExtendedData(collection_object_id)>
 	<cfdump var=#r#>
 <cfloop collection="#r#" item="key" >
-<cfdump var=#key#>
+	<br>KEY: #key#
+
 <!----
+<cfdump var=#key#>
+
   <cfloop collection="#data#" item="key">
     #key#:#data[key]#
   </cfloop>
