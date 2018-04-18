@@ -35,7 +35,6 @@
 			        for (var row in cf_temp_attributes) {
 			            arrayAppend(result, row);
 			        }
-			        result.spec_attrs=temp;
 			    </cfscript>
 				<cfset r.spec_attrs=temp>
 
