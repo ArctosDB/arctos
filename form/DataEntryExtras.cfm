@@ -1,31 +1,17 @@
 
 <!----------------------------------------------------------------->
 <cfif action is "seeWhatsThereByCollectionObjectID">
-
 	<cfoutput>
-	<cfset de = CreateObject("component","component.DataEntry")>
-
-
-
-	<cfset r=de.checkExtendedData(collection_object_id)>
-	<cfdump var=#r#>
-<cfloop collection="#r#" item="key" >
-	<br>KEY: #key#
-	<cfloop collection="#key#" item="key2" >
-
-
-		<cfdump var=#key2#>
+		<cfset de = CreateObject("component","component.DataEntry")>
+		<cfset r=de.checkExtendedData(collection_object_id)>
+		<cfdump var=#r#>
+		<cfloop collection="#r#" item="key" >
+			<br>KEY: #key#
+			<cfloop collection="#key#" item="key2" >
+				<cfdump var=#key2#>
+			</cfloop>
 		</cfloop>
-  </cfloop>
-<!----
-<cfdump var=#key#>
-
-  <cfloop collection="#data#" item="key">
-    #key#:#data[key]#
-  </cfloop>
----->
-</cfloop>
-</cfoutput>
+	</cfoutput>
 </cfif>
 
 
