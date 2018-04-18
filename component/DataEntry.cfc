@@ -49,9 +49,9 @@
 		</cfquery>
 		<cfif cf_temp_collector.recordcount gt 0>
 			<cfscript>
-		        var temp = [];
+		        var temp = {};
 		        for (var row in cf_temp_collector) {
-		            arrayAppend(temp, row);
+		            structAppend(temp, row);
 		        }
 		    </cfscript>
 
