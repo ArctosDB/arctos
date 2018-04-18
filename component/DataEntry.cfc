@@ -36,6 +36,8 @@
 			            arrayAppend(result, row);
 			        }
 			    </cfscript>
+
+			    <cfdump var=#temp#>
 				<cfset r.spec_attrs=temp>
 
 
