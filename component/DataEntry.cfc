@@ -38,6 +38,8 @@
 		<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_attributes  where other_id_number='#d.idval#'
 		</cfquery>
+
+		<cfdump var=#cf_temp_attributes#>
 		<cfif cf_temp_attributes.recordcount gt 0>
 			<cfscript>
 		        var temp = {};
