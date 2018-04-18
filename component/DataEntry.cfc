@@ -34,7 +34,6 @@
 				<cfscript>
 			        var temp = [];
 			        for (var row in cf_temp_attributes) {
-			        	writeoutput(row);
 			            arrayAppend(temp, row);
 			        }
 			    </cfscript>
