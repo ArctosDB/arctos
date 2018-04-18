@@ -64,6 +64,9 @@
 						getting http://arctos-test.tacc.utexas.edu/component/DataEntry.cfc?method=checkExtendedData&collection_object_id=#data.collection_object_id#
 						<cfset r=de.checkExtendedData(data.collection_object_id)>
 						<cfif IsStruct(r)>
+							is a struct...
+
+							<cfdump var=#r#>
 							<cfloop collection="#r#" item="key" >
 								<br>#key#
 								<div style="margin-left:1em;">
