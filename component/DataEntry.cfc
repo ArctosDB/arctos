@@ -5,6 +5,8 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select OTHER_ID_NUM_4 idval from bulkloader where OTHER_ID_NUM_TYPE_4='UUID' and collection_object_id=#collection_object_id#
 	</cfquery>
+
+	<cfdump var=#d#>
 	<cfif d.recordcount is 0>
 		<cfset r="no extras found">
 	<cfelse>
