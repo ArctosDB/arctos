@@ -62,9 +62,10 @@
 					</cfquery>
 					<td>
 						getting http://arctos-test.tacc.utexas.edu/component/DataEntry.cfc?method=checkExtendedData&collection_object_id=#data.collection_object_id#
+						<cftry>
 						<cfset r=de.checkExtendedData(data.collection_object_id)>
 						<cfif IsStruct(r)>
-							<cftry>
+
 							<cfloop collection="#r#" item="key" >
 								<br>#key#
 								<div style="margin-left:1em;">
@@ -77,13 +78,14 @@
 									</cfloop>
 								</div>
 							</cfloop>
+
+						<cfelse>
+							#r#
+						</cfif>
 							<cfcatch>
 								Something bad happened. Adobe may have converted "no" to FALSE or similar,which breaks everything.
 							</cfcatch>
 							</cftry>
-						<cfelse>
-							#r#
-						</cfif>
 					</td>
 					<td>
 						<a href="/DataEntry.cfm?action=edit&ImAGod=yes&CFGRIDKEY=#data.collection_object_id#">Edit #data.collection_object_id#</a>
