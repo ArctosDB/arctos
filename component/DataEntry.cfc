@@ -78,6 +78,9 @@
 			<cfset r.collectors=temp>
 		</cfif>
 	</cfif>
+
+
+		    <cfdump var=#r#>
 	<cfreturn r>
 </cffunction>
 <!---------------------------------------------------------------->
