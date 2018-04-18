@@ -61,6 +61,7 @@
 						select * from data where collection_object_id=#data.collection_object_id#
 					</cfquery>
 					<td>
+						getting http://arctos-test.tacc.utexas.edu/component/DataEntry.cfc?method=checkExtendedData&collection_object_id=#data.collection_object_id#
 						<cfset r=de.checkExtendedData(data.collection_object_id)>
 						<cfif IsStruct(r)>
 							<cfloop collection="#r#" item="key" >
