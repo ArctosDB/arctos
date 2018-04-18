@@ -4,6 +4,7 @@
 	<cfoutput>
 		<cfset de = CreateObject("component","component.DataEntry")>
 		<cfset r=de.checkExtendedData(collection_object_id)>
+		<!-- returns a struct containing structs ---->
 		<cfdump var=#r#>
 		<cfloop collection="#r#" item="key" >
 			<br>KEY: #key#
@@ -11,6 +12,7 @@
 				<cfdump var=#r[key]#>
 			<cfloop collection="#r[key]#" item="key2" >
 				<br>KEY2: #key2#
+				<br>KEY2data:
 				<cfdump var=#r[key][key2]#>
 			</cfloop>
 		</cfloop>
