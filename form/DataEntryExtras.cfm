@@ -11,11 +11,11 @@
 	<cfdump var=#r#>
 <cfloop collection="#r#" item="key" >
 	<br>KEY: #key#
-	<cfset x=#StructFind(r, key)#>
-	<cfdump var=#x#>
-	<cfloop collection="#x#" item="key2" >
+	<cfloop collection="#key#" item="key2" >
+
 
 		<cfdump var=#key2#>
+		</cfloop>
   </cfloop>
 <!----
 <cfdump var=#key#>
