@@ -9,8 +9,9 @@
 			<br>KEY: #key#
 			<br>r[key]:
 				<cfdump var=#r[key]#>
-			<cfloop collection="#key#" item="key2" >
-				<cfdump var=#key2#>
+			<cfloop collection="#r[key]#" item="key2" >
+				<br>KEY2: #key2#
+				<cfdump var=#r[key][key2]#>
 			</cfloop>
 		</cfloop>
 	</cfoutput>
