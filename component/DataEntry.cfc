@@ -26,7 +26,6 @@
 			<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_attributes  where other_id_number='#d.idval#'
 			</cfquery>
-			<cfdump var=#cf_temp_attributes#>
 			<cfif cf_temp_attributes.recordcount gt 0>
 				<cfscript>
 			        var temp = [];
@@ -38,7 +37,6 @@
 				<cfset r.spec_attrs=temp>
 
 
-				<cfset r.attributes=SerializeJSON(cf_temp_attributes)>
 			</cfif>
 		<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#d.idval#'
