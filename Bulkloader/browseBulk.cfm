@@ -193,7 +193,7 @@
 					hrefkey="collection_object_id" target="_blank" header="Key">
 
 				<cfgridcolumn name="hasExtraData" select="no" href="/form/DataEntryExtras.cfm?action=seeWhatsThere"
-					hrefkey="collection_object_id" target="_blank" header="ClickForMoreData">
+					hrefkey="collection_object_id" target="_blank" header="hasExtraData">
 
 				<cfloop list="#ColNameList#" index="thisName">
 					<cfgridcolumn name="#thisName#">
