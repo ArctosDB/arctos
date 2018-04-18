@@ -63,6 +63,8 @@
 <cfoutput>
 	</cfoutput>
 
+
+<cfdump var=#r#>
 <cfreturn r>
 
 <!----
