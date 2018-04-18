@@ -54,7 +54,15 @@
 			select * from  cf_temp_collector  where other_id_number='#d.idval#'
 		</cfquery>
 		<cfif cf_temp_collector.recordcount gt 0>
-			<cfset r.collectors=SerializeJSON(cf_temp_collector)>
+			<cfscript>
+		        var temp = [];
+		        for (var row in cf_temp_collector) {
+		            arrayAppend(temp, row);
+		        }
+		    </cfscript>
+
+		    <cfdump var=#temp#>
+			<cfset r.collectors=temp>
 		</cfif>
 
 
