@@ -61,31 +61,30 @@
 						select * from data where collection_object_id=#data.collection_object_id#
 					</cfquery>
 					<td>
-						getting http://arctos-test.tacc.utexas.edu/component/DataEntry.cfc?method=checkExtendedData&collection_object_id=#data.collection_object_id#
 						<cftry>
-						<cfset r=de.checkExtendedData(data.collection_object_id)>
-						<cfif IsStruct(r)>
+							<cfset r=de.checkExtendedData(data.collection_object_id)>
+							<cfif IsStruct(r)>
 
-							<cfloop collection="#r#" item="key" >
-								<br>#key#
-								<div style="margin-left:1em;">
-									<cfloop collection="#r[key]#" item="key2" >
-										<cfif len(r[key][key2]) gt 0>
-											<div>
-												#key2#: #r[key][key2]#
-											</div>
-										</cfif>
-									</cfloop>
-								</div>
-							</cfloop>
+								<cfloop collection="#r#" item="key" >
+									<br>#key#
+									<div style="margin-left:1em;">
+										<cfloop collection="#r[key]#" item="key2" >
+											<cfif len(r[key][key2]) gt 0>
+												<div>
+													#key2#: #r[key][key2]#
+												</div>
+											</cfif>
+										</cfloop>
+									</div>
+								</cfloop>
 
-						<cfelse>
-							#r#
-						</cfif>
+							<cfelse>
+								#r#
+							</cfif>
 							<cfcatch>
 								Something bad happened. Adobe may have converted "no" to FALSE or similar,which breaks everything.
 							</cfcatch>
-							</cftry>
+						</cftry>
 					</td>
 					<td>
 						<a href="/DataEntry.cfm?action=edit&ImAGod=yes&CFGRIDKEY=#data.collection_object_id#">Edit #data.collection_object_id#</a>
