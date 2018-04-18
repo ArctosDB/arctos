@@ -1,6 +1,6 @@
 <cfcomponent>
 <!------------------------------------------------------------------------------->
-<cffunction name="checkExtendedData" access="remote">
+<cffunction name="checkExtendedData" access="remote" returnformat="json">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select OTHER_ID_NUM_4 idval from bulkloader where OTHER_ID_NUM_TYPE_4='UUID' and collection_object_id=#collection_object_id#
