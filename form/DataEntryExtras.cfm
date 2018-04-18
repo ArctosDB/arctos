@@ -10,10 +10,15 @@
 	<cfset r=de.checkExtendedData(collection_object_id)>
 	<cfdump var=#r#>
 
-<cfloop collection="#r#" item="key">
-     #key#: #r[key]#<br />
-</cfloop>
-
+<cfscript>
+for (d in r)  // for-in loop for array
+{
+  for (key in d)  // for-in loop for struct
+  {
+     writeOutput(key & ":" & d[key]);
+  }
+}
+</cfscript>
 </cfoutput>
 </cfif>
 
