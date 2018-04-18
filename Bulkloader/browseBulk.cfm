@@ -82,7 +82,8 @@
 								#r#
 							</cfif>
 							<cfcatch>
-								Something bad happened. Adobe may have converted "no" to FALSE or similar,which breaks everything.
+								Something bad happened. Adobe may have converted "no" to FALSE or similar,which breaks everything. Click
+								collection_object_id to bypass this stupid conversion failure.
 							</cfcatch>
 						</cftry>
 					</td>
