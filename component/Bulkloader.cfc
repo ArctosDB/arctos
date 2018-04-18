@@ -916,7 +916,7 @@
 		order by internal_column_id
 	</cfquery>
 
-	<cfset sql="select #valuelist(cNames.column_name)# from bulkloader where collection_object_id > 500 ">
+	<cfset sql="select bulkloaderHasExtraData(collection_object_id) hasExtraData, #valuelist(cNames.column_name)# from bulkloader where collection_object_id > 500 ">
 	<cfif len(accn) gt 0>
 		<cfset sql=sql & " and accn IN (#accn#)">
 	</cfif>
