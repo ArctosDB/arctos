@@ -47,6 +47,8 @@
 		            structAppend(temp, row);
 		        }
 		    </cfscript>
+
+		    <cfdump var=#temp#>
 			<cfset r.spec_attrs=temp>
 		</cfif>
 
