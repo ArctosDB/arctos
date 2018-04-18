@@ -8,42 +8,58 @@
 	<cfif d.recordcount is 0>
 		<cfset r="no extras found">
 	<cfelse>
+		<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from  cf_temp_specevent  where UUID='#d.idval#'
+		</cfquery>
+		<cfif cf_temp_specevent.recordcount gt 0>
+			<cfscript>
+		        var temp = {};
+		        for (var row in cf_temp_specevent) {
+		            structAppend(temp, row);
+		        }
+		    </cfscript>
+			<cfset r.spec_events=temp>
+		</cfif>
 
-			<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_specevent  where UUID='#d.idval#'
-			</cfquery>
-			<cfif cf_temp_specevent.recordcount gt 0>
-					<cfset r.specevent=SerializeJSON(cf_temp_specevent)>
-			</cfif>
+		<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from  cf_temp_parts  where other_id_number='#d.idval#'
+		</cfquery>
+		<cfif cf_temp_parts.recordcount gt 0>
+			<cfscript>
+		        var temp = {};
+		        for (var row in cf_temp_parts) {
+		            structAppend(temp, row);
+		        }
+		    </cfscript>
+			<cfset r.spec_parts=temp>
+		</cfif>
 
-			<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_parts  where other_id_number='#d.idval#'
-			</cfquery>
-			<cfif cf_temp_parts.recordcount gt 0>
-				<cfset r.parts=SerializeJSON(cf_temp_parts)>
-			</cfif>
+		<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from  cf_temp_attributes  where other_id_number='#d.idval#'
+		</cfquery>
+		<cfif cf_temp_attributes.recordcount gt 0>
+			<cfscript>
+		        var temp = {};
+		        for (var row in cf_temp_attributes) {
+		            structAppend(temp, row);
+		        }
+		    </cfscript>
+			<cfset r.spec_attrs=temp>
+		</cfif>
 
-			<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_attributes  where other_id_number='#d.idval#'
-			</cfquery>
-			<cfif cf_temp_attributes.recordcount gt 0>
-				<cfscript>
-			        var temp = {};
-			        for (var row in cf_temp_attributes) {
-			            structAppend(temp, row);
-			        }
-			    </cfscript>
-
-				<cfset r.spec_attrs=temp>
-
-
-			</cfif>
 		<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#d.idval#'
 		</cfquery>
 		<cfif cf_temp_oids.recordcount gt 0>
-			<cfset r.otherIDs=SerializeJSON(cf_temp_oids)>
+			<cfscript>
+		        var temp = {};
+		        for (var row in cf_temp_oids) {
+		            structAppend(temp, row);
+		        }
+		    </cfscript>
+			<cfset r.other_ids=temp>
 		</cfif>
+
 		<cfquery name="cf_temp_collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_collector  where other_id_number='#d.idval#'
 		</cfquery>
@@ -54,44 +70,10 @@
 		            structAppend(temp, row);
 		        }
 		    </cfscript>
-
 			<cfset r.collectors=temp>
 		</cfif>
-
-
 	</cfif>
-<cfoutput>
-	</cfoutput>
-
-
-<cfreturn r>
-
-<!----
-
-
-	-------------r-------------
-
-	<cfdump var=#r#>
-
-	-------------x-------------
-
-			<cfset x=SerializeJSON(r)>
-
-	<cfdump var=#x#>
-
-	 <cfscript>
-        var result = [];
-        for (var row in r) {
-            arrayAppend(result, row);
-        }
-       // return result;
-    </cfscript>
-
-
-	-------------result-------------
-	<cfdump var=#result#>
-		<cfreturn r>
-		-------->
+	<cfreturn r>
 </cffunction>
 <!---------------------------------------------------------------->
 
