@@ -13,7 +13,12 @@
 			<cfloop collection="#r[key]#" item="key2" >
 				<br>KEY2: #key2#
 				<br>KEY2data:
-				<cfdump var=#r[key][key2]#>
+				<cfif len(r[key][key2]) gt 0>
+						#r[key][key2]#
+				<cfelse>
+					---nodata--
+
+				</cfif>
 			</cfloop>
 		</cfloop>
 	</cfoutput>
