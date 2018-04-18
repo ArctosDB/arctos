@@ -3,7 +3,7 @@
 <cffunction name="checkExtendedData" access="remote" returnformat="json">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select OTHER_ID_NUM_4 idval from bulkloader where OTHER_ID_NUM_TYPE_4='UUID' and collection_object_id=#collection_object_id#
+		select OTHER_ID_NUM_4 idval from bulkloader where OTHER_ID_NUM_TYPE_4='UUID' and OTHER_ID_NUM_4 is not null and collection_object_id=#collection_object_id#
 	</cfquery>
 
 	<cfdump var=#d#>
