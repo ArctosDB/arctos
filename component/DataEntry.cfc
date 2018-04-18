@@ -66,6 +66,11 @@
 	<cfdump var=#result#>
 
 
+	-------------x-------------
+
+			<cfset x=SerializeJSON(r)>
+
+	<cfdump var=#x#>
 
 	 <cfscript>
         var result = [];
