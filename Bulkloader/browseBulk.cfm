@@ -62,7 +62,6 @@
 					</cfquery>
 					<td>
 						<cfset r=de.checkExtendedData(data.collection_object_id)>
-						<cfdump var=#r#>
 						<cfloop collection="#r#" item="key" >
 							<br>#key#
 							<div style="margin-left:1em;">
