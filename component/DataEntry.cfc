@@ -28,9 +28,9 @@
 			</cfquery>
 			<cfif cf_temp_attributes.recordcount gt 0>
 				<cfscript>
-			        var temp = [];
+			        var temp = {};
 			        for (var row in cf_temp_attributes) {
-			            arrayAppend(temp, row);
+			            structAppend(temp, row);
 			        }
 			    </cfscript>
 
