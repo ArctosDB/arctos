@@ -2,6 +2,10 @@
 <!----------------------------------------------------------------->
 <cfif action is "seeWhatsThereByCollectionObjectID">
 	<cfset de = CreateObject("component","component.DataEntry")>
+
+	<cfdump var=#de#>
+
+
 	<cfset r=de.checkExtendedData(collection_object_id)>
 	<cfdump var=#r#>
 	<cfset rq=DeserializeJSON(r)>
