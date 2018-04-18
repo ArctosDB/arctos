@@ -55,7 +55,6 @@
 		        }
 		    </cfscript>
 
-<cfdump var=#temp#>
 			<cfset r.collectors=temp>
 		</cfif>
 
@@ -65,7 +64,6 @@
 	</cfoutput>
 
 
-<cfdump var=#r#>
 <cfreturn r>
 
 <!----
