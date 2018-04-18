@@ -34,12 +34,11 @@
 			<cfset r.otherIDs=SerializeJSON(cf_temp_oids)>
 		</cfif>
 		<cfquery name="cf_temp_collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from  cf_temp_collector  where other_id_type='#d.idval#'
+			select * from  cf_temp_collector  where other_id_number='#d.idval#'
 		</cfquery>
 		<cfif cf_temp_collector.recordcount gt 0>
 			<cfset r.collectors=SerializeJSON(cf_temp_collector)>
 		</cfif>
-
 
 
 	</cfif>

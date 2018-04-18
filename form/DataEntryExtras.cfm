@@ -632,6 +632,35 @@
 			</table>
 		</cfoutput>
 	</cfif>
+
+
+	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from  cf_temp_collector  where other_id_number='#UUID#'
+	</cfquery>
+	<cfif ese.recordcount is 0>
+		<p>There are no external Collectors for this UUID/entry</p>
+	<cfelse>
+		<cfoutput>
+			<p>There are #ese.recordcount# Collectors IDs for this UUID/entry. (View details under
+			<a href="/tools/BulkloadCollector.cfm?action=managemystuff" target="_blank">Enter/Bulk Tools/Bulkload Collector</a>.) </p>
+			<table border>
+				<tr>
+					<th>Name</th>
+					<th>Role</th>
+					<th>Order</th>
+				</tr>
+				<cfloop query="ese">
+					<tr>
+						<td>#agent_name#</td>
+						<td>#collector_role#</td>
+						<td>#COLL_ORDER#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfoutput>
+	</cfif>
+
+
 </cfif>
 <cfif action is "help">
 	<p>
