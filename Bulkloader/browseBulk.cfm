@@ -21,7 +21,6 @@
 <!----------------------------------------------------------->
 <cfif action is "showExtras">
 <cfoutput>
-
 	<cfset de = CreateObject("component","component.DataEntry")>
 
 	<cfset sql = "select * from bulkloader where 1=1">
@@ -46,6 +45,7 @@
 		order by internal_column_id
 	</cfquery>
 
+	<!--- add "special" stuff at known positions --->
 	<cfset clist="extras,collection_object_id,#valuelist(cNames.column_name)#">
 
 	<div class="blTabDiv">
@@ -54,13 +54,15 @@
 				<cfloop list="#clist#" index="column_name">
 					<th>#column_name#</th>
 				</cfloop>
+			</tr>
 			<cfloop query="data">
 				<tr>
 					<cfquery name="thisRec" dbtype="query">
 						select * from data where collection_object_id=#data.collection_object_id#
 					</cfquery>
 					<td>
-						<cfset r=de.checkExtendedData(collection_object_id)>
+						<cfset r=de.checkExtendedData(data.collection_object_id)>
+						<cfdump var=#r#>
 						<cfloop collection="#r#" item="key" >
 							<br>#key#
 							<div style="margin-left:1em;">
@@ -75,15 +77,14 @@
 						</cfloop>
 					</td>
 					<td>
-						<a href="/DataEntry.cfm?action=edit&ImAGod=yes&CFGRIDKEY=#thisRec.collection_object_id#">Edit #thisRec.collection_object_id#</a>
+						<a href="/DataEntry.cfm?action=edit&ImAGod=yes&CFGRIDKEY=#data.collection_object_id#">Edit #data.collection_object_id#</a>
 					</td>
-				<cfloop query="cNames">
-					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
-					<td>#thisData#</td>
-				</cfloop>
+					<cfloop query="cNames">
+						<cfset thisData = evaluate("thisRec." & cNames.column_name)>
+						<td>#thisData#</td>
+					</cfloop>
 				</tr>
 			</cfloop>
-			</tr>
 		</table>
 	</div>
 </cfoutput>
