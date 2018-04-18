@@ -83,7 +83,7 @@
         for (var row in r) {
             arrayAppend(result, row);
         }
-        return result;
+       // return result;
     </cfscript>
 
 
