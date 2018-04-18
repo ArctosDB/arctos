@@ -10,12 +10,10 @@
 	<cfset r=de.checkExtendedData(collection_object_id)>
 	<cfdump var=#r#>
 
+<cfloop collection="#r#" item="key">
+     #key#: #r[key]#<br />
+</cfloop>
 
-	#r#
-
-
-	<cfset rq=DeserializeJSON(r)>
-	<cfdump var=#rq#>
 </cfoutput>
 </cfif>
 
