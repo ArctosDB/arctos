@@ -8,25 +8,40 @@
 	<cfif d.recordcount is 0>
 		<cfset r="no extras found">
 	<cfelse>
+		 <cfscript>
+	        var result = [];
+	    </cfscript>
+
 			<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_specevent  where UUID='#d.idval#'
 			</cfquery>
-	<cfif cf_temp_specevent.recordcount gt 0>
-			<cfset r.specevent=SerializeJSON(cf_temp_specevent)>
-</cfif>
+			<cfif cf_temp_specevent.recordcount gt 0>
+					<cfset r.specevent=SerializeJSON(cf_temp_specevent)>
+			</cfif>
+
 			<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_parts  where other_id_number='#d.idval#'
 			</cfquery>
-		<cfif cf_temp_parts.recordcount gt 0>
+			<cfif cf_temp_parts.recordcount gt 0>
+				<cfset r.parts=SerializeJSON(cf_temp_parts)>
+			</cfif>
 
-			<cfset r.parts=SerializeJSON(cf_temp_parts)>
-</cfif>
 			<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_attributes  where other_id_number='#d.idval#'
 			</cfquery>
-		<cfif cf_temp_attributes.recordcount gt 0>
-			<cfset r.attributes=SerializeJSON(cf_temp_attributes)>
-</cfif>
+			<cfif cf_temp_attributes.recordcount gt 0>
+				<cfscript>
+			        var temp = [];
+			        for (var row in cf_temp_attributes) {
+			            arrayAppend(result, row);
+			        }
+			        result.spec_attrs=temp;
+			    </cfscript>
+
+
+
+				<cfset r.attributes=SerializeJSON(cf_temp_attributes)>
+			</cfif>
 		<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#d.idval#'
 		</cfquery>
@@ -44,6 +59,10 @@
 	</cfif>
 <cfoutput>
 	</cfoutput>
+
+	<cfdump var=#result#>
+
+
 
 	 <cfscript>
         var result = [];
