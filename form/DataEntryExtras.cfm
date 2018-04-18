@@ -7,6 +7,8 @@
 		<cfdump var=#r#>
 		<cfloop collection="#r#" item="key" >
 			<br>KEY: #key#
+			<br>r[key]:
+				<cfdump var=#r[key]#>
 			<cfloop collection="#key#" item="key2" >
 				<cfdump var=#key2#>
 			</cfloop>
