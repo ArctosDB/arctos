@@ -13,9 +13,9 @@
 	<br>KEY: #key#
 	<cfset x=#StructFind(r, key)#>
 	<cfdump var=#x#>
-	<cfloop array="#x[1]#" index="idx">
+	<cfloop collection="#x#" item="key2" >
 
-		<cfdump var=#idx#>
+		<cfdump var=#key2#>
   </cfloop>
 <!----
 <cfdump var=#key#>
