@@ -62,18 +62,22 @@
 					</cfquery>
 					<td>
 						<cfset r=de.checkExtendedData(data.collection_object_id)>
-						<cfloop collection="#r#" item="key" >
-							<br>#key#
-							<div style="margin-left:1em;">
-								<cfloop collection="#r[key]#" item="key2" >
-									<cfif len(r[key][key2]) gt 0>
-										<div>
-											#key2#: #r[key][key2]#
-										</div>
-									</cfif>
-								</cfloop>
-							</div>
-						</cfloop>
+						<cfif IsStruct(r)>
+							<cfloop collection="#r#" item="key" >
+								<br>#key#
+								<div style="margin-left:1em;">
+									<cfloop collection="#r[key]#" item="key2" >
+										<cfif len(r[key][key2]) gt 0>
+											<div>
+												#key2#: #r[key][key2]#
+											</div>
+										</cfif>
+									</cfloop>
+								</div>
+							</cfloop>
+						<cfelse>
+							#r#
+						</cfif>
 					</td>
 					<td>
 						<a href="/DataEntry.cfm?action=edit&ImAGod=yes&CFGRIDKEY=#data.collection_object_id#">Edit #data.collection_object_id#</a>
