@@ -8,9 +8,6 @@
 	<cfif d.recordcount is 0>
 		<cfset r="no extras found">
 	<cfelse>
-		 <cfscript>
-	        var result = [];
-	    </cfscript>
 
 			<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from  cf_temp_specevent  where UUID='#d.idval#'
@@ -38,7 +35,6 @@
 			        }
 			    </cfscript>
 
-			    <cfdump var=#temp#>
 				<cfset r.spec_attrs=temp>
 
 
@@ -61,7 +57,6 @@
 		        }
 		    </cfscript>
 
-		    <cfdump var=#temp#>
 			<cfset r.collectors=temp>
 		</cfif>
 
@@ -69,9 +64,12 @@
 	</cfif>
 <cfoutput>
 	</cfoutput>
+	-------------r-------------
 
 	<cfdump var=#r#>
-	<cfdump var=#result#>
+
+
+
 
 
 	-------------x-------------
@@ -89,6 +87,8 @@
     </cfscript>
 
 
+	-------------result-------------
+	<cfdump var=#result#>
 		<cfreturn r>
 </cffunction>
 <!---------------------------------------------------------------->
