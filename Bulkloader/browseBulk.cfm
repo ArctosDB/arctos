@@ -64,9 +64,7 @@
 						getting http://arctos-test.tacc.utexas.edu/component/DataEntry.cfc?method=checkExtendedData&collection_object_id=#data.collection_object_id#
 						<cfset r=de.checkExtendedData(data.collection_object_id)>
 						<cfif IsStruct(r)>
-							is a struct...
-
-							<cfdump var=#r#>
+							<cftry>
 							<cfloop collection="#r#" item="key" >
 								<br>#key#
 								<div style="margin-left:1em;">
@@ -79,9 +77,11 @@
 									</cfloop>
 								</div>
 							</cfloop>
+							<cfcatch>
+								Something bad happened. Adobe may have converted "no" to FALSE or similar,which breaks everything.
+							</cfcatch>
+							</cftry>
 						<cfelse>
-							not a structure
-							<cfdump var=#r#>
 							#r#
 						</cfif>
 					</td>
