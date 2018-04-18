@@ -77,6 +77,8 @@
 								</div>
 							</cfloop>
 						<cfelse>
+							not a structure
+							<cfdump var=#r#>
 							#r#
 						</cfif>
 					</td>
