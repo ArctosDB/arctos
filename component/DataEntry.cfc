@@ -44,6 +44,16 @@
 	</cfif>
 <cfoutput>
 	</cfoutput>
+
+	 <cfscript>
+        var result = [];
+        for (var row in r) {
+            arrayAppend(result, row);
+        }
+        return result;
+    </cfscript>
+
+
 		<cfreturn r>
 </cffunction>
 <!---------------------------------------------------------------->
