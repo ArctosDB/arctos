@@ -37,7 +37,7 @@
 			        }
 			        result.spec_attrs=temp;
 			    </cfscript>
-
+				<cfset r.spec_attrs=temp>
 
 
 				<cfset r.attributes=SerializeJSON(cf_temp_attributes)>
@@ -60,6 +60,7 @@
 <cfoutput>
 	</cfoutput>
 
+	<cfdump var=#r#>
 	<cfdump var=#result#>
 
 
