@@ -27,12 +27,21 @@
 		<cfif cf_temp_attributes.recordcount gt 0>
 			<cfset r.attributes=SerializeJSON(cf_temp_attributes)>
 </cfif>
-			<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#d.idval#'
-			</cfquery>
+		<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from  cf_temp_oids  where EXISTING_OTHER_ID_NUMBER='#d.idval#'
+		</cfquery>
 		<cfif cf_temp_oids.recordcount gt 0>
 			<cfset r.otherIDs=SerializeJSON(cf_temp_oids)>
-			</cfif>
+		</cfif>
+		<cfquery name="cf_temp_collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from  cf_temp_collector  where other_id_type='#d.idval#'
+		</cfquery>
+		<cfif cf_temp_collector.recordcount gt 0>
+			<cfset r.collectors=SerializeJSON(cf_temp_collector)>
+		</cfif>
+
+
+
 	</cfif>
 <cfoutput>
 	</cfoutput>
