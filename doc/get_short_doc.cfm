@@ -48,9 +48,13 @@
 
 					  	<cfset hrefs = REMatch('"([^"]*)"', l) />
 					  	<cfdump var=#hrefs#>
+						<cfloop array="#hrefs#" index="h">
+							<cfif left(h,4) is "http">
+								<br>this is the link: #h#
+							</cfif>
+						</cfloop>
 
-
-
+http://
 					  	<cfset spos=find("href=",l)>
 					  	<cfset epos=find('"',l,spos)>
 					  	<cfset theLink=mid(l,spos,epos)>
