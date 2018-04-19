@@ -50,7 +50,7 @@
 					  	<br>hrefs::<cfdump var=#hrefs#>
 						<cfloop array="#hrefs#" index="h">
 							<br>h::::#h#
-							<cfif left(h,4) is "http">
+							<cfif h contains "http">
 								<br>this is the link: <cfdump var="#h#">
 							</cfif>
 						</cfloop>
