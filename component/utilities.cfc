@@ -980,7 +980,7 @@
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
 	<!--- keep this synced up with /ScheduledTasks/createRobots.cfm ---->
-	<cfset badbot="Apache-HttpClient">
+	<cfset badbot="Apache-HttpClient,AlphaBot">
 	<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
@@ -997,7 +997,6 @@
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",Wotbox">
 	<cfset badbot=badbot & ",YandexBot,Yeti">
-
 
 	<cfif isdefined("cgi.HTTP_USER_AGENT")>
 		<cfloop list="#badbot#" index="b">

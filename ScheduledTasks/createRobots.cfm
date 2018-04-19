@@ -134,7 +134,7 @@
 		<!----
 			keep this synced up with /component/utilities.cfc
 		---->
-		<cfset badbot="Apache-HttpClient">
+		<cfset badbot="Apache-HttpClient,AlphaBot">
 		<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler">
 		<cfset badbot=badbot & ",ca-crawler,CCBot">
 		<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
@@ -151,6 +151,7 @@
 		<cfset badbot=badbot & ",UnisterBot">
 		<cfset badbot=badbot & ",Wotbox">
 		<cfset badbot=badbot & ",YandexBot,Yeti">
+
 
 
 		<cfloop list="#badbot#" index="i">
