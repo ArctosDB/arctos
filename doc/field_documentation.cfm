@@ -330,7 +330,15 @@ div.jtable-input-field-container {
 		</tr>
 		<tr>
 			<td>DEFINITION</td>
-			<td>Short-ish definition suitable for popup/tooltip documentation</td>
+			<td>
+				Short-ish definition suitable for popup/tooltip documentation
+				<div class="importantNotification">
+					SPECIAL: enter "clickthrough" (exactly like that, no extra spaces, all lowercase, etc.)
+					to INCLUDE the contents of DOCUMENTATION_LINK rather than displaying DEFINITION
+					and providing a "more information" link to DOCUMENTATION_LINK.
+
+				</div>
+			</td>
 		</tr>
 		<tr>
 			<td>DOCUMENTATION_LINK</td>
@@ -360,7 +368,7 @@ div.jtable-input-field-container {
 		</ul>
 	</p>
 	<p>
-		Maintenance tools <a href="/doc/checkHelpLinks.cfm">here</a>. 
+		Maintenance tools <a href="/doc/checkHelpLinks.cfm">here</a>.
 	</p>
 	<hr>Filter records:
 	<div class="filtering">
