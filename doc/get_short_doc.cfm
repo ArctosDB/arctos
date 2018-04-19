@@ -28,7 +28,7 @@
 
 		<cfif cfhttp.fileContent contains "clickthrough">
 			<br>got clickthrough
-			<cfset matches = reMatch("<[aA].?>.?</[aA]>",cfhttp.fileContent)>
+			<cfset matches = reMatch("<[div].?>.?</[div]>",cfhttp.fileContent)>
 			<cfdump var="#matches#">
 
 		</cfif>
