@@ -47,9 +47,8 @@
 								<cfset theLink=replace(h,'"','','all')>
 									<br>theLink: #theLink#
 
-									<cfhttp url="#theLink#" charset="utf-8" method="get">
-									<cfdump var=#cfhttp#>
-									#cfhttp.fileContent#
+
+									<iframe src="#theLink#"></iframe>
 
 								<br>this is the link:#h#
 							</cfif>
