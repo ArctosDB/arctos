@@ -27,66 +27,30 @@
 		<cfdump var=#cfhttp#>
 
 		<cfif cfhttp.fileContent contains "clickthrough">
-			<br>got clickthrough
+			<!---
+				these have no "local" documentation, just get the stuff from the actual docs
 
-			<cfsavecontent variable="s"> This is some text. It is true that <a href="http://www.cnn.com">Harry Potter</a> is a good magician, but the real <a href="http://www.raymondcamden.com">question</a> is how he would stand up against Godzilla. That is what I want to <a href="http://www.adobe.com">see</a> - a Harry Potter vs Godzilla grudge match. Harry has his wand, Godzilla has his <a href="http://www.cfsilence.com">breath</a>, it would be <i>so</i> cool. </cfsavecontent>
-			<br>s: #s#
+				This would be better with a real parser, but we know about what content we're going to get so
+				deal with it the hard way
+
+			---->
 
 			<cfset dvs = REMatch("(?s)<div.*?</div>",cfhttp.fileContent)>
-			<cfdump var="#dvs#">
-
 			<cfloop array="#dvs#" index="x">
-			  div::#x#
 				<cfif x contains "sd_definition" and  x contains "clickthrough">
-					this is in fact a clickthrough request
 					<cfset lnks = REMatch("(?s)<a.*?</a>",cfhttp.fileContent)>
-					<cfdump var="#lnks#">
 					<cfloop array="#lnks#"  index="l">
-					  lnks::#l#
 					  <cfif l contains 'id="sd_doclink"'>
-					  	<br>this is our link
-
 					  	<cfset hrefs = REMatch('"([^"]*)"', l) />
-					  	<br>hrefs::<cfdump var=#hrefs#>
 						<cfloop array="#hrefs#" index="h">
-							<br>h::::#h#
 							<cfif h contains "http">
-								<br>this is the link: <cfdump var="#h#">
+								<br>this is the link:#h#
 							</cfif>
 						</cfloop>
-
-http://
-					  	<cfset spos=find("href=",l)>
-					  	<cfset epos=find('"',l,spos)>
-					  	<cfset theLink=mid(l,spos,epos)>
-					  	<br>spos: #spos#
-					  	<br>epos: #epos#
-					  	<br>theLink: #theLink#
-
-
 					  </cfif>
 					</cfloop>
 				</cfif>
 			</cfloop>
-			<cfset lnks = REMatch("(?s)<a.*?</a>",cfhttp.fileContent)>
-
-
-
-
-			<cfscript>
-			result = REMatch("https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?", cfhttp.filecontent);
-			</cfscript>
-
-			<cfdump var=#result#>
-
-
-
-			<cfscript>
-			result = REMatch("<div?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?", cfhttp.filecontent);
-			</cfscript>
-
-			<cfdump var=#result#>
-
 			<!----
 
 			cfhttp.Filecontent
