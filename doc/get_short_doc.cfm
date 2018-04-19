@@ -28,8 +28,8 @@
 
 		<cfif cfhttp.fileContent contains "clickthrough">
 			<br>got clickthrough
-			<cfset uniqueID = rereplace(cfhttp.fileContent[i],'<div[^>]+?id="([^"]+)".*',"\1")>
-			<cfdump var=#uniqueID#>
+			<cfset matches = reMatch("<[aA].?>.?</[aA]>",cfhttp.fileContent)>
+			<cfdump var="#matches#">
 
 		</cfif>
 
