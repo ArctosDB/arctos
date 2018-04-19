@@ -19,7 +19,10 @@
 		<cfhttpparam type="url" name="fld" value="#fld#">
 		<cfhttpparam type="url" name="addCtl" value="#addCtl#">
 	</cfhttp>
-<cfoutput>#cfhttp.fileContent#</cfoutput>
+	<cfoutput>
+		<cfdump var=#cfhttp#>
+		#cfhttp.fileContent#
+	</cfoutput>
 </cfif>
 <cfif action is "getDoc">
 	<!---
