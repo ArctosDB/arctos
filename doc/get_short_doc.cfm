@@ -32,7 +32,6 @@
 				deal with it the hard way
 
 			---->
-
 			<cfset dvs = REMatch("(?s)<div.*?</div>",cfhttp.fileContent)>
 			<cfloop array="#dvs#" index="x">
 				<cfif x contains "sd_definition" and  x contains "clickthrough">
@@ -51,11 +50,6 @@
 					</cfloop>
 				</cfif>
 			</cfloop>
-			<!----
-
-			cfhttp.Filecontent
-			---->
-
 		<cfelse>
 			#cfhttp.fileContent#
 		</cfif>

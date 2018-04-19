@@ -336,7 +336,6 @@ div.jtable-input-field-container {
 					SPECIAL: enter "clickthrough" (exactly like that, no extra spaces, all lowercase, etc.)
 					to INCLUDE the contents of DOCUMENTATION_LINK rather than displaying DEFINITION
 					and providing a "more information" link to DOCUMENTATION_LINK.
-
 				</div>
 			</td>
 		</tr>
