@@ -62,8 +62,6 @@ http://
 					  	<br>epos: #epos#
 					  	<br>theLink: #theLink#
 
-						lk::
-					  	<cfdump var="#lk#">
 
 					  </cfif>
 					</cfloop>
