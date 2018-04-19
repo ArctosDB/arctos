@@ -12,9 +12,12 @@
 	<!---
 		this should be hard-coded - all installations should call the same docs, arctos.database.museum hosts everything
 		for testing:
+
+			<cfhttp url="http://arctos.database.museum/doc/get_short_doc.cfm" charset="utf-8" method="get">
+
 			<cfhttp url="http://arctos-test.tacc.utexas.edu/doc/get_short_doc.cfm" charset="utf-8" method="get">
 	---->
-	<cfhttp url="http://arctos.database.museum/doc/get_short_doc.cfm" charset="utf-8" method="get">
+	<cfhttp url="http://arctos-test.tacc.utexas.edu/doc/get_short_doc.cfm" charset="utf-8" method="get">
 		<cfhttpparam type="url" name="action" value="getDoc">
 		<cfhttpparam type="url" name="fld" value="#fld#">
 		<cfhttpparam type="url" name="addCtl" value="#addCtl#">
@@ -40,7 +43,7 @@
 			--->
 		<cfelse>
 			<cfset r=r & '<h2>#d.DISPLAY_TEXT#</h2>'>
-			<cfset r=r & '<div style="margin:1em;padding:1em;">#d.definition#</div>'>
+			<cfset r=r & '<div style="margin:1em;padding:1em;" id="sd_definition">#d.definition#</div>'>
 			<!---
 			<cfif len(d.definition) is 0 or listlen(d.definition,' ') lt 5>
 				<cfset probs=listappend(probs,'definition for #fld# seems shady',';')>
@@ -61,7 +64,7 @@
 				--->
 			</cfif>
 			<cfif len(d.DOCUMENTATION_LINK) gt 0>
-				<cfset r=r & '<div style="margin:1em;padding:1em;"><a href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
+				<cfset r=r & '<div style="margin:1em;padding:1em;"><a id="sd_doclink" href="#d.DOCUMENTATION_LINK#" target="_blank">[ More Information ]</a></div>'>
 				<!----
 				<!--- anchor? ---->
 				<cfif d.DOCUMENTATION_LINK contains "##">
