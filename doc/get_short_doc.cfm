@@ -45,6 +45,12 @@
 					  lnks::#l#
 					  <cfif l contains 'id="sd_doclink"'>
 					  	<br>this is our link
+
+					  	<cfset hrefs = REMatch('"([^"]*)"', l) />
+					  	<cfdump var=#hrefs#>
+
+
+
 					  	<cfset spos=find("href=",l)>
 					  	<cfset epos=find('"',l,spos)>
 					  	<cfset theLink=mid(l,spos,epos)>
