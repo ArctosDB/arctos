@@ -35,17 +35,24 @@
 			<cfset dvs = REMatch("(?s)<div.*?</div>",cfhttp.fileContent)>
 			<cfdump var="#dvs#">
 
-<cfloop array="#dvs#" index="x">
-  div::#x#
-<cfif x contains "sd_definition" and  x contains "clickthrough">this is in fact a clickthrough request</cfif>
-</cfloop>
+			<cfloop array="#dvs#" index="x">
+			  div::#x#
+				<cfif x contains "sd_definition" and  x contains "clickthrough">
+					this is in fact a clickthrough request
+					<cfset lnks = REMatch("(?s)<a.*?</a>",cfhttp.fileContent)>
+					<cfdump var="#lnks#">
+					<cfloop array="#lnks#"  index="l">
+					  lnks::#l#
+					  <cfif l contains 'id="sd_doclink"'>
+					  	<br>this is our link
+					  </cfif>
+					</cfloop>
+				</cfif>
+			</cfloop>
 			<cfset lnks = REMatch("(?s)<a.*?</a>",cfhttp.fileContent)>
-			<cfdump var="#lnks#">
 
 
-<cfloop array="#lnks#"  index="x">
-  lnks::#x#
-</cfloop>
+
 
 			<cfscript>
 			result = REMatch("https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?", cfhttp.filecontent);
