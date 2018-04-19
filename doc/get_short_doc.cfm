@@ -37,6 +37,7 @@
 
 <cfloop array="#dvs#" index="x">
   div::#x#
+<cfif x contains "sd_definition" and  x contains "clickthrough">this is in fact a clickthrough request</cfif>
 </cfloop>
 			<cfset lnks = REMatch("(?s)<a.*?</a>",cfhttp.fileContent)>
 			<cfdump var="#lnks#">
