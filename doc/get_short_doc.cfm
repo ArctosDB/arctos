@@ -32,8 +32,7 @@
 			<cfsavecontent variable="s"> This is some text. It is true that <a href="http://www.cnn.com">Harry Potter</a> is a good magician, but the real <a href="http://www.raymondcamden.com">question</a> is how he would stand up against Godzilla. That is what I want to <a href="http://www.adobe.com">see</a> - a Harry Potter vs Godzilla grudge match. Harry has his wand, Godzilla has his <a href="http://www.cfsilence.com">breath</a>, it would be <i>so</i> cool. </cfsavecontent>
 			<br>s: #s#
 
-
-			<cfset matches = reMatch("\<[aA].?>.?\</[aA]>",s)>
+			<cfset matches = REMatch("(?s)<div>.*?</div>",cfhttp.fileContent)>
 			<cfdump var="#matches#">
 
 
