@@ -50,7 +50,7 @@
 					  	<cfdump var=#hrefs#>
 						<cfloop array="#hrefs#" index="h">
 							<cfif left(h,4) is "http">
-								<br>this is the link: #h#
+								<br>this is the link: <cfdump var="#h#">
 							</cfif>
 						</cfloop>
 
