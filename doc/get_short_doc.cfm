@@ -48,7 +48,7 @@
 									<br>theLink: #theLink#
 
 
-									<iframe src="#theLink#"></iframe>
+									<iframe width="100%" height="100%" src="#theLink#"></iframe>
 
 								<br>this is the link:#h#
 							</cfif>
