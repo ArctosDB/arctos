@@ -35,12 +35,16 @@
 			<cfset dvs = REMatch("(?s)<div.*?</div>",cfhttp.fileContent)>
 			<cfdump var="#dvs#">
 
-
+<cfloop array="#dvs#">
+  div::#x#
+</cfloop>
 			<cfset lnks = REMatch("(?s)<a.*?</a>",cfhttp.fileContent)>
 			<cfdump var="#lnks#">
 
 
-
+<cfloop array="#lnks#">
+  lnks::#x#
+</cfloop>
 
 			<cfscript>
 			result = REMatch("https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?", cfhttp.filecontent);
