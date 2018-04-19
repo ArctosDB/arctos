@@ -44,6 +44,12 @@
 					  	<cfset hrefs = REMatch('"([^"]*)"', l) />
 						<cfloop array="#hrefs#" index="h">
 							<cfif h contains "http">
+								<cfset theLink=replace(h,'"','all')>
+
+									<cfhttp url="#theLink#" charset="utf-8" method="get">
+									<cfdump var=#cfhttp#>
+									#cfhttp.fileContent#
+
 								<br>this is the link:#h#
 							</cfif>
 						</cfloop>
