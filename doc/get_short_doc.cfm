@@ -43,11 +43,8 @@
 						<cfloop array="#hrefs#" index="h">
 							<cfif h contains "http">
 								<cfset theLink=replace(h,'"','','all')>
-									<a href="#theLink#" target="_blank">Open #theLink# is a new window</a>
-
-
+									<a href="#theLink#" target="_blank">Open #theLink# in a new window</a>
 									<iframe width="100%" height="90%" src="#theLink#"></iframe>
-
 							</cfif>
 						</cfloop>
 					  </cfif>
