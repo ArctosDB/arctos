@@ -33,7 +33,7 @@
 			<br>s: #s#
 
 
-			<cfset matches = reMatch("<[aA].?>.?</[aA]>",s)>
+			<cfset matches = reMatch("\<[aA].?>.?\</[aA]>",s)>
 			<cfdump var="#matches#">
 
 
