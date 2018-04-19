@@ -12,7 +12,6 @@ $(document).ready(function() {
 		}
 		var guts = "/doc/get_short_doc.cfm?fld=" + f;
 		
-		/*
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
@@ -33,53 +32,7 @@ $(document).ready(function() {
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
 		
-		*/
 
-		$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
-			autoOpen: true,
-			closeOnEscape: true,
-			height: 'auto',
-			modal: true,
-			position: ['center', 'center'],
-			title: 'Documentation',
-			width: 'auto',
-			close: function() {
-				$( this ).remove();
-			}
-		}).load(guts, function() {
-			$(this).dialog("option", "position", ['center', 'center'] );
-		});
-		$(window).resize(function() {
-			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-		});
-		$(".ui-widget-overlay").click(function(){
-		    $(".ui-dialog-titlebar-close").trigger('click');
-		});
-		
-		
-		
-		
-		
-		/*
-		
-		
-		
-		var id=this.id;
-		removeHelpDiv();
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','removeHelpDiv()');
-		document.body.appendChild(bgDiv);
-		var theDiv = document.createElement('div');
-		theDiv.id = 'helpDiv';
-		theDiv.className = 'helpBox';
-		theDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(theDiv);
-		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		$(theDiv).load("/doc/get_short_doc.cfm",{fld: id, addCtl: 1});
-		*/
-		
 		
 		
 	});
