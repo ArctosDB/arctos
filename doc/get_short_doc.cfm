@@ -24,8 +24,6 @@
 		<cfhttpparam type="url" name="addCtl" value="#addCtl#">
 	</cfhttp>
 	<cfoutput>
-		<cfdump var=#cfhttp#>
-
 		<cfif cfhttp.fileContent contains "clickthrough">
 			<!---
 				these have no "local" documentation, just get the stuff from the actual docs
@@ -62,16 +60,9 @@
 			cfhttp.Filecontent
 			---->
 
+		<cfelse>
+			#cfhttp.fileContent#
 		</cfif>
-
-
-
-
-
-
-
-
-		#cfhttp.fileContent#
 	</cfoutput>
 </cfif>
 <cfif action is "getDoc">
