@@ -24,6 +24,10 @@
 	</cfhttp>
 	<cfoutput>
 		<cfdump var=#cfhttp#>
+
+		<cfset jsoup = createObject('java','org.jsoup.Jsoup') />
+
+
 		#cfhttp.fileContent#
 	</cfoutput>
 </cfif>
