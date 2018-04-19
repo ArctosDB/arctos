@@ -35,14 +35,14 @@
 			<cfset dvs = REMatch("(?s)<div.*?</div>",cfhttp.fileContent)>
 			<cfdump var="#dvs#">
 
-<cfloop array="#dvs#">
+<cfloop array="#dvs#" index="x">
   div::#x#
 </cfloop>
 			<cfset lnks = REMatch("(?s)<a.*?</a>",cfhttp.fileContent)>
 			<cfdump var="#lnks#">
 
 
-<cfloop array="#lnks#">
+<cfloop array="#lnks#"  index="x">
   lnks::#x#
 </cfloop>
 
