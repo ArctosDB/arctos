@@ -46,7 +46,7 @@
 									<a href="#theLink#" target="_blank">Open #theLink# is a new window</a>
 
 
-									<iframe width="100%" height="100%" src="#theLink#"></iframe>
+									<iframe width="100%" height="90%" src="#theLink#"></iframe>
 
 							</cfif>
 						</cfloop>
