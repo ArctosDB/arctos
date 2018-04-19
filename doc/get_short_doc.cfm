@@ -45,6 +45,14 @@
 
 			<cfdump var=#result#>
 
+
+
+			<cfscript>
+			result = REMatch("<div?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?", cfhttp.filecontent);
+			</cfscript>
+
+			<cfdump var=#result#>
+
 			<!----
 
 			cfhttp.Filecontent
