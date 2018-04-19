@@ -11,6 +11,8 @@ $(document).ready(function() {
 			var f=this.id;
 		}
 		var guts = "/doc/get_short_doc.cfm?fld=" + f;
+		
+		/*
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
@@ -30,6 +32,33 @@ $(document).ready(function() {
 		$(".ui-widget-overlay").click(function(){
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
+		
+		*/
+
+		$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'center'],
+			title: 'Documentation',
+			width: 'auto',
+			close: function() {
+				$( this ).remove();
+			}
+		}).load(guts, function() {
+			$(this).dialog("option", "position", ['center', 'center'] );
+		});
+		$(window).resize(function() {
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+		
+		
+		
+		
 		
 		/*
 		
