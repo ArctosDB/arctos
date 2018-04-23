@@ -134,23 +134,23 @@
 		<!----
 			keep this synced up with /component/utilities.cfc
 		---->
-		<cfset badbot="Apache-HttpClient,AlphaBot">
-		<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler">
-		<cfset badbot=badbot & ",ca-crawler,CCBot">
-		<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
-		<cfset badbot=badbot & ",Exabot">
-		<cfset badbot=badbot & ",Gluten,Gluten Free Crawler,GrapeshotCrawler">
-		<cfset badbot=badbot & ",HubSpot">
-		<cfset badbot=badbot & ",ltx71">
-		<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get,MauiBot,meg">
-		<cfset badbot=badbot & ",naver,Nutch">
-		<cfset badbot=badbot & ",Qwantify">
-		<cfset badbot=badbot & ",re-animator">
-		<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot">
-		<cfset badbot=badbot & ",TweetmemeBot,TurnitinBot">
-		<cfset badbot=badbot & ",UnisterBot">
-		<cfset badbot=badbot & ",Wotbox">
-		<cfset badbot=badbot & ",YandexBot,Yeti">
+			<cfset badbot="Apache-HttpClient,AlphaBot">
+	<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler">
+	<cfset badbot=badbot & ",ca-crawler,CCBot">
+	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
+	<cfset badbot=badbot & ",Exabot">
+	<cfset badbot=badbot & ",Gluten,Gluten Free Crawler,GrapeshotCrawler,Go-http-client">
+	<cfset badbot=badbot & ",HubSpot">
+	<cfset badbot=badbot & ",ltx71">
+	<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get,MauiBot,meg">
+	<cfset badbot=badbot & ",naver,Nutch">
+	<cfset badbot=badbot & ",Qwantify">
+	<cfset badbot=badbot & ",re-animator">
+	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot">
+	<cfset badbot=badbot & ",TweetmemeBot,TurnitinBot">
+	<cfset badbot=badbot & ",UnisterBot">
+	<cfset badbot=badbot & ",Wotbox">
+	<cfset badbot=badbot & ",YandexBot,Yeti">i">
 
 
 
