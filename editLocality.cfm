@@ -341,7 +341,7 @@ function checkCoordinateError(){
 	function getGeolocate(evt) {
 		console.log(evt);
 		var message;
-		if (evt.origin !== "www.geo-locate.org/") {
+		if (evt.origin !== "http://www.geo-locate.org") {
 	    	alert( "iframe url does not have permision to interact with me" );
 	        closeGeoLocate('intruder alert');
 	    }
