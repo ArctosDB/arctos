@@ -301,7 +301,7 @@ function checkCoordinateError(){
 
 	function geolocate(method) {
 		//alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
-		var guri='www.geo-locate.org/web/WebGeoreflight.aspx?georef=run';
+		var guri='http://www.geo-locate.org/web/WebGeoreflight.aspx?georef=run';
 		if (method=='adjust'){
 			guri+="&tab=result&points=" + $("#dec_lat").val() + "|" + $("#dec_long").val() + "|||" + $("#error_in_meters").val();
 		} else {
