@@ -389,7 +389,7 @@
 			<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
-				<span class="helpLink" id="_specimen-results">About</span>
+				<span class="helpLink" id="_specimen_results">About</span>
 
 			</td>
 				<cfif willmap.recordcount gt 0>
