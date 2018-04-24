@@ -1602,7 +1602,7 @@
 						<cfquery name="theRest" dbtype="query">
 							select * from attribute where attribute_type NOT IN (
 								'weight','sex','total length','tail length','hind foot with claw','ear from notch'
-							)
+							) order by attribute_type,DETERMINED_DATE
 						</cfquery>
 						<cfif len(total_length.attribute_units) gt 0 OR
 								len(tail_length.attribute_units) gt 0 OR
