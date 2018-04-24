@@ -712,6 +712,10 @@
 						</select>
 					</td>
 					<td>
+						<label for="drainage" class="helpLink" data-helplink="drainage">
+							Quad
+						</label>
+						<input type="text" name="drainage" id="drainage" value="#drainage#" size="60">
 
 					</td>
 				</tr>
@@ -825,7 +829,7 @@
 								value="Save All"
 								class="savBtn"
 								onclick="$('##action').val('saveGeogEdits');$('##editHG').submit();">
-							<cfset dloc="Locality.cfm?action=newHG&continent_ocean=#continent_ocean#&country=#country#&state_prov=#state_prov#&county=#county#&quad=#quad#&feature=#feature#&island_group=#island_group#&island=#island#&sea=#sea#">
+							<cfset dloc="Locality.cfm?action=newHG&continent_ocean=#continent_ocean#&country=#country#&state_prov=#state_prov#&county=#county#&quad=#quad#&feature=#feature#&drainage=#drainage#&island_group=#island_group#&island=#island#&sea=#sea#">
 							<input type="button" value="Create Clone" class="insBtn" onclick="document.location='#dloc#';">
 							<input type="button" value="Delete" class="delBtn"
 								onClick="document.location='Locality.cfm?Action=deleteGeog&geog_auth_rec_id=#geog_auth_rec_id#';">
