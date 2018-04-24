@@ -10,6 +10,7 @@
 		COUNTY,
 		QUAD,
 		FEATURE,
+		drainage,
 		ISLAND ,
 		ISLAND_GROUP,
 		SEA,
@@ -315,6 +316,9 @@
 </cfif>
 <cfif isdefined("feature") and len(#feature#) gt 0>
 	<cfset qual = "#qual# AND feature = '#escapeQuotes(escapeQuotes(feature))#'">
+</cfif>
+<cfif isdefined("drainage") and len(#drainage#) gt 0>
+	<cfset qual = "#qual# AND drainage = '#escapeQuotes(escapeQuotes(drainage))#'">
 </cfif>
 <cfif isdefined("island_group") and len(#island_group#) gt 0>
 	<cfset qual = "#qual# AND island_group = '#ucase(escapeQuotes(island_group))#'">
