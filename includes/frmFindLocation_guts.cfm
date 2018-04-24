@@ -210,6 +210,7 @@
 	<cfparam name="county" default="">
 	<cfparam name="quad" default="">
 	<cfparam name="feature" default="">
+	<cfparam name="drainage" default="">
 	<cfparam name="island_group" default="">
 	<cfparam name="island" default="">
 	<cfparam name="sea" default="">
@@ -310,6 +311,12 @@
 											<option <cfif x is ctFeature.feature> selected="selected" </cfif> value = "#ctFeature.feature#">#ctFeature.feature#</option>
 										</cfloop>
 									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="drainage">Drainage</label>
+									<input type="text" name="drainage" id="drainage" size="50" value="#drainage#">
 								</td>
 							</tr>
 							<tr>

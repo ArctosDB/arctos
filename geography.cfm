@@ -40,6 +40,7 @@
 			<th>County</th>
 			<th>Quad</th>
 			<th>Feature</th>
+			<th>Drainage</th>
 			<th>IslandGroup</th>
 			<th>Island</th>
 			<th>Sea</th>
@@ -99,6 +100,11 @@
 				<td>
 					<cfif len(FEATURE) gt 0>
 						<a href="geography.cfm?FEATURE=#FEATURE#">#FEATURE#</a>
+					</cfif>
+				</td>
+				<td>
+					<cfif len(drainage) gt 0>
+						<a href="geography.cfm?drainage=#drainage#">#drainage#</a>
 					</cfif>
 				</td>
 				<td>
