@@ -282,6 +282,13 @@
 				</select>
 			</td>
 			</tr>
+
+			<tr>
+				<td align="right">Drainage:</td>
+				<td>
+					<input type="text" name="drainage" <cfif isdefined("drainage")> value = "#drainage#"</cfif>>
+				</td>
+			</tr>
 			<tr>
 				<td align="right">Island Group:</td>
 				<td>
@@ -1892,6 +1899,9 @@ You deleted a collecting event.
 				<cfif len(#feature#) gt 0>
 					,feature
 				</cfif>
+				<cfif len(#drainage#) gt 0>
+					,drainage
+				</cfif>
 				<cfif len(#island_group#) gt 0>
 					,island_group
 				</cfif>
@@ -1923,6 +1933,9 @@ You deleted a collecting event.
 				</cfif>
 				<cfif len(#feature#) gt 0>
 					,'#escapeQuotes(feature)#'
+				</cfif>
+				<cfif len(#drainage#) gt 0>
+					,'#escapeQuotes(drainage)#'
 				</cfif>
 				<cfif len(#island_group#) gt 0>
 					,'#escapeQuotes(island_group)#'
