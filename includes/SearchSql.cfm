@@ -1843,7 +1843,7 @@
 	<cfif compare(drainage,"NULL") is 0>
 		<cfset basQual = " #basQual# AND geog_auth_rec.drainage is null">
 	<cfelse>
-		<cfif left(feature,1) is '='>
+		<cfif left(drainage,1) is '='>
 			<cfset basQual = " #basQual# AND upper(geog_auth_rec.drainage) = '#ucase(escapeQuotes(right(drainage,len(drainage)-1)))#'">
 		<cfelse>
 			<cfset basQual = " #basQual# AND upper(geog_auth_rec.drainage) LIKE '%#ucase(escapeQuotes(drainage))#%'">
