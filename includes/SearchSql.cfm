@@ -1833,6 +1833,24 @@
 	</cfif>
 	<cfset mapurl = "#mapurl#&feature=#URLEncodedFormat(feature)#">
 </cfif>
+<cfif isdefined("drainage") AND len(drainage) gt 0>
+	<cfif basJoin does not contain 'geog_auth_rec'>
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfif compare(drainage,"NULL") is 0>
+		<cfset basQual = " #basQual# AND geog_auth_rec.drainage is null">
+	<cfelse>
+		<cfif left(feature,1) is '='>
+			<cfset basQual = " #basQual# AND upper(geog_auth_rec.drainage) = '#ucase(escapeQuotes(right(drainage,len(drainage)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(geog_auth_rec.drainage) LIKE '%#ucase(escapeQuotes(drainage))#%'">
+		</cfif>
+	</cfif>
+	<cfset mapurl = "#mapurl#&drainage=#URLEncodedFormat(drainage)#">
+</cfif>
 
 
 <cfif isdefined("any_geog") AND len(any_geog) gt 0>

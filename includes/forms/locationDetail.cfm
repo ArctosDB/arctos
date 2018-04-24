@@ -57,6 +57,7 @@ content: ": ";
 			COUNTY,
 			QUAD,
 			FEATURE,
+			drainage,
 			ISLAND,
 			ISLAND_GROUP,
 			SEA,
@@ -113,6 +114,7 @@ content: ": ";
 			COUNTY,
 			QUAD,
 			FEATURE,
+			drainage,
 			ISLAND,
 			ISLAND_GROUP,
 			SEA,
@@ -126,6 +128,7 @@ content: ": ";
 			COUNTY,
 			QUAD,
 			FEATURE,
+			drainage,
 			ISLAND,
 			ISLAND_GROUP,
 			SEA,
@@ -174,6 +177,13 @@ content: ": ";
 						<div class="value">#FEATURE#</div>
 					</div>
 				</cfif>
+				<cfif len(drainage) gt 0>
+					<div class="pair">
+						<div class="data">Drainage</div>
+						<div class="value">#drainage#</div>
+					</div>
+				</cfif>
+
 				<cfif len(ISLAND) gt 0>
 					<div class="pair">
 						<div class="data">Island</div>
@@ -224,31 +234,31 @@ content: ": ";
 					locid
 			</cfquery>
 			<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
+				select
 					media_id
-				from 
-					media_relations 
-				where 
-					media_relationship like '% locality' and 
+				from
+					media_relations
+				where
+					media_relationship like '% locality' and
 					related_primary_key=#locality.locid#
 				group by media_id
 			</cfquery>
 			<cfquery name="locSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT 
-					count(cataloged_item.cat_num) numOfSpecs, 
+				SELECT
+					count(cataloged_item.cat_num) numOfSpecs,
 					collection.guid_prefix,
 					collection.collection_id
 				from
-					cataloged_item, 
+					cataloged_item,
 					collection,
 					specimen_event,
-					collecting_event 
+					collecting_event
 				WHERE
 					cataloged_item.collection_id = collection.collection_id and
 					cataloged_item.collection_object_id = specimen_event.collection_object_id and
 					specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-					collecting_event.locality_id=#locality.locid# 
-				GROUP BY 
+					collecting_event.locality_id=#locality.locid#
+				GROUP BY
 					collection.guid_prefix,
 					collection.collection_id
 			</cfquery>
@@ -271,7 +281,7 @@ content: ": ";
 										<div>
 											<a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality.locid#">[ #numOfSpecs# #guid_prefix# Specimens ]</a>
 										</div>
-									</cfloop>	
+									</cfloop>
 								</cfif>
 							</div>
 						</div>
@@ -321,7 +331,7 @@ content: ": ";
 					georeference_protocol,
 					MAX_ERROR_DISTANCE,
 					MAX_ERROR_UNITS
-				from r 
+				from r
 				group by
 					DEC_LAT,
 					DEC_LONG,
@@ -372,7 +382,7 @@ content: ": ";
 					GEO_ATT_DETERMINED_DATE,
 					GEO_ATT_DETERMINED_METHOD,
 					GEO_ATT_REMARK
-				from r 
+				from r
 				where
 					GEOLOGY_ATTRIBUTE is not null
 				group by
@@ -442,37 +452,37 @@ content: ": ";
 					VERBATIM_LOCALITY,
 					COLL_EVENT_REMARKS,
 					HABITAT,
-					eventID	
+					eventID
 			</cfquery>
-			
+
 			<cfquery name="evntMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
+				select
 					media_id
-				from 
-					media_relations 
-				where 
-					media_relationship like '% collecting_event' and 
+				from
+					media_relations
+				where
+					media_relationship like '% collecting_event' and
 					related_primary_key=#event.eventID#
 				group by media_id
 			</cfquery>
 			<cfquery name="evntSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT 
-					count(cataloged_item.cat_num) numOfSpecs, 
+				SELECT
+					count(cataloged_item.cat_num) numOfSpecs,
 					collection.guid_prefix,
 					collection.collection_id
 				from
-					cataloged_item, 
+					cataloged_item,
 					collection
 				WHERE
 					cataloged_item.collection_id = collection.collection_id and
 					cataloged_item.collecting_event_id = #event.eventID#
-				GROUP BY 
+				GROUP BY
 					collection.guid_prefix,
 					collection.collection_id
 			</cfquery>
-			
-			
-			
+
+
+
 			<div class="grouped">
 				<cfloop query="event">
 					<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
@@ -485,8 +495,8 @@ content: ": ";
 					<div class="title">
 						Collecting Event
 					</div>
-					
-					
+
+
 					<cfif evntMedia.recordcount gt 0 or evntSpecimen.recordcount gt 0>
 						<div class="pair">
 							<div class="data">Contents</div>
@@ -501,14 +511,14 @@ content: ": ";
 										<div>
 											<a href="SpecimenResults.cfm?collection_id=#collection_id#&collecting_event_id=#event.eventID#">[ #numOfSpecs# #guid_prefix# Specimens ]</a>
 										</div>
-									</cfloop>	
+									</cfloop>
 								</cfif>
 							</div>
 						</div>
 					</cfif>
-					
-					
-					
+
+
+
 			        <div class="pair">
 						<div class="data">Date</div>
 						<div class="value">#thisDate#</div>
@@ -524,9 +534,9 @@ content: ": ";
 							<div class="data">Habitat</div>
 							<div class="value">#HABITAT#</div>
 						</div>
-					</cfif>					
+					</cfif>
 				</cfloop>
 			</div>
 		</cfif>
 	</div>
-</cfoutput>	
+</cfoutput>

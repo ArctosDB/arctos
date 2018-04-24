@@ -184,6 +184,16 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_drainage">Drainage:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="drainage" id="drainage" size="50">
+			<span class="infoLink" onclick="var e=document.getElementById('drainage');e.value='='+e.value;">Add = for exact match</span>
+			<span class="infoLink" onclick="document.getElementById('drainage').value='NULL';">[ NULL ]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_spec_locality">Specific&nbsp;Locality:</span>
 		</td>
 		<td class="srch">

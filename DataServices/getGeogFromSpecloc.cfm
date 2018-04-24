@@ -1,11 +1,16 @@
 <cfinclude template="/includes/_header.cfm">
 look at code for usage - use contact link if that doesn't make sense
+
+	<p>
+		IMPORTANT: This form does not deal with Drainage. File an Issue if you need that functionality.
+	</p>
+
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <style>
 	.done{background-color:lightgray;}
 	.err{border:5px solid red;}
 	.d{border:2px solid black;}
-	
+
 </style>
 <script>
 	$(document).ready(function() {
@@ -48,7 +53,7 @@ look at code for usage - use contact link if that doesn't make sense
 				}
 			}
 		);
-	}		
+	}
 
 </script>
 <cfoutput>
@@ -63,7 +68,7 @@ look at code for usage - use contact link if that doesn't make sense
 		<cfset qp=replace(qp,'  ',' ','all')>
 		<cfset qp=trim(qp)>
 		<cfquery name="sp" datasource="uam_god">
-			select higher_geog sugn from geog_auth_rec where 
+			select higher_geog sugn from geog_auth_rec where
 				upper(country) like '#ucase(trim(qp))#' and state_prov is null and quad is null and feature is null and sea is null and island is null and island_group is null and county is null
 				OR
 				upper(state_prov) like '#ucase(trim(qp))#' and quad is null and feature is null and sea is null and island is null and island_group is null and county is null
@@ -112,11 +117,11 @@ look at code for usage - use contact link if that doesn't make sense
 			</ul>
 			<form id="f#rnum#">
 				<input type="text"  class="ac" name="geog_#rnum#" size="40" id="geog_#rnum#" >
-				<input type="hidden" id="sl#rnum#" name="sl#rnum#" value="#d.spec_locality#">		
+				<input type="hidden" id="sl#rnum#" name="sl#rnum#" value="#d.spec_locality#">
 				<input type="submit">
 			</form>
 		<cfset rnum=rnum+1>
-	</div>	
+	</div>
 	</cfloop>
 	<p>
 		<a href="getGeogFromSpecloc.cfm">load more</a>

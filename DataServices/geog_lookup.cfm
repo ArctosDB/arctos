@@ -230,6 +230,10 @@ from geog_auth_rec where rownum<10
 
 
 <cfif action is "nothing">
+
+	<p>
+		IMPORTANT: This form does not deal with Drainage. File an Issue if you need that functionality.
+	</p>
 	Load random-ish geography; we'll try to find an possibly-appropriate Arctos higher_geog entry.
 	<hr>Option One: Load "geog components"
 	All columns are optional
