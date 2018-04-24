@@ -389,6 +389,8 @@
 			<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
+				<span class="helpLink" id="_specimen-results">About</span>
+
 			</td>
 				<cfif willmap.recordcount gt 0>
 					<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->

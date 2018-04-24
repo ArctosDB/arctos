@@ -760,7 +760,7 @@
 	                <td colspan="2">
 						<cfif len(source_authority) gt 0 and source_authority contains "wikipedia.org">
 							<cfhttp method="get" url="#source_authority#"></cfhttp>
-							<cfset flds="continent_ocean,country,state_prov,sea,county,quad,feature,island_group,island">
+							<cfset flds="continent_ocean,country,state_prov,sea,county,quad,feature,drainage,island_group,island">
 							<cfset errs="">
 							<cfloop list="#flds#" index="f">
 								<cfset fv=evaluate(f)>
@@ -1804,6 +1804,7 @@ You deleted a collecting event.
 					county = '#escapeQuotes(county)#',
 					quad = '#escapeQuotes(quad)#',
 					feature = '#escapeQuotes(feature)#',
+					drainage = '#escapeQuotes(drainage)#',
 					island_group = '#escapeQuotes(island_group)#',
 					island = '#escapeQuotes(island)#',
 					sea = '#escapeQuotes(sea)#',
@@ -2125,6 +2126,7 @@ You deleted a collecting event.
 				COUNTY,
 				QUAD,
 				FEATURE,
+				drainage,
 				ISLAND,
 				ISLAND_GROUP,
 				SEA,
@@ -2139,7 +2141,7 @@ You deleted a collecting event.
 				locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 				collecting_event.collecting_event_id in (#collecting_event_id#)
 		</cfquery>
-		<cfset clist="COLLECTING_EVENT_ID,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,VERBATIM_COORDINATES,COLLECTING_EVENT_NAME,LOCALITY_ID,SPEC_LOCALITY,DEC_LAT,DEC_LONG,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,DATUM,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,S$ELEVATION,S$GEOGRAPHY,S$DEC_LAT,S$DEC_LONG,S$LASTDATE,GEOG_AUTH_REC_ID,CONTINENT_OCEAN,COUNTRY,STATE_PROV,COUNTY,QUAD,FEATURE,ISLAND,ISLAND_GROUP,SEA,SOURCE_AUTHORITY,HIGHER_GEOG">
+		<cfset clist="COLLECTING_EVENT_ID,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,VERBATIM_COORDINATES,COLLECTING_EVENT_NAME,LOCALITY_ID,SPEC_LOCALITY,DEC_LAT,DEC_LONG,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,DATUM,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,S$ELEVATION,S$GEOGRAPHY,S$DEC_LAT,S$DEC_LONG,S$LASTDATE,GEOG_AUTH_REC_ID,CONTINENT_OCEAN,COUNTRY,STATE_PROV,COUNTY,QUAD,FEATURE,DRAINAGE,ISLAND,ISLAND_GROUP,SEA,SOURCE_AUTHORITY,HIGHER_GEOG">
 
 		<cfset fileDir = "#Application.webDirectory#">
 		<cfset variables.encoding="UTF-8">
@@ -2362,6 +2364,7 @@ You deleted a collecting event.
 		<th>County</th>
 		<th>Quad</th>
 		<th>Feature</th>
+		<th>Drainage</th>
 		<th>IslandGroup</th>
 		<th>Island</th>
 		<th>Sea</th>
@@ -2382,6 +2385,7 @@ You deleted a collecting event.
 	<td>#COUNTY#</td>
 	<td>#QUAD#</td>
 	<td>#FEATURE#</td>
+	<td>#drainage#</td>
 	<td>#ISLAND_GROUP#</td>
 	<td>#ISLAND#</td>
 	<td>#SEA#</td>

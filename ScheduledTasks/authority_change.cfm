@@ -83,6 +83,7 @@
 						<th>n_COUNTY</th>
 						<th>n_QUAD</th>
 						<th>n_FEATURE</th>
+						<th>n_DRAINAGE</th>
 						<th>n_ISLAND</th>
 						<th>n_ISLAND_GROUP</th>
 						<th>n_SEA</th>
@@ -92,6 +93,7 @@
 						<th>o_COUNTY</th>
 						<th>o_QUAD</th>
 						<th>o_FEATURE</th>
+						<th>o_DRAINAGE</th>
 						<th>o_ISLAND</th>
 						<th>o_ISLAND_GROUP</th>
 						<th>o_SEA</th>
@@ -108,6 +110,7 @@
 							<td>#n_COUNTY#</td>
 							<td>#n_QUAD#</td>
 							<td>#n_FEATURE#</td>
+							<td>#n_DRAINAGE#</td>
 							<td>#n_ISLAND#</td>
 							<td>#n_ISLAND_GROUP#</td>
 							<td>#n_SEA#</td>
@@ -117,6 +120,7 @@
 							<td>#o_COUNTY#</td>
 							<td>#o_QUAD#</td>
 							<td>#o_FEATURE#</td>
+							<td>#o_DRAINAGE#</td>
 							<td>#o_ISLAND#</td>
 							<td>#o_ISLAND_GROUP#</td>
 							<td>#o_SEA#</td>
