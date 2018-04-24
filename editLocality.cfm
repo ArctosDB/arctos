@@ -339,7 +339,6 @@ function checkCoordinateError(){
 		$("#popDiv").append(theFrame);
 	}
 	function getGeolocate(evt) {
-		console.log(evt);
 		var message;
 		if (evt.origin !== "http://www.geo-locate.org") {
 	    	alert( "iframe url does not have permision to interact with me" );
