@@ -720,7 +720,7 @@
 					</td>
 					<td>
 						<label for="drainage" class="helpLink" data-helplink="drainage">
-							Quad
+							Drainage
 						</label>
 						<input type="text" name="drainage" id="drainage" value="#drainage#" size="60">
 
