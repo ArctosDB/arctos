@@ -255,9 +255,11 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 		<cfabort>
+		<!----
 	<cfelseif cgi.HTTP_HOST contains "arctos.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
+		---->
 	</cfif>
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
