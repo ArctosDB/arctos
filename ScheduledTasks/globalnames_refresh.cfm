@@ -89,7 +89,7 @@ This form may be called in two ways:
 		<cfif d.recordcount is 0>
 			<!---- start at old and work newer ---->
 			<cfquery name="d" datasource="uam_god">
-				select * from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch#
+				select * from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch# order by lastfetch desc
 			</cfquery>
 		</cfif>
 	</cfif>

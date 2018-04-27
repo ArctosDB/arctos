@@ -356,9 +356,10 @@ sho err
 		</cfloop>
 	</table>
 	<a href="agentNameSplitter.cfm?action=download">[ download ]</a>
+	<!----
 	<br><a href="agentNameSplitter.cfm?action=delete&s=foundOneMatch">[ delete all "found one match" records ]</a>
 	<br><a href="agentNameSplitter.cfm?action=delete&s=pnap">[ delete all "probably not a person" records ]</a>
-
+	---->
 
 </cfoutput>
 </cfif>
