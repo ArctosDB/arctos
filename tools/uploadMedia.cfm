@@ -1,9 +1,29 @@
 <cfinclude template="/includes/_header.cfm">
+<!---
+	https://github.com/ArctosDB/arctos/issues/1446
+	1) make this asynchronous
+	2) move Media to s3/corral
+
+	create table cf_temp_zipload (
+		zid number not null,
+		username varchar2(255) not null,
+		email  varchar2(255) not null,
+		jobname  varchar2(255) not null,
+		status  varchar2(255) not null
+	);
+
+--->
 <cfset goodExtensions="jpg,png">
 <cfset baseWebDir="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
 <cfset baseFileDir="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
 <cfset sandboxdir="#application.sandbox#/#session.username#">
 <cfif action is "nothing">
+
+	Upload a ZIP archive of image files (JPG or PNG).
+
+	<p>
+		You will receive email when processing has completed, usually within 24 hours.
+	</p>
 	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
 	results, load the images to Arctos, and download a Media Bulkloader template containing the URIs of the images you loaded.
 	<p>
@@ -18,8 +38,10 @@
 	<br>You may include thumbnails, which should be JPG files prefixed with "tn_", or you may create them with this app.
 	Do not click the "create thumbnails" option when you get to it if you've uploaded thumbnails in your ZIP.
 	<br><a href="/contact.cfm">Contact us</a> if you need something else.
-	<form name="atts" method="post" enctype="multipart/form-data">
+	<form name="mupl" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
+		<label for ="username">Username</label>
+		<input name="username" class="reqdClass" required value="#session.username#">
 		<label for="FiletoUpload">Upload a ZIP file</label>
 		<input type="file" name="FiletoUpload" size="45">
 		<input type="submit" value="Upload this file" class="savBtn">
