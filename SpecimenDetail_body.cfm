@@ -444,8 +444,14 @@
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
 								<cfloop query="thisTaxLinks">
+									<cftry>
 									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
 									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
+									<cfcatch>
+										#thisSciName#
+										<cfdump var=#cftry#>
+									</cfcatch>
+									</cftry>
 									<cfset i=i+1>
 								</cfloop>
 								#thisSciName#
