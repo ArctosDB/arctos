@@ -40,10 +40,19 @@
 	<br>You may include thumbnails, which should be JPG files prefixed with "tn_", or you may create them with this app.
 	Do not click the "create thumbnails" option when you get to it if you've uploaded thumbnails in your ZIP.
 	<br><a href="/contact.cfm">Contact us</a> if you need something else.
+
+	<cfquery name="addr" datasource="uam_god">
+		select get_Address(#session.myagentid#,'email') addr from dual
+	</cfquery>
+
 	<form name="mupl" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<label for ="username">Username</label>
 		<input name="username" class="reqdClr" required value="#session.username#">
+		<label for ="email">Email</label>
+		<input name="email" class="reqdClr" required value="#addr.addr#">
+		<label for ="jobname">Job Name</label>
+		<input name="jobname" class="reqdClr" required value="#CreateUUID()#">
 		<label for="FiletoUpload">Upload a ZIP file</label>
 		<input type="file" name="FiletoUpload" size="45">
 		<input type="submit" value="Upload this file" class="savBtn">
