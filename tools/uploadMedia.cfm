@@ -19,6 +19,8 @@
 <cfset sandboxdir="#application.sandbox#/#session.username#">
 <cfif action is "nothing">
 
+
+<cfoutput>
 	Upload a ZIP archive of image files (JPG or PNG).
 
 	<p>
@@ -46,6 +48,8 @@
 		<input type="file" name="FiletoUpload" size="45">
 		<input type="submit" value="Upload this file" class="savBtn">
   </form>
+
+</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "getFile">
