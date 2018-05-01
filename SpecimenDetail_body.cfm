@@ -449,7 +449,7 @@
 									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
 									<cfcatch>
 										#thisSciName#
-										<cfdump var=#cftry#>
+										<cfdump var=#cfcatch#>
 									</cfcatch>
 									</cftry>
 									<cfset i=i+1>
