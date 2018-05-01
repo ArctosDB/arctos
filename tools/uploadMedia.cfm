@@ -12,6 +12,12 @@
 		status  varchar2(255) not null
 	);
 
+	create public synonym cf_temp_zipload for cf_temp_zipload;
+
+	grant insert,select on cf_temp_zipload to manage_media;
+
+
+
 --->
 <cfset goodExtensions="jpg,png">
 <cfset baseWebDir="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
@@ -26,6 +32,8 @@
 	<p>
 		You will receive email when processing has completed, usually within 24 hours.
 	</p>
+
+
 	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
 	results, load the images to Arctos, and download a Media Bulkloader template containing the URIs of the images you loaded.
 	<p>
@@ -51,7 +59,7 @@
 		<input name="username" class="reqdClr" required value="#session.username#">
 		<label for ="email">Email</label>
 		<input name="email" class="reqdClr" required value="#addr.addr#">
-		<label for ="jobname">Job Name</label>
+		<label for ="jobname">Job Name (must be unique; any string is OK; used to keep track of this batch)</label>
 		<input name="jobname" class="reqdClr" required value="#CreateUUID()#">
 		<label for="FiletoUpload">Upload a ZIP file</label>
 		<input type="file" name="FiletoUpload" size="45">
@@ -62,27 +70,36 @@
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "getFile">
-	<cftry>
-		<cfdirectory action="delete" directory="#sandboxdir#" recurse="true">
-		<br>deleted temp dir...
-		<cfcatch><!--- exists --->
-			<br>could not delete temp dir...
-		</cfcatch>
-	</cftry>
+	<!---- temp directory is good for 3 days, should be plenty ---->
+	<!--- first insert - will guarantee a unique job name ---->
+	<cfquery name="cjob" datasource="uam_god">
+		insert into cf_temp_zipload (
+			zid,
+			username,
+			email,
+			jobname,
+			status
+		) values (
+			somerandomsequence.nextval,
+			'#username#',
+			'#email#',
+			'#jobname#',
+			'new'
+		)
+	</cfquery>
+	<!--- get the ID we just used for a file name---->
+	<cfquery name="jid" datasource="uam_god">
+		select zid from cf_temp_zipload where jobname='#jobname#'
+	</cfquery>
 
-	<cftry>
-		<cfdirectory action="create" directory="#sandboxdir#" mode="766">
-		<br>created temp dir...
-		<cfcatch><br>could not create temp dir...<!--- exists ---></cfcatch>
-	</cftry>
-	<cffile action="upload"	destination="#sandboxdir#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
-	<cffile
-	    action = "rename"
-	    nameConflict="overwrite"
-	    destination = "#sandboxdir#/temp.zip"
-	    source = "#sandboxdir#/#cffile.ClientFile#">
+	<!---- now upload the ZIP ---->
 
-	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
+
+	<cffile action="upload"	destination="#Application.webDirectory#/temp/#jid.zid#.zip" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+
+	ZIP loaded and job started. You will receive email.....
+
+
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "unzip">
