@@ -43,7 +43,7 @@
 	<form name="mupl" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<label for ="username">Username</label>
-		<input name="username" class="reqdClass" required value="#session.username#">
+		<input name="username" class="reqdClr" required value="#session.username#">
 		<label for="FiletoUpload">Upload a ZIP file</label>
 		<input type="file" name="FiletoUpload" size="45">
 		<input type="submit" value="Upload this file" class="savBtn">
