@@ -78,6 +78,17 @@ cfabort
 					<cfbreak>
 				</cfif>
 				<br>#filename#
+
+				<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+				<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+				<cfset fName=replace(fName,'__','_','all')>
+				<cfset fileName=fName & '.' & fext>
+
+				<br>new:#filename#
+
+
+
+
 			</cfloop>
 		</cfloop>
 	</cfoutput>
