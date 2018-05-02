@@ -62,6 +62,16 @@ cfabort
 <hr>
 <cfif action is "mkprvw">
 	<cfoutput>
+
+			<cfimage action="read" name="thisImg" source="#Application.webDirectory#/images/10_10_blank.jpg">
+										<cfdump var=#thisImg#>
+
+got it
+
+<cfabort>
+
+
+
 		<!---- this needs to run iteratively ---->
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='renamed' and rownum=1
@@ -76,12 +86,7 @@ cfabort
 			</cfquery>
 
 
-										<cfimage action="read" name="thisImg" source="#Application.webDirectory#/images/10_10_blank.jpg">
-										<cfdump var=#thisImg#>
 
-got it
-
-<cfabort>
 
 
 			<cfloop query="f">
