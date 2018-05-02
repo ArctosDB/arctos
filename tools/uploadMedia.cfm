@@ -64,7 +64,7 @@ cfabort
 	<cfoutput>
 		<!---- this needs to run iteratively ---->
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='unzipped' and rownum=1
+			select * from cf_temp_zipload where status='renamed' and rownum=1
 		</cfquery>
 		<cfloop query="d">
 			<!--- create a thumb directory if it doesn't already exist ---->
