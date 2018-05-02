@@ -57,9 +57,48 @@ cfabort
 <br>will schedule
 <br><a href="uploadMedia.cfm?action=unzip">unzip</a>
 <br><a href="uploadMedia.cfm?action=rename">rename</a>
+<br><a href="uploadMedia.cfm?action=mkprvw">mkprvw</a>
 
 <hr>
+<cfif action is "mkprvw">
+	<cfoutput>
+		<!---- this needs to run iteratively ---->
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_zipload where status='unzipped' and rownum=1
+		</cfquery>
+		<cfloop query="d">
+			<!--- create a thumb directory if it doesn't already exist ---->
+			<cfif not DirectoryExists("#Application.webDirectory#/temp/#d.zid#/tn")>
+				<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#d.zid#/tn" >
+			</cfif>
+			<cfquery name="f" datasource="uam_god">
+				select * from cf_temp_zipfiles where zid=#d.zid#
+			</cfquery>
+			<cfloop query="f">
+				<cfif len(f.preview_filename) is 0>
+					<!--- we haven't been here, process this one ---->
+					<cfimage action="info" structname="imagetemp" source="#Application.webDirectory#/temp/#d.zid#/">
+				</cfif>
+			</cfloop>
 
+
+
+	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="yes">
+	<cfoutput>
+	<cfloop query="dir">
+		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
+			<cfimage action="info" structname="imagetemp" source="#directory#/#name#">
+			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
+			<cfset newwidth = x*imagetemp.width>
+			<cfset newheight = x*imagetemp.height>
+			<cfimage action="resize" source="#sandboxdir#/#name#" width="#newwidth#" height="#newheight#"
+				destination="#sandboxdir#/tn_#name#" overwrite="yes">
+		</cfif>
+	</cfloop>
+	Thumbnails created.
+	<a href="uploadMedia.cfm?action=webserver">Continue to move your files to the webserver</a>.
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "rename">
 	<cfoutput>
@@ -72,22 +111,27 @@ cfabort
 				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
 			<cfloop query="f">
-				<cfset fext=listlast(filename,".")>
-				<cfif not listfindnocase(goodExtensions,fext)>
-					<cfquery name="fail" datasource="uam_god">
-						update cf_temp_zipload set status='FATAL ERROR: #filename# contains an invalid extension' where zid=#d.zid#
+				<cftransaction>
+					<cfset fext=listlast(filename,".")>
+					<cfif not listfindnocase(goodExtensions,fext)>
+						<cfquery name="fail" datasource="uam_god">
+							update cf_temp_zipload set status='FATAL ERROR: #filename# contains an invalid extension' where zid=#d.zid#
+						</cfquery>
+						<cfbreak>
+					</cfif>
+					<br>#filename#
+					<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+					<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+					<cfset fName=replace(fName,'__','_','all')>
+					<cfset nfileName=fName & '.' & fext>
+					<cffile action = "rename"
+						source = "#Application.webDirectory#/temp/#d.zid#/#filename#"
+						destination = "#Application.webDirectory#/temp/#d.zid#/#nfileName#">
+					<cfquery name="r" datasource="uam_god">
+						update cf_temp_zipfiles set new_filename='#nfileName#' where zid=#d.zid# and filename='#filename#'
 					</cfquery>
-					<cfbreak>
-				</cfif>
-				<br>#filename#
-				<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
-				<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
-				<cfset fName=replace(fName,'__','_','all')>
-				<cfset nfileName=fName & '.' & fext>
-				<cfquery name="r" datasource="uam_god">
-					update cf_temp_zipfiles set new_filename='#nfileName#' where zid=#d.zid# and filename='#filename#'
-				</cfquery>
-				<br>new:#nfileName#
+					<br>new:#nfileName#
+				</cftransaction>
 			</cfloop>
 			<cfquery name="r" datasource="uam_god">
 				update cf_temp_zipload set status='renamed' where zid=#d.zid#
