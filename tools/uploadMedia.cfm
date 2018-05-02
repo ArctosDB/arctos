@@ -358,7 +358,7 @@ cfabort
 				<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#d.zid#/tn" >
 			</cfif>
 			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid#
+				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <20
 			</cfquery>
 			<cfloop query="f">
 				<cftransaction>
@@ -416,6 +416,9 @@ cfabort
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='unzipped' and rownum=1
 		</cfquery>
+		<cfif d.recordcount lt 1>
+			nada<cfabort>
+		</cfif>
 		<cfdump var=#d#>
 		<cfset utilities = CreateObject("component","component.utilities")>
 		<cfloop query="d">
@@ -553,7 +556,6 @@ cfabort
 			<br>jidloop
 			<cfzip file="#Application.webDirectory#/temp/#jid.zid#.zip" action="unzip" destination="#Application.webDirectory#/temp/#jid.zid#/"/>
 			<cfdirectory action="LIST" directory="#Application.webDirectory#/temp/#jid.zid#" name="dir" recurse="no">
-			<cfdump var=#dir#>
 			<cfloop query="dir">
 				<br>insert #name#
 				<cfif left(name,1) is not "." and left(name,1) is not "_">
