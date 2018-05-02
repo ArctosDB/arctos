@@ -167,8 +167,8 @@ cfabort
 			select get_Address(#session.myagentid#,'email') addr from dual
 		</cfquery>
 
-		<form name="mupl" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="Action" value="getFile">
+		<form name="mupl" method="post" enctype="multipart/form-data" action="uploadMedia.cfm">
+			<input type="hidden" name="action" value="getFile">
 			<label for ="username">Username</label>
 			<input name="username" class="reqdClr" required value="#session.username#">
 			<label for ="email">Email</label>
