@@ -17,64 +17,72 @@
 	grant insert,select on cf_temp_zipload to manage_media;
 
 
+	-- processing table
+	-- only UAM will interact; no synonyms necessary
+	create table cf_temp_zipfiles (
+		zid number not null,
+		filename varchar2(255),
+		localpath varchar2(255),
+		remotepath varchar2(255),
+		status varchar2(255)
+	);
 
 --->
 <cfset goodExtensions="jpg,png">
 <cfset baseWebDir="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
 <cfset baseFileDir="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
 <cfset sandboxdir="#application.sandbox#/#session.username#">
+
+
+<hr>
+This form is under redevelopment.
+
+cfabort
+
+
+<p></p>
+
+<br>thisform
+<br>s1: <a href="uploadMedia.cfm?action=nothing">nothing</a>
+<br>s2: getFile (submit f. nothing)
+<br>will schedule
+<br><a href="uploadMedia.cfm?action=unzip">unzip</a>
+
+<hr>
+
+<!------------------------------------------------------------------------------------------------>
 <cfif action is "nothing">
+	<cfoutput>
+		<p>
+			Upload a ZIP archive of image files. Arctos will attempt to move them to an archival file server, create thumbnail/previews, and
+			email you a media bulkloader template.
+		</p>
+		<ul>
+			<li>Only .jpg, .jpeg, and .png (case-insensitive) files will be accepted. File an Issue with expansion requests.</li>
+			<li>Archives containing files which start with anything except letters (A-Z, a-z) or numbers (0-9) will be rejected.</li>
+			<li>Filenames containing characters other than A-Z, a-z, and 0-9 will be changed.</li>
+			<li>The ZIP should contain only image files, no folders etc.</li>
+		</ul>
 
+		<cfquery name="addr" datasource="uam_god">
+			select get_Address(#session.myagentid#,'email') addr from dual
+		</cfquery>
 
-<cfoutput>
-	<p>
-		Upload a ZIP archive of image files
-	</p>
-	<p>
-		You will receive email when processing has completed, usually within 24 hours.
-	</p>
-	<ul>
-		<li>Only .jpg, .jpeg, and .png files will be accepted</li>
-		<li>Filenames containing any characters other than A-Z, a-z, and 0-9 will be changed.</li>
-		
-	</ul>
-
-
-	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
-	results, load the images to Arctos, and download a Media Bulkloader template containing the URIs of the images you loaded.
-	<p>
-	Step One: Upload a ZIP file containing images..
-	<br>File extensions are not case sensitive, but must be in
-	( <cfoutput>#goodExtensions#</cfoutput> ).
-	<br>File names may contain only A-Za-z0-9 and not start with _ (underbar) or . (dot).
-	<br>You may need to load smaller batches if you get timeout errors. You can start over at any time without breaking anything.
-	The number of files that will work is dependant on file format and file size. 25 medium-sized JPGs works easily.
-	(Please let us know what does and does not work for you.)
-	<a href="/contact.cfm">Contact us</a> or use other means to get your Media to the web if that's not practical.
-	<br>You may include thumbnails, which should be JPG files prefixed with "tn_", or you may create them with this app.
-	Do not click the "create thumbnails" option when you get to it if you've uploaded thumbnails in your ZIP.
-	<br><a href="/contact.cfm">Contact us</a> if you need something else.
-
-	<cfquery name="addr" datasource="uam_god">
-		select get_Address(#session.myagentid#,'email') addr from dual
-	</cfquery>
-
-	<form name="mupl" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="Action" value="getFile">
-		<label for ="username">Username</label>
-		<input name="username" class="reqdClr" required value="#session.username#">
-		<label for ="email">Email</label>
-		<input name="email" class="reqdClr" required value="#addr.addr#">
-		<label for ="jobname">Job Name (must be unique; any string is OK; used to keep track of this batch)</label>
-		<input name="jobname" class="reqdClr" required value="#CreateUUID()#">
-		<label for="FiletoUpload">Upload a ZIP file</label>
-		<input type="file" name="FiletoUpload" size="45">
-		<input type="submit" value="Upload this file" class="savBtn">
-  </form>
-
-</cfoutput>
+		<form name="mupl" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="Action" value="getFile">
+			<label for ="username">Username</label>
+			<input name="username" class="reqdClr" required value="#session.username#">
+			<label for ="email">Email</label>
+			<input name="email" class="reqdClr" required value="#addr.addr#">
+			<label for ="jobname">Job Name (must be unique; any string is OK; used to keep track of this batch)</label>
+			<input name="jobname" class="reqdClr" required value="#CreateUUID()#">
+			<label for="FiletoUpload">Upload a ZIP file</label>
+			<input type="file" name="FiletoUpload" size="45">
+			<input type="submit" value="Upload this file" class="savBtn">
+	  </form>
+	</cfoutput>
 </cfif>
-<!---------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------>
 <cfif action is "getFile">
 	<!---- temp directory is good for 3 days, should be plenty ---->
 	<!--- first insert - will guarantee a unique job name ---->
@@ -97,24 +105,52 @@
 	<cfquery name="jid" datasource="uam_god">
 		select zid from cf_temp_zipload where jobname='#jobname#'
 	</cfquery>
-
 	<!---- now upload the ZIP ---->
-
-
 	<cffile action="upload"	destination="#Application.webDirectory#/temp/#jid.zid#.zip" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
-
-	Your ZIP has been loaded and a job created. You will receive email from Arctos referencing job #jobname#. Do not delete the ZIP file until you 
-	are notified that the process is complete.
-
+	<p>
+		You will receive email when processing has completed, usually within 24 hours.
+	</p>
+	<p>
+		Your ZIP has been loaded and a job created. You will receive email from Arctos referencing job #jobname#. Do not delete the ZIP file until you
+		are notified that the process is complete and you have confirmed that all of your data are on Corral.
+	</p>
 
 </cfif>
-<!---------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------>
 <cfif action is "unzip">
-	<cfzip file="#sandboxdir#/temp.zip" action="unzip"
-		destination="#sandboxdir#/"/>
-	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="no">
-
 	<cfoutput>
+		<!--- see if there's anything new; just grab one --->
+		<cfquery name="jid" datasource="uam_god">
+			select * from cf_temp_zipload where status='new' and rownum=1
+		</cfquery>
+		<cfloop query="n">
+			<cfzip file="#Application.webDirectory#/temp/#jid.zid#.zip" action="unzip" destination="#Application.webDirectory#/temp/"/>
+			<cfdirectory action="LIST" directory="#Application.webDirectory#/temp/#jid.zid#" name="dir" recurse="no">
+			<cfloop query="dir">
+				<cfquery name="faf" datasource="uam_god">
+					insert into cf_temp_zipfiles (zid,filename) values (#jid.zid#,'#name#')
+				</cfquery>
+			</cfloop>
+		</cfloop>
+		<cfquery name="uz" datasource="uam_god">
+			update cf_temp_zipload set status='unzipped' where zid=#jid.zid#
+		</cfquery>
+	</cfoutput>
+
+<!----
+<br />
+
+	-- only UAM will interact; no synonyms necessary
+	create table cf_temp_zipfiles (
+		zid number not null,
+		filename varchar2(255),
+		localpath varchar2(255),
+		remotepath varchar2(255),
+		status varchar2(255)
+	);
+
+
+
 	The following files were extracted:
 	<table border>
 		<tr>
@@ -154,6 +190,7 @@
 		Rename and reload if anything useful was deleted above.
 	</p>
 	</cfoutput>
+	---->
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "thumb">
