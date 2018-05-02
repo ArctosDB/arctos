@@ -63,6 +63,7 @@ cfabort
 <cfif action is "mkprvw">
 	<cfoutput>
 
+Application.webDirectory is....<cfdump var=#Application.webDirectory#>
 			<cfimage action="read" name="thisImg" source="#Application.webDirectory#/images/10_10_blank.jpg">
 										<cfdump var=#thisImg#>
 
