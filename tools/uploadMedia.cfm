@@ -34,6 +34,11 @@
 <cfset sandboxdir="#application.sandbox#/#session.username#">
 
 
+
+reset
+
+delete from cf_temp_zipfiles;
+update cf_temp_zipload set status='new';
 <hr>
 This form is under redevelopment.
 
@@ -124,9 +129,13 @@ cfabort
 			select * from cf_temp_zipload where status='new' and rownum=1
 		</cfquery>
 		<cfdump var=#jid#>
+
+		<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#jid.zid#" >
 		<cfloop query="jid">
-			<cfzip file="#Application.webDirectory#/temp/#jid.zid#.zip" action="unzip" destination="#Application.webDirectory#/temp/"/>
+			<br>jidloop
+			<cfzip file="#Application.webDirectory#/temp/#jid.zid#.zip" action="unzip" destination="#Application.webDirectory#/temp/#jid.zid#/"/>
 			<cfdirectory action="LIST" directory="#Application.webDirectory#/temp/#jid.zid#" name="dir" recurse="no">
+			<cfdump var=#dir#>
 			<cfloop query="dir">
 				<br>insert #name#
 				<cfquery name="faf" datasource="uam_god">
