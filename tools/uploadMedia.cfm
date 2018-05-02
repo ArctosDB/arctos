@@ -74,22 +74,24 @@ cfabort
 			<cfloop query="f">
 				<cfset fext=listlast(filename,".")>
 				<cfif not listfindnocase(goodExtensions,fext)>
-					update cf_temp_zipload set status='FATAL ERROR: #filename# contains an invalid extension' where zid=#d.zid#
+					<cfquery name="fail" datasource="uam_god">
+						update cf_temp_zipload set status='FATAL ERROR: #filename# contains an invalid extension' where zid=#d.zid#
+					</cfquery>
 					<cfbreak>
 				</cfif>
 				<br>#filename#
-
 				<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 				<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 				<cfset fName=replace(fName,'__','_','all')>
 				<cfset nfileName=fName & '.' & fext>
-
+				<cfquery name="r" datasource="uam_god">
+					update cf_temp_zipfiles set new_filename='#nfileName#' where zid=#d.zid# and filename='#filename#'
+				</cfquery>
 				<br>new:#nfileName#
-
-
-
-
 			</cfloop>
+			<cfquery name="r" datasource="uam_god">
+				update cf_temp_zipload set status='renamed' where zid=#d.zid#
+			</cfquery>
 		</cfloop>
 	</cfoutput>
 </cfif>
