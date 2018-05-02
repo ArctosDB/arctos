@@ -80,9 +80,9 @@ cfabort
 						<!--- we haven't been here, process this one ---->
 						<!--- grab the file into a local var ---->
 						<br>read #Application.webDirectory#/temp/#d.zid#/#f.new_filename#
+						<cfimage action="info" structname="imagetemp" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
 						<cfimage action="read" name="thisImg" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
 
-						<cfimage action="info" structname="imagetemp" source="#thisImg#">
 						<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
 						<cfset newwidth = x*imagetemp.width>
 		    			<cfset newheight = x*imagetemp.height>
