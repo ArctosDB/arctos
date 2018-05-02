@@ -27,11 +27,17 @@
 
 
 <cfoutput>
-	Upload a ZIP archive of image files (JPG or PNG).
-
+	<p>
+		Upload a ZIP archive of image files
+	</p>
 	<p>
 		You will receive email when processing has completed, usually within 24 hours.
 	</p>
+	<ul>
+		<li>Only .jpg, .jpeg, and .png files will be accepted</li>
+		<li>Filenames containing any characters other than A-Z, a-z, and 0-9 will be changed.</li>
+		
+	</ul>
 
 
 	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
@@ -97,7 +103,8 @@
 
 	<cffile action="upload"	destination="#Application.webDirectory#/temp/#jid.zid#.zip" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 
-	ZIP loaded and job started. You will receive email.....
+	Your ZIP has been loaded and a job created. You will receive email from Arctos referencing job #jobname#. Do not delete the ZIP file until you 
+	are notified that the process is complete.
 
 
 </cfif>

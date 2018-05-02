@@ -810,8 +810,8 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 		<li>Objects to which Media will be related - such as collecting events and cataloged items - must exist (but see collecting_event handler)</li>
 		<li>You may specify either a media_related_key_n OR media_related_term_n, but not both</li>
 		<li>There is no checking for media_related_key; just provide a primary key for the table name specified in media_relationship</li>
-		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_relationship">valid relationships</a></li>
 		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_label">valid labels</a></li>
+		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_relationship">valid relationships</a></li>
 		<li>
 			There is limited handling for media_related_term, and required values are very specific. Valid data are:
 			<UL>
@@ -839,6 +839,43 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 				</li>
 			</UL>
 		</li>
+		<li>
+			media_related_key works for any table, where table_name is the last term in media_relationship. Examples
+			<ul>
+				<li>
+					create a relationship to collection_object_id 1:
+					<ul>
+						<li>
+							media_relationship_n: created from collecting_event
+						</li>
+						<li>
+							media_related_key_n: 1
+						</li>
+					</ul>
+				</li>
+				<li>
+					create a relationship to agent_id 1:
+					<ul>
+						<li>
+							media_relationship_n: created by agent
+						</li>
+						<li>
+							media_related_key_n: 1
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+
+
+	</ul>
+
+	Required Columns
+
+	<ul>
+		<li>MEDIA_URI </li>
+		<li><a href="/info/ctDocumentation.cfm?table=ctMIME_TYPE">MIME_TYPE</a> </li>
+		<li><a href="/info/ctDocumentation.cfm?table=ctMEDIA_TYPE">MEDIA_TYPE</a> </li>
 	</ul>
 <hr>
 	Upload Media to TACC (or anywhere with an XML directory structure listing) and use a directory to build a bulkloader template.
