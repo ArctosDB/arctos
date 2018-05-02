@@ -80,8 +80,12 @@ cfabort
 						<!--- we haven't been here, process this one ---->
 						<!--- grab the file into a local var ---->
 						<br>read #Application.webDirectory#/temp/#d.zid#/#f.new_filename#
-												<cfimage action="read" name="thisImg" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
-
+							<cftry>
+							<cfimage action="read" name="thisImg" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
+<cfcatch>
+	<cfdump var=#cfcatch#>
+</cfcatch>
+</cftry>
 
 <!----
 												<cfimage action="info" structname="imagetemp" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
