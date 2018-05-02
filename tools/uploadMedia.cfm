@@ -60,15 +60,74 @@ cfabort
 <br>s2: getFile (submit f. nothing)
 <br>will schedule
 <br><a href="uploadMedia.cfm?action=unzip">unzip</a>
+<!---- unzip is either going to work or not - no confirmation ---->
 <br><a href="uploadMedia.cfm?action=rename">rename</a>
+<br><a href="uploadMedia.cfm?action=rename_confirm">rename_confirm</a>
+
+
+
+
 <br><a href="uploadMedia.cfm?action=mkprvw">mkprvw</a>
+<br><a href="uploadMedia.cfm?action=mkprvw_confirm">mkprvw_confirm</a>
+
+
 <br><a href="uploadMedia.cfm?action=s3ify">s3ify</a>
+<br><a href="uploadMedia.cfm?action=s3ify_confirm">s3ify_confirm</a>
+
+
+
+<br><a href="uploadMedia.cfm?action=notify_done">notify_done</a>
+
 
 <hr>
+
+
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "notify_done">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_zipload where status='loaded_to_s3' and rownum=1
+		</cfquery>
+		<cfif d.recordcount is 0>
+			found nothing<cfabort>
+		</cfif>
+		<cfquery name="f" datasource="uam_god">
+			select * from cf_temp_zipfiles where zid=#d.zid#
+		</cfquery>
+		<cfset q=QueryNew("TEMP_original_filename, TEMP_new_filename,MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,media_label_1,media_label_value_1")>
+
+		<cfloop query="f">
+
+
+				,,,,,,")>
+
+
+
+
+			<cfset queryaddrow(q,
+					{
+					TEMP_original_filename=filename,
+					TEMP_new_filename=new_filename,
+					MEDIA_URI=remotepath,
+					MIME_TYPE=mime_type,
+					MEDIA_TYPE=media_type,
+					PREVIEW_URI=remote_preview,
+					media_license='',
+					media_label_1='MD5 checksum',
+					media_label_value_1=md5
+					}
+				)>
+		</cfloop>
+
+		<cfdump var=#q#>
+	</cfoutput>
+</cfif>
+
+<!------------------------------------------------------------------------------------------------>
 <cfif action is "s3ify">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='madepreview' and rownum=1
+			select * from cf_temp_zipload where status='previewed' and rownum=1
 		</cfquery>
 		<cfif d.recordcount is 0>
 			found nothing<cfabort>
@@ -241,6 +300,29 @@ cfabort
 		</cfloop>
 	</cfoutput>
 </cfif>
+<!------------------------------------------------------------------------------------------------>
+
+<cfif action is "s3ify_confirm">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_zipload where status='previewed' and rownum=1
+		</cfquery>
+		<cfquery name="d_f" datasource="uam_god">
+			select distinct status from cf_temp_zipfiles where zid=#d.zid#
+		</cfquery>
+		<cfif valuelist(d_f.status) is "loaded_to_s3">
+			<br>all previewed
+			<cfquery name="r" datasource="uam_god">
+				update cf_temp_zipload set status='loaded_to_s3' where zid=#d.zid#
+			</cfquery>
+		<cfelse>
+			<br>loaded_to_s3 not complete, do nothing
+		</cfif>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------>
+
+
 <cfif action is "mkprvw">
 	<cfoutput>
 		<!---- this needs to run iteratively ---->
@@ -279,10 +361,27 @@ cfabort
 					</cfif>
 				</cftransaction>
 			</cfloop>
-			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='madepreview' where zid=#d.zid#
-			</cfquery>
 		</cfloop>
+	</cfoutput>
+</cfif>
+
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "mkprvw_confirm">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_zipload where status='renamed' and rownum=1
+		</cfquery>
+		<cfquery name="d_f" datasource="uam_god">
+			select distinct status from cf_temp_zipfiles where zid=#d.zid#
+		</cfquery>
+		<cfif valuelist(d_f.status) is "previewed">
+			<br>all previewed
+			<cfquery name="r" datasource="uam_god">
+				update cf_temp_zipload set status='previewed' where zid=#d.zid#
+			</cfquery>
+		<cfelse>
+			<br>previewed not complete, do nothing
+		</cfif>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
@@ -293,9 +392,6 @@ cfabort
 		</cfquery>
 		<cfdump var=#d#>
 		<cfset utilities = CreateObject("component","component.utilities")>
-
-
-
 		<cfloop query="d">
 			<cfquery name="f" datasource="uam_god">
 				select * from cf_temp_zipfiles where zid=#d.zid#
@@ -325,15 +421,32 @@ cfabort
 						source = "#Application.webDirectory#/temp/#d.zid#/#filename#"
 						destination = "#Application.webDirectory#/temp/#d.zid#/#nfileName#">
 					<cfquery name="r" datasource="uam_god">
-						update cf_temp_zipfiles set new_filename='#nfileName#' where zid=#d.zid# and filename='#filename#'
+						update cf_temp_zipfiles set status='renamed',new_filename='#nfileName#' where zid=#d.zid# and filename='#filename#'
 					</cfquery>
 					<br>new:#nfileName#
 				</cftransaction>
 			</cfloop>
+		</cfloop>
+	</cfoutput>
+</cfif>
+
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "rename_confirm">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_zipload where status='unzipped' and rownum=1
+		</cfquery>
+		<cfquery name="d_f" datasource="uam_god">
+			select distinct status from cf_temp_zipfiles where zid=#d.zid#
+		</cfquery>
+		<cfif valuelist(d_f.status) is "renamed">
+			<br>all renamed
 			<cfquery name="r" datasource="uam_god">
 				update cf_temp_zipload set status='renamed' where zid=#d.zid#
 			</cfquery>
-		</cfloop>
+		<cfelse>
+			<br>rename not complete, do nothing
+		</cfif>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
@@ -409,8 +522,6 @@ cfabort
 		<cfquery name="jid" datasource="uam_god">
 			select * from cf_temp_zipload where status='new' and rownum=1
 		</cfquery>
-		<cfdump var=#jid#>
-
 		<cfloop query="jid">
 			<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#jid.zid#" >
 			<br>jidloop
@@ -430,61 +541,6 @@ cfabort
 			update cf_temp_zipload set status='unzipped' where zid=#jid.zid#
 		</cfquery>
 	</cfoutput>
-
-<!----
-<br />
-
-	-- only UAM will interact; no synonyms necessary
-	create table cf_temp_zipfiles (
-		zid number not null,
-		filename varchar2(255),
-		localpath varchar2(255),
-		remotepath varchar2(255),
-		status varchar2(255)
-	);
-
-
-
-	The following files were extracted:
-	<table border>
-		<tr>
-			<th>Filename</th>
-			<th>KB</th>
-			<th>Status</th>
-		</tr>
-	<cfloop query="dir">
-		<cfset s=round(size/1024)>
-		<tr>
-			<td>#name#</td>
-			<td>#s#</td>
-			<td>
-				<cfif type is "File" and
-					listlen(name,".") is 2 and
-					listfindnocase(goodExtensions,listlast(name,".")) and
-					left(name,1) is not "_" and
-					left(name,1) is not "." and
-					REfind("[^A-Za-z0-9_]",listgetat(name,1,".")) eq 0>
-					Acceptable - processing
-				<cfelse>
-					Unacceptable - DELETING....
-					<cfif type is "file">
-				 		<cffile action="DELETE" file="#sandboxdir#/#name#">
-					<cfelse>
-						<cfdirectory action="DELETE" recurse="true" directory="#sandboxdir#/#name#">
-					</cfif>
-					deleted
-				</cfif>
-			</td>
-		</tr>
-	</cfloop>
-	</table>
-	You can now <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>, or skip to
-	<a href="uploadMedia.cfm?action=webserver">moving your files to the webserver</a> if you don't need thumbs.
-	<p>
-		Rename and reload if anything useful was deleted above.
-	</p>
-	</cfoutput>
-	---->
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "thumb">
