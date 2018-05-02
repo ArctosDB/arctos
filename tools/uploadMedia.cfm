@@ -75,28 +75,34 @@ cfabort
 				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
 			<cfloop query="f">
-				<cfif len(f.preview_filename) is 0>
-					<!--- we haven't been here, process this one ---->
-					<cfimage action="info" structname="imagetemp" source="#Application.webDirectory#/temp/#d.zid#/">
-				</cfif>
+				<cftransaction>
+					<cfif len(f.preview_filename) is 0>
+						<!--- we haven't been here, process this one ---->
+						<!--- grab the file into a local var ---->
+						<cfimage action="read" name="thisImg" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
+
+						<cfimage action="info" structname="imagetemp" source="#thisImg#">
+						<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
+						<cfset newwidth = x*imagetemp.width>
+		    			<cfset newheight = x*imagetemp.height>
+			    		<cfset barefilename=listgetat(f.new_filename,1,".")>
+			    		<cfset tfilename="tn_#barefilename#.jpg">
+			   			<cfimage action="convert"
+			   				source="#thisImg#"
+			   				destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true">
+			   			<cfimage action="resize" source="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#"
+			   				width="#newwidth#" height="#newheight#" destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true">
+			   			<cfquery name="r" datasource="uam_god">
+							update cf_temp_zipfiles set preview_filename='#tfilename#' where zid=#d.zid# and new_filename='#f.new_filename#'
+						</cfquery>
+					</cfif>
+				</cftransaction>
 			</cfloop>
 
-
-
-	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="yes">
-	<cfoutput>
-	<cfloop query="dir">
-		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<cfimage action="info" structname="imagetemp" source="#directory#/#name#">
-			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
-			<cfset newwidth = x*imagetemp.width>
-			<cfset newheight = x*imagetemp.height>
-			<cfimage action="resize" source="#sandboxdir#/#name#" width="#newwidth#" height="#newheight#"
-				destination="#sandboxdir#/tn_#name#" overwrite="yes">
-		</cfif>
-	</cfloop>
-	Thumbnails created.
-	<a href="uploadMedia.cfm?action=webserver">Continue to move your files to the webserver</a>.
+			<cfquery name="r" datasource="uam_god">
+				update cf_temp_zipload set status='madepreview' where zid=#d.zid#
+			</cfquery>
+		</cfloop>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
