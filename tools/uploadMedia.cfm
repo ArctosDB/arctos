@@ -123,7 +123,7 @@ cfabort
 		<cfquery name="jid" datasource="uam_god">
 			select * from cf_temp_zipload where status='new' and rownum=1
 		</cfquery>
-		<cfloop query="n">
+		<cfloop query="jid">
 			<cfzip file="#Application.webDirectory#/temp/#jid.zid#.zip" action="unzip" destination="#Application.webDirectory#/temp/"/>
 			<cfdirectory action="LIST" directory="#Application.webDirectory#/temp/#jid.zid#" name="dir" recurse="no">
 			<cfloop query="dir">
