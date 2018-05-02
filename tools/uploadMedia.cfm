@@ -184,13 +184,17 @@ cfabort
 
 
 		<cfquery name="f" datasource="uam_god">
-			select * from cf_temp_zipfiles where zid=#d.zid#
+			select * from cf_temp_zipfiles where zid=#d.zid# and status='previewed' and rownum=1
 		</cfquery>
 		<cfloop query="f">
 			<cffile variable="content" action="readBinary" file="#Application.webDirectory#/temp/#d.zid#/#new_filename#">
-			<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
 
-			<br>md5: #md5#
+			<br>content: #content#
+			<cfset lmd5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
+
+			<br>lmd5: #lmd5#
+
+
 			<cfquery name="ckck" datasource="uam_god">
 				select media_id from media_labels where MEDIA_LABEL='MD5 checksum' and LABEL_VALUE='#md5#'
 			</cfquery>
@@ -278,7 +282,7 @@ cfabort
 			<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
 			<cfset currentTime = getHttpTimeString( now() ) />
 			<cfset contentType = "image/jpeg" />
-			<cffile variable="content" action = "readBinary"  file="#Application.webDirectory#/temp/#d.zid#/tn/#preview_filename#">
+			<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/temp/#d.zid#/tn/#preview_filename#">
 			<cfset contentLength=arrayLen( content )>
 			<cfset stringToSignParts = [
 			    "PUT",
@@ -308,7 +312,7 @@ cfabort
 
 			<cfquery name="lldd" datasource="uam_god">
 				update cf_temp_zipfiles set
-					md5='#md5#',
+					md5='#lmd5#',
 					remotepath='#media_uri#',
 					mime_type='#mimetype#',
 					media_type='#mediatype#',
@@ -358,7 +362,7 @@ cfabort
 				<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#d.zid#/tn" >
 			</cfif>
 			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <20
+				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <100
 			</cfquery>
 			<cfloop query="f">
 				<cftransaction>
