@@ -123,10 +123,12 @@ cfabort
 		<cfquery name="jid" datasource="uam_god">
 			select * from cf_temp_zipload where status='new' and rownum=1
 		</cfquery>
+		<cfdump var=#jid#>
 		<cfloop query="jid">
 			<cfzip file="#Application.webDirectory#/temp/#jid.zid#.zip" action="unzip" destination="#Application.webDirectory#/temp/"/>
 			<cfdirectory action="LIST" directory="#Application.webDirectory#/temp/#jid.zid#" name="dir" recurse="no">
 			<cfloop query="dir">
+				<br>insert #name#
 				<cfquery name="faf" datasource="uam_god">
 					insert into cf_temp_zipfiles (zid,filename) values (#jid.zid#,'#name#')
 				</cfquery>
