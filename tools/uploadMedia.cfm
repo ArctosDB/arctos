@@ -79,6 +79,7 @@ cfabort
 					<cfif len(f.preview_filename) is 0>
 						<!--- we haven't been here, process this one ---->
 						<!--- grab the file into a local var ---->
+						<br>read #Application.webDirectory#/temp/#d.zid#/#f.new_filename#
 						<cfimage action="read" name="thisImg" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
 
 						<cfimage action="info" structname="imagetemp" source="#thisImg#">
