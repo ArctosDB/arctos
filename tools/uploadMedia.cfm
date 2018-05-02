@@ -22,11 +22,15 @@
 	create table cf_temp_zipfiles (
 		zid number not null,
 		filename varchar2(255),
+		new_filename varchar2(255),
+		preview_filename varchar2(255),
 		localpath varchar2(255),
 		remotepath varchar2(255),
 		status varchar2(255)
 	);
 
+	alter table cf_temp_zipfiles add new_filename varchar2(255);
+	alter table cf_temp_zipfiles add preview_filename varchar2(255);
 --->
 <cfset goodExtensions="jpg,png">
 <cfset baseWebDir="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
@@ -68,6 +72,11 @@ cfabort
 				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
 			<cfloop query="f">
+				<cfset fext=listlast(filename,".")>
+				<cfif not listfindnocase(goodExtensions,fext)>
+					update cf_temp_zipload set status='FATAL ERROR: #filename# contains an invalid extension' where zid=#d.zid#
+					<cfbreak>
+				</cfif>
 				<br>#filename#
 			</cfloop>
 		</cfloop>
