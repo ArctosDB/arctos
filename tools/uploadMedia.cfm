@@ -63,14 +63,6 @@ cfabort
 <cfif action is "mkprvw">
 	<cfoutput>
 
-Application.webDirectory is....<cfdump var=#Application.webDirectory#>
-			<cfimage action="read" name="thisImg" source="#Application.webDirectory#/images/10_10_blank.jpg">
-										<cfdump var=#thisImg#>
-
-got it
-
-<cfabort>
-
 
 
 		<!---- this needs to run iteratively ---->
@@ -85,26 +77,14 @@ got it
 			<cfquery name="f" datasource="uam_god">
 				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
-
-
-
-
-
 			<cfloop query="f">
 				<cftransaction>
 					<cfif len(f.preview_filename) is 0>
 						<!--- we haven't been here, process this one ---->
 						<!--- grab the file into a local var ---->
 						<br>read #Application.webDirectory#/temp/#d.zid#/#f.new_filename#
-							<cftry>
-							<cfimage action="read" name="thisImg" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
-<cfcatch>
-	<cfdump var=#cfcatch#>
-</cfcatch>
-</cftry>
-
-<!----
-												<cfimage action="info" structname="imagetemp" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
+						<cfimage action="read" name="thisImg" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
+						<cfimage action="info" structname="imagetemp" source="#thisImg#">
 
 						<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
 						<cfset newwidth = x*imagetemp.width>
@@ -119,7 +99,6 @@ got it
 			   			<cfquery name="r" datasource="uam_god">
 							update cf_temp_zipfiles set preview_filename='#tfilename#' where zid=#d.zid# and new_filename='#f.new_filename#'
 						</cfquery>
-						---->
 					</cfif>
 				</cftransaction>
 			</cfloop>
