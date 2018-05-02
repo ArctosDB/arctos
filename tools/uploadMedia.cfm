@@ -63,6 +63,14 @@ cfabort
 			select * from cf_temp_zipload where status='unzipped' and rownum=1
 		</cfquery>
 		<cfdump var=#d#>
+		<cfloop query="d">
+			<cfquery name="f" datasource="uam_god">
+				select * from cf_temp_zipfiles where zid=#d.zid#
+			</cfquery>
+			<cfloop query="f">
+				<br>#filename#
+			</cfloop>
+		</cfloop>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
