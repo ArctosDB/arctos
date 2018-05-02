@@ -140,6 +140,9 @@ cfabort
 		Instructions for adding columns or data are available from the Media Bulkloader.
 
 
+			<cfquery name="r" datasource="uam_god">
+				update cf_temp_zipload set status='complete_email_sent' where zid=#d.zid#
+			</cfquery>
 
 	</cfoutput>
 </cfif>
@@ -337,7 +340,7 @@ cfabort
 			select distinct status from cf_temp_zipfiles where zid=#d.zid#
 		</cfquery>
 		<cfif valuelist(d_f.status) is "loaded_to_s3">
-			<br>all previewed
+			<br>all s3ifyied
 			<cfquery name="r" datasource="uam_god">
 				update cf_temp_zipload set status='loaded_to_s3' where zid=#d.zid#
 			</cfquery>
