@@ -74,6 +74,14 @@ cfabort
 			<cfquery name="f" datasource="uam_god">
 				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
+
+
+										<cfimage action="read" name="thisImg" source="#Application.webDirectory#/images/10_10_blank.jpg">
+										<cfdump var=#thisImg#>
+
+
+
+
 			<cfloop query="f">
 				<cftransaction>
 					<cfif len(f.preview_filename) is 0>
