@@ -196,14 +196,14 @@ cfabort
 			<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
 			<cfset currentTime = getHttpTimeString( now() ) />
 			<cfset contentType = "image/jpeg" />
-			<cffile variable="content" action = "readBinary"  file="#Application.webDirectory#/temp/#d.zid#/tn/tn_#new_filename#">
+			<cffile variable="content" action = "readBinary"  file="#Application.webDirectory#/temp/#d.zid#/tn/#preview_filename#">
 			<cfset contentLength=arrayLen( content )>
 			<cfset stringToSignParts = [
 			    "PUT",
 			    "",
 			    contentType,
 			    currentTime,
-			    "/" & bucket & "/tn_" & #new_filename#
+			    "/" & bucket & "/" & preview_filename
 			] />
 			<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
 			<cfset signature = binaryEncode(
@@ -213,14 +213,14 @@ cfabort
 				),
 				"base64"
 			)>
-			<cfhttp result="putTN" method="put" url="#s3.s3_endpoint#/#bucket#/tn_#new_filename#">
+			<cfhttp result="putTN" method="put" url="#s3.s3_endpoint#/#bucket#/#preview_filename#">
 				<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
 			    <cfhttpparam type="header" name="Content-Length"  value="#contentLength#" />
 			    <cfhttpparam type="header" name="Content-Type"  value="#contentType#" />
 			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 			    <cfhttpparam type="body" value="#content#" />
 			</cfhttp>
-			<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/tn_#new_filename#">
+			<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#preview_filename#">
 		<!--- statuscode of putting the actual file - the important thing--->
 
 
