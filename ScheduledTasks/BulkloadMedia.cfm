@@ -100,7 +100,12 @@
 		<cfif len(c.MEDIA_TYPE) is 0>
 			<cfset rec_stat=listappend(rec_stat,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
 		</cfif>
-		<cfhttp url="#media_uri#" charset="utf-8" method="head" />
+		<!--- something has weird/weak ciphers and this fails to Corral. Try http--->
+		<cfset pf_muri=media_uri>
+		<cfif pf_muri contains 'https://web.corral.tacc'>
+			<cfset pf_muri=replace(pf_muri,'https://web.corral.tacc','http://web.corral.tacc')>
+		</cfif>
+		<cfhttp url="#pf_muri#" charset="utf-8" method="head" />
 		<cfif debug is true>
 			<cfdump var=#cfhttp#>
 		</cfif>
@@ -114,7 +119,12 @@
 			<cfset rec_stat=listappend(rec_stat,'#media_uri# already exists',";")>
 		</cfif>
 		<cfif len(preview_uri) gt 0>
-			<cfhttp url="#preview_uri#" charset="utf-8" method="head" />
+			<cfset pf_puri=preview_uri>
+			<cfif pf_puri contains 'https://web.corral.tacc'>
+				<cfset pf_puri=replace(pf_puri,'https://web.corral.tacc','http://web.corral.tacc')>
+			</cfif>
+
+			<cfhttp url="#pf_puri#" charset="utf-8" method="head" />
 			<cfif debug is true>
 				<cfdump var=#cfhttp#>
 			</cfif>

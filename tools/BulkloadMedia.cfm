@@ -811,6 +811,7 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 		<li>You may specify either a media_related_key_n OR media_related_term_n, but not both</li>
 		<li>There is no checking for media_related_key; just provide a primary key for the table name specified in media_relationship</li>
 		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_label">valid labels</a></li>
+		<li><a href="/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE">valid licenses</a></li>
 		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_relationship">valid relationships</a></li>
 		<li>
 			There is limited handling for media_related_term, and required values are very specific. Valid data are:
