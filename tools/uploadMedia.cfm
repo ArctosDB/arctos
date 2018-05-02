@@ -97,13 +97,6 @@ cfabort
 		<cfset q=QueryNew("TEMP_original_filename, TEMP_new_filename,MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,media_label_1,media_label_value_1")>
 
 		<cfloop query="f">
-
-
-				,,,,,,")>
-
-
-
-
 			<cfset queryaddrow(q,
 					{
 					TEMP_original_filename=filename,
@@ -120,6 +113,34 @@ cfabort
 		</cfloop>
 
 		<cfdump var=#q#>
+
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/media_bulk_zip#d.zid#.csv"
+	    	output = "#csv#"
+	    	addNewLine = "no">
+
+
+		Dear #d.username#,
+
+		Your image zip upload job #d.jobname# is complete.
+
+		A file is available at #application.serverRootUrl#/download/media_bulk_zip#d.zid#.csv. This file will be deleted in three days; please download
+		it immediately.
+
+		The file is NOT ready to upload in the media bulkloader.
+
+		* TEMP_original_filename is the filename as supplied.
+
+		* TEMP_new_filename is the filename as loaded.
+
+		Please delete these columns before attempting upload.
+
+		Instructions for adding columns or data are available from the Media Bulkloader.
+
+
+
 	</cfoutput>
 </cfif>
 
@@ -168,6 +189,8 @@ cfabort
 		<cfloop query="f">
 			<cffile variable="content" action="readBinary" file="#Application.webDirectory#/temp/#d.zid#/#new_filename#">
 			<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
+
+			<br>md5: #md5#
 			<cfquery name="ckck" datasource="uam_god">
 				select media_id from media_labels where MEDIA_LABEL='MD5 checksum' and LABEL_VALUE='#md5#'
 			</cfquery>
