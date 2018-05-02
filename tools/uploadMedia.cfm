@@ -64,7 +64,7 @@ cfabort
 		</p>
 		<ul>
 			<li>Only .jpg, .jpeg, and .png (case-insensitive) files will be accepted. File an Issue with expansion requests.</li>
-			<li>Archives containing files which start with anything except letters (A-Z, a-z) or numbers (0-9) will be rejected.</li>
+			<li>Files which start with _ or . will be ignored.</li>
 			<li>Filenames containing characters other than A-Z, a-z, and 0-9 will be changed.</li>
 			<li>The ZIP should contain only image files, no folders etc.</li>
 		</ul>
@@ -138,9 +138,11 @@ cfabort
 			<cfdump var=#dir#>
 			<cfloop query="dir">
 				<br>insert #name#
-				<cfquery name="faf" datasource="uam_god">
-					insert into cf_temp_zipfiles (zid,filename) values (#jid.zid#,'#name#')
-				</cfquery>
+				<cfif left(name,1) is not "." and left(name,1) is not "_">
+					<cfquery name="faf" datasource="uam_god">
+						insert into cf_temp_zipfiles (zid,filename) values (#jid.zid#,'#name#')
+					</cfquery>
+				</cfif>
 			</cfloop>
 		</cfloop>
 		<cfquery name="uz" datasource="uam_god">
