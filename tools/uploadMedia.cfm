@@ -52,9 +52,19 @@ cfabort
 <br>s2: getFile (submit f. nothing)
 <br>will schedule
 <br><a href="uploadMedia.cfm?action=unzip">unzip</a>
+<br><a href="uploadMedia.cfm?action=rename">rename</a>
 
 <hr>
 
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "rename">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_zipload where status='unzipped' and rownum=1
+		</cfquery>
+		<cfdump var=#d#>
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "nothing">
 	<cfoutput>
