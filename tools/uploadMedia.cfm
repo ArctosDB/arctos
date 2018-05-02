@@ -82,9 +82,9 @@ cfabort
 				<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 				<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 				<cfset fName=replace(fName,'__','_','all')>
-				<cfset fileName=fName & '.' & fext>
+				<cfset nfileName=fName & '.' & fext>
 
-				<br>new:#filename#
+				<br>new:#nfileName#
 
 
 
