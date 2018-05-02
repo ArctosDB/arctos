@@ -183,8 +183,6 @@ cfabort
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "getFile">
-
-	hi<cfabort>
 	<!---- temp directory is good for 3 days, should be plenty ---->
 	<!--- first insert - will guarantee a unique job name ---->
 	<cfquery name="cjob" datasource="uam_god">
