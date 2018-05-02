@@ -79,7 +79,9 @@ cfabort
 										<cfimage action="read" name="thisImg" source="#Application.webDirectory#/images/10_10_blank.jpg">
 										<cfdump var=#thisImg#>
 
+got it
 
+<cfabort>
 
 
 			<cfloop query="f">
