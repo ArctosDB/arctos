@@ -648,10 +648,12 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."),".")>
 						<cfset thisThumb="">
 						<cfif len(tndir) gt 0>
+							<!----
 							<cfif thisFile does not contain ".">
 								You may only specify a preview directory if all the files contain a dot (eg, have an extension).
 								<cfabort>
 							</cfif>
+							---->
 							<cfif len(tnext) is 0>
 								You must specify a preview extension.
 								<cfabort>
