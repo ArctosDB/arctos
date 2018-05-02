@@ -189,7 +189,6 @@ cfabort
 		<cfloop query="f">
 			<cffile variable="content" action="readBinary" file="#Application.webDirectory#/temp/#d.zid#/#new_filename#">
 
-			<br>content: #content#
 			<cfset lmd5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
 
 			<br>lmd5: #lmd5#
