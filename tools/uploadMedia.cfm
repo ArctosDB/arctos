@@ -728,6 +728,7 @@ cfabort
 					</tr>
 				</cfloop>
 			</table>
+		</cfloop>
 
 			<!---------
 			UAM@ARCTOSTE> desc cf_temp_zipfiles
