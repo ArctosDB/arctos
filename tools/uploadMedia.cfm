@@ -86,11 +86,17 @@ cfabort
 <cfif action is "notify_done">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='loaded_to_s3' and rownum=1
+			select * from cf_temp_zipload where status!='complete_email_sent' and rownum=1
 		</cfquery>
 		<cfif d.recordcount is 0>
 			found nothing<cfabort>
 		</cfif>
+
+		<cfdump var=#d#>
+
+		<cfabort>
+
+
 		<cfquery name="f" datasource="uam_god">
 			select * from cf_temp_zipfiles where zid=#d.zid#
 		</cfquery>
