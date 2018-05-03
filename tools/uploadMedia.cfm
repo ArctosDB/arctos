@@ -692,7 +692,7 @@ cfabort
 		<cfset makeMBLDownloadFile(#zid#)>
 
 		<p>
-			Generation attempted: #Application.webDirectory#/download/media_bulk_zip#zid#.csv
+			Generation attempted: #Application.serverRootURL#/download/media_bulk_zip#zid#.csv
 		</p>
 	</cfoutput>
 </cfif>
