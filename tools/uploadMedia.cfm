@@ -509,6 +509,21 @@ cfabort
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "nothing">
+	<script>
+		function checkZIP(obj) {
+		    var filePath,ext;
+
+		    filePath = obj.value;
+		    ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
+		    if(ext != 'zip') {
+		        alert('Only files with the file extension ZIP are allowed');
+		        $("input[type=submit]").hide();
+		    } else {
+		        $("input[type=submit]").show();
+		    }
+		}
+	</script>
+
 	<cfoutput>
 		<p>
 			Upload a ZIP archive of image files. Arctos will attempt to move them to an archival file server, create thumbnail/previews, and
@@ -549,7 +564,11 @@ cfabort
 			<input name="jobname" class="reqdClr" required value="#CreateUUID()#">
 			<label for="FiletoUpload">Upload a ZIP file</label>
 			<input type="file" name="FiletoUpload" size="45">
-			<input type="submit" value="Upload this file" class="savBtn">
+			<input type="submit" value="Upload this file" class="savBtn" onchange="checkZIP(this);">
+
+
+
+
 	  </form>
 	</cfoutput>
 </cfif>
