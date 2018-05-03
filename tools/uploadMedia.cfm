@@ -150,8 +150,8 @@ cfabort
 
 			Your image zip upload job #d.jobname# is complete.
 
-			A file is available at #application.serverRootUrl#/download/media_bulk_zip#d.zid#.csv. This file will be deleted in three days; please download
-			it immediately.
+			A file is available at #application.serverRootUrl#/download/media_bulk_zip#d.zid#.csv. This file will be deleted in three days,
+			but may be regenerated from the more information link below.
 
 			The file is NOT ready to upload in the media bulkloader.
 
@@ -532,6 +532,10 @@ cfabort
 
 	<cfoutput>
 		<p>
+			<a href="uploadMedia.cfm?action=preview">View Existing Jobs</a>
+		</p>
+
+		<p>
 			Upload a ZIP archive of image files. Arctos will attempt to move them to an archival file server, create thumbnail/previews, and
 			email you a media bulkloader template.
 		</p>
@@ -552,7 +556,7 @@ cfabort
 			</li>
 			<li>
 				You will receive an email containing a link to a file when the process is done. That file will be deleted 3 days after the message is
-				sent. Please do not start this process if you cannot follow that schedule.
+				sent, but may be regenerated from the "existing jobs" link above.
 			</li>
 		</ul>
 
