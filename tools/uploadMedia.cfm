@@ -702,11 +702,12 @@ cfabort
 		</p>
 
 		<cfloop query="d">
+			<blockquote>
 			<br>Job Name: #JOBNAME#
 			<br>Submitted Date: #submitted_date#
 			<br>Status: #STATUS#
 			<br><a href="###d.zid#">Scroll To</a>
-
+</blockquote>
 		</cfloop>
 
 
