@@ -689,7 +689,7 @@ cfabort
 <cfif action is "preview">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where username='#session.username#'
+			select * from cf_temp_zipload where username='#session.username#' order by submitted_date desc
 		</cfquery>
 		<cfif d.recordcount is 0>
 			You have no jobs.<cfabort>
@@ -716,6 +716,7 @@ cfabort
 			<br>Submitted Date: #submitted_date#
 			<br>Status: #STATUS#
 
+
 			<cfquery name="f" datasource="uam_god">
 				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
@@ -727,7 +728,6 @@ cfabort
 					<th>PREVIEW_FILENAME</th>
 					<th>REMOTEPATH</th>
 					<th>REMOTE_PREVIEW</th>
-
 					<th>MIME_TYPE</th>
 					<th>MEDIA_TYPE</th>
 					<th>MD5</th>
