@@ -694,7 +694,7 @@ cfabort
 		<cfif d.recordcount is 0>
 			You have no jobs.<cfabort>
 		</cfif>
-
+		<a name="top"></a>
 		<p>
 			Summary
 
@@ -711,7 +711,7 @@ cfabort
 
 
 		<cfloop query="d">
-			<a name="#d.zid#"></a>
+			<a name="#d.zid#" href="##top">Scroll Top</a>
 			<br>Job Name: #JOBNAME#
 			<br>Submitted Date: #submitted_date#
 			<br>Status: #STATUS#
