@@ -510,16 +510,18 @@ cfabort
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "nothing">
 	<script>
-		function checkZIP(obj) {
+		function checkZIP() {
 		    var filePath,ext;
 
-		    filePath = obj.value;
+		    filePath = $("#FiletoUpload").val();
 		    ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
 		    if(ext != 'zip') {
 		        alert('Only files with the file extension ZIP are allowed');
 		        $("input[type=submit]").hide();
+		        return false;
 		    } else {
 		        $("input[type=submit]").show();
+		        return true;
 		    }
 		}
 	</script>
@@ -554,7 +556,7 @@ cfabort
 			select get_Address(#session.myagentid#,'email') addr from dual
 		</cfquery>
 
-		<form name="mupl" method="post" enctype="multipart/form-data" action="uploadMedia.cfm">
+		<form name="mupl" method="post" enctype="multipart/form-data" action="uploadMedia.cfm" onsubmit="return checkZIP();">
 			<input type="hidden" name="action" value="getFile">
 			<label for ="username">Username</label>
 			<input name="username" class="reqdClr" required value="#session.username#">
@@ -563,8 +565,8 @@ cfabort
 			<label for ="jobname">Job Name (must be unique; any string is OK; used to keep track of this batch)</label>
 			<input name="jobname" class="reqdClr" required value="#CreateUUID()#">
 			<label for="FiletoUpload">Upload a ZIP file</label>
-			<input type="file" name="FiletoUpload" size="45">
-			<input type="submit" value="Upload this file" class="savBtn" onchange="checkZIP(this);">
+			<input type="file" name="FiletoUpload" id="FiletoUpload" size="45">
+			<input type="submit" value="Upload this file" class="savBtn">
 
 
 
