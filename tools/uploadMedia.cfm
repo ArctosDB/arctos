@@ -465,6 +465,9 @@ cfabort
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='unzipped' and rownum=1
 		</cfquery>
+		<cfif d.recordcount lt 1>
+			nope<cfabort>
+		</cfif>
 		<cfquery name="d_f" datasource="uam_god">
 			select distinct status from cf_temp_zipfiles where zid=#d.zid#
 		</cfquery>
@@ -494,11 +497,11 @@ cfabort
 		</p>
 		<ul>
 			<li>Only .jpg, .jpeg, and .png (case-insensitive) files will be accepted. File an Issue with expansion requests.</li>
-			<li>Files which start with _ or . will be ignored.</li>
+			<li>Files which start with _ (underbar) or . (dot) will be ignored.</li>
 			<li>Filenames containing characters other than A-Z, a-z, and 0-9 will be changed.</li>
-			<li>The ZIP should contain only image files, no folders etc.</li>
+			<li>The ZIP must contain only image files. Do not ZIP a folder; it will be ignored.</li>
 			<li>
-				The process usually completes within hours, but backlog is possible. Contact us (reference job name) if you do not receive email within 24 hours.
+				The process usually completes within hours, but backlog is possible. Contact us (referencing job name) if you do not receive email within 24 hours.
 			</li>
 			<li>
 				You will receive an email containing a link to a file when the process is done. That file will be deleted 3 days after the message is
