@@ -146,7 +146,6 @@ cfabort
 
 	</cfoutput>
 </cfif>
-
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "s3ify">
 	<cfoutput>
@@ -191,12 +190,7 @@ cfabort
 		</cfquery>
 		<cfloop query="f">
 			<cffile variable="content" action="readBinary" file="#Application.webDirectory#/temp/#d.zid#/#new_filename#">
-
 			<cfset lmd5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
-
-			<br>lmd5: #lmd5#
-
-
 			<cfquery name="ckck" datasource="uam_god">
 				select media_id from media_labels where MEDIA_LABEL='MD5 checksum' and LABEL_VALUE='#md5#'
 			</cfquery>
@@ -491,11 +485,25 @@ cfabort
 			Upload a ZIP archive of image files. Arctos will attempt to move them to an archival file server, create thumbnail/previews, and
 			email you a media bulkloader template.
 		</p>
+		<p>
+			The single-image file loader available from various nodes is probably more convenient for very small batches. Contact us
+			if it's not available or suitable.
+		</p>
+		<p>
+			 <span class="helpLink" data-helplink="tacc_scp">SCP to TACC</span> is preferred for large uploads.
+		</p>
 		<ul>
 			<li>Only .jpg, .jpeg, and .png (case-insensitive) files will be accepted. File an Issue with expansion requests.</li>
 			<li>Files which start with _ or . will be ignored.</li>
 			<li>Filenames containing characters other than A-Z, a-z, and 0-9 will be changed.</li>
 			<li>The ZIP should contain only image files, no folders etc.</li>
+			<li>
+				The process usually completes within hours, but backlog is possible. Contact us (reference job name) if you do not receive email within 24 hours.
+			</li>
+			<li>
+				You will receive an email containing a link to a file when the process is done. That file will be deleted 3 days after the message is
+				sent. Please do not start this process if you cannot follow that schedule.
+			</li>
 		</ul>
 
 		<cfquery name="addr" datasource="uam_god">
