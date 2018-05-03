@@ -703,11 +703,11 @@ cfabort
 
 		<cfloop query="d">
 			<blockquote>
-			<br>Job Name: #JOBNAME#
-			<br>Submitted Date: #submitted_date#
-			<br>Status: #STATUS#
-			<br><a href="###d.zid#">Scroll To</a>
-</blockquote>
+				<br>Job Name: #JOBNAME#
+				<br>Submitted Date: #submitted_date#
+				<br>Status: #STATUS#
+				<br><a href="###d.zid#">Scroll To</a>
+			</blockquote>
 		</cfloop>
 
 
@@ -723,6 +723,7 @@ cfabort
 			</cfquery>
 			<table border>
 				<tr>
+					<th>STATUS</th>
 					<th>FILENAME</th>
 					<th>NEW_FILENAME</th>
 					<th>PREVIEW_FILENAME</th>
@@ -735,6 +736,7 @@ cfabort
 				</tr>
 				<cfloop query="f">
 					<tr>
+						<td>#STATUS#</td>
 						<td>#FILENAME#</td>
 						<td>#NEW_FILENAME#</td>
 						<td>#PREVIEW_FILENAME#</td>
