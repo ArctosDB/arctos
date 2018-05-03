@@ -697,8 +697,6 @@ cfabort
 		<a name="top"></a>
 		<p>
 			Summary
-
-
 		</p>
 
 		<cfloop query="d">
@@ -740,8 +738,12 @@ cfabort
 						<td>#FILENAME#</td>
 						<td>#NEW_FILENAME#</td>
 						<td>#PREVIEW_FILENAME#</td>
-						<td>#REMOTEPATH#</td>
-						<td>#REMOTE_PREVIEW#</td>
+						<td>
+							<a href="#REMOTEPATH#" target="_blank">#REMOTEPATH#</a>
+						</td>
+						<td>
+							<a href="#REMOTE_PREVIEW#" target="_blank">#REMOTE_PREVIEW#</a>
+						</td>
 						<td>#MIME_TYPE#</td>
 						<td>#MEDIA_TYPE#</td>
 						<td>#MD5#</td>
@@ -750,79 +752,6 @@ cfabort
 			</table>
 		</cfloop>
 
-			<!---------
-			UAM@ARCTOSTE> desc cf_temp_zipfiles
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- ZID								   NOT NULL NUMBER
- FILENAME								    VARCHAR2(255)
- LOCALPATH								    VARCHAR2(255)
- REMOTEPATH								    VARCHAR2(255)
- STATUS 								    VARCHAR2(255)
- NEW_FILENAME								    VARCHAR2(255)
- PREVIEW_FILENAME							    VARCHAR2(255)
- MD5									    VARCHAR2(255)
- MIME_TYPE								    VARCHAR2(255)
- MEDIA_TYPE								    VARCHAR2(255)
- REMOTE_PREVIEW 							    VARCHAR2(255)
-
-UAM@ARCTOSTE>
-
-
-
-
-
-
-			  Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- ZID								   NOT NULL NUMBER
- USERNAME							   NOT NULL VARCHAR2(255)
- EMAIL								   NOT NULL VARCHAR2(255)
- JOBNAME							   NOT NULL VARCHAR2(255)
- STATUS 							   NOT NULL VARCHAR2(255)
-		</cfloop>
-		<p>
-			Click on a few links and make sure everything looks OK before proceeding.
-		</p>
-		<p>
-			If things are wonky, you can
-			<a href="uploadMedia.cfm?action=deleteTodayDir">delete your #dateformat(now(),'yyyy-mm-dd')# directory</a>
-		</p>
-		<p>
-			If things are less-wonky, you can
-			<a href="uploadMedia.cfm?action=getBLTemp">download a bulkloader template</a>.
-			If you've loaded multiple batches today the template will contain them all; you may have to delete some stuff.
-		</p>
-		<p>
-			Re-load the template to create Media at <a href="/tools/BulkloadMedia.cfm">BulkloadMedia</a>
-		</p>
-		<cfdirectory action="LIST" directory="#baseFileDir#" name="dir" recurse="yes">
-		<table border>
-			<tr>
-				<td>thumb</td>
-				<td>image URL</td>
-			</tr>
-			<cfloop query="dir">
-				<cfif left(name,3) is not "tn_">
-					<cfquery name="thumb" dbtype="query">
-						select * from dir where name='tn_#name#'
-					</cfquery>
-					<tr>
-						<td>
-							<cfif thumb.recordcount gt 0>
-								<img src="#baseWebDir#/#thumb.name#">
-							<cfelse>
-								NO THUMBNAIL
-							</cfif>
-						</td>
-						<td>
-							<a href="#baseWebDir#/#name#" target="_blank">#baseWebDir#/#name#</a>
-						</td>
-					</tr>
-				</cfif>
-			</cfloop>
-		</table>
-		-------->
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
