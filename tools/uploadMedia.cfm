@@ -12,6 +12,9 @@
 		status  varchar2(255) not null
 	);
 
+	alter table cf_temp_zipload add submitted_date date;
+
+
 	create public synonym cf_temp_zipload for cf_temp_zipload;
 
 	grant insert,select on cf_temp_zipload to manage_media;
@@ -77,6 +80,9 @@ cfabort
 
 
 <br><a href="uploadMedia.cfm?action=notify_done">notify_done</a>
+
+
+<br><a href="uploadMedia.cfm?action=preview">preview</a>
 
 
 <hr>
@@ -582,13 +588,15 @@ cfabort
 			username,
 			email,
 			jobname,
-			status
+			status,
+			submitted_date
 		) values (
 			somerandomsequence.nextval,
 			'#username#',
 			'#email#',
 			'#jobname#',
-			'new'
+			'new',
+			sysdate
 		)
 	</cfquery>
 	<!--- get the ID we just used for a file name---->
@@ -680,9 +688,78 @@ cfabort
 <!---------------------------------------------------------------------------->
 <cfif action is "preview">
 	<cfoutput>
-		<p>
-			NOTE: This lists everything from your today-directory. You may need to delete or ignore some stuff.
-		</p>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_zipload where username='#session.username#'
+		</cfquery>
+		<cfif d.recordcount is 0>
+			You have no jobs.<cfabort>
+		</cfif>
+
+		<cfloop query="d">
+			<br>Job Name: #JOBNAME#
+			<br>Submitted Date: #submitted_date#
+			<br>Status: #STATUS#
+
+			<cfquery name="f" datasource="uam_god">
+				select * from cf_temp_zipfiles where zid=#d.zid#
+			</cfquery>
+			<table border>
+				<tr>
+					<th>FILENAME</th>
+					<th>NEW_FILENAME</th>
+					<th>PREVIEW_FILENAME</th>
+					<th>REMOTEPATH</th>
+					<th>REMOTE_PREVIEW</th>
+
+					<th>MIME_TYPE</th>
+					<th>MEDIA_TYPE</th>
+					<th>MD5</th>
+				</tr>
+				<cfloop query="f">
+					<tr>
+						<td>#FILENAME#</td>
+						<td>#NEW_FILENAME#</td>
+						<td>#PREVIEW_FILENAME#</td>
+						<td>#REMOTEPATH#</td>
+						<td>#REMOTE_PREVIEW#</td>
+						<td>#MIME_TYPE#</td>
+						<td>#MEDIA_TYPE#</td>
+						<td>#MD5#</td>
+					</tr>
+				</cfloop>
+			</table>
+
+			<!---------
+			UAM@ARCTOSTE> desc cf_temp_zipfiles
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ZID								   NOT NULL NUMBER
+ FILENAME								    VARCHAR2(255)
+ LOCALPATH								    VARCHAR2(255)
+ REMOTEPATH								    VARCHAR2(255)
+ STATUS 								    VARCHAR2(255)
+ NEW_FILENAME								    VARCHAR2(255)
+ PREVIEW_FILENAME							    VARCHAR2(255)
+ MD5									    VARCHAR2(255)
+ MIME_TYPE								    VARCHAR2(255)
+ MEDIA_TYPE								    VARCHAR2(255)
+ REMOTE_PREVIEW 							    VARCHAR2(255)
+
+UAM@ARCTOSTE>
+
+
+
+
+
+
+			  Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ZID								   NOT NULL NUMBER
+ USERNAME							   NOT NULL VARCHAR2(255)
+ EMAIL								   NOT NULL VARCHAR2(255)
+ JOBNAME							   NOT NULL VARCHAR2(255)
+ STATUS 							   NOT NULL VARCHAR2(255)
+		</cfloop>
 		<p>
 			Click on a few links and make sure everything looks OK before proceeding.
 		</p>
@@ -724,102 +801,7 @@ cfabort
 				</cfif>
 			</cfloop>
 		</table>
+		-------->
 	</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------->
-<cfif action is "getBLTemp">
-	<cfdirectory action="LIST" directory="#baseFileDir#" name="dir">
-
-
-	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license">
-
-
-
-	<cfloop from="1" to="10" index="i">
-		<cfset header=listappend(header,"media_label_#i#")>
-		<cfset header=listappend(header,"media_label_value_#i#")>
-	</cfloop>
-	<cfloop from="1" to="5" index="i">
-		<cfset header=listappend(header,"media_relationship_#i#")>
-		<cfset header=listappend(header,"media_related_key_#i#")>
-		<cfset header=listappend(header,"media_related_term_#i#")>
-	</cfloop>
-	<!--- create a string containing a blank for each of:
-				10 labels
-				10 label values
-				5 relationships
-				5 relationship terms
-				5 relationship keys
-			append it to the data from the files below
-	---->
-	<cfset blanks="">
-	<cfloop from="1" to="35" index="i">
-		<cfset blanks=blanks & ',""'>
-	</cfloop>
-
-	<cfset s = createObject("java","java.lang.StringBuilder")>
-	<cfset newString = header>
-	<cfset s.append(newString)>
-
-	<cfloop query="dir">
-		<cfif left(name,3) is not "tn_">
-			<cfset mpath="#baseWebDir#/#name#">
-			<cfquery name="thumb" dbtype="query">
-				select * from dir where name='tn_#name#'
-			</cfquery>
-			<cfif thumb.recordcount gt 0>
-				<cfset thumbpath="#baseWebDir#/#thumb.name#">
-			<cfelse>
-				<cfset thumbpath="">
-			</cfif>
-			<cfif listlast(name,'.') is "png">
-				<cfset mimetype="image/png">
-				<cfset mediatype="image">
-			<cfelseif listlast(name,'.') is "jpg" or listlast(name,'.') is "jpeg">
-				<cfset mimetype="image/jpeg">
-				<cfset mediatype="image">
-			<cfelse>
-				<cfset mimetype="">
-				<cfset mediatype="">
-			</cfif>
-			<!--- from header above --->
-			<cfset thisRow='"#mpath#","#mimetype#","#mediatype#","#thumbpath#",""#blanks#'>
-			<cfset s.append(chr(13) & thisRow)>
-		</cfif>
-	</cfloop>
-	<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#..csv" output="#s.toString()#">
-	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
-</cfif>
-<!---------------------------------------------------------------------------->
-<cfif action is "deleteTodayDir">
-	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
-	<cfdump var=#dir#>
-	<br><a href="uploadMedia.cfm?action=reallyDeleteTodayDir">Seriously, delete everything in the table above!</a>
-</cfif>
-<!---------------------------------------------------------------------------->
-<cfif action is "reallyDeleteTodayDir">
-	<cfdirectory action="LIST" directory="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#" name="dir" recurse="yes">
-	<cfloop query="dir">
-		<cfset fp="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#/#name#">
-		<cfquery name="d" datasource="uam_god">
-			select count(*) c from media where media_uri='#fp#' or preview_uri='#fp#'
-		</cfquery>
-		<cfif d.c is not 0>
-			<cfoutput>
-				<br>#fp# is used in Media and cannot be deleted.
-			</cfoutput>
-			<cfabort>
-		</cfif>
-	</cfloop>
-	<cfloop query="dir">
-		<cfif type is "file">
-			<cffile action="DELETE" file="#DIRECTORY#/#name#">
-		<cfelse>
-			<cfdirectory action="DELETE" recurse="true" directory="#DIRECTORY#/#name#">
-		</cfif>
-	</cfloop>
-	<p>
-		All gone. <a href="uploadMedia.cfm">Try again.</a>
-	</p>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
