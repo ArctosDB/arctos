@@ -711,6 +711,7 @@ cfabort
 
 
 		<cfloop query="d">
+			<hr>
 			<a name="#d.zid#" href="##top">Scroll Top</a>
 			<br>Job Name: #JOBNAME#
 			<br>Submitted Date: #submitted_date#
