@@ -112,7 +112,7 @@ cfabort
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
 	<cffile action = "write"
-	    file = "#Application.webDirectory#/download/media_bulk_zip#d.zid#.csv"
+	    file = "#Application.webDirectory#/download/media_bulk_zip#zid#.csv"
     	output = "#csv#"
     	addNewLine = "no">
 </cffunction>
