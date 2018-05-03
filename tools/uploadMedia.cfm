@@ -86,7 +86,7 @@ cfabort
 <cfif action is "notify_done">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status!='complete_email_sent' and rownum=1
+			select * from cf_temp_zipload where status not like 'complete_email_sent%' and rownum=1
 		</cfquery>
 		<cfif d.recordcount is 0>
 			found nothing<cfabort>
@@ -94,61 +94,78 @@ cfabort
 
 		<cfdump var=#d#>
 
-		<cfabort>
+		<cfif d.status contains "FATAL ERROR">
+			Dear #d.username#,
+
+			Your image zip upload job #d.jobname# has failed with error
+
+			#d.status#
+
+			Please review the instructions on the upload page, and contact us if you need assistance to resolve the problem.
+
+			<cfquery name="r" datasource="uam_god">
+				update cf_temp_zipload set status='complete_email_sent - ' || status where zid=#d.zid#
+			</cfquery>
+
+		<cfelse>
 
 
-		<cfquery name="f" datasource="uam_god">
-			select * from cf_temp_zipfiles where zid=#d.zid#
-		</cfquery>
-		<cfset q=QueryNew("TEMP_original_filename, TEMP_new_filename,MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,media_label_1,media_label_value_1")>
-
-		<cfloop query="f">
-			<cfset queryaddrow(q,
-					{
-					TEMP_original_filename=filename,
-					TEMP_new_filename=new_filename,
-					MEDIA_URI=remotepath,
-					MIME_TYPE=mime_type,
-					MEDIA_TYPE=media_type,
-					PREVIEW_URI=remote_preview,
-					media_license='',
-					media_label_1='MD5 checksum',
-					media_label_value_1=md5
-					}
-				)>
-		</cfloop>
-
-		<cfdump var=#q#>
-
-		<cfset  util = CreateObject("component","component.utilities")>
-		<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
-		<cffile action = "write"
-		    file = "#Application.webDirectory#/download/media_bulk_zip#d.zid#.csv"
-	    	output = "#csv#"
-	    	addNewLine = "no">
 
 
-		Dear #d.username#,
+			<cfquery name="f" datasource="uam_god">
+				select * from cf_temp_zipfiles where zid=#d.zid#
+			</cfquery>
+			<cfset q=QueryNew("TEMP_original_filename, TEMP_new_filename,MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,media_label_1,media_label_value_1")>
 
-		Your image zip upload job #d.jobname# is complete.
+			<cfloop query="f">
+				<cfset queryaddrow(q,
+						{
+						TEMP_original_filename=filename,
+						TEMP_new_filename=new_filename,
+						MEDIA_URI=remotepath,
+						MIME_TYPE=mime_type,
+						MEDIA_TYPE=media_type,
+						PREVIEW_URI=remote_preview,
+						media_license='',
+						media_label_1='MD5 checksum',
+						media_label_value_1=md5
+						}
+					)>
+			</cfloop>
 
-		A file is available at #application.serverRootUrl#/download/media_bulk_zip#d.zid#.csv. This file will be deleted in three days; please download
-		it immediately.
+			<cfdump var=#q#>
 
-		The file is NOT ready to upload in the media bulkloader.
+			<cfset  util = CreateObject("component","component.utilities")>
+			<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
+			<cffile action = "write"
+			    file = "#Application.webDirectory#/download/media_bulk_zip#d.zid#.csv"
+		    	output = "#csv#"
+		    	addNewLine = "no">
 
-		* TEMP_original_filename is the filename as supplied.
 
-		* TEMP_new_filename is the filename as loaded.
+			Dear #d.username#,
 
-		Please delete these columns before attempting upload.
+			Your image zip upload job #d.jobname# is complete.
 
-		Instructions for adding columns or data are available from the Media Bulkloader.
+			A file is available at #application.serverRootUrl#/download/media_bulk_zip#d.zid#.csv. This file will be deleted in three days; please download
+			it immediately.
+
+			The file is NOT ready to upload in the media bulkloader.
+
+			* TEMP_original_filename is the filename as supplied.
+
+			* TEMP_new_filename is the filename as loaded.
+
+			Please delete these columns before attempting upload.
+
+			Instructions for adding columns or data are available from the Media Bulkloader.
 
 
 			<cfquery name="r" datasource="uam_god">
 				update cf_temp_zipload set status='complete_email_sent' where zid=#d.zid#
 			</cfquery>
+
+		</cfif>
 
 	</cfoutput>
 </cfif>
