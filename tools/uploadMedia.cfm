@@ -517,10 +517,8 @@ cfabort
 		    ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
 		    if(ext != 'zip') {
 		        alert('Only files with the file extension ZIP are allowed');
-		        $("input[type=submit]").hide();
 		        return false;
 		    } else {
-		        $("input[type=submit]").show();
 		        return true;
 		    }
 		}
