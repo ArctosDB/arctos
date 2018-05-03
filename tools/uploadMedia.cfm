@@ -695,7 +695,23 @@ cfabort
 			You have no jobs.<cfabort>
 		</cfif>
 
+		<p>
+			Summary
+
+
+		</p>
+
 		<cfloop query="d">
+			<br>Job Name: #JOBNAME#
+			<br>Submitted Date: #submitted_date#
+			<br>Status: #STATUS#
+			<br><a href="###d.zid#">Scroll To</a>
+
+		</cfloop>
+
+
+		<cfloop query="d">
+			<a name="#d.zid#"></a>
 			<br>Job Name: #JOBNAME#
 			<br>Submitted Date: #submitted_date#
 			<br>Status: #STATUS#
