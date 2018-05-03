@@ -87,7 +87,35 @@ cfabort
 
 <hr>
 
+<cffunction name="makeMBLDownloadFile">
+	 <cfargument name="zid" required="true" type="numeric"/>
+	 <cfquery name="f" datasource="uam_god">
+		select * from cf_temp_zipfiles where zid=#zid#
+	</cfquery>
+	<cfset q=QueryNew("TEMP_original_filename, TEMP_new_filename,MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,media_label_1,media_label_value_1")>
 
+	<cfloop query="f">
+		<cfset queryaddrow(q,
+				{
+				TEMP_original_filename=filename,
+				TEMP_new_filename=new_filename,
+				MEDIA_URI=remotepath,
+				MIME_TYPE=mime_type,
+				MEDIA_TYPE=media_type,
+				PREVIEW_URI=remote_preview,
+				media_license='',
+				media_label_1='MD5 checksum',
+				media_label_value_1=md5
+				}
+			)>
+	</cfloop>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/media_bulk_zip#d.zid#.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+</cffunction>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "notify_done">
 	<cfoutput>
@@ -109,45 +137,14 @@ cfabort
 
 			Please review the instructions on the upload page, and contact us if you need assistance to resolve the problem.
 
+			More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
+
 			<cfquery name="r" datasource="uam_god">
 				update cf_temp_zipload set status='complete_email_sent - ' || status where zid=#d.zid#
 			</cfquery>
-
 		<cfelse>
 
-
-
-
-			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid#
-			</cfquery>
-			<cfset q=QueryNew("TEMP_original_filename, TEMP_new_filename,MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,media_label_1,media_label_value_1")>
-
-			<cfloop query="f">
-				<cfset queryaddrow(q,
-						{
-						TEMP_original_filename=filename,
-						TEMP_new_filename=new_filename,
-						MEDIA_URI=remotepath,
-						MIME_TYPE=mime_type,
-						MEDIA_TYPE=media_type,
-						PREVIEW_URI=remote_preview,
-						media_license='',
-						media_label_1='MD5 checksum',
-						media_label_value_1=md5
-						}
-					)>
-			</cfloop>
-
-			<cfdump var=#q#>
-
-			<cfset  util = CreateObject("component","component.utilities")>
-			<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
-			<cffile action = "write"
-			    file = "#Application.webDirectory#/download/media_bulk_zip#d.zid#.csv"
-		    	output = "#csv#"
-		    	addNewLine = "no">
-
+			<cfset makeMBLDownloadFile(#d.zid#)>
 
 			Dear #d.username#,
 
@@ -165,6 +162,9 @@ cfabort
 			Please delete these columns before attempting upload.
 
 			Instructions for adding columns or data are available from the Media Bulkloader.
+
+
+			More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
 
 
 			<cfquery name="r" datasource="uam_god">
@@ -685,6 +685,17 @@ cfabort
 	</p>
 </cfoutput>
 </cfif>
+
+<!---------------------------------------------------------------------------->
+<cfif action is "regen_download">
+	<cfoutput>
+		<cfset makeMBLDownloadFile(#zid#)>
+
+		<p>
+			Generation attempted: #Application.webDirectory#/download/media_bulk_zip#zid#.csv
+		</p>
+	</cfoutput>
+</cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "preview">
 	<cfoutput>
@@ -715,6 +726,9 @@ cfabort
 			<br>Job Name: #JOBNAME#
 			<br>Submitted Date: #submitted_date#
 			<br>Status: #STATUS#
+			<br><a href="uploadMedia.cfm?action=regen_download&zid=#d.zid#">Regenerate Download File</a>
+
+
 
 
 			<cfquery name="f" datasource="uam_god">
