@@ -330,6 +330,9 @@ cfabort
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='previewed' and rownum=1
 		</cfquery>
+		<cfif d.recordcount lt 1>
+			nope<cfabort>
+		</cfif>
 		<cfquery name="d_f" datasource="uam_god">
 			select distinct status from cf_temp_zipfiles where zid=#d.zid#
 		</cfquery>
