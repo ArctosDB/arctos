@@ -50,10 +50,6 @@ reset
 
 delete from cf_temp_zipfiles;
 update cf_temp_zipload set status='new';
-<hr>
-This form is under redevelopment.
-
-cfabort
 
 
 <p></p>
@@ -558,6 +554,9 @@ cfabort
 				You will receive an email containing a link to a file when the process is done. That file will be deleted 3 days after the message is
 				sent, but may be regenerated from the "existing jobs" link above.
 			</li>
+			<li>
+				The "directory" option of the media bulkloader may be more useful than the supplied file if you need to extract data from filenames.
+			</li>
 		</ul>
 
 		<cfquery name="addr" datasource="uam_god">
@@ -610,13 +609,9 @@ cfabort
 	<!---- now upload the ZIP ---->
 	<cffile action="upload"	destination="#Application.webDirectory#/temp/#jid.zid#.zip" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 	<p>
-		You will receive email when processing has completed, usually within 24 hours.
-	</p>
-	<p>
 		Your ZIP has been loaded and a job created. You will receive email from Arctos referencing job #jobname#. Do not delete the ZIP file until you
-		are notified that the process is complete and you have confirmed that all of your data are on Corral.
+		have confirmed that all of your data are on Corral.
 	</p>
-
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "unzip">
@@ -625,6 +620,9 @@ cfabort
 		<cfquery name="jid" datasource="uam_god">
 			select * from cf_temp_zipload where status='new' and rownum=1
 		</cfquery>
+		<cfif jid.recordcount lt 1>
+			nope<cfabort>
+		</cfif>
 		<cfloop query="jid">
 			<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#jid.zid#" >
 			<br>jidloop
@@ -731,10 +729,6 @@ cfabort
 			<br>Submitted Date: #submitted_date#
 			<br>Status: #STATUS#
 			<br><a href="uploadMedia.cfm?action=regen_download&zid=#d.zid#">Regenerate Download File</a>
-
-
-
-
 			<cfquery name="f" datasource="uam_god">
 				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
