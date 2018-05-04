@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="ZIP image uploader">
 <!---
 	https://github.com/ArctosDB/arctos/issues/1446
 	1) make this asynchronous
