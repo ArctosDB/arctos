@@ -1,5 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="ZIP image uploader">
+<!--- leave this link at the top of the page --->
+<p>
+	<a href="uploadMedia.cfm?action=preview">View Existing Jobs</a>
+</p>
+
+
 <!---
 	https://github.com/ArctosDB/arctos/issues/1446
 	1) make this asynchronous
@@ -79,7 +85,6 @@ update cf_temp_zipload set status='new';
 <br><a href="uploadMedia.cfm?action=notify_done">notify_done</a>
 
 
-<br><a href="uploadMedia.cfm?action=preview">preview</a>
 
 
 <hr>
@@ -528,9 +533,7 @@ update cf_temp_zipload set status='new';
 	</script>
 
 	<cfoutput>
-		<p>
-			<a href="uploadMedia.cfm?action=preview">View Existing Jobs</a>
-		</p>
+
 
 		<p>
 			Upload a ZIP archive of image files. Arctos will attempt to move them to an archival file server, create thumbnail/previews, and
