@@ -585,33 +585,35 @@ update cf_temp_zipload set status='new';
 <cfif action is "getFile">
 	<!---- temp directory is good for 3 days, should be plenty ---->
 	<!--- first insert - will guarantee a unique job name ---->
-	<cfquery name="cjob" datasource="uam_god">
-		insert into cf_temp_zipload (
-			zid,
-			username,
-			email,
-			jobname,
-			status,
-			submitted_date
-		) values (
-			somerandomsequence.nextval,
-			'#username#',
-			'#email#',
-			'#jobname#',
-			'new',
-			sysdate
-		)
-	</cfquery>
-	<!--- get the ID we just used for a file name---->
-	<cfquery name="jid" datasource="uam_god">
-		select zid from cf_temp_zipload where jobname='#jobname#'
-	</cfquery>
-	<!---- now upload the ZIP ---->
-	<cffile action="upload"	destination="#Application.webDirectory#/temp/#jid.zid#.zip" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
-	<p>
-		Your ZIP has been loaded and a job created. You will receive email from Arctos referencing job #jobname#. Do not delete the ZIP file until you
-		have confirmed that all of your data are on Corral.
-	</p>
+	<cfoutput>
+		<cfquery name="cjob" datasource="uam_god">
+			insert into cf_temp_zipload (
+				zid,
+				username,
+				email,
+				jobname,
+				status,
+				submitted_date
+			) values (
+				somerandomsequence.nextval,
+				'#username#',
+				'#email#',
+				'#jobname#',
+				'new',
+				sysdate
+			)
+		</cfquery>
+		<!--- get the ID we just used for a file name---->
+		<cfquery name="jid" datasource="uam_god">
+			select zid from cf_temp_zipload where jobname='#jobname#'
+		</cfquery>
+		<!---- now upload the ZIP ---->
+		<cffile action="upload"	destination="#Application.webDirectory#/temp/#jid.zid#.zip" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+		<p>
+			Your ZIP has been loaded and a job created. You will receive email from Arctos referencing job #jobname#. Do not delete the ZIP file until you
+			have confirmed that all of your data are on Corral.
+		</p>
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "unzip">
