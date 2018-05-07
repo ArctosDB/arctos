@@ -311,7 +311,7 @@
 		<!---- make a username bucket. This will create or return an error of some sort. ---->
 		<cfset currentTime = getHttpTimeString( now() ) />
 		<cfset contentType = "text/html" />
-		<cfset bucket="#session.username#">
+		<cfset bucket="#lcase(session.username)#">
 		<cfset stringToSignParts = [
 			    "PUT",
 			    "",
@@ -422,7 +422,7 @@
 
 		<!--- now load the file ---->
 		<!--- "virtual" date-bucket inside the username bucket ---->
-		<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#">
+		<cfset bucket="#lcase(session.username)#/#dateformat(now(),'YYYY-MM-DD')#">
 		<cfset currentTime = getHttpTimeString( now() ) />
 		<cfset contentType=mimetype>
 		<cfset contentLength=arrayLen( content )>
@@ -467,7 +467,7 @@
 		    <cfset tfilename="tn_#barefilename#.jpg">
 		   	<cfimage action="convert" source="#Application.sandbox#/#tempName#.tmp" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
 		   	<cfimage action="resize" source="#Application.sandbox#/#tfilename#" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
-		   	<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
+		   	<cfset bucket="#lcase(session.username)#/#dateformat(now(),'YYYY-MM-DD')#/tn">
 			<cfset currentTime = getHttpTimeString( now() ) />
 			<cfset contentType = "image/jpeg" />
 			<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tfilename#">
