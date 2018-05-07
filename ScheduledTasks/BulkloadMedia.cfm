@@ -81,6 +81,10 @@
 					Please delete these columns before attempting upload. Instructions for adding columns or data are available from the Media Bulkloader.
 				</p>
 				<p>
+					Please do NOT delete the "MD5 checksum" (in MEDIA_LABEL_1 and MEDIA_LABEL_VALUE_1). This is important to preventing duplicate creation
+					and ensuring that files have not inadvertantly been changed over time.
+				</p>
+				<p>
 					More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
 				</p>
 			</cfmail>
