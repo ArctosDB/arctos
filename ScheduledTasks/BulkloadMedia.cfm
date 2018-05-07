@@ -31,7 +31,11 @@
 <cfif action is "zip_notify_done">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status not like 'complete_email_sent%' and rownum=1
+			select * from cf_temp_zipload where (
+			status like '%FATAL ERROR%' or
+			status='loaded_to_s3') and
+			status not like '%complete_email_sent%' and
+			rownum=1
 		</cfquery>
 		<cfif d.recordcount is 0>
 			<cfabort>
