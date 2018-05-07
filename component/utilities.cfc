@@ -333,7 +333,6 @@
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		</cfhttp>
 
-		<cfset r.mkunamebkt=mkunamebkt>
 
 		<cfset tempName=createUUID()>
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
@@ -449,12 +448,6 @@
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		    <cfhttpparam type="body" value="#content#" />
 		</cfhttp>
-
-
-
-		<cfset r.putfile=putfile>
-
-
 		<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
 
 		<cfif IsImageFile("#Application.sandbox#/#tempName#.tmp")>
@@ -494,12 +487,6 @@
 			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 			    <cfhttpparam type="body" value="#content#" />
 			</cfhttp>
-
-
-
-			<cfset r.putTN=putTN>
-
-
 			<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#tfilename#">
 		<cfelse>
 			<cfset r.preview_uri="">
@@ -508,10 +495,18 @@
 	    <cfset r.statusCode=left(putfile.statusCode,3)>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
-
 			<cfcatch>
 				<cfset r.statusCode=444>
 				<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
+				<cfif isdefined("putTN")>
+					<cfset r.putTN=putTN>
+				</cfif>
+				<cfif isdefined("putfile")>
+					<cfset r.putfile=putfile>
+				</cfif>
+				<cfif isdefined("mkunamebkt")>
+					<cfset r.mkunamebkt=mkunamebkt>
+				</cfif>
 			</cfcatch>
 	</cftry>
 	<cfreturn serializeJSON(r)>
