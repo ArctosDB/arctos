@@ -143,7 +143,7 @@
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",ltx71">
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get,MauiBot,meg">
-	<cfset badbot=badbot & ",naver,Nutch">
+	<cfset badbot=badbot & ",naver,Nutch,netEstate">
 	<cfset badbot=badbot & ",Qwantify">
 	<cfset badbot=badbot & ",re-animator">
 	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot">

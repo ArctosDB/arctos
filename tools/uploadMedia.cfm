@@ -630,7 +630,7 @@ update cf_temp_zipload set status='new';
 			nope<cfabort>
 		</cfif>
 		<cfloop query="jid">
-			<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#jid.zid#" >
+			<cfdirectory action="create" directory="#Application.webDirectory#/temp/#jid.zid#" >
 			<br>jidloop
 			<cfzip file="#Application.webDirectory#/temp/#jid.zid#.zip" action="unzip" destination="#Application.webDirectory#/temp/#jid.zid#/"/>
 			<cfdirectory action="LIST" directory="#Application.webDirectory#/temp/#jid.zid#" name="dir" recurse="no">

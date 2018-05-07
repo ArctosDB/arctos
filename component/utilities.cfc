@@ -327,11 +327,13 @@
 			),
 			"base64"
 		)>
-		<cfhttp result="mkunamebkt"  method="put" url="#s3.s3_endpoint#/#bucket#">
+		<cfhttp result="mkunamebkt" method="put" url="#s3.s3_endpoint#/#bucket#">
 			<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
 		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		</cfhttp>
+
+		<cfset r.mkunamebkt=mkunamebkt>
 
 		<cfset tempName=createUUID()>
 		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
@@ -411,7 +413,7 @@
 			<cfset mediatype="text">
 		<cfelse>
 			<cfset r.statusCode=400>
-			<cfset r.msg='Invalid filetype'>
+			<cfset r.msg='Invalid filetype: could not determine mime or media type.'>
 			<cfreturn serializeJSON(r)>
 		</cfif>
 
@@ -447,6 +449,12 @@
 		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 		    <cfhttpparam type="body" value="#content#" />
 		</cfhttp>
+
+
+
+		<cfset r.putfile=putfile>
+
+
 		<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
 
 		<cfif IsImageFile("#Application.sandbox#/#tempName#.tmp")>
@@ -486,6 +494,12 @@
 			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 			    <cfhttpparam type="body" value="#content#" />
 			</cfhttp>
+
+
+
+			<cfset r.putTN=putTN>
+
+
 			<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#tfilename#">
 		<cfelse>
 			<cfset r.preview_uri="">
@@ -496,7 +510,7 @@
 		<cfset r.media_uri="#media_uri#">
 
 			<cfcatch>
-				<cfset r.statusCode=400>
+				<cfset r.statusCode=444>
 				<cfset r.msg=cfcatch.message & '; ' & cfcatch.detail>
 			</cfcatch>
 	</cftry>
@@ -989,7 +1003,7 @@
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",ltx71">
 	<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get,MauiBot,meg">
-	<cfset badbot=badbot & ",naver,Nutch">
+	<cfset badbot=badbot & ",naver,Nutch,netEstate">
 	<cfset badbot=badbot & ",Qwantify">
 	<cfset badbot=badbot & ",re-animator">
 	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot">
