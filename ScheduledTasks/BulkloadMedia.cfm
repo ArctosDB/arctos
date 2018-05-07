@@ -38,7 +38,7 @@
 		</cfif>
 
 		<cfif d.status contains "FATAL ERROR">
-			<cfmail to="#mailto#" bcc="arctos.database@gmail.com" subject="ZIP upload status" cc="#Application.LogEmail#" from="zipmedia@#Application.fromEmail#" type="html">
+			<cfmail to="#d.email#" bcc="arctos.database@gmail.com" subject="ZIP upload status" cc="#Application.LogEmail#" from="zipmedia@#Application.fromEmail#" type="html">
 				Dear #d.username#,
 				<p>
 					Your image zip upload job #d.jobname# has failed with error #d.status#
@@ -57,7 +57,7 @@
 		<cfelse>
 			<cfset utilities = CreateObject("component","component.utilities")>
 			<cfset utilities.makeMBLDownloadFile(#d.zid#)>
-			<cfmail to="#mailto#" bcc="arctos.database@gmail.com" subject="ZIP upload status" cc="#Application.LogEmail#" from="zipmedia@#Application.fromEmail#" type="html">
+			<cfmail to="#d.email#" bcc="arctos.database@gmail.com" subject="ZIP upload status" cc="#Application.LogEmail#" from="zipmedia@#Application.fromEmail#" type="html">
 				Dear #d.username#,
 				<p>
 					Your image zip upload job #d.jobname# is complete.
