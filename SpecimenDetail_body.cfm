@@ -1115,7 +1115,11 @@
 			<td>#p.lot_count#</td>
 			<cfif oneOfUs is 1>
 				<td>#p.label#</td>
-				<td>#p.barcode#</td>
+				<td>
+					<cfif len(p.barcode) gt 0>
+						<a href="/findContainer.cfm?barcode=#p.barcode#">#p.barcode#</a>
+					</cfif>
+				</td>
 				<td>#replace(p.FCTree,':','←<wbr>','all')#</td>
 				<cfquery dbtype="query" name="tlp">
 					select * from l_q where transaction_id is not null and collection_object_id=#pid#
