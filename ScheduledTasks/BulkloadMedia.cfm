@@ -378,7 +378,7 @@
 		<cfset utilities = CreateObject("component","component.utilities")>
 		<cfloop query="d">
 			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid#
+				select * from cf_temp_zipfiles where status != 'renamed' and zid=#d.zid#
 			</cfquery>
 			<cfloop query="f">
 				<cftransaction>
