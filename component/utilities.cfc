@@ -1,4 +1,40 @@
 <cfcomponent>
+
+<cffunction name="makeMBLDownloadFile">
+	 <cfargument name="zid" required="true" type="numeric"/>
+	 <cfquery name="f" datasource="uam_god">
+		select * from cf_temp_zipfiles where zid=#zid#
+	</cfquery>
+	<cfset q=QueryNew("TEMP_original_filename, TEMP_new_filename,MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,media_label_1,media_label_value_1")>
+	<cfloop query="f">
+		<cfset queryaddrow(q,
+				{
+				TEMP_original_filename=filename,
+				TEMP_new_filename=new_filename,
+				MEDIA_URI=remotepath,
+				MIME_TYPE=mime_type,
+				MEDIA_TYPE=media_type,
+				PREVIEW_URI=remote_preview,
+				media_license='',
+				media_label_1='MD5 checksum',
+				media_label_value_1=md5
+				}
+			)>
+	</cfloop>
+	<!----
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=q,Fields=q.columnlist)>
+	---->
+	<cfset csv = QueryToCSV2(Query=q,Fields=q.columnlist)>
+
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/media_bulk_zip#zid#.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+</cffunction>
+
+
+
 <cffunction name="isProtectedIp" returnType="string" access="remote">
 	<cfargument name="ip" type="string" required="yes">
 	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">

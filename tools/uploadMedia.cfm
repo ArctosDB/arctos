@@ -45,49 +45,232 @@
 	alter table cf_temp_zipfiles add mime_type varchar2(255);
 	alter table cf_temp_zipfiles add media_type varchar2(255);
 	alter table cf_temp_zipfiles add remote_preview varchar2(255);
+
+
+	-- schedule
+
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'mediazip_zip_unzip',
+	'BulkloadMedia.cfm?action=zip_unzip',
+	'600',
+	'ZIP Media Loader: unzip the loaded archive',
+	'every half-hour',
+	'0',
+	'7,37',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'mediazip_zip_rename',
+	'BulkloadMedia.cfm?action=zip_rename',
+	'600',
+	'ZIP Media Loader: rename images from a recently-unzipped archives',
+	'every half-hour',
+	'0',
+	'17,47',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'mediazip_zip_rename_confirm',
+	'BulkloadMedia.cfm?action=zip_rename_confirm',
+	'600',
+	'ZIP Media Loader: confirm renameprocess from mediazip_zip_rename',
+	'every half-hour',
+	'0',
+	'27,57',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'mediazip_zip_makepreview',
+	'BulkloadMedia.cfm?action=zip_makepreview',
+	'600',
+	'ZIP Media Loader: create thumbnails',
+	'every half-hour',
+	'0',
+	'8,28',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'mediazip_zip_makepreview_confirm',
+	'BulkloadMedia.cfm?action=zip_makepreview_confirm',
+	'600',
+	'ZIP Media Loader: confirm creation of thumbnails',
+	'every half-hour',
+	'0',
+	'18,38',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'mediazip_zip_s3ify',
+	'BulkloadMedia.cfm?action=zip_s3ify',
+	'600',
+	'ZIP Media Loader: load to server via S3',
+	'every half-hour',
+	'0',
+	'28,48',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'mediazip_zip_s3ify_confirm',
+	'BulkloadMedia.cfm?action=zip_s3ify_confirm',
+	'600',
+	'ZIP Media Loader: confirm load to server via S3',
+	'every half-hour',
+	'0',
+	'9,29',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+
+
+insert into cf_crontab (
+	job_name,
+	path,
+	timeout,
+	purpose,
+	run_interval_desc,
+	cron_sec,
+	cron_min,
+	cron_hour,
+	cron_dom,
+	cron_mon,
+	cron_dow
+) values (
+	'mediazip_zip_notify_done',
+	'BulkloadMedia.cfm?action=zip_notify_done',
+	'600',
+	'ZIP Media Loader: Notify user of results',
+	'every half-hour',
+	'0',
+	'19,39',
+	'*',
+	'*',
+	'*',
+	'?'
+);
+
+
+
 --->
-<cfset goodExtensions="jpg,png">
-<cfset baseWebDir="#application.serverRootURL#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
-<cfset baseFileDir="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
-<cfset sandboxdir="#application.sandbox#/#session.username#">
+<br><a href="uploadMedia.cfm?action=nothing">splashpage</a>
 
+<!-------------------------------------
 
-
-reset
-
-delete from cf_temp_zipfiles;
-update cf_temp_zipload set status='new';
-
-
-<p></p>
-
-<br>thisform
-<br>s1: <a href="uploadMedia.cfm?action=nothing">nothing</a>
-<br>s2: getFile (submit f. nothing)
-<br>will schedule
-<br><a href="uploadMedia.cfm?action=unzip">unzip</a>
-<!---- unzip is either going to work or not - no confirmation ---->
-<br><a href="uploadMedia.cfm?action=rename">rename</a>
-<br><a href="uploadMedia.cfm?action=rename_confirm">rename_confirm</a>
-
-
-
-
-<br><a href="uploadMedia.cfm?action=mkprvw">mkprvw</a>
-<br><a href="uploadMedia.cfm?action=mkprvw_confirm">mkprvw_confirm</a>
-
-
-<br><a href="uploadMedia.cfm?action=s3ify">s3ify</a>
-<br><a href="uploadMedia.cfm?action=s3ify_confirm">s3ify_confirm</a>
-
-
-
-<br><a href="uploadMedia.cfm?action=notify_done">notify_done</a>
-
-
-
-
-<hr>
 
 <cffunction name="makeMBLDownloadFile">
 	 <cfargument name="zid" required="true" type="numeric"/>
@@ -95,7 +278,6 @@ update cf_temp_zipload set status='new';
 		select * from cf_temp_zipfiles where zid=#zid#
 	</cfquery>
 	<cfset q=QueryNew("TEMP_original_filename, TEMP_new_filename,MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,media_label_1,media_label_value_1")>
-
 	<cfloop query="f">
 		<cfset queryaddrow(q,
 				{
@@ -118,403 +300,13 @@ update cf_temp_zipload set status='new';
     	output = "#csv#"
     	addNewLine = "no">
 </cffunction>
-<!------------------------------------------------------------------------------------------------>
-<cfif action is "notify_done">
-	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status not like 'complete_email_sent%' and rownum=1
-		</cfquery>
-		<cfif d.recordcount is 0>
-			found nothing<cfabort>
-		</cfif>
 
-		<cfdump var=#d#>
-
-		<cfif d.status contains "FATAL ERROR">
-			Dear #d.username#,
-
-			Your image zip upload job #d.jobname# has failed with error
-
-			#d.status#
-
-			Please review the instructions on the upload page, and contact us if you need assistance to resolve the problem.
-
-			More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
-
-			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='complete_email_sent - ' || status where zid=#d.zid#
-			</cfquery>
-		<cfelse>
-
-			<cfset makeMBLDownloadFile(#d.zid#)>
-
-			Dear #d.username#,
-
-			Your image zip upload job #d.jobname# is complete.
-
-			A file is available at #application.serverRootUrl#/download/media_bulk_zip#d.zid#.csv. This file will be deleted in three days,
-			but may be regenerated from the more information link below.
-
-			The file is NOT ready to upload in the media bulkloader.
-
-			* TEMP_original_filename is the filename as supplied.
-
-			* TEMP_new_filename is the filename as loaded.
-
-			Please delete these columns before attempting upload.
-
-			Instructions for adding columns or data are available from the Media Bulkloader.
-
-
-			More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
-
-
-			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='complete_email_sent' where zid=#d.zid#
-			</cfquery>
-
-		</cfif>
-
-	</cfoutput>
-</cfif>
-<!------------------------------------------------------------------------------------------------>
-<cfif action is "s3ify">
-	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='previewed' and rownum=1
-		</cfquery>
-		<cfif d.recordcount is 0>
-			found nothing<cfabort>
-		</cfif>
-		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
-		</cfquery>
-
-		<!---- make a username bucket. This will create or return an error of some sort. ---->
-		<cfset currentTime = getHttpTimeString( now() ) />
-		<cfset contentType = "text/html" />
-		<cfset bucket="#d.username#">
-		<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket
-			] />
-		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-		<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-		<cfhttp result="mkunamebkt"  method="put" url="#s3.s3_endpoint#/#bucket#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
-		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
-		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-		</cfhttp>
-
-
-		<cfquery name="f" datasource="uam_god">
-			select * from cf_temp_zipfiles where zid=#d.zid# and status='previewed' and rownum=1
-		</cfquery>
-		<cfloop query="f">
-			<cffile variable="content" action="readBinary" file="#Application.webDirectory#/temp/#d.zid#/#new_filename#">
-			<cfset lmd5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
-			<cfquery name="ckck" datasource="uam_god">
-				select media_id from media_labels where MEDIA_LABEL='MD5 checksum' and LABEL_VALUE='#md5#'
-			</cfquery>
-			<cfif ckck.recordcount gt 0>
-				<cfquery name="fail" datasource="uam_god">
-					update cf_temp_zipload set status='FATAL ERROR: #new_filename# exists as #Application.serverRootURL#/media/#ckck.media_id#' where zid=#d.zid#
-				</cfquery>
-				<cfbreak>
-			</cfif>
-			<cfset fext=listlast(new_filename,".")>
-			<cfif fext is "jpg" or fext is "jpeg">
-				<cfset mimetype="image/jpeg">
-				<cfset mediatype="image">
-			<cfelseif fext is "dng">
-				<cfset mimetype="image/dng">
-				<cfset mediatype="image">
-			<cfelseif fext is "pdf">
-				<cfset mimetype="application/pdf">
-				<cfset mediatype="text">
-			<cfelseif fext is "png">
-				<cfset mimetype="image/png">
-				<cfset mediatype="image">
-			<cfelseif fext is "txt">
-				<cfset mimetype="text/plain">
-				<cfset mediatype="text">
-			<cfelseif fext is "wav">
-				<cfset mimetype="audio/x-wav">
-				<cfset mediatype="audio">
-			<cfelseif fext is "m4v">
-				<cfset mimetype="video/mp4">
-				<cfset mediatype="video">
-			<cfelseif fext is "tif" or fext is "tiff">
-				<cfset mimetype="image/tiff">
-				<cfset mediatype="image">
-			<cfelseif fext is "mp3">
-				<cfset mimetype="audio/mpeg3">
-				<cfset mediatype="audio">
-			<cfelseif fext is "mov">
-				<cfset mimetype="video/quicktime">
-				<cfset mediatype="video">
-			<cfelseif fext is "xml">
-				<cfset mimetype="application/xml">
-				<cfset mediatype="text">
-			<cfelseif fext is "wkt">
-				<cfset mimetype="text/plain">
-				<cfset mediatype="text">
-			<cfelse>
-				<cfquery name="fail" datasource="uam_god">
-					update cf_temp_zipload set status='FATAL ERROR: Mime/Media Type unknown for #new_filename#' where zid=#d.zid#
-				</cfquery>
-				<cfbreak>
-			</cfif>
-			<cfset bucket="#d.username#/#dateformat(now(),'YYYY-MM-DD')#">
-			<cfset currentTime = getHttpTimeString( now() ) />
-			<cfset contentType=mimetype>
-			<cfset contentLength=arrayLen( content )>
-			<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket & "/" & new_filename
-			] />
-
-			<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-			<cfset signature = binaryEncode(
-				binaryDecode(
-					hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
-					"hex"
-				),
-				"base64"
-			)>
-			<cfhttp result="putfile" method="put" url="#s3.s3_endpoint#/#bucket#/#new_filename#">
-				<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
-			    <cfhttpparam type="header" name="Content-Length" value="#contentLength#" />
-			    <cfhttpparam type="header" name="Content-Type" value="#contentType#"/>
-			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-			    <cfhttpparam type="body" value="#content#" />
-			</cfhttp>
-			<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#new_filename#">
+----------------------------------------------------------->
 
 
 
-			<!---- load thumbnail ---->
-			<cfset bucket="#session.username#/#dateformat(now(),'YYYY-MM-DD')#/tn">
-			<cfset currentTime = getHttpTimeString( now() ) />
-			<cfset contentType = "image/jpeg" />
-			<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/temp/#d.zid#/tn/#preview_filename#">
-			<cfset contentLength=arrayLen( content )>
-			<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket & "/" & preview_filename
-			] />
-			<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-			<cfset signature = binaryEncode(
-				binaryDecode(
-					hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
-					"hex"
-				),
-				"base64"
-			)>
-			<cfhttp result="putTN" method="put" url="#s3.s3_endpoint#/#bucket#/#preview_filename#">
-				<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
-			    <cfhttpparam type="header" name="Content-Length"  value="#contentLength#" />
-			    <cfhttpparam type="header" name="Content-Type"  value="#contentType#" />
-			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-			    <cfhttpparam type="body" value="#content#" />
-			</cfhttp>
-			<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#preview_filename#">
-		<!--- statuscode of putting the actual file - the important thing--->
-
-
-			<cfquery name="lldd" datasource="uam_god">
-				update cf_temp_zipfiles set
-					md5='#lmd5#',
-					remotepath='#media_uri#',
-					mime_type='#mimetype#',
-					media_type='#mediatype#',
-					remote_preview='#preview_uri#',
-					status='loaded_to_s3'
-				where
-					new_filename='#new_filename#'
-			</cfquery>
-
-
-
-		</cfloop>
-	</cfoutput>
-</cfif>
 <!------------------------------------------------------------------------------------------------>
 
-<cfif action is "s3ify_confirm">
-	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='previewed' and rownum=1
-		</cfquery>
-		<cfif d.recordcount lt 1>
-			nope<cfabort>
-		</cfif>
-		<cfquery name="d_f" datasource="uam_god">
-			select distinct status from cf_temp_zipfiles where zid=#d.zid#
-		</cfquery>
-		<cfif valuelist(d_f.status) is "loaded_to_s3">
-			<br>all s3ifyied
-			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='loaded_to_s3' where zid=#d.zid#
-			</cfquery>
-		<cfelse>
-			<br>loaded_to_s3 not complete, do nothing
-		</cfif>
-	</cfoutput>
-</cfif>
-<!------------------------------------------------------------------------------------------------>
-
-
-<cfif action is "mkprvw">
-	<cfoutput>
-		<!---- this needs to run iteratively ---->
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='renamed' and rownum=1
-		</cfquery>
-		<cfloop query="d">
-			<!--- create a thumb directory if it doesn't already exist ---->
-			<cfif not DirectoryExists("#Application.webDirectory#/temp/#d.zid#/tn")>
-				<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#d.zid#/tn" >
-			</cfif>
-			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <100
-			</cfquery>
-			<cfloop query="f">
-				<cftransaction>
-					<cfif len(f.preview_filename) is 0>
-						<!--- we haven't been here, process this one ---->
-						<!--- grab the file into a local var ---->
-						<br>read #Application.webDirectory#/temp/#d.zid#/#f.new_filename#
-						<cfimage action="read" name="thisImg" source="#Application.webDirectory#/temp/#d.zid#/#f.new_filename#">
-						<cfimage action="info" structname="imagetemp" source="#thisImg#">
-						<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
-						<cfset newwidth = x*imagetemp.width>
-		    			<cfset newheight = x*imagetemp.height>
-			    		<cfset barefilename=listgetat(f.new_filename,1,".")>
-			    		<cfset tfilename="tn_#barefilename#.jpg">
-			   			<cfimage action="convert"
-			   				source="#thisImg#"
-			   				destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true">
-			   			<cfimage action="resize" source="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#"
-			   				width="#newwidth#" height="#newheight#" destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true">
-			   			<cfquery name="r" datasource="uam_god">
-							update cf_temp_zipfiles set preview_filename='#tfilename#',status='previewed' where zid=#d.zid# and new_filename='#f.new_filename#'
-						</cfquery>
-					</cfif>
-				</cftransaction>
-			</cfloop>
-		</cfloop>
-	</cfoutput>
-</cfif>
-
-<!------------------------------------------------------------------------------------------------>
-<cfif action is "mkprvw_confirm">
-	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='renamed' and rownum=1
-		</cfquery>
-		<cfif d.recordcount lt 1>
-			nope<cfabort>
-		</cfif>
-		<cfquery name="d_f" datasource="uam_god">
-			select distinct status from cf_temp_zipfiles where zid=#d.zid#
-		</cfquery>
-		<cfif valuelist(d_f.status) is "previewed">
-			<br>all previewed
-			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='previewed' where zid=#d.zid#
-			</cfquery>
-		<cfelse>
-			<br>previewed not complete, do nothing
-		</cfif>
-	</cfoutput>
-</cfif>
-<!------------------------------------------------------------------------------------------------>
-<cfif action is "rename">
-	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='unzipped' and rownum=1
-		</cfquery>
-		<cfif d.recordcount lt 1>
-			nada<cfabort>
-		</cfif>
-		<cfdump var=#d#>
-		<cfset utilities = CreateObject("component","component.utilities")>
-		<cfloop query="d">
-			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid#
-			</cfquery>
-			<cfloop query="f">
-				<cftransaction>
-					<cfset fext=listlast(filename,".")>
-					<cfif not listfindnocase(goodExtensions,fext)>
-						<cfquery name="fail" datasource="uam_god">
-							update cf_temp_zipload set status='FATAL ERROR: #filename# contains an invalid extension' where zid=#d.zid#
-						</cfquery>
-						<cfbreak>
-					</cfif>
-					<br>#filename#
-					<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
-					<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
-					<cfset fName=replace(fName,'__','_','all')>
-					<cfset nfileName=fName & '.' & fext>
-					<cfset vfn=utilities.isValidMediaUpload(nfileName)>
-					<cfif len(vfn) gt 0>
-						<cfquery name="fail" datasource="uam_god">
-							update cf_temp_zipload set status='FATAL ERROR: #nfileName# is invalid - #vfn#' where zid=#d.zid#
-						</cfquery>
-						<cfbreak>
-					</cfif>
-					<cffile action = "rename"
-						source = "#Application.webDirectory#/temp/#d.zid#/#filename#"
-						destination = "#Application.webDirectory#/temp/#d.zid#/#nfileName#">
-					<cfquery name="r" datasource="uam_god">
-						update cf_temp_zipfiles set status='renamed',new_filename='#nfileName#' where zid=#d.zid# and filename='#filename#'
-					</cfquery>
-					<br>new:#nfileName#
-				</cftransaction>
-			</cfloop>
-		</cfloop>
-	</cfoutput>
-</cfif>
-
-<!------------------------------------------------------------------------------------------------>
-<cfif action is "rename_confirm">
-	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='unzipped' and rownum=1
-		</cfquery>
-		<cfif d.recordcount lt 1>
-			nope<cfabort>
-		</cfif>
-		<cfquery name="d_f" datasource="uam_god">
-			select distinct status from cf_temp_zipfiles where zid=#d.zid#
-		</cfquery>
-		<cfif valuelist(d_f.status) is "renamed">
-			<br>all renamed
-			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='renamed' where zid=#d.zid#
-			</cfquery>
-		<cfelse>
-			<br>rename not complete, do nothing
-		</cfif>
-	</cfoutput>
-</cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "nothing">
 	<script>
@@ -531,10 +323,7 @@ update cf_temp_zipload set status='new';
 		    }
 		}
 	</script>
-
 	<cfoutput>
-
-
 		<p>
 			Upload a ZIP archive of image files. Arctos will attempt to move them to an archival file server, create thumbnail/previews, and
 			email you a media bulkloader template.
@@ -578,10 +367,6 @@ update cf_temp_zipload set status='new';
 			<label for="FiletoUpload">Upload a ZIP file</label>
 			<input type="file" name="FiletoUpload" id="FiletoUpload" size="45">
 			<input type="submit" value="Upload this file" class="savBtn">
-
-
-
-
 	  </form>
 	</cfoutput>
 </cfif>
@@ -619,85 +404,12 @@ update cf_temp_zipload set status='new';
 		</p>
 	</cfoutput>
 </cfif>
-<!------------------------------------------------------------------------------------------------>
-<cfif action is "unzip">
-	<cfoutput>
-		<!--- see if there's anything new; just grab one --->
-		<cfquery name="jid" datasource="uam_god">
-			select * from cf_temp_zipload where status='new' and rownum=1
-		</cfquery>
-		<cfif jid.recordcount lt 1>
-			nope<cfabort>
-		</cfif>
-		<cfloop query="jid">
-			<cfdirectory action="create" directory="#Application.webDirectory#/temp/#jid.zid#" >
-			<br>jidloop
-			<cfzip file="#Application.webDirectory#/temp/#jid.zid#.zip" action="unzip" destination="#Application.webDirectory#/temp/#jid.zid#/"/>
-			<cfdirectory action="LIST" directory="#Application.webDirectory#/temp/#jid.zid#" name="dir" recurse="no">
-			<cfloop query="dir">
-				<br>insert #name#
-				<cfif left(name,1) is not "." and left(name,1) is not "_">
-					<cfquery name="faf" datasource="uam_god">
-						insert into cf_temp_zipfiles (zid,filename) values (#jid.zid#,'#name#')
-					</cfquery>
-				</cfif>
-			</cfloop>
-		</cfloop>
-		<cfquery name="uz" datasource="uam_god">
-			update cf_temp_zipload set status='unzipped' where zid=#jid.zid#
-		</cfquery>
-	</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------->
-<cfif action is "thumb">
-	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="yes">
-	<cfoutput>
-	<cfloop query="dir">
-		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<cfimage action="info" structname="imagetemp" source="#directory#/#name#">
-			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
-			<cfset newwidth = x*imagetemp.width>
-			<cfset newheight = x*imagetemp.height>
-			<cfimage action="resize" source="#sandboxdir#/#name#" width="#newwidth#" height="#newheight#"
-				destination="#sandboxdir#/tn_#name#" overwrite="yes">
-		</cfif>
-	</cfloop>
-	Thumbnails created.
-	<a href="uploadMedia.cfm?action=webserver">Continue to move your files to the webserver</a>.
-	</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------->
-<cfif action is "webserver">
-	<!----
-		we have to do this before we can preview.
-		Everything up until this point has happened in the sandbox,
-		and users cannot acccess anything in the sandbox directly.
-		The steps above should have deleted anything even slightly wonky or dangerous, so
-		make a daily directory and rock on.
-	---->
-<cfoutput>
-	<cftry>
-		<cfdirectory action="create" directory="#baseFileDir#">
-		<cfcatch><!--- exists ---></cfcatch>
-	</cftry>
-	<cfdirectory action="LIST" directory="#sandboxdir#" name="dir" recurse="no">
-	<cfloop query="dir">
-		<br>moving #name# to #baseWebDir#/#name#
-		<cffile action="move" source="#sandboxdir#/#name#" destination="#baseFileDir#/#name#">
-	</cfloop>
-	<p>
-		<br>Your files are now on the webserver.
-		<br><a href="uploadMedia.cfm?action=preview">Preview them here</a>.
-		<br>If the above looks wrong, you can <a href="uploadMedia.cfm?action=deleteTodayDir">delete your #dateformat(now(),'yyyy-mm-dd')# directory</a>
-		from the webserver. CAUTION: This deletes EVERYTHING you've loaded today.
-	</p>
-</cfoutput>
-</cfif>
 
 <!---------------------------------------------------------------------------->
 <cfif action is "regen_download">
 	<cfoutput>
-		<cfset makeMBLDownloadFile(#zid#)>
+		<cfset utilities = CreateObject("component","component.utilities")>
+		<cfset utilities.makeMBLDownloadFile(#zid#)>
 
 		<p>
 			Generation attempted: #Application.serverRootURL#/download/media_bulk_zip#zid#.csv
