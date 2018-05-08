@@ -389,6 +389,7 @@
 				select * from cf_temp_zipfiles where status != 'renamed' and zid=#d.zid#
 			</cfquery>
 			<cfdump var=#d#>
+			<cfdump var=#f#>
 			<cfloop query="f">
 				<cftransaction>
 					filename=#filename#
