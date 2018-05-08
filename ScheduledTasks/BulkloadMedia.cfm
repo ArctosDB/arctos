@@ -121,6 +121,7 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='previewed' and rownum=1
 		</cfquery>
+		<cfdump var=#d#>
 		<cfif d.recordcount is 0>
 			<cfabort>
 		</cfif>
@@ -156,6 +157,7 @@
 		<cfquery name="f" datasource="uam_god">
 			select * from cf_temp_zipfiles where zid=#d.zid# and status='previewed' and rownum=1
 		</cfquery>
+		<cfdump var=#f#>
 		<cfloop query="f">
 			<cffile variable="content" action="readBinary" file="#Application.webDirectory#/temp/#d.zid#/#new_filename#">
 			<cfset lmd5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
