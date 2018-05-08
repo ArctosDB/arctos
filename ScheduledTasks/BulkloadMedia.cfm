@@ -297,14 +297,12 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='renamed' and rownum=1
 		</cfquery>
-		<cfdump var=#d#>
 		<cfif d.recordcount lt 1>
 			<cfabort>
 		</cfif>
 		<cfquery name="d_f" datasource="uam_god">
 			select distinct status from cf_temp_zipfiles where zid=#d.zid#
 		</cfquery>
-		<cfdump var=#d_f#>
 		<cfif valuelist(d_f.status) is "previewed">
 			<cfquery name="r" datasource="uam_god">
 				update cf_temp_zipload set status='previewed' where zid=#d.zid#
