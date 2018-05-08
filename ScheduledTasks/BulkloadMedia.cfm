@@ -390,6 +390,7 @@
 			</cfquery>
 			<cfloop query="f">
 				<cftransaction>
+					filename=#filename#
 					<cfset fext=listlast(filename,".")>
 					<cfif not listfindnocase(goodExtensions,fext)>
 						<cfquery name="fail" datasource="uam_god">
