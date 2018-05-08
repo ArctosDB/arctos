@@ -386,37 +386,40 @@
 		<cfset utilities = CreateObject("component","component.utilities")>
 		<cfloop query="d">
 			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where status != 'renamed' and zid=#d.zid#
+				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
 			<cfdump var=#d#>
 			<cfdump var=#f#>
 			<cfloop query="f">
 				<cftransaction>
-					filename=#filename#
-					<cfset fext=listlast(filename,".")>
-					<cfif not listfindnocase(goodExtensions,fext)>
-						<cfquery name="fail" datasource="uam_god">
-							update cf_temp_zipload set status='FATAL ERROR: #filename# contains an invalid extension' where zid=#d.zid#
+					<cfif f.status neq 'renamed'>
+
+						filename=#filename#
+						<cfset fext=listlast(filename,".")>
+						<cfif not listfindnocase(goodExtensions,fext)>
+							<cfquery name="fail" datasource="uam_god">
+								update cf_temp_zipload set status='FATAL ERROR: #filename# contains an invalid extension' where zid=#d.zid#
+							</cfquery>
+							<cfbreak>
+						</cfif>
+						<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+						<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+						<cfset fName=replace(fName,'__','_','all')>
+						<cfset nfileName=fName & '.' & fext>
+						<cfset vfn=utilities.isValidMediaUpload(nfileName)>
+						<cfif len(vfn) gt 0>
+							<cfquery name="fail" datasource="uam_god">
+								update cf_temp_zipload set status='FATAL ERROR: #nfileName# is invalid - #vfn#' where zid=#d.zid#
+							</cfquery>
+							<cfbreak>
+						</cfif>
+						<cffile action = "rename"
+							source = "#Application.webDirectory#/temp/#d.zid#/#filename#"
+							destination = "#Application.webDirectory#/temp/#d.zid#/#nfileName#">
+						<cfquery name="r" datasource="uam_god">
+							update cf_temp_zipfiles set status='renamed',new_filename='#nfileName#' where zid=#d.zid# and filename='#filename#'
 						</cfquery>
-						<cfbreak>
 					</cfif>
-					<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
-					<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
-					<cfset fName=replace(fName,'__','_','all')>
-					<cfset nfileName=fName & '.' & fext>
-					<cfset vfn=utilities.isValidMediaUpload(nfileName)>
-					<cfif len(vfn) gt 0>
-						<cfquery name="fail" datasource="uam_god">
-							update cf_temp_zipload set status='FATAL ERROR: #nfileName# is invalid - #vfn#' where zid=#d.zid#
-						</cfquery>
-						<cfbreak>
-					</cfif>
-					<cffile action = "rename"
-						source = "#Application.webDirectory#/temp/#d.zid#/#filename#"
-						destination = "#Application.webDirectory#/temp/#d.zid#/#nfileName#">
-					<cfquery name="r" datasource="uam_god">
-						update cf_temp_zipfiles set status='renamed',new_filename='#nfileName#' where zid=#d.zid# and filename='#filename#'
-					</cfquery>
 				</cftransaction>
 			</cfloop>
 		</cfloop>
