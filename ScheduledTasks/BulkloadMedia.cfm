@@ -388,13 +388,9 @@
 			<cfquery name="f" datasource="uam_god">
 				select * from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
-			<cfdump var=#d#>
-			<cfdump var=#f#>
 			<cfloop query="f">
 				<cftransaction>
 					<cfif f.status neq 'renamed'>
-
-						filename=#filename#
 						<cfset fext=listlast(filename,".")>
 						<cfif not listfindnocase(goodExtensions,fext)>
 							<cfquery name="fail" datasource="uam_god">
