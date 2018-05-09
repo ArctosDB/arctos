@@ -396,7 +396,8 @@ function displayMedia(idList){
 			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 		}
 		jQuery.each(r, function(i, DATA) {
-			//console.log(DATA.MEDIA_ID);
+			console.log(DATA.MEDIA_ID);
+			console.log(i);
 			if (DATA.MIMECAT=='audio' && DATA.MEDIA_URI.split('.').pop()=='mp3'){
 				theHTML+='<div class="one_thumb">';
 				theHTML+='<audio controls>';
