@@ -401,10 +401,10 @@ function displayMedia(idList){
 			if (DATA.MIMECAT=='audio' && DATA.MEDIA_URI.split('.').pop()=='mp3'){
 				theHTML+='<div class="one_thumb">';
 				theHTML+='<audio controls>';
-				theHTML+='<source src="' + DATA.MEDIA_ID + '" type="audio/mp3">';
+				theHTML+='<source src="/media/' + DATA.MEDIA_ID + '" type="audio/mp3">';
 				theHTML+='<a href="/media/' + DATA.MEDIA_ID + '?open" target="_blank">download</a>';
 				theHTML+='</audio> ';
-				theHTML+='<br><a target="_blank" href="/media/' + DATA.MEDIA_ID[index] + '">Media Detail</a></p></div>';
+				theHTML+='<br><a target="_blank" href="/media/' + DATA.MEDIA_ID + '">Media Detail</a></p></div>';
 			} else {
 				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + DATA.PREVIEW_URI + '&media_type=' +  DATA.MIMECAT + '&returnformat=json&queryformat=column';
 				$.ajax({
