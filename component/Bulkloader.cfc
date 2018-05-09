@@ -942,9 +942,6 @@
 	<cfargument name="cfgridaction" required="yes">
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
-
-
-
 	<cfoutput>
 		<cftry>
 		<cfset colname = StructKeyList(cfgridchanged)>
@@ -959,11 +956,9 @@
 			    statustext="#cfcatch.message#: #cfcatch.detail#"
 			/>
 		</cfcatch>
-
 		</cftry>
 	</cfoutput>
 </cffunction>
-
 	<!--------------------------------------->
 	<cffunction name="editStageRecord" access="remote">
 		<cfargument name="cfgridaction" required="yes">

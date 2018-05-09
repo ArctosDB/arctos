@@ -155,19 +155,13 @@
 	</cfoutput>
 </cfif>
 <cfif action is "ajaxGrid">
-
-
 	<script>
 		function showErr(e,m){
 			alert('ERROR: ' + m);
-			console.log(e);
-			console.log(m);
 		}
 	</script>
-
-
 	<style>
-	#cfsucks{font-size;x-small; display:inline-block; border:1px solid black;padding:.5em;margin:.5em;}
+		#cfsucks{font-size;x-small; display:inline-block; border:1px solid black;padding:.5em;margin:.5em;}
 	</style>
 
 	<div id="cfsucks">
