@@ -172,6 +172,9 @@ var isData = isGrid.getStore();
 
 isData.addListener("load",function() {
 
+	console.log('loader');
+	console.log(isData);
+
     if(isData.totalLength == 0)
 
         {
