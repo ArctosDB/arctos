@@ -209,6 +209,7 @@ ColdFusion.Event.registerOnLoad(getTotalApps,null,false,true);
 		<cfset ColNameList = valuelist(cNames.column_name)>
 		<cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
 		<cfset args.width="1200">
+		<cfset args.name="myGrid">
 		<cfset args.height="600">
 		<cfset args.stripeRows = true>
 		<cfset args.selectColor = "##D9E8FB">
