@@ -948,7 +948,10 @@
     statusText = "FAIL",
     data = ""
     } />
-
+<cfheader
+    statuscode="420"
+    statustext="more fail"
+/>
 	<cfreturn apiResponse>
 
 	<cfoutput>
