@@ -163,13 +163,6 @@
 			console.log(e);
 			console.log(m);
 		}
-
-}
-
-ColdFusion.Event.registerOnLoad(getTotalApps,null,false,true);
-
-
-
 	</script>
 
 
