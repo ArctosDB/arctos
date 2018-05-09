@@ -942,10 +942,6 @@
 	<cfargument name="cfgridaction" required="yes">
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
-
-	<cfset 1=2>
-
-
 	<cfoutput>
 		<cfset colname = StructKeyList(cfgridchanged)>
 		<cfset value = cfgridchanged[colname]>
