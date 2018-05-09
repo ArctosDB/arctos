@@ -163,6 +163,33 @@
 			console.log(e);
 			console.log(m);
 		}
+
+		getTotalApps = function() {
+
+var isGrid = ColdFusion.Grid.getGridObject('myGrid');
+
+var isData = isGrid.getStore();
+
+isData.addListener("load",function() {
+
+    if(isData.totalLength == 0)
+
+        {
+
+          alert("No records found");
+
+          return false;
+
+        }
+
+    });
+
+}
+
+ColdFusion.Event.registerOnLoad(getTotalApps,null,false,true);
+
+
+
 	</script>
 
 
