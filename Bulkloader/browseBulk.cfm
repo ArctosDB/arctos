@@ -159,33 +159,10 @@
 
 	<script>
 		function showErr(e,m){
-			alert('ima error');
+			alert('ERROR: ' + m);
 			console.log(e);
 			console.log(m);
 		}
-
-		getTotalApps = function() {
-
-var isGrid = ColdFusion.Grid.getGridObject('blGrid');
-
-var isData = isGrid.getStore();
-
-isData.addListener("load",function() {
-
-	console.log('loader');
-	console.log(isData);
-
-    if(isData.totalLength == 0)
-
-        {
-
-          alert("No records found");
-
-          return false;
-
-        }
-
-    });
 
 }
 
