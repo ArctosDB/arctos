@@ -943,16 +943,7 @@
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
 
-	<cfset apiResponse = {
-    statusCode = "420",
-    statusText = "FAIL",
-    data = ""
-    } />
-<cfheader
-    statuscode="420"
-    statustext="more fail"
-/>
-	<cfreturn apiResponse>
+
 
 	<cfoutput>
 		<cftry>
@@ -963,7 +954,10 @@
 			where collection_object_id=#cfgridrow.collection_object_id#
 		</cfquery>
 		<cfcatch>
-			<cfthrow>
+			<cfheader
+			    statuscode="420"
+			    statustext="#cfcatch.message#: #cfcatch.detail#"
+			/>
 		</cfcatch>
 
 		</cftry>
