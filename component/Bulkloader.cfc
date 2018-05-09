@@ -942,6 +942,15 @@
 	<cfargument name="cfgridaction" required="yes">
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
+
+	<cfset apiResponse = {
+    statusCode = "420",
+    statusText = "FAIL",
+    data = ""
+    } />
+
+	<cfreturn apiResponse>
+
 	<cfoutput>
 		<cftry>
 		<cfset colname = StructKeyList(cfgridchanged)>
