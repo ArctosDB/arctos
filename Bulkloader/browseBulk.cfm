@@ -124,9 +124,6 @@
 </cfif>
 <cfif action is "download">
 
-	<script>
-		function showErr(){alert('ima error');}
-	</script>
 	<cfoutput>
 		<cfquery name="cNames" datasource="uam_god">
 			select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
@@ -158,6 +155,17 @@
 	</cfoutput>
 </cfif>
 <cfif action is "ajaxGrid">
+
+
+	<script>
+		function showErr(e,m){
+			alert('ima error');
+			console.log(e);
+			console.log(m);
+		}
+	</script>
+
+
 	<style>
 	#cfsucks{font-size;x-small; display:inline-block; border:1px solid black;padding:.5em;margin:.5em;}
 	</style>
