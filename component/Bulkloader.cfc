@@ -943,14 +943,18 @@
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
 	<cfoutput>
-		
+		<cftry>
 		<cfset colname = StructKeyList(cfgridchanged)>
 		<cfset value = cfgridchanged[colname]>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update bulkloader set  #colname# = '#value#'
 			where collection_object_id=#cfgridrow.collection_object_id#
 		</cfquery>
-		
+		<cfcatch>
+			<cfthrow>
+		</cfcatch>
+
+		</cftry>
 	</cfoutput>
 </cffunction>
 
