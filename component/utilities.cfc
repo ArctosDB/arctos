@@ -1148,13 +1148,13 @@
 			<cfset x=x & ",pma4,php5">
 			<cfset x=x & ",pma,phppgadmin,prescription,phpmychat">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel">
-			<cfset x=x & ",remote-sync,regex,register">
+			<cfset x=x & ",remote-sync,regex,register,rar">
 
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sftp-config,store,shop,server_info">
 			<cfset x=x & ",sysobjects,svn,sap,ssh">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects">
-			<cfset x=x & ",trackback,texteditor">
+			<cfset x=x & ",trackback,texteditor,tar">
 			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra,vscode">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig">
