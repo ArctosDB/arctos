@@ -1202,7 +1202,7 @@ from geog_auth_rec where rownum<10
 			HIGHER_GEOG
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=getData,Fields=data.getData)>
+	<cfset csv = util.QueryToCSV2(Query=getData,Fields=getData.columnlist)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/geog_lookup.csv"
 	   	output = "#csv#"
