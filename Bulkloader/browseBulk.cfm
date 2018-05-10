@@ -163,7 +163,6 @@
 	<style>
 		#cfsucks{font-size;x-small; display:inline-block; border:1px solid black;padding:.5em;margin:.5em;}
 	</style>
-
 	<div id="cfsucks">
 		Caution: This form is 100% native CF ajax, and therefore fragile. Use another method if this isn't working.
 	</div>

@@ -953,8 +953,7 @@
 		<cfcatch>
 			<cfheader
 			    statuscode="420"
-			    statustext="#cfcatch.message#: #cfcatch.detail#"
-			/>
+			    statustext="#cfcatch.message#: #cfcatch.detail#"/>
 		</cfcatch>
 		</cftry>
 	</cfoutput>
