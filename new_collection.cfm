@@ -74,22 +74,24 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from pre_new_collection order by insert_date
 	</cfquery>
-	<table border>
-		<tr>
-			<th>GUID Prefix</th>
-			<th>CreateDate</th>
-			<th>Status</th>
-			<th>Manage</th>
-		</tr>
-		<cfloop query="d">
+	<cfoutput>
+		<table border>
 			<tr>
-				<td>#GUID_PREFIX#</td>
-				<td>#dateformat(insert_date,'yyyy-mm-dd')#</td>
-				<td>#status#</td>
-				<td><a href="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">clicky</a></td>
+				<th>GUID Prefix</th>
+				<th>CreateDate</th>
+				<th>Status</th>
+				<th>Manage</th>
 			</tr>
-		</cfloop>
-	</table>
+			<cfloop query="d">
+				<tr>
+					<td>#GUID_PREFIX#</td>
+					<td>#dateformat(insert_date,'yyyy-mm-dd')#</td>
+					<td>#status#</td>
+					<td><a href="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">clicky</a></td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
 </cfif>
 
 </cfif>
