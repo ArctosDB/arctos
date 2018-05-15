@@ -41,7 +41,6 @@
 
 <cfif action is "nothing">
 
-
 	<p>
 		This form facilitates new collection creation in Arctos. This is a request only; you cannot create a collection with this form.
 	</p>
@@ -57,8 +56,6 @@
 	If you have created a request, fill in the form with the password and GUID_Prefix you used in the initial request and click
 	"manage existing request."
 	<p>
-
-
 	<form name="f" id="f" method="post" action="new_collection.cfm">
 		<input type="hidden" name="action" value="default">
 		<label for="guid_prefix">GUID Prefix</label>
@@ -147,7 +144,7 @@
 	</cfquery>
 	<cfoutput>
 		<p>
-			Sharable link to this form. CAUTION: This provides edit access.
+			Sharable link to this form. CAUTION: This provides edit access to anyone with an Arcto account.
 		</p>
 		<p>
 			<code>
@@ -155,7 +152,11 @@
 			</code>
 		</p>
 		<p>
-			insert_date: #dateformat(d.insert_date,'yyyy-mm-dd')#
+			Request Date: #dateformat(d.insert_date,'yyyy-mm-dd')#
+			<br>Status: #d.status#
+		</p>
+		<p>
+
 		</p>
 		<p>
 			Useful Links:
@@ -190,7 +191,7 @@
 				<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
 
 			</div>
-
+			<!----
 			<div class="infoDiv">
 				Status of this request
 				<ul>
@@ -210,6 +211,7 @@
 					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
 				</select>
 			</div>
+			---->
 
 			<div class="infoDiv">
 				GUID_Prefix is the core of the primary specimen identifier. It is combined with catalog number and Arctos' URL to
