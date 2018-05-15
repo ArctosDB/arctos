@@ -23,6 +23,8 @@
 		insert_date date
 	);
 
+	alter table pre_new_collection add use_license_id number;
+
 	create public synonym pre_new_collection for pre_new_collection;
 
 	grant select, insert, update on pre_new_collection to public;
@@ -204,7 +206,7 @@
 				</ul>
 
 				<label for="DESCR">Description</label>
-				<input type="text" name="DESCR" id="DESCR" class="reqdClr" required value="#d.DESCR#">
+				<textarea class="hugetextarea reqdClr" name="DESCR" id="DESCR" required >#d.DESCR#</textarea>
 			</div>
 
 
