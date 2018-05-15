@@ -294,16 +294,6 @@
 				<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#" size="80">
 			</div>
 
-
-			<div class="infoDiv">
-				URL to collection's loan policy. A loan policy is required; the contents of the loan policy are entirely up to the data owners.
-				File an Issue for assistance in creating or hosting a loan policy.
-
-				<label for="LOAN_POLICY_URL">Loan Policy URL</label>
-				<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#" size="80">
-			</div>
-
-
 			<div class="infoDiv">
 				Institution is displayed as "section header" in the Collection search box on SpecimenSearch. It should be the same for all collections in
 				an institution, and end with Institution Acronym in parentheses. Examples:
@@ -312,12 +302,19 @@
 					<li>Museum of Southwestern Biology (MSB)</li>
 				</ul>
 
-
 				<label for="INSTITUTION">Institution</label>
 				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#" size="80">
 			</div>
 
 
+
+			<div class="infoDiv">
+				URL to collection's loan policy. A loan policy is required; the contents of the loan policy are entirely up to the data owners.
+				File an Issue for assistance in creating or hosting a loan policy.
+
+				<label for="LOAN_POLICY_URL">Loan Policy URL</label>
+				<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#" size="80">
+			</div>
 
 
 			<div class="infoDiv">
@@ -380,13 +377,13 @@
 			<div class="infoDiv">
 				URL to more information, such as the collection's home page.
 				<label for="WEB_LINK">Web Link</label>
-				<input type="text" name="WEB_LINK" id="WEB_LINK" class="reqdClr" required value="#d.WEB_LINK#">
+				<input type="text" name="WEB_LINK" id="WEB_LINK" class="reqdClr" required value="#d.WEB_LINK#" size="80">
 			</div>
 
 			<div class="infoDiv">
 				Clickable text to display with web link.
 				<label for="WEB_LINK_TEXT">Web Link Text</label>
-				<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" class="reqdClr" required value="#d.WEB_LINK_TEXT#">
+				<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" class="reqdClr" required value="#d.WEB_LINK_TEXT#" size="80">
 			</div>
 
 
@@ -394,20 +391,21 @@
 				If you do not yet have a Mentor, you should discuss mentoring with a volunteer from
 				<a href="/info/mentor.cfm">the list</a>.
 				<label for="mentor">mentor</label>
-				<input type="text" name="mentor" id="mentor" class="reqdClr" required value="#d.mentor#">
+				<input type="text" name="mentor" id="mentor" class="reqdClr" required value="#d.mentor#" size="80">
 			</div>
 
 
 			<div class="infoDiv">
 				Mentor's email. This helps us keep them in the loop.
 				<label for="mentor_contact">mentor_contact</label>
-				<input type="text" name="mentor_contact" id="mentor_contact" class="reqdClr" required value="#d.mentor_contact#">
+				<input type="text" name="mentor_contact" id="mentor_contact" class="reqdClr" required value="#d.mentor_contact#" size="80">
 			</div>
 
 
 			<div class="infoDiv">
-				Username(s) who will receive manage_collection access. Comma-separated list OK. These Operators can
-				create other collection users.
+				Arctos username(s) who will receive initial manage_collection access. Comma-separated list OK. These Operators can
+				create and manage other collection users. Anyone listed here should already have an Arctos account; contact your Mentor
+				for an invitation.
 
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/users.html">Documentation</a></li>
@@ -415,7 +413,7 @@
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Invite-an-Operator.html">How-To</a></li>
 				</ul>
 				<label for="admin_username">admin_username</label>
-				<input type="text" name="admin_username" id="admin_username" class="reqdClr" required value="#d.admin_username#">
+				<input type="text" name="admin_username" id="admin_username" class="reqdClr" required value="#d.admin_username#" size="80">
 			</div>
 
 			<br><input type="submit" class="savBtn" value="save changes">
