@@ -102,7 +102,7 @@
 		<cfif isdefined('pwd') and len('pwd') gt 0>
 			user_pwd='#escapeQuotes(pwd)#'
 		<cfelseif isdefined('pwhash') and len('pwhash') gt 0>
-			dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw('#pwhash#')) ='#pwhash#'
+			dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw(user_pwd)) ='#pwhash#'
 		<cfelse>
 			1=2
 		</cfif>
