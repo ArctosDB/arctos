@@ -479,7 +479,9 @@
 			</cfif>
 		</cfif>
 		<!--- pre-check this ---->
-
+		<cfif len(LOAN_POLICY_URL) gt 0 and not isvalid('url',LOAN_POLICY_URL)>
+			LOAN_POLICY_URL is not a valid URL. Use your back button.<cfabort>
+		</cfif>
 
 
 		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
