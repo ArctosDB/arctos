@@ -835,7 +835,7 @@
 									update cf_temp_media set media_related_key_#i#=#c.collection_object_id# where key=#key#
 								</cfquery>
 							<cfelse>
-								<cfset rec_stat=listappend(rec_stat,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
+								<cfset rec_stat=listappend(rec_stat,'Cataloged Item matched #c.recordcount# records.',";")>
 							</cfif>
 						<cfelse>
 							<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is not handled',";")>
