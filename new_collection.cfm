@@ -154,6 +154,7 @@
 				<li>Password: #d.user_pwd#</li>
 				<li>
 					Sharable link to this form. CAUTION: This provides edit access to anyone with an Arcto account.
+					<br>
 					<code>
 						#application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
 					</code>
