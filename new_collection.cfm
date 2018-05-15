@@ -106,8 +106,8 @@
 		<cfelse>
 			1=2
 		</cfif>
-		<cfdump var=#d#>
 	</cfquery>
+		<cfdump var=#d#>
 
 </cfif>
 
