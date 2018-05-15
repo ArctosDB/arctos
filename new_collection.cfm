@@ -170,34 +170,39 @@
 			</ul>
 		</p>
 
-
-1. There is a lot of good follow-up information from our conversation on the .
-
-2.
-
-3. Details about our  can be found here. At 10,000 records the fee would run about $475 per year.
-
-4. If you want to spend a little more time, you may want to view some of our  or read through documentation in the .
-
-5. Some collections that you might find interesting include UTEP Entomology and Kenai National Wildlife Refuge.
-
-We encourage you to play with Arctos a bit. Search for species or localities of interest to you and make notes about what looks like it will work well for you and what might be missing. As collections with different needs are added to Arctos we usually end up creating new fields and functionality. If you are interested in joining Arctos, the next step is to complete the Application to join Arctos. In the mean time, if you have any more questions, feel free to contact me or Mariel and we will do our best to make sure you get the information that you need.
-
-Thanks for spending time with us this afternoon!
-
-Teresa J. Mayfield
-
-
 		<form name="f" id="f" action="new_collection.cfm" method="post">
 			<input type="hidden" name="action" value="saveEdits">
 			<div class="infoDiv">
 				This password is NOT secure and comes with no restrictions. DO NOT re-use your password to any site, including Arctos.
-				This prevents public browsing of these data, but is no guarantee of security. Do not provide any
+				This prevents public browsing of these data, but is no guarantee of security. You will need this password to
+				edit or finalize your request. Do not provide any
 				confidential information in this form. Discuss any concerns with your Mentor.
 				<label for="user_pwd">Password</label>
 				<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
 
 			</div>
+
+			<div class="infoDiv">
+				Status of this request
+				<ul>
+					<li>new: unreviewed request</li>
+					<li>submit for review: request is ready for consideration by Arctos staff</li>
+					<li>ready to create: request is approved by Arctos staff and ready for DBA action</li>
+					<li>created: collection is created and ready for use</li>
+				</ul>
+				<label for="status">status</label>
+					<select name="status" id="status" class="reqdClr" required >
+					<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
+					<option <cfif d.status is "submit for review">selected="selected" </cfif>value="submit for review">submit for review</option>
+					<option <cfif d.status is "ready to create">selected="selected" </cfif>value="ready to create">ready to create</option>
+					<option <cfif d.status is "created">selected="selected" </cfif>value="created">created</option>
+
+					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
+					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
+				</select>
+				<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
+			</div>
+
 			<div class="infoDiv">
 				GUID_Prefix is the core of the primary specimen identifier. It is combined with catalog number and Arctos' URL to
 				produce a resolvable globally-unique specimen identifier. This must be unique across all Arctos collections.
@@ -266,7 +271,7 @@ Teresa J. Mayfield
 
 
 			<div class="infoDiv">
-				documentation needed
+				Spelled-out version of Institution Acronym
 
 				<label for="INSTITUTION">Institution</label>
 				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#" size="80">
@@ -276,14 +281,12 @@ Teresa J. Mayfield
 
 
 			<div class="infoDiv">
-
+				Taxonomy Source is "your" classification. Choose an existing source, or file an Issue to import data or use an external
+				source through GlobalNames.org.
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/taxonomy.html#source-arctos">Documentation</a></li>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-manage-taxonomic-classifications.html">How-To</a></li>
 				</ul>
-
-
-
 
 				<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
 				<select name="preferred_taxonomy_source" id="preferred_taxonomy_source" class="reqdClr" required>
@@ -298,6 +301,8 @@ Teresa J. Mayfield
 
 
 			<div class="infoDiv">
+				Allowable format of catalog number. Integer provides more functionality and is preferred. Please discuss with your Mentor
+				if you are considering anything else.
 
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##catalog-number">Documentation</a></li>
@@ -309,14 +314,13 @@ Teresa J. Mayfield
 					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
 				</select>
 
-
-				<input type="text" name="CATALOG_NUMBER_FORMAT" id="CATALOG_NUMBER_FORMAT" class="reqdClr" required value="#d.CATALOG_NUMBER_FORMAT#">
 			</div>
 
 
 
 			<div class="infoDiv">
-				Pick a license. File an Issue if you need a new license.
+				Pick a license to govern the usage of your data in Arctos. File an Issue if you need a new license. Note that data shared via DWC
+				may be licensed differently, and Media are individually licensed.
 				<label for="USE_LICENSE_ID">License</label>
 				<select name="use_license_id" id="use_license_id"  class="reqdClr" required>
 					<option value="NULL">-none-</option>
@@ -327,27 +331,6 @@ Teresa J. Mayfield
 				</select>
 			</div>
 
-
-			<div class="infoDiv">
-				Status of this request
-				<ul>
-					<li>new: unreviewed request</li>
-					<li>submit for review: request is ready for consideration by Arctos staff</li>
-					<li>ready to create: request is approved by Arctos staff and ready for DBA action</li>
-					<li>created: collection is created and ready for use</li>
-				</ul>
-				<label for="status">status</label>
-					<select name="status" id="status" class="reqdClr" required >
-					<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
-					<option <cfif d.status is "submit for review">selected="selected" </cfif>value="submit for review">submit for review</option>
-					<option <cfif d.status is "ready to create">selected="selected" </cfif>value="ready to create">ready to create</option>
-					<option <cfif d.status is "created">selected="selected" </cfif>value="created">created</option>
-
-					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
-					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
-				</select>
-				<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
-			</div>
 
 
 			<div class="infoDiv">
@@ -379,7 +362,8 @@ Teresa J. Mayfield
 
 
 			<div class="infoDiv">
-				Username(s) who will receive manage_collection access. Comma-separated list OK.
+				Username(s) who will receive manage_collection access. Comma-separated list OK. These Operators can
+				create other collection users.
 
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/users.html">Documentation</a></li>
