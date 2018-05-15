@@ -65,7 +65,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	<cfoutput>
 		<cfloop query="d">
 			<br>#taxon_name#
-			<cfhttp url="https://www.google.com/?q=bill+material&output=xml&client=test&site=operations" method="get"></cfhttp>
+			<cfhttp url="https://www.google.com/?q=#taxon_name#&output=xml&client=test&site=operations" method="get"></cfhttp>
 			<cfdump var=#cfhttp#>
 		</cfloop>
 	</cfoutput>
