@@ -30,6 +30,11 @@
 <cfif action is "default">
 	denied<cfabort>
 </cfif>
+<cfif len(session.username) is 0>
+	You must log in to use this form.
+	<cfabort>
+</cfif>
+
 <cfif action is "nothing">
 
 	<cfif isdefined("session.roles") and session.roles contains "global_admin">
@@ -38,11 +43,8 @@
 			select * from pre_new_collection order by insert_date
 		</cfquery>
 		<cfdump var=#d#>
-	<cfelse>
-		<cfif len(session.username) is 0>
-			You must log in to use this form.
-			<cfabort>
-		</cfif>
+	</cfif>
+
 		<p>
 			This form facilitates new collection creation in Arctos. This is a request only; you cannot create a collection with this form.
 		</p>
@@ -72,7 +74,6 @@
 			<input type="button" class="insBtn" onclick="f.action.value='newCollectionRequest';f.submit;" value="create collection request">
 			<input type="button" class="lnkBtn" onclick="f.action.value='mgCollectionRequest';f.submit;" value="manage existing request">
 		</form>
-	</cfif>
 </cfif>
 <cfif action is "newCollectionRequest">
 
