@@ -129,40 +129,41 @@
 			1=2
 		</cfif>
 	</cfquery>
-	<form name="f" id="f" action="new_collection.cfm" method="post">
-		<input type="hidden" name="action" value="saveEdits">
-		<div class="infoDiv">
-			This password is NOT secure and comes with no restrictions. DO NOT re-use your to any site, including Arctos.
-			This prevents public browsing of the data you'll enter in the next step, but is no guarantee of security. Do not provide any
-			confidential information in this form. Discuss any concerns with your Mentor.
-		</div>
-		<label for="user_pwd">Password</label>
-		<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#user_pwd#">
+	<cfoutput>
+		<form name="f" id="f" action="new_collection.cfm" method="post">
+			<input type="hidden" name="action" value="saveEdits">
+			<div class="infoDiv">
+				This password is NOT secure and comes with no restrictions. DO NOT re-use your to any site, including Arctos.
+				This prevents public browsing of the data you'll enter in the next step, but is no guarantee of security. Do not provide any
+				confidential information in this form. Discuss any concerns with your Mentor.
+			</div>
+			<label for="user_pwd">Password</label>
+			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
 
-		ncid number,
-		user_pwd VARCHAR2(255),
-		COLLECTION_CDE varchar2(5),
-		INSTITUTION_ACRONYM VARCHAR2(20),
-		DESCR VARCHAR2(4000),
-		COLLECTION VARCHAR2(50),
-		WEB_LINK  VARCHAR2(4000),
-		WEB_LINK_TEXT  VARCHAR2(50),
-		LOAN_POLICY_URL VARCHAR2(255),
-		INSTITUTION VARCHAR2(255),
-		GUID_PREFIX VARCHAR2(20),
-		PREFERRED_TAXONOMY_SOURCE VARCHAR2(255),
-		CATALOG_NUMBER_FORMAT  VARCHAR2(21),
-		mentor varchar2(4000),
-		mentor_contact varchar2(4000),
-		admin_username VARCHAR2(255),
-		status varchar2(255),
-		insert_date date
-	);
+			ncid number,
+			user_pwd VARCHAR2(255),
+			COLLECTION_CDE varchar2(5),
+			INSTITUTION_ACRONYM VARCHAR2(20),
+			DESCR VARCHAR2(4000),
+			COLLECTION VARCHAR2(50),
+			WEB_LINK  VARCHAR2(4000),
+			WEB_LINK_TEXT  VARCHAR2(50),
+			LOAN_POLICY_URL VARCHAR2(255),
+			INSTITUTION VARCHAR2(255),
+			GUID_PREFIX VARCHAR2(20),
+			PREFERRED_TAXONOMY_SOURCE VARCHAR2(255),
+			CATALOG_NUMBER_FORMAT  VARCHAR2(21),
+			mentor varchar2(4000),
+			mentor_contact varchar2(4000),
+			admin_username VARCHAR2(255),
+			status varchar2(255),
+			insert_date date
+		);
 
 
 
-	</form>
-
+		</form>
+	</cfoutput>
 </cfif>
 
 .0.1.0 - 64bit Production
