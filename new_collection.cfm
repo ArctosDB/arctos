@@ -97,6 +97,17 @@
 <cfif action is "mgCollectionRequest">
 	<cfdump var=#url#>
 	<cfdump var=#form#>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from pre_new_collection where guid_prefix='#guid_prefix#' and
+		<cfif isdefined('pwd') and len('pwd') gt 0>
+			user_pwd='#escapeQuotes(pwd)#'
+		<cfelseif isdefined('pwhash') and len('pwhash') gt 0>
+			dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw('#pwhash#')) ='#pwhash#'
+		<cfelse>
+			1=2
+		</cfif>
+		<cfdump var=#d#>
+	</cfquery>
 
 </cfif>
 
