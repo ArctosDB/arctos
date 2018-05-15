@@ -142,7 +142,7 @@
 	</cfquery>
 	<cfoutput>
 		<p>
-			Sharable link to this form. CAUTION: This provides edit access to this data.
+			Sharable link to this form. CAUTION: This provides edit access.
 		</p>
 		<p>
 			<code>
