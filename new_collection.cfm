@@ -76,13 +76,28 @@
 		</form>
 </cfif>
 <cfif action is "newCollectionRequest">
-
-newCollectionRequest
+	<cfquery name="mkr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into pre_new_collection (
+			ncid,
+			user_pwd,
+			GUID_PREFIX,
+			status,
+			insert_date
+		) values (
+			someRandomSequence.nextval,
+			'#escapeQuotes(pwd)#',
+			'#escapeQuotes(guid_prefix)#',
+			'new',
+			sysdate
+		)
+	</cfquery>
+	<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
 </cfif>
 
 <cfif action is "mgCollectionRequest">
+	<cfdump var=#url#>
+	<cfdump var=#form#>
 
-mgCollectionRequest
 </cfif>
 
 .0.1.0 - 64bit Production
