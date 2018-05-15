@@ -333,6 +333,10 @@
 			<div class="infoDiv">
 				Pick a license to govern the usage of your data in Arctos. File an Issue if you need a new license. Note that data shared via DWC
 				may be licensed differently, and Media are individually licensed.
+
+				<ul>
+					<li><a target="_blank" class="external" href="/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE">Code Table</a></li>
+				</ul>
 				<label for="USE_LICENSE_ID">License</label>
 				<select name="use_license_id" id="use_license_id"  class="reqdClr" required>
 					<option value="NULL">-none-</option>
