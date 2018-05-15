@@ -198,13 +198,13 @@
 					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
 					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
 				</select>
-				<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
 			</div>
 
 			<div class="infoDiv">
 				GUID_Prefix is the core of the primary specimen identifier. It is combined with catalog number and Arctos' URL to
 				produce a resolvable globally-unique specimen identifier. This must be unique across all Arctos collections.
-				The format MUST be {string}:{string}. Maximum length is 20 characters.
+				The format MUST be {string}:{string}. GUID_Prefix cannot be changed without breaking all links to specimens; choose carefully.
+				The traditional format is {institution_acronym}:{collection_cde}, but this is not a requirement. Maximum length is 20 characters.
 				You may wish to register your collection in <a href="http://grbio.org" target="_blank" class="external">GRBIO</a>.
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##guid-prefix">Documentation</a></li>
@@ -215,7 +215,7 @@
 
 
 			<div class="infoDiv">
-				Collection Code controls which code tables your collection will use. Maximum length is 5 characters.
+				Collection Code controls which code tables your collection will use.
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##collection-code">Documentation</a></li>
 					<li><a target="_blank" class="external" href="http://arctos.database.museum/info/ctDocumentation.cfm?table=CTCOLLECTION_CDE">Code Table</a></li>
