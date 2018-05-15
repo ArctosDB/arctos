@@ -284,7 +284,7 @@
 				Taxonomy Source is "your" classification. Choose an existing source, or file an Issue to import data or use an external
 				source through GlobalNames.org.
 				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/taxonomy.html#source-arctos">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/taxonomy.html##source-arctos">Documentation</a></li>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-manage-taxonomic-classifications.html">How-To</a></li>
 				</ul>
 
