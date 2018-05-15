@@ -528,6 +528,10 @@
 				New Collection Request
 			</p>
 			<p>
+				A user has finalized a collection creation request. Confirm that the data in the link below are accurate and that
+				administrative needs have been met before proceeding.
+			</p>
+			<p>
 			MAILTO: #mentor_contact#, #contact_email#, arctos.database@gmail.com, lkv@berkeley.edu
 			</p>
 			<p>
