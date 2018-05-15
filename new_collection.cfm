@@ -507,12 +507,12 @@
 				Mentor contact email and contact_email is required for this operation. Use your back button to fix.<cfabort>
 			</cfif>
 			<cfloop list="#mentor_contact#" delimiters="," index="i">
-				<cfif not isValid(i,'email')>
+				<cfif not isValid('email',i)>
 					Mentor contact email #i# is not valid. Use your back button to fix.<cfabort>
 				</cfif>
 			</cfloop>
 			<cfloop list="#contact_email#" delimiters="," index="i">
-				<cfif not isValid(i,'email')>
+				<cfif not isValid('email',i)>
 					Contact email #i# is not valid.. Use your back button to fix.<cfabort>
 				</cfif>
 			</cfloop>
