@@ -276,7 +276,7 @@
 				<select name="use_license_id" id="use_license_id"  class="reqdClr" required>
 					<option value="NULL">-none-</option>
 					<cfloop query="CTMEDIA_LICENSE">
-						<option	<cfif colls.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
+						<option	<cfif d.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
 							value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
 					</cfloop>
 				</select>
@@ -333,51 +333,4 @@
 	</cfoutput>
 </cfif>
 
-
-
-To create collections, we'll need
-
-* COLLECTION_CDE - https://arctos.database.museum/info/ctDocumentation.cfm?table=CTCOLLECTION_CDE
-
-
-
-  DESCRIPTION
-
- COLLECTION
-
-* LOAN_POLICY_URL
-
- INSTITUTION
-
-* GUID_PREFIX ("UAM:Mamm" or similar)
-
-* PREFERRED_TAXONOMY_SOURCE - https://arctos.database.museum/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE
-
-* CATALOG_NUMBER_FORMAT - http://handbook.arctosdb.org/documentation/catalog.html#catalog
-
-USE_LICENSE_ID - https://arctos.database.museum/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE
-
-
-
-Elapsed: 00:00:00.00
-UAM@ARCTOSTE> desc collection
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- COLLECTION_CDE 						   NOT NULL VARCHAR2(5)
- INSTITUTION_ACRONYM							    VARCHAR2(20)
- DESCR									    VARCHAR2(4000)
- COLLECTION							   NOT NULL VARCHAR2(50)
- COLLECTION_ID							   NOT NULL NUMBER
- WEB_LINK								    VARCHAR2(4000)
- WEB_LINK_TEXT								    VARCHAR2(50)
- GENBANK_PRID								    NUMBER
- GENBANK_USERNAME							    VARCHAR2(20)
- GENBANK_PWD								    VARCHAR2(20)
- LOAN_POLICY_URL							    VARCHAR2(255)
- INSTITUTION								    VARCHAR2(255)
- GUID_PREFIX							   NOT NULL VARCHAR2(20)
- USE_LICENSE_ID 							    NUMBER
- CITATION								    VARCHAR2(255)
- PREFERRED_TAXONOMY_SOURCE					   NOT NULL VARCHAR2(255)
- CATALOG_NUMBER_FORMAT						   NOT NULL VARCHAR2(21)
-
+<cfinclude template="/includes/_footer.cfm">
