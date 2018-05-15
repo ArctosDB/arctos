@@ -186,6 +186,7 @@
 			<br><input type="submit" class="savBtn" value="save changes">
 
 			<input type="hidden" name="action" value="saveEdits">
+			<!----
 			<div class="infoDiv">
 				This password is NOT secure and comes with no restrictions. DO NOT re-use your password to any site, including Arctos.
 				This prevents public browsing of these data, but is no guarantee of security. You will need this password to
@@ -195,7 +196,7 @@
 				<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
 
 			</div>
-			<!----
+
 			<div class="infoDiv">
 				Status of this request
 				<ul>
