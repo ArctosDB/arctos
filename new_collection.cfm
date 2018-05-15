@@ -91,7 +91,7 @@
 			sysdate
 		)
 	</cfquery>
-	<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
+	<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(pwd)#&GUID_PREFIX=#GUID_PREFIX#">
 </cfif>
 
 <cfif action is "mgCollectionRequest">
