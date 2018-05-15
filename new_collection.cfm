@@ -24,6 +24,9 @@
 	);
 
 	alter table pre_new_collection add use_license_id number;
+	alter table pre_new_collection add final_message VARCHAR2(4000);
+	alter table pre_new_collection add contact_email VARCHAR2(4000);
+
 
 	create public synonym pre_new_collection for pre_new_collection;
 
@@ -71,29 +74,29 @@
 	</form>
 
 	<cfif isdefined("session.roles") and session.roles contains "global_admin">
-	you are admin; manage existing
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from pre_new_collection order by insert_date desc
-	</cfquery>
-	<cfoutput>
-		<table border>
-			<tr>
-				<th>GUID Prefix</th>
-				<th>CreateDate</th>
-				<th>Status</th>
-				<th>Manage</th>
-			</tr>
-			<cfloop query="d">
+		you are admin; manage existing
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from pre_new_collection order by insert_date desc
+		</cfquery>
+		<cfoutput>
+			<table border>
 				<tr>
-					<td>#GUID_PREFIX#</td>
-					<td>#dateformat(insert_date,'yyyy-mm-dd')#</td>
-					<td>#status#</td>
-					<td><a href="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">clicky</a></td>
+					<th>GUID Prefix</th>
+					<th>CreateDate</th>
+					<th>Status</th>
+					<th>Manage</th>
 				</tr>
-			</cfloop>
-		</table>
-	</cfoutput>
-</cfif>
+				<cfloop query="d">
+					<tr>
+						<td>#GUID_PREFIX#</td>
+						<td>#dateformat(insert_date,'yyyy-mm-dd')#</td>
+						<td>#status#</td>
+						<td><a href="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">clicky</a></td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfoutput>
+	</cfif>
 
 </cfif>
 <cfif action is "newCollectionRequest">
@@ -161,6 +164,11 @@
 						#application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
 					</code>
 				</li>
+				<cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
+					<cfif d.status is not "new">
+						You may not edit this request. Contact your Mentor if you need to make revisions.
+					</cfif>
+				</cfif>
 			</ul>
 		</p>
 		<p>
@@ -179,15 +187,18 @@
 			</ul>
 		</p>
 		<p>
-			Make sure to save if you change anything!
+			Make sure to save if you change anything! Scroll down for options.
 		</p>
 
 		<form name="f" id="f" action="new_collection.cfm" method="post">
 
 			<br><input type="submit" class="savBtn" value="save changes">
 
+			<input type="hidden" name="ncid" value="#d.ncid#">
+
 			<input type="hidden" name="action" value="saveEdits">
 			<input type="hidden" name="user_pwd" value="#d.user_pwd#">
+			<input type="hidden" name="old_status" value="#d.status#">
 			<!----
 			<div class="infoDiv">
 				This password is NOT secure and comes with no restrictions. DO NOT re-use your password to any site, including Arctos.
@@ -199,25 +210,7 @@
 
 			</div>
 
-			<div class="infoDiv">
-				Status of this request
-				<ul>
-					<li>new: unreviewed request</li>
-					<li>submit for review: request is ready for consideration by Arctos staff</li>
-					<li>ready to create: request is approved by Arctos staff and ready for DBA action</li>
-					<li>created: collection is created and ready for use</li>
-				</ul>
-				<label for="status">status</label>
-					<select name="status" id="status" class="reqdClr" required >
-					<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
-					<option <cfif d.status is "submit for review">selected="selected" </cfif>value="submit for review">submit for review</option>
-					<option <cfif d.status is "ready to create">selected="selected" </cfif>value="ready to create">ready to create</option>
-					<option <cfif d.status is "created">selected="selected" </cfif>value="created">created</option>
 
-					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
-					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
-				</select>
-			</div>
 			---->
 
 			<div class="infoDiv">
@@ -389,18 +382,26 @@
 
 			<div class="infoDiv">
 				If you do not yet have a Mentor, you should discuss mentoring with a volunteer from
-				<a href="/info/mentor.cfm">the list</a>.
+				<a href="/info/mentor.cfm">the list</a>. You may contact a potential Mentor directly,
+				 use the contact form at the bottom of any Arctos page,
+				file an Issue, or contact anyone involved in the administration of Arctos for help.
 				<label for="mentor">mentor</label>
 				<input type="text" name="mentor" id="mentor"  value="#d.mentor#" size="80">
 			</div>
 
 
 			<div class="infoDiv">
-				Mentor's email. This helps us keep them in the loop.
+				Mentor's email. This is required to finalize this request.
 				<label for="mentor_contact">mentor_contact</label>
 				<input type="text" name="mentor_contact" id="mentor_contact" value="#d.mentor_contact#" size="80">
 			</div>
 
+
+			<div class="infoDiv">
+				Contact Email is your email address. This is required to finalize this request. Comma-list is OK.
+				<label for="contact_email">contact_email</label>
+				<input type="text" name="contact_email" id="contact_email" value="#d.contact_email#" size="80">
+			</div>
 
 			<div class="infoDiv">
 				Arctos username(s) who will receive initial manage_collection access. Comma-separated list OK. These Operators can
@@ -415,16 +416,69 @@
 				<label for="admin_username">admin_username</label>
 				<input type="text" name="admin_username" id="admin_username"  value="#d.admin_username#" size="80">
 			</div>
+			<div class="infoDiv">
+				Once everything in this form is to your satisfaction, you may finalize this request. This message will be included
+				in that notification.
+
+				<label for="final_message">Message to include</label>
+				<textarea class="hugetextarea reqdClr" name="final_message" id="final_message" required >#d.final_message#</textarea>
+			</div>
+
+
+			<div class="infoDiv">
+				Once everything in this form is to your satisfaction, you may finalize this request. Choosing "finalize" in this control will
+				<ul>
+					<li>LOCK existing data</li>
+					<li>Notify Arctos staff of the request</li>
+				</ul>
+
+				<label for="sfs">Request Finalization</label>
+				<select name="sfs" id="sfs" >
+					<option value="">not yet</option>
+					<option value="yes_plz">Finalize these data; alert Arctos staff</option>
+				</select>
+			</div>
+
+			<cfif isdefined("session.roles") and session.roles contains "global_admin">
+				<div class="infoDiv">
+					You have global_admin; you can change the status of this request.
+					<ul>
+						<li>new: unreviewed request</li>
+						<li>submit for review: request is ready for consideration by Arctos staff</li>
+						<li>ready to create: request is approved by Arctos staff and ready for DBA action</li>
+						<li>created: collection is created and ready for use</li>
+					</ul>
+					The save and request will fail if mentor_contact does not contain an email address.
+					<label for="status">status</label>
+						<select name="status" id="status" class="reqdClr" required >
+							<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
+							<option <cfif d.status is "submit for review">selected="selected" </cfif>value="submit for review">submit for review</option>
+							<option <cfif d.status is "ready to create">selected="selected" </cfif>value="ready to create">ready to create</option>
+							<option <cfif d.status is "created">selected="selected" </cfif>value="created">created</option>
+					</select>
+				</div>
+			</cfif>
+
 
 			<br><input type="submit" class="savBtn" value="save changes">
-
 		</form>
+
 	</cfoutput>
 </cfif>
 <cfif action is "saveEdits">
 	<cfoutput>
+		<cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
+			<cfif old_status is not "new">
+				You may not edit this request.<cfabort>
+			</cfif>
+		</cfif>
+		<!--- pre-check this ---->
+
+
+
 		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update pre_new_collection set
+				GUID_PREFIX='#GUID_PREFIX#',
 				COLLECTION_CDE='#COLLECTION_CDE#',
 				INSTITUTION_ACRONYM='#INSTITUTION_ACRONYM#',
 				DESCR='#escapeQuotes(DESCR)#',
@@ -438,17 +492,53 @@
 				WEB_LINK_TEXT='#WEB_LINK_TEXT#',
 				mentor='#mentor#',
 				mentor_contact='#mentor_contact#',
-				admin_username='#admin_username#'
+				contact_email='#contact_email#',
+				admin_username='#admin_username#',
+				final_message='#escapeQuotes(final_message)#'
+				<cfif isdefined("sfs") and sfs is "yes_plz">
+					,status='submit for review'
+				</cfif>
 			where
-				GUID_PREFIX='#GUID_PREFIX#'
+				ncid='ncid'
 		</cfquery>
+
+		<cfif isdefined("sfs") and sfs is "yes_plz">
+			<cfif len(mentor_contact) is 0 or len(contact_email) is 0>
+				Mentor contact email and contact_email is required for this operation. Use your back button to fix.<cfabort>
+			</cfif>
+			<cfloop list="#mentor_contact#" delimiters="," index="i">
+				<cfif not isValid(i,email)>
+					Mentor contact email #i# is not valid. Use your back button to fix.<cfabort>
+				</cfif>
+			</cfloop>
+			<cfloop list="#contact_email#" delimiters="," index="i">
+				<cfif not isValid(i,email)>
+					Contact email #i# is not valid.. Use your back button to fix.<cfabort>
+				</cfif>
+			</cfloop>
+			<p>
+				New Collection Request
+			</p>
+			<p>
+			MAILTO: #mentor_contact#, #contact_email#, arctos.database@gmail.com, lkv@berkeley.edu
+			</p>
+			<p>
+			USER_MESSAGE: #final_message#
+			</p>
+			<p>
+				LINK: #application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
+
+			</p>
+			<p>
+				SQL: select * from pre_new_collection where ncid=#ncid#
+			</p>
+
+			<p>
+				this would have gone out as email, and you'd be redirected to the edit form.
+			</p>
+		</cfif>
+
 		<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
-
 	</cfoutput>
-
-
-
-
-
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
