@@ -130,6 +130,9 @@
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select source from cttaxonomy_source group by source order by source
 	</cfquery>
+	<cfquery name="ctcollection_cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_cde from ctcollection_cde  order by collection_cde
+	</cfquery>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from pre_new_collection where guid_prefix='#guid_prefix#' and
 		<cfif isdefined('pwd') and len('pwd') gt 0>
@@ -228,7 +231,12 @@
 				</ul>
 
 				<label for="COLLECTION_CDE">Collection Code</label>
-				<input type="text" name="COLLECTION_CDE" id="COLLECTION_CDE" class="reqdClr" required value="#d.COLLECTION_CDE#">
+				<select name="COLLECTION_CDE" id="COLLECTION_CDE" class="reqdClr" required>
+					<cfloop query="ctcollection_cde">
+						<option	<cfif d.collection_cde is ctcollection_cde.collection_cde> selected="selected" </cfif>
+							value="#collection_cde#">#collection_cde#</option>
+					</cfloop>
+				</select>
 			</div>
 
 
