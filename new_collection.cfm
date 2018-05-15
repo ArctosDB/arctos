@@ -136,10 +136,6 @@
 	<cfquery name="ctcollection_cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_cde from ctcollection_cde  order by collection_cde
 	</cfquery>
-	<cfquery name="ice" datasource="uam_god">
-		select institution,collection from collection
-	</cfquery>
-
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from pre_new_collection where guid_prefix='#guid_prefix#' and
@@ -279,15 +275,13 @@
 
 
 			<div class="infoDiv">
-				Collection is displayed in the Collection search box on SpecimenSearch. It should be the same for all collections across
-				institutions. Current data:
-				<cfquery name="di" dbtype="query">
-					select collection from ice group by collection order by collection
-				</cfquery>
+				Collection is displayed as a child of institution in the Collection search box on SpecimenSearch.
+				It should be the same for all collections of similar type across institutions. Examples:
+
 				<ul>
-					<cfloop query="di">
-						<li>#collection#</li>
-					</cfloop>
+					<li>Amphibian and reptile specimens</li>
+					<li>Insect specimens</li>
+					<li>Mammal observations</li>
 				</ul>
 
 
@@ -311,15 +305,11 @@
 
 
 			<div class="infoDiv">
-				Institution is displayed in the Collection search box on SpecimenSearch. It should be the same for all collections in
-				an institution. Current data:
-				<cfquery name="di" dbtype="query">
-					select institution from ice group by institution order by institution
-				</cfquery>
+				Institution is displayed as "section header" in the Collection search box on SpecimenSearch. It should be the same for all collections in
+				an institution, and end with Institution Acronym in parentheses. Examples:
 				<ul>
-					<cfloop query="di">
-						<li>#institution#</li>
-					</cfloop>
+					<li>Chicago Academy of Sciences (CHAS)</li>
+					<li>Museum of Southwestern Biology (MSB)</li>
 				</ul>
 
 
