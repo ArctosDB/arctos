@@ -70,7 +70,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 					<cfhttpparam name="site" type="FormField" value='default_collection'>
 					<cfhttpparam name="client" type="FormField" value='default_frontend'>
 					<cfhttpparam name="output" type="FormField" value='output'>
-					<cfhttpparam name="<input type="hidden" name="proxystylesheet" value="">" type="FormField" value='default_frontend'>
+					<cfhttpparam name="proxystylesheet" type="FormField" value='default_frontend'>
 
 			</cfhttp>
 			<cfdump var=#cfhttp#>
