@@ -526,7 +526,7 @@
 			USER_MESSAGE: #final_message#
 			</p>
 			<p>
-				LINK: #application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
+				LINK: #application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#
 
 			</p>
 			<p>
