@@ -54,12 +54,18 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 </cfif>
 <cfif action is "parse">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_tax_validator where google is null and rownum<5
+		select * from ds_temp_tax_validator where google is null and rownum=1
 	</cfquery>
+	<!----
+
+	search?&q=%22#taxon_name#%22
+
+
+	---->
 	<cfoutput>
 		<cfloop query="d">
 			<br>#taxon_name#
-			<cfhttp url="https://www.google.com/search?q=%22#taxon_name#%22" method="get"></cfhttp>
+			<cfhttp url="https://www.google.com/?q=bill+material&output=xml&client=test&site=operations" method="get"></cfhttp>
 			<cfdump var=#cfhttp#>
 		</cfloop>
 	</cfoutput>
