@@ -130,6 +130,13 @@
 		</cfif>
 	</cfquery>
 	<cfoutput>
+		<p>
+			Sharable link to this form. CAUTION: This provides edit access to this data.
+			<pre>
+				#application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
+			</pre>
+		</p>
+
 		<form name="f" id="f" action="new_collection.cfm" method="post">
 			<input type="hidden" name="action" value="saveEdits">
 			<div class="infoDiv">
@@ -140,8 +147,16 @@
 			<label for="user_pwd">Password</label>
 			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
 
-			ncid number,
-			user_pwd VARCHAR2(255),
+			<div class="infoDiv">
+				This password is NOT secure and comes with no restrictions. DO NOT re-use your to any site, including Arctos.
+				This prevents public browsing of the data you'll enter in the next step, but is no guarantee of security. Do not provide any
+				confidential information in this form. Discuss any concerns with your Mentor.
+			</div>
+			<label for="user_pwd">Password</label>
+			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
+
+
+
 			COLLECTION_CDE varchar2(5),
 			INSTITUTION_ACRONYM VARCHAR2(20),
 			DESCR VARCHAR2(4000),
