@@ -29,7 +29,9 @@
 
 	grant select, insert, update on pre_new_collection to public;
 
-	create unique index ix_u_pnc_GUID_PREFIX on pre_new_collection(GUID_PREFIX) tablespace uam_idx_1;
+	drop index ix_u_pnc_GUID_PREFIX;
+
+	create unique index ix_u_pnc_GUID_PREFIX_u on pre_new_collection(upper(GUID_PREFIX)) tablespace uam_idx_1;
 ---->
 <cfif action is "default">
 	denied<cfabort>
@@ -48,8 +50,10 @@
 	If this is a new request, first
 	<a href="http://handbook.arctosdb.org/documentation/catalog.html#guid-prefix">CAREFULLY review the GUID_prefix documentation</a>,
 	enter your desired guid_prefix and a temporary password in the form below, and click "create collection request."
-	This password is NOT secure and comes with no restrictions. DO NOT re-use your to any site, including Arctos.
-	This prevents public browsing of the data you'll enter in the next step, but is no guarantee of security. Do not provide any
+	This password is NOT secure and should be used nowhere except in this form. The password must be at least one character in length.
+	DO NOT re-use your password to any site, including Arctos. (It's fine to re-use
+	the temporary password when requesting multiple collections.) This password provides light obfuscation of the collection creation process,
+	but is no guarantee of security. Do not provide any
 	confidential information in this form. Discuss any concerns with your Mentor.
 
 	<h2>Mange an existing request</h2>
@@ -144,19 +148,17 @@
 	</cfquery>
 	<cfoutput>
 		<p>
-			Sharable link to this form. CAUTION: This provides edit access to anyone with an Arcto account.
-		</p>
-		<p>
-			<code>
-				#application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
-			</code>
-		</p>
-		<p>
-			Request Date: #dateformat(d.insert_date,'yyyy-mm-dd')#
-			<br>Status: #d.status#
-		</p>
-		<p>
-
+			<ul>
+				<li>Request Date: #dateformat(d.insert_date,'yyyy-mm-dd')#</li>
+				<li>Status: #d.status#</li>
+				<li>Password: #d.user_pwd#</li>
+				<li>
+					Sharable link to this form. CAUTION: This provides edit access to anyone with an Arcto account.
+					<code>
+						#application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
+					</code>
+				</li>
+			</ul>
 		</p>
 		<p>
 			Useful Links:
