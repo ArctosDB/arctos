@@ -136,6 +136,11 @@
 	<cfquery name="ctcollection_cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_cde from ctcollection_cde  order by collection_cde
 	</cfquery>
+	<cfquery name="ice" datasource="uam_god">
+		select institution,collection from collection
+	</cfquery>
+
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from pre_new_collection where guid_prefix='#guid_prefix#' and
 		<cfif isdefined('pwd') and len('pwd') gt 0>
@@ -274,6 +279,19 @@
 
 
 			<div class="infoDiv">
+				Collection is displayed in the Collection search box on SpecimenSearch. It should be the same for all collections across
+				institutions. Current data:
+				<cfquery name="di" dbtype="query">
+					select collection from ice group by collection order by collection
+				</cfquery>
+				<ul>
+					<cfloop query="di">
+						<li>#collection#</li>
+					</cfloop>
+				</ul>
+
+
+
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##collection">Documentation</a></li>
 				</ul>
@@ -293,7 +311,17 @@
 
 
 			<div class="infoDiv">
-				Spelled-out version of Institution Acronym
+				Institution is displayed in the Collection search box on SpecimenSearch. It should be the same for all collections in
+				an institution. Current data:
+				<cfquery name="di" dbtype="query">
+					select institution from ice group by institution order by institution
+				</cfquery>
+				<ul>
+					<cfloop query="di">
+						<li>#institution#</li>
+					</cfloop>
+				</ul>
+
 
 				<label for="INSTITUTION">Institution</label>
 				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#" size="80">
