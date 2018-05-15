@@ -52,4 +52,16 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 	<a href="taxonNameValidator.cfm?action=parse">parse</a>
 </cfif>
+<cfif action is "parse">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_split_agent where google is null and rownum<5
+	</cfquery>
+	<cfoutput>
+		<cfloop query="d">
+			<br>#taxon_name#
+			<cfhttp url="https://www.google.com/search?q=%22#taxon_name#%22" method="get"></cfhttp>
+			<cfdump var=#cfhttp#>
+		</cfloop>
+	</cfoutput>
+</cfif>
 <cfinclude template="/includes/_footer.cfm">
