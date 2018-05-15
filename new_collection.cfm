@@ -158,7 +158,7 @@
 				The format MUST be {string}:{string}. Maximum length is 20 characters.
 				You may wish to register your collection in <a href="http://grbio.org" target="_blank" class="external">GRBIO</a>.
 				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html#guid-prefix">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##guid-prefix">Documentation</a></li>
 				</ul>
 			</div>
 			<label for="GUID_PREFIX">GUID_Prefix</label>
@@ -168,7 +168,7 @@
 			<div class="infoDiv">
 				Collection Code controls which code tables your collection will use. Maximum length is 5 characters.
 				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html#collection-code">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##collection-code">Documentation</a></li>
 					<li><a target="_blank" class="external" href="http://arctos.database.museum/info/ctDocumentation.cfm?table=CTCOLLECTION_CDE">Code Table</a></li>
 				</ul>
 
@@ -181,7 +181,7 @@
 				Institution Acronym is typically the first component of GUID_Prefix. Maximum length is 20 characters.
 
 				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html#institution-acronym">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##institution-acronym">Documentation</a></li>
 				</ul>
 			</div>
 			<label for="INSTITUTION_ACRONYM">Institution Acronym</label>
@@ -191,7 +191,7 @@
 			<div class="infoDiv">
 				Description of the collection. Maximum length is 4000 characters.
 				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html#description">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##description">Documentation</a></li>
 				</ul>
 			</div>
 			<label for="DESCRIPTION">Description</label>
