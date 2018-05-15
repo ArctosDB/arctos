@@ -26,6 +26,7 @@
 	alter table pre_new_collection add use_license_id number;
 	alter table pre_new_collection add final_message VARCHAR2(4000);
 	alter table pre_new_collection add contact_email VARCHAR2(4000);
+	alter table pre_new_collection add initiated_by_username VARCHAR2(255);
 
 
 	create public synonym pre_new_collection for pre_new_collection;
@@ -106,13 +107,15 @@
 			user_pwd,
 			GUID_PREFIX,
 			status,
-			insert_date
+			insert_date,
+			initiated_by_username
 		) values (
 			someRandomSequence.nextval,
 			'#escapeQuotes(user_pwd)#',
 			'#escapeQuotes(guid_prefix)#',
 			'new',
-			sysdate
+			sysdate,
+			'#session.username#'
 		)
 	</cfquery>
 	<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
@@ -155,6 +158,7 @@
 		<p>
 			<ul>
 				<li>Request Date: #dateformat(d.insert_date,'yyyy-mm-dd')#</li>
+				<li>Initiated By: #initiated_by_username#</li>
 				<li>Status: #d.status#</li>
 				<li>Password: #d.user_pwd#</li>
 				<li>
@@ -166,7 +170,9 @@
 				</li>
 				<cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
 					<cfif d.status is not "new">
-						You may not edit this request. Contact your Mentor if you need to make revisions.
+						<div class="importantNotification">
+							You may not edit this request. Contact your Mentor if you need to make revisions.
+						</div>
 					</cfif>
 				</cfif>
 			</ul>
