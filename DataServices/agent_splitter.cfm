@@ -53,8 +53,8 @@ grant all on ds_temp_split_agent to manage_agents;
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from ds_temp_split_agent
 	</cfquery>
-	
-	
+
+
 	<cfoutput>
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
         <cfset  util = CreateObject("component","component.utilities")>
@@ -92,6 +92,7 @@ grant all on ds_temp_split_agent to manage_agents;
 			<cfset orig=replace(orig,", Jr."," Jr,","all")>
 			<cfset orig=replace(orig," and,",chr(7),"all")>
 			<cfset orig=replace(orig," and ",chr(7),"all")>
+			<cfset orig=replace(orig," AND ",chr(7),"all")>
 			<br>orig: #orig#
 			<cfloop list="#orig#" index="x" delimiters=",&#chr(7)#/;">
 				<br>x: #x#
