@@ -499,7 +499,7 @@
 					,status='submit for review'
 				</cfif>
 			where
-				ncid='ncid'
+				ncid=#ncid#
 		</cfquery>
 
 		<cfif isdefined("sfs") and sfs is "yes_plz">
