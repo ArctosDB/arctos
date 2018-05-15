@@ -167,8 +167,14 @@
 				<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Manage-a-Collection-in-Arctos.html">How-To: Manage Collection</a></li>
 			</ul>
 		</p>
+		<p>
+			Make sure to save if you change anything!
+		</p>
 
 		<form name="f" id="f" action="new_collection.cfm" method="post">
+
+			<br><input type="submit" class="savBtn" value="save changes">
+
 			<input type="hidden" name="action" value="saveEdits">
 			<div class="infoDiv">
 				This password is NOT secure and comes with no restrictions. DO NOT re-use your password to any site, including Arctos.
