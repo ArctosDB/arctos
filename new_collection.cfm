@@ -73,7 +73,7 @@
 	<cfif isdefined("session.roles") and session.roles contains "global_admin">
 	you are admin; manage existing
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from pre_new_collection order by insert_date
+		select * from pre_new_collection order by insert_date desc
 	</cfquery>
 	<cfoutput>
 		<table border>
