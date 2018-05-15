@@ -26,6 +26,8 @@
 	create public synonym pre_new_collection for pre_new_collection;
 
 	grant select, insert, update on pre_new_collection to public;
+
+	create unique index ix_u_pnc_GUID_PREFIX on pre_new_collection(GUID_PREFIX) tablespace uam_idx_1;
 ---->
 <cfif action is "default">
 	denied<cfabort>
@@ -37,43 +39,60 @@
 
 <cfif action is "nothing">
 
+
+	<p>
+		This form facilitates new collection creation in Arctos. This is a request only; you cannot create a collection with this form.
+	</p>
+	<p>
+		If you do not yet have a Mentor, you should <a href="/info/mentor.cfm">choose one</a> before proceeding.
+	</p>
+	<h2>Request a new collection</h2>
+	If this is a new request, first
+	<a href="http://handbook.arctosdb.org/documentation/catalog.html#guid-prefix">CAREFULLY review the GUID_prefix documentation</a>,
+	enter your desired guid_prefix and a temporary password in the form below, and click "create collection request."
+	This password is NOT secure and comes with no restrictions. DO NOT re-use your to any site, including Arctos.
+	This prevents public browsing of the data you'll enter in the next step, but is no guarantee of security. Do not provide any
+	confidential information in this form. Discuss any concerns with your Mentor.
+
+	<h2>Mange an existing request</h2>
+	If you have created a request, fill in the form with the password and GUID_Prefix you used in the initial request and click
+	"manage existing request."
+	<p>
+
+
+	<form name="f" id="f" method="post" action="new_collection.cfm">
+		<input type="hidden" name="action" value="default">
+		<label for="guid_prefix">GUID Prefix</label>
+		<input type="text" name="guid_prefix" id="guid_prefix" class="reqdClr" required>
+		<label for="pwd">Password</label>
+		<input type="text" name="pwd" id="pwd" class="reqdClr" required>
+		<br><input type="button" class="insBtn" onclick="document.f.action.value='newCollectionRequest';document.f.submit();" value="create collection request">
+		<br><input type="button" class="lnkBtn" onclick="document.f.action.value='mgCollectionRequest';document.f.submit();" value="manage existing request">
+	</form>
+
 	<cfif isdefined("session.roles") and session.roles contains "global_admin">
-		you are admin
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from pre_new_collection order by insert_date
-		</cfquery>
-		<cfdump var=#d#>
-	</cfif>
+	you are admin; manage existing
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from pre_new_collection order by insert_date
+	</cfquery>
+	<table border>
+		<tr>
+			<th>GUID Prefix</th>
+			<th>CreateDate</th>
+			<th>Status</th>
+			<th>Manage</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#GUID_PREFIX#</td>
+				<td>#dateformat(insert_date,'yyyy-mm-dd')#</td>
+				<td>#status#</td>
+				<td><a href="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">clicky</a></td>
+			</tr>
+		</cfloop>
+	</table>
+</cfif>
 
-		<p>
-			This form facilitates new collection creation in Arctos. This is a request only; you cannot create a collection with this form.
-		</p>
-		<p>
-			If you do not yet have a Mentor, you should <a href="/info/mentor.cfm">choose one</a> before proceeding.
-		</p>
-		<h2>Request a new collection</h2>
-		If this is a new request, first
-		<a href="http://handbook.arctosdb.org/documentation/catalog.html#guid-prefix">CAREFULLY review the GUID_prefix documentation</a>,
-		enter your desired guid_prefix and a temporary password in the form below, and click "create collection request."
-		This password is NOT secure and comes with no restrictions. DO NOT re-use your to any site, including Arctos.
-		This prevents public browsing of the data you'll enter in the next step, but is no guarantee of security. Do not provide any
-		confidential information in this form. Discuss any concerns with your Mentor.
-
-		<h2>Mange an existing request</h2>
-		If you have created a request, fill in the form with the password and GUID_Prefix you used in the initial request and click
-		"manage existing request."
-		<p>
-
-
-		<form name="f" id="f" method="post" action="new_collection.cfm">
-			<input type="hidden" name="action" value="default">
-			<label for="guid_prefix">GUID Prefix</label>
-			<input type="text" name="guid_prefix" id="guid_prefix" class="reqdClr" required>
-			<label for="pwd">Password</label>
-			<input type="text" name="pwd" id="pwd" class="reqdClr" required>
-			<br><input type="button" class="insBtn" onclick="document.f.action.value='newCollectionRequest';document.f.submit();" value="create collection request">
-			<br><input type="button" class="lnkBtn" onclick="document.f.action.value='mgCollectionRequest';document.f.submit();" value="manage existing request">
-		</form>
 </cfif>
 <cfif action is "newCollectionRequest">
 	<cfquery name="mkr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
