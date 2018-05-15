@@ -132,11 +132,10 @@
 	<cfoutput>
 		<p>
 			Sharable link to this form. CAUTION: This provides edit access to this data.
-
-		</p>
-		<code>
+			<code>
 				#application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
 			</code>
+		</p>
 		<form name="f" id="f" action="new_collection.cfm" method="post">
 			<input type="hidden" name="action" value="saveEdits">
 			<div class="infoDiv">
