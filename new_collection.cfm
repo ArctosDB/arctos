@@ -65,14 +65,14 @@
 		<p>
 
 
-		<form name="f" method="post" action="new_collection.cfm">
+		<form name="f" id="f" method="post" action="new_collection.cfm">
 			<input type="hidden" name="action" value="default">
 			<label for="guid_prefix">GUID Prefix</label>
 			<input type="text" name="guid_prefix" id="guid_prefix" class="reqdClr" required>
 			<label for="pwd">Password</label>
 			<input type="text" name="pwd" id="pwd" class="reqdClr" required>
-			<br><input type="button" class="insBtn" onclick="f.action.value='newCollectionRequest';f.submit;" value="create collection request">
-			<br><input type="button" class="lnkBtn" onclick="f.action.value='mgCollectionRequest';f.submit;" value="manage existing request">
+			<br><input type="button" class="insBtn" onclick="document.f.action.value='newCollectionRequest';document.f.submit();" value="create collection request">
+			<br><input type="button" class="lnkBtn" onclick="document.f.action.value='mgCollectionRequest';document.f.submit();" value="manage existing request">
 		</form>
 </cfif>
 <cfif action is "newCollectionRequest">
