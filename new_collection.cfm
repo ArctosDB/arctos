@@ -117,6 +117,10 @@
 	<style>
 		.infoDiv{
 			border:2px solid green;
+			font-size:smaller;
+			padding:.5em;
+			margin:1em;
+			background-color:#e3ede5;
 		}
 	</style>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -149,24 +153,81 @@
 			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
 
 			<div class="infoDiv">
-				This password is NOT secure and comes with no restrictions. DO NOT re-use your to any site, including Arctos.
-				This prevents public browsing of the data you'll enter in the next step, but is no guarantee of security. Do not provide any
-				confidential information in this form. Discuss any concerns with your Mentor.
+				GUID_Prefix is the core of the primary specimen identifier. It is combined with catalog number and Arctos' URL to
+				produce a resolvable globally-unique specimen identifier. This must be unique across all Arctos collections.
+				The format MUST be {string}:{string}. Maximum length is 20 characters.
+				You may wish to register your collection in <a href="http://grbio.org" target="_blank" class="external">GRBIO</a>.
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html#guid-prefix">Documentation</a></li>
+				</ul>
 			</div>
-			<label for="user_pwd">Password</label>
-			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
+			<label for="GUID_PREFIX">GUID_Prefix</label>
+			<input type="text" name="GUID_PREFIX" id="GUID_PREFIX" class="reqdClr" required value="#d.GUID_PREFIX#">
+
+
+			<div class="infoDiv">
+				Collection Code controls which code tables your collection will use. Maximum length is 5 characters.
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html#collection-code">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://arctos.database.museum/info/ctDocumentation.cfm?table=CTCOLLECTION_CDE">Code Table</a></li>
+				</ul>
+
+			</div>
+			<label for="COLLECTION_CDE">Collection Code</label>
+			<input type="text" name="COLLECTION_CDE" id="COLLECTION_CDE" class="reqdClr" required value="#d.COLLECTION_CDE#">
+
+
+			<div class="infoDiv">
+				Institution Acronym is typically the first component of GUID_Prefix. Maximum length is 20 characters.
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html#institution-acronym">Documentation</a></li>
+				</ul>
+			</div>
+			<label for="INSTITUTION_ACRONYM">Institution Acronym</label>
+			<input type="text" name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM" class="reqdClr" required value="#d.INSTITUTION_ACRONYM#">
+
+
+			<div class="infoDiv">
+				Description of the collection. Maximum length is 4000 characters.
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html#description">Documentation</a></li>
+				</ul>
+			</div>
+			<label for="DESCRIPTION">Description</label>
+			<input type="text" name="DESCRIPTION" id="DESCRIPTION" class="reqdClr" required value="#d.DESCRIPTION#">
 
 
 
-			COLLECTION_CDE varchar2(5),
-			INSTITUTION_ACRONYM VARCHAR2(20),
+
+
+
+
+ COLLECTION
+
+* LOAN_POLICY_URL
+
+ INSTITUTION
+
+* GUID_PREFIX ("UAM:Mamm" or similar)
+
+* PREFERRED_TAXONOMY_SOURCE - https://arctos.database.museum/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE
+
+* CATALOG_NUMBER_FORMAT - http://handbook.arctosdb.org/documentation/catalog.html#catalog
+
+USE_LICENSE_ID - https://arctos.database.museum/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE
+
+
+The stuff with a star is important - it does stuff or shouldn't be changed or etc. The rest are more flexible. Here's an e
+			 varchar2(5),
+			 VARCHAR2(20),
 			DESCR VARCHAR2(4000),
 			COLLECTION VARCHAR2(50),
 			WEB_LINK  VARCHAR2(4000),
 			WEB_LINK_TEXT  VARCHAR2(50),
 			LOAN_POLICY_URL VARCHAR2(255),
 			INSTITUTION VARCHAR2(255),
-			GUID_PREFIX VARCHAR2(20),
+			 VARCHAR2(20),
 			PREFERRED_TAXONOMY_SOURCE VARCHAR2(255),
 			CATALOG_NUMBER_FORMAT  VARCHAR2(21),
 			mentor varchar2(4000),
@@ -181,32 +242,6 @@
 		</form>
 	</cfoutput>
 </cfif>
-
-.0.1.0 - 64bit Production
-With the Partitioning, OLAP, Data Mining and Real Application Testing options
-
-UAM@ARCTOS> desc collection
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- COLLECTION_CDE 						   NOT NULL VARCHAR2(5)
- INSTITUTION_ACRONYM							    VARCHAR2(20)
- DESCR									    VARCHAR2(4000)
- COLLECTION							   NOT NULL VARCHAR2(50)
- COLLECTION_ID							   NOT NULL NUMBER
- WEB_LINK								    VARCHAR2(4000)
- WEB_LINK_TEXT								    VARCHAR2(50)
- GENBANK_PRID								    NUMBER
- GENBANK_USERNAME							    VARCHAR2(20)
- GENBANK_PWD								    VARCHAR2(20)
- LOAN_POLICY_URL						   NOT NULL VARCHAR2(255)
- INSTITUTION								    VARCHAR2(255)
- GUID_PREFIX							   NOT NULL VARCHAR2(20)
- USE_LICENSE_ID 							    NUMBER
- CITATION								    VARCHAR2(255)
- PREFERRED_TAXONOMY_SOURCE					   NOT NULL VARCHAR2(255)
- CATALOG_NUMBER_FORMAT						   NOT NULL VARCHAR2(21)
-
-
 
 
 
@@ -234,4 +269,25 @@ USE_LICENSE_ID - https://arctos.database.museum/info/ctDocumentation.cfm?table=C
 
 
 
+Elapsed: 00:00:00.00
+UAM@ARCTOSTE> desc collection
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ COLLECTION_CDE 						   NOT NULL VARCHAR2(5)
+ INSTITUTION_ACRONYM							    VARCHAR2(20)
+ DESCR									    VARCHAR2(4000)
+ COLLECTION							   NOT NULL VARCHAR2(50)
+ COLLECTION_ID							   NOT NULL NUMBER
+ WEB_LINK								    VARCHAR2(4000)
+ WEB_LINK_TEXT								    VARCHAR2(50)
+ GENBANK_PRID								    NUMBER
+ GENBANK_USERNAME							    VARCHAR2(20)
+ GENBANK_PWD								    VARCHAR2(20)
+ LOAN_POLICY_URL							    VARCHAR2(255)
+ INSTITUTION								    VARCHAR2(255)
+ GUID_PREFIX							   NOT NULL VARCHAR2(20)
+ USE_LICENSE_ID 							    NUMBER
+ CITATION								    VARCHAR2(255)
+ PREFERRED_TAXONOMY_SOURCE					   NOT NULL VARCHAR2(255)
+ CATALOG_NUMBER_FORMAT						   NOT NULL VARCHAR2(21)
 
