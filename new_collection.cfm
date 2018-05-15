@@ -536,6 +536,8 @@
 			<p>
 				this would have gone out as email, and you'd be redirected to the edit form.
 			</p>
+
+			<cfabort>
 		</cfif>
 
 		<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
