@@ -67,8 +67,8 @@
 		<input type="hidden" name="action" value="default">
 		<label for="guid_prefix">GUID Prefix</label>
 		<input type="text" name="guid_prefix" id="guid_prefix" class="reqdClr" required>
-		<label for="pwd">Password</label>
-		<input type="text" name="pwd" id="pwd" class="reqdClr" required>
+		<label for="user_pwd">Password</label>
+		<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required>
 		<br><input type="button" class="insBtn" onclick="document.f.action.value='newCollectionRequest';document.f.submit();" value="create collection request">
 		<br><input type="button" class="lnkBtn" onclick="document.f.action.value='mgCollectionRequest';document.f.submit();" value="manage existing request">
 	</form>
@@ -109,13 +109,13 @@
 			insert_date
 		) values (
 			someRandomSequence.nextval,
-			'#escapeQuotes(pwd)#',
+			'#escapeQuotes(user_pwd)#',
 			'#escapeQuotes(guid_prefix)#',
 			'new',
 			sysdate
 		)
 	</cfquery>
-	<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(pwd)#&GUID_PREFIX=#GUID_PREFIX#">
+	<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
 </cfif>
 
 <cfif action is "mgCollectionRequest">
@@ -142,8 +142,8 @@
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from pre_new_collection where guid_prefix='#guid_prefix#' and
-		<cfif isdefined('pwd') and len('pwd') gt 0>
-			user_pwd='#escapeQuotes(pwd)#'
+		<cfif isdefined('user_pwd') and len('user_pwd') gt 0>
+			user_pwd='#escapeQuotes(user_pwd)#'
 		<cfelseif isdefined('pwhash') and len('pwhash') gt 0>
 			dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw(user_pwd)) ='#pwhash#'
 		<cfelse>
@@ -526,7 +526,7 @@
 			USER_MESSAGE: #final_message#
 			</p>
 			<p>
-				LINK: #application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
+				LINK: #application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
 
 			</p>
 			<p>
