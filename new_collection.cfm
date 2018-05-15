@@ -150,7 +150,7 @@
 			</code>
 		</p>
 		<p>
-			insert_date: #datefomat(d.insert_date,'yyyy-mm-dd')#
+			insert_date: #dateformat(d.insert_date,'yyyy-mm-dd')#
 		</p>
 		<p>
 			Useful Links:
