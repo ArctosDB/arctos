@@ -158,7 +158,7 @@
 		<p>
 			<ul>
 				<li>Request Date: #dateformat(d.insert_date,'yyyy-mm-dd')#</li>
-				<li>Initiated By: #initiated_by_username#</li>
+				<li>Initiated By: #d.initiated_by_username#</li>
 				<li>Status: #d.status#</li>
 				<li>Password: #d.user_pwd#</li>
 				<li>
