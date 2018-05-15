@@ -142,6 +142,9 @@
 				#application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(d.user_pwd)#&GUID_PREFIX=#d.GUID_PREFIX#
 			</code>
 		</p>
+		<p>
+			insert_date: #d.insert_date#
+		</p>
 		<form name="f" id="f" action="new_collection.cfm" method="post">
 			<input type="hidden" name="action" value="saveEdits">
 			<div class="infoDiv">
@@ -194,48 +197,104 @@
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##description">Documentation</a></li>
 				</ul>
 			</div>
-			<label for="DESCRIPTION">Description</label>
-			<input type="text" name="DESCRIPTION" id="DESCRIPTION" class="reqdClr" required value="#d.DESCRIPTION#">
+			<label for="DESCR">Description</label>
+			<input type="text" name="DESCR" id="DESCR" class="reqdClr" required value="#d.DESCR#">
+
+
+			<div class="infoDiv">
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##collection">Documentation</a></li>
+				</ul>
+			</div>
+			<label for="COLLECTION">Collection</label>
+			<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#">
+
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="LOAN_POLICY_URL">Loan Policy URL</label>
+			<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#">
+
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="INSTITUTION">Institution</label>
+			<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#">
 
 
 
 
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
+			<input type="text" name="PREFERRED_TAXONOMY_SOURCE" id="PREFERRED_TAXONOMY_SOURCE" class="reqdClr" required value="#d.PREFERRED_TAXONOMY_SOURCE#">
 
 
 
- COLLECTION
 
-* LOAN_POLICY_URL
-
- INSTITUTION
-
-* GUID_PREFIX ("UAM:Mamm" or similar)
-
-* PREFERRED_TAXONOMY_SOURCE - https://arctos.database.museum/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE
-
-* CATALOG_NUMBER_FORMAT - http://handbook.arctosdb.org/documentation/catalog.html#catalog
-
-USE_LICENSE_ID - https://arctos.database.museum/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="CATALOG_NUMBER_FORMAT">Catalog Number Format</label>
+			<input type="text" name="CATALOG_NUMBER_FORMAT" id="CATALOG_NUMBER_FORMAT" class="reqdClr" required value="#d.CATALOG_NUMBER_FORMAT#">
 
 
-The stuff with a star is important - it does stuff or shouldn't be changed or etc. The rest are more flexible. Here's an e
-			 varchar2(5),
-			 VARCHAR2(20),
-			DESCR VARCHAR2(4000),
-			COLLECTION VARCHAR2(50),
-			WEB_LINK  VARCHAR2(4000),
-			WEB_LINK_TEXT  VARCHAR2(50),
-			LOAN_POLICY_URL VARCHAR2(255),
-			INSTITUTION VARCHAR2(255),
-			 VARCHAR2(20),
-			PREFERRED_TAXONOMY_SOURCE VARCHAR2(255),
-			CATALOG_NUMBER_FORMAT  VARCHAR2(21),
-			mentor varchar2(4000),
-			mentor_contact varchar2(4000),
-			admin_username VARCHAR2(255),
-			status varchar2(255),
-			insert_date date
-		);
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="USE_LICENSE_ID">License</label>
+			<input type="text" name="USE_LICENSE_ID" id="USE_LICENSE_ID" class="reqdClr" required value="#d.USE_LICENSE_ID#">
+
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="status">status</label>
+			<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
+
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="status">status</label>
+			<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="WEB_LINK">Web Link</label>
+			<input type="text" name="WEB_LINK" id="WEB_LINK" class="reqdClr" required value="#d.WEB_LINK#">
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="WEB_LINK_TEXT">Web Link Text</label>
+			<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" class="reqdClr" required value="#d.WEB_LINK_TEXT#">
+
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="mentor">mentor</label>
+			<input type="text" name="mentor" id="mentor" class="reqdClr" required value="#d.mentor#">
+
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="mentor_contact">mentor_contact</label>
+			<input type="text" name="mentor_contact" id="mentor_contact" class="reqdClr" required value="#d.mentor_contact#">
+
+
+			<div class="infoDiv">
+				documentation needed
+			</div>
+			<label for="admin_username">admin_username</label>
+			<input type="text" name="admin_username" id="admin_username" class="reqdClr" required value="#d.admin_username#">
 
 
 
