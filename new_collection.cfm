@@ -71,8 +71,8 @@
 			<input type="text" name="guid_prefix" id="guid_prefix" class="reqdClr" required>
 			<label for="pwd">Password</label>
 			<input type="text" name="pwd" id="pwd" class="reqdClr" required>
-			<input type="button" class="insBtn" onclick="f.action.value='newCollectionRequest';f.submit;" value="create collection request">
-			<input type="button" class="lnkBtn" onclick="f.action.value='mgCollectionRequest';f.submit;" value="manage existing request">
+			<br><input type="button" class="insBtn" onclick="f.action.value='newCollectionRequest';f.submit;" value="create collection request">
+			<br><input type="button" class="lnkBtn" onclick="f.action.value='mgCollectionRequest';f.submit;" value="manage existing request">
 		</form>
 </cfif>
 <cfif action is "newCollectionRequest">
