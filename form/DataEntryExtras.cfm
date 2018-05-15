@@ -16,7 +16,6 @@
 						#r[key][key2]#
 				<cfelse>
 					---nodata--
-
 				</cfif>
 			</cfloop>
 		</cfloop>

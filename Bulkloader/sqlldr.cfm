@@ -118,7 +118,7 @@
 				Load the data
 				<p>
 					<code>
-						$ORACLE_HOME/bin/sqlldr username/password control=#ctlname#
+						$ORACLE_HOME/bin/sqlldr username/password@SID control=#ctlname#
 					</code>
 				</p>
 				Don't forget to escape special characters in password - my.password ==> my\.password
