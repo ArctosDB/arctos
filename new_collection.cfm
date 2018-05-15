@@ -152,6 +152,42 @@
 		<p>
 			insert_date: #d.insert_date#
 		</p>
+		<p>
+			http://handbook.arctosdb.org/how_to/How-to-Manage-a-Collection-in-Arctos.html
+		</p>
+		<p>
+			Useful Links:
+			<ul>
+				<li><a target="_blank" class="external" href="https://arctosdb.org/faq/">Arctos FAQ </a></li>
+				<li>
+					<a target="_blank" class="external" href="https://www.tacc.utexas.edu/">TACC</a>
+					handles all of our data storage and security on their
+					<a target="_blank" class="external" href="https://www.tacc.utexas.edu/systems/corral">Corral</a> system.
+				</li>
+				<li><a target="_blank" class="external" href="https://arctosdb.org/join-arctos/costs/">current pricing structure</a></li>
+				<li><a target="_blank" class="external" href="https://arctosdb.org/learn/webinars/">webinars</a></li>
+				<li><a target="_blank" class="external" href="http://handbook.arctosdb.org">Arctos Handbook</a></li>
+			</ul>
+		</p>
+
+
+1. There is a lot of good follow-up information from our conversation on the .
+
+2.
+
+3. Details about our  can be found here. At 10,000 records the fee would run about $475 per year.
+
+4. If you want to spend a little more time, you may want to view some of our  or read through documentation in the .
+
+5. Some collections that you might find interesting include UTEP Entomology and Kenai National Wildlife Refuge.
+
+We encourage you to play with Arctos a bit. Search for species or localities of interest to you and make notes about what looks like it will work well for you and what might be missing. As collections with different needs are added to Arctos we usually end up creating new fields and functionality. If you are interested in joining Arctos, the next step is to complete the Application to join Arctos. In the mean time, if you have any more questions, feel free to contact me or Mariel and we will do our best to make sure you get the information that you need.
+
+Thanks for spending time with us this afternoon!
+
+Teresa J. Mayfield
+
+
 		<form name="f" id="f" action="new_collection.cfm" method="post">
 			<input type="hidden" name="action" value="saveEdits">
 			<div class="infoDiv">
@@ -216,7 +252,7 @@
 				</ul>
 
 				<label for="COLLECTION">Collection</label>
-				<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#">
+				<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#" size="80">
 			</div>
 
 
@@ -225,7 +261,7 @@
 				File an Issue for assistance in creating or hosting a loan policy.
 
 				<label for="LOAN_POLICY_URL">Loan Policy URL</label>
-				<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#">
+				<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#" size="80">
 			</div>
 
 
@@ -233,14 +269,21 @@
 				documentation needed
 
 				<label for="INSTITUTION">Institution</label>
-				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#">
+				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#" size="80">
 			</div>
 
 
 
 
 			<div class="infoDiv">
-				documentation needed
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/taxonomy.html#source-arctos">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-manage-taxonomic-classifications.html">How-To</a></li>
+				</ul>
+
+
+
 
 				<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
 				<select name="preferred_taxonomy_source" id="preferred_taxonomy_source" class="reqdClr" required>
@@ -282,15 +325,27 @@
 							value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
 					</cfloop>
 				</select>
-
-
-				<input type="text" name="USE_LICENSE_ID" id="USE_LICENSE_ID" class="reqdClr" required value="#d.USE_LICENSE_ID#">
 			</div>
 
 
 			<div class="infoDiv">
-				documentation needed
+				Status of this request
+				<ul>
+					<li>new: unreviewed request</li>
+					<li>submit for review: request is ready for consideration by Arctos staff</li>
+					<li>ready to create: request is approved by Arctos staff and ready for DBA action</li>
+					<li>created: collection is created and ready for use</li>
+				</ul>
 				<label for="status">status</label>
+					<select name="status" id="status" class="reqdClr" required >
+					<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
+					<option <cfif d.status is "submit for review">selected="selected" </cfif>value="submit for review">submit for review</option>
+					<option <cfif d.status is "ready to create">selected="selected" </cfif>value="ready to create">ready to create</option>
+					<option <cfif d.status is "created">selected="selected" </cfif>value="created">created</option>
+
+					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
+					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
+				</select>
 				<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
 			</div>
 
@@ -325,6 +380,12 @@
 
 			<div class="infoDiv">
 				Username(s) who will receive manage_collection access. Comma-separated list OK.
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/users.html">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Create-a-New-User-Account-for-Operators.html">How-To</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Invite-an-Operator.html">How-To</a></li>
+				</ul>
 				<label for="admin_username">admin_username</label>
 				<input type="text" name="admin_username" id="admin_username" class="reqdClr" required value="#d.admin_username#">
 			</div>
@@ -334,5 +395,12 @@
 		</form>
 	</cfoutput>
 </cfif>
-
+<cfif action is "saveEdits">
+	<cfif isdefined("session.roles") and session.roles does not contain "global_admin">
+		<cfif status is not "new" and status is not "submit for review">
+			You may only set status to "new" or "submit for review."
+			<cfabort>
+		</cfif>
+	</cfif>
+</cfif>
 <cfinclude template="/includes/_footer.cfm">
