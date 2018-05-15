@@ -43,9 +43,6 @@
 	<p>
 		This form facilitates new collection creation in Arctos. This is a request only; you cannot create a collection with this form.
 	</p>
-	<p>
-		If you do not yet have a Mentor, you should <a href="/info/mentor.cfm">choose one</a> before proceeding.
-	</p>
 	<h2>Request a new collection</h2>
 	If this is a new request, first
 	<a href="http://handbook.arctosdb.org/documentation/catalog.html#guid-prefix">CAREFULLY review the GUID_prefix documentation</a>,
@@ -123,6 +120,14 @@
 			background-color:#e3ede5;
 		}
 	</style>
+
+	<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
+	</cfquery>
+
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select source from cttaxonomy_source group by source order by source
+	</cfquery>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from pre_new_collection where guid_prefix='#guid_prefix#' and
 		<cfif isdefined('pwd') and len('pwd') gt 0>
@@ -163,9 +168,9 @@
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##guid-prefix">Documentation</a></li>
 				</ul>
+				<label for="GUID_PREFIX">GUID_Prefix</label>
+				<input type="text" name="GUID_PREFIX" id="GUID_PREFIX" class="reqdClr" required value="#d.GUID_PREFIX#">
 			</div>
-			<label for="GUID_PREFIX">GUID_Prefix</label>
-			<input type="text" name="GUID_PREFIX" id="GUID_PREFIX" class="reqdClr" required value="#d.GUID_PREFIX#">
 
 
 			<div class="infoDiv">
@@ -175,9 +180,9 @@
 					<li><a target="_blank" class="external" href="http://arctos.database.museum/info/ctDocumentation.cfm?table=CTCOLLECTION_CDE">Code Table</a></li>
 				</ul>
 
+				<label for="COLLECTION_CDE">Collection Code</label>
+				<input type="text" name="COLLECTION_CDE" id="COLLECTION_CDE" class="reqdClr" required value="#d.COLLECTION_CDE#">
 			</div>
-			<label for="COLLECTION_CDE">Collection Code</label>
-			<input type="text" name="COLLECTION_CDE" id="COLLECTION_CDE" class="reqdClr" required value="#d.COLLECTION_CDE#">
 
 
 			<div class="infoDiv">
@@ -186,117 +191,143 @@
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##institution-acronym">Documentation</a></li>
 				</ul>
-			</div>
-			<label for="INSTITUTION_ACRONYM">Institution Acronym</label>
-			<input type="text" name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM" class="reqdClr" required value="#d.INSTITUTION_ACRONYM#">
 
+				<label for="INSTITUTION_ACRONYM">Institution Acronym</label>
+				<input type="text" name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM" class="reqdClr" required value="#d.INSTITUTION_ACRONYM#">
+
+			</div>
 
 			<div class="infoDiv">
 				Description of the collection. Maximum length is 4000 characters.
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##description">Documentation</a></li>
 				</ul>
+
+				<label for="DESCR">Description</label>
+				<input type="text" name="DESCR" id="DESCR" class="reqdClr" required value="#d.DESCR#">
 			</div>
-			<label for="DESCR">Description</label>
-			<input type="text" name="DESCR" id="DESCR" class="reqdClr" required value="#d.DESCR#">
 
 
 			<div class="infoDiv">
 				<ul>
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##collection">Documentation</a></li>
 				</ul>
+
+				<label for="COLLECTION">Collection</label>
+				<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#">
 			</div>
-			<label for="COLLECTION">Collection</label>
-			<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#">
+
+
+			<div class="infoDiv">
+				URL to collection's loan policy. A loan policy is required; the contents of the loan policy are entirely up to the data owners.
+				File an Issue for assistance in creating or hosting a loan policy.
+
+				<label for="LOAN_POLICY_URL">Loan Policy URL</label>
+				<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#">
+			</div>
 
 
 			<div class="infoDiv">
 				documentation needed
+
+				<label for="INSTITUTION">Institution</label>
+				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#">
 			</div>
-			<label for="LOAN_POLICY_URL">Loan Policy URL</label>
-			<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#">
-
-
-			<div class="infoDiv">
-				documentation needed
-			</div>
-			<label for="INSTITUTION">Institution</label>
-			<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#">
-
-
-
-
-			<div class="infoDiv">
-				documentation needed
-			</div>
-			<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
-			<input type="text" name="PREFERRED_TAXONOMY_SOURCE" id="PREFERRED_TAXONOMY_SOURCE" class="reqdClr" required value="#d.PREFERRED_TAXONOMY_SOURCE#">
 
 
 
 
 			<div class="infoDiv">
 				documentation needed
+
+				<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
+				<select name="preferred_taxonomy_source" id="preferred_taxonomy_source" class="reqdClr" required>
+					<cfloop query="cttaxonomy_source">
+						<option	<cfif d.preferred_taxonomy_source is cttaxonomy_source.source> selected="selected" </cfif>
+							value="#source#">#source#</option>
+					</cfloop>
+				</select>
+
 			</div>
-			<label for="CATALOG_NUMBER_FORMAT">Catalog Number Format</label>
-			<input type="text" name="CATALOG_NUMBER_FORMAT" id="CATALOG_NUMBER_FORMAT" class="reqdClr" required value="#d.CATALOG_NUMBER_FORMAT#">
 
 
 
 			<div class="infoDiv">
-				documentation needed
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##catalog-number">Documentation</a></li>
+				</ul>
+				<label for="CATALOG_NUMBER_FORMAT">Catalog Number Format</label>
+				<select name="catalog_number_format" id="catalog_number_format" class="reqdClr" required >
+					<option <cfif d.catalog_number_format is "integer">selected="selected" </cfif>value="integer">integer</option>
+					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
+					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
+				</select>
+
+
+				<input type="text" name="CATALOG_NUMBER_FORMAT" id="CATALOG_NUMBER_FORMAT" class="reqdClr" required value="#d.CATALOG_NUMBER_FORMAT#">
 			</div>
-			<label for="USE_LICENSE_ID">License</label>
-			<input type="text" name="USE_LICENSE_ID" id="USE_LICENSE_ID" class="reqdClr" required value="#d.USE_LICENSE_ID#">
+
+
+
+			<div class="infoDiv">
+				Pick a license. File an Issue if you need a new license.
+				<label for="USE_LICENSE_ID">License</label>
+				<select name="use_license_id" id="use_license_id"  class="reqdClr" required>
+					<option value="NULL">-none-</option>
+					<cfloop query="CTMEDIA_LICENSE">
+						<option	<cfif colls.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
+							value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
+					</cfloop>
+				</select>
+
+
+				<input type="text" name="USE_LICENSE_ID" id="USE_LICENSE_ID" class="reqdClr" required value="#d.USE_LICENSE_ID#">
+			</div>
 
 
 			<div class="infoDiv">
 				documentation needed
+				<label for="status">status</label>
+				<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
 			</div>
-			<label for="status">status</label>
-			<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
 
 
 			<div class="infoDiv">
-				documentation needed
+				URL to more information, such as the collection's home page.
+				<label for="WEB_LINK">Web Link</label>
+				<input type="text" name="WEB_LINK" id="WEB_LINK" class="reqdClr" required value="#d.WEB_LINK#">
 			</div>
-			<label for="status">status</label>
-			<input type="text" name="status" id="status" class="reqdClr" required value="#d.status#">
 
 			<div class="infoDiv">
-				documentation needed
+				Clickable text to display with web link.
+				<label for="WEB_LINK_TEXT">Web Link Text</label>
+				<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" class="reqdClr" required value="#d.WEB_LINK_TEXT#">
 			</div>
-			<label for="WEB_LINK">Web Link</label>
-			<input type="text" name="WEB_LINK" id="WEB_LINK" class="reqdClr" required value="#d.WEB_LINK#">
-
-			<div class="infoDiv">
-				documentation needed
-			</div>
-			<label for="WEB_LINK_TEXT">Web Link Text</label>
-			<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" class="reqdClr" required value="#d.WEB_LINK_TEXT#">
 
 
 			<div class="infoDiv">
-				documentation needed
+				If you do not yet have a Mentor, you should discuss mentoring with a volunteer from
+				<a href="/info/mentor.cfm">the list</a>.
+				<label for="mentor">mentor</label>
+				<input type="text" name="mentor" id="mentor" class="reqdClr" required value="#d.mentor#">
 			</div>
-			<label for="mentor">mentor</label>
-			<input type="text" name="mentor" id="mentor" class="reqdClr" required value="#d.mentor#">
 
 
 			<div class="infoDiv">
-				documentation needed
+				Mentor's email. This helps us keep them in the loop.
+				<label for="mentor_contact">mentor_contact</label>
+				<input type="text" name="mentor_contact" id="mentor_contact" class="reqdClr" required value="#d.mentor_contact#">
 			</div>
-			<label for="mentor_contact">mentor_contact</label>
-			<input type="text" name="mentor_contact" id="mentor_contact" class="reqdClr" required value="#d.mentor_contact#">
 
 
 			<div class="infoDiv">
-				documentation needed
+				Username(s) who will receive manage_collection access. Comma-separated list OK.
+				<label for="admin_username">admin_username</label>
+				<input type="text" name="admin_username" id="admin_username" class="reqdClr" required value="#d.admin_username#">
 			</div>
-			<label for="admin_username">admin_username</label>
-			<input type="text" name="admin_username" id="admin_username" class="reqdClr" required value="#d.admin_username#">
 
-
+			<br><input type="submit" class="savBtn" value="save changes">
 
 		</form>
 	</cfoutput>

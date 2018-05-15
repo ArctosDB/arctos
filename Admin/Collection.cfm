@@ -100,7 +100,7 @@
 					<label for="catalog_number_format">Catnum Format</label>
 					<select name="catalog_number_format" id="catalog_number_format">
 						<option <cfif colls.catalog_number_format is "integer">selected="selected" </cfif>value="integer">integer</option>
-						<option <cfif colls.catalog_number_format is "prefix-integer-suffix">selected="prefix-integer-suffix" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
+						<option <cfif colls.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
 						<option <cfif colls.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
 					</select>
 					<label for="use_license_id">License</label>
@@ -113,7 +113,7 @@
 					</select>
 					<span class="infoLink" onclick="getCtDoc('ctmedia_license',editCollection.use_license_id.value);">Define</span>
 					<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy (Classification) Source</label>
-					<select name="preferred_taxonomy_source" id="use_license_id">
+					<select name="preferred_taxonomy_source" id="preferred_taxonomy_source">
 						<cfloop query="cttaxonomy_source">
 							<option	<cfif colls.preferred_taxonomy_source is cttaxonomy_source.source> selected="selected" </cfif>
 								value="#source#">#source#</option>
