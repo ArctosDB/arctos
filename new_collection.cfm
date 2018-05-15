@@ -150,10 +150,7 @@
 			</code>
 		</p>
 		<p>
-			insert_date: #d.insert_date#
-		</p>
-		<p>
-			http://handbook.arctosdb.org/how_to/How-to-Manage-a-Collection-in-Arctos.html
+			insert_date: #datefomat(d.insert_date,'yyyy-mm-dd')#
 		</p>
 		<p>
 			Useful Links:
@@ -167,6 +164,7 @@
 				<li><a target="_blank" class="external" href="https://arctosdb.org/join-arctos/costs/">current pricing structure</a></li>
 				<li><a target="_blank" class="external" href="https://arctosdb.org/learn/webinars/">webinars</a></li>
 				<li><a target="_blank" class="external" href="http://handbook.arctosdb.org">Arctos Handbook</a></li>
+				<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Manage-a-Collection-in-Arctos.html">How-To: Manage Collection</a></li>
 			</ul>
 		</p>
 
