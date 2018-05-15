@@ -147,6 +147,7 @@
 		</cfif>
 	</cfquery>
 	<cfoutput>
+		<h2>New Collection Request</h2>
 		<p>
 			<ul>
 				<li>Request Date: #dateformat(d.insert_date,'yyyy-mm-dd')#</li>
