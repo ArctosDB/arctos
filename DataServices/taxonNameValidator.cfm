@@ -65,7 +65,14 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	<cfoutput>
 		<cfloop query="d">
 			<br>#taxon_name#
-			<cfhttp url="https://www.google.com/?q=%22Liasis+albertesi%22&output=xml&client=test&site=operations" method="get"></cfhttp>
+			<cfhttp url="https://www.google.com/search?" method="get">
+					<cfhttpparam name="q" type="FormField" value='#URLEncodedFormat("Liasis albertesi")#'>
+					<cfhttpparam name="site" type="FormField" value='default_collection'>
+					<cfhttpparam name="client" type="FormField" value='default_frontend'>
+					<cfhttpparam name="output" type="FormField" value='output'>
+					<cfhttpparam name="<input type="hidden" name="proxystylesheet" value="">" type="FormField" value='default_frontend'>
+
+			</cfhttp>
 			<cfdump var=#cfhttp#>
 		</cfloop>
 	</cfoutput>
