@@ -264,15 +264,16 @@
 			</div>
 
 			<div class="infoDiv">
-				Description of the collection. Maximum length is 4000 characters.
+				Institution is displayed as "section header" in the Collection search box on SpecimenSearch. It should be the same for all collections in
+				an institution, and end with Institution Acronym in parentheses. Examples:
 				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##description">Documentation</a></li>
+					<li>Chicago Academy of Sciences (CHAS)</li>
+					<li>Museum of Southwestern Biology (MSB)</li>
 				</ul>
 
-				<label for="DESCR">Description</label>
-				<textarea class="hugetextarea reqdClr" name="DESCR" id="DESCR" required >#d.DESCR#</textarea>
+				<label for="INSTITUTION">Institution</label>
+				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#" size="80">
 			</div>
-
 
 			<div class="infoDiv">
 				Collection is displayed as a child of institution in the Collection search box on SpecimenSearch.
@@ -294,19 +295,18 @@
 				<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#" size="80">
 			</div>
 
+
+
+
 			<div class="infoDiv">
-				Institution is displayed as "section header" in the Collection search box on SpecimenSearch. It should be the same for all collections in
-				an institution, and end with Institution Acronym in parentheses. Examples:
+				Description of the collection. Maximum length is 4000 characters.
 				<ul>
-					<li>Chicago Academy of Sciences (CHAS)</li>
-					<li>Museum of Southwestern Biology (MSB)</li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##description">Documentation</a></li>
 				</ul>
 
-				<label for="INSTITUTION">Institution</label>
-				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required value="#d.INSTITUTION#" size="80">
+				<label for="DESCR">Description</label>
+				<textarea class="hugetextarea reqdClr" name="DESCR" id="DESCR" required >#d.DESCR#</textarea>
 			</div>
-
-
 
 			<div class="infoDiv">
 				URL to collection's loan policy. A loan policy is required; the contents of the loan policy are entirely up to the data owners.
@@ -356,14 +356,14 @@
 
 
 			<div class="infoDiv">
-				Pick a license to govern the usage of your data in Arctos. File an Issue if you need a new license. Note that data shared via DWC
+				License to govern the usage of your data in Arctos. File an Issue if you need a new license. Note that data shared via DWC
 				may be licensed differently, and Media are individually licensed.
 
 				<ul>
 					<li><a target="_blank" class="external" href="/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE">Code Table</a></li>
 				</ul>
 				<label for="USE_LICENSE_ID">License</label>
-				<select name="use_license_id" id="use_license_id"  class="reqdClr" required>
+				<select name="use_license_id" id="use_license_id" >
 					<option value="NULL">-none-</option>
 					<cfloop query="CTMEDIA_LICENSE">
 						<option	<cfif d.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
@@ -377,13 +377,13 @@
 			<div class="infoDiv">
 				URL to more information, such as the collection's home page.
 				<label for="WEB_LINK">Web Link</label>
-				<input type="text" name="WEB_LINK" id="WEB_LINK" class="reqdClr" required value="#d.WEB_LINK#" size="80">
+				<input type="text" name="WEB_LINK" id="WEB_LINK"  value="#d.WEB_LINK#" size="80">
 			</div>
 
 			<div class="infoDiv">
 				Clickable text to display with web link.
 				<label for="WEB_LINK_TEXT">Web Link Text</label>
-				<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" class="reqdClr" required value="#d.WEB_LINK_TEXT#" size="80">
+				<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" value="#d.WEB_LINK_TEXT#" size="80">
 			</div>
 
 
@@ -391,14 +391,14 @@
 				If you do not yet have a Mentor, you should discuss mentoring with a volunteer from
 				<a href="/info/mentor.cfm">the list</a>.
 				<label for="mentor">mentor</label>
-				<input type="text" name="mentor" id="mentor" class="reqdClr" required value="#d.mentor#" size="80">
+				<input type="text" name="mentor" id="mentor"  value="#d.mentor#" size="80">
 			</div>
 
 
 			<div class="infoDiv">
 				Mentor's email. This helps us keep them in the loop.
 				<label for="mentor_contact">mentor_contact</label>
-				<input type="text" name="mentor_contact" id="mentor_contact" class="reqdClr" required value="#d.mentor_contact#" size="80">
+				<input type="text" name="mentor_contact" id="mentor_contact" value="#d.mentor_contact#" size="80">
 			</div>
 
 
@@ -413,7 +413,7 @@
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Invite-an-Operator.html">How-To</a></li>
 				</ul>
 				<label for="admin_username">admin_username</label>
-				<input type="text" name="admin_username" id="admin_username" class="reqdClr" required value="#d.admin_username#" size="80">
+				<input type="text" name="admin_username" id="admin_username"  value="#d.admin_username#" size="80">
 			</div>
 
 			<br><input type="submit" class="savBtn" value="save changes">
