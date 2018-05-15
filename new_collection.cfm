@@ -148,13 +148,13 @@
 		<form name="f" id="f" action="new_collection.cfm" method="post">
 			<input type="hidden" name="action" value="saveEdits">
 			<div class="infoDiv">
-				This password is NOT secure and comes with no restrictions. DO NOT re-use your to any site, including Arctos.
-				This prevents public browsing of the data you'll enter in the next step, but is no guarantee of security. Do not provide any
+				This password is NOT secure and comes with no restrictions. DO NOT re-use your password to any site, including Arctos.
+				This prevents public browsing of these data, but is no guarantee of security. Do not provide any
 				confidential information in this form. Discuss any concerns with your Mentor.
-			</div>
-			<label for="user_pwd">Password</label>
-			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
+				<label for="user_pwd">Password</label>
+				<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#d.user_pwd#">
 
+			</div>
 			<div class="infoDiv">
 				GUID_Prefix is the core of the primary specimen identifier. It is combined with catalog number and Arctos' URL to
 				produce a resolvable globally-unique specimen identifier. This must be unique across all Arctos collections.
