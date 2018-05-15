@@ -186,6 +186,7 @@
 			<br><input type="submit" class="savBtn" value="save changes">
 
 			<input type="hidden" name="action" value="saveEdits">
+			<input type="hidden" name="user_pwd" value="#d.user_pwd#">
 			<!----
 			<div class="infoDiv">
 				This password is NOT secure and comes with no restrictions. DO NOT re-use your password to any site, including Arctos.
@@ -405,11 +406,33 @@
 	</cfoutput>
 </cfif>
 <cfif action is "saveEdits">
-	<cfif isdefined("session.roles") and session.roles does not contain "global_admin">
-		<cfif status is not "new" and status is not "submit for review">
-			You may only set status to "new" or "submit for review."
-			<cfabort>
-		</cfif>
-	</cfif>
+	<cfoutput>
+		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update pre_new_collection set
+				COLLECTION_CDE='#COLLECTION_CDE#',
+				INSTITUTION_ACRONYM='#INSTITUTION_ACRONYM#',
+				DESCR='#escapeQuotes(DESCR)#',
+				COLLECTION='#COLLECTION#',
+				LOAN_POLICY_URL='#LOAN_POLICY_URL#',
+				INSTITUTION='#INSTITUTION#',
+				PREFERRED_TAXONOMY_SOURCE='#PREFERRED_TAXONOMY_SOURCE#',
+				CATALOG_NUMBER_FORMAT='#CATALOG_NUMBER_FORMAT#',
+				USE_LICENSE_ID=<cfif len(USE_LICENSE_ID) gt 0>#USE_LICENSE_ID#<cfelse>null</cfif>,
+				WEB_LINK='#WEB_LINK#',
+				WEB_LINK_TEXT='#WEB_LINK_TEXT#',
+				mentor='#mentor#',
+				mentor_contact='#mentor_contact#',
+				admin_username='#admin_username#'
+			where
+				GUID_PREFIX='#GUID_PREFIX#'
+		</cfquery>
+		<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
+
+	</cfoutput>
+
+
+
+
+
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
