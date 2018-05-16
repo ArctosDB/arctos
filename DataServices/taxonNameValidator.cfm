@@ -50,6 +50,10 @@ END;
 /
 sho err;
 
+-- trip the trigger
+
+update ds_temp_tax_validator set taxon_name=taxon_name;
+
 
 -- google has diallowed useful API access to search results
 alter table ds_temp_tax_validator drop column google;
@@ -133,7 +137,7 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 <cfif action is "showResults">
 	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_tax_validator
+		select * from ds_temp_tax_validator order by consensus desc
 	</cfquery>
 	 <a href="taxonNameValidator.cfm?action=getCSV">getCSV</a>
 
