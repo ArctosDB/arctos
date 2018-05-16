@@ -65,7 +65,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	<cfoutput>
 		<cfloop query="d">
 			<br>#taxon_name#
-			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en" method="get">
+			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
 
 
 			</cfhttp>
