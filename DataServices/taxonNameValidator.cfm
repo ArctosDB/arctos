@@ -102,6 +102,8 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 			<th>WikiData</th>
 			<th>GNI</th>
 			<th>WORMs</th>
+			<th>GBIF</th>
+			<th>EOL</th>
 			<th>summary</th>
 			<th>google</th>
 		</tr>
@@ -112,6 +114,8 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 					<td>#wiki#</td>
 					<td>#gni#</td>
 					<td>#worms#</td>
+					<td>#gbif#</td>
+					<td>#eol#</td>
 					<td>
 						<cfif wiki is "not_found" and gni is "not_found" and worms is "not_found">
 							probably not valid
