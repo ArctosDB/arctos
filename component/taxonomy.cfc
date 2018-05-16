@@ -19,6 +19,10 @@
 			<cfhttp url="http://gni.globalnames.org/name_strings.json?search_term=exact:#taxon_name#" method="get">
 			</cfhttp>
 
+			<cfif isdefined("debug") and debug is true>
+				<p>http://gni.globalnames.org/name_strings.json?search_term=exact:#taxon_name#</p>
+				<cfdump var=#cfhttp#>
+			</cfif>
 			<cfif cfhttp.filecontent contains '"name_strings_total":0'>
 				<cfset result.gni='not_found'>
 			<cfelse>
@@ -28,6 +32,11 @@
 			<cfhttp url="http://www.marinespecies.org/rest/AphiaIDByName/#taxon_name#?marine_only=false" method="get">
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
+
+			<cfif isdefined("debug") and debug is true>
+				<p>http://www.marinespecies.org/rest/AphiaIDByName/#taxon_name#?marine_only=false</p>
+				<cfdump var=#cfhttp#>
+			</cfif>
 
 
 			<cfif len(cfhttp.filecontent) gt 0>
@@ -41,6 +50,11 @@
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
 
+			<cfif isdefined("debug") and debug is true>
+				<p>http://eol.org/api/search/1.0.json?page=1&q=/#taxon_name#&exact=true</p>
+				<cfdump var=#cfhttp#>
+			</cfif>
+
 			<cfif cfhttp.filecontent contains '"totalResults":0'>
 				<cfset result.eol='not_found'>
 			<cfelse>
@@ -50,6 +64,11 @@
 			<cfhttp url="http://api.gbif.org/v1/species?strict=true&name=#taxon_name#&nameType=scientific" method="get">
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
+
+			<cfif isdefined("debug") and debug is true>
+				<p>http://api.gbif.org/v1/species?strict=true&name=#taxon_name#&nameType=scientific</p>
+				<cfdump var=#cfhttp#>
+			</cfif>
 
 
 			<cfif cfhttp.filecontent contains '"results":[]'>
