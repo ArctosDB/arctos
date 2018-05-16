@@ -199,7 +199,15 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 			<br>#taxon_name#
 			<cfset result=tc.validateName(taxon_name)>
 			<cfdump var=#result#>
-
+			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update ds_temp_tax_validator set
+					gbif='#result.gbif#',
+					eol='#result.eol#',
+					wiki='#result.wiki#',
+					gni='#result.gni#',
+					worms='#result.worms#'
+				where taxon_name='#taxon_name#'
+			</cfquery>
 
 			<!----
 
