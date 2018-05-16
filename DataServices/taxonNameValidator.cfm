@@ -16,6 +16,17 @@ create or replace public synonym ds_temp_tax_validator for ds_temp_tax_validator
 grant all on ds_temp_tax_validator to manage_taxonomy;
 
 ---->
+<cfif action is 'gpd'>
+	<cfquery name="d" datasource="uam_prod">
+		select scientific_name from taxon_name where taxon_name_id > (select max(taxon_name_id)-1000 from taxon_name) order by taxon_name_id;
+	</cfquery>
+	<cfloop query="d">
+		<cfquery name="x" datasource="uam_prod">
+			insert into ds_temp_tax_validator(taxon_name) values ('#scientific_name#')
+		</cfquery>
+	</cfloop>
+
+</cfif>
 <cfif action is "nothing">
 <p>
 	Load CSV, one column "taxon_name"
@@ -59,6 +70,11 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_tax_validator
 	</cfquery>
+	 <a href="taxonNameValidator.cfm?action=getCSV">getCSV</a>
+
+	 <p>
+		Names with 'not found' in all columns are probably not valid. Names with 'found' in at least one column are probably valid. Proceed with caution!
+	</p>
 	<cfdump var=#d#>
 </cfif>
 <cfif action is "getCSV">
