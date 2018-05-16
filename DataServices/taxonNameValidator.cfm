@@ -55,10 +55,25 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 	<a href="taxonNameValidator.cfm?action=parse">parse</a>
 </cfif>
+<cfif action is "showResults">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_tax_validator
+	</cfquery>
+	<cfdump var=#d#>
+</cfif>
+<cfif action is "getCSV">
+	<cflocation url="/Admin/CSVAnyTable.cfm?tableName=ds_temp_tax_validator">
+</cfif>
+
 <cfif action is "parse">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<10
 	</cfquery>
+	<cfif d.recordcount is 0>
+		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
+		 <a href="taxonNameValidator.cfm?action=getCSV">getCSV</a>
+
+	</cfif>
 	<!----
 
 	search?&q=%22#taxon_name#%22
@@ -69,10 +84,6 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 		<cfloop query="d">
 			<br>#taxon_name#
 			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
-
-
-			<cfdump var=#cfhttp#>
-
 			<cfif cfhttp.filecontent contains '"search":[]'>
 				<cfset w='wiki_not_found'>
 			<cfelse>
@@ -82,16 +93,11 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<cfhttp url="http://gni.globalnames.org/name_strings.json?search_term=exact:#taxon_name#" method="get">
 			</cfhttp>
 
-			<cfdump var=#cfhttp#>
 			<cfif cfhttp.filecontent contains '"name_strings_total":0'>
 				<cfset g='gni_not_found'>
 			<cfelse>
 				<cfset g='gni_found'>
 			</cfif>
-
-
-
-
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_tax_validator set wiki='#w#',gni='#g#' where taxon_name='#taxon_name#'
