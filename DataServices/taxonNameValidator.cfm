@@ -144,6 +144,25 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 	 <p>
 		Names with 'not found' in all columns are probably not valid. Names with 'found' in at least one column are probably valid. Proceed with caution!
 	</p>
+	<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select consensus,count(*) c from ds_temp_tax_validator group by consensus
+	</cfquery>
+
+	<p>
+		Summary
+		<table border>
+			<tr>
+				<th>Consensus</th>
+				<th>Count</th>
+			</tr>
+			<cfloop query="s">
+				<tr>
+					<td>#consensus#</td>
+					<td>#c#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</p>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Name</th>
@@ -215,6 +234,9 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 			</cfquery>
 
 			<!----
+
+
+select consensus,count(*) from ds_temp_tax_validator group by consensus;
 
 
 
