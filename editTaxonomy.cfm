@@ -1775,7 +1775,7 @@
 <cfoutput>
 	<cfif not isdefined("forceOverride") or forceOverride is not true>
 		<cfset tc = CreateObject("component","component.taxonomy")>
-		<cfset result=tc.validateName(taxon_name)>
+		<cfset result=tc.validateName(scientific_name)>
 		<cfif result.consensus is not "might_be_valid">
 			This name may not be valid.
 			<cfdump var=#result#>
