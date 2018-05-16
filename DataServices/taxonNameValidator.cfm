@@ -14,17 +14,50 @@ alter table ds_temp_tax_validator add gni varchar2(255);
 alter table ds_temp_tax_validator add worms varchar2(255);
 alter table ds_temp_tax_validator add eol varchar2(255);
 alter table ds_temp_tax_validator add gbif varchar2(255);
+alter table ds_temp_tax_validator add consensus varchar2(255);
 
 create or replace public synonym ds_temp_tax_validator for ds_temp_tax_validator;
 grant all on ds_temp_tax_validator to manage_taxonomy;
 
 
+
+CREATE OR REPLACE TRIGGER TR_ds_temp_tax_validator
+before UPDATE or insert ON ds_temp_tax_validator
+FOR EACH ROW
+DECLARE
+    c number;
+BEGIN
+    if
+		:NEW.WIKI is null or
+		:NEW.GNI is null or
+		:NEW.WORMS is null or
+		:NEW.EOL is null or
+		:NEW.GBIF is null
+	then
+		:NEW.consensus:='insufficient_data';
+	elsif
+		:NEW.WIKI = 'found' or
+		:NEW.GNI = 'found' or
+		:NEW.WORMS = 'found' or
+		:NEW.EOL = 'found' or
+		:NEW.GBIF = 'found'
+	then
+		:NEW.consensus:='might_be_valid';
+	else
+		:NEW.consensus:='probably_not_valid';
+	end if;
+END;
+/
+sho err;
+
+
 -- google has diallowed useful API access to search results
+alter table ds_temp_tax_validator drop column google;
+
 
 
 -- reset for testing
 update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=null;
-
 
 
 
@@ -115,7 +148,7 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 			<th>WORMs</th>
 			<th>GBIF</th>
 			<th>EOL</th>
-			<th>summary</th>
+			<th>consensus</th>
 			<th>google</th>
 		</tr>
 		<cfoutput>
@@ -127,15 +160,8 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 					<td>#worms#</td>
 					<td>#gbif#</td>
 					<td>#eol#</td>
-					<td>
-						<cfif wiki is "not_found" and gni is "not_found" and worms is "not_found">
-							probably not valid
-						<cfelse>
-							probably valid
-						</cfif>
-					</td>
-					<td><a target="_blank" class="external" href='https://www.google.com/search?q="#taxon_name#"'>clicky</a></td>
-
+					<td>#consensus#</td>
+					<td><a target="_blank" class="external" href='https://www.google.com/search?q="#taxon_name#"'>google</a></td>
 				</tr>
 			</cfloop>
 		</cfoutput>
