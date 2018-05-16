@@ -70,6 +70,16 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 			</cfhttp>
 			<cfdump var=#cfhttp#>
+
+			<cfif cfhttp.filecontent contains '"missing":true'>
+				<cfset g='wiki_not_found'>
+			<cfelse>
+				<cfset g='wiki_found'>
+			</cfif>
+			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update ds_temp_tax_validator set google='#g#' where taxon_name='#taxon_name#'
+			</cfquery>
+
 		</cfloop>
 	</cfoutput>
 </cfif>
