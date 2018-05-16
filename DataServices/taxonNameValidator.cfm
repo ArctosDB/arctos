@@ -154,18 +154,18 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 
 			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
 			<cfif cfhttp.filecontent contains '"search":[]'>
-				<cfset w='not_found'>
+				<cfset vwiki='not_found'>
 			<cfelse>
-				<cfset w='found'>
+				<cfset vwiki='found'>
 			</cfif>
 
 			<cfhttp url="http://gni.globalnames.org/name_strings.json?search_term=exact:#taxon_name#" method="get">
 			</cfhttp>
 
 			<cfif cfhttp.filecontent contains '"name_strings_total":0'>
-				<cfset g='not_found'>
+				<cfset vgni='not_found'>
 			<cfelse>
-				<cfset g='found'>
+				<cfset vgni='found'>
 			</cfif>
 
 			<cfhttp url="http://www.marinespecies.org/rest/AphiaIDByName/#taxon_name#?marine_only=false" method="get">
@@ -174,9 +174,9 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 
 
 			<cfif len(cfhttp.filecontent) gt 0>
-				<cfset wr='found'>
+				<cfset vworms='found'>
 			<cfelse>
-				<cfset wr='not_found'>
+				<cfset vworms='not_found'>
 			</cfif>
 
 
@@ -186,9 +186,9 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 				<cfdump var=#cfhttp#>
 
 			<cfif cfhttp.filecontent contains '"totalResults":0'>
-				<cfset eol='not_found'>
+				<cfset veol='not_found'>
 			<cfelse>
-				<cfset eol='found'>
+				<cfset veol='found'>
 			</cfif>
 
 			<cfhttp url="http://api.gbif.org/v1/species?strict=true&name=#taxon_name#&nameType=scientific" method="get">
@@ -198,23 +198,29 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 				<cfdump var=#cfhttp#>
 
 			<cfif cfhttp.filecontent contains '"results":[]'>
-				<cfset gbif='not_found'>
+				<cfset vgbif='not_found'>
 			<cfelse>
-				<cfset gbif='found'>
+				<cfset vgbif='found'>
 			</cfif>
 
 
 
 
 
-			<br>gbif:#gbif#
-			<br>GNI:#g#
-			<br>WikiData:#w#
-			<br>WORMs:#wr#
-			<br>eol:#eol#
+			<br>vgbif:#vgbif#
+			<br>vgni:#vgni#
+			<br>vwiki:#vwiki#
+			<br>vworms:#vworms#
+			<br>veol:#veol#
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ds_temp_tax_validator set gbif='#gbif#', eol='#eol#',wiki='#w#',gni='#g#',worms='#wr#' where taxon_name='#taxon_name#'
+				update ds_temp_tax_validator set
+					gbif='#vgbif#',
+					eol='#veol#',
+					wiki='#vwiki#',
+					gni='#vgni#',
+					worms='#vworms#'
+				where taxon_name='#taxon_name#'
 			</cfquery>
 
 		</cfloop>
