@@ -94,7 +94,7 @@
 					CAREFULLY check the name before proceeding. Include supporting evidence in classification remarks.
 				</p>
 				<p>
-					<a href="editTaxonomy.cfm?action=cloneClassificationNewName_insert&newName=#newName#&taxon_name_id=#taxon_name_id#&CLASSIFICATION_ID=#CLASSIFICATION_ID#&OVERRRIDE_NOCLONETERMS=#OVERRRIDE_NOCLONETERMS#&forceOverride=true">
+					<a href="editTaxonomy.cfm?action=cloneClassificationNewName_insert&newName=#newName#&taxon_name_id=#taxon_name_id#&CLASSIFICATION_ID=#CLASSIFICATION_ID#&OVERRRIDE_NOCLONETERMS=#OVERRRIDE_NOCLONETERMS#&SOURCE=#SOURCE#&forceOverride=true">
 						Click here to force-create this taxon
 					</a>
 				</p>
