@@ -32,7 +32,13 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 <p>
 	Load CSV, one column "taxon_name"
 </p>
-
+<p>
+	This app queryies wikidata, globalnames, and WORMs for names. It WILL throw both false positives and false negatives.
+	This should not be your only source of validation.
+</p>
+<p>
+	File an Issue if you know of another useful taxonomy validation service.
+</p>
 
 	<form name="atts" method="post" enctype="multipart/form-data" action="taxonNameValidator.cfm">
 		<input type="hidden" name="Action" value="getFile">
@@ -115,9 +121,10 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	<cfif d.recordcount is 0>
 		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
 		 <a href="taxonNameValidator.cfm?action=getCSV">getCSV</a>
+	<cfelse>
+		Reload once the page fully loads to process the next batch.
 	</cfif>
 
-	Reload once the page fully loads to process the next batch.
 	<!----
 
 	search?&q=%22#taxon_name#%22
