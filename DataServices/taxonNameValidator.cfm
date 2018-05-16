@@ -90,6 +90,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<th>GNI</th>
 			<th>WORMs</th>
 			<th>summary</th>
+			<th>google</th>
 		</tr>
 		<cfoutput>
 			<cfloop query="d">
@@ -105,6 +106,8 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 							probably valid
 						</cfif>
 					</td>
+					<td><a target="_blank" class="external" href='https://www.google.com/search?q="#taxon_name#"'>clicky</a></td>
+
 				</tr>
 			</cfloop>
 		</cfoutput>
