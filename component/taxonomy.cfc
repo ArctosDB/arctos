@@ -6,7 +6,7 @@
 		<cfargument name="taxon_name" type="string" required="true">
 		<cfoutput>
 			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
-			<cfif isdefined(debug) and debug is true>
+			<cfif isdefined("debug") and debug is true>
 				<p>https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json</p>
 				<cfdump var=#cfhttp#>
 			</cfif>
