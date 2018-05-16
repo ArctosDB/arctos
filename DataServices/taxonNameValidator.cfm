@@ -18,7 +18,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 ---->
 <cfif action is 'gpd'>
 	<cfquery name="d" datasource="prod">
-		select scientific_name from taxon_name where taxon_name_id > (select max(taxon_name_id)-1000 from taxon_name) order by taxon_name_id;
+		select scientific_name from taxon_name where taxon_name_id > (select max(taxon_name_id)-1000 from taxon_name) order by taxon_name_id
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="x" datasource="uam_prod">
