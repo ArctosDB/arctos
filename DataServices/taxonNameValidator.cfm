@@ -11,6 +11,7 @@ create table ds_temp_tax_validator (
 
 alter table ds_temp_tax_validator add wiki varchar2(255);
 alter table ds_temp_tax_validator add gni varchar2(255);
+alter table ds_temp_tax_validator add worms varchar2(255);
 
 create or replace public synonym ds_temp_tax_validator for ds_temp_tax_validator;
 grant all on ds_temp_tax_validator to manage_taxonomy;
@@ -123,9 +124,17 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<cfdump var=#cfhttp#>
 
 
+			<cfif len(cfhttp.filecontent) gt 0>
+				<cfset wr='worms_found'>
+			<cfelse>
+				<cfset wr='worms_not_found'>
+			</cfif>
+
+
 
 			<br>#g#
 			<br>#w#
+			<br>#wr#
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_tax_validator set wiki='#w#',gni='#g#' where taxon_name='#taxon_name#'
