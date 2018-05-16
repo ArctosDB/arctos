@@ -83,6 +83,24 @@
 <!------------------------------------------------------------------------------->
 <cfif action is "cloneClassificationNewName_insert">
 	<cfoutput>
+		<cfif not isdefined("forceOverride") or forceOverride is not true>
+			<cfset tc = CreateObject("component","component.taxonomy")>
+			<cfset result=tc.validateName(newName)>
+			<cfif result.consensus is not "might_be_valid">
+				This name may not be valid.
+				<cfdump var=#result#>
+
+				<p>
+					CAREFULLY check the name before proceeding. Include supporting evidence in classification remarks.
+				</p>
+				<p>
+					<a href="editTaxonomy.cfm?action=cloneClassificationNewName_insert&newName=#newName#&taxon_name_id=#taxon_name_id#&forceOverride=true">
+						Click here to force-create this taxon
+					</a>
+				</p>
+				<cfabort>
+			</cfif>
+		</cfif>
 
 		<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct
@@ -162,6 +180,19 @@
 				)
 			</cfquery>
 		</cftransaction>
+		<cfif forceOverride is true>
+			<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select get_address(#session.myAgentID#, 'email') a from dual
+			</cfquery>
+			<cfmail subject="force agent taxon name" to="#Application.bugReportEmail#" from="ForceTaxon@#Application.fromEmail#" cc="#a.a#" type="html">
+				#session.username# just force-created taxon
+				<a href="#Application.serverRootUrl#/name/#newName#">#newName#</a>.
+				<p>
+					That's probably a bad idea.
+				</p>
+			</cfmail>
+		</cfif>
+
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#&taxon_name_id=#nnID.tnid#" addtoken="false">
 	</cfoutput>
 </cfif>
@@ -1854,7 +1885,7 @@
 	</script>
 	<cfoutput>
 		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select scientific_name  from taxon_name where taxon_name_id=#taxon_name_id#
+			select scientific_name from taxon_name where taxon_name_id=#taxon_name_id#
 		</cfquery>
 		<cfset title="Edit non-classification data for #thisname.scientific_name#">
 		<p>Editing non-classification data for <strong><em>#thisname.scientific_name#</em></strong></p>
