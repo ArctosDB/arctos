@@ -224,19 +224,19 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 			<cfhttp url="http://eol.org/api/search/1.0.json?page=1&q=/#taxon_name#&exact=true" method="get">
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
-				<cfdump var=#cfhttp#>
 
 			<cfif cfhttp.filecontent contains '"totalResults":0'>
 				<cfset veol='not_found'>
 			<cfelse>
 				<cfset veol='found'>
+								<cfdump var=#cfhttp#>
+
 			</cfif>
 
 			<cfhttp url="http://api.gbif.org/v1/species?strict=true&name=#taxon_name#&nameType=scientific" method="get">
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
 
-				<cfdump var=#cfhttp#>
 
 			<cfif cfhttp.filecontent contains '"results":[]'>
 				<cfset vgbif='not_found'>
