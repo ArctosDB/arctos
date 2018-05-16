@@ -84,7 +84,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 <cfif action is "parse">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<20
+		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<200
 	</cfquery>
 	<cfif d.recordcount is 0>
 		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
@@ -121,10 +121,10 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<cfhttp url="http://www.marinespecies.org/rest/AphiaIDByName/#taxon_name#?marine_only=false" method="get">
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
-			<cfdump var=#cfhttp#>
 
 
 			<cfif len(cfhttp.filecontent) gt 0>
+				<cfdump var=#cfhttp#>
 				<cfset wr='worms_found'>
 			<cfelse>
 				<cfset wr='worms_not_found'>
