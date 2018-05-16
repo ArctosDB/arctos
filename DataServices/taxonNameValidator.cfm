@@ -83,7 +83,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 <cfif action is "parse">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<2
+		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<20
 	</cfquery>
 	<cfif d.recordcount is 0>
 		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
