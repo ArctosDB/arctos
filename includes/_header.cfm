@@ -533,7 +533,8 @@
 											<li><a target="_top" href="/DataServices/getGeogFromSpecloc.cfm">Find Higher Geography from Specific Locality</a></li>
 											<li><a target="_top" href="/DataServices/findNonprintingCharacters.cfm">Find/Replace Nonprinting Characters</a></li>
 											<li><a target="_top" href="/DataServices/geog_lookup.cfm">Higher Geog Lookup</a></li>
-											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Taxon Name Checker</a></li>
+											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Scientific Name Checker</a></li>
+											<li><a target="_top" href="/DataServices/taxonNameValidator.cfm">Taxon Name Validator</a></li>
 										</ul>
 									</li>
 									 <li><a target="_top" href="##">Find Low-Quality Data</a>
