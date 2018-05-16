@@ -9,6 +9,9 @@ create table ds_temp_tax_validator (
 	google varchar2(255)
 	);
 
+alter table ds_temp_tax_validator add wiki varchar2(255);
+alter table ds_temp_tax_validator add gni varchar2(255);
+
 create or replace public synonym ds_temp_tax_validator for ds_temp_tax_validator;
 grant all on ds_temp_tax_validator to manage_taxonomy;
 
@@ -71,20 +74,27 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<cfdump var=#cfhttp#>
 
 			<cfif cfhttp.filecontent contains '"search":[]'>
-				<cfset g='wiki_not_found'>
+				<cfset w='wiki_not_found'>
 			<cfelse>
-				<cfset g='wiki_found'>
+				<cfset w='wiki_found'>
 			</cfif>
 
 			<cfhttp url="http://gni.globalnames.org/name_strings.json?search_term=exact:#taxon_name#" method="get">
 			</cfhttp>
 
 			<cfdump var=#cfhttp#>
-			http://gni.globalnames.org/name_strings.json?search_term=exact:Apalone%20mutica
+			<cfif cfhttp.filecontent contains '"name_strings_total":0'>
+				<cfset g='gni_not_found'>
+			<cfelse>
+				<cfset g='gni_found'>
+			</cfif>
+
+
+
 
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ds_temp_tax_validator set google='#g#' where taxon_name='#taxon_name#'
+				update ds_temp_tax_validator set wiki='#w#',gni='#g#' where taxon_name='#taxon_name#'
 			</cfquery>
 
 		</cfloop>
