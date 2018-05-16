@@ -197,7 +197,7 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 
 <cfif action is "parse">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<200
+		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<100
 	</cfquery>
 	<cfif d.recordcount is 0>
 		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
