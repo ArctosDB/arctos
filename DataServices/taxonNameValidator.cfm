@@ -76,7 +76,30 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	 <p>
 		Names with 'not found' in all columns are probably not valid. Names with 'found' in at least one column are probably valid. Proceed with caution!
 	</p>
-	<cfdump var=#d#>
+	<table border>
+		<tr>
+			<th>Name</th>
+			<th>WikiData</th>
+			<th>GNI</th>
+			<th>WORMs</th>
+			<th>summary</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#taxon_name#</td>
+				<td>#wiki#</td>
+				<td>#gni#</td>
+				<td>#worms#</td>
+				<td>
+					<cfif wiki is "not_found" and gni is "not_found" and worms is "not_found">
+						probably not valid
+					<cfelse>
+						probably valid
+					</cfif>
+				</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfif>
 <cfif action is "getCSV">
 	<cflocation url="/Admin/CSVAnyTable.cfm?tableName=ds_temp_tax_validator">
@@ -103,18 +126,18 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<br>#taxon_name#
 			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
 			<cfif cfhttp.filecontent contains '"search":[]'>
-				<cfset w='wiki_not_found'>
+				<cfset w='not_found'>
 			<cfelse>
-				<cfset w='wiki_found'>
+				<cfset w='found'>
 			</cfif>
 
 			<cfhttp url="http://gni.globalnames.org/name_strings.json?search_term=exact:#taxon_name#" method="get">
 			</cfhttp>
 
 			<cfif cfhttp.filecontent contains '"name_strings_total":0'>
-				<cfset g='gni_not_found'>
+				<cfset g='not_found'>
 			<cfelse>
-				<cfset g='gni_found'>
+				<cfset g='found'>
 			</cfif>
 
 
@@ -125,16 +148,16 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 			<cfif len(cfhttp.filecontent) gt 0>
 				<cfdump var=#cfhttp#>
-				<cfset wr='worms_found'>
+				<cfset wr='found'>
 			<cfelse>
-				<cfset wr='worms_not_found'>
+				<cfset wr='not_found'>
 			</cfif>
 
 
 
-			<br>#g#
-			<br>#w#
-			<br>#wr#
+			<br>GNI:#g#
+			<br>WikiData:#w#
+			<br>WORMs:#wr#
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_tax_validator set wiki='#w#',gni='#g#',worms='#wr#' where taxon_name='#taxon_name#'
