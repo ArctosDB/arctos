@@ -68,6 +68,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	<a href="taxonNameValidator.cfm?action=parse">parse</a>
 </cfif>
 <cfif action is "showResults">
+	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_tax_validator
 	</cfquery>
@@ -76,7 +77,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	 <p>
 		Names with 'not found' in all columns are probably not valid. Names with 'found' in at least one column are probably valid. Proceed with caution!
 	</p>
-	<table border>
+	<table border id="t" class="sortable">
 		<tr>
 			<th>Name</th>
 			<th>WikiData</th>
