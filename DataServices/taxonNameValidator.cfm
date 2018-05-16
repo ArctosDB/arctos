@@ -122,7 +122,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
 		 <a href="taxonNameValidator.cfm?action=getCSV">getCSV</a>
 	<cfelse>
-		Reload once the page fully loads to process the next batch.
+		Reload once the page fully loads to process the next batch. File an Issue if you need automation added.
 	</cfif>
 
 	<!----
