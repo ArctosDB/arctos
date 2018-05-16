@@ -12,6 +12,7 @@ create table ds_temp_tax_validator (
 alter table ds_temp_tax_validator add wiki varchar2(255);
 alter table ds_temp_tax_validator add gni varchar2(255);
 alter table ds_temp_tax_validator add worms varchar2(255);
+alter table ds_temp_tax_validator add eol varchar2(255);
 
 create or replace public synonym ds_temp_tax_validator for ds_temp_tax_validator;
 grant all on ds_temp_tax_validator to manage_taxonomy;
@@ -19,7 +20,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 ---->
 <cfif action is 'gpd'>
 	<cfquery name="d" datasource="prod">
-		select scientific_name from taxon_name where taxon_name_id > (select max(taxon_name_id)-1000 from taxon_name) order by taxon_name_id
+		select scientific_name from taxon_name where taxon_name_id > (select max(taxon_name_id)-5000 from taxon_name) order by taxon_name_id
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="x" datasource="uam_god">
@@ -153,7 +154,6 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 				<cfset g='found'>
 			</cfif>
 
-
 			<cfhttp url="http://www.marinespecies.org/rest/AphiaIDByName/#taxon_name#?marine_only=false" method="get">
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
@@ -167,13 +167,28 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			</cfif>
 
 
+			<cfhttp url="http://eol.org/api/search/1.0.json?q=/#taxon_name#&exact=true" method="get">
+				<cfhttpparam type="header" name="accept" value="application/json">
+			</cfhttp>
+
+
+			<cfif cfhttp.filecontent contains '"totalResults":0'>
+				<cfdump var=#cfhttp#>
+				<cfset eol='not_found'>
+			<cfelse>
+				<cfset eol='found'>
+			</cfif>
+
+
+
+
 
 			<br>GNI:#g#
 			<br>WikiData:#w#
 			<br>WORMs:#wr#
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ds_temp_tax_validator set wiki='#w#',gni='#g#',worms='#wr#' where taxon_name='#taxon_name#'
+				update ds_temp_tax_validator set eol='#eol#',wiki='#w#',gni='#g#',worms='#wr#' where taxon_name='#taxon_name#'
 			</cfquery>
 
 		</cfloop>
