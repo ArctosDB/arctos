@@ -46,8 +46,19 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 	Load CSV, one column "taxon_name"
 </p>
 <p>
-	This app queryies wikidata, globalnames, and WORMs for names. It WILL throw both false positives and false negatives.
-	This should not be your only source of validation.
+	This app queryies various webservices for names.
+
+	It will throw false positives (eg, because someone - perhaps Arctos - is supplying GBIF with bad data),
+	and it will throw false negatives (obscure fossils are common - remember that Arctos taxonomony requires only "published", not
+	any form of "accepted").
+	<p>
+		Names not found in any service are deserving of extra scrutiny and a note in a classification.
+	</p>
+	<p>
+		This should not be your only source of validation.
+	</p>
+
+
 </p>
 <p>
 	File an Issue if you know of another useful taxonomy validation service.
