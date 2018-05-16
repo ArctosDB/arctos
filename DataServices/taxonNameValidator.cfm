@@ -153,7 +153,7 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 			<th>GBIF</th>
 			<th>EOL</th>
 			<th>consensus</th>
-			<th>google</th>
+			<th>search</th>
 		</tr>
 		<cfoutput>
 			<cfloop query="d">
@@ -177,7 +177,7 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 
 <cfif action is "parse">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<50
+		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<3
 	</cfquery>
 	<cfif d.recordcount is 0>
 		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
@@ -193,8 +193,16 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 
 	---->
 	<cfoutput>
+		<cfset tc = CreateObject("component","component.taxonomy")>
+
 		<cfloop query="d">
 			<br>#taxon_name#
+			<cfset result=tc.validateName(taxon_name)>
+			<cfdump var=#result#>
+
+
+			<!----
+
 
 
 			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
@@ -267,7 +275,7 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 					worms='#vworms#'
 				where taxon_name='#taxon_name#'
 			</cfquery>
-
+		---->
 		</cfloop>
 	</cfoutput>
 </cfif>
