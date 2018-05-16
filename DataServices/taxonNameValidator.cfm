@@ -17,6 +17,10 @@ alter table ds_temp_tax_validator add eol varchar2(255);
 create or replace public synonym ds_temp_tax_validator for ds_temp_tax_validator;
 grant all on ds_temp_tax_validator to manage_taxonomy;
 
+
+-- google has diallowed useful API access to search results
+-- http://api.gbif.org/v1/ returns SOMETHING (usually 'incertae sedis') for everything, is not useful
+
 ---->
 <cfif action is 'gpd'>
 	<cfquery name="d" datasource="prod">
@@ -160,7 +164,6 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 
 			<cfif len(cfhttp.filecontent) gt 0>
-				<cfdump var=#cfhttp#>
 				<cfset wr='found'>
 			<cfelse>
 				<cfset wr='not_found'>
@@ -170,10 +173,9 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<cfhttp url="http://eol.org/api/search/1.0.json?q=/#taxon_name#&exact=true" method="get">
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
-
+				<cfdump var=#cfhttp#>
 
 			<cfif cfhttp.filecontent contains '"totalResults":0'>
-				<cfdump var=#cfhttp#>
 				<cfset eol='not_found'>
 			<cfelse>
 				<cfset eol='found'>
