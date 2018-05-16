@@ -71,7 +71,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			</cfhttp>
 			<cfdump var=#cfhttp#>
 
-			<cfif cfhttp.filecontent contains '"missing":true'>
+			<cfif cfhttp.filecontent contains '"search":[]'>
 				<cfset g='wiki_not_found'>
 			<cfelse>
 				<cfset g='wiki_found'>
