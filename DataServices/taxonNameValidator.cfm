@@ -136,6 +136,8 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 </cfif>
 <cfif action is "showResults">
 	<script src="/includes/sorttable.js"></script>
+
+		<cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_tax_validator order by consensus desc
 	</cfquery>
@@ -174,7 +176,6 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 			<th>consensus</th>
 			<th>search</th>
 		</tr>
-		<cfoutput>
 			<cfloop query="d">
 				<tr>
 					<td>#taxon_name#</td>
@@ -187,8 +188,8 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 					<td><a target="_blank" class="external" href='https://www.google.com/search?q="#taxon_name#"'>google</a></td>
 				</tr>
 			</cfloop>
-		</cfoutput>
 	</table>
+		</cfoutput>
 </cfif>
 <cfif action is "getCSV">
 	<cflocation url="/Admin/CSVAnyTable.cfm?tableName=ds_temp_tax_validator">
