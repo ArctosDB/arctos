@@ -50,6 +50,9 @@ END;
 /
 sho err;
 
+-- nevermind, do this in the function so it's available everywhere
+drop trigger TR_ds_temp_tax_validator;
+
 -- trip the trigger
 
 update ds_temp_tax_validator set taxon_name=taxon_name;
@@ -151,7 +154,7 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 		</cfquery>
 
 		<p>
-			Summary (probably done when no consensus='insufficient_data' exist)
+			Summary (probably done when no consensus=NULL exist)
 			<table border>
 				<tr>
 					<th>Consensus</th>
@@ -223,14 +226,16 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 					eol='#result.eol#',
 					wiki='#result.wiki#',
 					gni='#result.gni#',
-					worms='#result.worms#'
+					worms='#result.worms#',
+					consensus='#result.consensus#'
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_tax_validator set
 					gbif='#result.gbif#',
 					eol='#result.eol#',
 					wiki='#result.wiki#',
 					gni='#result.gni#',
-					worms='#result.worms#'
+					worms='#result.worms#',
+					consensus='#result.consensus#'
 				where taxon_name='#taxon_name#'
 			</cfquery>
 

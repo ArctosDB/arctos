@@ -1773,6 +1773,17 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveNewName">
 <cfoutput>
+	<cfif not isdefined("forceOverride") or forceOverride is not true>
+		<cfset tc = CreateObject("component","component.taxonomy")>
+		<cfset result=tc.validateName(taxon_name)>
+		<cfif result.consensus is not "might_be_valid">
+			This name may not be valid.
+			<cfdump var=#result#>
+
+			<cfabort>
+		</cfif>
+	</cfif>
+
 	<cfquery name="saveNewName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO taxon_name (TAXON_NAME_ID,SCIENTIFIC_NAME) VALUES (sq_TAXON_NAME_ID.nextval,'#scientific_name#')
 	</cfquery>

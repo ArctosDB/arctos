@@ -5,6 +5,7 @@
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name" type="string" required="true">
 		<cfoutput>
+			<cfset result.consensus="probably_not_valid">
 			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
 			<cfif isdefined("debug") and debug is true>
 				<p>https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json</p>
@@ -14,6 +15,7 @@
 				<cfset result.wiki='not_found'>
 			<cfelse>
 				<cfset result.wiki='found'>
+				<cfset result.consensus="might_be_valid">
 			</cfif>
 
 			<cfhttp url="http://gni.globalnames.org/name_strings.json?search_term=exact:#taxon_name#" method="get">
@@ -27,6 +29,7 @@
 				<cfset result.gni='not_found'>
 			<cfelse>
 				<cfset result.gni='found'>
+				<cfset result.consensus="might_be_valid">
 			</cfif>
 
 			<cfhttp url="http://www.marinespecies.org/rest/AphiaIDByName/#taxon_name#?marine_only=false" method="get">
@@ -41,6 +44,7 @@
 
 			<cfif len(cfhttp.filecontent) gt 0>
 				<cfset result.worms='found'>
+				<cfset result.consensus="might_be_valid">
 			<cfelse>
 				<cfset result.worms='not_found'>
 			</cfif>
@@ -59,6 +63,7 @@
 				<cfset result.eol='not_found'>
 			<cfelse>
 				<cfset result.eol='found'>
+				<cfset result.consensus="might_be_valid">
 			</cfif>
 
 			<cfhttp url="http://api.gbif.org/v1/species?strict=true&name=#taxon_name#&nameType=scientific" method="get">
@@ -75,8 +80,8 @@
 				<cfset result.gbif='not_found'>
 			<cfelse>
 				<cfset result.gbif='found'>
+				<cfset result.consensus="might_be_valid">
 			</cfif>
-
 			<cfreturn result>
 		</cfoutput>
 	</cffunction>
