@@ -1,6 +1,63 @@
 <cfcomponent>
 
 <!--------------------------------------------------------------------------------------->
+	<cffunction name="validateName" access="remote">
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="taxon_name" type="string" required="true">
+		<cfoutput>
+			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
+			<cfif cfhttp.filecontent contains '"search":[]'>
+				<cfset result.wiki='not_found'>
+			<cfelse>
+				<cfset result.wiki='found'>
+			</cfif>
+
+			<cfhttp url="http://gni.globalnames.org/name_strings.json?search_term=exact:#taxon_name#" method="get">
+			</cfhttp>
+
+			<cfif cfhttp.filecontent contains '"name_strings_total":0'>
+				<cfset result.gni='not_found'>
+			<cfelse>
+				<cfset result.gni='found'>
+			</cfif>
+
+			<cfhttp url="http://www.marinespecies.org/rest/AphiaIDByName/#taxon_name#?marine_only=false" method="get">
+				<cfhttpparam type="header" name="accept" value="application/json">
+			</cfhttp>
+
+
+			<cfif len(cfhttp.filecontent) gt 0>
+				<cfset result.worms='found'>
+			<cfelse>
+				<cfset result.worms='not_found'>
+			</cfif>
+
+
+			<cfhttp url="http://eol.org/api/search/1.0.json?page=1&q=/#taxon_name#&exact=true" method="get">
+				<cfhttpparam type="header" name="accept" value="application/json">
+			</cfhttp>
+
+			<cfif cfhttp.filecontent contains '"totalResults":0'>
+				<cfset result.eol='not_found'>
+			<cfelse>
+				<cfset result.eol='found'>
+			</cfif>
+
+			<cfhttp url="http://api.gbif.org/v1/species?strict=true&name=#taxon_name#&nameType=scientific" method="get">
+				<cfhttpparam type="header" name="accept" value="application/json">
+			</cfhttp>
+
+
+			<cfif cfhttp.filecontent contains '"results":[]'>
+				<cfset result.gbif='not_found'>
+			<cfelse>
+				<cfset result.gbif='found'>
+			</cfif>
+
+			<cfreturn result>
+		</cfoutput>
+	</cffunction>
+<!--------------------------------------------------------------------------------------->
 	<cffunction name="deleteSeed" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="tid" type="string" required="true">
