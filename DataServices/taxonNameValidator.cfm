@@ -83,7 +83,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 <cfif action is "parse">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<10
+		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<100
 	</cfquery>
 	<cfif d.recordcount is 0>
 		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
@@ -114,6 +114,8 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<cfelse>
 				<cfset g='gni_found'>
 			</cfif>
+			<br>#g#
+			<br>#w#
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_tax_validator set wiki='#w#',gni='#g#' where taxon_name='#taxon_name#'
