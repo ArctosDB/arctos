@@ -1780,14 +1780,31 @@
 			This name may not be valid.
 			<cfdump var=#result#>
 
+			<p>
+				CAREFULLY check the name before proceeding. Include supporting evidence in classification remarks.
+			</p>
+			<p>
+				<a href="editTaxonomy.cfm?action=saveNewName&scientific_name=#scientific_name#&forceOverride=true">Click here to force-create this taxon</a>
+			</p>
+
 			<cfabort>
 		</cfif>
 	</cfif>
-
 	<cfquery name="saveNewName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO taxon_name (TAXON_NAME_ID,SCIENTIFIC_NAME) VALUES (sq_TAXON_NAME_ID.nextval,'#scientific_name#')
 	</cfquery>
-	<br>
+	<cfif forceOverride is true>
+		<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select get_address(#session.myAgentID#, 'email') a from dual
+		</cfquery>
+		<cfmail subject="force agent taxon name" to="#Application.bugReportEmail#" from="ForceTaxon@#Application.fromEmail#" cc="#a.a#" type="html">
+			#session.username# just force-created taxon
+			<a href="#Application.serverRootUrl#/name/#scientific_name#">#scientific_name#</a>.
+			<p>
+				That's probably a bad idea.
+			</p>
+		</cfmail>
+	</cfif>
 	<cflocation url="/name/#SCIENTIFIC_NAME#" addtoken="false">
 </cfoutput>
 </cfif>
