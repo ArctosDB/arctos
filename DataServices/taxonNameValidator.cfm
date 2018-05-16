@@ -195,7 +195,7 @@ update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=nu
 			</cfif>
 
 
-			<cfhttp url="http://eol.org/api/search/1.0.json?q=/#taxon_name#&exact=true" method="get">
+			<cfhttp url="http://eol.org/api/search/1.0.json?page=1&q=/#taxon_name#&exact=true" method="get">
 				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
 				<cfdump var=#cfhttp#>
