@@ -118,7 +118,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 
 			<cfhttp url="http://www.marinespecies.org/rest/AphiaIDByName/#taxon_name#?marine_only=false" method="get">
-				<cfhttpparam name="accept" value="application/json">
+				<cfhttpparam type="header" name="accept" value="application/json">
 			</cfhttp>
 			<cfdump var=#cfhttp#>
 
