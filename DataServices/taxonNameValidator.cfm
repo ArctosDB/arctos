@@ -13,13 +13,21 @@ alter table ds_temp_tax_validator add wiki varchar2(255);
 alter table ds_temp_tax_validator add gni varchar2(255);
 alter table ds_temp_tax_validator add worms varchar2(255);
 alter table ds_temp_tax_validator add eol varchar2(255);
+alter table ds_temp_tax_validator add gbif varchar2(255);
 
 create or replace public synonym ds_temp_tax_validator for ds_temp_tax_validator;
 grant all on ds_temp_tax_validator to manage_taxonomy;
 
 
 -- google has diallowed useful API access to search results
--- http://api.gbif.org/v1/ returns SOMETHING (usually 'incertae sedis') for everything, is not useful
+
+
+-- reset for testing
+update ds_temp_tax_validator set gbif=null, eol=null,wiki=null,gni=null,worms=null;
+
+
+
+
 
 ---->
 <cfif action is 'gpd'>
@@ -124,7 +132,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 
 <cfif action is "parse">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<200
+		select * from ds_temp_tax_validator where taxon_name is not null and wiki is null and rownum<50
 	</cfquery>
 	<cfif d.recordcount is 0>
 		Nothing found - 	<a href="taxonNameValidator.cfm?action=showResults">showResults</a> or
@@ -142,6 +150,8 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 	<cfoutput>
 		<cfloop query="d">
 			<br>#taxon_name#
+
+
 			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
 			<cfif cfhttp.filecontent contains '"search":[]'>
 				<cfset w='not_found'>
@@ -181,16 +191,30 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 				<cfset eol='found'>
 			</cfif>
 
+			<cfhttp url="http://api.gbif.org/v1/species?strict=true&name=#taxon_name#&nameType=scientific" method="get">
+				<cfhttpparam type="header" name="accept" value="application/json">
+			</cfhttp>
+
+				<cfdump var=#cfhttp#>
+
+			<cfif cfhttp.filecontent contains '"results":[]'>
+				<cfset gbif='not_found'>
+			<cfelse>
+				<cfset gbif='found'>
+			</cfif>
 
 
 
 
+
+			<br>gbif:#gbif#
 			<br>GNI:#g#
 			<br>WikiData:#w#
 			<br>WORMs:#wr#
+			<br>eol:#eol#
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ds_temp_tax_validator set eol='#eol#',wiki='#w#',gni='#g#',worms='#wr#' where taxon_name='#taxon_name#'
+				update ds_temp_tax_validator set gbif='#gbif#', eol='#eol#',wiki='#w#',gni='#g#',worms='#wr#' where taxon_name='#taxon_name#'
 			</cfquery>
 
 		</cfloop>
