@@ -84,21 +84,23 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<th>WORMs</th>
 			<th>summary</th>
 		</tr>
-		<cfloop query="d">
-			<tr>
-				<td>#taxon_name#</td>
-				<td>#wiki#</td>
-				<td>#gni#</td>
-				<td>#worms#</td>
-				<td>
-					<cfif wiki is "not_found" and gni is "not_found" and worms is "not_found">
-						probably not valid
-					<cfelse>
-						probably valid
-					</cfif>
-				</td>
-			</tr>
-		</cfloop>
+		<cfoutput>
+			<cfloop query="d">
+				<tr>
+					<td>#taxon_name#</td>
+					<td>#wiki#</td>
+					<td>#gni#</td>
+					<td>#worms#</td>
+					<td>
+						<cfif wiki is "not_found" and gni is "not_found" and worms is "not_found">
+							probably not valid
+						<cfelse>
+							probably valid
+						</cfif>
+					</td>
+				</tr>
+			</cfloop>
+		</cfoutput>
 	</table>
 </cfif>
 <cfif action is "getCSV">
