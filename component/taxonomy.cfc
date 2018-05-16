@@ -51,7 +51,7 @@
 			</cfhttp>
 
 			<cfif isdefined("debug") and debug is true>
-				<p>http://eol.org/api/search/1.0.json?page=1&q=/#taxon_name#&exact=true</p>
+				<p>http://eol.org/api/search/1.0.json?page=1&q=#taxon_name#&exact=true</p>
 				<cfdump var=#cfhttp#>
 			</cfif>
 
