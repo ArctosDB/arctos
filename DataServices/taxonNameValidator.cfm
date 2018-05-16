@@ -137,7 +137,7 @@ grant all on ds_temp_tax_validator to manage_taxonomy;
 			<br>#wr#
 
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ds_temp_tax_validator set wiki='#w#',gni='#g#' where taxon_name='#taxon_name#'
+				update ds_temp_tax_validator set wiki='#w#',gni='#g#',worms='#wr#' where taxon_name='#taxon_name#'
 			</cfquery>
 
 		</cfloop>
