@@ -1,4 +1,35 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+					select collection.guid_prefix,get_address(collection_contacts.CONTACT_AGENT_ID,'email') email from collection, collection_contacts
+					where collection.collection_id=collection_contacts.collection_id and CONTACT_ROLE='data quality'
+					--and get_address(collection_contacts.CONTACT_AGENT_ID,'email') is null
+				</cfquery>
+				<cfdump var=#cnc#>
+				<cfif cnc.recordcount gt 0>
+					<div class="importantNotification">
+						You have successfully logged in - <a href="#gotopage#">click here to continue</a>.
+						<p>
+							You have manage_collection access for collection(s) which do not have an active data quality contact.
+							Please ensure that <cfif cnc.recordcount is 1>this collection<cfelse>these collections</cfif> have
+							a data quality contact who is an active Operator and has a current email address.
+						</p>
+						<ul>
+							<cfloop query="cnc">
+								<li>#cnc.guid_prefix#</li>
+							</cfloop>
+						</ul>
+					</div>
+					<cfabort>
+				</cfif>
+
+
+
+
+
+			<cfabort>
+
+
+
 
 <!---
 
