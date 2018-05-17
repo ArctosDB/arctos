@@ -505,7 +505,7 @@
 					where collection.collection_id=collection_contacts.collection_id and CONTACT_ROLE='data quality' and
 					get_address(collection_contacts.CONTACT_AGENT_ID,'email') is null
 				</cfquery>
-				<cfif cnc.recorcdount gt 0>
+				<cfif cnc.recordcount gt 0>
 					<div class="importantNotification">
 						You have manage_collection access for collections which do not have an active data quality contact.
 						<p>
