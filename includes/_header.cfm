@@ -491,32 +491,8 @@
 							<li><a target="_top" href="/info/mentor.cfm">Find a Mentor</a></li>
 						</ul>
 					</li>
-					<!----
-					<li>
-						New! Something short here...
-					</li>
-					---->
 				</ul>
 			</div>
-			<cfif isdefined("session.roles") and session.roles contains "manage_collection">
-				<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
-				<cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
-					select collection.guid_prefix,get_address(collection_contacts.CONTACT_AGENT_ID,'email') email from collection, collection_contacts
-					where collection.collection_id=collection_contacts.collection_id and CONTACT_ROLE='data quality' and
-					get_address(collection_contacts.CONTACT_AGENT_ID,'email') is null
-				</cfquery>
-				<cfif cnc.recordcount gt 0>
-					<div class="importantNotification">
-						You have manage_collection access for collections which do not have an active data quality contact.
-						This message will no longer display one hour after active data quality contacts are added.
-						<ul>
-							<cfloop query="cnc">
-								<li>#cnc.guid_prefix#</li>
-							</cfloop>
-						</ul>
-					</div>
-			</cfif>
-			</cfif>
 		</div><!--- end header div --->
 		<cf_rolecheck>
 	</cfoutput>
