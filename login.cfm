@@ -118,59 +118,56 @@
 				</div>
 				<a href="#gotopage#">Continue to #gotopage#</a>
 			<cfelse>
-
-
-
-			<cfif isdefined("session.roles") and session.roles contains "manage_collection">
-				<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
-				<cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
-					select
-						guid_prefix,
-						collection_id
-					from (
+				<cfif isdefined("session.roles") and session.roles contains "manage_collection">
+					<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
+					<cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 						select
 							guid_prefix,
-							collection_id,
-							count(distinct(email)) dem
-						from (
-								select
-									collection.guid_prefix,
-									collection.collection_id,
-									get_address(collection_contacts.CONTACT_AGENT_ID,'email') email
-								from
-									collection,
-									collection_contacts
-								where
-									collection.collection_id=collection_contacts.collection_id and
-									collection_contacts.CONTACT_ROLE='data quality'
-							)
-						group by
-							guid_prefix,
 							collection_id
-						)
-					where dem=0
-					order by guid_prefix
-				</cfquery>
-				<cfif cnc.recordcount gt 0>
-					<div class="importantNotification">
-						You have successfully logged in - <a href="#gotopage#">click here to continue</a>.
-						<p>
-							You have manage_collection access for collection(s) which do not have an active data quality contact.
-							Please ensure that <cfif cnc.recordcount is 1>this collection<cfelse>these collections</cfif> have
-							a data quality contact who is an active Operator and has a current email address.
-						</p>
-						<ul>
-							<cfloop query="cnc">
-								<li>
-									<a href="/Admin/Collection.cfm?action=findColl&collection_id=#collection_id#" target="_blank">
-										#cnc.guid_prefix#
-									</a>
-								</li>
-							</cfloop>
-						</ul>
-					</div>
-					<cfabort>
-				</cfif>
+						from (
+							select
+								guid_prefix,
+								collection_id,
+								count(distinct(email)) dem
+							from (
+									select
+										collection.guid_prefix,
+										collection.collection_id,
+										get_address(collection_contacts.CONTACT_AGENT_ID,'email') email
+									from
+										collection,
+										collection_contacts
+									where
+										collection.collection_id=collection_contacts.collection_id and
+										collection_contacts.CONTACT_ROLE='data quality'
+								)
+							group by
+								guid_prefix,
+								collection_id
+							)
+						where dem=0
+						order by guid_prefix
+					</cfquery>
+					<cfif cnc.recordcount gt 0>
+						<div class="importantNotification">
+							You have successfully logged in - <a href="#gotopage#">click here to continue</a>.
+							<p>
+								You have manage_collection access for collection(s) which do not have an active data quality contact.
+								Please ensure that <cfif cnc.recordcount is 1>this collection<cfelse>these collections</cfif> have
+								a data quality contact who is an active Operator and has a current email address.
+							</p>
+							<ul>
+								<cfloop query="cnc">
+									<li>
+										<a href="/Admin/Collection.cfm?action=findColl&collection_id=#collection_id#" target="_blank">
+											#cnc.guid_prefix#
+										</a>
+									</li>
+								</cfloop>
+							</ul>
+						</div>
+						<cfabort>
+					</cfif>
 				<cflocation url="#gotopage#" addtoken="no">
 			</cfif>
 			<cfif len(getUserData.email) is 0>
