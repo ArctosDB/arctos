@@ -509,7 +509,7 @@
 					<div class="importantNotification">
 						You have manage_collection access for collections which do not have an active data quality contact.
 						<p>
-							#valuelist(cnc.guid_prefix)
+							#valuelist(cnc.guid_prefix)#
 						</p>
 						This message will no longer display one hour after active data quality contacts are added.
 					</div>
