@@ -207,104 +207,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-----
-			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
-				<tr>
-					<td width="95" nowrap="nowrap" class="headerImageCell" id="headerImageCell">
-						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
-					</td>
-					<td align="left" valign="bottom" cellpadding="0" cellspacing="0">
-						<table cellpadding="0" cellspacing="0" border width="100%">
-							<tr>
-								<td align="left" valign="bottom" nowrap="nowrap" id="collectionCell" class="collectionCell">
-									<cfif len(session.collection_link_text) gt 0>
-										<a target="_top" href="#session.collection_url#" class="novisit">
-											<span class="headerCollectionText">
-													#session.collection_link_text#
-											</span>
-										</a>
-										<br>
-									</cfif>
-									<a target="_top" href="#session.institution_url#" class="novisit">
-										<span class="headerInstitutionText">
-											#session.institution_link_text#
-										</span>
-									</a>
-								</td>
-								<td align="center">
-										<div class="newsDefault">
-											News: is 1111 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here. This is 2222 announcement. It might be about this long. It could tell you things. Bla bla bla. Text goes here.240 character limit
-										</div>
-
-								</td>
-							</tr>
-							<cfif len(session.header_credit) gt 0>
-								<tr>
-									<td colspan="2" id="creditCell">
-										<span  class="hdrCredit">
-											#session.header_credit#
-										</span>
-									</td>
-								</tr>
-							</cfif>
-						</table>
-					</td>
-				</tr>
-			</table>
-
-			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
-		    	<cfif len(session.username) gt 0>
-					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
-					<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
-						<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
-					</cfif>
-					<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
-						<br>
-						<span style="color:red;font-size:smaller;">
-							You have no email address in your profile. Please correct.
-						</span>
-					</cfif>
-				<cfelse>
-					<cfif isdefined("ref")><!--- passed in by Application.cfc before termination --->
-						<cfset gtp=ref>
-					<cfelse>
-						<cfset gtp="/" & request.rdurl>
-					</cfif>
-					<!--- run this twice to get /// --->
-					<cfset gtp=replace(gtp,"//","/","all")>
-					<cfset gtp=replace(gtp,"//","/","all")>
-					<div id="headerLoginDiv">
-						<form name="logIn" method="post" action="/login.cfm">
-							<input type="hidden" name="action" value="signIn">
-							<input type="hidden" name="gotopage" value="#gtp#">
-
-							<table border="0" cellpadding="0" cellspacing="0">
-								<tr>
-									<td>
-										<input type="text" name="username" title="username" size="12"
-											class="loginTxt" placeholder="username" required>
-									</td>
-									<td>
-										<input type="password" name="password" title="password" placeholder="password" size="12" class="loginTxt" required>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2" align="center">
-										<div class="loginTxt" style="padding-top:3px;">
-											<input type="submit" value="Log In" class="smallBtn">
-											or
-											<input type="button" value="Create Account" class="smallBtn"
-												onClick="logIn.action.value='newUser';submit();">
-										</div>
-							    	</td>
-								</tr>
-							</table>
-						</form>
-					</div>
-				</cfif>
-			</div>
-			---->
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
@@ -367,10 +269,6 @@
 											<li><a target="_top" href="/tools/BulkloadCollector.cfm">Bulkload Collector</a></li>
 											<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
 											<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
-											<!----
-											deprecated 20151013
-											<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
-											---->
 											<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
 											<li><a target="_top" href="/tools/uploadMedia.cfm">upload images</a></li>
 											<li><a target="_top" href="/tools/BulkloadRedirect.cfm">bulkload redirects</a></li>
@@ -599,6 +497,9 @@
 					</li>
 					---->
 				</ul>
+			</div>
+			<div class="importantNotification">
+				This is a test. Bla bla bla.
 			</div>
 		</div><!--- end header div --->
 		<cf_rolecheck>
