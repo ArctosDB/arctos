@@ -508,10 +508,12 @@
 				<cfif cnc.recordcount gt 0>
 					<div class="importantNotification">
 						You have manage_collection access for collections which do not have an active data quality contact.
-						<p>
-							#valuelist(cnc.guid_prefix)#
-						</p>
 						This message will no longer display one hour after active data quality contacts are added.
+						<ul>
+							<cfloop query="cnc">
+								<li>#cnc.guid_prefix#</li>
+							</cfloop>
+						</ul>
 					</div>
 			</cfif>
 			</cfif>
