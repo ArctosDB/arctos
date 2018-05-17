@@ -499,11 +499,13 @@
 				</ul>
 			</div>
 			<cfif isdefined("session.roles") and session.roles contains "manage_collection">
+				<cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+					select * from collection
+				</cfquery>
+<cfdump var=#cnc#>
 			<div class="importantNotification">
 				This is a test. Bla bla bla.
 			</div>
-			<cfelse>
-			nope
 			</cfif>
 		</div><!--- end header div --->
 		<cf_rolecheck>

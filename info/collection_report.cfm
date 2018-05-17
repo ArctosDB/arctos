@@ -62,7 +62,7 @@
 	</h3>
 	<cfif len(coln.USE_LICENSE_ID) gt 0>
 		<cfquery name="license" datasource="uam_god">
-				select  * from  ctmedia_license where MEDIA_LICENSE_ID=#coln.USE_LICENSE_ID#
+			select  * from  ctmedia_license where MEDIA_LICENSE_ID=#coln.USE_LICENSE_ID#
 		</cfquery>
 
 	</cfif>
