@@ -498,7 +498,7 @@
 					---->
 				</ul>
 			</div>
-			<cfif isdefined("session.roles" and session.roles contains "manage_collection">
+			<cfif isdefined("session.roles") and session.roles contains "manage_collection">
 			<div class="importantNotification">
 				This is a test. Bla bla bla.
 			</div>
