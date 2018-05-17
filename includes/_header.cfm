@@ -499,8 +499,11 @@
 				</ul>
 			</div>
 			<cfif isdefined("session.roles") and session.roles contains "manage_collection">
-				<cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select * from collection
+				<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
+				<cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+					select collection.guid_prefix,get_address(collection_contacts.CONTACT_AGENT_ID,'email') email from collection, collection_contacts
+					where collection.collection_id=collection_contacts.collection_id and CONTACT_ROLE='data quality' and
+					get_address(collection_contacts.CONTACT_AGENT_ID,'email') is null
 				</cfquery>
 <cfdump var=#cnc#>
 			<div class="importantNotification">
