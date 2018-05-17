@@ -505,10 +505,15 @@
 					where collection.collection_id=collection_contacts.collection_id and CONTACT_ROLE='data quality' and
 					get_address(collection_contacts.CONTACT_AGENT_ID,'email') is null
 				</cfquery>
-<cfdump var=#cnc#>
-			<div class="importantNotification">
-				This is a test. Bla bla bla.
-			</div>
+				<cfif cnc.recorcdount gt 0>
+					<div class="importantNotification">
+						You have manage_collection access for collections which do not have an active data quality contact.
+						<p>
+							#valuelist(cnc.guid_prefix)
+						</p>
+						This message will no longer display one hour after active data quality contacts are added.
+					</div>
+			</cfif>
 			</cfif>
 		</div><!--- end header div --->
 		<cf_rolecheck>
