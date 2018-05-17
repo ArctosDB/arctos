@@ -16,13 +16,15 @@
 		accn.received_date,
 		loan.loan_number,
 		trans.TRANS_DATE,
-		specimen_part.SAMPLED_FROM_OBJ_ID
+		specimen_part.SAMPLED_FROM_OBJ_ID,
+		COLL_OBJECT_REMARKS
 	from
 		#session.SpecSrchTab#,
 		flat,
 		cataloged_item,
 		accn,
 		specimen_part,
+		coll_object_remark,
 		coll_obj_cont_hist,
 		container c,
 		container p,
@@ -34,6 +36,7 @@
 		cataloged_item.collection_object_id=flat.collection_object_id and
 		cataloged_item.accn_id=accn.transaction_id and
 		cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+		specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
 		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 		coll_obj_cont_hist.container_id=c.container_id and
 		c.parent_container_id = p.container_id (+) and
@@ -57,7 +60,8 @@
 		verbatim_date,
 		scientific_name,
 		received_date,
-		SAMPLED_FROM_OBJ_ID
+		SAMPLED_FROM_OBJ_ID,
+		COLL_OBJECT_REMARKS
 	from raw group by
 		guid,
 		partID,
@@ -69,7 +73,8 @@
 		verbatim_date,
 		scientific_name,
 		received_date,
-		SAMPLED_FROM_OBJ_ID
+		SAMPLED_FROM_OBJ_ID,
+		COLL_OBJECT_REMARKS
 </cfquery>
 
 <cfif action is "nothing">
@@ -86,6 +91,7 @@
 			<th>Part</th>
 			<th>InBarcode</th>
 			<th>Loan</th>
+			<th>PartRemark</th>
 		</tr>
 		<cfloop query="d">
 			<tr>
@@ -126,12 +132,13 @@
 					</cfloop>
 					#ll#
 				</td>
+				<td>#COLL_OBJECT_REMARKS#</td>
 			</tr>
 		</cfloop>
 	</table>
 </cfif>
 <cfif action is "download">
-	<cfset ac="GUID,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode,Loan">
+	<cfset ac="GUID,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode,Loan,PartRemark">
 	<cfset variables.encoding="UTF-8">
 	<cfset fname = "ArctosData_#left(session.sessionKey,10)#.csv">
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
@@ -169,6 +176,7 @@
 			<cfset ll=listappend(ll,"#loan_number# (#TRANS_DATE#)",";")>
 		</cfloop>
 		<cfset oneLine=oneLine & ',"#ll#"'>
+		<cfset oneLine=oneLine & ',"#escapeQuotes(COLL_OBJECT_REMARKS)#"'>
 		<cfset oneLine = trim(oneLine)>
 		<cfscript>
 			variables.joFileWriter.writeLine(oneLine);
