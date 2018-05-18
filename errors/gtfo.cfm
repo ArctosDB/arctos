@@ -10,6 +10,8 @@
 	<cfquery name="bsn" datasource="uam_god">
 		select count(*) c from blacklist_subnet where SUBNET='#request.requestingsubnet#' and status='hardblock'
 	</cfquery>
+	<cfheader statuscode="450" statustext="Access Restricted">
+
 	<p>
 		Your IP or organization has been blocked. You may wish to check your computer for malicious software and alert
 		others who may have accessed Arctos from your IP or organization. Further intrusion attempts may result in more

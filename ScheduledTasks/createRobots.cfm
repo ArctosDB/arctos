@@ -129,7 +129,7 @@
 		</cfloop>
 
 		<!--- allow google to get includes --->
-		<cfset robotscontent=robotscontent & chr(10) & "Allow: /includes/" & i>
+		<cfset robotscontent=robotscontent & chr(10) & "Allow: /includes/">
 
 		<!----
 			keep this synced up with /component/utilities.cfc
