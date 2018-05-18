@@ -9,7 +9,7 @@
 	variables.joFileWriter.writeLine('RewriteBase /');
 	//let PNG through so CAPTCHA works
 	variables.joFileWriter.writeLine('RewriteRule ^(.*)png$ - [L]');
-</cfscript>	
+</cfscript>
 <cfset i=1>
 <cfloop query="d">
 	<cfscript>
@@ -22,7 +22,7 @@
 	</cfscript>
 </cfloop>
 <cfscript>
-	a='RewriteRule .*$ errors/gtfo.cfm';		
+	a='RewriteRule .*$ errors/blocked.cfm';
 	variables.joFileWriter.writeLine(a);
 	variables.joFileWriter.close();
 </cfscript>

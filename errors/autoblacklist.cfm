@@ -88,4 +88,4 @@
 		<cf_logError subject="new autoblacklist" message="#bl_reason#">
 	</cfif>
 </cfif>
-<cfinclude template="/errors/gtfo.cfm">
+<cfinclude template="/errors/blocked.cfm">

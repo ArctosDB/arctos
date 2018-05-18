@@ -942,17 +942,17 @@
 		If they are, just include the notification/form and abort
 	---->
 	<cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
-		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
+		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/blocked.cfm">
 			<cfscript>
-				getPageContext().forward("/errors/gtfo.cfm");
+				getPageContext().forward("/errors/blocked.cfm");
 			</cfscript>
 			<cfabort>
 		</cfif>
 	</cfif>
 	<cfif listfind(application.blacklist,request.ipaddress)>
-		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
+		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/blocked.cfm">
 			<cfscript>
-				getPageContext().forward("/errors/gtfo.cfm");
+				getPageContext().forward("/errors/blocked.cfm");
 			</cfscript>
 			<cfabort>
 		</cfif>

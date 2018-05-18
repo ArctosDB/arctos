@@ -35,7 +35,7 @@
 	<cfset f = CreateObject("component","component.utilities")>
 	<cfset captcha = f.makeCaptchaString()>
 	<cfset captchaHash = hash(captcha)>
-	<cfform name="g" id="g" method="post" action="/errors/gtfo.cfm">
+	<cfform name="g" id="g" method="post" action="/errors/blocked.cfm">
 		<input type="hidden" name="action" value="p">
 	    <cfimage
 	    	action="captcha"

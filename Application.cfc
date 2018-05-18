@@ -369,7 +369,7 @@
             cPath does not contain "/contact.cfm" and
             cPath does not contain "/dumpAll.cfm" and
             cPath does not contain "/get_short_doc.cfm" and
-            cPath does not contain "/errors/gtfo.cfm" and
+            cPath does not contain "/errors/blocked.cfm" and
             len(session.username) is 0>
             <cflocation url="/errors/dev_login.cfm" addtoken="false">
         </cfif>
