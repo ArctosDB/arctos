@@ -22,6 +22,7 @@
 		<cfhttpparam type="url" name="fld" value="#fld#">
 		<cfhttpparam type="url" name="addCtl" value="#addCtl#">
 	</cfhttp>
+	<cfdump var=#cfhttp#>
 	<cfoutput>
 		<cfif cfhttp.fileContent contains "clickthrough">
 			<!---
