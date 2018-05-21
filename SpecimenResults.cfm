@@ -125,7 +125,7 @@
 				columnResizable: true,
 				recordsLoaded: getPostLoadJunk,
 				multiSorting: true,
-				columnSelectable: false,
+				columnSelectable: true,
 				multiselect: true,
 				selectingCheckboxes: true,
   				selecting: true, //Enable selecting
