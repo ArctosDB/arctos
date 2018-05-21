@@ -425,9 +425,18 @@
 			<div class="infoDiv">
 				Once everything in this form is to your satisfaction, you may finalize this request. This message will be included
 				in that notification.
-
-				<label for="final_message">Message to include</label>
-				<textarea class="hugetextarea reqdClr" name="final_message" id="final_message" required >#d.final_message#</textarea>
+				<cfif d.status is "new">
+					<label for="final_message">Message to include</label>
+					<textarea class="hugetextarea reqdClr" name="final_message" id="final_message" required >#d.final_message#</textarea>
+				<cfelse>
+					<input type="hidden" name="final_message" id="final_message" value="#d.final_message#">
+					<p>
+						This request has already been submitted with message:
+						<blockquote>
+							#d.final_message#
+						</blockquote>
+					</p>
+				</cfif>
 			</div>
 
 
@@ -444,7 +453,6 @@
 						<option value="">not yet</option>
 						<option value="yes_plz">Finalize these data; alert Arctos staff</option>
 					</select>
-
 				<cfelse>
 					<p>
 						This request has already been submitted. Contact your Mentor to revise.
