@@ -143,7 +143,7 @@
 	                    list: false
 	                },
 					<cfloop query="usercols">
-						<cfif DISPLAY_TEXT is "Coordinate Error (m)">
+						<cfif CF_VARIABLE is "coordinateuncertaintyinmeters">
 						#ucase(CF_VARIABLE)#: {visibility: "none",title: 'cerr'}
 						<cfelse>
 						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
