@@ -144,7 +144,7 @@
 	                },
 					<cfloop query="usercols">
 						<cfif DISPLAY_TEXT is "Coordinate Error (m)">
-						#ucase(CF_VARIABLE)#: {visibility: "none",title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
+						#ucase(CF_VARIABLE)#: {visibility: "none",title: 'cerr'}
 						<cfelse>
 						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						</cfif>
