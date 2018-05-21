@@ -143,11 +143,14 @@
 	                    list: false
 	                },
 					<cfloop query="usercols">
+						<!----
+						do not display some required fields by default
 						<cfif CF_VARIABLE is "coordinateuncertaintyinmeters" or CF_VARIABLE is "dec_lat" or CF_VARIABLE is "dec_long">
 						#ucase(CF_VARIABLE)#: {visibility: "hidden",title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						<cfelse>
-						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						</cfif>
+						---->
+						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
