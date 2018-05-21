@@ -431,21 +431,26 @@
 			</div>
 
 
-			<cfif d.status is "new">
-				<div class="infoDiv">
-					Once everything in this form is to your satisfaction, you may finalize this request. Choosing "finalize" in this control will
-					<ul>
-						<li>LOCK existing data</li>
-						<li>Notify Arctos staff of the request</li>
-					</ul>
+			<div class="infoDiv">
+				Once everything in this form is to your satisfaction, you may finalize this request. Choosing "finalize" in this control will
+				<ul>
+					<li>LOCK existing data</li>
+					<li>Notify Arctos staff of the request</li>
+				</ul>
 
+				<cfif d.status is "new">
 					<label for="sfs">Request Finalization</label>
 					<select name="sfs" id="sfs" >
 						<option value="">not yet</option>
 						<option value="yes_plz">Finalize these data; alert Arctos staff</option>
 					</select>
-				</div>
-			</cfif>
+
+				<cfelse>
+					<p>
+						This request has already been submitted. Contact your Mentor to revise.
+					</p>
+				</cfif>
+			</div>
 
 			<cfif isdefined("session.roles") and session.roles contains "global_admin">
 				<div class="infoDiv">
