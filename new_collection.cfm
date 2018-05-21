@@ -545,6 +545,11 @@
 					SQL: select * from pre_new_collection where ncid=#ncid#
 				</p>
 			</cfmail>
+
+			Your request has been submitted.
+
+			<a href="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">continue editing</a>
+			<cfabort>
 		</cfif>
 
 		<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
