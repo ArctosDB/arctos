@@ -2,7 +2,8 @@
 <cfoutput>
 	<cfset title="bulkloader pre-bulkloader">
 	<cfif action is "nothing">
-		Pre-bulkloader magic lives here.
+		Pre-bulkloader magic lives here. <span class="helpLink" id="_pre_bulkloader">Help</span>
+
 		<p>
 			This app is in early beta. Lots of stuff won't work. Some stuff will probably make messes.
 			Make backups of your backups at every step.
