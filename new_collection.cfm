@@ -75,10 +75,6 @@
 	</form>
 
 	<cfif isdefined("session.roles") and session.roles contains "global_admin">
-		<p>
-			ABOUT: This form facilitates new collections. Direct all new collection request here.
-		</p>
-
 		you are admin; manage existing
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from pre_new_collection order by insert_date desc
