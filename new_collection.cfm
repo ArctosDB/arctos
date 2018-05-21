@@ -524,32 +524,27 @@
 					Contact email #i# is not valid.. Use your back button to fix.<cfabort>
 				</cfif>
 			</cfloop>
-			<p>
-				New Collection Request
-			</p>
-			<p>
-				A user has finalized a collection creation request. Confirm that the data in the link below are accurate and that
-				administrative needs have been met before proceeding.
-			</p>
-			<p>
-			MAILTO: #mentor_contact#, #contact_email#, arctos.database@gmail.com, lkv@berkeley.edu
-			</p>
-			<p>
-			USER_MESSAGE: #final_message#
-			</p>
-			<p>
-				LINK: #application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#
-
-			</p>
-			<p>
-				SQL: select * from pre_new_collection where ncid=#ncid#
-			</p>
-
-			<p>
-				this would have gone out as email, and you'd be redirected to the edit form.
-			</p>
-
-			<cfabort>
+			<cfmail to="#mentor_contact#, #contact_email#, arctos.database@gmail.com, lkv@berkeley.edu" subject="collection creation request" from="newcollection@#Application.fromEmail#" type="html">
+				<p>
+					New Collection Request
+				</p>
+				<p>
+					A user has finalized a collection creation request. Confirm that the data in the link below are accurate and that
+					administrative needs have been met before proceeding.
+				</p>
+				<p>
+					Make sure to change the status (from the link below) after taking action.
+				</p>
+				<p>
+					Message from requestor: #final_message#
+				</p>
+				<p>
+					LINK: #application.serverRootURL#/new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#
+				</p>
+				<p>
+					SQL: select * from pre_new_collection where ncid=#ncid#
+				</p>
+			</cfmail>
 		</cfif>
 
 		<cflocation url="new_collection.cfm?action=mgCollectionRequest&pwhash=#hash(user_pwd)#&GUID_PREFIX=#GUID_PREFIX#">
