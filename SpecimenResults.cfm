@@ -143,7 +143,11 @@
 	                    list: false
 	                },
 					<cfloop query="usercols">
+						<cfif DISPLAY_TEXT is "Coordinate Error (m)">
+						#ucase(CF_VARIABLE)#: {visibility: "none",title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
+						<cfelse>
 						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
+						</cfif>
 						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
