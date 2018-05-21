@@ -144,7 +144,7 @@
 	                },
 					<cfloop query="usercols">
 						<cfif CF_VARIABLE is "coordinateuncertaintyinmeters">
-						#ucase(CF_VARIABLE)#: {visibility: "none",title: 'cerr'}
+						#ucase(CF_VARIABLE)#: {visibility: "hidden",title: 'cerr'}
 						<cfelse>
 						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						</cfif>
