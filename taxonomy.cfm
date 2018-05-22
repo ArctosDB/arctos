@@ -442,10 +442,9 @@
 		<script>
 			jQuery(document).ready(function(){
 				$.ajax({
-					url: "/component/taxonomy.cfc?queryformat=column&method=validateName&returnformat=json",
+					url: "/component/taxonomy.cfc?queryformat=column&method=validateName&returnformat=json&taxon_name=#name#",
 					type: "GET",
 					dataType: "json",
-					taxon_name:  '#name#',
 					success: function(r) {
 						$("##validatorResults").html(r);
 					},
