@@ -180,7 +180,7 @@
 				)
 			</cfquery>
 		</cftransaction>
-		<cfif forceOverride is true>
+		<cfif isdefined("forceOverride") and forceOverride is true>
 			<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select get_address(#session.myAgentID#, 'email') a from dual
 			</cfquery>
@@ -1824,7 +1824,7 @@
 	<cfquery name="saveNewName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO taxon_name (TAXON_NAME_ID,SCIENTIFIC_NAME) VALUES (sq_TAXON_NAME_ID.nextval,'#scientific_name#')
 	</cfquery>
-	<cfif forceOverride is true>
+	<cfif isdefined("forceOverride") and forceOverride is true>
 		<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select get_address(#session.myAgentID#, 'email') a from dual
 		</cfquery>
