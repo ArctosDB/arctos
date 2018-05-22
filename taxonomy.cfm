@@ -458,7 +458,7 @@
 					type: "GET",
 					dataType: "json",
 					success: function(r) {
-						if (r.CONSENSUS==''){
+						if (r.CONSENSUS=='might_be_valid'){
 							thisClass='validatorGood';
 						} else {
 							thisClass='validatorBad';
