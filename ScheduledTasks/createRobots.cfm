@@ -161,7 +161,7 @@
 
 <!--- see if Bing listens ---->
 
-<cfset robotscontent="User-agent: msnbot">
+<cfset robotscontent=robotscontent & chr(10) & "User-agent: msnbot">
 <cfset robotscontent=robotscontent & chr(10) & "crawl-delay: 10">
 		<cfscript>
 			variables.joFileWriter.writeLine(robotscontent);
