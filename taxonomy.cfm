@@ -463,18 +463,14 @@
 						} else {
 							thisClass='validatorBad';
 						}
-
-
 						$("##validatorResults").html('Validator results: ' + r.CONSENSUS).addClass(thisClass);
 					},
 					error: function (xhr, textStatus, errorThrown){
-					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+					    alert('Validator Error: ' + errorThrown + ': ' + textStatus + ': ' + xhr);
 					}
 				});
-
 			});
 		</script>
-
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 		<div id="validatorResults"></div>
 	</cfif>
