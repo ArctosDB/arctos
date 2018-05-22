@@ -446,7 +446,7 @@
 					type: "GET",
 					dataType: "json",
 					success: function(r) {
-						$("##validatorResults").html(r.CONSENSUS);
+						$("##validatorResults").html('Validator results: ' + r.CONSENSUS);
 					},
 					error: function (xhr, textStatus, errorThrown){
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
