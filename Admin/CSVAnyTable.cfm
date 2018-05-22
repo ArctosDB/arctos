@@ -16,6 +16,7 @@
 		<cfquery name="getData" datasource="uam_god">
 			select * from #tableName#
 		</cfquery>
+		<cfdump var=#getData#>
 		<cfif isdefined("forceColumnOrder") and forceColumnOrder is "true">
 			<cfquery name="cols" datasource="uam_god">
 				select COLUMN_NAME from user_tab_cols where table_name = '#ucase(tableName)#' order by INTERNAL_COLUMN_ID
