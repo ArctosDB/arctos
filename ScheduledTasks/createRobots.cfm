@@ -159,6 +159,10 @@
 			<cfset robotscontent=robotscontent & chr(10) & "Disallow: /">
 		</cfloop>
 
+<!--- see if Bing listens ---->
+
+<cfset robotscontent="User-agent: msnbot">
+<cfset robotscontent=robotscontent & chr(10) & "crawl-delay: 10">
 		<cfscript>
 			variables.joFileWriter.writeLine(robotscontent);
 			variables.joFileWriter.writeLine(chr(10) & 'Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
