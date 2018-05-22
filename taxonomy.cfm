@@ -387,38 +387,37 @@
 
 
 		})
-function loadTaxonomyMap(n,m){
-	var am='/includes/taxonomy/mapTax.cfm?method=' + m + '&scientific_name=' + n;
-	jQuery('##specTaxMap').html('<img src="/images/indicator.gif">');
-	jQuery.get(am, function(data){
-		jQuery('##specTaxMap').html(data);
-	})
-}
+		function loadTaxonomyMap(n,m){
+			var am='/includes/taxonomy/mapTax.cfm?method=' + m + '&scientific_name=' + n;
+			jQuery('##specTaxMap').html('<img src="/images/indicator.gif">');
+			jQuery.get(am, function(data){
+				jQuery('##specTaxMap').html(data);
+			})
+		}
 
-function cloneRemoteCN(tid,cid){
-		var guts = "/includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
-
-		console.log('opening ' + guts);
-		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-			autoOpen: true,
-			closeOnEscape: true,
-			height: 'auto',
-			modal: true,
-			position: ['center', 'center'],
-			title: 'Clone Classification',
- 			width:800,
-  			height:600,
-			close: function() {
-				$( this ).remove();
-			},
-		}).width(800-10).height(600-10);
-		$(window).resize(function() {
-			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-		});
-		$(".ui-widget-overlay").click(function(){
-		    $(".ui-dialog-titlebar-close").trigger('click');
-		});
-	}
+		function cloneRemoteCN(tid,cid){
+			var guts = "/includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
+			console.log('opening ' + guts);
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'center'],
+				title: 'Clone Classification',
+	 			width:800,
+	  			height:600,
+				close: function() {
+					$( this ).remove();
+				},
+			}).width(800-10).height(600-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+		}
 
 
 	</script>
@@ -440,7 +439,26 @@ function cloneRemoteCN(tid,cid){
 	<cfset title="Taxonomy Details: #name#">
 	<h3>Taxonomy Details for <i>#name#</i></h3>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+		<script>
+			jQuery(document).ready(function(){
+				$.ajax({
+					url: "/component/taxonomy.cfc?queryformat=column&method=validateName&returnformat=json",
+					type: "GET",
+					dataType: "json",
+					taxon_name:  '#name#',
+					success: function(r) {
+						$("#validatorResults").html(r);
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
+
+			});
+		</script>
+
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
+		<div id="validatorResults"></div>
 	</cfif>
 	<div id="specTaxMap"></div>
 	<div id="specTaxMedia"></div>
