@@ -161,8 +161,8 @@
 
 <!--- see if Bing listens ---->
 
-<cfset robotscontent=robotscontent & chr(10) & "User-agent: msnbot">
-<cfset robotscontent=robotscontent & chr(10) & "crawl-delay: 10">
+		<cfset robotscontent=robotscontent & chr(10)  & chr(10) & "User-agent: msnbot">
+		<cfset robotscontent=robotscontent & chr(10) & "crawl-delay: 10">
 		<cfscript>
 			variables.joFileWriter.writeLine(robotscontent);
 			variables.joFileWriter.writeLine(chr(10) & 'Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
