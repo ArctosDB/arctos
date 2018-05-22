@@ -447,7 +447,7 @@
 					dataType: "json",
 					taxon_name:  '#name#',
 					success: function(r) {
-						$("#validatorResults").html(r);
+						$("##validatorResults").html(r);
 					},
 					error: function (xhr, textStatus, errorThrown){
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
