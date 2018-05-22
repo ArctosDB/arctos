@@ -328,6 +328,18 @@
 			margin:2em;
 			padding:2em;
 		}
+		.validatorGood {
+			color:green;
+			font-size:x-small;
+		}
+		.validatorBad {
+			color:red;
+			font-size:x-large;
+			padding:1em;
+			margin:1em;
+			border:2px solid red;
+			text-align:center;
+		}
 	</style>
 	<cfquery name="d" datasource="uam_god">
 		select
@@ -446,7 +458,14 @@
 					type: "GET",
 					dataType: "json",
 					success: function(r) {
-						$("##validatorResults").html('Validator results: ' + r.CONSENSUS);
+						if (r.CONSENSUS==''){
+							thisClass='validatorGood';
+						} else {
+							thisClass='validatorBad';
+						}
+
+
+						$("##validatorResults").html('Validator results: ' + r.CONSENSUS).addClass(thisClass);
 					},
 					error: function (xhr, textStatus, errorThrown){
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
