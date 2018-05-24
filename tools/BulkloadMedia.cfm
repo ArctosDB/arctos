@@ -428,10 +428,21 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 	</p>
 	<p>
 		You may manipulate this variable by specifying values in regexfind and (optionally) regexreplace.
+		<ul>
+			<li>
+				To ignore everything after the first underbar in the filenames, enter <strong>_.*$</strong> in regexfind and leave regexreplace NULL.
+			</li>
+			<li>
+				To replace all occurrences of "E" with "e," enter <strong>E</strong> in regexfind and <strong>e</strong> in regexreplace.
+			</li>
+			<li>
+				To extract UAM100000052 from web_UAM100000052.jpg and UAM100000052 from web_UAM100000052_1.jpg (eg to deal with sometimes-there second
+				underbars) enter "[^_]+_([^_]+)_*.*" (=one-or-more not-underbar then underbar then one-or-more not-underbar then zero-or-more underbar
+				then zero-or-more anything) in regexfind and "\1" (stuff in parentheses) in regexreplace
+			</li>
+		</ul>
 
-		For example, to ignore everything after the first underbar in the filenames, enter <strong>_.*$</strong> in regexfind and leave regexreplace NULL.
 
-		To replace all occurrences of "E" with "e," enter <strong>E</strong> in regexfind and <strong>e</strong> in regexreplace.
 	</p>
 	<p>
 		You may then use the [filename] variable in label and relationship values - to create "barcode" labels, for example. Just enter <strong>[filename]</strong>
