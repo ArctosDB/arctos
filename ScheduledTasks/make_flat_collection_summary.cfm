@@ -6,7 +6,8 @@
 <cfquery name="mktbl" datasource="uam_god">
 		create table temp_kwp_exp as select
 	<cfloop query="getFLD">
-			#replace(SQL_ELEMENT,'flatTableName','flat')# AS #CF_VARIABLE#,
+
+			#preservesinglequotes(replace(SQL_ELEMENT,'flatTableName','flat'))# AS #CF_VARIABLE#,
 	</cfloop>
 	sysdate as compiled_date from flat where guid like 'KWP:Ento:%'
 	</cfquery>
