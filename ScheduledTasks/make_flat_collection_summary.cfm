@@ -2,6 +2,9 @@
 <cfquery name="getFLD" datasource="uam_god">
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 order by DISP_ORDER
 </cfquery>
+<cfdump var=#getFLD#>
+
+
 <cfoutput>
 <cfquery name="mktbl" datasource="uam_god">
 		create table temp_kwp_exp as select
