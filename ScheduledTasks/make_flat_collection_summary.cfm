@@ -7,7 +7,7 @@
 <cfoutput>
 	<cfset s="create table temp_kwp_exp as select ">
 	<cfloop query="getFLD">
-		<cfset s=s & "#replace(SQL_ELEMENT,'flatTableName','flat')# AS #CF_VARIABLE#,">
+		<cfset s=s & "#replacenocase(SQL_ELEMENT,'flatTableName','flat')# AS #CF_VARIABLE#,">
 	</cfloop>
 	<cfset s=s & " sysdate as compiled_date from flat where guid like 'KWP:Ento:%'">
 
