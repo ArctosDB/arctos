@@ -2,17 +2,20 @@
 <cfquery name="getFLD" datasource="uam_god">
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 order by DISP_ORDER
 </cfquery>
-<cfdump var=#getFLD#>
 
 
 <cfoutput>
-<cfquery name="mktbl" datasource="uam_god">
-		create table temp_kwp_exp as select
+	<cfset s="create table temp_kwp_exp as select ">
 	<cfloop query="getFLD">
-		<cfset s=replace(SQL_ELEMENT,'flatTableName','flat')>
-
-			#preservesinglequotes(s)# AS #CF_VARIABLE#,
+		<cfset s=s & "#replace(SQL_ELEMENT,'flatTableName','flat')# AS #CF_VARIABLE#,">
 	</cfloop>
-	sysdate as compiled_date from flat where guid like 'KWP:Ento:%'
+	<cfset s=s & " sysdate as compiled_date from flat where guid like 'KWP:Ento:%'">
+
+
+	<cfdump var=#s#>
+
+
+	<cfquery name="mktbl" datasource="uam_god">
+		#preservesinglequotes(s)#
 	</cfquery>
 </cfoutput>
