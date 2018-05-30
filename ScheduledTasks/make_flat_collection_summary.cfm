@@ -1,6 +1,6 @@
 
 <cfquery name="getFLD" datasource="uam_god">
-	select * from SPECIMEN_RESULTS_COL where SPECIMEN_RESULTS_COL=1
+	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 order by DISP_ORDER
 </cfquery>
 <cfoutput>
 		select
