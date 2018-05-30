@@ -5,7 +5,7 @@
 <cfoutput>
 		select
 	<cfloop query="getFLD">
-			#replace(SQL_ELEMENT,'flatTableName','flat')# AS CF_VARIABLE,
+			#replace(SQL_ELEMENT,'flatTableName','flat')# AS #CF_VARIABLE#,
 
 	</cfloop>
 </cfoutput>
