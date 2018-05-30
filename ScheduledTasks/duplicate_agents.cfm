@@ -579,7 +579,7 @@ END;
 			</cfif>
 
 
-			<cfmail to="#Application.DataProblemReportEmail#,#maddr#" subject="#subj#" from="agentmerge@#Application.fromEmail#" type="html">
+			<cfmail to="#Application.DataProblemReportEmail#,#maddr#" cc="#Application.DataProblemReportEmail#" subject="#subj#" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
 
 				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",cookdays,detected_date),"yyyy-mm-dd")#.

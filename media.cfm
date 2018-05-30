@@ -324,7 +324,6 @@
 
 <!----------------------------------------------------------------------------------------->
 <cfif action is "newMedia">
-
 	deprecated - please file an Issue<cfabort>
 	<cfoutput>
 	<p>
