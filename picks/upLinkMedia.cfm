@@ -275,7 +275,7 @@
 				<input type="hidden" name="c_created_by_aid" id="c_created_by_aid" value="">
 				<input type="text" name="c_created_by" id="c_created_by" value=""
 					onchange="pickAgentModal('c_created_by_aid',this.id,this.value); return false;"
-					onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
+					onKeyPress="return noenter(event);" placeholder="pick an agent" class="minput">
 
 				<table border>
 					<tr>
