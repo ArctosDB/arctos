@@ -271,6 +271,12 @@
 					</cfloop>
 				</select>
 
+				<label for="c_created_by">Created By Agent</label>
+				<input type="hidden" name="c_created_by_aid" id="c_created_by_aid" value="">
+				<input type="text" name="c_created_by" id="c_created_by" value=""
+					onchange="pickAgentModal('c_created_by_aid',this.id,this.value); return false;"
+					onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
+
 				<table border>
 					<tr>
 						<th>Label</th>
@@ -289,27 +295,38 @@
 							<input type="text" size="60" id="c_labelvalue1" name="c_labelvalue1">
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<select name="c_label2" id="c_label2">
+								<option></option>
+								<cfloop query="CTMEDIA_LABEL">
+									<option value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" size="60" id="c_labelvalue2" name="c_labelvalue2">
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<select name="c_label3" id="c_label3">
+								<option></option>
+								<cfloop query="CTMEDIA_LABEL">
+									<option value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" size="60" id="c_labelvalue3" name="c_labelvalue3">
+						</td>
+					</tr>
 				</table>
-
-
-
-
-
 
 				<br><input type="submit" class="insBtn" value="link to picked media">
 			</form>
 		</div>
-
-
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- MEDIA_ID							   NOT NULL NUMBER
- MEDIA_URI							   NOT NULL VARCHAR2(255)
- MIME_TYPE							   NOT NULL VARCHAR2(255)
- MEDIA_TYPE							   NOT NULL VARCHAR2(255)
- PREVIEW_URI								    VARCHAR2(255)
- MEDIA_LICENSE_ID							    NUMBER
-
 
 
 
