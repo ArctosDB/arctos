@@ -267,8 +267,8 @@
 				</select>
 
 
-				<label for="media_relationship">Relationship</label>
-				<select name="media_relationship" id="media_relationship">
+				<label for="c_media_relationship">Relationship</label>
+				<select name="c_media_relationship" id="c_media_relationship">
 					<cfloop query="ctmedia_relationship">
 						<option value="#media_relationship#">#media_relationship#</option>
 					</cfloop>
@@ -291,53 +291,8 @@
 				<label for="c_made_date">Made Date</label>
 				<input type="text" size="40" id="c_made_date" name="c_made_date">
 
-				<table border>
-					<tr>
-						<th>Label</th>
-						<th>Label Value</th>
-					</tr>
-					<tr>
-						<td>
-							<select name="c_label1" id="c_label1">
-								<option></option>
-								<cfloop query="CTMEDIA_LABEL">
-									<option value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<select name="c_label2" id="c_label2">
-								<option></option>
-								<cfloop query="CTMEDIA_LABEL">
-									<option value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" size="60" id="c_labelvalue2" name="c_labelvalue2">
-						</td>
-					</tr>
 
-					<tr>
-						<td>
-							<select name="c_label3" id="c_label3">
-								<option></option>
-								<cfloop query="CTMEDIA_LABEL">
-									<option value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" size="60" id="c_labelvalue3" name="c_labelvalue3">
-						</td>
-					</tr>
-				</table>
-
-				<br><input type="submit" class="insBtn" value="link to picked media">
+				<br><input type="submit" class="insBtn" value="Create Media">
 			</form>
 		</div>
 
@@ -604,4 +559,105 @@
 		</cfif>
 	</cfoutput>
 </cfif>
+
+
+
+
+<cfif action is "createFromURLpicked">
+	<cfoutput>
+		<cftransaction>
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_media_id.nextval mid from dual
+			</cfquery>
+			<cfquery name="newmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into media (
+					MEDIA_ID,
+					MEDIA_URI,
+					MIME_TYPE,
+					MEDIA_TYPE,
+					PREVIEW_URI,
+					MEDIA_LICENSE_ID
+				) values (
+					#mid.mid#,
+					'#c_media_URL#',
+					'#c_mime_type#',
+					'#c_media_type#',
+					'#c_preview_URL#',
+					<cfif len(c_license) gt 0>
+						#c_license#
+					<cfelse>
+						NULL
+					</cfif>
+				)
+			</cfquery>
+			<!--- allow a just-make-media option --->
+			<cfif len(kval) gt 0>
+				<cfquery name="linkpicked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_relations (
+						MEDIA_ID,
+						MEDIA_RELATIONSHIP,
+						CREATED_BY_AGENT_ID,
+						RELATED_PRIMARY_KEY
+					) values (
+						#mid.mid#,
+						'#c_media_relationship#',
+						#session.myAgentId#,
+						#kval#
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(c_created_by_aid) gt 0>
+				<cfquery name="created_agent_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_relations (
+						MEDIA_ID,
+						MEDIA_RELATIONSHIP,
+						CREATED_BY_AGENT_ID,
+						RELATED_PRIMARY_KEY
+					) values (
+						#mid.mid#,
+						'created by agent',
+						#session.myAgentId#,
+						#c_created_by_aid#
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(c_description) gt 0>
+				<cfquery name="description" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_labels (
+						MEDIA_ID,
+						MEDIA_LABEL,
+						LABEL_VALUE,
+						ASSIGNED_BY_AGENT_ID
+					) values (
+						#mid.mid#,
+						'description',
+						'#escapeQuotes(c_description)#',
+						#session.myAgentId#
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(c_made_date) gt 0>
+				<cfquery name="made_date" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into media_labels (
+						MEDIA_ID,
+						MEDIA_LABEL,
+						LABEL_VALUE,
+						ASSIGNED_BY_AGENT_ID
+					) values (
+						#mid.mid#,
+						'made date',
+						'#escapeQuotes(c_made_date)#',
+						#session.myAgentId#
+					)
+				</cfquery>
+			</cfif>
+		</cftransaction>
+		<cfif len(kval) is 0>
+			Media ID #mid.mid# created. <a target="_parent" href="/media.cfm?action=edit&media_id=#mid.mid#">Click here to edit Media</a>
+		<cfelse>
+			<cflocation url="upLinkMedia.cfm?ktype=#ktype#&kval=#kval#&" addtoken="false">
+		</cfif>
+	</cfoutput>
+</cfif>
+
 <cfinclude template="/includes/_pickFooter.cfm">
