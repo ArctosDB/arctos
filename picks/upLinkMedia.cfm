@@ -147,6 +147,13 @@
 	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_type order by media_type
 	</cfquery>
+	<cfquery name="CTMEDIA_LABEL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from CTMEDIA_LABEL order by MEDIA_LABEL
+	</cfquery>
+
+
+
+
 	<!--- only get appropriate relationships ---->
 	<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ctmedia_relationship where media_relationship like
@@ -224,22 +231,73 @@
 	<div class="grpDiv">
 			Option 2: Create Media from URL.
 			<form id="picklink" method="post" action="upLinkMedia.cfm">
-				<input type="hidden" name="action" value="linkpicked">
+				<input type="hidden" name="action" value="createFromURLpicked">
 				<input type="hidden" id="ktype" name="ktype" value="#ktype#">
 				<input type="hidden" id="kval" name="kval" value="#kval#">
-				<label for="">Media ID</label>
-				<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
-				<label for="p_media_uri">Picked MediaURI</label>
-				<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
+				<label for="">URL</label>
+				<input type="text" class="reqdClr" name="c_media_URL" id="c_media_URL">
+				<label for="">Preview URL</label>
+				<input type="text" name="c_preview_URL" id="c_preview_URL">
+				<label for="c_media_type">Media Type</label>
+				<select name="c_media_type" id="c_media_type" class="reqdClr">
+					<option></option>
+					<cfloop query="ctmedia_type">
+						<option value="#media_type#">#media_type#</option>
+					</cfloop>
+				</select>
+
+				<label for="c_mime_type">Mime Type</label>
+				<select name="c_mime_type" id="c_mime_type" class="reqdClr">
+					<option></option>
+					<cfloop query="ctmime_type">
+						<option value="#mime_type#">#mime_type#</option>
+					</cfloop>
+				</select>
+
+
+				<label for="c_license">License</label>
+				<select name="c_license" id="c_license">
+					<option></option>
+					<cfloop query="ctmedia_license">
+						<option value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
+					</cfloop>
+				</select>
+
+				<label for="c_label1">Label</label>
+				<select name="c_label1" id="c_label1">
+					<option></option>
+					<cfloop query="CTMEDIA_LABEL">
+						<option value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
+					</cfloop>
+				</select>
+				<input type="text" size="60" id="c_labelvalue1" name="c_labelvalue1">
+
+
+
 				<label for="media_relationship">Relationship</label>
 				<select name="media_relationship" id="media_relationship">
-				<cfloop query="ctmedia_relationship">
-					<option value="#media_relationship#">#media_relationship#</option>
-				</cfloop>
-			</select>
+					<cfloop query="ctmedia_relationship">
+						<option value="#media_relationship#">#media_relationship#</option>
+					</cfloop>
+				</select>
+
+
+
 				<br><input type="submit" class="insBtn" value="link to picked media">
 			</form>
 		</div>
+
+
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ MEDIA_ID							   NOT NULL NUMBER
+ MEDIA_URI							   NOT NULL VARCHAR2(255)
+ MIME_TYPE							   NOT NULL VARCHAR2(255)
+ MEDIA_TYPE							   NOT NULL VARCHAR2(255)
+ PREVIEW_URI								    VARCHAR2(255)
+ MEDIA_LICENSE_ID							    NUMBER
+
+
 
 
 	<cfif len(kval) gt 0>
