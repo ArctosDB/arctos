@@ -235,9 +235,9 @@
 				<input type="hidden" id="ktype" name="ktype" value="#ktype#">
 				<input type="hidden" id="kval" name="kval" value="#kval#">
 				<label for="">URL</label>
-				<input type="text" class="reqdClr" name="c_media_URL" id="c_media_URL">
+				<input type="text" class="reqdClr" name="c_media_URL" id="c_media_URL" size="60">
 				<label for="">Preview URL</label>
-				<input type="text" name="c_preview_URL" id="c_preview_URL">
+				<input type="text" name="c_preview_URL" id="c_preview_URL" size="60">
 				<label for="c_media_type">Media Type</label>
 				<select name="c_media_type" id="c_media_type" class="reqdClr">
 					<option></option>
@@ -263,16 +263,6 @@
 					</cfloop>
 				</select>
 
-				<label for="c_label1">Label</label>
-				<select name="c_label1" id="c_label1">
-					<option></option>
-					<cfloop query="CTMEDIA_LABEL">
-						<option value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
-					</cfloop>
-				</select>
-				<input type="text" size="60" id="c_labelvalue1" name="c_labelvalue1">
-
-
 
 				<label for="media_relationship">Relationship</label>
 				<select name="media_relationship" id="media_relationship">
@@ -280,6 +270,29 @@
 						<option value="#media_relationship#">#media_relationship#</option>
 					</cfloop>
 				</select>
+
+				<table border>
+					<tr>
+						<th>Label</th>
+						<th>Label Value</th>
+					</tr>
+					<tr>
+						<td>
+							<select name="c_label1" id="c_label1">
+								<option></option>
+								<cfloop query="CTMEDIA_LABEL">
+									<option value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" size="60" id="c_labelvalue1" name="c_labelvalue1">
+						</td>
+					</tr>
+				</table>
+
+
+
 
 
 
