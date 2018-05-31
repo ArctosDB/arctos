@@ -220,10 +220,32 @@
 		</div>
 		<div id="newMediaUpBack"></div>
 	</div>
+
+	<div class="grpDiv">
+			Option 2: Create Media from URL.
+			<form id="picklink" method="post" action="upLinkMedia.cfm">
+				<input type="hidden" name="action" value="linkpicked">
+				<input type="hidden" id="ktype" name="ktype" value="#ktype#">
+				<input type="hidden" id="kval" name="kval" value="#kval#">
+				<label for="">Media ID</label>
+				<input type="number" class="reqdClr" name="p_media_id" id="p_media_id">
+				<label for="p_media_uri">Picked MediaURI</label>
+				<input type="text" size="80" name="p_media_uri" id="p_media_uri" class="readClr">
+				<label for="media_relationship">Relationship</label>
+				<select name="media_relationship" id="media_relationship">
+				<cfloop query="ctmedia_relationship">
+					<option value="#media_relationship#">#media_relationship#</option>
+				</cfloop>
+			</select>
+				<br><input type="submit" class="insBtn" value="link to picked media">
+			</form>
+		</div>
+
+
 	<cfif len(kval) gt 0>
 		<!--- don't include this with the 'just upload' option --->
 		<div class="grpDiv">
-			Option 2: Link to existing Arctos Media.
+			Option 3: Link to existing Arctos Media.
 			<span class="likeLink" onclick="findMedia('p_media_uri','p_media_id');">Click here to pick</span> or enter Media ID and save.
 			<form id="picklink" method="post" action="upLinkMedia.cfm">
 				<input type="hidden" name="action" value="linkpicked">
@@ -243,6 +265,7 @@
 			</form>
 		</div>
 	</cfif>
+
 	<!---
 
 	what does this do? investigate/uncomment....
