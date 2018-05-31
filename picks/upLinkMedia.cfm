@@ -5,6 +5,9 @@
 
 <script>
 	jQuery(document).ready(function() {
+
+		$("#c_made_date").datepicker();
+
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
@@ -271,11 +274,22 @@
 					</cfloop>
 				</select>
 
+
+
+
 				<label for="c_created_by">Created By Agent</label>
 				<input type="hidden" name="c_created_by_aid" id="c_created_by_aid" value="">
 				<input type="text" name="c_created_by" id="c_created_by" value=""
 					onchange="pickAgentModal('c_created_by_aid',this.id,this.value); return false;"
-					onKeyPress="return noenter(event);" placeholder="pick an agent" class="minput">
+					onKeyPress="return noenter(event);" placeholder="pick Creator" class="minput">
+
+
+				<label for="c_description">Description</label>
+				<input type="text" size="60" id="c_description" name="c_description">
+
+
+				<label for="c_made_date">Made Date</label>
+				<input type="text" size="40" id="c_made_date" name="c_made_date">
 
 				<table border>
 					<tr>
@@ -292,7 +306,6 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" size="60" id="c_labelvalue1" name="c_labelvalue1">
 						</td>
 					</tr>
 					<tr>
