@@ -565,6 +565,12 @@
 
 <cfif action is "createFromURLpicked">
 	<cfoutput>
+		<cfif not isvalid('URL',c_media_URL)>
+			Not a valid URL<cfabort>
+		</cfif>
+		<cfif len(c_preview_URL) gt 0 and not isvalid('URL',c_preview_URL)>
+			Not a valid preview URL<cfabort>
+		</cfif>
 		<cftransaction>
 			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_media_id.nextval mid from dual
