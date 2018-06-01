@@ -264,7 +264,11 @@ sho err
 						'#escapeQuotes(ATTRIBUTE_VALUE)#',
 						'#ATTRIBUTE_UNITS#',
 						'#DETERMINED_DATE#',
-						decode(#agnt_id#,null,null,#agnt_id#),
+						<cfif len(agnt_id) gt 0>
+							#agnt_id#,
+						<cfelse>
+							NULL,
+						</cfif>
 						'#escapeQuotes(remark)#'
 					)
 				</cfquery>
