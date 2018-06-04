@@ -6,11 +6,17 @@
 
 	<cfdump var=#d#>
 
+	<cfset allkeys=querynew("keyname")>
 
 	<cfloop query="d">
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
 		<cfdump var=#x#>
+		<cfloop collection="#x#" item="key" >
+			<br>key=#key#
+		</cfloop>
+
+
 		<cfscript>
 		 for (theKey in x) {
 	         WriteDump( theKey ); // ie "domain.co.uk"
