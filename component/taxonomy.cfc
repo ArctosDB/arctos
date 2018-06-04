@@ -42,7 +42,7 @@
 			</cfif>
 
 
-			<cfif len(cfhttp.filecontent) gt 0>
+			<cfif len(cfhttp.filecontent) gt 0 and cfhttp.filecontent does not contain "Not found">
 				<cfset result.worms='found'>
 				<cfset result.consensus="might_be_valid">
 			<cfelse>
