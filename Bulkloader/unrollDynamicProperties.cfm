@@ -11,6 +11,13 @@
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
 		<cfdump var=#x#>
+		<cfscript>
+		 for (theKey in x) {
+	         WriteDump( theKey ); // ie "domain.co.uk"
+	     }
+     </cfscript>
+
+
 	</cfloop>
 
 	</cfoutput>
