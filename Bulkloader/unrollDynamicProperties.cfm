@@ -48,7 +48,7 @@ alter table temp_apsu_fish add ext_d_p  varchar2(4000);
 <cfif action is "extractData">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select distinct DYNAMICPROPERTIES from temp_apsu_fish where DYNAMICPROPERTIES is not null ext_d_p is null and rownum<20
+		select catalognumber, DYNAMICPROPERTIES from temp_apsu_fish where DYNAMICPROPERTIES is not null and ext_d_p is null and rownum<20
 	</cfquery>
 
 
