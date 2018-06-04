@@ -1,3 +1,18 @@
+<cfif action is "getKeys">
+<cfoutput>
+	<cfquery name="d" datasource='prod'>
+		select DYNAMICPROPERTIES,CATALOGNUMBER from temp_apsu_fish where rownum>20
+	</cfquery>
+	<cfloop query="d">
+		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
+		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
+		<cfdump var=#x#>
+	</cfloop>
+
+	</cfoutput>
+
+
+</cfif>
 unrollDynamicProperties.cfm
 
 
@@ -99,7 +114,7 @@ patching everything back together is a PITA
 </cfquery>
 
 <cfquery name="d" datasource='prod'>
-	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm where CATALOGNUMBER not in (select catnum from  cf_vnDynamicProps) and rownum<10000
+	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_apsu_fish
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
