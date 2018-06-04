@@ -1,24 +1,18 @@
 <cfif action is "getKeys">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select DYNAMICPROPERTIES,CATALOGNUMBER from temp_apsu_fish where DYNAMICPROPERTIES is not null and rownum<20
+		select distinct DYNAMICPROPERTIES temp_apsu_fish where DYNAMICPROPERTIES is not null
 	</cfquery>
 
-	<cfdump var=#d#>
 
 	<cfset allkeys=querynew("keyname")>
-
 	<cfloop query="d">
-		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
-		<cfdump var=#x#>
 		<cfloop collection="#x#" item="key" >
-			<br>key=#key#
 			<cfset queryaddrow(allkeys,
 					{keyname=key}
 				)>
 		</cfloop>
-
 
 
 	</cfloop>
