@@ -109,6 +109,8 @@ patching everything back together is a PITA
 	alter table cf_vnDynamicProps add measremk  varchar2(4000);
 	alter table cf_vnDynamicProps add moreparts  varchar2(4000);
 ---->
+
+<cfif action is "asfad">
 <cfquery name="kc" datasource='prod'>
 	select * from cf_vnDynamicProps where 1=2
 </cfquery>
@@ -134,3 +136,4 @@ patching everything back together is a PITA
 		</cfquery>
 	</cfloop>
 </cfoutput>
+</cfif>
