@@ -76,10 +76,6 @@ alter table temp_apsu_fish add dummy  varchar2(4000);
 
 			,#cname#='#escapeQuotes(x[key])#'
 
-			<cfquery name="udt" datasource="uam_god">
-				update
-			</cfquery>
-			<br>,#key#= #x[key]#
 
 		</cfloop>
 		where catalognumber=#catalognumber#
