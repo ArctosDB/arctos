@@ -1,8 +1,12 @@
 <cfif action is "getKeys">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select DYNAMICPROPERTIES,CATALOGNUMBER from temp_apsu_fish where DYNAMICPROPERTIES is not null and rownum>20
+		select DYNAMICPROPERTIES,CATALOGNUMBER from temp_apsu_fish where DYNAMICPROPERTIES is not null and rownum<20
 	</cfquery>
+
+	<cfdump var=#d#>
+
+
 	<cfloop query="d">
 		<br>#CATALOGNUMBER#: #DYNAMICPROPERTIES#
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
