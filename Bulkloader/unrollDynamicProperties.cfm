@@ -25,6 +25,47 @@
 
 
 </cfif>
+
+<!----
+
+
+after getKeys, add to the table
+
+alter table temp_apsu_fish add collection_method varchar2(4000);
+alter table temp_apsu_fish add basin varchar2(4000);
+alter table temp_apsu_fish add drainage varchar2(4000);
+alter table temp_apsu_fish add jar_size varchar2(4000);
+alter table temp_apsu_fish add original_collection_source varchar2(4000);
+alter table temp_apsu_fish add original_drainage varchar2(4000);
+alter table temp_apsu_fish add river_system  varchar2(4000);
+
+alter table temp_apsu_fish add ext_d_p  varchar2(4000);
+
+
+
+---->
+
+<cfif action is "extractData">
+<cfoutput>
+	<cfquery name="d" datasource='uam_god'>
+		select distinct DYNAMICPROPERTIES from temp_apsu_fish where DYNAMICPROPERTIES is not null ext_d_p is null and rownum<20
+	</cfquery>
+
+
+	<cfloop query="d">
+		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
+		<cfloop collection="#x#" item="key" >
+			<br>#key#= #x[key]#"
+		</cfloop>
+	</cfloop>
+
+	</cfoutput>
+
+
+</cfif>
+
+
+
 unrollDynamicProperties.cfm
 
 
