@@ -1,6 +1,6 @@
 <cfif action is "getKeys">
 <cfoutput>
-	<cfquery name="d" datasource='prod'>
+	<cfquery name="d" datasource='uam_god'>
 		select DYNAMICPROPERTIES,CATALOGNUMBER from temp_apsu_fish where rownum>20
 	</cfquery>
 	<cfloop query="d">
