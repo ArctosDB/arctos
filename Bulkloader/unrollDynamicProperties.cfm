@@ -14,18 +14,19 @@
 		<cfdump var=#x#>
 		<cfloop collection="#x#" item="key" >
 			<br>key=#key#
+			<cfset queryaddrow(allkeys,
+					{keyname=key}
+				)>
 		</cfloop>
 
-
-		<cfscript>
-		 for (theKey in x) {
-	         WriteDump( theKey ); // ie "domain.co.uk"
-	     }
-     </cfscript>
 
 
 	</cfloop>
 
+	<cfquery name="uk" dbtype="query">
+		select distinct keyname from allkeys
+	</cfquery>
+	<cfdump var=#uk#>
 	</cfoutput>
 
 
