@@ -42,6 +42,7 @@ alter table temp_apsu_fish add river_system  varchar2(4000);
 alter table temp_apsu_fish add ext_d_p  varchar2(4000);
 
 
+alter table temp_apsu_fish add dummy  varchar2(4000);
 
 ---->
 
@@ -53,10 +54,34 @@ alter table temp_apsu_fish add ext_d_p  varchar2(4000);
 
 
 	<cfloop query="d">
+		update temp_apsu_fish set ext_d_p='gotit'
+
 		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
 		<cfloop collection="#x#" item="key" >
-			<br>#key#= #x[key]#"
+			<cfif key is "Collection Method">
+				<cfset cname="collection_method">
+			<cfelseif  key is "jar size">
+				<cfset cname="jar_size">
+			<cfelseif  key is "original collection source">
+				<cfset cname="original_collection_source">
+			<cfelseif  key is "original drainage">
+				<cfset cname="original_drainage">
+			<cfelseif  key is "river system">
+				<cfset cname="river_system">
+			<cfelse>
+				<cfset cname=key>
+			</cfif>
+
+			,#cname#='#escapeQuotes(x[key])#'
+
+			<cfquery name="udt" datasource="uam_god">
+				update
+			</cfquery>
+			<br>,#key#= #x[key]#
+
 		</cfloop>
+		where catalognumber=#catalognumber#
+		<p></p>
 	</cfloop>
 
 	</cfoutput>
