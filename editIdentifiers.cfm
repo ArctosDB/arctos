@@ -27,15 +27,20 @@
 
 
 			$.ajax({
-			 	url: "/component/functions.cfc?method=cloneCatalogedItem",
+			 	url: "/component/functions.cfc?queryformat=column",
+			 	type: "GET",
 			 	dataType: 'json',
-				collection_object_id : collection_object_id,
-				numRecs: $("#numRecs").val(),
-				refType: $("#refType").val(),
-				taxon_name: $("#taxon_name").val(),
-				collection_id: $("#collection_id").val(),
-				returnformat : "json",
-				queryformat : 'column',
+				async: false,
+				data: {
+					method:  "cloneCatalogedItem",
+					collection_object_id : collection_object_id,
+					numRecs: $("#numRecs").val(),
+					refType: $("#refType").val(),
+					taxon_name: $("#taxon_name").val(),
+					collection_id: $("#collection_id").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
 			 	success: function( data ) {
 				   console.log( 'SUCCESS: ', data );
 				 },
@@ -43,7 +48,6 @@
 				  alert( 'ERROR: ', data );
 				 }
 			});
-
 
 
 /*
