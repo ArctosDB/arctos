@@ -25,14 +25,6 @@
 		function cloneCatalogedItem(collection_object_id){
 			jQuery('#cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone(s) - hold tight.....');
 
-			$.getJSON( "test.js", { name: "John", time: "2pm" } )
-			  .done(function( json ) {
-			    console.log( "JSON Data: " + json.users[ 3 ].name );
-			  })
-			  .fail(function( jqxhr, textStatus, error ) {
-			    var err = textStatus + ", " + error;
-			    console.log( "Request Failed: " + err );
-			});
 
 			$.ajax({
 			 url: "/component/functions.cfc",
