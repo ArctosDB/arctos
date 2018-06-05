@@ -241,7 +241,6 @@ sho err
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "load">
 	<cfoutput>
-
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specPartAttr
 		</cfquery>
