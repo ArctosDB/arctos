@@ -68,7 +68,7 @@ Bad things? Last standalone copy of this form is in v6.11
 
 	    $.ajax({
 			 	url: "/component/SpecimenResults.cfc",
-			 	type: "GET",
+			 	type: "POST",
 			 	dataType: 'json',
 				async: false,
 				data: {
