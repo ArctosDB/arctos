@@ -2431,7 +2431,7 @@
 						'#session.username#',
 						ACCESSION,
 						<cfif len(taxon_name) gt 0>
-							'#taxon_name#' as scientific_name,
+							'#escapeQuotes(taxon_name)#' as scientific_name,
 						<cfelse>
 							scientific_name,
 						</cfif>
@@ -2495,7 +2495,7 @@
 				<cfset sql="update bulkloader set ">
 				<cfloop query="oid">
 					<cfif i lte 4>
-						<cfset sql=sql & "OTHER_ID_NUM_TYPE_#i# = '#other_id_type#',OTHER_ID_NUM_#i#='#display_value#',">
+						<cfset sql=sql & "OTHER_ID_NUM_TYPE_#i# = '#escapeQuotes(other_id_type)#',OTHER_ID_NUM_#i#='#escapeQuotes(display_value)#',">
 						<cfset i=i+1>
 					</cfif>
 				</cfloop>
