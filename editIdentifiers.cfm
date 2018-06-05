@@ -118,6 +118,9 @@
 			<br>You can encumber and delete accidental insertions.
 			<br>The new record will take about a minute to become available to the interfaces; immediately clicking the
 			returned GUID will probably 404 - grab a cup of coffee and then reload.
+			<p>
+				<strong>This option will fail for collections which do not use integer catalog numbers.</strong>
+			</p>
 			<hr>
 			Option Two: Click <span class="likeLink"  onclick="cloneCatalogedItem(#collection_object_id#)" >here</span>
 			to create a record in the bulkloader, where you
