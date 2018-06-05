@@ -2394,6 +2394,8 @@
 	<cfargument name="taxon_name" type="string" required="yes">
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfset status="spiffy">
+	<cfinclude template="/includes/functionLib.cfm">
+
 	<cftransaction>
 	<cfloop from="1" to="#numRecs#" index="lpNum">
 		<cftry>
