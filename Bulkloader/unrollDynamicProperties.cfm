@@ -1,3 +1,92 @@
+<cfif action is "getKeys">
+<cfoutput>
+	<cfquery name="d" datasource='uam_god'>
+		select distinct DYNAMICPROPERTIES from temp_apsu_fish where DYNAMICPROPERTIES is not null
+	</cfquery>
+
+
+	<cfset allkeys=querynew("keyname")>
+	<cfloop query="d">
+		<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
+		<cfloop collection="#x#" item="key" >
+			<cfset queryaddrow(allkeys,
+					{keyname=key}
+				)>
+		</cfloop>
+
+
+	</cfloop>
+
+	<cfquery name="uk" dbtype="query">
+		select distinct keyname from allkeys
+	</cfquery>
+	<cfdump var=#uk#>
+	</cfoutput>
+
+
+</cfif>
+
+<!----
+
+
+after getKeys, add to the table
+
+alter table temp_apsu_fish add collection_method varchar2(4000);
+alter table temp_apsu_fish add basin varchar2(4000);
+alter table temp_apsu_fish add drainage varchar2(4000);
+alter table temp_apsu_fish add jar_size varchar2(4000);
+alter table temp_apsu_fish add original_collection_source varchar2(4000);
+alter table temp_apsu_fish add original_drainage varchar2(4000);
+alter table temp_apsu_fish add river_system  varchar2(4000);
+
+alter table temp_apsu_fish add ext_d_p  varchar2(4000);
+
+
+alter table temp_apsu_fish add dummy  varchar2(4000);
+
+---->
+
+<cfif action is "extractData">
+
+<cfinclude template="/includes/functionLib.cfm">
+<cfoutput>
+	<cfquery name="d" datasource='uam_god'>
+		select catalognumber, DYNAMICPROPERTIES from temp_apsu_fish where DYNAMICPROPERTIES is not null and ext_d_p is null
+	</cfquery>
+
+
+	<cfloop query="d">
+		<cfquery name="pbu" datasource='uam_god'>
+			update temp_apsu_fish set ext_d_p='gotit'
+			<cfset x=DeserializeJSON(DYNAMICPROPERTIES)>
+			<cfloop collection="#x#" item="key" >
+				<cfif key is "Collection Method">
+					<cfset cname="collection_method">
+				<cfelseif  key is "jar size">
+					<cfset cname="jar_size">
+				<cfelseif  key is "original collection source">
+					<cfset cname="original_collection_source">
+				<cfelseif  key is "original drainage">
+					<cfset cname="original_drainage">
+				<cfelseif  key is "river system">
+					<cfset cname="river_system">
+				<cfelse>
+					<cfset cname=key>
+				</cfif>
+				,#cname#='#escapeQuotes(x[key])#'
+			</cfloop>
+			where catalognumber='#catalognumber#'
+		</cfquery>
+		<p></p>
+	</cfloop>
+
+	</cfoutput>
+
+
+</cfif>
+
+
+
 unrollDynamicProperties.cfm
 
 
@@ -94,12 +183,14 @@ patching everything back together is a PITA
 	alter table cf_vnDynamicProps add measremk  varchar2(4000);
 	alter table cf_vnDynamicProps add moreparts  varchar2(4000);
 ---->
+
+<cfif action is "asfad">
 <cfquery name="kc" datasource='prod'>
 	select * from cf_vnDynamicProps where 1=2
 </cfquery>
 
 <cfquery name="d" datasource='prod'>
-	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_uwbm_mamm where CATALOGNUMBER not in (select catnum from  cf_vnDynamicProps) and rownum<10000
+	select DYNAMICPROPERTIES,CATALOGNUMBER from temp_apsu_fish
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
@@ -119,3 +210,4 @@ patching everything back together is a PITA
 		</cfquery>
 	</cfloop>
 </cfoutput>
+</cfif>

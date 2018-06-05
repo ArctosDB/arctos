@@ -417,6 +417,7 @@
 											<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
 											<li><a target="_top" href="/Admin/errorLogViewer.cfm">Error Logs</a></li>
 											<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
+											<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
 										</ul>
 									</li>
 
@@ -437,7 +438,6 @@
 									</li>
 									 <li><a target="_top" href="##">Find Low-Quality Data</a>
 										<ul>
-											<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
 											<li><a target="_top" href="/info/dispVRemark.cfm">Disposition vs. Remark</a></li>
 											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
 											<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank Discovery Tool</a></li>
