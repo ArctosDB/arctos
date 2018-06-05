@@ -27,8 +27,7 @@
 
 
 			$.ajax({
-			 	url: "/component/functions.cfc",
-				method : "cloneCatalogedItem",
+			 	url: "/component/functions.cfc?method=cloneCatalogedItem",
 			 	dataType: 'json',
 				collection_object_id : collection_object_id,
 				numRecs: $("#numRecs").val(),
