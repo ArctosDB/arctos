@@ -27,7 +27,7 @@
 
 
 			$.ajax({
-			 	url: "/component/functions.cfc?queryformat=column",
+			 	url: "/component/functions.cfc",
 			 	type: "GET",
 			 	dataType: 'json',
 				async: false,
