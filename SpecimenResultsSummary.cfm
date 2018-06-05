@@ -89,6 +89,7 @@ Bad things? Last standalone copy of this form is in v6.11
 				 },
 				 error: function( r ) {
 				  alert( 'ERROR: ', r );
+				  console.log(r);
 				 }
 			});
 
