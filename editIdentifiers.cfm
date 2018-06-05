@@ -41,7 +41,7 @@
 				   console.log( 'SUCCESS: ', data );
 				 },
 				 error: function( data ) {
-				   console.log( 'ERROR: ', data );
+				  alert( 'ERROR: ', data );
 				 }
 			});
 
