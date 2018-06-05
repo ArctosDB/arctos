@@ -36,6 +36,10 @@
 					queryformat : 'column'
 				},
 				function (r) {
+
+					console.log(r);
+
+
 					if (r == 'spiffy') {
 						var q='created ' + $("#numRecs").val() + ' clones in bulkloader.';
 					} else {
