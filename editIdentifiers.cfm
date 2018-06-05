@@ -46,6 +46,7 @@
 						var q='created ' + $("#numRecs").val() + ' clones in bulkloader.';
 					} else {
 						var q='cloning failed: ' + data;
+						alert(q);
 					}
 					jQuery('#cloned').css("display", "inline").html(q);
 				 },
