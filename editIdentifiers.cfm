@@ -24,6 +24,38 @@
 		}
 		function cloneCatalogedItem(collection_object_id){
 			jQuery('#cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone(s) - hold tight.....');
+
+			$.getJSON( "test.js", { name: "John", time: "2pm" } )
+			  .done(function( json ) {
+			    console.log( "JSON Data: " + json.users[ 3 ].name );
+			  })
+			  .fail(function( jqxhr, textStatus, error ) {
+			    var err = textStatus + ", " + error;
+			    console.log( "Request Failed: " + err );
+			});
+
+			$.ajax({
+			 url: "/component/functions.cfc",
+					method : "cloneCatalogedItem",
+			 dataType: 'json',
+			collection_object_id : collection_object_id,
+			numRecs: $("#numRecs").val(),
+			refType: $("#refType").val(),
+			taxon_name: $("#taxon_name").val(),
+			collection_id: $("#collection_id").val(),
+			returnformat : "json",
+			queryformat : 'column'
+			 success: function( data ) {
+			   console.log( 'SUCCESS: ', data );
+			 },
+			 error: function( data ) {
+			   console.log( 'ERROR: ', data );
+			 }
+			});
+
+
+
+/*
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "cloneCatalogedItem",
@@ -48,6 +80,7 @@
 					jQuery('#cloned').css("display", "inline").html(q);
 				}
 			);
+			*/
 		}
 		jQuery(document).ready(function() {
 			$("#formEdit").submit(function(event){
