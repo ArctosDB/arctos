@@ -2654,8 +2654,7 @@
 				</cfquery>
 			</cfif>
 		<cfcatch>
-			<cfset status="fail">
-			<CFDUMP VAR=#CFCATCH#>
+			<cfset status="fail: #cfcatch.message# #cfcatch.detail#">
 		</cfcatch>
 	</cftry>
 	</cfloop>
