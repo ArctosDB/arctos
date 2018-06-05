@@ -2635,7 +2635,7 @@
 							ATTRIBUTE_REMARKS_#i#='#escapeQuotes(ATTRIBUTE_REMARK)#',
 							ATTRIBUTE_DATE_#i#='#DETERMINED_DATE#',
 							ATTRIBUTE_DET_METH_#i#='#escapeQuotes(DETERMINATION_METHOD)#',
-							ATTRIBUTE_DETERMINER_#i#='#agent_name#',">
+							ATTRIBUTE_DETERMINER_#i#='#escapeQuotes(agent_name)#',">
 						<cfset i=i+1>
 					</cfif>
 				</cfloop>
