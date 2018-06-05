@@ -74,7 +74,7 @@ Bad things? Last standalone copy of this form is in v6.11
 				data: {
 					method:  "getSpecimenSummary",
 					returnformat : "json",
-					queryformat : 'column'
+					queryformat : 'column',
 					querystring : "#equerystring#",
 					groupBy: "#groupBy#"
 				},
@@ -87,8 +87,8 @@ Bad things? Last standalone copy of this form is in v6.11
 
 					alert('happy');
 				 },
-				 error: function( data ) {
-				  alert( 'ERROR: ', data );
+				 error: function( r ) {
+				  alert( 'ERROR: ', r );
 				 }
 			});
 
