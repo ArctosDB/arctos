@@ -114,7 +114,7 @@
         values (
             '#newName#',
             '#e.report_template#',
-            '#e.sql_text#')
+            '#escapeQuotes(e.sql_text)#')
     </cfquery>
 
 	<p>
