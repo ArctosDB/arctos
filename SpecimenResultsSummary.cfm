@@ -65,6 +65,37 @@ Bad things? Last standalone copy of this form is in v6.11
 	</cfloop>
 	<script type="text/javascript">
 	    $(document).ready(function () {
+
+	    $.ajax({
+			 	url: "/component/SpecimenResults.cfc",
+			 	type: "GET",
+			 	dataType: 'json',
+				async: false,
+				data: {
+					method:  "getSpecimenSummary",
+					returnformat : "json",
+					queryformat : 'column'
+					querystring : "#equerystring#",
+					groupBy: "#groupBy#"
+				},
+			 	success: function( r ) {
+				  if (r.Result !='OK'){
+					alert('sad');
+			        	$('##msgdiv').html(r.Message).addClass('error');
+			   		 	return false;
+					}
+
+					alert('happy');
+				 },
+				 error: function( data ) {
+				  alert( 'ERROR: ', data );
+				 }
+			});
+
+
+
+
+				 /*
 	    	$.getJSON("/component/SpecimenResults.cfc",
 				{
 					method : "getSpecimenSummary",
@@ -131,6 +162,7 @@ Bad things? Last standalone copy of this form is in v6.11
 			        $('##msgdiv').removeClass().hide();
 				}
 			);
+			*/
 	    });
 	</script>
 	<div id="msgdiv"><img  src="/images/indicator.gif">&nbsp;Processing request</div>
