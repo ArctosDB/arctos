@@ -2535,7 +2535,7 @@
 				<cfset sql="update bulkloader set ">
 				<cfloop query="col">
 					<cfif i lt 9>
-						<cfset sql=sql & "COLLECTOR_AGENT_#i# = '#agent_name#',
+						<cfset sql=sql & "COLLECTOR_AGENT_#i# = '#escapeQuotes(agent_name)#',
 							COLLECTOR_ROLE_#i#='#COLLECTOR_ROLE#',">
 						<cfset i=i+1>
 					</cfif>
@@ -2585,13 +2585,13 @@
 				<cfset sql="update bulkloader set ">
 				<cfloop query="part">
 					<cfif i lt 13>
-						<cfset sql=sql & "PART_NAME_#i# = '#part_name#',
-							PART_CONDITION_#i#='#condition#',
+						<cfset sql=sql & "PART_NAME_#i# = '#escapeQuotes(part_name)#',
+							PART_CONDITION_#i#='#escapeQuotes(condition)#',
 							PART_BARCODE_#i#='#barcode#',
-							PART_CONTAINER_LABEL_#i#='#label#',
+							PART_CONTAINER_LABEL_#i#='#escapeQuotes(label)#',
 							PART_LOT_COUNT_#i#='#lot_count#',
-							PART_DISPOSITION_#i#='#COLL_OBJ_DISPOSITION#',
-							PART_REMARK_#i#='#coll_object_remarks#',">
+							PART_DISPOSITION_#i#='#escapeQuotes(COLL_OBJ_DISPOSITION)#',
+							PART_REMARK_#i#='#escapeQuotes(coll_object_remarks)#',">
 						<cfset i=i+1>
 					</cfif>
 				</cfloop>
@@ -2630,11 +2630,11 @@
 				<cfloop query="att">
 					<cfif i lte 10>
 						<cfset sql=sql & "ATTRIBUTE_#i# = '#ATTRIBUTE_TYPE#',
-							ATTRIBUTE_VALUE_#i#='#ATTRIBUTE_VALUE#',
+							ATTRIBUTE_VALUE_#i#='#escapeQuotes(ATTRIBUTE_VALUE)#',
 							ATTRIBUTE_UNITS_#i#='#ATTRIBUTE_UNITS#',
-							ATTRIBUTE_REMARKS_#i#='#ATTRIBUTE_REMARK#',
+							ATTRIBUTE_REMARKS_#i#='#escapeQuotes(ATTRIBUTE_REMARK)#',
 							ATTRIBUTE_DATE_#i#='#DETERMINED_DATE#',
-							ATTRIBUTE_DET_METH_#i#='#DETERMINATION_METHOD#',
+							ATTRIBUTE_DET_METH_#i#='#escapeQuotes(DETERMINATION_METHOD)#',
 							ATTRIBUTE_DETERMINER_#i#='#agent_name#',">
 						<cfset i=i+1>
 					</cfif>
