@@ -202,6 +202,14 @@
 					<cfcatch><!--- not there, so what? --->
 					</cfcatch>
 				</cftry>
+
+
+
+				#InnerSqlString#
+
+
+
+
 				<cfquery name="mktbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					#preserveSingleQuotes(InnerSqlString)#
 				</cfquery>
