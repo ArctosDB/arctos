@@ -42,7 +42,12 @@
 					queryformat : 'column'
 				},
 			 	success: function( data ) {
-				   console.log( 'SUCCESS: ', data );
+				  if (data == 'spiffy') {
+						var q='created ' + $("#numRecs").val() + ' clones in bulkloader.';
+					} else {
+						var q='cloning failed: ' + data;
+					}
+					jQuery('#cloned').css("display", "inline").html(q);
 				 },
 				 error: function( data ) {
 				  alert( 'ERROR: ', data );
