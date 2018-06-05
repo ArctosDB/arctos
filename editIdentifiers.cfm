@@ -27,22 +27,22 @@
 
 
 			$.ajax({
-			 url: "/component/functions.cfc",
-					method : "cloneCatalogedItem",
-			 dataType: 'json',
-			collection_object_id : collection_object_id,
-			numRecs: $("#numRecs").val(),
-			refType: $("#refType").val(),
-			taxon_name: $("#taxon_name").val(),
-			collection_id: $("#collection_id").val(),
-			returnformat : "json",
-			queryformat : 'column'
-			 success: function( data ) {
-			   console.log( 'SUCCESS: ', data );
-			 },
-			 error: function( data ) {
-			   console.log( 'ERROR: ', data );
-			 }
+			 	url: "/component/functions.cfc",
+				method : "cloneCatalogedItem",
+			 	dataType: 'json',
+				collection_object_id : collection_object_id,
+				numRecs: $("#numRecs").val(),
+				refType: $("#refType").val(),
+				taxon_name: $("#taxon_name").val(),
+				collection_id: $("#collection_id").val(),
+				returnformat : "json",
+				queryformat : 'column',
+			 	success: function( data ) {
+				   console.log( 'SUCCESS: ', data );
+				 },
+				 error: function( data ) {
+				   console.log( 'ERROR: ', data );
+				 }
 			});
 
 
