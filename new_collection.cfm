@@ -60,7 +60,7 @@
 	but is no guarantee of security. Do not provide any
 	confidential information in this form. Discuss any concerns with your Mentor.
 
-	<h2>Mange an existing request</h2>
+	<h2>Manage an existing request</h2>
 	If you have created a request, fill in the form with the password and GUID_Prefix you used in the initial request and click
 	"manage existing request."
 	<p>
