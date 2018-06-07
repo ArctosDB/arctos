@@ -246,7 +246,11 @@
 				'#escapeQuotes(trans_desc)#',
 				'#escapeQuotes(more_data)#',
 				'#escapeQuotes(digital_media)#',
-				'#escapeQuotes(media_plan)#',
+				<cfif isdefined("media_plan") and len(media_plan) gt 0>
+					'#escapeQuotes(media_plan)#',
+				<cfelse>
+					'none',
+				</cfif>
 				'#escapeQuotes(want_storage)#',
 				'#escapeQuotes(has_help)#',
 				'#escapeQuotes(security_concern)#',
