@@ -1033,7 +1033,7 @@
 	<cfset badbot=badbot & ",Gluten,Gluten Free Crawler,GrapeshotCrawler,Go-http-client">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",ltx71">
-	<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get,MauiBot,meg">
+	<cfset badbot=badbot & ",MegaIndex,MJ12bot,multi_get,MauiBot,meg,Mail.RU_Bot">
 	<cfset badbot=badbot & ",naver,Nutch,netEstate">
 	<cfset badbot=badbot & ",Qwantify">
 	<cfset badbot=badbot & ",re-animator">

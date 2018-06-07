@@ -64,7 +64,7 @@
 			<input type="hidden" name="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 			<label for="newName">New Namestring/Scientific Name</label>
-			<input type="text" name="newName" id="newName" class="reqdClr">
+			<input type="text" name="newName" id="newName" class="reqdClr" size="80">
 			<label for="source">Clone into Source</label>
 			<select name="source" id="source" class="reqdClr">
 				<cfloop query="cttaxonomy_source">
