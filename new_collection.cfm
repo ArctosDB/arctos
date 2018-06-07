@@ -266,6 +266,16 @@
 
 	</cfoutput>
 
+</cfif>
+
+
+
+
+
+
+
+
+
 <cfif action is "nothing">
 	<h2>New Collection Request</h2>
 	<p>
