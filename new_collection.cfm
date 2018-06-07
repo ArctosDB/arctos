@@ -224,14 +224,16 @@
 			<div class="infoDiv">
 				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
 				<select name="are_all_digitized">
+					<option value=""></option>
 					<option value="yes" <cfif d.are_all_digitized is "yes"> selected="selected"</cfif> >yes</option>
 					<option value="no" <cfif d.are_all_digitized is "no"> selected="selected"</cfif> >no</option>
 				</select>
 			</div>
 
 			<div class="infoDiv">
-
-				Which of the following specimen types are you interested in migrating to Arctos (check all that apply)? *
+				<label for="specimen_types">Which of the following specimen types are you interested in migrating to Arctos (check all that apply)?</label>
+   				<input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
+   				<input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
 Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues Herbarium Earth Sciences Art History Ethnology Archaeology Other
 
 
@@ -247,7 +249,7 @@ Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues
 
 		 VARCHAR2(4000),
 		 VARCHAR2(4000),
-		specimen_types  VARCHAR2(4000),
+		  VARCHAR2(4000),
 		yearly_add_avg  VARCHAR2(4000),
 		exp_grth_rate VARCHAR2(4000),
 		current_software VARCHAR2(4000),
