@@ -127,7 +127,7 @@
 			1=2
 		</cfif>
 	</cfquery>
-	<cfdump var="d">
+	<cfdump var="#d#">
 
 
 </cfif>
