@@ -159,11 +159,43 @@
 
 
 <cfif action is "manage_institution">
+	<style>
+		.qtn{font-weight:bold}
+		.asr{margin-left:1em;font-style: italic;}
+
+	</style>
 	<cfoutput>
    		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from pre_new_institution where dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw(niid)) ='#iid#'
 		</cfquery>
 		<cfdump var=#d#>
+
+		<div class="r">
+			<div class="qtn">Questionnaire completed by</div>
+			<div class="asr">#d.completed_by#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Job Title</div>
+			<div class="asr">#d.completed_by_title#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Email</div>
+			<div class="asr">#d.completed_by_email#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Phone</div>
+			<div class="asr">#d.completed_by_phone#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Status</div>
+			<div class="asr">#d.status#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Link</div>
+			<div class="asr">#application.serverRootURL#/new_collection.cfm?action=manage_institution&&iid=#hash(d.niid)#</div>
+		</div>
+
+
 		<div class="r">
 			<div class="qtn">Institution Acronym</div>
 			<div class="asr">#d.INSTITUTION_ACRONYM#</div>
@@ -176,243 +208,115 @@
 			<div class="qtn">How many total specimens across all collection(s) are you interested in migrating to Arctos?</div>
 			<div class="asr">#d.ttl_spc_cnt#</div>
 		</div>
+		<div class="r">
+			<div class="qtn">Are the data for all of those specimens in digital format?</div>
+			<div class="asr">#d.are_all_digitized#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Which of the following specimen types are you interested in migrating to Arctos (check all that apply)?</div>
+			<div class="asr">#d.specimen_types#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">On average, how many specimens have been added to the collection(s) annually over the past 5 years?</div>
+			<div class="asr">#d.yearly_add_avg#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">How do you expect this rate of growth to change in the foreseeable future?</div>
+			<div class="asr">#d.exp_grth_rate#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">What software do you currently use to manage specimen data (e.g., e.g., Access, Filemaker Pro, Excel, Specify-indicate which version, etc.)?</div>
+			<div class="asr">#d.current_software#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">How are your data structured in your current information system (flat table, related tables, disjoined tables, etc.)?</div>
+			<div class="asr">#d.current_structure#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Do you use controlled vocabularies or authority files for the following kinds of data (check all that apply)?</div>
+			<div class="asr">#d.vocab_control#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Do you allow free text data entry for the following kinds of data (check all that apply)?</div>
+			<div class="asr">#d.free_text#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Is it possible to bypass the controlled vocabularies or authority files? Explain</div>
+			<div class="asr">#d.vocab_enforcement#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Please expand on how you deal with agents, taxonomy, geography, and/or specimen parts.</div>
+			<div class="asr">#d.vocab_text#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Do you allow free text data entry for the following kinds of data (check all that apply)?</div>
+			<div class="asr">#d.tissues#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Describe any other details about how you deal with tissues currently, or plan to deal with them in the future.</div>
+			<div class="asr">#d.tissue_detail#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Do you use machine-readable labels (such as barcodes) to digitally track any objects in your collections?</div>
+			<div class="asr">#d.barcodes#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Describe any details about you incorporate barcodes into your current system, or whether you plan to deal with them in the future.</div>
+			<div class="asr">#d.barcode_desc#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Describe how you deal with locality information (including coordinates, if any) in your current collection management system.</div>
+			<div class="asr">#d.locality#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Approximately what proportion of your locality data are georeferenced with latitude/longitude coordinates?</div>
+			<div class="asr">#d.georefedpercent#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Describe the kinds of metadata that you store with your coordinate information (e.g., datum, GPS error, extent, maximum uncertainty, georeferencing method, etc.)</div>
+			<div class="asr">#d.metadata#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">For the following transaction types, indicate whether you have digital information that would need to be formatted and imported? (check all that apply)</div>
+			<div class="asr">#d.digital_trans#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Describe generally how you deal with transactions (loans, accessions, permits) in your current system.</div>
+			<div class="asr">#d.trans_desc#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Other than basic “label data” (who/what/when/where), what other kinds of information (if any) is recorded about your specimens (e.g., citations in publications, GenBank numbers, projects, etc.)?</div>
+			<div class="asr">#d.more_data#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Do you have digital media in your current system?</div>
+			<div class="asr">#d.digital_media#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Indicate how you plan to store digital media that are linked to data in Arctos.</div>
+			<div class="asr">#d.media_plan#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Do you have someone familiar with the collection who can assist in migrating data to Arctos?</div>
+			<div class="asr">#d.has_help#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Do you want to use Arctos Media storage?</div>
+			<div class="asr">#d.want_storage#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Please describe any permission or security issues that would prevent us from accessing your data directly if necessary for data migration?</div>
+			<div class="asr">#d.security_concern#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Do you have an annual budget available for database support?</div>
+			<div class="asr">#d.budget#</div>
+		</div>
+		<div class="r">
+			<div class="qtn">Please add any other comments or questions that you have re: Arctos or your collection(s).</div>
+			<div class="asr">#d.comments#</div>
+		</div>
 
-		<!----
-				<label for="INSTITUTION"></label>
-				<input type="text" name="INSTITUTION" id="" class="reqdClr" required  size="80">
-			</div>
-
-			<div class="infoDiv">
-				<label for="ttl_spc_cnt"></label>
-				<input type="text" name="ttl_spc_cnt" id="" class="reqdClr" required  size="80">
-			</div>
-			<div class="infoDiv">
-				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
-				<select name="are_all_digitized" required>
-					<option value=""></option>
-					<option value="yes">yes</option>
-					<option value="no">no</option>
-				</select>
-			</div>
-
-			<div class="infoDiv">
-				<label for="specimen_types">Which of the following specimen types are you interested in migrating to Arctos (check all that apply)?</label>
-				<cfset l= "Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues Herbarium Earth Sciences Art History Ethnology Archaeology Other">
-				<cfloop list="#l#" delimiters=" " index="i">
-					<input type="checkbox" name="specimen_types" value="#i#">#i#<br>
-				</cfloop>
-   			</div>
-
-			<div class="infoDiv">
-				<label for="yearly_add_avg">On average, how many specimens have been added to the collection(s) annually over the past 5 years?</label>
-				<input type="text" name="yearly_add_avg" id="yearly_add_avg" class="reqdClr" required size="80">
-			</div>
-			<div class="infoDiv">
-				<label for="exp_grth_rate">How do you expect this rate of growth to change in the foreseeable future?</label>
-				<select name="exp_grth_rate" required>
-					<option value=""></option>
-					<option value="Increase" >Increase</option>
-					<option value="Remain the same" >Remain the same</option>
-					<option value="Decrease" >Decrease</option>
-					<option value="Not sure" >Not sure</option>
-				</select>
-			</div>
-
-			<h3>Data Structure</h3>
-			<p>
-				The following questions are intended to provide basic information about how your data are managed currently.
-				Controlled vocabularies are text strings in a pick list. Authority files contain controlled information with
-				metadata and some complexity (e.g., relationships such as synonymies); they are often stored in at least one table with
-				more than one column.
-			</p>
-
-
-
-			<div class="infoDiv">
-				<label for="current_software">What software do you currently use to manage specimen data (e.g., e.g., Access, Filemaker Pro, Excel, Specify-indicate which version, etc.)?</label>
-				<textarea class="hugetextarea reqdClr" name="current_software" id="current_software" required ></textarea>
-			</div>
-
-
-			<div class="infoDiv">
-				<label for="current_software">How are your data structured in your current information system (flat table, related tables, disjoined tables, etc.)?</label>
-				<textarea class="hugetextarea reqdClr" name="current_structure" id="current_structure" required ></textarea>
-			</div>
-
-
-
-			<div class="infoDiv">
-				<label for="vocab_control">Do you use controlled vocabularies or authority files for the following kinds of data (check all that apply)?</label>
-				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts">
-				<cfloop list="#l#" delimiters="," index="i">
-					<input type="checkbox" name="vocab_control" value="#i#">#i#<br>
-				</cfloop>
-   			</div>
-
-			<div class="infoDiv">
-				<label for="free_text">Do you allow free text data entry for the following kinds of data (check all that apply)?</label>
-				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts">
-				<cfloop list="#l#" delimiters="," index="i">
-					<input type="checkbox" name="free_text" value="#i#">#i#<br>
-				</cfloop>
-   			</div>
-
-			<div class="infoDiv">
-				<label for="vocab_enforcement">Is it possible to bypass the controlled vocabularies or authority files? Explain.</label>
-				<textarea class="hugetextarea reqdClr" name="vocab_enforcement" id="vocab_enforcement" required ></textarea>
-			</div>
-
-
-			<div class="infoDiv">
-				<label for="vocab_text">Please expand on how you deal with agents, taxonomy, geography, and/or specimen parts.</label>
-				<textarea class="hugetextarea reqdClr" name="vocab_text" id="vocab_text" required ></textarea>
-			</div>
-
-
-			<div class="infoDiv">
-				<label for="tissues">Do you allow free text data entry for the following kinds of data (check all that apply)?</label>
-				<cfset l= "	Tissues are treated as parts of a specimen using a controlled vocabulary or authority file.|Tissues are treated as parts of a specimen, entered in free-form text.|Tissues are cataloged in a separate collection, and cross-linked to voucher specimen.|Tissues are entered as free-form text in a remarks or comment field.|There are no tissues in our collection.|Other.">
-				<cfloop list="#l#" delimiters="|" index="i">
-					<input type="checkbox" name="tissues" value="#i#">#i#<br>
-				</cfloop>
-   			</div>
-
-			<div class="infoDiv">
-				<label for="tissue_detail">Describe any other details about how you deal with tissues currently, or plan to deal with them in the future.</label>
-				<textarea class="hugetextarea reqdClr" name="tissue_detail" id="tissue_detail" required ></textarea>
-			</div>
-
-
-			<div class="infoDiv">
-				<label for="barcodes">Do you use machine-readable labels (such as barcodes) to digitally track any objects in your collections?</label>
-				<select name="barcodes" required>
-					<option value=""></option>
-					<option value="yes"  >yes</option>
-					<option value="no" >no</option>
-				</select>
-			</div>
-
-			<div class="infoDiv">
-				<label for="barcode_desc">Describe any details about you incorporate barcodes into your current system, or whether you plan to deal with them in the future.</label>
-				<textarea class="hugetextarea reqdClr" name="barcode_desc" id="barcode_desc" required ></textarea>
-			</div>
-
-			<div class="infoDiv">
-				<label for="locality">Describe how you deal with locality information (including coordinates, if any) in your current collection management system.</label>
-				<textarea class="hugetextarea reqdClr" name="locality" id="locality" required ></textarea>
-			</div>
-			<div class="infoDiv">
-				<label for="georefedpercent">Approximately what proportion of your locality data are georeferenced with latitude/longitude coordinates? * </label>
-				<input type="text" name="georefedpercent" id="georefedpercent" class="reqdClr" required  size="80">
-			</div>
-			<div class="infoDiv">
-				<label for="metadata">Describe the kinds of metadata that you store with your coordinate information (e.g., datum, GPS error, extent, maximum uncertainty, georeferencing method, etc.)</label>
-				<textarea class="hugetextarea reqdClr" name="metadata" id="metadata" required ></textarea>
-			</div>
-
-			<div class="infoDiv">
-				<label for="tissues">For the following transaction types, indicate whether you have digital information that would need to be formatted and imported? (check all that apply)</label>
-				<cfset l= "Loans|Accessions|Permits">
-				<cfloop list="#l#" delimiters="|" index="i">
-					<input type="checkbox" name="digital_trans" value="#i#">#i#<br>
-				</cfloop>
-   			</div>
-
-
-			<div class="infoDiv">
-				<label for="metadata">Describe generally how you deal with transactions (loans, accessions, permits) in your current system.</label>
-				<textarea class="hugetextarea reqdClr" name="trans_desc" id="trans_desc" required ></textarea>
-			</div>
-			<div class="infoDiv">
-				<label for="more_data">Other than basic “label data” (who/what/when/where), what other kinds of information (if any) is recorded about your specimens (e.g., citations in publications, GenBank numbers, projects, etc.)?</label>
-				<textarea class="hugetextarea reqdClr" name="more_data" id="more_data" required ></textarea>
-			</div>
-
-			<div class="infoDiv">
-				<label for="digital_media"> Do you have digital media in your current system? </label>
-				<select name="digital_media" required>
-					<option value=""></option>
-					<option value="yes"  >yes</option>
-					<option value="no">no</option>
-				</select>
-			</div>
-
-
-			<div class="infoDiv">
-				<label for="media_plan">Indicate how you plan to store digital media that are linked to data in Arctos.</label>
-				<cfset l= "We need storage for digital media through Arctos.|We have our own web-accessible storage for digital media.|Our digital media are stored and accessible via an external web service.|We do not plan to have digital media in Arctos at this time.">
-				<cfloop list="#l#" delimiters="|" index="i">
-					<input type="checkbox" name="media_plan" value="#i#">#i#<br>
-				</cfloop>
-   			</div>
-
-			<h3>Putting your data in Arctos</h3>
-
-
-
-			<div class="infoDiv">
-				<label for="has_help">Do you have someone familiar with the collection who can assist in migrating data to Arctos?</label>
-				<select name="has_help" required>
-					<option value=""></option>
-					<option value="yes" >yes</option>
-					<option value="no">no</option>
-				</select>
-			</div>
-
-
-			<div class="infoDiv">
-				<label for="want_storage"> Do you have digital media in your current system? </label>
-				<select name="want_storage" required>
-					<option value=""></option>
-					<option value="yes" >yes</option>
-					<option value="no">no</option>
-				</select>
-			</div>
-
-			<div class="infoDiv">
-				<label for="security_concern">Please describe any permission or security issues that would prevent us from accessing your data directly if necessary for data migration?</label>
-				<textarea class="hugetextarea reqdClr" name="security_concern" id="security_concern" required ></textarea>
-			</div>
-
-
-
-			<div class="infoDiv">
-				<label for="budget">Do you have an annual budget available for database support?</label>
-				<select name="budget" required>
-					<option value=""></option>
-					<option value="yes"  >yes</option>
-					<option value="no" >no</option>
-				</select>
-			</div>
-
-
-
-			<div class="infoDiv">
-				<label for="comments">Please add any other comments or questions that you have re: Arctos or your collection(s).</label>
-				<textarea class="hugetextarea reqdClr" name="comments" id="comments" required ></textarea>
-			</div>
-
-			<div class="infoDiv">
-				<label for="completed_by">Questionnaire completed by</label>
-				<input type="text" name="completed_by" id="completed_by" class="reqdClr" required >
-			</div>
-
-
-			<div class="infoDiv">
-				<label for="completed_by_title">Job Title</label>
-				<input type="text" name="completed_by_title" id="completed_by_title" class="reqdClr" required >
-			</div>
-
-
-			<div class="infoDiv">
-				<label for="completed_by_email">Email</label>
-				<input type="email" name="completed_by_email" id="completed_by_email" class="reqdClr" required>
-			</div>
-
-			<div class="infoDiv">
-				<label for="completed_by_phone">Phone</label>
-				<input type="tel" name="completed_by_phone" id="completed_by_phone" class="reqdClr" required >
-			</div>
 
 
 
@@ -543,11 +447,11 @@
 		</p>
 		The link to review your submission is:
 
-
+<p>
 		<code>
 			#application.serverRootURL#/new_collection.cfm?action=manage_institution&&iid=#hash(srs.nid)#
 		</code>
-
+</p>
 		<p>
 			You may view your submission by <a href="/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#">clicking this link</a>
 		</p>
@@ -762,7 +666,7 @@
 				<textarea class="hugetextarea reqdClr" name="locality" id="locality" required ></textarea>
 			</div>
 			<div class="infoDiv">
-				<label for="georefedpercent">Approximately what proportion of your locality data are georeferenced with latitude/longitude coordinates? * </label>
+				<label for="georefedpercent">Approximately what proportion of your locality data are georeferenced with latitude/longitude coordinates?</label>
 				<input type="text" name="georefedpercent" id="georefedpercent" class="reqdClr" required  size="80">
 			</div>
 			<div class="infoDiv">
@@ -771,7 +675,7 @@
 			</div>
 
 			<div class="infoDiv">
-				<label for="tissues">For the following transaction types, indicate whether you have digital information that would need to be formatted and imported? (check all that apply)</label>
+				<label for="digital_trans">For the following transaction types, indicate whether you have digital information that would need to be formatted and imported? (check all that apply)</label>
 				<cfset l= "Loans|Accessions|Permits">
 				<cfloop list="#l#" delimiters="|" index="i">
 					<input type="checkbox" name="digital_trans" value="#i#">#i#<br>
@@ -780,7 +684,7 @@
 
 
 			<div class="infoDiv">
-				<label for="metadata">Describe generally how you deal with transactions (loans, accessions, permits) in your current system.</label>
+				<label for="trans_desc">Describe generally how you deal with transactions (loans, accessions, permits) in your current system.</label>
 				<textarea class="hugetextarea reqdClr" name="trans_desc" id="trans_desc" required ></textarea>
 			</div>
 			<div class="infoDiv">
@@ -789,7 +693,7 @@
 			</div>
 
 			<div class="infoDiv">
-				<label for="digital_media"> Do you have digital media in your current system? </label>
+				<label for="digital_media">Do you have digital media in your current system?</label>
 				<select name="digital_media" required>
 					<option value=""></option>
 					<option value="yes"  >yes</option>
@@ -821,7 +725,7 @@
 
 
 			<div class="infoDiv">
-				<label for="want_storage"> Do you have digital media in your current system? </label>
+				<label for="want_storage">Do you want to use Arctos Media storage?</label>
 				<select name="want_storage" required>
 					<option value=""></option>
 					<option value="yes" >yes</option>
