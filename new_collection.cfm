@@ -226,7 +226,11 @@
 				'#escapeQuotes(locality)#',
 				'#escapeQuotes(georefedpercent)#',
 				'#escapeQuotes(metadata)#',
-				'#escapeQuotes(digital_trans)#',
+				<cfif isdefined("digital_trans") and len(digital_trans) gt 0>
+					'#escapeQuotes(digital_trans)#',
+				<cfelse>
+					'none',
+				</cfif>
 				'#escapeQuotes(trans_desc)#',
 				'#escapeQuotes(more_data)#',
 				'#escapeQuotes(digital_media)#',
@@ -481,7 +485,7 @@
 
 			<div class="infoDiv">
 				<label for="tissues">For the following transaction types, indicate whether you have digital information that would need to be formatted and imported? (check all that apply)</label>
-				<cfset l= "Loans|Accessions|Permits|We do not track transactions digitally">
+				<cfset l= "Loans|Accessions|Permits">
 				<cfloop list="#l#" delimiters="|" index="i">
 					<input type="checkbox" name="digital_trans" value="#i#">#i#<br>
 				</cfloop>
