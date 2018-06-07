@@ -15,7 +15,6 @@
 
 	create table pre_new_institution (
 		niid number  NOT NULL,
-		user_pwd VARCHAR2(255),
 		INSTITUTION VARCHAR2(255),
 		INSTITUTION_ACRONYM VARCHAR2(20),
 		ttl_spc_cnt VARCHAR2(4000),
