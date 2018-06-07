@@ -366,7 +366,7 @@
 				<label for="specimen_types">Which of the following specimen types are you interested in migrating to Arctos (check all that apply)?</label>
 				<cfset l= "Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues Herbarium Earth Sciences Art History Ethnology Archaeology Other">
 				<cfloop list="#l#" delimiters=" " index="i">
-					<input required type="checkbox" name="specimen_types" value="#i#">#i#<br>
+					<input type="checkbox" name="specimen_types" value="#i#">#i#<br>
 				</cfloop>
    			</div>
 
