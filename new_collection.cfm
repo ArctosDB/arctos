@@ -206,7 +206,11 @@
 				'#escapeQuotes(INSTITUTION_ACRONYM)#',
 				'#escapeQuotes(ttl_spc_cnt)#',
 				'#escapeQuotes(are_all_digitized)#',
-				'#escapeQuotes(specimen_types)#',
+				<cfif isdefined("specimen_types") and len(specimen_types) gt 0>
+					'#escapeQuotes(specimen_types)#',
+				<cfelse>
+					'none',
+				</cfif>
 				'#escapeQuotes(yearly_add_avg)#',
 				'#escapeQuotes(exp_grth_rate)#',
 				'#escapeQuotes(current_software)#',
