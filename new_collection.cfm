@@ -123,7 +123,7 @@
 			<label for="INSTITUTION_ACRONYM">Institution Acronym</label>
 			<input type="text" name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM" class="reqdClr" required >
 		</div>
-
+		<cfoutput>
 		<div class="infoDiv">
 			Password used for managing this request. This password is NOT secure and should be used nowhere except in this form.
 			The password must be at least one character in length.	DO NOT re-use your password to any site, including Arctos.
@@ -140,11 +140,12 @@
 			        pwd=pwd & char;
 			    }
 		    </cfscript>
-			#pwd#
+
 			<label for="user_pwd">Password</label>
-			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#result#">
+			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#pwd#">
 		</div>
 		<input type="submit" value="submit request">
+		</cfoutput>
 	</form>
 
 
