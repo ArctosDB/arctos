@@ -224,8 +224,8 @@
 			<div class="infoDiv">
 				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
 				<select name="are_all_digitized">
-					<option value="yes" <cfif d.are_all_digitized is "yes"> selected="selected">yes</option>
-					<option value="no" <cfif d.are_all_digitized is "no"> selected="selected">no</option>
+					<option value="yes" <cfif d.are_all_digitized is "yes"> selected="selected"</cfif> >yes</option>
+					<option value="no" <cfif d.are_all_digitized is "no"> selected="selected"</cfif> >no</option>
 				</select>
 			</div>
 
