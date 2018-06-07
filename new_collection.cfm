@@ -1,6 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="New Collection Portal">
-
+<style>
+	.infoDiv{
+		border:2px solid green;
+		font-size:smaller;
+		padding:.5em;
+		margin:1em;
+		background-color:#e3ede5;
+	}
+</style>
 <!----
 
 	drop table pre_new_institution;
@@ -274,15 +282,7 @@
 </cfif>
 
 <cfif action is "mgCollectionRequest">
-	<style>
-		.infoDiv{
-			border:2px solid green;
-			font-size:smaller;
-			padding:.5em;
-			margin:1em;
-			background-color:#e3ede5;
-		}
-	</style>
+
 
 	<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
