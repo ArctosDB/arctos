@@ -155,6 +155,18 @@
 	You must log in to use this form.
 	<cfabort>
 </cfif>
+
+
+
+<cfif action is "manage_institution">
+	<cfoutput>
+   		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from pre_new_institution where dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw(niid)) ='#iid#'
+		</cfquery>
+		<cfdump var=#d#>
+	</cfoutput>
+</cfif>
+
 <cfif action is "createInstitutionRequest">
 	<cfoutput>
    		<cfquery name="srs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
