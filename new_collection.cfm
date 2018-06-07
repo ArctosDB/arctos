@@ -136,10 +136,10 @@
 			    char = "";
 			    for(i=1; i <= length; i++) {
 			        char = mid(chrz, randRange(1, len(chrz)),1);
-			        result&=char;
+			        pwd&=char;
 			    }
 		    </cfscript>
-
+			#pwd#
 			<label for="user_pwd">Password</label>
 			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#result#">
 		</div>
