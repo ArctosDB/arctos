@@ -277,6 +277,18 @@
 
 
 <cfif action is "nothing">
+	<script>
+		jQuery(document).ready(function() {
+
+			$(':input[required]:visible').each(function(e){
+			    $(this).addClass('reqdClr');
+			});
+
+
+
+		});
+
+	</script>
 	<h2>New Collection Request</h2>
 	<p>
 		Use this form to initiate a request to join Arctos. Please fill out this form as accurately and completely as possible.
