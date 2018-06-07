@@ -212,7 +212,11 @@
 				'#escapeQuotes(current_software)#',
 				'#escapeQuotes(current_structure)#',
 				'#escapeQuotes(vocab_control)#',
-				'#escapeQuotes(free_text)#',
+				<cfif isdefined("free_text") and len(free_text) gt 0>
+					'#escapeQuotes(free_text)#',
+				<cfelse>
+					'none',
+				</cfif>
 				'#escapeQuotes(vocab_enforcement)#',
 				'#escapeQuotes(vocab_text)#',
 				'#escapeQuotes(tissues)#',
@@ -408,7 +412,7 @@
 
 			<div class="infoDiv">
 				<label for="vocab_control">Do you use controlled vocabularies or authority files for the following kinds of data (check all that apply)?</label>
-				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts, Not Used">
+				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts">
 				<cfloop list="#l#" delimiters="," index="i">
 					<input type="checkbox" name="vocab_control" value="#i#">#i#<br>
 				</cfloop>
@@ -416,7 +420,7 @@
 
 			<div class="infoDiv">
 				<label for="free_text">Do you allow free text data entry for the following kinds of data (check all that apply)?</label>
-				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts, Not Used">
+				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts">
 				<cfloop list="#l#" delimiters="," index="i">
 					<input type="checkbox" name="free_text" value="#i#">#i#<br>
 				</cfloop>
