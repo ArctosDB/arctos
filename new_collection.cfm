@@ -2,17 +2,70 @@
 <cfset title="New Collection Portal">
 
 <!----
-	create table pre_new_collection (
-		ncid number,
+
+	drop table pre_new_institution;
+
+	create table pre_new_institution (
+		niid number  NOT NULL,
 		user_pwd VARCHAR2(255),
-		COLLECTION_CDE varchar2(5),
+		INSTITUTION VARCHAR2(255),
 		INSTITUTION_ACRONYM VARCHAR2(20),
+		ttl_spc_cnt VARCHAR2(4000),
+		are_all_digitized VARCHAR2(4000),
+		specimen_types  VARCHAR2(4000),
+		yearly_add_avg  VARCHAR2(4000),
+		exp_grth_rate VARCHAR2(4000),
+		current_software VARCHAR2(4000),
+		current_structure VARCHAR2(4000),
+		vocab_control  VARCHAR2(4000),
+		free_text VARCHAR2(4000),
+		vocab_enforcement  VARCHAR2(4000),
+		vocab_text VARCHAR2(4000),
+		tissues VARCHAR2(4000),
+		tissue_detail VARCHAR2(4000),
+		barcodes VARCHAR2(4000),
+		barcode_desc VARCHAR2(4000),
+		locality VARCHAR2(4000),
+		georefedpercent VARCHAR2(4000),
+		metadata VARCHAR2(4000),
+		digital_trans VARCHAR2(4000),
+		trans_desc VARCHAR2(4000),
+		more_data VARCHAR2(4000),
+		digital_media VARCHAR2(4000),
+		media_plan VARCHAR2(4000),
+		want_storage VARCHAR2(4000),
+		has_help VARCHAR2(4000),
+		security_concern VARCHAR2(4000),
+		budget VARCHAR2(4000),
+		comments VARCHAR2(4000),
+		completed_by VARCHAR2(4000),
+		completed_by_email VARCHAR2(4000),
+		completed_by_phone VARCHAR2(4000),
+		completed_by_title VARCHAR2(4000),
+		status varchar2(255),
+		insert_date date,
+		CONSTRAINT PK_pre_new_inst PRIMARY KEY (niid) USING INDEX TABLESPACE UAM_IDX_1
+	) TABLESPACE UAM_DAT_1;
+
+
+
+	create or replace public synonym pre_new_institution for pre_new_institution;
+	grant select, insert, update on pre_new_institution to public;
+
+	create unique index ix_u_pni_instacr_u on pre_new_institution(upper(INSTITUTION_ACRONYM)) tablespace uam_idx_1;
+
+
+	drop table pre_new_collection;
+
+	create table pre_new_collection (
+		ncid number not null,
+		niid number not null,
+		COLLECTION_CDE varchar2(5),
 		DESCR VARCHAR2(4000),
 		COLLECTION VARCHAR2(50),
 		WEB_LINK  VARCHAR2(4000),
 		WEB_LINK_TEXT  VARCHAR2(50),
 		LOAN_POLICY_URL VARCHAR2(255),
-		INSTITUTION VARCHAR2(255),
 		GUID_PREFIX VARCHAR2(20),
 		PREFERRED_TAXONOMY_SOURCE VARCHAR2(255),
 		CATALOG_NUMBER_FORMAT  VARCHAR2(21),
@@ -20,16 +73,17 @@
 		mentor_contact varchar2(4000),
 		admin_username VARCHAR2(255),
 		status varchar2(255),
-		insert_date date
-	);
+		use_license_id number,
+		final_message VARCHAR2(4000),
+		contact_email VARCHAR2(4000),
+		initiated_by_username VARCHAR2(255),
+		insert_date date,
+		CONSTRAINT PK_pre_new_coln PRIMARY KEY (ncid) USING INDEX TABLESPACE UAM_IDX_1,
+		CONSTRAINT FK_p_n_c FOREIGN KEY (niid)	REFERENCES pre_new_institution (niid)
+	) TABLESPACE UAM_DAT_1;
 
-	alter table pre_new_collection add use_license_id number;
-	alter table pre_new_collection add final_message VARCHAR2(4000);
-	alter table pre_new_collection add contact_email VARCHAR2(4000);
-	alter table pre_new_collection add initiated_by_username VARCHAR2(255);
 
-
-	create public synonym pre_new_collection for pre_new_collection;
+	create or replace public synonym pre_new_collection for pre_new_collection;
 
 	grant select, insert, update on pre_new_collection to public;
 
@@ -50,6 +104,59 @@
 	<p>
 		This form facilitates new collection creation in Arctos. This is a request only; you cannot create a collection with this form.
 	</p>
+	<h2>Existing Requests</h2>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from pre_new_institution order by insert_date desc
+	</cfquery>
+		<cfoutput>
+			<table border>
+				<tr>
+					<th>Institutiton Acronym</th>
+					<th>CreateDate</th>
+					<th>Status</th>
+					<th>Manage</th>
+				</tr>
+				<cfloop query="d">
+					<tr>
+						<td>#institution_acronym#</td>
+						<td>#dateformat(insert_date,'yyyy-mm-dd')#</td>
+						<td>#status#</td>
+						<td>
+							<form action="new_collection.cfm">
+								<input type="hidden" name="action" value="manage">
+								<label for="password">
+									Enter the password provided when you created this request
+									<cfif isdefined("session.roles") and session.roles contains "global_admin">
+									 You're admin; no password necessary.
+									</cfif>
+								</label>
+								<input type="password" name="tpwd"
+									<cfif isdefined("session.roles") and session.roles contains "global_admin">
+										value="#user_pwd#"
+									</cfif>
+								>
+								<input type="submit" value="go">
+							</form>
+					</tr>
+				</cfloop>
+			</table>
+		</cfoutput>
+
+
+	If you have created a request, fill in the form with the password and Institution Acronym you used in the initial request and click "manage existing request."
+	<p>
+	<form name="f" id="f" method="post" action="new_collection.cfm">
+		<input type="hidden" name="action" value="edit">
+		<label for="institution_acronym">Institution Acronym</label>
+		<input type="text" name="guid_prefix" id="guid_prefix" class="reqdClr" required>
+		<label for="user_pwd">Password</label>
+		<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required>
+		<br><input type="button" class="insBtn" onclick="document.f.action.value='newCollectionRequest';document.f.submit();" value="create collection request">
+		<br><input type="button" class="lnkBtn" onclick="document.f.action.value='mgCollectionRequest';document.f.submit();" value="manage existing request">
+	</form>
+
+
+
 	<h2>Request a new collection</h2>
 	If this is a new request, first
 	<a href="http://handbook.arctosdb.org/documentation/catalog.html#guid-prefix">CAREFULLY review the GUID_prefix documentation</a>,
