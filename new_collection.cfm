@@ -130,10 +130,10 @@
 			This password provides light obfuscation of the collection creation process, but is no guarantee of security. Do not provide any
 			confidential information in this form. A password has been suggested; you may change it.
 		    <cfscript>
-			    var chrz = "23456789ABCDEFGHJKMNPQRS";
-			    var length = randRange(4,7);
-			    var i = "";
-			    var char = "";
+			    chrz = "23456789ABCDEFGHJKMNPQRS";
+			    length = randRange(4,7);
+			    i = "";
+			    char = "";
 			    for(i=1; i <= length; i++) {
 			        char = mid(chrz, randRange(1, len(chrz)),1);
 			        result&=char;
