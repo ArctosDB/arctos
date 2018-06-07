@@ -164,7 +164,6 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into pre_new_institution (
 				niid,
-				user_pwd,
 				INSTITUTION,
 				INSTITUTION_ACRONYM,
 				ttl_spc_cnt,
@@ -203,7 +202,6 @@
 				insert_date
 			) values (
 				#srs.nid#,
-				'#escapeQuotes(pwd)#',
 				'#escapeQuotes(INSTITUTION)#',
 				'#escapeQuotes(INSTITUTION_ACRONYM)#',
 				'#escapeQuotes(ttl_spc_cnt)#',
