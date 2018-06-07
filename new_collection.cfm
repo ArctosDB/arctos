@@ -237,31 +237,122 @@
 					<input type="checkbox" name="specimen_types"
 						<cfif d.specimen_types contains "#i#">checked="checked"</cfif> value="#i#">#i#<br>
 				</cfloop>
-   				</div>
+   			</div>
+
+			<div class="infoDiv">
+				<label for="yearly_add_avg">On average, how many specimens have been added to the collection(s) annually over the past 5 years?</label>
+				<input type="text" name="yearly_add_avg" id="yearly_add_avg" class="reqdClr" required value="#d.yearly_add_avg#" size="80">
+			</div>
+			<div class="infoDiv">
+				<label for="exp_grth_rate">How do you expect this rate of growth to change in the foreseeable future?</label>
+				<select name="exp_grth_rate">
+					<option value=""></option>
+					<option value="Increase" <cfif d.are_all_digitized is "Increase"> selected="selected"</cfif> >Increase</option>
+					<option value="Remain the same" <cfif d.are_all_digitized is "Remain the same"> selected="selected"</cfif> >Remain the same</option>
+					<option value="Decrease" <cfif d.are_all_digitized is "Decrease"> selected="selected"</cfif> >Decrease</option>
+					<option value="Not sure" <cfif d.are_all_digitized is "Not sure"> selected="selected"</cfif> >Not sure</option>
+				</select>
+			</div>
+
+			<div class="infoDiv">
+			About your data structure:
+The following questions are intended to provide basic information about how your data are managed currently. Controlled vocabularies are text strings in a pick list. Authority files contain controlled information with metadata and some complexity (e.g., relationships such as synonymies); they are often stored in at least one table with more than one column.
+
+
+			</div>
 
 
 
 
 
+			<div class="infoDiv">
+				<label for="current_software">What software do you currently use to manage specimen data (e.g., e.g., Access, Filemaker Pro, Excel, Specify-indicate which version, etc.)?</label>
+				<textarea class="hugetextarea reqdClr" name="current_software" id="current_software" required >#d.current_software#</textarea>
+			</div>
 
+
+			<div class="infoDiv">
+				<label for="current_software">How are your data structured in your current information system (flat table, related tables, disjoined tables, etc.)?</label>
+				<textarea class="hugetextarea reqdClr" name="current_structure" id="current_structure" required >#d.current_structure#</textarea>
+			</div>
+
+
+
+			<div class="infoDiv">
+				<label for="vocab_control">Do you use controlled vocabularies or authority files for the following kinds of data (check all that apply)?</label>
+				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts, Not Used">
+				<cfloop list="#l#" delimiters="," index="i">
+					<input type="checkbox" name="vocab_control"
+						<cfif d.vocab_control contains "#i#">checked="checked"</cfif> value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<div class="infoDiv">
+				<label for="free_text">Do you allow free text data entry for the following kinds of data (check all that apply)?</label>
+				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts, Not Used">
+				<cfloop list="#l#" delimiters="," index="i">
+					<input type="checkbox" name="free_text"
+						<cfif d.free_text contains "#i#">checked="checked"</cfif> value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<div class="infoDiv">
+				<label for="vocab_enforcement">Is it possible to bypass the controlled vocabularies or authority files? Explain.</label>
+				<textarea class="hugetextarea reqdClr" name="vocab_enforcement" id="vocab_enforcement" required >#d.vocab_enforcement#</textarea>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="vocab_text">Please expand on how you deal with agents, taxonomy, geography, and/or specimen parts.</label>
+				<textarea class="hugetextarea reqdClr" name="vocab_text" id="vocab_text" required >#d.vocab_text#</textarea>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="tissues">Do you allow free text data entry for the following kinds of data (check all that apply)?</label>
+				<cfset l= "	Tissues are treated as parts of a specimen using a controlled vocabulary or authority file.|Tissues are treated as parts of a specimen, entered in free-form text.|Tissues are cataloged in a separate collection, and cross-linked to voucher specimen.|Tissues are entered as free-form text in a remarks or comment field.|There are no tissues in our collection.|Other.">
+				<cfloop list="#l#" delimiters="|" index="i">
+					<input type="checkbox" name="tissues"
+						<cfif d.free_text contains "#i#">checked="checked"</cfif> value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<div class="infoDiv">
+				<label for="tissue_detail">Describe any other details about how you deal with tissues currently, or plan to deal with them in the future.</label>
+				<textarea class="hugetextarea reqdClr" name="tissue_detail" id="tissue_detail" required >#d.tissue_detail#</textarea>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="barcodes">Do you use machine-readable labels (such as barcodes) to digitally track any objects in your collections?</label>
+				<select name="barcodes">
+					<option value=""></option>
+					<option value="yes" <cfif d.barcodes is "yes"> selected="selected"</cfif> >yes</option>
+					<option value="no" <cfif d.barcodes is "no"> selected="selected"</cfif> >no</option>
+				</select>
+			</div>
+
+			<div class="infoDiv">
+				<label for="barcode_desc">Describe any details about you incorporate barcodes into your current system, or whether you plan to deal with them in the future.</label>
+				<textarea class="hugetextarea reqdClr" name="barcode_desc" id="barcode_desc" required >#d.barcode_desc#</textarea>
+			</div>
+
+			<div class="infoDiv">
+				<label for="locality">Describe how you deal with locality information (including coordinates, if any) in your current collection management system.</label>
+				<textarea class="hugetextarea reqdClr" name="locality" id="locality" required >#d.locality#</textarea>
+			</div>
+			<div class="infoDiv">
+				<label for="georefedpercent"> Approximately what proportion of your locality data are georeferenced with latitude/longitude coordinates? * </label>
+				<input type="text" name="georefedpercent" id="georefedpercent" class="reqdClr" required value="#d.georefedpercent#" size="80">
+			</div>
+			<div class="infoDiv">
+				<label for="metadata">Describe the kinds of metadata that you store with your coordinate information (e.g., datum, GPS error, extent, maximum uncertainty, georeferencing method, etc.)</label>
+				<textarea class="hugetextarea reqdClr" name="metadata" id="metadata" required >#d.metadata#</textarea>
+			</div>
+
+
+			  *
 		 VARCHAR2(4000),
-		 VARCHAR2(4000),
-		  VARCHAR2(4000),
-		yearly_add_avg  VARCHAR2(4000),
-		exp_grth_rate VARCHAR2(4000),
-		current_software VARCHAR2(4000),
-		current_structure VARCHAR2(4000),
-		vocab_control  VARCHAR2(4000),
-		free_text VARCHAR2(4000),
-		vocab_enforcement  VARCHAR2(4000),
-		vocab_text VARCHAR2(4000),
-		tissues VARCHAR2(4000),
-		tissue_detail VARCHAR2(4000),
-		barcodes VARCHAR2(4000),
-		barcode_desc VARCHAR2(4000),
-		locality VARCHAR2(4000),
-		georefedpercent VARCHAR2(4000),
-		metadata VARCHAR2(4000),
 		digital_trans VARCHAR2(4000),
 		trans_desc VARCHAR2(4000),
 		more_data VARCHAR2(4000),
