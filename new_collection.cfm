@@ -134,9 +134,10 @@
 			    length = randRange(4,7);
 			    i = "";
 			    char = "";
+			    pwd="";
 			    for(i=1; i <= length; i++) {
 			        char = mid(chrz, randRange(1, len(chrz)),1);
-			        pwd&=char;
+			        pwd=pwd & char;
 			    }
 		    </cfscript>
 			#pwd#
