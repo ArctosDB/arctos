@@ -365,7 +365,7 @@
 			</div>
 			<div class="infoDiv">
 				<label for="exp_grth_rate">How do you expect this rate of growth to change in the foreseeable future?</label>
-				<select name="exp_grth_rate">
+				<select name="exp_grth_rate" required>
 					<option value=""></option>
 					<option value="Increase" >Increase</option>
 					<option value="Remain the same" >Remain the same</option>
@@ -441,7 +441,7 @@
 
 			<div class="infoDiv">
 				<label for="barcodes">Do you use machine-readable labels (such as barcodes) to digitally track any objects in your collections?</label>
-				<select name="barcodes">
+				<select name="barcodes" required>
 					<option value=""></option>
 					<option value="yes"  >yes</option>
 					<option value="no" >no</option>
@@ -486,7 +486,7 @@
 
 			<div class="infoDiv">
 				<label for="digital_media"> Do you have digital media in your current system? </label>
-				<select name="digital_media">
+				<select name="digital_media" required>
 					<option value=""></option>
 					<option value="yes"  >yes</option>
 					<option value="no">no</option>
@@ -507,7 +507,7 @@
 
 			<div class="infoDiv">
 				<label for="want_storage"> Do you have digital media in your current system? </label>
-				<select name="want_storage">
+				<select name="want_storage" required>
 					<option value=""></option>
 					<option value="yes" >yes</option>
 					<option value="no">no</option>
@@ -523,7 +523,7 @@
 
 			<div class="infoDiv">
 				<label for="budget">Do you have an annual budget available for database support?</label>
-				<select name="budget">
+				<select name="budget" required>
 					<option value=""></option>
 					<option value="yes"  >yes</option>
 					<option value="no" >no</option>
