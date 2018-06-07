@@ -321,6 +321,548 @@
 					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##institution-acronym">Documentation</a></li>
 				</ul>
 				<label for="INSTITUTION_ACRONYM">Institution Acronym</label>
+				<input type="text" name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM" class="reqdClr" required >
+			</div>
+
+
+			<div class="infoDiv">
+				Institution is a standardized expansion of Institution Acronym, and should end with Institution Acronym is parentheses.
+				 It should be the same for all collections in
+				an institution. Examples:
+				<ul>
+					<li>Chicago Academy of Sciences (CHAS)</li>
+					<li>Museum of Southwestern Biology (MSB)</li>
+				</ul>
+
+				<label for="INSTITUTION">Institution</label>
+				<input type="text" name="INSTITUTION" id="INSTITUTION" class="reqdClr" required  size="80">
+			</div>
+
+			<div class="infoDiv">
+				<label for="ttl_spc_cnt"> How many total specimens across all collection(s) are you interested in migrating to Arctos?</label>
+				<input type="text" name="ttl_spc_cnt" id="ttl_spc_cnt" class="reqdClr" required  size="80">
+			</div>
+			<div class="infoDiv">
+				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
+				<select name="are_all_digitized">
+					<option value=""></option>
+					<option value="yes">yes</option>
+					<option value="no">no</option>
+				</select>
+			</div>
+
+			<div class="infoDiv">
+				<label for="specimen_types">Which of the following specimen types are you interested in migrating to Arctos (check all that apply)?</label>
+				<cfset l= "Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues Herbarium Earth Sciences Art History Ethnology Archaeology Other">
+				<cfloop list="#l#" delimiters=" " index="i">
+					<input type="checkbox" name="specimen_types" value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<div class="infoDiv">
+				<label for="yearly_add_avg">On average, how many specimens have been added to the collection(s) annually over the past 5 years?</label>
+				<input type="text" name="yearly_add_avg" id="yearly_add_avg" class="reqdClr" required size="80">
+			</div>
+			<div class="infoDiv">
+				<label for="exp_grth_rate">How do you expect this rate of growth to change in the foreseeable future?</label>
+				<select name="exp_grth_rate">
+					<option value=""></option>
+					<option value="Increase" >Increase</option>
+					<option value="Remain the same" >Remain the same</option>
+					<option value="Decrease" >Decrease</option>
+					<option value="Not sure" >Not sure</option>
+				</select>
+			</div>
+
+			<h3>Data Structure</h3>
+			<p>
+				The following questions are intended to provide basic information about how your data are managed currently.
+				Controlled vocabularies are text strings in a pick list. Authority files contain controlled information with
+				metadata and some complexity (e.g., relationships such as synonymies); they are often stored in at least one table with
+				more than one column.
+			</p>
+
+
+
+			<div class="infoDiv">
+				<label for="current_software">What software do you currently use to manage specimen data (e.g., e.g., Access, Filemaker Pro, Excel, Specify-indicate which version, etc.)?</label>
+				<textarea class="hugetextarea reqdClr" name="current_software" id="current_software" required ></textarea>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="current_software">How are your data structured in your current information system (flat table, related tables, disjoined tables, etc.)?</label>
+				<textarea class="hugetextarea reqdClr" name="current_structure" id="current_structure" required ></textarea>
+			</div>
+
+
+
+			<div class="infoDiv">
+				<label for="vocab_control">Do you use controlled vocabularies or authority files for the following kinds of data (check all that apply)?</label>
+				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts, Not Used">
+				<cfloop list="#l#" delimiters="," index="i">
+					<input type="checkbox" name="vocab_control" value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<div class="infoDiv">
+				<label for="free_text">Do you allow free text data entry for the following kinds of data (check all that apply)?</label>
+				<cfset l= "Agents,Taxonomy,Geography,Specimen Parts, Not Used">
+				<cfloop list="#l#" delimiters="," index="i">
+					<input type="checkbox" name="free_text" value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<div class="infoDiv">
+				<label for="vocab_enforcement">Is it possible to bypass the controlled vocabularies or authority files? Explain.</label>
+				<textarea class="hugetextarea reqdClr" name="vocab_enforcement" id="vocab_enforcement" required ></textarea>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="vocab_text">Please expand on how you deal with agents, taxonomy, geography, and/or specimen parts.</label>
+				<textarea class="hugetextarea reqdClr" name="vocab_text" id="vocab_text" required ></textarea>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="tissues">Do you allow free text data entry for the following kinds of data (check all that apply)?</label>
+				<cfset l= "	Tissues are treated as parts of a specimen using a controlled vocabulary or authority file.|Tissues are treated as parts of a specimen, entered in free-form text.|Tissues are cataloged in a separate collection, and cross-linked to voucher specimen.|Tissues are entered as free-form text in a remarks or comment field.|There are no tissues in our collection.|Other.">
+				<cfloop list="#l#" delimiters="|" index="i">
+					<input type="checkbox" name="tissues" value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<div class="infoDiv">
+				<label for="tissue_detail">Describe any other details about how you deal with tissues currently, or plan to deal with them in the future.</label>
+				<textarea class="hugetextarea reqdClr" name="tissue_detail" id="tissue_detail" required ></textarea>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="barcodes">Do you use machine-readable labels (such as barcodes) to digitally track any objects in your collections?</label>
+				<select name="barcodes">
+					<option value=""></option>
+					<option value="yes"  >yes</option>
+					<option value="no" >no</option>
+				</select>
+			</div>
+
+			<div class="infoDiv">
+				<label for="barcode_desc">Describe any details about you incorporate barcodes into your current system, or whether you plan to deal with them in the future.</label>
+				<textarea class="hugetextarea reqdClr" name="barcode_desc" id="barcode_desc" required ></textarea>
+			</div>
+
+			<div class="infoDiv">
+				<label for="locality">Describe how you deal with locality information (including coordinates, if any) in your current collection management system.</label>
+				<textarea class="hugetextarea reqdClr" name="locality" id="locality" required ></textarea>
+			</div>
+			<div class="infoDiv">
+				<label for="georefedpercent">Approximately what proportion of your locality data are georeferenced with latitude/longitude coordinates? * </label>
+				<input type="text" name="georefedpercent" id="georefedpercent" class="reqdClr" required  size="80">
+			</div>
+			<div class="infoDiv">
+				<label for="metadata">Describe the kinds of metadata that you store with your coordinate information (e.g., datum, GPS error, extent, maximum uncertainty, georeferencing method, etc.)</label>
+				<textarea class="hugetextarea reqdClr" name="metadata" id="metadata" required ></textarea>
+			</div>
+
+			<div class="infoDiv">
+				<label for="tissues">For the following transaction types, indicate whether you have digital information that would need to be formatted and imported? (check all that apply)</label>
+				<cfset l= "Loans|Accessions|Permits|We do not track transactions digitally">
+				<cfloop list="#l#" delimiters="|" index="i">
+					<input type="checkbox" name="digital_trans" value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+
+			<div class="infoDiv">
+				<label for="metadata">Describe generally how you deal with transactions (loans, accessions, permits) in your current system.</label>
+				<textarea class="hugetextarea reqdClr" name="trans_desc" id="trans_desc" required ></textarea>
+			</div>
+			<div class="infoDiv">
+				<label for="more_data">Other than basic “label data” (who/what/when/where), what other kinds of information (if any) is recorded about your specimens (e.g., citations in publications, GenBank numbers, projects, etc.)?</label>
+				<textarea class="hugetextarea reqdClr" name="more_data" id="more_data" required ></textarea>
+			</div>
+
+			<div class="infoDiv">
+				<label for="digital_media"> Do you have digital media in your current system? </label>
+				<select name="digital_media">
+					<option value=""></option>
+					<option value="yes"  >yes</option>
+					<option value="no">no</option>
+				</select>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="media_plan">Indicate how you plan to store digital media that are linked to data in Arctos.</label>
+				<cfset l= "We need storage for digital media through Arctos.|We have our own web-accessible storage for digital media.|Our digital media are stored and accessible via an external web service.|We do not plan to have digital media in Arctos at this time.">
+				<cfloop list="#l#" delimiters="|" index="i">
+					<input type="checkbox" name="media_plan" value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<h3>Putting your data in Arctos</h3>
+
+
+			<div class="infoDiv">
+				<label for="want_storage"> Do you have digital media in your current system? </label>
+				<select name="want_storage">
+					<option value=""></option>
+					<option value="yes" >yes</option>
+					<option value="no">no</option>
+				</select>
+			</div>
+
+			<div class="infoDiv">
+				<label for="security_concern">Please describe any permission or security issues that would prevent us from accessing your data directly if necessary for data migration?</label>
+				<textarea class="hugetextarea reqdClr" name="security_concern" id="security_concern" required ></textarea>
+			</div>
+
+
+
+			<div class="infoDiv">
+				<label for="budget">Do you have an annual budget available for database support?</label>
+				<select name="budget">
+					<option value=""></option>
+					<option value="yes"  >yes</option>
+					<option value="no" >no</option>
+				</select>
+			</div>
+
+
+
+			<div class="infoDiv">
+				<label for="comments">Please add any other comments or questions that you have re: Arctos or your collection(s).</label>
+				<textarea class="hugetextarea reqdClr" name="comments" id="comments" required ></textarea>
+			</div>
+
+			<div class="infoDiv">
+				<label for="completed_by">Questionnaire completed by</label>
+				<input type="text" name="completed_by" id="completed_by" class="reqdClr" required >
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="completed_by_title">Job Title</label>
+				<input type="text" name="completed_by_title" id="completed_by_title" class="reqdClr" required >
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="completed_by_email">Email</label>
+				<input type="email" name="completed_by_email" id="completed_by_email" class="reqdClr" required>
+			</div>
+
+			<div class="infoDiv">
+				<label for="completed_by_phone">Phone</label>
+				<input type="phone" name="completed_by_phone" id="completed_by_phone" class="reqdClr" required >
+			</div>
+
+			<!----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<div class="infoDiv">
+				Collection is displayed as a child of institution in the Collection search box on SpecimenSearch.
+				It should be the same for all collections of similar type across institutions. Examples:
+
+				<ul>
+					<li>Amphibian and reptile specimens</li>
+					<li>Insect specimens</li>
+					<li>Mammal observations</li>
+				</ul>
+
+
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##collection">Documentation</a></li>
+				</ul>
+
+				<label for="COLLECTION">Collection</label>
+				<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#" size="80">
+			</div>
+
+
+
+
+			<div class="infoDiv">
+				Description of the collection. Maximum length is 4000 characters.
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##description">Documentation</a></li>
+				</ul>
+
+				<label for="DESCR">Description</label>
+				<textarea class="hugetextarea reqdClr" name="DESCR" id="DESCR" required >#d.DESCR#</textarea>
+			</div>
+
+			<div class="infoDiv">
+				URL to collection's loan policy. A loan policy is required; the contents of the loan policy are entirely up to the data owners.
+				File an Issue for assistance in creating or hosting a loan policy.
+
+				<label for="LOAN_POLICY_URL">Loan Policy URL</label>
+				<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#" size="80">
+			</div>
+
+
+			<div class="infoDiv">
+				Taxonomy Source is "your" classification. Choose an existing source, or file an Issue to import data or use an external
+				source through GlobalNames.org.
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/taxonomy.html##source-arctos">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-manage-taxonomic-classifications.html">How-To</a></li>
+				</ul>
+
+				<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
+				<select name="preferred_taxonomy_source" id="preferred_taxonomy_source" class="reqdClr" required>
+					<cfloop query="cttaxonomy_source">
+						<option	<cfif d.preferred_taxonomy_source is cttaxonomy_source.source> selected="selected" </cfif>
+							value="#source#">#source#</option>
+					</cfloop>
+				</select>
+
+			</div>
+
+
+
+			<div class="infoDiv">
+				Allowable format of catalog number. Integer provides more functionality and is preferred. Please discuss with your Mentor
+				if you are considering anything else.
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##catalog-number">Documentation</a></li>
+				</ul>
+				<label for="CATALOG_NUMBER_FORMAT">Catalog Number Format</label>
+				<select name="catalog_number_format" id="catalog_number_format" class="reqdClr" required >
+					<option <cfif d.catalog_number_format is "integer">selected="selected" </cfif>value="integer">integer</option>
+					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
+					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
+				</select>
+
+			</div>
+
+
+
+			<div class="infoDiv">
+				License to govern the usage of your data in Arctos. File an Issue if you need a new license. Note that data shared via DWC
+				may be licensed differently, and Media are individually licensed.
+
+				<ul>
+					<li><a target="_blank" class="external" href="/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE">Code Table</a></li>
+				</ul>
+				<label for="USE_LICENSE_ID">License</label>
+				<select name="use_license_id" id="use_license_id" >
+					<option value="NULL">-none-</option>
+					<cfloop query="CTMEDIA_LICENSE">
+						<option	<cfif d.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
+							value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
+					</cfloop>
+				</select>
+			</div>
+
+
+
+			<div class="infoDiv">
+				URL to more information, such as the collection's home page.
+				<label for="WEB_LINK">Web Link</label>
+				<input type="text" name="WEB_LINK" id="WEB_LINK"  value="#d.WEB_LINK#" size="80">
+			</div>
+
+			<div class="infoDiv">
+				Clickable text to display with web link.
+				<label for="WEB_LINK_TEXT">Web Link Text</label>
+				<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" value="#d.WEB_LINK_TEXT#" size="80">
+			</div>
+
+
+			<div class="infoDiv">
+				If you do not yet have a Mentor, you should discuss mentoring with a volunteer from
+				<a href="/info/mentor.cfm">the list</a>. You may contact a potential Mentor directly,
+				 use the contact form at the bottom of any Arctos page,
+				file an Issue, or contact anyone involved in the administration of Arctos for help.
+				<label for="mentor">mentor</label>
+				<input type="text" name="mentor" id="mentor"  value="#d.mentor#" size="80">
+			</div>
+
+
+			<div class="infoDiv">
+				Mentor's email. This is required to finalize this request.
+				<label for="mentor_contact">mentor_contact</label>
+				<input type="text" name="mentor_contact" id="mentor_contact" value="#d.mentor_contact#" size="80">
+			</div>
+
+
+			<div class="infoDiv">
+				Contact Email is your email address. This is required to finalize this request. Comma-list is OK.
+				<label for="contact_email">contact_email</label>
+				<input type="text" name="contact_email" id="contact_email" value="#d.contact_email#" size="80">
+			</div>
+
+			<div class="infoDiv">
+				Arctos username(s) who will receive initial manage_collection access. Comma-separated list OK. These Operators can
+				create and manage other collection users. Anyone listed here should already have an Arctos account; contact your Mentor
+				for an invitation.
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/users.html">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Create-a-New-User-Account-for-Operators.html">How-To</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Invite-an-Operator.html">How-To</a></li>
+				</ul>
+				<label for="admin_username">admin_username</label>
+				<input type="text" name="admin_username" id="admin_username"  value="#d.admin_username#" size="80">
+			</div>
+			<div class="infoDiv">
+				Once everything in this form is to your satisfaction, you may finalize this request. This message will be included
+				in that notification.
+				<cfif d.status is "new">
+					<label for="final_message">Message to include</label>
+					<textarea class="hugetextarea reqdClr" name="final_message" id="final_message" required >#d.final_message#</textarea>
+				<cfelse>
+					<input type="hidden" name="final_message" id="final_message" value="#d.final_message#">
+					<p>
+						This request has already been submitted with message:
+						<blockquote>
+							#d.final_message#
+						</blockquote>
+					</p>
+				</cfif>
+			</div>
+
+
+			<div class="infoDiv">
+				Once everything in this form is to your satisfaction, you may finalize this request. Choosing "finalize" in this control will
+				<ul>
+					<li>LOCK existing data</li>
+					<li>Notify Arctos staff of the request</li>
+				</ul>
+
+				<cfif d.status is "new">
+					<label for="sfs">Request Finalization</label>
+					<select name="sfs" id="sfs" >
+						<option value="">not yet</option>
+						<option value="yes_plz">Finalize these data; alert Arctos staff</option>
+					</select>
+				<cfelse>
+					<p>
+						This request has already been submitted. Contact your Mentor to revise.
+					</p>
+				</cfif>
+			</div>
+
+			<cfif isdefined("session.roles") and session.roles contains "global_admin">
+				<div class="infoDiv">
+					You have global_admin; you can change the status of this request.
+					<ul>
+						<li>new: unreviewed request</li>
+						<li>submit for review: request is ready for consideration by Arctos staff</li>
+						<li>ready to create: request is approved by Arctos staff and ready for DBA action</li>
+						<li>created: collection is created and ready for use</li>
+					</ul>
+					The save and request will fail if mentor_contact does not contain an email address.
+					<label for="status">status</label>
+						<select name="status" id="status" class="reqdClr" required >
+							<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
+							<option <cfif d.status is "submit for review">selected="selected" </cfif>value="submit for review">submit for review</option>
+							<option <cfif d.status is "ready to create">selected="selected" </cfif>value="ready to create">ready to create</option>
+							<option <cfif d.status is "created">selected="selected" </cfif>value="created">created</option>
+					</select>
+				</div>
+			</cfif>
+			---->
+			<div class="infoDiv">
+				<p>
+					Please carefully review the above information before submitting.
+				</p>
+				<p>
+					You will be provided a link to this information if the submission is successful. Please save this link. Use the Contact
+					link at the bottom of any form if you need to amend the submission.
+				</p>
+				<br><input type="submit" class="savBtn" value="Submit Request">
+			</div>
+		</form>
+
+
+
+
+</cfoutput>
+
+</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<cfif action is "nothxxxxxxxxxxxing">
+	<h2>New Collection Request</h2>
+	<p>
+		Use this form to initiate a request to join Arctos. Please fill out this form as accurately and completely as possible.
+		This form is intended to provide general information about collection(s) that you are interested in migrating to Arctos.
+		Once we receive this information, we will follow-up with additional discussion or questions as needed.
+	</p>
+	<p>
+		This information should cover your entire institution or organization. Follow-up questions will include information
+		about specific collections.
+	</p>
+	<p>
+		Useful Links:
+		<ul>
+			<li><a target="_blank" class="external" href="https://arctosdb.org/faq/">Arctos FAQ </a></li>
+			<li>
+				<a target="_blank" class="external" href="https://www.tacc.utexas.edu/">TACC</a>
+				handles all of our data storage and security on their
+				<a target="_blank" class="external" href="https://www.tacc.utexas.edu/systems/corral">Corral</a> system.
+			</li>
+			<li><a target="_blank" class="external" href="https://arctosdb.org/join-arctos/costs/">current pricing structure</a></li>
+			<li><a target="_blank" class="external" href="https://arctosdb.org/learn/webinars/">webinars</a></li>
+			<li><a target="_blank" class="external" href="http://handbook.arctosdb.org">Arctos Handbook</a></li>
+			<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Manage-a-Collection-in-Arctos.html">How-To: Manage Collection</a></li>
+		</ul>
+	</p>
+	<cfoutput>
+		<form name="f" id="f" action="new_collection.cfm" method="post">
+			<input type="hidden" name="action" value="createInstitutionRequest">
+			<h3>Institution Information</h3>
+			<div class="infoDiv">
+				Institution Acronym is a short, standardized identifier for your institution. Maximum length is 20 characters.
+				<p>
+					Examples:
+					<ul>
+						<li>UAM</li>
+						<li>MSB</li>
+						<li>MVZ</li>
+					</ul>
+				</p>
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##institution-acronym">Documentation</a></li>
+				</ul>
+				<label for="INSTITUTION_ACRONYM">Institution Acronym</label>
 				<input type="text" name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM" class="reqdClr" required value="#d.INSTITUTION_ACRONYM#">
 			</div>
 
@@ -805,6 +1347,22 @@
 </cfoutput>
 
 </cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <cfif action is "nothxxxxxing">
 	<p>
