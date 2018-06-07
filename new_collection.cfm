@@ -227,7 +227,11 @@
 				</cfif>
 				'#escapeQuotes(vocab_enforcement)#',
 				'#escapeQuotes(vocab_text)#',
-				'#escapeQuotes(tissues)#',
+				<cfif isdefined("tissues") and len(tissues) gt 0>
+					'#escapeQuotes(tissues)#',
+				<cfelse>
+					'none',
+				</cfif>
 				'#escapeQuotes(tissue_detail)#',
 				'#escapeQuotes(barcodes)#',
 				'#escapeQuotes(barcode_desc)#',
