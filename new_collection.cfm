@@ -152,10 +152,11 @@
 			<label for="user_pwd">Password</label>
 			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#pwd#">
 		</div>
-		<input type="submit" value="submit request">
+		<input type="submit" value="submit request" class="insBtn">
 		</cfoutput>
 	</form>
 
+	<hr>
 
 	<h2>Existing Requests</h2>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -194,7 +195,7 @@
 				</cfloop>
 			</table>
 		</cfoutput>
-
+<!----
 
 	If you have created a request, fill in the form with the password and Institution Acronym you used in the initial request and click "manage existing request."
 	<p>
@@ -258,8 +259,47 @@
 			</table>
 		</cfoutput>
 	</cfif>
-
+--->
 </cfif>
+
+<cfif action is "new_request">
+	<cfquery name="mkr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into pre_new_institution (
+			niid,
+			user_pwd,
+			INSTITUTION_ACRONYM,
+			status,
+			insert_date,
+			initiated_by_username
+		) values (
+			someRandomSequence.nextval,
+			'#escapeQuotes(user_pwd)#',
+			'#escapeQuotes(INSTITUTION_ACRONYM)#',
+			'new',
+			sysdate,
+			'#session.username#'
+		)
+	</cfquery>
+	<cflocation url="new_collection.cfm?action=manage&pwhash=#hash(user_pwd)#&INSTITUTION_ACRONYM=#INSTITUTION_ACRONYM#">
+</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <cfif action is "newCollectionRequest">
 	<cfquery name="mkr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into pre_new_collection (
