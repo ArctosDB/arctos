@@ -127,7 +127,7 @@
 			1=2
 		</cfif>
 	</cfquery>
-	<cfif r.recordcount is not 1>
+	<cfif d.recordcount is not 1>
 		Failure<cfabort>
 	</cfif>
 
