@@ -232,15 +232,12 @@
 
 			<div class="infoDiv">
 				<label for="specimen_types">Which of the following specimen types are you interested in migrating to Arctos (check all that apply)?</label>
-   				<input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
-   				<input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
-Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues Herbarium Earth Sciences Art History Ethnology Archaeology Other
-
-
-
-				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
-				<input type="text" name="are_all_digitized" id="are_all_digitized" class="reqdClr" required value="#d.are_all_digitized#" size="80">
-			</div>
+				<cfset l= "Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues Herbarium Earth Sciences Art History Ethnology Archaeology Other">
+				<cfloop list="#l#" delimiters=" " index="i">
+					<input type="checkbox" name="specimen_types"
+						<cfif d.specimen_types contains "#i#">checked="checked"</cfif> value="#i#">#i#<br>
+				</cfloop>
+   				</div>
 
 
 
