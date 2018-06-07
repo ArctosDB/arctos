@@ -100,10 +100,58 @@
 </cfif>
 
 <cfif action is "nothing">
-
 	<p>
 		This form facilitates new collection creation in Arctos. This is a request only; you cannot create a collection with this form.
 	</p>
+	<h2>Initiate a Request</h2>
+
+	<form name="f" id="f" method="post" action="new_collection.cfm">
+		<input type="hidden" name="action" value="new_request">
+		<div class="infoDiv">
+			Institution Acronym is a short, standardized identifier for your institution. Maximum length is 20 characters.
+			<p>
+				Examples:
+				<ul>
+					<li>UAM</li>
+					<li>MSB</li>
+					<li>MVZ</li>
+				</ul>
+			</p>
+			<ul>
+				<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##institution-acronym">Documentation</a></li>
+			</ul>
+			<label for="INSTITUTION_ACRONYM">Institution Acronym</label>
+			<input type="text" name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM" class="reqdClr" required >
+		</div>
+
+		<div class="infoDiv">
+			Password used for managing this request. This password is NOT secure and should be used nowhere except in this form.
+			The password must be at least one character in length.	DO NOT re-use your password to any site, including Arctos.
+			This password provides light obfuscation of the collection creation process, but is no guarantee of security. Do not provide any
+			confidential information in this form. A password has been suggested; you may change it.
+			<cfset >
+		    <cfset var length = randRange(4,7)>
+		    <cfset var result = "">
+		    <cfset var i = "">
+		    <cfset var char = "">
+		    <cfscript>
+			    var chars = "23456789ABCDEFGHJKMNPQRS";
+			    var length = randRange(4,7);
+			    var i = "";
+			    var char = "";
+			    for(i=1; i <= length; i++) {
+			        char = mid(chars, randRange(1, len(chars)),1);
+			        result&=char;
+			    }
+		    </cfscript>
+
+			<label for="user_pwd">Password</label>
+			<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required value="#result#">
+		</div>
+		<input type="submit" value="submit request">
+	</form>
+
+
 	<h2>Existing Requests</h2>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from pre_new_institution order by insert_date desc
