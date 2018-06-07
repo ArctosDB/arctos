@@ -133,42 +133,6 @@
 
 	Step One: Provide some basic information about your institution or organization.
 
-
-		 VARCHAR2(4000),
-		are_all_digitized VARCHAR2(4000),
-		specimen_types  VARCHAR2(4000),
-		yearly_add_avg  VARCHAR2(4000),
-		exp_grth_rate VARCHAR2(4000),
-		current_software VARCHAR2(4000),
-		current_structure VARCHAR2(4000),
-		vocab_control  VARCHAR2(4000),
-		free_text VARCHAR2(4000),
-		vocab_enforcement  VARCHAR2(4000),
-		vocab_text VARCHAR2(4000),
-		tissues VARCHAR2(4000),
-		tissue_detail VARCHAR2(4000),
-		barcodes VARCHAR2(4000),
-		barcode_desc VARCHAR2(4000),
-		locality VARCHAR2(4000),
-		georefedpercent VARCHAR2(4000),
-		metadata VARCHAR2(4000),
-		digital_trans VARCHAR2(4000),
-		trans_desc VARCHAR2(4000),
-		more_data VARCHAR2(4000),
-		digital_media VARCHAR2(4000),
-		media_plan VARCHAR2(4000),
-		want_storage VARCHAR2(4000),
-		has_help VARCHAR2(4000),
-		security_concern VARCHAR2(4000),
-		budget VARCHAR2(4000),
-		comments VARCHAR2(4000),
-		completed_by VARCHAR2(4000),
-		completed_by_email VARCHAR2(4000),
-		completed_by_phone VARCHAR2(4000),
-		completed_by_title VARCHAR2(4000),
-		status varchar2(255),
-		insert_date date,
-		CONSTRAINT PK_pre_ne
 	<cfdump var="#d#">
 
 		<h2>New Collection Request</h2>
@@ -212,7 +176,7 @@
 		<p>
 			Make sure to save if you change anything! Scroll down for options.
 		</p>
-
+		<cfoutput>
 		<form name="f" id="f" action="new_collection.cfm" method="post">
 
 			<br><input type="submit" class="savBtn" value="save changes">
@@ -254,10 +218,27 @@
 			</div>
 
 			<div class="infoDiv">
-
-
 				<label for="ttl_spc_cnt"> How many total specimens across all collection(s) are you interested in migrating to Arctos?</label>
 				<input type="text" name="ttl_spc_cnt" id="ttl_spc_cnt" class="reqdClr" required value="#d.ttl_spc_cnt#" size="80">
+			</div>
+			<div class="infoDiv">
+				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
+
+
+
+				<input type="radio" name="are_all_digitized" class="reqdClr" required <cfif d.are_all_digitized is "yes"> checked="checked </cfif>value="yes" >
+				<input type="radio" name="are_all_digitized" class="reqdClr" required <cfif d.are_all_digitized is "yes"> checked="checked </cfif>value="no" >
+			</div>
+
+			<div class="infoDiv">
+
+				Which of the following specimen types are you interested in migrating to Arctos (check all that apply)? *
+Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues Herbarium Earth Sciences Art History Ethnology Archaeology Other
+
+
+
+				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
+				<input type="text" name="are_all_digitized" id="are_all_digitized" class="reqdClr" required value="#d.are_all_digitized#" size="80">
 			</div>
 
 
@@ -265,6 +246,41 @@
 
 
 
+		 VARCHAR2(4000),
+		 VARCHAR2(4000),
+		specimen_types  VARCHAR2(4000),
+		yearly_add_avg  VARCHAR2(4000),
+		exp_grth_rate VARCHAR2(4000),
+		current_software VARCHAR2(4000),
+		current_structure VARCHAR2(4000),
+		vocab_control  VARCHAR2(4000),
+		free_text VARCHAR2(4000),
+		vocab_enforcement  VARCHAR2(4000),
+		vocab_text VARCHAR2(4000),
+		tissues VARCHAR2(4000),
+		tissue_detail VARCHAR2(4000),
+		barcodes VARCHAR2(4000),
+		barcode_desc VARCHAR2(4000),
+		locality VARCHAR2(4000),
+		georefedpercent VARCHAR2(4000),
+		metadata VARCHAR2(4000),
+		digital_trans VARCHAR2(4000),
+		trans_desc VARCHAR2(4000),
+		more_data VARCHAR2(4000),
+		digital_media VARCHAR2(4000),
+		media_plan VARCHAR2(4000),
+		want_storage VARCHAR2(4000),
+		has_help VARCHAR2(4000),
+		security_concern VARCHAR2(4000),
+		budget VARCHAR2(4000),
+		comments VARCHAR2(4000),
+		completed_by VARCHAR2(4000),
+		completed_by_email VARCHAR2(4000),
+		completed_by_phone VARCHAR2(4000),
+		completed_by_title VARCHAR2(4000),
+		status varchar2(255),
+		insert_date date,
+		CONSTRAINT PK_pre_ne
 
 
 
@@ -492,7 +508,7 @@
 
 
 
-
+</cfoutput>
 
 </cfif>
 
