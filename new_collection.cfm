@@ -225,8 +225,9 @@
 				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
 
 
-
+				<label>yes</label>
 				<input type="radio" name="are_all_digitized" class="reqdClr" required <cfif d.are_all_digitized is "yes"> checked="checked </cfif>value="yes" >
+<label>no</label>
 				<input type="radio" name="are_all_digitized" class="reqdClr" required <cfif d.are_all_digitized is "yes"> checked="checked </cfif>value="no" >
 			</div>
 
