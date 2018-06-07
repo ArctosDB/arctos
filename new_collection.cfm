@@ -215,7 +215,11 @@
 				'#escapeQuotes(exp_grth_rate)#',
 				'#escapeQuotes(current_software)#',
 				'#escapeQuotes(current_structure)#',
-				'#escapeQuotes(vocab_control)#',
+				<cfif isdefined("vocab_control") and len(vocab_control) gt 0>
+					'#escapeQuotes(vocab_control)#',
+				<cfelse>
+					'none',
+				</cfif>
 				<cfif isdefined("free_text") and len(free_text) gt 0>
 					'#escapeQuotes(free_text)#',
 				<cfelse>
