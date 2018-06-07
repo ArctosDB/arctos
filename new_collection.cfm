@@ -129,11 +129,6 @@
 			The password must be at least one character in length.	DO NOT re-use your password to any site, including Arctos.
 			This password provides light obfuscation of the collection creation process, but is no guarantee of security. Do not provide any
 			confidential information in this form. A password has been suggested; you may change it.
-			<cfset >
-		    <cfset var length = randRange(4,7)>
-		    <cfset var result = "">
-		    <cfset var i = "">
-		    <cfset var char = "">
 		    <cfscript>
 			    var chars = "23456789ABCDEFGHJKMNPQRS";
 			    var length = randRange(4,7);
