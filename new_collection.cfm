@@ -257,7 +257,7 @@
 		</code>
 
 		<p>
-			You may view your submission by <a href="/new_collection.cfm?action=manage_institution&&iid=#hash(srs.nid)#">clicking this link</a>
+			You may view your submission by <a href="/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#">clicking this link</a>
 		</p>
 		<p>
 			Please use the contact link at the bottom of any Arctos page if you wish to revise the submission, or if you have not
