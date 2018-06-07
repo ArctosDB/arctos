@@ -55,7 +55,7 @@
 		CONSTRAINT PK_pre_new_inst PRIMARY KEY (niid) USING INDEX TABLESPACE UAM_IDX_1
 	) TABLESPACE UAM_DAT_1;
 
-
+	alter table pre_new_institution  add initiated_by_username VARCHAR2(255);
 
 	create or replace public synonym pre_new_institution for pre_new_institution;
 	grant select, insert, update on pre_new_institution to public;
@@ -105,6 +105,31 @@
 <cfif len(session.username) is 0>
 	You must log in to use this form.
 	<cfabort>
+</cfif>
+
+<cfif action is "manage">
+	<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
+	</cfquery>
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select source from cttaxonomy_source group by source order by source
+	</cfquery>
+	<cfquery name="ctcollection_cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_cde from ctcollection_cde  order by collection_cde
+	</cfquery>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from pre_new_institution where institution_acronym='#institution_acronym#' and
+		<cfif isdefined('user_pwd') and len('user_pwd') gt 0>
+			user_pwd='#escapeQuotes(user_pwd)#'
+		<cfelseif isdefined('pwhash') and len('pwhash') gt 0>
+			dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw(user_pwd)) ='#pwhash#'
+		<cfelse>
+			1=2
+		</cfif>
+	</cfquery>
+	<cfdump var="d">
+
+
 </cfif>
 
 <cfif action is "nothing">
