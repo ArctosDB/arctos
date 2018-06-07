@@ -522,6 +522,17 @@
 			<h3>Putting your data in Arctos</h3>
 
 
+
+			<div class="infoDiv">
+				<label for="has_help">Do you have someone familiar with the collection who can assist in migrating data to Arctos?</label>
+				<select name="has_help" required>
+					<option value=""></option>
+					<option value="yes" >yes</option>
+					<option value="no">no</option>
+				</select>
+			</div>
+
+
 			<div class="infoDiv">
 				<label for="want_storage"> Do you have digital media in your current system? </label>
 				<select name="want_storage" required>
@@ -1081,7 +1092,7 @@
 
 			<div class="infoDiv">
 				<label for="security_concern">Please describe any permission or security issues that would prevent us from accessing your data directly if necessary for data migration?</label>
-				<textarea class="hugetextarea reqdClr" name="security_concern" id="security_concern" required >#d.has_help#</textarea>
+				<textarea class="hugetextarea reqdClr" name="security_concern" id="security_concern" required >#d.security_concern#</textarea>
 			</div>
 
 
