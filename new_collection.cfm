@@ -339,12 +339,12 @@
 			</div>
 
 			<div class="infoDiv">
-				<label for="ttl_spc_cnt"> How many total specimens across all collection(s) are you interested in migrating to Arctos?</label>
+				<label for="ttl_spc_cnt">How many total specimens across all collection(s) are you interested in migrating to Arctos?</label>
 				<input type="text" name="ttl_spc_cnt" id="ttl_spc_cnt" class="reqdClr" required  size="80">
 			</div>
 			<div class="infoDiv">
 				<label for="are_all_digitized">Are the data for all of those specimens in digital format?</label>
-				<select name="are_all_digitized">
+				<select name="are_all_digitized" required>
 					<option value=""></option>
 					<option value="yes">yes</option>
 					<option value="no">no</option>
@@ -355,7 +355,7 @@
 				<label for="specimen_types">Which of the following specimen types are you interested in migrating to Arctos (check all that apply)?</label>
 				<cfset l= "Amphibians Reptiles Fishes Birds Mammals Insects Invertebrates Parasites Tissues Herbarium Earth Sciences Art History Ethnology Archaeology Other">
 				<cfloop list="#l#" delimiters=" " index="i">
-					<input type="checkbox" name="specimen_types" value="#i#">#i#<br>
+					<input required type="checkbox" name="specimen_types" value="#i#">#i#<br>
 				</cfloop>
    			</div>
 
