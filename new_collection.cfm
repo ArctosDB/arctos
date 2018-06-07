@@ -342,7 +342,7 @@ The following questions are intended to provide basic information about how your
 				<textarea class="hugetextarea reqdClr" name="locality" id="locality" required >#d.locality#</textarea>
 			</div>
 			<div class="infoDiv">
-				<label for="georefedpercent"> Approximately what proportion of your locality data are georeferenced with latitude/longitude coordinates? * </label>
+				<label for="georefedpercent">Approximately what proportion of your locality data are georeferenced with latitude/longitude coordinates? * </label>
 				<input type="text" name="georefedpercent" id="georefedpercent" class="reqdClr" required value="#d.georefedpercent#" size="80">
 			</div>
 			<div class="infoDiv">
@@ -350,27 +350,104 @@ The following questions are intended to provide basic information about how your
 				<textarea class="hugetextarea reqdClr" name="metadata" id="metadata" required >#d.metadata#</textarea>
 			</div>
 
+			<div class="infoDiv">
+				<label for="tissues">For the following transaction types, indicate whether you have digital information that would need to be formatted and imported? (check all that apply)</label>
+				<cfset l= "Loans|Accessions|Permits|We do not track transactions digitally">
+				<cfloop list="#l#" delimiters="|" index="i">
+					<input type="checkbox" name="digital_trans"
+						<cfif d.digital_trans contains "#i#">checked="checked"</cfif> value="#i#">#i#<br>
+				</cfloop>
+   			</div>
 
-			  *
-		 VARCHAR2(4000),
-		digital_trans VARCHAR2(4000),
-		trans_desc VARCHAR2(4000),
-		more_data VARCHAR2(4000),
-		digital_media VARCHAR2(4000),
-		media_plan VARCHAR2(4000),
-		want_storage VARCHAR2(4000),
-		has_help VARCHAR2(4000),
-		security_concern VARCHAR2(4000),
-		budget VARCHAR2(4000),
-		comments VARCHAR2(4000),
-		completed_by VARCHAR2(4000),
-		completed_by_email VARCHAR2(4000),
-		completed_by_phone VARCHAR2(4000),
-		completed_by_title VARCHAR2(4000),
-		status varchar2(255),
-		insert_date date,
-		CONSTRAINT PK_pre_ne
 
+			<div class="infoDiv">
+				<label for="metadata">Describe generally how you deal with transactions (loans, accessions, permits) in your current system.</label>
+				<textarea class="hugetextarea reqdClr" name="trans_desc" id="trans_desc" required >#d.trans_desc#</textarea>
+			</div>
+			<div class="infoDiv">
+				<label for="more_data">Other than basic “label data” (who/what/when/where), what other kinds of information (if any) is recorded about your specimens (e.g., citations in publications, GenBank numbers, projects, etc.)?</label>
+				<textarea class="hugetextarea reqdClr" name="more_data" id="more_data" required >#d.more_data#</textarea>
+			</div>
+
+			<div class="infoDiv">
+				<label for="digital_media"> Do you have digital media in your current system? </label>
+				<select name="digital_media">
+					<option value=""></option>
+					<option value="yes" <cfif d.digital_media is "yes"> selected="selected"</cfif> >yes</option>
+					<option value="no" <cfif d.digital_media is "no"> selected="selected"</cfif> >no</option>
+				</select>
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="media_plan">Indicate how you plan to store digital media that are linked to data in Arctos.</label>
+				<cfset l= "We need storage for digital media through Arctos.|We have our own web-accessible storage for digital media.|Our digital media are stored and accessible via an external web service.|We do not plan to have digital media in Arctos at this time.">
+				<cfloop list="#l#" delimiters="|" index="i">
+					<input type="checkbox" name="media_plan"
+						<cfif d.media_plan contains "#i#">checked="checked"</cfif> value="#i#">#i#<br>
+				</cfloop>
+   			</div>
+
+			<div class="infoDiv">
+				Putting your data in Arctos:
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="want_storage"> Do you have digital media in your current system? </label>
+				<select name="want_storage">
+					<option value=""></option>
+					<option value="yes" <cfif d.want_storage is "yes"> selected="selected"</cfif> >yes</option>
+					<option value="no" <cfif d.want_storage is "no"> selected="selected"</cfif> >no</option>
+				</select>
+			</div>
+
+			<div class="infoDiv">
+				<label for="security_concern">Please describe any permission or security issues that would prevent us from accessing your data directly if necessary for data migration?</label>
+				<textarea class="hugetextarea reqdClr" name="security_concern" id="security_concern" required >#d.has_help#</textarea>
+			</div>
+
+
+
+			<div class="infoDiv">
+				<label for="budget">Do you have an annual budget available for database support?</label>
+				<select name="budget">
+					<option value=""></option>
+					<option value="yes" <cfif d.budget is "yes"> selected="selected"</cfif> >yes</option>
+					<option value="no" <cfif d.budget is "no"> selected="selected"</cfif> >no</option>
+				</select>
+			</div>
+
+
+
+			<div class="infoDiv">
+				<label for="comments">Please add any other comments or questions that you have re: Arctos or your collection(s).</label>
+				<textarea class="hugetextarea reqdClr" name="comments" id="comments" required >#d.comments#</textarea>
+			</div>
+
+			<div class="infoDiv">
+				<label for="completed_by">Questionnaire completed by</label>
+				<input type="text" name="completed_by" id="completed_by" class="reqdClr" required value="#d.completed_by#">
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="completed_by_title">Job Title</label>
+				<input type="text" name="completed_by_title" id="completed_by_title" class="reqdClr" required value="#d.completed_by_title#">
+			</div>
+
+
+			<div class="infoDiv">
+				<label for="completed_by_email">Email</label>
+				<input type="email" name="completed_by_email" id="completed_by_email" class="reqdClr" required value="#d.completed_by_email#">
+			</div>
+
+			<div class="infoDiv">
+				<label for="completed_by_phone">Phone</label>
+				<input type="phone" name="completed_by_phone" id="completed_by_phone" class="reqdClr" required value="#d.completed_by_phone#">
+			</div>
+
+			<!----
 
 
 
@@ -591,6 +668,7 @@ The following questions are intended to provide basic information about how your
 					</select>
 				</div>
 			</cfif>
+			---->
 			<br><input type="submit" class="savBtn" value="save changes">
 		</form>
 
