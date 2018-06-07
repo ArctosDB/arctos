@@ -567,7 +567,7 @@
 
 			<div class="infoDiv">
 				<label for="completed_by_phone">Phone</label>
-				<input type="phone" name="completed_by_phone" id="completed_by_phone" class="reqdClr" required >
+				<input type="tel" name="completed_by_phone" id="completed_by_phone" class="reqdClr" required >
 			</div>
 
 			<!----
