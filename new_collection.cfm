@@ -164,7 +164,6 @@
 			insert into pre_new_collection (
 				niid,
 				ncid,
-				user_pwd,
 				GUID_PREFIX,
 				status,
 				insert_date,
@@ -685,7 +684,6 @@
 					</select>
 				</div>
 			</cfif>
-			---->
 
 
 
