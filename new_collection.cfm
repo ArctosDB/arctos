@@ -495,6 +495,8 @@
 
 
 			<cfloop query="c">
+				<hr>
+				<h3>Editing #c.guid_prefix#</h3>
 				<p>
 					<a name="#c.guid_prefix#"></a>
 				</p>
@@ -647,7 +649,7 @@
 						<label for="contact_email">contact_email</label>
 						<input type="text" name="contact_email" id="contact_email" value="#c.contact_email#" size="80">
 					</div>
-					<br><input type="submit" value="Update Collection Request">
+					<br><input type="submit" value="Update Collection Request for #c.guid_prefix#">
 				</form>
 			</cfloop>
 		</cfif>
