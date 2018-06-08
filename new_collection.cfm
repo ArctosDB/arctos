@@ -156,8 +156,13 @@
 	<cfabort>
 </cfif>
 
-
-
+<cfif action is "setColnStatus">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update pre_new_institution set status='#status#' where niid ='#niid#'
+	</cfquery>
+	<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
+</cfif>
+<!------------------------------------------------------>
 <cfif action is "manage">
 	<style>
 		.qtn{font-weight:bold}
