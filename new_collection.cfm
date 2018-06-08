@@ -155,6 +155,52 @@
 	You must log in to use this form.
 	<cfabort>
 </cfif>
+<------------------------------------------------------------------------------------------>
+
+
+<cfif action is "pre_create_new_collection">
+	<cfoutput>
+		<cfquery name="mkr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into pre_new_collection (
+				niid,
+				ncid,
+				user_pwd,
+				GUID_PREFIX,
+				status,
+				insert_date,
+				initiated_by_username
+			) values (
+				#niid#,
+				someRandomSequence.nextval,
+				'#guid_prefix#',
+				'new',
+				sysdate,
+				'#session.username#'
+			)
+		</cfquery>
+
+		<p>
+			Success!
+		</p>
+		<p>
+			You now must work with the collection to provide collection metadata.
+		</p>
+		<p>
+			<a href="/new_collection.cfm?action=manage&id=#hash(niid)#">Click here to pre-create another collection</a>
+		</p>
+		<p>
+			<a href="/new_collection.cfm?action=manage&id=#hash(niid)####guid_prefix#">Click here to edit this collection</a>
+		</p>
+		<p>
+			Scroll to the bottom of the manage form for collections. The link to this collection is
+			<p>
+				<code>
+					#application.serverRootURL#/new_collection.cfm?action=manage&id=#hash(niid)####guid_prefix#
+				</code>
+			</p>
+		</p>
+	</cfoutput>
+</cfif>
 
 <cfif action is "setColnStatus">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -205,7 +251,10 @@
 
 				<ul>
 					<li>new: new request, neeeds administrative approval</li>
-					<li>approve_to_pre-create_collections: Administrative approval granted, the organization has at least one Mentor.</li>
+					<li>
+						approve_to_pre-create_collections: Administrative approval granted, the organization has at least one Mentor.
+						When this is set you will get a new option below. Read is CAREFULLY before proceeding.
+					</li>
 					<li>
 						approve_to_create_collections: ALL Collections have been pre-created and should be created as VPDs.
 						Changing this sends DBA email.
@@ -231,6 +280,35 @@
 					<input type="submit" value="change status">
 				</form>
 			</div>
+			<cfif d.status is "approve_to_pre-create_collections">
+				<div class="infoDiv">
+					This institution is set to approve_to_pre-create_collections so you can use this form to pre-pre-create collections.
+					Work with the collection to FIRMLY establish GUID_PREFIX
+					before pre-pre-creating collections.
+					GUID_PREFIX is traditionally institution_acronym + ":" + collection_cde, but this is not necassary.
+					There may be several collection in "Inst" which use "Herb" (=plants) collection code, for example.
+					Collection_Cde (controls code table access) will be set in the next step.
+					GUID_PREFIX __must__ contain a string, a colon, then another string, or the final request will fail.
+					GUID_PREFIX __must__ be unique within Arctos, and GUID_PREFIX _should_ be unique within GRBIO/GBIF/etc.
+					The maximum length is 20 characters. Examples:
+
+					<ul>
+						<li>MSB:Mamm</li>
+						<li>UAM:Herb</li>
+						<li>UAM:Crypto</li>
+						<li>UAM:Alg</li>
+						<li>UNM:ES</li>
+					</ul>
+					<form name="f" method="post" action="new_collection.cfm">
+						<input type="hidden" name="action" value="pre_create_new_collection">
+						<input type="hidden" name="niid" value="#d.niid#">
+
+						<label for="guid_prefix">guid_prefix</label>
+						<input type="text" name="guid_prefix" id="guid_prefix" class="reqdClr" required>
+						<input type="submit" class="insBtn" value="pre-pre-create collection">
+					</form>
+				</div>
+			</cfif>
 		</cfif>
 
 
@@ -360,9 +438,274 @@
 			<div class="asr">#d.comments#</div>
 		</div>
 
+		<cfif d.status is "approve_to_pre-create_collections">
+			<div class="infoDiv">
+				Use this form to pre-create collections. This should be done by the person who will manage the collection and their assigned Mentor.
+			</div>
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from pre_new_collection where niid=#d.niid#
+			</cfquery>
+
+
+			<cfdump var=#c#>
+
+
+			<!----
+
+			<form name="f" method="post" action="new_collection.cfm">
+				<input type="hidden" name="action" value="create_new_collection">
+				<input type="hidden" name="niid" value="#d.niid#">
+
+				<form name="f" id="f" method="post" action="new_collection.cfm">
+		<input type="hidden" name="action" value="edit">
+		<label for="institution_acronym">Institution Acronym</label>
+		<input type="text" name="guid_prefix" id="guid_prefix" class="reqdClr" required>
+		<label for="user_pwd">Password</label>
+		<input type="text" name="user_pwd" id="user_pwd" class="reqdClr" required>
+		<br><input type="button" class="insBtn" onclick="document.f.action.value='newCollectionRequest';document.f.submit();" value="create collection request">
+		<br><input type="button" class="lnkBtn" onclick="document.f.action.value='mgCollectionRequest';document.f.submit();" value="manage existing request">
+	</form>
+
+
+---->
+
+
+		</cfif>
 
 
 
+<!----
+
+
+
+
+
+			<div class="infoDiv">
+				Collection is displayed as a child of institution in the Collection search box on SpecimenSearch.
+				It should be the same for all collections of similar type across institutions. Examples:
+
+				<ul>
+					<li>Amphibian and reptile specimens</li>
+					<li>Insect specimens</li>
+					<li>Mammal observations</li>
+				</ul>
+
+
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##collection">Documentation</a></li>
+				</ul>
+
+				<label for="COLLECTION">Collection</label>
+				<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#" size="80">
+			</div>
+
+
+
+
+			<div class="infoDiv">
+				Description of the collection. Maximum length is 4000 characters.
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##description">Documentation</a></li>
+				</ul>
+
+				<label for="DESCR">Description</label>
+				<textarea class="hugetextarea reqdClr" name="DESCR" id="DESCR" required >#d.DESCR#</textarea>
+			</div>
+
+			<div class="infoDiv">
+				URL to collection's loan policy. A loan policy is required; the contents of the loan policy are entirely up to the data owners.
+				File an Issue for assistance in creating or hosting a loan policy.
+
+				<label for="LOAN_POLICY_URL">Loan Policy URL</label>
+				<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#" size="80">
+			</div>
+
+
+			<div class="infoDiv">
+				Taxonomy Source is "your" classification. Choose an existing source, or file an Issue to import data or use an external
+				source through GlobalNames.org.
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/taxonomy.html##source-arctos">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-manage-taxonomic-classifications.html">How-To</a></li>
+				</ul>
+
+				<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
+				<select name="preferred_taxonomy_source" id="preferred_taxonomy_source" class="reqdClr" required>
+					<cfloop query="cttaxonomy_source">
+						<option	<cfif d.preferred_taxonomy_source is cttaxonomy_source.source> selected="selected" </cfif>
+							value="#source#">#source#</option>
+					</cfloop>
+				</select>
+
+			</div>
+
+
+
+			<div class="infoDiv">
+				Allowable format of catalog number. Integer provides more functionality and is preferred. Please discuss with your Mentor
+				if you are considering anything else.
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##catalog-number">Documentation</a></li>
+				</ul>
+				<label for="CATALOG_NUMBER_FORMAT">Catalog Number Format</label>
+				<select name="catalog_number_format" id="catalog_number_format" class="reqdClr" required >
+					<option <cfif d.catalog_number_format is "integer">selected="selected" </cfif>value="integer">integer</option>
+					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
+					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
+				</select>
+
+			</div>
+
+
+
+			<div class="infoDiv">
+				License to govern the usage of your data in Arctos. File an Issue if you need a new license. Note that data shared via DWC
+				may be licensed differently, and Media are individually licensed.
+
+				<ul>
+					<li><a target="_blank" class="external" href="/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE">Code Table</a></li>
+				</ul>
+				<label for="USE_LICENSE_ID">License</label>
+				<select name="use_license_id" id="use_license_id" >
+					<option value="NULL">-none-</option>
+					<cfloop query="CTMEDIA_LICENSE">
+						<option	<cfif d.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
+							value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
+					</cfloop>
+				</select>
+			</div>
+
+
+
+			<div class="infoDiv">
+				URL to more information, such as the collection's home page.
+				<label for="WEB_LINK">Web Link</label>
+				<input type="text" name="WEB_LINK" id="WEB_LINK"  value="#d.WEB_LINK#" size="80">
+			</div>
+
+			<div class="infoDiv">
+				Clickable text to display with web link.
+				<label for="WEB_LINK_TEXT">Web Link Text</label>
+				<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" value="#d.WEB_LINK_TEXT#" size="80">
+			</div>
+
+
+			<div class="infoDiv">
+				If you do not yet have a Mentor, you should discuss mentoring with a volunteer from
+				<a href="/info/mentor.cfm">the list</a>. You may contact a potential Mentor directly,
+				 use the contact form at the bottom of any Arctos page,
+				file an Issue, or contact anyone involved in the administration of Arctos for help.
+				<label for="mentor">mentor</label>
+				<input type="text" name="mentor" id="mentor"  value="#d.mentor#" size="80">
+			</div>
+
+
+			<div class="infoDiv">
+				Mentor's email. This is required to finalize this request.
+				<label for="mentor_contact">mentor_contact</label>
+				<input type="text" name="mentor_contact" id="mentor_contact" value="#d.mentor_contact#" size="80">
+			</div>
+
+
+			<div class="infoDiv">
+				Contact Email is your email address. This is required to finalize this request. Comma-list is OK.
+				<label for="contact_email">contact_email</label>
+				<input type="text" name="contact_email" id="contact_email" value="#d.contact_email#" size="80">
+			</div>
+
+			<div class="infoDiv">
+				Arctos username(s) who will receive initial manage_collection access. Comma-separated list OK. These Operators can
+				create and manage other collection users. Anyone listed here should already have an Arctos account; contact your Mentor
+				for an invitation.
+
+				<ul>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/users.html">Documentation</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Create-a-New-User-Account-for-Operators.html">How-To</a></li>
+					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Invite-an-Operator.html">How-To</a></li>
+				</ul>
+				<label for="admin_username">admin_username</label>
+				<input type="text" name="admin_username" id="admin_username"  value="#d.admin_username#" size="80">
+			</div>
+			<div class="infoDiv">
+				Once everything in this form is to your satisfaction, you may finalize this request. This message will be included
+				in that notification.
+				<cfif d.status is "new">
+					<label for="final_message">Message to include</label>
+					<textarea class="hugetextarea reqdClr" name="final_message" id="final_message" required >#d.final_message#</textarea>
+				<cfelse>
+					<input type="hidden" name="final_message" id="final_message" value="#d.final_message#">
+					<p>
+						This request has already been submitted with message:
+						<blockquote>
+							#d.final_message#
+						</blockquote>
+					</p>
+				</cfif>
+			</div>
+
+
+			<div class="infoDiv">
+				Once everything in this form is to your satisfaction, you may finalize this request. Choosing "finalize" in this control will
+				<ul>
+					<li>LOCK existing data</li>
+					<li>Notify Arctos staff of the request</li>
+				</ul>
+
+				<cfif d.status is "new">
+					<label for="sfs">Request Finalization</label>
+					<select name="sfs" id="sfs" >
+						<option value="">not yet</option>
+						<option value="yes_plz">Finalize these data; alert Arctos staff</option>
+					</select>
+				<cfelse>
+					<p>
+						This request has already been submitted. Contact your Mentor to revise.
+					</p>
+				</cfif>
+			</div>
+
+			<cfif isdefined("session.roles") and session.roles contains "global_admin">
+				<div class="infoDiv">
+					You have global_admin; you can change the status of this request.
+					<ul>
+						<li>new: unreviewed request</li>
+						<li>submit for review: request is ready for consideration by Arctos staff</li>
+						<li>ready to create: request is approved by Arctos staff and ready for DBA action</li>
+						<li>created: collection is created and ready for use</li>
+					</ul>
+					The save and request will fail if mentor_contact does not contain an email address.
+					<label for="status">status</label>
+						<select name="status" id="status" class="reqdClr" required >
+							<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
+							<option <cfif d.status is "submit for review">selected="selected" </cfif>value="submit for review">submit for review</option>
+							<option <cfif d.status is "ready to create">selected="selected" </cfif>value="ready to create">ready to create</option>
+							<option <cfif d.status is "created">selected="selected" </cfif>value="created">created</option>
+					</select>
+				</div>
+			</cfif>
+			---->
+
+
+
+
+					<label for="status">update status to</label>
+					<select name="status" id="status" >
+						<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
+						<option <cfif d.status is "approve_to_pre-create_collections">selected="selected" </cfif>value="approve_to_pre-create_collections">approve_to_pre-create_collections</option>
+						<option <cfif d.status is "approve_to_create_collections">selected="selected" </cfif>value="approve_to_create_collections">approve_to_create_collections</option>
+						<option <cfif d.status is "denied">selected="selected" </cfif>value="denied">denied</option>
+						<option <cfif d.status is "complete">selected="selected" </cfif>value="complete">complete</option>
+					</select>
+					<input type="submit" value="change status">
+				</form>
+			</div>
+
+					<div class="asr">#application.serverRootURL#/new_collection.cfm?action=manage&id=#hash(d.niid)#</div>
+
+
+--->
 
 	</cfoutput>
 </cfif>
@@ -850,7 +1193,6 @@
 				<input type="tel" name="completed_by_phone" id="completed_by_phone" class="reqdClr" required >
 			</div>
 
-			<!----
 
 
 
@@ -863,215 +1205,6 @@
 
 
 
-
-
-
-			<div class="infoDiv">
-				Collection is displayed as a child of institution in the Collection search box on SpecimenSearch.
-				It should be the same for all collections of similar type across institutions. Examples:
-
-				<ul>
-					<li>Amphibian and reptile specimens</li>
-					<li>Insect specimens</li>
-					<li>Mammal observations</li>
-				</ul>
-
-
-
-				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##collection">Documentation</a></li>
-				</ul>
-
-				<label for="COLLECTION">Collection</label>
-				<input type="text" name="COLLECTION" id="COLLECTION" class="reqdClr" required value="#d.COLLECTION#" size="80">
-			</div>
-
-
-
-
-			<div class="infoDiv">
-				Description of the collection. Maximum length is 4000 characters.
-				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##description">Documentation</a></li>
-				</ul>
-
-				<label for="DESCR">Description</label>
-				<textarea class="hugetextarea reqdClr" name="DESCR" id="DESCR" required >#d.DESCR#</textarea>
-			</div>
-
-			<div class="infoDiv">
-				URL to collection's loan policy. A loan policy is required; the contents of the loan policy are entirely up to the data owners.
-				File an Issue for assistance in creating or hosting a loan policy.
-
-				<label for="LOAN_POLICY_URL">Loan Policy URL</label>
-				<input type="text" name="LOAN_POLICY_URL" id="LOAN_POLICY_URL" class="reqdClr" required value="#d.LOAN_POLICY_URL#" size="80">
-			</div>
-
-
-			<div class="infoDiv">
-				Taxonomy Source is "your" classification. Choose an existing source, or file an Issue to import data or use an external
-				source through GlobalNames.org.
-				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/taxonomy.html##source-arctos">Documentation</a></li>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-manage-taxonomic-classifications.html">How-To</a></li>
-				</ul>
-
-				<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
-				<select name="preferred_taxonomy_source" id="preferred_taxonomy_source" class="reqdClr" required>
-					<cfloop query="cttaxonomy_source">
-						<option	<cfif d.preferred_taxonomy_source is cttaxonomy_source.source> selected="selected" </cfif>
-							value="#source#">#source#</option>
-					</cfloop>
-				</select>
-
-			</div>
-
-
-
-			<div class="infoDiv">
-				Allowable format of catalog number. Integer provides more functionality and is preferred. Please discuss with your Mentor
-				if you are considering anything else.
-
-				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/catalog.html##catalog-number">Documentation</a></li>
-				</ul>
-				<label for="CATALOG_NUMBER_FORMAT">Catalog Number Format</label>
-				<select name="catalog_number_format" id="catalog_number_format" class="reqdClr" required >
-					<option <cfif d.catalog_number_format is "integer">selected="selected" </cfif>value="integer">integer</option>
-					<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
-					<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
-				</select>
-
-			</div>
-
-
-
-			<div class="infoDiv">
-				License to govern the usage of your data in Arctos. File an Issue if you need a new license. Note that data shared via DWC
-				may be licensed differently, and Media are individually licensed.
-
-				<ul>
-					<li><a target="_blank" class="external" href="/info/ctDocumentation.cfm?table=CTMEDIA_LICENSE">Code Table</a></li>
-				</ul>
-				<label for="USE_LICENSE_ID">License</label>
-				<select name="use_license_id" id="use_license_id" >
-					<option value="NULL">-none-</option>
-					<cfloop query="CTMEDIA_LICENSE">
-						<option	<cfif d.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
-							value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
-					</cfloop>
-				</select>
-			</div>
-
-
-
-			<div class="infoDiv">
-				URL to more information, such as the collection's home page.
-				<label for="WEB_LINK">Web Link</label>
-				<input type="text" name="WEB_LINK" id="WEB_LINK"  value="#d.WEB_LINK#" size="80">
-			</div>
-
-			<div class="infoDiv">
-				Clickable text to display with web link.
-				<label for="WEB_LINK_TEXT">Web Link Text</label>
-				<input type="text" name="WEB_LINK_TEXT" id="WEB_LINK_TEXT" value="#d.WEB_LINK_TEXT#" size="80">
-			</div>
-
-
-			<div class="infoDiv">
-				If you do not yet have a Mentor, you should discuss mentoring with a volunteer from
-				<a href="/info/mentor.cfm">the list</a>. You may contact a potential Mentor directly,
-				 use the contact form at the bottom of any Arctos page,
-				file an Issue, or contact anyone involved in the administration of Arctos for help.
-				<label for="mentor">mentor</label>
-				<input type="text" name="mentor" id="mentor"  value="#d.mentor#" size="80">
-			</div>
-
-
-			<div class="infoDiv">
-				Mentor's email. This is required to finalize this request.
-				<label for="mentor_contact">mentor_contact</label>
-				<input type="text" name="mentor_contact" id="mentor_contact" value="#d.mentor_contact#" size="80">
-			</div>
-
-
-			<div class="infoDiv">
-				Contact Email is your email address. This is required to finalize this request. Comma-list is OK.
-				<label for="contact_email">contact_email</label>
-				<input type="text" name="contact_email" id="contact_email" value="#d.contact_email#" size="80">
-			</div>
-
-			<div class="infoDiv">
-				Arctos username(s) who will receive initial manage_collection access. Comma-separated list OK. These Operators can
-				create and manage other collection users. Anyone listed here should already have an Arctos account; contact your Mentor
-				for an invitation.
-
-				<ul>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/users.html">Documentation</a></li>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Create-a-New-User-Account-for-Operators.html">How-To</a></li>
-					<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Invite-an-Operator.html">How-To</a></li>
-				</ul>
-				<label for="admin_username">admin_username</label>
-				<input type="text" name="admin_username" id="admin_username"  value="#d.admin_username#" size="80">
-			</div>
-			<div class="infoDiv">
-				Once everything in this form is to your satisfaction, you may finalize this request. This message will be included
-				in that notification.
-				<cfif d.status is "new">
-					<label for="final_message">Message to include</label>
-					<textarea class="hugetextarea reqdClr" name="final_message" id="final_message" required >#d.final_message#</textarea>
-				<cfelse>
-					<input type="hidden" name="final_message" id="final_message" value="#d.final_message#">
-					<p>
-						This request has already been submitted with message:
-						<blockquote>
-							#d.final_message#
-						</blockquote>
-					</p>
-				</cfif>
-			</div>
-
-
-			<div class="infoDiv">
-				Once everything in this form is to your satisfaction, you may finalize this request. Choosing "finalize" in this control will
-				<ul>
-					<li>LOCK existing data</li>
-					<li>Notify Arctos staff of the request</li>
-				</ul>
-
-				<cfif d.status is "new">
-					<label for="sfs">Request Finalization</label>
-					<select name="sfs" id="sfs" >
-						<option value="">not yet</option>
-						<option value="yes_plz">Finalize these data; alert Arctos staff</option>
-					</select>
-				<cfelse>
-					<p>
-						This request has already been submitted. Contact your Mentor to revise.
-					</p>
-				</cfif>
-			</div>
-
-			<cfif isdefined("session.roles") and session.roles contains "global_admin">
-				<div class="infoDiv">
-					You have global_admin; you can change the status of this request.
-					<ul>
-						<li>new: unreviewed request</li>
-						<li>submit for review: request is ready for consideration by Arctos staff</li>
-						<li>ready to create: request is approved by Arctos staff and ready for DBA action</li>
-						<li>created: collection is created and ready for use</li>
-					</ul>
-					The save and request will fail if mentor_contact does not contain an email address.
-					<label for="status">status</label>
-						<select name="status" id="status" class="reqdClr" required >
-							<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
-							<option <cfif d.status is "submit for review">selected="selected" </cfif>value="submit for review">submit for review</option>
-							<option <cfif d.status is "ready to create">selected="selected" </cfif>value="ready to create">ready to create</option>
-							<option <cfif d.status is "created">selected="selected" </cfif>value="created">created</option>
-					</select>
-				</div>
-			</cfif>
-			---->
 			<div class="infoDiv">
 				<p>
 					Please carefully review the above information before submitting. Submitting this form will notify the Arctos Working Group of your request.
