@@ -641,13 +641,13 @@
 							<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Invite-an-Operator.html">How-To</a></li>
 						</ul>
 						<label for="admin_username">admin_username</label>
-						<input type="text" name="admin_username" id="admin_username"  value="#d.admin_username#" size="80">
+						<input type="text" name="admin_username" id="admin_username"  value="#c.admin_username#" size="80">
 					</div>
 
 					<div class="infoDiv">
 						Primary email contact for collection personell. Comma-list is OK.
 						<label for="contact_email">contact_email</label>
-						<input type="text" name="contact_email" id="contact_email" value="#d.contact_email#" size="80">
+						<input type="text" name="contact_email" id="contact_email" value="#c.contact_email#" size="80">
 					</div>
 					<br><input type="submit" value="Update Collection Request">
 				</form>
