@@ -158,7 +158,7 @@
 
 
 
-<cfif action is "manage_institution">
+<cfif action is "manage">
 	<style>
 		.qtn{font-weight:bold}
 		.asr{margin-left:1em;font-style: italic;}
@@ -166,9 +166,8 @@
 	</style>
 	<cfoutput>
    		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from pre_new_institution where dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw(niid)) ='#iid#'
+			select * from pre_new_institution where dbms_obfuscation_toolkit.md5(input => UTL_RAW.cast_to_raw(niid)) ='#id#'
 		</cfquery>
-		<cfdump var=#d#>
 
 		<div class="r">
 			<div class="qtn">Questionnaire completed by</div>
@@ -194,12 +193,47 @@
 			<div class="qtn">Status</div>
 			<div class="asr">#d.status#</div>
 		</div>
+
+		<cfif isdefined("session.roles") and session.roles contains "global_admin">
+			<div class="infoDiv">
+				You have global_admin; you can change the status of this request.
+
+				<ul>
+					<li>new: new request, neeeds administrative approval</li>
+					<li>approve_to_pre-create_collections: Administrative approval granted, the organization has at least one Mentor.</li>
+					<li>
+						approve_to_create_collections: ALL Collections have been pre-created and should be created as VPDs.
+						Changing this sends DBA email.
+					</li>
+					<li>
+						complete: Collections have been created; Arctos is ready to accept data.
+					</li>
+					<li>
+						denied: Administrative approval has not been granted and will not be at this time.
+					</li>
+				</ul>
+				<form name="f" method="post" action="new_collection.cfm">
+					<input type="hidden" name="action" value="setColnStatus">
+					<input type="hidden" name="niid" value="#d.niid#">
+					<label for="status">update status to</label>
+					<select name="status" id="status" >
+						<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
+						<option <cfif d.status is "approve_to_pre-create_collections">selected="selected" </cfif>value="approve_to_pre-create_collections">approve_to_pre-create_collections</option>
+						<option <cfif d.status is "approve_to_create_collections">selected="selected" </cfif>value="approve_to_create_collections">approve_to_create_collections</option>
+						<option <cfif d.status is "denied">selected="selected" </cfif>value="denied">denied</option>
+						<option <cfif d.status is "complete">selected="selected" </cfif>value="complete">complete</option>
+					</select>
+					<input type="submit" value="change status">
+				</form>
+			</div>
+		</cfif>
+
+
+
 		<div class="r">
 			<div class="qtn">Link</div>
-			<div class="asr">#application.serverRootURL#/new_collection.cfm?action=manage_institution&iid=#hash(d.niid)#</div>
+			<div class="asr">#application.serverRootURL#/new_collection.cfm?action=manage&id=#hash(d.niid)#</div>
 		</div>
-
-
 		<div class="r">
 			<div class="qtn">Institution Acronym</div>
 			<div class="asr">#d.INSTITUTION_ACRONYM#</div>
@@ -325,11 +359,6 @@
 
 
 
-
-
----->
-
-
 	</cfoutput>
 </cfif>
 
@@ -452,8 +481,8 @@
 			</p>
 			<p>
 				A user has submitted the initial collection creation form. The submission is available at
- 				<a href="#application.serverRootURL#/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#">
-					#application.serverRootURL#/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#
+ 				<a href="#application.serverRootURL#/new_collection.cfm?action=manage&id=#hash(srs.nid)#">
+					#application.serverRootURL#/new_collection.cfm?action=manage&id=#hash(srs.nid)#
 				</a>
 			</p>
 			<p>
@@ -466,14 +495,16 @@
 					</li>
 					<li>Assign a Mentor. http://arctos.database.museum/info/mentor.cfm</li>
 					<li>
+						As a user with global_admin access, visit
+						#application.serverRootURL#/new_collection.cfm?action=manage&id=#hash(srs.nid)#
+						(link above) and complete the "Admin" section.
+					</li>
+
+
+					<li>
 						Create Agent record(s) for at least one user, who will manage collections and invite additional users.
 						Get them through the Operator Creation process.
 						You do not need to assign them any roles or collections.
-					</li>
-					<li>
-						As a user with global_admin access, visit
-						#application.serverRootURL#/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#
-						(link above) and complete the "Admin" section.
 					</li>
 				</ol>
 
