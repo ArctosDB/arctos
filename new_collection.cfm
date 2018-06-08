@@ -542,6 +542,7 @@
 
 						<label for="COLLECTION_CDE">Collection Code</label>
 						<select name="COLLECTION_CDE" id="COLLECTION_CDE" class="reqdClr" required>
+							<option value=""></option>
 							<cfloop query="ctcollection_cde">
 								<option	<cfif c.collection_cde is ctcollection_cde.collection_cde> selected="selected" </cfif>
 									value="#collection_cde#">#collection_cde#</option>
@@ -592,9 +593,9 @@
 						</ul>
 						<label for="CATALOG_NUMBER_FORMAT">Catalog Number Format</label>
 						<select name="catalog_number_format" id="catalog_number_format" class="reqdClr" required >
-							<option <cfif d.catalog_number_format is "integer">selected="selected" </cfif>value="integer">integer</option>
-							<option <cfif d.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
-							<option <cfif d.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
+							<option <cfif c.catalog_number_format is "integer">selected="selected" </cfif>value="integer">integer</option>
+							<option <cfif c.catalog_number_format is "prefix-integer-suffix">selected="selected" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
+							<option <cfif c.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
 						</select>
 					</div>
 					<div class="infoDiv">
