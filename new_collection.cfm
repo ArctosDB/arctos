@@ -175,6 +175,10 @@
 			<div class="asr">#d.completed_by#</div>
 		</div>
 		<div class="r">
+			<div class="qtn">Arctos Username</div>
+			<div class="asr">#d.initiated_by_username#</div>
+		</div>
+		<div class="r">
 			<div class="qtn">Job Title</div>
 			<div class="asr">#d.completed_by_title#</div>
 		</div>
@@ -192,7 +196,7 @@
 		</div>
 		<div class="r">
 			<div class="qtn">Link</div>
-			<div class="asr">#application.serverRootURL#/new_collection.cfm?action=manage_institution&&iid=#hash(d.niid)#</div>
+			<div class="asr">#application.serverRootURL#/new_collection.cfm?action=manage_institution&iid=#hash(d.niid)#</div>
 		</div>
 
 
