@@ -374,7 +374,8 @@
 				completed_by_phone,
 				completed_by_title,
 				status,
-				insert_date
+				insert_date,
+				initiated_by_username
 			) values (
 				#srs.nid#,
 				'#escapeQuotes(INSTITUTION)#',
@@ -436,28 +437,59 @@
 				'#escapeQuotes(completed_by_phone)#',
 				'#escapeQuotes(completed_by_title)#',
 				'new',
-				sysdate
+				sysdate,
+				'#session.username#'
 			)
 		</cfquery>
+
+		<cfmail to="dustymc@gmail.com" subject="Arctos Join Request" from="joinrequest@#Application.fromEmail#" type="html">
+			<p>
+				New Collection Request
+			</p>
+			<p>
+				A user has submitted the initial collection creation form. The submission is available at
+ 				<a href="#application.serverRootURL#/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#">
+					#application.serverRootURL#/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#
+				</a>
+			</p>
+			<p>
+				Next Steps:
+				<ol>
+					<li>Do administrative stuff; approve the request</li>
+					<li>
+						Coordinate any changes to INSTITUTION or INSTITUTION_ACRONYM with someone who has SQL access;
+						these will be used in collection creation and must be finalized before collections are created.
+					</li>
+					<li>Assign a Mentor. http://arctos.database.museum/info/mentor.cfm</li>
+					<li>
+						Create Agent record(s) for at least one user, who will manage collections and invite additional users.
+						Get them through the Operator Creation process.
+						You do not need to assign them any roles or collections.
+					</li>
+					<li>
+						As a user with global_admin access, visit
+						#application.serverRootURL#/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#
+						(link above) and complete the "Admin" section.
+					</li>
+				</ol>
+
+			</p>
+
+			<p>
+				SQL: select * from pre_new_institution where niid=#srs.nid#
+			</p>
+		</cfmail>
+
+
 		<p>
 			Success!
 		</p>
 		<p>
 			A request has been created and the Arctos community will be alerted to this request.
 		</p>
-		The link to review your submission is:
-
-<p>
-		<code>
-			#application.serverRootURL#/new_collection.cfm?action=manage_institution&&iid=#hash(srs.nid)#
-		</code>
-</p>
-		<p>
-			You may view your submission by <a href="/new_collection.cfm?action=manage_institution&iid=#hash(srs.nid)#">clicking this link</a>
-		</p>
 		<p>
 			Please use the contact link at the bottom of any Arctos page if you wish to revise the submission, or if you have not
-			been contacted within 10 working days. Please include the link above in any correspondence.
+			been contacted within 10 working days. Please include the institution acronym you provided in any correspondence.
 		</p>
 
 	</cfoutput>
@@ -1002,19 +1034,11 @@
 			---->
 			<div class="infoDiv">
 				<p>
-					Please carefully review the above information before submitting.
-				</p>
-				<p>
-					You will be provided a link to this information if the submission is successful. Please save this link. Use the Contact
-					link at the bottom of any form if you need to amend the submission.
+					Please carefully review the above information before submitting. Submitting this form will notify the Arctos Working Group of your request.
 				</p>
 				<br><input type="submit" class="savBtn" value="Submit Request">
 			</div>
 		</form>
-
-
-
-
 </cfoutput>
 
 </cfif>
