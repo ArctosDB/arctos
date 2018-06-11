@@ -14,7 +14,7 @@
 
 
 <cfif len(session.username) is 0>
-	You must log in to use this form.
+	You must log in to use this form. You may log in or create an account in the header, or <a href="/login.cfm">here</a>.
 	<cfabort>
 </cfif>
 <cfif isdefined("session.roles") and session.roles contains "global_admin">
