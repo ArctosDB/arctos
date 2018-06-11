@@ -1,5 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="New Collection Portal">
+<!--- this should probably be a global setting; hard-code for now --->
+<cfset mailtol="ccicero@berkeley.edu,campbell@carachupa.org,jegelewicz66@gmail.com,dustymc@gmail.com,lkv@berkeley.edu">
 <cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
 	<!--- some sections of this form are public; others are restricted ---->
 	<cfif
@@ -187,7 +189,7 @@
 			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select institution from pre_new_institution  where niid ='#niid#'
 			</cfquery>
-			<cfmail to="dustymc@gmail.com" subject="Arctos Join Request: Status Update" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
+			<cfmail to="#mailtol#" subject="Arctos Join Request: Status Update" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
 				Status has changed to #status# for pending institution #q.institution#
 			</cfmail>
 			<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
@@ -592,10 +594,12 @@
 			<div class="qtn">Do you have someone familiar with the collection who can assist in migrating data to Arctos?</div>
 			<div class="asr">#d.has_help#</div>
 		</div>
+		<!----
 		<div class="r">
 			<div class="qtn">Do you want to use Arctos Media storage?</div>
 			<div class="asr">#d.want_storage#</div>
 		</div>
+		---->
 		<div class="r">
 			<div class="qtn">Please describe any permission or security issues that would prevent us from accessing your data directly if necessary for data migration?</div>
 			<div class="asr">#d.security_concern#</div>
@@ -824,7 +828,9 @@
 				more_data,
 				digital_media,
 				media_plan,
+				<!----
 				want_storage,
+				---->
 				has_help,
 				security_concern,
 				budget,
@@ -887,7 +893,9 @@
 				<cfelse>
 					'none',
 				</cfif>
+				<!----
 				'#escapeQuotes(want_storage)#',
+				----->
 				'#escapeQuotes(has_help)#',
 				'#escapeQuotes(security_concern)#',
 				'#escapeQuotes(budget)#',
@@ -901,7 +909,7 @@
 				'#session.username#'
 			)
 		</cfquery>
-		<cfmail to="dustymc@gmail.com" subject="Arctos Join Request" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
+		<cfmail to="#mailtol#" subject="Arctos Join Request" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
 			<p>
 				New Collection Request
 			</p>
@@ -1178,7 +1186,7 @@
 				</select>
 			</div>
 
-
+			<!----
 			<div class="infoDiv">
 				<label for="want_storage">Do you want to use Arctos Media storage?</label>
 				<select name="want_storage" required>
@@ -1187,7 +1195,7 @@
 					<option value="no">no</option>
 				</select>
 			</div>
-
+			---->
 			<div class="infoDiv">
 				<label for="security_concern">Please describe any permission or security issues that would prevent us from accessing your data directly if necessary for data migration?</label>
 				<textarea class="hugetextarea reqdClr" name="security_concern" id="security_concern" required ></textarea>
