@@ -256,11 +256,13 @@
 					<cfabort>
 				</cfif>
 			</cfloop>
-		<p>
-			<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to change status from #old_status# to #status#</a>
-		</p>
+			<p>
+				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to change status from #old_status# to #status#</a>
+			</p>
+		</cfif>
 	</cfoutput>
 </cfif>
+<!-------------------------------------->
 <cfif action is "showAllRequests">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
