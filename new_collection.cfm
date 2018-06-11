@@ -312,7 +312,7 @@
 		<cfif status is "denied">
 			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
 			<p>
-				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#">continue to set status</a>
+				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to set status</a>
 			</p>
 			<cfabort>
 		</cfif>
@@ -326,7 +326,7 @@
 			Out of order - request denied<cfabort>
 		</cfif>
 		<p>
-			<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#">continue to change status from #old_status# to #status#</a>
+			<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to change status from #old_status# to #status#</a>
 		</p>
 	</cfoutput>
 </cfif>
