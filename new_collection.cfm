@@ -155,6 +155,54 @@
 	You must log in to use this form.
 	<cfabort>
 </cfif>
+<cfif isdefined("session.roles") and session.roles contains "global_admin">
+	<a href="showAllRequests">Show All Requests</a>
+</cfif>
+<cfif action is "showAllRequests">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				pre_new_institution.niid,
+				pre_new_institution.INSTITUTION,
+				pre_new_institution.status istatus,
+				pre_new_institution.insert_date,
+				pre_new_institution.initiated_by_username,
+				pre_new_collection.GUID_PREFIX
+			from
+				pre_new_institution,
+				pre_new_collection
+			where
+				pre_new_institution.niid=pre_new_collection.niid (+)
+			order by
+				pre_new_institution.insert_date,
+				pre_new_institution.status
+		</cfquery>
+
+		<table border>
+			<tr>
+				<th>INSTITUTION</th>
+				<th>Status</th>
+				<th>InitDate</th>
+				<th>InitBy</th>
+				<th>Collection</th>
+				<th>Manage</th>
+			</tr>
+			<cfloop query="d">
+				<tr>
+					<td>#INSTITUTION#</td>
+					<td>#istatus#</td>
+					<td>#insert_date#</td>
+					<td>#initiated_by_username#</td>
+					<td>#GUID_PREFIX#</td>
+					<td>
+						<a href="/new_collection.cfm?action=manage&id=#hash(niid)#">Manage</a>
+					</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
+
+</cfif>
 <!------------------------------------------------------------------------------------------>
 <cfif action is "pre_create_new_collection">
 	<cfoutput>
