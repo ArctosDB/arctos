@@ -156,7 +156,7 @@
 	<cfabort>
 </cfif>
 <cfif isdefined("session.roles") and session.roles contains "global_admin">
-	<a href="showAllRequests">Show All Requests</a>
+	<a href="/new_collection.cfm?action=showAllRequests">Show All Requests</a>
 </cfif>
 <cfif action is "showAllRequests">
 	<cfoutput>
