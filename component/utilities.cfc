@@ -529,6 +529,11 @@
 		</cfif>
 		<!--- statuscode of putting the actual file - the important thing--->
 	    <cfset r.statusCode=left(putfile.statusCode,3)>
+	  	<cfif  if r.statuscode is not "200">
+			 <cfset r.statusCode=putfile.statusCode>
+			 <cfset r.statusCode=putfile.responsetext>
+
+		</cfif>
 		<cfset r.filename="#fileName#">
 		<cfset r.media_uri="#media_uri#">
 			<cfcatch>

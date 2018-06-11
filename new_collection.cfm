@@ -1208,8 +1208,6 @@
 				</select>
 			</div>
 
-
-
 			<div class="infoDiv">
 				<label for="comments">Please add any other comments or questions that you have re: Arctos or your collection(s).</label>
 				<textarea class="hugetextarea reqdClr" name="comments" id="comments" required ></textarea>
