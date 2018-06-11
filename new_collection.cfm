@@ -154,9 +154,19 @@
 		</p>
 
 ---->
-<cfif action is "default">
-	denied<cfabort>
+<cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
+	<!--- some sections of this form are public; others are restricted ---->
+	<cfif
+		action is not "pre_create_new_collection" and
+		action is not "edit_collection" and
+		action is not "manage" and
+		action is not "createInstitutionRequest" and
+		action is not "nothing" >
+		denied<cfabort>
+	</cfif>
 </cfif>
+
+
 <cfif len(session.username) is 0>
 	You must log in to use this form.
 	<cfabort>
@@ -207,7 +217,6 @@
 			</cfloop>
 		</table>
 	</cfoutput>
-
 </cfif>
 <!------------------------------------------------------------------------------------------>
 <cfif action is "pre_create_new_collection">
@@ -283,10 +292,41 @@
 </cfif>
 <!------------------------------------------------------>
 <cfif action is "setColnStatus">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update pre_new_institution set status='#status#' where niid ='#niid#'
-	</cfquery>
-	<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
+	<cfif isdefined("scnrm") and scnrm is "true">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update pre_new_institution set status='#status#' where niid ='#niid#'
+		</cfquery>
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select institution from pre_new_institution  where niid ='#niid#'
+		</cfquery>
+		<cfmail to="dustymc@gmail.com" subject="Arctos Join Request: Status Update" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
+			Status has changed to #status# for pending institution #q.institution#
+		</cfmail>
+		<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
+	</cfif>
+
+	<cfif old_status is status>
+		No changes - request denied<cfabort>
+	</cfif>
+	<cfif status is "denied">
+		Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
+		<p>
+			<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#">continue to set status</a>
+		</p>
+		<cfabort>
+	</cfif>
+	<cfif old_status is "new" and status is not "approve_to_pre-create_collections">
+		Out of order - request denied<cfabort>
+	</cfif>
+	<cfif old_status is "approve_to_pre-create_collections" and status is not "approve_to_create_collections">
+		Out of order - request denied<cfabort>
+	</cfif>
+	<cfif old_status is "approve_to_create_collections" and status is not "complete">
+		Out of order - request denied<cfabort>
+	</cfif>
+	<p>
+		<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#">continue to change status from #old_status# to #status#</a>
+	</p>
 </cfif>
 <!------------------------------------------------------>
 <cfif action is "manage">
@@ -339,7 +379,8 @@
 						Changing this sends DBA email.
 					</li>
 					<li>
-						complete: Collections have been created; Arctos is ready to accept data.
+						complete: Collections have been created, Arctos is ready to accept data, these data/this form is no longer useful.
+						This should be set only by the person creating the collections.
 					</li>
 					<li>
 						denied: Administrative approval has not been granted and will not be at this time.
@@ -348,13 +389,15 @@
 				<form name="f" method="post" action="new_collection.cfm">
 					<input type="hidden" name="action" value="setColnStatus">
 					<input type="hidden" name="niid" value="#d.niid#">
+					<input type="hidden" name="old_status" value="#d.status#">
 					<label for="status">update status to</label>
 					<select name="status" id="status" >
 						<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
 						<option <cfif d.status is "approve_to_pre-create_collections">selected="selected" </cfif>value="approve_to_pre-create_collections">approve_to_pre-create_collections</option>
 						<option <cfif d.status is "approve_to_create_collections">selected="selected" </cfif>value="approve_to_create_collections">approve_to_create_collections</option>
-						<option <cfif d.status is "denied">selected="selected" </cfif>value="denied">denied</option>
 						<option <cfif d.status is "complete">selected="selected" </cfif>value="complete">complete</option>
+						<option <cfif d.status is "denied">selected="selected" </cfif>value="denied">denied</option>
+
 					</select>
 					<input type="submit" value="change status">
 				</form>
@@ -807,7 +850,7 @@
 				'#session.username#'
 			)
 		</cfquery>
-		<cfmail to="dustymc@gmail.com" subject="Arctos Join Request" from="joinrequest@#Application.fromEmail#" type="html">
+		<cfmail to="dustymc@gmail.com" subject="Arctos Join Request" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
 			<p>
 				New Collection Request
 			</p>
