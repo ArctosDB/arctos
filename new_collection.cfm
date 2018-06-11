@@ -8,6 +8,12 @@
 		margin:1em;
 		background-color:#e3ede5;
 	}
+	.editColn {
+		margin:1em;
+		padding:1em;
+		border:1px solid green;
+	}
+
 </style>
 <!----
 
@@ -359,7 +365,7 @@
 					Work with the collection to FIRMLY establish GUID_PREFIX
 					before pre-pre-creating collections.
 					GUID_PREFIX is traditionally institution_acronym + ":" + collection_cde, but this is not necassary.
-					There may be several collection in "Inst" which use "Herb" (=plants) collection code, for example.
+					There may be several collections in "Inst" which use "Herb" (=plants) collection code, for example.
 					Collection_Cde (controls code table access) will be set in the next step.
 					GUID_PREFIX __must__ contain a string, a colon, then another string, or the final request will fail.
 					GUID_PREFIX __must__ be unique within Arctos, and GUID_PREFIX _should_ be unique within GRBIO/GBIF/etc.
@@ -528,7 +534,8 @@
 			</cfquery>
 
 			<cfloop query="c">
-				<hr>
+				<div class="editColn">
+
 				<h3>Editing #c.guid_prefix#</h3>
 				<p>
 					<a name="#c.guid_prefix#"></a>
@@ -684,6 +691,7 @@
 					</div>
 					<br><input type="submit" value="Update Collection Request for #c.guid_prefix#">
 				</form>
+				</div>
 			</cfloop>
 		</cfif>
 	</cfoutput>
