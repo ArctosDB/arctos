@@ -734,7 +734,7 @@
 						<label for="contact_email">contact_email</label>
 						<input type="text" name="contact_email" id="contact_email" value="#c.contact_email#" size="80">
 					</div>
-					<br><input type="submit" value="Update Collection Request for #c.guid_prefix#">
+					<br><input type="submit" class="lnkBtn" value="Update Collection Request for #c.guid_prefix#">
 				</form>
 				</div>
 			</cfloop>
