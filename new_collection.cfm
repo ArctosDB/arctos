@@ -175,8 +175,6 @@
 <cfif isdefined("session.roles") and session.roles contains "global_admin">
 	<a href="/new_collection.cfm?action=showAllRequests">Show All Requests</a>
 </cfif>
-
-
 <!------------------------------------------------------>
 <cfif action is "setColnStatus">
 	<cfoutput>
@@ -255,19 +253,12 @@
 					</p>
 					<cfabort>
 				</cfif>
-
 			</cfloop>
-
-
-
-
-		</cfif>
 		<p>
 			<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to change status from #old_status# to #status#</a>
 		</p>
 	</cfoutput>
-
-
+</cfif>
 <cfif action is "showAllRequests">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
