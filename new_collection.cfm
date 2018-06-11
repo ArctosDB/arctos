@@ -861,25 +861,7 @@
 				</a>
 			</p>
 			<p>
-				Next Steps:
-				<ol>
-					<li>Do administrative stuff; approve the request</li>
-					<li>
-						Coordinate any changes to INSTITUTION or INSTITUTION_ACRONYM with someone who has SQL access;
-						these will be used in collection creation and must be finalized before collections are created.
-					</li>
-					<li>Assign a Mentor. http://arctos.database.museum/info/mentor.cfm</li>
-					<li>
-						As a user with global_admin access, visit
-						#application.serverRootURL#/new_collection.cfm?action=manage&id=#hash(srs.nid)#
-						(link above) and complete the "Admin" section.
-					</li>
-					<li>
-						Create Agent record(s) for at least one user, who will manage collections and invite additional users.
-						Get them through the Operator Creation process.
-						You do not need to assign them any roles or collections.
-					</li>
-				</ol>
+				See http://handbook.arctosdb.org/how_to/new-collection.html for guidance and next steps.
 			</p>
 			<p>
 				SQL: select * from pre_new_institution where niid=#srs.nid#
@@ -916,6 +898,9 @@
 	<p>
 		This information should cover your entire institution or organization. Follow-up questions will include information
 		about specific collections.
+	</p>
+	<p>
+		Do NOT provide any sensitive information anywhere in this form.
 	</p>
 	<p>
 		Useful Links:
