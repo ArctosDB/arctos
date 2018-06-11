@@ -379,7 +379,6 @@
 		<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)####guid_prefix#">
 	</cfoutput>
 </cfif>
-</cfif>
 <!------------------------------------------------------>
 <cfif action is "manage">
 	<style>
