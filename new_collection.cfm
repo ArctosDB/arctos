@@ -155,6 +155,28 @@
 
 ---->
 
+<cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
+	<!--- some sections of this form are public; others are restricted ---->
+	<cfif
+		action is not "pre_create_new_collection" and
+		action is not "edit_collection" and
+		action is not "manage" and
+		action is not "createInstitutionRequest" and
+		action is not "nothing" >
+		denied<cfabort>
+	</cfif>
+</cfif>
+
+
+<cfif len(session.username) is 0>
+	You must log in to use this form.
+	<cfabort>
+</cfif>
+<cfif isdefined("session.roles") and session.roles contains "global_admin">
+	<a href="/new_collection.cfm?action=showAllRequests">Show All Requests</a>
+</cfif>
+
+
 <!------------------------------------------------------>
 <cfif action is "setColnStatus">
 	<cfoutput>
@@ -246,26 +268,6 @@
 	</cfoutput>
 
 
-<cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
-	<!--- some sections of this form are public; others are restricted ---->
-	<cfif
-		action is not "pre_create_new_collection" and
-		action is not "edit_collection" and
-		action is not "manage" and
-		action is not "createInstitutionRequest" and
-		action is not "nothing" >
-		denied<cfabort>
-	</cfif>
-</cfif>
-
-
-<cfif len(session.username) is 0>
-	You must log in to use this form.
-	<cfabort>
-</cfif>
-<cfif isdefined("session.roles") and session.roles contains "global_admin">
-	<a href="/new_collection.cfm?action=showAllRequests">Show All Requests</a>
-</cfif>
 <cfif action is "showAllRequests">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
