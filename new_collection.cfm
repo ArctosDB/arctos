@@ -154,6 +154,98 @@
 		</p>
 
 ---->
+
+<!------------------------------------------------------>
+<cfif action is "setColnStatus">
+	<cfoutput>
+		<cfif isdefined("scnrm") and scnrm is "true">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update pre_new_institution set status='#status#' where niid ='#niid#'
+			</cfquery>
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select institution from pre_new_institution  where niid ='#niid#'
+			</cfquery>
+			<cfmail to="dustymc@gmail.com" subject="Arctos Join Request: Status Update" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
+				Status has changed to #status# for pending institution #q.institution#
+			</cfmail>
+			<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
+		</cfif>
+
+		<cfif old_status is status>
+			No changes - request denied<cfabort>
+		</cfif>
+		<cfif status is "denied">
+			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
+			<p>
+				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to set status</a>
+			</p>
+			<cfabort>
+		</cfif>
+		<cfif old_status is "new" and status is not "approve_to_pre-create_collections">
+			Out of order - request denied<cfabort>
+		</cfif>
+		<cfif old_status is "approve_to_pre-create_collections" and status is not "approve_to_create_collections">
+			Out of order - request denied<cfabort>
+		</cfif>
+		<cfif old_status is "approve_to_create_collections" and status is not "complete">
+			Out of order - request denied<cfabort>
+		</cfif>
+		<cfif status is "approve_to_create_collections">
+			<cfquery name="cs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from pre_new_collection where niid=#niid#
+			</cfquery>
+			<cfif cs.recordcount is 0>
+				Denied: no collections.<cfabort>
+			</cfif>
+			<cfset probs="">
+			<cfloop query="cs">
+				<cfif
+					len(COLLECTION_CDE) is 0 or
+					len(DESCR) is 0 or
+					len(COLLECTION) is 0 or
+					len(LOAN_POLICY_URL) is 0 or
+					len(GUID_PREFIX) is 0 or
+					len(PREFERRED_TAXONOMY_SOURCE) is 0 or
+					len(CATALOG_NUMBER_FORMAT) is 0 or
+					len(mentor) is 0 or
+					len(mentor_contact) is 0 or
+					len(admin_username) is 0 or
+					len(use_license_id) is 0 or
+					len(contact_email) is 0>
+					Denied: Required values are missing for #guid_prefix#
+
+					<p>
+						Required:
+						<ul>
+							<li>COLLECTION_CDE</li>
+							<li>DESCR</li>
+							<li>COLLECTION</li>
+							<li>LOAN_POLICY_URL</li>
+							<li>GUID_PREFIX</li>
+							<li>PREFERRED_TAXONOMY_SOURCE</li>
+							<li>CATALOG_NUMBER_FORMAT</li>
+							<li>mentor</li>
+							<li>mentor_contact</li>
+							<li>admin_username</li>
+							<li>use_license_id</li>
+							<li>contact_email</li>
+						</ul>
+					</p>
+					<cfabort>
+				</cfif>
+
+			</cfloop>
+
+
+
+
+		</cfif>
+		<p>
+			<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to change status from #old_status# to #status#</a>
+		</p>
+	</cfoutput>
+
+
 <cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
 	<!--- some sections of this form are public; others are restricted ---->
 	<cfif
@@ -290,45 +382,6 @@
 		<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)####guid_prefix#">
 	</cfoutput>
 </cfif>
-<!------------------------------------------------------>
-<cfif action is "setColnStatus">
-	<cfoutput>
-		<cfif isdefined("scnrm") and scnrm is "true">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update pre_new_institution set status='#status#' where niid ='#niid#'
-			</cfquery>
-			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select institution from pre_new_institution  where niid ='#niid#'
-			</cfquery>
-			<cfmail to="dustymc@gmail.com" subject="Arctos Join Request: Status Update" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
-				Status has changed to #status# for pending institution #q.institution#
-			</cfmail>
-			<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
-		</cfif>
-
-		<cfif old_status is status>
-			No changes - request denied<cfabort>
-		</cfif>
-		<cfif status is "denied">
-			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
-			<p>
-				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to set status</a>
-			</p>
-			<cfabort>
-		</cfif>
-		<cfif old_status is "new" and status is not "approve_to_pre-create_collections">
-			Out of order - request denied<cfabort>
-		</cfif>
-		<cfif old_status is "approve_to_pre-create_collections" and status is not "approve_to_create_collections">
-			Out of order - request denied<cfabort>
-		</cfif>
-		<cfif old_status is "approve_to_create_collections" and status is not "complete">
-			Out of order - request denied<cfabort>
-		</cfif>
-		<p>
-			<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to change status from #old_status# to #status#</a>
-		</p>
-	</cfoutput>
 </cfif>
 <!------------------------------------------------------>
 <cfif action is "manage">
