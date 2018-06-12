@@ -1,5 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
-	
+
+
+<cfoutput>#CreateObject("java", "java.lang.System").getProperty("java.version")#</cfoutput>
 
 
 
