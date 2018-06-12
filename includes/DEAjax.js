@@ -955,7 +955,6 @@ function DEuseGL(glat,glon,gerr){
 			return;
 		}
 	}
-	switchActive('decimal degrees');
 	$("#orig_lat_long_units").val('decimal degrees');
 	$("#max_error_distance").val(gerr);	
 	$("#max_error_units").val('m');	
@@ -971,6 +970,7 @@ function DEuseGL(glat,glon,gerr){
 	$("#lat_long_remarks").val('');	
 	$("#dec_lat").val(glat);	
 	$("#dec_long").val(glon);
+	switchActive('decimal degrees');
 	closeGeoLocate('inserted coordinates');
 }
 function geolocate () {
