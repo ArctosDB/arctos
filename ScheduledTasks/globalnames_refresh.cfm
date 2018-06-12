@@ -132,7 +132,7 @@ This form may be called in two ways:
 		<p>
 			http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#
 		</p>
-		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
+		<cfhttp url="https://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
 
 		<cfif isdefined("debug") and debug is true>
 			<cfdump var=#cfhttp#>
