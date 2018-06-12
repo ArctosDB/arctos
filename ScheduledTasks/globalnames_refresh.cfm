@@ -134,6 +134,9 @@ This form may be called in two ways:
 		</p>
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
 
+		<cfif isdefined("debug") and debug is true>
+			<cfdump var=#cfhttp#>
+		</cfif>
 		<cfif cfhttp.Responseheader.Status_Code contains "500">
 			<cfset theNameThatFailed=listgetat(theseNames,1,'|')>
 			<br>testing for failure: #theNameThatFailed#
