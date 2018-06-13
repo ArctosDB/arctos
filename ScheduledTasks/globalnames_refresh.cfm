@@ -130,9 +130,9 @@ This form may be called in two ways:
 	<cfloop condition="jsfail is true">
 		<br>coming in loop: jsfail=#jsfail#
 		<p>
-			https://resolver.globalnames.org/name_resolvers.json?names=#theseNames#
+			http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#
 		</p>
-		<cfhttp url="https://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
+		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
 
 		<cfif isdefined("debug") and debug is true>
 			<cfdump var=#cfhttp#>
