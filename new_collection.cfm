@@ -439,7 +439,7 @@
 						denied: Administrative approval has not been granted and will not be at this time.
 					</li>
 				</ul>
-				<form name="f" method="post" action="new_collection.cfm">
+				<form name="fs" method="post" action="new_collection.cfm">
 					<input type="hidden" name="action" value="setColnStatus">
 					<input type="hidden" name="niid" value="#d.niid#">
 					<input type="hidden" name="old_status" value="#d.status#">
@@ -1098,7 +1098,7 @@
 
 			<div class="infoDiv">
 				<label for="tissues">How do you deal with tissues in your collection?</label>
-				<cfset l= "	Tissues are treated as parts of a specimen using a controlled vocabulary or authority file.|Tissues are treated as parts of a specimen, entered in free-form text.|Tissues are cataloged in a separate collection, and cross-linked to voucher specimen.|Tissues are entered as free-form text in a remarks or comment field.|There are no tissues in our collection.|Other.">
+				<cfset l= "Tissues are treated as parts of a specimen using a controlled vocabulary or authority file.|Tissues are treated as parts of a specimen, entered in free-form text.|Tissues are cataloged in a separate collection, and cross-linked to voucher specimen.|Tissues are entered as free-form text in a remarks or comment field.|There are no tissues in our collection.|Other.">
 				<cfloop list="#l#" delimiters="|" index="i">
 					<input type="checkbox" name="tissues" value="#i#">#i#<br>
 				</cfloop>
@@ -1214,7 +1214,7 @@
 
 			<div class="infoDiv">
 				<label for="comments">Please add any other comments or questions that you have re: Arctos or your collection(s).</label>
-				<textarea class="hugetextarea reqdClr" name="comments" id="comments" required ></textarea>
+				<textarea class="hugetextarea reqdClr" name="comments" id="comments" ></textarea>
 			</div>
 
 			<div class="infoDiv">
