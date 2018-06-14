@@ -543,7 +543,7 @@
 			<div class="asr">#d.vocab_text#</div>
 		</div>
 		<div class="r">
-			<div class="qtn">Do you allow free text data entry for the following kinds of data (check all that apply)?</div>
+			<div class="qtn">How do you deal with tissues in your collection?</div>
 			<div class="asr">#d.tissues#</div>
 		</div>
 		<div class="r">
@@ -1097,7 +1097,7 @@
 
 
 			<div class="infoDiv">
-				<label for="tissues">Do you allow free text data entry for the following kinds of data (check all that apply)?</label>
+				<label for="tissues">How do you deal with tissues in your collection?</label>
 				<cfset l= "	Tissues are treated as parts of a specimen using a controlled vocabulary or authority file.|Tissues are treated as parts of a specimen, entered in free-form text.|Tissues are cataloged in a separate collection, and cross-linked to voucher specimen.|Tissues are entered as free-form text in a remarks or comment field.|There are no tissues in our collection.|Other.">
 				<cfloop list="#l#" delimiters="|" index="i">
 					<input type="checkbox" name="tissues" value="#i#">#i#<br>
