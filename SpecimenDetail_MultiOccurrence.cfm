@@ -241,6 +241,13 @@ turn this off for test - turn it back on if this becomes something real
 	select doi from doi where COLLECTION_OBJECT_ID=#collection_object_id#
 </cfquery>
 
+
+	hi<cfabort>
+
+
+
+
+
 <cfoutput>
 	<cfset title="#detail.guid#: #detail.scientific_name#">
 	<cfset metaDesc="#detail.guid#; #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
@@ -257,9 +264,6 @@ turn this off for test - turn it back on if this becomes something real
 	<cfelse>
 		<cfset thisDate = "#detail.verbatim_date# (#detail.began_date# - #detail.ended_date#)">
 	</cfif>
-
-
-	hi<cfabort>
 
 
 
