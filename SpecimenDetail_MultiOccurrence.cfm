@@ -620,6 +620,19 @@ turn this off for test - turn it back on if this becomes something real
 								<td>Identification</td>
 								<td>#thisOc.scientific_name#</td>
 							</tr>
+							<tr>
+								<td>Collecting Date</td>
+								<td>#thisOc.began_date#-#thisOc.ended_date#</td>
+							</tr>
+
+							<tr>
+								<td>this is pulling from filtered_flat</td>
+								<td>we can put most anything here, as long as it's not encumbered</td>
+							</tr>
+							<tr>
+								<td>might get big</td>
+								<td>we could do the expand/collapse thing if so</td>
+							</tr>
 
 
 						</table>
