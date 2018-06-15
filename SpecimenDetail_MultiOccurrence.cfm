@@ -609,7 +609,21 @@ turn this off for test - turn it back on if this becomes something real
 					select * from filtered_flat where guid='#occurrences.OTHER_ID_TYPE#:#occurrences.DISPLAY_VALUE#'
 				</cfquery>
 				<cfif thisOc.recordcount is 1>
-					table....
+					<div>
+						Summary Data for <a href="#relr.base_url#/#occurrences.DISPLAY_VALUE#">#relr.base_url#/#occurrences.DISPLAY_VALUE#</a>
+						<table border>
+							<tr>
+								<th>Term</th>
+								<th>Value</th>
+							</tr>
+							<tr>
+								<td>Identification</td>
+								<td>#thisOc.scientific_name#</td>
+							</tr>
+
+
+						</table>
+					</div>
 				<cfelse>
 					<!--- has a funky base_url ---->
 					<p>
