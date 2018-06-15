@@ -594,7 +594,16 @@ turn this off for test - turn it back on if this becomes something real
 
 
 	<div>
-		hi im a div
+		This record is an Occurrence, or one instance of this individual at a place and time. It is not a full representation of
+		and individual. Summary of related Occurrences:
+
+		<cfloop query="occurrences">
+			<cfquery name="relr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select base_uri from CTCOLL_OTHER_ID_TYPE where other_id_type='#occurrences.other_id_type#'
+			</cfquery>
+			<cfdump var=#relr#>
+
+		</cfloop>
 	</div>
 
 
