@@ -593,7 +593,10 @@ turn this off for test - turn it back on if this becomes something real
 
 	<div>
 		This record is an Occurrence, or one instance of this individual at a place and time. It is not a full representation of
-		and individual. Summary of related Occurrences:
+		and individual. Citations to this catalog number may have used material from related Occurrences, and related Occurrences may
+		be cited as this catalog number. This needs rewritten if we keep it.
+
+		<p>Summary of related Occurrences:</p>
 
 		<cfloop query="occurrences">
 			<cfset hasRD=true>
@@ -612,6 +615,10 @@ turn this off for test - turn it back on if this becomes something real
 							<tr>
 								<th>Term</th>
 								<th>Value</th>
+							</tr>
+							<tr>
+								<td>GUID/catalog number</td>
+								<td>#thisOc.guid#</td>
 							</tr>
 							<tr>
 								<td>Identification</td>
