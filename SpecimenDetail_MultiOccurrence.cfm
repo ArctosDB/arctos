@@ -234,7 +234,6 @@ turn this off for test - turn it back on if this becomes something real
 	ORDER BY
 		cat_num">
 
-			hi<cfabort>
 
 
 
@@ -592,6 +591,9 @@ turn this off for test - turn it back on if this becomes something real
 		hi im a div
 	</div>
 
+
+
+<cfabort>
 
 
 
