@@ -590,8 +590,6 @@ turn this off for test - turn it back on if this becomes something real
 	<cfquery name="occurrences" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from coll_obj_other_id_num where collection_object_id=#collection_object_id# and ID_REFERENCES='occurrence of'
 	</cfquery>
-	<cfdump var=#occurrences#>
-
 
 	<div>
 		This record is an Occurrence, or one instance of this individual at a place and time. It is not a full representation of
@@ -602,7 +600,6 @@ turn this off for test - turn it back on if this becomes something real
 			<cfquery name="relr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select BASE_URL from CTCOLL_OTHER_ID_TYPE where other_id_type='#occurrences.other_id_type#'
 			</cfquery>
-			<cfdump var=#relr#>
 			<cfif relr.base_url contains "arctos.database.museum/guid/">
 				<!--- one of ours, see if it's public ---->
 				<cfquery name="thisOc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
