@@ -1,10 +1,4 @@
 <!---- make sure this stays at the top ---->
-
-here i am<cfabort>
-
-
-
-
 <cfif listfindnocase(request.rdurl,'m',"/")>
 	<!--- mobile handling ---->
 	<cfif listfindnocase(request.rdurl,'guid',"/")>
