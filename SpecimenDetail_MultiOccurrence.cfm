@@ -233,6 +233,12 @@ turn this off for test - turn it back on if this becomes something real
 		#session.flatTableName#.collection_object_id = #collection_object_id#
 	ORDER BY
 		cat_num">
+
+			hi<cfabort>
+
+
+
+
 <cfset checkSql(detSelect)>
 <cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(detSelect)#
@@ -241,8 +247,6 @@ turn this off for test - turn it back on if this becomes something real
 	select doi from doi where COLLECTION_OBJECT_ID=#collection_object_id#
 </cfquery>
 
-
-	hi<cfabort>
 
 
 
