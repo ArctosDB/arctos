@@ -564,6 +564,8 @@ turn this off for test - turn it back on if this becomes something real
 
 
 
+
+
 	<cfinclude template="SpecimenDetail_body.cfm">
 	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
