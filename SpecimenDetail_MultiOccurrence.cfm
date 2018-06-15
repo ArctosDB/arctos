@@ -151,7 +151,6 @@
 		}
 	</script>
 
-hi<cfabort>
 
 <!-----
 
@@ -258,6 +257,13 @@ turn this off for test - turn it back on if this becomes something real
 	<cfelse>
 		<cfset thisDate = "#detail.verbatim_date# (#detail.began_date# - #detail.ended_date#)">
 	</cfif>
+
+
+	hi<cfabort>
+
+
+
+
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
 			<td valign="top">
