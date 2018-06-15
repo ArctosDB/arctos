@@ -135,6 +135,15 @@
 			});
 		}
 	</script>
+
+
+<!-----
+
+turn this off for test - turn it back on if this becomes something real
+
+
+
+
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -176,6 +185,7 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
+---->
 <cfset detSelect = "
 	SELECT
 		#session.flatTableName#.guid,
