@@ -55,8 +55,12 @@
 		<cfset isClicky = "">
 	</cfif>
 	<cfif oneOfUs is 0 and cgi.CF_TEMPLATE_PATH contains "/SpecimenDetail_body.cfm">
+
+		change this in body before release
+		<!---
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
+		---->
 	</cfif>
 	<script>
 		jQuery(document).ready(function(){
