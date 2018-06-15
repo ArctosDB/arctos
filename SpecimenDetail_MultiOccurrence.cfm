@@ -1,11 +1,15 @@
+
+
+
+
+<cfinclude template="/includes/_header.cfm">
+
 hi<cfabort>
 
 
 
 
 
-
-<cfinclude template="/includes/_header.cfm">
 <cfif not isdefined("session.sdmapclass") or len(session.sdmapclass) is 0>
 	<cfset session.sdmapclass='tinymap'>
 </cfif>
