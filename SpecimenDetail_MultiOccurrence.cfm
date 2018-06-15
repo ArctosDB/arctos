@@ -4,7 +4,6 @@
 
 <cfinclude template="/includes/_header.cfm">
 
-hi<cfabort>
 
 
 
@@ -152,6 +151,7 @@ hi<cfabort>
 		}
 	</script>
 
+hi<cfabort>
 
 <!-----
 
