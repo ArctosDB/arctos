@@ -587,6 +587,12 @@ turn this off for test - turn it back on if this becomes something real
 	</cfif>
 
 
+	<cfquery name="occurrences" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from coll_obj_other_id_num where collection_object_id=#collection_object_id# and ID_REFERENCES='occurrence of'
+	</cfquery>
+	<cfdump var=#occurrences#>
+
+
 	<div>
 		hi im a div
 	</div>
