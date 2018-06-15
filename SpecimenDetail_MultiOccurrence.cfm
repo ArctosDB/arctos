@@ -599,7 +599,7 @@ turn this off for test - turn it back on if this becomes something real
 
 		<cfloop query="occurrences">
 			<cfquery name="relr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select base_uri from CTCOLL_OTHER_ID_TYPE where other_id_type='#occurrences.other_id_type#'
+				select BASE_URL from CTCOLL_OTHER_ID_TYPE where other_id_type='#occurrences.other_id_type#'
 			</cfquery>
 			<cfdump var=#relr#>
 
