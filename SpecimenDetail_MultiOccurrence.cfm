@@ -633,6 +633,20 @@ turn this off for test - turn it back on if this becomes something real
 								<td>might get big</td>
 								<td>we could do the expand/collapse thing if so</td>
 							</tr>
+							<tr>
+								<td>not sure what's necessary</td>
+								<td>a little bit and the link?</td>
+							</tr>
+
+							<tr>
+								<td>or basically everything here</td>
+								<td>we can do both</td>
+							</tr>
+
+							<tr>
+								<td>and it doesn't have to be in a table</td>
+								<td>because this is sort of weird</td>
+							</tr>
 
 
 						</table>
