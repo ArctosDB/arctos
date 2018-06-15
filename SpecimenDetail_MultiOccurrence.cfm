@@ -547,6 +547,9 @@
 		</table>
 	</cfif>
 	<cfinclude template="SpecimenDetail_body.cfm">
+	<div>
+		hi im a div
+	</div>
 	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
 		<script language="javascript" type="text/javascript">
