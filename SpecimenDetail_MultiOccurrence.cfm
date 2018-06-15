@@ -652,6 +652,10 @@ turn this off for test - turn it back on if this becomes something real
 								<td>because this is sort of weird</td>
 							</tr>
 
+							<tr>
+								<td>Or maybe it should be in one table</td>
+								<td>rather than one per related Occurrence</td>
+							</tr>
 
 						</table>
 					</div>
