@@ -598,10 +598,41 @@ turn this off for test - turn it back on if this becomes something real
 		and individual. Summary of related Occurrences:
 
 		<cfloop query="occurrences">
+			<cfset hasRD=true>
 			<cfquery name="relr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select BASE_URL from CTCOLL_OTHER_ID_TYPE where other_id_type='#occurrences.other_id_type#'
 			</cfquery>
 			<cfdump var=#relr#>
+			<cfif relr.base_url contains "arctos.database.museum/guid/">
+				<!--- one of ours, see if it's public ---->
+				<cfquery name="thisOc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from filtered_flat where guid='#occurrences.OTHER_ID_TYPE#:#occurrences.DISPLAY_VALUE#'
+				</cfquery>
+				<cfif thisOc.recordcount is 1>
+					table....
+				<cfelse>
+					<!--- has a funky base_url ---->
+					<p>
+						Details of this related Occurrence are not available, or have been restricted by the collection.
+						More information may be available at <a href="#relr.base_url#/#occurrences.DISPLAY_VALUE#">#relr.base_url#/#occurrences.DISPLAY_VALUE#</a>
+						<a
+					</p>
+				</cfif>
+			<cfelse>
+					<cfif len(relr.base_url) gt 0>
+					<!--- has a funky base_url ---->
+					<p>
+						Details of this related Occurrence are not available, or have been restricted by the collection.
+						More information may be available at <a href="#relr.base_url#/#occurrences.DISPLAY_VALUE#">#relr.base_url#/#occurrences.DISPLAY_VALUE#</a>
+						<a
+					</p>
+					<cfelse>
+						<!--- no base URL --->
+						<p>
+							A related Occurrence has been recorded, but is not in an actionable format. The related Occurrence is #occurrences.other_id_type# #occurrences.display_value#
+						</p>
+					</cfif>
+			</cfif>
 
 		</cfloop>
 	</div>
