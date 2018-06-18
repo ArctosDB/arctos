@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "findRecords">
+<cfoutput>
 	<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			cf_temp_specevent.KEY,
@@ -218,7 +219,7 @@
 
 
 
-
+</cfoutput>
 </cfif>
 
 
