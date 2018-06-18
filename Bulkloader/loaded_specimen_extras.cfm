@@ -323,7 +323,16 @@
 
 	<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
+			cf_temp_attributes.KEY,
 			cf_temp_attributes.USERNAME,
+			cf_temp_attributes.STATUS,
+			cf_temp_attributes.ATTRIBUTE,
+			cf_temp_attributes.ATTRIBUTE_VALUE,
+			cf_temp_attributes.ATTRIBUTE_UNITS,
+			cf_temp_attributes.ATTRIBUTE_DATE,
+			cf_temp_attributes.ATTRIBUTE_METH,
+			cf_temp_attributes.DETERMINER,
+			cf_temp_attributes.REMARKS,
 			flat.guid
 		from
 			cf_temp_attributes,
@@ -334,8 +343,35 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_attributes.other_id_number
 	</cfquery>
-	<cfdump var=#cf_temp_parts#>
 
+	<table border>
+		<tr>
+			<th>KEY</th>
+			<th>USERNAME</th>
+			<th>STATUS</th>
+			<th>ATTRIBUTE</th>
+			<th>ATTRIBUTE_VALUE</th>
+			<th>ATTRIBUTE_UNITS</th>
+			<th>ATTRIBUTE_DATE</th>
+			<th>ATTRIBUTE_METH</th>
+			<th>DETERMINER</th>
+			<th>REMARKS</th>
+		</tr>
+		<cfloop query="cf_temp_attributes">
+			<tr>
+				<td>#KEY#</td>
+				<td>#USERNAME#</td>
+				<td>#STATUS#</td>
+				<td>#ATTRIBUTE#</td>
+				<td>#ATTRIBUTE_VALUE#</td>
+				<td>#ATTRIBUTE_UNITS#</td>
+				<td>#ATTRIBUTE_DATE#</td>
+				<td>#ATTRIBUTE_METH#</td>
+				<td>#DETERMINER#</td>
+				<td>#REMARKS#</td>
+			</tr>
+		</cfloop>
+	</table>
 	<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			cf_temp_oids.USERNAME,
