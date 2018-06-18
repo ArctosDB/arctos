@@ -203,9 +203,6 @@
 <!------------------------------------------------------>
 <cfif action is "setColnStatus">
 	<cfoutput>
-		<cfdump var=#form#>
-
-
 		<cfif old_status is status>
 			No changes - request denied<cfabort>
 		<cfelseif status is "denied">
@@ -273,7 +270,6 @@
 				</cfif>
 			</cfloop>
 		<cfelse>
-		<p>at else</p>
 			<cfset scnrm="true">
 		</cfif>
 		<cfif isdefined("scnrm") and scnrm is "true">
@@ -287,32 +283,14 @@
 				</cfif>
 				 where niid ='#niid#'
 			</cfquery>
-
-
-			update pre_new_institution set status='#status#'
-				<cfif isdefined("institutional_mentor") and len(institutional_mentor)  gt 0>
-					,institutional_mentor='#institutional_mentor#'
-				</cfif>
-				<cfif isdefined("institutional_mentor_email") and len(institutional_mentor_email)  gt 0>
-					,institutional_mentor_email='#institutional_mentor_email#'
-				</cfif>
-				 where niid ='#niid#'
-
-
-
-
 			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select institution from pre_new_institution  where niid ='#niid#'
 			</cfquery>
 			<cfmail to="#mailtol#" subject="Arctos Join Request: Status Update" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
 				Status has changed to #status# for pending institution #q.institution#
 			</cfmail>
-			<!----
 			<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
-			---->
 		</cfif>
-
-
 	</cfoutput>
 </cfif>
 <!-------------------------------------->
@@ -471,6 +449,12 @@
 		<cfif isdefined("session.roles") and session.roles contains "global_admin">
 			<div class="infoDiv">
 				You have global_admin; you can change the status of this request.
+				<p>
+					Documentation is
+					<a href="http://handbook.arctosdb.org/how_to/new-collection.html" target="_blank" class="external">
+						http://handbook.arctosdb.org/how_to/new-collection.html
+					</a>
+				</p>
 
 				<ul>
 					<li>new: new request, neeeds administrative approval</li>
