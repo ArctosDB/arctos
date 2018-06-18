@@ -113,7 +113,7 @@
 					<input type="datetime" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"yyyy-mm-dd")#">
 				</td>
 				<td>
-					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#">
+					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#" value="#determined_by_agent_id#">
 					<input type="text" name="determined_agent_#part_attribute_id#" id="determined_agent_#part_attribute_id#"
 						onchange="getAgent('determined_by_agent_id_#part_attribute_id#',this.id,'f',this.value);"
 						onkeypress="return noenter(event);"
