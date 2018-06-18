@@ -182,6 +182,7 @@
 <!------------------------------------------------------>
 <cfif action is "setColnStatus">
 	<cfoutput>
+		<cfdump var=#form#>
 		<cfif isdefined("scnrm") and scnrm is "true">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_new_institution set status='#status#' where niid ='#niid#'
@@ -450,7 +451,6 @@
 						<option <cfif d.status is "approve_to_create_collections">selected="selected" </cfif>value="approve_to_create_collections">approve_to_create_collections</option>
 						<option <cfif d.status is "complete">selected="selected" </cfif>value="complete">complete</option>
 						<option <cfif d.status is "denied">selected="selected" </cfif>value="denied">denied</option>
-
 					</select>
 					<input type="submit" value="change status">
 				</form>
