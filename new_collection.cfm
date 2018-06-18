@@ -221,7 +221,8 @@
 		<cfelseif old_status is "approve_to_create_collections" and status is not "complete">
 			Out of order - request denied<cfabort>
 
-		<cfelseif  status is "administrative_approval_granted">
+		<cfelseif status is "administrative_approval_granted">
+		<p> status is "administrative_approval_granted"</p>
 			<cfif len(institutional_mentor) is 0 or len(institutional_mentor_email) is 0>
 				institutional_mentor and institutional_mentor_email are required for satus=administrative_approval_granted
 				<cfabort>
