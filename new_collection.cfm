@@ -276,13 +276,29 @@
 				</cfif>
 				 where niid ='#niid#'
 			</cfquery>
+
+
+			update pre_new_institution set status='#status#'
+				<cfif isdefined("institutional_mentor") and len(institutional_mentor)  gt 0>
+					,institutional_mentor='#institutional_mentor#'
+				</cfif>
+				<cfif isdefined("institutional_mentor_email") and len(institutional_mentor_email)  gt 0>
+					,institutional_mentor='#institutional_mentor_email#'
+				</cfif>
+				 where niid ='#niid#'
+
+
+
+
 			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select institution from pre_new_institution  where niid ='#niid#'
 			</cfquery>
 			<cfmail to="#mailtol#" subject="Arctos Join Request: Status Update" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
 				Status has changed to #status# for pending institution #q.institution#
 			</cfmail>
+			<!----
 			<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
+			---->
 		</cfif>
 
 
