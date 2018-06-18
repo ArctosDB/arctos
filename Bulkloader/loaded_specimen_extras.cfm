@@ -66,10 +66,10 @@
 	<table border>
 		<tr>
 			<th>KEY</th>
+			<th>guid</th>
 			<th>STATUS</th>
 			<th>USERNAME</th>
 			<th>INSERT_DATE</th>
-			<th>guid</th>
 			<th>ASSIGNED_BY_AGENT</th>
 			<th>ASSIGNED_DATE</th>
 			<th>SPECIMEN_EVENT_REMARK</th>
@@ -110,10 +110,10 @@
 		<cfloop query="cf_temp_specevent">
 			<tr>
 				<td>#KEY#</td>
+				<td>#GUID#</td>
 				<td>#STATUS#</td>
 				<td>#USERNAME#</td>
 				<td>#INSERT_DATE#</td>
-				<td>#guid#</td>
 				<td>#ASSIGNED_BY_AGENT#</td>
 				<td>#ASSIGNED_DATE#</td>
 				<td>#SPECIMEN_EVENT_REMARK#</td>
@@ -217,6 +217,7 @@
 	<table border>
 		<tr>
 			<th>KEY</th>
+			<th>GUID</th>
 			<th>STATUS</th>
 			<th>USERNAME</th>
 			<th>guid</th>
@@ -269,6 +270,7 @@
 		<cfloop query="cf_temp_parts">
 			<tr>
 				<td>#KEY#</td>
+				<th>#GUID#</th>
 				<td>#STATUS#</td>
 				<td>#USERNAME#</td>
 				<td>#guid#</td>
@@ -347,6 +349,7 @@
 	<table border>
 		<tr>
 			<th>KEY</th>
+			<th>GUID</th>
 			<th>USERNAME</th>
 			<th>STATUS</th>
 			<th>ATTRIBUTE</th>
@@ -360,6 +363,7 @@
 		<cfloop query="cf_temp_attributes">
 			<tr>
 				<td>#KEY#</td>
+				<td>#GUID#</td>
 				<td>#USERNAME#</td>
 				<td>#STATUS#</td>
 				<td>#ATTRIBUTE#</td>
@@ -374,7 +378,12 @@
 	</table>
 	<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
+			cf_temp_oids.KEY,
 			cf_temp_oids.USERNAME,
+			cf_temp_oids.STATUS,
+			cf_temp_oids.NEW_OTHER_ID_TYPE,
+			cf_temp_oids.NEW_OTHER_ID_NUMBER,
+			cf_temp_oids.NEW_OTHER_ID_REFERENCES,
 			flat.guid
 		from
 			cf_temp_oids,
@@ -385,12 +394,37 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_oids.EXISTING_OTHER_ID_NUMBER
 	</cfquery>
-	<cfdump var=#cf_temp_parts#>
-
+	<table border>
+		<tr>
+			<th>KEY</th>
+			<th>GUID</th>
+			<th>USERNAME</th>
+			<th>STATUS</th>
+			<th>NEW_OTHER_ID_TYPE</th>
+			<th>NEW_OTHER_ID_NUMBER</th>
+			<th>NEW_OTHER_ID_REFERENCES</th>
+		</tr>
+		<cfloop query="cf_temp_oids">
+			<tr>
+				<td>#KEY#</td>
+				<td>#GUID#</td>
+				<td>#USERNAME#</td>
+				<td>#STATUS#</td>
+				<td>#NEW_OTHER_ID_TYPE#</td>
+				<td>#NEW_OTHER_ID_NUMBER#</td>
+				<td>#NEW_OTHER_ID_REFERENCES#</td>
+			</tr>
+		</cfloop>
+	</table>
 
 	<cfquery name="cf_temp_collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
+			cf_temp_collector.KEY,
 			cf_temp_collector.USERNAME,
+			cf_temp_collector.STATUS,
+			cf_temp_collector.AGENT_NAME,
+			cf_temp_collector.COLLECTOR_ROLE,
+			cf_temp_collector.COLL_ORDER
 			flat.guid
 		from
 			cf_temp_collector,
@@ -401,8 +435,28 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_collector.other_id_number
 	</cfquery>
-	<cfdump var=#cf_temp_parts#>
-
+	<table border>
+		<tr>
+			<th>KEY</th>
+			<th>GUID</th>
+			<th>USERNAME</th>
+			<th>STATUS</th>
+			<th>AGENT_NAME</th>
+			<th>COLLECTOR_ROLE</th>
+			<th>COLL_ORDER</th>
+		</tr>
+		<cfloop query="cf_temp_collector">
+			<tr>
+				<td>#KEY#</td>
+				<td>#GUID#</td>
+				<td>#USERNAME#</td>
+				<td>#STATUS#</td>
+				<td>#AGENT_NAME#</td>
+				<td>#COLLECTOR_ROLE#</td>
+				<td>#COLL_ORDER#</td>
+			</tr>
+		</cfloop>
+	</table>
 
 
 
