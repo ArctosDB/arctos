@@ -270,9 +270,8 @@
 					<cfabort>
 				</cfif>
 			</cfloop>
-
-
 		<cfelse>
+		<p>at else</p>
 			<cfset scnrm="true">
 		</cfif>
 		<cfif isdefined("scnrm") and scnrm is "true">
