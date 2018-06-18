@@ -473,9 +473,9 @@
 						You must assign an institutional_mentor and accompanying email address before changing status to "Administrative approval granted"
 					</p>
 					<label for ="institutional_mentor">institutional_mentor</label>
-					<input type="text" size="80" name="institutional_mentor" value="#institutional_mentor#" required>
+					<input type="text" size="80" name="institutional_mentor" value="#d.institutional_mentor#" required>
 					<label for ="institutional_mentor_email">institutional_mentor_email</label>
-					<input type="text" size="80" name="institutional_mentor_email" value="#institutional_mentor_email#" required>
+					<input type="text" size="80" name="institutional_mentor_email" value="#d.institutional_mentor_email#" required>
 					<input type="submit" value="change status">
 				</form>
 			</div>
