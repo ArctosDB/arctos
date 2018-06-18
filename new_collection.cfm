@@ -267,7 +267,14 @@
 		</cfif>
 		<cfif isdefined("scnrm") and scnrm is "true">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update pre_new_institution set status='#status#' where niid ='#niid#'
+				update pre_new_institution set status='#status#'
+				<cfif isdefined("institutional_mentor") and len(institutional_mentor)  gt 0>
+					,institutional_mentor='#institutional_mentor#'
+				</cfif>
+				<cfif isdefined("institutional_mentor_email") and len(institutional_mentor_email)  gt 0>
+					,institutional_mentor='#institutional_mentor_email#'
+				</cfif>
+				 where niid ='#niid#'
 			</cfquery>
 			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select institution from pre_new_institution  where niid ='#niid#'
