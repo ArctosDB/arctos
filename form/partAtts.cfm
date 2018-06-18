@@ -205,6 +205,10 @@
 		<cftransaction>
 		<cfloop from="1" to="#listlen(patidlist)#" index="i">
 			<cfset thisPartAtId=listgetat(patidlist,i)>
+
+			<p>
+				thisPartAtId: #thisPartAtId#
+			</p>
 			<cftry>
 				<cfset thisDeleteFlag=evaluate("delete_" & thisPartAtId)>
 				<cfcatch>
@@ -220,6 +224,11 @@
 			<cfset thisAttributeRemark=evaluate("attribute_remark_" & thisPartAtId)>
 			<cfset thisAttributeValue=evaluate("attribute_value_" & thisPartAtId)>
 			<cfset thisDeterminerId=evaluate("determined_by_agent_id_" & thisPartAtId)>
+
+
+			<p>
+				thisDeterminerId: #thisDeterminerId#
+			</p>
 			<cfset thisDate=evaluate("determined_date_" & thisPartAtId)>
 			<cfif thisDeleteFlag is 1>
 				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -235,9 +244,21 @@
 						determined_date='#thisDate#'
 					where part_attribute_id=#thisPartAtId#
 				</cfquery>
+
+				update specimen_part_attribute set
+						attribute_units='#thisAttributeUnits#',
+						attribute_remark='#thisAttributeRemark#',
+						attribute_value='#thisAttributeValue#',
+						determined_by_agent_id='#thisDeterminerId#',
+						determined_date='#thisDate#'
+					where part_attribute_id=#thisPartAtId#
+
+
 			</cfif>
 		</cfloop>
 		</cftransaction>
+		<!----
 		<cflocation url="partAtts.cfm?partID=#partID#" addtoken="false">
+		---->
 	</cfoutput>
 </cfif>

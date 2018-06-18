@@ -1,22 +1,16 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="New Collection Portal">
-
 <script>
-		jQuery(document).ready(function() {
-			$(':input[required]:visible').each(function(e){
-			    $(this).addClass('reqdClr');
-			});
+	jQuery(document).ready(function() {
+		$(':input[required]:visible').each(function(e){
+		    $(this).addClass('reqdClr');
 		});
-	</script>
+	});
+</script>
 
 
 <!--- this should probably be a global setting; hard-code for now --->
 <cfset mailtol="ccicero@berkeley.edu,campbell@carachupa.org,jegelewicz66@gmail.com,dustymc@gmail.com,lkv@berkeley.edu">
-
-
-
-<cfset mailtol="dustymc@gmail.com">
-
 
 
 <cfif not isdefined("session.roles") or session.roles does not contain "global_admin">
