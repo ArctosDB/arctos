@@ -1,5 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="New Collection Portal">
+
+<script>
+		jQuery(document).ready(function() {
+			$(':input[required]:visible').each(function(e){
+			    $(this).addClass('reqdClr');
+			});
+		});
+	</script>
+
+
 <!--- this should probably be a global setting; hard-code for now --->
 <cfset mailtol="ccicero@berkeley.edu,campbell@carachupa.org,jegelewicz66@gmail.com,dustymc@gmail.com,lkv@berkeley.edu">
 
@@ -987,14 +997,6 @@
 </cfif>
 <!---------------------------------------------------------->
 <cfif action is "nothing">
-	<script>
-		jQuery(document).ready(function() {
-			$(':input[required]:visible').each(function(e){
-			    $(this).addClass('reqdClr');
-			});
-		});
-
-	</script>
 	<h2>New Collection Request</h2>
 	<p>
 		Use this form to initiate a request to join Arctos. Please fill out this form as accurately and completely as possible.
