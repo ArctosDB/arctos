@@ -92,6 +92,10 @@
 
 	alter table pre_new_institution  add initiated_by_username VARCHAR2(255);
 
+
+	alter table pre_new_institution  add institutional_mentor VARCHAR2(255);
+	alter table pre_new_institution  add institutional_mentor_email VARCHAR2(255);
+
 	create or replace public synonym pre_new_institution for pre_new_institution;
 	grant select, insert, update on pre_new_institution to public;
 
@@ -200,12 +204,18 @@
 				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to set status</a>
 			</p>
 			<cfabort>
-		<cfelseif old_status is "new" and status is not "approve_to_pre-create_collections">
+		<cfelseif old_status is "new" and status is not "administrative_approval_granted">
 			Out of order - request denied<cfabort>
-		<cfelseif old_status is "approve_to_pre-create_collections" and status is not "approve_to_create_collections">
+		<cfelseif old_status is "administrative_approval_granted" and status is not "approve_to_create_collections">
 			Out of order - request denied<cfabort>
 		<cfelseif old_status is "approve_to_create_collections" and status is not "complete">
 			Out of order - request denied<cfabort>
+
+		<cfelseif  status is "administrative_approval_granted">
+			<cfif len(institutional_mentor) is 0 or len(institutional_mentor_email) is 0>
+				institutional_mentor and institutional_mentor_email are required for satus=administrative_approval_granted
+				<cfabort>
+			</cfif>
 		<cfelseif  status is "approve_to_create_collections">
 			<cfquery name="cs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from pre_new_collection where niid=#niid#
@@ -250,9 +260,8 @@
 					<cfabort>
 				</cfif>
 			</cfloop>
-			<p>
-				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to change status from #old_status# to #status#</a>
-			</p>
+
+
 		<cfelse>
 			<cfset scnrm="true">
 		</cfif>
@@ -432,7 +441,7 @@
 				<ul>
 					<li>new: new request, neeeds administrative approval</li>
 					<li>
-						approve_to_pre-create_collections: Administrative approval granted, the organization has at least one Mentor.
+						administrative_approval_granted: Administrative approval granted, the organization has at least one Mentor.
 						When this is set you will get a new option below. Read is CAREFULLY before proceeding.
 					</li>
 					<li>
@@ -454,17 +463,25 @@
 					<label for="status">update status to</label>
 					<select name="status" id="status" >
 						<option <cfif d.status is "new">selected="selected" </cfif>value="new">new</option>
-						<option <cfif d.status is "approve_to_pre-create_collections">selected="selected" </cfif>value="approve_to_pre-create_collections">approve_to_pre-create_collections</option>
+						<option <cfif d.status is "administrative_approval_granted">selected="selected" </cfif>value="administrative_approval_granted">administrative_approval_granted</option>
 						<option <cfif d.status is "approve_to_create_collections">selected="selected" </cfif>value="approve_to_create_collections">approve_to_create_collections</option>
 						<option <cfif d.status is "complete">selected="selected" </cfif>value="complete">complete</option>
 						<option <cfif d.status is "denied">selected="selected" </cfif>value="denied">denied</option>
 					</select>
+
+					<p>
+						You must assign an institutional_mentor and accompanying email address before changing status to "Administrative approval granted"
+					</p>
+					<label for ="institutional_mentor">institutional_mentor</label>
+					<input type="text" size="80" name="institutional_mentor" value="#institutional_mentor#" required>
+					<label for ="institutional_mentor_email">institutional_mentor_email</label>
+					<input type="text" size="80" name="institutional_mentor_email" value="#institutional_mentor_email#" required>
 					<input type="submit" value="change status">
 				</form>
 			</div>
-			<cfif d.status is "approve_to_pre-create_collections">
+			<cfif d.status is "administrative_approval_granted">
 				<div class="infoDiv">
-					This institution is set to approve_to_pre-create_collections so you can use this form to pre-pre-create collections.
+					This institution is set to administrative_approval_granted so you can use this form to pre-pre-create collections.
 					Work with the collection to FIRMLY establish GUID_PREFIX
 					before pre-pre-creating collections.
 					GUID_PREFIX is traditionally institution_acronym + ":" + collection_cde, but this is not necassary.
@@ -620,7 +637,7 @@
 			<div class="asr">#d.comments#</div>
 		</div>
 
-		<cfif d.status is "approve_to_pre-create_collections">
+		<cfif d.status is "administrative_approval_granted">
 			<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
 			</cfquery>
