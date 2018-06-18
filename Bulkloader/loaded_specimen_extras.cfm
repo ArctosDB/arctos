@@ -156,6 +156,53 @@
 
 	<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
+			cf_temp_parts.KEY,
+			cf_temp_parts.PART_NAME,
+			cf_temp_parts.DISPOSITION,
+			cf_temp_parts.CONDITION,
+			cf_temp_parts.LOT_COUNT,
+			cf_temp_parts.REMARKS,
+			cf_temp_parts.USE_EXISTING,
+			cf_temp_parts.CONTAINER_BARCODE,
+			cf_temp_parts.CHANGE_CONTAINER_TYPE,
+			cf_temp_parts.CHANGE_CONTAINER_LABEL,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_1,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_1,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_1,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_1,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_1,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_1,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_2,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_2,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_2,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_2,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_2,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_2,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_3,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_3,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_3,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_3,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_3,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_3,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_4,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_4,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_4,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_4,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_4,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_4,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_5,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_5,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_5,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_5,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_5,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_5,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_6,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_6,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_6,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_6,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_6,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_6,
+			cf_temp_parts.STATUS,
 			cf_temp_parts.USERNAME,
 			flat.guid
 		from
@@ -167,8 +214,112 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_parts.other_id_number
 	</cfquery>
-	<cfdump var=#cf_temp_parts#>
-
+	<table border>
+		<tr>
+			<th>KEY</th>
+			<th>STATUS</th>
+			<th>USERNAME</th>
+			<th>guid</th>
+			<th>PART_NAME</th>
+			<th>DISPOSITION</th>
+			<th>CONDITION</th>
+			<th>LOT_COUNT</th>
+			<th>REMARKS</th>
+			<th>USE_EXISTING</th>
+			<th>CONTAINER_BARCODE</th>
+			<th>CHANGE_CONTAINER_TYPE</th>
+			<th>CHANGE_CONTAINER_LABEL</th>
+			<th>PART_ATTRIBUTE_TYPE_1</th>
+			<th>PART_ATTRIBUTE_VALUE_1</th>
+			<th>PART_ATTRIBUTE_UNITS_1</th>
+			<th>PART_ATTRIBUTE_DATE_1</th>
+			<th>PART_ATTRIBUTE_DETERMINER_1</th>
+			<th>PART_ATTRIBUTE_REMARK_1</th>
+			<th>PART_ATTRIBUTE_TYPE_2</th>
+			<th>PART_ATTRIBUTE_VALUE_2</th>
+			<th>PART_ATTRIBUTE_UNITS_2</th>
+			<th>PART_ATTRIBUTE_DATE_2</th>
+			<th>PART_ATTRIBUTE_DETERMINER_2</th>
+			<th>PART_ATTRIBUTE_REMARK_2</th>
+			<th>PART_ATTRIBUTE_TYPE_3</th>
+			<th>PART_ATTRIBUTE_VALUE_3</th>
+			<th>PART_ATTRIBUTE_UNITS_3</th>
+			<th>PART_ATTRIBUTE_DATE_3</th>
+			<th>PART_ATTRIBUTE_DETERMINER_3</th>
+			<th>PART_ATTRIBUTE_REMARK_3</th>
+			<th>PART_ATTRIBUTE_TYPE_4</th>
+			<th>PART_ATTRIBUTE_VALUE_4</th>
+			<th>PART_ATTRIBUTE_UNITS_4</th>
+			<th>PART_ATTRIBUTE_DATE_4</th>
+			<th>PART_ATTRIBUTE_DETERMINER_4</th>
+			<th>PART_ATTRIBUTE_REMARK_4</th>
+			<th>PART_ATTRIBUTE_TYPE_5</th>
+			<th>PART_ATTRIBUTE_VALUE_5</th>
+			<th>PART_ATTRIBUTE_UNITS_5</th>
+			<th>PART_ATTRIBUTE_DATE_5</th>
+			<th>PART_ATTRIBUTE_DETERMINER_5</th>
+			<th>PART_ATTRIBUTE_REMARK_5</th>
+			<th>PART_ATTRIBUTE_TYPE_6</th>
+			<th>PART_ATTRIBUTE_VALUE_6</th>
+			<th>PART_ATTRIBUTE_UNITS_6</th>
+			<th>PART_ATTRIBUTE_DATE_6</th>
+			<th>PART_ATTRIBUTE_DETERMINER_6</th>
+			<th>PART_ATTRIBUTE_REMARK_6</th>
+		</tr>
+		<cfloop query="cf_temp_parts">
+			<tr>
+				<td>#KEY#</td>
+				<td>#STATUS#</td>
+				<td>#USERNAME#</td>
+				<td>#guid#</td>
+				<td>#PART_NAME#</td>
+				<td>#DISPOSITION#</td>
+				<td>#CONDITION#</td>
+				<td>#LOT_COUNT#</td>
+				<td>#REMARKS#</td>
+				<td>#USE_EXISTING#</td>
+				<td>#CONTAINER_BARCODE#</td>
+				<td>#CHANGE_CONTAINER_TYPE#</td>
+				<td>#CHANGE_CONTAINER_LABEL#</td>
+				<td>#PART_ATTRIBUTE_TYPE_1#</td>
+				<td>#PART_ATTRIBUTE_VALUE_1#</td>
+				<td>#PART_ATTRIBUTE_UNITS_1#</td>
+				<td>#PART_ATTRIBUTE_DATE_1#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_1#</td>
+				<td>#PART_ATTRIBUTE_REMARK_1#</td>
+				<td>#PART_ATTRIBUTE_TYPE_2#</td>
+				<td>#PART_ATTRIBUTE_VALUE_2#</td>
+				<td>#PART_ATTRIBUTE_UNITS_2#</td>
+				<td>#PART_ATTRIBUTE_DATE_2#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_2#</td>
+				<td>#PART_ATTRIBUTE_REMARK_2#</td>
+				<td>#PART_ATTRIBUTE_TYPE_3#</td>
+				<td>#PART_ATTRIBUTE_VALUE_3#</td>
+				<td>#PART_ATTRIBUTE_UNITS_3#</td>
+				<td>#PART_ATTRIBUTE_DATE_3#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_3#</td>
+				<td>#PART_ATTRIBUTE_REMARK_3#</td>
+				<td>#PART_ATTRIBUTE_TYPE_4#</td>
+				<td>#PART_ATTRIBUTE_VALUE_4#</td>
+				<td>#PART_ATTRIBUTE_UNITS_4#</td>
+				<td>#PART_ATTRIBUTE_DATE_4#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_4#</td>
+				<td>#PART_ATTRIBUTE_REMARK_4#</td>
+				<td>#PART_ATTRIBUTE_TYPE_5#</td>
+				<td>#PART_ATTRIBUTE_VALUE_5#</td>
+				<td>#PART_ATTRIBUTE_UNITS_5#</td>
+				<td>#PART_ATTRIBUTE_DATE_5#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_5#</td>
+				<td>#PART_ATTRIBUTE_REMARK_5#</td>
+				<td>#PART_ATTRIBUTE_TYPE_6#</td>
+				<td>#PART_ATTRIBUTE_VALUE_6#</td>
+				<td>#PART_ATTRIBUTE_UNITS_6#</td>
+				<td>#PART_ATTRIBUTE_DATE_6#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_6#</td>
+				<td>#PART_ATTRIBUTE_REMARK_6#</td>
+			</tr>
+		</cfloop>
+	</table>
 
 	<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
