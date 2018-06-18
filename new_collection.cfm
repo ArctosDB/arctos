@@ -283,7 +283,7 @@
 					,institutional_mentor='#institutional_mentor#'
 				</cfif>
 				<cfif isdefined("institutional_mentor_email") and len(institutional_mentor_email)  gt 0>
-					,institutional_mentor='#institutional_mentor_email#'
+					,institutional_mentor_email='#institutional_mentor_email#'
 				</cfif>
 				 where niid ='#niid#'
 			</cfquery>
@@ -294,7 +294,7 @@
 					,institutional_mentor='#institutional_mentor#'
 				</cfif>
 				<cfif isdefined("institutional_mentor_email") and len(institutional_mentor_email)  gt 0>
-					,institutional_mentor='#institutional_mentor_email#'
+					,institutional_mentor_email='#institutional_mentor_email#'
 				</cfif>
 				 where niid ='#niid#'
 
