@@ -77,7 +77,7 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_specevent.UUID
 			<cfif len(collection) gt 0>
-				and flat.guid_prefix like '#collection#:%'
+				and flat.guid like '#collection#:%'
 			</cfif>
 	</cfquery>
 	<table border>
@@ -231,7 +231,7 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_parts.other_id_number
 			<cfif len(collection) gt 0>
-				and flat.guid_prefix like '#collection#:%'
+				and flat.guid like '#collection#:%'
 			</cfif>
 	</cfquery>
 	<table border>
@@ -365,7 +365,7 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_attributes.other_id_number
 			<cfif len(collection) gt 0>
-				and flat.guid_prefix like '#collection#:%'
+				and flat.guid like '#collection#:%'
 			</cfif>
 	</cfquery>
 
@@ -417,7 +417,7 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_oids.EXISTING_OTHER_ID_NUMBER
 			<cfif len(collection) gt 0>
-				and flat.guid_prefix like '#collection#:%'
+				and flat.guid like '#collection#:%'
 			</cfif>
 	</cfquery>
 	<table border>
@@ -461,7 +461,7 @@
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_collector.other_id_number
 			<cfif len(collection) gt 0>
-				and flat.guid_prefix like '#collection#:%'
+				and flat.guid like '#collection#:%'
 			</cfif>
 	</cfquery>
 	<table border>
