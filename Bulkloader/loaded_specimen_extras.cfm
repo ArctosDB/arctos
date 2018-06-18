@@ -222,18 +222,5 @@
 </cfif>
 
 
-		<cfquery name="cf_temp_collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from    where ='#d.idval#'
-		</cfquery>
-		<cfif cf_temp_collector.recordcount gt 0>
-			<cfscript>
-		        var temp = {};
-		        for (var row in cf_temp_collector) {
-		            structAppend(temp, row);
-		        }
-		    </cfscript>
-			<cfset r.collectors=temp>
-		</cfif>
-loaded_specimen_extras.cfm
 
 <cfinclude template="/includes/_footer.cfm">
