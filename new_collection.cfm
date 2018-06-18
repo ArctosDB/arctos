@@ -490,9 +490,9 @@
 					<p>
 						You must assign an institutional_mentor and accompanying email address before changing status to "Administrative approval granted"
 					</p>
-					<label for ="institutional_mentor">institutional_mentor</label>
+					<label for ="institutional_mentor">institutional_mentor (Arctos username is OK; comma-list is OK)</label>
 					<input type="text" size="80" name="institutional_mentor" value="#d.institutional_mentor#" required>
-					<label for ="institutional_mentor_email">institutional_mentor_email</label>
+					<label for ="institutional_mentor_email">institutional_mentor_email (comma-list is OK)</label>
 					<input type="text" size="80" name="institutional_mentor_email" value="#d.institutional_mentor_email#" required>
 					<input type="submit" value="change status">
 				</form>
