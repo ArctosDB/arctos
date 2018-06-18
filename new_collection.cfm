@@ -224,9 +224,10 @@
 		<cfelseif status is "administrative_approval_granted">
 		<p> status is "administrative_approval_granted"</p>
 			<cfif len(institutional_mentor) is 0 or len(institutional_mentor_email) is 0>
-				institutional_mentor and institutional_mentor_email are required for satus=administrative_approval_granted
+				institutional_mentor and institutional_mentor_email are required for status=administrative_approval_granted
 				<cfabort>
 			</cfif>
+			<cfset scnrm="true">
 		<cfelseif  status is "approve_to_create_collections">
 			<cfquery name="cs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from pre_new_collection where niid=#niid#
