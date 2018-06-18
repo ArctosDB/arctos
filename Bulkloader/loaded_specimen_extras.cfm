@@ -424,7 +424,7 @@
 			cf_temp_collector.STATUS,
 			cf_temp_collector.AGENT_NAME,
 			cf_temp_collector.COLLECTOR_ROLE,
-			cf_temp_collector.COLL_ORDER
+			cf_temp_collector.COLL_ORDER,
 			flat.guid
 		from
 			cf_temp_collector,
