@@ -1,6 +1,20 @@
 <cfinclude template="/includes/_header.cfm">
-<cfif action is "findRecords">
+<cfif action is "nothing">
 <cfoutput>
+	<cfquery name="gp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select guid_prefix from collection order by guid_prefix
+	</cfquery>
+	<cfparam name="collection" default="">
+	<form action="loaded_specimen_extras.cfm" method="post">
+		<label for="collection">Collection</label>
+		<select name="collection">
+			<option value=""></option>
+			<cfloop query="gp">
+				<option <cfif collection is guid_prefix>selected="selected"</cfif> value="#guid_prefix#">#guid_prefix#</option>
+			</cfloop>
+		</select>
+		<input type="submit" value="filter">
+	</form>
 	<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			cf_temp_specevent.KEY,
@@ -62,6 +76,9 @@
 			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_specevent.UUID
+			<cfif len(collection) gt 0>
+				and flat.guid_prefix like '#collection#:%'
+			</cfif>
 	</cfquery>
 	<table border>
 		<tr>
@@ -213,6 +230,9 @@
 			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_parts.other_id_number
+			<cfif len(collection) gt 0>
+				and flat.guid_prefix like '#collection#:%'
+			</cfif>
 	</cfquery>
 	<table border>
 		<tr>
@@ -344,6 +364,9 @@
 			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_attributes.other_id_number
+			<cfif len(collection) gt 0>
+				and flat.guid_prefix like '#collection#:%'
+			</cfif>
 	</cfquery>
 
 	<table border>
@@ -393,6 +416,9 @@
 			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_oids.EXISTING_OTHER_ID_NUMBER
+			<cfif len(collection) gt 0>
+				and flat.guid_prefix like '#collection#:%'
+			</cfif>
 	</cfquery>
 	<table border>
 		<tr>
@@ -434,6 +460,9 @@
 			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_collector.other_id_number
+			<cfif len(collection) gt 0>
+				and flat.guid_prefix like '#collection#:%'
+			</cfif>
 	</cfquery>
 	<table border>
 		<tr>
