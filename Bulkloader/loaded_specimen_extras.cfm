@@ -271,6 +271,10 @@
 				and upper(cf_temp_parts.USERNAME) like '%#ucase(usrn)#%'
 			</cfif>
 	</cfquery>
+
+
+	<br><span class="likeLink" onclick="checkAll('cf_temp_parts',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_parts',false)">UNcheck All</span>
 	<table border>
 		<tr>
 			<th>Autoload</th>
@@ -411,6 +415,9 @@
 			</cfif>
 	</cfquery>
 
+
+	<br><span class="likeLink" onclick="checkAll('cf_temp_attributes',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_attributes',false)">UNcheck All</span>
 	<table border>
 		<tr>
 			<th>Autoload</th>
@@ -467,6 +474,10 @@
 				and upper(cf_temp_oids.USERNAME) like '%#ucase(usrn)#%'
 			</cfif>
 	</cfquery>
+
+
+	<br><span class="likeLink" onclick="checkAll('cf_temp_oids',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_oids',false)">UNcheck All</span>
 	<table border>
 		<tr>
 			<th>Autoload</th>
@@ -516,6 +527,10 @@
 				and upper(cf_temp_collector.USERNAME) like '%#ucase(usrn)#%'
 			</cfif>
 	</cfquery>
+
+
+	<br><span class="likeLink" onclick="checkAll('cf_temp_collector',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_collector',false)">UNcheck All</span>
 	<table border>
 		<tr>
 			<th>Autoload</th>
