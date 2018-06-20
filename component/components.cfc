@@ -4,6 +4,7 @@
 		<cfset problems="">
 		<cfset checkEvent=true>
 		<cfset checkLocality=true>
+		<cfset r.key=q.key>
 		<cfquery name="x" datasource="uam_god">
 			select count(*) c from CTSPECIMEN_EVENT_TYPE where SPECIMEN_EVENT_TYPE='#q.SPECIMEN_EVENT_TYPE#'
 		</cfquery>
