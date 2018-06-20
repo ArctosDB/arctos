@@ -5,6 +5,15 @@
 	<cfdump var=#form#>
 </cfif>
 <cfif action is "nothing">
+<script>
+	function checkAll(pre,s){
+		$("input[name*='" + pre + "']").each(function(){
+		   $(this)..prop('checked', s);
+		});
+	}
+
+
+</script>
 <cfoutput>
 	<p>
 		This form finds data in bulkloaders for specimen which have successfully loaded and are linked to bulkloaders by UUID.
@@ -99,7 +108,8 @@
 		<input type="hidden" name="collection" value="#collection#">
 		<input type="hidden" name="usrn" value="#usrn#">
 
-
+	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent','true')">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent','false')">UNcheck All</span>
 	<table border>
 		<tr>
 			<th>AutoLoad</th>
