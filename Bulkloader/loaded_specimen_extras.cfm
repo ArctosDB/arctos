@@ -5,6 +5,7 @@
 		select guid_prefix from collection order by guid_prefix
 	</cfquery>
 	<cfparam name="collection" default="">
+	<cfparam name="usrn" default="">
 	<form action="loaded_specimen_extras.cfm" method="post">
 		<label for="collection">Collection</label>
 		<select name="collection">
@@ -13,6 +14,8 @@
 				<option <cfif collection is guid_prefix>selected="selected"</cfif> value="#guid_prefix#">#guid_prefix#</option>
 			</cfloop>
 		</select>
+		<label for="usrn">Username</label>
+		<input type="text" name="usrn" value="#usrn#">
 		<input type="submit" value="filter">
 	</form>
 	<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -78,6 +81,9 @@
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_specevent.UUID
 			<cfif len(collection) gt 0>
 				and flat.guid like '#collection#:%'
+			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_specevent.USERNAME) like '%#ucase(usrn)#%'
 			</cfif>
 	</cfquery>
 	<table border>
@@ -233,6 +239,9 @@
 			<cfif len(collection) gt 0>
 				and flat.guid like '#collection#:%'
 			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_parts.USERNAME) like '%#ucase(usrn)#%'
+			</cfif>
 	</cfquery>
 	<table border>
 		<tr>
@@ -367,6 +376,9 @@
 			<cfif len(collection) gt 0>
 				and flat.guid like '#collection#:%'
 			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_attributes.USERNAME) like '%#ucase(usrn)#%'
+			</cfif>
 	</cfquery>
 
 	<table border>
@@ -419,6 +431,9 @@
 			<cfif len(collection) gt 0>
 				and flat.guid like '#collection#:%'
 			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_oids.USERNAME) like '%#ucase(usrn)#%'
+			</cfif>
 	</cfquery>
 	<table border>
 		<tr>
@@ -462,6 +477,9 @@
 			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_collector.other_id_number
 			<cfif len(collection) gt 0>
 				and flat.guid like '#collection#:%'
+			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_collector.USERNAME) like '%#ucase(usrn)#%'
 			</cfif>
 	</cfquery>
 	<table border>
