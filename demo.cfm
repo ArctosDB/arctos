@@ -23,7 +23,7 @@
 	</p>
 	<cfloop list="#dwcguid#" index="i">
 		<div class="onethingee">
-			<iframe src="/guid/#i#"></iframe>
+			<iframe src="/guid/#i#" width="100%" height="100%"></iframe>
 		</div>
 	</cfloop>
 </cfoutput>
