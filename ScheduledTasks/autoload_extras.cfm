@@ -47,7 +47,7 @@
 
 	<cfloop query="d">
 		<cfquery name="thisRow" dbtype="query">
-			select * from d where key=#d.key#
+			select * from d where key='#d.key#'
 		</cfquery>
 		<cfset x=components.validateSpecimenEvent(thisRow)>
 		<cfdump var=#x#>
