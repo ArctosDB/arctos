@@ -22,6 +22,13 @@
 			update cf_temp_specevent set guid='#d.guid#' where key=#d.key#
 		</cfquery>
 	</cfloop>
+
+	<cfset components = CreateObject("component","component.components")>
+	<cfset x=components.validateSpecimenEvent()>
+
+
+	<cfdump var=#x#>
+
 	<cfdump var=#d#>
 	<!--------
 	<cfif isdefined("cf_temp_specevent_key") and len(cf_temp_specevent_key) gt 0>
