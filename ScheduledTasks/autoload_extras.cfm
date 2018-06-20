@@ -48,7 +48,7 @@
 
 		<cfquery name="ud" datasource="uam_god">
 			update cf_temp_specevent set
-				key=key,
+				key=key
 				<cfif isdefined("x.problems") and len(x.problems) gt 0>
 					,status='autoload:fail:#x.problems#'
 				</cfif>
