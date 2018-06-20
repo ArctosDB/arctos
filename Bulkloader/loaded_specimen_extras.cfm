@@ -8,7 +8,7 @@
 <script>
 	function checkAll(pre,s){
 		$("input[name*='" + pre + "_key']").each(function(){
-		   $(this)..prop('checked', s);
+		   $(this).prop('checked', s);
 		});
 	}
 
