@@ -72,19 +72,19 @@
 			cf_temp_specevent.status='autoload:precheck_pass' and
 			cf_temp_specevent.guid is not null
 	</cfquery>
+		<cfdump var=#d3#>
 	<cfloop query="d3">
 		<cfquery name="thisRow" dbtype="query">
 			select * from d3 where [key] = #d3.key#
 		</cfquery>
 		<cfset x=components.loadSpecimenEvent(thisRow)>
 		<cfdump var=#x#>
-			<cfquery name="ud" datasource="uam_god">
-				update cf_temp_specevent set
-					status='autoload:#x.status#'
-				where
-					key=#x.key#
+		<cfquery name="ud" datasource="uam_god">
+			update cf_temp_specevent set
+				status='autoload:#x.status#'
+			where
+				key=#x.key#
 		</cfquery>
-		</cfif>
 	</cfloop>
 
 	<!--------
