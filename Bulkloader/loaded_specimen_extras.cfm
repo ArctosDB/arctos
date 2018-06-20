@@ -1,6 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+<cfif action is "mark_autoload">
+	<cfdump var=#form#>
+</cfif>
 <cfif action is "nothing">
 <cfoutput>
+	<p>
+		This form finds data in bulkloaders for specimen which have successfully loaded and are linked to bulkloaders by UUID.
+	</p>
 	<cfquery name="gp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select guid_prefix from collection order by guid_prefix
 	</cfquery>
@@ -86,9 +94,15 @@
 				and upper(cf_temp_specevent.USERNAME) like '%#ucase(usrn)#%'
 			</cfif>
 	</cfquery>
+	<form method="post" action="loaded_specimen_extras.cfm">
+		<input type="hidden" name="action" value="mark_autoload">
+		<input type="hidden" name="collection" value="#collection#">
+		<input type="hidden" name="usrn" value="#usrn#">
+
+
 	<table border>
 		<tr>
-			<th>KEY</th>
+			<th>AutoLoad</th>
 			<th>guid</th>
 			<th>STATUS</th>
 			<th>USERNAME</th>
@@ -132,7 +146,9 @@
 		</tr>
 		<cfloop query="cf_temp_specevent">
 			<tr>
-				<td>#KEY#</td>
+				<td>
+					<input type="checkmark" name="cf_temp_specevent_key" value="#KEY#">
+				</td>
 				<td>#GUID#</td>
 				<td>#STATUS#</td>
 				<td>#USERNAME#</td>
@@ -505,7 +521,8 @@
 		</cfloop>
 	</table>
 
-
+	<input type="submit">
+	</form>
 
 </cfoutput>
 </cfif>
