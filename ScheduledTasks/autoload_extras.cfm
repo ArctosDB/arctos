@@ -77,7 +77,7 @@
 		<cfquery name="thisRow" dbtype="query">
 			select * from d3 where [key] = #d3.key#
 		</cfquery>
-		<cfset x=components.loadSpecimenEvent(thisRow)>
+		<cfset x=components.createSpecimenEvent(thisRow)>
 		<cfdump var=#x#>
 		<cfquery name="ud" datasource="uam_god">
 			update cf_temp_specevent set
