@@ -2,8 +2,8 @@
 	deal with "data entry extras" marked "autoload"
 ---->
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_specevent_key where  status='autoload'
+	<cfquery name="d" datasource="uam_god">
+		select * from cf_temp_specevent where  status='autoload'
 	</cfquery>
 	<cfdump var=#d#>
 	<!--------
