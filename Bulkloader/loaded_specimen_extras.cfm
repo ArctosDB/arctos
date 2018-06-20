@@ -147,7 +147,7 @@
 		<cfloop query="cf_temp_specevent">
 			<tr>
 				<td>
-					<input type="checkmark" name="cf_temp_specevent_key" value="#KEY#">
+					<input type="checkbox" name="cf_temp_specevent_key" value="#KEY#">
 				</td>
 				<td>#GUID#</td>
 				<td>#STATUS#</td>
