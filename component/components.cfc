@@ -1,5 +1,5 @@
 <cfcomponent>
-	<cffunction name="validateSpecimenEvent" access="private">
+	<cffunction name="validateSpecimenEvent" access="public">
 		<cfreturn "skippy">
 	</cffunction>
 
