@@ -17,6 +17,11 @@
 			cf_temp_specevent.status='autoload' and
 			cf_temp_specevent.guid is null
 	</cfquery>
+	<cfloop query="d">
+		<cfquery name="ud" datasource="uam_god">
+			update cf_temp_specevent set guid='#d.guid#' where key=#d.key#
+		</cfquery>
+	</cfloop>
 	<cfdump var=#d#>
 	<!--------
 	<cfif isdefined("cf_temp_specevent_key") and len(cf_temp_specevent_key) gt 0>
