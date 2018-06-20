@@ -68,7 +68,7 @@
 					,l_event_assigned_id=#x.agent_id#
 				</cfif>
 			where
-				key=#d.key#
+				key=#x.key#
 		</cfquery>
 
 	</cfloop>
