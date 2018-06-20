@@ -1,7 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<div class="importantNotification">
-	This is a demo. It only works with two GUIDs. Consider the data, not the layout.
-</div>
 <h3>Individual (Organism??) Synthesize-O-Matic</h3>
 <style>
 	.onethingee{
