@@ -11,11 +11,13 @@
 		<cfif x.c is not 1>
 			<cfset problems=listappend(problems,'invalid SPECIMEN_EVENT_TYPE')>
 		</cfif>
-		<cfquery name="x" datasource="uam_god">
-			select count(*) c from CTCOLLECTING_SOURCE where COLLECTING_SOURCE='#q.COLLECTING_SOURCE#'
-		</cfquery>
-		<cfif x.c is not 1>
-			<cfset problems=listappend(problems,'invalid COLLECTING_SOURCE')>
+		<cfif len(q.COLLECTING_SOURCE) gt 0>
+			<cfquery name="x" datasource="uam_god">
+				select count(*) c from CTCOLLECTING_SOURCE where COLLECTING_SOURCE='#q.COLLECTING_SOURCE#'
+			</cfquery>
+			<cfif x.c is not 1>
+				<cfset problems=listappend(problems,'invalid COLLECTING_SOURCE')>
+			</cfif>
 		</cfif>
 		<cfif len(q.LOCALITY_ID) is 0 and len(q.COLLECTING_EVENT_ID) is 0 and len(q.GEOG_AUTH_REC_ID) is 0>
 			<cfquery name="x" datasource="uam_god">
@@ -234,6 +236,9 @@
 				<cfset problems=listappend(problems,'Either HIGHER_GEOG or GEOG_AUTH_REC_ID is required.')>
 			</cfif>
 		</cfif><!---- END checkLocality is true --->
+		<cfif len(problems) is 0>
+			<cfset problems="precheck_pass">
+		</cfif>
 		<cfset r.problems=problems>
 		<cfreturn r>
 

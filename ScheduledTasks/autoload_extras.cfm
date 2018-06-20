@@ -50,7 +50,7 @@
 			update cf_temp_specevent set
 				key=key
 				<cfif isdefined("x.problems") and len(x.problems) gt 0>
-					,status='autoload:fail:#x.problems#'
+					,status='autoload:#x.problems#'
 				</cfif>
 				<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
 					,l_collection_object_id=#x.collection_object_id#
