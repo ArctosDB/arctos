@@ -1,4 +1,45 @@
 <cfinclude template="/includes/_header.cfm">
+<h3>Individual (Organism??) Synthesize-O-Matic</h3>
+<style>
+	.onethingee{
+		border:1px solid green;
+		margin:1em;
+		padding:1em;
+		height:800px;
+		width:95%;
+	}
+</style>
+<cfoutput>
+	<p>
+		Displaying data for individual comprised of Records:
+		<ul>
+		<cfloop list="#dwcguid#" index="i">
+			<li><a href="/guid/#i#">/guid/#i#</a></li>
+		</cfloop>
+		</ul>
+	</p>
+	<cfloop list="#dwcguid#" index="i">
+		<div class="onethingee">
+			<iframe src="/guid/#i#" width="100%" height="100%"></iframe>
+		</div>
+	</cfloop>
+</cfoutput>
+
+
+
+
+
+
+<cfabort>
+
+
+
+
+
+
+
+
+
 
 	<cfparam name="p" default="1">
 	<cfparam name="pagesize" default="1000">
