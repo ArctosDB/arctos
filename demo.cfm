@@ -1,4 +1,40 @@
 <cfinclude template="/includes/_header.cfm">
+<div class="importantNotification">
+	This is a demo. It only works with two GUIDs. Consider the data, not the layout.
+</div>
+<h3>Individual (Organism??) Synthesize-O-Matic</h3>
+
+
+
+
+
+<div>
+	<iframe src="/guid/MSB:Mamm:12"></iframe>
+</div>
+
+<div>
+	<iframe src="/guid/MSB:Mamm:13"></iframe>
+</div>
+
+
+
+
+
+
+
+<cfabort>
+
+
+
+
+<cfquery name="f" datasource="uam_god">
+	select
+</cfquery>
+
+
+
+
+
 
 	<cfparam name="p" default="1">
 	<cfparam name="pagesize" default="1000">
