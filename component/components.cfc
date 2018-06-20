@@ -1,7 +1,7 @@
 <cfcomponent>
 	<cffunction name="validateSpecimenEvent" access="public">
 		<cfargument name="q" required="yes" type="query">
-		<cfset r.problems="">
+		<cfset problems="">
 		<cfset checkEvent=true>
 		<cfset checkLocality=true>
 		<cfquery name="x" datasource="uam_god">
