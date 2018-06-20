@@ -110,8 +110,8 @@
 		<input type="hidden" name="collection" value="#collection#">
 		<input type="hidden" name="usrn" value="#usrn#">
 
-	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent','true')">Check All</span>
-	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent','false')">UNcheck All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent',false)">UNcheck All</span>
 	<table border>
 		<tr>
 			<th>AutoLoad</th>
