@@ -7,7 +7,7 @@
 <cfif action is "nothing">
 <script>
 	function checkAll(pre,s){
-		$("input[name*='" + pre + "']").each(function(){
+		$("input[name*='" + pre + "_key']").each(function(){
 		   $(this)..prop('checked', s);
 		});
 	}
