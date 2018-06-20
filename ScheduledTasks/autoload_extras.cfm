@@ -24,7 +24,7 @@
 	</cfloop>
 	<cfset components = CreateObject("component","component.components")>
 
-	<cfquery name="d" datasource="uam_god">
+	<cfquery name="d2" datasource="uam_god">
 		select
 			cf_temp_specevent.key,
 			flat.guid
@@ -41,13 +41,13 @@
 	</cfquery>
 
 
-	<cfdump var=#d#>
+	<cfdump var=#d2#>
 
 
 
-	<cfloop query="d">
+	<cfloop query="d2">
 		<cfquery name="thisRow" dbtype="query">
-			select * from d where key='#d.key#'
+			select * from d2 where key='#d2.key#'
 		</cfquery>
 		<cfset x=components.validateSpecimenEvent(thisRow)>
 		<cfdump var=#x#>
