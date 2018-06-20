@@ -3,7 +3,19 @@
 ---->
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
-		select * from cf_temp_specevent where  status='autoload' and guid is null
+		select
+			cf_temp_specevent.key,
+			flat.guid
+		from
+			cf_temp_specevent,
+			flat,
+			coll_obj_other_id_num
+		where
+			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
+			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
+			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_specevent.UUID and
+			cf_temp_specevent.status='autoload' and
+			cf_temp_specevent.guid is null
 	</cfquery>
 	<cfdump var=#d#>
 	<!--------
