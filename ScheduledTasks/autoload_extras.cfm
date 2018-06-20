@@ -49,22 +49,22 @@
 		<cfquery name="ud" datasource="uam_god">
 			update cf_temp_specevent set
 				key=key,
-				<cfif isdefined(x.problems) and len(x.problems) gt 0>
+				<cfif isdefined("x.problems") and len(x.problems) gt 0>
 					,status='autoload:fail:#x.problems#'
 				</cfif>
-				<cfif isdefined(x.collection_object_id) and len(x.collection_object_id) gt 0>
+				<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
 					,l_collection_object_id=#x.collection_object_id#
 				</cfif>
-				<cfif isdefined(x.collecting_event_id) and len(x.collecting_event_id) gt 0>
+				<cfif isdefined("x.collecting_event_id") and len(x.collecting_event_id) gt 0>
 					,l_collecting_event_id=#x.collecting_event_id#
 				</cfif>
-				<cfif isdefined(x.GEOG_AUTH_REC_ID) and len(x.GEOG_AUTH_REC_ID) gt 0>
+				<cfif isdefined("x.GEOG_AUTH_REC_ID") and len(x.GEOG_AUTH_REC_ID) gt 0>
 					,l_geog_auth_rec_id=#x.GEOG_AUTH_REC_ID#
 				</cfif>
-				<cfif isdefined(x.LOCALITY_ID) and len(x.LOCALITY_ID) gt 0>
+				<cfif isdefined("x.LOCALITY_ID") and len(x.LOCALITY_ID) gt 0>
 					,LOCALITY_ID=#x.LOCALITY_ID#
 				</cfif>
-				<cfif isdefined(x.agent_id) and len(x.agent_id) gt 0>
+				<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
 					,l_event_assigned_id=#x.agent_id#
 				</cfif>
 			where
