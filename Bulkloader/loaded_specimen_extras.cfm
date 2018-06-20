@@ -51,6 +51,9 @@
 	<p>
 		This form finds data in bulkloaders for specimen which have successfully loaded and are linked to bulkloaders by UUID.
 	</p>
+	<p>
+		NOTE: 1000-record limit per table. You may need to uncheck some boxes to proceed.
+	</p>
 	<cfquery name="gp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select guid_prefix from collection order by guid_prefix
 	</cfquery>
