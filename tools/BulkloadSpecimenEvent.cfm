@@ -66,6 +66,9 @@ create table cf_temp_specevent (
 );
 
 
+alter table cf_temp_specevent modify status varchar2(4000);
+
+
 alter table cf_temp_specevent add c$lat number;
 alter table cf_temp_specevent add c$long number;
 

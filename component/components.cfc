@@ -133,7 +133,7 @@
 			    			'#q.VERBATIM_LOCALITY#',
 			    			'#q.began_date#',
 			    			'#q.ended_date#',
-			    			'#coll_event_remarks#',
+			    			'#q.coll_event_remarks#',
 			    			<cfif len(q.LAT_DEG) gt 0>
 								#q.LAT_DEG#
 							<cfelse>
