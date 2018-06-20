@@ -1,4 +1,246 @@
 <cfcomponent>
+	<cffunction name="createSpecimenEvent" access="public">
+		<cfargument name="q" required="yes" type="query">
+		<cftry>
+			<cftransaction>
+				<!--- first find or build a locality --->
+				<!--- if we have locality_name then we just need the ID --->
+				<cfif len(q.locality_name) gt 0>
+					<cfquery name="x" datasource="uam_god">
+						select locality_id from locality where locality_name='#q.locality_name#'
+					</cfquery>
+					<cfset locid=x.locality_id>
+				<cfelse>
+					<!--- just build one, the merger scripts will deal with it ---->
+					<cfquery name="nLocId" datasource="uam_god">
+						select sq_locality_id.nextval nv from dual
+					</cfquery>
+					<cfset locid=nLocId.nv>
+					<cfquery name="newLocality" datasource="uam_god">
+						INSERT INTO locality (
+							LOCALITY_ID,
+							GEOG_AUTH_REC_ID,
+							MAXIMUM_ELEVATION,
+							MINIMUM_ELEVATION,
+							ORIG_ELEV_UNITS,
+							SPEC_LOCALITY,
+							LOCALITY_REMARKS,
+							DEPTH_UNITS,
+							MIN_DEPTH,
+							MAX_DEPTH,
+							DEC_LAT,
+							DEC_LONG,
+							MAX_ERROR_DISTANCE,
+							MAX_ERROR_UNITS,
+							DATUM,
+							georeference_source,
+							georeference_protocol,
+							wkt_polygon
+						)  values (
+							#locid#,
+							(select geog_auth_rec_id from geog_auth_rec where higher_geog='#q.higher_geog#'),
+							<cfif len(q.MAXIMUM_ELEVATION) gt 0>
+								#q.MAXIMUM_ELEVATION#
+							<cfelse>
+								NULL
+							</cfif>,
+							<cfif len(q.MINIMUM_ELEVATION) gt 0>
+								#q.MINIMUM_ELEVATION#
+							<cfelse>
+								NULL
+							</cfif>,
+							'#q.ORIG_ELEV_UNITS#',
+							'#q.SPEC_LOCALITY#',
+							'#q.LOCALITY_REMARKS#',
+							'#q.DEPTH_UNITS#',
+							<cfif len(q.MIN_DEPTH) gt 0>
+								#q.MIN_DEPTH#
+							<cfelse>
+								NULL
+							</cfif>,
+							<cfif len(q.MAX_DEPTH) gt 0>
+								#q.MAX_DEPTH#
+							<cfelse>
+								NULL
+							</cfif>,
+							<cfif len(q.c$LAT) gt 0>
+								#q.c$LAT#
+							<cfelse>
+								NULL
+							</cfif>,
+							<cfif len(q.c$LONG) gt 0>
+								#q.c$LONG#
+							<cfelse>
+								NULL
+							</cfif>,
+							<cfif len(q.MAX_ERROR_DISTANCE) gt 0>
+								#q.MAX_ERROR_DISTANCE#
+							<cfelse>
+								NULL
+							</cfif>,
+							'#q.MAX_ERROR_UNITS#',
+							'#q.DATUM#',
+							'#q.georeference_source#',
+							'#q.georeference_protocol#',
+							 <cfqueryparam value="#q.wkt_polygon#" cfsqltype="cf_sql_clob">
+						)
+					</cfquery>
+				</cfif>
+
+
+				<!--- if we have collecting_event_name then we just need the ID --->
+				<cfif len(q.collecting_event_name) gt 0>
+					<cfquery name="x" datasource="uam_god">
+						select collecting_event_id from collecting_event where collecting_event_name='#q.collecting_event_name#'
+					</cfquery>
+					<cfset ceid=x.collecting_event_id>
+				<cfelse>
+					<!---- just build one, let the cleanup scripts worry about the mess ---->
+					<cfquery name="nCevId" datasource="uam_god">
+						select sq_collecting_event_id.nextval nv from dual
+					</cfquery>
+					<cfset ceid=nCevId.nv>
+					<cfquery name="makeEvent" datasource="uam_god">
+			    		insert into collecting_event (
+			    			collecting_event_id,
+			    			locality_id,
+			    			verbatim_date,
+			    			VERBATIM_LOCALITY,
+			    			began_date,
+			    			ended_date,
+			    			coll_event_remarks,
+			    			LAT_DEG,
+			    			DEC_LAT_MIN,
+			    			LAT_MIN,
+			    			LAT_SEC,
+			    			LAT_DIR,
+			    			LONG_DEG,
+			    			DEC_LONG_MIN,
+			    			LONG_MIN,
+			    			LONG_SEC,
+			    			LONG_DIR,
+			    			DEC_LAT,
+			    			DEC_LONG,
+			    			DATUM,
+			    			UTM_ZONE,
+			    			UTM_EW,
+			    			UTM_NS,
+			    			ORIG_LAT_LONG_UNITS
+			    		) values (
+			    			#ceid#,
+			    			#locid#,
+			    			'#q.verbatim_date#',
+			    			'#q.VERBATIM_LOCALITY#',
+			    			'#q.began_date#',
+			    			'#q.ended_date#',
+			    			'#coll_event_remarks#',
+			    			<cfif len(q.LAT_DEG) gt 0>
+								#q.LAT_DEG#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			<cfif len(q.DEC_LAT_MIN) gt 0>
+								#q.DEC_LAT_MIN#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			<cfif len(q.LAT_MIN) gt 0>
+								#q.LAT_MIN#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			<cfif len(q.LAT_SEC) gt 0>
+								#q.LAT_SEC#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			'#q.LAT_DIR#',
+			    			<cfif len(q.LONG_DEG) gt 0>
+								#q.LONG_DEG#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			<cfif len(q.DEC_LONG_MIN) gt 0>
+								#q.DEC_LONG_MIN#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			<cfif len(q.LONG_MIN) gt 0>
+								#q.LONG_MIN#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			<cfif len(q.LONG_SEC) gt 0>
+								#q.LONG_SEC#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			'#q.LONG_DIR#',
+			    			<cfif len(q.DEC_LAT) gt 0>
+								#q.DEC_LAT#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			<cfif len(q.DEC_LONG) gt 0>
+								#q.DEC_LONG#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			'#q.DATUM#',
+			    			'#UTM_ZONE#',
+			    			<cfif len(q.UTM_EW) gt 0>
+								#q.UTM_EW#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			<cfif len(q.UTM_NS) gt 0>
+								#q.UTM_NS#
+							<cfelse>
+								NULL
+							</cfif>,
+			    			'#q.ORIG_LAT_LONG_UNITS#'
+			    		)
+	  				</cfquery>
+				</cfif>
+				<cfquery name="makeSpecEvent"  datasource="uam_god">
+					INSERT INTO specimen_event (
+			            COLLECTION_OBJECT_ID,
+			            COLLECTING_EVENT_ID,
+			            ASSIGNED_BY_AGENT_ID,
+			            ASSIGNED_DATE,
+			            SPECIMEN_EVENT_REMARK,
+			            SPECIMEN_EVENT_TYPE,
+			            COLLECTING_METHOD,
+			            COLLECTING_SOURCE,
+			            VERIFICATIONSTATUS,
+			            HABITAT
+			        ) VALUES (
+			            #q.l_collection_object_id#,
+			            #ceid#,
+			            #q.l_event_assigned_id#,
+			            '#q.ASSIGNED_DATE#',
+			            '#q.SPECIMEN_EVENT_REMARK#',
+			            '#q.SPECIMEN_EVENT_TYPE#',
+			            '#q.COLLECTING_METHOD#',
+			            '#q.COLLECTING_SOURCE#',
+			            '#q.VERIFICATIONSTATUS#',
+			            '#q.HABITAT#'
+			        )
+				</cfquery>
+				<cfset r.guid=q.guid>
+				<cfset r.collection_object_id=q.l_collection_object_id>
+				<cfset r.key=q.key>
+				<cfset r.status="success">
+
+			</cftransaction>
+		<cfcatch>
+			<cfset r.key=q.key>
+			<cfset r.status="FAIL: #cfcatch.message# #cfcatch.detail#">
+		</cfcatch>
+		</cftry>
+		<cfreturn r>
+	</cffunction>
+<!--------------------------------------------------------->
 	<cffunction name="validateSpecimenEvent" access="public">
 		<cfargument name="q" required="yes" type="query">
 		<cfset problems="">
@@ -19,22 +261,7 @@
 				<cfset problems=listappend(problems,'invalid COLLECTING_SOURCE')>
 			</cfif>
 		</cfif>
-		<cfif len(q.LOCALITY_ID) is 0 and len(q.COLLECTING_EVENT_ID) is 0 and len(q.GEOG_AUTH_REC_ID) is 0>
-			<cfquery name="x" datasource="uam_god">
-				select count(*) c from GEOG_AUTH_REC where HIGHER_GEOG='#q.HIGHER_GEOG#'
-			</cfquery>
-			<cfif x.c is not 1>
-				<cfset problems=listappend(problems,'invalid HIGHER_GEOG')>
-			</cfif>
-		</cfif>
-		<cfif  len(q.orig_lat_long_units) gt 0 AND
-		   (
-		       len(q.datum) is 0 or
-		       len(q.GEOREFERENCE_SOURCE) is 0 or
-		       len(q.GEOREFERENCE_PROTOCO) is 0
-		   )>
-			<cfset problems=listappend(problems,'invalid datum,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL')>
-		</cfif>
+
 		<cfquery name="x" datasource="uam_god">
 			select collection_object_id from flat where guid='#q.guid#'
 		</cfquery>
@@ -44,7 +271,6 @@
 			<cfset r.collection_object_id=x.collection_object_id>
 		</cfif>
 
-
 		<cfquery name="x" datasource="uam_god">
 			select agent_id from agent_name where agent_name='#q.ASSIGNED_BY_AGENT#' group by agent_id
 		</cfquery>
@@ -53,55 +279,38 @@
 		<cfelse>
 			<cfset problems=listappend(problems,'ASSIGNED_BY_AGENT not found')>
 		</cfif>
+
 		<cfquery name="x" datasource="uam_god">
 			select is_iso8601('#q.ASSIGNED_DATE#') isdate from dual
 		</cfquery>
+
 		<cfif x.isdate is not "valid">
 			<cfset problems=listappend(problems,'ASSIGNED_DATE not a valid date')>
 		</cfif>
-		<cfif len(q.collecting_event_id) gt 0>
-			<cfset checkEvent=false>
-			<cfset checkLocality=false>
-			<cfquery name="x" datasource="uam_god">
-				select collecting_event_id from collecting_event where collecting_event_id=#q.collecting_event_id#
-			</cfquery>
-			<cfif x.recordcount is not 1>
-				<cfset problems=listappend(problems,'not a valid collecting_event_id')>
-			<cfelse>
-				<cfset r.collecting_event_id=x.collecting_event_id>
-			</cfif>
-		</cfif>
+
+
+
+
+
+
+
 		<cfif len(q.collecting_event_name) gt 0>
 			<cfset checkEvent=false>
 			<cfset checkLocality=false>
 			<cfquery name="x" datasource="uam_god">
 				select min(collecting_event_id) collecting_event_id from collecting_event where collecting_event_name='#q.collecting_event_name#'
 			</cfquery>
-			<cfif x.recordcount is 1 and len(x.collecting_event_id) gt 0>
-				<cfset r.collecting_event_id=collecting_event.collecting_event_id>
-			<cfelse>x
+			<cfif x.recordcount is not 1 or len(x.collecting_event_id) is 0>
 				<cfset problems=listappend(problems,'not a valid collecting_event_name')>
 			</cfif>
 		</cfif>
-		<cfif len(q.LOCALITY_ID) gt 0>
-			<cfset checkLocality=false>
-			<cfquery name="x" datasource="uam_god">
-				select min(LOCALITY_ID) LOCALITY_ID from LOCALITY where LOCALITY_ID=#q.LOCALITY_ID#
-			</cfquery>
-			<cfif x.recordcount is 1 and len(x.LOCALITY_ID) gt 0>
-				<cfset r.LOCALITY_ID=x.LOCALITY_ID>
-			<cfelse>
-				<cfset problems=listappend(problems,'not a valid LOCALITY_ID')>
-			</cfif>
-		</cfif>
+
 		<cfif len(q.LOCALITY_NAME) gt 0>
 			<cfset checkLocality=false>
 			<cfquery name="x" datasource="uam_god">
 				select min(LOCALITY_ID) LOCALITY_ID from LOCALITY where LOCALITY_NAME='#q.LOCALITY_NAME#'
 			</cfquery>
-			<cfif x.recordcount is 1 and len(x.LOCALITY_ID) gt 0>
-				<cfset r.LOCALITY_ID=x.LOCALITY_ID>
-			<cfelse>
+			<cfif x.recordcount is not 1 or len(x.LOCALITY_ID) is 0>
 				<cfset problems=listappend(problems,'not a valid LOCALITY_NAME')>
 			</cfif>
 		</cfif>
@@ -178,6 +387,15 @@
 		</cfif><!--- END  checkEvent is true --->
 
 		<cfif checkLocality is true>
+			<cfif  len(q.orig_lat_long_units) gt 0 AND
+			   (
+			       len(q.datum) is 0 or
+			       len(q.GEOREFERENCE_SOURCE) is 0 or
+			       len(q.GEOREFERENCE_PROTOCO) is 0
+			   )>
+				<cfset problems=listappend(problems,'invalid datum,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL')>
+			</cfif>
+
 			<cfif len(q.SPEC_LOCALITY) is 0>
 				<cfset problems=listappend(problems,'SPEC_LOCALITY is required')>
 			</cfif>
@@ -216,50 +434,19 @@
 					<cfset problems=listappend(problems,'MAX_ERROR_DISTANCE is required when MAX_ERROR_UNITS is given')>
 				</cfif>
 			</cfif>
-			<cfif len(q.GEOG_AUTH_REC_ID) gt 0>
-				<cfquery name="x" datasource="uam_god">
-					select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID from GEOG_AUTH_REC where GEOG_AUTH_REC_ID=#q.GEOG_AUTH_REC_ID#
-				</cfquery>
-				<cfset r.GEOG_AUTH_REC_ID=x.GEOG_AUTH_REC_ID>
-				<cfif x.GEOG_AUTH_REC_ID is 0>
-					<cfset problems=listappend(problems,'GEOG_AUTH_REC_ID is not valid')>
-				</cfif>
-			<cfelseif len(q.HIGHER_GEOG) gt 0>
-				<cfquery name="x" datasource="uam_god">
-					select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID  from GEOG_AUTH_REC where HIGHER_GEOG='#q.HIGHER_GEOG#'
-				</cfquery>
-				<cfset r.GEOG_AUTH_REC_ID=x.GEOG_AUTH_REC_ID>
-				<cfif x.GEOG_AUTH_REC_ID is 0>
-					<cfset problems=listappend(problems,'HIGHER_GEOG is not valid')>
-				</cfif>
-			<cfelse>
-				<cfset problems=listappend(problems,'Either HIGHER_GEOG or GEOG_AUTH_REC_ID is required.')>
+			<!--- if we made it here we need higher_geog ---->
+			<cfquery name="x" datasource="uam_god">
+				select count(*) c from GEOG_AUTH_REC where HIGHER_GEOG='#q.HIGHER_GEOG#'
+			</cfquery>
+			<cfif x.c is not 1>
+				<cfset problems=listappend(problems,'invalid HIGHER_GEOG')>
 			</cfif>
+
 		</cfif><!---- END checkLocality is true --->
 		<cfif len(problems) is 0>
 			<cfset problems="precheck_pass">
 		</cfif>
 		<cfset r.problems=problems>
 		<cfreturn r>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</cffunction>
-
 </cfcomponent>

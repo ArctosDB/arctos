@@ -1,5 +1,7 @@
 <!---
 	deal with "data entry extras" marked "autoload"
+
+	just run until we finish or time out
 ---->
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
@@ -55,22 +57,34 @@
 				<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
 					,l_collection_object_id=#x.collection_object_id#
 				</cfif>
-				<cfif isdefined("x.collecting_event_id") and len(x.collecting_event_id) gt 0>
-					,l_collecting_event_id=#x.collecting_event_id#
-				</cfif>
-				<cfif isdefined("x.GEOG_AUTH_REC_ID") and len(x.GEOG_AUTH_REC_ID) gt 0>
-					,l_geog_auth_rec_id=#x.GEOG_AUTH_REC_ID#
-				</cfif>
-				<cfif isdefined("x.LOCALITY_ID") and len(x.LOCALITY_ID) gt 0>
-					,LOCALITY_ID=#x.LOCALITY_ID#
-				</cfif>
 				<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
 					,l_event_assigned_id=#x.agent_id#
 				</cfif>
 			where
 				key=#x.key#
 		</cfquery>
+	</cfloop>
 
+	<cfquery name="d3" datasource="uam_god">
+		select * from
+			cf_temp_specevent
+		where
+			cf_temp_specevent.status='autoload:precheck_pass' and
+			cf_temp_specevent.guid is not null
+	</cfquery>
+	<cfloop query="d3">
+		<cfquery name="thisRow" dbtype="query">
+			select * from d3 where [key] = #d3.key#
+		</cfquery>
+		<cfset x=components.loadSpecimenEvent(thisRow)>
+		<cfdump var=#x#>
+			<cfquery name="ud" datasource="uam_god">
+				update cf_temp_specevent set
+					status='autoload:#x.status#'
+				where
+					key=#x.key#
+		</cfquery>
+		</cfif>
 	</cfloop>
 
 	<!--------
