@@ -3,7 +3,7 @@
 ---->
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
-		select * from cf_temp_specevent where  status='autoload'
+		select * from cf_temp_specevent where  status='autoload' and guid is null
 	</cfquery>
 	<cfdump var=#d#>
 	<!--------
