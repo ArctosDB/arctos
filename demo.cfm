@@ -3,19 +3,31 @@
 	This is a demo. It only works with two GUIDs. Consider the data, not the layout.
 </div>
 <h3>Individual (Organism??) Synthesize-O-Matic</h3>
+<p>
+	Displaying data for individual comprised of Records:
+	<ul>
+	<cfloop list="#dwcguid#" index="i">
+		<li><a href="/guid/#i#">/guid/#i#</a></li>
+	</cfloop>
+	</ul>
+</p>
+<style>
+	.onethingee{
+		border:1px solid green;
+		margin:1em;
+		padding:1em;
+		height:800px;
+		width:95%;
+	}
+</style>
 
-
-
-
-
-<div>
-	<iframe src="/guid/MSB:Mamm:12"></iframe>
-</div>
-
-<div>
-	<iframe src="/guid/MSB:Mamm:13"></iframe>
-</div>
-
+<cfoutput>
+	<cfloop list="#dwcguid#" index="i">
+		<div class="onethingee">
+			<iframe src="/guid/#i#"></iframe>
+		</div>
+	</cfloop>
+</cfoutput>
 
 
 
@@ -27,9 +39,6 @@
 
 
 
-<cfquery name="f" datasource="uam_god">
-	select
-</cfquery>
 
 
 
