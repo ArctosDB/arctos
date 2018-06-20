@@ -187,7 +187,7 @@
 								NULL
 							</cfif>,
 			    			'#q.DATUM#',
-			    			'#UTM_ZONE#',
+			    			'#q.UTM_ZONE#',
 			    			<cfif len(q.UTM_EW) gt 0>
 								#q.UTM_EW#
 							<cfelse>
