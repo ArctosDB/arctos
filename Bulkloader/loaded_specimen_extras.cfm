@@ -3,6 +3,387 @@
 
 <cfif action is "mark_autoload">
 	<cfdump var=#form#>
+
+	ACTION 	mark_autoload
+COLLECTION 	[empty string]
+FIELDNAMES 	ACTION,COLLECTION,USRN,CF_TEMP_ATTRIBUTES_KEY
+USRN 	[empty string]
+	<cfif isdefined("cf_temp_specevent_key") and len(cf_temp_specevent_key) gt 0>
+		<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_temp_specevent set status='autoload' where key in (#ListQualify(cf_temp_specevent_key, "'")#)
+		</cfquery>
+	</cfif>
+	<!----
+	<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			cf_temp_parts.KEY,
+			cf_temp_parts.PART_NAME,
+			cf_temp_parts.DISPOSITION,
+			cf_temp_parts.CONDITION,
+			cf_temp_parts.LOT_COUNT,
+			cf_temp_parts.REMARKS,
+			cf_temp_parts.USE_EXISTING,
+			cf_temp_parts.CONTAINER_BARCODE,
+			cf_temp_parts.CHANGE_CONTAINER_TYPE,
+			cf_temp_parts.CHANGE_CONTAINER_LABEL,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_1,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_1,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_1,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_1,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_1,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_1,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_2,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_2,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_2,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_2,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_2,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_2,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_3,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_3,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_3,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_3,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_3,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_3,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_4,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_4,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_4,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_4,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_4,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_4,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_5,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_5,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_5,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_5,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_5,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_5,
+			cf_temp_parts.PART_ATTRIBUTE_TYPE_6,
+			cf_temp_parts.PART_ATTRIBUTE_VALUE_6,
+			cf_temp_parts.PART_ATTRIBUTE_UNITS_6,
+			cf_temp_parts.PART_ATTRIBUTE_DATE_6,
+			cf_temp_parts.PART_ATTRIBUTE_DETERMINER_6,
+			cf_temp_parts.PART_ATTRIBUTE_REMARK_6,
+			cf_temp_parts.STATUS,
+			cf_temp_parts.USERNAME,
+			flat.guid
+		from
+			cf_temp_parts,
+			coll_obj_other_id_num,
+			flat
+		where
+			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
+			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
+			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_parts.other_id_number
+			<cfif len(collection) gt 0>
+				and flat.guid like '#collection#:%'
+			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_parts.USERNAME) like '%#ucase(usrn)#%'
+			</cfif>
+	</cfquery>
+
+
+	<br><span class="likeLink" onclick="checkAll('cf_temp_parts',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_parts',false)">UNcheck All</span>
+	<table border>
+		<tr>
+			<th>Autoload</th>
+			<th>GUID</th>
+			<th>STATUS</th>
+			<th>USERNAME</th>
+			<th>guid</th>
+			<th>PART_NAME</th>
+			<th>DISPOSITION</th>
+			<th>CONDITION</th>
+			<th>LOT_COUNT</th>
+			<th>REMARKS</th>
+			<th>USE_EXISTING</th>
+			<th>CONTAINER_BARCODE</th>
+			<th>CHANGE_CONTAINER_TYPE</th>
+			<th>CHANGE_CONTAINER_LABEL</th>
+			<th>PART_ATTRIBUTE_TYPE_1</th>
+			<th>PART_ATTRIBUTE_VALUE_1</th>
+			<th>PART_ATTRIBUTE_UNITS_1</th>
+			<th>PART_ATTRIBUTE_DATE_1</th>
+			<th>PART_ATTRIBUTE_DETERMINER_1</th>
+			<th>PART_ATTRIBUTE_REMARK_1</th>
+			<th>PART_ATTRIBUTE_TYPE_2</th>
+			<th>PART_ATTRIBUTE_VALUE_2</th>
+			<th>PART_ATTRIBUTE_UNITS_2</th>
+			<th>PART_ATTRIBUTE_DATE_2</th>
+			<th>PART_ATTRIBUTE_DETERMINER_2</th>
+			<th>PART_ATTRIBUTE_REMARK_2</th>
+			<th>PART_ATTRIBUTE_TYPE_3</th>
+			<th>PART_ATTRIBUTE_VALUE_3</th>
+			<th>PART_ATTRIBUTE_UNITS_3</th>
+			<th>PART_ATTRIBUTE_DATE_3</th>
+			<th>PART_ATTRIBUTE_DETERMINER_3</th>
+			<th>PART_ATTRIBUTE_REMARK_3</th>
+			<th>PART_ATTRIBUTE_TYPE_4</th>
+			<th>PART_ATTRIBUTE_VALUE_4</th>
+			<th>PART_ATTRIBUTE_UNITS_4</th>
+			<th>PART_ATTRIBUTE_DATE_4</th>
+			<th>PART_ATTRIBUTE_DETERMINER_4</th>
+			<th>PART_ATTRIBUTE_REMARK_4</th>
+			<th>PART_ATTRIBUTE_TYPE_5</th>
+			<th>PART_ATTRIBUTE_VALUE_5</th>
+			<th>PART_ATTRIBUTE_UNITS_5</th>
+			<th>PART_ATTRIBUTE_DATE_5</th>
+			<th>PART_ATTRIBUTE_DETERMINER_5</th>
+			<th>PART_ATTRIBUTE_REMARK_5</th>
+			<th>PART_ATTRIBUTE_TYPE_6</th>
+			<th>PART_ATTRIBUTE_VALUE_6</th>
+			<th>PART_ATTRIBUTE_UNITS_6</th>
+			<th>PART_ATTRIBUTE_DATE_6</th>
+			<th>PART_ATTRIBUTE_DETERMINER_6</th>
+			<th>PART_ATTRIBUTE_REMARK_6</th>
+		</tr>
+		<cfloop query="cf_temp_parts">
+			<tr>
+				<td>
+					<input type="checkbox" name="cf_temp_parts_key" value="#KEY#">
+				</td>
+				<th>#GUID#</th>
+				<td>#STATUS#</td>
+				<td>#USERNAME#</td>
+				<td>#guid#</td>
+				<td>#PART_NAME#</td>
+				<td>#DISPOSITION#</td>
+				<td>#CONDITION#</td>
+				<td>#LOT_COUNT#</td>
+				<td>#REMARKS#</td>
+				<td>#USE_EXISTING#</td>
+				<td>#CONTAINER_BARCODE#</td>
+				<td>#CHANGE_CONTAINER_TYPE#</td>
+				<td>#CHANGE_CONTAINER_LABEL#</td>
+				<td>#PART_ATTRIBUTE_TYPE_1#</td>
+				<td>#PART_ATTRIBUTE_VALUE_1#</td>
+				<td>#PART_ATTRIBUTE_UNITS_1#</td>
+				<td>#PART_ATTRIBUTE_DATE_1#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_1#</td>
+				<td>#PART_ATTRIBUTE_REMARK_1#</td>
+				<td>#PART_ATTRIBUTE_TYPE_2#</td>
+				<td>#PART_ATTRIBUTE_VALUE_2#</td>
+				<td>#PART_ATTRIBUTE_UNITS_2#</td>
+				<td>#PART_ATTRIBUTE_DATE_2#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_2#</td>
+				<td>#PART_ATTRIBUTE_REMARK_2#</td>
+				<td>#PART_ATTRIBUTE_TYPE_3#</td>
+				<td>#PART_ATTRIBUTE_VALUE_3#</td>
+				<td>#PART_ATTRIBUTE_UNITS_3#</td>
+				<td>#PART_ATTRIBUTE_DATE_3#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_3#</td>
+				<td>#PART_ATTRIBUTE_REMARK_3#</td>
+				<td>#PART_ATTRIBUTE_TYPE_4#</td>
+				<td>#PART_ATTRIBUTE_VALUE_4#</td>
+				<td>#PART_ATTRIBUTE_UNITS_4#</td>
+				<td>#PART_ATTRIBUTE_DATE_4#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_4#</td>
+				<td>#PART_ATTRIBUTE_REMARK_4#</td>
+				<td>#PART_ATTRIBUTE_TYPE_5#</td>
+				<td>#PART_ATTRIBUTE_VALUE_5#</td>
+				<td>#PART_ATTRIBUTE_UNITS_5#</td>
+				<td>#PART_ATTRIBUTE_DATE_5#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_5#</td>
+				<td>#PART_ATTRIBUTE_REMARK_5#</td>
+				<td>#PART_ATTRIBUTE_TYPE_6#</td>
+				<td>#PART_ATTRIBUTE_VALUE_6#</td>
+				<td>#PART_ATTRIBUTE_UNITS_6#</td>
+				<td>#PART_ATTRIBUTE_DATE_6#</td>
+				<td>#PART_ATTRIBUTE_DETERMINER_6#</td>
+				<td>#PART_ATTRIBUTE_REMARK_6#</td>
+			</tr>
+		</cfloop>
+	</table>
+
+	<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			cf_temp_attributes.KEY,
+			cf_temp_attributes.USERNAME,
+			cf_temp_attributes.STATUS,
+			cf_temp_attributes.ATTRIBUTE,
+			cf_temp_attributes.ATTRIBUTE_VALUE,
+			cf_temp_attributes.ATTRIBUTE_UNITS,
+			cf_temp_attributes.ATTRIBUTE_DATE,
+			cf_temp_attributes.ATTRIBUTE_METH,
+			cf_temp_attributes.DETERMINER,
+			cf_temp_attributes.REMARKS,
+			flat.guid
+		from
+			cf_temp_attributes,
+			coll_obj_other_id_num,
+			flat
+		where
+			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
+			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
+			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_attributes.other_id_number
+			<cfif len(collection) gt 0>
+				and flat.guid like '#collection#:%'
+			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_attributes.USERNAME) like '%#ucase(usrn)#%'
+			</cfif>
+	</cfquery>
+
+
+	<br><span class="likeLink" onclick="checkAll('cf_temp_attributes',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_attributes',false)">UNcheck All</span>
+	<table border>
+		<tr>
+			<th>Autoload</th>
+			<th>GUID</th>
+			<th>USERNAME</th>
+			<th>STATUS</th>
+			<th>ATTRIBUTE</th>
+			<th>ATTRIBUTE_VALUE</th>
+			<th>ATTRIBUTE_UNITS</th>
+			<th>ATTRIBUTE_DATE</th>
+			<th>ATTRIBUTE_METH</th>
+			<th>DETERMINER</th>
+			<th>REMARKS</th>
+		</tr>
+		<cfloop query="cf_temp_attributes">
+			<tr>
+				<td>
+					<input type="checkbox" name="cf_temp_attributes_key" value="#KEY#">
+				</td>
+				<td>#GUID#</td>
+				<td>#USERNAME#</td>
+				<td>#STATUS#</td>
+				<td>#ATTRIBUTE#</td>
+				<td>#ATTRIBUTE_VALUE#</td>
+				<td>#ATTRIBUTE_UNITS#</td>
+				<td>#ATTRIBUTE_DATE#</td>
+				<td>#ATTRIBUTE_METH#</td>
+				<td>#DETERMINER#</td>
+				<td>#REMARKS#</td>
+			</tr>
+		</cfloop>
+	</table>
+	<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			cf_temp_oids.KEY,
+			cf_temp_oids.USERNAME,
+			cf_temp_oids.STATUS,
+			cf_temp_oids.NEW_OTHER_ID_TYPE,
+			cf_temp_oids.NEW_OTHER_ID_NUMBER,
+			cf_temp_oids.NEW_OTHER_ID_REFERENCES,
+			flat.guid
+		from
+			cf_temp_oids,
+			coll_obj_other_id_num,
+			flat
+		where
+			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
+			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
+			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_oids.EXISTING_OTHER_ID_NUMBER
+			<cfif len(collection) gt 0>
+				and flat.guid like '#collection#:%'
+			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_oids.USERNAME) like '%#ucase(usrn)#%'
+			</cfif>
+	</cfquery>
+
+
+	<br><span class="likeLink" onclick="checkAll('cf_temp_oids',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_oids',false)">UNcheck All</span>
+	<table border>
+		<tr>
+			<th>Autoload</th>
+			<th>GUID</th>
+			<th>USERNAME</th>
+			<th>STATUS</th>
+			<th>NEW_OTHER_ID_TYPE</th>
+			<th>NEW_OTHER_ID_NUMBER</th>
+			<th>NEW_OTHER_ID_REFERENCES</th>
+		</tr>
+		<cfloop query="cf_temp_oids">
+			<tr>
+				<td>
+					<input type="checkbox" name="cf_temp_oids_key" value="#KEY#">
+				</td>
+				<td>#GUID#</td>
+				<td>#USERNAME#</td>
+				<td>#STATUS#</td>
+				<td>#NEW_OTHER_ID_TYPE#</td>
+				<td>#NEW_OTHER_ID_NUMBER#</td>
+				<td>#NEW_OTHER_ID_REFERENCES#</td>
+			</tr>
+		</cfloop>
+	</table>
+
+	<cfquery name="cf_temp_collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			cf_temp_collector.KEY,
+			cf_temp_collector.USERNAME,
+			cf_temp_collector.STATUS,
+			cf_temp_collector.AGENT_NAME,
+			cf_temp_collector.COLLECTOR_ROLE,
+			cf_temp_collector.COLL_ORDER,
+			flat.guid
+		from
+			cf_temp_collector,
+			coll_obj_other_id_num,
+			flat
+		where
+			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
+			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
+			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_collector.other_id_number
+			<cfif len(collection) gt 0>
+				and flat.guid like '#collection#:%'
+			</cfif>
+			<cfif len(usrn) gt 0>
+				and upper(cf_temp_collector.USERNAME) like '%#ucase(usrn)#%'
+			</cfif>
+	</cfquery>
+
+
+	<br><span class="likeLink" onclick="checkAll('cf_temp_collector',true)">Check All</span>
+	<br><span class="likeLink" onclick="checkAll('cf_temp_collector',false)">UNcheck All</span>
+	<table border>
+		<tr>
+			<th>Autoload</th>
+			<th>GUID</th>
+			<th>USERNAME</th>
+			<th>STATUS</th>
+			<th>AGENT_NAME</th>
+			<th>COLLECTOR_ROLE</th>
+			<th>COLL_ORDER</th>
+		</tr>
+		<cfloop query="cf_temp_collector">
+			<tr>
+				<td>
+					<input type="checkbox" name="cf_temp_collector_key" value="#KEY#">
+				</td>
+				<td>#GUID#</td>
+				<td>#USERNAME#</td>
+				<td>#STATUS#</td>
+				<td>#AGENT_NAME#</td>
+				<td>#COLLECTOR_ROLE#</td>
+				<td>#COLL_ORDER#</td>
+			</tr>
+		</cfloop>
+	</table>
+
+	<input type="submit" value="mark all checked records to autoload">
+	</form>
+
+
+
+
+
+
+
+---->
+
+
+
+
+
+
+
+
+
 </cfif>
 <cfif action is "nothing">
 <script>
@@ -13,8 +394,6 @@
 		   $(this).prop('checked', s);
 		});
 	}
-
-
 </script>
 <cfoutput>
 	<p>
