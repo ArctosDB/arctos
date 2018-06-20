@@ -261,7 +261,7 @@
 	</cfquery>
 	<table border>
 		<tr>
-			<th>KEY</th>
+			<th>Autoload</th>
 			<th>GUID</th>
 			<th>STATUS</th>
 			<th>USERNAME</th>
@@ -314,7 +314,9 @@
 		</tr>
 		<cfloop query="cf_temp_parts">
 			<tr>
-				<td>#KEY#</td>
+				<td>
+					<input type="checkbox" name="cf_temp_parts_key" value="#KEY#">
+				</td>
 				<th>#GUID#</th>
 				<td>#STATUS#</td>
 				<td>#USERNAME#</td>
@@ -399,7 +401,7 @@
 
 	<table border>
 		<tr>
-			<th>KEY</th>
+			<th>Autoload</th>
 			<th>GUID</th>
 			<th>USERNAME</th>
 			<th>STATUS</th>
@@ -413,7 +415,9 @@
 		</tr>
 		<cfloop query="cf_temp_attributes">
 			<tr>
-				<td>#KEY#</td>
+				<td>
+					<input type="checkbox" name="cf_temp_attributes_key" value="#KEY#">
+				</td>
 				<td>#GUID#</td>
 				<td>#USERNAME#</td>
 				<td>#STATUS#</td>
@@ -453,7 +457,7 @@
 	</cfquery>
 	<table border>
 		<tr>
-			<th>KEY</th>
+			<th>Autoload</th>
 			<th>GUID</th>
 			<th>USERNAME</th>
 			<th>STATUS</th>
@@ -463,7 +467,9 @@
 		</tr>
 		<cfloop query="cf_temp_oids">
 			<tr>
-				<td>#KEY#</td>
+				<td>
+					<input type="checkbox" name="cf_temp_oids_key" value="#KEY#">
+				</td>
 				<td>#GUID#</td>
 				<td>#USERNAME#</td>
 				<td>#STATUS#</td>
@@ -500,7 +506,7 @@
 	</cfquery>
 	<table border>
 		<tr>
-			<th>KEY</th>
+			<th>Autoload</th>
 			<th>GUID</th>
 			<th>USERNAME</th>
 			<th>STATUS</th>
@@ -510,7 +516,9 @@
 		</tr>
 		<cfloop query="cf_temp_collector">
 			<tr>
-				<td>#KEY#</td>
+				<td>
+					<input type="checkbox" name="cf_temp_collector_key" value="#KEY#">
+				</td>
 				<td>#GUID#</td>
 				<td>#USERNAME#</td>
 				<td>#STATUS#</td>
