@@ -38,7 +38,7 @@
 		<cfif len(x.collection_object_id) is 0>
 			<cfset problems=listappend(problems,'guid not found')>
 		<cfelse>
-			<cfset r.collection_object_id=getCatItem.collection_object_id>
+			<cfset r.collection_object_id=x.collection_object_id>
 		</cfif>
 
 
