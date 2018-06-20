@@ -1,6 +1,7 @@
 <cfcomponent>
 	<cffunction name="validateSpecimenEvent" access="public">
-		<cfreturn "skippy">
+		<cfargument name="q" required="yes" type="query">
+		<cfreturn q>
 	</cffunction>
 
 </cfcomponent>
