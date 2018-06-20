@@ -184,7 +184,7 @@
 			<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select get_address(#session.myAgentID#, 'email') a from dual
 			</cfquery>
-			<cfmail subject="force agent taxon name" to="#Application.bugReportEmail#" from="ForceTaxon@#Application.fromEmail#" cc="#a.a#" type="html">
+			<cfmail subject="force create taxon name" to="#Application.bugReportEmail#" from="ForceTaxon@#Application.fromEmail#" cc="#a.a#" type="html">
 				#session.username# just force-created taxon
 				<a href="#Application.serverRootUrl#/name/#newName#">#newName#</a>.
 				<p>
