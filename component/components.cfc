@@ -24,11 +24,11 @@
 				<cfset problems=listappend(problems,'invalid HIGHER_GEOG')>
 			</cfif>
 		</cfif>
-		<cfif  q.orig_lat_long_units is not null AND
+		<cfif  len(q.orig_lat_long_units) gt 0 AND
 		   (
-		       q.datum is null or
-		       q.GEOREFERENCE_SOURCE is null or
-		       q.GEOREFERENCE_PROTOCOL is null
+		       len(q.datum) is 0 or
+		       len(q.GEOREFERENCE_SOURCE) is 0 or
+		       len(q.GEOREFERENCE_PROTOCO) is 0
 		   )>
 			<cfset problems=listappend(problems,'invalid datum,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL')>
 		</cfif>
