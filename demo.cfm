@@ -3,14 +3,6 @@
 	This is a demo. It only works with two GUIDs. Consider the data, not the layout.
 </div>
 <h3>Individual (Organism??) Synthesize-O-Matic</h3>
-<p>
-	Displaying data for individual comprised of Records:
-	<ul>
-	<cfloop list="#dwcguid#" index="i">
-		<li><a href="/guid/#i#">/guid/#i#</a></li>
-	</cfloop>
-	</ul>
-</p>
 <style>
 	.onethingee{
 		border:1px solid green;
@@ -20,8 +12,15 @@
 		width:95%;
 	}
 </style>
-
 <cfoutput>
+	<p>
+		Displaying data for individual comprised of Records:
+		<ul>
+		<cfloop list="#dwcguid#" index="i">
+			<li><a href="/guid/#i#">/guid/#i#</a></li>
+		</cfloop>
+		</ul>
+	</p>
 	<cfloop list="#dwcguid#" index="i">
 		<div class="onethingee">
 			<iframe src="/guid/#i#"></iframe>
