@@ -61,6 +61,9 @@
 			<li>Mark the records to autoload; this should load AND DELETE these records, or leave errors.</li>
 		</ul>
 	</p>
+	<p>
+		NOTE: Claiming records will mess with filters; you'll probably need to change username filters to your username after clicking the 'mark and claim' button.
+	</p>
 	<div class="importantNotification">
 		Do not claim records which were not entered by you or people whose data you manage. IMMEDIATELY contact the data owner if you do this by accident.
 	</div>
@@ -617,8 +620,10 @@
 			</tr>
 		</cfloop>
 	</table>
+	<p>
+		<input type="submit" value="Claim and mark all checked records to autoload">
+	</p>
 
-	<input type="submit" value="Claim and mark all checked records to autoload">
 	</form>
 
 </cfoutput>
