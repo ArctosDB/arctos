@@ -73,7 +73,7 @@
 			select * from d3 where [key] = #d3.key#
 		</cfquery>
 		<cfset x=loader.createSpecimenEvent(thisRow)>
-		<cfif x.status is "">
+		<cfif x.status is "success">
 			<cfquery name="ud" datasource="uam_god">
 				delete from cf_temp_specevent where	key=#x.key#
 			</cfquery>
@@ -145,7 +145,40 @@
 		</cfquery>
 	</cfloop>
 
-
+	<!----- load attributes ---->
+	<cfquery name="d3" datasource="uam_god">
+		select * from
+			cf_temp_attributes
+		where
+			cf_temp_attributes.status='autoload:precheck_pass' and
+			cf_temp_attributes.guid is not null
+	</cfquery>
+	<cfloop query="d3">
+		<cfquery name="thisRow" dbtype="query">
+			select * from d3 where [key] = #d3.key#
+		</cfquery>
+		<cfset x=loader.createSpecimenAttribute(thisRow)>
+		<cfquery name="ud" datasource="uam_god">
+				update cf_temp_attributes set
+					status='autoload:#x.status#'
+				where
+					key=#x.key#
+			</cfquery>
+		<!----
+		<cfif x.status is "success">
+			<cfquery name="ud" datasource="uam_god">
+				delete from cf_temp_specevent where	key=#x.key#
+			</cfquery>
+		<cfelse>
+			<cfquery name="ud" datasource="uam_god">
+				update cf_temp_specevent set
+					status='autoload:#x.status#'
+				where
+					key=#x.key#
+			</cfquery>
+		</cfif>
+		---->
+	</cfloop>
 
 </cfoutput>
 

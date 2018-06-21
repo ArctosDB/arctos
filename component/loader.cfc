@@ -1,4 +1,44 @@
 <cfcomponent>
+
+	<cffunction name="createSpecimenAttribute" access="public">
+		<cfargument name="q" required="yes" type="query">
+		<cftry>
+		<cfquery name="newAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO attributes (
+				attribute_id,
+				collection_object_id,
+				determined_by_agent_id,
+				attribute_type,
+				attribute_value,
+				attribute_units,
+				attribute_remark,
+				determined_date,
+				determination_method
+				)
+			VALUES (
+				sq_attribute_id.nextval,
+				#q.collection_object_id#,
+				#q.determined_by_agent_id#,
+				'#q.attribute#',
+				'#q.attribute_value#',
+				'#q.attribute_units#',
+				'#q.remarks#',
+				'#q.attribute_date#',
+				'#q.attribute_meth#'
+			)
+		</cfquery>
+			<cfset r.status="success">
+			<cfset r.key=q.key>
+		<cfcatch>
+			<cfset r.status="FAIL: #cfcatch.message# #cfcatch.detail#">
+			<cfset r.key=q.key>
+		</cfcatch>
+		</cftry>
+		<cfreturn r>
+	</cffunction>
+
+
+<!----------------------------------------------------------------------------------------------------------------------------------->
 	<cffunction name="validateSpecimenAttribute" access="public">
 		<cfargument name="q" required="yes" type="query">
 		<cfset problems="">
