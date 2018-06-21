@@ -544,6 +544,7 @@ alter table cf_temp_attributes add guid varchar2(60);
 				<tr>
 					<th>delete</th>
 					<th>STATUS</th>
+					<th>GUID</th>
 					<th>Specimen</th>
 					<th>GUID_PREFIX</th>
 					<th>OTHER_ID_TYPE</th>
@@ -560,6 +561,7 @@ alter table cf_temp_attributes add guid varchar2(60);
 					<tr>
 						<td><input type="checkbox" name="key" value="#key#"></td>
 						<td>#STATUS#</td>
+						<td>#GUID#</td>
 						<td>
 							<cfif status is "valid" and len(collection_object_id) gt 0>
 								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">clicky</a>
