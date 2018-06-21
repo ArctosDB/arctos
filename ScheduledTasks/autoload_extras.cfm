@@ -110,6 +110,45 @@
 			update cf_temp_attributes set guid='#d.guid#' where key=#d.key#
 		</cfquery>
 	</cfloop>
+
+	<!----- validate attributes ---->
+	<cfquery name="d2" datasource="uam_god">
+		select
+			*
+		from
+			cf_temp_attributes
+		where
+			cf_temp_attributes.status='autoload' and
+			cf_temp_attributes.guid is not null
+	</cfquery>
+	<cfloop query="d2">
+		<cfquery name="thisRow" dbtype="query">
+			select * from d2 where [key] = #d2.key#
+		</cfquery>
+		<cfset x=loader.validateSpecimenAttribute(thisRow)>
+		<cfdump var=#x#>
+
+		<!----
+		<cfquery name="ud" datasource="uam_god">
+			update cf_temp_specevent set
+				key=key
+				<cfif isdefined("x.problems") and len(x.problems) gt 0>
+					,status='autoload:#x.problems#'
+				</cfif>
+				<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
+					,l_collection_object_id=#x.collection_object_id#
+				</cfif>
+				<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
+					,l_event_assigned_id=#x.agent_id#
+				</cfif>
+			where
+				key=#x.key#
+		</cfquery>
+		-------->
+	</cfloop>
+
+
+
 </cfoutput>
 
 

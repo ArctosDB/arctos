@@ -1,121 +1,86 @@
 <cfcomponent>
 	<cffunction name="validateSpecimenAttribute" access="public">
 		<cfargument name="q" required="yes" type="query">
+		<cfset problems="">
 		<cfoutput>
-			<!----------
-		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_attributes
-			set
-				status=decode(status,
-					null,'click "get GUID Prefix" before validating',
-					status || '; click "get GUID Prefix" before validating')
-			where
-				upper(username)='#ucase(session.username)#' and
-				guid_prefix is null
-		</cfquery>
-		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_attributes set COLLECTION_OBJECT_ID = (
-				select
-					cataloged_item.collection_object_id
-				from
-					cataloged_item,
-					collection
-				WHERE
-					cataloged_item.collection_id = collection.collection_id and
-					collection.guid_prefix = cf_temp_attributes.guid_prefix and
-					cat_num=cf_temp_attributes.other_id_number
-			) where
-				status is null and
-				other_id_type = 'catalog number'
-				and upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_attributes set COLLECTION_OBJECT_ID = (
-				select
-					cataloged_item.collection_object_id
-				from
-					cataloged_item,
-					collection,
-					coll_obj_other_id_num
-				WHERE
-					cataloged_item.collection_id = collection.collection_id and
-					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-					collection.guid_prefix = cf_temp_attributes.guid_prefix and
-					other_id_type = cf_temp_attributes.other_id_type and
-					display_value = cf_temp_attributes.other_id_number
-			) where
-				status is null and
-				other_id_type != 'catalog number' and
-				upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_attributes
-			set
-				status=decode(status,
-					null,'cataloged item not found',
-					status || '; cataloged item not found')
-			where
-				collection_object_id is null and
-				upper(username)='#ucase(session.username)#'
-		</cfquery>
+			<cfif len(q.guid) gt 0>
+				<cfquery name="x" datasource="uam_god">
+					select
+						flat.collection_object_id,
+						collection.collection_cde
+					from
+						flat,
+						collection
+					 where
+					 	flat.collection_id = collection.collection_id and
+					 	flat.guid='#q.guid#'
+				</cfquery>
+				<cfif len(x.collection_object_id lt 1>
+					<cfset problems=listappend(problems,'specimen not found')>
+				<cfelse>
+					<cfset r.collection_object_id=x.collection_object_id>
+					<cfset collection_cde=x.collection_cde>
+				</cfif>
+			<cfelseif len(q.guid_prefix) gt 0 and len(q.other_id_number) gt 0 and len(q.OTHER_ID_TYPE) gt 0>
+				<cfquery name="x" datasource="uam_god">
+					select
+						cataloged_item.collection_object_id,
+						collection.collection_cde
+					from
+						cataloged_item,
+						collection,
+						coll_obj_other_id_num
+					WHERE
+						cataloged_item.collection_id = collection.collection_id and
+						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
+						collection.guid_prefix = '#q.guid_prefix#' and
+						other_id_type = '#q.other_id_type#' and
+						display_value = '#q.other_id_number#'
+				</cfquery>
+				<cfif len(x.collection_object_id lt 1>
+					<cfset problems=listappend(problems,'specimen not found')>
+				<cfelse>
+					<cfset r.collection_object_id=x.collection_object_id>
+					<cfset collection_cde=x.collection_cde>
+				</cfif>
+			<cfelse>
+				<cfset problems=listappend(problems,'specimen not found')>
+			</cfif>
+			<cfquery name="x" datasource="uam_god">
+				select isValidAttribute(
+						'#q.ATTRIBUTE#',
+						'#q.ATTRIBUTE_VALUE#',
+						'#q.ATTRIBUTE_UNITS#',
+						'#collection_cde#'
+					) v from dual
+			</cfquery>
+			<cfif x.v neq 1>
+				<cfset problems=listappend(problems,'invalid attribute')>
+			</cfif>
+			<cfif len(q.ATTRIBUTE_DATE) gt 0>
+				<cfquery name="x" datasource="uam_god">
+					select is_iso8601('#q.ATTRIBUTE_DATE#') v from dual
+				</cfquery>
+				<cfif x.v neq 'valid'>
+					<cfset problems=listappend(problems,'invalid date')>
+				</cfif>
+			</cfif>
 
-		<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_attributes
-			set
-				status=decode(status,
-					null,'attribute failed validation',
-					status || '; attribute failed validation')
-				where
-					isValidAttribute(
-						ATTRIBUTE,
-						ATTRIBUTE_VALUE,
-						ATTRIBUTE_UNITS,
-						(select collection_cde from collection where collection.guid_prefix=cf_temp_attributes.guid_prefix)
-					)=0 and
-					upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cfquery name="chkDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_attributes
-			set
-				status=decode(status,
-					null,'invalid date',
-					status || '; invalid date')
-			where
-				ATTRIBUTE_DATE is not null and
-				upper(username)='#ucase(session.username)#' and
-				is_iso8601(ATTRIBUTE_DATE)!='valid'
-		</cfquery>
-		<cfquery name="attDet1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_attributes set DETERMINED_BY_AGENT_ID=getAgentID(determiner) where upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cfquery name="attDetFail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_attributes
-			set
-				status=decode(status,
-					null,'invalid determiner',
-					status || '; invalid determiner')
-			where
-				DETERMINED_BY_AGENT_ID is null and
-				determiner is not null and
-				upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cfquery name="postsetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_attributes
-			set
-				status='valid'
-			where
-				status is null and
-				upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
+			<cfquery name="x" datasource="uam_god">
+				select getAgentID('#q.determiner#') v from dual
+			</cfquery>
+			<cfif len(x.v) lt 1>
+				<cfset problems=listappend(problems,'invalid determiner')>
+			<cfelse>
+				<cfset r.determiner_id=x.v>
+			</cfif>
 
-		------------>
+			<cfif len(problems) lt 1>
+				<cfset problems="precheck_pass">
+			</cfif>
+			<cfset r.problems=problems>
+			<cfset r.key=q.key>
+			<cfreturn r>
 	</cfoutput>
 
 
