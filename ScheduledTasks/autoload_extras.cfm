@@ -105,6 +105,7 @@
 			cf_temp_attributes.guid is null
 	</cfquery>
 	<cfloop query="d">
+		<br>update cf_temp_attributes set guid='#d.guid#' where key=#d.key#
 		<cfquery name="ud" datasource="uam_god">
 			update cf_temp_attributes set guid='#d.guid#' where key=#d.key#
 		</cfquery>
