@@ -99,7 +99,8 @@
 		where
 			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
 			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
-			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_specevent.UUID and
+			cf_temp_attributes.OTHER_ID_TYPE='UUID' and
+			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_attributes.OTHER_ID_NUMBER and
 			cf_temp_attributes.status='autoload' and
 			cf_temp_attributes.guid is null
 	</cfquery>
