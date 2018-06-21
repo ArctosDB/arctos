@@ -37,7 +37,7 @@
 						other_id_type = '#q.other_id_type#' and
 						display_value = '#q.other_id_number#'
 				</cfquery>
-				<cfif len(x.collection_object_id lt 1>
+				<cfif len(x.collection_object_id) lt 1>
 					<cfset problems=listappend(problems,'specimen not found')>
 				<cfelse>
 					<cfset r.collection_object_id=x.collection_object_id>
