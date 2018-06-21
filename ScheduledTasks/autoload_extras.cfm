@@ -146,7 +146,7 @@
 					<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
 						,collection_object_id=#x.collection_object_id#
 					</cfif>
-					<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
+					<cfif isdefined("x.determiner_id") and len(x.determiner_id) gt 0>
 						,DETERMINED_BY_AGENT_ID=#x.determiner_id#
 					</cfif>
 				where
