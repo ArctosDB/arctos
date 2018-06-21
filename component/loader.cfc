@@ -115,13 +115,17 @@
 				</cfif>
 			</cfif>
 
-			<cfquery name="x" datasource="uam_god">
-				select getAgentID('#q.determiner#') v from dual
-			</cfquery>
-			<cfif len(x.v) lt 1>
-				<cfset problems=listappend(problems,'invalid determiner')>
+			<cfif len(q.determiner) gt 0>
+				<cfquery name="x" datasource="uam_god">
+					select getAgentID('#q.determiner#') v from dual
+				</cfquery>
+				<cfif len(x.v) lt 1>
+					<cfset problems=listappend(problems,'invalid determiner')>
+				<cfelse>
+					<cfset r.determiner_id=x.v>
+				</cfif>
 			<cfelse>
-				<cfset r.determiner_id=x.v>
+				<cfset problems=listappend(problems,'determiner is required')>
 			</cfif>
 
 			<cfif len(problems) lt 1>

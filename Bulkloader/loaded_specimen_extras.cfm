@@ -618,7 +618,7 @@
 		</cfloop>
 	</table>
 
-	<input type="submit" value="mark all checked records to autoload">
+	<input type="submit" value="Claim and mark all checked records to autoload">
 	</form>
 
 </cfoutput>
