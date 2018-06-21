@@ -1152,8 +1152,6 @@ Upload CSV:
 		</cftransaction>
 	</cfloop>
 
-
-
 <!----
 
 		<cfloop query="data">
