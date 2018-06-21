@@ -158,6 +158,7 @@
 			select * from d3 where [key] = #d3.key#
 		</cfquery>
 		<cfset x=loader.createSpecimenAttribute(thisRow)>
+		<cfdump var=#x#>
 		<cfquery name="ud" datasource="uam_god">
 				update cf_temp_attributes set
 					status='autoload:#x.status#'
