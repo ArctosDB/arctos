@@ -25,9 +25,11 @@
 			cf_temp_specevent.guid is null
 	</cfquery>
 	<cfloop query="d">
-		<cfquery name="ud" datasource="uam_god">
-			update cf_temp_specevent set guid='#d.guid#' where key=#d.key#
-		</cfquery>
+		<cftransaction>
+			<cfquery name="ud" datasource="uam_god">
+				update cf_temp_specevent set guid='#d.guid#' where key=#d.key#
+			</cfquery>
+		</cftransaction>
 	</cfloop>
 	<!----- validate events ---->
 	<cfquery name="d2" datasource="uam_god">
@@ -40,25 +42,27 @@
 			cf_temp_specevent.guid is not null
 	</cfquery>
 	<cfloop query="d2">
-		<cfquery name="thisRow" dbtype="query">
-			select * from d2 where [key] = #d2.key#
-		</cfquery>
-		<cfset x=loader.validateSpecimenEvent(thisRow)>
-		<cfquery name="ud" datasource="uam_god">
-			update cf_temp_specevent set
-				key=key
-				<cfif isdefined("x.problems") and len(x.problems) gt 0>
-					,status='autoload:#x.problems#'
-				</cfif>
-				<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
-					,l_collection_object_id=#x.collection_object_id#
-				</cfif>
-				<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
-					,l_event_assigned_id=#x.agent_id#
-				</cfif>
-			where
-				key=#x.key#
-		</cfquery>
+		<cftransaction>
+			<cfquery name="thisRow" dbtype="query">
+				select * from d2 where [key] = #d2.key#
+			</cfquery>
+			<cfset x=loader.validateSpecimenEvent(thisRow)>
+			<cfquery name="ud" datasource="uam_god">
+				update cf_temp_specevent set
+					key=key
+					<cfif isdefined("x.problems") and len(x.problems) gt 0>
+						,status='autoload:#x.problems#'
+					</cfif>
+					<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
+						,l_collection_object_id=#x.collection_object_id#
+					</cfif>
+					<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
+						,l_event_assigned_id=#x.agent_id#
+					</cfif>
+				where
+					key=#x.key#
+			</cfquery>
+		</cftransaction>
 	</cfloop>
 	<!----- load events ---->
 	<cfquery name="d3" datasource="uam_god">
@@ -69,22 +73,24 @@
 			cf_temp_specevent.guid is not null
 	</cfquery>
 	<cfloop query="d3">
-		<cfquery name="thisRow" dbtype="query">
-			select * from d3 where [key] = #d3.key#
-		</cfquery>
-		<cfset x=loader.createSpecimenEvent(thisRow)>
-		<cfif x.status is "success">
-			<cfquery name="ud" datasource="uam_god">
-				delete from cf_temp_specevent where	key=#x.key#
+		<cftransaction>
+			<cfquery name="thisRow" dbtype="query">
+				select * from d3 where [key] = #d3.key#
 			</cfquery>
-		<cfelse>
-			<cfquery name="ud" datasource="uam_god">
-				update cf_temp_specevent set
-					status='autoload:#x.status#'
-				where
-					key=#x.key#
-			</cfquery>
-		</cfif>
+			<cfset x=loader.createSpecimenEvent(thisRow)>
+			<cfif x.status is "success">
+				<cfquery name="ud" datasource="uam_god">
+					delete from cf_temp_specevent where	key=#x.key#
+				</cfquery>
+			<cfelse>
+				<cfquery name="ud" datasource="uam_god">
+					update cf_temp_specevent set
+						status='autoload:#x.status#'
+					where
+						key=#x.key#
+				</cfquery>
+			</cfif>
+		</cftransaction>
 	</cfloop>
 
 	<!--- get GUID for attributes ---->
@@ -105,10 +111,12 @@
 			cf_temp_attributes.guid is null
 	</cfquery>
 	<cfloop query="d">
-		<br>update cf_temp_attributes set guid='#d.guid#' where key=#d.key#
-		<cfquery name="ud" datasource="uam_god">
-			update cf_temp_attributes set guid='#d.guid#' where key=#d.key#
-		</cfquery>
+		<cftransaction>
+			<br>update cf_temp_attributes set guid='#d.guid#' where key=#d.key#
+			<cfquery name="ud" datasource="uam_god">
+				update cf_temp_attributes set guid='#d.guid#' where key=#d.key#
+			</cfquery>
+		</cftransaction>
 	</cfloop>
 
 	<!----- validate attributes ---->
@@ -122,27 +130,29 @@
 			cf_temp_attributes.guid is not null
 	</cfquery>
 	<cfloop query="d2">
-		<cfquery name="thisRow" dbtype="query">
-			select * from d2 where [key] = #d2.key#
-		</cfquery>
-		<cfset x=loader.validateSpecimenAttribute(thisRow)>
-		<cfdump var=#x#>
+		<cftransaction>
+			<cfquery name="thisRow" dbtype="query">
+				select * from d2 where [key] = #d2.key#
+			</cfquery>
+			<cfset x=loader.validateSpecimenAttribute(thisRow)>
+			<cfdump var=#x#>
 
-		<cfquery name="ud" datasource="uam_god">
-			update cf_temp_attributes set
-				key=key
-				<cfif isdefined("x.problems") and len(x.problems) gt 0>
-					,status='autoload:#x.problems#'
-				</cfif>
-				<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
-					,collection_object_id=#x.collection_object_id#
-				</cfif>
-				<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
-					,DETERMINED_BY_AGENT_ID=#x.determiner_id#
-				</cfif>
-			where
-				key=#x.key#
-		</cfquery>
+			<cfquery name="ud" datasource="uam_god">
+				update cf_temp_attributes set
+					key=key
+					<cfif isdefined("x.problems") and len(x.problems) gt 0>
+						,status='autoload:#x.problems#'
+					</cfif>
+					<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
+						,collection_object_id=#x.collection_object_id#
+					</cfif>
+					<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
+						,DETERMINED_BY_AGENT_ID=#x.determiner_id#
+					</cfif>
+				where
+					key=#x.key#
+			</cfquery>
+		</cftransaction>
 	</cfloop>
 
 	<!----- load attributes ---->
@@ -154,31 +164,33 @@
 			cf_temp_attributes.guid is not null
 	</cfquery>
 	<cfloop query="d3">
-		<cfquery name="thisRow" dbtype="query">
-			select * from d3 where [key] = #d3.key#
-		</cfquery>
-		<cfset x=loader.createSpecimenAttribute(thisRow)>
-		<cfdump var=#x#>
-		<cfquery name="ud" datasource="uam_god">
-				update cf_temp_attributes set
-					status='autoload:#x.status#'
-				where
-					key=#x.key#
+		<cftransaction>
+			<cfquery name="thisRow" dbtype="query">
+				select * from d3 where [key] = #d3.key#
 			</cfquery>
-		<!----
-		<cfif x.status is "success">
+			<cfset x=loader.createSpecimenAttribute(thisRow)>
+			<cfdump var=#x#>
 			<cfquery name="ud" datasource="uam_god">
-				delete from cf_temp_specevent where	key=#x.key#
-			</cfquery>
-		<cfelse>
-			<cfquery name="ud" datasource="uam_god">
-				update cf_temp_specevent set
-					status='autoload:#x.status#'
-				where
-					key=#x.key#
-			</cfquery>
-		</cfif>
-		---->
+					update cf_temp_attributes set
+						status='autoload:#x.status#'
+					where
+						key=#x.key#
+				</cfquery>
+			<!----
+			<cfif x.status is "success">
+				<cfquery name="ud" datasource="uam_god">
+					delete from cf_temp_specevent where	key=#x.key#
+				</cfquery>
+			<cfelse>
+				<cfquery name="ud" datasource="uam_god">
+					update cf_temp_specevent set
+						status='autoload:#x.status#'
+					where
+						key=#x.key#
+				</cfquery>
+			</cfif>
+			---->
+		</cftransaction>
 	</cfloop>
 
 </cfoutput>

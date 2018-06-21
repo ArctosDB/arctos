@@ -36,6 +36,7 @@ end;
 /
 
 alter table cf_temp_attributes add guid varchar2(60);
+alter table cf_temp_attributes modify status varchar2(4000);
 
 --->
 <cfinclude template="/includes/_header.cfm">
