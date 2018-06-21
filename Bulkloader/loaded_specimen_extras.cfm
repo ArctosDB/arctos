@@ -322,6 +322,12 @@
 			</cfif>
 	</cfquery>
 
+	<h3>
+		Parts
+	</h3>
+	<p>
+		<a href="/tools/xxx.cfm?action=managemystuff">xxx</a>
+	</p>
 
 	<br><span class="likeLink" onclick="checkAll('cf_temp_parts',true)">Check All</span>
 	<br><span class="likeLink" onclick="checkAll('cf_temp_parts',false)">UNcheck All</span>
@@ -465,6 +471,12 @@
 			</cfif>
 	</cfquery>
 
+	<h3>
+		Attributes
+	</h3>
+	<p>
+		<a href="/tools/BulkloadAttributes.cfm?action=managemystuff">bulkloader</a>
+	</p>
 
 	<br><span class="likeLink" onclick="checkAll('cf_temp_attributes',true)">Check All</span>
 	<br><span class="likeLink" onclick="checkAll('cf_temp_attributes',false)">UNcheck All</span>

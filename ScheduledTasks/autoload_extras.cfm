@@ -7,8 +7,9 @@
 
 ---->
 <cfoutput>
-		<cfset loader = CreateObject("component","component.loader")>
+	<cfset loader = CreateObject("component","component.loader")>
 
+	<!--- get GUID for events ---->
 	<cfquery name="d" datasource="uam_god">
 		select
 			cf_temp_specevent.key,
@@ -29,6 +30,7 @@
 			update cf_temp_specevent set guid='#d.guid#' where key=#d.key#
 		</cfquery>
 	</cfloop>
+	<!----- validate events ---->
 	<cfquery name="d2" datasource="uam_god">
 		select
 			*
@@ -38,16 +40,11 @@
 			cf_temp_specevent.status='autoload' and
 			cf_temp_specevent.guid is not null
 	</cfquery>
-	<cfdump var=#d2#>
-
-
 	<cfloop query="d2">
 		<cfquery name="thisRow" dbtype="query">
 			select * from d2 where [key] = #d2.key#
 		</cfquery>
 		<cfset x=loader.validateSpecimenEvent(thisRow)>
-		<cfdump var=#x#>
-
 		<cfquery name="ud" datasource="uam_god">
 			update cf_temp_specevent set
 				key=key
@@ -64,7 +61,7 @@
 				key=#x.key#
 		</cfquery>
 	</cfloop>
-
+	<!----- load events ---->
 	<cfquery name="d3" datasource="uam_god">
 		select * from
 			cf_temp_specevent
@@ -72,13 +69,11 @@
 			cf_temp_specevent.status='autoload:precheck_pass' and
 			cf_temp_specevent.guid is not null
 	</cfquery>
-		<cfdump var=#d3#>
 	<cfloop query="d3">
 		<cfquery name="thisRow" dbtype="query">
 			select * from d3 where [key] = #d3.key#
 		</cfquery>
 		<cfset x=loader.createSpecimenEvent(thisRow)>
-		<cfdump var=#x#>
 		<cfif x.status is "">
 			<cfquery name="ud" datasource="uam_god">
 				delete from cf_temp_specevent where	key=#x.key#
@@ -91,7 +86,28 @@
 					key=#x.key#
 			</cfquery>
 		</cfif>
+	</cfloop>
 
+	<!--- get GUID for attributes ---->
+	<cfquery name="d" datasource="uam_god">
+		select
+			cf_temp_attributes.key,
+			flat.guid
+		from
+			cf_temp_attributes,
+			flat,
+			coll_obj_other_id_num
+		where
+			coll_obj_other_id_num.OTHER_ID_TYPE='UUID' and
+			coll_obj_other_id_num.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID and
+			coll_obj_other_id_num.DISPLAY_VALUE=cf_temp_specevent.UUID and
+			cf_temp_attributes.status='autoload' and
+			cf_temp_attributes.guid is null
+	</cfquery>
+	<cfloop query="d">
+		<cfquery name="ud" datasource="uam_god">
+			update cf_temp_attributes set guid='#d.guid#' where key=#d.key#
+		</cfquery>
 	</cfloop>
 </cfoutput>
 

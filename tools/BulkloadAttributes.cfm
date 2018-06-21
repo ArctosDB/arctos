@@ -35,14 +35,14 @@ begin
 end;
 /
 
-
+alter table cf_temp_attributes add guid varchar2(60);
 
 --->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Specimen Attributes">
 <cfif action is "template">
 	<cfoutput>
-		<cfset d="OTHER_ID_TYPE,OTHER_ID_NUMBER,ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,ATTRIBUTE_DATE,ATTRIBUTE_METH,DETERMINER,REMARKS,guid_prefix">
+		<cfset d="guid,OTHER_ID_TYPE,OTHER_ID_NUMBER,ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,ATTRIBUTE_DATE,ATTRIBUTE_METH,DETERMINER,REMARKS,guid_prefix">
 		<cffile action = "write"
 		    file = "#Application.webDirectory#/download/BulkloadAttributesTemplate.csv"
 		   	output = "#d#"
@@ -72,6 +72,21 @@ end;
 			<th>Vocabulary</th>
 		</tr>
 		<tr>
+			<td>guid</td>
+			<td>yes*</td>
+			<td>
+				"DWC Triplet," UAM:Mamm:12.
+				Specimens may be identified using:
+
+				<ul>
+					<li>GUID (preferred)</li>
+					<li>OTHER_ID_TYPE=UUID + OTHER_ID_NUMBER (eg, from "data entry extras" - will be transformed into GUID before loading)</li>
+					<li>guid_prefix + OTHER_ID_TYPE + OTHER_ID_NUMBER</li>
+				</ul>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td>guid_prefix</td>
 			<td>yes*</td>
 			<td>
@@ -83,13 +98,13 @@ end;
 		<tr>
 			<td>OTHER_ID_TYPE</td>
 			<td>yes</td>
-			<td>Other ID type ("catalog number" is OK)</td>
+			<td>Other ID type</td>
 			<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
 		</tr>
 		<tr>
 			<td>OTHER_ID_NUMBER</td>
 			<td>yes</td>
-			<td>Value associated with OTHER_ID_NUMBER - integer-only for OTHER_ID_NUMBER=catalog number</td>
+			<td>Value associated with OTHER_ID_NUMBER</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -235,7 +250,7 @@ end;
 			cf_temp_attributes
 		where
 			upper(username)='#ucase(session.username)#' and
-			guid_prefix is null and
+			guid is null and
 			other_id_type='UUID' and
 			other_id_number is not null
 		group by
@@ -244,20 +259,18 @@ end;
 	<cfloop query="mine">
 		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				guid_prefix
+				guid
 			from
-				collection,
-				cataloged_item,
+				flat,
 				coll_obj_other_id_num
 			where
-				collection.collection_id=cataloged_item.collection_id and
-				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-				other_id_type='UUID' and
-				display_value='#other_id_number#'
+				flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				coll_obj_other_id_num.other_id_type='UUID' and
+				coll_obj_other_id_num.display_value='#other_id_number#'
 		</cfquery>
 		<cfif gg.recordcount is 1>
 			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_attributes set guid_prefix='#gg.guid_prefix#' where other_id_number='#other_id_number#'
+				update cf_temp_attributes set guid='#gg.guid#' where other_id_number='#other_id_number#'
 			</cfquery>
 		</cfif>
 	</cfloop>
