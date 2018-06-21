@@ -154,6 +154,12 @@
 		<input type="hidden" name="collection" value="#collection#">
 		<input type="hidden" name="usrn" value="#usrn#">
 
+	<h3>
+		Specimen Event
+	</h3>
+	<p>
+		<a href="/tools/BulkloaderSpecimenEvent.cfm?action=managemystuff">bulkloader</a>
+	</p>
 	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent',true)">Check All</span>
 	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent',false)">UNcheck All</span>
 	<table border>
