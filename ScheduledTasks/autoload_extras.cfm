@@ -128,23 +128,21 @@
 		<cfset x=loader.validateSpecimenAttribute(thisRow)>
 		<cfdump var=#x#>
 
-		<!----
 		<cfquery name="ud" datasource="uam_god">
-			update cf_temp_specevent set
+			update cf_temp_attributes set
 				key=key
 				<cfif isdefined("x.problems") and len(x.problems) gt 0>
 					,status='autoload:#x.problems#'
 				</cfif>
 				<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
-					,l_collection_object_id=#x.collection_object_id#
+					,collection_object_id=#x.collection_object_id#
 				</cfif>
 				<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
-					,l_event_assigned_id=#x.agent_id#
+					,DETERMINED_BY_AGENT_ID=#x.determiner_id#
 				</cfif>
 			where
 				key=#x.key#
 		</cfquery>
-		-------->
 	</cfloop>
 
 
