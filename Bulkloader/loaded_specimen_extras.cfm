@@ -4,33 +4,33 @@
 <cfif action is "mark_autoload">
 	<cfif isdefined("cf_temp_specevent_key") and len(cf_temp_specevent_key) gt 0>
 		<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_specevent set status='autoload' where key in (#ListQualify(cf_temp_specevent_key, "'")#)
+			update cf_temp_specevent set username='#session.username#', status='autoload' where key in (#ListQualify(cf_temp_specevent_key, "'")#)
 		</cfquery>
 	</cfif>
 
 	<cfif isdefined("cf_temp_parts_key") and len(cf_temp_parts_key) gt 0>
 		<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_parts set status='autoload' where key in (#ListQualify(cf_temp_parts_key, "'")#)
+			update cf_temp_parts set username='#session.username#', status='autoload' where key in (#ListQualify(cf_temp_parts_key, "'")#)
 		</cfquery>
 	</cfif>
 
 
 	<cfif isdefined("cf_temp_attributes_key") and len(cf_temp_attributes_key) gt 0>
 		<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_attributes set status='autoload' where key in (#ListQualify(cf_temp_attributes_key, "'")#)
+			update cf_temp_attributes set username='#session.username#', status='autoload' where key in (#ListQualify(cf_temp_attributes_key, "'")#)
 		</cfquery>
 	</cfif>
 
 
 	<cfif isdefined("cf_temp_oids_key") and len(cf_temp_oids_key) gt 0>
 		<cfquery name="cf_temp_oids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_oids set status='autoload' where key in (#ListQualify(cf_temp_oids_key, "'")#)
+			update cf_temp_oids set username='#session.username#', status='autoload' where key in (#ListQualify(cf_temp_oids_key, "'")#)
 		</cfquery>
 	</cfif>
 
 	<cfif isdefined("cf_temp_collector_key") and len(cf_temp_collector_key) gt 0>
 		<cfquery name="cf_temp_collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_collector set status='autoload' where key in (#ListQualify(cf_temp_collector_key, "'")#)
+			update cf_temp_collector set username='#session.username#', status='autoload' where key in (#ListQualify(cf_temp_collector_key, "'")#)
 		</cfquery>
 	</cfif>
 
@@ -54,6 +54,16 @@
 	<p>
 		NOTE: 1000-record limit per table. You may need to uncheck some boxes to proceed.
 	</p>
+	<p>
+		CAREFULLY check the data in records you wish to load, check the box to select them, click the button to:
+		<ul>
+			<li>"claim" the records - this will change enteredby to #session.username#</li>
+			<li>Mark the records to autoload; this should load AND DELETE these records, or leave errors.</li>
+		</ul>
+	</p>
+	<div class="importantNotification">
+		Do not claim records which were not entered by you or people whose data you manage. IMMEDIATELY contact the data owner if you do this by accident.
+	</div>
 	<cfquery name="gp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select guid_prefix from collection order by guid_prefix
 	</cfquery>
