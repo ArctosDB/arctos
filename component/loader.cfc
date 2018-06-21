@@ -240,7 +240,7 @@
 		</cftry>
 		<cfreturn r>
 	</cffunction>
-<!--------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------------------------------------->
 	<cffunction name="validateSpecimenEvent" access="public">
 		<cfargument name="q" required="yes" type="query">
 		<cfset problems="">

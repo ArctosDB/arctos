@@ -7,7 +7,7 @@
 
 ---->
 <cfoutput>
-		<cfset components = CreateObject("component","component.components")>
+		<cfset loader = CreateObject("component","component.loader")>
 
 	<cfquery name="d" datasource="uam_god">
 		select
@@ -45,7 +45,7 @@
 		<cfquery name="thisRow" dbtype="query">
 			select * from d2 where [key] = #d2.key#
 		</cfquery>
-		<cfset x=components.validateSpecimenEvent(thisRow)>
+		<cfset x=loader.validateSpecimenEvent(thisRow)>
 		<cfdump var=#x#>
 
 		<cfquery name="ud" datasource="uam_god">
@@ -77,14 +77,21 @@
 		<cfquery name="thisRow" dbtype="query">
 			select * from d3 where [key] = #d3.key#
 		</cfquery>
-		<cfset x=components.createSpecimenEvent(thisRow)>
+		<cfset x=loader.createSpecimenEvent(thisRow)>
 		<cfdump var=#x#>
-		<cfquery name="ud" datasource="uam_god">
-			update cf_temp_specevent set
-				status='autoload:#x.status#'
-			where
-				key=#x.key#
-		</cfquery>
+		<cfif x.status is "">
+			<cfquery name="ud" datasource="uam_god">
+				delete from cf_temp_specevent where	key=#x.key#
+			</cfquery>
+		<cfelse>
+			<cfquery name="ud" datasource="uam_god">
+				update cf_temp_specevent set
+					status='autoload:#x.status#'
+				where
+					key=#x.key#
+			</cfquery>
+		</cfif>
+
 	</cfloop>
 </cfoutput>
 

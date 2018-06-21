@@ -808,7 +808,7 @@ Upload CSV:
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "validateFromFile">
-	<cfset components = CreateObject("component","component.components")>
+	<cfset loader = CreateObject("component","component.loader")>
 
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#' and
@@ -820,7 +820,7 @@ Upload CSV:
 		<cfquery name="thisRow" dbtype="query">
 			select * from data where [key] = #data.key#
 		</cfquery>
-		<cfset x=components.validateSpecimenEvent(thisRow)>
+		<cfset x=loader.validateSpecimenEvent(thisRow)>
 		<cfdump var=#x#>
 
 		<cfquery name="ud" datasource="uam_god">
@@ -1116,7 +1116,7 @@ Upload CSV:
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "load">
-	<cfset components = CreateObject("component","component.components")>
+	<cfset loader = CreateObject("component","component.loader")>
 
 	<cfoutput>
 		<p>
@@ -1137,7 +1137,7 @@ Upload CSV:
 			<cfquery name="thisRow" dbtype="query">
 				select * from data where [key] = #data.key#
 			</cfquery>
-			<cfset x=components.createSpecimenEvent(thisRow)>
+			<cfset x=loader.createSpecimenEvent(thisRow)>
 			<cfif x.status is "success">
 				<br>Success! #x.guid#
 				<cfquery name="ud" datasource="uam_god">
