@@ -634,7 +634,7 @@ Upload CSV:
 			<a href="BulkloadSpecimenEvent.cfm?action=getCSV">Download as CSV</a>
 		</p>
 		<cfquery name="willload" dbtype="query">
-			select count(*) c from mine where status = 'valid'
+			select count(*) c from mine where status = 'precheck_pass'
 		</cfquery>
 		<cfif willload.c eq mine.recordcount>
 			<p>
