@@ -3,7 +3,7 @@
 	<cffunction name="createSpecimenAttribute" access="public">
 		<cfargument name="q" required="yes" type="query">
 		<cftry>
-		<cfquery name="newAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="x" datasource="uam_god">
 			INSERT INTO attributes (
 				attribute_id,
 				collection_object_id,
