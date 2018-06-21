@@ -30,7 +30,16 @@
 			<cfset r.status="success">
 			<cfset r.key=q.key>
 		<cfcatch>
-			<cfset r.status="FAIL: #cfcatch.message# #cfcatch.detail#">
+			<cfset r.status="FAIL">
+			<cfif isdefined("cfcatch.message")>
+				<cfset r.status=r.status & ": #cfcatch.message#">
+			</cfif>
+			<cfif isdefined("cfcatch.detail")>
+				<cfset r.status=r.status & ": #cfcatch.detail#">
+			</cfif>
+			<cfif isdefined("cfcatch.sql")>
+				<cfset r.status=r.status & ": #cfcatch.sql#">
+			</cfif>
 			<cfset r.key=q.key>
 		</cfcatch>
 		</cftry>
