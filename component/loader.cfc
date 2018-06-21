@@ -2,7 +2,7 @@
 	<cffunction name="validateSpecimenAttribute" access="public">
 		<cfargument name="q" required="yes" type="query">
 		<cfoutput>
-			<cfif len(q.
+			<!----------
 		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
 				cf_temp_attributes
@@ -114,15 +114,17 @@
 				upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
+
+		------------>
 	</cfoutput>
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	</cffunction>
 <!-------------------------------------------------------------------------------------------------------------------------------------->
 	<cffunction name="createSpecimenEvent" access="public">
