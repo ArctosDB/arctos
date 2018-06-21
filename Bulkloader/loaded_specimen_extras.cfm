@@ -158,7 +158,7 @@
 		Specimen Event
 	</h3>
 	<p>
-		<a href="/tools/BulkloaderSpecimenEvent.cfm?action=managemystuff">bulkloader</a>
+		<a href="/tools/BulkloadSpecimenEvent.cfm?action=managemystuff">bulkloader</a>
 	</p>
 	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent',true)">Check All</span>
 	<br><span class="likeLink" onclick="checkAll('cf_temp_specevent',false)">UNcheck All</span>
