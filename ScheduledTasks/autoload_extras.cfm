@@ -135,8 +135,6 @@
 				select * from d2 where [key] = #d2.key#
 			</cfquery>
 			<cfset x=loader.validateSpecimenAttribute(thisRow)>
-			<cfdump var=#x#>
-
 			<cfquery name="ud" datasource="uam_god">
 				update cf_temp_attributes set
 					key=key
@@ -169,21 +167,13 @@
 				select * from d3 where [key] = #d3.key#
 			</cfquery>
 			<cfset x=loader.createSpecimenAttribute(thisRow)>
-			<cfdump var=#x#>
-			<cfquery name="ud" datasource="uam_god">
-					update cf_temp_attributes set
-						status='autoload:#x.status#'
-					where
-						key=#x.key#
-				</cfquery>
-			<!----
 			<cfif x.status is "success">
 				<cfquery name="ud" datasource="uam_god">
-					delete from cf_temp_specevent where	key=#x.key#
+					delete from cf_temp_attributes where	key=#x.key#
 				</cfquery>
 			<cfelse>
 				<cfquery name="ud" datasource="uam_god">
-					update cf_temp_specevent set
+					update cf_temp_attributes set
 						status='autoload:#x.status#'
 					where
 						key=#x.key#
