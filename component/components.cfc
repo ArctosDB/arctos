@@ -385,7 +385,7 @@
 			   (
 			       len(q.datum) is 0 or
 			       len(q.GEOREFERENCE_SOURCE) is 0 or
-			       len(q.GEOREFERENCE_PROTOCO) is 0
+			       len(q.GEOREFERENCE_PROTOCOL) is 0
 			   )>
 				<cfset problems=listappend(problems,'invalid datum,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL')>
 			</cfif>
