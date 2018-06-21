@@ -288,12 +288,6 @@
 			<cfset problems=listappend(problems,'ASSIGNED_DATE not a valid date')>
 		</cfif>
 
-
-
-
-
-
-
 		<cfif len(q.collecting_event_name) gt 0>
 			<cfset checkEvent=false>
 			<cfset checkLocality=false>

@@ -2,8 +2,13 @@
 	deal with "data entry extras" marked "autoload"
 
 	just run until we finish or time out
+
+
+
 ---->
 <cfoutput>
+		<cfset components = CreateObject("component","component.components")>
+
 	<cfquery name="d" datasource="uam_god">
 		select
 			cf_temp_specevent.key,
@@ -24,8 +29,6 @@
 			update cf_temp_specevent set guid='#d.guid#' where key=#d.key#
 		</cfquery>
 	</cfloop>
-	<cfset components = CreateObject("component","component.components")>
-
 	<cfquery name="d2" datasource="uam_god">
 		select
 			*
@@ -35,10 +38,7 @@
 			cf_temp_specevent.status='autoload' and
 			cf_temp_specevent.guid is not null
 	</cfquery>
-
-
 	<cfdump var=#d2#>
-
 
 
 	<cfloop query="d2">
@@ -86,6 +86,9 @@
 				key=#x.key#
 		</cfquery>
 	</cfloop>
+</cfoutput>
+
+
 
 	<!--------
 	<cfif isdefined("cf_temp_specevent_key") and len(cf_temp_specevent_key) gt 0>
@@ -120,4 +123,4 @@
 		</cfquery>
 	</cfif>
 	---------->
-</cfoutput>
+

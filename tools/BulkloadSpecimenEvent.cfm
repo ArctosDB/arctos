@@ -195,7 +195,7 @@ Upload CSV:
 
 
 <cfset title="Bulkload Specimen Events">
-<cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_ID,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,LOCALITY_ID,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,GEOG_AUTH_REC_ID,HIGHER_GEOG,wkt_polygon">
+<cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,HIGHER_GEOG,wkt_polygon">
 <cfif action is "makeTemplate">
 	<cfset header=thecolumns>
 	<cffile action = "write"
@@ -214,10 +214,7 @@ Upload CSV:
 		<a href="/contact.cfm">contact us</a> if you need other functionality.
 	</p>
 	<p>
-		Localities and events will be re-used if possible or created if nothing suitable exists.
-	</p>
-	<p>
-		Coordinates will go to collecting_event (verbatim coordinates) and locality. Pre-create events and use collecting_event_id if you need more control.
+		Coordinates will go to collecting_event (verbatim coordinates) and locality. Pre-create events and use collecting_event_name if you need more control.
 	</p>
 	<p>
 		This form will happily make duplicates. Be careful!
@@ -287,19 +284,10 @@ Upload CSV:
 			<td></td>
 		</tr>
 		<tr>
-			<td>COLLECTING_EVENT_ID</td>
-			<td>no</td>
-			<td>Specify an existing COLLECTING_EVENT.COLLECTING_EVENT_ID to use an existing event. This will IGNORE anything
-			else entered under event, locality, geography.
-			COLLECTING_EVENT_ID gets precedence over COLLECTING_EVENT_NAME - but don't provide both or you'll confuse yourself.
-			</td>
-		</tr>
-		<tr>
 			<td>COLLECTING_EVENT_NAME</td>
 			<td>no</td>
 			<td>Specify an existing COLLECTING_EVENT.COLLECTING_EVENT_NAME to use an existing event. This will IGNORE anything
 			else entered under event, locality, geography
-			COLLECTING_EVENT_ID gets precedence over COLLECTING_EVENT_NAME - but don't provide both or you'll confuse yourself.
 			</td>
 		</tr>
 		<tr>
@@ -413,18 +401,9 @@ Upload CSV:
 			<td>number</td>
 		</tr>
 		<tr>
-			<td>LOCALITY_ID</td>
-			<td>no</td>
-			<td>
-				If given, overrides all locality and geog information.
-				LOCALITY_ID gets precedence over LOCALITY_NAME - but don't provide both or you'll confuse yourself.
-			</td>
-		</tr>
-		<tr>
 			<td>LOCALITY_NAME</td>
 			<td>no</td>
 			<td>if given, overrides all locality and geog information
-			LOCALITY_ID gets precedence over LOCALITY_NAME - but don't provide both or you'll confuse yourself.
 			</td>
 		</tr>
 		<tr>
@@ -488,16 +467,8 @@ Upload CSV:
 			<td><a href="/info/ctDocumentation.cfm?table=CTGEOREFERENCE_PROTOCOL">CTGEOREFERENCE_PROTOCOL</a></td>
 		</tr>
 		<tr>
-			<td>GEOG_AUTH_REC_ID</td>
-			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given
-				GEOG_AUTH_REC_ID gets precedence over HIGHER_GEOG - but don't provide both or you'll confuse yourself.
-			</td>
-			<td></td>
-		</tr>
-		<tr>
 			<td>HIGHER_GEOG</td>
-			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given.
-			GEOG_AUTH_REC_ID gets precedence over HIGHER_GEOG - but don't provide both or you'll confuse yourself.
+			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_NAME or COLLECTING_EVENT_NAME is not given.
 			</td>
 			<td></td>
 		</tr>
@@ -837,12 +808,41 @@ Upload CSV:
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "validateFromFile">
-<!----
-	<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_specevent set status='guid not found'
-		where upper(username)='#ucase(session.username)#' and guid NOT IN (select guid from flat)
+	<cfset components = CreateObject("component","component.components")>
+
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#' and
+		status is null and
+		rownum<=#numberToValidate# and
+		guid is not null
 	</cfquery>
-	---->
+	<cfloop query="data">
+		<cfquery name="thisRow" dbtype="query">
+			select * from data where [key] = #data.key#
+		</cfquery>
+		<cfset x=components.validateSpecimenEvent(thisRow)>
+		<cfdump var=#x#>
+
+		<cfquery name="ud" datasource="uam_god">
+			update cf_temp_specevent set
+				key=key
+				<cfif isdefined("x.problems") and len(x.problems) gt 0>
+					,status='FAIL:#x.problems#'
+				</cfif>
+				<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
+					,l_collection_object_id=#x.collection_object_id#
+				</cfif>
+				<cfif isdefined("x.agent_id") and len(x.agent_id) gt 0>
+					,l_event_assigned_id=#x.agent_id#
+				</cfif>
+			where
+				key=#x.key#
+		</cfquery>
+	</cfloop>
+	did some validating - hit reload or go to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">managemystuff</a> if you think it's done.
+
+	<!-----
+
 	<cfquery name="SPECIMEN_EVENT_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_specevent set status='SPECIMEN_EVENT_TYPE not found'
 		where upper(username)='#ucase(session.username)#' and SPECIMEN_EVENT_TYPE NOT IN (select SPECIMEN_EVENT_TYPE from CTSPECIMEN_EVENT_TYPE) and
@@ -1098,6 +1098,7 @@ Upload CSV:
 		<cfif len(s) eq 0>
 			<cfset s='valid'>
 		</cfif>
+
 		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
 				cf_temp_specevent
@@ -1111,11 +1112,12 @@ Upload CSV:
 		</cfquery>
 	</cfloop>
 
-
-	did some validating - hit reload or go to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">managemystuff</a> if you think it's done.
+---->
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "load">
+	<cfset components = CreateObject("component","component.components")>
+
 	<cfoutput>
 		<p>
 			IMPORTANT!! This application will load as many records as it can before it times out. That number varies wildly depending on
@@ -1126,8 +1128,34 @@ Upload CSV:
 			go back to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">the manage screen</a> and hit load again.
 		</p>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_specevent where status='valid' and upper(username)='#ucase(session.username)#'
+			select * from cf_temp_specevent where status='precheck_pass' and upper(username)='#ucase(session.username)#'
 		</cfquery>
+
+
+	<cfloop query="data">
+		<cftransaction>
+			<cfquery name="thisRow" dbtype="query">
+				select * from data where [key] = #data.key#
+			</cfquery>
+			<cfset x=components.createSpecimenEvent(thisRow)>
+			<cfif x.status is "success">
+				<br>Success! #x.guid#
+				<cfquery name="ud" datasource="uam_god">
+					delete from cf_temp_specevent where	key=#x.key#
+				</cfquery>
+			<cfelse>
+				<br>fail: #x.guid# #x.status#
+				<cfquery name="ud" datasource="uam_god">
+					update cf_temp_specevent set status='#x.status#' where key=#x.key#
+				</cfquery>
+			</cfif>
+		</cftransaction>
+	</cfloop>
+
+
+
+<!----
+
 		<cfloop query="data">
 			<cftransaction>
 
@@ -1444,6 +1472,7 @@ Upload CSV:
 				</p>
 			</cftransaction>
 		</cfloop>
+		---->
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
