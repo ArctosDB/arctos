@@ -11,7 +11,6 @@
 
 	<cfset j=SerializeJSON(d.x)>
 	<cfdump var=#j#>
-	#d.x#
 
 </cfoutput>
 			<cfabort>
