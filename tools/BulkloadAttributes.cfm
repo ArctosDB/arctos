@@ -352,6 +352,46 @@ alter table cf_temp_attributes modify status varchar2(4000);
 <!------------------------------------------------------->
 <cfif action is "validate">
 	<cfoutput>
+		<p>
+			This process may require a few reloads; just reload if it times out.
+		</p>
+		<p>
+			Timeout is one minute; if it seems to go longer, your browser it stuck.
+		</p>
+
+		<cfquery name="d2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfset loader = CreateObject("component","component.loader")>
+		<cfloop query="d2">
+			<cftransaction>
+				<cfquery name="thisRow" dbtype="query">
+					select * from d2 where [key] = #d2.key#
+				</cfquery>
+				<cfset x=loader.validateSpecimenAttribute(thisRow)>
+				<cfquery name="ud" datasource="uam_god">
+					update cf_temp_attributes set
+						key=key
+						<cfif isdefined("x.problems") and len(x.problems) gt 0>
+							,status='#x.problems#'
+						</cfif>
+						<cfif isdefined("x.collection_object_id") and len(x.collection_object_id) gt 0>
+							,collection_object_id=#x.collection_object_id#
+						</cfif>
+						<cfif isdefined("x.determiner_id") and len(x.determiner_id) gt 0>
+							,DETERMINED_BY_AGENT_ID=#x.determiner_id#
+						</cfif>
+					where
+						key=#x.key#
+				</cfquery>
+			</cftransaction>
+		</cfloop>
+
+		<p>
+			If you're seeing this, the check is probably complete. <a href="BulkloadAttributes.cfm?action=manageMyStuff">continue to manageMyStuff</a>
+		</p>
+
+		<!----
 		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
 				cf_temp_attributes
@@ -472,6 +512,8 @@ alter table cf_temp_attributes modify status varchar2(4000);
 				upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
+
+		---->
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
@@ -503,7 +545,7 @@ alter table cf_temp_attributes modify status varchar2(4000);
 			<hr>
 		</cfif>
 		<cfquery name="pf" dbtype="query">
-			select count(*) l from datadump where status != 'valid'
+			select count(*) l from datadump where status != 'precheck_pass'
 		</cfquery>
 		<cfif session.roles contains "manage_collection">
 			You have manage_collection, so you can "take" records from people in your collection(s). This is useful when students
@@ -526,8 +568,8 @@ alter table cf_temp_attributes modify status varchar2(4000);
 			</p>
 		</cfif>
 		<p>
-			<a href="BulkloadAttributes.cfm?action=loadData">click to load and delete "valid" records</a>. Records with a status of anything
-			except "valid" will be ignored. Status may be carried over from previous operations; click "validate" above
+			<a href="BulkloadAttributes.cfm?action=loadData">click to load and delete "precheck_pass" records</a>. Records with a status of anything
+			except "precheck_pass" will be ignored. Status may be carried over from previous operations; click "validate" above
 			if you're not absolutely sure that the data here are current. Carefully review the table below before proceeding.
 		</p>
 		<p>
@@ -564,7 +606,7 @@ alter table cf_temp_attributes modify status varchar2(4000);
 						<td>#STATUS#</td>
 						<td>#GUID#</td>
 						<td>
-							<cfif status is "valid" and len(collection_object_id) gt 0>
+							<cfif status is "precheck_pass" and len(collection_object_id) gt 0>
 								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">clicky</a>
 							</cfif>
 						</td>
@@ -603,9 +645,44 @@ alter table cf_temp_attributes modify status varchar2(4000);
 <!------------------------------------------------------->
 <cfif action is "loadData">
 	<cfoutput>
-		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfset loader = CreateObject("component","component.loader")>
+		<cfquery name="d2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#' and status='valid'
 		</cfquery>
+		<p>
+			This process may require a few reloads; just reload if it times out.
+		</p>
+		<p>
+			Timeout is one minute; if it seems to go longer, your browser it stuck.
+		</p>
+		<cfloop query="d2">
+			<cftransaction>
+				<cfquery name="thisRow" dbtype="query">
+					select * from d3 where [key] = #d3.key#
+				</cfquery>
+				<cfset x=loader.createSpecimenAttribute(thisRow)>
+				<cfif x.status is "success">
+					<cfquery name="ud" datasource="uam_god">
+						delete from cf_temp_attributes where key=#x.key#
+					</cfquery>
+				<cfelse>
+					<cfquery name="ud" datasource="uam_god">
+						update cf_temp_attributes set
+							status='FAIL:#x.status#'
+						where
+							key=#x.key#
+					</cfquery>
+				</cfif>
+			</cftransaction>
+		</cfloop>
+		<p>
+			If you're seeing this, the check is probably complete. <a href="BulkloadAttributes.cfm?action=manageMyStuff">continue to manageMyStuff</a>
+		</p>
+
+		<!----
+
+
+
 		<cftransaction>
 			<cfloop query="getTempData">
 				<cfquery name="newAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -649,7 +726,7 @@ alter table cf_temp_attributes modify status varchar2(4000);
 				delete from cf_temp_attributes where upper(username)='#ucase(session.username)#' and status='valid'
 			</cfquery>
 		</cftransaction>
-		Spiffy, all done. <a href="BulkloadAttributes.cfm">load more Attributes</a>
+		---->
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">

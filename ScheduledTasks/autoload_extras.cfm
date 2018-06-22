@@ -169,7 +169,7 @@
 			<cfset x=loader.createSpecimenAttribute(thisRow)>
 			<cfif x.status is "success">
 				<cfquery name="ud" datasource="uam_god">
-					delete from cf_temp_attributes where	key=#x.key#
+					delete from cf_temp_attributes where key=#x.key#
 				</cfquery>
 			<cfelse>
 				<cfquery name="ud" datasource="uam_god">
@@ -179,7 +179,6 @@
 						key=#x.key#
 				</cfquery>
 			</cfif>
-			---->
 		</cftransaction>
 	</cfloop>
 

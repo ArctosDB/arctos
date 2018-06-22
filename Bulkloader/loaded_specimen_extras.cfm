@@ -621,7 +621,7 @@
 		</cfloop>
 	</table>
 	<p>
-		<input type="submit" value="Claim and mark all checked records to autoload">
+		<input class="lnkBtn" type="submit" value="Claim and mark all checked records to autoload">
 	</p>
 
 	</form>
