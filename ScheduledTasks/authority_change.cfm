@@ -16,7 +16,8 @@
 			FROM
 				user_tables
 			WHERE
-				table_name like 'LOG_CT%'
+				table_name like 'LOG_%'
+				or table_name like
 		</cfquery>
 		<cfloop query="ctlogtbl">
 			<cfquery name="ctab" datasource="uam_god">
