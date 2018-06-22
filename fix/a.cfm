@@ -9,6 +9,8 @@
 		select getJsonMediaClob(collection_object_id) x from flat where guid='#guid#'
 	</cfquery>
 
+	<cfset j=SerializeJSON(d.x)>
+	<cfdump var=#j#>
 	#d.x#
 
 </cfoutput>
