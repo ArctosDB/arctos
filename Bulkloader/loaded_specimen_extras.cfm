@@ -82,7 +82,7 @@
 		</select>
 		<label for="usrn">Username</label>
 		<input type="text" name="usrn" value="#usrn#">
-		<input type="submit" value="filter">
+		<br><input type="submit" value="filter">
 	</form>
 	<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select

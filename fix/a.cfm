@@ -1,12 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
 
 
-<cfoutput>#CreateObject("java", "java.lang.System").getProperty("java.version")#</cfoutput>
+<cfoutput>#CreateObject("java", "java.lang.System").getProperty("java.version")#
 
 
 
+	<cfquery name="d" datasource="uam_god">
+		select getJsonMediaClob(collection_object_id) x from flat where guid='#guid#'
+	</cfquery>
 
+	#d.x#
 
+</cfoutput>
 			<cfabort>
 
 
