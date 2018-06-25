@@ -42,11 +42,11 @@
 	});
 
 	function clearCreator(){
-		$("#created_agent_id".val('');
-		$("#creator".val('');
+		$("#created_agent_id").val('');
+		$("#creator").val('');
 	}
 	function clearDate(){
-		$("#made_date".val('');
+		$("#made_date").val('');
 	}
 
 
