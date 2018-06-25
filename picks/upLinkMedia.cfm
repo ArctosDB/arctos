@@ -41,6 +41,15 @@
 		};
 	});
 
+	function clearCreator(){
+		$("#created_agent_id".val('');
+		$("#creator".val('');
+	}
+	function clearDate(){
+		$("#made_date".val('');
+	}
+
+
 	function resetDZ(){
 		$("#uploadmediaform").show();
 		$("#uploadtitle").html('');
