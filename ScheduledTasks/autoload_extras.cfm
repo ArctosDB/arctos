@@ -187,11 +187,7 @@
 
 
 	<!--------
-	<cfif isdefined("cf_temp_specevent_key") and len(cf_temp_specevent_key) gt 0>
-		<cfquery name="cf_temp_specevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_specevent set status='autoload' where key in (#ListQualify(cf_temp_specevent_key, "'")#)
-		</cfquery>
-	</cfif>
+
 
 	<cfif isdefined("cf_temp_parts_key") and len(cf_temp_parts_key) gt 0>
 		<cfquery name="cf_temp_parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -199,12 +195,6 @@
 		</cfquery>
 	</cfif>
 
-
-	<cfif isdefined("cf_temp_attributes_key") and len(cf_temp_attributes_key) gt 0>
-		<cfquery name="cf_temp_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_attributes set status='autoload' where key in (#ListQualify(cf_temp_attributes_key, "'")#)
-		</cfquery>
-	</cfif>
 
 
 	<cfif isdefined("cf_temp_oids_key") and len(cf_temp_oids_key) gt 0>
