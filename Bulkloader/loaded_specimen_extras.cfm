@@ -67,6 +67,10 @@
 	<div class="importantNotification">
 		Do not claim records which were not entered by you or people whose data you manage. IMMEDIATELY contact the data owner if you do this by accident.
 	</div>
+	<div class="importantNotification">
+		This form is not complete. <a href="/ScheduledTasks/autoload_extras.cfm">/ScheduledTasks/autoload_extras.cfm</a> will
+		load and delete, or flag as errors, some data with status='autoload' below. Not all data types are handled yet.
+	</div>
 	<cfquery name="gp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select guid_prefix from collection order by guid_prefix
 	</cfquery>
