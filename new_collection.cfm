@@ -106,7 +106,13 @@
 	create unique index ix_u_pni_instacr_u on pre_new_institution(upper(INSTITUTION_ACRONYM)) tablespace uam_idx_1;
 
 
+create table temp_old_pre_new_collection as select * from pre_new_collection;
+
+
+
+
 	drop table pre_new_collection;
+
 
 	create table pre_new_collection (
 		ncid number not null,
