@@ -129,12 +129,12 @@
 	</cfif>
 
 	<p>
-		If you followed a link from within Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
-	 	containing any information that might help us resolve this issue.
+		If you followed a link from within Arctos, please <a href="/contact.cfm">Contact Us</a>
+	 	with any information that might help us resolve this issue.
 	</p>
 	<p>
 		If you followed an external link, please use your back button and tell the webmaster that
-		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
+		something is broken, or <a href="/contact.cfm">Contact Us</a> telling us how you got this error.
 	</p>
 
 	<p><a href="/taxonomy.cfm">Search for Taxon Names here</a></p>

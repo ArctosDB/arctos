@@ -60,6 +60,15 @@
 			</tr>
 		</cfloop>
 	</table>
+	
+	<cfquery name="mcn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select max(CAT_NUM_INTEGER) lcn from cataloged_item where collection_id=#collection_id#
+	</cfquery>
+
+<p>
+	Largest integer catnum: #mcn.lcn#
+</p>
+
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">

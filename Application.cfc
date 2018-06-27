@@ -66,7 +66,8 @@
 							suggestions for dealing with timeout problems. Use the Contact link below if you are unable to get what you need.
 							<ul>
 								<li>
-									After a <a href="/SpecimenResults.cfm?cat_num=1">successful search</a>, Click "Add/Remove Data Fields" and de-select unnecessary columns. Attributes are particularly expensive.
+									Remove unnecessary results columns. Attributes are particularly expensive.
+									<span class="likeLink" onclick="openCustomize()">Customize Results</span>
 								</li>
 								<li>Try a more specific search.
 									<ul>
