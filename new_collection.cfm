@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title="New Collection Portal">
+<cfset title="Prospective Collection Form">
 <script>
 	jQuery(document).ready(function() {
 		$(':input[required]:visible').each(function(e){
