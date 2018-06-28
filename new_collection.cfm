@@ -47,7 +47,7 @@
 				<label for="Password">Password</label>
 				<input type="password" name="password" title="password" placeholder="password" size="12" class="loginTxt" required>
 				<br>
-				<input type="button" value="Create Account" class="smallBtn" onClick="logIn.action.value='newUser';submit();">
+				<input type="submit" value="Create Account" class="smallBtn" >
 			</form>
 	</p>
 	<cfabort>
