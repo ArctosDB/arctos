@@ -27,7 +27,42 @@
 
 
 <cfif len(session.username) is 0>
-	You must log in to use this form. You may log in or create an account in the header, or <a href="/login.cfm">here</a>.
+	You must log in to access the Prospective Collection Form. You may log in above, or create an account here.
+
+	<p>
+		Usernames cannot have a period (e.g., carla.cicero is not acceptable).
+		Passwords should be at least 8 characters and contain a combination of letters, numbers,
+		and at least one symbol (e.g., $ @ !).
+	</p>
+	<p>
+		Accounts not following these rules may not be made into Operators, but you may access the Prospective Collection Form
+		with any account.
+	</p>
+	<p>
+		<form name="logIn" method="post" action="/login.cfm">
+				<input type="hidden" name="action" value="newUser">
+				<input type="hidden" name="gotopage" value="new_collection.cfm">
+
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<input type="text" name="username" title="username" size="12"
+								class="loginTxt" placeholder="username" required>
+						</td>
+						<td>
+							<input type="password" name="password" title="password" placeholder="password" size="12" class="loginTxt" required>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<div class="loginTxt" style="padding-top:3px;">
+								<input type="button" value="Create Account" class="smallBtn" onClick="logIn.action.value='newUser';submit();">
+							</div>
+				    	</td>
+					</tr>
+				</table>
+			</form>
+	</p>
 	<cfabort>
 </cfif>
 <cfif isdefined("session.roles") and session.roles contains "global_admin">
