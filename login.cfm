@@ -53,7 +53,7 @@
 				sysdate
 			)
 		</cfquery>
-		<cflocation url="/login.cfm?action=signIn&username=#username#&password=#password#&gotopage=#gotopage" addtoken="false">
+		<cflocation url="/login.cfm?action=signIn&username=#username#&password=#password#&gotopage=#gotopage#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
