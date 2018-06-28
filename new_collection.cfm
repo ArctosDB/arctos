@@ -42,25 +42,12 @@
 		<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="newUser">
 				<input type="hidden" name="gotopage" value="new_collection.cfm">
-
-				<table border="0" cellpadding="0" cellspacing="0">
-					<tr>
-						<td>
-							<input type="text" name="username" title="username" size="12"
-								class="loginTxt" placeholder="username" required>
-						</td>
-						<td>
-							<input type="password" name="password" title="password" placeholder="password" size="12" class="loginTxt" required>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" align="center">
-							<div class="loginTxt" style="padding-top:3px;">
-								<input type="button" value="Create Account" class="smallBtn" onClick="logIn.action.value='newUser';submit();">
-							</div>
-				    	</td>
-					</tr>
-				</table>
+				<label for="username">Username</label>
+				<input type="text" name="username" title="username" size="12" class="loginTxt" placeholder="username" required>
+				<label for="Password">Password</label>
+				<input type="password" name="password" title="password" placeholder="password" size="12" class="loginTxt" required>
+				<br>
+				<input type="button" value="Create Account" class="smallBtn" onClick="logIn.action.value='newUser';submit();">
 			</form>
 	</p>
 	<cfabort>
