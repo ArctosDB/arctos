@@ -9,6 +9,7 @@
 </cfif>
 <!------------------------------------------------------------>
 <cfif  action is "newUser">
+	<cfparam name="gotopage" default="">
 	<cfquery name="uUser" datasource="cf_dbuser">
 		select * from cf_users where upper(username) = '#ucase(username)#'
 	</cfquery>
@@ -30,7 +31,7 @@
 	</cfif>
 	<!--- create their account --->
 	<cfif len(err) gt 0>
-		<cflocation url="/login.cfm?username=#username#&badPW=true&err=#err#" addtoken="false">
+		<cflocation url="/login.cfm?username=#username#&badPW=true&err=#err#&gotopage=#gotopage#" addtoken="false">
 		<cfabort>
 	</cfif>
 	<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -52,7 +53,7 @@
 				sysdate
 			)
 		</cfquery>
-		<cflocation url="/login.cfm?action=signIn&username=#username#&password=#password#" addtoken="false">
+		<cflocation url="/login.cfm?action=signIn&username=#username#&password=#password#&gotopage=#gotopage" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
