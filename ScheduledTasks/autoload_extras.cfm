@@ -182,6 +182,11 @@
 		</cftransaction>
 	</cfloop>
 
+
+	<!--- get GUID for relationships ---->
+
+
+
 </cfoutput>
 
 
