@@ -64,6 +64,9 @@
 	<p>
 		NOTE: Claiming records will mess with filters; you'll probably need to change username filters to your username after clicking the 'mark and claim' button.
 	</p>
+	<p>
+		After claiming, you can download CSV from individual loaders; links inline.
+	</p>
 	<div class="importantNotification">
 		Do not claim records which were not entered by you or people whose data you manage. IMMEDIATELY contact the data owner if you do this by accident.
 	</div>
