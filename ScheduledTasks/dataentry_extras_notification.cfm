@@ -60,7 +60,7 @@
 	       	status
 	</cfquery>
 	<cfdump var=#d#>
-	<cfquery name="usrs" datasource="uam_god">
+	<cfquery name="usrs" dbtype="query">
 		select distinct username from d
 	</cfquery>
 	<cfdump var=#usrs#>
