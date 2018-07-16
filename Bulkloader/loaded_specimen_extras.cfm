@@ -333,7 +333,7 @@
 		Parts
 	</h3>
 	<p>
-		<a href="/tools/xxx.cfm?action=managemystuff">xxx</a>
+		<a href="/tools/BulkloadParts.cfm?action=managemystuff">BulkloadParts</a>
 	</p>
 
 	<br><span class="likeLink" onclick="checkAll('cf_temp_parts',true)">Check All</span>
@@ -545,8 +545,19 @@
 	</cfquery>
 
 
+	<h3>
+		Relationships
+	</h3>
+	<p>
+		<a href="/tools/BulkloadOtherId.cfm?action=managemystuff">BulkloadOtherId</a>
+	</p>
+	<div class="importantNotification">
+		Relationships and Other IDs are not yet handled. File an Issue.
+	</div>
+	<!----
 	<br><span class="likeLink" onclick="checkAll('cf_temp_oids',true)">Check All</span>
 	<br><span class="likeLink" onclick="checkAll('cf_temp_oids',false)">UNcheck All</span>
+	---->
 	<table border>
 		<tr>
 			<th>Autoload</th>
@@ -598,8 +609,13 @@
 	</cfquery>
 
 
+	<div class="importantNotification">
+		Collectors are not yet handled. File an Issue.
+	</div>
+	<!----
 	<br><span class="likeLink" onclick="checkAll('cf_temp_collector',true)">Check All</span>
 	<br><span class="likeLink" onclick="checkAll('cf_temp_collector',false)">UNcheck All</span>
+	---->
 	<table border>
 		<tr>
 			<th>Autoload</th>
