@@ -103,6 +103,8 @@
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos Pending Data Notification">
 	</cfif>
+
+	mailing...
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="pending_data@#Application.fromEmail#" type="html">
 		<cfif isdefined("Application.version") and  Application.version is not "prod">
 			<hr>
