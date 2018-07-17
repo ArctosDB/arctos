@@ -79,7 +79,7 @@
 		select distinct username from nagt_p
 	</cfquery>
 	<cfquery name="adrs" datasource="uam_god">
-		select agent_name,get_address(agent_name.agent_name,email) from agent_name where upper(agent_name) in  (#listqualify(valuelist(nagt.username),"'")#)
+		select agent_name,get_address(agent_name.agent_name,'email') from agent_name where upper(agent_name) in  (#listqualify(valuelist(nagt.username),"'")#)
 	</cfquery>
 
 
