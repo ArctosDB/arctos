@@ -68,7 +68,7 @@
 			select granted_role from dba_role_privs,cf_collection where
 			dba_role_privs.granted_role=cf_collection.portal_name and
 			upper(grantee) in (#listqualify(valuelist(usrs.username),"'")#)
-			) and b.granted_role='MANAGE_COLLECTION' ;
+			) and b.granted_role='MANAGE_COLLECTION'
 	</cfquery>
 	<cfdump var=#usrs#>
 	<cfdump var=#aa#>
