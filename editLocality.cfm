@@ -1083,6 +1083,7 @@ function checkCoordinateError(){
 		<br>
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
 		<span class="helpLink" id="_coordinates">[ lat_long help ]</span>
+		<a href="http://manisnet.org/gci2.html" target="_blank" class="external">MaNIS calculator</a>
 	</td>
 	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>

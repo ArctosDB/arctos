@@ -63,26 +63,63 @@
 	<cfquery name="usrs" dbtype="query">
 		select distinct username from d where username is not null
 	</cfquery>
+	<cfquery name="aa" datasource="uam_god">
+			select a.grantee from dba_role_privs a, dba_role_privs b where a.grantee=b.grantee and a.granted_role IN (
+			select granted_role from dba_role_privs,cf_collection where
+			dba_role_privs.granted_role=cf_collection.portal_name and
+			upper(grantee) in '#listqualify(valuelist(usrs.username),"'")#'
+			) and b.granted_role='MANAGE_COLLECTION' ;
+	</cfquery>
 	<cfdump var=#usrs#>
+	<cfdump var=#aa#>
+
+	<!----
 	<cfloop query="usrs">
 		<cfquery name="mgr" datasource="uam_god">
+
+
+			select granted_role from dba_role_privs,cf_collection where
+			dba_role_privs.granted_role=cf_collection.portal_name and
+			upper(grantee)='DLM'
+			;
+
+
+			select grantee from dba_role_privs  where granted_role='MLZ_EGG';
+			select a.grantee from dba_role_privs a, dba_role_privs b where a.grantee=b.grantee and a.granted_role='MLZ_EGG' and b.granted_role='MANAGE_COLLECTION' ;
+
+
+
+
+
+
+
+
+			dba_role_privs.granted_role=cf_collection.portal_name and
+			upper(grantee)='DLM'
+			;
+
+
+
+
+
 			select distinct
-	               my_privs.grantee
-	              from
-	                dba_role_privs user_privs,
-	                dba_role_privs my_privs,
-	                cf_collection user_colns,
-	                cf_collection my_colns
-	              where
-	                user_privs.granted_role = user_colns.portal_name and
-	                my_privs.granted_role = my_colns.portal_name and
-	                upper(user_privs.grantee)='#ucase(username)#' and
-	                user_colns.portal_name=my_colns.portal_name
+	        	my_privs.grantee
+	        from
+	            dba_role_privs user_privs,
+	            dba_role_privs my_privs,
+	            cf_collection user_colns,
+	            cf_collection my_colns
+	        where
+	            user_privs.granted_role = user_colns.portal_name and
+	            my_privs.granted_role = my_colns.portal_name and
+	            upper(user_privs.grantee)='#ucase(username)#' and
+	            user_colns.portal_name=my_colns.portal_name
 			</cfquery>
 	<cfdump var=#mgr#>
 
 
 	</cfloop>
+	---->
 
 
 
