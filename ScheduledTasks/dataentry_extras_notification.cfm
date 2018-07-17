@@ -98,10 +98,34 @@
 		select * from d order by username
 	</cfquery>
 
+	<p>
 	You are receiving this message because you have data pending in a bulkloader available from "data entry extras," or because
 	you have manage_collection for a user with data pending in a bulkloader available from "data entry extras."
+	</p>
+	<p>
+		You may manage these data from EnterData/Bulkloader/Extras or from the individual bulkloaders.
+	</p>
 
-	<cfdump var=#d_s#>
+	Summary Data
+	<table border>
+		<tr>
+			<th>Username</th>
+			<th>Table</th>
+			<th>Status</th>
+			<th>Count</th>
+		</tr>
+		<cfloop query="d_s">
+			<tr>
+				<td>#USERNAME#</td>
+				<td>#TBLNAME#</td>
+				<td>#STATUS#</td>
+				<td>#C#</td>
+			</tr>
+		</cfloop>
+
+
+
+	</table>
 
 	<!----
 	<cfloop query="usrs">
