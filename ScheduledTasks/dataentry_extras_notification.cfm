@@ -2,6 +2,16 @@
 	dataentry_extras_notification.cfm
 	send email to the folks who entered this stuff and whoever has manage_collection for them
 ---->
+<cfsavecontent variable="emailFooter">
+	<div style="font-size:smaller;color:gray;">
+		--
+		<br>Don't want these messages? Update Collection Contacts.
+		<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
+		<br>Links not working? Log in, log out, or check encumbrances.
+		<br>Need help? Send email to arctos.database@gmail.com
+	</div>
+</cfsavecontent>
+
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select
@@ -86,89 +96,45 @@
 		select * from d where username is not null order by username
 	</cfquery>
 
-
-	mailto:#valuelist(f_adrs.email)#
-	<p>
-	You are receiving this message because you have data in a bulkloader available from "data entry extras," or because
-	you have manage_collection for a user with data in a bulkloader available from "data entry extras."
-	</p>
-	<p>
-		You may manage these data from EnterData/Bulkloader/Extras or from the individual bulkloaders.
-	</p>
-	<p>
-		Summary:
-	</p>
-	<table border>
-		<tr>
-			<th>Username</th>
-			<th>Table</th>
-			<th>Status</th>
-			<th>Count</th>
-		</tr>
-		<cfloop query="d_s">
+	<cfif isdefined("Application.version") and  Application.version is "prod">
+		<cfset subj="Arctos Pending Data Notification">
+		<cfset maddr=valuelist(f_adrs.email)>
+	<cfelse>
+		<cfset maddr=application.bugreportemail>
+		<cfset subj="TEST PLEASE IGNORE: Arctos Pending Data Notification">
+	</cfif>
+	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="pending_data@#Application.fromEmail#" type="html">
+		<cfif isdefined("Application.version") and  Application.version is not "prod">
+			<hr>
+				prodemaillist: #valuelist(f_adrs.email)#
+			<hr>
+		</cfif>
+		<p>
+			You are receiving this message because you have data in a bulkloader available from "data entry extras," or because
+			you have manage_collection for a user with data in a bulkloader available from "data entry extras."
+		</p>
+		<p>
+			You may manage these data from EnterData/Bulkloader/Extras or from the individual bulkloaders.
+		</p>
+		<p>
+			Summary:
+		</p>
+		<table border>
 			<tr>
-				<td>#USERNAME#</td>
-				<td>#TBLNAME#</td>
-				<td>#STATUS#</td>
-				<td>#C#</td>
+				<th>Username</th>
+				<th>Table</th>
+				<th>Status</th>
+				<th>Count</th>
 			</tr>
-		</cfloop>
-
-
-
-	</table>
-
-	<!----
-	<cfloop query="usrs">
-		<cfquery name="mgr" datasource="uam_god">
-
-
-			select granted_role from dba_role_privs,cf_collection where
-			dba_role_privs.granted_role=cf_collection.portal_name and
-			upper(grantee)='DLM'
-			;
-
-
-			select grantee from dba_role_privs  where granted_role='MLZ_EGG';
-			select a.grantee from dba_role_privs a, dba_role_privs b where a.grantee=b.grantee and a.granted_role='MLZ_EGG' and b.granted_role='MANAGE_COLLECTION' ;
-
-
-
-
-
-
-
-
-			dba_role_privs.granted_role=cf_collection.portal_name and
-			upper(grantee)='DLM'
-			;
-
-
-
-
-
-			select distinct
-	        	my_privs.grantee
-	        from
-	            dba_role_privs user_privs,
-	            dba_role_privs my_privs,
-	            cf_collection user_colns,
-	            cf_collection my_colns
-	        where
-	            user_privs.granted_role = user_colns.portal_name and
-	            my_privs.granted_role = my_colns.portal_name and
-	            upper(user_privs.grantee)='#ucase(username)#' and
-	            user_colns.portal_name=my_colns.portal_name
-			</cfquery>
-	<cfdump var=#mgr#>
-
-
-	</cfloop>
-	---->
-
-
-
+			<cfloop query="d_s">
+				<tr>
+					<td>#USERNAME#</td>
+					<td>#TBLNAME#</td>
+					<td>#STATUS#</td>
+					<td>#C#</td>
+				</tr>
+			</cfloop>
+		</table>
+		#emailFooter#
+	</cfmail>
 </cfoutput>
-
-
-
