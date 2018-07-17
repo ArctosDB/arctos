@@ -94,6 +94,15 @@
 	<cfdump var=#adrs#>
 	<cfdump var=#f_adrs#>
 
+	<cfquery name="d_s" dbtype="query">
+		select * from d order by username
+	</cfquery>
+
+	You are receiving this message because you have data pending in a bulkloader available from "data entry extras," or because
+	you have manage_collection for a user with data pending in a bulkloader available from "data entry extras."
+
+	<cfdump var=#d_s#>
+
 	<!----
 	<cfloop query="usrs">
 		<cfquery name="mgr" datasource="uam_god">
