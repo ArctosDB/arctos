@@ -82,6 +82,9 @@
 		select agent_name,get_address(agent_name.agent_id,'email') email from agent_name where upper(agent_name) in  (#listqualify(valuelist(nagt.username),"'")#)
 	</cfquery>
 
+	<cfquery name="f_adrs" dbtype="query">
+		select distinct agent_name,email from adrs where email is not null
+	</cfquery>
 
 	<cfdump var=#usrs#>
 	<cfdump var=#aa#>
@@ -89,6 +92,7 @@
 
 
 	<cfdump var=#adrs#>
+	<cfdump var=#f_adrs#>
 
 	<!----
 	<cfloop query="usrs">
