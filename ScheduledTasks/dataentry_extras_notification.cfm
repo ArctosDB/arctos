@@ -64,14 +64,23 @@
 		select distinct username from d where username is not null
 	</cfquery>
 	<cfquery name="aa" datasource="uam_god">
-			select a.grantee from dba_role_privs a, dba_role_privs b where a.grantee=b.grantee and a.granted_role IN (
+			select a.grantee as username from dba_role_privs a, dba_role_privs b where a.grantee=b.grantee and a.granted_role IN (
 			select granted_role from dba_role_privs,cf_collection where
 			dba_role_privs.granted_role=cf_collection.portal_name and
 			upper(grantee) in (#listqualify(valuelist(usrs.username),"'")#)
 			) and b.granted_role='MANAGE_COLLECTION'
 	</cfquery>
+
+	<cfquery name="nagt_p" dbtype="query">
+		select username from usrs union select username from aa
+	</cfquery>
+	<cfquery name="nagt" dbtype="query">
+		select distinct usernmae from nagt_p
+	</cfquery>
+
 	<cfdump var=#usrs#>
 	<cfdump var=#aa#>
+	<cfdump var=#nagt#>
 
 	<!----
 	<cfloop query="usrs">
