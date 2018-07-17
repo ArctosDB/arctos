@@ -74,8 +74,9 @@
 	<cfquery name="nagt_p" dbtype="query">
 		select username from usrs union select username from aa
 	</cfquery>
+	<cfdump var=#nagt_p#>
 	<cfquery name="nagt" dbtype="query">
-		select distinct usernmae from nagt_p
+		select distinct username from nagt_p
 	</cfquery>
 
 	<cfdump var=#usrs#>
