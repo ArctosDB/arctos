@@ -59,7 +59,6 @@
 	    	upper(username),
 	       	status
 	</cfquery>
-	<cfdump var=#d#>
 	<cfquery name="usrs" dbtype="query">
 		select distinct username from d where username is not null
 	</cfquery>
@@ -70,30 +69,19 @@
 			upper(grantee) in (#listqualify(valuelist(usrs.username),"'")#)
 			) and b.granted_role='MANAGE_COLLECTION'
 	</cfquery>
-
 	<cfquery name="nagt_p" dbtype="query">
 		select username from usrs union select username from aa
 	</cfquery>
-	<cfdump var=#nagt_p#>
 	<cfquery name="nagt" dbtype="query">
 		select distinct username from nagt_p
 	</cfquery>
 	<cfquery name="adrs" datasource="uam_god">
-		select agent_name,get_address(agent_name.agent_id,'email') email from agent_name where upper(agent_name) in  (#listqualify(valuelist(nagt.username),"'")#)
+		select agent_name,get_address(agent_name.agent_id,'email') email from agent_name where upper(agent_name) in (#listqualify(valuelist(nagt.username),"'")#)
 	</cfquery>
 
 	<cfquery name="f_adrs" dbtype="query">
 		select distinct agent_name,email from adrs where email is not null
 	</cfquery>
-
-	<cfdump var=#usrs#>
-	<cfdump var=#aa#>
-	<cfdump var=#nagt#>
-
-
-	<cfdump var=#adrs#>
-	<cfdump var=#f_adrs#>
-
 	<cfquery name="d_s" dbtype="query">
 		select * from d where username is not null order by username
 	</cfquery>
