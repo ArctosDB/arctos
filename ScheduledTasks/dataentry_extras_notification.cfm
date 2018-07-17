@@ -98,15 +98,18 @@
 		select * from d where username is not null order by username
 	</cfquery>
 
+
+	mailto:#valuelist(f_adrs.email)#
 	<p>
-	You are receiving this message because you have data pending in a bulkloader available from "data entry extras," or because
-	you have manage_collection for a user with data pending in a bulkloader available from "data entry extras."
+	You are receiving this message because you have data in a bulkloader available from "data entry extras," or because
+	you have manage_collection for a user with data in a bulkloader available from "data entry extras."
 	</p>
 	<p>
 		You may manage these data from EnterData/Bulkloader/Extras or from the individual bulkloaders.
 	</p>
-
-	Summary Data
+	<p>
+		Summary:
+	</p>
 	<table border>
 		<tr>
 			<th>Username</th>
