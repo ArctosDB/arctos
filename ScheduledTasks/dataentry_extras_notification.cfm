@@ -95,7 +95,7 @@
 	<cfdump var=#f_adrs#>
 
 	<cfquery name="d_s" dbtype="query">
-		select * from d order by username
+		select * from d where username is not null order by username
 	</cfquery>
 
 	<p>
