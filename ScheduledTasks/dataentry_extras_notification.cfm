@@ -16,7 +16,7 @@
 	<cfquery name="d" datasource="uam_god">
 		select
 			tblname,
-			cm
+			c,
 			username,
 			status
 		from
