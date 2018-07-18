@@ -50,6 +50,7 @@
 <cfoutput>
 	<p>
 		This form finds data in bulkloaders for specimen which have successfully loaded and are linked to bulkloaders by UUID.
+		Data linked to specimens which have not yet loaded is available from EnterData/Bulkloader/BrowseAndEdit-->Extras.
 	</p>
 	<p>
 		NOTE: 1000-record limit per table. You may need to uncheck some boxes to proceed.

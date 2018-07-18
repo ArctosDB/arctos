@@ -15,59 +15,70 @@
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select
-			'cf_temp_specevent' tblname,
-			count(*) c,
-	        upper(username) username,
-	        status
+			tblname,
+			cm
+			username,
+			status
 		from
-	    	cf_temp_specevent
-		group by
-	    	upper(username),
-	       	status
-	    union
-	    select
-			'cf_temp_parts' tblname,
-			count(*) c,
-	        upper(username) username,
-	        status
-		from
-	    	cf_temp_parts
-		group by
-	    	upper(username),
-	       	status
-	    union
-	    select
-			'cf_temp_attributes' tblname,
-			count(*) c,
-	        upper(username) username,
-	        status
-		from
-	    	cf_temp_attributes
-		group by
-	    	upper(username),
-	       	status
-	    union
-	    select
-			'cf_temp_oids' tblname,
-			count(*) c,
-	        upper(username) username,
-	        status
-		from
-	    	cf_temp_oids
-		group by
-	    	upper(username),
-	       	status
-	    union
-	    select
-			'cf_temp_collector' tblname,
-			count(*) c,
-	        upper(username) username,
-	        status
-		from
-	    	cf_temp_collector
-		group by
-	    	upper(username),
-	       	status
+			(
+			select
+				'cf_temp_specevent' tblname,
+				count(*) c,
+		        upper(username) username,
+		        status
+			from
+		    	cf_temp_specevent
+			group by
+		    	upper(username),
+		       	status
+		    union
+		    select
+				'cf_temp_parts' tblname,
+				count(*) c,
+		        upper(username) username,
+		        status
+			from
+		    	cf_temp_parts
+			group by
+		    	upper(username),
+		       	status
+		    union
+		    select
+				'cf_temp_attributes' tblname,
+				count(*) c,
+		        upper(username) username,
+		        status
+			from
+		    	cf_temp_attributes
+			group by
+		    	upper(username),
+		       	status
+		    union
+		    select
+				'cf_temp_oids' tblname,
+				count(*) c,
+		        upper(username) username,
+		        status
+			from
+		    	cf_temp_oids
+			group by
+		    	upper(username),
+		       	status
+		    union
+		    select
+				'cf_temp_collector' tblname,
+				count(*) c,
+		        upper(username) username,
+		        status
+			from
+		    	cf_temp_collector
+			group by
+		    	upper(username),
+		       	status
+		)
+		where
+			status = 'linked to bulkloader' or
+			status like '%autoload%'
 	</cfquery>
 	<cfquery name="usrs" dbtype="query">
 		select distinct username from d where username is not null
