@@ -248,7 +248,7 @@
 											<li><a target="_top" href="##" class="helpLink" data-helplink="bulkloader">Bulkloader Docs</a></li>
 											<li><a target="_top" href="/Bulkloader/pre_bulkloader.cfm">Pre-Bulkloader</a></li>
 											<li><a target="_top" href="/Bulkloader/sqlldr.cfm">SQLLDR Builder</a></li>
-											<li><a target="_top" href="/Bulkloader/loaded_specimen_extras.cfm">Extras for loaded specimens</a></li>
+											<li><a target="_top" href="/Bulkloader/loaded_specimen_extras.cfm">Extras For Loaded Specimens</a></li>
 										</cfif>
 										<cfif listfind(formList,"/Bulkloader/browseBulk.cfm")>
 											<li><a target="_top" href="/Bulkloader/browseBulk.cfm">Browse and Edit</a></li>

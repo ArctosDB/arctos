@@ -127,7 +127,10 @@
 			you have manage_collection for a user with data in a bulkloader available from "data entry extras."
 		</p>
 		<p>
-			You may manage these data from EnterData/Bulkloader/Extras or from the individual bulkloaders.
+			Data for specimens which have not yet been entered are available at EnterData/Bulkloader/BrowseAndEdit-->Extras or the individual bulkloaders.
+		</p>
+		<p>
+			Data for specimens which have been entered are available at EnterData/Bulkloader/ExtrasForLoadedSpecimens or the individual bulkloaders.
 		</p>
 		<p>
 			Summary:

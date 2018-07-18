@@ -66,7 +66,8 @@
 		NOTE: Claiming records will mess with filters; you'll probably need to change username filters to your username after clicking the 'mark and claim' button.
 	</p>
 	<p>
-		After claiming, you can download CSV from individual loaders; links inline.
+		Errors in your records (and attempting to autoload makes records yours) can be dealt with by downloading CSV from individual loaders, which are
+		linked below.
 	</p>
 	<div class="importantNotification">
 		Do not claim records which were not entered by you or people whose data you manage. IMMEDIATELY contact the data owner if you do this by accident.
@@ -647,9 +648,7 @@
 	<p>
 		<input class="lnkBtn" type="submit" value="Claim and mark all checked records to autoload">
 	</p>
-
 	</form>
-
 </cfoutput>
 </cfif>
 
