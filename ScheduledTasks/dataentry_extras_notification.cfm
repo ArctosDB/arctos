@@ -128,6 +128,11 @@
 		</p>
 		<p>
 			Data for specimens which have not yet been entered are available at EnterData/Bulkloader/BrowseAndEdit-->Extras or the individual bulkloaders.
+			<p>
+				NOTE: Records which have been orphaned by deleting from the specimen bulkloader or changing UUID in either the specimen
+				bulkloader or the individual bulkloader will NOT be available at EnterData/Bulkloader/BrowseAndEdit-->Extras. These
+				must be reconciled from the individual bulkloader.
+			</p>
 		</p>
 		<p>
 			Data for specimens which have been entered are available at EnterData/Bulkloader/ExtrasForLoadedSpecimens or the individual bulkloaders.
