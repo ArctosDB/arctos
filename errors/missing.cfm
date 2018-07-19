@@ -320,14 +320,18 @@
 						<cfset "#T#" = "#urldecode(v)#">
 					</cfloop>
 					<cfinclude template="/SpecimenResults.cfm">
-				<cfelseif left(d.url,7) is "http://">
-					Click to continue: <a href="#d.url#">#d.url#</a>
 				<cfelse>
-					If you are not redirected, please click this link: <a href="/#d.url#">#d.url#</a>
+					<cfif left(d.url,4) is "http">
+						<!--- full URL, do nothing --->
+						<cfset durl=d.url>
+					<cfelse>
+						<cfset durl="/" & d.url>
+					</cfif>
+					Redirecting to: <a href="#durl#">#durl#</a>
 
 					<cfabort>
 					<script>
-						document.location='/#d.url#';
+						document.location='#durl#';
 					</script>
 				</cfif>
 			<cfelse>
