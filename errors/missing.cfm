@@ -305,7 +305,6 @@
 					</cfquery>
 				</cfif>
 				<cfif d.recordcount is 0>
-
 					<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
 						<cfdump var=#cfcatch#>
 					</cfif>
@@ -324,6 +323,8 @@
 					Click to continue: <a href="#d.url#">#d.url#</a>
 				<cfelse>
 					If you are not redirected, please click this link: <a href="/#d.url#">#d.url#</a>
+
+					<cfabort>
 					<script>
 						document.location='/#d.url#';
 					</script>
