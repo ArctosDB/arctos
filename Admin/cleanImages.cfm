@@ -34,12 +34,26 @@
 			select * from temp_m_f
 		</cfquery>
 		<cfloop query="d">
+			<cfset mf="">
+			<cfset mu="">
 			<cfif media_uri contains "/mediaUploads/">
 				<cfset mf=listlast(media_uri,"/")>
 				<cfset mu=listgetat(media_uri,listlen(media_uri,"/")-1,"/")>
 				<br>media_uri:#media_uri#
 				<br>mf:#mf#
 				<br>mu:#mu#
+			<cfelse>
+				<br>not local
+			</cfif>
+
+			<cfset pf="">
+			<cfset pu="">
+			<cfif preview_uri contains "/mediaUploads/">
+				<cfset pf=listlast(preview_uri,"/")>
+				<cfset pu=listgetat(preview_uri,listlen(preview_uri,"/")-1,"/")>
+				<br>preview_uri:#preview_uri#
+				<br>pf:#pf#
+				<br>pu:#pu#
 			<cfelse>
 				<br>not local
 			</cfif>
