@@ -1,3 +1,5 @@
+deprecated<cfabort>
+
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
 	<div id="progressbar" style="display:none" align="center">

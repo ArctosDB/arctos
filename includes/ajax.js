@@ -1835,7 +1835,9 @@ function closePartAtts() {
 	$('#bgDiv', window.parent.document).remove();
 	$('#partsAttDiv', window.parent.document).remove();
 }
-
+/*
+ deprecated for S3 pathway
+ 
 $("#uploadMedia").live('click', function(e){
 	addBGDiv('removeUpload()');
 	var theDiv = document.createElement('iFrame');
@@ -1847,6 +1849,7 @@ $("#uploadMedia").live('click', function(e){
 	theDiv.src=ptl;
 	//// viewport.init("#uploadDiv");
 });
+*/
 function removeUpload() {
 	if(document.getElementById('uploadDiv')){
 		$('#uploadDiv').remove();

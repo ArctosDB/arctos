@@ -551,9 +551,10 @@
 	</cftry>
 	<cfreturn serializeJSON(r)>
 </cffunction>
-<!------------------>
+<!--------
 <cffunction name="loadFile" output="false" returnType="string" access="remote">
 	<!--- keep this as we're testing loadFileS3; delete when that has demonstrated stability --->
+	
 
 	<cftry>
 		<cfset tempName=createUUID()>
@@ -638,6 +639,7 @@
 	</cftry>
 	<cfreturn serializeJSON(r)>
 </cffunction>
+---------->
 <!------------------>
 <cffunction name="exitLink" access="remote">
 	<cfargument name="target" required="yes">
