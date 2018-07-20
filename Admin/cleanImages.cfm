@@ -17,6 +17,35 @@
 		media_uri like '%arctos.database%' or
 		preview_uri like '%arctos.database%';
 
+
+	alter table temp_m_f add lcl_p varchar2(255);
+	alter table temp_m_f add lcl_p_p varchar2(255);
+
+
+
+---->
+
+	<p>
+		 <a href="cleanImages.cfm?action=mklclp">mklclp</a>
+	</p>
+<cfoutput>
+	 <cfif action is "mklclp">
+		<cfquery name="d" datasource="uam_god">
+			select * from temp_m_f
+		</cfquery>
+		<cfloop query="d">
+			<cfset mf=listlast(media_uri,"/")>
+			<cfset mu=listgetat(listlen(media_uri,"/")-1,"/")>
+			<br>media_uri:#media_uri#
+			<br>mf:#mf#
+			<br>mu:#mu#
+
+		</cfloop>
+
+
+	</cfif>
+</cfoutput>
+
 <p>
 	Move media from webserver to archives.
 </p>
