@@ -46,6 +46,9 @@
 	</cfif>
 </cfoutput>
 
+
+
+<!---------------------
 <p>
 	Move media from webserver to archives.
 </p>
@@ -1272,4 +1275,5 @@ ATTRIBUTES 	DATELASTMODIFIED 	DIRECTORY 	MODE 	NAME 	SIZE 	TYPE
 
 
 </cfoutput>
+----------------->
 <cfinclude template="/includes/_footer.cfm">
