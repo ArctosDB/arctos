@@ -1,3 +1,4 @@
+deprecated<cfabort>
 <!---
 	create table temp_tacc_mpreview (
 		media_id number,
@@ -10,11 +11,11 @@
 	create or replace public synonym cf_tacc_transfer for cf_tacc_transfer;
 	revoke all on cf_tacc_transfer from coldfusion_user;
 	grant all on cf_tacc_transfer to cf_dbuser;
-	
+
 	alter table cf_tacc_transfer add status varchar2(255);
-	
+
 	alter table cf_tacc_transfer add remotedirectory varchar2(30);
-	
+
 	create unique index idx_u_cf_tacc_transfer_mid on cf_tacc_transfer (media_id) tablespace uam_idx_1;
 --->
 <cfinclude template="/includes/_header.cfm">
@@ -67,15 +68,15 @@
 		<cfset todaysDirectory=dateformat(now(),"yyyy_mm_dd")>
 		<cfset remoteBase="/corral/tg/uaf/arctos">
 		<cfset remoteFull=remoteBase & '/' & todaysDirectory>
-		
-		<cfftp action="open" 
-			username="dustylee" 
-			server="Garcia.corral.tacc.utexas.edu" 
+
+		<cfftp action="open"
+			username="dustylee"
+			server="Garcia.corral.tacc.utexas.edu"
 			connection="corral"
 			secure="true"
 			key="/opt/coldfusion8/runtime/bin/id_rsa"
 		    timeout="300">
-		    
+
 		<cfftp action="ListDir"
 			directory="#remoteBase#"
 			connection="corral"
@@ -84,49 +85,49 @@
 			select NAME from ld where ISDIRECTORY='YES' and NAME='#todaysDirectory#'
 		</cfquery>
 		<cfif len(chk.name) is 0>
-			<cfftp action="CreateDir" 
+			<cfftp action="CreateDir"
 				directory="#remoteFull#"
 				connection="corral">
 		</cfif>
-		
-		   
+
+
 		<cfloop query="theFile">
 			<cftry>
 			<cfset localFile=replace(theFile.local_tn,application.serverRootUrl,application.webDirectory)>
 			<cfset fileName=listlast(theFile.local_tn,"/")>
 			<cfset remoteFile=remoteFull & '/' & fileName>
-			<cfftp action="putfile" 
+			<cfftp action="putfile"
 		   	 connection="corral"
 			    transferMode = "binary"
 				localFile = "#localFile#"
 				remoteFile = "#remoteFile#">
 			<cfquery name="s" datasource="uam_god">
-				update 
-					temp_tacc_mpreview 
-				set 
+				update
+					temp_tacc_mpreview
+				set
 					status='transferred',
 					remotedirectory='#todaysDirectory#'
-				where 
+				where
 					media_id=#theFile.media_id#
 			</cfquery>
 			<cfcatch>
 				<br>#cfcatch.message#=#cfcatch.detail#
 				<cfquery name="s" datasource="uam_god">
-					update 
-						temp_tacc_mpreview 
-					set 
+					update
+						temp_tacc_mpreview
+					set
 						status='#cfcatch.message#=#cfcatch.detail#',
 						remotedirectory='#todaysDirectory#'
-					where 
+					where
 						media_id=#theFile.media_id#
 				</cfquery>
 			</cfcatch>
 			</cftry>
 		</cfloop>
-		
-		<cfftp action="close" 
+
+		<cfftp action="close"
 			connection="corral">
-		
+
 	</cftransaction>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
@@ -155,22 +156,22 @@
 							<cfinvokeargument name="uri" value="#thisURL#">
 						</cfinvoke>
 						<cfquery name="fit" datasource="uam_god">
-							update 
-								temp_tacc_mpreview 
-							set 
+							update
+								temp_tacc_mpreview
+							set
 								status='found',
 								remote_tn='#thisURL#',
 								remote_tn_hash='#rHash#'
-							where 
+							where
 								media_id=#thisMediaId#
 						</cfquery>
 					<cfelse>
 						<cfquery name="fit" datasource="uam_god">
-							update 
-								temp_tacc_mpreview 
-							set 
+							update
+								temp_tacc_mpreview
+							set
 								status='not found'
-							where 
+							where
 								media_id=#thisMediaId#
 						</cfquery>
 					</cfif>
@@ -182,7 +183,7 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "fixURI">
-	
+
 	<cfquery name="f" datasource="uam_god">
 		select * from temp_tacc_mpreview where
 		status = 'found'
@@ -202,20 +203,20 @@
 						update media set preview_uri='#remote_tn#' where media_id=#media_id#
 					</cfquery>
 					<cfquery name="fit" datasource="uam_god">
-						update 
-							temp_tacc_mpreview 
-						set 
+						update
+							temp_tacc_mpreview
+						set
 							status='complete'
-						where 
+						where
 							media_id=#media_id#
 					</cfquery>
 			<CFELSE>
 				<cfquery name="fit" datasource="uam_god">
-					update 
-						temp_tacc_mpreview 
-					set 
+					update
+						temp_tacc_mpreview
+					set
 						status='upfail'
-					where 
+					where
 						media_id=#media_id#
 				</cfquery>
 			</cfif>
@@ -225,7 +226,7 @@
 </cfif>
 <cfif action is "recoverDisk">
 <cfabort>
-<cfoutput>	
+<cfoutput>
 	<!--- local files are loaded to /SpecimenImages or mediaUploads. Find stuff there that's not in media and delete it --->
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#/SpecimenImages"
@@ -253,13 +254,13 @@
 			<br> got a directory #directory#/#name# containing #current.recordcount# files
 			<cfif current.recordcount is 0>
 				<br>deleting it
-				<cfdirectory action="delete" directory="#directory#/#name#">	
+				<cfdirectory action="delete" directory="#directory#/#name#">
 			</cfif>
 
 
 		</cfif>
 	</cfloop>
-	
+
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#/mediaUploads"
         name="root"
@@ -279,18 +280,18 @@
 			<br>isUsed.recordcount: #isUsed.recordcount#
 			<cfif isUsed.recordcount is 0>
 				<br>going to delete
-				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."> 
+				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq ".">
 				 	<cffile action="delete" file="#directory#/#name#">
-				 </cfif> 				
+				 </cfif>
 			</cfif>
 		<cfelse>
 			<cfdirectory action="list" directory="#directory#/#name#" name="current">
 			<br> got a directory #directory#/#name# containing #current.recordcount# files
 			<cfif current.recordcount is 0>
 				<br>deleting it
-				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."> 
+				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq ".">
 				 	<cffile action="delete" file="#directory#/#name#">
-				 </cfif> 
+				 </cfif>
 			</cfif>
 		</cfif>
 	</cfloop>

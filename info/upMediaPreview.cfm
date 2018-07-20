@@ -1,17 +1,18 @@
+deprecated<cfabort>
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
 	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMediaPreview.cfm">
 		<input type="hidden" name="action" value="getFile">
 		  <label for="PreviewToUpload">Preview...</label>
 		  <input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
-   
-      <input type="submit" 
-				value="Upload" 
+
+      <input type="submit"
+				value="Upload"
 				class="savBtn"
 				onmouseover="this.className='savBtn btnhov'"
 				onmouseout="this.className='savBtn'">
-	<input type="button" 
-				value="Cancel" 
+	<input type="button"
+				value="Cancel"
 				class="qutBtn"
 				onmouseover="this.className='qutBtn btnhov'"
 				onmouseout="this.className='qutBtn'"
@@ -26,14 +27,14 @@
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
     <cfif len(PreviewToUpload) gt 0>
-	
-	
-	
+
+
+
         <cffile action="upload"
 	    	destination="#Application.sandbox#"
 	      	nameConflict="overwrite"
 	      	fileField="Form.PreviewToUpload" mode="777">
-	      	
+
        <cfif (CFFILE.FileSize GT (15 * 1024))>
         	Preview may not be larger than 15K. (#CFFILE.FileSize#)
 			<cfabort>
@@ -46,30 +47,30 @@
 			<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered contains characters that are not alphanumeric.
 			Please rename your file and try again.</font>
 			<a href="javascript:back()">Go Back</a>
-			<cfabort>   
+			<cfabort>
 		</cfif>
         <cfset acceptablePreviewExtensions=".jpg,.jpeg,.gif,.png">
 	    <cfif not listfindnocase(acceptablePreviewExtensions,extension)>
             <span class="error">
                 Preview extension (#extension#) must be one of:
-                #acceptablePreviewExtensions# 
+                #acceptablePreviewExtensions#
             </span>
             <cfabort>
         </cfif>
         <cffile action="move"
-			source="#Application.sandbox#/#fileName#" 
+			source="#Application.sandbox#/#fileName#"
 	    	destination="#loadPath#"
 	      	nameConflict="error">
         <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
     <cfelse>
          <cfset preview_uri = "">
     </cfif>
-	
+
 <script>parent.closePreviewUpload('#preview_uri#');</script>
 </cfoutput>
 </cfif>
- 
-	  
-	  
+
+
+
  	<!---<cffile action="write" file="#filename#" nameconflict="overwrite" output="blank" mode="777">--->
-    
+

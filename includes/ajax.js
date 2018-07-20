@@ -1916,7 +1916,8 @@ function closePreviewUpload(preview_uri) {
 	document.body.removeChild(theDiv);
 	document.getElementById('preview_uri').value=preview_uri;
 }
-
+/*
+ * deprecated for s3
 function clickUploadPreview(){
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
@@ -1926,6 +1927,7 @@ function clickUploadPreview(){
 	var guts = "/info/upMediaPreview.cfm";
 	theDiv.src=guts;
 }
+*/
 function pickedRelationship (id){
 	var relationship=document.getElementById(id).value;
 	var ddPos = id.lastIndexOf('__');
