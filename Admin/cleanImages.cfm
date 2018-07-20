@@ -21,6 +21,7 @@
 	alter table temp_m_f add lcl_p varchar2(255);
 	alter table temp_m_f add lcl_p_p varchar2(255);
 
+	alter table temp_m_f add status varchar2(255);
 
 
 ---->
@@ -28,7 +29,33 @@
 	<p>
 		 <a href="cleanImages.cfm?action=mklclp">mklclp</a>
 	</p>
+	<p>
+		 <a href="cleanImages.cfm?action=cklcl">cklcl</a>
+	</p>
 <cfoutput>
+	 <cfif action is "cklcl">
+		<cfquery name="d" datasource="uam_god">
+			select * from temp_m_f where status is null
+		</cfquery>
+
+		<cfloop query="d">
+			<cfset s="spiffy">
+			<cfif len(lcl_p) gt 0>
+				<cfif not FileExists("#Application.webDirectory#/mediaUploads/#lcl_p#")>
+					<cfset s=listappend(s,'lcl_p not found')>
+				</cfif>
+			</cfif>
+			<cfif len(lcl_p_p) gt 0>
+				<cfif not FileExists("#Application.webDirectory#/mediaUploads/#lcl_p_p#")>
+					<cfset s=listappend(s,'lcl_p_p not found')>
+				</cfif>
+			</cfif>
+
+			<cfquery name="d" datasource="uam_god">
+				update temp_m_f set status='#s#' where media_id=#media_id#
+			</cfquery>
+		</cfloop>
+	</cfif>
 	 <cfif action is "mklclp">
 		<cfquery name="d" datasource="uam_god">
 			select * from temp_m_f
