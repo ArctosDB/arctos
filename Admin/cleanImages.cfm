@@ -1,5 +1,21 @@
 <cfinclude template="/includes/_header.cfm">
 <cfsetting requesttimeout="600">
+<!---
+	modify for final cleanup in move to S3
+	old version is in v7.9.6
+---->
+
+
+<!----
+	create table temp_m_f as select
+		media_id,
+		media_uri,
+		preview_uri
+	from
+		media
+	where
+		media_uri like '%arctos.database%' or
+		preview_uri like '%arctos.database%';
 
 <p>
 	Move media from webserver to archives.
