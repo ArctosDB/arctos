@@ -191,7 +191,9 @@
 				</cfif>
 			</label>
 			<input type="text" name="preview_uri" id="preview_uri" size="90" value="#media.preview_uri#">
-			<span class="infoLink" onclick="clickUploadPreview()">Load...</span>
+			<!----
+				<span class="infoLink" onclick="clickUploadPreview()">Load...</span>
+			---->
 			<label for="mime_type">MIME Type</label>
 			<select name="mime_type" id="mime_type">
 				<cfloop query="ctmime_type">
