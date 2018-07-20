@@ -34,7 +34,7 @@
 			select * from temp_m_f
 		</cfquery>
 		<cfloop query="d">
-			<cfif media_uri contains "arctos.database.museum">
+			<cfif media_uri contains "arctos.database.museum" and media_uri does not contain "/publication/">
 				<cfset mf=listlast(media_uri,"/")>
 				<cfset mu=listgetat(media_uri,listlen(media_uri,"/")-1,"/")>
 				<br>media_uri:#media_uri#
