@@ -59,6 +59,9 @@
 			<cfelse>
 				<br>not local
 			</cfif>
+			<cfquery name="d" datasource="uam_god">
+				update temp_m_f set lcl_p='#mu#/#mf#',lcl_p_p='#pu#/#pf#' where media_id=#media_id#
+			</cfquery>
 
 		</cfloop>
 
