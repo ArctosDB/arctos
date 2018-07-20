@@ -35,7 +35,7 @@
 		</cfquery>
 		<cfloop query="d">
 			<cfset mf=listlast(media_uri,"/")>
-			<cfset mu=listgetat(listlen(media_uri,"/")-1,"/")>
+			<cfset mu=listgetat(media_uri,listlen(media_uri,"/")-1,"/")>
 			<br>media_uri:#media_uri#
 			<br>mf:#mf#
 			<br>mu:#mu#
