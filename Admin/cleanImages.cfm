@@ -36,6 +36,8 @@
 		<cfloop query="d">
 			<cfset mf="">
 			<cfset mu="">
+			<cfset pf="">
+			<cfset pu="">
 			<cfif media_uri contains "/mediaUploads/">
 				<cfset mf=listlast(media_uri,"/")>
 				<cfset mu=listgetat(media_uri,listlen(media_uri,"/")-1,"/")>
