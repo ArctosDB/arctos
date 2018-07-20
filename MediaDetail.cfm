@@ -11,6 +11,14 @@
     .tbl-cell{display:block}
 }
 </style>
+<script>
+	jQuery(document).ready(function() {
+	  $("#mediaUpClickThis").click(function(){
+		    addMedia();
+		});
+	});
+
+</script>
 <cfoutput>
 	<cfif not isdefined("media_id")>
 		Noid<cfabort>
@@ -73,6 +81,7 @@
 	<div class="tbl" style="width:100%;">
 		<div class="tbl-row">
 			  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+			  <!----
 			  	<cfset h="/media.cfm?action=newMedia">
 		        <cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
 		        	<cfif url.relationship__1 is "cataloged_item">
@@ -83,6 +92,9 @@
 				<div class="tbl-cell">
 					<a href="#h#">[ Create media ]</a>
 				</div>
+				---->
+	       		<span class="likeLink" id="mediaUpClickThis">Attach/Upload Media</span>
+
 			</cfif>
 			<div class="tbl-cell" style="text-align:right;">
 				<div id="annotateSpace">
