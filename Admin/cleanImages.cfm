@@ -65,19 +65,24 @@
 		</cfquery>
 		<cfloop query="d">
 			<cfset mf="">
-			<cfset mu="">
 			<cfset pf="">
 			<cfset pu="">
 			<cfif media_uri contains "/mediaUploads/">
-				<cfset mf=listlast(media_uri,"/")>
-				<cfset mu=listgetat(media_uri,listlen(media_uri,"/")-1,"/")>
+				<cfset mf=media_uri>
+				<cfloop from ="1" to="5" index="i">
+					<cfif listgetat(mf,1,'/') is not mediaUploads>
+						<cfset mf=listdeleteat(mf,1,'/')>
+					</cfif>
+				</cfloop>
+
+				<cfset mf=listdeleteat(mf,1,'/')>
 				<br>media_uri:#media_uri#
 				<br>mf:#mf#
-				<br>mu:#mu#
 			<cfelse>
 				<br>not local
 			</cfif>
 
+	<!----
 			<cfset pf="">
 			<cfset pu="">
 			<cfif preview_uri contains "/mediaUploads/">
@@ -92,7 +97,7 @@
 			<cfquery name="d" datasource="uam_god">
 				update temp_m_f set lcl_p='#mu#/#mf#',lcl_p_p='#pu#/#pf#' where media_id=#media_id#
 			</cfquery>
-
+---->
 		</cfloop>
 
 
