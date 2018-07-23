@@ -70,7 +70,7 @@
 			<cfif media_uri contains "/mediaUploads/">
 				<cfset mf=media_uri>
 				<cfloop from ="1" to="5" index="i">
-					<cfif listgetat(mf,1,'/') is not mediaUploads>
+					<cfif listgetat(mf,1,'/') is not "mediaUploads">
 						<cfset mf=listdeleteat(mf,1,'/')>
 					</cfif>
 				</cfloop>
