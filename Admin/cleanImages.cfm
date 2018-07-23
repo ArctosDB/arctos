@@ -24,6 +24,9 @@
 	alter table temp_m_f add status varchar2(255);
 
 
+	update temp_m_f set status=null,lcl_p=null where lcl_p='/';
+		update temp_m_f set status=null,lcl_p_p=null where lcl_p_p='/';
+
 ---->
 
 	<p>
