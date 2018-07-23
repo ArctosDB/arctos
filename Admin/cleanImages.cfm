@@ -61,12 +61,12 @@
 	</cfif>
 	 <cfif action is "mklclp">
 		<cfquery name="d" datasource="uam_god">
-			select * from temp_m_f
+			select * from temp_m_f  where status is null
 		</cfquery>
 		<cfloop query="d">
 			<cfset mf="">
 			<cfset pf="">
-			<cfif media_uri contains "/mediaUploads/">
+			<cfif media_uri contains "/mediaUploads/" and media_uri contains "/arctos.database.museum/">
 				<cfset mf=media_uri>
 				<cfloop from ="1" to="5" index="i">
 					<cfif listgetat(mf,1,'/') is not "mediaUploads">
@@ -80,7 +80,7 @@
 				<br>not local
 			</cfif>
 
-			<cfif preview_uri contains "/mediaUploads/">
+			<cfif preview_uri contains "/mediaUploads/" and preview_uri contains "/arctos.database.museum/">
 				<cfset pf=preview_uri>
 				<cfloop from ="1" to="5" index="i">
 					<cfif listgetat(pf,1,'/') is not "mediaUploads">
