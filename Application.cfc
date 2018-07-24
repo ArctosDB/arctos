@@ -154,6 +154,8 @@
 		<cfset Application.version="test">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
+		<cfset Application.domain = replace(Application.domain,"https://","http://")>
+
 	<cfelseif serverName is  "arctos.tacc.utexas.edu">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
