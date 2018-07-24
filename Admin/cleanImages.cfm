@@ -7,6 +7,9 @@
 
 
 <!----
+
+	drop table temp_m_f;
+
 	create table temp_m_f as select
 		media_id,
 		media_uri,
@@ -14,8 +17,9 @@
 	from
 		media
 	where
-		media_uri like '%arctos.database%' or
-		preview_uri like '%arctos.database%';
+		(media_uri like '%arctos.database%' and media_uri like '%mediaUploads%') or
+		(preview_uri like '%arctos.database%' and preview_uri like '%mediaUploads%')
+		;
 
 
 	alter table temp_m_f add lcl_p varchar2(255);
@@ -96,7 +100,6 @@
 			<cfquery name="d" datasource="uam_god">
 				update temp_m_f set lcl_p='#mf#',lcl_p_p='#pf#' where media_id=#media_id#
 			</cfquery>
----->
 		</cfloop>
 
 
