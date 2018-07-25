@@ -58,6 +58,8 @@ select status,count(*) from temp_m_f group by status;
 		<cfset f = CreateObject("component","component.functions")>
 
 		<cfloop query="d">
+				<br>lcl_p: #lcl_p#
+				<br>lcl_p_p: #lcl_p_p#
 			<cfif len(lcl_p) gt 0>
 				<br>lcl_p: #lcl_p#
 				<br>lcl_p_p: #lcl_p_p#
