@@ -64,11 +64,11 @@ select status,count(*) from temp_m_f group by status;
 				<br>lcl_p: #lcl_p#
 				<br>lcl_p_p: #lcl_p_p#
 
-				<cfset usr=listgetat(lcl_p,1,"/")>
+				<cfset usrnm=listgetat(lcl_p,1,"/")>
 				<cfset filename=listlast(lcl_p,"/")>
 				<cfset lclurl=media_uri>
 
-				<cfset rmturl="https://web.corral.tacc.utexas.edu/arctos-s3/#usr#/2018-07-25/#file#">
+				<cfset rmturl="https://web.corral.tacc.utexas.edu/arctos-s3/#usrnm#/2018-07-25/#filename#">
 				<cfset lclchsm=f.genMD5(lclurl)>
 				<cfset rmtchsm=f.genMD5(rmturl)>
 
