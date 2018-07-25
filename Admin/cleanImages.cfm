@@ -82,6 +82,8 @@ select status,count(*) from temp_m_f group by status;
 				<cfset rmtchsm=f.genMD5(newMediaURI)>
 				<br>lclchsm: #lclchsm#
 				<br>rmtchsm: #rmtchsm#
+				<br>lclurl: #lclurl#
+				<br>newMediaURI: #newMediaURI#
 				<cfquery name="ckck" datasource="uam_god">
 					select LABEL_VALUE from media_labels where MEDIA_LABEL='MD5 checksum' and MEDIA_ID=#MEDIA_ID#
 				</cfquery>
@@ -112,6 +114,10 @@ select status,count(*) from temp_m_f group by status;
 				<cfset rmtchsm=f.genMD5(newPreviewURI)>
 				<br>lclchsm: #lclchsm#
 				<br>rmtchsm: #rmtchsm#
+
+
+				<br>lclurl: #lclurl#
+				<br>newPreviewURI: #newPreviewURI#
 
 
 				<cfif lclchsm neq rmtchsm>
