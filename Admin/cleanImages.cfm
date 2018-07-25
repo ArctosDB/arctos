@@ -57,7 +57,7 @@ select status,count(*) from temp_m_f group by status;
 	<cfif action is "upmuris">
 		<cfquery name="d" datasource="uam_god">
 			select * from temp_m_f where status ='loaded_to_s3'
-			and rownum<20
+			and rownum<2
 		</cfquery>
 		<cfset f = CreateObject("component","component.functions")>
 
@@ -124,20 +124,48 @@ select status,count(*) from temp_m_f group by status;
 				probs: #probs#
 			</p>
 			<cfif probs is false>
-				update media set
-				<cfif len(newMediaURI) gt 0>
-					media_uri='#newMediaURI#'
-				</cfif>
-				<cfif len(newPreviewURI) gt 0>
+				<cfquery name="upm" datasource="uam_god">
+					update media set
 					<cfif len(newMediaURI) gt 0>
-						,
+						media_uri='#newMediaURI#'
 					</cfif>
-					preview_uri='#newPreviewURI#'
-				</cfif>
-				where media_id=#media_id#
-
+					<cfif len(newPreviewURI) gt 0>
+						<cfif len(newMediaURI) gt 0>
+							,
+						</cfif>
+						preview_uri='#newPreviewURI#'
+					</cfif>
+					where media_id=#media_id#
+				</cfquery>
+				update media set
+					<cfif len(newMediaURI) gt 0>
+						media_uri='#newMediaURI#'
+					</cfif>
+					<cfif len(newPreviewURI) gt 0>
+						<cfif len(newMediaURI) gt 0>
+							,
+						</cfif>
+						preview_uri='#newPreviewURI#'
+					</cfif>
+					where media_id=#media_id#
 				<br>
 				<cfif hasExistingCheck is false and len(newMediaChecksum) gt 0>
+					<cfquery name="iml" datasource="uam_god">
+						insert into media_labels (
+							MEDIA_LABEL_ID,
+							MEDIA_ID,
+							MEDIA_LABEL,
+							LABEL_VALUE,
+							ASSIGNED_BY_AGENT_ID
+						) values (
+							sq_MEDIA_LABEL_ID.nextval,
+							#MEDIA_ID#,
+							'MD5 checksum',
+							'#newMediaChecksum#',
+							2072
+						)
+					</cfquery>
+
 					insert into media_labels (
 						MEDIA_LABEL_ID,
 						MEDIA_ID,
@@ -153,10 +181,10 @@ select status,count(*) from temp_m_f group by status;
 					)
 
 				</cfif>
-
-
+				<cfquery name="us" datasource="uam_god">
+					update temp_m_f set status='move_complete' where media_id=#media_id#
+				</cfquery>
 			</cfif>
-
 		</cfloop>
 	</cfif>
 
