@@ -55,9 +55,36 @@ select status,count(*) from temp_m_f group by status;
 			select * from temp_m_f where status ='loaded_to_s3'
 			and rownum<2
 		</cfquery>
+		<cfset f = CreateObject("component","component.functions")>
+
 		<cfloop query="d">
 			<br>lcl_p: #lcl_p#
 			<br>lcl_p_p: #lcl_p_p#
+
+			<cfset usr=listgetat(lcl_p,1,"/")>
+			<cfset filename=listlast(lcl_p,"/")>
+			<cfset lclurl=media_uri>
+
+			<cfset rmturl="https://web.corral.tacc.utexas.edu/arctos-s3/#usr#/2018-07-25/#file#">
+			<cfset lclchsm=f.genMD5(lclurl)>
+			<cfset rmtchsm=f.genMD5(rmturl)>
+
+
+
+			<br>lclchsm: #lclchsm#
+			<br>rmtchsm: #rmtchsm#
+			<cfquery name="ckck" datasource="uam_god">
+				select LABEL_VALUE from media_labels where MEDIA_LABEL='MD5 checksum' and MEDIA_ID=#MEDIA_ID#
+			</cfquery>
+
+			<cfif lclchsm neq rmtchsm>
+				<br>FAIL::nomatch
+			</cfif>
+			<cfif len(ckck.LABEL_VALUE) gt 0>
+				<cfif ckck.LABEL_VALUE neq lclchsm>
+					<br>fail:nomatchw/exist
+				</cfif>
+			</cfif>
 
 		</cfloop>
 	</cfif>
