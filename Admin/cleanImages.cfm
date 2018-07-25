@@ -36,7 +36,7 @@ select status,count(*) from temp_m_f group by status;
 ---->
 
 	<p>
-		 <a href="cleanImages.cfm?action=cpfls">cpfls</a>
+		 <a href="cleanImages.cfm?action=upmuris">upmuris</a>
 	</p>
 	<p>
 		 <a href="cleanImages.cfm?action=cpfls">cpfls</a>
