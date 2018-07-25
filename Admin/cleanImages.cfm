@@ -49,7 +49,7 @@
 	<cfif action is "cpfls">
 		<cfquery name="d" datasource="uam_god">
 			select * from temp_m_f where status ='spiffy'
-			and rownum<2
+			and rownum<20
 		</cfquery>
 		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
