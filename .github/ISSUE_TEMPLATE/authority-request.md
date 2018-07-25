@@ -28,5 +28,8 @@ For number+units attributes, code table controlling units
 **Part tissue flag**
 For new parts, is the part a tissue?
 
+**Other ID BaseURL**
+For OtherIDs, URL with which to prepend value (resolvable identifiers only)
+
 **Context**
 Describe why this new value is necessary and existing values are not.
