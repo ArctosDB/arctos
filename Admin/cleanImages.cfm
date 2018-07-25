@@ -64,7 +64,7 @@ select status,count(*) from temp_m_f group by status;
 	 <cfdirectory directory = "#Application.webDirectory#/mediaUploads" action = "list" name = "D" recurse = "yes">
 	 <CFLOOP QUERY="D">
 		<cfif TYPE is "file">
-			<cfif ctr lt 100>
+			<cfif ctr lt 1>
 				<cfset ctr=ctr+1>
 				<cfset fpath=replace(DIRECTORY,'/usr/local/httpd/htdocs/wwwarctos','')>
 				<br>fpath: #fpath#
@@ -74,6 +74,10 @@ select status,count(*) from temp_m_f group by status;
 					select count(*) c from media where media_uri like '%#qn#%' or preview_uri like '%#qn#%'
 				</cfquery>
 				<cfif isUsed.c is 0>
+					<cffile action = "move"
+						destination = "#Application.webDirectory#/media_notused_movetos3/#name#"
+						source = "#DIRECTORY#/#name#">
+
 					<br>notused
 				</cfif>
 			</cfif>
