@@ -73,7 +73,7 @@ select status,count(*) from temp_m_f group by status;
 				<br>lcl_p: #lcl_p#
 				<br>lcl_p_p: #lcl_p_p#
 
-				<cfset usrnm=listgetat(lcl_p,1,"/")>
+				<cfset usrnm=lcase(listgetat(lcl_p,1,"/"))>
 				<cfset filename=listlast(lcl_p,"/")>
 				<cfset lclurl=media_uri>
 
@@ -105,7 +105,7 @@ select status,count(*) from temp_m_f group by status;
 			</cfif>
 
 			<cfif len(lcl_p_p) gt 0>
-				<cfset usrnm=listgetat(lcl_p_p,1,"/")>
+				<cfset usrnm=lcase(listgetat(lcl_p_p,1,"/"))>
 				<cfset filename=listlast(lcl_p_p,"/")>
 				<cfset lclurl=preview_uri>
 
