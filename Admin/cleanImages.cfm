@@ -57,7 +57,7 @@ select status,count(*) from temp_m_f group by status;
 	<cfif action is "upmuris">
 		<cfquery name="d" datasource="uam_god">
 			select * from temp_m_f where status ='loaded_to_s3'
-			and rownum<20
+			and rownum<2
 		</cfquery>
 		<cfset f = CreateObject("component","component.functions")>
 
