@@ -60,35 +60,82 @@
 				<!---- make a username bucket. This will create or return an error of some sort. ---->
 				<cfset uname=listgetat(lcl_p,1,"/")>
 				<br>uname: #uname#
+				<!----------
+				<cfset currentTime = getHttpTimeString( now() ) />
+				<cfset contentType = "text/html" />
+				<cfset bucket="#lcase(uname)#">
+				<cfset stringToSignParts = [
+					    "PUT",
+					    "",
+					    contentType,
+					    currentTime,
+					    "/" & bucket
+					] />
+				<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+				<cfset signature = binaryEncode(
+					binaryDecode(
+						hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
+						"hex"
+					),
+					"base64"
+				)>
+				<cfhttp result="mkunamebkt" method="put" url="#s3.s3_endpoint#/#bucket#">
+					<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
+				    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
+				    <cfhttpparam type="header" name="Date" value="#currentTime#" />
+				</cfhttp>
+				<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/mediaUploads/#lcl_p#">
+				---------->
+				<cfset mimetype="">
+				<cfset mediatype="">
+				<cfset fext=listlast(lcl_p,".")>
+				<cfif fext is "jpg" or fext is "jpeg">
+					<cfset mimetype="image/jpeg">
+					<cfset mediatype="image">
+				<cfelseif fext is "dng">
+					<cfset mimetype="image/dng">
+					<cfset mediatype="image">
+				<cfelseif fext is "pdf">
+					<cfset mimetype="application/pdf">
+					<cfset mediatype="text">
+				<cfelseif fext is "png">
+					<cfset mimetype="image/png">
+					<cfset mediatype="image">
+				<cfelseif fext is "txt">
+					<cfset mimetype="text/plain">
+					<cfset mediatype="text">
+				<cfelseif fext is "wav">
+					<cfset mimetype="audio/x-wav">
+					<cfset mediatype="audio">
+				<cfelseif fext is "m4v">
+					<cfset mimetype="video/mp4">
+					<cfset mediatype="video">
+				<cfelseif fext is "tif" or fext is "tiff">
+					<cfset mimetype="image/tiff">
+					<cfset mediatype="image">
+				<cfelseif fext is "mp3">
+					<cfset mimetype="audio/mpeg3">
+					<cfset mediatype="audio">
+				<cfelseif fext is "mov">
+					<cfset mimetype="video/quicktime">
+					<cfset mediatype="video">
+				<cfelseif fext is "xml">
+					<cfset mimetype="application/xml">
+					<cfset mediatype="text">
+				<cfelseif fext is "wkt">
+					<cfset mimetype="text/plain">
+					<cfset mediatype="text">
+				</cfif>
+
+
+				<br>mimetype:#mimetype#
+				<br>mediatype:#mediatype#
 			</cfif>
-
-
 		</cfloop>
 
 		<!----------
-			<cfset currentTime = getHttpTimeString( now() ) />
-			<cfset contentType = "text/html" />
-			<cfset bucket="#lcase(uname)#">
-			<cfset stringToSignParts = [
-				    "PUT",
-				    "",
-				    contentType,
-				    currentTime,
-				    "/" & bucket
-				] />
-		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-		<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-		<cfhttp result="mkunamebkt" method="put" url="#s3.s3_endpoint#/#bucket#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
-		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
-		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-		</cfhttp>
+
+
 
 
 		<cfset tempName=createUUID()>
@@ -107,7 +154,8 @@
 			<cfreturn serializeJSON(r)>
 		</cfif>
 		<cfset lclFile="#Application.sandbox#/#fileName#">
-		<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tempName#.tmp">
+
+
 		<!--- generate a checksum while we're holding the binary ---->
 		<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
 		<!--- see if the image exists ---->
