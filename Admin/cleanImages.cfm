@@ -68,6 +68,13 @@ select status,count(*) from temp_m_f group by status;
 			<br>fpath: #fpath#
 			<cfset qn=fpath & '/' & name>
 			<br>qn: #qn#
+			<cfquery name="isUsed" datasource="uam_god">
+				select count(*) c from media where media_uri like '%#qn#%' or preview_uri like '%#qn#%'
+			</cfquery>
+			<cfif isUsed.c is 0>
+				<br>notused
+			</cfif>
+
 
 		</cfif>
 	</CFLOOP>
