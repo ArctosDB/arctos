@@ -55,6 +55,7 @@
 			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
 		</cfquery>
 		<cfloop query="d">
+			<hr>
 			<cfif len(lcl_p) gt 0>
 				<br>lcl_p: #lcl_p#
 				<!---- make a username bucket. This will create or return an error of some sort. ---->
@@ -83,7 +84,7 @@
 				    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
 				    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 				</cfhttp>
-				<cfdump var=#mkunamebkt#>
+				<br>mkunamebkt: #mkunamebkt.filecontent#
 
 
 				<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/mediaUploads/#lcl_p#">
@@ -160,7 +161,7 @@
 				    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 				    <cfhttpparam type="body" value="#content#" />
 				</cfhttp>
-				<cfdump var=#putfile#>
+				<br>putfile: #putfile.filecontent#
 			</cfif>
 
 			<cfif len(lcl_p_p) gt 0>
@@ -191,7 +192,7 @@
 				    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
 				    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 				</cfhttp>
-				<cfdump var=#mkunamebkt#>
+				<br>mkunamebkt: #mkunamebkt.filecontent#
 
 
 				<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/mediaUploads/#lcl_p_p#">
@@ -268,7 +269,7 @@
 				    <cfhttpparam type="header" name="Date" value="#currentTime#" />
 				    <cfhttpparam type="body" value="#content#" />
 				</cfhttp>
-				<cfdump var=#putfile#>
+				<br>putfile: #putfile.filecontent#
 			</cfif>
 
 				update temp_m_f set status='loaded_to_s3' where media_id=#media_id#
