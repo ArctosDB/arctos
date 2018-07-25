@@ -64,7 +64,7 @@ select status,count(*) from temp_m_f group by status;
 	 <cfdirectory directory = "#Application.webDirectory#/mediaUploads" action = "list" name = "D" recurse = "yes">
 	 <CFLOOP QUERY="D">
 		<cfif TYPE is "file">
-			<cfif ctr lt 1>
+			<cfif ctr lt 100>
 				<cfset ctr=ctr+1>
 				<cfset fpath=replace(DIRECTORY,'/usr/local/httpd/htdocs/wwwarctos','')>
 				<br>fpath: #fpath#
