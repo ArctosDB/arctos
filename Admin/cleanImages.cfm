@@ -60,21 +60,23 @@ select status,count(*) from temp_m_f group by status;
 
 
 	<cfif action is "cleanup">
+	<cfset ctr=0>
 	 <cfdirectory directory = "#Application.webDirectory#/mediaUploads" action = "list" name = "D" recurse = "yes">
 	 <CFLOOP QUERY="D">
 		<cfif TYPE is "file">
-
-			<cfset fpath=replace(DIRECTORY,'/usr/local/httpd/htdocs/wwwarctos','')>
-			<br>fpath: #fpath#
-			<cfset qn=fpath & '/' & name>
-			<br>qn: #qn#
-			<cfquery name="isUsed" datasource="uam_god">
-				select count(*) c from media where media_uri like '%#qn#%' or preview_uri like '%#qn#%'
-			</cfquery>
-			<cfif isUsed.c is 0>
-				<br>notused
+			<cfif ctr lt 100>
+				<cfset ctr=ctr+1>
+				<cfset fpath=replace(DIRECTORY,'/usr/local/httpd/htdocs/wwwarctos','')>
+				<br>fpath: #fpath#
+				<cfset qn=fpath & '/' & name>
+				<br>qn: #qn#
+				<cfquery name="isUsed" datasource="uam_god">
+					select count(*) c from media where media_uri like '%#qn#%' or preview_uri like '%#qn#%'
+				</cfquery>
+				<cfif isUsed.c is 0>
+					<br>notused
+				</cfif>
 			</cfif>
-
 
 		</cfif>
 	</CFLOOP>
