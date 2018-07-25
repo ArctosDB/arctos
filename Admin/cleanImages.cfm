@@ -48,14 +48,15 @@
 
 	<cfif action is "cpfls">
 		<cfquery name="d" datasource="uam_god">
-			select * from temp_m_f where status ='spiffy' and rownum<2
+			select * from temp_m_f where status ='spiffy'
+			--and rownum<2
 		</cfquery>
 		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
 		</cfquery>
 		<cfloop query="d">
 			<!---- make a username bucket. This will create or return an error of some sort. ---->
-			<cfset uname=listgetat(media_uri,1,"/")>
+			<cfset uname=listgetat(lcl_p,1,"/")>
 			<br>uname: #uname#
 
 		</cfloop>
