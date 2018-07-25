@@ -86,8 +86,8 @@
 				</cfhttp>
 				<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/mediaUploads/#lcl_p#">
 				---------->
-				<cfset mimetype="">
-				<cfset mediatype="">
+				<cfset mimetype="FAIL">
+				<cfset mediatype="FAIL">
 				<cfset fext=listlast(lcl_p,".")>
 				<cfif fext is "jpg" or fext is "jpeg">
 					<cfset mimetype="image/jpeg">
