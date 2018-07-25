@@ -107,7 +107,7 @@ select status,count(*) from temp_m_f group by status;
 				<cfset filename=listlast(lcl_p_p,"/")>
 				<cfset lclurl=preview_uri>
 
-				<cfset newPreviewURI="https://web.corral.tacc.utexas.edu/arctos-s3/#usrnm#/2018-07-25/#filename#">
+				<cfset newPreviewURI="https://web.corral.tacc.utexas.edu/arctos-s3/#usrnm#/2018-07-25/tn/#filename#">
 				<cfset lclchsm=f.genMD5(lclurl)>
 				<cfset rmtchsm=f.genMD5(newPreviewURI)>
 				<br>lclchsm: #lclchsm#
