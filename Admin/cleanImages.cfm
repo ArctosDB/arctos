@@ -61,7 +61,16 @@ select status,count(*) from temp_m_f group by status;
 
 	<cfif action is "cleanup">
 	 <cfdirectory directory = "#Application.webDirectory#/mediaUploads" action = "list" name = "D" recurse = "yes">
-	 <CFDUMP VAR=#D#>
+	 <CFLOOP QUERY="D">
+		<cfif TYPE is "file">
+
+			<cfset fpath=replace(DIRECTORY,'/usr/local/httpd/htdocs/wwwarctos','')>
+			<br>fpath: #fpath#
+			<cfset qn=fpath & '/' & name>
+			<br>qn: #qn#
+
+		</cfif>
+	</CFLOOP>
 
 	</cfif>
 	<cfif action is "upmuris">
