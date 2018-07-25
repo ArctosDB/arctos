@@ -39,6 +39,9 @@ select status,count(*) from temp_m_f group by status;
 		 <a href="cleanImages.cfm?action=cpfls">cpfls</a>
 	</p>
 	<p>
+		 <a href="cleanImages.cfm?action=cpfls">cpfls</a>
+	</p>
+	<p>
 		 <a href="cleanImages.cfm?action=mklclp">mklclp</a>
 	</p>
 	<p>
@@ -47,8 +50,20 @@ select status,count(*) from temp_m_f group by status;
 <cfoutput>
 
 
+	<cfif action is "upmuris">
+		<cfquery name="d" datasource="uam_god">
+			select * from temp_m_f where status ='loaded_to_s3'
+			and rownum<2
+		</cfquery>
+		<cfloop query="d">
+			<br>lcl_p: #lcl_p#
+			<br>lcl_p_p: #lcl_p_p#
+
+		</cfloop>
+	</cfif>
 
 	<cfif action is "cpfls">
+
 		<cfquery name="d" datasource="uam_god">
 			select * from temp_m_f where status ='spiffy'
 			and rownum<100
