@@ -55,9 +55,13 @@
 			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
 		</cfquery>
 		<cfloop query="d">
-			<!---- make a username bucket. This will create or return an error of some sort. ---->
-			<cfset uname=listgetat(lcl_p,1,"/")>
-			<br>uname: #uname#
+			<cfif len(lcl_p) gt 0>
+				<br>lcl_p: #lcl_p#
+				<!---- make a username bucket. This will create or return an error of some sort. ---->
+				<cfset uname=listgetat(lcl_p,1,"/")>
+				<br>uname: #uname#
+			</cfif>
+
 
 		</cfloop>
 
