@@ -33,6 +33,10 @@
 
 
 select status,count(*) from temp_m_f group by status;
+
+-- some some complexity
+					select LABEL_VALUE from media_labels where MEDIA_LABEL='MD5 checksum' and MEDIA_ID in (select media_id from temp_m_f);
+
 ---->
 
 	<p>
@@ -58,8 +62,13 @@ select status,count(*) from temp_m_f group by status;
 		<cfset f = CreateObject("component","component.functions")>
 
 		<cfloop query="d">
-				<br>lcl_p: #lcl_p#
-				<br>lcl_p_p: #lcl_p_p#
+			<br>lcl_p: #lcl_p#
+			<br>lcl_p_p: #lcl_p_p#
+			<cfset newMediaURI="">
+			<cfset newPreviewURI="">
+			<cfset newMediaChecksum="">
+			<cfset hasExistingCheck=false>
+			<cfset probs=false>
 			<cfif len(lcl_p) gt 0>
 				<br>lcl_p: #lcl_p#
 				<br>lcl_p_p: #lcl_p_p#
@@ -68,27 +77,86 @@ select status,count(*) from temp_m_f group by status;
 				<cfset filename=listlast(lcl_p,"/")>
 				<cfset lclurl=media_uri>
 
-				<cfset rmturl="https://web.corral.tacc.utexas.edu/arctos-s3/#usrnm#/2018-07-25/#filename#">
+				<cfset newMediaURI="https://web.corral.tacc.utexas.edu/arctos-s3/#usrnm#/2018-07-25/#filename#">
 				<cfset lclchsm=f.genMD5(lclurl)>
-				<cfset rmtchsm=f.genMD5(rmturl)>
-
-
-
+				<cfset rmtchsm=f.genMD5(newMediaURI)>
 				<br>lclchsm: #lclchsm#
 				<br>rmtchsm: #rmtchsm#
 				<cfquery name="ckck" datasource="uam_god">
 					select LABEL_VALUE from media_labels where MEDIA_LABEL='MD5 checksum' and MEDIA_ID=#MEDIA_ID#
 				</cfquery>
 
+
+				<cfset newMediaChecksum=rmtchsm>
+
 				<cfif lclchsm neq rmtchsm>
 					<br>FAIL::nomatch
+					<cfset probs=true>
 				</cfif>
 				<cfif len(ckck.LABEL_VALUE) gt 0>
+					<cfset hasExistingCheck=true>
 					<cfif ckck.LABEL_VALUE neq lclchsm>
+						<cfset probs=true>
 						<br>fail:nomatchw/exist
 					</cfif>
 				</cfif>
 			</cfif>
+
+			<cfif len(lcl_p_p) gt 0>
+				<cfset usrnm=listgetat(lcl_p_p,1,"/")>
+				<cfset filename=listlast(lcl_p_p,"/")>
+				<cfset lclurl=preview_uri>
+
+				<cfset newPreviewURI="https://web.corral.tacc.utexas.edu/arctos-s3/#usrnm#/2018-07-25/#filename#">
+				<cfset lclchsm=f.genMD5(lclurl)>
+				<cfset rmtchsm=f.genMD5(newPreviewURI)>
+				<br>lclchsm: #lclchsm#
+				<br>rmtchsm: #rmtchsm#
+
+
+				<cfif lclchsm neq rmtchsm>
+					<br>FAIL::nomatch
+					<cfset probs=true>
+				</cfif>
+			</cfif>
+
+			<p>
+				probs: #probs#
+			</p>
+			<cfif probs is false>
+				update media set
+				<cfif len(newMediaURI) gt 0>
+					media_uri='#newMediaURI#'
+				</cfif>
+				<cfif len(newPreviewURI) gt 0>
+					<cfif len(newMediaURI) gt 0>
+						,
+					</cfif>
+					preview_uri='#newPreviewURI#'
+				</cfif>
+				where media_id=#media_id#
+
+				<br>
+				<cfif hasExistingCheck is false and len(newMediaChecksum) gt 0>
+					insert into media_labels (
+						MEDIA_LABEL_ID,
+						MEDIA_ID,
+						MEDIA_LABEL,
+						LABEL_VALUE,
+						ASSIGNED_BY_AGENT_ID
+					) values (
+						sq_MEDIA_LABEL_ID.nextval,
+						#MEDIA_ID#,
+						'MD5 checksum',
+						'#newMediaChecksum#',
+						2072
+					)
+
+				</cfif>
+
+
+			</cfif>
+
 		</cfloop>
 	</cfif>
 
