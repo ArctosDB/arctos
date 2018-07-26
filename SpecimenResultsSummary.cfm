@@ -65,8 +65,7 @@ Bad things? Last standalone copy of this form is in v6.11
 	</cfloop>
 	<script type="text/javascript">
 	    $(document).ready(function () {
-
-	    $.ajax({
+	    	$.ajax({
 			 	url: "/component/SpecimenResults.cfc",
 			 	type: "POST",
 			 	dataType: 'json',
