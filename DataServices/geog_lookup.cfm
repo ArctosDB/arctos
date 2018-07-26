@@ -177,6 +177,7 @@ grant select on ds_temp_geog to public;
 /
 sho err
 
+alter table ds_temp_geog add drainage varchar2(255);
 
 insert into ds_temp_geog (
 CONTINENT_OCEAN,
@@ -231,9 +232,7 @@ from geog_auth_rec where rownum<10
 
 <cfif action is "nothing">
 
-	<p>
-		IMPORTANT: This form does not deal with Drainage. File an Issue if you need that functionality.
-	</p>
+
 	Load random-ish geography; we'll try to find an possibly-appropriate Arctos higher_geog entry.
 	<hr>Option One: Load "geog components"
 	All columns are optional
@@ -247,6 +246,7 @@ from geog_auth_rec where rownum<10
 		<li>ISLAND</li>
 		<li>ISLAND_GROUP</li>
 		<li>SEA</li>
+		<li>DRAINAGE</li>
 	</ul>
 	<form name="atts" method="post" enctype="multipart/form-data" action="geog_lookup.cfm">
 		<input type="hidden" name="Action" value="getFile">
@@ -254,6 +254,9 @@ from geog_auth_rec where rownum<10
 		<input type="submit" value="Upload this file" class="savBtn">
 	</form>
 	<hr>Option Two: Load "higher geography" strings
+	<p>
+		IMPORTANT: This option does not deal with Drainage. File an Issue if you need that functionality.
+	</p>
 	<ul>
 		<li>old_geog</li>
 	</ul>
