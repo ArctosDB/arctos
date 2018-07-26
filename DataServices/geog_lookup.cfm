@@ -1094,15 +1094,15 @@ from geog_auth_rec where rownum<10
 							  	stripGeogRanks(island)=stripGeogRanks('#thisCounty#') or
 							  	stripGeogRanks(island_group)=stripGeogRanks('#thisCounty#')
 							  )
-							<!----
-						   and upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory')))
-						       like '%#ucase(thisCounty)#%'
-
-						       					       and stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
-
-
-
-						       ---->
+	                     </cfif>
+	                    <cfif len(thisDrainage) gt 0>
+							 and (
+							  	stripGeogRanks(country)=stripGeogRanks('#thisDrainage#') or
+							  	stripGeogRanks(state_prov)=stripGeogRanks('#thisDrainage#') or
+							  	stripGeogRanks(county)=stripGeogRanks('#thisDrainage#') or
+							  	stripGeogRanks(island)=stripGeogRanks('#thisDrainage#') or
+							  	stripGeogRanks(island_group)=stripGeogRanks('#thisDrainage#')
+							  )
 	                     </cfif>
 	            </cfquery>
 
@@ -1134,6 +1134,9 @@ from geog_auth_rec where rownum<10
 	                    </cfif>
 	                    <cfif len(thisCounty) gt 0>
 							or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCounty#')
+	                     </cfif>
+	                    <cfif len(thisDrainage) gt 0>
+							or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisDrainage#')
 	                     </cfif>
 						)
 	            </cfquery>
