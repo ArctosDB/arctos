@@ -114,28 +114,7 @@
 		<cfset maddr=application.bugreportemail>
 		<cfset subj="TEST PLEASE IGNORE: Arctos Pending Data Notification">
 	</cfif>
-<table border>
-			<tr>
-				<th>Username</th>
-				<th>Table</th>
-				<th>Status</th>
-				<th>Count</th>
-			</tr>
-			<cfloop query="d_s">
-				<tr>
-					<td>#USERNAME#</td>
-					<td>#TBLNAME#</td>
-					<td>#STATUS#</td>
-					<td>#C#</td>
-				</tr>
-			</cfloop>
-		</table>
-	mailing...
-	<cfmail to="dustymc@gmail.com" bcc="#Application.LogEmail#" subject="#subj#" from="pending_data@#Application.fromEmail#" type="html">
-
-		#maddr#
-
-
+	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="pending_data@#Application.fromEmail#" type="html">
 		<cfif isdefined("Application.version") and  Application.version is not "prod">
 			<hr>
 				prodemaillist: #valuelist(f_adrs.email)#
