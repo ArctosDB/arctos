@@ -647,23 +647,6 @@ from geog_auth_rec where rownum<10
 					<cfset thisDrainage=''>
 				</cfif>
 			</cfloop>
-			<!---
-			<cfif len(thisCounty) gt 0>
-				<cfset thisCounty=replace(thiscounty,' CO.','','all')>
-				<cfset thisCounty=replace(thiscounty,' CO','','all')>
-				<cfset thisCounty=replace(thiscounty,' County','','all')>
-				<cfset thisCounty=replace(thiscounty,' Province','','all')>
-				<cfset thisCounty=replace(thiscounty,' Parish','','all')>
-				<cfset thisCounty=replace(thiscounty,' District','','all')>
-				<cfset thisCounty=replace(thiscounty,' Territory','','all')>
-				<cfset thisCounty=replace(thiscounty,' Prov.','','all')>
-				<cfset thisCounty=replace(thiscounty,' Dist.','','all')>
-				<cfset thisCounty=replace(thiscounty,' PROV','','all')>
-				<cfset thisCounty=replace(thiscounty,' DIST','','all')>
-				<cfset thisCounty=replace(thiscounty,' TERR','','all')>
-	            <cfset thisCounty=replace(thiscounty,' Borough','','all')>
-			</cfif>
-			--->
 		<div class="rawdata">
 			RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#:#DRAINAGE#
 		</div>
@@ -968,14 +951,12 @@ from geog_auth_rec where rownum<10
             <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec where
                    upper(trim(Country)) = '#ucase(thisCountry)#' and
-									stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
-<!----
-                   upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
-				 = '#ucase(thisState)#' and
-				                 upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
-
-				 ---->
+				stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
 				stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+				<!--- just block this if we have drainage data; it's useful-ish in all other cases--->
+				<cfif len(thisDrainage) gt 0>
+					and 1=2
+				</cfif>
             </cfquery>
 
 			<cfif debug is "yes">
