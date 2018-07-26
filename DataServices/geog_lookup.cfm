@@ -1038,6 +1038,11 @@ from geog_auth_rec where rownum<10
 					       ---->
 					       and stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
                      </cfif>
+					<cfif len(thisDrainage) gt 0>
+						and stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
+					<cfelse>
+						and drainage is null
+					</cfif>
             </cfquery>
 
 			<cfif debug is "yes">
