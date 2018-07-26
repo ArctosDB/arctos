@@ -116,7 +116,11 @@
 	</cfif>
 
 	mailing...
-	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="pending_data@#Application.fromEmail#" type="html">
+	<cfmail to="dustymc@gmail.com" bcc="#Application.LogEmail#" subject="#subj#" from="pending_data@#Application.fromEmail#" type="html">
+
+		#maddr#
+
+
 		<cfif isdefined("Application.version") and  Application.version is not "prod">
 			<hr>
 				prodemaillist: #valuelist(f_adrs.email)#
