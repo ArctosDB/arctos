@@ -85,7 +85,58 @@ Bad things? Last standalone copy of this form is in v6.11
 			   		 	return false;
 					}
 
-					alert('happy');
+					$('##specresults').jtable({
+			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + r.TotalRecordCount + ' records.',
+						paging: true, //Enable paging
+			            pageSize: 100, //Set page size (default: 10)
+			            sorting: true, //Enable sorting
+			            defaultSorting: '#sortby#', //Set default sorting
+						columnResizable: true,
+						multiSorting: true,
+						columnSelectable: false,
+						//recordsLoaded: getPostLoadJunk,
+						multiselect: true,
+						selectingCheckboxes: false,
+		  				selecting: true, //Enable selecting
+		          		selectingCheckboxes: false, //Show checkboxes on first column
+		            	selectOnRowClick: false, //Enable this to only select using checkboxes
+						pageSizes: [10, 25, 50, 100, 250, 500,5000],
+						actions: {
+			                listAction: '/component/SpecimenResults.cfc?method=getSpecimenSummary&totalRecordCount=' + r.TotalRecordCount + '&TotalSpecimenCount=' + r.TotalSpecimenCount + '&qid=' + r.qid
+			            },
+			            fields:  {
+							COUNTOFCATALOGEDITEM:{title: 'Count'},
+							LINKTOSPECIMENS: {title: 'Specimens'},
+							<cfset thisLoopNum=1>
+						 	<cfset numFlds=listlen(groupby)>
+							<cfloop list="#groupby#" index="col">
+								<cfif col is "phylclass">
+									<cfset x="Class">
+								<cfelseif col is "phylorder">
+									<cfset x="Order">
+								<cfelseif col is "scientific_name">
+									<cfset x="ScientificName">
+								<cfelseif col is "formatted_scientific_name">
+									<cfset x="FormattedScientificName">
+								<cfelseif col is "state_prov">
+									<cfset x="StateOrProvince">
+								<cfelseif col is "island_group">
+									<cfset x="IslandGroup">
+								<cfelseif col is "spec_locality">
+									<cfset x="SpecificLocality">
+								<cfelseif col is "continent_ocean">
+									<cfset x="ContinentOrOcean">
+								<cfelse>
+									<cfset x=toProperCase(col)>
+								</cfif>
+								#ucase(COL)#: {title: '#x#'}
+								<cfif thisLoopNum lt numFlds>,</cfif>
+								<cfset thisLoopNum=thisLoopNum+1>
+							</cfloop>
+			        	}
+			        });
+			        $('##specresults').jtable('load');
+			        $('##msgdiv').removeClass().hide();
 				 },
 				 error: function( r ) {
 				  alert( 'ERROR: ', r );
