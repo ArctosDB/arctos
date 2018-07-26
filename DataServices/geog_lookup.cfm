@@ -723,9 +723,9 @@ from geog_auth_rec where rownum<10
 				<!----
 				upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				---->
-				stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+				stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 			<cfelse>
-				county is null
+				county is null and
 			</cfif>
 			<cfif len(thisDrainage) gt 0>
 				stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
@@ -788,9 +788,9 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
-					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 				<cfelse>
-					county is null
+					county is null and
 				</cfif>
 				<cfif len(thisDrainage) gt 0>
 					stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
@@ -850,9 +850,9 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
-					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 				<cfelse>
-					county is null
+					county is null and
 				</cfif>
 				<cfif len(thisDrainage) gt 0>
 					stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
@@ -916,12 +916,11 @@ from geog_auth_rec where rownum<10
 					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 					---->
-					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 
 				<cfelse>
-					county is null
+					county is null and
 				</cfif>
-
 				<cfif len(thisDrainage) gt 0>
 					stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
 				<cfelse>
