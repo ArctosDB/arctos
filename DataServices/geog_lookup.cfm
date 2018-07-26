@@ -177,6 +177,7 @@ grant select on ds_temp_geog to public;
 /
 sho err
 
+alter table ds_temp_geog add drainage varchar2(255);
 
 insert into ds_temp_geog (
 CONTINENT_OCEAN,
@@ -231,9 +232,7 @@ from geog_auth_rec where rownum<10
 
 <cfif action is "nothing">
 
-	<p>
-		IMPORTANT: This form does not deal with Drainage. File an Issue if you need that functionality.
-	</p>
+
 	Load random-ish geography; we'll try to find an possibly-appropriate Arctos higher_geog entry.
 	<hr>Option One: Load "geog components"
 	All columns are optional
@@ -247,6 +246,7 @@ from geog_auth_rec where rownum<10
 		<li>ISLAND</li>
 		<li>ISLAND_GROUP</li>
 		<li>SEA</li>
+		<li>DRAINAGE</li>
 	</ul>
 	<form name="atts" method="post" enctype="multipart/form-data" action="geog_lookup.cfm">
 		<input type="hidden" name="Action" value="getFile">
@@ -254,6 +254,9 @@ from geog_auth_rec where rownum<10
 		<input type="submit" value="Upload this file" class="savBtn">
 	</form>
 	<hr>Option Two: Load "higher geography" strings
+	<p>
+		IMPORTANT: This option does not deal with Drainage. File an Issue if you need that functionality.
+	</p>
 	<ul>
 		<li>old_geog</li>
 	</ul>
@@ -479,7 +482,7 @@ from geog_auth_rec where rownum<10
 				and status is null
 			</cfif>
 			order by
-			 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA
+			 CONTINENT_OCEAN,COUNTRY , STATE_PROV , COUNTY  , QUAD , FEATURE ,ISLAND_GROUP, ISLAND  ,  SEA, DRAINAGE
 		) where rownum<=#rows#
 	</cfquery>
 	<!--- various strings used to mean "nothing" --->
@@ -638,28 +641,17 @@ from geog_auth_rec where rownum<10
 					<cfset thisCounty=''>
 				</cfif>
 			</cfloop>
-			<!---
-			<cfif len(thisCounty) gt 0>
-				<cfset thisCounty=replace(thiscounty,' CO.','','all')>
-				<cfset thisCounty=replace(thiscounty,' CO','','all')>
-				<cfset thisCounty=replace(thiscounty,' County','','all')>
-				<cfset thisCounty=replace(thiscounty,' Province','','all')>
-				<cfset thisCounty=replace(thiscounty,' Parish','','all')>
-				<cfset thisCounty=replace(thiscounty,' District','','all')>
-				<cfset thisCounty=replace(thiscounty,' Territory','','all')>
-				<cfset thisCounty=replace(thiscounty,' Prov.','','all')>
-				<cfset thisCounty=replace(thiscounty,' Dist.','','all')>
-				<cfset thisCounty=replace(thiscounty,' PROV','','all')>
-				<cfset thisCounty=replace(thiscounty,' DIST','','all')>
-				<cfset thisCounty=replace(thiscounty,' TERR','','all')>
-	            <cfset thisCounty=replace(thiscounty,' Borough','','all')>
-			</cfif>
-			--->
+			<cfset thisDrainage=drainage>
+			<cfloop list="#isNotNullBS#" index="i">
+				<cfif thisDrainage is i>
+					<cfset thisDrainage=''>
+				</cfif>
+			</cfloop>
 		<div class="rawdata">
-			RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#
+			RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#:#DRAINAGE#
 		</div>
 		<div class="interpreteddata">
-			InterpretedData==#thiscontinent#:#thisSea#:#thisCountry#:#thisState#:#thisCounty#:#thisQuad#:#thisFeature#:#thisIsland#:#thisIslandGroup#:
+			InterpretedData==#thiscontinent#:#thisSea#:#thisCountry#:#thisState#:#thisCounty#:#thisQuad#:#thisFeature#:#thisIsland#:#thisIslandGroup#:#thisDrainage#
 		</div>
 
 
@@ -714,9 +706,14 @@ from geog_auth_rec where rownum<10
 				<!----
 				upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				---->
-				stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+				stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 			<cfelse>
-				county is null
+				county is null and
+			</cfif>
+			<cfif len(thisDrainage) gt 0>
+				stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
+			<cfelse>
+				drainage is null
 			</cfif>
 		</cfquery>
 		<cfif debug is "yes">
@@ -774,12 +771,14 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
-					<!----
-					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
-					---->
-					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 				<cfelse>
-					county is null
+					county is null and
+				</cfif>
+				<cfif len(thisDrainage) gt 0>
+					stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
+				<cfelse>
+					drainage is null
 				</cfif>
 			</cfquery>
 
@@ -834,12 +833,14 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
-					<!----
-					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
-					---->
-					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 				<cfelse>
-					county is null
+					county is null and
+				</cfif>
+				<cfif len(thisDrainage) gt 0>
+					stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
+				<cfelse>
+					drainage is null
 				</cfif>
 			</cfquery>
 
@@ -898,10 +899,15 @@ from geog_auth_rec where rownum<10
 					<!----
 					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 					---->
-					stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+					stripGeogRanks(county)=stripGeogRanks('#thisCounty#') and
 
 				<cfelse>
-					county is null
+					county is null and
+				</cfif>
+				<cfif len(thisDrainage) gt 0>
+					stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
+				<cfelse>
+					drainage is null
 				</cfif>
 				<cfif gotsomething is false>
 				    and 1=2
@@ -945,14 +951,12 @@ from geog_auth_rec where rownum<10
             <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select HIGHER_GEOG from geog_auth_rec where
                    upper(trim(Country)) = '#ucase(thisCountry)#' and
-									stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
-<!----
-                   upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
-				 = '#ucase(thisState)#' and
-				                 upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
-
-				 ---->
+				stripGeogRanks(state_prov)=stripGeogRanks('#thisState#') and
 				stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
+				<!--- just block this if we have drainage data; it's useful-ish in all other cases--->
+				<cfif len(thisDrainage) gt 0>
+					and 1=2
+				</cfif>
             </cfquery>
 
 			<cfif debug is "yes">
@@ -1015,6 +1019,11 @@ from geog_auth_rec where rownum<10
 					       ---->
 					       and stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
                      </cfif>
+					<cfif len(thisDrainage) gt 0>
+						and stripGeogRanks(drainage)=stripGeogRanks('#thisDrainage#')
+					<cfelse>
+						and drainage is null
+					</cfif>
             </cfquery>
 
 			<cfif debug is "yes">
@@ -1066,15 +1075,15 @@ from geog_auth_rec where rownum<10
 							  	stripGeogRanks(island)=stripGeogRanks('#thisCounty#') or
 							  	stripGeogRanks(island_group)=stripGeogRanks('#thisCounty#')
 							  )
-							<!----
-						   and upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory')))
-						       like '%#ucase(thisCounty)#%'
-
-						       					       and stripGeogRanks(county)=stripGeogRanks('#thisCounty#')
-
-
-
-						       ---->
+	                     </cfif>
+	                    <cfif len(thisDrainage) gt 0>
+							 and (
+							  	stripGeogRanks(country)=stripGeogRanks('#thisDrainage#') or
+							  	stripGeogRanks(state_prov)=stripGeogRanks('#thisDrainage#') or
+							  	stripGeogRanks(county)=stripGeogRanks('#thisDrainage#') or
+							  	stripGeogRanks(island)=stripGeogRanks('#thisDrainage#') or
+							  	stripGeogRanks(island_group)=stripGeogRanks('#thisDrainage#')
+							  )
 	                     </cfif>
 	            </cfquery>
 
@@ -1106,6 +1115,9 @@ from geog_auth_rec where rownum<10
 	                    </cfif>
 	                    <cfif len(thisCounty) gt 0>
 							or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisCounty#')
+	                     </cfif>
+	                    <cfif len(thisDrainage) gt 0>
+							or stripGeogRanks(SEARCH_TERM) like stripGeogRanks('#thisDrainage#')
 	                     </cfif>
 						)
 	            </cfquery>
@@ -1195,6 +1207,7 @@ from geog_auth_rec where rownum<10
 			ISLAND,
 			ISLAND_GROUP,
 			SEA,
+			DRAINAGE,
 			HIGHER_GEOG,
 			STATUS
 		from ds_temp_geog
