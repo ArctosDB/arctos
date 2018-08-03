@@ -139,6 +139,7 @@
 		COLLECTORS,
 		PREPARATORS,
 		concatCollectorAgent(#session.flatTableName#.collection_object_id,'maker') makers,
+		concatCollectorAgent(#session.flatTableName#.collection_object_id,'copyright holder') copyright_holders,
 		remarks,
 		flags,
 		PHYLCLASS,
@@ -970,6 +971,28 @@
 							<span class="innerDetailLabel"></span>
 							<cfset collnks="">
 							<cfloop list="#makers#" delimiters="," index="i">
+								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
+								<cfset collnks=listappend(collnks,t,",")>
+							</cfloop>
+							#collnks#
+						</span>
+					</div>
+				</div>
+			</cfif>
+
+<!------------------------------------ copyright_holders ---------------------------------------------->
+			<cfif len(makers) gt 0>
+				<div class="detailCell">
+					<div class="detailLabel">Copyright Holder(s)
+						<cfif oneOfUs is 1>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
+						</cfif>
+					</div>
+					<div class="detailBlock">
+						<span class="detailData">
+							<span class="innerDetailLabel"></span>
+							<cfset collnks="">
+							<cfloop list="#copyright_holders#" delimiters="," index="i">
 								<cfset t='<a href="/agent.cfm?agent_name=#trim(i)#" target="_blank" class="external">#i#</a>'>
 								<cfset collnks=listappend(collnks,t,",")>
 							</cfloop>

@@ -554,7 +554,7 @@
 <!--------
 <cffunction name="loadFile" output="false" returnType="string" access="remote">
 	<!--- keep this as we're testing loadFileS3; delete when that has demonstrated stability --->
-	
+
 
 	<cftry>
 		<cfset tempName=createUUID()>
@@ -1139,7 +1139,7 @@
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
 			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat">
-			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF">
+			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway">
 			<cfset x=x & ",getmappingxpath,get_host_address,git">
