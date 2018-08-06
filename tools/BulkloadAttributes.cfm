@@ -647,7 +647,7 @@ alter table cf_temp_attributes modify status varchar2(4000);
 	<cfoutput>
 		<cfset loader = CreateObject("component","component.loader")>
 		<cfquery name="d2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#' and status='valid'
+			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#' and status='precheck_pass'
 		</cfquery>
 		<p>
 			This process may require a few reloads; just reload if it times out.
