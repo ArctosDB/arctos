@@ -100,7 +100,7 @@
 						'#q.ATTRIBUTE#',
 						'#q.ATTRIBUTE_VALUE#',
 						'#q.ATTRIBUTE_UNITS#',
-						'#collection_cde#'
+						'#q.collection_cde#'
 					) v from dual
 			</cfquery>
 			<cfif x.v neq 1>
