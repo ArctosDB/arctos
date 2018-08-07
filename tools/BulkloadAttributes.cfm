@@ -658,7 +658,7 @@ alter table cf_temp_attributes modify status varchar2(4000);
 		<cfloop query="d2">
 			<cftransaction>
 				<cfquery name="thisRow" dbtype="query">
-					select * from d3 where [key] = #d3.key#
+					select * from d2 where [key] = #d2.key#
 				</cfquery>
 				<cfset x=loader.createSpecimenAttribute(thisRow)>
 				<cfif x.status is "success">
