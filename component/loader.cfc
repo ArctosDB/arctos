@@ -51,6 +51,8 @@
 	<cffunction name="validateSpecimenAttribute" access="public">
 		<cfargument name="q" required="yes" type="query">
 		<cfset problems="">
+		<cfset collection_cde=''>
+
 		<cfoutput>
 			<cfif len(q.guid) gt 0>
 				<cfquery name="x" datasource="uam_god">
@@ -100,7 +102,7 @@
 						'#q.ATTRIBUTE#',
 						'#q.ATTRIBUTE_VALUE#',
 						'#q.ATTRIBUTE_UNITS#',
-						'#q.collection_cde#'
+						'#collection_cde#'
 					) v from dual
 			</cfquery>
 			<cfif x.v neq 1>
