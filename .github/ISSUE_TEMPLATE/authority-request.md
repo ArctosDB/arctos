@@ -4,6 +4,8 @@ about: Request a new code table or other authority value
 
 ---
 
+Issue Documentation is http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html
+
 **Table**
 Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm
 

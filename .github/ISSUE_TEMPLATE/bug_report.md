@@ -4,6 +4,8 @@ about: Create a report to help us improve
 
 ---
 
+Issue Documentation is http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
