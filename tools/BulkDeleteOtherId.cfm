@@ -113,6 +113,9 @@ sho err
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
+	<cfquery name="flush" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_delete_oids where upper(username)='#ucase(session.username)#'
+	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
@@ -159,7 +162,8 @@ sho err
 			flat.guid=cf_temp_delete_oids.guid and
 			coll_obj_other_id_num.other_id_type=cf_temp_delete_oids.other_id_type and
 			coll_obj_other_id_num.display_value=cf_temp_delete_oids.other_id_number and
-			coll_obj_other_id_num.ID_REFERENCES=cf_temp_delete_oids.other_id_references
+			coll_obj_other_id_num.ID_REFERENCES=cf_temp_delete_oids.other_id_references) and
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<p>
 		Validated. <a href="BulkDeleteOtherId.cfm?action=view_results">view_results</a>.
