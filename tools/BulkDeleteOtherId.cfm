@@ -13,9 +13,9 @@ create table cf_temp_delete_oids (
 	key number,
 	collection_object_id number,
 	guid varchar2(60) not null,
-	other_id_type varchar2(60) not null,
-	other_id_number varchar2(60) not null,
-	other_id_references varchar2(60) not null,
+	other_id_type varchar2(255) not null,
+	other_id_number varchar2(255) not null,
+	other_id_references varchar2(255) not null,
 	status varchar2(4000),
 	username varchar2(60) not null
 );
@@ -193,7 +193,7 @@ sho err
 			</tr>
 			<cfloop query="d">
 				<tr>
-					<td>#guid#</td>
+					<td><a href="/guid/#guid#" target="_blank">#guid#</a></td>
 					<td>#other_id_type#</td>
 					<td>#other_id_number#</td>
 					<td>#other_id_references#</td>
