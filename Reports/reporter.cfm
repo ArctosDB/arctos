@@ -110,12 +110,23 @@
         insert into cf_report_sql (
             report_name,
             report_template,
-            sql_text)
-        values (
-            '#newName#',
-            '#e.report_template#',
-            '#escapeQuotes(e.sql_text)#')
+            sql_text,
+			PRE_FUNCTION,
+			REPORT_FORMAT
+			) (
+			select
+				'#newName#',
+				report_template,
+				sql_text,
+				PRE_FUNCTION,
+				REPORT_FORMAT
+			from
+				cf_report_sql
+			where
+				report_id=#report_id#
     </cfquery>
+
+
 
 	<p>
 		Created report name #newName#

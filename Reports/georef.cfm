@@ -256,6 +256,21 @@ to refresh:
 
 exec CACHE_GEOREF_STATS
 
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_TEMP_CACHE_GEOREF_STATS',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'CACHE_GEOREF_STATS',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/ 
+
+select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_CACHE_GEOREF_STATS';
+
+
 	---->
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
