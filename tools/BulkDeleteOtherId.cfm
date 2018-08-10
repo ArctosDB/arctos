@@ -225,13 +225,13 @@ sho err
 		</cfquery>
 
 		<cfloop query="d">
-			<cfquery name="buhBye" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="buhBye" result="dq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from coll_obj_other_id_num where collection_object_id in (select collection_object_id from flat where guid='#guid#') and
 				coll_obj_other_id_num.other_id_type='#other_id_type#' and
 			coll_obj_other_id_num.display_value='#other_id_number#' and
 			coll_obj_other_id_num.ID_REFERENCES='#other_id_references#'
 			</cfquery>
-			<cfdump var=#buhBye#>
+			<cfdump var=#dq#>
 		</cfloop>
 	</cfoutput>
 	done
