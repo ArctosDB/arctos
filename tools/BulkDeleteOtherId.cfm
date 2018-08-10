@@ -3,9 +3,7 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfset title="bulk DELETE identifiers">
-<p>
-	<a href="BulkDeleteOtherId.cfm.cfm?action=managemystuff">Manage Existing Data</a>
-</p>
+
 <!---- make the table
 
 drop table cf_temp_delete_oids;
@@ -140,7 +138,7 @@ sho err
 		</cfif>
 	</cfloop>
 	<p>
-		Upload success. Proceed to <a href="BulkloadOtherId.cfm?action=validate">validate</a>.
+		Upload success. Proceed to <a href="BulkDeleteOtherId.cfm?action=validate">validate</a>.
 	</p>
 </cfoutput>
 </cfif>
@@ -164,7 +162,7 @@ sho err
 			coll_obj_other_id_num.ID_REFERENCES=cf_temp_delete_oids.other_id_references
 	</cfquery>
 	<p>
-		Validated. <a href="BulkloadOtherId.cfm?action=view_results">view_results</a>.
+		Validated. <a href="BulkDeleteOtherId.cfm?action=view_results">view_results</a>.
 	</p>
 </cfoutput>
 </cfif>
@@ -206,10 +204,10 @@ sho err
 		</div>
 
 		<p>
-			If you've read the warnings and reviewed the data, you can proceed to <a href="BulkloadOtherId.cfm?action=delete">delete</a>.
+			If you've read the warnings and reviewed the data, you can proceed to <a href="BulkDeleteOtherId.cfm?action=delete">delete</a>.
 		</p>
 		<p>
-			If something isn't right, you can <a href="BulkloadOtherId.cfm?action=nothing">reload CSV</a>.
+			If something isn't right, you can <a href="BulkDeleteOtherId.cfm?action=nothing">reload CSV</a>.
 		</p>
 	</cfoutput>
 </cfif>
