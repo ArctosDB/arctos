@@ -162,7 +162,8 @@ sho err
 			flat.guid=cf_temp_delete_oids.guid and
 			coll_obj_other_id_num.other_id_type=cf_temp_delete_oids.other_id_type and
 			coll_obj_other_id_num.display_value=cf_temp_delete_oids.other_id_number and
-			coll_obj_other_id_num.ID_REFERENCES=cf_temp_delete_oids.other_id_references) and
+			coll_obj_other_id_num.ID_REFERENCES=cf_temp_delete_oids.other_id_references)
+			where
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<p>
