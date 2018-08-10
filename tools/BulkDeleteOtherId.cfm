@@ -3,6 +3,9 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfset title="bulk DELETE identifiers">
+<p>
+	<a href="BulkDeleteOtherId.cfm?action=nothing">start over</a>.
+</p>
 
 <!---- make the table
 
