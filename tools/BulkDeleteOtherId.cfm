@@ -231,7 +231,8 @@ sho err
 			coll_obj_other_id_num.display_value='#other_id_number#' and
 			coll_obj_other_id_num.ID_REFERENCES='#other_id_references#'
 			</cfquery>
-			<cfdump var=#dq#>
+			<br>Running: #dq.sql#
+			<br>Records Deleted: #dq.RECORDCOUNT#
 		</cfloop>
 	</cfoutput>
 	done
