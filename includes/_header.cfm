@@ -264,6 +264,7 @@
 											<li><a target="_top" href="/tools/BulkloadAttributes.cfm">Bulkload Attributes</a></li>
 											<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
 											<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers/Relationships</a></li>
+											<li><a target="_top" href="/tools/BulkDeleteOtherId.cfm">Bulk Delete Identifiers/Relationships</a></li>
 											<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
 											<li><a target="_top" href="/tools/DataLoanBulkload.cfm">Bulkload DataLoan Items</a></li>
 											<li><a target="_top" href="/DataServices/agents.cfm">Bulkload Agents</a></li>
