@@ -2,21 +2,19 @@
 <cfoutput>
 
 <cfif listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
-	<!-- where we want to be --->
-	got project_id
-
+	<!-- where we want to be; don't need to do anything --->
 <cfelseif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
-	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select niceURL(project_name) project_name from project where project_id=<cfqueryparam value="#project_id#" CFSQLType="cf_sql_integer">
-	</cfquery>
+	<!--- just redirect to a bookmarkable URL --->
 	<cfheader statuscode="301" statustext="Moved permanently">
-	<cfheader name="Location" value="/project/#redir.project_name#">
+	<cfheader name="Location" value="/project/#project_id#">
 <cfelseif isdefined("niceProjName")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id from project where niceURL(project_name)='#niceProjName#'
 	</cfquery>
 	<cfif redir.recordcount is 1>
-		<cfset project_id=redir.project_id>
+		<!--- old format; keep this usable, but redirect to new --->
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="/project/#redir.project_id#">
 	<cfelse>
 		<div class="error">
 			Project not found.
