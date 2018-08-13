@@ -751,9 +751,6 @@
 				nodoc
 		</cfquery>
 
-		<cfif isdefined ("debug") and debug is true>
-			<cfdump var=#findIDs#>
-		</cfif>
 		<table width="100%">
 			<tr>
 				<td>
@@ -874,6 +871,23 @@
 					select media_id from raw where urltitle='#urltitle#' and hastags>0 group by media_id
 				</cfquery>
 				<td align="middle">
+						<cfif isdefined ("debug") and debug is true>
+							<br>media_id: #media_id#
+							<br>media_uri: #media_uri#
+							<br>preview_uri: #preview_uri#
+							<br>MEDIA_TYPE: #MEDIA_TYPE#
+							<br>MIME_TYPE: #MIME_TYPE#
+							<br>LABELS: #LABELS#
+							<br>license: #license#
+							<br>RELATIONSHIPS: #RELATIONSHIPS#
+							<br>KEYWORDS: #KEYWORDS#
+							<br>COORDINATES: #COORDINATES#
+							<br>HASTAGS: #HASTAGS#
+							<br>LASTDATE: #LASTDATE#
+							<br>title: #title#
+							<br>urltitle: #urltitle#
+							<br>descr: #descr#
+						</cfif>
 					<a href="/document/#urltitle#" target="_blank" title="#title#">
 						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
 					</a>
