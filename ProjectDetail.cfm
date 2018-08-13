@@ -1,10 +1,10 @@
 <cfinclude template = "includes/_header.cfm">
 <cfoutput>
 
-<cfif listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
+<cfif listfindnocase(request.rdurl,"project","/") and isdefined("project_id")  and isnumeric(project_id)>
 	<!-- where we want to be; don't need to do anything --->
 
-	got /project/project_id
+	got /project/project_id + numeric
 
 
 
