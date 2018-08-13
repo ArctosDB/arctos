@@ -1,6 +1,11 @@
 <cfinclude template = "includes/_header.cfm">
 <cfoutput>
-<cfif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
+
+<cfif listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
+	<!-- where we want to be --->
+	got project_id
+
+<cfelseif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select niceURL(project_name) project_name from project where project_id=<cfqueryparam value="#project_id#" CFSQLType="cf_sql_integer">
 	</cfquery>
