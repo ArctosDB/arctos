@@ -750,6 +750,10 @@
 			from
 				nodoc
 		</cfquery>
+
+		<cfif isdefined ("debug") and debug is true>
+			<cfdump var=#findIDs#>
+		</cfif>
 		<table width="100%">
 			<tr>
 				<td>
