@@ -3,6 +3,12 @@
 
 <cfif listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
 	<!-- where we want to be; don't need to do anything --->
+
+	got /project/project_id
+
+
+
+
 <cfelseif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
 	<!--- just redirect to a bookmarkable URL --->
 	<cfheader statuscode="301" statustext="Moved permanently">
