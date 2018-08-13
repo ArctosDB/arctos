@@ -229,6 +229,7 @@
 			<cfset gPos=listfindnocase(request.rdurl,"project","/")>
 			<cfif listlen(request.rdurl,"/") gt 1>
 				<cfset niceProjName = listgetat(request.rdurl,gPos+1,"/")>
+				<cfset project_id = listgetat(request.rdurl,gPos+1,"/")>
 			</cfif>
 			<cfinclude template="/ProjectDetail.cfm">
 			<cfcatch>
