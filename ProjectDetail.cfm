@@ -22,7 +22,6 @@
 	</cfquery>
 	<cfdump var=#redir#>
 
-	<cfabort>
 
 	<cfif redir.recordcount is 1>
 		<!--- old format; keep this usable, but redirect to new --->
