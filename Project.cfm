@@ -168,7 +168,7 @@
 
 	<cfoutput>
 
-		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
+		<strong>Edit Project</strong> <a href="/project/#project_id#">[ Detail Page ]</a>
 		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				project_agent_id,
@@ -845,7 +845,7 @@ VALUES (
 			project_agent_id,
 			project.project_id,
 			project_name,
-			niceURL(project_name) proj_url,
+			project_id proj_url,
 			start_date,
 			end_date,
 			project_description,
@@ -1013,7 +1013,7 @@ VALUES (
 			PROJECT_AGENTS=pas,
 			LINKED_DATA_TYPE='taxonomy',
 			LINKED_DATA_SUMMARY=scientific_name,
-			LINKED_DATA_URL='#application.serverRootURL#//name/#scientific_name#'
+			LINKED_DATA_URL='#application.serverRootURL#/name/#scientific_name#'
 		})>
 	</cfloop>
 	<cfset  util = CreateObject("component","component.utilities")>

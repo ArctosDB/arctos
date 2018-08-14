@@ -762,13 +762,8 @@
 
 						<cfelseif table_name is "project">
 							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-								select distinct(project_id) project_id from project where PROJECT_NAME ='#rt#'
+								select distinct(project_id) project_id from project where project_id ='#rt#'
 							</cfquery>
-							<cfif c.recordcount is 0>
-								<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-									select distinct(project_id) project_id from project where niceurl(PROJECT_NAME) ='#rt#'
-								</cfquery>
-							</cfif>
 							<cfif c.recordcount is 1 and len(c.project_id) gt 0>
 								<cfquery name="i" datasource="uam_god">
 									update cf_temp_media set media_related_key_#i#=#c.project_id# where key=#key#

@@ -312,7 +312,7 @@
 				Projects
 				<ul>
 					<cfloop query="project_agent">
-						<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+						<li><a href="/project/#project_id#">#project_name#</a></li>
 					</cfloop>
 				</ul>
 			</p>

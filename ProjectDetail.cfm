@@ -3,23 +3,14 @@
 
 <cfif listfindnocase(request.rdurl,"project","/") and isdefined("project_id")  and isnumeric(project_id)>
 	<!-- where we want to be; don't need to do anything --->
-
-	got /project/project_id + numeric
-
-
-
 <cfelseif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id") >
 	<!--- just redirect to a bookmarkable URL--->
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/project/#project_id#">
-
 <cfelseif isdefined("niceProjName")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id from project where niceURL(project_name)='#niceProjName#'
 	</cfquery>
-	<cfdump var=#redir#>
-
-
 	<cfif redir.recordcount is 1>
 		<!--- old format; keep this usable, but redirect to new --->
 		<p>

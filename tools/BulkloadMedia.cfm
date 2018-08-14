@@ -832,11 +832,7 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 				<li>
 					project
 					<ul>
-						<li>Exact string match ("Willow Identification")</li>
-						<li>
-							"niceURL" (both a CF and Oracle function), of the form "willow-identification" (from project
-							"http://arctos.database.museum/project/willow-identification")
-						</li>
+						<li>Project ID ("10000356" from http://arctos.database.museum/project/10000356)</li>
 					</ul>
 				</li>
 				<li>Cataloged Item - DWC GUID format ("UAM:Mamm:12") or part's container's barcode</li>
