@@ -461,27 +461,17 @@
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaDocumentInfo" access="remote">
-
-
-
    <cfargument name="urltitle" required="true" type="string">
    <cfargument name="page" required="false" type="numeric">
 	<cfif not isdefined("page")>
 		<cfset page=1>
 	</cfif>
-<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select get_document_media_pageinfo('#urltitle#',#page#) result from dual
-	</cfquery>
-
-	<cfdump var=#flatdocs#>
 	<cftry>
 	<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select get_document_media_pageinfo('#urltitle#',#page#) result from dual
 	</cfquery>
 	<cfreturn flatdocs.result>
 	<cfcatch>
-		hi
-		<cfdump var=#cfcatch#>
 		<cfreturn cfcatch.message></cfcatch>
 	</cftry>
 </cffunction>
