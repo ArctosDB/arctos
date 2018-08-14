@@ -66,8 +66,9 @@ alter table cf_temp_attributes modify status varchar2(4000);
 	Include column headings. This form will happily create duplicates; don't just randomly smash buttons. In the event of multiple
 	determinations (varying in value or not), "duplicates" may be correct and desirable.
 
-	This form will accept three ways of finding specimens. You must include the data for exactly ONE of these with each record.
-
+	<p>
+		This form will accept three ways of finding specimens. You must include the data for exactly ONE of these with each record.
+	</p>
 	<ol>
 		<li>GUID (preferred)</li>
 		<li>OTHER_ID_TYPE=UUID + OTHER_ID_NUMBER (eg, from "data entry extras" - will be transformed into GUID before loading)</li>
