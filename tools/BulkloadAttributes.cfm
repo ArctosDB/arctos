@@ -65,6 +65,14 @@ alter table cf_temp_attributes modify status varchar2(4000);
 	Upload a comma-delimited text file (csv). <a href="BulkloadAttributes.cfm?action=template">Get a template here</a>
 	Include column headings. This form will happily create duplicates; don't just randomly smash buttons. In the event of multiple
 	determinations (varying in value or not), "duplicates" may be correct and desirable.
+
+	This form will accept three ways of finding specimens. You must include the data for exactly ONE of these with each record.
+
+	<ol>
+		<li>GUID (preferred)</li>
+		<li>OTHER_ID_TYPE=UUID + OTHER_ID_NUMBER (eg, from "data entry extras" - will be transformed into GUID before loading)</li>
+		<li>GUID_PREXIX (EG, "UAM:Mamm") + OTHER_ID_TYPE + OTHER_ID_NUMBER</li>
+	</ol>
 	<table border>
 		<tr>
 			<th>Column</th>
@@ -77,13 +85,6 @@ alter table cf_temp_attributes modify status varchar2(4000);
 			<td>yes*</td>
 			<td>
 				"DWC Triplet," UAM:Mamm:12.
-				Specimens may be identified using:
-
-				<ul>
-					<li>GUID (preferred)</li>
-					<li>OTHER_ID_TYPE=UUID + OTHER_ID_NUMBER (eg, from "data entry extras" - will be transformed into GUID before loading)</li>
-					<li>guid_prefix + OTHER_ID_TYPE + OTHER_ID_NUMBER</li>
-				</ul>
 			</td>
 			<td></td>
 		</tr>
