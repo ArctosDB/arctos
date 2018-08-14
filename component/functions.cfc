@@ -472,7 +472,9 @@
 		select get_document_media_pageinfo('#urltitle#',#page#) result from dual
 	</cfquery>
 	<cfreturn flatdocs.result>
-	<cfcatch><cfreturn cfcatch.message></cfcatch>
+	<cfcatch>
+		<cfdump var=#cfcatch#>
+		<cfreturn cfcatch.message></cfcatch>
 	</cftry>
 </cffunction>
 <!------------------------------------------------------------------->
