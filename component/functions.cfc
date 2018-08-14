@@ -461,6 +461,13 @@
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaDocumentInfo" access="remote">
+
+
+
+	hi
+
+
+	<!---------------
    <cfargument name="urltitle" required="true" type="string">
    <cfargument name="page" required="false" type="numeric">
 	<cfif not isdefined("page")>
@@ -481,6 +488,7 @@
 		<cfdump var=#cfcatch#>
 		<cfreturn cfcatch.message></cfcatch>
 	</cftry>
+	----------->
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
