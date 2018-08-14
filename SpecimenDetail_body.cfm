@@ -1787,7 +1787,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Contributed By Project:</span>
-									<a href="/ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#">#isProj.project_name#</a>
+									<a href="/project/#isProj.project_id#">#isProj.project_name#</a>
 							</span>
 						</div>
 					</cfloop>
@@ -1795,7 +1795,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Used By Project:</span>
-		 						<a href="/ProjectDetail.cfm?src=proj&project_id=#isLoan.project_id#" target="_mainFrame">#isLoan.project_name#</a>
+		 						<a href="/project/#isLoan.project_id#" target="_mainFrame">#isLoan.project_name#</a>
 							</span>
 						</div>
 					</cfloop>

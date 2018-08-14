@@ -99,7 +99,7 @@ jQuery(document).ready(function(){
 						short_citation
 				</cfquery>
 				<div class="oneSubProject">
-					<a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a>
+					<a href="/project/#project_id#">#project_name#</a>
 					<div class="oneSubProjectPubs">
 						<cfif pCits.recordcount is 0>
 							This project produced no publications.

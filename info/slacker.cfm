@@ -3,12 +3,12 @@
 <cfif action is "nothing">
 	<a href="slacker.cfm?action=pubNoAuth">Publications without Authors</a>
 	<br><a href="slacker.cfm?action=pubNoCit">Publications without Citations</a>
-	<br><a href="slacker.cfm?action=projNoCit">Projects with Loans and without Publications</a>	
+	<br><a href="slacker.cfm?action=projNoCit">Projects with Loans and without Publications</a>
 	<br><a href="slacker.cfm?action=loanNoSpec">Loans without Specimens</a>
 </cfif>
 <cfif action is "loanNoSpec">
 	<cfquery name="data" datasource="uam_god">
-		select 
+		select
 			guid_prefix,loan_number,loan.transaction_id
 		from
 		loan,trans,collection
@@ -28,16 +28,16 @@
 </cfif>
 <cfif action is "projNoCit">
 	<cfquery name="data" datasource="uam_god">
-		select 
+		select
 			project_id,
 			project_name
-		from 
-			project 
-		where 
+		from
+			project
+		where
 			project_id in (
-				select 
-					project_id 
-				from 
+				select
+					project_id
+				from
 					project_trans,
 					loan
 				where
@@ -57,7 +57,7 @@
 				<p class="indent">
 					#project_name#
 					<br>
-					<a href="/ProjectDetail.cfm?project_id=#project_id#">Project Details</a>
+					<a href="/project/#project_id#">Project Details</a>
 					<br>
 					<a href="/Project.cfm?action=editProject&project_id=#project_id#">Edit Project</a>
 				</p>
@@ -69,12 +69,12 @@
 
 <cfif action is "pubNoAuth">
 	<cfquery name="data" datasource="uam_god">
-		select 
+		select
 			publication_id,
 			publication_type
-		from 
-			publication 
-		where 
+		from
+			publication
+		where
 			publication_id not in (select publication_id from publication_agent)
 	</cfquery>
 	<cfoutput>
@@ -89,10 +89,10 @@
 </cfif>
 <cfif action is "pubNoCit">
 	<cfquery name="data" datasource="uam_god">
-		select 
+		select
 			publication_id,
-			short_citation 
-		from 
+			short_citation
+		from
 			publication
 		where
 			publication_id not in (
