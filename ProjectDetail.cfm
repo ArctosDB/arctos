@@ -7,6 +7,14 @@
 	got /project/project_id + numeric
 
 
+<cfelseif listfindnocase(request.rdurl,"ProjectDetail","/") and isdefined("project_id") >
+	<!--- old format; keep this usable, but redirect to new --->
+	<p>
+		Redirecting to <a href="/project/#redir.project_id#">/project/#redir.project_id#</a>
+	</p>
+	<cfheader statuscode="301" statustext="Moved permanently">
+	<cfheader name="Location" value="/project/#redir.project_id#">
+	<cfabort>
 
 
 <cfelseif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id") >
