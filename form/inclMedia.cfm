@@ -505,18 +505,18 @@
 						<audio controls class="audiothumb">
 							<source src="#media_uri#" type="audio/mp3">
 							<a href="/media/#media_id#?open" target="_blank">
-								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
+								<img src="#puri#" alt="#alt_text#" style="max-width:125px;max-height:110px;">
 							</a>
 						</audio>
 						<div><a href="/media/#media_id#?open" download>download MP3</a></div>
 					<cfelse>
 						<cfif media_type is "multi-page document">
 							<a href="/document.cfm?media_id=#media_id#" target="_blank">
-								<img src="#puri#" altF="#alt_text#" style="max-width:125px;max-height:125px;">
+								<img src="#puri#" altF="#alt_text#" style="max-width:125px;max-height:110px;">
 							</a>
 						<cfelse>
 							<a href="/media/#media_id#?open" target="_blank">
-								<img src="#puri#" alt="#alt_text#" style="max-width:150px;max-height:110px;">
+								<img src="#puri#" alt="#alt_text#" style="max-width:125px;max-height:110px;">
 							</a>
 						</cfif>
 					</cfif>
