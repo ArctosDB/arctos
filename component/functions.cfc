@@ -473,6 +473,7 @@
 	</cfquery>
 	<cfreturn flatdocs.result>
 	<cfcatch>
+		hi
 		<cfdump var=#cfcatch#>
 		<cfreturn cfcatch.message></cfcatch>
 	</cftry>
