@@ -472,7 +472,7 @@
 	</cfquery>
 	<cfreturn flatdocs.result>
 	<cfcatch>
-		<cfreturn cfcatch.message></cfcatch>
+		<cfreturn cfcatch.message & ': ' & cfcatch.detail></cfcatch>
 	</cftry>
 </cffunction>
 <!------------------------------------------------------------------->
