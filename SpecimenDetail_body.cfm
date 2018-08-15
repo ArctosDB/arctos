@@ -149,7 +149,7 @@
 		function highlightSpecimenEvent(seid){
 			$(".highlightSEID").removeClass("highlightSEID");
 	    	$("##seidd_" + seid).addClass('highlightSEID').show();
-	    	$(document).scrollTo( $("##seidd_" + seid), 800 );
+	    	$("##locality_pane").scrollTo( $("##seidd_" + seid), 800 );
 		}
 
 	</script>
