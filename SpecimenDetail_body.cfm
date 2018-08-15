@@ -98,9 +98,12 @@
 			});
 
 			$("div[id^='eventPartLink_']").each(function(e){
+				console.log(this.id);
 				var f = this.id.split(/_/);
+				console.log(f);
 				//var seid=f[1];
 				var spid=f[2];
+				console.log(spid);
 				//var lid=f[3];
             	$( "##" + this.id).html('partID: ' + spid);
 
