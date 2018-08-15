@@ -149,7 +149,7 @@
 		function highlightSpecimenEvent(seid){
 			$(".highlightSEID").removeClass("highlightSEID");
 	    	 $("##seidd_" + seid).addClass('highlightSEID').show();
-	    	 $( "##seidd_" + seid).scroll();
+	    	 $( "##seidd_" + seid).scrollTo();
 		}
 
 	</script>
