@@ -149,6 +149,8 @@
 		function highlightSpecimenEvent(seid){
 			$(".highlightSEID").removeClass("highlightSEID");
 	    	$("##seidd_" + seid).addClass('highlightSEID').show();
+	    	// collapse the locality pane so we've got something to scroll to
+	    	noscrollify('locality_pane');
 	    	$("##locality_pane").scrollTo( $("##seidd_" + seid), 800 );
 		}
 
