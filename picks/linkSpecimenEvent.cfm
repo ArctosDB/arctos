@@ -90,36 +90,38 @@
 			parent.$(".ui-dialog-titlebar-close").trigger('click');
 		}
 	</script>
-	<cfquery name="cum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from specimen_event_links where collection_object_id=#collection_object_id# and
-		<cfif rel_key_typ is "specimen_part">
-			part_id is not null
-		<cfelse>
-			1=2
-		</cfif>
-	</cfquery>
-	<cfquery name="ris" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into specimen_event_links (
-			collection_object_id,
-			specimen_event_id,
+	<cfoutput>
+		<cfquery name="cum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from specimen_event_links where collection_object_id=#collection_object_id# and
 			<cfif rel_key_typ is "specimen_part">
-				part_id
+				part_id is not null
 			<cfelse>
-				ERROR
+				1=2
 			</cfif>
-		) values (
-			#collection_object_id#,
-			#specimen_event_id#,
-			<cfif rel_key_typ is "specimen_part">
-				#rel_key_val#
-			<cfelse>
-				'ERROR'
-			</cfif>
-		)
-	</cfquery>
-	<script>
-		madeLink('#specimen_event_id#','#rel_key_typ#','#rel_key_val#');
-	</script>
+		</cfquery>
+		<cfquery name="ris" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into specimen_event_links (
+				collection_object_id,
+				specimen_event_id,
+				<cfif rel_key_typ is "specimen_part">
+					part_id
+				<cfelse>
+					ERROR
+				</cfif>
+			) values (
+				#collection_object_id#,
+				#specimen_event_id#,
+				<cfif rel_key_typ is "specimen_part">
+					#rel_key_val#
+				<cfelse>
+					'ERROR'
+				</cfif>
+			)
+		</cfquery>
+		<script>
+			madeLink('#specimen_event_id#','#rel_key_typ#','#rel_key_val#');
+		</script>
+	</cfoutput>
 
 </cfif>
 <cfinclude template="../includes/_pickFooter.cfm">
