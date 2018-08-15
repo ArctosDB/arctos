@@ -140,7 +140,7 @@
 				if ( seid.length ){
 					// there is a linked event
 					// show the ID, allow highlight
-					theHTML+='<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  seid + "'" + ');">linked event:' + seid + '</span>'
+					theHTML+="<span class=\"infoLink\" onclick=\"highlightSpecimenEvent('" +  seid + "');\">linked event:" + seid + "</span>";
 					// and add a delete button
 					theHTML+="<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + id + "');\">Remove Link</span>";
 				}
