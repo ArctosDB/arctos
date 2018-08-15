@@ -34,7 +34,7 @@
 		specimen_event.COLLECTION_OBJECT_ID=#COLLECTION_OBJECT_ID#
 </cfquery>
 
-
+<cfoutput>
 
 <table border>
 	<tr>
@@ -70,5 +70,5 @@
 		</tr>
 	</cfloop>
 </table>
-
+</cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">
