@@ -1448,7 +1448,7 @@ function pickSpecEvtLnk(collection_object_id,rel_key_typ,rel_key_val){
 		height: 'auto',
 		modal: true,
 		position: ['center', 'top'],
-		title: 'Pick Agent',
+		title: 'Pick Linked Event',
 			width:800,
  			height:600,
 		close: function() {

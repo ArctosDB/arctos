@@ -16,7 +16,7 @@
 		collecting_event.VERBATIM_LOCALITY,
 		collecting_event.BEGAN_DATE,
 		collecting_event.ENDED_DATE,
-		collecting_event.COLLECTING_EVENT_NAME
+		collecting_event.COLLECTING_EVENT_NAME,
 		locality.SPEC_LOCALITY,
 		locality.DEC_LAT,
 		locality.DEC_LONG,
