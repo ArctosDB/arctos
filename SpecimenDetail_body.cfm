@@ -98,17 +98,17 @@
 			});
 
 			$("div[id^='eventPartLink_']").each(function(e){
-				console.log(this.id);
+				//console.log(this.id);
 				var thisid=this.id;
 				var f = this.id.split(/_/);
-				console.log(f);
+				//console.log(f);
 				//var seid=f[1];
 				var spid=f[1];
-				console.log(spid);
+				//console.log(spid);
 				//var lid=f[3];
 
 
-				$( "##" + thisid).prepend('processing....');
+				//$( "##" + thisid).prepend('processing....');
 
 
 				$.getJSON("/component/SpecimenResults.cfc",
@@ -131,6 +131,26 @@
 				);
             });
 		});
+
+		function addSpecEvtLnkLnks(typ,id,seid){
+			console.log('i am addSpecEvtLnkLnks');
+			var theHTML;
+			if (typ='specimen_part'){
+				// all we can handle at the moment
+				if ( seid.length ){
+					// there is a linked event
+					// show the ID, allow highlight
+					theHTML+='<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  seid + "'" + ');">linked event:' + seid + '</span>'
+					// and add a delete button
+					theHTML+="<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + id + "');\">Remove Link</span>";
+				}
+				// always include the pick link; it'll just over-write any existing
+				theHTML+="<br><span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +related_key + "');\">pickEvent</span>";
+				// write
+				$( "##eventPartLink_" + id).html(theHTML);
+
+			}
+		}
 		function noscrollify(id){
 			$("##" + id).removeClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"rescrollify('" + id + "');\">[ collapse ]</span>";
@@ -145,15 +165,18 @@
 		function madeSpecimenEventLink(specimen_event_id,related_thing,related_key){
 			alert('madeSpecimenEventLink from' +  specimen_event_id + ' to ' + related_thing + ' value ' + related_key);
 			console.log(related_thing);
-			if (related_thing=='specimen_part'){
-				console.log('here we are');
-				$( "##eventPartLink_" + related_key).html('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  specimen_event_id + "'" + ');">linked event:' + specimen_event_id + '</span>');
-				$( "##eventPartLink_" + related_key).append("<br><span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +related_key + "');\">pickEvent</span>");
-				$( "##eventPartLink_" + related_key).append("<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + related_key + "');\">Remove Link</span>");
 
-			}
+			//if (related_thing=='specimen_part'){
+			//	console.log('here we are');
+			//	$( "##eventPartLink_" + related_key).html('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  specimen_event_id + "'" + ');">linked event:' + specimen_event_id + '</span>');
+			//	$( "##eventPartLink_" + related_key).append("<br><span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +related_key + "');\">pickEvent</span>");
+			//	$( "##eventPartLink_" + related_key).append("<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + related_key + "');\">Remove Link</span>");
 
+			//}
 			console.log('looking for eventPartLink_' + related_key);
+
+			addSpecEvtLnkLnks(related_thing,related_key,specimen_event_id;
+
 
 			highlightSpecimenEvent(specimen_event_id);
 
