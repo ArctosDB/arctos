@@ -99,6 +99,7 @@
 
 			$("div[id^='eventPartLink_']").each(function(e){
 				console.log(this.id);
+				var thisid=this.id;
 				var f = this.id.split(/_/);
 				console.log(f);
 				//var seid=f[1];
@@ -107,7 +108,7 @@
 				//var lid=f[3];
 
 
-	$( "##" + this.id).html('processing....');
+	$( "##" + thisid).html('processing....');
 
 
 				$.getJSON("/component/SpecimenResults.cfc",
@@ -122,9 +123,9 @@
 						function (data) {
 							console.log(data);
 							if (data.ROWCOUNT>0){
-								$( "##" + this.id).html('partID: ' + spid + '; seid: ' + data.DATA.SPECIMEN_EVENT_ID[0]);
+								$( "##" + thisid).html('partID: ' + spid + '; seid: ' + data.DATA.SPECIMEN_EVENT_ID[0]);
 							} else {
-								$( "##" + this.id).html('partID: ' + spid + '; notlinked ');
+								$( "##" + thisid).html('partID: ' + spid + '; notlinked ');
 							}
 					}
 				);
