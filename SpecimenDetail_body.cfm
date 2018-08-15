@@ -1154,7 +1154,7 @@
 						</div>
 					</cfloop>
 				</td>
-				<td>--SSlinker--</td>
+				<td><div id="eventPartLink_#pid#">I am eventPartLink_#pid#</div></td>
 			</cfif>
 			<td>#p.part_remarks#</td>
 		</tr>
