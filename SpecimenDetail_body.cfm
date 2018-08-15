@@ -123,7 +123,7 @@
 						function (data) {
 							console.log(data);
 							if (data.ROWCOUNT>0){
-								$( "##" + thisid).prepend('partID: ' + spid + '; seid: ' + data.DATA.SPECIMEN_EVENT_ID[0]);
+								$( "##" + thisid).prepend('<span class="infoLink" onclick="highlightSpecimenEvent(\'' + data.DATA.SPECIMEN_EVENT_ID[0] + \'');">linked event:' + data.DATA.SPECIMEN_EVENT_ID[0] + '</span>');
 							} else {
 								$( "##" + thisid).prepend('partID: ' + spid + '; notlinked ');
 							}
@@ -145,7 +145,12 @@
 		function madeSpecimenEventLink(specimen_event_id,related_thing,related_key){
 			alert('madeSpecimenEventLink from' +  specimen_event_id + ' to ' + related_thing + ' value ' + related_key);
 		}
-			
+
+		function highlightSpecimenEvent(seid){
+			$(".highlightSEID").removeClass("highlightSEID");
+	    	 $("##seidd_" + seid).addClass('highlightSEID').show();
+		}
+
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
 		<cfset seid="">
