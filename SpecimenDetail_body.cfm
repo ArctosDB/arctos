@@ -1188,7 +1188,15 @@
 						</div>
 					</cfloop>
 				</td>
-				<td><div id="eventPartLink_#pid#">I am eventPartLink_#pid#</div></td>
+
+
+
+
+				<td>
+					<div id="eventPartLink_#pid#">
+						<span class="infoLink" onclick="pickSpecEvtLnk('#collection_object_id#','specimen_part','#pid#');">pickEvent</span>
+					</div>
+				</td>
 			</cfif>
 			<td>#p.part_remarks#</td>
 		</tr>
