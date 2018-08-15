@@ -149,7 +149,7 @@
 				console.log('here we are');
 				$( "##eventPartLink_" + related_key).html('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  specimen_event_id + "'" + ');">linked event:' + specimen_event_id + '</span>');
 
-				$( "##eventPartLink_" + related_key).append('<span class="infoLink" onclick="pickSpecEvtLnk(\'#collection_object_id#\',\'specimen_part\',' +related_key + \'');">pickEvent</span>');
+				$( "##eventPartLink_" + related_key).append("<span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +related_key + "');\">pickEvent</span>");
 
 
 			}
