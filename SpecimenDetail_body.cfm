@@ -147,7 +147,7 @@
 
 			var theHTML='';
 			if (typ='specimen_part'){
-				console.log('running for specimen_part);
+				console.log('running for specimen_part');
 				// all we can handle at the moment
 				if ( seid.length ){
 					// there is a linked event
