@@ -145,7 +145,7 @@
 					theHTML+="<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + id + "');\">Remove Link</span>";
 				}
 				// always include the pick link; it'll just over-write any existing
-				theHTML+="<br><span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +related_key + "');\">pickEvent</span>";
+				theHTML+="<br><span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +id + "');\">pickEvent</span>";
 				// write
 				$( "##eventPartLink_" + id).html(theHTML);
 
