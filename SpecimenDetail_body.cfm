@@ -122,7 +122,12 @@
 					},
 						function (data) {
 							console.log(data);
-							addSpecEvtLnkLnks('specimen_part',spid,data.DATA.SPECIMEN_EVENT_ID[0]);
+							if (data.ROWCOUNT>0){
+								var seid=data.DATA.SPECIMEN_EVENT_ID[0];
+							} else {
+								var seid='';
+							}
+							addSpecEvtLnkLnks('specimen_part',spid,seid);
 
 							//if (data.ROWCOUNT>0){
 							//	$( "##" + thisid).prepend('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  data.DATA.SPECIMEN_EVENT_ID[0] + "'" + ');">linked event:' + data.DATA.SPECIMEN_EVENT_ID[0] + '</span>');
