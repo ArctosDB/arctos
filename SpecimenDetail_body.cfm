@@ -148,9 +148,8 @@
 			if (related_thing=='specimen_part'){
 				console.log('here we are');
 				$( "##eventPartLink_" + related_key).html('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  specimen_event_id + "'" + ');">linked event:' + specimen_event_id + '</span>');
-
-				$( "##eventPartLink_" + related_key).append("<span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +related_key + "');\">pickEvent</span>");
-
+				$( "##eventPartLink_" + related_key).append("<br><span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +related_key + "');\">pickEvent</span>");
+				$( "##eventPartLink_" + related_key).append("<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + related_key + "');\">Remove Link</span>");
 
 			}
 
@@ -160,6 +159,10 @@
 
 		}
 
+		function delinkSpecEvt(thing,key){
+			console.log(thing);
+			console.log(key);
+		}
 		function highlightSpecimenEvent(seid){
 			$(".highlightSEID").removeClass("highlightSEID");
 	    	$("##seidd_" + seid).addClass('highlightSEID').show();
