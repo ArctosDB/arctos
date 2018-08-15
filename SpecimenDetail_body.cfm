@@ -108,7 +108,7 @@
 				//var lid=f[3];
 
 
-	$( "##" + thisid).html('processing....');
+				$( "##" + thisid).prepend('processing....');
 
 
 				$.getJSON("/component/SpecimenResults.cfc",
@@ -123,9 +123,9 @@
 						function (data) {
 							console.log(data);
 							if (data.ROWCOUNT>0){
-								$( "##" + thisid).html('partID: ' + spid + '; seid: ' + data.DATA.SPECIMEN_EVENT_ID[0]);
+								$( "##" + thisid).prepend('partID: ' + spid + '; seid: ' + data.DATA.SPECIMEN_EVENT_ID[0]);
 							} else {
-								$( "##" + thisid).html('partID: ' + spid + '; notlinked ');
+								$( "##" + thisid).prepend('partID: ' + spid + '; notlinked ');
 							}
 					}
 				);
