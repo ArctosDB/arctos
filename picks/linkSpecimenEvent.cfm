@@ -94,7 +94,7 @@
 		<cfquery name="cum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from specimen_event_links where collection_object_id=#collection_object_id# and
 			<cfif rel_key_typ is "specimen_part">
-				part_id is not null
+				part_id=#rel_key_val#
 			<cfelse>
 				1=2
 			</cfif>
