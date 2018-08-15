@@ -102,7 +102,7 @@
 				var f = this.id.split(/_/);
 				console.log(f);
 				//var seid=f[1];
-				var spid=f[2];
+				var spid=f[1];
 				console.log(spid);
 				//var lid=f[3];
             	$( "##" + this.id).html('partID: ' + spid);
