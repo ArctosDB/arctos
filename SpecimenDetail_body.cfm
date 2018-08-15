@@ -117,7 +117,11 @@
 					},
 						function (data) {
 							console.log(data);
-							$( "##" + this.id).html('partID: ' + spid + '; seid: ' + data.SPECIMEN_EVENT_ID[0]);
+							if (data.ROWCOUNT>0){
+								$( "##" + this.id).html('partID: ' + spid + '; seid: ' + data.SPECIMEN_EVENT_ID[0]);
+							} else {
+								$( "##" + this.id).html('partID: ' + spid + '; notlinked ');
+							}
 					}
 				);
             });
