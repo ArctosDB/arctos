@@ -1,8 +1,8 @@
 <cfcomponent>
 <cffunction name="getSpecimenEventLinkedData" access="remote" returnformat="plain" queryFormat="column">
-	<cfparam name="collection_object_id" type="numeric" required="true">
-	<cfparam name="related_key_type" type="string" required="true">
-	<cfparam name="related_key_value" type="numeric" required="true">
+	<cfparam name="collection_object_id" type="numeric">
+	<cfparam name="related_key_type" type="string" >
+	<cfparam name="related_key_value" type="numeric" >
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			specimen_event_links.specimen_event_id
