@@ -154,15 +154,21 @@
 					// there is a linked event
 					// show the ID, allow highlight
 					theHTML+="<span class=\"infoLink\" onclick=\"highlightSpecimenEvent('" +  seid + "');\">linked event:" + seid + "</span>";
+
+				console.log('part1' + theHTML);
 					// and add a delete button
 					theHTML+="<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + id + "');\">Remove Link</span>";
+				console.log('part3' + theHTML);
 				}
 				// always include the pick link; it'll just over-write any existing
 				theHTML+="<br><span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +id + "');\">pickEvent</span>";
+
+
+				console.log('part3' + theHTML);
 				// write
 				$( "##eventPartLink_" + id).html(theHTML);
 
-				console.log(theHTML);
+				//console.log(theHTML);
 
 			}
 		}
