@@ -96,6 +96,15 @@
 				  //  $( "<div id='expctl_" + tid + "'><span class=\"likeLink\" onclick=\"noscrollify('" + tid + "');\">[ expand ]</span></div>" ).insertAfter( theLabelDiv );
 				}
 			});
+
+			$("div[id^='eventPartLink_']").each(function(e){
+				var f = this.id.split(/_/);
+				//var seid=f[1];
+				var spid=f[2];
+				//var lid=f[3];
+            	$( "##" + this.id).html('partID: ' + spid);
+
+            });
 		});
 		function noscrollify(id){
 			$("##" + id).removeClass($("##" + id).attr("data-expandoclass"));
