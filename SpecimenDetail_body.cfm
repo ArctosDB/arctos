@@ -118,7 +118,7 @@
 						function (data) {
 							console.log(data);
 							if (data.ROWCOUNT>0){
-								$( "##" + this.id).html('partID: ' + spid + '; seid: ' + data.SPECIMEN_EVENT_ID[0]);
+								$( "##" + this.id).html('partID: ' + spid + '; seid: ' + data.DATA.SPECIMEN_EVENT_ID[0]);
 							} else {
 								$( "##" + this.id).html('partID: ' + spid + '; notlinked ');
 							}
