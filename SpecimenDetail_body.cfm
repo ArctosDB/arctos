@@ -134,7 +134,7 @@
 
 		function addSpecEvtLnkLnks(typ,id,seid){
 			console.log('i am addSpecEvtLnkLnks');
-			var theHTML;
+			var theHTML='';
 			if (typ='specimen_part'){
 				// all we can handle at the moment
 				if ( seid.length ){
