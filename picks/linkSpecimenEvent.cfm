@@ -86,7 +86,7 @@
 <cfif action is "makeLink">
 	<script>
 		function madeLink(id,rkt,rkv){
-			parent.madeLink(id,rkt,rkv);
+			parent.madeSpecimenEventLink(id,rkt,rkv);
 			parent.$(".ui-dialog-titlebar-close").trigger('click');
 		}
 	</script>
