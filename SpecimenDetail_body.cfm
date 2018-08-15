@@ -123,7 +123,7 @@
 						function (data) {
 							console.log(data);
 							if (data.ROWCOUNT>0){
-								$( "##" + thisid).prepend('<span class="infoLink" onclick="highlightSpecimenEvent(\'' + data.DATA.SPECIMEN_EVENT_ID[0] + \'');">linked event:' + data.DATA.SPECIMEN_EVENT_ID[0] + '</span>');
+								$( "##" + thisid).prepend('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  data.DATA.SPECIMEN_EVENT_ID[0] + "'" + ');">linked event:' + data.DATA.SPECIMEN_EVENT_ID[0] + '</span>');
 							} else {
 								$( "##" + thisid).prepend('partID: ' + spid + '; notlinked ');
 							}
