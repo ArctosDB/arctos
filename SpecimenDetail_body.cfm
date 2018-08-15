@@ -106,6 +106,10 @@
 				console.log(spid);
 				//var lid=f[3];
 
+
+	$( "##" + this.id).html('processing....');
+
+
 				$.getJSON("/component/SpecimenResults.cfc",
 					{
 						method : "getSpecimenEventLinkedData",
@@ -118,9 +122,9 @@
 						function (data) {
 							console.log(data);
 							if (data.ROWCOUNT>0){
-								$( "##eventPartLink_" + this.id).html('partID: ' + spid + '; seid: ' + data.DATA.SPECIMEN_EVENT_ID[0]);
+								$( "##" + this.id).html('partID: ' + spid + '; seid: ' + data.DATA.SPECIMEN_EVENT_ID[0]);
 							} else {
-								$( "##eventPartLink_" + this.id).html('partID: ' + spid + '; notlinked ');
+								$( "##" + this.id).html('partID: ' + spid + '; notlinked ');
 							}
 					}
 				);
