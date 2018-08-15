@@ -147,6 +147,9 @@
 			if (related_key=='specimen_part'){
 				$( "##eventPartLink_" + related_key).html('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  specimen_event_id + "'" + ');">linked event:' + specimen_event_id + '</span>');
 			}
+
+			console.log('looking for eventPartLink_' + related_key);
+
 			highlightSpecimenEvent(specimen_event_id);
 
 		}
