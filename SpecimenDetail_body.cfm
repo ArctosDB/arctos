@@ -144,8 +144,11 @@
 		}
 		function madeSpecimenEventLink(specimen_event_id,related_thing,related_key){
 			alert('madeSpecimenEventLink from' +  specimen_event_id + ' to ' + related_thing + ' value ' + related_key);
+			console.log(related_key);
 			if (related_key=='specimen_part'){
-				$( "##eventPartLink_" + related_key).html('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  specimen_event_id + "'" + ');">linked event:' + specimen_event_id + '</span>');
+				console.log('here we are');
+				$( "##eventPartLink_" + related_key).html('okay');
+				//$( "##eventPartLink_" + related_key).html('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  specimen_event_id + "'" + ');">linked event:' + specimen_event_id + '</span>');
 			}
 
 			console.log('looking for eventPartLink_' + related_key);
