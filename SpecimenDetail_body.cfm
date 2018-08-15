@@ -150,6 +150,7 @@
 				console.log('running for specimen_part');
 				// all we can handle at the moment
 				if ( seid.length ){
+					console.log('seid isnot null');
 					// there is a linked event
 					// show the ID, allow highlight
 					theHTML+="<span class=\"infoLink\" onclick=\"highlightSpecimenEvent('" +  seid + "');\">linked event:" + seid + "</span>";
