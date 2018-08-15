@@ -149,7 +149,7 @@
 			if (typ='specimen_part'){
 				console.log('running for specimen_part');
 				// all we can handle at the moment
-				if ( seid.length>0 ){
+				if ( seid ){
 					console.log('seid isnot null');
 					// there is a linked event
 					// show the ID, allow highlight
