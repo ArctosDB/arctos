@@ -175,7 +175,7 @@
 			//}
 			console.log('looking for eventPartLink_' + related_key);
 
-			addSpecEvtLnkLnks(related_thing,related_key,specimen_event_id;
+			addSpecEvtLnkLnks(related_thing,related_key,specimen_event_id);
 
 
 			highlightSpecimenEvent(specimen_event_id);
