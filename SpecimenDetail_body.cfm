@@ -110,6 +110,7 @@
 					{
 						method : "getSpecimenEventLinkedData",
 						returnformat : "json",
+						queryformat : 'column',
 						collection_object_id      : #collection_object_id#,
 						related_key_type : "specimen_part",
 						related_key_value: spid
