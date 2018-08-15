@@ -1154,6 +1154,7 @@
 						</div>
 					</cfloop>
 				</td>
+				<td>--SSlinker--</td>
 			</cfif>
 			<td>#p.part_remarks#</td>
 		</tr>
@@ -1360,206 +1361,13 @@
 									<th><span class="innerDetailLabel">Barcode</span></th>
 									<th><span class="innerDetailLabel">PLPath</span></th>
 									<th><span class="innerDetailLabel">Loan</span></th>
+									<th><span class="innerDetailLabel">Event</span></th>
 								</cfif>
 								<th><span class="innerDetailLabel">Remarks</span></th>
 							</tr>
 							<cfloop query="orderedparts">
 								<cfset zxc=getChildParts(part_id,level,rparts,ploan)>
 								#zxc#
-
-							<!----
-
-
-								<tr>
-									<td>
-										#part_name#
-										<cfset zxc=getChildParts(part_id,rparts,ploan)>
-										<cfdump var=#zxc#>
-										==#zxc#--
-									</td>
-									<td>#part_condition#</td>
-									<td>#part_disposition#</td>
-									<td>#lot_count#</td>
-									<cfif oneOfUs is 1>
-										<td>#label#</td>
-										<td>#barcode#</td>
-										<td>#replace(FCTree,':','←<wbr>','all')#</td>
-										<cfquery dbtype="query" name="tlp">
-											select * from ploan where transaction_id is not null and collection_object_id=#part_id#
-										</cfquery>
-										<td>
-											<cfloop query="tlp">
-												<div>
-													<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number# (#LOAN_STATUS#)</a>
-												</div>
-											</cfloop>
-										</td>
-									</cfif>
-									<td>#part_remarks#</td>
-								</tr>
-								<cfquery name="patt" dbtype="query">
-									select
-										attribute_type,
-										attribute_value,
-										attribute_units,
-										determined_date,
-										attribute_remark,
-										agent_name
-									from
-										rparts
-									where
-										attribute_type is not null and
-										part_id=#part_id#
-									group by
-										attribute_type,
-										attribute_value,
-										attribute_units,
-										determined_date,
-										attribute_remark,
-										agent_name
-									order by
-										attribute_type,
-										determined_date
-								</cfquery>
-								<cfif patt.recordcount gt 0>
-									<tr>
-										<td colspan="6">
-											<table border id="patbl#mPart.part_id#" class="detailCellSmall sortable">
-												<tr>
-													<th>
-														Attribute
-													</th>
-													<th>
-														Value
-													</th>
-													<th>
-														Date
-													</th>
-													<th>
-														Dtr.
-													</th>
-													<th>
-														Rmk.
-													</th>
-												</tr>
-												<cfloop query="patt">
-													<tr>
-														<td>
-															#attribute_type#
-														</td>
-														<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
-															<td>masked</td>
-															<td>-</td>
-															<td>-</td>
-															<td>-</td>
-														<cfelse>
-															<td>#attribute_value# <cfif len(attribute_units) gt 0>#attribute_units#</cfif></td>
-															<td>#dateformat(determined_date,'yyyy-mm-dd')#</td>
-															<td>#agent_name#</td>
-															<td>#attribute_remark#</td>
-														</cfif>
-													</tr>
-												</cfloop>
-											</table>
-										</td>
-									</tr>
-								</cfif>
-								<cfquery name="sPart" dbtype="query">
-									select * from parts where sampled_from_obj_id=#part_id#
-								</cfquery>
-								<cfloop query="sPart">
-									<tr>
-										<td>
-											&nbsp;&nbsp;&nbsp;#part_name#
-										</td>
-										<td>#part_condition#</td>
-										<td>#part_disposition#</td>
-										<td>#lot_count#</td>
-										<cfif oneOfUs is 1>
-											<td>#label#</td>
-											<td>#barcode#</td>
-											<td>#replace(FCTree,':','←<wbr>','all')#</td>
-											<cfquery dbtype="query" name="tlp">
-												select * from ploan where transaction_id is not null and collection_object_id=#part_id#
-											</cfquery>
-											<td>
-												<cfloop query="tlp">
-													<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#loan_number# (#loan_status#)</a>
-												</cfloop>
-											</td>
-										</cfif>
-										<td>#part_remarks#</td>
-									</tr>
-									<cfquery name="patt" dbtype="query">
-									select
-										attribute_type,
-										attribute_value,
-										attribute_units,
-										determined_date,
-										attribute_remark,
-										agent_name
-									from
-										rparts
-									where
-										attribute_type is not null and
-										part_id=#part_id#
-									group by
-										attribute_type,
-										attribute_value,
-										attribute_units,
-										determined_date,
-										attribute_remark,
-										agent_name
-									order by
-										attribute_type,
-										determined_date
-								</cfquery>
-								<cfif patt.recordcount gt 0>
-									<tr>
-										<td colspan="6">
-											<table border id="patbl#mPart.part_id#" class="detailCellSmall sortable">
-												<tr>
-													<th>
-														Attribute
-													</th>
-													<th>
-														Value
-													</th>
-													<th>
-														Date
-													</th>
-													<th>
-														Dtr.
-													</th>
-													<th>
-														Rmk.
-													</th>
-												</tr>
-												<cfloop query="patt">
-													<tr>
-														<td>
-															#attribute_type#
-														</td>
-														<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
-															<td>masked</td>
-															<td>-</td>
-															<td>-</td>
-															<td>-</td>
-														<cfelse>
-															<td>#attribute_value# <cfif len(attribute_units) gt 0>#attribute_units#</cfif></td>
-															<td>#dateformat(determined_date,'yyyy-mm-dd')#</td>
-															<td>#agent_name#</td>
-															<td>#attribute_remark#</td>
-														</cfif>
-													</tr>
-												</cfloop>
-											</table>
-										</td>
-									</tr>
-								</cfif>
-								</cfloop>
-
-									---->
 							</cfloop>
 						</table>
 					</span>

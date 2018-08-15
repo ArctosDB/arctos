@@ -1439,6 +1439,31 @@ function pickAgentModal(agentIdFld,agentNameFld,name){
 }
 
 
+
+function pickSpecEvtLnk(collection_object_id,rel_key_typ,rel_key_val){
+	var guts = "/picks/linkSpecimenEvent.cfm?collection_object_id=" + collection_object_id + '&rel_key_typ=' + rel_key_typ + '&rel_key_val=' + rel_key_val;
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'top'],
+		title: 'Pick Agent',
+			width:800,
+ 			height:600,
+		close: function() {
+			$( this ).remove();
+		}
+	}).width(800-10).height(600-10);
+	$(window).resize(function() {
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}
+
+
 function addPermitToTrans(transaction_id,callbackfunction){
 	/*
 	 PARAMETERS
