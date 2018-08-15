@@ -105,8 +105,20 @@
 				var spid=f[1];
 				console.log(spid);
 				//var lid=f[3];
-            	$( "##" + this.id).html('partID: ' + spid);
 
+				$.getJSON("/component/SpecimenResults.cfc",
+					{
+						method : "getSpecimenEventLinkedData",
+						returnformat : "json",
+						collection_object_id      : #collection_object_id#,
+						related_key_type : "specimen_part",
+						related_key_value: spid
+					},
+						function (data) {
+							console.log(data);
+							$( "##" + this.id).html('partID: ' + spid + '; seid: ' + data.SPECIMEN_EVENT_ID[0]);
+					}
+				);
             });
 		});
 		function noscrollify(id){

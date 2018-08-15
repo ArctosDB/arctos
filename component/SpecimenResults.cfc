@@ -1,4 +1,28 @@
 <cfcomponent>
+<cffunction name="getSpecimenEventLinkedData" access="remote" returnformat="plain" queryFormat="column">
+	<cfparam name="collection_object_id" type="numeric" required="true">
+	<cfparam name="related_key_type" type="string" required="true">
+	<cfparam name="related_key_value" type="numeric" required="true">
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			specimen_event_links.specimen_event_id
+		from
+			specimen_event_links,
+			specimen_event
+		where
+			 specimen_event_links.specimen_event_id=specimen_event.specimen_event_id and
+			 specimen_event.collection_object_id=#collection_object_id# and
+			 <cfif related_key_type is "specimen_part">
+				specimen_event_links.part_id=#related_key_value#
+			<cfelse>
+				<!--- not handled --->
+				1=2
+			</cfif>
+	</cfquery>
+	<cfreturn r>
+</cffunction>
+
+
 <!--------------------------------------------------------------------------------------------------------->
 <cffunction name="getSpecimenSummary" access="remote" returnformat="plain" queryFormat="column">
 		<cfparam name="querystring" type="string" default="">
