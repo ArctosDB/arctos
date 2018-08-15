@@ -142,6 +142,10 @@
 			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
 			$("##expando-" + id).html(s);
 		}
+		function madeSpecimenEventLink(specimen_event_id,related_thing,related_key){
+			alert('madeSpecimenEventLink from' +  specimen_event_id + ' to ' + related_thing + ' value ' + related_key);
+		}
+			
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
 		<cfset seid="">
