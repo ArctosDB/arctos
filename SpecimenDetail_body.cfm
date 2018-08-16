@@ -234,8 +234,13 @@
 			// parts
 			var sct='linkedEvent:' + seid ;
 			$( "span:contains(" + sct + ")").each(function(e){
+				// this is a span
+				//.parent is a div
+				//,parent is a cell
+				//.parent is a row
 				console.log($(this));
 				($(this)).addClass('evenRow');
+				($(this)).parent().parent().parent().addClass('oddRow');
 			});
 				//closest("tr").addClass('evenRow');
 
