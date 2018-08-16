@@ -237,7 +237,7 @@
 	    	$("##seidd_" + seid).parent().addClass('highlightedEventRelated').show();
 	    	// highlight this row
 	    	if (typ=='specimen_part'){
-	    		$("##eventPartLink_' + id").parent().parent().parent().addClass('highlightedEventRelated');
+	    		$("##eventPartLink_" + id).parent().parent().parent().addClass('highlightedEventRelated');
 	    	}
 
 
