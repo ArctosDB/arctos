@@ -236,12 +236,14 @@
 			console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
 			var sct='linkedEvent:' + seid ;
+			$( "span:contains(" + sct + ")").addClass('highlightedEventRelated');
+			/*
 			$( "span:contains(" + sct + ")").each(function(e){
 				console.log($(this));
 
 				$(this).addClass('highlightedEventRelated');
 			});
-
+*/
 
 
 
