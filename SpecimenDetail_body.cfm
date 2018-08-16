@@ -231,6 +231,14 @@
 		}
 		function highlightEventDerivedJunk(seid){
 			console.log('highlightEventDerivedJunk: ' + seid);
+			// parts
+			$("div[id^='eventPartLink_']").each(function(e){
+				$(this).closest("tr").addClass('evenRow');
+			});
+
+
+
+
 		}
 
 	</script>
