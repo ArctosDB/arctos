@@ -156,7 +156,7 @@
 					console.log('seid isnot null');
 					// there is a linked event
 					// show the ID, allow highlight
-					theHTML+="<span class=\"infoLink\" onclick=\"highlightSpecimenEvent('" +  seid + ",\'" + typ + "\',\' + id + "\');\">linkedEvent:" + seid + "</span>";
+					theHTML+="<span class=\"infoLink\" onclick=\"highlightSpecimenEvent('" +  seid + "','" + typ + "','" + id + "');\">linkedEvent:" + seid + "</span>";
 
 				console.log('part1' + theHTML);
 					// and add a delete button
