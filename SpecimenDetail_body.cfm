@@ -244,6 +244,9 @@
 
 			$("span").filter(function() { return ($(this).text() === sct) }).parent().parent().parent().addClass('highlightedEventRelated');
 
+			// and hte caller
+
+			$("##seidd_" + seid).addClass('highlightedEventRelated').show();
 
 			/*
 			$( "span:contains(" + sct + ")").each(function(e){
