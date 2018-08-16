@@ -236,6 +236,18 @@
 			console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
 			var sct='linkedEvent:' + seid ;
+
+
+			$(function(){
+		    var search = sct;
+		    $("table tr td").filter(function() {
+		        return $(this).text() == search;
+		    }).parent('tr').css('color','red');
+		});
+
+
+
+			/*
 			$( "span:contains(" + sct + ")").each(function(e){
 				// this is a span
 				//.parent is a div
@@ -252,6 +264,8 @@
 
 				($(this)).addClass('evenRow');
 				p1.addClass('highlightedEventRelated');
+
+				*/
 			});
 				//closest("tr").addClass('evenRow');
 
