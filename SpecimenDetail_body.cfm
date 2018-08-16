@@ -236,7 +236,11 @@
 			console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
 			var sct='linkedEvent:' + seid ;
-			$( "span:contains(" + sct + ")").addClass('highlightedEventRelated');
+			//$( "span:contains(" + sct + ")").addClass('highlightedEventRelated');
+
+			$("span").filter(function() { return ($(this).text() === 'sct) }).addClass('highlightedEventRelated');
+
+
 			/*
 			$( "span:contains(" + sct + ")").each(function(e){
 				console.log($(this));
