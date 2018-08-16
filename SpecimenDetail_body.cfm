@@ -233,7 +233,7 @@
 			console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
 			var sct='linkedEvent:' + seid ;
-			$( "span:contains(" + sct + ")").addClass('evenRow');
+			$( "span:contains(" + sct + ")").closest("tr").addClass('evenRow');
 
 
 			//$("##eventPartLink_" + seid).each(function(e){
