@@ -251,7 +251,7 @@
 				console.log(p3);
 
 				($(this)).addClass('evenRow');
-				p2.addClass('highlightedEventRelated');
+				p1.addClass('highlightedEventRelated');
 			});
 				//closest("tr").addClass('evenRow');
 
