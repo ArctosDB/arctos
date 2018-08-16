@@ -242,7 +242,7 @@
 			$(".highlightedEventRelated").removeClass("highlightedEventRelated");
 
 
-			$("span").filter(function() { return ($(this).text() === sct) }).parent().addClass('highlightedEventRelated');
+			$("span").filter(function() { return ($(this).text() === sct) }).parent().parent().parent().addClass('highlightedEventRelated');
 
 
 			/*
