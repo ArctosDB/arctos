@@ -242,10 +242,10 @@
 
 				var p1=$(this)).parent();
 				console.log(p1);
-				var p2=p1.parent();
+				var p2=$(p1).parent();
 				console.log(p2);
-				var p3=p2.parent();
-				console.log(p3);
+				//var p3=p2.parent();
+				//console.log(p3);
 
 				($(this)).addClass('evenRow');
 				($(this)).parent().addClass('oddRow');
