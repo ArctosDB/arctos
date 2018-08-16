@@ -150,24 +150,24 @@
 
 			var theHTML='';
 			if (typ='specimen_part'){
-				console.log('running for specimen_part');
+				//console.log('running for specimen_part');
 				// all we can handle at the moment
 				if ( seid ){
-					console.log('seid isnot null');
+					//console.log('seid isnot null');
 					// there is a linked event
 					// show the ID, allow highlight
 					theHTML+="<span class=\"infoLink\" onclick=\"highlightSpecimenEvent('" +  seid + "','" + typ + "','" + id + "');\">linkedEvent:" + seid + "</span>";
 
-				console.log('part1' + theHTML);
+				//console.log('part1' + theHTML);
 					// and add a delete button
 					theHTML+="<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + id + "');\">removeLink</span>";
-				console.log('part3' + theHTML);
+				//console.log('part3' + theHTML);
 				}
 				// always include the pick link; it'll just over-write any existing
 				theHTML+="<br><span class=\"infoLink\" onclick=\"pickSpecEvtLnk('#collection_object_id#','specimen_part','" +id + "');\">pickEvent</span>";
 
 
-				console.log('part3' + theHTML);
+				//console.log('part3' + theHTML);
 				// write
 				$( "##eventPartLink_" + id).html(theHTML);
 
@@ -188,7 +188,7 @@
 		}
 		function madeSpecimenEventLink(specimen_event_id,related_thing,related_key){
 			alert('madeSpecimenEventLink from' +  specimen_event_id + ' to ' + related_thing + ' value ' + related_key);
-			console.log(related_thing);
+			//console.log(related_thing);
 
 			//if (related_thing=='specimen_part'){
 			//	console.log('here we are');
@@ -197,12 +197,12 @@
 			//	$( "##eventPartLink_" + related_key).append("<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + related_key + "');\">Remove Link</span>");
 
 			//}
-			console.log('looking for eventPartLink_' + related_key);
+			//console.log('looking for eventPartLink_' + related_key);
 
 			addSpecEvtLnkLnks(related_thing,related_key,specimen_event_id);
 
 
-			highlightSpecimenEvent(specimen_event_id);
+			highlightSpecimenEvent(specimen_event_id,related_thing,related_key);
 
 		}
 
@@ -239,12 +239,6 @@
 	    	if (typ=='specimen_part'){
 	    		$("##eventPartLink_" + id).parent().parent().addClass('highlightedEventRelated');
 	    	}
-
-
-
-
-
-
 		}
 
 
