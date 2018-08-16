@@ -208,6 +208,9 @@
 			console.log(thing);
 			console.log(key);
 
+
+
+
 			$.getJSON("/component/SpecimenResults.cfc",
 					{
 						method : "deLinkSpecEvent",
@@ -219,7 +222,15 @@
 					},
 						function (data) {
 							console.log(data);
-							alert(data);
+							alert('return: ' + JSON.stringify(data);
+							if (data.RECORDCOUNT==1){
+								madeSpecimenEventLink('',thing,key);
+							} else {
+								alert('An error may have occurred: ' + JSON.stringify(data);
+							}
+
+
+
 					}
 				);
 
