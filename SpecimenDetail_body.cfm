@@ -204,38 +204,23 @@
 		}
 
 		function delinkSpecEvt(thing,key){
-
-			console.log(thing);
-			console.log(key);
-
-
-
-
 			$.getJSON("/component/SpecimenResults.cfc",
-					{
-						method : "deLinkSpecEvent",
-						returnformat : "json",
-						queryformat : 'column',
-						collection_object_id      : #collection_object_id#,
-						related_key_type : thing,
-						related_key_value: key
-					},
-						function (data) {
-							console.log(data);
-							alert('return: ' + JSON.stringify(data));
-							if (data.RECORDCOUNT==1){
-								madeSpecimenEventLink('',thing,key);
-							} else {
-								alert('An error may have occurred: ' + JSON.stringify(data));
-							}
-
-
-
+				{
+					method : "deLinkSpecEvent",
+					returnformat : "json",
+					queryformat : 'column',
+					collection_object_id      : #collection_object_id#,
+					related_key_type : thing,
+					related_key_value: key
+				},
+				function (data) {
+					if (data.RECORDCOUNT==1){
+						madeSpecimenEventLink('',thing,key);
+					} else {
+						alert('An error may have occurred: ' + JSON.stringify(data));
 					}
-				);
-
-
-
+				}
+			);
 		}
 		function highlightSpecimenEvent(seid){
 			$(".highlightSEID").removeClass("highlightSEID");
@@ -243,6 +228,9 @@
 	    	// collapse the locality pane so we've got something to scroll to
 	    	rescrollify('locality_pane');
 	    	$("##locality_pane").scrollTo( $("##seidd_" + seid), 800 );
+		}
+		function highlightEventDerivedJunk(seid){
+			console.log('highlightEventDerivedJunk: ' + seid);
 		}
 
 	</script>
@@ -759,6 +747,7 @@
 						   <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
 							   OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
 							</div>
+							<span class="infoLink" onclick="highlightEventDerivedJunk('#specimen_event_id#');">highlight linked components</span>
 						<table id="SD_#specimen_event_id#" width="100%">
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
