@@ -238,6 +238,10 @@
 			var sct='linkedEvent:' + seid ;
 			//$( "span:contains(" + sct + ")").addClass('highlightedEventRelated');
 
+
+			$(".highlightedEventRelated").removeClass("highlightedEventRelated");
+
+
 			$("span").filter(function() { return ($(this).text() === sct) }).addClass('highlightedEventRelated');
 
 
